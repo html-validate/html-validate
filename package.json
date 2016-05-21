@@ -1,0 +1,22 @@
+{
+  "name": "htmllint",
+  "version": "0.1.0",
+  "description": "html linter",
+  "main": "index.js",
+  "bin": {
+    "htmllint": "htmllint.js"
+  },
+  "scripts": {
+    "test": "grunt mochaTest"
+  },
+  "author": "David Sveningsson <ext@sidvind.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^2.8.0",
+    "grunt": "^0.4.5",
+    "grunt-eslint": "^18.1.0",
+    "grunt-mocha-test": "^0.12.7",
+    "mocha": "^2.4.5"
+  }
+}

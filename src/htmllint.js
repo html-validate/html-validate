@@ -1,8 +1,11 @@
+'use strict';
+
 module.exports = {
 	string: lintString,
 };
 
 var Context = require('./context');
+var rules = {};
 
 var State = {
 	TEXT: 0,
@@ -13,11 +16,27 @@ var openTag = new RegExp('^<(/)?([a-zA-Z\-]+)([> ])');
 var tagAttribute = /^([a-z]+)(?:=["']([a-z]+)["'])? */;
 
 function lintString(str){
-	parseHtml(str);
+	return parseHtml(str);
 }
 
 function parseHtml(str){
 	var context = new Context(str);
+	context.addRule(require('./rules/close-attr'));
+	context.addRule(require('./rules/close-order'));
+
+	// context.addListener('attr', function(data){
+	// 	console.log('attr', data.tagName);
+	// });
+
+	// context.addListener('tag:open', function(data){
+	// 	console.log('tag open', data.tagName, data.close);
+	// });
+
+	// context.addListener('tag:close', function(data){
+	// 	var current = data.current;
+	// 	var previous = data.previous;
+	// 	console.log('tag close', current.tagName, current.attr);
+	// });
 
 	while ( context.string.length > 0 ){
 		switch ( context.state ){
@@ -38,22 +57,30 @@ function parseInitial(context){
 	var match;
 
 	if ( (match=context.match(openTag)) ){
-		var close = match[1];
+		var close = !!match[1];
 		var open = !close;
 		var tag = match[2];
 		var empty = match[3] === '>';
+		var node = {
+			close: close,
+			tagName: tag,
+			attr: {},
+		};
 
-		if ( open ){
-			context.push(tag);
-		} else {
-			var top = context.pop();
-			if ( top !== tag ){
-				console.error('wrong order, expected', top);
+		context.push(node);
+
+		if ( empty ){
+			if ( open ){
+				context.trigger('tag:open', node);
 			}
-		}
 
-		if ( close && !empty ){
-			console.error('close tag cannot have attr');
+			if ( close ){
+				context.trigger('tag:close', {
+					current: context.top(0),
+					previous: context.top(1),
+				});
+				context.pop();
+			}
 		}
 
 		if ( empty ){
@@ -70,14 +97,35 @@ function parseInitial(context){
 
 function parseTag(context){
 	var match;
+	var node = context.top();
 
 	if ( context.string[0] === '>' ){
+		if ( !node.close ){
+			context.trigger('tag:open', node);
+		} else {
+			context.trigger('tag:close', {
+				current: context.top(0),
+				previous: context.top(1),
+			});
+			context.pop();
+		}
 		context.consume(1, State.TEXT);
 		return;
 	}
 
 	if ( (match=context.string.match(tagAttribute)) ){
-		console.log('attr', match);
+		var key = match[1];
+		var value = match[2];
+
+		/* trigger before storing so it is possible to write a rule
+		 * testing for duplicates. */
+		context.trigger('attr', {
+			node: node,
+			key: key,
+			value: value,
+		});
+
+		node.attr[key] = value;
 		context.consume(match);
 		return;
 	}

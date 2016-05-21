@@ -2,4 +2,4 @@
 
 var htmllint = require('./src/htmllint');
 
-htmllint.string('<div foobar id="spam"><p></p foo></div>');
+htmllint.string('<div foobar id="spam"><p></p></div>');
