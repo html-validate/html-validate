@@ -4,8 +4,8 @@ module.exports = {
 	},
 };
 
-function validate(node){
+function validate(node, report){
 	if ( Object.keys(node.current.attr).length > 0 ){
-		console.error('close tags cannot have attributes');
+		report.error(node, "Close tags cannot have attributes");
 	}
 }

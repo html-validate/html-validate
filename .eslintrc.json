@@ -17,7 +17,7 @@
     "complexity": [1, 20],
     "computed-property-spacing": [2, "never"],
     "consistent-return": 2,
-    "consistent-this": [ 2, "vm" ],
+    "consistent-this": [ 2, "self" ],
     "curly": [2, "multi-line"],
     "dot-notation": 2,
     "eol-last": 2,

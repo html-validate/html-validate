@@ -1,6 +1,9 @@
 module.exports = Context;
 
+var Reporter = require('./reporter');
+
 function Context(str){
+	this.report = new Reporter();
 	this.state = 0;
 	this.string = str;
 	this.stack = [];
@@ -45,8 +48,13 @@ Context.prototype.addListener = function(event, callback){
 };
 
 Context.prototype.trigger = function(event, data){
+	var self = this;
 	var listeners = this.listeners[event] || [];
 	listeners.forEach(function(cur){
-		cur(data);
+		cur(data, self.report);
 	});
+};
+
+Context.prototype.saveReport = function(dst){
+	this.report.save(dst);
 };

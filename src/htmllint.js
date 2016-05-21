@@ -15,11 +15,11 @@ var State = {
 var openTag = new RegExp('^<(/)?([a-zA-Z\-]+)([> ])');
 var tagAttribute = /^([a-z]+)(?:=["']([a-z]+)["'])? */;
 
-function lintString(str){
-	return parseHtml(str);
+function lintString(str, report){
+	return parseHtml(str, report);
 }
 
-function parseHtml(str){
+function parseHtml(str, report){
 	var context = new Context(str);
 	context.addRule(require('./rules/close-attr'));
 	context.addRule(require('./rules/close-order'));
@@ -50,6 +50,7 @@ function parseHtml(str){
 		}
 	}
 
+	context.saveReport(report);
 	return true;
 }
 
