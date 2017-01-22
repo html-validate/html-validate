@@ -36,20 +36,6 @@ function parseHtml(str, report){
 	context.addRule(require('./rules/close-attr'));
 	context.addRule(require('./rules/close-order'));
 
-	// context.addListener('attr', function(data){
-	// 	console.log('attr', data.tagName);
-	// });
-
-	// context.addListener('tag:open', function(data){
-	// 	console.log('tag open', data.tagName, data.close);
-	// });
-
-	// context.addListener('tag:close', function(data){
-	// 	var current = data.current;
-	// 	var previous = data.previous;
-	// 	console.log('tag close', current.tagName, current.attr);
-	// });
-
 	while ( context.string.length > 0 ){
 		switch ( context.state ){
 		case State.TEXT:
