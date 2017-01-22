@@ -18,6 +18,8 @@
 				var report = {};
 				expect(htmllint.string('<div></p>', report), "should parse malformed").to.be.true;
 				expect(report.valid, "linting should report failure").to.be.false;
+				expect(report.error, "should report 1 error").to.have.lengthOf(1);
+				expect(report.error[0].rule, "reported error should be close-order").to.equal('close-order');
 			});
 
 		});

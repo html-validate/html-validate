@@ -42,16 +42,22 @@ Context.prototype.addRule = function(rule){
 	rule.init(this);
 };
 
-Context.prototype.addListener = function(event, callback){
+Context.prototype.addListener = function(event, rule, callback){
 	this.listeners[event] = this.listeners[event] || [];
-	this.listeners[event].push(callback);
+	this.listeners[event].push({
+		rule: rule,
+		callback: callback,
+	});
 };
 
 Context.prototype.trigger = function(event, data){
-	var self = this;
+	var report = this.report;
 	var listeners = this.listeners[event] || [];
-	listeners.forEach(function(cur){
-		cur(data, self.report);
+	listeners.forEach(function(listener){
+		var rule = listener.rule;
+		listener.callback.call(rule, data, function(node, message){
+			report.add(node, rule, message);
+		});
 	});
 };
 

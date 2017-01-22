@@ -1,11 +1,13 @@
 module.exports = {
+	name: 'close-attr',
+
 	init: function(context){
-		context.addListener('tag:close', validate);
+		context.addListener('tag:close', this, validate);
 	},
 };
 
 function validate(node, report){
 	if ( Object.keys(node.current.attr).length > 0 ){
-		report.error(node, "Close tags cannot have attributes");
+		report(node, "Close tags cannot have attributes");
 	}
 }
