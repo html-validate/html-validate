@@ -1,29 +1,20 @@
-(function(){
-	'use strict';
+'use strict';
 
-	var expect = require('chai').expect;
-	var htmllint = require('../src/htmllint');
+var expect = require('chai').expect;
+var htmllint = require('../src/htmllint');
 
-	describe('parser', function(){
+describe('parser', function(){
 
-		describe('should parse', function(){
+	describe('should parse', function(){
 
-			it('simple element', function(){
-				var report = {};
-				expect(htmllint.string('<div></div>', report)).to.be.true;
-				expect(report.valid).to.be.true;
-			});
+		it('simple element', function(){
+			expect(htmllint.string('<div></div>')).to.be.true;
+		});
 
-			it('wrong close-tag', function(){
-				var report = {};
-				expect(htmllint.string('<div></p>', report), "should parse malformed").to.be.true;
-				expect(report.valid, "linting should report failure").to.be.false;
-				expect(report.error, "should report 1 error").to.have.lengthOf(1);
-				expect(report.error[0].rule, "reported error should be close-order").to.equal('close-order');
-			});
-
+		it('elements closed on wrong order', function(){
+			expect(htmllint.string('<div><p></div></p>')).to.be.true;
 		});
 
 	});
 
-})();
+});
