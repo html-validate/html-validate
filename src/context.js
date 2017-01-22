@@ -2,12 +2,13 @@ module.exports = Context;
 
 var Reporter = require('./reporter');
 
-function Context(str){
+function Context(str, globalListeners){
 	this.report = new Reporter();
 	this.state = 0;
 	this.string = str;
 	this.stack = [];
 	this.listeners = {};
+	this.globalListeners = globalListeners;
 }
 
 Context.prototype.match = function(x){
@@ -52,12 +53,20 @@ Context.prototype.addListener = function(event, rule, callback){
 
 Context.prototype.trigger = function(event, data){
 	var report = this.report;
+
+	/* execute rule listeners */
 	var listeners = this.listeners[event] || [];
 	listeners.forEach(function(listener){
 		var rule = listener.rule;
 		listener.callback.call(rule, data, function(node, message){
 			report.add(node, rule, message);
 		});
+	});
+
+	/* execute any global listener */
+	var globalListeners = [].concat(this.globalListeners[event] || [], this.globalListeners['*'] || []);
+	globalListeners.forEach(function(listener){
+		listener(event, data);
 	});
 };
 

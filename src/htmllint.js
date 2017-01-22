@@ -2,10 +2,11 @@
 
 module.exports = {
 	string: lintString,
+	addListener,
 };
 
 var Context = require('./context');
-var rules = {};
+var globalListeners = {};
 
 var State = {
 	TEXT: 0,
@@ -15,12 +16,23 @@ var State = {
 var openTag = new RegExp('^<(/)?([a-zA-Z\-]+)([> ])');
 var tagAttribute = /^([a-z]+)(?:=["']([a-z]+)["'])? */;
 
+/**
+ * Add a global event listener.
+ *
+ * @param event [string] - Event name or '*' for any event
+ * @param callback [function] - Called any time even triggers
+ */
+function addListener(event, callback){
+	globalListeners[event] = globalListeners[event] || [];
+	globalListeners[event].push(callback);
+}
+
 function lintString(str, report){
 	return parseHtml(str, report);
 }
 
 function parseHtml(str, report){
-	var context = new Context(str);
+	var context = new Context(str, globalListeners);
 	context.addRule(require('./rules/close-attr'));
 	context.addRule(require('./rules/close-order'));
 
