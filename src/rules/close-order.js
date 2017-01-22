@@ -7,9 +7,9 @@ module.exports = {
 };
 
 function validate(event, report){
-	var current = event.current;
+	var target = event.target;
 	var previous = event.previous;
-	if ( current.tagName !== previous.tagName ){
-		report(current, "Mismatched close-tag, expected '</" + previous.tagName + ">' but found '</" + current.tagName + ">'.");
+	if ( target.tagName !== previous.tagName ){
+		report(target, "Mismatched close-tag, expected '</" + previous.tagName + ">' but found '</" + target.tagName + ">'.");
 	}
 }

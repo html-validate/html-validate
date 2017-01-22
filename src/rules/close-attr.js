@@ -7,7 +7,7 @@ module.exports = {
 };
 
 function validate(node, report){
-	if ( Object.keys(node.current.attr).length > 0 ){
+	if ( Object.keys(node.target.attr).length > 0 ){
 		report(node, "Close tags cannot have attributes");
 	}
 }

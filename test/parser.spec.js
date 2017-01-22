@@ -10,10 +10,10 @@ describe('parser', function(){
 		var events;
 
 		before(function(){
-			htmllint.addListener('*', function(event, node){
+			htmllint.addListener('*', function(event){
 				events.push({
-					event: event,
-					tagName: node.tagName,
+					event: event.event,
+					tagName: event.target.tagName,
 				});
 			});
 		});
@@ -26,7 +26,7 @@ describe('parser', function(){
 			expect(htmllint.string('<div></div>')).to.be.true;
 			expect(events).to.have.lengthOf(2);
 			expect(events[0]).to.deep.equal({event: 'tag:open', tagName: 'div'});
-			expect(events[1]).to.deep.equal({event: 'tag:close', tagName: undefined});
+			expect(events[1]).to.deep.equal({event: 'tag:close', tagName: 'div'});
 		});
 
 		it('elements closed on wrong order', function(){
@@ -34,8 +34,8 @@ describe('parser', function(){
 			expect(events).to.have.lengthOf(4);
 			expect(events[0]).to.deep.equal({event: 'tag:open', tagName: 'div'});
 			expect(events[1]).to.deep.equal({event: 'tag:open', tagName: 'p'});
-			expect(events[2]).to.deep.equal({event: 'tag:close', tagName: undefined});
-			expect(events[3]).to.deep.equal({event: 'tag:close', tagName: undefined});
+			expect(events[2]).to.deep.equal({event: 'tag:close', tagName: 'div'});
+			expect(events[3]).to.deep.equal({event: 'tag:close', tagName: 'p'});
 		});
 
 	});

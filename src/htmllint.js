@@ -70,12 +70,14 @@ function parseInitial(context){
 
 		if ( empty ){
 			if ( open ){
-				context.trigger('tag:open', node);
+				context.trigger('tag:open', {
+					target: node,
+				});
 			}
 
 			if ( close ){
 				context.trigger('tag:close', {
-					current: context.top(0),
+					target: context.top(0),
 					previous: context.top(1),
 				});
 				context.pop();
@@ -100,10 +102,12 @@ function parseTag(context){
 
 	if ( context.string[0] === '>' ){
 		if ( !node.close ){
-			context.trigger('tag:open', node);
+			context.trigger('tag:open', {
+				target: node,
+			});
 		} else {
 			context.trigger('tag:close', {
-				current: context.top(0),
+				target: context.top(0),
 				previous: context.top(1),
 			});
 			context.pop();
@@ -119,7 +123,7 @@ function parseTag(context){
 		/* trigger before storing so it is possible to write a rule
 		 * testing for duplicates. */
 		context.trigger('attr', {
-			node: node,
+			target: node,
 			key: key,
 			value: value,
 		});

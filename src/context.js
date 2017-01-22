@@ -51,11 +51,12 @@ Context.prototype.addListener = function(event, rule, callback){
 	});
 };
 
-Context.prototype.trigger = function(event, data){
+Context.prototype.trigger = function(eventname, data){
 	var report = this.report;
+	var event = Object.assign({event: eventname}, data);
 
 	/* execute rule listeners */
-	var listeners = this.listeners[event] || [];
+	var listeners = this.listeners[eventname] || [];
 	listeners.forEach(function(listener){
 		var rule = listener.rule;
 		listener.callback.call(rule, data, function(node, message){
@@ -64,9 +65,9 @@ Context.prototype.trigger = function(event, data){
 	});
 
 	/* execute any global listener */
-	var globalListeners = [].concat(this.globalListeners[event] || [], this.globalListeners['*'] || []);
+	var globalListeners = [].concat(this.globalListeners[eventname] || [], this.globalListeners['*'] || []);
 	globalListeners.forEach(function(listener){
-		listener(event, data);
+		listener(event);
 	});
 };
 
