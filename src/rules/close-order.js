@@ -7,6 +7,11 @@ module.exports = {
 };
 
 function validate(event, report){
+	/* self-closing elements are always closed in correct order */
+	if ( event.target.selfclose ){
+		return;
+	}
+
 	var target = event.target;
 	var previous = event.previous;
 	if ( target.tagName !== previous.tagName ){

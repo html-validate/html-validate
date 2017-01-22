@@ -13,7 +13,7 @@ var State = {
 	TAG: 1,
 };
 
-var openTag = new RegExp('^<(/)?([a-zA-Z\-]+)([> ])');
+var openTag = new RegExp('^<(/)?([a-zA-Z\-]+)(/)?([> ])');
 var tagAttribute = /^([a-z]+)(?:=["']([a-z]+)["'])? */;
 
 /**
@@ -56,12 +56,15 @@ function parseInitial(context){
 	var match;
 
 	if ( (match=context.match(openTag)) ){
-		var close = !!match[1];
-		var open = !close;
+		var open = !match[1];
+		var close = match[1] || match[3];
+		var selfclose = match[3];
 		var tag = match[2];
-		var empty = match[3] === '>';
+		var empty = match[4] === '>';
 		var node = {
+			open: open,
 			close: close,
+			selfclose: selfclose,
 			tagName: tag,
 			attr: {},
 		};

@@ -38,6 +38,10 @@ describe('parser', function(){
 			expect(events[3]).to.deep.equal({event: 'tag:close', tagName: 'p'});
 		});
 
+		it('self-closing elements', function(){
+			expect(htmllint.string('<input/>')).to.be.true;
+		});
+
 	});
 
 });
