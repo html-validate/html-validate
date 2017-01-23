@@ -13,7 +13,7 @@ var State = {
 	TAG: 1,
 };
 
-var openTag = new RegExp('^<(/)?([a-zA-Z\-]+)([> ])');
+var openTag = new RegExp('^<(/)?([a-zA-Z\-]+)(/)?([> ])');
 var tagAttribute = /^([a-z]+)(?:=["']([a-z]+)["'])? */;
 
 /**
@@ -48,6 +48,15 @@ function parseHtml(str, report){
 		}
 	}
 
+	/* trigger close events for any still open elements */
+	var unclosed;
+	while ( (unclosed=context.pop()) ){
+		context.trigger('tag:close', {
+			target: undefined,
+			previous: unclosed,
+		});
+	}
+
 	context.saveReport(report);
 	return true;
 }
@@ -56,19 +65,22 @@ function parseInitial(context){
 	var match;
 
 	if ( (match=context.match(openTag)) ){
-		var close = !!match[1];
-		var open = !close;
+		var open = !match[1];
+		var close = !!(match[1] || match[3]);
+		var selfclose = !!match[3];
 		var tag = match[2];
-		var empty = match[3] === '>';
+		var hasAttributes = match[4] !== '>';
 		var node = {
+			open: open,
 			close: close,
+			selfclose: selfclose,
 			tagName: tag,
 			attr: {},
 		};
 
 		context.push(node);
 
-		if ( empty ){
+		if ( !hasAttributes ){
 			if ( open ){
 				context.trigger('tag:open', {
 					target: node,
@@ -80,14 +92,17 @@ function parseInitial(context){
 					target: context.top(0),
 					previous: context.top(1),
 				});
-				context.pop();
+				context.pop(); // pop itself
+				if ( !selfclose ){
+					context.pop(); // pop closed element
+				}
 			}
 		}
 
-		if ( empty ){
-			context.consume(match, State.TEXT);
-		} else {
+		if ( hasAttributes ){
 			context.consume(match, State.TAG);
+		} else {
+			context.consume(match, State.TEXT);
 		}
 
 		return;
@@ -110,7 +125,8 @@ function parseTag(context){
 				target: context.top(0),
 				previous: context.top(1),
 			});
-			context.pop();
+			context.pop(); // pop itself
+			context.pop(); // pop closed element
 		}
 		context.consume(1, State.TEXT);
 		return;

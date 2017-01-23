@@ -6,8 +6,13 @@ module.exports = {
 	},
 };
 
-function validate(node, report){
-	if ( Object.keys(node.target.attr).length > 0 ){
-		report(node, "Close tags cannot have attributes");
+function validate(event, report){
+	/* handle unclosed tags */
+	if ( typeof(event.target) === 'undefined' ){
+		return;
+	}
+
+	if ( Object.keys(event.target.attr).length > 0 ){
+		report(event.target, "Close tags cannot have attributes");
 	}
 }

@@ -13,7 +13,7 @@ describe('parser', function(){
 			htmllint.addListener('*', function(event){
 				events.push({
 					event: event.event,
-					tagName: event.target.tagName,
+					tagName: event.target ? event.target.tagName : undefined,
 				});
 			});
 		});
@@ -36,6 +36,10 @@ describe('parser', function(){
 			expect(events[1]).to.deep.equal({event: 'tag:open', tagName: 'p'});
 			expect(events[2]).to.deep.equal({event: 'tag:close', tagName: 'div'});
 			expect(events[3]).to.deep.equal({event: 'tag:close', tagName: 'p'});
+		});
+
+		it('self-closing elements', function(){
+			expect(htmllint.string('<input/>')).to.be.true;
 		});
 
 	});
