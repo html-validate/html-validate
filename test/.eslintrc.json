@@ -1,6 +1,11 @@
 {
   "env": {
-    "jasmine": true
+    "mocha": true
   },
-  "plugins": ["jasmine"]
+  "plugins": [
+    "mocha"
+  ],
+  "rules": {
+    "mocha/no-exclusive-tests": "warn"
+  }
 }
