@@ -19,9 +19,17 @@ describe('rule close-order', function(){
 		expect(report.error, "report should contain no errors").to.have.lengthOf(0);
 	});
 
-	it('should report when elements are closed in wrong order', function(){
+	it('should report error when elements are closed in wrong order', function(){
 		var report = {};
 		expect(htmllint.string('<div></p>', report), "should parse malformed html").to.be.true;
+		expect(report.valid, "linting should report failure").to.be.false;
+		expect(report.error, "report should contain 1 error").to.have.lengthOf(1);
+		expect(report.error[0].rule, "reported error should be close-order").to.equal('close-order');
+	});
+
+	it('should report error when element is missing close tag', function(){
+		var report = {};
+		expect(htmllint.string('<div>', report), "should parse malformed html").to.be.true;
 		expect(report.valid, "linting should report failure").to.be.false;
 		expect(report.error, "report should contain 1 error").to.have.lengthOf(1);
 		expect(report.error[0].rule, "reported error should be close-order").to.equal('close-order');

@@ -13,7 +13,7 @@ describe('parser', function(){
 			htmllint.addListener('*', function(event){
 				events.push({
 					event: event.event,
-					tagName: event.target.tagName,
+					tagName: event.target ? event.target.tagName : undefined,
 				});
 			});
 		});
