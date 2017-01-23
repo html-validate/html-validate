@@ -9,8 +9,7 @@ module.exports = {
 function validate(event, report){
 	/* handle unclosed tags */
 	if ( typeof(event.target) === 'undefined' ){
-		var previous = event.previous;
-		report(previous, "Missing close-tag, expected '</" + previous.tagName + ">' but document ended before it was found.");
+		report(event.previous, "Missing close-tag, expected '</" + event.previous.tagName + ">' but document ended before it was found.");
 		return;
 	}
 
@@ -19,9 +18,8 @@ function validate(event, report){
 		return;
 	}
 
-	var target = event.target;
-	var previous = event.previous;
-	if ( target.tagName !== previous.tagName ){
-		report(target, "Mismatched close-tag, expected '</" + previous.tagName + ">' but found '</" + target.tagName + ">'.");
+	/* check for matching tagnames */
+	if ( event.target.tagName !== event.previous.tagName ){
+		report(event.target, "Mismatched close-tag, expected '</" + event.previous.tagName + ">' but found '</" + event.target.tagName + ">'.");
 	}
 }
