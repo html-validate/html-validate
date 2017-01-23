@@ -1,0 +1,30 @@
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - prepare
+  - test
+
+Install dependencies:
+  stage: prepare
+  tags:
+    - nodejs
+  artifacts:
+    untracked: true
+  script:
+   - npm update
+
+eslint:
+  stage: test
+  tags:
+    - nodejs
+  script:
+    - node_modules/grunt-cli/bin/grunt eslint
+
+Mocha:
+  stage: test
+  tags:
+    - nodejs
+  script:
+    - node_modules/grunt-cli/bin/grunt mochaTest
