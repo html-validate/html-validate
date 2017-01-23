@@ -1,9 +1,14 @@
 'use strict';
 
 var expect = require('chai').expect;
-var htmllint = require('../htmllint');
+var HtmlLint = require('../htmllint');
 
 describe('rule close-attr', function(){
+	var htmllint;
+
+	before(function(){
+		htmllint = new HtmlLint();
+	});
 
 	it('should not report when close tags are correct', function(){
 		var report = {};

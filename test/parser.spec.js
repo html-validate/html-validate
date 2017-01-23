@@ -1,15 +1,17 @@
 'use strict';
 
 var expect = require('chai').expect;
-var htmllint = require('../src/htmllint');
+var HtmlLint = require('../src/htmllint');
 
 describe('parser', function(){
 
 	describe('should parse', function(){
 
 		var events;
+		var htmllint;
 
 		before(function(){
+			htmllint = new HtmlLint();
 			htmllint.addListener('*', function(event){
 				events.push({
 					event: event.event,

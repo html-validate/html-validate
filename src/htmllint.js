@@ -1,153 +1,155 @@
 'use strict';
 
-module.exports = {
-	string: lintString,
-	addListener,
-};
-
 var Context = require('./context');
-var globalListeners = {};
 
-var State = {
+let State = {
 	TEXT: 0,
 	TAG: 1,
 };
 
-var openTag = new RegExp('^<(/)?([a-zA-Z\-]+)(/)?([> ])');
-var tagAttribute = /^([a-z]+)(?:=["']([a-z]+)["'])? */;
+const openTag = new RegExp('^<(/)?([a-zA-Z\-]+)(/)?([> ])');
+const tagAttribute = /^([a-z]+)(?:=["']([a-z]+)["'])? */;
 
-/**
- * Add a global event listener.
- *
- * @param event [string] - Event name or '*' for any event
- * @param callback [function] - Called any time even triggers
- */
-function addListener(event, callback){
-	globalListeners[event] = globalListeners[event] || [];
-	globalListeners[event].push(callback);
-}
+class HtmlLint {
+	constructor(){
+		this.listeners = {};
+	}
 
-function lintString(str, report){
-	return parseHtml(str, report);
-}
+	/**
+	 * Add a global event listener.
+	 *
+	 * @param event [string] - Event name or '*' for any event
+	 * @param callback [function] - Called any time even triggers
+	 */
+	addListener(event, callback){
+		this.listeners[event] = this.listeners[event] || [];
+		this.listeners[event].push(callback);
+	}
 
-function parseHtml(str, report){
-	var context = new Context(str, globalListeners);
-	context.addRule(require('./rules/close-attr'));
-	context.addRule(require('./rules/close-order'));
+	string(str, report){
+		return this.parseHtml(str, report);
+	}
 
-	while ( context.string.length > 0 ){
-		switch ( context.state ){
-		case State.TEXT:
-			parseInitial(context);
-			break;
+	parseHtml(str, report){
+		var context = new Context(str, this.listeners);
+		context.addRule(require('./rules/close-attr'));
+		context.addRule(require('./rules/close-order'));
 
-		case State.TAG:
-			parseTag(context);
-			break;
+		while ( context.string.length > 0 ){
+			switch ( context.state ){
+			case State.TEXT:
+				this.parseInitial(context);
+				break;
+
+			case State.TAG:
+				this.parseTag(context);
+				break;
+			}
 		}
+
+		/* trigger close events for any still open elements */
+		var unclosed;
+		while ( (unclosed=context.pop()) ){
+			context.trigger('tag:close', {
+				target: undefined,
+				previous: unclosed,
+			});
+		}
+
+		context.saveReport(report);
+		return true;
 	}
 
-	/* trigger close events for any still open elements */
-	var unclosed;
-	while ( (unclosed=context.pop()) ){
-		context.trigger('tag:close', {
-			target: undefined,
-			previous: unclosed,
-		});
+	parseInitial(context){
+		var match;
+
+		if ( (match=context.match(openTag)) ){
+			var open = !match[1];
+			var close = !!(match[1] || match[3]);
+			var selfclose = !!match[3];
+			var tag = match[2];
+			var hasAttributes = match[4] !== '>';
+			var node = {
+				open: open,
+				close: close,
+				selfclose: selfclose,
+				tagName: tag,
+				attr: {},
+			};
+
+			context.push(node);
+
+			if ( !hasAttributes ){
+				if ( open ){
+					context.trigger('tag:open', {
+						target: node,
+					});
+				}
+
+				if ( close ){
+					context.trigger('tag:close', {
+						target: context.top(0),
+						previous: context.top(1),
+					});
+					context.pop(); // pop itself
+					if ( !selfclose ){
+						context.pop(); // pop closed element
+					}
+				}
+			}
+
+			if ( hasAttributes ){
+				context.consume(match, State.TAG);
+			} else {
+				context.consume(match, State.TEXT);
+			}
+
+			return;
+		}
+
+		throw Error('Failed to parse "' + context.string + "', expected tag");
 	}
 
-	context.saveReport(report);
-	return true;
-}
+	parseTag(context){
+		var match;
+		var node = context.top();
 
-function parseInitial(context){
-	var match;
-
-	if ( (match=context.match(openTag)) ){
-		var open = !match[1];
-		var close = !!(match[1] || match[3]);
-		var selfclose = !!match[3];
-		var tag = match[2];
-		var hasAttributes = match[4] !== '>';
-		var node = {
-			open: open,
-			close: close,
-			selfclose: selfclose,
-			tagName: tag,
-			attr: {},
-		};
-
-		context.push(node);
-
-		if ( !hasAttributes ){
-			if ( open ){
+		if ( context.string[0] === '>' ){
+			if ( !node.close ){
 				context.trigger('tag:open', {
 					target: node,
 				});
-			}
-
-			if ( close ){
+			} else {
 				context.trigger('tag:close', {
 					target: context.top(0),
 					previous: context.top(1),
 				});
 				context.pop(); // pop itself
-				if ( !selfclose ){
-					context.pop(); // pop closed element
-				}
+				context.pop(); // pop closed element
 			}
+			context.consume(1, State.TEXT);
+			return;
 		}
 
-		if ( hasAttributes ){
-			context.consume(match, State.TAG);
-		} else {
-			context.consume(match, State.TEXT);
-		}
+		if ( (match=context.string.match(tagAttribute)) ){
+			var key = match[1];
+			var value = match[2];
 
-		return;
-	}
-
-	throw Error('Failed to parse "' + context.string + "', expected tag");
-}
-
-function parseTag(context){
-	var match;
-	var node = context.top();
-
-	if ( context.string[0] === '>' ){
-		if ( !node.close ){
-			context.trigger('tag:open', {
+			/* trigger before storing so it is possible to write a rule
+			 * testing for duplicates. */
+			context.trigger('attr', {
 				target: node,
+				key: key,
+				value: value,
 			});
-		} else {
-			context.trigger('tag:close', {
-				target: context.top(0),
-				previous: context.top(1),
-			});
-			context.pop(); // pop itself
-			context.pop(); // pop closed element
+
+			node.attr[key] = value;
+			context.consume(match);
+			return;
 		}
-		context.consume(1, State.TEXT);
-		return;
+
+		throw Error('failed to parse "' + context.string + "', expected attribute or close-delimiter");
 	}
-
-	if ( (match=context.string.match(tagAttribute)) ){
-		var key = match[1];
-		var value = match[2];
-
-		/* trigger before storing so it is possible to write a rule
-		 * testing for duplicates. */
-		context.trigger('attr', {
-			target: node,
-			key: key,
-			value: value,
-		});
-
-		node.attr[key] = value;
-		context.consume(match);
-		return;
-	}
-
-	throw Error('failed to parse "' + context.string + "', expected attribute or close-delimiter");
 }
+
+module.exports = HtmlLint;
