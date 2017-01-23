@@ -1,7 +1,7 @@
 'use strict';
 
 var expect = require('chai').expect;
-var HtmlLint = require('../htmllint');
+var HtmlLint = require('../../src/htmllint');
 
 describe('rule close-order', function(){
 	var htmllint;
