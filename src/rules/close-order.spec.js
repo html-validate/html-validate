@@ -1,9 +1,14 @@
 'use strict';
 
 var expect = require('chai').expect;
-var htmllint = require('../htmllint');
+var HtmlLint = require('../htmllint');
 
 describe('rule close-order', function(){
+	var htmllint;
+
+	before(function(){
+		htmllint = new HtmlLint();
+	});
 
 	it('should not report when elements are correct in wrong order', function(){
 		var report = {};
