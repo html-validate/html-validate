@@ -39,8 +39,8 @@ Context.prototype.top = function(n){
 	return this.stack[this.stack.length - (1 + n)];
 };
 
-Context.prototype.addRule = function(rule){
-	rule.init(this);
+Context.prototype.addRule = function(rule, options){
+	rule.init(this, options);
 };
 
 Context.prototype.addListener = function(event, rule, callback){

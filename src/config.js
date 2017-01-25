@@ -71,7 +71,14 @@ class Config {
 	getRules(){
 		let rules = Object.assign({}, this.config.rules || {});
 		for ( let name in rules ){
-			rules[name] = parseSeverity(rules[name]);
+			let options = rules[name];
+			if ( !Array.isArray(options) ){
+				options = [options, {}];
+			} else if ( options.length === 1 ){
+				options.push({});
+			}
+			options[0] = parseSeverity(options[0]),
+			rules[name] = options;
 		}
 		return rules;
 	}

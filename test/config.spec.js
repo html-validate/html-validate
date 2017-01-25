@@ -32,27 +32,59 @@ describe('config', function(){
 		expect(config.get().html.voidElements).not.to.have.lengthOf(0);
 	});
 
-	it('getRules() should parsed rules', function(){
-		var unparsedRules = {
-			foo: 'error',
-			bar: 'warn',
-			baz: 'disable',
-			fred: 2,
-			barney: 1,
-			wilma: 0,
-		};
-		var config = new Config({
-			rules: unparsedRules,
+	describe('getRules()', function(){
+
+		it('should return parsed rules', function(){
+			var config = new Config({rules: {foo: 'error'}});
+			expect(config.get().rules).to.deep.equal({foo: 'error'});
+			expect(config.getRules()).to.deep.equal({
+				foo: [Config.SEVERITY_ERROR, {}],
+			});
 		});
-		expect(config.get().rules).to.deep.equal(unparsedRules);
-		expect(config.getRules()).to.deep.equal({
-			foo: Config.SEVERITY_ERROR,
-			bar: Config.SEVERITY_WARN,
-			baz: Config.SEVERITY_DISABLED,
-			fred: Config.SEVERITY_ERROR,
-			barney: Config.SEVERITY_WARN,
-			wilma: Config.SEVERITY_DISABLED,
+
+		it('getRules() should parse severity from string', function(){
+			var config = new Config({
+				rules: {
+					foo: 'error',
+					bar: 'warn',
+					baz: 'disable',
+				},
+			});
+			expect(config.getRules()).to.deep.equal({
+				foo: [Config.SEVERITY_ERROR, {}],
+				bar: [Config.SEVERITY_WARN, {}],
+				baz: [Config.SEVERITY_DISABLED, {}],
+			});
 		});
+
+		it('getRules() should retain severity from integer', function(){
+			var config = new Config({
+				rules: {
+					foo: 2,
+					bar: 1,
+					baz: 0,
+				},
+			});
+			expect(config.getRules()).to.deep.equal({
+				foo: [Config.SEVERITY_ERROR, {}],
+				bar: [Config.SEVERITY_WARN, {}],
+				baz: [Config.SEVERITY_DISABLED, {}],
+			});
+		});
+
+		it('getRules() should retain options', function(){
+			var config = new Config({
+				rules: {
+					foo: [2, {foo: true}],
+					bar: ["error", {bar: false}],
+				},
+			});
+			expect(config.getRules()).to.deep.equal({
+				foo: [Config.SEVERITY_ERROR, {foo: true}],
+				bar: [Config.SEVERITY_ERROR, {bar: false}],
+			});
+		});
+
 	});
 
 });
