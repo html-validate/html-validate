@@ -30,6 +30,20 @@ function deepMerge(dst, src){
 	return dst;
 }
 
+parseSeverity.lut = [
+	'disable',
+	'warn',
+	'error',
+];
+
+function parseSeverity(value){
+	if ( typeof(value) === 'number' ){
+		return value;
+	} else {
+		return parseSeverity.lut.indexOf(value.toLowerCase());
+	}
+}
+
 class Config {
 	constructor(options){
 		this.config = {};
@@ -55,8 +69,16 @@ class Config {
 	}
 
 	getRules(){
-		return Object.assign({}, this.config.rules || {});
+		let rules = Object.assign({}, this.config.rules || {});
+		for ( let name in rules ){
+			rules[name] = parseSeverity(rules[name]);
+		}
+		return rules;
 	}
 }
+
+Config.SEVERITY_DISABLED = 0;
+Config.SEVERITY_WARN = 1;
+Config.SEVERITY_ERROR = 2;
 
 module.exports = Config;

@@ -32,12 +32,27 @@ describe('config', function(){
 		expect(config.get().html.voidElements).not.to.have.lengthOf(0);
 	});
 
-	it('getRules() should return rules', function(){
+	it('getRules() should parsed rules', function(){
+		var unparsedRules = {
+			foo: 'error',
+			bar: 'warn',
+			baz: 'disable',
+			fred: 2,
+			barney: 1,
+			wilma: 0,
+		};
 		var config = new Config({
-			rules: {foo: 'error'},
+			rules: unparsedRules,
 		});
-		expect(config.get().rules).to.deep.equal({foo: 'error'});
-		expect(config.getRules()).to.deep.equal({foo: 'error'});
+		expect(config.get().rules).to.deep.equal(unparsedRules);
+		expect(config.getRules()).to.deep.equal({
+			foo: Config.SEVERITY_ERROR,
+			bar: Config.SEVERITY_WARN,
+			baz: Config.SEVERITY_DISABLED,
+			fred: Config.SEVERITY_ERROR,
+			barney: Config.SEVERITY_WARN,
+			wilma: Config.SEVERITY_DISABLED,
+		});
 	});
 
 });

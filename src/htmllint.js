@@ -26,7 +26,10 @@ class HtmlLint {
 		let context = new Context(str, this.listeners);
 		var rules = this.config.getRules();
 		for ( let name in rules ){
-			context.addRule(require('./rules/' + name));
+			var severity = rules[name];
+			if ( severity >= Config.SEVERITY_WARN ){
+				context.addRule(require('./rules/' + name));
+			}
 		}
 		return this.parser.parseHtml(str, context, this.config.get(), report);
 	}
