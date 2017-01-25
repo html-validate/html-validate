@@ -6,7 +6,7 @@ let State = {
 };
 
 const openTag = new RegExp('^<(/)?([a-zA-Z\-]+)(/)?([> ])');
-const tagAttribute = /^([a-z\-]+)(?:=(["'])([a-z]+)(["']))? */;
+const tagAttribute = /^([a-z\-]+)(?:=(["'])(.+?)(["']))? */;
 
 class Parser {
 	parseHtml(str, context, config, report){
