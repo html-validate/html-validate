@@ -9,15 +9,15 @@ const openTag = new RegExp('^<(/)?([a-zA-Z\-]+)(/)?([> ])');
 const tagAttribute = /^([a-z]+)(?:=["']([a-z]+)["'])? */;
 
 class Parser {
-	parseHtml(str, context, report){
+	parseHtml(str, context, config, report){
 		while ( context.string.length > 0 ){
 			switch ( context.state ){
 			case State.TEXT:
-				this.parseInitial(context);
+				this.parseInitial(context, config);
 				break;
 
 			case State.TAG:
-				this.parseTag(context);
+				this.parseTag(context, config);
 				break;
 			}
 		}
@@ -35,19 +35,21 @@ class Parser {
 		return true;
 	}
 
-	parseInitial(context){
+	parseInitial(context, config){
 		var match;
 
 		if ( (match=context.match(openTag)) ){
-			var open = !match[1];
-			var close = !!(match[1] || match[3]);
-			var selfclose = !!match[3];
 			var tag = match[2];
+			var open = !match[1];
+			var selfclose = !!match[3];
+			var voidElement = config.html.voidElements.indexOf(tag.toLowerCase()) !== -1;
+			var close = !open || selfclose || voidElement;
 			var hasAttributes = match[4] !== '>';
 			var node = {
 				open: open,
 				close: close,
-				selfclose: selfclose,
+				selfClosed: selfclose,
+				voidElement: voidElement,
 				tagName: tag,
 				attr: {},
 			};
@@ -67,7 +69,7 @@ class Parser {
 						previous: context.top(1),
 					});
 					context.pop(); // pop itself
-					if ( !selfclose ){
+					if ( !(selfclose || voidElement) ){
 						context.pop(); // pop closed element
 					}
 				}

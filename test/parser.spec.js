@@ -44,6 +44,10 @@ describe('parser', function(){
 			expect(htmllint.string('<input/>')).to.be.true;
 		});
 
+		it('void elements', function(){
+			expect(htmllint.string('<input>')).to.be.true;
+		});
+
 	});
 
 });

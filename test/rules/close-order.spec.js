@@ -24,6 +24,13 @@ describe('rule close-order', function(){
 		expect(report.error, "report should contain no errors").to.have.lengthOf(0);
 	});
 
+	it('should not report for void element', function(){
+		var report = {};
+		expect(htmllint.string('<div><input></div>', report), "should parse valid html").to.be.true;
+		expect(report.valid, "linting should report success").to.be.true;
+		expect(report.error, "report should contain no errors").to.have.lengthOf(0);
+	});
+
 	it('should report error when elements are closed in wrong order', function(){
 		var report = {};
 		expect(htmllint.string('<div></p>', report), "should parse malformed html").to.be.true;
