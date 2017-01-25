@@ -6,7 +6,7 @@ let State = {
 };
 
 const openTag = new RegExp('^<(/)?([a-zA-Z\-]+)(/)?([> ])');
-const tagAttribute = /^([a-z\-]+)(?:=["']([a-z]+)["'])? */;
+const tagAttribute = /^([a-z\-]+)(?:=(["'])([a-z]+)(["']))? */;
 
 class Parser {
 	parseHtml(str, context, config, report){
@@ -110,7 +110,8 @@ class Parser {
 
 		if ( (match=context.string.match(tagAttribute)) ){
 			var key = match[1];
-			var value = match[2];
+			var quote = match[2];
+			var value = match[3];
 
 			/* trigger before storing so it is possible to write a rule
 			 * testing for duplicates. */
@@ -118,6 +119,7 @@ class Parser {
 				target: node,
 				key: key,
 				value: value,
+				quote: quote,
 			});
 
 			node.attr[key] = value;
