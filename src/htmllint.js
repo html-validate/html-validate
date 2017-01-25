@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 const Config = require('./config');
 const Context = require('./context');
 const Parser = require('./parser');
@@ -32,6 +33,11 @@ class HtmlLint {
 			}
 		}
 		return this.parser.parseHtml(str, context, this.config.get(), report);
+	}
+
+	file(filename, report){
+		var text = fs.readFileSync(filename, {encoding: 'utf8'});
+		return this.string(text, report);
 	}
 }
 

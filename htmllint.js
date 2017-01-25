@@ -1,7 +1,18 @@
 #!/usr/bin/env nodejs
 'use strict';
 
-let HtmlLint = require('./src/htmllint');
-let htmllint = new HtmlLint();
+const HtmlLint = require('./src/htmllint');
+const htmllint = new HtmlLint({
+	rules: {
+		'attr-quotes': 'error',
+		'close-attr': 'error',
+		'close-order': 'error',
+	},
+});
 
-htmllint.string('<div foobar id="spam"><p></p></div>');
+let args = process.argv.slice(2);
+args.forEach(function(filename){
+	let report = {};
+	htmllint.file(filename, report);
+	console.log(report);
+});
