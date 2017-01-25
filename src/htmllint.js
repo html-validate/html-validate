@@ -1,13 +1,14 @@
 'use strict';
 
-var Context = require('./context');
-var Parser = require('./parser');
+const Config = require('./config');
+const Context = require('./context');
+const Parser = require('./parser');
 
 class HtmlLint {
-	constructor(){
+	constructor(options){
 		this.listeners = {};
 		this.parser = new Parser();
-		this.config = this.globalConfig();
+		this.config = new Config(options || {});
 	}
 
 	/**
@@ -21,40 +22,12 @@ class HtmlLint {
 		this.listeners[event].push(callback);
 	}
 
-	/**
-	 * Loads global configuration.
-	 */
-	globalConfig(){
-		// TODO hardcoded config
-		return {
-			html: {
-				voidElements: [
-					'area',
-					'base',
-					'br',
-					'col',
-					'embed',
-					'hr',
-					'img',
-					'input',
-					'keygen',
-					'link',
-					'menuitem',
-					'meta',
-					'param',
-					'source',
-					'track',
-					'wbr',
-				],
-			},
-		};
-	}
-
 	string(str, report){
 		let context = new Context(str, this.listeners);
 		context.addRule(require('./rules/close-attr'));
 		context.addRule(require('./rules/close-order'));
-		return this.parser.parseHtml(str, context, this.config, report);
+		context.addRule(require('./rules/attr-quotes'));
+		return this.parser.parseHtml(str, context, this.config.get(), report);
 	}
 }
 
