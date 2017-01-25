@@ -7,7 +7,9 @@ describe('rule close-attr', function(){
 	var htmllint;
 
 	before(function(){
-		htmllint = new HtmlLint();
+		htmllint = new HtmlLint({
+			rules: {'close-attr': 'error'},
+		});
 	});
 
 	it('should not report when close tags are correct', function(){

@@ -15,6 +15,11 @@ describe('config', function(){
 		expect(config.get().html.voidElements).not.to.have.lengthOf(0);
 	});
 
+	it('should contain no rules by default', function(){
+		var config = new Config();
+		expect(Object.keys(config.get().rules)).to.have.lengthOf(0);
+	});
+
 	it('constructor should deep-merge options', function(){
 		var config = new Config({
 			foo: 'bar',
@@ -25,6 +30,14 @@ describe('config', function(){
 		expect(config.get().foo).to.equal('bar');
 		expect(config.get().html.spam).to.equal('ham');
 		expect(config.get().html.voidElements).not.to.have.lengthOf(0);
+	});
+
+	it('getRules() should return rules', function(){
+		var config = new Config({
+			rules: {foo: 'error'},
+		});
+		expect(config.get().rules).to.deep.equal({foo: 'error'});
+		expect(config.getRules()).to.deep.equal({foo: 'error'});
 	});
 
 });

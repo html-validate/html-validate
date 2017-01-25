@@ -7,7 +7,9 @@ describe('rule close-order', function(){
 	var htmllint;
 
 	before(function(){
-		htmllint = new HtmlLint();
+		htmllint = new HtmlLint({
+			rules: {'close-order': 'error'},
+		});
 	});
 
 	it('should not report when elements are correct in wrong order', function(){

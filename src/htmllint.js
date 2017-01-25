@@ -24,9 +24,10 @@ class HtmlLint {
 
 	string(str, report){
 		let context = new Context(str, this.listeners);
-		context.addRule(require('./rules/close-attr'));
-		context.addRule(require('./rules/close-order'));
-		context.addRule(require('./rules/attr-quotes'));
+		var rules = this.config.getRules();
+		for ( let name in rules ){
+			context.addRule(require('./rules/' + name));
+		}
 		return this.parser.parseHtml(str, context, this.config.get(), report);
 	}
 }

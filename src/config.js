@@ -42,6 +42,7 @@ class Config {
 			html: {
 				voidElements,
 			},
+			rules: {},
 		};
 	}
 
@@ -51,6 +52,10 @@ class Config {
 
 	get(){
 		return Object.assign({}, this.config);
+	}
+
+	getRules(){
+		return Object.assign({}, this.config.rules || {});
 	}
 }
 
