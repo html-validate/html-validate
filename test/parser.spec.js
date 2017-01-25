@@ -47,6 +47,13 @@ describe('parser', function(){
 			expect(events[1]).to.deep.equal({event: 'tag:close', tagName: 'h1'});
 		});
 
+		it('with dashes', function(){
+			expect(htmllint.string('<foo-bar></foo-bar>')).to.be.true;
+			expect(events).to.have.lengthOf(2);
+			expect(events[0]).to.deep.equal({event: 'tag:open', tagName: 'foo-bar'});
+			expect(events[1]).to.deep.equal({event: 'tag:close', tagName: 'foo-bar'});
+		});
+
 		it('elements closed on wrong order', function(){
 			expect(htmllint.string('<div><p></div></p>')).to.be.true;
 			expect(events).to.have.lengthOf(4);
