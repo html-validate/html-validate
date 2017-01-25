@@ -40,6 +40,13 @@ describe('parser', function(){
 			expect(events[1]).to.deep.equal({event: 'tag:close', tagName: 'div'});
 		});
 
+		it('with numbers', function(){
+			expect(htmllint.string('<h1></h1>')).to.be.true;
+			expect(events).to.have.lengthOf(2);
+			expect(events[0]).to.deep.equal({event: 'tag:open', tagName: 'h1'});
+			expect(events[1]).to.deep.equal({event: 'tag:close', tagName: 'h1'});
+		});
+
 		it('elements closed on wrong order', function(){
 			expect(htmllint.string('<div><p></div></p>')).to.be.true;
 			expect(events).to.have.lengthOf(4);
