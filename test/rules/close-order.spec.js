@@ -7,7 +7,9 @@ describe('rule close-order', function(){
 	var htmllint;
 
 	before(function(){
-		htmllint = new HtmlLint();
+		htmllint = new HtmlLint({
+			rules: {'close-order': 'error'},
+		});
 	});
 
 	it('should not report when elements are correct in wrong order', function(){
@@ -20,6 +22,13 @@ describe('rule close-order', function(){
 	it('should not report for self-closing element', function(){
 		var report = {};
 		expect(htmllint.string('<div><input/></div>', report), "should parse valid html").to.be.true;
+		expect(report.valid, "linting should report success").to.be.true;
+		expect(report.error, "report should contain no errors").to.have.lengthOf(0);
+	});
+
+	it('should not report for void element', function(){
+		var report = {};
+		expect(htmllint.string('<div><input></div>', report), "should parse valid html").to.be.true;
 		expect(report.valid, "linting should report success").to.be.true;
 		expect(report.error, "report should contain no errors").to.have.lengthOf(0);
 	});

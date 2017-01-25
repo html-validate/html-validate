@@ -14,7 +14,7 @@ function validate(event, report){
 	}
 
 	/* self-closing elements are always closed in correct order */
-	if ( event.target.selfclose ){
+	if ( event.target.selfClosed || event.target.voidElement ){
 		return;
 	}
 

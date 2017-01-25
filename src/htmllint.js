@@ -1,12 +1,14 @@
 'use strict';
 
-var Context = require('./context');
-var Parser = require('./parser');
+const Config = require('./config');
+const Context = require('./context');
+const Parser = require('./parser');
 
 class HtmlLint {
-	constructor(){
+	constructor(options){
 		this.listeners = {};
 		this.parser = new Parser();
+		this.config = new Config(options || {});
 	}
 
 	/**
@@ -22,9 +24,14 @@ class HtmlLint {
 
 	string(str, report){
 		let context = new Context(str, this.listeners);
-		context.addRule(require('./rules/close-attr'));
-		context.addRule(require('./rules/close-order'));
-		return this.parser.parseHtml(str, context, report);
+		var rules = this.config.getRules();
+		for ( let name in rules ){
+			var ruleOptions = rules[name];
+			if ( ruleOptions[0] >= Config.SEVERITY_WARN ){
+				context.addRule(require('./rules/' + name), ruleOptions[1]);
+			}
+		}
+		return this.parser.parseHtml(str, context, this.config.get(), report);
 	}
 }
 
