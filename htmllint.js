@@ -13,8 +13,12 @@ const htmllint = new HtmlLint({
 let args = process.argv.slice(2);
 args.forEach(function(filename){
 	let report = {};
-	htmllint.file(filename, report);
-	if ( !report.valid ){
-		console.log(report.error);
+	try {
+		htmllint.file(filename, report);
+		if ( !report.valid ){
+			console.log(report.error);
+		}
+	} catch (e) {
+		console.error(e.message);
 	}
 });
