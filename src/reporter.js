@@ -1,14 +1,17 @@
+'use strict';
+
 module.exports = Reporter;
 
 function Reporter(){
 	this.error = [];
 }
 
-Reporter.prototype.add = function(node, rule, message){
+Reporter.prototype.add = function(node, rule, message, context){
 	this.error.push({
-		node: node,
+		node,
 		rule: rule.name,
-		message: message,
+		message,
+		context,
 	});
 };
 
