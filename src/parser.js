@@ -7,6 +7,7 @@ let State = {
 
 const openTag = new RegExp('^<(/)?([a-zA-Z0-9\-]+)(/)?([> ])');
 const tagAttribute = /^([a-z\-]+)(?:=(["'])(.+?)(["']))? */;
+const attributeEnd = new RegExp('^/?>');
 
 class Parser {
 	parseHtml(str, context, config, report){
@@ -56,13 +57,14 @@ class Parser {
 
 			context.push(node);
 
-			if ( !hasAttributes ){
-				if ( open ){
-					context.trigger('tag:open', {
-						target: node,
-					});
-				}
+			if ( open ){
+				context.trigger('tag:open', {
+					target: node,
+				});
+			}
 
+			if ( !hasAttributes ){
+				/* closed by attribute parsing */
 				if ( close ){
 					context.trigger('tag:close', {
 						target: context.top(0),
@@ -108,12 +110,8 @@ class Parser {
 		var match;
 		var node = context.top();
 
-		if ( context.string[0] === '>' ){
-			if ( !node.close ){
-				context.trigger('tag:open', {
-					target: node,
-				});
-			} else {
+		if ( (match=context.string.match(attributeEnd)) ){
+			if ( node.close || match[0] === '/>' ){
 				context.trigger('tag:close', {
 					target: context.top(0),
 					previous: context.top(1),
@@ -121,7 +119,7 @@ class Parser {
 				context.pop(); // pop itself
 				context.pop(); // pop closed element
 			}
-			context.consume(1, State.TEXT);
+			context.consume(match, State.TEXT);
 			return;
 		}
 
