@@ -84,6 +84,23 @@ class Parser {
 			return;
 		}
 
+		/* consume text node */
+		const chars = context.string.indexOf('<');
+		if ( chars > 0 ){ /* assume text up until next < */
+			const text = context.string.slice(0, chars);
+			context.trigger('text', {
+				text,
+			});
+			context.consume(chars, State.TEXT);
+			return;
+		} else if ( context.string.length > 0 ){
+			context.trigger('text', {
+				text: context.string,
+			});
+			context.consume(context.string.length, State.TEXT);
+			return;
+		}
+
 		throw Error('Failed to parse "' + context.string + "', expected tag");
 	}
 

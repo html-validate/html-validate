@@ -57,6 +57,14 @@ describe('parser', function(){
 			expect(htmllint.string('<input>')).to.be.true;
 		});
 
+		it('with text node', function(){
+			expect(htmllint.string('<p>Lorem ipsum</p>')).to.be.true;
+		});
+
+		it('with trailing text', function(){
+			expect(htmllint.string('<p>Lorem ipsum</p>\n')).to.be.true;
+		});
+
 	});
 
 	describe('should parse attributes', function(){
