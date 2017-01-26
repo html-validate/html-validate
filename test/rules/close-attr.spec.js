@@ -19,6 +19,20 @@ describe('rule close-attr', function(){
 		expect(report.error, "report should contain no errors").to.have.lengthOf(0);
 	});
 
+	it('should not report errors on self-closing tags', function(){
+		var report = {};
+		expect(htmllint.string('<input required/>', report), "should parse valid html").to.be.true;
+		expect(report.valid, "linting should report success").to.be.true;
+		expect(report.error, "report should contain no errors").to.have.lengthOf(0);
+	});
+
+	it('should not report errors on void tags', function(){
+		var report = {};
+		expect(htmllint.string('<input required>', report), "should parse valid html").to.be.true;
+		expect(report.valid, "linting should report success").to.be.true;
+		expect(report.error, "report should contain no errors").to.have.lengthOf(0);
+	});
+
 	it('should report when close tags contains attributes', function(){
 		var report = {};
 		var html = "<p></p foo=\"bar\"><p></p foo='bar'><p></p foo>";
