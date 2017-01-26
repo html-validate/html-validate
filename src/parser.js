@@ -119,7 +119,9 @@ class Parser {
 					previous: context.top(1),
 				});
 				context.pop(); // pop itself
-				context.pop(); // pop closed element
+				if ( !(node.selfClose || node.voidElement) ){
+					context.pop(); // pop closed element
+				}
 			}
 			context.consume(match, State.TEXT);
 			return;
