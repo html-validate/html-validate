@@ -14,5 +14,7 @@ let args = process.argv.slice(2);
 args.forEach(function(filename){
 	let report = {};
 	htmllint.file(filename, report);
-	console.log(report);
+	if ( !report.valid ){
+		console.log(report.error);
+	}
 });
