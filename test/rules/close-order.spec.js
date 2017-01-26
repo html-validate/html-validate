@@ -49,4 +49,12 @@ describe('rule close-order', function(){
 		expect(report.error[0].rule, "reported error should be close-order").to.equal('close-order');
 	});
 
+	it('should report error when element is missing opening tag', function(){
+		var report = {};
+		expect(htmllint.string('</div>', report), "should parse malformed html").to.be.true;
+		expect(report.valid, "linting should report failure").to.be.false;
+		expect(report.error, "report should contain 1 error").to.have.lengthOf(1);
+		expect(report.error[0].rule, "reported error should be close-order").to.equal('close-order');
+	});
+
 });

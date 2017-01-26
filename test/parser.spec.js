@@ -85,6 +85,14 @@ describe('parser', function(){
 			expect(htmllint.string('<p>Lorem ipsum</p>\n')).to.be.true;
 		});
 
+		it('unclosed', function(){
+			expect(htmllint.string('<p>')).to.be.true;
+		});
+
+		it('unopened', function(){
+			expect(htmllint.string('</p>')).to.be.true;
+		});
+
 	});
 
 	describe('should parse attributes', function(){

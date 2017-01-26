@@ -13,6 +13,12 @@ function validate(event, report){
 		return;
 	}
 
+	/* handle unopened tags */
+	if ( typeof(event.previous) === 'undefined' ){
+		report(event.previous, "Unexpected close-tag, expected opening tag.");
+		return;
+	}
+
 	/* self-closing elements are always closed in correct order */
 	if ( event.target.selfClosed || event.target.voidElement ){
 		return;
