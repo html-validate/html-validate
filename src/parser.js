@@ -104,7 +104,7 @@ class Parser {
 		}
 
 		const truncated = JSON.stringify(context.string.length > 13 ? (context.string.slice(0, 10) + '...') : context.string);
-		const message = `${context.line}:${context.column}: failed to parse ${truncated}, expected tag.`;
+		const message = `${context.getContextData()}: failed to parse ${truncated}, expected tag.`;
 		throw Error(message);
 	}
 
@@ -147,7 +147,7 @@ class Parser {
 		}
 
 		const truncated = JSON.stringify(context.string.length > 13 ? (context.string.slice(0, 10) + '...') : context.string);
-		const message = `${context.line}:${context.column}: failed to parse ${truncated}, expected attribute or close-delimiter.`;
+		const message = `${context.getContextData()}: failed to parse ${truncated}, expected tag.`;
 		throw Error(message);
 	}
 }

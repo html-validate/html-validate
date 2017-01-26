@@ -4,10 +4,11 @@ module.exports = Context;
 
 var Reporter = require('./reporter');
 
-function Context(str, globalListeners){
+function Context(src, globalListeners){
 	this.report = new Reporter();
 	this.state = 0;
-	this.string = str;
+	this.string = src.data;
+	this.filename = src.filename;
 	this.line = 1;
 	this.column = 1;
 	this.stack = [];
@@ -92,4 +93,8 @@ Context.prototype.trigger = function(eventname, data){
 
 Context.prototype.saveReport = function(dst){
 	this.report.save(dst);
+};
+
+Context.prototype.getContextData = function(){
+	return `${this.filename}:${this.line}:${this.column}`;
 };
