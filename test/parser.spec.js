@@ -114,11 +114,11 @@ describe('parser', function(){
 		});
 
 		it('with nested quotes', function(){
-			expect(htmllint.string('<div foo=\'"\' bar="\'"></div>')).to.be.true;
+			expect(htmllint.string('<div foo=\'"foo"\' bar="\'foo\'"></div>')).to.be.true;
 			expect(events).to.have.lengthOf(4);
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
-			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: '"'});
-			expect(events.shift()).to.deep.equal({event: 'attr', key: 'bar', value: "'"});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: '"foo"'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'bar', value: "'foo'"});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
 		});
 

@@ -6,7 +6,7 @@ let State = {
 };
 
 const openTag = new RegExp('^<(/)?([a-zA-Z0-9\-]+)(/)?([> ])');
-const tagAttribute = /^([a-z\-]+)(?:=(["'])(.+?)(["']))? */;
+const tagAttribute = /^([a-z\-]+)(?:=(".+?"|'.+?'))? */;
 const attributeEnd = new RegExp('^/?>');
 
 class Parser {
@@ -129,8 +129,8 @@ class Parser {
 
 		if ( (match=context.string.match(tagAttribute)) ){
 			var key = match[1];
-			var quote = match[2];
-			var value = match[3];
+			var value = match[2] ? match[2].slice(1, -1) : undefined;
+			var quote = match[2] ? match[2].substr(0, 1) : undefined;
 
 			/* trigger before storing so it is possible to write a rule
 			 * testing for duplicates. */
