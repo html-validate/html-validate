@@ -93,6 +93,14 @@ describe('parser', function(){
 			expect(htmllint.string('</p>')).to.be.true;
 		});
 
+		it('with newlines', function(){
+			expect(htmllint.string('<div\nfoo="bar"></div>')).to.be.true;
+			expect(events).to.have.lengthOf(3);
+			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: 'bar'});
+			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
+		});
+
 	});
 
 	describe('should parse attributes', function(){
