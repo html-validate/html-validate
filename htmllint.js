@@ -1,6 +1,8 @@
 #!/usr/bin/env nodejs
 'use strict';
 
+/* eslint-disable no-console */
+
 const HtmlLint = require('./src/htmllint');
 const htmllint = new HtmlLint({
 	rules: {
@@ -18,7 +20,7 @@ args.forEach(function(filename){
 		if ( !report.valid ){
 			console.log(report.error);
 		}
-	} catch (e) {
+	} catch (e){
 		console.error(e.message);
 	}
 });

@@ -10,7 +10,7 @@ module.exports = function(grunt){
 
 		eslint: {
 			build: [
-				'Gruntfile.js',
+				'*.js',
 				'src/**/*.js',
 				'test/**/*.js',
 			],
