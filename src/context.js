@@ -71,6 +71,7 @@ Context.prototype.trigger = function(eventname, data){
 	const report = this.report;
 	const event = Object.assign({event: eventname}, data);
 	const context = {
+		filename: this.filename,
 		line: this.line,
 		column: this.column,
 	};

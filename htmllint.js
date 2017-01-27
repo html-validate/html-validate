@@ -4,6 +4,8 @@
 /* eslint-disable no-console */
 
 const HtmlLint = require('./src/htmllint');
+const formatter = require('eslint/lib/formatters/stylish');
+
 const htmllint = new HtmlLint({
 	rules: {
 		'attr-quotes': 'error',
@@ -13,14 +15,14 @@ const htmllint = new HtmlLint({
 });
 
 let args = process.argv.slice(2);
+let report = {};
+
 args.forEach(function(filename){
-	let report = {};
 	try {
 		htmllint.file(filename, report);
-		if ( !report.valid ){
-			console.log(report.error);
-		}
 	} catch (e){
 		console.error(e.message);
 	}
 });
+
+console.log(formatter(report.results));
