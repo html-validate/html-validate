@@ -101,6 +101,15 @@ describe('parser', function(){
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
 		});
 
+		it('with newline after attribute', function(){
+			expect(htmllint.string('<div foo="bar"\nspam="ham"></div>')).to.be.true;
+			expect(events).to.have.lengthOf(4);
+			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: 'bar'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'spam', value: 'ham'});
+			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
+		});
+
 	});
 
 	describe('should parse attributes', function(){
