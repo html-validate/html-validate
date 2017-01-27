@@ -97,6 +97,14 @@ describe('parser', function(){
 
 	describe('should parse attributes', function(){
 
+		it('without quotes', function(){
+			expect(htmllint.string('<div foo=bar></div>')).to.be.true;
+			expect(events).to.have.lengthOf(3);
+			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: 'bar'});
+			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
+		});
+
 		it('with single quotes', function(){
 			expect(htmllint.string('<div foo=\'bar\'></div>')).to.be.true;
 			expect(events).to.have.lengthOf(3);
