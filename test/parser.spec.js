@@ -146,6 +146,14 @@ describe('parser', function(){
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
 		});
 
+		it('with uncommon characters', function(){
+			expect(htmllint.string('<div a2?()!="foo"></div>')).to.be.true;
+			expect(events).to.have.lengthOf(3);
+			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'a2?()!', value: 'foo'});
+			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
+		});
+
 		it('with multiple attributes', function(){
 			expect(htmllint.string('<div foo="bar" spam="ham"></div>')).to.be.true;
 			expect(events).to.have.lengthOf(4);

@@ -6,7 +6,7 @@ let State = {
 };
 
 const openTag = new RegExp('^<(/)?([a-zA-Z0-9\-]+)(/)?([> ])');
-const tagAttribute = /^([a-z\-]+)(?:=(".+?"|'.+?'))? */;
+const tagAttribute = /^([^\t\n\f \/>"'=]+)(?:=(".+?"|'.+?'))? */;
 const attributeEnd = new RegExp('^/?>');
 
 class Parser {
