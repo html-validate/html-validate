@@ -155,6 +155,15 @@ describe('parser', function(){
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
 		});
 
+		it('with empty value', function(){
+			expect(htmllint.string('<div foo="" bar=\'\'></div>')).to.be.true;
+			expect(events).to.have.lengthOf(4);
+			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: ''});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'bar', value: ''});
+			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
+		});
+
 		it('with dashes', function(){
 			expect(htmllint.string('<div foo-bar-baz></div>')).to.be.true;
 			expect(events).to.have.lengthOf(3);
