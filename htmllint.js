@@ -22,7 +22,9 @@ args.forEach(function(filename){
 		htmllint.file(filename, report);
 	} catch (e){
 		console.error(e.message);
+		process.exit(1);
 	}
 });
 
 console.log(formatter(report.results));
+process.exit(report.valid ? 0 : 1);
