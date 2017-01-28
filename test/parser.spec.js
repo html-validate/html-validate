@@ -110,6 +110,13 @@ describe('parser', function(){
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
 		});
 
+		it('with xml namespaces', function(){
+			expect(htmllint.string('<foo:div></foo:div>')).to.be.true;
+			expect(events).to.have.lengthOf(2);
+			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'foo:div'});
+			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'foo:div'});
+		});
+
 	});
 
 	describe('should parse attributes', function(){
@@ -203,6 +210,14 @@ describe('parser', function(){
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'input'});
 			expect(events.shift()).to.deep.equal({event: 'attr', key: 'type', value: 'text'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'input'});
+		});
+
+		it('with xml namespaces', function(){
+			expect(htmllint.string('<div foo:bar="baz"></div>')).to.be.true;
+			expect(events).to.have.lengthOf(3);
+			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo:bar', value: 'baz'});
+			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
 		});
 
 	});
