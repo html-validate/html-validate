@@ -3,10 +3,8 @@
 module.exports = Context;
 
 var EventHandler = require('./eventhandler');
-var Reporter = require('./reporter');
 
 function Context(src, globalListeners){
-	this.report = new Reporter();
 	this.state = undefined;
 	this.string = src.data;
 	this.filename = src.filename;
@@ -54,10 +52,6 @@ Context.prototype.pop = function(){
 Context.prototype.top = function(n){
 	n = n || 0;
 	return this.stack[this.stack.length - (1 + n)];
-};
-
-Context.prototype.addRule = function(rule, options){
-	rule.init(this, options);
 };
 
 Context.prototype.addListener = function(event, rule, callback){

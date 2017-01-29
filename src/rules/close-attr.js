@@ -2,7 +2,7 @@ module.exports = {
 	name: 'close-attr',
 
 	init: function(context){
-		context.addListener('tag:close', this, validate);
+		context.addListener('tag:close', validate);
 	},
 };
 

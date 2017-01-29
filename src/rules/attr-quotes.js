@@ -6,7 +6,7 @@ module.exports = {
 	},
 
 	init: function(context, options){
-		context.addListener('attr', this, validate);
+		context.addListener('attr', validate);
 		this.options = Object.assign(this.defaults, options);
 		this.expected = parseStyle(this.options.style);
 	},
