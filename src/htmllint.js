@@ -60,8 +60,9 @@ class HtmlLint {
 			let data = rules[name];
 			this.loadRule(name, data, parser, report);
 		}
-		parser.parseHtml(src.data);
+		const ok = parser.parseHtml(src.data);
 		report.save(result);
+		return ok;
 	}
 
 	loadRule(name, data, parser, report){
@@ -84,7 +85,7 @@ class HtmlLint {
 			on: function(event, callback){
 				parser.on(event, function(event, data){
 					callback.call(rule, data, function(node, message){
-						report.add(node, rule, message, event.location);
+						report.add(node, rule, message, data.location);
 					});
 				});
 			},

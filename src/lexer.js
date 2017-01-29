@@ -60,14 +60,14 @@ class Lexer {
 		if ( !type ) throw Error("Token must be set");
 		return {
 			type,
-			location: context.getContextData(),
+			location: context.getLocationData(),
 			data,
 		};
 	}
 
 	unhandled(context){
 		const truncated = JSON.stringify(context.string.length > 13 ? (context.string.slice(0, 10) + '...') : context.string);
-		const message = `${context.getContextData()}: failed to tokenize ${truncated}, unhandled state ${context.state}.`;
+		const message = `${context.getLocationString()}: failed to tokenize ${truncated}, unhandled state ${context.state}.`;
 		throw Error(message);
 	}
 
@@ -94,7 +94,7 @@ class Lexer {
 		}
 
 		const truncated = JSON.stringify(context.string.length > 13 ? (context.string.slice(0, 10) + '...') : context.string);
-		const message = `${context.getContextData()}: failed to tokenize ${truncated}, ${error}.`;
+		const message = `${context.getLocationString()}: failed to tokenize ${truncated}, ${error}.`;
 		throw Error(message);
 	}
 

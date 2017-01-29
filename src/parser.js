@@ -51,8 +51,9 @@ class Parser {
 		};
 
 		if ( open ){
-			this.event.trigger('tag:open', {
+			this.trigger('tag:open', {
 				target: node,
+				location: token.location,
 			});
 		}
 
@@ -67,8 +68,9 @@ class Parser {
 		}
 
 		if ( close ){
-			this.event.trigger('tag:close', {
+			this.trigger('tag:close', {
 				target: node,
+				location: token.location,
 			});
 		}
 	}
@@ -81,11 +83,12 @@ class Parser {
 		if ( !next.done && next.value.type === Token.ATTR_VALUE ){
 			value = next.value.data[1];
 		}
-		this.event.trigger('attr', {
+		this.trigger('attr', {
 			target: node,
 			key,
 			value,
 			quote,
+			location: token.location,
 		});
 	}
 
@@ -126,6 +129,13 @@ class Parser {
 		} else {
 			return this.peeked = tokenStream.next();
 		}
+	}
+
+	trigger(event, data){
+		if ( typeof(data.location) === 'undefined' ){
+			throw Error('Triggered event must contain location');
+		}
+		this.event.trigger(event, data);
 	}
 }
 
