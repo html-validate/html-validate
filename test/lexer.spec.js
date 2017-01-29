@@ -122,6 +122,17 @@ describe('lexer', function(){
 			expect(token.next().done).to.be.true;
 		});
 
+		it('newlines', function(){
+			var token = lexer.tokenize({data: '<p>\nfoo\n</p>', filename: 'inline'});
+			expect(token.next().value).to.containSubset({type: Token.TAG_OPEN});
+			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: Token.WHITESPACE});
+			expect(token.next().value).to.containSubset({type: Token.TEXT});
+			expect(token.next().value).to.containSubset({type: Token.TAG_OPEN});
+			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().done).to.be.true;
+		});
+
 	});
 
 });
