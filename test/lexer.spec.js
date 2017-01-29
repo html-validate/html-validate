@@ -46,6 +46,20 @@ describe('lexer', function(){
 			expect(token.next().done).to.be.true;
 		});
 
+		it('tags with numbers', function(){
+			var token = lexer.tokenize({data: '<h1>', filename: 'inline'});
+			expect(token.next().value).to.containSubset({type: Token.TAG_OPEN});
+			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().done).to.be.true;
+		});
+
+		it('tags with dashes', function(){
+			var token = lexer.tokenize({data: '<foo-bar>', filename: 'inline'});
+			expect(token.next().value).to.containSubset({type: Token.TAG_OPEN});
+			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().done).to.be.true;
+		});
+
 		it('attribute with double-quotes', function(){
 			var token = lexer.tokenize({data: '<foo bar="baz">', filename: 'inline'});
 			expect(token.next().value).to.containSubset({type: Token.TAG_OPEN});

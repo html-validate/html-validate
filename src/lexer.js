@@ -15,13 +15,13 @@ const MATCH_WHITESPACE = /^\s+/;
 const MATCH_DOCTYPE_OPEN = /^<!DOCTYPE\s/;
 const MATCH_DOCTYPE_VALUE = /^[^>]+/;
 const MATCH_DOCTYPE_CLOSE = /^>/;
-const MATCH_TAG_OPEN = /^<(\/?)([a-zA-Z0-9\-]+)/;        // https://www.w3.org/TR/html/syntax.html#start-tags
+const MATCH_TAG_OPEN = /^<(\/?)([a-zA-Z0-9\-:]+)/;       // https://www.w3.org/TR/html/syntax.html#start-tags
 const MATCH_TAG_CLOSE = /^\/?>/;
 const MATCH_TAG_LOOKAHEAD = /^.*?(?=<|$)/;
 const MATCH_ATTR_START = /^([^\t\n\f \/>"'=]+)/;         // https://www.w3.org/TR/html/syntax.html#elements-attributes
 const MATCH_ATTR_SINGLE = /^='([^']*?)(')/;
 const MATCH_ATTR_DOUBLE = /^="([^"]*?)(")/;
-const MATCH_ATTR_UNQUOTED = /^=[a-z]+/;
+const MATCH_ATTR_UNQUOTED = /^=([a-z]+)/;
 
 class Lexer {
 	*tokenize(source){

@@ -1,163 +1,131 @@
 'use strict';
 
-let State = {
-	TEXT: 0,
-	TAG: 1,
-};
-
-const openTag = new RegExp('^<(/)?([a-zA-Z0-9\-:]+)(/)?([> \\n])');
-const tagAttribute = /^([^\t\n\f \/>"'=]+)(?:=(".*?"|'.*?'|[^ "'=<>`]+))?(?:\s|[\n]])*/;
-const attributeEnd = new RegExp('^/?>');
+const Lexer = require('./lexer');
+const Token = require('./token');
+const EventHandler = require('./eventhandler');
 
 class Parser {
-	parseHtml(str, context, config, report){
-		while ( context.string.length > 0 ){
-			switch ( context.state ){
-			case State.TEXT:
-				this.parseInitial(context, config);
-				break;
+	constructor(config){
+		this.config = config;
+		this.lexer = new Lexer();
+		this.event = new EventHandler();
+	}
 
-			case State.TAG:
-				this.parseTag(context, config);
+	on(event, listener){
+		this.event.on(event, listener);
+	}
+
+	parseHtml(str){
+		let lexer = new Lexer();
+		let tokenStream = lexer.tokenize({data: str, filename: 'missing'});
+
+		let it = this.next(tokenStream);
+		while ( !it.done ){
+			const token = it.value;
+
+			switch ( token.type ){
+			case Token.TAG_OPEN:
+				this.consumeTag(token, tokenStream);
 				break;
 			}
+
+			it = this.next(tokenStream);
 		}
 
-		/* trigger close events for any still open elements */
-		var unclosed;
-		while ( (unclosed=context.pop()) ){
-			context.trigger('tag:close', {
-				target: undefined,
-				previous: unclosed,
-			});
-		}
-
-		context.saveReport(report);
 		return true;
 	}
 
-	parseInitial(context, config){
-		var match;
+	consumeTag(token, tokenStream){
+		var open = !token.data[1];
+		var tagName = token.data[2];
+		var selfClosed = !!token.data[3];
+		var voidElement = this.isVoidElement(tagName);
+		var close = !open || selfClosed || voidElement;
+		var node = {
+			open,
+			close,
+			selfClosed,
+			voidElement,
+			tagName,
+			attr: {},
+		};
 
-		if ( (match=context.match(openTag)) ){
-			var tag = match[2];
-			var open = !match[1];
-			var selfclose = !!match[3];
-			var voidElement = config.html.voidElements.indexOf(tag.toLowerCase()) !== -1;
-			var close = !open || selfclose || voidElement;
-			var hasAttributes = match[4] !== '>';
-			var node = {
-				open: open,
-				close: close,
-				selfClosed: selfclose,
-				voidElement: voidElement,
-				tagName: tag,
-				attr: {},
-			};
-
-			context.push(node);
-
-			if ( open ){
-				context.trigger('tag:open', {
-					target: node,
-				});
-			}
-
-			if ( !hasAttributes ){
-				/* closed by attribute parsing */
-				if ( close ){
-					context.trigger('tag:close', {
-						target: context.top(0),
-						previous: context.top(1),
-					});
-					context.pop(); // pop itself
-					if ( !(selfclose || voidElement) ){
-						context.pop(); // pop closed element
-					}
-				}
-			}
-
-			if ( hasAttributes ){
-				context.consume(match, State.TAG);
-			} else {
-				context.consume(match, State.TEXT);
-			}
-
-			return;
+		if ( open ){
+			this.event.trigger('tag:open', {
+				target: node,
+			});
 		}
 
-		/* consume text node */
-		const chars = context.string.indexOf('<');
-		if ( chars > 0 ){ /* assume text up until next < */
-			const text = context.string.slice(0, chars);
-			context.trigger('text', {
-				text,
-			});
-			context.consume(chars, State.TEXT);
-			return;
-		} else if ( context.string.length > 0 ){
-			context.trigger('text', {
-				text: context.string,
-			});
-			context.consume(context.string.length, State.TEXT);
-			return;
+		for ( token of this.consumeUntil(tokenStream, Token.TAG_CLOSE) ){
+			switch ( token.type ){
+			case Token.WHITESPACE:
+				break;
+			case Token.ATTR_NAME:
+				this.consumeAttribute(node, token, tokenStream);
+				break;
+			}
 		}
 
-		const truncated = JSON.stringify(context.string.length > 13 ? (context.string.slice(0, 10) + '...') : context.string);
-		const message = `${context.getContextData()}: failed to parse ${truncated}, expected tag.`;
-		throw Error(message);
+		if ( close ){
+			this.event.trigger('tag:close', {
+				target: node,
+			});
+		}
 	}
 
-	parseTag(context){
-		var match;
-		var node = context.top();
-
-		if ( (match=context.string.match(attributeEnd)) ){
-			if ( node.close || match[0] === '/>' ){
-				context.trigger('tag:close', {
-					target: context.top(0),
-					previous: context.top(1),
-				});
-				context.pop(); // pop itself
-				if ( !(node.selfClose || node.voidElement) ){
-					context.pop(); // pop closed element
-				}
-			}
-			context.consume(match, State.TEXT);
-			return;
+	consumeAttribute(node, token, tokenStream){
+		const key = token.data[1];
+		const next = this.peek(tokenStream);
+		let value = undefined;
+		let quote = undefined;
+		if ( !next.done && next.value.type === Token.ATTR_VALUE ){
+			value = next.value.data[1];
 		}
+		this.event.trigger('attr', {
+			target: node,
+			key,
+			value,
+			quote,
+		});
+	}
 
-		if ( (match=context.string.match(tagAttribute)) ){
-			let key = match[1];
-			let value;
-			let quote;
-
-			/* attribute value */
-			if ( match[2] ){
-				value = match[2];
-				if ( value[0] === '"' || value[0] === "'" ){
-					quote = value.substr(0, 1);
-					value = value.slice(1, -1);
-				}
-			}
-
-			/* trigger before storing so it is possible to write a rule
-			 * testing for duplicates. */
-			context.trigger('attr', {
-				target: node,
-				key: key,
-				value: value,
-				quote: quote,
-			});
-
-			node.attr[key] = value;
-			context.consume(match);
-			return;
+	/**
+	 * Return a list of tokens found until the expected token was found.
+	 */
+	*consumeUntil(tokenStream, search){
+		let it = this.next(tokenStream);
+		while ( !it.done ){
+			let token = it.value;
+			yield token;
+			if ( token.type === search ) return;
+			it = this.next(tokenStream);
 		}
+		throw Error('stream ended before consumeUntil finished');
+	}
 
-		const truncated = JSON.stringify(context.string.length > 13 ? (context.string.slice(0, 10) + '...') : context.string);
-		const message = `${context.getContextData()}: failed to parse ${truncated}, expected '>' or attribute.`;
-		throw Error(message);
+	isVoidElement(tagName){
+		return this.config.html.voidElements.indexOf(tagName.toLowerCase()) !== -1;
+	}
+
+	next(tokenStream){
+		if ( this.peeked ){
+			let peeked = this.peeked;
+			this.peeked = undefined;
+			return peeked;
+		} else {
+			return tokenStream.next();
+		}
+	}
+
+	/**
+	 * Return the next token without removing it from the stream.
+	 */
+	peek(tokenStream){
+		if ( this.peeked ){
+			return this.peeked;
+		} else {
+			return this.peeked = tokenStream.next();
+		}
 	}
 }
 
