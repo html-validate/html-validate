@@ -6,7 +6,7 @@ var Reporter = require('./reporter');
 
 function Context(src, globalListeners){
 	this.report = new Reporter();
-	this.state = 0;
+	this.state = undefined;
 	this.string = src.data;
 	this.filename = src.filename;
 	this.line = 1;
