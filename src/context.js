@@ -2,6 +2,7 @@
 
 module.exports = Context;
 
+var EventHandler = require('./eventhandler');
 var Reporter = require('./reporter');
 
 function Context(src, globalListeners){
@@ -12,7 +13,7 @@ function Context(src, globalListeners){
 	this.line = 1;
 	this.column = 1;
 	this.stack = [];
-	this.listeners = {};
+	this.event = new EventHandler();
 	this.globalListeners = globalListeners;
 }
 
@@ -60,10 +61,8 @@ Context.prototype.addRule = function(rule, options){
 };
 
 Context.prototype.addListener = function(event, rule, callback){
-	this.listeners[event] = this.listeners[event] || [];
-	this.listeners[event].push({
-		rule: rule,
-		callback: callback,
+	this.event.on(event, function(){
+		callback.apply(rule, arguments); /* event handler rebinds this */
 	});
 };
 
@@ -77,19 +76,12 @@ Context.prototype.trigger = function(eventname, data){
 	};
 
 	/* execute rule listeners */
-	var listeners = this.listeners[eventname] || [];
-	listeners.forEach(function(listener){
-		var rule = listener.rule;
-		listener.callback.call(rule, data, function(node, message){
-			report.add(node, rule, message, context);
-		});
+	this.event.trigger(eventname, event, function(node, message){
+		report.add(node, this, message, context);
 	});
 
 	/* execute any global listener */
-	var globalListeners = [].concat(this.globalListeners[eventname] || [], this.globalListeners['*'] || []);
-	globalListeners.forEach(function(listener){
-		listener(event);
-	});
+	this.globalevents.trigger(eventname, event);
 };
 
 Context.prototype.saveReport = function(dst){

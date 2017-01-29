@@ -4,10 +4,11 @@ const fs = require('fs');
 const Config = require('./config');
 const Context = require('./context');
 const Parser = require('./parser');
+const EventHandler = require('./eventhandler');
 
 class HtmlLint {
 	constructor(options){
-		this.listeners = {};
+		this.event = new EventHandler();
 		this.parser = new Parser();
 		this.config = new Config(options || {});
 	}
@@ -19,8 +20,7 @@ class HtmlLint {
 	 * @param callback [function] - Called any time even triggers
 	 */
 	addListener(event, callback){
-		this.listeners[event] = this.listeners[event] || [];
-		this.listeners[event].push(callback);
+		this.event.on(event, callback);
 	}
 
 	/**
@@ -53,7 +53,7 @@ class HtmlLint {
 	 * @param [report] {object} - Report output.
 	 */
 	parse(src, report){
-		const context = new Context(src, this.listeners);
+		const context = new Context(src, this.event);
 		const rules = this.config.getRules();
 		for ( let name in rules ){
 			var ruleOptions = rules[name];
