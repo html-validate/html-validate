@@ -30,7 +30,7 @@ class HtmlLint {
 	 * @param [report] {object} - Report output.
 	 */
 	string(str, report){
-		return this.parse({data: str, filename: '-'}, report);
+		return this.parse({data: str, filename: 'inline'}, report);
 	}
 
 	/**
@@ -61,7 +61,7 @@ class HtmlLint {
 			this.loadRule(name, data, parser, report);
 		}
 
-		const dom = parser.parseHtml(src.data); // eslint-disable-line no-unused-vars
+		const dom = parser.parseHtml(src); // eslint-disable-line no-unused-vars
 
 		/* generate results from report */
 		report.save(result);

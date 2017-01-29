@@ -18,9 +18,13 @@ class Parser {
 		this.event.on(event, listener);
 	}
 
-	parseHtml(str){
+	parseHtml(source){
+		if ( typeof(source) === 'string' ){
+			source = {data: source, filename: 'inline'};
+		}
+
 		let lexer = new Lexer();
-		let tokenStream = lexer.tokenize({data: str, filename: 'missing'});
+		let tokenStream = lexer.tokenize(source);
 
 		let it = this.next(tokenStream);
 		while ( !it.done ){
