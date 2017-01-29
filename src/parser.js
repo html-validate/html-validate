@@ -3,12 +3,15 @@
 const Lexer = require('./lexer');
 const Token = require('./token');
 const EventHandler = require('./eventhandler');
+const DOM = require('./dom');
+const Node = require('./node');
 
 class Parser {
 	constructor(config){
 		this.config = config;
 		this.lexer = new Lexer();
 		this.event = new EventHandler();
+		this.dom = new DOM();
 	}
 
 	on(event, listener){
@@ -32,25 +35,27 @@ class Parser {
 			it = this.next(tokenStream);
 		}
 
-		return true;
+		/* trigger close events for any still open elements */
+		let active;
+		while ( (active=this.dom.getActive()) && active.tagName ){
+			this.trigger('tag:close', {
+				target: undefined,
+				previous: active,
+				location: false,
+			});
+			this.dom.popActive();
+		}
+
+		return this.dom;
 	}
 
 	consumeTag(token, tokenStream){
+		var node = Node.fromToken(token, this.dom.getActive(), this.config);
 		var open = !token.data[1];
-		var tagName = token.data[2];
-		var selfClosed = !!token.data[3];
-		var voidElement = this.isVoidElement(tagName);
-		var close = !open || selfClosed || voidElement;
-		var node = {
-			open,
-			close,
-			selfClosed,
-			voidElement,
-			tagName,
-			attr: {},
-		};
+		var close = !open || node.selfClosed || node.voidElement;
 
 		if ( open ){
+			this.dom.pushActive(node);
 			this.trigger('tag:open', {
 				target: node,
 				location: token.location,
@@ -70,8 +75,10 @@ class Parser {
 		if ( close ){
 			this.trigger('tag:close', {
 				target: node,
+				previous: this.dom.getActive(),
 				location: token.location,
 			});
+			this.dom.popActive();
 		}
 	}
 
@@ -104,10 +111,6 @@ class Parser {
 			it = this.next(tokenStream);
 		}
 		throw Error('stream ended before consumeUntil finished');
-	}
-
-	isVoidElement(tagName){
-		return this.config.html.voidElements.indexOf(tagName.toLowerCase()) !== -1;
 	}
 
 	next(tokenStream){

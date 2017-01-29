@@ -32,28 +32,28 @@ describe('parser', function(){
 	describe('should parse elements', function(){
 
 		it('simple element', function(){
-			expect(parser.parseHtml('<div></div>')).to.be.true;
+			parser.parseHtml('<div></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
 			expect(events.shift()).to.be.undefined;
 		});
 
 		it('with numbers', function(){
-			expect(parser.parseHtml('<h1></h1>')).to.be.true;
+			parser.parseHtml('<h1></h1>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'h1'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'h1'});
 			expect(events.shift()).to.be.undefined;
 		});
 
 		it('with dashes', function(){
-			expect(parser.parseHtml('<foo-bar></foo-bar>')).to.be.true;
+			parser.parseHtml('<foo-bar></foo-bar>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'foo-bar'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'foo-bar'});
 			expect(events.shift()).to.be.undefined;
 		});
 
 		it('elements closed on wrong order', function(){
-			expect(parser.parseHtml('<div><p></div></p>')).to.be.true;
+			parser.parseHtml('<div><p></div></p>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'p'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
@@ -62,37 +62,37 @@ describe('parser', function(){
 		});
 
 		it('self-closing elements', function(){
-			expect(parser.parseHtml('<input/>')).to.be.true;
+			parser.parseHtml('<input/>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'input'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'input'});
 			expect(events.shift()).to.be.undefined;
 		});
 
 		it('void elements', function(){
-			expect(parser.parseHtml('<input>')).to.be.true;
+			parser.parseHtml('<input>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'input'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'input'});
 			expect(events.shift()).to.be.undefined;
 		});
 
 		it('with text node', function(){
-			expect(parser.parseHtml('<p>Lorem ipsum</p>')).to.be.true;
+			parser.parseHtml('<p>Lorem ipsum</p>');
 		});
 
 		it('with trailing text', function(){
-			expect(parser.parseHtml('<p>Lorem ipsum</p>\n')).to.be.true;
+			parser.parseHtml('<p>Lorem ipsum</p>\n');
 		});
 
 		it('unclosed', function(){
-			expect(parser.parseHtml('<p>')).to.be.true;
+			parser.parseHtml('<p>');
 		});
 
 		it('unopened', function(){
-			expect(parser.parseHtml('</p>')).to.be.true;
+			parser.parseHtml('</p>');
 		});
 
 		it('with newlines', function(){
-			expect(parser.parseHtml('<div\nfoo="bar"></div>')).to.be.true;
+			parser.parseHtml('<div\nfoo="bar"></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: 'bar'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
@@ -100,7 +100,7 @@ describe('parser', function(){
 		});
 
 		it('with newline after attribute', function(){
-			expect(parser.parseHtml('<div foo="bar"\nspam="ham"></div>')).to.be.true;
+			parser.parseHtml('<div foo="bar"\nspam="ham"></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: 'bar'});
 			expect(events.shift()).to.deep.equal({event: 'attr', key: 'spam', value: 'ham'});
@@ -109,7 +109,7 @@ describe('parser', function(){
 		});
 
 		it('with xml namespaces', function(){
-			expect(parser.parseHtml('<foo:div></foo:div>')).to.be.true;
+			parser.parseHtml('<foo:div></foo:div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'foo:div'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'foo:div'});
 			expect(events.shift()).to.be.undefined;
@@ -120,7 +120,7 @@ describe('parser', function(){
 	describe('should parse attributes', function(){
 
 		it('without quotes', function(){
-			expect(parser.parseHtml('<div foo=bar></div>')).to.be.true;
+			parser.parseHtml('<div foo=bar></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: 'bar'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
@@ -128,7 +128,7 @@ describe('parser', function(){
 		});
 
 		it('with single quotes', function(){
-			expect(parser.parseHtml('<div foo=\'bar\'></div>')).to.be.true;
+			parser.parseHtml('<div foo=\'bar\'></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: 'bar'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
@@ -136,7 +136,7 @@ describe('parser', function(){
 		});
 
 		it('with double quote', function(){
-			expect(parser.parseHtml('<div foo="bar"></div>')).to.be.true;
+			parser.parseHtml('<div foo="bar"></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: 'bar'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
@@ -144,7 +144,7 @@ describe('parser', function(){
 		});
 
 		it('with nested quotes', function(){
-			expect(parser.parseHtml('<div foo=\'"foo"\' bar="\'foo\'"></div>')).to.be.true;
+			parser.parseHtml('<div foo=\'"foo"\' bar="\'foo\'"></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: '"foo"'});
 			expect(events.shift()).to.deep.equal({event: 'attr', key: 'bar', value: "'foo'"});
@@ -153,7 +153,7 @@ describe('parser', function(){
 		});
 
 		it('without value', function(){
-			expect(parser.parseHtml('<div foo></div>')).to.be.true;
+			parser.parseHtml('<div foo></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: undefined});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
@@ -161,7 +161,7 @@ describe('parser', function(){
 		});
 
 		it('with empty value', function(){
-			expect(parser.parseHtml('<div foo="" bar=\'\'></div>')).to.be.true;
+			parser.parseHtml('<div foo="" bar=\'\'></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: ''});
 			expect(events.shift()).to.deep.equal({event: 'attr', key: 'bar', value: ''});
@@ -170,7 +170,7 @@ describe('parser', function(){
 		});
 
 		it('with dashes', function(){
-			expect(parser.parseHtml('<div foo-bar-baz></div>')).to.be.true;
+			parser.parseHtml('<div foo-bar-baz></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo-bar-baz', value: undefined});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
@@ -178,7 +178,7 @@ describe('parser', function(){
 		});
 
 		it('with spaces inside', function(){
-			expect(parser.parseHtml('<div class="foo bar baz"></div>')).to.be.true;
+			parser.parseHtml('<div class="foo bar baz"></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'attr', key: 'class', value: 'foo bar baz'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
@@ -186,7 +186,7 @@ describe('parser', function(){
 		});
 
 		it('with uncommon characters', function(){
-			expect(parser.parseHtml('<div a2?()!="foo"></div>')).to.be.true;
+			parser.parseHtml('<div a2?()!="foo"></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'attr', key: 'a2?()!', value: 'foo'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
@@ -194,7 +194,7 @@ describe('parser', function(){
 		});
 
 		it('with multiple attributes', function(){
-			expect(parser.parseHtml('<div foo="bar" spam="ham"></div>')).to.be.true;
+			parser.parseHtml('<div foo="bar" spam="ham"></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: 'bar'});
 			expect(events.shift()).to.deep.equal({event: 'attr', key: 'spam', value: 'ham'});
@@ -203,7 +203,7 @@ describe('parser', function(){
 		});
 
 		it('on self-closing elements', function(){
-			expect(parser.parseHtml('<input type="text"/>')).to.be.true;
+			parser.parseHtml('<input type="text"/>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'input'});
 			expect(events.shift()).to.deep.equal({event: 'attr', key: 'type', value: 'text'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'input'});
@@ -211,7 +211,7 @@ describe('parser', function(){
 		});
 
 		it('with xml namespaces', function(){
-			expect(parser.parseHtml('<div foo:bar="baz"></div>')).to.be.true;
+			parser.parseHtml('<div foo:bar="baz"></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo:bar', value: 'baz'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});

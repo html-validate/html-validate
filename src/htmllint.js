@@ -60,9 +60,13 @@ class HtmlLint {
 			let data = rules[name];
 			this.loadRule(name, data, parser, report);
 		}
-		const ok = parser.parseHtml(src.data);
+
+		const dom = parser.parseHtml(src.data); // eslint-disable-line no-unused-vars
+
+		/* generate results from report */
 		report.save(result);
-		return ok;
+
+		return true;
 	}
 
 	loadRule(name, data, parser, report){
