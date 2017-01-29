@@ -89,6 +89,7 @@ class Parser {
 		let quote = undefined;
 		if ( !next.done && next.value.type === Token.ATTR_VALUE ){
 			value = next.value.data[1];
+			quote = next.value.data[2];
 		}
 		this.trigger('attr', {
 			target: node,
@@ -97,6 +98,7 @@ class Parser {
 			quote,
 			location: token.location,
 		});
+		node.setAttribute(key, value);
 	}
 
 	/**

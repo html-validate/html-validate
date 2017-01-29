@@ -5,6 +5,7 @@ class Node {
 		this.children = [];
 		this.tagName = tagName;
 		this.parent = parent;
+		this.attr = {};
 	}
 
 	static rootNode(){
@@ -20,6 +21,14 @@ class Node {
 
 	static isVoidElement(config, tagName){
 		return config.html.voidElements.indexOf(tagName.toLowerCase()) !== -1;
+	}
+
+	setAttribute(key, value){
+		this.attr[key] = value;
+	}
+
+	getAttribute(key){
+		return this.attr[key];
 	}
 
 	append(node){
