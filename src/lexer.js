@@ -28,6 +28,10 @@ class Lexer {
 		const context = new Context(source);
 		context.state = State.INITIAL;
 
+		/* for sanity check */
+		let previousState = context.state;
+		let previousLength = context.string.length;
+
 		while ( context.string.length > 0 ){
 			switch ( context.state ){
 			case State.INITIAL:
@@ -53,6 +57,15 @@ class Lexer {
 			default:
 				this.unhandled(context);
 			}
+
+			/* sanity check: state or string must change, if both are intact
+			 * we are stuck in an endless loop. */
+			if ( context.state === previousState && context.string.length === previousLength ){
+				this.errorStuck(context);
+			}
+
+			previousState = context.state;
+			previousLength = context.string.length;
 		}
 	}
 
@@ -68,6 +81,12 @@ class Lexer {
 	unhandled(context){
 		const truncated = JSON.stringify(context.string.length > 13 ? (context.string.slice(0, 10) + '...') : context.string);
 		const message = `${context.getLocationString()}: failed to tokenize ${truncated}, unhandled state ${context.state}.`;
+		throw Error(message);
+	}
+
+	errorStuck(context){
+		const truncated = JSON.stringify(context.string.length > 13 ? (context.string.slice(0, 10) + '...') : context.string);
+		const message = `${context.getLocationString()}: failed to tokenize ${truncated}, state ${context.state} failed to consume data or change state.`;
 		throw Error(message);
 	}
 
