@@ -1,8 +1,8 @@
 module.exports = {
 	name: 'close-attr',
 
-	init: function(context){
-		context.addListener('tag:close', this, validate);
+	init: function(parser){
+		parser.on('tag:close', validate);
 	},
 };
 

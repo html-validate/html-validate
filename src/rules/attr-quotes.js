@@ -5,8 +5,8 @@ module.exports = {
 		style: 'double',
 	},
 
-	init: function(context, options){
-		context.addListener('attr', this, validate);
+	init: function(parser, options){
+		parser.on('attr', validate);
 		this.options = Object.assign(this.defaults, options);
 		this.expected = parseStyle(this.options.style);
 	},
