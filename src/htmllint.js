@@ -9,18 +9,7 @@ const Reporter = require('./reporter');
 
 class HtmlLint {
 	constructor(options){
-		this.event = new EventHandler();
 		this.config = new Config(options || {});
-	}
-
-	/**
-	 * Add a global event listener.
-	 *
-	 * @param event [string] - Event name or '*' for any event
-	 * @param callback [function] - Called any time even triggers
-	 */
-	addListener(event, callback){
-		this.event.on(event, callback);
 	}
 
 	/**
