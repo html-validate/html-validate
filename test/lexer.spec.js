@@ -138,6 +138,11 @@ describe('lexer', function(){
 			expect(token.next().done).to.be.true;
 		});
 
+		it('CDATA', function(){
+			var token = lexer.tokenize({data: '<![CDATA[ <p>lorem</div> ipsum ]]>', filename: 'inline'});
+			expect(token.next().done).to.be.true;
+		});
+
 	});
 
 });

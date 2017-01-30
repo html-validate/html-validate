@@ -9,6 +9,7 @@ const State = {
 	TEXT: 'text',
 	TAG: 'tag',
 	ATTR: 'attr',
+	CDATA: 'cdata',
 };
 
 const MATCH_WHITESPACE = /^\s+/;
@@ -23,6 +24,8 @@ const MATCH_ATTR_START = /^([^\t\n\f \/>"'=]+)/;         // https://www.w3.org/T
 const MATCH_ATTR_SINGLE = /^='([^']*?)(')/;
 const MATCH_ATTR_DOUBLE = /^="([^"]*?)(")/;
 const MATCH_ATTR_UNQUOTED = /^=([a-z]+)/;
+const MATCH_CDATA_BEGIN = /^<!\[CDATA\[/;
+const MATCH_CDATA_END = /^[^]*?]]>/;
 
 class Lexer {
 	*tokenize(source){
@@ -53,6 +56,10 @@ class Lexer {
 
 			case State.TEXT:
 				yield* this.tokenizeText(context);
+				break;
+
+			case State.CDATA:
+				yield* this.tokenizeCDATA(context);
 				break;
 
 			default:
@@ -154,9 +161,16 @@ class Lexer {
 	*tokenizeText(context){
 		yield* this.match(context, [
 			[MATCH_WHITESPACE, State.TEXT, Token.WHITESPACE],
+			[MATCH_CDATA_BEGIN, State.CDATA, false],
 			[MATCH_TAG_OPEN, State.TAG, Token.TAG_OPEN],
 			[MATCH_TAG_LOOKAHEAD, State.TEXT, Token.TEXT],
 		], 'expected text or "<"');
+	}
+
+	*tokenizeCDATA(context){
+		yield* this.match(context, [
+			[MATCH_CDATA_END, State.TEXT, false],
+		], 'expected ]]>');
 	}
 }
 
