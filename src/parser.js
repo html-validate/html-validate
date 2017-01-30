@@ -45,7 +45,9 @@ class Parser {
 			this.trigger('tag:close', {
 				target: undefined,
 				previous: active,
-				location: false,
+				location: {
+					filename: source.filename,
+				},
 			});
 			this.dom.popActive();
 		}
@@ -53,25 +55,29 @@ class Parser {
 		return this.dom;
 	}
 
-	consumeTag(token, tokenStream){
-		var node = Node.fromToken(token, this.dom.getActive(), this.config);
-		var open = !token.data[1];
-		var close = !open || node.selfClosed || node.voidElement;
+	consumeTag(startToken, tokenStream){
+		const tokens = Array.from(this.consumeUntil(tokenStream, Token.TAG_CLOSE));
+		const endToken = tokens.slice(-1)[0];
+
+		const node = Node.fromTokens(startToken, endToken, this.dom.getActive(), this.config);
+		const open = !startToken.data[1];
+		const close = !open || node.selfClosed || node.voidElement;
 
 		if ( open ){
 			this.dom.pushActive(node);
 			this.trigger('tag:open', {
 				target: node,
-				location: token.location,
+				location: startToken.location,
 			});
 		}
 
-		for ( token of this.consumeUntil(tokenStream, Token.TAG_CLOSE) ){
+		for ( let i = 0; i < tokens.length; i++ ){
+			let token = tokens[i];
 			switch ( token.type ){
 			case Token.WHITESPACE:
 				break;
 			case Token.ATTR_NAME:
-				this.consumeAttribute(node, token, tokenStream);
+				this.consumeAttribute(node, token, tokens[i+1]);
 				break;
 			}
 		}
@@ -80,20 +86,19 @@ class Parser {
 			this.trigger('tag:close', {
 				target: node,
 				previous: this.dom.getActive(),
-				location: token.location,
+				location: endToken.location,
 			});
 			this.dom.popActive();
 		}
 	}
 
-	consumeAttribute(node, token, tokenStream){
+	consumeAttribute(node, token, next){
 		const key = token.data[1];
-		const next = this.peek(tokenStream);
 		let value = undefined;
 		let quote = undefined;
-		if ( !next.done && next.value.type === Token.ATTR_VALUE ){
-			value = next.value.data[1];
-			quote = next.value.data[2];
+		if ( next && next.type === Token.ATTR_VALUE ){
+			value = next.data[1];
+			quote = next.data[2];
 		}
 		this.trigger('attr', {
 			target: node,

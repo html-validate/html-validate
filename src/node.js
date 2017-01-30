@@ -12,9 +12,9 @@ class Node {
 		return new Node();
 	}
 
-	static fromToken(token, parent, config){
-		let node = new Node(token.data[2], parent);
-		node.selfClosed = !!token.data[3];
+	static fromTokens(startToken, endToken, parent, config){
+		let node = new Node(startToken.data[2], parent);
+		node.selfClosed = endToken.data[0] === '/>';
 		node.voidElement = Node.isVoidElement(config, node.tagName);
 		return node;
 	}
