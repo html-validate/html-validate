@@ -15,6 +15,7 @@ const MATCH_WHITESPACE = /^\s+/;
 const MATCH_DOCTYPE_OPEN = /^<!DOCTYPE\s/;
 const MATCH_DOCTYPE_VALUE = /^[^>]+/;
 const MATCH_DOCTYPE_CLOSE = /^>/;
+const MATCH_XML_TAG = /^<\?xml.*?\?>\n/;
 const MATCH_TAG_OPEN = /^<(\/?)([a-zA-Z0-9\-:]+)/;       // https://www.w3.org/TR/html/syntax.html#start-tags
 const MATCH_TAG_CLOSE = /^\/?>/;
 const MATCH_TAG_LOOKAHEAD = /^[^]*?(?=<|$)/;
@@ -119,6 +120,7 @@ class Lexer {
 
 	*tokenizeInitial(context){
 		yield* this.match(context, [
+			[MATCH_XML_TAG, State.Initial, false],
 			[MATCH_DOCTYPE_OPEN, State.DOCTYPE, Token.DOCTYPE_OPEN],
 			[false, State.TEXT, false],
 		], 'expected doctype');

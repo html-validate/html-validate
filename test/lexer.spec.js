@@ -17,6 +17,11 @@ describe('lexer', function(){
 
 	describe('should tokenize', function(){
 
+		it('xml declaration', function(){
+			var token = lexer.tokenize({data: '<?xml version="1.0" encoding="utf-8"?>\n', filename: 'inline'});
+			expect(token.next().done).to.be.true;
+		});
+
 		it('doctype', function(){
 			var token = lexer.tokenize({data: '<!DOCTYPE html>', filename: 'inline'});
 			expect(token.next().value).to.containSubset({type: Token.DOCTYPE_OPEN});
