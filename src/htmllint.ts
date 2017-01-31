@@ -3,7 +3,7 @@
 import Config from './config';
 import Parser from './parser';
 import Reporter from './reporter';
-import { Source } from './context';
+import { Source } from './context'; // eslint-disable-line no-unused-vars
 
 const fs = require('fs');
 

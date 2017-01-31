@@ -1,8 +1,8 @@
 'use strict';
 
 import Config from './config';
-import Context from './context';
-import DOMNode from './domnode';
+import Context from './context'; // eslint-disable-line no-unused-vars
+import DOMNode from './domnode'; // eslint-disable-line no-unused-vars
 
 export interface Message {
 	rule: string;
@@ -53,4 +53,4 @@ export class Reporter {
 	}
 }
 
-export default Reporter
+export default Reporter;

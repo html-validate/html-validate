@@ -38,12 +38,4 @@ describe('eventhandler', function(){
 		expect(callback).to.have.been.called.with.exactly('foo', {bar: true});
 	});
 
-	it('should pass all arguments to listener', function(){
-		let callback = chai.spy();
-		eventhandler.on('foo', callback);
-		eventhandler.trigger('foo', 1, 2, 3);
-		expect(callback).to.have.been.called.once();
-		expect(callback).to.have.been.called.with.exactly('foo', 1, 2, 3);
-	});
-
 });

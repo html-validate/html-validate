@@ -27,10 +27,9 @@ export class EventHandler {
 	 * @param [data] {any} - Event data.
 	 */
 	trigger(event: string, data: any){
-		const args = Array.prototype.slice.call(arguments, 1);
 		const callbacks = [].concat(this.listeners[event] || [], this.listeners['*'] || []);
 		callbacks.forEach(listener => {
-			listener.apply(null, [event].concat(args));
+			listener.call(null, event, data);
 		});
 	}
 }

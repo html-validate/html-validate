@@ -12,7 +12,8 @@ module.exports = function(grunt){
 			build: [
 				'*.js',
 				'src/**/*.js',
-				'test/**/*.js',
+				'src/**/*.ts',
+				'test/**/*.ts',
 			],
 		},
 

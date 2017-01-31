@@ -1,6 +1,6 @@
 'use strict';
 
-import {Context, Source} from './context';
+import {Context, Source} from './context'; // eslint-disable-line no-unused-vars
 import Token from './token';
 
 enum State {
@@ -10,9 +10,9 @@ enum State {
 	TAG,
 	ATTR,
 	CDATA,
-};
+}
 
-type LexerTest = [RegExp | false, State, Token | false];
+type LexerTest = [RegExp | false, State, Token | false]; // eslint-disable-line no-unused-vars
 
 const MATCH_WHITESPACE = /^\s+/;
 const MATCH_DOCTYPE_OPEN = /^<!DOCTYPE\s/;

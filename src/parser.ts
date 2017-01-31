@@ -1,12 +1,12 @@
 'use strict';
 
-import Config from './config';
+import Config from './config'; // eslint-disable-line no-unused-vars
 import DOMNode from './domnode';
 import DOMTree from './domtree';
 import Lexer from './lexer';
 import Token from './token';
-import { EventHandler, EventCallback } from './eventhandler';
-import { Source } from './context';
+import { EventHandler, EventCallback } from './eventhandler'; // eslint-disable-line no-unused-vars
+import { Source } from './context'; // eslint-disable-line no-unused-vars
 
 class Parser {
 	config: Config;
