@@ -4,7 +4,7 @@ const Lexer = require('../build/src/lexer').default;
 const Token = require('../build/src/token').default;
 const EventHandler = require('./eventhandler');
 const DOM = require('./dom');
-const DOMNode = require('./domnode').default;
+const DOMNode = require('../build/src/domnode').default;
 
 class Parser {
 	constructor(config){

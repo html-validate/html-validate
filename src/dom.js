@@ -1,6 +1,6 @@
 'use strict';
 
-const DOMNode = require('./domnode').default;
+const DOMNode = require('../build/src/domnode').default;
 
 class DOM {
 	constructor(){
