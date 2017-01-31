@@ -2,9 +2,7 @@
 
 const fs = require('fs');
 const Config = require('./config');
-const Context = require('./context');
 const Parser = require('./parser');
-const EventHandler = require('./eventhandler');
 const Reporter = require('./reporter');
 
 class HtmlLint {
@@ -29,7 +27,7 @@ class HtmlLint {
 	 * @return {object} - Report output.
 	 */
 	file(filename){
-		var text = fs.readFileSync(filename, {encoding: 'utf8'});
+		let text = fs.readFileSync(filename, {encoding: 'utf8'});
 		return this.parse({data: text, filename});
 	}
 
