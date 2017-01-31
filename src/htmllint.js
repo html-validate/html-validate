@@ -3,7 +3,7 @@
 const fs = require('fs');
 const Config = require('../build/src/config').default;
 const Parser = require('./parser');
-const Reporter = require('./reporter');
+const Reporter = require('../build/src/reporter').default;
 
 class HtmlLint {
 	constructor(options){
@@ -51,10 +51,7 @@ class HtmlLint {
 		const dom = parser.parseHtml(src); // eslint-disable-line no-unused-vars
 
 		/* generate results from report */
-		let result = {};
-		report.save(result);
-
-		return result;
+		return report.save();
 	}
 
 	loadRule(name, data, parser, report){
