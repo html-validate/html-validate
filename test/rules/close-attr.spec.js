@@ -13,30 +13,26 @@ describe('rule close-attr', function(){
 	});
 
 	it('should not report when close tags are correct', function(){
-		var report = {};
-		expect(htmllint.string('<div></div>', report), "should parse valid html").to.be.true;
+		var report = htmllint.string('<div></div>');
 		expect(report.valid, "linting should report success").to.be.true;
 		expect(report.results, "report should contain no errors").to.have.lengthOf(0);
 	});
 
 	it('should not report errors on self-closing tags', function(){
-		var report = {};
-		expect(htmllint.string('<input required/>', report), "should parse valid html").to.be.true;
+		var report = htmllint.string('<input required/>');
 		expect(report.valid, "linting should report success").to.be.true;
 		expect(report.results, "report should contain no errors").to.have.lengthOf(0);
 	});
 
 	it('should not report errors on void tags', function(){
-		var report = {};
-		expect(htmllint.string('<input required>', report), "should parse valid html").to.be.true;
+		var report = htmllint.string('<input required>');
 		expect(report.valid, "linting should report success").to.be.true;
 		expect(report.results, "report should contain no errors").to.have.lengthOf(0);
 	});
 
 	it('should report when close tags contains attributes', function(){
-		var report = {};
 		var html = "<p></p foo=\"bar\"><p></p foo='bar'><p></p foo>";
-		expect(htmllint.string(html, report), "should parse malformed html").to.be.true;
+		var report = htmllint.string(html);
 		expect(report.valid, "linting should report failure").to.be.false;
 		expect(report.results[0].messages, "report should contain 3 errors").to.have.lengthOf(3);
 		expect(report.results[0].messages[0].rule, "reported error should be close-attr").to.equal('close-attr');

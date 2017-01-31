@@ -16,21 +16,21 @@ class HtmlLint {
 	 * Parse HTML from string.
 	 *
 	 * @param str {string} - Text to parse.
-	 * @param [report] {object} - Report output.
+	 * @return {object} - Report output.
 	 */
-	string(str, report){
-		return this.parse({data: str, filename: 'inline'}, report);
+	string(str){
+		return this.parse({data: str, filename: 'inline'});
 	}
 
 	/**
 	 * Parse HTML from file.
 	 *
 	 * @param filename {string} - Filename to read and parse.
-	 * @param [report] {object} - Report output.
+	 * @return {object} - Report output.
 	 */
-	file(filename, report){
+	file(filename){
 		var text = fs.readFileSync(filename, {encoding: 'utf8'});
-		return this.parse({data: text, filename}, report);
+		return this.parse({data: text, filename});
 	}
 
 	/**
@@ -39,9 +39,9 @@ class HtmlLint {
 	 * @param src {object} - Parse source.
 	 * @param src.data {string} - Text HTML data.
 	 * @param src.filename {string} - Filename of source for presentation in report.
-	 * @param [result] {object} - Report output.
+	 * @return {object} - Report output.
 	 */
-	parse(src, result){
+	parse(src){
 		const report = new Reporter();
 		const rules = this.config.getRules();
 		const parser = new Parser(this.config.get());
@@ -53,9 +53,10 @@ class HtmlLint {
 		const dom = parser.parseHtml(src); // eslint-disable-line no-unused-vars
 
 		/* generate results from report */
+		let result = {};
 		report.save(result);
 
-		return true;
+		return result;
 	}
 
 	loadRule(name, data, parser, report){
