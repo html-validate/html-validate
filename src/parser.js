@@ -1,7 +1,7 @@
 'use strict';
 
 const Lexer = require('./lexer');
-const Token = require('./token');
+const Token = require('../build/src/token').default;
 const EventHandler = require('./eventhandler');
 const DOM = require('./dom');
 const Node = require('./node');

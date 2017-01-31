@@ -1,11 +1,12 @@
 'use strict';
 
+import Token from '../src/token';
+
 describe('lexer', function(){
 
 	const chai = require('chai');
 	const expect = chai.expect;
 	const Lexer = require('../src/lexer');
-	const Token = require('../src/token');
 
 	chai.use(require('chai-subset'));
 

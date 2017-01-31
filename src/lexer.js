@@ -1,7 +1,7 @@
 'use strict';
 
 const Context = require('../build/src/context').default;
-const Token = require('./token');
+const Token = require('../build/src/token').default;
 
 const State = {
 	INITIAL: 'initial',
