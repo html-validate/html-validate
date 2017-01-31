@@ -2,6 +2,7 @@
 
 import Config from './config';
 import Context from './context';
+import DOMNode from './domnode';
 
 export interface Message {
 	rule: string;
@@ -26,7 +27,7 @@ export class Reporter {
 		this.result = {};
 	}
 
-	add(node, rule, message: string, context: Context){
+	add(node: DOMNode, rule, message: string, context: Context){
 		if ( !this.result.hasOwnProperty(context.filename) ){
 			this.result[context.filename] = [];
 		}

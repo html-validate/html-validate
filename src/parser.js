@@ -4,7 +4,7 @@ const Lexer = require('../build/src/lexer').default;
 const Token = require('../build/src/token').default;
 const EventHandler = require('./eventhandler');
 const DOM = require('./dom');
-const Node = require('./node');
+const DOMNode = require('./domnode').default;
 
 class Parser {
 	constructor(config){
@@ -59,7 +59,7 @@ class Parser {
 		const tokens = Array.from(this.consumeUntil(tokenStream, Token.TAG_CLOSE));
 		const endToken = tokens.slice(-1)[0];
 
-		const node = Node.fromTokens(startToken, endToken, this.dom.getActive(), this.config);
+		const node = DOMNode.fromTokens(startToken, endToken, this.dom.getActive(), this.config);
 		const open = !startToken.data[1];
 		const close = !open || node.selfClosed || node.voidElement;
 

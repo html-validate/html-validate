@@ -1,10 +1,10 @@
 'use strict';
 
-const Node = require('./node');
+const DOMNode = require('./domnode').default;
 
 class DOM {
 	constructor(){
-		this.root = Node.rootNode();
+		this.root = DOMNode.rootNode();
 		this.active = this.root;
 	}
 

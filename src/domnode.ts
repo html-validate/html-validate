@@ -1,25 +1,34 @@
 'use strict';
 
-class Node {
+class DOMNode {
+	children: Array<DOMNode>;
+	tagName: string;
+	parent: DOMNode
+	attr: { [key: string]: string; };
+	selfClosed: boolean;
+	voidElement: boolean;
+
 	constructor(tagName, parent){
 		this.children = [];
 		this.tagName = tagName;
 		this.parent = parent;
 		this.attr = {};
+		this.selfClosed = false;
+		this.voidElement = false;
 	}
 
-	static rootNode(){
-		return new Node();
+	static rootNode() {
+		return new DOMNode(undefined, undefined);
 	}
 
 	static fromTokens(startToken, endToken, parent, config){
-		let node = new Node(startToken.data[2], parent);
+		let node = new DOMNode(startToken.data[2], parent);
 		node.selfClosed = endToken.data[0] === '/>';
-		node.voidElement = Node.isVoidElement(config, node.tagName);
+		node.voidElement = DOMNode.isVoidElement(config, node.tagName);
 		return node;
 	}
 
-	static isVoidElement(config, tagName){
+	private static isVoidElement(config, tagName): boolean {
 		return config.html.voidElements.indexOf(tagName.toLowerCase()) !== -1;
 	}
 
@@ -36,4 +45,4 @@ class Node {
 	}
 }
 
-module.exports = Node;
+export default DOMNode;
