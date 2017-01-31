@@ -1,12 +1,12 @@
 'use strict';
 
-const chai = require('chai');
-const expect = chai.expect;
-const EventHandler = require('../src/eventhandler');
-
-chai.use(require('chai-spies'));
-
 describe('eventhandler', function(){
+
+	const EventHandler = require('../src/eventhandler');
+	const chai = require('chai');
+	const expect = chai.expect;
+
+	chai.use(require('chai-spies'));
 
 	let eventhandler;
 

@@ -1,9 +1,9 @@
 'use strict';
 
-const expect = require('chai').expect;
-const Config = require('../src/config');
-
 describe('config', function(){
+
+	const expect = require('chai').expect;
+	const Config = require('../src/config');
 
 	it('should load defaults', function(){
 		let config = new Config();

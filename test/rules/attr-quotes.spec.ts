@@ -1,9 +1,10 @@
 'use strict';
 
-const expect = require('chai').expect;
-const HtmlLint = require('../../src/htmllint');
-
 describe('rule attr-quotes', function(){
+
+	const expect = require('chai').expect;
+	const HtmlLint = require('../../src/htmllint');
+
 	let htmllint;
 
 	describe('with double-quote option', function(){
