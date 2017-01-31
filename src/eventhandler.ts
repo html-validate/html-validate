@@ -1,8 +1,8 @@
 'use strict';
 
-type EventCallback = (event: string, data: any) => void;
+export type EventCallback = (event: string, data: any) => void;
 
-class EventHandler {
+export class EventHandler {
 	listeners: { [event: string]: Array<EventCallback> };
 
 	constructor(){

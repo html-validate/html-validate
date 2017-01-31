@@ -1,24 +1,31 @@
 'use strict';
 
-const Lexer = require('../build/src/lexer').default;
-const Token = require('../build/src/token').default;
-const EventHandler = require('../build/src/eventhandler').default;
-const DOMTree = require('../build/src/domtree').default;
-const DOMNode = require('../build/src/domnode').default;
+import Config from './config';
+import DOMNode from './domnode';
+import DOMTree from './domtree';
+import Lexer from './lexer';
+import Token from './token';
+import { EventHandler, EventCallback } from './eventhandler';
+import { Source } from './context';
 
 class Parser {
-	constructor(config){
+	config: Config;
+	event: EventHandler;
+	dom: DOMTree;
+	peeked: any;
+
+	constructor(config: Config){
 		this.config = config;
-		this.lexer = new Lexer();
 		this.event = new EventHandler();
 		this.dom = new DOMTree();
+		this.peeked = undefined;
 	}
 
-	on(event, listener){
+	on(event: string, listener: EventCallback){
 		this.event.on(event, listener);
 	}
 
-	parseHtml(source){
+	parseHtml(source: string|Source){
 		if ( typeof(source) === 'string' ){
 			source = {data: source, filename: 'inline'};
 		}
@@ -92,7 +99,7 @@ class Parser {
 		}
 	}
 
-	consumeAttribute(node, token, next){
+	consumeAttribute(node: DOMNode, token, next){
 		const key = token.data[1];
 		let value = undefined;
 		let quote = undefined;
@@ -153,4 +160,4 @@ class Parser {
 	}
 }
 
-module.exports = Parser;
+export default Parser;

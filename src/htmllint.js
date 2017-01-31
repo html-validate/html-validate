@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const Config = require('../build/src/config').default;
-const Parser = require('./parser');
+const Parser = require('../build/src/parser').default;
 const Reporter = require('../build/src/reporter').default;
 
 class HtmlLint {
