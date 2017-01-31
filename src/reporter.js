@@ -1,6 +1,6 @@
 'use strict';
 
-const Config = require('./config');
+const Config = require('../build/src/config');
 
 class Reporter {
 	constructor(){

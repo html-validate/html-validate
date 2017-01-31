@@ -1,7 +1,7 @@
 'use strict';
 
 const fs = require('fs');
-const Config = require('./config');
+const Config = require('../build/src/config').default;
 const Parser = require('./parser');
 const Reporter = require('./reporter');
 
