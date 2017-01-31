@@ -1,11 +1,15 @@
 'use strict';
 
+import Config from './config';
+import Parser from './parser';
+import Reporter from './reporter';
+import { Source } from './context';
+
 const fs = require('fs');
-const Config = require('../build/src/config').default;
-const Parser = require('../build/src/parser').default;
-const Reporter = require('../build/src/reporter').default;
 
 class HtmlLint {
+	config: Config;
+
 	constructor(options){
 		this.config = new Config(options || {});
 	}
@@ -16,7 +20,7 @@ class HtmlLint {
 	 * @param str {string} - Text to parse.
 	 * @return {object} - Report output.
 	 */
-	string(str){
+	string(str: string){
 		return this.parse({data: str, filename: 'inline'});
 	}
 
@@ -26,7 +30,7 @@ class HtmlLint {
 	 * @param filename {string} - Filename to read and parse.
 	 * @return {object} - Report output.
 	 */
-	file(filename){
+	file(filename: string){
 		let text = fs.readFileSync(filename, {encoding: 'utf8'});
 		return this.parse({data: text, filename});
 	}
@@ -39,7 +43,7 @@ class HtmlLint {
 	 * @param src.filename {string} - Filename of source for presentation in report.
 	 * @return {object} - Report output.
 	 */
-	parse(src){
+	private parse(src: Source){
 		const report = new Reporter();
 		const rules = this.config.getRules();
 		const parser = new Parser(this.config.get());
@@ -54,11 +58,11 @@ class HtmlLint {
 		return report.save();
 	}
 
-	loadRule(name, data, parser, report){
+	loadRule(name: string, data: any, parser: Parser, report: Reporter){
 		let severity = data[0];
 		let options = data[1];
 		if ( severity >= Config.SEVERITY_WARN ){
-			let rule = require('./rules/' + name);
+			let rule = require('../src/rules/' + name);
 			rule.init(this.createProxy(parser, rule, report), options);
 		}
 	}
@@ -82,4 +86,4 @@ class HtmlLint {
 	}
 }
 
-module.exports = HtmlLint;
+export default HtmlLint;

@@ -1,9 +1,10 @@
 'use strict';
 
+import HtmlLint from '../../src/htmllint';
+
 describe('rule close-order', function(){
 
 	const expect = require('chai').expect;
-	const HtmlLint = require('../../src/htmllint');
 
 	let htmllint;
 

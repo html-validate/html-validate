@@ -3,7 +3,7 @@
 
 /* eslint-disable no-console */
 
-const HtmlLint = require('./src/htmllint');
+const HtmlLint = require('./build/src/htmllint').default;
 const formatter = require('eslint/lib/formatters/stylish');
 
 const htmllint = new HtmlLint({
