@@ -17,9 +17,13 @@ module.exports = function(grunt){
 		},
 
 		mochaTest: {
+			options: {
+				require: 'ts-node/register',
+			},
 			test: {
 				src: [
 					'test/**/*.spec.js',
+					'test/**/*.spec.ts',
 				],
 			},
 		},
