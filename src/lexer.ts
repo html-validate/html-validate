@@ -1,16 +1,18 @@
 'use strict';
 
-const Context = require('../build/src/context').default;
-const Token = require('../build/src/token').default;
+import {Context, Source} from './context';
+import Token from './token';
 
-const State = {
-	INITIAL: 'initial',
-	DOCTYPE: 'doctype',
-	TEXT: 'text',
-	TAG: 'tag',
-	ATTR: 'attr',
-	CDATA: 'cdata',
+enum State {
+	INITIAL = 1,
+	DOCTYPE,
+	TEXT,
+	TAG,
+	ATTR,
+	CDATA,
 };
+
+type LexerTest = [RegExp | false, State, Token | false];
 
 const MATCH_WHITESPACE = /^\s+/;
 const MATCH_DOCTYPE_OPEN = /^<!DOCTYPE\s/;
@@ -28,13 +30,13 @@ const MATCH_CDATA_BEGIN = /^<!\[CDATA\[/;
 const MATCH_CDATA_END = /^[^]*?]]>/;
 
 class Lexer {
-	*tokenize(source){
+	*tokenize(source: Source){
 		const context = new Context(source);
 		context.state = State.INITIAL;
 
 		/* for sanity check */
-		let previousState = context.state;
-		let previousLength = context.string.length;
+		let previousState: State = context.state;
+		let previousLength: number = context.string.length;
 
 		while ( context.string.length > 0 ){
 			switch ( context.state ){
@@ -77,7 +79,7 @@ class Lexer {
 		}
 	}
 
-	token(context, type, data){
+	token(context: Context, type: Token, data?: any){
 		if ( !type ) throw Error("Token must be set");
 		return {
 			type,
@@ -86,19 +88,19 @@ class Lexer {
 		};
 	}
 
-	unhandled(context){
+	unhandled(context: Context){
 		const truncated = JSON.stringify(context.string.length > 13 ? (context.string.slice(0, 10) + '...') : context.string);
 		const message = `${context.getLocationString()}: failed to tokenize ${truncated}, unhandled state ${context.state}.`;
 		throw Error(message);
 	}
 
-	errorStuck(context){
+	errorStuck(context: Context){
 		const truncated = JSON.stringify(context.string.length > 13 ? (context.string.slice(0, 10) + '...') : context.string);
 		const message = `${context.getLocationString()}: failed to tokenize ${truncated}, state ${context.state} failed to consume data or change state.`;
 		throw Error(message);
 	}
 
-	*match(context, tests, error){
+	*match(context: Context, tests: Array<LexerTest>, error: string){
 		let match;
 		for ( let test of tests ){
 			const regex = test[0];
@@ -125,15 +127,15 @@ class Lexer {
 		throw Error(message);
 	}
 
-	*tokenizeInitial(context){
+	*tokenizeInitial(context: Context){
 		yield* this.match(context, [
-			[MATCH_XML_TAG, State.Initial, false],
+			[MATCH_XML_TAG, State.INITIAL, false],
 			[MATCH_DOCTYPE_OPEN, State.DOCTYPE, Token.DOCTYPE_OPEN],
 			[false, State.TEXT, false],
 		], 'expected doctype');
 	}
 
-	*tokenizeDoctype(context){
+	*tokenizeDoctype(context: Context){
 		yield* this.match(context, [
 			[MATCH_WHITESPACE, State.DOCTYPE, Token.WHITESPACE],
 			[MATCH_DOCTYPE_VALUE, State.DOCTYPE, Token.DOCTYPE_VALUE],
@@ -141,7 +143,7 @@ class Lexer {
 		], 'expected doctype name');
 	}
 
-	*tokenizeTag(context){
+	*tokenizeTag(context: Context){
 		yield* this.match(context, [
 			[MATCH_TAG_CLOSE, State.TEXT, Token.TAG_CLOSE],
 			[MATCH_ATTR_START, State.ATTR, Token.ATTR_NAME],
@@ -149,7 +151,7 @@ class Lexer {
 		], 'expected attribute, ">" or "/>"');
 	}
 
-	*tokenizeAttr(context){
+	*tokenizeAttr(context: Context){
 		yield* this.match(context, [
 			[MATCH_ATTR_SINGLE, State.TAG, Token.ATTR_VALUE],
 			[MATCH_ATTR_DOUBLE, State.TAG, Token.ATTR_VALUE],
@@ -158,7 +160,7 @@ class Lexer {
 		], 'expected attribute, ">" or "/>"');
 	}
 
-	*tokenizeText(context){
+	*tokenizeText(context: Context){
 		yield* this.match(context, [
 			[MATCH_WHITESPACE, State.TEXT, Token.WHITESPACE],
 			[MATCH_CDATA_BEGIN, State.CDATA, false],
@@ -174,4 +176,4 @@ class Lexer {
 	}
 }
 
-module.exports = Lexer;
+export default Lexer;

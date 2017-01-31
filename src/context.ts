@@ -1,18 +1,18 @@
 'use strict';
 
-interface Source {
+export interface Source {
 	data: string;
 	filename: string;
 }
 
-interface LocationData {
+export interface LocationData {
 	filename: string;
 	line: number;
 	column: number;
 }
 
-class Context {
-	state: string;
+export class Context {
+	state: number;
 	string: string;
 	filename: string;
 	line: number;
@@ -26,7 +26,7 @@ class Context {
 		this.column = 1;
 	}
 
-	consume(n: number|Array<string>, state?: string){
+	consume(n: number|Array<string>, state?: number){
 		/* if "n" is an regex match the first value is the full matched
 		 * string so consume that many characters. */
 		if ( typeof(n) !== 'number' ){
