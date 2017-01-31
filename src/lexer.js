@@ -1,6 +1,6 @@
 'use strict';
 
-const Context = require('./context');
+const Context = require('../build/src/context').default;
 const Token = require('./token');
 
 const State = {

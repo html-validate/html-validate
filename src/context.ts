@@ -1,7 +1,24 @@
 'use strict';
 
+interface Source {
+	data: string;
+	filename: string;
+}
+
+interface LocationData {
+	filename: string;
+	line: number;
+	column: number;
+}
+
 class Context {
-	constructor(source){
+	state: string;
+	string: string;
+	filename: string;
+	line: number;
+	column: number;
+
+	constructor(source: Source){
 		this.state = undefined;
 		this.string = source.data;
 		this.filename = source.filename;
@@ -9,7 +26,7 @@ class Context {
 		this.column = 1;
 	}
 
-	consume(n, state){
+	consume(n: number|Array<string>, state?: string){
 		/* if "n" is an regex match the first value is the full matched
 		 * string so consume that many characters. */
 		if ( typeof(n) !== 'number' ){
@@ -35,7 +52,7 @@ class Context {
 		}
 	}
 
-	getLocationData(){
+	getLocationData(): LocationData {
 		return {
 			filename: this.filename,
 			line: this.line,
@@ -43,9 +60,9 @@ class Context {
 		};
 	}
 
-	getLocationString(){
+	getLocationString(): string {
 		return `${this.filename}:${this.line}:${this.column}`;
 	}
 }
 
-module.exports = Context;
+export default Context;
