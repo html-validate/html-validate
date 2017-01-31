@@ -1,8 +1,9 @@
 'use strict';
 
+import EventHandler from '../src/eventhandler';
+
 describe('eventhandler', function(){
 
-	const EventHandler = require('../src/eventhandler');
 	const chai = require('chai');
 	const expect = chai.expect;
 

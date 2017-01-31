@@ -2,7 +2,7 @@
 
 const Lexer = require('../build/src/lexer').default;
 const Token = require('../build/src/token').default;
-const EventHandler = require('./eventhandler');
+const EventHandler = require('../build/src/eventhandler').default;
 const DOMTree = require('../build/src/domtree').default;
 const DOMNode = require('../build/src/domnode').default;
 
