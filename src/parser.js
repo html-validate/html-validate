@@ -3,7 +3,7 @@
 const Lexer = require('../build/src/lexer').default;
 const Token = require('../build/src/token').default;
 const EventHandler = require('./eventhandler');
-const DOM = require('./dom');
+const DOMTree = require('../build/src/domtree').default;
 const DOMNode = require('../build/src/domnode').default;
 
 class Parser {
@@ -11,7 +11,7 @@ class Parser {
 		this.config = config;
 		this.lexer = new Lexer();
 		this.event = new EventHandler();
-		this.dom = new DOM();
+		this.dom = new DOMTree();
 	}
 
 	on(event, listener){

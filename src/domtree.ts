@@ -1,24 +1,27 @@
 'use strict';
 
-const DOMNode = require('../build/src/domnode').default;
+import DOMNode from './domnode';
 
-class DOM {
+class DOMTree {
+	root: DOMNode;
+	active: DOMNode;
+
 	constructor(){
 		this.root = DOMNode.rootNode();
 		this.active = this.root;
 	}
 
-	pushActive(node){
+	pushActive(node): void {
 		this.active = node;
 	}
 
-	popActive(){
+	popActive(): void {
 		this.active = this.active.parent;
 	}
 
-	getActive(){
+	getActive(): DOMNode {
 		return this.active;
 	}
 }
 
-module.exports = DOM;
+export default DOMTree;
