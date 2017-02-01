@@ -1,5 +1,3 @@
-'use strict';
-
 enum Token {
 	WHITESPACE = 1,
 	NEWLINE,

@@ -1,5 +1,3 @@
-'use strict';
-
 import EventHandler from '../src/eventhandler';
 
 describe('eventhandler', function(){

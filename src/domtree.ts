@@ -1,5 +1,3 @@
-'use strict';
-
 import DOMNode from './domnode';
 
 class DOMTree {

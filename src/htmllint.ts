@@ -1,5 +1,3 @@
-'use strict';
-
 import Config from './config';
 import Parser from './parser';
 import Reporter from './reporter';

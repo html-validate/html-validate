@@ -1,5 +1,3 @@
-'use strict';
-
 import Config from './config';
 import Context from './context'; // eslint-disable-line no-unused-vars
 import DOMNode from './domnode'; // eslint-disable-line no-unused-vars

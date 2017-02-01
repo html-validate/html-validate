@@ -1,5 +1,3 @@
-'use strict';
-
 import Token from '../src/token';
 import Lexer from '../src/lexer';
 

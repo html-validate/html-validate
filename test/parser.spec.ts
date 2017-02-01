@@ -1,5 +1,3 @@
-'use strict';
-
 import Config from '../src/config';
 import Parser from '../src/parser';
 

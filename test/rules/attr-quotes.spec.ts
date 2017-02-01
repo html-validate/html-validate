@@ -1,5 +1,3 @@
-'use strict';
-
 import HtmlLint from '../../src/htmllint';
 
 describe('rule attr-quotes', function(){

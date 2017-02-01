@@ -1,5 +1,3 @@
-'use strict';
-
 class DOMNode {
 	children: Array<DOMNode>;
 	tagName: string;

@@ -1,5 +1,3 @@
-'use strict';
-
 import {Context, Source} from './context'; // eslint-disable-line no-unused-vars
 import Token from './token';
 
