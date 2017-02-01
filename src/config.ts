@@ -1,5 +1,3 @@
-'use strict';
-
 const voidElements = [
 	'area',
 	'base',
@@ -19,7 +17,7 @@ const voidElements = [
 	'wbr',
 ];
 
-function deepMerge(dst, src){
+function deepMerge(dst: Object, src: Object){
 	for ( let key of Object.keys(src) ){
 		if ( dst.hasOwnProperty(key) && typeof(dst[key]) === 'object' && typeof(src[key]) === 'object' ){
 			deepMerge(dst[key], src[key]);
@@ -30,28 +28,34 @@ function deepMerge(dst, src){
 	return dst;
 }
 
-parseSeverity.lut = [
+const parseSeverityLut = [
 	'disable',
 	'warn',
 	'error',
 ];
 
-function parseSeverity(value){
+function parseSeverity(value: string | number){
 	if ( typeof(value) === 'number' ){
 		return value;
 	} else {
-		return parseSeverity.lut.indexOf(value.toLowerCase());
+		return parseSeverityLut.indexOf(value.toLowerCase());
 	}
 }
 
 class Config {
-	constructor(options){
+	config: any;
+
+	public static readonly SEVERITY_DISABLED = 0;
+	public static readonly SEVERITY_WARN = 1;
+	public static readonly SEVERITY_ERROR = 2;
+
+	constructor(options?: any){
 		this.config = {};
 		this.loadDefaults();
 		this.merge(options || {});
 	}
 
-	loadDefaults(){
+	private loadDefaults(){
 		this.config = {
 			html: {
 				voidElements,
@@ -60,7 +64,7 @@ class Config {
 		};
 	}
 
-	merge(config){
+	private merge(config){
 		deepMerge(this.config, config);
 	}
 
@@ -77,15 +81,11 @@ class Config {
 			} else if ( options.length === 1 ){
 				options.push({});
 			}
-			options[0] = parseSeverity(options[0]),
+			options[0] = parseSeverity(options[0]);
 			rules[name] = options;
 		}
 		return rules;
 	}
 }
 
-Config.SEVERITY_DISABLED = 0;
-Config.SEVERITY_WARN = 1;
-Config.SEVERITY_ERROR = 2;
-
-module.exports = Config;
+export default Config;

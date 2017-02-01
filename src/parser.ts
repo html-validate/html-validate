@@ -1,24 +1,29 @@
-'use strict';
-
-const Lexer = require('./lexer');
-const Token = require('./token');
-const EventHandler = require('./eventhandler');
-const DOM = require('./dom');
-const Node = require('./node');
+import Config from './config'; // eslint-disable-line no-unused-vars
+import DOMNode from './domnode';
+import DOMTree from './domtree';
+import Lexer from './lexer';
+import Token from './token';
+import { EventHandler, EventCallback } from './eventhandler'; // eslint-disable-line no-unused-vars
+import { Source } from './context'; // eslint-disable-line no-unused-vars
 
 class Parser {
-	constructor(config){
+	config: Config;
+	event: EventHandler;
+	dom: DOMTree;
+	peeked: any;
+
+	constructor(config: Config){
 		this.config = config;
-		this.lexer = new Lexer();
 		this.event = new EventHandler();
-		this.dom = new DOM();
+		this.dom = new DOMTree();
+		this.peeked = undefined;
 	}
 
-	on(event, listener){
+	on(event: string, listener: EventCallback){
 		this.event.on(event, listener);
 	}
 
-	parseHtml(source){
+	parseHtml(source: string|Source){
 		if ( typeof(source) === 'string' ){
 			source = {data: source, filename: 'inline'};
 		}
@@ -59,7 +64,7 @@ class Parser {
 		const tokens = Array.from(this.consumeUntil(tokenStream, Token.TAG_CLOSE));
 		const endToken = tokens.slice(-1)[0];
 
-		const node = Node.fromTokens(startToken, endToken, this.dom.getActive(), this.config);
+		const node = DOMNode.fromTokens(startToken, endToken, this.dom.getActive(), this.config);
 		const open = !startToken.data[1];
 		const close = !open || node.selfClosed || node.voidElement;
 
@@ -92,7 +97,7 @@ class Parser {
 		}
 	}
 
-	consumeAttribute(node, token, next){
+	consumeAttribute(node: DOMNode, token, next){
 		const key = token.data[1];
 		let value = undefined;
 		let quote = undefined;
@@ -153,4 +158,4 @@ class Parser {
 	}
 }
 
-module.exports = Parser;
+export default Parser;

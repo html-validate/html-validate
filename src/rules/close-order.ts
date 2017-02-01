@@ -1,12 +1,16 @@
-module.exports = {
-	name: 'close-order',
+import { Rule, RuleParserProxy } from '../rule'; // eslint-disable-line no-unused-vars
+import { TagCloseEvent } from '../event'; // eslint-disable-line no-unused-vars
 
-	init: function(parser){
-		parser.on('tag:close', validate);
-	},
+export = <Rule> {
+	name: 'close-order',
+	init,
 };
 
-function validate(event, report){
+function init(parser: RuleParserProxy){
+	parser.on('tag:close', validate);
+}
+
+function validate(event: TagCloseEvent, report){
 	/* handle unclosed tags */
 	if ( typeof(event.target) === 'undefined' ){
 		report(event.previous, "Missing close-tag, expected '</" + event.previous.tagName + ">' but document ended before it was found.");

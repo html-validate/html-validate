@@ -1,11 +1,13 @@
-'use strict';
+import Config from './config';
+import Parser from './parser';
+import Reporter from './reporter';
+import { Source } from './context'; // eslint-disable-line no-unused-vars
 
 const fs = require('fs');
-const Config = require('./config');
-const Parser = require('./parser');
-const Reporter = require('./reporter');
 
 class HtmlLint {
+	config: Config;
+
 	constructor(options){
 		this.config = new Config(options || {});
 	}
@@ -16,7 +18,7 @@ class HtmlLint {
 	 * @param str {string} - Text to parse.
 	 * @return {object} - Report output.
 	 */
-	string(str){
+	string(str: string){
 		return this.parse({data: str, filename: 'inline'});
 	}
 
@@ -26,7 +28,7 @@ class HtmlLint {
 	 * @param filename {string} - Filename to read and parse.
 	 * @return {object} - Report output.
 	 */
-	file(filename){
+	file(filename: string){
 		let text = fs.readFileSync(filename, {encoding: 'utf8'});
 		return this.parse({data: text, filename});
 	}
@@ -39,7 +41,7 @@ class HtmlLint {
 	 * @param src.filename {string} - Filename of source for presentation in report.
 	 * @return {object} - Report output.
 	 */
-	parse(src){
+	private parse(src: Source){
 		const report = new Reporter();
 		const rules = this.config.getRules();
 		const parser = new Parser(this.config.get());
@@ -51,13 +53,10 @@ class HtmlLint {
 		const dom = parser.parseHtml(src); // eslint-disable-line no-unused-vars
 
 		/* generate results from report */
-		let result = {};
-		report.save(result);
-
-		return result;
+		return report.save();
 	}
 
-	loadRule(name, data, parser, report){
+	loadRule(name: string, data: any, parser: Parser, report: Reporter){
 		let severity = data[0];
 		let options = data[1];
 		if ( severity >= Config.SEVERITY_WARN ){
@@ -85,4 +84,4 @@ class HtmlLint {
 	}
 }
 
-module.exports = HtmlLint;
+export default HtmlLint;

@@ -1,12 +1,11 @@
-'use strict';
-
-const chai = require('chai');
-const expect = chai.expect;
-const EventHandler = require('../src/eventhandler');
-
-chai.use(require('chai-spies'));
+import EventHandler from '../src/eventhandler';
 
 describe('eventhandler', function(){
+
+	const chai = require('chai');
+	const expect = chai.expect;
+
+	chai.use(require('chai-spies'));
 
 	let eventhandler;
 
@@ -35,14 +34,6 @@ describe('eventhandler', function(){
 		eventhandler.trigger('foo', {bar: true});
 		expect(callback).to.have.been.called.once();
 		expect(callback).to.have.been.called.with.exactly('foo', {bar: true});
-	});
-
-	it('should pass all arguments to listener', function(){
-		let callback = chai.spy();
-		eventhandler.on('foo', callback);
-		eventhandler.trigger('foo', 1, 2, 3);
-		expect(callback).to.have.been.called.once();
-		expect(callback).to.have.been.called.with.exactly('foo', 1, 2, 3);
 	});
 
 });

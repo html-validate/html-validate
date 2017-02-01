@@ -1,10 +1,9 @@
-'use strict';
-
-const expect = require('chai').expect;
-const Parser = require('../src/parser');
-const Config = require('../src/config');
+import Config from '../src/config';
+import Parser from '../src/parser';
 
 describe('parser', function(){
+
+	const expect = require('chai').expect;
 
 	let events;
 	let parser;
