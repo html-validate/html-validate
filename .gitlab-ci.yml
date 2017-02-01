@@ -4,6 +4,7 @@ cache:
 
 stages:
   - prepare
+  - build
   - test
 
 Install dependencies:
@@ -14,6 +15,13 @@ Install dependencies:
     untracked: true
   script:
    - npm update
+
+build:
+  stage: build
+  tags:
+    - nodejs
+  script:
+    - node_modules/grunt-cli/bin/grunt build:ci
 
 eslint:
   stage: test

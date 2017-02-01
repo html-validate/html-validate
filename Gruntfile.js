@@ -5,6 +5,7 @@ module.exports = function(grunt){
 
 	grunt.registerTask('test', ['eslint', 'mochaTest']);
 	grunt.registerTask('build', ['ts', 'test']);
+	grunt.registerTask('build:ci', ['ts']); /* CI runs test in separate stage */
 	grunt.registerTask('default', ['build']);
 
 	grunt.initConfig({
