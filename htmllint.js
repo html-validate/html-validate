@@ -1,8 +1,6 @@
 #!/usr/bin/env nodejs
 'use strict';
 
-/* eslint-disable no-console */
-
 const HtmlLint = require('./build/src/htmllint').default;
 const formatter = require('eslint/lib/formatters/stylish');
 
@@ -26,10 +24,10 @@ args.forEach(function(filename){
 		valid = valid && report.valid;
 		results = results.concat(report.results);
 	} catch (e){
-		console.error(e.message);
+		process.stderr.write(e.message + "\n");
 		process.exit(1);
 	}
 });
 
-console.log(formatter(results));
+process.stdout.write(formatter(results));
 process.exit(valid ? 0 : 1);

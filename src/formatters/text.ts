@@ -22,8 +22,8 @@ function textFormatter(results: Result[]){
         messageType = "warning";
       }
 
-      return `${result.filePath}:${message.line}:${message.column}: ${messageType} [${message.ruleId}] ${message.message}`;
-    }).join('\n');
+      return `${result.filePath}:${message.line}:${message.column}: ${messageType} [${message.ruleId}] ${message.message}\n`;
+    }).join('');
 	});
 
 	return total > 0 ? output : "";
