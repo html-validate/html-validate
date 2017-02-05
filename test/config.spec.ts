@@ -86,4 +86,17 @@ describe('config', function(){
 
 	});
 
+	describe('fromFile()', function(){
+
+		it('should support JSON', function(){
+			let config = Config.fromFile(process.cwd() + '/test/config.json');
+			expect(config.getRules()).to.deep.equal({
+				foo: [Config.SEVERITY_ERROR, {}],
+				bar: [Config.SEVERITY_WARN, {}],
+				baz: [Config.SEVERITY_DISABLED, {}],
+			});
+		});
+
+	});
+
 });

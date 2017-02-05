@@ -49,12 +49,16 @@ class Config {
 	public static readonly SEVERITY_WARN = 1;
 	public static readonly SEVERITY_ERROR = 2;
 
-	static empty(){
+	static empty(): Config {
 		return new Config();
 	}
 
-	static fromObject(options: Object){
+	static fromObject(options: Object): Config {
 		return new Config(options);
+	}
+
+	static fromFile(filename: string): Config {
+		return new Config(require(filename));
 	}
 
 	private constructor(options?: any){
