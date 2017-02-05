@@ -5,22 +5,22 @@ describe('config', function(){
 	const expect = require('chai').expect;
 
 	it('should load defaults', function(){
-		let config = new Config();
+		let config = Config.empty();
 		expect(config.get()).to.not.be.undefined;
 	});
 
 	it('should contain void elements by default', function(){
-		let config = new Config();
+		let config = Config.empty();
 		expect(config.get().html.voidElements).not.to.have.lengthOf(0);
 	});
 
 	it('should contain no rules by default', function(){
-		let config = new Config();
+		let config = Config.empty();
 		expect(Object.keys(config.get().rules)).to.have.lengthOf(0);
 	});
 
 	it('constructor should deep-merge options', function(){
-		let config = new Config({
+		let config = Config.fromObject({
 			foo: 'bar',
 			html: {
 				spam: 'ham',
@@ -34,7 +34,7 @@ describe('config', function(){
 	describe('getRules()', function(){
 
 		it('should return parsed rules', function(){
-			let config = new Config({rules: {foo: 'error'}});
+			let config = Config.fromObject({rules: {foo: 'error'}});
 			expect(config.get().rules).to.deep.equal({foo: 'error'});
 			expect(config.getRules()).to.deep.equal({
 				foo: [Config.SEVERITY_ERROR, {}],
@@ -42,7 +42,7 @@ describe('config', function(){
 		});
 
 		it('getRules() should parse severity from string', function(){
-			let config = new Config({
+			let config = Config.fromObject({
 				rules: {
 					foo: 'error',
 					bar: 'warn',
@@ -57,7 +57,7 @@ describe('config', function(){
 		});
 
 		it('getRules() should retain severity from integer', function(){
-			let config = new Config({
+			let config = Config.fromObject({
 				rules: {
 					foo: 2,
 					bar: 1,
@@ -72,7 +72,7 @@ describe('config', function(){
 		});
 
 		it('getRules() should retain options', function(){
-			let config = new Config({
+			let config = Config.fromObject({
 				rules: {
 					foo: [2, {foo: true}],
 					bar: ["error", {bar: false}],

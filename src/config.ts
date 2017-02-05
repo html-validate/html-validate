@@ -49,7 +49,15 @@ class Config {
 	public static readonly SEVERITY_WARN = 1;
 	public static readonly SEVERITY_ERROR = 2;
 
-	constructor(options?: any){
+	static empty(){
+		return new Config();
+	}
+
+	static fromObject(options: Object){
+		return new Config(options);
+	}
+
+	private constructor(options?: any){
 		this.config = {};
 		this.loadDefaults();
 		this.merge(options || {});

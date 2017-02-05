@@ -9,7 +9,7 @@ class HtmlLint {
 	config: Config;
 
 	constructor(options){
-		this.config = new Config(options || {});
+		this.config = Config.fromObject(options || {});
 	}
 
 	/**
