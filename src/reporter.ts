@@ -3,19 +3,21 @@ import Context from './context'; // eslint-disable-line no-unused-vars
 import DOMNode from './domnode'; // eslint-disable-line no-unused-vars
 
 export interface Message {
-	rule: string;
+	ruleId: string;
 	severity: number;
 	message: string;
 	line: number;
 	column: number;
 }
 
+export interface Result {
+	messages: Message[];
+	filePath: string;
+}
+
 export interface Report {
 	valid: boolean;
-	results: Array<{
-		filePath: string;
-		messages: Array<Message>;
-	}>;
+	results: Array<Result>;
 }
 
 export class Reporter {
@@ -30,7 +32,7 @@ export class Reporter {
 			this.result[context.filename] = [];
 		}
 		this.result[context.filename].push({
-			rule: rule.name,
+			ruleId: rule.name,
 			severity: Config.SEVERITY_ERROR,
 			message,
 			line: context.line,
