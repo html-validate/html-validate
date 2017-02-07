@@ -5,6 +5,8 @@ class DOMNode {
 	tagName: string;
 	parent: DOMNode
 	attr: { [key: string]: string; };
+	open: boolean;
+	closed: boolean;
 	selfClosed: boolean;
 	voidElement: boolean;
 	location: LocationData;
@@ -14,6 +16,8 @@ class DOMNode {
 		this.tagName = tagName;
 		this.parent = parent;
 		this.attr = {};
+		this.open = true;
+		this.closed = false;
 		this.selfClosed = false;
 		this.voidElement = false;
 		this.location = location;
@@ -28,9 +32,19 @@ class DOMNode {
 	}
 
 	static fromTokens(startToken, endToken, parent, config){
-		let node = new DOMNode(startToken.data[2], parent, startToken.location);
+		let node = new DOMNode(startToken.data[2], undefined, startToken.location);
 		node.selfClosed = endToken.data[0] === '/>';
 		node.voidElement = DOMNode.isVoidElement(config, node.tagName);
+		node.open = startToken.data[1] !== '/';
+		node.closed = node.selfClosed || node.voidElement;
+
+		/* deferring setting the parent until open/closed is resolved so
+		 * close tags isn't added to the parent. */
+		if ( node.open && parent ){
+			node.parent = parent;
+			parent.children.push(node);
+		}
+
 		return node;
 	}
 
