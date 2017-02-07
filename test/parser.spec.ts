@@ -92,6 +92,10 @@ describe('parser', function(){
 			parser.parseHtml('</p>');
 		});
 
+		it('with only text', function(){
+			parser.parseHtml('Lorem ipsum');
+		});
+
 		it('with newlines', function(){
 			parser.parseHtml('<div\nfoo="bar"></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'div'});

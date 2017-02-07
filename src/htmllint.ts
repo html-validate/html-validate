@@ -77,7 +77,7 @@ class HtmlLint {
 			on: function(event, callback){
 				parser.on(event, function(event, data){
 					callback.call(rule, data, function(node, message){
-						report.add(node, rule, message, data.location);
+						report.add(node, rule, message, data.location || node.location);
 					});
 				});
 			},

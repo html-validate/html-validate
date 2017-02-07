@@ -1,3 +1,5 @@
+import LocationData from './context';
+
 class DOMNode {
 	children: Array<DOMNode>;
 	tagName: string;
@@ -5,14 +7,16 @@ class DOMNode {
 	attr: { [key: string]: string; };
 	selfClosed: boolean;
 	voidElement: boolean;
+	location: LocationData;
 
-	constructor(tagName: string, parent?: DOMNode){
+	constructor(tagName: string, parent?: DOMNode, location?: LocationData){
 		this.children = [];
 		this.tagName = tagName;
 		this.parent = parent;
 		this.attr = {};
 		this.selfClosed = false;
 		this.voidElement = false;
+		this.location = location;
 
 		if ( parent ){
 			parent.children.push(this);
@@ -24,7 +28,7 @@ class DOMNode {
 	}
 
 	static fromTokens(startToken, endToken, parent, config){
-		let node = new DOMNode(startToken.data[2], parent);
+		let node = new DOMNode(startToken.data[2], parent, startToken.location);
 		node.selfClosed = endToken.data[0] === '/>';
 		node.voidElement = DOMNode.isVoidElement(config, node.tagName);
 		return node;
