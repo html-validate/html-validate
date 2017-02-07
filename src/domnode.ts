@@ -1,4 +1,4 @@
-import LocationData from './context';
+import LocationData from './context'; // eslint-disable-line no-unused-vars
 
 class DOMNode {
 	children: Array<DOMNode>;
