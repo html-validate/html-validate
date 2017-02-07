@@ -7,7 +7,7 @@
     "htmllint": "htmllint.js"
   },
   "scripts": {
-    "test": "grunt mochaTest"
+    "test": "grunt eslint mochaTest"
   },
   "author": "David Sveningsson <ext@sidvind.com>",
   "license": "MIT",
