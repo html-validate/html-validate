@@ -50,7 +50,8 @@ class HtmlLint {
 			this.loadRule(name, data, parser, report);
 		}
 
-		const dom = parser.parseHtml(src); // eslint-disable-line no-unused-vars
+		/* parse token stream */
+		parser.parseHtml(src);
 
 		/* generate results from report */
 		return report.save();

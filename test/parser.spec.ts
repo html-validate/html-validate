@@ -1,9 +1,11 @@
 import Config from '../src/config';
 import Parser from '../src/parser';
+import DOMTree from '../src/domtree';
 
 describe('parser', function(){
 
-	const expect = require('chai').expect;
+	const chai = require('chai');
+	const expect = chai.expect;
 
 	let events;
 	let parser;
@@ -215,6 +217,31 @@ describe('parser', function(){
 			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo:bar', value: 'baz'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'div'});
 			expect(events.shift()).to.be.undefined;
+		});
+
+	});
+
+	describe('dom:ready', function(){
+
+		let callback;
+		let document;
+
+		beforeEach(function(){
+			callback = chai.spy(function(event, data){
+				document = data.document;
+			});
+			parser.on('dom:ready', callback);
+		});
+
+		it('should trigger when parsing is complete', function(){
+			parser.parseHtml('<div></div>');
+			expect(callback).to.have.been.called.once();
+		});
+
+		it('should contain DOMTree as argument', function(){
+			parser.parseHtml('<div></div>');
+			expect(document).to.be.instanceof(DOMTree);
+			expect(document.root.children).to.have.lengthOf(1);
 		});
 
 	});

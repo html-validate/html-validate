@@ -13,6 +13,10 @@ class DOMNode {
 		this.attr = {};
 		this.selfClosed = false;
 		this.voidElement = false;
+
+		if ( parent ){
+			parent.children.push(this);
+		}
 	}
 
 	static rootNode() {
