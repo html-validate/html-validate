@@ -18,16 +18,11 @@ let results = [];
 let valid = true;
 
 args.forEach(function(filename){
-	try {
-		let report = htmllint.file(filename);
+	let report = htmllint.file(filename);
 
-		/* aggregate results */
-		valid = valid && report.valid;
-		results = results.concat(report.results);
-	} catch (e){
-		process.stderr.write(e.message + "\n");
-		process.exit(1);
-	}
+	/* aggregate results */
+	valid = valid && report.valid;
+	results = results.concat(report.results);
 });
 
 process.stdout.write(formatter(results));
