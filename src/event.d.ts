@@ -1,4 +1,5 @@
 import DOMNode from './domnode';
+import DOMTree from './domtree';
 
 export interface TagOpenEvent {
 	event: string;
@@ -17,4 +18,9 @@ export interface AttributeEvent {
 	value: any;
 	quote: '"' | "'" | undefined;
 	target: DOMNode;
+}
+
+export interface DOMReadyEvent {
+	event: string;
+	document: DOMTree;
 }
