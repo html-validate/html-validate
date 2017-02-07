@@ -20,6 +20,10 @@ class DOMTree {
 	getActive(): DOMNode {
 		return this.active;
 	}
+
+	getElementsByTagName(tagName: string) {
+		return this.root.getElementsByTagName(tagName);
+	}
 }
 
 export default DOMTree;

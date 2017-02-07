@@ -6,7 +6,7 @@ class DOMNode {
 	selfClosed: boolean;
 	voidElement: boolean;
 
-	constructor(tagName, parent){
+	constructor(tagName: string, parent?: DOMNode){
 		this.children = [];
 		this.tagName = tagName;
 		this.parent = parent;
@@ -44,6 +44,12 @@ class DOMNode {
 
 	append(node){
 		this.children.push(node);
+	}
+
+	getElementsByTagName(tagName: string) {
+		return this.children.reduce(function(matches, node){
+			return matches.concat(node.tagName === tagName ? [node] : [], node.getElementsByTagName(tagName));
+		}, []);
 	}
 }
 
