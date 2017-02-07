@@ -33,15 +33,27 @@ describe('rule button-type', function(){
 	it('should report error when type attribute is missing', function(){
 		let report = htmllint.string('<button></button>');
 		expect(report.valid, "linting should report failure").to.be.false;
-		expect(report.results[0].messages, "report should contain 3 errors").to.have.lengthOf(1);
+		expect(report.results[0].messages, "report should contain 1 error").to.have.lengthOf(1);
 		expect(report.results[0].messages[0].ruleId, "reported error should be button-type").to.equal('button-type');
 	});
 
 	it('should report error when type attribute is invalid', function(){
 		let report = htmllint.string('<button></button>');
 		expect(report.valid, "linting should report failure").to.be.false;
-		expect(report.results[0].messages, "report should contain 3 errors").to.have.lengthOf(1);
+		expect(report.results[0].messages, "report should contain 1 error").to.have.lengthOf(1);
 		expect(report.results[0].messages[0].ruleId, "reported error should be button-type").to.equal('button-type');
+	});
+
+	it('smoketest', function(){
+		let report = htmllint.file('./test/files/button-type.html');
+		expect(report.valid, "linting should report failure").to.be.false;
+		expect(report.results[0].messages, "report should contain 2 errors").to.have.lengthOf(2);
+		expect(report.results[0].messages[0].ruleId, "reported error should be button-type").to.equal('button-type');
+		expect(report.results[0].messages[1].ruleId, "reported error should be button-type").to.equal('button-type');
+		expect(report.results[0].messages[0].line, "first error should be on line 2").to.equal(2);
+		expect(report.results[0].messages[0].column, "first error should be on column 2").to.equal(2);
+		expect(report.results[0].messages[1].line, "second error should be on line 3").to.equal(3);
+		expect(report.results[0].messages[1].column, "second error should be on column 2").to.equal(2);
 	});
 
 });
