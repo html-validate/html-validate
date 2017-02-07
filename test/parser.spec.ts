@@ -92,6 +92,12 @@ describe('parser', function(){
 			parser.parseHtml('</p>');
 		});
 
+		it('multiple unopened', function(){
+			/* mostly for regression testing: root element should never be
+			 * popped from node stack. */
+			parser.parseHtml('</p></p></p></p></p></p>');
+		});
+
 		it('with only text', function(){
 			parser.parseHtml('Lorem ipsum');
 		});

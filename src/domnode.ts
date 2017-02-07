@@ -52,6 +52,10 @@ class DOMNode {
 		return config.html.voidElements.indexOf(tagName.toLowerCase()) !== -1;
 	}
 
+	isRootElement(): boolean {
+		return typeof(this.tagName) === 'undefined';
+	}
+
 	setAttribute(key, value){
 		this.attr[key] = value;
 	}
