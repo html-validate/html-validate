@@ -50,7 +50,8 @@ class HtmlLint {
 			this.loadRule(name, data, parser, report);
 		}
 
-		const dom = parser.parseHtml(src); // eslint-disable-line no-unused-vars
+		/* parse token stream */
+		parser.parseHtml(src);
 
 		/* generate results from report */
 		return report.save();
@@ -76,7 +77,7 @@ class HtmlLint {
 			on: function(event, callback){
 				parser.on(event, function(event, data){
 					callback.call(rule, data, function(node, message){
-						report.add(node, rule, message, data.location);
+						report.add(node, rule, message, data.location || node.location);
 					});
 				});
 			},

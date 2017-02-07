@@ -57,6 +57,12 @@ class Parser {
 			this.dom.popActive();
 		}
 
+		/* trigger any rules waiting for DOM ready */
+		this.trigger('dom:ready', {
+			document: this.dom,
+			location: false,
+		});
+
 		return this.dom;
 	}
 
