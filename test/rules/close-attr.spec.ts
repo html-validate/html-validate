@@ -35,9 +35,9 @@ describe('rule close-attr', function(){
 		let report = htmllint.string(html);
 		expect(report.valid, "linting should report failure").to.be.false;
 		expect(report.results[0].messages, "report should contain 3 errors").to.have.lengthOf(3);
-		expect(report.results[0].messages[0].rule, "reported error should be close-attr").to.equal('close-attr');
-		expect(report.results[0].messages[1].rule, "reported error should be close-attr").to.equal('close-attr');
-		expect(report.results[0].messages[2].rule, "reported error should be close-attr").to.equal('close-attr');
+		expect(report.results[0].messages[0].ruleId, "reported error should be close-attr").to.equal('close-attr');
+		expect(report.results[0].messages[1].ruleId, "reported error should be close-attr").to.equal('close-attr');
+		expect(report.results[0].messages[2].ruleId, "reported error should be close-attr").to.equal('close-attr');
 	});
 
 });

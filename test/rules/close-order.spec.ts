@@ -46,21 +46,21 @@ describe('rule close-order', function(){
 		let report = htmllint.string('<div></p>');
 		expect(report.valid, "linting should report failure").to.be.false;
 		expect(report.results[0].messages, "report should contain 1 error").to.have.lengthOf(1);
-		expect(report.results[0].messages[0].rule, "reported error should be close-order").to.equal('close-order');
+		expect(report.results[0].messages[0].ruleId, "reported error should be close-order").to.equal('close-order');
 	});
 
 	it('should report error when element is missing close tag', function(){
 		let report = htmllint.string('<div>');
 		expect(report.valid, "linting should report failure").to.be.false;
 		expect(report.results[0].messages, "report should contain 1 error").to.have.lengthOf(1);
-		expect(report.results[0].messages[0].rule, "reported error should be close-order").to.equal('close-order');
+		expect(report.results[0].messages[0].ruleId, "reported error should be close-order").to.equal('close-order');
 	});
 
 	it('should report error when element is missing opening tag', function(){
 		let report = htmllint.string('</div>');
 		expect(report.valid, "linting should report failure").to.be.false;
 		expect(report.results[0].messages, "report should contain 1 error").to.have.lengthOf(1);
-		expect(report.results[0].messages[0].rule, "reported error should be close-order").to.equal('close-order');
+		expect(report.results[0].messages[0].ruleId, "reported error should be close-order").to.equal('close-order');
 	});
 
 });
