@@ -61,7 +61,7 @@ class Config {
 		return new Config(require(filename));
 	}
 
-	private constructor(options?: any){
+	constructor(options?: any){
 		this.config = {};
 		this.loadDefaults();
 		this.merge(options || {});
