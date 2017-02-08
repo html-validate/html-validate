@@ -32,7 +32,11 @@ class DOMNode {
 	}
 
 	static fromTokens(startToken, endToken, parent, config){
-		let node = new DOMNode(startToken.data[2], undefined, startToken.location);
+		const tagName = startToken.data[2];
+		if ( !tagName ){
+			throw new Error("tagName cannot be empty");
+		}
+		let node = new DOMNode(tagName, undefined, startToken.location);
 		node.selfClosed = endToken.data[0] === '/>';
 		node.voidElement = DOMNode.isVoidElement(config, node.tagName);
 		node.open = startToken.data[1] !== '/';

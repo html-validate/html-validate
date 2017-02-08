@@ -277,6 +277,11 @@ describe('parser', function(){
 			expect(report.valid, "linting should report success").to.be.true;
 		});
 
+		it('cdata', function(){
+			let report = htmllint.file('./test/files/cdata.html');
+			expect(report.valid, "linting should report success").to.be.true;
+		});
+
 	});
 
 

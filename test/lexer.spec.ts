@@ -103,6 +103,16 @@ describe('lexer', function(){
 			expect(token.next().done).to.be.true;
 		});
 
+		it('attribute with tag inside', function(){
+			let token = lexer.tokenize({data: '<foo bar="<div>">', filename: 'inline'});
+			expect(token.next().value).to.containSubset({type: Token.TAG_OPEN});
+			expect(token.next().value).to.containSubset({type: Token.WHITESPACE});
+			expect(token.next().value).to.containSubset({type: Token.ATTR_NAME});
+			expect(token.next().value).to.containSubset({type: Token.ATTR_VALUE});
+			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().done).to.be.true;
+		});
+
 		it('text', function(){
 			let token = lexer.tokenize({data: 'foo', filename: 'inline'});
 			expect(token.next().value).to.containSubset({type: Token.TEXT});
@@ -139,6 +149,16 @@ describe('lexer', function(){
 
 		it('CDATA', function(){
 			let token = lexer.tokenize({data: '<![CDATA[ <p>lorem</div> ipsum ]]>', filename: 'inline'});
+			expect(token.next().done).to.be.true;
+		});
+
+		it('script tag', function(){
+			let token = lexer.tokenize({data: '<script>document.write("<p>lorem</p>");</script>', filename: 'inline'});
+			expect(token.next().value).to.containSubset({type: Token.TAG_OPEN});
+			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: Token.SCRIPT});
+			expect(token.next().value).to.containSubset({type: Token.TAG_OPEN});
+			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
 			expect(token.next().done).to.be.true;
 		});
 
