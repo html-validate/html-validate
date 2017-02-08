@@ -28,7 +28,7 @@ const MATCH_ATTR_UNQUOTED = /^=([a-z]+)/;
 const MATCH_CDATA_BEGIN = /^<!\[CDATA\[/;
 const MATCH_CDATA_END = /^[^]*?]]>/;
 const MATCH_SCRIPT_DATA = /^[^]*(?=<\/script)/;
-const MATCH_SCRIPT_END = /^<\/script/;
+const MATCH_SCRIPT_END = /^<(\/)(script)/;
 
 class Lexer {
 	*tokenize(source: Source){
