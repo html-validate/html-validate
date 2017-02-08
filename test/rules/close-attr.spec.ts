@@ -40,4 +40,13 @@ describe('rule close-attr', function(){
 		expect(report.results[0].messages[2].ruleId, "reported error should be close-attr").to.equal('close-attr');
 	});
 
+	it('smoketest', function(){
+		let report = htmllint.file('./test/files/close-attr.html');
+		expect(report.valid, "linting should report failure").to.be.false;
+		expect(report.results[0].messages, "report should contain 1 errors").to.have.lengthOf(1);
+		expect(report.results[0].messages[0].ruleId, "reported error should be close-attr").to.equal('close-attr');
+		expect(report.results[0].messages[0].line, "first error should be on line 3").to.equal(3);
+		expect(report.results[0].messages[0].column, "first error should be on column 15").to.equal(15);
+	});
+
 });
