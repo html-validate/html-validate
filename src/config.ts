@@ -19,6 +19,15 @@ const voidElements = [
 	'wbr',
 ];
 
+const recommended = {
+	rules: {
+		'attr-quotes': 'error',
+		'button-type': 'error',
+		'close-attr': 'error',
+		'close-order': 'error',
+	},
+};
+
 function deepMerge(dst: Object, src: Object){
 	for ( let key of Object.keys(src) ){
 		if ( dst.hasOwnProperty(key) && typeof(dst[key]) === 'object' && typeof(src[key]) === 'object' ){
@@ -60,6 +69,10 @@ class Config {
 	}
 
 	static fromFile(filename: string): Config {
+		if ( filename === 'htmllint:recommended' ){
+			return Config.fromObject(recommended);
+		}
+
 		const json = require(filename);
 
 		/* expand any relative paths */

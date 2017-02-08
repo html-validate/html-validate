@@ -126,6 +126,13 @@ describe('config', function(){
 			});
 		});
 
+		it('should support htmllint:recommended', function(){
+			let config = Config.fromObject({
+				extends: ['htmllint:recommended'],
+			});
+			expect(config.getRules()).to.be.an('object');
+		});
+
 	});
 
 	describe('expandRelative()', function(){

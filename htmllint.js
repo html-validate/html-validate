@@ -5,12 +5,7 @@ const HtmlLint = require('./build/src/htmllint').default;
 const formatter = require('eslint/lib/formatters/stylish');
 
 const htmllint = new HtmlLint({
-	rules: {
-		'attr-quotes': 'error',
-		'button-type': 'error',
-		'close-attr': 'error',
-		'close-order': 'error',
-	},
+	extends: ['htmllint:recommended'],
 });
 
 let args = process.argv.slice(2);
