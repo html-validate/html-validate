@@ -9,12 +9,19 @@ export interface LocationData {
 	column: number;
 }
 
+export enum ContentModel {
+	TEXT = 1,
+	SCRIPT,
+}
+
 export class Context {
 	state: number;
 	string: string;
 	filename: string;
 	line: number;
 	column: number;
+	contentModel: ContentModel;
+	scriptEnd: string;
 
 	constructor(source: Source){
 		this.state = undefined;
@@ -22,6 +29,8 @@ export class Context {
 		this.filename = source.filename;
 		this.line = 1;
 		this.column = 1;
+		this.contentModel = ContentModel.TEXT;
+		this.scriptEnd = undefined;
 	}
 
 	consume(n: number|Array<string>, state?: number){

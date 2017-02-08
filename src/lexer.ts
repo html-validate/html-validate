@@ -1,4 +1,4 @@
-import {Context, Source} from './context'; // eslint-disable-line no-unused-vars
+import {Context, Source, ContentModel} from './context'; // eslint-disable-line no-unused-vars
 import Token from './token';
 
 enum State {
@@ -8,6 +8,7 @@ enum State {
 	TAG,
 	ATTR,
 	CDATA,
+	SCRIPT,
 }
 
 type LexerTest = [RegExp | false, State, Token | false]; // eslint-disable-line no-unused-vars
@@ -26,6 +27,8 @@ const MATCH_ATTR_DOUBLE = /^="([^"]*?)(")/;
 const MATCH_ATTR_UNQUOTED = /^=([a-z]+)/;
 const MATCH_CDATA_BEGIN = /^<!\[CDATA\[/;
 const MATCH_CDATA_END = /^[^]*?]]>/;
+const MATCH_SCRIPT_DATA = /^[^]*(?=<\/script)/;
+const MATCH_SCRIPT_END = /^<\/script/;
 
 class Lexer {
 	*tokenize(source: Source){
@@ -62,6 +65,10 @@ class Lexer {
 				yield* this.tokenizeCDATA(context);
 				break;
 
+			case State.SCRIPT:
+				yield* this.tokenizeScript(context);
+				break;
+
 			default:
 				this.unhandled(context);
 			}
@@ -88,7 +95,7 @@ class Lexer {
 
 	unhandled(context: Context){
 		const truncated = JSON.stringify(context.string.length > 13 ? (context.string.slice(0, 10) + '...') : context.string);
-		const message = `${context.getLocationString()}: failed to tokenize ${truncated}, unhandled state ${context.state}.`;
+		const message = `${context.getLocationString()}: failed to tokenize ${truncated}, unhandled state ${State[context.state]}.`;
 		throw Error(message);
 	}
 
@@ -109,6 +116,7 @@ class Lexer {
 			if ( regex === false ){
 				if ( token !== false ) yield this.token(context, token);
 				context.consume(0, nextState);
+				this.enter(context, nextState, token, match);
 				return;
 			}
 
@@ -116,6 +124,7 @@ class Lexer {
 			if ( (match=context.string.match(regex)) ){
 				if ( token !== false ) yield this.token(context, token, match);
 				context.consume(match, nextState);
+				this.enter(context, nextState, token, match);
 				return;
 			}
 		}
@@ -123,6 +132,22 @@ class Lexer {
 		const truncated = JSON.stringify(context.string.length > 13 ? (context.string.slice(0, 10) + '...') : context.string);
 		const message = `${context.getLocationString()}: failed to tokenize ${truncated}, ${error}.`;
 		throw Error(message);
+	}
+
+	/**
+	 * Called when entering a new state.
+	 */
+	enter(context: Context, state: State, token, data){
+		switch ( state ) {
+		case State.TAG:
+			/* request script tag tokenization */
+			if ( data && data[0] === '<script' ){
+				context.contentModel = ContentModel.SCRIPT;
+			} else {
+				context.contentModel = ContentModel.TEXT;
+			}
+			break;
+		}
 	}
 
 	*tokenizeInitial(context: Context){
@@ -142,8 +167,9 @@ class Lexer {
 	}
 
 	*tokenizeTag(context: Context){
+		const nextState = context.contentModel !== ContentModel.SCRIPT ? State.TEXT : State.SCRIPT;
 		yield* this.match(context, [
-			[MATCH_TAG_CLOSE, State.TEXT, Token.TAG_CLOSE],
+			[MATCH_TAG_CLOSE, nextState, Token.TAG_CLOSE],
 			[MATCH_ATTR_START, State.ATTR, Token.ATTR_NAME],
 			[MATCH_WHITESPACE, State.TAG, Token.WHITESPACE],
 		], 'expected attribute, ">" or "/>"');
@@ -171,6 +197,13 @@ class Lexer {
 		yield* this.match(context, [
 			[MATCH_CDATA_END, State.TEXT, false],
 		], 'expected ]]>');
+	}
+
+	*tokenizeScript(context){
+		yield* this.match(context, [
+			[MATCH_SCRIPT_END, State.TAG, Token.TAG_OPEN],
+			[MATCH_SCRIPT_DATA, State.SCRIPT, Token.SCRIPT],
+		], 'expected </script>');
 	}
 }
 

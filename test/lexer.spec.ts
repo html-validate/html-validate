@@ -142,6 +142,16 @@ describe('lexer', function(){
 			expect(token.next().done).to.be.true;
 		});
 
+		it('script tag', function(){
+			let token = lexer.tokenize({data: '<script>document.write("<p>lorem</p>");</script>', filename: 'inline'});
+			expect(token.next().value).to.containSubset({type: Token.TAG_OPEN});
+			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: Token.SCRIPT});
+			expect(token.next().value).to.containSubset({type: Token.TAG_OPEN});
+			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().done).to.be.true;
+		});
+
 	});
 
 });
