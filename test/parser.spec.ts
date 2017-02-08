@@ -1,6 +1,7 @@
 import Config from '../src/config';
 import Parser from '../src/parser';
 import DOMTree from '../src/domtree';
+import HtmlLint from '../src/htmllint';
 
 describe('parser', function(){
 
@@ -255,5 +256,28 @@ describe('parser', function(){
 		});
 
 	});
+
+	describe('regressiontesting', function(){
+
+		let htmllint;
+
+		beforeEach(function(){
+			htmllint = new HtmlLint({
+				extends: ['htmllint:recommended'],
+			});
+		});
+
+		it('multiline', function(){
+			let report = htmllint.file('./test/files/multiline.html');
+			expect(report.valid, "linting should report success").to.be.true;
+		});
+
+		it('xi:include', function(){
+			let report = htmllint.file('./test/files/xi-include.html');
+			expect(report.valid, "linting should report success").to.be.true;
+		});
+
+	});
+
 
 });
