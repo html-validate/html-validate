@@ -1,0 +1,7 @@
+{
+	"rules": {
+		"foo": "error",
+		"bar": "warn",
+		"baz": "disable"
+	}
+}

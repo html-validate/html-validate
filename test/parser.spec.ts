@@ -12,7 +12,7 @@ describe('parser', function(){
 
 	beforeEach(function(){
 		events = [];
-		parser = new Parser(new Config().get());
+		parser = new Parser(Config.empty().get());
 		parser.on('*', function(event, data){
 			if ( ['tag:open', 'tag:close'].indexOf(event) >= 0 ){
 				events.push({

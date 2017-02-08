@@ -1,3 +1,5 @@
+const path = require('path');
+
 const voidElements = [
 	'area',
 	'base',
@@ -16,6 +18,15 @@ const voidElements = [
 	'track',
 	'wbr',
 ];
+
+const recommended = {
+	rules: {
+		'attr-quotes': 'error',
+		'button-type': 'error',
+		'close-attr': 'error',
+		'close-order': 'error',
+	},
+};
 
 function deepMerge(dst: Object, src: Object){
 	for ( let key of Object.keys(src) ){
@@ -49,10 +60,40 @@ class Config {
 	public static readonly SEVERITY_WARN = 1;
 	public static readonly SEVERITY_ERROR = 2;
 
+	static empty(): Config {
+		return new Config();
+	}
+
+	static fromObject(options: Object): Config {
+		return new Config(options);
+	}
+
+	static fromFile(filename: string): Config {
+		if ( filename === 'htmllint:recommended' ){
+			return Config.fromObject(recommended);
+		}
+
+		const json = require(filename);
+
+		/* expand any relative paths */
+		json.extends = (json.extends||[]).map(function(ref){
+			return Config.expandRelative(ref, path.dirname(filename));
+		});
+
+		return new Config(json);
+	}
+
 	constructor(options?: any){
 		this.config = {};
 		this.loadDefaults();
 		this.merge(options || {});
+
+		/* process and extended configs */
+		const self = this;
+		this.config.extends.forEach(function(ref){
+			const base = Config.fromFile(ref);
+			self.config = base.merge(self.config);
+		});
 	}
 
 	private loadDefaults(){
@@ -60,12 +101,21 @@ class Config {
 			html: {
 				voidElements,
 			},
+			extends: [],
 			rules: {},
 		};
 	}
 
+	static expandRelative(src: string, currentPath: string): string {
+		if ( src[0] === '.' ){
+			return path.normalize(`${currentPath}/${src}`);
+		}
+		return src;
+	}
+
 	private merge(config){
 		deepMerge(this.config, config);
+		return this.config;
 	}
 
 	get(){
