@@ -103,6 +103,16 @@ describe('lexer', function(){
 			expect(token.next().done).to.be.true;
 		});
 
+		it('attribute with tag inside', function(){
+			let token = lexer.tokenize({data: '<foo bar="<div>">', filename: 'inline'});
+			expect(token.next().value).to.containSubset({type: Token.TAG_OPEN});
+			expect(token.next().value).to.containSubset({type: Token.WHITESPACE});
+			expect(token.next().value).to.containSubset({type: Token.ATTR_NAME});
+			expect(token.next().value).to.containSubset({type: Token.ATTR_VALUE});
+			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().done).to.be.true;
+		});
+
 		it('text', function(){
 			let token = lexer.tokenize({data: 'foo', filename: 'inline'});
 			expect(token.next().value).to.containSubset({type: Token.TEXT});
