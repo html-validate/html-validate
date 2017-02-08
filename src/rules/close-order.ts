@@ -30,6 +30,6 @@ function validate(event: TagCloseEvent, report){
 
 	/* check for matching tagnames */
 	if ( event.target.tagName !== event.previous.tagName ){
-		report(event.target, "Mismatched close-tag, expected '</" + event.previous.tagName + ">' but found '</" + event.target.tagName + ">'.");
+		report(event.target, "Mismatched close-tag, expected '</" + event.previous.tagName + ">' but found '</" + event.target.tagName + ">'.", event.target.location);
 	}
 }
