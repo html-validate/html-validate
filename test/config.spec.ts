@@ -99,4 +99,22 @@ describe('config', function(){
 
 	});
 
+	describe('extend', function(){
+
+		it('should extend base configuration', function(){
+			let config = Config.fromObject({
+				extends: [process.cwd() + '/test/config.json'],
+				rules: {
+					foo: 1,
+				},
+			});
+			expect(config.getRules()).to.deep.equal({
+				foo: [Config.SEVERITY_WARN, {}],
+				bar: [Config.SEVERITY_WARN, {}],
+				baz: [Config.SEVERITY_DISABLED, {}],
+			});
+		});
+
+	});
+
 });

@@ -65,6 +65,13 @@ class Config {
 		this.config = {};
 		this.loadDefaults();
 		this.merge(options || {});
+
+		/* process and extended configs */
+		const self = this;
+		this.config.extends.forEach(function(ref){
+			const base = Config.fromFile(ref);
+			self.config = base.merge(self.config);
+		});
 	}
 
 	private loadDefaults(){
@@ -72,12 +79,14 @@ class Config {
 			html: {
 				voidElements,
 			},
+			extends: [],
 			rules: {},
 		};
 	}
 
 	private merge(config){
 		deepMerge(this.config, config);
+		return this.config;
 	}
 
 	get(){
