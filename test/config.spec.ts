@@ -115,6 +115,37 @@ describe('config', function(){
 			});
 		});
 
+		it('should support deep extending', function(){
+			let config = Config.fromObject({
+				extends: [process.cwd() + '/test/config-extending.json'],
+			});
+			expect(config.getRules()).to.deep.equal({
+				foo: [Config.SEVERITY_ERROR, {}],
+				bar: [Config.SEVERITY_WARN, {}],
+				baz: [Config.SEVERITY_ERROR, {}],
+			});
+		});
+
+	});
+
+	describe('expandRelative()', function(){
+
+		it('should expand ./foo', function(){
+			expect(Config.expandRelative('./foo', '/path')).to.equal('/path/foo');
+		});
+
+		it('should expand ../foo', function(){
+			expect(Config.expandRelative('../foo', '/path/bar')).to.equal('/path/foo');
+		});
+
+		it('should not expand /foo', function(){
+			expect(Config.expandRelative('/foo', '/path')).to.equal('/foo');
+		});
+
+		it('should not expand foo', function(){
+			expect(Config.expandRelative('foo', '/path')).to.equal('foo');
+		});
+
 	});
 
 });

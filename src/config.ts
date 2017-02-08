@@ -1,3 +1,5 @@
+const path = require('path');
+
 const voidElements = [
 	'area',
 	'base',
@@ -58,7 +60,14 @@ class Config {
 	}
 
 	static fromFile(filename: string): Config {
-		return new Config(require(filename));
+		const json = require(filename);
+
+		/* expand any relative paths */
+		json.extends = (json.extends||[]).map(function(ref){
+			return Config.expandRelative(ref, path.dirname(filename));
+		});
+
+		return new Config(json);
 	}
 
 	constructor(options?: any){
@@ -82,6 +91,13 @@ class Config {
 			extends: [],
 			rules: {},
 		};
+	}
+
+	static expandRelative(src: string, currentPath: string): string {
+		if ( src[0] === '.' ){
+			return path.normalize(`${currentPath}/${src}`);
+		}
+		return src;
 	}
 
 	private merge(config){
