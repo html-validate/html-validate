@@ -1,18 +1,28 @@
 #!/usr/bin/env nodejs
 'use strict';
 
+const argv = require('minimist')(process.argv.slice(2));
 const HtmlLint = require('./build/src/htmllint').default;
 const formatter = require('eslint/lib/formatters/stylish');
+const pkg = require('./package.json');
+
+function showUsage(){
+	process.stdout.write(`${pkg.name}-${pkg.version}\nUsage: htmllint [OPTIONS] [FILENAME..] [DIR..]\n`);
+}
+
+if ( argv.h || argv.help ){
+	showUsage();
+	process.exit();
+}
 
 const htmllint = new HtmlLint({
 	extends: ['htmllint:recommended'],
 });
 
-let args = process.argv.slice(2);
 let results = [];
 let valid = true;
 
-args.forEach(function(filename){
+argv._.forEach(function(filename){
 	let report = htmllint.file(filename);
 
 	/* aggregate results */
