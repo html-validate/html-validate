@@ -29,6 +29,7 @@
     "typescript-eslint-parser": "^1.0.2"
   },
   "dependencies": {
-    "eslint": "^3.14.0"
+    "eslint": "^3.14.0",
+    "minimist": "^1.2.0"
   }
 }

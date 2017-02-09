@@ -3,17 +3,39 @@
 
 const HtmlLint = require('./build/src/htmllint').default;
 const formatter = require('eslint/lib/formatters/stylish');
+const pkg = require('./package.json');
+const argv = require('minimist')(process.argv.slice(2), {
+	'boolean': ['dump-tokens'],
+});
+
+function showUsage(){
+	process.stdout.write(`${pkg.name}-${pkg.version}
+Usage: htmllint [OPTIONS] [FILENAME..] [DIR..]
+
+Debugging options:
+      --dump-tokens      Output tokens from lexing stage.
+`);
+}
+
+if ( argv.h || argv.help ){
+	showUsage();
+	process.exit();
+}
 
 const htmllint = new HtmlLint({
 	extends: ['htmllint:recommended'],
 });
 
-let args = process.argv.slice(2);
 let results = [];
 let valid = true;
+let mode = 'lint';
 
-args.forEach(function(filename){
-	let report = htmllint.file(filename);
+if ( argv['dump-tokens'] ){
+	mode = 'dump-tokens';
+}
+
+argv._.forEach(function(filename){
+	let report = htmllint.file(filename, mode);
 
 	/* aggregate results */
 	valid = valid && report.valid;
