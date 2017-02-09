@@ -30,14 +30,17 @@ class HtmlLint {
 	 * @param filename {string} - Filename to read and parse.
 	 * @return {object} - Report output.
 	 */
-	file(filename: string, mode: string){
+	file(filename: string, mode?: string){
 		const text = fs.readFileSync(filename, {encoding: 'utf8'});
 		const source = {data: text, filename};
 		switch ( mode ){
 		case 'lint':
+		case undefined:
 			return this.parse(source);
 		case 'dump-tokens':
 			return this.dumpTokens(source);
+		default:
+			throw new Error(`Unknown mode "${mode}"`);
 		}
 	}
 
