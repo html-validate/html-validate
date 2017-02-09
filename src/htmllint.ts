@@ -2,6 +2,8 @@ import Config from './config';
 import Parser from './parser';
 import Reporter from './reporter';
 import { Source } from './context'; // eslint-disable-line no-unused-vars
+import Lexer from './lexer';
+import Token from './token';
 
 const fs = require('fs');
 
@@ -28,9 +30,15 @@ class HtmlLint {
 	 * @param filename {string} - Filename to read and parse.
 	 * @return {object} - Report output.
 	 */
-	file(filename: string){
-		let text = fs.readFileSync(filename, {encoding: 'utf8'});
-		return this.parse({data: text, filename});
+	file(filename: string, mode: string){
+		const text = fs.readFileSync(filename, {encoding: 'utf8'});
+		const source = {data: text, filename};
+		switch ( mode ){
+		case 'lint':
+			return this.parse(source);
+		case 'dump-tokens':
+			return this.dumpTokens(source);
+		}
 	}
 
 	/**
@@ -55,6 +63,20 @@ class HtmlLint {
 
 		/* generate results from report */
 		return report.save();
+	}
+
+	private dumpTokens(source: Source){
+		let lexer = new Lexer();
+		for ( let token of lexer.tokenize(source) ){
+			process.stdout.write(`TOKEN: ${Token[token.type]}
+  Data: ${JSON.stringify(token.data[0])}
+  Location: ${token.location.filename}:${token.location.line}:${token.location.column}
+`);
+		}
+		return {
+			valid: true,
+			results: [],
+		};
 	}
 
 	loadRule(name: string, data: any, parser: Parser, report: Reporter){
