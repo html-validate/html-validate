@@ -83,7 +83,7 @@ class Config {
 		return new Config(json);
 	}
 
-	private constructor(options?: any){
+	constructor(options?: any){
 		this.config = {};
 		this.loadDefaults();
 		this.merge(options || {});
