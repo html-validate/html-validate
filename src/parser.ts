@@ -2,7 +2,7 @@ import Config from './config'; // eslint-disable-line no-unused-vars
 import DOMNode from './domnode';
 import DOMTree from './domtree';
 import Lexer from './lexer';
-import { TokenType } from './token';
+import { Token, TokenType } from './token'; // eslint-disable-line no-unused-vars
 import { EventHandler, EventCallback } from './eventhandler'; // eslint-disable-line no-unused-vars
 import { Source } from './context'; // eslint-disable-line no-unused-vars
 
@@ -10,7 +10,7 @@ class Parser {
 	config: Config;
 	event: EventHandler;
 	dom: DOMTree;
-	peeked: any;
+	peeked?: IteratorResult<Token>;
 
 	constructor(config: Config){
 		this.config = config;
@@ -103,7 +103,7 @@ class Parser {
 		}
 	}
 
-	consumeAttribute(node: DOMNode, token, next){
+	consumeAttribute(node: DOMNode, token: Token, next){
 		const key = token.data[1];
 		let value = undefined;
 		let quote = undefined;
@@ -124,7 +124,7 @@ class Parser {
 	/**
 	 * Return a list of tokens found until the expected token was found.
 	 */
-	*consumeUntil(tokenStream, search){
+	*consumeUntil(tokenStream, search: TokenType){
 		let it = this.next(tokenStream);
 		while ( !it.done ){
 			let token = it.value;
@@ -135,7 +135,7 @@ class Parser {
 		throw Error('stream ended before consumeUntil finished');
 	}
 
-	next(tokenStream){
+	next(tokenStream): IteratorResult<Token> {
 		if ( this.peeked ){
 			let peeked = this.peeked;
 			this.peeked = undefined;
@@ -148,7 +148,7 @@ class Parser {
 	/**
 	 * Return the next token without removing it from the stream.
 	 */
-	peek(tokenStream){
+	peek(tokenStream): IteratorResult<Token> {
 		if ( this.peeked ){
 			return this.peeked;
 		} else {
@@ -156,7 +156,7 @@ class Parser {
 		}
 	}
 
-	trigger(event, data){
+	trigger(event: string, data): void {
 		if ( typeof(data.location) === 'undefined' ){
 			throw Error('Triggered event must contain location');
 		}

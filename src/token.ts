@@ -1,3 +1,5 @@
+import { LocationData } from './context';
+
 export enum TokenType {
 	WHITESPACE = 1,
 	NEWLINE,
@@ -11,4 +13,10 @@ export enum TokenType {
 	TEXT,
 	SCRIPT,
 	EOF,
+}
+
+export interface Token {
+	type: TokenType;
+	location: LocationData;
+	data?: any;
 }

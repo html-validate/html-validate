@@ -1,5 +1,5 @@
 import { Context, Source, ContentModel } from './context'; // eslint-disable-line no-unused-vars
-import { TokenType } from './token';
+import { Token, TokenType } from './token'; // eslint-disable-line no-unused-vars
 
 enum State {
 	INITIAL = 1,
@@ -31,7 +31,7 @@ const MATCH_SCRIPT_DATA = /^[^]*(?=<\/script)/;
 const MATCH_SCRIPT_END = /^<(\/)(script)/;
 
 class Lexer {
-	*tokenize(source: Source){
+	*tokenize(source: Source): IterableIterator<Token> {
 		const context = new Context(source);
 		context.state = State.INITIAL;
 
@@ -86,7 +86,7 @@ class Lexer {
 		yield this.token(context, TokenType.EOF);
 	}
 
-	token(context: Context, type: TokenType, data?: any){
+	token(context: Context, type: TokenType, data?: any): Token {
 		if ( !type ) throw Error("TokenType must be set");
 		return {
 			type,
