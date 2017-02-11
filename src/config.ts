@@ -53,8 +53,14 @@ function parseSeverity(value: string | number){
 	}
 }
 
+interface ConfigData {
+	html: any;
+	extends: Array<string>;
+	rules: any;
+}
+
 class Config {
-	config: any;
+	config: ConfigData;
 
 	public static readonly SEVERITY_DISABLED = 0;
 	public static readonly SEVERITY_WARN = 1;
@@ -84,7 +90,6 @@ class Config {
 	}
 
 	constructor(options?: any){
-		this.config = {};
 		this.loadDefaults();
 		this.merge(options || {});
 
@@ -113,12 +118,12 @@ class Config {
 		return src;
 	}
 
-	private merge(config: Object): Object {
+	private merge(config: Object): ConfigData {
 		deepMerge(this.config, config);
 		return this.config;
 	}
 
-	get(): any {
+	get(): ConfigData {
 		return Object.assign({}, this.config);
 	}
 

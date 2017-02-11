@@ -20,15 +20,16 @@ describe('config', function(){
 	});
 
 	it('constructor should deep-merge options', function(){
-		let config = Config.fromObject({
+		const config = Config.fromObject({
 			foo: 'bar',
 			html: {
 				spam: 'ham',
 			},
 		});
-		expect(config.get().foo).to.equal('bar');
-		expect(config.get().html.spam).to.equal('ham');
-		expect(config.get().html.voidElements).not.to.have.lengthOf(0);
+		const data: any = config.get();
+		expect(data.foo).to.equal('bar');
+		expect(data.html.spam).to.equal('ham');
+		expect(data.html.voidElements).not.to.have.lengthOf(0);
 	});
 
 	describe('getRules()', function(){
