@@ -10,6 +10,7 @@ enum Token {
 	ATTR_VALUE,
 	TEXT,
 	SCRIPT,
+	EOF,
 }
 
 export default Token;

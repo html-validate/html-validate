@@ -18,6 +18,7 @@ describe('lexer', function(){
 
 		it('xml declaration', function(){
 			let token = lexer.tokenize({data: '<?xml version="1.0" encoding="utf-8"?>\n', filename: 'inline'});
+			expect(token.next().value).to.containSubset({type: Token.EOF});
 			expect(token.next().done).to.be.true;
 		});
 
@@ -26,6 +27,7 @@ describe('lexer', function(){
 			expect(token.next().value).to.containSubset({type: Token.DOCTYPE_OPEN});
 			expect(token.next().value).to.containSubset({type: Token.DOCTYPE_VALUE});
 			expect(token.next().value).to.containSubset({type: Token.DOCTYPE_CLOSE});
+			expect(token.next().value).to.containSubset({type: Token.EOF});
 			expect(token.next().done).to.be.true;
 		});
 
@@ -33,6 +35,7 @@ describe('lexer', function(){
 			let token = lexer.tokenize({data: '<foo>', filename: 'inline'});
 			expect(token.next().value).to.containSubset({type: Token.TAG_OPEN});
 			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: Token.EOF});
 			expect(token.next().done).to.be.true;
 		});
 
@@ -40,6 +43,7 @@ describe('lexer', function(){
 			let token = lexer.tokenize({data: '<foo/>', filename: 'inline'});
 			expect(token.next().value).to.containSubset({type: Token.TAG_OPEN});
 			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: Token.EOF});
 			expect(token.next().done).to.be.true;
 		});
 
@@ -47,6 +51,7 @@ describe('lexer', function(){
 			let token = lexer.tokenize({data: '</foo>', filename: 'inline'});
 			expect(token.next().value).to.containSubset({type: Token.TAG_OPEN});
 			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: Token.EOF});
 			expect(token.next().done).to.be.true;
 		});
 
@@ -54,6 +59,7 @@ describe('lexer', function(){
 			let token = lexer.tokenize({data: '<h1>', filename: 'inline'});
 			expect(token.next().value).to.containSubset({type: Token.TAG_OPEN});
 			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: Token.EOF});
 			expect(token.next().done).to.be.true;
 		});
 
@@ -61,6 +67,7 @@ describe('lexer', function(){
 			let token = lexer.tokenize({data: '<foo-bar>', filename: 'inline'});
 			expect(token.next().value).to.containSubset({type: Token.TAG_OPEN});
 			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: Token.EOF});
 			expect(token.next().done).to.be.true;
 		});
 
@@ -71,6 +78,7 @@ describe('lexer', function(){
 			expect(token.next().value).to.containSubset({type: Token.ATTR_NAME});
 			expect(token.next().value).to.containSubset({type: Token.ATTR_VALUE});
 			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: Token.EOF});
 			expect(token.next().done).to.be.true;
 		});
 
@@ -81,6 +89,7 @@ describe('lexer', function(){
 			expect(token.next().value).to.containSubset({type: Token.ATTR_NAME});
 			expect(token.next().value).to.containSubset({type: Token.ATTR_VALUE});
 			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: Token.EOF});
 			expect(token.next().done).to.be.true;
 		});
 
@@ -91,6 +100,7 @@ describe('lexer', function(){
 			expect(token.next().value).to.containSubset({type: Token.ATTR_NAME});
 			expect(token.next().value).to.containSubset({type: Token.ATTR_VALUE});
 			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: Token.EOF});
 			expect(token.next().done).to.be.true;
 		});
 
@@ -100,6 +110,7 @@ describe('lexer', function(){
 			expect(token.next().value).to.containSubset({type: Token.WHITESPACE});
 			expect(token.next().value).to.containSubset({type: Token.ATTR_NAME});
 			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: Token.EOF});
 			expect(token.next().done).to.be.true;
 		});
 
@@ -110,12 +121,14 @@ describe('lexer', function(){
 			expect(token.next().value).to.containSubset({type: Token.ATTR_NAME});
 			expect(token.next().value).to.containSubset({type: Token.ATTR_VALUE});
 			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: Token.EOF});
 			expect(token.next().done).to.be.true;
 		});
 
 		it('text', function(){
 			let token = lexer.tokenize({data: 'foo', filename: 'inline'});
 			expect(token.next().value).to.containSubset({type: Token.TEXT});
+			expect(token.next().value).to.containSubset({type: Token.EOF});
 			expect(token.next().done).to.be.true;
 		});
 
@@ -123,6 +136,7 @@ describe('lexer', function(){
 			let token = lexer.tokenize({data: '  foo', filename: 'inline'});
 			expect(token.next().value).to.containSubset({type: Token.WHITESPACE});
 			expect(token.next().value).to.containSubset({type: Token.TEXT});
+			expect(token.next().value).to.containSubset({type: Token.EOF});
 			expect(token.next().done).to.be.true;
 		});
 
@@ -133,6 +147,7 @@ describe('lexer', function(){
 			expect(token.next().value).to.containSubset({type: Token.TEXT});
 			expect(token.next().value).to.containSubset({type: Token.TAG_OPEN});
 			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: Token.EOF});
 			expect(token.next().done).to.be.true;
 		});
 
@@ -144,11 +159,13 @@ describe('lexer', function(){
 			expect(token.next().value).to.containSubset({type: Token.TEXT});
 			expect(token.next().value).to.containSubset({type: Token.TAG_OPEN});
 			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: Token.EOF});
 			expect(token.next().done).to.be.true;
 		});
 
 		it('CDATA', function(){
 			let token = lexer.tokenize({data: '<![CDATA[ <p>lorem</div> ipsum ]]>', filename: 'inline'});
+			expect(token.next().value).to.containSubset({type: Token.EOF});
 			expect(token.next().done).to.be.true;
 		});
 
@@ -159,6 +176,7 @@ describe('lexer', function(){
 			expect(token.next().value).to.containSubset({type: Token.SCRIPT});
 			expect(token.next().value).to.containSubset({type: Token.TAG_OPEN});
 			expect(token.next().value).to.containSubset({type: Token.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: Token.EOF});
 			expect(token.next().done).to.be.true;
 		});
 

@@ -82,6 +82,8 @@ class Lexer {
 			previousState = context.state;
 			previousLength = context.string.length;
 		}
+
+		yield this.token(context, Token.EOF);
 	}
 
 	token(context: Context, type: Token, data?: any){
