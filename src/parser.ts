@@ -31,6 +31,7 @@ class Parser {
 		let lexer = new Lexer();
 		let tokenStream = lexer.tokenize(source);
 
+		/* consume all tokens from the stream */
 		let it = this.next(tokenStream);
 		while ( !it.done ){
 			const token = it.value;
@@ -39,22 +40,12 @@ class Parser {
 			case TokenType.TAG_OPEN:
 				this.consumeTag(token, tokenStream);
 				break;
+			case TokenType.EOF:
+				this.closeTree(token);
+				break;
 			}
 
 			it = this.next(tokenStream);
-		}
-
-		/* trigger close events for any still open elements */
-		let active;
-		while ( (active=this.dom.getActive()) && active.tagName ){
-			this.trigger('tag:close', {
-				target: undefined,
-				previous: active,
-				location: {
-					filename: source.filename,
-				},
-			});
-			this.dom.popActive();
 		}
 
 		/* trigger any rules waiting for DOM ready */
@@ -135,7 +126,7 @@ class Parser {
 		throw Error('stream ended before consumeUntil finished');
 	}
 
-	next(tokenStream: TokenStream): IteratorResult<Token> {
+	private next(tokenStream: TokenStream): IteratorResult<Token> {
 		if ( this.peeked ){
 			let peeked = this.peeked;
 			this.peeked = undefined;
@@ -148,7 +139,7 @@ class Parser {
 	/**
 	 * Return the next token without removing it from the stream.
 	 */
-	peek(tokenStream: TokenStream): IteratorResult<Token> {
+	private peek(tokenStream: TokenStream): IteratorResult<Token> {
 		if ( this.peeked ){
 			return this.peeked;
 		} else {
@@ -156,11 +147,32 @@ class Parser {
 		}
 	}
 
-	trigger(event: string, data): void {
+	/**
+	 * Trigger event.
+	 *
+	 * @param {string} event - Event name
+	 * @param {Event} data - Event data
+	 */
+	private trigger(event: string, data): void {
 		if ( typeof(data.location) === 'undefined' ){
 			throw Error('Triggered event must contain location');
 		}
 		this.event.trigger(event, data);
+	}
+
+	/**
+	 * Trigger close events for any still open elements.
+	 */
+	private closeTree(token: Token): void {
+		let active;
+		while ( (active=this.dom.getActive()) && active.tagName ){
+			this.trigger('tag:close', {
+				target: undefined,
+				previous: active,
+				location: token.location,
+			});
+			this.dom.popActive();
+		}
 	}
 }
 
