@@ -26,7 +26,7 @@
     "mocha": "^3.2.0",
     "ts-node": "^2.0.0",
     "typescript": "^2.1.5",
-    "typescript-eslint-parser": "^1.0.2"
+    "typescript-eslint-parser": "^1.0.3"
   },
   "dependencies": {
     "eslint": "^3.14.0",
