@@ -1,7 +1,7 @@
 import Config from './config'; // eslint-disable-line no-unused-vars
 import DOMNode from './domnode';
 import DOMTree from './domtree';
-import Lexer from './lexer';
+import { Lexer, TokenStream } from './lexer'; // eslint-disable-line no-unused-vars
 import { Token, TokenType } from './token'; // eslint-disable-line no-unused-vars
 import { EventHandler, EventCallback } from './eventhandler'; // eslint-disable-line no-unused-vars
 import { Source } from './context'; // eslint-disable-line no-unused-vars
@@ -66,7 +66,7 @@ class Parser {
 		return this.dom;
 	}
 
-	consumeTag(startToken, tokenStream){
+	consumeTag(startToken: Token, tokenStream: TokenStream){
 		const tokens = Array.from(this.consumeUntil(tokenStream, TokenType.TAG_CLOSE));
 		const endToken = tokens.slice(-1)[0];
 
@@ -103,7 +103,7 @@ class Parser {
 		}
 	}
 
-	consumeAttribute(node: DOMNode, token: Token, next){
+	consumeAttribute(node: DOMNode, token: Token, next?: Token){
 		const key = token.data[1];
 		let value = undefined;
 		let quote = undefined;
@@ -124,7 +124,7 @@ class Parser {
 	/**
 	 * Return a list of tokens found until the expected token was found.
 	 */
-	*consumeUntil(tokenStream, search: TokenType){
+	*consumeUntil(tokenStream: TokenStream, search: TokenType){
 		let it = this.next(tokenStream);
 		while ( !it.done ){
 			let token = it.value;
@@ -135,7 +135,7 @@ class Parser {
 		throw Error('stream ended before consumeUntil finished');
 	}
 
-	next(tokenStream): IteratorResult<Token> {
+	next(tokenStream: TokenStream): IteratorResult<Token> {
 		if ( this.peeked ){
 			let peeked = this.peeked;
 			this.peeked = undefined;
@@ -148,7 +148,7 @@ class Parser {
 	/**
 	 * Return the next token without removing it from the stream.
 	 */
-	peek(tokenStream): IteratorResult<Token> {
+	peek(tokenStream: TokenStream): IteratorResult<Token> {
 		if ( this.peeked ){
 			return this.peeked;
 		} else {

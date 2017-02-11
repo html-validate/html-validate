@@ -12,6 +12,7 @@ enum State {
 }
 
 type LexerTest = [RegExp | false, State, TokenType | false]; // eslint-disable-line no-unused-vars
+export type TokenStream = IterableIterator<Token>;
 
 const MATCH_WHITESPACE = /^\s+/;
 const MATCH_DOCTYPE_OPEN = /^<!DOCTYPE\s/;
@@ -30,8 +31,8 @@ const MATCH_CDATA_END = /^[^]*?]]>/;
 const MATCH_SCRIPT_DATA = /^[^]*(?=<\/script)/;
 const MATCH_SCRIPT_END = /^<(\/)(script)/;
 
-class Lexer {
-	*tokenize(source: Source): IterableIterator<Token> {
+export class Lexer {
+	*tokenize(source: Source): TokenStream {
 		const context = new Context(source);
 		context.state = State.INITIAL;
 
@@ -208,5 +209,3 @@ class Lexer {
 		], 'expected </script>');
 	}
 }
-
-export default Lexer;

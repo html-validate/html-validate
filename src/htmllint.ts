@@ -2,7 +2,7 @@ import Config from './config';
 import Parser from './parser';
 import Reporter from './reporter';
 import { Source } from './context'; // eslint-disable-line no-unused-vars
-import Lexer from './lexer';
+import { Lexer } from './lexer';
 import { TokenType } from './token';
 
 const fs = require('fs');
