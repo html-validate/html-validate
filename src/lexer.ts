@@ -33,6 +33,7 @@ const MATCH_CDATA_BEGIN = /^<!\[CDATA\[/;
 const MATCH_CDATA_END = /^[^]*?]]>/;
 const MATCH_SCRIPT_DATA = /^[^]*(?=<\/script)/;
 const MATCH_SCRIPT_END = /^<(\/)(script)/;
+const MATCH_COMMENT = /^<!--([^]*?)-->/;
 
 export class Lexer {
 	*tokenize(source: Source): TokenStream {
@@ -194,6 +195,7 @@ export class Lexer {
 		yield* this.match(context, [
 			[MATCH_WHITESPACE, State.TEXT, TokenType.WHITESPACE],
 			[MATCH_CDATA_BEGIN, State.CDATA, false],
+			[MATCH_COMMENT, State.TEXT, TokenType.COMMENT],
 			[MATCH_TAG_OPEN, State.TAG, TokenType.TAG_OPEN],
 			[MATCH_TEXT, State.TEXT, TokenType.TEXT],
 			[MATCH_TAG_LOOKAHEAD, State.TEXT, TokenType.TEXT],
