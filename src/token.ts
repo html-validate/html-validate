@@ -1,4 +1,6 @@
-enum Token {
+import { LocationData } from './context';
+
+export enum TokenType {
 	WHITESPACE = 1,
 	NEWLINE,
 	DOCTYPE_OPEN,
@@ -10,6 +12,11 @@ enum Token {
 	ATTR_VALUE,
 	TEXT,
 	SCRIPT,
+	EOF,
 }
 
-export default Token;
+export interface Token {
+	type: TokenType;
+	location: LocationData;
+	data?: any;
+}

@@ -1,8 +1,8 @@
 import Config from './config'; // eslint-disable-line no-unused-vars
 import DOMNode from './domnode';
 import DOMTree from './domtree';
-import Lexer from './lexer';
-import Token from './token';
+import { Lexer, TokenStream } from './lexer'; // eslint-disable-line no-unused-vars
+import { Token, TokenType } from './token'; // eslint-disable-line no-unused-vars
 import { EventHandler, EventCallback } from './eventhandler'; // eslint-disable-line no-unused-vars
 import { Source } from './context'; // eslint-disable-line no-unused-vars
 
@@ -10,7 +10,7 @@ class Parser {
 	config: Config;
 	event: EventHandler;
 	dom: DOMTree;
-	peeked: any;
+	peeked?: IteratorResult<Token>;
 
 	constructor(config: Config){
 		this.config = config;
@@ -31,30 +31,21 @@ class Parser {
 		let lexer = new Lexer();
 		let tokenStream = lexer.tokenize(source);
 
+		/* consume all tokens from the stream */
 		let it = this.next(tokenStream);
 		while ( !it.done ){
 			const token = it.value;
 
 			switch ( token.type ){
-			case Token.TAG_OPEN:
+			case TokenType.TAG_OPEN:
 				this.consumeTag(token, tokenStream);
+				break;
+			case TokenType.EOF:
+				this.closeTree(token);
 				break;
 			}
 
 			it = this.next(tokenStream);
-		}
-
-		/* trigger close events for any still open elements */
-		let active;
-		while ( (active=this.dom.getActive()) && active.tagName ){
-			this.trigger('tag:close', {
-				target: undefined,
-				previous: active,
-				location: {
-					filename: source.filename,
-				},
-			});
-			this.dom.popActive();
 		}
 
 		/* trigger any rules waiting for DOM ready */
@@ -66,8 +57,8 @@ class Parser {
 		return this.dom;
 	}
 
-	consumeTag(startToken, tokenStream){
-		const tokens = Array.from(this.consumeUntil(tokenStream, Token.TAG_CLOSE));
+	consumeTag(startToken: Token, tokenStream: TokenStream){
+		const tokens = Array.from(this.consumeUntil(tokenStream, TokenType.TAG_CLOSE));
 		const endToken = tokens.slice(-1)[0];
 
 		const node = DOMNode.fromTokens(startToken, endToken, this.dom.getActive(), this.config);
@@ -85,9 +76,9 @@ class Parser {
 		for ( let i = 0; i < tokens.length; i++ ){
 			let token = tokens[i];
 			switch ( token.type ){
-			case Token.WHITESPACE:
+			case TokenType.WHITESPACE:
 				break;
-			case Token.ATTR_NAME:
+			case TokenType.ATTR_NAME:
 				this.consumeAttribute(node, token, tokens[i+1]);
 				break;
 			}
@@ -103,11 +94,11 @@ class Parser {
 		}
 	}
 
-	consumeAttribute(node: DOMNode, token, next){
+	consumeAttribute(node: DOMNode, token: Token, next?: Token){
 		const key = token.data[1];
 		let value = undefined;
 		let quote = undefined;
-		if ( next && next.type === Token.ATTR_VALUE ){
+		if ( next && next.type === TokenType.ATTR_VALUE ){
 			value = next.data[1];
 			quote = next.data[2];
 		}
@@ -124,7 +115,7 @@ class Parser {
 	/**
 	 * Return a list of tokens found until the expected token was found.
 	 */
-	*consumeUntil(tokenStream, search){
+	*consumeUntil(tokenStream: TokenStream, search: TokenType){
 		let it = this.next(tokenStream);
 		while ( !it.done ){
 			let token = it.value;
@@ -135,7 +126,7 @@ class Parser {
 		throw Error('stream ended before consumeUntil finished');
 	}
 
-	next(tokenStream){
+	private next(tokenStream: TokenStream): IteratorResult<Token> {
 		if ( this.peeked ){
 			let peeked = this.peeked;
 			this.peeked = undefined;
@@ -148,7 +139,7 @@ class Parser {
 	/**
 	 * Return the next token without removing it from the stream.
 	 */
-	peek(tokenStream){
+	private peek(tokenStream: TokenStream): IteratorResult<Token> {
 		if ( this.peeked ){
 			return this.peeked;
 		} else {
@@ -156,11 +147,32 @@ class Parser {
 		}
 	}
 
-	trigger(event, data){
+	/**
+	 * Trigger event.
+	 *
+	 * @param {string} event - Event name
+	 * @param {Event} data - Event data
+	 */
+	private trigger(event: string, data): void {
 		if ( typeof(data.location) === 'undefined' ){
 			throw Error('Triggered event must contain location');
 		}
 		this.event.trigger(event, data);
+	}
+
+	/**
+	 * Trigger close events for any still open elements.
+	 */
+	private closeTree(token: Token): void {
+		let active;
+		while ( (active=this.dom.getActive()) && active.tagName ){
+			this.trigger('tag:close', {
+				target: undefined,
+				previous: active,
+				location: token.location,
+			});
+			this.dom.popActive();
+		}
 	}
 }
 

@@ -2,8 +2,8 @@ import Config from './config';
 import Parser from './parser';
 import Reporter from './reporter';
 import { Source } from './context'; // eslint-disable-line no-unused-vars
-import Lexer from './lexer';
-import Token from './token';
+import { Lexer } from './lexer';
+import { TokenType } from './token';
 
 const fs = require('fs');
 
@@ -71,7 +71,7 @@ class HtmlLint {
 	private dumpTokens(source: Source){
 		let lexer = new Lexer();
 		for ( let token of lexer.tokenize(source) ){
-			process.stdout.write(`TOKEN: ${Token[token.type]}
+			process.stdout.write(`TOKEN: ${TokenType[token.type]}
   Data: ${JSON.stringify(token.data[0])}
   Location: ${token.location.filename}:${token.location.line}:${token.location.column}
 `);
