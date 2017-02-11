@@ -2,7 +2,7 @@ import Config from './config'; // eslint-disable-line no-unused-vars
 import DOMNode from './domnode';
 import DOMTree from './domtree';
 import Lexer from './lexer';
-import Token from './token';
+import { TokenType } from './token';
 import { EventHandler, EventCallback } from './eventhandler'; // eslint-disable-line no-unused-vars
 import { Source } from './context'; // eslint-disable-line no-unused-vars
 
@@ -36,7 +36,7 @@ class Parser {
 			const token = it.value;
 
 			switch ( token.type ){
-			case Token.TAG_OPEN:
+			case TokenType.TAG_OPEN:
 				this.consumeTag(token, tokenStream);
 				break;
 			}
@@ -67,7 +67,7 @@ class Parser {
 	}
 
 	consumeTag(startToken, tokenStream){
-		const tokens = Array.from(this.consumeUntil(tokenStream, Token.TAG_CLOSE));
+		const tokens = Array.from(this.consumeUntil(tokenStream, TokenType.TAG_CLOSE));
 		const endToken = tokens.slice(-1)[0];
 
 		const node = DOMNode.fromTokens(startToken, endToken, this.dom.getActive(), this.config);
@@ -85,9 +85,9 @@ class Parser {
 		for ( let i = 0; i < tokens.length; i++ ){
 			let token = tokens[i];
 			switch ( token.type ){
-			case Token.WHITESPACE:
+			case TokenType.WHITESPACE:
 				break;
-			case Token.ATTR_NAME:
+			case TokenType.ATTR_NAME:
 				this.consumeAttribute(node, token, tokens[i+1]);
 				break;
 			}
@@ -107,7 +107,7 @@ class Parser {
 		const key = token.data[1];
 		let value = undefined;
 		let quote = undefined;
-		if ( next && next.type === Token.ATTR_VALUE ){
+		if ( next && next.type === TokenType.ATTR_VALUE ){
 			value = next.data[1];
 			quote = next.data[2];
 		}

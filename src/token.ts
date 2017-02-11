@@ -1,4 +1,4 @@
-enum Token {
+export enum TokenType {
 	WHITESPACE = 1,
 	NEWLINE,
 	DOCTYPE_OPEN,
@@ -12,5 +12,3 @@ enum Token {
 	SCRIPT,
 	EOF,
 }
-
-export default Token;

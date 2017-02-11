@@ -1,5 +1,5 @@
-import {Context, Source, ContentModel} from './context'; // eslint-disable-line no-unused-vars
-import Token from './token';
+import { Context, Source, ContentModel } from './context'; // eslint-disable-line no-unused-vars
+import { TokenType } from './token';
 
 enum State {
 	INITIAL = 1,
@@ -11,7 +11,7 @@ enum State {
 	SCRIPT,
 }
 
-type LexerTest = [RegExp | false, State, Token | false]; // eslint-disable-line no-unused-vars
+type LexerTest = [RegExp | false, State, TokenType | false]; // eslint-disable-line no-unused-vars
 
 const MATCH_WHITESPACE = /^\s+/;
 const MATCH_DOCTYPE_OPEN = /^<!DOCTYPE\s/;
@@ -83,11 +83,11 @@ class Lexer {
 			previousLength = context.string.length;
 		}
 
-		yield this.token(context, Token.EOF);
+		yield this.token(context, TokenType.EOF);
 	}
 
-	token(context: Context, type: Token, data?: any){
-		if ( !type ) throw Error("Token must be set");
+	token(context: Context, type: TokenType, data?: any){
+		if ( !type ) throw Error("TokenType must be set");
 		return {
 			type,
 			location: context.getLocationData(),
@@ -155,43 +155,43 @@ class Lexer {
 	*tokenizeInitial(context: Context){
 		yield* this.match(context, [
 			[MATCH_XML_TAG, State.INITIAL, false],
-			[MATCH_DOCTYPE_OPEN, State.DOCTYPE, Token.DOCTYPE_OPEN],
+			[MATCH_DOCTYPE_OPEN, State.DOCTYPE, TokenType.DOCTYPE_OPEN],
 			[false, State.TEXT, false],
 		], 'expected doctype');
 	}
 
 	*tokenizeDoctype(context: Context){
 		yield* this.match(context, [
-			[MATCH_WHITESPACE, State.DOCTYPE, Token.WHITESPACE],
-			[MATCH_DOCTYPE_VALUE, State.DOCTYPE, Token.DOCTYPE_VALUE],
-			[MATCH_DOCTYPE_CLOSE, State.TEXT, Token.DOCTYPE_CLOSE],
+			[MATCH_WHITESPACE, State.DOCTYPE, TokenType.WHITESPACE],
+			[MATCH_DOCTYPE_VALUE, State.DOCTYPE, TokenType.DOCTYPE_VALUE],
+			[MATCH_DOCTYPE_CLOSE, State.TEXT, TokenType.DOCTYPE_CLOSE],
 		], 'expected doctype name');
 	}
 
 	*tokenizeTag(context: Context){
 		const nextState = context.contentModel !== ContentModel.SCRIPT ? State.TEXT : State.SCRIPT;
 		yield* this.match(context, [
-			[MATCH_TAG_CLOSE, nextState, Token.TAG_CLOSE],
-			[MATCH_ATTR_START, State.ATTR, Token.ATTR_NAME],
-			[MATCH_WHITESPACE, State.TAG, Token.WHITESPACE],
+			[MATCH_TAG_CLOSE, nextState, TokenType.TAG_CLOSE],
+			[MATCH_ATTR_START, State.ATTR, TokenType.ATTR_NAME],
+			[MATCH_WHITESPACE, State.TAG, TokenType.WHITESPACE],
 		], 'expected attribute, ">" or "/>"');
 	}
 
 	*tokenizeAttr(context: Context){
 		yield* this.match(context, [
-			[MATCH_ATTR_SINGLE, State.TAG, Token.ATTR_VALUE],
-			[MATCH_ATTR_DOUBLE, State.TAG, Token.ATTR_VALUE],
-			[MATCH_ATTR_UNQUOTED, State.TAG, Token.ATTR_VALUE],
+			[MATCH_ATTR_SINGLE, State.TAG, TokenType.ATTR_VALUE],
+			[MATCH_ATTR_DOUBLE, State.TAG, TokenType.ATTR_VALUE],
+			[MATCH_ATTR_UNQUOTED, State.TAG, TokenType.ATTR_VALUE],
 			[false, State.TAG, false],
 		], 'expected attribute, ">" or "/>"');
 	}
 
 	*tokenizeText(context: Context){
 		yield* this.match(context, [
-			[MATCH_WHITESPACE, State.TEXT, Token.WHITESPACE],
+			[MATCH_WHITESPACE, State.TEXT, TokenType.WHITESPACE],
 			[MATCH_CDATA_BEGIN, State.CDATA, false],
-			[MATCH_TAG_OPEN, State.TAG, Token.TAG_OPEN],
-			[MATCH_TAG_LOOKAHEAD, State.TEXT, Token.TEXT],
+			[MATCH_TAG_OPEN, State.TAG, TokenType.TAG_OPEN],
+			[MATCH_TAG_LOOKAHEAD, State.TEXT, TokenType.TEXT],
 		], 'expected text or "<"');
 	}
 
@@ -203,8 +203,8 @@ class Lexer {
 
 	*tokenizeScript(context){
 		yield* this.match(context, [
-			[MATCH_SCRIPT_END, State.TAG, Token.TAG_OPEN],
-			[MATCH_SCRIPT_DATA, State.SCRIPT, Token.SCRIPT],
+			[MATCH_SCRIPT_END, State.TAG, TokenType.TAG_OPEN],
+			[MATCH_SCRIPT_DATA, State.SCRIPT, TokenType.SCRIPT],
 		], 'expected </script>');
 	}
 }
