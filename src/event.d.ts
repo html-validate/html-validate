@@ -23,6 +23,10 @@ export interface AttributeEvent extends Event {
 	target: DOMNode;
 }
 
+export interface WhitespaceEvent extends Event {
+	text: string;
+}
+
 export interface DOMReadyEvent extends Event {
 	document: DOMTree;
 }

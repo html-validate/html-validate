@@ -16,13 +16,14 @@ enum State {
 type LexerTest = [RegExp | false, State, TokenType | false]; // eslint-disable-line no-unused-vars
 export type TokenStream = IterableIterator<Token>;
 
-const MATCH_WHITESPACE = /^\s+/;
+const MATCH_WHITESPACE = /^(?:[ \t]+\n?|\n)/;
 const MATCH_DOCTYPE_OPEN = /^<!DOCTYPE\s/;
 const MATCH_DOCTYPE_VALUE = /^[^>]+/;
 const MATCH_DOCTYPE_CLOSE = /^>/;
 const MATCH_XML_TAG = /^<\?xml.*?\?>\n/;
 const MATCH_TAG_OPEN = /^<(\/?)([a-zA-Z0-9\-:]+)/;       // https://www.w3.org/TR/html/syntax.html#start-tags
 const MATCH_TAG_CLOSE = /^\/?>/;
+const MATCH_TEXT = /^[^]*?(?=[ \t]*\n)/;
 const MATCH_TAG_LOOKAHEAD = /^[^]*?(?=<|$)/;
 const MATCH_ATTR_START = /^([^\t\n\f \/>"'=]+)/;         // https://www.w3.org/TR/html/syntax.html#elements-attributes
 const MATCH_ATTR_SINGLE = /^='([^']*?)(')/;
@@ -106,7 +107,7 @@ export class Lexer {
 
 	errorStuck(context: Context){
 		const truncated = JSON.stringify(context.string.length > 13 ? (context.string.slice(0, 10) + '...') : context.string);
-		const message = `${context.getLocationString()}: failed to tokenize ${truncated}, state ${context.state} failed to consume data or change state.`;
+		const message = `${context.getLocationString()}: failed to tokenize ${truncated}, state ${State[context.state]} failed to consume data or change state.`;
 		throw Error(message);
 	}
 
@@ -194,6 +195,7 @@ export class Lexer {
 			[MATCH_WHITESPACE, State.TEXT, TokenType.WHITESPACE],
 			[MATCH_CDATA_BEGIN, State.CDATA, false],
 			[MATCH_TAG_OPEN, State.TAG, TokenType.TAG_OPEN],
+			[MATCH_TEXT, State.TEXT, TokenType.TEXT],
 			[MATCH_TAG_LOOKAHEAD, State.TEXT, TokenType.TEXT],
 		], 'expected text or "<"');
 	}

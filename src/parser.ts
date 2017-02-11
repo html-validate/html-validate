@@ -42,6 +42,12 @@ class Parser {
 			case TokenType.TAG_OPEN:
 				this.consumeTag(token, tokenStream);
 				break;
+			case TokenType.WHITESPACE:
+				this.trigger('whitespace', {
+					text: token.data[0],
+					location: token.location,
+				});
+				break;
 			case TokenType.EOF:
 				this.closeTree(token);
 				break;

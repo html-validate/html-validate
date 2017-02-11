@@ -25,6 +25,7 @@ const recommended = {
 		'button-type': 'error',
 		'close-attr': 'error',
 		'close-order': 'error',
+		'no-trailing-whitespace': 'error',
 	},
 };
 
