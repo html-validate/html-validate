@@ -12,6 +12,7 @@ export enum TokenType {
 	ATTR_VALUE,
 	TEXT,
 	SCRIPT,
+	COMMENT,
 	EOF,
 }
 

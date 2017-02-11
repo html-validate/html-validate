@@ -196,6 +196,13 @@ describe('lexer', function(){
 			expect(token.next().done).to.be.true;
 		});
 
+		it('comment', function(){
+			let token = lexer.tokenize({data: '<!-- comment -->', filename: 'inline'});
+			expect(token.next().value).to.containSubset({type: TokenType.COMMENT, data: ['<!-- comment -->', ' comment ']});
+			expect(token.next().value).to.containSubset({type: TokenType.EOF});
+			expect(token.next().done).to.be.true;
+		});
+
 	});
 
 });

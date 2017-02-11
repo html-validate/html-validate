@@ -75,8 +75,9 @@ class HtmlLint {
 	private dumpTokens(source: Source): Report {
 		let lexer = new Lexer();
 		for ( let token of lexer.tokenize(source) ){
+			const data = token.data ? token.data[0] : null;
 			process.stdout.write(`TOKEN: ${TokenType[token.type]}
-  Data: ${JSON.stringify(token.data[0])}
+  Data: ${JSON.stringify(data)}
   Location: ${token.location.filename}:${token.location.line}:${token.location.column}
 `);
 		}
