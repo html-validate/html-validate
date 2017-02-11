@@ -1,4 +1,6 @@
-import { Result } from '../reporter'; // eslint-disable-line no-unused-vars
+/* eslint-disable no-unused-vars */
+import { Result } from '../reporter';
+/* eslint-enable no-unused-vars */
 
 function textFormatter(results: Result[]){
 	let output = "";

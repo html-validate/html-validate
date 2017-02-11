@@ -1,16 +1,20 @@
+/* eslint-disable no-unused-vars */
 import Config from './config';
 import Parser from './parser';
-import Reporter from './reporter';
-import { Source } from './context'; // eslint-disable-line no-unused-vars
+import DOMNode from './domnode';
+import { Reporter, Report } from './reporter';
+import { Source, LocationData } from './context';
 import { Lexer } from './lexer';
 import { TokenType } from './token';
+import { Rule, RuleEventCallback } from './rule';
+/* eslint-enable no-unused-vars */
 
 const fs = require('fs');
 
 class HtmlLint {
 	config: Config;
 
-	constructor(options){
+	constructor(options?: any){
 		this.config = Config.fromObject(options || {});
 	}
 
@@ -20,7 +24,7 @@ class HtmlLint {
 	 * @param str {string} - Text to parse.
 	 * @return {object} - Report output.
 	 */
-	string(str: string){
+	string(str: string): Report {
 		return this.parse({data: str, filename: 'inline'});
 	}
 
@@ -30,7 +34,7 @@ class HtmlLint {
 	 * @param filename {string} - Filename to read and parse.
 	 * @return {object} - Report output.
 	 */
-	file(filename: string, mode?: string){
+	file(filename: string, mode?: string): Report {
 		const text = fs.readFileSync(filename, {encoding: 'utf8'});
 		const source = {data: text, filename};
 		switch ( mode ){
@@ -52,10 +56,10 @@ class HtmlLint {
 	 * @param src.filename {string} - Filename of source for presentation in report.
 	 * @return {object} - Report output.
 	 */
-	private parse(src: Source){
+	private parse(src: Source): Report {
 		const report = new Reporter();
 		const rules = this.config.getRules();
-		const parser = new Parser(this.config.get());
+		const parser = new Parser(this.config);
 		for ( let name in rules ){
 			let data = rules[name];
 			this.loadRule(name, data, parser, report);
@@ -68,7 +72,7 @@ class HtmlLint {
 		return report.save();
 	}
 
-	private dumpTokens(source: Source){
+	private dumpTokens(source: Source): Report {
 		let lexer = new Lexer();
 		for ( let token of lexer.tokenize(source) ){
 			process.stdout.write(`TOKEN: ${TokenType[token.type]}
@@ -97,11 +101,11 @@ class HtmlLint {
 	 * Rule can bind events on parser while maintaining "this" bound to the rule.
 	 * Callbacks receives an additional argument "report" to write messages to.
 	 */
-	createProxy(parser, rule, report){
+	createProxy(parser: Parser, rule: Rule, report: Reporter){
 		return {
-			on: function(event, callback){
+			on: function(event: string, callback: RuleEventCallback){
 				parser.on(event, function(event, data){
-					callback.call(rule, data, function(node, message, location){
+					callback.call(rule, data, function(node: DOMNode, message: string, location: LocationData){
 						report.add(node, rule, message, location || data.location || node.location);
 					});
 				});

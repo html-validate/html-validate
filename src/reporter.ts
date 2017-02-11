@@ -1,6 +1,9 @@
+/* eslint-disable no-unused-vars */
 import Config from './config';
-import Context from './context'; // eslint-disable-line no-unused-vars
-import DOMNode from './domnode'; // eslint-disable-line no-unused-vars
+import Context from './context';
+import DOMNode from './domnode';
+import { Rule } from './rule';
+/* eslint-enable no-unused-vars */
 
 export interface Message {
 	ruleId: string;
@@ -27,7 +30,7 @@ export class Reporter {
 		this.result = {};
 	}
 
-	add(node: DOMNode, rule, message: string, context: Context){
+	add(node: DOMNode, rule: Rule, message: string, context: Context){
 		if ( !this.result.hasOwnProperty(context.filename) ){
 			this.result[context.filename] = [];
 		}

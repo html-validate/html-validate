@@ -28,7 +28,7 @@ const recommended = {
 	},
 };
 
-function deepMerge(dst: Object, src: Object){
+function deepMerge(dst: any, src: any){
 	for ( let key of Object.keys(src) ){
 		if ( dst.hasOwnProperty(key) && typeof(dst[key]) === 'object' && typeof(src[key]) === 'object' ){
 			deepMerge(dst[key], src[key]);
@@ -76,7 +76,7 @@ class Config {
 		const json = require(filename);
 
 		/* expand any relative paths */
-		json.extends = (json.extends||[]).map(function(ref){
+		json.extends = (json.extends||[]).map(function(ref: string){
 			return Config.expandRelative(ref, path.dirname(filename));
 		});
 
@@ -90,7 +90,7 @@ class Config {
 
 		/* process and extended configs */
 		const self = this;
-		this.config.extends.forEach(function(ref){
+		this.config.extends.forEach(function(ref: string){
 			const base = Config.fromFile(ref);
 			self.config = base.merge(self.config);
 		});
@@ -113,12 +113,12 @@ class Config {
 		return src;
 	}
 
-	private merge(config){
+	private merge(config: Object): Object {
 		deepMerge(this.config, config);
 		return this.config;
 	}
 
-	get(){
+	get(): any {
 		return Object.assign({}, this.config);
 	}
 
@@ -135,6 +135,10 @@ class Config {
 			rules[name] = options;
 		}
 		return rules;
+	}
+
+	isVoidElement(tagName: string): boolean {
+		return this.config.html.voidElements.indexOf(tagName.toLowerCase()) !== -1;
 	}
 }
 

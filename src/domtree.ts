@@ -9,7 +9,7 @@ class DOMTree {
 		this.active = this.root;
 	}
 
-	pushActive(node): void {
+	pushActive(node: DOMNode): void {
 		this.active = node;
 	}
 

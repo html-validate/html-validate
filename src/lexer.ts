@@ -1,5 +1,7 @@
-import { Context, Source, ContentModel } from './context'; // eslint-disable-line no-unused-vars
-import { Token, TokenType } from './token'; // eslint-disable-line no-unused-vars
+/* eslint-disable no-unused-vars */
+import { Context, Source, ContentModel } from './context';
+import { Token, TokenType } from './token';
+/* eslint-enable no-unused-vars */
 
 enum State {
 	INITIAL = 1,
@@ -119,7 +121,7 @@ export class Lexer {
 			if ( regex === false ){
 				if ( token !== false ) yield this.token(context, token);
 				context.consume(0, nextState);
-				this.enter(context, nextState, token, match);
+				this.enter(context, nextState, match);
 				return;
 			}
 
@@ -127,7 +129,7 @@ export class Lexer {
 			if ( (match=context.string.match(regex)) ){
 				if ( token !== false ) yield this.token(context, token, match);
 				context.consume(match, nextState);
-				this.enter(context, nextState, token, match);
+				this.enter(context, nextState, match);
 				return;
 			}
 		}
@@ -140,7 +142,7 @@ export class Lexer {
 	/**
 	 * Called when entering a new state.
 	 */
-	enter(context: Context, state: State, token, data){
+	enter(context: Context, state: State, data: any){
 		switch ( state ) {
 		case State.TAG:
 			/* request script tag tokenization */
@@ -196,13 +198,13 @@ export class Lexer {
 		], 'expected text or "<"');
 	}
 
-	*tokenizeCDATA(context){
+	*tokenizeCDATA(context: Context){
 		yield* this.match(context, [
 			[MATCH_CDATA_END, State.TEXT, false],
 		], 'expected ]]>');
 	}
 
-	*tokenizeScript(context){
+	*tokenizeScript(context: Context){
 		yield* this.match(context, [
 			[MATCH_SCRIPT_END, State.TAG, TokenType.TAG_OPEN],
 			[MATCH_SCRIPT_DATA, State.SCRIPT, TokenType.SCRIPT],

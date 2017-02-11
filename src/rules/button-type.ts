@@ -1,5 +1,8 @@
-import { Rule, RuleParserProxy } from '../rule'; // eslint-disable-line no-unused-vars
-import { DOMReadyEvent } from '../event'; // eslint-disable-line no-unused-vars
+/* eslint-disable no-unused-vars */
+import { Rule, RuleReport, RuleParserProxy } from '../rule';
+import DOMNode from '../domnode';
+import { DOMReadyEvent } from '../event';
+/* eslint-enable no-unused-vars */
 
 export = <Rule> {
 	name: 'button-type',
@@ -12,13 +15,14 @@ function init(parser: RuleParserProxy){
 	parser.on('dom:ready', validate);
 }
 
-function validate(event: DOMReadyEvent, report){
+function validate(event: DOMReadyEvent, report: RuleReport){
 	const validTypes = this.validTypes;
 	const buttons = event.document.getElementsByTagName('button');
-	buttons.forEach(function(node){
-		if ( typeof(node.attr.type) === 'undefined' ){
+	buttons.forEach(function(node: DOMNode){
+		const type = node.getAttribute('type');
+		if ( typeof(type) === 'undefined' ){
 			report(node, "Button is missing type attribute");
-		} else if ( validTypes.indexOf(node.attr.type.toLowerCase()) === -1 ){
+		} else if ( validTypes.indexOf(type.toLowerCase()) === -1 ){
 			report(node, "Button has invalid type");
 		}
 	});

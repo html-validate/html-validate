@@ -1,10 +1,12 @@
-import Config from './config'; // eslint-disable-line no-unused-vars
+/* eslint-disable no-unused-vars */
+import Config from './config';
 import DOMNode from './domnode';
 import DOMTree from './domtree';
-import { Lexer, TokenStream } from './lexer'; // eslint-disable-line no-unused-vars
-import { Token, TokenType } from './token'; // eslint-disable-line no-unused-vars
-import { EventHandler, EventCallback } from './eventhandler'; // eslint-disable-line no-unused-vars
-import { Source } from './context'; // eslint-disable-line no-unused-vars
+import { Lexer, TokenStream } from './lexer';
+import { Token, TokenType } from './token';
+import { EventHandler, EventCallback } from './eventhandler';
+import { Source } from './context';
+/* eslint-enable no-unused-vars */
 
 class Parser {
 	config: Config;
@@ -60,7 +62,6 @@ class Parser {
 	consumeTag(startToken: Token, tokenStream: TokenStream){
 		const tokens = Array.from(this.consumeUntil(tokenStream, TokenType.TAG_CLOSE));
 		const endToken = tokens.slice(-1)[0];
-
 		const node = DOMNode.fromTokens(startToken, endToken, this.dom.getActive(), this.config);
 		const open = !startToken.data[1];
 		const close = !open || node.selfClosed || node.voidElement;
@@ -153,7 +154,7 @@ class Parser {
 	 * @param {string} event - Event name
 	 * @param {Event} data - Event data
 	 */
-	private trigger(event: string, data): void {
+	private trigger(event: string, data: any): void {
 		if ( typeof(data.location) === 'undefined' ){
 			throw Error('Triggered event must contain location');
 		}

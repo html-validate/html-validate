@@ -8,7 +8,7 @@ describe('lexer', function(){
 
 	chai.use(require('chai-subset'));
 
-	let lexer;
+	let lexer: Lexer;
 
 	beforeEach(function(){
 		lexer = new Lexer();

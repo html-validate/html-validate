@@ -1,5 +1,7 @@
-import { Rule, RuleParserProxy } from '../rule'; // eslint-disable-line no-unused-vars
-import { TagCloseEvent } from '../event'; // eslint-disable-line no-unused-vars
+/* eslint-disable no-unused-vars */
+import { Rule, RuleReport, RuleParserProxy } from '../rule';
+import { TagCloseEvent } from '../event';
+/* eslint-enable no-unused-vars */
 
 export = <Rule> {
 	name: 'close-attr',
@@ -10,7 +12,7 @@ function init(parser: RuleParserProxy){
 	parser.on('tag:close', validate);
 }
 
-function validate(event: TagCloseEvent, report){
+function validate(event: TagCloseEvent, report: RuleReport){
 	/* handle unclosed tags */
 	if ( typeof(event.target) === 'undefined' ){
 		return;

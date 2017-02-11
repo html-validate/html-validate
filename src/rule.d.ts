@@ -1,4 +1,7 @@
-import DOMNode from './domnode'; // eslint-disable-line no-unused-vars
+/* eslint-disable no-unused-vars */
+import DOMNode from './domnode';
+import { LocationData } from './context';
+/* eslint-enable no-unused-vars */
 
 export interface Rule {
 	name: string;
@@ -6,6 +9,10 @@ export interface Rule {
 	init: (parser: RuleParserProxy, options: any) => void;
 }
 
+export type RuleReport = (node: DOMNode, message: string, location?: LocationData) => void;
+
+export type RuleEventCallback = (event: any, report: RuleReport) => void;
+
 export interface RuleParserProxy {
-	on: (event: string, callback) => void;
+	on: (event: string, callback: RuleEventCallback) => void;
 }

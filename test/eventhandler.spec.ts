@@ -7,7 +7,7 @@ describe('eventhandler', function(){
 
 	chai.use(require('chai-spies'));
 
-	let eventhandler;
+	let eventhandler: EventHandler;
 
 	beforeEach(function(){
 		eventhandler = new EventHandler();

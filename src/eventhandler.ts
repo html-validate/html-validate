@@ -24,7 +24,7 @@ export class EventHandler {
 	 * @param event {string} - Event name.
 	 * @param [data] {any} - Event data.
 	 */
-	trigger(event: string, data: Event){
+	trigger(event: string, data: any){
 		const callbacks = [].concat(this.listeners[event] || [], this.listeners['*'] || []);
 		callbacks.forEach(listener => {
 			listener.call(null, event, data);

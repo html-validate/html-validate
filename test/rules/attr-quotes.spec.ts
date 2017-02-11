@@ -4,7 +4,7 @@ describe('rule attr-quotes', function(){
 
 	const expect = require('chai').expect;
 
-	let htmllint;
+	let htmllint: HtmlLint;
 
 	describe('with double-quote option', function(){
 

@@ -1,4 +1,8 @@
-import LocationData from './context'; // eslint-disable-line no-unused-vars
+/* eslint-disable no-unused-vars */
+import { LocationData } from './context';
+import Config from './config';
+import { Token } from './token';
+/* eslint-enable no-unused-vars */
 
 class DOMNode {
 	children: Array<DOMNode>;
@@ -31,14 +35,14 @@ class DOMNode {
 		return new DOMNode(undefined, undefined);
 	}
 
-	static fromTokens(startToken, endToken, parent, config){
+	static fromTokens(startToken: Token, endToken: Token, parent: DOMNode, config: Config){
 		const tagName = startToken.data[2];
 		if ( !tagName ){
 			throw new Error("tagName cannot be empty");
 		}
 		let node = new DOMNode(tagName, undefined, startToken.location);
 		node.selfClosed = endToken.data[0] === '/>';
-		node.voidElement = DOMNode.isVoidElement(config, node.tagName);
+		node.voidElement = config.isVoidElement(node.tagName);
 		node.open = startToken.data[1] !== '/';
 		node.closed = node.selfClosed || node.voidElement;
 
@@ -52,27 +56,23 @@ class DOMNode {
 		return node;
 	}
 
-	private static isVoidElement(config, tagName): boolean {
-		return config.html.voidElements.indexOf(tagName.toLowerCase()) !== -1;
-	}
-
 	isRootElement(): boolean {
 		return typeof(this.tagName) === 'undefined';
 	}
 
-	setAttribute(key, value){
+	setAttribute(key: string, value: any){
 		this.attr[key] = value;
 	}
 
-	getAttribute(key){
+	getAttribute(key: string){
 		return this.attr[key];
 	}
 
-	append(node){
+	append(node: DOMNode){
 		this.children.push(node);
 	}
 
-	getElementsByTagName(tagName: string) {
+	getElementsByTagName(tagName: string): Array<DOMNode> {
 		return this.children.reduce(function(matches, node){
 			return matches.concat(node.tagName === tagName ? [node] : [], node.getElementsByTagName(tagName));
 		}, []);

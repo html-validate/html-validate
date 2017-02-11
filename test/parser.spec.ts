@@ -1,19 +1,22 @@
+/* eslint-disable no-unused-vars */
 import Config from '../src/config';
-import Parser from '../src/parser';
 import DOMTree from '../src/domtree';
+import { EventCallback } from '../src/eventhandler';
+import Parser from '../src/parser';
 import HtmlLint from '../src/htmllint';
+/* eslint-enable no-unused-vars */
 
 describe('parser', function(){
 
 	const chai = require('chai');
 	const expect = chai.expect;
 
-	let events;
-	let parser;
+	let events: Array<any>;
+	let parser: Parser;
 
 	beforeEach(function(){
 		events = [];
-		parser = new Parser(Config.empty().get());
+		parser = new Parser(Config.empty());
 		parser.on('*', function(event, data){
 			if ( ['tag:open', 'tag:close'].indexOf(event) >= 0 ){
 				events.push({
@@ -234,11 +237,11 @@ describe('parser', function(){
 
 	describe('dom:ready', function(){
 
-		let callback;
-		let document;
+		let callback: EventCallback;
+		let document: DOMTree;
 
 		beforeEach(function(){
-			callback = chai.spy(function(event, data){
+			callback = chai.spy(function(event: string, data: any){
 				document = data.document;
 			});
 			parser.on('dom:ready', callback);
@@ -259,7 +262,7 @@ describe('parser', function(){
 
 	describe('regressiontesting', function(){
 
-		let htmllint;
+		let htmllint: HtmlLint;
 
 		beforeEach(function(){
 			htmllint = new HtmlLint({

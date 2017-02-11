@@ -4,7 +4,7 @@ describe('rule close-order', function(){
 
 	const expect = require('chai').expect;
 
-	let htmllint;
+	let htmllint: HtmlLint;
 
 	before(function(){
 		htmllint = new HtmlLint({
