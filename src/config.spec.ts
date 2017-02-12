@@ -156,4 +156,14 @@ describe('config', function(){
 
 	});
 
+	describe('getMetaTable()', function(){
+
+		it('should load metadata', function(){
+			const config = Config.empty();
+			const metatable = config.getMetaTable();
+			expect(Object.keys(metatable.elements)).not.to.have.lengthOf(0);
+		});
+
+	});
+
 });

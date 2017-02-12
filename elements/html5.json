@@ -1,0 +1,22 @@
+{
+  "div": {
+    "flow": true
+  },
+
+  "input": {
+    "void": true,
+    "flow": true,
+    "phrasing": true
+  },
+
+  "li": {},
+
+  "p": {
+    "flow": true
+  },
+
+  "span": {
+    "flow": true,
+    "phrasing": true
+  }
+}

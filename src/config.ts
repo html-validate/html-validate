@@ -1,4 +1,6 @@
+import { MetaTable } from './meta';
 const path = require('path');
+const glob = require('glob');
 
 const voidElements = [
 	'area',
@@ -60,8 +62,9 @@ interface ConfigData {
 	rules: any;
 }
 
-class Config {
+export class Config {
 	config: ConfigData;
+	metaTable: MetaTable;
 
 	public static readonly SEVERITY_DISABLED = 0;
 	public static readonly SEVERITY_WARN = 1;
@@ -93,6 +96,7 @@ class Config {
 	constructor(options?: any){
 		this.loadDefaults();
 		this.merge(options || {});
+		this.metaTable = null;
 
 		/* process and extended configs */
 		const self = this;
@@ -110,6 +114,17 @@ class Config {
 			extends: [],
 			rules: {},
 		};
+	}
+
+	getMetaTable(){
+		if (!this.metaTable){
+			this.metaTable = new MetaTable();
+			const root = path.resolve(__dirname, '..');
+			for (const filename of glob.sync(`${root}/elements/*.json`)){
+				this.metaTable.loadFromFile(filename);
+			}
+		}
+		return this.metaTable;
 	}
 
 	static expandRelative(src: string, currentPath: string): string {

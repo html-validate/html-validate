@@ -1,7 +1,8 @@
 import { LocationData } from '../context';
-import Config from '../config';
+import { Config } from '../config';
 import { Token } from '../token';
 import { DOMTokenList } from './domtokenlist';
+import { MetaElement } from '../meta';
 
 export class DOMNode {
 	children: Array<DOMNode>;
@@ -13,6 +14,7 @@ export class DOMNode {
 	selfClosed: boolean;
 	voidElement: boolean;
 	location: LocationData;
+	meta: MetaElement;
 
 	constructor(tagName: string, parent?: DOMNode, location?: LocationData){
 		this.children = [];

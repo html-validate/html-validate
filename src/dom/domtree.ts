@@ -1,5 +1,6 @@
 import { DOMNode } from './domnode';
 import { Selector } from './selector';
+import { MetaTable } from '../meta';
 
 export class DOMTree {
 	root: DOMNode;
@@ -24,6 +25,16 @@ export class DOMTree {
 
 	getActive(): DOMNode {
 		return this.active;
+	}
+
+	/**
+	 * Fill each node with its own metadata entry with any runtime
+	 * checks applied.
+	 */
+	fillMeta(table: MetaTable){
+		this.visitDepthFirst((node: DOMNode) => {
+			node.meta = table.getMetaFor(node);
+		});
 	}
 
 	getElementsByTagName(tagName: string) {

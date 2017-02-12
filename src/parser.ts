@@ -60,6 +60,9 @@ class Parser {
 			it = this.next(tokenStream);
 		}
 
+		const meta = this.config.getMetaTable();
+		this.dom.fillMeta(meta);
+
 		/* trigger any rules waiting for DOM ready */
 		this.trigger('dom:ready', {
 			document: this.dom,
