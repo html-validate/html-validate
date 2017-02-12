@@ -179,6 +179,24 @@ describe('lexer', function(){
 			expect(token.next().done).to.be.true;
 		});
 
+		it('nested with text', function(){
+			let token = lexer.tokenize({data: '<div>\n  <p>foo</p>\n</div>', filename: 'inline'});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_OPEN});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: TokenType.WHITESPACE});
+			expect(token.next().value).to.containSubset({type: TokenType.WHITESPACE});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_OPEN});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: TokenType.TEXT});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_OPEN});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: TokenType.WHITESPACE});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_OPEN});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: TokenType.EOF});
+			expect(token.next().done).to.be.true;
+		});
+
 		it('CDATA', function(){
 			let token = lexer.tokenize({data: '<![CDATA[ <p>lorem</div> ipsum ]]>', filename: 'inline'});
 			expect(token.next().value).to.containSubset({type: TokenType.EOF});

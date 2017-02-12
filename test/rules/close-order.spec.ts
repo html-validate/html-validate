@@ -68,8 +68,8 @@ describe('rule close-order', function(){
 		expect(report.valid, "linting should report failure").to.be.false;
 		expect(report.results[0].messages, "report should contain 1 errors").to.have.lengthOf(1);
 		expect(report.results[0].messages[0].ruleId, "reported error should be close-order").to.equal('close-order');
-		expect(report.results[0].messages[0].line, "first error should be on line 7").to.equal(7);
-		expect(report.results[0].messages[0].column, "first error should be on column 1").to.equal(1);
+		expect(report.results[0].messages[0].line, "first error should be on line 6").to.equal(6);
+		expect(report.results[0].messages[0].column, "first error should be on column 15").to.equal(15);
 	});
 
 });
