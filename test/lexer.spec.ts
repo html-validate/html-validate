@@ -104,6 +104,17 @@ describe('lexer', function(){
 			expect(token.next().done).to.be.true;
 		});
 
+		it('unquoted numerical attributes', function(){
+			let token = lexer.tokenize({data: '<foo rows=5>', filename: 'inline'});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_OPEN});
+			expect(token.next().value).to.containSubset({type: TokenType.WHITESPACE});
+			expect(token.next().value).to.containSubset({type: TokenType.ATTR_NAME, data: ['rows', 'rows']});
+			expect(token.next().value).to.containSubset({type: TokenType.ATTR_VALUE, data: ['5', '5']});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: TokenType.EOF});
+			expect(token.next().done).to.be.true;
+		});
+
 		it('attribute without value', function(){
 			let token = lexer.tokenize({data: '<foo bar>', filename: 'inline'});
 			expect(token.next().value).to.containSubset({type: TokenType.TAG_OPEN});
