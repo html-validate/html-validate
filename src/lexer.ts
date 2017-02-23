@@ -148,10 +148,12 @@ export class Lexer {
 		switch ( state ) {
 		case State.TAG:
 			/* request script tag tokenization */
-			if ( data && data[0] === '<script' ){
-				context.contentModel = ContentModel.SCRIPT;
-			} else {
-				context.contentModel = ContentModel.TEXT;
+			if ( data && data[0][0] === '<' ){
+				if ( data[0] === '<script' ){
+					context.contentModel = ContentModel.SCRIPT;
+				} else {
+					context.contentModel = ContentModel.TEXT;
+				}
 			}
 			break;
 		}
