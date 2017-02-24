@@ -239,6 +239,22 @@ describe('lexer', function(){
 			expect(token.next().done).to.be.true;
 		});
 
+		it('self-closed script tag', function(){
+			/* not legal but lexer shouldn't choke on it */
+			let token = lexer.tokenize({data: '<head><script src="foo.js"/></head>', filename: 'inline'});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_OPEN, data: ['<head']});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_OPEN, data: ['<script']});
+			expect(token.next().value).to.containSubset({type: TokenType.WHITESPACE});
+			expect(token.next().value).to.containSubset({type: TokenType.ATTR_NAME});
+			expect(token.next().value).to.containSubset({type: TokenType.ATTR_VALUE});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_OPEN, data: ['</head']});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: TokenType.EOF});
+			expect(token.next().done).to.be.true;
+		});
+
 		it('comment', function(){
 			let token = lexer.tokenize({data: '<!-- comment -->', filename: 'inline'});
 			expect(token.next().value).to.containSubset({type: TokenType.COMMENT, data: ['<!-- comment -->', ' comment ']});

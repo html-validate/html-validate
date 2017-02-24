@@ -13,7 +13,8 @@ enum State {
 	SCRIPT,
 }
 
-type LexerTest = [RegExp | false, State, TokenType | false]; // eslint-disable-line no-unused-vars
+type NextStateCallback = ((token?: Token) => State);
+type LexerTest = [RegExp | false, State | NextStateCallback, TokenType | false]; // eslint-disable-line no-unused-vars
 export type TokenStream = IterableIterator<Token>;
 
 const MATCH_WHITESPACE = /^(?:[ \t]+\n?|\n)/;
@@ -112,26 +113,37 @@ export class Lexer {
 		throw Error(message);
 	}
 
+	evalNextState(nextState: State | ((token: Token) => State), token: Token){
+		if ( typeof(nextState) === 'function' ){
+			return nextState(token);
+		} else {
+			return nextState;
+		}
+	}
+
 	*match(context: Context, tests: Array<LexerTest>, error: string){
-		let match;
+		let match = undefined;
 		for ( let test of tests ){
+			let token: Token = null;
 			const regex = test[0];
 			const nextState = test[1];
-			const token = test[2];
+			const tokenType = test[2];
 
 			/* no regex -> just perform the state change */
 			if ( regex === false ){
-				if ( token !== false ) yield this.token(context, token);
-				context.consume(0, nextState);
-				this.enter(context, nextState, match);
+				if ( tokenType !== false ) yield (token=this.token(context, tokenType));
+				const state = this.evalNextState(nextState, token);
+				context.consume(0, state);
+				this.enter(context, state, match);
 				return;
 			}
 
 			/* match regex */
 			if ( (match=context.string.match(regex)) ){
-				if ( token !== false ) yield this.token(context, token, match);
-				context.consume(match, nextState);
-				this.enter(context, nextState, match);
+				if ( tokenType !== false ) yield (token=this.token(context, tokenType, match));
+				const state = this.evalNextState(nextState, token);
+				context.consume(match, state);
+				this.enter(context, state, match);
 				return;
 			}
 		}
@@ -176,7 +188,19 @@ export class Lexer {
 	}
 
 	*tokenizeTag(context: Context){
-		const nextState = context.contentModel !== ContentModel.SCRIPT ? State.TEXT : State.SCRIPT;
+		function nextState(token: Token){
+			switch ( context.contentModel ){
+			case ContentModel.TEXT:
+				return State.TEXT;
+			case ContentModel.SCRIPT:
+				if ( token.data[0][0] !== '/' ){
+					return State.SCRIPT;
+				} else {
+					return State.TEXT; /* <script/> (not legal but handle it anyway so the lexer doesn't choke on it) */
+				}
+			}
+			return context.contentModel !== ContentModel.SCRIPT ? State.TEXT : State.SCRIPT;
+		}
 		yield* this.match(context, [
 			[MATCH_TAG_CLOSE, nextState, TokenType.TAG_CLOSE],
 			[MATCH_ATTR_START, State.ATTR, TokenType.ATTR_NAME],
