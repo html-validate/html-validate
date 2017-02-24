@@ -129,20 +129,10 @@ export class Lexer {
 			const nextState = test[1];
 			const tokenType = test[2];
 
-			/* no regex -> just perform the state change */
-			if ( regex === false ){
-				if ( tokenType !== false ) yield (token=this.token(context, tokenType));
-				const state = this.evalNextState(nextState, token);
-				context.consume(0, state);
-				this.enter(context, state, match);
-				return;
-			}
-
-			/* match regex */
-			if ( (match=context.string.match(regex)) ){
+			if ( regex === false || (match=context.string.match(regex)) ){
 				if ( tokenType !== false ) yield (token=this.token(context, tokenType, match));
 				const state = this.evalNextState(nextState, token);
-				context.consume(match, state);
+				context.consume(match || 0, state);
 				this.enter(context, state, match);
 				return;
 			}
