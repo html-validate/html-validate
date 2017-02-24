@@ -9,6 +9,7 @@ export = <Rule> {
 
 	defaults: {
 		style: 'double',
+		unquoted: false,
 	},
 };
 
@@ -32,7 +33,14 @@ function validate(event: AttributeEvent, report: RuleReport){
 		return;
 	}
 
+	if ( typeof(event.quote) === 'undefined' ){
+		if ( this.options.unquoted === false ){
+			report(event.target, `Attribute "${event.key}" using unquoted value`);
+		}
+		return;
+	}
+
 	if ( event.quote !== this.expected ){
-		report(event.target, "Attribute '" + event.key + "' used ' + event.quote + ' instead of expected " + this.expected);
+		report(event.target, `Attribute "${event.key}" used ${event.quote} instead of expected ${this.expected}`);
 	}
 }
