@@ -6,7 +6,7 @@ import { Reporter, Report } from './reporter';
 import { Source, LocationData } from './context';
 import { Lexer } from './lexer';
 import { TokenType } from './token';
-import { Rule, RuleEventCallback } from './rule';
+import { Rule, RuleEventCallback, RuleParserProxy, RuleReport } from './rule';
 /* eslint-enable no-unused-vars */
 
 const fs = require('fs');
@@ -88,10 +88,21 @@ class HtmlLint {
 	}
 
 	loadRule(name: string, data: any, parser: Parser, report: Reporter){
-		const severity = data[0];
-		const options = data[1];
+		const [severity, options] = data;
 		if (severity >= Config.SEVERITY_WARN){
-			const rule = require(`./rules/${name}`);
+			let rule;
+			try {
+				rule = require(`./rules/${name}`);
+			} catch (e) {
+				rule = <Rule> {
+					name: name,
+					init: (parser: RuleParserProxy) => {
+						parser.on('dom:load', (event: any, report: RuleReport) => {
+							report(null, `Definition for rule '${name}' was not found`);
+						});
+					},
+				};
+			}
 			rule.init(this.createProxy(parser, rule, report), options);
 		}
 	}

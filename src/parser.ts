@@ -30,6 +30,13 @@ class Parser {
 			source = {data: source, filename: 'inline'};
 		}
 
+		/* trigger any rules waiting for DOM load event */
+		this.trigger('dom:load', {
+			location: {
+
+			},
+		});
+
 		const lexer = new Lexer();
 		const tokenStream = lexer.tokenize(source);
 
