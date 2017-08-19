@@ -32,6 +32,10 @@ class DOMTree {
 	visitDepthFirst(callback: (node: DOMNode) => void): void {
 		this.root.visitDepthFirst(callback);
 	}
+
+	find(callback: (node: DOMNode) => boolean): DOMNode {
+		return this.root.find(callback);
+	}
 }
 
 export default DOMTree;

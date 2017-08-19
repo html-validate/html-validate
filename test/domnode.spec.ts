@@ -35,4 +35,19 @@ describe('DOMNode', function(){
 
 	});
 
+	describe('find()', function(){
+
+		it('should visit all nodes until callback evaluates to true', function(){
+			const root = new DOMNode('root');
+			/* eslint-disable no-unused-vars */
+			const a = new DOMNode('a', root);
+			const b = new DOMNode('b', root);
+			const c = new DOMNode('c', b);
+			/* eslint-enable no-unused-vars */
+			const result = root.find((node: DOMNode) => node.tagName === 'b');
+			expect(result.tagName).to.equal('b');
+		});
+
+	});
+
 });

@@ -90,6 +90,28 @@ class DOMNode {
 		visit(this);
 	}
 
+	/**
+	 * Visit all nodes from this node and down. Breadth first.
+	 *
+	 * The first node for which the callback evaluates to true is returned.
+	 */
+	find(callback: (node: DOMNode) => boolean): DOMNode {
+		function visit(node: DOMNode): DOMNode {
+			if (callback(node)){
+				return node;
+			}
+			for (const child of node.children){
+				const match = child.find(callback);
+				if (match) {
+					return match;
+				}
+			}
+			return null;
+		}
+
+		return visit(this);
+	}
+
 }
 
 export default DOMNode;
