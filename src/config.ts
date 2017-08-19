@@ -83,7 +83,7 @@ class Config {
 		const json = require(filename);
 
 		/* expand any relative paths */
-		json.extends = (json.extends||[]).map(function(ref: string){
+		json.extends = (json.extends || []).map(function(ref: string){
 			return Config.expandRelative(ref, path.dirname(filename));
 		});
 

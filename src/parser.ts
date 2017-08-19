@@ -86,7 +86,7 @@ class Parser {
 			case TokenType.WHITESPACE:
 				break;
 			case TokenType.ATTR_NAME:
-				this.consumeAttribute(node, token, tokens[i+1]);
+				this.consumeAttribute(node, token, tokens[i + 1]);
 				break;
 			}
 		}
@@ -172,7 +172,7 @@ class Parser {
 	 */
 	private closeTree(token: Token): void {
 		let active;
-		while ((active=this.dom.getActive()) && active.tagName){
+		while ((active = this.dom.getActive()) && active.tagName){
 			this.trigger('tag:close', {
 				target: undefined,
 				previous: active,
