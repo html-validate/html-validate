@@ -13,27 +13,27 @@ describe('rule no-trailing-whitespace', function(){
 	});
 
 	it('should not report when there is no trailing whitespace', function(){
-		let report = htmllint.string('<div>\n  foo\n</div>');
+		const report = htmllint.string('<div>\n  foo\n</div>');
 		expect(report.valid, "linting should report success").to.be.true;
 		expect(report.results, "report should contain no errors").to.have.lengthOf(0);
 	});
 
 	it('should report error when tag have trailing whitespace', function(){
-		let report = htmllint.string('<p>  \n</p>');
+		const report = htmllint.string('<p>  \n</p>');
 		expect(report.valid, "linting should report failure").to.be.false;
 		expect(report.results[0].messages, "report should contain 1 error").to.have.lengthOf(1);
 		expect(report.results[0].messages[0].ruleId, "reported error should be no-trailing-whitespace").to.equal('no-trailing-whitespace');
 	});
 
 	it('should report error when empty line have trailing whitespace', function(){
-		let report = htmllint.string('<p>\n  \n</p>');
+		const report = htmllint.string('<p>\n  \n</p>');
 		expect(report.valid, "linting should report failure").to.be.false;
 		expect(report.results[0].messages, "report should contain 1 error").to.have.lengthOf(1);
 		expect(report.results[0].messages[0].ruleId, "reported error should be no-trailing-whitespace").to.equal('no-trailing-whitespace');
 	});
 
 	it('should report error for both tabs and spaces', function(){
-		let report = htmllint.string('<p>\n  \n\t\n</p>');
+		const report = htmllint.string('<p>\n  \n\t\n</p>');
 		expect(report.valid, "linting should report failure").to.be.false;
 		expect(report.results[0].messages, "report should contain 2 errors").to.have.lengthOf(2);
 		expect(report.results[0].messages[0].ruleId, "reported error should be no-trailing-whitespace").to.equal('no-trailing-whitespace');
@@ -41,7 +41,7 @@ describe('rule no-trailing-whitespace', function(){
 	});
 
 	it('smoketest', function(){
-		let report = htmllint.file('./test/files/trailing-whitespace.html');
+		const report = htmllint.file('./test/files/trailing-whitespace.html');
 		expect(report.valid, "linting should report failure").to.be.false;
 		expect(report.results[0].messages, "report should contain 6 errors").to.have.lengthOf(6);
 		expect(report.results[0].messages[0].ruleId, "reported error should be no-trailing-whitespace").to.equal('no-trailing-whitespace');

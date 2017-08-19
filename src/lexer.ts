@@ -124,7 +124,7 @@ export class Lexer {
 
 	*match(context: Context, tests: Array<LexerTest>, error: string){
 		let match = undefined;
-		for ( let test of tests ){
+		for ( const test of tests ){
 			let token: Token = null;
 			const regex = test[0];
 			const nextState = test[1];

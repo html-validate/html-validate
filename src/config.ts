@@ -30,7 +30,7 @@ const recommended = {
 };
 
 function deepMerge(dst: any, src: any){
-	for ( let key of Object.keys(src) ){
+	for ( const key of Object.keys(src) ){
 		if ( dst.hasOwnProperty(key) && typeof(dst[key]) === 'object' && typeof(src[key]) === 'object' ){
 			deepMerge(dst[key], src[key]);
 		} else {
@@ -129,8 +129,8 @@ class Config {
 	}
 
 	getRules(){
-		let rules = Object.assign({}, this.config.rules || {});
-		for ( let name in rules ){
+		const rules = Object.assign({}, this.config.rules || {});
+		for ( const name in rules ){
 			let options = rules[name];
 			if ( !Array.isArray(options) ){
 				options = [options, {}];

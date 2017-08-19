@@ -15,13 +15,13 @@ describe('rule attr-quotes', function(){
 		});
 
 		it('should not report when attributes use double quotes', function(){
-			let report = htmllint.string('<div foo="bar"></div>');
+			const report = htmllint.string('<div foo="bar"></div>');
 			expect(report.valid, "linting should report success").to.be.true;
 			expect(report.results, "report should contain no errors").to.have.lengthOf(0);
 		});
 
 		it('should report error when attributes use single quotes', function(){
-			let report = htmllint.string('<div foo=\'bar\'></div>');
+			const report = htmllint.string('<div foo=\'bar\'></div>');
 			expect(report.valid, "linting should report success").to.be.false;
 			expect(report.results[0].messages, "report should contain no errors").to.have.lengthOf(1);
 			expect(report.results[0].messages[0].ruleId, "reported error should be attr-quotes").to.equal('attr-quotes');
@@ -38,14 +38,14 @@ describe('rule attr-quotes', function(){
 		});
 
 		it('should report error when attributes use double quotes', function(){
-			let report = htmllint.string('<div foo="bar"></div>');
+			const report = htmllint.string('<div foo="bar"></div>');
 			expect(report.valid, "linting should report success").to.be.false;
 			expect(report.results[0].messages, "report should contain no errors").to.have.lengthOf(1);
 			expect(report.results[0].messages[0].ruleId, "reported error should be attr-quotes").to.equal('attr-quotes');
 		});
 
 		it('should not report when attributes use single quotes', function(){
-			let report = htmllint.string('<div foo=\'bar\'></div>');
+			const report = htmllint.string('<div foo=\'bar\'></div>');
 			expect(report.valid, "linting should report success").to.be.true;
 			expect(report.results, "report should contain no errors").to.have.lengthOf(0);
 		});
@@ -61,13 +61,13 @@ describe('rule attr-quotes', function(){
 		});
 
 		it('should not report when attributes is using quotes', function(){
-			let report = htmllint.string('<div foo="bar"></div>');
+			const report = htmllint.string('<div foo="bar"></div>');
 			expect(report.valid, "linting should report success").to.be.true;
 			expect(report.results, "report should contain no errors").to.have.lengthOf(0);
 		});
 
 		it('should not report error when attribute value is unquoted', function(){
-			let report = htmllint.string('<div foo=5></div>');
+			const report = htmllint.string('<div foo=5></div>');
 			expect(report.valid, "linting should report success").to.be.true;
 			expect(report.results, "report should contain no errors").to.have.lengthOf(0);
 		});
@@ -83,13 +83,13 @@ describe('rule attr-quotes', function(){
 		});
 
 		it('should not report when attributes is using quotes', function(){
-			let report = htmllint.string('<div foo="bar"></div>');
+			const report = htmllint.string('<div foo="bar"></div>');
 			expect(report.valid, "linting should report success").to.be.true;
 			expect(report.results, "report should contain no errors").to.have.lengthOf(0);
 		});
 
 		it('should report error when attribute value is unquoted', function(){
-			let report = htmllint.string('<div foo=5></div>');
+			const report = htmllint.string('<div foo=5></div>');
 			expect(report.valid, "linting should report success").to.be.false;
 			expect(report.results[0].messages, "report should contain no errors").to.have.lengthOf(1);
 			expect(report.results[0].messages[0].ruleId, "reported error should be attr-quotes").to.equal('attr-quotes');

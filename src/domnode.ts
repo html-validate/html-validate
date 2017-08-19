@@ -40,7 +40,7 @@ class DOMNode {
 		if ( !tagName ){
 			throw new Error("tagName cannot be empty");
 		}
-		let node = new DOMNode(tagName, undefined, startToken.location);
+		const node = new DOMNode(tagName, undefined, startToken.location);
 		node.selfClosed = endToken.data[0] === '/>';
 		node.voidElement = config.isVoidElement(node.tagName);
 		node.open = startToken.data[1] !== '/';

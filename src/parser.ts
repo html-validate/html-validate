@@ -30,8 +30,8 @@ class Parser {
 			source = {data: source, filename: 'inline'};
 		}
 
-		let lexer = new Lexer();
-		let tokenStream = lexer.tokenize(source);
+		const lexer = new Lexer();
+		const tokenStream = lexer.tokenize(source);
 
 		/* consume all tokens from the stream */
 		let it = this.next(tokenStream);
@@ -81,7 +81,7 @@ class Parser {
 		}
 
 		for ( let i = 0; i < tokens.length; i++ ){
-			let token = tokens[i];
+			const token = tokens[i];
 			switch ( token.type ){
 			case TokenType.WHITESPACE:
 				break;
@@ -125,7 +125,7 @@ class Parser {
 	*consumeUntil(tokenStream: TokenStream, search: TokenType){
 		let it = this.next(tokenStream);
 		while ( !it.done ){
-			let token = it.value;
+			const token = it.value;
 			yield token;
 			if ( token.type === search ) return;
 			it = this.next(tokenStream);
@@ -135,7 +135,7 @@ class Parser {
 
 	private next(tokenStream: TokenStream): IteratorResult<Token> {
 		if ( this.peeked ){
-			let peeked = this.peeked;
+			const peeked = this.peeked;
 			this.peeked = undefined;
 			return peeked;
 		} else {

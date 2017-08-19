@@ -60,8 +60,8 @@ class HtmlLint {
 		const report = new Reporter();
 		const rules = this.config.getRules();
 		const parser = new Parser(this.config);
-		for ( let name in rules ){
-			let data = rules[name];
+		for ( const name in rules ){
+			const data = rules[name];
 			this.loadRule(name, data, parser, report);
 		}
 
@@ -73,8 +73,8 @@ class HtmlLint {
 	}
 
 	private dumpTokens(source: Source): Report {
-		let lexer = new Lexer();
-		for ( let token of lexer.tokenize(source) ){
+		const lexer = new Lexer();
+		for ( const token of lexer.tokenize(source) ){
 			const data = token.data ? token.data[0] : null;
 			process.stdout.write(`TOKEN: ${TokenType[token.type]}
   Data: ${JSON.stringify(data)}
@@ -88,10 +88,10 @@ class HtmlLint {
 	}
 
 	loadRule(name: string, data: any, parser: Parser, report: Reporter){
-		let severity = data[0];
-		let options = data[1];
+		const severity = data[0];
+		const options = data[1];
 		if ( severity >= Config.SEVERITY_WARN ){
-			let rule = require('./rules/' + name);
+			const rule = require('./rules/' + name);
 			rule.init(this.createProxy(parser, rule, report), options);
 		}
 	}

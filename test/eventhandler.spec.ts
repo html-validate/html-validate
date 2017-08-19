@@ -14,7 +14,7 @@ describe('eventhandler', function(){
 	});
 
 	it('should call listener on named event', function(){
-		let callback = chai.spy();
+		const callback = chai.spy();
 		eventhandler.on('foo', callback);
 		eventhandler.trigger('foo', {bar: true});
 		expect(callback).to.have.been.called.once();
@@ -22,14 +22,14 @@ describe('eventhandler', function(){
 	});
 
 	it('should not call listener on other events', function(){
-		let callback = chai.spy();
+		const callback = chai.spy();
 		eventhandler.on('foo', callback);
 		eventhandler.trigger('spam', {bar: true});
 		expect(callback).not.to.have.been.called();
 	});
 
 	it('should call wildcard listener on any event', function(){
-		let callback = chai.spy();
+		const callback = chai.spy();
 		eventhandler.on('*', callback);
 		eventhandler.trigger('foo', {bar: true});
 		expect(callback).to.have.been.called.once();

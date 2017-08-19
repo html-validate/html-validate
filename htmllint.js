@@ -35,7 +35,7 @@ if ( argv['dump-tokens'] ){
 }
 
 argv._.forEach(function(filename){
-	let report = htmllint.file(filename, mode);
+	const report = htmllint.file(filename, mode);
 
 	/* aggregate results */
 	valid = valid && report.valid;
