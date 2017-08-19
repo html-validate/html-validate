@@ -46,8 +46,8 @@ export class Lexer {
 		let previousState: State = context.state;
 		let previousLength: number = context.string.length;
 
-		while ( context.string.length > 0 ){
-			switch ( context.state ){
+		while (context.string.length > 0){
+			switch (context.state){
 			case State.INITIAL:
 				yield* this.tokenizeInitial(context);
 				break;
@@ -82,7 +82,7 @@ export class Lexer {
 
 			/* sanity check: state or string must change, if both are intact
 			 * we are stuck in an endless loop. */
-			if ( context.state === previousState && context.string.length === previousLength ){
+			if (context.state === previousState && context.string.length === previousLength){
 				this.errorStuck(context);
 			}
 
@@ -94,7 +94,7 @@ export class Lexer {
 	}
 
 	token(context: Context, type: TokenType, data?: any): Token {
-		if ( !type ) throw Error("TokenType must be set");
+		if (!type) throw Error("TokenType must be set");
 		return {
 			type,
 			location: context.getLocationData(),
@@ -115,7 +115,7 @@ export class Lexer {
 	}
 
 	evalNextState(nextState: State | ((token: Token) => State), token: Token){
-		if ( typeof(nextState) === 'function' ){
+		if (typeof(nextState) === 'function'){
 			return nextState(token);
 		} else {
 			return nextState;
@@ -124,14 +124,14 @@ export class Lexer {
 
 	*match(context: Context, tests: Array<LexerTest>, error: string){
 		let match = undefined;
-		for ( const test of tests ){
+		for (const test of tests){
 			let token: Token = null;
 			const regex = test[0];
 			const nextState = test[1];
 			const tokenType = test[2];
 
-			if ( regex === false || (match=context.string.match(regex)) ){
-				if ( tokenType !== false ) yield (token=this.token(context, tokenType, match));
+			if (regex === false || (match=context.string.match(regex))){
+				if (tokenType !== false) yield (token=this.token(context, tokenType, match));
 				const state = this.evalNextState(nextState, token);
 				context.consume(match || 0, state);
 				this.enter(context, state, match);
@@ -148,11 +148,11 @@ export class Lexer {
 	 * Called when entering a new state.
 	 */
 	enter(context: Context, state: State, data: any){
-		switch ( state ) {
+		switch (state) {
 		case State.TAG:
 			/* request script tag tokenization */
-			if ( data && data[0][0] === '<' ){
-				if ( data[0] === '<script' ){
+			if (data && data[0][0] === '<'){
+				if (data[0] === '<script'){
 					context.contentModel = ContentModel.SCRIPT;
 				} else {
 					context.contentModel = ContentModel.TEXT;
@@ -180,11 +180,11 @@ export class Lexer {
 
 	*tokenizeTag(context: Context){
 		function nextState(token: Token){
-			switch ( context.contentModel ){
+			switch (context.contentModel){
 			case ContentModel.TEXT:
 				return State.TEXT;
 			case ContentModel.SCRIPT:
-				if ( token.data[0][0] !== '/' ){
+				if (token.data[0][0] !== '/'){
 					return State.SCRIPT;
 				} else {
 					return State.TEXT; /* <script/> (not legal but handle it anyway so the lexer doesn't choke on it) */

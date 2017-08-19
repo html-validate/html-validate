@@ -26,7 +26,7 @@ class DOMNode {
 		this.voidElement = false;
 		this.location = location;
 
-		if ( parent ){
+		if (parent){
 			parent.children.push(this);
 		}
 	}
@@ -37,7 +37,7 @@ class DOMNode {
 
 	static fromTokens(startToken: Token, endToken: Token, parent: DOMNode, config: Config){
 		const tagName = startToken.data[2];
-		if ( !tagName ){
+		if (!tagName){
 			throw new Error("tagName cannot be empty");
 		}
 		const node = new DOMNode(tagName, undefined, startToken.location);
@@ -48,7 +48,7 @@ class DOMNode {
 
 		/* deferring setting the parent until open/closed is resolved so
 		 * close tags isn't added to the parent. */
-		if ( node.open && parent ){
+		if (node.open && parent){
 			node.parent = parent;
 			parent.children.push(node);
 		}

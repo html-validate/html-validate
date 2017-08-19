@@ -37,7 +37,7 @@ class HtmlLint {
 	file(filename: string, mode?: string): Report {
 		const text = fs.readFileSync(filename, {encoding: 'utf8'});
 		const source = {data: text, filename};
-		switch ( mode ){
+		switch (mode){
 		case 'lint':
 		case undefined:
 			return this.parse(source);
@@ -60,7 +60,7 @@ class HtmlLint {
 		const report = new Reporter();
 		const rules = this.config.getRules();
 		const parser = new Parser(this.config);
-		for ( const name in rules ){
+		for (const name in rules){
 			const data = rules[name];
 			this.loadRule(name, data, parser, report);
 		}
@@ -74,7 +74,7 @@ class HtmlLint {
 
 	private dumpTokens(source: Source): Report {
 		const lexer = new Lexer();
-		for ( const token of lexer.tokenize(source) ){
+		for (const token of lexer.tokenize(source)){
 			const data = token.data ? token.data[0] : null;
 			process.stdout.write(`TOKEN: ${TokenType[token.type]}
   Data: ${JSON.stringify(data)}
@@ -90,7 +90,7 @@ class HtmlLint {
 	loadRule(name: string, data: any, parser: Parser, report: Reporter){
 		const severity = data[0];
 		const options = data[1];
-		if ( severity >= Config.SEVERITY_WARN ){
+		if (severity >= Config.SEVERITY_WARN){
 			const rule = require('./rules/' + name);
 			rule.init(this.createProxy(parser, rule, report), options);
 		}

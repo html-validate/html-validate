@@ -31,7 +31,7 @@ export class Reporter {
 	}
 
 	add(node: DOMNode, rule: Rule, message: string, context: Context){
-		if ( !this.result.hasOwnProperty(context.filename) ){
+		if (!this.result.hasOwnProperty(context.filename)){
 			this.result[context.filename] = [];
 		}
 		this.result[context.filename].push({

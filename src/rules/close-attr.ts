@@ -14,16 +14,16 @@ function init(parser: RuleParserProxy){
 
 function validate(event: TagCloseEvent, report: RuleReport){
 	/* handle unclosed tags */
-	if ( typeof(event.target) === 'undefined' ){
+	if (typeof(event.target) === 'undefined'){
 		return;
 	}
 
 	/* ignore self-closed and void */
-	if ( event.target.selfClosed || event.target.voidElement ){
+	if (event.target.selfClosed || event.target.voidElement){
 		return;
 	}
 
-	if ( Object.keys(event.target.attr).length > 0 ){
+	if (Object.keys(event.target.attr).length > 0){
 		report(event.target, "Close tags cannot have attributes");
 	}
 }

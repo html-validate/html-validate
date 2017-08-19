@@ -56,6 +56,7 @@
       "classes": "always"
     }],
     "space-before-function-paren": [2, "never"],
+    "space-in-parens": "error",
     "yoda": 2
   }
 }

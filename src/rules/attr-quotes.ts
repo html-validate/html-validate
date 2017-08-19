@@ -20,7 +20,7 @@ function init(parser: RuleParserProxy, options: any){
 }
 
 function parseStyle(style: string){
-	switch ( style.toLowerCase() ){
+	switch (style.toLowerCase()){
 	case 'double': return '"';
 	case 'single': return "'";
 	default: return '"';
@@ -29,18 +29,18 @@ function parseStyle(style: string){
 
 function validate(event: AttributeEvent, report: RuleReport){
 	/* ignore attributes with not value */
-	if ( typeof(event.value) === 'undefined' ){
+	if (typeof(event.value) === 'undefined'){
 		return;
 	}
 
-	if ( typeof(event.quote) === 'undefined' ){
-		if ( this.options.unquoted === false ){
+	if (typeof(event.quote) === 'undefined'){
+		if (this.options.unquoted === false){
 			report(event.target, `Attribute "${event.key}" using unquoted value`);
 		}
 		return;
 	}
 
-	if ( event.quote !== this.expected ){
+	if (event.quote !== this.expected){
 		report(event.target, `Attribute "${event.key}" used ${event.quote} instead of expected ${this.expected}`);
 	}
 }

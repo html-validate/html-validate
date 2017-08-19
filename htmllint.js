@@ -17,7 +17,7 @@ Debugging options:
 `);
 }
 
-if ( argv.h || argv.help ){
+if (argv.h || argv.help){
 	showUsage();
 	process.exit();
 }
@@ -30,7 +30,7 @@ let results = [];
 let valid = true;
 let mode = 'lint';
 
-if ( argv['dump-tokens'] ){
+if (argv['dump-tokens']){
 	mode = 'dump-tokens';
 }
 

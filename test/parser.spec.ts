@@ -18,13 +18,13 @@ describe('parser', function(){
 		events = [];
 		parser = new Parser(Config.empty());
 		parser.on('*', function(event, data){
-			if ( ['tag:open', 'tag:close'].indexOf(event) >= 0 ){
+			if (['tag:open', 'tag:close'].indexOf(event) >= 0){
 				events.push({
 					event,
 					tagName: data.target ? data.target.tagName : undefined,
 				});
 			}
-			if ( ['attr'].indexOf(event) >= 0 ){
+			if (['attr'].indexOf(event) >= 0){
 				events.push({
 					event,
 					key: data.key,
