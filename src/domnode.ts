@@ -77,6 +77,19 @@ class DOMNode {
 			return matches.concat(node.tagName === tagName ? [node] : [], node.getElementsByTagName(tagName));
 		}, []);
 	}
+
+	/**
+	 * Visit all nodes from this node and down. Depth first.
+	 */
+	visitDepthFirst(callback: (node: DOMNode) => void): void {
+		function visit(node: DOMNode): void {
+			node.children.forEach(visit);
+			callback(node);
+		}
+
+		visit(this);
+	}
+
 }
 
 export default DOMNode;

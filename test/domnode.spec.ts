@@ -19,4 +19,20 @@ describe('DOMNode', function(){
 
 	});
 
+	describe('visitDepthFirst()', function(){
+
+		it('should visit all nodes in correct order', function(){
+			const root = new DOMNode('root');
+			/* eslint-disable no-unused-vars */
+			const a = new DOMNode('a', root);
+			const b = new DOMNode('b', root);
+			const c = new DOMNode('c', b);
+			/* eslint-enable no-unused-vars */
+			const order: string[] = [];
+			root.visitDepthFirst((node: DOMNode) => order.push(node.tagName));
+			expect(order).to.deep.equal(['a', 'c', 'b', 'root']);
+		});
+
+	});
+
 });
