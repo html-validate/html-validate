@@ -25,7 +25,7 @@ class Parser {
 		this.event.on(event, listener);
 	}
 
-	parseHtml(source: string|Source){
+	parseHtml(source: string|Source): DOMTree {
 		if (typeof source === 'string'){
 			source = {data: source, filename: 'inline'};
 		}
