@@ -18,13 +18,13 @@ describe('parser', function(){
 		events = [];
 		parser = new Parser(Config.empty());
 		parser.on('*', function(event, data){
-			if ( ['tag:open', 'tag:close'].indexOf(event) >= 0 ){
+			if (['tag:open', 'tag:close'].indexOf(event) >= 0){
 				events.push({
 					event,
 					tagName: data.target ? data.target.tagName : undefined,
 				});
 			}
-			if ( ['attr'].indexOf(event) >= 0 ){
+			if (['attr'].indexOf(event) >= 0){
 				events.push({
 					event,
 					key: data.key,
@@ -271,17 +271,17 @@ describe('parser', function(){
 		});
 
 		it('multiline', function(){
-			let report = htmllint.file('./test/files/multiline.html');
+			const report = htmllint.file('./test/files/multiline.html');
 			expect(report.valid, "linting should report success").to.be.true;
 		});
 
 		it('xi:include', function(){
-			let report = htmllint.file('./test/files/xi-include.html');
+			const report = htmllint.file('./test/files/xi-include.html');
 			expect(report.valid, "linting should report success").to.be.true;
 		});
 
 		it('cdata', function(){
-			let report = htmllint.file('./test/files/cdata.html');
+			const report = htmllint.file('./test/files/cdata.html');
 			expect(report.valid, "linting should report success").to.be.true;
 		});
 

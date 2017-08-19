@@ -26,7 +26,7 @@ class DOMNode {
 		this.voidElement = false;
 		this.location = location;
 
-		if ( parent ){
+		if (parent){
 			parent.children.push(this);
 		}
 	}
@@ -37,10 +37,10 @@ class DOMNode {
 
 	static fromTokens(startToken: Token, endToken: Token, parent: DOMNode, config: Config){
 		const tagName = startToken.data[2];
-		if ( !tagName ){
+		if (!tagName){
 			throw new Error("tagName cannot be empty");
 		}
-		let node = new DOMNode(tagName, undefined, startToken.location);
+		const node = new DOMNode(tagName, undefined, startToken.location);
 		node.selfClosed = endToken.data[0] === '/>';
 		node.voidElement = config.isVoidElement(node.tagName);
 		node.open = startToken.data[1] !== '/';
@@ -48,7 +48,7 @@ class DOMNode {
 
 		/* deferring setting the parent until open/closed is resolved so
 		 * close tags isn't added to the parent. */
-		if ( node.open && parent ){
+		if (node.open && parent){
 			node.parent = parent;
 			parent.children.push(node);
 		}
@@ -57,7 +57,7 @@ class DOMNode {
 	}
 
 	isRootElement(): boolean {
-		return typeof(this.tagName) === 'undefined';
+		return typeof this.tagName === 'undefined';
 	}
 
 	setAttribute(key: string, value: any){

@@ -13,7 +13,7 @@ function init(parser: RuleParserProxy){
 }
 
 function validate(event: WhitespaceEvent, report: RuleReport){
-	if ( event.text.match(/^[ \t]+\n$/) ){
+	if (event.text.match(/^[ \t]+\n$/)){
 		report(undefined, "Trailing whitespace", event.location);
 	}
 }

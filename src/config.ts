@@ -30,8 +30,8 @@ const recommended = {
 };
 
 function deepMerge(dst: any, src: any){
-	for ( let key of Object.keys(src) ){
-		if ( dst.hasOwnProperty(key) && typeof(dst[key]) === 'object' && typeof(src[key]) === 'object' ){
+	for (const key of Object.keys(src)){
+		if (dst.hasOwnProperty(key) && typeof dst[key] === 'object' && typeof src[key] === 'object'){
 			deepMerge(dst[key], src[key]);
 		} else {
 			dst[key] = src[key];
@@ -47,7 +47,7 @@ const parseSeverityLut = [
 ];
 
 function parseSeverity(value: string | number){
-	if ( typeof(value) === 'number' ){
+	if (typeof value === 'number'){
 		return value;
 	} else {
 		return parseSeverityLut.indexOf(value.toLowerCase());
@@ -76,14 +76,14 @@ class Config {
 	}
 
 	static fromFile(filename: string): Config {
-		if ( filename === 'htmllint:recommended' ){
+		if (filename === 'htmllint:recommended'){
 			return Config.fromObject(recommended);
 		}
 
 		const json = require(filename);
 
 		/* expand any relative paths */
-		json.extends = (json.extends||[]).map(function(ref: string){
+		json.extends = (json.extends || []).map(function(ref: string){
 			return Config.expandRelative(ref, path.dirname(filename));
 		});
 
@@ -113,7 +113,7 @@ class Config {
 	}
 
 	static expandRelative(src: string, currentPath: string): string {
-		if ( src[0] === '.' ){
+		if (src[0] === '.'){
 			return path.normalize(`${currentPath}/${src}`);
 		}
 		return src;
@@ -129,12 +129,12 @@ class Config {
 	}
 
 	getRules(){
-		let rules = Object.assign({}, this.config.rules || {});
-		for ( let name in rules ){
+		const rules = Object.assign({}, this.config.rules || {});
+		for (const name in rules){
 			let options = rules[name];
-			if ( !Array.isArray(options) ){
+			if (!Array.isArray(options)){
 				options = [options, {}];
-			} else if ( options.length === 1 ){
+			} else if (options.length === 1){
 				options.push({});
 			}
 			options[0] = parseSeverity(options[0]);

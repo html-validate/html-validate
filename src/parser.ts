@@ -26,19 +26,19 @@ class Parser {
 	}
 
 	parseHtml(source: string|Source){
-		if ( typeof(source) === 'string' ){
+		if (typeof source === 'string'){
 			source = {data: source, filename: 'inline'};
 		}
 
-		let lexer = new Lexer();
-		let tokenStream = lexer.tokenize(source);
+		const lexer = new Lexer();
+		const tokenStream = lexer.tokenize(source);
 
 		/* consume all tokens from the stream */
 		let it = this.next(tokenStream);
-		while ( !it.done ){
+		while (!it.done){
 			const token = it.value;
 
-			switch ( token.type ){
+			switch (token.type){
 			case TokenType.TAG_OPEN:
 				this.consumeTag(token, tokenStream);
 				break;
@@ -72,7 +72,7 @@ class Parser {
 		const open = !startToken.data[1];
 		const close = !open || node.selfClosed || node.voidElement;
 
-		if ( open ){
+		if (open){
 			this.dom.pushActive(node);
 			this.trigger('tag:open', {
 				target: node,
@@ -80,18 +80,18 @@ class Parser {
 			});
 		}
 
-		for ( let i = 0; i < tokens.length; i++ ){
-			let token = tokens[i];
-			switch ( token.type ){
+		for (let i = 0; i < tokens.length; i++){
+			const token = tokens[i];
+			switch (token.type){
 			case TokenType.WHITESPACE:
 				break;
 			case TokenType.ATTR_NAME:
-				this.consumeAttribute(node, token, tokens[i+1]);
+				this.consumeAttribute(node, token, tokens[i + 1]);
 				break;
 			}
 		}
 
-		if ( close ){
+		if (close){
 			this.trigger('tag:close', {
 				target: node,
 				previous: this.dom.getActive(),
@@ -105,7 +105,7 @@ class Parser {
 		const key = token.data[1];
 		let value = undefined;
 		let quote = undefined;
-		if ( next && next.type === TokenType.ATTR_VALUE ){
+		if (next && next.type === TokenType.ATTR_VALUE){
 			value = next.data[1];
 			quote = next.data[2];
 		}
@@ -124,18 +124,18 @@ class Parser {
 	 */
 	*consumeUntil(tokenStream: TokenStream, search: TokenType){
 		let it = this.next(tokenStream);
-		while ( !it.done ){
-			let token = it.value;
+		while (!it.done){
+			const token = it.value;
 			yield token;
-			if ( token.type === search ) return;
+			if (token.type === search) return;
 			it = this.next(tokenStream);
 		}
 		throw Error('stream ended before consumeUntil finished');
 	}
 
 	private next(tokenStream: TokenStream): IteratorResult<Token> {
-		if ( this.peeked ){
-			let peeked = this.peeked;
+		if (this.peeked){
+			const peeked = this.peeked;
 			this.peeked = undefined;
 			return peeked;
 		} else {
@@ -147,7 +147,7 @@ class Parser {
 	 * Return the next token without removing it from the stream.
 	 */
 	private peek(tokenStream: TokenStream): IteratorResult<Token> {
-		if ( this.peeked ){
+		if (this.peeked){
 			return this.peeked;
 		} else {
 			return this.peeked = tokenStream.next();
@@ -161,7 +161,7 @@ class Parser {
 	 * @param {Event} data - Event data
 	 */
 	private trigger(event: string, data: any): void {
-		if ( typeof(data.location) === 'undefined' ){
+		if (typeof data.location === 'undefined'){
 			throw Error('Triggered event must contain location');
 		}
 		this.event.trigger(event, data);
@@ -172,7 +172,7 @@ class Parser {
 	 */
 	private closeTree(token: Token): void {
 		let active;
-		while ( (active=this.dom.getActive()) && active.tagName ){
+		while ((active = this.dom.getActive()) && active.tagName){
 			this.trigger('tag:close', {
 				target: undefined,
 				previous: active,

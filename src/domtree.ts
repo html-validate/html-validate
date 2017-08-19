@@ -14,7 +14,7 @@ class DOMTree {
 	}
 
 	popActive(): void {
-		if ( this.active.isRootElement() ){
+		if (this.active.isRootElement()){
 			return; /* root element should never be popped, continue as if
 			         * nothing happened */
 		}
