@@ -48,6 +48,7 @@
     "no-unused-vars": 1,
     "no-var": "error",
     "prefer-const": "error",
+    "prefer-template": "error",
     "radix": 2,
     "semi": 2,
     "space-before-blocks": [0, {

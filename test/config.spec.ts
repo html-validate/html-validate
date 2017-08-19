@@ -90,7 +90,7 @@ describe('config', function(){
 	describe('fromFile()', function(){
 
 		it('should support JSON', function(){
-			const config = Config.fromFile(process.cwd() + '/test/config.json');
+			const config = Config.fromFile(`${process.cwd()}/test/config.json`);
 			expect(config.getRules()).to.deep.equal({
 				foo: [Config.SEVERITY_ERROR, {}],
 				bar: [Config.SEVERITY_WARN, {}],
@@ -104,7 +104,7 @@ describe('config', function(){
 
 		it('should extend base configuration', function(){
 			const config = Config.fromObject({
-				extends: [process.cwd() + '/test/config.json'],
+				extends: [`${process.cwd()}/test/config.json`],
 				rules: {
 					foo: 1,
 				},
@@ -118,7 +118,7 @@ describe('config', function(){
 
 		it('should support deep extending', function(){
 			const config = Config.fromObject({
-				extends: [process.cwd() + '/test/config-extending.json'],
+				extends: [`${process.cwd()}/test/config-extending.json`],
 			});
 			expect(config.getRules()).to.deep.equal({
 				foo: [Config.SEVERITY_ERROR, {}],

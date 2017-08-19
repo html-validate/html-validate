@@ -15,7 +15,7 @@ function init(parser: RuleParserProxy){
 function validate(event: TagCloseEvent, report: RuleReport){
 	/* handle unclosed tags */
 	if (typeof event.target === 'undefined'){
-		report(event.previous, "Missing close-tag, expected '</" + event.previous.tagName + ">' but document ended before it was found.");
+		report(event.previous, `Missing close-tag, expected '</${event.previous.tagName}>' but document ended before it was found.`);
 		return;
 	}
 
@@ -32,6 +32,6 @@ function validate(event: TagCloseEvent, report: RuleReport){
 
 	/* check for matching tagnames */
 	if (event.target.tagName !== event.previous.tagName){
-		report(event.target, "Mismatched close-tag, expected '</" + event.previous.tagName + ">' but found '</" + event.target.tagName + ">'.", event.target.location);
+		report(event.target, `Mismatched close-tag, expected '</${event.previous.tagName}>' but found '</${event.target.tagName}>'.`, event.target.location);
 	}
 }

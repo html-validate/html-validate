@@ -91,7 +91,7 @@ class HtmlLint {
 		const severity = data[0];
 		const options = data[1];
 		if (severity >= Config.SEVERITY_WARN){
-			const rule = require('./rules/' + name);
+			const rule = require(`./rules/${name}`);
 			rule.init(this.createProxy(parser, rule, report), options);
 		}
 	}
