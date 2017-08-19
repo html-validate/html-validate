@@ -14,13 +14,13 @@ function init(parser: RuleParserProxy){
 
 function validate(event: TagCloseEvent, report: RuleReport){
 	/* handle unclosed tags */
-	if (typeof(event.target) === 'undefined'){
+	if (typeof event.target === 'undefined'){
 		report(event.previous, "Missing close-tag, expected '</" + event.previous.tagName + ">' but document ended before it was found.");
 		return;
 	}
 
 	/* handle unopened tags */
-	if (typeof(event.previous) === 'undefined'){
+	if (typeof event.previous === 'undefined'){
 		report(event.previous, "Unexpected close-tag, expected opening tag.");
 		return;
 	}

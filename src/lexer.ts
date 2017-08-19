@@ -115,7 +115,7 @@ export class Lexer {
 	}
 
 	evalNextState(nextState: State | ((token: Token) => State), token: Token){
-		if (typeof(nextState) === 'function'){
+		if (typeof nextState === 'function'){
 			return nextState(token);
 		} else {
 			return nextState;

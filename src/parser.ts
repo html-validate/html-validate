@@ -26,7 +26,7 @@ class Parser {
 	}
 
 	parseHtml(source: string|Source){
-		if (typeof(source) === 'string'){
+		if (typeof source === 'string'){
 			source = {data: source, filename: 'inline'};
 		}
 
@@ -161,7 +161,7 @@ class Parser {
 	 * @param {Event} data - Event data
 	 */
 	private trigger(event: string, data: any): void {
-		if (typeof(data.location) === 'undefined'){
+		if (typeof data.location === 'undefined'){
 			throw Error('Triggered event must contain location');
 		}
 		this.event.trigger(event, data);

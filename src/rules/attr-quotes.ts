@@ -29,11 +29,11 @@ function parseStyle(style: string){
 
 function validate(event: AttributeEvent, report: RuleReport){
 	/* ignore attributes with not value */
-	if (typeof(event.value) === 'undefined'){
+	if (typeof event.value === 'undefined'){
 		return;
 	}
 
-	if (typeof(event.quote) === 'undefined'){
+	if (typeof event.quote === 'undefined'){
 		if (this.options.unquoted === false){
 			report(event.target, `Attribute "${event.key}" using unquoted value`);
 		}

@@ -31,7 +31,7 @@ const recommended = {
 
 function deepMerge(dst: any, src: any){
 	for (const key of Object.keys(src)){
-		if (dst.hasOwnProperty(key) && typeof(dst[key]) === 'object' && typeof(src[key]) === 'object'){
+		if (dst.hasOwnProperty(key) && typeof dst[key] === 'object' && typeof src[key] === 'object'){
 			deepMerge(dst[key], src[key]);
 		} else {
 			dst[key] = src[key];
@@ -47,7 +47,7 @@ const parseSeverityLut = [
 ];
 
 function parseSeverity(value: string | number){
-	if (typeof(value) === 'number'){
+	if (typeof value === 'number'){
 		return value;
 	} else {
 		return parseSeverityLut.indexOf(value.toLowerCase());

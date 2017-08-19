@@ -57,7 +57,7 @@ class DOMNode {
 	}
 
 	isRootElement(): boolean {
-		return typeof(this.tagName) === 'undefined';
+		return typeof this.tagName === 'undefined';
 	}
 
 	setAttribute(key: string, value: any){

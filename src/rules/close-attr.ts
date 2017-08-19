@@ -14,7 +14,7 @@ function init(parser: RuleParserProxy){
 
 function validate(event: TagCloseEvent, report: RuleReport){
 	/* handle unclosed tags */
-	if (typeof(event.target) === 'undefined'){
+	if (typeof event.target === 'undefined'){
 		return;
 	}
 

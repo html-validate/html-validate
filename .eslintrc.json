@@ -57,6 +57,7 @@
     }],
     "space-before-function-paren": [2, "never"],
     "space-in-parens": "error",
+    "space-unary-ops": "error",
     "yoda": 2
   }
 }

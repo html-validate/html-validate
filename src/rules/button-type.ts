@@ -20,7 +20,7 @@ function validate(event: DOMReadyEvent, report: RuleReport){
 	const buttons = event.document.getElementsByTagName('button');
 	buttons.forEach(function(node: DOMNode){
 		const type = node.getAttribute('type');
-		if (typeof(type) === 'undefined'){
+		if (typeof type === 'undefined'){
 			report(node, "Button is missing type attribute");
 		} else if (validTypes.indexOf(type.toLowerCase()) === -1){
 			report(node, "Button has invalid type");
