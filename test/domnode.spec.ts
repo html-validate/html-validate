@@ -4,6 +4,16 @@ describe('DOMNode', function(){
 
 	const expect = require('chai').expect;
 
+	describe('is()', function(){
+
+		it('should match tagname', function(){
+			const el = new DOMNode('foo');
+			expect(el.is('foo')).to.be.true;
+			expect(el.is('bar')).to.be.false;
+		});
+
+	});
+
 	describe('getElementsByTagName()', function(){
 
 		it('should find elements', function(){

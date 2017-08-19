@@ -56,6 +56,10 @@ class DOMNode {
 		return node;
 	}
 
+	is(tagName: string): boolean {
+		return this.tagName === tagName;
+	}
+
 	isRootElement(): boolean {
 		return typeof this.tagName === 'undefined';
 	}
