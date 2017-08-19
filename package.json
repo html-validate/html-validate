@@ -17,10 +17,10 @@
     "chai": "^3.5.0",
     "chai-spies": "^0.7.1",
     "chai-subset": "^1.4.0",
-    "eslint-plugin-mocha": "^4.8.0",
+    "eslint-plugin-mocha": "^4.11.0",
     "grunt": "^1.0.1",
     "grunt-cli": "^1.2.0",
-    "grunt-eslint": "^19.0.0",
+    "grunt-eslint": "^20.0.0",
     "grunt-mocha-test": "^0.13.2",
     "grunt-ts": "^6.0.0-beta.11",
     "mocha": "^3.2.0",
@@ -29,7 +29,7 @@
     "typescript-eslint-parser": "^1.0.3"
   },
   "dependencies": {
-    "eslint": "^3.14.0",
+    "eslint": "^4.5.0",
     "minimist": "^1.2.0"
   }
 }
