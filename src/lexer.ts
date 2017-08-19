@@ -17,6 +17,7 @@ type NextStateCallback = ((token?: Token) => State);
 type LexerTest = [RegExp | false, State | NextStateCallback, TokenType | false]; // eslint-disable-line no-unused-vars
 export type TokenStream = IterableIterator<Token>;
 
+/* eslint-disable no-useless-escape */
 const MATCH_WHITESPACE = /^(?:[ \t]+\n?|\n)/;
 const MATCH_DOCTYPE_OPEN = /^<!DOCTYPE\s/;
 const MATCH_DOCTYPE_VALUE = /^[^>]+/;
