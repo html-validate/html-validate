@@ -5,6 +5,10 @@
     "target": "es6",
     "noImplicitAny": true,
     "sourceMap": false,
-    "outDir": "build"
+    "outDir": "build",
+    "lib": [
+      "ES6",
+      "DOM.Iterable"
+    ]
   }
 }
