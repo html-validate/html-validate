@@ -57,7 +57,7 @@ class DOMNode {
 	}
 
 	is(tagName: string): boolean {
-		return this.tagName === tagName;
+		return (this.tagName && tagName === '*') || this.tagName === tagName;
 	}
 
 	isRootElement(): boolean {
@@ -78,7 +78,7 @@ class DOMNode {
 
 	getElementsByTagName(tagName: string): Array<DOMNode> {
 		return this.children.reduce(function(matches, node){
-			return matches.concat(node.tagName === tagName ? [node] : [], node.getElementsByTagName(tagName));
+			return matches.concat(node.is(tagName) ? [node] : [], node.getElementsByTagName(tagName));
 		}, []);
 	}
 

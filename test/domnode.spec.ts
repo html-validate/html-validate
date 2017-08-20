@@ -1,8 +1,23 @@
 import DOMNode from '../src/domnode';
+import DOMTree from '../src/domtree';
+import Parser from '../src/parser';
+import Config from '../src/config';
 
 describe('DOMNode', function(){
 
 	const expect = require('chai').expect;
+	let root: DOMTree;
+
+	beforeEach(() => {
+		const parser = new Parser(Config.empty());
+		root = parser.parseHtml(`<div id="parent">
+			<ul>
+				<li class="foo">foo</li>
+				<li class="bar baz" id="spam" title="ham">bar</li>
+			</ul>
+			<p class="bar">spam</p>
+		</div>`);
+	});
 
 	describe('is()', function(){
 
@@ -12,19 +27,26 @@ describe('DOMNode', function(){
 			expect(el.is('bar')).to.be.false;
 		});
 
+		it('should match any tag when using asterisk', function(){
+			const el = new DOMNode('foo');
+			expect(el.is('*')).to.be.true;
+		});
+
 	});
 
 	describe('getElementsByTagName()', function(){
 
 		it('should find elements', function(){
-			/* eslint-disable no-unused-vars */
-			const root = new DOMNode('root');
-			const a = new DOMNode('foo', root);
-			const b = new DOMNode('bar', root);
-			const c = new DOMNode('foo', b);
-			/* eslint-enable no-unused-vars */
-			const nodes = root.getElementsByTagName('foo');
+			const nodes = root.getElementsByTagName('li');
 			expect(nodes).to.have.lengthOf(2);
+			expect(nodes[0].getAttribute('class')).to.equal('foo');
+			expect(nodes[1].getAttribute('class')).to.equal('bar baz');
+		});
+
+		it('should support universal selector', function(){
+			const tagNames = root.getElementsByTagName('*').map((cur: DOMNode) => cur.tagName);
+			expect(tagNames).to.have.lengthOf(5);
+			expect(tagNames).to.deep.equal(['div', 'ul', 'li', 'li', 'p']);
 		});
 
 	});
