@@ -56,6 +56,10 @@ class DOMNode {
 		return node;
 	}
 
+	is(tagName: string): boolean {
+		return this.tagName === tagName;
+	}
+
 	isRootElement(): boolean {
 		return typeof this.tagName === 'undefined';
 	}
@@ -77,6 +81,41 @@ class DOMNode {
 			return matches.concat(node.tagName === tagName ? [node] : [], node.getElementsByTagName(tagName));
 		}, []);
 	}
+
+	/**
+	 * Visit all nodes from this node and down. Depth first.
+	 */
+	visitDepthFirst(callback: (node: DOMNode) => void): void {
+		function visit(node: DOMNode): void {
+			node.children.forEach(visit);
+			callback(node);
+		}
+
+		visit(this);
+	}
+
+	/**
+	 * Visit all nodes from this node and down. Breadth first.
+	 *
+	 * The first node for which the callback evaluates to true is returned.
+	 */
+	find(callback: (node: DOMNode) => boolean): DOMNode {
+		function visit(node: DOMNode): DOMNode {
+			if (callback(node)){
+				return node;
+			}
+			for (const child of node.children){
+				const match = child.find(callback);
+				if (match) {
+					return match;
+				}
+			}
+			return null;
+		}
+
+		return visit(this);
+	}
+
 }
 
 export default DOMNode;

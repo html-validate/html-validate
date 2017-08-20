@@ -4,6 +4,16 @@ describe('DOMNode', function(){
 
 	const expect = require('chai').expect;
 
+	describe('is()', function(){
+
+		it('should match tagname', function(){
+			const el = new DOMNode('foo');
+			expect(el.is('foo')).to.be.true;
+			expect(el.is('bar')).to.be.false;
+		});
+
+	});
+
 	describe('getElementsByTagName()', function(){
 
 		it('should find elements', function(){
@@ -15,6 +25,37 @@ describe('DOMNode', function(){
 			/* eslint-enable no-unused-vars */
 			const nodes = root.getElementsByTagName('foo');
 			expect(nodes).to.have.lengthOf(2);
+		});
+
+	});
+
+	describe('visitDepthFirst()', function(){
+
+		it('should visit all nodes in correct order', function(){
+			const root = new DOMNode('root');
+			/* eslint-disable no-unused-vars */
+			const a = new DOMNode('a', root);
+			const b = new DOMNode('b', root);
+			const c = new DOMNode('c', b);
+			/* eslint-enable no-unused-vars */
+			const order: string[] = [];
+			root.visitDepthFirst((node: DOMNode) => order.push(node.tagName));
+			expect(order).to.deep.equal(['a', 'c', 'b', 'root']);
+		});
+
+	});
+
+	describe('find()', function(){
+
+		it('should visit all nodes until callback evaluates to true', function(){
+			const root = new DOMNode('root');
+			/* eslint-disable no-unused-vars */
+			const a = new DOMNode('a', root);
+			const b = new DOMNode('b', root);
+			const c = new DOMNode('c', b);
+			/* eslint-enable no-unused-vars */
+			const result = root.find((node: DOMNode) => node.tagName === 'b');
+			expect(result.tagName).to.equal('b');
 		});
 
 	});

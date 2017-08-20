@@ -28,6 +28,14 @@ class DOMTree {
 	getElementsByTagName(tagName: string) {
 		return this.root.getElementsByTagName(tagName);
 	}
+
+	visitDepthFirst(callback: (node: DOMNode) => void): void {
+		this.root.visitDepthFirst(callback);
+	}
+
+	find(callback: (node: DOMNode) => boolean): DOMNode {
+		return this.root.find(callback);
+	}
 }
 
 export default DOMTree;
