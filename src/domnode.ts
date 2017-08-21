@@ -2,6 +2,7 @@
 import { LocationData } from './context';
 import Config from './config';
 import { Token } from './token';
+import { DOMTokenList } from './domtokenlist';
 /* eslint-enable no-unused-vars */
 
 class DOMNode {
@@ -74,6 +75,10 @@ class DOMNode {
 
 	append(node: DOMNode){
 		this.children.push(node);
+	}
+
+	get classList(){
+		return new DOMTokenList(this.getAttribute('class'));
 	}
 
 	getElementsByTagName(tagName: string): Array<DOMNode> {
