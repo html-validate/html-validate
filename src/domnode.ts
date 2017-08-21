@@ -70,7 +70,11 @@ class DOMNode {
 	}
 
 	getAttribute(key: string){
-		return this.attr[key];
+		if (key in this.attr){
+			return this.attr[key];
+		} else {
+			return null;
+		}
 	}
 
 	append(node: DOMNode){
