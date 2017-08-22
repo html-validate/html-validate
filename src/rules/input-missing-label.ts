@@ -10,7 +10,7 @@ export = <Rule> {
 	init,
 };
 
-function init(parser: RuleParserProxy, options: any){
+function init(parser: RuleParserProxy){
 	parser.on('dom:ready', (event: DOMReadyEvent, report: RuleReport) => {
 		const root = event.document;
 		for (const elem of root.getElementsByTagName('input')){

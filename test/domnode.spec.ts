@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 import DOMNode from '../src/domnode';
 import DOMTree from '../src/domtree';
 import Parser from '../src/parser';
 import Config from '../src/config';
+/* eslint-enable no-unused-vars */
 
 describe('DOMNode', function(){
 

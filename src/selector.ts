@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 import DOMNode from './domnode';
+/* eslint-enable no-unused-vars */
 
 enum Combinator {
 	DESCENDANT,
@@ -8,7 +10,7 @@ enum Combinator {
 }
 
 class Matcher {
-	match(node: DOMNode): boolean {
+	match(node: DOMNode): boolean { // eslint-disable-line no-unused-vars
 		return false;
 	}
 }
@@ -46,7 +48,7 @@ class AttrMatcher extends Matcher {
 
 	constructor(attr: string){
 		super();
-		const [,key, op, value] = attr.match(/^([a-z]+)(?:([~^$*|]?=)"([a-z]+)")?$/);
+		const [, key, op, value] = attr.match(/^([a-z]+)(?:([~^$*|]?=)"([a-z]+)")?$/);
 		this.key = key;
 		this.op = op;
 		this.value = value;
@@ -60,6 +62,7 @@ class AttrMatcher extends Matcher {
 		case '=':
 			return attr === this.value;
 		default:
+			// eslint-disable-next-line no-console
 			console.error(`Attribute selector operator ${this.op} is not implemented yet`);
 			return false;
 		}
@@ -73,12 +76,12 @@ class Pattern {
 	pattern: Matcher[];
 
 	constructor(pattern: string){
-		const match = pattern.match(/^([~+\->]?)((?:[*]|[^.#\[]+)?)(.*)$/);
+		const match = pattern.match(/^([~+\->]?)((?:[*]|[^.#[]+)?)(.*)$/);
 		match.shift(); /* remove full matched string */
 		this.selector = pattern;
 		this.combinator = Pattern.parseCombinator(match.shift());
 		this.tagName = match.shift() || '*';
-		const p = match[0] ? match[0].split(/(?=[.#\[])/) : [];
+		const p = match[0] ? match[0].split(/(?=[.#[])/) : [];
 		this.pattern = p.map((cur: string) => Pattern.createMatcher(cur));
 	}
 
@@ -87,7 +90,7 @@ class Pattern {
 	}
 
 	private static createMatcher(pattern: string): Matcher {
-		switch(pattern[0]) {
+		switch (pattern[0]){
 		case '.':
 			return new ClassMatcher(pattern.slice(1));
 		case '#':
@@ -95,6 +98,7 @@ class Pattern {
 		case '[':
 			return new AttrMatcher(pattern.slice(1, -1));
 		default:
+			// eslint-disable-next-line no-console
 			console.error(`Failed to create matcher for "${pattern}"`);
 			return new Matcher();
 		}
@@ -113,8 +117,9 @@ class Pattern {
 		case '~':
 			return Combinator.GENERAL_SIBLING;
 		default:
+			// eslint-disable-next-line no-console
 			console.error(`Unknown combinator "${combinator}", assuming descendant`);
-			return Combinator.DESCENDANT
+			return Combinator.DESCENDANT;
 		}
 	}
 }
@@ -174,6 +179,7 @@ export class Selector {
 			if (cur === node){
 				adjacent = true;
 			}
+			return false;
 		});
 	}
 
@@ -186,6 +192,7 @@ export class Selector {
 			if (cur === node){
 				after = true;
 			}
+			return false;
 		});
 	}
 }
