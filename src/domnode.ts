@@ -2,6 +2,7 @@
 import { LocationData } from './context';
 import Config from './config';
 import { Token } from './token';
+import { DOMTokenList } from './domtokenlist';
 /* eslint-enable no-unused-vars */
 
 class DOMNode {
@@ -57,7 +58,7 @@ class DOMNode {
 	}
 
 	is(tagName: string): boolean {
-		return this.tagName === tagName;
+		return (this.tagName && tagName === '*') || this.tagName === tagName;
 	}
 
 	isRootElement(): boolean {
@@ -69,16 +70,28 @@ class DOMNode {
 	}
 
 	getAttribute(key: string){
-		return this.attr[key];
+		if (key in this.attr){
+			return this.attr[key];
+		} else {
+			return null;
+		}
 	}
 
 	append(node: DOMNode){
 		this.children.push(node);
 	}
 
+	get classList(){
+		return new DOMTokenList(this.getAttribute('class'));
+	}
+
+	get siblings(){
+		return this.parent.children;
+	}
+
 	getElementsByTagName(tagName: string): Array<DOMNode> {
 		return this.children.reduce(function(matches, node){
-			return matches.concat(node.tagName === tagName ? [node] : [], node.getElementsByTagName(tagName));
+			return matches.concat(node.is(tagName) ? [node] : [], node.getElementsByTagName(tagName));
 		}, []);
 	}
 

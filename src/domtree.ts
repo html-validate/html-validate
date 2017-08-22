@@ -1,4 +1,5 @@
 import DOMNode from './domnode';
+import { Selector } from './selector';
 
 class DOMTree {
 	root: DOMNode;
@@ -35,6 +36,21 @@ class DOMTree {
 
 	find(callback: (node: DOMNode) => boolean): DOMNode {
 		return this.root.find(callback);
+	}
+
+	querySelector(selector: string): DOMNode {
+		const it = this.querySelectorImpl(selector);
+		return it.next().value || null;
+	}
+
+	querySelectorAll(selector: string): DOMNode[] {
+		const it = this.querySelectorImpl(selector);
+		return Array.from(it);
+	}
+
+	private *querySelectorImpl(selector: string): IterableIterator<DOMNode> {
+		const pattern = new Selector(selector);
+		yield* pattern.match(this.root);
 	}
 }
 

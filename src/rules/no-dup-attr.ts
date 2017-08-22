@@ -9,7 +9,7 @@ export = <Rule> {
 	init,
 };
 
-function init(parser: RuleParserProxy, options: any){
+function init(parser: RuleParserProxy){
 	let target: DOMNode = null;
 	let attr: { [key: string]: boolean } = {};
 
