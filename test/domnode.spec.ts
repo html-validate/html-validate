@@ -106,7 +106,7 @@ describe('DOMNode', function(){
 			const el = root.querySelector('div > .bar');
 			expect(el).to.be.an.instanceof(DOMNode);
 			expect(el.tagName).to.equal('p');
-			expect(el.getAttribute('class')).to.equal('bar baz');
+			expect(el.getAttribute('class')).to.equal('bar');
 		});
 
 		it('should find element with adjacent sibling combinator', () => {

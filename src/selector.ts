@@ -1,5 +1,12 @@
 import DOMNode from './domnode';
 
+enum Combinator {
+	DESCENDANT,
+	CHILD,
+	ADJACENT_SIBLING,
+	GENERAL_SIBLING,
+}
+
 class Matcher {
 	match(node: DOMNode): boolean {
 		return false;
@@ -61,7 +68,7 @@ class AttrMatcher extends Matcher {
 
 class Pattern {
 	selector: string;
-	combinator: string;
+	combinator: Combinator;
 	tagName: string;
 	pattern: Matcher[];
 
@@ -69,7 +76,7 @@ class Pattern {
 		const match = pattern.match(/^([+\->]?)((?:[*]|[^.#\[]+)?)(.*)$/);
 		match.shift(); /* remove full matched string */
 		this.selector = pattern;
-		this.combinator = match.shift();
+		this.combinator = Pattern.parseCombinator(match.shift());
 		this.tagName = match.shift() || '*';
 		const p = match[0] ? match[0].split(/(?=[.#\[])/) : [];
 		this.pattern = p.map((cur: string) => Pattern.createMatcher(cur));
@@ -92,13 +99,31 @@ class Pattern {
 			return new Matcher();
 		}
 	}
+
+	private static parseCombinator(combinator: string): Combinator {
+		switch (combinator){
+		case undefined:
+		case null:
+		case '':
+			return Combinator.DESCENDANT;
+		case '>':
+			return Combinator.CHILD;
+		case '+':
+			return Combinator.ADJACENT_SIBLING;
+		case '~':
+			return Combinator.GENERAL_SIBLING;
+		default:
+			console.error(`Unknown combinator "${combinator}", assuming descendant`);
+			return Combinator.DESCENDANT
+		}
+	}
 }
 
 export class Selector {
 	private pattern: Pattern[];
 
 	constructor(selector: string){
-		this.pattern = this.parse(selector);
+		this.pattern = Selector.parse(selector);
 	}
 
 	*match(root: DOMNode, level: number = 0): IterableIterator<DOMNode> {
@@ -108,7 +133,7 @@ export class Selector {
 		}
 
 		const pattern = this.pattern[level];
-		const matches = root.getElementsByTagName(pattern.tagName);
+		const matches = Selector.findCandidates(root, pattern);
 
 		for (const node of matches){
 			if (!pattern.match(node)){
@@ -119,8 +144,19 @@ export class Selector {
 		}
 	}
 
-	private parse(selector: string): Pattern[] {
+	private static parse(selector: string): Pattern[] {
 		const pattern = selector.replace(/([+~>]) /, '$1').split(/ +/);
 		return pattern.map((part: string) => new Pattern(part));
+	}
+
+	private static findCandidates(root: DOMNode, pattern: Pattern): DOMNode[] {
+		switch (pattern.combinator){
+		case Combinator.DESCENDANT:
+			return root.getElementsByTagName(pattern.tagName);
+		case Combinator.CHILD:
+			return root.children.filter(node => node.is(pattern.tagName));
+		default:
+			return [];
+		}
 	}
 }
