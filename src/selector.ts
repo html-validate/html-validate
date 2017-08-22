@@ -101,15 +101,21 @@ export class Selector {
 		this.pattern = this.parse(selector);
 	}
 
-	*match(node: DOMNode, level: number = 0): IterableIterator<DOMNode> {
-		const initial = this.pattern[0];
-		const matches = node.getElementsByTagName(initial.tagName);
+	*match(root: DOMNode, level: number = 0): IterableIterator<DOMNode> {
+		if (level >= this.pattern.length){
+			yield root;
+			return;
+		}
 
-		for (const it of matches){
-			let cur = it;
-			if (initial.match(cur)){
-			 	yield cur;
+		const pattern = this.pattern[level];
+		const matches = root.getElementsByTagName(pattern.tagName);
+
+		for (const node of matches){
+			if (!pattern.match(node)){
+				continue;
 			}
+
+			yield* this.match(node, level + 1);
 		}
 	}
 

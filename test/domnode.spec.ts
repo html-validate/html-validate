@@ -99,14 +99,14 @@ describe('DOMNode', function(){
 			const el = root.querySelector('ul .bar');
 			expect(el).to.be.an.instanceof(DOMNode);
 			expect(el.tagName).to.equal('li');
-			expect(el.getAttribute('class')).to.equal('bar');
+			expect(el.getAttribute('class')).to.equal('bar baz');
 		});
 
 		it('should find element with child combinator', () => {
 			const el = root.querySelector('div > .bar');
 			expect(el).to.be.an.instanceof(DOMNode);
 			expect(el.tagName).to.equal('p');
-			expect(el.getAttribute('class')).to.equal('bar');
+			expect(el.getAttribute('class')).to.equal('bar baz');
 		});
 
 		it('should find element with adjacent sibling combinator', () => {
