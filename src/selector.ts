@@ -73,7 +73,7 @@ class Pattern {
 	pattern: Matcher[];
 
 	constructor(pattern: string){
-		const match = pattern.match(/^([+\->]?)((?:[*]|[^.#\[]+)?)(.*)$/);
+		const match = pattern.match(/^([~+\->]?)((?:[*]|[^.#\[]+)?)(.*)$/);
 		match.shift(); /* remove full matched string */
 		this.selector = pattern;
 		this.combinator = Pattern.parseCombinator(match.shift());
@@ -155,8 +155,37 @@ export class Selector {
 			return root.getElementsByTagName(pattern.tagName);
 		case Combinator.CHILD:
 			return root.children.filter(node => node.is(pattern.tagName));
+		case Combinator.ADJACENT_SIBLING:
+			return Selector.findAdjacentSibling(root);
+		case Combinator.GENERAL_SIBLING:
+			return Selector.findGeneralSibling(root);
 		default:
 			return [];
 		}
+	}
+
+	private static findAdjacentSibling(node: DOMNode): DOMNode[] {
+		let adjacent = false;
+		return node.siblings.filter(cur => {
+			if (adjacent){
+				adjacent = false;
+				return true;
+			}
+			if (cur === node){
+				adjacent = true;
+			}
+		});
+	}
+
+	private static findGeneralSibling(node: DOMNode): DOMNode[] {
+		let after = false;
+		return node.siblings.filter(cur => {
+			if (after){
+				return true;
+			}
+			if (cur === node){
+				after = true;
+			}
+		});
 	}
 }

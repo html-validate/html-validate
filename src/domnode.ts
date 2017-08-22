@@ -85,6 +85,10 @@ class DOMNode {
 		return new DOMTokenList(this.getAttribute('class'));
 	}
 
+	get siblings(){
+		return this.parent.children;
+	}
+
 	getElementsByTagName(tagName: string): Array<DOMNode> {
 		return this.children.reduce(function(matches, node){
 			return matches.concat(node.is(tagName) ? [node] : [], node.getElementsByTagName(tagName));
