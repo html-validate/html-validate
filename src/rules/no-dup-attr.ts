@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import DOMNode from 'dom/domnode';
+import { DOMNode } from 'dom';
 import { Rule, RuleReport, RuleParserProxy } from '../rule';
 import { AttributeEvent, TagOpenEvent } from '../event';
 /* eslint-enable no-unused-vars */

@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
-import DOMNode from 'dom/domnode';
-import DOMTree from 'dom/domtree';
+import { DOMNode, DOMTree }  from 'dom';
 import Parser from '../src/parser';
 import Config from '../src/config';
 /* eslint-enable no-unused-vars */

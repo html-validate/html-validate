@@ -5,7 +5,7 @@ import { Token } from '../token';
 import { DOMTokenList } from './domtokenlist';
 /* eslint-enable no-unused-vars */
 
-class DOMNode {
+export class DOMNode {
 	children: Array<DOMNode>;
 	tagName: string;
 	parent: DOMNode
@@ -130,5 +130,3 @@ class DOMNode {
 	}
 
 }
-
-export default DOMNode;

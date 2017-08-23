@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import DOMNode from 'dom/domnode';
+import { DOMNode } from './domnode';
 /* eslint-enable no-unused-vars */
 
 enum Combinator {

@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import Config from './config';
-import DOMNode from 'dom/domnode';
-import DOMTree from 'dom/domtree';
+import { DOMNode, DOMTree } from 'dom';
 import { Lexer, TokenStream } from './lexer';
 import { Token, TokenType } from './token';
 import { EventHandler, EventCallback } from './eventhandler';
