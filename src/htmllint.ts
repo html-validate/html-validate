@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import Config from './config';
 import Parser from './parser';
-import DOMNode from './domnode';
+import { DOMNode } from 'dom';
 import { Reporter, Report } from './reporter';
 import { Source, LocationData } from './context';
 import { Lexer } from './lexer';

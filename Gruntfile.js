@@ -28,7 +28,10 @@ module.exports = function(grunt){
 
 		mochaTest: {
 			options: {
-				require: 'ts-node/register',
+				require: [
+					'ts-node/register',
+					'tsconfig-paths/register',
+				],
 			},
 			test: {
 				src: [

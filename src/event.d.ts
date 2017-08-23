@@ -1,5 +1,4 @@
-import DOMNode from './domnode';
-import DOMTree from './domtree';
+import { DOMNode, DOMTree } from 'dom';
 import { LocationData } from './context';
 
 export interface Event {

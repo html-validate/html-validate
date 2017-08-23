@@ -1,13 +1,7 @@
 /* eslint-disable no-unused-vars */
-import DOMNode from './domnode';
+import { DOMNode } from './domnode';
+import { Combinator, parseCombinator } from './combinator';
 /* eslint-enable no-unused-vars */
-
-enum Combinator {
-	DESCENDANT,
-	CHILD,
-	ADJACENT_SIBLING,
-	GENERAL_SIBLING,
-}
 
 class Matcher {
 	match(node: DOMNode): boolean { // eslint-disable-line no-unused-vars
@@ -79,7 +73,7 @@ class Pattern {
 		const match = pattern.match(/^([~+\->]?)((?:[*]|[^.#[]+)?)(.*)$/);
 		match.shift(); /* remove full matched string */
 		this.selector = pattern;
-		this.combinator = Pattern.parseCombinator(match.shift());
+		this.combinator = parseCombinator(match.shift());
 		this.tagName = match.shift() || '*';
 		const p = match[0] ? match[0].split(/(?=[.#[])/) : [];
 		this.pattern = p.map((cur: string) => Pattern.createMatcher(cur));
@@ -101,25 +95,6 @@ class Pattern {
 			// eslint-disable-next-line no-console
 			console.error(`Failed to create matcher for "${pattern}"`);
 			return new Matcher();
-		}
-	}
-
-	private static parseCombinator(combinator: string): Combinator {
-		switch (combinator){
-		case undefined:
-		case null:
-		case '':
-			return Combinator.DESCENDANT;
-		case '>':
-			return Combinator.CHILD;
-		case '+':
-			return Combinator.ADJACENT_SIBLING;
-		case '~':
-			return Combinator.GENERAL_SIBLING;
-		default:
-			// eslint-disable-next-line no-console
-			console.error(`Unknown combinator "${combinator}", assuming descendant`);
-			return Combinator.DESCENDANT;
 		}
 	}
 }

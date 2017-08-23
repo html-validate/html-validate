@@ -1,7 +1,7 @@
-import DOMNode from './domnode';
+import { DOMNode } from './domnode';
 import { Selector } from './selector';
 
-class DOMTree {
+export class DOMTree {
 	root: DOMNode;
 	active: DOMNode;
 
@@ -53,5 +53,3 @@ class DOMTree {
 		yield* pattern.match(this.root);
 	}
 }
-
-export default DOMTree;
