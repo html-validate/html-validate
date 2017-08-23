@@ -1,4 +1,4 @@
-import { DOMTokenList } from '../src/domtokenlist';
+import { DOMTokenList } from 'dom/domtokenlist';
 
 describe('DOMTokenList', function(){
 

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import DOMTree from '../domtree';
-import DOMNode from '../domnode';
+import DOMTree from 'dom/domtree';
+import DOMNode from 'dom/domnode';
 import { Rule, RuleReport, RuleParserProxy } from '../rule';
 import { DOMReadyEvent } from '../event';
 /* eslint-enable no-unused-vars */

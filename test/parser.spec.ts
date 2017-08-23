@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import Config from '../src/config';
-import DOMTree from '../src/domtree';
+import DOMTree from 'dom/domtree';
 import { EventCallback } from '../src/eventhandler';
 import Parser from '../src/parser';
 import HtmlLint from '../src/htmllint';

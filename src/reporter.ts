@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import Config from './config';
 import Context from './context';
-import DOMNode from './domnode';
+import DOMNode from 'dom/domnode';
 import { Rule } from './rule';
 /* eslint-enable no-unused-vars */
 

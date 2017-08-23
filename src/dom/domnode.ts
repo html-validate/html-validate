@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { LocationData } from './context';
-import Config from './config';
-import { Token } from './token';
+import { LocationData } from '../context';
+import Config from '../config';
+import { Token } from '../token';
 import { DOMTokenList } from './domtokenlist';
 /* eslint-enable no-unused-vars */
 
