@@ -129,7 +129,7 @@ describe('Meta validator', function(){
 			expect(Validator.validatePermitted(nil, rules)).to.be.false;
 		});
 
-		it('should validate multiple', function(){
+		it('should validate multiple rules (OR)', function(){
 			const table = new MetaTable();
 			table.loadFromObject({
 				nil: mockEntry('nil', {void: true}),
@@ -142,6 +142,21 @@ describe('Meta validator', function(){
 			expect(Validator.validatePermitted(flow, rules)).to.be.true;
 			expect(Validator.validatePermitted(phrasing, rules)).to.be.true;
 			expect(Validator.validatePermitted(nil, rules)).to.be.false;
+		});
+
+		it('should validate multiple rules (AND)', function(){
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry('flow', {flow: true, phrasing: true, void: true}),
+				flow: mockEntry('flow', {flow: true, phrasing: false, void: true}),
+				phrasing: mockEntry('phrasing', {flow: false, phrasing: true, void: true}),
+			});
+			const parser = new Parser(new ConfigMock(table));
+			const [foo, flow, phrasing] = parser.parseHtml('<foo/><flow/><phrasing/>').root.children;
+			const rules = [['@flow', '@phrasing']];
+			expect(Validator.validatePermitted(foo, rules)).to.be.true;
+			expect(Validator.validatePermitted(flow, rules)).to.be.false;
+			expect(Validator.validatePermitted(phrasing, rules)).to.be.false;
 		});
 
 	});

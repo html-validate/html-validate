@@ -1,4 +1,4 @@
-import { Permitted } from './element';
+import { Permitted, PermittedEntry } from './element';
 import { DOMNode } from '../dom';
 
 export class Validator {
@@ -7,12 +7,20 @@ export class Validator {
 			return true;
 		}
 		return rules.some(rule => {
-			if (typeof rule === 'string'){
-				return Validator.validatePermittedCategory(node, rule);
-			}
-
-			return false;
+			return Validator.validatePermittedRule(node, rule);
 		});
+	}
+
+	private static validatePermittedRule(node: DOMNode, rule: PermittedEntry): boolean {
+		if (typeof rule === 'string'){
+			return Validator.validatePermittedCategory(node, rule);
+		} else if (Array.isArray(rule)){
+			return rule.every(inner => {
+				return Validator.validatePermittedRule(node, inner);
+			});
+		} else {
+			return false;
+		}
 	}
 
 	/**
