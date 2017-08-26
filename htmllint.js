@@ -2,11 +2,16 @@
 'use strict';
 
 const HtmlLint = require('./build/htmllint').default;
-const formatter = require('eslint/lib/formatters/stylish');
 const pkg = require('./package.json');
 const argv = require('minimist')(process.argv.slice(2), {
-	'string': ['formatter'],
-	'boolean': ['dump-tokens'],
+	string: ['f', 'formatter'],
+	boolean: ['dump-tokens'],
+	alias: {
+		f: 'formatter',
+	},
+	default: {
+		formatter: 'stylish',
+	},
 });
 
 function showUsage(){
@@ -26,6 +31,10 @@ if (argv.h || argv.help){
 	showUsage();
 	process.exit();
 }
+
+/* load formatter */
+argv.formatter = argv.formatter.replace(/[^a-z]+/g, '');
+const formatter = require(`./build/formatters/${argv.formatter}`);
 
 const htmllint = new HtmlLint({
 	extends: ['htmllint:recommended'],
