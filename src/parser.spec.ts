@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import Config from '../src/config';
+import Config from './config';
 import { DOMTree } from 'dom';
-import { EventCallback } from '../src/eventhandler';
-import Parser from '../src/parser';
-import HtmlLint from '../src/htmllint';
+import { EventCallback } from './eventhandler';
+import Parser from './parser';
+import HtmlLint from './htmllint';
 /* eslint-enable no-unused-vars */
 
 describe('parser', function(){
@@ -271,17 +271,17 @@ describe('parser', function(){
 		});
 
 		it('multiline', function(){
-			const report = htmllint.file('./test/files/multiline.html');
+			const report = htmllint.file('./test-files/parser/multiline.html');
 			expect(report.valid, "linting should report success").to.be.true;
 		});
 
 		it('xi:include', function(){
-			const report = htmllint.file('./test/files/xi-include.html');
+			const report = htmllint.file('./test-files/parser/xi-include.html');
 			expect(report.valid, "linting should report success").to.be.true;
 		});
 
 		it('cdata', function(){
-			const report = htmllint.file('./test/files/cdata.html');
+			const report = htmllint.file('./test-files/parser/cdata.html');
 			expect(report.valid, "linting should report success").to.be.true;
 		});
 

@@ -1,4 +1,4 @@
-import EventHandler from '../src/eventhandler';
+import EventHandler from './eventhandler';
 
 describe('eventhandler', function(){
 

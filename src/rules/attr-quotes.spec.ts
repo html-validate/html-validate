@@ -1,4 +1,4 @@
-import HtmlLint from '../../src/htmllint';
+import HtmlLint from '../htmllint';
 
 describe('rule attr-quotes', function(){
 

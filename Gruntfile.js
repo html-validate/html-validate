@@ -1,7 +1,5 @@
 module.exports = function(grunt){
-	grunt.loadNpmTasks('grunt-eslint');
-	grunt.loadNpmTasks('grunt-mocha-test');
-	grunt.loadNpmTasks("grunt-ts");
+	require('load-grunt-tasks')(grunt);
 
 	grunt.registerTask('test', ['eslint', 'mochaTest']);
 	grunt.registerTask('build', ['ts', 'test']);
@@ -13,6 +11,9 @@ module.exports = function(grunt){
 
 		ts: {
 			build: {
+				options: {
+					rootDir: 'src',
+				},
 				tsconfig: './tsconfig.json',
 			},
 		},
@@ -20,9 +21,7 @@ module.exports = function(grunt){
 		eslint: {
 			build: [
 				'*.js',
-				'src/**/*.js',
 				'src/**/*.ts',
-				'test/**/*.ts',
 			],
 		},
 
@@ -35,8 +34,7 @@ module.exports = function(grunt){
 			},
 			test: {
 				src: [
-					'test/**/*.spec.js',
-					'test/**/*.spec.ts',
+					'src/**/*.spec.ts',
 				],
 			},
 		},

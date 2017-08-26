@@ -1,7 +1,7 @@
 #!/usr/bin/env nodejs
 'use strict';
 
-const HtmlLint = require('./build/src/htmllint').default;
+const HtmlLint = require('./build/htmllint').default;
 const formatter = require('eslint/lib/formatters/stylish');
 const pkg = require('./package.json');
 const argv = require('minimist')(process.argv.slice(2), {

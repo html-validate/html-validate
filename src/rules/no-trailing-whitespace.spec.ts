@@ -1,4 +1,4 @@
-import HtmlLint from '../../src/htmllint';
+import HtmlLint from '../htmllint';
 
 describe('rule no-trailing-whitespace', function(){
 
@@ -41,7 +41,7 @@ describe('rule no-trailing-whitespace', function(){
 	});
 
 	it('smoketest', function(){
-		const report = htmllint.file('./test/files/trailing-whitespace.html');
+		const report = htmllint.file('./test-files/rules/trailing-whitespace.html');
 		expect(report.valid, "linting should report failure").to.be.false;
 		expect(report.results[0].messages, "report should contain 6 errors").to.have.lengthOf(6);
 		expect(report.results[0].messages[0].ruleId, "reported error should be no-trailing-whitespace").to.equal('no-trailing-whitespace');

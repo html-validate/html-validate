@@ -1,4 +1,4 @@
-import HtmlLint from '../../src/htmllint';
+import HtmlLint from '../htmllint';
 
 describe('rule button-type', function(){
 
@@ -45,7 +45,7 @@ describe('rule button-type', function(){
 	});
 
 	it('smoketest', function(){
-		const report = htmllint.file('./test/files/button-type.html');
+		const report = htmllint.file('./test-files/rules/button-type.html');
 		expect(report.valid, "linting should report failure").to.be.false;
 		expect(report.results[0].messages, "report should contain 2 errors").to.have.lengthOf(2);
 		expect(report.results[0].messages[0].ruleId, "reported error should be button-type").to.equal('button-type');
