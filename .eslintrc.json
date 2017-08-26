@@ -20,5 +20,19 @@
     "brace-style": "off",
     "strict": "off",
     "no-undef": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": "*.spec.ts",
+      "env": {
+        "mocha": true
+      },
+      "plugins": [
+        "mocha"
+      ],
+      "rules": {
+        "mocha/no-exclusive-tests": "warn"
+      }
+    }
+  ]
 }
