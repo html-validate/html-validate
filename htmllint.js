@@ -4,7 +4,7 @@
 const HtmlLint = require('./build/htmllint').default;
 const pkg = require('./package.json');
 const argv = require('minimist')(process.argv.slice(2), {
-	string: ['f', 'formatter'],
+	string: ['f', 'formatter', 'rule'],
 	boolean: ['dump-tokens'],
 	alias: {
 		f: 'formatter',
@@ -32,13 +32,29 @@ if (argv.h || argv.help){
 	process.exit();
 }
 
+/* prepare config */
+const config = {
+	extends: ['htmllint:recommended'],
+};
+if (argv.rule){
+	if (Array.isArray(argv.rule)){
+		argv.rule = argv.rule.join(',');
+	}
+	const raw = argv.rule.split(',').map(x => x.replace(/ *(.*):/, '"$1":')).join(',');
+	try {
+		const rules = JSON.parse(`{${raw}}`);
+		config.extends = [];
+		config.rules = rules;
+	} catch (e){
+		process.stderr.write(`Error while parsing "${argv.rule}": ${e.message}, rules ignored.\n`);
+	}
+}
+
 /* load formatter */
 argv.formatter = argv.formatter.replace(/[^a-z]+/g, '');
 const formatter = require(`./build/formatters/${argv.formatter}`);
 
-const htmllint = new HtmlLint({
-	extends: ['htmllint:recommended'],
-});
+const htmllint = new HtmlLint(config);
 
 let results = [];
 let valid = true;
