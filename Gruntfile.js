@@ -1,7 +1,5 @@
 module.exports = function(grunt){
-	grunt.loadNpmTasks('grunt-eslint');
-	grunt.loadNpmTasks('grunt-mocha-test');
-	grunt.loadNpmTasks("grunt-ts");
+	require('load-grunt-tasks')(grunt);
 
 	grunt.registerTask('test', ['eslint', 'mochaTest']);
 	grunt.registerTask('build', ['ts', 'test']);

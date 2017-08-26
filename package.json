@@ -24,6 +24,7 @@
     "grunt-eslint": "^20.0.0",
     "grunt-mocha-test": "^0.13.2",
     "grunt-ts": "^6.0.0-beta.16",
+    "load-grunt-tasks": "^3.5.2",
     "mocha": "^3.5.0",
     "ts-node": "^3.3.0",
     "tsconfig-paths": "^2.2.0",
