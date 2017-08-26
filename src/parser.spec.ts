@@ -271,17 +271,17 @@ describe('parser', function(){
 		});
 
 		it('multiline', function(){
-			const report = htmllint.file('./test/files/multiline.html');
+			const report = htmllint.file('./test-files/parser/multiline.html');
 			expect(report.valid, "linting should report success").to.be.true;
 		});
 
 		it('xi:include', function(){
-			const report = htmllint.file('./test/files/xi-include.html');
+			const report = htmllint.file('./test-files/parser/xi-include.html');
 			expect(report.valid, "linting should report success").to.be.true;
 		});
 
 		it('cdata', function(){
-			const report = htmllint.file('./test/files/cdata.html');
+			const report = htmllint.file('./test-files/parser/cdata.html');
 			expect(report.valid, "linting should report success").to.be.true;
 		});
 

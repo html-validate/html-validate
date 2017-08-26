@@ -41,7 +41,7 @@ describe('rule close-attr', function(){
 	});
 
 	it('smoketest', function(){
-		const report = htmllint.file('./test/files/close-attr.html');
+		const report = htmllint.file('./test-files/rules/close-attr.html');
 		expect(report.valid, "linting should report failure").to.be.false;
 		expect(report.results[0].messages, "report should contain 1 errors").to.have.lengthOf(1);
 		expect(report.results[0].messages[0].ruleId, "reported error should be close-attr").to.equal('close-attr');
