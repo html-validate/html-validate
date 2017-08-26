@@ -5,6 +5,7 @@ const HtmlLint = require('./build/htmllint').default;
 const formatter = require('eslint/lib/formatters/stylish');
 const pkg = require('./package.json');
 const argv = require('minimist')(process.argv.slice(2), {
+	'string': ['formatter'],
 	'boolean': ['dump-tokens'],
 });
 
@@ -12,8 +13,12 @@ function showUsage(){
 	process.stdout.write(`${pkg.name}-${pkg.version}
 Usage: htmllint [OPTIONS] [FILENAME..] [DIR..]
 
+Common options:
+
+  -f, --formatter=FORMATTER   specify the formatter to use.
+
 Debugging options:
-      --dump-tokens      Output tokens from lexing stage.
+      --dump-tokens           output tokens from lexing stage.
 `);
 }
 
