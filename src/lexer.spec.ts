@@ -1,5 +1,5 @@
-import { TokenType } from '../src/token';
-import { Lexer } from '../src/lexer';
+import { TokenType } from './token';
+import { Lexer } from './lexer';
 
 describe('lexer', function(){
 
