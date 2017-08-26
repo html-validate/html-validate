@@ -1,5 +1,9 @@
-import { Permitted, PermittedEntry } from './element';
+import { Permitted, PermittedEntry, PermittedGroup } from './element';
 import { DOMNode } from '../dom';
+
+const allowedKeys = [
+	'exclude',
+];
 
 export class Validator {
 	static validatePermitted(node: DOMNode, rules: Permitted): boolean {
@@ -15,11 +19,22 @@ export class Validator {
 		if (typeof rule === 'string'){
 			return Validator.validatePermittedCategory(node, rule);
 		} else if (Array.isArray(rule)){
-			return rule.every(inner => {
+			return rule.every((inner: PermittedEntry) => {
 				return Validator.validatePermittedRule(node, inner);
 			});
 		} else {
-			return false;
+			validateKeys(rule);
+			if (rule.exclude){
+				if (Array.isArray(rule.exclude)){
+					return !rule.exclude.some((inner: PermittedEntry) => {
+						return Validator.validatePermittedRule(node, inner);
+					});
+				} else {
+					return !Validator.validatePermittedRule(node, rule.exclude);
+				}
+			} else {
+				return false;
+			}
 		}
 	}
 
@@ -54,6 +69,15 @@ export class Validator {
 		case '@embedded': return node.meta.embedded as boolean;
 		case '@interactive': return node.meta.interactive as boolean;
 		default: throw new Error(`Invalid content category "${category}"`);
+		}
+	}
+}
+
+function validateKeys(rule: PermittedGroup): void {
+	for (const key of Object.keys(rule)) {
+		if (allowedKeys.indexOf(key) === -1){
+			const str = JSON.stringify(rule);
+			throw new Error(`Permitted rule "${str}" contains unknown property "${key}"`);
 		}
 	}
 }

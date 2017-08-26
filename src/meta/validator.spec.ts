@@ -159,6 +159,64 @@ describe('Meta validator', function(){
 			expect(Validator.validatePermitted(phrasing, rules)).to.be.false;
 		});
 
+		it('should support excluding tagname', function(){
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry('foo', {flow: true, void: true}),
+				bar: mockEntry('bar', {flow: true, void: true}),
+			});
+			const parser = new Parser(new ConfigMock(table));
+			const [foo, bar] = parser.parseHtml('<foo/><bar/><nil/>').root.children;
+			const rules = [['@flow', {
+				exclude: 'bar',
+			}]];
+			expect(Validator.validatePermitted(foo, rules)).to.be.true;
+			expect(Validator.validatePermitted(bar, rules)).to.be.false;
+		});
+
+		it('should support excluding category', function(){
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry('foo', {flow: true, interactive: false, void: true}),
+				bar: mockEntry('bar', {flow: true, interactive: true, void: true}),
+			});
+			const parser = new Parser(new ConfigMock(table));
+			const [foo, bar] = parser.parseHtml('<foo/><bar/><nil/>').root.children;
+			const rules = [['@flow', {
+				exclude: '@interactive',
+			}]];
+			expect(Validator.validatePermitted(foo, rules)).to.be.true;
+			expect(Validator.validatePermitted(bar, rules)).to.be.false;
+		});
+
+		it('should support excluding multiple targets', function(){
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry('foo', {flow: true, interactive: false, void: true}),
+				bar: mockEntry('bar', {flow: true, interactive: true, void: true}),
+			});
+			const parser = new Parser(new ConfigMock(table));
+			const [foo, bar] = parser.parseHtml('<foo/><bar/><nil/>').root.children;
+			const rules = [{exclude: ['bar', 'baz']}];
+			expect(Validator.validatePermitted(foo, rules)).to.be.true;
+			expect(Validator.validatePermitted(bar, rules)).to.be.false;
+		});
+
+		it('should support excluding multiple targets together', function(){
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry('foo', {flow: true, interactive: false, void: true}),
+				bar: mockEntry('bar', {flow: true, interactive: true, void: true}),
+			});
+			const parser = new Parser(new ConfigMock(table));
+			const [foo, bar] = parser.parseHtml('<foo/><bar/><nil/>').root.children;
+			const rules = [['@flow', {
+				exclude: ['bar', 'baz'],
+			}]];
+			expect(Validator.validatePermitted(foo, rules)).to.be.true;
+			expect(Validator.validatePermitted(bar, rules)).to.be.false;
+		});
+
 	});
 
 });

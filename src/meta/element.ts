@@ -1,5 +1,9 @@
+export interface PermittedGroup {
+	exclude?: string[];
+}
+
 export type PropertyExpression = string | [string, any];
-export type PermittedEntry = string | any[];
+export type PermittedEntry = string | any[] | PermittedGroup;
 export type Permitted = PermittedEntry[];
 
 export interface MetaElement {
