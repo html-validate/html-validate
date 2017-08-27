@@ -7,7 +7,7 @@ stages:
   - build
   - test
 
-Install dependencies:
+NPM:
   stage: prepare
   tags:
     - nodejs
@@ -23,7 +23,7 @@ Install dependencies:
   script:
     - npm install
 
-build:
+Build:
   stage: build
   tags:
     - nodejs
@@ -35,7 +35,7 @@ build:
   script:
     - node_modules/grunt-cli/bin/grunt build:ci
 
-eslint:
+ESLint:
   stage: test
   tags:
     - nodejs
