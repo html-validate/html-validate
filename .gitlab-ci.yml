@@ -36,3 +36,10 @@ Mocha:
     - nodejs
   script:
     - node_modules/grunt-cli/bin/grunt mochaTest
+
+Smoketest:
+  stage: test
+  tags:
+    - nodejs
+  script:
+    - node_modules/grunt-cli/bin/grunt smoketest
