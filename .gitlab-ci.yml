@@ -27,6 +27,11 @@ build:
   stage: build
   tags:
     - nodejs
+  artifacts:
+    name: htmllint-${CI_PIPELINE_ID}-build
+    expire_in: 1 week
+    paths:
+      - build/
   script:
     - node_modules/grunt-cli/bin/grunt build:ci
 
@@ -46,6 +51,7 @@ Mocha:
 
 Smoketest:
   stage: test
+  dependencies: build
   tags:
     - nodejs
   script:
