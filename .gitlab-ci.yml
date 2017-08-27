@@ -51,7 +51,8 @@ Mocha:
 
 Smoketest:
   stage: test
-  dependencies: build
+  dependencies:
+    - build
   tags:
     - nodejs
   script:
