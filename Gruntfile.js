@@ -75,7 +75,7 @@ module.exports = function(grunt){
 				if (expected !== actual){
 					grunt.log.error();
 					grunt.log.writeln(`Expected: ${expected}`);
-					grunt.log.writeln(`Actual: ${expected}`);
+					grunt.log.writeln(`Actual:   ${actual}`);
 					grunt.fatal(`Expected "${s.name}" to report correct error`);
 				}
 
