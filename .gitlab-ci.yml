@@ -11,10 +11,17 @@ Install dependencies:
   stage: prepare
   tags:
     - nodejs
+  cache:
+    key: "${CI_JOB_NAME}/${CI_COMMIT_REF_NAME}"
+    paths:
+    - node_modules/
   artifacts:
-    untracked: true
+    name: htmllint-${CI_PIPELINE_ID}-npm
+    expire_in: 1 week
+    paths:
+      - node_modules/
   script:
-   - npm update
+    - npm install
 
 build:
   stage: build
