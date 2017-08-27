@@ -46,10 +46,13 @@ export class Reporter {
 	save(): Report {
 		return {
 			valid: Object.keys(this.result).length === 0,
-			results: Object.keys(this.result).map(filename => {
+			results: Object.keys(this.result).map(filePath => {
+				const messages = this.result[filePath];
 				return {
-					filePath: filename,
-					messages: this.result[filename],
+					filePath,
+					messages,
+					errorCount: messages.filter(m => m.severity === Config.SEVERITY_ERROR).length,
+					warningCount: messages.filter(m => m.severity === Config.SEVERITY_WARN).length,
 				};
 			}),
 		};

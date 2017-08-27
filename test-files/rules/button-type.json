@@ -1,0 +1,1 @@
+[{"filePath":"test-files/rules/button-type.html","messages":[{"ruleId":"button-type","severity":2,"message":"Button is missing type attribute","line":2,"column":2},{"ruleId":"button-type","severity":2,"message":"Button has invalid type","line":3,"column":2}],"errorCount":2,"warningCount":0}]

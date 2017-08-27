@@ -31,4 +31,4 @@ function textFormatter(results: Result[]){
 	return total > 0 ? output : "";
 }
 
-export default textFormatter;
+module.exports = textFormatter;

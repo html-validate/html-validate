@@ -1,0 +1,1 @@
+[{"filePath":"test-files/rules/input-missing-label.html","messages":[{"ruleId":"input-missing-label","severity":2,"message":"Input element does not have a label","line":11,"column":2}],"errorCount":1,"warningCount":0}]
