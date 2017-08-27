@@ -76,6 +76,7 @@ module.exports = function(grunt){
 					grunt.log.error();
 					grunt.log.writeln(`Expected: ${expected}`);
 					grunt.log.writeln(`Actual:   ${actual}`);
+					grunt.log.writeln(`stderr: ${result.stderr.toString('utf-8')}`);
 					grunt.fatal(`Expected "${s.name}" to report correct error`);
 				}
 
