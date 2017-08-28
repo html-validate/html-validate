@@ -115,9 +115,11 @@ class HtmlLint {
 		return {
 			on: function(event: string, callback: RuleEventCallback){
 				parser.on(event, function(event, data){
-					callback.call(rule, data, function(node: DOMNode, message: string, location: LocationData){
+					callback.call(rule, data, reportFunc);
+
+					function reportFunc(node: DOMNode, message: string, location: LocationData){
 						report.add(node, rule, message, location || data.location || node.location);
-					});
+					}
 				});
 			},
 		};
