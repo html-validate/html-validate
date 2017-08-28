@@ -1,12 +1,10 @@
-/* eslint-disable no-unused-vars */
 import { Rule, RuleReport, RuleParserProxy } from '../rule';
 import { TagCloseEvent } from '../event';
-/* eslint-enable no-unused-vars */
 
-export = <Rule> {
+export = {
 	name: 'close-order',
 	init,
-};
+} as Rule;
 
 function init(parser: RuleParserProxy){
 	parser.on('tag:close', validate);

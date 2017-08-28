@@ -1,12 +1,10 @@
-/* eslint-disable no-unused-vars */
 import { Rule, RuleReport, RuleParserProxy } from '../rule';
 import { WhitespaceEvent } from '../event';
-/* eslint-enable no-unused-vars */
 
-export = <Rule> {
+export = {
 	name: 'no-trailing-whitespace',
 	init,
-};
+} as Rule;
 
 function init(parser: RuleParserProxy){
 	parser.on('whitespace', validate);

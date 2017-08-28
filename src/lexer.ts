@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { Context, Source, ContentModel } from './context';
 import { Token, TokenType } from './token';
-/* eslint-enable no-unused-vars */
 
 enum State {
 	INITIAL = 1,
@@ -14,7 +12,7 @@ enum State {
 }
 
 type NextStateCallback = ((token?: Token) => State);
-type LexerTest = [RegExp | false, State | NextStateCallback, TokenType | false]; // eslint-disable-line no-unused-vars
+type LexerTest = [RegExp | false, State | NextStateCallback, TokenType | false];
 export type TokenStream = IterableIterator<Token>;
 
 /* eslint-disable no-useless-escape */

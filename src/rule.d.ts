@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { DOMNode } from 'dom';
 import { LocationData } from './context';
-/* eslint-enable no-unused-vars */
 
 export interface Rule {
 	name: string;

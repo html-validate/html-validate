@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { DOMNode } from './domnode';
 import { Combinator, parseCombinator } from './combinator';
-/* eslint-enable no-unused-vars */
 
 class Matcher {
 	match(node: DOMNode): boolean { // eslint-disable-line no-unused-vars

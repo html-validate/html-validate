@@ -1,13 +1,11 @@
-/* eslint-disable no-unused-vars */
 import { DOMNode, DOMTree } from 'dom';
 import { Rule, RuleReport, RuleParserProxy } from '../rule';
 import { DOMReadyEvent } from '../event';
-/* eslint-enable no-unused-vars */
 
-export = <Rule> {
+export = {
 	name: 'input-missing-label',
 	init,
-};
+} as Rule;
 
 function init(parser: RuleParserProxy){
 	parser.on('dom:ready', (event: DOMReadyEvent, report: RuleReport) => {

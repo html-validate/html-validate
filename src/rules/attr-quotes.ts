@@ -1,9 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { Rule, RuleReport, RuleParserProxy } from '../rule';
 import { AttributeEvent } from '../event';
-/* eslint-enable no-unused-vars */
 
-export = <Rule> {
+export = {
 	name: 'attr-quotes',
 	init,
 
@@ -11,7 +9,7 @@ export = <Rule> {
 		style: 'double',
 		unquoted: false,
 	},
-};
+} as Rule;
 
 function init(parser: RuleParserProxy, options: any){
 	parser.on('attr', validate);

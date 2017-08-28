@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { Result } from '../reporter';
-/* eslint-enable no-unused-vars */
 
-function jsonFormatter(results: Result[]){
+function jsonFormatter(results: Array<Result>){
 	return JSON.stringify(results);
 }
 

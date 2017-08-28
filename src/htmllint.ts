@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Config from './config';
 import Parser from './parser';
 import { DOMNode } from 'dom';
@@ -7,7 +6,6 @@ import { Source, LocationData } from './context';
 import { Lexer } from './lexer';
 import { TokenType } from './token';
 import { Rule, RuleEventCallback, RuleParserProxy, RuleReport } from './rule';
-/* eslint-enable no-unused-vars */
 
 const fs = require('fs');
 
@@ -94,14 +92,14 @@ class HtmlLint {
 			try {
 				rule = require(`./rules/${name}`);
 			} catch (e) {
-				rule = <Rule> {
+				rule = {
 					name: name,
 					init: (parser: RuleParserProxy) => {
 						parser.on('dom:load', (event: any, report: RuleReport) => {
 							report(null, `Definition for rule '${name}' was not found`);
 						});
 					},
-				};
+				} as Rule;
 			}
 			rule.init(this.createProxy(parser, rule, report), options);
 		}

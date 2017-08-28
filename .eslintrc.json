@@ -1,5 +1,6 @@
 {
   "parser": "typescript-eslint-parser",
+
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
@@ -7,20 +8,34 @@
       "modules": true
     }
   },
+
   "env": {
     "node": true,
     "es6": true
   },
+
   "extends": [
     "sidvind/es6"
   ],
+
+  "plugins": [
+    "typescript"
+  ],
+
   "rules": {
-    "no-console": "warn",
-    "space-before-blocks": "off",
     "brace-style": "off",
+    "no-console": "warn",
+    "no-undef": "off",
+    "space-before-blocks": "off",
     "strict": "off",
-    "no-undef": "off"
+    "typescript/member-delimiter-style": "error",
+    "typescript/no-angle-bracket-type-assertion": "error",
+    "typescript/no-namespace": "error",
+    "typescript/no-triple-slash-reference": "error",
+    "typescript/no-unused-vars": "warn",
+    "typescript/type-annotation-spacing": "error"
   },
+
   "overrides": [
     {
       "files": "*.spec.ts",

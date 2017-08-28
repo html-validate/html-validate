@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
 import { Combinator, parseCombinator } from 'dom/combinator';
-/* eslint-enable no-unused-vars */
 
 describe('DOM Combinator', function(){
 

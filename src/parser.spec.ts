@@ -1,10 +1,8 @@
-/* eslint-disable no-unused-vars */
 import Config from './config';
 import { DOMTree } from 'dom';
 import { EventCallback } from './eventhandler';
 import Parser from './parser';
 import HtmlLint from './htmllint';
-/* eslint-enable no-unused-vars */
 
 describe('parser', function(){
 

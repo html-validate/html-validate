@@ -19,6 +19,7 @@
     "chai-subset": "^1.5.0",
     "eslint-config-sidvind": "^1.2.0",
     "eslint-plugin-mocha": "^4.11.0",
+    "eslint-plugin-typescript": "^0.7.0",
     "grunt": "^1.0.1",
     "grunt-cli": "^1.2.0",
     "grunt-eslint": "^20.0.0",

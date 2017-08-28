@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { Result } from '../reporter';
-/* eslint-enable no-unused-vars */
 
-function textFormatter(results: Result[]){
+function textFormatter(results: Array<Result>){
 	let output = "";
 	let total = 0;
 

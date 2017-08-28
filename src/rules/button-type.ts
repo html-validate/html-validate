@@ -1,15 +1,13 @@
-/* eslint-disable no-unused-vars */
 import { Rule, RuleReport, RuleParserProxy } from '../rule';
 import { DOMNode } from 'dom';
 import { DOMReadyEvent } from '../event';
-/* eslint-enable no-unused-vars */
 
-export = <Rule> {
+export = {
 	name: 'button-type',
 	init,
 
 	validTypes: ['submit', 'button', 'reset'],
-};
+} as Rule;
 
 function init(parser: RuleParserProxy){
 	parser.on('dom:ready', validate);

@@ -1,13 +1,11 @@
-/* eslint-disable no-unused-vars */
 import { DOMNode } from 'dom';
 import { Rule, RuleReport, RuleParserProxy } from '../rule';
 import { AttributeEvent, TagOpenEvent } from '../event';
-/* eslint-enable no-unused-vars */
 
-export = <Rule> {
+export = {
 	name: 'no-dup-attr',
 	init,
-};
+} as Rule;
 
 function init(parser: RuleParserProxy){
 	let target: DOMNode = null;
