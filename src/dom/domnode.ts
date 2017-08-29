@@ -99,7 +99,9 @@ export class DOMNode {
 	visitDepthFirst(callback: (node: DOMNode) => void): void {
 		function visit(node: DOMNode): void {
 			node.children.forEach(visit);
-			callback(node);
+			if (!node.isRootElement()){
+				callback(node);
+			}
 		}
 
 		visit(this);
