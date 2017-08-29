@@ -105,6 +105,29 @@ export class DOMNode {
 		visit(this);
 	}
 
+	someChildren(callback: (node: DOMNode) => boolean){
+		return this.children.some(visit);
+
+		function visit(node: DOMNode): boolean {
+			if (callback(node)){
+				return true;
+			} else {
+				return node.children.some(visit);
+			}
+		}
+	}
+
+	everyChildren(callback: (node: DOMNode) => boolean){
+		return this.children.every(visit);
+
+		function visit(node: DOMNode): boolean {
+			if (!callback(node)){
+				return false;
+			}
+			return node.children.every(visit);
+		}
+	}
+
 	/**
 	 * Visit all nodes from this node and down. Breadth first.
 	 *
