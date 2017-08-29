@@ -23,8 +23,8 @@
   },
 
   "area": {
-    "flow": true,
-    "phrasing": true,
+    "flow": ["isDescendant", "map"],
+    "phrasing": ["isDescendant", "map"],
     "void": true
   },
 

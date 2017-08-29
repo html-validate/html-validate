@@ -27,7 +27,9 @@ const dynamicKeys = [
 // eslint-disable-next-line no-unused-vars
 type PropertyEvaluator = (node: DOMNode, options: any) => boolean;
 
-const functionTable: { [key: string]: PropertyEvaluator } = {};
+const functionTable: { [key: string]: PropertyEvaluator } = {
+	isDescendant,
+};
 
 export class MetaTable {
 	elements: ElementTable;
@@ -95,4 +97,18 @@ function parseExpression(expr: PropertyExpression): [PropertyEvaluator, any] {
 		}
 		return [func, options];
 	}
+}
+
+function isDescendant(node: DOMNode, tagName: any): boolean {
+	if (typeof tagName !== 'string'){
+		throw new Error(`Property expression "isDescendant" must take string argument`);
+	}
+	let cur: DOMNode = node.parent;
+	while (!cur.isRootElement()){
+		if (cur.is(tagName)){
+			return true;
+		}
+		cur = cur.parent;
+	}
+	return false;
 }
