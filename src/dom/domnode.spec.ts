@@ -153,6 +153,73 @@ describe('DOMNode', function(){
 
 	});
 
+	describe('someChildren()', function(){
+
+		it('should return true if any child node evaluates to true', function(){
+			const root = new DOMNode('root');
+			/* eslint-disable no-unused-vars */
+			const a = new DOMNode('a', root);
+			const b = new DOMNode('b', root);
+			const c = new DOMNode('c', b);
+			/* eslint-enable no-unused-vars */
+			const result = root.someChildren((node: DOMNode) => node.tagName === 'c');
+			expect(result).to.be.true;
+		});
+
+		it('should return false if no child node evaluates to true', function(){
+			const root = new DOMNode('root');
+			/* eslint-disable no-unused-vars */
+			const a = new DOMNode('a', root);
+			const b = new DOMNode('b', root);
+			const c = new DOMNode('c', b);
+			/* eslint-enable no-unused-vars */
+			const result = root.someChildren(() => false);
+			expect(result).to.be.false;
+		});
+
+		it('should short-circuit when first node evalutes to true', function(){
+			const root = new DOMNode('root');
+			/* eslint-disable no-unused-vars */
+			const a = new DOMNode('a', root);
+			const b = new DOMNode('b', root);
+			const c = new DOMNode('c', b);
+			/* eslint-enable no-unused-vars */
+			const order: string[] = [];
+			root.someChildren((node: DOMNode) => {
+				order.push(node.tagName);
+				return node.tagName === 'a';
+			});
+			expect(order).to.deep.equal(['a']);
+		});
+
+	});
+
+	describe('everyChildren()', function(){
+
+		it('should return true if all nodes evaluates to true', function(){
+			const root = new DOMNode('root');
+			/* eslint-disable no-unused-vars */
+			const a = new DOMNode('a', root);
+			const b = new DOMNode('b', root);
+			const c = new DOMNode('c', b);
+			/* eslint-enable no-unused-vars */
+			const result = root.everyChildren(() => true);
+			expect(result).to.be.true;
+		});
+
+		it('should return false if any nodes evaluates to false', function(){
+			const root = new DOMNode('root');
+			/* eslint-disable no-unused-vars */
+			const a = new DOMNode('a', root);
+			const b = new DOMNode('b', root);
+			const c = new DOMNode('c', b);
+			/* eslint-enable no-unused-vars */
+			const result = root.everyChildren((node: DOMNode) => node.tagName !== 'b');
+			expect(result).to.be.false;
+		});
+
+	});
+
 	describe('find()', function(){
 
 		it('should visit all nodes until callback evaluates to true', function(){

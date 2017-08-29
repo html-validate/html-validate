@@ -105,6 +105,9 @@ export class DOMNode {
 		visit(this);
 	}
 
+	/**
+	 * Evaluates callbackk on all descendants, returning true if any are true.
+	 */
 	someChildren(callback: (node: DOMNode) => boolean){
 		return this.children.some(visit);
 
@@ -117,6 +120,9 @@ export class DOMNode {
 		}
 	}
 
+	/**
+	 * Evaluates callbackk on all descendants, returning true if all are true.
+	 */
 	everyChildren(callback: (node: DOMNode) => boolean){
 		return this.children.every(visit);
 
