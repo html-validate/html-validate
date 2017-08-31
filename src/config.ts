@@ -2,25 +2,6 @@ import { MetaTable } from './meta';
 const path = require('path');
 const glob = require('glob');
 
-const voidElements = [
-	'area',
-	'base',
-	'br',
-	'col',
-	'embed',
-	'hr',
-	'img',
-	'input',
-	'keygen',
-	'link',
-	'menuitem',
-	'meta',
-	'param',
-	'source',
-	'track',
-	'wbr',
-];
-
 const recommended = {
 	rules: {
 		'attr-quotes': 'error',
@@ -57,7 +38,6 @@ function parseSeverity(value: string | number){
 }
 
 interface ConfigData {
-	html: any;
 	extends: Array<string>;
 	rules: any;
 }
@@ -108,9 +88,6 @@ export class Config {
 
 	private loadDefaults(){
 		this.config = {
-			html: {
-				voidElements,
-			},
 			extends: [],
 			rules: {},
 		};
@@ -156,10 +133,6 @@ export class Config {
 			rules[name] = options;
 		}
 		return rules;
-	}
-
-	isVoidElement(tagName: string): boolean {
-		return this.config.html.voidElements.indexOf(tagName.toLowerCase()) !== -1;
 	}
 }
 

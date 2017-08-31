@@ -4,18 +4,21 @@ import { Lexer, TokenStream } from './lexer';
 import { Token, TokenType } from './token';
 import { EventHandler, EventCallback } from './eventhandler';
 import { Source } from './context';
+import { MetaTable } from './meta';
 
 class Parser {
 	config: Config;
 	event: EventHandler;
 	dom: DOMTree;
 	peeked?: IteratorResult<Token>;
+	metaTable: MetaTable;
 
 	constructor(config: Config){
 		this.config = config;
 		this.event = new EventHandler();
 		this.dom = new DOMTree();
 		this.peeked = undefined;
+		this.metaTable = config.getMetaTable();
 	}
 
 	on(event: string, listener: EventCallback){
@@ -60,9 +63,6 @@ class Parser {
 			it = this.next(tokenStream);
 		}
 
-		const meta = this.config.getMetaTable();
-		this.dom.fillMeta(meta);
-
 		/* trigger any rules waiting for DOM ready */
 		this.trigger('dom:ready', {
 			document: this.dom,
@@ -75,7 +75,7 @@ class Parser {
 	consumeTag(startToken: Token, tokenStream: TokenStream){
 		const tokens = Array.from(this.consumeUntil(tokenStream, TokenType.TAG_CLOSE));
 		const endToken = tokens.slice(-1)[0];
-		const node = DOMNode.fromTokens(startToken, endToken, this.dom.getActive(), this.config);
+		const node = DOMNode.fromTokens(startToken, endToken, this.dom.getActive(), this.metaTable);
 		const open = !startToken.data[1];
 		const close = !open || node.selfClosed || node.voidElement;
 

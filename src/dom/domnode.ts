@@ -1,8 +1,7 @@
 import { LocationData } from '../context';
-import { Config } from '../config';
 import { Token } from '../token';
 import { DOMTokenList } from './domtokenlist';
-import { MetaElement } from '../meta';
+import { MetaTable, MetaElement } from '../meta';
 
 export class DOMNode {
 	children: Array<DOMNode>;
@@ -16,15 +15,16 @@ export class DOMNode {
 	location: LocationData;
 	meta: MetaElement;
 
-	constructor(tagName: string, parent?: DOMNode, location?: LocationData){
+	constructor(tagName: string, parent?: DOMNode, metaTable?: MetaTable, location?: LocationData){
 		this.children = [];
 		this.tagName = tagName;
 		this.parent = parent;
 		this.attr = {};
+		this.meta = metaTable ? metaTable.getMetaFor(tagName) : null;
 		this.open = true;
 		this.closed = false;
 		this.selfClosed = false;
-		this.voidElement = false;
+		this.voidElement = this.meta ? this.meta.void : false;
 		this.location = location;
 
 		if (parent){
@@ -36,14 +36,13 @@ export class DOMNode {
 		return new DOMNode(undefined, undefined);
 	}
 
-	static fromTokens(startToken: Token, endToken: Token, parent: DOMNode, config: Config){
+	static fromTokens(startToken: Token, endToken: Token, parent: DOMNode, metaTable: MetaTable){
 		const tagName = startToken.data[2];
 		if (!tagName){
 			throw new Error("tagName cannot be empty");
 		}
-		const node = new DOMNode(tagName, undefined, startToken.location);
+		const node = new DOMNode(tagName, undefined, metaTable, startToken.location);
 		node.selfClosed = endToken.data[0] === '/>';
-		node.voidElement = config.isVoidElement(node.tagName);
 		node.open = startToken.data[1] !== '/';
 		node.closed = node.selfClosed || node.voidElement;
 

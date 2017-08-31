@@ -9,27 +9,9 @@ describe('config', function(){
 		expect(config.get()).to.not.be.undefined;
 	});
 
-	it('should contain void elements by default', function(){
-		const config = Config.empty();
-		expect(config.get().html.voidElements).not.to.have.lengthOf(0);
-	});
-
 	it('should contain no rules by default', function(){
 		const config = Config.empty();
 		expect(Object.keys(config.get().rules)).to.have.lengthOf(0);
-	});
-
-	it('constructor should deep-merge options', function(){
-		const config = Config.fromObject({
-			foo: 'bar',
-			html: {
-				spam: 'ham',
-			},
-		});
-		const data: any = config.get();
-		expect(data.foo).to.equal('bar');
-		expect(data.html.spam).to.equal('ham');
-		expect(data.html.voidElements).not.to.have.lengthOf(0);
 	});
 
 	describe('getRules()', function(){

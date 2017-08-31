@@ -1,5 +1,4 @@
 import { MetaElement, ElementTable } from './element';
-import { DOMNode } from '../dom';
 
 const allowedKeys = [
 	'tagName',
@@ -31,10 +30,7 @@ export class MetaTable {
 		this.loadFromObject(require(filename));
 	}
 
-	getMetaFor(tagName: string|DOMNode): MetaElement {
-		if (tagName instanceof DOMNode){
-			tagName = tagName.tagName;
-		}
+	getMetaFor(tagName: string): MetaElement {
 		return this.elements[tagName] ? this.elements[tagName] : null;
 	}
 
