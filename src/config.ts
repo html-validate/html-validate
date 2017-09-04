@@ -9,6 +9,7 @@ const recommended = {
 		'close-attr': 'error',
 		'close-order': 'error',
 		'no-trailing-whitespace': 'error',
+		'void': 'error',
 	},
 };
 

@@ -41,6 +41,9 @@ export class MetaTable {
 			}
 		}
 
-		this.elements[tagName] = Object.assign({tagName}, entry);
+		this.elements[tagName] = Object.assign({
+			tagName,
+			void: false,
+		}, entry);
 	}
 }
