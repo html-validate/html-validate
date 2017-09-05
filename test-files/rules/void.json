@@ -1,0 +1,1 @@
+[{"filePath":"test-files/rules/void.html","messages":[{"ruleId":"void","severity":2,"message":"End tag for <input> must be omitted","line":2,"column":1},{"ruleId":"void","severity":2,"message":"End tag for <div> must not be omitted","line":4,"column":1}],"errorCount":2,"warningCount":0}]

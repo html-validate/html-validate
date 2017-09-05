@@ -1,0 +1,596 @@
+{
+  "a": {
+    "flow": true,
+    "phrasing": true,
+    "interactive": true
+  },
+
+  "abbr": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "acronym": {
+    "deprecated": true
+  },
+
+  "address": {
+    "flow": true
+  },
+
+  "applet": {
+    "deprecated": true
+  },
+
+  "area": {
+    "flow": true,
+    "phrasing": true,
+    "void": true
+  },
+
+  "article": {
+    "flow": true,
+    "sectioning": true
+  },
+
+  "aside": {
+    "flow": true,
+    "sectioning": true
+  },
+
+  "audio": {
+    "flow": true,
+    "phrasing": true,
+    "embedded": true,
+    "interactive": true
+  },
+
+  "b": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "base": {
+    "metadata": true,
+    "void": true
+  },
+
+  "basefont": {
+    "deprecated": true
+  },
+
+  "bdi": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "bdo": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "bgsound": {
+    "deprecated": true
+  },
+
+  "big": {
+    "deprecated": true
+  },
+
+  "blink": {
+    "deprecated": true
+  },
+
+  "blockquote": {
+    "flow": true
+  },
+
+  "body": {},
+
+  "br": {
+    "flow": true,
+    "phrasing": true,
+    "void": true
+  },
+
+  "button": {
+    "flow": true,
+    "phrasing": true,
+    "interactive": true
+  },
+
+  "canvas": {
+    "flow": true,
+    "phrasing": true,
+    "embedded": true
+  },
+
+  "caption": {},
+
+  "center": {
+    "deprecated": true
+  },
+
+  "cite": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "code": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "col": {
+    "void": true
+  },
+
+  "colgroup": {},
+
+  "data": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "datalist": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "dd": {},
+
+  "del": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "dfn": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "dir": {
+    "deprecated": true
+  },
+
+  "div": {
+    "flow": true
+  },
+
+  "dl": {
+    "flow": true
+  },
+
+  "dt": {},
+
+  "em": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "embed": {
+    "flow": true,
+    "phrasing": true,
+    "embedded": true,
+    "interactive": true,
+    "void": true
+  },
+
+  "fieldset": {
+    "flow": true
+  },
+
+  "figcaption": {},
+
+  "figure": {
+    "flow": true
+  },
+
+  "font": {
+    "deprecated": true
+  },
+
+  "footer": {
+    "flow": true
+  },
+
+  "form": {
+    "flow": true
+  },
+
+  "frame": {
+    "deprecated": true
+  },
+
+  "frameset": {
+    "deprecated": true
+  },
+
+  "h1": {
+    "flow": true,
+    "heading": true
+  },
+
+  "h2": {
+    "flow": true,
+    "heading": true
+  },
+
+  "h3": {
+    "flow": true,
+    "heading": true
+  },
+
+  "h4": {
+    "flow": true,
+    "heading": true
+  },
+
+  "h5": {
+    "flow": true,
+    "heading": true
+  },
+
+  "h6": {
+    "flow": true,
+    "heading": true
+  },
+
+  "head": {},
+
+  "header": {
+    "flow": true
+  },
+
+  "hgroup": {
+    "deprecated": true
+  },
+
+  "hr": {
+    "flow": true,
+    "void": true
+  },
+
+  "html": {},
+
+  "i": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "iframe": {
+    "flow": true,
+    "phrasing": true,
+    "embedded": true,
+    "interactive": true
+  },
+
+  "img": {
+    "flow": true,
+    "phrasing": true,
+    "embedded": true,
+    "interactive": true,
+    "void": true
+  },
+
+  "input": {
+    "flow": true,
+    "phrasing": true,
+    "interactive": true,
+    "void": true
+  },
+
+  "ins": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "isindex": {
+    "deprecated": true
+  },
+
+  "kbd": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "keygen": {
+    "flow": true,
+    "phrasing": true,
+    "interactive": true,
+    "void": true
+  },
+
+  "label": {
+    "flow": true,
+    "phrasing": true,
+    "interactive": true
+  },
+
+  "legend": {},
+
+  "li": {},
+
+  "link": {
+    "metadata": true,
+    "void": true
+  },
+
+  "listing": {
+    "deprecated": true
+  },
+
+  "main": {
+    "flow": true
+  },
+
+  "map": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "mark": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "marquee": {
+    "deprecated": true
+  },
+
+  "math": {
+    "flow": true,
+    "phrasing": true,
+    "embedded": true
+  },
+
+  "meta": {
+    "metadata": true,
+    "void": true
+  },
+
+  "meter": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "multicol": {
+    "deprecated": true
+  },
+
+  "nav": {
+    "flow": true,
+    "sectioning": true
+  },
+
+  "nextid": {
+    "deprecated": true
+  },
+
+  "nobr": {
+    "deprecated": true
+  },
+
+  "noembed": {
+    "deprecated": true
+  },
+
+  "noframes": {
+    "deprecated": true
+  },
+
+  "noscript": {
+    "metadata": true,
+    "flow": true,
+    "phrasing": true
+  },
+
+  "object": {
+    "flow": true,
+    "phrasing": true,
+    "embedded": true,
+    "interactive": true
+  },
+
+  "ol": {
+    "flow": true
+  },
+
+  "optgroup": {},
+
+  "option": {},
+
+  "output": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "p": {
+    "flow": true
+  },
+
+  "param": {
+    "void": true
+  },
+
+  "plaintext": {
+    "deprecated": true
+  },
+
+  "pre": {
+    "flow": true
+  },
+
+  "progress": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "q": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "rb": {},
+
+  "rp": {},
+
+  "rt": {},
+
+  "rtc": {},
+
+  "ruby": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "s": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "samp": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "script": {
+    "metadata": true,
+    "flow": true,
+    "phrasing": true
+  },
+
+  "section": {
+    "flow": true,
+    "sectioning": true
+  },
+
+  "select": {
+    "flow": true,
+    "phrasing": true,
+    "interactive": true
+  },
+
+  "small": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "source": {
+    "void": true
+  },
+
+  "spacer": {
+    "deprecated": true
+  },
+
+  "span": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "strike": {
+    "deprecated": true
+  },
+
+  "strong": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "style": {
+    "metadata": true
+  },
+
+  "sub": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "sup": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "svg": {
+    "flow": true,
+    "phrasing": true,
+    "embedded": true
+  },
+
+  "table": {
+    "flow": true
+  },
+
+  "tbody": {},
+
+  "td": {},
+
+  "template": {
+    "metadata": true,
+    "flow": true,
+    "phrasing": true
+  },
+
+  "textarea": {
+    "flow": true,
+    "phrasing": true,
+    "interactive": true
+  },
+
+  "tfoot": {},
+
+  "th": {},
+
+  "thead": {},
+
+  "time": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "title": {
+    "metadata": true
+  },
+
+  "tr": {},
+
+  "track": {
+    "void": true
+  },
+
+  "tt": {
+    "deprecated": true
+  },
+
+  "u": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "ul": {
+    "flow": true
+  },
+
+  "var": {
+    "flow": true,
+    "phrasing": true
+  },
+
+  "video": {
+    "flow": true,
+    "phrasing": true,
+    "embedded": true,
+    "interactive": true
+  },
+
+  "wbr": {
+    "flow": true,
+    "phrasing": true,
+    "void": true
+  },
+
+  "xmp": {
+    "deprecated": true
+  }
+}

@@ -1,23 +1,6 @@
+import { MetaTable } from './meta';
 const path = require('path');
-
-const voidElements = [
-	'area',
-	'base',
-	'br',
-	'col',
-	'embed',
-	'hr',
-	'img',
-	'input',
-	'keygen',
-	'link',
-	'menuitem',
-	'meta',
-	'param',
-	'source',
-	'track',
-	'wbr',
-];
+const glob = require('glob');
 
 const recommended = {
 	rules: {
@@ -25,7 +8,9 @@ const recommended = {
 		'button-type': 'error',
 		'close-attr': 'error',
 		'close-order': 'error',
+		'deprecated': 'error',
 		'no-trailing-whitespace': 'error',
+		'void': 'error',
 	},
 };
 
@@ -55,13 +40,13 @@ function parseSeverity(value: string | number){
 }
 
 interface ConfigData {
-	html: any;
 	extends: Array<string>;
 	rules: any;
 }
 
-class Config {
+export class Config {
 	config: ConfigData;
+	metaTable: MetaTable;
 
 	public static readonly SEVERITY_DISABLED = 0;
 	public static readonly SEVERITY_WARN = 1;
@@ -93,6 +78,7 @@ class Config {
 	constructor(options?: any){
 		this.loadDefaults();
 		this.merge(options || {});
+		this.metaTable = null;
 
 		/* process and extended configs */
 		const self = this;
@@ -104,12 +90,20 @@ class Config {
 
 	private loadDefaults(){
 		this.config = {
-			html: {
-				voidElements,
-			},
 			extends: [],
 			rules: {},
 		};
+	}
+
+	getMetaTable(){
+		if (!this.metaTable){
+			this.metaTable = new MetaTable();
+			const root = path.resolve(__dirname, '..');
+			for (const filename of glob.sync(`${root}/elements/*.json`)){
+				this.metaTable.loadFromFile(filename);
+			}
+		}
+		return this.metaTable;
 	}
 
 	static expandRelative(src: string, currentPath: string): string {
@@ -141,10 +135,6 @@ class Config {
 			rules[name] = options;
 		}
 		return rules;
-	}
-
-	isVoidElement(tagName: string): boolean {
-		return this.config.html.voidElements.indexOf(tagName.toLowerCase()) !== -1;
 	}
 }
 
