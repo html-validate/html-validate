@@ -1,2 +1,2 @@
 export { MetaTable } from './table';
-export { MetaElement } from './element';
+export { MetaElement, PropertyExpression } from './element';

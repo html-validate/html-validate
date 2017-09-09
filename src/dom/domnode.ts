@@ -65,10 +65,17 @@ export class DOMNode {
 	}
 
 	setAttribute(key: string, value: any){
+		key = key.toLowerCase();
 		this.attr[key] = value;
 	}
 
+	hasAttribute(key: string){
+		key = key.toLowerCase();
+		return key in this.attr;
+	}
+
 	getAttribute(key: string){
+		key = key.toLowerCase();
 		if (key in this.attr){
 			return this.attr[key];
 		} else {

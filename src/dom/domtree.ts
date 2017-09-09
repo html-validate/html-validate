@@ -1,5 +1,6 @@
 import { DOMNode } from './domnode';
 import { Selector } from './selector';
+import { MetaTable } from '../meta';
 
 export class DOMTree {
 	root: DOMNode;
@@ -24,6 +25,13 @@ export class DOMTree {
 
 	getActive(): DOMNode {
 		return this.active;
+	}
+
+	/**
+	 * Resolve dynamic meta expressions.
+	 */
+	resolveMeta(table: MetaTable){
+		this.visitDepthFirst((node: DOMNode) => table.resolve(node));
 	}
 
 	getElementsByTagName(tagName: string) {

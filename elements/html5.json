@@ -23,8 +23,8 @@
   },
 
   "area": {
-    "flow": true,
-    "phrasing": true,
+    "flow": ["isDescendant", "map"],
+    "phrasing": ["isDescendant", "map"],
     "void": true
   },
 
@@ -42,7 +42,7 @@
     "flow": true,
     "phrasing": true,
     "embedded": true,
-    "interactive": true
+    "interactive": ["hasAttribute", "controls"]
   },
 
   "b": {
@@ -269,14 +269,14 @@
     "flow": true,
     "phrasing": true,
     "embedded": true,
-    "interactive": true,
+    "interactive": ["hasAttribute", "usemap"],
     "void": true
   },
 
   "input": {
     "flow": true,
     "phrasing": true,
-    "interactive": true,
+    "interactive": ["matchAttribute", ["type", "!=", "hidden"]],
     "void": true
   },
 
@@ -389,7 +389,7 @@
     "flow": true,
     "phrasing": true,
     "embedded": true,
-    "interactive": true
+    "interactive": ["hasAttribute", "usemap"]
   },
 
   "ol": {
@@ -581,7 +581,7 @@
     "flow": true,
     "phrasing": true,
     "embedded": true,
-    "interactive": true
+    "interactive": ["hasAttribute", "controls"]
   },
 
   "wbr": {

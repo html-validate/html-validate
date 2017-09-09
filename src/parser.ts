@@ -63,6 +63,9 @@ class Parser {
 			it = this.next(tokenStream);
 		}
 
+		/* resolve and dynamic meta element properties */
+		this.dom.resolveMeta(this.metaTable);
+
 		/* trigger any rules waiting for DOM ready */
 		this.trigger('dom:ready', {
 			document: this.dom,
