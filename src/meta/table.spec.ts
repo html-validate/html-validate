@@ -69,6 +69,31 @@ describe('MetaTable', function(){
 
 		});
 
+		describe('hasAttribute', function(){
+
+			beforeEach(function(){
+				table = new MetaTable();
+				table.loadFromObject({
+					dynamic: mockEntry('dynamic', {interactive: ['hasAttribute', 'foo'], void: true}),
+				});
+			});
+
+			it('should be true if element has given attribute', function(){
+				const parser = new Parser(new ConfigMock(table));
+				const dom = parser.parseHtml('<dynamic foo/>').root;
+				const el = dom.getElementsByTagName('dynamic');
+				expect(el[0].meta.interactive).to.be.true;
+			});
+
+			it('should be false if element does not have given attribute', function(){
+				const parser = new Parser(new ConfigMock(table));
+				const dom = parser.parseHtml('<dynamic bar/>').root;
+				const el = dom.getElementsByTagName('dynamic');
+				expect(el[0].meta.interactive).to.be.false;
+			});
+
+		});
+
 	});
 
 });

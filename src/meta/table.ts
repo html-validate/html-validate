@@ -29,6 +29,7 @@ type PropertyEvaluator = (node: DOMNode, options: any) => boolean;
 
 const functionTable: { [key: string]: PropertyEvaluator } = {
 	isDescendant,
+	hasAttribute,
 };
 
 export class MetaTable {
@@ -111,4 +112,11 @@ function isDescendant(node: DOMNode, tagName: any): boolean {
 		cur = cur.parent;
 	}
 	return false;
+}
+
+function hasAttribute(node: DOMNode, attr: any): boolean {
+	if (typeof attr !== 'string'){
+		throw new Error(`Property expression "hasAttribute" must take string argument`);
+	}
+	return node.hasAttribute(attr);
 }

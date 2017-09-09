@@ -42,7 +42,7 @@
     "flow": true,
     "phrasing": true,
     "embedded": true,
-    "interactive": true
+    "interactive": ["hasAttribute", "controls"]
   },
 
   "b": {
@@ -269,7 +269,7 @@
     "flow": true,
     "phrasing": true,
     "embedded": true,
-    "interactive": true,
+    "interactive": ["hasAttribute", "usemap"],
     "void": true
   },
 
@@ -389,7 +389,7 @@
     "flow": true,
     "phrasing": true,
     "embedded": true,
-    "interactive": true
+    "interactive": ["hasAttribute", "usemap"]
   },
 
   "ol": {
@@ -581,7 +581,7 @@
     "flow": true,
     "phrasing": true,
     "embedded": true,
-    "interactive": true
+    "interactive": ["hasAttribute", "controls"]
   },
 
   "wbr": {
