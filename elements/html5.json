@@ -2,7 +2,8 @@
   "a": {
     "flow": true,
     "phrasing": true,
-    "interactive": true
+    "interactive": true,
+    "transparent": true
   },
 
   "abbr": {
@@ -42,7 +43,8 @@
     "flow": true,
     "phrasing": true,
     "embedded": true,
-    "interactive": ["hasAttribute", "controls"]
+    "interactive": ["hasAttribute", "controls"],
+    "transparent": true
   },
 
   "b": {
@@ -102,7 +104,8 @@
   "canvas": {
     "flow": true,
     "phrasing": true,
-    "embedded": true
+    "embedded": true,
+    "transparent": true
   },
 
   "caption": {},
@@ -141,7 +144,8 @@
 
   "del": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "transparent": true
   },
 
   "dfn": {
@@ -282,7 +286,8 @@
 
   "ins": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "transparent": true
   },
 
   "isindex": {
@@ -326,7 +331,8 @@
 
   "map": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "transparent": true
   },
 
   "mark": {
@@ -382,14 +388,16 @@
   "noscript": {
     "metadata": true,
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "transparent": true
   },
 
   "object": {
     "flow": true,
     "phrasing": true,
     "embedded": true,
-    "interactive": ["hasAttribute", "usemap"]
+    "interactive": ["hasAttribute", "usemap"],
+    "transparent": true
   },
 
   "ol": {
@@ -581,7 +589,8 @@
     "flow": true,
     "phrasing": true,
     "embedded": true,
-    "interactive": ["hasAttribute", "controls"]
+    "interactive": ["hasAttribute", "controls"],
+    "transparent": true
   },
 
   "wbr": {

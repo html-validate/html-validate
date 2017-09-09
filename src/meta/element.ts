@@ -17,6 +17,7 @@ export interface MetaElement {
 	interactive: boolean | PropertyExpression;
 	deprecated: boolean;
 	void: boolean;
+	transparent: boolean;
 	permittedContent: Permitted;
 	permittedDescendants: Permitted;
 

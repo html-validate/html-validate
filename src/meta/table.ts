@@ -12,6 +12,7 @@ const allowedKeys = [
 	'interactive',
 	'deprecated',
 	'void',
+	'transparent',
 	'permittedContent',
 	'permittedDescendants',
 ];
