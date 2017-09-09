@@ -68,6 +68,10 @@ export class DOMNode {
 		this.attr[key] = value;
 	}
 
+	hasAttribute(key: string){
+		return key in this.attr;
+	}
+
 	getAttribute(key: string){
 		if (key in this.attr){
 			return this.attr[key];
