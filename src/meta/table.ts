@@ -30,6 +30,7 @@ type PropertyEvaluator = (node: DOMNode, options: any) => boolean;
 const functionTable: { [key: string]: PropertyEvaluator } = {
 	isDescendant,
 	hasAttribute,
+	matchAttribute,
 };
 
 export class MetaTable {
@@ -119,4 +120,17 @@ function hasAttribute(node: DOMNode, attr: any): boolean {
 		throw new Error(`Property expression "hasAttribute" must take string argument`);
 	}
 	return node.hasAttribute(attr);
+}
+
+function matchAttribute(node: DOMNode, match: any): boolean {
+	if (!Array.isArray(match) || match.length !== 3){
+		throw new Error(`Property expression "matchAttribute" must take [key, op, value] array as argument`);
+	}
+	const [key, op, value] = match.map(x => x.toLowerCase());
+	const nodeValue = (node.getAttribute(key) || '').toLowerCase();
+	switch (op){
+	case '!=': return nodeValue !== value;
+	case '=': return nodeValue === value;
+	default: throw new Error(`Property expression "matchAttribute" has invalid operator "${op}"`);
+	}
 }

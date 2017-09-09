@@ -276,7 +276,7 @@
   "input": {
     "flow": true,
     "phrasing": true,
-    "interactive": true,
+    "interactive": ["matchAttribute", ["type", "!=", "hidden"]],
     "void": true
   },
 

@@ -94,6 +94,60 @@ describe('MetaTable', function(){
 
 		});
 
+		describe('matchAttribute', function(){
+
+			beforeEach(function(){
+				table = new MetaTable();
+				table.loadFromObject({
+					foo: mockEntry('dynamic', {interactive: ['matchAttribute', ['type', '=', 'hidden']], void: true}),
+					bar: mockEntry('dynamic', {interactive: ['matchAttribute', ['type', '!=', 'hidden']], void: true}),
+				});
+			});
+
+			it('should be true when "=" is used to match existing value', function(){
+				const parser = new Parser(new ConfigMock(table));
+				const dom = parser.parseHtml('<foo type="hidden"/>').root;
+				const el = dom.getElementsByTagName('foo');
+				expect(el[0].meta.interactive).to.be.true;
+			});
+
+			it('should be false when "=" is used to match other value', function(){
+				const parser = new Parser(new ConfigMock(table));
+				const dom = parser.parseHtml('<foo type="other"/>').root;
+				const el = dom.getElementsByTagName('foo');
+				expect(el[0].meta.interactive).to.be.false;
+			});
+
+			it('should be false when "=" is used to match missing value', function(){
+				const parser = new Parser(new ConfigMock(table));
+				const dom = parser.parseHtml('<foo/>').root;
+				const el = dom.getElementsByTagName('foo');
+				expect(el[0].meta.interactive).to.be.false;
+			});
+
+			it('should be false when "!=" is used to match existing value', function(){
+				const parser = new Parser(new ConfigMock(table));
+				const dom = parser.parseHtml('<bar type="hidden"/>').root;
+				const el = dom.getElementsByTagName('bar');
+				expect(el[0].meta.interactive).to.be.false;
+			});
+
+			it('should be true when "!=" is used to match other value', function(){
+				const parser = new Parser(new ConfigMock(table));
+				const dom = parser.parseHtml('<bar type="other"/>').root;
+				const el = dom.getElementsByTagName('bar');
+				expect(el[0].meta.interactive).to.be.true;
+			});
+
+			it('should be false when "!=" is used to match missing value', function(){
+				const parser = new Parser(new ConfigMock(table));
+				const dom = parser.parseHtml('<bar/>').root;
+				const el = dom.getElementsByTagName('bar');
+				expect(el[0].meta.interactive).to.be.true;
+			});
+
+		});
+
 	});
 
 });
