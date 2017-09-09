@@ -3,12 +3,18 @@
     "flow": true,
     "phrasing": true,
     "interactive": true,
-    "transparent": true
+    "transparent": true,
+    "permittedContent": [
+      {"exclude": "@interactive"}
+    ]
   },
 
   "abbr": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "acronym": {
@@ -16,7 +22,18 @@
   },
 
   "address": {
-    "flow": true
+    "flow": true,
+    "permittedContent": [
+      ["@flow", {
+        "exclude": [
+          "address",
+          "header",
+          "footer",
+          "@heading",
+          "@sectioning"
+        ]
+      }]
+    ]
   },
 
   "applet": {
@@ -158,7 +175,10 @@
   },
 
   "div": {
-    "flow": true
+    "flow": true,
+    "permittedContent": [
+      "@flow"
+    ]
   },
 
   "dl": {
@@ -309,12 +329,19 @@
   "label": {
     "flow": true,
     "phrasing": true,
-    "interactive": true
+    "interactive": true,
+    "permittedContent": [
+      ["@phrasing", {"exclude": ["label"]}]
+    ]
   },
 
   "legend": {},
 
-  "li": {},
+  "li": {
+    "permittedContent": [
+      "@flow"
+    ]
+  },
 
   "link": {
     "metadata": true,
@@ -494,7 +521,10 @@
 
   "span": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "strike": {
