@@ -8,7 +8,7 @@ class Matcher {
 }
 
 class ClassMatcher extends Matcher {
-	classname: string;
+	private readonly classname: string;
 
 	constructor(classname: string){
 		super();
@@ -21,7 +21,7 @@ class ClassMatcher extends Matcher {
 }
 
 class IdMatcher extends Matcher {
-	id: string;
+	private readonly id: string;
 
 	constructor(id: string){
 		super();
@@ -34,9 +34,9 @@ class IdMatcher extends Matcher {
 }
 
 class AttrMatcher extends Matcher {
-	key: string;
-	op: string;
-	value: string;
+	private readonly key: string;
+	private readonly op: string;
+	private readonly value: string;
 
 	constructor(attr: string){
 		super();
@@ -62,10 +62,10 @@ class AttrMatcher extends Matcher {
 }
 
 class Pattern {
-	selector: string;
-	combinator: Combinator;
-	tagName: string;
-	pattern: Matcher[];
+	readonly combinator: Combinator;
+	readonly tagName: string;
+	private readonly selector: string;
+	private readonly pattern: Matcher[];
 
 	constructor(pattern: string){
 		const match = pattern.match(/^([~+\->]?)((?:[*]|[^.#[]+)?)(.*)$/);
@@ -98,7 +98,7 @@ class Pattern {
 }
 
 export class Selector {
-	private pattern: Pattern[];
+	private readonly pattern: Pattern[];
 
 	constructor(selector: string){
 		this.pattern = Selector.parse(selector);

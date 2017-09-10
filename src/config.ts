@@ -45,8 +45,8 @@ interface ConfigData {
 }
 
 export class Config {
-	config: ConfigData;
-	metaTable: MetaTable;
+	private config: ConfigData;
+	protected metaTable: MetaTable;
 
 	public static readonly SEVERITY_DISABLED = 0;
 	public static readonly SEVERITY_WARN = 1;

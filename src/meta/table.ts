@@ -34,7 +34,7 @@ const functionTable: { [key: string]: PropertyEvaluator } = {
 };
 
 export class MetaTable {
-	elements: ElementTable;
+	readonly elements: ElementTable;
 
 	constructor(){
 		this.elements = {};
