@@ -10,7 +10,7 @@ import { Rule, RuleEventCallback, RuleParserProxy, RuleReport } from './rule';
 const fs = require('fs');
 
 class HtmlLint {
-	config: Config;
+	private config: Config;
 
 	constructor(options?: any){
 		this.config = Config.fromObject(options || {});
@@ -57,7 +57,7 @@ class HtmlLint {
 	private parse(src: Source): Report {
 		const report = new Reporter();
 		const rules = this.config.getRules();
-		const parser = new Parser(this.config);
+		const parser = this.getParser();
 		for (const name in rules){
 			const data = rules[name];
 			this.loadRule(name, data, parser, report);
@@ -68,6 +68,10 @@ class HtmlLint {
 
 		/* generate results from report */
 		return report.save();
+	}
+
+	public getParser(): Parser {
+		return new Parser(this.config);
 	}
 
 	private dumpTokens(source: Source): Report {
