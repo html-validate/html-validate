@@ -4,16 +4,16 @@ import { DOMTokenList } from './domtokenlist';
 import { MetaTable, MetaElement } from '../meta';
 
 export class DOMNode {
-	children: Array<DOMNode>;
-	tagName: string;
-	parent: DOMNode
-	attr: { [key: string]: string; };
+	readonly tagName: string;
+	readonly attr: { [key: string]: string; };
+	readonly children: Array<DOMNode>;
+	readonly location: LocationData;
+	readonly meta: MetaElement;
+	readonly parent: DOMNode
+	readonly voidElement: boolean;
 	open: boolean;
 	closed: boolean;
 	selfClosed: boolean;
-	voidElement: boolean;
-	location: LocationData;
-	meta: MetaElement;
 
 	constructor(tagName: string, parent?: DOMNode, metaTable?: MetaTable, location?: LocationData){
 		this.children = [];
@@ -41,17 +41,11 @@ export class DOMNode {
 		if (!tagName){
 			throw new Error("tagName cannot be empty");
 		}
-		const node = new DOMNode(tagName, undefined, metaTable, startToken.location);
+		const open = startToken.data[1] !== '/';
+		const node = new DOMNode(tagName, open ? parent : undefined, metaTable, startToken.location);
 		node.selfClosed = endToken.data[0] === '/>';
-		node.open = startToken.data[1] !== '/';
+		node.open = open;
 		node.closed = node.selfClosed || node.voidElement;
-
-		/* deferring setting the parent until open/closed is resolved so
-		 * close tags isn't added to the parent. */
-		if (node.open && parent){
-			node.parent = parent;
-			parent.children.push(node);
-		}
 
 		return node;
 	}

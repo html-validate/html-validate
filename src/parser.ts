@@ -7,11 +7,11 @@ import { Source } from './context';
 import { MetaTable } from './meta';
 
 class Parser {
-	config: Config;
-	event: EventHandler;
-	dom: DOMTree;
-	peeked?: IteratorResult<Token>;
-	metaTable: MetaTable;
+	private readonly config: Config;
+	private readonly event: EventHandler;
+	private readonly dom: DOMTree;
+	private readonly metaTable: MetaTable;
+	private peeked?: IteratorResult<Token>;
 
 	constructor(config: Config){
 		this.config = config;

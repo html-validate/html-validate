@@ -3,8 +3,8 @@ import { Selector } from './selector';
 import { MetaTable } from '../meta';
 
 export class DOMTree {
-	root: DOMNode;
-	active: DOMNode;
+	readonly root: DOMNode;
+	private active: DOMNode;
 
 	constructor(){
 		this.root = DOMNode.rootNode();
