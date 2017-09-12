@@ -12,6 +12,8 @@ const allowedKeys = [
 	'interactive',
 	'deprecated',
 	'void',
+	'permittedContent',
+	'permittedDescendants',
 ];
 
 const dynamicKeys = [
@@ -80,7 +82,7 @@ function expandProperties(node: DOMNode, entry: MetaElement){
 	for (const key of dynamicKeys){
 		const property = entry[key];
 		if (property && typeof property !== 'boolean'){
-			entry[key] = evaluateProperty(node, property);
+			entry[key] = evaluateProperty(node, property as PropertyExpression);
 		}
 	}
 }
