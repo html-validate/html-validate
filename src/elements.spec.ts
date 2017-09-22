@@ -38,6 +38,15 @@ describe.only('HTML elements', function(){
 		omitEnd('area');
 	});
 
+	describe('<audio>', function(){
+		it('should be interactive only if "controls" attribute is set', function(){
+			const parser = htmllint.getParser();
+			const [foo, bar] = parser.parseHtml('<audio></audio><audio controls></audio>').root.children;
+			expect(foo.meta.interactive).to.be.false;
+			expect(bar.meta.interactive).to.be.true;
+		});
+	});
+
 	describe("<base>", function(){
 		omitEnd('base');
 	});
@@ -100,10 +109,24 @@ describe.only('HTML elements', function(){
 
 	describe("<img>", function(){
 		omitEnd('img');
+
+		it('should be interactive only if "usemap" attribute is set', function(){
+			const parser = htmllint.getParser();
+			const [foo, bar] = parser.parseHtml('<img/><img usemap/>').root.children;
+			expect(foo.meta.interactive).to.be.false;
+			expect(bar.meta.interactive).to.be.true;
+		});
 	});
 
 	describe("<input>", function(){
 		omitEnd('input');
+
+		it('should be interactive only if "type" is not "hidden"', function(){
+			const parser = htmllint.getParser();
+			const [foo, bar] = parser.parseHtml('<input type="hidden"/><input type="foo"/>').root.children;
+			expect(foo.meta.interactive).to.be.false;
+			expect(bar.meta.interactive).to.be.true;
+		});
 	});
 
 	describe("<isindex>", function(){
@@ -150,6 +173,15 @@ describe.only('HTML elements', function(){
 		deprecated('noframes');
 	});
 
+	describe('<object>', function(){
+		it('should be interactive only if "usemap" attribute is set', function(){
+			const parser = htmllint.getParser();
+			const [foo, bar] = parser.parseHtml('<object></object><object usemap></object>').root.children;
+			expect(foo.meta.interactive).to.be.false;
+			expect(bar.meta.interactive).to.be.true;
+		});
+	});
+
 	describe("<param>", function(){
 		omitEnd('param');
 	});
@@ -176,6 +208,15 @@ describe.only('HTML elements', function(){
 
 	describe("<tt>", function(){
 		deprecated('tt');
+	});
+
+	describe('<video>', function(){
+		it('should be interactive only if "controls" attribute is set', function(){
+			const parser = htmllint.getParser();
+			const [foo, bar] = parser.parseHtml('<video></video><video controls></video>').root.children;
+			expect(foo.meta.interactive).to.be.false;
+			expect(bar.meta.interactive).to.be.true;
+		});
 	});
 
 	describe("<wbr>", function(){
