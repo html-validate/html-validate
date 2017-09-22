@@ -1,6 +1,6 @@
 import HtmlLint from './htmllint';
 
-describe.only('HTML elements', function(){
+describe('HTML elements', function(){
 
 	const expect = require('chai').expect;
 	const htmllint = new HtmlLint({

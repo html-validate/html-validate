@@ -1,3 +1,4 @@
+const path = require('path');
 import Config from './config';
 
 describe('config', function(){
@@ -121,11 +122,11 @@ describe('config', function(){
 	describe('expandRelative()', function(){
 
 		it('should expand ./foo', function(){
-			expect(Config.expandRelative('./foo', '/path')).to.equal('/path/foo');
+			expect(Config.expandRelative('./foo', '/path')).to.equal(path.join(path.sep, 'path', 'foo'));
 		});
 
 		it('should expand ../foo', function(){
-			expect(Config.expandRelative('../foo', '/path/bar')).to.equal('/path/foo');
+			expect(Config.expandRelative('../foo', '/path/bar')).to.equal(path.join(path.sep, 'path', 'foo'));
 		});
 
 		it('should not expand /foo', function(){
