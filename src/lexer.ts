@@ -1,4 +1,4 @@
-import { Context, Source, ContentModel } from './context';
+import { Context, Source, ContentModel, LocationData } from './context';
 import { Token, TokenType } from './token';
 
 enum State {
@@ -34,6 +34,15 @@ const MATCH_CDATA_END = /^[^]*?]]>/;
 const MATCH_SCRIPT_DATA = /^[^]*(?=<\/script)/;
 const MATCH_SCRIPT_END = /^<(\/)(script)/;
 const MATCH_COMMENT = /^<!--([^]*?)-->/;
+
+export class InvalidTokenError extends Error {
+	public location: LocationData;
+
+	public constructor(location: LocationData, message: string){
+		super(message);
+		this.location = location;
+	}
+}
 
 export class Lexer {
 	*tokenize(source: Source): TokenStream {
@@ -138,8 +147,8 @@ export class Lexer {
 		}
 
 		const truncated = JSON.stringify(context.string.length > 13 ? `${context.string.slice(0, 10)}...` : context.string);
-		const message = `${context.getLocationString()}: failed to tokenize ${truncated}, ${error}.`;
-		throw Error(message);
+		const message = `failed to tokenize ${truncated}, ${error}.`;
+		throw new InvalidTokenError(context.getLocationData(), message);
 	}
 
 	/**

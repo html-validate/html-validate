@@ -41,6 +41,13 @@ export class Reporter {
 		});
 	}
 
+	addManual(filename: string, message: Message): void {
+		if (!this.result.hasOwnProperty(filename)){
+			this.result[filename] = [];
+		}
+		this.result[filename].push(message);
+	}
+
 	save(): Report {
 		return {
 			valid: Object.keys(this.result).length === 0,
