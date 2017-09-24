@@ -3,7 +3,7 @@ import Parser from './parser';
 import { DOMNode } from 'dom';
 import { Reporter, Report } from './reporter';
 import { Source, LocationData } from './context';
-import { Lexer } from './lexer';
+import { Lexer, InvalidTokenError } from './lexer';
 import { TokenType } from './token';
 import { Rule, RuleEventCallback, RuleParserProxy, RuleReport } from './rule';
 
@@ -64,7 +64,21 @@ class HtmlLint {
 		}
 
 		/* parse token stream */
-		parser.parseHtml(src);
+		try {
+			parser.parseHtml(src);
+		} catch (e){
+			if (e instanceof InvalidTokenError){
+				report.addManual(e.location.filename, {
+					ruleId: undefined,
+					severity: Config.SEVERITY_ERROR,
+					message: e.message,
+					line: e.location.line,
+					column: e.location.column,
+				});
+			} else {
+				throw e;
+			}
+		}
 
 		/* generate results from report */
 		return report.save();
