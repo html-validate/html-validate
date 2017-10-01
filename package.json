@@ -7,7 +7,8 @@
     "htmllint": "html-validate.js"
   },
   "scripts": {
-    "test": "grunt eslint mochaTest smoketest"
+    "test": "grunt eslint mochaTest smoketest",
+    "postversion": "git push --follow-tags"
   },
   "author": "David Sveningsson <ext@sidvind.com>",
   "license": "MIT",
