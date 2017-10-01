@@ -6,6 +6,7 @@ stages:
   - prepare
   - build
   - test
+  - release
 
 NPM:
   stage: prepare
@@ -57,3 +58,20 @@ Smoketest:
     - nodejs
   script:
     - node_modules/grunt-cli/bin/grunt smoketest
+
+Publish to NPM:
+  stage: release
+  tags:
+    - docker
+  image:
+    node:latest
+  only:
+    - tags
+    - triggers
+  script:
+    - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > ~/.npmrc
+    - export PKG_VERSION=v$(node -p "require('./package.json').version")
+    - echo ${CI_COMMIT_TAG}
+    - echo ${PKG_VERSION}
+    - test ${CI_COMMIT_TAG} = ${PKG_VERSION}
+    - npm publish
