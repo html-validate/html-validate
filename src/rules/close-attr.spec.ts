@@ -1,38 +1,38 @@
-import HtmlLint from '../htmllint';
+import HtmlValidate from '../htmlvalidate';
 
 describe('rule close-attr', function(){
 
 	const expect = require('chai').expect;
 
-	let htmllint: HtmlLint;
+	let htmlvalidate: HtmlValidate;
 
 	before(function(){
-		htmllint = new HtmlLint({
+		htmlvalidate = new HtmlValidate({
 			rules: {'close-attr': 'error'},
 		});
 	});
 
 	it('should not report when close tags are correct', function(){
-		const report = htmllint.string('<div></div>');
+		const report = htmlvalidate.string('<div></div>');
 		expect(report.valid, "linting should report success").to.be.true;
 		expect(report.results, "report should contain no errors").to.have.lengthOf(0);
 	});
 
 	it('should not report errors on self-closing tags', function(){
-		const report = htmllint.string('<input required/>');
+		const report = htmlvalidate.string('<input required/>');
 		expect(report.valid, "linting should report success").to.be.true;
 		expect(report.results, "report should contain no errors").to.have.lengthOf(0);
 	});
 
 	it('should not report errors on void tags', function(){
-		const report = htmllint.string('<input required>');
+		const report = htmlvalidate.string('<input required>');
 		expect(report.valid, "linting should report success").to.be.true;
 		expect(report.results, "report should contain no errors").to.have.lengthOf(0);
 	});
 
 	it('should report when close tags contains attributes', function(){
 		const html = "<p></p foo=\"bar\"><p></p foo='bar'><p></p foo>";
-		const report = htmllint.string(html);
+		const report = htmlvalidate.string(html);
 		expect(report.valid, "linting should report failure").to.be.false;
 		expect(report.results[0].messages, "report should contain 3 errors").to.have.lengthOf(3);
 		expect(report.results[0].messages[0].ruleId, "reported error should be close-attr").to.equal('close-attr');
@@ -41,7 +41,7 @@ describe('rule close-attr', function(){
 	});
 
 	it('smoketest', function(){
-		const report = htmllint.file('./test-files/rules/close-attr.html');
+		const report = htmlvalidate.file('./test-files/rules/close-attr.html');
 		expect(report.valid, "linting should report failure").to.be.false;
 		expect(report.results[0].messages, "report should contain 1 errors").to.have.lengthOf(1);
 		expect(report.results[0].messages[0].ruleId, "reported error should be close-attr").to.equal('close-attr');

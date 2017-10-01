@@ -1,9 +1,9 @@
-import HtmlLint from './htmllint';
+import HtmlValidate from './htmlvalidate';
 
 describe('HTML elements', function(){
 
 	const expect = require('chai').expect;
-	const htmllint = new HtmlLint({
+	const htmlvalidate = new HtmlValidate({
 		rules: {
 			'deprecated': 'error',
 			'void': 'error',
@@ -12,7 +12,7 @@ describe('HTML elements', function(){
 
 	function deprecated(tagName: string){
 		it('should report as deprecated', function(){
-			const report = htmllint.string(`<${tagName}></${tagName}>`);
+			const report = htmlvalidate.string(`<${tagName}></${tagName}>`);
 			expect(report.valid).to.be.false;
 			expect(report.results[0].messages[0].ruleId).to.equal('deprecated');
 		});
@@ -21,7 +21,7 @@ describe('HTML elements', function(){
 	function omitEnd(tagName: string){
 		it('should allow omitted end tag', function(){
 			const markup = `<${tagName}/>`;
-			const report = htmllint.string(markup);
+			const report = htmlvalidate.string(markup);
 			expect(report.valid, markup).to.be.true;
 		});
 	}
@@ -40,7 +40,7 @@ describe('HTML elements', function(){
 
 	describe('<audio>', function(){
 		it('should be interactive only if "controls" attribute is set', function(){
-			const parser = htmllint.getParser();
+			const parser = htmlvalidate.getParser();
 			const [foo, bar] = parser.parseHtml('<audio></audio><audio controls></audio>').root.children;
 			expect(foo.meta.interactive).to.be.false;
 			expect(bar.meta.interactive).to.be.true;
@@ -111,7 +111,7 @@ describe('HTML elements', function(){
 		omitEnd('img');
 
 		it('should be interactive only if "usemap" attribute is set', function(){
-			const parser = htmllint.getParser();
+			const parser = htmlvalidate.getParser();
 			const [foo, bar] = parser.parseHtml('<img/><img usemap/>').root.children;
 			expect(foo.meta.interactive).to.be.false;
 			expect(bar.meta.interactive).to.be.true;
@@ -122,7 +122,7 @@ describe('HTML elements', function(){
 		omitEnd('input');
 
 		it('should be interactive only if "type" is not "hidden"', function(){
-			const parser = htmllint.getParser();
+			const parser = htmlvalidate.getParser();
 			const [foo, bar] = parser.parseHtml('<input type="hidden"/><input type="foo"/>').root.children;
 			expect(foo.meta.interactive).to.be.false;
 			expect(bar.meta.interactive).to.be.true;
@@ -175,7 +175,7 @@ describe('HTML elements', function(){
 
 	describe('<object>', function(){
 		it('should be interactive only if "usemap" attribute is set', function(){
-			const parser = htmllint.getParser();
+			const parser = htmlvalidate.getParser();
 			const [foo, bar] = parser.parseHtml('<object></object><object usemap></object>').root.children;
 			expect(foo.meta.interactive).to.be.false;
 			expect(bar.meta.interactive).to.be.true;
@@ -212,7 +212,7 @@ describe('HTML elements', function(){
 
 	describe('<video>', function(){
 		it('should be interactive only if "controls" attribute is set', function(){
-			const parser = htmllint.getParser();
+			const parser = htmlvalidate.getParser();
 			const [foo, bar] = parser.parseHtml('<video></video><video controls></video>').root.children;
 			expect(foo.meta.interactive).to.be.false;
 			expect(bar.meta.interactive).to.be.true;

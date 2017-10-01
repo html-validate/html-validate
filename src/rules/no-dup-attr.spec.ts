@@ -1,25 +1,25 @@
-import HtmlLint from '../htmllint';
+import HtmlValidate from '../htmlvalidate';
 
 describe('rule no-dup-attr', function() {
 
 	const expect = require('chai').expect;
 
-	let htmllint: HtmlLint;
+	let htmlvalidate: HtmlValidate;
 
 	before(function() {
-		htmllint = new HtmlLint({
+		htmlvalidate = new HtmlValidate({
 			rules: { 'no-dup-attr': 'error' },
 		});
 	});
 
 	it('should not report when no attribute is duplicated', function() {
-		const report = htmllint.string('<p foo="bar"></p>');
+		const report = htmlvalidate.string('<p foo="bar"></p>');
 		expect(report.valid, "linting should report success").to.be.true;
 		expect(report.results, "report should contain no errors").to.have.lengthOf(0);
 	});
 
 	it('should report when attribute is duplicated', function() {
-		const report = htmllint.string('<p foo="bar" foo="baz"></p></p>');
+		const report = htmlvalidate.string('<p foo="bar" foo="baz"></p></p>');
 		expect(report.valid, "linting should report failure").to.be.false;
 		expect(report.results[0].messages, "report should contain 1 error").to.have.lengthOf(1);
 		expect(report.results[0].messages[0].ruleId, "reported error should be indent").to.equal('no-dup-attr');
@@ -27,7 +27,7 @@ describe('rule no-dup-attr', function() {
 	});
 
 	it('smoketest', function(){
-		const report = htmllint.file('./test-files/rules/duplicated-attr.html');
+		const report = htmlvalidate.file('./test-files/rules/duplicated-attr.html');
 		expect(report.valid, "linting should report failure").to.be.false;
 		expect(report.results[0].messages, "report should contain 1 errors").to.have.lengthOf(1);
 		expect(report.results[0].messages[0].ruleId, "reported error should be no-dup-attr").to.equal('no-dup-attr');

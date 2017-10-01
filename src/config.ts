@@ -61,7 +61,7 @@ export class Config {
 	}
 
 	static fromFile(filename: string): Config {
-		if (filename === 'htmllint:recommended'){
+		if (filename === 'htmlvalidate:recommended'){
 			return Config.fromObject(recommended);
 		}
 

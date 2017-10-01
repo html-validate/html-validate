@@ -2,7 +2,7 @@ import Config from './config';
 import { DOMTree } from 'dom';
 import { EventCallback } from './eventhandler';
 import Parser from './parser';
-import HtmlLint from './htmllint';
+import HtmlValidate from './htmlvalidate';
 
 describe('parser', function(){
 
@@ -260,26 +260,26 @@ describe('parser', function(){
 
 	describe('regressiontesting', function(){
 
-		let htmllint: HtmlLint;
+		let htmlvalidate: HtmlValidate;
 
 		beforeEach(function(){
-			htmllint = new HtmlLint({
-				extends: ['htmllint:recommended'],
+			htmlvalidate = new HtmlValidate({
+				extends: ['htmlvalidate:recommended'],
 			});
 		});
 
 		it('multiline', function(){
-			const report = htmllint.file('./test-files/parser/multiline.html');
+			const report = htmlvalidate.file('./test-files/parser/multiline.html');
 			expect(report.valid, "linting should report success").to.be.true;
 		});
 
 		it('xi:include', function(){
-			const report = htmllint.file('./test-files/parser/xi-include.html');
+			const report = htmlvalidate.file('./test-files/parser/xi-include.html');
 			expect(report.valid, "linting should report success").to.be.true;
 		});
 
 		it('cdata', function(){
-			const report = htmllint.file('./test-files/parser/cdata.html');
+			const report = htmlvalidate.file('./test-files/parser/cdata.html');
 			expect(report.valid, "linting should report success").to.be.true;
 		});
 

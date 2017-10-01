@@ -1,10 +1,10 @@
 {
-  "name": "htmllint",
+  "name": "html-validate",
   "version": "0.1.0",
   "description": "html linter",
   "main": "index.js",
   "bin": {
-    "htmllint": "htmllint.js"
+    "htmllint": "html-validate.js"
   },
   "scripts": {
     "test": "grunt eslint mochaTest smoketest"

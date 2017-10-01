@@ -16,7 +16,7 @@ NPM:
     paths:
     - node_modules/
   artifacts:
-    name: htmllint-${CI_PIPELINE_ID}-npm
+    name: html-validate-${CI_PIPELINE_ID}-npm
     expire_in: 1 week
     paths:
       - node_modules/
@@ -28,7 +28,7 @@ Build:
   tags:
     - nodejs
   artifacts:
-    name: htmllint-${CI_PIPELINE_ID}-build
+    name: html-validate-${CI_PIPELINE_ID}-build
     expire_in: 1 week
     paths:
       - build/
