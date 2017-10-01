@@ -9,7 +9,7 @@
   ],
   "main": "index.js",
   "bin": {
-    "htmllint": "html-validate.js"
+    "html-validate": "html-validate.js"
   },
   "scripts": {
     "test": "grunt eslint mochaTest smoketest",
