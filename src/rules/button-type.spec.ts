@@ -1,51 +1,51 @@
-import HtmlLint from '../htmllint';
+import HtmlValidate from '../htmlvalidate';
 
 describe('rule button-type', function(){
 
 	const expect = require('chai').expect;
 
-	let htmllint: HtmlLint;
+	let htmlvalidate: HtmlValidate;
 
 	before(function(){
-		htmllint = new HtmlLint({
+		htmlvalidate = new HtmlValidate({
 			rules: {'button-type': 'error'},
 		});
 	});
 
 	it('should not report when button has type="submit"', function(){
-		const report = htmllint.string('<button type="submit"></button>');
+		const report = htmlvalidate.string('<button type="submit"></button>');
 		expect(report.valid, "linting should report success").to.be.true;
 		expect(report.results, "report should contain no errors").to.have.lengthOf(0);
 	});
 
 	it('should not report when button has type="button"', function(){
-		const report = htmllint.string('<button type="button"></button>');
+		const report = htmlvalidate.string('<button type="button"></button>');
 		expect(report.valid, "linting should report success").to.be.true;
 		expect(report.results, "report should contain no errors").to.have.lengthOf(0);
 	});
 
 	it('should not report when button has type="reset"', function(){
-		const report = htmllint.string('<button type="reset"></button>');
+		const report = htmlvalidate.string('<button type="reset"></button>');
 		expect(report.valid, "linting should report success").to.be.true;
 		expect(report.results, "report should contain no errors").to.have.lengthOf(0);
 	});
 
 	it('should report error when type attribute is missing', function(){
-		const report = htmllint.string('<button></button>');
+		const report = htmlvalidate.string('<button></button>');
 		expect(report.valid, "linting should report failure").to.be.false;
 		expect(report.results[0].messages, "report should contain 1 error").to.have.lengthOf(1);
 		expect(report.results[0].messages[0].ruleId, "reported error should be button-type").to.equal('button-type');
 	});
 
 	it('should report error when type attribute is invalid', function(){
-		const report = htmllint.string('<button></button>');
+		const report = htmlvalidate.string('<button></button>');
 		expect(report.valid, "linting should report failure").to.be.false;
 		expect(report.results[0].messages, "report should contain 1 error").to.have.lengthOf(1);
 		expect(report.results[0].messages[0].ruleId, "reported error should be button-type").to.equal('button-type');
 	});
 
 	it('smoketest', function(){
-		const report = htmllint.file('./test-files/rules/button-type.html');
+		const report = htmlvalidate.file('./test-files/rules/button-type.html');
 		expect(report.valid, "linting should report failure").to.be.false;
 		expect(report.results[0].messages, "report should contain 2 errors").to.have.lengthOf(2);
 		expect(report.results[0].messages[0].ruleId, "reported error should be button-type").to.equal('button-type');

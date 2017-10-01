@@ -1,7 +1,7 @@
 #!/usr/bin/env nodejs
 'use strict';
 
-const HtmlLint = require('./build/htmllint').default;
+const HtmlValidate = require('./build/htmlvalidate').default;
 const pkg = require('./package.json');
 const argv = require('minimist')(process.argv.slice(2), {
 	string: ['f', 'formatter', 'rule'],
@@ -16,7 +16,7 @@ const argv = require('minimist')(process.argv.slice(2), {
 
 function showUsage(){
 	process.stdout.write(`${pkg.name}-${pkg.version}
-Usage: htmllint [OPTIONS] [FILENAME..] [DIR..]
+Usage: html-validate [OPTIONS] [FILENAME..] [DIR..]
 
 Common options:
 
@@ -34,7 +34,7 @@ if (argv.h || argv.help){
 
 /* prepare config */
 const config = {
-	extends: ['htmllint:recommended'],
+	extends: ['htmlvalidate:recommended'],
 };
 if (argv.rule){
 	if (Array.isArray(argv.rule)){
@@ -54,7 +54,7 @@ if (argv.rule){
 argv.formatter = argv.formatter.replace(/[^a-z]+/g, '');
 const formatter = require(`./build/formatters/${argv.formatter}`);
 
-const htmllint = new HtmlLint(config);
+const htmlvalidate = new HtmlValidate(config);
 
 let results = [];
 let valid = true;
@@ -65,7 +65,7 @@ if (argv['dump-tokens']){
 }
 
 argv._.forEach(function(filename){
-	const report = htmllint.file(filename, mode);
+	const report = htmlvalidate.file(filename, mode);
 
 	/* aggregate results */
 	valid = valid && report.valid;

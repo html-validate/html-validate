@@ -56,7 +56,7 @@ module.exports = function(grunt){
 			target.src.forEach(filename => {
 				const s = path.parse(filename);
 				grunt.log.write(`  Testing "${s.name}" .. `);
-				const result = spawnSync('./htmllint.js', [
+				const result = spawnSync('./html-validate.js', [
 					'--rule', `${s.name}: 2`,
 					'--formatter', 'json',
 					filename,

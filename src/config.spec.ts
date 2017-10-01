@@ -110,9 +110,9 @@ describe('config', function(){
 			});
 		});
 
-		it('should support htmllint:recommended', function(){
+		it('should support htmlvalidate:recommended', function(){
 			const config = Config.fromObject({
-				extends: ['htmllint:recommended'],
+				extends: ['htmlvalidate:recommended'],
 			});
 			expect(config.getRules()).to.be.an('object');
 		});

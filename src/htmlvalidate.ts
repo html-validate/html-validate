@@ -9,7 +9,7 @@ import { Rule, RuleEventCallback, RuleParserProxy, RuleReport } from './rule';
 
 const fs = require('fs');
 
-class HtmlLint {
+class HtmlValidate {
 	private config: Config;
 
 	constructor(options?: any){
@@ -144,4 +144,4 @@ class HtmlLint {
 	}
 }
 
-export default HtmlLint;
+export default HtmlValidate;
