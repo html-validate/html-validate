@@ -2,6 +2,11 @@
   "name": "html-validate",
   "version": "0.1.0",
   "description": "html linter",
+  "keywords": [
+    "html",
+    "lint",
+    "validator"
+  ],
   "main": "index.js",
   "bin": {
     "htmllint": "html-validate.js"
