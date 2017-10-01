@@ -1,0 +1,6 @@
+# Remember to keep in sync with .gitignore
+/.tscache
+/node_modules
+/src
+/test
+/test-files
