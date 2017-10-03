@@ -41,6 +41,8 @@ class HtmlValidate {
 			return this.parse(source);
 		case 'dump-tokens':
 			return this.dumpTokens(source);
+		case 'dump-tree':
+			return this.dumpTree(source);
 		default:
 			throw new Error(`Unknown mode "${mode}"`);
 		}
@@ -97,6 +99,42 @@ class HtmlValidate {
   Location: ${token.location.filename}:${token.location.line}:${token.location.column}
 `);
 		}
+		return {
+			valid: true,
+			results: [],
+		};
+	}
+
+	private dumpTree(source: Source): Report {
+		const parser = this.getParser();
+		const dom = parser.parseHtml(source);
+
+		function decoration(node: DOMNode){
+			let output = '';
+			if (node.hasAttribute('id')){
+				output += `#${node.getAttribute('id')}`;
+			}
+			if (node.hasAttribute('class')){
+				output += `.${node.classList.join('.')}`;
+			}
+			return output;
+		}
+
+		function printNode(node: DOMNode, level: number, sibling: number){
+			if (level > 0){
+				const indent = '  '.repeat(level - 1);
+				const l = node.children.length > 0 ? '┬' : '─';
+				const b = sibling < (node.parent.children.length - 1) ? '├' : '└';
+				process.stdout.write(`${indent}${b}─${l} ${node.tagName}${decoration(node)}\n`);
+			} else {
+				process.stdout.write(`(root)\n`);
+			}
+
+			node.children.forEach((child, index) => printNode(child, level + 1, index));
+		}
+
+		printNode(dom.root, 0, 0);
+
 		return {
 			valid: true,
 			results: [],

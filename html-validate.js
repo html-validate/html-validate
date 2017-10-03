@@ -5,7 +5,7 @@ const HtmlValidate = require('./build/htmlvalidate').default;
 const pkg = require('./package.json');
 const argv = require('minimist')(process.argv.slice(2), {
 	string: ['f', 'formatter', 'rule'],
-	boolean: ['dump-tokens'],
+	boolean: ['dump-tokens', 'dump-tree'],
 	alias: {
 		f: 'formatter',
 	},
@@ -24,6 +24,7 @@ Common options:
 
 Debugging options:
       --dump-tokens           output tokens from lexing stage.
+      --dump-tree             output nodes from the dom tree.
 `);
 }
 
@@ -62,6 +63,10 @@ let mode = 'lint';
 
 if (argv['dump-tokens']){
 	mode = 'dump-tokens';
+}
+
+if (argv['dump-tree']){
+	mode = 'dump-tree';
 }
 
 argv._.forEach(function(filename){
