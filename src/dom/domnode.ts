@@ -11,7 +11,6 @@ export class DOMNode {
 	readonly meta: MetaElement;
 	readonly parent: DOMNode
 	readonly voidElement: boolean;
-	open: boolean;
 	closed: boolean;
 	selfClosed: boolean;
 
@@ -21,7 +20,6 @@ export class DOMNode {
 		this.parent = parent;
 		this.attr = {};
 		this.meta = metaTable ? metaTable.getMetaFor(tagName) : null;
-		this.open = true;
 		this.closed = false;
 		this.selfClosed = false;
 		this.voidElement = this.meta ? this.meta.void : false;
@@ -44,7 +42,6 @@ export class DOMNode {
 		const open = startToken.data[1] !== '/';
 		const node = new DOMNode(tagName, open ? parent : undefined, metaTable, startToken.location);
 		node.selfClosed = endToken.data[0] === '/>';
-		node.open = open;
 		node.closed = node.selfClosed || node.voidElement;
 
 		return node;
