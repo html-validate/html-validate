@@ -39,6 +39,8 @@ class HtmlValidate {
 		case 'lint':
 		case undefined:
 			return this.parse(source);
+		case 'dump-events':
+			return this.dumpEvents(source);
 		case 'dump-tokens':
 			return this.dumpTokens(source);
 		case 'dump-tree':
@@ -88,6 +90,24 @@ class HtmlValidate {
 
 	public getParser(): Parser {
 		return new Parser(this.config);
+	}
+
+	private dumpEvents(source: Source): Report {
+		const parser = this.getParser();
+		const filtered = ['parent', 'children'];
+
+		parser.on('*', (event, data) => {
+			const strdata = JSON.stringify(data, (key, value) => {
+				return filtered.indexOf(key) >= 0 ? '[truncated]' : value;
+			}, 2);
+			process.stdout.write(`${event}: ${strdata}\n`);
+		});
+		parser.parseHtml(source);
+
+		return {
+			valid: true,
+			results: [],
+		};
 	}
 
 	private dumpTokens(source: Source): Report {
