@@ -85,6 +85,10 @@ export class DOMNode {
 		return new DOMTokenList(this.getAttribute('class'));
 	}
 
+	get id(){
+		return this.getAttribute('id');
+	}
+
 	get siblings(){
 		return this.parent.children;
 	}

@@ -19,6 +19,12 @@ describe('DOMNode', function(){
 		</div>`);
 	});
 
+	it('id property should return element id', function(){
+		const el = new DOMNode('foo');
+		el.setAttribute('id', 'bar');
+		expect(el.id).to.equal('bar');
+	});
+
 	describe('is()', function(){
 
 		it('should match tagname', function(){
