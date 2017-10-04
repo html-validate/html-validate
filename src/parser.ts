@@ -102,10 +102,12 @@ class Parser {
 		}
 
 		if (close){
-			/* mark active element as closed unless it is void */
 			const active = this.dom.getActive();
-			if (!open && active.closed === NodeClosed.Open){
-				active.closed = NodeClosed.EndTag;
+
+			/* if this is not an open tag it is a close tag and thus we force it to be
+			 * one, in case it is detected as void */
+			if (!open){
+				node.closed = NodeClosed.EndTag;
 			}
 
 			this.trigger('tag:close', {
@@ -114,7 +116,14 @@ class Parser {
 				location: endToken.location,
 			});
 
-			this.dom.popActive();
+			/* if this element is closed with an end tag but is would it will not be
+			 * closed again (it is already closed automatically since it is
+			 * void). Closing again will have side-effects as it will close the parent
+			 * and cause a mess later. */
+			const voidClosed = !open && node.voidElement;
+			if (!voidClosed){
+				this.dom.popActive();
+			}
 		}
 	}
 

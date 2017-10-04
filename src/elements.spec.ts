@@ -6,7 +6,7 @@ describe('HTML elements', function(){
 	const htmlvalidate = new HtmlValidate({
 		rules: {
 			'deprecated': 'error',
-			'void': 'error',
+			'void': ['error', {style: 'any'}],
 		},
 	});
 

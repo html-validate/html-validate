@@ -30,3 +30,21 @@ Examples of **correct** code for this rule:
 	<img/>
 </div>
 ```
+
+## Options
+
+This rule takes an optional object:
+
+```javascript
+{
+	"style": "omit",
+}
+```
+
+
+### Style
+
+- `omit` requires end tag to be omitted and disallows self-closing
+  elements (default).
+- `selfclosing` requests self-closing any void element.
+- `any` allows both omitting and self-closing elements.

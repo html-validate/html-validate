@@ -2,6 +2,11 @@
 
 ## next
 
+### Features
+
+- `void` rule rewritten to better handle both tag omission and self-closing. It
+  learned a new option style` to allow a single style.
+
 ## 0.1.3 (2017-10-08)
 
 ### Features
