@@ -1,5 +1,6 @@
 import { Rule, RuleReport, RuleParserProxy } from '../rule';
-import { TagOpenEvent } from '../event';
+import { TagCloseEvent } from '../event';
+import { NodeClosed } from '../dom';
 
 export = {
 	name: 'void',
@@ -7,19 +8,21 @@ export = {
 } as Rule;
 
 function init(parser: RuleParserProxy){
-	parser.on('tag:open', (event: TagOpenEvent, report: RuleReport) => {
-		const node = event.target;
+	parser.on('tag:close', (event: TagCloseEvent, report: RuleReport) => {
+		const node = event.previous;
 
 		/* cannot validate if meta isn't known */
 		if (node.meta === null){
 			return;
 		}
 
-		if (node.voidElement && node.selfClosed === false){
+		const selfOrOmitted = node.closed === NodeClosed.Omitted || node.closed === NodeClosed.Self;
+
+		if (node.voidElement && selfOrOmitted === false){
 			report(node, `End tag for <${node.tagName}> must be omitted`);
 		}
 
-		if (node.selfClosed && node.voidElement === false){
+		if (selfOrOmitted && node.voidElement === false){
 			report(node, `End tag for <${node.tagName}> must not be omitted`);
 		}
 	});

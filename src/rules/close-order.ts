@@ -1,5 +1,6 @@
 import { Rule, RuleReport, RuleParserProxy } from '../rule';
 import { TagCloseEvent } from '../event';
+import { NodeClosed } from '../dom';
 
 export = {
 	name: 'close-order',
@@ -24,7 +25,7 @@ function validate(event: TagCloseEvent, report: RuleReport){
 	}
 
 	/* self-closing elements are always closed in correct order */
-	if (event.target.selfClosed || event.target.voidElement){
+	if (event.previous.closed !== NodeClosed.EndTag){
 		return;
 	}
 

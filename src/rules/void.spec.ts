@@ -30,14 +30,6 @@ describe('rule void', function() {
 		expect(report.results, "report should contain no errors").to.have.lengthOf(0);
 	});
 
-	it('should report error when void element has end tag', function() {
-		const report = htmlvalidate.string('<input></input>');
-		expect(report.valid, "linting should report failure").to.be.false;
-		expect(report.results[0].messages, "report should contain 1 error").to.have.lengthOf(1);
-		expect(report.results[0].messages[0].ruleId, "reported error should be indent").to.equal('void');
-		expect(report.results[0].messages[0].message).to.equal('End tag for <input> must be omitted');
-	});
-
 	it('should report error when non-void element omitted end tag', function(){
 		const report = htmlvalidate.string('<div/>');
 		expect(report.valid, "linting should report failure").to.be.false;

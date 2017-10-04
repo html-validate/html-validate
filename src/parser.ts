@@ -1,5 +1,5 @@
 import Config from './config';
-import { DOMNode, DOMTree } from './dom';
+import { DOMNode, DOMTree, NodeClosed } from './dom';
 import { Lexer, TokenStream } from './lexer';
 import { Token, TokenType } from './token';
 import { EventHandler, EventCallback } from './eventhandler';
@@ -80,7 +80,7 @@ class Parser {
 		const endToken = tokens.slice(-1)[0];
 		const node = DOMNode.fromTokens(startToken, endToken, this.dom.getActive(), this.metaTable);
 		const open = !startToken.data[1];
-		const close = !open || node.selfClosed || node.voidElement;
+		const close = !open || node.closed !== NodeClosed.Open;
 
 		if (open){
 			this.dom.pushActive(node);
@@ -102,11 +102,18 @@ class Parser {
 		}
 
 		if (close){
+			/* mark active element as closed unless it is void */
+			const active = this.dom.getActive();
+			if (!open && active.closed === NodeClosed.Open){
+				active.closed = NodeClosed.EndTag;
+			}
+
 			this.trigger('tag:close', {
 				target: node,
-				previous: this.dom.getActive(),
+				previous: active,
 				location: endToken.location,
 			});
+
 			this.dom.popActive();
 		}
 	}
