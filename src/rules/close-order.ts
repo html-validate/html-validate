@@ -18,7 +18,7 @@ function validate(event: TagCloseEvent, report: RuleReport){
 	}
 
 	/* handle unopened tags */
-	if (typeof event.previous === 'undefined'){
+	if (typeof event.previous === 'undefined' || event.previous.isRootElement()){
 		report(event.previous, "Unexpected close-tag, expected opening tag.");
 		return;
 	}
