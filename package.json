@@ -7,6 +7,16 @@
     "lint",
     "validator"
   ],
+  "author": "David Sveningsson <ext@sidvind.com>",
+  "license": "MIT",
+  "homepage": "https://git.sidvind.com/html-validate/html-validate",
+  "repository": {
+    "type": "git",
+    "url": "https://git.sidvind.com/html-validate/html-validate.git"
+  },
+  "bugs": {
+    "url": "https://git.sidvind.com/html-validate/html-validate/issues/new"
+  },
   "main": "html-validate.js",
   "bin": {
     "html-validate": "html-validate.js"
@@ -16,8 +26,6 @@
     "version": "./update-changelog.sh && git add CHANGELOG.md",
     "postversion": "git push --follow-tags"
   },
-  "author": "David Sveningsson <ext@sidvind.com>",
-  "license": "MIT",
   "devDependencies": {
     "@types/mocha": "^2.2.41",
     "@types/node": "^8.0.24",
