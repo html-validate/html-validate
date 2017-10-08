@@ -1,3 +1,5 @@
+image: node:8
+
 cache:
   paths:
     - node_modules/
@@ -10,8 +12,6 @@ stages:
 
 NPM:
   stage: prepare
-  tags:
-    - nodejs
   cache:
     key: "${CI_JOB_NAME}/${CI_COMMIT_REF_NAME}"
     paths:
@@ -26,8 +26,6 @@ NPM:
 
 Build:
   stage: build
-  tags:
-    - nodejs
   artifacts:
     name: html-validate-${CI_PIPELINE_ID}-build
     expire_in: 1 week
@@ -38,8 +36,6 @@ Build:
 
 ESLint:
   stage: test
-  tags:
-    - nodejs
   variables:
     ESLINT_STRICT: 1
   script:
@@ -47,8 +43,6 @@ ESLint:
 
 Mocha:
   stage: test
-  tags:
-    - nodejs
   script:
     - node_modules/grunt-cli/bin/grunt mochaTest
 
@@ -56,17 +50,11 @@ Smoketest:
   stage: test
   dependencies:
     - Build
-  tags:
-    - nodejs
   script:
     - node_modules/grunt-cli/bin/grunt smoketest
 
 Publish to NPM:
   stage: release
-  tags:
-    - docker
-  image:
-    node:latest
   only:
     - tags
     - triggers
