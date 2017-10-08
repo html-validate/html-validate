@@ -12,3 +12,7 @@ Offline HTML5 validator. Validates either a full document or a smaller
 
     npm install -g html-validate
     html-validate FILENAME..
+
+## Test
+
+    npm run mocha

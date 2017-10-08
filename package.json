@@ -23,6 +23,7 @@
   },
   "scripts": {
     "test": "grunt eslint mochaTest smoketest",
+    "mocha": "nyc mocha --opts mocha.opts",
     "version": "./update-changelog.sh && git add CHANGELOG.md",
     "postversion": "git push --follow-tags"
   },
