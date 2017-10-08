@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const columnify = require('columnify');
 const spawnSync = require('child_process').spawnSync;
 const eslintStrict = process.env.ESLINT_STRICT === '1';
 
@@ -80,12 +81,17 @@ module.exports = function(grunt){
 				/* validate output */
 				const compare = `${s.dir}/${s.name}.json`;
 				const expected = fs.readFileSync(compare, {encoding: 'utf-8'});
+				const expectedObj = JSON.parse(expected);
 				const actual = result.stdout.toString('utf-8');
+				const actualObj = JSON.parse(actual);
+
 				if (expected !== actual){
 					grunt.log.error();
-					grunt.log.writeln(`Expected: ${expected}`);
-					grunt.log.writeln(`Actual:   ${actual}`);
-					grunt.log.writeln(`stderr: ${result.stderr.toString('utf-8')}`);
+					grunt.log.writeln('  Expected:');
+					grunt.log.writeln(reportTable(expectedObj[0]).replace(/^/gm, '    '));
+					grunt.log.writeln('  Actual:');
+					grunt.log.writeln(reportTable(actualObj[0]).replace(/^/gm, '    '));
+					grunt.log.writeln(`  stderr: ${result.stderr.toString('utf-8')}`);
 					grunt.fatal(`Expected "${s.name}" to report correct error`);
 				}
 
@@ -94,3 +100,13 @@ module.exports = function(grunt){
 		});
 	}
 };
+
+function reportTable(report){
+	const lines = report.messages.map(row => ({
+		filename: `${report.filePath}:${row.line}:${row.column}`,
+		message: row.message,
+	}));
+	return columnify(lines, {
+		columnSplitter: ' | ',
+	});
+}

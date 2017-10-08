@@ -17,7 +17,7 @@ function validate(event: TagCloseEvent, report: RuleReport){
 	}
 
 	/* ignore self-closed and void */
-	if (event.target.selfClosed || event.target.voidElement){
+	if (event.previous === event.target){
 		return;
 	}
 

@@ -3,6 +3,13 @@ import { Token } from '../token';
 import { DOMTokenList } from './domtokenlist';
 import { MetaTable, MetaElement } from '../meta';
 
+export enum NodeClosed {
+	Open = 0,          /* element wasn't closed */
+	EndTag = 1,        /* element closed with end tag <p>...</p> */
+	Omitted = 2,       /* void element with omitted end tag <input> */
+	Self = 3,          /* self-closed void element <input/> */
+}
+
 export class DOMNode {
 	readonly tagName: string;
 	readonly attr: { [key: string]: string; };
@@ -11,19 +18,15 @@ export class DOMNode {
 	readonly meta: MetaElement;
 	readonly parent: DOMNode
 	readonly voidElement: boolean;
-	open: boolean;
-	closed: boolean;
-	selfClosed: boolean;
+	closed: NodeClosed;
 
-	constructor(tagName: string, parent?: DOMNode, metaTable?: MetaTable, location?: LocationData){
+	constructor(tagName: string, parent?: DOMNode, closed: NodeClosed = NodeClosed.EndTag, meta?: MetaElement, location?: LocationData){
 		this.children = [];
 		this.tagName = tagName;
 		this.parent = parent;
 		this.attr = {};
-		this.meta = metaTable ? metaTable.getMetaFor(tagName) : null;
-		this.open = true;
-		this.closed = false;
-		this.selfClosed = false;
+		this.meta = meta;
+		this.closed = closed;
 		this.voidElement = this.meta ? this.meta.void : false;
 		this.location = location;
 
@@ -41,13 +44,12 @@ export class DOMNode {
 		if (!tagName){
 			throw new Error("tagName cannot be empty");
 		}
-		const open = startToken.data[1] !== '/';
-		const node = new DOMNode(tagName, open ? parent : undefined, metaTable, startToken.location);
-		node.selfClosed = endToken.data[0] === '/>';
-		node.open = open;
-		node.closed = node.selfClosed || node.voidElement;
 
-		return node;
+		const meta = metaTable ? metaTable.getMetaFor(tagName) : null;
+		const open = startToken.data[1] !== '/';
+		const closed = isClosed(endToken, meta);
+
+		return new DOMNode(tagName, open ? parent : undefined, closed, meta, startToken.location);
 	}
 
 	is(tagName: string): boolean {
@@ -163,5 +165,18 @@ export class DOMNode {
 
 		return visit(this);
 	}
+}
 
+function isClosed(endToken: Token, meta: MetaElement): NodeClosed {
+	let closed = NodeClosed.Open;
+
+	if (meta && meta.void){
+		closed = NodeClosed.Omitted;
+	}
+
+	if (endToken.data[0] === '/>'){
+		closed = NodeClosed.Self;
+	}
+
+	return closed;
 }

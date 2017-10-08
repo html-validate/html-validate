@@ -1,5 +1,5 @@
 import Config from './config';
-import { DOMNode, DOMTree } from './dom';
+import { DOMNode, DOMTree, NodeClosed } from './dom';
 import { Lexer, TokenStream } from './lexer';
 import { Token, TokenType } from './token';
 import { EventHandler, EventCallback } from './eventhandler';
@@ -80,7 +80,7 @@ class Parser {
 		const endToken = tokens.slice(-1)[0];
 		const node = DOMNode.fromTokens(startToken, endToken, this.dom.getActive(), this.metaTable);
 		const open = !startToken.data[1];
-		const close = !open || node.selfClosed || node.voidElement;
+		const close = !open || node.closed !== NodeClosed.Open;
 
 		if (open){
 			this.dom.pushActive(node);
@@ -102,12 +102,28 @@ class Parser {
 		}
 
 		if (close){
+			const active = this.dom.getActive();
+
+			/* if this is not an open tag it is a close tag and thus we force it to be
+			 * one, in case it is detected as void */
+			if (!open){
+				node.closed = NodeClosed.EndTag;
+			}
+
 			this.trigger('tag:close', {
 				target: node,
-				previous: this.dom.getActive(),
+				previous: active,
 				location: endToken.location,
 			});
-			this.dom.popActive();
+
+			/* if this element is closed with an end tag but is would it will not be
+			 * closed again (it is already closed automatically since it is
+			 * void). Closing again will have side-effects as it will close the parent
+			 * and cause a mess later. */
+			const voidClosed = !open && node.voidElement;
+			if (!voidClosed){
+				this.dom.popActive();
+			}
 		}
 	}
 
