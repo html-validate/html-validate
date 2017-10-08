@@ -25,7 +25,7 @@ describe('rule void', function() {
 			expect(report.valid, "linting should report success").to.be.false;
 			expect(report.results[0].messages, "report should contain 1 error").to.have.lengthOf(1);
 			expect(report.results[0].messages[0].ruleId, "reported error should be indent").to.equal('void');
-			expect(report.results[0].messages[0].message).to.equal('Expected omitted end tag instead of self-closing element');
+			expect(report.results[0].messages[0].message).to.equal('Expected omitted end tag <input> instead of self-closing element <input/>');
 		});
 
 		it('should not report when non-void element has end tag', function() {
@@ -69,7 +69,7 @@ describe('rule void', function() {
 			expect(report.valid, "linting should report success").to.be.false;
 			expect(report.results[0].messages, "report should contain 1 error").to.have.lengthOf(1);
 			expect(report.results[0].messages[0].ruleId, "reported error should be indent").to.equal('void');
-			expect(report.results[0].messages[0].message).to.equal('Expected omitted end tag instead of self-closing element');
+			expect(report.results[0].messages[0].message).to.equal('Expected omitted end tag <input> instead of self-closing element <input/>');
 		});
 
 	});
@@ -87,7 +87,7 @@ describe('rule void', function() {
 			expect(report.valid, "linting should report success").to.be.false;
 			expect(report.results[0].messages, "report should contain 1 error").to.have.lengthOf(1);
 			expect(report.results[0].messages[0].ruleId, "reported error should be indent").to.equal('void');
-			expect(report.results[0].messages[0].message).to.equal('Expected self-closing element instead of omitted end-tag');
+			expect(report.results[0].messages[0].message).to.equal('Expected self-closing element <input/> instead of omitted end-tag <input>');
 		});
 
 		it('should not report when void element is self-closed', function() {

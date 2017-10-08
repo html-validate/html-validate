@@ -47,11 +47,11 @@ function init(parser: RuleParserProxy, userOptions: any){
 
 		if (node.voidElement){
 			if (style === Style.AlwaysOmit && node.closed === NodeClosed.Self){
-				report(node, `Expected omitted end tag instead of self-closing element`);
+				report(node, `Expected omitted end tag <${node.tagName}> instead of self-closing element <${node.tagName}/>`);
 			}
 
 			if (style === Style.AlwaysSelfclose && node.closed === NodeClosed.Omitted){
-				report(node, `Expected self-closing element instead of omitted end-tag`);
+				report(node, `Expected self-closing element <${node.tagName}/> instead of omitted end-tag <${node.tagName}>`);
 			}
 		}
 
