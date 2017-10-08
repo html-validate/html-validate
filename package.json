@@ -7,12 +7,13 @@
     "lint",
     "validator"
   ],
-  "main": "index.js",
+  "main": "html-validate.js",
   "bin": {
     "html-validate": "html-validate.js"
   },
   "scripts": {
     "test": "grunt eslint mochaTest smoketest",
+    "version": "./update-changelog.sh && git add CHANGELOG.md",
     "postversion": "git push --follow-tags"
   },
   "author": "David Sveningsson <ext@sidvind.com>",
