@@ -40,6 +40,8 @@ ESLint:
   stage: test
   tags:
     - nodejs
+  variables:
+    ESLINT_STRICT: 1
   script:
     - node_modules/grunt-cli/bin/grunt eslint
 

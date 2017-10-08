@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const spawnSync = require('child_process').spawnSync;
+const eslintStrict = process.env.ESLINT_STRICT === '1';
 
 module.exports = function(grunt){
 	require('load-grunt-tasks')(grunt);
@@ -24,10 +25,18 @@ module.exports = function(grunt){
 		},
 
 		eslint: {
-			default: [
-				'*.js',
-				'src/**/*.ts',
-			],
+			default: {
+				options: {
+					/* CI pipeline sets strict environment do disallow any warnings, but
+					 * allows warnings in development environment to not cause
+					 * annoyances. */
+					maxWarnings: eslintStrict ? 0 : -1,
+				},
+				src: [
+					'*.js',
+					'src/**/*.ts',
+				],
+			},
 		},
 
 		mochaTest: {
