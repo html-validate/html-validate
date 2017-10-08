@@ -27,6 +27,11 @@
     "version": "./update-changelog.sh && git add CHANGELOG.md",
     "postversion": "git push --follow-tags"
   },
+  "dependencies": {
+    "eslint": "^4.5.0",
+    "glob": "^7.1.2",
+    "minimist": "^1.2.0"
+  },
   "devDependencies": {
     "@types/mocha": "^2.2.41",
     "@types/node": "^8.0.24",
@@ -50,11 +55,6 @@
     "tsconfig-paths": "^2.2.0",
     "typescript": "^2.4.2",
     "typescript-eslint-parser": "^7.0.0"
-  },
-  "dependencies": {
-    "eslint": "^4.5.0",
-    "glob": "^7.1.2",
-    "minimist": "^1.2.0"
   },
   "nyc": {
     "extension": [
