@@ -44,8 +44,6 @@ Mocha:
 
 Smoketest:
   stage: test
-  dependencies:
-    - Build
   script:
     - node_modules/grunt-cli/bin/grunt smoketest
 
