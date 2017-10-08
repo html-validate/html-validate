@@ -39,8 +39,8 @@ ESLint:
 
 Mocha:
   stage: test
-  script:
-    - node_modules/grunt-cli/bin/grunt mochaTest
+  script: npm run mocha
+  coverage: /Lines\s+:\s(\d+.\d+%)/
 
 Smoketest:
   stage: test

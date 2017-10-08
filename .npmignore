@@ -1,4 +1,5 @@
 # Remember to keep in sync with .gitignore
+/.nyc_output/
 /.tscache
 /node_modules
 /src
