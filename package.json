@@ -40,8 +40,11 @@
     "grunt-eslint": "^20.0.0",
     "grunt-mocha-test": "^0.13.2",
     "grunt-ts": "^6.0.0-beta.16",
+    "istanbul": "^0.4.5",
     "load-grunt-tasks": "^3.5.2",
     "mocha": "^3.5.0",
+    "nyc": "^11.2.1",
+    "source-map-support": "^0.5.0",
     "ts-node": "^3.3.0",
     "tsconfig-paths": "^2.2.0",
     "typescript": "^2.4.2",
@@ -51,5 +54,19 @@
     "eslint": "^4.5.0",
     "glob": "^7.1.2",
     "minimist": "^1.2.0"
+  },
+  "nyc": {
+    "extension": [
+      ".ts"
+    ],
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "src/**/*.d.ts"
+    ],
+    "reporter": [
+      "text-summary"
+    ]
   }
 }

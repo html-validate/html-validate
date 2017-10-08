@@ -10,5 +10,6 @@
     "lib": [
       "ES6"
     ]
-  }
+  },
+  "sourceMap": true
 }
