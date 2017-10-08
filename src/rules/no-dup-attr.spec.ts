@@ -26,6 +26,14 @@ describe('rule no-dup-attr', function() {
 		expect(report.results[0].messages[0].message).to.equal('Attribute "foo" duplicated');
 	});
 
+	it('should report when attribute is duplicated case insensitive', function() {
+		const report = htmlvalidate.string('<p foo="bar" FOO="baz"></p></p>');
+		expect(report.valid, "linting should report failure").to.be.false;
+		expect(report.results[0].messages, "report should contain 1 error").to.have.lengthOf(1);
+		expect(report.results[0].messages[0].ruleId, "reported error should be indent").to.equal('no-dup-attr');
+		expect(report.results[0].messages[0].message).to.equal('Attribute "foo" duplicated');
+	});
+
 	it('smoketest', function(){
 		const report = htmlvalidate.file('./test-files/rules/duplicated-attr.html');
 		expect(report.valid, "linting should report failure").to.be.false;
