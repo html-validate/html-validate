@@ -21,6 +21,7 @@ Usage: html-validate [OPTIONS] [FILENAME..] [DIR..]
 Common options:
 
   -f, --formatter=FORMATTER   specify the formatter to use.
+      --rule=RULE             set additional rule.
 
 Debugging options:
       --dump-events           output events during parsing.
