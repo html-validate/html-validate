@@ -1,4 +1,4 @@
-import Config from './config';
+import { Config } from './config';
 import Context from './context';
 import { DOMNode } from 'dom';
 import { Rule } from './rule';

@@ -1,4 +1,4 @@
-import Config from './config';
+import { Config } from './config';
 import { DOMTree } from 'dom';
 import { EventCallback } from './eventhandler';
 import Parser from './parser';

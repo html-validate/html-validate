@@ -1,4 +1,4 @@
-import Config from './config';
+import { Config } from './config';
 import Parser from './parser';
 import { DOMNode } from 'dom';
 import { Reporter, Report } from './reporter';

@@ -1,4 +1,4 @@
-import { MetaTable } from './meta';
+import { MetaTable } from '../meta';
 const path = require('path');
 const glob = require('glob');
 
@@ -100,7 +100,7 @@ export class Config {
 	getMetaTable(){
 		if (!this.metaTable){
 			this.metaTable = new MetaTable();
-			const root = path.resolve(__dirname, '..');
+			const root = path.resolve(__dirname, '..', '..');
 			for (const filename of glob.sync(`${root}/elements/*.json`)){
 				this.metaTable.loadFromFile(filename);
 			}
@@ -139,5 +139,3 @@ export class Config {
 		return rules;
 	}
 }
-
-export default Config;
