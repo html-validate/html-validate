@@ -61,7 +61,8 @@ Usage: html-validate [OPTIONS] [FILENAME..] [DIR..]
 Common options:
 
   -f, --formatter=FORMATTER   specify the formatter to use.
-      --rule=RULE             set additional rule.
+      --rule=RULE:SEVERITY    set additional rule, use comma separator for
+                              multiple.
 
 Debugging options:
       --dump-events           output events during parsing.
