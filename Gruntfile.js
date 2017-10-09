@@ -83,7 +83,14 @@ module.exports = function(grunt){
 				const expected = fs.readFileSync(compare, {encoding: 'utf-8'});
 				const expectedObj = JSON.parse(expected);
 				const actual = result.stdout.toString('utf-8');
-				const actualObj = JSON.parse(actual);
+				let actualObj;
+
+				try {
+					actualObj = JSON.parse(actual);
+				} catch (e) {
+					grunt.log.error(actual);
+					return;
+				}
 
 				if (expected !== actual){
 					grunt.log.error();
