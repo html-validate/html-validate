@@ -1,8 +1,48 @@
 import HtmlValidate from '../htmlvalidate';
 import { Result } from '../reporter'; // eslint-disable-line no-unused-vars
 
-const pkg = require('../../package.json');
-const argv = require('minimist')(process.argv.slice(2), {
+const minimist = require('minimist');
+
+function getMode(argv: { [key: string]: any }){
+	if (argv['dump-events']){
+		return 'dump-events';
+	}
+
+	if (argv['dump-tokens']){
+		return 'dump-tokens';
+	}
+
+	if (argv['dump-tree']){
+		return 'dump-tree';
+	}
+
+	return 'lint';
+}
+
+function getGlobalConfig(rules?: string|string[]){
+	const config: any = Object.assign({}, require('./config'));
+	if (rules){
+		if (Array.isArray(rules)){
+			rules = rules.join(',');
+		}
+		const raw = rules.split(',').map((x: string) => x.replace(/ *(.*):/, '"$1":')).join(',');
+		try {
+			const rules = JSON.parse(`{${raw}}`);
+			config.extends = [];
+			config.rules = rules;
+		} catch (e){
+			process.stderr.write(`Error while parsing "${rules}": ${e.message}, rules ignored.\n`);
+		}
+	}
+	return config;
+}
+
+function getFormatter(name: string){
+	name = name.replace(/[^a-z]+/g, '');
+	return require(`../formatters/${name}`);
+}
+
+const argv = minimist(process.argv.slice(2), {
 	string: ['f', 'formatter', 'rule'],
 	boolean: ['dump-events', 'dump-tokens', 'dump-tree'],
 	alias: {
@@ -14,6 +54,7 @@ const argv = require('minimist')(process.argv.slice(2), {
 });
 
 function showUsage(){
+	const pkg = require('../../package.json');
 	process.stdout.write(`${pkg.name}-${pkg.version}
 Usage: html-validate [OPTIONS] [FILENAME..] [DIR..]
 
@@ -34,48 +75,15 @@ if (argv.h || argv.help){
 	process.exit();
 }
 
-/* prepare config */
-const config: any = {
-	extends: ['htmlvalidate:recommended'],
-};
-if (argv.rule){
-	if (Array.isArray(argv.rule)){
-		argv.rule = argv.rule.join(',');
-	}
-	const raw = argv.rule.split(',').map((x: string) => x.replace(/ *(.*):/, '"$1":')).join(',');
-	try {
-		const rules = JSON.parse(`{${raw}}`);
-		config.extends = [];
-		config.rules = rules;
-	} catch (e){
-		process.stderr.write(`Error while parsing "${argv.rule}": ${e.message}, rules ignored.\n`);
-	}
-}
-
-/* load formatter */
-argv.formatter = argv.formatter.replace(/[^a-z]+/g, '');
-const formatter = require(`../formatters/${argv.formatter}`);
-
+const mode = getMode(argv);
+const config = getGlobalConfig(argv.rule);
+const formatter = getFormatter(argv.formatter);
 const htmlvalidate = new HtmlValidate(config);
 
 let results: Result[] = [];
 let valid = true;
-let mode = 'lint';
 
-if (argv['dump-events']){
-	mode = 'dump-events';
-}
-
-if (argv['dump-tokens']){
-	mode = 'dump-tokens';
-}
-
-if (argv['dump-tree']){
-	mode = 'dump-tree';
-}
-
-argv._.forEach(function(filename: string){
-
+argv._.forEach((filename: string) => {
 	const report = htmlvalidate.file(filename, mode);
 
 	/* aggregate results */
