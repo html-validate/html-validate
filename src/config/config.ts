@@ -2,19 +2,7 @@ import { MetaTable } from '../meta';
 const path = require('path');
 const glob = require('glob');
 
-const recommended = {
-	rules: {
-		'attr-quotes': 'error',
-		'button-type': 'error',
-		'close-attr': 'error',
-		'close-order': 'error',
-		'deprecated': 'error',
-		'element-permitted-content': 'error',
-		'no-dup-id': 'error',
-		'no-trailing-whitespace': 'error',
-		'void': 'error',
-	},
-};
+const recommended = require('./recommended');
 
 function deepMerge(dst: any, src: any){
 	for (const key of Object.keys(src)){
