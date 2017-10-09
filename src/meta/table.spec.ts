@@ -164,5 +164,8 @@ function mockEntry(tagName: string, stub = {}): MetaElement {
 		interactive: false,
 		deprecated: false,
 		void: false,
+		transparent: false,
+		permittedContent: [],
+		permittedDescendants: [],
 	}, stub);
 }

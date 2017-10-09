@@ -2,12 +2,19 @@
   "a": {
     "flow": true,
     "phrasing": true,
-    "interactive": true
+    "interactive": true,
+    "transparent": true,
+    "permittedDescendants": [
+      {"exclude": "@interactive"}
+    ]
   },
 
   "abbr": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "acronym": {
@@ -15,7 +22,19 @@
   },
 
   "address": {
-    "flow": true
+    "flow": true,
+    "permittedContent": [
+      "@flow"
+    ],
+    "permittedDescendants": [
+      {"exclude": [
+        "address",
+        "header",
+        "footer",
+        "@heading",
+        "@sectioning"
+      ]}
+    ]
   },
 
   "applet": {
@@ -30,24 +49,51 @@
 
   "article": {
     "flow": true,
-    "sectioning": true
-  },
+    "sectioning": true,
+    "permittedContent": [
+      "@flow"
+    ],
+    "permittedDescendants": [
+      {"exclude": ["main"]}
+    ]
+   },
 
   "aside": {
     "flow": true,
-    "sectioning": true
+    "sectioning": true,
+    "permittedContent": [
+      "@flow"
+    ],
+    "permittedDescendants": [
+      {"exclude": ["main"]}
+    ]
   },
 
   "audio": {
     "flow": true,
     "phrasing": true,
     "embedded": true,
-    "interactive": ["hasAttribute", "controls"]
+    "interactive": ["hasAttribute", "controls"],
+    "transparent": true,
+    "permittedContent": [
+      "@flow",
+      "track",
+      "source"
+    ],
+    "permittedDescendants": [
+      {"exclude": [
+        "audio",
+        "video"
+      ]}
+    ]
   },
 
   "b": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "base": {
@@ -61,12 +107,18 @@
 
   "bdi": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "bdo": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "bgsound": {
@@ -82,7 +134,11 @@
   },
 
   "blockquote": {
-    "flow": true
+    "flow": true,
+    "sectioning": true,
+    "permittedContent": [
+      "@flow"
+    ]
   },
 
   "body": {},
@@ -96,16 +152,30 @@
   "button": {
     "flow": true,
     "phrasing": true,
-    "interactive": true
+    "interactive": true,
+    "permittedContent": [
+      "@phrasing"
+    ],
+    "permittedDescendants": [
+      {"exclude": ["@interactive"]}
+    ]
   },
 
   "canvas": {
     "flow": true,
     "phrasing": true,
-    "embedded": true
+    "embedded": true,
+    "transparent": true
   },
 
-  "caption": {},
+  "caption": {
+    "permittedContent": [
+      "@flow"
+    ],
+    "permittedDescendants": [
+      {"exclude": ["table"]}
+    ]
+  },
 
   "center": {
     "deprecated": true
@@ -113,40 +183,69 @@
 
   "cite": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "code": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "col": {
     "void": true
   },
 
-  "colgroup": {},
+  "colgroup": {
+    "permittedContent": [
+      "col",
+      "template"
+    ]
+  },
 
   "data": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "datalist": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing",
+      "option"
+    ]
   },
 
-  "dd": {},
+  "dd": {
+    "permittedContent": [
+      "@flow"
+    ]
+  },
 
   "del": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "transparent": true
   },
 
   "dfn": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ],
+    "permittedDescendants": [
+      {"exclude": ["dfn"]}
+    ]
   },
 
   "dir": {
@@ -154,18 +253,42 @@
   },
 
   "div": {
-    "flow": true
+    "flow": true,
+    "permittedContent": [
+      "@flow"
+    ]
   },
 
   "dl": {
-    "flow": true
+    "flow": true,
+    "permittedContent": [
+      "dt",
+      "dd",
+      "script",
+      "template"
+    ]
   },
 
-  "dt": {},
+  "dt": {
+    "permittedContent": [
+      "@flow"
+    ],
+    "permittedDescendants": [
+      {"exclude": [
+        "header",
+        "footer",
+        "@sectioning",
+        "@heading"
+      ]}
+    ]
+  },
 
   "em": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "embed": {
@@ -177,13 +300,25 @@
   },
 
   "fieldset": {
-    "flow": true
+    "flow": true,
+    "permittedContent": [
+      "@flow",
+      "legend"
+    ]
   },
 
-  "figcaption": {},
+  "figcaption": {
+    "permittedContent": [
+      "@flow"
+    ]
+  },
 
   "figure": {
-    "flow": true
+    "flow": true,
+    "permittedContent": [
+      "@flow",
+      "figcaption"
+    ]
   },
 
   "font": {
@@ -191,11 +326,27 @@
   },
 
   "footer": {
-    "flow": true
+    "flow": true,
+    "permittedContent": [
+      "@flow"
+    ],
+    "permittedDescendants": [
+      {"exclude": [
+        "header",
+        "footer",
+        "main"
+      ]}
+    ]
   },
 
   "form": {
-    "flow": true
+    "flow": true,
+    "permittedContent": [
+      "@flow"
+    ],
+    "permittedDescendants": [
+      {"exclude": ["form"]}
+    ]
   },
 
   "frame": {
@@ -208,38 +359,70 @@
 
   "h1": {
     "flow": true,
-    "heading": true
+    "heading": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "h2": {
     "flow": true,
-    "heading": true
+    "heading": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "h3": {
     "flow": true,
-    "heading": true
+    "heading": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "h4": {
     "flow": true,
-    "heading": true
+    "heading": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "h5": {
     "flow": true,
-    "heading": true
+    "heading": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "h6": {
     "flow": true,
-    "heading": true
+    "heading": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
-  "head": {},
+  "head": {
+    "permittedContent": [
+      "@meta"
+    ]
+  },
 
   "header": {
-    "flow": true
+    "flow": true,
+    "permittedContent": [
+      "@flow"
+    ],
+    "permittedDescendants": [
+      {"exclude": [
+        "header",
+        "footer",
+        "main"
+      ]}
+    ]
   },
 
   "hgroup": {
@@ -251,18 +434,27 @@
     "void": true
   },
 
-  "html": {},
+  "html": {
+    "permittedContent": [
+      "head",
+      "body"
+    ]
+  },
 
   "i": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "iframe": {
     "flow": true,
     "phrasing": true,
     "embedded": true,
-    "interactive": true
+    "interactive": true,
+    "permittedContent": []
   },
 
   "img": {
@@ -282,7 +474,8 @@
 
   "ins": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "transparent": true
   },
 
   "isindex": {
@@ -291,7 +484,10 @@
 
   "kbd": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "keygen": {
@@ -304,12 +500,26 @@
   "label": {
     "flow": true,
     "phrasing": true,
-    "interactive": true
+    "interactive": true,
+    "permittedContent": [
+      "@phrasing"
+    ],
+    "permittedDescendants": [
+      {"exclude": ["label"]}
+    ]
   },
 
-  "legend": {},
+  "legend": {
+    "permittedContent": [
+      "@phrasing"
+    ]
+  },
 
-  "li": {},
+  "li": {
+    "permittedContent": [
+      "@flow"
+    ]
+  },
 
   "link": {
     "metadata": true,
@@ -326,12 +536,16 @@
 
   "map": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "transparent": true
   },
 
   "mark": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "marquee": {
@@ -351,7 +565,13 @@
 
   "meter": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ],
+    "permittedDescendants": [
+      [{"exclude": "meter"}]
+    ]
   },
 
   "multicol": {
@@ -360,7 +580,13 @@
 
   "nav": {
     "flow": true,
-    "sectioning": true
+    "sectioning": true,
+    "permittedContent": [
+      "@flow"
+    ],
+    "permittedDescendants": [
+      [{"exclude": "main"}]
+    ]
   },
 
   "nextid": {
@@ -382,31 +608,59 @@
   "noscript": {
     "metadata": true,
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "transparent": true,
+    "permittedDescendants": [
+      [{"exclude": "noscript"}]
+    ]
   },
 
   "object": {
     "flow": true,
     "phrasing": true,
     "embedded": true,
-    "interactive": ["hasAttribute", "usemap"]
+    "interactive": ["hasAttribute", "usemap"],
+    "transparent": true,
+    "permittedContent": [
+      "param",
+      "@flow"
+    ]
   },
 
   "ol": {
-    "flow": true
+    "flow": true,
+    "permittedContent": [
+      "li",
+      "script",
+      "template"
+    ]
   },
 
-  "optgroup": {},
+  "optgroup": {
+    "permittedContent": [
+      "option",
+      "script",
+      "template"
+    ]
+  },
 
-  "option": {},
+  "option": {
+    "permittedContent": []
+  },
 
   "output": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "p": {
-    "flow": true
+    "flow": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "param": {
@@ -418,62 +672,117 @@
   },
 
   "pre": {
-    "flow": true
+    "flow": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "progress": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ],
+    "permittedDescendants": [
+      [{"exclude": "progress"}]
+    ]
   },
 
   "q": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
-  "rb": {},
+  "rb": {
+    "permittedContent": [
+      "@phrasing"
+    ]
+  },
 
-  "rp": {},
+  "rp": {
+    "permittedContent": [
+      "@phrasing"
+    ]
+  },
 
-  "rt": {},
+  "rt": {
+    "permittedContent": [
+      "@phrasing"
+    ]
+  },
 
-  "rtc": {},
+  "rtc": {
+    "permittedContent": [
+      "@phrasing",
+      "rt"
+    ]
+  },
 
   "ruby": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing",
+      "rb",
+      "rp",
+      "rt",
+      "rtc"
+    ]
   },
 
   "s": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "samp": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "script": {
     "metadata": true,
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": ["a"]
   },
 
   "section": {
     "flow": true,
-    "sectioning": true
+    "sectioning": true,
+    "permittedContent": [
+      "@flow"
+    ]
   },
 
   "select": {
     "flow": true,
     "phrasing": true,
-    "interactive": true
+    "interactive": true,
+    "permittedContent": [
+      "option",
+      "optgroup",
+      "script",
+      "template"
+    ]
   },
 
   "small": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "source": {
@@ -486,7 +795,10 @@
 
   "span": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "strike": {
@@ -495,21 +807,31 @@
 
   "strong": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "style": {
-    "metadata": true
+    "metadata": true,
+    "permittedContent": []
   },
 
   "sub": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "sup": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "svg": {
@@ -519,12 +841,33 @@
   },
 
   "table": {
-    "flow": true
+    "flow": true,
+    "permittedContent": [
+      "caption",
+      "colgroup",
+      "script",
+      "tbody",
+      "template",
+      "tfoot",
+      "thead",
+      "tr"
+    ]
   },
 
-  "tbody": {},
+  "tbody": {
+    "permittedContent": [
+      "tr",
+      "script",
+      "template"
+    ]
+  },
 
-  "td": {},
+  "td": {
+    "flow": true,
+    "permittedContent": [
+      "@flow"
+    ]
+  },
 
   "template": {
     "metadata": true,
@@ -535,25 +878,62 @@
   "textarea": {
     "flow": true,
     "phrasing": true,
-    "interactive": true
+    "interactive": true,
+    "permittedContent": []
   },
 
-  "tfoot": {},
+  "tfoot": {
+    "permittedContent": [
+      "tr",
+      "script",
+      "template"
+    ]
+  },
 
-  "th": {},
+  "th": {
+    "flow": true,
+    "permittedContent": [
+      "@flow"
+    ],
+    "permittedDescendants": [
+      {"exclude": [
+        "header",
+        "footer",
+        "@sectioning",
+        "@heading"
+      ]}
+    ]
+  },
 
-  "thead": {},
+  "thead": {
+    "permittedContent": [
+      "tr",
+      "script",
+      "template"
+    ]
+  },
 
   "time": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "title": {
-    "metadata": true
+    "metadata": true,
+    "permittedContent": []
   },
 
-  "tr": {},
+  "tr": {
+    "permittedContent": [
+      "td",
+      "th",
+      "script",
+      "template"
+    ]
+  },
 
   "track": {
     "void": true
@@ -565,23 +945,46 @@
 
   "u": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "ul": {
-    "flow": true
+    "flow": true,
+    "permittedContent": [
+      "li",
+      "script",
+      "template"
+    ]
   },
 
   "var": {
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
   },
 
   "video": {
     "flow": true,
     "phrasing": true,
     "embedded": true,
-    "interactive": ["hasAttribute", "controls"]
+    "interactive": ["hasAttribute", "controls"],
+    "transparent": true,
+    "permittedContent": [
+      "@flow",
+      "track",
+      "source"
+    ],
+    "permittedDescendants": [
+      {"exclude": [
+        "audio",
+        "video"
+      ]}
+    ]
   },
 
   "wbr": {
