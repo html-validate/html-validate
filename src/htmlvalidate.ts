@@ -1,4 +1,4 @@
-import { Config } from './config';
+import { Config, ConfigLoader } from './config';
 import Parser from './parser';
 import { DOMNode } from 'dom';
 import { Reporter, Report } from './reporter';
@@ -60,8 +60,10 @@ class HtmlValidate {
 	 */
 	private parse(src: Source): Report {
 		const report = new Reporter();
-		const rules = this.config.getRules();
-		const parser = this.getParser();
+		const config = this.getConfigFor(src);
+		const rules = config.getRules();
+		const parser = new Parser(this.config);
+
 		for (const name in rules){
 			const data = rules[name];
 			this.loadRule(name, data, parser, report);
@@ -159,6 +161,12 @@ class HtmlValidate {
 			valid: true,
 			results: [],
 		};
+	}
+
+	getConfigFor(src: Source): Config {
+		const loader = new ConfigLoader();
+		const config = loader.fromTarget(src.filename);
+		return this.config.merge(config);
 	}
 
 	loadRule(name: string, data: any, parser: Parser, report: Reporter){
