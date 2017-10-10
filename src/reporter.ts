@@ -28,13 +28,13 @@ export class Reporter {
 		this.result = {};
 	}
 
-	add(node: DOMNode, rule: Rule, message: string, context: Context){
+	add(node: DOMNode, rule: Rule, message: string, severity: number, context: Context){
 		if (!this.result.hasOwnProperty(context.filename)){
 			this.result[context.filename] = [];
 		}
 		this.result[context.filename].push({
 			ruleId: rule.name,
-			severity: Config.SEVERITY_ERROR,
+			severity,
 			message,
 			line: context.line,
 			column: context.column,

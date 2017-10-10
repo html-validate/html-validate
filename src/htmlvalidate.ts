@@ -177,7 +177,7 @@ class HtmlValidate {
 					},
 				} as Rule;
 			}
-			rule.init(this.createProxy(parser, rule, report), options);
+			rule.init(this.createProxy(parser, rule, severity, report), options);
 		}
 	}
 
@@ -187,14 +187,15 @@ class HtmlValidate {
 	 * Rule can bind events on parser while maintaining "this" bound to the rule.
 	 * Callbacks receives an additional argument "report" to write messages to.
 	 */
-	createProxy(parser: Parser, rule: Rule, report: Reporter){
+	createProxy(parser: Parser, rule: Rule, severity: number, report: Reporter){
 		return {
 			on: function(event: string, callback: RuleEventCallback){
 				parser.on(event, function(event, data){
 					callback.call(rule, data, reportFunc);
 
 					function reportFunc(node: DOMNode, message: string, location: LocationData){
-						report.add(node, rule, message, location || data.location || node.location);
+						const where = location || data.location || node.location;
+						report.add(node, rule, message, severity, where);
 					}
 				});
 			},
