@@ -67,15 +67,25 @@ export class Config {
 
 	constructor(options?: any){
 		this.loadDefaults();
-		this.merge(options || {});
+		this.mergeInternal(options || {});
 		this.metaTable = null;
 
 		/* process and extended configs */
 		const self = this;
 		this.config.extends.forEach(function(ref: string){
 			const base = Config.fromFile(ref);
-			self.config = base.merge(self.config);
+			self.config = base.mergeInternal(self.config);
 		});
+	}
+
+	/**
+	 * Returns a new configuration as a merge of the two. Entries from the passed
+	 * object takes priority over this object.
+	 *
+	 * @param {Config} rhs - Configuration to merge with this one.
+	 */
+	public merge(rhs: Config){
+		return new Config(this.mergeInternal(rhs.config));
 	}
 
 	private loadDefaults(){
@@ -103,7 +113,7 @@ export class Config {
 		return src;
 	}
 
-	private merge(config: Object): ConfigData {
+	private mergeInternal(config: Object): ConfigData {
 		deepMerge(this.config, config);
 		return this.config;
 	}
