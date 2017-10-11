@@ -1,6 +1,6 @@
 import { DOMNode, DOMTree }  from 'dom';
 import Parser from '../parser';
-import Config from '../config';
+import { Config } from '../config';
 
 describe('DOMNode', function(){
 

@@ -1,4 +1,4 @@
-import Config from './config';
+import { Config } from './config';
 import { DOMNode, DOMTree, NodeClosed } from './dom';
 import { Lexer, TokenStream } from './lexer';
 import { Token, TokenType } from './token';

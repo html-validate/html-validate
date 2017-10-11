@@ -13,6 +13,23 @@ Offline HTML5 validator. Validates either a full document or a smaller
     npm install -g html-validate
     html-validate FILENAME..
 
+## Configuration
+
+Create `.htmlvalidate.json`:
+
+```js
+{
+  "extends": [
+    "htmlvalidate:recommended"
+  ],
+
+  "rules": {
+    "close-order": "error"
+    "void": ["warn", {"style": "omit"}]
+  }
+}
+```
+
 ## Test
 
     npm run mocha

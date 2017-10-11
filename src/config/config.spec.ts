@@ -1,5 +1,5 @@
 const path = require('path');
-import Config from './config';
+import { Config } from './config';
 
 describe('config', function(){
 

@@ -1,20 +1,8 @@
-import { MetaTable } from './meta';
+import { MetaTable } from '../meta';
 const path = require('path');
 const glob = require('glob');
 
-const recommended = {
-	rules: {
-		'attr-quotes': 'error',
-		'button-type': 'error',
-		'close-attr': 'error',
-		'close-order': 'error',
-		'deprecated': 'error',
-		'element-permitted-content': 'error',
-		'no-dup-id': 'error',
-		'no-trailing-whitespace': 'error',
-		'void': 'error',
-	},
-};
+const recommended = require('./recommended');
 
 function deepMerge(dst: any, src: any){
 	for (const key of Object.keys(src)){
@@ -79,15 +67,25 @@ export class Config {
 
 	constructor(options?: any){
 		this.loadDefaults();
-		this.merge(options || {});
+		this.mergeInternal(options || {});
 		this.metaTable = null;
 
 		/* process and extended configs */
 		const self = this;
 		this.config.extends.forEach(function(ref: string){
 			const base = Config.fromFile(ref);
-			self.config = base.merge(self.config);
+			self.config = base.mergeInternal(self.config);
 		});
+	}
+
+	/**
+	 * Returns a new configuration as a merge of the two. Entries from the passed
+	 * object takes priority over this object.
+	 *
+	 * @param {Config} rhs - Configuration to merge with this one.
+	 */
+	public merge(rhs: Config){
+		return new Config(this.mergeInternal(rhs.config));
 	}
 
 	private loadDefaults(){
@@ -100,7 +98,7 @@ export class Config {
 	getMetaTable(){
 		if (!this.metaTable){
 			this.metaTable = new MetaTable();
-			const root = path.resolve(__dirname, '..');
+			const root = path.resolve(__dirname, '..', '..');
 			for (const filename of glob.sync(`${root}/elements/*.json`)){
 				this.metaTable.loadFromFile(filename);
 			}
@@ -115,7 +113,7 @@ export class Config {
 		return src;
 	}
 
-	private merge(config: Object): ConfigData {
+	private mergeInternal(config: Object): ConfigData {
 		deepMerge(this.config, config);
 		return this.config;
 	}
@@ -139,5 +137,3 @@ export class Config {
 		return rules;
 	}
 }
-
-export default Config;
