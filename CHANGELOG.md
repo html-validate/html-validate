@@ -4,8 +4,9 @@
 
 ### Features
 
+- Support putting configuration in `.htmlvalidate.json` file.
 - `void` rule rewritten to better handle both tag omission and self-closing. It
-  learned a new option style` to allow a single style.
+  learned a new option `style` to allow a single style.
 - new rule `element-permitted-content` verifies that only allowed content is
   used.
 
