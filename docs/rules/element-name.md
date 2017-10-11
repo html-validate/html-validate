@@ -6,6 +6,8 @@ name](https://www.w3.org/TR/custom-elements/#valid-custom-element-name), essenti
 - Must start with `a-z`.
 - Must contain a dash `-`.
 
+Elements with xml namespaces is ignored by this rule.
+
 ## Rule details
 
 Examples of **incorrect** code for this rule:

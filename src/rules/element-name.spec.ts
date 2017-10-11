@@ -40,6 +40,11 @@ describe('rule element-name', function(){
 			expect(report.valid, "linting should report failure").to.be.true;
 		});
 
+		it('should not report error for xml namespaces', function(){
+			const report = htmlvalidate.string('<xmlns:foo></xmlns:foo>');
+			expect(report.valid, "linting should report failure").to.be.true;
+		});
+
 	});
 
 	describe('configured with custom pattern', function(){
@@ -65,6 +70,11 @@ describe('rule element-name', function(){
 
 		it('should not report when using builtin elements', function(){
 			const report = htmlvalidate.string('<span><a><span></span></a></span>');
+			expect(report.valid, "linting should report failure").to.be.true;
+		});
+
+		it('should not report error for xml namespaces', function(){
+			const report = htmlvalidate.string('<xmlns:foo></xmlns:foo>');
 			expect(report.valid, "linting should report failure").to.be.true;
 		});
 

@@ -13,6 +13,7 @@ export = {
 function init(parser: RuleParserProxy, userOptions: any){
 	const options = Object.assign({}, this.defaults, userOptions);
 	const regex = new RegExp(options.pattern);
+	const xmlns = /^(.+):.+$/;
 
 	parser.on('tag:open', (event: TagOpenEvent, report: RuleReport) => {
 		const target = event.target;
@@ -20,6 +21,12 @@ function init(parser: RuleParserProxy, userOptions: any){
 		/* assume that an element with meta has valid name as it is a builtin
 		 * element */
 		if (target.meta){
+			return;
+		}
+
+		/* ignore elements in xml namespaces, they should be validated against a
+		 * DTD instead */
+		if (target.tagName.match(xmlns)){
 			return;
 		}
 
