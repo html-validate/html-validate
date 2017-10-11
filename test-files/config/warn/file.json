@@ -1,0 +1,1 @@
+[{"filePath":"test-files/config/warn/file.html","messages":[{"ruleId":"void","severity":1,"message":"End tag for <input> must be omitted","line":1,"column":15}],"errorCount":0,"warningCount":1}]
