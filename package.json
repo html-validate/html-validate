@@ -69,7 +69,8 @@
       "src/**/*.d.ts"
     ],
     "reporter": [
-      "text-summary"
+      "text-summary",
+      "html"
     ]
   }
 }
