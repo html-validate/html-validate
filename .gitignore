@@ -2,4 +2,5 @@
 /.nyc_output/
 /.tscache/
 /build
+/coverage
 /node_modules
