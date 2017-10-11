@@ -2,6 +2,8 @@
 
 ## next
 
+## 0.2.0 (2017-10-11)
+
 ### Features
 
 - Support putting configuration in `.htmlvalidate.json` file.
