@@ -9,6 +9,7 @@
   learned a new option `style` to allow a single style.
 - new rule `element-permitted-content` verifies that only allowed content is
   used.
+- new rule `element-name` to validate custom element names.
 
 ## 0.1.3 (2017-10-08)
 

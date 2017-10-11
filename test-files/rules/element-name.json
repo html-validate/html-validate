@@ -1,0 +1,1 @@
+[{"filePath":"test-files/rules/element-name.html","messages":[{"ruleId":"element-name","severity":2,"message":"\"foo\" is not a valid element name","line":29,"column":1},{"ruleId":"element-name","severity":2,"message":"\"1-bar\" is not a valid element name","line":30,"column":1}],"errorCount":2,"warningCount":0}]
