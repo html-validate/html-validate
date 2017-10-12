@@ -8,6 +8,7 @@ module.exports = {
 		'element-name': 'error',
 		'element-permitted-content': 'error',
 		'no-dup-attr': 'error',
+		'no-dup-class': 'error',
 		'no-dup-id': 'error',
 		'no-trailing-whitespace': 'error',
 		'void': 'error',
