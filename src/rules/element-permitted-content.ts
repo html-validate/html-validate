@@ -50,7 +50,7 @@ function validate(event: DOMReadyEvent, report: RuleReport){
 
 		function validatePermittedDescendant(cur: DOMNode): void {
 			while (!cur.isRootElement()){
-				if (cur.meta && !Validator.validatePermitted(node, cur.meta.permittedDescendants)){
+				if (cur.meta && node.meta && !Validator.validatePermitted(node, cur.meta.permittedDescendants)){
 					report(node, `Element <${node.tagName}> is not permitted as descendant of <${cur.tagName}>`);
 					return;
 				}

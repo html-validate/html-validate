@@ -257,7 +257,7 @@ describe('HTML elements', function(){
 		allowParent('button', 'span');
 		allowParent('button', 'div');
 		disallowContent('button', '@flow');
-		disallowDescendant('button', 'interactive');
+		disallowDescendant('button', '@interactive');
 		disallowNesting('button');
 	});
 

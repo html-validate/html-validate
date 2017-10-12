@@ -12,6 +12,8 @@
 
 - lexer now chokes on `<ANY\n<ANY></ANY></ANY>` (first tag missing `>`) instead
   of handling the inner `<ANY>` as an attribute.
+- `element-permitted-content` fixed issue where descending with missing metadata
+  would report as disallowed content.
 
 ## 0.2.0 (2017-10-11)
 

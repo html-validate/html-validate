@@ -35,8 +35,13 @@ describe('rule element-permitted-content', function(){
 		expect(report).to.have.error('element-permitted-content', 'Element <div> is not permitted as content in <label>');
 	});
 
-	it('should handle missing meta entry', function(){
+	it('should handle missing meta entry (child)', function(){
 		const report = htmlvalidate.string('<p><foo>foo</foo></p>');
+		expect(report).to.be.valid;
+	});
+
+	it('should handle missing meta entry (descendant)', function(){
+		const report = htmlvalidate.string('<th><foo>foo</foo></th>');
 		expect(report).to.be.valid;
 	});
 
