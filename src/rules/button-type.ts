@@ -21,7 +21,7 @@ function validate(event: DOMReadyEvent, report: RuleReport){
 		if (type === null){
 			report(node, "Button is missing type attribute");
 		} else if (validTypes.indexOf(type.toLowerCase()) === -1){
-			report(node, "Button has invalid type");
+			report(node, `Button has invalid type "${type}"`);
 		}
 	});
 }

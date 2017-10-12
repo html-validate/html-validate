@@ -7,6 +7,7 @@ module.exports = {
 		'deprecated': 'error',
 		'element-name': 'error',
 		'element-permitted-content': 'error',
+		'no-dup-attr': 'error',
 		'no-dup-id': 'error',
 		'no-trailing-whitespace': 'error',
 		'void': 'error',

@@ -1,0 +1,1 @@
+[{"filePath":"test-files/rules/no-dup-attr.html","messages":[{"ruleId":"no-dup-attr","severity":2,"message":"Attribute \"id\" duplicated","line":2,"column":26}],"errorCount":1,"warningCount":0}]

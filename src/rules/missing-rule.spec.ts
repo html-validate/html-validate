@@ -14,9 +14,8 @@ describe('missing rule', function(){
 
 	it('should report error when rule is not defined', function(){
 		const report = htmlvalidate.string('<p></p>');
-		expect(report.valid, "linting should report failure").to.be.false;
-		expect(report.results[0].messages, "report should contain 1 error").to.have.lengthOf(1);
-		expect(report.results[0].messages[0].ruleId, "reported error should be missing definition for rule").to.equal('foo');
+		expect(report).to.be.invalid;
+		expect(report).to.have.error('foo', 'Definition for rule \'foo\' was not found');
 	});
 
 });
