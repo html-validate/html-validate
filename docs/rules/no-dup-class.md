@@ -1,0 +1,17 @@
+# disallows duplicated classes on same element (`no-dup-class`)
+
+Prevents unnecessary duplication of class names.
+
+## Rule details
+
+Examples of **incorrect** code for this rule:
+
+```html
+<div class="foo bar foo"></div>
+```
+
+Examples of **correct** code for this rule:
+
+```html
+<div class="foo bar"></div>
+```

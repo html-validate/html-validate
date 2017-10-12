@@ -2,6 +2,11 @@
 
 ## next
 
+### Features
+
+- new rule `no-dup-class` preventing duplicate classes names on the same
+  element.
+
 ## 0.2.0 (2017-10-11)
 
 ### Features
