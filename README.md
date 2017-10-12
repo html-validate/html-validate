@@ -7,6 +7,8 @@ Offline HTML5 validator. Validates either a full document or a smaller
 
 - Can test fragments of HTML, for instance a component template.
 - Does not upload any data to a remote server, all testing is done locally.
+- Strict and non-forgiving parsing. It will not try to correct any incorrect
+  markup or guess what it should do.
 
 ## Usage
 
