@@ -2,6 +2,8 @@
 
 ## next
 
+## 0.3.0 (2017-10-12)
+
 ### Features
 
 - new rules `id-pattern` and `class-pattern` for requiring a specific formats.
