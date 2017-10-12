@@ -1,6 +1,7 @@
 import { Config } from './config';
 import { DOMTree } from 'dom';
 import { EventCallback } from './eventhandler';
+import { InvalidTokenError } from './lexer';
 import Parser from './parser';
 import HtmlValidate from './htmlvalidate';
 
@@ -126,6 +127,16 @@ describe('parser', function(){
 			expect(events.shift()).to.deep.equal({event: 'tag:open', tagName: 'foo:div'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', tagName: 'foo:div'});
 			expect(events.shift()).to.be.undefined;
+		});
+
+	});
+
+	describe('should fail on', function(){
+
+		it('start tag with missing ">"', function(){
+			expect(() => {
+				parser.parseHtml('<p\n<p>foo</p></p>');
+			}).to.throw(InvalidTokenError);
 		});
 
 	});

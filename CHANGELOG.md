@@ -8,6 +8,11 @@
 - new rule `no-dup-class` preventing duplicate classes names on the same
   element.
 
+### Bugfixes
+
+- lexer now chokes on `<ANY\n<ANY></ANY></ANY>` (first tag missing `>`) instead
+  of handling the inner `<ANY>` as an attribute.
+
 ## 0.2.0 (2017-10-11)
 
 ### Features
