@@ -4,6 +4,7 @@
 
 ### Features
 
+- new rule `id-pattern` for requiring a specific format.
 - new rule `no-dup-class` preventing duplicate classes names on the same
   element.
 
