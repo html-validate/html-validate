@@ -18,6 +18,7 @@ module.exports = function(grunt){
 					'--formatter', 'json',
 					filename,
 				]);
+				grunt.log.debug(` (${args.join(' ')})`);
 				const result = spawnSync('./html-validate.js', args);
 
 				/* validate output */

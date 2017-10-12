@@ -34,13 +34,4 @@ describe('rule no-dup-attr', function() {
 		expect(report.results[0].messages[0].message).to.equal('Attribute "foo" duplicated');
 	});
 
-	it('smoketest', function(){
-		const report = htmlvalidate.file('./test-files/rules/duplicated-attr.html');
-		expect(report.valid, "linting should report failure").to.be.false;
-		expect(report.results[0].messages, "report should contain 1 errors").to.have.lengthOf(1);
-		expect(report.results[0].messages[0].ruleId, "reported error should be no-dup-attr").to.equal('no-dup-attr');
-		expect(report.results[0].messages[0].line, "first error should be on line 2").to.equal(2);
-		expect(report.results[0].messages[0].column, "first error should be on column 26").to.equal(26);
-	});
-
 });
