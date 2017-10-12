@@ -14,39 +14,27 @@ describe('rule close-attr', function(){
 
 	it('should not report when close tags are correct', function(){
 		const report = htmlvalidate.string('<div></div>');
-		expect(report.valid, "linting should report success").to.be.true;
-		expect(report.results, "report should contain no errors").to.have.lengthOf(0);
+		expect(report).to.be.valid;
 	});
 
 	it('should not report errors on self-closing tags', function(){
 		const report = htmlvalidate.string('<input required/>');
-		expect(report.valid, "linting should report success").to.be.true;
-		expect(report.results, "report should contain no errors").to.have.lengthOf(0);
+		expect(report).to.be.valid;
 	});
 
 	it('should not report errors on void tags', function(){
 		const report = htmlvalidate.string('<input required>');
-		expect(report.valid, "linting should report success").to.be.true;
-		expect(report.results, "report should contain no errors").to.have.lengthOf(0);
+		expect(report).to.be.valid;
 	});
 
 	it('should report when close tags contains attributes', function(){
 		const html = "<p></p foo=\"bar\"><p></p foo='bar'><p></p foo>";
 		const report = htmlvalidate.string(html);
-		expect(report.valid, "linting should report failure").to.be.false;
+		expect(report).to.be.invalid;
 		expect(report.results[0].messages, "report should contain 3 errors").to.have.lengthOf(3);
 		expect(report.results[0].messages[0].ruleId, "reported error should be close-attr").to.equal('close-attr');
 		expect(report.results[0].messages[1].ruleId, "reported error should be close-attr").to.equal('close-attr');
 		expect(report.results[0].messages[2].ruleId, "reported error should be close-attr").to.equal('close-attr');
-	});
-
-	it('smoketest', function(){
-		const report = htmlvalidate.file('./test-files/rules/close-attr.html');
-		expect(report.valid, "linting should report failure").to.be.false;
-		expect(report.results[0].messages, "report should contain 1 errors").to.have.lengthOf(1);
-		expect(report.results[0].messages[0].ruleId, "reported error should be close-attr").to.equal('close-attr');
-		expect(report.results[0].messages[0].line, "first error should be on line 3").to.equal(3);
-		expect(report.results[0].messages[0].column, "first error should be on column 15").to.equal(15);
 	});
 
 });

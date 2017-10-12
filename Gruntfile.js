@@ -42,6 +42,7 @@ module.exports = function(grunt){
 				require: [
 					'ts-node/register',
 					'tsconfig-paths/register',
+					'./src/mocha-bootstrap.ts',
 				],
 			},
 			test: {
