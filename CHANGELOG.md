@@ -2,6 +2,11 @@
 
 ## next
 
+### Features
+
+- new rule `element-permitted-occurrences` validating elements with content
+  models limiting the number of times child elements can be used.
+
 ## 0.3.0 (2017-10-12)
 
 ### Features
