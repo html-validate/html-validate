@@ -38,6 +38,19 @@ describe('Meta validator', function(){
 			expect(Validator.validatePermitted(nil, rules)).to.be.false;
 		});
 
+		it('should validate tagName with qualifier', function(){
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry('nil', {void: true}),
+				nil: mockEntry('nil', {void: true}),
+			});
+			const parser = new Parser(new ConfigMock(table));
+			const [foo, nil] = parser.parseHtml('<foo/><nil/>').root.children;
+			const rules = ['foo?'];
+			expect(Validator.validatePermitted(foo, rules)).to.be.true;
+			expect(Validator.validatePermitted(nil, rules)).to.be.false;
+		});
+
 		it('should validate @meta', function(){
 			const table = new MetaTable();
 			table.loadFromObject({
@@ -215,6 +228,47 @@ describe('Meta validator', function(){
 			}]];
 			expect(Validator.validatePermitted(foo, rules)).to.be.true;
 			expect(Validator.validatePermitted(bar, rules)).to.be.false;
+		});
+
+	});
+
+	describe('validatePermitted()', function(){
+
+		it('should support missing qualifier', function(){
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry('foo', {void: true}),
+			});
+			const parser = new Parser(new ConfigMock(table));
+			const [foo] = parser.parseHtml('<foo/>').root.children;
+			const rules = ['foo'];
+			expect(Validator.validateOccurrences(foo, rules, 0)).to.be.true;
+			expect(Validator.validateOccurrences(foo, rules, 9)).to.be.true;
+		});
+
+		it('should support ? qualifier', function(){
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry('foo', {void: true}),
+			});
+			const parser = new Parser(new ConfigMock(table));
+			const [foo] = parser.parseHtml('<foo/>').root.children;
+			const rules = ['foo?'];
+			expect(Validator.validateOccurrences(foo, rules, 0)).to.be.true;
+			expect(Validator.validateOccurrences(foo, rules, 1)).to.be.true;
+			expect(Validator.validateOccurrences(foo, rules, 2)).to.be.false;
+		});
+
+		it('should support * qualifier', function(){
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry('foo', {void: true}),
+			});
+			const parser = new Parser(new ConfigMock(table));
+			const [foo] = parser.parseHtml('<foo/>').root.children;
+			const rules = ['foo*'];
+			expect(Validator.validateOccurrences(foo, rules, 0)).to.be.true;
+			expect(Validator.validateOccurrences(foo, rules, 9)).to.be.true;
 		});
 
 	});

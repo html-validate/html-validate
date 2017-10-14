@@ -6,13 +6,30 @@ const allowedKeys = [
 ];
 
 export class Validator {
-	static validatePermitted(node: DOMNode, rules: Permitted): boolean {
+	public static validatePermitted(node: DOMNode, rules: Permitted): boolean {
 		if (!rules){
 			return true;
 		}
 		return rules.some(rule => {
 			return Validator.validatePermittedRule(node, rule);
 		});
+	}
+
+	public static validateOccurrences(node: DOMNode, rules: Permitted, numSiblings: number): boolean {
+		if (!rules){
+			return true;
+		}
+		const category = rules.find(cur => {
+			/** @todo handle complex rules and not just plain arrays (but as of now
+			 * there is no use-case for it) */
+			if (typeof cur !== 'string'){
+				return false;
+			}
+			const match = cur.match(/^(.*?)[?*]?$/);
+			return match && match[1] === node.tagName;
+		});
+		const limit = parseAmountQualifier(category as string);
+		return limit === null || numSiblings <= limit;
 	}
 
 	private static validatePermittedRule(node: DOMNode, rule: PermittedEntry): boolean {
@@ -52,7 +69,8 @@ export class Validator {
 	private static validatePermittedCategory(node: DOMNode, category: string): boolean {
 		/* match tagName when an explicit name is given */
 		if (category[0] !== '@'){
-			return node.tagName === category;
+			const [, tagName] = category.match(/^(.*?)[?*]?$/);
+			return node.tagName === tagName;
 		}
 
 		/* if the meta entry is missing assume any content model would match */
@@ -79,5 +97,22 @@ function validateKeys(rule: PermittedGroup): void {
 			const str = JSON.stringify(rule);
 			throw new Error(`Permitted rule "${str}" contains unknown property "${key}"`);
 		}
+	}
+}
+
+function parseAmountQualifier(category: string): number {
+	if (!category){
+		/* content not allowed, catched by another rule so just assume unlimited
+		 * usage for this purpose */
+		return null;
+	}
+
+	const [, qualifier] = category.match(/^.*?([?*]?)$/);
+	switch (qualifier){
+	case '?': return 1;
+	case '': return null;
+	case '*': return null;
+	default:
+		throw new Error(`Invalid amount qualifier "${qualifier}" used`);
 	}
 }
