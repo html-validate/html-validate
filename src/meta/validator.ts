@@ -1,4 +1,4 @@
-import { Permitted, PermittedEntry, PermittedGroup } from './element';
+import { Permitted, PermittedEntry, PermittedGroup, PermittedOrder } from './element';
 import { DOMNode } from '../dom';
 
 const allowedKeys = [
@@ -30,6 +30,52 @@ export class Validator {
 		});
 		const limit = parseAmountQualifier(category as string);
 		return limit === null || numSiblings <= limit;
+	}
+
+	/**
+	 * Validate elements order.
+	 *
+	 * Given a parent element with children and metadata containing permitted
+	 * order it will validate each children and ensure each one exists in the
+	 * specified order.
+	 *
+	 * For instance, for a <table> element the <caption> element must come before
+	 * a <thead> which must come before <tbody>.
+	 *
+	 * @param {DOMNode[]} children - Array of children to validate.
+	 */
+	public static validateOrder(children: DOMNode[], rules: PermittedOrder, cb: (node: DOMNode, prev: DOMNode) => void): boolean {
+		if (!rules) {
+			return true;
+		}
+		let i = 0;
+		let prev = null;
+		for (const node of children){
+
+			const old = i;
+			while (rules[i] && !Validator.validatePermittedCategory(node, rules[i])){
+				i++;
+			}
+
+			if (i >= rules.length){
+				/* Second check is if the order is specified for this element at all. It
+				 * will be unspecified in two cases:
+				 * - disallowed elements
+				 * - elements where the order doesn't matter
+				 * In both of these cases no error should be reported. */
+				const orderSpecified = rules.find((cur: string) => Validator.validatePermittedCategory(node, cur));
+				if (orderSpecified){
+					cb(node, prev);
+					return false;
+				}
+
+				/* if this element has unspecified order the index is restored so new
+				 * elements of the same type can be specified again */
+				i = old;
+			}
+			prev = node;
+		}
+		return true;
 	}
 
 	private static validatePermittedRule(node: DOMNode, rule: PermittedEntry): boolean {
