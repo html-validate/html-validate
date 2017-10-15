@@ -4,6 +4,8 @@
 
 ### Features
 
+- new rule `element-permitted-order` validating the required order of elements
+  with restrictions.
 - new rule `element-permitted-occurrences` validating elements with content
   models limiting the number of times child elements can be used.
 
