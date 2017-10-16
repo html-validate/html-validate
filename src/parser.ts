@@ -9,8 +9,8 @@ import { MetaTable } from './meta';
 class Parser {
 	private readonly config: Config;
 	private readonly event: EventHandler;
-	private readonly dom: DOMTree;
 	private readonly metaTable: MetaTable;
+	private dom: DOMTree;
 	private peeked?: IteratorResult<Token>;
 
 	constructor(config: Config){
@@ -26,6 +26,9 @@ class Parser {
 	}
 
 	parseHtml(source: string|Source): DOMTree {
+		/* reset DOM in case there are multiple calls in the same session */
+		this.dom = new DOMTree();
+
 		if (typeof source === 'string'){
 			source = {data: source, filename: 'inline'};
 		}
