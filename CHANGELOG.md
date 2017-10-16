@@ -4,6 +4,7 @@
 
 ### Features
 
+- new rule `no-inline-style` disallowing inline `style` attribute.
 - new rule `img-req-alt` validating that images have alternative text.
 - new rule `element-permitted-order` validating the required order of elements
   with restrictions.
