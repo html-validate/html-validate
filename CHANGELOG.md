@@ -2,6 +2,8 @@
 
 ## next
 
+## 0.4.0 (2017-10-17)
+
 ### Features
 
 - new rule `no-inline-style` disallowing inline `style` attribute.
