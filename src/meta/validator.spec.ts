@@ -1,5 +1,6 @@
 import { MetaTable, MetaElement, Validator } from 'meta';
 import { Config } from '../config';
+import { DOMNode } from '../dom'; // eslint-disable-line no-unused-vars
 import Parser from '../parser';
 
 class ConfigMock extends Config {
@@ -11,7 +12,9 @@ class ConfigMock extends Config {
 
 describe('Meta validator', function(){
 
-	const expect = require('chai').expect;
+	const chai = require('chai');
+	const expect = chai.expect;
+	chai.use(require('chai-spies'));
 
 	describe('validatePermitted()', function(){
 
@@ -34,6 +37,19 @@ describe('Meta validator', function(){
 			const parser = new Parser(new ConfigMock(table));
 			const [foo, nil] = parser.parseHtml('<foo/><nil/>').root.children;
 			const rules = ['foo'];
+			expect(Validator.validatePermitted(foo, rules)).to.be.true;
+			expect(Validator.validatePermitted(nil, rules)).to.be.false;
+		});
+
+		it('should validate tagName with qualifier', function(){
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry('nil', {void: true}),
+				nil: mockEntry('nil', {void: true}),
+			});
+			const parser = new Parser(new ConfigMock(table));
+			const [foo, nil] = parser.parseHtml('<foo/><nil/>').root.children;
+			const rules = ['foo?'];
 			expect(Validator.validatePermitted(foo, rules)).to.be.true;
 			expect(Validator.validatePermitted(nil, rules)).to.be.false;
 		});
@@ -219,6 +235,100 @@ describe('Meta validator', function(){
 
 	});
 
+	describe('validatePermitted()', function(){
+
+		it('should support missing qualifier', function(){
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry('foo', {void: true}),
+			});
+			const parser = new Parser(new ConfigMock(table));
+			const [foo] = parser.parseHtml('<foo/>').root.children;
+			const rules = ['foo'];
+			expect(Validator.validateOccurrences(foo, rules, 0)).to.be.true;
+			expect(Validator.validateOccurrences(foo, rules, 9)).to.be.true;
+		});
+
+		it('should support ? qualifier', function(){
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry('foo', {void: true}),
+			});
+			const parser = new Parser(new ConfigMock(table));
+			const [foo] = parser.parseHtml('<foo/>').root.children;
+			const rules = ['foo?'];
+			expect(Validator.validateOccurrences(foo, rules, 0)).to.be.true;
+			expect(Validator.validateOccurrences(foo, rules, 1)).to.be.true;
+			expect(Validator.validateOccurrences(foo, rules, 2)).to.be.false;
+		});
+
+		it('should support * qualifier', function(){
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry('foo', {void: true}),
+			});
+			const parser = new Parser(new ConfigMock(table));
+			const [foo] = parser.parseHtml('<foo/>').root.children;
+			const rules = ['foo*'];
+			expect(Validator.validateOccurrences(foo, rules, 0)).to.be.true;
+			expect(Validator.validateOccurrences(foo, rules, 9)).to.be.true;
+		});
+
+	});
+
+	describe('validateOrder()', function(){
+
+		let table: MetaTable;
+		let parser: Parser;
+		let cb: (node: DOMNode, prev: DOMNode) => void;
+
+		beforeEach(function(){
+			table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry('foo', {void: true}),
+				bar: mockEntry('bar', {void: true, flow: true}),
+			});
+			parser = new Parser(new ConfigMock(table));
+			cb = chai.spy();
+		});
+
+		it('should handle undefined rules', function(){
+			const children = parser.parseHtml('<foo/>').root.children;
+			expect(Validator.validateOrder(children, undefined, cb)).to.be.true;
+			expect(cb).not.to.have.been.called;
+		});
+
+		it('should return error when elements are out of order', function(){
+			const children = parser.parseHtml('<bar/><foo/>').root.children;
+			const rules = ['foo', 'bar'];
+			expect(Validator.validateOrder(children, rules, cb)).to.be.false;
+			expect(cb).to.have.been.called.with(children[0], children[1]);
+		});
+
+		it('should not return error when elements are in order', function(){
+			const children = parser.parseHtml('<foo/><bar/>').root.children;
+			const rules = ['foo', 'bar'];
+			expect(Validator.validateOrder(children, rules, cb)).to.be.true;
+			expect(cb).not.to.have.been.called;
+		});
+
+		it('should handle elements with unspecified order', function(){
+			const children = parser.parseHtml('<foo/><bar/><foo/>').root.children;
+			const rules = ['foo'];
+			expect(Validator.validateOrder(children, rules, cb)).to.be.true;
+			expect(cb).not.to.have.been.called;
+		});
+
+		it('should handle categories', function(){
+			const children1 = parser.parseHtml('<foo/><bar/>').root.children;
+			const children2 = parser.parseHtml('<bar/><foo/>').root.children;
+			const rules = ['foo', '@flow'];
+			expect(Validator.validateOrder(children1, rules, cb)).to.be.true;
+			expect(Validator.validateOrder(children2, rules, cb)).to.be.false;
+		});
+
+	});
+
 });
 
 function mockEntry(tagName: string, stub = {}): MetaElement {
@@ -236,5 +346,6 @@ function mockEntry(tagName: string, stub = {}): MetaElement {
 		transparent: false,
 		permittedContent: [],
 		permittedDescendants: [],
+		permittedOrder: [],
 	}, stub);
 }

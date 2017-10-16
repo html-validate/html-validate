@@ -6,6 +6,8 @@ export type PropertyExpression = string | [string, any];
 export type PermittedEntry = string | any[] | PermittedGroup;
 export type Permitted = PermittedEntry[];
 
+export type PermittedOrder = string[];
+
 export interface MetaElement {
 	tagName: string;
 	metadata: boolean | PropertyExpression;
@@ -20,8 +22,9 @@ export interface MetaElement {
 	transparent: boolean;
 	permittedContent: Permitted;
 	permittedDescendants: Permitted;
+	permittedOrder: PermittedOrder;
 
-	[key: string]: boolean | PropertyExpression | Permitted;
+	[key: string]: boolean | PropertyExpression | Permitted | PermittedOrder;
 }
 
 export type ElementTable = { [tagName: string]: MetaElement };

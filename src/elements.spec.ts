@@ -44,6 +44,8 @@ describe('HTML elements', function(){
 		rules: {
 			'deprecated': 'error',
 			'element-permitted-content': 'error',
+			'element-permitted-occurrences': 'error',
+			'element-permitted-order': 'error',
 			'void': ['error', {style: 'any'}],
 		},
 	});
@@ -193,6 +195,9 @@ describe('HTML elements', function(){
 		disallowDescendant('audio', 'audio');
 		disallowDescendant('audio', 'video');
 		disallow('<span><audio><div>foo</div></audio></span>', 'flow nested in phrasing');
+		disallow(`<audio><source></source><track></track><div></div></audio>`, 'in right order');
+		disallow(`<audio><track></track><source></source></audio>`, 'track before source');
+		disallow(`<audio><div></div><track></track></audio>`, '@flow before track');
 
 		it('should be interactive only if "controls" attribute is set', function(){
 			const parser = htmlvalidate.getParser();
@@ -365,6 +370,14 @@ describe('HTML elements', function(){
 		allowParent('fieldset', '@flow');
 		allowContent('fieldset', '@flow');
 		allowContent('fieldset', 'legend');
+		allow(`<fieldset>
+			<legend></legend>
+			<div></div>
+		</fieldset>`, '@flow after legend');
+		disallow(`<fieldset>
+			<div></div>
+			<legend></legend>
+		</fieldset>`, 'legend after @flow');
 	});
 
 	describe("<figcaption>", function(){
@@ -376,6 +389,9 @@ describe('HTML elements', function(){
 		allowParent('figure', '@flow');
 		allowContent('figure', '@flow');
 		allowContent('figure', 'figcaption');
+		allow(`<figure><figcaption></figcaption><div></div></figure>`, 'figcaption as first child');
+		allow(`<figure><div></div><figcaption></figcaption></figure>`, 'figcaption as last child');
+		disallow(`<figure><figcaption></figcaption><figcaption></figcaption></figure>`, 'multiple figcaption');
 	});
 
 	describe("<font>", function(){
@@ -445,6 +461,14 @@ describe('HTML elements', function(){
 		allowContent('head', '@meta');
 		disallowContent('head', '@flow');
 		disallowContent('head', '@phrasing');
+		disallow(`<head>
+			<base>
+			<base>
+		</head>`, 'more than one base');
+		disallow(`<head>
+			<base>
+			<base>
+		</head>`, 'more than one title');
 	});
 
 	describe("<header>", function(){
@@ -461,6 +485,22 @@ describe('HTML elements', function(){
 
 	describe("<hr>", function(){
 		omitEnd('hr');
+	});
+
+	describe("<html>", function(){
+		allow(`<html><head></head></html>`, 'more than one title');
+		disallow(`<html>
+			<head></head>
+			<head></head>
+		</html>`, 'more than one head');
+		disallow(`<html>
+			<body></body>
+			<body></body>
+		</html>`, 'more than one body');
+		disallow(`<html>
+			<body></body>
+			<head></head>
+		</html>`, 'body before head');
 	});
 
 	describe("<i>", function(){
@@ -607,6 +647,8 @@ describe('HTML elements', function(){
 		allow('<span><object><span>foo</span></object></span>', 'phrasing in phrasing context');
 		allow('<div><object><div>foo</div></object></div>', 'flow in flow context');
 		disallow('<span><object><div>foo</div></object></span>', 'flow in phrasing context');
+		disallow(`<object><param></param><div></div></object>`, 'param before @flow');
+		disallow(`<object><div></div><param></param></object>`, '@flow before param');
 
 		it('should be interactive only if "usemap" attribute is set', function(){
 			const parser = htmlvalidate.getParser();
@@ -780,6 +822,33 @@ describe('HTML elements', function(){
 		allowContent('table', 'thead');
 		allowContent('table', 'tr');
 		disallowContent('table', '@phrasing');
+		allow(`<table>
+			<caption></caption>
+			<colgroup></colgroup>
+			<thead></thead>
+			<tbody></tbody>
+			<tfoot></tfoot>
+		</table>`, 'with right order and occurrences');
+		disallow(`<table>
+			<caption></caption>
+			<caption></caption>
+		</table>`, 'more than one caption');
+		disallow(`<table>
+			<thead></thead>
+			<thead></thead>
+		</table>`, 'more than one thead');
+		disallow(`<table>
+			<tfoot></tfoot>
+			<tfoot></tfoot>
+		</table>`, 'more than one tfoot');
+		disallow(`<table>
+			<thead></thead>
+			<caption>bar</caption>
+		</table>`, 'caption after thead');
+		disallow(`<table>
+			<tfoot></tfoot>
+			<thead></thead>
+		</table>`, 'thead after tfoot');
 	});
 
 	describe("<tbody>", function(){
@@ -874,6 +943,9 @@ describe('HTML elements', function(){
 		disallowDescendant('video', 'audio');
 		disallowDescendant('video', 'video');
 		disallow('<span><video><div>foo</div></video></span>', 'flow nested in phrasing');
+		disallow(`<video><source></source><track></track><div></div></video>`, 'in right order');
+		disallow(`<video><track></track><source></source></video>`, 'track before source');
+		disallow(`<video><div></div><track></track></video>`, '@flow before track');
 
 		it('should be interactive only if "controls" attribute is set', function(){
 			const parser = htmlvalidate.getParser();

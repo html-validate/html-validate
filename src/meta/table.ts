@@ -15,6 +15,7 @@ const allowedKeys = [
 	'transparent',
 	'permittedContent',
 	'permittedDescendants',
+	'permittedOrder',
 ];
 
 const dynamicKeys = [

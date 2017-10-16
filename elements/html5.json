@@ -85,6 +85,11 @@
         "audio",
         "video"
       ]}
+    ],
+    "permittedOrder": [
+      "source",
+      "track",
+      "@flow"
     ]
   },
 
@@ -303,7 +308,11 @@
     "flow": true,
     "permittedContent": [
       "@flow",
-      "legend"
+      "legend?"
+    ],
+    "permittedOrder": [
+      "legend",
+      "@flow"
     ]
   },
 
@@ -316,6 +325,11 @@
   "figure": {
     "flow": true,
     "permittedContent": [
+      "@flow",
+      "figcaption?"
+    ],
+    "permittedOrder": [
+      "figcaption",
       "@flow",
       "figcaption"
     ]
@@ -407,6 +421,8 @@
 
   "head": {
     "permittedContent": [
+      "base?",
+      "title?",
       "@meta"
     ]
   },
@@ -436,6 +452,10 @@
 
   "html": {
     "permittedContent": [
+      "head?",
+      "body?"
+    ],
+    "permittedOrder": [
       "head",
       "body"
     ]
@@ -622,6 +642,10 @@
     "interactive": ["hasAttribute", "usemap"],
     "transparent": true,
     "permittedContent": [
+      "param",
+      "@flow"
+    ],
+    "permittedOrder": [
       "param",
       "@flow"
     ]
@@ -843,14 +867,22 @@
   "table": {
     "flow": true,
     "permittedContent": [
-      "caption",
+      "caption?",
       "colgroup",
       "script",
       "tbody",
       "template",
-      "tfoot",
-      "thead",
+      "tfoot?",
+      "thead?",
       "tr"
+    ],
+    "permittedOrder": [
+      "caption",
+      "colgroup",
+      "thead",
+      "tbody",
+      "tr",
+      "tfoot"
     ]
   },
 
@@ -984,6 +1016,11 @@
         "audio",
         "video"
       ]}
+    ],
+    "permittedOrder": [
+      "source",
+      "track",
+      "@flow"
     ]
   },
 

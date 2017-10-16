@@ -1,4 +1,4 @@
-import { Permitted, PermittedEntry, PermittedGroup } from './element';
+import { Permitted, PermittedEntry, PermittedGroup, PermittedOrder } from './element';
 import { DOMNode } from '../dom';
 
 const allowedKeys = [
@@ -6,13 +6,76 @@ const allowedKeys = [
 ];
 
 export class Validator {
-	static validatePermitted(node: DOMNode, rules: Permitted): boolean {
+	public static validatePermitted(node: DOMNode, rules: Permitted): boolean {
 		if (!rules){
 			return true;
 		}
 		return rules.some(rule => {
 			return Validator.validatePermittedRule(node, rule);
 		});
+	}
+
+	public static validateOccurrences(node: DOMNode, rules: Permitted, numSiblings: number): boolean {
+		if (!rules){
+			return true;
+		}
+		const category = rules.find(cur => {
+			/** @todo handle complex rules and not just plain arrays (but as of now
+			 * there is no use-case for it) */
+			if (typeof cur !== 'string'){
+				return false;
+			}
+			const match = cur.match(/^(.*?)[?*]?$/);
+			return match && match[1] === node.tagName;
+		});
+		const limit = parseAmountQualifier(category as string);
+		return limit === null || numSiblings <= limit;
+	}
+
+	/**
+	 * Validate elements order.
+	 *
+	 * Given a parent element with children and metadata containing permitted
+	 * order it will validate each children and ensure each one exists in the
+	 * specified order.
+	 *
+	 * For instance, for a <table> element the <caption> element must come before
+	 * a <thead> which must come before <tbody>.
+	 *
+	 * @param {DOMNode[]} children - Array of children to validate.
+	 */
+	public static validateOrder(children: DOMNode[], rules: PermittedOrder, cb: (node: DOMNode, prev: DOMNode) => void): boolean {
+		if (!rules) {
+			return true;
+		}
+		let i = 0;
+		let prev = null;
+		for (const node of children){
+
+			const old = i;
+			while (rules[i] && !Validator.validatePermittedCategory(node, rules[i])){
+				i++;
+			}
+
+			if (i >= rules.length){
+				/* Second check is if the order is specified for this element at all. It
+				 * will be unspecified in two cases:
+				 * - disallowed elements
+				 * - elements where the order doesn't matter
+				 * In both of these cases no error should be reported. */
+				const orderSpecified = rules.find((cur: string) => Validator.validatePermittedCategory(node, cur));
+				if (orderSpecified){
+					cb(node, prev);
+					return false;
+				}
+
+				/* if this element has unspecified order the index is restored so new
+				 * elements of the same type can be specified again */
+				i = old;
+			}
+			prev = node;
+		}
+		return true;
 	}
 
 	private static validatePermittedRule(node: DOMNode, rule: PermittedEntry): boolean {
@@ -52,7 +115,8 @@ export class Validator {
 	private static validatePermittedCategory(node: DOMNode, category: string): boolean {
 		/* match tagName when an explicit name is given */
 		if (category[0] !== '@'){
-			return node.tagName === category;
+			const [, tagName] = category.match(/^(.*?)[?*]?$/);
+			return node.tagName === tagName;
 		}
 
 		/* if the meta entry is missing assume any content model would match */
@@ -79,5 +143,22 @@ function validateKeys(rule: PermittedGroup): void {
 			const str = JSON.stringify(rule);
 			throw new Error(`Permitted rule "${str}" contains unknown property "${key}"`);
 		}
+	}
+}
+
+function parseAmountQualifier(category: string): number {
+	if (!category){
+		/* content not allowed, catched by another rule so just assume unlimited
+		 * usage for this purpose */
+		return null;
+	}
+
+	const [, qualifier] = category.match(/^.*?([?*]?)$/);
+	switch (qualifier){
+	case '?': return 1;
+	case '': return null;
+	case '*': return null;
+	default:
+		throw new Error(`Invalid amount qualifier "${qualifier}" used`);
 	}
 }
