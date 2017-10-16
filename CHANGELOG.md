@@ -4,6 +4,7 @@
 
 ### Features
 
+- new rule `img-req-alt` validating that images have alternative text.
 - new rule `element-permitted-order` validating the required order of elements
   with restrictions.
 - new rule `element-permitted-occurrences` validating elements with content
