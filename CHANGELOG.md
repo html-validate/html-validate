@@ -2,6 +2,10 @@
 
 ## next
 
+### Features
+
+- checkstyle formatter. Use `-f checkstyle`.
+
 ## 0.4.0 (2017-10-17)
 
 ### Features
