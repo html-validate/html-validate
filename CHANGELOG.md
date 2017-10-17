@@ -2,6 +2,8 @@
 
 ## next
 
+## 0.5.0 (2017-10-17)
+
 ### Features
 
 - Rule `element-name` learned `whitelist` and `blacklist` options.
