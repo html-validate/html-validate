@@ -17,13 +17,13 @@ describe('rule element-name', function(){
 		it('should report error when custom element name does not have a dash', function(){
 			const report = htmlvalidate.string('<foobar></foobar>');
 			expect(report).to.be.invalid;
-			expect(report).to.have.error('element-name', '"foobar" is not a valid element name');
+			expect(report).to.have.error('element-name', '<foobar> is not a valid element name');
 		});
 
 		it('should report error when custom element name does not start with letter', function(){
 			const report = htmlvalidate.string('<1-foo></1-foo>');
 			expect(report).to.be.invalid;
-			expect(report).to.have.error('element-name', '"1-foo" is not a valid element name');
+			expect(report).to.have.error('element-name', '<1-foo> is not a valid element name');
 		});
 
 		it('should not report error when custom element name is valid', function(){
@@ -54,7 +54,7 @@ describe('rule element-name', function(){
 		it('should report error when custom element name does not match pattern', function(){
 			const report = htmlvalidate.string('<spam-ham></spam-ham>');
 			expect(report).to.be.invalid;
-			expect(report).to.have.error('element-name', '"spam-ham" is not a valid element name');
+			expect(report).to.have.error('element-name', '<spam-ham> is not a valid element name');
 		});
 
 		it('should not report error when custom element name does match pattern', function(){
@@ -72,6 +72,23 @@ describe('rule element-name', function(){
 			expect(report.valid, "linting should report failure").to.be.true;
 		});
 
+	});
+
+	it('should ignore whitelisted element', function(){
+		htmlvalidate = new HtmlValidate({
+			rules: {'element-name': ['error', {whitelist: ['foobar']}]},
+		});
+		const report = htmlvalidate.string('<foobar></foobar>');
+		expect(report).to.be.valid;
+	});
+
+	it('should report error when using blacklisted element', function(){
+		htmlvalidate = new HtmlValidate({
+			rules: {'element-name': ['error', {blacklist: ['foo-bar']}]},
+		});
+		const report = htmlvalidate.string('<foo-bar></foo-bar>');
+		expect(report).to.be.invalid;
+		expect(report).to.have.error('element-name', '<foo-bar> element is blacklisted');
 	});
 
 });
