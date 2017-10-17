@@ -29,7 +29,9 @@ This rule takes and optional object:
 
 ```javascript
 {
-    "pattern": "[a-z][a-z0-9\\-._]*-[a-z0-9\\-._]*$"
+    "pattern": "[a-z][a-z0-9\\-._]*-[a-z0-9\\-._]*$",
+    "whitelist": [],
+    "blacklist": []
 }
 ```
 
@@ -37,3 +39,12 @@ This rule takes and optional object:
 
 A regular expression for matching valid names. If changed you should ensure it
 still fulfills the original HTML specification, in particular requiring a `-`.
+
+### Whitelist
+
+Elements in the whitelist will never trigger this rule even if it would not
+match the pattern.
+
+### Blacklist
+
+Elements in the blacklist will always trigger this rule.

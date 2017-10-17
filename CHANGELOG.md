@@ -4,6 +4,7 @@
 
 ### Features
 
+- Rule `element-name` learned `whitelist` and `blacklist` options.
 - Support outputting to multiple formatters and capturing output to file.
 - checkstyle formatter. Use `-f checkstyle`.
 
