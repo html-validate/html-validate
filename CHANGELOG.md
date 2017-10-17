@@ -2,6 +2,11 @@
 
 ## next
 
+### Features
+
+- Support outputting to multiple formatters and capturing output to file.
+- checkstyle formatter. Use `-f checkstyle`.
+
 ## 0.4.0 (2017-10-17)
 
 ### Features

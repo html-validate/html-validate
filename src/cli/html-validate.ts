@@ -1,6 +1,7 @@
 import HtmlValidate from '../htmlvalidate';
 import { Result } from '../reporter'; // eslint-disable-line no-unused-vars
 
+const fs = require('fs');
 const minimist = require('minimist');
 
 function getMode(argv: { [key: string]: any }){
@@ -37,9 +38,20 @@ function getGlobalConfig(rules?: string|string[]){
 	return config;
 }
 
-function getFormatter(name: string){
-	name = name.replace(/[^a-z]+/g, '');
-	return require(`../formatters/${name}`);
+function getFormatters(formatters: string): ((results: Result[]) => void)[] {
+	return formatters.split(',').map(cur => {
+		const [name, dst] = cur.split('=', 2);
+		const moduleName = name.replace(/[^a-z]+/g, '');
+		const formatter = require(`../formatters/${moduleName}`);
+		return (results: Result[]) => {
+			const output = formatter(results);
+			if (dst){
+				fs.writeFileSync(dst, output, 'utf-8');
+			} else {
+				process.stdout.write(output);
+			}
+		};
+	});
 }
 
 const argv = minimist(process.argv.slice(2), {
@@ -59,7 +71,6 @@ function showUsage(){
 Usage: html-validate [OPTIONS] [FILENAME..] [DIR..]
 
 Common options:
-
   -f, --formatter=FORMATTER   specify the formatter to use.
       --rule=RULE:SEVERITY    set additional rule, use comma separator for
                               multiple.
@@ -68,6 +79,14 @@ Debugging options:
       --dump-events           output events during parsing.
       --dump-tokens           output tokens from lexing stage.
       --dump-tree             output nodes from the dom tree.
+
+Formatters:
+
+Multiple formatters can be specified with a comma-separated list,
+e.g. "json,checkstyle" to enable both.
+
+To capture output to a file use "formatter=/path/to/file",
+e.g. "checkstyle=build/html-validate.xml"
 `);
 }
 
@@ -78,7 +97,7 @@ if (argv.h || argv.help){
 
 const mode = getMode(argv);
 const config = getGlobalConfig(argv.rule);
-const formatter = getFormatter(argv.formatter);
+const formatters = getFormatters(argv.formatter);
 const htmlvalidate = new HtmlValidate(config);
 
 let results: Result[] = [];
@@ -92,5 +111,5 @@ argv._.forEach((filename: string) => {
 	results = results.concat(report.results);
 });
 
-process.stdout.write(formatter(results));
+formatters.forEach((formatter: any) => formatter(results));
 process.exit(valid ? 0 : 1);
