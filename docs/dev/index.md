@@ -1,5 +1,13 @@
+@ngdoc content
+@module usage
+@name Developers guide
+@description
+
+Developers guide
+================
+
 Events
-======
+------
 
 `tag:open`
 ----------

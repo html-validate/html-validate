@@ -9,6 +9,10 @@ module.exports = new Package('cma-docs', [
 
 	.processor(require('./processors/rules'))
 
+	.config(function(renderDocsProcessor) {
+		renderDocsProcessor.extraData.pkg = require('../../package.json');
+	})
+
 	.config(function(log, readFilesProcessor, templateFinder, writeFilesProcessor) {
 		log.level = 'info';
 

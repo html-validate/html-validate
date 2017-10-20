@@ -28,7 +28,16 @@
 						<ul class="nav navbar-nav">
 							<li><a href="/usage">Usage</a></li>
 							<li><a href="/rules">Rules</a></li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dev <span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="{$ pkg.homepage $}">Getting the source code</a></li>
+									<li><a href="{$ pkg.bugs.url $}">File issue</a></li>
+									<li><a href="/dev">Developers guide</a></li>
+								</ul>
+							</li>
 						</ul>
+						<p class="navbar-text navbar-right">{$ pkg.name $}-{$ pkg.version $}</p>
 					</div>
 				</div>
 			</nav>
