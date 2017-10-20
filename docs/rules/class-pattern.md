@@ -1,3 +1,10 @@
+@ngdoc content
+@module rules
+@name class-pattern
+@category style
+@summary Require classes to match a specific pattern
+@description
+
 # require a specific class format (`class-pattern`)
 
 Requires all classes to match a given pattern.

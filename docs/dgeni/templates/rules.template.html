@@ -1,0 +1,40 @@
+{% extends "base.template.html" %}
+
+{%- macro ruleTable(rules) %}
+<table class="table table-striped rules-table">
+	<colgroup>
+		<col class="recommended">
+		<col class="name">
+		<col class="summary">
+	</colgroup>
+	{% for rule in rules %}
+	<tr>
+		<td>
+			{% if rule.recommended %}
+			<span class="fa fa-check"></span>
+			{% endif %}
+		</td>
+		<td><a href="/{$ rule.url $}">{$ rule.name $}</a></td>
+		<td>{$ rule.summary $}</td>
+	</tr>
+	{% endfor %}
+</table>
+{% endmacro -%}
+
+{% block content %}
+<h1>Available rules</h1>
+
+{$ doc.description | marked $}
+
+{$ ruleTable(rules['other']) $}
+
+<h2>Content model</h2>
+{$ ruleTable(rules['content-model']) $}
+
+<h2>Accessibility</h2>
+{$ ruleTable(rules['a17y']) $}
+
+<h2>Style</h2>
+{$ ruleTable(rules['style']) $}
+
+{% endblock %}

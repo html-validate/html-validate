@@ -7,6 +7,8 @@ module.exports = new Package('cma-docs', [
 	require('dgeni-packages/nunjucks'),
 ])
 
+	.processor(require('./processors/rules'))
+
 	.config(function(log, readFilesProcessor, templateFinder, writeFilesProcessor) {
 		log.level = 'info';
 
@@ -22,6 +24,11 @@ module.exports = new Package('cma-docs', [
 		writeFilesProcessor.outputFolder = 'public';
 	})
 
+	.config(function(parseTagsProcessor, getInjectables) {
+		parseTagsProcessor.tagDefinitions =
+			parseTagsProcessor.tagDefinitions.concat(getInjectables(require('./tag-defs')));
+	})
+
 	/* add the local template folder first in the search path so it overrides
 	 * dgeni-packages bundled templates */
 	.config(function(templateFinder) {
@@ -30,13 +37,13 @@ module.exports = new Package('cma-docs', [
 
 	.config(function(computePathsProcessor, computeIdsProcessor) {
 		computeIdsProcessor.idTemplates.push({
-			docTypes: ['content', 'frontpage'],
+			docTypes: ['content', 'frontpage', 'rules'],
 			getId: function(doc) { return doc.fileInfo.baseName; },
 			getAliases: function(doc) { return [doc.id]; },
 		});
 
 		computePathsProcessor.pathTemplates.push({
-			docTypes: ['content', 'frontpage'],
+			docTypes: ['content', 'frontpage', 'rules'],
 			getPath: function(doc) {
 				const dirname = path.dirname(doc.fileInfo.relativePath);
 				return path.join(dirname, doc.fileInfo.baseName);

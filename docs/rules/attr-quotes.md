@@ -1,3 +1,10 @@
+@ngdoc content
+@module rules
+@name attr-quotes
+@category style
+@summary Require attribute quoting
+@description
+
 # requires a specific style of attribute quoting (`attr-quotes`)
 
 HTML allows different styles for quoting attributes:

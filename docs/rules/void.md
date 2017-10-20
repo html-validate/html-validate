@@ -1,3 +1,10 @@
+@ngdoc content
+@module rules
+@name void
+@category style
+@summary Disallow void element with content
+@description
+
 # disallows void element with content (`void`)
 
 HTML [void elements](https://www.w3.org/TR/html5/syntax.html#void-elements)

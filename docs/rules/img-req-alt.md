@@ -1,3 +1,10 @@
+@ngdoc content
+@module rules
+@name img-req-alt
+@category a17y
+@summary Require img to have alt attribute
+@description
+
 # requires images to have alt text (`img-req-alt`)
 
 Both [HTML5][1] and [WCAG 2.0][2] requires images to have a alternative text for

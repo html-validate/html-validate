@@ -1,3 +1,10 @@
+@ngdoc content
+@module rules
+@name element-permitted-content
+@category content-model
+@summary Validate permitted content from content model
+@description
+
 # verify element content model (`element-permitted-content`)
 
 HTML defines what content is allowed under each type of element.
