@@ -9,7 +9,7 @@
 		{% else %}
 		<title>HTML-validate</title>
 		{% endif %}
-		<link rel="stylesheet" href="/assets/docs.min.css">
+		<link rel="stylesheet" href="{$ '/assets/docs.min.css' | assetHash $}">
 	</head>
 	<body>
 		<header>
@@ -48,6 +48,6 @@
 			{% endblock %}
 		</main>
 
-		<script src="/assets/docs.js"></script>
+		<script src="{$ '/assets/docs.js' | assetHash $}"></script>
 	</body>
 </html>

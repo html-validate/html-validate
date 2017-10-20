@@ -18,7 +18,7 @@ module.exports = function(grunt){
 		dgeni.generate().then(done);
 	});
 
-	grunt.registerTask('docs', 'Build documentation app', ['dgeni', 'sass', 'postcss', 'copy', 'browserify']);
+	grunt.registerTask('docs', 'Build documentation app', ['sass', 'postcss', 'copy', 'browserify', 'dgeni']);
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),

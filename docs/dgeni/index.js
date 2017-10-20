@@ -33,6 +33,11 @@ module.exports = new Package('cma-docs', [
 			parseTagsProcessor.tagDefinitions.concat(getInjectables(require('./tag-defs')));
 	})
 
+	/* add custom nunjuck filters */
+	.config(function(templateEngine) {
+		templateEngine.filters = templateEngine.filters.concat(require('./filters'));
+	})
+
 	/* add the local template folder first in the search path so it overrides
 	 * dgeni-packages bundled templates */
 	.config(function(templateFinder) {
