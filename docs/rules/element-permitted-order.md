@@ -1,3 +1,10 @@
+@ngdoc content
+@module rules
+@name element-permitted-order
+@category content-model
+@summary Validate required order from content model
+@description
+
 # verify element content model (`element-permitted-order`)
 
 Some elements has a specific order the children must use.

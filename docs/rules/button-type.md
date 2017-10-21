@@ -1,4 +1,10 @@
-# require button element to have a valid type (`close-order`)
+@ngdoc content
+@module rules
+@name button-type
+@summary Require button to have valid type
+@description
+
+# require button element to have a valid type (`button-type`)
 
 HTML button defaults to `type="submit"` when attribute is missing or invalid
 which may not be the intended type.

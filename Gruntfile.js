@@ -1,4 +1,5 @@
 const path = require('path');
+const serveStatic = require('serve-static');
 const eslintStrict = process.env.ESLINT_STRICT === '1';
 
 module.exports = function(grunt){
@@ -10,8 +11,24 @@ module.exports = function(grunt){
 	grunt.registerTask('build:ci', ['ts']); /* CI runs test in separate stage */
 	grunt.registerTask('default', ['build']);
 
+	grunt.registerTask('dgeni', 'Generate documentation', function(){
+		const Dgeni = require('dgeni');
+		const done = this.async();
+		const dgeni = new Dgeni([require('./docs/dgeni')]);
+		dgeni.generate().then(done);
+	});
+
+	grunt.registerTask('docs', 'Build documentation app', ['sass', 'postcss', 'copy', 'browserify', 'dgeni']);
+
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
+
+		clean: {
+			default: [
+				'build',
+				'public',
+			],
+		},
 
 		ts: {
 			default: {
@@ -25,13 +42,14 @@ module.exports = function(grunt){
 		eslint: {
 			default: {
 				options: {
-					/* CI pipeline sets strict environment do disallow any warnings, but
+					/* CI pipeline sets strict environment to disallow any warnings, but
 					 * allows warnings in development environment to not cause
 					 * annoyances. */
 					maxWarnings: eslintStrict ? 0 : -1,
 				},
 				src: [
 					'*.js',
+					'docs/**/*.js',
 					'src/**/*.ts',
 				],
 			},
@@ -65,6 +83,70 @@ module.exports = function(grunt){
 				},
 				src: 'test-files/rules/*.html',
 			},
+		},
+
+		sass: {
+			options: {
+				includePaths: [
+					'node_modules/font-awesome/scss/',
+					'node_modules/bootstrap-sass/assets/stylesheets/',
+				],
+			},
+			default: {
+				src: 'docs/app/docs.scss',
+				dest: 'public/assets/docs.css',
+			},
+		},
+
+		postcss: {
+			options: {
+				processors: [
+					require('autoprefixer'),
+					require('cssnano'),
+				],
+			},
+			default: {
+				src: '<%=sass.default.dest%>',
+				dest: 'public/assets/docs.min.css',
+			},
+		},
+
+		copy: {
+			fonts: {
+				expand: true,
+				cwd: 'node_modules/font-awesome/fonts',
+				src: '*',
+				dest: 'public/assets/fonts/',
+			},
+		},
+
+		browserify: {
+			default: {
+				options: {
+					transform: [
+						['babelify', {
+							presets: ['env'],
+						}],
+					],
+				},
+				src: 'docs/app/index.js',
+				dest: 'public/assets/docs.js',
+			},
+		},
+
+		connect: {
+			options: {
+				port: 3400,
+				hostname: 'localhost',
+				keepalive: true,
+				base: 'public',
+				middleware: function(){
+					return [
+						serveStatic('public'),
+					];
+				},
+			},
+			default: {},
 		},
 	});
 };

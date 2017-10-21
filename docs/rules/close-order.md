@@ -1,3 +1,9 @@
+@ngdoc content
+@module rules
+@name close-order
+@summary Require elements to be closed in correct order
+@description
+
 # disallows elements closed in the wrong order (`close-order`)
 
 HTML requires elements to be closed in the correct order.

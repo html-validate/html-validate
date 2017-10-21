@@ -30,6 +30,15 @@ Build:
   script:
     - node_modules/grunt-cli/bin/grunt build:ci
 
+pages:
+  stage: build
+  script: node_modules/.bin/grunt docs
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
+
 ESLint:
   stage: test
   variables:

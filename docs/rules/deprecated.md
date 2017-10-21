@@ -1,3 +1,9 @@
+@ngdoc content
+@module rules
+@name deprecated
+@summary Disallow usage of deprecated elements
+@description
+
 # disallows usage of deprecated elements (`deprecated`)
 
 HTML5 deprecated many old elements.

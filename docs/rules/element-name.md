@@ -1,3 +1,9 @@
+@ngdoc content
+@module rules
+@name element-name
+@summary Disallow invalid element names
+@description
+
 # disallow invalid element names (`element-name`)
 
 HTML defines what content is considered a valid (custom) [element

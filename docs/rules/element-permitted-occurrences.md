@@ -1,3 +1,10 @@
+@ngdoc content
+@module rules
+@name element-permitted-occurrences
+@category content-model
+@summary Validate permitted number of occurrences from content model
+@description
+
 # verify element content model (`element-permitted-occurrences`)
 
 Some elements may only be used a fixed amount of times in given context.

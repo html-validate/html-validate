@@ -1,3 +1,9 @@
+@ngdoc content
+@module rules
+@name no-dup-attr
+@summary Disallow duplicated attributes
+@description
+
 # disallows duplicated attributes on same element (`no-dup-attr`)
 
 HTML [disallows](https://www.w3.org/TR/html5/syntax.html#attributes-0) two or

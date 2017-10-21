@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		{% if doc.name %}
+		<title>HTML-validate - {$ doc.name $}</title>
+		{% else %}
+		<title>HTML-validate</title>
+		{% endif %}
+		<link rel="stylesheet" href="{$ '/assets/docs.min.css' | assetHash $}">
+	</head>
+	<body>
+		<header>
+			<nav class="navbar navbar-default">
+				<div class="container">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="/">HTML-validate</a>
+					</div>
+					<div class="collapse navbar-collapse" id="navbar">
+						<ul class="nav navbar-nav">
+							<li><a href="/usage">Usage</a></li>
+							<li><a href="/rules">Rules</a></li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dev <span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="{$ pkg.homepage $}">Getting the source code</a></li>
+									<li><a href="{$ pkg.bugs.url $}">File issue</a></li>
+									<li><a href="/dev">Developers guide</a></li>
+								</ul>
+							</li>
+						</ul>
+						<p class="navbar-text navbar-right">{$ pkg.name $}-{$ pkg.version $}</p>
+					</div>
+				</div>
+			</nav>
+		</header>
+
+		<main class="container">
+			{% block content %}
+			{% endblock %}
+		</main>
+
+		<script src="{$ '/assets/docs.js' | assetHash $}"></script>
+	</body>
+</html>

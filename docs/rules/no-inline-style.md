@@ -1,3 +1,10 @@
+@ngdoc content
+@module rules
+@name no-inline-style
+@category style
+@summary Disallow inline style
+@description
+
 # disallow inline style (`no-inline-style`)
 
 Inline style is a sign of unstructured CSS. Use class or ID with a separate

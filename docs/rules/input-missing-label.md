@@ -1,3 +1,10 @@
+@ngdoc content
+@module rules
+@name input-missing-label
+@category a17y
+@summary Require input to have label
+@description
+
 # require input elements to have a label (`input-missing-label`)
 
 Labels are associated with the input element and is required for a17y.

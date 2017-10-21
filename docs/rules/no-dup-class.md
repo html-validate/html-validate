@@ -1,3 +1,9 @@
+@ngdoc content
+@module rules
+@name no-dup-class
+@summary Disallow duplicated classes
+@description
+
 # disallows duplicated classes on same element (`no-dup-class`)
 
 Prevents unnecessary duplication of class names.
