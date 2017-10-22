@@ -1,5 +1,5 @@
 import { DOMNode, DOMTree } from 'dom';
-import { LocationData } from './context';
+import { LocationData } from './lexer';
 
 export interface Event {
 	event: string;

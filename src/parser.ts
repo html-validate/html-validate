@@ -1,9 +1,7 @@
 import { Config } from './config';
 import { DOMNode, DOMTree, NodeClosed } from './dom';
-import { Lexer, TokenStream } from './lexer';
-import { Token, TokenType } from './token';
+import { Source, Lexer, Token, TokenStream, TokenType } from './lexer';
 import { EventHandler, EventCallback } from './eventhandler';
-import { Source } from './context';
 import { MetaTable } from './meta';
 
 class Parser {

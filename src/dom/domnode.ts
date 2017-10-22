@@ -1,5 +1,4 @@
-import { LocationData } from '../context';
-import { Token } from '../token';
+import { LocationData, Token } from '../lexer';
 import { DOMTokenList } from './domtokenlist';
 import { MetaTable, MetaElement } from '../meta';
 

@@ -1,5 +1,5 @@
 import { Config } from './config';
-import Context from './context';
+import { Context } from './lexer';
 import { DOMNode } from 'dom';
 import { Rule } from './rule';
 

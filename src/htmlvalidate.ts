@@ -2,9 +2,7 @@ import { Config, ConfigLoader } from './config';
 import Parser from './parser';
 import { DOMNode } from 'dom';
 import { Reporter, Report } from './reporter';
-import { Source, LocationData } from './context';
-import { Lexer, InvalidTokenError } from './lexer';
-import { TokenType } from './token';
+import { Source, LocationData, Lexer, InvalidTokenError, TokenType } from './lexer';
 import { Rule, RuleEventCallback, RuleParserProxy, RuleReport } from './rule';
 
 const fs = require('fs');

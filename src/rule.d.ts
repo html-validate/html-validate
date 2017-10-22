@@ -1,5 +1,5 @@
 import { DOMNode } from 'dom';
-import { LocationData } from './context';
+import { LocationData } from './lexer';
 
 export interface Rule {
 	name: string;
