@@ -2,7 +2,8 @@ import { Config, ConfigLoader } from './config';
 import Parser from './parser';
 import { DOMNode } from 'dom';
 import { Reporter, Report } from './reporter';
-import { Source, LocationData, Lexer, InvalidTokenError, TokenType } from './lexer';
+import { Source, Location } from './context';
+import { Lexer, InvalidTokenError, TokenType } from './lexer';
 import { Rule, RuleEventCallback, RuleParserProxy, RuleReport } from './rule';
 
 const fs = require('fs');
@@ -199,7 +200,7 @@ class HtmlValidate {
 				parser.on(event, function(event, data){
 					callback.call(rule, data, reportFunc);
 
-					function reportFunc(node: DOMNode, message: string, location: LocationData){
+					function reportFunc(node: DOMNode, message: string, location: Location){
 						const where = location || data.location || node.location;
 						report.add(node, rule, message, severity, where);
 					}

@@ -1,9 +1,9 @@
 import { DOMNode, DOMTree } from 'dom';
-import { LocationData } from './lexer';
+import { Location } from './context';
 
 export interface Event {
 	event: string;
-	location: LocationData;
+	location: Location;
 }
 
 export interface TagOpenEvent extends Event {

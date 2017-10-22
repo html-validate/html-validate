@@ -1,4 +1,5 @@
-import { LocationData, Token } from '../lexer';
+import { Location } from '../context';
+import { Token } from '../lexer';
 import { DOMTokenList } from './domtokenlist';
 import { MetaTable, MetaElement } from '../meta';
 
@@ -13,13 +14,13 @@ export class DOMNode {
 	readonly tagName: string;
 	readonly attr: { [key: string]: string; };
 	readonly children: Array<DOMNode>;
-	readonly location: LocationData;
+	readonly location: Location;
 	readonly meta: MetaElement;
 	readonly parent: DOMNode
 	readonly voidElement: boolean;
 	closed: NodeClosed;
 
-	constructor(tagName: string, parent?: DOMNode, closed: NodeClosed = NodeClosed.EndTag, meta?: MetaElement, location?: LocationData){
+	constructor(tagName: string, parent?: DOMNode, closed: NodeClosed = NodeClosed.EndTag, meta?: MetaElement, location?: Location){
 		this.children = [];
 		this.tagName = tagName;
 		this.parent = parent;

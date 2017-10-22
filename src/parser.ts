@@ -1,6 +1,7 @@
 import { Config } from './config';
 import { DOMNode, DOMTree, NodeClosed } from './dom';
-import { Source, Lexer, Token, TokenStream, TokenType } from './lexer';
+import { Source } from './context';
+import { Lexer, Token, TokenStream, TokenType } from './lexer';
 import { EventHandler, EventCallback } from './eventhandler';
 import { MetaTable } from './meta';
 

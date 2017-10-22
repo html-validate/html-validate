@@ -1,4 +1,4 @@
-import { LocationData } from './context';
+import { Location } from '../context';
 
 export enum TokenType {
 	WHITESPACE = 1,
@@ -18,6 +18,6 @@ export enum TokenType {
 
 export interface Token {
 	type: TokenType;
-	location: LocationData;
+	location: Location;
 	data?: any;
 }
