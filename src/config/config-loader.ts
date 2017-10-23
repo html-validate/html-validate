@@ -18,7 +18,7 @@ export class ConfigLoader {
 		let current = path.resolve(path.dirname(filename));
 		let config = Config.empty();
 
-		do {
+		for (;;){
 			const search = path.join(current, '.htmlvalidate.json');
 
 			if (fs.existsSync(search)){
@@ -26,8 +26,15 @@ export class ConfigLoader {
 				config = local.merge(config);
 			}
 
+			/* get the parent directory */
+			const child = current;
 			current = path.dirname(current);
-		} while (current !== '/');
+
+			/* stop if this is the root directory */
+			if (current === child){
+				break;
+			}
+		}
 
 		cache[filename] = config;
 		return config;
