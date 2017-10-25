@@ -2,6 +2,11 @@
 
 ## next
 
+# Bugfixes
+
+- fix node binary name in shebang
+- fix directory traversal on windows
+
 ## 0.5.0 (2017-10-17)
 
 ### Features
