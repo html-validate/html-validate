@@ -1,6 +1,6 @@
 # html-validate changelog
 
-## next
+## Upcoming release
 
 ### Features
 
