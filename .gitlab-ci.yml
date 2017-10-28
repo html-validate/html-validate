@@ -21,7 +21,6 @@ NPM:
     - node --version
     - npm --version
     - npm install
-    - npm ls
 
 Build:
   stage: build
