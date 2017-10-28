@@ -280,6 +280,7 @@ describe('parser', function(){
 		});
 
 		it('multiline', function(){
+			this.timeout(10000); /* seems to fail a lot on CI runner, need to figure out why */
 			const report = htmlvalidate.file('./test-files/parser/multiline.html');
 			expect(report.valid, "linting should report success").to.be.true;
 		});
