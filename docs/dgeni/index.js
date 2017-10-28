@@ -11,6 +11,7 @@ module.exports = new Package('cma-docs', [
 
 	.config(function(renderDocsProcessor) {
 		renderDocsProcessor.extraData.pkg = require('../../package.json');
+		renderDocsProcessor.extraData.tracking = process.env.GA_TRACKING_ID;
 	})
 
 	.config(function(log, readFilesProcessor, templateFinder, writeFilesProcessor) {
