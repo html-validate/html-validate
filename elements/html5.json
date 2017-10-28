@@ -4,6 +4,16 @@
     "phrasing": true,
     "interactive": true,
     "transparent": true,
+    "deprecatedAttributes": [
+      "charset",
+      "coords",
+      "datasrc",
+      "datafld",
+      "shape",
+      "methods",
+      "name",
+      "urn"
+    ],
     "permittedDescendants": [
       {"exclude": "@interactive"}
     ]
@@ -38,13 +48,20 @@
   },
 
   "applet": {
-    "deprecated": true
+    "deprecated": true,
+    "deprecatedAttributes": [
+      "datasrc",
+      "datafld"
+    ]
   },
 
   "area": {
     "flow": ["isDescendant", "map"],
     "phrasing": ["isDescendant", "map"],
-    "void": true
+    "void": true,
+    "deprecatedAttributes": [
+      "nohref"
+    ]
   },
 
   "article": {
@@ -146,18 +163,41 @@
     ]
   },
 
-  "body": {},
+  "body": {
+    "deprecatedAttributes": [
+      "alink",
+      "background",
+      "bgcolor",
+      "link",
+      "marginbottom",
+      "marginheight",
+      "marginleft",
+      "marginright",
+      "margintop",
+      "marginwidth",
+      "text",
+      "vlink"
+    ]
+  },
 
   "br": {
     "flow": true,
     "phrasing": true,
-    "void": true
+    "void": true,
+    "deprecatedAttributes": [
+      "clear"
+    ]
   },
 
   "button": {
     "flow": true,
     "phrasing": true,
     "interactive": true,
+    "deprecatedAttributes": [
+      "datasrc",
+      "datafld",
+      "dataformatas"
+    ],
     "permittedContent": [
       "@phrasing"
     ],
@@ -174,6 +214,9 @@
   },
 
   "caption": {
+    "deprecatedAttributes": [
+      "align"
+    ],
     "permittedContent": [
       "@flow"
     ],
@@ -203,6 +246,13 @@
   },
 
   "col": {
+    "deprecatedAttributes": [
+      "align",
+      "char",
+      "charoff",
+      "valign",
+      "width"
+    ],
     "void": true
   },
 
@@ -259,6 +309,12 @@
 
   "div": {
     "flow": true,
+    "deprecatedAttributes": [
+      "align",
+      "datasrc",
+      "datafld",
+      "dataformatas"
+    ],
     "permittedContent": [
       "@flow"
     ]
@@ -266,6 +322,9 @@
 
   "dl": {
     "flow": true,
+    "deprecatedAttributes": [
+      "compact"
+    ],
     "permittedContent": [
       "dt",
       "dd",
@@ -306,6 +365,9 @@
 
   "fieldset": {
     "flow": true,
+    "deprecatedAttributes": [
+      "datafld"
+    ],
     "permittedContent": [
       "@flow",
       "legend?"
@@ -355,6 +417,9 @@
 
   "form": {
     "flow": true,
+    "deprecatedAttributes": [
+      "accept"
+    ],
     "permittedContent": [
       "@flow"
     ],
@@ -364,7 +429,11 @@
   },
 
   "frame": {
-    "deprecated": true
+    "deprecated": true,
+    "deprecatedAttributes": [
+      "datasrc",
+      "datafld"
+    ]
   },
 
   "frameset": {
@@ -374,6 +443,9 @@
   "h1": {
     "flow": true,
     "heading": true,
+    "deprecatedAttributes": [
+      "align"
+    ],
     "permittedContent": [
       "@phrasing"
     ]
@@ -382,6 +454,9 @@
   "h2": {
     "flow": true,
     "heading": true,
+    "deprecatedAttributes": [
+      "align"
+    ],
     "permittedContent": [
       "@phrasing"
     ]
@@ -390,6 +465,9 @@
   "h3": {
     "flow": true,
     "heading": true,
+    "deprecatedAttributes": [
+      "align"
+    ],
     "permittedContent": [
       "@phrasing"
     ]
@@ -398,6 +476,9 @@
   "h4": {
     "flow": true,
     "heading": true,
+    "deprecatedAttributes": [
+      "align"
+    ],
     "permittedContent": [
       "@phrasing"
     ]
@@ -406,6 +487,9 @@
   "h5": {
     "flow": true,
     "heading": true,
+    "deprecatedAttributes": [
+      "align"
+    ],
     "permittedContent": [
       "@phrasing"
     ]
@@ -414,12 +498,18 @@
   "h6": {
     "flow": true,
     "heading": true,
+    "deprecatedAttributes": [
+      "align"
+    ],
     "permittedContent": [
       "@phrasing"
     ]
   },
 
   "head": {
+    "deprecatedAttributes": [
+      "profile"
+    ],
     "permittedContent": [
       "base?",
       "title?",
@@ -447,10 +537,20 @@
 
   "hr": {
     "flow": true,
-    "void": true
+    "void": true,
+    "deprecatedAttributes": [
+      "align",
+      "color",
+      "noshade",
+      "size",
+      "width"
+    ]
   },
 
   "html": {
+    "deprecatedAttributes": [
+      "version"
+    ],
     "permittedContent": [
       "head?",
       "body?"
@@ -474,6 +574,18 @@
     "phrasing": true,
     "embedded": true,
     "interactive": true,
+    "deprecatedAttributes": [
+      "align",
+      "allowtransparency",
+      "datasrc",
+      "datafld",
+      "frameborder",
+      "hspace",
+      "marginheight",
+      "marginwidth",
+      "scrolling",
+      "vspace"
+    ],
     "permittedContent": []
   },
 
@@ -482,14 +594,34 @@
     "phrasing": true,
     "embedded": true,
     "interactive": ["hasAttribute", "usemap"],
-    "void": true
+    "void": true,
+    "deprecatedAttributes": [
+      "datasrc",
+      "datafld",
+      "name",
+      "lowsrc",
+      "align",
+      "border",
+      "hspace",
+      "vspace"
+    ]
   },
 
   "input": {
     "flow": true,
     "phrasing": true,
     "interactive": ["matchAttribute", ["type", "!=", "hidden"]],
-    "void": true
+    "void": true,
+    "deprecatedAttributes": [
+      "datasrc",
+      "datafld",
+      "dataformatas",
+      "ismap",
+      "usemap",
+      "align",
+      "hspace",
+      "vspace"
+    ]
   },
 
   "ins": {
@@ -521,6 +653,11 @@
     "flow": true,
     "phrasing": true,
     "interactive": true,
+    "deprecatedAttributes": [
+      "datasrc",
+      "datafld",
+      "dataformatas"
+    ],
     "permittedContent": [
       "@phrasing"
     ],
@@ -530,12 +667,21 @@
   },
 
   "legend": {
+    "deprecatedAttributes": [
+      "align",
+      "datasrc",
+      "datafld",
+      "dataformatas"
+    ],
     "permittedContent": [
       "@phrasing"
     ]
   },
 
   "li": {
+    "deprecatedAttributes": [
+      "type"
+    ],
     "permittedContent": [
       "@flow"
     ]
@@ -543,7 +689,13 @@
 
   "link": {
     "metadata": true,
-    "void": true
+    "void": true,
+    "deprecatedAttributes": [
+      "charset",
+      "methods",
+      "urn",
+      "target"
+    ]
   },
 
   "listing": {
@@ -569,18 +721,32 @@
   },
 
   "marquee": {
-    "deprecated": true
+    "deprecated": true,
+    "deprecatedAttributes": [
+      "datasrc",
+      "datafld",
+      "dataformatas"
+    ]
   },
 
   "math": {
     "flow": true,
     "phrasing": true,
-    "embedded": true
+    "embedded": true,
+    "deprecatedAttributes": [
+      "name",
+      "align",
+      "hspace",
+      "vspace"
+    ]
   },
 
   "meta": {
     "metadata": true,
-    "void": true
+    "void": true,
+    "deprecatedAttributes": [
+      "scheme"
+    ]
   },
 
   "meter": {
@@ -641,6 +807,22 @@
     "embedded": true,
     "interactive": ["hasAttribute", "usemap"],
     "transparent": true,
+    "deprecatedAttributes": [
+      "align",
+      "archive",
+      "border",
+      "classid",
+      "code",
+      "codebase",
+      "codetype",
+      "datasrc",
+      "datafld",
+      "dataformatas",
+      "declare",
+      "hspace",
+      "standby",
+      "vspace"
+    ],
     "permittedContent": [
       "param",
       "@flow"
@@ -653,6 +835,9 @@
 
   "ol": {
     "flow": true,
+    "deprecatedAttributes": [
+      "compact"
+    ],
     "permittedContent": [
       "li",
       "script",
@@ -669,6 +854,11 @@
   },
 
   "option": {
+    "deprecatedAttributes": [
+      "datasrc",
+      "dataformatas",
+      "name"
+    ],
     "permittedContent": []
   },
 
@@ -682,13 +872,21 @@
 
   "p": {
     "flow": true,
+    "deprecatedAttributes": [
+      "align"
+    ],
     "permittedContent": [
       "@phrasing"
     ]
   },
 
   "param": {
-    "void": true
+    "void": true,
+    "deprecatedAttributes": [
+      "datafld",
+      "type",
+      "valuetype"
+    ]
   },
 
   "plaintext": {
@@ -697,6 +895,9 @@
 
   "pre": {
     "flow": true,
+    "deprecatedAttributes": [
+      "width"
+    ],
     "permittedContent": [
       "@phrasing"
     ]
@@ -778,7 +979,11 @@
     "metadata": true,
     "flow": true,
     "phrasing": true,
-    "permittedContent": ["a"]
+    "deprecatedAttributes": [
+      "language",
+      "event",
+      "for"
+    ]
   },
 
   "section": {
@@ -794,6 +999,9 @@
     "phrasing": true,
     "interactive": true,
     "permittedContent": [
+      "datasrc",
+      "datafld",
+      "dataformatas",
       "option",
       "optgroup",
       "script",
@@ -820,6 +1028,11 @@
   "span": {
     "flow": true,
     "phrasing": true,
+    "deprecatedAttributes": [
+      "datasrc",
+      "datafld",
+      "dataformatas"
+    ],
     "permittedContent": [
       "@phrasing"
     ]
@@ -866,6 +1079,21 @@
 
   "table": {
     "flow": true,
+    "deprecatedAttributes": [
+      "background",
+      "datasrc",
+      "dataformatas",
+      "datapagesize",
+      "summary",
+      "align",
+      "bgcolor",
+      "bordercolor",
+      "cellpadding",
+      "cellspacing",
+      "frame",
+      "rules",
+      "width"
+    ],
     "permittedContent": [
       "caption?",
       "colgroup",
@@ -887,6 +1115,13 @@
   },
 
   "tbody": {
+    "deprecatedAttributes": [
+      "align",
+      "background",
+      "char",
+      "charoff",
+      "valign"
+    ],
     "permittedContent": [
       "tr",
       "script",
@@ -896,6 +1131,19 @@
 
   "td": {
     "flow": true,
+    "deprecatedAttributes": [
+      "align",
+      "axis",
+      "background",
+      "bgcolor",
+      "char",
+      "charoff",
+      "height",
+      "nowrap",
+      "scope",
+      "valign",
+      "width"
+    ],
     "permittedContent": [
       "@flow"
     ]
@@ -911,10 +1159,21 @@
     "flow": true,
     "phrasing": true,
     "interactive": true,
+    "deprecatedAttributes": [
+      "datasrc",
+      "datafld"
+    ],
     "permittedContent": []
   },
 
   "tfoot": {
+    "deprecatedAttributes": [
+      "align",
+      "background",
+      "char",
+      "charoff",
+      "valign"
+    ],
     "permittedContent": [
       "tr",
       "script",
@@ -924,6 +1183,18 @@
 
   "th": {
     "flow": true,
+    "deprecatedAttributes": [
+      "align",
+      "axis",
+      "background",
+      "bgcolor",
+      "char",
+      "charoff",
+      "height",
+      "nowrap",
+      "valign",
+      "width"
+    ],
     "permittedContent": [
       "@flow"
     ],
@@ -938,6 +1209,13 @@
   },
 
   "thead": {
+    "deprecatedAttributes": [
+      "align",
+      "background",
+      "char",
+      "charoff",
+      "valign"
+    ],
     "permittedContent": [
       "tr",
       "script",
@@ -959,6 +1237,14 @@
   },
 
   "tr": {
+    "deprecatedAttributes": [
+      "align",
+      "background",
+      "bgcolor",
+      "char",
+      "charoff",
+      "valign"
+    ],
     "permittedContent": [
       "td",
       "th",
@@ -985,6 +1271,10 @@
 
   "ul": {
     "flow": true,
+    "deprecatedAttributes": [
+      "compact",
+      "type"
+    ],
     "permittedContent": [
       "li",
       "script",

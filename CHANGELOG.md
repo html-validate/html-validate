@@ -4,6 +4,8 @@
 
 ### Features
 
+- new rule `no-deprecated-attr` for testing if any deprecated attributes is
+  used.
 - CLI supports globbing (as fallback if shell doesn't expand the glob already)
 
 ### Bugfixes

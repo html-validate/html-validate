@@ -20,6 +20,7 @@ export interface MetaElement {
 	deprecated: boolean;
 	void: boolean;
 	transparent: boolean;
+	deprecatedAttributes: string[];
 	permittedContent: Permitted;
 	permittedDescendants: Permitted;
 	permittedOrder: PermittedOrder;
