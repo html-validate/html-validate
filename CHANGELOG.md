@@ -10,6 +10,7 @@
 
 ### Bugfixes
 
+- fix lowercase `<!doctype html>` crashing the lexer.
 - fix node binary name in shebang
 - fix directory traversal on windows
 
