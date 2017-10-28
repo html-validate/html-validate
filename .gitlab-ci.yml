@@ -58,6 +58,12 @@ Smoketest:
   script:
     - node_modules/grunt-cli/bin/grunt smoketest
 
+Docs:
+  stage: test
+  script:
+    - node_modules/grunt-cli/bin/grunt ts docs
+    - ./html-validate.js docs/**/*.html public/**/.html
+
 Publish to NPM:
   stage: release
   only:

@@ -64,4 +64,4 @@ where severity can be one of:
 Some options takes optional parameters when using the form `["severity",
 OPTIONS]`.
 
-See [/rules] for a list of all available rules and options.
+See [rules](/rules) for a list of all available rules and options.

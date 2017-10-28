@@ -11,6 +11,13 @@ module.exports = new Package('cma-docs', [
 
 	.config(function(renderDocsProcessor) {
 		renderDocsProcessor.extraData.pkg = require('../../package.json');
+		renderDocsProcessor.extraData.tracking = process.env.GA_TRACKING_ID;
+	})
+
+	.factory(require('./changelog'))
+
+	.config(function(readFilesProcessor, changelogFileReader) {
+		readFilesProcessor.fileReaders.push(changelogFileReader);
 	})
 
 	.config(function(log, readFilesProcessor, templateFinder, writeFilesProcessor) {
@@ -22,6 +29,11 @@ module.exports = new Package('cma-docs', [
 				include: 'docs/**/*.md',
 				basePath: 'docs',
 				fileReader: 'ngdocFileReader',
+			},
+			{
+				include: 'CHANGELOG.md',
+				basePath: '.',
+				fileReader: 'changelogFileReader',
 			},
 		];
 
@@ -46,7 +58,7 @@ module.exports = new Package('cma-docs', [
 
 	.config(function(computePathsProcessor, computeIdsProcessor) {
 		computeIdsProcessor.idTemplates.push({
-			docTypes: ['content', 'frontpage', 'rules'],
+			docTypes: ['content', 'frontpage', 'rules', 'changelog'],
 			getId: function(doc) { return doc.fileInfo.baseName; },
 			getAliases: function(doc) { return [doc.id]; },
 		});
@@ -59,10 +71,20 @@ module.exports = new Package('cma-docs', [
 			},
 			outputPathTemplate: '${path}.html',
 		});
+
+		computePathsProcessor.pathTemplates.push({
+			docTypes: ['changelog'],
+			getPath: function(doc) {
+				const dirname = path.dirname(doc.fileInfo.relativePath);
+				return path.join(dirname, doc.fileInfo.baseName);
+			},
+			outputPathTemplate: '${path.toLowerCase()}/index.html',
+		});
 	})
 
 	.config(function(checkAnchorLinksProcessor) {
 		checkAnchorLinksProcessor.ignoredLinks.push(/^\/$/);
+		checkAnchorLinksProcessor.ignoredLinks.push(/^\/changelog$/);
 	})
 
 ;

@@ -3,6 +3,7 @@ import { Result } from '../reporter'; // eslint-disable-line no-unused-vars
 
 const fs = require('fs');
 const minimist = require('minimist');
+const glob = require('glob');
 
 function getMode(argv: { [key: string]: any }){
 	if (argv['dump-events']){
@@ -103,12 +104,14 @@ const htmlvalidate = new HtmlValidate(config);
 let results: Result[] = [];
 let valid = true;
 
-argv._.forEach((filename: string) => {
-	const report = htmlvalidate.file(filename, mode);
+argv._.forEach((pattern: string) => {
+	glob.sync(pattern).forEach((filename: string) => {
+		const report = htmlvalidate.file(filename, mode);
 
-	/* aggregate results */
-	valid = valid && report.valid;
-	results = results.concat(report.results);
+		/* aggregate results */
+		valid = valid && report.valid;
+		results = results.concat(report.results);
+	});
 });
 
 formatters.forEach((formatter: any) => formatter(results));

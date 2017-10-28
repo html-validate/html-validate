@@ -1,8 +1,12 @@
 # html-validate changelog
 
-## next
+## Upcoming release
 
-# Bugfixes
+### Features
+
+- CLI supports globbing (as fallback if shell doesn't expand the glob already)
+
+### Bugfixes
 
 - fix node binary name in shebang
 - fix directory traversal on windows

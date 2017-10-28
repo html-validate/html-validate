@@ -4,11 +4,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		{% if doc.name %}
-		<title>HTML-validate - {$ doc.name $}</title>
-		{% else %}
-		<title>HTML-validate</title>
-		{% endif %}
+		<title>HTML-validate{% if doc.name %} - {$ doc.name $}{% endif %}</title>
 		<link rel="stylesheet" href="{$ '/assets/docs.min.css' | assetHash $}">
 	</head>
 	<body>
@@ -36,6 +32,7 @@
 									<li><a href="/dev">Developers guide</a></li>
 								</ul>
 							</li>
+							<li><a href="/changelog">Changelog</a></li>
 						</ul>
 						<p class="navbar-text navbar-right">{$ pkg.name $}-{$ pkg.version $}</p>
 					</div>
@@ -49,5 +46,16 @@
 		</main>
 
 		<script src="{$ '/assets/docs.js' | assetHash $}"></script>
+
+		{% if tracking %}
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id={$ tracking $}"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', '{$ tracking $}');
+		</script>
+		{% endif %}
 	</body>
 </html>
