@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.6.0 (2017-10-29)
+
 ### Features
 
 - new rule `no-deprecated-attr` for testing if any deprecated attributes is
