@@ -52,7 +52,7 @@
     "dgeni-packages": "^0.22.0",
     "eslint-config-sidvind": "^1.2.0",
     "eslint-plugin-mocha": "^4.11.0",
-    "eslint-plugin-typescript": "^0.7.0",
+    "eslint-plugin-typescript": "^0.8.0",
     "font-awesome": "^4.7.0",
     "grunt": "^1.0.1",
     "grunt-browserify": "^5.2.0",
@@ -74,7 +74,7 @@
     "ts-node": "^3.3.0",
     "tsconfig-paths": "^2.2.0",
     "typescript": "^2.4.2",
-    "typescript-eslint-parser": "^7.0.0"
+    "typescript-eslint-parser": "^8.0.1"
   },
   "nyc": {
     "extension": [

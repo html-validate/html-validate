@@ -11,7 +11,7 @@ enum State {
 	SCRIPT,
 }
 
-type NextStateCallback = ((token?: Token) => State);
+type NextStateCallback = (token?: Token) => State;
 type LexerTest = [RegExp | false, State | NextStateCallback, TokenType | false];
 export type TokenStream = IterableIterator<Token>;
 
