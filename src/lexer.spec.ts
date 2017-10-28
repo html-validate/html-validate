@@ -22,8 +22,17 @@ describe('lexer', function(){
 			expect(token.next().done).to.be.true;
 		});
 
-		it('doctype', function(){
+		it('uppercase doctype', function(){
 			const token = lexer.tokenize({data: '<!DOCTYPE html>', filename: 'inline'});
+			expect(token.next().value).to.containSubset({type: TokenType.DOCTYPE_OPEN});
+			expect(token.next().value).to.containSubset({type: TokenType.DOCTYPE_VALUE});
+			expect(token.next().value).to.containSubset({type: TokenType.DOCTYPE_CLOSE});
+			expect(token.next().value).to.containSubset({type: TokenType.EOF});
+			expect(token.next().done).to.be.true;
+		});
+
+		it('lowercase doctype', function(){
+			const token = lexer.tokenize({data: '<!doctype html>', filename: 'inline'});
 			expect(token.next().value).to.containSubset({type: TokenType.DOCTYPE_OPEN});
 			expect(token.next().value).to.containSubset({type: TokenType.DOCTYPE_VALUE});
 			expect(token.next().value).to.containSubset({type: TokenType.DOCTYPE_CLOSE});

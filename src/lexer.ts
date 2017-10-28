@@ -17,7 +17,7 @@ export type TokenStream = IterableIterator<Token>;
 
 /* eslint-disable no-useless-escape */
 const MATCH_WHITESPACE = /^(?:[ \t]+\n?|\n)/;
-const MATCH_DOCTYPE_OPEN = /^<!DOCTYPE\s/;
+const MATCH_DOCTYPE_OPEN = /^<!(?:DOCTYPE|doctype)\s/;
 const MATCH_DOCTYPE_VALUE = /^[^>]+/;
 const MATCH_DOCTYPE_CLOSE = /^>/;
 const MATCH_XML_TAG = /^<\?xml.*?\?>\n/;
