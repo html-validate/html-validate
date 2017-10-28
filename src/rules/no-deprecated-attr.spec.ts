@@ -17,6 +17,16 @@ describe('rule no-deprecated-attr', function() {
 		expect(report).to.be.valid;
 	});
 
+	it('should not report when regular element is missing meta', function() {
+		const report = htmlvalidate.string('<any style="background: red;"></any>');
+		expect(report).to.be.valid;
+	});
+
+	it('should not report when regular element has no deprecated attributes', function() {
+		const report = htmlvalidate.string('<abbr style="background: red;"></abbr>');
+		expect(report).to.be.valid;
+	});
+
 	it('should report error when deprecated attribute is used', function() {
 		const report = htmlvalidate.string('<body bgcolor="red"></body>');
 		expect(report).to.be.invalid;

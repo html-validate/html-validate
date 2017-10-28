@@ -17,7 +17,8 @@ function init(parser: RuleParserProxy){
 			return;
 		}
 
-		if (meta.deprecatedAttributes.indexOf(attr) >= 0){
+		const deprecated = meta.deprecatedAttributes || [];
+		if (deprecated.indexOf(attr) >= 0){
 			report(node, `Attribute "${event.key}" is deprecated on <${node.tagName}> element`);
 		}
 	});
