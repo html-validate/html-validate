@@ -18,7 +18,10 @@ NPM:
     paths:
       - node_modules/
   script:
+    - node --version
+    - npm --version
     - npm install
+    - npm ls
 
 Build:
   stage: build
