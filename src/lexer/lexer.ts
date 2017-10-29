@@ -1,4 +1,4 @@
-import { Context, Source, ContentModel, LocationData } from './context';
+import { Context, Source, ContentModel, Location } from '../context';
 import { Token, TokenType } from './token';
 
 enum State {
@@ -36,9 +36,9 @@ const MATCH_SCRIPT_END = /^<(\/)(script)/;
 const MATCH_COMMENT = /^<!--([^]*?)-->/;
 
 export class InvalidTokenError extends Error {
-	public location: LocationData;
+	public location: Location;
 
-	public constructor(location: LocationData, message: string){
+	public constructor(location: Location, message: string){
 		super(message);
 		this.location = location;
 	}
@@ -104,7 +104,7 @@ export class Lexer {
 		if (!type) throw Error("TokenType must be set");
 		return {
 			type,
-			location: context.getLocationData(),
+			location: context.getLocation(),
 			data,
 		};
 	}
@@ -112,13 +112,13 @@ export class Lexer {
 	unhandled(context: Context){
 		const truncated = JSON.stringify(context.string.length > 13 ? `${context.string.slice(0, 10)}...` : context.string);
 		const message = `failed to tokenize ${truncated}, unhandled state ${State[context.state]}.`;
-		throw new InvalidTokenError(context.getLocationData(), message);
+		throw new InvalidTokenError(context.getLocation(), message);
 	}
 
 	errorStuck(context: Context){
 		const truncated = JSON.stringify(context.string.length > 13 ? `${context.string.slice(0, 10)}...` : context.string);
 		const message = `failed to tokenize ${truncated}, state ${State[context.state]} failed to consume data or change state.`;
-		throw new InvalidTokenError(context.getLocationData(), message);
+		throw new InvalidTokenError(context.getLocation(), message);
 	}
 
 	evalNextState(nextState: State | ((token: Token) => State), token: Token){
@@ -148,7 +148,7 @@ export class Lexer {
 
 		const truncated = JSON.stringify(context.string.length > 13 ? `${context.string.slice(0, 10)}...` : context.string);
 		const message = `failed to tokenize ${truncated}, ${error}.`;
-		throw new InvalidTokenError(context.getLocationData(), message);
+		throw new InvalidTokenError(context.getLocation(), message);
 	}
 
 	/**

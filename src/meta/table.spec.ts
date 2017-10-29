@@ -1,6 +1,6 @@
 import { MetaTable, MetaElement } from 'meta';
 import { Config } from '../config';
-import Parser from '../parser';
+import { Parser } from '../parser';
 
 class ConfigMock extends Config {
 	constructor(metaTable: MetaTable){

@@ -1,7 +1,7 @@
 import { MetaTable, MetaElement, Validator } from 'meta';
 import { Config } from '../config';
 import { DOMNode } from '../dom'; // eslint-disable-line no-unused-vars
-import Parser from '../parser';
+import { Parser } from '../parser';
 
 class ConfigMock extends Config {
 	constructor(metaTable: MetaTable){

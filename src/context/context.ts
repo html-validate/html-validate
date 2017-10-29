@@ -1,13 +1,5 @@
-export interface Source {
-	data: string;
-	filename: string;
-}
-
-export interface LocationData {
-	filename: string;
-	line: number;
-	column: number;
-}
+import { Source } from './source';
+import { Location } from './location';
 
 export enum ContentModel {
 	TEXT = 1,
@@ -59,7 +51,7 @@ export class Context {
 		}
 	}
 
-	getLocationData(): LocationData {
+	getLocation(): Location {
 		return {
 			filename: this.filename,
 			line: this.line,
