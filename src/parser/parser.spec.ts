@@ -1,9 +1,9 @@
-import { Config } from './config';
-import { DOMTree } from 'dom';
-import { EventCallback } from './event';
-import { InvalidTokenError } from './lexer';
-import Parser from './parser';
-import HtmlValidate from './htmlvalidate';
+import { Config } from '../config';
+import { DOMTree } from '../dom';
+import { EventCallback } from '../event';
+import { InvalidTokenError } from '../lexer';
+import { Parser } from './parser';
+import HtmlValidate from '../htmlvalidate';
 
 describe('parser', function(){
 

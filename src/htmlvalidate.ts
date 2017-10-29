@@ -1,5 +1,5 @@
 import { Config, ConfigLoader } from './config';
-import Parser from './parser';
+import { Parser } from './parser';
 import { DOMNode } from 'dom';
 import { Reporter, Report } from './reporter';
 import { Source, Location } from './context';

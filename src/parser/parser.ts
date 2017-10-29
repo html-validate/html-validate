@@ -1,11 +1,11 @@
-import { Config } from './config';
-import { DOMNode, DOMTree, NodeClosed } from './dom';
-import { Source } from './context';
-import { Lexer, Token, TokenStream, TokenType } from './lexer';
-import { EventHandler, EventCallback } from './event';
-import { MetaTable } from './meta';
+import { Config } from '../config';
+import { DOMNode, DOMTree, NodeClosed } from '../dom';
+import { Source } from '../context';
+import { Lexer, Token, TokenStream, TokenType } from '../lexer';
+import { EventHandler, EventCallback } from '../event';
+import { MetaTable } from '../meta';
 
-class Parser {
+export class Parser {
 	private readonly config: Config;
 	private readonly event: EventHandler;
 	private readonly metaTable: MetaTable;
@@ -210,5 +210,3 @@ class Parser {
 		}
 	}
 }
-
-export default Parser;

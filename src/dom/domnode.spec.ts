@@ -1,5 +1,5 @@
 import { DOMNode, DOMTree }  from 'dom';
-import Parser from '../parser';
+import { Parser } from '../parser';
 import { Config } from '../config';
 
 describe('DOMNode', function(){
