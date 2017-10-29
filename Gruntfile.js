@@ -90,6 +90,7 @@ module.exports = function(grunt){
 				includePaths: [
 					'node_modules/font-awesome/scss/',
 					'node_modules/bootstrap-sass/assets/stylesheets/',
+					'node_modules/highlight.js/styles/',
 				],
 			},
 			default: {

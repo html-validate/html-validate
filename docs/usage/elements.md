@@ -20,7 +20,7 @@ A typical custom element may look like:
 
 Each entry can contain the following properties:
 
-```js
+```typescript
 export interface MetaElement {
 	/* content categories */
 	metadata: boolean | PropertyExpression;
