@@ -2,6 +2,11 @@
 
 ## Upcoming release
 
+### Features
+
+- element metadata can no be sourced from multiple sources and be configured
+  using the `elements` configuration property.
+
 ## 0.6.0 (2017-10-29)
 
 ### Features
