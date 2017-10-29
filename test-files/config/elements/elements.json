@@ -1,0 +1,13 @@
+{
+  "deprecated": {
+    "flow": true,
+    "deprecated": true
+  },
+
+  "ul": {
+    "flow": true,
+    "permittedContent": [
+      "p"
+    ]
+  }
+}

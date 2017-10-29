@@ -1,0 +1,1 @@
+[{"filePath":"test-files/config/elements/file.html","messages":[{"ruleId":"deprecated","severity":2,"message":"<deprecated> is deprecated","line":2,"column":2},{"ruleId":"element-permitted-content","severity":2,"message":"Element <li> is not permitted as content in <ul>","line":5,"column":3}],"errorCount":2,"warningCount":0}]
