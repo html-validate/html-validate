@@ -1,6 +1,8 @@
 import { MetaTable } from '../meta';
+import { ConfigData } from './config-data';
+
+const fs = require('fs');
 const path = require('path');
-const glob = require('glob');
 
 const recommended = require('./recommended');
 
@@ -29,11 +31,6 @@ function parseSeverity(value: string | number){
 	}
 }
 
-interface ConfigData {
-	extends: Array<string>;
-	rules: any;
-}
-
 export class Config {
 	private config: ConfigData;
 	protected metaTable: MetaTable;
@@ -58,9 +55,12 @@ export class Config {
 		const json = require(filename);
 
 		/* expand any relative paths */
-		json.extends = (json.extends || []).map(function(ref: string){
-			return Config.expandRelative(ref, path.dirname(filename));
-		});
+		for (const key of ['extends', 'elements']){
+			if (!json[key]) continue;
+			json[key] = json[key].map((ref: string) => {
+				return Config.expandRelative(ref, path.dirname(filename));
+			});
+		}
 
 		return new Config(json);
 	}
@@ -96,13 +96,29 @@ export class Config {
 	}
 
 	getMetaTable(){
-		if (!this.metaTable){
-			this.metaTable = new MetaTable();
-			const root = path.resolve(__dirname, '..', '..');
-			for (const filename of glob.sync(`${root}/elements/*.json`)){
-				this.metaTable.loadFromFile(filename);
-			}
+		/* use cached table if it exists */
+		if (this.metaTable){
+			return this.metaTable;
 		}
+
+		this.metaTable = new MetaTable();
+		const source = this.config.elements || ['html5'];
+		const root = path.resolve(__dirname, '..', '..');
+
+		/* load from all entries */
+		for (const entry of source){
+
+			/* try searching builtin metadata */
+			const filename = `${root}/elements/${entry}.json`;
+			if (fs.existsSync(filename)){
+				this.metaTable.loadFromFile(filename);
+				continue;
+			}
+
+			/* assume it is loadable with require() */
+			this.metaTable.loadFromObject(require(entry));
+		}
+
 		return this.metaTable;
 	}
 

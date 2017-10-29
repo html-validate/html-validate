@@ -1,9 +1,9 @@
 @ngdoc content
 @module usage
-@name Usage
+@name Getting started
 @description
 
-# Usage
+# Gettings started
 
 HTML-validate is an offline HTML5 validator.
 
@@ -51,7 +51,7 @@ Each package and file must export a valid configuration object.
   "rules": {
     "some-rules": "severity",
 	"other-rule": ["severity", {"option": true}]
-  ],
+  },
 }
 ```
 
@@ -65,3 +65,29 @@ Some options takes optional parameters when using the form `["severity",
 OPTIONS]`.
 
 See [rules](/rules) for a list of all available rules and options.
+
+### `elements`
+
+For proper validation some metadata for each element is required, detailing in
+which context it can be used, allowed/disallowed attributes, etc. If `elements`
+is not specified it defaults to `["html5"]` which is a bundled collection for
+all HTML5 elements.
+
+```js
+{
+  "elements": [
+    "html5",
+	"my-npm-package",
+	"./file"
+  ],
+}
+```
+
+Each entry will try to load metadata from (search in following order):
+
+1. Named bundled metadata.
+2. NPM package with the same name.
+3. A local file, json or js. Path is relative to the configuration file.
+
+See [elements metadata](/usage/elements.html) for details about writing your own
+metadata.

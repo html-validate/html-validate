@@ -1,0 +1,6 @@
+{
+  "elements": [
+    "html5",
+    "./elements.json"
+  ]
+}
