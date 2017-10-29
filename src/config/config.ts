@@ -1,4 +1,6 @@
 import { MetaTable } from '../meta';
+import { ConfigData } from './config-data';
+
 const path = require('path');
 const glob = require('glob');
 
@@ -27,11 +29,6 @@ function parseSeverity(value: string | number){
 	} else {
 		return parseSeverityLut.indexOf(value.toLowerCase());
 	}
-}
-
-interface ConfigData {
-	extends: Array<string>;
-	rules: any;
 }
 
 export class Config {
