@@ -22,7 +22,9 @@ class HtmlValidate {
 	 * @return {object} - Report output.
 	 */
 	string(str: string): Report {
-		return this.parse({data: str, filename: 'inline'});
+		const source = {data: str, filename: 'inline'};
+		const config = this.getConfigFor(source);
+		return this.parse(source, config);
 	}
 
 	/**
@@ -34,16 +36,17 @@ class HtmlValidate {
 	file(filename: string, mode?: string): Report {
 		const text = fs.readFileSync(filename, {encoding: 'utf8'});
 		const source = {data: text, filename};
+		const config = this.getConfigFor(source);
 		switch (mode){
 		case 'lint':
 		case undefined:
-			return this.parse(source);
+			return this.parse(source, config);
 		case 'dump-events':
-			return this.dumpEvents(source);
+			return this.dumpEvents(source, config);
 		case 'dump-tokens':
 			return this.dumpTokens(source);
 		case 'dump-tree':
-			return this.dumpTree(source);
+			return this.dumpTree(source, config);
 		default:
 			throw new Error(`Unknown mode "${mode}"`);
 		}
@@ -57,11 +60,10 @@ class HtmlValidate {
 	 * @param src.filename {string} - Filename of source for presentation in report.
 	 * @return {object} - Report output.
 	 */
-	private parse(src: Source): Report {
+	private parse(src: Source, config: Config): Report {
 		const report = new Reporter();
-		const config = this.getConfigFor(src);
 		const rules = config.getRules();
-		const parser = new Parser(this.config);
+		const parser = new Parser(config);
 
 		for (const name in rules){
 			const data = rules[name];
@@ -89,12 +91,13 @@ class HtmlValidate {
 		return report.save();
 	}
 
-	public getParser(): Parser {
-		return new Parser(this.config);
+	public getParserFor(source: Source){
+		const config = this.getConfigFor(source);
+		return new Parser(config);
 	}
 
-	private dumpEvents(source: Source): Report {
-		const parser = this.getParser();
+	private dumpEvents(source: Source, config: Config): Report {
+		const parser = new Parser(config);
 		const filtered = ['parent', 'children'];
 
 		parser.on('*', (event, data) => {
@@ -126,8 +129,8 @@ class HtmlValidate {
 		};
 	}
 
-	private dumpTree(source: Source): Report {
-		const parser = this.getParser();
+	private dumpTree(source: Source, config: Config): Report {
+		const parser = new Parser(config);
 		const dom = parser.parseHtml(source);
 
 		function decoration(node: DOMNode){
