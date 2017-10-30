@@ -13,12 +13,12 @@ describe('rule deprecated', function() {
 	});
 
 	it('should not report when regular element is used', function() {
-		const report = htmlvalidate.string('<p></p>');
+		const report = htmlvalidate.validateString('<p></p>');
 		expect(report).to.be.valid;
 	});
 
 	it('should report error when deprecated element is used', function() {
-		const report = htmlvalidate.string('<marquee>foobar</marquee>');
+		const report = htmlvalidate.validateString('<marquee>foobar</marquee>');
 		expect(report).to.be.invalid;
 		expect(report).to.have.error('deprecated', '<marquee> is deprecated');
 	});

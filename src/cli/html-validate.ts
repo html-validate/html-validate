@@ -105,7 +105,7 @@ const files = argv._.reduce((files: string[], pattern: string) => {
 	return files.concat(glob.sync(pattern));
 }, []);
 const unique = [... new Set(files)];
-const results = unique.map((filename: string) => htmlvalidate.file(filename, mode));
+const results = unique.map((filename: string) => htmlvalidate.validateFile(filename, mode));
 const merged = Reporter.merge(results);
 
 formatters.forEach((formatter: any) => formatter(merged.results));

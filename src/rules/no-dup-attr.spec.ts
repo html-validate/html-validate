@@ -13,18 +13,18 @@ describe('rule no-dup-attr', function() {
 	});
 
 	it('should not report when no attribute is duplicated', function() {
-		const report = htmlvalidate.string('<p foo="bar"></p>');
+		const report = htmlvalidate.validateString('<p foo="bar"></p>');
 		expect(report).to.be.valid;
 	});
 
 	it('should report when attribute is duplicated', function() {
-		const report = htmlvalidate.string('<p foo="bar" foo="baz"></p></p>');
+		const report = htmlvalidate.validateString('<p foo="bar" foo="baz"></p></p>');
 		expect(report).to.be.invalid;
 		expect(report).to.have.error('no-dup-attr', 'Attribute "foo" duplicated');
 	});
 
 	it('should report when attribute is duplicated case insensitive', function() {
-		const report = htmlvalidate.string('<p foo="bar" FOO="baz"></p></p>');
+		const report = htmlvalidate.validateString('<p foo="bar" FOO="baz"></p></p>');
 		expect(report).to.be.invalid;
 		expect(report).to.have.error('no-dup-attr', 'Attribute "foo" duplicated');
 	});

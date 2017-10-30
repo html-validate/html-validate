@@ -52,7 +52,7 @@ describe('HTML elements', function(){
 
 	function allow(markup: string, comment: string){
 		it(`should allow ${comment}`, function(){
-			const report = htmlvalidate.string(markup);
+			const report = htmlvalidate.validateString(markup);
 			expect(report.valid, markup).to.be.true;
 		});
 	}
@@ -63,7 +63,7 @@ describe('HTML elements', function(){
 		const inner = getElementMarkup(child, variant);
 		it(`should allow ${pretty} as content`, function(){
 			const markup = `<${tagName}>${inner}</${tagName}>`;
-			const report = htmlvalidate.string(markup);
+			const report = htmlvalidate.validateString(markup);
 			expect(report.valid, markup).to.be.true;
 		});
 	}
@@ -73,14 +73,14 @@ describe('HTML elements', function(){
 		const inner = getElementMarkup(tagName, variant);
 		it(`should allow <${outer}> as parent`, function(){
 			const markup = `<${outer}>${inner}</${outer}>`;
-			const report = htmlvalidate.string(markup);
+			const report = htmlvalidate.validateString(markup);
 			expect(report.valid, markup).to.be.true;
 		});
 	}
 
 	function disallow(markup: string, comment: string){
 		it(`should not allow ${comment}`, function(){
-			const report = htmlvalidate.string(markup);
+			const report = htmlvalidate.validateString(markup);
 			expect(report.valid, markup).to.be.false;
 		});
 	}
@@ -90,7 +90,7 @@ describe('HTML elements', function(){
 		const pretty = category[0] === '@' ? category : `<${category}>`;
 		it(`should disallow ${pretty} as content`, function(){
 			const markup = `<${tagName}><${child}>foo</${child}></${tagName}>`;
-			const report = htmlvalidate.string(markup);
+			const report = htmlvalidate.validateString(markup);
 			expect(report.valid, markup).to.be.false;
 		});
 	}
@@ -100,7 +100,7 @@ describe('HTML elements', function(){
 		const pretty = category[0] === '@' ? category : `<${category}>`;
 		it(`should disallow ${pretty} as descendant`, function(){
 			const markup = `<${tagName}><span><${child}>foo</${child}></span></${tagName}>`;
-			const report = htmlvalidate.string(markup);
+			const report = htmlvalidate.validateString(markup);
 			expect(report.valid, markup).to.be.false;
 		});
 	}
@@ -114,14 +114,14 @@ describe('HTML elements', function(){
 		const inner = getElementMarkup(tagName, variant);
 		it(`should disallow <${outer}> as parent`, function(){
 			const markup = `<${outer}>${inner}</${outer}>`;
-			const report = htmlvalidate.string(markup);
+			const report = htmlvalidate.validateString(markup);
 			expect(report.valid, markup).to.be.false;
 		});
 	}
 
 	function deprecated(tagName: string){
 		it('should report as deprecated', function(){
-			const report = htmlvalidate.string(`<${tagName}></${tagName}>`);
+			const report = htmlvalidate.validateString(`<${tagName}></${tagName}>`);
 			expect(report.valid).to.be.false;
 			expect(report.results[0].messages[0].ruleId).to.equal('deprecated');
 		});
@@ -130,7 +130,7 @@ describe('HTML elements', function(){
 	function omitEnd(tagName: string){
 		it('should allow omitted end tag', function(){
 			const markup = `<${tagName}/>`;
-			const report = htmlvalidate.string(markup);
+			const report = htmlvalidate.validateString(markup);
 			expect(report.valid, markup).to.be.true;
 		});
 	}

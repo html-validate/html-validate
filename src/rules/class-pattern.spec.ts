@@ -13,12 +13,12 @@ describe('rule class-pattern', function(){
 	});
 
 	it('should not report error when class follows pattern', function(){
-		const report = htmlvalidate.string('<p class="foo-bar"></p>');
+		const report = htmlvalidate.validateString('<p class="foo-bar"></p>');
 		expect(report).to.be.valid;
 	});
 
 	it('should report error when class does not follow pattern', function(){
-		const report = htmlvalidate.string('<p class="foo-bar fooBar spam"></p>');
+		const report = htmlvalidate.validateString('<p class="foo-bar fooBar spam"></p>');
 		expect(report).to.be.invalid;
 		expect(report).to.have.error('class-pattern', /Class "fooBar" does not match required pattern ".*"/);
 	});

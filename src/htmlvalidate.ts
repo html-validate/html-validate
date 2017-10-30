@@ -21,10 +21,10 @@ class HtmlValidate {
 	 * @param str {string} - Text to parse.
 	 * @return {object} - Report output.
 	 */
-	string(str: string): Report {
+	public validateString(str: string): Report {
 		const source = {data: str, filename: 'inline'};
 		const config = this.getConfigFor(source);
-		return this.parse(source, config);
+		return this.process(source, config, 'lint');
 	}
 
 	/**
@@ -33,10 +33,14 @@ class HtmlValidate {
 	 * @param filename {string} - Filename to read and parse.
 	 * @return {object} - Report output.
 	 */
-	file(filename: string, mode?: string): Report {
+	public validateFile(filename: string, mode?: string): Report {
 		const text = fs.readFileSync(filename, {encoding: 'utf8'});
 		const source = {data: text, filename};
 		const config = this.getConfigFor(source);
+		return this.process(source, config, mode);
+	}
+
+	private process(source: Source, config: Config, mode?: string){
 		switch (mode){
 		case 'lint':
 		case undefined:
