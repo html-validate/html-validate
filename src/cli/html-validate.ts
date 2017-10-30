@@ -1,5 +1,5 @@
 import HtmlValidate from '../htmlvalidate';
-import { Result } from '../reporter'; // eslint-disable-line no-unused-vars
+import { Result, Reporter } from '../reporter';
 
 const fs = require('fs');
 const minimist = require('minimist');
@@ -101,18 +101,11 @@ const config = getGlobalConfig(argv.rule);
 const formatters = getFormatters(argv.formatter);
 const htmlvalidate = new HtmlValidate(config);
 
-let results: Result[] = [];
-let valid = true;
+const files = argv._.reduce((files: string[], pattern: string) => {
+	return files.concat(glob.sync(pattern));
+}, []);
+const results = files.map((filename: string) => htmlvalidate.file(filename, mode));
+const merged = Reporter.merge(results);
 
-argv._.forEach((pattern: string) => {
-	glob.sync(pattern).forEach((filename: string) => {
-		const report = htmlvalidate.file(filename, mode);
-
-		/* aggregate results */
-		valid = valid && report.valid;
-		results = results.concat(report.results);
-	});
-});
-
-formatters.forEach((formatter: any) => formatter(results));
-process.exit(valid ? 0 : 1);
+formatters.forEach((formatter: any) => formatter(merged.results));
+process.exit(merged.valid ? 0 : 1);
