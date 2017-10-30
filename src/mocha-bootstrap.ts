@@ -1,6 +1,10 @@
 import { Report } from './reporter';
+import { Token, TokenType } from 'lexer';
 
 const chai = require('chai');
+
+chai.use(require('chai-subset'));
+
 chai.use(function(chai: any, utils: any){
 	function expectValid(){
 		const report = utils.flag(this, 'object') as Report;
@@ -28,7 +32,16 @@ chai.use(function(chai: any, utils: any){
 		}
 	}
 
+	function expectToken(expected: any, expectedMessage: string){
+		const actual = utils.flag(this, 'object').value as Token;
+		if (expected.type){
+			new chai.Assertion(TokenType[actual.type]).to.be.equal(TokenType[expected.type]);
+		}
+		new chai.Assertion(actual).to.containSubset(expected);
+	}
+
 	chai.Assertion.addProperty('valid', expectValid);
 	chai.Assertion.addProperty('invalid', expectInvalid);
 	chai.Assertion.addMethod('error', expectError);
+	chai.Assertion.addMethod('token', expectToken);
 });
