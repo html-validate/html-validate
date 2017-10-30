@@ -31,7 +31,7 @@ const MATCH_ATTR_DOUBLE = /^="([^"]*?)(")/;
 const MATCH_ATTR_UNQUOTED = /^=([a-zA-Z0-9]+)/;
 const MATCH_CDATA_BEGIN = /^<!\[CDATA\[/;
 const MATCH_CDATA_END = /^[^]*?]]>/;
-const MATCH_SCRIPT_DATA = /^[^]*(?=<\/script)/;
+const MATCH_SCRIPT_DATA = /^[^]*?(?=<\/script)/;
 const MATCH_SCRIPT_END = /^<(\/)(script)/;
 const MATCH_COMMENT = /^<!--([^]*?)-->/;
 

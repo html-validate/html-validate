@@ -264,6 +264,26 @@ describe('lexer', function(){
 			expect(token.next().done).to.be.true;
 		});
 
+		it('multiple script tags', function(){
+			const token = lexer.tokenize({data: '<script>foo</script>bar<script>baz</script>', filename: 'inline'});
+			/* first script tag */
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_OPEN});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: TokenType.SCRIPT, data: ['foo']});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_OPEN});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_CLOSE});
+			/* text inbetween */
+			expect(token.next().value).to.containSubset({type: TokenType.TEXT, data: ['bar']});
+			/* second script tag */
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_OPEN});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: TokenType.SCRIPT, data: ['baz']});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_OPEN});
+			expect(token.next().value).to.containSubset({type: TokenType.TAG_CLOSE});
+			expect(token.next().value).to.containSubset({type: TokenType.EOF});
+			expect(token.next().done).to.be.true;
+		});
+
 		it('comment', function(){
 			const token = lexer.tokenize({data: '<!-- comment -->', filename: 'inline'});
 			expect(token.next().value).to.containSubset({type: TokenType.COMMENT, data: ['<!-- comment -->', ' comment ']});

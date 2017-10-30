@@ -7,6 +7,10 @@
 - element metadata can no be sourced from multiple sources and be configured
   using the `elements` configuration property.
 
+### Bugfixes
+
+- fixed script tag incorrectly consuming markup due to greedy matching.
+
 ## 0.6.0 (2017-10-29)
 
 ### Features
