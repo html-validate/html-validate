@@ -4,6 +4,7 @@
 
 ### Features
 
+- better result merging, files will no longer be duplicated.
 - element metadata can no be sourced from multiple sources and be configured
   using the `elements` configuration property.
 

@@ -18,7 +18,7 @@ export interface Result {
 
 export interface Report {
 	valid: boolean;
-	results: Array<Result>;
+	results: Result[];
 }
 
 export class Reporter {
@@ -26,6 +26,25 @@ export class Reporter {
 
 	constructor(){
 		this.result = {};
+	}
+
+	/**
+	 * Merge two or more reports into a single one.
+	 */
+	public static merge(reports: Report[]): Report {
+		const valid = reports.every(report => report.valid);
+		const merged: { [key: string]: Result } = {};
+		reports.forEach((report: Report) => {
+			report.results.forEach((result: Result) => {
+				const key = result.filePath;
+				if (merged.hasOwnProperty(key)){
+					merged[key].messages = [].concat(merged[key].messages, result.messages);
+				} else {
+					merged[key] = Object.assign({}, result);
+				}
+			});
+		});
+		return {valid, results: Object.keys(merged).map(key => merged[key])};
 	}
 
 	add(node: DOMNode, rule: Rule, message: string, severity: number, context: Context){
