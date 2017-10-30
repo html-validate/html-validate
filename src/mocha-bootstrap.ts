@@ -32,7 +32,7 @@ chai.use(function(chai: any, utils: any){
 		}
 	}
 
-	function expectToken(expected: any, expectedMessage: string){
+	function expectToken(expected: any){
 		const actual = utils.flag(this, 'object').value as Token;
 		if (expected.type){
 			new chai.Assertion(TokenType[actual.type]).to.be.equal(TokenType[expected.type]);
