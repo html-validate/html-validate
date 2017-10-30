@@ -1,8 +1,8 @@
 import HtmlValidate from '../htmlvalidate';
 import { Result, Reporter } from '../reporter';
+import * as minimist from 'minimist';
 
 const fs = require('fs');
-const minimist = require('minimist');
 const glob = require('glob');
 
 function getMode(argv: { [key: string]: any }){
@@ -55,7 +55,7 @@ function getFormatters(formatters: string): ((results: Result[]) => void)[] {
 	});
 }
 
-const argv = minimist(process.argv.slice(2), {
+const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
 	string: ['f', 'formatter', 'rule'],
 	boolean: ['dump-events', 'dump-tokens', 'dump-tree'],
 	alias: {
