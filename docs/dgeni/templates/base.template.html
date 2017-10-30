@@ -6,6 +6,16 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>HTML-validate{% if doc.name %} - {$ doc.name $}{% endif %}</title>
 		<link rel="stylesheet" href="{$ '/assets/docs.min.css' | assetHash $}">
+		{% if tracking %}
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id={$ tracking $}"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', '{$ tracking $}');
+		</script>
+		{% endif %}
 	</head>
 	<body>
 		<header>
@@ -53,16 +63,5 @@
 		</main>
 
 		<script src="{$ '/assets/docs.js' | assetHash $}"></script>
-
-		{% if tracking %}
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id={$ tracking $}"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
-			gtag('config', '{$ tracking $}');
-		</script>
-		{% endif %}
 	</body>
 </html>
