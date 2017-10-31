@@ -9,10 +9,11 @@ import { Rule, RuleEventCallback, RuleParserProxy, RuleReport } from './rule';
 const fs = require('fs');
 
 class HtmlValidate {
-	private config: Config;
+	private globalConfig: Config;
 
 	constructor(options?: any){
-		this.config = Config.fromObject(options || {});
+		const defaults = Config.defaultConfig();
+		this.globalConfig = defaults.merge(Config.fromObject(options || {}));
 	}
 
 	/**
@@ -175,7 +176,7 @@ class HtmlValidate {
 	getConfigFor(filename: string): Config {
 		const loader = new ConfigLoader();
 		const config = loader.fromTarget(filename);
-		return this.config.merge(config);
+		return this.globalConfig.merge(config);
 	}
 
 	loadRule(name: string, data: any, parser: Parser, report: Reporter){
