@@ -8,6 +8,10 @@
 - element metadata can no be sourced from multiple sources and be configured
   using the `elements` configuration property.
 
+### Improvements
+
+- better configuration merging
+
 ### Bugfixes
 
 - fixed script tag incorrectly consuming markup due to greedy matching.
