@@ -23,7 +23,7 @@ class HtmlValidate {
 	 */
 	public validateString(str: string): Report {
 		const source = {data: str, filename: 'inline'};
-		const config = this.getConfigFor(source);
+		const config = this.getConfigFor(source.filename);
 		return this.process(source, config, 'lint');
 	}
 
@@ -36,7 +36,7 @@ class HtmlValidate {
 	public validateFile(filename: string, mode?: string): Report {
 		const text = fs.readFileSync(filename, {encoding: 'utf8'});
 		const source = {data: text, filename};
-		const config = this.getConfigFor(source);
+		const config = this.getConfigFor(source.filename);
 		return this.process(source, config, mode);
 	}
 
@@ -96,7 +96,7 @@ class HtmlValidate {
 	}
 
 	public getParserFor(source: Source){
-		const config = this.getConfigFor(source);
+		const config = this.getConfigFor(source.filename);
 		return new Parser(config);
 	}
 
@@ -169,9 +169,12 @@ class HtmlValidate {
 		};
 	}
 
-	getConfigFor(src: Source): Config {
+	/**
+	 * Get configuration for given filename.
+	 */
+	getConfigFor(filename: string): Config {
 		const loader = new ConfigLoader();
-		const config = loader.fromTarget(src.filename);
+		const config = loader.fromTarget(filename);
 		return this.config.merge(config);
 	}
 
