@@ -15,17 +15,17 @@ describe('rule img-req-alt', function(){
 		});
 
 		it('should not report when img has alt attribute', function(){
-			const report = htmlvalidate.string('<img alt="foobar">');
+			const report = htmlvalidate.validateString('<img alt="foobar">');
 			expect(report).to.be.valid;
 		});
 
 		it('should not report when img has empty alt attribute', function(){
-			const report = htmlvalidate.string('<img alt="">');
+			const report = htmlvalidate.validateString('<img alt="">');
 			expect(report).to.be.valid;
 		});
 
 		it('should report error when img is missing alt attribute', function(){
-			const report = htmlvalidate.string('<img>');
+			const report = htmlvalidate.validateString('<img>');
 			expect(report).to.be.invalid;
 			expect(report).to.have.error('img-req-alt', '<img> is missing required alt attribute');
 		});
@@ -41,18 +41,18 @@ describe('rule img-req-alt', function(){
 		});
 
 		it('should not report when img has alt attribute', function(){
-			const report = htmlvalidate.string('<img alt="foobar">');
+			const report = htmlvalidate.validateString('<img alt="foobar">');
 			expect(report).to.be.valid;
 		});
 
 		it('should report when img has empty alt attribute', function(){
-			const report = htmlvalidate.string('<img alt="">');
+			const report = htmlvalidate.validateString('<img alt="">');
 			expect(report).to.be.invalid;
 			expect(report).to.have.error('img-req-alt', '<img> is missing required alt attribute');
 		});
 
 		it('should report error when img is missing alt attribute', function(){
-			const report = htmlvalidate.string('<img>');
+			const report = htmlvalidate.validateString('<img>');
 			expect(report).to.be.invalid;
 			expect(report).to.have.error('img-req-alt', '<img> is missing required alt attribute');
 		});
@@ -68,12 +68,12 @@ describe('rule img-req-alt', function(){
 		});
 
 		it('should not report when img has alias attribute set', function(){
-			const report = htmlvalidate.string('<img translate-attr="...">');
+			const report = htmlvalidate.validateString('<img translate-attr="...">');
 			expect(report).to.be.valid;
 		});
 
 		it('should report error when img is missing both alt and aliases', function(){
-			const report = htmlvalidate.string('<img>');
+			const report = htmlvalidate.validateString('<img>');
 			expect(report).to.be.invalid;
 			expect(report).to.have.error('img-req-alt', '<img> is missing required alt attribute');
 		});
@@ -89,7 +89,7 @@ describe('rule img-req-alt', function(){
 		});
 
 		it('should not report when img has alias attribute set', function(){
-			const report = htmlvalidate.string('<img translate-attr="...">');
+			const report = htmlvalidate.validateString('<img translate-attr="...">');
 			expect(report).to.be.valid;
 		});
 

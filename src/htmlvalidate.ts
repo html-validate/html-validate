@@ -9,10 +9,11 @@ import { Rule, RuleEventCallback, RuleParserProxy, RuleReport } from './rule';
 const fs = require('fs');
 
 class HtmlValidate {
-	private config: Config;
+	private globalConfig: Config;
 
 	constructor(options?: any){
-		this.config = Config.fromObject(options || {});
+		const defaults = Config.defaultConfig();
+		this.globalConfig = defaults.merge(Config.fromObject(options || {}));
 	}
 
 	/**
@@ -21,8 +22,10 @@ class HtmlValidate {
 	 * @param str {string} - Text to parse.
 	 * @return {object} - Report output.
 	 */
-	string(str: string): Report {
-		return this.parse({data: str, filename: 'inline'});
+	public validateString(str: string): Report {
+		const source = {data: str, filename: 'inline'};
+		const config = this.getConfigFor(source.filename);
+		return this.process(source, config, 'lint');
 	}
 
 	/**
@@ -31,19 +34,24 @@ class HtmlValidate {
 	 * @param filename {string} - Filename to read and parse.
 	 * @return {object} - Report output.
 	 */
-	file(filename: string, mode?: string): Report {
+	public validateFile(filename: string, mode?: string): Report {
 		const text = fs.readFileSync(filename, {encoding: 'utf8'});
 		const source = {data: text, filename};
+		const config = this.getConfigFor(source.filename);
+		return this.process(source, config, mode);
+	}
+
+	private process(source: Source, config: Config, mode?: string){
 		switch (mode){
 		case 'lint':
 		case undefined:
-			return this.parse(source);
+			return this.parse(source, config);
 		case 'dump-events':
-			return this.dumpEvents(source);
+			return this.dumpEvents(source, config);
 		case 'dump-tokens':
 			return this.dumpTokens(source);
 		case 'dump-tree':
-			return this.dumpTree(source);
+			return this.dumpTree(source, config);
 		default:
 			throw new Error(`Unknown mode "${mode}"`);
 		}
@@ -57,11 +65,10 @@ class HtmlValidate {
 	 * @param src.filename {string} - Filename of source for presentation in report.
 	 * @return {object} - Report output.
 	 */
-	private parse(src: Source): Report {
+	private parse(src: Source, config: Config): Report {
 		const report = new Reporter();
-		const config = this.getConfigFor(src);
 		const rules = config.getRules();
-		const parser = new Parser(this.config);
+		const parser = new Parser(config);
 
 		for (const name in rules){
 			const data = rules[name];
@@ -89,12 +96,13 @@ class HtmlValidate {
 		return report.save();
 	}
 
-	public getParser(): Parser {
-		return new Parser(this.config);
+	public getParserFor(source: Source){
+		const config = this.getConfigFor(source.filename);
+		return new Parser(config);
 	}
 
-	private dumpEvents(source: Source): Report {
-		const parser = this.getParser();
+	private dumpEvents(source: Source, config: Config): Report {
+		const parser = new Parser(config);
 		const filtered = ['parent', 'children'];
 
 		parser.on('*', (event, data) => {
@@ -126,8 +134,8 @@ class HtmlValidate {
 		};
 	}
 
-	private dumpTree(source: Source): Report {
-		const parser = this.getParser();
+	private dumpTree(source: Source, config: Config): Report {
+		const parser = new Parser(config);
 		const dom = parser.parseHtml(source);
 
 		function decoration(node: DOMNode){
@@ -162,10 +170,13 @@ class HtmlValidate {
 		};
 	}
 
-	getConfigFor(src: Source): Config {
+	/**
+	 * Get configuration for given filename.
+	 */
+	getConfigFor(filename: string): Config {
 		const loader = new ConfigLoader();
-		const config = loader.fromTarget(src.filename);
-		return this.config.merge(config);
+		const config = loader.fromTarget(filename);
+		return this.globalConfig.merge(config);
 	}
 
 	loadRule(name: string, data: any, parser: Parser, report: Reporter){

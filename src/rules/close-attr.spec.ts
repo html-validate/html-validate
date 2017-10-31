@@ -13,23 +13,23 @@ describe('rule close-attr', function(){
 	});
 
 	it('should not report when close tags are correct', function(){
-		const report = htmlvalidate.string('<div></div>');
+		const report = htmlvalidate.validateString('<div></div>');
 		expect(report).to.be.valid;
 	});
 
 	it('should not report errors on self-closing tags', function(){
-		const report = htmlvalidate.string('<input required/>');
+		const report = htmlvalidate.validateString('<input required/>');
 		expect(report).to.be.valid;
 	});
 
 	it('should not report errors on void tags', function(){
-		const report = htmlvalidate.string('<input required>');
+		const report = htmlvalidate.validateString('<input required>');
 		expect(report).to.be.valid;
 	});
 
 	it('should report when close tags contains attributes', function(){
 		const html = "<p></p foo=\"bar\"><p></p foo='bar'><p></p foo>";
-		const report = htmlvalidate.string(html);
+		const report = htmlvalidate.validateString(html);
 		expect(report).to.be.invalid;
 		expect(report.results[0].messages, "report should contain 3 errors").to.have.lengthOf(3);
 		expect(report.results[0].messages[0].ruleId, "reported error should be close-attr").to.equal('close-attr');

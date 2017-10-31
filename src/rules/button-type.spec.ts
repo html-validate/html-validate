@@ -13,28 +13,28 @@ describe('rule button-type', function(){
 	});
 
 	it('should not report when button has type="submit"', function(){
-		const report = htmlvalidate.string('<button type="submit"></button>');
+		const report = htmlvalidate.validateString('<button type="submit"></button>');
 		expect(report).to.be.valid;
 	});
 
 	it('should not report when button has type="button"', function(){
-		const report = htmlvalidate.string('<button type="button"></button>');
+		const report = htmlvalidate.validateString('<button type="button"></button>');
 		expect(report).to.be.valid;
 	});
 
 	it('should not report when button has type="reset"', function(){
-		const report = htmlvalidate.string('<button type="reset"></button>');
+		const report = htmlvalidate.validateString('<button type="reset"></button>');
 		expect(report).to.be.valid;
 	});
 
 	it('should report error when type attribute is missing', function(){
-		const report = htmlvalidate.string('<button></button>');
+		const report = htmlvalidate.validateString('<button></button>');
 		expect(report).to.be.invalid;
 		expect(report).to.have.error('button-type', 'Button is missing type attribute');
 	});
 
 	it('should report error when type attribute is invalid', function(){
-		const report = htmlvalidate.string('<button type="foo"></button>');
+		const report = htmlvalidate.validateString('<button type="foo"></button>');
 		expect(report).to.be.invalid;
 		expect(report).to.have.error('button-type', 'Button has invalid type "foo"');
 	});

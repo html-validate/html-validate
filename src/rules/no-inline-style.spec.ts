@@ -13,7 +13,7 @@ describe('rule no-inline-style', function(){
 	});
 
 	it('should report when style attribute is used', function(){
-		const report = htmlvalidate.string('<p style=""></p>');
+		const report = htmlvalidate.validateString('<p style=""></p>');
 		expect(report).to.be.invalid;
 		expect(report).to.have.error('no-inline-style', 'Inline style is not allowed');
 	});

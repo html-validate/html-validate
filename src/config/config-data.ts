@@ -1,7 +1,7 @@
 type RuleSeverity = "disable" | "warn" | "error" | number;
 
 export interface ConfigData {
-	extends: string[];
+	extends?: string[];
 
 	/**
 	 * List of sources for element metadata.
@@ -16,5 +16,5 @@ export interface ConfigData {
 	 */
 	elements?: string[];
 
-	rules: { [key: string]: RuleSeverity | [RuleSeverity, any] };
+	rules?: { [key: string]: RuleSeverity | [RuleSeverity, any] };
 }

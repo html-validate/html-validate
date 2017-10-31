@@ -13,7 +13,7 @@ describe('missing rule', function(){
 	});
 
 	it('should report error when rule is not defined', function(){
-		const report = htmlvalidate.string('<p></p>');
+		const report = htmlvalidate.validateString('<p></p>');
 		expect(report).to.be.invalid;
 		expect(report).to.have.error('foo', 'Definition for rule \'foo\' was not found');
 	});

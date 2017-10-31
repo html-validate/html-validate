@@ -3,19 +3,9 @@ import { ConfigData } from './config-data';
 
 const fs = require('fs');
 const path = require('path');
+const deepmerge = require('deepmerge');
 
 const recommended = require('./recommended');
-
-function deepMerge(dst: any, src: any){
-	for (const key of Object.keys(src)){
-		if (dst.hasOwnProperty(key) && typeof dst[key] === 'object' && typeof src[key] === 'object'){
-			deepMerge(dst[key], src[key]);
-		} else {
-			dst[key] = src[key];
-		}
-	}
-	return dst;
-}
 
 const parseSeverityLut = [
 	'disable',
@@ -65,8 +55,18 @@ export class Config {
 		return new Config(json);
 	}
 
+	static defaultConfig(): Config {
+		return new Config({
+			extends: [],
+			rules: {},
+		});
+	}
+
 	constructor(options?: any){
-		this.loadDefaults();
+		this.config = {
+			extends: [],
+			rules: {},
+		};
 		this.mergeInternal(options || {});
 		this.metaTable = null;
 
@@ -86,13 +86,6 @@ export class Config {
 	 */
 	public merge(rhs: Config){
 		return new Config(this.mergeInternal(rhs.config));
-	}
-
-	private loadDefaults(){
-		this.config = {
-			extends: [],
-			rules: {},
-		};
 	}
 
 	getMetaTable(){
@@ -129,8 +122,8 @@ export class Config {
 		return src;
 	}
 
-	private mergeInternal(config: Object): ConfigData {
-		deepMerge(this.config, config);
+	private mergeInternal(config: ConfigData): ConfigData {
+		this.config = deepmerge(this.config, config);
 		return this.config;
 	}
 

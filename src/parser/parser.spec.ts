@@ -281,17 +281,17 @@ describe('parser', function(){
 
 		it('multiline', function(){
 			this.timeout(10000); /* seems to fail a lot on CI runner, need to figure out why */
-			const report = htmlvalidate.file('./test-files/parser/multiline.html');
+			const report = htmlvalidate.validateFile('./test-files/parser/multiline.html');
 			expect(report.valid, "linting should report success").to.be.true;
 		});
 
 		it('xi:include', function(){
-			const report = htmlvalidate.file('./test-files/parser/xi-include.html');
+			const report = htmlvalidate.validateFile('./test-files/parser/xi-include.html');
 			expect(report.valid, "linting should report success").to.be.true;
 		});
 
 		it('cdata', function(){
-			const report = htmlvalidate.file('./test-files/parser/cdata.html');
+			const report = htmlvalidate.validateFile('./test-files/parser/cdata.html');
 			expect(report.valid, "linting should report success").to.be.true;
 		});
 

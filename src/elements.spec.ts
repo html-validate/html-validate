@@ -52,7 +52,7 @@ describe('HTML elements', function(){
 
 	function allow(markup: string, comment: string){
 		it(`should allow ${comment}`, function(){
-			const report = htmlvalidate.string(markup);
+			const report = htmlvalidate.validateString(markup);
 			expect(report.valid, markup).to.be.true;
 		});
 	}
@@ -63,7 +63,7 @@ describe('HTML elements', function(){
 		const inner = getElementMarkup(child, variant);
 		it(`should allow ${pretty} as content`, function(){
 			const markup = `<${tagName}>${inner}</${tagName}>`;
-			const report = htmlvalidate.string(markup);
+			const report = htmlvalidate.validateString(markup);
 			expect(report.valid, markup).to.be.true;
 		});
 	}
@@ -73,14 +73,14 @@ describe('HTML elements', function(){
 		const inner = getElementMarkup(tagName, variant);
 		it(`should allow <${outer}> as parent`, function(){
 			const markup = `<${outer}>${inner}</${outer}>`;
-			const report = htmlvalidate.string(markup);
+			const report = htmlvalidate.validateString(markup);
 			expect(report.valid, markup).to.be.true;
 		});
 	}
 
 	function disallow(markup: string, comment: string){
 		it(`should not allow ${comment}`, function(){
-			const report = htmlvalidate.string(markup);
+			const report = htmlvalidate.validateString(markup);
 			expect(report.valid, markup).to.be.false;
 		});
 	}
@@ -90,7 +90,7 @@ describe('HTML elements', function(){
 		const pretty = category[0] === '@' ? category : `<${category}>`;
 		it(`should disallow ${pretty} as content`, function(){
 			const markup = `<${tagName}><${child}>foo</${child}></${tagName}>`;
-			const report = htmlvalidate.string(markup);
+			const report = htmlvalidate.validateString(markup);
 			expect(report.valid, markup).to.be.false;
 		});
 	}
@@ -100,7 +100,7 @@ describe('HTML elements', function(){
 		const pretty = category[0] === '@' ? category : `<${category}>`;
 		it(`should disallow ${pretty} as descendant`, function(){
 			const markup = `<${tagName}><span><${child}>foo</${child}></span></${tagName}>`;
-			const report = htmlvalidate.string(markup);
+			const report = htmlvalidate.validateString(markup);
 			expect(report.valid, markup).to.be.false;
 		});
 	}
@@ -114,14 +114,14 @@ describe('HTML elements', function(){
 		const inner = getElementMarkup(tagName, variant);
 		it(`should disallow <${outer}> as parent`, function(){
 			const markup = `<${outer}>${inner}</${outer}>`;
-			const report = htmlvalidate.string(markup);
+			const report = htmlvalidate.validateString(markup);
 			expect(report.valid, markup).to.be.false;
 		});
 	}
 
 	function deprecated(tagName: string){
 		it('should report as deprecated', function(){
-			const report = htmlvalidate.string(`<${tagName}></${tagName}>`);
+			const report = htmlvalidate.validateString(`<${tagName}></${tagName}>`);
 			expect(report.valid).to.be.false;
 			expect(report.results[0].messages[0].ruleId).to.equal('deprecated');
 		});
@@ -130,7 +130,7 @@ describe('HTML elements', function(){
 	function omitEnd(tagName: string){
 		it('should allow omitted end tag', function(){
 			const markup = `<${tagName}/>`;
-			const report = htmlvalidate.string(markup);
+			const report = htmlvalidate.validateString(markup);
 			expect(report.valid, markup).to.be.true;
 		});
 	}
@@ -200,8 +200,9 @@ describe('HTML elements', function(){
 		disallow(`<audio><div></div><track></track></audio>`, '@flow before track');
 
 		it('should be interactive only if "controls" attribute is set', function(){
-			const parser = htmlvalidate.getParser();
-			const [foo, bar] = parser.parseHtml('<audio></audio><audio controls></audio>').root.children;
+			const source = {data: '<audio></audio><audio controls></audio>', filename: 'inline'};
+			const parser = htmlvalidate.getParserFor(source);
+			const [foo, bar] = parser.parseHtml(source).root.children;
 			expect(foo.meta.interactive).to.be.false;
 			expect(bar.meta.interactive).to.be.true;
 		});
@@ -516,8 +517,9 @@ describe('HTML elements', function(){
 		omitEnd('img');
 
 		it('should be interactive only if "usemap" attribute is set', function(){
-			const parser = htmlvalidate.getParser();
-			const [foo, bar] = parser.parseHtml('<img/><img usemap/>').root.children;
+			const source = {data: '<img/><img usemap/>', filename: 'inline'};
+			const parser = htmlvalidate.getParserFor(source);
+			const [foo, bar] = parser.parseHtml(source).root.children;
 			expect(foo.meta.interactive).to.be.false;
 			expect(bar.meta.interactive).to.be.true;
 		});
@@ -527,8 +529,9 @@ describe('HTML elements', function(){
 		omitEnd('input');
 
 		it('should be interactive only if "type" is not "hidden"', function(){
-			const parser = htmlvalidate.getParser();
-			const [foo, bar] = parser.parseHtml('<input type="hidden"/><input type="foo"/>').root.children;
+			const source = {data: '<input type="hidden"/><input type="foo"/>', filename: 'inline'};
+			const parser = htmlvalidate.getParserFor(source);
+			const [foo, bar] = parser.parseHtml(source).root.children;
 			expect(foo.meta.interactive).to.be.false;
 			expect(bar.meta.interactive).to.be.true;
 		});
@@ -651,8 +654,9 @@ describe('HTML elements', function(){
 		disallow(`<object><div></div><param></param></object>`, '@flow before param');
 
 		it('should be interactive only if "usemap" attribute is set', function(){
-			const parser = htmlvalidate.getParser();
-			const [foo, bar] = parser.parseHtml('<object></object><object usemap></object>').root.children;
+			const source = {data: '<object></object><object usemap></object>', filename: 'inline'};
+			const parser = htmlvalidate.getParserFor(source);
+			const [foo, bar] = parser.parseHtml(source).root.children;
 			expect(foo.meta.interactive).to.be.false;
 			expect(bar.meta.interactive).to.be.true;
 		});
@@ -948,8 +952,9 @@ describe('HTML elements', function(){
 		disallow(`<video><div></div><track></track></video>`, '@flow before track');
 
 		it('should be interactive only if "controls" attribute is set', function(){
-			const parser = htmlvalidate.getParser();
-			const [foo, bar] = parser.parseHtml('<video></video><video controls></video>').root.children;
+			const source = {data: '<video></video><video controls></video>', filename: 'inline'};
+			const parser = htmlvalidate.getParserFor(source);
+			const [foo, bar] = parser.parseHtml(source).root.children;
 			expect(foo.meta.interactive).to.be.false;
 			expect(bar.meta.interactive).to.be.true;
 		});

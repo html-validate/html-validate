@@ -28,6 +28,7 @@
     "postversion": "git push --follow-tags"
   },
   "dependencies": {
+    "deepmerge": "^2.0.0",
     "eslint": "^4.5.0",
     "glob": "^7.1.2",
     "minimist": "^1.2.0"
