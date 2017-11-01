@@ -4,6 +4,8 @@
 
 ### Features
 
+- better result sorting, error messages are now sorted by line and column, the
+  stage which triggered the error doesn't matter any longer.
 - better result merging, files will no longer be duplicated.
 - element metadata can no be sourced from multiple sources and be configured
   using the `elements` configuration property.

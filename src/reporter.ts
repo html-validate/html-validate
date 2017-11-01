@@ -71,7 +71,7 @@ export class Reporter {
 		return {
 			valid: Object.keys(this.result).length === 0,
 			results: Object.keys(this.result).map(filePath => {
-				const messages = this.result[filePath];
+				const messages = [].concat(this.result[filePath]).sort(messageSort);
 				return {
 					filePath,
 					messages,
@@ -81,6 +81,26 @@ export class Reporter {
 			}),
 		};
 	}
+}
+
+function messageSort(a: Message, b: Message): number {
+	if (a.line < b.line){
+		return -1;
+	}
+
+	if (a.line > b.line){
+		return 1;
+	}
+
+	if (a.column < b.column){
+		return -1;
+	}
+
+	if (a.column > b.column){
+		return 1;
+	}
+
+	return 0;
 }
 
 export default Reporter;
