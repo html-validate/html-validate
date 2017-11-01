@@ -4,10 +4,10 @@ import { DOMTokenList } from './domtokenlist';
 import { MetaTable, MetaElement } from '../meta';
 
 export enum NodeClosed {
-	Open = 0,          /* element wasn't closed */
-	EndTag = 1,        /* element closed with end tag <p>...</p> */
-	Omitted = 2,       /* void element with omitted end tag <input> */
-	Self = 3,          /* self-closed void element <input/> */
+	Open = 0,            /* element wasn't closed */
+	EndTag = 1,          /* element closed with end tag <p>...</p> */
+	VoidOmitted = 2,     /* void element with omitted end tag <input> */
+	VoidSelfClosed = 3,  /* self-closed void element <input/> */
 }
 
 export class DOMNode {
@@ -171,11 +171,11 @@ function isClosed(endToken: Token, meta: MetaElement): NodeClosed {
 	let closed = NodeClosed.Open;
 
 	if (meta && meta.void){
-		closed = NodeClosed.Omitted;
+		closed = NodeClosed.VoidOmitted;
 	}
 
 	if (endToken.data[0] === '/>'){
-		closed = NodeClosed.Self;
+		closed = NodeClosed.VoidSelfClosed;
 	}
 
 	return closed;
