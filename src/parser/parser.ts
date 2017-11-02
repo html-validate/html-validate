@@ -77,12 +77,61 @@ export class Parser {
 		return this.dom;
 	}
 
-	consumeTag(startToken: Token, tokenStream: TokenStream){
+	/**
+	 * Detect optional end tag.
+	 *
+	 * Some tags have optional end tags (e.g. <ul><li>foo<li>bar</ul> is
+	 * valid). The parser handles this by checking if the element on top of the
+	 * stack when is allowed to omit.
+	 */
+	private closeOptional(token: Token): boolean {
+		/* if the element doesn't have metadata it cannot have optional end
+		 * tags. Period. */
+		const active = this.dom.getActive();
+		if (!(active.meta && active.meta.implicitClosed)){
+			return false;
+		}
+
+		const tagName = token.data[2];
+		const open = !token.data[1];
+		const meta = (active.meta.implicitClosed || []);
+
+		if (open){
+			/* a new element is opened, check if the new element should close the
+			 * previous */
+			return meta.indexOf(tagName) >= 0;
+		} else {
+			/* if we are explicitly closing the active element, ignore implicit */
+			if (active.is(tagName)){
+				return false;
+			}
+
+			/* the parent element is closed, check if the active element would be
+			 * implicitly closed when parent is. */
+			return active.parent.is(tagName) && meta.indexOf(active.tagName) >= 0;
+		}
+	}
+
+	// eslint-disable-next-line complexity
+	private consumeTag(startToken: Token, tokenStream: TokenStream){
 		const tokens = Array.from(this.consumeUntil(tokenStream, TokenType.TAG_CLOSE));
 		const endToken = tokens.slice(-1)[0];
-		const node = DOMNode.fromTokens(startToken, endToken, this.dom.getActive(), this.metaTable);
+		const closeOptional = this.closeOptional(startToken);
+		const parent = closeOptional ? this.dom.getActive().parent : this.dom.getActive();
+		const node = DOMNode.fromTokens(startToken, endToken, parent, this.metaTable);
 		const open = !startToken.data[1];
 		const close = !open || node.closed !== NodeClosed.Open;
+
+		if (closeOptional){
+			const active = this.dom.getActive();
+			active.closed = NodeClosed.ImplicitClosed;
+			this.trigger('tag:close', {
+				target: node,
+				previous: active,
+				location: startToken.location,
+			});
+			this.dom.popActive();
+		}
 
 		if (open){
 			this.dom.pushActive(node);
