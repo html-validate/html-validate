@@ -43,14 +43,14 @@ function init(parser: RuleParserProxy, userOptions: any){
 	}
 
 	function validateActive(node: DOMNode, report: RuleReport): void {
-		const selfOrOmitted = node.closed === NodeClosed.Omitted || node.closed === NodeClosed.Self;
+		const selfOrOmitted = node.closed === NodeClosed.VoidOmitted || node.closed === NodeClosed.VoidSelfClosed;
 
 		if (node.voidElement){
-			if (style === Style.AlwaysOmit && node.closed === NodeClosed.Self){
+			if (style === Style.AlwaysOmit && node.closed === NodeClosed.VoidSelfClosed){
 				report(node, `Expected omitted end tag <${node.tagName}> instead of self-closing element <${node.tagName}/>`);
 			}
 
-			if (style === Style.AlwaysSelfclose && node.closed === NodeClosed.Omitted){
+			if (style === Style.AlwaysSelfclose && node.closed === NodeClosed.VoidOmitted){
 				report(node, `Expected self-closing element <${node.tagName}/> instead of omitted end-tag <${node.tagName}>`);
 			}
 		}

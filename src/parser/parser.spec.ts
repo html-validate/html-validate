@@ -253,6 +253,35 @@ describe('parser', function(){
 
 	});
 
+	describe('should handle optional end tags', function(){
+
+		it('<li>', function(){
+			parser.parseHtml(`
+				<ul>
+					<li>explicit</li>
+					<li>implicit
+					<li><strong>nested</strong>
+					<li><input>
+				</ul>`);
+			expect(events.shift()).to.deep.equal({event: 'tag:open', target: 'ul'});
+			expect(events.shift(), "explicit").to.deep.equal({event: 'tag:open', target: 'li'});
+			expect(events.shift(), "explicit").to.deep.equal({event: 'tag:close', target: 'li', previous: 'li'});
+			expect(events.shift(), "implicit").to.deep.equal({event: 'tag:open', target: 'li'});
+			expect(events.shift(), "implicit").to.deep.equal({event: 'tag:close', target: 'li', previous: 'li'});
+			expect(events.shift(), "nested").to.deep.equal({event: 'tag:open', target: 'li'});
+			expect(events.shift(), "nested").to.deep.equal({event: 'tag:open', target: 'strong'});
+			expect(events.shift(), "nested").to.deep.equal({event: 'tag:close', target: 'strong', previous: 'strong'});
+			expect(events.shift(), "nested").to.deep.equal({event: 'tag:close', target: 'li', previous: 'li'});
+			expect(events.shift(), "void").to.deep.equal({event: 'tag:open', target: 'li'});
+			expect(events.shift(), "void").to.deep.equal({event: 'tag:open', target: 'input'});
+			expect(events.shift(), "void").to.deep.equal({event: 'tag:close', target: 'input', previous: 'input'});
+			expect(events.shift(), "void").to.deep.equal({event: 'tag:close', target: 'ul', previous: 'li'});
+			expect(events.shift()).to.deep.equal({event: 'tag:close', target: 'ul', previous: 'ul'});
+			expect(events.shift()).to.be.undefined;
+		});
+
+	});
+
 	describe('dom:ready', function(){
 
 		let callback: EventCallback;

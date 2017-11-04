@@ -25,6 +25,7 @@ export interface MetaElement {
 	deprecated: boolean;
 	void: boolean;
 	transparent: boolean;
+	implicitClosed: string[];
 
 	/* permitted data */
 	deprecatedAttributes: string[];

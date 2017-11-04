@@ -688,7 +688,7 @@ describe('HTML elements', function(){
 
 	describe("<p>", function(){
 		allowContent('p', '@phrasing');
-		disallowContent('p', '@flow');
+		disallow('<p><figure>foo</figure></p>', '@flow as content'); /* many regular flow content such as <div> will cause <p> to be implicitly closed */
 	});
 
 	describe("<param>", function(){

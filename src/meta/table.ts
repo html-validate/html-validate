@@ -13,6 +13,7 @@ const allowedKeys = [
 	'deprecated',
 	'void',
 	'transparent',
+	'implicitClosed',
 	'deprecatedAttributes',
 	'permittedContent',
 	'permittedDescendants',
