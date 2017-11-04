@@ -53,6 +53,10 @@ Mocha:
   stage: test
   script: npm run mocha
   coverage: /Lines\s+:\s(\d+.\d+%)/
+  artifacts:
+    name: html-validate-${CI_PIPELINE_ID}-coverage
+    paths:
+      - coverage
 
 Smoketest:
   stage: test
