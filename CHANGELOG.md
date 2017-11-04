@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.7.0 (2017-11-04)
+
 ### Features
 
 - new rule `no-implicit-close` to disallow usage of optional end tags.
