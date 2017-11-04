@@ -39,7 +39,8 @@ pages:
     paths:
       - public
   only:
-    - master
+    - tags
+    - triggers
 
 ESLint:
   stage: test
