@@ -4,6 +4,8 @@
 
 ### Features
 
+- new rule `no-implicit-close` to disallow usage of optional end tags.
+- handle optional end tags.
 - better result sorting, error messages are now sorted by line and column, the
   stage which triggered the error doesn't matter any longer.
 - better result merging, files will no longer be duplicated.
