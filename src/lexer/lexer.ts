@@ -111,13 +111,13 @@ export class Lexer {
 	}
 
 	private unhandled(context: Context){
-		const truncated = JSON.stringify(context.string.length > 13 ? `${context.string.slice(0, 10)}...` : context.string);
+		const truncated = JSON.stringify(context.string.length > 13 ? `${context.string.slice(0, 15)}...` : context.string);
 		const message = `failed to tokenize ${truncated}, unhandled state ${State[context.state]}.`;
 		throw new InvalidTokenError(context.getLocation(), message);
 	}
 
 	private errorStuck(context: Context){
-		const truncated = JSON.stringify(context.string.length > 13 ? `${context.string.slice(0, 10)}...` : context.string);
+		const truncated = JSON.stringify(context.string.length > 13 ? `${context.string.slice(0, 15)}...` : context.string);
 		const message = `failed to tokenize ${truncated}, state ${State[context.state]} failed to consume data or change state.`;
 		throw new InvalidTokenError(context.getLocation(), message);
 	}
