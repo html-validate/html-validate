@@ -22,6 +22,7 @@ export class DOMNode {
 	readonly parent: DOMNode
 	readonly voidElement: boolean;
 	readonly unique: number;
+	readonly depth: number;
 	closed: NodeClosed;
 
 	constructor(tagName: string, parent?: DOMNode, closed: NodeClosed = NodeClosed.EndTag, meta?: MetaElement, location?: Location){
@@ -34,9 +35,17 @@ export class DOMNode {
 		this.voidElement = this.meta ? this.meta.void : false;
 		this.location = location;
 		this.unique = counter++;
+		this.depth = 0;
 
 		if (parent){
 			parent.children.push(this);
+
+			/* calculate depth in domtree */
+			let cur: DOMNode = parent;
+			while (cur.parent){
+				this.depth++;
+				cur = cur.parent;
+			}
 		}
 	}
 
