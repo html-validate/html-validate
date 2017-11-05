@@ -11,6 +11,8 @@ export enum NodeClosed {
 	ImplicitClosed = 4,   /* element with optional end tag <li>foo<li>bar */
 }
 
+let counter = 0;
+
 export class DOMNode {
 	readonly tagName: string;
 	readonly attr: { [key: string]: string; };
@@ -19,6 +21,7 @@ export class DOMNode {
 	readonly meta: MetaElement;
 	readonly parent: DOMNode
 	readonly voidElement: boolean;
+	readonly unique: number;
 	closed: NodeClosed;
 
 	constructor(tagName: string, parent?: DOMNode, closed: NodeClosed = NodeClosed.EndTag, meta?: MetaElement, location?: Location){
@@ -30,6 +33,7 @@ export class DOMNode {
 		this.closed = closed;
 		this.voidElement = this.meta ? this.meta.void : false;
 		this.location = location;
+		this.unique = counter++;
 
 		if (parent){
 			parent.children.push(this);

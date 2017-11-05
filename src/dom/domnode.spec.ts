@@ -25,6 +25,14 @@ describe('DOMNode', function(){
 		expect(el.id).to.equal('bar');
 	});
 
+	it('should be assigned a unique id', function(){
+		const n1 = new DOMNode('foo');
+		const n2 = new DOMNode('foo');
+		expect(n1.unique).to.be.a('number');
+		expect(n2.unique).to.be.a('number');
+		expect(n1.unique === n2.unique).to.be.false;
+	});
+
 	describe('is()', function(){
 
 		it('should match tagname', function(){
