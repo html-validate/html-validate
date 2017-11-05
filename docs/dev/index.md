@@ -52,3 +52,14 @@ Emitted when an element attribute is parsed: `<div foo="bar">`.
 Target node will not have been updated with the new attribute yet
 (e.g. `node.getAttribute(...)` will return `undefined` or a previous
 value).
+
+`whitespace`
+------------
+
+```
+{
+  text: string
+}
+```
+
+Emitted when inter-element, leading and trailing whitespace is parsed.
