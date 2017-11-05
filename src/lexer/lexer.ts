@@ -132,8 +132,10 @@ export class Lexer {
 
 	private *match(context: Context, tests: Array<LexerTest>, error: string){
 		let match = undefined;
-		for (const test of tests){
+		const n = tests.length;
+		for (let i = 0; i < n; i++){
 			let token: Token = null;
+			const test = tests[i];
 			const regex = test[0];
 			const nextState = test[1];
 			const tokenType = test[2];
