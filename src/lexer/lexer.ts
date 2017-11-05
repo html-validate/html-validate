@@ -130,7 +130,7 @@ export class Lexer {
 		}
 	}
 
-	private *match(context: Context, tests: Array<LexerTest>, error: string){
+	private *match(context: Context, tests: LexerTest[], error: string){
 		let match = undefined;
 		const n = tests.length;
 		for (let i = 0; i < n; i++){
