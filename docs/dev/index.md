@@ -63,3 +63,16 @@ value).
 ```
 
 Emitted when inter-element, leading and trailing whitespace is parsed.
+
+`conditional`
+-------------
+
+```
+{
+  condition: string
+}
+```
+
+Emitted when a conditional comment `<![conditional]>` is parsed. The parser
+ignores and condition and run all possbile branches but raises the event for any
+rules that wishes to do anything with it.

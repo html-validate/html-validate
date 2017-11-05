@@ -26,6 +26,10 @@ export interface WhitespaceEvent extends Event {
 	text: string;
 }
 
+export interface ConditionalEvent extends Event {
+	condtion: string;
+}
+
 export interface DOMReadyEvent extends Event {
 	document: DOMTree;
 }
