@@ -4,8 +4,16 @@
 
 ### Features
 
+- attach `depth` and `unique` readonly properties to `DOMNode` corresponding to
+  the nodes depth in the DOM tree and a sequential id (unique for the session).
 - new rule `no-conditional-comments` to disallow usage of conditional comments.
 - handle conditional comments.
+
+### Bugfixes
+
+- handle whitespace before doctype
+- DOMTokenlist now handles multiple spaces as delimiter and strip
+  leading/trailing whitespace.
 
 ## 0.7.0 (2017-11-04)
 

@@ -6,19 +6,26 @@ describe('DOMTokenList', function(){
 
 	it('should split string into parts', () => {
 		const list = new DOMTokenList('foo bar baz');
-		expect(list).to.have.lengthOf(3);
+		expect(Array.from(list)).to.deep.equal(['foo', 'bar', 'baz']);
+	});
+
+	it('should handle multiple spaces', () => {
+		const list = new DOMTokenList('foo  bar  baz');
+		expect(Array.from(list)).to.deep.equal(['foo', 'bar', 'baz']);
+	});
+
+	it('should handle leading and trailing spaces', () => {
+		const list = new DOMTokenList(' foo bar baz ');
 		expect(Array.from(list)).to.deep.equal(['foo', 'bar', 'baz']);
 	});
 
 	it('should handle empty string', () => {
 		const list = new DOMTokenList('');
-		expect(list).to.have.lengthOf(0);
 		expect(Array.from(list)).to.deep.equal([]);
 	});
 
 	it('should handle null', () => {
 		const list = new DOMTokenList(null);
-		expect(list).to.have.lengthOf(0);
 		expect(Array.from(list)).to.deep.equal([]);
 	});
 

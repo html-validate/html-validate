@@ -130,15 +130,14 @@ export class Lexer {
 		}
 	}
 
-	private *match(context: Context, tests: Array<LexerTest>, error: string){
+	private *match(context: Context, tests: LexerTest[], error: string){
 		let match = undefined;
-		for (const test of tests){
-			let token: Token = null;
-			const regex = test[0];
-			const nextState = test[1];
-			const tokenType = test[2];
+		const n = tests.length;
+		for (let i = 0; i < n; i++){
+			const [regex, nextState, tokenType] = tests[i];
 
 			if (regex === false || (match = context.string.match(regex))){
+				let token: Token = null;
 				if (tokenType !== false) yield (token = this.token(context, tokenType, match));
 				const state = this.evalNextState(nextState, token);
 				context.consume(match || 0, state);
@@ -174,6 +173,7 @@ export class Lexer {
 		yield* this.match(context, [
 			[MATCH_XML_TAG, State.INITIAL, false],
 			[MATCH_DOCTYPE_OPEN, State.DOCTYPE, TokenType.DOCTYPE_OPEN],
+			[MATCH_WHITESPACE, State.INITIAL, TokenType.WHITESPACE],
 			[false, State.TEXT, false],
 		], 'expected doctype');
 	}

@@ -38,6 +38,16 @@ describe('lexer', function(){
 			expect(token.next().done).to.be.true;
 		});
 
+		it('whitespace before doctype', function(){
+			const token = lexer.tokenize({data: ' <!doctype html>', filename: 'inline'});
+			expect(token.next()).to.be.token({type: TokenType.WHITESPACE});
+			expect(token.next()).to.be.token({type: TokenType.DOCTYPE_OPEN});
+			expect(token.next()).to.be.token({type: TokenType.DOCTYPE_VALUE});
+			expect(token.next()).to.be.token({type: TokenType.DOCTYPE_CLOSE});
+			expect(token.next()).to.be.token({type: TokenType.EOF});
+			expect(token.next().done).to.be.true;
+		});
+
 		it('open/void tags', function(){
 			const token = lexer.tokenize({data: '<foo>', filename: 'inline'});
 			expect(token.next()).to.be.token({type: TokenType.TAG_OPEN});

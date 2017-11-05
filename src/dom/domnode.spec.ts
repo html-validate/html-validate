@@ -25,6 +25,30 @@ describe('DOMNode', function(){
 		expect(el.id).to.equal('bar');
 	});
 
+	it('should be assigned a unique id', function(){
+		const n1 = new DOMNode('foo');
+		const n2 = new DOMNode('foo');
+		expect(n1.unique).to.be.a('number');
+		expect(n2.unique).to.be.a('number');
+		expect(n1.unique === n2.unique).to.be.false;
+	});
+
+	describe('should calculate depth', function(){
+
+		it('for nodes without parent', function(){
+			const node = new DOMNode('foo');
+			expect(node.depth).to.equal(0);
+		});
+
+		it('for nodes in a tree', function(){
+			expect(root.querySelector('#parent').depth, '#parent').to.equal(0);
+			expect(root.querySelector('ul').depth, 'ul').to.equal(1);
+			expect(root.querySelector('li.foo').depth, 'li.foo').to.equal(2);
+			expect(root.querySelector('li.bar').depth, 'li.bar').to.equal(2);
+		});
+
+	});
+
 	describe('is()', function(){
 
 		it('should match tagname', function(){
