@@ -289,6 +289,35 @@ describe('lexer', function(){
 			expect(token.next().done).to.be.true;
 		});
 
+		describe('browser conditional', function(){
+
+			it('downlevel-hidden', function(){
+				const token = lexer.tokenize({data: '<!--[if IE 6]>foo<![endif]-->', filename: 'inline'});
+				expect(token.next()).to.be.token({type: TokenType.CONDITIONAL, data: ['<!--[if IE 6]>', 'if IE 6']});
+				expect(token.next()).to.be.token({type: TokenType.TEXT, data: ['foo']});
+				expect(token.next()).to.be.token({type: TokenType.CONDITIONAL, data: ['<![endif]-->', 'endif']});
+				expect(token.next()).to.be.token({type: TokenType.EOF});
+				expect(token.next().done).to.be.true;
+			});
+
+			it('downlevel-reveal', function(){
+				const token = lexer.tokenize({data: '<![if IE 6]>foo<![endif]>', filename: 'inline'});
+				expect(token.next()).to.be.token({type: TokenType.CONDITIONAL, data: ['<![if IE 6]>', 'if IE 6']});
+				expect(token.next()).to.be.token({type: TokenType.TEXT, data: ['foo']});
+				expect(token.next()).to.be.token({type: TokenType.CONDITIONAL, data: ['<![endif]>', 'endif']});
+				expect(token.next()).to.be.token({type: TokenType.EOF});
+			});
+
+			it('nested comment', function(){
+				const token = lexer.tokenize({data: '<!--[if IE 6]><!-- foo --><![endif]-->', filename: 'inline'});
+				expect(token.next()).to.be.token({type: TokenType.CONDITIONAL, data: ['<!--[if IE 6]>', 'if IE 6']});
+				expect(token.next()).to.be.token({type: TokenType.COMMENT, data: ['<!-- foo -->', ' foo ']});
+				expect(token.next()).to.be.token({type: TokenType.CONDITIONAL, data: ['<![endif]-->', 'endif']});
+				expect(token.next()).to.be.token({type: TokenType.EOF});
+			});
+
+		});
+
 	});
 
 });

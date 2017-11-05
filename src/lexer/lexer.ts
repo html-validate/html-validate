@@ -34,6 +34,7 @@ const MATCH_CDATA_END = /^[^]*?]]>/;
 const MATCH_SCRIPT_DATA = /^[^]*?(?=<\/script)/;
 const MATCH_SCRIPT_END = /^<(\/)(script)/;
 const MATCH_COMMENT = /^<!--([^]*?)-->/;
+const MATCH_CONDITIONAL = /^<!(?:--)?\[([^\]]*?)\](?:--)?>/;
 
 export class InvalidTokenError extends Error {
 	public location: Location;
@@ -219,6 +220,7 @@ export class Lexer {
 		yield* this.match(context, [
 			[MATCH_WHITESPACE, State.TEXT, TokenType.WHITESPACE],
 			[MATCH_CDATA_BEGIN, State.CDATA, false],
+			[MATCH_CONDITIONAL, State.TEXT, TokenType.CONDITIONAL],
 			[MATCH_COMMENT, State.TEXT, TokenType.COMMENT],
 			[MATCH_TAG_OPEN, State.TAG, TokenType.TAG_OPEN],
 			[MATCH_TEXT, State.TEXT, TokenType.TEXT],

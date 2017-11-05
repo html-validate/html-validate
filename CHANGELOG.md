@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Features
+
+- handle conditional comments.
+
 ## 0.7.0 (2017-11-04)
 
 ### Features

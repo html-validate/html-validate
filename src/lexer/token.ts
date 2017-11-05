@@ -13,6 +13,7 @@ export enum TokenType {
 	TEXT,
 	SCRIPT,
 	COMMENT,
+	CONDITIONAL,
 	EOF,
 }
 
