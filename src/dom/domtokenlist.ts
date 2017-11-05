@@ -3,7 +3,7 @@ export class DOMTokenList extends Array<string> {
 
 	constructor(value: string){
 		if (value){
-			super(...value.split(' '));
+			super(...value.trim().split(/ +/));
 		} else {
 			super(0);
 		}

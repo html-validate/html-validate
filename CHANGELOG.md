@@ -7,6 +7,11 @@
 - new rule `no-conditional-comments` to disallow usage of conditional comments.
 - handle conditional comments.
 
+### Bugfixes
+
+- DOMTokenlist now handles multiple spaces as delimiter and strip
+  leading/trailing whitespace.
+
 ## 0.7.0 (2017-11-04)
 
 ### Features
