@@ -10,6 +10,7 @@ module.exports = {
 		'element-permitted-occurrences': 'error',
 		'element-permitted-order': 'error',
 		'img-req-alt': 'error',
+		'no-conditional-comment': 'error',
 		'no-deprecated-attr': 'error',
 		'no-dup-attr': 'error',
 		'no-dup-class': 'error',

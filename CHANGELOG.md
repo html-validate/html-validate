@@ -2,6 +2,11 @@
 
 ## Upcoming release
 
+### Features
+
+- new rule `no-conditional-comments` to disallow usage of conditional comments.
+- handle conditional comments.
+
 ## 0.7.0 (2017-11-04)
 
 ### Features
