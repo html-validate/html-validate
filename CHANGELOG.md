@@ -9,6 +9,7 @@
 
 ### Bugfixes
 
+- handle whitespace before doctype
 - DOMTokenlist now handles multiple spaces as delimiter and strip
   leading/trailing whitespace.
 
