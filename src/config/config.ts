@@ -138,8 +138,9 @@ export class Config {
 			if (!Array.isArray(options)){
 				options = [options, {}];
 			} else if (options.length === 1){
-				options.push({});
+				options = [options[0], {}];
 			}
+
 			options[0] = parseSeverity(options[0]);
 			rules[name] = options;
 		}

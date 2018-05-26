@@ -16,5 +16,5 @@ export interface ConfigData {
 	 */
 	elements?: string[];
 
-	rules?: { [key: string]: RuleSeverity | [RuleSeverity, any] };
+	rules?: { [key: string]: RuleSeverity | [RuleSeverity] | [RuleSeverity, any] };
 }
