@@ -46,6 +46,7 @@ export class InvalidTokenError extends Error {
 }
 
 export class Lexer {
+	// eslint-disable-next-line complexity
 	*tokenize(source: Source): TokenStream {
 		const context = new Context(source);
 		context.state = State.INITIAL;
