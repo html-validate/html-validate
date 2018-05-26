@@ -1,7 +1,13 @@
 # Remember to keep in sync with .gitignore
 /.nyc_output/
 /.tscache
-/node_modules
-/src
-/test
-/test-files
+/coverage/
+/docs/
+/mocha.opts
+/node_modules/
+/public/
+/src/
+/test/
+/test-files/
+/tsconfig.json
+/update-changelog.sh
