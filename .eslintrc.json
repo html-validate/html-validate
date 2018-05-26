@@ -1,21 +1,12 @@
 {
   "parser": "typescript-eslint-parser",
 
-  "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "modules": true
-    }
-  },
-
   "env": {
-    "node": true,
-    "es6": true
+    "node": true
   },
 
   "extends": [
-    "sidvind/es6"
+    "sidvind/es2017"
   ],
 
   "plugins": [
