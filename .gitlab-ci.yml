@@ -1,4 +1,4 @@
-image: node:8
+image: node:9
 
 stages:
   - prepare
@@ -9,28 +9,27 @@ stages:
 NPM:
   stage: prepare
   cache:
-    key: "${CI_JOB_NAME}/${CI_COMMIT_REF_NAME}"
+    key: "${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
     paths:
     - node_modules/
   artifacts:
-    name: html-validate-${CI_PIPELINE_ID}-npm
-    expire_in: 1 week
+    name: ${CI_PROJECT_PATH_SLUG}-${CI_PIPELINE_ID}-npm
     paths:
       - node_modules/
   script:
     - node --version
     - npm --version
     - npm install
+    - npm ls || true
 
 Build:
   stage: build
   artifacts:
-    name: html-validate-${CI_PIPELINE_ID}-build
-    expire_in: 1 week
+    name: ${CI_PROJECT_PATH_SLUG}-${CI_PIPELINE_ID}-build
     paths:
       - build/
   script:
-    - node_modules/grunt-cli/bin/grunt build:ci
+    - node_modules/.bin/grunt build:ci
 
 pages:
   stage: build
@@ -47,26 +46,26 @@ ESLint:
   variables:
     ESLINT_STRICT: 1
   script:
-    - node_modules/grunt-cli/bin/grunt eslint
+    - node_modules/.bin/grunt eslint
 
 Mocha:
   stage: test
   script: npm run mocha
   coverage: /Lines\s+:\s(\d+.\d+%)/
   artifacts:
-    name: html-validate-${CI_PIPELINE_ID}-coverage
+    name: ${CI_PROJECT_PATH_SLUG}-${CI_PIPELINE_ID}-coverage
     paths:
       - coverage
 
 Smoketest:
   stage: test
   script:
-    - node_modules/grunt-cli/bin/grunt smoketest
+    - node_modules/.bin/grunt smoketest
 
 Docs:
   stage: test
   script:
-    - node_modules/grunt-cli/bin/grunt ts docs
+    - node_modules/.bin/grunt ts docs
     - ./html-validate.js docs/**/*.html public/**/.html
 
 Publish to NPM:
