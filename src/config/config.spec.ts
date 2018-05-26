@@ -149,4 +149,29 @@ describe('config', function(){
 
 	});
 
+	describe('transform()', () => {
+
+		it('should match filename against transformer', () => {
+			const config = Config.fromObject({
+				transform: {
+					'^.*\\.foo$': '../transform/mock',
+				},
+			});
+			expect(config.transform('/path/to/test.foo')).to.deep.equal({
+				data: 'mocked source',
+				filename: '/path/to/test.foo',
+			});
+		});
+
+		it('should default to reading full file', () => {
+			const config = Config.fromObject({
+				transform: {
+					'^.*\\.foo$': '../transform/mock',
+				},
+			});
+			expect(config.transform('test-files/parser/simple.html').data).to.equal('<p>Lorem ipsum</p>\n');
+		});
+
+	});
+
 });

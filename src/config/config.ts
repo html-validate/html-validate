@@ -1,5 +1,11 @@
 import { MetaTable } from '../meta';
-import { ConfigData } from './config-data';
+import { ConfigData, TransformMap } from './config-data';
+import { Source } from '../context';
+
+type Transformer = {
+	pattern: RegExp;
+	fn: (filename: string) => string;
+};
 
 const fs = require('fs');
 const path = require('path');
@@ -24,6 +30,7 @@ function parseSeverity(value: string | number){
 export class Config {
 	private config: ConfigData;
 	protected metaTable: MetaTable;
+	protected transformers: Transformer[];
 
 	public static readonly SEVERITY_DISABLED = 0;
 	public static readonly SEVERITY_WARN = 1;
@@ -59,6 +66,7 @@ export class Config {
 		return new Config({
 			extends: [],
 			rules: {},
+			transform: [],
 		});
 	}
 
@@ -76,6 +84,9 @@ export class Config {
 			const base = Config.fromFile(ref);
 			self.config = base.mergeInternal(self.config);
 		});
+
+		/* precompile transform patterns */
+		this.transformers = this.precompileTransformers(this.config.transform || {});
 	}
 
 	/**
@@ -145,5 +156,36 @@ export class Config {
 			rules[name] = options;
 		}
 		return rules;
+	}
+
+	/**
+	 * Transform a source file.
+	 */
+	public transform(filename: string): Source {
+		const transformer = this.findTransformer(filename);
+		if (transformer){
+			return {
+				data: transformer.fn(filename),
+				filename,
+			};
+		} else {
+			return {
+				data: fs.readFileSync(filename, {encoding: 'utf8'}),
+				filename,
+			};
+		}
+	}
+
+	private findTransformer(filename: string): Transformer|null {
+		return this.transformers.find((entry: Transformer) => entry.pattern.test(filename));
+	}
+
+	private precompileTransformers(transform: TransformMap): Transformer[] {
+		return Object.entries(transform).map(([pattern, module]) => {
+			return {
+				pattern: new RegExp(pattern),
+				fn: require(module),
+			} as Transformer;
+		});
 	}
 }

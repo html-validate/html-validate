@@ -6,8 +6,6 @@ import { Source, Location } from './context';
 import { Lexer, InvalidTokenError, TokenType } from './lexer';
 import { Rule, RuleEventCallback, RuleParserProxy, RuleReport } from './rule';
 
-const fs = require('fs');
-
 class HtmlValidate {
 	private globalConfig: Config;
 
@@ -35,9 +33,8 @@ class HtmlValidate {
 	 * @return {object} - Report output.
 	 */
 	public validateFile(filename: string, mode?: string): Report {
-		const text = fs.readFileSync(filename, {encoding: 'utf8'});
-		const source = {data: text, filename};
-		const config = this.getConfigFor(source.filename);
+		const config = this.getConfigFor(filename);
+		const source = config.transform(filename);
 		return this.process(source, config, mode);
 	}
 
