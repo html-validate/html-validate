@@ -37,7 +37,7 @@ Configuration can be extended from sharable configuration.
 {
   "extends": [
     "my-npm-package",
-	"./file'
+	"./file"
   ],
 }
 ```
