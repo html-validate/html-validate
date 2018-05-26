@@ -17,7 +17,7 @@ describe('eventhandler', function(){
 		const callback = chai.spy();
 		eventhandler.on('foo', callback);
 		eventhandler.trigger('foo', {bar: true});
-		expect(callback).to.have.been.called.once();
+		expect(callback).to.have.been.called.once;
 		expect(callback).to.have.been.called.with.exactly('foo', {bar: true});
 	});
 
@@ -32,7 +32,7 @@ describe('eventhandler', function(){
 		const callback = chai.spy();
 		eventhandler.on('*', callback);
 		eventhandler.trigger('foo', {bar: true});
-		expect(callback).to.have.been.called.once();
+		expect(callback).to.have.been.called.once;
 		expect(callback).to.have.been.called.with.exactly('foo', {bar: true});
 	});
 

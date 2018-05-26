@@ -296,7 +296,7 @@ describe('parser', function(){
 
 		it('should trigger when parsing is complete', function(){
 			parser.parseHtml('<div></div>');
-			expect(callback).to.have.been.called.once();
+			expect(callback).to.have.been.called.once;
 		});
 
 		it('should contain DOMTree as argument', function(){
