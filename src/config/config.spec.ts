@@ -157,12 +157,12 @@ describe('config', function(){
 					'^.*\\.foo$': '../transform/mock',
 				},
 			});
-			expect(config.transform('/path/to/test.foo')).to.deep.equal({
+			expect(config.transform('/path/to/test.foo')).to.deep.equal([{
 				data: 'mocked source',
 				filename: '/path/to/test.foo',
 				line: 1,
 				column: 1,
-			});
+			}]);
 		});
 
 		it('should default to reading full file', () => {
@@ -171,12 +171,12 @@ describe('config', function(){
 					'^.*\\.foo$': '../transform/mock',
 				},
 			});
-			expect(config.transform('test-files/parser/simple.html')).to.deep.equal({
+			expect(config.transform('test-files/parser/simple.html')).to.deep.equal([{
 				data: '<p>Lorem ipsum</p>\n',
 				filename: 'test-files/parser/simple.html',
 				line: 1,
 				column: 1,
-			});
+			}]);
 		});
 
 	});

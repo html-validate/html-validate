@@ -1,3 +1,11 @@
-module.exports = function passthruTransform() {
-	return 'mocked source';
+/**
+ * Transformer returning a single mocked source.
+ */
+module.exports = function mockTransform(filename: string) {
+	return [{
+		data: 'mocked source',
+		filename,
+		line: 1,
+		column: 1,
+	}];
 };

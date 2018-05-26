@@ -4,7 +4,7 @@ import { Source } from '../context';
 
 type Transformer = {
 	pattern: RegExp;
-	fn: (filename: string) => string;
+	fn: (filename: string) => Source[];
 };
 
 const fs = require('fs');
@@ -161,22 +161,17 @@ export class Config {
 	/**
 	 * Transform a source file.
 	 */
-	public transform(filename: string): Source {
+	public transform(filename: string): Source[] {
 		const transformer = this.findTransformer(filename);
 		if (transformer){
-			return {
-				data: transformer.fn(filename),
-				filename,
-				line: 1,
-				column: 1,
-			};
+			return transformer.fn(filename);
 		} else {
-			return {
+			return [{
 				data: fs.readFileSync(filename, {encoding: 'utf8'}),
 				filename,
 				line: 1,
 				column: 1,
-			};
+			}];
 		}
 	}
 
