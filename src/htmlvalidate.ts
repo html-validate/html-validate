@@ -21,7 +21,12 @@ class HtmlValidate {
 	 * @return {object} - Report output.
 	 */
 	public validateString(str: string): Report {
-		const source = {data: str, filename: 'inline'};
+		const source = {
+			data: str,
+			filename: 'inline',
+			line: 1,
+			column: 1,
+		};
 		const config = this.getConfigFor(source.filename);
 		return this.process(source, config, 'lint');
 	}

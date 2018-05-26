@@ -160,6 +160,8 @@ describe('config', function(){
 			expect(config.transform('/path/to/test.foo')).to.deep.equal({
 				data: 'mocked source',
 				filename: '/path/to/test.foo',
+				line: 1,
+				column: 1,
 			});
 		});
 
@@ -169,7 +171,12 @@ describe('config', function(){
 					'^.*\\.foo$': '../transform/mock',
 				},
 			});
-			expect(config.transform('test-files/parser/simple.html').data).to.equal('<p>Lorem ipsum</p>\n');
+			expect(config.transform('test-files/parser/simple.html')).to.deep.equal({
+				data: '<p>Lorem ipsum</p>\n',
+				filename: 'test-files/parser/simple.html',
+				line: 1,
+				column: 1,
+			});
 		});
 
 	});

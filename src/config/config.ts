@@ -167,11 +167,15 @@ export class Config {
 			return {
 				data: transformer.fn(filename),
 				filename,
+				line: 1,
+				column: 1,
 			};
 		} else {
 			return {
 				data: fs.readFileSync(filename, {encoding: 'utf8'}),
 				filename,
+				line: 1,
+				column: 1,
 			};
 		}
 	}
