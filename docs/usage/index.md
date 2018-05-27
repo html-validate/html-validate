@@ -106,4 +106,5 @@ javascript sources. See [transformers](/usage/transformers.html) for details.
 ```
 
 will transform `*.vue` with the `html-validate-vue` NPM package. Use a relative
-path to use a local script.
+path to use a local script (use `<rootDir>` to refer to the path to
+`package.json`, e.g. `<rootDir>/my-transformer.js`).

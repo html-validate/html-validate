@@ -31,6 +31,7 @@ export class Config {
 	private config: ConfigData;
 	protected metaTable: MetaTable;
 	protected transformers: Transformer[];
+	protected rootDir: string;
 
 	public static readonly SEVERITY_DISABLED = 0;
 	public static readonly SEVERITY_WARN = 1;
@@ -77,6 +78,7 @@ export class Config {
 		};
 		this.mergeInternal(options || {});
 		this.metaTable = null;
+		this.rootDir = this.findRootDir();
 
 		/* process and extended configs */
 		const self = this;
@@ -183,8 +185,31 @@ export class Config {
 		return Object.entries(transform).map(([pattern, module]) => {
 			return {
 				pattern: new RegExp(pattern),
-				fn: require(module),
+				fn: require(module.replace('<rootDir>', this.rootDir)),
 			} as Transformer;
 		});
+	}
+
+	private findRootDir(){
+		/* try to locate package.json */
+		let current = process.cwd();
+		for (;;){
+			const search = path.join(current, 'package.json');
+			if (fs.existsSync(search)){
+				return current;
+			}
+
+			/* get the parent directory */
+			const child = current;
+			current = path.dirname(current);
+
+			/* stop if this is the root directory */
+			if (current === child){
+				break;
+			}
+		}
+
+		/* default to working directory if no package.json is found */
+		return process.cwd();
 	}
 }
