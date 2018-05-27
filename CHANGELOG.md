@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.8.1 (2018-05-27)
+
 ### Misc
 
 - update `package.json`
