@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Misc
+
+- update `package.json`
+
 ## 0.8.0 (2018-05-27)
 
 ### Features

@@ -5,7 +5,8 @@
   "keywords": [
     "html",
     "lint",
-    "validator"
+    "validator",
+    "html-validate"
   ],
   "author": "David Sveningsson <ext@sidvind.com>",
   "license": "MIT",
