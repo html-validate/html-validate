@@ -20,6 +20,15 @@ const contentCategory = {
 	'@sectioning': 'article',
 };
 
+function inlineSource(source: string){
+	return {
+		data: source,
+		filename: 'inline',
+		line: 1,
+		column: 1,
+	};
+}
+
 function getTagname(category: ContentCategory|string){
 	if (category[0] === '@'){
 		return contentCategory[category as ContentCategory];
@@ -200,7 +209,7 @@ describe('HTML elements', function(){
 		disallow(`<audio><div></div><track></track></audio>`, '@flow before track');
 
 		it('should be interactive only if "controls" attribute is set', function(){
-			const source = {data: '<audio></audio><audio controls></audio>', filename: 'inline'};
+			const source = inlineSource('<audio></audio><audio controls></audio>');
 			const parser = htmlvalidate.getParserFor(source);
 			const [foo, bar] = parser.parseHtml(source).root.children;
 			expect(foo.meta.interactive).to.be.false;
@@ -517,7 +526,7 @@ describe('HTML elements', function(){
 		omitEnd('img');
 
 		it('should be interactive only if "usemap" attribute is set', function(){
-			const source = {data: '<img/><img usemap/>', filename: 'inline'};
+			const source = inlineSource('<img/><img usemap/>');
 			const parser = htmlvalidate.getParserFor(source);
 			const [foo, bar] = parser.parseHtml(source).root.children;
 			expect(foo.meta.interactive).to.be.false;
@@ -529,7 +538,7 @@ describe('HTML elements', function(){
 		omitEnd('input');
 
 		it('should be interactive only if "type" is not "hidden"', function(){
-			const source = {data: '<input type="hidden"/><input type="foo"/>', filename: 'inline'};
+			const source = inlineSource('<input type="hidden"/><input type="foo"/>');
 			const parser = htmlvalidate.getParserFor(source);
 			const [foo, bar] = parser.parseHtml(source).root.children;
 			expect(foo.meta.interactive).to.be.false;
@@ -654,7 +663,7 @@ describe('HTML elements', function(){
 		disallow(`<object><div></div><param></param></object>`, '@flow before param');
 
 		it('should be interactive only if "usemap" attribute is set', function(){
-			const source = {data: '<object></object><object usemap></object>', filename: 'inline'};
+			const source = inlineSource('<object></object><object usemap></object>');
 			const parser = htmlvalidate.getParserFor(source);
 			const [foo, bar] = parser.parseHtml(source).root.children;
 			expect(foo.meta.interactive).to.be.false;
@@ -952,7 +961,7 @@ describe('HTML elements', function(){
 		disallow(`<video><div></div><track></track></video>`, '@flow before track');
 
 		it('should be interactive only if "controls" attribute is set', function(){
-			const source = {data: '<video></video><video controls></video>', filename: 'inline'};
+			const source = inlineSource('<video></video><video controls></video>');
 			const parser = htmlvalidate.getParserFor(source);
 			const [foo, bar] = parser.parseHtml(source).root.children;
 			expect(foo.meta.interactive).to.be.false;

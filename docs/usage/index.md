@@ -91,3 +91,20 @@ Each entry will try to load metadata from (search in following order):
 
 See [elements metadata](/usage/elements.html) for details about writing your own
 metadata.
+
+### `transform`
+
+Transform input files to extract HTML chunks, e.g. extract templates from
+javascript sources. See [transformers](/usage/transformers.html) for details.
+
+```js
+{
+  "transform": {
+    "^.*\\.vue$": "html-validate-vue"
+  }
+}
+```
+
+will transform `*.vue` with the `html-validate-vue` NPM package. Use a relative
+path to use a local script (use `<rootDir>` to refer to the path to
+`package.json`, e.g. `<rootDir>/my-transformer.js`).

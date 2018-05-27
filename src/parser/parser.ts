@@ -29,7 +29,12 @@ export class Parser {
 		this.dom = new DOMTree();
 
 		if (typeof source === 'string'){
-			source = {data: source, filename: 'inline'};
+			source = {
+				data: source,
+				filename: 'inline',
+				line: 1,
+				column: 1,
+			};
 		}
 
 		/* trigger any rules waiting for DOM load event */

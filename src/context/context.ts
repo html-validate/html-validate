@@ -19,8 +19,8 @@ export class Context {
 		this.state = undefined;
 		this.string = source.data;
 		this.filename = source.filename;
-		this.line = 1;
-		this.column = 1;
+		this.line = source.line;
+		this.column = source.column;
 		this.contentModel = ContentModel.TEXT;
 		this.scriptEnd = undefined;
 	}

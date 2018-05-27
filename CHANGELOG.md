@@ -4,6 +4,9 @@
 
 ### Features
 
+- easier API usage: `require('html-validate')` now returns class without using
+  `require(html-validate/build/htmlvalidate').default`.
+- support `transform` in configuration to extract source html from other files.
 - attach `depth` and `unique` readonly properties to `DOMNode` corresponding to
   the nodes depth in the DOM tree and a sequential id (unique for the session).
 - new rule `no-conditional-comments` to disallow usage of conditional comments.

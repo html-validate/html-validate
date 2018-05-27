@@ -1,5 +1,7 @@
 type RuleSeverity = "disable" | "warn" | "error" | number;
 
+export type TransformMap = { [key: string]: string };
+
 export interface ConfigData {
 	extends?: string[];
 
@@ -15,6 +17,20 @@ export interface ConfigData {
 	 * If elements isn't specified it defaults to `["html5"]`
 	 */
 	elements?: string[];
+
+	/**
+	 * List of source file transformations. A transformer takes a filename and
+	 * returns Source instances with extracted HTML-templates.
+	 *
+	 * Example:
+	 *
+	 * "transform": {
+	 *   "^.*\\.foo$": "my-transform"
+	 * }
+	 *
+	 * To run the "my-transform" module on all .foo files.
+	 */
+	transform?: TransformMap;
 
 	rules?: { [key: string]: RuleSeverity | [RuleSeverity] | [RuleSeverity, any] };
 }

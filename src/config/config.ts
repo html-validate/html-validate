@@ -1,5 +1,11 @@
 import { MetaTable } from '../meta';
-import { ConfigData } from './config-data';
+import { ConfigData, TransformMap } from './config-data';
+import { Source } from '../context';
+
+type Transformer = {
+	pattern: RegExp;
+	fn: (filename: string) => Source[];
+};
 
 const fs = require('fs');
 const path = require('path');
@@ -24,6 +30,8 @@ function parseSeverity(value: string | number){
 export class Config {
 	private config: ConfigData;
 	protected metaTable: MetaTable;
+	protected transformers: Transformer[];
+	protected rootDir: string;
 
 	public static readonly SEVERITY_DISABLED = 0;
 	public static readonly SEVERITY_WARN = 1;
@@ -59,6 +67,7 @@ export class Config {
 		return new Config({
 			extends: [],
 			rules: {},
+			transform: [],
 		});
 	}
 
@@ -69,6 +78,7 @@ export class Config {
 		};
 		this.mergeInternal(options || {});
 		this.metaTable = null;
+		this.rootDir = this.findRootDir();
 
 		/* process and extended configs */
 		const self = this;
@@ -76,6 +86,9 @@ export class Config {
 			const base = Config.fromFile(ref);
 			self.config = base.mergeInternal(self.config);
 		});
+
+		/* precompile transform patterns */
+		this.transformers = this.precompileTransformers(this.config.transform || {});
 	}
 
 	/**
@@ -145,5 +158,58 @@ export class Config {
 			rules[name] = options;
 		}
 		return rules;
+	}
+
+	/**
+	 * Transform a source file.
+	 */
+	public transform(filename: string): Source[] {
+		const transformer = this.findTransformer(filename);
+		if (transformer){
+			return transformer.fn(filename);
+		} else {
+			return [{
+				data: fs.readFileSync(filename, {encoding: 'utf8'}),
+				filename,
+				line: 1,
+				column: 1,
+			}];
+		}
+	}
+
+	private findTransformer(filename: string): Transformer|null {
+		return this.transformers.find((entry: Transformer) => entry.pattern.test(filename));
+	}
+
+	private precompileTransformers(transform: TransformMap): Transformer[] {
+		return Object.entries(transform).map(([pattern, module]) => {
+			return {
+				pattern: new RegExp(pattern),
+				fn: require(module.replace('<rootDir>', this.rootDir)),
+			} as Transformer;
+		});
+	}
+
+	private findRootDir(){
+		/* try to locate package.json */
+		let current = process.cwd();
+		for (;;){
+			const search = path.join(current, 'package.json');
+			if (fs.existsSync(search)){
+				return current;
+			}
+
+			/* get the parent directory */
+			const child = current;
+			current = path.dirname(current);
+
+			/* stop if this is the root directory */
+			if (current === child){
+				break;
+			}
+		}
+
+		/* default to working directory if no package.json is found */
+		return process.cwd();
 	}
 }

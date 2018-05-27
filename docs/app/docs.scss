@@ -4,6 +4,10 @@ $fa-font-path: "fonts";
 @import 'bootstrap';
 @import 'github'; // hljs style
 
+main {
+	padding-bottom: 3rem; // to get some space between text and bottom of window.
+}
+
 .rules-table {
 	.recommended {
 		width: 5%;

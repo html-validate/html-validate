@@ -6,8 +6,6 @@ import { Source, Location } from './context';
 import { Lexer, InvalidTokenError, TokenType } from './lexer';
 import { Rule, RuleEventCallback, RuleParserProxy, RuleReport } from './rule';
 
-const fs = require('fs');
-
 class HtmlValidate {
 	private globalConfig: Config;
 
@@ -23,8 +21,13 @@ class HtmlValidate {
 	 * @return {object} - Report output.
 	 */
 	public validateString(str: string): Report {
-		const source = {data: str, filename: 'inline'};
-		const config = this.getConfigFor(source.filename);
+		const source = [{
+			data: str,
+			filename: 'inline',
+			line: 1,
+			column: 1,
+		}];
+		const config = this.getConfigFor('inline');
 		return this.process(source, config, 'lint');
 	}
 
@@ -35,13 +38,12 @@ class HtmlValidate {
 	 * @return {object} - Report output.
 	 */
 	public validateFile(filename: string, mode?: string): Report {
-		const text = fs.readFileSync(filename, {encoding: 'utf8'});
-		const source = {data: text, filename};
-		const config = this.getConfigFor(source.filename);
+		const config = this.getConfigFor(filename);
+		const source = config.transform(filename);
 		return this.process(source, config, mode);
 	}
 
-	private process(source: Source, config: Config, mode?: string){
+	private process(source: Source[], config: Config, mode?: string){
 		switch (mode){
 		case 'lint':
 		case undefined:
@@ -65,7 +67,7 @@ class HtmlValidate {
 	 * @param src.filename {string} - Filename of source for presentation in report.
 	 * @return {object} - Report output.
 	 */
-	private parse(src: Source, config: Config): Report {
+	private parse(source: Source[], config: Config): Report {
 		const report = new Reporter();
 		const rules = config.getRules();
 		const parser = new Parser(config);
@@ -77,7 +79,7 @@ class HtmlValidate {
 
 		/* parse token stream */
 		try {
-			parser.parseHtml(src);
+			source.forEach(src => parser.parseHtml(src));
 		} catch (e){
 			if (e instanceof InvalidTokenError){
 				report.addManual(e.location.filename, {
@@ -101,7 +103,7 @@ class HtmlValidate {
 		return new Parser(config);
 	}
 
-	private dumpEvents(source: Source, config: Config): Report {
+	private dumpEvents(source: Source[], config: Config): Report {
 		const parser = new Parser(config);
 		const filtered = ['parent', 'children'];
 
@@ -111,7 +113,7 @@ class HtmlValidate {
 			}, 2);
 			process.stdout.write(`${event}: ${strdata}\n`);
 		});
-		parser.parseHtml(source);
+		source.forEach(src => parser.parseHtml(src));
 
 		return {
 			valid: true,
@@ -119,14 +121,16 @@ class HtmlValidate {
 		};
 	}
 
-	private dumpTokens(source: Source): Report {
+	private dumpTokens(source: Source[]): Report {
 		const lexer = new Lexer();
-		for (const token of lexer.tokenize(source)){
-			const data = token.data ? token.data[0] : null;
-			process.stdout.write(`TOKEN: ${TokenType[token.type]}
+		for (const src of source){
+			for (const token of lexer.tokenize(src)){
+				const data = token.data ? token.data[0] : null;
+				process.stdout.write(`TOKEN: ${TokenType[token.type]}
   Data: ${JSON.stringify(data)}
   Location: ${token.location.filename}:${token.location.line}:${token.location.column}
 `);
+			}
 		}
 		return {
 			valid: true,
@@ -134,9 +138,9 @@ class HtmlValidate {
 		};
 	}
 
-	private dumpTree(source: Source, config: Config): Report {
+	private dumpTree(source: Source[], config: Config): Report {
 		const parser = new Parser(config);
-		const dom = parser.parseHtml(source);
+		const dom = parser.parseHtml(source[0]); /* @todo handle dumping each tree */
 
 		function decoration(node: DOMNode){
 			let output = '';
