@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.8.0 (2018-05-27)
+
 ### Features
 
 - easier API usage: `require('html-validate')` now returns class without using
