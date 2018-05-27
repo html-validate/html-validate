@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://git.sidvind.com/html-validate/html-validate/issues/new"
   },
-  "main": "html-validate.js",
+  "main": "shim.js",
   "bin": {
     "html-validate": "html-validate.js"
   },
