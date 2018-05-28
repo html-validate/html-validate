@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Bugfixes
+
+- lexer better handling of newlines, especially CRLF `\r\n`.
+
 ## 0.8.1 (2018-05-27)
 
 ### Misc

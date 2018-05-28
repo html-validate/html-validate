@@ -162,6 +162,36 @@ describe('lexer', function(){
 			expect(token.next().done).to.be.true;
 		});
 
+		it('attribute with LF', function(){
+			const token = lexer.tokenize(inlineSource('<foo\nbar>'));
+			expect(token.next()).to.be.token({type: TokenType.TAG_OPEN});
+			expect(token.next()).to.be.token({type: TokenType.WHITESPACE});
+			expect(token.next()).to.be.token({type: TokenType.ATTR_NAME});
+			expect(token.next()).to.be.token({type: TokenType.TAG_CLOSE});
+			expect(token.next()).to.be.token({type: TokenType.EOF});
+			expect(token.next().done).to.be.true;
+		});
+
+		it('attribute with CR', function(){
+			const token = lexer.tokenize(inlineSource('<foo\rbar>'));
+			expect(token.next()).to.be.token({type: TokenType.TAG_OPEN});
+			expect(token.next()).to.be.token({type: TokenType.WHITESPACE, data: ['\r']});
+			expect(token.next()).to.be.token({type: TokenType.ATTR_NAME});
+			expect(token.next()).to.be.token({type: TokenType.TAG_CLOSE});
+			expect(token.next()).to.be.token({type: TokenType.EOF});
+			expect(token.next().done).to.be.true;
+		});
+
+		it('attribute with CRLF', function(){
+			const token = lexer.tokenize(inlineSource('<foo\r\nbar>'));
+			expect(token.next()).to.be.token({type: TokenType.TAG_OPEN});
+			expect(token.next()).to.be.token({type: TokenType.WHITESPACE, data: ['\r\n']});
+			expect(token.next()).to.be.token({type: TokenType.ATTR_NAME});
+			expect(token.next()).to.be.token({type: TokenType.TAG_CLOSE});
+			expect(token.next()).to.be.token({type: TokenType.EOF});
+			expect(token.next().done).to.be.true;
+		});
+
 		it('attribute with tag inside', function(){
 			const token = lexer.tokenize(inlineSource('<foo bar="<div>">'));
 			expect(token.next()).to.be.token({type: TokenType.TAG_OPEN});
@@ -212,17 +242,47 @@ describe('lexer', function(){
 			expect(token.next().done).to.be.true;
 		});
 
-		it('whitespace', function(){
+		it('whitespace CR', function(){
+			const token = lexer.tokenize(inlineSource('<p>\r  foo\r</p>  \r'));
+			expect(token.next()).to.be.token({type: TokenType.TAG_OPEN});
+			expect(token.next()).to.be.token({type: TokenType.TAG_CLOSE});
+			expect(token.next()).to.be.token({type: TokenType.WHITESPACE, data: ['\r']});
+			expect(token.next()).to.be.token({type: TokenType.WHITESPACE, data: ['  ']});
+			expect(token.next()).to.be.token({type: TokenType.TEXT, data: ['foo']});
+			expect(token.next()).to.be.token({type: TokenType.WHITESPACE, data: ['\r']});
+			expect(token.next()).to.be.token({type: TokenType.TAG_OPEN});
+			expect(token.next()).to.be.token({type: TokenType.TAG_CLOSE});
+			expect(token.next()).to.be.token({type: TokenType.WHITESPACE, data: ['  \r']});
+			expect(token.next()).to.be.token({type: TokenType.EOF});
+			expect(token.next().done).to.be.true;
+		});
+
+		it('whitespace LF', function(){
 			const token = lexer.tokenize(inlineSource('<p>\n  foo\n</p>  \n'));
 			expect(token.next()).to.be.token({type: TokenType.TAG_OPEN});
 			expect(token.next()).to.be.token({type: TokenType.TAG_CLOSE});
-			expect(token.next()).to.be.token({type: TokenType.WHITESPACE});
-			expect(token.next()).to.be.token({type: TokenType.WHITESPACE});
-			expect(token.next()).to.be.token({type: TokenType.TEXT});
-			expect(token.next()).to.be.token({type: TokenType.WHITESPACE});
+			expect(token.next()).to.be.token({type: TokenType.WHITESPACE, data: ['\n']});
+			expect(token.next()).to.be.token({type: TokenType.WHITESPACE, data: ['  ']});
+			expect(token.next()).to.be.token({type: TokenType.TEXT, data: ['foo']});
+			expect(token.next()).to.be.token({type: TokenType.WHITESPACE, data: ['\n']});
 			expect(token.next()).to.be.token({type: TokenType.TAG_OPEN});
 			expect(token.next()).to.be.token({type: TokenType.TAG_CLOSE});
-			expect(token.next()).to.be.token({type: TokenType.WHITESPACE});
+			expect(token.next()).to.be.token({type: TokenType.WHITESPACE, data: ['  \n']});
+			expect(token.next()).to.be.token({type: TokenType.EOF});
+			expect(token.next().done).to.be.true;
+		});
+
+		it('whitespace CRLF', function(){
+			const token = lexer.tokenize(inlineSource('<p>\r\n  foo\r\n</p>  \r\n'));
+			expect(token.next()).to.be.token({type: TokenType.TAG_OPEN});
+			expect(token.next()).to.be.token({type: TokenType.TAG_CLOSE});
+			expect(token.next()).to.be.token({type: TokenType.WHITESPACE, data: ['\r\n']});
+			expect(token.next()).to.be.token({type: TokenType.WHITESPACE, data: ['  ']});
+			expect(token.next()).to.be.token({type: TokenType.TEXT, data: ['foo']});
+			expect(token.next()).to.be.token({type: TokenType.WHITESPACE, data: ['\r\n']});
+			expect(token.next()).to.be.token({type: TokenType.TAG_OPEN});
+			expect(token.next()).to.be.token({type: TokenType.TAG_CLOSE});
+			expect(token.next()).to.be.token({type: TokenType.WHITESPACE, data: ['  \r\n']});
 			expect(token.next()).to.be.token({type: TokenType.EOF});
 			expect(token.next().done).to.be.true;
 		});
