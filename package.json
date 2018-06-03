@@ -20,12 +20,12 @@
   },
   "main": "shim.js",
   "bin": {
-    "html-validate": "html-validate.js"
+    "html-validate": "bin/html-validate.js"
   },
   "scripts": {
     "test": "grunt eslint mochaTest smoketest",
     "mocha": "nyc mocha --opts mocha.opts",
-    "version": "./update-changelog.sh && git add CHANGELOG.md",
+    "version": "./scripts/update-changelog.sh && git add CHANGELOG.md",
     "postversion": "git push --follow-tags"
   },
   "dependencies": {

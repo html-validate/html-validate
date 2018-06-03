@@ -19,7 +19,12 @@ module.exports = function(grunt){
 					filename,
 				]);
 				grunt.log.debug(` (${args.join(' ')})`);
-				const result = spawnSync('./html-validate.js', args);
+				const result = spawnSync('./bin/html-validate.js', args);
+
+				if (result.error){
+					grunt.fatal(result.error);
+					return;
+				}
 
 				/* validate output */
 				const compare = `${s.dir}/${s.name}.json`;
