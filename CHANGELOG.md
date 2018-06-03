@@ -2,6 +2,13 @@
 
 ## Upcoming release
 
+### Breaking changes
+
+- semantics for `require` changed from `require('html-validate')` to
+  `require('html-validate').HtmlValidate` to support exposing other classes.
+
+### Features
+
 - trigger downstream projects on release
 
 ## 0.8.3 (2018-06-12)
