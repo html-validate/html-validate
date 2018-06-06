@@ -63,9 +63,11 @@ function compareKey(node: ESTree.Expression, key: string){
 
 export class TemplateExtractor {
 	ast: ESTree.Program;
+	filename: string;
 
-	private constructor(ast: ESTree.Program){
+	private constructor(ast: ESTree.Program, filename: string){
 		this.ast = ast;
+		this.filename = filename;
 	}
 
 	static fromFilename(filename: string): TemplateExtractor {
@@ -75,24 +77,27 @@ export class TemplateExtractor {
 			sourceType: "module",
 			loc: true,
 		});
-		return new TemplateExtractor(ast);
+		return new TemplateExtractor(ast, filename);
 	}
 
-	static fromString(source: string): TemplateExtractor {
+	static fromString(source: string, filename?: string): TemplateExtractor {
 		const ast = espree.parse(source, {
 			ecmaVersion: 2017,
 			sourceType: "module",
 			loc: true,
 		});
-		return new TemplateExtractor(ast);
+		return new TemplateExtractor(ast, filename || 'inline');
 	}
 
 	extractObjectProperty(key: string): Source[] {
 		const result: Source[] = [];
+		const filename = this.filename;
 		walk.simple(this.ast, {
 			Property(node: ESTree.Property){
 				if (compareKey(node.key, key)){
-					result.push(extractLiteral(node.value));
+					const source = extractLiteral(node.value);
+					source.filename = filename;
+					result.push(source);
 				}
 			},
 		});
