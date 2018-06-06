@@ -28,16 +28,16 @@ describe('TemplateExtractor', function(){
 		});
 
 		it('should handle template literal', () => {
-			const te = TemplateExtractor.fromString('foo({template: `<b>foo</b>`})');
+			const te = TemplateExtractor.fromString('foo({template: `<b>${foo}</b>`})');
 			expect(te.extractObjectProperty('template')).to.deep.equal([
-				'<b>foo</b>',
+				'<b>      </b>',
 			]);
 		});
 
 		it('should handle tagged template', () => {
-			const te = TemplateExtractor.fromString('foo({template: foo`<b>foo</b>`})');
+			const te = TemplateExtractor.fromString('foo({template: foo`<b>${foo}</b>`})');
 			expect(te.extractObjectProperty('template')).to.deep.equal([
-				'<b>foo</b>',
+				'<b>      </b>',
 			]);
 		});
 

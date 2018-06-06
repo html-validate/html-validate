@@ -4,18 +4,33 @@ const espree = require("espree");
 const fs = require('fs');
 const walk = require("acorn/dist/walk");
 
+/* espree puts location information a bit different than estree */
+declare module 'estree' {
+	interface TemplateElement {
+		start: number;
+		end: number;
+	}
+}
+
+function joinTemplateLiteral(nodes: ESTree.TemplateElement[]): string {
+	let offset = nodes[0].start;
+	let output = '';
+	for (const node of nodes){
+		output += ' '.repeat(node.start - offset);
+		output += node.value.raw;
+		offset = node.end;
+	}
+	return output;
+}
+
 function extractLiteral(node: ESTree.Expression | ESTree.Pattern): string {
 	switch (node.type){
 	case 'Literal':
 		return node.value.toString();
 	case 'TemplateLiteral':
-		return node.quasis.map((quasis: ESTree.TemplateElement) => {
-			return quasis.value.raw;
-		}).join('');
+		return joinTemplateLiteral(node.quasis);
 	case 'TaggedTemplateExpression':
-		return node.quasi.quasis.map((quasis: ESTree.TemplateElement) => {
-			return quasis.value.raw;
-		}).join('');
+		return joinTemplateLiteral(node.quasi.quasis);
 	default:
 		throw Error(`Unhandled node type "${node.type}" in extractLiteral`);
 	}
