@@ -33,12 +33,25 @@ function compareKey(node: ESTree.Expression, key: string){
 export class TemplateExtractor {
 	ast: ESTree.Program;
 
-	constructor(filename: string){
+	private constructor(ast: ESTree.Program){
+		this.ast = ast;
+	}
+
+	static fromFilename(filename: string): TemplateExtractor {
 		const source = fs.readFileSync(filename);
-		this.ast = espree.parse(source, {
+		const ast = espree.parse(source, {
 			ecmaVersion: 2017,
 			sourceType: "module",
 		});
+		return new TemplateExtractor(ast);
+	}
+
+	static fromString(source: string): TemplateExtractor {
+		const ast = espree.parse(source, {
+			ecmaVersion: 2017,
+			sourceType: "module",
+		});
+		return new TemplateExtractor(ast);
 	}
 
 	extractObjectProperty(key: string): string[] {
