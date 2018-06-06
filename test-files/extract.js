@@ -10,5 +10,5 @@ export const FooComponent = {
 };
 
 Vue.component('foo', {
-  template: `<p>foo</p>`,
+	template: `<p>foo</p>`,
 })

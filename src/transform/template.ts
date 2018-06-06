@@ -1,4 +1,5 @@
 import * as ESTree from 'estree';
+import { Source } from '../context';
 
 const espree = require("espree");
 const fs = require('fs');
@@ -23,14 +24,29 @@ function joinTemplateLiteral(nodes: ESTree.TemplateElement[]): string {
 	return output;
 }
 
-function extractLiteral(node: ESTree.Expression | ESTree.Pattern): string {
+function extractLiteral(node: ESTree.Expression | ESTree.Pattern): Source {
 	switch (node.type){
 	case 'Literal':
-		return node.value.toString();
+		return {
+			data: node.value.toString(),
+			filename: null,
+			line: node.loc.start.line,
+			column: node.loc.start.column + 1,
+		};
 	case 'TemplateLiteral':
-		return joinTemplateLiteral(node.quasis);
+		return {
+			data: joinTemplateLiteral(node.quasis),
+			filename: null,
+			line: node.loc.start.line,
+			column: node.loc.start.column + 1,
+		};
 	case 'TaggedTemplateExpression':
-		return joinTemplateLiteral(node.quasi.quasis);
+		return {
+			data: joinTemplateLiteral(node.quasi.quasis),
+			filename: null,
+			line: node.quasi.loc.start.line,
+			column: node.quasi.loc.start.column + 1,
+		};
 	default:
 		throw Error(`Unhandled node type "${node.type}" in extractLiteral`);
 	}
@@ -57,6 +73,7 @@ export class TemplateExtractor {
 		const ast = espree.parse(source, {
 			ecmaVersion: 2017,
 			sourceType: "module",
+			loc: true,
 		});
 		return new TemplateExtractor(ast);
 	}
@@ -65,12 +82,13 @@ export class TemplateExtractor {
 		const ast = espree.parse(source, {
 			ecmaVersion: 2017,
 			sourceType: "module",
+			loc: true,
 		});
 		return new TemplateExtractor(ast);
 	}
 
-	extractObjectProperty(key: string): string[] {
-		const result: string[] = [];
+	extractObjectProperty(key: string): Source[] {
+		const result: Source[] = [];
 		walk.simple(this.ast, {
 			Property(node: ESTree.Property){
 				if (compareKey(node.key, key)){
