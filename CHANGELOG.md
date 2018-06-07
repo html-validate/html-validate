@@ -9,6 +9,8 @@
 
 ### Features
 
+- new `TemplateExtractor` helper class for extracting templates from javascript
+  sources.
 - trigger downstream projects on release
 
 ## 0.8.3 (2018-06-12)
