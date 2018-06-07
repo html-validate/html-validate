@@ -1,0 +1,20 @@
+#!/bin/sh
+
+if [ $# -lt 4 ]; then
+	echo 'usage: trigger-downstream ID TOKEN BRANCH VERSION'
+	exit 1
+fi
+
+id="$1"
+token="$2"
+branch="$3"
+version="$4"
+
+exec curl --silent --show-error --fail \
+	 --stderr /dev/stderr \
+	 --output /dev/null \
+	 -X POST \
+	 -F "token=${token}" \
+	 -F "ref=${branch}" \
+	 -F "variables[UPSTREAM_VERSION]=${version}" \
+	 https://git.sidvind.com/api/v4/projects/${id}/trigger/pipeline
