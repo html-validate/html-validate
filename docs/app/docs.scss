@@ -2,7 +2,7 @@ $fa-font-path: "fonts";
 
 @import 'font-awesome';
 @import 'bootstrap';
-@import 'github'; // hljs style
+@import 'hljs-github';
 
 main {
 	padding-bottom: 3rem; // to get some space between text and bottom of window.
