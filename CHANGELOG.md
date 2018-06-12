@@ -2,6 +2,9 @@
 
 ## Upcoming release
 
+- exposed `getFormatter` as a reusable function to load formatters from string
+  (like CLI tool): `name[=DST][,name=DST...]`
+
 ## 0.8.2 (2018-05-28)
 
 ### Bugfixes
