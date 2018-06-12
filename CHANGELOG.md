@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+- run tests against multiple node versions (8.x, 9.x and 10.x) to ensure
+  compatibility.
 - exposed `getFormatter` as a reusable function to load formatters from string
   (like CLI tool): `name[=DST][,name=DST...]`
 

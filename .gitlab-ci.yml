@@ -1,9 +1,10 @@
-image: node:9
+image: node:10
 
 stages:
   - prepare
   - build
   - test
+  - compatibility
   - release
 
 NPM:
@@ -19,8 +20,7 @@ NPM:
   script:
     - node --version
     - npm --version
-    - npm install
-    - npm ls || true
+    - npm ci
 
 Build:
   stage: build
@@ -68,11 +68,34 @@ Docs:
     - node_modules/.bin/grunt ts docs
     - ./bin/html-validate.js docs/**/*.html public/**/.html
 
+.compat: &compat
+  stage: compatibility
+  dependencies: []
+  before_script:
+    - npm ci
+  script:
+    - node_modules/.bin/grunt build
+
+Node 8.x:
+  <<: *compat
+  image: node:8
+  before_script:
+    - npm install
+
+Node 9.x:
+  <<: *compat
+  image: node:9
+  before_script:
+    - npm install
+
+Node 10.x:
+  <<: *compat
+  image: node:10
+
 Publish to NPM:
   stage: release
   only:
     - tags
-    - triggers
   script:
     - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > ~/.npmrc
     - export PKG_VERSION=v$(node -p "require('./package.json').version")

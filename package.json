@@ -19,6 +19,9 @@
     "url": "https://git.sidvind.com/html-validate/html-validate/issues/new"
   },
   "main": "shim.js",
+  "engines": {
+    "node": ">=8.0"
+  },
   "bin": {
     "html-validate": "bin/html-validate.js"
   },
