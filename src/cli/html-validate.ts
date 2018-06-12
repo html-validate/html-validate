@@ -1,8 +1,8 @@
 import HtmlValidate from '../htmlvalidate';
-import { Result, Reporter } from '../reporter';
+import { Reporter } from '../reporter';
+import { getFormatters } from './formatter';
 import * as minimist from 'minimist';
 
-const fs = require('fs');
 const glob = require('glob');
 
 function getMode(argv: { [key: string]: any }){
@@ -37,22 +37,6 @@ function getGlobalConfig(rules?: string|string[]){
 		}
 	}
 	return config;
-}
-
-function getFormatters(formatters: string): ((results: Result[]) => void)[] {
-	return formatters.split(',').map(cur => {
-		const [name, dst] = cur.split('=', 2);
-		const moduleName = name.replace(/[^a-z]+/g, '');
-		const formatter = require(`../formatters/${moduleName}`);
-		return (results: Result[]) => {
-			const output = formatter(results);
-			if (dst){
-				fs.writeFileSync(dst, output, 'utf-8');
-			} else {
-				process.stdout.write(output);
-			}
-		};
-	});
 }
 
 const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
