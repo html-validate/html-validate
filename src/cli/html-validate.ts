@@ -1,6 +1,6 @@
 import HtmlValidate from '../htmlvalidate';
 import { Reporter } from '../reporter';
-import { getFormatters } from './formatter';
+import { getFormatter } from './formatter';
 import * as minimist from 'minimist';
 
 const glob = require('glob');
@@ -82,7 +82,7 @@ if (argv.h || argv.help){
 
 const mode = getMode(argv);
 const config = getGlobalConfig(argv.rule);
-const formatters = getFormatters(argv.formatter);
+const formatter = getFormatter(argv.formatter);
 const htmlvalidate = new HtmlValidate(config);
 
 const files = argv._.reduce((files: string[], pattern: string) => {
@@ -92,5 +92,5 @@ const unique = [... new Set(files)];
 const results = unique.map((filename: string) => htmlvalidate.validateFile(filename, mode));
 const merged = Reporter.merge(results);
 
-formatters.forEach((formatter: any) => formatter(merged.results));
+formatter(merged);
 process.exit(merged.valid ? 0 : 1);
