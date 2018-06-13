@@ -1,2 +1,9 @@
 /* used when calling require('htmlvalidate'); */
-module.exports = require('./build/htmlvalidate').default;
+
+const HtmlValidate = require('./build/htmlvalidate').default;
+const TemplateExtractor = require('./build/transform/template').TemplateExtractor;
+
+module.exports = {
+	HtmlValidate,
+	TemplateExtractor,
+};
