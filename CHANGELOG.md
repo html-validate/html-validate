@@ -15,7 +15,7 @@
   sources.
 - trigger downstream projects on release
 
-## Bugfixes
+### Bugfixes
 
 - Report `valid` now only checks for errors, the result will still be valid if
   only warnings are present.
