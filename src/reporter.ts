@@ -69,18 +69,33 @@ export class Reporter {
 
 	save(): Report {
 		return {
-			valid: Object.keys(this.result).length === 0,
+			valid: this.isValid(),
 			results: Object.keys(this.result).map(filePath => {
 				const messages = [].concat(this.result[filePath]).sort(messageSort);
 				return {
 					filePath,
 					messages,
-					errorCount: messages.filter(m => m.severity === Config.SEVERITY_ERROR).length,
-					warningCount: messages.filter(m => m.severity === Config.SEVERITY_WARN).length,
+					errorCount: countErrors(messages),
+					warningCount: countWarnings(messages),
 				};
 			}),
 		};
 	}
+
+	protected isValid(): boolean {
+		const numErrors = Object.values(this.result).reduce((sum, messages) => {
+			return sum + countErrors(messages);
+		}, 0);
+		return numErrors === 0;
+	}
+}
+
+function countErrors(messages: Message[]){
+	return messages.filter(m => m.severity === Config.SEVERITY_ERROR).length;
+}
+
+function countWarnings(messages: Message[]){
+	return messages.filter(m => m.severity === Config.SEVERITY_WARN).length;
 }
 
 function messageSort(a: Message, b: Message): number {

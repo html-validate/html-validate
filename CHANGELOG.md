@@ -13,6 +13,11 @@
   sources.
 - trigger downstream projects on release
 
+## Bugfixes
+
+- Report `valid` now only checks for errors, the result will still be valid if
+  only warnings are present.
+
 ## 0.8.3 (2018-06-12)
 
 - run tests against multiple node versions (8.x, 9.x and 10.x) to ensure
