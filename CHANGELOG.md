@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.9.0 (2018-06-17)
+
 ### Breaking changes
 
 - semantics for `require` changed from `require('html-validate')` to
