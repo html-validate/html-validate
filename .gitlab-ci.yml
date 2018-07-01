@@ -126,3 +126,10 @@ html-validate-vue:
     PROJECT_ID: 40
   script:
     - scripts/trigger-downstream "${PROJECT_ID}" "${DOWNSTREAM_VUE_TOKEN}" "master" "${CI_COMMIT_TAG}"
+
+protractor-html-validate:
+  <<: *downstream
+  variables:
+    PROJECT_ID: 42
+  script:
+    - scripts/trigger-downstream "${PROJECT_ID}" "${DOWNSTREAM_PROTRACTOR_TOKEN}" "master" "${CI_COMMIT_TAG}"
