@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.9.1 (2018-07-01)
+
 ### Features
 
 - add `protractor-html-validate` to docs.
