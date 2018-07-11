@@ -6,6 +6,7 @@ module.exports = {
 		'close-attr': 'error',
 		'close-order': 'error',
 		'deprecated': 'error',
+		'element-case': 'error',
 		'element-name': 'error',
 		'element-permitted-content': 'error',
 		'element-permitted-occurrences': 'error',
