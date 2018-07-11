@@ -1,5 +1,6 @@
 module.exports = {
 	rules: {
+		'attr-case': 'error',
 		'attr-quotes': 'error',
 		'button-type': 'error',
 		'close-attr': 'error',
