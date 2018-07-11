@@ -2,6 +2,11 @@
 
 ## Upcoming release
 
+### Features
+
+. add `element-case` rule for validating case of element names.
+. add `attr-case` rule for validating case of attributes.
+
 ## 0.9.1 (2018-07-01)
 
 ### Features
