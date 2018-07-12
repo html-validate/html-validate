@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.9.2 (2018-07-12)
+
 ### Features
 
 - add `no-inline-style` to `htmlvalidate:recommended`.
