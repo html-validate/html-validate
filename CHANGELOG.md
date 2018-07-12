@@ -4,6 +4,7 @@
 
 ### Features
 
+- stricter types related to events
 - bump dependencies.
 
 ## 0.9.2 (2018-07-12)
