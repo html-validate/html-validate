@@ -316,9 +316,10 @@ describe('parser', function(){
 	describe('should parse', function(){
 
 		it('doctype', function(){
-			parser.parseHtml('<!doctype html>');
-			expect(events.shift()).to.deep.equal({event: 'doctype', value: 'html'});
+			const dom = parser.parseHtml('<!doctype foobar>');
+			expect(events.shift()).to.deep.equal({event: 'doctype', value: 'foobar'});
 			expect(events.shift()).to.be.undefined;
+			expect(dom.doctype).to.equal('foobar');
 		});
 
 	});

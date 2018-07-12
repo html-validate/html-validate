@@ -4,7 +4,8 @@
 
 ### Features
 
-- adding `doctype` event, emitted when a doctype is encountered.
+- add `doctype` property to `DOMTree`.
+- add `doctype` event, emitted when a doctype is encountered.
 - add `element-case` rule for validating case of element names.
 - add `attr-case` rule for validating case of attributes.
 

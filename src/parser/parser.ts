@@ -220,9 +220,11 @@ export class Parser {
 	consumeDoctype(startToken: Token, tokenStream: TokenStream){
 		const tokens = Array.from(this.consumeUntil(tokenStream, TokenType.DOCTYPE_CLOSE));
 		const doctype = tokens[0]; /* first token is the doctype, second is the closing ">" */
+		const value = doctype.data[0];
+		this.dom.doctype = value;
 		this.trigger('doctype', {
 			target: startToken,
-			value: doctype.data[0],
+			value,
 			location: startToken.location,
 		});
 	}

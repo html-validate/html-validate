@@ -5,10 +5,12 @@ import { MetaTable } from '../meta';
 export class DOMTree {
 	readonly root: DOMNode;
 	private active: DOMNode;
+	public doctype?: string;
 
 	constructor(){
 		this.root = DOMNode.rootNode();
 		this.active = this.root;
+		this.doctype = null;
 	}
 
 	pushActive(node: DOMNode): void {
