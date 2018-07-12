@@ -30,10 +30,6 @@ export class Parser {
 		this.metaTable = config.getMetaTable();
 	}
 
-	on(event: string, listener: EventCallback){
-		this.event.on(event, listener);
-	}
-
 	parseHtml(source: string|Source): DOMTree {
 		if (typeof source === 'string'){
 			source = {
@@ -274,6 +270,13 @@ export class Parser {
 		} else {
 			return this.peeked = tokenStream.next();
 		}
+	}
+
+	/**
+	 * Listen on events.
+	 */
+	on(event: string, listener: EventCallback): void {
+		this.event.on(event, listener);
 	}
 
 	/**
