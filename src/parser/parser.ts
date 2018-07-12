@@ -15,7 +15,7 @@ export class Parser {
 	constructor(config: Config){
 		this.config = config;
 		this.event = new EventHandler();
-		this.dom = new DOMTree();
+		this.dom = undefined;
 		this.peeked = undefined;
 		this.metaTable = config.getMetaTable();
 	}
@@ -25,9 +25,6 @@ export class Parser {
 	}
 
 	parseHtml(source: string|Source): DOMTree {
-		/* reset DOM in case there are multiple calls in the same session */
-		this.dom = new DOMTree();
-
 		if (typeof source === 'string'){
 			source = {
 				data: source,
@@ -36,6 +33,13 @@ export class Parser {
 				column: 1,
 			};
 		}
+
+		/* reset DOM in case there are multiple calls in the same session */
+		this.dom = new DOMTree({
+			filename: source.filename,
+			line: source.line,
+			column: source.column,
+		});
 
 		/* trigger any rules waiting for DOM load event */
 		this.trigger('dom:load', {
@@ -89,7 +93,8 @@ export class Parser {
 		/* trigger any rules waiting for DOM ready */
 		this.trigger('dom:ready', {
 			document: this.dom,
-			location: false,
+			location: false, /* disable location for this event so rules can use
+			                  * implicit node location instead */
 		});
 
 		return this.dom;

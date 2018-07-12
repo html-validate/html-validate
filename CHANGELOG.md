@@ -4,6 +4,8 @@
 
 ### Features
 
+- add source location to root DOMNode containing the first line and column in
+  the source file.
 - add `doctype` property to `DOMTree`.
 - add `doctype` event, emitted when a doctype is encountered.
 - add `element-case` rule for validating case of element names.

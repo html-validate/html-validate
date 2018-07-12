@@ -49,8 +49,8 @@ export class DOMNode {
 		}
 	}
 
-	static rootNode() {
-		return new DOMNode(undefined, undefined);
+	static rootNode(location: Location) {
+		return new DOMNode(undefined, undefined, undefined, undefined, location);
 	}
 
 	static fromTokens(startToken: Token, endToken: Token, parent: DOMNode, metaTable: MetaTable){
