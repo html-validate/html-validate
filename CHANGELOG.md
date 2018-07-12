@@ -4,6 +4,7 @@
 
 ### Features
 
+- add `no-inline-style` to `htmlvalidate:recommended`.
 - add `htmlvalidate:document` for predefined set of document-related rules,
   e.g. recommended for documents but not component templates.
 - add `missing-doctype` rule to require doctype.
