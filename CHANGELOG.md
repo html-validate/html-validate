@@ -4,8 +4,16 @@
 
 ### Features
 
-. add `element-case` rule for validating case of element names.
-. add `attr-case` rule for validating case of attributes.
+- add `no-inline-style` to `htmlvalidate:recommended`.
+- add `htmlvalidate:document` for predefined set of document-related rules,
+  e.g. recommended for documents but not component templates.
+- add `missing-doctype` rule to require doctype.
+- add source location to root DOMNode containing the first line and column in
+  the source file.
+- add `doctype` property to `DOMTree`.
+- add `doctype` event, emitted when a doctype is encountered.
+- add `element-case` rule for validating case of element names.
+- add `attr-case` rule for validating case of attributes.
 
 ## 0.9.1 (2018-07-01)
 

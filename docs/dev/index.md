@@ -9,6 +9,39 @@ Developers guide
 Events
 ------
 
+`dom:load`
+----------
+
+```typescript
+{}
+```
+
+Emitted after initialization but before tokenization and parsing occurs. Can be
+used to initialize state in rules.
+
+`dom:ready`
+-----------
+
+```typescript
+{
+  document: DOMTree,
+}
+```
+
+Emitted after the parsing has finished loading the DOM tree.
+
+`doctype`
+-----------
+
+```typescript
+{
+  value: string,
+}
+```
+
+Emitted when a doctype is encountered. `value` is the doctype (without
+`<doctype` and `>`).
+
 `tag:open`
 ----------
 

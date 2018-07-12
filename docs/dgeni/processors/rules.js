@@ -1,5 +1,6 @@
 /** @todo this will break when typescript is actually used */
 const recommended = require('../../../src/config/recommended.ts');
+const document = require('../../../src/config/document.ts');
 
 function compareName(a, b){
 	if (a.name < b.name){
@@ -28,6 +29,7 @@ module.exports = function rulesProcessor(moduleMap, renderDocsProcessor) {
 				category: doc.category,
 				summary: doc.summary,
 				recommended: !!recommended.rules[doc.name],
+				document: !!document.rules[doc.name],
 			}))
 			.sort(compareName);
 

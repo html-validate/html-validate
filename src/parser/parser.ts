@@ -15,7 +15,7 @@ export class Parser {
 	constructor(config: Config){
 		this.config = config;
 		this.event = new EventHandler();
-		this.dom = new DOMTree();
+		this.dom = undefined;
 		this.peeked = undefined;
 		this.metaTable = config.getMetaTable();
 	}
@@ -25,9 +25,6 @@ export class Parser {
 	}
 
 	parseHtml(source: string|Source): DOMTree {
-		/* reset DOM in case there are multiple calls in the same session */
-		this.dom = new DOMTree();
-
 		if (typeof source === 'string'){
 			source = {
 				data: source,
@@ -36,6 +33,13 @@ export class Parser {
 				column: 1,
 			};
 		}
+
+		/* reset DOM in case there are multiple calls in the same session */
+		this.dom = new DOMTree({
+			filename: source.filename,
+			line: source.line,
+			column: source.column,
+		});
 
 		/* trigger any rules waiting for DOM load event */
 		this.trigger('dom:load', {
@@ -71,6 +75,10 @@ export class Parser {
 				});
 				break;
 
+			case TokenType.DOCTYPE_OPEN:
+				this.consumeDoctype(token, tokenStream);
+				break;
+
 			case TokenType.EOF:
 				this.closeTree(token);
 				break;
@@ -85,7 +93,8 @@ export class Parser {
 		/* trigger any rules waiting for DOM ready */
 		this.trigger('dom:ready', {
 			document: this.dom,
-			location: false,
+			location: false, /* disable location for this event so rules can use
+			                  * implicit node location instead */
 		});
 
 		return this.dom;
@@ -208,6 +217,21 @@ export class Parser {
 			location: token.location,
 		});
 		node.setAttribute(key, value);
+	}
+
+	/**
+	 * Consumes doctype tokens. Emits doctype event.
+	 */
+	consumeDoctype(startToken: Token, tokenStream: TokenStream){
+		const tokens = Array.from(this.consumeUntil(tokenStream, TokenType.DOCTYPE_CLOSE));
+		const doctype = tokens[0]; /* first token is the doctype, second is the closing ">" */
+		const value = doctype.data[0];
+		this.dom.doctype = value;
+		this.trigger('doctype', {
+			target: startToken,
+			value,
+			location: startToken.location,
+		});
 	}
 
 	/**

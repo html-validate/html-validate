@@ -1,3 +1,4 @@
+import { Location } from '../context';
 import { DOMNode } from './domnode';
 import { Selector } from './selector';
 import { MetaTable } from '../meta';
@@ -5,10 +6,12 @@ import { MetaTable } from '../meta';
 export class DOMTree {
 	readonly root: DOMNode;
 	private active: DOMNode;
+	public doctype?: string;
 
-	constructor(){
-		this.root = DOMNode.rootNode();
+	constructor(location: Location){
+		this.root = DOMNode.rootNode(location);
 		this.active = this.root;
+		this.doctype = null;
 	}
 
 	pushActive(node: DOMNode): void {

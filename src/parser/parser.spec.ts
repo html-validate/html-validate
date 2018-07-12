@@ -38,6 +38,12 @@ describe('parser', function(){
 					value: data.value,
 				});
 				break;
+			case 'doctype':
+				events.push({
+					event,
+					value: data.value,
+				});
+				break;
 			}
 		});
 	});
@@ -303,6 +309,17 @@ describe('parser', function(){
 			parser.parseHtml('<div></div>');
 			expect(document).to.be.instanceof(DOMTree);
 			expect(document.root.children).to.have.lengthOf(1);
+		});
+
+	});
+
+	describe('should parse', function(){
+
+		it('doctype', function(){
+			const dom = parser.parseHtml('<!doctype foobar>');
+			expect(events.shift()).to.deep.equal({event: 'doctype', value: 'foobar'});
+			expect(events.shift()).to.be.undefined;
+			expect(dom.doctype).to.equal('foobar');
 		});
 
 	});

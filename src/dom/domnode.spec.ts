@@ -170,7 +170,11 @@ describe('DOMNode', function(){
 	describe('visitDepthFirst()', function(){
 
 		it('should visit all nodes in correct order', function(){
-			const root = DOMNode.rootNode();
+			const root = DOMNode.rootNode({
+				filename: 'inline',
+				line: 1,
+				column: 1,
+			});
 			/* eslint-disable no-unused-vars */
 			const a = new DOMNode('a', root);
 			const b = new DOMNode('b', root);

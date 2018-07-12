@@ -18,6 +18,7 @@ module.exports = {
 		'no-dup-class': 'error',
 		'no-dup-id': 'error',
 		'no-implicit-close': 'error',
+		'no-inline-style': 'error',
 		'no-trailing-whitespace': 'error',
 		'void': 'error',
 	},
