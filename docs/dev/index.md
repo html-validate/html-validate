@@ -30,6 +30,18 @@ used to initialize state in rules.
 
 Emitted after the parsing has finished loading the DOM tree.
 
+`doctype`
+-----------
+
+```typescript
+{
+  value: string,
+}
+```
+
+Emitted when a doctype is encountered. `value` is the doctype (without
+`<doctype` and `>`).
+
 `tag:open`
 ----------
 

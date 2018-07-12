@@ -71,6 +71,10 @@ export class Parser {
 				});
 				break;
 
+			case TokenType.DOCTYPE_OPEN:
+				this.consumeDoctype(token, tokenStream);
+				break;
+
 			case TokenType.EOF:
 				this.closeTree(token);
 				break;
@@ -208,6 +212,19 @@ export class Parser {
 			location: token.location,
 		});
 		node.setAttribute(key, value);
+	}
+
+	/**
+	 * Consumes doctype tokens. Emits doctype event.
+	 */
+	consumeDoctype(startToken: Token, tokenStream: TokenStream){
+		const tokens = Array.from(this.consumeUntil(tokenStream, TokenType.DOCTYPE_CLOSE));
+		const doctype = tokens[0]; /* first token is the doctype, second is the closing ">" */
+		this.trigger('doctype', {
+			target: startToken,
+			value: doctype.data[0],
+			location: startToken.location,
+		});
 	}
 
 	/**
