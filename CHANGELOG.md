@@ -4,6 +4,7 @@
 
 ### Features
 
+- add `missing-doctype` rule to require doctype.
 - add source location to root DOMNode containing the first line and column in
   the source file.
 - add `doctype` property to `DOMTree`.
