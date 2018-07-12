@@ -1,22 +1,30 @@
-import { Rule, RuleReport, RuleParserProxy } from '../rule';
+import { Rule } from '../rule';
 import { TagOpenEvent } from '../event';
 
-export = {
-	name: 'element-case',
-	init,
+const defaults = {
+	style: 'lowercase',
+};
 
-	defaults: {
-		style: 'lowercase',
-	},
-} as Rule;
+class ElementCase extends Rule {
+	pattern: RegExp;
+	lettercase: string;
 
-function init(parser: RuleParserProxy, options: any){
-	parser.on('tag:open', validate);
-	this.options = Object.assign(this.defaults, options);
-	[this.pattern, this.lettercase] = parseStyle(this.options.style);
+	constructor(options: object){
+		super(Object.assign({}, defaults, options));
+		[this.pattern, this.lettercase] = parseStyle(this.options.style);
+	}
+
+	setup(){
+		this.on('tag:open', (event: TagOpenEvent) => {
+			const letters = event.target.tagName.replace(/[^a-z]+/ig, '');
+			if (!letters.match(this.pattern)){
+				this.report(event.target, `Element "${event.target.tagName}" should be ${this.lettercase}`);
+			}
+		});
+	}
 }
 
-function parseStyle(style: string){
+function parseStyle(style: string): [RegExp, string] {
 	switch (style.toLowerCase()){
 	case 'lowercase': return [/^[a-z]*$/, 'lowercase'];
 	case 'uppercase': return [/^[A-Z]*$/, 'uppercase'];
@@ -25,9 +33,4 @@ function parseStyle(style: string){
 	}
 }
 
-function validate(event: TagOpenEvent, report: RuleReport){
-	const letters = event.target.tagName.replace(/[^a-z]+/ig, '');
-	if (!letters.match(this.pattern)){
-		report(event.target, `Element "${event.target.tagName}" should be ${this.lettercase}`);
-	}
-}
+module.exports = ElementCase;

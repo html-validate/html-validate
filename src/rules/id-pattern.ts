@@ -1,27 +1,30 @@
-import { Rule, RuleReport, RuleParserProxy } from '../rule';
+import { Rule } from '../rule';
 import { AttributeEvent } from '../event';
 import { parsePattern } from '../pattern';
 
-export = {
-	name: 'id-pattern',
-	init,
+const defaults = {
+	pattern: 'kebabcase',
+};
 
-	defaults: {
-		pattern: 'kebabcase',
-	},
-} as Rule;
+class IdPattern extends Rule {
+	pattern: RegExp;
 
-function init(parser: RuleParserProxy, userOptions: any){
-	const options = Object.assign({}, this.defaults, userOptions);
-	const pattern = parsePattern(options.pattern);
+	constructor(options: object){
+		super(Object.assign({}, defaults, options));
+		this.pattern = parsePattern(this.options.pattern);
+	}
 
-	parser.on('attr', (event: AttributeEvent, report: RuleReport) => {
-		if (event.key.toLowerCase() !== 'id'){
-			return;
-		}
+	setup(){
+		this.on('attr', (event: AttributeEvent) => {
+			if (event.key.toLowerCase() !== 'id'){
+				return;
+			}
 
-		if (!event.value.match(pattern)){
-			report(event.target, `ID "${event.value}" does not match required pattern "${pattern}"`);
-		}
-	});
+			if (!event.value.match(this.pattern)){
+				this.report(event.target, `ID "${event.value}" does not match required pattern "${this.pattern}"`);
+			}
+		});
+	}
 }
+
+module.exports = IdPattern;

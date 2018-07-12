@@ -1,5 +1,5 @@
 import { Config } from './config';
-import { Context } from './context';
+import { Location } from './context';
 import { DOMNode } from 'dom';
 import { Rule } from './rule';
 
@@ -47,16 +47,16 @@ export class Reporter {
 		return {valid, results: Object.keys(merged).map(key => merged[key])};
 	}
 
-	add(node: DOMNode, rule: Rule, message: string, severity: number, context: Context){
-		if (!this.result.hasOwnProperty(context.filename)){
-			this.result[context.filename] = [];
+	add(node: DOMNode, rule: Rule, message: string, severity: number, location: Location){
+		if (!this.result.hasOwnProperty(location.filename)){
+			this.result[location.filename] = [];
 		}
-		this.result[context.filename].push({
+		this.result[location.filename].push({
 			ruleId: rule.name,
 			severity,
 			message,
-			line: context.line,
-			column: context.column,
+			line: location.line,
+			column: location.column,
 		});
 	}
 

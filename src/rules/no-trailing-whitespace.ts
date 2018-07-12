@@ -1,17 +1,14 @@
-import { Rule, RuleReport, RuleParserProxy } from '../rule';
+import { Rule } from '../rule';
 import { WhitespaceEvent } from '../event';
 
-export = {
-	name: 'no-trailing-whitespace',
-	init,
-} as Rule;
-
-function init(parser: RuleParserProxy){
-	parser.on('whitespace', validate);
-}
-
-function validate(event: WhitespaceEvent, report: RuleReport){
-	if (event.text.match(/^[ \t]+\n$/)){
-		report(undefined, "Trailing whitespace", event.location);
+class NoTrailingWhitespace extends Rule {
+	setup(){
+		this.on('whitespace', (event: WhitespaceEvent) => {
+			if (event.text.match(/^[ \t]+\n$/)){
+				this.report(undefined, "Trailing whitespace", event.location);
+			}
+		});
 	}
 }
+
+module.exports = NoTrailingWhitespace;

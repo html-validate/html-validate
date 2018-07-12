@@ -1,13 +1,12 @@
-import { Rule, RuleReport, RuleParserProxy } from '../rule';
+import { Rule } from '../rule';
 import { ConditionalEvent } from '../event';
 
-export = {
-	name: 'no-conditional-comment',
-	init,
-} as Rule;
-
-function init(parser: RuleParserProxy){
-	parser.on('conditional', (event: ConditionalEvent, report: RuleReport) => {
-		report(null, `Use of conditional comments are deprecated`, event.location);
-	});
+class NoConditionalComment extends Rule {
+	setup(){
+		this.on('conditional', (event: ConditionalEvent) => {
+			this.report(null, `Use of conditional comments are deprecated`, event.location);
+		});
+	}
 }
+
+module.exports = NoConditionalComment;
