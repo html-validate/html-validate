@@ -4,6 +4,16 @@ import { Source } from '../context';
 import { Lexer, Token, TokenStream, TokenType } from '../lexer';
 import { EventHandler, EventCallback } from '../event';
 import { MetaTable } from '../meta';
+import {
+	Event,
+	AttributeEvent,
+	ConditionalEvent,
+	DOMReadyEvent,
+	DoctypeEvent,
+	TagCloseEvent,
+	TagOpenEvent,
+	WhitespaceEvent,
+} from '../event';
 
 export class Parser {
 	private readonly config: Config;
@@ -43,9 +53,7 @@ export class Parser {
 
 		/* trigger any rules waiting for DOM load event */
 		this.trigger('dom:load', {
-			location: {
-
-			},
+			location: null,
 		});
 
 		const lexer = new Lexer();
@@ -93,8 +101,8 @@ export class Parser {
 		/* trigger any rules waiting for DOM ready */
 		this.trigger('dom:ready', {
 			document: this.dom,
-			location: false, /* disable location for this event so rules can use
-			                  * implicit node location instead */
+			location: null, /* disable location for this event so rules can use
+			                 * implicit node location instead */
 		});
 
 		return this.dom;
@@ -228,7 +236,6 @@ export class Parser {
 		const value = doctype.data[0];
 		this.dom.doctype = value;
 		this.trigger('doctype', {
-			target: startToken,
 			value,
 			location: startToken.location,
 		});
@@ -275,7 +282,15 @@ export class Parser {
 	 * @param {string} event - Event name
 	 * @param {Event} data - Event data
 	 */
-	private trigger(event: string, data: any): void {
+	private trigger(event: 'tag:open', data: TagOpenEvent): void;
+	private trigger(event: 'tag:close', data: TagCloseEvent): void;
+	private trigger(event: 'dom:load', data: Event): void;
+	private trigger(event: 'dom:ready', data: DOMReadyEvent): void;
+	private trigger(event: 'doctype', data: DoctypeEvent): void;
+	private trigger(event: 'attr', data: AttributeEvent): void;
+	private trigger(event: 'whitespace', data: WhitespaceEvent): void;
+	private trigger(event: 'conditional', data: ConditionalEvent): void;
+	private trigger(event: any, data: any): void {
 		if (typeof data.location === 'undefined'){
 			throw Error('Triggered event must contain location');
 		}

@@ -2,7 +2,6 @@ import { DOMNode, DOMTree } from '../dom';
 import { Location } from '../context';
 
 export interface Event {
-	event: string;
 	location: Location;
 }
 
@@ -27,7 +26,11 @@ export interface WhitespaceEvent extends Event {
 }
 
 export interface ConditionalEvent extends Event {
-	condtion: string;
+	condition: string;
+}
+
+export interface DoctypeEvent extends Event {
+	value: string;
 }
 
 export interface DOMReadyEvent extends Event {
