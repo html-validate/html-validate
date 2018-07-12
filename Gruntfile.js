@@ -1,4 +1,5 @@
 const path = require('path');
+const sass = require('sass');
 const serveStatic = require('serve-static');
 const eslintStrict = process.env.ESLINT_STRICT === '1';
 
@@ -87,6 +88,7 @@ module.exports = function(grunt){
 
 		sass: {
 			options: {
+				implementation: sass,
 				includePaths: [
 					'node_modules/font-awesome/scss/',
 					'node_modules/bootstrap-sass/assets/stylesheets/',
