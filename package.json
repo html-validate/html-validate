@@ -29,6 +29,7 @@
     "test": "grunt eslint mochaTest smoketest",
     "mocha": "nyc mocha --opts mocha.opts",
     "version": "./scripts/update-changelog.sh && git add CHANGELOG.md",
+    "preversion": "./scripts/validate-version.sh",
     "postversion": "git push --follow-tags"
   },
   "dependencies": {
