@@ -16,6 +16,7 @@
   "rules": {
     "brace-style": "off",
     "no-console": "warn",
+    "no-dupe-class-members": "off",
     "no-undef": "off",
     "space-before-blocks": "off",
     "strict": "off",

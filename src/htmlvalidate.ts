@@ -216,7 +216,7 @@ class HtmlValidate {
 					callback.call(rule, data, reportFunc);
 
 					function reportFunc(node: DOMNode, message: string, location: Location){
-						const where = location || data.location || node.location;
+						const where = location || data.location || (node ? node.location : {});
 						report.add(node, rule, message, severity, where);
 					}
 				});
