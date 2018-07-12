@@ -4,6 +4,8 @@
 
 ### Features
 
+- add `htmlvalidate:document` for predefined set of document-related rules,
+  e.g. recommended for documents but not component templates.
 - add `missing-doctype` rule to require doctype.
 - add source location to root DOMNode containing the first line and column in
   the source file.

@@ -117,6 +117,13 @@ describe('config', function(){
 			expect(config.getRules()).to.be.an('object');
 		});
 
+		it('should support htmlvalidate:document', function(){
+			const config = Config.fromObject({
+				extends: ['htmlvalidate:document'],
+			});
+			expect(config.getRules()).to.be.an('object');
+		});
+
 	});
 
 	describe('expandRelative()', function(){

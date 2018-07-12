@@ -12,6 +12,7 @@ const path = require('path');
 const deepmerge = require('deepmerge');
 
 const recommended = require('./recommended');
+const document = require('./document');
 
 const parseSeverityLut = [
 	'disable',
@@ -46,8 +47,9 @@ export class Config {
 	}
 
 	static fromFile(filename: string): Config {
-		if (filename === 'htmlvalidate:recommended'){
-			return Config.fromObject(recommended);
+		switch (filename){
+		case 'htmlvalidate:recommended': return Config.fromObject(recommended);
+		case 'htmlvalidate:document': return Config.fromObject(document);
 		}
 
 		const json = require(filename);
