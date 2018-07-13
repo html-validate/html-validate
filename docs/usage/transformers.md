@@ -11,7 +11,9 @@ templating.
 
 ## List of official transformers
 
+- [html-validate-angular]: transforms angularjs components and routes with inline templates.
 - [html-validate-vue]: transforms Vue.js sources. Extracts `<template>` from single file components and
   ``template: `...``` strings from javascript files.
 
+[html-validate-angular]: https://www.npmjs.com/package/html-validate-angular
 [html-validate-vue]: https://www.npmjs.com/package/html-validate-vue
