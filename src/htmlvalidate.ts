@@ -2,9 +2,9 @@ import { Config, ConfigLoader } from './config';
 import { Parser } from './parser';
 import { DOMNode } from 'dom';
 import { Reporter, Report } from './reporter';
-import { Source, Location } from './context';
+import { Source } from './context';
 import { Lexer, InvalidTokenError, TokenType } from './lexer';
-import { Rule, RuleEventCallback, RuleParserProxy, RuleReport } from './rule';
+import { Rule } from './rule';
 
 class HtmlValidate {
 	private globalConfig: Config;
@@ -183,45 +183,30 @@ class HtmlValidate {
 		return this.globalConfig.merge(config);
 	}
 
+	/**
+	 * Load a rule using current config.
+	 */
 	loadRule(name: string, data: any, parser: Parser, report: Reporter){
 		const [severity, options] = data;
 		if (severity >= Config.SEVERITY_WARN){
-			let rule;
+			let rule: Rule;
 			try {
-				rule = require(`./rules/${name}`);
+				const Class = require(`./rules/${name}`);
+				rule = new Class(options);
+				rule.name = rule.name || name;
 			} catch (e) {
-				rule = {
-					name: name,
-					init: (parser: RuleParserProxy) => {
-						parser.on('dom:load', (event: any, report: RuleReport) => {
-							report(null, `Definition for rule '${name}' was not found`);
+				rule = new class extends Rule {
+					setup(){
+						this.name = name;
+						this.on('dom:load', () => {
+							this.report(null, `Definition for rule '${name}' was not found`);
 						});
-					},
-				} as Rule;
-			}
-			rule.init(this.createProxy(parser, rule, severity, report), options);
-		}
-	}
-
-	/**
-	 * Create a proxy event binding: parser <-- rule --> report
-	 *
-	 * Rule can bind events on parser while maintaining "this" bound to the rule.
-	 * Callbacks receives an additional argument "report" to write messages to.
-	 */
-	createProxy(parser: Parser, rule: Rule, severity: number, report: Reporter){
-		return {
-			on: function(event: string, callback: RuleEventCallback){
-				parser.on(event, function(event, data){
-					callback.call(rule, data, reportFunc);
-
-					function reportFunc(node: DOMNode, message: string, location: Location){
-						const where = location || data.location || (node ? node.location : {});
-						report.add(node, rule, message, severity, where);
 					}
-				});
-			},
-		};
+				}(options);
+			}
+			rule.init(parser, report, severity);
+			rule.setup();
+		}
 	}
 }
 

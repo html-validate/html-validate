@@ -1,20 +1,38 @@
-import { Rule, RuleReport, RuleParserProxy } from '../rule';
+import { Rule } from '../rule';
 import { AttributeEvent } from '../event';
 
-export = {
-	name: 'attr-quotes',
-	init,
+const defaults = {
+	style: 'double',
+	unquoted: false,
+};
 
-	defaults: {
-		style: 'double',
-		unquoted: false,
-	},
-} as Rule;
+class AttrQuotes extends Rule {
+	expected: string;
 
-function init(parser: RuleParserProxy, options: any){
-	parser.on('attr', validate);
-	this.options = Object.assign(this.defaults, options);
-	this.expected = parseStyle(this.options.style);
+	constructor(options: object){
+		super(Object.assign({}, defaults, options));
+		this.expected = parseStyle(this.options.style);
+	}
+
+	setup(){
+		this.on('attr', (event: AttributeEvent) => {
+			/* ignore attributes with not value */
+			if (typeof event.value === 'undefined'){
+				return;
+			}
+
+			if (typeof event.quote === 'undefined'){
+				if (this.options.unquoted === false){
+					this.report(event.target, `Attribute "${event.key}" using unquoted value`);
+				}
+				return;
+			}
+
+			if (event.quote !== this.expected){
+				this.report(event.target, `Attribute "${event.key}" used ${event.quote} instead of expected ${this.expected}`);
+			}
+		});
+	}
 }
 
 function parseStyle(style: string){
@@ -25,20 +43,4 @@ function parseStyle(style: string){
 	}
 }
 
-function validate(event: AttributeEvent, report: RuleReport){
-	/* ignore attributes with not value */
-	if (typeof event.value === 'undefined'){
-		return;
-	}
-
-	if (typeof event.quote === 'undefined'){
-		if (this.options.unquoted === false){
-			report(event.target, `Attribute "${event.key}" using unquoted value`);
-		}
-		return;
-	}
-
-	if (event.quote !== this.expected){
-		report(event.target, `Attribute "${event.key}" used ${event.quote} instead of expected ${this.expected}`);
-	}
-}
+module.exports = AttrQuotes;

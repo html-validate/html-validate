@@ -1,42 +1,44 @@
-import { Rule, RuleReport, RuleParserProxy } from '../rule';
+import { Rule } from '../rule';
 import { DOMNode } from 'dom';
 import { DOMReadyEvent } from '../event';
 
-export = {
-	name: 'img-req-alt',
-	init,
+const defaults = {
+	allowEmpty: true,
+	alias: [] as string[],
+};
 
-	defaults: {
-		allowEmpty: true,
-		alias: [],
-	},
-} as Rule;
+class ImgReqAlt extends Rule {
 
-function init(parser: RuleParserProxy, options: any){
-	this.options = Object.assign(this.defaults, options);
+	constructor(options: object){
+		super(Object.assign({}, defaults, options));
 
-	/* ensure alias is array */
-	if (!Array.isArray(this.options.alias)){
-		this.options.alias = [this.options.alias];
+		/* ensure alias is array */
+		if (!Array.isArray(this.options.alias)){
+			this.options.alias = [this.options.alias];
+		}
 	}
 
-	parser.on('dom:ready', (event: DOMReadyEvent, report: RuleReport) => {
-		const images = event.document.getElementsByTagName('img');
-		images.forEach((node: DOMNode) => {
-			/* validate plain alt-attribute */
-			const alt = node.getAttribute('alt');
-			if (alt || (alt === "" && this.options.allowEmpty)){
-				return;
-			}
-
-			/* validate if any non-empty alias is present */
-			for (const attr of this.options.alias){
-				if (node.getAttribute(attr)){
+	setup(){
+		this.on('dom:ready', (event: DOMReadyEvent) => {
+			const images = event.document.getElementsByTagName('img');
+			images.forEach((node: DOMNode) => {
+				/* validate plain alt-attribute */
+				const alt = node.getAttribute('alt');
+				if (alt || (alt === "" && this.options.allowEmpty)){
 					return;
 				}
-			}
 
-			report(node, "<img> is missing required alt attribute");
+				/* validate if any non-empty alias is present */
+				for (const attr of this.options.alias){
+					if (node.getAttribute(attr)){
+						return;
+					}
+				}
+
+				this.report(node, "<img> is missing required alt attribute");
+			});
 		});
-	});
+	}
 }
+
+module.exports = ImgReqAlt;

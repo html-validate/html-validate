@@ -6,6 +6,29 @@
 Developers guide
 ================
 
+Rules
+-----
+
+Rules are created by extending the `Rule` class and implementing the `setup`
+method:
+
+```typescript
+class MyRule extends Rule {
+  setup(){
+    /* listen on dom ready event */
+    this.on('dom:ready', (event: DOMReadyEvent) => {
+      /* do something with the DOM tree */
+      const buttons = event.document.getElementsByTagName('button');
+
+      /* report a new error */
+      this.report(buttons[0], "Button are not allowed");
+    });
+  }
+}
+
+module.exports = MyRule;
+```
+
 Events
 ------
 

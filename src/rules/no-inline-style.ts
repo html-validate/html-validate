@@ -1,15 +1,14 @@
-import { Rule, RuleReport, RuleParserProxy } from '../rule';
+import { Rule } from '../rule';
 import { AttributeEvent } from '../event';
 
-export = {
-	name: 'no-inline-style',
-	init,
-} as Rule;
-
-function init(parser: RuleParserProxy){
-	parser.on('attr', (event: AttributeEvent, report: RuleReport) => {
-		if (event.key === 'style'){
-			report(event.target, "Inline style is not allowed");
-		}
-	});
+class NoInlineStyle extends Rule {
+	setup(){
+		this.on('attr', (event: AttributeEvent) => {
+			if (event.key === 'style'){
+				this.report(event.target, "Inline style is not allowed");
+			}
+		});
+	}
 }
+
+module.exports = NoInlineStyle;

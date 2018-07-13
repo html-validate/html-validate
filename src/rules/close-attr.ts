@@ -1,27 +1,24 @@
-import { Rule, RuleReport, RuleParserProxy } from '../rule';
+import { Rule } from '../rule';
 import { TagCloseEvent } from '../event';
 
-export = {
-	name: 'close-attr',
-	init,
-} as Rule;
+class CloseAttr extends Rule {
+	setup(){
+		this.on('tag:close', (event: TagCloseEvent) => {
+			/* handle unclosed tags */
+			if (typeof event.target === 'undefined'){
+				return;
+			}
 
-function init(parser: RuleParserProxy){
-	parser.on('tag:close', validate);
-}
+			/* ignore self-closed and void */
+			if (event.previous === event.target){
+				return;
+			}
 
-function validate(event: TagCloseEvent, report: RuleReport){
-	/* handle unclosed tags */
-	if (typeof event.target === 'undefined'){
-		return;
-	}
-
-	/* ignore self-closed and void */
-	if (event.previous === event.target){
-		return;
-	}
-
-	if (Object.keys(event.target.attr).length > 0){
-		report(event.target, "Close tags cannot have attributes");
+			if (Object.keys(event.target.attr).length > 0){
+				this.report(event.target, "Close tags cannot have attributes");
+			}
+		});
 	}
 }
+
+module.exports = CloseAttr;

@@ -1,17 +1,11 @@
 import { DOMNode } from '../dom';
-import { Rule, RuleReport, RuleParserProxy } from '../rule';
+import { Rule } from '../rule';
 import { TagCloseEvent } from '../event';
 import { NodeClosed } from '../dom';
 
-export = {
-	name: 'void',
-	init,
-
-	defaults: {
-		style: 'omit',
-	},
-
-} as Rule;
+const defaults = {
+	style: 'omit',
+};
 
 enum Style {
 	Any = 0,
@@ -19,46 +13,51 @@ enum Style {
 	AlwaysSelfclose = 2,
 }
 
-function init(parser: RuleParserProxy, userOptions: any){
-	const options = Object.assign({}, this.defaults, userOptions);
-	const style = parseStyle(options.style);
+class Void extends Rule {
+	style: Style;
 
-	parser.on('tag:close', (event: TagCloseEvent, report: RuleReport) => {
-		const current = event.target;     // The current element being closed
-		const active = event.previous;    // The current active element (that is, the current element on the stack)
+	constructor(options: object){
+		super(Object.assign({}, defaults, options));
+		this.style = parseStyle(this.options.style);
+	}
 
-		if (current && current.meta){
-			validateCurrent(current, report);
-		}
+	setup(){
+		this.on('tag:close', (event: TagCloseEvent) => {
+			const current = event.target;     // The current element being closed
+			const active = event.previous;    // The current active element (that is, the current element on the stack)
 
-		if (active && active.meta){
-			validateActive(active, report);
-		}
-	});
+			if (current && current.meta){
+				this.validateCurrent(current);
+			}
 
-	function validateCurrent(node: DOMNode, report: RuleReport): void {
+			if (active && active.meta){
+				this.validateActive(active);
+			}
+		});
+	}
+
+	validateCurrent(node: DOMNode): void {
 		if (node.voidElement && node.closed === NodeClosed.EndTag){
-			report(node, `End tag for <${node.tagName}> must be omitted`);
+			this.report(node, `End tag for <${node.tagName}> must be omitted`);
 		}
 	}
 
-	function validateActive(node: DOMNode, report: RuleReport): void {
+	validateActive(node: DOMNode): void {
 		const selfOrOmitted = node.closed === NodeClosed.VoidOmitted || node.closed === NodeClosed.VoidSelfClosed;
 
 		if (node.voidElement){
-			if (style === Style.AlwaysOmit && node.closed === NodeClosed.VoidSelfClosed){
-				report(node, `Expected omitted end tag <${node.tagName}> instead of self-closing element <${node.tagName}/>`);
+			if (this.style === Style.AlwaysOmit && node.closed === NodeClosed.VoidSelfClosed){
+				this.report(node, `Expected omitted end tag <${node.tagName}> instead of self-closing element <${node.tagName}/>`);
 			}
 
-			if (style === Style.AlwaysSelfclose && node.closed === NodeClosed.VoidOmitted){
-				report(node, `Expected self-closing element <${node.tagName}/> instead of omitted end-tag <${node.tagName}>`);
+			if (this.style === Style.AlwaysSelfclose && node.closed === NodeClosed.VoidOmitted){
+				this.report(node, `Expected self-closing element <${node.tagName}/> instead of omitted end-tag <${node.tagName}>`);
 			}
 		}
 
 		if (selfOrOmitted && node.voidElement === false){
-			report(node, `End tag for <${node.tagName}> must not be omitted`);
+			this.report(node, `End tag for <${node.tagName}> must not be omitted`);
 		}
-
 	}
 }
 
@@ -70,3 +69,5 @@ function parseStyle(name: string): Style {
 	default: return Style.Any;
 	}
 }
+
+module.exports = Void;

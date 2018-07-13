@@ -1,31 +1,28 @@
 import { DOMNode, DOMTree } from 'dom';
-import { Rule, RuleReport, RuleParserProxy } from '../rule';
+import { Rule } from '../rule';
 import { DOMReadyEvent } from '../event';
 
-export = {
-	name: 'input-missing-label',
-	init,
-} as Rule;
+class InputMissingLabel extends Rule {
+	setup(){
+		this.on('dom:ready', (event: DOMReadyEvent) => {
+			const root = event.document;
+			for (const elem of root.getElementsByTagName('input')){
 
-function init(parser: RuleParserProxy){
-	parser.on('dom:ready', (event: DOMReadyEvent, report: RuleReport) => {
-		const root = event.document;
-		for (const elem of root.getElementsByTagName('input')){
+				/* try to find label by id */
+				const id = elem.getAttribute('id');
+				if (findLabelById(root, id)){
+					continue;
+				}
 
-			/* try to find label by id */
-			const id = elem.getAttribute('id');
-			if (findLabelById(root, id)){
-				continue;
+				/* try to find parent label (input nested in label) */
+				if (findLabelByParent(elem)){
+					continue;
+				}
+
+				this.report(elem, 'Input element does not have a label');
 			}
-
-			/* try to find parent label (input nested in label) */
-			if (findLabelByParent(elem)){
-				continue;
-			}
-
-			report(elem, 'Input element does not have a label');
-		}
-	});
+		});
+	}
 }
 
 function findLabelById(root: DOMTree, id: string): DOMNode {
@@ -43,3 +40,5 @@ function findLabelByParent(el: DOMNode): DOMNode {
 	}
 	return null;
 }
+
+module.exports = InputMissingLabel;

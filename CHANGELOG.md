@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Breaking changes
+
+- rule api overhaul, all rules are now classes.
+
 ### Features
 
 - stricter types related to events
