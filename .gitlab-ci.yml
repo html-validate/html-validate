@@ -120,6 +120,13 @@ grunt-html-validate:
   script:
     - scripts/trigger-downstream "${PROJECT_ID}" "${DOWNSTREAM_GRUNT_TOKEN}" "master" "${CI_COMMIT_TAG}"
 
+html-validate-angular:
+  <<: *downstream
+  variables:
+    PROJECT_ID: 45
+  script:
+    - scripts/trigger-downstream "${PROJECT_ID}" "${DOWNSTREAM_ANGULAR_TOKEN}" "master" "${CI_COMMIT_TAG}"
+
 html-validate-vue:
   <<: *downstream
   variables:
