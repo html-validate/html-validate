@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/index.md inline validation: frontpage-a17y 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "<img> is missing required alt attribute",
+        "ruleId": "img-req-alt",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 2,
+        "message": "Button is missing type attribute",
+        "ruleId": "button-type",
+        "severity": 2,
+      },
+      Object {
+        "column": 3,
+        "line": 6,
+        "message": "Input element does not have a label",
+        "ruleId": "input-missing-label",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/index.md inline validation: frontpage-components 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "line": 2,
+        "message": "Element <my-block> is not permitted as content in <my-inline>",
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+      },
+      Object {
+        "column": 3,
+        "line": 3,
+        "message": "<my-deprecated> is deprecated: replaced with <my-other>",
+        "ruleId": "deprecated",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/index.md inline validation: frontpage-contentmodel 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "line": 2,
+        "message": "Element <legend> must be used before <p> in this context",
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+      },
+      Object {
+        "column": 3,
+        "line": 7,
+        "message": "Element <main> is not permitted as descendant of <footer>",
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+      },
+      Object {
+        "column": 5,
+        "line": 8,
+        "message": "<blink> is deprecated",
+        "ruleId": "deprecated",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
