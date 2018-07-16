@@ -36,6 +36,10 @@ export abstract class Rule {
 		this.options = options;
 	}
 
+	setServerity(severity: number): void {
+		this.severity = severity;
+	}
+
 	/**
 	 * Report a new error.
 	 */

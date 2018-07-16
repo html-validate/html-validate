@@ -3,6 +3,8 @@ import { DOMNode } from './dom';
 import { Parser } from './parser';
 import { Reporter } from './reporter';
 import { Rule } from './rule';
+import { Event } from './event';
+import { Location } from './context';
 
 class MockRule extends Rule {
 	setup(){
@@ -15,6 +17,8 @@ describe('rule base class', function(){
 	let parser: Parser;
 	let reporter: Reporter;
 	let rule: Rule;
+	let mockLocation: Location;
+	let mockEvent: Event;
 
 	beforeEach(function(){
 		parser = new Parser(Config.empty());
@@ -23,90 +27,85 @@ describe('rule base class', function(){
 		reporter.add = jest.fn();
 
 		rule = new MockRule({});
+		rule.init(parser, reporter, Config.SEVERITY_ERROR);
+		mockLocation = {filename: 'mock-file', line: 1, column: 2};
+		mockEvent = {
+			location: mockLocation,
+		};
 	});
 
 	describe('report()', function(){
 
 		it('should not add message with severity "disabled"', function(){
-			rule.init(parser, reporter, Config.SEVERITY_DISABLED);
+			rule.setServerity(Config.SEVERITY_DISABLED);
 			rule.report(null, "foo");
 			expect(reporter.add).not.toHaveBeenCalled();
 		});
 
 		it('should add message with severity "warn"', function(){
 			const node = new DOMNode("foo", null);
-			rule.init(parser, reporter, Config.SEVERITY_WARN);
+			rule.setServerity(Config.SEVERITY_WARN);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_WARN, expect.anything());
 		});
 
 		it('should add message with severity "error"', function(){
 			const node = new DOMNode("foo", null);
-			rule.init(parser, reporter, Config.SEVERITY_ERROR);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, expect.anything());
 		});
 
 		it('should use explicit location if provided', function(){
-			const location = {filename: 'filename', line: 1, column: 2};
 			const node = new DOMNode("foo", null);
-			rule.init(parser, reporter, Config.SEVERITY_ERROR);
-			rule.report(node, "foo", location);
-			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, location);
+			rule.report(node, "foo", mockLocation);
+			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, mockLocation);
 		});
 
 		it('should use event location if no explicit location', function(){
-			const location = {filename: 'filename', line: 1, column: 2};
 			const node = new DOMNode("foo", null);
-			rule.init(parser, reporter, Config.SEVERITY_ERROR);
 			rule.on('*', () => {});
 			const callback = (parser.on as any).mock.calls[0][1];
-			callback('event', {location});
+			callback('event', mockEvent);
 			rule.report(node, "foo");
-			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, location);
+			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, mockEvent.location);
 		});
 
 		it('should use node location if no node location', function(){
-			const location = {filename: 'filename', line: 1, column: 2};
-			const node = new DOMNode("foo", null, undefined, null, location);
-			rule.init(parser, reporter, Config.SEVERITY_ERROR);
+			const node = new DOMNode("foo", null, undefined, null, mockLocation);
 			rule.report(node, "foo");
-			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, location);
+			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, mockLocation);
 		});
 
 	});
 
 	describe('on()', function(){
 
-		let delivered = false;
+		let delivered: boolean;
+		let callback: (event: string, data: Event) => void;
 
-		it('should not deliver events with severity "disabled"', function(){
-			rule.init(parser, reporter, Config.SEVERITY_DISABLED);
+		beforeEach(function(){
+			delivered = false;
 			rule.on('*', () => {
 				delivered = true;
 			});
-			const callback = (parser.on as any).mock.calls[0][1];
-			callback('event', {location: {}});
+			callback = (parser.on as any).mock.calls[0][1];
+		});
+
+		it('should not deliver events with severity "disabled"', function(){
+			rule.setServerity(Config.SEVERITY_DISABLED);
+			callback('event', mockEvent);
 			expect(delivered).toBeFalsy();
 		});
 
 		it('should deliver events with severity "warn"', function(){
-			rule.init(parser, reporter, Config.SEVERITY_WARN);
-			rule.on('*', () => {
-				delivered = true;
-			});
-			const callback = (parser.on as any).mock.calls[0][1];
-			callback('event', {location: {}});
+			rule.setServerity(Config.SEVERITY_WARN);
+			callback('event', mockEvent);
 			expect(delivered).toBeTruthy();
 		});
 
 		it('should deliver events with severity "error"', function(){
-			rule.init(parser, reporter, Config.SEVERITY_ERROR);
-			rule.on('*', () => {
-				delivered = true;
-			});
-			const callback = (parser.on as any).mock.calls[0][1];
-			callback('event', {location: {}});
+			rule.setServerity(Config.SEVERITY_ERROR);
+			callback('event', mockEvent);
 			expect(delivered).toBeTruthy();
 		});
 
