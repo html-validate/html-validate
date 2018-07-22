@@ -93,9 +93,12 @@
       "src/**/*.ts"
     ],
     "exclude": [
-      "src/**/*.d.ts"
+      "**/*.d.ts",
+      "**/*.spec.ts",
+      "**/index.ts"
     ],
     "reporter": [
+      "text",
       "text-summary",
       "html"
     ]
