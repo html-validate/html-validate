@@ -6,13 +6,15 @@ import { Reporter, Report } from "../reporter";
 import { Rule } from "../rule";
 import { DOMNode } from "../dom";
 
-export class Engine {
-	report: Reporter;
-	config: Config;
+export class Engine<T extends Parser = Parser> {
+	protected report: Reporter;
+	protected config: Config;
+	protected ParserClass: new (config: Config) => T;
 
-	constructor(config: Config){
+	constructor(config: Config, ParserClass: new (config: Config) => T){
 		this.report = new Reporter();
 		this.config = config;
+		this.ParserClass = ParserClass;
 	}
 
 	/**
@@ -28,7 +30,7 @@ export class Engine {
 
 		for (const source of sources){
 			/* create parser for source */
-			const parser = new Parser(this.config);
+			const parser = new this.ParserClass(this.config);
 
 			/* load rules */
 			for (const name in rules){

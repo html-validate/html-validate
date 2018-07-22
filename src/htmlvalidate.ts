@@ -26,7 +26,7 @@ class HtmlValidate {
 			column: 1,
 		}];
 		const config = this.getConfigFor('inline');
-		const engine = new Engine(config);
+		const engine = new Engine(config, Parser);
 		return engine.lint(source);
 	}
 
@@ -39,28 +39,28 @@ class HtmlValidate {
 	public validateFile(filename: string): Report {
 		const config = this.getConfigFor(filename);
 		const source = config.transform(filename);
-		const engine = new Engine(config);
+		const engine = new Engine(config, Parser);
 		return engine.lint(source);
 	}
 
 	public dumpTokens(filename: string): string[] {
 		const config = this.getConfigFor(filename);
 		const source = config.transform(filename);
-		const engine = new Engine(config);
+		const engine = new Engine(config, Parser);
 		return engine.dumpTokens(source);
 	}
 
 	public dumpEvents(filename: string): string[] {
 		const config = this.getConfigFor(filename);
 		const source = config.transform(filename);
-		const engine = new Engine(config);
+		const engine = new Engine(config, Parser);
 		return engine.dumpEvents(source);
 	}
 
 	public dumpTree(filename: string): string[] {
 		const config = this.getConfigFor(filename);
 		const source = config.transform(filename);
-		const engine = new Engine(config);
+		const engine = new Engine(config, Parser);
 		return engine.dumpTree(source);
 	}
 
