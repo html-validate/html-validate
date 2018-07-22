@@ -1,5 +1,5 @@
 import HtmlValidate from '../htmlvalidate';
-import { Reporter } from '../reporter';
+import { Reporter, Report } from '../reporter';
 import { getFormatter } from './formatter';
 import * as minimist from 'minimist';
 
@@ -37,6 +37,28 @@ function getGlobalConfig(rules?: string|string[]){
 		}
 	}
 	return config;
+}
+
+function lint(files: string[]): Report {
+	const reports = files.map((filename: string) => htmlvalidate.validateFile(filename));
+	return Reporter.merge(reports);
+}
+
+function dump(files: string[], mode: string){
+	let fn: (filename: string) => string[];
+	switch (mode){
+	case 'dump-events':
+		fn = htmlvalidate.dumpEvents; break;
+	case 'dump-tokens':
+		fn = htmlvalidate.dumpTokens; break;
+	case 'dump-tree':
+		fn = htmlvalidate.dumpTree; break;
+	default:
+		throw new Error(`Unknown mode "${mode}"`);
+	}
+	const lines = files.map((filename: string) => fn.bind(htmlvalidate)(filename));
+	const flat = lines.reduce((s: string[], c: string[]) => s.concat(c), []);
+	return flat.join('\n');
 }
 
 const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
@@ -89,8 +111,13 @@ const files = argv._.reduce((files: string[], pattern: string) => {
 	return files.concat(glob.sync(pattern));
 }, []);
 const unique = [... new Set(files)];
-const results = unique.map((filename: string) => htmlvalidate.validateFile(filename, mode));
-const merged = Reporter.merge(results);
 
-formatter(merged);
-process.exit(merged.valid ? 0 : 1);
+if (mode === 'lint'){
+	const result = lint(unique);
+	formatter(result);
+	process.exit(result.valid ? 0 : 1);
+} else {
+	const output = dump(unique, mode);
+	console.log(output); // eslint-disable-line no-console
+	process.exit(0);
+}

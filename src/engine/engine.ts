@@ -15,31 +15,15 @@ export class Engine {
 		this.config = config;
 	}
 
-	public process(source: Source[], mode?: string): Report {
-		switch (mode){
-		case 'lint':
-		case undefined:
-			return this.parse(source);
-		case 'dump-events':
-			return this.dumpEvents(source);
-		case 'dump-tokens':
-			return this.dumpTokens(source);
-		case 'dump-tree':
-			return this.dumpTree(source);
-		default:
-			throw new Error(`Unknown mode "${mode}"`);
-		}
-	}
-
 	/**
-	 * Internal parse method.
+	 * Lint sources and return report
 	 *
 	 * @param src {object} - Parse source.
 	 * @param src.data {string} - Text HTML data.
 	 * @param src.filename {string} - Filename of source for presentation in report.
 	 * @return {object} - Report output.
 	 */
-	private parse(sources: Source[]): Report{
+	public lint(sources: Source[]): Report{
 		const rules = this.config.getRules();
 
 		for (const source of sources){
@@ -68,44 +52,40 @@ export class Engine {
 		return this.report.save();
 	}
 
-	private dumpEvents(source: Source[]): Report {
+	public dumpEvents(source: Source[]): string[] {
 		const parser = new Parser(this.config);
 		const filtered = ['parent', 'children'];
+		const lines: string[] = [];
 
 		parser.on('*', (event, data) => {
 			const strdata = JSON.stringify(data, (key, value) => {
 				return filtered.indexOf(key) >= 0 ? '[truncated]' : value;
 			}, 2);
-			process.stdout.write(`${event}: ${strdata}\n`);
+			lines.push(`${event}: ${strdata}`);
 		});
 		source.forEach(src => parser.parseHtml(src));
 
-		return {
-			valid: true,
-			results: [],
-		};
+		return lines;
 	}
 
-	private dumpTokens(source: Source[]): Report {
+	public dumpTokens(source: Source[]): string[] {
 		const lexer = new Lexer();
+		const lines: string[] = [];
 		for (const src of source){
 			for (const token of lexer.tokenize(src)){
 				const data = token.data ? token.data[0] : null;
-				process.stdout.write(`TOKEN: ${TokenType[token.type]}
+				lines.push(`TOKEN: ${TokenType[token.type]}
   Data: ${JSON.stringify(data)}
-  Location: ${token.location.filename}:${token.location.line}:${token.location.column}
-`);
+  Location: ${token.location.filename}:${token.location.line}:${token.location.column}`);
 			}
 		}
-		return {
-			valid: true,
-			results: [],
-		};
+		return lines;
 	}
 
-	private dumpTree(source: Source[]): Report {
+	public dumpTree(source: Source[]): string[] {
 		const parser = new Parser(this.config);
 		const dom = parser.parseHtml(source[0]); /* @todo handle dumping each tree */
+		const lines: string[] = [];
 
 		function decoration(node: DOMNode){
 			let output = '';
@@ -118,25 +98,21 @@ export class Engine {
 			return output;
 		}
 
-		function printNode(node: DOMNode, level: number, sibling: number){
+		function writeNode(node: DOMNode, level: number, sibling: number){
 			if (level > 0){
 				const indent = '  '.repeat(level - 1);
 				const l = node.children.length > 0 ? '┬' : '─';
 				const b = sibling < (node.parent.children.length - 1) ? '├' : '└';
-				process.stdout.write(`${indent}${b}─${l} ${node.tagName}${decoration(node)}\n`);
+				lines.push(`${indent}${b}─${l} ${node.tagName}${decoration(node)}`);
 			} else {
-				process.stdout.write(`(root)\n`);
+				lines.push(`(root)`);
 			}
 
-			node.children.forEach((child, index) => printNode(child, level + 1, index));
+			node.children.forEach((child, index) => writeNode(child, level + 1, index));
 		}
 
-		printNode(dom.root, 0, 0);
-
-		return {
-			valid: true,
-			results: [],
-		};
+		writeNode(dom.root, 0, 0);
+		return lines;
 	}
 
 	/**
