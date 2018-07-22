@@ -2,7 +2,7 @@ import { Config, ConfigLoader } from './config';
 import { Parser } from './parser';
 import { DOMNode } from 'dom';
 import { Reporter, Report } from './reporter';
-import { Source } from './context';
+import { Source, Location } from './context';
 import { Lexer, InvalidTokenError, TokenType } from './lexer';
 import { Rule } from './rule';
 
@@ -82,13 +82,7 @@ class HtmlValidate {
 			source.forEach(src => parser.parseHtml(src));
 		} catch (e){
 			if (e instanceof InvalidTokenError){
-				report.addManual(e.location.filename, {
-					ruleId: undefined,
-					severity: Config.SEVERITY_ERROR,
-					message: e.message,
-					line: e.location.line,
-					column: e.location.column,
-				});
+				this.reportError(e.message, e.location, report);
 			} else {
 				throw e;
 			}
@@ -96,6 +90,16 @@ class HtmlValidate {
 
 		/* generate results from report */
 		return report.save();
+	}
+
+	private reportError(message: string, location: Location, report: Reporter): void {
+		report.addManual(location.filename, {
+			ruleId: undefined,
+			severity: Config.SEVERITY_ERROR,
+			message: message,
+			line: location.line,
+			column: location.column,
+		});
 	}
 
 	public getParserFor(source: Source){
