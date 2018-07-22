@@ -82,14 +82,14 @@ describe('Engine', function(){
 			const source: Source[] = [inline('<div id="foo"><p class="bar">baz</p></div>')];
 			const lines = engine.dumpEvents(source);
 			expect(lines).to.have.length(8);
-			expect(lines[0]).to.match(/^dom:load/);
-			expect(lines[1]).to.match(/^tag:open/);
-			expect(lines[2]).to.match(/^attr/);
-			expect(lines[3]).to.match(/^tag:open/);
-			expect(lines[4]).to.match(/^attr/);
-			expect(lines[5]).to.match(/^tag:close/);
-			expect(lines[6]).to.match(/^tag:close/);
-			expect(lines[7]).to.match(/^dom:ready/);
+			expect(lines[0].event).to.equal('dom:load');
+			expect(lines[1].event).to.equal('tag:open');
+			expect(lines[2].event).to.equal('attr');
+			expect(lines[3].event).to.equal('tag:open');
+			expect(lines[4].event).to.equal('attr');
+			expect(lines[5].event).to.equal('tag:close');
+			expect(lines[6].event).to.equal('tag:close');
+			expect(lines[7].event).to.equal('dom:ready');
 		});
 
 	});
@@ -100,22 +100,22 @@ describe('Engine', function(){
 			const source: Source[] = [inline('<div id="foo"><p class="bar">baz</p></div>')];
 			const lines = engine.dumpTokens(source);
 			expect(lines).to.deep.equal([
-				'TOKEN: TAG_OPEN\n  Data: "<div"\n  Location: inline:1:1',
-				'TOKEN: WHITESPACE\n  Data: " "\n  Location: inline:1:5',
-				'TOKEN: ATTR_NAME\n  Data: "id"\n  Location: inline:1:6',
-				'TOKEN: ATTR_VALUE\n  Data: "=\\"foo\\""\n  Location: inline:1:8',
-				'TOKEN: TAG_CLOSE\n  Data: ">"\n  Location: inline:1:14',
-				'TOKEN: TAG_OPEN\n  Data: "<p"\n  Location: inline:1:15',
-				'TOKEN: WHITESPACE\n  Data: " "\n  Location: inline:1:17',
-				'TOKEN: ATTR_NAME\n  Data: "class"\n  Location: inline:1:18',
-				'TOKEN: ATTR_VALUE\n  Data: "=\\"bar\\""\n  Location: inline:1:23',
-				'TOKEN: TAG_CLOSE\n  Data: ">"\n  Location: inline:1:29',
-				'TOKEN: TEXT\n  Data: "baz"\n  Location: inline:1:30',
-				'TOKEN: TAG_OPEN\n  Data: "</p"\n  Location: inline:1:33',
-				'TOKEN: TAG_CLOSE\n  Data: ">"\n  Location: inline:1:36',
-				'TOKEN: TAG_OPEN\n  Data: "</div"\n  Location: inline:1:37',
-				'TOKEN: TAG_CLOSE\n  Data: ">"\n  Location: inline:1:42',
-				'TOKEN: EOF\n  Data: null\n  Location: inline:1:43',
+				{token: 'TAG_OPEN', data: "<div", location: 'inline:1:1'},
+				{token: 'WHITESPACE', data: " ", location: 'inline:1:5'},
+				{token: 'ATTR_NAME', data: "id", location: 'inline:1:6'},
+				{token: 'ATTR_VALUE', data: '="foo"', location: 'inline:1:8'},
+				{token: 'TAG_CLOSE', data: ">", location: 'inline:1:14'},
+				{token: 'TAG_OPEN', data: "<p", location: 'inline:1:15'},
+				{token: 'WHITESPACE', data: " ", location: 'inline:1:17'},
+				{token: 'ATTR_NAME', data: "class", location: 'inline:1:18'},
+				{token: 'ATTR_VALUE', data: '="bar"', location: 'inline:1:23'},
+				{token: 'TAG_CLOSE', data: ">", location: 'inline:1:29'},
+				{token: 'TEXT', data: "baz", location: 'inline:1:30'},
+				{token: 'TAG_OPEN', data: "</p", location: 'inline:1:33'},
+				{token: 'TAG_CLOSE', data: ">", location: 'inline:1:36'},
+				{token: 'TAG_OPEN', data: "</div", location: 'inline:1:37'},
+				{token: 'TAG_CLOSE', data: ">", location: 'inline:1:42'},
+				{token: 'EOF', data: null, location: 'inline:1:43'},
 			]);
 		});
 

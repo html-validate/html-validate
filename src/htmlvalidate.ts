@@ -1,5 +1,5 @@
 import { Config, ConfigLoader } from './config';
-import { Engine } from './engine';
+import { Engine, TokenDump, EventDump } from './engine';
 import { Parser } from './parser';
 import { Report } from './reporter';
 import { Source } from './context';
@@ -43,14 +43,14 @@ class HtmlValidate {
 		return engine.lint(source);
 	}
 
-	public dumpTokens(filename: string): string[] {
+	public dumpTokens(filename: string): TokenDump[] {
 		const config = this.getConfigFor(filename);
 		const source = config.transform(filename);
 		const engine = new Engine(config, Parser);
 		return engine.dumpTokens(source);
 	}
 
-	public dumpEvents(filename: string): string[] {
+	public dumpEvents(filename: string): EventDump[] {
 		const config = this.getConfigFor(filename);
 		const source = config.transform(filename);
 		const engine = new Engine(config, Parser);

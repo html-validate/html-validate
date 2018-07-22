@@ -6,6 +6,17 @@ import { Reporter, Report } from "../reporter";
 import { Rule } from "../rule";
 import { DOMNode } from "../dom";
 
+export interface EventDump {
+	event: string;
+	data: string;
+}
+
+export interface TokenDump {
+	token: string;
+	data: string;
+	location: string;
+}
+
 export class Engine<T extends Parser = Parser> {
 	protected report: Reporter;
 	protected config: Config;
@@ -25,7 +36,7 @@ export class Engine<T extends Parser = Parser> {
 	 * @param src.filename {string} - Filename of source for presentation in report.
 	 * @return {object} - Report output.
 	 */
-	public lint(sources: Source[]): Report{
+	public lint(sources: Source[]): Report {
 		const rules = this.config.getRules();
 
 		for (const source of sources){
@@ -54,31 +65,27 @@ export class Engine<T extends Parser = Parser> {
 		return this.report.save();
 	}
 
-	public dumpEvents(source: Source[]): string[] {
+	public dumpEvents(source: Source[]): EventDump[] {
 		const parser = new Parser(this.config);
-		const filtered = ['parent', 'children'];
-		const lines: string[] = [];
-
+		const lines: EventDump[] = [];
 		parser.on('*', (event, data) => {
-			const strdata = JSON.stringify(data, (key, value) => {
-				return filtered.indexOf(key) >= 0 ? '[truncated]' : value;
-			}, 2);
-			lines.push(`${event}: ${strdata}`);
+			lines.push({event, data});
 		});
 		source.forEach(src => parser.parseHtml(src));
-
 		return lines;
 	}
 
-	public dumpTokens(source: Source[]): string[] {
+	public dumpTokens(source: Source[]): TokenDump[] {
 		const lexer = new Lexer();
-		const lines: string[] = [];
+		const lines: TokenDump[] = [];
 		for (const src of source){
 			for (const token of lexer.tokenize(src)){
 				const data = token.data ? token.data[0] : null;
-				lines.push(`TOKEN: ${TokenType[token.type]}
-  Data: ${JSON.stringify(data)}
-  Location: ${token.location.filename}:${token.location.line}:${token.location.column}`);
+				lines.push({
+					token: TokenType[token.type],
+					data: data,
+					location: `${token.location.filename}:${token.location.line}:${token.location.column}`,
+				});
 			}
 		}
 		return lines;
