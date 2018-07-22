@@ -1,14 +1,35 @@
 import { Config } from '../config';
-import { DOMTree } from '../dom';
+import { DOMNode, DOMTree } from '../dom';
 import { EventCallback } from '../event';
 import { InvalidTokenError } from '../lexer';
 import { Parser } from './parser';
 import HtmlValidate from '../htmlvalidate';
 
+function mergeEvent(event: string, data: any){
+	const merged = Object.assign({}, {event}, data);
+
+	/* not useful for these tests */
+	delete merged.location;
+
+	/* change DOMNode instances to just tagname for easier testing */
+	for (const key of ['target', 'previous']){
+		if (merged[key] && merged[key] instanceof DOMNode){
+			merged[key] = merged[key].tagName;
+		}
+	}
+
+	return merged;
+}
+
 describe('parser', function(){
 
 	const chai = require('chai');
 	const expect = chai.expect;
+	const ignoredEvents = [
+		'dom:load',
+		'dom:ready',
+		'whitespace',
+	];
 
 	let events: Array<any>;
 	let parser: Parser;
@@ -16,35 +37,9 @@ describe('parser', function(){
 	beforeEach(function(){
 		events = [];
 		parser = new Parser(Config.empty());
-		parser.on('*', function(event, data){
-			switch (event){
-			case 'tag:open':
-				events.push({
-					event,
-					target: data.target ? data.target.tagName : undefined,
-				});
-				break;
-			case 'tag:close':
-				events.push({
-					event,
-					target: data.target ? data.target.tagName : undefined,
-					previous: data.previous ? data.previous.tagName : undefined,
-				});
-				break;
-			case 'attr':
-				events.push({
-					event,
-					key: data.key,
-					value: data.value,
-				});
-				break;
-			case 'doctype':
-				events.push({
-					event,
-					value: data.value,
-				});
-				break;
-			}
+		parser.on('*', (event: string, data: any) => {
+			if (ignoredEvents.includes(event)) return;
+			events.push(mergeEvent(event, data));
 		});
 	});
 
@@ -123,7 +118,7 @@ describe('parser', function(){
 		it('with newlines', function(){
 			parser.parseHtml('<div\nfoo="bar"></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', target: 'div'});
-			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: 'bar'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: 'bar', quote: '"', target: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', target: 'div', previous: 'div'});
 			expect(events.shift()).to.be.undefined;
 		});
@@ -131,8 +126,8 @@ describe('parser', function(){
 		it('with newline after attribute', function(){
 			parser.parseHtml('<div foo="bar"\nspam="ham"></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', target: 'div'});
-			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: 'bar'});
-			expect(events.shift()).to.deep.equal({event: 'attr', key: 'spam', value: 'ham'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: 'bar', quote: '"', target: 'div'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'spam', value: 'ham', quote: '"', target: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', target: 'div', previous: 'div'});
 			expect(events.shift()).to.be.undefined;
 		});
@@ -161,7 +156,7 @@ describe('parser', function(){
 		it('without quotes', function(){
 			parser.parseHtml('<div foo=bar></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', target: 'div'});
-			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: 'bar'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: 'bar', quote: undefined, target: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', target: 'div', previous: 'div'});
 			expect(events.shift()).to.be.undefined;
 		});
@@ -169,7 +164,7 @@ describe('parser', function(){
 		it('with single quotes', function(){
 			parser.parseHtml('<div foo=\'bar\'></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', target: 'div'});
-			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: 'bar'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: 'bar', quote: "'", target: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', target: 'div', previous: 'div'});
 			expect(events.shift()).to.be.undefined;
 		});
@@ -177,7 +172,7 @@ describe('parser', function(){
 		it('with double quote', function(){
 			parser.parseHtml('<div foo="bar"></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', target: 'div'});
-			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: 'bar'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: 'bar', quote: '"', target: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', target: 'div', previous: 'div'});
 			expect(events.shift()).to.be.undefined;
 		});
@@ -185,8 +180,8 @@ describe('parser', function(){
 		it('with nested quotes', function(){
 			parser.parseHtml('<div foo=\'"foo"\' bar="\'foo\'"></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', target: 'div'});
-			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: '"foo"'});
-			expect(events.shift()).to.deep.equal({event: 'attr', key: 'bar', value: "'foo'"});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: '"foo"', quote: "'", target: 'div'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'bar', value: "'foo'", quote: '"', target: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', target: 'div', previous: 'div'});
 			expect(events.shift()).to.be.undefined;
 		});
@@ -194,7 +189,7 @@ describe('parser', function(){
 		it('without value', function(){
 			parser.parseHtml('<div foo></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', target: 'div'});
-			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: undefined});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: undefined, quote: undefined, target: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', target: 'div', previous: 'div'});
 			expect(events.shift()).to.be.undefined;
 		});
@@ -202,8 +197,8 @@ describe('parser', function(){
 		it('with empty value', function(){
 			parser.parseHtml('<div foo="" bar=\'\'></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', target: 'div'});
-			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: ''});
-			expect(events.shift()).to.deep.equal({event: 'attr', key: 'bar', value: ''});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: '', quote: '"', target: 'div'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'bar', value: '', quote: "'", target: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', target: 'div', previous: 'div'});
 			expect(events.shift()).to.be.undefined;
 		});
@@ -211,7 +206,7 @@ describe('parser', function(){
 		it('with dashes', function(){
 			parser.parseHtml('<div foo-bar-baz></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', target: 'div'});
-			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo-bar-baz', value: undefined});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo-bar-baz', value: undefined, quote: undefined, target: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', target: 'div', previous: 'div'});
 			expect(events.shift()).to.be.undefined;
 		});
@@ -219,7 +214,7 @@ describe('parser', function(){
 		it('with spaces inside', function(){
 			parser.parseHtml('<div class="foo bar baz"></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', target: 'div'});
-			expect(events.shift()).to.deep.equal({event: 'attr', key: 'class', value: 'foo bar baz'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'class', value: 'foo bar baz', quote: '"', target: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', target: 'div', previous: 'div'});
 			expect(events.shift()).to.be.undefined;
 		});
@@ -227,7 +222,7 @@ describe('parser', function(){
 		it('with uncommon characters', function(){
 			parser.parseHtml('<div a2?()!="foo"></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', target: 'div'});
-			expect(events.shift()).to.deep.equal({event: 'attr', key: 'a2?()!', value: 'foo'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'a2?()!', value: 'foo', quote: '"', target: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', target: 'div', previous: 'div'});
 			expect(events.shift()).to.be.undefined;
 		});
@@ -235,8 +230,8 @@ describe('parser', function(){
 		it('with multiple attributes', function(){
 			parser.parseHtml('<div foo="bar" spam="ham"></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', target: 'div'});
-			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: 'bar'});
-			expect(events.shift()).to.deep.equal({event: 'attr', key: 'spam', value: 'ham'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo', value: 'bar', quote: '"', target: 'div'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'spam', value: 'ham', quote: '"', target: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', target: 'div', previous: 'div'});
 			expect(events.shift()).to.be.undefined;
 		});
@@ -244,7 +239,7 @@ describe('parser', function(){
 		it('on self-closing elements', function(){
 			parser.parseHtml('<input type="text"/>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', target: 'input'});
-			expect(events.shift()).to.deep.equal({event: 'attr', key: 'type', value: 'text'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'type', value: 'text', quote: '"', target: 'input'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', target: 'input', previous: 'input'});
 			expect(events.shift()).to.be.undefined;
 		});
@@ -252,7 +247,7 @@ describe('parser', function(){
 		it('with xml namespaces', function(){
 			parser.parseHtml('<div foo:bar="baz"></div>');
 			expect(events.shift()).to.deep.equal({event: 'tag:open', target: 'div'});
-			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo:bar', value: 'baz'});
+			expect(events.shift()).to.deep.equal({event: 'attr', key: 'foo:bar', value: 'baz', quote: '"', target: 'div'});
 			expect(events.shift()).to.deep.equal({event: 'tag:close', target: 'div', previous: 'div'});
 			expect(events.shift()).to.be.undefined;
 		});
