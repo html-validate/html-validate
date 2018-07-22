@@ -39,6 +39,7 @@
     "minimist": "^1.2.0"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.4",
     "@types/estree": "0.0.39",
     "@types/minimist": "^1.2.0",
     "@types/mocha": "^5.2.4",

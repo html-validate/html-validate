@@ -8,6 +8,7 @@
 
 ### Features
 
+- new `Engine` class for easier programmatical usage.
 - stricter types related to events
 - bump dependencies.
 

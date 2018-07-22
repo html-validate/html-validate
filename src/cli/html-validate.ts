@@ -1,7 +1,8 @@
 import HtmlValidate from '../htmlvalidate';
-import { Reporter } from '../reporter';
+import { Reporter, Report } from '../reporter';
 import { getFormatter } from './formatter';
 import * as minimist from 'minimist';
+import { TokenDump, EventDump } from '../engine';
 
 const glob = require('glob');
 
@@ -37,6 +38,38 @@ function getGlobalConfig(rules?: string|string[]){
 		}
 	}
 	return config;
+}
+
+function lint(files: string[]): Report {
+	const reports = files.map((filename: string) => htmlvalidate.validateFile(filename));
+	return Reporter.merge(reports);
+}
+
+function dump(files: string[], mode: string){
+	const filtered = ['parent', 'children'];
+	let lines: string[][] = [];
+	switch (mode){
+	case 'dump-events':
+		lines = files.map((filename: string) => htmlvalidate.dumpEvents(filename).map((entry: EventDump) => {
+			const strdata = JSON.stringify(entry.data, (key, value) => {
+				return filtered.indexOf(key) >= 0 ? '[truncated]' : value;
+			}, 2);
+			return `${entry.event}: ${strdata}`;
+		}));
+		break;
+	case 'dump-tokens':
+		lines = files.map((filename: string) => htmlvalidate.dumpTokens(filename).map((entry: TokenDump) => {
+			return `TOKEN: ${entry.token}\n  Data: ${JSON.stringify(entry.data)}\n  Location: ${entry.location}`;
+		}));
+		break;
+	case 'dump-tree':
+		lines = files.map((filename: string) => htmlvalidate.dumpTree(filename));
+		break;
+	default:
+		throw new Error(`Unknown mode "${mode}"`);
+	}
+	const flat = lines.reduce((s: string[], c: string[]) => s.concat(c), []);
+	return flat.join('\n');
 }
 
 const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
@@ -89,8 +122,13 @@ const files = argv._.reduce((files: string[], pattern: string) => {
 	return files.concat(glob.sync(pattern));
 }, []);
 const unique = [... new Set(files)];
-const results = unique.map((filename: string) => htmlvalidate.validateFile(filename, mode));
-const merged = Reporter.merge(results);
 
-formatter(merged);
-process.exit(merged.valid ? 0 : 1);
+if (mode === 'lint'){
+	const result = lint(unique);
+	formatter(result);
+	process.exit(result.valid ? 0 : 1);
+} else {
+	const output = dump(unique, mode);
+	console.log(output); // eslint-disable-line no-console
+	process.exit(0);
+}
