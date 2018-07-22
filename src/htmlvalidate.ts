@@ -1,10 +1,10 @@
 import { Config, ConfigLoader } from './config';
+import { Engine } from './engine';
 import { Parser } from './parser';
 import { DOMNode } from 'dom';
-import { Reporter, Report } from './reporter';
-import { Source, Location } from './context';
-import { Lexer, InvalidTokenError, TokenType } from './lexer';
-import { Rule } from './rule';
+import { Report } from './reporter';
+import { Source } from './context';
+import { Lexer, TokenType } from './lexer';
 
 class HtmlValidate {
 	private globalConfig: Config;
@@ -68,43 +68,8 @@ class HtmlValidate {
 	 * @return {object} - Report output.
 	 */
 	private parse(source: Source[], config: Config): Report {
-		const report = new Reporter();
-		const rules = config.getRules();
-		const parser = new Parser(config);
-
-		for (const name in rules){
-			const data = rules[name];
-			this.loadRule(name, data, parser, report);
-		}
-
-		/* parse token stream */
-		try {
-			source.forEach(src => parser.parseHtml(src));
-		} catch (e){
-			if (e instanceof InvalidTokenError){
-				this.reportError(e.message, e.location, report);
-			} else {
-				throw e;
-			}
-		}
-
-		/* generate results from report */
-		return report.save();
-	}
-
-	private reportError(message: string, location: Location, report: Reporter): void {
-		report.addManual(location.filename, {
-			ruleId: undefined,
-			severity: Config.SEVERITY_ERROR,
-			message: message,
-			line: location.line,
-			column: location.column,
-		});
-	}
-
-	public getParserFor(source: Source){
-		const config = this.getConfigFor(source.filename);
-		return new Parser(config);
+		const engine = new Engine(config);
+		return engine.process(source);
 	}
 
 	private dumpEvents(source: Source[], config: Config): Report {
@@ -178,6 +143,11 @@ class HtmlValidate {
 		};
 	}
 
+	public getParserFor(source: Source){
+		const config = this.getConfigFor(source.filename);
+		return new Parser(config);
+	}
+
 	/**
 	 * Get configuration for given filename.
 	 */
@@ -185,32 +155,6 @@ class HtmlValidate {
 		const loader = new ConfigLoader();
 		const config = loader.fromTarget(filename);
 		return this.globalConfig.merge(config);
-	}
-
-	/**
-	 * Load a rule using current config.
-	 */
-	loadRule(name: string, data: any, parser: Parser, report: Reporter){
-		const [severity, options] = data;
-		if (severity >= Config.SEVERITY_WARN){
-			let rule: Rule;
-			try {
-				const Class = require(`./rules/${name}`);
-				rule = new Class(options);
-				rule.name = rule.name || name;
-			} catch (e) {
-				rule = new class extends Rule {
-					setup(){
-						this.name = name;
-						this.on('dom:load', () => {
-							this.report(null, `Definition for rule '${name}' was not found`);
-						});
-					}
-				}(options);
-			}
-			rule.init(parser, report, severity);
-			rule.setup();
-		}
 	}
 }
 
