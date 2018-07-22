@@ -55,6 +55,12 @@ describe('rule base class', function(){
 			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, expect.anything());
 		});
 
+		it('should not add message when disabled', function(){
+			rule.setEnabled(false);
+			rule.report(null, "foo");
+			expect(reporter.add).not.toHaveBeenCalled();
+		});
+
 		it('should use explicit location if provided', function(){
 			const node = new DOMNode("foo", null);
 			rule.report(node, "foo", mockLocation);
@@ -107,6 +113,12 @@ describe('rule base class', function(){
 			rule.setServerity(Config.SEVERITY_ERROR);
 			callback('event', mockEvent);
 			expect(delivered).toBeTruthy();
+		});
+
+		it('should not deliver events when disabled', function(){
+			rule.setEnabled(false);
+			callback('event', mockEvent);
+			expect(delivered).toBeFalsy();
 		});
 
 	});
