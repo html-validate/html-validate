@@ -12,10 +12,32 @@ export class EventHandler {
 	 *
 	 * @param event {string} - Event name or '*' for any event.
 	 * @param callback {function} - Called any time even triggers.
+	 * @return deregistration function.
 	 */
-	on(event: string, callback: EventCallback){
+	on(event: string, callback: EventCallback): () => void {
 		this.listeners[event] = this.listeners[event] || [];
 		this.listeners[event].push(callback);
+		return () => {
+			this.listeners[event] = this.listeners[event].filter((fn: EventCallback) => {
+				return fn !== callback;
+			});
+		};
+	}
+
+	/**
+	 * Add a onetime event listener. The listener will automatically be removed
+	 * after being triggered once.
+	 *
+	 * @param event {string} - Event name or '*' for any event.
+	 * @param callback {function} - Called any time even triggers.
+	 * @return deregistration function.
+	 */
+	once(event: string, callback: EventCallback): () => void {
+		const deregister = this.on(event, (event: string, data: any) => {
+			callback(event, data);
+			deregister();
+		});
+		return deregister;
 	}
 
 	/**
