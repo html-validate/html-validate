@@ -48,6 +48,16 @@ describe('eventhandler', function(){
 			expect(callback).not.to.have.been.called();
 		});
 
+		it('should handle multiple events separated by comma', function(){
+			const callback = chai.spy();
+			eventhandler.on('foo, bar', callback);
+			eventhandler.trigger('foo', {bar: 1});
+			eventhandler.trigger('bar', {bar: 2});
+			expect(callback).to.have.been.called.twice;
+			expect(callback).to.have.been.called.with.exactly('foo', {bar: 1});
+			expect(callback).to.have.been.called.with.exactly('bar', {bar: 2});
+		});
+
 	});
 
 	describe('once', function(){

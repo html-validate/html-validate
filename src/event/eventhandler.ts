@@ -10,13 +10,16 @@ export class EventHandler {
 	/**
 	 * Add an event listener.
 	 *
-	 * @param event {string} - Event name or '*' for any event.
+	 * @param event {string} - Event names (comma separated) or '*' for any event.
 	 * @param callback {function} - Called any time even triggers.
 	 * @return deregistration function.
 	 */
 	on(event: string, callback: EventCallback): () => void {
-		this.listeners[event] = this.listeners[event] || [];
-		this.listeners[event].push(callback);
+		const names = event.split(',').map((x: string) => x.trim());
+		for (const name of names){
+			this.listeners[name] = this.listeners[name] || [];
+			this.listeners[name].push(callback);
+		}
 		return () => {
 			this.listeners[event] = this.listeners[event].filter((fn: EventCallback) => {
 				return fn !== callback;
@@ -28,7 +31,7 @@ export class EventHandler {
 	 * Add a onetime event listener. The listener will automatically be removed
 	 * after being triggered once.
 	 *
-	 * @param event {string} - Event name or '*' for any event.
+	 * @param event {string} - Event names (comma separated) or '*' for any event.
 	 * @param callback {function} - Called any time even triggers.
 	 * @return deregistration function.
 	 */
