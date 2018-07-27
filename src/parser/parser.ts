@@ -280,6 +280,13 @@ export class Parser {
 	}
 
 	/**
+	 * Listen on single event.
+	 */
+	once(event: string, listener: EventCallback): void {
+		this.event.once(event, listener);
+	}
+
+	/**
 	 * Trigger event.
 	 *
 	 * @param {string} event - Event name

@@ -8,6 +8,7 @@
 
 ### Features
 
+- support multiple events for single listener and listener deregistration.
 - new `Engine` class for easier programmatical usage.
 - stricter types related to events
 - bump dependencies.
