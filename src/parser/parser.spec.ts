@@ -343,4 +343,16 @@ describe('parser', function(){
 		});
 
 	});
+
+	describe('defer()', () => {
+
+		it('should push wildcard event on event queue', () => {
+			const cb = jest.fn();
+			(parser as any).event.once = jest.fn((event, fn) => fn());
+			parser.defer(cb);
+			expect((parser as any).event.once).toHaveBeenCalledWith('*', cb);
+			expect(cb).toHaveBeenCalled();
+		})
+	});
+
 });

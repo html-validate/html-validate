@@ -287,6 +287,13 @@ export class Parser {
 	}
 
 	/**
+	 * Defer execution. Will call function sometime later.
+	 */
+	defer(cb: () => void): void {
+		this.event.once('*', cb);
+	}
+
+	/**
 	 * Trigger event.
 	 *
 	 * @param {string} event - Event name
