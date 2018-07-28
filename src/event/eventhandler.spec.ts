@@ -53,6 +53,15 @@ describe('eventhandler', function(){
 			expect(callback).toHaveBeenCalledWith('bar', {bar: 2});
 		});
 
+		it('should unregister all events after using multiple space separated events', function(){
+			const callback = jest.fn();
+			const deregister = eventhandler.on('foo,bar', callback);
+			deregister();
+			eventhandler.trigger('foo', {});
+			eventhandler.trigger('bar', {});
+			expect(callback).not.toHaveBeenCalled();
+		});
+
 	});
 
 	describe('once', function(){

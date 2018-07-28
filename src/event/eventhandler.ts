@@ -21,9 +21,11 @@ export class EventHandler {
 			this.listeners[name].push(callback);
 		}
 		return () => {
-			this.listeners[event] = this.listeners[event].filter((fn: EventCallback) => {
-				return fn !== callback;
-			});
+			for (const name of names){
+				this.listeners[name] = this.listeners[name].filter((fn: EventCallback) => {
+					return fn !== callback;
+				});
+			}
 		};
 	}
 
