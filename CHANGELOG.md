@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.10.0 (2018-08-11)
+
 ### Breaking changes
 
 - rule api overhaul, all rules are now classes.
