@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Features
+
+- new rule `heading-level` for validating sequential heading levels.
+
 ### Bugfixes
 
 - `Table.getMetaFor(..)` is not case-insensitive.
