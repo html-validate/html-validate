@@ -35,6 +35,12 @@ describe('MetaTable', function(){
 			expect(meta).to.be.null;
 		});
 
+		it('should be case insensitive', function(){
+			const meta = table.getMetaFor('FOO');
+			expect(meta).not.to.be.undefined;
+			expect(meta.tagName).to.equal('foo');
+		});
+
 	});
 
 	describe('expression', function(){

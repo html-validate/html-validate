@@ -1,0 +1,27 @@
+@ngdoc content
+@module rules
+@name heading-level
+@category document
+@summary Require headings to start at h1 and be sequential
+@description
+
+# heading level (`heading-level`)
+
+Validates heading level increments and order. Headings must start at `h1` and
+can only increase one level at a time.
+
+## Rule details
+
+Examples of **incorrect** code for this rule:
+
+```html
+<h1>Heading 1</h1>
+<h3>Subheading</h3>
+```
+
+Examples of **correct** code for this rule:
+
+```html
+<h1>Heading 1</h1>
+<h2>Subheading</h2>
+```

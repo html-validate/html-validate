@@ -59,6 +59,7 @@ export class MetaTable {
 	getMetaFor(tagName: string): MetaElement {
 		/* @TODO Only entries with dynamic properties has to be copied, static
 		 * entries could be shared */
+		tagName = tagName.toLowerCase();
 		return this.elements[tagName] ? Object.assign({}, this.elements[tagName]) : null;
 	}
 

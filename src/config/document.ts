@@ -1,6 +1,7 @@
 module.exports = {
 	rules: {
-		'missing-doctype': 'error',
 		'input-missing-label': 'error',
+		'heading-level': 'error',
+		'missing-doctype': 'error',
 	},
 };
