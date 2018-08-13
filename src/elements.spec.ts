@@ -48,7 +48,6 @@ function getElementMarkup(tagName: string, variant: string){
 
 describe('HTML elements', function(){
 
-	const expect = require('chai').expect;
 	const htmlvalidate = new HtmlValidate({
 		rules: {
 			'deprecated': 'error',
@@ -62,7 +61,7 @@ describe('HTML elements', function(){
 	function allow(markup: string, comment: string){
 		it(`should allow ${comment}`, function(){
 			const report = htmlvalidate.validateString(markup);
-			expect(report.valid, markup).to.be.true;
+			expect(report).toBeValid();
 		});
 	}
 
@@ -73,7 +72,7 @@ describe('HTML elements', function(){
 		it(`should allow ${pretty} as content`, function(){
 			const markup = `<${tagName}>${inner}</${tagName}>`;
 			const report = htmlvalidate.validateString(markup);
-			expect(report.valid, markup).to.be.true;
+			expect(report).toBeValid();
 		});
 	}
 
@@ -83,14 +82,14 @@ describe('HTML elements', function(){
 		it(`should allow <${outer}> as parent`, function(){
 			const markup = `<${outer}>${inner}</${outer}>`;
 			const report = htmlvalidate.validateString(markup);
-			expect(report.valid, markup).to.be.true;
+			expect(report).toBeValid();
 		});
 	}
 
 	function disallow(markup: string, comment: string){
 		it(`should not allow ${comment}`, function(){
 			const report = htmlvalidate.validateString(markup);
-			expect(report.valid, markup).to.be.false;
+			expect(report.valid).toBeFalsy();
 		});
 	}
 
@@ -100,7 +99,7 @@ describe('HTML elements', function(){
 		it(`should disallow ${pretty} as content`, function(){
 			const markup = `<${tagName}><${child}>foo</${child}></${tagName}>`;
 			const report = htmlvalidate.validateString(markup);
-			expect(report.valid, markup).to.be.false;
+			expect(report.valid).toBeFalsy();
 		});
 	}
 
@@ -110,7 +109,7 @@ describe('HTML elements', function(){
 		it(`should disallow ${pretty} as descendant`, function(){
 			const markup = `<${tagName}><span><${child}>foo</${child}></span></${tagName}>`;
 			const report = htmlvalidate.validateString(markup);
-			expect(report.valid, markup).to.be.false;
+			expect(report.valid).toBeFalsy();
 		});
 	}
 
@@ -124,15 +123,15 @@ describe('HTML elements', function(){
 		it(`should disallow <${outer}> as parent`, function(){
 			const markup = `<${outer}>${inner}</${outer}>`;
 			const report = htmlvalidate.validateString(markup);
-			expect(report.valid, markup).to.be.false;
+			expect(report.valid).toBeFalsy();
 		});
 	}
 
 	function deprecated(tagName: string){
 		it('should report as deprecated', function(){
 			const report = htmlvalidate.validateString(`<${tagName}></${tagName}>`);
-			expect(report.valid).to.be.false;
-			expect(report.results[0].messages[0].ruleId).to.equal('deprecated');
+			expect(report.valid).toBeFalsy();
+			expect(report.results[0].messages[0].ruleId).toEqual('deprecated');
 		});
 	}
 
@@ -140,7 +139,7 @@ describe('HTML elements', function(){
 		it('should allow omitted end tag', function(){
 			const markup = `<${tagName}/>`;
 			const report = htmlvalidate.validateString(markup);
-			expect(report.valid, markup).to.be.true;
+			expect(report).toBeValid();
 		});
 	}
 
@@ -212,8 +211,8 @@ describe('HTML elements', function(){
 			const source = inlineSource('<audio></audio><audio controls></audio>');
 			const parser = htmlvalidate.getParserFor(source);
 			const [foo, bar] = parser.parseHtml(source).root.children;
-			expect(foo.meta.interactive).to.be.false;
-			expect(bar.meta.interactive).to.be.true;
+			expect(foo.meta.interactive).toBeFalsy();
+			expect(bar.meta.interactive).toBeTruthy();
 		});
 	});
 
@@ -529,8 +528,8 @@ describe('HTML elements', function(){
 			const source = inlineSource('<img/><img usemap/>');
 			const parser = htmlvalidate.getParserFor(source);
 			const [foo, bar] = parser.parseHtml(source).root.children;
-			expect(foo.meta.interactive).to.be.false;
-			expect(bar.meta.interactive).to.be.true;
+			expect(foo.meta.interactive).toBeFalsy();
+			expect(bar.meta.interactive).toBeTruthy();
 		});
 	});
 
@@ -541,8 +540,8 @@ describe('HTML elements', function(){
 			const source = inlineSource('<input type="hidden"/><input type="foo"/>');
 			const parser = htmlvalidate.getParserFor(source);
 			const [foo, bar] = parser.parseHtml(source).root.children;
-			expect(foo.meta.interactive).to.be.false;
-			expect(bar.meta.interactive).to.be.true;
+			expect(foo.meta.interactive).toBeFalsy();
+			expect(bar.meta.interactive).toBeTruthy();
 		});
 	});
 
@@ -666,8 +665,8 @@ describe('HTML elements', function(){
 			const source = inlineSource('<object></object><object usemap></object>');
 			const parser = htmlvalidate.getParserFor(source);
 			const [foo, bar] = parser.parseHtml(source).root.children;
-			expect(foo.meta.interactive).to.be.false;
-			expect(bar.meta.interactive).to.be.true;
+			expect(foo.meta.interactive).toBeFalsy();
+			expect(bar.meta.interactive).toBeTruthy();
 		});
 	});
 
@@ -964,8 +963,8 @@ describe('HTML elements', function(){
 			const source = inlineSource('<video></video><video controls></video>');
 			const parser = htmlvalidate.getParserFor(source);
 			const [foo, bar] = parser.parseHtml(source).root.children;
-			expect(foo.meta.interactive).to.be.false;
-			expect(bar.meta.interactive).to.be.true;
+			expect(foo.meta.interactive).toBeFalsy();
+			expect(bar.meta.interactive).toBeTruthy();
 		});
 	});
 
