@@ -32,13 +32,22 @@
     {
       "files": "*.spec.ts",
       "env": {
-        "mocha": true
+        "jest": true
       },
       "plugins": [
-        "mocha"
+        "jest"
       ],
       "rules": {
-        "mocha/no-exclusive-tests": "warn"
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "warn",
+        "jest/no-identical-title": "error",
+        "jest/no-test-prefixes": "warn",
+        "jest/prefer-to-have-length": "error",
+        "jest/prefer-to-be-null": "error",
+        "jest/prefer-to-be-undefined": "error",
+        "jest/valid-describe": "error",
+        "jest/valid-expect": "error",
+        "jest/valid-expect-in-promise": "error"
       }
     }
   ]

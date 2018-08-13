@@ -49,9 +49,9 @@ ESLint:
   script:
     - node_modules/.bin/grunt eslint
 
-Mocha:
+Jest:
   stage: test
-  script: npm run mocha
+  script: node_modules/.bin/jest
   coverage: /Lines\s+:\s(\d+.\d+%)/
   artifacts:
     name: ${CI_PROJECT_PATH_SLUG}-${CI_PIPELINE_ID}-coverage
