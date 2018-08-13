@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Bugfixes
+
+- `Table.getMetaFor(..)` is not case-insensitive.
+
 ## 0.10.0 (2018-08-11)
 
 ### Breaking changes
