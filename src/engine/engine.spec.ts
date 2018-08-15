@@ -3,7 +3,7 @@ import { Engine } from "./engine";
 import { Source } from "../context";
 import { Parser } from "../parser";
 import { DOMTree } from "../dom";
-import { InvalidTokenError } from "lexer";
+import { InvalidTokenError } from "../lexer";
 
 function inline(source: string): Source {
 	return {
@@ -33,11 +33,6 @@ class MockParser extends Parser {
 }
 
 describe('Engine', function(){
-
-	const chai = require('chai');
-	const expect = chai.expect;
-	chai.use(require("chai-spies"));
-
 	let config: Config;
 	let engine: Engine<Parser>;
 
@@ -51,16 +46,16 @@ describe('Engine', function(){
 		it('should parse markup and return results', function(){
 			const source: Source[] = [inline('<div></div>')];
 			const report = engine.lint(source);
-			expect(report.valid).to.be.true;
-			expect(report.results).to.have.length(0);
+			expect(report).toBeValid();
+			expect(report.results).toHaveLength(0);
 		});
 
 		it('should report lexing errors', function(){
 			const source: Source[] = [inline('parse-error')]; // see MockParser, will raise InvalidTokenError
 			const report = engine.lint(source);
-			expect(report.valid).to.be.false;
-			expect(report.results).to.have.length(1);
-			expect(report.results[0].messages).to.deep.equal([{
+			expect(report.valid).toBeFalsy();
+			expect(report.results).toHaveLength(1);
+			expect(report.results[0].messages).toEqual([{
 				line: 1,
 				column: 1,
 				severity: 2,
@@ -71,7 +66,7 @@ describe('Engine', function(){
 
 		it('should pass exceptions', function(){
 			const source: Source[] = [inline('exception')]; // see MockParser, will raise generic exception
-			expect(() => engine.lint(source)).to.throw('exception');
+			expect(() => engine.lint(source)).toThrow('exception');
 		});
 
 	});
@@ -81,15 +76,15 @@ describe('Engine', function(){
 		it('should dump parser events', function(){
 			const source: Source[] = [inline('<div id="foo"><p class="bar">baz</p></div>')];
 			const lines = engine.dumpEvents(source);
-			expect(lines).to.have.length(8);
-			expect(lines[0].event).to.equal('dom:load');
-			expect(lines[1].event).to.equal('tag:open');
-			expect(lines[2].event).to.equal('attr');
-			expect(lines[3].event).to.equal('tag:open');
-			expect(lines[4].event).to.equal('attr');
-			expect(lines[5].event).to.equal('tag:close');
-			expect(lines[6].event).to.equal('tag:close');
-			expect(lines[7].event).to.equal('dom:ready');
+			expect(lines).toHaveLength(8);
+			expect(lines[0].event).toEqual('dom:load');
+			expect(lines[1].event).toEqual('tag:open');
+			expect(lines[2].event).toEqual('attr');
+			expect(lines[3].event).toEqual('tag:open');
+			expect(lines[4].event).toEqual('attr');
+			expect(lines[5].event).toEqual('tag:close');
+			expect(lines[6].event).toEqual('tag:close');
+			expect(lines[7].event).toEqual('dom:ready');
 		});
 
 	});
@@ -99,7 +94,7 @@ describe('Engine', function(){
 		it('should dump lexer tokens', function(){
 			const source: Source[] = [inline('<div id="foo"><p class="bar">baz</p></div>')];
 			const lines = engine.dumpTokens(source);
-			expect(lines).to.deep.equal([
+			expect(lines).toEqual([
 				{token: 'TAG_OPEN', data: "<div", location: 'inline:1:1'},
 				{token: 'WHITESPACE', data: " ", location: 'inline:1:5'},
 				{token: 'ATTR_NAME', data: "id", location: 'inline:1:6'},
@@ -126,7 +121,7 @@ describe('Engine', function(){
 		it('should dump DOM tree', function(){
 			const source: Source[] = [inline('<div id="foo"><p class="bar">baz</p></div>')];
 			const lines = engine.dumpTree(source);
-			expect(lines).to.deep.equal([
+			expect(lines).toEqual([
 				'(root)',
 				'└─┬ div#foo',
 				'  └── p.bar',
