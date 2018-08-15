@@ -1,31 +1,28 @@
-import { Combinator, parseCombinator } from 'dom/combinator';
+import { Combinator, parseCombinator } from './combinator';
 
 describe('DOM Combinator', function(){
-
-	const expect = require('chai').expect;
-
 	it('should default to descendant combinator', function(){
 		const result = parseCombinator('');
-		expect(result).to.equal(Combinator.DESCENDANT);
+		expect(result).toEqual(Combinator.DESCENDANT);
 	});
 
 	it('should parse > as child combinator', function(){
 		const result = parseCombinator('>');
-		expect(result).to.equal(Combinator.CHILD);
+		expect(result).toEqual(Combinator.CHILD);
 	});
 
 	it('should parse + as adjacent sibling combinator', function(){
 		const result = parseCombinator('+');
-		expect(result).to.equal(Combinator.ADJACENT_SIBLING);
+		expect(result).toEqual(Combinator.ADJACENT_SIBLING);
 	});
 
 	it('should parse + as general sibling combinator', function(){
 		const result = parseCombinator('~');
-		expect(result).to.equal(Combinator.GENERAL_SIBLING);
+		expect(result).toEqual(Combinator.GENERAL_SIBLING);
 	});
 
 	it('should throw error on invalid combinator', function(){
-		expect(() => parseCombinator('a')).to.throw();
+		expect(() => parseCombinator('a')).toThrow();
 	});
 
 });
