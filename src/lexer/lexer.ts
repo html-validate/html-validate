@@ -16,14 +16,14 @@ type LexerTest = [RegExp | false, State | NextStateCallback, TokenType | false];
 export type TokenStream = IterableIterator<Token>;
 
 /* eslint-disable no-useless-escape */
-const MATCH_WHITESPACE = /^(?:\r\n|\r|\n|[ \t]+(\r\n|\r|\n)?)/;
+const MATCH_WHITESPACE = /^(?:\r\n|\r|\n|[ \t]+(?:\r\n|\r|\n)?)/;
 const MATCH_DOCTYPE_OPEN = /^<!(?:DOCTYPE|doctype)\s/;
 const MATCH_DOCTYPE_VALUE = /^[^>]+/;
 const MATCH_DOCTYPE_CLOSE = /^>/;
 const MATCH_XML_TAG = /^<\?xml.*?\?>\n/;
 const MATCH_TAG_OPEN = /^<(\/?)([a-zA-Z0-9\-:]+)/;       // https://www.w3.org/TR/html/syntax.html#start-tags
 const MATCH_TAG_CLOSE = /^\/?>/;
-const MATCH_TEXT = /^[^]*?(?=([ \t]*(?:\r\n|\r|\n)|<|$))/;
+const MATCH_TEXT = /^[^]*?(?=(?:[ \t]*(?:\r\n|\r|\n)|<|$))/;
 const MATCH_TAG_LOOKAHEAD = /^[^]*?(?=<|$)/;
 const MATCH_ATTR_START = /^([^\t\r\n\f \/><"'=]+)/;      // https://www.w3.org/TR/html/syntax.html#elements-attributes
 const MATCH_ATTR_SINGLE = /^='([^']*?)(')/;
