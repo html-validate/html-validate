@@ -1,12 +1,9 @@
 import HtmlValidate from '../htmlvalidate';
 
 describe('rule id-pattern', function(){
-
-	const expect = require('chai').expect;
-
 	let htmlvalidate: HtmlValidate;
 
-	before(function(){
+	beforeAll(function(){
 		htmlvalidate = new HtmlValidate({
 			rules: {'id-pattern': 'error'},
 		});
@@ -14,13 +11,13 @@ describe('rule id-pattern', function(){
 
 	it('should not report error when id follows pattern', function(){
 		const report = htmlvalidate.validateString('<p id="foo-bar"></p>');
-		expect(report).to.be.valid;
+		expect(report).toBeValid();
 	});
 
 	it('should report error when id does not follow pattern', function(){
 		const report = htmlvalidate.validateString('<p id="fooBar"></p>');
-		expect(report).to.be.invalid;
-		expect(report).to.have.error('id-pattern', /ID "fooBar" does not match required pattern ".*"/);
+		expect(report).toBeInvalid();
+		expect(report).toHaveError('id-pattern', expect.stringMatching(/ID "fooBar" does not match required pattern ".*"/));
 	});
 
 });

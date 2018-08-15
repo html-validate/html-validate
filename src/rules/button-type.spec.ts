@@ -1,12 +1,9 @@
 import HtmlValidate from '../htmlvalidate';
 
 describe('rule button-type', function(){
-
-	const expect = require('chai').expect;
-
 	let htmlvalidate: HtmlValidate;
 
-	before(function(){
+	beforeAll(function(){
 		htmlvalidate = new HtmlValidate({
 			rules: {'button-type': 'error'},
 		});
@@ -14,29 +11,29 @@ describe('rule button-type', function(){
 
 	it('should not report when button has type="submit"', function(){
 		const report = htmlvalidate.validateString('<button type="submit"></button>');
-		expect(report).to.be.valid;
+		expect(report).toBeValid();
 	});
 
 	it('should not report when button has type="button"', function(){
 		const report = htmlvalidate.validateString('<button type="button"></button>');
-		expect(report).to.be.valid;
+		expect(report).toBeValid();
 	});
 
 	it('should not report when button has type="reset"', function(){
 		const report = htmlvalidate.validateString('<button type="reset"></button>');
-		expect(report).to.be.valid;
+		expect(report).toBeValid();
 	});
 
 	it('should report error when type attribute is missing', function(){
 		const report = htmlvalidate.validateString('<button></button>');
-		expect(report).to.be.invalid;
-		expect(report).to.have.error('button-type', 'Button is missing type attribute');
+		expect(report).toBeInvalid();
+		expect(report).toHaveError('button-type', 'Button is missing type attribute');
 	});
 
 	it('should report error when type attribute is invalid', function(){
 		const report = htmlvalidate.validateString('<button type="foo"></button>');
-		expect(report).to.be.invalid;
-		expect(report).to.have.error('button-type', 'Button has invalid type "foo"');
+		expect(report).toBeInvalid();
+		expect(report).toHaveError('button-type', 'Button has invalid type "foo"');
 	});
 
 });
