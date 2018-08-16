@@ -35,4 +35,9 @@ describe('rule no-trailing-whitespace', function(){
 		]);
 	});
 
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/no-trailing-whitespace.html');
+		expect(report.results).toMatchSnapshot();
+	});
+
 });

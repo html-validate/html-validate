@@ -2,7 +2,6 @@ import HtmlValidate from '../htmlvalidate';
 
 describe('rule element-name', function(){
 
-
 	let htmlvalidate: HtmlValidate;
 
 	describe('configured with default pattern', function(){
@@ -40,6 +39,11 @@ describe('rule element-name', function(){
 			expect(report).toBeValid();
 		});
 
+		it('smoketest', () => {
+			const report = htmlvalidate.validateFile('test-files/rules/element-name.html');
+			expect(report.results).toMatchSnapshot();
+		});
+
 	});
 
 	describe('configured with custom pattern', function(){
@@ -69,6 +73,11 @@ describe('rule element-name', function(){
 		it('should not report error for xml namespaces', function(){
 			const report = htmlvalidate.validateString('<xmlns:foo></xmlns:foo>');
 			expect(report).toBeValid();
+		});
+
+		it('smoketest', () => {
+			const report = htmlvalidate.validateFile('test-files/rules/element-name.html');
+			expect(report.results).toMatchSnapshot();
 		});
 
 	});

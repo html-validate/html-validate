@@ -1,1 +1,0 @@
-[{"filePath":"test-files/rules/close-order.html","messages":[{"ruleId":"close-order","severity":2,"message":"Mismatched close-tag, expected '</p>' but found '</div>'.","line":6,"column":15}],"errorCount":1,"warningCount":0}]

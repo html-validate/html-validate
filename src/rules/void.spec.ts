@@ -38,6 +38,11 @@ describe('rule void', function() {
 			expect(report).toHaveError('void', 'End tag for <div> must not be omitted');
 		});
 
+		it('smoketest', () => {
+			const report = htmlvalidate.validateFile('test-files/rules/void.html');
+			expect(report.results).toMatchSnapshot();
+		});
+
 	});
 
 	describe('configured with style="omit"', function(){
@@ -57,6 +62,11 @@ describe('rule void', function() {
 			const report = htmlvalidate.validateString('<input/>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError('void', 'Expected omitted end tag <input> instead of self-closing element <input/>');
+		});
+
+		it('smoketest', () => {
+			const report = htmlvalidate.validateFile('test-files/rules/void.html');
+			expect(report.results).toMatchSnapshot();
 		});
 
 	});
@@ -80,6 +90,11 @@ describe('rule void', function() {
 			expect(report).toBeValid();
 		});
 
+		it('smoketest', () => {
+			const report = htmlvalidate.validateFile('test-files/rules/void.html');
+			expect(report.results).toMatchSnapshot();
+		});
+
 	});
 
 	describe('configured with style="any"', function(){
@@ -98,6 +113,11 @@ describe('rule void', function() {
 		it('should not report when void element is self-closed', function() {
 			const report = htmlvalidate.validateString('<input/>');
 			expect(report).toBeValid();
+		});
+
+		it('smoketest', () => {
+			const report = htmlvalidate.validateFile('test-files/rules/void.html');
+			expect(report.results).toMatchSnapshot();
 		});
 
 	});

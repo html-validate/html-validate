@@ -33,6 +33,11 @@ describe('rule element-case', function(){
 			expect(report).toHaveError('element-case', 'Element "fOo" should be lowercase');
 		});
 
+		it('smoketest', () => {
+			const report = htmlvalidate.validateFile('test-files/rules/element-case.html');
+			expect(report.results).toMatchSnapshot();
+		});
+
 	});
 
 	describe('configured with "uppercase"', function(){
@@ -63,6 +68,11 @@ describe('rule element-case', function(){
 			const report = htmlvalidate.validateString('<fOo></fOo>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError('element-case', 'Element "fOo" should be uppercase');
+		});
+
+		it('smoketest', () => {
+			const report = htmlvalidate.validateFile('test-files/rules/element-case.html');
+			expect(report.results).toMatchSnapshot();
 		});
 
 	});

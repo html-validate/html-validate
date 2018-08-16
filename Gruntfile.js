@@ -5,9 +5,8 @@ const eslintStrict = process.env.ESLINT_STRICT === '1';
 
 module.exports = function(grunt){
 	require('load-grunt-tasks')(grunt);
-	grunt.loadTasks('tasks');
 
-	grunt.registerTask('test', ['eslint', 'jest', 'smoketest']);
+	grunt.registerTask('test', ['eslint', 'jest']);
 	grunt.registerTask('build', ['ts', 'test']);
 	grunt.registerTask('build:ci', ['ts']); /* CI runs test in separate stage */
 	grunt.registerTask('default', ['build']);
@@ -56,21 +55,6 @@ module.exports = function(grunt){
 					'docs/**/*.js',
 					'src/**/*.ts',
 				],
-			},
-		},
-
-		smoketest: {
-			config: {
-				src: 'test-files/config/**/*.html',
-			},
-			rules: {
-				options: {
-					args: filename => {
-						const s = path.parse(filename);
-						return ['--rule', `${s.name}: 2`];
-					},
-				},
-				src: 'test-files/rules/*.html',
 			},
 		},
 

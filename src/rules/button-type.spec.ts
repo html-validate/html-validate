@@ -36,4 +36,9 @@ describe('rule button-type', function(){
 		expect(report).toHaveError('button-type', 'Button has invalid type "foo"');
 	});
 
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/button-type.html');
+		expect(report.results).toMatchSnapshot();
+	});
+
 });

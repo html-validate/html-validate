@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule element-name configured with custom pattern smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/rules/element-name.html",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 27,
+        "message": "<spam-ham> is not a valid element name",
+        "ruleId": "element-name",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 30,
+        "message": "<foo> is not a valid element name",
+        "ruleId": "element-name",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 31,
+        "message": "<1-bar> is not a valid element name",
+        "ruleId": "element-name",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`rule element-name configured with default pattern smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/rules/element-name.html",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 30,
+        "message": "<foo> is not a valid element name",
+        "ruleId": "element-name",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 31,
+        "message": "<1-bar> is not a valid element name",
+        "ruleId": "element-name",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

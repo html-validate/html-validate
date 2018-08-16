@@ -20,4 +20,9 @@ describe('rule id-pattern', function(){
 		expect(report).toHaveError('id-pattern', expect.stringMatching(/ID "fooBar" does not match required pattern ".*"/));
 	});
 
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/id-pattern.html');
+		expect(report.results).toMatchSnapshot();
+	});
+
 });

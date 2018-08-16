@@ -1,1 +1,0 @@
-[{"filePath":"test-files/rules/no-inline-style.html","messages":[{"ruleId":"no-inline-style","severity":2,"message":"Inline style is not allowed","line":1,"column":4}],"errorCount":1,"warningCount":0}]

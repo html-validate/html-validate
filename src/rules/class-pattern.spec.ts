@@ -20,4 +20,9 @@ describe('rule class-pattern', function(){
 		expect(report).toHaveError('class-pattern', expect.stringMatching(/Class "fooBar" does not match required pattern ".*"/));
 	});
 
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/class-pattern.html');
+		expect(report.results).toMatchSnapshot();
+	});
+
 });

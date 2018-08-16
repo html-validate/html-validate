@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule no-deprecated-attr smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 5,
+    "filePath": "test-files/rules/no-deprecated-attr.html",
+    "messages": Array [
+      Object {
+        "column": 7,
+        "line": 2,
+        "message": "Attribute \\"bgcolor\\" is deprecated on <body> element",
+        "ruleId": "no-deprecated-attr",
+        "severity": 2,
+      },
+      Object {
+        "column": 7,
+        "line": 3,
+        "message": "Attribute \\"BGCOLOR\\" is deprecated on <body> element",
+        "ruleId": "no-deprecated-attr",
+        "severity": 2,
+      },
+      Object {
+        "column": 7,
+        "line": 4,
+        "message": "Attribute \\"bgColor\\" is deprecated on <body> element",
+        "ruleId": "no-deprecated-attr",
+        "severity": 2,
+      },
+      Object {
+        "column": 6,
+        "line": 7,
+        "message": "Attribute \\"background\\" is deprecated on <tr> element",
+        "ruleId": "no-deprecated-attr",
+        "severity": 2,
+      },
+      Object {
+        "column": 7,
+        "line": 8,
+        "message": "Attribute \\"align\\" is deprecated on <td> element",
+        "ruleId": "no-deprecated-attr",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

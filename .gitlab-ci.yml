@@ -58,11 +58,6 @@ Jest:
     paths:
       - coverage
 
-Smoketest:
-  stage: test
-  script:
-    - node_modules/.bin/grunt smoketest
-
 Docs:
   stage: test
   script:

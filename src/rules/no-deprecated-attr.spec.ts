@@ -36,4 +36,9 @@ describe('rule no-deprecated-attr', function() {
 		expect(report).toHaveError('no-deprecated-attr', 'Attribute "BGCOLOR" is deprecated on <body> element');
 	});
 
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/no-deprecated-attr.html');
+		expect(report.results).toMatchSnapshot();
+	});
+
 });

@@ -1,1 +1,0 @@
-[{"filePath":"test-files/config/off/error/file.html","messages":[{"ruleId":"void","severity":2,"message":"End tag for <input> must be omitted","line":1,"column":15}],"errorCount":1,"warningCount":0}]

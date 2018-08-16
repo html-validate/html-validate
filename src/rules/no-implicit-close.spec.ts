@@ -26,4 +26,9 @@ describe('rule no-implicit-close', function(){
 		expect(report).toHaveError('no-implicit-close', 'Element <li> is implicitly closed by sibling');
 	});
 
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/no-implicit-close.html');
+		expect(report.results).toMatchSnapshot();
+	});
+
 });

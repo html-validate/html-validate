@@ -33,6 +33,11 @@ describe('rule attr-case', function(){
 			expect(report).toHaveError('attr-case', 'Attribute "clAss" should be lowercase');
 		});
 
+		it('smoketest', () => {
+			const report = htmlvalidate.validateFile('test-files/rules/attr-case.html');
+			expect(report.results).toMatchSnapshot();
+		});
+
 	});
 
 	describe('configured with "uppercase"', function(){
@@ -63,6 +68,11 @@ describe('rule attr-case', function(){
 			const report = htmlvalidate.validateString('<div clAss="bar"></div>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError('attr-case', 'Attribute "clAss" should be uppercase');
+		});
+
+		it('smoketest', () => {
+			const report = htmlvalidate.validateFile('test-files/rules/attr-case.html');
+			expect(report.results).toMatchSnapshot();
 		});
 
 	});

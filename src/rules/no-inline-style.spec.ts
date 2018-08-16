@@ -15,4 +15,9 @@ describe('rule no-inline-style', function(){
 		expect(report).toHaveError('no-inline-style', 'Inline style is not allowed');
 	});
 
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/no-inline-style.html');
+		expect(report.results).toMatchSnapshot();
+	});
+
 });

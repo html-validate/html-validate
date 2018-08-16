@@ -2,7 +2,6 @@ import HtmlValidate from '../htmlvalidate';
 
 describe('rule img-req-alt', function(){
 
-
 	let htmlvalidate: HtmlValidate;
 
 	describe('with default options', function(){
@@ -27,6 +26,11 @@ describe('rule img-req-alt', function(){
 			const report = htmlvalidate.validateString('<img>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError('img-req-alt', '<img> is missing required alt attribute');
+		});
+
+		it('smoketest', () => {
+			const report = htmlvalidate.validateFile('test-files/rules/img-req-alt.html');
+			expect(report.results).toMatchSnapshot();
 		});
 
 	});
@@ -56,6 +60,11 @@ describe('rule img-req-alt', function(){
 			expect(report).toHaveError('img-req-alt', '<img> is missing required alt attribute');
 		});
 
+		it('smoketest', () => {
+			const report = htmlvalidate.validateFile('test-files/rules/img-req-alt.html');
+			expect(report.results).toMatchSnapshot();
+		});
+
 	});
 
 	describe('with alias', function(){
@@ -77,6 +86,11 @@ describe('rule img-req-alt', function(){
 			expect(report).toHaveError('img-req-alt', '<img> is missing required alt attribute');
 		});
 
+		it('smoketest', () => {
+			const report = htmlvalidate.validateFile('test-files/rules/img-req-alt.html');
+			expect(report.results).toMatchSnapshot();
+		});
+
 	});
 
 	describe('with alias (array)', function(){
@@ -90,6 +104,11 @@ describe('rule img-req-alt', function(){
 		it('should not report when img has alias attribute set', function(){
 			const report = htmlvalidate.validateString('<img translate-attr="...">');
 			expect(report).toBeValid();
+		});
+
+		it('smoketest', () => {
+			const report = htmlvalidate.validateFile('test-files/rules/img-req-alt.html');
+			expect(report.results).toMatchSnapshot();
 		});
 
 	});

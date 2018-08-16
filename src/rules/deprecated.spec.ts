@@ -2,7 +2,6 @@ import HtmlValidate from '../htmlvalidate';
 
 describe('rule deprecated', function() {
 
-
 	let htmlvalidate: HtmlValidate;
 
 	beforeAll(function() {
@@ -20,6 +19,11 @@ describe('rule deprecated', function() {
 		const report = htmlvalidate.validateString('<marquee>foobar</marquee>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError('deprecated', '<marquee> is deprecated');
+	});
+
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/deprecated.html');
+		expect(report.results).toMatchSnapshot();
 	});
 
 });

@@ -1,1 +1,0 @@
-[{"filePath":"test-files/rules/deprecated.html","messages":[{"ruleId":"deprecated","severity":2,"message":"<marquee> is deprecated","line":1,"column":1}],"errorCount":1,"warningCount":0}]

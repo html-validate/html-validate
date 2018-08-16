@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule heading-level smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/rules/heading-level.html",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "Initial heading level must be h1",
+        "ruleId": "heading-level",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 6,
+        "message": "Heading level can only increase by one, expected h3",
+        "ruleId": "heading-level",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

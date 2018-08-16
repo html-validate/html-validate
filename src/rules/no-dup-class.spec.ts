@@ -25,4 +25,9 @@ describe('rule no-dup-class', function() {
 		expect(report).toHaveError('no-dup-class', 'Class "foo" duplicated');
 	});
 
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/no-dup-class.html');
+		expect(report.results).toMatchSnapshot();
+	});
+
 });

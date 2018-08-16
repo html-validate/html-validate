@@ -32,4 +32,9 @@ describe('rule no-conditional-comment', function(){
 		expect(report).toHaveError('no-conditional-comment', 'Use of conditional comments are deprecated');
 	});
 
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/no-conditional-comment.html');
+		expect(report.results).toMatchSnapshot();
+	});
+
 });

@@ -1,1 +1,0 @@
-[{"filePath":"test-files/rules/element-case.html","messages":[{"ruleId":"element-case","severity":2,"message":"Element \"DIV\" should be lowercase","line":2,"column":1},{"ruleId":"element-case","severity":2,"message":"Element \"dIV\" should be lowercase","line":3,"column":1}],"errorCount":2,"warningCount":0}]

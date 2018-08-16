@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule element-case configured with "lowercase" smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/rules/element-case.html",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 2,
+        "message": "Element \\"DIV\\" should be lowercase",
+        "ruleId": "element-case",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 3,
+        "message": "Element \\"dIV\\" should be lowercase",
+        "ruleId": "element-case",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`rule element-case configured with "uppercase" smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/rules/element-case.html",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "Element \\"div\\" should be uppercase",
+        "ruleId": "element-case",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 3,
+        "message": "Element \\"dIV\\" should be uppercase",
+        "ruleId": "element-case",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

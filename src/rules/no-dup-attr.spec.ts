@@ -26,4 +26,9 @@ describe('rule no-dup-attr', function() {
 		expect(report).toHaveError('no-dup-attr', 'Attribute "foo" duplicated');
 	});
 
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/no-dup-attr.html');
+		expect(report.results).toMatchSnapshot();
+	});
+
 });

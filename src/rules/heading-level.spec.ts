@@ -36,4 +36,9 @@ describe('rule heading-level', function(){
 		expect(report).toHaveError('heading-level', 'Initial heading level must be h1');
 	});
 
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/heading-level.html');
+		expect(report.results).toMatchSnapshot();
+	});
+
 });

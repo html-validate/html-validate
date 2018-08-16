@@ -20,4 +20,9 @@ describe('rule no-dup-id', function() {
 		expect(report).toHaveError('no-dup-id', 'Duplicate ID "foo"');
 	});
 
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/no-dup-id.html');
+		expect(report.results).toMatchSnapshot();
+	});
+
 });

@@ -35,4 +35,9 @@ describe('rule close-attr', function(){
 		]);
 	});
 
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/close-attr.html');
+		expect(report.results).toMatchSnapshot();
+	});
+
 });

@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule missing-doctype smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/rules/missing-doctype.html",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "Document is missing doctype",
+        "ruleId": "missing-doctype",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

@@ -1,1 +1,0 @@
-[{"filePath":"test-files/rules/attr-case.html","messages":[{"ruleId":"attr-case","severity":2,"message":"Attribute \"ID\" should be lowercase","line":2,"column":4},{"ruleId":"attr-case","severity":2,"message":"Attribute \"clAss\" should be lowercase","line":3,"column":4}],"errorCount":2,"warningCount":0}]

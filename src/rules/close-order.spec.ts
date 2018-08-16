@@ -52,4 +52,9 @@ describe('rule close-order', function(){
 		expect(report).toHaveError('close-order', 'Unexpected close-tag, expected opening tag.');
 	});
 
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/close-order.html');
+		expect(report.results).toMatchSnapshot();
+	});
+
 });

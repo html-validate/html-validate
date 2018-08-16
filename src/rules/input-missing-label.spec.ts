@@ -25,4 +25,9 @@ describe('rule input-missing-label', function() {
 		expect(report).toHaveError('input-missing-label', 'Input element does not have a label');
 	});
 
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/input-missing-label.html');
+		expect(report.results).toMatchSnapshot();
+	});
+
 });
