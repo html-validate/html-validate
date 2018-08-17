@@ -102,12 +102,12 @@ export class Lexer {
 		yield this.token(context, TokenType.EOF);
 	}
 
-	private token(context: Context, type: TokenType, data?: any): Token {
+	private token(context: Context, type: TokenType, data?: Array<string>): Token {
 		if (!type) throw Error("TokenType must be set");
 		return {
 			type,
 			location: context.getLocation(),
-			data,
+			data: data ? [].concat(data) : null,
 		};
 	}
 
