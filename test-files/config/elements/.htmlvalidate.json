@@ -2,5 +2,10 @@
   "elements": [
     "html5",
     "./elements.json"
-  ]
+  ],
+
+  "rules": {
+    "deprecated": "error",
+    "element-permitted-content": "error"
+  }
 }

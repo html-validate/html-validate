@@ -5,12 +5,13 @@ const eslintStrict = process.env.ESLINT_STRICT === '1';
 
 module.exports = function(grunt){
 	require('load-grunt-tasks')(grunt);
-	grunt.loadTasks('tasks');
 
-	grunt.registerTask('test', ['eslint', 'mochaTest', 'smoketest']);
+	grunt.registerTask('test', ['eslint', 'jest']);
 	grunt.registerTask('build', ['ts', 'test']);
 	grunt.registerTask('build:ci', ['ts']); /* CI runs test in separate stage */
 	grunt.registerTask('default', ['build']);
+
+	grunt.registerTask('jest', 'exec:jest');
 
 	grunt.registerTask('dgeni', 'Generate documentation', function(){
 		const Dgeni = require('dgeni');
@@ -50,39 +51,10 @@ module.exports = function(grunt){
 				},
 				src: [
 					'*.js',
+					'*.ts',
 					'docs/**/*.js',
 					'src/**/*.ts',
 				],
-			},
-		},
-
-		mochaTest: {
-			options: {
-				require: [
-					'ts-node/register',
-					'tsconfig-paths/register',
-					'./src/mocha-bootstrap.ts',
-				],
-			},
-			test: {
-				src: [
-					'src/**/*.spec.ts',
-				],
-			},
-		},
-
-		smoketest: {
-			config: {
-				src: 'test-files/config/**/*.html',
-			},
-			rules: {
-				options: {
-					args: filename => {
-						const s = path.parse(filename);
-						return ['--rule', `${s.name}: 2`];
-					},
-				},
-				src: 'test-files/rules/*.html',
 			},
 		},
 
@@ -134,6 +106,10 @@ module.exports = function(grunt){
 				src: 'docs/app/index.js',
 				dest: 'public/assets/docs.js',
 			},
+		},
+
+		exec: {
+			jest: `${path.join('node_modules', '.bin', 'jest')} -i --colors`,
 		},
 
 		connect: {

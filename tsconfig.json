@@ -11,5 +11,12 @@
       "es2017"
     ]
   },
-  "sourceMap": true
+  "sourceMap": true,
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/**/*.spec.ts"
+  ]
 }

@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule id-pattern smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/rules/id-pattern.html",
+    "messages": Array [
+      Object {
+        "column": 6,
+        "line": 3,
+        "message": "ID \\"foo_bar\\" does not match required pattern \\"/^[a-z0-9-]+$/\\"",
+        "ruleId": "id-pattern",
+        "severity": 2,
+      },
+      Object {
+        "column": 6,
+        "line": 5,
+        "message": "ID \\"fooBar\\" does not match required pattern \\"/^[a-z0-9-]+$/\\"",
+        "ruleId": "id-pattern",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

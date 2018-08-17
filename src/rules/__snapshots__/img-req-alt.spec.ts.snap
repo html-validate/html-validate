@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule img-req-alt with alias (array) smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/rules/img-req-alt.html",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 4,
+        "message": "<img> is missing required alt attribute",
+        "ruleId": "img-req-alt",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`rule img-req-alt with alias smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/rules/img-req-alt.html",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 4,
+        "message": "<img> is missing required alt attribute",
+        "ruleId": "img-req-alt",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`rule img-req-alt with allowEmpty false smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/rules/img-req-alt.html",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 2,
+        "message": "<img> is missing required alt attribute",
+        "ruleId": "img-req-alt",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 3,
+        "message": "<img> is missing required alt attribute",
+        "ruleId": "img-req-alt",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 4,
+        "message": "<img> is missing required alt attribute",
+        "ruleId": "img-req-alt",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`rule img-req-alt with default options smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/rules/img-req-alt.html",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 3,
+        "message": "<img> is missing required alt attribute",
+        "ruleId": "img-req-alt",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 4,
+        "message": "<img> is missing required alt attribute",
+        "ruleId": "img-req-alt",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

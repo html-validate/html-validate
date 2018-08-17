@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule button-type smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/rules/button-type.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "line": 2,
+        "message": "Button is missing type attribute",
+        "ruleId": "button-type",
+        "severity": 2,
+      },
+      Object {
+        "column": 2,
+        "line": 3,
+        "message": "Button has invalid type \\"foo\\"",
+        "ruleId": "button-type",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

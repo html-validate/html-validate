@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule no-implicit-close smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 13,
+    "filePath": "test-files/rules/no-implicit-close.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "line": 6,
+        "message": "Element <li> is implicitly closed by sibling",
+        "ruleId": "no-implicit-close",
+        "severity": 2,
+      },
+      Object {
+        "column": 2,
+        "line": 7,
+        "message": "Element <li> is implicitly closed by sibling",
+        "ruleId": "no-implicit-close",
+        "severity": 2,
+      },
+      Object {
+        "column": 2,
+        "line": 8,
+        "message": "Element <li> is implicitly closed by parent </ul>",
+        "ruleId": "no-implicit-close",
+        "severity": 2,
+      },
+      Object {
+        "column": 2,
+        "line": 12,
+        "message": "Element <li> is implicitly closed by sibling",
+        "ruleId": "no-implicit-close",
+        "severity": 2,
+      },
+      Object {
+        "column": 2,
+        "line": 13,
+        "message": "Element <li> is implicitly closed by sibling",
+        "ruleId": "no-implicit-close",
+        "severity": 2,
+      },
+      Object {
+        "column": 2,
+        "line": 14,
+        "message": "Element <li> is implicitly closed by parent </ul>",
+        "ruleId": "no-implicit-close",
+        "severity": 2,
+      },
+      Object {
+        "column": 2,
+        "line": 18,
+        "message": "Element <li> is implicitly closed by sibling",
+        "ruleId": "no-implicit-close",
+        "severity": 2,
+      },
+      Object {
+        "column": 2,
+        "line": 19,
+        "message": "Element <li> is implicitly closed by parent </ul>",
+        "ruleId": "no-implicit-close",
+        "severity": 2,
+      },
+      Object {
+        "column": 2,
+        "line": 23,
+        "message": "Element <dt> is implicitly closed by sibling",
+        "ruleId": "no-implicit-close",
+        "severity": 2,
+      },
+      Object {
+        "column": 2,
+        "line": 24,
+        "message": "Element <dd> is implicitly closed by sibling",
+        "ruleId": "no-implicit-close",
+        "severity": 2,
+      },
+      Object {
+        "column": 2,
+        "line": 25,
+        "message": "Element <dd> is implicitly closed by sibling",
+        "ruleId": "no-implicit-close",
+        "severity": 2,
+      },
+      Object {
+        "column": 2,
+        "line": 26,
+        "message": "Element <dt> is implicitly closed by sibling",
+        "ruleId": "no-implicit-close",
+        "severity": 2,
+      },
+      Object {
+        "column": 2,
+        "line": 27,
+        "message": "Element <dd> is implicitly closed by parent </dl>",
+        "ruleId": "no-implicit-close",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

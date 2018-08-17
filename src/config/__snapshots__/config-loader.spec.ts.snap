@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConfigLoader smoketest test-files/config/elements/file.html 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/config/elements/file.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "line": 2,
+        "message": "<deprecated> is deprecated",
+        "ruleId": "deprecated",
+        "severity": 2,
+      },
+      Object {
+        "column": 3,
+        "line": 5,
+        "message": "Element <li> is not permitted as content in <ul>",
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`ConfigLoader smoketest test-files/config/file.html 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/config/file.html",
+    "messages": Array [
+      Object {
+        "column": 15,
+        "line": 1,
+        "message": "End tag for <input> must be omitted",
+        "ruleId": "void",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`ConfigLoader smoketest test-files/config/off/error/file.html 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/config/off/error/file.html",
+    "messages": Array [
+      Object {
+        "column": 15,
+        "line": 1,
+        "message": "End tag for <input> must be omitted",
+        "ruleId": "void",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`ConfigLoader smoketest test-files/config/off/file.html 1`] = `Array []`;
+
+exports[`ConfigLoader smoketest test-files/config/warn/file.html 1`] = `
+Array [
+  Object {
+    "errorCount": 0,
+    "filePath": "test-files/config/warn/file.html",
+    "messages": Array [
+      Object {
+        "column": 15,
+        "line": 1,
+        "message": "End tag for <input> must be omitted",
+        "ruleId": "void",
+        "severity": 1,
+      },
+    ],
+    "warningCount": 1,
+  },
+]
+`;

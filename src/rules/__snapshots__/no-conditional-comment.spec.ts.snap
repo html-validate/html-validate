@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule no-conditional-comment smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 4,
+    "filePath": "test-files/rules/no-conditional-comment.html",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 3,
+        "message": "Use of conditional comments are deprecated",
+        "ruleId": "no-conditional-comment",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 7,
+        "message": "Use of conditional comments are deprecated",
+        "ruleId": "no-conditional-comment",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 9,
+        "message": "Use of conditional comments are deprecated",
+        "ruleId": "no-conditional-comment",
+        "severity": 2,
+      },
+      Object {
+        "column": 16,
+        "line": 9,
+        "message": "Use of conditional comments are deprecated",
+        "ruleId": "no-conditional-comment",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule no-trailing-whitespace smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 6,
+    "filePath": "test-files/rules/no-trailing-whitespace.html",
+    "messages": Array [
+      Object {
+        "column": 6,
+        "line": 5,
+        "message": "Trailing whitespace",
+        "ruleId": "no-trailing-whitespace",
+        "severity": 2,
+      },
+      Object {
+        "column": 6,
+        "line": 6,
+        "message": "Trailing whitespace",
+        "ruleId": "no-trailing-whitespace",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 7,
+        "message": "Trailing whitespace",
+        "ruleId": "no-trailing-whitespace",
+        "severity": 2,
+      },
+      Object {
+        "column": 6,
+        "line": 8,
+        "message": "Trailing whitespace",
+        "ruleId": "no-trailing-whitespace",
+        "severity": 2,
+      },
+      Object {
+        "column": 7,
+        "line": 12,
+        "message": "Trailing whitespace",
+        "ruleId": "no-trailing-whitespace",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 15,
+        "message": "Trailing whitespace",
+        "ruleId": "no-trailing-whitespace",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

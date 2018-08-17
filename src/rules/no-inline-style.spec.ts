@@ -1,12 +1,9 @@
 import HtmlValidate from '../htmlvalidate';
 
 describe('rule no-inline-style', function(){
-
-	const expect = require('chai').expect;
-
 	let htmlvalidate: HtmlValidate;
 
-	before(function(){
+	beforeAll(function(){
 		htmlvalidate = new HtmlValidate({
 			rules: {'no-inline-style': 'error'},
 		});
@@ -14,8 +11,13 @@ describe('rule no-inline-style', function(){
 
 	it('should report when style attribute is used', function(){
 		const report = htmlvalidate.validateString('<p style=""></p>');
-		expect(report).to.be.invalid;
-		expect(report).to.have.error('no-inline-style', 'Inline style is not allowed');
+		expect(report).toBeInvalid();
+		expect(report).toHaveError('no-inline-style', 'Inline style is not allowed');
+	});
+
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/no-inline-style.html');
+		expect(report.results).toMatchSnapshot();
 	});
 
 });

@@ -2,11 +2,9 @@ import HtmlValidate from '../htmlvalidate';
 
 describe('rule deprecated', function() {
 
-	const expect = require('chai').expect;
-
 	let htmlvalidate: HtmlValidate;
 
-	before(function() {
+	beforeAll(function() {
 		htmlvalidate = new HtmlValidate({
 			rules: { 'deprecated': 'error' },
 		});
@@ -14,13 +12,18 @@ describe('rule deprecated', function() {
 
 	it('should not report when regular element is used', function() {
 		const report = htmlvalidate.validateString('<p></p>');
-		expect(report).to.be.valid;
+		expect(report).toBeValid();
 	});
 
 	it('should report error when deprecated element is used', function() {
 		const report = htmlvalidate.validateString('<marquee>foobar</marquee>');
-		expect(report).to.be.invalid;
-		expect(report).to.have.error('deprecated', '<marquee> is deprecated');
+		expect(report).toBeInvalid();
+		expect(report).toHaveError('deprecated', '<marquee> is deprecated');
+	});
+
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/deprecated.html');
+		expect(report.results).toMatchSnapshot();
 	});
 
 });

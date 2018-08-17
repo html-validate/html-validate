@@ -1,1 +1,0 @@
-[{"filePath":"test-files/rules/class-pattern.html","messages":[{"ruleId":"class-pattern","severity":2,"message":"Class \"foo_bar\" does not match required pattern \"/^[a-z0-9-]+$/\"","line":3,"column":6},{"ruleId":"class-pattern","severity":2,"message":"Class \"fooBar\" does not match required pattern \"/^[a-z0-9-]+$/\"","line":5,"column":6}],"errorCount":2,"warningCount":0}]

@@ -2,25 +2,22 @@ const path = require('path');
 import { Config } from './config';
 
 describe('config', function(){
-
-	const expect = require('chai').expect;
-
 	it('should load defaults', function(){
 		const config = Config.empty();
-		expect(config.get()).to.not.be.undefined;
+		expect(config.get()).toBeDefined();
 	});
 
 	it('should contain no rules by default', function(){
 		const config = Config.empty();
-		expect(Object.keys(config.get().rules)).to.have.lengthOf(0);
+		expect(Object.keys(config.get().rules)).toHaveLength(0);
 	});
 
 	describe('getRules()', function(){
 
 		it('should return parsed rules', function(){
 			const config = Config.fromObject({rules: {foo: 'error'}});
-			expect(config.get().rules).to.deep.equal({foo: 'error'});
-			expect(config.getRules()).to.deep.equal({
+			expect(config.get().rules).toEqual({foo: 'error'});
+			expect(config.getRules()).toEqual({
 				foo: [Config.SEVERITY_ERROR, {}],
 			});
 		});
@@ -33,7 +30,7 @@ describe('config', function(){
 					baz: 'disable',
 				},
 			});
-			expect(config.getRules()).to.deep.equal({
+			expect(config.getRules()).toEqual({
 				foo: [Config.SEVERITY_ERROR, {}],
 				bar: [Config.SEVERITY_WARN, {}],
 				baz: [Config.SEVERITY_DISABLED, {}],
@@ -48,7 +45,7 @@ describe('config', function(){
 					baz: 0,
 				},
 			});
-			expect(config.getRules()).to.deep.equal({
+			expect(config.getRules()).toEqual({
 				foo: [Config.SEVERITY_ERROR, {}],
 				bar: [Config.SEVERITY_WARN, {}],
 				baz: [Config.SEVERITY_DISABLED, {}],
@@ -62,7 +59,7 @@ describe('config', function(){
 					bar: ["error", {bar: false}],
 				},
 			});
-			expect(config.getRules()).to.deep.equal({
+			expect(config.getRules()).toEqual({
 				foo: [Config.SEVERITY_ERROR, {foo: true}],
 				bar: [Config.SEVERITY_ERROR, {bar: false}],
 			});
@@ -74,7 +71,7 @@ describe('config', function(){
 
 		it('should support JSON', function(){
 			const config = Config.fromFile(`${process.cwd()}/test-files/config.json`);
-			expect(config.getRules()).to.deep.equal({
+			expect(config.getRules()).toEqual({
 				foo: [Config.SEVERITY_ERROR, {}],
 				bar: [Config.SEVERITY_WARN, {}],
 				baz: [Config.SEVERITY_DISABLED, {}],
@@ -92,7 +89,7 @@ describe('config', function(){
 					foo: 1,
 				},
 			});
-			expect(config.getRules()).to.deep.equal({
+			expect(config.getRules()).toEqual({
 				foo: [Config.SEVERITY_WARN, {}],
 				bar: [Config.SEVERITY_WARN, {}],
 				baz: [Config.SEVERITY_DISABLED, {}],
@@ -103,7 +100,7 @@ describe('config', function(){
 			const config = Config.fromObject({
 				extends: [`${process.cwd()}/test-files/config-extending.json`],
 			});
-			expect(config.getRules()).to.deep.equal({
+			expect(config.getRules()).toEqual({
 				foo: [Config.SEVERITY_ERROR, {}],
 				bar: [Config.SEVERITY_WARN, {}],
 				baz: [Config.SEVERITY_ERROR, {}],
@@ -114,14 +111,14 @@ describe('config', function(){
 			const config = Config.fromObject({
 				extends: ['htmlvalidate:recommended'],
 			});
-			expect(config.getRules()).to.be.an('object');
+			expect(config.getRules()).toBeDefined();
 		});
 
 		it('should support htmlvalidate:document', function(){
 			const config = Config.fromObject({
 				extends: ['htmlvalidate:document'],
 			});
-			expect(config.getRules()).to.be.an('object');
+			expect(config.getRules()).toBeDefined();
 		});
 
 	});
@@ -129,19 +126,19 @@ describe('config', function(){
 	describe('expandRelative()', function(){
 
 		it('should expand ./foo', function(){
-			expect(Config.expandRelative('./foo', '/path')).to.equal(path.join(path.sep, 'path', 'foo'));
+			expect(Config.expandRelative('./foo', '/path')).toEqual(path.join(path.sep, 'path', 'foo'));
 		});
 
 		it('should expand ../foo', function(){
-			expect(Config.expandRelative('../foo', '/path/bar')).to.equal(path.join(path.sep, 'path', 'foo'));
+			expect(Config.expandRelative('../foo', '/path/bar')).toEqual(path.join(path.sep, 'path', 'foo'));
 		});
 
 		it('should not expand /foo', function(){
-			expect(Config.expandRelative('/foo', '/path')).to.equal('/foo');
+			expect(Config.expandRelative('/foo', '/path')).toEqual('/foo');
 		});
 
 		it('should not expand foo', function(){
-			expect(Config.expandRelative('foo', '/path')).to.equal('foo');
+			expect(Config.expandRelative('foo', '/path')).toEqual('foo');
 		});
 
 	});
@@ -151,7 +148,7 @@ describe('config', function(){
 		it('should load metadata', function(){
 			const config = Config.empty();
 			const metatable = config.getMetaTable();
-			expect(Object.keys(metatable.elements)).not.to.have.lengthOf(0);
+			expect(Object.keys(metatable.elements)).not.toHaveLength(0);
 		});
 
 	});
@@ -164,7 +161,7 @@ describe('config', function(){
 					'^.*\\.foo$': '../transform/mock',
 				},
 			});
-			expect(config.transform('/path/to/test.foo')).to.deep.equal([{
+			expect(config.transform('/path/to/test.foo')).toEqual([{
 				data: 'mocked source',
 				filename: '/path/to/test.foo',
 				line: 1,
@@ -178,7 +175,7 @@ describe('config', function(){
 					'^.*\\.foo$': '<rootDir>/src/transform/mock',
 				},
 			});
-			expect(config.transform('/path/to/test.foo')).to.deep.equal([{
+			expect(config.transform('/path/to/test.foo')).toEqual([{
 				data: 'mocked source',
 				filename: '/path/to/test.foo',
 				line: 1,
@@ -192,7 +189,7 @@ describe('config', function(){
 					'^.*\\.foo$': '../transform/mock',
 				},
 			});
-			expect(config.transform('test-files/parser/simple.html')).to.deep.equal([{
+			expect(config.transform('test-files/parser/simple.html')).toEqual([{
 				data: '<p>Lorem ipsum</p>\n',
 				filename: 'test-files/parser/simple.html',
 				line: 1,

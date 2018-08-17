@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule void configured with style="any" smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/rules/void.html",
+    "messages": Array [
+      Object {
+        "column": 16,
+        "line": 10,
+        "message": "End tag for <input> must be omitted",
+        "ruleId": "void",
+        "severity": 2,
+      },
+      Object {
+        "column": 6,
+        "line": 13,
+        "message": "End tag for <div> must not be omitted",
+        "ruleId": "void",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`rule void configured with style="omit" smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/rules/void.html",
+    "messages": Array [
+      Object {
+        "column": 9,
+        "line": 2,
+        "message": "Expected omitted end tag <input> instead of self-closing element <input/>",
+        "ruleId": "void",
+        "severity": 2,
+      },
+      Object {
+        "column": 16,
+        "line": 10,
+        "message": "End tag for <input> must be omitted",
+        "ruleId": "void",
+        "severity": 2,
+      },
+      Object {
+        "column": 6,
+        "line": 13,
+        "message": "End tag for <div> must not be omitted",
+        "ruleId": "void",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`rule void configured with style="selfclose" smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 4,
+    "filePath": "test-files/rules/void.html",
+    "messages": Array [
+      Object {
+        "column": 8,
+        "line": 6,
+        "message": "Expected self-closing element <input/> instead of omitted end-tag <input>",
+        "ruleId": "void",
+        "severity": 2,
+      },
+      Object {
+        "column": 8,
+        "line": 10,
+        "message": "Expected self-closing element <input/> instead of omitted end-tag <input>",
+        "ruleId": "void",
+        "severity": 2,
+      },
+      Object {
+        "column": 16,
+        "line": 10,
+        "message": "End tag for <input> must be omitted",
+        "ruleId": "void",
+        "severity": 2,
+      },
+      Object {
+        "column": 6,
+        "line": 13,
+        "message": "End tag for <div> must not be omitted",
+        "ruleId": "void",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`rule void default smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/rules/void.html",
+    "messages": Array [
+      Object {
+        "column": 9,
+        "line": 2,
+        "message": "Expected omitted end tag <input> instead of self-closing element <input/>",
+        "ruleId": "void",
+        "severity": 2,
+      },
+      Object {
+        "column": 16,
+        "line": 10,
+        "message": "End tag for <input> must be omitted",
+        "ruleId": "void",
+        "severity": 2,
+      },
+      Object {
+        "column": 6,
+        "line": 13,
+        "message": "End tag for <div> must not be omitted",
+        "ruleId": "void",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

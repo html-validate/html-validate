@@ -1,1 +1,0 @@
-[{"filePath":"test-files/rules/no-dup-class.html","messages":[{"ruleId":"no-dup-class","severity":2,"message":"Class \"foo\" duplicated","line":5,"column":6}],"errorCount":1,"warningCount":0}]

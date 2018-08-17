@@ -1,12 +1,9 @@
 import HtmlValidate from '../htmlvalidate';
 
 describe('rule input-missing-label', function() {
-
-	const expect = require('chai').expect;
-
 	let htmlvalidate: HtmlValidate;
 
-	before(function() {
+	beforeAll(function() {
 		htmlvalidate = new HtmlValidate({
 			rules: { 'input-missing-label': 'error' },
 		});
@@ -14,18 +11,23 @@ describe('rule input-missing-label', function() {
 
 	it('should not report when input id has matching label', function() {
 		const report = htmlvalidate.validateString('<label for="foo">foo</label><input id="foo"/>');
-		expect(report).to.be.valid;
+		expect(report).toBeValid();
 	});
 
 	it('should not report when input is nested inside label', function() {
 		const report = htmlvalidate.validateString('<label>foo <input/></label>');
-		expect(report).to.be.valid;
+		expect(report).toBeValid();
 	});
 
 	it('should report when label is missing label', function() {
 		const report = htmlvalidate.validateString('<input/>');
-		expect(report).to.be.invalid;
-		expect(report).to.have.error('input-missing-label', 'Input element does not have a label');
+		expect(report).toBeInvalid();
+		expect(report).toHaveError('input-missing-label', 'Input element does not have a label');
+	});
+
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/input-missing-label.html');
+		expect(report.results).toMatchSnapshot();
 	});
 
 });

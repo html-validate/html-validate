@@ -1,12 +1,9 @@
 import HtmlValidate from '../htmlvalidate';
 
 describe('rule class-pattern', function(){
-
-	const expect = require('chai').expect;
-
 	let htmlvalidate: HtmlValidate;
 
-	before(function(){
+	beforeAll(function(){
 		htmlvalidate = new HtmlValidate({
 			rules: {'class-pattern': 'error'},
 		});
@@ -14,13 +11,18 @@ describe('rule class-pattern', function(){
 
 	it('should not report error when class follows pattern', function(){
 		const report = htmlvalidate.validateString('<p class="foo-bar"></p>');
-		expect(report).to.be.valid;
+		expect(report).toBeValid();
 	});
 
 	it('should report error when class does not follow pattern', function(){
 		const report = htmlvalidate.validateString('<p class="foo-bar fooBar spam"></p>');
-		expect(report).to.be.invalid;
-		expect(report).to.have.error('class-pattern', /Class "fooBar" does not match required pattern ".*"/);
+		expect(report).toBeInvalid();
+		expect(report).toHaveError('class-pattern', expect.stringMatching(/Class "fooBar" does not match required pattern ".*"/));
+	});
+
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/class-pattern.html');
+		expect(report.results).toMatchSnapshot();
 	});
 
 });

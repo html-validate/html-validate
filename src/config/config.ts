@@ -123,6 +123,12 @@ export class Config {
 				continue;
 			}
 
+			/* try as regular file */
+			if (fs.existsSync(entry)){
+				this.metaTable.loadFromFile(entry);
+				continue;
+			}
+
 			/* assume it is loadable with require() */
 			this.metaTable.loadFromObject(require(entry));
 		}

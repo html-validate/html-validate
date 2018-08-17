@@ -1,1 +1,0 @@
-[{"filePath":"test-files/rules/img-req-alt.html","messages":[{"ruleId":"img-req-alt","severity":2,"message":"<img> is missing required alt attribute","line":3,"column":1}],"errorCount":1,"warningCount":0}]

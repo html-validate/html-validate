@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule close-attr smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/rules/close-attr.html",
+    "messages": Array [
+      Object {
+        "column": 15,
+        "line": 3,
+        "message": "Close tags cannot have attributes",
+        "ruleId": "close-attr",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
