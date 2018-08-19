@@ -9,8 +9,7 @@ class InputMissingLabel extends Rule {
 			for (const elem of root.getElementsByTagName('input')){
 
 				/* try to find label by id */
-				const id = elem.getAttribute('id');
-				if (findLabelById(root, id)){
+				if (findLabelById(root, elem.id)){
 					continue;
 				}
 
@@ -27,7 +26,7 @@ class InputMissingLabel extends Rule {
 
 function findLabelById(root: DOMTree, id: string): DOMNode {
 	if (!id) return null;
-	return root.find((node: DOMNode) => node.is('label') && node.getAttribute('for') === id);
+	return root.find((node: DOMNode) => node.is('label') && node.getAttributeValue('for') === id);
 }
 
 function findLabelByParent(el: DOMNode): DOMNode {

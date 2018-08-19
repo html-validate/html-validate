@@ -1,10 +1,14 @@
-import { DOMNode, DOMTree }  from '.';
+import { DOMNode, DOMTree, Attribute, NodeClosed }  from '.';
 import { Parser } from '../parser';
 import { Config } from '../config';
+import { Location } from '../context';
+import { Token, TokenType } from '../lexer';
+import { MetaTable, MetaElement } from '../meta';
 
 describe('DOMNode', function(){
 
 	let root: DOMTree;
+	const location: Location = {filename: 'filename', line: 1, column: 1};
 
 	beforeEach(() => {
 		const parser = new Parser(Config.empty());
@@ -18,10 +22,75 @@ describe('DOMNode', function(){
 		</div>`);
 	});
 
+	describe('fromTokens()', () => {
+
+		function createTokens(tagName: string, open: boolean = true, selfClose: boolean = false): [Token, Token] {
+			const slash = open ? '' : '/';
+			const startToken: Token = {type: TokenType.TAG_OPEN, data: [`<${slash}${tagName}`, slash, tagName], location};
+			const endToken: Token = {type: TokenType.TAG_CLOSE, data: [selfClose ? '/>' : '>'], location};
+			return [startToken, endToken];
+		}
+
+		it('should create DOMNode from tokens', () => {
+			const [startToken, endToken] = createTokens('foo'); // <foo>
+			const node = DOMNode.fromTokens(startToken, endToken, null, null);
+			expect(node.tagName).toEqual('foo');
+			expect(node.location).toEqual(startToken.location);
+			expect(node.closed).toEqual(NodeClosed.Open);
+		});
+
+		it('should throw error if tagname is missing', () => {
+			const [startToken, endToken] = createTokens(''); // <foo>
+			expect(() => {
+				DOMNode.fromTokens(startToken, endToken, null, null);
+			}).toThrow('tagName cannot be empty');
+		});
+
+		it('should set parent for opening tag', () => {
+			const [startToken1, endToken1] = createTokens('foo', true);  // <foo>
+			const [startToken2, endToken2] = createTokens('foo', false); // </foo>
+			const parent = new DOMNode('parent');
+			const open =  DOMNode.fromTokens(startToken1, endToken1, parent, null);
+			const close = DOMNode.fromTokens(startToken2, endToken2, parent, null);
+			expect(open.parent).toBeDefined();
+			expect(close.parent).toBeUndefined();
+		});
+
+		it('should set metadata', () => {
+			const [startToken, endToken] = createTokens('foo'); // <foo>
+			const foo: MetaElement = mockEntry('foo');
+			const table = new MetaTable();
+			table.loadFromObject({foo});
+			const node = DOMNode.fromTokens(startToken, endToken, null, table);
+			expect(node.meta).toEqual(foo);
+		});
+
+		it('should set closed for omitted end tag', () => {
+			const [startToken, endToken] = createTokens('foo'); // <foo>
+			const foo: MetaElement = mockEntry('foo', {void: true});
+			const table = new MetaTable();
+			table.loadFromObject({foo});
+			const node = DOMNode.fromTokens(startToken, endToken, null, table);
+			expect(node.closed).toEqual(NodeClosed.VoidOmitted);
+		});
+
+		it('should set closed for self-closed end tag', () => {
+			const [startToken, endToken] = createTokens('foo', true, true); // <foo/>
+			const node = DOMNode.fromTokens(startToken, endToken, null, null);
+			expect(node.closed).toEqual(NodeClosed.VoidSelfClosed);
+		});
+
+	});
+
 	it('id property should return element id', function(){
 		const el = new DOMNode('foo');
-		el.setAttribute('id', 'bar');
+		el.setAttribute('id', 'bar', location);
 		expect(el.id).toEqual('bar');
+	});
+
+	it('id property should return null if no id attribute exists', function(){
+		const el = new DOMNode('foo');
+		expect(el.id).toBeNull();
 	});
 
 	it('should be assigned a unique id', function(){
@@ -30,6 +99,49 @@ describe('DOMNode', function(){
 		expect(n1.unique).toEqual(expect.any(Number));
 		expect(n2.unique).toEqual(expect.any(Number));
 		expect(n1.unique === n2.unique).toBeFalsy();
+	});
+
+	it('append() should add node as child', () => {
+		const parent = new DOMNode('parent');
+		const child = new DOMNode('child');
+		expect(parent.children).toHaveLength(0);
+		parent.append(child);
+		expect(parent.children).toHaveLength(1);
+		expect(parent.children[0].unique).toEqual(child.unique);
+	});
+
+	it('hasAttribute()', () => {
+		const node = new DOMNode('foo');
+		node.setAttribute('foo', '', location);
+		expect(node.hasAttribute('foo')).toBeTruthy();
+		expect(node.hasAttribute('bar')).toBeFalsy();
+	});
+
+	it('getAttribute()', () => {
+		const node = new DOMNode('foo');
+		node.setAttribute('foo', 'value', location);
+		expect(node.getAttribute('foo')).toBeInstanceOf(Attribute);
+		expect(node.getAttribute('foo')).toEqual({
+			key: 'foo',
+			value: 'value',
+			location,
+		});
+		expect(node.getAttribute('bar')).toBeNull();
+	});
+
+	describe('classList', () => {
+
+		it('should return list of classes', () => {
+			const node = new DOMNode('foo');
+			node.setAttribute('class', 'foo bar baz', location);
+			expect(Array.from(node.classList)).toEqual(['foo', 'bar', 'baz']);
+		});
+
+		it('should return empty list when class is missing', () => {
+			const node = new DOMNode('foo');
+			expect(Array.from(node.classList)).toEqual([]);
+		});
+
 	});
 
 	describe('should calculate depth', function(){
@@ -68,8 +180,8 @@ describe('DOMNode', function(){
 		it('should find elements', function(){
 			const nodes = root.getElementsByTagName('li');
 			expect(nodes).toHaveLength(2);
-			expect(nodes[0].getAttribute('class')).toEqual('foo');
-			expect(nodes[1].getAttribute('class')).toEqual('bar baz');
+			expect(nodes[0].getAttributeValue('class')).toEqual('foo');
+			expect(nodes[1].getAttributeValue('class')).toEqual('bar baz');
 		});
 
 		it('should support universal selector', function(){
@@ -92,63 +204,63 @@ describe('DOMNode', function(){
 			const el = root.querySelector('#parent');
 			expect(el).toBeInstanceOf(DOMNode);
 			expect(el.tagName).toEqual('div');
-			expect(el.getAttribute('id')).toEqual('parent');
+			expect(el.getAttributeValue('id')).toEqual('parent');
 		});
 
 		it('should find element by .class', () => {
 			const el = root.querySelector('.foo');
 			expect(el).toBeInstanceOf(DOMNode);
 			expect(el.tagName).toEqual('li');
-			expect(el.getAttribute('class')).toEqual('foo');
+			expect(el.getAttributeValue('class')).toEqual('foo');
 		});
 
 		it('should find element by [attr]', () => {
 			const el = root.querySelector('[title]');
 			expect(el).toBeInstanceOf(DOMNode);
 			expect(el.tagName).toEqual('li');
-			expect(el.getAttribute('class')).toEqual('bar baz');
+			expect(el.getAttributeValue('class')).toEqual('bar baz');
 		});
 
 		it('should find element by [attr=".."]', () => {
 			const el = root.querySelector('[class="foo"]');
 			expect(el).toBeInstanceOf(DOMNode);
 			expect(el.tagName).toEqual('li');
-			expect(el.getAttribute('class')).toEqual('foo');
+			expect(el.getAttributeValue('class')).toEqual('foo');
 		});
 
 		it('should find element by multiple selectors', () => {
 			const el = root.querySelector('.bar.baz#spam');
 			expect(el).toBeInstanceOf(DOMNode);
 			expect(el.tagName).toEqual('li');
-			expect(el.getAttribute('class')).toEqual('bar baz');
+			expect(el.getAttributeValue('class')).toEqual('bar baz');
 		});
 
 		it('should find element with descendant combinator', () => {
 			const el = root.querySelector('ul .bar');
 			expect(el).toBeInstanceOf(DOMNode);
 			expect(el.tagName).toEqual('li');
-			expect(el.getAttribute('class')).toEqual('bar baz');
+			expect(el.getAttributeValue('class')).toEqual('bar baz');
 		});
 
 		it('should find element with child combinator', () => {
 			const el = root.querySelector('div > .bar');
 			expect(el).toBeInstanceOf(DOMNode);
 			expect(el.tagName).toEqual('p');
-			expect(el.getAttribute('class')).toEqual('bar');
+			expect(el.getAttributeValue('class')).toEqual('bar');
 		});
 
 		it('should find element with adjacent sibling combinator', () => {
 			const el = root.querySelector('li + li');
 			expect(el).toBeInstanceOf(DOMNode);
 			expect(el.tagName).toEqual('li');
-			expect(el.getAttribute('class')).toEqual('bar baz');
+			expect(el.getAttributeValue('class')).toEqual('bar baz');
 		});
 
 		it('should find element with general sibling combinator', () => {
 			const el = root.querySelector('ul ~ .baz');
 			expect(el).toBeInstanceOf(DOMNode);
 			expect(el.tagName).toEqual('span');
-			expect(el.getAttribute('class')).toEqual('baz');
+			expect(el.getAttributeValue('class')).toEqual('baz');
 		});
 
 	});
@@ -269,3 +381,24 @@ describe('DOMNode', function(){
 	});
 
 });
+
+function mockEntry(tagName: string, stub = {}): MetaElement {
+	return Object.assign({
+		tagName,
+		metadata: false,
+		flow: false,
+		sectioning: false,
+		heading: false,
+		phrasing: false,
+		embedded: false,
+		interactive: false,
+		deprecated: false,
+		void: false,
+		transparent: false,
+		implicitClosed: [],
+		deprecatedAttributes: [],
+		permittedContent: [],
+		permittedDescendants: [],
+		permittedOrder: [],
+	}, stub);
+}

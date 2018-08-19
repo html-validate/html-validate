@@ -220,7 +220,7 @@ export class Parser {
 			quote,
 			location: token.location,
 		});
-		node.setAttribute(key, value);
+		node.setAttribute(key, value, token.location);
 	}
 
 	/**

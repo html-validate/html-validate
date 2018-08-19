@@ -4,6 +4,8 @@
 
 ### Features
 
+- new class `Attribute` used by `DOMNode`. Attributes now holds the location
+  they are created from making DOM attribute rules more precise.
 - new rule `heading-level` for validating sequential heading levels.
 
 ### Bugfixes

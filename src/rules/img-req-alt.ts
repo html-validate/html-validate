@@ -23,7 +23,7 @@ class ImgReqAlt extends Rule {
 			const images = event.document.getElementsByTagName('img');
 			images.forEach((node: DOMNode) => {
 				/* validate plain alt-attribute */
-				const alt = node.getAttribute('alt');
+				const alt = node.getAttributeValue('alt');
 				if (alt || (alt === "" && this.options.allowEmpty)){
 					return;
 				}
