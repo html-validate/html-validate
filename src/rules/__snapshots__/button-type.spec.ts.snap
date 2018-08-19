@@ -14,7 +14,7 @@ Array [
         "severity": 2,
       },
       Object {
-        "column": 2,
+        "column": 10,
         "line": 3,
         "message": "Button has invalid type \\"foo\\"",
         "ruleId": "button-type",

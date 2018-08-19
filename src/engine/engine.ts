@@ -99,7 +99,7 @@ export class Engine<T extends Parser = Parser> {
 		function decoration(node: DOMNode){
 			let output = '';
 			if (node.hasAttribute('id')){
-				output += `#${node.getAttribute('id')}`;
+				output += `#${node.id}`;
 			}
 			if (node.hasAttribute('class')){
 				output += `.${node.classList.join('.')}`;

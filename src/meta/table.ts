@@ -136,7 +136,7 @@ function matchAttribute(node: DOMNode, match: any): boolean {
 		throw new Error(`Property expression "matchAttribute" must take [key, op, value] array as argument`);
 	}
 	const [key, op, value] = match.map(x => x.toLowerCase());
-	const nodeValue = (node.getAttribute(key) || '').toLowerCase();
+	const nodeValue = (node.getAttributeValue(key) || '').toLowerCase();
 	switch (op){
 	case '!=': return nodeValue !== value;
 	case '=': return nodeValue === value;

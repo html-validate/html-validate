@@ -29,7 +29,7 @@ class IdMatcher extends Matcher {
 	}
 
 	match(node: DOMNode): boolean {
-		return node.getAttribute('id') === this.id;
+		return node.id === this.id;
 	}
 }
 
@@ -47,7 +47,7 @@ class AttrMatcher extends Matcher {
 	}
 
 	match(node: DOMNode): boolean {
-		const attr = node.getAttribute(this.key);
+		const attr = node.getAttributeValue(this.key);
 		switch (this.op){
 		case undefined:
 			return attr !== null;

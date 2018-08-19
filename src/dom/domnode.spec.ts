@@ -68,8 +68,8 @@ describe('DOMNode', function(){
 		it('should find elements', function(){
 			const nodes = root.getElementsByTagName('li');
 			expect(nodes).toHaveLength(2);
-			expect(nodes[0].getAttribute('class')).toEqual('foo');
-			expect(nodes[1].getAttribute('class')).toEqual('bar baz');
+			expect(nodes[0].getAttributeValue('class')).toEqual('foo');
+			expect(nodes[1].getAttributeValue('class')).toEqual('bar baz');
 		});
 
 		it('should support universal selector', function(){
@@ -92,63 +92,63 @@ describe('DOMNode', function(){
 			const el = root.querySelector('#parent');
 			expect(el).toBeInstanceOf(DOMNode);
 			expect(el.tagName).toEqual('div');
-			expect(el.getAttribute('id')).toEqual('parent');
+			expect(el.getAttributeValue('id')).toEqual('parent');
 		});
 
 		it('should find element by .class', () => {
 			const el = root.querySelector('.foo');
 			expect(el).toBeInstanceOf(DOMNode);
 			expect(el.tagName).toEqual('li');
-			expect(el.getAttribute('class')).toEqual('foo');
+			expect(el.getAttributeValue('class')).toEqual('foo');
 		});
 
 		it('should find element by [attr]', () => {
 			const el = root.querySelector('[title]');
 			expect(el).toBeInstanceOf(DOMNode);
 			expect(el.tagName).toEqual('li');
-			expect(el.getAttribute('class')).toEqual('bar baz');
+			expect(el.getAttributeValue('class')).toEqual('bar baz');
 		});
 
 		it('should find element by [attr=".."]', () => {
 			const el = root.querySelector('[class="foo"]');
 			expect(el).toBeInstanceOf(DOMNode);
 			expect(el.tagName).toEqual('li');
-			expect(el.getAttribute('class')).toEqual('foo');
+			expect(el.getAttributeValue('class')).toEqual('foo');
 		});
 
 		it('should find element by multiple selectors', () => {
 			const el = root.querySelector('.bar.baz#spam');
 			expect(el).toBeInstanceOf(DOMNode);
 			expect(el.tagName).toEqual('li');
-			expect(el.getAttribute('class')).toEqual('bar baz');
+			expect(el.getAttributeValue('class')).toEqual('bar baz');
 		});
 
 		it('should find element with descendant combinator', () => {
 			const el = root.querySelector('ul .bar');
 			expect(el).toBeInstanceOf(DOMNode);
 			expect(el.tagName).toEqual('li');
-			expect(el.getAttribute('class')).toEqual('bar baz');
+			expect(el.getAttributeValue('class')).toEqual('bar baz');
 		});
 
 		it('should find element with child combinator', () => {
 			const el = root.querySelector('div > .bar');
 			expect(el).toBeInstanceOf(DOMNode);
 			expect(el.tagName).toEqual('p');
-			expect(el.getAttribute('class')).toEqual('bar');
+			expect(el.getAttributeValue('class')).toEqual('bar');
 		});
 
 		it('should find element with adjacent sibling combinator', () => {
 			const el = root.querySelector('li + li');
 			expect(el).toBeInstanceOf(DOMNode);
 			expect(el.tagName).toEqual('li');
-			expect(el.getAttribute('class')).toEqual('bar baz');
+			expect(el.getAttributeValue('class')).toEqual('bar baz');
 		});
 
 		it('should find element with general sibling combinator', () => {
 			const el = root.querySelector('ul ~ .baz');
 			expect(el).toBeInstanceOf(DOMNode);
 			expect(el.tagName).toEqual('span');
-			expect(el.getAttribute('class')).toEqual('baz');
+			expect(el.getAttributeValue('class')).toEqual('baz');
 		});
 
 	});

@@ -85,13 +85,18 @@ export class DOMNode {
 		return key in this.attr;
 	}
 
-	getAttribute(key: string): string {
+	getAttribute(key: string): Attribute {
 		key = key.toLowerCase();
 		if (key in this.attr){
-			return this.attr[key].value;
+			return this.attr[key];
 		} else {
 			return null;
 		}
+	}
+
+	getAttributeValue(key: string): string {
+		const attr = this.getAttribute(key);
+		return attr ? attr.value : null;
 	}
 
 	append(node: DOMNode){
@@ -99,11 +104,11 @@ export class DOMNode {
 	}
 
 	get classList(){
-		return new DOMTokenList(this.getAttribute('class'));
+		return new DOMTokenList(this.getAttributeValue('class'));
 	}
 
 	get id(){
-		return this.getAttribute('id');
+		return this.getAttributeValue('id');
 	}
 
 	get siblings(){
