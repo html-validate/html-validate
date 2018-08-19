@@ -2,6 +2,7 @@ import { Location } from '../context';
 import { Token } from '../lexer';
 import { DOMTokenList } from './domtokenlist';
 import { MetaTable, MetaElement } from '../meta';
+import { Attribute } from './attribute';
 
 export enum NodeClosed {
 	Open = 0,            /* element wasn't closed */
@@ -15,7 +16,7 @@ let counter = 0;
 
 export class DOMNode {
 	readonly tagName: string;
-	readonly attr: { [key: string]: string; };
+	readonly attr: { [key: string]: Attribute; };
 	readonly children: Array<DOMNode>;
 	readonly location: Location;
 	readonly meta: MetaElement;
@@ -74,20 +75,20 @@ export class DOMNode {
 		return typeof this.tagName === 'undefined';
 	}
 
-	setAttribute(key: string, value: any){
+	setAttribute(key: string, value: string, location: Location): void {
 		key = key.toLowerCase();
-		this.attr[key] = value;
+		this.attr[key] = new Attribute(key, value, location);
 	}
 
-	hasAttribute(key: string){
+	hasAttribute(key: string): boolean {
 		key = key.toLowerCase();
 		return key in this.attr;
 	}
 
-	getAttribute(key: string){
+	getAttribute(key: string): string {
 		key = key.toLowerCase();
 		if (key in this.attr){
-			return this.attr[key];
+			return this.attr[key].value;
 		} else {
 			return null;
 		}
