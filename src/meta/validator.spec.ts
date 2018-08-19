@@ -229,9 +229,47 @@ describe('Meta validator', function(){
 			expect(Validator.validatePermitted(bar, rules)).toBeFalsy();
 		});
 
+		it('should throw error on invalid category', () => {
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry('foo', {flow: true}),
+			});
+			const parser = new Parser(new ConfigMock(table));
+			const [foo] = parser.parseHtml('<foo/>').root.children;
+			const rules = ['@invalid'];
+			expect(() => {
+				Validator.validatePermitted(foo, rules);
+			}).toThrow('Invalid content category "@invalid"');
+		});
+
+		it('should throw error on invalid permitted rule', () => {
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry('foo', {flow: true}),
+			});
+			const parser = new Parser(new ConfigMock(table));
+			const [foo] = parser.parseHtml('<foo/>').root.children;
+			const rules = [['@flow', {
+				spam: 'ham',
+			}]];
+			expect(() => {
+				Validator.validatePermitted(foo, rules);
+			}).toThrow('Permitted rule "{"spam":"ham"}" contains unknown property "spam"');
+		});
+
 	});
 
 	describe('validateOccurrences()', function(){
+
+		it('should handle undefined', () => {
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry('foo', {void: true}),
+			});
+			const parser = new Parser(new ConfigMock(table));
+			const [foo] = parser.parseHtml('<foo/>').root.children;
+			expect(Validator.validateOccurrences(foo, undefined, 1)).toBeTruthy();
+		});
 
 		it('should support missing qualifier', function(){
 			const table = new MetaTable();

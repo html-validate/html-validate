@@ -23,6 +23,7 @@ export class Validator {
 			/** @todo handle complex rules and not just plain arrays (but as of now
 			 * there is no use-case for it) */
 			if (typeof cur !== 'string'){
+				// istanbul ignore next
 				return false;
 			}
 			const match = cur.match(/^(.*?)[?*]?$/);
@@ -159,6 +160,7 @@ function parseAmountQualifier(category: string): number {
 	case '': return null;
 	case '*': return null;
 	default:
+		/* istanbul ignore next */
 		throw new Error(`Invalid amount qualifier "${qualifier}" used`);
 	}
 }
