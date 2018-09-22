@@ -28,4 +28,9 @@ describe('rule element-permitted-occurrences', function(){
 		expect(report).toBeValid();
 	});
 
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/element-permitted-occurrences.html');
+		expect(report.results).toMatchSnapshot();
+	});
+
 });
