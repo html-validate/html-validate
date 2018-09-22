@@ -275,15 +275,15 @@ export class Parser {
 	/**
 	 * Listen on events.
 	 */
-	on(event: string, listener: EventCallback): void {
-		this.event.on(event, listener);
+	on(event: string, listener: EventCallback): () => void {
+		return this.event.on(event, listener);
 	}
 
 	/**
 	 * Listen on single event.
 	 */
-	once(event: string, listener: EventCallback): void {
-		this.event.once(event, listener);
+	once(event: string, listener: EventCallback): () => void {
+		return this.event.once(event, listener);
 	}
 
 	/**
