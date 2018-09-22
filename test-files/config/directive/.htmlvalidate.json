@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "deprecated": "error",
+    "void": "error"
+  }
+}

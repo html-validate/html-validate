@@ -5,6 +5,7 @@ import { Parser } from "../parser";
 import { Reporter, Report } from "../reporter";
 import { Rule } from "../rule";
 import { DOMNode } from "../dom";
+import { DirectiveEvent, TagOpenEvent, TagCloseEvent } from "../event";
 
 export interface EventDump {
 	event: string;
@@ -37,17 +38,20 @@ export class Engine<T extends Parser = Parser> {
 	 * @return {object} - Report output.
 	 */
 	public lint(sources: Source[]): Report {
-		const rules = this.config.getRules();
-
 		for (const source of sources){
 			/* create parser for source */
 			const parser = new this.ParserClass(this.config);
 
 			/* load rules */
-			for (const name in rules){
-				const data = rules[name];
-				Engine.loadRule(name, data, parser, this.report);
-			}
+			const rules: { [key: string]: Rule } = {};
+			Object.entries(this.config.getRules()).map(([name, data]) => {
+				rules[name] = Engine.loadRule(name, data, parser, this.report);
+			});
+
+			/* setup directive handling */
+			parser.on('directive', (_: string, event: DirectiveEvent) => {
+				this.processDirective(event, parser, rules);
+			});
 
 			/* parse token stream */
 			try {
@@ -122,6 +126,92 @@ export class Engine<T extends Parser = Parser> {
 
 		writeNode(dom.root, 0, 0);
 		return lines;
+	}
+
+	private processDirective(event: DirectiveEvent, parser: Parser, allRules: { [key: string]: Rule }): void {
+		const rules = event.data
+			.split(',')
+			.map(name => name.trim())
+			.map(name => allRules[name])
+			.filter(rule => rule); /* filter out missing rules */
+		switch (event.action){
+		case 'enable':
+			this.processEnableDirective(rules);
+			break;
+		case 'disable':
+			this.processDisableDirective(rules);
+			break;
+		case 'disable-block':
+			this.processDisableBlockDirective(rules, parser);
+			break;
+		case 'disable-next':
+			this.processDisableNextDirective(rules, parser);
+			break;
+		default:
+			this.reportError(`Unknown directive "${event.action}"`, event.location);
+			break;
+		}
+	}
+
+	private processEnableDirective(rules: Rule[]): void {
+		for (const rule of rules){
+			rule.setEnabled(true);
+			if (rule.getSeverity() === Config.SEVERITY_DISABLED){
+				rule.setServerity(Config.SEVERITY_ERROR);
+			}
+		}
+	}
+
+	private processDisableDirective(rules: Rule[]): void {
+		for (const rule of rules){
+			rule.setEnabled(false);
+		}
+	}
+
+	private processDisableBlockDirective(rules: Rule[], parser: Parser): void {
+		let directiveBlock: number = null;
+		for (const rule of rules){
+			rule.setEnabled(false);
+		}
+
+		/* wait for a tag to open and find the current block by using its parent */
+		const unregisterOpen = parser.once('tag:open', (event: string, data: TagOpenEvent) => {
+			directiveBlock = data.target.parent.unique;
+		});
+
+		const unregisterClose = parser.on('tag:close', (event: string, data: TagCloseEvent) => {
+			/* if the directive is the last thing in a block no would be set: remove
+			 * listeners and restore state */
+			if (directiveBlock === null){
+				unregisterClose();
+				unregisterOpen();
+				for (const rule of rules){
+					rule.setEnabled(true);
+				}
+				return;
+			}
+
+			/* determine the current block again using the parent of the target,
+			 * restore state if the directive block is being closed */
+			const currentBlock = data.previous.unique;
+			if (currentBlock === directiveBlock){
+				unregisterClose();
+				for (const rule of rules){
+					rule.setEnabled(true);
+				}
+			}
+		});
+	}
+
+	private processDisableNextDirective(rules: Rule[], parser: Parser): void {
+		for (const rule of rules){
+			rule.setEnabled(false);
+			parser.once('tag:open, tag:close, attr', () => {
+				parser.defer(() => {
+					rule.setEnabled(true);
+				});
+			});
+		}
 	}
 
 	/**

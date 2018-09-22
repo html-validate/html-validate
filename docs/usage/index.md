@@ -108,3 +108,60 @@ javascript sources. See [transformers](/usage/transformers.html) for details.
 will transform `*.vue` with the `html-validate-vue` NPM package. Use a relative
 path to use a local script (use `<rootDir>` to refer to the path to
 `package.json`, e.g. `<rootDir>/my-transformer.js`).
+
+## Inline configuration
+
+Configuration can be changed inline using directive of the form:
+
+    <!-- [html-validate-ACTION OPTIONS: COMMENT] -->
+
+where `ACTION` is an action such as `enable`, `disable` etc and `OPTIONS` is
+arguments to the action. Comment is optional but encouraged.
+
+Multiple rules can be enabled/disabled at once by using a comma-separated list:
+
+    <!-- [html-validate-disable-next void, deprecated: disable both rules] -->
+
+### `enable`
+
+    <!-- [html-validate-enable element-permitted-content] -->
+
+Enables a rule. If the severity is set to `off` it will be raised to `error`,
+i.e a previously disabled warning will remain a warning after enabling it again.
+
+### `disable`
+
+    <!-- [html-validate-disable deprecated] -->
+
+Disable a rule for the rest of the file or until reenabled using `enable`
+directive.
+
+### `disable-block`
+
+    <!-- [html-validate-disable-block void] -->
+
+Disables a rule for a block of elements. All siblings and descendats following
+the directive will not trigger any errors.
+
+```html
+<i/>error
+<div>
+   <!-- [html-validate-disable-block void: will be disabled until the parent div is closed] -->
+   <i/>no error
+   <p><i/>no error</p>
+   <i/>no error
+</div>
+<i/>error
+```
+
+### `disable-next`
+
+    <!-- [html-validate-disable-next deprecated] -->
+
+Disables the rule for the next element.
+
+```html
+<!-- [html-validate-disable-next deprecated: the next occurrence will not trigger an error] -->
+<blink>This will not trigger an error</blink>
+<blink>But this line will</blink>
+```

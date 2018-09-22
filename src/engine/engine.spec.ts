@@ -55,7 +55,12 @@ describe('Engine', function(){
 	let engine: ExposedEngine<Parser>;
 
 	beforeEach(function(){
-		config = Config.empty();
+		config = Config.fromObject({
+			extends: ['htmlvalidate:recommended'],
+			rules: {
+				deprecated: 'disable',
+			},
+		});
 		engine = new ExposedEngine(config, MockParser);
 	});
 
@@ -85,6 +90,94 @@ describe('Engine', function(){
 		it('should pass exceptions', function(){
 			const source: Source[] = [inline('exception')]; // see MockParser, will raise generic exception
 			expect(() => engine.lint(source)).toThrow('exception');
+		});
+
+		it('should report error for invalid markup', function(){
+			const source: Source[] = [inline('<p></i>')];
+			const report = engine.lint(source);
+			expect(report).toBeInvalid();
+			expect(report).toHaveError('close-order', expect.any(String));
+		});
+
+	});
+
+	describe('directive', function(){
+
+		it('"disable" should disable rule', function(){
+			const source: Source[] = [inline('<!-- [html-validate-disable close-order] --><p></i><p></i>')];
+			const report = engine.lint(source);
+			expect(report).toBeValid();
+		});
+
+		it('"enable" should enable rule', function(){
+			const source: Source[] = [inline('<!-- [html-validate-disable void] --><i/><!-- [html-validate-enable void] --><i/>')];
+			const report = engine.lint(source);
+			expect(report).toBeInvalid();
+			expect(report).toHaveErrors([
+				{ruleId: 'void', column: 80},
+			]);
+		});
+
+		it('"enable" set severity to error if off', function(){
+			const source: Source[] = [inline('<blink></blink><!-- [html-validate-enable deprecated] --><blink></blink>')];
+			const report = engine.lint(source);
+			expect(report).toBeInvalid();
+			expect(report).toHaveErrors([
+				{ruleId: 'deprecated', column: 58},
+			]);
+		});
+
+		it('"disable" should only disable selected rule', function(){
+			const source: Source[] = [inline('<!-- [html-validate-disable foobar] --><p></i><p></i>')];
+			const report = engine.lint(source);
+			expect(report).toBeInvalid();
+			expect(report).toHaveErrors([
+				['close-order', expect.any(String)],
+				['close-order', expect.any(String)],
+			]);
+		});
+
+		it('"disable-block" should disable rule for all subsequent occurrences until block closes', function(){
+			const source: Source[] = [inline('<i/><div><i/><!-- [html-validate-disable-block void] --><i/><i/></div><i/>')];
+			const report = engine.lint(source);
+			expect(report).toBeInvalid();
+			expect(report).toHaveErrors([
+				{ruleId: 'void', column: 3},
+				{ruleId: 'void', column: 12},
+				{ruleId: 'void', column: 73},
+			]);
+		});
+
+		it('"disable-block" should handle empty block', function(){
+			const source: Source[] = [inline('<div><!-- [html-validate-disable-block void] --></div>')];
+			const report = engine.lint(source);
+			expect(report).toBeValid();
+		});
+
+		it('"disable-block" should handle root element', function(){
+			const source: Source[] = [inline('<!-- [html-validate-disable-block void] --><i/>')];
+			const report = engine.lint(source);
+			expect(report).toBeValid();
+		});
+
+		it('"disable-block" should handle empty root element', function(){
+			const source: Source[] = [inline('<!-- [html-validate-disable-block void] -->')];
+			const report = engine.lint(source);
+			expect(report).toBeValid();
+		});
+
+		it('"disable-next" should disable rule once', function(){
+			const source: Source[] = [inline('<!-- [html-validate-disable-next close-order] --><p></i><p></i>')];
+			const report = engine.lint(source);
+			expect(report).toBeInvalid();
+			expect(report).toHaveError('close-order', expect.any(String));
+		});
+
+		it('should report unknown directives', function(){
+			const source: Source[] = [inline('<!-- [html-validate-foo] -->')];
+			const report = engine.lint(source);
+			expect(report).toBeInvalid();
+			expect(report).toHaveError(undefined, "Unknown directive \"foo\"");
 		});
 
 	});

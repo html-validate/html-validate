@@ -1,0 +1,19 @@
+<i/>Outside block, should trigger
+<div>
+	<i/>Inside block, before directive, should trigger
+	<!-- [html-validate-disable-block void] -->
+	<i/>Inside block, after directive, shout not trigger
+	<div>
+		<i/>Inside block, after directive, shout not trigger
+	</div>
+	<i/>Inside block, after directive, shout not trigger
+</div>
+<i/>Outside block, should trigger
+
+<div>
+	<!-- [html-validate-disable-block void] -->
+</div>
+<i/>Outside block, should trigger
+
+<!-- [html-validate-disable-block void] -->
+Should handle when root element is parent but no children
