@@ -13,7 +13,6 @@ describe('rule element-permitted-occurrences', function(){
 		const report = htmlvalidate.validateString('<table><caption>1</caption><caption>2</caption></table>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
-			['element-permitted-occurrences', 'Element <caption> can only appear once under <table>'], // #8 element-permitted-occurrences reports duplicate errors
 			['element-permitted-occurrences', 'Element <caption> can only appear once under <table>'],
 		]);
 	});

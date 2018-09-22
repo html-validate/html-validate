@@ -3,16 +3,9 @@
 exports[`rule element-permitted-occurrences smoketest 1`] = `
 Array [
   Object {
-    "errorCount": 2,
+    "errorCount": 1,
     "filePath": "test-files/rules/element-permitted-occurrences.html",
     "messages": Array [
-      Object {
-        "column": 2,
-        "line": 2,
-        "message": "Element <caption> can only appear once under <table>",
-        "ruleId": "element-permitted-occurrences",
-        "severity": 2,
-      },
       Object {
         "column": 2,
         "line": 3,

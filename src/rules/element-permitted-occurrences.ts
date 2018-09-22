@@ -15,9 +15,16 @@ class ElementPermittedOccurrences extends Rule {
 				}
 
 				const rules = parent.meta.permittedContent;
-				const numSiblings = parent.children.filter(cur => cur.tagName === node.tagName).length;
+				const siblings = parent.children.filter(cur => cur.tagName === node.tagName);
+				const first = node.unique === siblings[0].unique;
 
-				if (parent.meta && !Validator.validateOccurrences(node, rules, numSiblings)){
+				/* the first occurrence should not trigger any errors, only the
+				 * subsequent occurrences should. */
+				if (first){
+					return;
+				}
+
+				if (parent.meta && !Validator.validateOccurrences(node, rules, siblings.length)){
 					this.report(node, `Element <${node.tagName}> can only appear once under <${parent.tagName}>`);
 				}
 			});
