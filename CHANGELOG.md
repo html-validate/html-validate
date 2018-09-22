@@ -10,6 +10,8 @@
 
 ### Bugfixes
 
+- `element-permitted-occurrences` no longer triggers for the first occurrence,
+  only subsequent usages.
 - `Table.getMetaFor(..)` is not case-insensitive.
 
 ## 0.10.0 (2018-08-11)

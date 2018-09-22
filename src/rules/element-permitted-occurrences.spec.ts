@@ -13,7 +13,6 @@ describe('rule element-permitted-occurrences', function(){
 		const report = htmlvalidate.validateString('<table><caption>1</caption><caption>2</caption></table>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
-			['element-permitted-occurrences', 'Element <caption> can only appear once under <table>'], // #8 element-permitted-occurrences reports duplicate errors
 			['element-permitted-occurrences', 'Element <caption> can only appear once under <table>'],
 		]);
 	});
@@ -26,6 +25,11 @@ describe('rule element-permitted-occurrences', function(){
 	it('should not report error when child has unrestricted number of occurrences', function(){
 		const report = htmlvalidate.validateString('<div><p>1</p><p>2</p><p>3</p></div>');
 		expect(report).toBeValid();
+	});
+
+	it('smoketest', () => {
+		const report = htmlvalidate.validateFile('test-files/rules/element-permitted-occurrences.html');
+		expect(report.results).toMatchSnapshot();
 	});
 
 });
