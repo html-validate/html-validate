@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { DOMNode } from 'dom';
+import { Config } from './config';
 import { Location } from './context';
 import {
 	Event,
@@ -17,7 +18,8 @@ import { Parser } from './parser';
 export abstract class Rule {
 	private reporter: Reporter;
 	private parser: Parser;
-	private severity: number;
+	private enabled: boolean;           // rule enabled/disabled, irregardless of severity
+	private severity: number;           // rule severity, 0: off, 1: warning 2: error
 	private event: any;
 
 	/**
@@ -33,18 +35,61 @@ export abstract class Rule {
 
 	constructor(options: {[key: string]: any}){
 		this.options = options;
+		this.enabled = true;
+	}
+
+	public getSeverity(): number {
+		return this.severity;
+	}
+
+	public setServerity(severity: number): void {
+		this.severity = severity;
+	}
+
+	public setEnabled(enabled: boolean): void {
+		this.enabled = enabled;
+	}
+
+	/**
+	 * Test if rule is enabled.
+	 *
+	 * To be considered enabled the enabled flag must be true and the severity at
+	 * least warning.
+	 */
+	public isEnabled(): boolean {
+		return this.enabled && this.severity >= Config.SEVERITY_WARN;
 	}
 
 	/**
 	 * Report a new error.
+	 *
+	 * Rule must be enabled for this to have any effect.
 	 */
 	report(node: DOMNode, message: string, location?: Location): void {
-		const where = location || this.event.location || (node ? node.location : {});
-		this.reporter.add(node, this, message, this.severity, where);
+		if (this.isEnabled()){
+			const where = this.findLocation({node, location, event: this.event});
+			this.reporter.add(node, this, message, this.severity, where);
+		}
+	}
+
+	private findLocation(src: any){
+		if (src.location){
+			return src.location;
+		}
+		if (src.event && src.event.location){
+			return src.event.location;
+		}
+		if (src.node && src.node.location){
+			return src.node.location;
+		}
+		return {};
 	}
 
 	/**
 	 * Listen for events.
+	 *
+	 * Adding listeners can be done even if the rule is disabled but for the
+	 * events to be delivered the rule must be enabled.
 	 */
 	on(event: 'tag:open', callback: (event: TagOpenEvent) => void): void;
 	on(event: 'tag:close', callback: (event: TagCloseEvent) => void): void;
@@ -57,8 +102,10 @@ export abstract class Rule {
 	on(event: '*', callback: (event: Event) => void): void;
 	on(event: string, callback: any): void {
 		this.parser.on(event, (event: string, data: any) => {
-			this.event = data;
-			callback(data);
+			if (this.isEnabled()){
+				this.event = data;
+				callback(data);
+			}
 		});
 	}
 
