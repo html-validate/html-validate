@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { DOMNode } from 'dom';
+import { Config } from './config';
 import { Location } from './context';
 import {
 	Event,
@@ -39,8 +40,23 @@ export abstract class Rule {
 	 * Report a new error.
 	 */
 	report(node: DOMNode, message: string, location?: Location): void {
-		const where = location || this.event.location || (node ? node.location : {});
-		this.reporter.add(node, this, message, this.severity, where);
+		if (this.severity >= Config.SEVERITY_WARN){
+			const where = this.findLocation({node, location, event: this.event});
+			this.reporter.add(node, this, message, this.severity, where);
+		}
+	}
+
+	private findLocation(src: any){
+		if (src.location){
+			return src.location;
+		}
+		if (src.event && src.event.location){
+			return src.event.location;
+		}
+		if (src.node && src.node.location){
+			return src.node.location;
+		}
+		return {};
 	}
 
 	/**
@@ -57,8 +73,10 @@ export abstract class Rule {
 	on(event: '*', callback: (event: Event) => void): void;
 	on(event: string, callback: any): void {
 		this.parser.on(event, (event: string, data: any) => {
-			this.event = data;
-			callback(data);
+			if (this.severity >= Config.SEVERITY_WARN){
+				this.event = data;
+				callback(data);
+			}
 		});
 	}
 

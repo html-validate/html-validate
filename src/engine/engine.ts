@@ -129,25 +129,23 @@ export class Engine<T extends Parser = Parser> {
 	 */
 	private static loadRule(name: string, data: any, parser: Parser, report: Reporter): void {
 		const [severity, options] = data;
-		if (severity >= Config.SEVERITY_WARN){
-			let rule: Rule;
-			try {
-				const Class = require(`../rules/${name}`);
-				rule = new Class(options);
-				rule.name = rule.name || name;
-			} catch (e) {
-				rule = new class extends Rule {
-					setup(){
-						this.name = name;
-						this.on('dom:load', () => {
-							this.report(null, `Definition for rule '${name}' was not found`);
-						});
-					}
-				}(options);
-			}
-			rule.init(parser, report, severity);
-			rule.setup();
+		let rule: Rule;
+		try {
+			const Class = require(`../rules/${name}`);
+			rule = new Class(options);
+			rule.name = rule.name || name;
+		} catch (e) {
+			rule = new class extends Rule {
+				setup(){
+					this.name = name;
+					this.on('dom:load', () => {
+						this.report(null, `Definition for rule '${name}' was not found`);
+					});
+				}
+			}(options);
 		}
+		rule.init(parser, report, severity);
+		rule.setup();
 	}
 
 	private reportError(message: string, location: Location): void {
