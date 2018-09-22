@@ -13,6 +13,7 @@ module.exports = {
 		"element-permitted-content": "error",
 		"element-permitted-occurrences": "error",
 		"element-permitted-order": "error",
+		"element-required-attributes": "error",
 		"no-conditional-comment": "error",
 		"no-deprecated-attr": "error",
 		"no-dup-attr": "error",

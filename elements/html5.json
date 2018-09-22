@@ -468,6 +468,7 @@
       "hspace",
       "vspace"
     ],
+    "requiredAttributes": ["type"],
     "attributes": {
       "autofocus": [],
       "capture": [],

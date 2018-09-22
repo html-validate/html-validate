@@ -2309,21 +2309,21 @@ exports[`HTML elements <img> valid markup 1`] = `Array []`;
 exports[`HTML elements <input> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 12,
+    "errorCount": 13,
     "filePath": "test-files/elements/input-invalid.html",
     "messages": Array [
       Object {
-        "column": 15,
+        "column": 27,
         "context": undefined,
         "line": 2,
         "message": "End tag for <input> must be omitted",
-        "offset": 48,
+        "offset": 60,
         "ruleId": "void",
         "severity": 2,
         "size": 1,
       },
       Object {
-        "column": 19,
+        "column": 31,
         "context": Object {
           "allowed": Array [],
           "attribute": "autofocus",
@@ -2332,13 +2332,13 @@ Array [
         },
         "line": 5,
         "message": "Attribute \\"autofocus\\" has invalid value \\"foobar\\"",
-        "offset": 106,
+        "offset": 130,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
       Object {
-        "column": 17,
+        "column": 29,
         "context": Object {
           "allowed": Array [],
           "attribute": "capture",
@@ -2347,13 +2347,13 @@ Array [
         },
         "line": 6,
         "message": "Attribute \\"capture\\" has invalid value \\"foobar\\"",
-        "offset": 131,
+        "offset": 167,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
       Object {
-        "column": 17,
+        "column": 29,
         "context": Object {
           "allowed": Array [],
           "attribute": "checked",
@@ -2362,13 +2362,13 @@ Array [
         },
         "line": 7,
         "message": "Attribute \\"checked\\" has invalid value \\"foobar\\"",
-        "offset": 156,
+        "offset": 204,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
       Object {
-        "column": 18,
+        "column": 30,
         "context": Object {
           "allowed": Array [],
           "attribute": "disabled",
@@ -2377,13 +2377,13 @@ Array [
         },
         "line": 8,
         "message": "Attribute \\"disabled\\" has invalid value \\"foobar\\"",
-        "offset": 182,
+        "offset": 242,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
       Object {
-        "column": 18,
+        "column": 30,
         "context": Object {
           "allowed": Array [],
           "attribute": "multiple",
@@ -2392,13 +2392,13 @@ Array [
         },
         "line": 9,
         "message": "Attribute \\"multiple\\" has invalid value \\"foobar\\"",
-        "offset": 208,
+        "offset": 280,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
       Object {
-        "column": 18,
+        "column": 30,
         "context": Object {
           "allowed": Array [],
           "attribute": "readonly",
@@ -2407,13 +2407,13 @@ Array [
         },
         "line": 10,
         "message": "Attribute \\"readonly\\" has invalid value \\"foobar\\"",
-        "offset": 234,
+        "offset": 318,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
       Object {
-        "column": 18,
+        "column": 30,
         "context": Object {
           "allowed": Array [],
           "attribute": "required",
@@ -2422,13 +2422,13 @@ Array [
         },
         "line": 11,
         "message": "Attribute \\"required\\" has invalid value \\"foobar\\"",
-        "offset": 260,
+        "offset": 356,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
       Object {
-        "column": 19,
+        "column": 31,
         "context": Object {
           "allowed": Array [
             "none",
@@ -2446,7 +2446,7 @@ Array [
         },
         "line": 12,
         "message": "Attribute \\"inputmode\\" has invalid value \\"foobar\\"",
-        "offset": 287,
+        "offset": 395,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
@@ -2484,13 +2484,13 @@ Array [
         },
         "line": 13,
         "message": "Attribute \\"type\\" has invalid value \\"foobar\\"",
-        "offset": 309,
+        "offset": 417,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
       Object {
-        "column": 20,
+        "column": 32,
         "context": Object {
           "allowed": Array [
             "default",
@@ -2503,36 +2503,52 @@ Array [
         },
         "line": 14,
         "message": "Attribute \\"spellcheck\\" has invalid value \\"foobar\\"",
-        "offset": 337,
+        "offset": 457,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
       Object {
+        "column": 2,
+        "context": Object {
+          "attribute": "type",
+          "element": "input",
+        },
+        "line": 17,
+        "message": "<input> is missing required attribute \\"type\\"",
+        "offset": 507,
+        "ruleId": "element-required-attributes",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
         "column": 3,
         "context": undefined,
-        "line": 18,
+        "line": 21,
         "message": "Element <input> is not permitted as descendant of <button>",
-        "offset": 426,
+        "offset": 594,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 5,
       },
     ],
     "source": "<!-- should not allow end tag -->
-<input></input>
+<input type=\\"text\\"></input>
 
 <!-- should not allow attributes -->
-<input autofocus=\\"foobar\\">
-<input capture=\\"foobar\\">
-<input checked=\\"foobar\\">
-<input disabled=\\"foobar\\">
-<input multiple=\\"foobar\\">
-<input readonly=\\"foobar\\">
-<input required=\\"foobar\\">
-<input inputmode=\\"foobar\\">
+<input type=\\"text\\" autofocus=\\"foobar\\">
+<input type=\\"text\\" capture=\\"foobar\\">
+<input type=\\"text\\" checked=\\"foobar\\">
+<input type=\\"text\\" disabled=\\"foobar\\">
+<input type=\\"text\\" multiple=\\"foobar\\">
+<input type=\\"text\\" readonly=\\"foobar\\">
+<input type=\\"text\\" required=\\"foobar\\">
+<input type=\\"text\\" inputmode=\\"foobar\\">
 <input type=\\"foobar\\">
-<input spellcheck=\\"foobar\\">
+<input type=\\"text\\" spellcheck=\\"foobar\\">
+
+<!-- should not allow missing type -->
+<input>
 
 <!-- should be interactive when type isn't hidden -->
 <button type=\\"button\\">
@@ -5185,7 +5201,7 @@ Array [
     "filePath": "test-files/elements/global-attributes-invalid.html",
     "messages": Array [
       Object {
-        "column": 25,
+        "column": 21,
         "context": Object {
           "allowed": Array [
             "",
@@ -5193,12 +5209,12 @@ Array [
             "false",
           ],
           "attribute": "contenteditable",
-          "element": "input",
+          "element": "p",
           "value": "foobar",
         },
         "line": 1,
         "message": "Attribute \\"contenteditable\\" has invalid value \\"foobar\\"",
-        "offset": 24,
+        "offset": 20,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
@@ -5212,7 +5228,7 @@ Array [
             "auto",
           ],
           "attribute": "dir",
-          "element": "input",
+          "element": "p",
           "value": "",
         },
         "line": 2,
@@ -5220,10 +5236,10 @@ Array [
         "offset": 34,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
-        "size": 5,
+        "size": 1,
       },
       Object {
-        "column": 13,
+        "column": 9,
         "context": Object {
           "allowed": Array [
             "ltr",
@@ -5231,12 +5247,12 @@ Array [
             "auto",
           ],
           "attribute": "dir",
-          "element": "input",
+          "element": "p",
           "value": "foobar",
         },
         "line": 3,
         "message": "Attribute \\"dir\\" has invalid value \\"foobar\\"",
-        "offset": 60,
+        "offset": 56,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
@@ -5249,7 +5265,7 @@ Array [
             "false",
           ],
           "attribute": "draggable",
-          "element": "input",
+          "element": "p",
           "value": "",
         },
         "line": 4,
@@ -5257,37 +5273,37 @@ Array [
         "offset": 70,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
-        "size": 5,
+        "size": 1,
       },
       Object {
-        "column": 19,
+        "column": 15,
         "context": Object {
           "allowed": Array [
             "true",
             "false",
           ],
           "attribute": "draggable",
-          "element": "input",
+          "element": "p",
           "value": "foobar",
         },
         "line": 5,
         "message": "Attribute \\"draggable\\" has invalid value \\"foobar\\"",
-        "offset": 108,
+        "offset": 104,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
       Object {
-        "column": 16,
+        "column": 12,
         "context": Object {
           "allowed": Array [],
           "attribute": "hidden",
-          "element": "input",
+          "element": "p",
           "value": "foobar",
         },
         "line": 6,
         "message": "Attribute \\"hidden\\" has invalid value \\"foobar\\"",
-        "offset": 132,
+        "offset": 128,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
@@ -5299,7 +5315,7 @@ Array [
             /-\\?\\\\d\\+/,
           ],
           "attribute": "tabindex",
-          "element": "input",
+          "element": "p",
           "value": "",
         },
         "line": 7,
@@ -5307,34 +5323,34 @@ Array [
         "offset": 142,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
-        "size": 5,
+        "size": 1,
       },
       Object {
-        "column": 18,
+        "column": 14,
         "context": Object {
           "allowed": Array [
             /-\\?\\\\d\\+/,
           ],
           "attribute": "tabindex",
-          "element": "input",
+          "element": "p",
           "value": "foobar",
         },
         "line": 8,
         "message": "Attribute \\"tabindex\\" has invalid value \\"foobar\\"",
-        "offset": 178,
+        "offset": 174,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
     ],
-    "source": "<input contenteditable=\\"foobar\\">
-<input dir=\\"\\">
-<input dir=\\"foobar\\">
-<input draggable=\\"\\">
-<input draggable=\\"foobar\\">
-<input hidden=\\"foobar\\">
-<input tabindex=\\"\\">
-<input tabindex=\\"foobar\\">
+    "source": "<p contenteditable=\\"foobar\\"></p>
+<p dir=\\"\\"></p>
+<p dir=\\"foobar\\"></p>
+<p draggable=\\"\\"></p>
+<p draggable=\\"foobar\\"></p>
+<p hidden=\\"foobar\\"></p>
+<p tabindex=\\"\\"></p>
+<p tabindex=\\"foobar\\"></p>
 ",
     "warningCount": 0,
   },

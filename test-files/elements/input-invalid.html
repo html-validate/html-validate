@@ -1,17 +1,20 @@
 <!-- should not allow end tag -->
-<input></input>
+<input type="text"></input>
 
 <!-- should not allow attributes -->
-<input autofocus="foobar">
-<input capture="foobar">
-<input checked="foobar">
-<input disabled="foobar">
-<input multiple="foobar">
-<input readonly="foobar">
-<input required="foobar">
-<input inputmode="foobar">
+<input type="text" autofocus="foobar">
+<input type="text" capture="foobar">
+<input type="text" checked="foobar">
+<input type="text" disabled="foobar">
+<input type="text" multiple="foobar">
+<input type="text" readonly="foobar">
+<input type="text" required="foobar">
+<input type="text" inputmode="foobar">
 <input type="foobar">
-<input spellcheck="foobar">
+<input type="text" spellcheck="foobar">
+
+<!-- should not allow missing type -->
+<input>
 
 <!-- should be interactive when type isn't hidden -->
 <button type="button">

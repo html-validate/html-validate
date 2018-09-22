@@ -493,6 +493,7 @@ function mockEntry(tagName: string, stub = {}): MetaElement {
 			implicitClosed: [],
 			attributes: {},
 			deprecatedAttributes: [],
+			requiredAttributes: [],
 			permittedContent: [],
 			permittedDescendants: [],
 			permittedOrder: [],
