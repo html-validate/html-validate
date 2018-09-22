@@ -352,7 +352,8 @@ describe('parser', function(){
 			parser.defer(cb);
 			expect((parser as any).event.once).toHaveBeenCalledWith('*', cb);
 			expect(cb).toHaveBeenCalled();
-		})
+		});
+
 	});
 
 });
