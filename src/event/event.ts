@@ -29,6 +29,12 @@ export interface ConditionalEvent extends Event {
 	condition: string;
 }
 
+export interface DirectiveEvent extends Event {
+	action: string;
+	data: string;
+	comment: string;
+}
+
 export interface DoctypeEvent extends Event {
 	value: string;
 }

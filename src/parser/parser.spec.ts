@@ -252,6 +252,34 @@ describe('parser', function(){
 
 	});
 
+	describe('should parse directive', () => {
+
+		it('with action', () => {
+			parser.parseHtml('<!-- [html-validate-foo-bar] -->');
+			expect(events.shift()).toEqual({event: 'directive', action: 'foo-bar', data: '', comment: ''});
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it('with options', () => {
+			parser.parseHtml('<!-- [html-validate-enable foo bar] -->');
+			expect(events.shift()).toEqual({event: 'directive', action: 'enable', data: 'foo bar', comment: ''});
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it('with comment', () => {
+			parser.parseHtml('<!-- [html-validate-enable: lorem ipsum] -->');
+			expect(events.shift()).toEqual({event: 'directive', action: 'enable', data: '', comment: 'lorem ipsum'});
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it('with options and comment', () => {
+			parser.parseHtml('<!-- [html-validate-enable foo bar: baz] -->');
+			expect(events.shift()).toEqual({event: 'directive', action: 'enable', data: 'foo bar', comment: 'baz'});
+			expect(events.shift()).toBeUndefined();
+		});
+
+	});
+
 	describe('should handle optional end tags', function(){
 
 		it('<li>', function(){
