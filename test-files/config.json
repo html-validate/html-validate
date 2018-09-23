@@ -2,6 +2,6 @@
 	"rules": {
 		"foo": "error",
 		"bar": "warn",
-		"baz": "disable"
+		"baz": "off"
 	}
 }

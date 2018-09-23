@@ -2,6 +2,11 @@
 
 ## Upcoming release
 
+### Breaking changes
+
+- For compatibility with other tools the severity `disable` has been renamed to
+  `off`. The old name will continue to work but will be removed in the future.
+
 ### Features
 
 - rules are now using dynamic severity which can change at runtime.

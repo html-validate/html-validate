@@ -27,7 +27,7 @@ describe('config', function(){
 				rules: {
 					foo: 'error',
 					bar: 'warn',
-					baz: 'disable',
+					baz: 'off',
 				},
 			});
 			expect(config.getRules()).toEqual({

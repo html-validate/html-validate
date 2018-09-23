@@ -14,17 +14,22 @@ const deepmerge = require('deepmerge');
 const recommended = require('./recommended');
 const document = require('./document');
 
-const parseSeverityLut = [
-	'disable',
-	'warn',
-	'error',
-];
-
 function parseSeverity(value: string | number){
 	if (typeof value === 'number'){
 		return value;
-	} else {
-		return parseSeverityLut.indexOf(value.toLowerCase());
+	}
+	switch (value){
+		case 'off':
+			return 0;
+		case 'disable':
+			console.warn(`Deprecated alias "disabled" will be removed, replace with severity "off"`);
+			return 0;
+		case 'warn':
+			return 1;
+		case 'error':
+			return 2;
+		default:
+			throw new Error(`Invalid severity "${value}"`);
 	}
 }
 
