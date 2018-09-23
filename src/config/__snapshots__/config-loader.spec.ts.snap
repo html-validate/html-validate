@@ -1,5 +1,123 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ConfigLoader smoketest test-files/config/directive/disable.html 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/config/directive/disable.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "line": 1,
+        "message": "End tag for <i> must not be omitted",
+        "ruleId": "void",
+        "severity": 2,
+      },
+      Object {
+        "column": 3,
+        "line": 8,
+        "message": "End tag for <i> must not be omitted",
+        "ruleId": "void",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`ConfigLoader smoketest test-files/config/directive/disable-block.html 1`] = `
+Array [
+  Object {
+    "errorCount": 4,
+    "filePath": "test-files/config/directive/disable-block.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "line": 1,
+        "message": "End tag for <i> must not be omitted",
+        "ruleId": "void",
+        "severity": 2,
+      },
+      Object {
+        "column": 4,
+        "line": 3,
+        "message": "End tag for <i> must not be omitted",
+        "ruleId": "void",
+        "severity": 2,
+      },
+      Object {
+        "column": 3,
+        "line": 11,
+        "message": "End tag for <i> must not be omitted",
+        "ruleId": "void",
+        "severity": 2,
+      },
+      Object {
+        "column": 3,
+        "line": 16,
+        "message": "End tag for <i> must not be omitted",
+        "ruleId": "void",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`ConfigLoader smoketest test-files/config/directive/disable-multiple.html 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/config/directive/disable-multiple.html",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "<blink> is deprecated",
+        "ruleId": "deprecated",
+        "severity": 2,
+      },
+      Object {
+        "column": 7,
+        "line": 1,
+        "message": "End tag for <blink> must not be omitted",
+        "ruleId": "void",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`ConfigLoader smoketest test-files/config/directive/disable-next.html 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/config/directive/disable-next.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "line": 1,
+        "message": "End tag for <i> must not be omitted",
+        "ruleId": "void",
+        "severity": 2,
+      },
+      Object {
+        "column": 3,
+        "line": 5,
+        "message": "End tag for <i> must not be omitted",
+        "ruleId": "void",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
+
 exports[`ConfigLoader smoketest test-files/config/elements/file.html 1`] = `
 Array [
   Object {

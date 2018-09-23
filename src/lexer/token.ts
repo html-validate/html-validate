@@ -14,6 +14,7 @@ export enum TokenType {
 	SCRIPT,
 	COMMENT,
 	CONDITIONAL,
+	DIRECTIVE,
 	EOF,
 }
 

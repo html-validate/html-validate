@@ -8,6 +8,7 @@ import {
 	Event,
 	AttributeEvent,
 	ConditionalEvent,
+	DirectiveEvent,
 	DOMReadyEvent,
 	DoctypeEvent,
 	TagCloseEvent,
@@ -70,6 +71,10 @@ export class Parser {
 					text: token.data[0],
 					location: token.location,
 				});
+				break;
+
+			case TokenType.DIRECTIVE:
+				this.consumeDirective(token);
 				break;
 
 			case TokenType.CONDITIONAL:
@@ -223,6 +228,22 @@ export class Parser {
 		node.setAttribute(key, value, token.location);
 	}
 
+	consumeDirective(token: Token){
+		const directive = token.data[1];
+		const match = directive.match(/^([a-zA-Z0-9-]+)\s*(.*?)(?:\s*:\s*(.*))?$/);
+		if (!match){
+			throw new Error(`Failed to parse directive "${directive}"`);
+		}
+
+		const [, action, data, comment] = match;
+		this.trigger('directive', {
+			action,
+			data,
+			comment: comment || '',
+			location: token.location,
+		});
+	}
+
 	/**
 	 * Consumes doctype tokens. Emits doctype event.
 	 */
@@ -307,6 +328,7 @@ export class Parser {
 	protected trigger(event: 'attr', data: AttributeEvent): void;
 	protected trigger(event: 'whitespace', data: WhitespaceEvent): void;
 	protected trigger(event: 'conditional', data: ConditionalEvent): void;
+	protected trigger(event: 'directive', data: DirectiveEvent): void;
 	protected trigger(event: any, data: any): void {
 		if (typeof data.location === 'undefined'){
 			throw Error('Triggered event must contain location');
