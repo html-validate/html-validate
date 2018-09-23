@@ -58,7 +58,7 @@ describe('Engine', function(){
 		config = Config.fromObject({
 			extends: ['htmlvalidate:recommended'],
 			rules: {
-				deprecated: 'disable',
+				deprecated: 'off',
 			},
 		});
 		engine = new ExposedEngine(config, MockParser);

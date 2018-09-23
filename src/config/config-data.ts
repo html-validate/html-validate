@@ -1,4 +1,4 @@
-type RuleSeverity = "disable" | "warn" | "error" | number;
+type RuleSeverity = "off" | "warn" | "error" | number;
 
 export type TransformMap = { [key: string]: string };
 
