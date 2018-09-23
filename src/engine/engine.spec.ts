@@ -4,6 +4,8 @@ import { Source } from "../context";
 import { Parser } from "../parser";
 import { DOMTree } from "../dom";
 import { InvalidTokenError } from "../lexer";
+import { Reporter } from "../reporter";
+import { Rule } from "../rule";
 
 function inline(source: string): Source {
 	return {
@@ -30,15 +32,31 @@ class MockParser extends Parser {
 			return super.parseHtml(source);
 		}
 	}
+
+	/* exposed for testing */
+	public trigger(event: any, data: any): void {
+		return super.trigger(event, data);
+	}
+}
+
+class ExposedEngine<T extends Parser> extends Engine<T> {
+	/* exposed for testing */
+	public loadRule: typeof Engine.loadRule = Engine.loadRule;
+
+	/* override class instantiation */
+	public instantiateRule(name: string, options: any): Rule {  // eslint-disable-line no-unused-vars
+		return null;
+	}
 }
 
 describe('Engine', function(){
+
 	let config: Config;
-	let engine: Engine<Parser>;
+	let engine: ExposedEngine<Parser>;
 
 	beforeEach(function(){
 		config = Config.empty();
-		engine = new Engine(config, MockParser);
+		engine = new ExposedEngine(config, MockParser);
 	});
 
 	describe('lint()', function(){
@@ -126,6 +144,53 @@ describe('Engine', function(){
 				'└─┬ div#foo',
 				'  └── p.bar',
 			]);
+		});
+
+	});
+
+	describe('internals', () => {
+
+		describe('loadRule()', () => {
+
+			let parser: MockParser;
+			let reporter: Reporter;
+			let mockRule: any;
+
+			beforeEach(() => {
+				parser = new MockParser(config);
+				reporter = new Reporter();
+				mockRule = {
+					init: jest.fn(),
+					setup: jest.fn(),
+				};
+			});
+
+			it('should load and initialize rule', () => {
+				engine.instantiateRule = jest.fn(() => mockRule);
+				const rule = engine.loadRule('void', [Config.SEVERITY_ERROR, {}], parser, reporter);
+				expect(rule).toBe(mockRule);
+				expect(rule.init).toHaveBeenCalledWith(parser, reporter, Config.SEVERITY_ERROR);
+				expect(rule.setup).toHaveBeenCalledWith();
+				expect(rule.name).toEqual('void');
+			});
+
+			it('should use rule-defined name if set', () => {
+				engine.instantiateRule = jest.fn(() => mockRule);
+				mockRule.name = 'foobar';
+				const rule = engine.loadRule('void', [Config.SEVERITY_ERROR, {}], parser, reporter);
+				expect(rule.name).toEqual('foobar');
+			});
+
+			it('should add error if rule cannot be found', () => {
+				engine.instantiateRule = jest.fn(() => {
+					throw new Error('no such rule');
+				});
+				engine.loadRule('void', [Config.SEVERITY_ERROR, {}], parser, reporter);
+				const add = jest.spyOn(reporter, 'add');
+				parser.trigger('dom:load', {location: {}});
+				expect(add).toHaveBeenCalledWith(null, expect.any(Rule), "Definition for rule 'void' was not found", Config.SEVERITY_ERROR, {});
+			});
+
 		});
 
 	});

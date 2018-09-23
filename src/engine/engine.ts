@@ -127,12 +127,11 @@ export class Engine<T extends Parser = Parser> {
 	/**
 	 * Load a rule using current config.
 	 */
-	private static loadRule(name: string, data: any, parser: Parser, report: Reporter): void {
+	protected static loadRule(name: string, data: any, parser: Parser, report: Reporter): Rule {
 		const [severity, options] = data;
 		let rule: Rule;
 		try {
-			const Class = require(`../rules/${name}`);
-			rule = new Class(options);
+			rule = this.instantiateRule(name, options);
 			rule.name = rule.name || name;
 		} catch (e) {
 			rule = new class extends Rule {
@@ -146,6 +145,13 @@ export class Engine<T extends Parser = Parser> {
 		}
 		rule.init(parser, report, severity);
 		rule.setup();
+		return rule;
+	}
+
+	/* istanbul ignore next: tests mock this function */
+	protected static instantiateRule(name: string, options: any): Rule {
+		const Class = require(`../rules/${name}`);
+		return new Class(options);
 	}
 
 	private reportError(message: string, location: Location): void {
