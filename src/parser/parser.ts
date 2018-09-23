@@ -299,15 +299,15 @@ export class Parser {
 	 * @param {string} event - Event name
 	 * @param {Event} data - Event data
 	 */
-	private trigger(event: 'tag:open', data: TagOpenEvent): void;
-	private trigger(event: 'tag:close', data: TagCloseEvent): void;
-	private trigger(event: 'dom:load', data: Event): void;
-	private trigger(event: 'dom:ready', data: DOMReadyEvent): void;
-	private trigger(event: 'doctype', data: DoctypeEvent): void;
-	private trigger(event: 'attr', data: AttributeEvent): void;
-	private trigger(event: 'whitespace', data: WhitespaceEvent): void;
-	private trigger(event: 'conditional', data: ConditionalEvent): void;
-	private trigger(event: any, data: any): void {
+	protected trigger(event: 'tag:open', data: TagOpenEvent): void;
+	protected trigger(event: 'tag:close', data: TagCloseEvent): void;
+	protected trigger(event: 'dom:load', data: Event): void;
+	protected trigger(event: 'dom:ready', data: DOMReadyEvent): void;
+	protected trigger(event: 'doctype', data: DoctypeEvent): void;
+	protected trigger(event: 'attr', data: AttributeEvent): void;
+	protected trigger(event: 'whitespace', data: WhitespaceEvent): void;
+	protected trigger(event: 'conditional', data: ConditionalEvent): void;
+	protected trigger(event: any, data: any): void {
 		if (typeof data.location === 'undefined'){
 			throw Error('Triggered event must contain location');
 		}
