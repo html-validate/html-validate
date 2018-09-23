@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.11.0 (2018-09-23)
+
 ### Breaking changes
 
 - For compatibility with other tools the severity `disable` has been renamed to
