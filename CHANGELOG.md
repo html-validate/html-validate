@@ -9,6 +9,8 @@
 
 ### Features
 
+- support directives to enable/disable rules inside files, e.g. to ignore a
+  single error.
 - rules are now using dynamic severity which can change at runtime.
 - new class `Attribute` used by `DOMNode`. Attributes now holds the location
   they are created from making DOM attribute rules more precise.
