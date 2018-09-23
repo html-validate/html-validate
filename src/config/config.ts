@@ -19,17 +19,18 @@ function parseSeverity(value: string | number){
 		return value;
 	}
 	switch (value){
-		case 'off':
-			return 0;
-		case 'disable':
-			console.warn(`Deprecated alias "disabled" will be removed, replace with severity "off"`);
-			return 0;
-		case 'warn':
-			return 1;
-		case 'error':
-			return 2;
-		default:
-			throw new Error(`Invalid severity "${value}"`);
+	case 'off':
+		return 0;
+	case 'disable':
+		// eslint-disable-next-line no-console
+		console.warn(`Deprecated alias "disabled" will be removed, replace with severity "off"`);
+		return 0;
+	case 'warn':
+		return 1;
+	case 'error':
+		return 2;
+	default:
+		throw new Error(`Invalid severity "${value}"`);
 	}
 }
 
