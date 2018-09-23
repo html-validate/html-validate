@@ -33,6 +33,7 @@ const MATCH_CDATA_BEGIN = /^<!\[CDATA\[/;
 const MATCH_CDATA_END = /^[^]*?]]>/;
 const MATCH_SCRIPT_DATA = /^[^]*?(?=<\/script)/;
 const MATCH_SCRIPT_END = /^<(\/)(script)/;
+const MATCH_DIRECTIVE = /^<!--\s\[html-validate-(.*?)]\s-->/;
 const MATCH_COMMENT = /^<!--([^]*?)-->/;
 const MATCH_CONDITIONAL = /^<!(?:--)?\[([^\]]*?)\](?:--)?>/;
 
@@ -221,6 +222,7 @@ export class Lexer {
 		yield* this.match(context, [
 			[MATCH_WHITESPACE, State.TEXT, TokenType.WHITESPACE],
 			[MATCH_CDATA_BEGIN, State.CDATA, false],
+			[MATCH_DIRECTIVE, State.TEXT, TokenType.DIRECTIVE],
 			[MATCH_CONDITIONAL, State.TEXT, TokenType.CONDITIONAL],
 			[MATCH_COMMENT, State.TEXT, TokenType.COMMENT],
 			[MATCH_TAG_OPEN, State.TAG, TokenType.TAG_OPEN],

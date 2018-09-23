@@ -375,6 +375,13 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
+		it('html-validate directive', () => {
+			const token = lexer.tokenize(inlineSource('<!-- [html-validate-action options: comment] -->'));
+			expect(token.next()).toBeToken({type: TokenType.DIRECTIVE, data: ['<!-- [html-validate-action options: comment] -->', 'action options: comment']});
+			expect(token.next()).toBeToken({type: TokenType.EOF});
+			expect(token.next().done).toBeTruthy();
+		});
+
 		describe('browser conditional', function(){
 
 			it('downlevel-hidden', function(){
