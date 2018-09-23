@@ -68,12 +68,17 @@ function toHaveError(report: Report, ruleId: any, message: any){
 	return {pass, message: resultMessage};
 }
 
-function toHaveErrors(report: Report, errors: [string, string][]){
+function toHaveErrors(report: Report, errors: ([string, string]|{})[]){
 	const actual = report.results.reduce((aggregated: Message[], result: Result) => {
 		return aggregated.concat(result.messages);
 	}, []);
-	const matcher = errors.map(([ruleId, message]) => {
-		return expect.objectContaining({ruleId, message});
+	const matcher = errors.map((entry) => {
+		if (Array.isArray(entry)){
+			const [ruleId, message] = entry;
+			return expect.objectContaining({ruleId, message});
+		} else {
+			return expect.objectContaining(entry);
+		}
 	});
 	const pass = this.equals(actual, matcher);
 	const diffString = diff(matcher, actual, {expand: this.expand});
