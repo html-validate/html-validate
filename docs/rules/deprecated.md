@@ -12,13 +12,13 @@ HTML5 deprecated many old elements.
 
 Examples of **incorrect** code for this rule:
 
-```html
-<center>...</center>
-<big>...</big>
-```
+<validate name="incorrect" rules="deprecated">
+    <center>...</center>
+    <big>...</big>
+</validate>
 
 Examples of **correct** code for this rule:
 
-```html
-<main>...</main>
-```
+<validate name="correct" rules="deprecated">
+    <main>...</main>
+</validate>

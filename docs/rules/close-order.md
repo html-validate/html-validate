@@ -12,12 +12,12 @@ HTML requires elements to be closed in the correct order.
 
 Examples of **incorrect** code for this rule:
 
-```html
-<p><strong></p></strong>
-```
+<validate name="incorrect" rules="close-order">
+    <p><strong></p></strong>
+</validate>
 
 Examples of **correct** code for this rule:
 
-```html
-<p><strong></strong></p>
-```
+<validate name="correct" rules="close-order">
+    <p><strong></strong></p>
+</validate>

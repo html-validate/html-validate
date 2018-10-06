@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/close-order.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/close-order.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 12,
+        "line": 1,
+        "message": "Mismatched close-tag, expected '</strong>' but found '</p>'.",
+        "ruleId": "close-order",
+        "severity": 2,
+      },
+      Object {
+        "column": 16,
+        "line": 1,
+        "message": "Mismatched close-tag, expected '</p>' but found '</strong>'.",
+        "ruleId": "close-order",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

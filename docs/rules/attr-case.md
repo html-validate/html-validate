@@ -13,15 +13,15 @@ Requires a specific case for attribute names.
 
 Examples of **incorrect** code for this rule:
 
-```html
-<p ID="foo"></p>
-```
+<validate name="incorrect" rules="attr-case">
+    <p ID="foo"></p>
+</validate>
 
 Examples of **correct** code for this rule:
 
-```html
-<p id="foo"></p>
-```
+<validate name="correct" rules="attr-case">
+    <p id="foo"></p>
+</validate>
 
 ## Options
 

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/element-case.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/element-case.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "Element \\"DIV\\" should be lowercase",
+        "ruleId": "element-case",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

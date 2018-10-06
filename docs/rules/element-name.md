@@ -18,16 +18,16 @@ Elements with xml namespaces is ignored by this rule.
 
 Examples of **incorrect** code for this rule:
 
-```html
-<foobar></foobar>
-```
+<validate name="incorrect" rules="element-name">
+    <foobar></foobar>
+</validate>
 
 Examples of **correct** code for this rule:
 
-```html
-<div></div>
-<foo-bar></foo-bar>
-```
+<validate name="correct" rules="element-name">
+    <div></div>
+    <foo-bar></foo-bar>
+</validate>
 
 ## Options
 

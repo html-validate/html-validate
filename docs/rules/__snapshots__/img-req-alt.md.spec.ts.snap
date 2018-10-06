@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/img-req-alt.md inline validation: alias 1`] = `Array []`;
+
+exports[`docs/rules/img-req-alt.md inline validation: allow-empty 1`] = `Array []`;
+
+exports[`docs/rules/img-req-alt.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/img-req-alt.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "<img> is missing required alt attribute",
+        "ruleId": "img-req-alt",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/heading-level.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/heading-level.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 2,
+        "message": "Heading level can only increase by one, expected h2",
+        "ruleId": "heading-level",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

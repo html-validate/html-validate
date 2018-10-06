@@ -14,29 +14,23 @@ cannot have any content and must not have an end tag.
 
 Examples of **incorrect** code for this rule:
 
-```html
-<fieldset>
-	<input></input>
-</fieldset>
+<validate name="incorrect" rules="void">
+    <fieldset>
+        <input/>
+    </fieldset>
 
-<div>
-	<img></img>
-</div>
-```
+    <img></img>
+</validate>
 
 Examples of **correct** code for this rule:
 
-```html
-<fieldset>
-	<!-- End tag should be omitted -->
-	<input>
-</fieldset>
+<validate name="correct" rules="void">
+    <fieldset>
+        <input>
+    </fieldset>
 
-<div>
-	<!-- XHTML style self-closed element is allowed -->
-	<img/>
-</div>
-```
+    <img>
+</validate>
 
 ## Options
 
@@ -47,7 +41,6 @@ This rule takes an optional object:
 	"style": "omit",
 }
 ```
-
 
 ### Style
 

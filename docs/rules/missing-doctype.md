@@ -13,17 +13,17 @@ Requires that the document contains a doctype.
 
 Examples of **incorrect** code for this rule:
 
-```html
-<html>
-<body>...</body>
-</html>
-```
+<validate name="incorrect" rules="missing-doctype">
+    <html>
+        <body>...</body>
+    </html>
+</validate>
 
 Examples of **correct** code for this rule:
 
-```html
-<!doctype html>
-<html>
-<body>...</body>
-</html>
-```
+<validate name="correct" rules="missing-doctype">
+    <!doctype html>
+    <html>
+        <body>...</body>
+    </html>
+</validate>

@@ -13,31 +13,31 @@ Labels are associated with the input element and is required for a17y.
 
 Examples of **incorrect** code for this rule:
 
-```html
-<!-- no label element at all -->
-<div>
-	<strong>My field</strong>
-	<input type="text">
-</div>
+<validate name="incorrect" rules="input-missing-label">
+    <!-- no label element at all -->
+    <div>
+        <strong>My field</strong>
+        <input type="text">
+    </div>
 
-<!-- unassociated label -->
-<div>
-	<label>My field</label>
-	<input type="text">
-</div>
-```
+    <!-- unassociated label -->
+    <div>
+        <label>My field</label>
+        <input type="text">
+    </div>
+</validate>
 
 Examples of **correct** code for this rule:
 
-```html
-<!-- label with descendant -->
-<div>
-	<label>My field <input type="text"></label>
-</div>
+<validate name="correct" rules="input-missing-label">
+    <!-- label with descendant -->
+    <div>
+        <label>My field <input type="text"></label>
+    </div>
 
-<!-- associated label -->
-<div>
-	<label for="my-field">My field</label>
-	<input id="my-field" type="text">
-</div>
-```
+    <!-- associated label -->
+    <div>
+        <label for="my-field">My field</label>
+        <input id="my-field" type="text">
+    </div>
+</validate>

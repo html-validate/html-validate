@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/input-missing-label.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/input-missing-label.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 5,
+        "line": 4,
+        "message": "Input element does not have a label",
+        "ruleId": "input-missing-label",
+        "severity": 2,
+      },
+      Object {
+        "column": 5,
+        "line": 10,
+        "message": "Input element does not have a label",
+        "ruleId": "input-missing-label",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

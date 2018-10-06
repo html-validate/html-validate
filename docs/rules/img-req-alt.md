@@ -17,15 +17,15 @@ each image.
 
 Examples of **incorrect** code for this rule:
 
-```html
-<img>
-```
+<validate name="incorrect" rules="img-req-alt">
+    <img>
+</validate>
 
 Examples of **correct** code for this rule:
 
-```html
-<img alt="...">
-```
+<validate name="correct" rules="img-req-alt">
+    <img alt="...">
+</validate>
 
 ## Options
 
@@ -48,9 +48,9 @@ signal that the image is not ment to be read.
 
 Examples of **correct** code for this rule:
 
-```html
-<span>The task was successfully completed! <img src="thumbsup.png" alt=""></span>
-```
+<validate name="allow-empty" rules="img-req-alt" img-req-alt='{"allowEmpty": true}'>
+    <span>The task was successfully completed! <img src="thumbsup.png" alt=""></span>
+</validate>
 
 ### alias
 
@@ -59,6 +59,6 @@ If javascript is used to set the attribute on-the-fly (e.g. using
 
 Examples of **correct** code when `alias` is `["data-alt"]`:
 
-```html
-<img data-alt="...">
-```
+<validate name="alias" rules="img-req-alt" img-req-alt='{"alias": ["data-alt"]}'>
+    <img data-alt="...">
+</validate>

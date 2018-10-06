@@ -14,12 +14,12 @@ stylesheet.
 
 Examples of **incorrect** code for this rule:
 
-```html
-<p style="color: red"></p>
-```
+<validate name="incorrect" rules="no-inline-style">
+    <p style="color: red"></p>
+</validate>
 
 Examples of **correct** code for this rule:
 
-```html
-<p class="error"></p>
-```
+<validate name="correct" rules="no-inline-style">
+    <p class="error"></p>
+</validate>

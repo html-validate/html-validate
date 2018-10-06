@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/void.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/void.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 11,
+        "line": 2,
+        "message": "Expected omitted end tag <input> instead of self-closing element <input/>",
+        "ruleId": "void",
+        "severity": 2,
+      },
+      Object {
+        "column": 11,
+        "line": 5,
+        "message": "End tag for <img> must be omitted",
+        "ruleId": "void",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

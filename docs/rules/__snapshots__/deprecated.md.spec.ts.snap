@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/deprecated.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/deprecated.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "<center> is deprecated",
+        "ruleId": "deprecated",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 2,
+        "message": "<big> is deprecated",
+        "ruleId": "deprecated",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

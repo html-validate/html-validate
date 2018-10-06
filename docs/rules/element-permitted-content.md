@@ -13,17 +13,17 @@ HTML defines what content is allowed under each type of element.
 
 Examples of **incorrect** code for this rule:
 
-```html
-<!-- <li> is only allowed with <ul> or <ol> as parent -->
-<div>
-	<li>foo</li>
-</div>
-```
+<validate name="incorrect" rules="element-permitted-content">
+    <!-- <li> is only allowed with <ul> or <ol> as parent -->
+    <div>
+        <li>foo</li>
+    </div>
+</validate>
 
 Examples of **correct** code for this rule:
 
-```html
-<ul>
-	<li>foo</li>
-</ul>
-```
+<validate name="correct" rules="element-permitted-content">
+    <ul>
+        <li>foo</li>
+    </ul>
+</validate>

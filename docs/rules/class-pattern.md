@@ -13,15 +13,15 @@ Requires all classes to match a given pattern.
 
 Examples of **incorrect** code for this rule:
 
-```html
+<validate name="incorrect" rules="class-pattern">
 <div class="fooBar"></foobar>
-```
+</validate>
 
 Examples of **correct** code for this rule:
 
-```html
+<validate name="correct" rules="class-pattern">
 <div class="foo-bar"></div>
-```
+</validate>
 
 ## Options
 

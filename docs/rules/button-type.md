@@ -13,16 +13,16 @@ which may not be the intended type.
 
 Examples of **incorrect** code for this rule:
 
-```html
-<!-- missing type -->
-<button>...</button>
+<validate name="incorrenct" rules="button-type">
+    <!-- missing type -->
+    <button>...</button>
 
-<!-- invalid type -->
-<button type="foo">...</button>
-```
+    <!-- invalid type -->
+    <button type="foo">...</button>
+</validate>
 
 Examples of **correct** code for this rule:
 
-```html
-<button type="button">...</button>
-```
+<validate name="correct" rules="button-type">
+    <button type="button">...</button>
+</validate>
