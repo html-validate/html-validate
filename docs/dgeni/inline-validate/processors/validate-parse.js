@@ -19,14 +19,15 @@ module.exports = function parseValidatesProcessor(log, validateMap, trimIndentat
 						throw new Error(createDocMessage('Inline validation is missing name', doc));
 					}
 
+					const name = attr.name;
 					const rules = attr.rules.split(/ +/);
 					const id = uniqueName(validateMap, `markup-${attr.name}`);
 					const markup = trimIndentation(validateMarkup);
-					const config = generateConfig(rules);
+					const config = generateConfig(rules, attr);
 
 					const validate = {
 						config,
-						name: attr.name,
+						name,
 						markup,
 						id,
 						doc,
@@ -63,10 +64,17 @@ module.exports = function parseValidatesProcessor(log, validateMap, trimIndentat
 		return name;
 	}
 
-	function generateConfig(rules){
+	function generateConfig(rules, attr){
+		attr = Object.assign({}, attr); /* copy before modification */
+		delete attr.name;
+		delete attr.rules;
 		return {
 			rules: rules.reduce((dst, rule) => {
-				dst[rule] = 'error';
+				if (attr[rule]){
+					dst[rule] = ['error', JSON.parse(attr[rule])];
+				} else {
+					dst[rule] = 'error';
+				}
 				return dst;
 			}, {}),
 		};
