@@ -26,6 +26,12 @@ describe('rule no-implicit-close', function(){
 		expect(report).toHaveError('no-implicit-close', 'Element <li> is implicitly closed by sibling');
 	});
 
+	it('should report error when element is implicitly closed by adjacent block element', function(){
+		const report = htmlvalidate.validateString('<p>foo<div>bar');
+		expect(report).toBeInvalid();
+		expect(report).toHaveError('no-implicit-close', 'Element <p> is implicitly closed by adjacent <div>');
+	});
+
 	it('smoketest', () => {
 		const report = htmlvalidate.validateFile('test-files/rules/no-implicit-close.html');
 		expect(report.results).toMatchSnapshot();

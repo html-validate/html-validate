@@ -30,6 +30,12 @@ Examples of **incorrect** code for this rule:
 <p>dolor sit amet
 ```
 
+```html
+<p>
+	<div>lorem ipsum</div>
+</p>
+```
+
 Examples of **correct** code for this rule:
 
 ```html

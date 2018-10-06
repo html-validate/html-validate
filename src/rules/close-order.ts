@@ -1,5 +1,6 @@
 import { Rule } from '../rule';
 import { TagCloseEvent } from '../event';
+import { NodeClosed } from '../dom';
 
 class CloseOrder extends Rule {
 	setup(){
@@ -18,6 +19,12 @@ class CloseOrder extends Rule {
 			 * implicitly closed in the right order, so the current active element is the
 			 * parent. */
 			if (current.voidElement){
+				return;
+			}
+
+			/* if the active element is implicitly closed when the parent is closed
+			 * (such as a <li> by </ul>) no error should be reported. */
+			if (active.closed === NodeClosed.ImplicitClosed){
 				return;
 			}
 

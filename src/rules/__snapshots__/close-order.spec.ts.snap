@@ -3,13 +3,20 @@
 exports[`rule close-order smoketest 1`] = `
 Array [
   Object {
-    "errorCount": 1,
+    "errorCount": 2,
     "filePath": "test-files/rules/close-order.html",
     "messages": Array [
       Object {
         "column": 15,
         "line": 6,
         "message": "Mismatched close-tag, expected '</p>' but found '</div>'.",
+        "ruleId": "close-order",
+        "severity": 2,
+      },
+      Object {
+        "column": 5,
+        "line": 12,
+        "message": "Unexpected close-tag, expected opening tag.",
         "ruleId": "close-order",
         "severity": 2,
       },
