@@ -64,6 +64,8 @@ Docs:
     - node_modules/.bin/grunt ts docs
     - ./bin/html-validate.js docs/**/*.html public/**/.html
     - node_modules/.bin/jest docs
+    - git status --porcelain
+    - test -z "$(git status --porcelain)" || (echo 'working copy dirty, need to commit updated specs'; exit 1)
 
 .compat: &compat
   stage: compatibility

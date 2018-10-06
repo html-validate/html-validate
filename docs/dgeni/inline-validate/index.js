@@ -29,7 +29,7 @@ module.exports = new Package('inline-validate', [])
 		computePathsProcessor.pathTemplates.push({
 			docTypes: ['validate-spec'],
 			getPath: function() {},
-			outputPathTemplate: '../docs/${id}',
+			outputPathTemplate: '../${fileInfo.path}/__tests__/${fileInfo.file}.spec.ts',
 		});
 		computePathsProcessor.pathTemplates.push({
 			docTypes: ['inlineValidation'],
