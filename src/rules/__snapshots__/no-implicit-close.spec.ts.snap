@@ -3,7 +3,7 @@
 exports[`rule no-implicit-close smoketest 1`] = `
 Array [
   Object {
-    "errorCount": 13,
+    "errorCount": 14,
     "filePath": "test-files/rules/no-implicit-close.html",
     "messages": Array [
       Object {
@@ -65,7 +65,7 @@ Array [
       Object {
         "column": 2,
         "line": 23,
-        "message": "Element <dt> is implicitly closed by sibling",
+        "message": "Element <dt> is implicitly closed by adjacent <dd>",
         "ruleId": "no-implicit-close",
         "severity": 2,
       },
@@ -79,14 +79,14 @@ Array [
       Object {
         "column": 2,
         "line": 25,
-        "message": "Element <dd> is implicitly closed by sibling",
+        "message": "Element <dd> is implicitly closed by adjacent <dt>",
         "ruleId": "no-implicit-close",
         "severity": 2,
       },
       Object {
         "column": 2,
         "line": 26,
-        "message": "Element <dt> is implicitly closed by sibling",
+        "message": "Element <dt> is implicitly closed by adjacent <dd>",
         "ruleId": "no-implicit-close",
         "severity": 2,
       },
@@ -94,6 +94,13 @@ Array [
         "column": 2,
         "line": 27,
         "message": "Element <dd> is implicitly closed by parent </dl>",
+        "ruleId": "no-implicit-close",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 30,
+        "message": "Element <p> is implicitly closed by adjacent <address>",
         "ruleId": "no-implicit-close",
         "severity": 2,
       },

@@ -12,17 +12,15 @@ class NoImplicitClose extends Rule {
 				return;
 			}
 
-			if (!by){
-				return;
-			}
-
-			/* determine if it was closed by parent or sibling */
-			const closedByParent = closed.parent.tagName === by.tagName;
+			const closedByParent = closed.parent.tagName === by.tagName; /* <ul><li></ul> */
+			const sameTag = closed.tagName === by.tagName;               /* <p>foo<p>bar */
 
 			if (closedByParent){
 				this.report(closed, `Element <${closed.tagName}> is implicitly closed by parent </${by.tagName}>`, closed.location);
-			} else {
+			} else if (sameTag) {
 				this.report(closed, `Element <${closed.tagName}> is implicitly closed by sibling`, closed.location);
+			} else {
+				this.report(closed, `Element <${closed.tagName}> is implicitly closed by adjacent <${by.tagName}>`, closed.location);
 			}
 		});
 	}
