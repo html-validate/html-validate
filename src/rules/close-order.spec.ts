@@ -34,6 +34,11 @@ describe('rule close-order', function(){
 		expect(report).toBeValid();
 	});
 
+	it('should not report for implicitly closed element', function(){
+		const report = htmlvalidate.validateString('<ul><li></ul>');
+		expect(report).toBeValid();
+	});
+
 	it('should report error when elements are closed in wrong order', function(){
 		const report = htmlvalidate.validateString('<div></p>');
 		expect(report).toBeInvalid();

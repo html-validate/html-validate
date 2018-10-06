@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Bugfixes
+
+- `close-order` no longer reports error for implicitly closed elements.
+
 ## 0.11.0 (2018-09-23)
 
 ### Breaking changes
