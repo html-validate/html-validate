@@ -1,0 +1,12 @@
+{# Be aware that we need these extra new lines here or marked will not realise that the <div>
+  is HTML and wrap each line in a <p> - thus breaking the HTML #}
+
+
+<div class="inline-validation"
+  {%- for attrName, attrValue in doc.validate.attributes %}{$ attrName $}="{$ attrValue $}"{% endfor %}>
+	{% code "html" -%} {$ doc.validate.markup $} {%- endcode %}
+</div>
+
+
+{# Be aware that we need these extra new lines here or marked will not realise that the <div>
+   above is HTML and wrap each line in a <p> - thus breaking the HTML #}

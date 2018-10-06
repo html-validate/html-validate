@@ -5,6 +5,7 @@ const packagePath = __dirname;
 module.exports = new Package('cma-docs', [
 	require('dgeni-packages/ngdoc'),
 	require('dgeni-packages/nunjucks'),
+	require('./inline-validate'),
 ])
 
 	.processor(require('./processors/rules'))
