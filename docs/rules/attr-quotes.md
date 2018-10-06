@@ -22,15 +22,15 @@ This rule unifies which styles are allowed.
 
 Examples of **incorrect** code for this rule:
 
-```html
-<p><strong></p></strong>
-```
+<validate name="incorrect" rules="attr-case">
+    <p><strong></p></strong>
+</validate>
 
 Examples of **correct** code for this rule:
 
-```html
-<p><strong></strong></p>
-```
+<validate name="correct" rules="attr-case">
+    <p><strong></strong></p>
+</validate>
 
 ## Options
 

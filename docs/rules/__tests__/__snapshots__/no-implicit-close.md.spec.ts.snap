@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/no-implicit-close.md inline validation: adjacent 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "Element <p> is implicitly closed by adjacent <div>",
+        "ruleId": "no-implicit-close",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/no-implicit-close.md inline validation: correct-list 1`] = `Array []`;
+
+exports[`docs/rules/no-implicit-close.md inline validation: correct-paragraph 1`] = `Array []`;
+
+exports[`docs/rules/no-implicit-close.md inline validation: parent 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 5,
+        "line": 2,
+        "message": "Element <li> is implicitly closed by sibling",
+        "ruleId": "no-implicit-close",
+        "severity": 2,
+      },
+      Object {
+        "column": 5,
+        "line": 3,
+        "message": "Element <li> is implicitly closed by sibling",
+        "ruleId": "no-implicit-close",
+        "severity": 2,
+      },
+      Object {
+        "column": 5,
+        "line": 4,
+        "message": "Element <li> is implicitly closed by parent </ul>",
+        "ruleId": "no-implicit-close",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/no-implicit-close.md inline validation: siblings 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "Element <p> is implicitly closed by sibling",
+        "ruleId": "no-implicit-close",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

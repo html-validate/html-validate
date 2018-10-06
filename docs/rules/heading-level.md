@@ -14,14 +14,14 @@ can only increase one level at a time.
 
 Examples of **incorrect** code for this rule:
 
-```html
-<h1>Heading 1</h1>
-<h3>Subheading</h3>
-```
+<validate name="incorrect" rules="heading-level">
+    <h1>Heading 1</h1>
+    <h3>Subheading</h3>
+</validate>
 
 Examples of **correct** code for this rule:
 
-```html
-<h1>Heading 1</h1>
-<h2>Subheading</h2>
-```
+<validate name="correct" rules="heading-level">
+    <h1>Heading 1</h1>
+    <h2>Subheading</h2>
+</validate>

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/element-permitted-content.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/element-permitted-content.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 5,
+        "line": 3,
+        "message": "Element <li> is not permitted as content in <div>",
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

@@ -13,15 +13,15 @@ Requires all IDs to match a given pattern.
 
 Examples of **incorrect** code for this rule:
 
-```html
-<div id="fooBar"></foobar>
-```
+<validate name="incorrect" rules="id-pattern">
+    <div id="fooBar"></foobar>
+</validate>
 
 Examples of **correct** code for this rule:
 
-```html
+<validate name="correct" rules="id-pattern">
 <div id="foo-bar"></div>
-```
+</validate>
 
 ## Options
 

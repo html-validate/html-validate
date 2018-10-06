@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/button-type.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/button-type.md inline validation: incorrenct 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 2,
+        "message": "Button is missing type attribute",
+        "ruleId": "button-type",
+        "severity": 2,
+      },
+      Object {
+        "column": 9,
+        "line": 5,
+        "message": "Button has invalid type \\"foo\\"",
+        "ruleId": "button-type",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

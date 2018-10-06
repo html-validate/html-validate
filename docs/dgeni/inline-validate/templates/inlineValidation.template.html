@@ -1,0 +1,15 @@
+{# <!-- [html-validate-disable attr-case: since nunjucks templating is not stripped it flags the attributes as wrong case] -->  #}
+
+<div class="inline-validation">
+	<div class="markup"
+		{%- for attrName, attrValue in doc.validate.attributes %}{$ attrName $}="{$ attrValue $}"{% endfor %}>
+		{% code "html" -%} {$ doc.validate.markup $} {%- endcode %}
+	</div>
+
+	{%- if not doc.validate.report.valid %}
+	<div class="messages">
+		<pre>{% for message in doc.validate.report.results[0].messages %}
+{$ message.line $}:{$ message.column $} - {$ message.message | escape $}{%- endfor %}</pre>
+	</div>
+	{%- endif %}
+</div>

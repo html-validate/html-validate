@@ -16,10 +16,10 @@ Microsoft Internet Explorer previously supported using special HTML comments
 
 Examples of **incorrect** code for this rule:
 
-```html
-<![if IE 6]>
-<style>
-	/* ... */
-</style>
-<![endif]>
-```
+<validate name="incorrect" rules="no-conditional-comment">
+    <![if IE 6]>
+    <style>
+        /* ... */
+    </style>
+    <![endif]>
+</validate>

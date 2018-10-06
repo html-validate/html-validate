@@ -13,15 +13,15 @@ Requires a specific case for element names.
 
 Examples of **incorrect** code for this rule:
 
-```html
-<DIV>...</DIV>
-```
+<validate name="incorrect" rules="element-case">
+    <DIV>...</DIV>
+</validate>
 
 Examples of **correct** code for this rule:
 
-```html
-<div>...</div>
-```
+<validate name="correct" rules="element-case">
+    <div>...</div>
+</validate>
 
 ## Options
 

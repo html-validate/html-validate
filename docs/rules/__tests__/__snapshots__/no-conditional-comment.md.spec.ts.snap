@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/no-conditional-comment.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "Use of conditional comments are deprecated",
+        "ruleId": "no-conditional-comment",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 5,
+        "message": "Use of conditional comments are deprecated",
+        "ruleId": "no-conditional-comment",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/no-dup-class.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/no-dup-class.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 6,
+        "line": 1,
+        "message": "Class \\"foo\\" duplicated",
+        "ruleId": "no-dup-class",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

@@ -17,36 +17,36 @@ trouble formatting the markup.
 
 Examples of **incorrect** code for this rule:
 
-```html
-<ul>
-	<li>foo
-	<li>bar
-	<li>baz
-</ul>
-```
+<validate name="parent" rules="no-implicit-close">
+    <ul>
+        <li>foo
+        <li>bar
+        <li>baz
+    </ul>
+</validate>
 
-```html
-<p>lorem ipsum
-<p>dolor sit amet
-```
+<validate name="siblings" rules="no-implicit-close">
+    <p>lorem ipsum
+    <p>dolor sit amet
+</validate>
 
-```html
-<p>
-	<div>lorem ipsum</div>
-</p>
-```
+<validate name="adjacent" rules="no-implicit-close">
+    <p>
+        <div>lorem ipsum</div>
+    </p>
+</validate>
 
 Examples of **correct** code for this rule:
 
-```html
-<ul>
-	<li>foo</li>
-	<li>bar</li>
-	<li>baz</li>
-</ul>
-```
+<validate name="correct-list" rules="no-implicit-close">
+    <ul>
+         <li>foo</li>
+         <li>bar</li>
+         <li>baz</li>
+    </ul>
+</validate>
 
-```html
-<p>lorem ipsum</p>
-<p>dolor sit amet</p>
-```
+<validate name="correct-paragraph" rules="no-implicit-close">
+    <p>lorem ipsum</p>
+    <p>dolor sit amet</p>
+</validate>

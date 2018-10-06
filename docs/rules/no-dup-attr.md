@@ -15,12 +15,12 @@ Browsers handles duplication differently and thus this is a source for bugs.
 
 Examples of **incorrect** code for this rule:
 
-```html
-<div class="foo" class="bar"></div>
-```
+<validate name="incorrect" rules="no-dup-attr">
+    <div class="foo" class="bar"></div>
+</validate>
 
 Examples of **correct** code for this rule:
 
-```html
-<div class="foo bar"></div>
-```
+<validate name="correct" rules="no-dup-attr">
+    <div class="foo bar"></div>
+</validate>
