@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.11.1 (2018-10-07)
+
 ### Features
 
 - Rule documentation examples are now validated automatically with htmlvalidate
