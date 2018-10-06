@@ -1,6 +1,4 @@
-{# Be aware that we need these extra new lines here or marked will not realise that the <div>
-  is HTML and wrap each line in a <p> - thus breaking the HTML #}
-
+{# <!-- [html-validate-disable attr-case: since nunjucks templating is not stripped it flags the attributes as wrong case] -->  #}
 
 <div class="inline-validation">
 	<div class="markup"
@@ -8,12 +6,10 @@
 		{% code "html" -%} {$ doc.validate.markup $} {%- endcode %}
 	</div>
 
-	<div class="result">
-		<pre>{% for result in doc.validate.results %}
-{$ result.line $}:{$ result.column $} - {$ result.message | escape $}{%- endfor %}</pre>
+	{%- if not doc.validate.report.valid %}
+	<div class="messages">
+		<pre>{% for message in doc.validate.report.results[0].messages %}
+{$ message.line $}:{$ message.column $} - {$ message.message | escape $}{%- endfor %}</pre>
 	</div>
+	{%- endif %}
 </div>
-
-
-{# Be aware that we need these extra new lines here or marked will not realise that the <div>
-   above is HTML and wrap each line in a <p> - thus breaking the HTML #}

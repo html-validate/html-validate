@@ -11,7 +11,7 @@ module.exports = function generateValidationResultsProcessor(log, validateMap) {
 	function $process() {
 		validateMap.forEach(validation => {
 			htmlvalidate = new HtmlValidate(validation.config);
-			validation.results = htmlvalidate.validateString(validation.markup).results[0].messages;
+			validation.report = htmlvalidate.validateString(validation.markup);
 		});
 	}
 };
