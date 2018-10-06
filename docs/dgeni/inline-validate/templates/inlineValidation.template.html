@@ -2,9 +2,16 @@
   is HTML and wrap each line in a <p> - thus breaking the HTML #}
 
 
-<div class="inline-validation"
-  {%- for attrName, attrValue in doc.validate.attributes %}{$ attrName $}="{$ attrValue $}"{% endfor %}>
-	{% code "html" -%} {$ doc.validate.markup $} {%- endcode %}
+<div class="inline-validation">
+	<div class="markup"
+		{%- for attrName, attrValue in doc.validate.attributes %}{$ attrName $}="{$ attrValue $}"{% endfor %}>
+		{% code "html" -%} {$ doc.validate.markup $} {%- endcode %}
+	</div>
+
+	<div class="result">
+		<pre>{% for result in doc.validate.results %}
+{$ result.line $}:{$ result.column $} - {$ result.message | escape $}{%- endfor %}</pre>
+	</div>
 </div>
 
 

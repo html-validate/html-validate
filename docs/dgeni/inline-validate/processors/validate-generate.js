@@ -1,3 +1,5 @@
+const HtmlValidate = require('../../../../build/htmlvalidate').default;
+
 module.exports = function generateInlineValidationsProcessor(log, validateMap) {
 	return {
 		$runAfter: ['adding-extra-docs'],
@@ -7,6 +9,10 @@ module.exports = function generateInlineValidationsProcessor(log, validateMap) {
 
 	function $process(docs) {
 		validateMap.forEach(validation => {
+			// Perform validation of markup
+			htmlvalidate = new HtmlValidate(validation.config);
+			validation.results = htmlvalidate.validateString(validation.markup).results[0].messages;
+
 			// Create the doc that will be injected into the website as a inline validation
 			const inlineValidationDoc = createInlineValidateDoc(validation);
 			docs.push(inlineValidationDoc);
