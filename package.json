@@ -92,13 +92,14 @@
       "html"
     ],
     "roots": [
-      "<rootDir>/src"
+      "<rootDir>/src",
+      "<rootDir>/docs"
     ],
     "setupTestFrameworkScriptFile": "./jest.setup.ts",
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+    "testRegex": "(/__tests__/.+|(\\.|/)(test|spec))\\.tsx?$",
     "moduleFileExtensions": [
       "ts",
       "js"

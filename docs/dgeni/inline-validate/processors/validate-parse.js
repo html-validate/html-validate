@@ -15,13 +15,18 @@ module.exports = function parseValidatesProcessor(log, validateMap, trimIndentat
 
 				doc.content = doc.content.replace(VALIDATE_REGEX, function processValidate(match, attributeText, validateMarkup) {
 					const attr = extractAttributes(attributeText);
+					if (!attr.name) {
+						throw new Error(createDocMessage('Inline validation is missing name', doc));
+					}
+
 					const rules = attr.rules.split(/ +/);
-					const id = uniqueName(validateMap, 'markup');
+					const id = uniqueName(validateMap, `markup-${attr.name}`);
 					const markup = trimIndentation(validateMarkup);
 					const config = generateConfig(rules);
 
 					const validate = {
 						config,
+						name: attr.name,
 						markup,
 						id,
 						doc,

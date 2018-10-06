@@ -3,5 +3,6 @@
 /.tscache/
 /build
 /coverage
+/docs/**/*.spec.ts
 /node_modules
 /public
