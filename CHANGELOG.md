@@ -2,6 +2,11 @@
 
 ## Upcoming release
 
+### Features
+
+- Rule documentation examples are now validated automatically with htmlvalidate
+  to provide direct feedback of how a rule will react on the given markup.
+
 ### Bugfixes
 
 - `no-implicit-close` now provides more context when closed by a sibling.
