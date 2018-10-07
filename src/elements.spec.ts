@@ -38,12 +38,17 @@ function getTagname(category: ContentCategory|string){
 	}
 }
 
-function getElementMarkup(tagName: string, variant: string){
+function getElementMarkup(tagName: string, variant: string, attr: {[key: string]: string} = {}){
+	const attrString = Object.entries(attr).reduce((str, [key, value]) => {
+		return `${str} ${key}="${value}"`;
+	}, '');
 	switch (variant){
+	case 'omit':
+		return `<${tagName}${attrString}>`;
 	case 'void':
-		return `<${tagName}/>`;
+		return `<${tagName}${attrString}/>`;
 	default:
-		return `<${tagName}>foo</${tagName}>`;
+		return `<${tagName}${attrString}>foo</${tagName}>`;
 	}
 }
 
@@ -52,6 +57,7 @@ describe('HTML elements', function(){
 	const htmlvalidate = new HtmlValidate({
 		rules: {
 			'deprecated': 'error',
+			'attribute-allowed-values': 'error',
 			'element-permitted-content': 'error',
 			'element-permitted-occurrences': 'error',
 			'element-permitted-order': 'error',
@@ -85,6 +91,16 @@ describe('HTML elements', function(){
 			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
+	}
+
+	function allowAttribute(tagName: string, attr: string, values: string[], variant: string = undefined){
+		for (const value of values) {
+			it(`should allow attribute ${attr}="${value}"`, () => {
+				const markup = getElementMarkup(tagName, variant, {[attr]: value});
+				const report = htmlvalidate.validateString(markup);
+				expect(report).toBeValid();
+			});
+		}
 	}
 
 	function disallow(markup: string, comment: string){
@@ -126,6 +142,16 @@ describe('HTML elements', function(){
 			const report = htmlvalidate.validateString(markup);
 			expect(report.valid).toBeFalsy();
 		});
+	}
+
+	function disallowAttribute(tagName: string, attr: string, values: string[], variant: string = undefined){
+		for (const value of values) {
+			it(`should disallow attribute ${attr}="${value}"`, function(){
+				const markup = getElementMarkup(tagName, variant, {[attr]: value});
+				const report = htmlvalidate.validateString(markup);
+				expect(report).toBeInvalid();
+			});
+		}
 	}
 
 	function deprecated(tagName: string){
@@ -186,6 +212,8 @@ describe('HTML elements', function(){
 	/** @todo verify isDescendant flow and phrasing */
 	describe("<area>", function(){
 		omitEnd('area');
+		allowAttribute('area', 'shape', ['rect', 'circle', 'poly'], 'omit');
+		disallowAttribute('area', 'shape', ['', 'foobar']);
 	});
 
 	describe("<article>", function(){
@@ -207,6 +235,8 @@ describe('HTML elements', function(){
 		disallow(`<audio><source></source><track></track><div></div></audio>`, 'in right order');
 		disallow(`<audio><track></track><source></source></audio>`, 'track before source');
 		disallow(`<audio><div></div><track></track></audio>`, '@flow before track');
+		allowAttribute('audio', 'preload', ['', 'none', 'metadata'], 'auto');
+		disallowAttribute('audio', 'preload', ['foobar']);
 
 		it('should be interactive only if "controls" attribute is set', function(){
 			const source = inlineSource('<audio></audio><audio controls></audio>');
@@ -274,6 +304,8 @@ describe('HTML elements', function(){
 		disallowContent('button', '@flow');
 		disallowDescendant('button', '@interactive');
 		disallowNesting('button');
+		allowAttribute('button', 'type', ['submit', 'reset', 'button']);
+		disallowAttribute('button', 'type', ['', 'foobar']);
 	});
 
 	describe("<canvas>", function(){
@@ -536,6 +568,10 @@ describe('HTML elements', function(){
 
 	describe("<input>", function(){
 		omitEnd('input');
+		allowAttribute('input', 'type', ['text', 'checkbox', 'search'], 'omit'); /* only testing a subset */
+		allowAttribute('input', 'inputmode', ['none', 'text', 'numeric'], 'omit'); /* only testing a subset */
+		disallowAttribute('input', 'type', ['', 'foobar'], 'omit');
+		disallowAttribute('input', 'inputmode', ['', 'foobar'], 'omit');
 
 		it('should be interactive only if "type" is not "hidden"', function(){
 			const source = inlineSource('<input type="hidden"/><input type="foo"/>');
@@ -606,7 +642,12 @@ describe('HTML elements', function(){
 
 	/** @todo mathml? */
 	describe("<math>", function(){
-
+		allowAttribute('math', 'dir', ['ltr', 'rtl']);
+		allowAttribute('math', 'display', ['block', 'inline']);
+		allowAttribute('math', 'overflow', ['linebreak', 'scroll', 'elide', 'truncate', 'scale']);
+		disallowAttribute('math', 'dir', ['', 'foobar']);
+		disallowAttribute('math', 'display', ['', 'foobar']);
+		disallowAttribute('math', 'overflow', ['', 'foobar']);
 	});
 
 	describe("<menu>", function(){
@@ -959,6 +1000,8 @@ describe('HTML elements', function(){
 		disallow(`<video><source></source><track></track><div></div></video>`, 'in right order');
 		disallow(`<video><track></track><source></source></video>`, 'track before source');
 		disallow(`<video><div></div><track></track></video>`, '@flow before track');
+		allowAttribute('video', 'preload', ['', 'none', 'none', 'metadata'], 'auto');
+		disallowAttribute('video', 'preload', ['foobar']);
 
 		it('should be interactive only if "controls" attribute is set', function(){
 			const source = inlineSource('<video></video><video controls></video>');

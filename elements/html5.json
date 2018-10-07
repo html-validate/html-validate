@@ -61,7 +61,14 @@
     "void": true,
     "deprecatedAttributes": [
       "nohref"
-    ]
+    ],
+    "attributes": {
+      "shape": [
+        "rect",
+        "circle",
+        "poly"
+      ]
+    }
   },
 
   "article": {
@@ -92,6 +99,14 @@
     "embedded": true,
     "interactive": ["hasAttribute", "controls"],
     "transparent": true,
+    "attributes": {
+      "preload": [
+        "",
+        "none",
+        "metadata",
+        "auto"
+      ]
+    },
     "permittedContent": [
       "@flow",
       "track",
@@ -198,6 +213,13 @@
       "datafld",
       "dataformatas"
     ],
+    "attributes": {
+      "type": [
+        "submit",
+        "reset",
+        "button"
+      ]
+    },
     "permittedContent": [
       "@phrasing"
     ],
@@ -634,6 +656,21 @@
       "vspace"
     ],
     "attributes": {
+      "inputmode": [
+        "none",
+        "text",
+        "decimal",
+        "numeric",
+        "tel",
+        "search",
+        "email",
+        "url"
+      ],
+      "spellcheck": [
+        "default",
+        "false",
+        "true"
+      ],
       "type": [
         "button",
         "checkbox",
@@ -778,7 +815,24 @@
       "align",
       "hspace",
       "vspace"
-    ]
+    ],
+    "attributes": {
+      "dir": [
+        "ltr",
+        "rtl"
+      ],
+      "display": [
+        "block",
+        "inline"
+      ],
+      "overflow": [
+        "linebreak",
+        "scroll",
+        "elide",
+        "truncate",
+        "scale"
+      ]
+    }
   },
 
   "meta": {
@@ -1415,6 +1469,14 @@
     "embedded": true,
     "interactive": ["hasAttribute", "controls"],
     "transparent": true,
+    "attributes": {
+      "preload": [
+        "",
+        "none",
+        "metadata",
+        "auto"
+      ]
+    },
     "permittedContent": [
       "@flow",
       "track",
