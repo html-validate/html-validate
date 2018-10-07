@@ -29,9 +29,10 @@ function toBeValid(report: Report){
 			message: () => 'Result should not contain error',
 		};
 	} else {
+		const firstError = report.results[0].messages[0];
 		return {
 			pass: false,
-			message: () => 'Result should be successful',
+			message: () => `Result should be successful but had error "${firstError.message}"`,
 		};
 	}
 }
