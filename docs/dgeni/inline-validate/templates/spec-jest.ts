@@ -1,4 +1,4 @@
-import HtmlValidate from '{$ doc.fileInfo.docRoot $}/../build/htmlvalidate';
+import HtmlValidate from '{$ doc.fileInfo.docRoot $}/../src/htmlvalidate';
 
 const markup = {};
 {%- for validation in doc.validations %}
