@@ -1,4 +1,4 @@
-import HtmlValidate from '../../../build/htmlvalidate';
+import HtmlValidate from '../../../src/htmlvalidate';
 
 const markup = {};
 markup["incorrenct"] = `<!-- missing type -->
