@@ -61,6 +61,7 @@ describe('Engine', function(){
 				deprecated: 'off',
 			},
 		});
+		config.init();
 		engine = new ExposedEngine(config, MockParser);
 	});
 

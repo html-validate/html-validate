@@ -94,7 +94,9 @@ export class Config {
 			const base = Config.fromFile(ref);
 			self.config = base.mergeInternal(self.config);
 		});
+	}
 
+	init(){
 		/* precompile transform patterns */
 		this.transformers = this.precompileTransformers(this.config.transform || {});
 	}
