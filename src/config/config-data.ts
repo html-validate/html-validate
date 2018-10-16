@@ -19,6 +19,13 @@ export interface ConfigData {
 	elements?: string[];
 
 	/**
+	 * List of plugins.
+	 *
+	 * Each plugin must be resolvable be require and export the plugin interface.
+	 */
+	plugins?: string[];
+
+	/**
 	 * List of source file transformations. A transformer takes a filename and
 	 * returns Source instances with extracted HTML-templates.
 	 *
