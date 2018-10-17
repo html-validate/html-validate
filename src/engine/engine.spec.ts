@@ -6,6 +6,7 @@ import { DOMTree } from "../dom";
 import { InvalidTokenError } from "../lexer";
 import { Reporter } from "../reporter";
 import { Rule } from "../rule";
+import '../matchers';
 
 function inline(source: string): Source {
 	return {
@@ -43,6 +44,10 @@ class ExposedEngine<T extends Parser> extends Engine<T> {
 	/* exposed for testing */
 	public loadRule(name: string, data: any, parser: Parser, report: Reporter): Rule {
 		return super.loadRule(name, data, parser, report);
+	}
+
+	public instantiateRule(name: string, options: any): Rule {
+		return super.instantiateRule(name, options);
 	}
 }
 

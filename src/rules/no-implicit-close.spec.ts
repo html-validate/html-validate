@@ -1,4 +1,5 @@
 import HtmlValidate from '../htmlvalidate';
+import '../matchers';
 
 describe('rule no-implicit-close', function(){
 	let htmlvalidate: HtmlValidate;

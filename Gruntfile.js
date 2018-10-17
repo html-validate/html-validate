@@ -99,7 +99,7 @@ module.exports = function(grunt){
 				options: {
 					transform: [
 						['babelify', {
-							presets: ['env'],
+							presets: ['@babel/preset-env'],
 						}],
 					],
 				},

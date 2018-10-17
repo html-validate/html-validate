@@ -1,4 +1,5 @@
 import HtmlValidate from '../htmlvalidate';
+import '../matchers';
 
 describe('rule id-pattern', function(){
 	let htmlvalidate: HtmlValidate;

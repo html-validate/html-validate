@@ -1,5 +1,8 @@
 # html-validate
 
+[![pipeline status](https://git.sidvind.com/html-validate/html-validate/badges/master/pipeline.svg)](https://git.sidvind.com/html-validate/html-validate/commits/master)
+[![coverage report](https://git.sidvind.com/html-validate/html-validate/badges/master/coverage.svg)](https://git.sidvind.com/html-validate/html-validate/commits/master)
+
 Offline HTML5 validator. Validates either a full document or a smaller
 (incomplete) template, e.g. from an AngularJS or React component.
 

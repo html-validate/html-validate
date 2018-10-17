@@ -1,4 +1,5 @@
 import HtmlValidate from '../htmlvalidate';
+import '../matchers';
 
 describe('rule no-trailing-whitespace', function(){
 	let htmlvalidate: HtmlValidate;

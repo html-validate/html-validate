@@ -1,4 +1,5 @@
 import HtmlValidate from '../htmlvalidate';
+import '../matchers';
 
 describe('rule heading-level', function(){
 	let htmlvalidate: HtmlValidate;

@@ -1,4 +1,5 @@
 import HtmlValidate from '../htmlvalidate';
+import '../matchers';
 
 describe('rule close-order', function(){
 	let htmlvalidate: HtmlValidate;

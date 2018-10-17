@@ -4,6 +4,7 @@ import { EventCallback } from '../event';
 import { InvalidTokenError } from '../lexer';
 import { Parser } from './parser';
 import HtmlValidate from '../htmlvalidate';
+import '../matchers';
 
 function mergeEvent(event: string, data: any){
 	const merged = Object.assign({}, {event}, data);
