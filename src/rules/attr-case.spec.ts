@@ -1,4 +1,5 @@
 import HtmlValidate from '../htmlvalidate';
+import '../matchers';
 
 describe('rule attr-case', function(){
 	let htmlvalidate: HtmlValidate;

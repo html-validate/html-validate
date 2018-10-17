@@ -1,4 +1,5 @@
 import HtmlValidate from './htmlvalidate';
+import './matchers';
 
 type ContentCategory =
 	'@embedded' |

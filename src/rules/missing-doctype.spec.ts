@@ -1,4 +1,5 @@
 import HtmlValidate from '../htmlvalidate';
+import '../matchers';
 
 describe('rule missing-doctype', function(){
 	let htmlvalidate: HtmlValidate;

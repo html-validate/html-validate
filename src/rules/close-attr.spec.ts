@@ -1,4 +1,5 @@
 import HtmlValidate from '../htmlvalidate';
+import '../matchers';
 
 describe('rule close-attr', function(){
 	let htmlvalidate: HtmlValidate;

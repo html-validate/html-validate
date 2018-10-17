@@ -1,7 +1,7 @@
 /* eslint-disable typescript/no-namespace, prefer-template */
 
-import { Report, Result, Message } from './src/reporter';
-import { TokenType } from './src/lexer';
+import { Report, Result, Message } from './reporter';
+import { TokenType } from './lexer';
 const diff = require('jest-diff');
 
 interface TokenMatcher {

@@ -6,6 +6,7 @@ import { DOMTree } from "../dom";
 import { InvalidTokenError } from "../lexer";
 import { Reporter } from "../reporter";
 import { Rule } from "../rule";
+import '../matchers';
 
 function inline(source: string): Source {
 	return {

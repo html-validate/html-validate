@@ -95,7 +95,6 @@
       "<rootDir>/src",
       "<rootDir>/docs"
     ],
-    "setupTestFrameworkScriptFile": "./jest.setup.ts",
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },

@@ -1,4 +1,5 @@
 import HtmlValidate from '../htmlvalidate';
+import '../matchers';
 
 describe('missing rule', function(){
 	let htmlvalidate: HtmlValidate;

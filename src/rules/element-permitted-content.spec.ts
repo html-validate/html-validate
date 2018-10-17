@@ -1,4 +1,5 @@
 import HtmlValidate from '../htmlvalidate';
+import '../matchers';
 
 describe('rule element-permitted-content', function(){
 	let htmlvalidate: HtmlValidate;
