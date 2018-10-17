@@ -1,6 +1,6 @@
 import HtmlValidate from '../../../src/htmlvalidate';
 
-const markup = {};
+const markup: {[key: string]: string} = {};
 markup["incorrenct"] = `<!-- missing type -->
 <button>...</button>
 

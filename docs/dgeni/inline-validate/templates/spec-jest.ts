@@ -1,6 +1,6 @@
 import HtmlValidate from '{$ doc.fileInfo.docRoot $}/../src/htmlvalidate';
 
-const markup = {};
+const markup: {[key: string]: string} = {};
 {%- for validation in doc.validations %}
 markup["{$ validation.name $}"] = `{$ validation.markup $}`;
 {%- endfor %}

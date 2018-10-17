@@ -1,6 +1,6 @@
 import HtmlValidate from '../../../src/htmlvalidate';
 
-const markup = {};
+const markup: {[key: string]: string} = {};
 markup["incorrect"] = `<!-- <li> is only allowed with <ul> or <ol> as parent -->
 <div>
     <li>foo</li>
