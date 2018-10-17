@@ -41,11 +41,8 @@ class MockParser extends Parser {
 
 class ExposedEngine<T extends Parser> extends Engine<T> {
 	/* exposed for testing */
-	public loadRule: typeof Engine.loadRule = Engine.loadRule;
-
-	/* override class instantiation */
-	public instantiateRule(name: string, options: any): Rule {  // eslint-disable-line no-unused-vars
-		return null;
+	public loadRule(name: string, data: any, parser: Parser, report: Reporter): Rule {
+		return super.loadRule(name, data, parser, report);
 	}
 }
 
@@ -283,6 +280,26 @@ describe('Engine', function(){
 				const add = jest.spyOn(reporter, 'add');
 				parser.trigger('dom:load', {location: {}});
 				expect(add).toHaveBeenCalledWith(null, expect.any(Rule), "Definition for rule 'void' was not found", Config.SEVERITY_ERROR, {});
+			});
+
+			it('should load from plugins', () => {
+				class MyRule {
+					init(){}
+				}
+
+				/* mock loading of plugins */
+				(config as any).plugins = [
+					{
+						rules: {
+							'custom/my-rule': MyRule,
+						},
+					},
+				];
+
+				const engine: ExposedEngine<Parser> = new ExposedEngine(config, MockParser);
+				const rule = engine.loadRule('custom/my-rule', [Config.SEVERITY_ERROR, {}], parser, reporter);
+				expect(rule).toBeInstanceOf(MyRule);
+				expect(rule.name).toEqual('custom/my-rule');
 			});
 
 		});
