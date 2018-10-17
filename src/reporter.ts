@@ -14,6 +14,8 @@ export interface Message {
 export interface Result {
 	messages: Message[];
 	filePath: string;
+	errorCount?: number;
+	warningCount?: number;
 }
 
 export interface Report {

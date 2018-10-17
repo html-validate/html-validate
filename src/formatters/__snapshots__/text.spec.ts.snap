@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`text formatter should empty messages 1`] = `""`;
+
+exports[`text formatter should empty result 1`] = `""`;
+
+exports[`text formatter should generate plaintext 1`] = `
+"regular.html:1:5: error [foo] An error
+regular.html:2:4: warning [bar] A warning
+edge-cases.html:3:3: error [baz] Another error
+"
+`;

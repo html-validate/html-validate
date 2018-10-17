@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`stylish formatter should empty messages 1`] = `""`;
+
+exports[`stylish formatter should empty result 1`] = `""`;
+
+exports[`stylish formatter should generate plaintext 1`] = `
+"
+[4mregular.html[24m
+  [2m1:5[22m  [31merror[39m    An error   [2mfoo[22m
+  [2m2:4[22m  [33mwarning[39m  A warning  [2mbar[22m
+
+[4medge-cases.html[24m
+  [2m3:3[22m  [31merror[39m  Another error  [2mbaz[22m
+
+[31m[1m✖ 3 problems (2 errors, 1 warning)[22m[39m
+[31m[1m[22m[39m"
+`;
