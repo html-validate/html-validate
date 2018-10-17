@@ -34,4 +34,13 @@ Create `.htmlvalidate.json`:
 
 ## Test
 
-    npm run mocha
+    npm test
+
+## Lint
+
+    npm run lint
+
+## Build
+
+   grunt build
+   grunt docs
