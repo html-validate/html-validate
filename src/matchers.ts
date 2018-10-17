@@ -17,7 +17,7 @@ declare global {
 			toBeInvalid(): R;
 			toBeToken(expected: TokenMatcher): R;
 			toHaveError(ruleId: string, message: string): R;
-			toHaveErrors(errors: [string, string][]): R;
+			toHaveErrors(errors: ([string, string]|{})[]): R;
 		}
 	}
 }

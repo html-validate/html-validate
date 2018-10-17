@@ -45,6 +45,10 @@ class ExposedEngine<T extends Parser> extends Engine<T> {
 	public loadRule(name: string, data: any, parser: Parser, report: Reporter): Rule {
 		return super.loadRule(name, data, parser, report);
 	}
+
+	public instantiateRule(name: string, options: any): Rule {
+		return super.instantiateRule(name, options);
+	}
 }
 
 describe('Engine', function(){
