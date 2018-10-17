@@ -5,6 +5,7 @@
 ### Features
 
 - Support writing plugins with custom rules.
+- Bump dependencies, including typescript 3.0 to 3.1
 
 ## 0.11.1 (2018-10-07)
 
