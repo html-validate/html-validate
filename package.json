@@ -84,7 +84,8 @@
     "collectCoverageFrom": [
       "src/**/*.ts",
       "!src/**/*.spec.ts",
-      "!src/**/index.ts"
+      "!src/**/index.ts",
+      "!src/matchers.ts"
     ],
     "coverageReporters": [
       "text",
