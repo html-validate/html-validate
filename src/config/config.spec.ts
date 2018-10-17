@@ -161,6 +161,7 @@ describe('config', function(){
 					'^.*\\.foo$': '../transform/mock',
 				},
 			});
+			config.init();
 			expect(config.transform('/path/to/test.foo')).toEqual([{
 				data: 'mocked source',
 				filename: '/path/to/test.foo',
@@ -175,6 +176,7 @@ describe('config', function(){
 					'^.*\\.foo$': '<rootDir>/src/transform/mock',
 				},
 			});
+			config.init();
 			expect(config.transform('/path/to/test.foo')).toEqual([{
 				data: 'mocked source',
 				filename: '/path/to/test.foo',
@@ -189,6 +191,7 @@ describe('config', function(){
 					'^.*\\.foo$': '../transform/mock',
 				},
 			});
+			config.init();
 			expect(config.transform('test-files/parser/simple.html')).toEqual([{
 				data: '<p>Lorem ipsum</p>\n',
 				filename: 'test-files/parser/simple.html',

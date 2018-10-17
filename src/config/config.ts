@@ -1,11 +1,16 @@
 import { MetaTable } from '../meta';
 import { ConfigData, TransformMap } from './config-data';
 import { Source } from '../context';
+import { Rule } from '../rule';
 
 type Transformer = {
 	pattern: RegExp;
 	fn: (filename: string) => Source[];
 };
+
+interface Plugin {
+	rules: { [key: string]: Rule };
+}
 
 const fs = require('fs');
 const path = require('path');
@@ -37,6 +42,7 @@ function parseSeverity(value: string | number){
 export class Config {
 	private config: ConfigData;
 	protected metaTable: MetaTable;
+	protected plugins: Plugin[];
 	protected transformers: Transformer[];
 	protected rootDir: string;
 
@@ -61,7 +67,7 @@ export class Config {
 		const json = require(filename);
 
 		/* expand any relative paths */
-		for (const key of ['extends', 'elements']){
+		for (const key of ['extends', 'elements', 'plugins']){
 			if (!json[key]) continue;
 			json[key] = json[key].map((ref: string) => {
 				return Config.expandRelative(ref, path.dirname(filename));
@@ -94,6 +100,11 @@ export class Config {
 			const base = Config.fromFile(ref);
 			self.config = base.mergeInternal(self.config);
 		});
+	}
+
+	init(){
+		/* load plugins */
+		this.plugins = this.loadPlugins(this.config.plugins || []);
 
 		/* precompile transform patterns */
 		this.transformers = this.precompileTransformers(this.config.transform || {});
@@ -172,6 +183,16 @@ export class Config {
 			rules[name] = options;
 		}
 		return rules;
+	}
+
+	public getPlugins(): Plugin[] {
+		return this.plugins;
+	}
+
+	private loadPlugins(plugins: string[]): Plugin[] {
+		return plugins.map((name: string) => {
+			return require(name);
+		});
 	}
 
 	/**

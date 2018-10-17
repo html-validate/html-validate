@@ -22,11 +22,20 @@ export class Engine<T extends Parser = Parser> {
 	protected report: Reporter;
 	protected config: Config;
 	protected ParserClass: new (config: Config) => T;
+	protected availableRules: { [key: string]: Rule };
 
 	constructor(config: Config, ParserClass: new (config: Config) => T){
 		this.report = new Reporter();
 		this.config = config;
 		this.ParserClass = ParserClass;
+		this.availableRules = {};
+
+		/* setup plugins */
+		for (const plugin of (this.config.getPlugins())) {
+			for (const [name, rule] of Object.entries(plugin.rules)) {
+				this.availableRules[name] = rule;
+			}
+		}
 	}
 
 	/**
@@ -45,7 +54,7 @@ export class Engine<T extends Parser = Parser> {
 			/* load rules */
 			const rules: { [key: string]: Rule } = {};
 			Object.entries(this.config.getRules()).map(([name, data]) => {
-				rules[name] = Engine.loadRule(name, data, parser, this.report);
+				rules[name] = this.loadRule(name, data, parser, this.report);
 			});
 
 			/* setup directive handling */
@@ -217,7 +226,7 @@ export class Engine<T extends Parser = Parser> {
 	/**
 	 * Load a rule using current config.
 	 */
-	protected static loadRule(name: string, data: any, parser: Parser, report: Reporter): Rule {
+	protected loadRule(name: string, data: any, parser: Parser, report: Reporter): Rule {
 		const [severity, options] = data;
 		let rule: Rule;
 		try {
@@ -234,13 +243,20 @@ export class Engine<T extends Parser = Parser> {
 			}(options);
 		}
 		rule.init(parser, report, severity);
-		rule.setup();
+		if (rule.setup) {
+			rule.setup();
+		}
 		return rule;
 	}
 
 	/* istanbul ignore next: tests mock this function */
-	protected static instantiateRule(name: string, options: any): Rule {
-		const Class = require(`../rules/${name}`);
+	protected instantiateRule(name: string, options: any): Rule {
+		let Class;
+		if (this.availableRules[name]) {
+			Class = this.availableRules[name];
+		} else {
+			Class = require(`../rules/${name}`);
+		}
 		return new Class(options);
 	}
 

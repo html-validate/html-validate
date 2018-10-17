@@ -92,6 +92,24 @@ Each entry will try to load metadata from (search in following order):
 See [elements metadata](/usage/elements.html) for details about writing your own
 metadata.
 
+### `plugins`
+
+List of extra plugins to load. Can be either a NPM package or relative path to a
+local file, i.e. when writing custom rules inside the repo.
+
+Plugins can contain additional rules.
+
+See [writing plugins](/dev/writing-plugins.html) for details about creating your own plugins.
+
+```js
+{
+  "plugins": [
+    "my-fancy-plugin",
+    "./local-plugin"
+  ]
+}
+```
+
 ### `transform`
 
 Transform input files to extract HTML chunks, e.g. extract templates from
