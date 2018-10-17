@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.12.0 (2018-10-17)
+
 ### Features
 
 - Support writing plugins with custom rules.
