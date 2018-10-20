@@ -11,6 +11,11 @@ describe('TemplateExtractor', function(){
 			]);
 		});
 
+		it('should ignore other properties', () => {
+			const te = TemplateExtractor.fromString('foo({bar: "<b>foo</b>"})');
+			expect(te.extractObjectProperty('template')).toEqual([]);
+		});
+
 		it('should handle single quotes', () => {
 			const te = TemplateExtractor.fromString('foo({template: \'<b>foo</b>\'})');
 			expect(te.extractObjectProperty('template')).toEqual([
