@@ -43,4 +43,9 @@ describe('rule element-permitted-content', function(){
 		expect(report).toBeValid();
 	});
 
+	it('should handle missing meta entry (parent)', function(){
+		const report = htmlvalidate.validateString('<foo><p>foo</p></foo>');
+		expect(report).toBeValid();
+	});
+
 });

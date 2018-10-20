@@ -78,4 +78,11 @@ describe('rule attr-case', function(){
 
 	});
 
+	it('should throw error if configured with invalid value', function(){
+		htmlvalidate = new HtmlValidate({
+			rules: {'attr-case': ['error', {style: "foobar"}]},
+		});
+		expect(() => htmlvalidate.validateString('<foo></foo>')).toThrow(`Invalid style "foobar" for "attr-case" rule`);
+	});
+
 });

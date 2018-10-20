@@ -21,6 +21,11 @@ describe('rule id-pattern', function(){
 		expect(report).toHaveError('id-pattern', expect.stringMatching(/ID "fooBar" does not match required pattern ".*"/));
 	});
 
+	it('should ignore other attributes', () => {
+		const report = htmlvalidate.validateString('<p spam="fooBar"></p>');
+		expect(report).toBeValid();
+	});
+
 	it('smoketest', () => {
 		const report = htmlvalidate.validateFile('test-files/rules/id-pattern.html');
 		expect(report.results).toMatchSnapshot();

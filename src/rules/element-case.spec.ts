@@ -78,4 +78,11 @@ describe('rule element-case', function(){
 
 	});
 
+	it('should throw error if configured with invalid value', function(){
+		htmlvalidate = new HtmlValidate({
+			rules: {'element-case': ['error', {style: "foobar"}]},
+		});
+		expect(() => htmlvalidate.validateString('<foo></foo>')).toThrow(`Invalid style "foobar" for "element-case" rule`);
+	});
+
 });

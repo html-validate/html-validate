@@ -7,6 +7,10 @@ describe('rule heading-level', function(){
 	beforeAll(function(){
 		htmlvalidate = new HtmlValidate({
 			rules: {'heading-level': 'error'},
+			elements: [
+				'html5',
+				{'custom-heading': {heading: true}},
+			],
 		});
 	});
 
@@ -35,6 +39,11 @@ describe('rule heading-level', function(){
 		const report = htmlvalidate.validateString('<h2>heading 2</h2>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError('heading-level', 'Initial heading level must be h1');
+	});
+
+	it('should handle custom elements marked as heading', function(){
+		const report = htmlvalidate.validateString('<custom-heading></custom-heading>');
+		expect(report).toBeValid();
 	});
 
 	it('smoketest', () => {
