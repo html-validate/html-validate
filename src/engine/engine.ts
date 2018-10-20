@@ -247,12 +247,13 @@ export class Engine<T extends Parser = Parser> {
 
 	/* istanbul ignore next: tests mock this function */
 	protected requireRule(name: string, options: RuleOptions): any {
+		let Class: RuleConstructor;
 		try {
-			const Class = require(`../rules/${name}`) as RuleConstructor;
-			return new Class(options);
+			Class = require(`../rules/${name}`);
 		} catch (e) {
 			return null;
 		}
+		return new Class(options);
 	}
 
 	private missingRule(name: string): any {
