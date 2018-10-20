@@ -1,7 +1,7 @@
 import { MetaTable } from '../meta';
 import { ConfigData, TransformMap } from './config-data';
 import { Source } from '../context';
-import { Rule } from '../rule';
+import { RuleConstructor } from '../rule';
 import { ElementTable } from '../meta/element';
 
 type Transformer = {
@@ -10,7 +10,7 @@ type Transformer = {
 };
 
 interface Plugin {
-	rules: { [key: string]: Rule };
+	rules: { [key: string]: RuleConstructor };
 }
 
 const fs = require('fs');

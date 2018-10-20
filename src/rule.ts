@@ -15,6 +15,12 @@ import {
 import { Reporter } from './reporter';
 import { Parser } from './parser';
 
+export type RuleOptions = { [key: string]: any };
+
+export interface RuleConstructor {
+	new (options: RuleOptions): Rule;
+}
+
 export abstract class Rule {
 	private reporter: Reporter;
 	private parser: Parser;
@@ -31,9 +37,9 @@ export abstract class Rule {
 	/**
 	 * Rule options.
 	 */
-	public readonly options: {[key: string]: any};
+	public readonly options: RuleOptions;
 
-	constructor(options: {[key: string]: any}){
+	constructor(options: RuleOptions){
 		this.options = options;
 		this.enabled = true;
 	}

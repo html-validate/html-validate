@@ -5,7 +5,7 @@ import { Parser } from "../parser";
 import { DOMTree } from "../dom";
 import { InvalidTokenError } from "../lexer";
 import { Reporter } from "../reporter";
-import { Rule } from "../rule";
+import { Rule, RuleOptions } from "../rule";
 import '../matchers';
 
 function inline(source: string): Source {
@@ -46,8 +46,8 @@ class ExposedEngine<T extends Parser> extends Engine<T> {
 		return super.loadRule(name, data, parser, report);
 	}
 
-	public instantiateRule(name: string, options: any): Rule {
-		return super.instantiateRule(name, options);
+	public requireRule(name: string, options: RuleOptions): any {
+		return super.requireRule(name, options);
 	}
 }
 
@@ -262,7 +262,7 @@ describe('Engine', function(){
 			});
 
 			it('should load and initialize rule', () => {
-				engine.instantiateRule = jest.fn(() => mockRule);
+				engine.requireRule = jest.fn(() => mockRule);
 				const rule = engine.loadRule('void', [Config.SEVERITY_ERROR, {}], parser, reporter);
 				expect(rule).toBe(mockRule);
 				expect(rule.init).toHaveBeenCalledWith(parser, reporter, Config.SEVERITY_ERROR);
@@ -271,16 +271,14 @@ describe('Engine', function(){
 			});
 
 			it('should use rule-defined name if set', () => {
-				engine.instantiateRule = jest.fn(() => mockRule);
+				engine.requireRule = jest.fn(() => mockRule);
 				mockRule.name = 'foobar';
 				const rule = engine.loadRule('void', [Config.SEVERITY_ERROR, {}], parser, reporter);
 				expect(rule.name).toEqual('foobar');
 			});
 
 			it('should add error if rule cannot be found', () => {
-				engine.instantiateRule = jest.fn(() => {
-					throw new Error('no such rule');
-				});
+				engine.requireRule = jest.fn(() => null);
 				engine.loadRule('void', [Config.SEVERITY_ERROR, {}], parser, reporter);
 				const add = jest.spyOn(reporter, 'add');
 				parser.trigger('dom:load', {location: {}});
