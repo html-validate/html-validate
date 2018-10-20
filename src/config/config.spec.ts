@@ -12,6 +12,33 @@ describe('config', function(){
 		expect(Object.keys(config.get().rules)).toHaveLength(0);
 	});
 
+	it('defaultConfig() should load defaults', () => {
+		const config = Config.defaultConfig();
+		expect(config.get()).toEqual({
+			extends: [],
+			rules: {},
+			plugins: [],
+			transform: [],
+		});
+	});
+
+	describe('merge()', () => {
+
+		it('should merge two configs', () => {
+			const a = Config.fromObject({rules: {'foo': 1}});
+			const b = Config.fromObject({rules: {'bar': 1}});
+			const merged = a.merge(b);
+			expect(merged.get()).toEqual({
+				extends: [], /* added by constructor */
+				rules: {
+					'foo': 1,
+					'bar': 1,
+				},
+			});
+		});
+
+	});
+
 	describe('getRules()', function(){
 
 		it('should return parsed rules', function(){
@@ -22,7 +49,7 @@ describe('config', function(){
 			});
 		});
 
-		it('getRules() should parse severity from string', function(){
+		it('should parse severity from string', () => {
 			const config = Config.fromObject({
 				rules: {
 					foo: 'error',
@@ -37,7 +64,7 @@ describe('config', function(){
 			});
 		});
 
-		it('getRules() should retain severity from integer', function(){
+		it('should retain severity from integer', () => {
 			const config = Config.fromObject({
 				rules: {
 					foo: 2,
@@ -52,16 +79,27 @@ describe('config', function(){
 			});
 		});
 
-		it('getRules() should retain options', function(){
+		it('should throw on invalid severity', () => {
+			const config = Config.fromObject({
+				rules: {
+					bar: 'foo',
+				},
+			});
+			expect(() => config.getRules()).toThrow('Invalid severity "foo"');
+		});
+
+		it('should retain options', () => {
 			const config = Config.fromObject({
 				rules: {
 					foo: [2, {foo: true}],
 					bar: ["error", {bar: false}],
+					baz: ["warn"],
 				},
 			});
 			expect(config.getRules()).toEqual({
 				foo: [Config.SEVERITY_ERROR, {foo: true}],
 				bar: [Config.SEVERITY_ERROR, {bar: false}],
+				baz: [Config.SEVERITY_WARN, {}],
 			});
 		});
 
@@ -149,6 +187,25 @@ describe('config', function(){
 			const config = Config.empty();
 			const metatable = config.getMetaTable();
 			expect(Object.keys(metatable.elements)).not.toHaveLength(0);
+		});
+
+		it('should load inline metadata', function(){
+			const config = Config.fromObject({
+				elements: [
+					{
+						'foo': {},
+					},
+				],
+			});
+			const metatable = config.getMetaTable();
+			expect(Object.keys(metatable.elements)).toEqual(['foo']);
+		});
+
+		it('should cache table', function(){
+			const config = Config.empty();
+			const a = config.getMetaTable();
+			const b = config.getMetaTable();
+			expect(a).toBe(b);
 		});
 
 	});
