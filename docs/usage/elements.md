@@ -32,7 +32,7 @@ export interface MetaElement {
 	interactive: boolean | PropertyExpression;
 
 	/* element properties */
-	deprecated: boolean;
+	deprecated: boolean | string;
 	void: boolean;
 	transparent: boolean;
 
@@ -90,7 +90,7 @@ The available evaluators are:
 ### `deprecated`
 
 If true the element will trigger the [deprecated](/rules/deprecated.html) rule
-when used.
+when used. Can optinally be set to a string which will be displayed as well.
 
 ### `void`
 

@@ -8,6 +8,14 @@ describe('rule deprecated', function() {
 	beforeAll(function() {
 		htmlvalidate = new HtmlValidate({
 			rules: { 'deprecated': 'error' },
+			elements: [
+				'html5',
+				{
+					'custom-deprecated': {
+						deprecated: 'lorem ipsum',
+					},
+				},
+			],
 		});
 	});
 
@@ -20,6 +28,12 @@ describe('rule deprecated', function() {
 		const report = htmlvalidate.validateString('<marquee>foobar</marquee>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError('deprecated', '<marquee> is deprecated');
+	});
+
+	it('should report error when element with deprecation message is used', function() {
+		const report = htmlvalidate.validateString('<custom-deprecated>foobar</custom-deprecated>');
+		expect(report).toBeInvalid();
+		expect(report).toHaveError('deprecated', '<custom-deprecated> is deprecated: lorem ipsum');
 	});
 
 	it('smoketest', () => {
