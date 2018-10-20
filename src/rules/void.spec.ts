@@ -123,4 +123,21 @@ describe('rule void', function() {
 
 	});
 
+
+	describe('configured with style="foobar"', () => {
+
+		beforeAll(function() {
+			htmlvalidate = new HtmlValidate({
+				rules: { 'void': ['error', {style: 'foobar'}]},
+			});
+		});
+
+		it('should default to "any"', () => {
+			const report = htmlvalidate.validateString('<input><input/>');
+			expect(report).toBeValid();
+		});
+
+	});
+
+
 });

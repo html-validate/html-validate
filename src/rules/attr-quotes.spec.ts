@@ -17,6 +17,11 @@ describe('rule attr-quotes', function(){
 			expect(report).toBeValid();
 		});
 
+		it('should not report for boolean attribute', function(){
+			const report = htmlvalidate.validateString('<input checked>');
+			expect(report).toBeValid();
+		});
+
 		it('should report error when attributes use single quotes', function(){
 			const report = htmlvalidate.validateString('<div foo=\'bar\'></div>');
 			expect(report).toBeInvalid();
@@ -85,6 +90,15 @@ describe('rule attr-quotes', function(){
 			expect(report).toHaveError('attr-quotes', 'Attribute "foo" using unquoted value');
 		});
 
+	});
+
+	it('should default to double quotes for invalid style', function(){
+		htmlvalidate = new HtmlValidate({
+			rules: {'attr-quotes': ['error', {style: "foobar"}]},
+		});
+		const report = htmlvalidate.validateString("<div foo='bar'></div>");
+		expect(report).toBeInvalid();
+		expect(report).toHaveError('attr-quotes', `Attribute "foo" used ' instead of expected "`);
 	});
 
 });

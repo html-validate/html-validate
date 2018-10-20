@@ -21,13 +21,11 @@ export class Parser {
 	private readonly event: EventHandler;
 	private readonly metaTable: MetaTable;
 	private dom: DOMTree;
-	private peeked?: IteratorResult<Token>;
 
 	constructor(config: Config){
 		this.config = config;
 		this.event = new EventHandler();
 		this.dom = undefined;
-		this.peeked = undefined;
 		this.metaTable = config.getMetaTable();
 	}
 
@@ -273,24 +271,7 @@ export class Parser {
 	}
 
 	private next(tokenStream: TokenStream): IteratorResult<Token> {
-		if (this.peeked){
-			const peeked = this.peeked;
-			this.peeked = undefined;
-			return peeked;
-		} else {
-			return tokenStream.next();
-		}
-	}
-
-	/**
-	 * Return the next token without removing it from the stream.
-	 */
-	private peek(tokenStream: TokenStream): IteratorResult<Token> {
-		if (this.peeked){
-			return this.peeked;
-		} else {
-			return this.peeked = tokenStream.next();
-		}
+		return tokenStream.next();
 	}
 
 	/**

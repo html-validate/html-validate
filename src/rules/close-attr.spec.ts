@@ -36,6 +36,11 @@ describe('rule close-attr', function(){
 		]);
 	});
 
+	it('should handle unclosed tags', function(){
+		const report = htmlvalidate.validateString('<p>');
+		expect(report).toBeValid();
+	});
+
 	it('smoketest', () => {
 		const report = htmlvalidate.validateFile('test-files/rules/close-attr.html');
 		expect(report.results).toMatchSnapshot();

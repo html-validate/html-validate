@@ -86,12 +86,14 @@ export class Lexer {
 				yield* this.tokenizeScript(context);
 				break;
 
+			/* istanbul ignore next: sanity check: should not happen unless adding new states */
 			default:
 				this.unhandled(context);
 			}
 
 			/* sanity check: state or string must change, if both are intact
 			 * we are stuck in an endless loop. */
+			/* istanbul ignore next: no easy way to test this as it is a condition which should never happen */
 			if (context.state === previousState && context.string.length === previousLength){
 				this.errorStuck(context);
 			}
@@ -104,7 +106,6 @@ export class Lexer {
 	}
 
 	private token(context: Context, type: TokenType, data?: Array<string>): Token {
-		if (!type) throw Error("TokenType must be set");
 		return {
 			type,
 			location: context.getLocation(),
@@ -112,12 +113,14 @@ export class Lexer {
 		};
 	}
 
+	/* istanbul ignore next: used to provide a better error when an unhandled state happens */
 	private unhandled(context: Context){
 		const truncated = JSON.stringify(context.string.length > 13 ? `${context.string.slice(0, 15)}...` : context.string);
 		const message = `failed to tokenize ${truncated}, unhandled state ${State[context.state]}.`;
 		throw new InvalidTokenError(context.getLocation(), message);
 	}
 
+	/* istanbul ignore next: used to provide a better error when lexer is detected to be stuck, no known way to reproduce */
 	private errorStuck(context: Context){
 		const truncated = JSON.stringify(context.string.length > 13 ? `${context.string.slice(0, 15)}...` : context.string);
 		const message = `failed to tokenize ${truncated}, state ${State[context.state]} failed to consume data or change state.`;
@@ -200,6 +203,9 @@ export class Lexer {
 					return State.TEXT; /* <script/> (not legal but handle it anyway so the lexer doesn't choke on it) */
 				}
 			}
+			/* istanbul ignore next: not covered by a test as there is currently no
+			 * way to trigger this unless new content models are added but this will
+			 * add a saner default if anyone ever does */
 			return context.contentModel !== ContentModel.SCRIPT ? State.TEXT : State.SCRIPT;
 		}
 		yield* this.match(context, [
