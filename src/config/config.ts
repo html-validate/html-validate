@@ -82,6 +82,7 @@ export class Config {
 		return new Config({
 			extends: [],
 			rules: {},
+			plugins: [],
 			transform: [],
 		});
 	}
