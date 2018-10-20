@@ -3,7 +3,7 @@ import { Location, Source } from "../context";
 import { InvalidTokenError, Lexer, TokenType } from "../lexer";
 import { Parser } from "../parser";
 import { Reporter, Report } from "../reporter";
-import { Rule } from "../rule";
+import { Rule, RuleConstructor, RuleOptions } from "../rule";
 import { DOMNode } from "../dom";
 import { DirectiveEvent, TagOpenEvent, TagCloseEvent } from "../event";
 
@@ -22,7 +22,7 @@ export class Engine<T extends Parser = Parser> {
 	protected report: Reporter;
 	protected config: Config;
 	protected ParserClass: new (config: Config) => T;
-	protected availableRules: { [key: string]: Rule };
+	protected availableRules: { [key: string]: RuleConstructor };
 
 	constructor(config: Config, ParserClass: new (config: Config) => T){
 		this.report = new Reporter();
@@ -228,20 +228,8 @@ export class Engine<T extends Parser = Parser> {
 	 */
 	protected loadRule(name: string, data: any, parser: Parser, report: Reporter): Rule {
 		const [severity, options] = data;
-		let rule: Rule;
-		try {
-			rule = this.instantiateRule(name, options);
-			rule.name = rule.name || name;
-		} catch (e) {
-			rule = new class extends Rule {
-				setup(){
-					this.name = name;
-					this.on('dom:load', () => {
-						this.report(null, `Definition for rule '${name}' was not found`);
-					});
-				}
-			}(options);
-		}
+		const rule = this.instantiateRule(name, options);
+		rule.name = rule.name || name;
 		rule.init(parser, report, severity);
 		if (rule.setup) {
 			rule.setup();
@@ -249,15 +237,32 @@ export class Engine<T extends Parser = Parser> {
 		return rule;
 	}
 
-	/* istanbul ignore next: tests mock this function */
-	protected instantiateRule(name: string, options: any): Rule {
-		let Class;
+	protected instantiateRule(name: string, options: RuleOptions): Rule {
 		if (this.availableRules[name]) {
-			Class = this.availableRules[name];
+			return new this.availableRules[name](options);
 		} else {
-			Class = require(`../rules/${name}`);
+			return this.requireRule(name, options) || this.missingRule(name);
 		}
-		return new Class(options);
+	}
+
+	/* istanbul ignore next: tests mock this function */
+	protected requireRule(name: string, options: RuleOptions): any {
+		try {
+			const Class = require(`../rules/${name}`) as RuleConstructor;
+			return new Class(options);
+		} catch (e) {
+			return null;
+		}
+	}
+
+	private missingRule(name: string): any {
+		return new class extends Rule {
+			setup(){
+				this.on('dom:load', () => {
+					this.report(null, `Definition for rule '${name}' was not found`);
+				});
+			}
+		}({});
 	}
 
 	private reportError(message: string, location: Location): void {
