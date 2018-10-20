@@ -78,7 +78,8 @@ all HTML5 elements.
   "elements": [
     "html5",
 	"my-npm-package",
-	"./file"
+	"./file",
+	{ ... }
   ],
 }
 ```
@@ -88,6 +89,9 @@ Each entry will try to load metadata from (search in following order):
 1. Named bundled metadata.
 2. NPM package with the same name.
 3. A local file, json or js. Path is relative to the configuration file.
+
+An object can also be passed with inline metadata but it is highly recommended
+to write it to a separate file.
 
 See [elements metadata](/usage/elements.html) for details about writing your own
 metadata.

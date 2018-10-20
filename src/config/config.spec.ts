@@ -151,6 +151,18 @@ describe('config', function(){
 			expect(Object.keys(metatable.elements)).not.toHaveLength(0);
 		});
 
+		it('should load inline metadata', function(){
+			const config = Config.fromObject({
+				elements: [
+					{
+						'foo': {},
+					},
+				],
+			});
+			const metatable = config.getMetaTable();
+			expect(Object.keys(metatable.elements)).toEqual(['foo']);
+		});
+
 	});
 
 	describe('transform()', () => {

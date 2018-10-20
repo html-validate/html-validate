@@ -2,6 +2,7 @@ import { MetaTable } from '../meta';
 import { ConfigData, TransformMap } from './config-data';
 import { Source } from '../context';
 import { Rule } from '../rule';
+import { ElementTable } from '../meta/element';
 
 type Transformer = {
 	pattern: RegExp;
@@ -132,6 +133,11 @@ export class Config {
 
 		/* load from all entries */
 		for (const entry of source){
+			/* load meta directly from entry */
+			if (typeof entry !== 'string'){
+				this.metaTable.loadFromObject(entry as ElementTable);
+				continue;
+			}
 
 			/* try searching builtin metadata */
 			const filename = `${root}/elements/${entry}.json`;
