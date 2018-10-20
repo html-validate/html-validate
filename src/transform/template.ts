@@ -48,6 +48,7 @@ function extractLiteral(node: ESTree.Expression | ESTree.Pattern): Source {
 			column: node.quasi.loc.start.column + 1,
 		};
 	default:
+		/* istanbul ignore next: this only provides a better error, all currently known nodes are tested */
 		throw Error(`Unhandled node type "${node.type}" in extractLiteral`);
 	}
 }
@@ -57,6 +58,7 @@ function compareKey(node: ESTree.Expression, key: string){
 	case "Identifier":
 		return node.name === key;
 	default:
+		/* istanbul ignore next: this only provides a better error, all currently known nodes are tested */
 		throw Error(`Unhandled node type "${node.type}" in compareKey`);
 	}
 }
