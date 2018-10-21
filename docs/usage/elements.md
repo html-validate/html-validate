@@ -83,14 +83,14 @@ The available evaluators are:
 - `hasAttribute` evaluates to `true` if the element has the specified attribute.  
   `["hasAttribute", "usemap"]`
 - `matchAttribute` tests if specified attribute against a value.  
-  `["matchAttribute", ["type", "!=", "hiddend"]]`
+  `["matchAttribute", ["type", "!=", "hidden"]]`
 
 ## Element properties
 
 ### `deprecated`
 
 If true the element will trigger the [deprecated](/rules/deprecated.html) rule
-when used. Can optinally be set to a string which will be displayed as well.
+when used. Can optionally be set to a string which will be displayed as well.
 
 ### `void`
 
@@ -209,7 +209,7 @@ This is used by
 
 Requires children to be used in a specific order.
 
-Elements listed has to occur in the same order as specifed, elements which is
+Elements listed has to occur in the same order as specified, elements which is
 not specified can appear anywhere.
 
 ```js

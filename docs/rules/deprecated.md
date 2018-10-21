@@ -25,7 +25,7 @@ Examples of **correct** code for this rule:
 
 ## Elements
 
-When using custom elements metadata you can optinally specify a message:
+When using custom elements metadata you can optionally specify a message:
 
 ```js
 {
