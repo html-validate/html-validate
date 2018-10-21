@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.13.0 (2018-10-21)
+
 ### Features
 
 - `deprecated` supports adding a message for custom elements.
