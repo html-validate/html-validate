@@ -1,0 +1,5 @@
+{
+  "my-element": {
+    "deprecated": "replaced with <other-element>"
+  }
+}

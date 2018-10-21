@@ -22,7 +22,7 @@ export interface MetaElement {
 	interactive: boolean | PropertyExpression;
 
 	/* element properties */
-	deprecated: boolean;
+	deprecated: boolean | string;
 	void: boolean;
 	transparent: boolean;
 	implicitClosed: string[];

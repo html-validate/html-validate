@@ -1,3 +1,5 @@
+const path = require('path');
+
 const VALIDATE_REGEX = /<validate([^>]*)>([\S\s]+?)<\/validate>/g;
 const ATTRIBUTE_REGEX = /\s*([^=]+)\s*=\s*(?:(?:"([^"]+)")|(?:'([^']+)'))/g;
 
@@ -21,9 +23,10 @@ module.exports = function parseValidatesProcessor(log, validateMap, trimIndentat
 
 					const name = attr.name;
 					const rules = attr.rules.split(/ +/);
+					const elements = readElements(doc.fileInfo, attr.elements);
 					const id = uniqueName(validateMap, `markup-${attr.name}`);
 					const markup = trimIndentation(validateMarkup);
-					const config = generateConfig(rules, attr);
+					const config = generateConfig(rules, elements, attr);
 
 					const validate = {
 						config,
@@ -45,6 +48,12 @@ module.exports = function parseValidatesProcessor(log, validateMap, trimIndentat
 		});
 	}
 
+	function readElements(fileInfo, filename){
+		if (!filename) return filename;
+		const dir = path.dirname(fileInfo.filePath);
+		return require(`${dir}/${filename}`);
+	}
+
 	function extractAttributes(attributeText){
 		const attributes = {};
 		attributeText.replace(ATTRIBUTE_REGEX, function(match, prop, val1, val2){
@@ -64,11 +73,13 @@ module.exports = function parseValidatesProcessor(log, validateMap, trimIndentat
 		return name;
 	}
 
-	function generateConfig(rules, attr){
+	function generateConfig(rules, elements, attr){
 		attr = Object.assign({}, attr); /* copy before modification */
+		delete attr.elements;
 		delete attr.name;
 		delete attr.rules;
 		return {
+			elements: elements ? ["html5", elements] : undefined,
 			rules: rules.reduce((dst, rule) => {
 				if (attr[rule]){
 					dst[rule] = ['error', JSON.parse(attr[rule])];

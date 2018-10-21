@@ -11,8 +11,13 @@ class Deprecated extends Rule {
 				return;
 			}
 
-			if (node.meta.deprecated){
-				this.report(node, `<${node.tagName}> is deprecated`);
+			const deprecated = node.meta.deprecated;
+			if (deprecated){
+				if (typeof deprecated === 'string'){
+					this.report(node, `<${node.tagName}> is deprecated: ${deprecated}`);
+				} else {
+					this.report(node, `<${node.tagName}> is deprecated`);
+				}
 			}
 		});
 	}
