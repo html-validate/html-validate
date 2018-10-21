@@ -14,7 +14,7 @@ class ElementPermittedOrder extends Rule {
 
 				const rules = node.meta.permittedOrder;
 				Validator.validateOrder(node.children, rules, (child: DOMNode, prev: DOMNode) => {
-					this.report(node, `Element <${child.tagName}> must be used before <${prev.tagName}> in this context`);
+					this.report(child, `Element <${child.tagName}> must be used before <${prev.tagName}> in this context`);
 				});
 			});
 		});
