@@ -9,6 +9,11 @@
   silently swallowed and the rule would trigger the missing rule logic.
 - Support writing element metadata inline in configuration file.
 
+### Bugfixes
+
+- `element-permitted-order` now reports the error where the malplaced element is
+  instead of the parent element (which holds the restriction). Fixes #10.
+
 ## 0.12.0 (2018-10-17)
 
 ### Features
