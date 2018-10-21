@@ -4,6 +4,7 @@
 
 ### Features
 
+- `deprecated` supports adding a message for custom elements.
 - Rule constructors can now throw exceptions. Previously the exceptions would be
   silently swallowed and the rule would trigger the missing rule logic.
 - Support writing element metadata inline in configuration file.
