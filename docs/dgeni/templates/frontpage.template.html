@@ -8,5 +8,15 @@
 	<p><a class="btn btn-primary btn-lg" href="usage">Learn more</a></p>
 </div>
 
-{$ doc.description | marked $}
+<div class="frontpage">
+	{$ doc.description | marked $}
+
+	{% for block in doc.blocks %}
+		<h2>{$ block.title $}</h2>
+		<div class="frontpage {$ block.className $}">
+			{$ block.body | marked $}
+		</div>
+	{% endfor %}
+</div>
+
 {% endblock %}

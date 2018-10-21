@@ -1,0 +1,15 @@
+{
+  "my-inline": {
+    "phrasing": true,
+    "permittedContent": [
+      "@phrasing"
+    ]
+  },
+  "my-block": {
+    "flow": true
+  },
+  "my-deprecated": {
+    "phrasing": true,
+    "deprecated": "replaced with <my-other>"
+  }
+}

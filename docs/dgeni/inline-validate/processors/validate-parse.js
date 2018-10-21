@@ -22,7 +22,7 @@ module.exports = function parseValidatesProcessor(log, validateMap, trimIndentat
 					}
 
 					const name = attr.name;
-					const rules = attr.rules.split(/ +/);
+					const rules = attr.rules ? attr.rules.split(/ +/) : undefined;
 					const elements = readElements(doc.fileInfo, attr.elements);
 					const id = uniqueName(validateMap, `markup-${attr.name}`);
 					const markup = trimIndentation(validateMarkup);
@@ -78,16 +78,22 @@ module.exports = function parseValidatesProcessor(log, validateMap, trimIndentat
 		delete attr.elements;
 		delete attr.name;
 		delete attr.rules;
-		return {
-			elements: elements ? ["html5", elements] : undefined,
-			rules: rules.reduce((dst, rule) => {
+		const config = {};
+		if (elements){
+			config.elements = ["html5", elements];
+		}
+		if (rules){
+			config.rules = rules.reduce((dst, rule) => {
 				if (attr[rule]){
 					dst[rule] = ['error', JSON.parse(attr[rule])];
 				} else {
 					dst[rule] = 'error';
 				}
 				return dst;
-			}, {}),
-		};
+			}, {});
+		} else {
+			config.extends = ['htmlvalidate:recommended'];
+		}
+		return config;
 	}
 };
