@@ -133,6 +133,8 @@ With this metadata the attribute `"foo"` may only have the values `"bar"` or
 
 - To allow empty values explicitly list `""`:  
   `"my-attr": ["", "value 1", "value 2"]`
+- Boolean attributes must be set to an empty list `[]`:  
+  `"my-attr": []`
 
 This is used by the
 [attribute-allowed-values](/rules/attribute-allowed-values.html) rule.

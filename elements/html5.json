@@ -656,6 +656,10 @@
       "vspace"
     ],
     "attributes": {
+      "autofocus": [],
+      "capture": [],
+      "checked": [],
+      "disabled": [],
       "inputmode": [
         "none",
         "text",
@@ -666,6 +670,8 @@
         "email",
         "url"
       ],
+      "multiple": [],
+      "readonly": [],
       "spellcheck": [
         "default",
         "false",

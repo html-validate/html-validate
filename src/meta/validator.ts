@@ -85,10 +85,15 @@ export class Validator {
 		return true;
 	}
 
-	public static validateAttribute(key: string, value: string|null, rules: PermittedAttribute): boolean {
+	public static validateAttribute(key: string, value: string|undefined, rules: PermittedAttribute): boolean {
 		const rule = rules[key];
 		if (!rule){
 			return true;
+		}
+
+		/* consider an empty array as being a boolean attribute */
+		if (rule.length === 0){
+			return value === undefined;
 		}
 
 		return rule.some((entry: string|RegExp) => {

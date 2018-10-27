@@ -394,6 +394,15 @@ describe('Meta validator', function(){
 			expect(Validator.validateAttribute('foo', 'pebble', rules)).toBeFalsy();
 		});
 
+		it('should consider empty list as boolean attribute', () => {
+			const rules = {
+				'foo': [] as Array<string>,
+			};
+			expect(Validator.validateAttribute('foo', undefined, rules)).toBeTruthy();
+			expect(Validator.validateAttribute('foo', '', rules)).toBeFalsy();
+			expect(Validator.validateAttribute('foo', 'bar', rules)).toBeFalsy();
+		});
+
 	});
 
 });

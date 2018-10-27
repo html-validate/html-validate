@@ -40,7 +40,11 @@ function getTagname(category: ContentCategory|string){
 
 function getElementMarkup(tagName: string, variant: string, attr: {[key: string]: string} = {}){
 	const attrString = Object.entries(attr).reduce((str, [key, value]) => {
-		return `${str} ${key}="${value}"`;
+		if (value !== undefined){
+			return `${str} ${key}="${value}"`;
+		} else {
+			return `${str} ${key}`;
+		}
 	}, '');
 	switch (variant){
 	case 'omit':
@@ -94,6 +98,13 @@ describe('HTML elements', function(){
 	}
 
 	function allowAttribute(tagName: string, attr: string, values: string[], variant: string = undefined){
+		if (values.length === 0){
+			it(`should allow boolean attribute ${attr}`, () => {
+				const markup = getElementMarkup(tagName, variant, {[attr]: undefined});
+				const report = htmlvalidate.validateString(markup);
+				expect(report).toBeValid();
+			});
+		}
 		for (const value of values) {
 			it(`should allow attribute ${attr}="${value}"`, () => {
 				const markup = getElementMarkup(tagName, variant, {[attr]: value});
@@ -568,10 +579,22 @@ describe('HTML elements', function(){
 
 	describe("<input>", function(){
 		omitEnd('input');
-		allowAttribute('input', 'type', ['text', 'checkbox', 'search'], 'omit'); /* only testing a subset */
+		allowAttribute('input', 'autofocus', [], 'omit');
+		allowAttribute('input', 'capture', [], 'omit');
+		allowAttribute('input', 'checked', [], 'omit');
+		allowAttribute('input', 'disabled', [], 'omit');
 		allowAttribute('input', 'inputmode', ['none', 'text', 'numeric'], 'omit'); /* only testing a subset */
-		disallowAttribute('input', 'type', ['', 'foobar'], 'omit');
+		allowAttribute('input', 'multiple', [], 'omit');
+		allowAttribute('input', 'readonly', [], 'omit');
+		allowAttribute('input', 'type', ['text', 'checkbox', 'search'], 'omit'); /* only testing a subset */
+		disallowAttribute('input', 'autofocus', ['', 'foobar'], 'omit');
+		disallowAttribute('input', 'capture', ['', 'foobar'], 'omit');
+		disallowAttribute('input', 'checked', ['', 'foobar'], 'omit');
+		disallowAttribute('input', 'disabled', ['', 'foobar'], 'omit');
 		disallowAttribute('input', 'inputmode', ['', 'foobar'], 'omit');
+		disallowAttribute('input', 'multiple', ['', 'foobar'], 'omit');
+		disallowAttribute('input', 'readonly', ['', 'foobar'], 'omit');
+		disallowAttribute('input', 'type', ['', 'foobar'], 'omit');
 
 		it('should be interactive only if "type" is not "hidden"', function(){
 			const source = inlineSource('<input type="hidden"/><input type="foo"/>');
