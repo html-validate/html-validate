@@ -205,6 +205,30 @@ describe('MetaTable', function(){
 
 	});
 
+	it('should expand regexp', () => {
+		const table = new MetaTable();
+		table.loadFromObject({
+			foo: mockEntry('foo', {
+				attributes: {
+					attr: [
+						'foo',
+						'/bar/',
+						/baz/,
+					],
+				},
+			}),
+		});
+		const meta = table.getMetaFor('foo');
+		expect(meta).not.toBeUndefined();
+		expect(meta.attributes).toEqual({
+			attr: [
+				'foo',
+				/bar/,
+				/baz/,
+			],
+		});
+	});
+
 });
 
 function mockEntry(tagName: string, stub = {}): MetaElement {
@@ -221,6 +245,7 @@ function mockEntry(tagName: string, stub = {}): MetaElement {
 		void: false,
 		transparent: false,
 		implicitClosed: [],
+		attributes: {},
 		deprecatedAttributes: [],
 		permittedContent: [],
 		permittedDescendants: [],

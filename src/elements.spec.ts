@@ -586,6 +586,7 @@ describe('HTML elements', function(){
 		allowAttribute('input', 'inputmode', ['none', 'text', 'numeric'], 'omit'); /* only testing a subset */
 		allowAttribute('input', 'multiple', [], 'omit');
 		allowAttribute('input', 'readonly', [], 'omit');
+		allowAttribute('input', 'tabindex', ['0', '12', '-1'], 'omit');
 		allowAttribute('input', 'type', ['text', 'checkbox', 'search'], 'omit'); /* only testing a subset */
 		disallowAttribute('input', 'autofocus', ['', 'foobar'], 'omit');
 		disallowAttribute('input', 'capture', ['', 'foobar'], 'omit');
@@ -594,6 +595,7 @@ describe('HTML elements', function(){
 		disallowAttribute('input', 'inputmode', ['', 'foobar'], 'omit');
 		disallowAttribute('input', 'multiple', ['', 'foobar'], 'omit');
 		disallowAttribute('input', 'readonly', ['', 'foobar'], 'omit');
+		disallowAttribute('input', 'tabindex', ['', 'foobar'], 'omit');
 		disallowAttribute('input', 'type', ['', 'foobar'], 'omit');
 
 		it('should be interactive only if "type" is not "hidden"', function(){

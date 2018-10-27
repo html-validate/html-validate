@@ -71,10 +71,13 @@ export class MetaTable {
 			}
 		}
 
-		this.elements[tagName] = Object.assign({
+		const expanded: MetaElement = Object.assign({
 			tagName,
 			void: false,
 		}, entry);
+		expandRegex(expanded);
+
+		this.elements[tagName] = expanded;
 	}
 
 	resolve(node: DOMNode){
@@ -90,6 +93,20 @@ function expandProperties(node: DOMNode, entry: MetaElement){
 		if (property && typeof property !== 'boolean'){
 			entry[key] = evaluateProperty(node, property as PropertyExpression);
 		}
+	}
+}
+
+function expandRegex(entry: MetaElement){
+	if (!entry.attributes) return;
+	for (const [name, values] of Object.entries(entry.attributes)){
+		entry.attributes[name] = values.map((value: string|RegExp) => {
+			const match = typeof value === 'string' && value.match(/^\/(.*)\/$/);
+			if (match){
+				return new RegExp(match[1]);
+			} else {
+				return value;
+			}
+		});
 	}
 }
 

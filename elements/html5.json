@@ -677,6 +677,9 @@
         "false",
         "true"
       ],
+      "tabindex": [
+        "/-?\\d+/"
+      ],
       "type": [
         "button",
         "checkbox",

@@ -136,6 +136,8 @@ With this metadata the attribute `"foo"` may only have the values `"bar"` or
 - Boolean attributes must be set to an empty list `[]`:  
   `"my-attr": []`
 
+Regular expressions can also be used, e.g `"/-?\\d+/"` to match numbers.
+
 This is used by the
 [attribute-allowed-values](/rules/attribute-allowed-values.html) rule.
 
