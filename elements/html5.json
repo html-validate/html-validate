@@ -1,4 +1,14 @@
 {
+  "*": {
+    "attributes": {
+      "contenteditable": ["", "true", "false"],
+      "dir": ["ltr", "rtl", "auto"],
+      "draggable": ["true", "false"],
+      "hidden":  [],
+      "tabindex": ["/-?\\d+/"]
+    }
+  },
+
   "a": {
     "flow": true,
     "phrasing": true,
@@ -676,9 +686,6 @@
         "default",
         "false",
         "true"
-      ],
-      "tabindex": [
-        "/-?\\d+/"
       ],
       "type": [
         "button",

@@ -157,6 +157,7 @@ export class Config {
 			this.metaTable.loadFromObject(require(entry));
 		}
 
+		this.metaTable.init();
 		return this.metaTable;
 	}
 

@@ -188,6 +188,19 @@ describe('HTML elements', function(){
 		disallowContent(tagName, '@flow');
 	}
 
+	describe('global attributes', () => {
+		allowAttribute('input', 'contenteditable', ['', 'true', 'false'], 'omit');
+		allowAttribute('input', 'dir', ['ltr', 'rtl', 'auto'], 'omit');
+		allowAttribute('input', 'draggable', ['true', 'false'], 'omit');
+		allowAttribute('input', 'hidden', [], 'omit');
+		allowAttribute('input', 'tabindex', ['0', '12', '-1'], 'omit');
+		disallowAttribute('input', 'contenteditable', ['foobar'], 'omit');
+		disallowAttribute('input', 'dir', ['', 'foobar'], 'omit');
+		disallowAttribute('input', 'draggable', ['', 'foobar'], 'omit');
+		disallowAttribute('input', 'hidden', ['', 'foobar'], 'omit');
+		disallowAttribute('input', 'tabindex', ['', 'foobar'], 'omit');
+	});
+
 	describe('<a>', function(){
 		allowContent('a', '@phrasing');
 		allowParent('a', 'div');
@@ -586,7 +599,6 @@ describe('HTML elements', function(){
 		allowAttribute('input', 'inputmode', ['none', 'text', 'numeric'], 'omit'); /* only testing a subset */
 		allowAttribute('input', 'multiple', [], 'omit');
 		allowAttribute('input', 'readonly', [], 'omit');
-		allowAttribute('input', 'tabindex', ['0', '12', '-1'], 'omit');
 		allowAttribute('input', 'type', ['text', 'checkbox', 'search'], 'omit'); /* only testing a subset */
 		disallowAttribute('input', 'autofocus', ['', 'foobar'], 'omit');
 		disallowAttribute('input', 'capture', ['', 'foobar'], 'omit');
@@ -595,7 +607,6 @@ describe('HTML elements', function(){
 		disallowAttribute('input', 'inputmode', ['', 'foobar'], 'omit');
 		disallowAttribute('input', 'multiple', ['', 'foobar'], 'omit');
 		disallowAttribute('input', 'readonly', ['', 'foobar'], 'omit');
-		disallowAttribute('input', 'tabindex', ['', 'foobar'], 'omit');
 		disallowAttribute('input', 'type', ['', 'foobar'], 'omit');
 
 		it('should be interactive only if "type" is not "hidden"', function(){

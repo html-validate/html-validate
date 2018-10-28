@@ -1,5 +1,6 @@
 import { DOMNode } from '../dom';
 import { MetaElement, ElementTable, PropertyExpression } from './element';
+const deepmerge = require('deepmerge');
 
 const allowedKeys = [
 	'tagName',
@@ -47,6 +48,10 @@ export class MetaTable {
 		this.elements = {};
 	}
 
+	init(){
+		this.resolveGlobal();
+	}
+
 	loadFromObject(obj: ElementTable){
 		for (const key of Object.keys(obj)) {
 			this.addEntry(key, obj[key]);
@@ -78,6 +83,33 @@ export class MetaTable {
 		expandRegex(expanded);
 
 		this.elements[tagName] = expanded;
+	}
+
+	/**
+	 * Finds the global element definition and merges each known element with the
+	 * global, e.g. to assign global attributes.
+	 */
+	private resolveGlobal(): void {
+		/* skip if there is no global elements */
+		if (!this.elements['*']) return;
+
+		/* fetch and remove the global element, it should not be resolvable by
+		 * itself */
+		const global = this.elements['*'];
+		delete this.elements['*'];
+
+		/* hack: unset default properties which global should not override */
+		delete global.tagName;
+		delete global.void;
+
+		/* merge elements */
+		for (const [tagName, entry] of Object.entries(this.elements)){
+			this.elements[tagName] = this.mergeElement(entry, global);
+		}
+	}
+
+	private mergeElement(a: MetaElement, b: MetaElement): MetaElement {
+		return deepmerge(a, b);
 	}
 
 	resolve(node: DOMNode){

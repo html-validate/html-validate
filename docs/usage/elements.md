@@ -256,3 +256,16 @@ appear anywhere.
 
 This is used by
 [element-permitted-order](/rules/element-permitted-order.html) rule.
+
+## Global element
+
+The special `*` element can be used to assign global metadata applying to all
+elements, e.g. global attributes.
+
+```js
+"*": {
+  "attributes": {
+    "tabindex": ["/-?\\d+/"]
+  ]
+}
+```
