@@ -134,6 +134,9 @@ With this metadata the attribute `"foo"` may only have the values `"bar"` or
 - To allow empty values explicitly list `""`:  
   `"my-attr": ["", "value 1", "value 2"]`
 
+This is used by the
+[attribute-allowed-values](/rules/attribute-allowed-values.html) rule.
+
 ### `deprecatedAttributes`
 
 A list of attributes which is no longer allowed (deprecated) for this element.
