@@ -37,6 +37,7 @@ export interface MetaElement {
 	transparent: boolean;
 
 	/* permitted data */
+	attributes: PermittedAttribute;
 	deprecatedAttributes: string[];
 	permittedContent: Permitted;
 	permittedDescendants: Permitted;
@@ -111,6 +112,27 @@ For custom elements it can be useful to set this if the content category isn't
 flow.
 
 ## Permitted content
+
+### `attributes`
+
+An object with allowed attribute values.
+
+```js
+"custom-element": {
+  "attributes": {
+    "foo": [
+      "bar",
+      "baz"
+    ]
+  }
+}
+```
+
+With this metadata the attribute `"foo"` may only have the values `"bar"` or
+`"foo"`.
+
+- To allow empty values explicitly list `""`:  
+  `"my-attr": ["", "value 1", "value 2"]`
 
 ### `deprecatedAttributes`
 

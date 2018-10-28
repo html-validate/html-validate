@@ -363,6 +363,39 @@ describe('Meta validator', function(){
 
 	});
 
+	describe('validateAttribute()', () => {
+
+		it('should match if no rule is present', () => {
+			const rules = {};
+			expect(Validator.validateAttribute('foo', 'bar', rules)).toBeTruthy();
+		});
+
+		it('should match regexp', () => {
+			const rules = {
+				'foo': [/ba.*/],
+			};
+			expect(Validator.validateAttribute('foo', 'bar', rules)).toBeTruthy();
+			expect(Validator.validateAttribute('foo', 'car', rules)).toBeFalsy();
+		});
+
+		it('should match string value', () => {
+			const rules = {
+				'foo': ['bar'],
+			};
+			expect(Validator.validateAttribute('foo', 'bar', rules)).toBeTruthy();
+			expect(Validator.validateAttribute('foo', 'car', rules)).toBeFalsy();
+		});
+
+		it('should match if one of multiple allowed matches', () => {
+			const rules = {
+				'foo': ['fred', 'barney', 'wilma'],
+			};
+			expect(Validator.validateAttribute('foo', 'barney', rules)).toBeTruthy();
+			expect(Validator.validateAttribute('foo', 'pebble', rules)).toBeFalsy();
+		});
+
+	});
+
 });
 
 function mockEntry(tagName: string, stub = {}): MetaElement {
@@ -379,6 +412,7 @@ function mockEntry(tagName: string, stub = {}): MetaElement {
 		void: false,
 		transparent: false,
 		implicitClosed: [],
+		attributes: {},
 		deprecatedAttributes: [],
 		permittedContent: [],
 		permittedDescendants: [],

@@ -8,6 +8,8 @@ export type Permitted = PermittedEntry[];
 
 export type PermittedOrder = string[];
 
+export type PermittedAttribute = { [key: string]: (string | RegExp)[] };
+
 export interface MetaElement {
 	/* filled internally for reverse lookup */
 	tagName: string;
@@ -28,12 +30,13 @@ export interface MetaElement {
 	implicitClosed: string[];
 
 	/* permitted data */
+	attributes: PermittedAttribute;
 	deprecatedAttributes: string[];
 	permittedContent: Permitted;
 	permittedDescendants: Permitted;
 	permittedOrder: PermittedOrder;
 
-	[key: string]: boolean | PropertyExpression | Permitted | PermittedOrder;
+	[key: string]: boolean | PropertyExpression | Permitted | PermittedOrder | PermittedAttribute;
 }
 
 export type ElementTable = { [tagName: string]: MetaElement };

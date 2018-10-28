@@ -14,6 +14,7 @@ const allowedKeys = [
 	'void',
 	'transparent',
 	'implicitClosed',
+	'attributes',
 	'deprecatedAttributes',
 	'permittedContent',
 	'permittedDescendants',
