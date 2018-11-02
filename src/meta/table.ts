@@ -104,7 +104,7 @@ function parseExpression(expr: PropertyExpression): [PropertyEvaluator, any] {
 		const [funcName, options] = expr;
 		const func = functionTable[funcName];
 		if (!func){
-			throw new Error(`Failed to find function when evaluation property expression "${expr}"`);
+			throw new Error(`Failed to find function "${funcName}" when evaluating property expression`);
 		}
 		return [func, options];
 	}
@@ -112,7 +112,7 @@ function parseExpression(expr: PropertyExpression): [PropertyEvaluator, any] {
 
 function isDescendant(node: DOMNode, tagName: any): boolean {
 	if (typeof tagName !== 'string'){
-		throw new Error(`Property expression "isDescendant" must take string argument`);
+		throw new Error(`Property expression "isDescendant" must take string argument when evaluating metadata for <${node.tagName}>`);
 	}
 	let cur: DOMNode = node.parent;
 	while (!cur.isRootElement()){
@@ -126,20 +126,20 @@ function isDescendant(node: DOMNode, tagName: any): boolean {
 
 function hasAttribute(node: DOMNode, attr: any): boolean {
 	if (typeof attr !== 'string'){
-		throw new Error(`Property expression "hasAttribute" must take string argument`);
+		throw new Error(`Property expression "hasAttribute" must take string argument when evaluating metadata for <${node.tagName}>`);
 	}
 	return node.hasAttribute(attr);
 }
 
 function matchAttribute(node: DOMNode, match: any): boolean {
 	if (!Array.isArray(match) || match.length !== 3){
-		throw new Error(`Property expression "matchAttribute" must take [key, op, value] array as argument`);
+		throw new Error(`Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <${node.tagName}>`);
 	}
 	const [key, op, value] = match.map(x => x.toLowerCase());
 	const nodeValue = (node.getAttributeValue(key) || '').toLowerCase();
 	switch (op){
 	case '!=': return nodeValue !== value;
 	case '=': return nodeValue === value;
-	default: throw new Error(`Property expression "matchAttribute" has invalid operator "${op}"`);
+	default: throw new Error(`Property expression "matchAttribute" has invalid operator "${op}" when evaluating metadata for <${node.tagName}>`);
 	}
 }
