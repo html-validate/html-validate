@@ -3,6 +3,7 @@ import { Combinator, parseCombinator } from './combinator';
 
 class Matcher {
 	match(node: DOMNode): boolean { // eslint-disable-line no-unused-vars
+		/* istanbul ignore next: only used by fallback solution */
 		return false;
 	}
 }
@@ -54,9 +55,7 @@ class AttrMatcher extends Matcher {
 		case '=':
 			return attr === this.value;
 		default:
-			// eslint-disable-next-line no-console
-			console.error(`Attribute selector operator ${this.op} is not implemented yet`);
-			return false;
+			throw new Error(`Attribute selector operator ${this.op} is not implemented yet`);
 		}
 	}
 }
@@ -90,9 +89,9 @@ class Pattern {
 		case '[':
 			return new AttrMatcher(pattern.slice(1, -1));
 		default:
-			// eslint-disable-next-line no-console
-			console.error(`Failed to create matcher for "${pattern}"`);
-			return new Matcher();
+			/* istanbul ignore next: fallback solution, the switch cases should cover
+			 * everything and there is no known way to trigger this fallback */
+			throw new Error(`Failed to create matcher for "${pattern}"`);
 		}
 	}
 }
@@ -137,9 +136,10 @@ export class Selector {
 			return Selector.findAdjacentSibling(root);
 		case Combinator.GENERAL_SIBLING:
 			return Selector.findGeneralSibling(root);
-		default:
-			return [];
 		}
+		/* istanbul ignore next: fallback solution, the switch cases should cover
+		 * everything and there is no known way to trigger this fallback */
+		return [];
 	}
 
 	private static findAdjacentSibling(node: DOMNode): DOMNode[] {
