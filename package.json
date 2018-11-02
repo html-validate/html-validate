@@ -96,6 +96,9 @@
       "<rootDir>/src",
       "<rootDir>/docs"
     ],
+    "snapshotSerializers": [
+      "pretty-format/build/plugins/convert_ansi.js"
+    ],
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },
