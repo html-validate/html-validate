@@ -124,7 +124,7 @@ export class Parser {
 
 		const tagName = token.data[2];
 		const open = !token.data[1];
-		const meta = (active.meta.implicitClosed || []);
+		const meta = active.meta.implicitClosed;
 
 		if (open){
 			/* a new element is opened, check if the new element should close the
