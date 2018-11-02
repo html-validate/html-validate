@@ -58,10 +58,6 @@ export class Context {
 			column: this.column,
 		};
 	}
-
-	getLocationString(): string {
-		return `${this.filename}:${this.line}:${this.column}`;
-	}
 }
 
 export default Context;

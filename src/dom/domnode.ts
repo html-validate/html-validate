@@ -14,6 +14,10 @@ export enum NodeClosed {
 
 let counter = 0;
 
+export function reset(){
+	counter = 0;
+}
+
 export class DOMNode {
 	readonly tagName: string;
 	readonly attr: { [key: string]: Attribute; };

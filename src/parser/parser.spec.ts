@@ -1,7 +1,7 @@
 import { Config } from '../config';
 import { DOMNode, DOMTree } from '../dom';
 import { EventCallback } from '../event';
-import { InvalidTokenError } from '../lexer';
+import { InvalidTokenError, TokenStream, TokenType } from '../lexer';
 import { Parser } from './parser';
 import HtmlValidate from '../htmlvalidate';
 import '../matchers';
@@ -22,6 +22,12 @@ function mergeEvent(event: string, data: any){
 	return merged;
 }
 
+class ExposedParser extends Parser {
+	public trigger(event: any, data: any){
+		super.trigger(event, data);
+	}
+}
+
 describe('parser', function(){
 
 	const ignoredEvents = [
@@ -31,11 +37,11 @@ describe('parser', function(){
 	];
 
 	let events: Array<any>;
-	let parser: Parser;
+	let parser: ExposedParser;
 
 	beforeEach(function(){
 		events = [];
-		parser = new Parser(Config.empty());
+		parser = new ExposedParser(Config.empty());
 		parser.on('*', (event: string, data: any) => {
 			if (ignoredEvents.includes(event)) return;
 			events.push(mergeEvent(event, data));
@@ -85,6 +91,14 @@ describe('parser', function(){
 			parser.parseHtml('<input>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'input'});
 			expect(events.shift()).toEqual({event: 'tag:close', target: 'input', previous: 'input'});
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it('void elements with close tag', function(){
+			parser.parseHtml('<input></input>');
+			expect(events.shift()).toEqual({event: 'tag:open', target: 'input'});
+			expect(events.shift()).toEqual({event: 'tag:close', target: 'input', previous: 'input'});
+			expect(events.shift()).toEqual({event: 'tag:close', target: 'input', previous: undefined});
 			expect(events.shift()).toBeUndefined();
 		});
 
@@ -279,6 +293,16 @@ describe('parser', function(){
 			expect(events.shift()).toBeUndefined();
 		});
 
+		it('throw on invalid directive', () => {
+			expect(() => {
+				parser.consumeDirective({
+					type: TokenType.DIRECTIVE,
+					location: {filename: 'inline', line: 1, column: 1},
+					data: ['', '!'],
+				});
+			}).toThrowError('Failed to parse directive "!"');
+		});
+
 	});
 
 	describe('should handle optional end tags', function(){
@@ -344,6 +368,13 @@ describe('parser', function(){
 			expect(dom.doctype).toEqual('foobar');
 		});
 
+		it('conditional comment', () => {
+			parser.parseHtml('<!--[if IE 6]>foo<![endif]-->');
+			expect(events.shift()).toEqual({event: 'conditional', condition: 'if IE 6'});
+			expect(events.shift()).toEqual({event: 'conditional', condition: 'endif'});
+			expect(events.shift()).toBeUndefined();
+		});
+
 	});
 
 	describe('regressiontesting', function(){
@@ -373,6 +404,44 @@ describe('parser', function(){
 
 	});
 
+	describe('consumeUntil()', () => {
+
+		it('should yield list of tokens until match is found (inclusive)', () => {
+			const src: TokenStream = [
+				{type: TokenType.TAG_OPEN, location: {filename: 'inline', line: 1, column: 1}, data: null},
+				{type: TokenType.ATTR_NAME, location: {filename: 'inline', line: 1, column: 2}, data: null},
+				{type: TokenType.TAG_CLOSE, location: {filename: 'inline', line: 1, column: 4}, data: null},
+				{type: TokenType.COMMENT, location: {filename: 'inline', line: 1, column: 5}, data: null},
+			][Symbol.iterator]();
+			const result = Array.from(parser.consumeUntil(src, TokenType.TAG_CLOSE));
+			expect(result).toEqual([
+				{type: TokenType.TAG_OPEN, location: {filename: 'inline', line: 1, column: 1}, data: null},
+				{type: TokenType.ATTR_NAME, location: {filename: 'inline', line: 1, column: 2}, data: null},
+				{type: TokenType.TAG_CLOSE, location: {filename: 'inline', line: 1, column: 4}, data: null},
+			]);
+		});
+
+		it('should throw error if no match is found', () => {
+			const src: TokenStream = [
+				{type: TokenType.COMMENT, location: {filename: 'inline', line: 1, column: 5}, data: null},
+			][Symbol.iterator]();
+			expect(() => Array.from(parser.consumeUntil(src, TokenType.TAG_CLOSE))).toThrowError('stream ended before consumeUntil finished');
+		});
+
+	});
+
+	it('on() should delegate to eventhandler', () => {
+		const delegate = jest.spyOn((parser as any).event, 'on');
+		parser.on('foo', () => null);
+		expect(delegate).toHaveBeenCalledWith('foo', expect.any(Function));
+	});
+
+	it('once() should delegate to eventhandler', () => {
+		const delegate = jest.spyOn((parser as any).event, 'once');
+		parser.once('foo', () => null);
+		expect(delegate).toHaveBeenCalledWith('foo', expect.any(Function));
+	});
+
 	describe('defer()', () => {
 
 		it('should push wildcard event on event queue', () => {
@@ -381,6 +450,21 @@ describe('parser', function(){
 			parser.defer(cb);
 			expect((parser as any).event.once).toHaveBeenCalledWith('*', cb);
 			expect(cb).toHaveBeenCalled();
+		});
+
+	});
+
+	describe('trigger()', () => {
+
+		it('should pass event to eventhandler', () => {
+			const trigger = jest.spyOn((parser as any).event, 'trigger');
+			const event = {location: {}};
+			parser.trigger('foo', event);
+			expect(trigger).toHaveBeenCalledWith('foo', event);
+		});
+
+		it('should throw error if event is missing location', () => {
+			expect(() => parser.trigger('foo', {})).toThrowError('Triggered event must contain location');
 		});
 
 	});
