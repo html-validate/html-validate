@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+- support global metadata.
+- new rule `attribute-allowed-values` validates allowed values for attributes,
+  such as `type` for `<input>`.
+
 ## 0.13.0 (2018-10-21)
 
 ### Features

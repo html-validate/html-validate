@@ -396,6 +396,7 @@ function mockEntry(tagName: string, stub = {}): MetaElement {
 		void: false,
 		transparent: false,
 		implicitClosed: [],
+		attributes: {},
 		deprecatedAttributes: [],
 		permittedContent: [],
 		permittedDescendants: [],

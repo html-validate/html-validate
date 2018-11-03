@@ -1,4 +1,14 @@
 {
+  "*": {
+    "attributes": {
+      "contenteditable": ["", "true", "false"],
+      "dir": ["ltr", "rtl", "auto"],
+      "draggable": ["true", "false"],
+      "hidden":  [],
+      "tabindex": ["/-?\\d+/"]
+    }
+  },
+
   "a": {
     "flow": true,
     "phrasing": true,
@@ -61,7 +71,14 @@
     "void": true,
     "deprecatedAttributes": [
       "nohref"
-    ]
+    ],
+    "attributes": {
+      "shape": [
+        "rect",
+        "circle",
+        "poly"
+      ]
+    }
   },
 
   "article": {
@@ -92,6 +109,14 @@
     "embedded": true,
     "interactive": ["hasAttribute", "controls"],
     "transparent": true,
+    "attributes": {
+      "preload": [
+        "",
+        "none",
+        "metadata",
+        "auto"
+      ]
+    },
     "permittedContent": [
       "@flow",
       "track",
@@ -198,6 +223,13 @@
       "datafld",
       "dataformatas"
     ],
+    "attributes": {
+      "type": [
+        "submit",
+        "reset",
+        "button"
+      ]
+    },
     "permittedContent": [
       "@phrasing"
     ],
@@ -632,7 +664,54 @@
       "align",
       "hspace",
       "vspace"
-    ]
+    ],
+    "attributes": {
+      "autofocus": [],
+      "capture": [],
+      "checked": [],
+      "disabled": [],
+      "inputmode": [
+        "none",
+        "text",
+        "decimal",
+        "numeric",
+        "tel",
+        "search",
+        "email",
+        "url"
+      ],
+      "multiple": [],
+      "readonly": [],
+      "spellcheck": [
+        "default",
+        "false",
+        "true"
+      ],
+      "type": [
+        "button",
+        "checkbox",
+        "color",
+        "date",
+        "datetime-local",
+        "email",
+        "file",
+        "hidden",
+        "image",
+        "month",
+        "number",
+        "password",
+        "radio",
+        "range",
+        "reset",
+        "search",
+        "submit",
+        "tel",
+        "text",
+        "time",
+        "url",
+        "week"
+      ]
+    }
   },
 
   "ins": {
@@ -752,7 +831,24 @@
       "align",
       "hspace",
       "vspace"
-    ]
+    ],
+    "attributes": {
+      "dir": [
+        "ltr",
+        "rtl"
+      ],
+      "display": [
+        "block",
+        "inline"
+      ],
+      "overflow": [
+        "linebreak",
+        "scroll",
+        "elide",
+        "truncate",
+        "scale"
+      ]
+    }
   },
 
   "meta": {
@@ -1389,6 +1485,14 @@
     "embedded": true,
     "interactive": ["hasAttribute", "controls"],
     "transparent": true,
+    "attributes": {
+      "preload": [
+        "",
+        "none",
+        "metadata",
+        "auto"
+      ]
+    },
     "permittedContent": [
       "@flow",
       "track",

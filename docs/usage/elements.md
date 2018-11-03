@@ -37,6 +37,7 @@ export interface MetaElement {
 	transparent: boolean;
 
 	/* permitted data */
+	attributes: PermittedAttribute;
 	deprecatedAttributes: string[];
 	permittedContent: Permitted;
 	permittedDescendants: Permitted;
@@ -111,6 +112,34 @@ For custom elements it can be useful to set this if the content category isn't
 flow.
 
 ## Permitted content
+
+### `attributes`
+
+An object with allowed attribute values.
+
+```js
+"custom-element": {
+  "attributes": {
+    "foo": [
+      "bar",
+      "baz"
+    ]
+  }
+}
+```
+
+With this metadata the attribute `"foo"` may only have the values `"bar"` or
+`"foo"`.
+
+- To allow empty values explicitly list `""`:  
+  `"my-attr": ["", "value 1", "value 2"]`
+- Boolean attributes must be set to an empty list `[]`:  
+  `"my-attr": []`
+
+Regular expressions can also be used, e.g `"/-?\\d+/"` to match numbers.
+
+This is used by the
+[attribute-allowed-values](/rules/attribute-allowed-values.html) rule.
 
 ### `deprecatedAttributes`
 
@@ -227,3 +256,16 @@ appear anywhere.
 
 This is used by
 [element-permitted-order](/rules/element-permitted-order.html) rule.
+
+## Global element
+
+The special `*` element can be used to assign global metadata applying to all
+elements, e.g. global attributes.
+
+```js
+"*": {
+  "attributes": {
+    "tabindex": ["/-?\\d+/"]
+  ]
+}
+```

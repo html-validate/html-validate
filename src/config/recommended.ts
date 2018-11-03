@@ -2,6 +2,7 @@ module.exports = {
 	rules: {
 		'attr-case': 'error',
 		'attr-quotes': 'error',
+		'attribute-allowed-values': 'error',
 		'button-type': 'error',
 		'close-attr': 'error',
 		'close-order': 'error',

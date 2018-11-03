@@ -1,4 +1,10 @@
-import { Permitted, PermittedEntry, PermittedGroup, PermittedOrder } from './element';
+import {
+	Permitted,
+	PermittedAttribute,
+	PermittedEntry,
+	PermittedGroup,
+	PermittedOrder,
+} from './element';
 import { DOMNode } from '../dom';
 
 const allowedKeys = [
@@ -77,6 +83,26 @@ export class Validator {
 			prev = node;
 		}
 		return true;
+	}
+
+	public static validateAttribute(key: string, value: string|undefined, rules: PermittedAttribute): boolean {
+		const rule = rules[key];
+		if (!rule){
+			return true;
+		}
+
+		/* consider an empty array as being a boolean attribute */
+		if (rule.length === 0){
+			return value === undefined;
+		}
+
+		return rule.some((entry: string|RegExp) => {
+			if (entry instanceof RegExp){
+				return !!value.match(entry);
+			} else {
+				return value === entry;
+			}
+		});
 	}
 
 	private static validatePermittedRule(node: DOMNode, rule: PermittedEntry): boolean {
