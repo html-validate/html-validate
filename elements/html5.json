@@ -224,6 +224,8 @@
       "dataformatas"
     ],
     "attributes": {
+      "autofocus": [],
+      "disabled": [],
       "type": [
         "submit",
         "reset",
@@ -278,6 +280,9 @@
   },
 
   "col": {
+    "attributes": {
+      "span": ["/\\d+/"]
+    },
     "deprecatedAttributes": [
       "align",
       "char",
@@ -292,6 +297,9 @@
     "implicitClosed": [
       "colgroup"
     ],
+    "attributes": {
+      "span": ["/\\d+/"]
+    },
     "permittedContent": [
       "col",
       "template"
@@ -408,6 +416,9 @@
 
   "fieldset": {
     "flow": true,
+    "attributes": {
+      "disabled": []
+    },
     "deprecatedAttributes": [
       "datafld"
     ],
@@ -460,6 +471,11 @@
 
   "form": {
     "flow": true,
+    "attributes": {
+      "autocomplete": ["on", "off"],
+      "method": ["get", "post"],
+      "novalidate": []
+    },
     "deprecatedAttributes": [
       "accept"
     ],
@@ -638,6 +654,18 @@
     "embedded": true,
     "interactive": ["hasAttribute", "usemap"],
     "void": true,
+    "attributes": {
+      "crossorigin": [
+        "anonymous",
+        "use-credentials"
+      ],
+      "decoding": [
+        "sync",
+        "async",
+        "auto"
+      ],
+      "ismap": []
+    },
     "deprecatedAttributes": [
       "datasrc",
       "datafld",
@@ -784,6 +812,12 @@
   "link": {
     "metadata": true,
     "void": true,
+    "attributes": {
+      "crossorigin": [
+        "anonymous",
+        "use-credentials"
+      ]
+    },
     "deprecatedAttributes": [
       "charset",
       "methods",
@@ -946,6 +980,10 @@
 
   "ol": {
     "flow": true,
+    "attributes": {
+      "reversed": [],
+      "type": ["a", "A", "i", "I", "1"]
+    },
     "deprecatedAttributes": [
       "compact"
     ],
@@ -960,6 +998,9 @@
     "implicitClosed": [
       "optgroup"
     ],
+    "attributes": {
+      "disabled": []
+    },
     "permittedContent": [
       "option",
       "script",
@@ -971,6 +1012,10 @@
     "implicitClosed": [
       "option"
     ],
+    "attributes": {
+      "disabled": [],
+      "selected": []
+    },
     "deprecatedAttributes": [
       "datasrc",
       "dataformatas",
@@ -1147,6 +1192,15 @@
     "metadata": true,
     "flow": true,
     "phrasing": true,
+    "attributes": {
+      "async": [],
+      "crossorigin": [
+        "anonymous",
+        "use-credentials"
+      ],
+      "defer": [],
+      "nomodule": []
+    },
     "deprecatedAttributes": [
       "language",
       "event",
@@ -1166,6 +1220,13 @@
     "flow": true,
     "phrasing": true,
     "interactive": true,
+    "attributes": {
+      "autofocus": [],
+      "disabled": [],
+      "multiple": [],
+      "required": [],
+      "size": ["/\\d+/"]
+    },
     "permittedContent": [
       "datasrc",
       "datafld",
@@ -1307,6 +1368,10 @@
       "td",
       "th"
     ],
+    "attributes": {
+      "colspan": ["/\\d+/"],
+      "rowspan": ["/\\d+/"]
+    },
     "deprecatedAttributes": [
       "align",
       "axis",
@@ -1335,6 +1400,19 @@
     "flow": true,
     "phrasing": true,
     "interactive": true,
+    "attributes": {
+      "autocomplete": ["on", "off"],
+      "autofocus": [],
+      "cols": ["/\\d+/"],
+      "disabled": [],
+      "maxlength": ["/\\d+/"],
+      "minlength": ["/\\d+/"],
+      "readonly": [],
+      "required": [],
+      "rows": ["/\\d+/"],
+      "spellcheck": ["true", "default", "false"],
+      "wrap": ["hard", "soft"]
+    },
     "deprecatedAttributes": [
       "datasrc",
       "datafld"
@@ -1366,6 +1444,17 @@
       "td",
       "th"
     ],
+    "attributes": {
+      "colspan": ["/\\d+/"],
+      "rowspan": ["/\\d+/"],
+      "scope": [
+        "row",
+        "col",
+        "rowgroup",
+        "colgroup",
+        "auto"
+      ]
+    },
     "deprecatedAttributes": [
       "align",
       "axis",

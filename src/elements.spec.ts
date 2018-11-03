@@ -329,6 +329,8 @@ describe('HTML elements', function(){
 		disallowContent('button', '@flow');
 		disallowDescendant('button', '@interactive');
 		disallowNesting('button');
+		allowAttribute('button', 'autofocus', []);
+		allowAttribute('button', 'disabled', []);
 		allowAttribute('button', 'type', ['submit', 'reset', 'button']);
 		disallowAttribute('button', 'type', ['', 'foobar']);
 	});

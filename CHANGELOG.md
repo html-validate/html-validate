@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Features
+
+- more element attributes added.
+
 ## 0.15.1 (2018-11-26)
 
 ### Features
