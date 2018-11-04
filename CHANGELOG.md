@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.14.1 (2018-11-04)
+
 ### Bugfixes
 
 - fix dependency on `acorn`, the package now properly resolves acorn 5 when
