@@ -2,6 +2,11 @@
 
 ## Upcoming release
 
+### Bugfixes
+
+- fix dependency on `acorn`, the package now properly resolves acorn 5 when
+  dependant pulls acorn 6.
+
 ## 0.14.0 (2018-11-03)
 
 - support global metadata.
