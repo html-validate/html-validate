@@ -3,7 +3,7 @@ import { Source } from '../context';
 
 const espree = require("espree");
 const fs = require('fs');
-const walk = require("acorn/dist/walk");
+const walk = require("acorn-walk");
 
 /* espree puts location information a bit different than estree */
 declare module 'estree' {
