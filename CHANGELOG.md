@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.14.2 (2018-11-06)
+
 ### Features
 
 - bump dependencies.
