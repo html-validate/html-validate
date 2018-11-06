@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Features
+
+- use `acorn-walk` instead of `acorn@5`.
+
 ## 0.14.1 (2018-11-04)
 
 ### Bugfixes
