@@ -320,6 +320,16 @@ describe("HtmlElement", () => {
 		});
 	});
 
+	describe("appendText()", () => {
+		it("should add text to element", () => {
+			const node = new HtmlElement("foo");
+			node.appendText("foo");
+			node.appendText("bar");
+			expect(node.childNodes).toHaveLength(2);
+			expect(node.textContent).toEqual("foobar");
+		});
+	});
+
 	describe("should calculate depth", () => {
 		it("for nodes without parent", () => {
 			const node = new HtmlElement("foo");

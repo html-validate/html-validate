@@ -7,6 +7,7 @@ import { DOMTokenList } from "./domtokenlist";
 import { DynamicValue } from "./dynamic-value";
 import { NodeType } from "./nodetype";
 import { Selector } from "./selector";
+import { TextNode } from "./text";
 
 export enum NodeClosed {
 	Open = 0, //            element wasn't closed
@@ -187,6 +188,16 @@ export class HtmlElement extends DOMNode {
 		} else {
 			return null;
 		}
+	}
+
+	/**
+	 * Add text as a child node to this element.
+	 *
+	 * @param text - Text to add.
+	 * @param location - Source code location of this text.
+	 */
+	public appendText(text: string, location?: Location): void {
+		this.childNodes.push(new TextNode(text, location));
 	}
 
 	/**

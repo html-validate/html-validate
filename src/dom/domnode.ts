@@ -42,6 +42,13 @@ export class DOMNode {
 		this.unique = counter++;
 	}
 
+	/**
+	 * Get the text (recursive) from all child nodes.
+	 */
+	public get textContent(): string {
+		return this.childNodes.map(node => node.textContent).join("");
+	}
+
 	public append(node: DOMNode): void {
 		this.childNodes.push(node);
 	}

@@ -1,5 +1,9 @@
+import { Config } from "../config";
+import { Parser } from "../parser";
 import { DOMNode } from "./domnode";
+import { HtmlElement } from "./htmlelement";
 import { NodeType } from "./nodetype";
+import { TextNode } from "./text";
 
 describe("DOMNode", () => {
 	it("should set nodeName and nodeType", () => {
@@ -69,6 +73,47 @@ describe("DOMNode", () => {
 		it("should return null if no children present", () => {
 			const node = new DOMNode(NodeType.ELEMENT_NODE, "root");
 			expect(node.lastChild).toBeNull();
+		});
+	});
+
+	describe("textContent", () => {
+		it("should get text from children", () => {
+			const root = new HtmlElement("root");
+			const a = new HtmlElement("a", root);
+			const b = new HtmlElement("b", root);
+			a.appendText("foo");
+			b.appendText("bar");
+			expect(root.textContent).toEqual("foobar");
+		});
+
+		it("should get text from children (recursive)", () => {
+			const root = new HtmlElement("root");
+			const a = new HtmlElement("a", root);
+			const b = new HtmlElement("b", root);
+			const c = new HtmlElement("b", b);
+			a.appendText("foo");
+			c.appendText("bar");
+			expect(root.textContent).toEqual("foobar");
+		});
+
+		it("should get text from children intermixed with text", () => {
+			const root = new HtmlElement("root");
+			const a = new HtmlElement("a");
+			const b = new TextNode(" bar ");
+			const c = new HtmlElement("c");
+			a.appendText("foo");
+			c.appendText("baz");
+			root.append(a);
+			root.append(b);
+			root.append(c);
+			expect(root.textContent).toEqual("foo bar baz");
+		});
+
+		it("smoketest", () => {
+			const markup = `lorem <i>ipsum</i> <b>dolor <u>sit amet</u></b>`;
+			const parser = new Parser(Config.empty());
+			const doc = parser.parseHtml(markup).root;
+			expect(doc.textContent).toEqual("lorem ipsum dolor sit amet");
 		});
 	});
 

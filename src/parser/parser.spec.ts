@@ -1,6 +1,6 @@
 import { Config } from "../config";
 import { Source } from "../context";
-import { DOMTree, HtmlElement } from "../dom";
+import { DOMTree, HtmlElement, TextNode } from "../dom";
 import { EventCallback } from "../event";
 import HtmlValidate from "../htmlvalidate";
 import { InvalidTokenError, Token, TokenStream, TokenType } from "../lexer";
@@ -728,6 +728,18 @@ describe("parser", () => {
 				target: "svg",
 			});
 			expect(events.shift()).toBeUndefined();
+		});
+
+		it("should parse elements with text", () => {
+			const doc = parser.parseHtml("<b>foo</b> <u>bar</ul>").root;
+			expect(doc.childNodes).toHaveLength(3);
+			expect(doc.childNodes[0]).toBeInstanceOf(HtmlElement);
+			expect(doc.childNodes[0].textContent).toEqual("foo");
+			expect(doc.childNodes[1]).toBeInstanceOf(TextNode);
+			expect(doc.childNodes[1].textContent).toEqual(" ");
+			expect(doc.childNodes[2]).toBeInstanceOf(HtmlElement);
+			expect(doc.childNodes[2].textContent).toEqual("bar");
+			expect(doc.textContent).toEqual("foo bar");
 		});
 	});
 
