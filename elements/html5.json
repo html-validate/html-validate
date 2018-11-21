@@ -682,6 +682,7 @@
       ],
       "multiple": [],
       "readonly": [],
+      "required": [],
       "spellcheck": [
         "default",
         "false",
