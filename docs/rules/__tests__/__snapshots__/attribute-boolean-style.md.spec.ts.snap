@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/attribute-boolean-style.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/attribute-boolean-style.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 8,
+        "line": 1,
+        "message": "Attribute \\"required\\" should omit value",
+        "ruleId": "attribute-boolean-style",
+        "severity": 2,
+      },
+      Object {
+        "column": 8,
+        "line": 2,
+        "message": "Attribute \\"required\\" should omit value",
+        "ruleId": "attribute-boolean-style",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

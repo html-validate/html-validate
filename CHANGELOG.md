@@ -4,6 +4,7 @@
 
 ### Features
 
+- new rule `attribute-boolean-style` to validate style of boolean attributes.
 - new property `nodeName` on `DOMNode`.
 
 ### Bugfixes
