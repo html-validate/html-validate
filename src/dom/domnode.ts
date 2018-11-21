@@ -12,6 +12,8 @@ export enum NodeClosed {
 	ImplicitClosed = 4,   /* element with optional end tag <li>foo<li>bar */
 }
 
+const DOCUMENT_NODE_NAME = '#document';
+
 let counter = 0;
 
 export function reset(){
@@ -19,6 +21,7 @@ export function reset(){
 }
 
 export class DOMNode {
+	readonly nodeName: string;
 	readonly tagName: string;
 	readonly attr: { [key: string]: Attribute; };
 	readonly children: Array<DOMNode>;
@@ -31,8 +34,9 @@ export class DOMNode {
 	closed: NodeClosed;
 
 	constructor(tagName: string, parent?: DOMNode, closed: NodeClosed = NodeClosed.EndTag, meta?: MetaElement, location?: Location){
-		this.children = [];
+		this.nodeName = tagName || DOCUMENT_NODE_NAME;
 		this.tagName = tagName;
+		this.children = [];
 		this.parent = parent;
 		this.attr = {};
 		this.meta = meta;
@@ -76,7 +80,7 @@ export class DOMNode {
 	}
 
 	isRootElement(): boolean {
-		return typeof this.tagName === 'undefined';
+		return this.nodeName === DOCUMENT_NODE_NAME;
 	}
 
 	setAttribute(key: string, value: string, location: Location): void {

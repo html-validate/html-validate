@@ -34,6 +34,7 @@ describe('DOMNode', function(){
 		it('should create DOMNode from tokens', () => {
 			const [startToken, endToken] = createTokens('foo'); // <foo>
 			const node = DOMNode.fromTokens(startToken, endToken, null, null);
+			expect(node.nodeName).toEqual('foo');
 			expect(node.tagName).toEqual('foo');
 			expect(node.location).toEqual(startToken.location);
 			expect(node.closed).toEqual(NodeClosed.Open);
@@ -80,6 +81,13 @@ describe('DOMNode', function(){
 			expect(node.closed).toEqual(NodeClosed.VoidSelfClosed);
 		});
 
+	});
+
+	it('root element', () => {
+		const rootElement = root.root;
+		expect(rootElement.isRootElement()).toBeTruthy();
+		expect(rootElement.nodeName).toEqual('#document');
+		expect(rootElement.tagName).toBeUndefined();
 	});
 
 	it('id property should return element id', function(){

@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Features
+
+- new property `nodeName` on `DOMNode`.
+
 ## 0.14.2 (2018-11-06)
 
 ### Features
