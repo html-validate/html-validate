@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.15.0 (2018-11-21)
+
 ### Features
 
 - new rule `attribute-boolean-style` to validate style of boolean attributes.
