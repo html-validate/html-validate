@@ -103,4 +103,11 @@ describe('Selector', () => {
 		]);
 	});
 
+	it('should match multiple attributes ([wilma][lorem-123-ipsum])', () => {
+		const selector = new Selector('[wilma][lorem-123-ipsum]');
+		expect(Array.from(selector.match(doc))).toEqual([
+			expect.objectContaining({tagName: 'foo', unique: 10}),
+		]);
+	});
+
 });
