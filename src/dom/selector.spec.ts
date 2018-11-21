@@ -11,12 +11,12 @@ describe('Selector', () => {
 		const parser = new Parser(Config.empty());
 		doc = parser.parseHtml(`
 <foo id="barney">first foo</foo>
-<foo class="fred">second foo</foo>
+<foo CLASS="fred">second foo</foo>
 <bar>
   <baz class="fred">
     <foo>third foo</foo>
   </baz>
-  <foo wilma="flintstone">forth foo</foo>
+  <foo wilma="flintstone" lorem-123-ipsum="dolor sit amet">forth foo</foo>
   <spam wilma="rubble"></spam>
   <baz></baz>
 </bar>
@@ -89,8 +89,22 @@ describe('Selector', () => {
 		]);
 	});
 
+	it('should match having attribute with dashes and numbers ([lorem-123-ipsum])', () => {
+		const selector = new Selector('[lorem-123-ipsum]');
+		expect(Array.from(selector.match(doc))).toEqual([
+			expect.objectContaining({tagName: 'foo', unique: 10}),
+		]);
+	});
+
 	it('should match attribute value ([wilma="flintstone"])', () => {
 		const selector = new Selector('[wilma="flintstone"]');
+		expect(Array.from(selector.match(doc))).toEqual([
+			expect.objectContaining({tagName: 'foo', unique: 10}),
+		]);
+	});
+
+	it('should match multiple attributes ([wilma][lorem-123-ipsum])', () => {
+		const selector = new Selector('[wilma][lorem-123-ipsum]');
 		expect(Array.from(selector.match(doc))).toEqual([
 			expect.objectContaining({tagName: 'foo', unique: 10}),
 		]);

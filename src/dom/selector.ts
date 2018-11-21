@@ -41,7 +41,7 @@ class AttrMatcher extends Matcher {
 
 	constructor(attr: string){
 		super();
-		const [, key, op, value] = attr.match(/^([a-z]+)(?:([~^$*|]?=)"([a-z]+)")?$/);
+		const [, key, op, value] = attr.match(/^(.+?)(?:([~^$*|]?=)"([a-z]+)")?$/);
 		this.key = key;
 		this.op = op;
 		this.value = value;

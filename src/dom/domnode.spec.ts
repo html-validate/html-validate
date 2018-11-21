@@ -284,6 +284,11 @@ describe('DOMNode', function(){
 			expect(el[1].tagName).toEqual('p');
 		});
 
+		it('should return [] when nothing matches', () => {
+			const el = root.querySelectorAll('missing');
+			expect(el).toEqual([]);
+		});
+
 	});
 
 	describe('visitDepthFirst()', function(){
