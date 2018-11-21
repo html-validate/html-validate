@@ -3,6 +3,7 @@ module.exports = {
 		'attr-case': 'error',
 		'attr-quotes': 'error',
 		'attribute-allowed-values': 'error',
+		'attribute-boolean-style': 'error',
 		'button-type': 'error',
 		'close-attr': 'error',
 		'close-order': 'error',

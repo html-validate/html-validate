@@ -4,10 +4,15 @@
 
 ### Features
 
+- new rule `attribute-boolean-style` to validate style of boolean attributes.
 - new property `nodeName` on `DOMNode`.
 
 ### Bugfixes
 
+- `attribute-allowed-values` now normalizes boolean attributes before
+  validating, i.e. it will accept `disabled`, `disabled=""` or
+  `disabled="disabled"`. Fixes #13.
+- `input` learned `required` attribute.
 - `querySelector` properly handles attribute selectors with dashes and
   digits. Fixes #15.
 

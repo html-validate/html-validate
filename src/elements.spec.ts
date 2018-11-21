@@ -193,11 +193,12 @@ describe('HTML elements', function(){
 		allowAttribute('input', 'dir', ['ltr', 'rtl', 'auto'], 'omit');
 		allowAttribute('input', 'draggable', ['true', 'false'], 'omit');
 		allowAttribute('input', 'hidden', [], 'omit');
+		allowAttribute('input', 'hidden', ['', 'hidden'], 'omit');
 		allowAttribute('input', 'tabindex', ['0', '12', '-1'], 'omit');
 		disallowAttribute('input', 'contenteditable', ['foobar'], 'omit');
 		disallowAttribute('input', 'dir', ['', 'foobar'], 'omit');
 		disallowAttribute('input', 'draggable', ['', 'foobar'], 'omit');
-		disallowAttribute('input', 'hidden', ['', 'foobar'], 'omit');
+		disallowAttribute('input', 'hidden', ['foobar'], 'omit');
 		disallowAttribute('input', 'tabindex', ['', 'foobar'], 'omit');
 	});
 
@@ -599,15 +600,17 @@ describe('HTML elements', function(){
 		allowAttribute('input', 'inputmode', ['none', 'text', 'numeric'], 'omit'); /* only testing a subset */
 		allowAttribute('input', 'multiple', [], 'omit');
 		allowAttribute('input', 'readonly', [], 'omit');
+		allowAttribute('input', 'required', [], 'omit');
 		allowAttribute('input', 'type', ['text', 'checkbox', 'search'], 'omit'); /* only testing a subset */
-		disallowAttribute('input', 'autofocus', ['', 'foobar'], 'omit');
-		disallowAttribute('input', 'capture', ['', 'foobar'], 'omit');
-		disallowAttribute('input', 'checked', ['', 'foobar'], 'omit');
-		disallowAttribute('input', 'disabled', ['', 'foobar'], 'omit');
-		disallowAttribute('input', 'inputmode', ['', 'foobar'], 'omit');
-		disallowAttribute('input', 'multiple', ['', 'foobar'], 'omit');
-		disallowAttribute('input', 'readonly', ['', 'foobar'], 'omit');
-		disallowAttribute('input', 'type', ['', 'foobar'], 'omit');
+		disallowAttribute('input', 'autofocus', ['foobar'], 'omit');
+		disallowAttribute('input', 'capture', ['foobar'], 'omit');
+		disallowAttribute('input', 'checked', ['foobar'], 'omit');
+		disallowAttribute('input', 'disabled', ['foobar'], 'omit');
+		disallowAttribute('input', 'inputmode', ['foobar'], 'omit');
+		disallowAttribute('input', 'multiple', ['foobar'], 'omit');
+		disallowAttribute('input', 'readonly', ['foobar'], 'omit');
+		disallowAttribute('input', 'required', ['foobar'], 'omit');
+		disallowAttribute('input', 'type', ['foobar'], 'omit');
 
 		it('should be interactive only if "type" is not "hidden"', function(){
 			const source = inlineSource('<input type="hidden"/><input type="foo"/>');

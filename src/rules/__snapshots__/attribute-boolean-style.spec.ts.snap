@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule attribute-boolean-style configured with "empty" smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/rules/attribute-boolean-style.html",
+    "messages": Array [
+      Object {
+        "column": 8,
+        "line": 1,
+        "message": "Attribute \\"disabled\\" value should be empty string",
+        "ruleId": "attribute-boolean-style",
+        "severity": 2,
+      },
+      Object {
+        "column": 8,
+        "line": 3,
+        "message": "Attribute \\"disabled\\" value should be empty string",
+        "ruleId": "attribute-boolean-style",
+        "severity": 2,
+      },
+      Object {
+        "column": 8,
+        "line": 4,
+        "message": "Attribute \\"disabled\\" value should be empty string",
+        "ruleId": "attribute-boolean-style",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`rule attribute-boolean-style configured with "name" smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 4,
+    "filePath": "test-files/rules/attribute-boolean-style.html",
+    "messages": Array [
+      Object {
+        "column": 8,
+        "line": 1,
+        "message": "Attribute \\"disabled\\" should be set to disabled=\\"disabled\\"",
+        "ruleId": "attribute-boolean-style",
+        "severity": 2,
+      },
+      Object {
+        "column": 8,
+        "line": 2,
+        "message": "Attribute \\"disabled\\" should be set to disabled=\\"disabled\\"",
+        "ruleId": "attribute-boolean-style",
+        "severity": 2,
+      },
+      Object {
+        "column": 8,
+        "line": 3,
+        "message": "Attribute \\"disabled\\" should be set to disabled=\\"disabled\\"",
+        "ruleId": "attribute-boolean-style",
+        "severity": 2,
+      },
+      Object {
+        "column": 8,
+        "line": 4,
+        "message": "Attribute \\"disabled\\" should be set to disabled=\\"disabled\\"",
+        "ruleId": "attribute-boolean-style",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`rule attribute-boolean-style configured with "omit" smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/rules/attribute-boolean-style.html",
+    "messages": Array [
+      Object {
+        "column": 8,
+        "line": 2,
+        "message": "Attribute \\"disabled\\" should omit value",
+        "ruleId": "attribute-boolean-style",
+        "severity": 2,
+      },
+      Object {
+        "column": 8,
+        "line": 3,
+        "message": "Attribute \\"disabled\\" should omit value",
+        "ruleId": "attribute-boolean-style",
+        "severity": 2,
+      },
+      Object {
+        "column": 8,
+        "line": 4,
+        "message": "Attribute \\"disabled\\" should omit value",
+        "ruleId": "attribute-boolean-style",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
+`;

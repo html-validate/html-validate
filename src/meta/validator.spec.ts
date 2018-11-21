@@ -399,7 +399,15 @@ describe('Meta validator', function(){
 				'foo': [] as Array<string>,
 			};
 			expect(Validator.validateAttribute('foo', undefined, rules)).toBeTruthy();
-			expect(Validator.validateAttribute('foo', '', rules)).toBeFalsy();
+		});
+
+		it('should normalize boolean attributes', () => {
+			const rules = {
+				'foo': [] as Array<string>,
+			};
+			expect(Validator.validateAttribute('foo', undefined, rules)).toBeTruthy();
+			expect(Validator.validateAttribute('foo', '', rules)).toBeTruthy();
+			expect(Validator.validateAttribute('foo', 'foo', rules)).toBeTruthy();
 			expect(Validator.validateAttribute('foo', 'bar', rules)).toBeFalsy();
 		});
 

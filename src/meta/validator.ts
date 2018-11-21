@@ -93,7 +93,7 @@ export class Validator {
 
 		/* consider an empty array as being a boolean attribute */
 		if (rule.length === 0){
-			return value === undefined;
+			return value === undefined || value === "" || value === key;
 		}
 
 		return rule.some((entry: string|RegExp) => {
