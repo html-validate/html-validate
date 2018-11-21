@@ -6,6 +6,11 @@
 
 - new property `nodeName` on `DOMNode`.
 
+### Bugfixes
+
+- `querySelector` properly handles attribute selectors with dashes and
+  digits. Fixes #15.
+
 ## 0.14.2 (2018-11-06)
 
 ### Features

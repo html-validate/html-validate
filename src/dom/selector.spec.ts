@@ -16,7 +16,7 @@ describe('Selector', () => {
   <baz class="fred">
     <foo>third foo</foo>
   </baz>
-  <foo wilma="flintstone">forth foo</foo>
+  <foo wilma="flintstone" lorem-123-ipsum="dolor sit amet">forth foo</foo>
   <spam wilma="rubble"></spam>
   <baz></baz>
 </bar>
@@ -86,6 +86,13 @@ describe('Selector', () => {
 		expect(Array.from(selector.match(doc))).toEqual([
 			expect.objectContaining({tagName: 'foo', unique: 10}),
 			expect.objectContaining({tagName: 'spam', unique: 12}),
+		]);
+	});
+
+	it('should match having attribute with dashes and numbers ([lorem-123-ipsum])', () => {
+		const selector = new Selector('[lorem-123-ipsum]');
+		expect(Array.from(selector.match(doc))).toEqual([
+			expect.objectContaining({tagName: 'foo', unique: 10}),
 		]);
 	});
 
