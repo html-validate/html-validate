@@ -11,7 +11,7 @@ describe('Selector', () => {
 		const parser = new Parser(Config.empty());
 		doc = parser.parseHtml(`
 <foo id="barney">first foo</foo>
-<foo class="fred">second foo</foo>
+<foo CLASS="fred">second foo</foo>
 <bar>
   <baz class="fred">
     <foo>third foo</foo>
