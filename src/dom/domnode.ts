@@ -123,6 +123,16 @@ export class DOMNode {
 		return this.parent.children;
 	}
 
+	get previousSibling(): DOMNode {
+		const i = this.siblings.findIndex(node => node.unique === this.unique);
+		return i >= 1 ? this.siblings[i - 1] : null;
+	}
+
+	get nextSibling(): DOMNode {
+		const i = this.siblings.findIndex(node => node.unique === this.unique);
+		return i <= (this.siblings.length - 2) ? this.siblings[i + 1] : null;
+	}
+
 	getElementsByTagName(tagName: string): Array<DOMNode> {
 		return this.children.reduce(function(matches, node){
 			return matches.concat(node.is(tagName) ? [node] : [], node.getElementsByTagName(tagName));
