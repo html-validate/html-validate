@@ -101,6 +101,26 @@ describe('DOMNode', function(){
 		expect(el.id).toBeNull();
 	});
 
+	it('previousSibling should return node before this node', () => {
+		const root = new DOMNode('root');
+		const a = new DOMNode('a', root);
+		const b = new DOMNode('b', root);
+		const c = new DOMNode('c', root);
+		expect(c.previousSibling).toEqual(b);
+		expect(b.previousSibling).toEqual(a);
+		expect(a.previousSibling).toBeNull();
+	});
+
+	it('nextSibling should return node after this node', () => {
+		const root = new DOMNode('root');
+		const a = new DOMNode('a', root);
+		const b = new DOMNode('b', root);
+		const c = new DOMNode('c', root);
+		expect(a.nextSibling).toEqual(b);
+		expect(b.nextSibling).toEqual(c);
+		expect(c.nextSibling).toBeNull();
+	});
+
 	it('should be assigned a unique id', function(){
 		const n1 = new DOMNode('foo');
 		const n2 = new DOMNode('foo');

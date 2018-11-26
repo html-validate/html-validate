@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Features
+
+- new properties `previousSibling` and `nextSibling` on `DOMNode`.
+
 ## 0.15.0 (2018-11-21)
 
 ### Features
