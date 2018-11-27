@@ -1,4 +1,5 @@
 import { Config } from "../config";
+import { Source } from "../context";
 import { DOMTree, HtmlElement } from "../dom";
 import { EventCallback } from "../event";
 import HtmlValidate from "../htmlvalidate";
@@ -611,6 +612,39 @@ describe("parser", () => {
 			expect(events.shift()).toEqual({
 				event: "conditional",
 				condition: "endif",
+			});
+			expect(events.shift()).toBeUndefined();
+		});
+	});
+
+	describe("should postprocess", () => {
+		it("attribute", () => {
+			const processAttribute = jest.fn(attr => {
+				attr.key = "fred";
+				attr.value = "barney";
+			});
+			const source: Source = {
+				data: '<input id="foo">',
+				filename: "inline",
+				line: 1,
+				column: 1,
+				hooks: {
+					processAttribute,
+				},
+			};
+			parser.parseHtml(source);
+			expect(events.shift()).toEqual({ event: "tag:open", target: "input" });
+			expect(events.shift()).toEqual({
+				event: "attr",
+				key: "fred",
+				value: "barney",
+				quote: '"',
+				target: "input",
+			});
+			expect(events.shift()).toEqual({
+				event: "tag:close",
+				target: "input",
+				previous: "input",
 			});
 			expect(events.shift()).toBeUndefined();
 		});

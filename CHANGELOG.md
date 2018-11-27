@@ -2,6 +2,13 @@
 
 ## Upcoming release
 
+### Features
+
+- add support for transformer hooks, currently the only hook is `parseAttribute`
+  allowing the transformer to alter the attribute before any events are emitted,
+  e.g. it can pick up the vuejs `:id` attribute and pass it as `id` to allow
+  other rules to continue just as if `id` was typed.
+
 ### Bugfixes
 
 - fix `ConfigLoader` tests when running on windows.
