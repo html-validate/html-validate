@@ -2,7 +2,7 @@ const path = require('canonical-path');
 const Package = require('dgeni').Package;
 const packagePath = __dirname;
 
-module.exports = new Package('cma-docs', [
+module.exports = new Package('html-validate-docs', [
 	require('dgeni-packages/ngdoc'),
 	require('dgeni-packages/nunjucks'),
 	require('./inline-validate'),
