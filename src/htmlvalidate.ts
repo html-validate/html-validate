@@ -19,15 +19,25 @@ class HtmlValidate {
 	 * @return {object} - Report output.
 	 */
 	public validateString(str: string): Report {
-		const source = [{
+		const source = {
 			data: str,
 			filename: 'inline',
 			line: 1,
 			column: 1,
-		}];
+		};
+		return this.validateSource(source);
+	}
+
+	/**
+	 * Parse HTML from source.
+	 *
+	 * @param str {string} - Text to parse.
+	 * @return {object} - Report output.
+	 */
+	public validateSource(source: Source): Report {
 		const config = this.getConfigFor('inline');
 		const engine = new Engine(config, Parser);
-		return engine.lint(source);
+		return engine.lint([source]);
 	}
 
 	/**
