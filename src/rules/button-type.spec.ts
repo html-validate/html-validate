@@ -1,3 +1,5 @@
+import { Source } from "../context";
+import { DynamicValue } from "../dom";
 import HtmlValidate from "../htmlvalidate";
 import "../matchers";
 
@@ -28,6 +30,23 @@ describe("rule button-type", () => {
 		const report = htmlvalidate.validateString(
 			'<button type="reset"></button>'
 		);
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when type attribute is dynamic", () => {
+		const processAttribute = jest.fn(attr => {
+			attr.value = new DynamicValue(attr.value);
+		});
+		const source: Source = {
+			data: '<button type="{{ dynamic }}"></button>',
+			filename: "inline",
+			line: 1,
+			column: 1,
+			hooks: {
+				processAttribute,
+			},
+		};
+		const report = htmlvalidate.validateSource(source);
 		expect(report).toBeValid();
 	});
 

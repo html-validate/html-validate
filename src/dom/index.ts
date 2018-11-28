@@ -3,3 +3,4 @@ export { HtmlElement, NodeClosed } from "./htmlelement";
 export { DOMNode } from "./domnode";
 export { DOMTokenList } from "./domtokenlist";
 export { DOMTree } from "./domtree";
+export { DynamicValue } from "./dynamic-value";

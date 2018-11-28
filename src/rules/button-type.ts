@@ -1,4 +1,4 @@
-import { HtmlElement } from "../dom";
+import { DynamicValue, HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
@@ -20,7 +20,14 @@ class ButtonType extends Rule {
 				const attr = node.getAttribute("type");
 				if (attr === null) {
 					this.report(node, "Button is missing type attribute");
-				} else if (validTypes.indexOf(attr.value.toLowerCase()) === -1) {
+					return;
+				}
+
+				if (attr.value instanceof DynamicValue) {
+					return;
+				}
+
+				if (validTypes.indexOf(attr.value.toLowerCase()) === -1) {
 					this.report(
 						node,
 						`Button has invalid type "${attr.value}"`,
