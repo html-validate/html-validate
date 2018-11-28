@@ -55,4 +55,10 @@ describe('TemplateExtractor', function(){
 		]);
 	});
 
+	it('createSource() should create source from file as-is', () => {
+		expect(TemplateExtractor.createSource('test-files/extract.js')).toEqual([
+			{data: expect.any(String), filename: 'test-files/extract.js', line: 1, column: 1},
+		]);
+	});
+
 });

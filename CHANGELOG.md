@@ -10,6 +10,8 @@
 
 ### Features
 
+- add `TemplateExtractor.createSource` as a quick way to create a source from
+  filename.
 - add typescript definition for `shim.js`
 - add `validateSource` to `HtmlValidate` allowing to manually passing a source.
 - `HtmlValidate.getConfigFor` is now part of public API.

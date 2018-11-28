@@ -91,6 +91,16 @@ export class TemplateExtractor {
 		return new TemplateExtractor(ast, filename || 'inline');
 	}
 
+	static createSource(filename: string): Source[] {
+		const data = fs.readFileSync(filename, 'utf-8');
+		return [{
+			column: 1,
+			data,
+			filename: filename,
+			line: 1,
+		}];
+	}
+
 	extractObjectProperty(key: string): Source[] {
 		const result: Source[] = [];
 		const filename = this.filename;
