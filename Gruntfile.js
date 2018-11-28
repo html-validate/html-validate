@@ -92,6 +92,12 @@ module.exports = function(grunt){
 				src: '*',
 				dest: 'public/assets/fonts/',
 			},
+			favicon: {
+				expand: true,
+				cwd: 'docs/app',
+				src: 'favicon.ico',
+				dest: 'public/',
+			},
 		},
 
 		browserify: {
