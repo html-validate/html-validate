@@ -1,4 +1,6 @@
 import { ConfigData } from "../config";
+import { Source } from "../context";
+import { EventHandler } from "../event";
 import { RuleConstructor } from "../rule";
 
 export interface SchemaValidationPatch {
@@ -15,6 +17,24 @@ export interface Plugin {
 	name: string;
 
 	/**
+	 * Initialization callback.
+	 *
+	 * Called once per plugin during initialization.
+	 */
+	init?: () => void;
+
+	/**
+	 * Setup callback.
+	 *
+	 * Called once per source after engine is initialized.
+	 *
+	 * @param source The source about to be validated. Readonly.
+	 * @param eventhandler Eventhandler from parser. Can be used to listen for
+	 * parser events.
+	 */
+	setup?: (source: Source, eventhandler: EventHandler) => void;
+
+	/**
 	 * Configuration presets.
 	 *
 	 * Each key should be the unprefixed name which a configuration later can
@@ -24,6 +44,9 @@ export interface Plugin {
 	 */
 	configs: { [key: string]: ConfigData };
 
+	/**
+	 * List of new rules present.
+	 */
 	rules: { [key: string]: RuleConstructor };
 
 	/**
