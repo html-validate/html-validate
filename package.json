@@ -13,10 +13,10 @@
   "homepage": "https://html-validate.org",
   "repository": {
     "type": "git",
-    "url": "https://git.sidvind.com/html-validate/html-validate.git"
+    "url": "https://gitlab.com/html-validate/html-validate.git"
   },
   "bugs": {
-    "url": "https://git.sidvind.com/html-validate/html-validate/issues/new"
+    "url": "https://gitlab.com/html-validate/html-validate/issues/new"
   },
   "main": "shim.js",
   "engines": {
