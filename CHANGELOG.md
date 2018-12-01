@@ -4,6 +4,7 @@
 
 ### Features
 
+- move repository to https://gitlab.com/html-validate/html-validate
 - move homepage to https://html-validate.org
 - more element attributes added.
 
