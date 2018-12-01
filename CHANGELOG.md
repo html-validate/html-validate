@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.15.2 (2018-12-01)
+
 ### Features
 
 - move repository to https://gitlab.com/html-validate/html-validate
