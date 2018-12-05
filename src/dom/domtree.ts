@@ -1,6 +1,5 @@
 import { Location } from '../context';
 import { DOMNode } from './domnode';
-import { Selector } from './selector';
 import { MetaTable } from '../meta';
 
 export class DOMTree {
@@ -50,17 +49,10 @@ export class DOMTree {
 	}
 
 	querySelector(selector: string): DOMNode {
-		const it = this.querySelectorImpl(selector);
-		return it.next().value || null;
+		return this.root.querySelector(selector);
 	}
 
 	querySelectorAll(selector: string): DOMNode[] {
-		const it = this.querySelectorImpl(selector);
-		return Array.from(it);
-	}
-
-	private *querySelectorImpl(selector: string): IterableIterator<DOMNode> {
-		const pattern = new Selector(selector);
-		yield* pattern.match(this.root);
+		return this.root.querySelectorAll(selector);
 	}
 }

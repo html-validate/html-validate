@@ -3,6 +3,7 @@ import { Token } from '../lexer';
 import { DOMTokenList } from './domtokenlist';
 import { MetaTable, MetaElement } from '../meta';
 import { Attribute } from './attribute';
+import { Selector } from './selector';
 
 export enum NodeClosed {
 	Open = 0,            /* element wasn't closed */
@@ -137,6 +138,21 @@ export class DOMNode {
 		return this.children.reduce(function(matches, node){
 			return matches.concat(node.is(tagName) ? [node] : [], node.getElementsByTagName(tagName));
 		}, []);
+	}
+
+	querySelector(selector: string): DOMNode {
+		const it = this.querySelectorImpl(selector);
+		return it.next().value || null;
+	}
+
+	querySelectorAll(selector: string): DOMNode[] {
+		const it = this.querySelectorImpl(selector);
+		return Array.from(it);
+	}
+
+	private *querySelectorImpl(selector: string): IterableIterator<DOMNode> {
+		const pattern = new Selector(selector);
+		yield* pattern.match(this);
 	}
 
 	/**
