@@ -291,6 +291,11 @@ describe('DOMNode', function(){
 			expect(el.getAttributeValue('class')).toEqual('baz');
 		});
 
+		it('should return null if nothing matches', () => {
+			const el = root.querySelector('foobar');
+			expect(el).toBeNull();
+		});
+
 	});
 
 	describe('querySelectorAll()', () => {
