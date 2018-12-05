@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.15.3 (2018-12-05)
+
 ### Features
 
 - expose `querySelector` and `querySelectorAll` on `DOMNode`, not just
