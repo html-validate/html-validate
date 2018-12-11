@@ -10,6 +10,7 @@ export class Context {
 	state: number;
 	string: string;
 	filename: string;
+	offset: number;
 	line: number;
 	column: number;
 	contentModel: ContentModel;
@@ -19,6 +20,7 @@ export class Context {
 		this.state = undefined;
 		this.string = source.data;
 		this.filename = source.filename;
+		this.offset = 0;
 		this.line = source.line;
 		this.column = source.column;
 		this.contentModel = ContentModel.TEXT;
@@ -41,6 +43,7 @@ export class Context {
 			consumed = consumed.substr(offset + 1);
 		}
 		this.column += consumed.length;
+		this.offset += n;
 
 		/* remove N chars */
 		this.string = this.string.substr(n);
@@ -54,6 +57,7 @@ export class Context {
 	getLocation(): Location {
 		return {
 			filename: this.filename,
+			offset: this.offset,
 			line: this.line,
 			column: this.column,
 		};
