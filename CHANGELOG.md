@@ -2,6 +2,12 @@
 
 ## Upcoming release
 
+### Features
+
+- CLI learned `--stdin` and `--stdin-filename` for passing markup on standard
+  input and explicitly naming it. Useful for external tools and IDEs which wants
+  to pass the markup in stdin instead of a temporary file.
+
 ## 0.15.3 (2018-12-05)
 
 ### Features
