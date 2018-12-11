@@ -108,7 +108,8 @@ e.g. "checkstyle=build/html-validate.xml"
 `);
 }
 
-if (argv.h || argv.help){
+
+if (argv.h || argv.help || argv._.length === 0){
 	showUsage();
 	process.exit();
 }
