@@ -1,5 +1,5 @@
 import HtmlValidate from '../htmlvalidate';
-import { Reporter, Report } from '../reporter';
+import { Reporter, Report, Result } from '../reporter';
 import { getFormatter } from './formatter';
 import * as minimist from 'minimist';
 import { TokenDump, EventDump } from '../engine';
@@ -72,9 +72,16 @@ function dump(files: string[], mode: string){
 	return flat.join('\n');
 }
 
+function renameStdin(report: Report, filename: string): void {
+	const stdin = report.results.find((cur: Result) => cur.filePath === '/dev/stdin');
+	if (stdin){
+		stdin.filePath = filename;
+	}
+}
+
 const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
-	string: ['f', 'formatter', 'rule'],
-	boolean: ['dump-events', 'dump-tokens', 'dump-tree'],
+	string: ['f', 'formatter', 'rule', 'stdin-filename'],
+	boolean: ['dump-events', 'dump-tokens', 'dump-tree', 'stdin'],
 	alias: {
 		f: 'formatter',
 	},
@@ -89,14 +96,16 @@ function showUsage(){
 Usage: html-validate [OPTIONS] [FILENAME..] [DIR..]
 
 Common options:
-  -f, --formatter=FORMATTER   specify the formatter to use.
-      --rule=RULE:SEVERITY    set additional rule, use comma separator for
-                              multiple.
+  -f, --formatter=FORMATTER      specify the formatter to use.
+      --rule=RULE:SEVERITY       set additional rule, use comma separator for
+                                 multiple.
+      --stdin                    process markup from stdin.
+      --stdin-filename=STRING    specify filename to report when using stdin
 
 Debugging options:
-      --dump-events           output events during parsing.
-      --dump-tokens           output tokens from lexing stage.
-      --dump-tree             output nodes from the dom tree.
+      --dump-events              output events during parsing.
+      --dump-tokens              output tokens from lexing stage.
+      --dump-tree                output nodes from the dom tree.
 
 Formatters:
 
@@ -108,7 +117,11 @@ e.g. "checkstyle=build/html-validate.xml"
 `);
 }
 
-if (argv.h || argv.help){
+if (argv.stdin){
+	argv._.push('-');
+}
+
+if (argv.h || argv.help || argv._.length === 0){
 	showUsage();
 	process.exit();
 }
@@ -119,12 +132,27 @@ const formatter = getFormatter(argv.formatter);
 const htmlvalidate = new HtmlValidate(config);
 
 const files = argv._.reduce((files: string[], pattern: string) => {
+	/* process - as standard input */
+	if (pattern === '-'){
+		pattern = '/dev/stdin';
+	}
 	return files.concat(glob.sync(pattern));
 }, []);
 const unique = [... new Set(files)];
 
+if (unique.length === 0){
+	console.error('No files matching patterns', argv._); // eslint-disable-line no-console
+	process.exit(1);
+}
+
 if (mode === 'lint'){
 	const result = lint(unique);
+
+	/* rename stdin if an explicit filename was passed */
+	if (argv['stdin-filename']){
+		renameStdin(result, argv['stdin-filename']);
+	}
+
 	formatter(result);
 	process.exit(result.valid ? 0 : 1);
 } else {
