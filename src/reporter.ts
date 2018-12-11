@@ -7,6 +7,7 @@ export interface Message {
 	ruleId: string;
 	severity: number;
 	message: string;
+	offset: number;
 	line: number;
 	column: number;
 }
@@ -57,6 +58,7 @@ export class Reporter {
 			ruleId: rule.name,
 			severity,
 			message,
+			offset: location.offset,
 			line: location.line,
 			column: location.column,
 		});

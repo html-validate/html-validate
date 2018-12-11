@@ -10,6 +10,7 @@ Array [
         "column": 15,
         "line": 3,
         "message": "Close tags cannot have attributes",
+        "offset": 36,
         "ruleId": "close-attr",
         "severity": 2,
       },

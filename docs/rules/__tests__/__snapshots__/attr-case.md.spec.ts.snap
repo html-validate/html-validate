@@ -12,6 +12,7 @@ Array [
         "column": 4,
         "line": 1,
         "message": "Attribute \\"ID\\" should be lowercase",
+        "offset": 3,
         "ruleId": "attr-case",
         "severity": 2,
       },

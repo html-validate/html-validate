@@ -12,6 +12,7 @@ Array [
         "column": 7,
         "line": 1,
         "message": "Attribute \\"bgcolor\\" is deprecated on <body> element",
+        "offset": 6,
         "ruleId": "no-deprecated-attr",
         "severity": 2,
       },

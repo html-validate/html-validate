@@ -12,6 +12,7 @@ Array [
         "column": 8,
         "line": 1,
         "message": "Attribute \\"type\\" has invalid value \\"foobar\\"",
+        "offset": 7,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
       },

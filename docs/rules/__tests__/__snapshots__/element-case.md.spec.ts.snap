@@ -12,6 +12,7 @@ Array [
         "column": 1,
         "line": 1,
         "message": "Element \\"DIV\\" should be lowercase",
+        "offset": 0,
         "ruleId": "element-case",
         "severity": 2,
       },

@@ -271,6 +271,7 @@ export class Engine<T extends Parser = Parser> {
 			ruleId: undefined,
 			severity: Config.SEVERITY_ERROR,
 			message: message,
+			offset: location.offset,
 			line: location.line,
 			column: location.column,
 		});

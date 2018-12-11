@@ -12,6 +12,7 @@ Array [
         "column": 5,
         "line": 4,
         "message": "Element <caption> must be used before <thead> in this context",
+        "offset": 81,
         "ruleId": "element-permitted-order",
         "severity": 2,
       },
