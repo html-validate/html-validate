@@ -128,6 +128,11 @@ const files = argv._.reduce((files: string[], pattern: string) => {
 }, []);
 const unique = [... new Set(files)];
 
+if (unique.length === 0){
+	console.error('No files matching patterns', argv._); // eslint-disable-line no-console
+	process.exit(1);
+}
+
 if (mode === 'lint'){
 	const result = lint(unique);
 	formatter(result);
