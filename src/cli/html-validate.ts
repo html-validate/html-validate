@@ -110,7 +110,7 @@ e.g. "checkstyle=build/html-validate.xml"
 }
 
 if (argv.stdin){
-	argv._.push('/dev/stdin');
+	argv._.push('-');
 }
 
 if (argv.h || argv.help || argv._.length === 0){
@@ -124,6 +124,10 @@ const formatter = getFormatter(argv.formatter);
 const htmlvalidate = new HtmlValidate(config);
 
 const files = argv._.reduce((files: string[], pattern: string) => {
+	/* process - as standard input */
+	if (pattern === '-'){
+		pattern = '/dev/stdin';
+	}
 	return files.concat(glob.sync(pattern));
 }, []);
 const unique = [... new Set(files)];
