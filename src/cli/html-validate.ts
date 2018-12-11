@@ -74,7 +74,7 @@ function dump(files: string[], mode: string){
 
 const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
 	string: ['f', 'formatter', 'rule'],
-	boolean: ['dump-events', 'dump-tokens', 'dump-tree'],
+	boolean: ['dump-events', 'dump-tokens', 'dump-tree', 'stdin'],
 	alias: {
 		f: 'formatter',
 	},
@@ -92,6 +92,7 @@ Common options:
   -f, --formatter=FORMATTER   specify the formatter to use.
       --rule=RULE:SEVERITY    set additional rule, use comma separator for
                               multiple.
+      --stdin                 process markup from stdin.
 
 Debugging options:
       --dump-events           output events during parsing.
@@ -108,6 +109,9 @@ e.g. "checkstyle=build/html-validate.xml"
 `);
 }
 
+if (argv.stdin){
+	argv._.push('/dev/stdin');
+}
 
 if (argv.h || argv.help || argv._.length === 0){
 	showUsage();
