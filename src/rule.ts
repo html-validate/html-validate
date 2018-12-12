@@ -78,7 +78,8 @@ export abstract class Rule {
 		}
 	}
 
-	private findLocation(src: any){
+	// eslint-disable-next-line typescript/member-delimiter-style
+	private findLocation(src: {node: DOMNode, location: Location, event: Event}): Location {
 		if (src.location){
 			return src.location;
 		}
@@ -88,7 +89,7 @@ export abstract class Rule {
 		if (src.node && src.node.location){
 			return src.node.location;
 		}
-		return {};
+		return {} as Location;
 	}
 
 	/**
