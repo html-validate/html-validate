@@ -24,6 +24,7 @@ class MockParser extends Parser {
 		case 'parse-error':
 			throw new InvalidTokenError({
 				filename: source.filename,
+				offset: 0,
 				line: 1,
 				column: 1,
 			}, 'parse error');
@@ -82,6 +83,7 @@ describe('Engine', function(){
 			expect(report.valid).toBeFalsy();
 			expect(report.results).toHaveLength(1);
 			expect(report.results[0].messages).toEqual([{
+				offset: 0,
 				line: 1,
 				column: 1,
 				severity: 2,

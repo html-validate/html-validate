@@ -4,4 +4,4 @@ exports[`json formatter should empty messages 1`] = `"[{\\"filePath\\":\\"empty.
 
 exports[`json formatter should empty result 1`] = `"[]"`;
 
-exports[`json formatter should generate json 1`] = `"[{\\"filePath\\":\\"regular.html\\",\\"messages\\":[{\\"ruleId\\":\\"foo\\",\\"severity\\":2,\\"message\\":\\"An error\\",\\"line\\":1,\\"column\\":5},{\\"ruleId\\":\\"bar\\",\\"severity\\":1,\\"message\\":\\"A warning\\",\\"line\\":2,\\"column\\":4}]},{\\"filePath\\":\\"edge-cases.html\\",\\"messages\\":[{\\"ruleId\\":\\"baz\\",\\"severity\\":2,\\"message\\":\\"Another error\\",\\"line\\":3,\\"column\\":3}]}]"`;
+exports[`json formatter should generate json 1`] = `"[{\\"filePath\\":\\"regular.html\\",\\"messages\\":[{\\"ruleId\\":\\"foo\\",\\"severity\\":2,\\"message\\":\\"An error\\",\\"offset\\":4,\\"line\\":1,\\"column\\":5},{\\"ruleId\\":\\"bar\\",\\"severity\\":1,\\"message\\":\\"A warning\\",\\"offset\\":12,\\"line\\":2,\\"column\\":4}]},{\\"filePath\\":\\"edge-cases.html\\",\\"messages\\":[{\\"ruleId\\":\\"baz\\",\\"severity\\":2,\\"message\\":\\"Another error\\",\\"offset\\":14,\\"line\\":3,\\"column\\":3}]}]"`;

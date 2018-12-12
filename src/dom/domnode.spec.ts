@@ -8,7 +8,7 @@ import { MetaTable, MetaElement } from '../meta';
 describe('DOMNode', function(){
 
 	let root: DOMTree;
-	const location: Location = {filename: 'filename', line: 1, column: 1};
+	const location: Location = {filename: 'filename', offset: 0, line: 1, column: 1};
 
 	beforeEach(() => {
 		const parser = new Parser(Config.empty());
@@ -321,6 +321,7 @@ describe('DOMNode', function(){
 		it('should visit all nodes in correct order', function(){
 			const root = DOMNode.rootNode({
 				filename: 'inline',
+				offset: 0,
 				line: 1,
 				column: 1,
 			});
