@@ -75,21 +75,19 @@ Docs:
   script:
     - node_modules/.bin/grunt build
 
-Node 8.x:
+Node 8.x (LTS):
   <<: *compat
   image: node:8
   before_script:
     - npm install
 
-Node 9.x:
-  <<: *compat
-  image: node:9
-  before_script:
-    - npm install
-
-Node 10.x:
+Node 10.x (LTS):
   <<: *compat
   image: node:10
+
+Node 11.x (current):
+  <<: *compat
+  image: node:11
 
 Publish to NPM:
   stage: release
