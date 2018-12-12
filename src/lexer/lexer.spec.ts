@@ -19,16 +19,19 @@ describe('lexer', function(){
 	});
 
 	it('should read location information from source', () => {
-		const source = inlineSource('<p>\n\tfoo\n</p>', {line: 5, column: 42});
+		const source = inlineSource('<p foo="bar">\n\tfoo\n</p>', {line: 5, column: 42});
 		const token = lexer.tokenize(source);
-		expect(token.next()).toBeToken({type: TokenType.TAG_OPEN, location:   {offset:  0, line: 5, column: 42, filename: expect.any(String)}}); // <p
-		expect(token.next()).toBeToken({type: TokenType.TAG_CLOSE, location:  {offset:  2, line: 5, column: 44, filename: expect.any(String)}}); // >
-		expect(token.next()).toBeToken({type: TokenType.WHITESPACE, location: {offset:  3, line: 5, column: 45, filename: expect.any(String)}}); // \n
-		expect(token.next()).toBeToken({type: TokenType.WHITESPACE, location: {offset:  4, line: 6, column:  1, filename: expect.any(String)}}); // \t
-		expect(token.next()).toBeToken({type: TokenType.TEXT, location:       {offset:  5, line: 6, column:  2, filename: expect.any(String)}}); // foo
-		expect(token.next()).toBeToken({type: TokenType.WHITESPACE, location: {offset:  8, line: 6, column:  5, filename: expect.any(String)}}); // \n
-		expect(token.next()).toBeToken({type: TokenType.TAG_OPEN, location:   {offset:  9, line: 7, column:  1, filename: expect.any(String)}}); // </p
-		expect(token.next()).toBeToken({type: TokenType.TAG_CLOSE, location:  {offset: 12, line: 7, column:  4, filename: expect.any(String)}}); // >
+		expect(token.next()).toBeToken({type: TokenType.TAG_OPEN, location:   {offset:  0, line: 5, column: 42, size: 2, filename: expect.any(String)}}); // <p
+		expect(token.next()).toBeToken({type: TokenType.WHITESPACE, location: {offset:  2, line: 5, column: 44, size: 1, filename: expect.any(String)}}); // [whitespace]
+		expect(token.next()).toBeToken({type: TokenType.ATTR_NAME, location:  {offset:  3, line: 5, column: 45, size: 3, filename: expect.any(String)}}); // foo
+		expect(token.next()).toBeToken({type: TokenType.ATTR_VALUE, location: {offset:  6, line: 5, column: 48, size: 6, filename: expect.any(String)}}); // ="bar"
+		expect(token.next()).toBeToken({type: TokenType.TAG_CLOSE, location:  {offset: 12, line: 5, column: 54, size: 1, filename: expect.any(String)}}); // >
+		expect(token.next()).toBeToken({type: TokenType.WHITESPACE, location: {offset: 13, line: 5, column: 55, size: 1, filename: expect.any(String)}}); // \n
+		expect(token.next()).toBeToken({type: TokenType.WHITESPACE, location: {offset: 14, line: 6, column:  1, size: 1, filename: expect.any(String)}}); // \t
+		expect(token.next()).toBeToken({type: TokenType.TEXT, location:       {offset: 15, line: 6, column:  2, size: 3, filename: expect.any(String)}}); // foo
+		expect(token.next()).toBeToken({type: TokenType.WHITESPACE, location: {offset: 18, line: 6, column:  5, size: 1, filename: expect.any(String)}}); // \n
+		expect(token.next()).toBeToken({type: TokenType.TAG_OPEN, location:   {offset: 19, line: 7, column:  1, size: 3, filename: expect.any(String)}}); // </p
+		expect(token.next()).toBeToken({type: TokenType.TAG_CLOSE, location:  {offset: 22, line: 7, column:  4, size: 1, filename: expect.any(String)}}); // >
 		expect(token.next()).toBeToken({type: TokenType.EOF});
 		expect(token.next().done).toBeTruthy();
 	});

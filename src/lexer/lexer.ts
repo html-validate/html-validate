@@ -106,9 +106,13 @@ export class Lexer {
 	}
 
 	private token(context: Context, type: TokenType, data?: Array<string>): Token {
+		const location = context.getLocation();
+		if (data){
+			location.size = data[0].length;
+		}
 		return {
 			type,
-			location: context.getLocation(),
+			location,
 			data: data ? [].concat(data) : null,
 		};
 	}
