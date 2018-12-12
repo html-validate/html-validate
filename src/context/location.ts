@@ -26,3 +26,33 @@ export interface Location {
 	 */
 	readonly size?: number;
 }
+
+function sliceSize(size: number, begin: number, end?: number): number {
+	if (typeof size !== "number"){
+		return size;
+	}
+	if (typeof end !== "number"){
+		return size - begin;
+	}
+	if (end < 0){
+		end = size + end;
+	}
+	return Math.min(size, end - begin);
+}
+
+/**
+ * Calculate a new location by offsetting this location.
+ *
+ * It is assumed there is no newlines anywhere between current location and
+ * the new.
+ */
+export function sliceLocation(location: Location, begin: number, end?: number): Location {
+	const size = sliceSize(location.size, begin, end);
+	return {
+		filename: location.filename,
+		offset: location.offset + begin,
+		line: location.line,
+		column: location.column + begin,
+		size,
+	};
+}
