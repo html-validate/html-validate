@@ -54,12 +54,13 @@ export class Context {
 		}
 	}
 
-	getLocation(): Location {
+	getLocation(size?: number): Location {
 		return {
 			filename: this.filename,
 			offset: this.offset,
 			line: this.line,
 			column: this.column,
+			size,
 		};
 	}
 }
