@@ -16,6 +16,7 @@ Array [
         "column": 1,
         "line": 1,
         "message": "<img> is missing required alt attribute",
+        "offset": 0,
         "ruleId": "img-req-alt",
         "severity": 2,
       },

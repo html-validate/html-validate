@@ -19,12 +19,16 @@ describe('lexer', function(){
 	});
 
 	it('should read location information from source', () => {
-		const source = inlineSource('<p></p>', {line: 5, column: 42});
+		const source = inlineSource('<p>\n\tfoo\n</p>', {line: 5, column: 42});
 		const token = lexer.tokenize(source);
-		expect(token.next()).toBeToken({type: TokenType.TAG_OPEN, location: {line: 5, column: 42, filename: expect.any(String)}});  // <p
-		expect(token.next()).toBeToken({type: TokenType.TAG_CLOSE, location: {line: 5, column: 44, filename: expect.any(String)}}); // >
-		expect(token.next()).toBeToken({type: TokenType.TAG_OPEN, location: {line: 5, column: 45, filename: expect.any(String)}});  // </p
-		expect(token.next()).toBeToken({type: TokenType.TAG_CLOSE, location: {line: 5, column: 48, filename: expect.any(String)}}); // >
+		expect(token.next()).toBeToken({type: TokenType.TAG_OPEN, location:   {offset:  0, line: 5, column: 42, filename: expect.any(String)}}); // <p
+		expect(token.next()).toBeToken({type: TokenType.TAG_CLOSE, location:  {offset:  2, line: 5, column: 44, filename: expect.any(String)}}); // >
+		expect(token.next()).toBeToken({type: TokenType.WHITESPACE, location: {offset:  3, line: 5, column: 45, filename: expect.any(String)}}); // \n
+		expect(token.next()).toBeToken({type: TokenType.WHITESPACE, location: {offset:  4, line: 6, column:  1, filename: expect.any(String)}}); // \t
+		expect(token.next()).toBeToken({type: TokenType.TEXT, location:       {offset:  5, line: 6, column:  2, filename: expect.any(String)}}); // foo
+		expect(token.next()).toBeToken({type: TokenType.WHITESPACE, location: {offset:  8, line: 6, column:  5, filename: expect.any(String)}}); // \n
+		expect(token.next()).toBeToken({type: TokenType.TAG_OPEN, location:   {offset:  9, line: 7, column:  1, filename: expect.any(String)}}); // </p
+		expect(token.next()).toBeToken({type: TokenType.TAG_CLOSE, location:  {offset: 12, line: 7, column:  4, filename: expect.any(String)}}); // >
 		expect(token.next()).toBeToken({type: TokenType.EOF});
 		expect(token.next().done).toBeTruthy();
 	});

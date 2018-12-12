@@ -28,7 +28,7 @@ describe('rule base class', function(){
 
 		rule = new MockRule({});
 		rule.init(parser, reporter, Config.SEVERITY_ERROR);
-		mockLocation = {filename: 'mock-file', line: 1, column: 2};
+		mockLocation = {filename: 'mock-file', offset: 1, line: 1, column: 2};
 		mockEvent = {
 			location: mockLocation,
 		};

@@ -4,6 +4,8 @@
 
 ### Features
 
+- `Location` has a new property `offset` holding the offset into the source
+  data (starting at zero).
 - CLI learned `--stdin` and `--stdin-filename` for passing markup on standard
   input and explicitly naming it. Useful for external tools and IDEs which wants
   to pass the markup in stdin instead of a temporary file.

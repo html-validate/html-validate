@@ -12,6 +12,7 @@ Array [
         "column": 6,
         "line": 1,
         "message": "ID \\"fooBar\\" does not match required pattern \\"/^[a-z0-9-]+$/\\"",
+        "offset": 5,
         "ruleId": "id-pattern",
         "severity": 2,
       },

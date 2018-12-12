@@ -10,6 +10,7 @@ Array [
         "column": 2,
         "line": 11,
         "message": "Input element does not have a label",
+        "offset": 169,
         "ruleId": "input-missing-label",
         "severity": 2,
       },

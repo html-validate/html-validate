@@ -10,6 +10,7 @@ Array [
         "column": 1,
         "line": 2,
         "message": "<marquee> is deprecated",
+        "offset": 19,
         "ruleId": "deprecated",
         "severity": 2,
       },

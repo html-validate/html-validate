@@ -12,6 +12,7 @@ Array [
         "column": 4,
         "line": 1,
         "message": "Inline style is not allowed",
+        "offset": 3,
         "ruleId": "no-inline-style",
         "severity": 2,
       },

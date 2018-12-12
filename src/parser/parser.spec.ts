@@ -297,7 +297,7 @@ describe('parser', function(){
 			expect(() => {
 				parser.consumeDirective({
 					type: TokenType.DIRECTIVE,
-					location: {filename: 'inline', line: 1, column: 1},
+					location: {filename: 'inline', offset: 0, line: 1, column: 1},
 					data: ['', '!'],
 				});
 			}).toThrowError('Failed to parse directive "!"');
@@ -408,22 +408,22 @@ describe('parser', function(){
 
 		it('should yield list of tokens until match is found (inclusive)', () => {
 			const src: TokenStream = [
-				{type: TokenType.TAG_OPEN, location: {filename: 'inline', line: 1, column: 1}, data: null},
-				{type: TokenType.ATTR_NAME, location: {filename: 'inline', line: 1, column: 2}, data: null},
-				{type: TokenType.TAG_CLOSE, location: {filename: 'inline', line: 1, column: 4}, data: null},
-				{type: TokenType.COMMENT, location: {filename: 'inline', line: 1, column: 5}, data: null},
+				{type: TokenType.TAG_OPEN,  location: {filename: 'inline', offset: 0, line: 1, column: 1}, data: null},
+				{type: TokenType.ATTR_NAME, location: {filename: 'inline', offset: 1, line: 1, column: 2}, data: null},
+				{type: TokenType.TAG_CLOSE, location: {filename: 'inline', offset: 3, line: 1, column: 4}, data: null},
+				{type: TokenType.COMMENT,   location: {filename: 'inline', offset: 4, line: 1, column: 5}, data: null},
 			][Symbol.iterator]();
 			const result = Array.from(parser.consumeUntil(src, TokenType.TAG_CLOSE));
 			expect(result).toEqual([
-				{type: TokenType.TAG_OPEN, location: {filename: 'inline', line: 1, column: 1}, data: null},
-				{type: TokenType.ATTR_NAME, location: {filename: 'inline', line: 1, column: 2}, data: null},
-				{type: TokenType.TAG_CLOSE, location: {filename: 'inline', line: 1, column: 4}, data: null},
+				{type: TokenType.TAG_OPEN,  location: {filename: 'inline', offset: 0, line: 1, column: 1}, data: null},
+				{type: TokenType.ATTR_NAME, location: {filename: 'inline', offset: 1, line: 1, column: 2}, data: null},
+				{type: TokenType.TAG_CLOSE, location: {filename: 'inline', offset: 3, line: 1, column: 4}, data: null},
 			]);
 		});
 
 		it('should throw error if no match is found', () => {
 			const src: TokenStream = [
-				{type: TokenType.COMMENT, location: {filename: 'inline', line: 1, column: 5}, data: null},
+				{type: TokenType.COMMENT, location: {filename: 'inline', offset: 4, line: 1, column: 5}, data: null},
 			][Symbol.iterator]();
 			expect(() => Array.from(parser.consumeUntil(src, TokenType.TAG_CLOSE))).toThrowError('stream ended before consumeUntil finished');
 		});

@@ -14,11 +14,11 @@ describe('stylish formatter', () => {
 	it('should generate plaintext', () => {
 		const results: Result[] = [
 			{filePath: 'regular.html', errorCount: 1, warningCount: 1, messages: [
-				{ruleId: 'foo', severity: 2, message: 'An error', line: 1, column: 5},
-				{ruleId: 'bar', severity: 1, message: 'A warning', line: 2, column: 4},
+				{ruleId: 'foo', severity: 2, message: 'An error',  offset: 4,  line: 1, column: 5},
+				{ruleId: 'bar', severity: 1, message: 'A warning', offset: 14, line: 2, column: 4},
 			]},
 			{filePath: 'edge-cases.html', errorCount: 1, warningCount: 0, messages: [
-				{ruleId: 'baz', severity: 2, message: 'Another error', line: 3, column: 3},
+				{ruleId: 'baz', severity: 2, message: 'Another error', offset: 14, line: 3, column: 3},
 			]},
 		];
 		expect(formatter(results)).toMatchSnapshot();

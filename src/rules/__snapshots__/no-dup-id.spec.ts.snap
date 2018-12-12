@@ -10,6 +10,7 @@ Array [
         "column": 1,
         "line": 3,
         "message": "Duplicate ID \\"foo\\"",
+        "offset": 42,
         "ruleId": "no-dup-id",
         "severity": 2,
       },

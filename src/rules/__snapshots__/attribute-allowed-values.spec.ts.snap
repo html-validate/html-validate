@@ -10,6 +10,7 @@ Array [
         "column": 8,
         "line": 3,
         "message": "Attribute \\"type\\" has invalid value \\"foobar\\"",
+        "offset": 35,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
       },

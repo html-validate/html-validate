@@ -10,6 +10,7 @@ Array [
         "column": 2,
         "line": 3,
         "message": "Element <caption> can only appear once under <table>",
+        "offset": 31,
         "ruleId": "element-permitted-occurrences",
         "severity": 2,
       },

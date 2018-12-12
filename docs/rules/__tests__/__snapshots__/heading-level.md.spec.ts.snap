@@ -12,6 +12,7 @@ Array [
         "column": 1,
         "line": 2,
         "message": "Heading level can only increase by one, expected h2",
+        "offset": 19,
         "ruleId": "heading-level",
         "severity": 2,
       },

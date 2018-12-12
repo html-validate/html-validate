@@ -10,6 +10,7 @@ Array [
         "column": 1,
         "line": 1,
         "message": "Document is missing doctype",
+        "offset": 0,
         "ruleId": "missing-doctype",
         "severity": 2,
       },

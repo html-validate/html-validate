@@ -12,6 +12,7 @@ Array [
         "column": 18,
         "line": 1,
         "message": "Attribute \\"class\\" duplicated",
+        "offset": 17,
         "ruleId": "no-dup-attr",
         "severity": 2,
       },

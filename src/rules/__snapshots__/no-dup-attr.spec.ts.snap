@@ -10,6 +10,7 @@ Array [
         "column": 26,
         "line": 2,
         "message": "Attribute \\"id\\" duplicated",
+        "offset": 31,
         "ruleId": "no-dup-attr",
         "severity": 2,
       },
