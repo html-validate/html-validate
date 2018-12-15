@@ -9,13 +9,13 @@ Array [
     "filePath": "inline",
     "messages": Array [
       Object {
-        "column": 5,
+        "column": 6,
         "line": 4,
         "message": "Element <tfoot> can only appear once under <table>",
-        "offset": 76,
+        "offset": 77,
         "ruleId": "element-permitted-occurrences",
         "severity": 2,
-        "size": 6,
+        "size": 5,
       },
     ],
     "warningCount": 0,

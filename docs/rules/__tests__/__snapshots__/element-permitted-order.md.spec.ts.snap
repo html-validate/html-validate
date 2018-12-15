@@ -9,13 +9,13 @@ Array [
     "filePath": "inline",
     "messages": Array [
       Object {
-        "column": 5,
+        "column": 6,
         "line": 4,
         "message": "Element <caption> must be used before <thead> in this context",
-        "offset": 81,
+        "offset": 82,
         "ruleId": "element-permitted-order",
         "severity": 2,
-        "size": 8,
+        "size": 7,
       },
     ],
     "warningCount": 0,

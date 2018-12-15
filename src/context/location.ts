@@ -47,6 +47,7 @@ function sliceSize(size: number, begin: number, end?: number): number {
  * the new.
  */
 export function sliceLocation(location: Location, begin: number, end?: number): Location {
+	if (!location) return null;
 	const size = sliceSize(location.size, begin, end);
 	return {
 		filename: location.filename,

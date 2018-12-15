@@ -7,13 +7,13 @@ Array [
     "filePath": "test-files/rules/input-missing-label.html",
     "messages": Array [
       Object {
-        "column": 2,
+        "column": 3,
         "line": 11,
         "message": "Input element does not have a label",
-        "offset": 169,
+        "offset": 170,
         "ruleId": "input-missing-label",
         "severity": 2,
-        "size": 6,
+        "size": 5,
       },
     ],
     "warningCount": 0,

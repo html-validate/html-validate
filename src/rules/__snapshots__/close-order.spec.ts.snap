@@ -7,13 +7,13 @@ Array [
     "filePath": "test-files/rules/close-order.html",
     "messages": Array [
       Object {
-        "column": 15,
+        "column": 16,
         "line": 6,
         "message": "Mismatched close-tag, expected '</p>' but found '</div>'.",
-        "offset": 52,
+        "offset": 53,
         "ruleId": "close-order",
         "severity": 2,
-        "size": 5,
+        "size": 4,
       },
       Object {
         "column": 5,

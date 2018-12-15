@@ -17,6 +17,10 @@
 - add `validateSource` to `HtmlValidate` allowing to manually passing a source.
 - `HtmlValidate.getConfigFor` is now part of public API.
 
+### Bugfixes
+
+- `HtmlElement` location is now shifted by 1.
+
 ## 0.16.1 (2018-12-16)
 
 ### Bugfixes

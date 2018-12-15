@@ -7,13 +7,13 @@ Array [
     "filePath": "test-files/rules/button-type.html",
     "messages": Array [
       Object {
-        "column": 2,
+        "column": 3,
         "line": 2,
         "message": "Button is missing type attribute",
-        "offset": 8,
+        "offset": 9,
         "ruleId": "button-type",
         "severity": 2,
-        "size": 7,
+        "size": 6,
       },
       Object {
         "column": 10,

@@ -9,13 +9,13 @@ Array [
     "filePath": "inline",
     "messages": Array [
       Object {
-        "column": 5,
+        "column": 6,
         "line": 3,
         "message": "Element <li> is not permitted as content in <div>",
-        "offset": 68,
+        "offset": 69,
         "ruleId": "element-permitted-content",
         "severity": 2,
-        "size": 3,
+        "size": 2,
       },
     ],
     "warningCount": 0,

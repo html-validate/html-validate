@@ -1,4 +1,4 @@
-import { Location } from "../context";
+import { Location, sliceLocation } from "../context";
 import { Token } from "../lexer";
 import { MetaElement, MetaTable } from "../meta";
 import { Attribute } from "./attribute";
@@ -73,8 +73,9 @@ export class HtmlElement extends DOMNode {
 		const meta = metaTable ? metaTable.getMetaFor(tagName) : null;
 		const open = startToken.data[1] !== "/";
 		const closed = isClosed(endToken, meta);
+		const location = sliceLocation(startToken.location, 1); /* location contains position of '<' so strip it out */
 
-		return new HtmlElement(tagName, open ? parent : undefined, closed, meta, startToken.location);
+		return new HtmlElement(tagName, open ? parent : undefined, closed, meta, location);
 	}
 
 	is(tagName: string): boolean {
