@@ -12,13 +12,25 @@ describe('config', function(){
 		expect(Object.keys(config.get().rules)).toHaveLength(0);
 	});
 
-	it('defaultConfig() should load defaults', () => {
-		const config = Config.defaultConfig();
+	it('empty() should load empty config', () => {
+		const config = Config.empty();
 		expect(config.get()).toEqual({
 			extends: [],
 			rules: {},
 			plugins: [],
-			transform: [],
+			transform: {},
+		});
+	});
+
+	it('defaultConfig() should load defaults', () => {
+		const config = Config.defaultConfig();
+		expect(config.get()).toEqual({
+			extends: [
+				'htmlvalidate:recommended',
+			],
+			rules: expect.any(Object),
+			plugins: [],
+			transform: {},
 		});
 	});
 
@@ -29,11 +41,13 @@ describe('config', function(){
 			const b = Config.fromObject({rules: {'bar': 1}});
 			const merged = a.merge(b);
 			expect(merged.get()).toEqual({
-				extends: [], /* added by constructor */
+				extends: [],
 				rules: {
 					'foo': 1,
 					'bar': 1,
 				},
+				plugins: [],
+				transform: {},
 			});
 		});
 
