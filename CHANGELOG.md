@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.16.0 (2018-12-15)
+
 ### Features
 
 - `Location` has a new property `size` holding the number of characters the
