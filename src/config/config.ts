@@ -99,12 +99,11 @@ export class Config {
 		this.metaTable = null;
 		this.rootDir = this.findRootDir();
 
-		/* process and extended configs */
-		const self = this;
-		this.config.extends.forEach(function(ref: string){
-			const base = Config.fromFile(ref);
-			self.config = base.mergeInternal(self.config);
-		});
+		/* process extended configs */
+		for (const extend of this.config.extends){
+			const base = Config.fromFile(extend);
+			this.config = base.mergeInternal(this.config);
+		}
 	}
 
 	init(){
