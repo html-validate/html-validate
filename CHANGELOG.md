@@ -4,6 +4,8 @@
 
 ### Features
 
+- `Location` has a new property `size` holding the number of characters the
+  location refers to.
 - `HtmlValidate` class now loads same default config as CLI if no configuration
   is passed explicitly.
 - `Location` has a new property `offset` holding the offset into the source
