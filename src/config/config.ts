@@ -52,7 +52,7 @@ export class Config {
 	public static readonly SEVERITY_WARN = 1;
 	public static readonly SEVERITY_ERROR = 2;
 
-	static empty(): Config {
+	public static empty(): Config {
 		return new Config({
 			extends: [],
 			rules: {},
@@ -61,11 +61,11 @@ export class Config {
 		});
 	}
 
-	static fromObject(options: Object): Config {
+	public static fromObject(options: ConfigData): Config {
 		return new Config(options);
 	}
 
-	static fromFile(filename: string): Config {
+	public static fromFile(filename: string): Config {
 		switch (filename){
 		case 'htmlvalidate:recommended': return Config.fromObject(recommended);
 		case 'htmlvalidate:document': return Config.fromObject(document);
@@ -84,11 +84,11 @@ export class Config {
 		return new Config(json);
 	}
 
-	static defaultConfig(): Config {
+	public static defaultConfig(): Config {
 		return new Config(defaultConfig);
 	}
 
-	constructor(options?: any){
+	constructor(options?: ConfigData){
 		this.config = {
 			extends: [],
 			plugins: [],

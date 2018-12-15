@@ -94,7 +94,8 @@ describe('config', function(){
 		});
 
 		it('should throw on invalid severity', () => {
-			const config = Config.fromObject({
+			const fn = Config.fromObject as (options: any) => Config;
+			const config = fn({
 				rules: {
 					bar: 'foo',
 				},
