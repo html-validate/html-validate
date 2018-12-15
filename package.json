@@ -26,6 +26,7 @@
     "html-validate": "bin/html-validate.js"
   },
   "scripts": {
+    "start": "grunt connect",
     "test": "jest",
     "lint": "grunt eslint",
     "version": "./scripts/update-changelog.sh && git add CHANGELOG.md",
