@@ -8,8 +8,8 @@ class HtmlValidate {
 	private globalConfig: Config;
 
 	constructor(options?: any){
-		const defaults = Config.defaultConfig();
-		this.globalConfig = defaults.merge(Config.fromObject(options || {}));
+		const defaults = Config.empty();
+		this.globalConfig = defaults.merge(options ? Config.fromObject(options) : Config.defaultConfig());
 	}
 
 	/**

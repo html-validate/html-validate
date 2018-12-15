@@ -3,6 +3,7 @@ import { ConfigData, TransformMap } from './config-data';
 import { Source } from '../context';
 import { RuleConstructor } from '../rule';
 import { ElementTable } from '../meta/element';
+import defaultConfig from './default';
 
 type Transformer = {
 	pattern: RegExp;
@@ -52,7 +53,12 @@ export class Config {
 	public static readonly SEVERITY_ERROR = 2;
 
 	static empty(): Config {
-		return new Config();
+		return new Config({
+			extends: [],
+			rules: {},
+			plugins: [],
+			transform: {},
+		});
 	}
 
 	static fromObject(options: Object): Config {
@@ -79,29 +85,25 @@ export class Config {
 	}
 
 	static defaultConfig(): Config {
-		return new Config({
-			extends: [],
-			rules: {},
-			plugins: [],
-			transform: [],
-		});
+		return new Config(defaultConfig);
 	}
 
 	constructor(options?: any){
 		this.config = {
 			extends: [],
+			plugins: [],
 			rules: {},
+			transform: {},
 		};
 		this.mergeInternal(options || {});
 		this.metaTable = null;
 		this.rootDir = this.findRootDir();
 
-		/* process and extended configs */
-		const self = this;
-		this.config.extends.forEach(function(ref: string){
-			const base = Config.fromFile(ref);
-			self.config = base.mergeInternal(self.config);
-		});
+		/* process extended configs */
+		for (const extend of this.config.extends){
+			const base = Config.fromFile(extend);
+			this.config = base.mergeInternal(this.config);
+		}
 	}
 
 	init(){

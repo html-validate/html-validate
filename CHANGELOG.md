@@ -4,6 +4,8 @@
 
 ### Features
 
+- `HtmlValidate` class now loads same default config as CLI if no configuration
+  is passed explicitly.
 - `Location` has a new property `offset` holding the offset into the source
   data (starting at zero).
 - CLI learned `--stdin` and `--stdin-filename` for passing markup on standard

@@ -1,10 +1,11 @@
 import HtmlValidate from '../htmlvalidate';
 import { Reporter, Report, Result } from '../reporter';
 import { getFormatter } from './formatter';
-import * as minimist from 'minimist';
 import { TokenDump, EventDump } from '../engine';
+import defaultConfig from '../config/default';
 
-const glob = require('glob');
+import * as minimist from 'minimist';
+import * as glob from 'glob';
 
 function getMode(argv: { [key: string]: any }){
 	if (argv['dump-events']){
@@ -23,7 +24,7 @@ function getMode(argv: { [key: string]: any }){
 }
 
 function getGlobalConfig(rules?: string|string[]){
-	const config: any = Object.assign({}, require('./config'));
+	const config: any = Object.assign({}, defaultConfig);
 	if (rules){
 		if (Array.isArray(rules)){
 			rules = rules.join(',');
