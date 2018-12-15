@@ -75,7 +75,7 @@
     "jest": "^23.6.0",
     "jquery": "^3.3.1",
     "load-grunt-tasks": "^4.0.0",
-    "sass": "^1.15.2",
+    "sass": "^1.14.3",
     "serve-static": "^1.13.2",
     "ts-jest": "^23.10.5",
     "typescript": "^3.1.6",
