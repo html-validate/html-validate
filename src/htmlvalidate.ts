@@ -1,8 +1,8 @@
 import { Config, ConfigLoader } from './config';
-import { Engine, TokenDump, EventDump } from './engine';
+import { Source } from './context';
+import { Engine, EventDump, TokenDump } from './engine';
 import { Parser } from './parser';
 import { Report } from './reporter';
-import { Source } from './context';
 
 class HtmlValidate {
 	private globalConfig: Config;
@@ -19,15 +19,25 @@ class HtmlValidate {
 	 * @return {object} - Report output.
 	 */
 	public validateString(str: string): Report {
-		const source = [{
+		const source = {
+			column: 1,
 			data: str,
 			filename: 'inline',
 			line: 1,
-			column: 1,
-		}];
+		};
+		return this.validateSource(source);
+	}
+
+	/**
+	 * Parse HTML from source.
+	 *
+	 * @param str {string} - Text to parse.
+	 * @return {object} - Report output.
+	 */
+	public validateSource(source: Source): Report {
 		const config = this.getConfigFor('inline');
 		const engine = new Engine(config, Parser);
-		return engine.lint(source);
+		return engine.lint([source]);
 	}
 
 	/**
@@ -75,7 +85,7 @@ class HtmlValidate {
 	/**
 	 * Get configuration for given filename.
 	 */
-	private getConfigFor(filename: string): Config {
+	public getConfigFor(filename: string): Config {
 		const loader = new ConfigLoader();
 		const config = loader.fromTarget(filename);
 		const merged = this.globalConfig.merge(config);

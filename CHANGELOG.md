@@ -2,6 +2,12 @@
 
 ## Upcoming release
 
+### Features
+
+- Adding `validateSource` to `HtmlValidate` allowing to manually passing a
+  source.
+- `HtmlValidate.getConfigFor` is now part of public API.
+
 ## 0.16.1 (2018-12-16)
 
 ### Bugfixes
