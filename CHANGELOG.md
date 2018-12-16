@@ -10,9 +10,8 @@
 
 ### Features
 
-- Adding typescript definition for `shim.js`
-- Adding `validateSource` to `HtmlValidate` allowing to manually passing a
-  source.
+- add typescript definition for `shim.js`
+- add `validateSource` to `HtmlValidate` allowing to manually passing a source.
 - `HtmlValidate.getConfigFor` is now part of public API.
 
 ## 0.16.1 (2018-12-16)
