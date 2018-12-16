@@ -1,5 +1,5 @@
 import { Config } from '../config';
-import { DOMNode, DOMTree, NodeClosed } from '../dom';
+import { HtmlElement, DOMTree, NodeClosed } from '../dom';
 import { Source } from '../context';
 import { Lexer, Token, TokenStream, TokenType } from '../lexer';
 import { EventHandler, EventCallback } from '../event';
@@ -149,7 +149,7 @@ export class Parser {
 		const endToken = tokens.slice(-1)[0];
 		const closeOptional = this.closeOptional(startToken);
 		const parent = closeOptional ? this.dom.getActive().parent : this.dom.getActive();
-		const node = DOMNode.fromTokens(startToken, endToken, parent, this.metaTable);
+		const node = HtmlElement.fromTokens(startToken, endToken, parent, this.metaTable);
 		const open = !startToken.data[1];
 		const close = !open || node.closed !== NodeClosed.Open;
 
@@ -209,7 +209,7 @@ export class Parser {
 		}
 	}
 
-	consumeAttribute(node: DOMNode, token: Token, next?: Token){
+	consumeAttribute(node: HtmlElement, token: Token, next?: Token){
 		const key = token.data[1];
 		let value = undefined;
 		let quote = undefined;

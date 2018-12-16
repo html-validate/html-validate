@@ -1,5 +1,5 @@
 import { Rule } from '../rule';
-import { DOMNode } from '../dom';
+import { HtmlElement } from '../dom';
 import { DOMReadyEvent } from '../event';
 import { Validator } from '../meta';
 
@@ -7,7 +7,7 @@ class AttributeAllowedValues extends Rule {
 	setup(){
 		this.on('dom:ready', (event: DOMReadyEvent) => {
 			const doc = event.document;
-			doc.visitDepthFirst((node: DOMNode) => {
+			doc.visitDepthFirst((node: HtmlElement) => {
 				const meta = node.meta;
 
 				/* ignore rule if element has no meta or meta does not specify attribute

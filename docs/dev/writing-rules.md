@@ -43,11 +43,11 @@ Object with all the options passed from the configuration.
 Listen for events. See [events](/dev/events.html) for a full list of available
 events and data.
 
-#### `report(node: DOMNode, message: string, location?: Location): void`
+#### `report(node: HtmlElement, message: string, location?: Location): void`
 
 Report a new error.
 
-- `node` - The `DOMNode` this error belongs to.
+- `node` - The `HtmlElement` this error belongs to.
 - `message` - Error message
 - *`location`* - If set it is the precise location of the error. (Default: node
   location)

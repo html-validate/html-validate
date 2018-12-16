@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { DOMNode } from 'dom';
+import { HtmlElement } from 'dom';
 import { Config } from './config';
 import { Location } from './context';
 import {
@@ -71,7 +71,7 @@ export abstract class Rule {
 	 *
 	 * Rule must be enabled for this to have any effect.
 	 */
-	report(node: DOMNode, message: string, location?: Location): void {
+	report(node: HtmlElement, message: string, location?: Location): void {
 		if (this.isEnabled()){
 			const where = this.findLocation({node, location, event: this.event});
 			this.reporter.add(node, this, message, this.severity, where);
@@ -79,7 +79,7 @@ export abstract class Rule {
 	}
 
 	// eslint-disable-next-line typescript/member-delimiter-style
-	private findLocation(src: {node: DOMNode, location: Location, event: Event}): Location {
+	private findLocation(src: {node: HtmlElement, location: Location, event: Event}): Location {
 		if (src.location){
 			return src.location;
 		}

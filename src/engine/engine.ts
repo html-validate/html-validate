@@ -4,7 +4,7 @@ import { InvalidTokenError, Lexer, TokenType } from "../lexer";
 import { Parser } from "../parser";
 import { Reporter, Report } from "../reporter";
 import { Rule, RuleConstructor, RuleOptions } from "../rule";
-import { DOMNode } from "../dom";
+import { HtmlElement } from "../dom";
 import { DirectiveEvent, TagOpenEvent, TagCloseEvent } from "../event";
 
 export interface EventDump {
@@ -109,7 +109,7 @@ export class Engine<T extends Parser = Parser> {
 		const dom = parser.parseHtml(source[0]); /* @todo handle dumping each tree */
 		const lines: string[] = [];
 
-		function decoration(node: DOMNode){
+		function decoration(node: HtmlElement){
 			let output = '';
 			if (node.hasAttribute('id')){
 				output += `#${node.id}`;
@@ -120,7 +120,7 @@ export class Engine<T extends Parser = Parser> {
 			return output;
 		}
 
-		function writeNode(node: DOMNode, level: number, sibling: number){
+		function writeNode(node: HtmlElement, level: number, sibling: number){
 			if (level > 0){
 				const indent = '  '.repeat(level - 1);
 				const l = node.children.length > 0 ? '┬' : '─';

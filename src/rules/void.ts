@@ -1,4 +1,4 @@
-import { DOMNode } from '../dom';
+import { HtmlElement } from '../dom';
 import { Rule } from '../rule';
 import { TagCloseEvent } from '../event';
 import { NodeClosed } from '../dom';
@@ -36,13 +36,13 @@ class Void extends Rule {
 		});
 	}
 
-	validateCurrent(node: DOMNode): void {
+	validateCurrent(node: HtmlElement): void {
 		if (node.voidElement && node.closed === NodeClosed.EndTag){
 			this.report(node, `End tag for <${node.tagName}> must be omitted`);
 		}
 	}
 
-	validateActive(node: DOMNode): void {
+	validateActive(node: HtmlElement): void {
 		const selfOrOmitted = node.closed === NodeClosed.VoidOmitted || node.closed === NodeClosed.VoidSelfClosed;
 
 		if (node.voidElement){

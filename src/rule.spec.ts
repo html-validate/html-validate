@@ -1,5 +1,5 @@
 import { Config } from './config';
-import { DOMNode } from './dom';
+import { HtmlElement } from './dom';
 import { Parser } from './parser';
 import { Reporter } from './reporter';
 import { Rule } from './rule';
@@ -43,14 +43,14 @@ describe('rule base class', function(){
 		});
 
 		it('should add message with severity "warn"', function(){
-			const node = new DOMNode("foo", null);
+			const node = new HtmlElement("foo", null);
 			rule.setServerity(Config.SEVERITY_WARN);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_WARN, expect.anything());
 		});
 
 		it('should add message with severity "error"', function(){
-			const node = new DOMNode("foo", null);
+			const node = new HtmlElement("foo", null);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, expect.anything());
 		});
@@ -62,13 +62,13 @@ describe('rule base class', function(){
 		});
 
 		it('should use explicit location if provided', function(){
-			const node = new DOMNode("foo", null);
+			const node = new HtmlElement("foo", null);
 			rule.report(node, "foo", mockLocation);
 			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, mockLocation);
 		});
 
 		it('should use event location if no explicit location', function(){
-			const node = new DOMNode("foo", null);
+			const node = new HtmlElement("foo", null);
 			rule.on('*', () => {});
 			const callback = (parser.on as any).mock.calls[0][1];
 			callback('event', mockEvent);
@@ -77,7 +77,7 @@ describe('rule base class', function(){
 		});
 
 		it('should use node location if no node location', function(){
-			const node = new DOMNode("foo", null, undefined, null, mockLocation);
+			const node = new HtmlElement("foo", null, undefined, null, mockLocation);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, mockLocation);
 		});

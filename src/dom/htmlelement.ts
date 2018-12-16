@@ -21,20 +21,20 @@ export function reset(){
 	counter = 0;
 }
 
-export class DOMNode {
+export class HtmlElement {
 	readonly nodeName: string;
 	readonly tagName: string;
 	readonly attr: { [key: string]: Attribute; };
-	readonly children: Array<DOMNode>;
+	readonly children: Array<HtmlElement>;
 	readonly location: Location;
 	readonly meta: MetaElement;
-	readonly parent: DOMNode
+	readonly parent: HtmlElement
 	readonly voidElement: boolean;
 	readonly unique: number;
 	readonly depth: number;
 	closed: NodeClosed;
 
-	constructor(tagName: string, parent?: DOMNode, closed: NodeClosed = NodeClosed.EndTag, meta?: MetaElement, location?: Location){
+	constructor(tagName: string, parent?: HtmlElement, closed: NodeClosed = NodeClosed.EndTag, meta?: MetaElement, location?: Location){
 		this.nodeName = tagName || DOCUMENT_NODE_NAME;
 		this.tagName = tagName;
 		this.children = [];
@@ -51,7 +51,7 @@ export class DOMNode {
 			parent.children.push(this);
 
 			/* calculate depth in domtree */
-			let cur: DOMNode = parent;
+			let cur: HtmlElement = parent;
 			while (cur.parent){
 				this.depth++;
 				cur = cur.parent;
@@ -60,10 +60,10 @@ export class DOMNode {
 	}
 
 	static rootNode(location: Location) {
-		return new DOMNode(undefined, undefined, undefined, undefined, location);
+		return new HtmlElement(undefined, undefined, undefined, undefined, location);
 	}
 
-	static fromTokens(startToken: Token, endToken: Token, parent: DOMNode, metaTable: MetaTable){
+	static fromTokens(startToken: Token, endToken: Token, parent: HtmlElement, metaTable: MetaTable){
 		const tagName = startToken.data[2];
 		if (!tagName){
 			throw new Error("tagName cannot be empty");
@@ -73,7 +73,7 @@ export class DOMNode {
 		const open = startToken.data[1] !== '/';
 		const closed = isClosed(endToken, meta);
 
-		return new DOMNode(tagName, open ? parent : undefined, closed, meta, startToken.location);
+		return new HtmlElement(tagName, open ? parent : undefined, closed, meta, startToken.location);
 	}
 
 	is(tagName: string): boolean {
@@ -108,7 +108,7 @@ export class DOMNode {
 		return attr ? attr.value : null;
 	}
 
-	append(node: DOMNode){
+	append(node: HtmlElement){
 		this.children.push(node);
 	}
 
@@ -124,33 +124,33 @@ export class DOMNode {
 		return this.parent.children;
 	}
 
-	get previousSibling(): DOMNode {
+	get previousSibling(): HtmlElement {
 		const i = this.siblings.findIndex(node => node.unique === this.unique);
 		return i >= 1 ? this.siblings[i - 1] : null;
 	}
 
-	get nextSibling(): DOMNode {
+	get nextSibling(): HtmlElement {
 		const i = this.siblings.findIndex(node => node.unique === this.unique);
 		return i <= (this.siblings.length - 2) ? this.siblings[i + 1] : null;
 	}
 
-	getElementsByTagName(tagName: string): Array<DOMNode> {
+	getElementsByTagName(tagName: string): Array<HtmlElement> {
 		return this.children.reduce(function(matches, node){
 			return matches.concat(node.is(tagName) ? [node] : [], node.getElementsByTagName(tagName));
 		}, []);
 	}
 
-	querySelector(selector: string): DOMNode {
+	querySelector(selector: string): HtmlElement {
 		const it = this.querySelectorImpl(selector);
 		return it.next().value || null;
 	}
 
-	querySelectorAll(selector: string): DOMNode[] {
+	querySelectorAll(selector: string): HtmlElement[] {
 		const it = this.querySelectorImpl(selector);
 		return Array.from(it);
 	}
 
-	private *querySelectorImpl(selector: string): IterableIterator<DOMNode> {
+	private *querySelectorImpl(selector: string): IterableIterator<HtmlElement> {
 		const pattern = new Selector(selector);
 		yield* pattern.match(this);
 	}
@@ -158,8 +158,8 @@ export class DOMNode {
 	/**
 	 * Visit all nodes from this node and down. Depth first.
 	 */
-	visitDepthFirst(callback: (node: DOMNode) => void): void {
-		function visit(node: DOMNode): void {
+	visitDepthFirst(callback: (node: HtmlElement) => void): void {
+		function visit(node: HtmlElement): void {
 			node.children.forEach(visit);
 			if (!node.isRootElement()){
 				callback(node);
@@ -172,10 +172,10 @@ export class DOMNode {
 	/**
 	 * Evaluates callbackk on all descendants, returning true if any are true.
 	 */
-	someChildren(callback: (node: DOMNode) => boolean){
+	someChildren(callback: (node: HtmlElement) => boolean){
 		return this.children.some(visit);
 
-		function visit(node: DOMNode): boolean {
+		function visit(node: HtmlElement): boolean {
 			if (callback(node)){
 				return true;
 			} else {
@@ -187,10 +187,10 @@ export class DOMNode {
 	/**
 	 * Evaluates callbackk on all descendants, returning true if all are true.
 	 */
-	everyChildren(callback: (node: DOMNode) => boolean){
+	everyChildren(callback: (node: HtmlElement) => boolean){
 		return this.children.every(visit);
 
-		function visit(node: DOMNode): boolean {
+		function visit(node: HtmlElement): boolean {
 			if (!callback(node)){
 				return false;
 			}
@@ -203,8 +203,8 @@ export class DOMNode {
 	 *
 	 * The first node for which the callback evaluates to true is returned.
 	 */
-	find(callback: (node: DOMNode) => boolean): DOMNode {
-		function visit(node: DOMNode): DOMNode {
+	find(callback: (node: HtmlElement) => boolean): HtmlElement {
+		function visit(node: HtmlElement): HtmlElement {
 			if (callback(node)){
 				return node;
 			}

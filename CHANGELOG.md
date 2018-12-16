@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Breaking changes
+
+- `DOMNode` has been renamed `HtmlElement`.
+
 ### Features
 
 - Adding typescript definition for `shim.js`

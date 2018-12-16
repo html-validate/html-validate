@@ -1,19 +1,19 @@
 import { Location } from '../context';
-import { DOMNode } from './domnode';
+import { HtmlElement } from './htmlelement';
 import { MetaTable } from '../meta';
 
 export class DOMTree {
-	readonly root: DOMNode;
-	private active: DOMNode;
+	readonly root: HtmlElement;
+	private active: HtmlElement;
 	public doctype?: string;
 
 	constructor(location: Location){
-		this.root = DOMNode.rootNode(location);
+		this.root = HtmlElement.rootNode(location);
 		this.active = this.root;
 		this.doctype = null;
 	}
 
-	pushActive(node: DOMNode): void {
+	pushActive(node: HtmlElement): void {
 		this.active = node;
 	}
 
@@ -25,7 +25,7 @@ export class DOMTree {
 		this.active = this.active.parent;
 	}
 
-	getActive(): DOMNode {
+	getActive(): HtmlElement {
 		return this.active;
 	}
 
@@ -33,26 +33,26 @@ export class DOMTree {
 	 * Resolve dynamic meta expressions.
 	 */
 	resolveMeta(table: MetaTable){
-		this.visitDepthFirst((node: DOMNode) => table.resolve(node));
+		this.visitDepthFirst((node: HtmlElement) => table.resolve(node));
 	}
 
 	getElementsByTagName(tagName: string) {
 		return this.root.getElementsByTagName(tagName);
 	}
 
-	visitDepthFirst(callback: (node: DOMNode) => void): void {
+	visitDepthFirst(callback: (node: HtmlElement) => void): void {
 		this.root.visitDepthFirst(callback);
 	}
 
-	find(callback: (node: DOMNode) => boolean): DOMNode {
+	find(callback: (node: HtmlElement) => boolean): HtmlElement {
 		return this.root.find(callback);
 	}
 
-	querySelector(selector: string): DOMNode {
+	querySelector(selector: string): HtmlElement {
 		return this.root.querySelector(selector);
 	}
 
-	querySelectorAll(selector: string): DOMNode[] {
+	querySelectorAll(selector: string): HtmlElement[] {
 		return this.root.querySelectorAll(selector);
 	}
 }

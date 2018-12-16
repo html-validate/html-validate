@@ -1,8 +1,8 @@
-import { DOMNode } from './domnode';
+import { HtmlElement } from './htmlelement';
 import { Combinator, parseCombinator } from './combinator';
 
 class Matcher {
-	match(node: DOMNode): boolean { // eslint-disable-line no-unused-vars
+	match(node: HtmlElement): boolean { // eslint-disable-line no-unused-vars
 		/* istanbul ignore next: only used by fallback solution */
 		return false;
 	}
@@ -16,7 +16,7 @@ class ClassMatcher extends Matcher {
 		this.classname = classname;
 	}
 
-	match(node: DOMNode): boolean {
+	match(node: HtmlElement): boolean {
 		return node.classList.contains(this.classname);
 	}
 }
@@ -29,7 +29,7 @@ class IdMatcher extends Matcher {
 		this.id = id;
 	}
 
-	match(node: DOMNode): boolean {
+	match(node: HtmlElement): boolean {
 		return node.id === this.id;
 	}
 }
@@ -47,7 +47,7 @@ class AttrMatcher extends Matcher {
 		this.value = value;
 	}
 
-	match(node: DOMNode): boolean {
+	match(node: HtmlElement): boolean {
 		const attr = node.getAttributeValue(this.key);
 		switch (this.op){
 		case undefined:
@@ -76,7 +76,7 @@ class Pattern {
 		this.pattern = p.map((cur: string) => Pattern.createMatcher(cur));
 	}
 
-	match(node: DOMNode): boolean {
+	match(node: HtmlElement): boolean {
 		return node.is(this.tagName) && this.pattern.every((cur: Matcher) => cur.match(node));
 	}
 
@@ -103,7 +103,7 @@ export class Selector {
 		this.pattern = Selector.parse(selector);
 	}
 
-	*match(root: DOMNode, level: number = 0): IterableIterator<DOMNode> {
+	*match(root: HtmlElement, level: number = 0): IterableIterator<HtmlElement> {
 		if (level >= this.pattern.length){
 			yield root;
 			return;
@@ -126,7 +126,7 @@ export class Selector {
 		return pattern.map((part: string) => new Pattern(part));
 	}
 
-	private static findCandidates(root: DOMNode, pattern: Pattern): DOMNode[] {
+	private static findCandidates(root: HtmlElement, pattern: Pattern): HtmlElement[] {
 		switch (pattern.combinator){
 		case Combinator.DESCENDANT:
 			return root.getElementsByTagName(pattern.tagName);
@@ -142,7 +142,7 @@ export class Selector {
 		return [];
 	}
 
-	private static findAdjacentSibling(node: DOMNode): DOMNode[] {
+	private static findAdjacentSibling(node: HtmlElement): HtmlElement[] {
 		let adjacent = false;
 		return node.siblings.filter(cur => {
 			if (adjacent){
@@ -156,7 +156,7 @@ export class Selector {
 		});
 	}
 
-	private static findGeneralSibling(node: DOMNode): DOMNode[] {
+	private static findGeneralSibling(node: HtmlElement): HtmlElement[] {
 		let after = false;
 		return node.siblings.filter(cur => {
 			if (after){

@@ -1,11 +1,11 @@
 import { Config } from '../config';
 import { Parser } from '../parser';
 import { Selector } from './selector';
-import { DOMNode, reset as resetDOMCounter } from './domnode';
+import { HtmlElement, reset as resetDOMCounter } from './htmlelement';
 
 describe('Selector', () => {
 
-	let doc: DOMNode;
+	let doc: HtmlElement;
 
 	beforeEach(() => {
 		const parser = new Parser(Config.empty());

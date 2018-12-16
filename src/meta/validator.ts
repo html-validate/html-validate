@@ -5,14 +5,14 @@ import {
 	PermittedGroup,
 	PermittedOrder,
 } from './element';
-import { DOMNode } from '../dom';
+import { HtmlElement } from '../dom';
 
 const allowedKeys = [
 	'exclude',
 ];
 
 export class Validator {
-	public static validatePermitted(node: DOMNode, rules: Permitted): boolean {
+	public static validatePermitted(node: HtmlElement, rules: Permitted): boolean {
 		if (!rules){
 			return true;
 		}
@@ -21,7 +21,7 @@ export class Validator {
 		});
 	}
 
-	public static validateOccurrences(node: DOMNode, rules: Permitted, numSiblings: number): boolean {
+	public static validateOccurrences(node: HtmlElement, rules: Permitted, numSiblings: number): boolean {
 		if (!rules){
 			return true;
 		}
@@ -49,9 +49,9 @@ export class Validator {
 	 * For instance, for a <table> element the <caption> element must come before
 	 * a <thead> which must come before <tbody>.
 	 *
-	 * @param {DOMNode[]} children - Array of children to validate.
+	 * @param {HtmlElement[]} children - Array of children to validate.
 	 */
-	public static validateOrder(children: DOMNode[], rules: PermittedOrder, cb: (node: DOMNode, prev: DOMNode) => void): boolean {
+	public static validateOrder(children: HtmlElement[], rules: PermittedOrder, cb: (node: HtmlElement, prev: HtmlElement) => void): boolean {
 		if (!rules) {
 			return true;
 		}
@@ -105,7 +105,7 @@ export class Validator {
 		});
 	}
 
-	private static validatePermittedRule(node: DOMNode, rule: PermittedEntry): boolean {
+	private static validatePermittedRule(node: HtmlElement, rule: PermittedEntry): boolean {
 		if (typeof rule === 'string'){
 			return Validator.validatePermittedCategory(node, rule);
 		} else if (Array.isArray(rule)){
@@ -136,10 +136,10 @@ export class Validator {
 	 * parent it should also allow @flow parent since @phrasing is a subset of
 	 * @flow.
 	 *
-	 * @param {DOMNode} node - The node to test against
+	 * @param {HtmlElement} node - The node to test against
 	 * @param {string} category - Name of category with '@' prefix or tag name.
 	 */
-	private static validatePermittedCategory(node: DOMNode, category: string): boolean {
+	private static validatePermittedCategory(node: HtmlElement, category: string): boolean {
 		/* match tagName when an explicit name is given */
 		if (category[0] !== '@'){
 			const [, tagName] = category.match(/^(.*?)[?*]?$/);
