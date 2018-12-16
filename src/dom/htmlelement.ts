@@ -1,5 +1,6 @@
 import { Location } from '../context';
 import { Token } from '../lexer';
+import { DOMNode } from './domnode';
 import { DOMTokenList } from './domtokenlist';
 import { MetaTable, MetaElement } from '../meta';
 import { Attribute } from './attribute';
@@ -21,8 +22,7 @@ export function reset(){
 	counter = 0;
 }
 
-export class HtmlElement {
-	readonly nodeName: string;
+export class HtmlElement extends DOMNode {
 	readonly tagName: string;
 	readonly attr: { [key: string]: Attribute; };
 	readonly children: Array<HtmlElement>;
@@ -35,7 +35,8 @@ export class HtmlElement {
 	closed: NodeClosed;
 
 	constructor(tagName: string, parent?: HtmlElement, closed: NodeClosed = NodeClosed.EndTag, meta?: MetaElement, location?: Location){
-		this.nodeName = tagName || DOCUMENT_NODE_NAME;
+		super(tagName || DOCUMENT_NODE_NAME);
+
 		this.tagName = tagName;
 		this.children = [];
 		this.parent = parent;
