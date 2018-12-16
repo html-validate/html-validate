@@ -85,7 +85,7 @@ class HtmlValidate {
 	/**
 	 * Get configuration for given filename.
 	 */
-	private getConfigFor(filename: string): Config {
+	public getConfigFor(filename: string): Config {
 		const loader = new ConfigLoader();
 		const config = loader.fromTarget(filename);
 		const merged = this.globalConfig.merge(config);
