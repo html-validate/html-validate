@@ -251,7 +251,11 @@ export class Engine<T extends Parser = Parser> {
 		try {
 			Class = require(`../rules/${name}`);
 		} catch (e) {
-			return null;
+			if (e.code === 'MODULE_NOT_FOUND'){
+				return null;
+			} else {
+				throw e;
+			}
 		}
 		return new Class(options);
 	}
