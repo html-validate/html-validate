@@ -1,8 +1,8 @@
 import { Config, ConfigLoader } from './config';
-import { Engine, TokenDump, EventDump } from './engine';
+import { Source } from './context';
+import { Engine, EventDump, TokenDump } from './engine';
 import { Parser } from './parser';
 import { Report } from './reporter';
-import { Source } from './context';
 
 class HtmlValidate {
 	private globalConfig: Config;
@@ -20,10 +20,10 @@ class HtmlValidate {
 	 */
 	public validateString(str: string): Report {
 		const source = {
+			column: 1,
 			data: str,
 			filename: 'inline',
 			line: 1,
-			column: 1,
 		};
 		return this.validateSource(source);
 	}
