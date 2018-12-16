@@ -1,4 +1,4 @@
-import { DOMNode, DOMTree } from '../dom';
+import { HtmlElement, DOMTree } from '../dom';
 import { Location } from '../context';
 
 export interface Event {
@@ -6,19 +6,19 @@ export interface Event {
 }
 
 export interface TagOpenEvent extends Event {
-	target: DOMNode;
+	target: HtmlElement;
 }
 
 export interface TagCloseEvent extends Event {
-	target: DOMNode;
-	previous: DOMNode;
+	target: HtmlElement;
+	previous: HtmlElement;
 }
 
 export interface AttributeEvent extends Event {
 	key: string;
 	value: any;
 	quote: '"' | "'" | undefined;
-	target: DOMNode;
+	target: HtmlElement;
 }
 
 export interface WhitespaceEvent extends Event {

@@ -1,5 +1,5 @@
 import { Rule } from '../rule';
-import { DOMNode } from 'dom';
+import { HtmlElement } from 'dom';
 import { DOMReadyEvent } from '../event';
 
 const defaults = {
@@ -21,7 +21,7 @@ class ImgReqAlt extends Rule {
 	setup(){
 		this.on('dom:ready', (event: DOMReadyEvent) => {
 			const images = event.document.getElementsByTagName('img');
-			images.forEach((node: DOMNode) => {
+			images.forEach((node: HtmlElement) => {
 				/* validate plain alt-attribute */
 				const alt = node.getAttributeValue('alt');
 				if (alt || (alt === "" && this.options.allowEmpty)){

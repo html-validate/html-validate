@@ -1,5 +1,5 @@
 import { Config } from '../config';
-import { DOMNode, DOMTree } from '../dom';
+import { HtmlElement, DOMTree } from '../dom';
 import { EventCallback } from '../event';
 import { InvalidTokenError, TokenStream, TokenType } from '../lexer';
 import { Parser } from './parser';
@@ -12,9 +12,9 @@ function mergeEvent(event: string, data: any){
 	/* not useful for these tests */
 	delete merged.location;
 
-	/* change DOMNode instances to just tagname for easier testing */
+	/* change HtmlElement instances to just tagname for easier testing */
 	for (const key of ['target', 'previous']){
-		if (merged[key] && merged[key] instanceof DOMNode){
+		if (merged[key] && merged[key] instanceof HtmlElement){
 			merged[key] = merged[key].tagName;
 		}
 	}

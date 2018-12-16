@@ -1,6 +1,6 @@
 import { Config } from './config';
 import { Location } from './context';
-import { DOMNode } from 'dom';
+import { HtmlElement } from 'dom';
 import { Rule } from './rule';
 
 export interface Message {
@@ -51,7 +51,7 @@ export class Reporter {
 		return {valid, results: Object.keys(merged).map(key => merged[key])};
 	}
 
-	add(node: DOMNode, rule: Rule, message: string, severity: number, location: Location){
+	add(node: HtmlElement, rule: Rule, message: string, severity: number, location: Location){
 		if (!this.result.hasOwnProperty(location.filename)){
 			this.result[location.filename] = [];
 		}

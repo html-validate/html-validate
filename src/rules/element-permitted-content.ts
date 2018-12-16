@@ -1,5 +1,5 @@
 import { Rule } from '../rule';
-import { DOMNode } from '../dom';
+import { HtmlElement } from '../dom';
 import { DOMReadyEvent } from '../event';
 import { Validator } from '../meta';
 import { Permitted } from '../meta/element';
@@ -8,7 +8,7 @@ class ElementPermittedContent extends Rule {
 	setup(){
 		this.on('dom:ready', (event: DOMReadyEvent) => {
 			const doc = event.document;
-			doc.visitDepthFirst((node: DOMNode) => {
+			doc.visitDepthFirst((node: HtmlElement) => {
 				/* dont verify root element, assume any element is allowed */
 				if (node.parent.isRootElement()){
 					return;
@@ -29,7 +29,7 @@ class ElementPermittedContent extends Rule {
 		});
 	}
 
-	validatePermittedContent(cur: DOMNode, parent: DOMNode, rules: Permitted): void {
+	validatePermittedContent(cur: HtmlElement, parent: HtmlElement, rules: Permitted): void {
 		if (!Validator.validatePermitted(cur, rules)){
 			this.report(cur, `Element <${cur.tagName}> is not permitted as content in <${parent.tagName}>`);
 			return;
@@ -39,13 +39,13 @@ class ElementPermittedContent extends Rule {
 		 * the (this elements) parent, i.e. if this node was removed from the DOM it
 		 * should still be valid. */
 		if (cur.meta && cur.meta.transparent){
-			cur.children.forEach((child: DOMNode) => {
+			cur.children.forEach((child: HtmlElement) => {
 				this.validatePermittedContent(child, parent, rules);
 			});
 		}
 	}
 
-	validatePermittedDescendant(node: DOMNode, parent: DOMNode): void {
+	validatePermittedDescendant(node: HtmlElement, parent: HtmlElement): void {
 		while (!parent.isRootElement()){
 			if (parent.meta && node.meta && !Validator.validatePermitted(node, parent.meta.permittedDescendants)){
 				this.report(node, `Element <${node.tagName}> is not permitted as descendant of <${parent.tagName}>`);

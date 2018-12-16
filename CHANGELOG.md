@@ -2,6 +2,12 @@
 
 ## Upcoming release
 
+### Breaking changes
+
+- `DOMNode` has been renamed `HtmlElement` and there is instead a new base class
+  `DOMnode` which `HtmlElement` extends from. Rules using `DOMNode` need to be
+  changed to use `HtmlElement`.
+
 ### Features
 
 - Adding typescript definition for `shim.js`

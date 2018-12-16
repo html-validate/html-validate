@@ -1,4 +1,4 @@
-import { DOMNode } from '../dom';
+import { HtmlElement } from '../dom';
 import { MetaElement, ElementTable, PropertyExpression } from './element';
 const deepmerge = require('deepmerge');
 
@@ -33,7 +33,7 @@ const dynamicKeys = [
 ];
 
 // eslint-disable-next-line no-unused-vars
-type PropertyEvaluator = (node: DOMNode, options: any) => boolean;
+type PropertyEvaluator = (node: HtmlElement, options: any) => boolean;
 
 const functionTable: { [key: string]: PropertyEvaluator } = {
 	isDescendant,
@@ -112,14 +112,14 @@ export class MetaTable {
 		return deepmerge(a, b);
 	}
 
-	resolve(node: DOMNode){
+	resolve(node: HtmlElement){
 		if (node.meta){
 			expandProperties(node, node.meta);
 		}
 	}
 }
 
-function expandProperties(node: DOMNode, entry: MetaElement){
+function expandProperties(node: HtmlElement, entry: MetaElement){
 	for (const key of dynamicKeys){
 		const property = entry[key];
 		if (property && typeof property !== 'boolean'){
@@ -142,7 +142,7 @@ function expandRegex(entry: MetaElement){
 	}
 }
 
-function evaluateProperty(node: DOMNode, expr: PropertyExpression): boolean {
+function evaluateProperty(node: HtmlElement, expr: PropertyExpression): boolean {
 	const [func, options] = parseExpression(expr);
 	return func(node, options);
 }
@@ -160,11 +160,11 @@ function parseExpression(expr: PropertyExpression): [PropertyEvaluator, any] {
 	}
 }
 
-function isDescendant(node: DOMNode, tagName: any): boolean {
+function isDescendant(node: HtmlElement, tagName: any): boolean {
 	if (typeof tagName !== 'string'){
 		throw new Error(`Property expression "isDescendant" must take string argument when evaluating metadata for <${node.tagName}>`);
 	}
-	let cur: DOMNode = node.parent;
+	let cur: HtmlElement = node.parent;
 	while (!cur.isRootElement()){
 		if (cur.is(tagName)){
 			return true;
@@ -174,14 +174,14 @@ function isDescendant(node: DOMNode, tagName: any): boolean {
 	return false;
 }
 
-function hasAttribute(node: DOMNode, attr: any): boolean {
+function hasAttribute(node: HtmlElement, attr: any): boolean {
 	if (typeof attr !== 'string'){
 		throw new Error(`Property expression "hasAttribute" must take string argument when evaluating metadata for <${node.tagName}>`);
 	}
 	return node.hasAttribute(attr);
 }
 
-function matchAttribute(node: DOMNode, match: any): boolean {
+function matchAttribute(node: HtmlElement, match: any): boolean {
 	if (!Array.isArray(match) || match.length !== 3){
 		throw new Error(`Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <${node.tagName}>`);
 	}

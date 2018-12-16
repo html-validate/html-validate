@@ -1,4 +1,4 @@
-import { DOMNode, DOMTree } from 'dom';
+import { HtmlElement, DOMTree } from 'dom';
 import { Rule } from '../rule';
 import { DOMReadyEvent } from '../event';
 
@@ -24,12 +24,12 @@ class InputMissingLabel extends Rule {
 	}
 }
 
-function findLabelById(root: DOMTree, id: string): DOMNode {
+function findLabelById(root: DOMTree, id: string): HtmlElement {
 	if (!id) return null;
-	return root.find((node: DOMNode) => node.is('label') && node.getAttributeValue('for') === id);
+	return root.find((node: HtmlElement) => node.is('label') && node.getAttributeValue('for') === id);
 }
 
-function findLabelByParent(el: DOMNode): DOMNode {
+function findLabelByParent(el: HtmlElement): HtmlElement {
 	let cur = el.parent;
 	while (cur){
 		if (cur.is('label')){

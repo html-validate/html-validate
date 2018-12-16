@@ -1,6 +1,6 @@
 import { Rule } from '../rule';
 import { TagOpenEvent } from '../event';
-import { DOMNode } from '../dom';
+import { HtmlElement } from '../dom';
 
 class HeadingLevel extends Rule {
 	setup(){
@@ -33,11 +33,11 @@ class HeadingLevel extends Rule {
 		});
 	}
 
-	isHeading(node: DOMNode): boolean {
+	isHeading(node: HtmlElement): boolean {
 		return node.meta && !!node.meta.heading;
 	}
 
-	extractLevel(node: DOMNode): number {
+	extractLevel(node: HtmlElement): number {
 		const match = node.tagName.match(/^[hH](\d)$/);
 		return match ? parseInt(match[1], 10) : null;
 	}

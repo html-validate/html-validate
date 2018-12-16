@@ -1,6 +1,6 @@
 import { MetaTable, MetaElement, Validator } from './';
 import { Config } from '../config';
-import { DOMNode } from '../dom'; // eslint-disable-line no-unused-vars
+import { HtmlElement } from '../dom'; // eslint-disable-line no-unused-vars
 import { Parser } from '../parser';
 
 class ConfigMock extends Config {
@@ -314,7 +314,7 @@ describe('Meta validator', function(){
 
 		let table: MetaTable;
 		let parser: Parser;
-		let cb: (node: DOMNode, prev: DOMNode) => void;
+		let cb: (node: HtmlElement, prev: HtmlElement) => void;
 
 		beforeEach(function(){
 			table = new MetaTable();
