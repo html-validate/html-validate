@@ -25,7 +25,7 @@ const report: Report = {
 	results: [
 		{
 			messages: [
-				{ruleId: 'foo', severity: 2, message: 'lorem ipsum', offset: 1, line: 1, column: 2},
+				{ruleId: 'foo', severity: 2, message: 'lorem ipsum', offset: 1, line: 1, column: 2, size: 1},
 			],
 			filePath: 'mock-file.html',
 			errorCount: 1,
