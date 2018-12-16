@@ -13,6 +13,7 @@ Array [
         "offset": 31,
         "ruleId": "no-dup-attr",
         "severity": 2,
+        "size": 2,
       },
     ],
     "warningCount": 0,

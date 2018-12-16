@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Bugfixes
+
+- `Message` now passes `size` property from `Location`
+
 ## 0.16.0 (2018-12-15)
 
 ### Features

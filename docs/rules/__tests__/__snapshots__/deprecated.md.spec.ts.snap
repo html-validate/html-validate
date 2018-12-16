@@ -15,6 +15,7 @@ Array [
         "offset": 0,
         "ruleId": "deprecated",
         "severity": 2,
+        "size": 11,
       },
     ],
     "warningCount": 0,
@@ -35,6 +36,7 @@ Array [
         "offset": 0,
         "ruleId": "deprecated",
         "severity": 2,
+        "size": 7,
       },
       Object {
         "column": 1,
@@ -43,6 +45,7 @@ Array [
         "offset": 21,
         "ruleId": "deprecated",
         "severity": 2,
+        "size": 4,
       },
     ],
     "warningCount": 0,

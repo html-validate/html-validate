@@ -15,6 +15,7 @@ Array [
         "offset": 5,
         "ruleId": "class-pattern",
         "severity": 2,
+        "size": 5,
       },
     ],
     "warningCount": 0,

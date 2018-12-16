@@ -15,6 +15,7 @@ Array [
         "offset": 21,
         "ruleId": "void",
         "severity": 2,
+        "size": 2,
       },
       Object {
         "column": 11,
@@ -23,6 +24,7 @@ Array [
         "offset": 47,
         "ruleId": "void",
         "severity": 2,
+        "size": 1,
       },
     ],
     "warningCount": 0,

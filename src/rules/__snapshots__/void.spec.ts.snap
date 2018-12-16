@@ -13,6 +13,7 @@ Array [
         "offset": 69,
         "ruleId": "void",
         "severity": 2,
+        "size": 1,
       },
       Object {
         "column": 6,
@@ -21,6 +22,7 @@ Array [
         "offset": 84,
         "ruleId": "void",
         "severity": 2,
+        "size": 2,
       },
     ],
     "warningCount": 0,
@@ -41,6 +43,7 @@ Array [
         "offset": 14,
         "ruleId": "void",
         "severity": 2,
+        "size": 2,
       },
       Object {
         "column": 16,
@@ -49,6 +52,7 @@ Array [
         "offset": 69,
         "ruleId": "void",
         "severity": 2,
+        "size": 1,
       },
       Object {
         "column": 6,
@@ -57,6 +61,7 @@ Array [
         "offset": 84,
         "ruleId": "void",
         "severity": 2,
+        "size": 2,
       },
     ],
     "warningCount": 0,
@@ -77,6 +82,7 @@ Array [
         "offset": 38,
         "ruleId": "void",
         "severity": 2,
+        "size": 1,
       },
       Object {
         "column": 8,
@@ -85,6 +91,7 @@ Array [
         "offset": 61,
         "ruleId": "void",
         "severity": 2,
+        "size": 1,
       },
       Object {
         "column": 16,
@@ -93,6 +100,7 @@ Array [
         "offset": 69,
         "ruleId": "void",
         "severity": 2,
+        "size": 1,
       },
       Object {
         "column": 6,
@@ -101,6 +109,7 @@ Array [
         "offset": 84,
         "ruleId": "void",
         "severity": 2,
+        "size": 2,
       },
     ],
     "warningCount": 0,
@@ -121,6 +130,7 @@ Array [
         "offset": 14,
         "ruleId": "void",
         "severity": 2,
+        "size": 2,
       },
       Object {
         "column": 16,
@@ -129,6 +139,7 @@ Array [
         "offset": 69,
         "ruleId": "void",
         "severity": 2,
+        "size": 1,
       },
       Object {
         "column": 6,
@@ -137,6 +148,7 @@ Array [
         "offset": 84,
         "ruleId": "void",
         "severity": 2,
+        "size": 2,
       },
     ],
     "warningCount": 0,

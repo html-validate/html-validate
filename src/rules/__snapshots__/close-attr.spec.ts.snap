@@ -13,6 +13,7 @@ Array [
         "offset": 36,
         "ruleId": "close-attr",
         "severity": 2,
+        "size": 1,
       },
     ],
     "warningCount": 0,

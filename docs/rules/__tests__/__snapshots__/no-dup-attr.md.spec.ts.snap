@@ -15,6 +15,7 @@ Array [
         "offset": 17,
         "ruleId": "no-dup-attr",
         "severity": 2,
+        "size": 5,
       },
     ],
     "warningCount": 0,

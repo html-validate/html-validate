@@ -13,6 +13,7 @@ Array [
         "offset": 3,
         "ruleId": "no-inline-style",
         "severity": 2,
+        "size": 5,
       },
     ],
     "warningCount": 0,

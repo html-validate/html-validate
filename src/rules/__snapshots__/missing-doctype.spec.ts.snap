@@ -13,6 +13,7 @@ Array [
         "offset": 0,
         "ruleId": "missing-doctype",
         "severity": 2,
+        "size": 0,
       },
     ],
     "warningCount": 0,

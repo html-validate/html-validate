@@ -15,6 +15,7 @@ Array [
         "offset": 68,
         "ruleId": "element-permitted-content",
         "severity": 2,
+        "size": 3,
       },
     ],
     "warningCount": 0,

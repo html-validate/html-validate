@@ -13,6 +13,7 @@ Array [
         "offset": 0,
         "ruleId": "img-req-alt",
         "severity": 2,
+        "size": 4,
       },
       Object {
         "column": 1,
@@ -21,6 +22,7 @@ Array [
         "offset": 21,
         "ruleId": "button-type",
         "severity": 2,
+        "size": 7,
       },
       Object {
         "column": 3,
@@ -29,6 +31,7 @@ Array [
         "offset": 129,
         "ruleId": "input-missing-label",
         "severity": 2,
+        "size": 6,
       },
     ],
     "warningCount": 0,
@@ -49,6 +52,7 @@ Array [
         "offset": 14,
         "ruleId": "element-permitted-content",
         "severity": 2,
+        "size": 9,
       },
       Object {
         "column": 3,
@@ -57,6 +61,7 @@ Array [
         "offset": 38,
         "ruleId": "deprecated",
         "severity": 2,
+        "size": 14,
       },
     ],
     "warningCount": 0,
@@ -77,6 +82,7 @@ Array [
         "offset": 64,
         "ruleId": "element-permitted-order",
         "severity": 2,
+        "size": 7,
       },
       Object {
         "column": 3,
@@ -85,6 +91,7 @@ Array [
         "offset": 126,
         "ruleId": "element-permitted-content",
         "severity": 2,
+        "size": 5,
       },
       Object {
         "column": 5,
@@ -93,6 +100,7 @@ Array [
         "offset": 137,
         "ruleId": "deprecated",
         "severity": 2,
+        "size": 6,
       },
     ],
     "warningCount": 0,

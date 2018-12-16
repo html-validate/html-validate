@@ -13,6 +13,7 @@ Array [
         "offset": 42,
         "ruleId": "class-pattern",
         "severity": 2,
+        "size": 5,
       },
       Object {
         "column": 6,
@@ -21,6 +22,7 @@ Array [
         "offset": 79,
         "ruleId": "class-pattern",
         "severity": 2,
+        "size": 5,
       },
     ],
     "warningCount": 0,

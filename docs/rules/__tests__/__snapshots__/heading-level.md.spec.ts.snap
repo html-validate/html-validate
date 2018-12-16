@@ -15,6 +15,7 @@ Array [
         "offset": 19,
         "ruleId": "heading-level",
         "severity": 2,
+        "size": 3,
       },
     ],
     "warningCount": 0,

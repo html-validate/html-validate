@@ -13,6 +13,7 @@ Array [
         "offset": 169,
         "ruleId": "input-missing-label",
         "severity": 2,
+        "size": 6,
       },
     ],
     "warningCount": 0,

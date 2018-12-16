@@ -13,6 +13,7 @@ Array [
         "offset": 52,
         "ruleId": "close-order",
         "severity": 2,
+        "size": 5,
       },
       Object {
         "column": 5,
@@ -21,6 +22,7 @@ Array [
         "offset": 112,
         "ruleId": "close-order",
         "severity": 2,
+        "size": 1,
       },
     ],
     "warningCount": 0,

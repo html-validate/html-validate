@@ -15,6 +15,7 @@ Array [
         "offset": 73,
         "ruleId": "input-missing-label",
         "severity": 2,
+        "size": 6,
       },
       Object {
         "column": 5,
@@ -23,6 +24,7 @@ Array [
         "offset": 167,
         "ruleId": "input-missing-label",
         "severity": 2,
+        "size": 6,
       },
     ],
     "warningCount": 0,

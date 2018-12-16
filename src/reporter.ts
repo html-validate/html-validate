@@ -10,6 +10,7 @@ export interface Message {
 	offset: number;
 	line: number;
 	column: number;
+	size: number;
 }
 
 export interface Result {
@@ -61,6 +62,7 @@ export class Reporter {
 			offset: location.offset,
 			line: location.line,
 			column: location.column,
+			size: location.size || 0,
 		});
 	}
 

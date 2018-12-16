@@ -13,6 +13,7 @@ Array [
         "offset": 0,
         "ruleId": "heading-level",
         "severity": 2,
+        "size": 3,
       },
       Object {
         "column": 1,
@@ -21,6 +22,7 @@ Array [
         "offset": 72,
         "ruleId": "heading-level",
         "severity": 2,
+        "size": 3,
       },
     ],
     "warningCount": 0,

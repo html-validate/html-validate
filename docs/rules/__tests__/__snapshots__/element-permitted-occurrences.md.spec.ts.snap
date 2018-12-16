@@ -15,6 +15,7 @@ Array [
         "offset": 76,
         "ruleId": "element-permitted-occurrences",
         "severity": 2,
+        "size": 6,
       },
     ],
     "warningCount": 0,

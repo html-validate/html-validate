@@ -13,6 +13,7 @@ Array [
         "offset": 36,
         "ruleId": "no-implicit-close",
         "severity": 2,
+        "size": 3,
       },
       Object {
         "column": 2,
@@ -21,6 +22,7 @@ Array [
         "offset": 45,
         "ruleId": "no-implicit-close",
         "severity": 2,
+        "size": 3,
       },
       Object {
         "column": 2,
@@ -29,6 +31,7 @@ Array [
         "offset": 54,
         "ruleId": "no-implicit-close",
         "severity": 2,
+        "size": 3,
       },
       Object {
         "column": 2,
@@ -37,6 +40,7 @@ Array [
         "offset": 75,
         "ruleId": "no-implicit-close",
         "severity": 2,
+        "size": 3,
       },
       Object {
         "column": 2,
@@ -45,6 +49,7 @@ Array [
         "offset": 96,
         "ruleId": "no-implicit-close",
         "severity": 2,
+        "size": 3,
       },
       Object {
         "column": 2,
@@ -53,6 +58,7 @@ Array [
         "offset": 117,
         "ruleId": "no-implicit-close",
         "severity": 2,
+        "size": 3,
       },
       Object {
         "column": 2,
@@ -61,6 +67,7 @@ Array [
         "offset": 150,
         "ruleId": "no-implicit-close",
         "severity": 2,
+        "size": 3,
       },
       Object {
         "column": 2,
@@ -69,6 +76,7 @@ Array [
         "offset": 179,
         "ruleId": "no-implicit-close",
         "severity": 2,
+        "size": 3,
       },
       Object {
         "column": 2,
@@ -77,6 +85,7 @@ Array [
         "offset": 208,
         "ruleId": "no-implicit-close",
         "severity": 2,
+        "size": 3,
       },
       Object {
         "column": 2,
@@ -85,6 +94,7 @@ Array [
         "offset": 219,
         "ruleId": "no-implicit-close",
         "severity": 2,
+        "size": 3,
       },
       Object {
         "column": 2,
@@ -93,6 +103,7 @@ Array [
         "offset": 237,
         "ruleId": "no-implicit-close",
         "severity": 2,
+        "size": 3,
       },
       Object {
         "column": 2,
@@ -101,6 +112,7 @@ Array [
         "offset": 255,
         "ruleId": "no-implicit-close",
         "severity": 2,
+        "size": 3,
       },
       Object {
         "column": 2,
@@ -109,6 +121,7 @@ Array [
         "offset": 265,
         "ruleId": "no-implicit-close",
         "severity": 2,
+        "size": 3,
       },
       Object {
         "column": 1,
@@ -117,6 +130,7 @@ Array [
         "offset": 287,
         "ruleId": "no-implicit-close",
         "severity": 2,
+        "size": 2,
       },
     ],
     "warningCount": 0,

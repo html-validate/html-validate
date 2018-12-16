@@ -13,6 +13,7 @@ Array [
         "offset": 25,
         "ruleId": "no-trailing-whitespace",
         "severity": 2,
+        "size": 2,
       },
       Object {
         "column": 6,
@@ -21,6 +22,7 @@ Array [
         "offset": 32,
         "ruleId": "no-trailing-whitespace",
         "severity": 2,
+        "size": 3,
       },
       Object {
         "column": 1,
@@ -29,6 +31,7 @@ Array [
         "offset": 35,
         "ruleId": "no-trailing-whitespace",
         "severity": 2,
+        "size": 3,
       },
       Object {
         "column": 6,
@@ -37,6 +40,7 @@ Array [
         "offset": 43,
         "ruleId": "no-trailing-whitespace",
         "severity": 2,
+        "size": 3,
       },
       Object {
         "column": 7,
@@ -45,6 +49,7 @@ Array [
         "offset": 66,
         "ruleId": "no-trailing-whitespace",
         "severity": 2,
+        "size": 3,
       },
       Object {
         "column": 1,
@@ -53,6 +58,7 @@ Array [
         "offset": 76,
         "ruleId": "no-trailing-whitespace",
         "severity": 2,
+        "size": 3,
       },
     ],
     "warningCount": 0,

@@ -86,6 +86,7 @@ describe('Engine', function(){
 				offset: 0,
 				line: 1,
 				column: 1,
+				size: 0,
 				severity: 2,
 				ruleId: undefined,
 				message: "parse error",

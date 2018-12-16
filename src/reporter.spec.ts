@@ -64,11 +64,11 @@ describe('Reporter', function(){
 			report.addManual("bar.html", createMessage("another error", 2));
 			expect(report.save().results).toEqual([
 				{filePath: 'foo.html', errorCount: 1, warningCount: 1, messages: [
-					{offset: 0, line: 1, column: 1, ruleId: 'mock', severity: 2, message: 'error'},
-					{offset: 0, line: 1, column: 1, ruleId: 'mock', severity: 1, message: 'warning'},
+					{offset: 0, line: 1, column: 1, size: 1, ruleId: 'mock', severity: 2, message: 'error'},
+					{offset: 0, line: 1, column: 1, size: 1, ruleId: 'mock', severity: 1, message: 'warning'},
 				]},
 				{filePath: 'bar.html', errorCount: 1, warningCount: 0, messages: [
-					{offset: 0, line: 1, column: 1, ruleId: 'mock', severity: 2, message: 'another error'},
+					{offset: 0, line: 1, column: 1, size: 1, ruleId: 'mock', severity: 2, message: 'another error'},
 				]},
 			]);
 		});
@@ -92,5 +92,6 @@ function createMessage(message: string, severity: number = 2): Message {
 		offset: 0,
 		line: 1,
 		column: 1,
+		size: 1,
 	};
 }

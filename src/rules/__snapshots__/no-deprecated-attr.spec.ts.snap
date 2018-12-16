@@ -13,6 +13,7 @@ Array [
         "offset": 20,
         "ruleId": "no-deprecated-attr",
         "severity": 2,
+        "size": 7,
       },
       Object {
         "column": 7,
@@ -21,6 +22,7 @@ Array [
         "offset": 48,
         "ruleId": "no-deprecated-attr",
         "severity": 2,
+        "size": 7,
       },
       Object {
         "column": 7,
@@ -29,6 +31,7 @@ Array [
         "offset": 76,
         "ruleId": "no-deprecated-attr",
         "severity": 2,
+        "size": 7,
       },
       Object {
         "column": 6,
@@ -37,6 +40,7 @@ Array [
         "offset": 125,
         "ruleId": "no-deprecated-attr",
         "severity": 2,
+        "size": 10,
       },
       Object {
         "column": 7,
@@ -45,6 +49,7 @@ Array [
         "offset": 150,
         "ruleId": "no-deprecated-attr",
         "severity": 2,
+        "size": 5,
       },
     ],
     "warningCount": 0,

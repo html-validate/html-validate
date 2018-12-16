@@ -13,6 +13,7 @@ Array [
         "offset": 17,
         "ruleId": "no-conditional-comment",
         "severity": 2,
+        "size": 14,
       },
       Object {
         "column": 1,
@@ -21,6 +22,7 @@ Array [
         "offset": 57,
         "ruleId": "no-conditional-comment",
         "severity": 2,
+        "size": 12,
       },
       Object {
         "column": 1,
@@ -29,6 +31,7 @@ Array [
         "offset": 71,
         "ruleId": "no-conditional-comment",
         "severity": 2,
+        "size": 12,
       },
       Object {
         "column": 16,
@@ -37,6 +40,7 @@ Array [
         "offset": 86,
         "ruleId": "no-conditional-comment",
         "severity": 2,
+        "size": 10,
       },
     ],
     "warningCount": 0,

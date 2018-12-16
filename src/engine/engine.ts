@@ -274,6 +274,7 @@ export class Engine<T extends Parser = Parser> {
 			offset: location.offset,
 			line: location.line,
 			column: location.column,
+			size: location.size || 0,
 		});
 	}
 }
