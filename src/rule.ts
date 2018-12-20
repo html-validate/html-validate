@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { HtmlElement } from 'dom';
+import { HtmlElement } from './dom';
 import { Config } from './config';
 import { Location } from './context';
 import {
@@ -11,7 +11,7 @@ import {
 	TagCloseEvent,
 	TagOpenEvent,
 	WhitespaceEvent,
-} from 'event';
+} from './event';
 import { Reporter } from './reporter';
 import { Parser } from './parser';
 
