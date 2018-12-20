@@ -1,6 +1,6 @@
 import { Config } from './config';
 import { Location } from './context';
-import { HtmlElement } from 'dom';
+import { HtmlElement } from './dom';
 import { Rule } from './rule';
 
 export interface Message {
