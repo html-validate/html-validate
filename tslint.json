@@ -5,7 +5,6 @@
   ],
   "jsRules": {},
   "rules": {
-    "array-type": false,
     "curly": [true, "ignore-same-line"],
     "indent": [true, "tabs", 1],
     "interface-name": false,

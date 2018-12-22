@@ -19,7 +19,7 @@ export interface ConfigData {
 	 *
 	 * If elements isn't specified it defaults to `["html5"]`
 	 */
-	elements?: (string|object)[];
+	elements?: Array<string|object>;
 
 	/**
 	 * List of plugins.

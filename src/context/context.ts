@@ -27,7 +27,7 @@ export class Context {
 		this.scriptEnd = undefined;
 	}
 
-	consume(n: number|Array<string>, state: number){
+	consume(n: number|string[], state: number){
 		/* if "n" is an regex match the first value is the full matched
 		 * string so consume that many characters. */
 		if (typeof n !== "number"){

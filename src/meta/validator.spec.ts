@@ -407,14 +407,14 @@ describe("Meta validator", () => {
 
 		it("should consider empty list as boolean attribute", () => {
 			const rules = {
-				foo: [] as Array<string>,
+				foo: [] as string[],
 			};
 			expect(Validator.validateAttribute("foo", undefined, rules)).toBeTruthy();
 		});
 
 		it("should normalize boolean attributes", () => {
 			const rules = {
-				foo: [] as Array<string>,
+				foo: [] as string[],
 			};
 			expect(Validator.validateAttribute("foo", undefined, rules)).toBeTruthy();
 			expect(Validator.validateAttribute("foo", "", rules)).toBeTruthy();

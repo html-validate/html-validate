@@ -1,7 +1,7 @@
 export type EventCallback = (event: string, data: any) => void;
 
 export class EventHandler {
-	listeners: { [event: string]: Array<EventCallback> };
+	listeners: { [event: string]: EventCallback[] };
 
 	constructor(){
 		this.listeners = {};

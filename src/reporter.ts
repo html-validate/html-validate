@@ -26,7 +26,7 @@ export interface Report {
 }
 
 export class Reporter {
-	result: { [filename: string]: Array<Message>; };
+	result: { [filename: string]: Message[]; };
 
 	constructor(){
 		this.result = {};

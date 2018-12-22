@@ -25,7 +25,7 @@ export function reset(){
 export class HtmlElement extends DOMNode {
 	readonly tagName: string;
 	readonly attr: { [key: string]: Attribute; };
-	readonly children: Array<HtmlElement>;
+	readonly children: HtmlElement[];
 	readonly location: Location;
 	readonly meta: MetaElement;
 	readonly parent: HtmlElement;
@@ -135,7 +135,7 @@ export class HtmlElement extends DOMNode {
 		return i <= (this.siblings.length - 2) ? this.siblings[i + 1] : null;
 	}
 
-	getElementsByTagName(tagName: string): Array<HtmlElement> {
+	getElementsByTagName(tagName: string): HtmlElement[] {
 		return this.children.reduce((matches, node) => {
 			return matches.concat(node.is(tagName) ? [node] : [], node.getElementsByTagName(tagName));
 		}, []);

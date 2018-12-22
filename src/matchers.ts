@@ -17,7 +17,7 @@ declare global {
 			toBeInvalid(): R;
 			toBeToken(expected: TokenMatcher): R;
 			toHaveError(ruleId: string, message: string): R;
-			toHaveErrors(errors: ([string, string]|{})[]): R;
+			toHaveErrors(errors: Array<[string, string]|{}>): R;
 		}
 	}
 }
@@ -69,7 +69,7 @@ function toHaveError(report: Report, ruleId: any, message: any){
 	return {pass, message: resultMessage};
 }
 
-function toHaveErrors(report: Report, errors: ([string, string]|{})[]){
+function toHaveErrors(report: Report, errors: Array<[string, string]|{}>){
 	const actual = report.results.reduce((aggregated: Message[], result: Result) => {
 		return aggregated.concat(result.messages);
 	}, []);

@@ -105,7 +105,7 @@ export class Lexer {
 		yield this.token(context, TokenType.EOF);
 	}
 
-	private token(context: Context, type: TokenType, data?: Array<string>): Token {
+	private token(context: Context, type: TokenType, data?: string[]): Token {
 		const size = data ? data[0].length : undefined;
 		const location = context.getLocation(size);
 		return {

@@ -9,7 +9,7 @@ export type Permitted = PermittedEntry[];
 export type PermittedOrder = string[];
 
 export interface PermittedAttribute {
-	[key: string]: (string | RegExp)[];
+	[key: string]: Array<string | RegExp>;
 }
 
 export interface MetaElement {

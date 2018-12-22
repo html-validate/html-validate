@@ -1,6 +1,6 @@
 import { Result } from "../reporter";
 
-function textFormatter(results: Array<Result>){
+function textFormatter(results: Result[]){
 	let output = "";
 	let total = 0;
 

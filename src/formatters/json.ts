@@ -1,6 +1,6 @@
 import { Result } from "../reporter";
 
-function jsonFormatter(results: Array<Result>){
+function jsonFormatter(results: Result[]){
 	return JSON.stringify(results);
 }
 

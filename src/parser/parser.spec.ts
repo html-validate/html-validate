@@ -36,7 +36,7 @@ describe("parser", () => {
 		"whitespace",
 	];
 
-	let events: Array<any>;
+	let events: any[];
 	let parser: ExposedParser;
 
 	beforeEach(() => {
