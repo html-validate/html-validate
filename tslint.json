@@ -32,7 +32,6 @@
     "one-line": false,
     "ordered-imports": false,
     "semicolon": false,
-    "triple-equals": false,
     "unified-signatures": false
   },
   "rulesDirectory": []
