@@ -11,7 +11,7 @@
     "curly": false,
     "forin": false,
     "import-spacing": false,
-    "indent": false,
+    "indent": [true, "tabs", 1],
     "interface-name": false,
     "interface-over-type-literal": false,
     "jsdoc-format": false,

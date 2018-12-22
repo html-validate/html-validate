@@ -59,12 +59,12 @@ function toHaveError(report: Report, ruleId: any, message: any){
 	const pass = this.equals(actual, matcher);
 	const diffString = diff(matcher, actual, {expand: this.expand});
 	const resultMessage = () => this.utils.matcherHint('.toHaveError') +
-    '\n\n' +
-    `Expected token to equal:\n` +
-    `  ${this.utils.printExpected(matcher)}\n` +
-    `Received:\n` +
-    `  ${this.utils.printReceived(actual)}` +
-    (diffString ? `\n\nDifference:\n\n${diffString}` : '');
+		'\n\n' +
+		`Expected token to equal:\n` +
+		`  ${this.utils.printExpected(matcher)}\n` +
+		`Received:\n` +
+		`  ${this.utils.printReceived(actual)}` +
+		(diffString ? `\n\nDifference:\n\n${diffString}` : '');
 
 	return {pass, message: resultMessage};
 }
@@ -84,12 +84,12 @@ function toHaveErrors(report: Report, errors: ([string, string]|{})[]){
 	const pass = this.equals(actual, matcher);
 	const diffString = diff(matcher, actual, {expand: this.expand});
 	const resultMessage = () => this.utils.matcherHint('.toHaveErrors') +
-    '\n\n' +
-    `Expected token to equal:\n` +
-    `  ${this.utils.printExpected(matcher)}\n` +
-    `Received:\n` +
-    `  ${this.utils.printReceived(actual)}` +
-    (diffString ? `\n\nDifference:\n\n${diffString}` : '');
+		'\n\n' +
+		`Expected token to equal:\n` +
+		`  ${this.utils.printExpected(matcher)}\n` +
+		`Received:\n` +
+		`  ${this.utils.printReceived(actual)}` +
+		(diffString ? `\n\nDifference:\n\n${diffString}` : '');
 
 	return {pass, message: resultMessage};
 }
@@ -109,12 +109,12 @@ function toBeToken(actual: any, expected: any){
 	const pass = this.equals(token, matcher);
 	const diffString = diff(matcher, token, {expand: this.expand});
 	const message = () => this.utils.matcherHint('.toBeToken') +
-    '\n\n' +
-    `Expected token to equal:\n` +
-    `  ${this.utils.printExpected(matcher)}\n` +
-    `Received:\n` +
-    `  ${this.utils.printReceived(token)}` +
-    (diffString ? `\n\nDifference:\n\n${diffString}` : '');
+		'\n\n' +
+		`Expected token to equal:\n` +
+		`  ${this.utils.printExpected(matcher)}\n` +
+		`Received:\n` +
+		`  ${this.utils.printReceived(token)}` +
+		(diffString ? `\n\nDifference:\n\n${diffString}` : '');
 
 	return {pass, message};
 }
