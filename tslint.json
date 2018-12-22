@@ -31,7 +31,6 @@
     "object-literal-sort-keys": false,
     "one-line": false,
     "ordered-imports": false,
-    "semicolon": false,
     "unified-signatures": false
   },
   "rulesDirectory": []

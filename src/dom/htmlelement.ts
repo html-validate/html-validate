@@ -28,7 +28,7 @@ export class HtmlElement extends DOMNode {
 	readonly children: Array<HtmlElement>;
 	readonly location: Location;
 	readonly meta: MetaElement;
-	readonly parent: HtmlElement
+	readonly parent: HtmlElement;
 	readonly voidElement: boolean;
 	readonly unique: number;
 	readonly depth: number;
