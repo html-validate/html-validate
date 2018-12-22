@@ -58,6 +58,10 @@ Jest:
     paths:
       - coverage
 
+TSLint:
+  stage: test
+  script: node_modules/.bin/tslint -t verbose $(find src -name '*.ts') *.ts
+
 Docs:
   stage: test
   script:
