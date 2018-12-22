@@ -14,6 +14,11 @@ describe("sliceLocation()", () => {
 		};
 	});
 
+	it("should handle falsy values", () => {
+		expect(sliceLocation(undefined, 1)).toBeNull();
+		expect(sliceLocation(null, 1)).toBeNull();
+	});
+
 	it("should slice off beginning", () => {
 		expect(sliceLocation(location, 1)).toEqual({
 			filename: "-",
