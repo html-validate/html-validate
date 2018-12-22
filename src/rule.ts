@@ -19,9 +19,7 @@ export interface RuleOptions {
 	[key: string]: any;
 }
 
-export interface RuleConstructor {
-	new (options: RuleOptions): Rule;
-}
+export type RuleConstructor = new (options: RuleOptions) => Rule;
 
 export abstract class Rule {
 	private reporter: Reporter;

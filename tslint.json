@@ -7,7 +7,6 @@
   "rules": {
     "array-type": false,
     "arrow-parens": false,
-    "callable-types": false,
     "curly": [true, "ignore-same-line"],
     "indent": [true, "tabs", 1],
     "interface-name": false,
