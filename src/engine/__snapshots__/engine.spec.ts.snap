@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Engine dumpTree() should dump DOM tree 1`] = `
+Array [
+  "(root)",
+  "└─┬ div#foo",
+  "  ├── p.bar",
+  "  └─┬ ul",
+  "    ├── li",
+  "    └── li",
+]
+`;

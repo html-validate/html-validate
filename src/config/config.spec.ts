@@ -1,7 +1,13 @@
 const path = require('path');
 import { Config } from './config';
+import * as fs from 'fs';
+
+let mockElements: any;
+jest.mock('mock-elements', () => mockElements, {virtual: true});
+jest.mock('mock-plugin', () => 'mock plugin', {virtual: true});
 
 describe('config', function(){
+
 	it('should load defaults', function(){
 		const config = Config.empty();
 		expect(config.get()).toBeDefined();
@@ -118,6 +124,11 @@ describe('config', function(){
 			});
 		});
 
+		it('should handle when rules are unset', function(){
+			const config = Config.fromObject({rules: null});
+			expect(config.getRules()).toEqual({});
+		});
+
 	});
 
 	describe('fromFile()', function(){
@@ -223,6 +234,17 @@ describe('config', function(){
 			expect(a).toBe(b);
 		});
 
+		it('should load metadata from module', function(){
+			mockElements = {
+				foo: {},
+			};
+			const config = Config.fromObject({
+				elements: ['mock-elements'],
+			});
+			const metatable = config.getMetaTable();
+			expect(Object.keys(metatable.elements)).not.toHaveLength(0);
+		});
+
 	});
 
 	describe('transform()', () => {
@@ -272,6 +294,45 @@ describe('config', function(){
 			}]);
 		});
 
+	});
+
+	describe('init()', () => {
+
+		it('should handle unset fields', () => {
+			const config = Config.fromObject({
+				plugins: null,
+				transform: null,
+			});
+			expect(() => {
+				config.init();
+			}).not.toThrow();
+		});
+
+		it('should load plugins', () => {
+			const config = Config.fromObject({
+				plugins: [
+					'mock-plugin',
+				],
+			});
+			config.init();
+			expect(config.getPlugins()).toEqual([
+				'mock plugin',
+			]);
+		});
+
+	});
+
+	it('should find rootDir', () => {
+		const config = new class extends Config {
+			public findRootDir(){
+				return super.findRootDir();
+			}
+		}();
+		const root = path.resolve(path.join(__dirname, '../..'));
+		expect(config.findRootDir()).toEqual(root);
+		const spy = jest.spyOn(fs, 'existsSync').mockImplementation(() => false);
+		expect(config.findRootDir()).toEqual(process.cwd());
+		spy.mockRestore();
 	});
 
 });

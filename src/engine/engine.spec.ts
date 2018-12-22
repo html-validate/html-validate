@@ -236,13 +236,9 @@ describe('Engine', function(){
 	describe('dumpTree()', function(){
 
 		it('should dump DOM tree', function(){
-			const source: Source[] = [inline('<div id="foo"><p class="bar">baz</p></div>')];
+			const source: Source[] = [inline('<div id="foo"><p class="bar">baz</p><ul><li>fred</li><li>barney</li></ul></div>')];
 			const lines = engine.dumpTree(source);
-			expect(lines).toEqual([
-				'(root)',
-				'└─┬ div#foo',
-				'  └── p.bar',
-			]);
+			expect(lines).toMatchSnapshot();
 		});
 
 	});

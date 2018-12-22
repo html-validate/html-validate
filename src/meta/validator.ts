@@ -28,8 +28,8 @@ export class Validator {
 		const category = rules.find(cur => {
 			/** @todo handle complex rules and not just plain arrays (but as of now
 			 * there is no use-case for it) */
+			// istanbul ignore next
 			if (typeof cur !== 'string'){
-				// istanbul ignore next
 				return false;
 			}
 			const match = cur.match(/^(.*?)[?*]?$/);
@@ -123,7 +123,7 @@ export class Validator {
 					return !Validator.validatePermittedRule(node, rule.exclude);
 				}
 			} else {
-				return false;
+				return true;
 			}
 		}
 	}
@@ -185,8 +185,8 @@ function parseAmountQualifier(category: string): number {
 	case '?': return 1;
 	case '': return null;
 	case '*': return null;
+	/* istanbul ignore next */
 	default:
-		/* istanbul ignore next */
 		throw new Error(`Invalid amount qualifier "${qualifier}" used`);
 	}
 }

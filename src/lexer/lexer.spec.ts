@@ -36,6 +36,17 @@ describe('lexer', function(){
 		expect(token.next().done).toBeTruthy();
 	});
 
+	it('should throw error when source cannot be tokenized', () => {
+		const shortSource = inlineSource('<p\n<p></p></p>');
+		const longSource = inlineSource('<p\n<p>lorem ipsum dolor sit amet</p></p>');
+		expect(() => {
+			Array.from(lexer.tokenize(shortSource));
+		}).toThrow('failed to tokenize "<p></p></p>", expected attribute, ">" or "/>"');
+		expect(() => {
+			Array.from(lexer.tokenize(longSource));
+		}).toThrow('failed to tokenize "<p>lorem i...", expected attribute, ">" or "/>"');
+	});
+
 	describe('should tokenize', function(){
 
 		it('xml declaration', function(){
