@@ -76,7 +76,7 @@ describe("HTML elements", () => {
 		});
 	}
 
-	function allowContent(tagName: string, category: string, variant: string = undefined){
+	function allowContent(tagName: string, category: string, variant?: string){
 		const child = getTagname(category);
 		const pretty = category[0] === "@" ? category : `<${category}>`;
 		const inner = getElementMarkup(child, variant);
@@ -87,7 +87,7 @@ describe("HTML elements", () => {
 		});
 	}
 
-	function allowParent(tagName: string, category: string, variant: string = undefined){
+	function allowParent(tagName: string, category: string, variant?: string){
 		const outer = getTagname(category);
 		const inner = getElementMarkup(tagName, variant);
 		it(`should allow <${outer}> as parent`, () => {
@@ -97,7 +97,7 @@ describe("HTML elements", () => {
 		});
 	}
 
-	function allowAttribute(tagName: string, attr: string, values: string[], variant: string = undefined){
+	function allowAttribute(tagName: string, attr: string, values: string[], variant?: string){
 		if (values.length === 0){
 			it(`should allow boolean attribute ${attr}`, () => {
 				const markup = getElementMarkup(tagName, variant, {[attr]: undefined});
@@ -145,7 +145,7 @@ describe("HTML elements", () => {
 		disallowContent(tagName, tagName);
 	}
 
-	function disallowParent(tagName: string, category: string, variant: string = undefined){
+	function disallowParent(tagName: string, category: string, variant?: string){
 		const outer = getTagname(category);
 		const inner = getElementMarkup(tagName, variant);
 		it(`should disallow <${outer}> as parent`, () => {
@@ -155,7 +155,7 @@ describe("HTML elements", () => {
 		});
 	}
 
-	function disallowAttribute(tagName: string, attr: string, values: string[], variant: string = undefined){
+	function disallowAttribute(tagName: string, attr: string, values: string[], variant?: string){
 		for (const value of values) {
 			it(`should disallow attribute ${attr}="${value}"`, () => {
 				const markup = getElementMarkup(tagName, variant, {[attr]: value});

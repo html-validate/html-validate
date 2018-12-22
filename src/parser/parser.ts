@@ -211,8 +211,8 @@ export class Parser {
 
 	consumeAttribute(node: HtmlElement, token: Token, next?: Token){
 		const key = token.data[1];
-		let value = undefined;
-		let quote = undefined;
+		let value;
+		let quote;
 		if (next && next.type === TokenType.ATTR_VALUE){
 			value = next.data[1];
 			quote = next.data[2];
