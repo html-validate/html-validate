@@ -96,7 +96,7 @@ export class TemplateExtractor {
 		return [{
 			column: 1,
 			data,
-			filename: filename,
+			filename,
 			line: 1,
 		}];
 	}

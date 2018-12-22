@@ -96,7 +96,7 @@ export class Engine<T extends Parser = Parser> {
 				const data = token.data ? token.data[0] : null;
 				lines.push({
 					token: TokenType[token.type],
-					data: data,
+					data,
 					location: `${token.location.filename}:${token.location.line}:${token.location.column}`,
 				});
 			}
@@ -274,7 +274,7 @@ export class Engine<T extends Parser = Parser> {
 		this.report.addManual(location.filename, {
 			ruleId: undefined,
 			severity: Config.SEVERITY_ERROR,
-			message: message,
+			message,
 			offset: location.offset,
 			line: location.line,
 			column: location.column,
