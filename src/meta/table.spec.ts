@@ -1,6 +1,6 @@
-import { MetaTable, MetaElement } from './';
-import { Config } from '../config';
-import { Parser } from '../parser';
+import { Config } from "../config";
+import { Parser } from "../parser";
+import { MetaElement, MetaTable } from "./";
 
 class ConfigMock extends Config {
 	constructor(metaTable: MetaTable){
@@ -9,220 +9,220 @@ class ConfigMock extends Config {
 	}
 }
 
-describe('MetaTable', function(){
+describe("MetaTable", () => {
 
-	it('should throw error when meta has unknown properties', function(){
+	it("should throw error when meta has unknown properties", () => {
 		const table = new MetaTable();
 		expect(() => table.loadFromObject({
-			foo: mockEntry('foo', {invalid: true}),
+			foo: mockEntry("foo", {invalid: true}),
 		})).toThrowError('Metadata for <foo> contains unknown property "invalid"');
 	});
 
-	describe('getMetaFor', function(){
+	describe("getMetaFor", () => {
 
 		let table: MetaTable;
 
-		beforeEach(function(){
+		beforeEach(() => {
 			table = new MetaTable();
 			table.loadFromObject({
-				foo: mockEntry('foo', {phrasing: true}),
+				foo: mockEntry("foo", {phrasing: true}),
 			});
 		});
 
-		it('should be populated for known elements', function(){
-			const meta = table.getMetaFor('foo');
+		it("should be populated for known elements", () => {
+			const meta = table.getMetaFor("foo");
 			expect(meta).not.toBeUndefined();
-			expect(meta.tagName).toEqual('foo');
+			expect(meta.tagName).toEqual("foo");
 		});
 
-		it('should be null for unknown elements', function(){
-			const meta = table.getMetaFor('bar');
+		it("should be null for unknown elements", () => {
+			const meta = table.getMetaFor("bar");
 			expect(meta).toBeNull();
 		});
 
-		it('should be case insensitive', function(){
-			const meta = table.getMetaFor('FOO');
+		it("should be case insensitive", () => {
+			const meta = table.getMetaFor("FOO");
 			expect(meta).not.toBeUndefined();
-			expect(meta.tagName).toEqual('foo');
+			expect(meta.tagName).toEqual("foo");
 		});
 
 	});
 
-	describe('expression', function(){
+	describe("expression", () => {
 
 		let table: MetaTable;
 
-		it('should throw exception when function is missing', () => {
+		it("should throw exception when function is missing", () => {
 			table = new MetaTable();
 			table.loadFromObject({
-				invalid: mockEntry('dynamic', {interactive: ['invalid'], void: true}),
+				invalid: mockEntry("dynamic", {interactive: ["invalid"], void: true}),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			expect(() => parser.parseHtml('<invalid/>')).toThrowError('Failed to find function "invalid" when evaluating property expression');
+			expect(() => parser.parseHtml("<invalid/>")).toThrowError('Failed to find function "invalid" when evaluating property expression');
 		});
 
-		it('should handle strings', () => {
+		it("should handle strings", () => {
 			table = new MetaTable();
 			table.loadFromObject({
-				invalid: mockEntry('dynamic', {interactive: 'invalid', void: true}),
+				invalid: mockEntry("dynamic", {interactive: "invalid", void: true}),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			expect(() => parser.parseHtml('<invalid/>')).toThrowError('Failed to find function "invalid" when evaluating property expression');
+			expect(() => parser.parseHtml("<invalid/>")).toThrowError('Failed to find function "invalid" when evaluating property expression');
 		});
 
-		describe('isDescendant', function(){
+		describe("isDescendant", () => {
 
-			beforeEach(function(){
+			beforeEach(() => {
 				table = new MetaTable();
 				table.loadFromObject({
-					foo: mockEntry('foo'),
-					spam: mockEntry('spam'),
-					ham: mockEntry('ham'),
-					dynamic: mockEntry('dynamic', {interactive: ['isDescendant', 'ham'], void: true}),
-					invalid: mockEntry('dynamic', {interactive: ['isDescendant', []], void: true}),
+					foo: mockEntry("foo"),
+					spam: mockEntry("spam"),
+					ham: mockEntry("ham"),
+					dynamic: mockEntry("dynamic", {interactive: ["isDescendant", "ham"], void: true}),
+					invalid: mockEntry("dynamic", {interactive: ["isDescendant", []], void: true}),
 				});
 			});
 
-			it('should be true if child is a descendant of given tagName', function(){
+			it("should be true if child is a descendant of given tagName", () => {
 				const parser = new Parser(new ConfigMock(table));
-				const dom = parser.parseHtml('<foo><ham><dynamic/></ham></foo>').root;
-				const el = dom.getElementsByTagName('dynamic');
+				const dom = parser.parseHtml("<foo><ham><dynamic/></ham></foo>").root;
+				const el = dom.getElementsByTagName("dynamic");
 				expect(el[0].meta.interactive).toBeTruthy();
 			});
 
-			it('should be false if child is not a descendant of given tagName', function(){
+			it("should be false if child is not a descendant of given tagName", () => {
 				const parser = new Parser(new ConfigMock(table));
-				const dom = parser.parseHtml('<foo><spam><dynamic/></spam></foo>').root;
-				const el = dom.getElementsByTagName('dynamic');
+				const dom = parser.parseHtml("<foo><spam><dynamic/></spam></foo>").root;
+				const el = dom.getElementsByTagName("dynamic");
 				expect(el[0].meta.interactive).toBeFalsy();
 			});
 
-			it('should throw exception when invalid argument is used', () => {
+			it("should throw exception when invalid argument is used", () => {
 				const parser = new Parser(new ConfigMock(table));
-				expect(() => parser.parseHtml('<invalid/>')).toThrowError('Property expression "isDescendant" must take string argument when evaluating metadata for <invalid>');
+				expect(() => parser.parseHtml("<invalid/>")).toThrowError('Property expression "isDescendant" must take string argument when evaluating metadata for <invalid>');
 			});
 
 		});
 
-		describe('hasAttribute', function(){
+		describe("hasAttribute", () => {
 
-			beforeEach(function(){
+			beforeEach(() => {
 				table = new MetaTable();
 				table.loadFromObject({
-					dynamic: mockEntry('dynamic', {interactive: ['hasAttribute', 'foo'], void: true}),
-					invalid: mockEntry('dynamic', {interactive: ['hasAttribute', []], void: true}),
+					dynamic: mockEntry("dynamic", {interactive: ["hasAttribute", "foo"], void: true}),
+					invalid: mockEntry("dynamic", {interactive: ["hasAttribute", []], void: true}),
 				});
 			});
 
-			it('should be true if element has given attribute', function(){
+			it("should be true if element has given attribute", () => {
 				const parser = new Parser(new ConfigMock(table));
-				const dom = parser.parseHtml('<dynamic foo/>').root;
-				const el = dom.getElementsByTagName('dynamic');
+				const dom = parser.parseHtml("<dynamic foo/>").root;
+				const el = dom.getElementsByTagName("dynamic");
 				expect(el[0].meta.interactive).toBeTruthy();
 			});
 
-			it('should be false if element does not have given attribute', function(){
+			it("should be false if element does not have given attribute", () => {
 				const parser = new Parser(new ConfigMock(table));
-				const dom = parser.parseHtml('<dynamic bar/>').root;
-				const el = dom.getElementsByTagName('dynamic');
+				const dom = parser.parseHtml("<dynamic bar/>").root;
+				const el = dom.getElementsByTagName("dynamic");
 				expect(el[0].meta.interactive).toBeFalsy();
 			});
 
-			it('should throw exception when invalid argument is used', () => {
+			it("should throw exception when invalid argument is used", () => {
 				const parser = new Parser(new ConfigMock(table));
-				expect(() => parser.parseHtml('<invalid/>')).toThrowError('Property expression "hasAttribute" must take string argument when evaluating metadata for <invalid>');
+				expect(() => parser.parseHtml("<invalid/>")).toThrowError('Property expression "hasAttribute" must take string argument when evaluating metadata for <invalid>');
 			});
 
 		});
 
-		describe('matchAttribute', function(){
+		describe("matchAttribute", () => {
 
-			beforeEach(function(){
+			beforeEach(() => {
 				table = new MetaTable();
 				table.loadFromObject({
-					foo: mockEntry('dynamic', {interactive: ['matchAttribute', ['type', '=', 'hidden']], void: true}),
-					bar: mockEntry('dynamic', {interactive: ['matchAttribute', ['type', '!=', 'hidden']], void: true}),
-					invalid1: mockEntry('dynamic', {interactive: ['matchAttribute', ['type', '#', 'hidden']], void: true}),
-					invalid2: mockEntry('dynamic', {interactive: ['matchAttribute', []], void: true}),
-					invalid3: mockEntry('dynamic', {interactive: ['matchAttribute', 'foo'], void: true}),
+					foo: mockEntry("dynamic", {interactive: ["matchAttribute", ["type", "=", "hidden"]], void: true}),
+					bar: mockEntry("dynamic", {interactive: ["matchAttribute", ["type", "!=", "hidden"]], void: true}),
+					invalid1: mockEntry("dynamic", {interactive: ["matchAttribute", ["type", "#", "hidden"]], void: true}),
+					invalid2: mockEntry("dynamic", {interactive: ["matchAttribute", []], void: true}),
+					invalid3: mockEntry("dynamic", {interactive: ["matchAttribute", "foo"], void: true}),
 				});
 			});
 
-			it('should be true when "=" is used to match existing value', function(){
+			it('should be true when "=" is used to match existing value', () => {
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml('<foo type="hidden"/>').root;
-				const el = dom.getElementsByTagName('foo');
+				const el = dom.getElementsByTagName("foo");
 				expect(el[0].meta.interactive).toBeTruthy();
 			});
 
-			it('should be false when "=" is used to match other value', function(){
+			it('should be false when "=" is used to match other value', () => {
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml('<foo type="other"/>').root;
-				const el = dom.getElementsByTagName('foo');
+				const el = dom.getElementsByTagName("foo");
 				expect(el[0].meta.interactive).toBeFalsy();
 			});
 
-			it('should be false when "=" is used to match missing value', function(){
+			it('should be false when "=" is used to match missing value', () => {
 				const parser = new Parser(new ConfigMock(table));
-				const dom = parser.parseHtml('<foo/>').root;
-				const el = dom.getElementsByTagName('foo');
+				const dom = parser.parseHtml("<foo/>").root;
+				const el = dom.getElementsByTagName("foo");
 				expect(el[0].meta.interactive).toBeFalsy();
 			});
 
-			it('should be false when "!=" is used to match existing value', function(){
+			it('should be false when "!=" is used to match existing value', () => {
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml('<bar type="hidden"/>').root;
-				const el = dom.getElementsByTagName('bar');
+				const el = dom.getElementsByTagName("bar");
 				expect(el[0].meta.interactive).toBeFalsy();
 			});
 
-			it('should be true when "!=" is used to match other value', function(){
+			it('should be true when "!=" is used to match other value', () => {
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml('<bar type="other"/>').root;
-				const el = dom.getElementsByTagName('bar');
+				const el = dom.getElementsByTagName("bar");
 				expect(el[0].meta.interactive).toBeTruthy();
 			});
 
-			it('should be false when "!=" is used to match missing value', function(){
+			it('should be false when "!=" is used to match missing value', () => {
 				const parser = new Parser(new ConfigMock(table));
-				const dom = parser.parseHtml('<bar/>').root;
-				const el = dom.getElementsByTagName('bar');
+				const dom = parser.parseHtml("<bar/>").root;
+				const el = dom.getElementsByTagName("bar");
 				expect(el[0].meta.interactive).toBeTruthy();
 			});
 
-			it('should throw exception when invalid operator is used', () => {
+			it("should throw exception when invalid operator is used", () => {
 				const parser = new Parser(new ConfigMock(table));
-				expect(() => parser.parseHtml('<invalid1/>')).toThrowError('Property expression "matchAttribute" has invalid operator "#" when evaluating metadata for <invalid1>');
+				expect(() => parser.parseHtml("<invalid1/>")).toThrowError('Property expression "matchAttribute" has invalid operator "#" when evaluating metadata for <invalid1>');
 			});
 
-			it('should throw exception when parameters is malformed', () => {
+			it("should throw exception when parameters is malformed", () => {
 				const parser = new Parser(new ConfigMock(table));
-				expect(() => parser.parseHtml('<invalid2/>')).toThrowError('Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <invalid2>');
-				expect(() => parser.parseHtml('<invalid3/>')).toThrowError('Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <invalid3>');
+				expect(() => parser.parseHtml("<invalid2/>")).toThrowError('Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <invalid2>');
+				expect(() => parser.parseHtml("<invalid3/>")).toThrowError('Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <invalid3>');
 			});
 
 		});
 
 	});
 
-	it('should expand regexp', () => {
+	it("should expand regexp", () => {
 		const table = new MetaTable();
 		table.loadFromObject({
-			foo: mockEntry('foo', {
+			foo: mockEntry("foo", {
 				attributes: {
 					attr: [
-						'foo',
-						'/bar/',
+						"foo",
+						"/bar/",
 						/baz/,
 					],
 				},
 			}),
 		});
-		const meta = table.getMetaFor('foo');
+		const meta = table.getMetaFor("foo");
 		expect(meta).not.toBeUndefined();
 		expect(meta.attributes).toEqual({
 			attr: [
-				'foo',
+				"foo",
 				/bar/,
 				/baz/,
 			],

@@ -1,10 +1,10 @@
-import { Rule } from '../rule';
-import { TagCloseEvent } from '../event';
-import { NodeClosed } from '../dom';
+import { NodeClosed } from "../dom";
+import { TagCloseEvent } from "../event";
+import { Rule } from "../rule";
 
 class CloseOrder extends Rule {
 	setup(){
-		this.on('tag:close', (event: TagCloseEvent) => {
+		this.on("tag:close", (event: TagCloseEvent) => {
 			const current = event.target;     // The current element being closed
 			const active = event.previous;    // The current active element (that is, the current element on the stack)
 

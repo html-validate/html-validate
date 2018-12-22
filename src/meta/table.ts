@@ -1,35 +1,35 @@
-import { HtmlElement } from '../dom';
-import { MetaElement, ElementTable, PropertyExpression } from './element';
-const deepmerge = require('deepmerge');
+import { HtmlElement } from "../dom";
+import { ElementTable, MetaElement, PropertyExpression } from "./element";
+const deepmerge = require("deepmerge");
 
 const allowedKeys = [
-	'tagName',
-	'metadata',
-	'flow',
-	'sectioning',
-	'heading',
-	'phrasing',
-	'embedded',
-	'interactive',
-	'deprecated',
-	'void',
-	'transparent',
-	'implicitClosed',
-	'attributes',
-	'deprecatedAttributes',
-	'permittedContent',
-	'permittedDescendants',
-	'permittedOrder',
+	"tagName",
+	"metadata",
+	"flow",
+	"sectioning",
+	"heading",
+	"phrasing",
+	"embedded",
+	"interactive",
+	"deprecated",
+	"void",
+	"transparent",
+	"implicitClosed",
+	"attributes",
+	"deprecatedAttributes",
+	"permittedContent",
+	"permittedDescendants",
+	"permittedOrder",
 ];
 
 const dynamicKeys = [
-	'metadata',
-	'flow',
-	'sectioning',
-	'heading',
-	'phrasing',
-	'embedded',
-	'interactive',
+	"metadata",
+	"flow",
+	"sectioning",
+	"heading",
+	"phrasing",
+	"embedded",
+	"interactive",
 ];
 
 // eslint-disable-next-line no-unused-vars
@@ -91,12 +91,12 @@ export class MetaTable {
 	 */
 	private resolveGlobal(): void {
 		/* skip if there is no global elements */
-		if (!this.elements['*']) return;
+		if (!this.elements["*"]) return;
 
 		/* fetch and remove the global element, it should not be resolvable by
 		 * itself */
-		const global = this.elements['*'];
-		delete this.elements['*'];
+		const global = this.elements["*"];
+		delete this.elements["*"];
 
 		/* hack: unset default properties which global should not override */
 		delete global.tagName;
@@ -122,7 +122,7 @@ export class MetaTable {
 function expandProperties(node: HtmlElement, entry: MetaElement){
 	for (const key of dynamicKeys){
 		const property = entry[key];
-		if (property && typeof property !== 'boolean'){
+		if (property && typeof property !== "boolean"){
 			entry[key] = evaluateProperty(node, property as PropertyExpression);
 		}
 	}
@@ -132,7 +132,7 @@ function expandRegex(entry: MetaElement){
 	if (!entry.attributes) return;
 	for (const [name, values] of Object.entries(entry.attributes)){
 		entry.attributes[name] = values.map((value: string|RegExp) => {
-			const match = typeof value === 'string' && value.match(/^\/(.*)\/$/);
+			const match = typeof value === "string" && value.match(/^\/(.*)\/$/);
 			if (match){
 				return new RegExp(match[1]);
 			} else {
@@ -148,7 +148,7 @@ function evaluateProperty(node: HtmlElement, expr: PropertyExpression): boolean 
 }
 
 function parseExpression(expr: PropertyExpression): [PropertyEvaluator, any] {
-	if (typeof expr === 'string'){
+	if (typeof expr === "string"){
 		return parseExpression([expr, {}]);
 	} else {
 		const [funcName, options] = expr;
@@ -161,7 +161,7 @@ function parseExpression(expr: PropertyExpression): [PropertyEvaluator, any] {
 }
 
 function isDescendant(node: HtmlElement, tagName: any): boolean {
-	if (typeof tagName !== 'string'){
+	if (typeof tagName !== "string"){
 		throw new Error(`Property expression "isDescendant" must take string argument when evaluating metadata for <${node.tagName}>`);
 	}
 	let cur: HtmlElement = node.parent;
@@ -175,7 +175,7 @@ function isDescendant(node: HtmlElement, tagName: any): boolean {
 }
 
 function hasAttribute(node: HtmlElement, attr: any): boolean {
-	if (typeof attr !== 'string'){
+	if (typeof attr !== "string"){
 		throw new Error(`Property expression "hasAttribute" must take string argument when evaluating metadata for <${node.tagName}>`);
 	}
 	return node.hasAttribute(attr);
@@ -185,11 +185,11 @@ function matchAttribute(node: HtmlElement, match: any): boolean {
 	if (!Array.isArray(match) || match.length !== 3){
 		throw new Error(`Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <${node.tagName}>`);
 	}
-	const [key, op, value] = match.map(x => x.toLowerCase());
-	const nodeValue = (node.getAttributeValue(key) || '').toLowerCase();
+	const [key, op, value] = match.map((x) => x.toLowerCase());
+	const nodeValue = (node.getAttributeValue(key) || "").toLowerCase();
 	switch (op){
-	case '!=': return nodeValue !== value;
-	case '=': return nodeValue === value;
+	case "!=": return nodeValue !== value;
+	case "=": return nodeValue === value;
 	default: throw new Error(`Property expression "matchAttribute" has invalid operator "${op}" when evaluating metadata for <${node.tagName}>`);
 	}
 }

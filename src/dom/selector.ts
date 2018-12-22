@@ -1,5 +1,5 @@
-import { HtmlElement } from './htmlelement';
-import { Combinator, parseCombinator } from './combinator';
+import { Combinator, parseCombinator } from "./combinator";
+import { HtmlElement } from "./htmlelement";
 
 class Matcher {
 	match(node: HtmlElement): boolean { // eslint-disable-line no-unused-vars
@@ -52,7 +52,7 @@ class AttrMatcher extends Matcher {
 		switch (this.op){
 		case undefined:
 			return attr !== null;
-		case '=':
+		case "=":
 			return attr === this.value;
 		default:
 			throw new Error(`Attribute selector operator ${this.op} is not implemented yet`);
@@ -71,7 +71,7 @@ class Pattern {
 		match.shift(); /* remove full matched string */
 		this.selector = pattern;
 		this.combinator = parseCombinator(match.shift());
-		this.tagName = match.shift() || '*';
+		this.tagName = match.shift() || "*";
 		const p = match[0] ? match[0].split(/(?=[.#[])/) : [];
 		this.pattern = p.map((cur: string) => Pattern.createMatcher(cur));
 	}
@@ -82,11 +82,11 @@ class Pattern {
 
 	private static createMatcher(pattern: string): Matcher {
 		switch (pattern[0]){
-		case '.':
+		case ".":
 			return new ClassMatcher(pattern.slice(1));
-		case '#':
+		case "#":
 			return new IdMatcher(pattern.slice(1));
-		case '[':
+		case "[":
 			return new AttrMatcher(pattern.slice(1, -1));
 		default:
 			/* istanbul ignore next: fallback solution, the switch cases should cover
@@ -122,7 +122,7 @@ export class Selector {
 	}
 
 	private static parse(selector: string): Pattern[] {
-		const pattern = selector.replace(/([+~>]) /, '$1').split(/ +/);
+		const pattern = selector.replace(/([+~>]) /, "$1").split(/ +/);
 		return pattern.map((part: string) => new Pattern(part));
 	}
 
@@ -131,7 +131,7 @@ export class Selector {
 		case Combinator.DESCENDANT:
 			return root.getElementsByTagName(pattern.tagName);
 		case Combinator.CHILD:
-			return root.children.filter(node => node.is(pattern.tagName));
+			return root.children.filter((node) => node.is(pattern.tagName));
 		case Combinator.ADJACENT_SIBLING:
 			return Selector.findAdjacentSibling(root);
 		case Combinator.GENERAL_SIBLING:
@@ -144,7 +144,7 @@ export class Selector {
 
 	private static findAdjacentSibling(node: HtmlElement): HtmlElement[] {
 		let adjacent = false;
-		return node.siblings.filter(cur => {
+		return node.siblings.filter((cur) => {
 			if (adjacent){
 				adjacent = false;
 				return true;
@@ -158,7 +158,7 @@ export class Selector {
 
 	private static findGeneralSibling(node: HtmlElement): HtmlElement[] {
 		let after = false;
-		return node.siblings.filter(cur => {
+		return node.siblings.filter((cur) => {
 			if (after){
 				return true;
 			}

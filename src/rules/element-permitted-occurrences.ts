@@ -1,11 +1,11 @@
-import { Rule } from '../rule';
-import { HtmlElement } from '../dom';
-import { DOMReadyEvent } from '../event';
-import { Validator } from '../meta';
+import { HtmlElement } from "../dom";
+import { DOMReadyEvent } from "../event";
+import { Validator } from "../meta";
+import { Rule } from "../rule";
 
 class ElementPermittedOccurrences extends Rule {
 	setup(){
-		this.on('dom:ready', (event: DOMReadyEvent) => {
+		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;
 			doc.visitDepthFirst((node: HtmlElement) => {
 				const parent = node.parent;
@@ -15,7 +15,7 @@ class ElementPermittedOccurrences extends Rule {
 				}
 
 				const rules = parent.meta.permittedContent;
-				const siblings = parent.children.filter(cur => cur.tagName === node.tagName);
+				const siblings = parent.children.filter((cur) => cur.tagName === node.tagName);
 				const first = node.unique === siblings[0].unique;
 
 				/* the first occurrence should not trigger any errors, only the

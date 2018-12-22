@@ -1,9 +1,9 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = function generateValidationsSpecProcessor(log, validateMap) {
 	return {
-		$runAfter: ['generateValidationResultsProcessor'],
-		$runBefore: ['extra-docs-added'],
+		$runAfter: ["generateValidationResultsProcessor"],
+		$runBefore: ["extra-docs-added"],
 		$process,
 	};
 
@@ -28,16 +28,16 @@ module.exports = function generateValidationsSpecProcessor(log, validateMap) {
 
 	function createSpec(fileInfo, validations) {
 		return {
-			docType: 'validate-spec',
+			docType: "validate-spec",
 			id: `${fileInfo.relativePath}/spec`,
 			fileInfo: {
 				path: path.dirname(fileInfo.projectRelativePath),
 				file: path.basename(fileInfo.projectRelativePath),
 				fullpath: fileInfo.projectRelativePath,
-				docRoot: path.dirname(fileInfo.projectRelativePath).replace(/[^/]+/g, '..'),
+				docRoot: path.dirname(fileInfo.projectRelativePath).replace(/[^/]+/g, ".."),
 			},
 			validations,
-			template: 'spec-jest.ts',
+			template: "spec-jest.ts",
 		};
 	}
 };

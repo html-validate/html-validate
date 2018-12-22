@@ -1,10 +1,10 @@
-import { Rule } from '../rule';
-import { HtmlElement } from '../dom';
-import { DOMReadyEvent } from '../event';
-import { PermittedAttribute } from '../meta/element';
+import { HtmlElement } from "../dom";
+import { DOMReadyEvent } from "../event";
+import { PermittedAttribute } from "../meta/element";
+import { Rule } from "../rule";
 
 const defaults = {
-	style: 'omit',
+	style: "omit",
 };
 
 type checkFunction = (key: string, value: string) => boolean;
@@ -18,7 +18,7 @@ class AttributeBooleanStyle extends Rule {
 	}
 
 	setup(){
-		this.on('dom:ready', (event: DOMReadyEvent) => {
+		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;
 			doc.visitDepthFirst((node: HtmlElement) => {
 				const meta = node.meta;
@@ -46,9 +46,9 @@ class AttributeBooleanStyle extends Rule {
 
 function parseStyle(style: string): checkFunction {
 	switch (style.toLowerCase()){
-	case 'omit': return (key, value) => typeof value !== 'undefined';
-	case 'empty': return (key, value) => value !== '';
-	case 'name': return (key, value) => value !== key;
+	case "omit": return (key, value) => typeof value !== "undefined";
+	case "empty": return (key, value) => value !== "";
+	case "name": return (key, value) => value !== key;
 	default:
 		throw new Error(`Invalid style "${style}" for "attribute-boolean-style" rule`);
 	}
@@ -56,12 +56,12 @@ function parseStyle(style: string): checkFunction {
 
 function reportMessage(key: string, value: string, style: string): string {
 	switch (style.toLowerCase()){
-	case 'omit': return `Attribute "${key}" should omit value`;
-	case 'empty': return `Attribute "${key}" value should be empty string`;
-	case 'name': return `Attribute "${key}" should be set to ${key}="${key}"`;
+	case "omit": return `Attribute "${key}" should omit value`;
+	case "empty": return `Attribute "${key}" value should be empty string`;
+	case "name": return `Attribute "${key}" should be set to ${key}="${key}"`;
 	}
 	/* istanbul ignore next: the above switch should cover all cases */
-	return '';
+	return "";
 }
 
 module.exports = AttributeBooleanStyle;

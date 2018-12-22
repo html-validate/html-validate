@@ -1,9 +1,9 @@
-const glob = require('glob');
-const files = glob.sync('test-files/config/**/*.html');
-import HtmlValidate from '../htmlvalidate';
-import { ConfigLoader } from './config-loader';
+const glob = require("glob");
+const files = glob.sync("test-files/config/**/*.html");
+import HtmlValidate from "../htmlvalidate";
+import { ConfigLoader } from "./config-loader";
 
-describe('ConfigLoader', function(){
+describe("ConfigLoader", () => {
 
 	let loader: ConfigLoader;
 
@@ -11,7 +11,7 @@ describe('ConfigLoader', function(){
 		loader = new ConfigLoader();
 	});
 
-	describe('smoketest', () => {
+	describe("smoketest", () => {
 
 		files.forEach((filename: string) => {
 			it(filename, () => {

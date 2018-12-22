@@ -1,0 +1,31 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "jsRules": {},
+  "rules": {
+    "curly": [true, "ignore-same-line"],
+    "indent": [true, "tabs", 1],
+    "interface-name": false,
+    "jsdoc-format": false,
+    "max-classes-per-file": false,
+    "max-line-length": false,
+    "member-access": false,
+    "member-ordering": false,
+    "no-console": false,
+    "no-shadowed-variable": false,
+    "no-var-requires": false,
+    "object-literal-sort-keys": false,
+    "one-line": {
+        "options": [
+            "check-catch",
+            "check-else",
+            "check-finally",
+            "check-open-brace"
+        ]
+    },
+    "unified-signatures": false
+  },
+  "rulesDirectory": []
+}

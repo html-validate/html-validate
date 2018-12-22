@@ -1,14 +1,14 @@
+import { HtmlElement } from "../dom";
 import {
 	Permitted,
 	PermittedAttribute,
 	PermittedEntry,
 	PermittedGroup,
 	PermittedOrder,
-} from './element';
-import { HtmlElement } from '../dom';
+} from "./element";
 
 const allowedKeys = [
-	'exclude',
+	"exclude",
 ];
 
 export class Validator {
@@ -16,7 +16,7 @@ export class Validator {
 		if (!rules){
 			return true;
 		}
-		return rules.some(rule => {
+		return rules.some((rule) => {
 			return Validator.validatePermittedRule(node, rule);
 		});
 	}
@@ -25,11 +25,11 @@ export class Validator {
 		if (!rules){
 			return true;
 		}
-		const category = rules.find(cur => {
+		const category = rules.find((cur) => {
 			/** @todo handle complex rules and not just plain arrays (but as of now
 			 * there is no use-case for it) */
 			// istanbul ignore next
-			if (typeof cur !== 'string'){
+			if (typeof cur !== "string"){
 				return false;
 			}
 			const match = cur.match(/^(.*?)[?*]?$/);
@@ -106,7 +106,7 @@ export class Validator {
 	}
 
 	private static validatePermittedRule(node: HtmlElement, rule: PermittedEntry): boolean {
-		if (typeof rule === 'string'){
+		if (typeof rule === "string"){
 			return Validator.validatePermittedCategory(node, rule);
 		} else if (Array.isArray(rule)){
 			return rule.every((inner: PermittedEntry) => {
@@ -141,7 +141,7 @@ export class Validator {
 	 */
 	private static validatePermittedCategory(node: HtmlElement, category: string): boolean {
 		/* match tagName when an explicit name is given */
-		if (category[0] !== '@'){
+		if (category[0] !== "@"){
 			const [, tagName] = category.match(/^(.*?)[?*]?$/);
 			return node.tagName === tagName;
 		}
@@ -152,13 +152,13 @@ export class Validator {
 		}
 
 		switch (category){
-		case '@meta': return node.meta.metadata as boolean;
-		case '@flow': return node.meta.flow as boolean;
-		case '@sectioning': return node.meta.sectioning as boolean;
-		case '@heading': return node.meta.heading as boolean;
-		case '@phrasing': return node.meta.phrasing as boolean;
-		case '@embedded': return node.meta.embedded as boolean;
-		case '@interactive': return node.meta.interactive as boolean;
+		case "@meta": return node.meta.metadata as boolean;
+		case "@flow": return node.meta.flow as boolean;
+		case "@sectioning": return node.meta.sectioning as boolean;
+		case "@heading": return node.meta.heading as boolean;
+		case "@phrasing": return node.meta.phrasing as boolean;
+		case "@embedded": return node.meta.embedded as boolean;
+		case "@interactive": return node.meta.interactive as boolean;
 		default: throw new Error(`Invalid content category "${category}"`);
 		}
 	}
@@ -182,9 +182,9 @@ function parseAmountQualifier(category: string): number {
 
 	const [, qualifier] = category.match(/^.*?([?*]?)$/);
 	switch (qualifier){
-	case '?': return 1;
-	case '': return null;
-	case '*': return null;
+	case "?": return 1;
+	case "": return null;
+	case "*": return null;
 	/* istanbul ignore next */
 	default:
 		throw new Error(`Invalid amount qualifier "${qualifier}" used`);

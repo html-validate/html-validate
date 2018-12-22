@@ -1,9 +1,9 @@
-import { Rule } from '../rule';
-import { AttributeEvent } from '../event';
-import { parsePattern } from '../pattern';
+import { AttributeEvent } from "../event";
+import { parsePattern } from "../pattern";
+import { Rule } from "../rule";
 
 const defaults = {
-	pattern: 'kebabcase',
+	pattern: "kebabcase",
 };
 
 class IdPattern extends Rule {
@@ -15,8 +15,8 @@ class IdPattern extends Rule {
 	}
 
 	setup(){
-		this.on('attr', (event: AttributeEvent) => {
-			if (event.key.toLowerCase() !== 'id'){
+		this.on("attr", (event: AttributeEvent) => {
+			if (event.key.toLowerCase() !== "id"){
 				return;
 			}
 

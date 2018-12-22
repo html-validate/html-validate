@@ -1,4 +1,4 @@
-import { Location } from '../context';
+import { Location } from "../context";
 
 export enum TokenType {
 	WHITESPACE = 1,

@@ -1,1 +1,1 @@
-module.exports = require('eslint/lib/formatters/stylish');
+module.exports = require("eslint/lib/formatters/stylish");

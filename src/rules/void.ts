@@ -1,10 +1,10 @@
-import { HtmlElement } from '../dom';
-import { Rule } from '../rule';
-import { TagCloseEvent } from '../event';
-import { NodeClosed } from '../dom';
+import { HtmlElement } from "../dom";
+import { NodeClosed } from "../dom";
+import { TagCloseEvent } from "../event";
+import { Rule } from "../rule";
 
 const defaults = {
-	style: 'omit',
+	style: "omit",
 };
 
 enum Style {
@@ -22,7 +22,7 @@ class Void extends Rule {
 	}
 
 	setup(){
-		this.on('tag:close', (event: TagCloseEvent) => {
+		this.on("tag:close", (event: TagCloseEvent) => {
 			const current = event.target;     // The current element being closed
 			const active = event.previous;    // The current active element (that is, the current element on the stack)
 
@@ -63,9 +63,9 @@ class Void extends Rule {
 
 function parseStyle(name: string): Style {
 	switch (name){
-	case 'any': return Style.Any;
-	case 'omit': return Style.AlwaysOmit;
-	case 'selfclose': return Style.AlwaysSelfclose;
+	case "any": return Style.Any;
+	case "omit": return Style.AlwaysOmit;
+	case "selfclose": return Style.AlwaysSelfclose;
 	default: return Style.Any;
 	}
 }

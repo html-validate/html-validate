@@ -1,11 +1,11 @@
-import { Config } from './config';
-import { Source } from './context';
-import { Engine } from './engine';
-import HtmlValidate from './htmlvalidate';
-import { Parser } from './parser';
+import { Config } from "./config";
+import { Source } from "./context";
+import { Engine } from "./engine";
+import HtmlValidate from "./htmlvalidate";
+import { Parser } from "./parser";
 
-jest.mock('./engine');
-jest.mock('./parser');
+jest.mock("./engine");
+jest.mock("./parser");
 
 function engineInstance(): Engine {
 	return (Engine as unknown as jest.MockInstance<Engine>).mock.instances[0];
@@ -27,104 +27,104 @@ beforeEach(() => {
 	(Engine as unknown as jest.MockInstance<Engine>).mockClear();
 });
 
-describe('HtmlValidate', () => {
+describe("HtmlValidate", () => {
 
-	it('should load default config if no configuration was passed', () => {
+	it("should load default config if no configuration was passed", () => {
 		const htmlvalidate = new HtmlValidate();
 		expect((htmlvalidate as any).globalConfig.config).toEqual(expect.objectContaining({
-			extends: ['htmlvalidate:recommended'],
+			extends: ["htmlvalidate:recommended"],
 		}));
 	});
 
-	it('should not load default config if configuration was passed', () => {
+	it("should not load default config if configuration was passed", () => {
 		const htmlvalidate = new HtmlValidate({});
 		expect((htmlvalidate as any).globalConfig.config).toEqual(expect.objectContaining({
 			extends: [],
 		}));
 	});
 
-	it('validateString() should lint given string', () => {
+	it("validateString() should lint given string", () => {
 		const htmlvalidate = new HtmlValidate();
-		const str = 'foobar';
+		const str = "foobar";
 		htmlvalidate.validateString(str);
 		const engine = engineInstance();
 		expect(engine.lint).toHaveBeenCalledWith([{
 			column: 1,
 			data: str,
-			filename: 'inline',
+			filename: "inline",
 			line: 1,
 		}]);
 	});
 
-	it('validateSource() should lint given source', () => {
+	it("validateSource() should lint given source", () => {
 		const htmlvalidate = new HtmlValidate();
-		const source: Source = {data: 'foo', filename: 'inline', line: 1, column: 1};
+		const source: Source = {data: "foo", filename: "inline", line: 1, column: 1};
 		htmlvalidate.validateSource(source);
 		const engine = engineInstance();
 		expect(engine.lint).toHaveBeenCalledWith([source]);
 	});
 
-	it('validateFile() should lint given file', () => {
+	it("validateFile() should lint given file", () => {
 		const htmlvalidate = new HtmlValidate();
-		const filename = 'foo.html';
-		jest.spyOn(htmlvalidate, 'getConfigFor').mockImplementation(mockConfig);
+		const filename = "foo.html";
+		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
 		htmlvalidate.validateFile(filename);
 		const engine = engineInstance();
 		expect(engine.lint).toHaveBeenCalledWith([{
 			column: 1,
-			data: 'source from foo.html',
+			data: "source from foo.html",
 			filename,
 			line: 1,
 		}]);
 	});
 
-	it('dumpTokens() should dump tokens', () => {
+	it("dumpTokens() should dump tokens", () => {
 		const htmlvalidate = new HtmlValidate();
-		const filename = 'foo.html';
-		jest.spyOn(htmlvalidate, 'getConfigFor').mockImplementation(mockConfig);
+		const filename = "foo.html";
+		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
 		htmlvalidate.dumpTokens(filename);
 		const engine = engineInstance();
 		expect(engine.dumpTokens).toHaveBeenCalledWith([{
 			column: 1,
-			data: 'source from foo.html',
+			data: "source from foo.html",
 			filename,
 			line: 1,
 		}]);
 	});
 
-	it('dumpEvents() should dump events', () => {
+	it("dumpEvents() should dump events", () => {
 		const htmlvalidate = new HtmlValidate();
-		const filename = 'foo.html';
-		jest.spyOn(htmlvalidate, 'getConfigFor').mockImplementation(mockConfig);
+		const filename = "foo.html";
+		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
 		htmlvalidate.dumpEvents(filename);
 		const engine = engineInstance();
 		expect(engine.dumpEvents).toHaveBeenCalledWith([{
 			column: 1,
-			data: 'source from foo.html',
+			data: "source from foo.html",
 			filename,
 			line: 1,
 		}]);
 	});
 
-	it('dumpTree() should dump tree', () => {
+	it("dumpTree() should dump tree", () => {
 		const htmlvalidate = new HtmlValidate();
-		const filename = 'foo.html';
-		jest.spyOn(htmlvalidate, 'getConfigFor').mockImplementation(mockConfig);
+		const filename = "foo.html";
+		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
 		htmlvalidate.dumpTree(filename);
 		const engine = engineInstance();
 		expect(engine.dumpTree).toHaveBeenCalledWith([{
 			column: 1,
-			data: 'source from foo.html',
+			data: "source from foo.html",
 			filename,
 			line: 1,
 		}]);
 	});
 
-	it('getParserFor() should create a parser for given filename', () => {
+	it("getParserFor() should create a parser for given filename", () => {
 		const htmlvalidate = new HtmlValidate();
-		const config = {foo: 'bar'};
-		jest.spyOn(htmlvalidate, 'getConfigFor').mockImplementation(() => config);
-		const source: Source = {data: 'foo', filename: 'inline', line: 1, column: 1};
+		const config = {foo: "bar"};
+		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(() => config);
+		const source: Source = {data: "foo", filename: "inline", line: 1, column: 1};
 		const parser = htmlvalidate.getParserFor(source);
 		expect(parser).toBeInstanceOf(Parser);
 		expect(Parser).toHaveBeenCalledWith(config);

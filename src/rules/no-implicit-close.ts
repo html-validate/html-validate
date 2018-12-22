@@ -1,10 +1,10 @@
-import { Rule } from '../rule';
-import { TagCloseEvent } from '../event';
-import { NodeClosed } from '../dom';
+import { NodeClosed } from "../dom";
+import { TagCloseEvent } from "../event";
+import { Rule } from "../rule";
 
 class NoImplicitClose extends Rule {
 	setup(){
-		this.on('tag:close', (event: TagCloseEvent) => {
+		this.on("tag:close", (event: TagCloseEvent) => {
 			const closed = event.previous;
 			const by = event.target;
 

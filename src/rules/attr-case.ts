@@ -1,8 +1,8 @@
-import { Rule } from '../rule';
-import { AttributeEvent } from '../event';
+import { AttributeEvent } from "../event";
+import { Rule } from "../rule";
 
 const defaults = {
-	style: 'lowercase',
+	style: "lowercase",
 };
 
 class AttrCase extends Rule {
@@ -15,8 +15,8 @@ class AttrCase extends Rule {
 	}
 
 	setup(){
-		this.on('attr', (event: AttributeEvent) => {
-			const letters = event.key.replace(/[^a-z]+/ig, '');
+		this.on("attr", (event: AttributeEvent) => {
+			const letters = event.key.replace(/[^a-z]+/ig, "");
 			if (!letters.match(this.pattern)){
 				this.report(event.target, `Attribute "${event.key}" should be ${this.lettercase}`);
 			}
@@ -26,8 +26,8 @@ class AttrCase extends Rule {
 
 function parseStyle(style: string): [RegExp, string] {
 	switch (style.toLowerCase()){
-	case 'lowercase': return [/^[a-z]*$/, 'lowercase'];
-	case 'uppercase': return [/^[A-Z]*$/, 'uppercase'];
+	case "lowercase": return [/^[a-z]*$/, "lowercase"];
+	case "uppercase": return [/^[A-Z]*$/, "uppercase"];
 	default:
 		throw new Error(`Invalid style "${style}" for "attr-case" rule`);
 	}

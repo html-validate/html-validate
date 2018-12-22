@@ -1,10 +1,10 @@
-import { Location } from '../context';
-import { Token } from '../lexer';
-import { DOMNode } from './domnode';
-import { DOMTokenList } from './domtokenlist';
-import { MetaTable, MetaElement } from '../meta';
-import { Attribute } from './attribute';
-import { Selector } from './selector';
+import { Location } from "../context";
+import { Token } from "../lexer";
+import { MetaElement, MetaTable } from "../meta";
+import { Attribute } from "./attribute";
+import { DOMNode } from "./domnode";
+import { DOMTokenList } from "./domtokenlist";
+import { Selector } from "./selector";
 
 export enum NodeClosed {
 	Open = 0,            /* element wasn't closed */
@@ -14,7 +14,7 @@ export enum NodeClosed {
 	ImplicitClosed = 4,  /* element with optional end tag <li>foo<li>bar */
 }
 
-const DOCUMENT_NODE_NAME = '#document';
+const DOCUMENT_NODE_NAME = "#document";
 
 let counter = 0;
 
@@ -25,10 +25,10 @@ export function reset(){
 export class HtmlElement extends DOMNode {
 	readonly tagName: string;
 	readonly attr: { [key: string]: Attribute; };
-	readonly children: Array<HtmlElement>;
+	readonly children: HtmlElement[];
 	readonly location: Location;
 	readonly meta: MetaElement;
-	readonly parent: HtmlElement
+	readonly parent: HtmlElement;
 	readonly voidElement: boolean;
 	readonly unique: number;
 	readonly depth: number;
@@ -71,14 +71,14 @@ export class HtmlElement extends DOMNode {
 		}
 
 		const meta = metaTable ? metaTable.getMetaFor(tagName) : null;
-		const open = startToken.data[1] !== '/';
+		const open = startToken.data[1] !== "/";
 		const closed = isClosed(endToken, meta);
 
 		return new HtmlElement(tagName, open ? parent : undefined, closed, meta, startToken.location);
 	}
 
 	is(tagName: string): boolean {
-		return (this.tagName && tagName === '*') || this.tagName === tagName;
+		return (this.tagName && tagName === "*") || this.tagName === tagName;
 	}
 
 	isRootElement(): boolean {
@@ -114,11 +114,11 @@ export class HtmlElement extends DOMNode {
 	}
 
 	get classList(){
-		return new DOMTokenList(this.getAttributeValue('class'));
+		return new DOMTokenList(this.getAttributeValue("class"));
 	}
 
 	get id(){
-		return this.getAttributeValue('id');
+		return this.getAttributeValue("id");
 	}
 
 	get siblings(){
@@ -126,17 +126,17 @@ export class HtmlElement extends DOMNode {
 	}
 
 	get previousSibling(): HtmlElement {
-		const i = this.siblings.findIndex(node => node.unique === this.unique);
+		const i = this.siblings.findIndex((node) => node.unique === this.unique);
 		return i >= 1 ? this.siblings[i - 1] : null;
 	}
 
 	get nextSibling(): HtmlElement {
-		const i = this.siblings.findIndex(node => node.unique === this.unique);
+		const i = this.siblings.findIndex((node) => node.unique === this.unique);
 		return i <= (this.siblings.length - 2) ? this.siblings[i + 1] : null;
 	}
 
-	getElementsByTagName(tagName: string): Array<HtmlElement> {
-		return this.children.reduce(function(matches, node){
+	getElementsByTagName(tagName: string): HtmlElement[] {
+		return this.children.reduce((matches, node) => {
 			return matches.concat(node.is(tagName) ? [node] : [], node.getElementsByTagName(tagName));
 		}, []);
 	}
@@ -229,7 +229,7 @@ function isClosed(endToken: Token, meta: MetaElement): NodeClosed {
 		closed = NodeClosed.VoidOmitted;
 	}
 
-	if (endToken.data[0] === '/>'){
+	if (endToken.data[0] === "/>"){
 		closed = NodeClosed.VoidSelfClosed;
 	}
 

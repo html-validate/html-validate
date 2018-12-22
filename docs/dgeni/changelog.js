@@ -7,11 +7,11 @@ const preamble = `
 `;
 
 function fixHeading(src){
-	return src.replace(/^# html-validate changelog/, '# Changelog');
+	return src.replace(/^# html-validate changelog/, "# Changelog");
 }
 
 function dropUpcoming(src){
-	return src.replace(/^## Upcoming release$[^]*?^(?=## )/m, '');
+	return src.replace(/^## Upcoming release$[^]*?^(?=## )/m, "");
 }
 
 function prepare(src){
@@ -22,7 +22,7 @@ function prepare(src){
 
 module.exports = function changelogFileReader() {
 	return {
-		name: 'changelogFileReader',
+		name: "changelogFileReader",
 		getDocs: function(fileInfo){
 			return [
 				{

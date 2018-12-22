@@ -1,12 +1,12 @@
-import { Rule } from '../rule';
-import { DOMReadyEvent } from '../event';
+import { DOMReadyEvent } from "../event";
+import { Rule } from "../rule";
 
 class NoDupID extends Rule {
 	setup(){
-		this.on('dom:ready', (event: DOMReadyEvent) => {
+		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const existing: { [key: string]: boolean } = {};
-			const elements = event.document.querySelectorAll('[id]');
-			elements.forEach(el => {
+			const elements = event.document.querySelectorAll("[id]");
+			elements.forEach((el) => {
 				if (el.id in existing){
 					this.report(el, `Duplicate ID "${el.id}"`);
 				}

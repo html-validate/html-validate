@@ -1,5 +1,5 @@
-import { Context, Source, ContentModel, Location } from '../context';
-import { Token, TokenType } from './token';
+import { ContentModel, Context, Location, Source } from "../context";
+import { Token, TokenType } from "./token";
 
 enum State {
 	INITIAL = 1,
@@ -105,7 +105,7 @@ export class Lexer {
 		yield this.token(context, TokenType.EOF);
 	}
 
-	private token(context: Context, type: TokenType, data?: Array<string>): Token {
+	private token(context: Context, type: TokenType, data?: string[]): Token {
 		const size = data ? data[0].length : undefined;
 		const location = context.getLocation(size);
 		return {
@@ -130,7 +130,7 @@ export class Lexer {
 	}
 
 	private evalNextState(nextState: State | ((token: Token) => State), token: Token){
-		if (typeof nextState === 'function'){
+		if (typeof nextState === "function"){
 			return nextState(token);
 		} else {
 			return nextState;
@@ -138,11 +138,12 @@ export class Lexer {
 	}
 
 	private *match(context: Context, tests: LexerTest[], error: string){
-		let match = undefined;
+		let match;
 		const n = tests.length;
 		for (let i = 0; i < n; i++){
 			const [regex, nextState, tokenType] = tests[i];
 
+			/* tslint:disable-next-line:no-conditional-assignment */
 			if (regex === false || (match = context.string.match(regex))){
 				let token: Token = null;
 				if (tokenType !== false) yield (token = this.token(context, tokenType, match));
@@ -165,8 +166,8 @@ export class Lexer {
 		switch (state) {
 		case State.TAG:
 			/* request script tag tokenization */
-			if (data && data[0][0] === '<'){
-				if (data[0] === '<script'){
+			if (data && data[0][0] === "<"){
+				if (data[0] === "<script"){
 					context.contentModel = ContentModel.SCRIPT;
 				} else {
 					context.contentModel = ContentModel.TEXT;
@@ -182,7 +183,7 @@ export class Lexer {
 			[MATCH_DOCTYPE_OPEN, State.DOCTYPE, TokenType.DOCTYPE_OPEN],
 			[MATCH_WHITESPACE, State.INITIAL, TokenType.WHITESPACE],
 			[false, State.TEXT, false],
-		], 'expected doctype');
+		], "expected doctype");
 	}
 
 	private *tokenizeDoctype(context: Context){
@@ -190,7 +191,7 @@ export class Lexer {
 			[MATCH_WHITESPACE, State.DOCTYPE, TokenType.WHITESPACE],
 			[MATCH_DOCTYPE_VALUE, State.DOCTYPE, TokenType.DOCTYPE_VALUE],
 			[MATCH_DOCTYPE_CLOSE, State.TEXT, TokenType.DOCTYPE_CLOSE],
-		], 'expected doctype name');
+		], "expected doctype name");
 	}
 
 	private *tokenizeTag(context: Context){
@@ -199,7 +200,7 @@ export class Lexer {
 			case ContentModel.TEXT:
 				return State.TEXT;
 			case ContentModel.SCRIPT:
-				if (token.data[0][0] !== '/'){
+				if (token.data[0][0] !== "/"){
 					return State.SCRIPT;
 				} else {
 					return State.TEXT; /* <script/> (not legal but handle it anyway so the lexer doesn't choke on it) */
@@ -242,13 +243,13 @@ export class Lexer {
 	private *tokenizeCDATA(context: Context){
 		yield* this.match(context, [
 			[MATCH_CDATA_END, State.TEXT, false],
-		], 'expected ]]>');
+		], "expected ]]>");
 	}
 
 	private *tokenizeScript(context: Context){
 		yield* this.match(context, [
 			[MATCH_SCRIPT_END, State.TAG, TokenType.TAG_OPEN],
 			[MATCH_SCRIPT_DATA, State.SCRIPT, TokenType.SCRIPT],
-		], 'expected </script>');
+		], "expected </script>");
 	}
 }

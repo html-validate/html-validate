@@ -9,13 +9,13 @@ export function parseCombinator(combinator: string): Combinator {
 	switch (combinator){
 	case undefined:
 	case null:
-	case '':
+	case "":
 		return Combinator.DESCENDANT;
-	case '>':
+	case ">":
 		return Combinator.CHILD;
-	case '+':
+	case "+":
 		return Combinator.ADJACENT_SIBLING;
-	case '~':
+	case "~":
 		return Combinator.GENERAL_SIBLING;
 	default:
 		throw new Error(`Unknown combinator "${combinator}"`);

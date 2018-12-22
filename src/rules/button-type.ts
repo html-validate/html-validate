@@ -1,15 +1,15 @@
-import { Rule } from '../rule';
-import { HtmlElement } from '../dom';
-import { DOMReadyEvent } from '../event';
+import { HtmlElement } from "../dom";
+import { DOMReadyEvent } from "../event";
+import { Rule } from "../rule";
 
-const validTypes = ['submit', 'button', 'reset'];
+const validTypes = ["submit", "button", "reset"];
 
 class ButtonType extends Rule {
 	setup(){
-		this.on('dom:ready', (event: DOMReadyEvent) => {
-			const buttons = event.document.getElementsByTagName('button');
+		this.on("dom:ready", (event: DOMReadyEvent) => {
+			const buttons = event.document.getElementsByTagName("button");
 			buttons.forEach((node: HtmlElement) => {
-				const attr = node.getAttribute('type');
+				const attr = node.getAttribute("type");
 				if (attr === null){
 					this.report(node, "Button is missing type attribute");
 				} else if (validTypes.indexOf(attr.value.toLowerCase()) === -1){

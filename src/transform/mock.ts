@@ -3,7 +3,7 @@
  */
 module.exports = function mockTransform(filename: string) {
 	return [{
-		data: 'mocked source',
+		data: "mocked source",
 		filename,
 		line: 1,
 		column: 1,

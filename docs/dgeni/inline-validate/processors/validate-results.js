@@ -1,10 +1,10 @@
-const HtmlValidate = require('../../../../build/htmlvalidate').default;
+const HtmlValidate = require("../../../../build/htmlvalidate").default;
 
 module.exports = function generateValidationResultsProcessor(log, validateMap) {
 	return {
-		name: 'generateValidationResultsProcessor',
-		$runAfter: ['adding-extra-docs'],
-		$runBefore: ['extra-docs-added'],
+		name: "generateValidationResultsProcessor",
+		$runAfter: ["adding-extra-docs"],
+		$runBefore: ["extra-docs-added"],
 		$process,
 	};
 

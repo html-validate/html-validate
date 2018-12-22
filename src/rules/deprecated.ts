@@ -1,9 +1,9 @@
-import { Rule } from '../rule';
-import { TagOpenEvent } from '../event';
+import { TagOpenEvent } from "../event";
+import { Rule } from "../rule";
 
 class Deprecated extends Rule {
 	setup(){
-		this.on('tag:open', (event: TagOpenEvent) => {
+		this.on("tag:open", (event: TagOpenEvent) => {
 			const node = event.target;
 
 			/* cannot validate if meta isn't known */
@@ -13,7 +13,7 @@ class Deprecated extends Rule {
 
 			const deprecated = node.meta.deprecated;
 			if (deprecated){
-				if (typeof deprecated === 'string'){
+				if (typeof deprecated === "string"){
 					this.report(node, `<${node.tagName}> is deprecated: ${deprecated}`);
 				} else {
 					this.report(node, `<${node.tagName}> is deprecated`);

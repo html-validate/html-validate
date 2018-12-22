@@ -1,6 +1,6 @@
 module.exports = function inlineValidationInlineTagDef(validateMap, createDocMessage) {
 	return {
-		name: 'inlineValidation',
+		name: "inlineValidation",
 		handler,
 	};
 

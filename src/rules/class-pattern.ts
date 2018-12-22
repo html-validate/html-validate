@@ -1,10 +1,10 @@
-import { Rule } from '../rule';
-import { AttributeEvent } from '../event';
-import { DOMTokenList } from '../dom';
-import { parsePattern } from '../pattern';
+import { DOMTokenList } from "../dom";
+import { AttributeEvent } from "../event";
+import { parsePattern } from "../pattern";
+import { Rule } from "../rule";
 
 const defaults = {
-	pattern: 'kebabcase',
+	pattern: "kebabcase",
 };
 
 class ClassPattern extends Rule {
@@ -16,13 +16,13 @@ class ClassPattern extends Rule {
 	}
 
 	setup(){
-		this.on('attr', (event: AttributeEvent) => {
-			if (event.key.toLowerCase() !== 'class'){
+		this.on("attr", (event: AttributeEvent) => {
+			if (event.key.toLowerCase() !== "class"){
 				return;
 			}
 
 			const classes = new DOMTokenList(event.value);
-			classes.forEach(cur => {
+			classes.forEach((cur) => {
 				if (!cur.match(this.pattern)){
 					this.report(event.target, `Class "${cur}" does not match required pattern "${this.pattern}"`);
 				}

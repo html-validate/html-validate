@@ -1,85 +1,85 @@
-import EventHandler from './eventhandler';
+import EventHandler from "./eventhandler";
 
-describe('eventhandler', function(){
+describe("eventhandler", () => {
 
 	let eventhandler: EventHandler;
 
-	beforeEach(function(){
+	beforeEach(() => {
 		eventhandler = new EventHandler();
 	});
 
-	describe('on', function(){
+	describe("on", () => {
 
-		it('should call listener on named event', function(){
+		it("should call listener on named event", () => {
 			const callback = jest.fn();
-			eventhandler.on('foo', callback);
-			eventhandler.trigger('foo', {bar: true});
-			eventhandler.trigger('foo', {bar: false});
+			eventhandler.on("foo", callback);
+			eventhandler.trigger("foo", {bar: true});
+			eventhandler.trigger("foo", {bar: false});
 			expect(callback).toHaveBeenCalledTimes(2);
-			expect(callback).toHaveBeenCalledWith('foo', {bar: true});
-			expect(callback).toHaveBeenCalledWith('foo', {bar: false});
+			expect(callback).toHaveBeenCalledWith("foo", {bar: true});
+			expect(callback).toHaveBeenCalledWith("foo", {bar: false});
 		});
 
-		it('should not call listener on other events', function(){
+		it("should not call listener on other events", () => {
 			const callback = jest.fn();
-			eventhandler.on('foo', callback);
-			eventhandler.trigger('spam', {bar: true});
+			eventhandler.on("foo", callback);
+			eventhandler.trigger("spam", {bar: true});
 			expect(callback).not.toHaveBeenCalled();
 		});
 
-		it('should call wildcard listener on any event', function(){
+		it("should call wildcard listener on any event", () => {
 			const callback = jest.fn();
-			eventhandler.on('*', callback);
-			eventhandler.trigger('foo', {bar: true});
+			eventhandler.on("*", callback);
+			eventhandler.trigger("foo", {bar: true});
 			expect(callback).toHaveBeenCalledTimes(1);
-			expect(callback).toHaveBeenCalledWith('foo', {bar: true});
+			expect(callback).toHaveBeenCalledWith("foo", {bar: true});
 		});
 
-		it('should not call listener after deregistration', function(){
+		it("should not call listener after deregistration", () => {
 			const callback = jest.fn();
-			const deregister = eventhandler.on('foo', callback);
+			const deregister = eventhandler.on("foo", callback);
 			deregister();
-			eventhandler.trigger('foo', {bar: true});
+			eventhandler.trigger("foo", {bar: true});
 			expect(callback).not.toHaveBeenCalled();
 		});
 
-		it('should handle multiple events separated by comma', function(){
+		it("should handle multiple events separated by comma", () => {
 			const callback = jest.fn();
-			eventhandler.on('foo, bar', callback);
-			eventhandler.trigger('foo', {bar: 1});
-			eventhandler.trigger('bar', {bar: 2});
+			eventhandler.on("foo, bar", callback);
+			eventhandler.trigger("foo", {bar: 1});
+			eventhandler.trigger("bar", {bar: 2});
 			expect(callback).toHaveBeenCalledTimes(2);
-			expect(callback).toHaveBeenCalledWith('foo', {bar: 1});
-			expect(callback).toHaveBeenCalledWith('bar', {bar: 2});
+			expect(callback).toHaveBeenCalledWith("foo", {bar: 1});
+			expect(callback).toHaveBeenCalledWith("bar", {bar: 2});
 		});
 
-		it('should unregister all events after using multiple space separated events', function(){
+		it("should unregister all events after using multiple space separated events", () => {
 			const callback = jest.fn();
-			const deregister = eventhandler.on('foo,bar', callback);
+			const deregister = eventhandler.on("foo,bar", callback);
 			deregister();
-			eventhandler.trigger('foo', {});
-			eventhandler.trigger('bar', {});
+			eventhandler.trigger("foo", {});
+			eventhandler.trigger("bar", {});
 			expect(callback).not.toHaveBeenCalled();
 		});
 
 	});
 
-	describe('once', function(){
+	describe("once", () => {
 
-		it('should call listener only once', function(){
+		it("should call listener only once", () => {
 			const callback = jest.fn();
-			eventhandler.once('foo', callback);
-			eventhandler.trigger('foo', {bar: true});
-			eventhandler.trigger('foo', {bar: false});
+			eventhandler.once("foo", callback);
+			eventhandler.trigger("foo", {bar: true});
+			eventhandler.trigger("foo", {bar: false});
 			expect(callback).toHaveBeenCalledTimes(1);
-			expect(callback).toHaveBeenCalledWith('foo', {bar: true});
+			expect(callback).toHaveBeenCalledWith("foo", {bar: true});
 		});
 
-		it('should not call listener after deregistration', function(){
+		it("should not call listener after deregistration", () => {
 			const callback = jest.fn();
-			const deregister = eventhandler.once('foo', callback);
+			const deregister = eventhandler.once("foo", callback);
 			deregister();
-			eventhandler.trigger('foo', {bar: true});
+			eventhandler.trigger("foo", {bar: true});
 			expect(callback).not.toHaveBeenCalled();
 		});
 

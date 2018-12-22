@@ -1,8 +1,8 @@
-import { Rule } from '../rule';
-import { TagOpenEvent } from '../event';
+import { TagOpenEvent } from "../event";
+import { Rule } from "../rule";
 
 const defaults = {
-	pattern: '^[a-z][a-z0-9\\-._]*-[a-z0-9\\-._]*$',
+	pattern: "^[a-z][a-z0-9\\-._]*-[a-z0-9\\-._]*$",
 	whitelist: [] as string[],
 	blacklist: [] as string[],
 };
@@ -17,7 +17,7 @@ class ElementName extends Rule {
 
 	setup(){
 		const xmlns = /^(.+):.+$/;
-		this.on('tag:open', (event: TagOpenEvent) => {
+		this.on("tag:open", (event: TagOpenEvent) => {
 			const target = event.target;
 			const tagName = target.tagName;
 

@@ -1,5 +1,5 @@
 module.exports = [
-	require('./block'),
-	require('./category'),
-	require('./summary'),
+	require("./block"),
+	require("./category"),
+	require("./summary"),
 ];
