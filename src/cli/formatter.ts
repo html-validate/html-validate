@@ -1,10 +1,11 @@
+import { Formatter } from "../formatters";
 import { Report, Result } from "../reporter";
 
 const fs = require("fs");
 
-type Formatter = (results: Result[]) => void;
+type WrappedFormatter = (results: Result[]) => void;
 
-function wrap(formatter: any, dst: string){
+function wrap(formatter: Formatter, dst: string){
 	return (results: Result[]) => {
 		const output = formatter(results);
 		if (dst){
@@ -16,7 +17,7 @@ function wrap(formatter: any, dst: string){
 }
 
 export function getFormatter(formatters: string): (report: Report) => void {
-	const fn: Formatter[] = formatters
+	const fn: WrappedFormatter[] = formatters
 		.split(",")
 		.map((cur) => {
 			const [name, dst] = cur.split("=", 2);
@@ -25,6 +26,6 @@ export function getFormatter(formatters: string): (report: Report) => void {
 			return wrap(formatter, dst);
 		});
 	return (report: Report) => {
-		fn.forEach((formatter: Formatter) => formatter(report.results));
+		fn.forEach((formatter: WrappedFormatter) => formatter(report.results));
 	};
 }

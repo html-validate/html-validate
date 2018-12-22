@@ -1,3 +1,4 @@
+import { FormatterModule } from ".";
 import { Result } from "../reporter";
 
 function textFormatter(results: Result[]){
@@ -29,4 +30,5 @@ function textFormatter(results: Result[]){
 	return total > 0 ? output : "";
 }
 
+declare const module: FormatterModule;
 module.exports = textFormatter;
