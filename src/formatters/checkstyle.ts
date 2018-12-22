@@ -29,12 +29,12 @@ function checkstyleFormatter(results: Array<Result>){
 	output += `<?xml version="1.0" encoding="utf-8"?>`;
 	output += `<checkstyle version="4.3">`;
 
-	results.forEach(result => {
+	results.forEach((result) => {
 		const messages = result.messages;
 
 		output += `<file name="${xmlescape(result.filePath)}">`;
 
-		messages.forEach(message => {
+		messages.forEach((message) => {
 			output += [
 				`<error line="${xmlescape(message.line)}"`,
 				`column="${xmlescape(message.column)}"`,

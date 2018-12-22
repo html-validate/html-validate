@@ -15,7 +15,7 @@ class ElementPermittedOccurrences extends Rule {
 				}
 
 				const rules = parent.meta.permittedContent;
-				const siblings = parent.children.filter(cur => cur.tagName === node.tagName);
+				const siblings = parent.children.filter((cur) => cur.tagName === node.tagName);
 				const first = node.unique === siblings[0].unique;
 
 				/* the first occurrence should not trigger any errors, only the

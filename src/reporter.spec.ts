@@ -30,9 +30,9 @@ describe("Reporter", () => {
 			]);
 			expect(merged.results).toHaveLength(2);
 			expect(merged.results[0].filePath).toEqual("foo");
-			expect(merged.results[0].messages.map(x => x.message)).toEqual(["fred", "barney", "wilma"]);
+			expect(merged.results[0].messages.map((x) => x.message)).toEqual(["fred", "barney", "wilma"]);
 			expect(merged.results[1].filePath).toEqual("bar");
-			expect(merged.results[1].messages.map(x => x.message)).toEqual(["spam"]);
+			expect(merged.results[1].messages.map((x) => x.message)).toEqual(["spam"]);
 		});
 
 	});
@@ -80,7 +80,7 @@ describe("Reporter", () => {
 function createResult(filename: string, messages: string[]){
 	return {
 		filePath: filename,
-		messages: messages.map(cur => createMessage(cur)),
+		messages: messages.map((cur) => createMessage(cur)),
 	};
 }
 

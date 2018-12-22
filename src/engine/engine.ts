@@ -84,7 +84,7 @@ export class Engine<T extends Parser = Parser> {
 		parser.on("*", (event, data) => {
 			lines.push({event, data});
 		});
-		source.forEach(src => parser.parseHtml(src));
+		source.forEach((src) => parser.parseHtml(src));
 		return lines;
 	}
 
@@ -140,9 +140,9 @@ export class Engine<T extends Parser = Parser> {
 	private processDirective(event: DirectiveEvent, parser: Parser, allRules: { [key: string]: Rule }): void {
 		const rules = event.data
 			.split(",")
-			.map(name => name.trim())
-			.map(name => allRules[name])
-			.filter(rule => rule); /* filter out missing rules */
+			.map((name) => name.trim())
+			.map((name) => allRules[name])
+			.filter((rule) => rule); /* filter out missing rules */
 		switch (event.action){
 		case "enable":
 			this.processEnableDirective(rules);

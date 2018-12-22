@@ -18,7 +18,7 @@ function wrap(formatter: any, dst: string){
 export function getFormatter(formatters: string): (report: Report) => void {
 	const fn: Formatter[] = formatters
 		.split(",")
-		.map(cur => {
+		.map((cur) => {
 			const [name, dst] = cur.split("=", 2);
 			const moduleName = name.replace(/[^a-z]+/g, "");
 			const formatter = require(`../formatters/${moduleName}`);

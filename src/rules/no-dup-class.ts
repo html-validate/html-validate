@@ -11,7 +11,7 @@ class NoDupClass extends Rule {
 
 			const classes = new DOMTokenList(event.value);
 			const unique: Set<string> = new Set();
-			classes.forEach(cur => {
+			classes.forEach((cur) => {
 				if (unique.has(cur)) {
 					this.report(event.target, `Class "${cur}" duplicated`, event.location);
 				}

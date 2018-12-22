@@ -185,7 +185,7 @@ function matchAttribute(node: HtmlElement, match: any): boolean {
 	if (!Array.isArray(match) || match.length !== 3){
 		throw new Error(`Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <${node.tagName}>`);
 	}
-	const [key, op, value] = match.map(x => x.toLowerCase());
+	const [key, op, value] = match.map((x) => x.toLowerCase());
 	const nodeValue = (node.getAttributeValue(key) || "").toLowerCase();
 	switch (op){
 	case "!=": return nodeValue !== value;

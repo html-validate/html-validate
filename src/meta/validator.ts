@@ -16,7 +16,7 @@ export class Validator {
 		if (!rules){
 			return true;
 		}
-		return rules.some(rule => {
+		return rules.some((rule) => {
 			return Validator.validatePermittedRule(node, rule);
 		});
 	}
@@ -25,7 +25,7 @@ export class Validator {
 		if (!rules){
 			return true;
 		}
-		const category = rules.find(cur => {
+		const category = rules.find((cur) => {
 			/** @todo handle complex rules and not just plain arrays (but as of now
 			 * there is no use-case for it) */
 			// istanbul ignore next

@@ -22,7 +22,7 @@ class ClassPattern extends Rule {
 			}
 
 			const classes = new DOMTokenList(event.value);
-			classes.forEach(cur => {
+			classes.forEach((cur) => {
 				if (!cur.match(this.pattern)){
 					this.report(event.target, `Class "${cur}" does not match required pattern "${this.pattern}"`);
 				}

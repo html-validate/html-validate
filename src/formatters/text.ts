@@ -4,7 +4,7 @@ function textFormatter(results: Array<Result>){
 	let output = "";
 	let total = 0;
 
-	results.forEach(result => {
+	results.forEach((result) => {
 		const messages = result.messages;
 
 		if (messages.length === 0) {
@@ -13,7 +13,7 @@ function textFormatter(results: Array<Result>){
 
 		total += messages.length;
 
-		output += messages.map(message => {
+		output += messages.map((message) => {
 			let messageType;
 
 			if (message.severity === 2) {

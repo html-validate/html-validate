@@ -36,7 +36,7 @@ export class Reporter {
 	 * Merge two or more reports into a single one.
 	 */
 	public static merge(reports: Report[]): Report {
-		const valid = reports.every(report => report.valid);
+		const valid = reports.every((report) => report.valid);
 		const merged: { [key: string]: Result } = {};
 		reports.forEach((report: Report) => {
 			report.results.forEach((result: Result) => {
@@ -48,7 +48,7 @@ export class Reporter {
 				}
 			});
 		});
-		return {valid, results: Object.keys(merged).map(key => merged[key])};
+		return {valid, results: Object.keys(merged).map((key) => merged[key])};
 	}
 
 	add(node: HtmlElement, rule: Rule, message: string, severity: number, location: Location){
@@ -76,7 +76,7 @@ export class Reporter {
 	save(): Report {
 		return {
 			valid: this.isValid(),
-			results: Object.keys(this.result).map(filePath => {
+			results: Object.keys(this.result).map((filePath) => {
 				const messages = [].concat(this.result[filePath]).sort(messageSort);
 				return {
 					filePath,
@@ -97,11 +97,11 @@ export class Reporter {
 }
 
 function countErrors(messages: Message[]){
-	return messages.filter(m => m.severity === Config.SEVERITY_ERROR).length;
+	return messages.filter((m) => m.severity === Config.SEVERITY_ERROR).length;
 }
 
 function countWarnings(messages: Message[]){
-	return messages.filter(m => m.severity === Config.SEVERITY_WARN).length;
+	return messages.filter((m) => m.severity === Config.SEVERITY_WARN).length;
 }
 
 function messageSort(a: Message, b: Message): number {

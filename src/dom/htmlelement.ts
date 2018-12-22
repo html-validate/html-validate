@@ -126,12 +126,12 @@ export class HtmlElement extends DOMNode {
 	}
 
 	get previousSibling(): HtmlElement {
-		const i = this.siblings.findIndex(node => node.unique === this.unique);
+		const i = this.siblings.findIndex((node) => node.unique === this.unique);
 		return i >= 1 ? this.siblings[i - 1] : null;
 	}
 
 	get nextSibling(): HtmlElement {
-		const i = this.siblings.findIndex(node => node.unique === this.unique);
+		const i = this.siblings.findIndex((node) => node.unique === this.unique);
 		return i <= (this.siblings.length - 2) ? this.siblings[i + 1] : null;
 	}
 

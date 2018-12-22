@@ -53,7 +53,7 @@ export class EventHandler {
 	 */
 	trigger(event: string, data: any): void {
 		const callbacks = [].concat(this.listeners[event] || [], this.listeners["*"] || []);
-		callbacks.forEach(listener => {
+		callbacks.forEach((listener) => {
 			listener.call(null, event, data);
 		});
 	}
