@@ -11,7 +11,7 @@ export enum NodeClosed {
 	EndTag = 1,          /* element closed with end tag <p>...</p> */
 	VoidOmitted = 2,     /* void element with omitted end tag <input> */
 	VoidSelfClosed = 3,  /* self-closed void element <input/> */
-	ImplicitClosed = 4,   /* element with optional end tag <li>foo<li>bar */
+	ImplicitClosed = 4,  /* element with optional end tag <li>foo<li>bar */
 }
 
 const DOCUMENT_NODE_NAME = '#document';
