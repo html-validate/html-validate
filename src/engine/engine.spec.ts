@@ -286,7 +286,9 @@ describe("Engine", () => {
 
 			it("should load from plugins", () => {
 				class MyRule {
-					init(){}
+					init(){
+						/* do nothing */
+					}
 				}
 
 				/* mock loading of plugins */

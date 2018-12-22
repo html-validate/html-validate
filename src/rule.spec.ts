@@ -8,7 +8,7 @@ import { Rule } from "./rule";
 
 class MockRule extends Rule {
 	setup(){
-
+		/* do nothing */
 	}
 }
 
@@ -69,7 +69,7 @@ describe("rule base class", () => {
 
 		it("should use event location if no explicit location", () => {
 			const node = new HtmlElement("foo", null);
-			rule.on("*", () => {});
+			rule.on("*", () => null);
 			const callback = (parser.on as any).mock.calls[0][1];
 			callback("event", mockEvent);
 			rule.report(node, "foo");

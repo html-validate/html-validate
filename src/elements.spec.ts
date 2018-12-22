@@ -668,9 +668,8 @@ describe("HTML elements", () => {
 		allowContent("main", "@flow");
 	});
 
-	/** @todo what to test? */
 	describe("<map>", () => {
-
+		/** @todo what to test? */
 	});
 
 	describe("<mark>", () => {
@@ -692,7 +691,7 @@ describe("HTML elements", () => {
 	});
 
 	describe("<menu>", () => {
-
+		/** @todo what to test? */
 	});
 
 	describe("<meta>", () => {
