@@ -37,7 +37,7 @@ export class Context {
 		/* poor mans line counter :( */
 		let consumed = this.string.slice(0, n);
 		let offset;
-		while ((offset = consumed.indexOf("\n")) >= 0){
+		while ((offset = consumed.indexOf("\n")) >= 0){ /* tslint:disable-line:no-conditional-assignment */
 			this.line++;
 			this.column = 1;
 			consumed = consumed.substr(offset + 1);

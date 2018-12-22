@@ -19,7 +19,6 @@
     "max-line-length": false,
     "member-access": false,
     "member-ordering": false,
-    "no-conditional-assignment": false,
     "no-console": false,
     "no-shadowed-variable": false,
     "no-var-requires": false,

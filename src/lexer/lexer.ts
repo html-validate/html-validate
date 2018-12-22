@@ -143,6 +143,7 @@ export class Lexer {
 		for (let i = 0; i < n; i++){
 			const [regex, nextState, tokenType] = tests[i];
 
+			/* tslint:disable-next-line:no-conditional-assignment */
 			if (regex === false || (match = context.string.match(regex))){
 				let token: Token = null;
 				if (tokenType !== false) yield (token = this.token(context, tokenType, match));
