@@ -27,7 +27,14 @@
     "no-unnecessary-initializer": false,
     "no-var-requires": false,
     "object-literal-sort-keys": false,
-    "one-line": false,
+    "one-line": {
+        "options": [
+            "check-catch",
+            "check-else",
+            "check-finally",
+            "check-open-brace"
+        ]
+    },
     "unified-signatures": false
   },
   "rulesDirectory": []
