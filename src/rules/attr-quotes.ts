@@ -1,5 +1,5 @@
-import { Rule } from "../rule";
 import { AttributeEvent } from "../event";
+import { Rule } from "../rule";
 
 const SINGLE_QUOTE = "'";
 const DOUBLE_QUOTE = '"';

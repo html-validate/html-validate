@@ -1,4 +1,4 @@
-import { Result, Report } from "../reporter";
+import { Report, Result } from "../reporter";
 
 const fs = require("fs");
 

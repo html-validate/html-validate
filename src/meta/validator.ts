@@ -1,3 +1,4 @@
+import { HtmlElement } from "../dom";
 import {
 	Permitted,
 	PermittedAttribute,
@@ -5,7 +6,6 @@ import {
 	PermittedGroup,
 	PermittedOrder,
 } from "./element";
-import { HtmlElement } from "../dom";
 
 const allowedKeys = [
 	"exclude",

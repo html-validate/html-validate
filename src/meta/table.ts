@@ -1,5 +1,5 @@
 import { HtmlElement } from "../dom";
-import { MetaElement, ElementTable, PropertyExpression } from "./element";
+import { ElementTable, MetaElement, PropertyExpression } from "./element";
 const deepmerge = require("deepmerge");
 
 const allowedKeys = [

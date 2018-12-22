@@ -1,6 +1,6 @@
-import { Rule } from "../rule";
 import { HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
+import { Rule } from "../rule";
 
 const validTypes = ["submit", "button", "reset"];
 

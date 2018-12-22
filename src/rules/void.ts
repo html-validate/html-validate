@@ -1,7 +1,7 @@
 import { HtmlElement } from "../dom";
-import { Rule } from "../rule";
-import { TagCloseEvent } from "../event";
 import { NodeClosed } from "../dom";
+import { TagCloseEvent } from "../event";
+import { Rule } from "../rule";
 
 const defaults = {
 	style: "omit",

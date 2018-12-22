@@ -1,5 +1,5 @@
-import { Rule } from "../rule";
 import { DOMReadyEvent } from "../event";
+import { Rule } from "../rule";
 
 class MissingDoctype extends Rule {
 	setup(){

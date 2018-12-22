@@ -1,5 +1,5 @@
-import { Rule } from "../rule";
 import { TagOpenEvent } from "../event";
+import { Rule } from "../rule";
 
 class Deprecated extends Rule {
 	setup(){

@@ -1,6 +1,6 @@
 const path = require("path");
-import { Config } from "./config";
 import * as fs from "fs";
+import { Config } from "./config";
 
 let mockElements: any;
 jest.mock("mock-elements", () => mockElements, {virtual: true});

@@ -1,5 +1,5 @@
-import { Rule } from "../rule";
 import { AttributeEvent } from "../event";
+import { Rule } from "../rule";
 
 class NoInlineStyle extends Rule {
 	setup(){

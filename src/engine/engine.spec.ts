@@ -1,12 +1,12 @@
 import { Config } from "../config";
-import { Engine } from "./engine";
 import { Source } from "../context";
-import { Parser } from "../parser";
 import { DOMTree } from "../dom";
 import { InvalidTokenError } from "../lexer";
+import "../matchers";
+import { Parser } from "../parser";
 import { Reporter } from "../reporter";
 import { Rule, RuleOptions } from "../rule";
-import "../matchers";
+import { Engine } from "./engine";
 
 function inline(source: string): Source {
 	return {

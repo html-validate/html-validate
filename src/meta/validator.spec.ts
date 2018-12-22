@@ -1,7 +1,7 @@
-import { MetaTable, MetaElement, Validator } from "./";
 import { Config } from "../config";
 import { HtmlElement } from "../dom"; // eslint-disable-line no-unused-vars
 import { Parser } from "../parser";
+import { MetaElement, MetaTable, Validator } from "./";
 
 class ConfigMock extends Config {
 	constructor(metaTable: MetaTable){

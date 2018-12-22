@@ -1,9 +1,9 @@
-import { HtmlElement, DOMTree, Attribute, NodeClosed }  from ".";
-import { Parser } from "../parser";
+import { Attribute, DOMTree, HtmlElement, NodeClosed }  from ".";
 import { Config } from "../config";
 import { Location } from "../context";
 import { Token, TokenType } from "../lexer";
-import { MetaTable, MetaElement } from "../meta";
+import { MetaElement, MetaTable } from "../meta";
+import { Parser } from "../parser";
 
 describe("HtmlElement", () => {
 

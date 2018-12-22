@@ -1,6 +1,6 @@
-import { Rule } from "../rule";
-import { TagOpenEvent } from "../event";
 import { HtmlElement } from "../dom";
+import { TagOpenEvent } from "../event";
+import { Rule } from "../rule";
 
 class HeadingLevel extends Rule {
 	setup(){

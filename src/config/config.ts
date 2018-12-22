@@ -1,8 +1,8 @@
-import { MetaTable } from "../meta";
-import { ConfigData, TransformMap } from "./config-data";
 import { Source } from "../context";
-import { RuleConstructor } from "../rule";
+import { MetaTable } from "../meta";
 import { ElementTable } from "../meta/element";
+import { RuleConstructor } from "../rule";
+import { ConfigData, TransformMap } from "./config-data";
 import defaultConfig from "./default";
 
 type Transformer = {

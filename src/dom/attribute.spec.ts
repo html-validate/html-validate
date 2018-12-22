@@ -1,5 +1,5 @@
-import { Attribute } from "./attribute";
 import { Location } from "../context";
+import { Attribute } from "./attribute";
 
 describe("Attribute", () => {
 

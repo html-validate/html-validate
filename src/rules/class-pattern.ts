@@ -1,7 +1,7 @@
-import { Rule } from "../rule";
-import { AttributeEvent } from "../event";
 import { DOMTokenList } from "../dom";
+import { AttributeEvent } from "../event";
 import { parsePattern } from "../pattern";
+import { Rule } from "../rule";
 
 const defaults = {
 	pattern: "kebabcase",

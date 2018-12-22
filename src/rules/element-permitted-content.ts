@@ -1,8 +1,8 @@
-import { Rule } from "../rule";
 import { HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { Validator } from "../meta";
 import { Permitted } from "../meta/element";
+import { Rule } from "../rule";
 
 class ElementPermittedContent extends Rule {
 	setup(){

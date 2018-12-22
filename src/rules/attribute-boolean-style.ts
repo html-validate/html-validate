@@ -1,7 +1,7 @@
-import { Rule } from "../rule";
 import { HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { PermittedAttribute } from "../meta/element";
+import { Rule } from "../rule";
 
 const defaults = {
 	style: "omit",

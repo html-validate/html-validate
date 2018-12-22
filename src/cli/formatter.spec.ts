@@ -1,5 +1,5 @@
-import { getFormatter } from "./formatter";
 import { Report } from "../reporter";
+import { getFormatter } from "./formatter";
 
 /* all mocked formatters must return empty string */
 const textFormatter = jest.fn(() => "");

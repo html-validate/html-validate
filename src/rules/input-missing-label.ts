@@ -1,6 +1,6 @@
-import { HtmlElement, DOMTree } from "../dom";
-import { Rule } from "../rule";
+import { DOMTree, HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
+import { Rule } from "../rule";
 
 class InputMissingLabel extends Rule {
 	setup(){

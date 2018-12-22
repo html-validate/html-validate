@@ -1,5 +1,5 @@
-import { Rule } from "../rule";
 import { TagCloseEvent } from "../event";
+import { Rule } from "../rule";
 
 class CloseAttr extends Rule {
 	setup(){

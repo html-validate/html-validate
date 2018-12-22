@@ -1,11 +1,11 @@
-import HtmlValidate from "../htmlvalidate";
-import { Reporter, Report, Result } from "../reporter";
-import { getFormatter } from "./formatter";
-import { TokenDump, EventDump } from "../engine";
 import defaultConfig from "../config/default";
+import { EventDump, TokenDump } from "../engine";
+import HtmlValidate from "../htmlvalidate";
+import { Report, Reporter, Result } from "../reporter";
+import { getFormatter } from "./formatter";
 
-import * as minimist from "minimist";
 import * as glob from "glob";
+import * as minimist from "minimist";
 
 function getMode(argv: { [key: string]: any }){
 	if (argv["dump-events"]){

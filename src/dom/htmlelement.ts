@@ -1,9 +1,9 @@
 import { Location } from "../context";
 import { Token } from "../lexer";
+import { MetaElement, MetaTable } from "../meta";
+import { Attribute } from "./attribute";
 import { DOMNode } from "./domnode";
 import { DOMTokenList } from "./domtokenlist";
-import { MetaTable, MetaElement } from "../meta";
-import { Attribute } from "./attribute";
 import { Selector } from "./selector";
 
 export enum NodeClosed {

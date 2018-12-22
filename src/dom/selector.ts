@@ -1,5 +1,5 @@
-import { HtmlElement } from "./htmlelement";
 import { Combinator, parseCombinator } from "./combinator";
+import { HtmlElement } from "./htmlelement";
 
 class Matcher {
 	match(node: HtmlElement): boolean { // eslint-disable-line no-unused-vars

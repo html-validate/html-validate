@@ -1,10 +1,10 @@
 import { Config } from "./config";
+import { Location } from "./context";
 import { HtmlElement } from "./dom";
+import { Event } from "./event";
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";
 import { Rule } from "./rule";
-import { Event } from "./event";
-import { Location } from "./context";
 
 class MockRule extends Rule {
 	setup(){

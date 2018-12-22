@@ -1,6 +1,6 @@
-import { TokenType } from "./token";
-import { Lexer } from "./lexer";
 import "../matchers";
+import { Lexer } from "./lexer";
+import { TokenType } from "./token";
 
 function inlineSource(source: string, {line = 1, column = 1} = {}){
 	return {

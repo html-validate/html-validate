@@ -1,4 +1,4 @@
-import { Context, Source, ContentModel, Location } from "../context";
+import { ContentModel, Context, Location, Source } from "../context";
 import { Token, TokenType } from "./token";
 
 enum State {

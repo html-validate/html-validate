@@ -1,10 +1,10 @@
 import { Config } from "../config";
-import { HtmlElement, DOMTree } from "../dom";
+import { DOMTree, HtmlElement } from "../dom";
 import { EventCallback } from "../event";
-import { InvalidTokenError, TokenStream, TokenType } from "../lexer";
-import { Parser } from "./parser";
 import HtmlValidate from "../htmlvalidate";
+import { InvalidTokenError, TokenStream, TokenType } from "../lexer";
 import "../matchers";
+import { Parser } from "./parser";
 
 function mergeEvent(event: string, data: any){
 	const merged = Object.assign({}, {event}, data);

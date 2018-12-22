@@ -1,5 +1,5 @@
-import { Rule } from "../rule";
 import { TagOpenEvent } from "../event";
+import { Rule } from "../rule";
 
 const defaults = {
 	pattern: "^[a-z][a-z0-9\\-._]*-[a-z0-9\\-._]*$",

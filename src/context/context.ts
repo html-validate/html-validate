@@ -1,5 +1,5 @@
-import { Source } from "./source";
 import { Location } from "./location";
+import { Source } from "./source";
 
 export enum ContentModel {
 	TEXT = 1,

@@ -1,5 +1,5 @@
-import { Rule } from "../rule";
 import { WhitespaceEvent } from "../event";
+import { Rule } from "../rule";
 
 class NoTrailingWhitespace extends Rule {
 	setup(){

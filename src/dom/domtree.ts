@@ -1,6 +1,6 @@
 import { Location } from "../context";
-import { HtmlElement } from "./htmlelement";
 import { MetaTable } from "../meta";
+import { HtmlElement } from "./htmlelement";
 
 export class DOMTree {
 	readonly root: HtmlElement;

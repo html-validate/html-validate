@@ -1,19 +1,19 @@
 /* eslint-disable no-unused-vars */
-import { HtmlElement } from "./dom";
 import { Config } from "./config";
 import { Location } from "./context";
+import { HtmlElement } from "./dom";
 import {
-	Event,
 	AttributeEvent,
 	ConditionalEvent,
-	DOMReadyEvent,
 	DoctypeEvent,
+	DOMReadyEvent,
+	Event,
 	TagCloseEvent,
 	TagOpenEvent,
 	WhitespaceEvent,
 } from "./event";
-import { Reporter } from "./reporter";
 import { Parser } from "./parser";
+import { Reporter } from "./reporter";
 
 export type RuleOptions = { [key: string]: any };
 

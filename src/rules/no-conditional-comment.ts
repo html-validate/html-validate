@@ -1,5 +1,5 @@
-import { Rule } from "../rule";
 import { ConditionalEvent } from "../event";
+import { Rule } from "../rule";
 
 class NoConditionalComment extends Rule {
 	setup(){

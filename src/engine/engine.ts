@@ -1,11 +1,11 @@
 import { Config } from "../config";
 import { Location, Source } from "../context";
+import { HtmlElement } from "../dom";
+import { DirectiveEvent, TagCloseEvent, TagOpenEvent } from "../event";
 import { InvalidTokenError, Lexer, TokenType } from "../lexer";
 import { Parser } from "../parser";
-import { Reporter, Report } from "../reporter";
+import { Report, Reporter } from "../reporter";
 import { Rule, RuleConstructor, RuleOptions } from "../rule";
-import { HtmlElement } from "../dom";
-import { DirectiveEvent, TagOpenEvent, TagCloseEvent } from "../event";
 
 export interface EventDump {
 	event: string;

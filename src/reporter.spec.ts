@@ -1,4 +1,4 @@
-import { Reporter, Message } from "./reporter";
+import { Message, Reporter } from "./reporter";
 describe("Reporter", () => {
 
 	describe("merge()", () => {

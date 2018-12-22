@@ -1,6 +1,6 @@
-import { Rule } from "../rule";
 import { DOMTokenList } from "../dom";
 import { AttributeEvent } from "../event";
+import { Rule } from "../rule";
 
 class NoDupClass extends Rule {
 	setup(){

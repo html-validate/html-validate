@@ -1,20 +1,20 @@
 import { Config } from "../config";
-import { HtmlElement, DOMTree, NodeClosed } from "../dom";
 import { Source } from "../context";
-import { Lexer, Token, TokenStream, TokenType } from "../lexer";
-import { EventHandler, EventCallback } from "../event";
-import { MetaTable } from "../meta";
+import { DOMTree, HtmlElement, NodeClosed } from "../dom";
+import { EventCallback, EventHandler } from "../event";
 import {
-	Event,
 	AttributeEvent,
 	ConditionalEvent,
 	DirectiveEvent,
-	DOMReadyEvent,
 	DoctypeEvent,
+	DOMReadyEvent,
+	Event,
 	TagCloseEvent,
 	TagOpenEvent,
 	WhitespaceEvent,
 } from "../event";
+import { Lexer, Token, TokenStream, TokenType } from "../lexer";
+import { MetaTable } from "../meta";
 
 export class Parser {
 	private readonly config: Config;
