@@ -1,6 +1,6 @@
 import { TemplateExtractor } from './template';
 
-describe('TemplateExtractor', function(){
+describe('TemplateExtractor', () => {
 
 	describe('extractObjectProperty()', () => {
 

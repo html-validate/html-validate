@@ -1,6 +1,6 @@
 import { DOMTokenList } from './domtokenlist';
 
-describe('DOMTokenList', function(){
+describe('DOMTokenList', () => {
 
 	it('should split string into parts', () => {
 		const list = new DOMTokenList('foo bar baz');

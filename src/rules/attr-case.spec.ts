@@ -1,34 +1,34 @@
 import HtmlValidate from '../htmlvalidate';
 import '../matchers';
 
-describe('rule attr-case', function(){
+describe('rule attr-case', () => {
 	let htmlvalidate: HtmlValidate;
 
-	describe('configured with "lowercase"', function(){
+	describe('configured with "lowercase"', () => {
 
-		beforeAll(function(){
+		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
 				rules: {'attr-case': ['error', {style: "lowercase"}]},
 			});
 		});
 
-		it('should not report error when attributes is lowercase', function(){
+		it('should not report error when attributes is lowercase', () => {
 			const report = htmlvalidate.validateString('<div foo="bar"></div>');
 			expect(report).toBeValid();
 		});
 
-		it('should not report error when attribute has special characters', function(){
+		it('should not report error when attribute has special characters', () => {
 			const report = htmlvalidate.validateString('<div foo-bar-9="bar"></div>');
 			expect(report).toBeValid();
 		});
 
-		it('should report error when attributes is uppercase', function(){
+		it('should report error when attributes is uppercase', () => {
 			const report = htmlvalidate.validateString('<div FOO="bar"></div>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError('attr-case', 'Attribute "FOO" should be lowercase');
 		});
 
-		it('should report error when attributes is mixed', function(){
+		it('should report error when attributes is mixed', () => {
 			const report = htmlvalidate.validateString('<div clAss="bar"></div>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError('attr-case', 'Attribute "clAss" should be lowercase');
@@ -41,31 +41,31 @@ describe('rule attr-case', function(){
 
 	});
 
-	describe('configured with "uppercase"', function(){
+	describe('configured with "uppercase"', () => {
 
-		beforeAll(function(){
+		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
 				rules: {'attr-case': ['error', {style: "uppercase"}]},
 			});
 		});
 
-		it('should report error when attributes is lowercase', function(){
+		it('should report error when attributes is lowercase', () => {
 			const report = htmlvalidate.validateString('<div foo="bar"></div>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError('attr-case', 'Attribute "foo" should be uppercase');
 		});
 
-		it('should not report error when attribute has special characters', function(){
+		it('should not report error when attribute has special characters', () => {
 			const report = htmlvalidate.validateString('<div FOO-BAR-9="bar"></div>');
 			expect(report).toBeValid();
 		});
 
-		it('should not report error when attributes is uppercase', function(){
+		it('should not report error when attributes is uppercase', () => {
 			const report = htmlvalidate.validateString('<div FOO="bar"></div>');
 			expect(report).toBeValid();
 		});
 
-		it('should report error when attributes is mixed', function(){
+		it('should report error when attributes is mixed', () => {
 			const report = htmlvalidate.validateString('<div clAss="bar"></div>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError('attr-case', 'Attribute "clAss" should be uppercase');
@@ -78,7 +78,7 @@ describe('rule attr-case', function(){
 
 	});
 
-	it('should throw error if configured with invalid value', function(){
+	it('should throw error if configured with invalid value', () => {
 		htmlvalidate = new HtmlValidate({
 			rules: {'attr-case': ['error', {style: "foobar"}]},
 		});

@@ -12,7 +12,7 @@ class MockRule extends Rule {
 	}
 }
 
-describe('rule base class', function(){
+describe('rule base class', () => {
 
 	let parser: Parser;
 	let reporter: Reporter;
@@ -20,7 +20,7 @@ describe('rule base class', function(){
 	let mockLocation: Location;
 	let mockEvent: Event;
 
-	beforeEach(function(){
+	beforeEach(() => {
 		parser = new Parser(Config.empty());
 		parser.on = jest.fn();
 		reporter = new Reporter();
@@ -34,40 +34,40 @@ describe('rule base class', function(){
 		};
 	});
 
-	describe('report()', function(){
+	describe('report()', () => {
 
-		it('should not add message with severity "disabled"', function(){
+		it('should not add message with severity "disabled"', () => {
 			rule.setServerity(Config.SEVERITY_DISABLED);
 			rule.report(null, "foo");
 			expect(reporter.add).not.toHaveBeenCalled();
 		});
 
-		it('should add message with severity "warn"', function(){
+		it('should add message with severity "warn"', () => {
 			const node = new HtmlElement("foo", null);
 			rule.setServerity(Config.SEVERITY_WARN);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_WARN, expect.anything());
 		});
 
-		it('should add message with severity "error"', function(){
+		it('should add message with severity "error"', () => {
 			const node = new HtmlElement("foo", null);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, expect.anything());
 		});
 
-		it('should not add message when disabled', function(){
+		it('should not add message when disabled', () => {
 			rule.setEnabled(false);
 			rule.report(null, "foo");
 			expect(reporter.add).not.toHaveBeenCalled();
 		});
 
-		it('should use explicit location if provided', function(){
+		it('should use explicit location if provided', () => {
 			const node = new HtmlElement("foo", null);
 			rule.report(node, "foo", mockLocation);
 			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, mockLocation);
 		});
 
-		it('should use event location if no explicit location', function(){
+		it('should use event location if no explicit location', () => {
 			const node = new HtmlElement("foo", null);
 			rule.on('*', () => {});
 			const callback = (parser.on as any).mock.calls[0][1];
@@ -76,7 +76,7 @@ describe('rule base class', function(){
 			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, mockEvent.location);
 		});
 
-		it('should use node location if no node location', function(){
+		it('should use node location if no node location', () => {
 			const node = new HtmlElement("foo", null, undefined, null, mockLocation);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, mockLocation);
@@ -84,12 +84,12 @@ describe('rule base class', function(){
 
 	});
 
-	describe('on()', function(){
+	describe('on()', () => {
 
 		let delivered: boolean;
 		let callback: (event: string, data: Event) => void;
 
-		beforeEach(function(){
+		beforeEach(() => {
 			delivered = false;
 			rule.on('*', () => {
 				delivered = true;
@@ -97,25 +97,25 @@ describe('rule base class', function(){
 			callback = (parser.on as any).mock.calls[0][1];
 		});
 
-		it('should not deliver events with severity "disabled"', function(){
+		it('should not deliver events with severity "disabled"', () => {
 			rule.setServerity(Config.SEVERITY_DISABLED);
 			callback('event', mockEvent);
 			expect(delivered).toBeFalsy();
 		});
 
-		it('should deliver events with severity "warn"', function(){
+		it('should deliver events with severity "warn"', () => {
 			rule.setServerity(Config.SEVERITY_WARN);
 			callback('event', mockEvent);
 			expect(delivered).toBeTruthy();
 		});
 
-		it('should deliver events with severity "error"', function(){
+		it('should deliver events with severity "error"', () => {
 			rule.setServerity(Config.SEVERITY_ERROR);
 			callback('event', mockEvent);
 			expect(delivered).toBeTruthy();
 		});
 
-		it('should not deliver events when disabled', function(){
+		it('should not deliver events when disabled', () => {
 			rule.setEnabled(false);
 			callback('event', mockEvent);
 			expect(delivered).toBeFalsy();

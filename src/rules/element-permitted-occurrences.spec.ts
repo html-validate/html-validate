@@ -1,16 +1,16 @@
 import HtmlValidate from '../htmlvalidate';
 import '../matchers';
 
-describe('rule element-permitted-occurrences', function(){
+describe('rule element-permitted-occurrences', () => {
 	let htmlvalidate: HtmlValidate;
 
-	beforeAll(function(){
+	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
 			rules: {'element-permitted-occurrences': 'error'},
 		});
 	});
 
-	it('should report error when child has too many occurrences', function(){
+	it('should report error when child has too many occurrences', () => {
 		const report = htmlvalidate.validateString('<table><caption>1</caption><caption>2</caption></table>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
@@ -18,12 +18,12 @@ describe('rule element-permitted-occurrences', function(){
 		]);
 	});
 
-	it('should not report error when child has right number of occurrences', function(){
+	it('should not report error when child has right number of occurrences', () => {
 		const report = htmlvalidate.validateString('<table><caption></caption></table>');
 		expect(report).toBeValid();
 	});
 
-	it('should not report error when child has unrestricted number of occurrences', function(){
+	it('should not report error when child has unrestricted number of occurrences', () => {
 		const report = htmlvalidate.validateString('<div><p>1</p><p>2</p><p>3</p></div>');
 		expect(report).toBeValid();
 	});

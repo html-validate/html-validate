@@ -5,7 +5,7 @@ import { Location } from '../context';
 import { Token, TokenType } from '../lexer';
 import { MetaTable, MetaElement } from '../meta';
 
-describe('HtmlElement', function(){
+describe('HtmlElement', () => {
 
 	let root: DOMTree;
 	const location: Location = {filename: 'filename', offset: 0, line: 1, column: 1};
@@ -90,13 +90,13 @@ describe('HtmlElement', function(){
 		expect(rootElement.tagName).toBeUndefined();
 	});
 
-	it('id property should return element id', function(){
+	it('id property should return element id', () => {
 		const el = new HtmlElement('foo');
 		el.setAttribute('id', 'bar', location);
 		expect(el.id).toEqual('bar');
 	});
 
-	it('id property should return null if no id attribute exists', function(){
+	it('id property should return null if no id attribute exists', () => {
 		const el = new HtmlElement('foo');
 		expect(el.id).toBeNull();
 	});
@@ -121,7 +121,7 @@ describe('HtmlElement', function(){
 		expect(c.nextSibling).toBeNull();
 	});
 
-	it('should be assigned a unique id', function(){
+	it('should be assigned a unique id', () => {
 		const n1 = new HtmlElement('foo');
 		const n2 = new HtmlElement('foo');
 		expect(n1.unique).toEqual(expect.any(Number));
@@ -172,14 +172,14 @@ describe('HtmlElement', function(){
 
 	});
 
-	describe('should calculate depth', function(){
+	describe('should calculate depth', () => {
 
-		it('for nodes without parent', function(){
+		it('for nodes without parent', () => {
 			const node = new HtmlElement('foo');
 			expect(node.depth).toEqual(0);
 		});
 
-		it('for nodes in a tree', function(){
+		it('for nodes in a tree', () => {
 			expect(root.querySelector('#parent').depth).toEqual(0);
 			expect(root.querySelector('ul').depth).toEqual(1);
 			expect(root.querySelector('li.foo').depth).toEqual(2);
@@ -188,31 +188,31 @@ describe('HtmlElement', function(){
 
 	});
 
-	describe('is()', function(){
+	describe('is()', () => {
 
-		it('should match tagname', function(){
+		it('should match tagname', () => {
 			const el = new HtmlElement('foo');
 			expect(el.is('foo')).toBeTruthy();
 			expect(el.is('bar')).toBeFalsy();
 		});
 
-		it('should match any tag when using asterisk', function(){
+		it('should match any tag when using asterisk', () => {
 			const el = new HtmlElement('foo');
 			expect(el.is('*')).toBeTruthy();
 		});
 
 	});
 
-	describe('getElementsByTagName()', function(){
+	describe('getElementsByTagName()', () => {
 
-		it('should find elements', function(){
+		it('should find elements', () => {
 			const nodes = root.getElementsByTagName('li');
 			expect(nodes).toHaveLength(2);
 			expect(nodes[0].getAttributeValue('class')).toEqual('foo');
 			expect(nodes[1].getAttributeValue('class')).toEqual('bar baz');
 		});
 
-		it('should support universal selector', function(){
+		it('should support universal selector', () => {
 			const tagNames = root.getElementsByTagName('*').map((cur: HtmlElement) => cur.tagName);
 			expect(tagNames).toHaveLength(6);
 			expect(tagNames).toEqual(['div', 'ul', 'li', 'li', 'p', 'span']);
@@ -316,9 +316,9 @@ describe('HtmlElement', function(){
 
 	});
 
-	describe('visitDepthFirst()', function(){
+	describe('visitDepthFirst()', () => {
 
-		it('should visit all nodes in correct order', function(){
+		it('should visit all nodes in correct order', () => {
 			const root = HtmlElement.rootNode({
 				filename: 'inline',
 				offset: 0,
@@ -337,9 +337,9 @@ describe('HtmlElement', function(){
 
 	});
 
-	describe('someChildren()', function(){
+	describe('someChildren()', () => {
 
-		it('should return true if any child node evaluates to true', function(){
+		it('should return true if any child node evaluates to true', () => {
 			const root = new HtmlElement('root');
 			/* eslint-disable no-unused-vars */
 			const a = new HtmlElement('a', root);
@@ -350,7 +350,7 @@ describe('HtmlElement', function(){
 			expect(result).toBeTruthy();
 		});
 
-		it('should return false if no child node evaluates to true', function(){
+		it('should return false if no child node evaluates to true', () => {
 			const root = new HtmlElement('root');
 			/* eslint-disable no-unused-vars */
 			const a = new HtmlElement('a', root);
@@ -361,7 +361,7 @@ describe('HtmlElement', function(){
 			expect(result).toBeFalsy();
 		});
 
-		it('should short-circuit when first node evalutes to true', function(){
+		it('should short-circuit when first node evalutes to true', () => {
 			const root = new HtmlElement('root');
 			/* eslint-disable no-unused-vars */
 			const a = new HtmlElement('a', root);
@@ -378,9 +378,9 @@ describe('HtmlElement', function(){
 
 	});
 
-	describe('everyChildren()', function(){
+	describe('everyChildren()', () => {
 
-		it('should return true if all nodes evaluates to true', function(){
+		it('should return true if all nodes evaluates to true', () => {
 			const root = new HtmlElement('root');
 			/* eslint-disable no-unused-vars */
 			const a = new HtmlElement('a', root);
@@ -391,7 +391,7 @@ describe('HtmlElement', function(){
 			expect(result).toBeTruthy();
 		});
 
-		it('should return false if any nodes evaluates to false', function(){
+		it('should return false if any nodes evaluates to false', () => {
 			const root = new HtmlElement('root');
 			/* eslint-disable no-unused-vars */
 			const a = new HtmlElement('a', root);
@@ -404,9 +404,9 @@ describe('HtmlElement', function(){
 
 	});
 
-	describe('find()', function(){
+	describe('find()', () => {
 
-		it('should visit all nodes until callback evaluates to true', function(){
+		it('should visit all nodes until callback evaluates to true', () => {
 			const root = new HtmlElement('root');
 			/* eslint-disable no-unused-vars */
 			const a = new HtmlElement('a', root);

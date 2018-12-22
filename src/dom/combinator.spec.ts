@@ -1,23 +1,23 @@
 import { Combinator, parseCombinator } from './combinator';
 
-describe('DOM Combinator', function(){
+describe('DOM Combinator', () => {
 
-	it('should default to descendant combinator', function(){
+	it('should default to descendant combinator', () => {
 		const result = parseCombinator('');
 		expect(result).toEqual(Combinator.DESCENDANT);
 	});
 
-	it('should parse > as child combinator', function(){
+	it('should parse > as child combinator', () => {
 		const result = parseCombinator('>');
 		expect(result).toEqual(Combinator.CHILD);
 	});
 
-	it('should parse + as adjacent sibling combinator', function(){
+	it('should parse + as adjacent sibling combinator', () => {
 		const result = parseCombinator('+');
 		expect(result).toEqual(Combinator.ADJACENT_SIBLING);
 	});
 
-	it('should parse + as general sibling combinator', function(){
+	it('should parse + as general sibling combinator', () => {
 		const result = parseCombinator('~');
 		expect(result).toEqual(Combinator.GENERAL_SIBLING);
 	});
@@ -32,7 +32,7 @@ describe('DOM Combinator', function(){
 		expect(result).toEqual(Combinator.DESCENDANT);
 	});
 
-	it('should throw error on invalid combinator', function(){
+	it('should throw error on invalid combinator', () => {
 		expect(() => parseCombinator('a')).toThrow();
 	});
 

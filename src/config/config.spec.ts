@@ -6,14 +6,14 @@ let mockElements: any;
 jest.mock('mock-elements', () => mockElements, {virtual: true});
 jest.mock('mock-plugin', () => 'mock plugin', {virtual: true});
 
-describe('config', function(){
+describe('config', () => {
 
-	it('should load defaults', function(){
+	it('should load defaults', () => {
 		const config = Config.empty();
 		expect(config.get()).toBeDefined();
 	});
 
-	it('should contain no rules by default', function(){
+	it('should contain no rules by default', () => {
 		const config = Config.empty();
 		expect(Object.keys(config.get().rules)).toHaveLength(0);
 	});
@@ -59,9 +59,9 @@ describe('config', function(){
 
 	});
 
-	describe('getRules()', function(){
+	describe('getRules()', () => {
 
-		it('should return parsed rules', function(){
+		it('should return parsed rules', () => {
 			const config = Config.fromObject({rules: {foo: 'error'}});
 			expect(config.get().rules).toEqual({foo: 'error'});
 			expect(config.getRules()).toEqual({
@@ -124,16 +124,16 @@ describe('config', function(){
 			});
 		});
 
-		it('should handle when rules are unset', function(){
+		it('should handle when rules are unset', () => {
 			const config = Config.fromObject({rules: null});
 			expect(config.getRules()).toEqual({});
 		});
 
 	});
 
-	describe('fromFile()', function(){
+	describe('fromFile()', () => {
 
-		it('should support JSON', function(){
+		it('should support JSON', () => {
 			const config = Config.fromFile(`${process.cwd()}/test-files/config.json`);
 			expect(config.getRules()).toEqual({
 				foo: [Config.SEVERITY_ERROR, {}],
@@ -144,9 +144,9 @@ describe('config', function(){
 
 	});
 
-	describe('extend', function(){
+	describe('extend', () => {
 
-		it('should extend base configuration', function(){
+		it('should extend base configuration', () => {
 			const config = Config.fromObject({
 				extends: [`${process.cwd()}/test-files/config.json`],
 				rules: {
@@ -160,7 +160,7 @@ describe('config', function(){
 			});
 		});
 
-		it('should support deep extending', function(){
+		it('should support deep extending', () => {
 			const config = Config.fromObject({
 				extends: [`${process.cwd()}/test-files/config-extending.json`],
 			});
@@ -171,14 +171,14 @@ describe('config', function(){
 			});
 		});
 
-		it('should support htmlvalidate:recommended', function(){
+		it('should support htmlvalidate:recommended', () => {
 			const config = Config.fromObject({
 				extends: ['htmlvalidate:recommended'],
 			});
 			expect(config.getRules()).toBeDefined();
 		});
 
-		it('should support htmlvalidate:document', function(){
+		it('should support htmlvalidate:document', () => {
 			const config = Config.fromObject({
 				extends: ['htmlvalidate:document'],
 			});
@@ -187,35 +187,35 @@ describe('config', function(){
 
 	});
 
-	describe('expandRelative()', function(){
+	describe('expandRelative()', () => {
 
-		it('should expand ./foo', function(){
+		it('should expand ./foo', () => {
 			expect(Config.expandRelative('./foo', '/path')).toEqual(path.join(path.sep, 'path', 'foo'));
 		});
 
-		it('should expand ../foo', function(){
+		it('should expand ../foo', () => {
 			expect(Config.expandRelative('../foo', '/path/bar')).toEqual(path.join(path.sep, 'path', 'foo'));
 		});
 
-		it('should not expand /foo', function(){
+		it('should not expand /foo', () => {
 			expect(Config.expandRelative('/foo', '/path')).toEqual('/foo');
 		});
 
-		it('should not expand foo', function(){
+		it('should not expand foo', () => {
 			expect(Config.expandRelative('foo', '/path')).toEqual('foo');
 		});
 
 	});
 
-	describe('getMetaTable()', function(){
+	describe('getMetaTable()', () => {
 
-		it('should load metadata', function(){
+		it('should load metadata', () => {
 			const config = Config.empty();
 			const metatable = config.getMetaTable();
 			expect(Object.keys(metatable.elements)).not.toHaveLength(0);
 		});
 
-		it('should load inline metadata', function(){
+		it('should load inline metadata', () => {
 			const config = Config.fromObject({
 				elements: [
 					{
@@ -227,14 +227,14 @@ describe('config', function(){
 			expect(Object.keys(metatable.elements)).toEqual(['foo']);
 		});
 
-		it('should cache table', function(){
+		it('should cache table', () => {
 			const config = Config.empty();
 			const a = config.getMetaTable();
 			const b = config.getMetaTable();
 			expect(a).toBe(b);
 		});
 
-		it('should load metadata from module', function(){
+		it('should load metadata from module', () => {
 			mockElements = {
 				foo: {},
 			};

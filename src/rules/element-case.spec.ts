@@ -1,34 +1,34 @@
 import HtmlValidate from '../htmlvalidate';
 import '../matchers';
 
-describe('rule element-case', function(){
+describe('rule element-case', () => {
 	let htmlvalidate: HtmlValidate;
 
-	describe('configured with "lowercase"', function(){
+	describe('configured with "lowercase"', () => {
 
-		beforeAll(function(){
+		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
 				rules: {'element-case': ['error', {style: "lowercase"}]},
 			});
 		});
 
-		it('should not report error when element is lowercase', function(){
+		it('should not report error when element is lowercase', () => {
 			const report = htmlvalidate.validateString('<foo></foo>');
 			expect(report).toBeValid();
 		});
 
-		it('should not report error when element has special characters', function(){
+		it('should not report error when element has special characters', () => {
 			const report = htmlvalidate.validateString('<foo-bar-9></foo-bar-9>');
 			expect(report).toBeValid();
 		});
 
-		it('should report error when element is uppercase', function(){
+		it('should report error when element is uppercase', () => {
 			const report = htmlvalidate.validateString('<FOO></FOO>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError('element-case', 'Element "FOO" should be lowercase');
 		});
 
-		it('should report error when element is mixed', function(){
+		it('should report error when element is mixed', () => {
 			const report = htmlvalidate.validateString('<fOo></fOo>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError('element-case', 'Element "fOo" should be lowercase');
@@ -41,31 +41,31 @@ describe('rule element-case', function(){
 
 	});
 
-	describe('configured with "uppercase"', function(){
+	describe('configured with "uppercase"', () => {
 
-		beforeAll(function(){
+		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
 				rules: {'element-case': ['error', {style: "uppercase"}]},
 			});
 		});
 
-		it('should report error when element is lowercase', function(){
+		it('should report error when element is lowercase', () => {
 			const report = htmlvalidate.validateString('<foo></foo>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError('element-case', 'Element "foo" should be uppercase');
 		});
 
-		it('should not report error when element has special characters', function(){
+		it('should not report error when element has special characters', () => {
 			const report = htmlvalidate.validateString('<FOO-BAR-9></FOO-BAR-9>');
 			expect(report).toBeValid();
 		});
 
-		it('should not report error when element is uppercase', function(){
+		it('should not report error when element is uppercase', () => {
 			const report = htmlvalidate.validateString('<FOO></FOO>');
 			expect(report).toBeValid();
 		});
 
-		it('should report error when element is mixed', function(){
+		it('should report error when element is mixed', () => {
 			const report = htmlvalidate.validateString('<fOo></fOo>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError('element-case', 'Element "fOo" should be uppercase');
@@ -78,7 +78,7 @@ describe('rule element-case', function(){
 
 	});
 
-	it('should throw error if configured with invalid value', function(){
+	it('should throw error if configured with invalid value', () => {
 		htmlvalidate = new HtmlValidate({
 			rules: {'element-case': ['error', {style: "foobar"}]},
 		});

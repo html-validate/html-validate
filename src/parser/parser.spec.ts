@@ -28,7 +28,7 @@ class ExposedParser extends Parser {
 	}
 }
 
-describe('parser', function(){
+describe('parser', () => {
 
 	const ignoredEvents = [
 		'dom:load',
@@ -39,7 +39,7 @@ describe('parser', function(){
 	let events: Array<any>;
 	let parser: ExposedParser;
 
-	beforeEach(function(){
+	beforeEach(() => {
 		events = [];
 		parser = new ExposedParser(Config.empty());
 		parser.on('*', (event: string, data: any) => {
@@ -48,30 +48,30 @@ describe('parser', function(){
 		});
 	});
 
-	describe('should parse elements', function(){
+	describe('should parse elements', () => {
 
-		it('simple element', function(){
+		it('simple element', () => {
 			parser.parseHtml('<div></div>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'div'});
 			expect(events.shift()).toEqual({event: 'tag:close', target: 'div', previous: 'div'});
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it('with numbers', function(){
+		it('with numbers', () => {
 			parser.parseHtml('<h1></h1>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'h1'});
 			expect(events.shift()).toEqual({event: 'tag:close', target: 'h1', previous: 'h1'});
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it('with dashes', function(){
+		it('with dashes', () => {
 			parser.parseHtml('<foo-bar></foo-bar>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'foo-bar'});
 			expect(events.shift()).toEqual({event: 'tag:close', target: 'foo-bar', previous: 'foo-bar'});
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it('elements closed on wrong order', function(){
+		it('elements closed on wrong order', () => {
 			parser.parseHtml('<div><label></div></label>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'div'});
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'label'});
@@ -80,21 +80,21 @@ describe('parser', function(){
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it('self-closing elements', function(){
+		it('self-closing elements', () => {
 			parser.parseHtml('<input/>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'input'});
 			expect(events.shift()).toEqual({event: 'tag:close', target: 'input', previous: 'input'});
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it('void elements', function(){
+		it('void elements', () => {
 			parser.parseHtml('<input>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'input'});
 			expect(events.shift()).toEqual({event: 'tag:close', target: 'input', previous: 'input'});
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it('void elements with close tag', function(){
+		it('void elements with close tag', () => {
 			parser.parseHtml('<input></input>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'input'});
 			expect(events.shift()).toEqual({event: 'tag:close', target: 'input', previous: 'input'});
@@ -102,33 +102,33 @@ describe('parser', function(){
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it('with text node', function(){
+		it('with text node', () => {
 			parser.parseHtml('<p>Lorem ipsum</p>');
 		});
 
-		it('with trailing text', function(){
+		it('with trailing text', () => {
 			parser.parseHtml('<p>Lorem ipsum</p>\n');
 		});
 
-		it('unclosed', function(){
+		it('unclosed', () => {
 			parser.parseHtml('<p>');
 		});
 
-		it('unopened', function(){
+		it('unopened', () => {
 			parser.parseHtml('</p>');
 		});
 
-		it('multiple unopened', function(){
+		it('multiple unopened', () => {
 			/* mostly for regression testing: root element should never be
 			 * popped from node stack. */
 			parser.parseHtml('</p></p></p></p></p></p>');
 		});
 
-		it('with only text', function(){
+		it('with only text', () => {
 			parser.parseHtml('Lorem ipsum');
 		});
 
-		it('with newlines', function(){
+		it('with newlines', () => {
 			parser.parseHtml('<div\nfoo="bar"></div>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'div'});
 			expect(events.shift()).toEqual({event: 'attr', key: 'foo', value: 'bar', quote: '"', target: 'div'});
@@ -136,7 +136,7 @@ describe('parser', function(){
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it('with newline after attribute', function(){
+		it('with newline after attribute', () => {
 			parser.parseHtml('<div foo="bar"\nspam="ham"></div>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'div'});
 			expect(events.shift()).toEqual({event: 'attr', key: 'foo', value: 'bar', quote: '"', target: 'div'});
@@ -145,7 +145,7 @@ describe('parser', function(){
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it('with xml namespaces', function(){
+		it('with xml namespaces', () => {
 			parser.parseHtml('<foo:div></foo:div>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'foo:div'});
 			expect(events.shift()).toEqual({event: 'tag:close', target: 'foo:div', previous: 'foo:div'});
@@ -154,9 +154,9 @@ describe('parser', function(){
 
 	});
 
-	describe('should fail on', function(){
+	describe('should fail on', () => {
 
-		it('start tag with missing ">"', function(){
+		it('start tag with missing ">"', () => {
 			expect(() => {
 				parser.parseHtml('<p\n<p>foo</p></p>');
 			}).toThrow(InvalidTokenError);
@@ -164,9 +164,9 @@ describe('parser', function(){
 
 	});
 
-	describe('should parse attributes', function(){
+	describe('should parse attributes', () => {
 
-		it('without quotes', function(){
+		it('without quotes', () => {
 			parser.parseHtml('<div foo=bar></div>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'div'});
 			expect(events.shift()).toEqual({event: 'attr', key: 'foo', value: 'bar', quote: undefined, target: 'div'});
@@ -174,7 +174,7 @@ describe('parser', function(){
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it('with single quotes', function(){
+		it('with single quotes', () => {
 			parser.parseHtml('<div foo=\'bar\'></div>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'div'});
 			expect(events.shift()).toEqual({event: 'attr', key: 'foo', value: 'bar', quote: "'", target: 'div'});
@@ -182,7 +182,7 @@ describe('parser', function(){
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it('with double quote', function(){
+		it('with double quote', () => {
 			parser.parseHtml('<div foo="bar"></div>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'div'});
 			expect(events.shift()).toEqual({event: 'attr', key: 'foo', value: 'bar', quote: '"', target: 'div'});
@@ -190,7 +190,7 @@ describe('parser', function(){
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it('with nested quotes', function(){
+		it('with nested quotes', () => {
 			parser.parseHtml('<div foo=\'"foo"\' bar="\'foo\'"></div>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'div'});
 			expect(events.shift()).toEqual({event: 'attr', key: 'foo', value: '"foo"', quote: "'", target: 'div'});
@@ -199,7 +199,7 @@ describe('parser', function(){
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it('without value', function(){
+		it('without value', () => {
 			parser.parseHtml('<div foo></div>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'div'});
 			expect(events.shift()).toEqual({event: 'attr', key: 'foo', value: undefined, quote: undefined, target: 'div'});
@@ -207,7 +207,7 @@ describe('parser', function(){
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it('with empty value', function(){
+		it('with empty value', () => {
 			parser.parseHtml('<div foo="" bar=\'\'></div>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'div'});
 			expect(events.shift()).toEqual({event: 'attr', key: 'foo', value: '', quote: '"', target: 'div'});
@@ -216,7 +216,7 @@ describe('parser', function(){
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it('with dashes', function(){
+		it('with dashes', () => {
 			parser.parseHtml('<div foo-bar-baz></div>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'div'});
 			expect(events.shift()).toEqual({event: 'attr', key: 'foo-bar-baz', value: undefined, quote: undefined, target: 'div'});
@@ -224,7 +224,7 @@ describe('parser', function(){
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it('with spaces inside', function(){
+		it('with spaces inside', () => {
 			parser.parseHtml('<div class="foo bar baz"></div>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'div'});
 			expect(events.shift()).toEqual({event: 'attr', key: 'class', value: 'foo bar baz', quote: '"', target: 'div'});
@@ -232,7 +232,7 @@ describe('parser', function(){
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it('with uncommon characters', function(){
+		it('with uncommon characters', () => {
 			parser.parseHtml('<div a2?()!="foo"></div>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'div'});
 			expect(events.shift()).toEqual({event: 'attr', key: 'a2?()!', value: 'foo', quote: '"', target: 'div'});
@@ -240,7 +240,7 @@ describe('parser', function(){
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it('with multiple attributes', function(){
+		it('with multiple attributes', () => {
 			parser.parseHtml('<div foo="bar" spam="ham"></div>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'div'});
 			expect(events.shift()).toEqual({event: 'attr', key: 'foo', value: 'bar', quote: '"', target: 'div'});
@@ -249,7 +249,7 @@ describe('parser', function(){
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it('on self-closing elements', function(){
+		it('on self-closing elements', () => {
 			parser.parseHtml('<input type="text"/>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'input'});
 			expect(events.shift()).toEqual({event: 'attr', key: 'type', value: 'text', quote: '"', target: 'input'});
@@ -257,7 +257,7 @@ describe('parser', function(){
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it('with xml namespaces', function(){
+		it('with xml namespaces', () => {
 			parser.parseHtml('<div foo:bar="baz"></div>');
 			expect(events.shift()).toEqual({event: 'tag:open', target: 'div'});
 			expect(events.shift()).toEqual({event: 'attr', key: 'foo:bar', value: 'baz', quote: '"', target: 'div'});
@@ -305,9 +305,9 @@ describe('parser', function(){
 
 	});
 
-	describe('should handle optional end tags', function(){
+	describe('should handle optional end tags', () => {
 
-		it('<li>', function(){
+		it('<li>', () => {
 			parser.parseHtml(`
 				<ul>
 					<li>explicit</li>
@@ -334,24 +334,24 @@ describe('parser', function(){
 
 	});
 
-	describe('dom:ready', function(){
+	describe('dom:ready', () => {
 
 		let callback: EventCallback;
 		let document: DOMTree;
 
-		beforeEach(function(){
+		beforeEach(() => {
 			callback = jest.fn((event: string, data: any) => {
 				document = data.document;
 			});
 			parser.on('dom:ready', callback);
 		});
 
-		it('should trigger when parsing is complete', function(){
+		it('should trigger when parsing is complete', () => {
 			parser.parseHtml('<div></div>');
 			expect(callback).toHaveBeenCalled();
 		});
 
-		it('should contain DOMTree as argument', function(){
+		it('should contain DOMTree as argument', () => {
 			parser.parseHtml('<div></div>');
 			expect(document).toBeInstanceOf(DOMTree);
 			expect(document.root.children).toHaveLength(1);
@@ -359,9 +359,9 @@ describe('parser', function(){
 
 	});
 
-	describe('should parse', function(){
+	describe('should parse', () => {
 
-		it('doctype', function(){
+		it('doctype', () => {
 			const dom = parser.parseHtml('<!doctype foobar>');
 			expect(events.shift()).toEqual({event: 'doctype', value: 'foobar'});
 			expect(events.shift()).toBeUndefined();
@@ -377,27 +377,27 @@ describe('parser', function(){
 
 	});
 
-	describe('regressiontesting', function(){
+	describe('regressiontesting', () => {
 
 		let htmlvalidate: HtmlValidate;
 
-		beforeEach(function(){
+		beforeEach(() => {
 			htmlvalidate = new HtmlValidate({
 				extends: ['htmlvalidate:recommended'],
 			});
 		});
 
-		it('multiline', function(){
+		it('multiline', () => {
 			const report = htmlvalidate.validateFile('./test-files/parser/multiline.html');
 			expect(report).toBeValid();
 		});
 
-		it('xi:include', function(){
+		it('xi:include', () => {
 			const report = htmlvalidate.validateFile('./test-files/parser/xi-include.html');
 			expect(report).toBeValid();
 		});
 
-		it('cdata', function(){
+		it('cdata', () => {
 			const report = htmlvalidate.validateFile('./test-files/parser/cdata.html');
 			expect(report).toBeValid();
 		});

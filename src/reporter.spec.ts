@@ -1,9 +1,9 @@
 import { Reporter, Message } from './reporter';
-describe('Reporter', function(){
+describe('Reporter', () => {
 
-	describe('merge()', function(){
+	describe('merge()', () => {
 
-		it('should set valid only if all reports are valid', function(){
+		it('should set valid only if all reports are valid', () => {
 			const none = Reporter.merge([{valid: false, results: []}, {valid: false, results: []}]);
 			const one = Reporter.merge([{valid: true, results: []}, {valid: false, results: []}]);
 			const all = Reporter.merge([{valid: true, results: []}, {valid: true, results: []}]);
@@ -12,7 +12,7 @@ describe('Reporter', function(){
 			expect(all.valid).toBeTruthy();
 		});
 
-		it('should merge and group messages by filename', function(){
+		it('should merge and group messages by filename', () => {
 			const merged = Reporter.merge([
 				{
 					valid: false,

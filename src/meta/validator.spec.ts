@@ -10,11 +10,11 @@ class ConfigMock extends Config {
 	}
 }
 
-describe('Meta validator', function(){
+describe('Meta validator', () => {
 
-	describe('validatePermitted()', function(){
+	describe('validatePermitted()', () => {
 
-		it('should handle undefined', function(){
+		it('should handle undefined', () => {
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry('nil', {void: true}),
@@ -24,7 +24,7 @@ describe('Meta validator', function(){
 			expect(Validator.validatePermitted(foo, undefined)).toBeTruthy();
 		});
 
-		it('should validate tagName', function(){
+		it('should validate tagName', () => {
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry('nil', {void: true}),
@@ -37,7 +37,7 @@ describe('Meta validator', function(){
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
 		});
 
-		it('should validate tagName with qualifier', function(){
+		it('should validate tagName with qualifier', () => {
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry('nil', {void: true}),
@@ -50,7 +50,7 @@ describe('Meta validator', function(){
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
 		});
 
-		it('should validate @meta', function(){
+		it('should validate @meta', () => {
 			const table = new MetaTable();
 			table.loadFromObject({
 				nil: mockEntry('nil', {void: true}),
@@ -63,7 +63,7 @@ describe('Meta validator', function(){
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
 		});
 
-		it('should validate @flow', function(){
+		it('should validate @flow', () => {
 			const table = new MetaTable();
 			table.loadFromObject({
 				nil: mockEntry('nil', {void: true}),
@@ -76,7 +76,7 @@ describe('Meta validator', function(){
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
 		});
 
-		it('should validate @sectioning', function(){
+		it('should validate @sectioning', () => {
 			const table = new MetaTable();
 			table.loadFromObject({
 				nil: mockEntry('nil', {void: true}),
@@ -89,7 +89,7 @@ describe('Meta validator', function(){
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
 		});
 
-		it('should validate @heading', function(){
+		it('should validate @heading', () => {
 			const table = new MetaTable();
 			table.loadFromObject({
 				nil: mockEntry('nil', {void: true}),
@@ -102,7 +102,7 @@ describe('Meta validator', function(){
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
 		});
 
-		it('should validate @phrasing', function(){
+		it('should validate @phrasing', () => {
 			const table = new MetaTable();
 			table.loadFromObject({
 				nil: mockEntry('nil', {void: true}),
@@ -115,7 +115,7 @@ describe('Meta validator', function(){
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
 		});
 
-		it('should validate @embedded', function(){
+		it('should validate @embedded', () => {
 			const table = new MetaTable();
 			table.loadFromObject({
 				nil: mockEntry('nil', {void: true}),
@@ -128,7 +128,7 @@ describe('Meta validator', function(){
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
 		});
 
-		it('should validate @interactive', function(){
+		it('should validate @interactive', () => {
 			const table = new MetaTable();
 			table.loadFromObject({
 				nil: mockEntry('nil', {void: true}),
@@ -141,7 +141,7 @@ describe('Meta validator', function(){
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
 		});
 
-		it('should validate multiple rules (OR)', function(){
+		it('should validate multiple rules (OR)', () => {
 			const table = new MetaTable();
 			table.loadFromObject({
 				nil: mockEntry('nil', {void: true}),
@@ -156,7 +156,7 @@ describe('Meta validator', function(){
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
 		});
 
-		it('should validate multiple rules (AND)', function(){
+		it('should validate multiple rules (AND)', () => {
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry('flow', {flow: true, phrasing: true, void: true}),
@@ -171,7 +171,7 @@ describe('Meta validator', function(){
 			expect(Validator.validatePermitted(phrasing, rules)).toBeFalsy();
 		});
 
-		it('should support excluding tagname', function(){
+		it('should support excluding tagname', () => {
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry('foo', {flow: true, void: true}),
@@ -186,7 +186,7 @@ describe('Meta validator', function(){
 			expect(Validator.validatePermitted(bar, rules)).toBeFalsy();
 		});
 
-		it('should support excluding category', function(){
+		it('should support excluding category', () => {
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry('foo', {flow: true, interactive: false, void: true}),
@@ -201,7 +201,7 @@ describe('Meta validator', function(){
 			expect(Validator.validatePermitted(bar, rules)).toBeFalsy();
 		});
 
-		it('should support excluding multiple targets', function(){
+		it('should support excluding multiple targets', () => {
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry('foo', {flow: true, interactive: false, void: true}),
@@ -214,7 +214,7 @@ describe('Meta validator', function(){
 			expect(Validator.validatePermitted(bar, rules)).toBeFalsy();
 		});
 
-		it('should support excluding multiple targets together', function(){
+		it('should support excluding multiple targets together', () => {
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry('foo', {flow: true, interactive: false, void: true}),
@@ -270,7 +270,7 @@ describe('Meta validator', function(){
 
 	});
 
-	describe('validateOccurrences()', function(){
+	describe('validateOccurrences()', () => {
 
 		it('should handle undefined', () => {
 			const table = new MetaTable();
@@ -282,7 +282,7 @@ describe('Meta validator', function(){
 			expect(Validator.validateOccurrences(foo, undefined, 1)).toBeTruthy();
 		});
 
-		it('should support missing qualifier', function(){
+		it('should support missing qualifier', () => {
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry('foo', {void: true}),
@@ -294,7 +294,7 @@ describe('Meta validator', function(){
 			expect(Validator.validateOccurrences(foo, rules, 9)).toBeTruthy();
 		});
 
-		it('should support ? qualifier', function(){
+		it('should support ? qualifier', () => {
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry('foo', {void: true}),
@@ -307,7 +307,7 @@ describe('Meta validator', function(){
 			expect(Validator.validateOccurrences(foo, rules, 2)).toBeFalsy();
 		});
 
-		it('should support * qualifier', function(){
+		it('should support * qualifier', () => {
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry('foo', {void: true}),
@@ -321,13 +321,13 @@ describe('Meta validator', function(){
 
 	});
 
-	describe('validateOrder()', function(){
+	describe('validateOrder()', () => {
 
 		let table: MetaTable;
 		let parser: Parser;
 		let cb: (node: HtmlElement, prev: HtmlElement) => void;
 
-		beforeEach(function(){
+		beforeEach(() => {
 			table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry('foo', {void: true}),
@@ -337,34 +337,34 @@ describe('Meta validator', function(){
 			cb = jest.fn();
 		});
 
-		it('should handle undefined rules', function(){
+		it('should handle undefined rules', () => {
 			const children = parser.parseHtml('<foo/>').root.children;
 			expect(Validator.validateOrder(children, undefined, cb)).toBeTruthy();
 			expect(cb).not.toHaveBeenCalled();
 		});
 
-		it('should return error when elements are out of order', function(){
+		it('should return error when elements are out of order', () => {
 			const children = parser.parseHtml('<bar/><foo/>').root.children;
 			const rules = ['foo', 'bar'];
 			expect(Validator.validateOrder(children, rules, cb)).toBeFalsy();
 			expect(cb).toHaveBeenCalledWith(children[1], children[0]);
 		});
 
-		it('should not return error when elements are in order', function(){
+		it('should not return error when elements are in order', () => {
 			const children = parser.parseHtml('<foo/><bar/>').root.children;
 			const rules = ['foo', 'bar'];
 			expect(Validator.validateOrder(children, rules, cb)).toBeTruthy();
 			expect(cb).not.toHaveBeenCalled();
 		});
 
-		it('should handle elements with unspecified order', function(){
+		it('should handle elements with unspecified order', () => {
 			const children = parser.parseHtml('<foo/><bar/><foo/>').root.children;
 			const rules = ['foo'];
 			expect(Validator.validateOrder(children, rules, cb)).toBeTruthy();
 			expect(cb).not.toHaveBeenCalled();
 		});
 
-		it('should handle categories', function(){
+		it('should handle categories', () => {
 			const children1 = parser.parseHtml('<foo/><bar/>').root.children;
 			const children2 = parser.parseHtml('<bar/><foo/>').root.children;
 			const rules = ['foo', '@flow'];

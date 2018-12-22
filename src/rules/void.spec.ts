@@ -1,39 +1,39 @@
 import HtmlValidate from '../htmlvalidate';
 import '../matchers';
 
-describe('rule void', function() {
+describe('rule void', () => {
 	let htmlvalidate: HtmlValidate;
 
-	describe('default', function(){
+	describe('default', () => {
 
-		beforeAll(function() {
+		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
 				rules: { 'void': 'error' },
 			});
 		});
 
-		it('should not report when void element omitted end tag', function() {
+		it('should not report when void element omitted end tag', () => {
 			const report = htmlvalidate.validateString('<input>');
 			expect(report).toBeValid();
 		});
 
-		it('should report when void element is self-closed', function() {
+		it('should report when void element is self-closed', () => {
 			const report = htmlvalidate.validateString('<input/>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError('void', 'Expected omitted end tag <input> instead of self-closing element <input/>');
 		});
 
-		it('should not report when non-void element has end tag', function() {
+		it('should not report when non-void element has end tag', () => {
 			const report = htmlvalidate.validateString('<div></div>');
 			expect(report).toBeValid();
 		});
 
-		it('should not report when xml namespaces is used', function() {
+		it('should not report when xml namespaces is used', () => {
 			const report = htmlvalidate.validateString('<xi:include/>');
 			expect(report).toBeValid();
 		});
 
-		it('should report error when non-void element omitted end tag', function(){
+		it('should report error when non-void element omitted end tag', () => {
 			const report = htmlvalidate.validateString('<div/>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError('void', 'End tag for <div> must not be omitted');
@@ -46,20 +46,20 @@ describe('rule void', function() {
 
 	});
 
-	describe('configured with style="omit"', function(){
+	describe('configured with style="omit"', () => {
 
-		beforeAll(function() {
+		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
 				rules: { 'void': ['error', {style: 'omit'}]},
 			});
 		});
 
-		it('should not report when void element omits end tag', function() {
+		it('should not report when void element omits end tag', () => {
 			const report = htmlvalidate.validateString('<input>');
 			expect(report).toBeValid();
 		});
 
-		it('should report when void element is self-closed', function() {
+		it('should report when void element is self-closed', () => {
 			const report = htmlvalidate.validateString('<input/>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError('void', 'Expected omitted end tag <input> instead of self-closing element <input/>');
@@ -72,21 +72,21 @@ describe('rule void', function() {
 
 	});
 
-	describe('configured with style="selfclose"', function(){
+	describe('configured with style="selfclose"', () => {
 
-		beforeAll(function() {
+		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
 				rules: { 'void': ['error', {style: 'selfclose'}]},
 			});
 		});
 
-		it('should report when void element omits end tag', function() {
+		it('should report when void element omits end tag', () => {
 			const report = htmlvalidate.validateString('<input>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError('void', 'Expected self-closing element <input/> instead of omitted end-tag <input>');
 		});
 
-		it('should not report when void element is self-closed', function() {
+		it('should not report when void element is self-closed', () => {
 			const report = htmlvalidate.validateString('<input/>');
 			expect(report).toBeValid();
 		});
@@ -98,20 +98,20 @@ describe('rule void', function() {
 
 	});
 
-	describe('configured with style="any"', function(){
+	describe('configured with style="any"', () => {
 
-		beforeAll(function() {
+		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
 				rules: { 'void': ['error', {style: 'any'}]},
 			});
 		});
 
-		it('should not report when void element omits end tag', function() {
+		it('should not report when void element omits end tag', () => {
 			const report = htmlvalidate.validateString('<input>');
 			expect(report).toBeValid();
 		});
 
-		it('should not report when void element is self-closed', function() {
+		it('should not report when void element is self-closed', () => {
 			const report = htmlvalidate.validateString('<input/>');
 			expect(report).toBeValid();
 		});
@@ -126,7 +126,7 @@ describe('rule void', function() {
 
 	describe('configured with style="foobar"', () => {
 
-		beforeAll(function() {
+		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
 				rules: { 'void': ['error', {style: 'foobar'}]},
 			});

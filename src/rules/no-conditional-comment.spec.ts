@@ -1,33 +1,33 @@
 import HtmlValidate from '../htmlvalidate';
 import '../matchers';
 
-describe('rule no-conditional-comment', function(){
+describe('rule no-conditional-comment', () => {
 	let htmlvalidate: HtmlValidate;
 
-	beforeAll(function(){
+	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
 			rules: {'no-conditional-comment': 'error'},
 		});
 	});
 
-	it('should not report error for regular HTML comment', function(){
+	it('should not report error for regular HTML comment', () => {
 		const report = htmlvalidate.validateString('<!-- -->');
 		expect(report).toBeValid();
 	});
 
-	it('should report error when <![...]> is used', function(){
+	it('should report error when <![...]> is used', () => {
 		const report = htmlvalidate.validateString('<![if foo]>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError('no-conditional-comment', 'Use of conditional comments are deprecated');
 	});
 
-	it('should report error when <!--[...]> is used', function(){
+	it('should report error when <!--[...]> is used', () => {
 		const report = htmlvalidate.validateString('<!--[if foo]>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError('no-conditional-comment', 'Use of conditional comments are deprecated');
 	});
 
-	it('should report error when <![...]--> is used', function(){
+	it('should report error when <![...]--> is used', () => {
 		const report = htmlvalidate.validateString('<![endif]-->');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError('no-conditional-comment', 'Use of conditional comments are deprecated');

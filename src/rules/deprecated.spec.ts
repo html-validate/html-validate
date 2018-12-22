@@ -1,11 +1,11 @@
 import HtmlValidate from '../htmlvalidate';
 import '../matchers';
 
-describe('rule deprecated', function() {
+describe('rule deprecated', () => {
 
 	let htmlvalidate: HtmlValidate;
 
-	beforeAll(function() {
+	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
 			rules: { 'deprecated': 'error' },
 			elements: [
@@ -19,18 +19,18 @@ describe('rule deprecated', function() {
 		});
 	});
 
-	it('should not report when regular element is used', function() {
+	it('should not report when regular element is used', () => {
 		const report = htmlvalidate.validateString('<p></p>');
 		expect(report).toBeValid();
 	});
 
-	it('should report error when deprecated element is used', function() {
+	it('should report error when deprecated element is used', () => {
 		const report = htmlvalidate.validateString('<marquee>foobar</marquee>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError('deprecated', '<marquee> is deprecated');
 	});
 
-	it('should report error when element with deprecation message is used', function() {
+	it('should report error when element with deprecation message is used', () => {
 		const report = htmlvalidate.validateString('<custom-deprecated>foobar</custom-deprecated>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError('deprecated', '<custom-deprecated> is deprecated: lorem ipsum');

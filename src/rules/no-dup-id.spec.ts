@@ -1,21 +1,21 @@
 import HtmlValidate from '../htmlvalidate';
 import '../matchers';
 
-describe('rule no-dup-id', function() {
+describe('rule no-dup-id', () => {
 	let htmlvalidate: HtmlValidate;
 
-	beforeAll(function() {
+	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
 			rules: { 'no-dup-id': 'error' },
 		});
 	});
 
-	it('should not report when no id is duplicated', function() {
+	it('should not report when no id is duplicated', () => {
 		const report = htmlvalidate.validateString('<p id="foo"></p><p id="bar"></p>');
 		expect(report).toBeValid();
 	});
 
-	it('should report when id is duplicated', function() {
+	it('should report when id is duplicated', () => {
 		const report = htmlvalidate.validateString('<p id="foo"></p><p id="foo"></p>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError('no-dup-id', 'Duplicate ID "foo"');

@@ -56,7 +56,7 @@ function getElementMarkup(tagName: string, variant: string, attr: {[key: string]
 	}
 }
 
-describe('HTML elements', function(){
+describe('HTML elements', () => {
 
 	const htmlvalidate = new HtmlValidate({
 		rules: {
@@ -70,7 +70,7 @@ describe('HTML elements', function(){
 	});
 
 	function allow(markup: string, comment: string){
-		it(`should allow ${comment}`, function(){
+		it(`should allow ${comment}`, () => {
 			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
@@ -80,7 +80,7 @@ describe('HTML elements', function(){
 		const child = getTagname(category);
 		const pretty = category[0] === '@' ? category : `<${category}>`;
 		const inner = getElementMarkup(child, variant);
-		it(`should allow ${pretty} as content`, function(){
+		it(`should allow ${pretty} as content`, () => {
 			const markup = `<${tagName}>${inner}</${tagName}>`;
 			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
@@ -90,7 +90,7 @@ describe('HTML elements', function(){
 	function allowParent(tagName: string, category: string, variant: string = undefined){
 		const outer = getTagname(category);
 		const inner = getElementMarkup(tagName, variant);
-		it(`should allow <${outer}> as parent`, function(){
+		it(`should allow <${outer}> as parent`, () => {
 			const markup = `<${outer}>${inner}</${outer}>`;
 			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
@@ -115,7 +115,7 @@ describe('HTML elements', function(){
 	}
 
 	function disallow(markup: string, comment: string){
-		it(`should not allow ${comment}`, function(){
+		it(`should not allow ${comment}`, () => {
 			const report = htmlvalidate.validateString(markup);
 			expect(report.valid).toBeFalsy();
 		});
@@ -124,7 +124,7 @@ describe('HTML elements', function(){
 	function disallowContent(tagName: string, category: string){
 		const child = getTagname(category);
 		const pretty = category[0] === '@' ? category : `<${category}>`;
-		it(`should disallow ${pretty} as content`, function(){
+		it(`should disallow ${pretty} as content`, () => {
 			const markup = `<${tagName}><${child}>foo</${child}></${tagName}>`;
 			const report = htmlvalidate.validateString(markup);
 			expect(report.valid).toBeFalsy();
@@ -134,7 +134,7 @@ describe('HTML elements', function(){
 	function disallowDescendant(tagName: string, category: string){
 		const child = getTagname(category);
 		const pretty = category[0] === '@' ? category : `<${category}>`;
-		it(`should disallow ${pretty} as descendant`, function(){
+		it(`should disallow ${pretty} as descendant`, () => {
 			const markup = `<${tagName}><span><${child}>foo</${child}></span></${tagName}>`;
 			const report = htmlvalidate.validateString(markup);
 			expect(report.valid).toBeFalsy();
@@ -148,7 +148,7 @@ describe('HTML elements', function(){
 	function disallowParent(tagName: string, category: string, variant: string = undefined){
 		const outer = getTagname(category);
 		const inner = getElementMarkup(tagName, variant);
-		it(`should disallow <${outer}> as parent`, function(){
+		it(`should disallow <${outer}> as parent`, () => {
 			const markup = `<${outer}>${inner}</${outer}>`;
 			const report = htmlvalidate.validateString(markup);
 			expect(report.valid).toBeFalsy();
@@ -157,7 +157,7 @@ describe('HTML elements', function(){
 
 	function disallowAttribute(tagName: string, attr: string, values: string[], variant: string = undefined){
 		for (const value of values) {
-			it(`should disallow attribute ${attr}="${value}"`, function(){
+			it(`should disallow attribute ${attr}="${value}"`, () => {
 				const markup = getElementMarkup(tagName, variant, {[attr]: value});
 				const report = htmlvalidate.validateString(markup);
 				expect(report).toBeInvalid();
@@ -166,7 +166,7 @@ describe('HTML elements', function(){
 	}
 
 	function deprecated(tagName: string){
-		it('should report as deprecated', function(){
+		it('should report as deprecated', () => {
 			const report = htmlvalidate.validateString(`<${tagName}></${tagName}>`);
 			expect(report.valid).toBeFalsy();
 			expect(report.results[0].messages[0].ruleId).toEqual('deprecated');
@@ -174,7 +174,7 @@ describe('HTML elements', function(){
 	}
 
 	function omitEnd(tagName: string){
-		it('should allow omitted end tag', function(){
+		it('should allow omitted end tag', () => {
 			const markup = `<${tagName}/>`;
 			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
@@ -202,7 +202,7 @@ describe('HTML elements', function(){
 		disallowAttribute('input', 'tabindex', ['', 'foobar'], 'omit');
 	});
 
-	describe('<a>', function(){
+	describe('<a>', () => {
 		allowContent('a', '@phrasing');
 		allowParent('a', 'div');
 		allowParent('a', 'span');
@@ -211,16 +211,16 @@ describe('HTML elements', function(){
 		disallowDescendant('a', '@interactive');
 	});
 
-	describe("<abbr>", function(){
+	describe("<abbr>", () => {
 		allowContent('abbr', '@phrasing');
 		disallowContent('abbr', '@flow');
 	});
 
-	describe("<acronym>", function(){
+	describe("<acronym>", () => {
 		deprecated('acronym');
 	});
 
-	describe("<address>", function(){
+	describe("<address>", () => {
 		allowContent('address', '@phrasing');
 		allowContent('address', '@flow');
 		disallowDescendant('address', '@heading');
@@ -230,28 +230,28 @@ describe('HTML elements', function(){
 		disallowDescendant('address', 'footer');
 	});
 
-	describe("<applet>", function(){
+	describe("<applet>", () => {
 		deprecated('applet');
 	});
 
 	/** @todo verify isDescendant flow and phrasing */
-	describe("<area>", function(){
+	describe("<area>", () => {
 		omitEnd('area');
 		allowAttribute('area', 'shape', ['rect', 'circle', 'poly'], 'omit');
 		disallowAttribute('area', 'shape', ['', 'foobar']);
 	});
 
-	describe("<article>", function(){
+	describe("<article>", () => {
 		allowContent('article', '@flow');
 		disallowDescendant('article', 'main');
 	});
 
-	describe("<aside>", function(){
+	describe("<aside>", () => {
 		allowContent('aside', '@flow');
 		disallowDescendant('aside', 'main');
 	});
 
-	describe("<audio>", function(){
+	describe("<audio>", () => {
 		allowParent('audio', '@flow');
 		allow('<span><audio><span>foo</span></audio></span>', 'phrasing nested in phrasing');
 		disallowDescendant('audio', 'audio');
@@ -263,7 +263,7 @@ describe('HTML elements', function(){
 		allowAttribute('audio', 'preload', ['', 'none', 'metadata'], 'auto');
 		disallowAttribute('audio', 'preload', ['foobar']);
 
-		it('should be interactive only if "controls" attribute is set', function(){
+		it('should be interactive only if "controls" attribute is set', () => {
 			const source = inlineSource('<audio></audio><audio controls></audio>');
 			const parser = htmlvalidate.getParserFor(source);
 			const [foo, bar] = parser.parseHtml(source).root.children;
@@ -272,57 +272,57 @@ describe('HTML elements', function(){
 		});
 	});
 
-	describe("<b>", function(){
+	describe("<b>", () => {
 		defaultTextLevel('b');
 	});
 
-	describe("<base>", function(){
+	describe("<base>", () => {
 		omitEnd('base');
 		allowParent('base', 'head', 'void');
 		disallowParent('base', 'div');
 	});
 
-	describe("<basefont>", function(){
+	describe("<basefont>", () => {
 		deprecated('basefont');
 	});
 
-	describe("<bdi>", function(){
+	describe("<bdi>", () => {
 		defaultTextLevel('bdi');
 	});
 
-	describe("<bdo>", function(){
+	describe("<bdo>", () => {
 		defaultTextLevel('bdo');
 	});
 
-	describe("<bgsound>", function(){
+	describe("<bgsound>", () => {
 		deprecated('bgsound');
 	});
 
-	describe("<big>", function(){
+	describe("<big>", () => {
 		deprecated('big');
 	});
 
-	describe("<blink>", function(){
+	describe("<blink>", () => {
 		deprecated('blink');
 	});
 
-	describe("<blockquote>", function(){
+	describe("<blockquote>", () => {
 		allowContent('blockquote', '@flow');
 		allowParent('blockquote', 'div');
 	});
 
-	describe("<body>", function(){
+	describe("<body>", () => {
 		allowParent('body', 'html');
 		disallowParent('body', 'div');
 	});
 
-	describe("<br>", function(){
+	describe("<br>", () => {
 		omitEnd('br');
 		allowParent('br', 'span', 'void');
 		allowParent('br', 'div', 'void');
 	});
 
-	describe("<button>", function(){
+	describe("<button>", () => {
 		allowContent('button', '@phrasing');
 		allowParent('button', 'span');
 		allowParent('button', 'div');
@@ -335,37 +335,37 @@ describe('HTML elements', function(){
 		disallowAttribute('button', 'type', ['', 'foobar']);
 	});
 
-	describe("<canvas>", function(){
+	describe("<canvas>", () => {
 		allowContent('canvas', '@flow');
 		allowParent('canvas', 'div');
 	});
 
-	describe("<caption>", function(){
+	describe("<caption>", () => {
 		allowContent('caption', '@flow');
 		allowParent('caption', 'table');
 		disallowDescendant('caption', 'table');
 		disallowParent('caption', 'div');
 	});
 
-	describe("<center>", function(){
+	describe("<center>", () => {
 		deprecated('center');
 	});
 
-	describe("<cite>", function(){
+	describe("<cite>", () => {
 		defaultTextLevel('cite');
 	});
 
-	describe("<code>", function(){
+	describe("<code>", () => {
 		defaultTextLevel('code');
 	});
 
-	describe("<col>", function(){
+	describe("<col>", () => {
 		omitEnd('col');
 		allowParent('col', 'colgroup', 'void');
 		disallowParent('col', 'div', 'void');
 	});
 
-	describe("<colgroup>", function(){
+	describe("<colgroup>", () => {
 		allowParent('colgroup', 'table');
 		disallowParent('colgroup', 'div');
 		allow('<colgroup><col/></colgroup>', '<col> as content');
@@ -373,42 +373,42 @@ describe('HTML elements', function(){
 		disallowContent('colgroup', 'span');
 	});
 
-	describe("<data>", function(){
+	describe("<data>", () => {
 		defaultTextLevel('data');
 	});
 
-	describe("<datalist>", function(){
+	describe("<datalist>", () => {
 		defaultTextLevel('datalist');
 		allowContent('datalist', 'option');
 	});
 
-	describe("<dd>", function(){
+	describe("<dd>", () => {
 		allowParent('dd', 'dl');
 		disallowParent('dd', 'div');
 		allowContent('dd', '@flow');
 	});
 
-	describe("<del>", function(){
+	describe("<del>", () => {
 		allow('<span><del><span>foo</span></del></span>', 'phrasing in phrasing context');
 		allow('<div><del><div>foo</div></del></div>', 'flow in flow context');
 		disallow('<span><del><div>foo</div></del></span>', 'flow in phrasing context');
 	});
 
-	describe("<dfn>", function(){
+	describe("<dfn>", () => {
 		defaultTextLevel('dfn');
 		disallowDescendant('dfn', 'dfn');
 	});
 
-	describe("<dir>", function(){
+	describe("<dir>", () => {
 		deprecated('dir');
 	});
 
-	describe("<div>", function(){
+	describe("<div>", () => {
 		allowContent('div', '@flow');
 		allowParent('div', 'body');
 	});
 
-	describe("<dl>", function(){
+	describe("<dl>", () => {
 		allowParent('dl', '@flow');
 		allowContent('dl', 'dt');
 		allowContent('dl', 'dd');
@@ -416,7 +416,7 @@ describe('HTML elements', function(){
 		allowContent('dl', 'template');
 	});
 
-	describe("<dt>", function(){
+	describe("<dt>", () => {
 		allowParent('dt', 'dl');
 		allowContent('dt', '@flow');
 		disallowDescendant('dt', 'header');
@@ -425,17 +425,17 @@ describe('HTML elements', function(){
 		disallowDescendant('dt', '@heading');
 	});
 
-	describe("<em>", function(){
+	describe("<em>", () => {
 		defaultTextLevel('em');
 	});
 
-	describe("<embed>", function(){
+	describe("<embed>", () => {
 		omitEnd('embed');
 		allowParent('embed', '@flow', 'void');
 		allowParent('embed', '@phrasing', 'void');
 	});
 
-	describe("<fieldset>", function(){
+	describe("<fieldset>", () => {
 		allowParent('fieldset', '@flow');
 		allowContent('fieldset', '@flow');
 		allowContent('fieldset', 'legend');
@@ -449,12 +449,12 @@ describe('HTML elements', function(){
 		</fieldset>`, 'legend after @flow');
 	});
 
-	describe("<figcaption>", function(){
+	describe("<figcaption>", () => {
 		allowParent('figcaption', 'figure');
 		allowContent('figcaption', '@flow');
 	});
 
-	describe("<figure>", function(){
+	describe("<figure>", () => {
 		allowParent('figure', '@flow');
 		allowContent('figure', '@flow');
 		allowContent('figure', 'figcaption');
@@ -463,11 +463,11 @@ describe('HTML elements', function(){
 		disallow(`<figure><figcaption></figcaption><figcaption></figcaption></figure>`, 'multiple figcaption');
 	});
 
-	describe("<font>", function(){
+	describe("<font>", () => {
 		deprecated('font');
 	});
 
-	describe("<footer>", function(){
+	describe("<footer>", () => {
 		allowParent('footer', '@flow');
 		allowContent('footer', '@flow');
 		disallowDescendant('footer', 'header');
@@ -475,57 +475,57 @@ describe('HTML elements', function(){
 		disallowDescendant('footer', 'main');
 	});
 
-	describe("<form>", function(){
+	describe("<form>", () => {
 		allowParent('form', '@flow');
 		allowContent('form', '@flow');
 		disallowDescendant('form', 'form');
 	});
 
-	describe("<frame>", function(){
+	describe("<frame>", () => {
 		deprecated('frame');
 	});
 
-	describe("<frameset>", function(){
+	describe("<frameset>", () => {
 		deprecated('frameset');
 	});
 
-	describe("<h1>", function(){
+	describe("<h1>", () => {
 		allowParent('h1', '@flow');
 		allowContent('h1', '@phrasing');
 		disallowContent('h1', '@flow');
 	});
 
-	describe("<h2>", function(){
+	describe("<h2>", () => {
 		allowParent('h2', '@flow');
 		allowContent('h2', '@phrasing');
 		disallowContent('h2', '@flow');
 	});
 
-	describe("<h3>", function(){
+	describe("<h3>", () => {
 		allowParent('h3', '@flow');
 		allowContent('h3', '@phrasing');
 		disallowContent('h3', '@flow');
 	});
 
-	describe("<h4>", function(){
+	describe("<h4>", () => {
 		allowParent('h4', '@flow');
 		allowContent('h4', '@phrasing');
 		disallowContent('h4', '@flow');
 	});
 
-	describe("<h5>", function(){
+	describe("<h5>", () => {
 		allowParent('h5', '@flow');
 		allowContent('h5', '@phrasing');
 		disallowContent('h5', '@flow');
 	});
 
-	describe("<h6>", function(){
+	describe("<h6>", () => {
 		allowParent('h6', '@flow');
 		allowContent('h6', '@phrasing');
 		disallowContent('h6', '@flow');
 	});
 
-	describe("<head>", function(){
+	describe("<head>", () => {
 		allowParent('head', 'html');
 		allowContent('head', '@meta');
 		disallowContent('head', '@flow');
@@ -540,7 +540,7 @@ describe('HTML elements', function(){
 		</head>`, 'more than one title');
 	});
 
-	describe("<header>", function(){
+	describe("<header>", () => {
 		allowParent('header', '@flow');
 		allowContent('header', '@flow');
 		disallowDescendant('header', 'header');
@@ -548,15 +548,15 @@ describe('HTML elements', function(){
 		disallowDescendant('header', 'main');
 	});
 
-	describe("<hgroup>", function(){
+	describe("<hgroup>", () => {
 		deprecated('hgroup');
 	});
 
-	describe("<hr>", function(){
+	describe("<hr>", () => {
 		omitEnd('hr');
 	});
 
-	describe("<html>", function(){
+	describe("<html>", () => {
 		allow(`<html><head></head></html>`, 'more than one title');
 		disallow(`<html>
 			<head></head>
@@ -572,19 +572,19 @@ describe('HTML elements', function(){
 		</html>`, 'body before head');
 	});
 
-	describe("<i>", function(){
+	describe("<i>", () => {
 		defaultTextLevel('i');
 	});
 
-	describe("<iframe>", function(){
+	describe("<iframe>", () => {
 		disallowContent('iframe', '@flow');
 		disallowContent('iframe', '@phrasing');
 	});
 
-	describe("<img>", function(){
+	describe("<img>", () => {
 		omitEnd('img');
 
-		it('should be interactive only if "usemap" attribute is set', function(){
+		it('should be interactive only if "usemap" attribute is set', () => {
 			const source = inlineSource('<img/><img usemap/>');
 			const parser = htmlvalidate.getParserFor(source);
 			const [foo, bar] = parser.parseHtml(source).root.children;
@@ -593,7 +593,7 @@ describe('HTML elements', function(){
 		});
 	});
 
-	describe("<input>", function(){
+	describe("<input>", () => {
 		omitEnd('input');
 		allowAttribute('input', 'autofocus', [], 'omit');
 		allowAttribute('input', 'capture', [], 'omit');
@@ -614,7 +614,7 @@ describe('HTML elements', function(){
 		disallowAttribute('input', 'required', ['foobar'], 'omit');
 		disallowAttribute('input', 'type', ['foobar'], 'omit');
 
-		it('should be interactive only if "type" is not "hidden"', function(){
+		it('should be interactive only if "type" is not "hidden"', () => {
 			const source = inlineSource('<input type="hidden"/><input type="foo"/>');
 			const parser = htmlvalidate.getParserFor(source);
 			const [foo, bar] = parser.parseHtml(source).root.children;
@@ -623,66 +623,66 @@ describe('HTML elements', function(){
 		});
 	});
 
-	describe("<ins>", function(){
+	describe("<ins>", () => {
 		allow('<span><ins><span>foo</span></ins></span>', 'phrasing in phrasing context');
 		allow('<div><ins><div>foo</div></ins></div>', 'flow in flow context');
 		disallow('<span><ins><div>foo</div></ins></span>', 'flow in phrasing context');
 	});
 
-	describe("<isindex>", function(){
+	describe("<isindex>", () => {
 		deprecated('isindex');
 	});
 
-	describe("<kbd>", function(){
+	describe("<kbd>", () => {
 		defaultTextLevel('kbd');
 	});
 
-	describe("<keygen>", function(){
+	describe("<keygen>", () => {
 		omitEnd('keygen');
 	});
 
-	describe("<label>", function(){
+	describe("<label>", () => {
 		allowContent('label', '@phrasing');
 		disallowContent('label', '@flow');
 		disallowDescendant('label', 'label');
 	});
 
-	describe("<legend>", function(){
+	describe("<legend>", () => {
 		allowContent('legend', '@phrasing');
 		disallowContent('legend', '@flow');
 	});
 
-	describe("<li>", function(){
+	describe("<li>", () => {
 		allowContent('li', '@flow');
 	});
 
-	describe("<link>", function(){
+	describe("<link>", () => {
 		omitEnd('link');
 	});
 
-	describe("<listing>", function(){
+	describe("<listing>", () => {
 		deprecated('listing');
 	});
 
-	describe("<maín>", function(){
+	describe("<maín>", () => {
 		allowContent('main', '@flow');
 	});
 
 	/** @todo what to test? */
-	describe("<map>", function(){
+	describe("<map>", () => {
 
 	});
 
-	describe("<mark>", function(){
+	describe("<mark>", () => {
 		defaultTextLevel('mark');
 	});
 
-	describe("<marquee>", function(){
+	describe("<marquee>", () => {
 		deprecated('marquee');
 	});
 
 	/** @todo mathml? */
-	describe("<math>", function(){
+	describe("<math>", () => {
 		allowAttribute('math', 'dir', ['ltr', 'rtl']);
 		allowAttribute('math', 'display', ['block', 'inline']);
 		allowAttribute('math', 'overflow', ['linebreak', 'scroll', 'elide', 'truncate', 'scale']);
@@ -691,51 +691,51 @@ describe('HTML elements', function(){
 		disallowAttribute('math', 'overflow', ['', 'foobar']);
 	});
 
-	describe("<menu>", function(){
+	describe("<menu>", () => {
 
 	});
 
-	describe("<meta>", function(){
+	describe("<meta>", () => {
 		omitEnd('meta');
 	});
 
-	describe("<meter>", function(){
+	describe("<meter>", () => {
 		allowContent('meter', '@phrasing');
 		disallowContent('meter', '@flow');
 		disallowDescendant('meter', 'meter');
 	});
 
-	describe("<multicol>", function(){
+	describe("<multicol>", () => {
 		deprecated('multicol');
 	});
 
-	describe("<nav>", function(){
+	describe("<nav>", () => {
 		allowContent('nav', '@flow');
 		disallowDescendant('nav', 'main');
 	});
 
-	describe("<nextid>", function(){
+	describe("<nextid>", () => {
 		deprecated('nextid');
 	});
 
-	describe("<nobr>", function(){
+	describe("<nobr>", () => {
 		deprecated('nobr');
 	});
 
-	describe("<noembed>", function(){
+	describe("<noembed>", () => {
 		deprecated('noembed');
 	});
 
-	describe("<noframes>", function(){
+	describe("<noframes>", () => {
 		deprecated('noframes');
 	});
 
 	/** @todo noscript has more rules for the content model */
-	describe("<noscript>", function(){
+	describe("<noscript>", () => {
 		disallowDescendant('noscript', 'noscript');
 	});
 
-	describe('<object>', function(){
+	describe('<object>', () => {
 		allowContent('object', '@flow');
 		allowContent('object', 'param', 'void');
 		allow('<span><object><span>foo</span></object></span>', 'phrasing in phrasing context');
@@ -744,7 +744,7 @@ describe('HTML elements', function(){
 		disallow(`<object><param></param><div></div></object>`, 'param before @flow');
 		disallow(`<object><div></div><param></param></object>`, '@flow before param');
 
-		it('should be interactive only if "usemap" attribute is set', function(){
+		it('should be interactive only if "usemap" attribute is set', () => {
 			const source = inlineSource('<object></object><object usemap></object>');
 			const parser = htmlvalidate.getParserFor(source);
 			const [foo, bar] = parser.parseHtml(source).root.children;
@@ -753,86 +753,86 @@ describe('HTML elements', function(){
 		});
 	});
 
-	describe("<ol>", function(){
+	describe("<ol>", () => {
 		allowContent('ol', 'li');
 		allowContent('ol', 'script');
 		allowContent('ol', 'template');
 	});
 
-	describe('<optgroup>', function(){
+	describe('<optgroup>', () => {
 		allowContent('optgroup', 'option');
 		allowContent('optgroup', 'script');
 		allowContent('optgroup', 'template');
 	});
 
-	describe('<option>', function(){
+	describe('<option>', () => {
 		allowParent('option', 'select');
 		allowParent('option', 'optgroup');
 		disallowContent('option', '@flow');
 		disallowContent('option', '@phrasing');
 	});
 
-	describe("<output>", function(){
+	describe("<output>", () => {
 		allowContent('output', '@phrasing');
 		disallowContent('output', '@flow');
 	});
 
-	describe("<p>", function(){
+	describe("<p>", () => {
 		allowContent('p', '@phrasing');
 		disallow('<p><figure>foo</figure></p>', '@flow as content'); /* many regular flow content such as <div> will cause <p> to be implicitly closed */
 	});
 
-	describe("<param>", function(){
+	describe("<param>", () => {
 		omitEnd('param');
 		allowParent('param', 'object', 'void');
 	});
 
-	describe("<plaintext>", function(){
+	describe("<plaintext>", () => {
 		deprecated('plaintext');
 	});
 
-	describe("<pre>", function(){
+	describe("<pre>", () => {
 		allowContent('pre', '@phrasing');
 		disallowContent('pre', '@flow');
 	});
 
-	describe("<progress>", function(){
+	describe("<progress>", () => {
 		allowContent('progress', '@phrasing');
 		disallowContent('progress', '@flow');
 		disallowDescendant('progress', 'progress');
 	});
 
-	describe("<q>", function(){
+	describe("<q>", () => {
 		defaultTextLevel('q');
 	});
 
-	describe("<rb>", function(){
+	describe("<rb>", () => {
 		allowParent('rb', 'ruby');
 		allowContent('rb', '@phrasing');
 		disallowContent('rb', '@flow');
 	});
 
-	describe("<rp>", function(){
+	describe("<rp>", () => {
 		allowParent('rp', 'ruby');
 		allowContent('rp', '@phrasing');
 		disallowContent('rp', '@flow');
 	});
 
-	describe("<rt>", function(){
+	describe("<rt>", () => {
 		allowParent('rt', 'ruby');
 		allowParent('rt', 'rtc');
 		allowContent('rt', '@phrasing');
 		disallowContent('rt', '@flow');
 	});
 
-	describe("<rtc>", function(){
+	describe("<rtc>", () => {
 		allowParent('rtc', 'ruby');
 		allowContent('rtc', '@phrasing');
 		allowContent('rtc', 'rt');
 		disallowContent('rtc', '@flow');
 	});
 
-	describe("<ruby>", function(){
+	describe("<ruby>", () => {
 		allowContent('ruby', 'rb');
 		allowContent('ruby', 'rp');
 		allowContent('ruby', 'rt');
@@ -840,74 +840,74 @@ describe('HTML elements', function(){
 		defaultTextLevel('ruby');
 	});
 
-	describe("<s>", function(){
+	describe("<s>", () => {
 		defaultTextLevel('s');
 	});
 
-	describe("<samp>", function(){
+	describe("<samp>", () => {
 		defaultTextLevel('samp');
 	});
 
-	describe("<script>", function(){
+	describe("<script>", () => {
 		allowParent('script', 'head');
 		allowParent('script', '@flow');
 	});
 
-	describe("<section>", function(){
+	describe("<section>", () => {
 		allowContent('section', '@flow');
 	});
 
-	describe("<select>", function(){
+	describe("<select>", () => {
 		allowContent('select', 'option');
 		allowContent('select', 'optgroup');
 		allowContent('select', 'script');
 		allowContent('select', 'template');
 	});
 
-	describe("<small>", function(){
+	describe("<small>", () => {
 		defaultTextLevel('small');
 	});
 
-	describe("<source>", function(){
+	describe("<source>", () => {
 		omitEnd('source');
 		allowParent('source', 'audio', 'void');
 		allowParent('source', 'video', 'void');
 	});
 
-	describe("<spacer>", function(){
+	describe("<spacer>", () => {
 		deprecated('spacer');
 	});
 
-	describe("<span>", function(){
+	describe("<span>", () => {
 		defaultTextLevel('span');
 	});
 
-	describe("<strike>", function(){
+	describe("<strike>", () => {
 		deprecated('strike');
 	});
 
-	describe("<strong>", function(){
+	describe("<strong>", () => {
 		defaultTextLevel('strong');
 	});
 
-	describe("<style>", function(){
+	describe("<style>", () => {
 		disallowContent('style', '@flow');
 		disallowContent('style', '@phrasing');
 	});
 
-	describe("<sub>", function(){
+	describe("<sub>", () => {
 		defaultTextLevel('sub');
 	});
 
-	describe("<sup>", function(){
+	describe("<sup>", () => {
 		defaultTextLevel('sup');
 	});
 
-	describe("<svg>", function(){
+	describe("<svg>", () => {
 		allowContent('svg', '@flow');
 	});
 
-	describe("<table>", function(){
+	describe("<table>", () => {
 		allowContent('table', 'caption');
 		allowContent('table', 'colgroup');
 		allowContent('table', 'script');
@@ -946,7 +946,7 @@ describe('HTML elements', function(){
 		</table>`, 'thead after tfoot');
 	});
 
-	describe("<tbody>", function(){
+	describe("<tbody>", () => {
 		allowParent('tbody', 'table');
 		allowContent('tbody', 'tr');
 		allowContent('tbody', 'script');
@@ -954,17 +954,17 @@ describe('HTML elements', function(){
 		disallowContent('tbody', '@phrasing');
 	});
 
-	describe("<td>", function(){
+	describe("<td>", () => {
 		allowParent('td', 'tr');
 		allowContent('td', '@flow');
 	});
 
-	describe("<textarea>", function(){
+	describe("<textarea>", () => {
 		disallowContent('textarea', '@flow');
 		disallowContent('textarea', '@phrasing');
 	});
 
-	describe("<tfoot>", function(){
+	describe("<tfoot>", () => {
 		allowParent('tfoot', 'table');
 		allowContent('tfoot', 'tr');
 		allowContent('tfoot', 'script');
@@ -972,7 +972,7 @@ describe('HTML elements', function(){
 		disallowContent('tfoot', '@phrasing');
 	});
 
-	describe("<th>", function(){
+	describe("<th>", () => {
 		allowParent('th', 'tr');
 		allowContent('th', '@flow');
 		disallowDescendant('th', 'header');
@@ -981,7 +981,7 @@ describe('HTML elements', function(){
 		disallowDescendant('th', '@heading');
 	});
 
-	describe("<thead>", function(){
+	describe("<thead>", () => {
 		allowParent('thead', 'table');
 		allowContent('thead', 'tr');
 		allowContent('thead', 'script');
@@ -989,17 +989,17 @@ describe('HTML elements', function(){
 		disallowContent('thead', '@phrasing');
 	});
 
-	describe("<time>", function(){
+	describe("<time>", () => {
 		defaultTextLevel('time');
 	});
 
-	describe("<title>", function(){
+	describe("<title>", () => {
 		allowParent('title', 'head');
 		disallowContent('title', '@flow');
 		disallowContent('title', '@phrasing');
 	});
 
-	describe("<tr>", function(){
+	describe("<tr>", () => {
 		allowParent('tr', 'table');
 		allowParent('tr', 'thead');
 		allowParent('tr', 'tfoot');
@@ -1010,29 +1010,29 @@ describe('HTML elements', function(){
 		allowContent('tr', 'template');
 	});
 
-	describe("<track>", function(){
+	describe("<track>", () => {
 		omitEnd('track');
 	});
 
-	describe("<tt>", function(){
+	describe("<tt>", () => {
 		deprecated('tt');
 	});
 
-	describe("<u>", function(){
+	describe("<u>", () => {
 		defaultTextLevel('u');
 	});
 
-	describe("<ul>", function(){
+	describe("<ul>", () => {
 		allowContent('ul', 'li');
 		allowContent('ul', 'script');
 		allowContent('ul', 'template');
 	});
 
-	describe("<var>", function(){
+	describe("<var>", () => {
 		defaultTextLevel('var');
 	});
 
-	describe('<video>', function(){
+	describe('<video>', () => {
 		allowParent('video', '@flow');
 		allow('<span><video><span>foo</span></video></span>', 'phrasing nested in phrasing');
 		disallowDescendant('video', 'audio');
@@ -1044,7 +1044,7 @@ describe('HTML elements', function(){
 		allowAttribute('video', 'preload', ['', 'none', 'none', 'metadata'], 'auto');
 		disallowAttribute('video', 'preload', ['foobar']);
 
-		it('should be interactive only if "controls" attribute is set', function(){
+		it('should be interactive only if "controls" attribute is set', () => {
 			const source = inlineSource('<video></video><video controls></video>');
 			const parser = htmlvalidate.getParserFor(source);
 			const [foo, bar] = parser.parseHtml(source).root.children;
@@ -1053,11 +1053,11 @@ describe('HTML elements', function(){
 		});
 	});
 
-	describe("<wbr>", function(){
+	describe("<wbr>", () => {
 		omitEnd('wbr');
 	});
 
-	describe("<xmp>", function(){
+	describe("<xmp>", () => {
 		deprecated('xmp');
 	});
 

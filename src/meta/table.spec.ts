@@ -9,38 +9,38 @@ class ConfigMock extends Config {
 	}
 }
 
-describe('MetaTable', function(){
+describe('MetaTable', () => {
 
-	it('should throw error when meta has unknown properties', function(){
+	it('should throw error when meta has unknown properties', () => {
 		const table = new MetaTable();
 		expect(() => table.loadFromObject({
 			foo: mockEntry('foo', {invalid: true}),
 		})).toThrowError('Metadata for <foo> contains unknown property "invalid"');
 	});
 
-	describe('getMetaFor', function(){
+	describe('getMetaFor', () => {
 
 		let table: MetaTable;
 
-		beforeEach(function(){
+		beforeEach(() => {
 			table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry('foo', {phrasing: true}),
 			});
 		});
 
-		it('should be populated for known elements', function(){
+		it('should be populated for known elements', () => {
 			const meta = table.getMetaFor('foo');
 			expect(meta).not.toBeUndefined();
 			expect(meta.tagName).toEqual('foo');
 		});
 
-		it('should be null for unknown elements', function(){
+		it('should be null for unknown elements', () => {
 			const meta = table.getMetaFor('bar');
 			expect(meta).toBeNull();
 		});
 
-		it('should be case insensitive', function(){
+		it('should be case insensitive', () => {
 			const meta = table.getMetaFor('FOO');
 			expect(meta).not.toBeUndefined();
 			expect(meta.tagName).toEqual('foo');
@@ -48,7 +48,7 @@ describe('MetaTable', function(){
 
 	});
 
-	describe('expression', function(){
+	describe('expression', () => {
 
 		let table: MetaTable;
 
@@ -70,9 +70,9 @@ describe('MetaTable', function(){
 			expect(() => parser.parseHtml('<invalid/>')).toThrowError('Failed to find function "invalid" when evaluating property expression');
 		});
 
-		describe('isDescendant', function(){
+		describe('isDescendant', () => {
 
-			beforeEach(function(){
+			beforeEach(() => {
 				table = new MetaTable();
 				table.loadFromObject({
 					foo: mockEntry('foo'),
@@ -83,14 +83,14 @@ describe('MetaTable', function(){
 				});
 			});
 
-			it('should be true if child is a descendant of given tagName', function(){
+			it('should be true if child is a descendant of given tagName', () => {
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml('<foo><ham><dynamic/></ham></foo>').root;
 				const el = dom.getElementsByTagName('dynamic');
 				expect(el[0].meta.interactive).toBeTruthy();
 			});
 
-			it('should be false if child is not a descendant of given tagName', function(){
+			it('should be false if child is not a descendant of given tagName', () => {
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml('<foo><spam><dynamic/></spam></foo>').root;
 				const el = dom.getElementsByTagName('dynamic');
@@ -104,9 +104,9 @@ describe('MetaTable', function(){
 
 		});
 
-		describe('hasAttribute', function(){
+		describe('hasAttribute', () => {
 
-			beforeEach(function(){
+			beforeEach(() => {
 				table = new MetaTable();
 				table.loadFromObject({
 					dynamic: mockEntry('dynamic', {interactive: ['hasAttribute', 'foo'], void: true}),
@@ -114,14 +114,14 @@ describe('MetaTable', function(){
 				});
 			});
 
-			it('should be true if element has given attribute', function(){
+			it('should be true if element has given attribute', () => {
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml('<dynamic foo/>').root;
 				const el = dom.getElementsByTagName('dynamic');
 				expect(el[0].meta.interactive).toBeTruthy();
 			});
 
-			it('should be false if element does not have given attribute', function(){
+			it('should be false if element does not have given attribute', () => {
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml('<dynamic bar/>').root;
 				const el = dom.getElementsByTagName('dynamic');
@@ -135,9 +135,9 @@ describe('MetaTable', function(){
 
 		});
 
-		describe('matchAttribute', function(){
+		describe('matchAttribute', () => {
 
-			beforeEach(function(){
+			beforeEach(() => {
 				table = new MetaTable();
 				table.loadFromObject({
 					foo: mockEntry('dynamic', {interactive: ['matchAttribute', ['type', '=', 'hidden']], void: true}),
@@ -148,42 +148,42 @@ describe('MetaTable', function(){
 				});
 			});
 
-			it('should be true when "=" is used to match existing value', function(){
+			it('should be true when "=" is used to match existing value', () => {
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml('<foo type="hidden"/>').root;
 				const el = dom.getElementsByTagName('foo');
 				expect(el[0].meta.interactive).toBeTruthy();
 			});
 
-			it('should be false when "=" is used to match other value', function(){
+			it('should be false when "=" is used to match other value', () => {
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml('<foo type="other"/>').root;
 				const el = dom.getElementsByTagName('foo');
 				expect(el[0].meta.interactive).toBeFalsy();
 			});
 
-			it('should be false when "=" is used to match missing value', function(){
+			it('should be false when "=" is used to match missing value', () => {
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml('<foo/>').root;
 				const el = dom.getElementsByTagName('foo');
 				expect(el[0].meta.interactive).toBeFalsy();
 			});
 
-			it('should be false when "!=" is used to match existing value', function(){
+			it('should be false when "!=" is used to match existing value', () => {
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml('<bar type="hidden"/>').root;
 				const el = dom.getElementsByTagName('bar');
 				expect(el[0].meta.interactive).toBeFalsy();
 			});
 
-			it('should be true when "!=" is used to match other value', function(){
+			it('should be true when "!=" is used to match other value', () => {
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml('<bar type="other"/>').root;
 				const el = dom.getElementsByTagName('bar');
 				expect(el[0].meta.interactive).toBeTruthy();
 			});
 
-			it('should be false when "!=" is used to match missing value', function(){
+			it('should be false when "!=" is used to match missing value', () => {
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml('<bar/>').root;
 				const el = dom.getElementsByTagName('bar');

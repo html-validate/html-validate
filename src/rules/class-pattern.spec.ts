@@ -1,21 +1,21 @@
 import HtmlValidate from '../htmlvalidate';
 import '../matchers';
 
-describe('rule class-pattern', function(){
+describe('rule class-pattern', () => {
 	let htmlvalidate: HtmlValidate;
 
-	beforeAll(function(){
+	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
 			rules: {'class-pattern': 'error'},
 		});
 	});
 
-	it('should not report error when class follows pattern', function(){
+	it('should not report error when class follows pattern', () => {
 		const report = htmlvalidate.validateString('<p class="foo-bar"></p>');
 		expect(report).toBeValid();
 	});
 
-	it('should report error when class does not follow pattern', function(){
+	it('should report error when class does not follow pattern', () => {
 		const report = htmlvalidate.validateString('<p class="foo-bar fooBar spam"></p>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError('class-pattern', expect.stringMatching(/Class "fooBar" does not match required pattern ".*"/));

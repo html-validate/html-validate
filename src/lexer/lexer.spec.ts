@@ -11,10 +11,10 @@ function inlineSource(source: string, {line = 1, column = 1} = {}){
 	};
 }
 
-describe('lexer', function(){
+describe('lexer', () => {
 	let lexer: Lexer;
 
-	beforeEach(function(){
+	beforeEach(() => {
 		lexer = new Lexer();
 	});
 
@@ -47,15 +47,15 @@ describe('lexer', function(){
 		}).toThrow('failed to tokenize "<p>lorem i...", expected attribute, ">" or "/>"');
 	});
 
-	describe('should tokenize', function(){
+	describe('should tokenize', () => {
 
-		it('xml declaration', function(){
+		it('xml declaration', () => {
 			const token = lexer.tokenize(inlineSource('<?xml version="1.0" encoding="utf-8"?>\n'));
 			expect(token.next()).toBeToken({type: TokenType.EOF});
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('uppercase doctype', function(){
+		it('uppercase doctype', () => {
 			const token = lexer.tokenize(inlineSource('<!DOCTYPE html>'));
 			expect(token.next()).toBeToken({type: TokenType.DOCTYPE_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.DOCTYPE_VALUE});
@@ -64,7 +64,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('lowercase doctype', function(){
+		it('lowercase doctype', () => {
 			const token = lexer.tokenize(inlineSource('<!doctype html>'));
 			expect(token.next()).toBeToken({type: TokenType.DOCTYPE_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.DOCTYPE_VALUE});
@@ -73,7 +73,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('whitespace before doctype', function(){
+		it('whitespace before doctype', () => {
 			const token = lexer.tokenize(inlineSource(' <!doctype html>'));
 			expect(token.next()).toBeToken({type: TokenType.WHITESPACE});
 			expect(token.next()).toBeToken({type: TokenType.DOCTYPE_OPEN});
@@ -83,7 +83,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('open/void tags', function(){
+		it('open/void tags', () => {
 			const token = lexer.tokenize(inlineSource('<foo>'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.TAG_CLOSE});
@@ -91,7 +91,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('self-closing tags', function(){
+		it('self-closing tags', () => {
 			const token = lexer.tokenize(inlineSource('<foo/>'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.TAG_CLOSE});
@@ -99,7 +99,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('close tags', function(){
+		it('close tags', () => {
 			const token = lexer.tokenize(inlineSource('</foo>'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.TAG_CLOSE});
@@ -107,7 +107,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('tags with numbers', function(){
+		it('tags with numbers', () => {
 			const token = lexer.tokenize(inlineSource('<h1>'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.TAG_CLOSE});
@@ -115,7 +115,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('tags with dashes', function(){
+		it('tags with dashes', () => {
 			const token = lexer.tokenize(inlineSource('<foo-bar>'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.TAG_CLOSE});
@@ -123,7 +123,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('attribute with double-quotes', function(){
+		it('attribute with double-quotes', () => {
 			const token = lexer.tokenize(inlineSource('<foo bar="baz">'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.WHITESPACE});
@@ -134,7 +134,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('attribute with single-quotes', function(){
+		it('attribute with single-quotes', () => {
 			const token = lexer.tokenize(inlineSource('<foo bar=\'baz\'>'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.WHITESPACE});
@@ -145,7 +145,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('unquoted attributes', function(){
+		it('unquoted attributes', () => {
 			const token = lexer.tokenize(inlineSource('<foo bar=baz>'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.WHITESPACE});
@@ -156,7 +156,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('unquoted numerical attributes', function(){
+		it('unquoted numerical attributes', () => {
 			const token = lexer.tokenize(inlineSource('<foo rows=5>'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.WHITESPACE});
@@ -167,7 +167,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('attribute without value', function(){
+		it('attribute without value', () => {
 			const token = lexer.tokenize(inlineSource('<foo bar>'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.WHITESPACE});
@@ -177,7 +177,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('attribute with LF', function(){
+		it('attribute with LF', () => {
 			const token = lexer.tokenize(inlineSource('<foo\nbar>'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.WHITESPACE});
@@ -187,7 +187,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('attribute with CR', function(){
+		it('attribute with CR', () => {
 			const token = lexer.tokenize(inlineSource('<foo\rbar>'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.WHITESPACE, data: ['\r']});
@@ -197,7 +197,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('attribute with CRLF', function(){
+		it('attribute with CRLF', () => {
 			const token = lexer.tokenize(inlineSource('<foo\r\nbar>'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.WHITESPACE, data: ['\r\n']});
@@ -207,7 +207,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('attribute with tag inside', function(){
+		it('attribute with tag inside', () => {
 			const token = lexer.tokenize(inlineSource('<foo bar="<div>">'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.WHITESPACE});
@@ -218,14 +218,14 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('text', function(){
+		it('text', () => {
 			const token = lexer.tokenize(inlineSource('foo'));
 			expect(token.next()).toBeToken({type: TokenType.TEXT});
 			expect(token.next()).toBeToken({type: TokenType.EOF});
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('indented text', function(){
+		it('indented text', () => {
 			const token = lexer.tokenize(inlineSource('  foo'));
 			expect(token.next()).toBeToken({type: TokenType.WHITESPACE});
 			expect(token.next()).toBeToken({type: TokenType.TEXT});
@@ -233,7 +233,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('element with text', function(){
+		it('element with text', () => {
 			const token = lexer.tokenize(inlineSource('<p>foo</p>'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.TAG_CLOSE});
@@ -244,7 +244,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('newlines', function(){
+		it('newlines', () => {
 			const token = lexer.tokenize(inlineSource('<p>\nfoo\n</p>'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.TAG_CLOSE});
@@ -257,7 +257,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('whitespace CR', function(){
+		it('whitespace CR', () => {
 			const token = lexer.tokenize(inlineSource('<p>\r  foo\r</p>  \r'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.TAG_CLOSE});
@@ -272,7 +272,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('whitespace LF', function(){
+		it('whitespace LF', () => {
 			const token = lexer.tokenize(inlineSource('<p>\n  foo\n</p>  \n'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.TAG_CLOSE});
@@ -287,7 +287,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('whitespace CRLF', function(){
+		it('whitespace CRLF', () => {
 			const token = lexer.tokenize(inlineSource('<p>\r\n  foo\r\n</p>  \r\n'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.TAG_CLOSE});
@@ -302,7 +302,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('nested with text', function(){
+		it('nested with text', () => {
 			const token = lexer.tokenize(inlineSource('<div>\n  <p>foo</p>\n</div>'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.TAG_CLOSE});
@@ -320,13 +320,13 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('CDATA', function(){
+		it('CDATA', () => {
 			const token = lexer.tokenize(inlineSource('<![CDATA[ <p>lorem</div> ipsum ]]>'));
 			expect(token.next()).toBeToken({type: TokenType.EOF});
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('script tag', function(){
+		it('script tag', () => {
 			const token = lexer.tokenize(inlineSource('<script>document.write("<p>lorem</p>");</script>'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.TAG_CLOSE});
@@ -337,7 +337,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('script tag with type', function(){
+		it('script tag with type', () => {
 			const token = lexer.tokenize(inlineSource('<script type="text/javascript">document.write("<p>lorem</p>");</script>'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
 			expect(token.next()).toBeToken({type: TokenType.WHITESPACE});
@@ -351,7 +351,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('self-closed script tag', function(){
+		it('self-closed script tag', () => {
 			/* not legal but lexer shouldn't choke on it */
 			const token = lexer.tokenize(inlineSource('<head><script src="foo.js"/></head>'));
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN, data: ['<head', '', 'head']});
@@ -367,7 +367,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('multiple script tags', function(){
+		it('multiple script tags', () => {
 			const token = lexer.tokenize(inlineSource('<script>foo</script>bar<script>baz</script>'));
 			/* first script tag */
 			expect(token.next()).toBeToken({type: TokenType.TAG_OPEN});
@@ -387,7 +387,7 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it('comment', function(){
+		it('comment', () => {
 			const token = lexer.tokenize(inlineSource('<!-- comment -->'));
 			expect(token.next()).toBeToken({type: TokenType.COMMENT, data: ['<!-- comment -->', ' comment ']});
 			expect(token.next()).toBeToken({type: TokenType.EOF});
@@ -401,9 +401,9 @@ describe('lexer', function(){
 			expect(token.next().done).toBeTruthy();
 		});
 
-		describe('browser conditional', function(){
+		describe('browser conditional', () => {
 
-			it('downlevel-hidden', function(){
+			it('downlevel-hidden', () => {
 				const token = lexer.tokenize(inlineSource('<!--[if IE 6]>foo<![endif]-->'));
 				expect(token.next()).toBeToken({type: TokenType.CONDITIONAL, data: ['<!--[if IE 6]>', 'if IE 6']});
 				expect(token.next()).toBeToken({type: TokenType.TEXT, data: ['foo']});
@@ -412,7 +412,7 @@ describe('lexer', function(){
 				expect(token.next().done).toBeTruthy();
 			});
 
-			it('downlevel-reveal', function(){
+			it('downlevel-reveal', () => {
 				const token = lexer.tokenize(inlineSource('<![if IE 6]>foo<![endif]>'));
 				expect(token.next()).toBeToken({type: TokenType.CONDITIONAL, data: ['<![if IE 6]>', 'if IE 6']});
 				expect(token.next()).toBeToken({type: TokenType.TEXT, data: ['foo']});
@@ -420,7 +420,7 @@ describe('lexer', function(){
 				expect(token.next()).toBeToken({type: TokenType.EOF});
 			});
 
-			it('nested comment', function(){
+			it('nested comment', () => {
 				const token = lexer.tokenize(inlineSource('<!--[if IE 6]><!-- foo --><![endif]-->'));
 				expect(token.next()).toBeToken({type: TokenType.CONDITIONAL, data: ['<!--[if IE 6]>', 'if IE 6']});
 				expect(token.next()).toBeToken({type: TokenType.COMMENT, data: ['<!-- foo -->', ' foo ']});

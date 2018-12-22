@@ -52,12 +52,12 @@ class ExposedEngine<T extends Parser> extends Engine<T> {
 	}
 }
 
-describe('Engine', function(){
+describe('Engine', () => {
 
 	let config: Config;
 	let engine: ExposedEngine<Parser>;
 
-	beforeEach(function(){
+	beforeEach(() => {
 		config = Config.fromObject({
 			extends: ['htmlvalidate:recommended'],
 			rules: {
@@ -68,16 +68,16 @@ describe('Engine', function(){
 		engine = new ExposedEngine(config, MockParser);
 	});
 
-	describe('lint()', function(){
+	describe('lint()', () => {
 
-		it('should parse markup and return results', function(){
+		it('should parse markup and return results', () => {
 			const source: Source[] = [inline('<div></div>')];
 			const report = engine.lint(source);
 			expect(report).toBeValid();
 			expect(report.results).toHaveLength(0);
 		});
 
-		it('should report lexing errors', function(){
+		it('should report lexing errors', () => {
 			const source: Source[] = [inline('parse-error')]; // see MockParser, will raise InvalidTokenError
 			const report = engine.lint(source);
 			expect(report.valid).toBeFalsy();
@@ -93,12 +93,12 @@ describe('Engine', function(){
 			}]);
 		});
 
-		it('should pass exceptions', function(){
+		it('should pass exceptions', () => {
 			const source: Source[] = [inline('exception')]; // see MockParser, will raise generic exception
 			expect(() => engine.lint(source)).toThrow('exception');
 		});
 
-		it('should report error for invalid markup', function(){
+		it('should report error for invalid markup', () => {
 			const source: Source[] = [inline('<p></i>')];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
@@ -107,15 +107,15 @@ describe('Engine', function(){
 
 	});
 
-	describe('directive', function(){
+	describe('directive', () => {
 
-		it('"disable" should disable rule', function(){
+		it('"disable" should disable rule', () => {
 			const source: Source[] = [inline('<!-- [html-validate-disable close-order] --><p></i><p></i>')];
 			const report = engine.lint(source);
 			expect(report).toBeValid();
 		});
 
-		it('"enable" should enable rule', function(){
+		it('"enable" should enable rule', () => {
 			const source: Source[] = [inline('<!-- [html-validate-disable void] --><i/><!-- [html-validate-enable void] --><i/>')];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
@@ -124,7 +124,7 @@ describe('Engine', function(){
 			]);
 		});
 
-		it('"enable" set severity to error if off', function(){
+		it('"enable" set severity to error if off', () => {
 			const source: Source[] = [inline('<blink></blink><!-- [html-validate-enable deprecated] --><blink></blink>')];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
@@ -133,7 +133,7 @@ describe('Engine', function(){
 			]);
 		});
 
-		it('"disable" should only disable selected rule', function(){
+		it('"disable" should only disable selected rule', () => {
 			const source: Source[] = [inline('<!-- [html-validate-disable foobar] --><p></i><p></i>')];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
@@ -143,7 +143,7 @@ describe('Engine', function(){
 			]);
 		});
 
-		it('"disable-block" should disable rule for all subsequent occurrences until block closes', function(){
+		it('"disable-block" should disable rule for all subsequent occurrences until block closes', () => {
 			const source: Source[] = [inline('<i/><div><i/><!-- [html-validate-disable-block void] --><i/><i/></div><i/>')];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
@@ -154,32 +154,32 @@ describe('Engine', function(){
 			]);
 		});
 
-		it('"disable-block" should handle empty block', function(){
+		it('"disable-block" should handle empty block', () => {
 			const source: Source[] = [inline('<div><!-- [html-validate-disable-block void] --></div>')];
 			const report = engine.lint(source);
 			expect(report).toBeValid();
 		});
 
-		it('"disable-block" should handle root element', function(){
+		it('"disable-block" should handle root element', () => {
 			const source: Source[] = [inline('<!-- [html-validate-disable-block void] --><i/>')];
 			const report = engine.lint(source);
 			expect(report).toBeValid();
 		});
 
-		it('"disable-block" should handle empty root element', function(){
+		it('"disable-block" should handle empty root element', () => {
 			const source: Source[] = [inline('<!-- [html-validate-disable-block void] -->')];
 			const report = engine.lint(source);
 			expect(report).toBeValid();
 		});
 
-		it('"disable-next" should disable rule once', function(){
+		it('"disable-next" should disable rule once', () => {
 			const source: Source[] = [inline('<!-- [html-validate-disable-next close-order] --><p></i><p></i>')];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError('close-order', expect.any(String));
 		});
 
-		it('should report unknown directives', function(){
+		it('should report unknown directives', () => {
 			const source: Source[] = [inline('<!-- [html-validate-foo] -->')];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
@@ -188,9 +188,9 @@ describe('Engine', function(){
 
 	});
 
-	describe('dumpEvents()', function(){
+	describe('dumpEvents()', () => {
 
-		it('should dump parser events', function(){
+		it('should dump parser events', () => {
 			const source: Source[] = [inline('<div id="foo"><p class="bar">baz</p></div>')];
 			const lines = engine.dumpEvents(source);
 			expect(lines).toHaveLength(8);
@@ -206,9 +206,9 @@ describe('Engine', function(){
 
 	});
 
-	describe('dumpTokens()', function(){
+	describe('dumpTokens()', () => {
 
-		it('should dump lexer tokens', function(){
+		it('should dump lexer tokens', () => {
 			const source: Source[] = [inline('<div id="foo"><p class="bar">baz</p></div>')];
 			const lines = engine.dumpTokens(source);
 			expect(lines).toEqual([
@@ -233,9 +233,9 @@ describe('Engine', function(){
 
 	});
 
-	describe('dumpTree()', function(){
+	describe('dumpTree()', () => {
 
-		it('should dump DOM tree', function(){
+		it('should dump DOM tree', () => {
 			const source: Source[] = [inline('<div id="foo"><p class="bar">baz</p><ul><li>fred</li><li>barney</li></ul></div>')];
 			const lines = engine.dumpTree(source);
 			expect(lines).toMatchSnapshot();

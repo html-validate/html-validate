@@ -1,7 +1,7 @@
 import { parsePattern } from './pattern';
 
-describe('Pattern', function(){
-	it('kebabcase should match strings with dashes', function(){
+describe('Pattern', () => {
+	it('kebabcase should match strings with dashes', () => {
 		const pattern = parsePattern('kebabcase');
 		expect('foo-bar').toMatch(pattern);
 		expect('fooBar').not.toMatch(pattern);
@@ -9,7 +9,7 @@ describe('Pattern', function(){
 		expect('foo_bar').not.toMatch(pattern);
 	});
 
-	it('camelcase should match strings in camelcase', function(){
+	it('camelcase should match strings in camelcase', () => {
 		const pattern = parsePattern('camelcase');
 		expect('foo-bar').not.toMatch(pattern);
 		expect('fooBar').toMatch(pattern);
@@ -17,7 +17,7 @@ describe('Pattern', function(){
 		expect('foo_bar').not.toMatch(pattern);
 	});
 
-	it('underscore should match strings with underscore', function(){
+	it('underscore should match strings with underscore', () => {
 		const pattern = parsePattern('underscore');
 		expect('foo-bar').not.toMatch(pattern);
 		expect('fooBar').not.toMatch(pattern);
@@ -25,7 +25,7 @@ describe('Pattern', function(){
 		expect('foo_bar').toMatch(pattern);
 	});
 
-	it('should support user-supplied regexp', function(){
+	it('should support user-supplied regexp', () => {
 		const pattern = parsePattern('^foo-[a-z]\\w+$');
 		expect('foo-bar').toMatch(pattern);
 		expect('bar-foo').not.toMatch(pattern);

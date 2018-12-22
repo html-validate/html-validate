@@ -136,7 +136,7 @@ export class HtmlElement extends DOMNode {
 	}
 
 	getElementsByTagName(tagName: string): Array<HtmlElement> {
-		return this.children.reduce(function(matches, node){
+		return this.children.reduce((matches, node) => {
 			return matches.concat(node.is(tagName) ? [node] : [], node.getElementsByTagName(tagName));
 		}, []);
 	}
