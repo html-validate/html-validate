@@ -1,5 +1,5 @@
 import { Rule } from '../rule';
-import { HtmlElement } from 'dom';
+import { HtmlElement } from '../dom';
 import { DOMReadyEvent } from '../event';
 
 const validTypes = ['submit', 'button', 'reset'];

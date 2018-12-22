@@ -1,4 +1,4 @@
-import { HtmlElement, DOMTree } from 'dom';
+import { HtmlElement, DOMTree } from '../dom';
 import { Rule } from '../rule';
 import { DOMReadyEvent } from '../event';
 
