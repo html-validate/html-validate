@@ -17,6 +17,11 @@ describe('rule attribute-boolean-style', () => {
 			expect(report).toBeValid();
 		});
 
+		it('should not report error for non-boolean attributes', () => {
+			const report = htmlvalidate.validateString('<input type="text">');
+			expect(report).toBeValid();
+		});
+
 		it('should report error when value is empty string', () => {
 			const report = htmlvalidate.validateString('<input required="">');
 			expect(report).toBeInvalid();

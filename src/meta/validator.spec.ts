@@ -229,6 +229,17 @@ describe('Meta validator', function(){
 			expect(Validator.validatePermitted(bar, rules)).toBeFalsy();
 		});
 
+		it('should handle empty object', () => {
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry('foo', {flow: true, void: true}),
+			});
+			const parser = new Parser(new ConfigMock(table));
+			const [foo] = parser.parseHtml('<foo/>').root.children;
+			const rules = [['@flow', {}]];
+			expect(Validator.validatePermitted(foo, rules)).toBeTruthy();
+		});
+
 		it('should throw error on invalid category', () => {
 			const table = new MetaTable();
 			table.loadFromObject({

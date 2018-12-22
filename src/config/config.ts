@@ -28,6 +28,7 @@ function parseSeverity(value: string | number){
 	switch (value){
 	case 'off':
 		return 0;
+	/* istanbul ignore next: deprecated code which will be removed later */
 	case 'disable':
 		// eslint-disable-next-line no-console
 		console.warn(`Deprecated alias "disabled" will be removed, replace with severity "off"`);
@@ -235,7 +236,7 @@ export class Config {
 		});
 	}
 
-	private findRootDir(){
+	protected findRootDir(){
 		/* try to locate package.json */
 		let current = process.cwd();
 		for (;;){

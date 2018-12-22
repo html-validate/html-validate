@@ -27,7 +27,7 @@ export class Context {
 		this.scriptEnd = undefined;
 	}
 
-	consume(n: number|Array<string>, state?: number){
+	consume(n: number|Array<string>, state: number){
 		/* if "n" is an regex match the first value is the full matched
 		 * string so consume that many characters. */
 		if (typeof n !== 'number'){
@@ -49,9 +49,7 @@ export class Context {
 		this.string = this.string.substr(n);
 
 		/* change state */
-		if (typeof state !== 'undefined'){
-			this.state = state;
-		}
+		this.state = state;
 	}
 
 	getLocation(size?: number): Location {
