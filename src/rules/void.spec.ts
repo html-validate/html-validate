@@ -123,7 +123,6 @@ describe("rule void", () => {
 
 	});
 
-
 	describe('configured with style="foobar"', () => {
 
 		beforeAll(() => {
@@ -138,6 +137,5 @@ describe("rule void", () => {
 		});
 
 	});
-
 
 });

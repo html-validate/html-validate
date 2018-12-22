@@ -20,7 +20,6 @@
     "member-access": false,
     "member-ordering": false,
     "no-conditional-assignment": false,
-    "no-consecutive-blank-lines": false,
     "no-console": false,
     "no-shadowed-variable": false,
     "no-var-requires": false,
