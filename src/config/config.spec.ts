@@ -43,14 +43,14 @@ describe("config", () => {
 	describe("merge()", () => {
 
 		it("should merge two configs", () => {
-			const a = Config.fromObject({rules: {"foo": 1}});
-			const b = Config.fromObject({rules: {"bar": 1}});
+			const a = Config.fromObject({rules: {foo: 1}});
+			const b = Config.fromObject({rules: {bar: 1}});
 			const merged = a.merge(b);
 			expect(merged.get()).toEqual({
 				extends: [],
 				rules: {
-					"foo": 1,
-					"bar": 1,
+					foo: 1,
+					bar: 1,
 				},
 				plugins: [],
 				transform: {},
@@ -219,7 +219,7 @@ describe("config", () => {
 			const config = Config.fromObject({
 				elements: [
 					{
-						"foo": {},
+						foo: {},
 					},
 				],
 			});

@@ -6,7 +6,7 @@ describe("missing rule", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
-			rules: {"foo": "error"},
+			rules: {foo: "error"},
 		});
 	});
 

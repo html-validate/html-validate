@@ -8,7 +8,7 @@ describe("rule void", () => {
 
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
-				rules: { "void": "error" },
+				rules: { void: "error" },
 			});
 		});
 
@@ -50,7 +50,7 @@ describe("rule void", () => {
 
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
-				rules: { "void": ["error", {style: "omit"}]},
+				rules: { void: ["error", {style: "omit"}]},
 			});
 		});
 
@@ -76,7 +76,7 @@ describe("rule void", () => {
 
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
-				rules: { "void": ["error", {style: "selfclose"}]},
+				rules: { void: ["error", {style: "selfclose"}]},
 			});
 		});
 
@@ -102,7 +102,7 @@ describe("rule void", () => {
 
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
-				rules: { "void": ["error", {style: "any"}]},
+				rules: { void: ["error", {style: "any"}]},
 			});
 		});
 
@@ -128,7 +128,7 @@ describe("rule void", () => {
 
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
-				rules: { "void": ["error", {style: "foobar"}]},
+				rules: { void: ["error", {style: "foobar"}]},
 			});
 		});
 

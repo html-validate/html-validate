@@ -383,7 +383,7 @@ describe("Meta validator", () => {
 
 		it("should match regexp", () => {
 			const rules = {
-				"foo": [/ba.*/],
+				foo: [/ba.*/],
 			};
 			expect(Validator.validateAttribute("foo", "bar", rules)).toBeTruthy();
 			expect(Validator.validateAttribute("foo", "car", rules)).toBeFalsy();
@@ -391,7 +391,7 @@ describe("Meta validator", () => {
 
 		it("should match string value", () => {
 			const rules = {
-				"foo": ["bar"],
+				foo: ["bar"],
 			};
 			expect(Validator.validateAttribute("foo", "bar", rules)).toBeTruthy();
 			expect(Validator.validateAttribute("foo", "car", rules)).toBeFalsy();
@@ -399,7 +399,7 @@ describe("Meta validator", () => {
 
 		it("should match if one of multiple allowed matches", () => {
 			const rules = {
-				"foo": ["fred", "barney", "wilma"],
+				foo: ["fred", "barney", "wilma"],
 			};
 			expect(Validator.validateAttribute("foo", "barney", rules)).toBeTruthy();
 			expect(Validator.validateAttribute("foo", "pebble", rules)).toBeFalsy();
@@ -407,14 +407,14 @@ describe("Meta validator", () => {
 
 		it("should consider empty list as boolean attribute", () => {
 			const rules = {
-				"foo": [] as Array<string>,
+				foo: [] as Array<string>,
 			};
 			expect(Validator.validateAttribute("foo", undefined, rules)).toBeTruthy();
 		});
 
 		it("should normalize boolean attributes", () => {
 			const rules = {
-				"foo": [] as Array<string>,
+				foo: [] as Array<string>,
 			};
 			expect(Validator.validateAttribute("foo", undefined, rules)).toBeTruthy();
 			expect(Validator.validateAttribute("foo", "", rules)).toBeTruthy();
