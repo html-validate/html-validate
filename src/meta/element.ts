@@ -8,7 +8,9 @@ export type Permitted = PermittedEntry[];
 
 export type PermittedOrder = string[];
 
-export type PermittedAttribute = { [key: string]: (string | RegExp)[] };
+export interface PermittedAttribute {
+	[key: string]: (string | RegExp)[];
+}
 
 export interface MetaElement {
 	/* filled internally for reverse lookup */
@@ -39,4 +41,6 @@ export interface MetaElement {
 	[key: string]: boolean | PropertyExpression | Permitted | PermittedOrder | PermittedAttribute;
 }
 
-export type ElementTable = { [tagName: string]: MetaElement };
+export interface ElementTable {
+	[tagName: string]: MetaElement;
+}

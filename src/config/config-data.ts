@@ -1,6 +1,8 @@
 type RuleSeverity = "off" | "warn" | "error" | number;
 
-export type TransformMap = { [key: string]: string };
+export interface TransformMap{
+	[key: string]: string;
+}
 
 export interface ConfigData {
 	extends?: string[];

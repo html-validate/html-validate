@@ -5,10 +5,10 @@ import { RuleConstructor } from "../rule";
 import { ConfigData, TransformMap } from "./config-data";
 import defaultConfig from "./default";
 
-type Transformer = {
+interface Transformer {
 	pattern: RegExp;
 	fn: (filename: string) => Source[];
-};
+}
 
 interface Plugin {
 	rules: { [key: string]: RuleConstructor };

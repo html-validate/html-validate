@@ -15,7 +15,9 @@ import {
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";
 
-export type RuleOptions = { [key: string]: any };
+export interface RuleOptions {
+	[key: string]: any;
+}
 
 export interface RuleConstructor {
 	new (options: RuleOptions): Rule;
