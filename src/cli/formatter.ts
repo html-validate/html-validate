@@ -1,6 +1,6 @@
-import { Result, Report } from '../reporter';
+import { Result, Report } from "../reporter";
 
-const fs = require('fs');
+const fs = require("fs");
 
 type Formatter = (results: Result[]) => void;
 
@@ -8,7 +8,7 @@ function wrap(formatter: any, dst: string){
 	return (results: Result[]) => {
 		const output = formatter(results);
 		if (dst){
-			fs.writeFileSync(dst, output, 'utf-8');
+			fs.writeFileSync(dst, output, "utf-8");
 		} else {
 			process.stdout.write(output);
 		}
@@ -17,10 +17,10 @@ function wrap(formatter: any, dst: string){
 
 export function getFormatter(formatters: string): (report: Report) => void {
 	const fn: Formatter[] = formatters
-		.split(',')
+		.split(",")
 		.map(cur => {
-			const [name, dst] = cur.split('=', 2);
-			const moduleName = name.replace(/[^a-z]+/g, '');
+			const [name, dst] = cur.split("=", 2);
+			const moduleName = name.replace(/[^a-z]+/g, "");
 			const formatter = require(`../formatters/${moduleName}`);
 			return wrap(formatter, dst);
 		});

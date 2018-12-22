@@ -1,11 +1,11 @@
-import { Message, Result } from '../reporter';
+import { Message, Result } from "../reporter";
 
 const entities: { [key: string]: string } = {
-	'>': '&gt;',
-	'<': '&lt;',
-	"'": '&apos;',
-	'"': '&quot;',
-	'&': '&amp;',
+	">": "&gt;",
+	"<": "&lt;",
+	"'": "&apos;",
+	'"': "&quot;",
+	"&": "&amp;",
 };
 
 function xmlescape(src: any) {
@@ -17,9 +17,9 @@ function xmlescape(src: any) {
 
 function getMessageType(message: Message) {
 	switch (message.severity){
-	case 2: return 'error';
-	case 1: return 'warning';
-	default: return 'error';
+	case 2: return "error";
+	case 1: return "warning";
+	default: return "error";
 	}
 }
 

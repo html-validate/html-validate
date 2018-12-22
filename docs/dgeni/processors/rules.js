@@ -1,6 +1,6 @@
 /** @todo this will break when typescript is actually used */
-const recommended = require('../../../src/config/recommended.ts');
-const document = require('../../../src/config/document.ts');
+const recommended = require("../../../src/config/recommended.ts");
+const document = require("../../../src/config/document.ts");
 
 function compareName(a, b){
 	if (a.name < b.name){
@@ -14,15 +14,15 @@ function compareName(a, b){
 
 module.exports = function rulesProcessor(moduleMap, renderDocsProcessor) {
 	return {
-		$runAfter: ['paths-computed'],
-		$runBefore: ['rendering-docs'],
+		$runAfter: ["paths-computed"],
+		$runBefore: ["rendering-docs"],
 		$process: process,
 	};
 
 	function process(docs) {
 		/* find all available rules */
 		const rules = docs
-			.filter(doc => doc.docType === 'content' && doc.module === 'rules')
+			.filter(doc => doc.docType === "content" && doc.module === "rules")
 			.map(doc => ({
 				name: doc.name,
 				url: doc.outputPath,
@@ -36,7 +36,7 @@ module.exports = function rulesProcessor(moduleMap, renderDocsProcessor) {
 		/* group rules into categories */
 		const categories = {};
 		rules.forEach(rule => {
-			const category = rule.category || 'other';
+			const category = rule.category || "other";
 			if (!(category in categories)){
 				categories[category] = [];
 			}

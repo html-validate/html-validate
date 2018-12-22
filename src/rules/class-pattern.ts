@@ -1,10 +1,10 @@
-import { Rule } from '../rule';
-import { AttributeEvent } from '../event';
-import { DOMTokenList } from '../dom';
-import { parsePattern } from '../pattern';
+import { Rule } from "../rule";
+import { AttributeEvent } from "../event";
+import { DOMTokenList } from "../dom";
+import { parsePattern } from "../pattern";
 
 const defaults = {
-	pattern: 'kebabcase',
+	pattern: "kebabcase",
 };
 
 class ClassPattern extends Rule {
@@ -16,8 +16,8 @@ class ClassPattern extends Rule {
 	}
 
 	setup(){
-		this.on('attr', (event: AttributeEvent) => {
-			if (event.key.toLowerCase() !== 'class'){
+		this.on("attr", (event: AttributeEvent) => {
+			if (event.key.toLowerCase() !== "class"){
 				return;
 			}
 

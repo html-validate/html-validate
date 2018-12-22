@@ -1,12 +1,12 @@
-import { Rule } from '../rule';
-import { HtmlElement } from '../dom';
-import { DOMReadyEvent } from '../event';
-import { Validator } from '../meta';
-import { Permitted } from '../meta/element';
+import { Rule } from "../rule";
+import { HtmlElement } from "../dom";
+import { DOMReadyEvent } from "../event";
+import { Validator } from "../meta";
+import { Permitted } from "../meta/element";
 
 class ElementPermittedContent extends Rule {
 	setup(){
-		this.on('dom:ready', (event: DOMReadyEvent) => {
+		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;
 			doc.visitDepthFirst((node: HtmlElement) => {
 				/* dont verify root element, assume any element is allowed */

@@ -1,4 +1,4 @@
-import { Result } from '../reporter';
+import { Result } from "../reporter";
 
 function textFormatter(results: Array<Result>){
 	let output = "";
@@ -23,7 +23,7 @@ function textFormatter(results: Array<Result>){
 			}
 
 			return `${result.filePath}:${message.line}:${message.column}: ${messageType} [${message.ruleId}] ${message.message}\n`;
-		}).join('');
+		}).join("");
 	});
 
 	return total > 0 ? output : "";

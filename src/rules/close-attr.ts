@@ -1,11 +1,11 @@
-import { Rule } from '../rule';
-import { TagCloseEvent } from '../event';
+import { Rule } from "../rule";
+import { TagCloseEvent } from "../event";
 
 class CloseAttr extends Rule {
 	setup(){
-		this.on('tag:close', (event: TagCloseEvent) => {
+		this.on("tag:close", (event: TagCloseEvent) => {
 			/* handle unclosed tags */
-			if (typeof event.target === 'undefined'){
+			if (typeof event.target === "undefined"){
 				return;
 			}
 

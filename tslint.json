@@ -31,7 +31,6 @@
     "object-literal-sort-keys": false,
     "one-line": false,
     "ordered-imports": false,
-    "quotemark": false,
     "semicolon": false,
     "triple-equals": false,
     "unified-signatures": false

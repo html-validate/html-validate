@@ -1,35 +1,35 @@
-import HtmlValidate from '../htmlvalidate';
-import { Reporter, Report, Result } from '../reporter';
-import { getFormatter } from './formatter';
-import { TokenDump, EventDump } from '../engine';
-import defaultConfig from '../config/default';
+import HtmlValidate from "../htmlvalidate";
+import { Reporter, Report, Result } from "../reporter";
+import { getFormatter } from "./formatter";
+import { TokenDump, EventDump } from "../engine";
+import defaultConfig from "../config/default";
 
-import * as minimist from 'minimist';
-import * as glob from 'glob';
+import * as minimist from "minimist";
+import * as glob from "glob";
 
 function getMode(argv: { [key: string]: any }){
-	if (argv['dump-events']){
-		return 'dump-events';
+	if (argv["dump-events"]){
+		return "dump-events";
 	}
 
-	if (argv['dump-tokens']){
-		return 'dump-tokens';
+	if (argv["dump-tokens"]){
+		return "dump-tokens";
 	}
 
-	if (argv['dump-tree']){
-		return 'dump-tree';
+	if (argv["dump-tree"]){
+		return "dump-tree";
 	}
 
-	return 'lint';
+	return "lint";
 }
 
 function getGlobalConfig(rules?: string|string[]){
 	const config: any = Object.assign({}, defaultConfig);
 	if (rules){
 		if (Array.isArray(rules)){
-			rules = rules.join(',');
+			rules = rules.join(",");
 		}
-		const raw = rules.split(',').map((x: string) => x.replace(/ *(.*):/, '"$1":')).join(',');
+		const raw = rules.split(",").map((x: string) => x.replace(/ *(.*):/, '"$1":')).join(",");
 		try {
 			const rules = JSON.parse(`{${raw}}`);
 			config.extends = [];
@@ -47,52 +47,52 @@ function lint(files: string[]): Report {
 }
 
 function dump(files: string[], mode: string){
-	const filtered = ['parent', 'children'];
+	const filtered = ["parent", "children"];
 	let lines: string[][] = [];
 	switch (mode){
-	case 'dump-events':
+	case "dump-events":
 		lines = files.map((filename: string) => htmlvalidate.dumpEvents(filename).map((entry: EventDump) => {
 			const strdata = JSON.stringify(entry.data, (key, value) => {
-				return filtered.indexOf(key) >= 0 ? '[truncated]' : value;
+				return filtered.indexOf(key) >= 0 ? "[truncated]" : value;
 			}, 2);
 			return `${entry.event}: ${strdata}`;
 		}));
 		break;
-	case 'dump-tokens':
+	case "dump-tokens":
 		lines = files.map((filename: string) => htmlvalidate.dumpTokens(filename).map((entry: TokenDump) => {
 			return `TOKEN: ${entry.token}\n  Data: ${JSON.stringify(entry.data)}\n  Location: ${entry.location}`;
 		}));
 		break;
-	case 'dump-tree':
+	case "dump-tree":
 		lines = files.map((filename: string) => htmlvalidate.dumpTree(filename));
 		break;
 	default:
 		throw new Error(`Unknown mode "${mode}"`);
 	}
 	const flat = lines.reduce((s: string[], c: string[]) => s.concat(c), []);
-	return flat.join('\n');
+	return flat.join("\n");
 }
 
 function renameStdin(report: Report, filename: string): void {
-	const stdin = report.results.find((cur: Result) => cur.filePath === '/dev/stdin');
+	const stdin = report.results.find((cur: Result) => cur.filePath === "/dev/stdin");
 	if (stdin){
 		stdin.filePath = filename;
 	}
 }
 
 const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
-	string: ['f', 'formatter', 'rule', 'stdin-filename'],
-	boolean: ['dump-events', 'dump-tokens', 'dump-tree', 'stdin'],
+	string: ["f", "formatter", "rule", "stdin-filename"],
+	boolean: ["dump-events", "dump-tokens", "dump-tree", "stdin"],
 	alias: {
-		f: 'formatter',
+		f: "formatter",
 	},
 	default: {
-		formatter: 'stylish',
+		formatter: "stylish",
 	},
 });
 
 function showUsage(){
-	const pkg = require('../../package.json');
+	const pkg = require("../../package.json");
 	process.stdout.write(`${pkg.name}-${pkg.version}
 Usage: html-validate [OPTIONS] [FILENAME..] [DIR..]
 
@@ -119,7 +119,7 @@ e.g. "checkstyle=build/html-validate.xml"
 }
 
 if (argv.stdin){
-	argv._.push('-');
+	argv._.push("-");
 }
 
 if (argv.h || argv.help || argv._.length === 0){
@@ -134,24 +134,24 @@ const htmlvalidate = new HtmlValidate(config);
 
 const files = argv._.reduce((files: string[], pattern: string) => {
 	/* process - as standard input */
-	if (pattern === '-'){
-		pattern = '/dev/stdin';
+	if (pattern === "-"){
+		pattern = "/dev/stdin";
 	}
 	return files.concat(glob.sync(pattern));
 }, []);
 const unique = [... new Set(files)];
 
 if (unique.length === 0){
-	console.error('No files matching patterns', argv._); // eslint-disable-line no-console
+	console.error("No files matching patterns", argv._); // eslint-disable-line no-console
 	process.exit(1);
 }
 
-if (mode === 'lint'){
+if (mode === "lint"){
 	const result = lint(unique);
 
 	/* rename stdin if an explicit filename was passed */
-	if (argv['stdin-filename']){
-		renameStdin(result, argv['stdin-filename']);
+	if (argv["stdin-filename"]){
+		renameStdin(result, argv["stdin-filename"]);
 	}
 
 	formatter(result);

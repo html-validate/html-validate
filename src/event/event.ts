@@ -1,5 +1,5 @@
-import { HtmlElement, DOMTree } from '../dom';
-import { Location } from '../context';
+import { HtmlElement, DOMTree } from "../dom";
+import { Location } from "../context";
 
 export interface Event {
 	location: Location;

@@ -1,43 +1,43 @@
-import HtmlValidate from '../htmlvalidate';
-import '../matchers';
+import HtmlValidate from "../htmlvalidate";
+import "../matchers";
 
-describe('rule deprecated', () => {
+describe("rule deprecated", () => {
 
 	let htmlvalidate: HtmlValidate;
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
-			rules: { 'deprecated': 'error' },
+			rules: { "deprecated": "error" },
 			elements: [
-				'html5',
+				"html5",
 				{
-					'custom-deprecated': {
-						deprecated: 'lorem ipsum',
+					"custom-deprecated": {
+						deprecated: "lorem ipsum",
 					},
 				},
 			],
 		});
 	});
 
-	it('should not report when regular element is used', () => {
-		const report = htmlvalidate.validateString('<p></p>');
+	it("should not report when regular element is used", () => {
+		const report = htmlvalidate.validateString("<p></p>");
 		expect(report).toBeValid();
 	});
 
-	it('should report error when deprecated element is used', () => {
-		const report = htmlvalidate.validateString('<marquee>foobar</marquee>');
+	it("should report error when deprecated element is used", () => {
+		const report = htmlvalidate.validateString("<marquee>foobar</marquee>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError('deprecated', '<marquee> is deprecated');
+		expect(report).toHaveError("deprecated", "<marquee> is deprecated");
 	});
 
-	it('should report error when element with deprecation message is used', () => {
-		const report = htmlvalidate.validateString('<custom-deprecated>foobar</custom-deprecated>');
+	it("should report error when element with deprecation message is used", () => {
+		const report = htmlvalidate.validateString("<custom-deprecated>foobar</custom-deprecated>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError('deprecated', '<custom-deprecated> is deprecated: lorem ipsum');
+		expect(report).toHaveError("deprecated", "<custom-deprecated> is deprecated: lorem ipsum");
 	});
 
-	it('smoketest', () => {
-		const report = htmlvalidate.validateFile('test-files/rules/deprecated.html');
+	it("smoketest", () => {
+		const report = htmlvalidate.validateFile("test-files/rules/deprecated.html");
 		expect(report.results).toMatchSnapshot();
 	});
 

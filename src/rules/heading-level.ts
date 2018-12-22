@@ -1,11 +1,11 @@
-import { Rule } from '../rule';
-import { TagOpenEvent } from '../event';
-import { HtmlElement } from '../dom';
+import { Rule } from "../rule";
+import { TagOpenEvent } from "../event";
+import { HtmlElement } from "../dom";
 
 class HeadingLevel extends Rule {
 	setup(){
 		let current = 0;
-		this.on('tag:open', (event: TagOpenEvent) => {
+		this.on("tag:open", (event: TagOpenEvent) => {
 			/* ensure it is a heading */
 			if (!this.isHeading(event.target)) return;
 

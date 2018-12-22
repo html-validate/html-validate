@@ -1,10 +1,10 @@
-import { Rule } from '../rule';
-import { AttributeEvent } from '../event';
+import { Rule } from "../rule";
+import { AttributeEvent } from "../event";
 
 class NoInlineStyle extends Rule {
 	setup(){
-		this.on('attr', (event: AttributeEvent) => {
-			if (event.key === 'style'){
+		this.on("attr", (event: AttributeEvent) => {
+			if (event.key === "style"){
 				this.report(event.target, "Inline style is not allowed");
 			}
 		});

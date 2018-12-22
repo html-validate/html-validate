@@ -58,7 +58,7 @@ export class Engine<T extends Parser = Parser> {
 			});
 
 			/* setup directive handling */
-			parser.on('directive', (_: string, event: DirectiveEvent) => {
+			parser.on("directive", (_: string, event: DirectiveEvent) => {
 				this.processDirective(event, parser, rules);
 			});
 
@@ -81,7 +81,7 @@ export class Engine<T extends Parser = Parser> {
 	public dumpEvents(source: Source[]): EventDump[] {
 		const parser = new Parser(this.config);
 		const lines: EventDump[] = [];
-		parser.on('*', (event, data) => {
+		parser.on("*", (event, data) => {
 			lines.push({event, data});
 		});
 		source.forEach(src => parser.parseHtml(src));
@@ -110,24 +110,24 @@ export class Engine<T extends Parser = Parser> {
 		const lines: string[] = [];
 
 		function decoration(node: HtmlElement){
-			let output = '';
-			if (node.hasAttribute('id')){
+			let output = "";
+			if (node.hasAttribute("id")){
 				output += `#${node.id}`;
 			}
-			if (node.hasAttribute('class')){
-				output += `.${node.classList.join('.')}`;
+			if (node.hasAttribute("class")){
+				output += `.${node.classList.join(".")}`;
 			}
 			return output;
 		}
 
 		function writeNode(node: HtmlElement, level: number, sibling: number){
 			if (level > 0){
-				const indent = '  '.repeat(level - 1);
-				const l = node.children.length > 0 ? '┬' : '─';
-				const b = sibling < (node.parent.children.length - 1) ? '├' : '└';
+				const indent = "  ".repeat(level - 1);
+				const l = node.children.length > 0 ? "┬" : "─";
+				const b = sibling < (node.parent.children.length - 1) ? "├" : "└";
 				lines.push(`${indent}${b}─${l} ${node.tagName}${decoration(node)}`);
 			} else {
-				lines.push(`(root)`);
+				lines.push("(root)");
 			}
 
 			node.children.forEach((child, index) => writeNode(child, level + 1, index));
@@ -139,21 +139,21 @@ export class Engine<T extends Parser = Parser> {
 
 	private processDirective(event: DirectiveEvent, parser: Parser, allRules: { [key: string]: Rule }): void {
 		const rules = event.data
-			.split(',')
+			.split(",")
 			.map(name => name.trim())
 			.map(name => allRules[name])
 			.filter(rule => rule); /* filter out missing rules */
 		switch (event.action){
-		case 'enable':
+		case "enable":
 			this.processEnableDirective(rules);
 			break;
-		case 'disable':
+		case "disable":
 			this.processDisableDirective(rules);
 			break;
-		case 'disable-block':
+		case "disable-block":
 			this.processDisableBlockDirective(rules, parser);
 			break;
-		case 'disable-next':
+		case "disable-next":
 			this.processDisableNextDirective(rules, parser);
 			break;
 		default:
@@ -184,11 +184,11 @@ export class Engine<T extends Parser = Parser> {
 		}
 
 		/* wait for a tag to open and find the current block by using its parent */
-		const unregisterOpen = parser.once('tag:open', (event: string, data: TagOpenEvent) => {
+		const unregisterOpen = parser.once("tag:open", (event: string, data: TagOpenEvent) => {
 			directiveBlock = data.target.parent.unique;
 		});
 
-		const unregisterClose = parser.on('tag:close', (event: string, data: TagCloseEvent) => {
+		const unregisterClose = parser.on("tag:close", (event: string, data: TagCloseEvent) => {
 			/* if the directive is the last thing in a block no would be set: remove
 			 * listeners and restore state */
 			if (directiveBlock === null){
@@ -215,7 +215,7 @@ export class Engine<T extends Parser = Parser> {
 	private processDisableNextDirective(rules: Rule[], parser: Parser): void {
 		for (const rule of rules){
 			rule.setEnabled(false);
-			parser.once('tag:open, tag:close, attr', () => {
+			parser.once("tag:open, tag:close, attr", () => {
 				parser.defer(() => {
 					rule.setEnabled(true);
 				});
@@ -251,7 +251,7 @@ export class Engine<T extends Parser = Parser> {
 		try {
 			Class = require(`../rules/${name}`);
 		} catch (e) {
-			if (e.code === 'MODULE_NOT_FOUND'){
+			if (e.code === "MODULE_NOT_FOUND"){
 				return null;
 			} else {
 				throw e;
@@ -263,7 +263,7 @@ export class Engine<T extends Parser = Parser> {
 	private missingRule(name: string): any {
 		return new class extends Rule {
 			setup(){
-				this.on('dom:load', () => {
+				this.on("dom:load", () => {
 					this.report(null, `Definition for rule '${name}' was not found`);
 				});
 			}

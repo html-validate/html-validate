@@ -1,7 +1,7 @@
-import { Config } from './config';
-import { Location } from './context';
-import { HtmlElement } from './dom';
-import { Rule } from './rule';
+import { Config } from "./config";
+import { Location } from "./context";
+import { HtmlElement } from "./dom";
+import { Rule } from "./rule";
 
 export interface Message {
 	ruleId: string;

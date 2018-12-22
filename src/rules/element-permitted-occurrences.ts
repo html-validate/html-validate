@@ -1,11 +1,11 @@
-import { Rule } from '../rule';
-import { HtmlElement } from '../dom';
-import { DOMReadyEvent } from '../event';
-import { Validator } from '../meta';
+import { Rule } from "../rule";
+import { HtmlElement } from "../dom";
+import { DOMReadyEvent } from "../event";
+import { Validator } from "../meta";
 
 class ElementPermittedOccurrences extends Rule {
 	setup(){
-		this.on('dom:ready', (event: DOMReadyEvent) => {
+		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;
 			doc.visitDepthFirst((node: HtmlElement) => {
 				const parent = node.parent;

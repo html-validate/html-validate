@@ -1,8 +1,8 @@
-import { Config, ConfigLoader } from './config';
-import { Source } from './context';
-import { Engine, EventDump, TokenDump } from './engine';
-import { Parser } from './parser';
-import { Report } from './reporter';
+import { Config, ConfigLoader } from "./config";
+import { Source } from "./context";
+import { Engine, EventDump, TokenDump } from "./engine";
+import { Parser } from "./parser";
+import { Report } from "./reporter";
 
 class HtmlValidate {
 	private globalConfig: Config;
@@ -22,7 +22,7 @@ class HtmlValidate {
 		const source = {
 			column: 1,
 			data: str,
-			filename: 'inline',
+			filename: "inline",
 			line: 1,
 		};
 		return this.validateSource(source);
@@ -35,7 +35,7 @@ class HtmlValidate {
 	 * @return {object} - Report output.
 	 */
 	public validateSource(source: Source): Report {
-		const config = this.getConfigFor('inline');
+		const config = this.getConfigFor("inline");
 		const engine = new Engine(config, Parser);
 		return engine.lint([source]);
 	}

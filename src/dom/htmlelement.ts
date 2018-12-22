@@ -1,10 +1,10 @@
-import { Location } from '../context';
-import { Token } from '../lexer';
-import { DOMNode } from './domnode';
-import { DOMTokenList } from './domtokenlist';
-import { MetaTable, MetaElement } from '../meta';
-import { Attribute } from './attribute';
-import { Selector } from './selector';
+import { Location } from "../context";
+import { Token } from "../lexer";
+import { DOMNode } from "./domnode";
+import { DOMTokenList } from "./domtokenlist";
+import { MetaTable, MetaElement } from "../meta";
+import { Attribute } from "./attribute";
+import { Selector } from "./selector";
 
 export enum NodeClosed {
 	Open = 0,            /* element wasn't closed */
@@ -14,7 +14,7 @@ export enum NodeClosed {
 	ImplicitClosed = 4,  /* element with optional end tag <li>foo<li>bar */
 }
 
-const DOCUMENT_NODE_NAME = '#document';
+const DOCUMENT_NODE_NAME = "#document";
 
 let counter = 0;
 
@@ -71,14 +71,14 @@ export class HtmlElement extends DOMNode {
 		}
 
 		const meta = metaTable ? metaTable.getMetaFor(tagName) : null;
-		const open = startToken.data[1] !== '/';
+		const open = startToken.data[1] !== "/";
 		const closed = isClosed(endToken, meta);
 
 		return new HtmlElement(tagName, open ? parent : undefined, closed, meta, startToken.location);
 	}
 
 	is(tagName: string): boolean {
-		return (this.tagName && tagName === '*') || this.tagName === tagName;
+		return (this.tagName && tagName === "*") || this.tagName === tagName;
 	}
 
 	isRootElement(): boolean {
@@ -114,11 +114,11 @@ export class HtmlElement extends DOMNode {
 	}
 
 	get classList(){
-		return new DOMTokenList(this.getAttributeValue('class'));
+		return new DOMTokenList(this.getAttributeValue("class"));
 	}
 
 	get id(){
-		return this.getAttributeValue('id');
+		return this.getAttributeValue("id");
 	}
 
 	get siblings(){
@@ -229,7 +229,7 @@ function isClosed(endToken: Token, meta: MetaElement): NodeClosed {
 		closed = NodeClosed.VoidOmitted;
 	}
 
-	if (endToken.data[0] === '/>'){
+	if (endToken.data[0] === "/>"){
 		closed = NodeClosed.VoidSelfClosed;
 	}
 

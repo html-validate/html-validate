@@ -1,6 +1,6 @@
-import { Rule } from '../rule';
-import { HtmlElement } from '../dom';
-import { DOMReadyEvent } from '../event';
+import { Rule } from "../rule";
+import { HtmlElement } from "../dom";
+import { DOMReadyEvent } from "../event";
 
 const defaults = {
 	allowEmpty: true,
@@ -19,11 +19,11 @@ class ImgReqAlt extends Rule {
 	}
 
 	setup(){
-		this.on('dom:ready', (event: DOMReadyEvent) => {
-			const images = event.document.getElementsByTagName('img');
+		this.on("dom:ready", (event: DOMReadyEvent) => {
+			const images = event.document.getElementsByTagName("img");
 			images.forEach((node: HtmlElement) => {
 				/* validate plain alt-attribute */
-				const alt = node.getAttributeValue('alt');
+				const alt = node.getAttributeValue("alt");
 				if (alt || (alt === "" && this.options.allowEmpty)){
 					return;
 				}

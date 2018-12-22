@@ -1,12 +1,12 @@
-import HtmlValidate from '../htmlvalidate';
-import '../matchers';
+import HtmlValidate from "../htmlvalidate";
+import "../matchers";
 
-describe('rule button-type', () => {
+describe("rule button-type", () => {
 	let htmlvalidate: HtmlValidate;
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
-			rules: {'button-type': 'error'},
+			rules: {"button-type": "error"},
 		});
 	});
 
@@ -25,20 +25,20 @@ describe('rule button-type', () => {
 		expect(report).toBeValid();
 	});
 
-	it('should report error when type attribute is missing', () => {
-		const report = htmlvalidate.validateString('<button></button>');
+	it("should report error when type attribute is missing", () => {
+		const report = htmlvalidate.validateString("<button></button>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError('button-type', 'Button is missing type attribute');
+		expect(report).toHaveError("button-type", "Button is missing type attribute");
 	});
 
-	it('should report error when type attribute is invalid', () => {
+	it("should report error when type attribute is invalid", () => {
 		const report = htmlvalidate.validateString('<button type="foo"></button>');
 		expect(report).toBeInvalid();
-		expect(report).toHaveError('button-type', 'Button has invalid type "foo"');
+		expect(report).toHaveError("button-type", 'Button has invalid type "foo"');
 	});
 
-	it('smoketest', () => {
-		const report = htmlvalidate.validateFile('test-files/rules/button-type.html');
+	it("smoketest", () => {
+		const report = htmlvalidate.validateFile("test-files/rules/button-type.html");
 		expect(report.results).toMatchSnapshot();
 	});
 

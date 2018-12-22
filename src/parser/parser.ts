@@ -1,9 +1,9 @@
-import { Config } from '../config';
-import { HtmlElement, DOMTree, NodeClosed } from '../dom';
-import { Source } from '../context';
-import { Lexer, Token, TokenStream, TokenType } from '../lexer';
-import { EventHandler, EventCallback } from '../event';
-import { MetaTable } from '../meta';
+import { Config } from "../config";
+import { HtmlElement, DOMTree, NodeClosed } from "../dom";
+import { Source } from "../context";
+import { Lexer, Token, TokenStream, TokenType } from "../lexer";
+import { EventHandler, EventCallback } from "../event";
+import { MetaTable } from "../meta";
 import {
 	Event,
 	AttributeEvent,
@@ -14,7 +14,7 @@ import {
 	TagCloseEvent,
 	TagOpenEvent,
 	WhitespaceEvent,
-} from '../event';
+} from "../event";
 
 export class Parser {
 	private readonly config: Config;
@@ -30,10 +30,10 @@ export class Parser {
 	}
 
 	parseHtml(source: string|Source): DOMTree {
-		if (typeof source === 'string'){
+		if (typeof source === "string"){
 			source = {
 				data: source,
-				filename: 'inline',
+				filename: "inline",
 				line: 1,
 				column: 1,
 			};
@@ -48,7 +48,7 @@ export class Parser {
 		});
 
 		/* trigger any rules waiting for DOM load event */
-		this.trigger('dom:load', {
+		this.trigger("dom:load", {
 			location: null,
 		});
 
@@ -66,7 +66,7 @@ export class Parser {
 				break;
 
 			case TokenType.WHITESPACE:
-				this.trigger('whitespace', {
+				this.trigger("whitespace", {
 					text: token.data[0],
 					location: token.location,
 				});
@@ -77,7 +77,7 @@ export class Parser {
 				break;
 
 			case TokenType.CONDITIONAL:
-				this.trigger('conditional', {
+				this.trigger("conditional", {
 					condition: token.data[1],
 					location: token.location,
 				});
@@ -99,7 +99,7 @@ export class Parser {
 		this.dom.resolveMeta(this.metaTable);
 
 		/* trigger any rules waiting for DOM ready */
-		this.trigger('dom:ready', {
+		this.trigger("dom:ready", {
 			document: this.dom,
 			location: null, /* disable location for this event so rules can use
 			                 * implicit node location instead */
@@ -156,7 +156,7 @@ export class Parser {
 		if (closeOptional){
 			const active = this.dom.getActive();
 			active.closed = NodeClosed.ImplicitClosed;
-			this.trigger('tag:close', {
+			this.trigger("tag:close", {
 				target: node,
 				previous: active,
 				location: startToken.location,
@@ -166,7 +166,7 @@ export class Parser {
 
 		if (open){
 			this.dom.pushActive(node);
-			this.trigger('tag:open', {
+			this.trigger("tag:open", {
 				target: node,
 				location: startToken.location,
 			});
@@ -192,7 +192,7 @@ export class Parser {
 				node.closed = NodeClosed.EndTag;
 			}
 
-			this.trigger('tag:close', {
+			this.trigger("tag:close", {
 				target: node,
 				previous: active,
 				location: endToken.location,
@@ -217,7 +217,7 @@ export class Parser {
 			value = next.data[1];
 			quote = next.data[2];
 		}
-		this.trigger('attr', {
+		this.trigger("attr", {
 			target: node,
 			key,
 			value,
@@ -235,10 +235,10 @@ export class Parser {
 		}
 
 		const [, action, data, comment] = match;
-		this.trigger('directive', {
+		this.trigger("directive", {
 			action,
 			data,
-			comment: comment || '',
+			comment: comment || "",
 			location: token.location,
 		});
 	}
@@ -251,7 +251,7 @@ export class Parser {
 		const doctype = tokens[0]; /* first token is the doctype, second is the closing ">" */
 		const value = doctype.data[0];
 		this.dom.doctype = value;
-		this.trigger('doctype', {
+		this.trigger("doctype", {
 			value,
 			location: startToken.location,
 		});
@@ -268,7 +268,7 @@ export class Parser {
 			if (token.type === search) return;
 			it = this.next(tokenStream);
 		}
-		throw Error('stream ended before consumeUntil finished');
+		throw Error("stream ended before consumeUntil finished");
 	}
 
 	private next(tokenStream: TokenStream): IteratorResult<Token> {
@@ -293,7 +293,7 @@ export class Parser {
 	 * Defer execution. Will call function sometime later.
 	 */
 	defer(cb: () => void): void {
-		this.event.once('*', cb);
+		this.event.once("*", cb);
 	}
 
 	/**
@@ -302,18 +302,18 @@ export class Parser {
 	 * @param {string} event - Event name
 	 * @param {Event} data - Event data
 	 */
-	protected trigger(event: 'tag:open', data: TagOpenEvent): void;
-	protected trigger(event: 'tag:close', data: TagCloseEvent): void;
-	protected trigger(event: 'dom:load', data: Event): void;
-	protected trigger(event: 'dom:ready', data: DOMReadyEvent): void;
-	protected trigger(event: 'doctype', data: DoctypeEvent): void;
-	protected trigger(event: 'attr', data: AttributeEvent): void;
-	protected trigger(event: 'whitespace', data: WhitespaceEvent): void;
-	protected trigger(event: 'conditional', data: ConditionalEvent): void;
-	protected trigger(event: 'directive', data: DirectiveEvent): void;
+	protected trigger(event: "tag:open", data: TagOpenEvent): void;
+	protected trigger(event: "tag:close", data: TagCloseEvent): void;
+	protected trigger(event: "dom:load", data: Event): void;
+	protected trigger(event: "dom:ready", data: DOMReadyEvent): void;
+	protected trigger(event: "doctype", data: DoctypeEvent): void;
+	protected trigger(event: "attr", data: AttributeEvent): void;
+	protected trigger(event: "whitespace", data: WhitespaceEvent): void;
+	protected trigger(event: "conditional", data: ConditionalEvent): void;
+	protected trigger(event: "directive", data: DirectiveEvent): void;
 	protected trigger(event: any, data: any): void {
-		if (typeof data.location === 'undefined'){
-			throw Error('Triggered event must contain location');
+		if (typeof data.location === "undefined"){
+			throw Error("Triggered event must contain location");
 		}
 		this.event.trigger(event, data);
 	}
@@ -324,7 +324,7 @@ export class Parser {
 	private closeTree(token: Token): void {
 		let active;
 		while ((active = this.dom.getActive()) && active.tagName){
-			this.trigger('tag:close', {
+			this.trigger("tag:close", {
 				target: undefined,
 				previous: active,
 				location: token.location,

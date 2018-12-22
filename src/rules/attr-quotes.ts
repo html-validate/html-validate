@@ -1,11 +1,11 @@
-import { Rule } from '../rule';
-import { AttributeEvent } from '../event';
+import { Rule } from "../rule";
+import { AttributeEvent } from "../event";
 
 const SINGLE_QUOTE = "'";
 const DOUBLE_QUOTE = '"';
 
 const defaults = {
-	style: 'double',
+	style: "double",
 	unquoted: false,
 };
 
@@ -18,13 +18,13 @@ class AttrQuotes extends Rule {
 	}
 
 	setup(){
-		this.on('attr', (event: AttributeEvent) => {
+		this.on("attr", (event: AttributeEvent) => {
 			/* ignore attributes with no value */
-			if (typeof event.value === 'undefined'){
+			if (typeof event.value === "undefined"){
 				return;
 			}
 
-			if (typeof event.quote === 'undefined'){
+			if (typeof event.quote === "undefined"){
 				if (this.options.unquoted === false){
 					this.report(event.target, `Attribute "${event.key}" using unquoted value`);
 				}
@@ -40,8 +40,8 @@ class AttrQuotes extends Rule {
 
 function parseStyle(style: string){
 	switch (style.toLowerCase()){
-	case 'double': return DOUBLE_QUOTE;
-	case 'single': return SINGLE_QUOTE;
+	case "double": return DOUBLE_QUOTE;
+	case "single": return SINGLE_QUOTE;
 	default: return DOUBLE_QUOTE;
 	}
 }

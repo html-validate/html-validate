@@ -1,7 +1,7 @@
 module.exports = function generateInlineValidationsProcessor(log, validateMap) {
 	return {
-		$runAfter: ['generateValidationResultsProcessor'],
-		$runBefore: ['extra-docs-added'],
+		$runAfter: ["generateValidationResultsProcessor"],
+		$runBefore: ["extra-docs-added"],
 		$process,
 	};
 
@@ -16,12 +16,12 @@ module.exports = function generateInlineValidationsProcessor(log, validateMap) {
 	function createInlineValidateDoc(validation) {
 		return {
 			id: `${validation.id}-inlineValidation`,
-			docType: 'inlineValidation',
+			docType: "inlineValidation",
 			fileInfo: validation.doc.fileInfo,
 			startingLine: validation.doc.startingLine,
 			endingLine: validation.doc.endingLine,
 			validate: validation,
-			template: 'inline/inlineValidation.template.html',
+			template: "inline/inlineValidation.template.html",
 		};
 	}
 };

@@ -1,12 +1,12 @@
-import { HtmlElement, DOMTree } from '../dom';
-import { Rule } from '../rule';
-import { DOMReadyEvent } from '../event';
+import { HtmlElement, DOMTree } from "../dom";
+import { Rule } from "../rule";
+import { DOMReadyEvent } from "../event";
 
 class InputMissingLabel extends Rule {
 	setup(){
-		this.on('dom:ready', (event: DOMReadyEvent) => {
+		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const root = event.document;
-			for (const elem of root.getElementsByTagName('input')){
+			for (const elem of root.getElementsByTagName("input")){
 
 				/* try to find label by id */
 				if (findLabelById(root, elem.id)){
@@ -18,7 +18,7 @@ class InputMissingLabel extends Rule {
 					continue;
 				}
 
-				this.report(elem, 'Input element does not have a label');
+				this.report(elem, "Input element does not have a label");
 			}
 		});
 	}
@@ -26,13 +26,13 @@ class InputMissingLabel extends Rule {
 
 function findLabelById(root: DOMTree, id: string): HtmlElement {
 	if (!id) return null;
-	return root.find((node: HtmlElement) => node.is('label') && node.getAttributeValue('for') === id);
+	return root.find((node: HtmlElement) => node.is("label") && node.getAttributeValue("for") === id);
 }
 
 function findLabelByParent(el: HtmlElement): HtmlElement {
 	let cur = el.parent;
 	while (cur){
-		if (cur.is('label')){
+		if (cur.is("label")){
 			return cur;
 		}
 		cur = cur.parent;

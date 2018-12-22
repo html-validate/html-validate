@@ -1,9 +1,9 @@
-import { MetaTable } from '../meta';
-import { ConfigData, TransformMap } from './config-data';
-import { Source } from '../context';
-import { RuleConstructor } from '../rule';
-import { ElementTable } from '../meta/element';
-import defaultConfig from './default';
+import { MetaTable } from "../meta";
+import { ConfigData, TransformMap } from "./config-data";
+import { Source } from "../context";
+import { RuleConstructor } from "../rule";
+import { ElementTable } from "../meta/element";
+import defaultConfig from "./default";
 
 type Transformer = {
 	pattern: RegExp;
@@ -14,28 +14,28 @@ interface Plugin {
 	rules: { [key: string]: RuleConstructor };
 }
 
-const fs = require('fs');
-const path = require('path');
-const deepmerge = require('deepmerge');
+const fs = require("fs");
+const path = require("path");
+const deepmerge = require("deepmerge");
 
-const recommended = require('./recommended');
-const document = require('./document');
+const recommended = require("./recommended");
+const document = require("./document");
 
 function parseSeverity(value: string | number){
-	if (typeof value === 'number'){
+	if (typeof value === "number"){
 		return value;
 	}
 	switch (value){
-	case 'off':
+	case "off":
 		return 0;
 	/* istanbul ignore next: deprecated code which will be removed later */
-	case 'disable':
+	case "disable":
 		// eslint-disable-next-line no-console
 		console.warn(`Deprecated alias "disabled" will be removed, replace with severity "off"`);
 		return 0;
-	case 'warn':
+	case "warn":
 		return 1;
-	case 'error':
+	case "error":
 		return 2;
 	default:
 		throw new Error(`Invalid severity "${value}"`);
@@ -68,14 +68,14 @@ export class Config {
 
 	public static fromFile(filename: string): Config {
 		switch (filename){
-		case 'htmlvalidate:recommended': return Config.fromObject(recommended);
-		case 'htmlvalidate:document': return Config.fromObject(document);
+		case "htmlvalidate:recommended": return Config.fromObject(recommended);
+		case "htmlvalidate:document": return Config.fromObject(document);
 		}
 
 		const json = require(filename);
 
 		/* expand any relative paths */
-		for (const key of ['extends', 'elements', 'plugins']){
+		for (const key of ["extends", "elements", "plugins"]){
 			if (!json[key]) continue;
 			json[key] = json[key].map((ref: string) => {
 				return Config.expandRelative(ref, path.dirname(filename));
@@ -132,13 +132,13 @@ export class Config {
 		}
 
 		this.metaTable = new MetaTable();
-		const source = this.config.elements || ['html5'];
-		const root = path.resolve(__dirname, '..', '..');
+		const source = this.config.elements || ["html5"];
+		const root = path.resolve(__dirname, "..", "..");
 
 		/* load from all entries */
 		for (const entry of source){
 			/* load meta directly from entry */
-			if (typeof entry !== 'string'){
+			if (typeof entry !== "string"){
 				this.metaTable.loadFromObject(entry as ElementTable);
 				continue;
 			}
@@ -165,7 +165,7 @@ export class Config {
 	}
 
 	static expandRelative(src: string, currentPath: string): string {
-		if (src[0] === '.'){
+		if (src[0] === "."){
 			return path.normalize(`${currentPath}/${src}`);
 		}
 		return src;
@@ -215,7 +215,7 @@ export class Config {
 			return transformer.fn(filename);
 		} else {
 			return [{
-				data: fs.readFileSync(filename, {encoding: 'utf8'}),
+				data: fs.readFileSync(filename, {encoding: "utf8"}),
 				filename,
 				line: 1,
 				column: 1,
@@ -231,7 +231,7 @@ export class Config {
 		return Object.entries(transform).map(([pattern, module]) => {
 			return {
 				pattern: new RegExp(pattern),
-				fn: require(module.replace('<rootDir>', this.rootDir)),
+				fn: require(module.replace("<rootDir>", this.rootDir)),
 			} as Transformer;
 		});
 	}
@@ -240,7 +240,7 @@ export class Config {
 		/* try to locate package.json */
 		let current = process.cwd();
 		for (;;){
-			const search = path.join(current, 'package.json');
+			const search = path.join(current, "package.json");
 			if (fs.existsSync(search)){
 				return current;
 			}

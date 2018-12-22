@@ -1,24 +1,24 @@
-const path = require('path');
-import { Config } from './config';
-import * as fs from 'fs';
+const path = require("path");
+import { Config } from "./config";
+import * as fs from "fs";
 
 let mockElements: any;
-jest.mock('mock-elements', () => mockElements, {virtual: true});
-jest.mock('mock-plugin', () => 'mock plugin', {virtual: true});
+jest.mock("mock-elements", () => mockElements, {virtual: true});
+jest.mock("mock-plugin", () => "mock plugin", {virtual: true});
 
-describe('config', () => {
+describe("config", () => {
 
-	it('should load defaults', () => {
+	it("should load defaults", () => {
 		const config = Config.empty();
 		expect(config.get()).toBeDefined();
 	});
 
-	it('should contain no rules by default', () => {
+	it("should contain no rules by default", () => {
 		const config = Config.empty();
 		expect(Object.keys(config.get().rules)).toHaveLength(0);
 	});
 
-	it('empty() should load empty config', () => {
+	it("empty() should load empty config", () => {
 		const config = Config.empty();
 		expect(config.get()).toEqual({
 			extends: [],
@@ -28,11 +28,11 @@ describe('config', () => {
 		});
 	});
 
-	it('defaultConfig() should load defaults', () => {
+	it("defaultConfig() should load defaults", () => {
 		const config = Config.defaultConfig();
 		expect(config.get()).toEqual({
 			extends: [
-				'htmlvalidate:recommended',
+				"htmlvalidate:recommended",
 			],
 			rules: expect.any(Object),
 			plugins: [],
@@ -40,17 +40,17 @@ describe('config', () => {
 		});
 	});
 
-	describe('merge()', () => {
+	describe("merge()", () => {
 
-		it('should merge two configs', () => {
-			const a = Config.fromObject({rules: {'foo': 1}});
-			const b = Config.fromObject({rules: {'bar': 1}});
+		it("should merge two configs", () => {
+			const a = Config.fromObject({rules: {"foo": 1}});
+			const b = Config.fromObject({rules: {"bar": 1}});
 			const merged = a.merge(b);
 			expect(merged.get()).toEqual({
 				extends: [],
 				rules: {
-					'foo': 1,
-					'bar': 1,
+					"foo": 1,
+					"bar": 1,
 				},
 				plugins: [],
 				transform: {},
@@ -59,22 +59,22 @@ describe('config', () => {
 
 	});
 
-	describe('getRules()', () => {
+	describe("getRules()", () => {
 
-		it('should return parsed rules', () => {
-			const config = Config.fromObject({rules: {foo: 'error'}});
-			expect(config.get().rules).toEqual({foo: 'error'});
+		it("should return parsed rules", () => {
+			const config = Config.fromObject({rules: {foo: "error"}});
+			expect(config.get().rules).toEqual({foo: "error"});
 			expect(config.getRules()).toEqual({
 				foo: [Config.SEVERITY_ERROR, {}],
 			});
 		});
 
-		it('should parse severity from string', () => {
+		it("should parse severity from string", () => {
 			const config = Config.fromObject({
 				rules: {
-					foo: 'error',
-					bar: 'warn',
-					baz: 'off',
+					foo: "error",
+					bar: "warn",
+					baz: "off",
 				},
 			});
 			expect(config.getRules()).toEqual({
@@ -84,7 +84,7 @@ describe('config', () => {
 			});
 		});
 
-		it('should retain severity from integer', () => {
+		it("should retain severity from integer", () => {
 			const config = Config.fromObject({
 				rules: {
 					foo: 2,
@@ -99,17 +99,17 @@ describe('config', () => {
 			});
 		});
 
-		it('should throw on invalid severity', () => {
+		it("should throw on invalid severity", () => {
 			const fn = Config.fromObject as (options: any) => Config;
 			const config = fn({
 				rules: {
-					bar: 'foo',
+					bar: "foo",
 				},
 			});
 			expect(() => config.getRules()).toThrow('Invalid severity "foo"');
 		});
 
-		it('should retain options', () => {
+		it("should retain options", () => {
 			const config = Config.fromObject({
 				rules: {
 					foo: [2, {foo: true}],
@@ -124,16 +124,16 @@ describe('config', () => {
 			});
 		});
 
-		it('should handle when rules are unset', () => {
+		it("should handle when rules are unset", () => {
 			const config = Config.fromObject({rules: null});
 			expect(config.getRules()).toEqual({});
 		});
 
 	});
 
-	describe('fromFile()', () => {
+	describe("fromFile()", () => {
 
-		it('should support JSON', () => {
+		it("should support JSON", () => {
 			const config = Config.fromFile(`${process.cwd()}/test-files/config.json`);
 			expect(config.getRules()).toEqual({
 				foo: [Config.SEVERITY_ERROR, {}],
@@ -144,9 +144,9 @@ describe('config', () => {
 
 	});
 
-	describe('extend', () => {
+	describe("extend", () => {
 
-		it('should extend base configuration', () => {
+		it("should extend base configuration", () => {
 			const config = Config.fromObject({
 				extends: [`${process.cwd()}/test-files/config.json`],
 				rules: {
@@ -160,7 +160,7 @@ describe('config', () => {
 			});
 		});
 
-		it('should support deep extending', () => {
+		it("should support deep extending", () => {
 			const config = Config.fromObject({
 				extends: [`${process.cwd()}/test-files/config-extending.json`],
 			});
@@ -171,75 +171,75 @@ describe('config', () => {
 			});
 		});
 
-		it('should support htmlvalidate:recommended', () => {
+		it("should support htmlvalidate:recommended", () => {
 			const config = Config.fromObject({
-				extends: ['htmlvalidate:recommended'],
+				extends: ["htmlvalidate:recommended"],
 			});
 			expect(config.getRules()).toBeDefined();
 		});
 
-		it('should support htmlvalidate:document', () => {
+		it("should support htmlvalidate:document", () => {
 			const config = Config.fromObject({
-				extends: ['htmlvalidate:document'],
+				extends: ["htmlvalidate:document"],
 			});
 			expect(config.getRules()).toBeDefined();
 		});
 
 	});
 
-	describe('expandRelative()', () => {
+	describe("expandRelative()", () => {
 
-		it('should expand ./foo', () => {
-			expect(Config.expandRelative('./foo', '/path')).toEqual(path.join(path.sep, 'path', 'foo'));
+		it("should expand ./foo", () => {
+			expect(Config.expandRelative("./foo", "/path")).toEqual(path.join(path.sep, "path", "foo"));
 		});
 
-		it('should expand ../foo', () => {
-			expect(Config.expandRelative('../foo', '/path/bar')).toEqual(path.join(path.sep, 'path', 'foo'));
+		it("should expand ../foo", () => {
+			expect(Config.expandRelative("../foo", "/path/bar")).toEqual(path.join(path.sep, "path", "foo"));
 		});
 
-		it('should not expand /foo', () => {
-			expect(Config.expandRelative('/foo', '/path')).toEqual('/foo');
+		it("should not expand /foo", () => {
+			expect(Config.expandRelative("/foo", "/path")).toEqual("/foo");
 		});
 
-		it('should not expand foo', () => {
-			expect(Config.expandRelative('foo', '/path')).toEqual('foo');
+		it("should not expand foo", () => {
+			expect(Config.expandRelative("foo", "/path")).toEqual("foo");
 		});
 
 	});
 
-	describe('getMetaTable()', () => {
+	describe("getMetaTable()", () => {
 
-		it('should load metadata', () => {
+		it("should load metadata", () => {
 			const config = Config.empty();
 			const metatable = config.getMetaTable();
 			expect(Object.keys(metatable.elements)).not.toHaveLength(0);
 		});
 
-		it('should load inline metadata', () => {
+		it("should load inline metadata", () => {
 			const config = Config.fromObject({
 				elements: [
 					{
-						'foo': {},
+						"foo": {},
 					},
 				],
 			});
 			const metatable = config.getMetaTable();
-			expect(Object.keys(metatable.elements)).toEqual(['foo']);
+			expect(Object.keys(metatable.elements)).toEqual(["foo"]);
 		});
 
-		it('should cache table', () => {
+		it("should cache table", () => {
 			const config = Config.empty();
 			const a = config.getMetaTable();
 			const b = config.getMetaTable();
 			expect(a).toBe(b);
 		});
 
-		it('should load metadata from module', () => {
+		it("should load metadata from module", () => {
 			mockElements = {
 				foo: {},
 			};
 			const config = Config.fromObject({
-				elements: ['mock-elements'],
+				elements: ["mock-elements"],
 			});
 			const metatable = config.getMetaTable();
 			expect(Object.keys(metatable.elements)).not.toHaveLength(0);
@@ -247,48 +247,48 @@ describe('config', () => {
 
 	});
 
-	describe('transform()', () => {
+	describe("transform()", () => {
 
-		it('should match filename against transformer', () => {
+		it("should match filename against transformer", () => {
 			const config = Config.fromObject({
 				transform: {
-					'^.*\\.foo$': '../transform/mock',
+					"^.*\\.foo$": "../transform/mock",
 				},
 			});
 			config.init();
-			expect(config.transform('/path/to/test.foo')).toEqual([{
-				data: 'mocked source',
-				filename: '/path/to/test.foo',
+			expect(config.transform("/path/to/test.foo")).toEqual([{
+				data: "mocked source",
+				filename: "/path/to/test.foo",
 				line: 1,
 				column: 1,
 			}]);
 		});
 
-		it('should replace <rootDir>', () => {
+		it("should replace <rootDir>", () => {
 			const config = Config.fromObject({
 				transform: {
-					'^.*\\.foo$': '<rootDir>/src/transform/mock',
+					"^.*\\.foo$": "<rootDir>/src/transform/mock",
 				},
 			});
 			config.init();
-			expect(config.transform('/path/to/test.foo')).toEqual([{
-				data: 'mocked source',
-				filename: '/path/to/test.foo',
+			expect(config.transform("/path/to/test.foo")).toEqual([{
+				data: "mocked source",
+				filename: "/path/to/test.foo",
 				line: 1,
 				column: 1,
 			}]);
 		});
 
-		it('should default to reading full file', () => {
+		it("should default to reading full file", () => {
 			const config = Config.fromObject({
 				transform: {
-					'^.*\\.foo$': '../transform/mock',
+					"^.*\\.foo$": "../transform/mock",
 				},
 			});
 			config.init();
-			expect(config.transform('test-files/parser/simple.html')).toEqual([{
-				data: '<p>Lorem ipsum</p>\n',
-				filename: 'test-files/parser/simple.html',
+			expect(config.transform("test-files/parser/simple.html")).toEqual([{
+				data: "<p>Lorem ipsum</p>\n",
+				filename: "test-files/parser/simple.html",
 				line: 1,
 				column: 1,
 			}]);
@@ -296,9 +296,9 @@ describe('config', () => {
 
 	});
 
-	describe('init()', () => {
+	describe("init()", () => {
 
-		it('should handle unset fields', () => {
+		it("should handle unset fields", () => {
 			const config = Config.fromObject({
 				plugins: null,
 				transform: null,
@@ -308,29 +308,29 @@ describe('config', () => {
 			}).not.toThrow();
 		});
 
-		it('should load plugins', () => {
+		it("should load plugins", () => {
 			const config = Config.fromObject({
 				plugins: [
-					'mock-plugin',
+					"mock-plugin",
 				],
 			});
 			config.init();
 			expect(config.getPlugins()).toEqual([
-				'mock plugin',
+				"mock plugin",
 			]);
 		});
 
 	});
 
-	it('should find rootDir', () => {
+	it("should find rootDir", () => {
 		const config = new class extends Config {
 			public findRootDir(){
 				return super.findRootDir();
 			}
 		}();
-		const root = path.resolve(path.join(__dirname, '../..'));
+		const root = path.resolve(path.join(__dirname, "../.."));
 		expect(config.findRootDir()).toEqual(root);
-		const spy = jest.spyOn(fs, 'existsSync').mockImplementation(() => false);
+		const spy = jest.spyOn(fs, "existsSync").mockImplementation(() => false);
 		expect(config.findRootDir()).toEqual(process.cwd());
 		spy.mockRestore();
 	});

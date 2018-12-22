@@ -1,8 +1,8 @@
 /* eslint-disable typescript/no-namespace, prefer-template */
 
-import { Report, Result, Message } from './reporter';
-import { TokenType } from './lexer';
-const diff = require('jest-diff');
+import { Report, Result, Message } from "./reporter";
+import { TokenType } from "./lexer";
+const diff = require("jest-diff");
 
 interface TokenMatcher {
 	type: TokenType;
@@ -26,7 +26,7 @@ function toBeValid(report: Report){
 	if (report.valid){
 		return {
 			pass: true,
-			message: () => 'Result should not contain error',
+			message: () => "Result should not contain error",
 		};
 	} else {
 		const firstError = report.results[0].messages[0];
@@ -41,12 +41,12 @@ function toBeInvalid(report: Report){
 	if (report.valid){
 		return {
 			pass: false,
-			message: () => 'Result should be successful',
+			message: () => "Result should be successful",
 		};
 	} else {
 		return {
 			pass: true,
-			message: () => 'Result should not contain error',
+			message: () => "Result should not contain error",
 		};
 	}
 }
@@ -58,13 +58,13 @@ function toHaveError(report: Report, ruleId: any, message: any){
 	const matcher = [expect.objectContaining({ruleId, message})];
 	const pass = this.equals(actual, matcher);
 	const diffString = diff(matcher, actual, {expand: this.expand});
-	const resultMessage = () => this.utils.matcherHint('.toHaveError') +
-		'\n\n' +
-		`Expected token to equal:\n` +
+	const resultMessage = () => this.utils.matcherHint(".toHaveError") +
+		"\n\n" +
+		"Expected token to equal:\n" +
 		`  ${this.utils.printExpected(matcher)}\n` +
-		`Received:\n` +
+		"Received:\n" +
 		`  ${this.utils.printReceived(actual)}` +
-		(diffString ? `\n\nDifference:\n\n${diffString}` : '');
+		(diffString ? `\n\nDifference:\n\n${diffString}` : "");
 
 	return {pass, message: resultMessage};
 }
@@ -83,13 +83,13 @@ function toHaveErrors(report: Report, errors: ([string, string]|{})[]){
 	});
 	const pass = this.equals(actual, matcher);
 	const diffString = diff(matcher, actual, {expand: this.expand});
-	const resultMessage = () => this.utils.matcherHint('.toHaveErrors') +
-		'\n\n' +
-		`Expected token to equal:\n` +
+	const resultMessage = () => this.utils.matcherHint(".toHaveErrors") +
+		"\n\n" +
+		"Expected token to equal:\n" +
 		`  ${this.utils.printExpected(matcher)}\n` +
-		`Received:\n` +
+		"Received:\n" +
 		`  ${this.utils.printReceived(actual)}` +
-		(diffString ? `\n\nDifference:\n\n${diffString}` : '');
+		(diffString ? `\n\nDifference:\n\n${diffString}` : "");
 
 	return {pass, message: resultMessage};
 }
@@ -108,13 +108,13 @@ function toBeToken(actual: any, expected: any){
 	const matcher = expect.objectContaining(expected);
 	const pass = this.equals(token, matcher);
 	const diffString = diff(matcher, token, {expand: this.expand});
-	const message = () => this.utils.matcherHint('.toBeToken') +
-		'\n\n' +
-		`Expected token to equal:\n` +
+	const message = () => this.utils.matcherHint(".toBeToken") +
+		"\n\n" +
+		"Expected token to equal:\n" +
 		`  ${this.utils.printExpected(matcher)}\n` +
-		`Received:\n` +
+		"Received:\n" +
 		`  ${this.utils.printReceived(token)}` +
-		(diffString ? `\n\nDifference:\n\n${diffString}` : '');
+		(diffString ? `\n\nDifference:\n\n${diffString}` : "");
 
 	return {pass, message};
 }

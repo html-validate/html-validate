@@ -1,9 +1,9 @@
-import { Rule } from '../rule';
-import { AttributeEvent } from '../event';
+import { Rule } from "../rule";
+import { AttributeEvent } from "../event";
 
 class NoDeprecatedAttr extends Rule {
 	setup(){
-		this.on('attr', (event: AttributeEvent) => {
+		this.on("attr", (event: AttributeEvent) => {
 			const node = event.target;
 			const meta = node.meta;
 			const attr = event.key.toLowerCase();

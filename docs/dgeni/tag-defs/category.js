@@ -1,5 +1,5 @@
 module.exports = function() {
 	return {
-		name: 'category',
+		name: "category",
 	};
 };

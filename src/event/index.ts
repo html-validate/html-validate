@@ -1,2 +1,2 @@
-export { EventHandler, EventCallback } from './eventhandler';
-export * from './event';
+export { EventHandler, EventCallback } from "./eventhandler";
+export * from "./event";

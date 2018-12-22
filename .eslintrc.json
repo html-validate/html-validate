@@ -19,6 +19,7 @@
     "no-dupe-class-members": "off",
     "no-undef": "off",
     "space-before-blocks": "off",
+    "quotes": ["error", "double", {"avoidEscape": true, "allowTemplateLiterals": true}],
     "strict": "off",
     "typescript/member-delimiter-style": "error",
     "typescript/no-angle-bracket-type-assertion": "error",

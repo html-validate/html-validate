@@ -1,6 +1,6 @@
 function extractBlock(doc, tag, value){
 	const [, title, body] = value.match(/(.*?)\n([^]*)/m);
-	const className = title.toLowerCase().replace(/[^a-z0-9]+/, '-');
+	const className = title.toLowerCase().replace(/[^a-z0-9]+/, "-");
 	return {
 		body,
 		className,
@@ -11,9 +11,9 @@ function extractBlock(doc, tag, value){
 
 module.exports = function blockTag() {
 	return {
-		name: 'block',
+		name: "block",
 		multi: true,
-		docProperty: 'blocks',
+		docProperty: "blocks",
 		transforms: [extractBlock],
 	};
 };

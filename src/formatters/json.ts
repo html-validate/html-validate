@@ -1,4 +1,4 @@
-import { Result } from '../reporter';
+import { Result } from "../reporter";
 
 function jsonFormatter(results: Array<Result>){
 	return JSON.stringify(results);

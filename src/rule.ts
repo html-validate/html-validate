@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { HtmlElement } from './dom';
-import { Config } from './config';
-import { Location } from './context';
+import { HtmlElement } from "./dom";
+import { Config } from "./config";
+import { Location } from "./context";
 import {
 	Event,
 	AttributeEvent,
@@ -11,9 +11,9 @@ import {
 	TagCloseEvent,
 	TagOpenEvent,
 	WhitespaceEvent,
-} from './event';
-import { Reporter } from './reporter';
-import { Parser } from './parser';
+} from "./event";
+import { Reporter } from "./reporter";
+import { Parser } from "./parser";
 
 export type RuleOptions = { [key: string]: any };
 
@@ -98,15 +98,15 @@ export abstract class Rule {
 	 * Adding listeners can be done even if the rule is disabled but for the
 	 * events to be delivered the rule must be enabled.
 	 */
-	on(event: 'tag:open', callback: (event: TagOpenEvent) => void): void;
-	on(event: 'tag:close', callback: (event: TagCloseEvent) => void): void;
-	on(event: 'dom:load', callback: (event: Event) => void): void;
-	on(event: 'dom:ready', callback: (event: DOMReadyEvent) => void): void;
-	on(event: 'doctype', callback: (event: DoctypeEvent) => void): void;
-	on(event: 'attr', callback: (event: AttributeEvent) => void): void;
-	on(event: 'whitespace', callback: (event: WhitespaceEvent) => void): void;
-	on(event: 'conditional', callback: (event: ConditionalEvent) => void): void;
-	on(event: '*', callback: (event: Event) => void): void;
+	on(event: "tag:open", callback: (event: TagOpenEvent) => void): void;
+	on(event: "tag:close", callback: (event: TagCloseEvent) => void): void;
+	on(event: "dom:load", callback: (event: Event) => void): void;
+	on(event: "dom:ready", callback: (event: DOMReadyEvent) => void): void;
+	on(event: "doctype", callback: (event: DoctypeEvent) => void): void;
+	on(event: "attr", callback: (event: AttributeEvent) => void): void;
+	on(event: "whitespace", callback: (event: WhitespaceEvent) => void): void;
+	on(event: "conditional", callback: (event: ConditionalEvent) => void): void;
+	on(event: "*", callback: (event: Event) => void): void;
 	on(event: string, callback: any): void {
 		this.parser.on(event, (event: string, data: any) => {
 			if (this.isEnabled()){
