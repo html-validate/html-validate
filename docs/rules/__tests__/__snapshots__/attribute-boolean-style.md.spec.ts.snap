@@ -27,6 +27,8 @@ Array [
         "size": 8,
       },
     ],
+    "source": "<input required=\\"\\">
+<input required=\\"required\\">",
     "warningCount": 0,
   },
 ]

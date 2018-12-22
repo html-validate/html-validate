@@ -25,6 +25,11 @@ Array [
         "size": 4,
       },
     ],
+    "source": "<form>
+	<button>Button with missing type</button>
+	<button type=\\"foo\\">Button with invalid type</button>
+</form>
+",
     "warningCount": 0,
   },
 ]

@@ -18,6 +18,11 @@ Array [
         "size": 5,
       },
     ],
+    "source": "<!-- table footer can only be used once -->
+<table>
+    <tfoot></tfoot>
+    <tfoot></tfoot>
+</div>",
     "warningCount": 0,
   },
 ]

@@ -18,6 +18,7 @@ Array [
         "size": 11,
       },
     ],
+    "source": "<my-element>...</my-element>",
     "warningCount": 0,
   },
 ]
@@ -48,6 +49,8 @@ Array [
         "size": 4,
       },
     ],
+    "source": "<center>...</center>
+<big>...</big>",
     "warningCount": 0,
   },
 ]

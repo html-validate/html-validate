@@ -18,6 +18,7 @@ Array [
         "size": 4,
       },
     ],
+    "source": "<input type=\\"foobar\\">",
     "warningCount": 0,
   },
 ]

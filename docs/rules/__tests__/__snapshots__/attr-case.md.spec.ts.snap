@@ -18,6 +18,7 @@ Array [
         "size": 2,
       },
     ],
+    "source": "<p ID=\\"foo\\"></p>",
     "warningCount": 0,
   },
 ]

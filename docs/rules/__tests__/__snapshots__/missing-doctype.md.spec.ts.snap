@@ -18,6 +18,9 @@ Array [
         "size": 0,
       },
     ],
+    "source": "<html>
+    <body>...</body>
+</html>",
     "warningCount": 0,
   },
 ]

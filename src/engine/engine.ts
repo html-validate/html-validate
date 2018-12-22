@@ -75,7 +75,7 @@ export class Engine<T extends Parser = Parser> {
 		}
 
 		/* generate results from report */
-		return this.report.save();
+		return this.report.save(sources);
 	}
 
 	public dumpEvents(source: Source[]): EventDump[] {

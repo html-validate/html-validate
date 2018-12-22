@@ -52,6 +52,17 @@ Array [
         "size": 5,
       },
     ],
+    "source": "<body></body>
+<body bgcolor=\\"red\\"></body>
+<body BGCOLOR=\\"red\\"></body>
+<body bgColor=\\"red\\"></body>
+
+<table valign=\\"top\\">
+	<tr background=\\"blue\\">
+		<td align=\\"right\\">foo</td>
+	</tr>
+</table>
+",
     "warningCount": 0,
   },
 ]

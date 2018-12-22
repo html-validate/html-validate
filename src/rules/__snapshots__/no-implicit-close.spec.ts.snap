@@ -133,6 +133,40 @@ Array [
         "size": 1,
       },
     ],
+    "source": "<ul>
+	<li>regular</li>
+</ul>
+
+<ul>
+	<li>foo
+	<li>bar
+	<li>baz
+</ul>
+
+<ul>
+	<li class=\\"foo\\">foo
+	<li class=\\"bar\\">bar
+	<li class=\\"baz\\">baz
+</ul>
+
+<ul>
+	<li>foo<strong>bar</strong>
+	<li>foo <input>
+</ul>
+
+<dl>
+	<dt>title
+	<dd>definition 1
+	<dd>definition 2
+	<dt>fred
+	<dd>flintstone
+</dl>
+
+<p>
+	lorem ipsum
+	<address>spam</address>
+</p>
+",
     "warningCount": 0,
   },
 ]

@@ -16,6 +16,9 @@ Array [
         "size": 5,
       },
     ],
+    "source": "<p style=\\"color: red\\"></p>
+<p></p>
+",
     "warningCount": 0,
   },
 ]

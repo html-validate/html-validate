@@ -27,6 +27,17 @@ Array [
         "size": 5,
       },
     ],
+    "source": "<!-- no label element at all -->
+<div>
+    <strong>My field</strong>
+    <input type=\\"text\\">
+</div>
+
+<!-- unassociated label -->
+<div>
+    <label>My field</label>
+    <input type=\\"text\\">
+</div>",
     "warningCount": 0,
   },
 ]

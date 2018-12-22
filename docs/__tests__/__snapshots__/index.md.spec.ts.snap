@@ -34,6 +34,13 @@ Array [
         "size": 5,
       },
     ],
+    "source": "<img src=\\"logo.png\\">
+<button onclick=\\"myFunction();\\">Click me!</button>
+
+<div class=\\"field-wrapper\\">
+  <strong>Name: </strong>
+  <input name=\\"name\\">
+</div>",
     "warningCount": 0,
   },
 ]
@@ -64,6 +71,10 @@ Array [
         "size": 14,
       },
     ],
+    "source": "<my-inline>
+  <my-block></my-block>
+  <my-deprecated></my-deprecated>
+</my-inline>",
     "warningCount": 0,
   },
 ]
@@ -103,6 +114,16 @@ Array [
         "size": 6,
       },
     ],
+    "source": "<footer>
+  <fieldset>
+    <p>Lorem ipsum dolor sit amet</p>
+    <legend>Consectetur adipiscing elit</legend>
+  </fieldset>
+
+  <main>
+    <blink>(c) 2018 Initech</blink>
+  </main>
+</footer>",
     "warningCount": 0,
   },
 ]

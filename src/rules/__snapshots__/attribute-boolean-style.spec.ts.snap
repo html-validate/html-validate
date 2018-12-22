@@ -34,6 +34,11 @@ Array [
         "size": 8,
       },
     ],
+    "source": "<input disabled>
+<input disabled=\\"\\">
+<input disabled=\\"required\\">
+<input disabled=\\"foobar\\">
+",
     "warningCount": 0,
   },
 ]
@@ -82,6 +87,11 @@ Array [
         "size": 8,
       },
     ],
+    "source": "<input disabled>
+<input disabled=\\"\\">
+<input disabled=\\"required\\">
+<input disabled=\\"foobar\\">
+",
     "warningCount": 0,
   },
 ]
@@ -121,6 +131,11 @@ Array [
         "size": 8,
       },
     ],
+    "source": "<input disabled>
+<input disabled=\\"\\">
+<input disabled=\\"required\\">
+<input disabled=\\"foobar\\">
+",
     "warningCount": 0,
   },
 ]

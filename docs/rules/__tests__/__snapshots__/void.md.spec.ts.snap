@@ -27,6 +27,11 @@ Array [
         "size": 1,
       },
     ],
+    "source": "<fieldset>
+    <input/>
+</fieldset>
+
+<img></img>",
     "warningCount": 0,
   },
 ]

@@ -18,6 +18,8 @@ Array [
         "size": 3,
       },
     ],
+    "source": "<h1>Heading 1</h1>
+<h3>Subheading</h3>",
     "warningCount": 0,
   },
 ]

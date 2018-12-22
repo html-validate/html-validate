@@ -18,6 +18,11 @@ Array [
         "size": 7,
       },
     ],
+    "source": "<!-- table caption must be used before thead -->
+<table>
+    <thead></thead>
+    <caption></caption>
+</div>",
     "warningCount": 0,
   },
 ]

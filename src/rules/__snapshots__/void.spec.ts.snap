@@ -25,6 +25,21 @@ Array [
         "size": 2,
       },
     ],
+    "source": "<div>
+	<input />
+</div>
+
+<div>
+	<input>
+</div>
+
+<div>
+	<input></input>
+</div>
+
+<div />
+<div></div>
+",
     "warningCount": 0,
   },
 ]
@@ -64,6 +79,21 @@ Array [
         "size": 2,
       },
     ],
+    "source": "<div>
+	<input />
+</div>
+
+<div>
+	<input>
+</div>
+
+<div>
+	<input></input>
+</div>
+
+<div />
+<div></div>
+",
     "warningCount": 0,
   },
 ]
@@ -112,6 +142,21 @@ Array [
         "size": 2,
       },
     ],
+    "source": "<div>
+	<input />
+</div>
+
+<div>
+	<input>
+</div>
+
+<div>
+	<input></input>
+</div>
+
+<div />
+<div></div>
+",
     "warningCount": 0,
   },
 ]
@@ -151,6 +196,21 @@ Array [
         "size": 2,
       },
     ],
+    "source": "<div>
+	<input />
+</div>
+
+<div>
+	<input>
+</div>
+
+<div>
+	<input></input>
+</div>
+
+<div />
+<div></div>
+",
     "warningCount": 0,
   },
 ]

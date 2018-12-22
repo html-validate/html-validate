@@ -25,6 +25,15 @@ Array [
         "size": 2,
       },
     ],
+    "source": "<i/>Before disable, should trigger
+
+<!-- [html-validate-disable void] -->
+<i/>After disable, should not trigger
+<i/>After disable, should not trigger
+
+<!-- [html-validate-enable void] -->
+<i/>Before after, should trigger
+",
     "warningCount": 0,
   },
 ]
@@ -73,6 +82,26 @@ Array [
         "size": 2,
       },
     ],
+    "source": "<i/>Outside block, should trigger
+<div>
+	<i/>Inside block, before directive, should trigger
+	<!-- [html-validate-disable-block void] -->
+	<i/>Inside block, after directive, shout not trigger
+	<div>
+		<i/>Inside block, after directive, shout not trigger
+	</div>
+	<i/>Inside block, after directive, shout not trigger
+</div>
+<i/>Outside block, should trigger
+
+<div>
+	<!-- [html-validate-disable-block void] -->
+</div>
+<i/>Outside block, should trigger
+
+<!-- [html-validate-disable-block void] -->
+Should handle when root element is parent but no children
+",
     "warningCount": 0,
   },
 ]
@@ -103,6 +132,12 @@ Array [
         "size": 2,
       },
     ],
+    "source": "<blink/>
+<div>
+	<!-- [html-validate-disable-block void, deprecated] -->
+	<blink/>
+</div>
+",
     "warningCount": 0,
   },
 ]
@@ -133,6 +168,12 @@ Array [
         "size": 2,
       },
     ],
+    "source": "<i/>Before disable, should trigger
+
+<!-- [html-validate-disable-next void] -->
+<i/>First after disable, should not trigger
+<i/>Second after disable, should trigger
+",
     "warningCount": 0,
   },
 ]
@@ -163,6 +204,15 @@ Array [
         "size": 2,
       },
     ],
+    "source": "<div>
+	<deprecated>new (deprecated) element</deprecated>
+
+	<ul>
+		<li>overridden so it is disallowed</li>
+		<p>overridden so it is allowed</p>
+	</ul>
+</div>
+",
     "warningCount": 0,
   },
 ]
@@ -184,6 +234,8 @@ Array [
         "size": 1,
       },
     ],
+    "source": "<input></input>
+",
     "warningCount": 0,
   },
 ]
@@ -205,6 +257,8 @@ Array [
         "size": 1,
       },
     ],
+    "source": "<input></input>
+",
     "warningCount": 0,
   },
 ]
@@ -228,6 +282,8 @@ Array [
         "size": 1,
       },
     ],
+    "source": "<input></input>
+",
     "warningCount": 1,
   },
 ]

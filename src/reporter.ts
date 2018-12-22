@@ -1,5 +1,5 @@
 import { Config } from "./config";
-import { Location } from "./context";
+import { Location, Source } from "./context";
 import { HtmlElement } from "./dom";
 import { Rule } from "./rule";
 
@@ -18,6 +18,7 @@ export interface Result {
 	filePath: string;
 	errorCount?: number;
 	warningCount?: number;
+	source?: string;
 }
 
 export interface Report {
@@ -73,16 +74,18 @@ export class Reporter {
 		this.result[filename].push(message);
 	}
 
-	save(): Report {
+	save(sources?: Source[]): Report {
 		return {
 			valid: this.isValid(),
 			results: Object.keys(this.result).map((filePath) => {
 				const messages = [].concat(this.result[filePath]).sort(messageSort);
+				const source = (sources || []).find((source: Source) => source.filename === filePath);
 				return {
 					filePath,
 					messages,
 					errorCount: countErrors(messages),
 					warningCount: countWarnings(messages),
+					source: source ? source.data : null,
 				};
 			}),
 		};
