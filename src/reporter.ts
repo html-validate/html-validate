@@ -85,7 +85,7 @@ export class Reporter {
 					messages,
 					errorCount: countErrors(messages),
 					warningCount: countWarnings(messages),
-					source: source ? source.data : null,
+					source: source ? (source.originalData || source.data) : null,
 				};
 			}),
 		};

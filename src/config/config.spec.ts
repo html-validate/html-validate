@@ -261,6 +261,7 @@ describe("config", () => {
 				filename: "/path/to/test.foo",
 				line: 1,
 				column: 1,
+				originalData: "mocked original source",
 			}]);
 		});
 
@@ -276,6 +277,7 @@ describe("config", () => {
 				filename: "/path/to/test.foo",
 				line: 1,
 				column: 1,
+				originalData: "mocked original source",
 			}]);
 		});
 
@@ -291,6 +293,7 @@ describe("config", () => {
 				filename: "test-files/parser/simple.html",
 				line: 1,
 				column: 1,
+				originalData: "<p>Lorem ipsum</p>\n",
 			}]);
 		});
 

@@ -7,5 +7,6 @@ module.exports = function mockTransform(filename: string) {
 		filename,
 		line: 1,
 		column: 1,
+		originalData: "mocked original source",
 	}];
 };

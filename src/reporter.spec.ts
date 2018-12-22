@@ -79,7 +79,7 @@ describe("Reporter", () => {
 			const report = new Reporter();
 			const sources: Source[] = [
 				{filename: "foo.html", data: "<foo></foo>", line: 1, column: 1},
-				{filename: "bar.html", data: "<bar></bar>", line: 1, column: 1},
+				{filename: "bar.html", data: "transformed", originalData: "<bar></bar>", line: 1, column: 1},
 			];
 			report.addManual("foo.html", createMessage("error", 1));
 			report.addManual("bar.html", createMessage("error", 2));

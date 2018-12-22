@@ -9,4 +9,5 @@ export interface Source {
 	filename: string;
 	line: number;
 	column: number;
+	originalData?: string;
 }

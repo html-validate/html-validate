@@ -215,11 +215,13 @@ export class Config {
 		if (transformer){
 			return transformer.fn(filename);
 		} else {
+			const data = fs.readFileSync(filename, {encoding: "utf8"});
 			return [{
-				data: fs.readFileSync(filename, {encoding: "utf8"}),
+				data,
 				filename,
 				line: 1,
 				column: 1,
+				originalData: data,
 			}];
 		}
 	}
