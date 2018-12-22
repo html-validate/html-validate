@@ -182,7 +182,7 @@ export class Config {
 
 	getRules(){
 		const rules = Object.assign({}, this.config.rules || {});
-		for (const name in rules){
+		for (const name in rules){ /* tslint:disable-line:forin */
 			let options = rules[name];
 			if (!Array.isArray(options)){
 				options = [options, {}];
