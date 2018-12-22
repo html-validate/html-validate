@@ -10,6 +10,7 @@
 
 ### Features
 
+- add `codeframe` formatter (from eslint).
 - add `HtmlValidate.flushConfigCache` to allow flushing the config loader cache.
 - add `TemplateExtractor.createSource` as a quick way to create a source from
   filename.
