@@ -10,7 +10,6 @@
     "callable-types": false,
     "curly": false,
     "forin": false,
-    "import-spacing": false,
     "indent": [true, "tabs", 1],
     "interface-name": false,
     "jsdoc-format": false,

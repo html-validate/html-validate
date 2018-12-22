@@ -1,4 +1,4 @@
-import { Attribute, DOMTree, HtmlElement, NodeClosed }  from ".";
+import { Attribute, DOMTree, HtmlElement, NodeClosed } from ".";
 import { Config } from "../config";
 import { Location } from "../context";
 import { Token, TokenType } from "../lexer";
