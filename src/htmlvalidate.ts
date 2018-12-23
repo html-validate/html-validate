@@ -6,10 +6,12 @@ import { Report } from "./reporter";
 
 class HtmlValidate {
 	private globalConfig: Config;
+	protected configLoader: ConfigLoader;
 
 	constructor(options?: any){
 		const defaults = Config.empty();
 		this.globalConfig = defaults.merge(options ? Config.fromObject(options) : Config.defaultConfig());
+		this.configLoader = new ConfigLoader();
 	}
 
 	/**
@@ -86,8 +88,7 @@ class HtmlValidate {
 	 * Get configuration for given filename.
 	 */
 	public getConfigFor(filename: string): Config {
-		const loader = new ConfigLoader();
-		const config = loader.fromTarget(filename);
+		const config = this.configLoader.fromTarget(filename);
 		const merged = this.globalConfig.merge(config);
 		merged.init();
 		return merged;

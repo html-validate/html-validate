@@ -1,18 +1,21 @@
+import * as fs from "fs";
+import * as path from "path";
 import { Config } from "./config";
 
-const path = require("path");
-const fs = require("fs");
-
-const cache: { [key: string]: Config } = {};
-
 export class ConfigLoader {
+	protected cache: { [key: string]: Config };
+
+	constructor(){
+		this.cache = {};
+	}
+
 	public fromTarget(filename: string): Config {
 		if (filename === "inline"){
 			return Config.empty();
 		}
 
-		if (filename in cache){
-			return cache[filename];
+		if (filename in this.cache){
+			return this.cache[filename];
 		}
 
 		let current = path.resolve(path.dirname(filename));
@@ -36,7 +39,7 @@ export class ConfigLoader {
 			}
 		}
 
-		cache[filename] = config;
+		this.cache[filename] = config;
 		return config;
 	}
 }
