@@ -1,9 +1,16 @@
 import { HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { Validator } from "../meta";
-import { Rule } from "../rule";
+import { Rule, RuleDocumentation } from "../rule";
 
 class AttributeAllowedValues extends Rule {
+	documentation(): RuleDocumentation {
+		return {
+			description: "Validates attributes for allowed values.",
+			url: "https://html-validate.org/rules/attribute-allowed-values.html",
+		};
+	}
+
 	setup(){
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;

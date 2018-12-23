@@ -1,5 +1,5 @@
 import { TagOpenEvent } from "../event";
-import { Rule } from "../rule";
+import { Rule, RuleDocumentation } from "../rule";
 
 const defaults = {
 	style: "lowercase",
@@ -12,6 +12,13 @@ class ElementCase extends Rule {
 	constructor(options: object){
 		super(Object.assign({}, defaults, options));
 		[this.pattern, this.lettercase] = parseStyle(this.options.style);
+	}
+
+	documentation(): RuleDocumentation {
+		return {
+			description: "Requires a specific case for element names.",
+			url: "https://html-validate.org/rules/element-case.html",
+		};
 	}
 
 	setup(){

@@ -120,6 +120,14 @@ describe("HtmlValidate", () => {
 		}]);
 	});
 
+	it("getRuleDocumentation() should delegate call to engine", () => {
+		const htmlvalidate = new HtmlValidate();
+		const config = Config.empty();
+		htmlvalidate.getRuleDocumentation("foo", config);
+		const engine = engineInstance();
+		expect(engine.getRuleDocumentation).toHaveBeenCalledWith("foo");
+	});
+
 	it("getParserFor() should create a parser for given filename", () => {
 		const htmlvalidate = new HtmlValidate();
 		const config = {foo: "bar"};

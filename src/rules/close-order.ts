@@ -1,8 +1,15 @@
 import { NodeClosed } from "../dom";
 import { TagCloseEvent } from "../event";
-import { Rule } from "../rule";
+import { Rule, RuleDocumentation } from "../rule";
 
 class CloseOrder extends Rule {
+	documentation(): RuleDocumentation {
+		return {
+			description: "HTML requires elements to be closed in the correct order.",
+			url: "https://html-validate.org/rules/close-order.html",
+		};
+	}
+
 	setup(){
 		this.on("tag:close", (event: TagCloseEvent) => {
 			const current = event.target;     // The current element being closed

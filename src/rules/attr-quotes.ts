@@ -1,5 +1,5 @@
 import { AttributeEvent } from "../event";
-import { Rule } from "../rule";
+import { Rule, RuleDocumentation } from "../rule";
 
 const SINGLE_QUOTE = "'";
 const DOUBLE_QUOTE = '"';
@@ -11,6 +11,13 @@ const defaults = {
 
 class AttrQuotes extends Rule {
 	expected: string;
+
+	documentation(): RuleDocumentation {
+		return {
+			description: "Require a specific style for attribute quoting.",
+			url: "https://html-validate.org/rules/attr-quotes.html",
+		};
+	}
 
 	constructor(options: object){
 		super(Object.assign({}, defaults, options));

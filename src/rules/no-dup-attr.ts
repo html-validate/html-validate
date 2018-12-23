@@ -1,7 +1,14 @@
 import { AttributeEvent } from "../event";
-import { Rule } from "../rule";
+import { Rule, RuleDocumentation } from "../rule";
 
 class NoDupAttr extends Rule {
+	documentation(): RuleDocumentation {
+		return {
+			description: "HTML disallows two or more attributes with the same (case-insensitive) name.",
+			url: "https://html-validate.org/rules/no-dup-attr.html",
+		};
+	}
+
 	setup(){
 		let attr: { [key: string]: boolean } = {};
 

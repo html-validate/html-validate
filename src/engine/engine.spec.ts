@@ -243,6 +243,23 @@ describe("Engine", () => {
 
 	});
 
+	describe("getRuleDocumentation()", () => {
+
+		it("should get rule documentation", () => {
+			const docs = engine.getRuleDocumentation("void");
+			expect(docs).toEqual({
+				description: expect.any(String),
+				url: expect.any(String),
+			});
+		});
+
+		it("should return null if rule is unknown", () => {
+			const docs = engine.getRuleDocumentation("missing-rule");
+			expect(docs).toBeNull();
+		});
+
+	});
+
 	describe("internals", () => {
 
 		describe("loadRule()", () => {

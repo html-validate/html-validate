@@ -1,9 +1,16 @@
 import { HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { Validator } from "../meta";
-import { Rule } from "../rule";
+import { Rule, RuleDocumentation } from "../rule";
 
 class ElementPermittedOrder extends Rule {
+	documentation(): RuleDocumentation {
+		return {
+			description: "Some elements has a specific order the children must use.",
+			url: "https://html-validate.org/rules/element-permitted-order.html",
+		};
+	}
+
 	setup(){
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;

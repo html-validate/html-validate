@@ -1,8 +1,15 @@
 import { DOMTree, HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
-import { Rule } from "../rule";
+import { Rule, RuleDocumentation } from "../rule";
 
 class InputMissingLabel extends Rule {
+	documentation(): RuleDocumentation {
+		return {
+			description: "Labels are associated with the input element and is required for a17y.",
+			url: "https://html-validate.org/rules/input-missing-label.html",
+		};
+	}
+
 	setup(){
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const root = event.document;

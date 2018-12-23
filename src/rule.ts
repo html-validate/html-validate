@@ -19,6 +19,11 @@ export interface RuleOptions {
 	[key: string]: any;
 }
 
+export interface RuleDocumentation {
+	description: string;
+	url?: string;
+}
+
 export type RuleConstructor = new (options: RuleOptions) => Rule;
 
 export abstract class Rule {
@@ -123,4 +128,8 @@ export abstract class Rule {
 	}
 
 	abstract setup(): void;
+
+	documentation(): RuleDocumentation {
+		return null;
+	}
 }

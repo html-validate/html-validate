@@ -123,4 +123,8 @@ describe("rule base class", () => {
 
 	});
 
+	it("documentation() should return null", () => {
+		expect(rule.documentation()).toBeNull();
+	});
+
 });

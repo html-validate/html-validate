@@ -1,5 +1,5 @@
 import { AttributeEvent } from "../event";
-import { Rule } from "../rule";
+import { Rule, RuleDocumentation } from "../rule";
 
 const defaults = {
 	style: "lowercase",
@@ -12,6 +12,13 @@ class AttrCase extends Rule {
 	constructor(options: object){
 		super(Object.assign({}, defaults, options));
 		[this.pattern, this.lettercase] = parseStyle(this.options.style);
+	}
+
+	documentation(): RuleDocumentation {
+		return {
+			description: "Requires a specific case for attribute names.",
+			url: "https://html-validate.org/rules/attr-case.html",
+		};
 	}
 
 	setup(){

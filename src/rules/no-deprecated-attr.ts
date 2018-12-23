@@ -1,7 +1,14 @@
 import { AttributeEvent } from "../event";
-import { Rule } from "../rule";
+import { Rule, RuleDocumentation } from "../rule";
 
 class NoDeprecatedAttr extends Rule {
+	documentation(): RuleDocumentation {
+		return {
+			description: "HTML5 deprecated many old attributes.",
+			url: "https://html-validate.org/rules/no-deprecated-attr.html",
+		};
+	}
+
 	setup(){
 		this.on("attr", (event: AttributeEvent) => {
 			const node = event.target;

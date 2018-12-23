@@ -1,7 +1,14 @@
 import { DOMReadyEvent } from "../event";
-import { Rule } from "../rule";
+import { Rule, RuleDocumentation } from "../rule";
 
 class NoDupID extends Rule {
+	documentation(): RuleDocumentation {
+		return {
+			description: "The ID of an element must be unique.",
+			url: "https://html-validate.org/rules/no-dup-id.html",
+		};
+	}
+
 	setup(){
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const existing: { [key: string]: boolean } = {};
