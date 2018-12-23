@@ -1,12 +1,12 @@
 import { HtmlElement } from "../dom";
 import { TagOpenEvent } from "../event";
-import { Rule, RuleDocumentation } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class HeadingLevel extends Rule {
 	documentation(): RuleDocumentation {
 		return {
 			description: "Validates heading level increments and order. Headings must start at h1 and can only increase one level at a time.",
-			url: "https://html-validate.org/rules/heading-level.html",
+			url: ruleDocumentationUrl(__filename),
 		};
 	}
 

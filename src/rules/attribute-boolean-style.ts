@@ -1,7 +1,7 @@
 import { HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { PermittedAttribute } from "../meta/element";
-import { Rule, RuleDocumentation } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 const defaults = {
 	style: "omit",
@@ -20,7 +20,7 @@ class AttributeBooleanStyle extends Rule {
 	documentation(): RuleDocumentation {
 		return {
 			description: "Require a specific style when writing boolean attributes.",
-			url: "https://html-validate.org/rules/attribute-boolean-style.html",
+			url: ruleDocumentationUrl(__filename),
 		};
 	}
 

@@ -1,6 +1,6 @@
 import { AttributeEvent } from "../event";
 import { parsePattern } from "../pattern";
-import { Rule, RuleDocumentation } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 const defaults = {
 	pattern: "kebabcase",
@@ -17,7 +17,7 @@ class IdPattern extends Rule {
 	documentation(): RuleDocumentation {
 		return {
 			description: "Requires all IDs to match a given pattern.",
-			url: "https://html-validate.org/rules/id-pattern.html",
+			url: ruleDocumentationUrl(__filename),
 		};
 	}
 

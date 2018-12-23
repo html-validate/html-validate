@@ -2,13 +2,13 @@ import { HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { Validator } from "../meta";
 import { Permitted } from "../meta/element";
-import { Rule, RuleDocumentation } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class ElementPermittedContent extends Rule {
 	documentation(): RuleDocumentation {
 		return {
 			description: "HTML defines what content is allowed under each type of element.",
-			url: "https://html-validate.org/rules/element-permitted-content.html",
+			url: ruleDocumentationUrl(__filename),
 		};
 	}
 

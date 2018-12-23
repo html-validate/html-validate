@@ -1,11 +1,11 @@
 import { DOMReadyEvent } from "../event";
-import { Rule, RuleDocumentation } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class NoDupID extends Rule {
 	documentation(): RuleDocumentation {
 		return {
 			description: "The ID of an element must be unique.",
-			url: "https://html-validate.org/rules/no-dup-id.html",
+			url: ruleDocumentationUrl(__filename),
 		};
 	}
 

@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import * as path from "path";
 import { Config } from "./config";
 import { Location } from "./context";
 import { HtmlElement } from "./dom";
@@ -14,6 +15,8 @@ import {
 } from "./event";
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";
+
+const homepage = require("../package.json").homepage;
 
 export interface RuleOptions {
 	[key: string]: any;
@@ -132,4 +135,9 @@ export abstract class Rule {
 	documentation(): RuleDocumentation {
 		return null;
 	}
+}
+
+export function ruleDocumentationUrl(filename: string): string {
+	const p = path.parse(filename);
+	return `${homepage}/rules/${p.name}.html`;
 }

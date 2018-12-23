@@ -1,12 +1,12 @@
 import { DOMTree, HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
-import { Rule, RuleDocumentation } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class InputMissingLabel extends Rule {
 	documentation(): RuleDocumentation {
 		return {
 			description: "Labels are associated with the input element and is required for a17y.",
-			url: "https://html-validate.org/rules/input-missing-label.html",
+			url: ruleDocumentationUrl(__filename),
 		};
 	}
 

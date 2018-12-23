@@ -1,11 +1,11 @@
 import { TagOpenEvent } from "../event";
-import { Rule, RuleDocumentation } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class Deprecated extends Rule {
 	documentation(): RuleDocumentation {
 		return {
 			description: "HTML5 deprecated many old elements.",
-			url: "https://html-validate.org/rules/deprecated.html",
+			url: ruleDocumentationUrl(__filename),
 		};
 	}
 

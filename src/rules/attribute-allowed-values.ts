@@ -1,13 +1,13 @@
 import { HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { Validator } from "../meta";
-import { Rule, RuleDocumentation } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class AttributeAllowedValues extends Rule {
 	documentation(): RuleDocumentation {
 		return {
 			description: "Validates attributes for allowed values.",
-			url: "https://html-validate.org/rules/attribute-allowed-values.html",
+			url: ruleDocumentationUrl(__filename),
 		};
 	}
 

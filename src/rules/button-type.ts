@@ -1,6 +1,6 @@
 import { HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
-import { Rule, RuleDocumentation } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 const validTypes = ["submit", "button", "reset"];
 
@@ -8,7 +8,7 @@ class ButtonType extends Rule {
 	documentation(): RuleDocumentation {
 		return {
 			description: "HTML button defaults to type=\"submit\" when attribute is missing or invalid which may not be the intended type.",
-			url: "https://html-validate.org/rules/button-type.html",
+			url: ruleDocumentationUrl(__filename),
 		};
 	}
 

@@ -1,6 +1,6 @@
 import { HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
-import { Rule, RuleDocumentation } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 const defaults = {
 	allowEmpty: true,
@@ -11,7 +11,7 @@ class ImgReqAlt extends Rule {
 	documentation(): RuleDocumentation {
 		return {
 			description: "Both HTML5 and WCAG 2.0 requires images to have a alternative text for each image.",
-			url: "https://html-validate.org/rules/img-req-alt.html",
+			url: ruleDocumentationUrl(__filename),
 		};
 	}
 

@@ -1,11 +1,11 @@
 import { TagCloseEvent } from "../event";
-import { Rule, RuleDocumentation } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class CloseAttr extends Rule {
 	documentation(): RuleDocumentation {
 		return {
 			description: "HTML disallows end tags to have attributes.",
-			url: "https://html-validate.org/rules/close-attr.html",
+			url: ruleDocumentationUrl(__filename),
 		};
 	}
 

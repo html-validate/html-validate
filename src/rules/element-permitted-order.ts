@@ -1,13 +1,13 @@
 import { HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { Validator } from "../meta";
-import { Rule, RuleDocumentation } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class ElementPermittedOrder extends Rule {
 	documentation(): RuleDocumentation {
 		return {
 			description: "Some elements has a specific order the children must use.",
-			url: "https://html-validate.org/rules/element-permitted-order.html",
+			url: ruleDocumentationUrl(__filename),
 		};
 	}
 

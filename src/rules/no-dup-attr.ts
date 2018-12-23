@@ -1,11 +1,11 @@
 import { AttributeEvent } from "../event";
-import { Rule, RuleDocumentation } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class NoDupAttr extends Rule {
 	documentation(): RuleDocumentation {
 		return {
 			description: "HTML disallows two or more attributes with the same (case-insensitive) name.",
-			url: "https://html-validate.org/rules/no-dup-attr.html",
+			url: ruleDocumentationUrl(__filename),
 		};
 	}
 

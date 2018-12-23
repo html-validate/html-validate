@@ -1,7 +1,7 @@
 import { DOMTokenList } from "../dom";
 import { AttributeEvent } from "../event";
 import { parsePattern } from "../pattern";
-import { Rule, RuleDocumentation } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 const defaults = {
 	pattern: "kebabcase",
@@ -18,7 +18,7 @@ class ClassPattern extends Rule {
 	documentation(): RuleDocumentation {
 		return {
 			description: "Requires all classes to match a given pattern.",
-			url: "https://html-validate.org/rules/class-pattern.html",
+			url: ruleDocumentationUrl(__filename),
 		};
 	}
 

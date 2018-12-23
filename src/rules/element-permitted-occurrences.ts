@@ -1,13 +1,13 @@
 import { HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { Validator } from "../meta";
-import { Rule, RuleDocumentation } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class ElementPermittedOccurrences extends Rule {
 	documentation(): RuleDocumentation {
 		return {
 			description: "Some elements may only be used a fixed amount of times in given context.",
-			url: "https://html-validate.org/rules/element-permitted-occurrences.html",
+			url: ruleDocumentationUrl(__filename),
 		};
 	}
 

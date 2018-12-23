@@ -4,7 +4,7 @@ import { HtmlElement } from "./dom";
 import { Event } from "./event";
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";
-import { Rule } from "./rule";
+import { Rule, ruleDocumentationUrl } from "./rule";
 
 class MockRule extends Rule {
 	setup(){
@@ -127,4 +127,8 @@ describe("rule base class", () => {
 		expect(rule.documentation()).toBeNull();
 	});
 
+});
+
+it("ruleDocumentationUrl() should return URL to rule documentation", () => {
+	expect(ruleDocumentationUrl("src/rules/foo.ts")).toEqual("https://html-validate.org/rules/foo.html");
 });

@@ -1,7 +1,7 @@
 import { HtmlElement } from "../dom";
 import { NodeClosed } from "../dom";
 import { TagCloseEvent } from "../event";
-import { Rule, RuleDocumentation } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 const defaults = {
 	style: "omit",
@@ -19,7 +19,7 @@ class Void extends Rule {
 	documentation(): RuleDocumentation {
 		return {
 			description: "HTML void elements cannot have any content and must not have an end tag.",
-			url: "https://html-validate.org/rules/void.html",
+			url: ruleDocumentationUrl(__filename),
 		};
 	}
 

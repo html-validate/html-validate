@@ -1,5 +1,5 @@
 import { AttributeEvent } from "../event";
-import { Rule, RuleDocumentation } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 const SINGLE_QUOTE = "'";
 const DOUBLE_QUOTE = '"';
@@ -15,7 +15,7 @@ class AttrQuotes extends Rule {
 	documentation(): RuleDocumentation {
 		return {
 			description: "Require a specific style for attribute quoting.",
-			url: "https://html-validate.org/rules/attr-quotes.html",
+			url: ruleDocumentationUrl(__filename),
 		};
 	}
 

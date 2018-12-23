@@ -1,5 +1,5 @@
 import { TagOpenEvent } from "../event";
-import { Rule, RuleDocumentation } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 const defaults = {
 	pattern: "^[a-z][a-z0-9\\-._]*-[a-z0-9\\-._]*$",
@@ -18,7 +18,7 @@ class ElementName extends Rule {
 	documentation(): RuleDocumentation {
 		return {
 			description: "HTML defines what content is considered a valid (custom) element name.",
-			url: "https://html-validate.org/rules/element-name.html",
+			url: ruleDocumentationUrl(__filename),
 		};
 	}
 

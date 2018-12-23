@@ -1,12 +1,12 @@
 import { DOMTokenList } from "../dom";
 import { AttributeEvent } from "../event";
-import { Rule, RuleDocumentation } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class NoDupClass extends Rule {
 	documentation(): RuleDocumentation {
 		return {
 			description: "Prevents unnecessary duplication of class names.",
-			url: "https://html-validate.org/rules/no-dup-class.html",
+			url: ruleDocumentationUrl(__filename),
 		};
 	}
 

@@ -1,11 +1,11 @@
 import { WhitespaceEvent } from "../event";
-import { Rule, RuleDocumentation } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class NoTrailingWhitespace extends Rule {
 	documentation(): RuleDocumentation {
 		return {
 			description: "Lines with trailing whitespace cause unnessecary diff when using version control and usually serve no special purpose in HTML.",
-			url: "https://html-validate.org/rules/no-trailing-whitespace.html",
+			url: ruleDocumentationUrl(__filename),
 		};
 	}
 

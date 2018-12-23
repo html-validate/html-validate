@@ -1,11 +1,11 @@
 import { ConditionalEvent } from "../event";
-import { Rule, RuleDocumentation } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class NoConditionalComment extends Rule {
 	documentation(): RuleDocumentation {
 		return {
 			description: "Microsoft Internet Explorer previously supported using special HTML comments (conditional comments) for targeting specific versions of IE but since IE 10 it is deprecated and not supported in standards mode.",
-			url: "https://html-validate.org/rules/no-conditional-comment.html",
+			url: ruleDocumentationUrl(__filename),
 		};
 	}
 
