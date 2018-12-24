@@ -8,11 +8,11 @@ interface ConfigClass {
 }
 
 export class ConfigLoader {
-	protected cache: { [key: string]: Config };
+	protected cache: Map<string, Config>;
 	protected configClass: ConfigClass;
 
 	constructor(configClass: ConfigClass){
-		this.cache = {};
+		this.cache = new Map<string, Config>();
 		this.configClass = configClass;
 	}
 
@@ -21,8 +21,8 @@ export class ConfigLoader {
 			return this.configClass.empty();
 		}
 
-		if (filename in this.cache){
-			return this.cache[filename];
+		if (this.cache.has(filename)){
+			return this.cache.get(filename);
 		}
 
 		let current = path.resolve(path.dirname(filename));
@@ -46,7 +46,7 @@ export class ConfigLoader {
 			}
 		}
 
-		this.cache[filename] = config;
+		this.cache.set(filename, config);
 		return config;
 	}
 }
