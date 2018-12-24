@@ -1,17 +1,17 @@
 const glob = require("glob");
 const files = glob.sync("test-files/config/**/*.html");
+import { Config, ConfigLoader } from ".";
 import HtmlValidate from "../htmlvalidate";
-import { ConfigLoader } from "./config-loader";
 
 describe("ConfigLoader", () => {
 
 	let loader: ConfigLoader;
 
-	beforeAll(() => {
-		loader = new ConfigLoader();
-	});
-
 	describe("smoketest", () => {
+
+		beforeAll(() => {
+			loader = new ConfigLoader(Config);
+		});
 
 		files.forEach((filename: string) => {
 			it(filename, () => {

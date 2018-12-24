@@ -2,16 +2,23 @@ import * as fs from "fs";
 import * as path from "path";
 import { Config } from "./config";
 
+interface ConfigClass {
+	empty(): Config;
+	fromFile(filename: string): Config;
+}
+
 export class ConfigLoader {
 	protected cache: { [key: string]: Config };
+	protected configClass: ConfigClass;
 
-	constructor(){
+	constructor(configClass: ConfigClass){
 		this.cache = {};
+		this.configClass = configClass;
 	}
 
 	public fromTarget(filename: string): Config {
 		if (filename === "inline"){
-			return Config.empty();
+			return this.configClass.empty();
 		}
 
 		if (filename in this.cache){
@@ -19,13 +26,13 @@ export class ConfigLoader {
 		}
 
 		let current = path.resolve(path.dirname(filename));
-		let config = Config.empty();
+		let config = this.configClass.empty();
 
 		for (;;){
 			const search = path.join(current, ".htmlvalidate.json");
 
 			if (fs.existsSync(search)){
-				const local = Config.fromFile(search);
+				const local = this.configClass.fromFile(search);
 				config = local.merge(config);
 			}
 
