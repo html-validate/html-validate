@@ -6,7 +6,7 @@ const eslintStrict = process.env.ESLINT_STRICT === "1";
 module.exports = function(grunt){
 	require("load-grunt-tasks")(grunt);
 
-	grunt.registerTask("test", ["eslint", "jest"]);
+	grunt.registerTask("test", ["eslint", "tslint", "jest"]);
 	grunt.registerTask("build", ["ts", "test"]);
 	grunt.registerTask("build:ci", ["ts"]); /* CI runs test in separate stage */
 	grunt.registerTask("default", ["build"]);
@@ -53,6 +53,15 @@ module.exports = function(grunt){
 					"*.js",
 					"*.ts",
 					"docs/**/*.js",
+					"src/**/*.ts",
+				],
+			},
+		},
+
+		tslint: {
+			default: {
+				src: [
+					"*.ts",
 					"src/**/*.ts",
 				],
 			},
