@@ -60,7 +60,8 @@ Jest:
 
 TSLint:
   stage: test
-  script: node_modules/.bin/tslint -t verbose $(find src -name '*.ts') *.ts
+  script:
+    - node_modules/.bin/grunt tslint
 
 Docs:
   stage: test

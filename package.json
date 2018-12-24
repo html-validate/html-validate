@@ -28,7 +28,7 @@
   "scripts": {
     "start": "grunt connect",
     "test": "jest",
-    "lint": "grunt eslint",
+    "lint": "grunt eslint tslint",
     "version": "./scripts/update-changelog.sh && git add CHANGELOG.md",
     "preversion": "./scripts/validate-version.sh",
     "postversion": "git push --follow-tags"
@@ -72,6 +72,7 @@
     "grunt-postcss": "^0.9.0",
     "grunt-sass": "^3.0.2",
     "grunt-ts": "^6.0.0-beta.21",
+    "grunt-tslint": "^5.0.2",
     "highlight.js": "^9.13.1",
     "jest": "^23.6.0",
     "jquery": "^3.3.1",
