@@ -1,4 +1,4 @@
-import { Config } from "./config";
+import { Config, ConfigLoader } from "./config";
 import { Source } from "./context";
 import { Engine } from "./engine";
 import HtmlValidate from "./htmlvalidate";
@@ -128,6 +128,13 @@ describe("HtmlValidate", () => {
 		const parser = htmlvalidate.getParserFor(source);
 		expect(parser).toBeInstanceOf(Parser);
 		expect(Parser).toHaveBeenCalledWith(config);
+	});
+
+	it("flushConfigCache() should delegate to configLoader", () => {
+		const htmlvalidate = new HtmlValidate();
+		const flush = jest.spyOn((htmlvalidate as any).configLoader as ConfigLoader, "flush");
+		htmlvalidate.flushConfigCache("foo");
+		expect(flush).toHaveBeenCalledWith("foo");
 	});
 
 });

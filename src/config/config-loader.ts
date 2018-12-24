@@ -1,28 +1,46 @@
+import * as fs from "fs";
+import * as path from "path";
 import { Config } from "./config";
 
-const path = require("path");
-const fs = require("fs");
-
-const cache: { [key: string]: Config } = {};
+interface ConfigClass {
+	empty(): Config;
+	fromFile(filename: string): Config;
+}
 
 export class ConfigLoader {
+	protected cache: Map<string, Config>;
+	protected configClass: ConfigClass;
+
+	constructor(configClass: ConfigClass){
+		this.cache = new Map<string, Config>();
+		this.configClass = configClass;
+	}
+
+	public flush(filename?: string): void {
+		if (filename){
+			this.cache.delete(filename);
+		} else {
+			this.cache.clear();
+		}
+	}
+
 	public fromTarget(filename: string): Config {
 		if (filename === "inline"){
-			return Config.empty();
+			return this.configClass.empty();
 		}
 
-		if (filename in cache){
-			return cache[filename];
+		if (this.cache.has(filename)){
+			return this.cache.get(filename);
 		}
 
 		let current = path.resolve(path.dirname(filename));
-		let config = Config.empty();
+		let config = this.configClass.empty();
 
 		for (;;){
 			const search = path.join(current, ".htmlvalidate.json");
 
 			if (fs.existsSync(search)){
-				const local = Config.fromFile(search);
+				const local = this.configClass.fromFile(search);
 				config = local.merge(config);
 			}
 
@@ -36,7 +54,7 @@ export class ConfigLoader {
 			}
 		}
 
-		cache[filename] = config;
+		this.cache.set(filename, config);
 		return config;
 	}
 }

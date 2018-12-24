@@ -20,6 +20,7 @@ const deepmerge = require("deepmerge");
 
 const recommended = require("./recommended");
 const document = require("./document");
+let rootDirCache: string = null;
 
 function parseSeverity(value: string | number){
 	if (typeof value === "number"){
@@ -237,12 +238,16 @@ export class Config {
 	}
 
 	protected findRootDir(){
+		if (rootDirCache !== null){
+			return rootDirCache;
+		}
+
 		/* try to locate package.json */
 		let current = process.cwd();
 		for (;;){
 			const search = path.join(current, "package.json");
 			if (fs.existsSync(search)){
-				return current;
+				return (rootDirCache = current);
 			}
 
 			/* get the parent directory */
@@ -256,6 +261,6 @@ export class Config {
 		}
 
 		/* default to working directory if no package.json is found */
-		return process.cwd();
+		return (rootDirCache = process.cwd());
 	}
 }
