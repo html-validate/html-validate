@@ -5,7 +5,7 @@ import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 class CloseOrder extends Rule {
 	documentation(): RuleDocumentation {
 		return {
-			description: "HTML requires elements to be closed in the correct order.",
+			description: "HTML requires elements to be closed in the same order as they were opened.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}

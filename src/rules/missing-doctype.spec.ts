@@ -26,4 +26,8 @@ describe("rule missing-doctype", () => {
 		expect(report.results).toMatchSnapshot();
 	});
 
+	it("should contain documentation", () => {
+		expect(htmlvalidate.getRuleDocumentation("missing-doctype")).toMatchSnapshot();
+	});
+
 });

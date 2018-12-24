@@ -1,5 +1,5 @@
 import { AttributeEvent } from "../event";
-import { parsePattern } from "../pattern";
+import { describePattern, parsePattern } from "../pattern";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 const defaults = {
@@ -15,8 +15,9 @@ class IdPattern extends Rule {
 	}
 
 	documentation(): RuleDocumentation {
+		const pattern = describePattern(this.options.pattern);
 		return {
-			description: "Requires all IDs to match a given pattern.",
+			description: `For consistency all IDs are required to match the pattern ${pattern}.`,
 			url: ruleDocumentationUrl(__filename),
 		};
 	}

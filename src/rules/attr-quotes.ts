@@ -14,7 +14,7 @@ class AttrQuotes extends Rule {
 
 	documentation(): RuleDocumentation {
 		return {
-			description: "Require a specific style for attribute quoting.",
+			description: `Attribute values are required to be quoted with ${this.options.style}quotes.`,
 			url: ruleDocumentationUrl(__filename),
 		};
 	}

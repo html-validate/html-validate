@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule no-dup-attr should contain documentation 1`] = `
+Object {
+  "description": "HTML disallows two or more attributes with the same (case-insensitive) name.",
+  "url": "https://html-validate.org/rules/no-dup-attr.html",
+}
+`;
+
 exports[`rule no-dup-attr smoketest 1`] = `
 Array [
   Object {

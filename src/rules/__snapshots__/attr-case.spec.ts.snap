@@ -71,3 +71,10 @@ Array [
   },
 ]
 `;
+
+exports[`rule attr-case should contain documentation 1`] = `
+Object {
+  "description": "Attribute name must be lowercase.",
+  "url": "https://html-validate.org/rules/attr-case.html",
+}
+`;

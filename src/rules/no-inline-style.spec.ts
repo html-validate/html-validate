@@ -21,4 +21,8 @@ describe("rule no-inline-style", () => {
 		expect(report.results).toMatchSnapshot();
 	});
 
+	it("should contain documentation", () => {
+		expect(htmlvalidate.getRuleDocumentation("no-inline-style")).toMatchSnapshot();
+	});
+
 });

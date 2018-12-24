@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule close-order should contain documentation 1`] = `
+Object {
+  "description": "HTML requires elements to be closed in the same order as they were opened.",
+  "url": "https://html-validate.org/rules/close-order.html",
+}
+`;
+
 exports[`rule close-order smoketest 1`] = `
 Array [
   Object {

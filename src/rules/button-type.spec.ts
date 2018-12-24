@@ -42,4 +42,8 @@ describe("rule button-type", () => {
 		expect(report.results).toMatchSnapshot();
 	});
 
+	it("should contain documentation", () => {
+		expect(htmlvalidate.getRuleDocumentation("button-type")).toMatchSnapshot();
+	});
+
 });

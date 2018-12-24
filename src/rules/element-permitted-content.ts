@@ -7,7 +7,7 @@ import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 class ElementPermittedContent extends Rule {
 	documentation(): RuleDocumentation {
 		return {
-			description: "HTML defines what content is allowed under each type of element.",
+			description: "Some elements has restrictions on what content is allowed. This can include both direct children or descendant elements.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}

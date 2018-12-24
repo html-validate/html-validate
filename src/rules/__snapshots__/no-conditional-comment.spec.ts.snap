@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule no-conditional-comment should contain documentation 1`] = `
+Object {
+  "description": "Microsoft Internet Explorer previously supported using special HTML comments (conditional comments) for targeting specific versions of IE but since IE 10 it is deprecated and not supported in standards mode.",
+  "url": "https://html-validate.org/rules/no-conditional-comment.html",
+}
+`;
+
 exports[`rule no-conditional-comment smoketest 1`] = `
 Array [
   Object {

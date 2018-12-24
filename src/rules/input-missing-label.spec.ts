@@ -31,4 +31,8 @@ describe("rule input-missing-label", () => {
 		expect(report.results).toMatchSnapshot();
 	});
 
+	it("should contain documentation", () => {
+		expect(htmlvalidate.getRuleDocumentation("input-missing-label")).toMatchSnapshot();
+	});
+
 });

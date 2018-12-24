@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule img-req-alt should contain documentation 1`] = `
+Object {
+  "description": "Both HTML5 and WCAG 2.0 requires images to have a alternative text for each image.",
+  "url": "https://html-validate.org/rules/img-req-alt.html",
+}
+`;
+
 exports[`rule img-req-alt with alias (array) smoketest 1`] = `
 Array [
   Object {

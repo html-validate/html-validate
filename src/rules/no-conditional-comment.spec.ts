@@ -38,4 +38,8 @@ describe("rule no-conditional-comment", () => {
 		expect(report.results).toMatchSnapshot();
 	});
 
+	it("should contain documentation", () => {
+		expect(htmlvalidate.getRuleDocumentation("no-conditional-comment")).toMatchSnapshot();
+	});
+
 });

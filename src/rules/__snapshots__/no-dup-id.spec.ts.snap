@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule no-dup-id should contain documentation 1`] = `
+Object {
+  "description": "The ID of an element must be unique.",
+  "url": "https://html-validate.org/rules/no-dup-id.html",
+}
+`;
+
 exports[`rule no-dup-id smoketest 1`] = `
 Array [
   Object {

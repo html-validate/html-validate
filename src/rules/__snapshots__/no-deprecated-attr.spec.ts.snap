@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule no-deprecated-attr should contain documentation 1`] = `
+Object {
+  "description": "HTML5 deprecated many old attributes.",
+  "url": "https://html-validate.org/rules/no-deprecated-attr.html",
+}
+`;
+
 exports[`rule no-deprecated-attr smoketest 1`] = `
 Array [
   Object {

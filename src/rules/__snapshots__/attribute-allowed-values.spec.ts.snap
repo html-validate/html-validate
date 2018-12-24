@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule attribute-allowed-values should contain contextual documentation 1`] = `
+Object {
+  "description": "Element <any> does not allow attribute \`foo\` to have the value \`bar\`, it must match one of the following:
+
+- \`spam\`
+- \`ham\`
+- \`/\\\\d+/\`",
+  "url": "https://html-validate.org/rules/attribute-allowed-values.html",
+}
+`;
+
+exports[`rule attribute-allowed-values should contain documentation 1`] = `
+Object {
+  "description": "Attribute has invalid value.",
+  "url": "https://html-validate.org/rules/attribute-allowed-values.html",
+}
+`;
+
 exports[`rule attribute-allowed-values smoketest 1`] = `
 Array [
   Object {
@@ -8,7 +26,35 @@ Array [
     "messages": Array [
       Object {
         "column": 8,
-        "context": undefined,
+        "context": Object {
+          "allowed": Array [
+            "button",
+            "checkbox",
+            "color",
+            "date",
+            "datetime-local",
+            "email",
+            "file",
+            "hidden",
+            "image",
+            "month",
+            "number",
+            "password",
+            "radio",
+            "range",
+            "reset",
+            "search",
+            "submit",
+            "tel",
+            "text",
+            "time",
+            "url",
+            "week",
+          ],
+          "attribute": "type",
+          "element": "input",
+          "value": "foobar",
+        },
         "line": 3,
         "message": "Attribute \\"type\\" has invalid value \\"foobar\\"",
         "offset": 35,

@@ -41,4 +41,8 @@ describe("rule no-trailing-whitespace", () => {
 		expect(report.results).toMatchSnapshot();
 	});
 
+	it("should contain documentation", () => {
+		expect(htmlvalidate.getRuleDocumentation("no-trailing-whitespace")).toMatchSnapshot();
+	});
+
 });

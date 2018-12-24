@@ -46,4 +46,8 @@ describe("rule close-attr", () => {
 		expect(report.results).toMatchSnapshot();
 	});
 
+	it("should contain documentation", () => {
+		expect(htmlvalidate.getRuleDocumentation("close-attr")).toMatchSnapshot();
+	});
+
 });

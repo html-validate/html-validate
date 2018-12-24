@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule deprecated should contain documentation 1`] = `
+Object {
+  "description": "HTML5 deprecated many old elements and they should not be used in new code.",
+  "url": "https://html-validate.org/rules/deprecated.html",
+}
+`;
+
 exports[`rule deprecated smoketest 1`] = `
 Array [
   Object {

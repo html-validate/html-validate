@@ -137,3 +137,10 @@ Array [
   },
 ]
 `;
+
+exports[`rule element-name should contain documentation 1`] = `
+Object {
+  "description": "HTML defines what content is considered a valid (custom) element name.",
+  "url": "https://html-validate.org/rules/element-name.html",
+}
+`;

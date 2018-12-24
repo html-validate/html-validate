@@ -101,4 +101,11 @@ describe("rule attr-quotes", () => {
 		expect(report).toHaveError("attr-quotes", `Attribute "foo" used ' instead of expected "`);
 	});
 
+	it("should contain documentation", () => {
+		htmlvalidate = new HtmlValidate({
+			rules: {"attr-quotes": "error"},
+		});
+		expect(htmlvalidate.getRuleDocumentation("attr-quotes")).toMatchSnapshot();
+	});
+
 });

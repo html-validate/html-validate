@@ -4,7 +4,7 @@ import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 class Deprecated extends Rule {
 	documentation(): RuleDocumentation {
 		return {
-			description: "HTML5 deprecated many old elements.",
+			description: "HTML5 deprecated many old elements and they should not be used in new code.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}

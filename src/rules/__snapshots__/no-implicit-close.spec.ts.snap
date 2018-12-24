@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule no-implicit-close should contain documentation 1`] = `
+Object {
+  "description": "Some elements in HTML has optional end tags. When an optional tag is omitted a browser must handle it as if the end tag was present.
+
+Omitted end tags can be ambigious for humans to read and many editors have trouble formatting the markup.",
+  "url": "https://html-validate.org/rules/no-implicit-close.html",
+}
+`;
+
 exports[`rule no-implicit-close smoketest 1`] = `
 Array [
   Object {

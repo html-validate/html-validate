@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule element-permitted-order should contain documentation 1`] = `
+Object {
+  "description": "Some elements has a specific order the children must use.",
+  "url": "https://html-validate.org/rules/element-permitted-order.html",
+}
+`;

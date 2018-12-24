@@ -31,4 +31,8 @@ describe("rule no-dup-class", () => {
 		expect(report.results).toMatchSnapshot();
 	});
 
+	it("should contain documentation", () => {
+		expect(htmlvalidate.getRuleDocumentation("no-dup-class")).toMatchSnapshot();
+	});
+
 });

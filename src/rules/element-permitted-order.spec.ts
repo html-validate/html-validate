@@ -31,4 +31,8 @@ describe("rule element-permitted-order", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should contain documentation", () => {
+		expect(htmlvalidate.getRuleDocumentation("element-permitted-order")).toMatchSnapshot();
+	});
+
 });

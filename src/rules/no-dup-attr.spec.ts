@@ -32,4 +32,8 @@ describe("rule no-dup-attr", () => {
 		expect(report.results).toMatchSnapshot();
 	});
 
+	it("should contain documentation", () => {
+		expect(htmlvalidate.getRuleDocumentation("no-dup-attr")).toMatchSnapshot();
+	});
+
 });

@@ -71,3 +71,10 @@ Array [
   },
 ]
 `;
+
+exports[`rule element-case should contain documentation 1`] = `
+Object {
+  "description": "Element tagname must be lowercase.",
+  "url": "https://html-validate.org/rules/element-case.html",
+}
+`;

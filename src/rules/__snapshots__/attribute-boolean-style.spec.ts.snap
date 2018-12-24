@@ -150,3 +150,10 @@ Array [
   },
 ]
 `;
+
+exports[`rule attribute-boolean-style should contain documentation 1`] = `
+Object {
+  "description": "Require a specific style when writing boolean attributes.",
+  "url": "https://html-validate.org/rules/attribute-boolean-style.html",
+}
+`;

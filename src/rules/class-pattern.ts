@@ -1,6 +1,6 @@
 import { DOMTokenList } from "../dom";
 import { AttributeEvent } from "../event";
-import { parsePattern } from "../pattern";
+import { describePattern, parsePattern } from "../pattern";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 const defaults = {
@@ -16,8 +16,9 @@ class ClassPattern extends Rule {
 	}
 
 	documentation(): RuleDocumentation {
+		const pattern = describePattern(this.options.pattern);
 		return {
-			description: "Requires all classes to match a given pattern.",
+			description: `For consistency all classes are required to match the pattern ${pattern}.`,
 			url: ruleDocumentationUrl(__filename),
 		};
 	}

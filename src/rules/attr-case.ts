@@ -16,7 +16,7 @@ class AttrCase extends Rule {
 
 	documentation(): RuleDocumentation {
 		return {
-			description: "Requires a specific case for attribute names.",
+			description: `Attribute name must be ${this.options.style}.`,
 			url: ruleDocumentationUrl(__filename),
 		};
 	}

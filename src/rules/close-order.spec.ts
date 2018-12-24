@@ -63,4 +63,8 @@ describe("rule close-order", () => {
 		expect(report.results).toMatchSnapshot();
 	});
 
+	it("should contain documentation", () => {
+		expect(htmlvalidate.getRuleDocumentation("close-order")).toMatchSnapshot();
+	});
+
 });

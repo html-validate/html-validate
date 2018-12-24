@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule no-trailing-whitespace should contain documentation 1`] = `
+Object {
+  "description": "Lines with trailing whitespace cause unnessecary diff when using version control and usually serve no special purpose in HTML.",
+  "url": "https://html-validate.org/rules/no-trailing-whitespace.html",
+}
+`;
+
 exports[`rule no-trailing-whitespace smoketest 1`] = `
 Array [
   Object {

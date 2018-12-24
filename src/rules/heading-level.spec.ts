@@ -51,4 +51,8 @@ describe("rule heading-level", () => {
 		expect(report.results).toMatchSnapshot();
 	});
 
+	it("should contain documentation", () => {
+		expect(htmlvalidate.getRuleDocumentation("heading-level")).toMatchSnapshot();
+	});
+
 });

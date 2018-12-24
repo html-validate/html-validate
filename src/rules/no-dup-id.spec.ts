@@ -26,4 +26,8 @@ describe("rule no-dup-id", () => {
 		expect(report.results).toMatchSnapshot();
 	});
 
+	it("should contain documentation", () => {
+		expect(htmlvalidate.getRuleDocumentation("no-dup-id")).toMatchSnapshot();
+	});
+
 });
