@@ -8,7 +8,7 @@ import { Parser } from "../parser";
 describe("HtmlElement", () => {
 
 	let root: DOMTree;
-	const location: Location = {filename: "filename", offset: 0, line: 1, column: 1};
+	const location: Location = {filename: "filename", offset: 0, line: 1, column: 1, size: 4};
 
 	beforeEach(() => {
 		const parser = new Parser(Config.empty());
@@ -36,7 +36,13 @@ describe("HtmlElement", () => {
 			const node = HtmlElement.fromTokens(startToken, endToken, null, null);
 			expect(node.nodeName).toEqual("foo");
 			expect(node.tagName).toEqual("foo");
-			expect(node.location).toEqual(startToken.location);
+			expect(node.location).toEqual({
+				filename: "filename",
+				offset: 1,
+				line: 1,
+				column: 2,
+				size: 3,
+			});
 			expect(node.closed).toEqual(NodeClosed.Open);
 		});
 

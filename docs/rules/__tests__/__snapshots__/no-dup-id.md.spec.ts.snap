@@ -9,13 +9,13 @@ Array [
     "filePath": "inline",
     "messages": Array [
       Object {
-        "column": 1,
+        "column": 2,
         "line": 2,
         "message": "Duplicate ID \\"foo\\"",
-        "offset": 21,
+        "offset": 22,
         "ruleId": "no-dup-id",
         "severity": 2,
-        "size": 4,
+        "size": 3,
       },
     ],
     "warningCount": 0,

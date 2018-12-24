@@ -430,6 +430,18 @@ describe("parser", () => {
 
 	});
 
+	it("should recalculate location size", () => {
+		const dom = parser.parseHtml('<div class="foo">\n\tlorem ipsum\n</div>');
+		const div = dom.querySelector("div");
+		expect(div.location).toEqual({
+			filename: expect.any(String),
+			offset: 1,
+			line: 1,
+			column: 2,
+			size: 3,
+		});
+	});
+
 	it("on() should delegate to eventhandler", () => {
 		const delegate = jest.spyOn((parser as any).event, "on");
 		parser.on("foo", () => null);

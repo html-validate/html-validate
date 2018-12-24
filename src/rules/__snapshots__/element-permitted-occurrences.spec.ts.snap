@@ -7,13 +7,13 @@ Array [
     "filePath": "test-files/rules/element-permitted-occurrences.html",
     "messages": Array [
       Object {
-        "column": 2,
+        "column": 3,
         "line": 3,
         "message": "Element <caption> can only appear once under <table>",
-        "offset": 31,
+        "offset": 32,
         "ruleId": "element-permitted-occurrences",
         "severity": 2,
-        "size": 8,
+        "size": 7,
       },
     ],
     "warningCount": 0,
