@@ -106,6 +106,37 @@ describe("ConfigLoader", () => {
 
 	});
 
+	describe("flush()", () => {
+
+		beforeEach(() => {
+			loader = new ConfigLoader(MockConfig);
+		});
+
+		it("flush() should clear cache", () => {
+			const cache = getInteralCache(loader);
+			cache.set("foo", null);
+			cache.set("bar", null);
+			cache.set("baz", null);
+			expect(cache.size).toEqual(3);
+			loader.flush();
+			expect(cache.size).toEqual(0);
+		});
+
+		it("flush() should clear single filename", () => {
+			const cache = getInteralCache(loader);
+			cache.set("foo", null);
+			cache.set("bar", null);
+			cache.set("baz", null);
+			expect(cache.size).toEqual(3);
+			loader.flush("foo");
+			expect(cache.size).toEqual(2);
+			expect(cache.has("foo")).toBeFalsy();
+			expect(cache.has("bar")).toBeTruthy();
+			expect(cache.has("baz")).toBeTruthy();
+		});
+
+	});
+
 	describe("smoketest", () => {
 
 		beforeAll(() => {

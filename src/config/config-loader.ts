@@ -16,6 +16,14 @@ export class ConfigLoader {
 		this.configClass = configClass;
 	}
 
+	public flush(filename?: string): void {
+		if (filename){
+			this.cache.delete(filename);
+		} else {
+			this.cache.clear();
+		}
+	}
+
 	public fromTarget(filename: string): Config {
 		if (filename === "inline"){
 			return this.configClass.empty();

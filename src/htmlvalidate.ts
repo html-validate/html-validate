@@ -93,6 +93,15 @@ class HtmlValidate {
 		merged.init();
 		return merged;
 	}
+
+	/**
+	 * Flush configuration cache. Clears full cache unless a filename is given.
+	 *
+	 * @param {string} [filename] - If set, only flush cache for given filename.
+	 */
+	public flushConfigCache(filename?: string): void {
+		this.configLoader.flush(filename);
+	}
 }
 
 export default HtmlValidate;
