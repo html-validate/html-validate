@@ -1,3 +1,4 @@
+import { FormatterModule } from ".";
 import { Message, Result } from "../reporter";
 
 const entities: { [key: string]: string } = {
@@ -52,4 +53,5 @@ function checkstyleFormatter(results: Result[]){
 	return output;
 }
 
+declare const module: FormatterModule;
 module.exports = checkstyleFormatter;

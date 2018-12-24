@@ -16,6 +16,9 @@ Array [
         "size": 8,
       },
     ],
+    "source": "<p>lorem ipsum</p>
+<marquee>foobar</marquee>
+",
     "warningCount": 0,
   },
 ]

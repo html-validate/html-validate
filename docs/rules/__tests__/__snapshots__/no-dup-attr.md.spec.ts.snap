@@ -18,6 +18,7 @@ Array [
         "size": 5,
       },
     ],
+    "source": "<div class=\\"foo\\" class=\\"bar\\"></div>",
     "warningCount": 0,
   },
 ]

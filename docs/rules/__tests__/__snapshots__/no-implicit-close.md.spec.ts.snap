@@ -16,6 +16,9 @@ Array [
         "size": 1,
       },
     ],
+    "source": "<p>
+    <div>lorem ipsum</div>
+</p>",
     "warningCount": 0,
   },
 ]
@@ -59,6 +62,11 @@ Array [
         "size": 2,
       },
     ],
+    "source": "<ul>
+    <li>foo
+    <li>bar
+    <li>baz
+</ul>",
     "warningCount": 0,
   },
 ]
@@ -80,6 +88,8 @@ Array [
         "size": 1,
       },
     ],
+    "source": "<p>lorem ipsum
+<p>dolor sit amet",
     "warningCount": 0,
   },
 ]

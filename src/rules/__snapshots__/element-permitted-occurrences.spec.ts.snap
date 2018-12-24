@@ -16,6 +16,11 @@ Array [
         "size": 7,
       },
     ],
+    "source": "<table>
+	<caption>1</caption>
+	<caption>2</caption>
+</table>
+",
     "warningCount": 0,
   },
 ]

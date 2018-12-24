@@ -16,6 +16,10 @@ Array [
         "size": 1,
       },
     ],
+    "source": "<input foo>
+<hr bar/>
+<div></div baz>
+",
     "warningCount": 0,
   },
 ]

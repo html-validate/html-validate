@@ -25,6 +25,10 @@ Array [
         "size": 4,
       },
     ],
+    "source": "<div></div>
+<DIV></DIV>
+<dIV></dIV>
+",
     "warningCount": 0,
   },
 ]
@@ -55,6 +59,10 @@ Array [
         "size": 4,
       },
     ],
+    "source": "<div></div>
+<DIV></DIV>
+<dIV></dIV>
+",
     "warningCount": 0,
   },
 ]

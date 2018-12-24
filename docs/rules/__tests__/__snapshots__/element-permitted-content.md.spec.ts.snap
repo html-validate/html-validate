@@ -18,6 +18,10 @@ Array [
         "size": 2,
       },
     ],
+    "source": "<!-- <li> is only allowed with <ul> or <ol> as parent -->
+<div>
+    <li>foo</li>
+</div>",
     "warningCount": 0,
   },
 ]

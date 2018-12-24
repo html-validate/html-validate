@@ -16,6 +16,15 @@ Array [
         "size": 4,
       },
     ],
+    "source": "<input>
+<input type=\\"text\\">
+<input type=\\"foobar\\">
+
+<!-- rule should normalize boolean attributes -->
+<input required>
+<input required=\\"\\">
+<input required=\\"required\\">
+",
     "warningCount": 0,
   },
 ]

@@ -61,6 +61,23 @@ Array [
         "size": 3,
       },
     ],
+    "source": "<foo>
+  foo
+</foo>
+
+<bar>	
+  bar  
+  
+  baz  
+</bar>
+
+<baz>
+  spam  
+
+  ham
+  
+</baz>
+",
     "warningCount": 0,
   },
 ]

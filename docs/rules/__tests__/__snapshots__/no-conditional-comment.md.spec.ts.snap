@@ -25,6 +25,11 @@ Array [
         "size": 10,
       },
     ],
+    "source": "<![if IE 6]>
+<style>
+    /* ... */
+</style>
+<![endif]>",
     "warningCount": 0,
   },
 ]

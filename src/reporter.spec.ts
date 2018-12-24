@@ -1,4 +1,6 @@
+import { Source } from "./context";
 import { Message, Reporter } from "./reporter";
+
 describe("Reporter", () => {
 
 	describe("merge()", () => {
@@ -66,10 +68,24 @@ describe("Reporter", () => {
 				{filePath: "foo.html", errorCount: 1, warningCount: 1, messages: [
 					{offset: 0, line: 1, column: 1, size: 1, ruleId: "mock", severity: 2, message: "error"},
 					{offset: 0, line: 1, column: 1, size: 1, ruleId: "mock", severity: 1, message: "warning"},
-				]},
+				], source: null},
 				{filePath: "bar.html", errorCount: 1, warningCount: 0, messages: [
 					{offset: 0, line: 1, column: 1, size: 1, ruleId: "mock", severity: 2, message: "another error"},
-				]},
+				], source: null},
+			]);
+		});
+
+		it("should map filenames to sources", () => {
+			const report = new Reporter();
+			const sources: Source[] = [
+				{filename: "foo.html", data: "<foo></foo>", line: 1, column: 1},
+				{filename: "bar.html", data: "transformed", originalData: "<bar></bar>", line: 1, column: 1},
+			];
+			report.addManual("foo.html", createMessage("error", 1));
+			report.addManual("bar.html", createMessage("error", 2));
+			expect(report.save(sources).results).toEqual([
+				expect.objectContaining({filePath: "foo.html", source: "<foo></foo>"}),
+				expect.objectContaining({filePath: "bar.html", source: "<bar></bar>"}),
 			]);
 		});
 

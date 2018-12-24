@@ -16,6 +16,19 @@ Array [
         "size": 5,
       },
     ],
+    "source": "<div class=\\"form-group\\">
+	<label for=\\"foo\\">Foo</label>
+	<input id=\\"foo\\"/>
+</div>
+<div class=\\"form-group\\">
+	<label>
+		<input/>
+	</label>
+</div>
+<div class=\\"form-group\\">
+	<input/>
+</div>
+",
     "warningCount": 0,
   },
 ]
