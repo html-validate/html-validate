@@ -8,6 +8,7 @@ Array [
     "messages": Array [
       Object {
         "column": 26,
+        "context": undefined,
         "line": 2,
         "message": "Attribute \\"id\\" duplicated",
         "offset": 31,

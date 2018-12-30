@@ -8,6 +8,7 @@ Array [
     "messages": Array [
       Object {
         "column": 1,
+        "context": undefined,
         "line": 2,
         "message": "Element \\"DIV\\" should be lowercase",
         "offset": 12,
@@ -17,6 +18,7 @@ Array [
       },
       Object {
         "column": 1,
+        "context": undefined,
         "line": 3,
         "message": "Element \\"dIV\\" should be lowercase",
         "offset": 24,
@@ -42,6 +44,7 @@ Array [
     "messages": Array [
       Object {
         "column": 1,
+        "context": undefined,
         "line": 1,
         "message": "Element \\"div\\" should be uppercase",
         "offset": 0,
@@ -51,6 +54,7 @@ Array [
       },
       Object {
         "column": 1,
+        "context": undefined,
         "line": 3,
         "message": "Element \\"dIV\\" should be uppercase",
         "offset": 24,

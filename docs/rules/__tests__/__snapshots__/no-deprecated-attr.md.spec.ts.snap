@@ -10,6 +10,7 @@ Array [
     "messages": Array [
       Object {
         "column": 7,
+        "context": undefined,
         "line": 1,
         "message": "Attribute \\"bgcolor\\" is deprecated on <body> element",
         "offset": 6,

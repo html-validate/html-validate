@@ -8,6 +8,7 @@ Array [
     "messages": Array [
       Object {
         "column": 3,
+        "context": undefined,
         "line": 11,
         "message": "Input element does not have a label",
         "offset": 170,

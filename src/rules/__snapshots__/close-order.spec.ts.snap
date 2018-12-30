@@ -8,6 +8,7 @@ Array [
     "messages": Array [
       Object {
         "column": 16,
+        "context": undefined,
         "line": 6,
         "message": "Mismatched close-tag, expected '</p>' but found '</div>'.",
         "offset": 53,
@@ -17,6 +18,7 @@ Array [
       },
       Object {
         "column": 5,
+        "context": undefined,
         "line": 12,
         "message": "Unexpected close-tag, expected opening tag.",
         "offset": 112,

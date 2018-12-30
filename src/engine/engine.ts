@@ -140,12 +140,12 @@ export class Engine<T extends Parser = Parser> {
 	/**
 	 * Get rule documentation.
 	 */
-	public getRuleDocumentation(ruleId: string): RuleDocumentation {
+	public getRuleDocumentation(ruleId: string, context?: any): RuleDocumentation {
 		const rules = this.config.getRules();
 		if (ruleId in rules){
 			const [, options] = rules[ruleId] as any;
 			const rule = this.instantiateRule(ruleId, options);
-			return rule.documentation();
+			return rule.documentation(context);
 		} else {
 			return null;
 		}

@@ -8,6 +8,7 @@ Array [
     "messages": Array [
       Object {
         "column": 1,
+        "context": undefined,
         "line": 27,
         "message": "<spam-ham> is not a valid element name",
         "offset": 318,
@@ -17,6 +18,7 @@ Array [
       },
       Object {
         "column": 1,
+        "context": undefined,
         "line": 30,
         "message": "<foo> is not a valid element name",
         "offset": 371,
@@ -26,6 +28,7 @@ Array [
       },
       Object {
         "column": 1,
+        "context": undefined,
         "line": 31,
         "message": "<1-bar> is not a valid element name",
         "offset": 383,
@@ -79,6 +82,7 @@ Array [
     "messages": Array [
       Object {
         "column": 1,
+        "context": undefined,
         "line": 30,
         "message": "<foo> is not a valid element name",
         "offset": 371,
@@ -88,6 +92,7 @@ Array [
       },
       Object {
         "column": 1,
+        "context": undefined,
         "line": 31,
         "message": "<1-bar> is not a valid element name",
         "offset": 383,

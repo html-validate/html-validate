@@ -8,6 +8,7 @@ Array [
     "messages": Array [
       Object {
         "column": 7,
+        "context": undefined,
         "line": 2,
         "message": "Attribute \\"bgcolor\\" is deprecated on <body> element",
         "offset": 20,
@@ -17,6 +18,7 @@ Array [
       },
       Object {
         "column": 7,
+        "context": undefined,
         "line": 3,
         "message": "Attribute \\"BGCOLOR\\" is deprecated on <body> element",
         "offset": 48,
@@ -26,6 +28,7 @@ Array [
       },
       Object {
         "column": 7,
+        "context": undefined,
         "line": 4,
         "message": "Attribute \\"bgColor\\" is deprecated on <body> element",
         "offset": 76,
@@ -35,6 +38,7 @@ Array [
       },
       Object {
         "column": 6,
+        "context": undefined,
         "line": 7,
         "message": "Attribute \\"background\\" is deprecated on <tr> element",
         "offset": 125,
@@ -44,6 +48,7 @@ Array [
       },
       Object {
         "column": 7,
+        "context": undefined,
         "line": 8,
         "message": "Attribute \\"align\\" is deprecated on <td> element",
         "offset": 150,

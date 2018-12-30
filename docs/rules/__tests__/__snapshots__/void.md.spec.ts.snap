@@ -10,6 +10,7 @@ Array [
     "messages": Array [
       Object {
         "column": 11,
+        "context": undefined,
         "line": 2,
         "message": "Expected omitted end tag <input> instead of self-closing element <input/>",
         "offset": 21,
@@ -19,6 +20,7 @@ Array [
       },
       Object {
         "column": 11,
+        "context": undefined,
         "line": 5,
         "message": "End tag for <img> must be omitted",
         "offset": 47,

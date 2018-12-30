@@ -8,6 +8,7 @@ Array [
     "messages": Array [
       Object {
         "column": 15,
+        "context": undefined,
         "line": 3,
         "message": "Close tags cannot have attributes",
         "offset": 36,

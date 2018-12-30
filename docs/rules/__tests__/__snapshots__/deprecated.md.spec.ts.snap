@@ -10,6 +10,7 @@ Array [
     "messages": Array [
       Object {
         "column": 1,
+        "context": undefined,
         "line": 1,
         "message": "<my-element> is deprecated: replaced with <other-element>",
         "offset": 0,
@@ -32,6 +33,7 @@ Array [
     "messages": Array [
       Object {
         "column": 1,
+        "context": undefined,
         "line": 1,
         "message": "<center> is deprecated",
         "offset": 0,
@@ -41,6 +43,7 @@ Array [
       },
       Object {
         "column": 1,
+        "context": undefined,
         "line": 2,
         "message": "<big> is deprecated",
         "offset": 21,

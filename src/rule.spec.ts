@@ -46,13 +46,13 @@ describe("rule base class", () => {
 			const node = new HtmlElement("foo", null);
 			rule.setServerity(Config.SEVERITY_WARN);
 			rule.report(node, "foo");
-			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_WARN, expect.anything());
+			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_WARN, expect.anything(), undefined);
 		});
 
 		it('should add message with severity "error"', () => {
 			const node = new HtmlElement("foo", null);
 			rule.report(node, "foo");
-			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, expect.anything());
+			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, expect.anything(), undefined);
 		});
 
 		it("should not add message when disabled", () => {
@@ -64,7 +64,7 @@ describe("rule base class", () => {
 		it("should use explicit location if provided", () => {
 			const node = new HtmlElement("foo", null);
 			rule.report(node, "foo", mockLocation);
-			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, mockLocation);
+			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, mockLocation, undefined);
 		});
 
 		it("should use event location if no explicit location", () => {
@@ -73,13 +73,20 @@ describe("rule base class", () => {
 			const callback = (parser.on as any).mock.calls[0][1];
 			callback("event", mockEvent);
 			rule.report(node, "foo");
-			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, mockEvent.location);
+			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, mockEvent.location, undefined);
 		});
 
 		it("should use node location if no node location", () => {
 			const node = new HtmlElement("foo", null, undefined, null, mockLocation);
 			rule.report(node, "foo");
-			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, mockLocation);
+			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, mockLocation, undefined);
+		});
+
+		it("should set context if provided", () => {
+			const context = {foo: "bar"};
+			const node = new HtmlElement("foo", null);
+			rule.report(node, "foo", null, context);
+			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, expect.anything(), {foo: "bar"});
 		});
 
 	});

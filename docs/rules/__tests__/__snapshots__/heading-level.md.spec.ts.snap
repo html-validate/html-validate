@@ -10,6 +10,7 @@ Array [
     "messages": Array [
       Object {
         "column": 1,
+        "context": undefined,
         "line": 2,
         "message": "Heading level can only increase by one, expected h2",
         "offset": 19,

@@ -8,6 +8,7 @@ Array [
     "messages": Array [
       Object {
         "column": 3,
+        "context": undefined,
         "line": 3,
         "message": "Element <caption> can only appear once under <table>",
         "offset": 32,

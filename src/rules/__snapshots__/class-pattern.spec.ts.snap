@@ -8,6 +8,7 @@ Array [
     "messages": Array [
       Object {
         "column": 6,
+        "context": undefined,
         "line": 3,
         "message": "Class \\"foo_bar\\" does not match required pattern \\"/^[a-z0-9-]+$/\\"",
         "offset": 42,
@@ -17,6 +18,7 @@ Array [
       },
       Object {
         "column": 6,
+        "context": undefined,
         "line": 5,
         "message": "Class \\"fooBar\\" does not match required pattern \\"/^[a-z0-9-]+$/\\"",
         "offset": 79,

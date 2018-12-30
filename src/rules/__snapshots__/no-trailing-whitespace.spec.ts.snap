@@ -8,6 +8,7 @@ Array [
     "messages": Array [
       Object {
         "column": 6,
+        "context": undefined,
         "line": 5,
         "message": "Trailing whitespace",
         "offset": 25,
@@ -17,6 +18,7 @@ Array [
       },
       Object {
         "column": 6,
+        "context": undefined,
         "line": 6,
         "message": "Trailing whitespace",
         "offset": 32,
@@ -26,6 +28,7 @@ Array [
       },
       Object {
         "column": 1,
+        "context": undefined,
         "line": 7,
         "message": "Trailing whitespace",
         "offset": 35,
@@ -35,6 +38,7 @@ Array [
       },
       Object {
         "column": 6,
+        "context": undefined,
         "line": 8,
         "message": "Trailing whitespace",
         "offset": 43,
@@ -44,6 +48,7 @@ Array [
       },
       Object {
         "column": 7,
+        "context": undefined,
         "line": 12,
         "message": "Trailing whitespace",
         "offset": 66,
@@ -53,6 +58,7 @@ Array [
       },
       Object {
         "column": 1,
+        "context": undefined,
         "line": 15,
         "message": "Trailing whitespace",
         "offset": 76,

@@ -10,6 +10,7 @@ Array [
     "messages": Array [
       Object {
         "column": 20,
+        "context": undefined,
         "line": 1,
         "message": "Close tags cannot have attributes",
         "offset": 19,

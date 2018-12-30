@@ -10,6 +10,7 @@ Array [
     "messages": Array [
       Object {
         "column": 4,
+        "context": undefined,
         "line": 1,
         "message": "Attribute \\"ID\\" should be lowercase",
         "offset": 3,

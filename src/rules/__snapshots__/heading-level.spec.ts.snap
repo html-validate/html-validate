@@ -8,6 +8,7 @@ Array [
     "messages": Array [
       Object {
         "column": 1,
+        "context": undefined,
         "line": 1,
         "message": "Initial heading level must be h1",
         "offset": 0,
@@ -17,6 +18,7 @@ Array [
       },
       Object {
         "column": 1,
+        "context": undefined,
         "line": 6,
         "message": "Heading level can only increase by one, expected h3",
         "offset": 72,

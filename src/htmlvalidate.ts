@@ -78,7 +78,7 @@ class HtmlValidate {
 	}
 
 	/**
-	 * Get documentation for the given rule.
+	 * Get contextual documentation for the given rule.
 	 *
 	 * Typical usage:
 	 *
@@ -96,10 +96,12 @@ class HtmlValidate {
 	 * @param {string} ruleId - Rule to get documentation for.
 	 * @param {Config} [config] - If set it provides more accurate description by
 	 * using the correct configuration for the file.
+	 * @param {any} [context] - If set to `Message.context` some rules can provide
+	 * contextual details and suggestions.
 	 */
-	public getRuleDocumentation(ruleId: string, config?: Config): RuleDocumentation {
+	public getRuleDocumentation(ruleId: string, config?: Config, context?: any): RuleDocumentation {
 		const engine = new Engine(config || this.getConfigFor("inline"), Parser);
-		return engine.getRuleDocumentation(ruleId);
+		return engine.getRuleDocumentation(ruleId, context);
 	}
 
 	/**

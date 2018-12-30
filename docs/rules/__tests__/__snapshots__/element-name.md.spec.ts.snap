@@ -10,6 +10,7 @@ Array [
     "messages": Array [
       Object {
         "column": 1,
+        "context": undefined,
         "line": 1,
         "message": "<foobar> is not a valid element name",
         "offset": 0,

@@ -29,7 +29,7 @@ export interface RuleDocumentation {
 
 export type RuleConstructor = new (options: RuleOptions) => Rule;
 
-export abstract class Rule {
+export abstract class Rule<T = any> {
 	private reporter: Reporter;
 	private parser: Parser;
 	private enabled: boolean;           // rule enabled/disabled, irregardless of severity
@@ -79,10 +79,10 @@ export abstract class Rule {
 	 *
 	 * Rule must be enabled for this to have any effect.
 	 */
-	report(node: HtmlElement, message: string, location?: Location): void {
+	report(node: HtmlElement, message: string, location?: Location, context?: T): void {
 		if (this.isEnabled()){
 			const where = this.findLocation({node, location, event: this.event});
-			this.reporter.add(node, this, message, this.severity, where);
+			this.reporter.add(node, this, message, this.severity, where, context);
 		}
 	}
 
@@ -132,7 +132,7 @@ export abstract class Rule {
 
 	abstract setup(): void;
 
-	documentation(): RuleDocumentation {
+	documentation(context?: T): RuleDocumentation {
 		return null;
 	}
 }

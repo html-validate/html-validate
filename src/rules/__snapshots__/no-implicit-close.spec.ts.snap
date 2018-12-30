@@ -8,6 +8,7 @@ Array [
     "messages": Array [
       Object {
         "column": 3,
+        "context": undefined,
         "line": 6,
         "message": "Element <li> is implicitly closed by sibling",
         "offset": 37,
@@ -17,6 +18,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 7,
         "message": "Element <li> is implicitly closed by sibling",
         "offset": 46,
@@ -26,6 +28,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 8,
         "message": "Element <li> is implicitly closed by parent </ul>",
         "offset": 55,
@@ -35,6 +38,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 12,
         "message": "Element <li> is implicitly closed by sibling",
         "offset": 76,
@@ -44,6 +48,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 13,
         "message": "Element <li> is implicitly closed by sibling",
         "offset": 97,
@@ -53,6 +58,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 14,
         "message": "Element <li> is implicitly closed by parent </ul>",
         "offset": 118,
@@ -62,6 +68,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 18,
         "message": "Element <li> is implicitly closed by sibling",
         "offset": 151,
@@ -71,6 +78,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 19,
         "message": "Element <li> is implicitly closed by parent </ul>",
         "offset": 180,
@@ -80,6 +88,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 23,
         "message": "Element <dt> is implicitly closed by adjacent <dd>",
         "offset": 209,
@@ -89,6 +98,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 24,
         "message": "Element <dd> is implicitly closed by sibling",
         "offset": 220,
@@ -98,6 +108,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 25,
         "message": "Element <dd> is implicitly closed by adjacent <dt>",
         "offset": 238,
@@ -107,6 +118,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 26,
         "message": "Element <dt> is implicitly closed by adjacent <dd>",
         "offset": 256,
@@ -116,6 +128,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 27,
         "message": "Element <dd> is implicitly closed by parent </dl>",
         "offset": 266,
@@ -125,6 +138,7 @@ Array [
       },
       Object {
         "column": 2,
+        "context": undefined,
         "line": 30,
         "message": "Element <p> is implicitly closed by adjacent <address>",
         "offset": 288,

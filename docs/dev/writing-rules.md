@@ -9,7 +9,7 @@ Writing rules
 Rules are created by extending the `Rule` class and implementing the `setup`
 method:
 
-```
+```typescript
 // for vanilla javascript
 const Rule = require('html-validate').Rule;
 
@@ -17,6 +17,13 @@ const Rule = require('html-validate').Rule;
 import { Rule } from 'html-validate/src/rule';
 
 class MyRule extends Rule {
+  documentation(context?: any){
+    return {
+      description: "Lorem ipsum",
+      url: "https://example.net/best-practice/my-rule.html",
+    };
+  }
+
   setup(){
     /* listen on dom ready event */
     this.on('dom:ready', (event: DOMReadyEvent) => {
@@ -32,6 +39,24 @@ class MyRule extends Rule {
 module.exports = MyRule;
 ```
 
+For typescript generics can also be used when inheriting to specify the type of
+the contextual data:
+
+```typescript
+interface ContextualData {
+    /* ... */
+}
+
+class MyRule extends Rule<ContextualData> {
+  documentation(context?: ContextualData){ ... }
+
+  setup(){
+    const context: ContextualData = { .. };
+    this.report(node, "Message", null, context);
+  }
+}
+```
+
 ### API
 
 #### `options: {[key: string]: any}`
@@ -43,7 +68,7 @@ Object with all the options passed from the configuration.
 Listen for events. See [events](/dev/events.html) for a full list of available
 events and data.
 
-#### `report(node: HtmlElement, message: string, location?: Location): void`
+#### `report(node: HtmlElement, message: string, location?: Location, context?: T): void`
 
 Report a new error.
 
@@ -51,3 +76,5 @@ Report a new error.
 - `message` - Error message
 - *`location`* - If set it is the precise location of the error. (Default: node
   location)
+- *`context`* - If set it will be passed to `documentation()` later to allow
+  retrieving contextual documentation.

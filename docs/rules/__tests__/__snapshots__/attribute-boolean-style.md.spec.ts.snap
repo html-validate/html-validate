@@ -10,6 +10,7 @@ Array [
     "messages": Array [
       Object {
         "column": 8,
+        "context": undefined,
         "line": 1,
         "message": "Attribute \\"required\\" should omit value",
         "offset": 7,
@@ -19,6 +20,7 @@ Array [
       },
       Object {
         "column": 8,
+        "context": undefined,
         "line": 2,
         "message": "Attribute \\"required\\" should omit value",
         "offset": 27,

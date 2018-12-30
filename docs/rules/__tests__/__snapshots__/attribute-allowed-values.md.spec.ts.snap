@@ -10,6 +10,7 @@ Array [
     "messages": Array [
       Object {
         "column": 8,
+        "context": undefined,
         "line": 1,
         "message": "Attribute \\"type\\" has invalid value \\"foobar\\"",
         "offset": 7,

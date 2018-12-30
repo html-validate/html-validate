@@ -298,7 +298,7 @@ describe("Engine", () => {
 				engine.loadRule("void", [Config.SEVERITY_ERROR, {}], parser, reporter);
 				const add = jest.spyOn(reporter, "add");
 				parser.trigger("dom:load", {location: {}});
-				expect(add).toHaveBeenCalledWith(null, expect.any(Rule), "Definition for rule 'void' was not found", Config.SEVERITY_ERROR, {});
+				expect(add).toHaveBeenCalledWith(null, expect.any(Rule), "Definition for rule 'void' was not found", Config.SEVERITY_ERROR, {}, undefined);
 			});
 
 			it("should load from plugins", () => {

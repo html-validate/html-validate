@@ -8,6 +8,7 @@ Array [
     "messages": Array [
       Object {
         "column": 3,
+        "context": undefined,
         "line": 2,
         "message": "Button is missing type attribute",
         "offset": 9,
@@ -17,6 +18,7 @@ Array [
       },
       Object {
         "column": 10,
+        "context": undefined,
         "line": 3,
         "message": "Button has invalid type \\"foo\\"",
         "offset": 59,
