@@ -10,6 +10,7 @@ Array [
     "messages": Array [
       Object {
         "column": 2,
+        "context": undefined,
         "line": 2,
         "message": "Duplicate ID \\"foo\\"",
         "offset": 22,

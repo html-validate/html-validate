@@ -31,4 +31,8 @@ describe("rule class-pattern", () => {
 		expect(report.results).toMatchSnapshot();
 	});
 
+	it("should contain documentation", () => {
+		expect(htmlvalidate.getRuleDocumentation("class-pattern")).toMatchSnapshot();
+	});
+
 });

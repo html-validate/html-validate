@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule img-req-alt should contain documentation 1`] = `
+Object {
+  "description": "Both HTML5 and WCAG 2.0 requires images to have a alternative text for each image.",
+  "url": "https://html-validate.org/rules/img-req-alt.html",
+}
+`;
+
 exports[`rule img-req-alt with alias (array) smoketest 1`] = `
 Array [
   Object {
@@ -8,6 +15,7 @@ Array [
     "messages": Array [
       Object {
         "column": 2,
+        "context": undefined,
         "line": 4,
         "message": "<img> is missing required alt attribute",
         "offset": 55,
@@ -34,6 +42,7 @@ Array [
     "messages": Array [
       Object {
         "column": 2,
+        "context": undefined,
         "line": 4,
         "message": "<img> is missing required alt attribute",
         "offset": 55,
@@ -60,6 +69,7 @@ Array [
     "messages": Array [
       Object {
         "column": 2,
+        "context": undefined,
         "line": 2,
         "message": "<img> is missing required alt attribute",
         "offset": 16,
@@ -69,6 +79,7 @@ Array [
       },
       Object {
         "column": 2,
+        "context": undefined,
         "line": 3,
         "message": "<img> is missing required alt attribute",
         "offset": 29,
@@ -78,6 +89,7 @@ Array [
       },
       Object {
         "column": 2,
+        "context": undefined,
         "line": 4,
         "message": "<img> is missing required alt attribute",
         "offset": 55,
@@ -104,6 +116,7 @@ Array [
     "messages": Array [
       Object {
         "column": 2,
+        "context": undefined,
         "line": 3,
         "message": "<img> is missing required alt attribute",
         "offset": 29,
@@ -113,6 +126,7 @@ Array [
       },
       Object {
         "column": 2,
+        "context": undefined,
         "line": 4,
         "message": "<img> is missing required alt attribute",
         "offset": 55,

@@ -1,7 +1,7 @@
 import { HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { PermittedAttribute } from "../meta/element";
-import { Rule } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 const defaults = {
 	style: "omit",
@@ -15,6 +15,13 @@ class AttributeBooleanStyle extends Rule {
 	constructor(options: object){
 		super(Object.assign({}, defaults, options));
 		this.hasInvalidStyle = parseStyle(this.options.style);
+	}
+
+	documentation(): RuleDocumentation {
+		return {
+			description: "Require a specific style when writing boolean attributes.",
+			url: ruleDocumentationUrl(__filename),
+		};
 	}
 
 	setup(){

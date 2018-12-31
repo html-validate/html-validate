@@ -112,4 +112,11 @@ describe("rule attribute-boolean-style", () => {
 		expect(() => htmlvalidate.validateString("<foo></foo>")).toThrow(`Invalid style "foobar" for "attribute-boolean-style" rule`);
 	});
 
+	it("should contain documentation", () => {
+		htmlvalidate = new HtmlValidate({
+			rules: {"attribute-boolean-style": "error"},
+		});
+		expect(htmlvalidate.getRuleDocumentation("attribute-boolean-style")).toMatchSnapshot();
+	});
+
 });

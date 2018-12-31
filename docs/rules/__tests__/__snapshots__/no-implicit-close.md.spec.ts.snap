@@ -8,6 +8,7 @@ Array [
     "messages": Array [
       Object {
         "column": 2,
+        "context": undefined,
         "line": 1,
         "message": "Element <p> is implicitly closed by adjacent <div>",
         "offset": 1,
@@ -36,6 +37,7 @@ Array [
     "messages": Array [
       Object {
         "column": 6,
+        "context": undefined,
         "line": 2,
         "message": "Element <li> is implicitly closed by sibling",
         "offset": 10,
@@ -45,6 +47,7 @@ Array [
       },
       Object {
         "column": 6,
+        "context": undefined,
         "line": 3,
         "message": "Element <li> is implicitly closed by sibling",
         "offset": 22,
@@ -54,6 +57,7 @@ Array [
       },
       Object {
         "column": 6,
+        "context": undefined,
         "line": 4,
         "message": "Element <li> is implicitly closed by parent </ul>",
         "offset": 34,
@@ -80,6 +84,7 @@ Array [
     "messages": Array [
       Object {
         "column": 2,
+        "context": undefined,
         "line": 1,
         "message": "Element <p> is implicitly closed by sibling",
         "offset": 1,

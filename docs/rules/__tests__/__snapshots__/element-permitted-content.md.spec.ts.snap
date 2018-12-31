@@ -10,6 +10,7 @@ Array [
     "messages": Array [
       Object {
         "column": 6,
+        "context": undefined,
         "line": 3,
         "message": "Element <li> is not permitted as content in <div>",
         "offset": 69,

@@ -10,6 +10,7 @@ Array [
     "messages": Array [
       Object {
         "column": 6,
+        "context": undefined,
         "line": 4,
         "message": "Input element does not have a label",
         "offset": 74,
@@ -19,6 +20,7 @@ Array [
       },
       Object {
         "column": 6,
+        "context": undefined,
         "line": 10,
         "message": "Input element does not have a label",
         "offset": 168,

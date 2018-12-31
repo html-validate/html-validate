@@ -14,6 +14,7 @@ Array [
     "messages": Array [
       Object {
         "column": 2,
+        "context": undefined,
         "line": 1,
         "message": "<img> is missing required alt attribute",
         "offset": 1,

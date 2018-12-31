@@ -8,6 +8,7 @@ Array [
     "messages": Array [
       Object {
         "column": 2,
+        "context": undefined,
         "line": 1,
         "message": "<img> is missing required alt attribute",
         "offset": 1,
@@ -17,6 +18,7 @@ Array [
       },
       Object {
         "column": 2,
+        "context": undefined,
         "line": 2,
         "message": "Button is missing type attribute",
         "offset": 22,
@@ -26,6 +28,7 @@ Array [
       },
       Object {
         "column": 4,
+        "context": undefined,
         "line": 6,
         "message": "Input element does not have a label",
         "offset": 130,
@@ -54,6 +57,7 @@ Array [
     "messages": Array [
       Object {
         "column": 4,
+        "context": undefined,
         "line": 2,
         "message": "Element <my-block> is not permitted as content in <my-inline>",
         "offset": 15,
@@ -63,6 +67,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 3,
         "message": "<my-deprecated> is deprecated: replaced with <my-other>",
         "offset": 38,
@@ -88,6 +93,7 @@ Array [
     "messages": Array [
       Object {
         "column": 6,
+        "context": undefined,
         "line": 4,
         "message": "Element <legend> must be used before <p> in this context",
         "offset": 65,
@@ -97,6 +103,7 @@ Array [
       },
       Object {
         "column": 4,
+        "context": undefined,
         "line": 7,
         "message": "Element <main> is not permitted as descendant of <footer>",
         "offset": 127,
@@ -106,6 +113,7 @@ Array [
       },
       Object {
         "column": 5,
+        "context": undefined,
         "line": 8,
         "message": "<blink> is deprecated",
         "offset": 137,

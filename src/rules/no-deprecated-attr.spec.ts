@@ -42,4 +42,8 @@ describe("rule no-deprecated-attr", () => {
 		expect(report.results).toMatchSnapshot();
 	});
 
+	it("should contain documentation", () => {
+		expect(htmlvalidate.getRuleDocumentation("no-deprecated-attr")).toMatchSnapshot();
+	});
+
 });

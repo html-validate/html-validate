@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule close-order should contain documentation 1`] = `
+Object {
+  "description": "HTML requires elements to be closed in the same order as they were opened.",
+  "url": "https://html-validate.org/rules/close-order.html",
+}
+`;
+
 exports[`rule close-order smoketest 1`] = `
 Array [
   Object {
@@ -8,6 +15,7 @@ Array [
     "messages": Array [
       Object {
         "column": 16,
+        "context": undefined,
         "line": 6,
         "message": "Mismatched close-tag, expected '</p>' but found '</div>'.",
         "offset": 53,
@@ -17,6 +25,7 @@ Array [
       },
       Object {
         "column": 5,
+        "context": undefined,
         "line": 12,
         "message": "Unexpected close-tag, expected opening tag.",
         "offset": 112,

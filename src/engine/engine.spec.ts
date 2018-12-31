@@ -243,6 +243,23 @@ describe("Engine", () => {
 
 	});
 
+	describe("getRuleDocumentation()", () => {
+
+		it("should get rule documentation", () => {
+			const docs = engine.getRuleDocumentation("void");
+			expect(docs).toEqual({
+				description: expect.any(String),
+				url: expect.any(String),
+			});
+		});
+
+		it("should return null if rule is unknown", () => {
+			const docs = engine.getRuleDocumentation("missing-rule");
+			expect(docs).toBeNull();
+		});
+
+	});
+
 	describe("internals", () => {
 
 		describe("loadRule()", () => {
@@ -281,7 +298,7 @@ describe("Engine", () => {
 				engine.loadRule("void", [Config.SEVERITY_ERROR, {}], parser, reporter);
 				const add = jest.spyOn(reporter, "add");
 				parser.trigger("dom:load", {location: {}});
-				expect(add).toHaveBeenCalledWith(null, expect.any(Rule), "Definition for rule 'void' was not found", Config.SEVERITY_ERROR, {});
+				expect(add).toHaveBeenCalledWith(null, expect.any(Rule), "Definition for rule 'void' was not found", Config.SEVERITY_ERROR, {}, undefined);
 			});
 
 			it("should load from plugins", () => {

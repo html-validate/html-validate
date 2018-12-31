@@ -41,4 +41,8 @@ describe("rule deprecated", () => {
 		expect(report.results).toMatchSnapshot();
 	});
 
+	it("should contain documentation", () => {
+		expect(htmlvalidate.getRuleDocumentation("deprecated")).toMatchSnapshot();
+	});
+
 });

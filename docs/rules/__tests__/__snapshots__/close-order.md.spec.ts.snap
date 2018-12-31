@@ -10,6 +10,7 @@ Array [
     "messages": Array [
       Object {
         "column": 13,
+        "context": undefined,
         "line": 1,
         "message": "Mismatched close-tag, expected '</strong>' but found '</p>'.",
         "offset": 12,
@@ -19,6 +20,7 @@ Array [
       },
       Object {
         "column": 17,
+        "context": undefined,
         "line": 1,
         "message": "Mismatched close-tag, expected '</p>' but found '</strong>'.",
         "offset": 16,

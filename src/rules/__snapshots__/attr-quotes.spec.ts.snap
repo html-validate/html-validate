@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule attr-quotes should contain documentation 1`] = `
+Object {
+  "description": "Attribute values are required to be quoted with doublequotes.",
+  "url": "https://html-validate.org/rules/attr-quotes.html",
+}
+`;

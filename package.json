@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "grunt connect",
-    "test": "jest",
+    "test": "jest --ci",
     "lint": "grunt eslint tslint",
     "version": "./scripts/update-changelog.sh && git add CHANGELOG.md",
     "preversion": "./scripts/validate-version.sh",

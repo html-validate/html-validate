@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import * as path from "path";
 import { Config } from "./config";
 import { Location } from "./context";
 import { HtmlElement } from "./dom";
@@ -15,13 +16,20 @@ import {
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";
 
+const homepage = require("../package.json").homepage;
+
 export interface RuleOptions {
 	[key: string]: any;
 }
 
+export interface RuleDocumentation {
+	description: string;
+	url?: string;
+}
+
 export type RuleConstructor = new (options: RuleOptions) => Rule;
 
-export abstract class Rule {
+export abstract class Rule<T = any> {
 	private reporter: Reporter;
 	private parser: Parser;
 	private enabled: boolean;           // rule enabled/disabled, irregardless of severity
@@ -71,10 +79,10 @@ export abstract class Rule {
 	 *
 	 * Rule must be enabled for this to have any effect.
 	 */
-	report(node: HtmlElement, message: string, location?: Location): void {
+	report(node: HtmlElement, message: string, location?: Location, context?: T): void {
 		if (this.isEnabled()){
 			const where = this.findLocation({node, location, event: this.event});
-			this.reporter.add(node, this, message, this.severity, where);
+			this.reporter.add(node, this, message, this.severity, where, context);
 		}
 	}
 
@@ -123,4 +131,13 @@ export abstract class Rule {
 	}
 
 	abstract setup(): void;
+
+	documentation(context?: T): RuleDocumentation {
+		return null;
+	}
+}
+
+export function ruleDocumentationUrl(filename: string): string {
+	const p = path.parse(filename);
+	return `${homepage}/rules/${p.name}.html`;
 }

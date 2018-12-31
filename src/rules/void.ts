@@ -1,7 +1,7 @@
 import { HtmlElement } from "../dom";
 import { NodeClosed } from "../dom";
 import { TagCloseEvent } from "../event";
-import { Rule } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 const defaults = {
 	style: "omit",
@@ -15,6 +15,13 @@ enum Style {
 
 class Void extends Rule {
 	style: Style;
+
+	documentation(): RuleDocumentation {
+		return {
+			description: "HTML void elements cannot have any content and must not have an end tag.",
+			url: ruleDocumentationUrl(__filename),
+		};
+	}
 
 	constructor(options: object){
 		super(Object.assign({}, defaults, options));

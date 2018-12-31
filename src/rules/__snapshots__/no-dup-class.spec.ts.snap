@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule no-dup-class should contain documentation 1`] = `
+Object {
+  "description": "Prevents unnecessary duplication of class names.",
+  "url": "https://html-validate.org/rules/no-dup-class.html",
+}
+`;
+
 exports[`rule no-dup-class smoketest 1`] = `
 Array [
   Object {
@@ -8,6 +15,7 @@ Array [
     "messages": Array [
       Object {
         "column": 6,
+        "context": undefined,
         "line": 5,
         "message": "Class \\"foo\\" duplicated",
         "offset": 59,

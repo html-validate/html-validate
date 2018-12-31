@@ -100,4 +100,11 @@ describe("rule element-name", () => {
 		expect(report).toHaveError("element-name", "<foo-bar> element is blacklisted");
 	});
 
+	it("should contain documentation", () => {
+		htmlvalidate = new HtmlValidate({
+			rules: {"element-name": "error"},
+		});
+		expect(htmlvalidate.getRuleDocumentation("element-name")).toMatchSnapshot();
+	});
+
 });

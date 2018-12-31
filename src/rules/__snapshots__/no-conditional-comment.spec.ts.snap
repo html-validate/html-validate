@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule no-conditional-comment should contain documentation 1`] = `
+Object {
+  "description": "Microsoft Internet Explorer previously supported using special HTML comments (conditional comments) for targeting specific versions of IE but since IE 10 it is deprecated and not supported in standards mode.",
+  "url": "https://html-validate.org/rules/no-conditional-comment.html",
+}
+`;
+
 exports[`rule no-conditional-comment smoketest 1`] = `
 Array [
   Object {
@@ -8,6 +15,7 @@ Array [
     "messages": Array [
       Object {
         "column": 1,
+        "context": undefined,
         "line": 3,
         "message": "Use of conditional comments are deprecated",
         "offset": 17,
@@ -17,6 +25,7 @@ Array [
       },
       Object {
         "column": 1,
+        "context": undefined,
         "line": 7,
         "message": "Use of conditional comments are deprecated",
         "offset": 57,
@@ -26,6 +35,7 @@ Array [
       },
       Object {
         "column": 1,
+        "context": undefined,
         "line": 9,
         "message": "Use of conditional comments are deprecated",
         "offset": 71,
@@ -35,6 +45,7 @@ Array [
       },
       Object {
         "column": 16,
+        "context": undefined,
         "line": 9,
         "message": "Use of conditional comments are deprecated",
         "offset": 86,

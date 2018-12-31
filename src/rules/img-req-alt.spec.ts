@@ -114,4 +114,11 @@ describe("rule img-req-alt", () => {
 
 	});
 
+	it("should contain documentation", () => {
+		htmlvalidate = new HtmlValidate({
+			rules: {"img-req-alt": "error"},
+		});
+		expect(htmlvalidate.getRuleDocumentation("img-req-alt")).toMatchSnapshot();
+	});
+
 });

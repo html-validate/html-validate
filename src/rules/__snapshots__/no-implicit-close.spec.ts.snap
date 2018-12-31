@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule no-implicit-close should contain documentation 1`] = `
+Object {
+  "description": "Some elements in HTML has optional end tags. When an optional tag is omitted a browser must handle it as if the end tag was present.
+
+Omitted end tags can be ambigious for humans to read and many editors have trouble formatting the markup.",
+  "url": "https://html-validate.org/rules/no-implicit-close.html",
+}
+`;
+
 exports[`rule no-implicit-close smoketest 1`] = `
 Array [
   Object {
@@ -8,6 +17,7 @@ Array [
     "messages": Array [
       Object {
         "column": 3,
+        "context": undefined,
         "line": 6,
         "message": "Element <li> is implicitly closed by sibling",
         "offset": 37,
@@ -17,6 +27,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 7,
         "message": "Element <li> is implicitly closed by sibling",
         "offset": 46,
@@ -26,6 +37,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 8,
         "message": "Element <li> is implicitly closed by parent </ul>",
         "offset": 55,
@@ -35,6 +47,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 12,
         "message": "Element <li> is implicitly closed by sibling",
         "offset": 76,
@@ -44,6 +57,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 13,
         "message": "Element <li> is implicitly closed by sibling",
         "offset": 97,
@@ -53,6 +67,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 14,
         "message": "Element <li> is implicitly closed by parent </ul>",
         "offset": 118,
@@ -62,6 +77,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 18,
         "message": "Element <li> is implicitly closed by sibling",
         "offset": 151,
@@ -71,6 +87,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 19,
         "message": "Element <li> is implicitly closed by parent </ul>",
         "offset": 180,
@@ -80,6 +97,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 23,
         "message": "Element <dt> is implicitly closed by adjacent <dd>",
         "offset": 209,
@@ -89,6 +107,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 24,
         "message": "Element <dd> is implicitly closed by sibling",
         "offset": 220,
@@ -98,6 +117,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 25,
         "message": "Element <dd> is implicitly closed by adjacent <dt>",
         "offset": 238,
@@ -107,6 +127,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 26,
         "message": "Element <dt> is implicitly closed by adjacent <dd>",
         "offset": 256,
@@ -116,6 +137,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 27,
         "message": "Element <dd> is implicitly closed by parent </dl>",
         "offset": 266,
@@ -125,6 +147,7 @@ Array [
       },
       Object {
         "column": 2,
+        "context": undefined,
         "line": 30,
         "message": "Element <p> is implicitly closed by adjacent <address>",
         "offset": 288,

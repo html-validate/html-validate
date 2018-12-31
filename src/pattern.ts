@@ -13,3 +13,16 @@ export function parsePattern(pattern: string): RegExp {
 		return new RegExp(pattern);
 	}
 }
+
+export function describePattern(pattern: string): string {
+	const regexp = parsePattern(pattern).toString();
+	switch (pattern){
+	case "kebabcase":
+	case "camelcase":
+	case "underscore": {
+		return `${regexp} (${pattern})`;
+	}
+	default:
+		return regexp;
+	}
+}

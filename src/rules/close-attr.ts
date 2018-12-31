@@ -1,7 +1,14 @@
 import { TagCloseEvent } from "../event";
-import { Rule } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class CloseAttr extends Rule {
+	documentation(): RuleDocumentation {
+		return {
+			description: "HTML disallows end tags to have attributes.",
+			url: ruleDocumentationUrl(__filename),
+		};
+	}
+
 	setup(){
 		this.on("tag:close", (event: TagCloseEvent) => {
 			/* handle unclosed tags */

@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule heading-level should contain documentation 1`] = `
+Object {
+  "description": "Validates heading level increments and order. Headings must start at h1 and can only increase one level at a time.",
+  "url": "https://html-validate.org/rules/heading-level.html",
+}
+`;
+
 exports[`rule heading-level smoketest 1`] = `
 Array [
   Object {
@@ -8,6 +15,7 @@ Array [
     "messages": Array [
       Object {
         "column": 1,
+        "context": undefined,
         "line": 1,
         "message": "Initial heading level must be h1",
         "offset": 0,
@@ -17,6 +25,7 @@ Array [
       },
       Object {
         "column": 1,
+        "context": undefined,
         "line": 6,
         "message": "Heading level can only increase by one, expected h3",
         "offset": 72,

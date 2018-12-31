@@ -1,5 +1,5 @@
 import { TagOpenEvent } from "../event";
-import { Rule } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 const defaults = {
 	style: "lowercase",
@@ -12,6 +12,13 @@ class ElementCase extends Rule {
 	constructor(options: object){
 		super(Object.assign({}, defaults, options));
 		[this.pattern, this.lettercase] = parseStyle(this.options.style);
+	}
+
+	documentation(): RuleDocumentation {
+		return {
+			description: `Element tagname must be ${this.options.style}.`,
+			url: ruleDocumentationUrl(__filename),
+		};
 	}
 
 	setup(){

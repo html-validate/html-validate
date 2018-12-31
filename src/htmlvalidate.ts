@@ -3,6 +3,7 @@ import { Source } from "./context";
 import { Engine, EventDump, TokenDump } from "./engine";
 import { Parser } from "./parser";
 import { Report } from "./reporter";
+import { RuleDocumentation } from "./rule";
 
 class HtmlValidate {
 	private globalConfig: Config;
@@ -74,6 +75,33 @@ class HtmlValidate {
 		const source = config.transform(filename);
 		const engine = new Engine(config, Parser);
 		return engine.dumpTree(source);
+	}
+
+	/**
+	 * Get contextual documentation for the given rule.
+	 *
+	 * Typical usage:
+	 *
+	 * ```js
+	 * const report = htmlvalidate.validateFile("my-file.html");
+	 * for (const result of report.results){
+	 *   const config = htmlvalidate.getConfigFor(result.filePath);
+	 *   for (const message of result.messages){
+	 *     const documentation = htmlvalidate.getRuleDocumentation(message.ruleId, config, message.context);
+	 *     // do something with documentation
+	 *   }
+	 * }
+	 * ```
+	 *
+	 * @param {string} ruleId - Rule to get documentation for.
+	 * @param {Config} [config] - If set it provides more accurate description by
+	 * using the correct configuration for the file.
+	 * @param {any} [context] - If set to `Message.context` some rules can provide
+	 * contextual details and suggestions.
+	 */
+	public getRuleDocumentation(ruleId: string, config?: Config, context?: any): RuleDocumentation {
+		const engine = new Engine(config || this.getConfigFor("inline"), Parser);
+		return engine.getRuleDocumentation(ruleId, context);
 	}
 
 	/**

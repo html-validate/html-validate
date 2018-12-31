@@ -11,6 +11,7 @@ export interface Message {
 	line: number;
 	column: number;
 	size: number;
+	context?: any;
 }
 
 export interface Result {
@@ -52,7 +53,7 @@ export class Reporter {
 		return {valid, results: Object.keys(merged).map((key) => merged[key])};
 	}
 
-	add(node: HtmlElement, rule: Rule, message: string, severity: number, location: Location){
+	add(node: HtmlElement, rule: Rule, message: string, severity: number, location: Location, context?: any){
 		if (!this.result.hasOwnProperty(location.filename)){
 			this.result[location.filename] = [];
 		}
@@ -64,6 +65,7 @@ export class Reporter {
 			line: location.line,
 			column: location.column,
 			size: location.size || 0,
+			context,
 		});
 	}
 

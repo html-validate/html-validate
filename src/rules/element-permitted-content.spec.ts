@@ -48,4 +48,8 @@ describe("rule element-permitted-content", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should contain documentation", () => {
+		expect(htmlvalidate.getRuleDocumentation("element-permitted-content")).toMatchSnapshot();
+	});
+
 });

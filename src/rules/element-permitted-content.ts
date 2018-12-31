@@ -2,9 +2,16 @@ import { HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { Validator } from "../meta";
 import { Permitted } from "../meta/element";
-import { Rule } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class ElementPermittedContent extends Rule {
+	documentation(): RuleDocumentation {
+		return {
+			description: "Some elements has restrictions on what content is allowed. This can include both direct children or descendant elements.",
+			url: ruleDocumentationUrl(__filename),
+		};
+	}
+
 	setup(){
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;

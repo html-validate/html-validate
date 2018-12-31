@@ -8,6 +8,7 @@ Array [
     "messages": Array [
       Object {
         "column": 1,
+        "context": undefined,
         "line": 1,
         "message": "Use of conditional comments are deprecated",
         "offset": 0,
@@ -17,6 +18,7 @@ Array [
       },
       Object {
         "column": 1,
+        "context": undefined,
         "line": 5,
         "message": "Use of conditional comments are deprecated",
         "offset": 44,

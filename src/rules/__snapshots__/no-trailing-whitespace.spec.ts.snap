@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule no-trailing-whitespace should contain documentation 1`] = `
+Object {
+  "description": "Lines with trailing whitespace cause unnessecary diff when using version control and usually serve no special purpose in HTML.",
+  "url": "https://html-validate.org/rules/no-trailing-whitespace.html",
+}
+`;
+
 exports[`rule no-trailing-whitespace smoketest 1`] = `
 Array [
   Object {
@@ -8,6 +15,7 @@ Array [
     "messages": Array [
       Object {
         "column": 6,
+        "context": undefined,
         "line": 5,
         "message": "Trailing whitespace",
         "offset": 25,
@@ -17,6 +25,7 @@ Array [
       },
       Object {
         "column": 6,
+        "context": undefined,
         "line": 6,
         "message": "Trailing whitespace",
         "offset": 32,
@@ -26,6 +35,7 @@ Array [
       },
       Object {
         "column": 1,
+        "context": undefined,
         "line": 7,
         "message": "Trailing whitespace",
         "offset": 35,
@@ -35,6 +45,7 @@ Array [
       },
       Object {
         "column": 6,
+        "context": undefined,
         "line": 8,
         "message": "Trailing whitespace",
         "offset": 43,
@@ -44,6 +55,7 @@ Array [
       },
       Object {
         "column": 7,
+        "context": undefined,
         "line": 12,
         "message": "Trailing whitespace",
         "offset": 66,
@@ -53,6 +65,7 @@ Array [
       },
       Object {
         "column": 1,
+        "context": undefined,
         "line": 15,
         "message": "Trailing whitespace",
         "offset": 76,

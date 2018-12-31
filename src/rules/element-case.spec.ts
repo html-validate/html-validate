@@ -85,4 +85,11 @@ describe("rule element-case", () => {
 		expect(() => htmlvalidate.validateString("<foo></foo>")).toThrow(`Invalid style "foobar" for "element-case" rule`);
 	});
 
+	it("should contain documentation", () => {
+		htmlvalidate = new HtmlValidate({
+			rules: {"element-case": "error"},
+		});
+		expect(htmlvalidate.getRuleDocumentation("element-case")).toMatchSnapshot();
+	});
+
 });

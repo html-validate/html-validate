@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule missing-doctype should contain documentation 1`] = `
+Object {
+  "description": "Requires that the document contains a doctype.",
+  "url": "https://html-validate.org/rules/missing-doctype.html",
+}
+`;
+
 exports[`rule missing-doctype smoketest 1`] = `
 Array [
   Object {
@@ -8,6 +15,7 @@ Array [
     "messages": Array [
       Object {
         "column": 1,
+        "context": undefined,
         "line": 1,
         "message": "Document is missing doctype",
         "offset": 0,

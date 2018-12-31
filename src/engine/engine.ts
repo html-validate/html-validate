@@ -5,7 +5,7 @@ import { DirectiveEvent, TagCloseEvent, TagOpenEvent } from "../event";
 import { InvalidTokenError, Lexer, TokenType } from "../lexer";
 import { Parser } from "../parser";
 import { Report, Reporter } from "../reporter";
-import { Rule, RuleConstructor, RuleOptions } from "../rule";
+import { Rule, RuleConstructor, RuleDocumentation, RuleOptions } from "../rule";
 
 export interface EventDump {
 	event: string;
@@ -135,6 +135,20 @@ export class Engine<T extends Parser = Parser> {
 
 		writeNode(dom.root, 0, 0);
 		return lines;
+	}
+
+	/**
+	 * Get rule documentation.
+	 */
+	public getRuleDocumentation(ruleId: string, context?: any): RuleDocumentation {
+		const rules = this.config.getRules();
+		if (ruleId in rules){
+			const [, options] = rules[ruleId] as any;
+			const rule = this.instantiateRule(ruleId, options);
+			return rule.documentation(context);
+		} else {
+			return null;
+		}
 	}
 
 	private processDirective(event: DirectiveEvent, parser: Parser, allRules: { [key: string]: Rule }): void {

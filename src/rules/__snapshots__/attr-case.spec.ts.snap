@@ -8,6 +8,7 @@ Array [
     "messages": Array [
       Object {
         "column": 4,
+        "context": undefined,
         "line": 2,
         "message": "Attribute \\"ID\\" should be lowercase",
         "offset": 23,
@@ -17,6 +18,7 @@ Array [
       },
       Object {
         "column": 4,
+        "context": undefined,
         "line": 3,
         "message": "Attribute \\"clAss\\" should be lowercase",
         "offset": 43,
@@ -42,6 +44,7 @@ Array [
     "messages": Array [
       Object {
         "column": 4,
+        "context": undefined,
         "line": 1,
         "message": "Attribute \\"id\\" should be uppercase",
         "offset": 3,
@@ -51,6 +54,7 @@ Array [
       },
       Object {
         "column": 4,
+        "context": undefined,
         "line": 3,
         "message": "Attribute \\"clAss\\" should be uppercase",
         "offset": 43,
@@ -66,4 +70,11 @@ Array [
     "warningCount": 0,
   },
 ]
+`;
+
+exports[`rule attr-case should contain documentation 1`] = `
+Object {
+  "description": "Attribute name must be lowercase.",
+  "url": "https://html-validate.org/rules/attr-case.html",
+}
 `;

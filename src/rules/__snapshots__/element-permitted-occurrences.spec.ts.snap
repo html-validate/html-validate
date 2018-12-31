@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule element-permitted-occurrences should contain documentation 1`] = `
+Object {
+  "description": "Some elements may only be used a fixed amount of times in given context.",
+  "url": "https://html-validate.org/rules/element-permitted-occurrences.html",
+}
+`;
+
 exports[`rule element-permitted-occurrences smoketest 1`] = `
 Array [
   Object {
@@ -8,6 +15,7 @@ Array [
     "messages": Array [
       Object {
         "column": 3,
+        "context": undefined,
         "line": 3,
         "message": "Element <caption> can only appear once under <table>",
         "offset": 32,

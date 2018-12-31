@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule no-inline-style should contain documentation 1`] = `
+Object {
+  "description": "Inline style is a sign of unstructured CSS. Use class or ID with a separate stylesheet.",
+  "url": "https://html-validate.org/rules/no-inline-style.html",
+}
+`;
+
 exports[`rule no-inline-style smoketest 1`] = `
 Array [
   Object {
@@ -8,6 +15,7 @@ Array [
     "messages": Array [
       Object {
         "column": 4,
+        "context": undefined,
         "line": 1,
         "message": "Inline style is not allowed",
         "offset": 3,

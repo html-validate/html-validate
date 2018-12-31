@@ -10,6 +10,7 @@ Array [
     "messages": Array [
       Object {
         "column": 6,
+        "context": undefined,
         "line": 4,
         "message": "Element <caption> must be used before <thead> in this context",
         "offset": 82,

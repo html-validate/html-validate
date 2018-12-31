@@ -8,6 +8,7 @@ Array [
     "messages": Array [
       Object {
         "column": 3,
+        "context": undefined,
         "line": 1,
         "message": "End tag for <i> must not be omitted",
         "offset": 2,
@@ -17,6 +18,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 8,
         "message": "End tag for <i> must not be omitted",
         "offset": 190,
@@ -47,6 +49,7 @@ Array [
     "messages": Array [
       Object {
         "column": 3,
+        "context": undefined,
         "line": 1,
         "message": "End tag for <i> must not be omitted",
         "offset": 2,
@@ -56,6 +59,7 @@ Array [
       },
       Object {
         "column": 4,
+        "context": undefined,
         "line": 3,
         "message": "End tag for <i> must not be omitted",
         "offset": 43,
@@ -65,6 +69,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 11,
         "message": "End tag for <i> must not be omitted",
         "offset": 324,
@@ -74,6 +79,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 16,
         "message": "End tag for <i> must not be omitted",
         "offset": 417,
@@ -115,6 +121,7 @@ Array [
     "messages": Array [
       Object {
         "column": 1,
+        "context": undefined,
         "line": 1,
         "message": "<blink> is deprecated",
         "offset": 0,
@@ -124,6 +131,7 @@ Array [
       },
       Object {
         "column": 7,
+        "context": undefined,
         "line": 1,
         "message": "End tag for <blink> must not be omitted",
         "offset": 6,
@@ -151,6 +159,7 @@ Array [
     "messages": Array [
       Object {
         "column": 3,
+        "context": undefined,
         "line": 1,
         "message": "End tag for <i> must not be omitted",
         "offset": 2,
@@ -160,6 +169,7 @@ Array [
       },
       Object {
         "column": 3,
+        "context": undefined,
         "line": 5,
         "message": "End tag for <i> must not be omitted",
         "offset": 125,
@@ -187,6 +197,7 @@ Array [
     "messages": Array [
       Object {
         "column": 2,
+        "context": undefined,
         "line": 2,
         "message": "<deprecated> is deprecated",
         "offset": 7,
@@ -196,6 +207,7 @@ Array [
       },
       Object {
         "column": 4,
+        "context": undefined,
         "line": 5,
         "message": "Element <li> is not permitted as content in <ul>",
         "offset": 67,
@@ -226,6 +238,7 @@ Array [
     "messages": Array [
       Object {
         "column": 15,
+        "context": undefined,
         "line": 1,
         "message": "End tag for <input> must be omitted",
         "offset": 14,
@@ -249,6 +262,7 @@ Array [
     "messages": Array [
       Object {
         "column": 15,
+        "context": undefined,
         "line": 1,
         "message": "End tag for <input> must be omitted",
         "offset": 14,
@@ -274,6 +288,7 @@ Array [
     "messages": Array [
       Object {
         "column": 15,
+        "context": undefined,
         "line": 1,
         "message": "End tag for <input> must be omitted",
         "offset": 14,

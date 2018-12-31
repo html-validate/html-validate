@@ -38,4 +38,8 @@ describe("rule no-implicit-close", () => {
 		expect(report.results).toMatchSnapshot();
 	});
 
+	it("should contain documentation", () => {
+		expect(htmlvalidate.getRuleDocumentation("no-implicit-close")).toMatchSnapshot();
+	});
+
 });

@@ -1,5 +1,5 @@
 import { TagOpenEvent } from "../event";
-import { Rule } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 const defaults = {
 	pattern: "^[a-z][a-z0-9\\-._]*-[a-z0-9\\-._]*$",
@@ -13,6 +13,13 @@ class ElementName extends Rule {
 	constructor(options: object){
 		super(Object.assign({}, defaults, options));
 		this.pattern = new RegExp(this.options.pattern);
+	}
+
+	documentation(): RuleDocumentation {
+		return {
+			description: "HTML defines what content is considered a valid (custom) element name.",
+			url: ruleDocumentationUrl(__filename),
+		};
 	}
 
 	setup(){

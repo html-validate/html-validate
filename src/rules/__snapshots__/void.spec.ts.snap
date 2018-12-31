@@ -8,6 +8,7 @@ Array [
     "messages": Array [
       Object {
         "column": 16,
+        "context": undefined,
         "line": 10,
         "message": "End tag for <input> must be omitted",
         "offset": 69,
@@ -17,6 +18,7 @@ Array [
       },
       Object {
         "column": 6,
+        "context": undefined,
         "line": 13,
         "message": "End tag for <div> must not be omitted",
         "offset": 84,
@@ -53,6 +55,7 @@ Array [
     "messages": Array [
       Object {
         "column": 9,
+        "context": undefined,
         "line": 2,
         "message": "Expected omitted end tag <input> instead of self-closing element <input/>",
         "offset": 14,
@@ -62,6 +65,7 @@ Array [
       },
       Object {
         "column": 16,
+        "context": undefined,
         "line": 10,
         "message": "End tag for <input> must be omitted",
         "offset": 69,
@@ -71,6 +75,7 @@ Array [
       },
       Object {
         "column": 6,
+        "context": undefined,
         "line": 13,
         "message": "End tag for <div> must not be omitted",
         "offset": 84,
@@ -107,6 +112,7 @@ Array [
     "messages": Array [
       Object {
         "column": 8,
+        "context": undefined,
         "line": 6,
         "message": "Expected self-closing element <input/> instead of omitted end-tag <input>",
         "offset": 38,
@@ -116,6 +122,7 @@ Array [
       },
       Object {
         "column": 8,
+        "context": undefined,
         "line": 10,
         "message": "Expected self-closing element <input/> instead of omitted end-tag <input>",
         "offset": 61,
@@ -125,6 +132,7 @@ Array [
       },
       Object {
         "column": 16,
+        "context": undefined,
         "line": 10,
         "message": "End tag for <input> must be omitted",
         "offset": 69,
@@ -134,6 +142,7 @@ Array [
       },
       Object {
         "column": 6,
+        "context": undefined,
         "line": 13,
         "message": "End tag for <div> must not be omitted",
         "offset": 84,
@@ -170,6 +179,7 @@ Array [
     "messages": Array [
       Object {
         "column": 9,
+        "context": undefined,
         "line": 2,
         "message": "Expected omitted end tag <input> instead of self-closing element <input/>",
         "offset": 14,
@@ -179,6 +189,7 @@ Array [
       },
       Object {
         "column": 16,
+        "context": undefined,
         "line": 10,
         "message": "End tag for <input> must be omitted",
         "offset": 69,
@@ -188,6 +199,7 @@ Array [
       },
       Object {
         "column": 6,
+        "context": undefined,
         "line": 13,
         "message": "End tag for <div> must not be omitted",
         "offset": 84,

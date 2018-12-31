@@ -1,5 +1,5 @@
 import { AttributeEvent } from "../event";
-import { Rule } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 const SINGLE_QUOTE = "'";
 const DOUBLE_QUOTE = '"';
@@ -11,6 +11,13 @@ const defaults = {
 
 class AttrQuotes extends Rule {
 	expected: string;
+
+	documentation(): RuleDocumentation {
+		return {
+			description: `Attribute values are required to be quoted with ${this.options.style}quotes.`,
+			url: ruleDocumentationUrl(__filename),
+		};
+	}
 
 	constructor(options: object){
 		super(Object.assign({}, defaults, options));

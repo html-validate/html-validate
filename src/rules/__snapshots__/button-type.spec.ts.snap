@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule button-type should contain documentation 1`] = `
+Object {
+  "description": "HTML button defaults to \`type=\\"submit\\"\` when attribute is missing or invalid which may not be the intended type.
+
+A common side-effect of this is when pressing enter in a form field unexpectedly prevents form submission and instead executes the action this button is bound to.",
+  "url": "https://html-validate.org/rules/button-type.html",
+}
+`;
+
 exports[`rule button-type smoketest 1`] = `
 Array [
   Object {
@@ -8,6 +17,7 @@ Array [
     "messages": Array [
       Object {
         "column": 3,
+        "context": undefined,
         "line": 2,
         "message": "Button is missing type attribute",
         "offset": 9,
@@ -17,6 +27,7 @@ Array [
       },
       Object {
         "column": 10,
+        "context": undefined,
         "line": 3,
         "message": "Button has invalid type \\"foo\\"",
         "offset": 59,

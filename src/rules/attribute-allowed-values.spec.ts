@@ -36,4 +36,18 @@ describe("rule attribute-allowed-values", () => {
 		expect(report.results).toMatchSnapshot();
 	});
 
+	it("should contain documentation", () => {
+		expect(htmlvalidate.getRuleDocumentation("attribute-allowed-values")).toMatchSnapshot();
+	});
+
+	it("should contain contextual documentation", () => {
+		const context = {
+			element: "any",
+			attribute: "foo",
+			value: "bar",
+			allowed: ["spam", "ham", /\d+/],
+		};
+		expect(htmlvalidate.getRuleDocumentation("attribute-allowed-values", null, context)).toMatchSnapshot();
+	});
+
 });

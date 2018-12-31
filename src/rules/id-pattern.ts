@@ -1,6 +1,6 @@
 import { AttributeEvent } from "../event";
-import { parsePattern } from "../pattern";
-import { Rule } from "../rule";
+import { describePattern, parsePattern } from "../pattern";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 const defaults = {
 	pattern: "kebabcase",
@@ -12,6 +12,14 @@ class IdPattern extends Rule {
 	constructor(options: object){
 		super(Object.assign({}, defaults, options));
 		this.pattern = parsePattern(this.options.pattern);
+	}
+
+	documentation(): RuleDocumentation {
+		const pattern = describePattern(this.options.pattern);
+		return {
+			description: `For consistency all IDs are required to match the pattern ${pattern}.`,
+			url: ruleDocumentationUrl(__filename),
+		};
 	}
 
 	setup(){
