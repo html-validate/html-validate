@@ -124,7 +124,7 @@ module.exports = function(grunt){
 		},
 
 		exec: {
-			jest: `${path.join("node_modules", ".bin", "jest")} -i --colors`,
+			jest: `${path.join("node_modules", ".bin", "jest")} -i --colors --ci`,
 		},
 
 		connect: {
