@@ -6,6 +6,7 @@
 /build
 /coverage
 /public/assets
+/docs/**/__tests__/*.spec.ts
 
 # nunjucks templates
 /docs/dgeni/inline-validate/templates
