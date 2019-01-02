@@ -158,21 +158,21 @@ export class Engine<T extends Parser = Parser> {
 			.map((name) => allRules[name])
 			.filter((rule) => rule); /* filter out missing rules */
 		switch (event.action) {
-		case "enable":
-			this.processEnableDirective(rules);
-			break;
-		case "disable":
-			this.processDisableDirective(rules);
-			break;
-		case "disable-block":
-			this.processDisableBlockDirective(rules, parser);
-			break;
-		case "disable-next":
-			this.processDisableNextDirective(rules, parser);
-			break;
-		default:
-			this.reportError(`Unknown directive "${event.action}"`, event.location);
-			break;
+			case "enable":
+				this.processEnableDirective(rules);
+				break;
+			case "disable":
+				this.processDisableDirective(rules);
+				break;
+			case "disable-block":
+				this.processDisableBlockDirective(rules, parser);
+				break;
+			case "disable-next":
+				this.processDisableNextDirective(rules, parser);
+				break;
+			default:
+				this.reportError(`Unknown directive "${event.action}"`, event.location);
+				break;
 		}
 	}
 

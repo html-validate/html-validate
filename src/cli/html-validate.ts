@@ -50,24 +50,24 @@ function dump(files: string[], mode: string) {
 	const filtered = ["parent", "children"];
 	let lines: string[][] = [];
 	switch (mode) {
-	case "dump-events":
-		lines = files.map((filename: string) => htmlvalidate.dumpEvents(filename).map((entry: EventDump) => {
-			const strdata = JSON.stringify(entry.data, (key, value) => {
-				return filtered.indexOf(key) >= 0 ? "[truncated]" : value;
-			}, 2);
-			return `${entry.event}: ${strdata}`;
-		}));
-		break;
-	case "dump-tokens":
-		lines = files.map((filename: string) => htmlvalidate.dumpTokens(filename).map((entry: TokenDump) => {
-			return `TOKEN: ${entry.token}\n  Data: ${JSON.stringify(entry.data)}\n  Location: ${entry.location}`;
-		}));
-		break;
-	case "dump-tree":
-		lines = files.map((filename: string) => htmlvalidate.dumpTree(filename));
-		break;
-	default:
-		throw new Error(`Unknown mode "${mode}"`);
+		case "dump-events":
+			lines = files.map((filename: string) => htmlvalidate.dumpEvents(filename).map((entry: EventDump) => {
+				const strdata = JSON.stringify(entry.data, (key, value) => {
+					return filtered.indexOf(key) >= 0 ? "[truncated]" : value;
+				}, 2);
+				return `${entry.event}: ${strdata}`;
+			}));
+			break;
+		case "dump-tokens":
+			lines = files.map((filename: string) => htmlvalidate.dumpTokens(filename).map((entry: TokenDump) => {
+				return `TOKEN: ${entry.token}\n  Data: ${JSON.stringify(entry.data)}\n  Location: ${entry.location}`;
+			}));
+			break;
+		case "dump-tree":
+			lines = files.map((filename: string) => htmlvalidate.dumpTree(filename));
+			break;
+		default:
+			throw new Error(`Unknown mode "${mode}"`);
 	}
 	const flat = lines.reduce((s: string[], c: string[]) => s.concat(c), []);
 	return flat.join("\n");

@@ -47,9 +47,9 @@ class AttrQuotes extends Rule {
 
 function parseStyle(style: string) {
 	switch (style.toLowerCase()) {
-	case "double": return DOUBLE_QUOTE;
-	case "single": return SINGLE_QUOTE;
-	default: return DOUBLE_QUOTE;
+		case "double": return DOUBLE_QUOTE;
+		case "single": return SINGLE_QUOTE;
+		default: return DOUBLE_QUOTE;
 	}
 }
 

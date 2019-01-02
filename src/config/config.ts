@@ -27,19 +27,19 @@ function parseSeverity(value: string | number) {
 		return value;
 	}
 	switch (value) {
-	case "off":
-		return 0;
-	/* istanbul ignore next: deprecated code which will be removed later */
-	case "disable":
+		case "off":
+			return 0;
+			/* istanbul ignore next: deprecated code which will be removed later */
+		case "disable":
 		// eslint-disable-next-line no-console
-		console.warn(`Deprecated alias "disabled" will be removed, replace with severity "off"`);
-		return 0;
-	case "warn":
-		return 1;
-	case "error":
-		return 2;
-	default:
-		throw new Error(`Invalid severity "${value}"`);
+			console.warn(`Deprecated alias "disabled" will be removed, replace with severity "off"`);
+			return 0;
+		case "warn":
+			return 1;
+		case "error":
+			return 2;
+		default:
+			throw new Error(`Invalid severity "${value}"`);
 	}
 }
 
@@ -69,8 +69,8 @@ export class Config {
 
 	public static fromFile(filename: string): Config {
 		switch (filename) {
-		case "htmlvalidate:recommended": return Config.fromObject(recommended);
-		case "htmlvalidate:document": return Config.fromObject(document);
+			case "htmlvalidate:recommended": return Config.fromObject(recommended);
+			case "htmlvalidate:document": return Config.fromObject(document);
 		}
 
 		const json = require(filename);

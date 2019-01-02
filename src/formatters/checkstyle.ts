@@ -18,9 +18,9 @@ function xmlescape(src: any) {
 
 function getMessageType(message: Message) {
 	switch (message.severity) {
-	case 2: return "error";
-	case 1: return "warning";
-	default: return "error";
+		case 2: return "error";
+		case 1: return "warning";
+		default: return "error";
 	}
 }
 

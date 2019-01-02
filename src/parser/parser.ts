@@ -61,35 +61,35 @@ export class Parser {
 			const token = it.value;
 
 			switch (token.type) {
-			case TokenType.TAG_OPEN:
-				this.consumeTag(token, tokenStream);
-				break;
+				case TokenType.TAG_OPEN:
+					this.consumeTag(token, tokenStream);
+					break;
 
-			case TokenType.WHITESPACE:
-				this.trigger("whitespace", {
-					text: token.data[0],
-					location: token.location,
-				});
-				break;
+				case TokenType.WHITESPACE:
+					this.trigger("whitespace", {
+						text: token.data[0],
+						location: token.location,
+					});
+					break;
 
-			case TokenType.DIRECTIVE:
-				this.consumeDirective(token);
-				break;
+				case TokenType.DIRECTIVE:
+					this.consumeDirective(token);
+					break;
 
-			case TokenType.CONDITIONAL:
-				this.trigger("conditional", {
-					condition: token.data[1],
-					location: token.location,
-				});
-				break;
+				case TokenType.CONDITIONAL:
+					this.trigger("conditional", {
+						condition: token.data[1],
+						location: token.location,
+					});
+					break;
 
-			case TokenType.DOCTYPE_OPEN:
-				this.consumeDoctype(token, tokenStream);
-				break;
+				case TokenType.DOCTYPE_OPEN:
+					this.consumeDoctype(token, tokenStream);
+					break;
 
-			case TokenType.EOF:
-				this.closeTree(token);
-				break;
+				case TokenType.EOF:
+					this.closeTree(token);
+					break;
 			}
 
 			it = this.next(tokenStream);
@@ -175,11 +175,11 @@ export class Parser {
 		for (let i = 0; i < tokens.length; i++) {
 			const token = tokens[i];
 			switch (token.type) {
-			case TokenType.WHITESPACE:
-				break;
-			case TokenType.ATTR_NAME:
-				this.consumeAttribute(node, token, tokens[i + 1]);
-				break;
+				case TokenType.WHITESPACE:
+					break;
+				case TokenType.ATTR_NAME:
+					this.consumeAttribute(node, token, tokens[i + 1]);
+					break;
 			}
 		}
 

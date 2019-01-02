@@ -50,12 +50,12 @@ class AttrMatcher extends Matcher {
 	match(node: HtmlElement): boolean {
 		const attr = node.getAttributeValue(this.key);
 		switch (this.op) {
-		case undefined:
-			return attr !== null;
-		case "=":
-			return attr === this.value;
-		default:
-			throw new Error(`Attribute selector operator ${this.op} is not implemented yet`);
+			case undefined:
+				return attr !== null;
+			case "=":
+				return attr === this.value;
+			default:
+				throw new Error(`Attribute selector operator ${this.op} is not implemented yet`);
 		}
 	}
 }
@@ -82,16 +82,16 @@ class Pattern {
 
 	private static createMatcher(pattern: string): Matcher {
 		switch (pattern[0]) {
-		case ".":
-			return new ClassMatcher(pattern.slice(1));
-		case "#":
-			return new IdMatcher(pattern.slice(1));
-		case "[":
-			return new AttrMatcher(pattern.slice(1, -1));
-		default:
+			case ".":
+				return new ClassMatcher(pattern.slice(1));
+			case "#":
+				return new IdMatcher(pattern.slice(1));
+			case "[":
+				return new AttrMatcher(pattern.slice(1, -1));
+			default:
 			/* istanbul ignore next: fallback solution, the switch cases should cover
 			 * everything and there is no known way to trigger this fallback */
-			throw new Error(`Failed to create matcher for "${pattern}"`);
+				throw new Error(`Failed to create matcher for "${pattern}"`);
 		}
 	}
 }
@@ -128,14 +128,14 @@ export class Selector {
 
 	private static findCandidates(root: HtmlElement, pattern: Pattern): HtmlElement[] {
 		switch (pattern.combinator) {
-		case Combinator.DESCENDANT:
-			return root.getElementsByTagName(pattern.tagName);
-		case Combinator.CHILD:
-			return root.children.filter((node) => node.is(pattern.tagName));
-		case Combinator.ADJACENT_SIBLING:
-			return Selector.findAdjacentSibling(root);
-		case Combinator.GENERAL_SIBLING:
-			return Selector.findGeneralSibling(root);
+			case Combinator.DESCENDANT:
+				return root.getElementsByTagName(pattern.tagName);
+			case Combinator.CHILD:
+				return root.children.filter((node) => node.is(pattern.tagName));
+			case Combinator.ADJACENT_SIBLING:
+				return Selector.findAdjacentSibling(root);
+			case Combinator.GENERAL_SIBLING:
+				return Selector.findGeneralSibling(root);
 		}
 		/* istanbul ignore next: fallback solution, the switch cases should cover
 		 * everything and there is no known way to trigger this fallback */

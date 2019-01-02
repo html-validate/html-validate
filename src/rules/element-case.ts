@@ -33,10 +33,10 @@ class ElementCase extends Rule {
 
 function parseStyle(style: string): [RegExp, string] {
 	switch (style.toLowerCase()) {
-	case "lowercase": return [/^[a-z]*$/, "lowercase"];
-	case "uppercase": return [/^[A-Z]*$/, "uppercase"];
-	default:
-		throw new Error(`Invalid style "${style}" for "element-case" rule`);
+		case "lowercase": return [/^[a-z]*$/, "lowercase"];
+		case "uppercase": return [/^[A-Z]*$/, "uppercase"];
+		default:
+			throw new Error(`Invalid style "${style}" for "element-case" rule`);
 	}
 }
 

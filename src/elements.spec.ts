@@ -47,12 +47,12 @@ function getElementMarkup(tagName: string, variant: string, attr: {[key: string]
 		}
 	}, "");
 	switch (variant) {
-	case "omit":
-		return `<${tagName}${attrString}>`;
-	case "void":
-		return `<${tagName}${attrString}/>`;
-	default:
-		return `<${tagName}${attrString}>foo</${tagName}>`;
+		case "omit":
+			return `<${tagName}${attrString}>`;
+		case "void":
+			return `<${tagName}${attrString}/>`;
+		default:
+			return `<${tagName}${attrString}>foo</${tagName}>`;
 	}
 }
 

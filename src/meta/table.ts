@@ -188,8 +188,8 @@ function matchAttribute(node: HtmlElement, match: any): boolean {
 	const [key, op, value] = match.map((x) => x.toLowerCase());
 	const nodeValue = (node.getAttributeValue(key) || "").toLowerCase();
 	switch (op) {
-	case "!=": return nodeValue !== value;
-	case "=": return nodeValue === value;
-	default: throw new Error(`Property expression "matchAttribute" has invalid operator "${op}" when evaluating metadata for <${node.tagName}>`);
+		case "!=": return nodeValue !== value;
+		case "=": return nodeValue === value;
+		default: throw new Error(`Property expression "matchAttribute" has invalid operator "${op}" when evaluating metadata for <${node.tagName}>`);
 	}
 }

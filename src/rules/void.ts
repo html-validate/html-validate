@@ -70,10 +70,10 @@ class Void extends Rule {
 
 function parseStyle(name: string): Style {
 	switch (name) {
-	case "any": return Style.Any;
-	case "omit": return Style.AlwaysOmit;
-	case "selfclose": return Style.AlwaysSelfclose;
-	default: return Style.Any;
+		case "any": return Style.Any;
+		case "omit": return Style.AlwaysOmit;
+		case "selfclose": return Style.AlwaysSelfclose;
+		default: return Style.Any;
 	}
 }
 

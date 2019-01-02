@@ -58,37 +58,37 @@ export class Lexer {
 
 		while (context.string.length > 0) {
 			switch (context.state) {
-			case State.INITIAL:
-				yield* this.tokenizeInitial(context);
-				break;
+				case State.INITIAL:
+					yield* this.tokenizeInitial(context);
+					break;
 
-			case State.DOCTYPE:
-				yield* this.tokenizeDoctype(context);
-				break;
+				case State.DOCTYPE:
+					yield* this.tokenizeDoctype(context);
+					break;
 
-			case State.TAG:
-				yield* this.tokenizeTag(context);
-				break;
+				case State.TAG:
+					yield* this.tokenizeTag(context);
+					break;
 
-			case State.ATTR:
-				yield* this.tokenizeAttr(context);
-				break;
+				case State.ATTR:
+					yield* this.tokenizeAttr(context);
+					break;
 
-			case State.TEXT:
-				yield* this.tokenizeText(context);
-				break;
+				case State.TEXT:
+					yield* this.tokenizeText(context);
+					break;
 
-			case State.CDATA:
-				yield* this.tokenizeCDATA(context);
-				break;
+				case State.CDATA:
+					yield* this.tokenizeCDATA(context);
+					break;
 
-			case State.SCRIPT:
-				yield* this.tokenizeScript(context);
-				break;
+				case State.SCRIPT:
+					yield* this.tokenizeScript(context);
+					break;
 
-			/* istanbul ignore next: sanity check: should not happen unless adding new states */
-			default:
-				this.unhandled(context);
+					/* istanbul ignore next: sanity check: should not happen unless adding new states */
+				default:
+					this.unhandled(context);
 			}
 
 			/* sanity check: state or string must change, if both are intact
@@ -164,16 +164,16 @@ export class Lexer {
 	 */
 	private enter(context: Context, state: State, data: any) {
 		switch (state) {
-		case State.TAG:
+			case State.TAG:
 			/* request script tag tokenization */
-			if (data && data[0][0] === "<") {
-				if (data[0] === "<script") {
-					context.contentModel = ContentModel.SCRIPT;
-				} else {
-					context.contentModel = ContentModel.TEXT;
+				if (data && data[0][0] === "<") {
+					if (data[0] === "<script") {
+						context.contentModel = ContentModel.SCRIPT;
+					} else {
+						context.contentModel = ContentModel.TEXT;
+					}
 				}
-			}
-			break;
+				break;
 		}
 	}
 
@@ -197,14 +197,14 @@ export class Lexer {
 	private *tokenizeTag(context: Context) {
 		function nextState(token: Token) {
 			switch (context.contentModel) {
-			case ContentModel.TEXT:
-				return State.TEXT;
-			case ContentModel.SCRIPT:
-				if (token.data[0][0] !== "/") {
-					return State.SCRIPT;
-				} else {
-					return State.TEXT; /* <script/> (not legal but handle it anyway so the lexer doesn't choke on it) */
-				}
+				case ContentModel.TEXT:
+					return State.TEXT;
+				case ContentModel.SCRIPT:
+					if (token.data[0][0] !== "/") {
+						return State.SCRIPT;
+					} else {
+						return State.TEXT; /* <script/> (not legal but handle it anyway so the lexer doesn't choke on it) */
+					}
 			}
 			/* istanbul ignore next: not covered by a test as there is currently no
 			 * way to trigger this unless new content models are added but this will

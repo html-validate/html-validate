@@ -21,17 +21,17 @@ class MockParser extends Parser {
 	public parseHtml(source: string|Source): DOMTree {
 		if (typeof source === "string") return null;
 		switch (source.data) {
-		case "parse-error":
-			throw new InvalidTokenError({
-				filename: source.filename,
-				offset: 0,
-				line: 1,
-				column: 1,
-			}, "parse error");
-		case "exception":
-			throw new Error("exception");
-		default:
-			return super.parseHtml(source);
+			case "parse-error":
+				throw new InvalidTokenError({
+					filename: source.filename,
+					offset: 0,
+					line: 1,
+					column: 1,
+				}, "parse error");
+			case "exception":
+				throw new Error("exception");
+			default:
+				return super.parseHtml(source);
 		}
 	}
 

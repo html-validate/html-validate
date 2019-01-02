@@ -152,14 +152,14 @@ export class Validator {
 		}
 
 		switch (category) {
-		case "@meta": return node.meta.metadata as boolean;
-		case "@flow": return node.meta.flow as boolean;
-		case "@sectioning": return node.meta.sectioning as boolean;
-		case "@heading": return node.meta.heading as boolean;
-		case "@phrasing": return node.meta.phrasing as boolean;
-		case "@embedded": return node.meta.embedded as boolean;
-		case "@interactive": return node.meta.interactive as boolean;
-		default: throw new Error(`Invalid content category "${category}"`);
+			case "@meta": return node.meta.metadata as boolean;
+			case "@flow": return node.meta.flow as boolean;
+			case "@sectioning": return node.meta.sectioning as boolean;
+			case "@heading": return node.meta.heading as boolean;
+			case "@phrasing": return node.meta.phrasing as boolean;
+			case "@embedded": return node.meta.embedded as boolean;
+			case "@interactive": return node.meta.interactive as boolean;
+			default: throw new Error(`Invalid content category "${category}"`);
 		}
 	}
 }
@@ -182,11 +182,11 @@ function parseAmountQualifier(category: string): number {
 
 	const [, qualifier] = category.match(/^.*?([?*]?)$/);
 	switch (qualifier) {
-	case "?": return 1;
-	case "": return null;
-	case "*": return null;
-	/* istanbul ignore next */
-	default:
-		throw new Error(`Invalid amount qualifier "${qualifier}" used`);
+		case "?": return 1;
+		case "": return null;
+		case "*": return null;
+			/* istanbul ignore next */
+		default:
+			throw new Error(`Invalid amount qualifier "${qualifier}" used`);
 	}
 }
