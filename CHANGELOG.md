@@ -10,6 +10,7 @@
 
 ### Features
 
+- use [Prettier](https://prettier.io/) for formatting sources.
 - add `HtmlValidate.getRuleDocumentation()` API for IDEs to fetch contextual
   rule documentation.
 - add `codeframe` formatter (from eslint).
