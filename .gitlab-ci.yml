@@ -63,6 +63,11 @@ TSLint:
   script:
     - node_modules/.bin/grunt tslint
 
+Prettier:
+  stage: test
+  script:
+    - npm run prettier:check
+
 Docs:
   stage: test
   script:
