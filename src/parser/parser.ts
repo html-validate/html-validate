@@ -22,15 +22,15 @@ export class Parser {
 	private readonly metaTable: MetaTable;
 	private dom: DOMTree;
 
-	constructor(config: Config){
+	constructor(config: Config) {
 		this.config = config;
 		this.event = new EventHandler();
 		this.dom = undefined;
 		this.metaTable = config.getMetaTable();
 	}
 
-	parseHtml(source: string|Source): DOMTree {
-		if (typeof source === "string"){
+	parseHtml(source: string | Source): DOMTree {
+		if (typeof source === "string") {
 			source = {
 				data: source,
 				filename: "inline",
@@ -57,39 +57,39 @@ export class Parser {
 
 		/* consume all tokens from the stream */
 		let it = this.next(tokenStream);
-		while (!it.done){
+		while (!it.done) {
 			const token = it.value;
 
-			switch (token.type){
-			case TokenType.TAG_OPEN:
-				this.consumeTag(token, tokenStream);
-				break;
+			switch (token.type) {
+				case TokenType.TAG_OPEN:
+					this.consumeTag(token, tokenStream);
+					break;
 
-			case TokenType.WHITESPACE:
-				this.trigger("whitespace", {
-					text: token.data[0],
-					location: token.location,
-				});
-				break;
+				case TokenType.WHITESPACE:
+					this.trigger("whitespace", {
+						text: token.data[0],
+						location: token.location,
+					});
+					break;
 
-			case TokenType.DIRECTIVE:
-				this.consumeDirective(token);
-				break;
+				case TokenType.DIRECTIVE:
+					this.consumeDirective(token);
+					break;
 
-			case TokenType.CONDITIONAL:
-				this.trigger("conditional", {
-					condition: token.data[1],
-					location: token.location,
-				});
-				break;
+				case TokenType.CONDITIONAL:
+					this.trigger("conditional", {
+						condition: token.data[1],
+						location: token.location,
+					});
+					break;
 
-			case TokenType.DOCTYPE_OPEN:
-				this.consumeDoctype(token, tokenStream);
-				break;
+				case TokenType.DOCTYPE_OPEN:
+					this.consumeDoctype(token, tokenStream);
+					break;
 
-			case TokenType.EOF:
-				this.closeTree(token);
-				break;
+				case TokenType.EOF:
+					this.closeTree(token);
+					break;
 			}
 
 			it = this.next(tokenStream);
@@ -101,8 +101,10 @@ export class Parser {
 		/* trigger any rules waiting for DOM ready */
 		this.trigger("dom:ready", {
 			document: this.dom,
-			location: null, /* disable location for this event so rules can use
-			                 * implicit node location instead */
+
+			/* disable location for this event so rules can use implicit node location
+			 * instead */
+			location: null,
 		});
 
 		return this.dom;
@@ -119,7 +121,7 @@ export class Parser {
 		/* if the element doesn't have metadata it cannot have optional end
 		 * tags. Period. */
 		const active = this.dom.getActive();
-		if (!(active.meta && active.meta.implicitClosed)){
+		if (!(active.meta && active.meta.implicitClosed)) {
 			return false;
 		}
 
@@ -127,13 +129,13 @@ export class Parser {
 		const open = !token.data[1];
 		const meta = active.meta.implicitClosed;
 
-		if (open){
+		if (open) {
 			/* a new element is opened, check if the new element should close the
 			 * previous */
 			return meta.indexOf(tagName) >= 0;
 		} else {
 			/* if we are explicitly closing the active element, ignore implicit */
-			if (active.is(tagName)){
+			if (active.is(tagName)) {
 				return false;
 			}
 
@@ -144,16 +146,25 @@ export class Parser {
 	}
 
 	// eslint-disable-next-line complexity
-	private consumeTag(startToken: Token, tokenStream: TokenStream){
-		const tokens = Array.from(this.consumeUntil(tokenStream, TokenType.TAG_CLOSE));
+	private consumeTag(startToken: Token, tokenStream: TokenStream) {
+		const tokens = Array.from(
+			this.consumeUntil(tokenStream, TokenType.TAG_CLOSE)
+		);
 		const endToken = tokens.slice(-1)[0];
 		const closeOptional = this.closeOptional(startToken);
-		const parent = closeOptional ? this.dom.getActive().parent : this.dom.getActive();
-		const node = HtmlElement.fromTokens(startToken, endToken, parent, this.metaTable);
+		const parent = closeOptional
+			? this.dom.getActive().parent
+			: this.dom.getActive();
+		const node = HtmlElement.fromTokens(
+			startToken,
+			endToken,
+			parent,
+			this.metaTable
+		);
 		const open = !startToken.data[1];
 		const close = !open || node.closed !== NodeClosed.Open;
 
-		if (closeOptional){
+		if (closeOptional) {
 			const active = this.dom.getActive();
 			active.closed = NodeClosed.ImplicitClosed;
 			this.trigger("tag:close", {
@@ -164,7 +175,7 @@ export class Parser {
 			this.dom.popActive();
 		}
 
-		if (open){
+		if (open) {
 			this.dom.pushActive(node);
 			this.trigger("tag:open", {
 				target: node,
@@ -172,23 +183,23 @@ export class Parser {
 			});
 		}
 
-		for (let i = 0; i < tokens.length; i++){
+		for (let i = 0; i < tokens.length; i++) {
 			const token = tokens[i];
-			switch (token.type){
-			case TokenType.WHITESPACE:
-				break;
-			case TokenType.ATTR_NAME:
-				this.consumeAttribute(node, token, tokens[i + 1]);
-				break;
+			switch (token.type) {
+				case TokenType.WHITESPACE:
+					break;
+				case TokenType.ATTR_NAME:
+					this.consumeAttribute(node, token, tokens[i + 1]);
+					break;
 			}
 		}
 
-		if (close){
+		if (close) {
 			const active = this.dom.getActive();
 
 			/* if this is not an open tag it is a close tag and thus we force it to be
 			 * one, in case it is detected as void */
-			if (!open){
+			if (!open) {
 				node.closed = NodeClosed.EndTag;
 			}
 
@@ -203,17 +214,17 @@ export class Parser {
 			 * void). Closing again will have side-effects as it will close the parent
 			 * and cause a mess later. */
 			const voidClosed = !open && node.voidElement;
-			if (!voidClosed){
+			if (!voidClosed) {
 				this.dom.popActive();
 			}
 		}
 	}
 
-	consumeAttribute(node: HtmlElement, token: Token, next?: Token){
+	consumeAttribute(node: HtmlElement, token: Token, next?: Token) {
 		const key = token.data[1];
 		let value;
 		let quote;
-		if (next && next.type === TokenType.ATTR_VALUE){
+		if (next && next.type === TokenType.ATTR_VALUE) {
 			value = next.data[1];
 			quote = next.data[2];
 		}
@@ -227,10 +238,10 @@ export class Parser {
 		node.setAttribute(key, value, token.location);
 	}
 
-	consumeDirective(token: Token){
+	consumeDirective(token: Token) {
 		const directive = token.data[1];
 		const match = directive.match(/^([a-zA-Z0-9-]+)\s*(.*?)(?:\s*:\s*(.*))?$/);
-		if (!match){
+		if (!match) {
 			throw new Error(`Failed to parse directive "${directive}"`);
 		}
 
@@ -246,9 +257,12 @@ export class Parser {
 	/**
 	 * Consumes doctype tokens. Emits doctype event.
 	 */
-	consumeDoctype(startToken: Token, tokenStream: TokenStream){
-		const tokens = Array.from(this.consumeUntil(tokenStream, TokenType.DOCTYPE_CLOSE));
-		const doctype = tokens[0]; /* first token is the doctype, second is the closing ">" */
+	consumeDoctype(startToken: Token, tokenStream: TokenStream) {
+		const tokens = Array.from(
+			this.consumeUntil(tokenStream, TokenType.DOCTYPE_CLOSE)
+		);
+		const doctype =
+			tokens[0]; /* first token is the doctype, second is the closing ">" */
 		const value = doctype.data[0];
 		this.dom.doctype = value;
 		this.trigger("doctype", {
@@ -260,9 +274,9 @@ export class Parser {
 	/**
 	 * Return a list of tokens found until the expected token was found.
 	 */
-	*consumeUntil(tokenStream: TokenStream, search: TokenType){
+	*consumeUntil(tokenStream: TokenStream, search: TokenType) {
 		let it = this.next(tokenStream);
-		while (!it.done){
+		while (!it.done) {
 			const token = it.value;
 			yield token;
 			if (token.type === search) return;
@@ -312,7 +326,7 @@ export class Parser {
 	protected trigger(event: "conditional", data: ConditionalEvent): void;
 	protected trigger(event: "directive", data: DirectiveEvent): void;
 	protected trigger(event: any, data: any): void {
-		if (typeof data.location === "undefined"){
+		if (typeof data.location === "undefined") {
 			throw Error("Triggered event must contain location");
 		}
 		this.event.trigger(event, data);
@@ -324,7 +338,7 @@ export class Parser {
 	private closeTree(token: Token): void {
 		let active;
 		/* tslint:disable-next-line:no-conditional-assignment */
-		while ((active = this.dom.getActive()) && active.tagName){
+		while ((active = this.dom.getActive()) && active.tagName) {
 			this.trigger("tag:close", {
 				target: undefined,
 				previous: active,

@@ -32,8 +32,8 @@ export type RuleConstructor = new (options: RuleOptions) => Rule;
 export abstract class Rule<T = any> {
 	private reporter: Reporter;
 	private parser: Parser;
-	private enabled: boolean;           // rule enabled/disabled, irregardless of severity
-	private severity: number;           // rule severity, 0: off, 1: warning 2: error
+	private enabled: boolean; // rule enabled/disabled, irregardless of severity
+	private severity: number; // rule severity, 0: off, 1: warning 2: error
 	private event: any;
 
 	/**
@@ -47,7 +47,7 @@ export abstract class Rule<T = any> {
 	 */
 	public readonly options: RuleOptions;
 
-	constructor(options: RuleOptions){
+	constructor(options: RuleOptions) {
 		this.options = options;
 		this.enabled = true;
 	}
@@ -79,22 +79,31 @@ export abstract class Rule<T = any> {
 	 *
 	 * Rule must be enabled for this to have any effect.
 	 */
-	report(node: HtmlElement, message: string, location?: Location, context?: T): void {
-		if (this.isEnabled()){
-			const where = this.findLocation({node, location, event: this.event});
+	report(
+		node: HtmlElement,
+		message: string,
+		location?: Location,
+		context?: T
+	): void {
+		if (this.isEnabled()) {
+			const where = this.findLocation({ node, location, event: this.event });
 			this.reporter.add(node, this, message, this.severity, where, context);
 		}
 	}
 
 	// eslint-disable-next-line typescript/member-delimiter-style
-	private findLocation(src: {node: HtmlElement, location: Location, event: Event}): Location {
-		if (src.location){
+	private findLocation(src: {
+		node: HtmlElement;
+		location: Location;
+		event: Event;
+	}): Location {
+		if (src.location) {
 			return src.location;
 		}
-		if (src.event && src.event.location){
+		if (src.event && src.event.location) {
 			return src.event.location;
 		}
-		if (src.node && src.node.location){
+		if (src.node && src.node.location) {
 			return src.node.location;
 		}
 		return {} as Location;
@@ -117,7 +126,7 @@ export abstract class Rule<T = any> {
 	on(event: "*", callback: (event: Event) => void): void;
 	on(event: string, callback: any): void {
 		this.parser.on(event, (event: string, data: any) => {
-			if (this.isEnabled()){
+			if (this.isEnabled()) {
 				this.event = data;
 				callback(data);
 			}

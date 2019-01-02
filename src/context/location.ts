@@ -28,13 +28,13 @@ export interface Location {
 }
 
 function sliceSize(size: number, begin: number, end?: number): number {
-	if (typeof size !== "number"){
+	if (typeof size !== "number") {
 		return size;
 	}
-	if (typeof end !== "number"){
+	if (typeof end !== "number") {
 		return size - begin;
 	}
-	if (end < 0){
+	if (end < 0) {
 		end = size + end;
 	}
 	return Math.min(size, end - begin);
@@ -46,7 +46,11 @@ function sliceSize(size: number, begin: number, end?: number): number {
  * It is assumed there is no newlines anywhere between current location and
  * the new.
  */
-export function sliceLocation(location: Location, begin: number, end?: number): Location {
+export function sliceLocation(
+	location: Location,
+	begin: number,
+	end?: number
+): Location {
 	if (!location) return null;
 	const size = sliceSize(location.size, begin, end);
 	return {

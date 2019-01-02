@@ -6,7 +6,7 @@ describe("rule close-attr", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
-			rules: {"close-attr": "error"},
+			rules: { "close-attr": "error" },
 		});
 	});
 
@@ -42,12 +42,13 @@ describe("rule close-attr", () => {
 	});
 
 	it("smoketest", () => {
-		const report = htmlvalidate.validateFile("test-files/rules/close-attr.html");
+		const report = htmlvalidate.validateFile(
+			"test-files/rules/close-attr.html"
+		);
 		expect(report.results).toMatchSnapshot();
 	});
 
 	it("should contain documentation", () => {
 		expect(htmlvalidate.getRuleDocumentation("close-attr")).toMatchSnapshot();
 	});
-
 });

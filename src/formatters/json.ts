@@ -1,7 +1,7 @@
 import { FormatterModule } from ".";
 import { Result } from "../reporter";
 
-function jsonFormatter(results: Result[]){
+function jsonFormatter(results: Result[]) {
 	return JSON.stringify(results);
 }
 

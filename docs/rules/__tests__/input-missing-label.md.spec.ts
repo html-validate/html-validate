@@ -1,6 +1,6 @@
-import HtmlValidate from '../../../src/htmlvalidate';
+import HtmlValidate from "../../../src/htmlvalidate";
 
-const markup: {[key: string]: string} = {};
+const markup: { [key: string]: string } = {};
 markup["incorrect"] = `<!-- no label element at all -->
 <div>
     <strong>My field</strong>
@@ -23,13 +23,13 @@ markup["correct"] = `<!-- label with descendant -->
     <input id="my-field" type="text">
 </div>`;
 
-describe('docs/rules/input-missing-label.md', () => {
-	it('inline validation: incorrect', () => {
+describe("docs/rules/input-missing-label.md", () => {
+	it("inline validation: incorrect", () => {
 		const htmlvalidate = new HtmlValidate({"rules":{"input-missing-label":"error"}});
 		const report = htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it('inline validation: correct', () => {
+	it("inline validation: correct", () => {
 		const htmlvalidate = new HtmlValidate({"rules":{"input-missing-label":"error"}});
 		const report = htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();

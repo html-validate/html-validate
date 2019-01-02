@@ -1,6 +1,6 @@
-import HtmlValidate from '../../../src/htmlvalidate';
+import HtmlValidate from "../../../src/htmlvalidate";
 
-const markup: {[key: string]: string} = {};
+const markup: { [key: string]: string } = {};
 markup["incorrect"] = `<html>
     <body>...</body>
 </html>`;
@@ -9,13 +9,13 @@ markup["correct"] = `<!doctype html>
     <body>...</body>
 </html>`;
 
-describe('docs/rules/missing-doctype.md', () => {
-	it('inline validation: incorrect', () => {
+describe("docs/rules/missing-doctype.md", () => {
+	it("inline validation: incorrect", () => {
 		const htmlvalidate = new HtmlValidate({"rules":{"missing-doctype":"error"}});
 		const report = htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it('inline validation: correct', () => {
+	it("inline validation: correct", () => {
 		const htmlvalidate = new HtmlValidate({"rules":{"missing-doctype":"error"}});
 		const report = htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();

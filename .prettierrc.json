@@ -1,0 +1,20 @@
+{
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "useTabs": true,
+
+  "overrides": [
+    {
+      "files": "docs/**/*.md",
+      "options": {
+        "useTabs": false
+      }
+    },
+    {
+      "files": "**/{*,.*}.json",
+      "options": {
+        "useTabs": false
+      }
+    }
+  ]
+}

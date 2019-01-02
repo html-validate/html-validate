@@ -22,24 +22,26 @@ const recommended = require("./recommended");
 const document = require("./document");
 let rootDirCache: string = null;
 
-function parseSeverity(value: string | number){
-	if (typeof value === "number"){
+function parseSeverity(value: string | number) {
+	if (typeof value === "number") {
 		return value;
 	}
-	switch (value){
-	case "off":
-		return 0;
-	/* istanbul ignore next: deprecated code which will be removed later */
-	case "disable":
-		// eslint-disable-next-line no-console
-		console.warn(`Deprecated alias "disabled" will be removed, replace with severity "off"`);
-		return 0;
-	case "warn":
-		return 1;
-	case "error":
-		return 2;
-	default:
-		throw new Error(`Invalid severity "${value}"`);
+	switch (value) {
+		case "off":
+			return 0;
+		/* istanbul ignore next: deprecated code which will be removed later */
+		case "disable":
+			// eslint-disable-next-line no-console
+			console.warn(
+				`Deprecated alias "disabled" will be removed, replace with severity "off"`
+			);
+			return 0;
+		case "warn":
+			return 1;
+		case "error":
+			return 2;
+		default:
+			throw new Error(`Invalid severity "${value}"`);
 	}
 }
 
@@ -68,15 +70,17 @@ export class Config {
 	}
 
 	public static fromFile(filename: string): Config {
-		switch (filename){
-		case "htmlvalidate:recommended": return Config.fromObject(recommended);
-		case "htmlvalidate:document": return Config.fromObject(document);
+		switch (filename) {
+			case "htmlvalidate:recommended":
+				return Config.fromObject(recommended);
+			case "htmlvalidate:document":
+				return Config.fromObject(document);
 		}
 
 		const json = require(filename);
 
 		/* expand any relative paths */
-		for (const key of ["extends", "elements", "plugins"]){
+		for (const key of ["extends", "elements", "plugins"]) {
 			if (!json[key]) continue;
 			json[key] = json[key].map((ref: string) => {
 				return Config.expandRelative(ref, path.dirname(filename));
@@ -90,7 +94,7 @@ export class Config {
 		return new Config(defaultConfig);
 	}
 
-	constructor(options?: ConfigData){
+	constructor(options?: ConfigData) {
 		this.config = {
 			extends: [],
 			plugins: [],
@@ -102,18 +106,20 @@ export class Config {
 		this.rootDir = this.findRootDir();
 
 		/* process extended configs */
-		for (const extend of this.config.extends){
+		for (const extend of this.config.extends) {
 			const base = Config.fromFile(extend);
 			this.config = base.mergeInternal(this.config);
 		}
 	}
 
-	init(){
+	init() {
 		/* load plugins */
 		this.plugins = this.loadPlugins(this.config.plugins || []);
 
 		/* precompile transform patterns */
-		this.transformers = this.precompileTransformers(this.config.transform || {});
+		this.transformers = this.precompileTransformers(
+			this.config.transform || {}
+		);
 	}
 
 	/**
@@ -122,13 +128,13 @@ export class Config {
 	 *
 	 * @param {Config} rhs - Configuration to merge with this one.
 	 */
-	public merge(rhs: Config){
+	public merge(rhs: Config) {
 		return new Config(this.mergeInternal(rhs.config));
 	}
 
-	getMetaTable(){
+	getMetaTable() {
 		/* use cached table if it exists */
-		if (this.metaTable){
+		if (this.metaTable) {
 			return this.metaTable;
 		}
 
@@ -137,22 +143,22 @@ export class Config {
 		const root = path.resolve(__dirname, "..", "..");
 
 		/* load from all entries */
-		for (const entry of source){
+		for (const entry of source) {
 			/* load meta directly from entry */
-			if (typeof entry !== "string"){
+			if (typeof entry !== "string") {
 				this.metaTable.loadFromObject(entry as ElementTable);
 				continue;
 			}
 
 			/* try searching builtin metadata */
 			const filename = `${root}/elements/${entry}.json`;
-			if (fs.existsSync(filename)){
+			if (fs.existsSync(filename)) {
 				this.metaTable.loadFromFile(filename);
 				continue;
 			}
 
 			/* try as regular file */
-			if (fs.existsSync(entry)){
+			if (fs.existsSync(entry)) {
 				this.metaTable.loadFromFile(entry);
 				continue;
 			}
@@ -166,7 +172,7 @@ export class Config {
 	}
 
 	static expandRelative(src: string, currentPath: string): string {
-		if (src[0] === "."){
+		if (src[0] === ".") {
 			return path.normalize(`${currentPath}/${src}`);
 		}
 		return src;
@@ -181,13 +187,14 @@ export class Config {
 		return Object.assign({}, this.config);
 	}
 
-	getRules(){
+	getRules() {
 		const rules = Object.assign({}, this.config.rules || {});
-		for (const name in rules){ /* tslint:disable-line:forin */
+		/* tslint:disable-next-line:forin */
+		for (const name in rules) {
 			let options = rules[name];
-			if (!Array.isArray(options)){
+			if (!Array.isArray(options)) {
 				options = [options, {}];
-			} else if (options.length === 1){
+			} else if (options.length === 1) {
 				options = [options[0], {}];
 			}
 
@@ -212,22 +219,26 @@ export class Config {
 	 */
 	public transform(filename: string): Source[] {
 		const transformer = this.findTransformer(filename);
-		if (transformer){
+		if (transformer) {
 			return transformer.fn(filename);
 		} else {
-			const data = fs.readFileSync(filename, {encoding: "utf8"});
-			return [{
-				data,
-				filename,
-				line: 1,
-				column: 1,
-				originalData: data,
-			}];
+			const data = fs.readFileSync(filename, { encoding: "utf8" });
+			return [
+				{
+					data,
+					filename,
+					line: 1,
+					column: 1,
+					originalData: data,
+				},
+			];
 		}
 	}
 
-	private findTransformer(filename: string): Transformer|null {
-		return this.transformers.find((entry: Transformer) => entry.pattern.test(filename));
+	private findTransformer(filename: string): Transformer | null {
+		return this.transformers.find((entry: Transformer) =>
+			entry.pattern.test(filename)
+		);
 	}
 
 	private precompileTransformers(transform: TransformMap): Transformer[] {
@@ -239,16 +250,16 @@ export class Config {
 		});
 	}
 
-	protected findRootDir(){
-		if (rootDirCache !== null){
+	protected findRootDir() {
+		if (rootDirCache !== null) {
 			return rootDirCache;
 		}
 
 		/* try to locate package.json */
 		let current = process.cwd();
-		for (;;){
+		for (;;) {
 			const search = path.join(current, "package.json");
-			if (fs.existsSync(search)){
+			if (fs.existsSync(search)) {
 				return (rootDirCache = current);
 			}
 
@@ -257,7 +268,7 @@ export class Config {
 			current = path.dirname(current);
 
 			/* stop if this is the root directory */
-			if (current === child){
+			if (current === child) {
 				break;
 			}
 		}

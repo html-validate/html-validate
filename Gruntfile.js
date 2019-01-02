@@ -3,7 +3,7 @@ const sass = require("sass");
 const serveStatic = require("serve-static");
 const eslintStrict = process.env.ESLINT_STRICT === "1";
 
-module.exports = function(grunt){
+module.exports = function(grunt) {
 	require("load-grunt-tasks")(grunt);
 
 	grunt.registerTask("test", ["eslint", "tslint", "jest"]);
@@ -13,23 +13,26 @@ module.exports = function(grunt){
 
 	grunt.registerTask("jest", "exec:jest");
 
-	grunt.registerTask("dgeni", "Generate documentation", function(){
+	grunt.registerTask("dgeni", "Generate documentation", function() {
 		const Dgeni = require("dgeni");
 		const done = this.async();
 		const dgeni = new Dgeni([require("./docs/dgeni")]);
 		dgeni.generate().then(done);
 	});
 
-	grunt.registerTask("docs", "Build documentation app", ["sass", "postcss", "copy", "browserify", "dgeni"]);
+	grunt.registerTask("docs", "Build documentation app", [
+		"sass",
+		"postcss",
+		"copy",
+		"browserify",
+		"dgeni",
+	]);
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON("package.json"),
 
 		clean: {
-			default: [
-				"build",
-				"public",
-			],
+			default: ["build", "public"],
 		},
 
 		ts: {
@@ -49,21 +52,13 @@ module.exports = function(grunt){
 					 * annoyances. */
 					maxWarnings: eslintStrict ? 0 : -1,
 				},
-				src: [
-					"*.js",
-					"*.ts",
-					"docs/**/*.js",
-					"src/**/*.ts",
-				],
+				src: ["*.js", "*.ts", "docs/**/*.js", "src/**/*.ts"],
 			},
 		},
 
 		tslint: {
 			default: {
-				src: [
-					"*.ts",
-					"src/**/*.ts",
-				],
+				src: ["*.ts", "src/**/*.ts"],
 			},
 		},
 
@@ -83,10 +78,7 @@ module.exports = function(grunt){
 
 		postcss: {
 			options: {
-				processors: [
-					require("autoprefixer"),
-					require("cssnano"),
-				],
+				processors: [require("autoprefixer"), require("cssnano")],
 			},
 			default: {
 				src: "<%=sass.default.dest%>",
@@ -113,9 +105,12 @@ module.exports = function(grunt){
 			default: {
 				options: {
 					transform: [
-						["babelify", {
-							presets: ["@babel/preset-env"],
-						}],
+						[
+							"babelify",
+							{
+								presets: ["@babel/preset-env"],
+							},
+						],
 					],
 				},
 				src: "docs/app/index.js",
@@ -133,10 +128,8 @@ module.exports = function(grunt){
 				hostname: "localhost",
 				keepalive: true,
 				base: "public",
-				middleware: function(){
-					return [
-						serveStatic("public"),
-					];
+				middleware: function() {
+					return [serveStatic("public")];
 				},
 			},
 			default: {},

@@ -7,13 +7,12 @@ import { Reporter } from "./reporter";
 import { Rule, ruleDocumentationUrl } from "./rule";
 
 class MockRule extends Rule {
-	setup(){
+	setup() {
 		/* do nothing */
 	}
 }
 
 describe("rule base class", () => {
-
 	let parser: Parser;
 	let reporter: Reporter;
 	let rule: Rule;
@@ -28,14 +27,13 @@ describe("rule base class", () => {
 
 		rule = new MockRule({});
 		rule.init(parser, reporter, Config.SEVERITY_ERROR);
-		mockLocation = {filename: "mock-file", offset: 1, line: 1, column: 2};
+		mockLocation = { filename: "mock-file", offset: 1, line: 1, column: 2 };
 		mockEvent = {
 			location: mockLocation,
 		};
 	});
 
 	describe("report()", () => {
-
 		it('should not add message with severity "disabled"', () => {
 			rule.setServerity(Config.SEVERITY_DISABLED);
 			rule.report(null, "foo");
@@ -46,13 +44,27 @@ describe("rule base class", () => {
 			const node = new HtmlElement("foo", null);
 			rule.setServerity(Config.SEVERITY_WARN);
 			rule.report(node, "foo");
-			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_WARN, expect.anything(), undefined);
+			expect(reporter.add).toHaveBeenCalledWith(
+				node,
+				rule,
+				"foo",
+				Config.SEVERITY_WARN,
+				expect.anything(),
+				undefined
+			);
 		});
 
 		it('should add message with severity "error"', () => {
 			const node = new HtmlElement("foo", null);
 			rule.report(node, "foo");
-			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, expect.anything(), undefined);
+			expect(reporter.add).toHaveBeenCalledWith(
+				node,
+				rule,
+				"foo",
+				Config.SEVERITY_ERROR,
+				expect.anything(),
+				undefined
+			);
 		});
 
 		it("should not add message when disabled", () => {
@@ -64,7 +76,14 @@ describe("rule base class", () => {
 		it("should use explicit location if provided", () => {
 			const node = new HtmlElement("foo", null);
 			rule.report(node, "foo", mockLocation);
-			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, mockLocation, undefined);
+			expect(reporter.add).toHaveBeenCalledWith(
+				node,
+				rule,
+				"foo",
+				Config.SEVERITY_ERROR,
+				mockLocation,
+				undefined
+			);
 		});
 
 		it("should use event location if no explicit location", () => {
@@ -73,26 +92,45 @@ describe("rule base class", () => {
 			const callback = (parser.on as any).mock.calls[0][1];
 			callback("event", mockEvent);
 			rule.report(node, "foo");
-			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, mockEvent.location, undefined);
+			expect(reporter.add).toHaveBeenCalledWith(
+				node,
+				rule,
+				"foo",
+				Config.SEVERITY_ERROR,
+				mockEvent.location,
+				undefined
+			);
 		});
 
 		it("should use node location if no node location", () => {
 			const node = new HtmlElement("foo", null, undefined, null, mockLocation);
 			rule.report(node, "foo");
-			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, mockLocation, undefined);
+			expect(reporter.add).toHaveBeenCalledWith(
+				node,
+				rule,
+				"foo",
+				Config.SEVERITY_ERROR,
+				mockLocation,
+				undefined
+			);
 		});
 
 		it("should set context if provided", () => {
-			const context = {foo: "bar"};
+			const context = { foo: "bar" };
 			const node = new HtmlElement("foo", null);
 			rule.report(node, "foo", null, context);
-			expect(reporter.add).toHaveBeenCalledWith(node, rule, "foo", Config.SEVERITY_ERROR, expect.anything(), {foo: "bar"});
+			expect(reporter.add).toHaveBeenCalledWith(
+				node,
+				rule,
+				"foo",
+				Config.SEVERITY_ERROR,
+				expect.anything(),
+				{ foo: "bar" }
+			);
 		});
-
 	});
 
 	describe("on()", () => {
-
 		let delivered: boolean;
 		let callback: (event: string, data: Event) => void;
 
@@ -127,15 +165,15 @@ describe("rule base class", () => {
 			callback("event", mockEvent);
 			expect(delivered).toBeFalsy();
 		});
-
 	});
 
 	it("documentation() should return null", () => {
 		expect(rule.documentation()).toBeNull();
 	});
-
 });
 
 it("ruleDocumentationUrl() should return URL to rule documentation", () => {
-	expect(ruleDocumentationUrl("src/rules/foo.ts")).toEqual("https://html-validate.org/rules/foo.html");
+	expect(ruleDocumentationUrl("src/rules/foo.ts")).toEqual(
+		"https://html-validate.org/rules/foo.html"
+	);
 });

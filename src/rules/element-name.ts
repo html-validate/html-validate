@@ -10,47 +10,48 @@ const defaults = {
 class ElementName extends Rule {
 	pattern: RegExp;
 
-	constructor(options: object){
+	constructor(options: object) {
 		super(Object.assign({}, defaults, options));
 		this.pattern = new RegExp(this.options.pattern);
 	}
 
 	documentation(): RuleDocumentation {
 		return {
-			description: "HTML defines what content is considered a valid (custom) element name.",
+			description:
+				"HTML defines what content is considered a valid (custom) element name.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
 
-	setup(){
+	setup() {
 		const xmlns = /^(.+):.+$/;
 		this.on("tag:open", (event: TagOpenEvent) => {
 			const target = event.target;
 			const tagName = target.tagName;
 
 			/* check if element is blacklisted */
-			if (this.options.blacklist.indexOf(tagName) >= 0){
+			if (this.options.blacklist.indexOf(tagName) >= 0) {
 				this.report(target, `<${tagName}> element is blacklisted`);
 			}
 
 			/* assume that an element with meta has valid name as it is a builtin
 			 * element */
-			if (target.meta){
+			if (target.meta) {
 				return;
 			}
 
 			/* ignore elements in xml namespaces, they should be validated against a
 			 * DTD instead */
-			if (tagName.match(xmlns)){
+			if (tagName.match(xmlns)) {
 				return;
 			}
 
 			/* check if element is whitelisted */
-			if (this.options.whitelist.indexOf(tagName) >= 0){
+			if (this.options.whitelist.indexOf(tagName) >= 0) {
 				return;
 			}
 
-			if (!tagName.match(this.pattern)){
+			if (!tagName.match(this.pattern)) {
 				this.report(target, `<${tagName}> is not a valid element name`);
 			}
 		});

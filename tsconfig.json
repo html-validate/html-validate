@@ -7,17 +7,10 @@
     "noImplicitAny": true,
     "sourceMap": false,
     "outDir": "build",
-    "lib": [
-      "es2017"
-    ],
+    "lib": ["es2017"],
     "declaration": true
   },
   "sourceMap": true,
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "src/**/*.spec.ts"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "src/**/*.spec.ts"]
 }

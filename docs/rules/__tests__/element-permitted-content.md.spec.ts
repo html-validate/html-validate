@@ -1,6 +1,6 @@
-import HtmlValidate from '../../../src/htmlvalidate';
+import HtmlValidate from "../../../src/htmlvalidate";
 
-const markup: {[key: string]: string} = {};
+const markup: { [key: string]: string } = {};
 markup["incorrect"] = `<!-- <li> is only allowed with <ul> or <ol> as parent -->
 <div>
     <li>foo</li>
@@ -9,13 +9,13 @@ markup["correct"] = `<ul>
     <li>foo</li>
 </ul>`;
 
-describe('docs/rules/element-permitted-content.md', () => {
-	it('inline validation: incorrect', () => {
+describe("docs/rules/element-permitted-content.md", () => {
+	it("inline validation: incorrect", () => {
 		const htmlvalidate = new HtmlValidate({"rules":{"element-permitted-content":"error"}});
 		const report = htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it('inline validation: correct', () => {
+	it("inline validation: correct", () => {
 		const htmlvalidate = new HtmlValidate({"rules":{"element-permitted-content":"error"}});
 		const report = htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();

@@ -18,62 +18,85 @@ class Void extends Rule {
 
 	documentation(): RuleDocumentation {
 		return {
-			description: "HTML void elements cannot have any content and must not have an end tag.",
+			description:
+				"HTML void elements cannot have any content and must not have an end tag.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
 
-	constructor(options: object){
+	constructor(options: object) {
 		super(Object.assign({}, defaults, options));
 		this.style = parseStyle(this.options.style);
 	}
 
-	setup(){
+	setup() {
 		this.on("tag:close", (event: TagCloseEvent) => {
-			const current = event.target;     // The current element being closed
-			const active = event.previous;    // The current active element (that is, the current element on the stack)
+			const current = event.target; // The current element being closed
+			const active = event.previous; // The current active element (that is, the current element on the stack)
 
-			if (current && current.meta){
+			if (current && current.meta) {
 				this.validateCurrent(current);
 			}
 
-			if (active && active.meta){
+			if (active && active.meta) {
 				this.validateActive(active);
 			}
 		});
 	}
 
 	validateCurrent(node: HtmlElement): void {
-		if (node.voidElement && node.closed === NodeClosed.EndTag){
+		if (node.voidElement && node.closed === NodeClosed.EndTag) {
 			this.report(node, `End tag for <${node.tagName}> must be omitted`);
 		}
 	}
 
 	validateActive(node: HtmlElement): void {
-		const selfOrOmitted = node.closed === NodeClosed.VoidOmitted || node.closed === NodeClosed.VoidSelfClosed;
+		const selfOrOmitted =
+			node.closed === NodeClosed.VoidOmitted ||
+			node.closed === NodeClosed.VoidSelfClosed;
 
-		if (node.voidElement){
-			if (this.style === Style.AlwaysOmit && node.closed === NodeClosed.VoidSelfClosed){
-				this.report(node, `Expected omitted end tag <${node.tagName}> instead of self-closing element <${node.tagName}/>`);
+		if (node.voidElement) {
+			if (
+				this.style === Style.AlwaysOmit &&
+				node.closed === NodeClosed.VoidSelfClosed
+			) {
+				this.report(
+					node,
+					`Expected omitted end tag <${
+						node.tagName
+					}> instead of self-closing element <${node.tagName}/>`
+				);
 			}
 
-			if (this.style === Style.AlwaysSelfclose && node.closed === NodeClosed.VoidOmitted){
-				this.report(node, `Expected self-closing element <${node.tagName}/> instead of omitted end-tag <${node.tagName}>`);
+			if (
+				this.style === Style.AlwaysSelfclose &&
+				node.closed === NodeClosed.VoidOmitted
+			) {
+				this.report(
+					node,
+					`Expected self-closing element <${
+						node.tagName
+					}/> instead of omitted end-tag <${node.tagName}>`
+				);
 			}
 		}
 
-		if (selfOrOmitted && node.voidElement === false){
+		if (selfOrOmitted && node.voidElement === false) {
 			this.report(node, `End tag for <${node.tagName}> must not be omitted`);
 		}
 	}
 }
 
 function parseStyle(name: string): Style {
-	switch (name){
-	case "any": return Style.Any;
-	case "omit": return Style.AlwaysOmit;
-	case "selfclose": return Style.AlwaysSelfclose;
-	default: return Style.Any;
+	switch (name) {
+		case "any":
+			return Style.Any;
+		case "omit":
+			return Style.AlwaysOmit;
+		case "selfclose":
+			return Style.AlwaysSelfclose;
+		default:
+			return Style.Any;
 	}
 }
 

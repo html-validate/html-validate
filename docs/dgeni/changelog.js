@@ -6,15 +6,15 @@ const preamble = `
 
 `;
 
-function fixHeading(src){
+function fixHeading(src) {
 	return src.replace(/^# html-validate changelog/, "# Changelog");
 }
 
-function dropUpcoming(src){
+function dropUpcoming(src) {
 	return src.replace(/^## Upcoming release$[^]*?^(?=## )/m, "");
 }
 
-function prepare(src){
+function prepare(src) {
 	src = fixHeading(src);
 	src = dropUpcoming(src);
 	return preamble + src;
@@ -23,7 +23,7 @@ function prepare(src){
 module.exports = function changelogFileReader() {
 	return {
 		name: "changelogFileReader",
-		getDocs: function(fileInfo){
+		getDocs: function(fileInfo) {
 			return [
 				{
 					content: prepare(fileInfo.content),

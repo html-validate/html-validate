@@ -16,14 +16,22 @@ class AttributeAllowedValues extends Rule<Context> {
 			description: "Attribute has invalid value.",
 			url: ruleDocumentationUrl(__filename),
 		};
-		if (context){
-			const allowed = context.allowed.map((val: string|RegExp) => `- \`${val}\``);
-			docs.description = `Element <${context.element}> does not allow attribute \`${context.attribute}\` to have the value \`${context.value}\`, it must match one of the following:\n\n${allowed.join("\n")}`;
+		if (context) {
+			const allowed = context.allowed.map(
+				(val: string | RegExp) => `- \`${val}\``
+			);
+			docs.description = `Element <${
+				context.element
+			}> does not allow attribute \`${
+				context.attribute
+			}\` to have the value \`${
+				context.value
+			}\`, it must match one of the following:\n\n${allowed.join("\n")}`;
 		}
 		return docs;
 	}
 
-	setup(){
+	setup() {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;
 			doc.visitDepthFirst((node: HtmlElement) => {
@@ -33,15 +41,20 @@ class AttributeAllowedValues extends Rule<Context> {
 				 * allowed values */
 				if (!meta || !meta.attributes) return;
 
-				for (const [key, attr] of Object.entries(node.attr)){
-					if (!Validator.validateAttribute(key, attr.value, meta.attributes)){
+				for (const [key, attr] of Object.entries(node.attr)) {
+					if (!Validator.validateAttribute(key, attr.value, meta.attributes)) {
 						const context: Context = {
 							element: node.tagName,
 							attribute: attr.key,
 							value: attr.value,
 							allowed: meta.attributes[key],
 						};
-						this.report(node, `Attribute "${key}" has invalid value "${attr.value}"`, attr.location, context);
+						this.report(
+							node,
+							`Attribute "${key}" has invalid value "${attr.value}"`,
+							attr.location,
+							context
+						);
 					}
 				}
 			});

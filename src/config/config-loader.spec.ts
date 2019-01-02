@@ -21,7 +21,6 @@ function getInteralCache(loader: ConfigLoader): Map<string, Config> {
 }
 
 describe("ConfigLoader", () => {
-
 	let loader: ConfigLoader;
 
 	afterEach(() => {
@@ -29,7 +28,6 @@ describe("ConfigLoader", () => {
 	});
 
 	describe("fromTarget()", () => {
-
 		beforeEach(() => {
 			loader = new ConfigLoader(MockConfig);
 		});
@@ -39,9 +37,14 @@ describe("ConfigLoader", () => {
 				return path === "/path/to/.htmlvalidate.json";
 			});
 			const config = loader.fromTarget("/path/to/target.html");
-			expect(config.get()).toEqual(expect.objectContaining({
-				plugins: ["/path/to/.htmlvalidate.json"], /* mock sets filename as plugin */
-			}));
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					plugins: [
+						/* mock sets filename as plugin */
+						"/path/to/.htmlvalidate.json",
+					],
+				})
+			);
 		});
 
 		it("should load configuration from parent directory", () => {
@@ -49,21 +52,29 @@ describe("ConfigLoader", () => {
 				return path === "/path/.htmlvalidate.json";
 			});
 			const config = loader.fromTarget("/path/to/target.html");
-			expect(config.get()).toEqual(expect.objectContaining({
-				plugins: ["/path/.htmlvalidate.json"], /* mock sets filename as plugin */
-			}));
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					plugins: [
+						/* mock sets filename as plugin */
+						"/path/.htmlvalidate.json",
+					],
+				})
+			);
 		});
 
 		it("should load configuration from multiple files", () => {
 			jest.spyOn(fs, "existsSync").mockImplementation(() => true);
 			const config = loader.fromTarget("/path/to/target.html");
-			expect(config.get()).toEqual(expect.objectContaining({
-				plugins: [ /* mock sets filename as plugin */
-					"/.htmlvalidate.json",
-					"/path/.htmlvalidate.json",
-					"/path/to/.htmlvalidate.json",
-				],
-			}));
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					plugins: [
+						/* mock sets filename as plugin */
+						"/.htmlvalidate.json",
+						"/path/.htmlvalidate.json",
+						"/path/to/.htmlvalidate.json",
+					],
+				})
+			);
 		});
 
 		it("should load empty config for inline sources", () => {
@@ -77,13 +88,16 @@ describe("ConfigLoader", () => {
 			expect(cache.has("/path/to/target.html")).toBeFalsy();
 			loader.fromTarget("/path/to/target.html");
 			expect(cache.has("/path/to/target.html")).toBeTruthy();
-			expect(cache.get("/path/to/target.html").get()).toEqual(expect.objectContaining({
-				plugins: [ /* mock sets filename as plugin */
-					"/.htmlvalidate.json",
-					"/path/.htmlvalidate.json",
-					"/path/to/.htmlvalidate.json",
-				],
-			}));
+			expect(cache.get("/path/to/target.html").get()).toEqual(
+				expect.objectContaining({
+					plugins: [
+						/* mock sets filename as plugin */
+						"/.htmlvalidate.json",
+						"/path/.htmlvalidate.json",
+						"/path/to/.htmlvalidate.json",
+					],
+				})
+			);
 		});
 
 		it("should load from cache if present", () => {
@@ -95,19 +109,20 @@ describe("ConfigLoader", () => {
 				throw new Error("expected cache to be used");
 			});
 			const config = loader.fromTarget("/path/to/target.html");
-			expect(config.get()).toEqual(expect.objectContaining({
-				plugins: [ /* mock sets filename as plugin */
-					"/.htmlvalidate.json",
-					"/path/.htmlvalidate.json",
-					"/path/to/.htmlvalidate.json",
-				],
-			}));
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					plugins: [
+						/* mock sets filename as plugin */
+						"/.htmlvalidate.json",
+						"/path/.htmlvalidate.json",
+						"/path/to/.htmlvalidate.json",
+					],
+				})
+			);
 		});
-
 	});
 
 	describe("flush()", () => {
-
 		beforeEach(() => {
 			loader = new ConfigLoader(MockConfig);
 		});
@@ -134,11 +149,9 @@ describe("ConfigLoader", () => {
 			expect(cache.has("bar")).toBeTruthy();
 			expect(cache.has("baz")).toBeTruthy();
 		});
-
 	});
 
 	describe("smoketest", () => {
-
 		beforeAll(() => {
 			loader = new ConfigLoader(Config);
 		});
@@ -151,7 +164,5 @@ describe("ConfigLoader", () => {
 				expect(report.results).toMatchSnapshot();
 			});
 		});
-
 	});
-
 });

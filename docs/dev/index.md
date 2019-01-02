@@ -3,8 +3,7 @@
 @name Developers guide
 @description
 
-Developers guide
-================
+# Developers guide
 
 - [Writing rules](/dev/writing-rules.html)
 - [Writing plugins](/dev/writing-plugins.html)

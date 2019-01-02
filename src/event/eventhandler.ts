@@ -3,7 +3,7 @@ export type EventCallback = (event: string, data: any) => void;
 export class EventHandler {
 	listeners: { [event: string]: EventCallback[] };
 
-	constructor(){
+	constructor() {
 		this.listeners = {};
 	}
 
@@ -16,15 +16,17 @@ export class EventHandler {
 	 */
 	on(event: string, callback: EventCallback): () => void {
 		const names = event.split(",").map((x: string) => x.trim());
-		for (const name of names){
+		for (const name of names) {
 			this.listeners[name] = this.listeners[name] || [];
 			this.listeners[name].push(callback);
 		}
 		return () => {
-			for (const name of names){
-				this.listeners[name] = this.listeners[name].filter((fn: EventCallback) => {
-					return fn !== callback;
-				});
+			for (const name of names) {
+				this.listeners[name] = this.listeners[name].filter(
+					(fn: EventCallback) => {
+						return fn !== callback;
+					}
+				);
 			}
 		};
 	}
@@ -52,8 +54,11 @@ export class EventHandler {
 	 * @param [data] {any} - Event data.
 	 */
 	trigger(event: string, data: any): void {
-		const callbacks = [].concat(this.listeners[event] || [], this.listeners["*"] || []);
-		callbacks.forEach((listener) => {
+		const callbacks = [].concat(
+			this.listeners[event] || [],
+			this.listeners["*"] || []
+		);
+		callbacks.forEach(listener => {
 			listener.call(null, event, data);
 		});
 	}

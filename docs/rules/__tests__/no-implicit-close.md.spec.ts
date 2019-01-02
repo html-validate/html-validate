@@ -1,6 +1,6 @@
-import HtmlValidate from '../../../src/htmlvalidate';
+import HtmlValidate from "../../../src/htmlvalidate";
 
-const markup: {[key: string]: string} = {};
+const markup: { [key: string]: string } = {};
 markup["parent"] = `<ul>
     <li>foo
     <li>bar
@@ -19,28 +19,28 @@ markup["correct-list"] = `<ul>
 markup["correct-paragraph"] = `<p>lorem ipsum</p>
 <p>dolor sit amet</p>`;
 
-describe('docs/rules/no-implicit-close.md', () => {
-	it('inline validation: parent', () => {
+describe("docs/rules/no-implicit-close.md", () => {
+	it("inline validation: parent", () => {
 		const htmlvalidate = new HtmlValidate({"rules":{"no-implicit-close":"error"}});
 		const report = htmlvalidate.validateString(markup["parent"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it('inline validation: siblings', () => {
+	it("inline validation: siblings", () => {
 		const htmlvalidate = new HtmlValidate({"rules":{"no-implicit-close":"error"}});
 		const report = htmlvalidate.validateString(markup["siblings"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it('inline validation: adjacent', () => {
+	it("inline validation: adjacent", () => {
 		const htmlvalidate = new HtmlValidate({"rules":{"no-implicit-close":"error"}});
 		const report = htmlvalidate.validateString(markup["adjacent"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it('inline validation: correct-list', () => {
+	it("inline validation: correct-list", () => {
 		const htmlvalidate = new HtmlValidate({"rules":{"no-implicit-close":"error"}});
 		const report = htmlvalidate.validateString(markup["correct-list"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it('inline validation: correct-paragraph', () => {
+	it("inline validation: correct-paragraph", () => {
 		const htmlvalidate = new HtmlValidate({"rules":{"no-implicit-close":"error"}});
 		const report = htmlvalidate.validateString(markup["correct-paragraph"]);
 		expect(report.results).toMatchSnapshot();

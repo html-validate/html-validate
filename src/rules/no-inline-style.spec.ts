@@ -6,23 +6,29 @@ describe("rule no-inline-style", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
-			rules: {"no-inline-style": "error"},
+			rules: { "no-inline-style": "error" },
 		});
 	});
 
 	it("should report when style attribute is used", () => {
 		const report = htmlvalidate.validateString('<p style=""></p>');
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+		expect(report).toHaveError(
+			"no-inline-style",
+			"Inline style is not allowed"
+		);
 	});
 
 	it("smoketest", () => {
-		const report = htmlvalidate.validateFile("test-files/rules/no-inline-style.html");
+		const report = htmlvalidate.validateFile(
+			"test-files/rules/no-inline-style.html"
+		);
 		expect(report.results).toMatchSnapshot();
 	});
 
 	it("should contain documentation", () => {
-		expect(htmlvalidate.getRuleDocumentation("no-inline-style")).toMatchSnapshot();
+		expect(
+			htmlvalidate.getRuleDocumentation("no-inline-style")
+		).toMatchSnapshot();
 	});
-
 });

@@ -19,6 +19,7 @@ Examples of **incorrect** code for this rule:
 
     <!-- invalid type -->
     <button type="foo">...</button>
+
 </validate>
 
 Examples of **correct** code for this rule:

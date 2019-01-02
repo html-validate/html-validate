@@ -1,6 +1,6 @@
-import HtmlValidate from '../../../src/htmlvalidate';
+import HtmlValidate from "../../../src/htmlvalidate";
 
-const markup: {[key: string]: string} = {};
+const markup: { [key: string]: string } = {};
 markup["incorrect"] = `<fieldset>
     <input/>
 </fieldset>
@@ -12,13 +12,13 @@ markup["correct"] = `<fieldset>
 
 <img>`;
 
-describe('docs/rules/void.md', () => {
-	it('inline validation: incorrect', () => {
+describe("docs/rules/void.md", () => {
+	it("inline validation: incorrect", () => {
 		const htmlvalidate = new HtmlValidate({"rules":{"void":"error"}});
 		const report = htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it('inline validation: correct', () => {
+	it("inline validation: correct", () => {
 		const htmlvalidate = new HtmlValidate({"rules":{"void":"error"}});
 		const report = htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();

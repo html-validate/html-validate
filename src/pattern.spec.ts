@@ -1,7 +1,6 @@
 import { describePattern, parsePattern } from "./pattern";
 
 describe("parsePattern", () => {
-
 	it("kebabcase should match strings with dashes", () => {
 		const pattern = parsePattern("kebabcase");
 		expect("foo-bar").toMatch(pattern);
@@ -32,11 +31,9 @@ describe("parsePattern", () => {
 		expect("bar-foo").not.toMatch(pattern);
 		expect("barfoo-baz").not.toMatch(pattern);
 	});
-
 });
 
 describe("describePattern()", () => {
-
 	it("should show description for named patterns", () => {
 		expect(describePattern("kebabcase")).toMatch(/\/.*\/ \(kebabcase\)/);
 	});
@@ -44,5 +41,4 @@ describe("describePattern()", () => {
 	it("should show description for user-supplied regexp", () => {
 		expect(describePattern("^foo-[a-z]\\w+$")).toMatch("/^foo-[a-z]\\w+$/");
 	});
-
 });

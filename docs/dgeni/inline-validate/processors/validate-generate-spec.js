@@ -13,7 +13,7 @@ module.exports = function generateValidationsSpecProcessor(log, validateMap) {
 		validateMap.forEach(validation => {
 			const key = validation.doc.fileInfo.relativePath;
 
-			if (!specs[key]){
+			if (!specs[key]) {
 				specs[key] = [];
 			}
 
@@ -34,7 +34,9 @@ module.exports = function generateValidationsSpecProcessor(log, validateMap) {
 				path: path.dirname(fileInfo.projectRelativePath),
 				file: path.basename(fileInfo.projectRelativePath),
 				fullpath: fileInfo.projectRelativePath,
-				docRoot: path.dirname(fileInfo.projectRelativePath).replace(/[^/]+/g, ".."),
+				docRoot: path
+					.dirname(fileInfo.projectRelativePath)
+					.replace(/[^/]+/g, ".."),
 			},
 			validations,
 			template: "spec-jest.ts",

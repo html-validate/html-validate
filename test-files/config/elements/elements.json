@@ -6,8 +6,6 @@
 
   "ul": {
     "flow": true,
-    "permittedContent": [
-      "p"
-    ]
+    "permittedContent": ["p"]
   }
 }

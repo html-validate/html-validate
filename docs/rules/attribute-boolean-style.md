@@ -37,7 +37,5 @@ This rule takes an optional object:
 ### Style
 
 - `omit` require boolean attributes to omit value, e.g. `<input required>`
-- `empty` require boolean attributes to be empty string, e.g. `<input
-  required="">`
-- `name` require boolean attributes to be the attributes name, e.g. `<input
-  required="required">`
+- `empty` require boolean attributes to be empty string, e.g. `<input required="">`
+- `name` require boolean attributes to be the attributes name, e.g. `<input required="required">`

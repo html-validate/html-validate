@@ -4,12 +4,13 @@ import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 class NoDupAttr extends Rule {
 	documentation(): RuleDocumentation {
 		return {
-			description: "HTML disallows two or more attributes with the same (case-insensitive) name.",
+			description:
+				"HTML disallows two or more attributes with the same (case-insensitive) name.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
 
-	setup(){
+	setup() {
 		let attr: { [key: string]: boolean } = {};
 
 		this.on("tag:open", () => {
@@ -19,7 +20,7 @@ class NoDupAttr extends Rule {
 
 		this.on("attr", (event: AttributeEvent) => {
 			const name = event.key.toLowerCase();
-			if (name in attr){
+			if (name in attr) {
 				this.report(event.target, `Attribute "${name}" duplicated`);
 			}
 			attr[event.key] = true;

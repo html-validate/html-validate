@@ -2,10 +2,10 @@
 const recommended = require("../../../src/config/recommended.ts");
 const document = require("../../../src/config/document.ts");
 
-function compareName(a, b){
-	if (a.name < b.name){
+function compareName(a, b) {
+	if (a.name < b.name) {
 		return -1;
-	} else if (a.name > b.name){
+	} else if (a.name > b.name) {
 		return 1;
 	} else {
 		return 0;
@@ -37,7 +37,7 @@ module.exports = function rulesProcessor(moduleMap, renderDocsProcessor) {
 		const categories = {};
 		rules.forEach(rule => {
 			const category = rule.category || "other";
-			if (!(category in categories)){
+			if (!(category in categories)) {
 				categories[category] = [];
 			}
 			categories[category].push(rule);

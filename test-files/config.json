@@ -1,7 +1,7 @@
 {
-	"rules": {
-		"foo": "error",
-		"bar": "warn",
-		"baz": "off"
-	}
+  "rules": {
+    "foo": "error",
+    "bar": "warn",
+    "baz": "off"
+  }
 }

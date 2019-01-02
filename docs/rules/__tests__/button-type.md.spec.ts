@@ -1,6 +1,6 @@
-import HtmlValidate from '../../../src/htmlvalidate';
+import HtmlValidate from "../../../src/htmlvalidate";
 
-const markup: {[key: string]: string} = {};
+const markup: { [key: string]: string } = {};
 markup["incorrenct"] = `<!-- missing type -->
 <button>...</button>
 
@@ -8,13 +8,13 @@ markup["incorrenct"] = `<!-- missing type -->
 <button type="foo">...</button>`;
 markup["correct"] = `<button type="button">...</button>`;
 
-describe('docs/rules/button-type.md', () => {
-	it('inline validation: incorrenct', () => {
+describe("docs/rules/button-type.md", () => {
+	it("inline validation: incorrenct", () => {
 		const htmlvalidate = new HtmlValidate({"rules":{"button-type":"error"}});
 		const report = htmlvalidate.validateString(markup["incorrenct"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it('inline validation: correct', () => {
+	it("inline validation: correct", () => {
 		const htmlvalidate = new HtmlValidate({"rules":{"button-type":"error"}});
 		const report = htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();

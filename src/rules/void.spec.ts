@@ -5,7 +5,6 @@ describe("rule void", () => {
 	let htmlvalidate: HtmlValidate;
 
 	describe("default", () => {
-
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
 				rules: { void: "error" },
@@ -20,7 +19,10 @@ describe("rule void", () => {
 		it("should report when void element is self-closed", () => {
 			const report = htmlvalidate.validateString("<input/>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("void", "Expected omitted end tag <input> instead of self-closing element <input/>");
+			expect(report).toHaveError(
+				"void",
+				"Expected omitted end tag <input> instead of self-closing element <input/>"
+			);
 		});
 
 		it("should not report when non-void element has end tag", () => {
@@ -36,21 +38,22 @@ describe("rule void", () => {
 		it("should report error when non-void element omitted end tag", () => {
 			const report = htmlvalidate.validateString("<div/>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("void", "End tag for <div> must not be omitted");
+			expect(report).toHaveError(
+				"void",
+				"End tag for <div> must not be omitted"
+			);
 		});
 
 		it("smoketest", () => {
 			const report = htmlvalidate.validateFile("test-files/rules/void.html");
 			expect(report.results).toMatchSnapshot();
 		});
-
 	});
 
 	describe('configured with style="omit"', () => {
-
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
-				rules: { void: ["error", {style: "omit"}]},
+				rules: { void: ["error", { style: "omit" }] },
 			});
 		});
 
@@ -62,28 +65,32 @@ describe("rule void", () => {
 		it("should report when void element is self-closed", () => {
 			const report = htmlvalidate.validateString("<input/>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("void", "Expected omitted end tag <input> instead of self-closing element <input/>");
+			expect(report).toHaveError(
+				"void",
+				"Expected omitted end tag <input> instead of self-closing element <input/>"
+			);
 		});
 
 		it("smoketest", () => {
 			const report = htmlvalidate.validateFile("test-files/rules/void.html");
 			expect(report.results).toMatchSnapshot();
 		});
-
 	});
 
 	describe('configured with style="selfclose"', () => {
-
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
-				rules: { void: ["error", {style: "selfclose"}]},
+				rules: { void: ["error", { style: "selfclose" }] },
 			});
 		});
 
 		it("should report when void element omits end tag", () => {
 			const report = htmlvalidate.validateString("<input>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("void", "Expected self-closing element <input/> instead of omitted end-tag <input>");
+			expect(report).toHaveError(
+				"void",
+				"Expected self-closing element <input/> instead of omitted end-tag <input>"
+			);
 		});
 
 		it("should not report when void element is self-closed", () => {
@@ -95,14 +102,12 @@ describe("rule void", () => {
 			const report = htmlvalidate.validateFile("test-files/rules/void.html");
 			expect(report.results).toMatchSnapshot();
 		});
-
 	});
 
 	describe('configured with style="any"', () => {
-
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
-				rules: { void: ["error", {style: "any"}]},
+				rules: { void: ["error", { style: "any" }] },
 			});
 		});
 
@@ -120,14 +125,12 @@ describe("rule void", () => {
 			const report = htmlvalidate.validateFile("test-files/rules/void.html");
 			expect(report.results).toMatchSnapshot();
 		});
-
 	});
 
 	describe('configured with style="foobar"', () => {
-
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
-				rules: { void: ["error", {style: "foobar"}]},
+				rules: { void: ["error", { style: "foobar" }] },
 			});
 		});
 
@@ -135,7 +138,5 @@ describe("rule void", () => {
 			const report = htmlvalidate.validateString("<input><input/>");
 			expect(report).toBeValid();
 		});
-
 	});
-
 });

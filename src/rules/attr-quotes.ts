@@ -14,42 +14,55 @@ class AttrQuotes extends Rule {
 
 	documentation(): RuleDocumentation {
 		return {
-			description: `Attribute values are required to be quoted with ${this.options.style}quotes.`,
+			description: `Attribute values are required to be quoted with ${
+				this.options.style
+			}quotes.`,
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
 
-	constructor(options: object){
+	constructor(options: object) {
 		super(Object.assign({}, defaults, options));
 		this.expected = parseStyle(this.options.style);
 	}
 
-	setup(){
+	setup() {
 		this.on("attr", (event: AttributeEvent) => {
 			/* ignore attributes with no value */
-			if (typeof event.value === "undefined"){
+			if (typeof event.value === "undefined") {
 				return;
 			}
 
-			if (typeof event.quote === "undefined"){
-				if (this.options.unquoted === false){
-					this.report(event.target, `Attribute "${event.key}" using unquoted value`);
+			if (typeof event.quote === "undefined") {
+				if (this.options.unquoted === false) {
+					this.report(
+						event.target,
+						`Attribute "${event.key}" using unquoted value`
+					);
 				}
 				return;
 			}
 
-			if (event.quote !== this.expected){
-				this.report(event.target, `Attribute "${event.key}" used ${event.quote} instead of expected ${this.expected}`);
+			if (event.quote !== this.expected) {
+				this.report(
+					event.target,
+					`Attribute "${event.key}" used ${event.quote} instead of expected ${
+						this.expected
+					}`
+				);
 			}
 		});
 	}
 }
 
-function parseStyle(style: string){
-	switch (style.toLowerCase()){
-	case "double": return DOUBLE_QUOTE;
-	case "single": return SINGLE_QUOTE;
-	default: return DOUBLE_QUOTE;
+function parseStyle(style: string) {
+	switch (style.toLowerCase()) {
+		case "double":
+			return DOUBLE_QUOTE;
+		case "single":
+			return SINGLE_QUOTE;
+		default:
+			return DOUBLE_QUOTE;
 	}
 }
 

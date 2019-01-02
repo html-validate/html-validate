@@ -3,11 +3,10 @@ import * as fs from "fs";
 import { Config } from "./config";
 
 let mockElements: any;
-jest.mock("mock-elements", () => mockElements, {virtual: true});
-jest.mock("mock-plugin", () => "mock plugin", {virtual: true});
+jest.mock("mock-elements", () => mockElements, { virtual: true });
+jest.mock("mock-plugin", () => "mock plugin", { virtual: true });
 
 describe("config", () => {
-
 	it("should load defaults", () => {
 		const config = Config.empty();
 		expect(config.get()).toBeDefined();
@@ -31,9 +30,7 @@ describe("config", () => {
 	it("defaultConfig() should load defaults", () => {
 		const config = Config.defaultConfig();
 		expect(config.get()).toEqual({
-			extends: [
-				"htmlvalidate:recommended",
-			],
+			extends: ["htmlvalidate:recommended"],
 			rules: expect.any(Object),
 			plugins: [],
 			transform: {},
@@ -41,10 +38,9 @@ describe("config", () => {
 	});
 
 	describe("merge()", () => {
-
 		it("should merge two configs", () => {
-			const a = Config.fromObject({rules: {foo: 1}});
-			const b = Config.fromObject({rules: {bar: 1}});
+			const a = Config.fromObject({ rules: { foo: 1 } });
+			const b = Config.fromObject({ rules: { bar: 1 } });
 			const merged = a.merge(b);
 			expect(merged.get()).toEqual({
 				extends: [],
@@ -56,14 +52,12 @@ describe("config", () => {
 				transform: {},
 			});
 		});
-
 	});
 
 	describe("getRules()", () => {
-
 		it("should return parsed rules", () => {
-			const config = Config.fromObject({rules: {foo: "error"}});
-			expect(config.get().rules).toEqual({foo: "error"});
+			const config = Config.fromObject({ rules: { foo: "error" } });
+			expect(config.get().rules).toEqual({ foo: "error" });
 			expect(config.getRules()).toEqual({
 				foo: [Config.SEVERITY_ERROR, {}],
 			});
@@ -112,27 +106,25 @@ describe("config", () => {
 		it("should retain options", () => {
 			const config = Config.fromObject({
 				rules: {
-					foo: [2, {foo: true}],
-					bar: ["error", {bar: false}],
+					foo: [2, { foo: true }],
+					bar: ["error", { bar: false }],
 					baz: ["warn"],
 				},
 			});
 			expect(config.getRules()).toEqual({
-				foo: [Config.SEVERITY_ERROR, {foo: true}],
-				bar: [Config.SEVERITY_ERROR, {bar: false}],
+				foo: [Config.SEVERITY_ERROR, { foo: true }],
+				bar: [Config.SEVERITY_ERROR, { bar: false }],
 				baz: [Config.SEVERITY_WARN, {}],
 			});
 		});
 
 		it("should handle when rules are unset", () => {
-			const config = Config.fromObject({rules: null});
+			const config = Config.fromObject({ rules: null });
 			expect(config.getRules()).toEqual({});
 		});
-
 	});
 
 	describe("fromFile()", () => {
-
 		it("should support JSON", () => {
 			const config = Config.fromFile(`${process.cwd()}/test-files/config.json`);
 			expect(config.getRules()).toEqual({
@@ -141,11 +133,9 @@ describe("config", () => {
 				baz: [Config.SEVERITY_DISABLED, {}],
 			});
 		});
-
 	});
 
 	describe("extend", () => {
-
 		it("should extend base configuration", () => {
 			const config = Config.fromObject({
 				extends: [`${process.cwd()}/test-files/config.json`],
@@ -184,17 +174,19 @@ describe("config", () => {
 			});
 			expect(config.getRules()).toBeDefined();
 		});
-
 	});
 
 	describe("expandRelative()", () => {
-
 		it("should expand ./foo", () => {
-			expect(Config.expandRelative("./foo", "/path")).toEqual(path.join(path.sep, "path", "foo"));
+			expect(Config.expandRelative("./foo", "/path")).toEqual(
+				path.join(path.sep, "path", "foo")
+			);
 		});
 
 		it("should expand ../foo", () => {
-			expect(Config.expandRelative("../foo", "/path/bar")).toEqual(path.join(path.sep, "path", "foo"));
+			expect(Config.expandRelative("../foo", "/path/bar")).toEqual(
+				path.join(path.sep, "path", "foo")
+			);
 		});
 
 		it("should not expand /foo", () => {
@@ -204,11 +196,9 @@ describe("config", () => {
 		it("should not expand foo", () => {
 			expect(Config.expandRelative("foo", "/path")).toEqual("foo");
 		});
-
 	});
 
 	describe("getMetaTable()", () => {
-
 		it("should load metadata", () => {
 			const config = Config.empty();
 			const metatable = config.getMetaTable();
@@ -244,11 +234,9 @@ describe("config", () => {
 			const metatable = config.getMetaTable();
 			expect(Object.keys(metatable.elements)).not.toHaveLength(0);
 		});
-
 	});
 
 	describe("transform()", () => {
-
 		it("should match filename against transformer", () => {
 			const config = Config.fromObject({
 				transform: {
@@ -256,13 +244,15 @@ describe("config", () => {
 				},
 			});
 			config.init();
-			expect(config.transform("/path/to/test.foo")).toEqual([{
-				data: "mocked source",
-				filename: "/path/to/test.foo",
-				line: 1,
-				column: 1,
-				originalData: "mocked original source",
-			}]);
+			expect(config.transform("/path/to/test.foo")).toEqual([
+				{
+					data: "mocked source",
+					filename: "/path/to/test.foo",
+					line: 1,
+					column: 1,
+					originalData: "mocked original source",
+				},
+			]);
 		});
 
 		it("should replace <rootDir>", () => {
@@ -272,13 +262,15 @@ describe("config", () => {
 				},
 			});
 			config.init();
-			expect(config.transform("/path/to/test.foo")).toEqual([{
-				data: "mocked source",
-				filename: "/path/to/test.foo",
-				line: 1,
-				column: 1,
-				originalData: "mocked original source",
-			}]);
+			expect(config.transform("/path/to/test.foo")).toEqual([
+				{
+					data: "mocked source",
+					filename: "/path/to/test.foo",
+					line: 1,
+					column: 1,
+					originalData: "mocked original source",
+				},
+			]);
 		});
 
 		it("should default to reading full file", () => {
@@ -288,19 +280,19 @@ describe("config", () => {
 				},
 			});
 			config.init();
-			expect(config.transform("test-files/parser/simple.html")).toEqual([{
-				data: "<p>Lorem ipsum</p>\n",
-				filename: "test-files/parser/simple.html",
-				line: 1,
-				column: 1,
-				originalData: "<p>Lorem ipsum</p>\n",
-			}]);
+			expect(config.transform("test-files/parser/simple.html")).toEqual([
+				{
+					data: "<p>Lorem ipsum</p>\n",
+					filename: "test-files/parser/simple.html",
+					line: 1,
+					column: 1,
+					originalData: "<p>Lorem ipsum</p>\n",
+				},
+			]);
 		});
-
 	});
 
 	describe("init()", () => {
-
 		it("should handle unset fields", () => {
 			const config = Config.fromObject({
 				plugins: null,
@@ -313,21 +305,16 @@ describe("config", () => {
 
 		it("should load plugins", () => {
 			const config = Config.fromObject({
-				plugins: [
-					"mock-plugin",
-				],
+				plugins: ["mock-plugin"],
 			});
 			config.init();
-			expect(config.getPlugins()).toEqual([
-				"mock plugin",
-			]);
+			expect(config.getPlugins()).toEqual(["mock plugin"]);
 		});
-
 	});
 
 	it("should find rootDir", () => {
 		const config = new class extends Config {
-			public findRootDir(){
+			public findRootDir() {
 				return super.findRootDir();
 			}
 		}();
@@ -337,5 +324,4 @@ describe("config", () => {
 		expect(config.findRootDir()).toEqual(process.cwd());
 		spy.mockRestore();
 	});
-
 });

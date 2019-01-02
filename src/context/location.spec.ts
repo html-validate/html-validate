@@ -1,7 +1,6 @@
-import {Location, sliceLocation} from "./location";
+import { Location, sliceLocation } from "./location";
 
 describe("sliceLocation()", () => {
-
 	let location: Location;
 
 	beforeEach(() => {
@@ -69,5 +68,4 @@ describe("sliceLocation()", () => {
 			size: null,
 		});
 	});
-
 });

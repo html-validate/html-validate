@@ -6,9 +6,14 @@ import { MetaElement, MetaTable } from "../meta";
 import { Parser } from "../parser";
 
 describe("HtmlElement", () => {
-
 	let root: DOMTree;
-	const location: Location = {filename: "filename", offset: 0, line: 1, column: 1, size: 4};
+	const location: Location = {
+		filename: "filename",
+		offset: 0,
+		line: 1,
+		column: 1,
+		size: 4,
+	};
 
 	beforeEach(() => {
 		const parser = new Parser(Config.empty());
@@ -23,11 +28,22 @@ describe("HtmlElement", () => {
 	});
 
 	describe("fromTokens()", () => {
-
-		function createTokens(tagName: string, open: boolean = true, selfClose: boolean = false): [Token, Token] {
+		function createTokens(
+			tagName: string,
+			open: boolean = true,
+			selfClose: boolean = false
+		): [Token, Token] {
 			const slash = open ? "" : "/";
-			const startToken: Token = {type: TokenType.TAG_OPEN, data: [`<${slash}${tagName}`, slash, tagName], location};
-			const endToken: Token = {type: TokenType.TAG_CLOSE, data: [selfClose ? "/>" : ">"], location};
+			const startToken: Token = {
+				type: TokenType.TAG_OPEN,
+				data: [`<${slash}${tagName}`, slash, tagName],
+				location,
+			};
+			const endToken: Token = {
+				type: TokenType.TAG_CLOSE,
+				data: [selfClose ? "/>" : ">"],
+				location,
+			};
 			return [startToken, endToken];
 		}
 
@@ -54,11 +70,16 @@ describe("HtmlElement", () => {
 		});
 
 		it("should set parent for opening tag", () => {
-			const [startToken1, endToken1] = createTokens("foo", true);  // <foo>
+			const [startToken1, endToken1] = createTokens("foo", true); //  <foo>
 			const [startToken2, endToken2] = createTokens("foo", false); // </foo>
 			const parent = new HtmlElement("parent");
-			const open =  HtmlElement.fromTokens(startToken1, endToken1, parent, null);
-			const close = HtmlElement.fromTokens(startToken2, endToken2, parent, null);
+			const open = HtmlElement.fromTokens(startToken1, endToken1, parent, null);
+			const close = HtmlElement.fromTokens(
+				startToken2,
+				endToken2,
+				parent,
+				null
+			);
 			expect(open.parent).toBeDefined();
 			expect(close.parent).toBeUndefined();
 		});
@@ -67,16 +88,16 @@ describe("HtmlElement", () => {
 			const [startToken, endToken] = createTokens("foo"); // <foo>
 			const foo: MetaElement = mockEntry("foo");
 			const table = new MetaTable();
-			table.loadFromObject({foo});
+			table.loadFromObject({ foo });
 			const node = HtmlElement.fromTokens(startToken, endToken, null, table);
 			expect(node.meta).toEqual(foo);
 		});
 
 		it("should set closed for omitted end tag", () => {
 			const [startToken, endToken] = createTokens("foo"); // <foo>
-			const foo: MetaElement = mockEntry("foo", {void: true});
+			const foo: MetaElement = mockEntry("foo", { void: true });
 			const table = new MetaTable();
-			table.loadFromObject({foo});
+			table.loadFromObject({ foo });
 			const node = HtmlElement.fromTokens(startToken, endToken, null, table);
 			expect(node.closed).toEqual(NodeClosed.VoidOmitted);
 		});
@@ -86,7 +107,6 @@ describe("HtmlElement", () => {
 			const node = HtmlElement.fromTokens(startToken, endToken, null, null);
 			expect(node.closed).toEqual(NodeClosed.VoidSelfClosed);
 		});
-
 	});
 
 	it("root element", () => {
@@ -164,7 +184,6 @@ describe("HtmlElement", () => {
 	});
 
 	describe("classList", () => {
-
 		it("should return list of classes", () => {
 			const node = new HtmlElement("foo");
 			node.setAttribute("class", "foo bar baz", location);
@@ -175,11 +194,9 @@ describe("HtmlElement", () => {
 			const node = new HtmlElement("foo");
 			expect(Array.from(node.classList)).toEqual([]);
 		});
-
 	});
 
 	describe("should calculate depth", () => {
-
 		it("for nodes without parent", () => {
 			const node = new HtmlElement("foo");
 			expect(node.depth).toEqual(0);
@@ -191,11 +208,9 @@ describe("HtmlElement", () => {
 			expect(root.querySelector("li.foo").depth).toEqual(2);
 			expect(root.querySelector("li.bar").depth).toEqual(2);
 		});
-
 	});
 
 	describe("is()", () => {
-
 		it("should match tagname", () => {
 			const el = new HtmlElement("foo");
 			expect(el.is("foo")).toBeTruthy();
@@ -206,11 +221,9 @@ describe("HtmlElement", () => {
 			const el = new HtmlElement("foo");
 			expect(el.is("*")).toBeTruthy();
 		});
-
 	});
 
 	describe("getElementsByTagName()", () => {
-
 		it("should find elements", () => {
 			const nodes = root.getElementsByTagName("li");
 			expect(nodes).toHaveLength(2);
@@ -219,15 +232,15 @@ describe("HtmlElement", () => {
 		});
 
 		it("should support universal selector", () => {
-			const tagNames = root.getElementsByTagName("*").map((cur: HtmlElement) => cur.tagName);
+			const tagNames = root
+				.getElementsByTagName("*")
+				.map((cur: HtmlElement) => cur.tagName);
 			expect(tagNames).toHaveLength(6);
 			expect(tagNames).toEqual(["div", "ul", "li", "li", "p", "span"]);
 		});
-
 	});
 
 	describe("querySelector()", () => {
-
 		it("should find element by tagname", () => {
 			const el = root.querySelector("ul");
 			expect(el).toBeInstanceOf(HtmlElement);
@@ -301,11 +314,9 @@ describe("HtmlElement", () => {
 			const el = root.querySelector("foobar");
 			expect(el).toBeNull();
 		});
-
 	});
 
 	describe("querySelectorAll()", () => {
-
 		it("should find multiple elements", () => {
 			const el = root.querySelectorAll(".bar");
 			expect(el).toHaveLength(2);
@@ -319,11 +330,9 @@ describe("HtmlElement", () => {
 			const el = root.querySelectorAll("missing");
 			expect(el).toEqual([]);
 		});
-
 	});
 
 	describe("visitDepthFirst()", () => {
-
 		it("should visit all nodes in correct order", () => {
 			const root = HtmlElement.rootNode({
 				filename: "inline",
@@ -340,11 +349,9 @@ describe("HtmlElement", () => {
 			root.visitDepthFirst((node: HtmlElement) => order.push(node.tagName));
 			expect(order).toEqual(["a", "c", "b"]);
 		});
-
 	});
 
 	describe("someChildren()", () => {
-
 		it("should return true if any child node evaluates to true", () => {
 			const root = new HtmlElement("root");
 			/* eslint-disable no-unused-vars */
@@ -352,7 +359,9 @@ describe("HtmlElement", () => {
 			const b = new HtmlElement("b", root);
 			const c = new HtmlElement("c", b);
 			/* eslint-enable no-unused-vars */
-			const result = root.someChildren((node: HtmlElement) => node.tagName === "c");
+			const result = root.someChildren(
+				(node: HtmlElement) => node.tagName === "c"
+			);
 			expect(result).toBeTruthy();
 		});
 
@@ -381,11 +390,9 @@ describe("HtmlElement", () => {
 			});
 			expect(order).toEqual(["a"]);
 		});
-
 	});
 
 	describe("everyChildren()", () => {
-
 		it("should return true if all nodes evaluates to true", () => {
 			const root = new HtmlElement("root");
 			/* eslint-disable no-unused-vars */
@@ -404,14 +411,14 @@ describe("HtmlElement", () => {
 			const b = new HtmlElement("b", root);
 			const c = new HtmlElement("c", b);
 			/* eslint-enable no-unused-vars */
-			const result = root.everyChildren((node: HtmlElement) => node.tagName !== "b");
+			const result = root.everyChildren(
+				(node: HtmlElement) => node.tagName !== "b"
+			);
 			expect(result).toBeFalsy();
 		});
-
 	});
 
 	describe("find()", () => {
-
 		it("should visit all nodes until callback evaluates to true", () => {
 			const root = new HtmlElement("root");
 			/* eslint-disable no-unused-vars */
@@ -422,29 +429,30 @@ describe("HtmlElement", () => {
 			const result = root.find((node: HtmlElement) => node.tagName === "b");
 			expect(result.tagName).toEqual("b");
 		});
-
 	});
-
 });
 
 function mockEntry(tagName: string, stub = {}): MetaElement {
-	return Object.assign({
-		tagName,
-		metadata: false,
-		flow: false,
-		sectioning: false,
-		heading: false,
-		phrasing: false,
-		embedded: false,
-		interactive: false,
-		deprecated: false,
-		void: false,
-		transparent: false,
-		implicitClosed: [],
-		attributes: {},
-		deprecatedAttributes: [],
-		permittedContent: [],
-		permittedDescendants: [],
-		permittedOrder: [],
-	}, stub);
+	return Object.assign(
+		{
+			tagName,
+			metadata: false,
+			flow: false,
+			sectioning: false,
+			heading: false,
+			phrasing: false,
+			embedded: false,
+			interactive: false,
+			deprecated: false,
+			void: false,
+			transparent: false,
+			implicitClosed: [],
+			attributes: {},
+			deprecatedAttributes: [],
+			permittedContent: [],
+			permittedDescendants: [],
+			permittedOrder: [],
+		},
+		stub
+	);
 }
