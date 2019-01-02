@@ -11,12 +11,16 @@ describe("rule no-dup-id", () => {
 	});
 
 	it("should not report when no id is duplicated", () => {
-		const report = htmlvalidate.validateString('<p id="foo"></p><p id="bar"></p>');
+		const report = htmlvalidate.validateString(
+			'<p id="foo"></p><p id="bar"></p>'
+		);
 		expect(report).toBeValid();
 	});
 
 	it("should report when id is duplicated", () => {
-		const report = htmlvalidate.validateString('<p id="foo"></p><p id="foo"></p>');
+		const report = htmlvalidate.validateString(
+			'<p id="foo"></p><p id="foo"></p>'
+		);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("no-dup-id", 'Duplicate ID "foo"');
 	});
@@ -29,5 +33,4 @@ describe("rule no-dup-id", () => {
 	it("should contain documentation", () => {
 		expect(htmlvalidate.getRuleDocumentation("no-dup-id")).toMatchSnapshot();
 	});
-
 });

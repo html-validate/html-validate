@@ -23,26 +23,33 @@ function getMode(argv: { [key: string]: any }) {
 	return "lint";
 }
 
-function getGlobalConfig(rules?: string|string[]) {
+function getGlobalConfig(rules?: string | string[]) {
 	const config: any = Object.assign({}, defaultConfig);
 	if (rules) {
 		if (Array.isArray(rules)) {
 			rules = rules.join(",");
 		}
-		const raw = rules.split(",").map((x: string) => x.replace(/ *(.*):/, '"$1":')).join(",");
+		const raw = rules
+			.split(",")
+			.map((x: string) => x.replace(/ *(.*):/, '"$1":'))
+			.join(",");
 		try {
 			const rules = JSON.parse(`{${raw}}`);
 			config.extends = [];
 			config.rules = rules;
 		} catch (e) {
-			process.stderr.write(`Error while parsing "${rules}": ${e.message}, rules ignored.\n`);
+			process.stderr.write(
+				`Error while parsing "${rules}": ${e.message}, rules ignored.\n`
+			);
 		}
 	}
 	return config;
 }
 
 function lint(files: string[]): Report {
-	const reports = files.map((filename: string) => htmlvalidate.validateFile(filename));
+	const reports = files.map((filename: string) =>
+		htmlvalidate.validateFile(filename)
+	);
 	return Reporter.merge(reports);
 }
 
@@ -51,17 +58,28 @@ function dump(files: string[], mode: string) {
 	let lines: string[][] = [];
 	switch (mode) {
 		case "dump-events":
-			lines = files.map((filename: string) => htmlvalidate.dumpEvents(filename).map((entry: EventDump) => {
-				const strdata = JSON.stringify(entry.data, (key, value) => {
-					return filtered.indexOf(key) >= 0 ? "[truncated]" : value;
-				}, 2);
-				return `${entry.event}: ${strdata}`;
-			}));
+			lines = files.map((filename: string) =>
+				htmlvalidate.dumpEvents(filename).map((entry: EventDump) => {
+					const strdata = JSON.stringify(
+						entry.data,
+						(key, value) => {
+							return filtered.indexOf(key) >= 0 ? "[truncated]" : value;
+						},
+						2
+					);
+					return `${entry.event}: ${strdata}`;
+				})
+			);
 			break;
 		case "dump-tokens":
-			lines = files.map((filename: string) => htmlvalidate.dumpTokens(filename).map((entry: TokenDump) => {
-				return `TOKEN: ${entry.token}\n  Data: ${JSON.stringify(entry.data)}\n  Location: ${entry.location}`;
-			}));
+			lines = files.map((filename: string) =>
+				htmlvalidate.dumpTokens(filename).map((entry: TokenDump) => {
+					const data = JSON.stringify(entry.data);
+					return `TOKEN: ${entry.token}\n  Data: ${data}\n  Location: ${
+						entry.location
+					}`;
+				})
+			);
 			break;
 		case "dump-tree":
 			lines = files.map((filename: string) => htmlvalidate.dumpTree(filename));
@@ -74,7 +92,9 @@ function dump(files: string[], mode: string) {
 }
 
 function renameStdin(report: Report, filename: string): void {
-	const stdin = report.results.find((cur: Result) => cur.filePath === "/dev/stdin");
+	const stdin = report.results.find(
+		(cur: Result) => cur.filePath === "/dev/stdin"
+	);
 	if (stdin) {
 		stdin.filePath = filename;
 	}
@@ -139,7 +159,7 @@ const files = argv._.reduce((files: string[], pattern: string) => {
 	}
 	return files.concat(glob.sync(pattern));
 }, []);
-const unique = [... new Set(files)];
+const unique = [...new Set(files)];
 
 if (unique.length === 0) {
 	console.error("No files matching patterns", argv._); // eslint-disable-line no-console

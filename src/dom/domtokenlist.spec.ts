@@ -1,7 +1,6 @@
 import { DOMTokenList } from "./domtokenlist";
 
 describe("DOMTokenList", () => {
-
 	it("should split string into parts", () => {
 		const list = new DOMTokenList("foo bar baz");
 		expect(Array.from(list)).toEqual(["foo", "bar", "baz"]);
@@ -33,7 +32,6 @@ describe("DOMTokenList", () => {
 	});
 
 	describe("item()", () => {
-
 		it("should return item by index", () => {
 			const list = new DOMTokenList("foo bar baz");
 			expect(list.item(1)).toEqual("bar");
@@ -44,11 +42,9 @@ describe("DOMTokenList", () => {
 			expect(list.item(-1)).toBeUndefined();
 			expect(list.item(3)).toBeUndefined();
 		});
-
 	});
 
 	describe("contains()", () => {
-
 		it("should return true if token exists", () => {
 			const list = new DOMTokenList("foo bar baz");
 			expect(list.contains("baz")).toBeTruthy();
@@ -58,7 +54,5 @@ describe("DOMTokenList", () => {
 			const list = new DOMTokenList("foo bar baz");
 			expect(list.contains("spam")).toBeFalsy();
 		});
-
 	});
-
 });

@@ -20,9 +20,18 @@ class ElementPermittedOrder extends Rule {
 				}
 
 				const rules = node.meta.permittedOrder;
-				Validator.validateOrder(node.children, rules, (child: HtmlElement, prev: HtmlElement) => {
-					this.report(child, `Element <${child.tagName}> must be used before <${prev.tagName}> in this context`);
-				});
+				Validator.validateOrder(
+					node.children,
+					rules,
+					(child: HtmlElement, prev: HtmlElement) => {
+						this.report(
+							child,
+							`Element <${child.tagName}> must be used before <${
+								prev.tagName
+							}> in this context`
+						);
+					}
+				);
 			});
 		});
 	}

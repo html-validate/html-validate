@@ -47,7 +47,7 @@ function extractLiteral(node: ESTree.Expression | ESTree.Pattern): Source {
 				line: node.quasi.loc.start.line,
 				column: node.quasi.loc.start.column + 1,
 			};
-			/* istanbul ignore next: this only provides a better error, all currently known nodes are tested */
+		/* istanbul ignore next: this only provides a better error, all currently known nodes are tested */
 		default:
 			throw Error(`Unhandled node type "${node.type}" in extractLiteral`);
 	}
@@ -57,7 +57,7 @@ function compareKey(node: ESTree.Expression, key: string) {
 	switch (node.type) {
 		case "Identifier":
 			return node.name === key;
-			/* istanbul ignore next: this only provides a better error, all currently known nodes are tested */
+		/* istanbul ignore next: this only provides a better error, all currently known nodes are tested */
 		default:
 			throw Error(`Unhandled node type "${node.type}" in compareKey`);
 	}
@@ -93,12 +93,14 @@ export class TemplateExtractor {
 
 	static createSource(filename: string): Source[] {
 		const data = fs.readFileSync(filename, "utf-8");
-		return [{
-			column: 1,
-			data,
-			filename,
-			line: 1,
-		}];
+		return [
+			{
+				column: 1,
+				data,
+				filename,
+				line: 1,
+			},
+		];
 	}
 
 	extractObjectProperty(key: string): Source[] {

@@ -7,11 +7,11 @@ import { DOMTokenList } from "./domtokenlist";
 import { Selector } from "./selector";
 
 export enum NodeClosed {
-	Open = 0,            /* element wasn't closed */
-	EndTag = 1,          /* element closed with end tag <p>...</p> */
-	VoidOmitted = 2,     /* void element with omitted end tag <input> */
-	VoidSelfClosed = 3,  /* self-closed void element <input/> */
-	ImplicitClosed = 4,  /* element with optional end tag <li>foo<li>bar */
+	Open = 0, //            element wasn't closed
+	EndTag = 1, //          element closed with end tag <p>...</p>
+	VoidOmitted = 2, //     void element with omitted end tag <input>
+	VoidSelfClosed = 3, //  self-closed void element <input/>
+	ImplicitClosed = 4, //  element with optional end tag <li>foo<li>bar
 }
 
 const DOCUMENT_NODE_NAME = "#document";
@@ -24,7 +24,7 @@ export function reset() {
 
 export class HtmlElement extends DOMNode {
 	readonly tagName: string;
-	readonly attr: { [key: string]: Attribute; };
+	readonly attr: { [key: string]: Attribute };
 	readonly children: HtmlElement[];
 	readonly location: Location;
 	readonly meta: MetaElement;
@@ -34,7 +34,13 @@ export class HtmlElement extends DOMNode {
 	readonly depth: number;
 	closed: NodeClosed;
 
-	constructor(tagName: string, parent?: HtmlElement, closed: NodeClosed = NodeClosed.EndTag, meta?: MetaElement, location?: Location) {
+	constructor(
+		tagName: string,
+		parent?: HtmlElement,
+		closed: NodeClosed = NodeClosed.EndTag,
+		meta?: MetaElement,
+		location?: Location
+	) {
 		super(tagName || DOCUMENT_NODE_NAME);
 
 		this.tagName = tagName;
@@ -61,10 +67,21 @@ export class HtmlElement extends DOMNode {
 	}
 
 	static rootNode(location: Location) {
-		return new HtmlElement(undefined, undefined, undefined, undefined, location);
+		return new HtmlElement(
+			undefined,
+			undefined,
+			undefined,
+			undefined,
+			location
+		);
 	}
 
-	static fromTokens(startToken: Token, endToken: Token, parent: HtmlElement, metaTable: MetaTable) {
+	static fromTokens(
+		startToken: Token,
+		endToken: Token,
+		parent: HtmlElement,
+		metaTable: MetaTable
+	) {
 		const tagName = startToken.data[2];
 		if (!tagName) {
 			throw new Error("tagName cannot be empty");
@@ -73,9 +90,17 @@ export class HtmlElement extends DOMNode {
 		const meta = metaTable ? metaTable.getMetaFor(tagName) : null;
 		const open = startToken.data[1] !== "/";
 		const closed = isClosed(endToken, meta);
-		const location = sliceLocation(startToken.location, 1); /* location contains position of '<' so strip it out */
 
-		return new HtmlElement(tagName, open ? parent : undefined, closed, meta, location);
+		/* location contains position of '<' so strip it out */
+		const location = sliceLocation(startToken.location, 1);
+
+		return new HtmlElement(
+			tagName,
+			open ? parent : undefined,
+			closed,
+			meta,
+			location
+		);
 	}
 
 	is(tagName: string): boolean {
@@ -127,18 +152,21 @@ export class HtmlElement extends DOMNode {
 	}
 
 	get previousSibling(): HtmlElement {
-		const i = this.siblings.findIndex((node) => node.unique === this.unique);
+		const i = this.siblings.findIndex(node => node.unique === this.unique);
 		return i >= 1 ? this.siblings[i - 1] : null;
 	}
 
 	get nextSibling(): HtmlElement {
-		const i = this.siblings.findIndex((node) => node.unique === this.unique);
-		return i <= (this.siblings.length - 2) ? this.siblings[i + 1] : null;
+		const i = this.siblings.findIndex(node => node.unique === this.unique);
+		return i <= this.siblings.length - 2 ? this.siblings[i + 1] : null;
 	}
 
 	getElementsByTagName(tagName: string): HtmlElement[] {
 		return this.children.reduce((matches, node) => {
-			return matches.concat(node.is(tagName) ? [node] : [], node.getElementsByTagName(tagName));
+			return matches.concat(
+				node.is(tagName) ? [node] : [],
+				node.getElementsByTagName(tagName)
+			);
 		}, []);
 	}
 

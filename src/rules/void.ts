@@ -18,7 +18,8 @@ class Void extends Rule {
 
 	documentation(): RuleDocumentation {
 		return {
-			description: "HTML void elements cannot have any content and must not have an end tag.",
+			description:
+				"HTML void elements cannot have any content and must not have an end tag.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
@@ -30,8 +31,8 @@ class Void extends Rule {
 
 	setup() {
 		this.on("tag:close", (event: TagCloseEvent) => {
-			const current = event.target;     // The current element being closed
-			const active = event.previous;    // The current active element (that is, the current element on the stack)
+			const current = event.target; // The current element being closed
+			const active = event.previous; // The current active element (that is, the current element on the stack)
 
 			if (current && current.meta) {
 				this.validateCurrent(current);
@@ -50,15 +51,33 @@ class Void extends Rule {
 	}
 
 	validateActive(node: HtmlElement): void {
-		const selfOrOmitted = node.closed === NodeClosed.VoidOmitted || node.closed === NodeClosed.VoidSelfClosed;
+		const selfOrOmitted =
+			node.closed === NodeClosed.VoidOmitted ||
+			node.closed === NodeClosed.VoidSelfClosed;
 
 		if (node.voidElement) {
-			if (this.style === Style.AlwaysOmit && node.closed === NodeClosed.VoidSelfClosed) {
-				this.report(node, `Expected omitted end tag <${node.tagName}> instead of self-closing element <${node.tagName}/>`);
+			if (
+				this.style === Style.AlwaysOmit &&
+				node.closed === NodeClosed.VoidSelfClosed
+			) {
+				this.report(
+					node,
+					`Expected omitted end tag <${
+						node.tagName
+					}> instead of self-closing element <${node.tagName}/>`
+				);
 			}
 
-			if (this.style === Style.AlwaysSelfclose && node.closed === NodeClosed.VoidOmitted) {
-				this.report(node, `Expected self-closing element <${node.tagName}/> instead of omitted end-tag <${node.tagName}>`);
+			if (
+				this.style === Style.AlwaysSelfclose &&
+				node.closed === NodeClosed.VoidOmitted
+			) {
+				this.report(
+					node,
+					`Expected self-closing element <${
+						node.tagName
+					}/> instead of omitted end-tag <${node.tagName}>`
+				);
 			}
 		}
 
@@ -70,10 +89,14 @@ class Void extends Rule {
 
 function parseStyle(name: string): Style {
 	switch (name) {
-		case "any": return Style.Any;
-		case "omit": return Style.AlwaysOmit;
-		case "selfclose": return Style.AlwaysSelfclose;
-		default: return Style.Any;
+		case "any":
+			return Style.Any;
+		case "omit":
+			return Style.AlwaysOmit;
+		case "selfclose":
+			return Style.AlwaysSelfclose;
+		default:
+			return Style.Any;
 	}
 }
 

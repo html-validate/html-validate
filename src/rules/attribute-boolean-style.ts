@@ -39,7 +39,11 @@ class AttributeBooleanStyle extends Rule {
 					if (!this.isBoolean(key, meta.attributes)) continue;
 
 					if (this.hasInvalidStyle(key, attr.value)) {
-						this.report(node, reportMessage(key, attr.value, this.options.style), attr.location);
+						this.report(
+							node,
+							reportMessage(key, attr.value, this.options.style),
+							attr.location
+						);
 					}
 				}
 			});
@@ -53,19 +57,27 @@ class AttributeBooleanStyle extends Rule {
 
 function parseStyle(style: string): checkFunction {
 	switch (style.toLowerCase()) {
-		case "omit": return (key, value) => typeof value !== "undefined";
-		case "empty": return (key, value) => value !== "";
-		case "name": return (key, value) => value !== key;
+		case "omit":
+			return (key, value) => typeof value !== "undefined";
+		case "empty":
+			return (key, value) => value !== "";
+		case "name":
+			return (key, value) => value !== key;
 		default:
-			throw new Error(`Invalid style "${style}" for "attribute-boolean-style" rule`);
+			throw new Error(
+				`Invalid style "${style}" for "attribute-boolean-style" rule`
+			);
 	}
 }
 
 function reportMessage(key: string, value: string, style: string): string {
 	switch (style.toLowerCase()) {
-		case "omit": return `Attribute "${key}" should omit value`;
-		case "empty": return `Attribute "${key}" value should be empty string`;
-		case "name": return `Attribute "${key}" should be set to ${key}="${key}"`;
+		case "omit":
+			return `Attribute "${key}" should omit value`;
+		case "empty":
+			return `Attribute "${key}" value should be empty string`;
+		case "name":
+			return `Attribute "${key}" should be set to ${key}="${key}"`;
 	}
 	/* istanbul ignore next: the above switch should cover all cases */
 	return "";

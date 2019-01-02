@@ -6,7 +6,7 @@ describe("rule id-pattern", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
-			rules: {"id-pattern": "error"},
+			rules: { "id-pattern": "error" },
 		});
 	});
 
@@ -18,7 +18,10 @@ describe("rule id-pattern", () => {
 	it("should report error when id does not follow pattern", () => {
 		const report = htmlvalidate.validateString('<p id="fooBar"></p>');
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("id-pattern", expect.stringMatching(/ID "fooBar" does not match required pattern ".*"/));
+		expect(report).toHaveError(
+			"id-pattern",
+			expect.stringMatching(/ID "fooBar" does not match required pattern ".*"/)
+		);
 	});
 
 	it("should ignore other attributes", () => {
@@ -27,12 +30,13 @@ describe("rule id-pattern", () => {
 	});
 
 	it("smoketest", () => {
-		const report = htmlvalidate.validateFile("test-files/rules/id-pattern.html");
+		const report = htmlvalidate.validateFile(
+			"test-files/rules/id-pattern.html"
+		);
 		expect(report.results).toMatchSnapshot();
 	});
 
 	it("should contain documentation", () => {
 		expect(htmlvalidate.getRuleDocumentation("id-pattern")).toMatchSnapshot();
 	});
-
 });

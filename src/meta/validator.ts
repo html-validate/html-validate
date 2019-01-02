@@ -7,25 +7,30 @@ import {
 	PermittedOrder,
 } from "./element";
 
-const allowedKeys = [
-	"exclude",
-];
+const allowedKeys = ["exclude"];
 
 export class Validator {
-	public static validatePermitted(node: HtmlElement, rules: Permitted): boolean {
+	public static validatePermitted(
+		node: HtmlElement,
+		rules: Permitted
+	): boolean {
 		if (!rules) {
 			return true;
 		}
-		return rules.some((rule) => {
+		return rules.some(rule => {
 			return Validator.validatePermittedRule(node, rule);
 		});
 	}
 
-	public static validateOccurrences(node: HtmlElement, rules: Permitted, numSiblings: number): boolean {
+	public static validateOccurrences(
+		node: HtmlElement,
+		rules: Permitted,
+		numSiblings: number
+	): boolean {
 		if (!rules) {
 			return true;
 		}
-		const category = rules.find((cur) => {
+		const category = rules.find(cur => {
 			/** @todo handle complex rules and not just plain arrays (but as of now
 			 * there is no use-case for it) */
 			// istanbul ignore next
@@ -51,14 +56,17 @@ export class Validator {
 	 *
 	 * @param {HtmlElement[]} children - Array of children to validate.
 	 */
-	public static validateOrder(children: HtmlElement[], rules: PermittedOrder, cb: (node: HtmlElement, prev: HtmlElement) => void): boolean {
+	public static validateOrder(
+		children: HtmlElement[],
+		rules: PermittedOrder,
+		cb: (node: HtmlElement, prev: HtmlElement) => void
+	): boolean {
 		if (!rules) {
 			return true;
 		}
 		let i = 0;
 		let prev = null;
 		for (const node of children) {
-
 			const old = i;
 			while (rules[i] && !Validator.validatePermittedCategory(node, rules[i])) {
 				i++;
@@ -70,7 +78,9 @@ export class Validator {
 				 * - disallowed elements
 				 * - elements where the order doesn't matter
 				 * In both of these cases no error should be reported. */
-				const orderSpecified = rules.find((cur: string) => Validator.validatePermittedCategory(node, cur));
+				const orderSpecified = rules.find((cur: string) =>
+					Validator.validatePermittedCategory(node, cur)
+				);
 				if (orderSpecified) {
 					cb(node, prev);
 					return false;
@@ -85,7 +95,11 @@ export class Validator {
 		return true;
 	}
 
-	public static validateAttribute(key: string, value: string|undefined, rules: PermittedAttribute): boolean {
+	public static validateAttribute(
+		key: string,
+		value: string | undefined,
+		rules: PermittedAttribute
+	): boolean {
 		const rule = rules[key];
 		if (!rule) {
 			return true;
@@ -96,7 +110,7 @@ export class Validator {
 			return value === undefined || value === "" || value === key;
 		}
 
-		return rule.some((entry: string|RegExp) => {
+		return rule.some((entry: string | RegExp) => {
 			if (entry instanceof RegExp) {
 				return !!value.match(entry);
 			} else {
@@ -105,7 +119,10 @@ export class Validator {
 		});
 	}
 
-	private static validatePermittedRule(node: HtmlElement, rule: PermittedEntry): boolean {
+	private static validatePermittedRule(
+		node: HtmlElement,
+		rule: PermittedEntry
+	): boolean {
 		if (typeof rule === "string") {
 			return Validator.validatePermittedCategory(node, rule);
 		} else if (Array.isArray(rule)) {
@@ -139,7 +156,10 @@ export class Validator {
 	 * @param {HtmlElement} node - The node to test against
 	 * @param {string} category - Name of category with '@' prefix or tag name.
 	 */
-	private static validatePermittedCategory(node: HtmlElement, category: string): boolean {
+	private static validatePermittedCategory(
+		node: HtmlElement,
+		category: string
+	): boolean {
 		/* match tagName when an explicit name is given */
 		if (category[0] !== "@") {
 			const [, tagName] = category.match(/^(.*?)[?*]?$/);
@@ -152,14 +172,22 @@ export class Validator {
 		}
 
 		switch (category) {
-			case "@meta": return node.meta.metadata as boolean;
-			case "@flow": return node.meta.flow as boolean;
-			case "@sectioning": return node.meta.sectioning as boolean;
-			case "@heading": return node.meta.heading as boolean;
-			case "@phrasing": return node.meta.phrasing as boolean;
-			case "@embedded": return node.meta.embedded as boolean;
-			case "@interactive": return node.meta.interactive as boolean;
-			default: throw new Error(`Invalid content category "${category}"`);
+			case "@meta":
+				return node.meta.metadata as boolean;
+			case "@flow":
+				return node.meta.flow as boolean;
+			case "@sectioning":
+				return node.meta.sectioning as boolean;
+			case "@heading":
+				return node.meta.heading as boolean;
+			case "@phrasing":
+				return node.meta.phrasing as boolean;
+			case "@embedded":
+				return node.meta.embedded as boolean;
+			case "@interactive":
+				return node.meta.interactive as boolean;
+			default:
+				throw new Error(`Invalid content category "${category}"`);
 		}
 	}
 }
@@ -168,7 +196,9 @@ function validateKeys(rule: PermittedGroup): void {
 	for (const key of Object.keys(rule)) {
 		if (allowedKeys.indexOf(key) === -1) {
 			const str = JSON.stringify(rule);
-			throw new Error(`Permitted rule "${str}" contains unknown property "${key}"`);
+			throw new Error(
+				`Permitted rule "${str}" contains unknown property "${key}"`
+			);
 		}
 	}
 }
@@ -182,10 +212,13 @@ function parseAmountQualifier(category: string): number {
 
 	const [, qualifier] = category.match(/^.*?([?*]?)$/);
 	switch (qualifier) {
-		case "?": return 1;
-		case "": return null;
-		case "*": return null;
-			/* istanbul ignore next */
+		case "?":
+			return 1;
+		case "":
+			return null;
+		case "*":
+			return null;
+		/* istanbul ignore next */
 		default:
 			throw new Error(`Invalid amount qualifier "${qualifier}" used`);
 	}

@@ -11,7 +11,9 @@ class HtmlValidate {
 
 	constructor(options?: any) {
 		const defaults = Config.empty();
-		this.globalConfig = defaults.merge(options ? Config.fromObject(options) : Config.defaultConfig());
+		this.globalConfig = defaults.merge(
+			options ? Config.fromObject(options) : Config.defaultConfig()
+		);
 		this.configLoader = new ConfigLoader(Config);
 	}
 
@@ -99,7 +101,11 @@ class HtmlValidate {
 	 * @param {any} [context] - If set to `Message.context` some rules can provide
 	 * contextual details and suggestions.
 	 */
-	public getRuleDocumentation(ruleId: string, config?: Config, context?: any): RuleDocumentation {
+	public getRuleDocumentation(
+		ruleId: string,
+		config?: Config,
+		context?: any
+	): RuleDocumentation {
 		const engine = new Engine(config || this.getConfigFor("inline"), Parser);
 		return engine.getRuleDocumentation(ruleId, context);
 	}

@@ -25,7 +25,15 @@ const report: Report = {
 	results: [
 		{
 			messages: [
-				{ruleId: "foo", severity: 2, message: "lorem ipsum", offset: 1, line: 1, column: 2, size: 1},
+				{
+					ruleId: "foo",
+					severity: 2,
+					message: "lorem ipsum",
+					offset: 1,
+					line: 1,
+					column: 2,
+					size: 1,
+				},
 			],
 			filePath: "mock-file.html",
 			errorCount: 1,
@@ -35,7 +43,6 @@ const report: Report = {
 };
 
 describe("cli/formatters", () => {
-
 	it("should call formatter", () => {
 		const wrapped = getFormatter("text");
 		wrapped(report);
@@ -54,5 +61,4 @@ describe("cli/formatters", () => {
 		wrapped(report);
 		expect(writeFileSync).toHaveBeenCalledWith("foo.txt", "", "utf-8");
 	});
-
 });

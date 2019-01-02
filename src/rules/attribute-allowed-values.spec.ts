@@ -6,14 +6,17 @@ describe("rule attribute-allowed-values", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
-			rules: {"attribute-allowed-values": "error"},
+			rules: { "attribute-allowed-values": "error" },
 		});
 	});
 
 	it("should report error when element has invalid attribute value", () => {
 		const report = htmlvalidate.validateString('<input type="foobar">');
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("attribute-allowed-values", 'Attribute "type" has invalid value "foobar"');
+		expect(report).toHaveError(
+			"attribute-allowed-values",
+			'Attribute "type" has invalid value "foobar"'
+		);
 	});
 
 	it("should not report error when element has valid attribute value", () => {
@@ -32,12 +35,16 @@ describe("rule attribute-allowed-values", () => {
 	});
 
 	it("smoketest", () => {
-		const report = htmlvalidate.validateFile("test-files/rules/attribute-allowed-values.html");
+		const report = htmlvalidate.validateFile(
+			"test-files/rules/attribute-allowed-values.html"
+		);
 		expect(report.results).toMatchSnapshot();
 	});
 
 	it("should contain documentation", () => {
-		expect(htmlvalidate.getRuleDocumentation("attribute-allowed-values")).toMatchSnapshot();
+		expect(
+			htmlvalidate.getRuleDocumentation("attribute-allowed-values")
+		).toMatchSnapshot();
 	});
 
 	it("should contain contextual documentation", () => {
@@ -47,7 +54,12 @@ describe("rule attribute-allowed-values", () => {
 			value: "bar",
 			allowed: ["spam", "ham", /\d+/],
 		};
-		expect(htmlvalidate.getRuleDocumentation("attribute-allowed-values", null, context)).toMatchSnapshot();
+		expect(
+			htmlvalidate.getRuleDocumentation(
+				"attribute-allowed-values",
+				null,
+				context
+			)
+		).toMatchSnapshot();
 	});
-
 });

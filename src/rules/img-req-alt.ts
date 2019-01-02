@@ -10,7 +10,8 @@ const defaults = {
 class ImgReqAlt extends Rule {
 	documentation(): RuleDocumentation {
 		return {
-			description: "Both HTML5 and WCAG 2.0 requires images to have a alternative text for each image.",
+			description:
+				"Both HTML5 and WCAG 2.0 requires images to have a alternative text for each image.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}

@@ -14,7 +14,9 @@ class AttrQuotes extends Rule {
 
 	documentation(): RuleDocumentation {
 		return {
-			description: `Attribute values are required to be quoted with ${this.options.style}quotes.`,
+			description: `Attribute values are required to be quoted with ${
+				this.options.style
+			}quotes.`,
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
@@ -33,13 +35,21 @@ class AttrQuotes extends Rule {
 
 			if (typeof event.quote === "undefined") {
 				if (this.options.unquoted === false) {
-					this.report(event.target, `Attribute "${event.key}" using unquoted value`);
+					this.report(
+						event.target,
+						`Attribute "${event.key}" using unquoted value`
+					);
 				}
 				return;
 			}
 
 			if (event.quote !== this.expected) {
-				this.report(event.target, `Attribute "${event.key}" used ${event.quote} instead of expected ${this.expected}`);
+				this.report(
+					event.target,
+					`Attribute "${event.key}" used ${event.quote} instead of expected ${
+						this.expected
+					}`
+				);
 			}
 		});
 	}
@@ -47,9 +57,12 @@ class AttrQuotes extends Rule {
 
 function parseStyle(style: string) {
 	switch (style.toLowerCase()) {
-		case "double": return DOUBLE_QUOTE;
-		case "single": return SINGLE_QUOTE;
-		default: return DOUBLE_QUOTE;
+		case "double":
+			return DOUBLE_QUOTE;
+		case "single":
+			return SINGLE_QUOTE;
+		default:
+			return DOUBLE_QUOTE;
 	}
 }
 

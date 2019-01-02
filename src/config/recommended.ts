@@ -7,7 +7,7 @@ module.exports = {
 		"button-type": "error",
 		"close-attr": "error",
 		"close-order": "error",
-		"deprecated": "error",
+		deprecated: "error",
 		"element-case": "error",
 		"element-name": "error",
 		"element-permitted-content": "error",
@@ -22,6 +22,6 @@ module.exports = {
 		"no-implicit-close": "error",
 		"no-inline-style": "error",
 		"no-trailing-whitespace": "error",
-		"void": "error",
+		void: "error",
 	},
 };

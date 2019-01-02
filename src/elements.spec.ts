@@ -2,14 +2,13 @@ import HtmlValidate from "./htmlvalidate";
 import "./matchers";
 
 type ContentCategory =
-	"@embedded" |
-	"@flow" |
-	"@heading" |
-	"@interactive" |
-	"@metadata" |
-	"@phrasing" |
-	"@sectioning"
-;
+	| "@embedded"
+	| "@flow"
+	| "@heading"
+	| "@interactive"
+	| "@metadata"
+	| "@phrasing"
+	| "@sectioning";
 
 const contentCategory = {
 	"@embedded": "audio",
@@ -30,7 +29,7 @@ function inlineSource(source: string) {
 	};
 }
 
-function getTagname(category: ContentCategory|string) {
+function getTagname(category: ContentCategory | string) {
 	if (category[0] === "@") {
 		return contentCategory[category as ContentCategory];
 	} else {
@@ -38,7 +37,11 @@ function getTagname(category: ContentCategory|string) {
 	}
 }
 
-function getElementMarkup(tagName: string, variant: string, attr: {[key: string]: string} = {}) {
+function getElementMarkup(
+	tagName: string,
+	variant: string,
+	attr: { [key: string]: string } = {}
+) {
 	const attrString = Object.entries(attr).reduce((str, [key, value]) => {
 		if (value !== undefined) {
 			return `${str} ${key}="${value}"`;
@@ -57,15 +60,14 @@ function getElementMarkup(tagName: string, variant: string, attr: {[key: string]
 }
 
 describe("HTML elements", () => {
-
 	const htmlvalidate = new HtmlValidate({
 		rules: {
-			"deprecated": "error",
+			deprecated: "error",
 			"attribute-allowed-values": "error",
 			"element-permitted-content": "error",
 			"element-permitted-occurrences": "error",
 			"element-permitted-order": "error",
-			"void": ["error", {style: "any"}],
+			void: ["error", { style: "any" }],
 		},
 	});
 
@@ -97,17 +99,24 @@ describe("HTML elements", () => {
 		});
 	}
 
-	function allowAttribute(tagName: string, attr: string, values: string[], variant?: string) {
+	function allowAttribute(
+		tagName: string,
+		attr: string,
+		values: string[],
+		variant?: string
+	) {
 		if (values.length === 0) {
 			it(`should allow boolean attribute ${attr}`, () => {
-				const markup = getElementMarkup(tagName, variant, {[attr]: undefined});
+				const markup = getElementMarkup(tagName, variant, {
+					[attr]: undefined,
+				});
 				const report = htmlvalidate.validateString(markup);
 				expect(report).toBeValid();
 			});
 		}
 		for (const value of values) {
 			it(`should allow attribute ${attr}="${value}"`, () => {
-				const markup = getElementMarkup(tagName, variant, {[attr]: value});
+				const markup = getElementMarkup(tagName, variant, { [attr]: value });
 				const report = htmlvalidate.validateString(markup);
 				expect(report).toBeValid();
 			});
@@ -155,10 +164,15 @@ describe("HTML elements", () => {
 		});
 	}
 
-	function disallowAttribute(tagName: string, attr: string, values: string[], variant?: string) {
+	function disallowAttribute(
+		tagName: string,
+		attr: string,
+		values: string[],
+		variant?: string
+	) {
 		for (const value of values) {
 			it(`should disallow attribute ${attr}="${value}"`, () => {
-				const markup = getElementMarkup(tagName, variant, {[attr]: value});
+				const markup = getElementMarkup(tagName, variant, { [attr]: value });
 				const report = htmlvalidate.validateString(markup);
 				expect(report).toBeInvalid();
 			});
@@ -253,12 +267,24 @@ describe("HTML elements", () => {
 
 	describe("<audio>", () => {
 		allowParent("audio", "@flow");
-		allow("<span><audio><span>foo</span></audio></span>", "phrasing nested in phrasing");
+		allow(
+			"<span><audio><span>foo</span></audio></span>",
+			"phrasing nested in phrasing"
+		);
 		disallowDescendant("audio", "audio");
 		disallowDescendant("audio", "video");
-		disallow("<span><audio><div>foo</div></audio></span>", "flow nested in phrasing");
-		disallow("<audio><source></source><track></track><div></div></audio>", "in right order");
-		disallow("<audio><track></track><source></source></audio>", "track before source");
+		disallow(
+			"<span><audio><div>foo</div></audio></span>",
+			"flow nested in phrasing"
+		);
+		disallow(
+			"<audio><source></source><track></track><div></div></audio>",
+			"in right order"
+		);
+		disallow(
+			"<audio><track></track><source></source></audio>",
+			"track before source"
+		);
 		disallow("<audio><div></div><track></track></audio>", "@flow before track");
 		allowAttribute("audio", "preload", ["", "none", "metadata"], "auto");
 		disallowAttribute("audio", "preload", ["foobar"]);
@@ -389,9 +415,15 @@ describe("HTML elements", () => {
 	});
 
 	describe("<del>", () => {
-		allow("<span><del><span>foo</span></del></span>", "phrasing in phrasing context");
+		allow(
+			"<span><del><span>foo</span></del></span>",
+			"phrasing in phrasing context"
+		);
 		allow("<div><del><div>foo</div></del></div>", "flow in flow context");
-		disallow("<span><del><div>foo</div></del></span>", "flow in phrasing context");
+		disallow(
+			"<span><del><div>foo</div></del></span>",
+			"flow in phrasing context"
+		);
 	});
 
 	describe("<dfn>", () => {
@@ -439,14 +471,20 @@ describe("HTML elements", () => {
 		allowParent("fieldset", "@flow");
 		allowContent("fieldset", "@flow");
 		allowContent("fieldset", "legend");
-		allow(`<fieldset>
+		allow(
+			`<fieldset>
 			<legend></legend>
 			<div></div>
-		</fieldset>`, "@flow after legend");
-		disallow(`<fieldset>
+		</fieldset>`,
+			"@flow after legend"
+		);
+		disallow(
+			`<fieldset>
 			<div></div>
 			<legend></legend>
-		</fieldset>`, "legend after @flow");
+		</fieldset>`,
+			"legend after @flow"
+		);
 	});
 
 	describe("<figcaption>", () => {
@@ -458,9 +496,18 @@ describe("HTML elements", () => {
 		allowParent("figure", "@flow");
 		allowContent("figure", "@flow");
 		allowContent("figure", "figcaption");
-		allow("<figure><figcaption></figcaption><div></div></figure>", "figcaption as first child");
-		allow("<figure><div></div><figcaption></figcaption></figure>", "figcaption as last child");
-		disallow("<figure><figcaption></figcaption><figcaption></figcaption></figure>", "multiple figcaption");
+		allow(
+			"<figure><figcaption></figcaption><div></div></figure>",
+			"figcaption as first child"
+		);
+		allow(
+			"<figure><div></div><figcaption></figcaption></figure>",
+			"figcaption as last child"
+		);
+		disallow(
+			"<figure><figcaption></figcaption><figcaption></figcaption></figure>",
+			"multiple figcaption"
+		);
 	});
 
 	describe("<font>", () => {
@@ -530,14 +577,20 @@ describe("HTML elements", () => {
 		allowContent("head", "@meta");
 		disallowContent("head", "@flow");
 		disallowContent("head", "@phrasing");
-		disallow(`<head>
+		disallow(
+			`<head>
 			<base>
 			<base>
-		</head>`, "more than one base");
-		disallow(`<head>
+		</head>`,
+			"more than one base"
+		);
+		disallow(
+			`<head>
 			<base>
 			<base>
-		</head>`, "more than one title");
+		</head>`,
+			"more than one title"
+		);
 	});
 
 	describe("<header>", () => {
@@ -558,18 +611,27 @@ describe("HTML elements", () => {
 
 	describe("<html>", () => {
 		allow("<html><head></head></html>", "more than one title");
-		disallow(`<html>
+		disallow(
+			`<html>
 			<head></head>
 			<head></head>
-		</html>`, "more than one head");
-		disallow(`<html>
+		</html>`,
+			"more than one head"
+		);
+		disallow(
+			`<html>
 			<body></body>
 			<body></body>
-		</html>`, "more than one body");
-		disallow(`<html>
+		</html>`,
+			"more than one body"
+		);
+		disallow(
+			`<html>
 			<body></body>
 			<head></head>
-		</html>`, "body before head");
+		</html>`,
+			"body before head"
+		);
 	});
 
 	describe("<i>", () => {
@@ -599,11 +661,21 @@ describe("HTML elements", () => {
 		allowAttribute("input", "capture", [], "omit");
 		allowAttribute("input", "checked", [], "omit");
 		allowAttribute("input", "disabled", [], "omit");
-		allowAttribute("input", "inputmode", ["none", "text", "numeric"], "omit"); /* only testing a subset */
+		allowAttribute(
+			"input",
+			"inputmode",
+			["none", "text", "numeric"],
+			"omit"
+		); /* only testing a subset */
 		allowAttribute("input", "multiple", [], "omit");
 		allowAttribute("input", "readonly", [], "omit");
 		allowAttribute("input", "required", [], "omit");
-		allowAttribute("input", "type", ["text", "checkbox", "search"], "omit"); /* only testing a subset */
+		allowAttribute(
+			"input",
+			"type",
+			["text", "checkbox", "search"],
+			"omit"
+		); /* only testing a subset */
 		disallowAttribute("input", "autofocus", ["foobar"], "omit");
 		disallowAttribute("input", "capture", ["foobar"], "omit");
 		disallowAttribute("input", "checked", ["foobar"], "omit");
@@ -624,9 +696,15 @@ describe("HTML elements", () => {
 	});
 
 	describe("<ins>", () => {
-		allow("<span><ins><span>foo</span></ins></span>", "phrasing in phrasing context");
+		allow(
+			"<span><ins><span>foo</span></ins></span>",
+			"phrasing in phrasing context"
+		);
 		allow("<div><ins><div>foo</div></ins></div>", "flow in flow context");
-		disallow("<span><ins><div>foo</div></ins></span>", "flow in phrasing context");
+		disallow(
+			"<span><ins><div>foo</div></ins></span>",
+			"flow in phrasing context"
+		);
 	});
 
 	describe("<isindex>", () => {
@@ -684,7 +762,13 @@ describe("HTML elements", () => {
 	describe("<math>", () => {
 		allowAttribute("math", "dir", ["ltr", "rtl"]);
 		allowAttribute("math", "display", ["block", "inline"]);
-		allowAttribute("math", "overflow", ["linebreak", "scroll", "elide", "truncate", "scale"]);
+		allowAttribute("math", "overflow", [
+			"linebreak",
+			"scroll",
+			"elide",
+			"truncate",
+			"scale",
+		]);
 		disallowAttribute("math", "dir", ["", "foobar"]);
 		disallowAttribute("math", "display", ["", "foobar"]);
 		disallowAttribute("math", "overflow", ["", "foobar"]);
@@ -737,11 +821,23 @@ describe("HTML elements", () => {
 	describe("<object>", () => {
 		allowContent("object", "@flow");
 		allowContent("object", "param", "void");
-		allow("<span><object><span>foo</span></object></span>", "phrasing in phrasing context");
+		allow(
+			"<span><object><span>foo</span></object></span>",
+			"phrasing in phrasing context"
+		);
 		allow("<div><object><div>foo</div></object></div>", "flow in flow context");
-		disallow("<span><object><div>foo</div></object></span>", "flow in phrasing context");
-		disallow("<object><param></param><div></div></object>", "param before @flow");
-		disallow("<object><div></div><param></param></object>", "@flow before param");
+		disallow(
+			"<span><object><div>foo</div></object></span>",
+			"flow in phrasing context"
+		);
+		disallow(
+			"<object><param></param><div></div></object>",
+			"param before @flow"
+		);
+		disallow(
+			"<object><div></div><param></param></object>",
+			"@flow before param"
+		);
 
 		it('should be interactive only if "usemap" attribute is set', () => {
 			const source = inlineSource("<object></object><object usemap></object>");
@@ -778,7 +874,10 @@ describe("HTML elements", () => {
 
 	describe("<p>", () => {
 		allowContent("p", "@phrasing");
-		disallow("<p><figure>foo</figure></p>", "@flow as content"); /* many regular flow content such as <div> will cause <p> to be implicitly closed */
+		disallow(
+			"<p><figure>foo</figure></p>",
+			"@flow as content"
+		); /* many regular flow content such as <div> will cause <p> to be implicitly closed */
 	});
 
 	describe("<param>", () => {
@@ -916,33 +1015,51 @@ describe("HTML elements", () => {
 		allowContent("table", "thead");
 		allowContent("table", "tr");
 		disallowContent("table", "@phrasing");
-		allow(`<table>
+		allow(
+			`<table>
 			<caption></caption>
 			<colgroup></colgroup>
 			<thead></thead>
 			<tbody></tbody>
 			<tfoot></tfoot>
-		</table>`, "with right order and occurrences");
-		disallow(`<table>
+		</table>`,
+			"with right order and occurrences"
+		);
+		disallow(
+			`<table>
 			<caption></caption>
 			<caption></caption>
-		</table>`, "more than one caption");
-		disallow(`<table>
+		</table>`,
+			"more than one caption"
+		);
+		disallow(
+			`<table>
 			<thead></thead>
 			<thead></thead>
-		</table>`, "more than one thead");
-		disallow(`<table>
+		</table>`,
+			"more than one thead"
+		);
+		disallow(
+			`<table>
 			<tfoot></tfoot>
 			<tfoot></tfoot>
-		</table>`, "more than one tfoot");
-		disallow(`<table>
+		</table>`,
+			"more than one tfoot"
+		);
+		disallow(
+			`<table>
 			<thead></thead>
 			<caption>bar</caption>
-		</table>`, "caption after thead");
-		disallow(`<table>
+		</table>`,
+			"caption after thead"
+		);
+		disallow(
+			`<table>
 			<tfoot></tfoot>
 			<thead></thead>
-		</table>`, "thead after tfoot");
+		</table>`,
+			"thead after tfoot"
+		);
 	});
 
 	describe("<tbody>", () => {
@@ -1033,14 +1150,31 @@ describe("HTML elements", () => {
 
 	describe("<video>", () => {
 		allowParent("video", "@flow");
-		allow("<span><video><span>foo</span></video></span>", "phrasing nested in phrasing");
+		allow(
+			"<span><video><span>foo</span></video></span>",
+			"phrasing nested in phrasing"
+		);
 		disallowDescendant("video", "audio");
 		disallowDescendant("video", "video");
-		disallow("<span><video><div>foo</div></video></span>", "flow nested in phrasing");
-		disallow("<video><source></source><track></track><div></div></video>", "in right order");
-		disallow("<video><track></track><source></source></video>", "track before source");
+		disallow(
+			"<span><video><div>foo</div></video></span>",
+			"flow nested in phrasing"
+		);
+		disallow(
+			"<video><source></source><track></track><div></div></video>",
+			"in right order"
+		);
+		disallow(
+			"<video><track></track><source></source></video>",
+			"track before source"
+		);
 		disallow("<video><div></div><track></track></video>", "@flow before track");
-		allowAttribute("video", "preload", ["", "none", "none", "metadata"], "auto");
+		allowAttribute(
+			"video",
+			"preload",
+			["", "none", "none", "metadata"],
+			"auto"
+		);
 		disallowAttribute("video", "preload", ["foobar"]);
 
 		it('should be interactive only if "controls" attribute is set', () => {
@@ -1059,5 +1193,4 @@ describe("HTML elements", () => {
 	describe("<xmp>", () => {
 		deprecated("xmp");
 	});
-
 });

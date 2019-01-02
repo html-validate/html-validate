@@ -17,8 +17,16 @@ class AttributeAllowedValues extends Rule<Context> {
 			url: ruleDocumentationUrl(__filename),
 		};
 		if (context) {
-			const allowed = context.allowed.map((val: string|RegExp) => `- \`${val}\``);
-			docs.description = `Element <${context.element}> does not allow attribute \`${context.attribute}\` to have the value \`${context.value}\`, it must match one of the following:\n\n${allowed.join("\n")}`;
+			const allowed = context.allowed.map(
+				(val: string | RegExp) => `- \`${val}\``
+			);
+			docs.description = `Element <${
+				context.element
+			}> does not allow attribute \`${
+				context.attribute
+			}\` to have the value \`${
+				context.value
+			}\`, it must match one of the following:\n\n${allowed.join("\n")}`;
 		}
 		return docs;
 	}
@@ -41,7 +49,12 @@ class AttributeAllowedValues extends Rule<Context> {
 							value: attr.value,
 							allowed: meta.attributes[key],
 						};
-						this.report(node, `Attribute "${key}" has invalid value "${attr.value}"`, attr.location, context);
+						this.report(
+							node,
+							`Attribute "${key}" has invalid value "${attr.value}"`,
+							attr.location,
+							context
+						);
 					}
 				}
 			});

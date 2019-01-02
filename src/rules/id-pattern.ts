@@ -29,7 +29,12 @@ class IdPattern extends Rule {
 			}
 
 			if (!event.value.match(this.pattern)) {
-				this.report(event.target, `ID "${event.value}" does not match required pattern "${this.pattern}"`);
+				this.report(
+					event.target,
+					`ID "${event.value}" does not match required pattern "${
+						this.pattern
+					}"`
+				);
 			}
 		});
 	}

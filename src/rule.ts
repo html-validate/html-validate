@@ -32,8 +32,8 @@ export type RuleConstructor = new (options: RuleOptions) => Rule;
 export abstract class Rule<T = any> {
 	private reporter: Reporter;
 	private parser: Parser;
-	private enabled: boolean;           // rule enabled/disabled, irregardless of severity
-	private severity: number;           // rule severity, 0: off, 1: warning 2: error
+	private enabled: boolean; // rule enabled/disabled, irregardless of severity
+	private severity: number; // rule severity, 0: off, 1: warning 2: error
 	private event: any;
 
 	/**
@@ -79,15 +79,24 @@ export abstract class Rule<T = any> {
 	 *
 	 * Rule must be enabled for this to have any effect.
 	 */
-	report(node: HtmlElement, message: string, location?: Location, context?: T): void {
+	report(
+		node: HtmlElement,
+		message: string,
+		location?: Location,
+		context?: T
+	): void {
 		if (this.isEnabled()) {
-			const where = this.findLocation({node, location, event: this.event});
+			const where = this.findLocation({ node, location, event: this.event });
 			this.reporter.add(node, this, message, this.severity, where, context);
 		}
 	}
 
 	// eslint-disable-next-line typescript/member-delimiter-style
-	private findLocation(src: {node: HtmlElement, location: Location, event: Event}): Location {
+	private findLocation(src: {
+		node: HtmlElement;
+		location: Location;
+		event: Event;
+	}): Location {
 		if (src.location) {
 			return src.location;
 		}

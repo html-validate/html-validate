@@ -66,20 +66,27 @@ export class MetaTable {
 		/* @TODO Only entries with dynamic properties has to be copied, static
 		 * entries could be shared */
 		tagName = tagName.toLowerCase();
-		return this.elements[tagName] ? Object.assign({}, this.elements[tagName]) : null;
+		return this.elements[tagName]
+			? Object.assign({}, this.elements[tagName])
+			: null;
 	}
 
 	private addEntry(tagName: string, entry: MetaElement): void {
 		for (const key of Object.keys(entry)) {
 			if (allowedKeys.indexOf(key) === -1) {
-				throw new Error(`Metadata for <${tagName}> contains unknown property "${key}"`);
+				throw new Error(
+					`Metadata for <${tagName}> contains unknown property "${key}"`
+				);
 			}
 		}
 
-		const expanded: MetaElement = Object.assign({
-			tagName,
-			void: false,
-		}, entry);
+		const expanded: MetaElement = Object.assign(
+			{
+				tagName,
+				void: false,
+			},
+			entry
+		);
 		expandRegex(expanded);
 
 		this.elements[tagName] = expanded;
@@ -131,7 +138,7 @@ function expandProperties(node: HtmlElement, entry: MetaElement) {
 function expandRegex(entry: MetaElement) {
 	if (!entry.attributes) return;
 	for (const [name, values] of Object.entries(entry.attributes)) {
-		entry.attributes[name] = values.map((value: string|RegExp) => {
+		entry.attributes[name] = values.map((value: string | RegExp) => {
 			const match = typeof value === "string" && value.match(/^\/(.*)\/$/);
 			if (match) {
 				return new RegExp(match[1]);
@@ -142,7 +149,10 @@ function expandRegex(entry: MetaElement) {
 	}
 }
 
-function evaluateProperty(node: HtmlElement, expr: PropertyExpression): boolean {
+function evaluateProperty(
+	node: HtmlElement,
+	expr: PropertyExpression
+): boolean {
 	const [func, options] = parseExpression(expr);
 	return func(node, options);
 }
@@ -154,7 +164,9 @@ function parseExpression(expr: PropertyExpression): [PropertyEvaluator, any] {
 		const [funcName, options] = expr;
 		const func = functionTable[funcName];
 		if (!func) {
-			throw new Error(`Failed to find function "${funcName}" when evaluating property expression`);
+			throw new Error(
+				`Failed to find function "${funcName}" when evaluating property expression`
+			);
 		}
 		return [func, options];
 	}
@@ -162,7 +174,11 @@ function parseExpression(expr: PropertyExpression): [PropertyEvaluator, any] {
 
 function isDescendant(node: HtmlElement, tagName: any): boolean {
 	if (typeof tagName !== "string") {
-		throw new Error(`Property expression "isDescendant" must take string argument when evaluating metadata for <${node.tagName}>`);
+		throw new Error(
+			`Property expression "isDescendant" must take string argument when evaluating metadata for <${
+				node.tagName
+			}>`
+		);
 	}
 	let cur: HtmlElement = node.parent;
 	while (!cur.isRootElement()) {
@@ -176,20 +192,35 @@ function isDescendant(node: HtmlElement, tagName: any): boolean {
 
 function hasAttribute(node: HtmlElement, attr: any): boolean {
 	if (typeof attr !== "string") {
-		throw new Error(`Property expression "hasAttribute" must take string argument when evaluating metadata for <${node.tagName}>`);
+		throw new Error(
+			`Property expression "hasAttribute" must take string argument when evaluating metadata for <${
+				node.tagName
+			}>`
+		);
 	}
 	return node.hasAttribute(attr);
 }
 
 function matchAttribute(node: HtmlElement, match: any): boolean {
 	if (!Array.isArray(match) || match.length !== 3) {
-		throw new Error(`Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <${node.tagName}>`);
+		throw new Error(
+			`Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <${
+				node.tagName
+			}>`
+		);
 	}
-	const [key, op, value] = match.map((x) => x.toLowerCase());
+	const [key, op, value] = match.map(x => x.toLowerCase());
 	const nodeValue = (node.getAttributeValue(key) || "").toLowerCase();
 	switch (op) {
-		case "!=": return nodeValue !== value;
-		case "=": return nodeValue === value;
-		default: throw new Error(`Property expression "matchAttribute" has invalid operator "${op}" when evaluating metadata for <${node.tagName}>`);
+		case "!=":
+			return nodeValue !== value;
+		case "=":
+			return nodeValue === value;
+		default:
+			throw new Error(
+				`Property expression "matchAttribute" has invalid operator "${op}" when evaluating metadata for <${
+					node.tagName
+				}>`
+			);
 	}
 }

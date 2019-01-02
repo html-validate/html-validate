@@ -6,7 +6,7 @@ describe("rule class-pattern", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
-			rules: {"class-pattern": "error"},
+			rules: { "class-pattern": "error" },
 		});
 	});
 
@@ -16,9 +16,16 @@ describe("rule class-pattern", () => {
 	});
 
 	it("should report error when class does not follow pattern", () => {
-		const report = htmlvalidate.validateString('<p class="foo-bar fooBar spam"></p>');
+		const report = htmlvalidate.validateString(
+			'<p class="foo-bar fooBar spam"></p>'
+		);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("class-pattern", expect.stringMatching(/Class "fooBar" does not match required pattern ".*"/));
+		expect(report).toHaveError(
+			"class-pattern",
+			expect.stringMatching(
+				/Class "fooBar" does not match required pattern ".*"/
+			)
+		);
 	});
 
 	it("should ignore other attributes", () => {
@@ -27,12 +34,15 @@ describe("rule class-pattern", () => {
 	});
 
 	it("smoketest", () => {
-		const report = htmlvalidate.validateFile("test-files/rules/class-pattern.html");
+		const report = htmlvalidate.validateFile(
+			"test-files/rules/class-pattern.html"
+		);
 		expect(report.results).toMatchSnapshot();
 	});
 
 	it("should contain documentation", () => {
-		expect(htmlvalidate.getRuleDocumentation("class-pattern")).toMatchSnapshot();
+		expect(
+			htmlvalidate.getRuleDocumentation("class-pattern")
+		).toMatchSnapshot();
 	});
-
 });

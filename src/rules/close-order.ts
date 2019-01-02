@@ -5,19 +5,25 @@ import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 class CloseOrder extends Rule {
 	documentation(): RuleDocumentation {
 		return {
-			description: "HTML requires elements to be closed in the same order as they were opened.",
+			description:
+				"HTML requires elements to be closed in the same order as they were opened.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
 
 	setup() {
 		this.on("tag:close", (event: TagCloseEvent) => {
-			const current = event.target;     // The current element being closed
-			const active = event.previous;    // The current active element (that is, the current element on the stack)
+			const current = event.target; // The current element being closed
+			const active = event.previous; // The current active element (that is, the current element on the stack)
 
 			/* handle unclosed tags */
 			if (!current) {
-				this.report(event.previous, `Missing close-tag, expected '</${active.tagName}>' but document ended before it was found.`);
+				this.report(
+					event.previous,
+					`Missing close-tag, expected '</${
+						active.tagName
+					}>' but document ended before it was found.`
+				);
 				return;
 			}
 
@@ -37,13 +43,22 @@ class CloseOrder extends Rule {
 
 			/* handle unopened tags */
 			if (!active || active.isRootElement()) {
-				this.report(event.previous, "Unexpected close-tag, expected opening tag.");
+				this.report(
+					event.previous,
+					"Unexpected close-tag, expected opening tag."
+				);
 				return;
 			}
 
 			/* check for matching tagnames */
 			if (current.tagName !== active.tagName) {
-				this.report(event.target, `Mismatched close-tag, expected '</${active.tagName}>' but found '</${current.tagName}>'.`, current.location);
+				this.report(
+					event.target,
+					`Mismatched close-tag, expected '</${active.tagName}>' but found '</${
+						current.tagName
+					}>'.`,
+					current.location
+				);
 			}
 		});
 	}

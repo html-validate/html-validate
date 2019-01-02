@@ -5,7 +5,8 @@ import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 class HeadingLevel extends Rule {
 	documentation(): RuleDocumentation {
 		return {
-			description: "Validates heading level increments and order. Headings must start at h1 and can only increase one level at a time.",
+			description:
+				"Validates heading level increments and order. Headings must start at h1 and can only increase one level at a time.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
@@ -30,9 +31,15 @@ class HeadingLevel extends Rule {
 			const expected = current + 1;
 			if (level !== expected) {
 				if (current > 0) {
-					this.report(event.target, `Heading level can only increase by one, expected h${expected}`);
+					this.report(
+						event.target,
+						`Heading level can only increase by one, expected h${expected}`
+					);
 				} else {
-					this.report(event.target, `Initial heading level must be h${expected}`);
+					this.report(
+						event.target,
+						`Initial heading level must be h${expected}`
+					);
 				}
 			}
 

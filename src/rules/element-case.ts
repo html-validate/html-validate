@@ -23,9 +23,12 @@ class ElementCase extends Rule {
 
 	setup() {
 		this.on("tag:open", (event: TagOpenEvent) => {
-			const letters = event.target.tagName.replace(/[^a-z]+/ig, "");
+			const letters = event.target.tagName.replace(/[^a-z]+/gi, "");
 			if (!letters.match(this.pattern)) {
-				this.report(event.target, `Element "${event.target.tagName}" should be ${this.lettercase}`);
+				this.report(
+					event.target,
+					`Element "${event.target.tagName}" should be ${this.lettercase}`
+				);
 			}
 		});
 	}
@@ -33,8 +36,10 @@ class ElementCase extends Rule {
 
 function parseStyle(style: string): [RegExp, string] {
 	switch (style.toLowerCase()) {
-		case "lowercase": return [/^[a-z]*$/, "lowercase"];
-		case "uppercase": return [/^[A-Z]*$/, "uppercase"];
+		case "lowercase":
+			return [/^[a-z]*$/, "lowercase"];
+		case "uppercase":
+			return [/^[A-Z]*$/, "uppercase"];
 		default:
 			throw new Error(`Invalid style "${style}" for "element-case" rule`);
 	}

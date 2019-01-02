@@ -6,18 +6,25 @@ describe("rule element-permitted-order", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
-			rules: {"element-permitted-order": "error"},
+			rules: { "element-permitted-order": "error" },
 		});
 	});
 
 	it("should report error when child is used in wrong order", () => {
-		const report = htmlvalidate.validateString("<table><thead></thead><caption></caption></table>");
+		const report = htmlvalidate.validateString(
+			"<table><thead></thead><caption></caption></table>"
+		);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("element-permitted-order", "Element <caption> must be used before <thead> in this context");
+		expect(report).toHaveError(
+			"element-permitted-order",
+			"Element <caption> must be used before <thead> in this context"
+		);
 	});
 
 	it("should not report error when child is used in right order", () => {
-		const report = htmlvalidate.validateString("<table><caption></caption><thead></thead></table>");
+		const report = htmlvalidate.validateString(
+			"<table><caption></caption><thead></thead></table>"
+		);
 		expect(report).toBeValid();
 	});
 
@@ -27,12 +34,15 @@ describe("rule element-permitted-order", () => {
 	});
 
 	it("should not report error when child with unspecified order is used", () => {
-		const report = htmlvalidate.validateString("<table><caption></caption><template></template><thead></thead></table>");
+		const report = htmlvalidate.validateString(
+			"<table><caption></caption><template></template><thead></thead></table>"
+		);
 		expect(report).toBeValid();
 	});
 
 	it("should contain documentation", () => {
-		expect(htmlvalidate.getRuleDocumentation("element-permitted-order")).toMatchSnapshot();
+		expect(
+			htmlvalidate.getRuleDocumentation("element-permitted-order")
+		).toMatchSnapshot();
 	});
-
 });

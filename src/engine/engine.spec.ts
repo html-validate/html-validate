@@ -18,16 +18,19 @@ function inline(source: string): Source {
 }
 
 class MockParser extends Parser {
-	public parseHtml(source: string|Source): DOMTree {
+	public parseHtml(source: string | Source): DOMTree {
 		if (typeof source === "string") return null;
 		switch (source.data) {
 			case "parse-error":
-				throw new InvalidTokenError({
-					filename: source.filename,
-					offset: 0,
-					line: 1,
-					column: 1,
-				}, "parse error");
+				throw new InvalidTokenError(
+					{
+						filename: source.filename,
+						offset: 0,
+						line: 1,
+						column: 1,
+					},
+					"parse error"
+				);
 			case "exception":
 				throw new Error("exception");
 			default:
@@ -43,7 +46,12 @@ class MockParser extends Parser {
 
 class ExposedEngine<T extends Parser> extends Engine<T> {
 	/* exposed for testing */
-	public loadRule(name: string, data: any, parser: Parser, report: Reporter): Rule {
+	public loadRule(
+		name: string,
+		data: any,
+		parser: Parser,
+		report: Reporter
+	): Rule {
 		return super.loadRule(name, data, parser, report);
 	}
 
@@ -53,7 +61,6 @@ class ExposedEngine<T extends Parser> extends Engine<T> {
 }
 
 describe("Engine", () => {
-
 	let config: Config;
 	let engine: ExposedEngine<Parser>;
 
@@ -69,7 +76,6 @@ describe("Engine", () => {
 	});
 
 	describe("lint()", () => {
-
 		it("should parse markup and return results", () => {
 			const source: Source[] = [inline("<div></div>")];
 			const report = engine.lint(source);
@@ -82,15 +88,17 @@ describe("Engine", () => {
 			const report = engine.lint(source);
 			expect(report.valid).toBeFalsy();
 			expect(report.results).toHaveLength(1);
-			expect(report.results[0].messages).toEqual([{
-				offset: 0,
-				line: 1,
-				column: 1,
-				size: 0,
-				severity: 2,
-				ruleId: undefined,
-				message: "parse error",
-			}]);
+			expect(report.results[0].messages).toEqual([
+				{
+					offset: 0,
+					line: 1,
+					column: 1,
+					size: 0,
+					severity: 2,
+					ruleId: undefined,
+					message: "parse error",
+				},
+			]);
 		});
 
 		it("should pass exceptions", () => {
@@ -104,37 +112,43 @@ describe("Engine", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("close-order", expect.any(String));
 		});
-
 	});
 
 	describe("directive", () => {
-
 		it('"disable" should disable rule', () => {
-			const source: Source[] = [inline("<!-- [html-validate-disable close-order] --><p></i><p></i>")];
+			const source: Source[] = [
+				inline("<!-- [html-validate-disable close-order] --><p></i><p></i>"),
+			];
 			const report = engine.lint(source);
 			expect(report).toBeValid();
 		});
 
 		it('"enable" should enable rule', () => {
-			const source: Source[] = [inline("<!-- [html-validate-disable void] --><i/><!-- [html-validate-enable void] --><i/>")];
+			const source: Source[] = [
+				inline(
+					"<!-- [html-validate-disable void] --><i/><!-- [html-validate-enable void] --><i/>"
+				),
+			];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
-			expect(report).toHaveErrors([
-				{ruleId: "void", column: 80},
-			]);
+			expect(report).toHaveErrors([{ ruleId: "void", column: 80 }]);
 		});
 
 		it('"enable" set severity to error if off', () => {
-			const source: Source[] = [inline("<blink></blink><!-- [html-validate-enable deprecated] --><blink></blink>")];
+			const source: Source[] = [
+				inline(
+					"<blink></blink><!-- [html-validate-enable deprecated] --><blink></blink>"
+				),
+			];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
-			expect(report).toHaveErrors([
-				{ruleId: "deprecated", column: 58},
-			]);
+			expect(report).toHaveErrors([{ ruleId: "deprecated", column: 58 }]);
 		});
 
 		it('"disable" should only disable selected rule', () => {
-			const source: Source[] = [inline("<!-- [html-validate-disable foobar] --><p></i><p></i>")];
+			const source: Source[] = [
+				inline("<!-- [html-validate-disable foobar] --><p></i><p></i>"),
+			];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
 			expect(report).toHaveErrors([
@@ -144,36 +158,50 @@ describe("Engine", () => {
 		});
 
 		it('"disable-block" should disable rule for all subsequent occurrences until block closes', () => {
-			const source: Source[] = [inline("<i/><div><i/><!-- [html-validate-disable-block void] --><i/><i/></div><i/>")];
+			const source: Source[] = [
+				inline(
+					"<i/><div><i/><!-- [html-validate-disable-block void] --><i/><i/></div><i/>"
+				),
+			];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
 			expect(report).toHaveErrors([
-				{ruleId: "void", column: 3},
-				{ruleId: "void", column: 12},
-				{ruleId: "void", column: 73},
+				{ ruleId: "void", column: 3 },
+				{ ruleId: "void", column: 12 },
+				{ ruleId: "void", column: 73 },
 			]);
 		});
 
 		it('"disable-block" should handle empty block', () => {
-			const source: Source[] = [inline("<div><!-- [html-validate-disable-block void] --></div>")];
+			const source: Source[] = [
+				inline("<div><!-- [html-validate-disable-block void] --></div>"),
+			];
 			const report = engine.lint(source);
 			expect(report).toBeValid();
 		});
 
 		it('"disable-block" should handle root element', () => {
-			const source: Source[] = [inline("<!-- [html-validate-disable-block void] --><i/>")];
+			const source: Source[] = [
+				inline("<!-- [html-validate-disable-block void] --><i/>"),
+			];
 			const report = engine.lint(source);
 			expect(report).toBeValid();
 		});
 
 		it('"disable-block" should handle empty root element', () => {
-			const source: Source[] = [inline("<!-- [html-validate-disable-block void] -->")];
+			const source: Source[] = [
+				inline("<!-- [html-validate-disable-block void] -->"),
+			];
 			const report = engine.lint(source);
 			expect(report).toBeValid();
 		});
 
 		it('"disable-next" should disable rule once', () => {
-			const source: Source[] = [inline("<!-- [html-validate-disable-next close-order] --><p></i><p></i>")];
+			const source: Source[] = [
+				inline(
+					"<!-- [html-validate-disable-next close-order] --><p></i><p></i>"
+				),
+			];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("close-order", expect.any(String));
@@ -183,15 +211,15 @@ describe("Engine", () => {
 			const source: Source[] = [inline("<!-- [html-validate-foo] -->")];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(undefined, "Unknown directive \"foo\"");
+			expect(report).toHaveError(undefined, 'Unknown directive "foo"');
 		});
-
 	});
 
 	describe("dumpEvents()", () => {
-
 		it("should dump parser events", () => {
-			const source: Source[] = [inline('<div id="foo"><p class="bar">baz</p></div>')];
+			const source: Source[] = [
+				inline('<div id="foo"><p class="bar">baz</p></div>'),
+			];
 			const lines = engine.dumpEvents(source);
 			expect(lines).toHaveLength(8);
 			expect(lines[0].event).toEqual("dom:load");
@@ -203,48 +231,48 @@ describe("Engine", () => {
 			expect(lines[6].event).toEqual("tag:close");
 			expect(lines[7].event).toEqual("dom:ready");
 		});
-
 	});
 
 	describe("dumpTokens()", () => {
-
 		it("should dump lexer tokens", () => {
-			const source: Source[] = [inline('<div id="foo"><p class="bar">baz</p></div>')];
+			const source: Source[] = [
+				inline('<div id="foo"><p class="bar">baz</p></div>'),
+			];
 			const lines = engine.dumpTokens(source);
 			expect(lines).toEqual([
-				{token: "TAG_OPEN", data: "<div", location: "inline:1:1"},
-				{token: "WHITESPACE", data: " ", location: "inline:1:5"},
-				{token: "ATTR_NAME", data: "id", location: "inline:1:6"},
-				{token: "ATTR_VALUE", data: '="foo"', location: "inline:1:8"},
-				{token: "TAG_CLOSE", data: ">", location: "inline:1:14"},
-				{token: "TAG_OPEN", data: "<p", location: "inline:1:15"},
-				{token: "WHITESPACE", data: " ", location: "inline:1:17"},
-				{token: "ATTR_NAME", data: "class", location: "inline:1:18"},
-				{token: "ATTR_VALUE", data: '="bar"', location: "inline:1:23"},
-				{token: "TAG_CLOSE", data: ">", location: "inline:1:29"},
-				{token: "TEXT", data: "baz", location: "inline:1:30"},
-				{token: "TAG_OPEN", data: "</p", location: "inline:1:33"},
-				{token: "TAG_CLOSE", data: ">", location: "inline:1:36"},
-				{token: "TAG_OPEN", data: "</div", location: "inline:1:37"},
-				{token: "TAG_CLOSE", data: ">", location: "inline:1:42"},
-				{token: "EOF", data: null, location: "inline:1:43"},
+				{ token: "TAG_OPEN", data: "<div", location: "inline:1:1" },
+				{ token: "WHITESPACE", data: " ", location: "inline:1:5" },
+				{ token: "ATTR_NAME", data: "id", location: "inline:1:6" },
+				{ token: "ATTR_VALUE", data: '="foo"', location: "inline:1:8" },
+				{ token: "TAG_CLOSE", data: ">", location: "inline:1:14" },
+				{ token: "TAG_OPEN", data: "<p", location: "inline:1:15" },
+				{ token: "WHITESPACE", data: " ", location: "inline:1:17" },
+				{ token: "ATTR_NAME", data: "class", location: "inline:1:18" },
+				{ token: "ATTR_VALUE", data: '="bar"', location: "inline:1:23" },
+				{ token: "TAG_CLOSE", data: ">", location: "inline:1:29" },
+				{ token: "TEXT", data: "baz", location: "inline:1:30" },
+				{ token: "TAG_OPEN", data: "</p", location: "inline:1:33" },
+				{ token: "TAG_CLOSE", data: ">", location: "inline:1:36" },
+				{ token: "TAG_OPEN", data: "</div", location: "inline:1:37" },
+				{ token: "TAG_CLOSE", data: ">", location: "inline:1:42" },
+				{ token: "EOF", data: null, location: "inline:1:43" },
 			]);
 		});
-
 	});
 
 	describe("dumpTree()", () => {
-
 		it("should dump DOM tree", () => {
-			const source: Source[] = [inline('<div id="foo"><p class="bar">baz</p><ul><li>fred</li><li>barney</li></ul></div>')];
+			const source: Source[] = [
+				inline(
+					'<div id="foo"><p class="bar">baz</p><ul><li>fred</li><li>barney</li></ul></div>'
+				),
+			];
 			const lines = engine.dumpTree(source);
 			expect(lines).toMatchSnapshot();
 		});
-
 	});
 
 	describe("getRuleDocumentation()", () => {
-
 		it("should get rule documentation", () => {
 			const docs = engine.getRuleDocumentation("void");
 			expect(docs).toEqual({
@@ -257,13 +285,10 @@ describe("Engine", () => {
 			const docs = engine.getRuleDocumentation("missing-rule");
 			expect(docs).toBeNull();
 		});
-
 	});
 
 	describe("internals", () => {
-
 		describe("loadRule()", () => {
-
 			let parser: MockParser;
 			let reporter: Reporter;
 			let mockRule: any;
@@ -279,9 +304,18 @@ describe("Engine", () => {
 
 			it("should load and initialize rule", () => {
 				engine.requireRule = jest.fn(() => mockRule);
-				const rule = engine.loadRule("void", [Config.SEVERITY_ERROR, {}], parser, reporter);
+				const rule = engine.loadRule(
+					"void",
+					[Config.SEVERITY_ERROR, {}],
+					parser,
+					reporter
+				);
 				expect(rule).toBe(mockRule);
-				expect(rule.init).toHaveBeenCalledWith(parser, reporter, Config.SEVERITY_ERROR);
+				expect(rule.init).toHaveBeenCalledWith(
+					parser,
+					reporter,
+					Config.SEVERITY_ERROR
+				);
 				expect(rule.setup).toHaveBeenCalledWith();
 				expect(rule.name).toEqual("void");
 			});
@@ -289,7 +323,12 @@ describe("Engine", () => {
 			it("should use rule-defined name if set", () => {
 				engine.requireRule = jest.fn(() => mockRule);
 				mockRule.name = "foobar";
-				const rule = engine.loadRule("void", [Config.SEVERITY_ERROR, {}], parser, reporter);
+				const rule = engine.loadRule(
+					"void",
+					[Config.SEVERITY_ERROR, {}],
+					parser,
+					reporter
+				);
 				expect(rule.name).toEqual("foobar");
 			});
 
@@ -297,8 +336,15 @@ describe("Engine", () => {
 				engine.requireRule = jest.fn(() => null);
 				engine.loadRule("void", [Config.SEVERITY_ERROR, {}], parser, reporter);
 				const add = jest.spyOn(reporter, "add");
-				parser.trigger("dom:load", {location: {}});
-				expect(add).toHaveBeenCalledWith(null, expect.any(Rule), "Definition for rule 'void' was not found", Config.SEVERITY_ERROR, {}, undefined);
+				parser.trigger("dom:load", { location: {} });
+				expect(add).toHaveBeenCalledWith(
+					null,
+					expect.any(Rule),
+					"Definition for rule 'void' was not found",
+					Config.SEVERITY_ERROR,
+					{},
+					undefined
+				);
 			});
 
 			it("should load from plugins", () => {
@@ -317,14 +363,19 @@ describe("Engine", () => {
 					},
 				];
 
-				const engine: ExposedEngine<Parser> = new ExposedEngine(config, MockParser);
-				const rule = engine.loadRule("custom/my-rule", [Config.SEVERITY_ERROR, {}], parser, reporter);
+				const engine: ExposedEngine<Parser> = new ExposedEngine(
+					config,
+					MockParser
+				);
+				const rule = engine.loadRule(
+					"custom/my-rule",
+					[Config.SEVERITY_ERROR, {}],
+					parser,
+					reporter
+				);
 				expect(rule).toBeInstanceOf(MyRule);
 				expect(rule.name).toEqual("custom/my-rule");
 			});
-
 		});
-
 	});
-
 });

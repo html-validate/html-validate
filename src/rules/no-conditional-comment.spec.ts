@@ -6,7 +6,7 @@ describe("rule no-conditional-comment", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
-			rules: {"no-conditional-comment": "error"},
+			rules: { "no-conditional-comment": "error" },
 		});
 	});
 
@@ -18,28 +18,40 @@ describe("rule no-conditional-comment", () => {
 	it("should report error when <![...]> is used", () => {
 		const report = htmlvalidate.validateString("<![if foo]>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("no-conditional-comment", "Use of conditional comments are deprecated");
+		expect(report).toHaveError(
+			"no-conditional-comment",
+			"Use of conditional comments are deprecated"
+		);
 	});
 
 	it("should report error when <!--[...]> is used", () => {
 		const report = htmlvalidate.validateString("<!--[if foo]>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("no-conditional-comment", "Use of conditional comments are deprecated");
+		expect(report).toHaveError(
+			"no-conditional-comment",
+			"Use of conditional comments are deprecated"
+		);
 	});
 
 	it("should report error when <![...]--> is used", () => {
 		const report = htmlvalidate.validateString("<![endif]-->");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("no-conditional-comment", "Use of conditional comments are deprecated");
+		expect(report).toHaveError(
+			"no-conditional-comment",
+			"Use of conditional comments are deprecated"
+		);
 	});
 
 	it("smoketest", () => {
-		const report = htmlvalidate.validateFile("test-files/rules/no-conditional-comment.html");
+		const report = htmlvalidate.validateFile(
+			"test-files/rules/no-conditional-comment.html"
+		);
 		expect(report.results).toMatchSnapshot();
 	});
 
 	it("should contain documentation", () => {
-		expect(htmlvalidate.getRuleDocumentation("no-conditional-comment")).toMatchSnapshot();
+		expect(
+			htmlvalidate.getRuleDocumentation("no-conditional-comment")
+		).toMatchSnapshot();
 	});
-
 });

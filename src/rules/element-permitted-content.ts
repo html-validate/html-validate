@@ -7,7 +7,8 @@ import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 class ElementPermittedContent extends Rule {
 	documentation(): RuleDocumentation {
 		return {
-			description: "Some elements has restrictions on what content is allowed. This can include both direct children or descendant elements.",
+			description:
+				"Some elements has restrictions on what content is allowed. This can include both direct children or descendant elements.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
@@ -36,9 +37,18 @@ class ElementPermittedContent extends Rule {
 		});
 	}
 
-	validatePermittedContent(cur: HtmlElement, parent: HtmlElement, rules: Permitted): void {
+	validatePermittedContent(
+		cur: HtmlElement,
+		parent: HtmlElement,
+		rules: Permitted
+	): void {
 		if (!Validator.validatePermitted(cur, rules)) {
-			this.report(cur, `Element <${cur.tagName}> is not permitted as content in <${parent.tagName}>`);
+			this.report(
+				cur,
+				`Element <${cur.tagName}> is not permitted as content in <${
+					parent.tagName
+				}>`
+			);
 			return;
 		}
 
@@ -54,8 +64,17 @@ class ElementPermittedContent extends Rule {
 
 	validatePermittedDescendant(node: HtmlElement, parent: HtmlElement): void {
 		while (!parent.isRootElement()) {
-			if (parent.meta && node.meta && !Validator.validatePermitted(node, parent.meta.permittedDescendants)) {
-				this.report(node, `Element <${node.tagName}> is not permitted as descendant of <${parent.tagName}>`);
+			if (
+				parent.meta &&
+				node.meta &&
+				!Validator.validatePermitted(node, parent.meta.permittedDescendants)
+			) {
+				this.report(
+					node,
+					`Element <${node.tagName}> is not permitted as descendant of <${
+						parent.tagName
+					}>`
+				);
 				return;
 			}
 			parent = parent.parent;

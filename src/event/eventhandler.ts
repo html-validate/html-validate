@@ -22,9 +22,11 @@ export class EventHandler {
 		}
 		return () => {
 			for (const name of names) {
-				this.listeners[name] = this.listeners[name].filter((fn: EventCallback) => {
-					return fn !== callback;
-				});
+				this.listeners[name] = this.listeners[name].filter(
+					(fn: EventCallback) => {
+						return fn !== callback;
+					}
+				);
 			}
 		};
 	}
@@ -52,8 +54,11 @@ export class EventHandler {
 	 * @param [data] {any} - Event data.
 	 */
 	trigger(event: string, data: any): void {
-		const callbacks = [].concat(this.listeners[event] || [], this.listeners["*"] || []);
-		callbacks.forEach((listener) => {
+		const callbacks = [].concat(
+			this.listeners[event] || [],
+			this.listeners["*"] || []
+		);
+		callbacks.forEach(listener => {
 			listener.call(null, event, data);
 		});
 	}

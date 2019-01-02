@@ -29,10 +29,12 @@ function parseSeverity(value: string | number) {
 	switch (value) {
 		case "off":
 			return 0;
-			/* istanbul ignore next: deprecated code which will be removed later */
+		/* istanbul ignore next: deprecated code which will be removed later */
 		case "disable":
-		// eslint-disable-next-line no-console
-			console.warn(`Deprecated alias "disabled" will be removed, replace with severity "off"`);
+			// eslint-disable-next-line no-console
+			console.warn(
+				`Deprecated alias "disabled" will be removed, replace with severity "off"`
+			);
 			return 0;
 		case "warn":
 			return 1;
@@ -69,8 +71,10 @@ export class Config {
 
 	public static fromFile(filename: string): Config {
 		switch (filename) {
-			case "htmlvalidate:recommended": return Config.fromObject(recommended);
-			case "htmlvalidate:document": return Config.fromObject(document);
+			case "htmlvalidate:recommended":
+				return Config.fromObject(recommended);
+			case "htmlvalidate:document":
+				return Config.fromObject(document);
 		}
 
 		const json = require(filename);
@@ -113,7 +117,9 @@ export class Config {
 		this.plugins = this.loadPlugins(this.config.plugins || []);
 
 		/* precompile transform patterns */
-		this.transformers = this.precompileTransformers(this.config.transform || {});
+		this.transformers = this.precompileTransformers(
+			this.config.transform || {}
+		);
 	}
 
 	/**
@@ -183,7 +189,8 @@ export class Config {
 
 	getRules() {
 		const rules = Object.assign({}, this.config.rules || {});
-		for (const name in rules) { /* tslint:disable-line:forin */
+		/* tslint:disable-next-line:forin */
+		for (const name in rules) {
 			let options = rules[name];
 			if (!Array.isArray(options)) {
 				options = [options, {}];
@@ -215,19 +222,23 @@ export class Config {
 		if (transformer) {
 			return transformer.fn(filename);
 		} else {
-			const data = fs.readFileSync(filename, {encoding: "utf8"});
-			return [{
-				data,
-				filename,
-				line: 1,
-				column: 1,
-				originalData: data,
-			}];
+			const data = fs.readFileSync(filename, { encoding: "utf8" });
+			return [
+				{
+					data,
+					filename,
+					line: 1,
+					column: 1,
+					originalData: data,
+				},
+			];
 		}
 	}
 
-	private findTransformer(filename: string): Transformer|null {
-		return this.transformers.find((entry: Transformer) => entry.pattern.test(filename));
+	private findTransformer(filename: string): Transformer | null {
+		return this.transformers.find((entry: Transformer) =>
+			entry.pattern.test(filename)
+		);
 	}
 
 	private precompileTransformers(transform: TransformMap): Transformer[] {

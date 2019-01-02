@@ -21,11 +21,11 @@ const MATCH_DOCTYPE_OPEN = /^<!(?:DOCTYPE|doctype)\s/;
 const MATCH_DOCTYPE_VALUE = /^[^>]+/;
 const MATCH_DOCTYPE_CLOSE = /^>/;
 const MATCH_XML_TAG = /^<\?xml.*?\?>\n/;
-const MATCH_TAG_OPEN = /^<(\/?)([a-zA-Z0-9\-:]+)/;       // https://www.w3.org/TR/html/syntax.html#start-tags
+const MATCH_TAG_OPEN = /^<(\/?)([a-zA-Z0-9\-:]+)/; // https://www.w3.org/TR/html/syntax.html#start-tags
 const MATCH_TAG_CLOSE = /^\/?>/;
 const MATCH_TEXT = /^[^]*?(?=(?:[ \t]*(?:\r\n|\r|\n)|<|$))/;
 const MATCH_TAG_LOOKAHEAD = /^[^]*?(?=<|$)/;
-const MATCH_ATTR_START = /^([^\t\r\n\f \/><"'=]+)/;      // https://www.w3.org/TR/html/syntax.html#elements-attributes
+const MATCH_ATTR_START = /^([^\t\r\n\f \/><"'=]+)/; // https://www.w3.org/TR/html/syntax.html#elements-attributes
 const MATCH_ATTR_SINGLE = /^='([^']*?)(')/;
 const MATCH_ATTR_DOUBLE = /^="([^"]*?)(")/;
 const MATCH_ATTR_UNQUOTED = /^=([a-zA-Z0-9]+)/;
@@ -86,7 +86,7 @@ export class Lexer {
 					yield* this.tokenizeScript(context);
 					break;
 
-					/* istanbul ignore next: sanity check: should not happen unless adding new states */
+				/* istanbul ignore next: sanity check: should not happen unless adding new states */
 				default:
 					this.unhandled(context);
 			}
@@ -94,7 +94,10 @@ export class Lexer {
 			/* sanity check: state or string must change, if both are intact
 			 * we are stuck in an endless loop. */
 			/* istanbul ignore next: no easy way to test this as it is a condition which should never happen */
-			if (context.state === previousState && context.string.length === previousLength) {
+			if (
+				context.state === previousState &&
+				context.string.length === previousLength
+			) {
 				this.errorStuck(context);
 			}
 
@@ -117,19 +120,32 @@ export class Lexer {
 
 	/* istanbul ignore next: used to provide a better error when an unhandled state happens */
 	private unhandled(context: Context) {
-		const truncated = JSON.stringify(context.string.length > 13 ? `${context.string.slice(0, 15)}...` : context.string);
-		const message = `failed to tokenize ${truncated}, unhandled state ${State[context.state]}.`;
+		const truncated = JSON.stringify(
+			context.string.length > 13
+				? `${context.string.slice(0, 15)}...`
+				: context.string
+		);
+		const state = State[context.state];
+		const message = `failed to tokenize ${truncated}, unhandled state ${state}.`;
 		throw new InvalidTokenError(context.getLocation(), message);
 	}
 
 	/* istanbul ignore next: used to provide a better error when lexer is detected to be stuck, no known way to reproduce */
 	private errorStuck(context: Context) {
-		const truncated = JSON.stringify(context.string.length > 13 ? `${context.string.slice(0, 15)}...` : context.string);
-		const message = `failed to tokenize ${truncated}, state ${State[context.state]} failed to consume data or change state.`;
+		const truncated = JSON.stringify(
+			context.string.length > 13
+				? `${context.string.slice(0, 15)}...`
+				: context.string
+		);
+		const state = State[context.state];
+		const message = `failed to tokenize ${truncated}, state ${state} failed to consume data or change state.`;
 		throw new InvalidTokenError(context.getLocation(), message);
 	}
 
-	private evalNextState(nextState: State | ((token: Token) => State), token: Token) {
+	private evalNextState(
+		nextState: State | ((token: Token) => State),
+		token: Token
+	) {
 		if (typeof nextState === "function") {
 			return nextState(token);
 		} else {
@@ -146,7 +162,9 @@ export class Lexer {
 			/* tslint:disable-next-line:no-conditional-assignment */
 			if (regex === false || (match = context.string.match(regex))) {
 				let token: Token = null;
-				if (tokenType !== false) yield (token = this.token(context, tokenType, match));
+				if (tokenType !== false) {
+					yield (token = this.token(context, tokenType, match));
+				}
 				const state = this.evalNextState(nextState, token);
 				context.consume(match || 0, state);
 				this.enter(context, state, match);
@@ -154,7 +172,11 @@ export class Lexer {
 			}
 		}
 
-		const truncated = JSON.stringify(context.string.length > 13 ? `${context.string.slice(0, 10)}...` : context.string);
+		const truncated = JSON.stringify(
+			context.string.length > 13
+				? `${context.string.slice(0, 10)}...`
+				: context.string
+		);
 		const message = `failed to tokenize ${truncated}, ${error}.`;
 		throw new InvalidTokenError(context.getLocation(), message);
 	}
@@ -165,7 +187,7 @@ export class Lexer {
 	private enter(context: Context, state: State, data: any) {
 		switch (state) {
 			case State.TAG:
-			/* request script tag tokenization */
+				/* request script tag tokenization */
 				if (data && data[0][0] === "<") {
 					if (data[0] === "<script") {
 						context.contentModel = ContentModel.SCRIPT;
@@ -178,20 +200,28 @@ export class Lexer {
 	}
 
 	private *tokenizeInitial(context: Context) {
-		yield* this.match(context, [
-			[MATCH_XML_TAG, State.INITIAL, false],
-			[MATCH_DOCTYPE_OPEN, State.DOCTYPE, TokenType.DOCTYPE_OPEN],
-			[MATCH_WHITESPACE, State.INITIAL, TokenType.WHITESPACE],
-			[false, State.TEXT, false],
-		], "expected doctype");
+		yield* this.match(
+			context,
+			[
+				[MATCH_XML_TAG, State.INITIAL, false],
+				[MATCH_DOCTYPE_OPEN, State.DOCTYPE, TokenType.DOCTYPE_OPEN],
+				[MATCH_WHITESPACE, State.INITIAL, TokenType.WHITESPACE],
+				[false, State.TEXT, false],
+			],
+			"expected doctype"
+		);
 	}
 
 	private *tokenizeDoctype(context: Context) {
-		yield* this.match(context, [
-			[MATCH_WHITESPACE, State.DOCTYPE, TokenType.WHITESPACE],
-			[MATCH_DOCTYPE_VALUE, State.DOCTYPE, TokenType.DOCTYPE_VALUE],
-			[MATCH_DOCTYPE_CLOSE, State.TEXT, TokenType.DOCTYPE_CLOSE],
-		], "expected doctype name");
+		yield* this.match(
+			context,
+			[
+				[MATCH_WHITESPACE, State.DOCTYPE, TokenType.WHITESPACE],
+				[MATCH_DOCTYPE_VALUE, State.DOCTYPE, TokenType.DOCTYPE_VALUE],
+				[MATCH_DOCTYPE_CLOSE, State.TEXT, TokenType.DOCTYPE_CLOSE],
+			],
+			"expected doctype name"
+		);
 	}
 
 	private *tokenizeTag(context: Context) {
@@ -209,47 +239,67 @@ export class Lexer {
 			/* istanbul ignore next: not covered by a test as there is currently no
 			 * way to trigger this unless new content models are added but this will
 			 * add a saner default if anyone ever does */
-			return context.contentModel !== ContentModel.SCRIPT ? State.TEXT : State.SCRIPT;
+			return context.contentModel !== ContentModel.SCRIPT
+				? State.TEXT
+				: State.SCRIPT;
 		}
-		yield* this.match(context, [
-			[MATCH_TAG_CLOSE, nextState, TokenType.TAG_CLOSE],
-			[MATCH_ATTR_START, State.ATTR, TokenType.ATTR_NAME],
-			[MATCH_WHITESPACE, State.TAG, TokenType.WHITESPACE],
-		], 'expected attribute, ">" or "/>"');
+		yield* this.match(
+			context,
+			[
+				[MATCH_TAG_CLOSE, nextState, TokenType.TAG_CLOSE],
+				[MATCH_ATTR_START, State.ATTR, TokenType.ATTR_NAME],
+				[MATCH_WHITESPACE, State.TAG, TokenType.WHITESPACE],
+			],
+			'expected attribute, ">" or "/>"'
+		);
 	}
 
 	private *tokenizeAttr(context: Context) {
-		yield* this.match(context, [
-			[MATCH_ATTR_SINGLE, State.TAG, TokenType.ATTR_VALUE],
-			[MATCH_ATTR_DOUBLE, State.TAG, TokenType.ATTR_VALUE],
-			[MATCH_ATTR_UNQUOTED, State.TAG, TokenType.ATTR_VALUE],
-			[false, State.TAG, false],
-		], 'expected attribute, ">" or "/>"');
+		yield* this.match(
+			context,
+			[
+				[MATCH_ATTR_SINGLE, State.TAG, TokenType.ATTR_VALUE],
+				[MATCH_ATTR_DOUBLE, State.TAG, TokenType.ATTR_VALUE],
+				[MATCH_ATTR_UNQUOTED, State.TAG, TokenType.ATTR_VALUE],
+				[false, State.TAG, false],
+			],
+			'expected attribute, ">" or "/>"'
+		);
 	}
 
 	private *tokenizeText(context: Context) {
-		yield* this.match(context, [
-			[MATCH_WHITESPACE, State.TEXT, TokenType.WHITESPACE],
-			[MATCH_CDATA_BEGIN, State.CDATA, false],
-			[MATCH_DIRECTIVE, State.TEXT, TokenType.DIRECTIVE],
-			[MATCH_CONDITIONAL, State.TEXT, TokenType.CONDITIONAL],
-			[MATCH_COMMENT, State.TEXT, TokenType.COMMENT],
-			[MATCH_TAG_OPEN, State.TAG, TokenType.TAG_OPEN],
-			[MATCH_TEXT, State.TEXT, TokenType.TEXT],
-			[MATCH_TAG_LOOKAHEAD, State.TEXT, TokenType.TEXT],
-		], 'expected text or "<"');
+		yield* this.match(
+			context,
+			[
+				[MATCH_WHITESPACE, State.TEXT, TokenType.WHITESPACE],
+				[MATCH_CDATA_BEGIN, State.CDATA, false],
+				[MATCH_DIRECTIVE, State.TEXT, TokenType.DIRECTIVE],
+				[MATCH_CONDITIONAL, State.TEXT, TokenType.CONDITIONAL],
+				[MATCH_COMMENT, State.TEXT, TokenType.COMMENT],
+				[MATCH_TAG_OPEN, State.TAG, TokenType.TAG_OPEN],
+				[MATCH_TEXT, State.TEXT, TokenType.TEXT],
+				[MATCH_TAG_LOOKAHEAD, State.TEXT, TokenType.TEXT],
+			],
+			'expected text or "<"'
+		);
 	}
 
 	private *tokenizeCDATA(context: Context) {
-		yield* this.match(context, [
-			[MATCH_CDATA_END, State.TEXT, false],
-		], "expected ]]>");
+		yield* this.match(
+			context,
+			[[MATCH_CDATA_END, State.TEXT, false]],
+			"expected ]]>"
+		);
 	}
 
 	private *tokenizeScript(context: Context) {
-		yield* this.match(context, [
-			[MATCH_SCRIPT_END, State.TAG, TokenType.TAG_OPEN],
-			[MATCH_SCRIPT_DATA, State.SCRIPT, TokenType.SCRIPT],
-		], "expected </script>");
+		yield* this.match(
+			context,
+			[
+				[MATCH_SCRIPT_END, State.TAG, TokenType.TAG_OPEN],
+				[MATCH_SCRIPT_DATA, State.SCRIPT, TokenType.SCRIPT],
+			],
+			"expected </script>"
+		);
 	}
 }

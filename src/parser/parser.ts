@@ -29,7 +29,7 @@ export class Parser {
 		this.metaTable = config.getMetaTable();
 	}
 
-	parseHtml(source: string|Source): DOMTree {
+	parseHtml(source: string | Source): DOMTree {
 		if (typeof source === "string") {
 			source = {
 				data: source,
@@ -101,8 +101,10 @@ export class Parser {
 		/* trigger any rules waiting for DOM ready */
 		this.trigger("dom:ready", {
 			document: this.dom,
-			location: null, /* disable location for this event so rules can use
-			                 * implicit node location instead */
+
+			/* disable location for this event so rules can use implicit node location
+			 * instead */
+			location: null,
 		});
 
 		return this.dom;
@@ -145,11 +147,20 @@ export class Parser {
 
 	// eslint-disable-next-line complexity
 	private consumeTag(startToken: Token, tokenStream: TokenStream) {
-		const tokens = Array.from(this.consumeUntil(tokenStream, TokenType.TAG_CLOSE));
+		const tokens = Array.from(
+			this.consumeUntil(tokenStream, TokenType.TAG_CLOSE)
+		);
 		const endToken = tokens.slice(-1)[0];
 		const closeOptional = this.closeOptional(startToken);
-		const parent = closeOptional ? this.dom.getActive().parent : this.dom.getActive();
-		const node = HtmlElement.fromTokens(startToken, endToken, parent, this.metaTable);
+		const parent = closeOptional
+			? this.dom.getActive().parent
+			: this.dom.getActive();
+		const node = HtmlElement.fromTokens(
+			startToken,
+			endToken,
+			parent,
+			this.metaTable
+		);
 		const open = !startToken.data[1];
 		const close = !open || node.closed !== NodeClosed.Open;
 
@@ -247,8 +258,11 @@ export class Parser {
 	 * Consumes doctype tokens. Emits doctype event.
 	 */
 	consumeDoctype(startToken: Token, tokenStream: TokenStream) {
-		const tokens = Array.from(this.consumeUntil(tokenStream, TokenType.DOCTYPE_CLOSE));
-		const doctype = tokens[0]; /* first token is the doctype, second is the closing ">" */
+		const tokens = Array.from(
+			this.consumeUntil(tokenStream, TokenType.DOCTYPE_CLOSE)
+		);
+		const doctype =
+			tokens[0]; /* first token is the doctype, second is the closing ">" */
 		const value = doctype.data[0];
 		this.dom.doctype = value;
 		this.trigger("doctype", {

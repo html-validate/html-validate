@@ -21,18 +21,21 @@ describe("rule no-dup-class", () => {
 	});
 
 	it("should report when when class has duplicates", () => {
-		const report = htmlvalidate.validateString('<p class="foo bar foo"></p></p>');
+		const report = htmlvalidate.validateString(
+			'<p class="foo bar foo"></p></p>'
+		);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("no-dup-class", 'Class "foo" duplicated');
 	});
 
 	it("smoketest", () => {
-		const report = htmlvalidate.validateFile("test-files/rules/no-dup-class.html");
+		const report = htmlvalidate.validateFile(
+			"test-files/rules/no-dup-class.html"
+		);
 		expect(report.results).toMatchSnapshot();
 	});
 
 	it("should contain documentation", () => {
 		expect(htmlvalidate.getRuleDocumentation("no-dup-class")).toMatchSnapshot();
 	});
-
 });

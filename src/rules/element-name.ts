@@ -17,7 +17,8 @@ class ElementName extends Rule {
 
 	documentation(): RuleDocumentation {
 		return {
-			description: "HTML defines what content is considered a valid (custom) element name.",
+			description:
+				"HTML defines what content is considered a valid (custom) element name.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}

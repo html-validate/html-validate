@@ -1,6 +1,6 @@
 type RuleSeverity = "off" | "warn" | "error" | number;
 
-export interface TransformMap{
+export interface TransformMap {
 	[key: string]: string;
 }
 
@@ -19,7 +19,7 @@ export interface ConfigData {
 	 *
 	 * If elements isn't specified it defaults to `["html5"]`
 	 */
-	elements?: Array<string|object>;
+	elements?: Array<string | object>;
 
 	/**
 	 * List of plugins.
@@ -42,5 +42,7 @@ export interface ConfigData {
 	 */
 	transform?: TransformMap;
 
-	rules?: { [key: string]: RuleSeverity | [RuleSeverity] | [RuleSeverity, any] };
+	rules?: {
+		[key: string]: RuleSeverity | [RuleSeverity] | [RuleSeverity, any];
+	};
 }

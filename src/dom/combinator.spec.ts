@@ -1,7 +1,6 @@
 import { Combinator, parseCombinator } from "./combinator";
 
 describe("DOM Combinator", () => {
-
 	it("should default to descendant combinator", () => {
 		const result = parseCombinator("");
 		expect(result).toEqual(Combinator.DESCENDANT);
@@ -35,5 +34,4 @@ describe("DOM Combinator", () => {
 	it("should throw error on invalid combinator", () => {
 		expect(() => parseCombinator("a")).toThrow();
 	});
-
 });

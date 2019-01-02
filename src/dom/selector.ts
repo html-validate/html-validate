@@ -2,7 +2,8 @@ import { Combinator, parseCombinator } from "./combinator";
 import { HtmlElement } from "./htmlelement";
 
 class Matcher {
-	match(node: HtmlElement): boolean { // eslint-disable-line no-unused-vars
+	// eslint-disable-next-line no-unused-vars
+	match(node: HtmlElement): boolean {
 		/* istanbul ignore next: only used by fallback solution */
 		return false;
 	}
@@ -55,7 +56,9 @@ class AttrMatcher extends Matcher {
 			case "=":
 				return attr === this.value;
 			default:
-				throw new Error(`Attribute selector operator ${this.op} is not implemented yet`);
+				throw new Error(
+					`Attribute selector operator ${this.op} is not implemented yet`
+				);
 		}
 	}
 }
@@ -77,7 +80,10 @@ class Pattern {
 	}
 
 	match(node: HtmlElement): boolean {
-		return node.is(this.tagName) && this.pattern.every((cur: Matcher) => cur.match(node));
+		return (
+			node.is(this.tagName) &&
+			this.pattern.every((cur: Matcher) => cur.match(node))
+		);
 	}
 
 	private static createMatcher(pattern: string): Matcher {
@@ -89,8 +95,8 @@ class Pattern {
 			case "[":
 				return new AttrMatcher(pattern.slice(1, -1));
 			default:
-			/* istanbul ignore next: fallback solution, the switch cases should cover
-			 * everything and there is no known way to trigger this fallback */
+				/* istanbul ignore next: fallback solution, the switch cases should cover
+				 * everything and there is no known way to trigger this fallback */
 				throw new Error(`Failed to create matcher for "${pattern}"`);
 		}
 	}
@@ -126,12 +132,15 @@ export class Selector {
 		return pattern.map((part: string) => new Pattern(part));
 	}
 
-	private static findCandidates(root: HtmlElement, pattern: Pattern): HtmlElement[] {
+	private static findCandidates(
+		root: HtmlElement,
+		pattern: Pattern
+	): HtmlElement[] {
 		switch (pattern.combinator) {
 			case Combinator.DESCENDANT:
 				return root.getElementsByTagName(pattern.tagName);
 			case Combinator.CHILD:
-				return root.children.filter((node) => node.is(pattern.tagName));
+				return root.children.filter(node => node.is(pattern.tagName));
 			case Combinator.ADJACENT_SIBLING:
 				return Selector.findAdjacentSibling(root);
 			case Combinator.GENERAL_SIBLING:
@@ -144,7 +153,7 @@ export class Selector {
 
 	private static findAdjacentSibling(node: HtmlElement): HtmlElement[] {
 		let adjacent = false;
-		return node.siblings.filter((cur) => {
+		return node.siblings.filter(cur => {
 			if (adjacent) {
 				adjacent = false;
 				return true;
@@ -158,7 +167,7 @@ export class Selector {
 
 	private static findGeneralSibling(node: HtmlElement): HtmlElement[] {
 		let after = false;
-		return node.siblings.filter((cur) => {
+		return node.siblings.filter(cur => {
 			if (after) {
 				return true;
 			}

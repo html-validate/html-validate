@@ -31,7 +31,7 @@ export class Engine<T extends Parser = Parser> {
 		this.availableRules = {};
 
 		/* setup plugins */
-		for (const plugin of (this.config.getPlugins())) {
+		for (const plugin of this.config.getPlugins()) {
 			for (const [name, rule] of Object.entries(plugin.rules)) {
 				this.availableRules[name] = rule;
 			}
@@ -82,9 +82,9 @@ export class Engine<T extends Parser = Parser> {
 		const parser = new Parser(this.config);
 		const lines: EventDump[] = [];
 		parser.on("*", (event, data) => {
-			lines.push({event, data});
+			lines.push({ event, data });
 		});
-		source.forEach((src) => parser.parseHtml(src));
+		source.forEach(src => parser.parseHtml(src));
 		return lines;
 	}
 
@@ -97,7 +97,9 @@ export class Engine<T extends Parser = Parser> {
 				lines.push({
 					token: TokenType[token.type],
 					data,
-					location: `${token.location.filename}:${token.location.line}:${token.location.column}`,
+					location: `${token.location.filename}:${token.location.line}:${
+						token.location.column
+					}`,
 				});
 			}
 		}
@@ -105,8 +107,9 @@ export class Engine<T extends Parser = Parser> {
 	}
 
 	public dumpTree(source: Source[]): string[] {
+		/* @todo handle dumping each tree */
 		const parser = new Parser(this.config);
-		const dom = parser.parseHtml(source[0]); /* @todo handle dumping each tree */
+		const dom = parser.parseHtml(source[0]);
 		const lines: string[] = [];
 
 		function decoration(node: HtmlElement) {
@@ -124,13 +127,15 @@ export class Engine<T extends Parser = Parser> {
 			if (level > 0) {
 				const indent = "  ".repeat(level - 1);
 				const l = node.children.length > 0 ? "┬" : "─";
-				const b = sibling < (node.parent.children.length - 1) ? "├" : "└";
+				const b = sibling < node.parent.children.length - 1 ? "├" : "└";
 				lines.push(`${indent}${b}─${l} ${node.tagName}${decoration(node)}`);
 			} else {
 				lines.push("(root)");
 			}
 
-			node.children.forEach((child, index) => writeNode(child, level + 1, index));
+			node.children.forEach((child, index) =>
+				writeNode(child, level + 1, index)
+			);
 		}
 
 		writeNode(dom.root, 0, 0);
@@ -140,7 +145,10 @@ export class Engine<T extends Parser = Parser> {
 	/**
 	 * Get rule documentation.
 	 */
-	public getRuleDocumentation(ruleId: string, context?: any): RuleDocumentation {
+	public getRuleDocumentation(
+		ruleId: string,
+		context?: any
+	): RuleDocumentation {
 		const rules = this.config.getRules();
 		if (ruleId in rules) {
 			const [, options] = rules[ruleId] as any;
@@ -151,12 +159,16 @@ export class Engine<T extends Parser = Parser> {
 		}
 	}
 
-	private processDirective(event: DirectiveEvent, parser: Parser, allRules: { [key: string]: Rule }): void {
+	private processDirective(
+		event: DirectiveEvent,
+		parser: Parser,
+		allRules: { [key: string]: Rule }
+	): void {
 		const rules = event.data
 			.split(",")
-			.map((name) => name.trim())
-			.map((name) => allRules[name])
-			.filter((rule) => rule); /* filter out missing rules */
+			.map(name => name.trim())
+			.map(name => allRules[name])
+			.filter(rule => rule); /* filter out missing rules */
 		switch (event.action) {
 			case "enable":
 				this.processEnableDirective(rules);
@@ -198,32 +210,38 @@ export class Engine<T extends Parser = Parser> {
 		}
 
 		/* wait for a tag to open and find the current block by using its parent */
-		const unregisterOpen = parser.once("tag:open", (event: string, data: TagOpenEvent) => {
-			directiveBlock = data.target.parent.unique;
-		});
-
-		const unregisterClose = parser.on("tag:close", (event: string, data: TagCloseEvent) => {
-			/* if the directive is the last thing in a block no would be set: remove
-			 * listeners and restore state */
-			if (directiveBlock === null) {
-				unregisterClose();
-				unregisterOpen();
-				for (const rule of rules) {
-					rule.setEnabled(true);
-				}
-				return;
+		const unregisterOpen = parser.once(
+			"tag:open",
+			(event: string, data: TagOpenEvent) => {
+				directiveBlock = data.target.parent.unique;
 			}
+		);
 
-			/* determine the current block again using the parent of the target,
-			 * restore state if the directive block is being closed */
-			const currentBlock = data.previous.unique;
-			if (currentBlock === directiveBlock) {
-				unregisterClose();
-				for (const rule of rules) {
-					rule.setEnabled(true);
+		const unregisterClose = parser.on(
+			"tag:close",
+			(event: string, data: TagCloseEvent) => {
+				/* if the directive is the last thing in a block no would be set: remove
+				 * listeners and restore state */
+				if (directiveBlock === null) {
+					unregisterClose();
+					unregisterOpen();
+					for (const rule of rules) {
+						rule.setEnabled(true);
+					}
+					return;
+				}
+
+				/* determine the current block again using the parent of the target,
+				 * restore state if the directive block is being closed */
+				const currentBlock = data.previous.unique;
+				if (currentBlock === directiveBlock) {
+					unregisterClose();
+					for (const rule of rules) {
+						rule.setEnabled(true);
+					}
 				}
 			}
-		});
+		);
 	}
 
 	private processDisableNextDirective(rules: Rule[], parser: Parser): void {
@@ -240,7 +258,12 @@ export class Engine<T extends Parser = Parser> {
 	/**
 	 * Load a rule using current config.
 	 */
-	protected loadRule(name: string, data: any, parser: Parser, report: Reporter): Rule {
+	protected loadRule(
+		name: string,
+		data: any,
+		parser: Parser,
+		report: Reporter
+	): Rule {
 		const [severity, options] = data;
 		const rule = this.instantiateRule(name, options);
 		rule.name = rule.name || name;

@@ -2,7 +2,6 @@ import HtmlValidate from "../htmlvalidate";
 import "../matchers";
 
 describe("rule deprecated", () => {
-
 	let htmlvalidate: HtmlValidate;
 
 	beforeAll(() => {
@@ -31,18 +30,24 @@ describe("rule deprecated", () => {
 	});
 
 	it("should report error when element with deprecation message is used", () => {
-		const report = htmlvalidate.validateString("<custom-deprecated>foobar</custom-deprecated>");
+		const report = htmlvalidate.validateString(
+			"<custom-deprecated>foobar</custom-deprecated>"
+		);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("deprecated", "<custom-deprecated> is deprecated: lorem ipsum");
+		expect(report).toHaveError(
+			"deprecated",
+			"<custom-deprecated> is deprecated: lorem ipsum"
+		);
 	});
 
 	it("smoketest", () => {
-		const report = htmlvalidate.validateFile("test-files/rules/deprecated.html");
+		const report = htmlvalidate.validateFile(
+			"test-files/rules/deprecated.html"
+		);
 		expect(report.results).toMatchSnapshot();
 	});
 
 	it("should contain documentation", () => {
 		expect(htmlvalidate.getRuleDocumentation("deprecated")).toMatchSnapshot();
 	});
-
 });

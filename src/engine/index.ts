@@ -1,5 +1,1 @@
-export {
-	Engine,
-	EventDump,
-	TokenDump,
-} from "./engine";
+export { Engine, EventDump, TokenDump } from "./engine";

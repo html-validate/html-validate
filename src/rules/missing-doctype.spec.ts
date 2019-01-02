@@ -6,14 +6,17 @@ describe("rule missing-doctype", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
-			rules: {"missing-doctype": "error"},
+			rules: { "missing-doctype": "error" },
 		});
 	});
 
 	it("should report error when document is missing doctype", () => {
 		const report = htmlvalidate.validateString("<html></html>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("missing-doctype", "Document is missing doctype");
+		expect(report).toHaveError(
+			"missing-doctype",
+			"Document is missing doctype"
+		);
 	});
 
 	it("should not report error when document has doctype", () => {
@@ -22,12 +25,15 @@ describe("rule missing-doctype", () => {
 	});
 
 	it("smoketest", () => {
-		const report = htmlvalidate.validateFile("test-files/rules/missing-doctype.html");
+		const report = htmlvalidate.validateFile(
+			"test-files/rules/missing-doctype.html"
+		);
 		expect(report.results).toMatchSnapshot();
 	});
 
 	it("should contain documentation", () => {
-		expect(htmlvalidate.getRuleDocumentation("missing-doctype")).toMatchSnapshot();
+		expect(
+			htmlvalidate.getRuleDocumentation("missing-doctype")
+		).toMatchSnapshot();
 	});
-
 });

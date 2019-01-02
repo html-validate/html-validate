@@ -38,7 +38,12 @@ export interface MetaElement {
 	permittedDescendants: Permitted;
 	permittedOrder: PermittedOrder;
 
-	[key: string]: boolean | PropertyExpression | Permitted | PermittedOrder | PermittedAttribute;
+	[key: string]:
+		| boolean
+		| PropertyExpression
+		| Permitted
+		| PermittedOrder
+		| PermittedAttribute;
 }
 
 export interface ElementTable {

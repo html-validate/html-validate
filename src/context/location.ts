@@ -46,7 +46,11 @@ function sliceSize(size: number, begin: number, end?: number): number {
  * It is assumed there is no newlines anywhere between current location and
  * the new.
  */
-export function sliceLocation(location: Location, begin: number, end?: number): Location {
+export function sliceLocation(
+	location: Location,
+	begin: number,
+	end?: number
+): Location {
 	if (!location) return null;
 	const size = sliceSize(location.size, begin, end);
 	return {

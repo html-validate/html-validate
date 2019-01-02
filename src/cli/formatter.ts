@@ -17,14 +17,12 @@ function wrap(formatter: Formatter, dst: string) {
 }
 
 export function getFormatter(formatters: string): (report: Report) => void {
-	const fn: WrappedFormatter[] = formatters
-		.split(",")
-		.map((cur) => {
-			const [name, dst] = cur.split("=", 2);
-			const moduleName = name.replace(/[^a-z]+/g, "");
-			const formatter = require(`../formatters/${moduleName}`);
-			return wrap(formatter, dst);
-		});
+	const fn: WrappedFormatter[] = formatters.split(",").map(cur => {
+		const [name, dst] = cur.split("=", 2);
+		const moduleName = name.replace(/[^a-z]+/g, "");
+		const formatter = require(`../formatters/${moduleName}`);
+		return wrap(formatter, dst);
+	});
 	return (report: Report) => {
 		fn.forEach((formatter: WrappedFormatter) => formatter(report.results));
 	};
