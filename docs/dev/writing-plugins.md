@@ -3,8 +3,7 @@
 @name Writing plugins
 @description
 
-Writing plugins
-===============
+# Writing plugins
 
 A plugin must expose a single object:
 
@@ -22,8 +21,8 @@ To expose rules in the plugin use the `plugin` field. Each plugin should use a
 unique prefix for each rule.
 
 ```js
-const MyRule = require('./rules/my-rule.js');
-const AnotherRule = require('./rules/another-rule.js');
+const MyRule = require("./rules/my-rule.js");
+const AnotherRule = require("./rules/another-rule.js");
 
 module.exports = {
   rules: {

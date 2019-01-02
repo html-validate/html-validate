@@ -17,7 +17,7 @@ In `protractor.conf.js`:
         /* load plugin */
         {package: 'protractor-html-validate'}
     ],
-    
+
     onPrepare: () => {
         /* load jasmine helper */
         require('protractor-html-validate/jasmine');

@@ -3,21 +3,19 @@
 @name Events
 @description
 
-Events
-======
+# Events
 
-`dom:load`
-----------
+## `dom:load`
 
 ```typescript
-{}
+{
+}
 ```
 
 Emitted after initialization but before tokenization and parsing occurs. Can be
 used to initialize state in rules.
 
-`dom:ready`
------------
+## `dom:ready`
 
 ```typescript
 {
@@ -27,8 +25,7 @@ used to initialize state in rules.
 
 Emitted after the parsing has finished loading the DOM tree.
 
-`doctype`
------------
+## `doctype`
 
 ```typescript
 {
@@ -39,8 +36,7 @@ Emitted after the parsing has finished loading the DOM tree.
 Emitted when a doctype is encountered. `value` is the doctype (without
 `<doctype` and `>`).
 
-`tag:open`
-----------
+## `tag:open`
 
 ```typescript
 {
@@ -51,8 +47,7 @@ Emitted when a doctype is encountered. `value` is the doctype (without
 Emitted when an opening element is parsed: `<div>`. `target` will be
 newly created Node.
 
-`tag:close`
------------
+## `tag:close`
 
 ```typescript
 {
@@ -65,8 +60,7 @@ Emitted when a closing element is parsed: `</div>`. `target` refers to
 the close-element itself and `previous` is the current active element
 about to be closed.
 
-`attr`
-------
+## `attr`
 
 ```typescript
 {
@@ -83,23 +77,21 @@ Target node will not have been updated with the new attribute yet
 (e.g. `node.getAttribute(...)` will return `undefined` or a previous
 value).
 
-`whitespace`
-------------
+## `whitespace`
 
 ```typescript
 {
-  text: string
+  text: string;
 }
 ```
 
 Emitted when inter-element, leading and trailing whitespace is parsed.
 
-`conditional`
--------------
+## `conditional`
 
 ```typescript
 {
-  condition: string
+  condition: string;
 }
 ```
 

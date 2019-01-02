@@ -3,32 +3,31 @@
 @name Writing rules
 @description
 
-Writing rules
-=============
+# Writing rules
 
 Rules are created by extending the `Rule` class and implementing the `setup`
 method:
 
 ```typescript
 // for vanilla javascript
-const Rule = require('html-validate').Rule;
+const Rule = require("html-validate").Rule;
 
 // for typescript
-import { Rule } from 'html-validate/src/rule';
+import { Rule } from "html-validate/src/rule";
 
 class MyRule extends Rule {
-  documentation(context?: any){
+  documentation(context?: any) {
     return {
       description: "Lorem ipsum",
       url: "https://example.net/best-practice/my-rule.html",
     };
   }
 
-  setup(){
+  setup() {
     /* listen on dom ready event */
-    this.on('dom:ready', (event: DOMReadyEvent) => {
+    this.on("dom:ready", (event: DOMReadyEvent) => {
       /* do something with the DOM tree */
-      const buttons = event.document.getElementsByTagName('button');
+      const buttons = event.document.getElementsByTagName("button");
 
       /* report a new error */
       this.report(buttons[0], "Button are not allowed");
@@ -74,7 +73,7 @@ Report a new error.
 
 - `node` - The `HtmlElement` this error belongs to.
 - `message` - Error message
-- *`location`* - If set it is the precise location of the error. (Default: node
+- _`location`_ - If set it is the precise location of the error. (Default: node
   location)
-- *`context`* - If set it will be passed to `documentation()` later to allow
+- _`context`_ - If set it will be passed to `documentation()` later to allow
   retrieving contextual documentation.

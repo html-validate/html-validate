@@ -10,6 +10,7 @@ markup["frontpage-contentmodel"] = `<footer>
   <main>
     <blink>(c) 2018 Initech</blink>
   </main>
+
 </footer>`;
 markup["frontpage-a17y"] = `<img src="logo.png">
 <button onclick="myFunction();">Click me!</button>

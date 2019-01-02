@@ -7,18 +7,17 @@
 
     npm install --save-dev grunt-html-validate
 
-
 ## Usage
 
 ```js
-require('load-grunt-tasks')(grunt);
+require("load-grunt-tasks")(grunt);
 
 grunt.initConfig({
-	htmlvalidate: {
-		default: {
-			src: ['file.html']
-		}
-	}
+  htmlvalidate: {
+    default: {
+      src: ["file.html"],
+    },
+  },
 });
 ```
 

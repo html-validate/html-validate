@@ -80,6 +80,7 @@ First-class support for:
     <main>
       <blink>(c) 2018 Initech</blink>
     </main>
+
   </footer>
 </validate>
 

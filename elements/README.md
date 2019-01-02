@@ -1,5 +1,4 @@
-Element metadata
-================
+# Element metadata
 
 Element metadata is looked up based on tag name and contains information about
 its content model, if it is deprecated, void element, etc.

@@ -61,8 +61,7 @@ where severity can be one of:
 - `"warn"` (or `1`) to warn.
 - `"off"` (or `0`) to disable
 
-Some options takes optional parameters when using the form `["severity",
-OPTIONS]`.
+Some options takes optional parameters when using the form `["severity", OPTIONS]`.
 
 See [rules](/rules) for a list of all available rules and options.
 
@@ -166,14 +165,14 @@ Disables a rule for a block of elements. All siblings and descendats following
 the directive will not trigger any errors.
 
 ```html
-<i/>error
+<i />error
 <div>
-   <!-- [html-validate-disable-block void: will be disabled until the parent div is closed] -->
-   <i/>no error
-   <p><i/>no error</p>
-   <i/>no error
+  <!-- [html-validate-disable-block void: will be disabled until the parent div is closed] -->
+  <i />no error
+  <p><i />no error</p>
+  <i />no error
 </div>
-<i/>error
+<i />error
 ```
 
 ### `disable-next`
@@ -182,8 +181,10 @@ the directive will not trigger any errors.
 
 Disables the rule for the next element.
 
+<!-- prettier-ignore-start -->
 ```html
 <!-- [html-validate-disable-next deprecated: the next occurrence will not trigger an error] -->
 <blink>This will not trigger an error</blink>
 <blink>But this line will</blink>
 ```
+<!-- prettier-ignore-end -->

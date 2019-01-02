@@ -25,6 +25,7 @@ Examples of **incorrect** code for this rule:
         <label>My field</label>
         <input type="text">
     </div>
+
 </validate>
 
 Examples of **correct** code for this rule:
@@ -40,4 +41,5 @@ Examples of **correct** code for this rule:
         <label for="my-field">My field</label>
         <input id="my-field" type="text">
     </div>
+
 </validate>
