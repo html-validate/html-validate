@@ -7,7 +7,7 @@ import { Reporter } from "./reporter";
 import { Rule, ruleDocumentationUrl } from "./rule";
 
 class MockRule extends Rule {
-	setup(){
+	setup() {
 		/* do nothing */
 	}
 }

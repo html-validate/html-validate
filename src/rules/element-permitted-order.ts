@@ -11,11 +11,11 @@ class ElementPermittedOrder extends Rule {
 		};
 	}
 
-	setup(){
+	setup() {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;
 			doc.visitDepthFirst((node: HtmlElement) => {
-				if (!node.meta){
+				if (!node.meta) {
 					return;
 				}
 

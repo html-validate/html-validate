@@ -11,7 +11,7 @@ class Matcher {
 class ClassMatcher extends Matcher {
 	private readonly classname: string;
 
-	constructor(classname: string){
+	constructor(classname: string) {
 		super();
 		this.classname = classname;
 	}
@@ -24,7 +24,7 @@ class ClassMatcher extends Matcher {
 class IdMatcher extends Matcher {
 	private readonly id: string;
 
-	constructor(id: string){
+	constructor(id: string) {
 		super();
 		this.id = id;
 	}
@@ -39,7 +39,7 @@ class AttrMatcher extends Matcher {
 	private readonly op: string;
 	private readonly value: string;
 
-	constructor(attr: string){
+	constructor(attr: string) {
 		super();
 		const [, key, op, value] = attr.match(/^(.+?)(?:([~^$*|]?=)"([a-z]+)")?$/);
 		this.key = key;
@@ -49,7 +49,7 @@ class AttrMatcher extends Matcher {
 
 	match(node: HtmlElement): boolean {
 		const attr = node.getAttributeValue(this.key);
-		switch (this.op){
+		switch (this.op) {
 		case undefined:
 			return attr !== null;
 		case "=":
@@ -66,7 +66,7 @@ class Pattern {
 	private readonly selector: string;
 	private readonly pattern: Matcher[];
 
-	constructor(pattern: string){
+	constructor(pattern: string) {
 		const match = pattern.match(/^([~+\->]?)((?:[*]|[^.#[]+)?)(.*)$/);
 		match.shift(); /* remove full matched string */
 		this.selector = pattern;
@@ -81,7 +81,7 @@ class Pattern {
 	}
 
 	private static createMatcher(pattern: string): Matcher {
-		switch (pattern[0]){
+		switch (pattern[0]) {
 		case ".":
 			return new ClassMatcher(pattern.slice(1));
 		case "#":
@@ -99,12 +99,12 @@ class Pattern {
 export class Selector {
 	private readonly pattern: Pattern[];
 
-	constructor(selector: string){
+	constructor(selector: string) {
 		this.pattern = Selector.parse(selector);
 	}
 
 	*match(root: HtmlElement, level: number = 0): IterableIterator<HtmlElement> {
-		if (level >= this.pattern.length){
+		if (level >= this.pattern.length) {
 			yield root;
 			return;
 		}
@@ -112,8 +112,8 @@ export class Selector {
 		const pattern = this.pattern[level];
 		const matches = Selector.findCandidates(root, pattern);
 
-		for (const node of matches){
-			if (!pattern.match(node)){
+		for (const node of matches) {
+			if (!pattern.match(node)) {
 				continue;
 			}
 
@@ -127,7 +127,7 @@ export class Selector {
 	}
 
 	private static findCandidates(root: HtmlElement, pattern: Pattern): HtmlElement[] {
-		switch (pattern.combinator){
+		switch (pattern.combinator) {
 		case Combinator.DESCENDANT:
 			return root.getElementsByTagName(pattern.tagName);
 		case Combinator.CHILD:
@@ -145,11 +145,11 @@ export class Selector {
 	private static findAdjacentSibling(node: HtmlElement): HtmlElement[] {
 		let adjacent = false;
 		return node.siblings.filter((cur) => {
-			if (adjacent){
+			if (adjacent) {
 				adjacent = false;
 				return true;
 			}
-			if (cur === node){
+			if (cur === node) {
 				adjacent = true;
 			}
 			return false;
@@ -159,10 +159,10 @@ export class Selector {
 	private static findGeneralSibling(node: HtmlElement): HtmlElement[] {
 		let after = false;
 		return node.siblings.filter((cur) => {
-			if (after){
+			if (after) {
 				return true;
 			}
-			if (cur === node){
+			if (cur === node) {
 				after = true;
 			}
 			return false;

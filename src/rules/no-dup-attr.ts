@@ -9,7 +9,7 @@ class NoDupAttr extends Rule {
 		};
 	}
 
-	setup(){
+	setup() {
 		let attr: { [key: string]: boolean } = {};
 
 		this.on("tag:open", () => {
@@ -19,7 +19,7 @@ class NoDupAttr extends Rule {
 
 		this.on("attr", (event: AttributeEvent) => {
 			const name = event.key.toLowerCase();
-			if (name in attr){
+			if (name in attr) {
 				this.report(event.target, `Attribute "${name}" duplicated`);
 			}
 			attr[event.key] = true;

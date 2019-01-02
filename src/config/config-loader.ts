@@ -11,13 +11,13 @@ export class ConfigLoader {
 	protected cache: Map<string, Config>;
 	protected configClass: ConfigClass;
 
-	constructor(configClass: ConfigClass){
+	constructor(configClass: ConfigClass) {
 		this.cache = new Map<string, Config>();
 		this.configClass = configClass;
 	}
 
 	public flush(filename?: string): void {
-		if (filename){
+		if (filename) {
 			this.cache.delete(filename);
 		} else {
 			this.cache.clear();
@@ -25,21 +25,21 @@ export class ConfigLoader {
 	}
 
 	public fromTarget(filename: string): Config {
-		if (filename === "inline"){
+		if (filename === "inline") {
 			return this.configClass.empty();
 		}
 
-		if (this.cache.has(filename)){
+		if (this.cache.has(filename)) {
 			return this.cache.get(filename);
 		}
 
 		let current = path.resolve(path.dirname(filename));
 		let config = this.configClass.empty();
 
-		for (;;){
+		for (;;) {
 			const search = path.join(current, ".htmlvalidate.json");
 
-			if (fs.existsSync(search)){
+			if (fs.existsSync(search)) {
 				const local = this.configClass.fromFile(search);
 				config = local.merge(config);
 			}
@@ -49,7 +49,7 @@ export class ConfigLoader {
 			current = path.dirname(current);
 
 			/* stop if this is the root directory */
-			if (current === child){
+			if (current === child) {
 				break;
 			}
 		}

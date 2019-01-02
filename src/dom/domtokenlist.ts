@@ -1,8 +1,8 @@
 export class DOMTokenList extends Array<string> {
 	readonly value: string;
 
-	constructor(value: string){
-		if (value){
+	constructor(value: string) {
+		if (value) {
 			super(...value.trim().split(/ +/));
 		} else {
 			super(0);

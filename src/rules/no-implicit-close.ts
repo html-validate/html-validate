@@ -12,19 +12,19 @@ Omitted end tags can be ambigious for humans to read and many editors have troub
 		};
 	}
 
-	setup(){
+	setup() {
 		this.on("tag:close", (event: TagCloseEvent) => {
 			const closed = event.previous;
 			const by = event.target;
 
-			if (closed.closed !== NodeClosed.ImplicitClosed){
+			if (closed.closed !== NodeClosed.ImplicitClosed) {
 				return;
 			}
 
 			const closedByParent = closed.parent.tagName === by.tagName; /* <ul><li></ul> */
 			const sameTag = closed.tagName === by.tagName;               /* <p>foo<p>bar */
 
-			if (closedByParent){
+			if (closedByParent) {
 				this.report(closed, `Element <${closed.tagName}> is implicitly closed by parent </${by.tagName}>`, closed.location);
 			} else if (sameTag) {
 				this.report(closed, `Element <${closed.tagName}> is implicitly closed by sibling`, closed.location);

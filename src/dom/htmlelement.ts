@@ -18,7 +18,7 @@ const DOCUMENT_NODE_NAME = "#document";
 
 let counter = 0;
 
-export function reset(){
+export function reset() {
 	counter = 0;
 }
 
@@ -34,7 +34,7 @@ export class HtmlElement extends DOMNode {
 	readonly depth: number;
 	closed: NodeClosed;
 
-	constructor(tagName: string, parent?: HtmlElement, closed: NodeClosed = NodeClosed.EndTag, meta?: MetaElement, location?: Location){
+	constructor(tagName: string, parent?: HtmlElement, closed: NodeClosed = NodeClosed.EndTag, meta?: MetaElement, location?: Location) {
 		super(tagName || DOCUMENT_NODE_NAME);
 
 		this.tagName = tagName;
@@ -48,12 +48,12 @@ export class HtmlElement extends DOMNode {
 		this.unique = counter++;
 		this.depth = 0;
 
-		if (parent){
+		if (parent) {
 			parent.children.push(this);
 
 			/* calculate depth in domtree */
 			let cur: HtmlElement = parent;
-			while (cur.parent){
+			while (cur.parent) {
 				this.depth++;
 				cur = cur.parent;
 			}
@@ -64,9 +64,9 @@ export class HtmlElement extends DOMNode {
 		return new HtmlElement(undefined, undefined, undefined, undefined, location);
 	}
 
-	static fromTokens(startToken: Token, endToken: Token, parent: HtmlElement, metaTable: MetaTable){
+	static fromTokens(startToken: Token, endToken: Token, parent: HtmlElement, metaTable: MetaTable) {
 		const tagName = startToken.data[2];
-		if (!tagName){
+		if (!tagName) {
 			throw new Error("tagName cannot be empty");
 		}
 
@@ -98,7 +98,7 @@ export class HtmlElement extends DOMNode {
 
 	getAttribute(key: string): Attribute {
 		key = key.toLowerCase();
-		if (key in this.attr){
+		if (key in this.attr) {
 			return this.attr[key];
 		} else {
 			return null;
@@ -110,19 +110,19 @@ export class HtmlElement extends DOMNode {
 		return attr ? attr.value : null;
 	}
 
-	append(node: HtmlElement){
+	append(node: HtmlElement) {
 		this.children.push(node);
 	}
 
-	get classList(){
+	get classList() {
 		return new DOMTokenList(this.getAttributeValue("class"));
 	}
 
-	get id(){
+	get id() {
 		return this.getAttributeValue("id");
 	}
 
-	get siblings(){
+	get siblings() {
 		return this.parent.children;
 	}
 
@@ -163,7 +163,7 @@ export class HtmlElement extends DOMNode {
 	visitDepthFirst(callback: (node: HtmlElement) => void): void {
 		function visit(node: HtmlElement): void {
 			node.children.forEach(visit);
-			if (!node.isRootElement()){
+			if (!node.isRootElement()) {
 				callback(node);
 			}
 		}
@@ -174,11 +174,11 @@ export class HtmlElement extends DOMNode {
 	/**
 	 * Evaluates callbackk on all descendants, returning true if any are true.
 	 */
-	someChildren(callback: (node: HtmlElement) => boolean){
+	someChildren(callback: (node: HtmlElement) => boolean) {
 		return this.children.some(visit);
 
 		function visit(node: HtmlElement): boolean {
-			if (callback(node)){
+			if (callback(node)) {
 				return true;
 			} else {
 				return node.children.some(visit);
@@ -189,11 +189,11 @@ export class HtmlElement extends DOMNode {
 	/**
 	 * Evaluates callbackk on all descendants, returning true if all are true.
 	 */
-	everyChildren(callback: (node: HtmlElement) => boolean){
+	everyChildren(callback: (node: HtmlElement) => boolean) {
 		return this.children.every(visit);
 
 		function visit(node: HtmlElement): boolean {
-			if (!callback(node)){
+			if (!callback(node)) {
 				return false;
 			}
 			return node.children.every(visit);
@@ -207,10 +207,10 @@ export class HtmlElement extends DOMNode {
 	 */
 	find(callback: (node: HtmlElement) => boolean): HtmlElement {
 		function visit(node: HtmlElement): HtmlElement {
-			if (callback(node)){
+			if (callback(node)) {
 				return node;
 			}
-			for (const child of node.children){
+			for (const child of node.children) {
 				const match = child.find(callback);
 				if (match) {
 					return match;
@@ -226,11 +226,11 @@ export class HtmlElement extends DOMNode {
 function isClosed(endToken: Token, meta: MetaElement): NodeClosed {
 	let closed = NodeClosed.Open;
 
-	if (meta && meta.void){
+	if (meta && meta.void) {
 		closed = NodeClosed.VoidOmitted;
 	}
 
-	if (endToken.data[0] === "/>"){
+	if (endToken.data[0] === "/>") {
 		closed = NodeClosed.VoidSelfClosed;
 	}
 

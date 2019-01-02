@@ -38,6 +38,8 @@ module.exports = new Package("inline-validate", [])
 		});
 		computeIdsProcessor.idTemplates.push({
 			docTypes: ["validate-config", "validate-markup", "validate-spec", "inlineValidation"],
-			getAliases: function(doc) { return [doc.id]; },
+			getAliases: function(doc) {
+				return [doc.id];
+			},
 		});
 	});

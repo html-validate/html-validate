@@ -5,10 +5,10 @@ const fs = require("fs");
 
 type WrappedFormatter = (results: Result[]) => void;
 
-function wrap(formatter: Formatter, dst: string){
+function wrap(formatter: Formatter, dst: string) {
 	return (results: Result[]) => {
 		const output = formatter(results);
-		if (dst){
+		if (dst) {
 			fs.writeFileSync(dst, output, "utf-8");
 		} else {
 			process.stdout.write(output);

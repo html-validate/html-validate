@@ -6,7 +6,7 @@ export enum Combinator {
 }
 
 export function parseCombinator(combinator: string): Combinator {
-	switch (combinator){
+	switch (combinator) {
 	case undefined:
 	case null:
 	case "":

@@ -44,21 +44,21 @@ const functionTable: { [key: string]: PropertyEvaluator } = {
 export class MetaTable {
 	readonly elements: ElementTable;
 
-	constructor(){
+	constructor() {
 		this.elements = {};
 	}
 
-	init(){
+	init() {
 		this.resolveGlobal();
 	}
 
-	loadFromObject(obj: ElementTable){
+	loadFromObject(obj: ElementTable) {
 		for (const key of Object.keys(obj)) {
 			this.addEntry(key, obj[key]);
 		}
 	}
 
-	loadFromFile(filename: string){
+	loadFromFile(filename: string) {
 		this.loadFromObject(require(filename));
 	}
 
@@ -71,7 +71,7 @@ export class MetaTable {
 
 	private addEntry(tagName: string, entry: MetaElement): void {
 		for (const key of Object.keys(entry)) {
-			if (allowedKeys.indexOf(key) === -1){
+			if (allowedKeys.indexOf(key) === -1) {
 				throw new Error(`Metadata for <${tagName}> contains unknown property "${key}"`);
 			}
 		}
@@ -103,7 +103,7 @@ export class MetaTable {
 		delete global.void;
 
 		/* merge elements */
-		for (const [tagName, entry] of Object.entries(this.elements)){
+		for (const [tagName, entry] of Object.entries(this.elements)) {
 			this.elements[tagName] = this.mergeElement(entry, global);
 		}
 	}
@@ -112,28 +112,28 @@ export class MetaTable {
 		return deepmerge(a, b);
 	}
 
-	resolve(node: HtmlElement){
-		if (node.meta){
+	resolve(node: HtmlElement) {
+		if (node.meta) {
 			expandProperties(node, node.meta);
 		}
 	}
 }
 
-function expandProperties(node: HtmlElement, entry: MetaElement){
-	for (const key of dynamicKeys){
+function expandProperties(node: HtmlElement, entry: MetaElement) {
+	for (const key of dynamicKeys) {
 		const property = entry[key];
-		if (property && typeof property !== "boolean"){
+		if (property && typeof property !== "boolean") {
 			entry[key] = evaluateProperty(node, property as PropertyExpression);
 		}
 	}
 }
 
-function expandRegex(entry: MetaElement){
+function expandRegex(entry: MetaElement) {
 	if (!entry.attributes) return;
-	for (const [name, values] of Object.entries(entry.attributes)){
+	for (const [name, values] of Object.entries(entry.attributes)) {
 		entry.attributes[name] = values.map((value: string|RegExp) => {
 			const match = typeof value === "string" && value.match(/^\/(.*)\/$/);
-			if (match){
+			if (match) {
 				return new RegExp(match[1]);
 			} else {
 				return value;
@@ -148,12 +148,12 @@ function evaluateProperty(node: HtmlElement, expr: PropertyExpression): boolean 
 }
 
 function parseExpression(expr: PropertyExpression): [PropertyEvaluator, any] {
-	if (typeof expr === "string"){
+	if (typeof expr === "string") {
 		return parseExpression([expr, {}]);
 	} else {
 		const [funcName, options] = expr;
 		const func = functionTable[funcName];
-		if (!func){
+		if (!func) {
 			throw new Error(`Failed to find function "${funcName}" when evaluating property expression`);
 		}
 		return [func, options];
@@ -161,12 +161,12 @@ function parseExpression(expr: PropertyExpression): [PropertyEvaluator, any] {
 }
 
 function isDescendant(node: HtmlElement, tagName: any): boolean {
-	if (typeof tagName !== "string"){
+	if (typeof tagName !== "string") {
 		throw new Error(`Property expression "isDescendant" must take string argument when evaluating metadata for <${node.tagName}>`);
 	}
 	let cur: HtmlElement = node.parent;
-	while (!cur.isRootElement()){
-		if (cur.is(tagName)){
+	while (!cur.isRootElement()) {
+		if (cur.is(tagName)) {
 			return true;
 		}
 		cur = cur.parent;
@@ -175,19 +175,19 @@ function isDescendant(node: HtmlElement, tagName: any): boolean {
 }
 
 function hasAttribute(node: HtmlElement, attr: any): boolean {
-	if (typeof attr !== "string"){
+	if (typeof attr !== "string") {
 		throw new Error(`Property expression "hasAttribute" must take string argument when evaluating metadata for <${node.tagName}>`);
 	}
 	return node.hasAttribute(attr);
 }
 
 function matchAttribute(node: HtmlElement, match: any): boolean {
-	if (!Array.isArray(match) || match.length !== 3){
+	if (!Array.isArray(match) || match.length !== 3) {
 		throw new Error(`Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <${node.tagName}>`);
 	}
 	const [key, op, value] = match.map((x) => x.toLowerCase());
 	const nodeValue = (node.getAttributeValue(key) || "").toLowerCase();
-	switch (op){
+	switch (op) {
 	case "!=": return nodeValue !== value;
 	case "=": return nodeValue === value;
 	default: throw new Error(`Property expression "matchAttribute" has invalid operator "${op}" when evaluating metadata for <${node.tagName}>`);

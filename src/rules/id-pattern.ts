@@ -9,7 +9,7 @@ const defaults = {
 class IdPattern extends Rule {
 	pattern: RegExp;
 
-	constructor(options: object){
+	constructor(options: object) {
 		super(Object.assign({}, defaults, options));
 		this.pattern = parsePattern(this.options.pattern);
 	}
@@ -22,13 +22,13 @@ class IdPattern extends Rule {
 		};
 	}
 
-	setup(){
+	setup() {
 		this.on("attr", (event: AttributeEvent) => {
-			if (event.key.toLowerCase() !== "id"){
+			if (event.key.toLowerCase() !== "id") {
 				return;
 			}
 
-			if (!event.value.match(this.pattern)){
+			if (!event.value.match(this.pattern)) {
 				this.report(event.target, `ID "${event.value}" does not match required pattern "${this.pattern}"`);
 			}
 		});

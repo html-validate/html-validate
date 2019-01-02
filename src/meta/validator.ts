@@ -13,7 +13,7 @@ const allowedKeys = [
 
 export class Validator {
 	public static validatePermitted(node: HtmlElement, rules: Permitted): boolean {
-		if (!rules){
+		if (!rules) {
 			return true;
 		}
 		return rules.some((rule) => {
@@ -22,14 +22,14 @@ export class Validator {
 	}
 
 	public static validateOccurrences(node: HtmlElement, rules: Permitted, numSiblings: number): boolean {
-		if (!rules){
+		if (!rules) {
 			return true;
 		}
 		const category = rules.find((cur) => {
 			/** @todo handle complex rules and not just plain arrays (but as of now
 			 * there is no use-case for it) */
 			// istanbul ignore next
-			if (typeof cur !== "string"){
+			if (typeof cur !== "string") {
 				return false;
 			}
 			const match = cur.match(/^(.*?)[?*]?$/);
@@ -57,21 +57,21 @@ export class Validator {
 		}
 		let i = 0;
 		let prev = null;
-		for (const node of children){
+		for (const node of children) {
 
 			const old = i;
-			while (rules[i] && !Validator.validatePermittedCategory(node, rules[i])){
+			while (rules[i] && !Validator.validatePermittedCategory(node, rules[i])) {
 				i++;
 			}
 
-			if (i >= rules.length){
+			if (i >= rules.length) {
 				/* Second check is if the order is specified for this element at all. It
 				 * will be unspecified in two cases:
 				 * - disallowed elements
 				 * - elements where the order doesn't matter
 				 * In both of these cases no error should be reported. */
 				const orderSpecified = rules.find((cur: string) => Validator.validatePermittedCategory(node, cur));
-				if (orderSpecified){
+				if (orderSpecified) {
 					cb(node, prev);
 					return false;
 				}
@@ -87,17 +87,17 @@ export class Validator {
 
 	public static validateAttribute(key: string, value: string|undefined, rules: PermittedAttribute): boolean {
 		const rule = rules[key];
-		if (!rule){
+		if (!rule) {
 			return true;
 		}
 
 		/* consider an empty array as being a boolean attribute */
-		if (rule.length === 0){
+		if (rule.length === 0) {
 			return value === undefined || value === "" || value === key;
 		}
 
 		return rule.some((entry: string|RegExp) => {
-			if (entry instanceof RegExp){
+			if (entry instanceof RegExp) {
 				return !!value.match(entry);
 			} else {
 				return value === entry;
@@ -106,16 +106,16 @@ export class Validator {
 	}
 
 	private static validatePermittedRule(node: HtmlElement, rule: PermittedEntry): boolean {
-		if (typeof rule === "string"){
+		if (typeof rule === "string") {
 			return Validator.validatePermittedCategory(node, rule);
-		} else if (Array.isArray(rule)){
+		} else if (Array.isArray(rule)) {
 			return rule.every((inner: PermittedEntry) => {
 				return Validator.validatePermittedRule(node, inner);
 			});
 		} else {
 			validateKeys(rule);
-			if (rule.exclude){
-				if (Array.isArray(rule.exclude)){
+			if (rule.exclude) {
+				if (Array.isArray(rule.exclude)) {
 					return !rule.exclude.some((inner: PermittedEntry) => {
 						return Validator.validatePermittedRule(node, inner);
 					});
@@ -141,17 +141,17 @@ export class Validator {
 	 */
 	private static validatePermittedCategory(node: HtmlElement, category: string): boolean {
 		/* match tagName when an explicit name is given */
-		if (category[0] !== "@"){
+		if (category[0] !== "@") {
 			const [, tagName] = category.match(/^(.*?)[?*]?$/);
 			return node.tagName === tagName;
 		}
 
 		/* if the meta entry is missing assume any content model would match */
-		if (!node.meta){
+		if (!node.meta) {
 			return true;
 		}
 
-		switch (category){
+		switch (category) {
 		case "@meta": return node.meta.metadata as boolean;
 		case "@flow": return node.meta.flow as boolean;
 		case "@sectioning": return node.meta.sectioning as boolean;
@@ -166,7 +166,7 @@ export class Validator {
 
 function validateKeys(rule: PermittedGroup): void {
 	for (const key of Object.keys(rule)) {
-		if (allowedKeys.indexOf(key) === -1){
+		if (allowedKeys.indexOf(key) === -1) {
 			const str = JSON.stringify(rule);
 			throw new Error(`Permitted rule "${str}" contains unknown property "${key}"`);
 		}
@@ -174,14 +174,14 @@ function validateKeys(rule: PermittedGroup): void {
 }
 
 function parseAmountQualifier(category: string): number {
-	if (!category){
+	if (!category) {
 		/* content not allowed, catched by another rule so just assume unlimited
 		 * usage for this purpose */
 		return null;
 	}
 
 	const [, qualifier] = category.match(/^.*?([?*]?)$/);
-	switch (qualifier){
+	switch (qualifier) {
 	case "?": return 1;
 	case "": return null;
 	case "*": return null;

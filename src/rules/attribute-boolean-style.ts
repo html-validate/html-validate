@@ -12,7 +12,7 @@ type checkFunction = (key: string, value: string) => boolean;
 class AttributeBooleanStyle extends Rule {
 	hasInvalidStyle: checkFunction;
 
-	constructor(options: object){
+	constructor(options: object) {
 		super(Object.assign({}, defaults, options));
 		this.hasInvalidStyle = parseStyle(this.options.style);
 	}
@@ -24,7 +24,7 @@ class AttributeBooleanStyle extends Rule {
 		};
 	}
 
-	setup(){
+	setup() {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;
 			doc.visitDepthFirst((node: HtmlElement) => {
@@ -35,10 +35,10 @@ class AttributeBooleanStyle extends Rule {
 				if (!meta || !meta.attributes) return;
 
 				/* check all boolean attributes */
-				for (const [key, attr] of Object.entries(node.attr)){
+				for (const [key, attr] of Object.entries(node.attr)) {
 					if (!this.isBoolean(key, meta.attributes)) continue;
 
-					if (this.hasInvalidStyle(key, attr.value)){
+					if (this.hasInvalidStyle(key, attr.value)) {
 						this.report(node, reportMessage(key, attr.value, this.options.style), attr.location);
 					}
 				}
@@ -52,7 +52,7 @@ class AttributeBooleanStyle extends Rule {
 }
 
 function parseStyle(style: string): checkFunction {
-	switch (style.toLowerCase()){
+	switch (style.toLowerCase()) {
 	case "omit": return (key, value) => typeof value !== "undefined";
 	case "empty": return (key, value) => value !== "";
 	case "name": return (key, value) => value !== key;
@@ -62,7 +62,7 @@ function parseStyle(style: string): checkFunction {
 }
 
 function reportMessage(key: string, value: string, style: string): string {
-	switch (style.toLowerCase()){
+	switch (style.toLowerCase()) {
 	case "omit": return `Attribute "${key}" should omit value`;
 	case "empty": return `Attribute "${key}" value should be empty string`;
 	case "name": return `Attribute "${key}" should be set to ${key}="${key}"`;

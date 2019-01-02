@@ -6,15 +6,15 @@ import { InvalidTokenError, TokenStream, TokenType } from "../lexer";
 import "../matchers";
 import { Parser } from "./parser";
 
-function mergeEvent(event: string, data: any){
+function mergeEvent(event: string, data: any) {
 	const merged = Object.assign({}, {event}, data);
 
 	/* not useful for these tests */
 	delete merged.location;
 
 	/* change HtmlElement instances to just tagname for easier testing */
-	for (const key of ["target", "previous"]){
-		if (merged[key] && merged[key] instanceof HtmlElement){
+	for (const key of ["target", "previous"]) {
+		if (merged[key] && merged[key] instanceof HtmlElement) {
 			merged[key] = merged[key].tagName;
 		}
 	}
@@ -23,7 +23,7 @@ function mergeEvent(event: string, data: any){
 }
 
 class ExposedParser extends Parser {
-	public trigger(event: any, data: any){
+	public trigger(event: any, data: any) {
 		super.trigger(event, data);
 	}
 }

@@ -93,7 +93,7 @@ describe("Reporter", () => {
 
 });
 
-function createResult(filename: string, messages: string[]){
+function createResult(filename: string, messages: string[]) {
 	return {
 		filePath: filename,
 		messages: messages.map((cur) => createMessage(cur)),

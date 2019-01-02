@@ -22,8 +22,8 @@ declare global {
 	}
 }
 
-function toBeValid(report: Report){
-	if (report.valid){
+function toBeValid(report: Report) {
+	if (report.valid) {
 		return {
 			pass: true,
 			message: () => "Result should not contain error",
@@ -37,8 +37,8 @@ function toBeValid(report: Report){
 	}
 }
 
-function toBeInvalid(report: Report){
-	if (report.valid){
+function toBeInvalid(report: Report) {
+	if (report.valid) {
 		return {
 			pass: false,
 			message: () => "Result should be successful",
@@ -51,7 +51,7 @@ function toBeInvalid(report: Report){
 	}
 }
 
-function toHaveError(report: Report, ruleId: any, message: any){
+function toHaveError(report: Report, ruleId: any, message: any) {
 	const actual = report.results.reduce((aggregated: Message[], result: Result) => {
 		return aggregated.concat(result.messages);
 	}, []);
@@ -69,12 +69,12 @@ function toHaveError(report: Report, ruleId: any, message: any){
 	return {pass, message: resultMessage};
 }
 
-function toHaveErrors(report: Report, errors: Array<[string, string]|{}>){
+function toHaveErrors(report: Report, errors: Array<[string, string]|{}>) {
 	const actual = report.results.reduce((aggregated: Message[], result: Result) => {
 		return aggregated.concat(result.messages);
 	}, []);
 	const matcher = errors.map((entry) => {
-		if (Array.isArray(entry)){
+		if (Array.isArray(entry)) {
 			const [ruleId, message] = entry;
 			return expect.objectContaining({ruleId, message});
 		} else {
@@ -94,14 +94,14 @@ function toHaveErrors(report: Report, errors: Array<[string, string]|{}>){
 	return {pass, message: resultMessage};
 }
 
-function toBeToken(actual: any, expected: any){
+function toBeToken(actual: any, expected: any) {
 	const token = actual.value;
 
-	if (token.type){
+	if (token.type) {
 		token.type = TokenType[token.type];
 	}
 
-	if (expected.type){
+	if (expected.type) {
 		expected.type = TokenType[expected.type];
 	}
 

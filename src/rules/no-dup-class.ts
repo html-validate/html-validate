@@ -10,9 +10,9 @@ class NoDupClass extends Rule {
 		};
 	}
 
-	setup(){
+	setup() {
 		this.on("attr", (event: AttributeEvent) => {
-			if (event.key.toLowerCase() !== "class"){
+			if (event.key.toLowerCase() !== "class") {
 				return;
 			}
 

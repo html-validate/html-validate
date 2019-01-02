@@ -47,7 +47,7 @@ export abstract class Rule<T = any> {
 	 */
 	public readonly options: RuleOptions;
 
-	constructor(options: RuleOptions){
+	constructor(options: RuleOptions) {
 		this.options = options;
 		this.enabled = true;
 	}
@@ -80,7 +80,7 @@ export abstract class Rule<T = any> {
 	 * Rule must be enabled for this to have any effect.
 	 */
 	report(node: HtmlElement, message: string, location?: Location, context?: T): void {
-		if (this.isEnabled()){
+		if (this.isEnabled()) {
 			const where = this.findLocation({node, location, event: this.event});
 			this.reporter.add(node, this, message, this.severity, where, context);
 		}
@@ -88,13 +88,13 @@ export abstract class Rule<T = any> {
 
 	// eslint-disable-next-line typescript/member-delimiter-style
 	private findLocation(src: {node: HtmlElement, location: Location, event: Event}): Location {
-		if (src.location){
+		if (src.location) {
 			return src.location;
 		}
-		if (src.event && src.event.location){
+		if (src.event && src.event.location) {
 			return src.event.location;
 		}
-		if (src.node && src.node.location){
+		if (src.node && src.node.location) {
 			return src.node.location;
 		}
 		return {} as Location;
@@ -117,7 +117,7 @@ export abstract class Rule<T = any> {
 	on(event: "*", callback: (event: Event) => void): void;
 	on(event: string, callback: any): void {
 		this.parser.on(event, (event: string, data: any) => {
-			if (this.isEnabled()){
+			if (this.isEnabled()) {
 				this.event = data;
 				callback(data);
 			}

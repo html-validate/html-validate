@@ -24,7 +24,7 @@ export class Engine<T extends Parser = Parser> {
 	protected ParserClass: new (config: Config) => T;
 	protected availableRules: { [key: string]: RuleConstructor };
 
-	constructor(config: Config, ParserClass: new (config: Config) => T){
+	constructor(config: Config, ParserClass: new (config: Config) => T) {
 		this.report = new Reporter();
 		this.config = config;
 		this.ParserClass = ParserClass;
@@ -47,7 +47,7 @@ export class Engine<T extends Parser = Parser> {
 	 * @return {object} - Report output.
 	 */
 	public lint(sources: Source[]): Report {
-		for (const source of sources){
+		for (const source of sources) {
 			/* create parser for source */
 			const parser = new this.ParserClass(this.config);
 
@@ -65,8 +65,8 @@ export class Engine<T extends Parser = Parser> {
 			/* parse token stream */
 			try {
 				parser.parseHtml(source);
-			} catch (e){
-				if (e instanceof InvalidTokenError){
+			} catch (e) {
+				if (e instanceof InvalidTokenError) {
 					this.reportError(e.message, e.location);
 				} else {
 					throw e;
@@ -91,8 +91,8 @@ export class Engine<T extends Parser = Parser> {
 	public dumpTokens(source: Source[]): TokenDump[] {
 		const lexer = new Lexer();
 		const lines: TokenDump[] = [];
-		for (const src of source){
-			for (const token of lexer.tokenize(src)){
+		for (const src of source) {
+			for (const token of lexer.tokenize(src)) {
 				const data = token.data ? token.data[0] : null;
 				lines.push({
 					token: TokenType[token.type],
@@ -109,19 +109,19 @@ export class Engine<T extends Parser = Parser> {
 		const dom = parser.parseHtml(source[0]); /* @todo handle dumping each tree */
 		const lines: string[] = [];
 
-		function decoration(node: HtmlElement){
+		function decoration(node: HtmlElement) {
 			let output = "";
-			if (node.hasAttribute("id")){
+			if (node.hasAttribute("id")) {
 				output += `#${node.id}`;
 			}
-			if (node.hasAttribute("class")){
+			if (node.hasAttribute("class")) {
 				output += `.${node.classList.join(".")}`;
 			}
 			return output;
 		}
 
-		function writeNode(node: HtmlElement, level: number, sibling: number){
-			if (level > 0){
+		function writeNode(node: HtmlElement, level: number, sibling: number) {
+			if (level > 0) {
 				const indent = "  ".repeat(level - 1);
 				const l = node.children.length > 0 ? "┬" : "─";
 				const b = sibling < (node.parent.children.length - 1) ? "├" : "└";
@@ -142,7 +142,7 @@ export class Engine<T extends Parser = Parser> {
 	 */
 	public getRuleDocumentation(ruleId: string, context?: any): RuleDocumentation {
 		const rules = this.config.getRules();
-		if (ruleId in rules){
+		if (ruleId in rules) {
 			const [, options] = rules[ruleId] as any;
 			const rule = this.instantiateRule(ruleId, options);
 			return rule.documentation(context);
@@ -157,7 +157,7 @@ export class Engine<T extends Parser = Parser> {
 			.map((name) => name.trim())
 			.map((name) => allRules[name])
 			.filter((rule) => rule); /* filter out missing rules */
-		switch (event.action){
+		switch (event.action) {
 		case "enable":
 			this.processEnableDirective(rules);
 			break;
@@ -177,23 +177,23 @@ export class Engine<T extends Parser = Parser> {
 	}
 
 	private processEnableDirective(rules: Rule[]): void {
-		for (const rule of rules){
+		for (const rule of rules) {
 			rule.setEnabled(true);
-			if (rule.getSeverity() === Config.SEVERITY_DISABLED){
+			if (rule.getSeverity() === Config.SEVERITY_DISABLED) {
 				rule.setServerity(Config.SEVERITY_ERROR);
 			}
 		}
 	}
 
 	private processDisableDirective(rules: Rule[]): void {
-		for (const rule of rules){
+		for (const rule of rules) {
 			rule.setEnabled(false);
 		}
 	}
 
 	private processDisableBlockDirective(rules: Rule[], parser: Parser): void {
 		let directiveBlock: number = null;
-		for (const rule of rules){
+		for (const rule of rules) {
 			rule.setEnabled(false);
 		}
 
@@ -205,10 +205,10 @@ export class Engine<T extends Parser = Parser> {
 		const unregisterClose = parser.on("tag:close", (event: string, data: TagCloseEvent) => {
 			/* if the directive is the last thing in a block no would be set: remove
 			 * listeners and restore state */
-			if (directiveBlock === null){
+			if (directiveBlock === null) {
 				unregisterClose();
 				unregisterOpen();
-				for (const rule of rules){
+				for (const rule of rules) {
 					rule.setEnabled(true);
 				}
 				return;
@@ -217,9 +217,9 @@ export class Engine<T extends Parser = Parser> {
 			/* determine the current block again using the parent of the target,
 			 * restore state if the directive block is being closed */
 			const currentBlock = data.previous.unique;
-			if (currentBlock === directiveBlock){
+			if (currentBlock === directiveBlock) {
 				unregisterClose();
-				for (const rule of rules){
+				for (const rule of rules) {
 					rule.setEnabled(true);
 				}
 			}
@@ -227,7 +227,7 @@ export class Engine<T extends Parser = Parser> {
 	}
 
 	private processDisableNextDirective(rules: Rule[], parser: Parser): void {
-		for (const rule of rules){
+		for (const rule of rules) {
 			rule.setEnabled(false);
 			parser.once("tag:open, tag:close, attr", () => {
 				parser.defer(() => {
@@ -265,7 +265,7 @@ export class Engine<T extends Parser = Parser> {
 		try {
 			Class = require(`../rules/${name}`);
 		} catch (e) {
-			if (e.code === "MODULE_NOT_FOUND"){
+			if (e.code === "MODULE_NOT_FOUND") {
 				return null;
 			} else {
 				throw e;
@@ -276,7 +276,7 @@ export class Engine<T extends Parser = Parser> {
 
 	private missingRule(name: string): any {
 		return new class extends Rule {
-			setup(){
+			setup() {
 				this.on("dom:load", () => {
 					this.report(null, `Definition for rule '${name}' was not found`);
 				});

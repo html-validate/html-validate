@@ -9,9 +9,9 @@ class NoInlineStyle extends Rule {
 		};
 	}
 
-	setup(){
+	setup() {
 		this.on("attr", (event: AttributeEvent) => {
-			if (event.key === "style"){
+			if (event.key === "style") {
 				this.report(event.target, "Inline style is not allowed");
 			}
 		});

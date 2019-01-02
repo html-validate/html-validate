@@ -30,7 +30,7 @@ export interface Report {
 export class Reporter {
 	result: { [filename: string]: Message[]; };
 
-	constructor(){
+	constructor() {
 		this.result = {};
 	}
 
@@ -43,7 +43,7 @@ export class Reporter {
 		reports.forEach((report: Report) => {
 			report.results.forEach((result: Result) => {
 				const key = result.filePath;
-				if (merged.hasOwnProperty(key)){
+				if (merged.hasOwnProperty(key)) {
 					merged[key].messages = [].concat(merged[key].messages, result.messages);
 				} else {
 					merged[key] = Object.assign({}, result);
@@ -53,8 +53,8 @@ export class Reporter {
 		return {valid, results: Object.keys(merged).map((key) => merged[key])};
 	}
 
-	add(node: HtmlElement, rule: Rule, message: string, severity: number, location: Location, context?: any){
-		if (!this.result.hasOwnProperty(location.filename)){
+	add(node: HtmlElement, rule: Rule, message: string, severity: number, location: Location, context?: any) {
+		if (!this.result.hasOwnProperty(location.filename)) {
 			this.result[location.filename] = [];
 		}
 		this.result[location.filename].push({
@@ -70,7 +70,7 @@ export class Reporter {
 	}
 
 	addManual(filename: string, message: Message): void {
-		if (!this.result.hasOwnProperty(filename)){
+		if (!this.result.hasOwnProperty(filename)) {
 			this.result[filename] = [];
 		}
 		this.result[filename].push(message);
@@ -101,28 +101,28 @@ export class Reporter {
 	}
 }
 
-function countErrors(messages: Message[]){
+function countErrors(messages: Message[]) {
 	return messages.filter((m) => m.severity === Config.SEVERITY_ERROR).length;
 }
 
-function countWarnings(messages: Message[]){
+function countWarnings(messages: Message[]) {
 	return messages.filter((m) => m.severity === Config.SEVERITY_WARN).length;
 }
 
 function messageSort(a: Message, b: Message): number {
-	if (a.line < b.line){
+	if (a.line < b.line) {
 		return -1;
 	}
 
-	if (a.line > b.line){
+	if (a.line > b.line) {
 		return 1;
 	}
 
-	if (a.column < b.column){
+	if (a.column < b.column) {
 		return -1;
 	}
 
-	if (a.column > b.column){
+	if (a.column > b.column) {
 		return 1;
 	}
 

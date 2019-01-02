@@ -11,13 +11,13 @@ class ElementPermittedOccurrences extends Rule {
 		};
 	}
 
-	setup(){
+	setup() {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;
 			doc.visitDepthFirst((node: HtmlElement) => {
 				const parent = node.parent;
 
-				if (!parent.meta){
+				if (!parent.meta) {
 					return;
 				}
 
@@ -27,11 +27,11 @@ class ElementPermittedOccurrences extends Rule {
 
 				/* the first occurrence should not trigger any errors, only the
 				 * subsequent occurrences should. */
-				if (first){
+				if (first) {
 					return;
 				}
 
-				if (parent.meta && !Validator.validateOccurrences(node, rules, siblings.length)){
+				if (parent.meta && !Validator.validateOccurrences(node, rules, siblings.length)) {
 					this.report(node, `Element <${node.tagName}> can only appear once under <${parent.tagName}>`);
 				}
 			});

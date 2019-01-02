@@ -60,8 +60,12 @@ module.exports = new Package("html-validate-docs", [
 	.config(function(computePathsProcessor, computeIdsProcessor) {
 		computeIdsProcessor.idTemplates.push({
 			docTypes: ["content", "frontpage", "rules", "changelog"],
-			getId: function(doc) { return doc.fileInfo.baseName; },
-			getAliases: function(doc) { return [doc.id]; },
+			getId: function(doc) {
+				return doc.fileInfo.baseName;
+			},
+			getAliases: function(doc) {
+				return [doc.id];
+			},
 		});
 
 		computePathsProcessor.pathTemplates.push({

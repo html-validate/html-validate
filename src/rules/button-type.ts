@@ -12,14 +12,14 @@ class ButtonType extends Rule {
 		};
 	}
 
-	setup(){
+	setup() {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const buttons = event.document.getElementsByTagName("button");
 			buttons.forEach((node: HtmlElement) => {
 				const attr = node.getAttribute("type");
-				if (attr === null){
+				if (attr === null) {
 					this.report(node, "Button is missing type attribute");
-				} else if (validTypes.indexOf(attr.value.toLowerCase()) === -1){
+				} else if (validTypes.indexOf(attr.value.toLowerCase()) === -1) {
 					this.report(node, `Button has invalid type "${attr.value}"`, attr.location);
 				}
 			});

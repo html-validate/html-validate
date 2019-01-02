@@ -10,7 +10,7 @@ class HeadingLevel extends Rule {
 		};
 	}
 
-	setup(){
+	setup() {
 		let current = 0;
 		this.on("tag:open", (event: TagOpenEvent) => {
 			/* ensure it is a heading */
@@ -21,15 +21,15 @@ class HeadingLevel extends Rule {
 			if (!level) return;
 
 			/* allow same level or decreasing to any level (e.g. from h4 to h2) */
-			if (level <= current){
+			if (level <= current) {
 				current = level;
 				return;
 			}
 
 			/* validate heading level was only incremented by one */
 			const expected = current + 1;
-			if (level !== expected){
-				if (current > 0){
+			if (level !== expected) {
+				if (current > 0) {
 					this.report(event.target, `Heading level can only increase by one, expected h${expected}`);
 				} else {
 					this.report(event.target, `Initial heading level must be h${expected}`);

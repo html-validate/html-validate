@@ -21,7 +21,7 @@ const contentCategory = {
 	"@sectioning": "article",
 };
 
-function inlineSource(source: string){
+function inlineSource(source: string) {
 	return {
 		data: source,
 		filename: "inline",
@@ -30,23 +30,23 @@ function inlineSource(source: string){
 	};
 }
 
-function getTagname(category: ContentCategory|string){
-	if (category[0] === "@"){
+function getTagname(category: ContentCategory|string) {
+	if (category[0] === "@") {
 		return contentCategory[category as ContentCategory];
 	} else {
 		return category;
 	}
 }
 
-function getElementMarkup(tagName: string, variant: string, attr: {[key: string]: string} = {}){
+function getElementMarkup(tagName: string, variant: string, attr: {[key: string]: string} = {}) {
 	const attrString = Object.entries(attr).reduce((str, [key, value]) => {
-		if (value !== undefined){
+		if (value !== undefined) {
 			return `${str} ${key}="${value}"`;
 		} else {
 			return `${str} ${key}`;
 		}
 	}, "");
-	switch (variant){
+	switch (variant) {
 	case "omit":
 		return `<${tagName}${attrString}>`;
 	case "void":
@@ -69,14 +69,14 @@ describe("HTML elements", () => {
 		},
 	});
 
-	function allow(markup: string, comment: string){
+	function allow(markup: string, comment: string) {
 		it(`should allow ${comment}`, () => {
 			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 	}
 
-	function allowContent(tagName: string, category: string, variant?: string){
+	function allowContent(tagName: string, category: string, variant?: string) {
 		const child = getTagname(category);
 		const pretty = category[0] === "@" ? category : `<${category}>`;
 		const inner = getElementMarkup(child, variant);
@@ -87,7 +87,7 @@ describe("HTML elements", () => {
 		});
 	}
 
-	function allowParent(tagName: string, category: string, variant?: string){
+	function allowParent(tagName: string, category: string, variant?: string) {
 		const outer = getTagname(category);
 		const inner = getElementMarkup(tagName, variant);
 		it(`should allow <${outer}> as parent`, () => {
@@ -97,8 +97,8 @@ describe("HTML elements", () => {
 		});
 	}
 
-	function allowAttribute(tagName: string, attr: string, values: string[], variant?: string){
-		if (values.length === 0){
+	function allowAttribute(tagName: string, attr: string, values: string[], variant?: string) {
+		if (values.length === 0) {
 			it(`should allow boolean attribute ${attr}`, () => {
 				const markup = getElementMarkup(tagName, variant, {[attr]: undefined});
 				const report = htmlvalidate.validateString(markup);
@@ -114,14 +114,14 @@ describe("HTML elements", () => {
 		}
 	}
 
-	function disallow(markup: string, comment: string){
+	function disallow(markup: string, comment: string) {
 		it(`should not allow ${comment}`, () => {
 			const report = htmlvalidate.validateString(markup);
 			expect(report.valid).toBeFalsy();
 		});
 	}
 
-	function disallowContent(tagName: string, category: string){
+	function disallowContent(tagName: string, category: string) {
 		const child = getTagname(category);
 		const pretty = category[0] === "@" ? category : `<${category}>`;
 		it(`should disallow ${pretty} as content`, () => {
@@ -131,7 +131,7 @@ describe("HTML elements", () => {
 		});
 	}
 
-	function disallowDescendant(tagName: string, category: string){
+	function disallowDescendant(tagName: string, category: string) {
 		const child = getTagname(category);
 		const pretty = category[0] === "@" ? category : `<${category}>`;
 		it(`should disallow ${pretty} as descendant`, () => {
@@ -141,11 +141,11 @@ describe("HTML elements", () => {
 		});
 	}
 
-	function disallowNesting(tagName: string){
+	function disallowNesting(tagName: string) {
 		disallowContent(tagName, tagName);
 	}
 
-	function disallowParent(tagName: string, category: string, variant?: string){
+	function disallowParent(tagName: string, category: string, variant?: string) {
 		const outer = getTagname(category);
 		const inner = getElementMarkup(tagName, variant);
 		it(`should disallow <${outer}> as parent`, () => {
@@ -155,7 +155,7 @@ describe("HTML elements", () => {
 		});
 	}
 
-	function disallowAttribute(tagName: string, attr: string, values: string[], variant?: string){
+	function disallowAttribute(tagName: string, attr: string, values: string[], variant?: string) {
 		for (const value of values) {
 			it(`should disallow attribute ${attr}="${value}"`, () => {
 				const markup = getElementMarkup(tagName, variant, {[attr]: value});
@@ -165,7 +165,7 @@ describe("HTML elements", () => {
 		}
 	}
 
-	function deprecated(tagName: string){
+	function deprecated(tagName: string) {
 		it("should report as deprecated", () => {
 			const report = htmlvalidate.validateString(`<${tagName}></${tagName}>`);
 			expect(report.valid).toBeFalsy();
@@ -173,7 +173,7 @@ describe("HTML elements", () => {
 		});
 	}
 
-	function omitEnd(tagName: string){
+	function omitEnd(tagName: string) {
 		it("should allow omitted end tag", () => {
 			const markup = `<${tagName}/>`;
 			const report = htmlvalidate.validateString(markup);
@@ -181,7 +181,7 @@ describe("HTML elements", () => {
 		});
 	}
 
-	function defaultTextLevel(tagName: string){
+	function defaultTextLevel(tagName: string) {
 		allowContent(tagName, "@phrasing");
 		allowParent(tagName, "div");
 		allowParent(tagName, "span");

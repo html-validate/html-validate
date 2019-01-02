@@ -17,14 +17,14 @@ function xmlescape(src: any) {
 }
 
 function getMessageType(message: Message) {
-	switch (message.severity){
+	switch (message.severity) {
 	case 2: return "error";
 	case 1: return "warning";
 	default: return "error";
 	}
 }
 
-function checkstyleFormatter(results: Result[]){
+function checkstyleFormatter(results: Result[]) {
 	let output = "";
 
 	output += `<?xml version="1.0" encoding="utf-8"?>`;

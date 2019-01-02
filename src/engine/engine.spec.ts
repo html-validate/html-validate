@@ -20,7 +20,7 @@ function inline(source: string): Source {
 class MockParser extends Parser {
 	public parseHtml(source: string|Source): DOMTree {
 		if (typeof source === "string") return null;
-		switch (source.data){
+		switch (source.data) {
 		case "parse-error":
 			throw new InvalidTokenError({
 				filename: source.filename,
@@ -303,7 +303,7 @@ describe("Engine", () => {
 
 			it("should load from plugins", () => {
 				class MyRule {
-					init(){
+					init() {
 						/* do nothing */
 					}
 				}

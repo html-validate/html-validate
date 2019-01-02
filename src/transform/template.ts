@@ -16,7 +16,7 @@ declare module "estree" {
 function joinTemplateLiteral(nodes: ESTree.TemplateElement[]): string {
 	let offset = nodes[0].start;
 	let output = "";
-	for (const node of nodes){
+	for (const node of nodes) {
 		output += " ".repeat(node.start - offset);
 		output += node.value.raw;
 		offset = node.end;
@@ -25,7 +25,7 @@ function joinTemplateLiteral(nodes: ESTree.TemplateElement[]): string {
 }
 
 function extractLiteral(node: ESTree.Expression | ESTree.Pattern): Source {
-	switch (node.type){
+	switch (node.type) {
 	case "Literal":
 		return {
 			data: node.value.toString(),
@@ -53,8 +53,8 @@ function extractLiteral(node: ESTree.Expression | ESTree.Pattern): Source {
 	}
 }
 
-function compareKey(node: ESTree.Expression, key: string){
-	switch (node.type){
+function compareKey(node: ESTree.Expression, key: string) {
+	switch (node.type) {
 	case "Identifier":
 		return node.name === key;
 	/* istanbul ignore next: this only provides a better error, all currently known nodes are tested */
@@ -67,7 +67,7 @@ export class TemplateExtractor {
 	ast: ESTree.Program;
 	filename: string;
 
-	private constructor(ast: ESTree.Program, filename: string){
+	private constructor(ast: ESTree.Program, filename: string) {
 		this.ast = ast;
 		this.filename = filename;
 	}
@@ -105,8 +105,8 @@ export class TemplateExtractor {
 		const result: Source[] = [];
 		const filename = this.filename;
 		walk.simple(this.ast, {
-			Property(node: ESTree.Property){
-				if (compareKey(node.key, key)){
+			Property(node: ESTree.Property) {
+				if (compareKey(node.key, key)) {
 					const source = extractLiteral(node.value);
 					source.filename = filename;
 					result.push(source);

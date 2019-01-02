@@ -9,7 +9,7 @@ class AttrCase extends Rule {
 	pattern: RegExp;
 	lettercase: string;
 
-	constructor(options: object){
+	constructor(options: object) {
 		super(Object.assign({}, defaults, options));
 		[this.pattern, this.lettercase] = parseStyle(this.options.style);
 	}
@@ -21,10 +21,10 @@ class AttrCase extends Rule {
 		};
 	}
 
-	setup(){
+	setup() {
 		this.on("attr", (event: AttributeEvent) => {
 			const letters = event.key.replace(/[^a-z]+/ig, "");
-			if (!letters.match(this.pattern)){
+			if (!letters.match(this.pattern)) {
 				this.report(event.target, `Attribute "${event.key}" should be ${this.lettercase}`);
 			}
 		});
@@ -32,7 +32,7 @@ class AttrCase extends Rule {
 }
 
 function parseStyle(style: string): [RegExp, string] {
-	switch (style.toLowerCase()){
+	switch (style.toLowerCase()) {
 	case "lowercase": return [/^[a-z]*$/, "lowercase"];
 	case "uppercase": return [/^[A-Z]*$/, "uppercase"];
 	default:

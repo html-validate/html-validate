@@ -9,7 +9,7 @@ class NoConditionalComment extends Rule {
 		};
 	}
 
-	setup(){
+	setup() {
 		this.on("conditional", (event: ConditionalEvent) => {
 			this.report(null, "Use of conditional comments are deprecated", event.location);
 		});

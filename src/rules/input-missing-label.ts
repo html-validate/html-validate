@@ -10,18 +10,18 @@ class InputMissingLabel extends Rule {
 		};
 	}
 
-	setup(){
+	setup() {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const root = event.document;
-			for (const elem of root.getElementsByTagName("input")){
+			for (const elem of root.getElementsByTagName("input")) {
 
 				/* try to find label by id */
-				if (findLabelById(root, elem.id)){
+				if (findLabelById(root, elem.id)) {
 					continue;
 				}
 
 				/* try to find parent label (input nested in label) */
-				if (findLabelByParent(elem)){
+				if (findLabelByParent(elem)) {
 					continue;
 				}
 
@@ -38,8 +38,8 @@ function findLabelById(root: DOMTree, id: string): HtmlElement {
 
 function findLabelByParent(el: HtmlElement): HtmlElement {
 	let cur = el.parent;
-	while (cur){
-		if (cur.is("label")){
+	while (cur) {
+		if (cur.is("label")) {
 			return cur;
 		}
 		cur = cur.parent;

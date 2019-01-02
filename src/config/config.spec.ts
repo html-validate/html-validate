@@ -327,7 +327,7 @@ describe("config", () => {
 
 	it("should find rootDir", () => {
 		const config = new class extends Config {
-			public findRootDir(){
+			public findRootDir() {
 				return super.findRootDir();
 			}
 		}();

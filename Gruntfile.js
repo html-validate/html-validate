@@ -3,7 +3,7 @@ const sass = require("sass");
 const serveStatic = require("serve-static");
 const eslintStrict = process.env.ESLINT_STRICT === "1";
 
-module.exports = function(grunt){
+module.exports = function(grunt) {
 	require("load-grunt-tasks")(grunt);
 
 	grunt.registerTask("test", ["eslint", "tslint", "jest"]);
@@ -13,7 +13,7 @@ module.exports = function(grunt){
 
 	grunt.registerTask("jest", "exec:jest");
 
-	grunt.registerTask("dgeni", "Generate documentation", function(){
+	grunt.registerTask("dgeni", "Generate documentation", function() {
 		const Dgeni = require("dgeni");
 		const done = this.async();
 		const dgeni = new Dgeni([require("./docs/dgeni")]);
@@ -133,7 +133,7 @@ module.exports = function(grunt){
 				hostname: "localhost",
 				keepalive: true,
 				base: "public",
-				middleware: function(){
+				middleware: function() {
 					return [
 						serveStatic("public"),
 					];

@@ -2,7 +2,7 @@ import "../matchers";
 import { Lexer } from "./lexer";
 import { TokenType } from "./token";
 
-function inlineSource(source: string, {line = 1, column = 1} = {}){
+function inlineSource(source: string, {line = 1, column = 1} = {}) {
 	return {
 		data: source,
 		filename: "inline",

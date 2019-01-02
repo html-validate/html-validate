@@ -40,7 +40,7 @@ const MATCH_CONDITIONAL = /^<!(?:--)?\[([^\]]*?)\](?:--)?>/;
 export class InvalidTokenError extends Error {
 	public location: Location;
 
-	public constructor(location: Location, message: string){
+	public constructor(location: Location, message: string) {
 		super(message);
 		this.location = location;
 	}
@@ -56,8 +56,8 @@ export class Lexer {
 		let previousState: State = context.state;
 		let previousLength: number = context.string.length;
 
-		while (context.string.length > 0){
-			switch (context.state){
+		while (context.string.length > 0) {
+			switch (context.state) {
 			case State.INITIAL:
 				yield* this.tokenizeInitial(context);
 				break;
@@ -94,7 +94,7 @@ export class Lexer {
 			/* sanity check: state or string must change, if both are intact
 			 * we are stuck in an endless loop. */
 			/* istanbul ignore next: no easy way to test this as it is a condition which should never happen */
-			if (context.state === previousState && context.string.length === previousLength){
+			if (context.state === previousState && context.string.length === previousLength) {
 				this.errorStuck(context);
 			}
 
@@ -116,35 +116,35 @@ export class Lexer {
 	}
 
 	/* istanbul ignore next: used to provide a better error when an unhandled state happens */
-	private unhandled(context: Context){
+	private unhandled(context: Context) {
 		const truncated = JSON.stringify(context.string.length > 13 ? `${context.string.slice(0, 15)}...` : context.string);
 		const message = `failed to tokenize ${truncated}, unhandled state ${State[context.state]}.`;
 		throw new InvalidTokenError(context.getLocation(), message);
 	}
 
 	/* istanbul ignore next: used to provide a better error when lexer is detected to be stuck, no known way to reproduce */
-	private errorStuck(context: Context){
+	private errorStuck(context: Context) {
 		const truncated = JSON.stringify(context.string.length > 13 ? `${context.string.slice(0, 15)}...` : context.string);
 		const message = `failed to tokenize ${truncated}, state ${State[context.state]} failed to consume data or change state.`;
 		throw new InvalidTokenError(context.getLocation(), message);
 	}
 
-	private evalNextState(nextState: State | ((token: Token) => State), token: Token){
-		if (typeof nextState === "function"){
+	private evalNextState(nextState: State | ((token: Token) => State), token: Token) {
+		if (typeof nextState === "function") {
 			return nextState(token);
 		} else {
 			return nextState;
 		}
 	}
 
-	private *match(context: Context, tests: LexerTest[], error: string){
+	private *match(context: Context, tests: LexerTest[], error: string) {
 		let match;
 		const n = tests.length;
-		for (let i = 0; i < n; i++){
+		for (let i = 0; i < n; i++) {
 			const [regex, nextState, tokenType] = tests[i];
 
 			/* tslint:disable-next-line:no-conditional-assignment */
-			if (regex === false || (match = context.string.match(regex))){
+			if (regex === false || (match = context.string.match(regex))) {
 				let token: Token = null;
 				if (tokenType !== false) yield (token = this.token(context, tokenType, match));
 				const state = this.evalNextState(nextState, token);
@@ -162,12 +162,12 @@ export class Lexer {
 	/**
 	 * Called when entering a new state.
 	 */
-	private enter(context: Context, state: State, data: any){
+	private enter(context: Context, state: State, data: any) {
 		switch (state) {
 		case State.TAG:
 			/* request script tag tokenization */
-			if (data && data[0][0] === "<"){
-				if (data[0] === "<script"){
+			if (data && data[0][0] === "<") {
+				if (data[0] === "<script") {
 					context.contentModel = ContentModel.SCRIPT;
 				} else {
 					context.contentModel = ContentModel.TEXT;
@@ -177,7 +177,7 @@ export class Lexer {
 		}
 	}
 
-	private *tokenizeInitial(context: Context){
+	private *tokenizeInitial(context: Context) {
 		yield* this.match(context, [
 			[MATCH_XML_TAG, State.INITIAL, false],
 			[MATCH_DOCTYPE_OPEN, State.DOCTYPE, TokenType.DOCTYPE_OPEN],
@@ -186,7 +186,7 @@ export class Lexer {
 		], "expected doctype");
 	}
 
-	private *tokenizeDoctype(context: Context){
+	private *tokenizeDoctype(context: Context) {
 		yield* this.match(context, [
 			[MATCH_WHITESPACE, State.DOCTYPE, TokenType.WHITESPACE],
 			[MATCH_DOCTYPE_VALUE, State.DOCTYPE, TokenType.DOCTYPE_VALUE],
@@ -194,13 +194,13 @@ export class Lexer {
 		], "expected doctype name");
 	}
 
-	private *tokenizeTag(context: Context){
-		function nextState(token: Token){
-			switch (context.contentModel){
+	private *tokenizeTag(context: Context) {
+		function nextState(token: Token) {
+			switch (context.contentModel) {
 			case ContentModel.TEXT:
 				return State.TEXT;
 			case ContentModel.SCRIPT:
-				if (token.data[0][0] !== "/"){
+				if (token.data[0][0] !== "/") {
 					return State.SCRIPT;
 				} else {
 					return State.TEXT; /* <script/> (not legal but handle it anyway so the lexer doesn't choke on it) */
@@ -218,7 +218,7 @@ export class Lexer {
 		], 'expected attribute, ">" or "/>"');
 	}
 
-	private *tokenizeAttr(context: Context){
+	private *tokenizeAttr(context: Context) {
 		yield* this.match(context, [
 			[MATCH_ATTR_SINGLE, State.TAG, TokenType.ATTR_VALUE],
 			[MATCH_ATTR_DOUBLE, State.TAG, TokenType.ATTR_VALUE],
@@ -227,7 +227,7 @@ export class Lexer {
 		], 'expected attribute, ">" or "/>"');
 	}
 
-	private *tokenizeText(context: Context){
+	private *tokenizeText(context: Context) {
 		yield* this.match(context, [
 			[MATCH_WHITESPACE, State.TEXT, TokenType.WHITESPACE],
 			[MATCH_CDATA_BEGIN, State.CDATA, false],
@@ -240,13 +240,13 @@ export class Lexer {
 		], 'expected text or "<"');
 	}
 
-	private *tokenizeCDATA(context: Context){
+	private *tokenizeCDATA(context: Context) {
 		yield* this.match(context, [
 			[MATCH_CDATA_END, State.TEXT, false],
 		], "expected ]]>");
 	}
 
-	private *tokenizeScript(context: Context){
+	private *tokenizeScript(context: Context) {
 		yield* this.match(context, [
 			[MATCH_SCRIPT_END, State.TAG, TokenType.TAG_OPEN],
 			[MATCH_SCRIPT_DATA, State.SCRIPT, TokenType.SCRIPT],

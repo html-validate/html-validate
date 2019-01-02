@@ -7,7 +7,7 @@ export class DOMTree {
 	private active: HtmlElement;
 	public doctype?: string;
 
-	constructor(location: Location){
+	constructor(location: Location) {
 		this.root = HtmlElement.rootNode(location);
 		this.active = this.root;
 		this.doctype = null;
@@ -18,7 +18,7 @@ export class DOMTree {
 	}
 
 	popActive(): void {
-		if (this.active.isRootElement()){
+		if (this.active.isRootElement()) {
 			return; /* root element should never be popped, continue as if
 			         * nothing happened */
 		}
@@ -32,7 +32,7 @@ export class DOMTree {
 	/**
 	 * Resolve dynamic meta expressions.
 	 */
-	resolveMeta(table: MetaTable){
+	resolveMeta(table: MetaTable) {
 		this.visitDepthFirst((node: HtmlElement) => table.resolve(node));
 	}
 

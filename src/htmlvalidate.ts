@@ -9,7 +9,7 @@ class HtmlValidate {
 	private globalConfig: Config;
 	protected configLoader: ConfigLoader;
 
-	constructor(options?: any){
+	constructor(options?: any) {
 		const defaults = Config.empty();
 		this.globalConfig = defaults.merge(options ? Config.fromObject(options) : Config.defaultConfig());
 		this.configLoader = new ConfigLoader(Config);
