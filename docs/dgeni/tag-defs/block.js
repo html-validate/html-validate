@@ -8,7 +8,6 @@ function extractBlock(doc, tag, value) {
 	};
 }
 
-
 module.exports = function blockTag() {
 	return {
 		name: "block",

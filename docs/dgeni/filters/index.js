@@ -1,3 +1,1 @@
-module.exports = [
-	require("./asset-hash"),
-];
+module.exports = [require("./asset-hash")];

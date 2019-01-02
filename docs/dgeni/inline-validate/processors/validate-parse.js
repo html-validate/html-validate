@@ -3,7 +3,12 @@ const path = require("path");
 const VALIDATE_REGEX = /<validate([^>]*)>([\S\s]+?)<\/validate>/g;
 const ATTRIBUTE_REGEX = /\s*([^=]+)\s*=\s*(?:(?:"([^"]+)")|(?:'([^']+)'))/g;
 
-module.exports = function parseValidatesProcessor(log, validateMap, trimIndentation, createDocMessage) {
+module.exports = function parseValidatesProcessor(
+	log,
+	validateMap,
+	trimIndentation,
+	createDocMessage
+) {
 	return {
 		$runAfter: ["files-read"],
 		$runBefore: ["parsing-tags"],
@@ -17,35 +22,42 @@ module.exports = function parseValidatesProcessor(log, validateMap, trimIndentat
 					return;
 				}
 
-				doc.content = doc.content.replace(VALIDATE_REGEX, function processValidate(match, attributeText, validateMarkup) {
-					const attr = extractAttributes(attributeText);
-					if (!attr.name) {
-						throw new Error(createDocMessage("Inline validation is missing name", doc));
+				doc.content = doc.content.replace(
+					VALIDATE_REGEX,
+					function processValidate(match, attributeText, validateMarkup) {
+						const attr = extractAttributes(attributeText);
+						if (!attr.name) {
+							throw new Error(
+								createDocMessage("Inline validation is missing name", doc)
+							);
+						}
+
+						const name = attr.name;
+						const rules = attr.rules ? attr.rules.split(/ +/) : undefined;
+						const elements = readElements(doc.fileInfo, attr.elements);
+						const id = uniqueName(validateMap, `markup-${attr.name}`);
+						const markup = trimIndentation(validateMarkup);
+						const config = generateConfig(rules, elements, attr);
+
+						const validate = {
+							config,
+							name,
+							markup,
+							id,
+							doc,
+						};
+
+						// store the validate information for later
+						log.debug("Storing inline validation", id);
+						validateMap.set(id, validate);
+
+						return `{@inlineValidation ${id}}`;
 					}
-
-					const name = attr.name;
-					const rules = attr.rules ? attr.rules.split(/ +/) : undefined;
-					const elements = readElements(doc.fileInfo, attr.elements);
-					const id = uniqueName(validateMap, `markup-${attr.name}`);
-					const markup = trimIndentation(validateMarkup);
-					const config = generateConfig(rules, elements, attr);
-
-					const validate = {
-						config,
-						name,
-						markup,
-						id,
-						doc,
-					};
-
-					// store the validate information for later
-					log.debug("Storing inline validation", id);
-					validateMap.set(id, validate);
-
-					return `{@inlineValidation ${id}}`;
-				});
+				);
 			} catch (error) {
-				throw new Error(createDocMessage("Failed to parse inline validation", doc, error));
+				throw new Error(
+					createDocMessage("Failed to parse inline validation", doc, error)
+				);
 			}
 		});
 	}

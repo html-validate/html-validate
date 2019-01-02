@@ -21,7 +21,12 @@ module.exports = new Package("html-validate-docs", [
 		readFilesProcessor.fileReaders.push(changelogFileReader);
 	})
 
-	.config(function(log, readFilesProcessor, templateFinder, writeFilesProcessor) {
+	.config(function(
+		log,
+		readFilesProcessor,
+		templateFinder,
+		writeFilesProcessor
+	) {
 		log.level = "info";
 
 		readFilesProcessor.basePath = path.resolve(packagePath, "../..");
@@ -42,19 +47,24 @@ module.exports = new Package("html-validate-docs", [
 	})
 
 	.config(function(parseTagsProcessor, getInjectables) {
-		parseTagsProcessor.tagDefinitions =
-			parseTagsProcessor.tagDefinitions.concat(getInjectables(require("./tag-defs")));
+		parseTagsProcessor.tagDefinitions = parseTagsProcessor.tagDefinitions.concat(
+			getInjectables(require("./tag-defs"))
+		);
 	})
 
 	/* add custom nunjuck filters */
 	.config(function(templateEngine) {
-		templateEngine.filters = templateEngine.filters.concat(require("./filters"));
+		templateEngine.filters = templateEngine.filters.concat(
+			require("./filters")
+		);
 	})
 
 	/* add the local template folder first in the search path so it overrides
 	 * dgeni-packages bundled templates */
 	.config(function(templateFinder) {
-		templateFinder.templateFolders.unshift(path.resolve(packagePath, "templates"));
+		templateFinder.templateFolders.unshift(
+			path.resolve(packagePath, "templates")
+		);
 	})
 
 	.config(function(computePathsProcessor, computeIdsProcessor) {
@@ -90,6 +100,4 @@ module.exports = new Package("html-validate-docs", [
 	.config(function(checkAnchorLinksProcessor) {
 		checkAnchorLinksProcessor.ignoredLinks.push(/^\/$/);
 		checkAnchorLinksProcessor.ignoredLinks.push(/^\/changelog$/);
-	})
-
-;
+	});
