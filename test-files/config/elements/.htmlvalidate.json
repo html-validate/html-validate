@@ -1,8 +1,5 @@
 {
-  "elements": [
-    "html5",
-    "./elements.json"
-  ],
+  "elements": ["html5", "./elements.json"],
 
   "rules": {
     "deprecated": "error",

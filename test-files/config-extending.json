@@ -1,8 +1,6 @@
 {
-	"extends": [
-		"./config.json"
-	],
-	"rules": {
-		"baz": "error"
-	}
+  "extends": ["./config.json"],
+  "rules": {
+    "baz": "error"
+  }
 }

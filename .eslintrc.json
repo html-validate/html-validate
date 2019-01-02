@@ -5,15 +5,9 @@
     "node": true
   },
 
-  "extends": [
-    "sidvind/es2017",
-    "plugin:prettier/recommended"
-  ],
+  "extends": ["sidvind/es2017", "plugin:prettier/recommended"],
 
-  "plugins": [
-    "typescript",
-    "prettier"
-  ],
+  "plugins": ["typescript", "prettier"],
 
   "rules": {
     "prettier/prettier": "error",
@@ -35,9 +29,7 @@
       "env": {
         "jest": true
       },
-      "plugins": [
-        "jest"
-      ],
+      "plugins": ["jest"],
       "rules": {
         "jest/no-disabled-tests": "warn",
         "jest/no-focused-tests": "warn",

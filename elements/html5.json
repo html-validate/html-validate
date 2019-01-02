@@ -4,7 +4,7 @@
       "contenteditable": ["", "true", "false"],
       "dir": ["ltr", "rtl", "auto"],
       "draggable": ["true", "false"],
-      "hidden":  [],
+      "hidden": [],
       "tabindex": ["/-?\\d+/"]
     }
   },
@@ -24,17 +24,13 @@
       "name",
       "urn"
     ],
-    "permittedDescendants": [
-      {"exclude": "@interactive"}
-    ]
+    "permittedDescendants": [{ "exclude": "@interactive" }]
   },
 
   "abbr": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "acronym": {
@@ -43,64 +39,39 @@
 
   "address": {
     "flow": true,
-    "permittedContent": [
-      "@flow"
-    ],
+    "permittedContent": ["@flow"],
     "permittedDescendants": [
-      {"exclude": [
-        "address",
-        "header",
-        "footer",
-        "@heading",
-        "@sectioning"
-      ]}
+      { "exclude": ["address", "header", "footer", "@heading", "@sectioning"] }
     ]
   },
 
   "applet": {
     "deprecated": true,
-    "deprecatedAttributes": [
-      "datasrc",
-      "datafld"
-    ]
+    "deprecatedAttributes": ["datasrc", "datafld"]
   },
 
   "area": {
     "flow": ["isDescendant", "map"],
     "phrasing": ["isDescendant", "map"],
     "void": true,
-    "deprecatedAttributes": [
-      "nohref"
-    ],
+    "deprecatedAttributes": ["nohref"],
     "attributes": {
-      "shape": [
-        "rect",
-        "circle",
-        "poly"
-      ]
+      "shape": ["rect", "circle", "poly"]
     }
   },
 
   "article": {
     "flow": true,
     "sectioning": true,
-    "permittedContent": [
-      "@flow"
-    ],
-    "permittedDescendants": [
-      {"exclude": ["main"]}
-    ]
-   },
+    "permittedContent": ["@flow"],
+    "permittedDescendants": [{ "exclude": ["main"] }]
+  },
 
   "aside": {
     "flow": true,
     "sectioning": true,
-    "permittedContent": [
-      "@flow"
-    ],
-    "permittedDescendants": [
-      {"exclude": ["main"]}
-    ]
+    "permittedContent": ["@flow"],
+    "permittedDescendants": [{ "exclude": ["main"] }]
   },
 
   "audio": {
@@ -110,37 +81,17 @@
     "interactive": ["hasAttribute", "controls"],
     "transparent": true,
     "attributes": {
-      "preload": [
-        "",
-        "none",
-        "metadata",
-        "auto"
-      ]
+      "preload": ["", "none", "metadata", "auto"]
     },
-    "permittedContent": [
-      "@flow",
-      "track",
-      "source"
-    ],
-    "permittedDescendants": [
-      {"exclude": [
-        "audio",
-        "video"
-      ]}
-    ],
-    "permittedOrder": [
-      "source",
-      "track",
-      "@flow"
-    ]
+    "permittedContent": ["@flow", "track", "source"],
+    "permittedDescendants": [{ "exclude": ["audio", "video"] }],
+    "permittedOrder": ["source", "track", "@flow"]
   },
 
   "b": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "base": {
@@ -155,17 +106,13 @@
   "bdi": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "bdo": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "bgsound": {
@@ -183,9 +130,7 @@
   "blockquote": {
     "flow": true,
     "sectioning": true,
-    "permittedContent": [
-      "@flow"
-    ]
+    "permittedContent": ["@flow"]
   },
 
   "body": {
@@ -209,35 +154,21 @@
     "flow": true,
     "phrasing": true,
     "void": true,
-    "deprecatedAttributes": [
-      "clear"
-    ]
+    "deprecatedAttributes": ["clear"]
   },
 
   "button": {
     "flow": true,
     "phrasing": true,
     "interactive": true,
-    "deprecatedAttributes": [
-      "datasrc",
-      "datafld",
-      "dataformatas"
-    ],
+    "deprecatedAttributes": ["datasrc", "datafld", "dataformatas"],
     "attributes": {
       "autofocus": [],
       "disabled": [],
-      "type": [
-        "submit",
-        "reset",
-        "button"
-      ]
+      "type": ["submit", "reset", "button"]
     },
-    "permittedContent": [
-      "@phrasing"
-    ],
-    "permittedDescendants": [
-      {"exclude": ["@interactive"]}
-    ]
+    "permittedContent": ["@phrasing"],
+    "permittedDescendants": [{ "exclude": ["@interactive"] }]
   },
 
   "canvas": {
@@ -248,15 +179,9 @@
   },
 
   "caption": {
-    "deprecatedAttributes": [
-      "align"
-    ],
-    "permittedContent": [
-      "@flow"
-    ],
-    "permittedDescendants": [
-      {"exclude": ["table"]}
-    ]
+    "deprecatedAttributes": ["align"],
+    "permittedContent": ["@flow"],
+    "permittedDescendants": [{ "exclude": ["table"] }]
   },
 
   "center": {
@@ -266,71 +191,46 @@
   "cite": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "code": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "col": {
     "attributes": {
       "span": ["/\\d+/"]
     },
-    "deprecatedAttributes": [
-      "align",
-      "char",
-      "charoff",
-      "valign",
-      "width"
-    ],
+    "deprecatedAttributes": ["align", "char", "charoff", "valign", "width"],
     "void": true
   },
 
   "colgroup": {
-    "implicitClosed": [
-      "colgroup"
-    ],
+    "implicitClosed": ["colgroup"],
     "attributes": {
       "span": ["/\\d+/"]
     },
-    "permittedContent": [
-      "col",
-      "template"
-    ]
+    "permittedContent": ["col", "template"]
   },
 
   "data": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "datalist": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing",
-      "option"
-    ]
+    "permittedContent": ["@phrasing", "option"]
   },
 
   "dd": {
-    "implicitClosed": [
-      "dd",
-      "dt"
-    ],
-    "permittedContent": [
-      "@flow"
-    ]
+    "implicitClosed": ["dd", "dt"],
+    "permittedContent": ["@flow"]
   },
 
   "del": {
@@ -342,12 +242,8 @@
   "dfn": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ],
-    "permittedDescendants": [
-      {"exclude": ["dfn"]}
-    ]
+    "permittedContent": ["@phrasing"],
+    "permittedDescendants": [{ "exclude": ["dfn"] }]
   },
 
   "dir": {
@@ -356,54 +252,28 @@
 
   "div": {
     "flow": true,
-    "deprecatedAttributes": [
-      "align",
-      "datasrc",
-      "datafld",
-      "dataformatas"
-    ],
-    "permittedContent": [
-      "@flow"
-    ]
+    "deprecatedAttributes": ["align", "datasrc", "datafld", "dataformatas"],
+    "permittedContent": ["@flow"]
   },
 
   "dl": {
     "flow": true,
-    "deprecatedAttributes": [
-      "compact"
-    ],
-    "permittedContent": [
-      "dt",
-      "dd",
-      "script",
-      "template"
-    ]
+    "deprecatedAttributes": ["compact"],
+    "permittedContent": ["dt", "dd", "script", "template"]
   },
 
   "dt": {
-    "implicitClosed": [
-      "dd",
-      "dt"
-    ],
-    "permittedContent": [
-      "@flow"
-    ],
+    "implicitClosed": ["dd", "dt"],
+    "permittedContent": ["@flow"],
     "permittedDescendants": [
-      {"exclude": [
-        "header",
-        "footer",
-        "@sectioning",
-        "@heading"
-      ]}
+      { "exclude": ["header", "footer", "@sectioning", "@heading"] }
     ]
   },
 
   "em": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "embed": {
@@ -419,36 +289,19 @@
     "attributes": {
       "disabled": []
     },
-    "deprecatedAttributes": [
-      "datafld"
-    ],
-    "permittedContent": [
-      "@flow",
-      "legend?"
-    ],
-    "permittedOrder": [
-      "legend",
-      "@flow"
-    ]
+    "deprecatedAttributes": ["datafld"],
+    "permittedContent": ["@flow", "legend?"],
+    "permittedOrder": ["legend", "@flow"]
   },
 
   "figcaption": {
-    "permittedContent": [
-      "@flow"
-    ]
+    "permittedContent": ["@flow"]
   },
 
   "figure": {
     "flow": true,
-    "permittedContent": [
-      "@flow",
-      "figcaption?"
-    ],
-    "permittedOrder": [
-      "figcaption",
-      "@flow",
-      "figcaption"
-    ]
+    "permittedContent": ["@flow", "figcaption?"],
+    "permittedOrder": ["figcaption", "@flow", "figcaption"]
   },
 
   "font": {
@@ -457,16 +310,8 @@
 
   "footer": {
     "flow": true,
-    "permittedContent": [
-      "@flow"
-    ],
-    "permittedDescendants": [
-      {"exclude": [
-        "header",
-        "footer",
-        "main"
-      ]}
-    ]
+    "permittedContent": ["@flow"],
+    "permittedDescendants": [{ "exclude": ["header", "footer", "main"] }]
   },
 
   "form": {
@@ -476,23 +321,14 @@
       "method": ["get", "post"],
       "novalidate": []
     },
-    "deprecatedAttributes": [
-      "accept"
-    ],
-    "permittedContent": [
-      "@flow"
-    ],
-    "permittedDescendants": [
-      {"exclude": ["form"]}
-    ]
+    "deprecatedAttributes": ["accept"],
+    "permittedContent": ["@flow"],
+    "permittedDescendants": [{ "exclude": ["form"] }]
   },
 
   "frame": {
     "deprecated": true,
-    "deprecatedAttributes": [
-      "datasrc",
-      "datafld"
-    ]
+    "deprecatedAttributes": ["datasrc", "datafld"]
   },
 
   "frameset": {
@@ -502,92 +338,54 @@
   "h1": {
     "flow": true,
     "heading": true,
-    "deprecatedAttributes": [
-      "align"
-    ],
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "deprecatedAttributes": ["align"],
+    "permittedContent": ["@phrasing"]
   },
 
   "h2": {
     "flow": true,
     "heading": true,
-    "deprecatedAttributes": [
-      "align"
-    ],
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "deprecatedAttributes": ["align"],
+    "permittedContent": ["@phrasing"]
   },
 
   "h3": {
     "flow": true,
     "heading": true,
-    "deprecatedAttributes": [
-      "align"
-    ],
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "deprecatedAttributes": ["align"],
+    "permittedContent": ["@phrasing"]
   },
 
   "h4": {
     "flow": true,
     "heading": true,
-    "deprecatedAttributes": [
-      "align"
-    ],
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "deprecatedAttributes": ["align"],
+    "permittedContent": ["@phrasing"]
   },
 
   "h5": {
     "flow": true,
     "heading": true,
-    "deprecatedAttributes": [
-      "align"
-    ],
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "deprecatedAttributes": ["align"],
+    "permittedContent": ["@phrasing"]
   },
 
   "h6": {
     "flow": true,
     "heading": true,
-    "deprecatedAttributes": [
-      "align"
-    ],
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "deprecatedAttributes": ["align"],
+    "permittedContent": ["@phrasing"]
   },
 
   "head": {
-    "deprecatedAttributes": [
-      "profile"
-    ],
-    "permittedContent": [
-      "base?",
-      "title?",
-      "@meta"
-    ]
+    "deprecatedAttributes": ["profile"],
+    "permittedContent": ["base?", "title?", "@meta"]
   },
 
   "header": {
     "flow": true,
-    "permittedContent": [
-      "@flow"
-    ],
-    "permittedDescendants": [
-      {"exclude": [
-        "header",
-        "footer",
-        "main"
-      ]}
-    ]
+    "permittedContent": ["@flow"],
+    "permittedDescendants": [{ "exclude": ["header", "footer", "main"] }]
   },
 
   "hgroup": {
@@ -597,35 +395,19 @@
   "hr": {
     "flow": true,
     "void": true,
-    "deprecatedAttributes": [
-      "align",
-      "color",
-      "noshade",
-      "size",
-      "width"
-    ]
+    "deprecatedAttributes": ["align", "color", "noshade", "size", "width"]
   },
 
   "html": {
-    "deprecatedAttributes": [
-      "version"
-    ],
-    "permittedContent": [
-      "head?",
-      "body?"
-    ],
-    "permittedOrder": [
-      "head",
-      "body"
-    ]
+    "deprecatedAttributes": ["version"],
+    "permittedContent": ["head?", "body?"],
+    "permittedOrder": ["head", "body"]
   },
 
   "i": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "iframe": {
@@ -655,15 +437,8 @@
     "interactive": ["hasAttribute", "usemap"],
     "void": true,
     "attributes": {
-      "crossorigin": [
-        "anonymous",
-        "use-credentials"
-      ],
-      "decoding": [
-        "sync",
-        "async",
-        "auto"
-      ],
+      "crossorigin": ["anonymous", "use-credentials"],
+      "decoding": ["sync", "async", "auto"],
       "ismap": []
     },
     "deprecatedAttributes": [
@@ -711,11 +486,7 @@
       "multiple": [],
       "readonly": [],
       "required": [],
-      "spellcheck": [
-        "default",
-        "false",
-        "true"
-      ],
+      "spellcheck": ["default", "false", "true"],
       "type": [
         "button",
         "checkbox",
@@ -756,9 +527,7 @@
   "kbd": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "keygen": {
@@ -772,58 +541,29 @@
     "flow": true,
     "phrasing": true,
     "interactive": true,
-    "deprecatedAttributes": [
-      "datasrc",
-      "datafld",
-      "dataformatas"
-    ],
-    "permittedContent": [
-      "@phrasing"
-    ],
-    "permittedDescendants": [
-      {"exclude": ["label"]}
-    ]
+    "deprecatedAttributes": ["datasrc", "datafld", "dataformatas"],
+    "permittedContent": ["@phrasing"],
+    "permittedDescendants": [{ "exclude": ["label"] }]
   },
 
   "legend": {
-    "deprecatedAttributes": [
-      "align",
-      "datasrc",
-      "datafld",
-      "dataformatas"
-    ],
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "deprecatedAttributes": ["align", "datasrc", "datafld", "dataformatas"],
+    "permittedContent": ["@phrasing"]
   },
 
   "li": {
-    "implicitClosed": [
-      "li"
-    ],
-    "deprecatedAttributes": [
-      "type"
-    ],
-    "permittedContent": [
-      "@flow"
-    ]
+    "implicitClosed": ["li"],
+    "deprecatedAttributes": ["type"],
+    "permittedContent": ["@flow"]
   },
 
   "link": {
     "metadata": true,
     "void": true,
     "attributes": {
-      "crossorigin": [
-        "anonymous",
-        "use-credentials"
-      ]
+      "crossorigin": ["anonymous", "use-credentials"]
     },
-    "deprecatedAttributes": [
-      "charset",
-      "methods",
-      "urn",
-      "target"
-    ]
+    "deprecatedAttributes": ["charset", "methods", "urn", "target"]
   },
 
   "listing": {
@@ -843,66 +583,37 @@
   "mark": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "marquee": {
     "deprecated": true,
-    "deprecatedAttributes": [
-      "datasrc",
-      "datafld",
-      "dataformatas"
-    ]
+    "deprecatedAttributes": ["datasrc", "datafld", "dataformatas"]
   },
 
   "math": {
     "flow": true,
     "phrasing": true,
     "embedded": true,
-    "deprecatedAttributes": [
-      "name",
-      "align",
-      "hspace",
-      "vspace"
-    ],
+    "deprecatedAttributes": ["name", "align", "hspace", "vspace"],
     "attributes": {
-      "dir": [
-        "ltr",
-        "rtl"
-      ],
-      "display": [
-        "block",
-        "inline"
-      ],
-      "overflow": [
-        "linebreak",
-        "scroll",
-        "elide",
-        "truncate",
-        "scale"
-      ]
+      "dir": ["ltr", "rtl"],
+      "display": ["block", "inline"],
+      "overflow": ["linebreak", "scroll", "elide", "truncate", "scale"]
     }
   },
 
   "meta": {
     "metadata": true,
     "void": true,
-    "deprecatedAttributes": [
-      "scheme"
-    ]
+    "deprecatedAttributes": ["scheme"]
   },
 
   "meter": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ],
-    "permittedDescendants": [
-      [{"exclude": "meter"}]
-    ]
+    "permittedContent": ["@phrasing"],
+    "permittedDescendants": [[{ "exclude": "meter" }]]
   },
 
   "multicol": {
@@ -912,12 +623,8 @@
   "nav": {
     "flow": true,
     "sectioning": true,
-    "permittedContent": [
-      "@flow"
-    ],
-    "permittedDescendants": [
-      [{"exclude": "main"}]
-    ]
+    "permittedContent": ["@flow"],
+    "permittedDescendants": [[{ "exclude": "main" }]]
   },
 
   "nextid": {
@@ -941,9 +648,7 @@
     "flow": true,
     "phrasing": true,
     "transparent": true,
-    "permittedDescendants": [
-      [{"exclude": "noscript"}]
-    ]
+    "permittedDescendants": [[{ "exclude": "noscript" }]]
   },
 
   "object": {
@@ -968,14 +673,8 @@
       "standby",
       "vspace"
     ],
-    "permittedContent": [
-      "param",
-      "@flow"
-    ],
-    "permittedOrder": [
-      "param",
-      "@flow"
-    ]
+    "permittedContent": ["param", "@flow"],
+    "permittedOrder": ["param", "@flow"]
   },
 
   "ol": {
@@ -984,52 +683,32 @@
       "reversed": [],
       "type": ["a", "A", "i", "I", "1"]
     },
-    "deprecatedAttributes": [
-      "compact"
-    ],
-    "permittedContent": [
-      "li",
-      "script",
-      "template"
-    ]
+    "deprecatedAttributes": ["compact"],
+    "permittedContent": ["li", "script", "template"]
   },
 
   "optgroup": {
-    "implicitClosed": [
-      "optgroup"
-    ],
+    "implicitClosed": ["optgroup"],
     "attributes": {
       "disabled": []
     },
-    "permittedContent": [
-      "option",
-      "script",
-      "template"
-    ]
+    "permittedContent": ["option", "script", "template"]
   },
 
   "option": {
-    "implicitClosed": [
-      "option"
-    ],
+    "implicitClosed": ["option"],
     "attributes": {
       "disabled": [],
       "selected": []
     },
-    "deprecatedAttributes": [
-      "datasrc",
-      "dataformatas",
-      "name"
-    ],
+    "deprecatedAttributes": ["datasrc", "dataformatas", "name"],
     "permittedContent": []
   },
 
   "output": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "p": {
@@ -1062,21 +741,13 @@
       "table",
       "ul"
     ],
-    "deprecatedAttributes": [
-      "align"
-    ],
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "deprecatedAttributes": ["align"],
+    "permittedContent": ["@phrasing"]
   },
 
   "param": {
     "void": true,
-    "deprecatedAttributes": [
-      "datafld",
-      "type",
-      "valuetype"
-    ]
+    "deprecatedAttributes": ["datafld", "type", "valuetype"]
   },
 
   "plaintext": {
@@ -1085,107 +756,59 @@
 
   "pre": {
     "flow": true,
-    "deprecatedAttributes": [
-      "width"
-    ],
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "deprecatedAttributes": ["width"],
+    "permittedContent": ["@phrasing"]
   },
 
   "progress": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ],
-    "permittedDescendants": [
-      [{"exclude": "progress"}]
-    ]
+    "permittedContent": ["@phrasing"],
+    "permittedDescendants": [[{ "exclude": "progress" }]]
   },
 
   "q": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "rb": {
-    "implicitClosed": [
-      "rb",
-      "rt",
-      "rtc",
-      "rp"
-    ],
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "implicitClosed": ["rb", "rt", "rtc", "rp"],
+    "permittedContent": ["@phrasing"]
   },
 
   "rp": {
-    "implicitClosed": [
-      "rb",
-      "rt",
-      "rtc",
-      "rp"
-    ],
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "implicitClosed": ["rb", "rt", "rtc", "rp"],
+    "permittedContent": ["@phrasing"]
   },
 
   "rt": {
-    "implicitClosed": [
-      "rb",
-      "rt",
-      "rtc",
-      "rp"
-    ],
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "implicitClosed": ["rb", "rt", "rtc", "rp"],
+    "permittedContent": ["@phrasing"]
   },
 
   "rtc": {
-    "implicitClosed": [
-      "rb",
-      "rtc",
-      "rp"
-    ],
-    "permittedContent": [
-      "@phrasing",
-      "rt"
-    ]
+    "implicitClosed": ["rb", "rtc", "rp"],
+    "permittedContent": ["@phrasing", "rt"]
   },
 
   "ruby": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing",
-      "rb",
-      "rp",
-      "rt",
-      "rtc"
-    ]
+    "permittedContent": ["@phrasing", "rb", "rp", "rt", "rtc"]
   },
 
   "s": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "samp": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "script": {
@@ -1194,26 +817,17 @@
     "phrasing": true,
     "attributes": {
       "async": [],
-      "crossorigin": [
-        "anonymous",
-        "use-credentials"
-      ],
+      "crossorigin": ["anonymous", "use-credentials"],
       "defer": [],
       "nomodule": []
     },
-    "deprecatedAttributes": [
-      "language",
-      "event",
-      "for"
-    ]
+    "deprecatedAttributes": ["language", "event", "for"]
   },
 
   "section": {
     "flow": true,
     "sectioning": true,
-    "permittedContent": [
-      "@flow"
-    ]
+    "permittedContent": ["@flow"]
   },
 
   "select": {
@@ -1241,9 +855,7 @@
   "small": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "source": {
@@ -1257,14 +869,8 @@
   "span": {
     "flow": true,
     "phrasing": true,
-    "deprecatedAttributes": [
-      "datasrc",
-      "datafld",
-      "dataformatas"
-    ],
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "deprecatedAttributes": ["datasrc", "datafld", "dataformatas"],
+    "permittedContent": ["@phrasing"]
   },
 
   "strike": {
@@ -1274,9 +880,7 @@
   "strong": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "style": {
@@ -1287,17 +891,13 @@
   "sub": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "sup": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "svg": {
@@ -1333,21 +933,11 @@
       "thead?",
       "tr"
     ],
-    "permittedOrder": [
-      "caption",
-      "colgroup",
-      "thead",
-      "tbody",
-      "tr",
-      "tfoot"
-    ]
+    "permittedOrder": ["caption", "colgroup", "thead", "tbody", "tr", "tfoot"]
   },
 
   "tbody": {
-    "implicitClosed": [
-      "tbody",
-      "tfoot"
-    ],
+    "implicitClosed": ["tbody", "tfoot"],
     "deprecatedAttributes": [
       "align",
       "background",
@@ -1355,19 +945,12 @@
       "charoff",
       "valign"
     ],
-    "permittedContent": [
-      "tr",
-      "script",
-      "template"
-    ]
+    "permittedContent": ["tr", "script", "template"]
   },
 
   "td": {
     "flow": true,
-    "implicitClosed": [
-      "td",
-      "th"
-    ],
+    "implicitClosed": ["td", "th"],
     "attributes": {
       "colspan": ["/\\d+/"],
       "rowspan": ["/\\d+/"]
@@ -1385,9 +968,7 @@
       "valign",
       "width"
     ],
-    "permittedContent": [
-      "@flow"
-    ]
+    "permittedContent": ["@flow"]
   },
 
   "template": {
@@ -1413,17 +994,12 @@
       "spellcheck": ["true", "default", "false"],
       "wrap": ["hard", "soft"]
     },
-    "deprecatedAttributes": [
-      "datasrc",
-      "datafld"
-    ],
+    "deprecatedAttributes": ["datasrc", "datafld"],
     "permittedContent": []
   },
 
   "tfoot": {
-    "implicitClosed": [
-      "tbody"
-    ],
+    "implicitClosed": ["tbody"],
     "deprecatedAttributes": [
       "align",
       "background",
@@ -1431,29 +1007,16 @@
       "charoff",
       "valign"
     ],
-    "permittedContent": [
-      "tr",
-      "script",
-      "template"
-    ]
+    "permittedContent": ["tr", "script", "template"]
   },
 
   "th": {
     "flow": true,
-    "implicitClosed": [
-      "td",
-      "th"
-    ],
+    "implicitClosed": ["td", "th"],
     "attributes": {
       "colspan": ["/\\d+/"],
       "rowspan": ["/\\d+/"],
-      "scope": [
-        "row",
-        "col",
-        "rowgroup",
-        "colgroup",
-        "auto"
-      ]
+      "scope": ["row", "col", "rowgroup", "colgroup", "auto"]
     },
     "deprecatedAttributes": [
       "align",
@@ -1467,24 +1030,14 @@
       "valign",
       "width"
     ],
-    "permittedContent": [
-      "@flow"
-    ],
+    "permittedContent": ["@flow"],
     "permittedDescendants": [
-      {"exclude": [
-        "header",
-        "footer",
-        "@sectioning",
-        "@heading"
-      ]}
+      { "exclude": ["header", "footer", "@sectioning", "@heading"] }
     ]
   },
 
   "thead": {
-    "implicitClosed": [
-      "tbody",
-      "tfoot"
-    ],
+    "implicitClosed": ["tbody", "tfoot"],
     "deprecatedAttributes": [
       "align",
       "background",
@@ -1492,19 +1045,13 @@
       "charoff",
       "valign"
     ],
-    "permittedContent": [
-      "tr",
-      "script",
-      "template"
-    ]
+    "permittedContent": ["tr", "script", "template"]
   },
 
   "time": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "title": {
@@ -1513,9 +1060,7 @@
   },
 
   "tr": {
-    "implicitClosed": [
-      "tr"
-    ],
+    "implicitClosed": ["tr"],
     "deprecatedAttributes": [
       "align",
       "background",
@@ -1524,12 +1069,7 @@
       "charoff",
       "valign"
     ],
-    "permittedContent": [
-      "td",
-      "th",
-      "script",
-      "template"
-    ]
+    "permittedContent": ["td", "th", "script", "template"]
   },
 
   "track": {
@@ -1543,30 +1083,19 @@
   "u": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "ul": {
     "flow": true,
-    "deprecatedAttributes": [
-      "compact",
-      "type"
-    ],
-    "permittedContent": [
-      "li",
-      "script",
-      "template"
-    ]
+    "deprecatedAttributes": ["compact", "type"],
+    "permittedContent": ["li", "script", "template"]
   },
 
   "var": {
     "flow": true,
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
 
   "video": {
@@ -1576,29 +1105,11 @@
     "interactive": ["hasAttribute", "controls"],
     "transparent": true,
     "attributes": {
-      "preload": [
-        "",
-        "none",
-        "metadata",
-        "auto"
-      ]
+      "preload": ["", "none", "metadata", "auto"]
     },
-    "permittedContent": [
-      "@flow",
-      "track",
-      "source"
-    ],
-    "permittedDescendants": [
-      {"exclude": [
-        "audio",
-        "video"
-      ]}
-    ],
-    "permittedOrder": [
-      "source",
-      "track",
-      "@flow"
-    ]
+    "permittedContent": ["@flow", "track", "source"],
+    "permittedDescendants": [{ "exclude": ["audio", "video"] }],
+    "permittedOrder": ["source", "track", "@flow"]
   },
 
   "wbr": {

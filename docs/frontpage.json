@@ -1,9 +1,7 @@
 {
   "my-inline": {
     "phrasing": true,
-    "permittedContent": [
-      "@phrasing"
-    ]
+    "permittedContent": ["@phrasing"]
   },
   "my-block": {
     "flow": true
