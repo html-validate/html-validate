@@ -53,19 +53,19 @@ describe("TemplateExtractor", () => {
 			{
 				data: "<p>foo</i>",
 				filename: "test-files/extract.js",
-				line: 4,
-				column: 13,
+				line: 2,
+				column: 12,
 			},
 			{
 				data: "<b>foo</b>",
 				filename: "test-files/extract.js",
-				line: 9,
+				line: 6,
 				column: 12,
 			},
 			{
 				data: "<p>foo</p>",
 				filename: "test-files/extract.js",
-				line: 13,
+				line: 10,
 				column: 12,
 			},
 		]);

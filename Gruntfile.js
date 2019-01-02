@@ -20,16 +20,19 @@ module.exports = function(grunt) {
 		dgeni.generate().then(done);
 	});
 
-	grunt.registerTask("docs", "Build documentation app", ["sass", "postcss", "copy", "browserify", "dgeni"]);
+	grunt.registerTask("docs", "Build documentation app", [
+		"sass",
+		"postcss",
+		"copy",
+		"browserify",
+		"dgeni",
+	]);
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON("package.json"),
 
 		clean: {
-			default: [
-				"build",
-				"public",
-			],
+			default: ["build", "public"],
 		},
 
 		ts: {
@@ -49,21 +52,13 @@ module.exports = function(grunt) {
 					 * annoyances. */
 					maxWarnings: eslintStrict ? 0 : -1,
 				},
-				src: [
-					"*.js",
-					"*.ts",
-					"docs/**/*.js",
-					"src/**/*.ts",
-				],
+				src: ["*.js", "*.ts", "docs/**/*.js", "src/**/*.ts"],
 			},
 		},
 
 		tslint: {
 			default: {
-				src: [
-					"*.ts",
-					"src/**/*.ts",
-				],
+				src: ["*.ts", "src/**/*.ts"],
 			},
 		},
 
@@ -83,10 +78,7 @@ module.exports = function(grunt) {
 
 		postcss: {
 			options: {
-				processors: [
-					require("autoprefixer"),
-					require("cssnano"),
-				],
+				processors: [require("autoprefixer"), require("cssnano")],
 			},
 			default: {
 				src: "<%=sass.default.dest%>",
@@ -113,9 +105,12 @@ module.exports = function(grunt) {
 			default: {
 				options: {
 					transform: [
-						["babelify", {
-							presets: ["@babel/preset-env"],
-						}],
+						[
+							"babelify",
+							{
+								presets: ["@babel/preset-env"],
+							},
+						],
 					],
 				},
 				src: "docs/app/index.js",
@@ -134,9 +129,7 @@ module.exports = function(grunt) {
 				keepalive: true,
 				base: "public",
 				middleware: function() {
-					return [
-						serveStatic("public"),
-					];
+					return [serveStatic("public")];
 				},
 			},
 			default: {},
