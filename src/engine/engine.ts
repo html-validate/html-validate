@@ -1,4 +1,4 @@
-import { Config } from "../config";
+import { Config, Severity } from "../config";
 import { Location, Source } from "../context";
 import { HtmlElement } from "../dom";
 import { DirectiveEvent, TagCloseEvent, TagOpenEvent } from "../event";
@@ -53,9 +53,18 @@ export class Engine<T extends Parser = Parser> {
 
 			/* load rules */
 			const rules: { [key: string]: Rule } = {};
-			Object.entries(this.config.getRules()).map(([name, data]) => {
-				rules[name] = this.loadRule(name, data, parser, this.report);
-			});
+			for (const [
+				ruleId,
+				[severity, options],
+			] of this.config.getRules().entries()) {
+				rules[ruleId] = this.loadRule(
+					ruleId,
+					severity,
+					options,
+					parser,
+					this.report
+				);
+			}
 
 			/* setup directive handling */
 			parser.on("directive", (_: string, event: DirectiveEvent) => {
@@ -150,8 +159,8 @@ export class Engine<T extends Parser = Parser> {
 		context?: any
 	): RuleDocumentation {
 		const rules = this.config.getRules();
-		if (ruleId in rules) {
-			const [, options] = rules[ruleId] as any;
+		if (rules.has(ruleId)) {
+			const [, options] = rules.get(ruleId) as any;
 			const rule = this.instantiateRule(ruleId, options);
 			return rule.documentation(context);
 		} else {
@@ -191,8 +200,8 @@ export class Engine<T extends Parser = Parser> {
 	private processEnableDirective(rules: Rule[]): void {
 		for (const rule of rules) {
 			rule.setEnabled(true);
-			if (rule.getSeverity() === Config.SEVERITY_DISABLED) {
-				rule.setServerity(Config.SEVERITY_ERROR);
+			if (rule.getSeverity() === Severity.DISABLED) {
+				rule.setServerity(Severity.ERROR);
 			}
 		}
 	}
@@ -259,14 +268,14 @@ export class Engine<T extends Parser = Parser> {
 	 * Load a rule using current config.
 	 */
 	protected loadRule(
-		name: string,
-		data: any,
+		ruleId: string,
+		severity: Severity,
+		options: any,
 		parser: Parser,
 		report: Reporter
 	): Rule {
-		const [severity, options] = data;
-		const rule = this.instantiateRule(name, options);
-		rule.name = rule.name || name;
+		const rule = this.instantiateRule(ruleId, options);
+		rule.name = rule.name || ruleId;
 		rule.init(parser, report, severity);
 		if (rule.setup) {
 			rule.setup();
@@ -310,7 +319,7 @@ export class Engine<T extends Parser = Parser> {
 	private reportError(message: string, location: Location): void {
 		this.report.addManual(location.filename, {
 			ruleId: undefined,
-			severity: Config.SEVERITY_ERROR,
+			severity: Severity.ERROR,
 			message,
 			offset: location.offset,
 			line: location.line,

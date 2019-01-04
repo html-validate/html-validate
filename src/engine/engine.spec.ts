@@ -1,4 +1,4 @@
-import { Config } from "../config";
+import { Config, Severity } from "../config";
 import { Source } from "../context";
 import { DOMTree } from "../dom";
 import { InvalidTokenError } from "../lexer";
@@ -48,11 +48,12 @@ class ExposedEngine<T extends Parser> extends Engine<T> {
 	/* exposed for testing */
 	public loadRule(
 		name: string,
-		data: any,
+		severity: Severity,
+		options: any,
 		parser: Parser,
 		report: Reporter
 	): Rule {
-		return super.loadRule(name, data, parser, report);
+		return super.loadRule(name, severity, options, parser, report);
 	}
 
 	public requireRule(name: string, options: RuleOptions): any {
@@ -306,7 +307,8 @@ describe("Engine", () => {
 				engine.requireRule = jest.fn(() => mockRule);
 				const rule = engine.loadRule(
 					"void",
-					[Config.SEVERITY_ERROR, {}],
+					Severity.ERROR,
+					{},
 					parser,
 					reporter
 				);
@@ -314,7 +316,7 @@ describe("Engine", () => {
 				expect(rule.init).toHaveBeenCalledWith(
 					parser,
 					reporter,
-					Config.SEVERITY_ERROR
+					Severity.ERROR
 				);
 				expect(rule.setup).toHaveBeenCalledWith();
 				expect(rule.name).toEqual("void");
@@ -325,7 +327,8 @@ describe("Engine", () => {
 				mockRule.name = "foobar";
 				const rule = engine.loadRule(
 					"void",
-					[Config.SEVERITY_ERROR, {}],
+					Severity.ERROR,
+					{},
 					parser,
 					reporter
 				);
@@ -334,14 +337,14 @@ describe("Engine", () => {
 
 			it("should add error if rule cannot be found", () => {
 				engine.requireRule = jest.fn(() => null);
-				engine.loadRule("void", [Config.SEVERITY_ERROR, {}], parser, reporter);
+				engine.loadRule("void", Severity.ERROR, {}, parser, reporter);
 				const add = jest.spyOn(reporter, "add");
 				parser.trigger("dom:load", { location: {} });
 				expect(add).toHaveBeenCalledWith(
 					null,
 					expect.any(Rule),
 					"Definition for rule 'void' was not found",
-					Config.SEVERITY_ERROR,
+					Severity.ERROR,
 					{},
 					undefined
 				);
@@ -369,7 +372,8 @@ describe("Engine", () => {
 				);
 				const rule = engine.loadRule(
 					"custom/my-rule",
-					[Config.SEVERITY_ERROR, {}],
+					Severity.ERROR,
+					{},
 					parser,
 					reporter
 				);

@@ -1,4 +1,4 @@
-import { Config } from "./config";
+import { Severity } from "./config";
 import { Location, Source } from "./context";
 import { HtmlElement } from "./dom";
 import { Rule } from "./rule";
@@ -114,11 +114,11 @@ export class Reporter {
 }
 
 function countErrors(messages: Message[]) {
-	return messages.filter(m => m.severity === Config.SEVERITY_ERROR).length;
+	return messages.filter(m => m.severity === Severity.ERROR).length;
 }
 
 function countWarnings(messages: Message[]) {
-	return messages.filter(m => m.severity === Config.SEVERITY_WARN).length;
+	return messages.filter(m => m.severity === Severity.WARN).length;
 }
 
 function messageSort(a: Message, b: Message): number {

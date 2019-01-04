@@ -1,4 +1,4 @@
-import { Config } from "./config";
+import { Config, Severity } from "./config";
 import { Location } from "./context";
 import { HtmlElement } from "./dom";
 import { Event } from "./event";
@@ -26,7 +26,7 @@ describe("rule base class", () => {
 		reporter.add = jest.fn();
 
 		rule = new MockRule({});
-		rule.init(parser, reporter, Config.SEVERITY_ERROR);
+		rule.init(parser, reporter, Severity.ERROR);
 		mockLocation = { filename: "mock-file", offset: 1, line: 1, column: 2 };
 		mockEvent = {
 			location: mockLocation,
@@ -35,20 +35,20 @@ describe("rule base class", () => {
 
 	describe("report()", () => {
 		it('should not add message with severity "disabled"', () => {
-			rule.setServerity(Config.SEVERITY_DISABLED);
+			rule.setServerity(Severity.DISABLED);
 			rule.report(null, "foo");
 			expect(reporter.add).not.toHaveBeenCalled();
 		});
 
 		it('should add message with severity "warn"', () => {
 			const node = new HtmlElement("foo", null);
-			rule.setServerity(Config.SEVERITY_WARN);
+			rule.setServerity(Severity.WARN);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(
 				node,
 				rule,
 				"foo",
-				Config.SEVERITY_WARN,
+				Severity.WARN,
 				expect.anything(),
 				undefined
 			);
@@ -61,7 +61,7 @@ describe("rule base class", () => {
 				node,
 				rule,
 				"foo",
-				Config.SEVERITY_ERROR,
+				Severity.ERROR,
 				expect.anything(),
 				undefined
 			);
@@ -80,7 +80,7 @@ describe("rule base class", () => {
 				node,
 				rule,
 				"foo",
-				Config.SEVERITY_ERROR,
+				Severity.ERROR,
 				mockLocation,
 				undefined
 			);
@@ -96,7 +96,7 @@ describe("rule base class", () => {
 				node,
 				rule,
 				"foo",
-				Config.SEVERITY_ERROR,
+				Severity.ERROR,
 				mockEvent.location,
 				undefined
 			);
@@ -109,7 +109,7 @@ describe("rule base class", () => {
 				node,
 				rule,
 				"foo",
-				Config.SEVERITY_ERROR,
+				Severity.ERROR,
 				mockLocation,
 				undefined
 			);
@@ -123,7 +123,7 @@ describe("rule base class", () => {
 				node,
 				rule,
 				"foo",
-				Config.SEVERITY_ERROR,
+				Severity.ERROR,
 				expect.anything(),
 				{ foo: "bar" }
 			);
@@ -143,19 +143,19 @@ describe("rule base class", () => {
 		});
 
 		it('should not deliver events with severity "disabled"', () => {
-			rule.setServerity(Config.SEVERITY_DISABLED);
+			rule.setServerity(Severity.DISABLED);
 			callback("event", mockEvent);
 			expect(delivered).toBeFalsy();
 		});
 
 		it('should deliver events with severity "warn"', () => {
-			rule.setServerity(Config.SEVERITY_WARN);
+			rule.setServerity(Severity.WARN);
 			callback("event", mockEvent);
 			expect(delivered).toBeTruthy();
 		});
 
 		it('should deliver events with severity "error"', () => {
-			rule.setServerity(Config.SEVERITY_ERROR);
+			rule.setServerity(Severity.ERROR);
 			callback("event", mockEvent);
 			expect(delivered).toBeTruthy();
 		});
