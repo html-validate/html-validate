@@ -5,10 +5,8 @@ export enum Severity {
 }
 
 export function parseSeverity(value: string | number): Severity {
-	if (typeof value === "number") {
-		return value;
-	}
 	switch (value) {
+		case 0:
 		case "off":
 			return Severity.DISABLED;
 		/* istanbul ignore next: deprecated code which will be removed later */
@@ -18,8 +16,10 @@ export function parseSeverity(value: string | number): Severity {
 				`Deprecated alias "disabled" will be removed, replace with severity "off"`
 			);
 			return Severity.DISABLED;
+		case 1:
 		case "warn":
 			return Severity.WARN;
+		case 2:
 		case "error":
 			return Severity.ERROR;
 		default:

@@ -29,6 +29,10 @@ describe("parseSeverity()", () => {
 		expect(() => parseSeverity("foobar")).toThrow('Invalid severity "foobar"');
 	});
 
+	it("should throw error on 3", () => {
+		expect(() => parseSeverity(3)).toThrow('Invalid severity "3"');
+	});
+
 	it("should throw error on null", () => {
 		expect(() => parseSeverity(null)).toThrow('Invalid severity "null"');
 	});
