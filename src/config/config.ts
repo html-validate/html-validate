@@ -1,3 +1,6 @@
+import * as deepmerge from "deepmerge";
+import * as fs from "fs";
+import * as path from "path";
 import { Source } from "../context";
 import { MetaTable } from "../meta";
 import { ElementTable } from "../meta/element";
@@ -14,11 +17,6 @@ interface Transformer {
 interface Plugin {
 	rules: { [key: string]: RuleConstructor };
 }
-
-const fs = require("fs");
-const path = require("path");
-const deepmerge = require("deepmerge");
-
 const recommended = require("./recommended");
 const document = require("./document");
 let rootDirCache: string = null;
