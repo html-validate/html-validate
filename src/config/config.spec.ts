@@ -1,6 +1,7 @@
-const path = require("path");
 import * as fs from "fs";
+import * as path from "path";
 import { Config } from "./config";
+import { Severity } from "./severity";
 
 let mockElements: any;
 jest.mock("mock-elements", () => mockElements, { virtual: true });
@@ -59,7 +60,7 @@ describe("config", () => {
 			const config = Config.fromObject({ rules: { foo: "error" } });
 			expect(config.get().rules).toEqual({ foo: "error" });
 			expect(config.getRules()).toEqual({
-				foo: [Config.SEVERITY_ERROR, {}],
+				foo: [Severity.ERROR, {}],
 			});
 		});
 
@@ -72,9 +73,9 @@ describe("config", () => {
 				},
 			});
 			expect(config.getRules()).toEqual({
-				foo: [Config.SEVERITY_ERROR, {}],
-				bar: [Config.SEVERITY_WARN, {}],
-				baz: [Config.SEVERITY_DISABLED, {}],
+				foo: [Severity.ERROR, {}],
+				bar: [Severity.WARN, {}],
+				baz: [Severity.DISABLED, {}],
 			});
 		});
 
@@ -87,9 +88,9 @@ describe("config", () => {
 				},
 			});
 			expect(config.getRules()).toEqual({
-				foo: [Config.SEVERITY_ERROR, {}],
-				bar: [Config.SEVERITY_WARN, {}],
-				baz: [Config.SEVERITY_DISABLED, {}],
+				foo: [Severity.ERROR, {}],
+				bar: [Severity.WARN, {}],
+				baz: [Severity.DISABLED, {}],
 			});
 		});
 
@@ -112,9 +113,9 @@ describe("config", () => {
 				},
 			});
 			expect(config.getRules()).toEqual({
-				foo: [Config.SEVERITY_ERROR, { foo: true }],
-				bar: [Config.SEVERITY_ERROR, { bar: false }],
-				baz: [Config.SEVERITY_WARN, {}],
+				foo: [Severity.ERROR, { foo: true }],
+				bar: [Severity.ERROR, { bar: false }],
+				baz: [Severity.WARN, {}],
 			});
 		});
 
@@ -128,9 +129,9 @@ describe("config", () => {
 		it("should support JSON", () => {
 			const config = Config.fromFile(`${process.cwd()}/test-files/config.json`);
 			expect(config.getRules()).toEqual({
-				foo: [Config.SEVERITY_ERROR, {}],
-				bar: [Config.SEVERITY_WARN, {}],
-				baz: [Config.SEVERITY_DISABLED, {}],
+				foo: [Severity.ERROR, {}],
+				bar: [Severity.WARN, {}],
+				baz: [Severity.DISABLED, {}],
 			});
 		});
 	});
@@ -144,9 +145,9 @@ describe("config", () => {
 				},
 			});
 			expect(config.getRules()).toEqual({
-				foo: [Config.SEVERITY_WARN, {}],
-				bar: [Config.SEVERITY_WARN, {}],
-				baz: [Config.SEVERITY_DISABLED, {}],
+				foo: [Severity.WARN, {}],
+				bar: [Severity.WARN, {}],
+				baz: [Severity.DISABLED, {}],
 			});
 		});
 
@@ -155,9 +156,9 @@ describe("config", () => {
 				extends: [`${process.cwd()}/test-files/config-extending.json`],
 			});
 			expect(config.getRules()).toEqual({
-				foo: [Config.SEVERITY_ERROR, {}],
-				bar: [Config.SEVERITY_WARN, {}],
-				baz: [Config.SEVERITY_ERROR, {}],
+				foo: [Severity.ERROR, {}],
+				bar: [Severity.WARN, {}],
+				baz: [Severity.ERROR, {}],
 			});
 		});
 

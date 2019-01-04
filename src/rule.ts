@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import * as path from "path";
-import { Config } from "./config";
+import { Config, Severity } from "./config";
 import { Location } from "./context";
 import { HtmlElement } from "./dom";
 import {
@@ -71,7 +71,7 @@ export abstract class Rule<T = any> {
 	 * least warning.
 	 */
 	public isEnabled(): boolean {
-		return this.enabled && this.severity >= Config.SEVERITY_WARN;
+		return this.enabled && this.severity >= Severity.WARN;
 	}
 
 	/**

@@ -4,6 +4,7 @@ import { ElementTable } from "../meta/element";
 import { RuleConstructor } from "../rule";
 import { ConfigData, TransformMap } from "./config-data";
 import defaultConfig from "./default";
+import { parseSeverity } from "./severity";
 
 interface Transformer {
 	pattern: RegExp;
@@ -22,39 +23,12 @@ const recommended = require("./recommended");
 const document = require("./document");
 let rootDirCache: string = null;
 
-function parseSeverity(value: string | number) {
-	if (typeof value === "number") {
-		return value;
-	}
-	switch (value) {
-		case "off":
-			return 0;
-		/* istanbul ignore next: deprecated code which will be removed later */
-		case "disable":
-			// eslint-disable-next-line no-console
-			console.warn(
-				`Deprecated alias "disabled" will be removed, replace with severity "off"`
-			);
-			return 0;
-		case "warn":
-			return 1;
-		case "error":
-			return 2;
-		default:
-			throw new Error(`Invalid severity "${value}"`);
-	}
-}
-
 export class Config {
 	private config: ConfigData;
 	protected metaTable: MetaTable;
 	protected plugins: Plugin[];
 	protected transformers: Transformer[];
 	protected rootDir: string;
-
-	public static readonly SEVERITY_DISABLED = 0;
-	public static readonly SEVERITY_WARN = 1;
-	public static readonly SEVERITY_ERROR = 2;
 
 	public static empty(): Config {
 		return new Config({
