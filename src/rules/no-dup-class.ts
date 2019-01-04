@@ -3,14 +3,14 @@ import { AttributeEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class NoDupClass extends Rule {
-	documentation(): RuleDocumentation {
+	public documentation(): RuleDocumentation {
 		return {
 			description: "Prevents unnecessary duplication of class names.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
 
-	setup() {
+	public setup() {
 		this.on("attr", (event: AttributeEvent) => {
 			if (event.key.toLowerCase() !== "class") {
 				return;

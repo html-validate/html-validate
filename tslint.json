@@ -9,7 +9,7 @@
     "jsdoc-format": false,
     "max-classes-per-file": false,
     "max-line-length": false,
-    "member-access": false,
+    "member-access": true,
     "member-ordering": false,
     "no-console": false,
     "no-shadowed-variable": false,

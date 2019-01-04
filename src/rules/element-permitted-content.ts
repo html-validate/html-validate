@@ -5,7 +5,7 @@ import { Permitted } from "../meta/element";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class ElementPermittedContent extends Rule {
-	documentation(): RuleDocumentation {
+	public documentation(): RuleDocumentation {
 		return {
 			description:
 				"Some elements has restrictions on what content is allowed. This can include both direct children or descendant elements.",
@@ -13,7 +13,7 @@ class ElementPermittedContent extends Rule {
 		};
 	}
 
-	setup() {
+	public setup() {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;
 			doc.visitDepthFirst((node: HtmlElement) => {
@@ -37,7 +37,7 @@ class ElementPermittedContent extends Rule {
 		});
 	}
 
-	validatePermittedContent(
+	public validatePermittedContent(
 		cur: HtmlElement,
 		parent: HtmlElement,
 		rules: Permitted
@@ -62,7 +62,10 @@ class ElementPermittedContent extends Rule {
 		}
 	}
 
-	validatePermittedDescendant(node: HtmlElement, parent: HtmlElement): void {
+	public validatePermittedDescendant(
+		node: HtmlElement,
+		parent: HtmlElement
+	): void {
 		while (!parent.isRootElement()) {
 			if (
 				parent.meta &&

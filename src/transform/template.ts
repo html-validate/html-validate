@@ -101,15 +101,15 @@ function compareKey(node: ESTree.Expression, key: string, filename: string) {
 }
 
 export class TemplateExtractor {
-	ast: ESTree.Program;
-	filename: string;
+	protected ast: ESTree.Program;
+	private filename: string;
 
 	private constructor(ast: ESTree.Program, filename: string) {
 		this.ast = ast;
 		this.filename = filename;
 	}
 
-	static fromFilename(filename: string): TemplateExtractor {
+	public static fromFilename(filename: string): TemplateExtractor {
 		const source = fs.readFileSync(filename);
 		const ast = espree.parse(source, {
 			ecmaVersion: 2017,
@@ -119,7 +119,10 @@ export class TemplateExtractor {
 		return new TemplateExtractor(ast, filename);
 	}
 
-	static fromString(source: string, filename?: string): TemplateExtractor {
+	public static fromString(
+		source: string,
+		filename?: string
+	): TemplateExtractor {
 		const ast = espree.parse(source, {
 			ecmaVersion: 2017,
 			sourceType: "module",
@@ -128,7 +131,7 @@ export class TemplateExtractor {
 		return new TemplateExtractor(ast, filename || "inline");
 	}
 
-	static createSource(filename: string): Source[] {
+	public static createSource(filename: string): Source[] {
 		const data = fs.readFileSync(filename, "utf-8");
 		return [
 			{
@@ -140,7 +143,7 @@ export class TemplateExtractor {
 		];
 	}
 
-	extractObjectProperty(key: string): Source[] {
+	public extractObjectProperty(key: string): Source[] {
 		const result: Source[] = [];
 		const filename = this.filename;
 		walk.simple(this.ast, {

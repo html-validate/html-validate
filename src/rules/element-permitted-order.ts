@@ -4,14 +4,14 @@ import { Validator } from "../meta";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class ElementPermittedOrder extends Rule {
-	documentation(): RuleDocumentation {
+	public documentation(): RuleDocumentation {
 		return {
 			description: "Some elements has a specific order the children must use.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
 
-	setup() {
+	public setup() {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;
 			doc.visitDepthFirst((node: HtmlElement) => {

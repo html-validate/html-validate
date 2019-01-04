@@ -3,7 +3,7 @@ import { HtmlElement } from "./htmlelement";
 
 class Matcher {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	match(node: HtmlElement): boolean {
+	public match(node: HtmlElement): boolean {
 		/* istanbul ignore next: only used by fallback solution */
 		return false;
 	}
@@ -17,7 +17,7 @@ class ClassMatcher extends Matcher {
 		this.classname = classname;
 	}
 
-	match(node: HtmlElement): boolean {
+	public match(node: HtmlElement): boolean {
 		return node.classList.contains(this.classname);
 	}
 }
@@ -30,7 +30,7 @@ class IdMatcher extends Matcher {
 		this.id = id;
 	}
 
-	match(node: HtmlElement): boolean {
+	public match(node: HtmlElement): boolean {
 		return node.id === this.id;
 	}
 }
@@ -48,7 +48,7 @@ class AttrMatcher extends Matcher {
 		this.value = value;
 	}
 
-	match(node: HtmlElement): boolean {
+	public match(node: HtmlElement): boolean {
 		const attr = node.getAttributeValue(this.key);
 		switch (this.op) {
 			case undefined:
@@ -64,8 +64,8 @@ class AttrMatcher extends Matcher {
 }
 
 class Pattern {
-	readonly combinator: Combinator;
-	readonly tagName: string;
+	public readonly combinator: Combinator;
+	public readonly tagName: string;
 	private readonly selector: string;
 	private readonly pattern: Matcher[];
 
@@ -79,7 +79,7 @@ class Pattern {
 		this.pattern = p.map((cur: string) => Pattern.createMatcher(cur));
 	}
 
-	match(node: HtmlElement): boolean {
+	public match(node: HtmlElement): boolean {
 		return (
 			node.is(this.tagName) &&
 			this.pattern.every((cur: Matcher) => cur.match(node))
@@ -109,7 +109,10 @@ export class Selector {
 		this.pattern = Selector.parse(selector);
 	}
 
-	*match(root: HtmlElement, level: number = 0): IterableIterator<HtmlElement> {
+	public *match(
+		root: HtmlElement,
+		level: number = 0
+	): IterableIterator<HtmlElement> {
 		if (level >= this.pattern.length) {
 			yield root;
 			return;

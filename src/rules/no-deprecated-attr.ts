@@ -2,14 +2,14 @@ import { AttributeEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class NoDeprecatedAttr extends Rule {
-	documentation(): RuleDocumentation {
+	public documentation(): RuleDocumentation {
 		return {
 			description: "HTML5 deprecated many old attributes.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
 
-	setup() {
+	public setup() {
 		this.on("attr", (event: AttributeEvent) => {
 			const node = event.target;
 			const meta = node.meta;

@@ -1,7 +1,7 @@
 import { DynamicValue } from "./dynamic-value";
 
 export class DOMTokenList extends Array<string> {
-	readonly value: string;
+	public readonly value: string;
 
 	constructor(value: string | DynamicValue) {
 		if (value && typeof value === "string") {
@@ -17,11 +17,11 @@ export class DOMTokenList extends Array<string> {
 		}
 	}
 
-	item(n: number): string {
+	public item(n: number): string {
 		return this[n];
 	}
 
-	contains(token: string): boolean {
+	public contains(token: string): boolean {
 		return this.indexOf(token) >= 0;
 	}
 }

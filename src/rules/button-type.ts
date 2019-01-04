@@ -5,7 +5,7 @@ import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 const validTypes = ["submit", "button", "reset"];
 
 class ButtonType extends Rule {
-	documentation(): RuleDocumentation {
+	public documentation(): RuleDocumentation {
 		return {
 			description:
 				'HTML button defaults to `type="submit"` when attribute is missing or invalid which may not be the intended type.\n\nA common side-effect of this is when pressing enter in a form field unexpectedly prevents form submission and instead executes the action this button is bound to.',
@@ -13,7 +13,7 @@ class ButtonType extends Rule {
 		};
 	}
 
-	setup() {
+	public setup() {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const buttons = event.document.getElementsByTagName("button");
 			buttons.forEach((node: HtmlElement) => {

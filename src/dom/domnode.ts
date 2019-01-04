@@ -8,9 +8,9 @@ export enum NodeType {
 }
 
 export class DOMNode {
-	readonly location: Location;
-	readonly nodeName: string;
-	readonly nodeType: NodeType;
+	public readonly location: Location;
+	public readonly nodeName: string;
+	public readonly nodeType: NodeType;
 
 	/**
 	 * Set of disabled rules for this node.

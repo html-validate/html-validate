@@ -7,7 +7,7 @@ const defaults = {
 };
 
 class H37 extends Rule {
-	documentation(): RuleDocumentation {
+	public documentation(): RuleDocumentation {
 		return {
 			description:
 				"Both HTML5 and WCAG 2.0 requires images to have a alternative text for each image.",
@@ -24,7 +24,7 @@ class H37 extends Rule {
 		}
 	}
 
-	setup() {
+	public setup() {
 		this.on("tag:close", (event: TagCloseEvent) => {
 			const node = event.previous;
 

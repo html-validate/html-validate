@@ -3,7 +3,7 @@ import { TagCloseEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class CloseOrder extends Rule {
-	documentation(): RuleDocumentation {
+	public documentation(): RuleDocumentation {
 		return {
 			description:
 				"HTML requires elements to be closed in the same order as they were opened.",
@@ -11,7 +11,7 @@ class CloseOrder extends Rule {
 		};
 	}
 
-	setup() {
+	public setup() {
 		this.on("tag:close", (event: TagCloseEvent) => {
 			const current = event.target; // The current element being closed
 			const active = event.previous; // The current active element (that is, the current element on the stack)

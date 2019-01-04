@@ -4,7 +4,7 @@ import { TagOpenEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class HeadingLevel extends Rule {
-	documentation(): RuleDocumentation {
+	public documentation(): RuleDocumentation {
 		return {
 			description:
 				"Validates heading level increments and order. Headings must start at h1 and can only increase one level at a time.",
@@ -12,7 +12,7 @@ class HeadingLevel extends Rule {
 		};
 	}
 
-	setup() {
+	public setup() {
 		let current = 0;
 		this.on("tag:open", (event: TagOpenEvent) => {
 			/* ensure it is a heading */
@@ -51,11 +51,11 @@ class HeadingLevel extends Rule {
 		});
 	}
 
-	isHeading(node: HtmlElement): boolean {
+	private isHeading(node: HtmlElement): boolean {
 		return node.meta && !!node.meta.heading;
 	}
 
-	extractLevel(node: HtmlElement): number {
+	private extractLevel(node: HtmlElement): number {
 		const match = node.tagName.match(/^[hH](\d)$/);
 		return match ? parseInt(match[1], 10) : null;
 	}

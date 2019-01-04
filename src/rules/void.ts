@@ -14,9 +14,9 @@ enum Style {
 }
 
 class Void extends Rule {
-	style: Style;
+	private style: Style;
 
-	documentation(): RuleDocumentation {
+	public documentation(): RuleDocumentation {
 		return {
 			description:
 				"HTML void elements cannot have any content and must not have an end tag.",
@@ -29,7 +29,7 @@ class Void extends Rule {
 		this.style = parseStyle(this.options.style);
 	}
 
-	setup() {
+	public setup() {
 		this.on("tag:close", (event: TagCloseEvent) => {
 			const current = event.target; // The current element being closed
 			const active = event.previous; // The current active element (that is, the current element on the stack)
@@ -44,13 +44,13 @@ class Void extends Rule {
 		});
 	}
 
-	validateCurrent(node: HtmlElement): void {
+	private validateCurrent(node: HtmlElement): void {
 		if (node.voidElement && node.closed === NodeClosed.EndTag) {
 			this.report(node, `End tag for <${node.tagName}> must be omitted`);
 		}
 	}
 
-	validateActive(node: HtmlElement): void {
+	private validateActive(node: HtmlElement): void {
 		const selfOrOmitted =
 			node.closed === NodeClosed.VoidOmitted ||
 			node.closed === NodeClosed.VoidSelfClosed;

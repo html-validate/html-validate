@@ -3,7 +3,7 @@ import { TagOpenEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class Deprecated extends Rule {
-	documentation(): RuleDocumentation {
+	public documentation(): RuleDocumentation {
 		return {
 			description:
 				"HTML5 deprecated many old elements and they should not be used in new code.",
@@ -11,7 +11,7 @@ class Deprecated extends Rule {
 		};
 	}
 
-	setup() {
+	public setup() {
 		this.on("tag:open", (event: TagOpenEvent) => {
 			const node = event.target;
 

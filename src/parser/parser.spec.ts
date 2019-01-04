@@ -3,7 +3,7 @@ import { Source } from "../context";
 import { DOMTree, HtmlElement } from "../dom";
 import { EventCallback } from "../event";
 import HtmlValidate from "../htmlvalidate";
-import { InvalidTokenError, TokenStream, TokenType } from "../lexer";
+import { InvalidTokenError, Token, TokenStream, TokenType } from "../lexer";
 import "../matchers";
 import { Parser } from "./parser";
 
@@ -24,6 +24,17 @@ function mergeEvent(event: string, data: any) {
 }
 
 class ExposedParser extends Parser {
+	public consumeDirective(token: Token) {
+		super.consumeDirective(token);
+	}
+
+	public *consumeUntil(
+		tokenStream: TokenStream,
+		search: TokenType
+	): IterableIterator<Token> {
+		yield* super.consumeUntil(tokenStream, search);
+	}
+
 	public trigger(event: any, data: any) {
 		super.trigger(event, data);
 	}

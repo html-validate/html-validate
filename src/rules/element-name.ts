@@ -9,14 +9,14 @@ const defaults = {
 };
 
 class ElementName extends Rule {
-	pattern: RegExp;
+	private pattern: RegExp;
 
 	constructor(options: object) {
 		super(Object.assign({}, defaults, options));
 		this.pattern = new RegExp(this.options.pattern);
 	}
 
-	documentation(): RuleDocumentation {
+	public documentation(): RuleDocumentation {
 		return {
 			description:
 				"HTML defines what content is considered a valid (custom) element name.",
@@ -24,7 +24,7 @@ class ElementName extends Rule {
 		};
 	}
 
-	setup() {
+	public setup() {
 		const xmlns = /^(.+):.+$/;
 		this.on("tag:open", (event: TagOpenEvent) => {
 			const target = event.target;

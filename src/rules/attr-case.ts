@@ -6,22 +6,22 @@ const defaults = {
 };
 
 class AttrCase extends Rule {
-	pattern: RegExp;
-	lettercase: string;
+	private pattern: RegExp;
+	private lettercase: string;
 
 	constructor(options: object) {
 		super(Object.assign({}, defaults, options));
 		[this.pattern, this.lettercase] = parseStyle(this.options.style);
 	}
 
-	documentation(): RuleDocumentation {
+	public documentation(): RuleDocumentation {
 		return {
 			description: `Attribute name must be ${this.options.style}.`,
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
 
-	setup() {
+	public setup() {
 		this.on("attr", (event: AttributeEvent) => {
 			const letters = event.key.replace(/[^a-z]+/gi, "");
 			if (!letters.match(this.pattern)) {
