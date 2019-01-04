@@ -18,17 +18,31 @@ import { Lexer, Token, TokenStream, TokenType } from "../lexer";
 import { MetaTable } from "../meta";
 import { AttributeData } from "./attribute-data";
 
+/**
+ * Parse HTML document into a DOM tree.
+ */
 export class Parser {
 	private readonly event: EventHandler;
 	private readonly metaTable: MetaTable;
 	private dom: DOMTree;
 
-	constructor(config: Config) {
+	/**
+	 * Create a new parser instance.
+	 *
+	 * @param config - Configuration
+	 */
+	public constructor(config: Config) {
 		this.event = new EventHandler();
 		this.dom = undefined;
 		this.metaTable = config.getMetaTable();
 	}
 
+	/**
+	 * Parse HTML markup.
+	 *
+	 * @param source - HTML markup.
+	 * @returns DOM tree representing the HTML markup.
+	 */
 	public parseHtml(source: string | Source): DOMTree {
 		if (typeof source === "string") {
 			source = {
@@ -445,13 +459,22 @@ export class Parser {
 
 	/**
 	 * Listen on events.
+	 *
+	 * @param event - Event name.
+	 * @param listener - Event callback.
+	 * @returns A function to unregister the listener.
 	 */
 	public on(event: string, listener: EventCallback): () => void {
 		return this.event.on(event, listener);
 	}
 
 	/**
-	 * Listen on single event.
+	 * Listen on single event. The listener is automatically unregistered once the
+	 * event has been received.
+	 *
+	 * @param event - Event name.
+	 * @param listener - Event callback.
+	 * @returns A function to unregister the listener.
 	 */
 	public once(event: string, listener: EventCallback): () => void {
 		return this.event.once(event, listener);
@@ -459,6 +482,8 @@ export class Parser {
 
 	/**
 	 * Defer execution. Will call function sometime later.
+	 *
+	 * @param cb - Callback to execute later.
 	 */
 	public defer(cb: () => void): void {
 		this.event.once("*", cb);
@@ -487,6 +512,9 @@ export class Parser {
 		this.event.trigger(event, data);
 	}
 
+	/**
+	 * @hidden
+	 */
 	public getEventHandler(): EventHandler {
 		return this.event;
 	}

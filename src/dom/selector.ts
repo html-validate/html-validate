@@ -105,6 +105,9 @@ class Pattern {
 	}
 }
 
+/**
+ * DOM Selector.
+ */
 export class Selector {
 	private readonly pattern: Pattern[];
 
@@ -112,9 +115,19 @@ export class Selector {
 		this.pattern = Selector.parse(selector);
 	}
 
-	public *match(
+	/**
+	 * Match this selector against a HtmlElement.
+	 *
+	 * @param root Element to match against.
+	 * @returns Iterator with matched elements.
+	 */
+	public *match(root: HtmlElement): IterableIterator<HtmlElement> {
+		yield* this.matchInternal(root, 0);
+	}
+
+	private *matchInternal(
 		root: HtmlElement,
-		level: number = 0
+		level: number
 	): IterableIterator<HtmlElement> {
 		if (level >= this.pattern.length) {
 			yield root;
@@ -129,7 +142,7 @@ export class Selector {
 				continue;
 			}
 
-			yield* this.match(node, level + 1);
+			yield* this.matchInternal(node, level + 1);
 		}
 	}
 

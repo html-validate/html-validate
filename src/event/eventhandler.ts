@@ -1,3 +1,4 @@
+/** @hidden */
 export type EventCallback = (event: string, data: any) => void;
 
 export class EventHandler {

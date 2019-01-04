@@ -34,9 +34,11 @@ export interface ConfigData {
 	 *
 	 * Example:
 	 *
+	 * ```js
 	 * "transform": {
 	 *   "^.*\\.foo$": "my-transform"
 	 * }
+	 * ```
 	 *
 	 * To run the "my-transform" module on all .foo files.
 	 */

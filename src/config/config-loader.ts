@@ -2,20 +2,37 @@ import fs from "fs";
 import path from "path";
 import { Config } from "./config";
 
+/**
+ * @hidden
+ */
 interface ConfigClass {
 	empty(): Config;
 	fromFile(filename: string): Config;
 }
 
+/**
+ * Configuration loader.
+ *
+ * Handles configuration lookup and cache results. When performing lookups
+ * parent directories is searched as well and the result is merged together.
+ */
 export class ConfigLoader {
 	protected cache: Map<string, Config>;
 	protected configClass: ConfigClass;
 
-	constructor(configClass: ConfigClass) {
+	/**
+	 * @param configClass - Override class to construct.
+	 */
+	constructor(configClass: ConfigClass = Config) {
 		this.cache = new Map<string, Config>();
 		this.configClass = configClass;
 	}
 
+	/**
+	 * Flush configuration cache.
+	 *
+	 * @param filename If given only the cache for that file is flushed.
+	 */
 	public flush(filename?: string): void {
 		if (filename) {
 			this.cache.delete(filename);
@@ -24,6 +41,13 @@ export class ConfigLoader {
 		}
 	}
 
+	/**
+	 * Get configuration for file.
+	 *
+	 * Searches parent directories for configuration and merges the result.
+	 *
+	 * @param filename Filename to get configuration for.
+	 */
 	public fromTarget(filename: string): Config {
 		if (filename === "inline") {
 			return this.configClass.empty();

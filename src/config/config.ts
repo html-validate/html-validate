@@ -43,6 +43,11 @@ function loadFromFile(filename: string): ConfigData {
 	return json;
 }
 
+/**
+ * Configuration holder.
+ *
+ * Each file being validated will have a unique instance of this class.
+ */
 export class Config {
 	private config: ConfigData;
 	private configurations: Map<string, ConfigData>;
@@ -51,6 +56,9 @@ export class Config {
 	protected transformers: Transformer[];
 	protected rootDir: string;
 
+	/**
+	 * Create a new blank configuration. See also `Config.defaultConfig()`.
+	 */
 	public static empty(): Config {
 		return new Config({
 			extends: [],
@@ -60,15 +68,30 @@ export class Config {
 		});
 	}
 
+	/**
+	 * Create configuration from object.
+	 */
 	public static fromObject(options: ConfigData): Config {
 		return new Config(options);
 	}
 
+	/**
+	 * Read configuration from filename.
+	 *
+	 * Note: this reads configuration data from a file. If you intent to load
+	 * configuration for a file to validate use `ConfigLoader.fromTarget()`.
+	 *
+	 * @param filename - The file to read from or one of the presets such as
+	 * `htmlvalidate:recommended`.
+	 */
 	public static fromFile(filename: string): Config {
 		const configdata = loadFromFile(filename);
 		return new Config(configdata);
 	}
 
+	/**
+	 * Load a default configuration object.
+	 */
 	public static defaultConfig(): Config {
 		return new Config(defaultConfig);
 	}
@@ -94,6 +117,11 @@ export class Config {
 		}
 	}
 
+	/**
+	 * Initialize plugins, transforms etc.
+	 *
+	 * Must be called before trying to use config.
+	 */
 	public init() {
 		/* precompile transform patterns */
 		this.transformers = this.precompileTransformers(
@@ -121,6 +149,9 @@ export class Config {
 		return mergeInternal(base, this.config);
 	}
 
+	/**
+	 * Get element metadata.
+	 */
 	public getMetaTable(): MetaTable {
 		/* use cached table if it exists */
 		if (this.metaTable) {
@@ -167,6 +198,9 @@ export class Config {
 		return (this.metaTable = metaTable);
 	}
 
+	/**
+	 * @hidden exposed for testing only
+	 */
 	public static expandRelative(src: string, currentPath: string): string {
 		if (src[0] === ".") {
 			return path.normalize(`${currentPath}/${src}`);
@@ -174,6 +208,11 @@ export class Config {
 		return src;
 	}
 
+	/**
+	 * Get a copy of internal configuration data.
+	 *
+	 * @hidden primary purpose is unittests
+	 */
 	public get(): ConfigData {
 		const config = Object.assign({}, this.config);
 		if (config.elements) {
@@ -184,6 +223,9 @@ export class Config {
 		return config;
 	}
 
+	/**
+	 * Get all configured rules, their severity and options.
+	 */
 	public getRules(): Map<string, [Severity, any]> {
 		const rules = new Map<string, [Severity, any]>();
 		for (const [ruleId, data] of Object.entries(this.config.rules || {})) {
@@ -199,6 +241,9 @@ export class Config {
 		return rules;
 	}
 
+	/**
+	 * Get all configured plugins.
+	 */
 	public getPlugins(): Plugin[] {
 		return this.plugins;
 	}
@@ -232,6 +277,10 @@ export class Config {
 
 	/**
 	 * Transform a source file.
+	 *
+	 * @param filename - Filename to transform (according to configured
+	 * transformations)
+	 * @return A list of extracted sources ready for validation.
 	 */
 	public transform(filename: string): Source[] {
 		const transformer = this.findTransformer(filename);

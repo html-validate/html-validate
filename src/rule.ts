@@ -47,7 +47,7 @@ export abstract class Rule<T = any> {
 	 */
 	public readonly options: RuleOptions;
 
-	constructor(options: RuleOptions) {
+	public constructor(options: RuleOptions) {
 		this.options = options;
 		this.enabled = true;
 	}
@@ -115,6 +115,8 @@ export abstract class Rule<T = any> {
 	 *
 	 * Adding listeners can be done even if the rule is disabled but for the
 	 * events to be delivered the rule must be enabled.
+	 *
+	 * @param event - Event name
 	 */
 	public on(event: "tag:open", callback: (event: TagOpenEvent) => void): void;
 	public on(event: "tag:close", callback: (event: TagCloseEvent) => void): void;
@@ -144,14 +146,36 @@ export abstract class Rule<T = any> {
 		});
 	}
 
+	/**
+	 * Called by [[Engine]] when initializing the rule.
+	 *
+	 * Do not override this, use the `setup` callback instead.
+	 *
+	 * @hidden
+	 */
 	public init(parser: Parser, reporter: Reporter, severity: number): void {
 		this.parser = parser;
 		this.reporter = reporter;
 		this.severity = severity;
 	}
 
+	/**
+	 * Rule setup callback.
+	 *
+	 * Override this to provide rule setup code.
+	 */
 	public abstract setup(): void;
 
+	/**
+	 * Rule documentation callback.
+	 *
+	 * Called when requesting additional documentation for a rule. Some rules
+	 * provide additional context to provide context-aware suggestions.
+	 *
+	 * @param context - Error context given by a reported error.
+	 * @returns Rule documentation and url with additional details or `null` if no
+	 * additional documentation is available.
+	 */
 	/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 	public documentation(context?: T): RuleDocumentation {
 		return null;
