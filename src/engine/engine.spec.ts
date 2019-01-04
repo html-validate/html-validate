@@ -48,11 +48,12 @@ class ExposedEngine<T extends Parser> extends Engine<T> {
 	/* exposed for testing */
 	public loadRule(
 		name: string,
-		data: any,
+		severity: Severity,
+		options: any,
 		parser: Parser,
 		report: Reporter
 	): Rule {
-		return super.loadRule(name, data, parser, report);
+		return super.loadRule(name, severity, options, parser, report);
 	}
 
 	public requireRule(name: string, options: RuleOptions): any {
@@ -306,7 +307,8 @@ describe("Engine", () => {
 				engine.requireRule = jest.fn(() => mockRule);
 				const rule = engine.loadRule(
 					"void",
-					[Severity.ERROR, {}],
+					Severity.ERROR,
+					{},
 					parser,
 					reporter
 				);
@@ -325,7 +327,8 @@ describe("Engine", () => {
 				mockRule.name = "foobar";
 				const rule = engine.loadRule(
 					"void",
-					[Severity.ERROR, {}],
+					Severity.ERROR,
+					{},
 					parser,
 					reporter
 				);
@@ -334,7 +337,7 @@ describe("Engine", () => {
 
 			it("should add error if rule cannot be found", () => {
 				engine.requireRule = jest.fn(() => null);
-				engine.loadRule("void", [Severity.ERROR, {}], parser, reporter);
+				engine.loadRule("void", Severity.ERROR, {}, parser, reporter);
 				const add = jest.spyOn(reporter, "add");
 				parser.trigger("dom:load", { location: {} });
 				expect(add).toHaveBeenCalledWith(
@@ -369,7 +372,8 @@ describe("Engine", () => {
 				);
 				const rule = engine.loadRule(
 					"custom/my-rule",
-					[Severity.ERROR, {}],
+					Severity.ERROR,
+					{},
 					parser,
 					reporter
 				);

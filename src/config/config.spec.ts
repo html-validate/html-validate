@@ -59,9 +59,9 @@ describe("config", () => {
 		it("should return parsed rules", () => {
 			const config = Config.fromObject({ rules: { foo: "error" } });
 			expect(config.get().rules).toEqual({ foo: "error" });
-			expect(config.getRules()).toEqual({
-				foo: [Severity.ERROR, {}],
-			});
+			expect(Array.from(config.getRules().entries())).toEqual([
+				["foo", [Severity.ERROR, {}]],
+			]);
 		});
 
 		it("should parse severity from string", () => {
@@ -72,11 +72,11 @@ describe("config", () => {
 					baz: "off",
 				},
 			});
-			expect(config.getRules()).toEqual({
-				foo: [Severity.ERROR, {}],
-				bar: [Severity.WARN, {}],
-				baz: [Severity.DISABLED, {}],
-			});
+			expect(Array.from(config.getRules().entries())).toEqual([
+				["foo", [Severity.ERROR, {}]],
+				["bar", [Severity.WARN, {}]],
+				["baz", [Severity.DISABLED, {}]],
+			]);
 		});
 
 		it("should retain severity from integer", () => {
@@ -87,11 +87,11 @@ describe("config", () => {
 					baz: 0,
 				},
 			});
-			expect(config.getRules()).toEqual({
-				foo: [Severity.ERROR, {}],
-				bar: [Severity.WARN, {}],
-				baz: [Severity.DISABLED, {}],
-			});
+			expect(Array.from(config.getRules().entries())).toEqual([
+				["foo", [Severity.ERROR, {}]],
+				["bar", [Severity.WARN, {}]],
+				["baz", [Severity.DISABLED, {}]],
+			]);
 		});
 
 		it("should throw on invalid severity", () => {
@@ -112,27 +112,27 @@ describe("config", () => {
 					baz: ["warn"],
 				},
 			});
-			expect(config.getRules()).toEqual({
-				foo: [Severity.ERROR, { foo: true }],
-				bar: [Severity.ERROR, { bar: false }],
-				baz: [Severity.WARN, {}],
-			});
+			expect(Array.from(config.getRules().entries())).toEqual([
+				["foo", [Severity.ERROR, { foo: true }]],
+				["bar", [Severity.ERROR, { bar: false }]],
+				["baz", [Severity.WARN, {}]],
+			]);
 		});
 
 		it("should handle when rules are unset", () => {
 			const config = Config.fromObject({ rules: null });
-			expect(config.getRules()).toEqual({});
+			expect(Array.from(config.getRules().entries())).toEqual([]);
 		});
 	});
 
 	describe("fromFile()", () => {
 		it("should support JSON", () => {
 			const config = Config.fromFile(`${process.cwd()}/test-files/config.json`);
-			expect(config.getRules()).toEqual({
-				foo: [Severity.ERROR, {}],
-				bar: [Severity.WARN, {}],
-				baz: [Severity.DISABLED, {}],
-			});
+			expect(Array.from(config.getRules().entries())).toEqual([
+				["foo", [Severity.ERROR, {}]],
+				["bar", [Severity.WARN, {}]],
+				["baz", [Severity.DISABLED, {}]],
+			]);
 		});
 	});
 
@@ -144,22 +144,22 @@ describe("config", () => {
 					foo: 1,
 				},
 			});
-			expect(config.getRules()).toEqual({
-				foo: [Severity.WARN, {}],
-				bar: [Severity.WARN, {}],
-				baz: [Severity.DISABLED, {}],
-			});
+			expect(Array.from(config.getRules().entries())).toEqual([
+				["foo", [Severity.WARN, {}]],
+				["bar", [Severity.WARN, {}]],
+				["baz", [Severity.DISABLED, {}]],
+			]);
 		});
 
 		it("should support deep extending", () => {
 			const config = Config.fromObject({
 				extends: [`${process.cwd()}/test-files/config-extending.json`],
 			});
-			expect(config.getRules()).toEqual({
-				foo: [Severity.ERROR, {}],
-				bar: [Severity.WARN, {}],
-				baz: [Severity.ERROR, {}],
-			});
+			expect(Array.from(config.getRules().entries())).toEqual([
+				["foo", [Severity.ERROR, {}]],
+				["bar", [Severity.WARN, {}]],
+				["baz", [Severity.ERROR, {}]],
+			]);
 		});
 
 		it("should support htmlvalidate:recommended", () => {

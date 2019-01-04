@@ -4,7 +4,7 @@ import { ElementTable } from "../meta/element";
 import { RuleConstructor } from "../rule";
 import { ConfigData, TransformMap } from "./config-data";
 import defaultConfig from "./default";
-import { parseSeverity } from "./severity";
+import { parseSeverity, Severity } from "./severity";
 
 interface Transformer {
 	pattern: RegExp;
@@ -161,19 +161,17 @@ export class Config {
 		return Object.assign({}, this.config);
 	}
 
-	getRules() {
-		const rules = Object.assign({}, this.config.rules || {});
-		/* tslint:disable-next-line:forin */
-		for (const name in rules) {
-			let options = rules[name];
+	public getRules(): Map<string, [Severity, any]> {
+		const rules = new Map<string, [Severity, any]>();
+		for (const [ruleId, data] of Object.entries(this.config.rules || {})) {
+			let options = data;
 			if (!Array.isArray(options)) {
 				options = [options, {}];
 			} else if (options.length === 1) {
 				options = [options[0], {}];
 			}
-
-			options[0] = parseSeverity(options[0]);
-			rules[name] = options;
+			const severity = parseSeverity(options[0]);
+			rules.set(ruleId, [severity, options[1]]);
 		}
 		return rules;
 	}
