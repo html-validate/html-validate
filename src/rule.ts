@@ -77,7 +77,8 @@ export abstract class Rule<T = any> {
 	/**
 	 * Report a new error.
 	 *
-	 * Rule must be enabled for this to have any effect.
+	 * Rule must be enabled both globally and on the specific node for this to
+	 * have any effect.
 	 */
 	report(
 		node: HtmlElement,
@@ -85,7 +86,7 @@ export abstract class Rule<T = any> {
 		location?: Location,
 		context?: T
 	): void {
-		if (this.isEnabled()) {
+		if (this.isEnabled() && (!node || node.ruleEnabled(this.name))) {
 			const where = this.findLocation({ node, location, event: this.event });
 			this.reporter.add(node, this, message, this.severity, where, context);
 		}
