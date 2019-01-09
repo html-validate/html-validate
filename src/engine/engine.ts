@@ -180,10 +180,10 @@ export class Engine<T extends Parser = Parser> {
 			.filter(rule => rule); /* filter out missing rules */
 		switch (event.action) {
 			case "enable":
-				this.processEnableDirective(rules);
+				this.processEnableDirective(rules, parser);
 				break;
 			case "disable":
-				this.processDisableDirective(rules);
+				this.processDisableDirective(rules, parser);
 				break;
 			case "disable-block":
 				this.processDisableBlockDirective(rules, parser);
@@ -197,19 +197,33 @@ export class Engine<T extends Parser = Parser> {
 		}
 	}
 
-	private processEnableDirective(rules: Rule[]): void {
+	private processEnableDirective(rules: Rule[], parser: Parser): void {
 		for (const rule of rules) {
 			rule.setEnabled(true);
 			if (rule.getSeverity() === Severity.DISABLED) {
 				rule.setServerity(Severity.ERROR);
 			}
 		}
+
+		/* enable rules on node */
+		parser.on("tag:open", (event: string, data: TagOpenEvent) => {
+			for (const rule of rules) {
+				data.target.enableRule(rule.name);
+			}
+		});
 	}
 
-	private processDisableDirective(rules: Rule[]): void {
+	private processDisableDirective(rules: Rule[], parser: Parser): void {
 		for (const rule of rules) {
 			rule.setEnabled(false);
 		}
+
+		/* disable rules on node */
+		parser.on("tag:open", (event: string, data: TagOpenEvent) => {
+			for (const rule of rules) {
+				data.target.disableRule(rule.name);
+			}
+		});
 	}
 
 	private processDisableBlockDirective(rules: Rule[], parser: Parser): void {
@@ -218,36 +232,40 @@ export class Engine<T extends Parser = Parser> {
 			rule.setEnabled(false);
 		}
 
-		/* wait for a tag to open and find the current block by using its parent */
-		const unregisterOpen = parser.once(
+		const unregisterOpen = parser.on(
 			"tag:open",
 			(event: string, data: TagOpenEvent) => {
-				directiveBlock = data.target.parent.unique;
+				/* wait for a tag to open and find the current block by using its parent */
+				if (directiveBlock === null) {
+					directiveBlock = data.target.parent.unique;
+				}
+
+				/* disable rules directly on the node so it will be recorded for later,
+				 * more specifically when using the domtree to trigger errors */
+				for (const rule of rules) {
+					data.target.disableRule(rule.name);
+				}
 			}
 		);
 
 		const unregisterClose = parser.on(
 			"tag:close",
 			(event: string, data: TagCloseEvent) => {
-				/* if the directive is the last thing in a block no would be set: remove
-				 * listeners and restore state */
-				if (directiveBlock === null) {
+				/* if the directive is the last thing in a block no id would be set */
+				const lastNode = directiveBlock === null;
+
+				/* test if the block is being closed by checking the parent of the block
+				 * element is being closed */
+				const parentClosed = directiveBlock === data.previous.unique;
+
+				/* remove listeners and restore state */
+				if (lastNode || parentClosed) {
 					unregisterClose();
 					unregisterOpen();
 					for (const rule of rules) {
 						rule.setEnabled(true);
 					}
 					return;
-				}
-
-				/* determine the current block again using the parent of the target,
-				 * restore state if the directive block is being closed */
-				const currentBlock = data.previous.unique;
-				if (currentBlock === directiveBlock) {
-					unregisterClose();
-					for (const rule of rules) {
-						rule.setEnabled(true);
-					}
 				}
 			}
 		);
@@ -256,12 +274,28 @@ export class Engine<T extends Parser = Parser> {
 	private processDisableNextDirective(rules: Rule[], parser: Parser): void {
 		for (const rule of rules) {
 			rule.setEnabled(false);
-			parser.once("tag:open, tag:close, attr", () => {
-				parser.defer(() => {
-					rule.setEnabled(true);
-				});
-			});
 		}
+
+		/* disable rules directly on the node so it will be recorded for later,
+		 * more specifically when using the domtree to trigger errors */
+		const unregister = parser.on(
+			"tag:open",
+			(event: string, data: TagOpenEvent) => {
+				for (const rule of rules) {
+					data.target.disableRule(rule.name);
+				}
+			}
+		);
+
+		/* disable directive after next event occurs */
+		parser.once("tag:open, tag:close, attr", () => {
+			unregister();
+			parser.defer(() => {
+				for (const rule of rules) {
+					rule.setEnabled(true);
+				}
+			});
+		});
 	}
 
 	/**

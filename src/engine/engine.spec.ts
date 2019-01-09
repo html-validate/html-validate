@@ -173,6 +173,20 @@ describe("Engine", () => {
 			]);
 		});
 
+		it('"disable-block" should disable rule on nodes', () => {
+			const source: Source[] = [
+				inline(
+					'<div><input type="foo"><!-- [html-validate-disable-block attribute-allowed-values] --><input type="foo"></div><input type="foo">'
+				),
+			];
+			const report = engine.lint(source);
+			expect(report).toBeInvalid();
+			expect(report).toHaveErrors([
+				{ ruleId: "attribute-allowed-values", column: 13 },
+				{ ruleId: "attribute-allowed-values", column: 118 },
+			]);
+		});
+
 		it('"disable-block" should handle empty block', () => {
 			const source: Source[] = [
 				inline("<div><!-- [html-validate-disable-block void] --></div>"),
@@ -206,6 +220,19 @@ describe("Engine", () => {
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("close-order", expect.any(String));
+		});
+
+		it('"disable-next" should disable rule on nodes', () => {
+			const source: Source[] = [
+				inline(
+					'<!-- [html-validate-disable-next attribute-allowed-values] --><input type="foo"><input type="foo">'
+				),
+			];
+			const report = engine.lint(source);
+			expect(report).toBeInvalid();
+			expect(report).toHaveErrors([
+				{ ruleId: "attribute-allowed-values", column: 88 },
+			]);
 		});
 
 		it("should report unknown directives", () => {
