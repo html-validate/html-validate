@@ -23,6 +23,7 @@
 
 ### Bugfixes
 
+- Directives can now enable/disable rules working with `dom:ready` event.
 - `HtmlElement` location is now shifted by 1.
 
 ## 0.16.1 (2018-12-16)

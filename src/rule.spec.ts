@@ -26,6 +26,7 @@ describe("rule base class", () => {
 		reporter.add = jest.fn();
 
 		rule = new MockRule({});
+		rule.name = "mock-rule";
 		rule.init(parser, reporter, Severity.ERROR);
 		mockLocation = { filename: "mock-file", offset: 1, line: 1, column: 2 };
 		mockEvent = {
@@ -127,6 +128,14 @@ describe("rule base class", () => {
 				expect.anything(),
 				{ foo: "bar" }
 			);
+		});
+
+		it("should not add message if node has disabled rule", () => {
+			const node = new HtmlElement("foo", null);
+			node.disableRule("mock-rule");
+			rule.setServerity(Severity.ERROR);
+			rule.report(node, "foo");
+			expect(reporter.add).not.toHaveBeenCalled();
 		});
 	});
 
