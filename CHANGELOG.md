@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.17.0 (2019-01-09)
+
 ### Breaking changes
 
 - `DOMNode` has been renamed `HtmlElement` and there is instead a new base class
