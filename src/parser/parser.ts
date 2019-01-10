@@ -17,13 +17,11 @@ import { Lexer, Token, TokenStream, TokenType } from "../lexer";
 import { MetaTable } from "../meta";
 
 export class Parser {
-	private readonly config: Config;
 	private readonly event: EventHandler;
 	private readonly metaTable: MetaTable;
 	private dom: DOMTree;
 
 	constructor(config: Config) {
-		this.config = config;
 		this.event = new EventHandler();
 		this.dom = undefined;
 		this.metaTable = config.getMetaTable();
