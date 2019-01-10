@@ -158,8 +158,7 @@ describe("ConfigLoader", () => {
 
 		files.forEach((filename: string) => {
 			it(filename, () => {
-				const config = loader.fromTarget(filename);
-				const htmlvalidate = new HtmlValidate(config);
+				const htmlvalidate = new HtmlValidate();
 				const report = htmlvalidate.validateFile(filename);
 				expect(report.results).toMatchSnapshot();
 			});
