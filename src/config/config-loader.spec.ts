@@ -1,6 +1,6 @@
-const glob = require("glob");
-const files = glob.sync("test-files/config/**/*.html");
 import * as fs from "fs";
+import * as glob from "glob";
+import * as path from "path";
 import { Config, ConfigLoader } from ".";
 import HtmlValidate from "../htmlvalidate";
 
@@ -33,30 +33,30 @@ describe("ConfigLoader", () => {
 		});
 
 		it("should load configuration", () => {
-			jest.spyOn(fs, "existsSync").mockImplementation((path: string) => {
-				return path === "/path/to/.htmlvalidate.json";
+			jest.spyOn(fs, "existsSync").mockImplementation((filename: string) => {
+				return filename === path.resolve("/path/to/.htmlvalidate.json");
 			});
 			const config = loader.fromTarget("/path/to/target.html");
 			expect(config.get()).toEqual(
 				expect.objectContaining({
 					plugins: [
 						/* mock sets filename as plugin */
-						"/path/to/.htmlvalidate.json",
+						path.resolve("/path/to/.htmlvalidate.json"),
 					],
 				})
 			);
 		});
 
 		it("should load configuration from parent directory", () => {
-			jest.spyOn(fs, "existsSync").mockImplementation((path: string) => {
-				return path === "/path/.htmlvalidate.json";
+			jest.spyOn(fs, "existsSync").mockImplementation((filename: string) => {
+				return filename === path.resolve("/path/.htmlvalidate.json");
 			});
 			const config = loader.fromTarget("/path/to/target.html");
 			expect(config.get()).toEqual(
 				expect.objectContaining({
 					plugins: [
 						/* mock sets filename as plugin */
-						"/path/.htmlvalidate.json",
+						path.resolve("/path/.htmlvalidate.json"),
 					],
 				})
 			);
@@ -69,9 +69,9 @@ describe("ConfigLoader", () => {
 				expect.objectContaining({
 					plugins: [
 						/* mock sets filename as plugin */
-						"/.htmlvalidate.json",
-						"/path/.htmlvalidate.json",
-						"/path/to/.htmlvalidate.json",
+						path.resolve("/.htmlvalidate.json"),
+						path.resolve("/path/.htmlvalidate.json"),
+						path.resolve("/path/to/.htmlvalidate.json"),
 					],
 				})
 			);
@@ -92,9 +92,9 @@ describe("ConfigLoader", () => {
 				expect.objectContaining({
 					plugins: [
 						/* mock sets filename as plugin */
-						"/.htmlvalidate.json",
-						"/path/.htmlvalidate.json",
-						"/path/to/.htmlvalidate.json",
+						path.resolve("/.htmlvalidate.json"),
+						path.resolve("/path/.htmlvalidate.json"),
+						path.resolve("/path/to/.htmlvalidate.json"),
 					],
 				})
 			);
@@ -113,9 +113,9 @@ describe("ConfigLoader", () => {
 				expect.objectContaining({
 					plugins: [
 						/* mock sets filename as plugin */
-						"/.htmlvalidate.json",
-						"/path/.htmlvalidate.json",
-						"/path/to/.htmlvalidate.json",
+						path.resolve("/.htmlvalidate.json"),
+						path.resolve("/path/.htmlvalidate.json"),
+						path.resolve("/path/to/.htmlvalidate.json"),
 					],
 				})
 			);
@@ -156,11 +156,23 @@ describe("ConfigLoader", () => {
 			loader = new ConfigLoader(Config);
 		});
 
+		function configSnapshot(config: Config) {
+			const data = config.get();
+			if (data.elements) {
+				data.elements = data.elements.map((val: string) =>
+					val.replace(/^.*\/(test-files\/.*)$/, "<rootDir>/$1")
+				);
+			}
+			return data;
+		}
+
+		const files = glob.sync("test-files/config/**/*.html");
 		files.forEach((filename: string) => {
 			it(filename, () => {
-				const config = loader.fromTarget(filename);
-				const htmlvalidate = new HtmlValidate(config);
+				const htmlvalidate = new HtmlValidate();
+				const config = htmlvalidate.getConfigFor(filename);
 				const report = htmlvalidate.validateFile(filename);
+				expect(configSnapshot(config)).toMatchSnapshot();
 				expect(report.results).toMatchSnapshot();
 			});
 		});

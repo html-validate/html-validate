@@ -1,6 +1,7 @@
 {
   "rules": {
     "deprecated": "error",
+    "element-permitted-content": "off",
     "void": "error"
   }
 }

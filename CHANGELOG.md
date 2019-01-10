@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Bugfixes
+
+- fix `ConfigLoader` tests when running on windows.
+
 ## 0.17.0 (2019-01-09)
 
 ### Breaking changes
