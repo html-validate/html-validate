@@ -60,7 +60,7 @@ export class Parser {
 
 			switch (token.type) {
 				case TokenType.TAG_OPEN:
-					this.consumeTag(token, tokenStream);
+					this.consumeTag(source, token, tokenStream);
 					break;
 
 				case TokenType.WHITESPACE:
@@ -144,7 +144,11 @@ export class Parser {
 	}
 
 	// eslint-disable-next-line complexity
-	private consumeTag(startToken: Token, tokenStream: TokenStream) {
+	private consumeTag(
+		source: Source,
+		startToken: Token,
+		tokenStream: TokenStream
+	) {
 		const tokens = Array.from(
 			this.consumeUntil(tokenStream, TokenType.TAG_CLOSE)
 		);
@@ -187,7 +191,7 @@ export class Parser {
 				case TokenType.WHITESPACE:
 					break;
 				case TokenType.ATTR_NAME:
-					this.consumeAttribute(node, token, tokens[i + 1]);
+					this.consumeAttribute(source, node, token, tokens[i + 1]);
 					break;
 			}
 		}
@@ -218,22 +222,32 @@ export class Parser {
 		}
 	}
 
-	consumeAttribute(node: HtmlElement, token: Token, next?: Token) {
-		const key = token.data[1];
-		let value;
-		let quote;
+	consumeAttribute(
+		source: Source,
+		node: HtmlElement,
+		token: Token,
+		next?: Token
+	) {
+		const attr = {
+			key: token.data[1],
+			value: undefined as string,
+			quote: undefined as any,
+		};
 		if (next && next.type === TokenType.ATTR_VALUE) {
-			value = next.data[1];
-			quote = next.data[2];
+			attr.value = next.data[1];
+			attr.quote = next.data[2];
+		}
+		if (source.hooks && source.hooks.processAttribute) {
+			source.hooks.processAttribute(attr);
 		}
 		this.trigger("attr", {
 			target: node,
-			key,
-			value,
-			quote,
+			key: attr.key,
+			value: attr.value,
+			quote: attr.quote,
 			location: token.location,
 		});
-		node.setAttribute(key, value, token.location);
+		node.setAttribute(attr.key, attr.value, token.location);
 	}
 
 	consumeDirective(token: Token) {

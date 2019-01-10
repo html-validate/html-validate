@@ -46,7 +46,7 @@ class AttributeAllowedValues extends Rule<Context> {
 						const context: Context = {
 							element: node.tagName,
 							attribute: attr.key,
-							value: attr.value,
+							value: attr.value.toString(),
 							allowed: meta.attributes[key],
 						};
 						this.report(

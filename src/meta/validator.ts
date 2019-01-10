@@ -1,4 +1,4 @@
-import { HtmlElement } from "../dom";
+import { DynamicValue, HtmlElement } from "../dom";
 import {
 	Permitted,
 	PermittedAttribute,
@@ -97,7 +97,7 @@ export class Validator {
 
 	public static validateAttribute(
 		key: string,
-		value: string | undefined,
+		value: string | DynamicValue | undefined,
 		rules: PermittedAttribute
 	): boolean {
 		const rule = rules[key];
@@ -108,6 +108,13 @@ export class Validator {
 		/* consider an empty array as being a boolean attribute */
 		if (rule.length === 0) {
 			return value === undefined || value === "" || value === key;
+		}
+
+		/* consider dynamic values as valid as there is no way to properly test them
+		 * while using transformed sources, i.e. it must be tested when running in a
+		 * browser instead */
+		if (value instanceof DynamicValue) {
+			return true;
 		}
 
 		return rule.some((entry: string | RegExp) => {

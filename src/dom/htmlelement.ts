@@ -132,7 +132,7 @@ export class HtmlElement extends DOMNode {
 
 	getAttributeValue(key: string): string {
 		const attr = this.getAttribute(key);
-		return attr ? attr.value : null;
+		return attr ? attr.value.toString() : null;
 	}
 
 	append(node: HtmlElement) {

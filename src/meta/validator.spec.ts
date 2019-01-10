@@ -1,5 +1,5 @@
 import { Config } from "../config";
-import { HtmlElement } from "../dom"; // eslint-disable-line no-unused-vars
+import { DynamicValue, HtmlElement } from "../dom"; // eslint-disable-line no-unused-vars
 import { Parser } from "../parser";
 import { MetaElement, MetaTable, Validator } from "./";
 
@@ -428,6 +428,14 @@ describe("Meta validator", () => {
 			};
 			expect(Validator.validateAttribute("foo", "bar", rules)).toBeTruthy();
 			expect(Validator.validateAttribute("foo", "car", rules)).toBeFalsy();
+		});
+
+		it("should match dynamic value", () => {
+			const rules = {
+				foo: ["bar"],
+			};
+			const dynamic = new DynamicValue("any");
+			expect(Validator.validateAttribute("foo", dynamic, rules)).toBeTruthy();
 		});
 
 		it("should match if one of multiple allowed matches", () => {

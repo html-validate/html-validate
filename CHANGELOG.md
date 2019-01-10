@@ -2,6 +2,18 @@
 
 ## Upcoming release
 
+### Features
+
+- add support for dynamic attribute values, that is the value is marked as being
+  set but has no known value. Rules are expected to assume the value exists and
+  is valid. The primary usage for this is in combination with the
+  `parseAttribute` hook, e.g `:id="..."` can yield attribute `id` with a dynamic
+  value.
+- add support for transformer hooks, currently the only hook is `parseAttribute`
+  allowing the transformer to alter the attribute before any events are emitted,
+  e.g. it can pick up the vuejs `:id` attribute and pass it as `id` to allow
+  other rules to continue just as if `id` was typed.
+
 ### Bugfixes
 
 - fix `ConfigLoader` tests when running on windows.

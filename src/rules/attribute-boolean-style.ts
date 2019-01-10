@@ -1,4 +1,4 @@
-import { HtmlElement } from "../dom";
+import { DynamicValue, HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { PermittedAttribute } from "../meta/element";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
@@ -7,7 +7,7 @@ const defaults = {
 	style: "omit",
 };
 
-type checkFunction = (key: string, value: string) => boolean;
+type checkFunction = (key: string, value: string | DynamicValue) => boolean;
 
 class AttributeBooleanStyle extends Rule {
 	hasInvalidStyle: checkFunction;
@@ -38,10 +38,14 @@ class AttributeBooleanStyle extends Rule {
 				for (const [key, attr] of Object.entries(node.attr)) {
 					if (!this.isBoolean(key, meta.attributes)) continue;
 
-					if (this.hasInvalidStyle(key, attr.value)) {
+					const value =
+						attr.value instanceof DynamicValue
+							? attr.value.toString()
+							: attr.value;
+					if (this.hasInvalidStyle(key, value)) {
 						this.report(
 							node,
-							reportMessage(key, attr.value, this.options.style),
+							reportMessage(key, value, this.options.style),
 							attr.location
 						);
 					}
