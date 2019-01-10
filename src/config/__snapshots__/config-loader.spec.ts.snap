@@ -1,6 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ConfigLoader smoketest test-files/config/directive/disable.html 1`] = `
+Object {
+  "extends": Array [
+    "htmlvalidate:recommended",
+  ],
+  "plugins": Array [],
+  "rules": Object {
+    "attr-case": "error",
+    "attr-quotes": "error",
+    "attribute-allowed-values": "error",
+    "attribute-boolean-style": "error",
+    "button-type": "error",
+    "close-attr": "error",
+    "close-order": "error",
+    "deprecated": "error",
+    "element-case": "error",
+    "element-name": "error",
+    "element-permitted-content": "off",
+    "element-permitted-occurrences": "error",
+    "element-permitted-order": "error",
+    "img-req-alt": "error",
+    "no-conditional-comment": "error",
+    "no-deprecated-attr": "error",
+    "no-dup-attr": "error",
+    "no-dup-class": "error",
+    "no-dup-id": "error",
+    "no-implicit-close": "error",
+    "no-inline-style": "error",
+    "no-trailing-whitespace": "error",
+    "void": "error",
+  },
+  "transform": Object {},
+}
+`;
+
+exports[`ConfigLoader smoketest test-files/config/directive/disable.html 2`] = `
 Array [
   Object {
     "errorCount": 2,
@@ -42,6 +77,41 @@ Array [
 `;
 
 exports[`ConfigLoader smoketest test-files/config/directive/disable-block.html 1`] = `
+Object {
+  "extends": Array [
+    "htmlvalidate:recommended",
+  ],
+  "plugins": Array [],
+  "rules": Object {
+    "attr-case": "error",
+    "attr-quotes": "error",
+    "attribute-allowed-values": "error",
+    "attribute-boolean-style": "error",
+    "button-type": "error",
+    "close-attr": "error",
+    "close-order": "error",
+    "deprecated": "error",
+    "element-case": "error",
+    "element-name": "error",
+    "element-permitted-content": "off",
+    "element-permitted-occurrences": "error",
+    "element-permitted-order": "error",
+    "img-req-alt": "error",
+    "no-conditional-comment": "error",
+    "no-deprecated-attr": "error",
+    "no-dup-attr": "error",
+    "no-dup-class": "error",
+    "no-dup-id": "error",
+    "no-implicit-close": "error",
+    "no-inline-style": "error",
+    "no-trailing-whitespace": "error",
+    "void": "error",
+  },
+  "transform": Object {},
+}
+`;
+
+exports[`ConfigLoader smoketest test-files/config/directive/disable-block.html 2`] = `
 Array [
   Object {
     "errorCount": 4,
@@ -114,6 +184,41 @@ Should handle when root element is parent but no children
 `;
 
 exports[`ConfigLoader smoketest test-files/config/directive/disable-multiple.html 1`] = `
+Object {
+  "extends": Array [
+    "htmlvalidate:recommended",
+  ],
+  "plugins": Array [],
+  "rules": Object {
+    "attr-case": "error",
+    "attr-quotes": "error",
+    "attribute-allowed-values": "error",
+    "attribute-boolean-style": "error",
+    "button-type": "error",
+    "close-attr": "error",
+    "close-order": "error",
+    "deprecated": "error",
+    "element-case": "error",
+    "element-name": "error",
+    "element-permitted-content": "off",
+    "element-permitted-occurrences": "error",
+    "element-permitted-order": "error",
+    "img-req-alt": "error",
+    "no-conditional-comment": "error",
+    "no-deprecated-attr": "error",
+    "no-dup-attr": "error",
+    "no-dup-class": "error",
+    "no-dup-id": "error",
+    "no-implicit-close": "error",
+    "no-inline-style": "error",
+    "no-trailing-whitespace": "error",
+    "void": "error",
+  },
+  "transform": Object {},
+}
+`;
+
+exports[`ConfigLoader smoketest test-files/config/directive/disable-multiple.html 2`] = `
 Array [
   Object {
     "errorCount": 2,
@@ -152,6 +257,41 @@ Array [
 `;
 
 exports[`ConfigLoader smoketest test-files/config/directive/disable-next.html 1`] = `
+Object {
+  "extends": Array [
+    "htmlvalidate:recommended",
+  ],
+  "plugins": Array [],
+  "rules": Object {
+    "attr-case": "error",
+    "attr-quotes": "error",
+    "attribute-allowed-values": "error",
+    "attribute-boolean-style": "error",
+    "button-type": "error",
+    "close-attr": "error",
+    "close-order": "error",
+    "deprecated": "error",
+    "element-case": "error",
+    "element-name": "error",
+    "element-permitted-content": "off",
+    "element-permitted-occurrences": "error",
+    "element-permitted-order": "error",
+    "img-req-alt": "error",
+    "no-conditional-comment": "error",
+    "no-deprecated-attr": "error",
+    "no-dup-attr": "error",
+    "no-dup-class": "error",
+    "no-dup-id": "error",
+    "no-implicit-close": "error",
+    "no-inline-style": "error",
+    "no-trailing-whitespace": "error",
+    "void": "error",
+  },
+  "transform": Object {},
+}
+`;
+
+exports[`ConfigLoader smoketest test-files/config/directive/disable-next.html 2`] = `
 Array [
   Object {
     "errorCount": 2,
@@ -190,6 +330,45 @@ Array [
 `;
 
 exports[`ConfigLoader smoketest test-files/config/elements/file.html 1`] = `
+Object {
+  "elements": Array [
+    "html5",
+    "<rootDir>/test-files/config/elements/elements.json",
+  ],
+  "extends": Array [
+    "htmlvalidate:recommended",
+  ],
+  "plugins": Array [],
+  "rules": Object {
+    "attr-case": "error",
+    "attr-quotes": "error",
+    "attribute-allowed-values": "error",
+    "attribute-boolean-style": "error",
+    "button-type": "error",
+    "close-attr": "error",
+    "close-order": "error",
+    "deprecated": "error",
+    "element-case": "error",
+    "element-name": "error",
+    "element-permitted-content": "error",
+    "element-permitted-occurrences": "error",
+    "element-permitted-order": "error",
+    "img-req-alt": "error",
+    "no-conditional-comment": "error",
+    "no-deprecated-attr": "error",
+    "no-dup-attr": "error",
+    "no-dup-class": "error",
+    "no-dup-id": "error",
+    "no-implicit-close": "error",
+    "no-inline-style": "error",
+    "no-trailing-whitespace": "error",
+    "void": "error",
+  },
+  "transform": Object {},
+}
+`;
+
+exports[`ConfigLoader smoketest test-files/config/elements/file.html 2`] = `
 Array [
   Object {
     "errorCount": 2,
@@ -231,6 +410,41 @@ Array [
 `;
 
 exports[`ConfigLoader smoketest test-files/config/file.html 1`] = `
+Object {
+  "extends": Array [
+    "htmlvalidate:recommended",
+  ],
+  "plugins": Array [],
+  "rules": Object {
+    "attr-case": "error",
+    "attr-quotes": "error",
+    "attribute-allowed-values": "error",
+    "attribute-boolean-style": "error",
+    "button-type": "error",
+    "close-attr": "error",
+    "close-order": "error",
+    "deprecated": "error",
+    "element-case": "error",
+    "element-name": "error",
+    "element-permitted-content": "error",
+    "element-permitted-occurrences": "error",
+    "element-permitted-order": "error",
+    "img-req-alt": "error",
+    "no-conditional-comment": "error",
+    "no-deprecated-attr": "error",
+    "no-dup-attr": "error",
+    "no-dup-class": "error",
+    "no-dup-id": "error",
+    "no-implicit-close": "error",
+    "no-inline-style": "error",
+    "no-trailing-whitespace": "error",
+    "void": "error",
+  },
+  "transform": Object {},
+}
+`;
+
+exports[`ConfigLoader smoketest test-files/config/file.html 2`] = `
 Array [
   Object {
     "errorCount": 1,
@@ -255,6 +469,41 @@ Array [
 `;
 
 exports[`ConfigLoader smoketest test-files/config/off/error/file.html 1`] = `
+Object {
+  "extends": Array [
+    "htmlvalidate:recommended",
+  ],
+  "plugins": Array [],
+  "rules": Object {
+    "attr-case": "error",
+    "attr-quotes": "error",
+    "attribute-allowed-values": "error",
+    "attribute-boolean-style": "error",
+    "button-type": "error",
+    "close-attr": "error",
+    "close-order": "error",
+    "deprecated": "error",
+    "element-case": "error",
+    "element-name": "error",
+    "element-permitted-content": "error",
+    "element-permitted-occurrences": "error",
+    "element-permitted-order": "error",
+    "img-req-alt": "error",
+    "no-conditional-comment": "error",
+    "no-deprecated-attr": "error",
+    "no-dup-attr": "error",
+    "no-dup-class": "error",
+    "no-dup-id": "error",
+    "no-implicit-close": "error",
+    "no-inline-style": "error",
+    "no-trailing-whitespace": "error",
+    "void": "error",
+  },
+  "transform": Object {},
+}
+`;
+
+exports[`ConfigLoader smoketest test-files/config/off/error/file.html 2`] = `
 Array [
   Object {
     "errorCount": 1,
@@ -278,9 +527,79 @@ Array [
 ]
 `;
 
-exports[`ConfigLoader smoketest test-files/config/off/file.html 1`] = `Array []`;
+exports[`ConfigLoader smoketest test-files/config/off/file.html 1`] = `
+Object {
+  "extends": Array [
+    "htmlvalidate:recommended",
+  ],
+  "plugins": Array [],
+  "rules": Object {
+    "attr-case": "error",
+    "attr-quotes": "error",
+    "attribute-allowed-values": "error",
+    "attribute-boolean-style": "error",
+    "button-type": "error",
+    "close-attr": "error",
+    "close-order": "error",
+    "deprecated": "error",
+    "element-case": "error",
+    "element-name": "error",
+    "element-permitted-content": "error",
+    "element-permitted-occurrences": "error",
+    "element-permitted-order": "error",
+    "img-req-alt": "error",
+    "no-conditional-comment": "error",
+    "no-deprecated-attr": "error",
+    "no-dup-attr": "error",
+    "no-dup-class": "error",
+    "no-dup-id": "error",
+    "no-implicit-close": "error",
+    "no-inline-style": "error",
+    "no-trailing-whitespace": "error",
+    "void": "off",
+  },
+  "transform": Object {},
+}
+`;
+
+exports[`ConfigLoader smoketest test-files/config/off/file.html 2`] = `Array []`;
 
 exports[`ConfigLoader smoketest test-files/config/warn/file.html 1`] = `
+Object {
+  "extends": Array [
+    "htmlvalidate:recommended",
+  ],
+  "plugins": Array [],
+  "rules": Object {
+    "attr-case": "error",
+    "attr-quotes": "error",
+    "attribute-allowed-values": "error",
+    "attribute-boolean-style": "error",
+    "button-type": "error",
+    "close-attr": "error",
+    "close-order": "error",
+    "deprecated": "error",
+    "element-case": "error",
+    "element-name": "error",
+    "element-permitted-content": "error",
+    "element-permitted-occurrences": "error",
+    "element-permitted-order": "error",
+    "img-req-alt": "error",
+    "no-conditional-comment": "error",
+    "no-deprecated-attr": "error",
+    "no-dup-attr": "error",
+    "no-dup-class": "error",
+    "no-dup-id": "error",
+    "no-implicit-close": "error",
+    "no-inline-style": "error",
+    "no-trailing-whitespace": "error",
+    "void": "warn",
+  },
+  "transform": Object {},
+}
+`;
+
+exports[`ConfigLoader smoketest test-files/config/warn/file.html 2`] = `
 Array [
   Object {
     "errorCount": 0,

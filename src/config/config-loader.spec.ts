@@ -156,10 +156,22 @@ describe("ConfigLoader", () => {
 			loader = new ConfigLoader(Config);
 		});
 
+		function configSnapshot(config: Config) {
+			const data = config.get();
+			if (data.elements) {
+				data.elements = data.elements.map((val: string) =>
+					val.replace(/^.*\/(test-files\/.*)$/, "<rootDir>/$1")
+				);
+			}
+			return data;
+		}
+
 		files.forEach((filename: string) => {
 			it(filename, () => {
 				const htmlvalidate = new HtmlValidate();
+				const config = htmlvalidate.getConfigFor(filename);
 				const report = htmlvalidate.validateFile(filename);
+				expect(configSnapshot(config)).toMatchSnapshot();
 				expect(report.results).toMatchSnapshot();
 			});
 		});
