@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.18.0 (2019-01-10)
+
 ### Features
 
 - add support for dynamic attribute values, that is the value is marked as being
