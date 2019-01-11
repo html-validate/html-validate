@@ -20,6 +20,10 @@ function getMode(argv: { [key: string]: any }) {
 		return "dump-tree";
 	}
 
+	if (argv["print-config"]) {
+		return "print-config";
+	}
+
 	return "lint";
 }
 
@@ -102,7 +106,7 @@ function renameStdin(report: Report, filename: string): void {
 
 const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
 	string: ["f", "formatter", "rule", "stdin-filename"],
-	boolean: ["dump-events", "dump-tokens", "dump-tree", "stdin"],
+	boolean: ["dump-events", "dump-tokens", "dump-tree", "print-config", "stdin"],
 	alias: {
 		f: "formatter",
 	},
@@ -127,6 +131,9 @@ Debugging options:
       --dump-events              output events during parsing.
       --dump-tokens              output tokens from lexing stage.
       --dump-tree                output nodes from the dom tree.
+
+Miscellaneous:
+      --print-config             output configuration for given file.
 
 Formatters:
 
@@ -176,6 +183,10 @@ if (mode === "lint") {
 
 	formatter(result);
 	process.exit(result.valid ? 0 : 1);
+} else if (mode === "print-config") {
+	const config = htmlvalidate.getConfigFor(files[0]);
+	const json = JSON.stringify(config.get(), null, 2);
+	console.log(json); // eslint-disable-line no-console
 } else {
 	const output = dump(unique, mode);
 	console.log(output); // eslint-disable-line no-console
