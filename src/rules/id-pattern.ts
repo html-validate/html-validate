@@ -1,3 +1,4 @@
+import { DynamicValue } from "../dom";
 import { AttributeEvent } from "../event";
 import { describePattern, parsePattern } from "../pattern";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
@@ -25,6 +26,11 @@ class IdPattern extends Rule {
 	setup() {
 		this.on("attr", (event: AttributeEvent) => {
 			if (event.key.toLowerCase() !== "id") {
+				return;
+			}
+
+			/* consider dynamic value as always matching the pattern */
+			if (event.value instanceof DynamicValue) {
 				return;
 			}
 

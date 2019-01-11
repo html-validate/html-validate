@@ -1,4 +1,5 @@
 import { DOMTokenList } from "./domtokenlist";
+import { DynamicValue } from "./dynamic-value";
 
 describe("DOMTokenList", () => {
 	it("should split string into parts", () => {
@@ -26,9 +27,21 @@ describe("DOMTokenList", () => {
 		expect(Array.from(list)).toEqual([]);
 	});
 
+	it("should handle DynamicValue", () => {
+		const dynamic = new DynamicValue("foo");
+		const list = new DOMTokenList(dynamic);
+		expect(Array.from(list)).toEqual([]);
+	});
+
 	it(".value should return original value", () => {
 		const list = new DOMTokenList("foo bar baz");
 		expect(list.value).toEqual("foo bar baz");
+	});
+
+	it(".value should return expression", () => {
+		const dynamic = new DynamicValue("foo");
+		const list = new DOMTokenList(dynamic);
+		expect(list.value).toEqual("foo");
 	});
 
 	describe("item()", () => {
