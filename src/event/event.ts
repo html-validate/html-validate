@@ -1,5 +1,5 @@
 import { Location } from "../context";
-import { DOMTree, HtmlElement } from "../dom";
+import { DOMTree, DynamicValue, HtmlElement } from "../dom";
 
 export interface Event {
 	location: Location;
@@ -16,7 +16,7 @@ export interface TagCloseEvent extends Event {
 
 export interface AttributeEvent extends Event {
 	key: string;
-	value: any;
+	value: string | DynamicValue;
 	quote: '"' | "'" | undefined;
 	target: HtmlElement;
 }
