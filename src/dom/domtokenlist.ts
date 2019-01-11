@@ -1,13 +1,20 @@
+import { DynamicValue } from "./dynamic-value";
+
 export class DOMTokenList extends Array<string> {
 	readonly value: string;
 
-	constructor(value: string) {
-		if (value) {
+	constructor(value: string | DynamicValue) {
+		if (value && typeof value === "string") {
 			super(...value.trim().split(/ +/));
 		} else {
 			super(0);
 		}
-		this.value = value;
+
+		if (value instanceof DynamicValue) {
+			this.value = value.expr;
+		} else {
+			this.value = value;
+		}
 	}
 
 	item(n: number): string {
