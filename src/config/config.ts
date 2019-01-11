@@ -156,7 +156,13 @@ export class Config {
 	}
 
 	get(): ConfigData {
-		return Object.assign({}, this.config);
+		const config = Object.assign({}, this.config);
+		if (config.elements) {
+			config.elements = config.elements.map((cur: string) =>
+				cur.replace(this.rootDir, "<rootDir>")
+			);
+		}
+		return config;
 	}
 
 	public getRules(): Map<string, [Severity, any]> {

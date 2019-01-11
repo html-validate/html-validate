@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Features
+
+- CLI learned `--print-config` to output configuration for a given file.
+
 ### Bugfixes
 
 - handle `DynamicValue` in `DOMTokenList` and `id-pattern`.
