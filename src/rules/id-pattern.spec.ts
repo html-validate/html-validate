@@ -1,3 +1,5 @@
+import { Source } from "../context";
+import { DynamicValue } from "../dom";
 import HtmlValidate from "../htmlvalidate";
 import "../matchers";
 
@@ -12,6 +14,23 @@ describe("rule id-pattern", () => {
 
 	it("should not report error when id follows pattern", () => {
 		const report = htmlvalidate.validateString('<p id="foo-bar"></p>');
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when id is dynamic value", () => {
+		const processAttribute = jest.fn(attr => {
+			attr.value = new DynamicValue(attr.value);
+		});
+		const source: Source = {
+			data: '<p id="{{ interpolated }}"></p>',
+			filename: "inline",
+			line: 1,
+			column: 1,
+			hooks: {
+				processAttribute,
+			},
+		};
+		const report = htmlvalidate.validateSource(source);
 		expect(report).toBeValid();
 	});
 
