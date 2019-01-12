@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.18.1 (2019-01-12)
+
 ### Features
 
 - CLI learned `--print-config` to output configuration for a given file.
