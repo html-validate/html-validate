@@ -4,4 +4,8 @@ export class DynamicValue {
 	constructor(expr: string) {
 		this.expr = expr;
 	}
+
+	public toString(): string {
+		return this.expr;
+	}
 }

@@ -4,6 +4,7 @@ import { Location } from "../context";
 import { Token, TokenType } from "../lexer";
 import { MetaElement, MetaTable } from "../meta";
 import { Parser } from "../parser";
+import { DynamicValue } from "./dynamic-value";
 
 describe("HtmlElement", () => {
 	let root: DOMTree;
@@ -188,6 +189,13 @@ describe("HtmlElement", () => {
 			const node = new HtmlElement("foo");
 			node.setAttribute("bar", "value", location);
 			expect(node.getAttributeValue("bar")).toEqual("value");
+		});
+
+		it("should get attribute expression for dynamic values", () => {
+			const node = new HtmlElement("foo");
+			const dynamic = new DynamicValue("{{ interpolated }}");
+			node.setAttribute("bar", dynamic, location);
+			expect(node.getAttributeValue("bar")).toEqual("{{ interpolated }}");
 		});
 
 		it("should return null for missing attributes", () => {
