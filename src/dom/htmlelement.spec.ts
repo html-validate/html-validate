@@ -202,6 +202,12 @@ describe("HtmlElement", () => {
 			const node = new HtmlElement("foo");
 			expect(node.getAttributeValue("bar")).toBeNull();
 		});
+
+		it("should return null for boolean attributes", () => {
+			const node = new HtmlElement("foo");
+			node.setAttribute("bar", undefined, location);
+			expect(node.getAttributeValue("bar")).toBeNull();
+		});
 	});
 
 	describe("classList", () => {

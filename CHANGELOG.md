@@ -10,6 +10,7 @@
 
 ### Bugfixes
 
+- fix issue when calling `getAttributeValue` on a boolean attribute.
 - handle `DynamicValue` in `DOMTokenList` and `id-pattern`.
 
 ## 0.18.0 (2019-01-10)

@@ -135,9 +135,25 @@ export class HtmlElement extends DOMNode {
 		}
 	}
 
-	getAttributeValue(key: string): string {
+	/**
+	 * Get attribute value.
+	 *
+	 * Returns the attribute value if present.
+	 *
+	 * - Missing attributes return `null`.
+	 * - Boolean attributes return `null`.
+	 * - `DynamicValue` returns attribute expression.
+	 *
+	 * @param {string} key - Attribute name
+	 * @return Attribute value or null.
+	 */
+	public getAttributeValue(key: string): string {
 		const attr = this.getAttribute(key);
-		return attr ? attr.value.toString() : null;
+		if (attr) {
+			return attr.value !== null ? attr.value.toString() : null;
+		} else {
+			return null;
+		}
 	}
 
 	append(node: HtmlElement) {
