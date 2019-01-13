@@ -183,6 +183,19 @@ describe("HtmlElement", () => {
 		expect(node.getAttribute("bar")).toBeNull();
 	});
 
+	describe("getAttributeValue", () => {
+		it("should get attribute value", () => {
+			const node = new HtmlElement("foo");
+			node.setAttribute("bar", "value", location);
+			expect(node.getAttributeValue("bar")).toEqual("value");
+		});
+
+		it("should return null for missing attributes", () => {
+			const node = new HtmlElement("foo");
+			expect(node.getAttributeValue("bar")).toBeNull();
+		});
+	});
+
 	describe("classList", () => {
 		it("should return list of classes", () => {
 			const node = new HtmlElement("foo");
