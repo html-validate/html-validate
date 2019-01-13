@@ -4,6 +4,7 @@ import { MetaElement, MetaTable } from "../meta";
 import { Attribute } from "./attribute";
 import { DOMNode } from "./domnode";
 import { DOMTokenList } from "./domtokenlist";
+import { DynamicValue } from "./dynamic-value";
 import { Selector } from "./selector";
 
 export enum NodeClosed {
@@ -111,7 +112,11 @@ export class HtmlElement extends DOMNode {
 		return this.nodeName === DOCUMENT_NODE_NAME;
 	}
 
-	setAttribute(key: string, value: string, location: Location): void {
+	public setAttribute(
+		key: string,
+		value: string | DynamicValue,
+		location: Location
+	): void {
 		key = key.toLowerCase();
 		this.attr[key] = new Attribute(key, value, location);
 	}
@@ -130,9 +135,25 @@ export class HtmlElement extends DOMNode {
 		}
 	}
 
-	getAttributeValue(key: string): string {
+	/**
+	 * Get attribute value.
+	 *
+	 * Returns the attribute value if present.
+	 *
+	 * - Missing attributes return `null`.
+	 * - Boolean attributes return `null`.
+	 * - `DynamicValue` returns attribute expression.
+	 *
+	 * @param {string} key - Attribute name
+	 * @return Attribute value or null.
+	 */
+	public getAttributeValue(key: string): string {
 		const attr = this.getAttribute(key);
-		return attr ? attr.value.toString() : null;
+		if (attr) {
+			return attr.value !== null ? attr.value.toString() : null;
+		} else {
+			return null;
+		}
 	}
 
 	append(node: HtmlElement) {

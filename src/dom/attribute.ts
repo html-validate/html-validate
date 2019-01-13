@@ -10,5 +10,10 @@ export class Attribute {
 		this.key = key;
 		this.value = value;
 		this.location = location;
+
+		/* force undefined to null */
+		if (typeof this.value === "undefined") {
+			this.value = null;
+		}
 	}
 }

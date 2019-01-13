@@ -97,7 +97,7 @@ export class Validator {
 
 	public static validateAttribute(
 		key: string,
-		value: string | DynamicValue | undefined,
+		value: string | DynamicValue | null,
 		rules: PermittedAttribute
 	): boolean {
 		const rule = rules[key];
@@ -107,7 +107,7 @@ export class Validator {
 
 		/* consider an empty array as being a boolean attribute */
 		if (rule.length === 0) {
-			return value === undefined || value === "" || value === key;
+			return value === null || value === "" || value === key;
 		}
 
 		/* consider dynamic values as valid as there is no way to properly test them

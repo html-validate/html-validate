@@ -450,14 +450,14 @@ describe("Meta validator", () => {
 			const rules = {
 				foo: [] as string[],
 			};
-			expect(Validator.validateAttribute("foo", undefined, rules)).toBeTruthy();
+			expect(Validator.validateAttribute("foo", null, rules)).toBeTruthy();
 		});
 
 		it("should normalize boolean attributes", () => {
 			const rules = {
 				foo: [] as string[],
 			};
-			expect(Validator.validateAttribute("foo", undefined, rules)).toBeTruthy();
+			expect(Validator.validateAttribute("foo", null, rules)).toBeTruthy();
 			expect(Validator.validateAttribute("foo", "", rules)).toBeTruthy();
 			expect(Validator.validateAttribute("foo", "foo", rules)).toBeTruthy();
 			expect(Validator.validateAttribute("foo", "bar", rules)).toBeFalsy();
