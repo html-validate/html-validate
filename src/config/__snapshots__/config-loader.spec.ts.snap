@@ -453,15 +453,16 @@ Array [
       Object {
         "column": 9,
         "context": undefined,
-        "line": 1,
+        "line": 2,
         "message": "End tag for <br> must be omitted",
-        "offset": 8,
+        "offset": 52,
         "ruleId": "void",
         "severity": 2,
         "size": 1,
       },
     ],
-    "source": "<br></br>
+    "source": "<!-- default configuration yields error -->
+<br></br>
 ",
     "warningCount": 0,
   },
@@ -512,15 +513,16 @@ Array [
       Object {
         "column": 9,
         "context": undefined,
-        "line": 1,
+        "line": 2,
         "message": "End tag for <br> must be omitted",
-        "offset": 8,
+        "offset": 45,
         "ruleId": "void",
         "severity": 2,
         "size": 1,
       },
     ],
-    "source": "<br></br>
+    "source": "<!-- reconfigured to yield error -->
+<br></br>
 ",
     "warningCount": 0,
   },
@@ -608,15 +610,16 @@ Array [
       Object {
         "column": 9,
         "context": undefined,
-        "line": 1,
+        "line": 2,
         "message": "End tag for <br> must be omitted",
-        "offset": 8,
+        "offset": 47,
         "ruleId": "void",
         "severity": 1,
         "size": 1,
       },
     ],
-    "source": "<br></br>
+    "source": "<!-- configured to yield a warning -->
+<br></br>
 ",
     "warningCount": 1,
   },
