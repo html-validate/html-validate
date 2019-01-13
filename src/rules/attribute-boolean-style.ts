@@ -62,7 +62,7 @@ class AttributeBooleanStyle extends Rule {
 function parseStyle(style: string): checkFunction {
 	switch (style.toLowerCase()) {
 		case "omit":
-			return (key, value) => typeof value !== "undefined";
+			return (key, value) => value !== null;
 		case "empty":
 			return (key, value) => value !== "";
 		case "name":
