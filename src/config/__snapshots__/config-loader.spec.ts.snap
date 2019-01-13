@@ -451,17 +451,17 @@ Array [
     "filePath": "test-files/config/file.html",
     "messages": Array [
       Object {
-        "column": 15,
+        "column": 9,
         "context": undefined,
         "line": 1,
-        "message": "End tag for <input> must be omitted",
-        "offset": 14,
+        "message": "End tag for <br> must be omitted",
+        "offset": 8,
         "ruleId": "void",
         "severity": 2,
         "size": 1,
       },
     ],
-    "source": "<input></input>
+    "source": "<br></br>
 ",
     "warningCount": 0,
   },
@@ -510,17 +510,17 @@ Array [
     "filePath": "test-files/config/off/error/file.html",
     "messages": Array [
       Object {
-        "column": 15,
+        "column": 9,
         "context": undefined,
         "line": 1,
-        "message": "End tag for <input> must be omitted",
-        "offset": 14,
+        "message": "End tag for <br> must be omitted",
+        "offset": 8,
         "ruleId": "void",
         "severity": 2,
         "size": 1,
       },
     ],
-    "source": "<input></input>
+    "source": "<br></br>
 ",
     "warningCount": 0,
   },
@@ -606,17 +606,17 @@ Array [
     "filePath": "test-files/config/warn/file.html",
     "messages": Array [
       Object {
-        "column": 15,
+        "column": 9,
         "context": undefined,
         "line": 1,
-        "message": "End tag for <input> must be omitted",
-        "offset": 14,
+        "message": "End tag for <br> must be omitted",
+        "offset": 8,
         "ruleId": "void",
         "severity": 1,
         "size": 1,
       },
     ],
-    "source": "<input></input>
+    "source": "<br></br>
 ",
     "warningCount": 1,
   },
