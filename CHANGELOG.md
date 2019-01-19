@@ -4,16 +4,16 @@
 
 ## 0.18.2 (2019-01-14)
 
+### Bugfixes
+
+- fix issue when calling `getAttributeValue` on a boolean attribute.
+- handle `DynamicValue` in `DOMTokenList` and `id-pattern`.
+
 ## 0.18.1 (2019-01-12)
 
 ### Features
 
 - CLI learned `--print-config` to output configuration for a given file.
-
-### Bugfixes
-
-- fix issue when calling `getAttributeValue` on a boolean attribute.
-- handle `DynamicValue` in `DOMTokenList` and `id-pattern`.
 
 ## 0.18.0 (2019-01-10)
 
