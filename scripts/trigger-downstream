@@ -5,10 +5,11 @@ if [ $# -lt 4 ]; then
 	exit 1
 fi
 
-id="$1"
-token="$2"
-branch="$3"
-version="$4"
+hostname="$1"
+id="$2"
+token="$3"
+branch="$4"
+version="$5"
 
 exec curl --silent --show-error --fail \
 	 --stderr /dev/stderr \
@@ -17,4 +18,4 @@ exec curl --silent --show-error --fail \
 	 -F "token=${token}" \
 	 -F "ref=${branch}" \
 	 -F "variables[UPSTREAM_VERSION]=${version}" \
-	 https://git.sidvind.com/api/v4/projects/${id}/trigger/pipeline
+	 https://${hostname}/api/v4/projects/${id}/trigger/pipeline
