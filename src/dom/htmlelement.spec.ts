@@ -383,11 +383,11 @@ describe("HtmlElement", () => {
 				line: 1,
 				column: 1,
 			});
-			/* eslint-disable no-unused-vars */
+			/* eslint-disable @typescript-eslint/no-unused-vars */
 			const a = new HtmlElement("a", root);
 			const b = new HtmlElement("b", root);
 			const c = new HtmlElement("c", b);
-			/* eslint-enable no-unused-vars */
+			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const order: string[] = [];
 			root.visitDepthFirst((node: HtmlElement) => order.push(node.tagName));
 			expect(order).toEqual(["a", "c", "b"]);
@@ -397,11 +397,11 @@ describe("HtmlElement", () => {
 	describe("someChildren()", () => {
 		it("should return true if any child node evaluates to true", () => {
 			const root = new HtmlElement("root");
-			/* eslint-disable no-unused-vars */
+			/* eslint-disable @typescript-eslint/no-unused-vars */
 			const a = new HtmlElement("a", root);
 			const b = new HtmlElement("b", root);
 			const c = new HtmlElement("c", b);
-			/* eslint-enable no-unused-vars */
+			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const result = root.someChildren(
 				(node: HtmlElement) => node.tagName === "c"
 			);
@@ -410,22 +410,22 @@ describe("HtmlElement", () => {
 
 		it("should return false if no child node evaluates to true", () => {
 			const root = new HtmlElement("root");
-			/* eslint-disable no-unused-vars */
+			/* eslint-disable @typescript-eslint/no-unused-vars */
 			const a = new HtmlElement("a", root);
 			const b = new HtmlElement("b", root);
 			const c = new HtmlElement("c", b);
-			/* eslint-enable no-unused-vars */
+			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const result = root.someChildren(() => false);
 			expect(result).toBeFalsy();
 		});
 
 		it("should short-circuit when first node evalutes to true", () => {
 			const root = new HtmlElement("root");
-			/* eslint-disable no-unused-vars */
+			/* eslint-disable @typescript-eslint/no-unused-vars */
 			const a = new HtmlElement("a", root);
 			const b = new HtmlElement("b", root);
 			const c = new HtmlElement("c", b);
-			/* eslint-enable no-unused-vars */
+			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const order: string[] = [];
 			root.someChildren((node: HtmlElement) => {
 				order.push(node.tagName);
@@ -438,22 +438,22 @@ describe("HtmlElement", () => {
 	describe("everyChildren()", () => {
 		it("should return true if all nodes evaluates to true", () => {
 			const root = new HtmlElement("root");
-			/* eslint-disable no-unused-vars */
+			/* eslint-disable @typescript-eslint/no-unused-vars */
 			const a = new HtmlElement("a", root);
 			const b = new HtmlElement("b", root);
 			const c = new HtmlElement("c", b);
-			/* eslint-enable no-unused-vars */
+			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const result = root.everyChildren(() => true);
 			expect(result).toBeTruthy();
 		});
 
 		it("should return false if any nodes evaluates to false", () => {
 			const root = new HtmlElement("root");
-			/* eslint-disable no-unused-vars */
+			/* eslint-disable @typescript-eslint/no-unused-vars */
 			const a = new HtmlElement("a", root);
 			const b = new HtmlElement("b", root);
 			const c = new HtmlElement("c", b);
-			/* eslint-enable no-unused-vars */
+			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const result = root.everyChildren(
 				(node: HtmlElement) => node.tagName !== "b"
 			);
@@ -464,11 +464,11 @@ describe("HtmlElement", () => {
 	describe("find()", () => {
 		it("should visit all nodes until callback evaluates to true", () => {
 			const root = new HtmlElement("root");
-			/* eslint-disable no-unused-vars */
+			/* eslint-disable @typescript-eslint/no-unused-vars */
 			const a = new HtmlElement("a", root);
 			const b = new HtmlElement("b", root);
 			const c = new HtmlElement("c", b);
-			/* eslint-enable no-unused-vars */
+			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const result = root.find((node: HtmlElement) => node.tagName === "b");
 			expect(result.tagName).toEqual("b");
 		});
