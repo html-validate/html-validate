@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/wcag/h32.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/wcag/h32.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 1,
+        "message": "<form> element must have a submit button",
+        "offset": 1,
+        "ruleId": "WCAG/H32",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<form>
+    <label>
+        Text field: <input type=\\"text\\">
+    </label>
+</form>",
+    "warningCount": 0,
+  },
+]
+`;

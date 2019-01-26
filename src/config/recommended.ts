@@ -23,6 +23,7 @@ module.exports = {
 		"no-inline-style": "error",
 		"no-trailing-whitespace": "error",
 		void: "error",
+		"wcag/h32": "error",
 		"wcag/h67": "error",
 	},
 };
