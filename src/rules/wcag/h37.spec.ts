@@ -1,13 +1,13 @@
-import HtmlValidate from "../htmlvalidate";
-import "../matchers";
+import HtmlValidate from "../../htmlvalidate";
+import "../../matchers";
 
-describe("rule img-req-alt", () => {
+describe("rule h37", () => {
 	let htmlvalidate: HtmlValidate;
 
 	describe("with default options", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
-				rules: { "img-req-alt": "error" },
+				rules: { "wcag/h37": "error" },
 			});
 		});
 
@@ -25,14 +25,14 @@ describe("rule img-req-alt", () => {
 			const report = htmlvalidate.validateString("<img>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
-				"img-req-alt",
+				"wcag/h37",
 				"<img> is missing required alt attribute"
 			);
 		});
 
 		it("smoketest", () => {
 			const report = htmlvalidate.validateFile(
-				"test-files/rules/img-req-alt.html"
+				"test-files/rules/wcag/h37.html"
 			);
 			expect(report.results).toMatchSnapshot();
 		});
@@ -41,7 +41,7 @@ describe("rule img-req-alt", () => {
 	describe("with allowEmpty false", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
-				rules: { "img-req-alt": ["error", { allowEmpty: false }] },
+				rules: { "wcag/h37": ["error", { allowEmpty: false }] },
 			});
 		});
 
@@ -54,7 +54,7 @@ describe("rule img-req-alt", () => {
 			const report = htmlvalidate.validateString('<img alt="">');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
-				"img-req-alt",
+				"wcag/h37",
 				"<img> is missing required alt attribute"
 			);
 		});
@@ -63,14 +63,14 @@ describe("rule img-req-alt", () => {
 			const report = htmlvalidate.validateString("<img>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
-				"img-req-alt",
+				"wcag/h37",
 				"<img> is missing required alt attribute"
 			);
 		});
 
 		it("smoketest", () => {
 			const report = htmlvalidate.validateFile(
-				"test-files/rules/img-req-alt.html"
+				"test-files/rules/wcag/h37.html"
 			);
 			expect(report.results).toMatchSnapshot();
 		});
@@ -79,7 +79,7 @@ describe("rule img-req-alt", () => {
 	describe("with alias", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
-				rules: { "img-req-alt": ["error", { alias: "translate-attr" }] },
+				rules: { "wcag/h37": ["error", { alias: "translate-attr" }] },
 			});
 		});
 
@@ -92,14 +92,14 @@ describe("rule img-req-alt", () => {
 			const report = htmlvalidate.validateString("<img>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
-				"img-req-alt",
+				"wcag/h37",
 				"<img> is missing required alt attribute"
 			);
 		});
 
 		it("smoketest", () => {
 			const report = htmlvalidate.validateFile(
-				"test-files/rules/img-req-alt.html"
+				"test-files/rules/wcag/h37.html"
 			);
 			expect(report.results).toMatchSnapshot();
 		});
@@ -108,7 +108,7 @@ describe("rule img-req-alt", () => {
 	describe("with alias (array)", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
-				rules: { "img-req-alt": ["error", { alias: ["translate-attr"] }] },
+				rules: { "wcag/h37": ["error", { alias: ["translate-attr"] }] },
 			});
 		});
 
@@ -119,7 +119,7 @@ describe("rule img-req-alt", () => {
 
 		it("smoketest", () => {
 			const report = htmlvalidate.validateFile(
-				"test-files/rules/img-req-alt.html"
+				"test-files/rules/wcag/h37.html"
 			);
 			expect(report.results).toMatchSnapshot();
 		});
@@ -127,8 +127,8 @@ describe("rule img-req-alt", () => {
 
 	it("should contain documentation", () => {
 		htmlvalidate = new HtmlValidate({
-			rules: { "img-req-alt": "error" },
+			rules: { "wcag/h37": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("img-req-alt")).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("wcag/h37")).toMatchSnapshot();
 	});
 });
