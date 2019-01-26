@@ -4,6 +4,8 @@
 
 ### Features
 
+- move `location` and `isRootElement` to `DOMNode` and add new `nodeType`
+  property.
 - add `Attribute.valueMatches` to test attribute value. Handles `DynamicValue`.
 - `querySelector` now handles selector lists (comma-separated selectors)
 
