@@ -302,7 +302,7 @@ describe("HtmlElement", () => {
 			expect(el.getAttributeValue("class")).toEqual("foo");
 		});
 
-		it("should find element by multiple selectors", () => {
+		it("should find element with compound selector", () => {
 			const el = root.querySelector(".bar.baz#spam");
 			expect(el).toBeInstanceOf(HtmlElement);
 			expect(el.tagName).toEqual("li");
@@ -351,6 +351,17 @@ describe("HtmlElement", () => {
 			expect(el[1]).toBeInstanceOf(HtmlElement);
 			expect(el[0].tagName).toEqual("li");
 			expect(el[1].tagName).toEqual("p");
+		});
+
+		it("should handle multiple selectors", () => {
+			const el = root.querySelectorAll(".bar, li");
+			el.sort(
+				(a: HtmlElement, b: HtmlElement) => a.unique - b.unique
+			); /* selector may give results in any order */
+			expect(el).toHaveLength(3);
+			expect(el[0].tagName).toEqual("li");
+			expect(el[1].tagName).toEqual("li");
+			expect(el[2].tagName).toEqual("p");
 		});
 
 		it("should return [] when nothing matches", () => {

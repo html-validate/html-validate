@@ -198,12 +198,17 @@ export class HtmlElement extends DOMNode {
 
 	querySelectorAll(selector: string): HtmlElement[] {
 		const it = this.querySelectorImpl(selector);
-		return Array.from(it);
+		const unique = new Set(it);
+		return Array.from(unique.values());
 	}
 
-	private *querySelectorImpl(selector: string): IterableIterator<HtmlElement> {
-		const pattern = new Selector(selector);
-		yield* pattern.match(this);
+	private *querySelectorImpl(
+		selectorList: string
+	): IterableIterator<HtmlElement> {
+		for (const selector of selectorList.split(/,\s*/)) {
+			const pattern = new Selector(selector);
+			yield* pattern.match(this);
+		}
 	}
 
 	/**
