@@ -8,8 +8,11 @@
 
 	{%- if not doc.validate.report.valid %}
 	<div class="messages">
-		<pre>{% for message in doc.validate.report.results[0].messages %}
-{$ message.line $}:{$ message.column $} - {$ message.message | escape $}{%- endfor %}</pre>
+		<pre>
+			{%- for message in doc.validate.report.results[0].messages %}
+{$ message.line $}:{$ message.column $} - {$ message.message | escape $} [{$ message.ruleId $}]
+			{%- endfor -%}
+		</pre>
 	</div>
 	{%- endif %}
 </div>
