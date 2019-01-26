@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Features
+
+- `querySelector` now handles selector lists (comma-separated selectors)
+
 ## 0.18.2 (2019-01-14)
 
 ### Bugfixes
