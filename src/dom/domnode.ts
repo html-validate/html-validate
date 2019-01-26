@@ -1,6 +1,9 @@
+import { Location } from "../context";
+
 const DOCUMENT_NODE_NAME = "#document";
 
 export class DOMNode {
+	readonly location: Location;
 	readonly nodeName: string;
 
 	/**
@@ -10,7 +13,8 @@ export class DOMNode {
 	 */
 	private disabledRules: Set<string>;
 
-	constructor(nodeName: string) {
+	constructor(nodeName: string, location?: Location) {
+		this.location = location;
 		this.nodeName = nodeName || DOCUMENT_NODE_NAME;
 		this.disabledRules = new Set();
 	}

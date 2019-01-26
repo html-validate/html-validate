@@ -25,7 +25,6 @@ export class HtmlElement extends DOMNode {
 	readonly tagName: string;
 	readonly attr: { [key: string]: Attribute };
 	readonly children: HtmlElement[];
-	readonly location: Location;
 	readonly meta: MetaElement;
 	readonly parent: HtmlElement;
 	readonly voidElement: boolean;
@@ -40,7 +39,7 @@ export class HtmlElement extends DOMNode {
 		meta?: MetaElement,
 		location?: Location
 	) {
-		super(tagName);
+		super(tagName, location);
 
 		this.tagName = tagName;
 		this.children = [];
@@ -49,7 +48,6 @@ export class HtmlElement extends DOMNode {
 		this.meta = meta;
 		this.closed = closed;
 		this.voidElement = this.meta ? this.meta.void : false;
-		this.location = location;
 		this.unique = counter++;
 		this.depth = 0;
 
