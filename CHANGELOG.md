@@ -4,6 +4,7 @@
 
 ### Features
 
+- add `Attribute.valueMatches` to test attribute value. Handles `DynamicValue`.
 - `querySelector` now handles selector lists (comma-separated selectors)
 
 ## 0.18.2 (2019-01-14)
