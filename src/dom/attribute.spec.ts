@@ -1,5 +1,6 @@
 import { Location } from "../context";
 import { Attribute } from "./attribute";
+import { DynamicValue } from "./dynamic-value";
 
 const location: Location = {
 	filename: "file",
@@ -23,5 +24,26 @@ describe("Attribute", () => {
 		expect(a.value).toBeNull();
 		expect(b.value).toBeNull();
 		expect(c.value).toEqual("");
+	});
+
+	describe("valueMatches()", () => {
+		it("should match string", () => {
+			const attr = new Attribute("foo", "bar", location);
+			expect(attr.valueMatches("bar")).toBeTruthy();
+			expect(attr.valueMatches("ar")).toBeFalsy();
+		});
+
+		it("should match regexp", () => {
+			const attr = new Attribute("foo", "bar", location);
+			expect(attr.valueMatches(/bar/)).toBeTruthy();
+			expect(attr.valueMatches(/ar$/)).toBeTruthy();
+			expect(attr.valueMatches(/foo/)).toBeFalsy();
+		});
+
+		it("should match DynamicValue", () => {
+			const attr = new Attribute("foo", new DynamicValue("bar"), location);
+			expect(attr.valueMatches("foo")).toBeTruthy();
+			expect(attr.valueMatches(/foo/)).toBeTruthy();
+		});
 	});
 });
