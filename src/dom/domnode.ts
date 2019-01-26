@@ -1,3 +1,5 @@
+const DOCUMENT_NODE_NAME = "#document";
+
 export class DOMNode {
 	readonly nodeName: string;
 
@@ -9,8 +11,12 @@ export class DOMNode {
 	private disabledRules: Set<string>;
 
 	constructor(nodeName: string) {
-		this.nodeName = nodeName;
+		this.nodeName = nodeName || DOCUMENT_NODE_NAME;
 		this.disabledRules = new Set();
+	}
+
+	public isRootElement(): boolean {
+		return this.nodeName === DOCUMENT_NODE_NAME;
 	}
 
 	/**
