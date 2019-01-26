@@ -110,13 +110,6 @@ describe("HtmlElement", () => {
 		});
 	});
 
-	it("root element", () => {
-		const rootElement = root.root;
-		expect(rootElement.isRootElement()).toBeTruthy();
-		expect(rootElement.nodeName).toEqual("#document");
-		expect(rootElement.tagName).toBeUndefined();
-	});
-
 	it("id property should return element id", () => {
 		const el = new HtmlElement("foo");
 		el.setAttribute("id", "bar", location);

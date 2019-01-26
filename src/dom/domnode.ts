@@ -1,5 +1,16 @@
+import { Location } from "../context";
+
+const DOCUMENT_NODE_NAME = "#document";
+
+export enum NodeType {
+	ELEMENT_NODE = 1,
+	DOCUMENT_NODE = 9,
+}
+
 export class DOMNode {
+	readonly location: Location;
 	readonly nodeName: string;
+	readonly nodeType: NodeType;
 
 	/**
 	 * Set of disabled rules for this node.
@@ -8,9 +19,19 @@ export class DOMNode {
 	 */
 	private disabledRules: Set<string>;
 
-	constructor(nodeName: string) {
-		this.nodeName = nodeName;
+	constructor(nodeName: string, location?: Location) {
+		this.location = location;
+		this.nodeName = nodeName || DOCUMENT_NODE_NAME;
 		this.disabledRules = new Set();
+
+		this.nodeType = NodeType.ELEMENT_NODE;
+		if (!nodeName) {
+			this.nodeType = NodeType.DOCUMENT_NODE;
+		}
+	}
+
+	public isRootElement(): boolean {
+		return this.nodeType === NodeType.DOCUMENT_NODE;
 	}
 
 	/**

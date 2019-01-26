@@ -15,8 +15,6 @@ export enum NodeClosed {
 	ImplicitClosed = 4, //  element with optional end tag <li>foo<li>bar
 }
 
-const DOCUMENT_NODE_NAME = "#document";
-
 let counter = 0;
 
 export function reset() {
@@ -27,7 +25,6 @@ export class HtmlElement extends DOMNode {
 	readonly tagName: string;
 	readonly attr: { [key: string]: Attribute };
 	readonly children: HtmlElement[];
-	readonly location: Location;
 	readonly meta: MetaElement;
 	readonly parent: HtmlElement;
 	readonly voidElement: boolean;
@@ -42,7 +39,7 @@ export class HtmlElement extends DOMNode {
 		meta?: MetaElement,
 		location?: Location
 	) {
-		super(tagName || DOCUMENT_NODE_NAME);
+		super(tagName, location);
 
 		this.tagName = tagName;
 		this.children = [];
@@ -51,7 +48,6 @@ export class HtmlElement extends DOMNode {
 		this.meta = meta;
 		this.closed = closed;
 		this.voidElement = this.meta ? this.meta.void : false;
-		this.location = location;
 		this.unique = counter++;
 		this.depth = 0;
 
@@ -106,10 +102,6 @@ export class HtmlElement extends DOMNode {
 
 	is(tagName: string): boolean {
 		return (this.tagName && tagName === "*") || this.tagName === tagName;
-	}
-
-	isRootElement(): boolean {
-		return this.nodeName === DOCUMENT_NODE_NAME;
 	}
 
 	public setAttribute(
