@@ -30,6 +30,7 @@ Object {
     "no-inline-style": "error",
     "no-trailing-whitespace": "error",
     "void": "error",
+    "wcag/h67": "error",
   },
   "transform": Object {},
 }
@@ -106,6 +107,7 @@ Object {
     "no-inline-style": "error",
     "no-trailing-whitespace": "error",
     "void": "error",
+    "wcag/h67": "error",
   },
   "transform": Object {},
 }
@@ -213,6 +215,7 @@ Object {
     "no-inline-style": "error",
     "no-trailing-whitespace": "error",
     "void": "error",
+    "wcag/h67": "error",
   },
   "transform": Object {},
 }
@@ -286,6 +289,7 @@ Object {
     "no-inline-style": "error",
     "no-trailing-whitespace": "error",
     "void": "error",
+    "wcag/h67": "error",
   },
   "transform": Object {},
 }
@@ -363,6 +367,7 @@ Object {
     "no-inline-style": "error",
     "no-trailing-whitespace": "error",
     "void": "error",
+    "wcag/h67": "error",
   },
   "transform": Object {},
 }
@@ -439,6 +444,7 @@ Object {
     "no-inline-style": "error",
     "no-trailing-whitespace": "error",
     "void": "error",
+    "wcag/h67": "error",
   },
   "transform": Object {},
 }
@@ -499,6 +505,7 @@ Object {
     "no-inline-style": "error",
     "no-trailing-whitespace": "error",
     "void": "error",
+    "wcag/h67": "error",
   },
   "transform": Object {},
 }
@@ -559,6 +566,7 @@ Object {
     "no-inline-style": "error",
     "no-trailing-whitespace": "error",
     "void": "off",
+    "wcag/h67": "error",
   },
   "transform": Object {},
 }
@@ -596,6 +604,7 @@ Object {
     "no-inline-style": "error",
     "no-trailing-whitespace": "error",
     "void": "warn",
+    "wcag/h67": "error",
   },
   "transform": Object {},
 }
