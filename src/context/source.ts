@@ -4,9 +4,13 @@
  * HTML source with file, line and column context.
  */
 
-type ProcessAttributeCallback = (
-	{ key, value }: { key: string; value: string }
-) => void;
+type ProcessAttributeCallback = ({
+	key,
+	value,
+}: {
+	key: string;
+	value: string;
+}) => void;
 
 export interface Source {
 	data: string;
