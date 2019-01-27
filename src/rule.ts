@@ -105,6 +105,7 @@ export abstract class Rule<T = any> {
 		if (src.node && src.node.location) {
 			return src.node.location;
 		}
+		// eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
 		return {} as Location;
 	}
 

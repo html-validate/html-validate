@@ -222,7 +222,7 @@ export class Config {
 			return {
 				pattern: new RegExp(pattern),
 				fn: require(module.replace("<rootDir>", this.rootDir)),
-			} as Transformer;
+			};
 		});
 	}
 
