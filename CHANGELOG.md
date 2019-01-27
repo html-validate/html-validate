@@ -2,8 +2,13 @@
 
 ## Upcoming release
 
+### Breaking changes
+
+- `img-req-alt` has been renamed `wcag/h37`.
+
 ### Features
 
+- new rules `wcag/h32` and `wcag/h67`.
 - move `location` and `isRootElement` to `DOMNode` and add new `nodeType`
   property.
 - add `Attribute.valueMatches` to test attribute value. Handles `DynamicValue`.

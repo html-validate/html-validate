@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`rule img-req-alt should contain documentation 1`] = `
+exports[`rule h37 should contain documentation 1`] = `
 Object {
   "description": "Both HTML5 and WCAG 2.0 requires images to have a alternative text for each image.",
-  "url": "https://html-validate.org/rules/img-req-alt.html",
+  "url": "https://html-validate.org/rules/h37.html",
 }
 `;
 
-exports[`rule img-req-alt with alias (array) smoketest 1`] = `
+exports[`rule h37 with alias (array) smoketest 1`] = `
 Array [
   Object {
     "errorCount": 1,
-    "filePath": "test-files/rules/img-req-alt.html",
+    "filePath": "test-files/rules/wcag/h37.html",
     "messages": Array [
       Object {
         "column": 2,
@@ -19,7 +19,7 @@ Array [
         "line": 4,
         "message": "<img> is missing required alt attribute",
         "offset": 55,
-        "ruleId": "img-req-alt",
+        "ruleId": "wcag/h37",
         "severity": 2,
         "size": 3,
       },
@@ -34,11 +34,11 @@ Array [
 ]
 `;
 
-exports[`rule img-req-alt with alias smoketest 1`] = `
+exports[`rule h37 with alias smoketest 1`] = `
 Array [
   Object {
     "errorCount": 1,
-    "filePath": "test-files/rules/img-req-alt.html",
+    "filePath": "test-files/rules/wcag/h37.html",
     "messages": Array [
       Object {
         "column": 2,
@@ -46,7 +46,7 @@ Array [
         "line": 4,
         "message": "<img> is missing required alt attribute",
         "offset": 55,
-        "ruleId": "img-req-alt",
+        "ruleId": "wcag/h37",
         "severity": 2,
         "size": 3,
       },
@@ -61,11 +61,11 @@ Array [
 ]
 `;
 
-exports[`rule img-req-alt with allowEmpty false smoketest 1`] = `
+exports[`rule h37 with allowEmpty false smoketest 1`] = `
 Array [
   Object {
     "errorCount": 3,
-    "filePath": "test-files/rules/img-req-alt.html",
+    "filePath": "test-files/rules/wcag/h37.html",
     "messages": Array [
       Object {
         "column": 2,
@@ -73,7 +73,7 @@ Array [
         "line": 2,
         "message": "<img> is missing required alt attribute",
         "offset": 16,
-        "ruleId": "img-req-alt",
+        "ruleId": "wcag/h37",
         "severity": 2,
         "size": 3,
       },
@@ -83,7 +83,7 @@ Array [
         "line": 3,
         "message": "<img> is missing required alt attribute",
         "offset": 29,
-        "ruleId": "img-req-alt",
+        "ruleId": "wcag/h37",
         "severity": 2,
         "size": 3,
       },
@@ -93,7 +93,7 @@ Array [
         "line": 4,
         "message": "<img> is missing required alt attribute",
         "offset": 55,
-        "ruleId": "img-req-alt",
+        "ruleId": "wcag/h37",
         "severity": 2,
         "size": 3,
       },
@@ -108,11 +108,11 @@ Array [
 ]
 `;
 
-exports[`rule img-req-alt with default options smoketest 1`] = `
+exports[`rule h37 with default options smoketest 1`] = `
 Array [
   Object {
     "errorCount": 2,
-    "filePath": "test-files/rules/img-req-alt.html",
+    "filePath": "test-files/rules/wcag/h37.html",
     "messages": Array [
       Object {
         "column": 2,
@@ -120,7 +120,7 @@ Array [
         "line": 3,
         "message": "<img> is missing required alt attribute",
         "offset": 29,
-        "ruleId": "img-req-alt",
+        "ruleId": "wcag/h37",
         "severity": 2,
         "size": 3,
       },
@@ -130,7 +130,7 @@ Array [
         "line": 4,
         "message": "<img> is missing required alt attribute",
         "offset": 55,
-        "ruleId": "img-req-alt",
+        "ruleId": "wcag/h37",
         "severity": 2,
         "size": 3,
       },

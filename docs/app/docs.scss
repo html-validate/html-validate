@@ -45,3 +45,45 @@ main {
 		}
 	}
 }
+
+.markdown-table + table {
+	@extend .table;
+}
+
+.markdown-table.table-striped + table {
+	@extend .table-striped;
+}
+
+.markdown-table.table-hover + table {
+	@extend .table-hover;
+}
+
+.support-table + table td:last-child {
+	padding-right: 0;
+}
+
+%support {
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	margin: -$table-cell-padding 0;
+	padding: $table-cell-padding;
+}
+
+.support-no {
+	@extend %support;
+	background: $alert-danger-bg;
+	color: $alert-danger-text;
+}
+
+.support-yes {
+	@extend %support;
+	background: $alert-success-bg;
+	color: $alert-success-text;
+}
+
+.support-planned {
+	@extend %support;
+	background: $alert-warning-bg;
+	color: $alert-warning-text;
+}

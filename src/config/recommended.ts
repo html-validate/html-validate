@@ -13,7 +13,6 @@ module.exports = {
 		"element-permitted-content": "error",
 		"element-permitted-occurrences": "error",
 		"element-permitted-order": "error",
-		"img-req-alt": "error",
 		"no-conditional-comment": "error",
 		"no-deprecated-attr": "error",
 		"no-dup-attr": "error",
@@ -23,5 +22,8 @@ module.exports = {
 		"no-inline-style": "error",
 		"no-trailing-whitespace": "error",
 		void: "error",
+		"wcag/h32": "error",
+		"wcag/h37": "error",
+		"wcag/h67": "error",
 	},
 };

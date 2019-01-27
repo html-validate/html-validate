@@ -31,7 +31,7 @@ describe("docs/index.md", () => {
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: frontpage-a17y", () => {
-		const htmlvalidate = new HtmlValidate({"rules":{"img-req-alt":"error","button-type":"error","input-missing-label":"error"}});
+		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h37":"error","button-type":"error","input-missing-label":"error"}});
 		const report = htmlvalidate.validateString(markup["frontpage-a17y"]);
 		expect(report.results).toMatchSnapshot();
 	});
