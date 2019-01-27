@@ -52,7 +52,7 @@ class AttributeAllowedValues extends Rule<Context> {
 						this.report(
 							node,
 							`Attribute "${key}" has invalid value "${attr.value}"`,
-							attr.keyLocation,
+							attr.valueLocation,
 							context
 						);
 					}

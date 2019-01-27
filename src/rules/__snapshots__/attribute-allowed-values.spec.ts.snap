@@ -25,7 +25,7 @@ Array [
     "filePath": "test-files/rules/attribute-allowed-values.html",
     "messages": Array [
       Object {
-        "column": 8,
+        "column": 14,
         "context": Object {
           "allowed": Array [
             "button",
@@ -57,10 +57,10 @@ Array [
         },
         "line": 3,
         "message": "Attribute \\"type\\" has invalid value \\"foobar\\"",
-        "offset": 35,
+        "offset": 41,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
-        "size": 4,
+        "size": 6,
       },
     ],
     "source": "<input>

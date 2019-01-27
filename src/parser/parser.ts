@@ -1,5 +1,5 @@
 import { Config } from "../config";
-import { Source } from "../context";
+import { Location, sliceLocation, Source } from "../context";
 import { DOMTree, HtmlElement, NodeClosed } from "../dom";
 import { EventCallback, EventHandler } from "../event";
 import {
@@ -250,8 +250,27 @@ export class Parser {
 		});
 
 		const keyLocation = token.location;
-		const valueLocation = haveValue ? next.location : null;
+		const valueLocation = this.getAttributeValueLocation(next);
 		node.setAttribute(attr.key, attr.value, keyLocation, valueLocation);
+	}
+
+	/**
+	 * Take attribute value token and return a new location referring to only the
+	 * value.
+	 *
+	 * foo="bar"    foo='bar'    foo=bar    foo      foo=""
+	 *      ^^^          ^^^         ^^^    (null)   (null)
+	 */
+	private getAttributeValueLocation(token: Token): Location {
+		if (!token || token.type !== TokenType.ATTR_VALUE || token.data[1] === "") {
+			return null;
+		}
+		const quote = token.data[2];
+		if (quote) {
+			return sliceLocation(token.location, 2, -1);
+		} else {
+			return sliceLocation(token.location, 1, 0);
+		}
 	}
 
 	consumeDirective(token: Token) {
