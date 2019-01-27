@@ -4,16 +4,19 @@ import { DynamicValue } from "./dynamic-value";
 export class Attribute {
 	public readonly key: string;
 	public readonly value: string | DynamicValue;
-	public readonly location: Location;
+	public readonly keyLocation: Location;
+	public readonly valueLocation: Location;
 
 	public constructor(
 		key: string,
 		value: string | DynamicValue,
-		location: Location
+		keyLocation: Location,
+		valueLocation: Location
 	) {
 		this.key = key;
 		this.value = value;
-		this.location = location;
+		this.keyLocation = keyLocation;
+		this.valueLocation = valueLocation;
 
 		/* force undefined to null */
 		if (typeof this.value === "undefined") {

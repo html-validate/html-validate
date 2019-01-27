@@ -222,18 +222,19 @@ export class Parser {
 		}
 	}
 
-	consumeAttribute(
+	protected consumeAttribute(
 		source: Source,
 		node: HtmlElement,
 		token: Token,
 		next?: Token
 	) {
+		const haveValue = next && next.type === TokenType.ATTR_VALUE;
 		const attr = {
 			key: token.data[1],
 			value: undefined as string,
 			quote: undefined as any,
 		};
-		if (next && next.type === TokenType.ATTR_VALUE) {
+		if (haveValue) {
 			attr.value = next.data[1];
 			attr.quote = next.data[2];
 		}
@@ -247,7 +248,10 @@ export class Parser {
 			quote: attr.quote,
 			location: token.location,
 		});
-		node.setAttribute(attr.key, attr.value, token.location);
+
+		const keyLocation = token.location;
+		const valueLocation = haveValue ? next.location : null;
+		node.setAttribute(attr.key, attr.value, keyLocation, valueLocation);
 	}
 
 	consumeDirective(token: Token) {

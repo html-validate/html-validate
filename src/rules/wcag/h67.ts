@@ -39,7 +39,7 @@ class H67 extends Rule {
 			this.report(
 				node,
 				"<img> with empty alt text cannot have title attribute",
-				title.location
+				title.keyLocation
 			);
 		});
 	}
