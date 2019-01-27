@@ -29,14 +29,16 @@ export class Attribute {
 	 *
 	 * @param {RegExp|string} pattern - Pattern to match value against. RegExp or
 	 * a string (===)
+	 * @param {boolean} [dynamicMatches=true] - If true `DynamicValue` will always
+	 * match, if false it never matches.
 	 * @returns {boolean} `true` if attribute value matches pattern.
 	 */
-	public valueMatches(pattern: RegExp): boolean;
-	public valueMatches(pattern: string): boolean;
-	public valueMatches(pattern: any): boolean {
+	public valueMatches(pattern: RegExp, dynamicMatches?: boolean): boolean;
+	public valueMatches(pattern: string, dynamicMatches?: boolean): boolean;
+	public valueMatches(pattern: any, dynamicMatches: boolean = true): boolean {
 		/* dynamic values matches everything */
 		if (this.value instanceof DynamicValue) {
-			return true;
+			return dynamicMatches;
 		}
 
 		/* test value against pattern */

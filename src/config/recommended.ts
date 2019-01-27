@@ -21,6 +21,7 @@ module.exports = {
 		"no-implicit-close": "error",
 		"no-inline-style": "error",
 		"no-trailing-whitespace": "error",
+		"prefer-button": "error",
 		void: "error",
 		"wcag/h32": "error",
 		"wcag/h37": "error",

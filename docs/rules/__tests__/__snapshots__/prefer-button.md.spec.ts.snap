@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/prefer-button.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/prefer-button.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 4,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 14,
+        "context": undefined,
+        "line": 1,
+        "message": "Prefer to use <button> instead of <input type=\\"button\\"> when adding buttons",
+        "offset": 13,
+        "ruleId": "prefer-button",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 14,
+        "context": undefined,
+        "line": 2,
+        "message": "Prefer to use <button> instead of <input type=\\"submit\\"> when adding buttons",
+        "offset": 35,
+        "ruleId": "prefer-button",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 14,
+        "context": undefined,
+        "line": 3,
+        "message": "Prefer to use <button> instead of <input type=\\"reset\\"> when adding buttons",
+        "offset": 57,
+        "ruleId": "prefer-button",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 14,
+        "context": undefined,
+        "line": 4,
+        "message": "Prefer to use <button> instead of <input type=\\"image\\"> when adding buttons",
+        "offset": 78,
+        "ruleId": "prefer-button",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<input type=\\"button\\">
+<input type=\\"submit\\">
+<input type=\\"reset\\">
+<input type=\\"image\\">",
+    "warningCount": 0,
+  },
+]
+`;
