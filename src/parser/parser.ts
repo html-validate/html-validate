@@ -241,16 +241,19 @@ export class Parser {
 		if (source.hooks && source.hooks.processAttribute) {
 			source.hooks.processAttribute(attr);
 		}
+
+		const keyLocation = token.location;
+		const valueLocation = this.getAttributeValueLocation(next);
+
 		this.trigger("attr", {
 			target: node,
 			key: attr.key,
 			value: attr.value,
 			quote: attr.quote,
-			location: token.location,
+			location: keyLocation,
+			valueLocation,
 		});
 
-		const keyLocation = token.location;
-		const valueLocation = this.getAttributeValueLocation(next);
 		node.setAttribute(attr.key, attr.value, keyLocation, valueLocation);
 	}
 

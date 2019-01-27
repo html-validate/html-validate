@@ -65,6 +65,8 @@ about to be closed.
 ```typescript
 {
   target: Node,
+  location: Location,
+  valueLocation: Location,
   key: String,
   value: String|undefined,
   quote: 'single'|'double'|undefined,
