@@ -2,7 +2,7 @@ import { Combinator, parseCombinator } from "./combinator";
 import { HtmlElement } from "./htmlelement";
 
 class Matcher {
-	// eslint-disable-next-line no-unused-vars
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	match(node: HtmlElement): boolean {
 		/* istanbul ignore next: only used by fallback solution */
 		return false;

@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import * as path from "path";
-import { Config, Severity } from "./config";
+import { Severity } from "./config";
 import { Location } from "./context";
 import { HtmlElement } from "./dom";
 import {
@@ -92,7 +91,6 @@ export abstract class Rule<T = any> {
 		}
 	}
 
-	// eslint-disable-next-line typescript/member-delimiter-style
 	private findLocation(src: {
 		node: HtmlElement;
 		location: Location;
@@ -107,6 +105,7 @@ export abstract class Rule<T = any> {
 		if (src.node && src.node.location) {
 			return src.node.location;
 		}
+		// eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
 		return {} as Location;
 	}
 
@@ -142,6 +141,7 @@ export abstract class Rule<T = any> {
 
 	abstract setup(): void;
 
+	/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 	documentation(context?: T): RuleDocumentation {
 		return null;
 	}

@@ -1,4 +1,4 @@
-/* eslint-disable typescript/no-namespace, prefer-template */
+/* eslint-disable @typescript-eslint/no-namespace, prefer-template */
 
 import { TokenType } from "./lexer";
 import { Message, Report, Result } from "./reporter";

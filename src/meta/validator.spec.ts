@@ -1,5 +1,5 @@
 import { Config } from "../config";
-import { DynamicValue, HtmlElement } from "../dom"; // eslint-disable-line no-unused-vars
+import { DynamicValue, HtmlElement } from "../dom";
 import { Parser } from "../parser";
 import { MetaElement, MetaTable, Validator } from "./";
 
