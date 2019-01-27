@@ -60,5 +60,16 @@ describe("Attribute", () => {
 			expect(attr.valueMatches("foo")).toBeTruthy();
 			expect(attr.valueMatches(/foo/)).toBeTruthy();
 		});
+
+		it("should match ignore DynamicValue", () => {
+			const attr = new Attribute(
+				"foo",
+				new DynamicValue("bar"),
+				keyLocation,
+				null
+			);
+			expect(attr.valueMatches("bar", false)).toBeFalsy();
+			expect(attr.valueMatches(/bar/, false)).toBeFalsy();
+		});
 	});
 });
