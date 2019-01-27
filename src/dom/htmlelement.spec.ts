@@ -6,15 +6,24 @@ import { MetaElement, MetaTable } from "../meta";
 import { Parser } from "../parser";
 import { DynamicValue } from "./dynamic-value";
 
+interface LocationSpec {
+	column: number;
+	size: number;
+}
+
+function createLocation({ column, size }: LocationSpec): Location {
+	return {
+		filename: "filename",
+		offset: column - 1,
+		line: 1,
+		column,
+		size,
+	};
+}
+
 describe("HtmlElement", () => {
 	let root: DOMTree;
-	const location: Location = {
-		filename: "filename",
-		offset: 0,
-		line: 1,
-		column: 1,
-		size: 4,
-	};
+	const location = createLocation({ column: 1, size: 4 });
 
 	beforeEach(() => {
 		const parser = new Parser(Config.empty());
@@ -112,7 +121,7 @@ describe("HtmlElement", () => {
 
 	it("id property should return element id", () => {
 		const el = new HtmlElement("foo");
-		el.setAttribute("id", "bar", location);
+		el.setAttribute("id", "bar", location, null);
 		expect(el.id).toEqual("bar");
 	});
 
@@ -160,19 +169,22 @@ describe("HtmlElement", () => {
 
 	it("hasAttribute()", () => {
 		const node = new HtmlElement("foo");
-		node.setAttribute("foo", "", location);
+		node.setAttribute("foo", "", location, null);
 		expect(node.hasAttribute("foo")).toBeTruthy();
 		expect(node.hasAttribute("bar")).toBeFalsy();
 	});
 
 	it("getAttribute()", () => {
 		const node = new HtmlElement("foo");
-		node.setAttribute("foo", "value", location);
+		const keyLocation = createLocation({ column: 1, size: 3 });
+		const valueLocation = createLocation({ column: 5, size: 5 });
+		node.setAttribute("foo", "value", keyLocation, valueLocation);
 		expect(node.getAttribute("foo")).toBeInstanceOf(Attribute);
 		expect(node.getAttribute("foo")).toEqual({
 			key: "foo",
 			value: "value",
-			location,
+			keyLocation,
+			valueLocation,
 		});
 		expect(node.getAttribute("bar")).toBeNull();
 	});
@@ -180,14 +192,14 @@ describe("HtmlElement", () => {
 	describe("getAttributeValue", () => {
 		it("should get attribute value", () => {
 			const node = new HtmlElement("foo");
-			node.setAttribute("bar", "value", location);
+			node.setAttribute("bar", "value", location, null);
 			expect(node.getAttributeValue("bar")).toEqual("value");
 		});
 
 		it("should get attribute expression for dynamic values", () => {
 			const node = new HtmlElement("foo");
 			const dynamic = new DynamicValue("{{ interpolated }}");
-			node.setAttribute("bar", dynamic, location);
+			node.setAttribute("bar", dynamic, location, null);
 			expect(node.getAttributeValue("bar")).toEqual("{{ interpolated }}");
 		});
 
@@ -198,7 +210,7 @@ describe("HtmlElement", () => {
 
 		it("should return null for boolean attributes", () => {
 			const node = new HtmlElement("foo");
-			node.setAttribute("bar", undefined, location);
+			node.setAttribute("bar", undefined, location, null);
 			expect(node.getAttributeValue("bar")).toBeNull();
 		});
 	});
@@ -206,7 +218,7 @@ describe("HtmlElement", () => {
 	describe("classList", () => {
 		it("should return list of classes", () => {
 			const node = new HtmlElement("foo");
-			node.setAttribute("class", "foo bar baz", location);
+			node.setAttribute("class", "foo bar baz", location, null);
 			expect(Array.from(node.classList)).toEqual(["foo", "bar", "baz"]);
 		});
 

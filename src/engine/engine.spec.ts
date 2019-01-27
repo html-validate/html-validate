@@ -182,8 +182,8 @@ describe("Engine", () => {
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
 			expect(report).toHaveErrors([
-				{ ruleId: "attribute-allowed-values", column: 13 },
-				{ ruleId: "attribute-allowed-values", column: 118 },
+				{ ruleId: "attribute-allowed-values", column: 19 },
+				{ ruleId: "attribute-allowed-values", column: 124 },
 			]);
 		});
 
@@ -231,7 +231,7 @@ describe("Engine", () => {
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
 			expect(report).toHaveErrors([
-				{ ruleId: "attribute-allowed-values", column: 88 },
+				{ ruleId: "attribute-allowed-values", column: 94 },
 			]);
 		});
 

@@ -14,11 +14,11 @@ Array [
     "filePath": "test-files/rules/no-dup-id.html",
     "messages": Array [
       Object {
-        "column": 2,
+        "column": 10,
         "context": undefined,
         "line": 3,
         "message": "Duplicate ID \\"foo\\"",
-        "offset": 43,
+        "offset": 51,
         "ruleId": "no-dup-id",
         "severity": 2,
         "size": 3,

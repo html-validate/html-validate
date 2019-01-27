@@ -1,5 +1,5 @@
 import { Config } from "../config";
-import { Source } from "../context";
+import { Location, sliceLocation, Source } from "../context";
 import { DOMTree, HtmlElement, NodeClosed } from "../dom";
 import { EventCallback, EventHandler } from "../event";
 import {
@@ -222,32 +222,58 @@ export class Parser {
 		}
 	}
 
-	consumeAttribute(
+	protected consumeAttribute(
 		source: Source,
 		node: HtmlElement,
 		token: Token,
 		next?: Token
 	) {
+		const haveValue = next && next.type === TokenType.ATTR_VALUE;
 		const attr = {
 			key: token.data[1],
 			value: undefined as string,
 			quote: undefined as any,
 		};
-		if (next && next.type === TokenType.ATTR_VALUE) {
+		if (haveValue) {
 			attr.value = next.data[1];
 			attr.quote = next.data[2];
 		}
 		if (source.hooks && source.hooks.processAttribute) {
 			source.hooks.processAttribute(attr);
 		}
+
+		const keyLocation = token.location;
+		const valueLocation = this.getAttributeValueLocation(next);
+
 		this.trigger("attr", {
 			target: node,
 			key: attr.key,
 			value: attr.value,
 			quote: attr.quote,
-			location: token.location,
+			location: keyLocation,
+			valueLocation,
 		});
-		node.setAttribute(attr.key, attr.value, token.location);
+
+		node.setAttribute(attr.key, attr.value, keyLocation, valueLocation);
+	}
+
+	/**
+	 * Take attribute value token and return a new location referring to only the
+	 * value.
+	 *
+	 * foo="bar"    foo='bar'    foo=bar    foo      foo=""
+	 *      ^^^          ^^^         ^^^    (null)   (null)
+	 */
+	private getAttributeValueLocation(token: Token): Location {
+		if (!token || token.type !== TokenType.ATTR_VALUE || token.data[1] === "") {
+			return null;
+		}
+		const quote = token.data[2];
+		if (quote) {
+			return sliceLocation(token.location, 2, -1);
+		} else {
+			return sliceLocation(token.location, 1, 0);
+		}
 	}
 
 	consumeDirective(token: Token) {

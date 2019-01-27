@@ -9,11 +9,11 @@ Array [
     "filePath": "inline",
     "messages": Array [
       Object {
-        "column": 2,
+        "column": 10,
         "context": undefined,
         "line": 2,
         "message": "Duplicate ID \\"foo\\"",
-        "offset": 22,
+        "offset": 30,
         "ruleId": "no-dup-id",
         "severity": 2,
         "size": 3,

@@ -19,6 +19,7 @@ export interface AttributeEvent extends Event {
 	value: string | DynamicValue;
 	quote: '"' | "'" | undefined;
 	target: HtmlElement;
+	valueLocation: Location;
 }
 
 export interface WhitespaceEvent extends Event {

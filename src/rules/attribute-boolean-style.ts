@@ -46,7 +46,7 @@ class AttributeBooleanStyle extends Rule {
 						this.report(
 							node,
 							reportMessage(key, value, this.options.style),
-							attr.location
+							attr.keyLocation
 						);
 					}
 				}

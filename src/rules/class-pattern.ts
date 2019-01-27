@@ -34,7 +34,8 @@ class ClassPattern extends Rule {
 				if (!cur.match(this.pattern)) {
 					this.report(
 						event.target,
-						`Class "${cur}" does not match required pattern "${this.pattern}"`
+						`Class "${cur}" does not match required pattern "${this.pattern}"`,
+						event.valueLocation
 					);
 				}
 			});
