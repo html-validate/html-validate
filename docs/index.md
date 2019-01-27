@@ -14,6 +14,10 @@ fragments (transforming).
 Neither `.html` files or component fragments need to be a complete document
 (e.g. doctype is not required).
 
+Transformed sources can also be postprocessed to handle data-bindings from
+different frameworks, e.g. `:id` will still be understood the same way `id`
+would.
+
 **Learn more about [transforming sources](usage/transformers.html).**
 
 ### Offline
@@ -33,7 +37,8 @@ validator should be strict. No corrections, assumptions or guessing is done. If
 the markup is invalid the parser will tell you so.
 
 By ensuring the markup is strictly valid it reduces the amount of bugs where
-different browsers autocorrected the markup different.
+different browsers autocorrected the markup differently (this is especially true
+for mobile browsers).
 
 ### HTML5 content model
 
@@ -48,6 +53,13 @@ element is missing.
 
 **Learn more about [writing element metadata](usage/elements.html) for custom
 components.**
+
+### Accessibility
+
+Validates technical aspects of <abbr title="accessibility">a11y</abbr>
+guidelines such as WCAG 2.1.
+
+- [WCAG 2.1 support table](wcag.html)
 
 ### Extendable
 

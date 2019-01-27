@@ -14,5 +14,9 @@
 		h3:first-child {
 			margin-top: 0; /* moved to container element */
 		}
+
+		h3 {
+			break-after: avoid-column;
+		}
 	}
 }
