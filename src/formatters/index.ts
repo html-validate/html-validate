@@ -1,4 +1,4 @@
-import { Result } from "../reporter"; /* eslint-disable-line no-unused-vars */
+import { Result } from "../reporter";
 
 export type Formatter = (results: Result[]) => string;
 

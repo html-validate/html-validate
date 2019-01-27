@@ -32,7 +32,6 @@ const dynamicKeys = [
 	"interactive",
 ];
 
-// eslint-disable-next-line no-unused-vars
 type PropertyEvaluator = (node: HtmlElement, options: any) => boolean;
 
 const functionTable: { [key: string]: PropertyEvaluator } = {

@@ -91,7 +91,6 @@ export abstract class Rule<T = any> {
 		}
 	}
 
-	// eslint-disable-next-line typescript/member-delimiter-style
 	private findLocation(src: {
 		node: HtmlElement;
 		location: Location;
