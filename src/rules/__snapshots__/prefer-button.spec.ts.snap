@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule prefer-button should contain documentation 1`] = `
+Object {
+  "description": "Prefer to use the generic \`<button>\` element instead of \`<input>\`.",
+  "url": "https://html-validate.org/rules/prefer-button.html",
+}
+`;
+
+exports[`rule prefer-button smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 4,
+    "filePath": "test-files/rules/prefer-button.html",
+    "messages": Array [
+      Object {
+        "column": 14,
+        "context": undefined,
+        "line": 5,
+        "message": "Prefer to use <button> instead of <input type=\\"button\\"> when adding buttons",
+        "offset": 64,
+        "ruleId": "prefer-button",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 14,
+        "context": undefined,
+        "line": 8,
+        "message": "Prefer to use <button> instead of <input type=\\"submit\\"> when adding buttons",
+        "offset": 119,
+        "ruleId": "prefer-button",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 14,
+        "context": undefined,
+        "line": 11,
+        "message": "Prefer to use <button> instead of <input type=\\"reset\\"> when adding buttons",
+        "offset": 174,
+        "ruleId": "prefer-button",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 14,
+        "context": undefined,
+        "line": 14,
+        "message": "Prefer to use <button> instead of <input type=\\"image\\"> when adding buttons",
+        "offset": 227,
+        "ruleId": "prefer-button",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<input>
+<input type=\\"text\\">
+<input type=\\"hidden\\">
+
+<input type=\\"button\\">
+<button type=\\"button\\"></button>
+
+<input type=\\"submit\\">
+<button type=\\"submit\\"></button>
+
+<input type=\\"reset\\">
+<button type=\\"reset\\"></button>
+
+<input type=\\"image\\">
+<button type=\\"submit\\"></button>
+",
+    "warningCount": 0,
+  },
+]
+`;

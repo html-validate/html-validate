@@ -8,6 +8,7 @@
 
 ### Features
 
+- new rule `prefer-button`.
 - `Attribute` now stores location of value.
 - new rules `wcag/h32` and `wcag/h67`.
 - move `location` and `isRootElement` to `DOMNode` and add new `nodeType`
