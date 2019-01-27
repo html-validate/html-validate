@@ -31,7 +31,7 @@ class ButtonType extends Rule {
 					this.report(
 						node,
 						`Button has invalid type "${attr.value}"`,
-						attr.keyLocation
+						attr.valueLocation
 					);
 				}
 			});

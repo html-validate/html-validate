@@ -39,7 +39,8 @@ class IdPattern extends Rule {
 					event.target,
 					`ID "${event.value}" does not match required pattern "${
 						this.pattern
-					}"`
+					}"`,
+					event.valueLocation
 				);
 			}
 		});

@@ -15,7 +15,8 @@ class NoDupID extends Rule {
 			const elements = event.document.querySelectorAll("[id]");
 			elements.forEach(el => {
 				if (el.id in existing) {
-					this.report(el, `Duplicate ID "${el.id}"`);
+					const attr = el.getAttribute("id");
+					this.report(el, `Duplicate ID "${el.id}"`, attr.valueLocation);
 				}
 				existing[el.id] = true;
 			});

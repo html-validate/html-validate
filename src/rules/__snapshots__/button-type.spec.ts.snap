@@ -26,14 +26,14 @@ Array [
         "size": 6,
       },
       Object {
-        "column": 10,
+        "column": 16,
         "context": undefined,
         "line": 3,
         "message": "Button has invalid type \\"foo\\"",
-        "offset": 59,
+        "offset": 65,
         "ruleId": "button-type",
         "severity": 2,
-        "size": 4,
+        "size": 3,
       },
     ],
     "source": "<form>

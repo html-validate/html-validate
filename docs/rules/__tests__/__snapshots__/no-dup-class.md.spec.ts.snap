@@ -9,14 +9,14 @@ Array [
     "filePath": "inline",
     "messages": Array [
       Object {
-        "column": 6,
+        "column": 13,
         "context": undefined,
         "line": 1,
         "message": "Class \\"foo\\" duplicated",
-        "offset": 5,
+        "offset": 12,
         "ruleId": "no-dup-class",
         "severity": 2,
-        "size": 5,
+        "size": 11,
       },
     ],
     "source": "<div class=\\"foo bar foo\\"></div>",

@@ -9,14 +9,14 @@ Array [
     "filePath": "inline",
     "messages": Array [
       Object {
-        "column": 6,
+        "column": 10,
         "context": undefined,
         "line": 1,
         "message": "ID \\"fooBar\\" does not match required pattern \\"/^[a-z0-9-]+$/\\"",
-        "offset": 5,
+        "offset": 9,
         "ruleId": "id-pattern",
         "severity": 2,
-        "size": 2,
+        "size": 6,
       },
     ],
     "source": "<div id=\\"fooBar\\"></foobar>",

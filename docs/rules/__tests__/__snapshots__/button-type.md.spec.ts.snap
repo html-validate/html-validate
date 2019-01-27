@@ -19,14 +19,14 @@ Array [
         "size": 6,
       },
       Object {
-        "column": 9,
+        "column": 15,
         "context": undefined,
         "line": 5,
         "message": "Button has invalid type \\"foo\\"",
-        "offset": 74,
+        "offset": 80,
         "ruleId": "button-type",
         "severity": 2,
-        "size": 4,
+        "size": 3,
       },
     ],
     "source": "<!-- missing type -->

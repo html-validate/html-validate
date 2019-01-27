@@ -23,7 +23,7 @@ class NoDupClass extends Rule {
 					this.report(
 						event.target,
 						`Class "${cur}" duplicated`,
-						event.location
+						event.valueLocation
 					);
 				}
 				unique.add(cur);
