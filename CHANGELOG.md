@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.19.0 (2019-01-27)
+
 ### Breaking changes
 
 - `img-req-alt` has been renamed `wcag/h37`.
