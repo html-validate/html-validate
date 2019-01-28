@@ -77,7 +77,10 @@ function formatMessage(message: Message, parentResult: Result): string {
 		result.push(
 			codeFrameColumns(
 				sourceCode,
-				{ start: { line: message.line, column: message.column } },
+				{
+					start: { line: message.line, column: message.column },
+					end: { line: message.line, column: message.column + message.size },
+				},
 				{ highlightCode: false }
 			)
 		);
