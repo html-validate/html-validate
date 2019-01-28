@@ -28,8 +28,8 @@ describe("codeframe formatter", () => {
 						message: "An error",
 						offset: 4,
 						line: 1,
-						column: 5,
-						size: 1,
+						column: 6,
+						size: 25,
 					},
 					{
 						ruleId: "bar",

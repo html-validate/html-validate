@@ -4,6 +4,11 @@ import * as path from "path";
 import { Message, Result } from "reporter";
 import { FormatterModule } from ".";
 
+interface SourcePoint {
+	line: number;
+	column: number;
+}
+
 /**
  * Codeframe formatter based on ESLint codeframe.
  */
@@ -42,6 +47,27 @@ function formatFilePath(
 	return chalk.green(relPath);
 }
 
+function getStartLocation(message: Message): SourcePoint {
+	return {
+		line: message.line,
+		column: message.column,
+	};
+}
+
+function getEndLocation(message: Message, source: string): SourcePoint {
+	let line = message.line;
+	let column = message.column;
+	for (let i = 0; i < message.size; i++) {
+		if (source.charAt(message.offset + i) === "\n") {
+			line++;
+			column = 0;
+		} else {
+			column++;
+		}
+	}
+	return { line, column };
+}
+
 /**
  * Gets the formatted output for a given message.
  * @param   {Object} message      The object that represents this message.
@@ -78,8 +104,8 @@ function formatMessage(message: Message, parentResult: Result): string {
 			codeFrameColumns(
 				sourceCode,
 				{
-					start: { line: message.line, column: message.column },
-					end: { line: message.line, column: message.column + message.size },
+					start: getStartLocation(message),
+					end: getEndLocation(message, sourceCode),
 				},
 				{ highlightCode: false }
 			)
