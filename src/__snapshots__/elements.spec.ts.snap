@@ -807,3 +807,89 @@ Array [
 `;
 
 exports[`HTML elements <br> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <button> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 5,
+    "filePath": "test-files/elements/button-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 24,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <button>",
+        "offset": 65,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 24,
+        "context": undefined,
+        "line": 5,
+        "message": "Element <a> is not permitted as descendant of <button>",
+        "offset": 174,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 30,
+        "context": undefined,
+        "line": 6,
+        "message": "Element <a> is not permitted as descendant of <button>",
+        "offset": 222,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 30,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <button> is not permitted as descendant of <button>",
+        "offset": 312,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 15,
+        "context": Object {
+          "allowed": Array [
+            "submit",
+            "reset",
+            "button",
+          ],
+          "attribute": "type",
+          "element": "button",
+          "value": "foobar",
+        },
+        "line": 12,
+        "message": "Attribute \\"type\\" has invalid value \\"foobar\\"",
+        "offset": 411,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- should not allow flow as content -->
+<button type=\\"button\\"><div>foo</div></button>
+
+<!-- should not allow interactive as content or descendant-->
+<button type=\\"button\\"><a>foo</a></button>
+<button type=\\"button\\"><span><a>foo</a></span></button>
+
+<!-- should not allow nesting -->
+<button type=\\"button\\"><span><button type=\\"button\\">foo</button></span></button>
+
+<!-- disallowed type variants -->
+<button type=\\"foobar\\"></button>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <button> valid markup 1`] = `Array []`;

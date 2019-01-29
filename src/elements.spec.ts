@@ -150,10 +150,6 @@ describe("HTML elements", () => {
 		});
 	}
 
-	function disallowNesting(tagName: string) {
-		disallowContent(tagName, tagName);
-	}
-
 	function disallowParent(tagName: string, category: string, variant?: string) {
 		const outer = getTagname(category);
 		const inner = getElementMarkup(tagName, variant);
@@ -223,6 +219,7 @@ describe("HTML elements", () => {
 		"blockquote",
 		"body",
 		"br",
+		"button",
 	];
 
 	for (const tagName of tagNames) {
@@ -254,19 +251,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<button>", () => {
-		allowContent("button", "@phrasing");
-		allowParent("button", "span");
-		allowParent("button", "div");
-		disallowContent("button", "@flow");
-		disallowDescendant("button", "@interactive");
-		disallowNesting("button");
-		allowAttribute("button", "autofocus", []);
-		allowAttribute("button", "disabled", []);
-		allowAttribute("button", "type", ["submit", "reset", "button"]);
-		disallowAttribute("button", "type", ["", "foobar"]);
 	});
 
 	describe("<canvas>", () => {

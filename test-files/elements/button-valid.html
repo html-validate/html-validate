@@ -1,0 +1,16 @@
+<!-- should allow phrasing as content -->
+<button type="button"><span>foo</span></button>
+
+<!-- should allow phrasing as parent -->
+<span><button type="button"></button></span>
+
+<!-- should allow flow as parent -->
+<span><button type="button"></button></span>
+
+<!-- allowed boolean attributes -->
+<button type="button" autofocus disabled></button>
+
+<!-- type variants -->
+<button type="button"></button>
+<button type="submit"></button>
+<button type="reset"></button>
