@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.20.0 (2019-01-29)
+
 ### Features
 
 - update `codeframe` formatter to show not just start location but also end.
