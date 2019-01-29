@@ -9,14 +9,14 @@ Array [
     "filePath": "inline",
     "messages": Array [
       Object {
-        "column": 1,
+        "column": 2,
         "context": undefined,
         "line": 1,
         "message": "<foobar> is not a valid element name",
-        "offset": 0,
+        "offset": 1,
         "ruleId": "element-name",
         "severity": 2,
-        "size": 7,
+        "size": 6,
       },
     ],
     "source": "<foobar></foobar>",

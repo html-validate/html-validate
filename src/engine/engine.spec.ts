@@ -143,7 +143,7 @@ describe("Engine", () => {
 			];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
-			expect(report).toHaveErrors([{ ruleId: "deprecated", column: 58 }]);
+			expect(report).toHaveErrors([{ ruleId: "deprecated", column: 59 }]);
 		});
 
 		it('"disable" should only disable selected rule', () => {

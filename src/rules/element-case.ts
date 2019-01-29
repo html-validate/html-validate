@@ -1,3 +1,4 @@
+import { sliceLocation } from "../context";
 import { TagOpenEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
@@ -25,9 +26,11 @@ class ElementCase extends Rule {
 		this.on("tag:open", (event: TagOpenEvent) => {
 			const letters = event.target.tagName.replace(/[^a-z]+/gi, "");
 			if (!letters.match(this.pattern)) {
+				const location = sliceLocation(event.location, 1);
 				this.report(
 					event.target,
-					`Element "${event.target.tagName}" should be ${this.lettercase}`
+					`Element "${event.target.tagName}" should be ${this.lettercase}`,
+					location
 				);
 			}
 		});

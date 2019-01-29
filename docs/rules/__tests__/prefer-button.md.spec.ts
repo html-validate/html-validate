@@ -1,13 +1,8 @@
 import HtmlValidate from "../../../src/htmlvalidate";
 
 const markup: { [key: string]: string } = {};
-markup["incorrect"] = `<input type="button">
-<input type="submit">
-<input type="reset">
-<input type="image">`;
-markup["correct"] = `<button type="button"></button>
-<button type="submit"></button>
-<button type="reset"></button>`;
+markup["incorrect"] = `<input type="button">`;
+markup["correct"] = `<button type="button"></button>`;
 
 describe("docs/rules/prefer-button.md", () => {
 	it("inline validation: incorrect", () => {

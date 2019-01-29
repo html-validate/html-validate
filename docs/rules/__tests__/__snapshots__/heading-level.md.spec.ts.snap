@@ -9,14 +9,14 @@ Array [
     "filePath": "inline",
     "messages": Array [
       Object {
-        "column": 1,
+        "column": 2,
         "context": undefined,
         "line": 2,
         "message": "Heading level can only increase by one, expected h2",
-        "offset": 19,
+        "offset": 20,
         "ruleId": "heading-level",
         "severity": 2,
-        "size": 3,
+        "size": 2,
       },
     ],
     "source": "<h1>Heading 1</h1>
