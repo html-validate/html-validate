@@ -45,6 +45,31 @@ describe("TemplateExtractor", () => {
 				{ data: "<b>      </b>", filename: "inline", line: 1, column: 19 },
 			]);
 		});
+
+		it("should extract templates from arrow function returning template", () => {
+			const te = TemplateExtractor.fromString(
+				"foo({template: (foo) => `<b>${foo}</b>`})"
+			);
+			expect(te.extractObjectProperty("template")).toEqual([
+				{ data: "<b>      </b>", filename: "inline", line: 1, column: 25 },
+			]);
+		});
+
+		/* ignored because it is deemed to difficult to figure out the actual return value (i.e. the user can do too complex things) */
+		it("should ignore arrow function width function body", () => {
+			const te = TemplateExtractor.fromString(
+				"foo({template: (foo) => { return `<b>${foo}</b>`; }})"
+			);
+			expect(te.extractObjectProperty("template")).toEqual([]);
+		});
+
+		/* ignored because it is deemed to difficult to figure out the actual return value (i.e. the user can do too complex things) */
+		it("should ignore regular function", () => {
+			const te = TemplateExtractor.fromString(
+				"foo({template: function(foo){ return `<b>${foo}</b>`; }})"
+			);
+			expect(te.extractObjectProperty("template")).toEqual([]);
+		});
 	});
 
 	it("should extract from file", () => {

@@ -25,10 +25,18 @@ function joinTemplateLiteral(nodes: ESTree.TemplateElement[]): string {
 }
 
 function extractLiteral(
-	node: ESTree.Expression | ESTree.Pattern,
+	node:
+		| ESTree.Expression
+		| ESTree.Pattern
+		| ESTree.Literal
+		| ESTree.BlockStatement,
 	filename: string
 ): Source {
 	switch (node.type) {
+		/* ignored nodes */
+		case "FunctionExpression":
+			return null;
+
 		case "Literal":
 			return {
 				data: node.value.toString(),
@@ -36,6 +44,7 @@ function extractLiteral(
 				line: node.loc.start.line,
 				column: node.loc.start.column + 1,
 			};
+
 		case "TemplateLiteral":
 			return {
 				data: joinTemplateLiteral(node.quasis),
@@ -43,6 +52,7 @@ function extractLiteral(
 				line: node.loc.start.line,
 				column: node.loc.start.column + 1,
 			};
+
 		case "TaggedTemplateExpression":
 			return {
 				data: joinTemplateLiteral(node.quasi.quasis),
@@ -50,6 +60,16 @@ function extractLiteral(
 				line: node.quasi.loc.start.line,
 				column: node.quasi.loc.start.column + 1,
 			};
+
+		case "ArrowFunctionExpression": {
+			const whitelist = ["Literal", "TemplateLiteral"];
+			if (whitelist.includes(node.body.type)) {
+				return extractLiteral(node.body, filename);
+			} else {
+				return null;
+			}
+		}
+
 		/* istanbul ignore next: this only provides a better error, all currently known nodes are tested */
 		default: {
 			const loc = node.loc.start;
@@ -123,8 +143,10 @@ export class TemplateExtractor {
 			Property(node: ESTree.Property) {
 				if (compareKey(node.key, key, filename)) {
 					const source = extractLiteral(node.value, filename);
-					source.filename = filename;
-					result.push(source);
+					if (source) {
+						source.filename = filename;
+						result.push(source);
+					}
 				}
 			},
 		});
