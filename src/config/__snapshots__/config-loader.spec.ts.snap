@@ -234,14 +234,14 @@ Array [
     "filePath": "test-files/config/directive/disable-multiple.html",
     "messages": Array [
       Object {
-        "column": 1,
+        "column": 2,
         "context": undefined,
         "line": 1,
         "message": "<blink> is deprecated",
-        "offset": 0,
+        "offset": 1,
         "ruleId": "deprecated",
         "severity": 2,
-        "size": 6,
+        "size": 5,
       },
       Object {
         "column": 7,
@@ -390,14 +390,14 @@ Array [
     "filePath": "test-files/config/elements/file.html",
     "messages": Array [
       Object {
-        "column": 2,
+        "column": 3,
         "context": undefined,
         "line": 2,
         "message": "<deprecated> is deprecated",
-        "offset": 7,
+        "offset": 8,
         "ruleId": "deprecated",
         "severity": 2,
-        "size": 11,
+        "size": 10,
       },
       Object {
         "column": 4,

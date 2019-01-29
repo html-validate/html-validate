@@ -1,4 +1,6 @@
 const HtmlValidate = require("../../../../build/htmlvalidate").default;
+const codeframe = require("../../../../build/formatters/codeframe");
+const chalk = require("chalk");
 
 module.exports = function generateValidationResultsProcessor(log, validateMap) {
 	return {
@@ -9,9 +11,13 @@ module.exports = function generateValidationResultsProcessor(log, validateMap) {
 	};
 
 	function $process() {
+		const oldEnabled = chalk.enabled;
+		chalk.enabled = false;
 		validateMap.forEach(validation => {
 			htmlvalidate = new HtmlValidate(validation.config);
 			validation.report = htmlvalidate.validateString(validation.markup);
+			validation.codeframe = codeframe(validation.report.results);
 		});
+		chalk.enabled = oldEnabled;
 	}
 };

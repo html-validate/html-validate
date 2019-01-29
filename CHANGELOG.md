@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Features
+
+- update `codeframe` formatter to show not just start location but also end.
+
 ### Bugfixes
 
 - Fixes html-validate-angular#1 by handling both regular and arrow functions.

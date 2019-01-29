@@ -14,14 +14,14 @@ Array [
     "filePath": "test-files/rules/deprecated.html",
     "messages": Array [
       Object {
-        "column": 1,
+        "column": 2,
         "context": undefined,
         "line": 2,
         "message": "<marquee> is deprecated",
-        "offset": 19,
+        "offset": 20,
         "ruleId": "deprecated",
         "severity": 2,
-        "size": 8,
+        "size": 7,
       },
     ],
     "source": "<p>lorem ipsum</p>

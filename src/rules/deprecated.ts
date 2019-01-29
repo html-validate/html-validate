@@ -1,3 +1,4 @@
+import { sliceLocation } from "../context";
 import { TagOpenEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
@@ -21,10 +22,15 @@ class Deprecated extends Rule {
 
 			const deprecated = node.meta.deprecated;
 			if (deprecated) {
+				const location = sliceLocation(event.location, 1);
 				if (typeof deprecated === "string") {
-					this.report(node, `<${node.tagName}> is deprecated: ${deprecated}`);
+					this.report(
+						node,
+						`<${node.tagName}> is deprecated: ${deprecated}`,
+						location
+					);
 				} else {
-					this.report(node, `<${node.tagName}> is deprecated`);
+					this.report(node, `<${node.tagName}> is deprecated`, location);
 				}
 			}
 		});

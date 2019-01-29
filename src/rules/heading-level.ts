@@ -1,3 +1,4 @@
+import { sliceLocation } from "../context";
 import { HtmlElement } from "../dom";
 import { TagOpenEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
@@ -30,15 +31,18 @@ class HeadingLevel extends Rule {
 			/* validate heading level was only incremented by one */
 			const expected = current + 1;
 			if (level !== expected) {
+				const location = sliceLocation(event.location, 1);
 				if (current > 0) {
 					this.report(
 						event.target,
-						`Heading level can only increase by one, expected h${expected}`
+						`Heading level can only increase by one, expected h${expected}`,
+						location
 					);
 				} else {
 					this.report(
 						event.target,
-						`Initial heading level must be h${expected}`
+						`Initial heading level must be h${expected}`,
+						location
 					);
 				}
 			}

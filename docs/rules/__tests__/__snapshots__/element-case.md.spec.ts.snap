@@ -9,14 +9,14 @@ Array [
     "filePath": "inline",
     "messages": Array [
       Object {
-        "column": 1,
+        "column": 2,
         "context": undefined,
         "line": 1,
         "message": "Element \\"DIV\\" should be lowercase",
-        "offset": 0,
+        "offset": 1,
         "ruleId": "element-case",
         "severity": 2,
-        "size": 4,
+        "size": 3,
       },
     ],
     "source": "<DIV>...</DIV>",
