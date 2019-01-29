@@ -85,6 +85,10 @@ function compareKey(node: ESTree.Expression, key: string, filename: string) {
 	switch (node.type) {
 		case "Identifier":
 			return node.name === key;
+
+		case "Literal":
+			return node.value === key;
+
 		/* istanbul ignore next: this only provides a better error, all currently known nodes are tested */
 		default: {
 			const loc = node.loc.start;

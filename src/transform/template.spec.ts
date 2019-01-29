@@ -9,6 +9,15 @@ describe("TemplateExtractor", () => {
 			]);
 		});
 
+		it("should handle literal", () => {
+			const te = TemplateExtractor.fromString(
+				'foo({"template": "<b>foo</b>"})'
+			);
+			expect(te.extractObjectProperty("template")).toEqual([
+				{ data: "<b>foo</b>", filename: "inline", line: 1, column: 18 },
+			]);
+		});
+
 		it("should ignore other properties", () => {
 			const te = TemplateExtractor.fromString('foo({bar: "<b>foo</b>"})');
 			expect(te.extractObjectProperty("template")).toEqual([]);
