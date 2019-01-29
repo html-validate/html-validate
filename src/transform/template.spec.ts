@@ -9,6 +9,15 @@ describe("TemplateExtractor", () => {
 			]);
 		});
 
+		it("should handle literal", () => {
+			const te = TemplateExtractor.fromString(
+				'foo({"template": "<b>foo</b>"})'
+			);
+			expect(te.extractObjectProperty("template")).toEqual([
+				{ data: "<b>foo</b>", filename: "inline", line: 1, column: 18 },
+			]);
+		});
+
 		it("should ignore other properties", () => {
 			const te = TemplateExtractor.fromString('foo({bar: "<b>foo</b>"})');
 			expect(te.extractObjectProperty("template")).toEqual([]);
@@ -44,6 +53,31 @@ describe("TemplateExtractor", () => {
 			expect(te.extractObjectProperty("template")).toEqual([
 				{ data: "<b>      </b>", filename: "inline", line: 1, column: 19 },
 			]);
+		});
+
+		it("should extract templates from arrow function returning template", () => {
+			const te = TemplateExtractor.fromString(
+				"foo({template: (foo) => `<b>${foo}</b>`})"
+			);
+			expect(te.extractObjectProperty("template")).toEqual([
+				{ data: "<b>      </b>", filename: "inline", line: 1, column: 25 },
+			]);
+		});
+
+		/* ignored because it is deemed to difficult to figure out the actual return value (i.e. the user can do too complex things) */
+		it("should ignore arrow function width function body", () => {
+			const te = TemplateExtractor.fromString(
+				"foo({template: (foo) => { return `<b>${foo}</b>`; }})"
+			);
+			expect(te.extractObjectProperty("template")).toEqual([]);
+		});
+
+		/* ignored because it is deemed to difficult to figure out the actual return value (i.e. the user can do too complex things) */
+		it("should ignore regular function", () => {
+			const te = TemplateExtractor.fromString(
+				"foo({template: function(foo){ return `<b>${foo}</b>`; }})"
+			);
+			expect(te.extractObjectProperty("template")).toEqual([]);
 		});
 	});
 

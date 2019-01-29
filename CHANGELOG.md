@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Bugfixes
+
+- Fixes html-validate-angular#1 by handling both regular and arrow functions.
+
 ## 0.19.0 (2019-01-27)
 
 ### Breaking changes

@@ -24,8 +24,19 @@ function joinTemplateLiteral(nodes: ESTree.TemplateElement[]): string {
 	return output;
 }
 
-function extractLiteral(node: ESTree.Expression | ESTree.Pattern): Source {
+function extractLiteral(
+	node:
+		| ESTree.Expression
+		| ESTree.Pattern
+		| ESTree.Literal
+		| ESTree.BlockStatement,
+	filename: string
+): Source {
 	switch (node.type) {
+		/* ignored nodes */
+		case "FunctionExpression":
+			return null;
+
 		case "Literal":
 			return {
 				data: node.value.toString(),
@@ -33,6 +44,7 @@ function extractLiteral(node: ESTree.Expression | ESTree.Pattern): Source {
 				line: node.loc.start.line,
 				column: node.loc.start.column + 1,
 			};
+
 		case "TemplateLiteral":
 			return {
 				data: joinTemplateLiteral(node.quasis),
@@ -40,6 +52,7 @@ function extractLiteral(node: ESTree.Expression | ESTree.Pattern): Source {
 				line: node.loc.start.line,
 				column: node.loc.start.column + 1,
 			};
+
 		case "TaggedTemplateExpression":
 			return {
 				data: joinTemplateLiteral(node.quasi.quasis),
@@ -47,19 +60,43 @@ function extractLiteral(node: ESTree.Expression | ESTree.Pattern): Source {
 				line: node.quasi.loc.start.line,
 				column: node.quasi.loc.start.column + 1,
 			};
+
+		case "ArrowFunctionExpression": {
+			const whitelist = ["Literal", "TemplateLiteral"];
+			if (whitelist.includes(node.body.type)) {
+				return extractLiteral(node.body, filename);
+			} else {
+				return null;
+			}
+		}
+
 		/* istanbul ignore next: this only provides a better error, all currently known nodes are tested */
-		default:
-			throw Error(`Unhandled node type "${node.type}" in extractLiteral`);
+		default: {
+			const loc = node.loc.start;
+			const context = `${filename}:${loc.line}:${loc.column}`;
+			throw Error(
+				`Unhandled node type "${node.type}" at "${context}" in extractLiteral`
+			);
+		}
 	}
 }
 
-function compareKey(node: ESTree.Expression, key: string) {
+function compareKey(node: ESTree.Expression, key: string, filename: string) {
 	switch (node.type) {
 		case "Identifier":
 			return node.name === key;
+
+		case "Literal":
+			return node.value === key;
+
 		/* istanbul ignore next: this only provides a better error, all currently known nodes are tested */
-		default:
-			throw Error(`Unhandled node type "${node.type}" in compareKey`);
+		default: {
+			const loc = node.loc.start;
+			const context = `${filename}:${loc.line}:${loc.column}`;
+			throw Error(
+				`Unhandled node type "${node.type}" at "${context}" in compareKey`
+			);
+		}
 	}
 }
 
@@ -108,10 +145,12 @@ export class TemplateExtractor {
 		const filename = this.filename;
 		walk.simple(this.ast, {
 			Property(node: ESTree.Property) {
-				if (compareKey(node.key, key)) {
-					const source = extractLiteral(node.value);
-					source.filename = filename;
-					result.push(source);
+				if (compareKey(node.key, key, filename)) {
+					const source = extractLiteral(node.value, filename);
+					if (source) {
+						source.filename = filename;
+						result.push(source);
+					}
 				}
 			},
 		});
