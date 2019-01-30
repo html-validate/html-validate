@@ -245,6 +245,7 @@ describe("HTML elements", () => {
 		"footer",
 		"form",
 		"frame",
+		"frameset",
 	];
 
 	for (const tagName of tagNames) {
@@ -276,10 +277,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<frameset>", () => {
-		deprecated("frameset");
 	});
 
 	describe("<h1>", () => {
