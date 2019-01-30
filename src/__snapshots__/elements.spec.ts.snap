@@ -2824,3 +2824,30 @@ exports[`HTML elements <main> valid markup 1`] = `Array []`;
 exports[`HTML elements <map> invalid markup 1`] = `Array []`;
 
 exports[`HTML elements <map> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <mark> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/mark-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 8,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <mark>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<mark><div>foo</div></mark>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <mark> valid markup 1`] = `Array []`;
