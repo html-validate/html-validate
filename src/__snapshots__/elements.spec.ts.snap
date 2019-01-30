@@ -4161,3 +4161,30 @@ Array [
 `;
 
 exports[`HTML elements <span> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <strike> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/strike-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<strike> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<strike></strike>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <strike> valid markup 1`] = `Array []`;
