@@ -1198,3 +1198,30 @@ Array [
 `;
 
 exports[`HTML elements <data> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <datalist> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/datalist-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 12,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <datalist>",
+        "offset": 50,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<datalist><div>foo</div></datalist>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <datalist> valid markup 1`] = `Array []`;
