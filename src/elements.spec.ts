@@ -263,6 +263,7 @@ describe("HTML elements", () => {
 		"input",
 		"ins",
 		"isindex",
+		"kbd",
 	];
 
 	for (const tagName of tagNames) {
@@ -294,10 +295,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<kbd>", () => {
-		defaultTextLevel("kbd");
 	});
 
 	describe("<keygen>", () => {
