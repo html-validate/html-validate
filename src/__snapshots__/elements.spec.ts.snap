@@ -4188,3 +4188,30 @@ Array [
 `;
 
 exports[`HTML elements <strike> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <strong> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/strong-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 10,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <strong>",
+        "offset": 48,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<strong><div>foo</div></strong>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <strong> valid markup 1`] = `Array []`;
