@@ -191,13 +191,6 @@ describe("HTML elements", () => {
 		});
 	}
 
-	function defaultTextLevel(tagName: string) {
-		allowContent(tagName, "@phrasing");
-		allowParent(tagName, "div");
-		allowParent(tagName, "span");
-		disallowContent(tagName, "@flow");
-	}
-
 	const tagNames = [
 		"a",
 		"abbr",
@@ -329,6 +322,7 @@ describe("HTML elements", () => {
 		"tt",
 		"u",
 		"ul",
+		"var",
 	];
 
 	for (const tagName of tagNames) {
@@ -360,10 +354,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<var>", () => {
-		defaultTextLevel("var");
 	});
 
 	describe("<video>", () => {
