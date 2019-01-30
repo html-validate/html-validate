@@ -90,3 +90,30 @@ Array [
 `;
 
 exports[`HTML elements <abbr> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <acronym> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/acronym-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<acronym> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 7,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<acronym title=\\"foobar\\">FB</acronym>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <acronym> valid markup 1`] = `Array []`;
