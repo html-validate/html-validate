@@ -1471,3 +1471,30 @@ Array [
 `;
 
 exports[`HTML elements <dt> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <em> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/em-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 6,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <em>",
+        "offset": 44,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<em><div>foo</div></em>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <em> valid markup 1`] = `Array []`;
