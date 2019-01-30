@@ -322,6 +322,7 @@ describe("HTML elements", () => {
 		"tfoot",
 		"th",
 		"thead",
+		"time",
 	];
 
 	for (const tagName of tagNames) {
@@ -353,10 +354,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<time>", () => {
-		defaultTextLevel("time");
 	});
 
 	describe("<title>", () => {
