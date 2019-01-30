@@ -966,3 +966,30 @@ Array [
 `;
 
 exports[`HTML elements <caption> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <center> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/center-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<center> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<center></center>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <center> valid markup 1`] = `Array []`;

@@ -222,6 +222,7 @@ describe("HTML elements", () => {
 		"button",
 		"canvas",
 		"caption",
+		"center",
 	];
 
 	for (const tagName of tagNames) {
@@ -253,10 +254,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<center>", () => {
-		deprecated("center");
 	});
 
 	describe("<cite>", () => {
