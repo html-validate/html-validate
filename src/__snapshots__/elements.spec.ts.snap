@@ -3201,3 +3201,30 @@ Array [
 `;
 
 exports[`HTML elements <nobr> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <noembed> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/noembed-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<noembed> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 7,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<noembed></noembed>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <noembed> valid markup 1`] = `Array []`;
