@@ -4134,3 +4134,30 @@ Array [
 `;
 
 exports[`HTML elements <spacer> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <span> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/span-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 8,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <span>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<span><div>foo</div></span>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <span> valid markup 1`] = `Array []`;
