@@ -616,3 +616,30 @@ Array [
 `;
 
 exports[`HTML elements <bdi> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <bdo> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/bdo-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 7,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <bdo>",
+        "offset": 45,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<bdo><div>foo</div></bdo>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <bdo> valid markup 1`] = `Array []`;
