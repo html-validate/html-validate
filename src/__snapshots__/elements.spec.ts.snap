@@ -1171,3 +1171,30 @@ Array [
 `;
 
 exports[`HTML elements <colgroup> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <data> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/data-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 8,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <data>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<data><div>foo</div></data>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <data> valid markup 1`] = `Array []`;
