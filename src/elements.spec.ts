@@ -215,6 +215,7 @@ describe("HTML elements", () => {
 		"b",
 		"base",
 		"basefont",
+		"bdi",
 	];
 
 	for (const tagName of tagNames) {
@@ -246,10 +247,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<bdi>", () => {
-		defaultTextLevel("bdi");
 	});
 
 	describe("<bdo>", () => {
