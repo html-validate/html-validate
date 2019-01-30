@@ -3091,3 +3091,30 @@ Array [
 `;
 
 exports[`HTML elements <meter> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <multicol> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/multicol-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<multicol> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 8,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<multicol></multicol>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <multicol> valid markup 1`] = `Array []`;
