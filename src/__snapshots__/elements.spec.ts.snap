@@ -562,3 +562,30 @@ Array [
 `;
 
 exports[`HTML elements <base> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <basefont> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/basefont-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<basefont> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 8,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<basefont></basefont>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <basefont> valid markup 1`] = `Array []`;
