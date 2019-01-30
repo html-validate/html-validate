@@ -219,6 +219,7 @@ describe("HTML elements", () => {
 		"bdo",
 		"bgsound",
 		"big",
+		"blink",
 	];
 
 	for (const tagName of tagNames) {
@@ -250,10 +251,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<blink>", () => {
-		deprecated("blink");
 	});
 
 	describe("<blockquote>", () => {
