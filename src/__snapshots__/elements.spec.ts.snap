@@ -3174,3 +3174,30 @@ Array [
 `;
 
 exports[`HTML elements <nextid> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <nobr> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/nobr-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<nobr> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<nobr></nobr>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <nobr> valid markup 1`] = `Array []`;

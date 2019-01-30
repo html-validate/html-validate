@@ -280,6 +280,7 @@ describe("HTML elements", () => {
 		"multicol",
 		"nav",
 		"nextid",
+		"nobr",
 	];
 
 	for (const tagName of tagNames) {
@@ -311,10 +312,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<nobr>", () => {
-		deprecated("nobr");
 	});
 
 	describe("<noembed>", () => {
