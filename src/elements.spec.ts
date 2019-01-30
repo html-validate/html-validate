@@ -273,6 +273,7 @@ describe("HTML elements", () => {
 		"main",
 		"map",
 		"mark",
+		"marquee",
 	];
 
 	for (const tagName of tagNames) {
@@ -304,10 +305,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<marquee>", () => {
-		deprecated("marquee");
 	});
 
 	/** @todo mathml? */
