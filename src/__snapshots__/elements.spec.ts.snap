@@ -670,3 +670,30 @@ Array [
 `;
 
 exports[`HTML elements <bgsound> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <big> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/big-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<big> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<big></big>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <big> valid markup 1`] = `Array []`;
