@@ -202,6 +202,25 @@ describe("HTML elements", () => {
 		disallowContent(tagName, "@flow");
 	}
 
+	const tagNames: string[] = [];
+
+	for (const tagName of tagNames) {
+		const dir = "test-files/elements";
+		const filename = (variant: string) => `${dir}/${tagName}-${variant}.html`;
+
+		describe(`<${tagName}>`, () => {
+			it("valid markup", () => {
+				const report = htmlvalidate.validateFile(filename("valid"));
+				expect(report.results).toMatchSnapshot();
+			});
+
+			it("invalid markup", () => {
+				const report = htmlvalidate.validateFile(filename("invalid"));
+				expect(report.results).toMatchSnapshot();
+			});
+		});
+	}
+
 	describe("global attributes", () => {
 		allowAttribute("input", "contenteditable", ["", "true", "false"], "omit");
 		allowAttribute("input", "dir", ["ltr", "rtl", "auto"], "omit");
