@@ -312,6 +312,7 @@ describe("HTML elements", () => {
 		"strike",
 		"strong",
 		"style",
+		"sub",
 	];
 
 	for (const tagName of tagNames) {
@@ -343,10 +344,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<sub>", () => {
-		defaultTextLevel("sub");
 	});
 
 	describe("<sup>", () => {
