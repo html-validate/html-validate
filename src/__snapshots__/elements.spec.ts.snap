@@ -3563,3 +3563,30 @@ Array [
 `;
 
 exports[`HTML elements <param> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <plaintext> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/plaintext-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<plaintext> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 9,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<plaintext></plaintext>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <plaintext> valid markup 1`] = `Array []`;
