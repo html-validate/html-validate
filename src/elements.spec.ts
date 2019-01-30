@@ -224,6 +224,7 @@ describe("HTML elements", () => {
 		"caption",
 		"center",
 		"cite",
+		"code",
 	];
 
 	for (const tagName of tagNames) {
@@ -255,10 +256,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<code>", () => {
-		defaultTextLevel("code");
 	});
 
 	describe("<col>", () => {
