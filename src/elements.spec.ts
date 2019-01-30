@@ -305,6 +305,7 @@ describe("HTML elements", () => {
 		"script",
 		"section",
 		"select",
+		"small",
 	];
 
 	for (const tagName of tagNames) {
@@ -336,10 +337,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<small>", () => {
-		defaultTextLevel("small");
 	});
 
 	describe("<source>", () => {

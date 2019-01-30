@@ -4036,3 +4036,30 @@ Array [
 `;
 
 exports[`HTML elements <select> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <small> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/small-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 9,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <small>",
+        "offset": 47,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<small><div>foo</div></small>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <small> valid markup 1`] = `Array []`;
