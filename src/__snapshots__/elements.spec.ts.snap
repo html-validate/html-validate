@@ -4282,3 +4282,30 @@ Array [
 `;
 
 exports[`HTML elements <sub> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <sup> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/sup-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 7,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <sup>",
+        "offset": 45,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<sup><div>foo</div></sup>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <sup> valid markup 1`] = `Array []`;
