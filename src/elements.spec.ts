@@ -299,6 +299,7 @@ describe("HTML elements", () => {
 		"rp",
 		"rt",
 		"rtc",
+		"ruby",
 	];
 
 	for (const tagName of tagNames) {
@@ -330,14 +331,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<ruby>", () => {
-		allowContent("ruby", "rb");
-		allowContent("ruby", "rp");
-		allowContent("ruby", "rt");
-		allowContent("ruby", "rtc");
-		defaultTextLevel("ruby");
 	});
 
 	describe("<s>", () => {

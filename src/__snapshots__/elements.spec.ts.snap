@@ -3874,3 +3874,30 @@ Array [
 `;
 
 exports[`HTML elements <rtc> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <ruby> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/ruby-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 8,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <ruby>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<ruby><div>foo</div></ruby>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <ruby> valid markup 1`] = `Array []`;
