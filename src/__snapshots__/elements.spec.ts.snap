@@ -1721,3 +1721,30 @@ Array [
 `;
 
 exports[`HTML elements <form> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <frame> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/frame-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<frame> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<frame></frame>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <frame> valid markup 1`] = `Array []`;
