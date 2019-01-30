@@ -2093,3 +2093,30 @@ Array [
 `;
 
 exports[`HTML elements <header> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <hgroup> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/hgroup-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<hgroup> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<hgroup></hgroup>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <hgroup> valid markup 1`] = `Array []`;
