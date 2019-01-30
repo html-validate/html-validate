@@ -74,14 +74,6 @@ describe("HTML elements", () => {
 		}
 	}
 
-	function deprecated(tagName: string) {
-		it("should report as deprecated", () => {
-			const report = htmlvalidate.validateString(`<${tagName}></${tagName}>`);
-			expect(report.valid).toBeFalsy();
-			expect(report.results[0].messages[0].ruleId).toEqual("deprecated");
-		});
-	}
-
 	const tagNames = [
 		"a",
 		"abbr",
@@ -216,6 +208,7 @@ describe("HTML elements", () => {
 		"var",
 		"video",
 		"wbr",
+		"xmp",
 	];
 
 	for (const tagName of tagNames) {
@@ -247,9 +240,5 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<xmp>", () => {
-		deprecated("xmp");
 	});
 });

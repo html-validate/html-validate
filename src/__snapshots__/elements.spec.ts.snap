@@ -5140,3 +5140,30 @@ Array [
 `;
 
 exports[`HTML elements <wbr> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <xmp> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/xmp-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<xmp> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<xmp></xmp>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <xmp> valid markup 1`] = `Array []`;
