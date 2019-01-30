@@ -202,7 +202,7 @@ describe("HTML elements", () => {
 		disallowContent(tagName, "@flow");
 	}
 
-	const tagNames: string[] = [];
+	const tagNames = ["a"];
 
 	for (const tagName of tagNames) {
 		const dir = "test-files/elements";
@@ -233,15 +233,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<a>", () => {
-		allowContent("a", "@phrasing");
-		allowParent("a", "div");
-		allowParent("a", "span");
-		allowParent("a", "td");
-		disallowDescendant("a", "a");
-		disallowDescendant("a", "@interactive");
 	});
 
 	describe("<abbr>", () => {

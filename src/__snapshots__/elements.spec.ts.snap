@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HTML elements <a> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 4,
+    "filePath": "test-files/elements/a-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 11,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <span>",
+        "offset": 41,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 5,
+        "context": undefined,
+        "line": 5,
+        "message": "Element <button> is not permitted as descendant of <a>",
+        "offset": 133,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 11,
+        "context": undefined,
+        "line": 6,
+        "message": "Element <button> is not permitted as descendant of <a>",
+        "offset": 181,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 11,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <a> is not permitted as descendant of <a>",
+        "offset": 271,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<!-- should be transparent -->
+<span><a><div>foo</div></a></span>
+
+<!-- should not allow interactive as content or descendant-->
+<a><button type=\\"button\\">foo</button></a>
+<a><span><button type=\\"button\\">foo</button></span></a>
+
+<!-- should not allow nesting -->
+<a><span><a>foo</a></span></a>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <a> valid markup 1`] = `Array []`;

@@ -1,0 +1,9 @@
+<!-- should be transparent -->
+<span><a><div>foo</div></a></span>
+
+<!-- should not allow interactive as content or descendant-->
+<a><button type="button">foo</button></a>
+<a><span><button type="button">foo</button></span></a>
+
+<!-- should not allow nesting -->
+<a><span><a>foo</a></span></a>
