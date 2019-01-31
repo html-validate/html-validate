@@ -1348,3 +1348,7 @@ Array [
 `;
 
 exports[`HTML elements <dir> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <div> invalid markup 1`] = `Array []`;
+
+exports[`HTML elements <div> valid markup 1`] = `Array []`;
