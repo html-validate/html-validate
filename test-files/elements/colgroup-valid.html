@@ -1,0 +1,25 @@
+<!-- should allow <colgroup> under <table> -->
+<table>
+	<colgroup></colgroup>
+</table>
+
+<!-- should allow <col> as content -->
+<table>
+	<colgroup>
+		<col>
+	</colgroup>
+</table>
+
+<!-- should allow <template> as content -->
+<table>
+	<colgroup>
+		<template></template>
+	</colgroup>
+</table>
+
+<!-- should allow <colgroup> after <caption> before <thead> -->
+<table>
+	<caption>foo</caption>
+	<colgroup></colgroup>
+	<thead></thead>
+</table>

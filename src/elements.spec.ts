@@ -226,6 +226,7 @@ describe("HTML elements", () => {
 		"cite",
 		"code",
 		"col",
+		"colgroup",
 	];
 
 	for (const tagName of tagNames) {
@@ -257,14 +258,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<colgroup>", () => {
-		allowParent("colgroup", "table");
-		disallowParent("colgroup", "div");
-		allow("<colgroup><col/></colgroup>", "<col> as content");
-		allowContent("colgroup", "template");
-		disallowContent("colgroup", "span");
 	});
 
 	describe("<data>", () => {

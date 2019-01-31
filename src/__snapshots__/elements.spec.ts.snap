@@ -1093,3 +1093,81 @@ Array [
 `;
 
 exports[`HTML elements <col> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <colgroup> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 4,
+    "filePath": "test-files/elements/colgroup-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <colgroup> is not permitted as content in <div>",
+        "offset": 66,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 8,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <span> is not permitted as content in <colgroup>",
+        "offset": 164,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 16,
+        "message": "Element <caption> must be used before <colgroup> in this context",
+        "offset": 290,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 22,
+        "message": "Element <colgroup> must be used before <thead> in this context",
+        "offset": 400,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 8,
+      },
+    ],
+    "source": "<!-- should not allow <colgroup> under other elements -->
+<div>
+	<colgroup></colgroup>
+</div>
+
+<!-- should not allow phrasing as content -->
+<table>
+	<colgroup>
+		<span>foo</span>
+	</colgroup>
+</table>
+
+<!-- should not allow <colgroup> before <caption> -->
+<table>
+	<colgroup></colgroup>
+	<caption>foo</caption>
+</table>
+
+<!-- should not allow <colgroup> after <thead> -->
+<table>
+	<thead></thead>
+	<colgroup></colgroup>
+</table>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <colgroup> valid markup 1`] = `Array []`;
