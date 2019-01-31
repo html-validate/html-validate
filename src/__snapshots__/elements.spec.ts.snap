@@ -3992,3 +3992,7 @@ Array [
 `;
 
 exports[`HTML elements <script> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <section> invalid markup 1`] = `Array []`;
+
+exports[`HTML elements <section> valid markup 1`] = `Array []`;
