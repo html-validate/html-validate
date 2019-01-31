@@ -3118,3 +3118,32 @@ Array [
 `;
 
 exports[`HTML elements <multicol> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <nav> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/nav-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <main> is not permitted as descendant of <nav>",
+        "offset": 66,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<!-- should not allow <main> as descendant (HTML 5.0) -->
+<nav>
+	<main>bar</main>
+</nav>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <nav> valid markup 1`] = `Array []`;
