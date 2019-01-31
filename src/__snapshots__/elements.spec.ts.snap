@@ -1047,3 +1047,49 @@ Array [
 `;
 
 exports[`HTML elements <code> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <col> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/col-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <col> is not permitted as content in <div>",
+        "offset": 59,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 13,
+        "context": undefined,
+        "line": 9,
+        "message": "End tag for <col> must be omitted",
+        "offset": 138,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<!-- should not be allowed under other content -->
+<div>
+	<col>
+</div>
+
+<!-- should not allow end tag -->
+<table>
+	<colgroup>
+		<col></col>
+	</colgroup>
+</table>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <col> valid markup 1`] = `Array []`;
