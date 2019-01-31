@@ -372,3 +372,124 @@ Array [
 `;
 
 exports[`HTML elements <aside> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <audio> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 7,
+    "filePath": "test-files/elements/audio-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <audio> is not permitted as descendant of <audio>",
+        "offset": 66,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <video> is not permitted as descendant of <audio>",
+        "offset": 83,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 15,
+        "context": undefined,
+        "line": 8,
+        "message": "Element <div> is not permitted as content in <span>",
+        "offset": 153,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 13,
+        "message": "Element <source> must be used before <div> in this context",
+        "offset": 259,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 17,
+        "message": "Element <track> must be used before <div> in this context",
+        "offset": 309,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 22,
+        "message": "Element <audio> is not permitted as descendant of <button>",
+        "offset": 456,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 17,
+        "context": Object {
+          "allowed": Array [
+            "",
+            "none",
+            "metadata",
+            "auto",
+          ],
+          "attribute": "preload",
+          "element": "audio",
+          "value": "foobar",
+        },
+        "line": 26,
+        "message": "Attribute \\"preload\\" has invalid value \\"foobar\\"",
+        "offset": 557,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- should not allow <audio> or <video> descendant -->
+<audio>
+	<audio></audio>
+	<video></video>
+</audio>
+
+<!-- should be transparent -->
+<span><audio><div>foo</div></audio></span>
+
+<!-- should now allow children in wrong order -->
+<audio>
+	<div>foo</div>
+	<source>
+</audio>
+<audio src=\\"\\">
+	<div>foo</div>
+	<track>
+</audio>
+
+<!-- should be interactive if missing controls attribute (and thus not allowed as content in button) -->
+<button type=\\"button\\">
+	<audio controls=\\"foo\\"></audio>
+</button>
+
+<!-- should not allow preload attribute -->
+<audio preload=\\"foobar\\"></audio>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <audio> valid markup 1`] = `Array []`;

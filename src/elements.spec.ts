@@ -211,6 +211,7 @@ describe("HTML elements", () => {
 		"area",
 		"article",
 		"aside",
+		"audio",
 	];
 
 	for (const tagName of tagNames) {
@@ -242,39 +243,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<audio>", () => {
-		allowParent("audio", "@flow");
-		allow(
-			"<span><audio><span>foo</span></audio></span>",
-			"phrasing nested in phrasing"
-		);
-		disallowDescendant("audio", "audio");
-		disallowDescendant("audio", "video");
-		disallow(
-			"<span><audio><div>foo</div></audio></span>",
-			"flow nested in phrasing"
-		);
-		disallow(
-			"<audio><source></source><track></track><div></div></audio>",
-			"in right order"
-		);
-		disallow(
-			"<audio><track></track><source></source></audio>",
-			"track before source"
-		);
-		disallow("<audio><div></div><track></track></audio>", "@flow before track");
-		allowAttribute("audio", "preload", ["", "none", "metadata"], "auto");
-		disallowAttribute("audio", "preload", ["foobar"]);
-
-		it('should be interactive only if "controls" attribute is set', () => {
-			const source = inlineSource("<audio></audio><audio controls></audio>");
-			const parser = htmlvalidate.getParserFor(source);
-			const [foo, bar] = parser.parseHtml(source).root.children;
-			expect(foo.meta.interactive).toBeFalsy();
-			expect(bar.meta.interactive).toBeTruthy();
-		});
 	});
 
 	describe("<b>", () => {

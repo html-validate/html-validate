@@ -1,0 +1,28 @@
+<!-- should allow flow as parent -->
+<div>
+	<audio></audio>
+</div>
+
+<!-- should be transparent -->
+<span><audio><span>foo</span></audio></span>
+
+<!-- should allow children in proper order -->
+<audio>
+	<source>
+	<div>foo</div>
+</audio>
+<audio src="">
+	<track>
+	<div>foo</div>
+</audio>
+
+<!-- should not be interactive if missing controls attribute (and thus allowed as content in button) -->
+<button type="button">
+	<audio></audio>
+</button>
+
+<!-- should allow preload attribute -->
+<audio preload=""></audio>
+<audio preload="none"></audio>
+<audio preload="metadata"></audio>
+<audio preload="auto"></audio>
