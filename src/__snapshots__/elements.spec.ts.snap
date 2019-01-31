@@ -117,3 +117,80 @@ Array [
 `;
 
 exports[`HTML elements <acronym> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <address> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 5,
+    "filePath": "test-files/elements/address-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 11,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <h1> is not permitted as descendant of <address>",
+        "offset": 55,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 16,
+        "context": undefined,
+        "line": 5,
+        "message": "Element <article> is not permitted as descendant of <address>",
+        "offset": 146,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 16,
+        "context": undefined,
+        "line": 8,
+        "message": "Element <header> is not permitted as descendant of <address>",
+        "offset": 259,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 16,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <footer> is not permitted as descendant of <address>",
+        "offset": 310,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 16,
+        "context": undefined,
+        "line": 12,
+        "message": "Element <address> is not permitted as descendant of <address>",
+        "offset": 396,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 7,
+      },
+    ],
+    "source": "<!-- should not allow heading as content -->
+<address><h1>foo</h1></address>
+
+<!-- should not allow sectioning as descendant-- -->
+<address><div><article>foo</article></div></address>
+
+<!-- should not allow header or footer as descendant-- -->
+<address><div><header>foo</header></div></address>
+<address><div><footer>foo</footer></div></address>
+
+<!-- should not allow nesting -->
+<address><div><address>foo</address></div></address>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <address> valid markup 1`] = `Array []`;
