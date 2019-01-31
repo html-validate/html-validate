@@ -261,6 +261,7 @@ describe("HTML elements", () => {
 		"iframe",
 		"img",
 		"input",
+		"ins",
 	];
 
 	for (const tagName of tagNames) {
@@ -292,18 +293,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<ins>", () => {
-		allow(
-			"<span><ins><span>foo</span></ins></span>",
-			"phrasing in phrasing context"
-		);
-		allow("<div><ins><div>foo</div></ins></div>", "flow in flow context");
-		disallow(
-			"<span><ins><div>foo</div></ins></span>",
-			"flow in phrasing context"
-		);
 	});
 
 	describe("<isindex>", () => {
