@@ -920,3 +920,49 @@ Array [
 `;
 
 exports[`HTML elements <canvas> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <caption> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/caption-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <caption> is not permitted as content in <div>",
+        "offset": 50,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <table> is not permitted as descendant of <caption>",
+        "offset": 141,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<!-- should only allow <table> parent -->
+<div>
+	<caption>foo</caption>
+</div>
+
+<!-- should not allow nested table -->
+<table>
+	<caption>
+		<table></table>
+	</caption>
+</table>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <caption> valid markup 1`] = `Array []`;

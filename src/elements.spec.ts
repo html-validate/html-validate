@@ -221,6 +221,7 @@ describe("HTML elements", () => {
 		"br",
 		"button",
 		"canvas",
+		"caption",
 	];
 
 	for (const tagName of tagNames) {
@@ -252,13 +253,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<caption>", () => {
-		allowContent("caption", "@flow");
-		allowParent("caption", "table");
-		disallowDescendant("caption", "table");
-		disallowParent("caption", "div");
 	});
 
 	describe("<center>", () => {
