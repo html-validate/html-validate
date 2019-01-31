@@ -1,0 +1,9 @@
+<!-- should allow flow content -->
+<canvas><div>foo</div></canvas>
+
+<!-- should allow flow parent -->
+<div><canvas></canvas></div>
+
+<!-- should be transparent -->
+<div><canvas><div>foo</div></canvas></div>
+<span><canvas><span>foo</span></canvas></span>

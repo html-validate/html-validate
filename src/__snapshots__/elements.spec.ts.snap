@@ -893,3 +893,30 @@ Array [
 `;
 
 exports[`HTML elements <button> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <canvas> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/canvas-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 16,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <span>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should be transparent -->
+<span><canvas><div>foo</div></canvas></span>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <canvas> valid markup 1`] = `Array []`;
