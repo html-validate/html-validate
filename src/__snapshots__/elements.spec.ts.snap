@@ -1352,3 +1352,43 @@ exports[`HTML elements <dir> valid markup 1`] = `Array []`;
 exports[`HTML elements <div> invalid markup 1`] = `Array []`;
 
 exports[`HTML elements <div> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <dl> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/dl-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <dl>",
+        "offset": 51,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <span> is not permitted as content in <dl>",
+        "offset": 64,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<!-- should not allow arbirtary content -->
+<dl>
+	<div></div>
+	<span></span>
+</dl>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <dl> valid markup 1`] = `Array []`;
