@@ -229,6 +229,7 @@ describe("HTML elements", () => {
 		"colgroup",
 		"data",
 		"datalist",
+		"dd",
 	];
 
 	for (const tagName of tagNames) {
@@ -260,12 +261,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<dd>", () => {
-		allowParent("dd", "dl");
-		disallowParent("dd", "div");
-		allowContent("dd", "@flow");
 	});
 
 	describe("<del>", () => {
