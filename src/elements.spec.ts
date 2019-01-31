@@ -323,6 +323,7 @@ describe("HTML elements", () => {
 		"u",
 		"ul",
 		"var",
+		"video",
 	];
 
 	for (const tagName of tagNames) {
@@ -354,44 +355,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<video>", () => {
-		allowParent("video", "@flow");
-		allow(
-			"<span><video><span>foo</span></video></span>",
-			"phrasing nested in phrasing"
-		);
-		disallowDescendant("video", "audio");
-		disallowDescendant("video", "video");
-		disallow(
-			"<span><video><div>foo</div></video></span>",
-			"flow nested in phrasing"
-		);
-		disallow(
-			"<video><source></source><track></track><div></div></video>",
-			"in right order"
-		);
-		disallow(
-			"<video><track></track><source></source></video>",
-			"track before source"
-		);
-		disallow("<video><div></div><track></track></video>", "@flow before track");
-		allowAttribute(
-			"video",
-			"preload",
-			["", "none", "none", "metadata"],
-			"auto"
-		);
-		disallowAttribute("video", "preload", ["foobar"]);
-
-		it('should be interactive only if "controls" attribute is set', () => {
-			const source = inlineSource("<video></video><video controls></video>");
-			const parser = htmlvalidate.getParserFor(source);
-			const [foo, bar] = parser.parseHtml(source).root.children;
-			expect(foo.meta.interactive).toBeFalsy();
-			expect(bar.meta.interactive).toBeTruthy();
-		});
 	});
 
 	describe("<wbr>", () => {

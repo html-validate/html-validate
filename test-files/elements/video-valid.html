@@ -1,0 +1,28 @@
+<!-- should allow flow as parent -->
+<div>
+	<video></video>
+</div>
+
+<!-- should be transparent -->
+<span><video><span>foo</span></video></span>
+
+<!-- should allow children in proper order -->
+<video>
+	<source>
+	<div>foo</div>
+</video>
+<video src="">
+	<track>
+	<div>foo</div>
+</video>
+
+<!-- should not be interactive if missing controls attribute (and thus allowed as content in button) -->
+<button type="button">
+	<video></video>
+</button>
+
+<!-- should allow preload attribute -->
+<video preload=""></video>
+<video preload="none"></video>
+<video preload="metadata"></video>
+<video preload="auto"></video>
