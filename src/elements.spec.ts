@@ -220,6 +220,7 @@ describe("HTML elements", () => {
 		"bgsound",
 		"big",
 		"blink",
+		"blockquote",
 	];
 
 	for (const tagName of tagNames) {
@@ -251,11 +252,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<blockquote>", () => {
-		allowContent("blockquote", "@flow");
-		allowParent("blockquote", "div");
 	});
 
 	describe("<body>", () => {
