@@ -2120,3 +2120,43 @@ Array [
 `;
 
 exports[`HTML elements <hgroup> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <hr> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/hr-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 9,
+        "context": undefined,
+        "line": 2,
+        "message": "End tag for <hr> must be omitted",
+        "offset": 42,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 8,
+        "context": undefined,
+        "line": 5,
+        "message": "Element <hr> is not permitted as content in <span>",
+        "offset": 98,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<!-- should not allow end tag -->
+<hr></hr>
+
+<!-- should not be allowed under phrasing -->
+<span><hr></span>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <hr> valid markup 1`] = `Array []`;
