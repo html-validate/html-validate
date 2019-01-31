@@ -2042,3 +2042,54 @@ Array [
 `;
 
 exports[`HTML elements <head> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <header> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/elements/header-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <header> is not permitted as descendant of <header>",
+        "offset": 80,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <main> is not permitted as descendant of <header>",
+        "offset": 102,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 5,
+        "message": "Element <footer> is not permitted as descendant of <header>",
+        "offset": 120,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- should not allow <header>, <main> or <footer> as descendant -->
+<header>
+	<header>foo</header>
+	<main>bar</main>
+	<footer>baz</footer>
+</header>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <header> valid markup 1`] = `Array []`;
