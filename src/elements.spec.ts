@@ -230,6 +230,7 @@ describe("HTML elements", () => {
 		"data",
 		"datalist",
 		"dd",
+		"del",
 	];
 
 	for (const tagName of tagNames) {
@@ -261,18 +262,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<del>", () => {
-		allow(
-			"<span><del><span>foo</span></del></span>",
-			"phrasing in phrasing context"
-		);
-		allow("<div><del><div>foo</div></del></div>", "flow in flow context");
-		disallow(
-			"<span><del><div>foo</div></del></span>",
-			"flow in phrasing context"
-		);
 	});
 
 	describe("<dfn>", () => {
