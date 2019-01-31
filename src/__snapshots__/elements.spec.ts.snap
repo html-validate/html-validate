@@ -221,3 +221,92 @@ Array [
 `;
 
 exports[`HTML elements <applet> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <area> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 4,
+    "filePath": "test-files/elements/area-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 14,
+        "context": undefined,
+        "line": 6,
+        "message": "End tag for <area> must be omitted",
+        "offset": 101,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 8,
+        "context": undefined,
+        "line": 11,
+        "message": "End tag for <area> must be omitted",
+        "offset": 173,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 3,
+        "context": Object {
+          "allowed": Array [
+            "rect",
+            "circle",
+            "poly",
+          ],
+          "attribute": "shape",
+          "element": "area",
+          "value": "",
+        },
+        "line": 14,
+        "message": "Attribute \\"shape\\" has invalid value \\"\\"",
+        "offset": 221,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 15,
+        "context": Object {
+          "allowed": Array [
+            "rect",
+            "circle",
+            "poly",
+          ],
+          "attribute": "shape",
+          "element": "area",
+          "value": "foobar",
+        },
+        "line": 15,
+        "message": "Attribute \\"shape\\" has invalid value \\"foobar\\"",
+        "offset": 250,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- should require <map> ancestor -->
+<area>
+
+<map>
+	<!-- should not allow end tag -->
+	<area></area>
+
+	<!-- should not allow content -->
+	<area>
+		<span>foo</span>
+	</area>
+
+	<!-- should not allow shape attribute -->
+	<area shape=\\"\\">
+	<area shape=\\"foobar\\">
+</map>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <area> valid markup 1`] = `Array []`;

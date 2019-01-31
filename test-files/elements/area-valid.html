@@ -1,0 +1,14 @@
+<map>
+	<!-- should have omitted end tag -->
+	<area>
+
+	<!-- require <map> ancestor but not as direct parent -->
+	<span>
+		<area>
+	</span>
+
+	<!-- should allow shape attribute -->
+	<area shape="rect">
+	<area shape="circle">
+	<area shape="poly">
+</map>
