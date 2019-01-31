@@ -213,6 +213,7 @@ describe("HTML elements", () => {
 		"aside",
 		"audio",
 		"b",
+		"base",
 	];
 
 	for (const tagName of tagNames) {
@@ -244,12 +245,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<base>", () => {
-		omitEnd("base");
-		allowParent("base", "head", "void");
-		disallowParent("base", "div");
 	});
 
 	describe("<basefont>", () => {

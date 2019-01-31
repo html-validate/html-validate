@@ -520,3 +520,45 @@ Array [
 `;
 
 exports[`HTML elements <b> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <base> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/base-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <base> is not permitted as content in <div>",
+        "offset": 54,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 13,
+        "context": undefined,
+        "line": 7,
+        "message": "End tag for <base> must be omitted",
+        "offset": 114,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<!-- should not be allowed outside <head> -->
+<div>
+	<base>
+</div>
+
+<!-- should not allow end tag -->
+<base></base>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <base> valid markup 1`] = `Array []`;
