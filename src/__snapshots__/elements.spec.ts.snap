@@ -1949,3 +1949,96 @@ Array [
 `;
 
 exports[`HTML elements <h6> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <head> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 5,
+    "filePath": "test-files/elements/head-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <head> is not permitted as content in <div>",
+        "offset": 54,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <div> is not permitted as content in <head>",
+        "offset": 136,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 10,
+        "message": "Element <span> is not permitted as content in <head>",
+        "offset": 150,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 18,
+        "message": "Element <base> can only appear once under <head>",
+        "offset": 247,
+        "ruleId": "element-permitted-occurrences",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 26,
+        "message": "Element <title> can only appear once under <head>",
+        "offset": 346,
+        "ruleId": "element-permitted-occurrences",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<!-- should not be allowed outside <html> -->
+<div>
+	<head></head>
+</div>
+
+<!-- should not allow flow or phrasing -->
+<html>
+	<head>
+		<div></div>
+		<span></span>
+	</head>
+</html>
+
+<!-- should only allow <base> once -->
+<html>
+	<head>
+		<base>
+		<base>
+	</head>
+</html>
+
+<!-- should only allow <titl> once -->
+<html>
+	<head>
+		<title></title>
+		<title></title>
+	</head>
+</html>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <head> valid markup 1`] = `Array []`;
