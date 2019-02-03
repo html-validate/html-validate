@@ -2687,3 +2687,49 @@ Array [
 `;
 
 exports[`HTML elements <label> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <legend> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/legend-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <legend> is not permitted as content in <div>",
+        "offset": 55,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <div> is not permitted as content in <legend>",
+        "offset": 138,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow under other elements -->
+<div>
+	<legend>foo</legend>
+</div>
+
+<!-- should not allow flow -->
+<fieldset>
+	<legend>
+		<div>foo</div>
+	</legend>
+</fieldset>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <legend> valid markup 1`] = `Array []`;
