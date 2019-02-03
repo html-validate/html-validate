@@ -1775,3 +1775,32 @@ Array [
 `;
 
 exports[`HTML elements <frameset> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <h1> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/h1-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <h1>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<h1>
+	<div></div>
+</h1>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <h1> valid markup 1`] = `Array []`;
