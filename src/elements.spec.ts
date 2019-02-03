@@ -258,6 +258,7 @@ describe("HTML elements", () => {
 		"hr",
 		"html",
 		"i",
+		"iframe",
 	];
 
 	for (const tagName of tagNames) {
@@ -289,11 +290,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<iframe>", () => {
-		disallowContent("iframe", "@flow");
-		disallowContent("iframe", "@phrasing");
 	});
 
 	describe("<img>", () => {

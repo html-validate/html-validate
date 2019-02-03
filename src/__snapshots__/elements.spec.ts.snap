@@ -2249,3 +2249,7 @@ Array [
 `;
 
 exports[`HTML elements <i> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <iframe> invalid markup 1`] = `Array []`;
+
+exports[`HTML elements <iframe> valid markup 1`] = `Array []`;
