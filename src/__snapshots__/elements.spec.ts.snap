@@ -1498,3 +1498,30 @@ Array [
 `;
 
 exports[`HTML elements <em> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <embed> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/embed-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 15,
+        "context": undefined,
+        "line": 2,
+        "message": "End tag for <embed> must be omitted",
+        "offset": 61,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<!-- should not be allowed to have end tag -->
+<embed></embed>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <embed> valid markup 1`] = `Array []`;

@@ -237,6 +237,7 @@ describe("HTML elements", () => {
 		"dl",
 		"dt",
 		"em",
+		"embed",
 	];
 
 	for (const tagName of tagNames) {
@@ -268,12 +269,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<embed>", () => {
-		omitEnd("embed");
-		allowParent("embed", "@flow", "void");
-		allowParent("embed", "@phrasing", "void");
 	});
 
 	describe("<fieldset>", () => {
