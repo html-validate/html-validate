@@ -2820,3 +2820,7 @@ exports[`HTML elements <listing> valid markup 1`] = `Array []`;
 exports[`HTML elements <main> invalid markup 1`] = `Array []`;
 
 exports[`HTML elements <main> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <map> invalid markup 1`] = `Array []`;
+
+exports[`HTML elements <map> valid markup 1`] = `Array []`;
