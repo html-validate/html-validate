@@ -251,6 +251,7 @@ describe("HTML elements", () => {
 		"h3",
 		"h4",
 		"h5",
+		"h6",
 	];
 
 	for (const tagName of tagNames) {
@@ -282,12 +283,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<h6>", () => {
-		allowParent("h6", "@flow");
-		allowContent("h6", "@phrasing");
-		disallowContent("h6", "@flow");
 	});
 
 	describe("<head>", () => {
