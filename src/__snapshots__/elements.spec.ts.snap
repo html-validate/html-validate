@@ -1525,3 +1525,33 @@ Array [
 `;
 
 exports[`HTML elements <embed> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <fieldset> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/fieldset-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <legend> must be used before <div> in this context",
+        "offset": 92,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- should not allow legend and flow content out-of-order -->
+<fieldset>
+	<div>bar</div>
+	<legend>foo</legend>
+</fieldset>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <fieldset> valid markup 1`] = `Array []`;

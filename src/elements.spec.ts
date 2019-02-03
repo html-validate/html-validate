@@ -238,6 +238,7 @@ describe("HTML elements", () => {
 		"dt",
 		"em",
 		"embed",
+		"fieldset",
 	];
 
 	for (const tagName of tagNames) {
@@ -271,31 +272,10 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
 	});
 
-	describe("<fieldset>", () => {
-		allowParent("fieldset", "@flow");
-		allowContent("fieldset", "@flow");
-		allowContent("fieldset", "legend");
-		allow(
-			`<fieldset>
-			<legend></legend>
-			<div></div>
-		</fieldset>`,
-			"@flow after legend"
-		);
-		disallow(
-			`<fieldset>
-			<div></div>
-			<legend></legend>
-		</fieldset>`,
-			"legend after @flow"
-		);
-	});
-
 	describe("<figcaption>", () => {
 		allowParent("figcaption", "figure");
 		allowContent("figcaption", "@flow");
 	});
-
 	describe("<figure>", () => {
 		allowParent("figure", "@flow");
 		allowContent("figure", "@flow");
