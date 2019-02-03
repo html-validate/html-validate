@@ -2643,3 +2643,47 @@ Array [
 `;
 
 exports[`HTML elements <keygen> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <label> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/label-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <label>",
+        "offset": 41,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 8,
+        "message": "Element <label> is not permitted as descendant of <label>",
+        "offset": 109,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<!-- should not allow flow -->
+<label>
+	<div>foo</div>
+</label>
+
+<!-- should not allow nesting -->
+<label>
+	<label>foo</label>
+</label>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <label> valid markup 1`] = `Array []`;

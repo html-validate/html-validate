@@ -265,6 +265,7 @@ describe("HTML elements", () => {
 		"isindex",
 		"kbd",
 		"keygen",
+		"label",
 	];
 
 	for (const tagName of tagNames) {
@@ -296,12 +297,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<label>", () => {
-		allowContent("label", "@phrasing");
-		disallowContent("label", "@flow");
-		disallowDescendant("label", "label");
 	});
 
 	describe("<legend>", () => {
