@@ -256,6 +256,7 @@ describe("HTML elements", () => {
 		"header",
 		"hgroup",
 		"hr",
+		"html",
 	];
 
 	for (const tagName of tagNames) {
@@ -287,31 +288,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<html>", () => {
-		allow("<html><head></head></html>", "more than one title");
-		disallow(
-			`<html>
-			<head></head>
-			<head></head>
-		</html>`,
-			"more than one head"
-		);
-		disallow(
-			`<html>
-			<body></body>
-			<body></body>
-		</html>`,
-			"more than one body"
-		);
-		disallow(
-			`<html>
-			<body></body>
-			<head></head>
-		</html>`,
-			"body before head"
-		);
 	});
 
 	describe("<i>", () => {

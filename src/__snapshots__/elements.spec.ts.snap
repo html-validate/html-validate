@@ -2160,3 +2160,65 @@ Array [
 `;
 
 exports[`HTML elements <hr> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <html> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/elements/html-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <head> can only appear once under <html>",
+        "offset": 64,
+        "ruleId": "element-permitted-occurrences",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 10,
+        "message": "Element <body> can only appear once under <html>",
+        "offset": 150,
+        "ruleId": "element-permitted-occurrences",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 16,
+        "message": "Element <head> must be used before <body> in this context",
+        "offset": 239,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<!-- should not allow multiple head -->
+<html>
+	<head></head>
+	<head></head>
+</html>
+
+<!-- should not allow multiple body -->
+<html>
+	<body></body>
+	<body></body>
+</html>
+
+<!-- should not allow body before head -->
+<html>
+	<body></body>
+	<head></head>
+</html>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <html> valid markup 1`] = `Array []`;
