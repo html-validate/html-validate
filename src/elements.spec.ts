@@ -260,6 +260,7 @@ describe("HTML elements", () => {
 		"i",
 		"iframe",
 		"img",
+		"input",
 	];
 
 	for (const tagName of tagNames) {
@@ -291,46 +292,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<input>", () => {
-		omitEnd("input");
-		allowAttribute("input", "autofocus", [], "omit");
-		allowAttribute("input", "capture", [], "omit");
-		allowAttribute("input", "checked", [], "omit");
-		allowAttribute("input", "disabled", [], "omit");
-		allowAttribute(
-			"input",
-			"inputmode",
-			["none", "text", "numeric"],
-			"omit"
-		); /* only testing a subset */
-		allowAttribute("input", "multiple", [], "omit");
-		allowAttribute("input", "readonly", [], "omit");
-		allowAttribute("input", "required", [], "omit");
-		allowAttribute(
-			"input",
-			"type",
-			["text", "checkbox", "search"],
-			"omit"
-		); /* only testing a subset */
-		disallowAttribute("input", "autofocus", ["foobar"], "omit");
-		disallowAttribute("input", "capture", ["foobar"], "omit");
-		disallowAttribute("input", "checked", ["foobar"], "omit");
-		disallowAttribute("input", "disabled", ["foobar"], "omit");
-		disallowAttribute("input", "inputmode", ["foobar"], "omit");
-		disallowAttribute("input", "multiple", ["foobar"], "omit");
-		disallowAttribute("input", "readonly", ["foobar"], "omit");
-		disallowAttribute("input", "required", ["foobar"], "omit");
-		disallowAttribute("input", "type", ["foobar"], "omit");
-
-		it('should be interactive only if "type" is not "hidden"', () => {
-			const source = inlineSource('<input type="hidden"/><input type="foo"/>');
-			const parser = htmlvalidate.getParserFor(source);
-			const [foo, bar] = parser.parseHtml(source).root.children;
-			expect(foo.meta.interactive).toBeFalsy();
-			expect(bar.meta.interactive).toBeTruthy();
-		});
 	});
 
 	describe("<ins>", () => {

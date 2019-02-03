@@ -2295,3 +2295,243 @@ Array [
 `;
 
 exports[`HTML elements <img> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <input> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 12,
+    "filePath": "test-files/elements/input-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 15,
+        "context": undefined,
+        "line": 2,
+        "message": "End tag for <input> must be omitted",
+        "offset": 48,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 19,
+        "context": Object {
+          "allowed": Array [],
+          "attribute": "autofocus",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 5,
+        "message": "Attribute \\"autofocus\\" has invalid value \\"foobar\\"",
+        "offset": 106,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 17,
+        "context": Object {
+          "allowed": Array [],
+          "attribute": "capture",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 6,
+        "message": "Attribute \\"capture\\" has invalid value \\"foobar\\"",
+        "offset": 131,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 17,
+        "context": Object {
+          "allowed": Array [],
+          "attribute": "checked",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 7,
+        "message": "Attribute \\"checked\\" has invalid value \\"foobar\\"",
+        "offset": 156,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 18,
+        "context": Object {
+          "allowed": Array [],
+          "attribute": "disabled",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 8,
+        "message": "Attribute \\"disabled\\" has invalid value \\"foobar\\"",
+        "offset": 182,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 18,
+        "context": Object {
+          "allowed": Array [],
+          "attribute": "multiple",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 9,
+        "message": "Attribute \\"multiple\\" has invalid value \\"foobar\\"",
+        "offset": 208,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 18,
+        "context": Object {
+          "allowed": Array [],
+          "attribute": "readonly",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 10,
+        "message": "Attribute \\"readonly\\" has invalid value \\"foobar\\"",
+        "offset": 234,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 18,
+        "context": Object {
+          "allowed": Array [],
+          "attribute": "required",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 11,
+        "message": "Attribute \\"required\\" has invalid value \\"foobar\\"",
+        "offset": 260,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 19,
+        "context": Object {
+          "allowed": Array [
+            "none",
+            "text",
+            "decimal",
+            "numeric",
+            "tel",
+            "search",
+            "email",
+            "url",
+          ],
+          "attribute": "inputmode",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 12,
+        "message": "Attribute \\"inputmode\\" has invalid value \\"foobar\\"",
+        "offset": 287,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 14,
+        "context": Object {
+          "allowed": Array [
+            "button",
+            "checkbox",
+            "color",
+            "date",
+            "datetime-local",
+            "email",
+            "file",
+            "hidden",
+            "image",
+            "month",
+            "number",
+            "password",
+            "radio",
+            "range",
+            "reset",
+            "search",
+            "submit",
+            "tel",
+            "text",
+            "time",
+            "url",
+            "week",
+          ],
+          "attribute": "type",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 13,
+        "message": "Attribute \\"type\\" has invalid value \\"foobar\\"",
+        "offset": 309,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 20,
+        "context": Object {
+          "allowed": Array [
+            "default",
+            "false",
+            "true",
+          ],
+          "attribute": "spellcheck",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 14,
+        "message": "Attribute \\"spellcheck\\" has invalid value \\"foobar\\"",
+        "offset": 337,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 18,
+        "message": "Element <input> is not permitted as descendant of <button>",
+        "offset": 426,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<!-- should not allow end tag -->
+<input></input>
+
+<!-- should not allow attributes -->
+<input autofocus=\\"foobar\\">
+<input capture=\\"foobar\\">
+<input checked=\\"foobar\\">
+<input disabled=\\"foobar\\">
+<input multiple=\\"foobar\\">
+<input readonly=\\"foobar\\">
+<input required=\\"foobar\\">
+<input inputmode=\\"foobar\\">
+<input type=\\"foobar\\">
+<input spellcheck=\\"foobar\\">
+
+<!-- should be interactive when type isn't hidden -->
+<button type=\\"button\\">
+	<input type=\\"text\\">
+</button>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <input> valid markup 1`] = `Array []`;
