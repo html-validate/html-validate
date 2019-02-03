@@ -2253,3 +2253,45 @@ exports[`HTML elements <i> valid markup 1`] = `Array []`;
 exports[`HTML elements <iframe> invalid markup 1`] = `Array []`;
 
 exports[`HTML elements <iframe> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <img> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/img-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 11,
+        "context": undefined,
+        "line": 2,
+        "message": "End tag for <img> must be omitted",
+        "offset": 44,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 6,
+        "message": "Element <img> is not permitted as descendant of <button>",
+        "offset": 120,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow end tag -->
+<img></img>
+
+<!-- should be interactive if usemap is set -->
+<button type=\\"button\\">
+	<img usemap>
+</button>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <img> valid markup 1`] = `Array []`;

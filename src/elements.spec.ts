@@ -259,6 +259,7 @@ describe("HTML elements", () => {
 		"html",
 		"i",
 		"iframe",
+		"img",
 	];
 
 	for (const tagName of tagNames) {
@@ -290,18 +291,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<img>", () => {
-		omitEnd("img");
-
-		it('should be interactive only if "usemap" attribute is set', () => {
-			const source = inlineSource("<img/><img usemap/>");
-			const parser = htmlvalidate.getParserFor(source);
-			const [foo, bar] = parser.parseHtml(source).root.children;
-			expect(foo.meta.interactive).toBeFalsy();
-			expect(bar.meta.interactive).toBeTruthy();
-		});
 	});
 
 	describe("<input>", () => {
