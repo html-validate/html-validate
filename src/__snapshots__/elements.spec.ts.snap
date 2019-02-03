@@ -2733,3 +2733,32 @@ Array [
 `;
 
 exports[`HTML elements <legend> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <li> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/li-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <li> is not permitted as content in <div>",
+        "offset": 55,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<!-- should not allow under other elements -->
+<div>
+	<li>foo</li>
+</div>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <li> valid markup 1`] = `Array []`;
