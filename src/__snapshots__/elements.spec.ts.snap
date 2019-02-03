@@ -1392,3 +1392,82 @@ Array [
 `;
 
 exports[`HTML elements <dl> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <dt> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 5,
+    "filePath": "test-files/elements/dt-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <dt> is not permitted as content in <div>",
+        "offset": 52,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <header> is not permitted as descendant of <dt>",
+        "offset": 146,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 10,
+        "message": "Element <footer> is not permitted as descendant of <dt>",
+        "offset": 166,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 11,
+        "message": "Element <article> is not permitted as descendant of <dt>",
+        "offset": 186,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 12,
+        "message": "Element <h1> is not permitted as descendant of <dt>",
+        "offset": 208,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<!-- should not be allowed outside <dl> -->
+<div>
+	<dt></dt>
+</div>
+
+<!-- should not allow sectioning, header, header or footer -->
+<dl>
+	<dt>
+		<header></header>
+		<footer></footer>
+		<article></article>
+		<h1></h1>
+	</dt>
+</dl>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <dt> valid markup 1`] = `Array []`;

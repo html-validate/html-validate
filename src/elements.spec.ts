@@ -235,6 +235,7 @@ describe("HTML elements", () => {
 		"dir",
 		"div",
 		"dl",
+		"dt",
 	];
 
 	for (const tagName of tagNames) {
@@ -266,15 +267,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<dt>", () => {
-		allowParent("dt", "dl");
-		allowContent("dt", "@flow");
-		disallowDescendant("dt", "header");
-		disallowDescendant("dt", "footer");
-		disallowDescendant("dt", "@sectioning");
-		disallowDescendant("dt", "@heading");
 	});
 
 	describe("<em>", () => {
