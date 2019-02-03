@@ -240,6 +240,7 @@ describe("HTML elements", () => {
 		"embed",
 		"fieldset",
 		"figcaption",
+		"figure",
 	];
 
 	for (const tagName of tagNames) {
@@ -271,24 +272,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<figure>", () => {
-		allowParent("figure", "@flow");
-		allowContent("figure", "@flow");
-		allowContent("figure", "figcaption");
-		allow(
-			"<figure><figcaption></figcaption><div></div></figure>",
-			"figcaption as first child"
-		);
-		allow(
-			"<figure><div></div><figcaption></figcaption></figure>",
-			"figcaption as last child"
-		);
-		disallow(
-			"<figure><figcaption></figcaption><figcaption></figcaption></figure>",
-			"multiple figcaption"
-		);
 	});
 
 	describe("<font>", () => {
