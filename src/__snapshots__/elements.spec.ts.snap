@@ -1692,3 +1692,32 @@ Array [
 `;
 
 exports[`HTML elements <footer> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <form> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/form-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <form> is not permitted as descendant of <form>",
+        "offset": 43,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<!-- should not allow nesting -->
+<form>
+	<form></form>
+</form>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <form> valid markup 1`] = `Array []`;

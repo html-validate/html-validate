@@ -243,6 +243,7 @@ describe("HTML elements", () => {
 		"figure",
 		"font",
 		"footer",
+		"form",
 	];
 
 	for (const tagName of tagNames) {
@@ -274,12 +275,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<form>", () => {
-		allowParent("form", "@flow");
-		allowContent("form", "@flow");
-		disallowDescendant("form", "form");
 	});
 
 	describe("<frame>", () => {
