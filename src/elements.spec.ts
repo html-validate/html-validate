@@ -247,6 +247,7 @@ describe("HTML elements", () => {
 		"frame",
 		"frameset",
 		"h1",
+		"h2",
 	];
 
 	for (const tagName of tagNames) {
@@ -278,12 +279,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<h2>", () => {
-		allowParent("h2", "@flow");
-		allowContent("h2", "@phrasing");
-		disallowContent("h2", "@flow");
 	});
 
 	describe("<h3>", () => {
