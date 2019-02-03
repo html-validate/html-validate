@@ -239,6 +239,7 @@ describe("HTML elements", () => {
 		"em",
 		"embed",
 		"fieldset",
+		"figcaption",
 	];
 
 	for (const tagName of tagNames) {
@@ -272,10 +273,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
 	});
 
-	describe("<figcaption>", () => {
-		allowParent("figcaption", "figure");
-		allowContent("figcaption", "@flow");
-	});
 	describe("<figure>", () => {
 		allowParent("figure", "@flow");
 		allowContent("figure", "@flow");
