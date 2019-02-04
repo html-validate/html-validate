@@ -3463,3 +3463,32 @@ Array [
 `;
 
 exports[`HTML elements <option> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <output> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/output-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <output>",
+        "offset": 42,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow -->
+<output>
+	<div>foo</div>
+</output>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <output> valid markup 1`] = `Array []`;
