@@ -4811,3 +4811,45 @@ Array [
 `;
 
 exports[`HTML elements <title> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <tr> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/tr-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <span> is not permitted as content in <tr>",
+        "offset": 61,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 5,
+        "message": "Element <div> is not permitted as content in <tr>",
+        "offset": 80,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow arbitrary content -->
+<table>
+	<tr>
+		<span>foo</span>
+		<div>foo</div>
+	</tr>
+</table>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <tr> valid markup 1`] = `Array []`;

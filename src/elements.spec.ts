@@ -324,6 +324,7 @@ describe("HTML elements", () => {
 		"thead",
 		"time",
 		"title",
+		"tr",
 	];
 
 	for (const tagName of tagNames) {
@@ -355,17 +356,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<tr>", () => {
-		allowParent("tr", "table");
-		allowParent("tr", "thead");
-		allowParent("tr", "tfoot");
-		allowParent("tr", "tbody");
-		allowContent("tr", "td");
-		allowContent("tr", "th");
-		allowContent("tr", "script");
-		allowContent("tr", "template");
 	});
 
 	describe("<track>", () => {
