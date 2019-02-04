@@ -308,10 +308,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
 	});
 
-	describe("<menu>", () => {
-		/** @todo what to test? */
-	});
-
 	describe("<meta>", () => {
 		omitEnd("meta");
 	});
