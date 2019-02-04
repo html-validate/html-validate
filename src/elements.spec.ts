@@ -290,6 +290,7 @@ describe("HTML elements", () => {
 		"option",
 		"output",
 		"p",
+		"param",
 	];
 
 	for (const tagName of tagNames) {
@@ -321,11 +322,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<param>", () => {
-		omitEnd("param");
-		allowParent("param", "object", "void");
 	});
 
 	describe("<plaintext>", () => {

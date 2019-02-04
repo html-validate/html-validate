@@ -3521,3 +3521,45 @@ Array [
 `;
 
 exports[`HTML elements <p> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <param> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/param-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 15,
+        "context": undefined,
+        "line": 2,
+        "message": "End tag for <param> must be omitted",
+        "offset": 43,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 6,
+        "message": "Element <param> is not permitted as content in <div>",
+        "offset": 106,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<!-- should omit end tag -->
+<param></param>
+
+<!-- should not be allowed under other elements -->
+<div>
+	<param>
+</div>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <param> valid markup 1`] = `Array []`;
