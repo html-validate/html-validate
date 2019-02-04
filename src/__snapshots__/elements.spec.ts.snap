@@ -4441,3 +4441,60 @@ Array [
 `;
 
 exports[`HTML elements <table> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <tbody> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/elements/tbody-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <tbody> is not permitted as content in <div>",
+        "offset": 52,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <span> is not permitted as content in <tbody>",
+        "offset": 135,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 10,
+        "message": "Element <div> is not permitted as content in <tbody>",
+        "offset": 154,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allowed outside <table> -->
+<div>
+	<tbody></tbody>
+</div>
+
+<!-- should not allow other content -->
+<table>
+	<tbody>
+		<span>foo</span>
+		<div>bar</div>
+	</tbody>
+</table>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <tbody> valid markup 1`] = `Array []`;

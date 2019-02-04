@@ -316,6 +316,7 @@ describe("HTML elements", () => {
 		"sup",
 		"svg",
 		"table",
+		"tbody",
 	];
 
 	for (const tagName of tagNames) {
@@ -347,14 +348,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<tbody>", () => {
-		allowParent("tbody", "table");
-		allowContent("tbody", "tr");
-		allowContent("tbody", "script");
-		allowContent("tbody", "template");
-		disallowContent("tbody", "@phrasing");
 	});
 
 	describe("<td>", () => {
