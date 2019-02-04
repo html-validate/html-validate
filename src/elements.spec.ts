@@ -274,6 +274,7 @@ describe("HTML elements", () => {
 		"map",
 		"mark",
 		"marquee",
+		"math",
 	];
 
 	for (const tagName of tagNames) {
@@ -305,22 +306,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	/** @todo mathml? */
-	describe("<math>", () => {
-		allowAttribute("math", "dir", ["ltr", "rtl"]);
-		allowAttribute("math", "display", ["block", "inline"]);
-		allowAttribute("math", "overflow", [
-			"linebreak",
-			"scroll",
-			"elide",
-			"truncate",
-			"scale",
-		]);
-		disallowAttribute("math", "dir", ["", "foobar"]);
-		disallowAttribute("math", "display", ["", "foobar"]);
-		disallowAttribute("math", "overflow", ["", "foobar"]);
 	});
 
 	describe("<menu>", () => {

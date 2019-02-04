@@ -2878,3 +2878,145 @@ Array [
 `;
 
 exports[`HTML elements <marquee> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <math> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 6,
+    "filePath": "test-files/elements/math-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            "ltr",
+            "rtl",
+            "ltr",
+            "rtl",
+            "auto",
+          ],
+          "attribute": "dir",
+          "element": "math",
+          "value": "",
+        },
+        "line": 2,
+        "message": "Attribute \\"dir\\" has invalid value \\"\\"",
+        "offset": 32,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 12,
+        "context": Object {
+          "allowed": Array [
+            "ltr",
+            "rtl",
+            "ltr",
+            "rtl",
+            "auto",
+          ],
+          "attribute": "dir",
+          "element": "math",
+          "value": "foobar",
+        },
+        "line": 3,
+        "message": "Attribute \\"dir\\" has invalid value \\"foobar\\"",
+        "offset": 60,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            "block",
+            "inline",
+          ],
+          "attribute": "display",
+          "element": "math",
+          "value": "",
+        },
+        "line": 4,
+        "message": "Attribute \\"display\\" has invalid value \\"\\"",
+        "offset": 77,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 16,
+        "context": Object {
+          "allowed": Array [
+            "block",
+            "inline",
+          ],
+          "attribute": "display",
+          "element": "math",
+          "value": "foobar",
+        },
+        "line": 5,
+        "message": "Attribute \\"display\\" has invalid value \\"foobar\\"",
+        "offset": 113,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            "linebreak",
+            "scroll",
+            "elide",
+            "truncate",
+            "scale",
+          ],
+          "attribute": "overflow",
+          "element": "math",
+          "value": "",
+        },
+        "line": 6,
+        "message": "Attribute \\"overflow\\" has invalid value \\"\\"",
+        "offset": 130,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 17,
+        "context": Object {
+          "allowed": Array [
+            "linebreak",
+            "scroll",
+            "elide",
+            "truncate",
+            "scale",
+          ],
+          "attribute": "overflow",
+          "element": "math",
+          "value": "foobar",
+        },
+        "line": 7,
+        "message": "Attribute \\"overflow\\" has invalid value \\"foobar\\"",
+        "offset": 168,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- disallowed attributes -->
+<math dir></math>
+<math dir=\\"foobar\\"></math>
+<math display></math>
+<math display=\\"foobar\\"></math>
+<math overflow></math>
+<math overflow=\\"foobar\\"></math>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <math> valid markup 1`] = `Array []`;
