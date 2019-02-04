@@ -3828,3 +3828,49 @@ Array [
 `;
 
 exports[`HTML elements <rt> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <rtc> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/rtc-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <rtc> is not permitted as content in <div>",
+        "offset": 59,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <div> is not permitted as content in <rtc>",
+        "offset": 134,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not be allowed under other content -->
+<div>
+	<rtc></rtc>
+</div>
+
+<!-- should not allow flow content -->
+<ruby>
+	<rtc>
+		<div>foo</div>
+	</rtc>
+</ruby>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <rtc> valid markup 1`] = `Array []`;

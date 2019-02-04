@@ -298,6 +298,7 @@ describe("HTML elements", () => {
 		"rb",
 		"rp",
 		"rt",
+		"rtc",
 	];
 
 	for (const tagName of tagNames) {
@@ -329,13 +330,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<rtc>", () => {
-		allowParent("rtc", "ruby");
-		allowContent("rtc", "@phrasing");
-		allowContent("rtc", "rt");
-		disallowContent("rtc", "@flow");
 	});
 
 	describe("<ruby>", () => {
