@@ -3996,3 +3996,43 @@ exports[`HTML elements <script> valid markup 1`] = `Array []`;
 exports[`HTML elements <section> invalid markup 1`] = `Array []`;
 
 exports[`HTML elements <section> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <select> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/select-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <span> is not permitted as content in <select>",
+        "offset": 55,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <div> is not permitted as content in <select>",
+        "offset": 73,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow arbitrary content -->
+<select>
+	<span>foo</span>
+	<div>bar</div>
+</select>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <select> valid markup 1`] = `Array []`;
