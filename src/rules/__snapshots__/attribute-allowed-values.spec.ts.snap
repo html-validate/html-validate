@@ -11,6 +11,13 @@ Object {
 }
 `;
 
+exports[`rule attribute-allowed-values should contain contextual documentation when attribute should be boolean 1`] = `
+Object {
+  "description": "Element <any> attribute \`foo\` must be a boolean attribute, e.g. \`<any foo>\`",
+  "url": "https://html-validate.org/rules/attribute-allowed-values.html",
+}
+`;
+
 exports[`rule attribute-allowed-values should contain documentation 1`] = `
 Object {
   "description": "Attribute has invalid value.",

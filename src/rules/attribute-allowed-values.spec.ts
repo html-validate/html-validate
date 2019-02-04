@@ -28,6 +28,15 @@ describe("rule attribute-allowed-values", () => {
 		);
 	});
 
+	it("should report error when element attribute should be boolean", () => {
+		const report = htmlvalidate.validateString('<input required="foobar">');
+		expect(report).toBeInvalid();
+		expect(report).toHaveError(
+			"attribute-allowed-values",
+			'Attribute "required" has invalid value "foobar"'
+		);
+	});
+
 	it("should not report error when element has valid attribute value", () => {
 		const report = htmlvalidate.validateString('<input type="text">');
 		expect(report).toBeValid();
@@ -62,6 +71,22 @@ describe("rule attribute-allowed-values", () => {
 			attribute: "foo",
 			value: "bar",
 			allowed: ["spam", "ham", /\d+/],
+		};
+		expect(
+			htmlvalidate.getRuleDocumentation(
+				"attribute-allowed-values",
+				null,
+				context
+			)
+		).toMatchSnapshot();
+	});
+
+	it("should contain contextual documentation when attribute should be boolean", () => {
+		const context = {
+			element: "any",
+			attribute: "foo",
+			value: "bar",
+			allowed: [] as string[],
 		};
 		expect(
 			htmlvalidate.getRuleDocumentation(

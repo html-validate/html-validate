@@ -16,7 +16,11 @@ class AttributeAllowedValues extends Rule<Context> {
 			description: "Attribute has invalid value.",
 			url: ruleDocumentationUrl(__filename),
 		};
-		if (context) {
+		if (!context) {
+			return docs;
+		}
+
+		if (context.allowed.length > 0) {
 			const allowed = context.allowed.map(
 				(val: string | RegExp) => `- \`${val}\``
 			);
@@ -27,7 +31,14 @@ class AttributeAllowedValues extends Rule<Context> {
 			}\` to have the value \`"${
 				context.value
 			}"\`, it must match one of the following:\n\n${allowed.join("\n")}`;
+		} else {
+			docs.description = `Element <${context.element}> attribute \`${
+				context.attribute
+			}\` must be a boolean attribute, e.g. \`<${context.element} ${
+				context.attribute
+			}>\``;
 		}
+
 		return docs;
 	}
 
