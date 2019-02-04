@@ -3375,3 +3375,34 @@ Array [
 `;
 
 exports[`HTML elements <ol> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <optgroup> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/optgroup-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <div> is not permitted as content in <optgroup>",
+        "offset": 64,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow other content -->
+<select>
+	<optgroup>
+		<div>foo</div>
+	</optgroup>
+</select>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <optgroup> valid markup 1`] = `Array []`;
