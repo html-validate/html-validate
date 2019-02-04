@@ -320,6 +320,7 @@ describe("HTML elements", () => {
 		"td",
 		"textarea",
 		"tfoot",
+		"th",
 	];
 
 	for (const tagName of tagNames) {
@@ -351,15 +352,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<th>", () => {
-		allowParent("th", "tr");
-		allowContent("th", "@flow");
-		disallowDescendant("th", "header");
-		disallowDescendant("th", "footer");
-		disallowDescendant("th", "@sectioning");
-		disallowDescendant("th", "@heading");
 	});
 
 	describe("<thead>", () => {

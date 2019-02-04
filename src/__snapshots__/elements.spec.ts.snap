@@ -4599,3 +4599,74 @@ Array [
 `;
 
 exports[`HTML elements <tfoot> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <th> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 4,
+    "filePath": "test-files/elements/th-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 5,
+        "context": undefined,
+        "line": 10,
+        "message": "Element <header> is not permitted as descendant of <th>",
+        "offset": 166,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 5,
+        "context": undefined,
+        "line": 11,
+        "message": "Element <footer> is not permitted as descendant of <th>",
+        "offset": 187,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 5,
+        "context": undefined,
+        "line": 12,
+        "message": "Element <article> is not permitted as descendant of <th>",
+        "offset": 208,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 5,
+        "context": undefined,
+        "line": 13,
+        "message": "Element <h1> is not permitted as descendant of <th>",
+        "offset": 231,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<!-- should not be allowed outside <tr> -->
+<div>
+	<th>foo</th>
+</div>
+
+<!-- should not allow <header>, <footer>, sectioning or headings -->
+<table>
+	<tr>
+		<th>
+			<header></header>
+			<footer></footer>
+			<article></article>
+			<h1></h1>
+		</th>
+	</tr>
+</table>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <th> valid markup 1`] = `Array []`;

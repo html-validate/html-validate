@@ -1,0 +1,16 @@
+<!-- should not be allowed outside <tr> -->
+<div>
+	<th>foo</th>
+</div>
+
+<!-- should not allow <header>, <footer>, sectioning or headings -->
+<table>
+	<tr>
+		<th>
+			<header></header>
+			<footer></footer>
+			<article></article>
+			<h1></h1>
+		</th>
+	</tr>
+</table>
