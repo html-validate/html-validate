@@ -276,6 +276,7 @@ describe("HTML elements", () => {
 		"marquee",
 		"math",
 		"meta",
+		"meter",
 	];
 
 	for (const tagName of tagNames) {
@@ -307,12 +308,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<meter>", () => {
-		allowContent("meter", "@phrasing");
-		disallowContent("meter", "@flow");
-		disallowDescendant("meter", "meter");
 	});
 
 	describe("<multicol>", () => {

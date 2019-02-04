@@ -3047,3 +3047,47 @@ Array [
 `;
 
 exports[`HTML elements <meta> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <meter> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/meter-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <meter>",
+        "offset": 41,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 8,
+        "message": "Element <meter> is not permitted as descendant of <meter>",
+        "offset": 109,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<!-- should not allow flow -->
+<meter>
+	<div>foo</div>
+</meter>
+
+<!-- should not allow nesting -->
+<meter>
+	<meter></meter>
+</meter>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <meter> valid markup 1`] = `Array []`;
