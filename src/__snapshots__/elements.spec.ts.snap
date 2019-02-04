@@ -3619,3 +3619,47 @@ Array [
 `;
 
 exports[`HTML elements <pre> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <progress> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/progress-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <progress>",
+        "offset": 52,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 8,
+        "message": "Element <progress> is not permitted as descendant of <progress>",
+        "offset": 126,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 8,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<progress>
+	<div>foo</div>
+</progress>
+
+<!-- should not allow nesting -->
+<progress>
+	<progress></progress>
+</progress>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <progress> valid markup 1`] = `Array []`;

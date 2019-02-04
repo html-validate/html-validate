@@ -293,6 +293,7 @@ describe("HTML elements", () => {
 		"param",
 		"plaintext",
 		"pre",
+		"progress",
 	];
 
 	for (const tagName of tagNames) {
@@ -324,12 +325,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<progress>", () => {
-		allowContent("progress", "@phrasing");
-		disallowContent("progress", "@flow");
-		disallowDescendant("progress", "progress");
 	});
 
 	describe("<q>", () => {
