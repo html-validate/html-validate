@@ -3782,3 +3782,49 @@ Array [
 `;
 
 exports[`HTML elements <rp> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <rt> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/rt-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <rt> is not permitted as content in <div>",
+        "offset": 59,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <div> is not permitted as content in <rt>",
+        "offset": 131,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not be allowed under other content -->
+<div>
+	<rt></rt>
+</div>
+
+<!-- should not allow flow content -->
+<ruby>
+	<rt>
+		<div>foo</div>
+	</rt>
+</ruby>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <rt> valid markup 1`] = `Array []`;
