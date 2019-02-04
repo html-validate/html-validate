@@ -3590,3 +3590,32 @@ Array [
 `;
 
 exports[`HTML elements <plaintext> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <pre> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/pre-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <pre>",
+        "offset": 47,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<pre>
+	<div>foo</div>
+</pre>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <pre> valid markup 1`] = `Array []`;
