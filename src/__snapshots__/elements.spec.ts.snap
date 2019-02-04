@@ -3492,3 +3492,32 @@ Array [
 `;
 
 exports[`HTML elements <output> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <p> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/p-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <figure> is not permitted as content in <p>",
+        "offset": 45,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<p>
+	<figure>foo</figure>
+</p>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <p> valid markup 1`] = `Array []`;

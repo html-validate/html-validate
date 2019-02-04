@@ -289,6 +289,7 @@ describe("HTML elements", () => {
 		"optgroup",
 		"option",
 		"output",
+		"p",
 	];
 
 	for (const tagName of tagNames) {
@@ -320,14 +321,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<p>", () => {
-		allowContent("p", "@phrasing");
-		disallow(
-			"<p><figure>foo</figure></p>",
-			"@flow as content"
-		); /* many regular flow content such as <div> will cause <p> to be implicitly closed */
 	});
 
 	describe("<param>", () => {
