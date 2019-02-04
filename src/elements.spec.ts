@@ -287,6 +287,7 @@ describe("HTML elements", () => {
 		"object",
 		"ol",
 		"optgroup",
+		"option",
 	];
 
 	for (const tagName of tagNames) {
@@ -318,13 +319,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<option>", () => {
-		allowParent("option", "select");
-		allowParent("option", "optgroup");
-		disallowContent("option", "@flow");
-		disallowContent("option", "@phrasing");
 	});
 
 	describe("<output>", () => {

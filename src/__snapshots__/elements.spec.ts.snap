@@ -3406,3 +3406,60 @@ Array [
 `;
 
 exports[`HTML elements <optgroup> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <option> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/elements/option-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <option> is not permitted as content in <div>",
+        "offset": 59,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <span> is not permitted as content in <option>",
+        "offset": 152,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 10,
+        "message": "Element <div> is not permitted as content in <option>",
+        "offset": 171,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not be allowed under other content -->
+<div>
+	<option>foo</option>
+</div>
+
+<!-- should not allow flow or phrasing -->
+<select>
+	<option>
+		<span>foo</span>
+		<div>bar</div>
+	</option>
+</select>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <option> valid markup 1`] = `Array []`;
