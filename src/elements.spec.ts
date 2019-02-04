@@ -311,6 +311,7 @@ describe("HTML elements", () => {
 		"span",
 		"strike",
 		"strong",
+		"style",
 	];
 
 	for (const tagName of tagNames) {
@@ -342,11 +343,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<style>", () => {
-		disallowContent("style", "@flow");
-		disallowContent("style", "@phrasing");
 	});
 
 	describe("<sub>", () => {

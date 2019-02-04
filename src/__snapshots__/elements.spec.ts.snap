@@ -4215,3 +4215,43 @@ Array [
 `;
 
 exports[`HTML elements <strong> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <style> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/style-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <span> is not permitted as content in <style>",
+        "offset": 41,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <div> is not permitted as content in <style>",
+        "offset": 59,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow tags -->
+<style>
+	<span>foo</span>
+	<div>bar</div>
+</style>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <style> valid markup 1`] = `Array []`;
