@@ -2,11 +2,18 @@
 
 exports[`rule attribute-allowed-values should contain contextual documentation 1`] = `
 Object {
-  "description": "Element <any> does not allow attribute \`foo\` to have the value \`bar\`, it must match one of the following:
+  "description": "Element <any> does not allow attribute \`foo\` to have the value \`\\"bar\\"\`, it must match one of the following:
 
 - \`spam\`
 - \`ham\`
 - \`/\\\\d+/\`",
+  "url": "https://html-validate.org/rules/attribute-allowed-values.html",
+}
+`;
+
+exports[`rule attribute-allowed-values should contain contextual documentation when attribute should be boolean 1`] = `
+Object {
+  "description": "Element <any> attribute \`foo\` must be a boolean attribute, e.g. \`<any foo>\`",
   "url": "https://html-validate.org/rules/attribute-allowed-values.html",
 }
 `;

@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Bugfixes
+
+- handle boolean attributes in `attribute-allowed-values`.
+
 ## 0.20.0 (2019-01-29)
 
 ### Features
