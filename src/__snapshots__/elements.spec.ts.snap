@@ -4853,3 +4853,32 @@ Array [
 `;
 
 exports[`HTML elements <tr> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <track> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/track-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 16,
+        "context": undefined,
+        "line": 3,
+        "message": "End tag for <track> must be omitted",
+        "offset": 52,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<!-- should omit end tag -->
+<audio>
+	<track></track>
+</audio>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <track> valid markup 1`] = `Array []`;
