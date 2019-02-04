@@ -4498,3 +4498,7 @@ Array [
 `;
 
 exports[`HTML elements <tbody> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <td> invalid markup 1`] = `Array []`;
+
+exports[`HTML elements <td> valid markup 1`] = `Array []`;
