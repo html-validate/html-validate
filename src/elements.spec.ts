@@ -319,6 +319,7 @@ describe("HTML elements", () => {
 		"tbody",
 		"td",
 		"textarea",
+		"tfoot",
 	];
 
 	for (const tagName of tagNames) {
@@ -350,14 +351,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<tfoot>", () => {
-		allowParent("tfoot", "table");
-		allowContent("tfoot", "tr");
-		allowContent("tfoot", "script");
-		allowContent("tfoot", "template");
-		disallowContent("tfoot", "@phrasing");
 	});
 
 	describe("<th>", () => {

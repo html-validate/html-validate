@@ -1,0 +1,12 @@
+<!-- should not allowed outside <table> -->
+<div>
+	<tfoot></tfoot>
+</div>
+
+<!-- should not allow other content -->
+<table>
+	<tfoot>
+		<span>foo</span>
+		<div>bar</div>
+	</tfoot>
+</table>
