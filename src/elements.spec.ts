@@ -328,6 +328,7 @@ describe("HTML elements", () => {
 		"track",
 		"tt",
 		"u",
+		"ul",
 	];
 
 	for (const tagName of tagNames) {
@@ -359,12 +360,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<ul>", () => {
-		allowContent("ul", "li");
-		allowContent("ul", "script");
-		allowContent("ul", "template");
 	});
 
 	describe("<var>", () => {
