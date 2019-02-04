@@ -19,6 +19,15 @@ describe("rule attribute-allowed-values", () => {
 		);
 	});
 
+	it("should report error when element has invalid boolean attribute value", () => {
+		const report = htmlvalidate.validateString("<input type>");
+		expect(report).toBeInvalid();
+		expect(report).toHaveError(
+			"attribute-allowed-values",
+			'Attribute "type" has invalid value ""'
+		);
+	});
+
 	it("should not report error when element has valid attribute value", () => {
 		const report = htmlvalidate.validateString('<input type="text">');
 		expect(report).toBeValid();

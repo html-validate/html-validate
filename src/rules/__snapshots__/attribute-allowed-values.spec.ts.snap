@@ -2,7 +2,7 @@
 
 exports[`rule attribute-allowed-values should contain contextual documentation 1`] = `
 Object {
-  "description": "Element <any> does not allow attribute \`foo\` to have the value \`bar\`, it must match one of the following:
+  "description": "Element <any> does not allow attribute \`foo\` to have the value \`\\"bar\\"\`, it must match one of the following:
 
 - \`spam\`
 - \`ham\`

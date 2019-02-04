@@ -24,9 +24,9 @@ class AttributeAllowedValues extends Rule<Context> {
 				context.element
 			}> does not allow attribute \`${
 				context.attribute
-			}\` to have the value \`${
+			}\` to have the value \`"${
 				context.value
-			}\`, it must match one of the following:\n\n${allowed.join("\n")}`;
+			}"\`, it must match one of the following:\n\n${allowed.join("\n")}`;
 		}
 		return docs;
 	}
@@ -42,20 +42,23 @@ class AttributeAllowedValues extends Rule<Context> {
 				if (!meta || !meta.attributes) return;
 
 				for (const [key, attr] of Object.entries(node.attr)) {
-					if (!Validator.validateAttribute(key, attr.value, meta.attributes)) {
-						const context: Context = {
-							element: node.tagName,
-							attribute: attr.key,
-							value: attr.value.toString(),
-							allowed: meta.attributes[key],
-						};
-						this.report(
-							node,
-							`Attribute "${key}" has invalid value "${attr.value}"`,
-							attr.valueLocation,
-							context
-						);
+					if (Validator.validateAttribute(key, attr.value, meta.attributes)) {
+						continue;
 					}
+
+					const value = attr.value ? attr.value.toString() : "";
+					const context: Context = {
+						element: node.tagName,
+						attribute: attr.key,
+						value,
+						allowed: meta.attributes[key],
+					};
+					this.report(
+						node,
+						`Attribute "${key}" has invalid value "${value}"`,
+						attr.valueLocation,
+						context
+					);
 				}
 			});
 		});
