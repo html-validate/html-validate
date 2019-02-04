@@ -306,6 +306,7 @@ describe("HTML elements", () => {
 		"section",
 		"select",
 		"small",
+		"source",
 	];
 
 	for (const tagName of tagNames) {
@@ -337,12 +338,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<source>", () => {
-		omitEnd("source");
-		allowParent("source", "audio", "void");
-		allowParent("source", "video", "void");
 	});
 
 	describe("<spacer>", () => {

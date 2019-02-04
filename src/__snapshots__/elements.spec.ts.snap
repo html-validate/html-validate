@@ -4063,3 +4063,47 @@ Array [
 `;
 
 exports[`HTML elements <small> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <source> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/source-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 18,
+        "context": undefined,
+        "line": 3,
+        "message": "End tag for <source> must be omitted",
+        "offset": 54,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 8,
+        "message": "Element <source> is not permitted as content in <div>",
+        "offset": 125,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- should omit end tag -->
+<audio>
+	<source></source>
+</audio>
+
+<!-- should not be allowed under other content -->
+<div>
+	<source>
+</div>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <source> valid markup 1`] = `Array []`;
