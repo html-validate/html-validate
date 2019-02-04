@@ -3736,3 +3736,49 @@ Array [
 `;
 
 exports[`HTML elements <rb> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <rp> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/rp-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <rp> is not permitted as content in <div>",
+        "offset": 59,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <div> is not permitted as content in <rp>",
+        "offset": 131,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not be allowed under other content -->
+<div>
+	<rp></rp>
+</div>
+
+<!-- should not allow flow content -->
+<ruby>
+	<rp>
+		<div>foo</div>
+	</rp>
+</ruby>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <rp> valid markup 1`] = `Array []`;
