@@ -3955,3 +3955,40 @@ Array [
 `;
 
 exports[`HTML elements <samp> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <script> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/script-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 8,
+        "context": undefined,
+        "line": 2,
+        "message": "End tag for <script> must not be omitted",
+        "offset": 196,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 9,
+        "line": 3,
+        "message": "failed to tokenize \\"\\\\n\\", expected </script>.",
+        "offset": 207,
+        "ruleId": undefined,
+        "severity": 2,
+        "size": 0,
+      },
+    ],
+    "source": "<!-- must not omit end tag in any way, because the way the scripttag is tokenized both according to spec and this tool it must explicitly be ended with </>. Dragons ahead if not obeyed -->
+<script/>
+<script>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <script> valid markup 1`] = `Array []`;

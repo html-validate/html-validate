@@ -302,6 +302,7 @@ describe("HTML elements", () => {
 		"ruby",
 		"s",
 		"samp",
+		"script",
 	];
 
 	for (const tagName of tagNames) {
@@ -333,11 +334,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<script>", () => {
-		allowParent("script", "head");
-		allowParent("script", "@flow");
 	});
 
 	describe("<section>", () => {
