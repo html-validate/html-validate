@@ -5113,3 +5113,30 @@ Array [
 `;
 
 exports[`HTML elements <video> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <wbr> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/wbr-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 11,
+        "context": undefined,
+        "line": 2,
+        "message": "End tag for <wbr> must be omitted",
+        "offset": 39,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<!-- should omit end tag -->
+<wbr></wbr>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <wbr> valid markup 1`] = `Array []`;

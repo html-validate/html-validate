@@ -1,42 +1,6 @@
 import HtmlValidate from "./htmlvalidate";
 import "./matchers";
 
-type ContentCategory =
-	| "@embedded"
-	| "@flow"
-	| "@heading"
-	| "@interactive"
-	| "@metadata"
-	| "@phrasing"
-	| "@sectioning";
-
-const contentCategory = {
-	"@embedded": "audio",
-	"@flow": "div",
-	"@heading": "h1",
-	"@interactive": "button",
-	"@metadata": "style",
-	"@phrasing": "span",
-	"@sectioning": "article",
-};
-
-function inlineSource(source: string) {
-	return {
-		data: source,
-		filename: "inline",
-		line: 1,
-		column: 1,
-	};
-}
-
-function getTagname(category: ContentCategory | string) {
-	if (category[0] === "@") {
-		return contentCategory[category as ContentCategory];
-	} else {
-		return category;
-	}
-}
-
 function getElementMarkup(
 	tagName: string,
 	variant: string,
@@ -71,34 +35,6 @@ describe("HTML elements", () => {
 		},
 	});
 
-	function allow(markup: string, comment: string) {
-		it(`should allow ${comment}`, () => {
-			const report = htmlvalidate.validateString(markup);
-			expect(report).toBeValid();
-		});
-	}
-
-	function allowContent(tagName: string, category: string, variant?: string) {
-		const child = getTagname(category);
-		const pretty = category[0] === "@" ? category : `<${category}>`;
-		const inner = getElementMarkup(child, variant);
-		it(`should allow ${pretty} as content`, () => {
-			const markup = `<${tagName}>${inner}</${tagName}>`;
-			const report = htmlvalidate.validateString(markup);
-			expect(report).toBeValid();
-		});
-	}
-
-	function allowParent(tagName: string, category: string, variant?: string) {
-		const outer = getTagname(category);
-		const inner = getElementMarkup(tagName, variant);
-		it(`should allow <${outer}> as parent`, () => {
-			const markup = `<${outer}>${inner}</${outer}>`;
-			const report = htmlvalidate.validateString(markup);
-			expect(report).toBeValid();
-		});
-	}
-
 	function allowAttribute(
 		tagName: string,
 		attr: string,
@@ -123,43 +59,6 @@ describe("HTML elements", () => {
 		}
 	}
 
-	function disallow(markup: string, comment: string) {
-		it(`should not allow ${comment}`, () => {
-			const report = htmlvalidate.validateString(markup);
-			expect(report.valid).toBeFalsy();
-		});
-	}
-
-	function disallowContent(tagName: string, category: string) {
-		const child = getTagname(category);
-		const pretty = category[0] === "@" ? category : `<${category}>`;
-		it(`should disallow ${pretty} as content`, () => {
-			const markup = `<${tagName}><${child}>foo</${child}></${tagName}>`;
-			const report = htmlvalidate.validateString(markup);
-			expect(report.valid).toBeFalsy();
-		});
-	}
-
-	function disallowDescendant(tagName: string, category: string) {
-		const child = getTagname(category);
-		const pretty = category[0] === "@" ? category : `<${category}>`;
-		it(`should disallow ${pretty} as descendant`, () => {
-			const markup = `<${tagName}><span><${child}>foo</${child}></span></${tagName}>`;
-			const report = htmlvalidate.validateString(markup);
-			expect(report.valid).toBeFalsy();
-		});
-	}
-
-	function disallowParent(tagName: string, category: string, variant?: string) {
-		const outer = getTagname(category);
-		const inner = getElementMarkup(tagName, variant);
-		it(`should disallow <${outer}> as parent`, () => {
-			const markup = `<${outer}>${inner}</${outer}>`;
-			const report = htmlvalidate.validateString(markup);
-			expect(report.valid).toBeFalsy();
-		});
-	}
-
 	function disallowAttribute(
 		tagName: string,
 		attr: string,
@@ -180,14 +79,6 @@ describe("HTML elements", () => {
 			const report = htmlvalidate.validateString(`<${tagName}></${tagName}>`);
 			expect(report.valid).toBeFalsy();
 			expect(report.results[0].messages[0].ruleId).toEqual("deprecated");
-		});
-	}
-
-	function omitEnd(tagName: string) {
-		it("should allow omitted end tag", () => {
-			const markup = `<${tagName}/>`;
-			const report = htmlvalidate.validateString(markup);
-			expect(report).toBeValid();
 		});
 	}
 
@@ -324,6 +215,7 @@ describe("HTML elements", () => {
 		"ul",
 		"var",
 		"video",
+		"wbr",
 	];
 
 	for (const tagName of tagNames) {
@@ -355,10 +247,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<wbr>", () => {
-		omitEnd("wbr");
 	});
 
 	describe("<xmp>", () => {
