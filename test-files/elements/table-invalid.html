@@ -1,0 +1,33 @@
+<!-- should not allow other content -->
+<table>
+	<span>foo</span>
+	<div>bar</div>
+</table>
+
+<!-- should not allow multiple -->
+<table>
+	<caption>foo</caption>
+	<caption>bar</caption>
+</table>
+<table>
+	<thead></thead>
+	<thead></thead>
+</table>
+<table>
+	<tfoot></tfoot>
+	<tfoot></tfoot>
+</table>
+
+<!-- should not allow elements out-of-order -->
+<table>
+	<thead></thead>
+	<caption>foo</caption>
+</table>
+<table>
+	<tbody></tbody>
+	<thead></thead>
+</table>
+<table>
+	<tfoot></tfoot>
+	<tbody></tbody>
+</table>

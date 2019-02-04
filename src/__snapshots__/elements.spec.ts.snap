@@ -4313,3 +4313,131 @@ exports[`HTML elements <sup> valid markup 1`] = `Array []`;
 exports[`HTML elements <svg> invalid markup 1`] = `Array []`;
 
 exports[`HTML elements <svg> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <table> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 8,
+    "filePath": "test-files/elements/table-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <span> is not permitted as content in <table>",
+        "offset": 50,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <div> is not permitted as content in <table>",
+        "offset": 68,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 10,
+        "message": "Element <caption> can only appear once under <table>",
+        "offset": 161,
+        "ruleId": "element-permitted-occurrences",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 14,
+        "message": "Element <thead> can only appear once under <table>",
+        "offset": 219,
+        "ruleId": "element-permitted-occurrences",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 18,
+        "message": "Element <tfoot> can only appear once under <table>",
+        "offset": 270,
+        "ruleId": "element-permitted-occurrences",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 24,
+        "message": "Element <caption> must be used before <thead> in this context",
+        "offset": 370,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 28,
+        "message": "Element <thead> must be used before <tbody> in this context",
+        "offset": 428,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 32,
+        "message": "Element <tbody> must be used before <tfoot> in this context",
+        "offset": 479,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<!-- should not allow other content -->
+<table>
+	<span>foo</span>
+	<div>bar</div>
+</table>
+
+<!-- should not allow multiple -->
+<table>
+	<caption>foo</caption>
+	<caption>bar</caption>
+</table>
+<table>
+	<thead></thead>
+	<thead></thead>
+</table>
+<table>
+	<tfoot></tfoot>
+	<tfoot></tfoot>
+</table>
+
+<!-- should not allow elements out-of-order -->
+<table>
+	<thead></thead>
+	<caption>foo</caption>
+</table>
+<table>
+	<tbody></tbody>
+	<thead></thead>
+</table>
+<table>
+	<tfoot></tfoot>
+	<tbody></tbody>
+</table>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <table> valid markup 1`] = `Array []`;

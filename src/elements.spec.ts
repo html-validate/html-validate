@@ -315,6 +315,7 @@ describe("HTML elements", () => {
 		"sub",
 		"sup",
 		"svg",
+		"table",
 	];
 
 	for (const tagName of tagNames) {
@@ -346,63 +347,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<table>", () => {
-		allowContent("table", "caption");
-		allowContent("table", "colgroup");
-		allowContent("table", "script");
-		allowContent("table", "tbody");
-		allowContent("table", "template");
-		allowContent("table", "tfoot");
-		allowContent("table", "thead");
-		allowContent("table", "tr");
-		disallowContent("table", "@phrasing");
-		allow(
-			`<table>
-			<caption></caption>
-			<colgroup></colgroup>
-			<thead></thead>
-			<tbody></tbody>
-			<tfoot></tfoot>
-		</table>`,
-			"with right order and occurrences"
-		);
-		disallow(
-			`<table>
-			<caption></caption>
-			<caption></caption>
-		</table>`,
-			"more than one caption"
-		);
-		disallow(
-			`<table>
-			<thead></thead>
-			<thead></thead>
-		</table>`,
-			"more than one thead"
-		);
-		disallow(
-			`<table>
-			<tfoot></tfoot>
-			<tfoot></tfoot>
-		</table>`,
-			"more than one tfoot"
-		);
-		disallow(
-			`<table>
-			<thead></thead>
-			<caption>bar</caption>
-		</table>`,
-			"caption after thead"
-		);
-		disallow(
-			`<table>
-			<tfoot></tfoot>
-			<thead></thead>
-		</table>`,
-			"thead after tfoot"
-		);
 	});
 
 	describe("<tbody>", () => {
