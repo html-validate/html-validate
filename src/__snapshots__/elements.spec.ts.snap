@@ -4309,3 +4309,7 @@ Array [
 `;
 
 exports[`HTML elements <sup> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <svg> invalid markup 1`] = `Array []`;
+
+exports[`HTML elements <svg> valid markup 1`] = `Array []`;

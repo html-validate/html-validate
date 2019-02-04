@@ -314,6 +314,7 @@ describe("HTML elements", () => {
 		"style",
 		"sub",
 		"sup",
+		"svg",
 	];
 
 	for (const tagName of tagNames) {
@@ -345,10 +346,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<svg>", () => {
-		allowContent("svg", "@flow");
 	});
 
 	describe("<table>", () => {
