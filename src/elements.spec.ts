@@ -283,6 +283,7 @@ describe("HTML elements", () => {
 		"nobr",
 		"noembed",
 		"noframes",
+		"noscript",
 	];
 
 	for (const tagName of tagNames) {
@@ -314,11 +315,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	/** @todo noscript has more rules for the content model */
-	describe("<noscript>", () => {
-		disallowDescendant("noscript", "noscript");
 	});
 
 	describe("<object>", () => {

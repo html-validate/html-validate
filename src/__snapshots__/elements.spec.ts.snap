@@ -3255,3 +3255,32 @@ Array [
 `;
 
 exports[`HTML elements <noframes> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <noscript> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/noscript-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <noscript> is not permitted as descendant of <noscript>",
+        "offset": 47,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 8,
+      },
+    ],
+    "source": "<!-- should not allow nesting -->
+<noscript>
+	<noscript></noscript>
+</noscript>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <noscript> valid markup 1`] = `Array []`;
