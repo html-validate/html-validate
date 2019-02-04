@@ -3284,3 +3284,65 @@ Array [
 `;
 
 exports[`HTML elements <noscript> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <object> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/elements/object-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <div> is not permitted as content in <span>",
+        "offset": 51,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 11,
+        "message": "Element <param> must be used before <div> in this context",
+        "offset": 155,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 16,
+        "message": "Element <object> is not permitted as descendant of <button>",
+        "offset": 246,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- should be transparent -->
+<span>
+	<object>
+		<div>foo</div>
+	</object>
+</span>
+
+<!-- should not allow flow before <param> -->
+<object>
+	<div></div>
+	<param>
+</object>
+
+<!-- should be interactive if usemap is set -->
+<button type=\\"button\\">
+	<object usemap></object>
+</button>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <object> valid markup 1`] = `Array []`;

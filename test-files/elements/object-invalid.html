@@ -1,0 +1,17 @@
+<!-- should be transparent -->
+<span>
+	<object>
+		<div>foo</div>
+	</object>
+</span>
+
+<!-- should not allow flow before <param> -->
+<object>
+	<div></div>
+	<param>
+</object>
+
+<!-- should be interactive if usemap is set -->
+<button type="button">
+	<object usemap></object>
+</button>

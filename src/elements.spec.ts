@@ -284,6 +284,7 @@ describe("HTML elements", () => {
 		"noembed",
 		"noframes",
 		"noscript",
+		"object",
 	];
 
 	for (const tagName of tagNames) {
@@ -315,36 +316,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<object>", () => {
-		allowContent("object", "@flow");
-		allowContent("object", "param", "void");
-		allow(
-			"<span><object><span>foo</span></object></span>",
-			"phrasing in phrasing context"
-		);
-		allow("<div><object><div>foo</div></object></div>", "flow in flow context");
-		disallow(
-			"<span><object><div>foo</div></object></span>",
-			"flow in phrasing context"
-		);
-		disallow(
-			"<object><param></param><div></div></object>",
-			"param before @flow"
-		);
-		disallow(
-			"<object><div></div><param></param></object>",
-			"@flow before param"
-		);
-
-		it('should be interactive only if "usemap" attribute is set', () => {
-			const source = inlineSource("<object></object><object usemap></object>");
-			const parser = htmlvalidate.getParserFor(source);
-			const [foo, bar] = parser.parseHtml(source).root.children;
-			expect(foo.meta.interactive).toBeFalsy();
-			expect(bar.meta.interactive).toBeTruthy();
-		});
 	});
 
 	describe("<ol>", () => {
