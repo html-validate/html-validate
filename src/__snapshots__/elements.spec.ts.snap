@@ -4670,3 +4670,60 @@ Array [
 `;
 
 exports[`HTML elements <th> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <thead> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/elements/thead-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <thead> is not permitted as content in <div>",
+        "offset": 52,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <span> is not permitted as content in <thead>",
+        "offset": 135,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 10,
+        "message": "Element <div> is not permitted as content in <thead>",
+        "offset": 154,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allowed outside <table> -->
+<div>
+	<thead></thead>
+</div>
+
+<!-- should not allow other content -->
+<table>
+	<thead>
+		<span>foo</span>
+		<div>bar</div>
+	</thead>
+</table>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <thead> valid markup 1`] = `Array []`;
