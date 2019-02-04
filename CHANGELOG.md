@@ -4,6 +4,8 @@
 
 ### Bugfixes
 
+- fix #33: ensure `wcag/h37` and `wcag/h67` checks if node exists before testing
+  tagname.
 - handle boolean attributes in `attribute-allowed-values`.
 
 ## 0.20.0 (2019-01-29)

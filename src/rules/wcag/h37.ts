@@ -29,7 +29,7 @@ class H37 extends Rule {
 			const node = event.previous;
 
 			/* only validate images */
-			if (node.tagName !== "img") {
+			if (!node || node.tagName !== "img") {
 				return;
 			}
 
