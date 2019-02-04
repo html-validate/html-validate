@@ -3346,3 +3346,32 @@ Array [
 `;
 
 exports[`HTML elements <object> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <ol> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/ol-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <ol>",
+        "offset": 47,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow other content -->
+<ol>
+	<div>foo</div>
+</ol>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <ol> valid markup 1`] = `Array []`;

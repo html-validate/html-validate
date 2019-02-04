@@ -285,6 +285,7 @@ describe("HTML elements", () => {
 		"noframes",
 		"noscript",
 		"object",
+		"ol",
 	];
 
 	for (const tagName of tagNames) {
@@ -316,12 +317,6 @@ describe("HTML elements", () => {
 		disallowAttribute("input", "draggable", ["", "foobar"], "omit");
 		disallowAttribute("input", "hidden", ["foobar"], "omit");
 		disallowAttribute("input", "tabindex", ["", "foobar"], "omit");
-	});
-
-	describe("<ol>", () => {
-		allowContent("ol", "li");
-		allowContent("ol", "script");
-		allowContent("ol", "template");
 	});
 
 	describe("<optgroup>", () => {
