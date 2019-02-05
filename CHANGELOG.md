@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.20.1 (2019-02-06)
+
 ### Bugfixes
 
 - fix #33: ensure `wcag/h37` and `wcag/h67` checks if node exists before testing
