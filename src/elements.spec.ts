@@ -141,13 +141,24 @@ const tagNames = [
 
 describe("HTML elements", () => {
 	const htmlvalidate = new HtmlValidate({
+		extends: ["htmlvalidate:recommended"],
 		rules: {
-			deprecated: "error",
-			"attribute-allowed-values": "error",
-			"element-permitted-content": "error",
-			"element-permitted-occurrences": "error",
-			"element-permitted-order": "error",
-			void: ["error", { style: "any" }],
+			/* allow any style of boolean attributes, some tests runs all of them */
+			"attribute-boolean-style": "off",
+
+			/* messes with tests validating that elements with support implicit close
+			 * does so */
+			"no-implicit-close": "off",
+
+			/* while <button> is preferred the <input type="button"> tests should not
+			 * yield any errors */
+			"prefer-button": "off",
+
+			/* none of the WCAG rules should trigger in these tests, they are tested
+			 * separately and adds too much noise here */
+			"wcag/h32": "off",
+			"wcag/h37": "off",
+			"wcag/h67": "off",
 		},
 	});
 

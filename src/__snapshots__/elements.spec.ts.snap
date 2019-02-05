@@ -811,7 +811,7 @@ exports[`HTML elements <br> valid markup 1`] = `Array []`;
 exports[`HTML elements <button> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 5,
+    "errorCount": 6,
     "filePath": "test-files/elements/button-invalid.html",
     "messages": Array [
       Object {
@@ -870,6 +870,16 @@ Array [
         "message": "Attribute \\"type\\" has invalid value \\"foobar\\"",
         "offset": 411,
         "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 15,
+        "context": undefined,
+        "line": 12,
+        "message": "Button has invalid type \\"foobar\\"",
+        "offset": 411,
+        "ruleId": "button-type",
         "severity": 2,
         "size": 6,
       },
