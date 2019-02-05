@@ -5167,3 +5167,168 @@ Array [
 `;
 
 exports[`HTML elements <xmp> valid markup 1`] = `Array []`;
+
+exports[`HTML elements global attributes invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 8,
+    "filePath": "test-files/elements/global-attributes-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 25,
+        "context": Object {
+          "allowed": Array [
+            "",
+            "true",
+            "false",
+          ],
+          "attribute": "contenteditable",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 1,
+        "message": "Attribute \\"contenteditable\\" has invalid value \\"foobar\\"",
+        "offset": 24,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            "ltr",
+            "rtl",
+            "auto",
+          ],
+          "attribute": "dir",
+          "element": "input",
+          "value": "",
+        },
+        "line": 2,
+        "message": "Attribute \\"dir\\" has invalid value \\"\\"",
+        "offset": 34,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 13,
+        "context": Object {
+          "allowed": Array [
+            "ltr",
+            "rtl",
+            "auto",
+          ],
+          "attribute": "dir",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 3,
+        "message": "Attribute \\"dir\\" has invalid value \\"foobar\\"",
+        "offset": 60,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            "true",
+            "false",
+          ],
+          "attribute": "draggable",
+          "element": "input",
+          "value": "",
+        },
+        "line": 4,
+        "message": "Attribute \\"draggable\\" has invalid value \\"\\"",
+        "offset": 70,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 19,
+        "context": Object {
+          "allowed": Array [
+            "true",
+            "false",
+          ],
+          "attribute": "draggable",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 5,
+        "message": "Attribute \\"draggable\\" has invalid value \\"foobar\\"",
+        "offset": 108,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 16,
+        "context": Object {
+          "allowed": Array [],
+          "attribute": "hidden",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 6,
+        "message": "Attribute \\"hidden\\" has invalid value \\"foobar\\"",
+        "offset": 132,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            /-\\?\\\\d\\+/,
+          ],
+          "attribute": "tabindex",
+          "element": "input",
+          "value": "",
+        },
+        "line": 7,
+        "message": "Attribute \\"tabindex\\" has invalid value \\"\\"",
+        "offset": 142,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 18,
+        "context": Object {
+          "allowed": Array [
+            /-\\?\\\\d\\+/,
+          ],
+          "attribute": "tabindex",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 8,
+        "message": "Attribute \\"tabindex\\" has invalid value \\"foobar\\"",
+        "offset": 178,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<input contenteditable=\\"foobar\\">
+<input dir=\\"\\">
+<input dir=\\"foobar\\">
+<input draggable=\\"\\">
+<input draggable=\\"foobar\\">
+<input hidden=\\"foobar\\">
+<input tabindex=\\"\\">
+<input tabindex=\\"foobar\\">
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements global attributes valid markup 1`] = `Array []`;
