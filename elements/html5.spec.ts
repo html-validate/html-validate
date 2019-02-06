@@ -1,5 +1,5 @@
-import HtmlValidate from "./htmlvalidate";
-import "./matchers";
+import HtmlValidate from "../src/htmlvalidate";
+import "../src/matchers";
 
 const fileDirectory = "test-files/elements";
 const tagNames = [
