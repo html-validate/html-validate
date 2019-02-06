@@ -120,8 +120,9 @@
       "html"
     ],
     "roots": [
-      "<rootDir>/src",
-      "<rootDir>/docs"
+      "<rootDir>/docs",
+      "<rootDir>/elements",
+      "<rootDir>/src"
     ],
     "snapshotSerializers": [
       "pretty-format/build/plugins/convert_ansi.js"

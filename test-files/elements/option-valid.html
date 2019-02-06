@@ -1,0 +1,23 @@
+<!-- should be allowed under select -->
+<select>
+	<option>foo</option>
+</select>
+
+<!-- should be allowed under optgroup -->
+<select>
+	<optgroup>
+		<option>foo</option>
+	</optgroup>
+</select>
+
+<!-- should be allowed under datalist -->
+<datalist>
+	<option>foo</option>
+</datalist>
+
+<!-- should be allow optional end tag -->
+<select>
+	<option>foo
+	<option>bar
+	<option>baz
+</select>

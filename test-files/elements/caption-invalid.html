@@ -1,0 +1,11 @@
+<!-- should only allow <table> parent -->
+<div>
+	<caption>foo</caption>
+</div>
+
+<!-- should not allow nested table -->
+<table>
+	<caption>
+		<table></table>
+	</caption>
+</table>

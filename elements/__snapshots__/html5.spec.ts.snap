@@ -1,0 +1,5344 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HTML elements <a> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 4,
+    "filePath": "test-files/elements/a-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 11,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <span>",
+        "offset": 41,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 5,
+        "context": undefined,
+        "line": 5,
+        "message": "Element <button> is not permitted as descendant of <a>",
+        "offset": 133,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 11,
+        "context": undefined,
+        "line": 6,
+        "message": "Element <button> is not permitted as descendant of <a>",
+        "offset": 181,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 11,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <a> is not permitted as descendant of <a>",
+        "offset": 271,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<!-- should be transparent -->
+<span><a><div>foo</div></a></span>
+
+<!-- should not allow interactive as content or descendant-->
+<a><button type=\\"button\\">foo</button></a>
+<a><span><button type=\\"button\\">foo</button></span></a>
+
+<!-- should not allow nesting -->
+<a><span><a>foo</a></span></a>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <a> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <abbr> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/abbr-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 8,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <abbr>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<abbr><div>foo</div></abbr>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <abbr> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <acronym> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/acronym-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<acronym> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 7,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<acronym title=\\"foobar\\">FB</acronym>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <acronym> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <address> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 5,
+    "filePath": "test-files/elements/address-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 11,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <h1> is not permitted as descendant of <address>",
+        "offset": 55,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 16,
+        "context": undefined,
+        "line": 5,
+        "message": "Element <article> is not permitted as descendant of <address>",
+        "offset": 146,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 16,
+        "context": undefined,
+        "line": 8,
+        "message": "Element <header> is not permitted as descendant of <address>",
+        "offset": 259,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 16,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <footer> is not permitted as descendant of <address>",
+        "offset": 310,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 16,
+        "context": undefined,
+        "line": 12,
+        "message": "Element <address> is not permitted as descendant of <address>",
+        "offset": 396,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 7,
+      },
+    ],
+    "source": "<!-- should not allow heading as content -->
+<address><h1>foo</h1></address>
+
+<!-- should not allow sectioning as descendant-- -->
+<address><div><article>foo</article></div></address>
+
+<!-- should not allow header or footer as descendant-- -->
+<address><div><header>foo</header></div></address>
+<address><div><footer>foo</footer></div></address>
+
+<!-- should not allow nesting -->
+<address><div><address>foo</address></div></address>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <address> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <applet> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/applet-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<applet> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<applet></applet>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <applet> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <area> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 4,
+    "filePath": "test-files/elements/area-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 14,
+        "context": undefined,
+        "line": 6,
+        "message": "End tag for <area> must be omitted",
+        "offset": 101,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 8,
+        "context": undefined,
+        "line": 11,
+        "message": "End tag for <area> must be omitted",
+        "offset": 173,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 3,
+        "context": Object {
+          "allowed": Array [
+            "rect",
+            "circle",
+            "poly",
+          ],
+          "attribute": "shape",
+          "element": "area",
+          "value": "",
+        },
+        "line": 14,
+        "message": "Attribute \\"shape\\" has invalid value \\"\\"",
+        "offset": 221,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 15,
+        "context": Object {
+          "allowed": Array [
+            "rect",
+            "circle",
+            "poly",
+          ],
+          "attribute": "shape",
+          "element": "area",
+          "value": "foobar",
+        },
+        "line": 15,
+        "message": "Attribute \\"shape\\" has invalid value \\"foobar\\"",
+        "offset": 250,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- should require <map> ancestor -->
+<area>
+
+<map>
+	<!-- should not allow end tag -->
+	<area></area>
+
+	<!-- should not allow content -->
+	<area>
+		<span>foo</span>
+	</area>
+
+	<!-- should not allow shape attribute -->
+	<area shape=\\"\\">
+	<area shape=\\"foobar\\">
+</map>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <area> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <article> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/article-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <main> is not permitted as descendant of <article>",
+        "offset": 77,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<!-- should disallow <main> as descendant (HTML 5.0) -->
+<article>
+	<div>
+		<main>foo</main>
+	</div>
+</article>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <article> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <aside> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/aside-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <main> is not permitted as descendant of <aside>",
+        "offset": 75,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<!-- should disallow <main> as descendant (HTML 5.0) -->
+<aside>
+	<div>
+		<main>foo</main>
+	</div>
+</aside>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <aside> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <audio> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 7,
+    "filePath": "test-files/elements/audio-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <audio> is not permitted as descendant of <audio>",
+        "offset": 66,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <video> is not permitted as descendant of <audio>",
+        "offset": 83,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 15,
+        "context": undefined,
+        "line": 8,
+        "message": "Element <div> is not permitted as content in <span>",
+        "offset": 153,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 13,
+        "message": "Element <source> must be used before <div> in this context",
+        "offset": 259,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 17,
+        "message": "Element <track> must be used before <div> in this context",
+        "offset": 309,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 22,
+        "message": "Element <audio> is not permitted as descendant of <button>",
+        "offset": 456,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 17,
+        "context": Object {
+          "allowed": Array [
+            "",
+            "none",
+            "metadata",
+            "auto",
+          ],
+          "attribute": "preload",
+          "element": "audio",
+          "value": "foobar",
+        },
+        "line": 26,
+        "message": "Attribute \\"preload\\" has invalid value \\"foobar\\"",
+        "offset": 557,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- should not allow <audio> or <video> descendant -->
+<audio>
+	<audio></audio>
+	<video></video>
+</audio>
+
+<!-- should be transparent -->
+<span><audio><div>foo</div></audio></span>
+
+<!-- should now allow children in wrong order -->
+<audio>
+	<div>foo</div>
+	<source>
+</audio>
+<audio src=\\"\\">
+	<div>foo</div>
+	<track>
+</audio>
+
+<!-- should be interactive if missing controls attribute (and thus not allowed as content in button) -->
+<button type=\\"button\\">
+	<audio controls=\\"foo\\"></audio>
+</button>
+
+<!-- should not allow preload attribute -->
+<audio preload=\\"foobar\\"></audio>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <audio> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <b> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/b-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 5,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <b>",
+        "offset": 43,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<b><div>foo</div></b>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <b> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <base> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/base-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <base> is not permitted as content in <div>",
+        "offset": 54,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 13,
+        "context": undefined,
+        "line": 7,
+        "message": "End tag for <base> must be omitted",
+        "offset": 114,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<!-- should not be allowed outside <head> -->
+<div>
+	<base>
+</div>
+
+<!-- should not allow end tag -->
+<base></base>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <base> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <basefont> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/basefont-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<basefont> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 8,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<basefont></basefont>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <basefont> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <bdi> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/bdi-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 7,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <bdi>",
+        "offset": 45,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<bdi><div>foo</div></bdi>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <bdi> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <bdo> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/bdo-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 7,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <bdo>",
+        "offset": 45,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<bdo><div>foo</div></bdo>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <bdo> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <bgsound> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/bgsound-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<bgsound> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 7,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<bgsound></bgsound>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <bgsound> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <big> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/big-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<big> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<big></big>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <big> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <blink> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/blink-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<blink> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<blink></blink>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <blink> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <blockquote> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/blockquote-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 8,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <blockquote> is not permitted as content in <span>",
+        "offset": 49,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 10,
+      },
+    ],
+    "source": "<!-- should now allow phrasing parent -->
+<span><blockquote>foo</blockquote></span>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <blockquote> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <body> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/body-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <body> is not permitted as content in <div>",
+        "offset": 60,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<!-- should not be allowed under other elements -->
+<div>
+	<body></body>
+</div>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <body> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <br> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/br-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 9,
+        "context": undefined,
+        "line": 2,
+        "message": "End tag for <br> must be omitted",
+        "offset": 42,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<!-- should not allow end tag -->
+<br></br>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <br> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <button> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 6,
+    "filePath": "test-files/elements/button-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 24,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <button>",
+        "offset": 65,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 24,
+        "context": undefined,
+        "line": 5,
+        "message": "Element <a> is not permitted as descendant of <button>",
+        "offset": 174,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 30,
+        "context": undefined,
+        "line": 6,
+        "message": "Element <a> is not permitted as descendant of <button>",
+        "offset": 222,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 30,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <button> is not permitted as descendant of <button>",
+        "offset": 312,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 15,
+        "context": Object {
+          "allowed": Array [
+            "submit",
+            "reset",
+            "button",
+          ],
+          "attribute": "type",
+          "element": "button",
+          "value": "foobar",
+        },
+        "line": 12,
+        "message": "Attribute \\"type\\" has invalid value \\"foobar\\"",
+        "offset": 411,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 15,
+        "context": undefined,
+        "line": 12,
+        "message": "Button has invalid type \\"foobar\\"",
+        "offset": 411,
+        "ruleId": "button-type",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- should not allow flow as content -->
+<button type=\\"button\\"><div>foo</div></button>
+
+<!-- should not allow interactive as content or descendant-->
+<button type=\\"button\\"><a>foo</a></button>
+<button type=\\"button\\"><span><a>foo</a></span></button>
+
+<!-- should not allow nesting -->
+<button type=\\"button\\"><span><button type=\\"button\\">foo</button></span></button>
+
+<!-- disallowed type variants -->
+<button type=\\"foobar\\"></button>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <button> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <canvas> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/canvas-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 16,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <span>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should be transparent -->
+<span><canvas><div>foo</div></canvas></span>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <canvas> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <caption> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/caption-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <caption> is not permitted as content in <div>",
+        "offset": 50,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <table> is not permitted as descendant of <caption>",
+        "offset": 141,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<!-- should only allow <table> parent -->
+<div>
+	<caption>foo</caption>
+</div>
+
+<!-- should not allow nested table -->
+<table>
+	<caption>
+		<table></table>
+	</caption>
+</table>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <caption> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <center> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/center-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<center> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<center></center>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <center> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <cite> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/cite-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 8,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <cite>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<cite><div>foo</div></cite>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <cite> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <code> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/code-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 8,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <code>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<code><div>foo</div></code>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <code> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <col> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/col-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <col> is not permitted as content in <div>",
+        "offset": 59,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 13,
+        "context": undefined,
+        "line": 9,
+        "message": "End tag for <col> must be omitted",
+        "offset": 138,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<!-- should not be allowed under other content -->
+<div>
+	<col>
+</div>
+
+<!-- should not allow end tag -->
+<table>
+	<colgroup>
+		<col></col>
+	</colgroup>
+</table>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <col> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <colgroup> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 4,
+    "filePath": "test-files/elements/colgroup-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <colgroup> is not permitted as content in <div>",
+        "offset": 66,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 8,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <span> is not permitted as content in <colgroup>",
+        "offset": 164,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 16,
+        "message": "Element <caption> must be used before <colgroup> in this context",
+        "offset": 290,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 22,
+        "message": "Element <colgroup> must be used before <thead> in this context",
+        "offset": 400,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 8,
+      },
+    ],
+    "source": "<!-- should not allow <colgroup> under other elements -->
+<div>
+	<colgroup></colgroup>
+</div>
+
+<!-- should not allow phrasing as content -->
+<table>
+	<colgroup>
+		<span>foo</span>
+	</colgroup>
+</table>
+
+<!-- should not allow <colgroup> before <caption> -->
+<table>
+	<colgroup></colgroup>
+	<caption>foo</caption>
+</table>
+
+<!-- should not allow <colgroup> after <thead> -->
+<table>
+	<thead></thead>
+	<colgroup></colgroup>
+</table>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <colgroup> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <data> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/data-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 8,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <data>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<data><div>foo</div></data>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <data> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <datalist> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/datalist-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 12,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <datalist>",
+        "offset": 50,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<datalist><div>foo</div></datalist>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <datalist> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <dd> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/dd-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <dd> is not permitted as content in <div>",
+        "offset": 57,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<!-- should not be allowed in other elements -->
+<div>
+	<dd>foo</dd>
+</div>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <dd> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <del> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/del-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 13,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <span>",
+        "offset": 43,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should be transparent -->
+<span><del><div>foo</div></del></span>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <del> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <dfn> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/dfn-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 7,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <dfn>",
+        "offset": 45,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 10,
+        "context": undefined,
+        "line": 5,
+        "message": "Element <dfn> is not permitted as descendant of <dfn>",
+        "offset": 109,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<dfn><div>foo</div></dfn>
+
+<!-- should not allow nesting -->
+<dfn>foo<dfn>bar</dfn>baz</dfn>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <dfn> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <dir> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/dir-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<dir> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<dir></dir>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <dir> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <div> invalid markup 1`] = `Array []`;
+
+exports[`HTML elements <div> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <dl> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/dl-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <dl>",
+        "offset": 51,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <span> is not permitted as content in <dl>",
+        "offset": 64,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<!-- should not allow arbirtary content -->
+<dl>
+	<div></div>
+	<span></span>
+</dl>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <dl> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <dt> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 5,
+    "filePath": "test-files/elements/dt-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <dt> is not permitted as content in <div>",
+        "offset": 52,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <header> is not permitted as descendant of <dt>",
+        "offset": 146,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 10,
+        "message": "Element <footer> is not permitted as descendant of <dt>",
+        "offset": 166,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 11,
+        "message": "Element <article> is not permitted as descendant of <dt>",
+        "offset": 186,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 12,
+        "message": "Element <h1> is not permitted as descendant of <dt>",
+        "offset": 208,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<!-- should not be allowed outside <dl> -->
+<div>
+	<dt></dt>
+</div>
+
+<!-- should not allow sectioning, header, header or footer -->
+<dl>
+	<dt>
+		<header></header>
+		<footer></footer>
+		<article></article>
+		<h1></h1>
+	</dt>
+</dl>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <dt> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <em> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/em-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 6,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <em>",
+        "offset": 44,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<em><div>foo</div></em>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <em> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <embed> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/embed-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 15,
+        "context": undefined,
+        "line": 2,
+        "message": "End tag for <embed> must be omitted",
+        "offset": 61,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<!-- should not be allowed to have end tag -->
+<embed></embed>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <embed> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <fieldset> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/fieldset-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <legend> must be used before <div> in this context",
+        "offset": 92,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- should not allow legend and flow content out-of-order -->
+<fieldset>
+	<div>bar</div>
+	<legend>foo</legend>
+</fieldset>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <fieldset> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <figcaption> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/figcaption-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <figcaption> is not permitted as content in <div>",
+        "offset": 56,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 10,
+      },
+    ],
+    "source": "<!-- should not be allowed outside <figure> -->
+<div>
+	<figcaption></figcaption>
+</div>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <figcaption> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <figure> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/figure-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <figcaption> can only appear once under <figure>",
+        "offset": 84,
+        "ruleId": "element-permitted-occurrences",
+        "severity": 2,
+        "size": 10,
+      },
+    ],
+    "source": "<!-- should not allow multiple figcaption -->
+<figure>
+	<figcaption></figcaption>
+	<figcaption></figcaption>
+</figure>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <figure> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <font> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/font-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<font> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<font></font>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <font> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <footer> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/elements/footer-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <header> is not permitted as descendant of <footer>",
+        "offset": 80,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <main> is not permitted as descendant of <footer>",
+        "offset": 102,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 5,
+        "message": "Element <footer> is not permitted as descendant of <footer>",
+        "offset": 120,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- should not allow <header>, <main> or <footer> as descendant -->
+<footer>
+	<header>foo</header>
+	<main>bar</main>
+	<footer>baz</footer>
+</footer>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <footer> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <form> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/form-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <form> is not permitted as descendant of <form>",
+        "offset": 43,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<!-- should not allow nesting -->
+<form>
+	<form></form>
+</form>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <form> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <frame> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/frame-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<frame> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<frame></frame>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <frame> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <frameset> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/frameset-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<frameset> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 8,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<frameset></frameset>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <frameset> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <h1> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/h1-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <h1>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<h1>
+	<div></div>
+</h1>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <h1> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <h2> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/h2-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <h2>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<h2>
+	<div></div>
+</h2>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <h2> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <h3> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/h3-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <h3>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<h3>
+	<div></div>
+</h3>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <h3> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <h4> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/h4-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <h4>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<h4>
+	<div></div>
+</h4>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <h4> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <h5> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/h5-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <h5>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<h5>
+	<div></div>
+</h5>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <h5> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <h6> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/h6-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <h6>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<h6>
+	<div></div>
+</h6>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <h6> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <head> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 5,
+    "filePath": "test-files/elements/head-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <head> is not permitted as content in <div>",
+        "offset": 54,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <div> is not permitted as content in <head>",
+        "offset": 136,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 10,
+        "message": "Element <span> is not permitted as content in <head>",
+        "offset": 150,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 18,
+        "message": "Element <base> can only appear once under <head>",
+        "offset": 247,
+        "ruleId": "element-permitted-occurrences",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 26,
+        "message": "Element <title> can only appear once under <head>",
+        "offset": 346,
+        "ruleId": "element-permitted-occurrences",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<!-- should not be allowed outside <html> -->
+<div>
+	<head></head>
+</div>
+
+<!-- should not allow flow or phrasing -->
+<html>
+	<head>
+		<div></div>
+		<span></span>
+	</head>
+</html>
+
+<!-- should only allow <base> once -->
+<html>
+	<head>
+		<base>
+		<base>
+	</head>
+</html>
+
+<!-- should only allow <titl> once -->
+<html>
+	<head>
+		<title></title>
+		<title></title>
+	</head>
+</html>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <head> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <header> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/elements/header-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <header> is not permitted as descendant of <header>",
+        "offset": 80,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <main> is not permitted as descendant of <header>",
+        "offset": 102,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 5,
+        "message": "Element <footer> is not permitted as descendant of <header>",
+        "offset": 120,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- should not allow <header>, <main> or <footer> as descendant -->
+<header>
+	<header>foo</header>
+	<main>bar</main>
+	<footer>baz</footer>
+</header>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <header> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <hgroup> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/hgroup-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<hgroup> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<hgroup></hgroup>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <hgroup> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <hr> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/hr-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 9,
+        "context": undefined,
+        "line": 2,
+        "message": "End tag for <hr> must be omitted",
+        "offset": 42,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 8,
+        "context": undefined,
+        "line": 5,
+        "message": "Element <hr> is not permitted as content in <span>",
+        "offset": 98,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<!-- should not allow end tag -->
+<hr></hr>
+
+<!-- should not be allowed under phrasing -->
+<span><hr></span>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <hr> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <html> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/elements/html-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <head> can only appear once under <html>",
+        "offset": 64,
+        "ruleId": "element-permitted-occurrences",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 10,
+        "message": "Element <body> can only appear once under <html>",
+        "offset": 150,
+        "ruleId": "element-permitted-occurrences",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 16,
+        "message": "Element <head> must be used before <body> in this context",
+        "offset": 239,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<!-- should not allow multiple head -->
+<html>
+	<head></head>
+	<head></head>
+</html>
+
+<!-- should not allow multiple body -->
+<html>
+	<body></body>
+	<body></body>
+</html>
+
+<!-- should not allow body before head -->
+<html>
+	<body></body>
+	<head></head>
+</html>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <html> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <i> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/i-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 5,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <i>",
+        "offset": 43,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<i><div>foo</div></i>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <i> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <iframe> invalid markup 1`] = `Array []`;
+
+exports[`HTML elements <iframe> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <img> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/img-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 11,
+        "context": undefined,
+        "line": 2,
+        "message": "End tag for <img> must be omitted",
+        "offset": 44,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 6,
+        "message": "Element <img> is not permitted as descendant of <button>",
+        "offset": 120,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow end tag -->
+<img></img>
+
+<!-- should be interactive if usemap is set -->
+<button type=\\"button\\">
+	<img usemap>
+</button>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <img> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <input> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 12,
+    "filePath": "test-files/elements/input-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 15,
+        "context": undefined,
+        "line": 2,
+        "message": "End tag for <input> must be omitted",
+        "offset": 48,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 19,
+        "context": Object {
+          "allowed": Array [],
+          "attribute": "autofocus",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 5,
+        "message": "Attribute \\"autofocus\\" has invalid value \\"foobar\\"",
+        "offset": 106,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 17,
+        "context": Object {
+          "allowed": Array [],
+          "attribute": "capture",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 6,
+        "message": "Attribute \\"capture\\" has invalid value \\"foobar\\"",
+        "offset": 131,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 17,
+        "context": Object {
+          "allowed": Array [],
+          "attribute": "checked",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 7,
+        "message": "Attribute \\"checked\\" has invalid value \\"foobar\\"",
+        "offset": 156,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 18,
+        "context": Object {
+          "allowed": Array [],
+          "attribute": "disabled",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 8,
+        "message": "Attribute \\"disabled\\" has invalid value \\"foobar\\"",
+        "offset": 182,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 18,
+        "context": Object {
+          "allowed": Array [],
+          "attribute": "multiple",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 9,
+        "message": "Attribute \\"multiple\\" has invalid value \\"foobar\\"",
+        "offset": 208,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 18,
+        "context": Object {
+          "allowed": Array [],
+          "attribute": "readonly",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 10,
+        "message": "Attribute \\"readonly\\" has invalid value \\"foobar\\"",
+        "offset": 234,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 18,
+        "context": Object {
+          "allowed": Array [],
+          "attribute": "required",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 11,
+        "message": "Attribute \\"required\\" has invalid value \\"foobar\\"",
+        "offset": 260,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 19,
+        "context": Object {
+          "allowed": Array [
+            "none",
+            "text",
+            "decimal",
+            "numeric",
+            "tel",
+            "search",
+            "email",
+            "url",
+          ],
+          "attribute": "inputmode",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 12,
+        "message": "Attribute \\"inputmode\\" has invalid value \\"foobar\\"",
+        "offset": 287,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 14,
+        "context": Object {
+          "allowed": Array [
+            "button",
+            "checkbox",
+            "color",
+            "date",
+            "datetime-local",
+            "email",
+            "file",
+            "hidden",
+            "image",
+            "month",
+            "number",
+            "password",
+            "radio",
+            "range",
+            "reset",
+            "search",
+            "submit",
+            "tel",
+            "text",
+            "time",
+            "url",
+            "week",
+          ],
+          "attribute": "type",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 13,
+        "message": "Attribute \\"type\\" has invalid value \\"foobar\\"",
+        "offset": 309,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 20,
+        "context": Object {
+          "allowed": Array [
+            "default",
+            "false",
+            "true",
+          ],
+          "attribute": "spellcheck",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 14,
+        "message": "Attribute \\"spellcheck\\" has invalid value \\"foobar\\"",
+        "offset": 337,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 18,
+        "message": "Element <input> is not permitted as descendant of <button>",
+        "offset": 426,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<!-- should not allow end tag -->
+<input></input>
+
+<!-- should not allow attributes -->
+<input autofocus=\\"foobar\\">
+<input capture=\\"foobar\\">
+<input checked=\\"foobar\\">
+<input disabled=\\"foobar\\">
+<input multiple=\\"foobar\\">
+<input readonly=\\"foobar\\">
+<input required=\\"foobar\\">
+<input inputmode=\\"foobar\\">
+<input type=\\"foobar\\">
+<input spellcheck=\\"foobar\\">
+
+<!-- should be interactive when type isn't hidden -->
+<button type=\\"button\\">
+	<input type=\\"text\\">
+</button>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <input> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <ins> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/ins-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 13,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <span>",
+        "offset": 43,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should be transparent -->
+<span><ins><div>foo</div></ins></span>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <ins> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <isindex> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/isindex-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<isindex> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 7,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<isindex></isindex>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <isindex> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <kbd> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/kbd-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 7,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <kbd>",
+        "offset": 45,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<kbd><div>foo</div></kbd>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <kbd> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <keygen> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/keygen-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 17,
+        "context": undefined,
+        "line": 2,
+        "message": "End tag for <keygen> must be omitted",
+        "offset": 45,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<!-- should omit end tag -->
+<keygen></keygen>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <keygen> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <label> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/label-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <label>",
+        "offset": 41,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 8,
+        "message": "Element <label> is not permitted as descendant of <label>",
+        "offset": 109,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<!-- should not allow flow -->
+<label>
+	<div>foo</div>
+</label>
+
+<!-- should not allow nesting -->
+<label>
+	<label>foo</label>
+</label>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <label> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <legend> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/legend-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <legend> is not permitted as content in <div>",
+        "offset": 55,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <div> is not permitted as content in <legend>",
+        "offset": 138,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow under other elements -->
+<div>
+	<legend>foo</legend>
+</div>
+
+<!-- should not allow flow -->
+<fieldset>
+	<legend>
+		<div>foo</div>
+	</legend>
+</fieldset>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <legend> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <li> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/li-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <li> is not permitted as content in <div>",
+        "offset": 55,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<!-- should not allow under other elements -->
+<div>
+	<li>foo</li>
+</div>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <li> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <link> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/link-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 13,
+        "context": undefined,
+        "line": 2,
+        "message": "End tag for <link> must be omitted",
+        "offset": 46,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<!-- should not allow end tag -->
+<link></link>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <link> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <listing> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/listing-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<listing> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 7,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<listing></listing>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <listing> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <main> invalid markup 1`] = `Array []`;
+
+exports[`HTML elements <main> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <map> invalid markup 1`] = `Array []`;
+
+exports[`HTML elements <map> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <mark> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/mark-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 8,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <mark>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<mark><div>foo</div></mark>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <mark> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <marquee> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/marquee-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<marquee> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 7,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<marquee></marquee>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <marquee> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <math> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 6,
+    "filePath": "test-files/elements/math-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            "ltr",
+            "rtl",
+            "ltr",
+            "rtl",
+            "auto",
+          ],
+          "attribute": "dir",
+          "element": "math",
+          "value": "",
+        },
+        "line": 2,
+        "message": "Attribute \\"dir\\" has invalid value \\"\\"",
+        "offset": 32,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 12,
+        "context": Object {
+          "allowed": Array [
+            "ltr",
+            "rtl",
+            "ltr",
+            "rtl",
+            "auto",
+          ],
+          "attribute": "dir",
+          "element": "math",
+          "value": "foobar",
+        },
+        "line": 3,
+        "message": "Attribute \\"dir\\" has invalid value \\"foobar\\"",
+        "offset": 60,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            "block",
+            "inline",
+          ],
+          "attribute": "display",
+          "element": "math",
+          "value": "",
+        },
+        "line": 4,
+        "message": "Attribute \\"display\\" has invalid value \\"\\"",
+        "offset": 77,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 16,
+        "context": Object {
+          "allowed": Array [
+            "block",
+            "inline",
+          ],
+          "attribute": "display",
+          "element": "math",
+          "value": "foobar",
+        },
+        "line": 5,
+        "message": "Attribute \\"display\\" has invalid value \\"foobar\\"",
+        "offset": 113,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            "linebreak",
+            "scroll",
+            "elide",
+            "truncate",
+            "scale",
+          ],
+          "attribute": "overflow",
+          "element": "math",
+          "value": "",
+        },
+        "line": 6,
+        "message": "Attribute \\"overflow\\" has invalid value \\"\\"",
+        "offset": 130,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 17,
+        "context": Object {
+          "allowed": Array [
+            "linebreak",
+            "scroll",
+            "elide",
+            "truncate",
+            "scale",
+          ],
+          "attribute": "overflow",
+          "element": "math",
+          "value": "foobar",
+        },
+        "line": 7,
+        "message": "Attribute \\"overflow\\" has invalid value \\"foobar\\"",
+        "offset": 168,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- disallowed attributes -->
+<math dir></math>
+<math dir=\\"foobar\\"></math>
+<math display></math>
+<math display=\\"foobar\\"></math>
+<math overflow></math>
+<math overflow=\\"foobar\\"></math>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <math> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <meta> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/meta-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 13,
+        "context": undefined,
+        "line": 2,
+        "message": "End tag for <meta> must be omitted",
+        "offset": 41,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<!-- should omit end tag -->
+<meta></meta>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <meta> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <meter> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/meter-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <meter>",
+        "offset": 41,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 8,
+        "message": "Element <meter> is not permitted as descendant of <meter>",
+        "offset": 109,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<!-- should not allow flow -->
+<meter>
+	<div>foo</div>
+</meter>
+
+<!-- should not allow nesting -->
+<meter>
+	<meter></meter>
+</meter>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <meter> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <multicol> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/multicol-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<multicol> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 8,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<multicol></multicol>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <multicol> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <nav> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/nav-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <main> is not permitted as descendant of <nav>",
+        "offset": 66,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<!-- should not allow <main> as descendant (HTML 5.0) -->
+<nav>
+	<main>bar</main>
+</nav>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <nav> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <nextid> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/nextid-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<nextid> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<nextid></nextid>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <nextid> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <nobr> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/nobr-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<nobr> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<nobr></nobr>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <nobr> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <noembed> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/noembed-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<noembed> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 7,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<noembed></noembed>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <noembed> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <noframes> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/noframes-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<noframes> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 8,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<noframes></noframes>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <noframes> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <noscript> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/noscript-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <noscript> is not permitted as descendant of <noscript>",
+        "offset": 47,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 8,
+      },
+    ],
+    "source": "<!-- should not allow nesting -->
+<noscript>
+	<noscript></noscript>
+</noscript>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <noscript> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <object> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/elements/object-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <div> is not permitted as content in <span>",
+        "offset": 51,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 11,
+        "message": "Element <param> must be used before <div> in this context",
+        "offset": 155,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 16,
+        "message": "Element <object> is not permitted as descendant of <button>",
+        "offset": 246,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- should be transparent -->
+<span>
+	<object>
+		<div>foo</div>
+	</object>
+</span>
+
+<!-- should not allow flow before <param> -->
+<object>
+	<div></div>
+	<param>
+</object>
+
+<!-- should be interactive if usemap is set -->
+<button type=\\"button\\">
+	<object usemap></object>
+</button>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <object> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <ol> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/ol-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <ol>",
+        "offset": 47,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow other content -->
+<ol>
+	<div>foo</div>
+</ol>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <ol> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <optgroup> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/optgroup-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <div> is not permitted as content in <optgroup>",
+        "offset": 64,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow other content -->
+<select>
+	<optgroup>
+		<div>foo</div>
+	</optgroup>
+</select>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <optgroup> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <option> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/elements/option-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <option> is not permitted as content in <div>",
+        "offset": 59,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <span> is not permitted as content in <option>",
+        "offset": 152,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 10,
+        "message": "Element <div> is not permitted as content in <option>",
+        "offset": 171,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not be allowed under other content -->
+<div>
+	<option>foo</option>
+</div>
+
+<!-- should not allow flow or phrasing -->
+<select>
+	<option>
+		<span>foo</span>
+		<div>bar</div>
+	</option>
+</select>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <option> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <output> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/output-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <output>",
+        "offset": 42,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow -->
+<output>
+	<div>foo</div>
+</output>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <output> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <p> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/p-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <figure> is not permitted as content in <p>",
+        "offset": 45,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<p>
+	<figure>foo</figure>
+</p>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <p> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <param> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/param-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 15,
+        "context": undefined,
+        "line": 2,
+        "message": "End tag for <param> must be omitted",
+        "offset": 43,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 6,
+        "message": "Element <param> is not permitted as content in <div>",
+        "offset": 106,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<!-- should omit end tag -->
+<param></param>
+
+<!-- should not be allowed under other elements -->
+<div>
+	<param>
+</div>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <param> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <plaintext> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/plaintext-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<plaintext> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 9,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<plaintext></plaintext>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <plaintext> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <pre> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/pre-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <pre>",
+        "offset": 47,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<pre>
+	<div>foo</div>
+</pre>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <pre> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <progress> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/progress-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <progress>",
+        "offset": 52,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 8,
+        "message": "Element <progress> is not permitted as descendant of <progress>",
+        "offset": 126,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 8,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<progress>
+	<div>foo</div>
+</progress>
+
+<!-- should not allow nesting -->
+<progress>
+	<progress></progress>
+</progress>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <progress> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <q> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/q-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 5,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <q>",
+        "offset": 43,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<q><div>foo</div></q>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <q> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <rb> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/rb-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <rb> is not permitted as content in <div>",
+        "offset": 59,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <div> is not permitted as content in <rb>",
+        "offset": 131,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not be allowed under other content -->
+<div>
+	<rb></rb>
+</div>
+
+<!-- should not allow flow content -->
+<ruby>
+	<rb>
+		<div>foo</div>
+	</rb>
+</ruby>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <rb> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <rp> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/rp-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <rp> is not permitted as content in <div>",
+        "offset": 59,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <div> is not permitted as content in <rp>",
+        "offset": 131,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not be allowed under other content -->
+<div>
+	<rp></rp>
+</div>
+
+<!-- should not allow flow content -->
+<ruby>
+	<rp>
+		<div>foo</div>
+	</rp>
+</ruby>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <rp> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <rt> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/rt-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <rt> is not permitted as content in <div>",
+        "offset": 59,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <div> is not permitted as content in <rt>",
+        "offset": 131,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not be allowed under other content -->
+<div>
+	<rt></rt>
+</div>
+
+<!-- should not allow flow content -->
+<ruby>
+	<rt>
+		<div>foo</div>
+	</rt>
+</ruby>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <rt> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <rtc> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/rtc-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <rtc> is not permitted as content in <div>",
+        "offset": 59,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <div> is not permitted as content in <rtc>",
+        "offset": 134,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not be allowed under other content -->
+<div>
+	<rtc></rtc>
+</div>
+
+<!-- should not allow flow content -->
+<ruby>
+	<rtc>
+		<div>foo</div>
+	</rtc>
+</ruby>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <rtc> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <ruby> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/ruby-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 8,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <ruby>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<ruby><div>foo</div></ruby>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <ruby> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <s> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/s-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 5,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <s>",
+        "offset": 43,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<s><div>foo</div></s>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <s> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <samp> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/samp-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 8,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <samp>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<samp><div>foo</div></samp>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <samp> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <script> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/script-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 8,
+        "context": undefined,
+        "line": 2,
+        "message": "End tag for <script> must not be omitted",
+        "offset": 196,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 9,
+        "line": 3,
+        "message": "failed to tokenize \\"\\\\n\\", expected </script>.",
+        "offset": 207,
+        "ruleId": undefined,
+        "severity": 2,
+        "size": 0,
+      },
+    ],
+    "source": "<!-- must not omit end tag in any way, because the way the scripttag is tokenized both according to spec and this tool it must explicitly be ended with </>. Dragons ahead if not obeyed -->
+<script/>
+<script>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <script> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <section> invalid markup 1`] = `Array []`;
+
+exports[`HTML elements <section> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <select> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/select-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <span> is not permitted as content in <select>",
+        "offset": 55,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <div> is not permitted as content in <select>",
+        "offset": 73,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow arbitrary content -->
+<select>
+	<span>foo</span>
+	<div>bar</div>
+</select>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <select> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <small> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/small-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 9,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <small>",
+        "offset": 47,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<small><div>foo</div></small>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <small> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <source> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/source-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 18,
+        "context": undefined,
+        "line": 3,
+        "message": "End tag for <source> must be omitted",
+        "offset": 54,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 8,
+        "message": "Element <source> is not permitted as content in <div>",
+        "offset": 125,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- should omit end tag -->
+<audio>
+	<source></source>
+</audio>
+
+<!-- should not be allowed under other content -->
+<div>
+	<source>
+</div>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <source> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <spacer> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/spacer-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<spacer> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<spacer></spacer>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <spacer> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <span> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/span-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 8,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <span>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<span><div>foo</div></span>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <span> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <strike> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/strike-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<strike> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<strike></strike>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <strike> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <strong> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/strong-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 10,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <strong>",
+        "offset": 48,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<strong><div>foo</div></strong>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <strong> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <style> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/style-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <span> is not permitted as content in <style>",
+        "offset": 41,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <div> is not permitted as content in <style>",
+        "offset": 59,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow tags -->
+<style>
+	<span>foo</span>
+	<div>bar</div>
+</style>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <style> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <sub> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/sub-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 7,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <sub>",
+        "offset": 45,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<sub><div>foo</div></sub>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <sub> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <sup> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/sup-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 7,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <sup>",
+        "offset": 45,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<sup><div>foo</div></sup>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <sup> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <svg> invalid markup 1`] = `Array []`;
+
+exports[`HTML elements <svg> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <table> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 8,
+    "filePath": "test-files/elements/table-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <span> is not permitted as content in <table>",
+        "offset": 50,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <div> is not permitted as content in <table>",
+        "offset": 68,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 10,
+        "message": "Element <caption> can only appear once under <table>",
+        "offset": 161,
+        "ruleId": "element-permitted-occurrences",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 14,
+        "message": "Element <thead> can only appear once under <table>",
+        "offset": 219,
+        "ruleId": "element-permitted-occurrences",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 18,
+        "message": "Element <tfoot> can only appear once under <table>",
+        "offset": 270,
+        "ruleId": "element-permitted-occurrences",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 24,
+        "message": "Element <caption> must be used before <thead> in this context",
+        "offset": 370,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 28,
+        "message": "Element <thead> must be used before <tbody> in this context",
+        "offset": 428,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 32,
+        "message": "Element <tbody> must be used before <tfoot> in this context",
+        "offset": 479,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<!-- should not allow other content -->
+<table>
+	<span>foo</span>
+	<div>bar</div>
+</table>
+
+<!-- should not allow multiple -->
+<table>
+	<caption>foo</caption>
+	<caption>bar</caption>
+</table>
+<table>
+	<thead></thead>
+	<thead></thead>
+</table>
+<table>
+	<tfoot></tfoot>
+	<tfoot></tfoot>
+</table>
+
+<!-- should not allow elements out-of-order -->
+<table>
+	<thead></thead>
+	<caption>foo</caption>
+</table>
+<table>
+	<tbody></tbody>
+	<thead></thead>
+</table>
+<table>
+	<tfoot></tfoot>
+	<tbody></tbody>
+</table>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <table> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <tbody> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/elements/tbody-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <tbody> is not permitted as content in <div>",
+        "offset": 52,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <span> is not permitted as content in <tbody>",
+        "offset": 135,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 10,
+        "message": "Element <div> is not permitted as content in <tbody>",
+        "offset": 154,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allowed outside <table> -->
+<div>
+	<tbody></tbody>
+</div>
+
+<!-- should not allow other content -->
+<table>
+	<tbody>
+		<span>foo</span>
+		<div>bar</div>
+	</tbody>
+</table>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <tbody> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <td> invalid markup 1`] = `Array []`;
+
+exports[`HTML elements <td> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <textarea> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/textarea-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <span> is not permitted as content in <textarea>",
+        "offset": 44,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <div> is not permitted as content in <textarea>",
+        "offset": 62,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow tags -->
+<textarea>
+	<span>foo</span>
+	<div>bar</div>
+</textarea>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <textarea> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <tfoot> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/elements/tfoot-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <tfoot> is not permitted as content in <div>",
+        "offset": 52,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <span> is not permitted as content in <tfoot>",
+        "offset": 135,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 10,
+        "message": "Element <div> is not permitted as content in <tfoot>",
+        "offset": 154,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allowed outside <table> -->
+<div>
+	<tfoot></tfoot>
+</div>
+
+<!-- should not allow other content -->
+<table>
+	<tfoot>
+		<span>foo</span>
+		<div>bar</div>
+	</tfoot>
+</table>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <tfoot> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <th> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 4,
+    "filePath": "test-files/elements/th-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 5,
+        "context": undefined,
+        "line": 10,
+        "message": "Element <header> is not permitted as descendant of <th>",
+        "offset": 166,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 5,
+        "context": undefined,
+        "line": 11,
+        "message": "Element <footer> is not permitted as descendant of <th>",
+        "offset": 187,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 5,
+        "context": undefined,
+        "line": 12,
+        "message": "Element <article> is not permitted as descendant of <th>",
+        "offset": 208,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 5,
+        "context": undefined,
+        "line": 13,
+        "message": "Element <h1> is not permitted as descendant of <th>",
+        "offset": 231,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<!-- should not be allowed outside <tr> -->
+<div>
+	<th>foo</th>
+</div>
+
+<!-- should not allow <header>, <footer>, sectioning or headings -->
+<table>
+	<tr>
+		<th>
+			<header></header>
+			<footer></footer>
+			<article></article>
+			<h1></h1>
+		</th>
+	</tr>
+</table>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <th> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <thead> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/elements/thead-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <thead> is not permitted as content in <div>",
+        "offset": 52,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <span> is not permitted as content in <thead>",
+        "offset": 135,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 10,
+        "message": "Element <div> is not permitted as content in <thead>",
+        "offset": 154,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allowed outside <table> -->
+<div>
+	<thead></thead>
+</div>
+
+<!-- should not allow other content -->
+<table>
+	<thead>
+		<span>foo</span>
+		<div>bar</div>
+	</thead>
+</table>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <thead> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <time> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/time-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 8,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <time>",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<time><div>foo</div></time>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <time> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <title> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/elements/title-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <title> is not permitted as content in <div>",
+        "offset": 54,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <span> is not permitted as content in <title>",
+        "offset": 143,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 10,
+        "message": "Element <div> is not permitted as content in <title>",
+        "offset": 162,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not be allowed outside <head> -->
+<div>
+	<title>foo</title>
+</div>
+
+<!-- should not allow arbitrary content -->
+<head>
+	<title>
+		<span>foo</span>
+		<div>bar</div>
+	</title>
+</head>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <title> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <tr> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/tr-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <span> is not permitted as content in <tr>",
+        "offset": 61,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 5,
+        "message": "Element <div> is not permitted as content in <tr>",
+        "offset": 80,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow arbitrary content -->
+<table>
+	<tr>
+		<span>foo</span>
+		<div>foo</div>
+	</tr>
+</table>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <tr> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <track> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/track-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 16,
+        "context": undefined,
+        "line": 3,
+        "message": "End tag for <track> must be omitted",
+        "offset": 52,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<!-- should omit end tag -->
+<audio>
+	<track></track>
+</audio>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <track> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <tt> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/tt-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<tt> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<tt></tt>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <tt> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <u> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/u-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 5,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <u>",
+        "offset": 43,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<u><div>foo</div></u>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <u> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <ul> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/ul-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <div> is not permitted as content in <ul>",
+        "offset": 47,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow other content -->
+<ul>
+	<div>foo</div>
+</ul>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <ul> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <var> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/var-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 7,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <div> is not permitted as content in <var>",
+        "offset": 45,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- should not allow flow content -->
+<var><div>foo</div></var>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <var> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <video> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 7,
+    "filePath": "test-files/elements/video-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <audio> is not permitted as descendant of <video>",
+        "offset": 66,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <video> is not permitted as descendant of <video>",
+        "offset": 83,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 15,
+        "context": undefined,
+        "line": 8,
+        "message": "Element <div> is not permitted as content in <span>",
+        "offset": 153,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 13,
+        "message": "Element <source> must be used before <div> in this context",
+        "offset": 259,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 17,
+        "message": "Element <track> must be used before <div> in this context",
+        "offset": 309,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 22,
+        "message": "Element <video> is not permitted as descendant of <button>",
+        "offset": 456,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 17,
+        "context": Object {
+          "allowed": Array [
+            "",
+            "none",
+            "metadata",
+            "auto",
+          ],
+          "attribute": "preload",
+          "element": "video",
+          "value": "foobar",
+        },
+        "line": 26,
+        "message": "Attribute \\"preload\\" has invalid value \\"foobar\\"",
+        "offset": 557,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- should not allow <audio> or <video> descendant -->
+<video>
+	<audio></audio>
+	<video></video>
+</video>
+
+<!-- should be transparent -->
+<span><video><div>foo</div></video></span>
+
+<!-- should now allow children in wrong order -->
+<video>
+	<div>foo</div>
+	<source>
+</video>
+<video src=\\"\\">
+	<div>foo</div>
+	<track>
+</video>
+
+<!-- should be interactive if missing controls attribute (and thus not allowed as content in button) -->
+<button type=\\"button\\">
+	<video controls=\\"foo\\"></video>
+</button>
+
+<!-- should not allow preload attribute -->
+<video preload=\\"foobar\\"></video>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <video> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <wbr> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/wbr-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 11,
+        "context": undefined,
+        "line": 2,
+        "message": "End tag for <wbr> must be omitted",
+        "offset": 39,
+        "ruleId": "void",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<!-- should omit end tag -->
+<wbr></wbr>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <wbr> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <xmp> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/xmp-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<xmp> is deprecated",
+        "offset": 32,
+        "ruleId": "deprecated",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- element is deprecated -->
+<xmp></xmp>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <xmp> valid markup 1`] = `Array []`;
+
+exports[`HTML elements global attributes invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 8,
+    "filePath": "test-files/elements/global-attributes-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 25,
+        "context": Object {
+          "allowed": Array [
+            "",
+            "true",
+            "false",
+          ],
+          "attribute": "contenteditable",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 1,
+        "message": "Attribute \\"contenteditable\\" has invalid value \\"foobar\\"",
+        "offset": 24,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            "ltr",
+            "rtl",
+            "auto",
+          ],
+          "attribute": "dir",
+          "element": "input",
+          "value": "",
+        },
+        "line": 2,
+        "message": "Attribute \\"dir\\" has invalid value \\"\\"",
+        "offset": 34,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 13,
+        "context": Object {
+          "allowed": Array [
+            "ltr",
+            "rtl",
+            "auto",
+          ],
+          "attribute": "dir",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 3,
+        "message": "Attribute \\"dir\\" has invalid value \\"foobar\\"",
+        "offset": 60,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            "true",
+            "false",
+          ],
+          "attribute": "draggable",
+          "element": "input",
+          "value": "",
+        },
+        "line": 4,
+        "message": "Attribute \\"draggable\\" has invalid value \\"\\"",
+        "offset": 70,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 19,
+        "context": Object {
+          "allowed": Array [
+            "true",
+            "false",
+          ],
+          "attribute": "draggable",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 5,
+        "message": "Attribute \\"draggable\\" has invalid value \\"foobar\\"",
+        "offset": 108,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 16,
+        "context": Object {
+          "allowed": Array [],
+          "attribute": "hidden",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 6,
+        "message": "Attribute \\"hidden\\" has invalid value \\"foobar\\"",
+        "offset": 132,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            /-\\?\\\\d\\+/,
+          ],
+          "attribute": "tabindex",
+          "element": "input",
+          "value": "",
+        },
+        "line": 7,
+        "message": "Attribute \\"tabindex\\" has invalid value \\"\\"",
+        "offset": 142,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 18,
+        "context": Object {
+          "allowed": Array [
+            /-\\?\\\\d\\+/,
+          ],
+          "attribute": "tabindex",
+          "element": "input",
+          "value": "foobar",
+        },
+        "line": 8,
+        "message": "Attribute \\"tabindex\\" has invalid value \\"foobar\\"",
+        "offset": 178,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<input contenteditable=\\"foobar\\">
+<input dir=\\"\\">
+<input dir=\\"foobar\\">
+<input draggable=\\"\\">
+<input draggable=\\"foobar\\">
+<input hidden=\\"foobar\\">
+<input tabindex=\\"\\">
+<input tabindex=\\"foobar\\">
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements global attributes valid markup 1`] = `Array []`;

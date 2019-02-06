@@ -11,3 +11,6 @@
 /tsconfig.json
 /tslint.json
 /scripts
+
+*.spec.ts
+*.spec.ts.snap

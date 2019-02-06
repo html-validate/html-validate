@@ -1,0 +1,12 @@
+<!-- should not allow flow as content -->
+<button type="button"><div>foo</div></button>
+
+<!-- should not allow interactive as content or descendant-->
+<button type="button"><a>foo</a></button>
+<button type="button"><span><a>foo</a></span></button>
+
+<!-- should not allow nesting -->
+<button type="button"><span><button type="button">foo</button></span></button>
+
+<!-- disallowed type variants -->
+<button type="foobar"></button>

@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Features
+
+- use jest snapshots to test element metadata as it is more maintainable.
+
 ## 0.20.1 (2019-02-06)
 
 ### Bugfixes

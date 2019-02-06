@@ -1,0 +1,23 @@
+<!-- should not allow <colgroup> under other elements -->
+<div>
+	<colgroup></colgroup>
+</div>
+
+<!-- should not allow phrasing as content -->
+<table>
+	<colgroup>
+		<span>foo</span>
+	</colgroup>
+</table>
+
+<!-- should not allow <colgroup> before <caption> -->
+<table>
+	<colgroup></colgroup>
+	<caption>foo</caption>
+</table>
+
+<!-- should not allow <colgroup> after <thead> -->
+<table>
+	<thead></thead>
+	<colgroup></colgroup>
+</table>

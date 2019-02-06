@@ -1,0 +1,11 @@
+<!-- should allow phrasing as content -->
+<a><span>foo</span></a>
+
+<!-- should allow flow and phrasing as parent -->
+<div><a>foo</a></div>
+<span><a>foo</a></span>
+<td><a>foo</a></td>
+
+<!-- should be transparent -->
+<div><a><div>foo</div></a></div>
+<span><a><span>foo</span></a></span>

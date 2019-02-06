@@ -1,0 +1,26 @@
+<!-- should not allow <audio> or <video> descendant -->
+<audio>
+	<audio></audio>
+	<video></video>
+</audio>
+
+<!-- should be transparent -->
+<span><audio><div>foo</div></audio></span>
+
+<!-- should now allow children in wrong order -->
+<audio>
+	<div>foo</div>
+	<source>
+</audio>
+<audio src="">
+	<div>foo</div>
+	<track>
+</audio>
+
+<!-- should be interactive if missing controls attribute (and thus not allowed as content in button) -->
+<button type="button">
+	<audio controls="foo"></audio>
+</button>
+
+<!-- should not allow preload attribute -->
+<audio preload="foobar"></audio>

@@ -1,0 +1,28 @@
+<!-- should not be allowed outside <html> -->
+<div>
+	<head></head>
+</div>
+
+<!-- should not allow flow or phrasing -->
+<html>
+	<head>
+		<div></div>
+		<span></span>
+	</head>
+</html>
+
+<!-- should only allow <base> once -->
+<html>
+	<head>
+		<base>
+		<base>
+	</head>
+</html>
+
+<!-- should only allow <titl> once -->
+<html>
+	<head>
+		<title></title>
+		<title></title>
+	</head>
+</html>

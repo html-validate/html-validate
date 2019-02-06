@@ -1,0 +1,16 @@
+<!-- should require <map> ancestor -->
+<area>
+
+<map>
+	<!-- should not allow end tag -->
+	<area></area>
+
+	<!-- should not allow content -->
+	<area>
+		<span>foo</span>
+	</area>
+
+	<!-- should not allow shape attribute -->
+	<area shape="">
+	<area shape="foobar">
+</map>

@@ -1,0 +1,12 @@
+<!-- should not be allowed outside <head> -->
+<div>
+	<title>foo</title>
+</div>
+
+<!-- should not allow arbitrary content -->
+<head>
+	<title>
+		<span>foo</span>
+		<div>bar</div>
+	</title>
+</head>
