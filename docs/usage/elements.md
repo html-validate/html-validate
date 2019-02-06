@@ -158,6 +158,24 @@ Regular expressions can also be used, e.g `"/-?\\d+/"` to match numbers.
 This is used by the
 [attribute-allowed-values](/rules/attribute-allowed-values.html) rule.
 
+### `requiredAttributes`
+
+A list of required attributes the element must have.
+
+```js
+"custom-element": {
+  "requiredAttributes": [
+    "foo"
+  ]
+}
+```
+
+Given the above metadata the attribute `"foo"` must be present on the element
+`<custom-element>`.
+
+This is used by the
+[element-required-attributes](/rules/element-required-attributes.html) rule.
+
 ### `deprecatedAttributes`
 
 A list of attributes which is no longer allowed (deprecated) for this element.
