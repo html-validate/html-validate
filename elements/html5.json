@@ -162,6 +162,7 @@
     "phrasing": true,
     "interactive": true,
     "deprecatedAttributes": ["datasrc", "datafld", "dataformatas"],
+    "requiredAttributes": ["type"],
     "attributes": {
       "autofocus": [],
       "disabled": [],
