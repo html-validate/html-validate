@@ -1,13 +1,13 @@
 # Remember to keep in sync with .gitignore
-/.nyc_output/
-/.tscache
+/*.tgz
+/.*
 /coverage/
 /docs/
-/mocha.opts
+/Gruntfile.js
 /node_modules/
 /public/
 /src/
-/test/
 /test-files/
 /tsconfig.json
-/update-changelog.sh
+/tslint.json
+/scripts
