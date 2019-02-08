@@ -27,7 +27,7 @@ export class Parser {
 		this.metaTable = config.getMetaTable();
 	}
 
-	parseHtml(source: string | Source): DOMTree {
+	public parseHtml(source: string | Source): DOMTree {
 		if (typeof source === "string") {
 			source = {
 				data: source,
@@ -144,7 +144,7 @@ export class Parser {
 	}
 
 	// eslint-disable-next-line complexity
-	private consumeTag(
+	protected consumeTag(
 		source: Source,
 		startToken: Token,
 		tokenStream: TokenStream
@@ -276,7 +276,7 @@ export class Parser {
 		}
 	}
 
-	consumeDirective(token: Token) {
+	protected consumeDirective(token: Token) {
 		const directive = token.data[1];
 		const match = directive.match(/^([a-zA-Z0-9-]+)\s*(.*?)(?:\s*:\s*(.*))?$/);
 		if (!match) {
@@ -295,7 +295,7 @@ export class Parser {
 	/**
 	 * Consumes doctype tokens. Emits doctype event.
 	 */
-	consumeDoctype(startToken: Token, tokenStream: TokenStream) {
+	protected consumeDoctype(startToken: Token, tokenStream: TokenStream) {
 		const tokens = Array.from(
 			this.consumeUntil(tokenStream, TokenType.DOCTYPE_CLOSE)
 		);
@@ -312,7 +312,10 @@ export class Parser {
 	/**
 	 * Return a list of tokens found until the expected token was found.
 	 */
-	*consumeUntil(tokenStream: TokenStream, search: TokenType) {
+	protected *consumeUntil(
+		tokenStream: TokenStream,
+		search: TokenType
+	): IterableIterator<Token> {
 		let it = this.next(tokenStream);
 		while (!it.done) {
 			const token = it.value;
@@ -330,21 +333,21 @@ export class Parser {
 	/**
 	 * Listen on events.
 	 */
-	on(event: string, listener: EventCallback): () => void {
+	public on(event: string, listener: EventCallback): () => void {
 		return this.event.on(event, listener);
 	}
 
 	/**
 	 * Listen on single event.
 	 */
-	once(event: string, listener: EventCallback): () => void {
+	public once(event: string, listener: EventCallback): () => void {
 		return this.event.once(event, listener);
 	}
 
 	/**
 	 * Defer execution. Will call function sometime later.
 	 */
-	defer(cb: () => void): void {
+	public defer(cb: () => void): void {
 		this.event.once("*", cb);
 	}
 

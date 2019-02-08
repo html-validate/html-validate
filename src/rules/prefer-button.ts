@@ -2,14 +2,14 @@ import { TagCloseEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class PreferButton extends Rule {
-	documentation(): RuleDocumentation {
+	public documentation(): RuleDocumentation {
 		return {
 			description: `Prefer to use the generic \`<button>\` element instead of \`<input>\`.`,
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
 
-	setup() {
+	public setup() {
 		this.on("tag:close", (event: TagCloseEvent) => {
 			const node = event.previous;
 

@@ -7,16 +7,15 @@ export enum ContentModel {
 }
 
 export class Context {
-	state: number;
-	string: string;
-	filename: string;
-	offset: number;
-	line: number;
-	column: number;
-	contentModel: ContentModel;
-	scriptEnd: string;
+	public contentModel: ContentModel;
+	public state: number;
+	public string: string;
+	private filename: string;
+	private offset: number;
+	private line: number;
+	private column: number;
 
-	constructor(source: Source) {
+	public constructor(source: Source) {
 		this.state = undefined;
 		this.string = source.data;
 		this.filename = source.filename;
@@ -24,10 +23,15 @@ export class Context {
 		this.line = source.line;
 		this.column = source.column;
 		this.contentModel = ContentModel.TEXT;
-		this.scriptEnd = undefined;
 	}
 
-	consume(n: number | string[], state: number) {
+	public getTruncatedLine(n: number = 13): string {
+		return JSON.stringify(
+			this.string.length > n ? `${this.string.slice(0, 10)}...` : this.string
+		);
+	}
+
+	public consume(n: number | string[], state: number) {
 		/* if "n" is an regex match the first value is the full matched
 		 * string so consume that many characters. */
 		if (typeof n !== "number") {
@@ -53,7 +57,7 @@ export class Context {
 		this.state = state;
 	}
 
-	getLocation(size?: number): Location {
+	public getLocation(size?: number): Location {
 		return {
 			filename: this.filename,
 			offset: this.offset,

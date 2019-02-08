@@ -84,7 +84,7 @@ export class Config {
 		}
 	}
 
-	init() {
+	public init() {
 		/* load plugins */
 		this.plugins = this.loadPlugins(this.config.plugins || []);
 
@@ -104,7 +104,7 @@ export class Config {
 		return new Config(this.mergeInternal(rhs.config));
 	}
 
-	getMetaTable() {
+	public getMetaTable(): MetaTable {
 		/* use cached table if it exists */
 		if (this.metaTable) {
 			return this.metaTable;
@@ -143,7 +143,7 @@ export class Config {
 		return this.metaTable;
 	}
 
-	static expandRelative(src: string, currentPath: string): string {
+	public static expandRelative(src: string, currentPath: string): string {
 		if (src[0] === ".") {
 			return path.normalize(`${currentPath}/${src}`);
 		}
@@ -155,7 +155,7 @@ export class Config {
 		return this.config;
 	}
 
-	get(): ConfigData {
+	public get(): ConfigData {
 		const config = Object.assign({}, this.config);
 		if (config.elements) {
 			config.elements = config.elements.map((cur: string) =>

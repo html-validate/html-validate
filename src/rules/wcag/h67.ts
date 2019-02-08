@@ -2,7 +2,7 @@ import { TagCloseEvent } from "../../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../../rule";
 
 class H67 extends Rule {
-	documentation(): RuleDocumentation {
+	public documentation(): RuleDocumentation {
 		return {
 			description:
 				"A decorative image cannot have a title attribute. Either remove `title` or add a descriptive `alt` text.",
@@ -15,7 +15,7 @@ class H67 extends Rule {
 		this.name = "WCAG/H67";
 	}
 
-	setup() {
+	public setup() {
 		this.on("tag:close", (event: TagCloseEvent) => {
 			const node = event.target;
 

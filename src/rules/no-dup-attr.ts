@@ -2,7 +2,7 @@ import { AttributeEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class NoDupAttr extends Rule {
-	documentation(): RuleDocumentation {
+	public documentation(): RuleDocumentation {
 		return {
 			description:
 				"HTML disallows two or more attributes with the same (case-insensitive) name.",
@@ -10,7 +10,7 @@ class NoDupAttr extends Rule {
 		};
 	}
 
-	setup() {
+	public setup() {
 		let attr: { [key: string]: boolean } = {};
 
 		this.on("tag:open", () => {

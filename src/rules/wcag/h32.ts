@@ -3,7 +3,7 @@ import { DOMReadyEvent } from "../../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../../rule";
 
 class H32 extends Rule {
-	documentation(): RuleDocumentation {
+	public documentation(): RuleDocumentation {
 		return {
 			description:
 				"WCAG 2.1 requires each `<form>` element to have at least one submit button.",
@@ -16,7 +16,7 @@ class H32 extends Rule {
 		this.name = "WCAG/H32";
 	}
 
-	setup() {
+	public setup() {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const forms = event.document.getElementsByTagName("form");
 			forms.forEach((node: HtmlElement) => {

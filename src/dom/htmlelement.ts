@@ -22,15 +22,15 @@ export function reset() {
 }
 
 export class HtmlElement extends DOMNode {
-	readonly tagName: string;
-	readonly attr: { [key: string]: Attribute };
-	readonly children: HtmlElement[];
-	readonly meta: MetaElement;
-	readonly parent: HtmlElement;
-	readonly voidElement: boolean;
-	readonly unique: number;
-	readonly depth: number;
-	closed: NodeClosed;
+	public readonly tagName: string;
+	public readonly attr: { [key: string]: Attribute };
+	public readonly children: HtmlElement[];
+	public readonly meta: MetaElement;
+	public readonly parent: HtmlElement;
+	public readonly voidElement: boolean;
+	public readonly unique: number;
+	public readonly depth: number;
+	public closed: NodeClosed;
 
 	constructor(
 		tagName: string,
@@ -63,7 +63,7 @@ export class HtmlElement extends DOMNode {
 		}
 	}
 
-	static rootNode(location: Location) {
+	public static rootNode(location: Location) {
 		return new HtmlElement(
 			undefined,
 			undefined,
@@ -73,7 +73,7 @@ export class HtmlElement extends DOMNode {
 		);
 	}
 
-	static fromTokens(
+	public static fromTokens(
 		startToken: Token,
 		endToken: Token,
 		parent: HtmlElement,
@@ -100,7 +100,7 @@ export class HtmlElement extends DOMNode {
 		);
 	}
 
-	is(tagName: string): boolean {
+	public is(tagName: string): boolean {
 		return (this.tagName && tagName === "*") || this.tagName === tagName;
 	}
 
@@ -114,12 +114,12 @@ export class HtmlElement extends DOMNode {
 		this.attr[key] = new Attribute(key, value, keyLocation, valueLocation);
 	}
 
-	hasAttribute(key: string): boolean {
+	public hasAttribute(key: string): boolean {
 		key = key.toLowerCase();
 		return key in this.attr;
 	}
 
-	getAttribute(key: string): Attribute {
+	public getAttribute(key: string): Attribute {
 		key = key.toLowerCase();
 		if (key in this.attr) {
 			return this.attr[key];
@@ -149,7 +149,7 @@ export class HtmlElement extends DOMNode {
 		}
 	}
 
-	append(node: HtmlElement) {
+	public append(node: HtmlElement) {
 		this.children.push(node);
 	}
 
@@ -175,7 +175,7 @@ export class HtmlElement extends DOMNode {
 		return i <= this.siblings.length - 2 ? this.siblings[i + 1] : null;
 	}
 
-	getElementsByTagName(tagName: string): HtmlElement[] {
+	public getElementsByTagName(tagName: string): HtmlElement[] {
 		return this.children.reduce((matches, node) => {
 			return matches.concat(
 				node.is(tagName) ? [node] : [],
@@ -184,12 +184,12 @@ export class HtmlElement extends DOMNode {
 		}, []);
 	}
 
-	querySelector(selector: string): HtmlElement {
+	public querySelector(selector: string): HtmlElement {
 		const it = this.querySelectorImpl(selector);
 		return it.next().value || null;
 	}
 
-	querySelectorAll(selector: string): HtmlElement[] {
+	public querySelectorAll(selector: string): HtmlElement[] {
 		const it = this.querySelectorImpl(selector);
 		const unique = new Set(it);
 		return Array.from(unique.values());
@@ -207,7 +207,7 @@ export class HtmlElement extends DOMNode {
 	/**
 	 * Visit all nodes from this node and down. Depth first.
 	 */
-	visitDepthFirst(callback: (node: HtmlElement) => void): void {
+	public visitDepthFirst(callback: (node: HtmlElement) => void): void {
 		function visit(node: HtmlElement): void {
 			node.children.forEach(visit);
 			if (!node.isRootElement()) {
@@ -221,7 +221,7 @@ export class HtmlElement extends DOMNode {
 	/**
 	 * Evaluates callbackk on all descendants, returning true if any are true.
 	 */
-	someChildren(callback: (node: HtmlElement) => boolean) {
+	public someChildren(callback: (node: HtmlElement) => boolean) {
 		return this.children.some(visit);
 
 		function visit(node: HtmlElement): boolean {
@@ -236,7 +236,7 @@ export class HtmlElement extends DOMNode {
 	/**
 	 * Evaluates callbackk on all descendants, returning true if all are true.
 	 */
-	everyChildren(callback: (node: HtmlElement) => boolean) {
+	public everyChildren(callback: (node: HtmlElement) => boolean) {
 		return this.children.every(visit);
 
 		function visit(node: HtmlElement): boolean {
@@ -252,7 +252,7 @@ export class HtmlElement extends DOMNode {
 	 *
 	 * The first node for which the callback evaluates to true is returned.
 	 */
-	find(callback: (node: HtmlElement) => boolean): HtmlElement {
+	public find(callback: (node: HtmlElement) => boolean): HtmlElement {
 		function visit(node: HtmlElement): HtmlElement {
 			if (callback(node)) {
 				return node;

@@ -8,14 +8,14 @@ const defaults = {
 };
 
 class IdPattern extends Rule {
-	pattern: RegExp;
+	private pattern: RegExp;
 
 	constructor(options: object) {
 		super(Object.assign({}, defaults, options));
 		this.pattern = parsePattern(this.options.pattern);
 	}
 
-	documentation(): RuleDocumentation {
+	public documentation(): RuleDocumentation {
 		const pattern = describePattern(this.options.pattern);
 		return {
 			description: `For consistency all IDs are required to match the pattern ${pattern}.`,
@@ -23,7 +23,7 @@ class IdPattern extends Rule {
 		};
 	}
 
-	setup() {
+	public setup() {
 		this.on("attr", (event: AttributeEvent) => {
 			if (event.key.toLowerCase() !== "id") {
 				return;

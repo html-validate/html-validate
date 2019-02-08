@@ -11,7 +11,7 @@ interface Context {
 }
 
 class AttributeAllowedValues extends Rule<Context> {
-	documentation(context?: Context): RuleDocumentation {
+	public documentation(context?: Context): RuleDocumentation {
 		const docs: RuleDocumentation = {
 			description: "Attribute has invalid value.",
 			url: ruleDocumentationUrl(__filename),
@@ -42,7 +42,7 @@ class AttributeAllowedValues extends Rule<Context> {
 		return docs;
 	}
 
-	setup() {
+	public setup() {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;
 			doc.visitDepthFirst((node: HtmlElement) => {

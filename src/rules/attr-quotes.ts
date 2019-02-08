@@ -10,9 +10,9 @@ const defaults = {
 };
 
 class AttrQuotes extends Rule {
-	expected: string;
+	private expected: string;
 
-	documentation(): RuleDocumentation {
+	public documentation(): RuleDocumentation {
 		return {
 			description: `Attribute values are required to be quoted with ${
 				this.options.style
@@ -26,7 +26,7 @@ class AttrQuotes extends Rule {
 		this.expected = parseStyle(this.options.style);
 	}
 
-	setup() {
+	public setup() {
 		this.on("attr", (event: AttributeEvent) => {
 			/* ignore attributes with no value */
 			if (typeof event.value === "undefined") {

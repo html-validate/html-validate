@@ -79,7 +79,7 @@ export abstract class Rule<T = any> {
 	 * Rule must be enabled both globally and on the specific node for this to
 	 * have any effect.
 	 */
-	report(
+	public report(
 		node: HtmlElement,
 		message: string,
 		location?: Location,
@@ -115,16 +115,22 @@ export abstract class Rule<T = any> {
 	 * Adding listeners can be done even if the rule is disabled but for the
 	 * events to be delivered the rule must be enabled.
 	 */
-	on(event: "tag:open", callback: (event: TagOpenEvent) => void): void;
-	on(event: "tag:close", callback: (event: TagCloseEvent) => void): void;
-	on(event: "dom:load", callback: (event: Event) => void): void;
-	on(event: "dom:ready", callback: (event: DOMReadyEvent) => void): void;
-	on(event: "doctype", callback: (event: DoctypeEvent) => void): void;
-	on(event: "attr", callback: (event: AttributeEvent) => void): void;
-	on(event: "whitespace", callback: (event: WhitespaceEvent) => void): void;
-	on(event: "conditional", callback: (event: ConditionalEvent) => void): void;
-	on(event: "*", callback: (event: Event) => void): void;
-	on(event: string, callback: any): void {
+	public on(event: "tag:open", callback: (event: TagOpenEvent) => void): void;
+	public on(event: "tag:close", callback: (event: TagCloseEvent) => void): void;
+	public on(event: "dom:load", callback: (event: Event) => void): void;
+	public on(event: "dom:ready", callback: (event: DOMReadyEvent) => void): void;
+	public on(event: "doctype", callback: (event: DoctypeEvent) => void): void;
+	public on(event: "attr", callback: (event: AttributeEvent) => void): void;
+	public on(
+		event: "whitespace",
+		callback: (event: WhitespaceEvent) => void
+	): void;
+	public on(
+		event: "conditional",
+		callback: (event: ConditionalEvent) => void
+	): void;
+	public on(event: "*", callback: (event: Event) => void): void;
+	public on(event: string, callback: any): void {
 		this.parser.on(event, (event: string, data: any) => {
 			if (this.isEnabled()) {
 				this.event = data;
@@ -133,16 +139,16 @@ export abstract class Rule<T = any> {
 		});
 	}
 
-	init(parser: Parser, reporter: Reporter, severity: number): void {
+	public init(parser: Parser, reporter: Reporter, severity: number): void {
 		this.parser = parser;
 		this.reporter = reporter;
 		this.severity = severity;
 	}
 
-	abstract setup(): void;
+	public abstract setup(): void;
 
 	/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-	documentation(context?: T): RuleDocumentation {
+	public documentation(context?: T): RuleDocumentation {
 		return null;
 	}
 }

@@ -28,7 +28,7 @@ export interface Report {
 }
 
 export class Reporter {
-	result: { [filename: string]: Message[] };
+	protected result: { [filename: string]: Message[] };
 
 	constructor() {
 		this.result = {};
@@ -56,7 +56,7 @@ export class Reporter {
 		return { valid, results: Object.keys(merged).map(key => merged[key]) };
 	}
 
-	add(
+	public add(
 		node: HtmlElement,
 		rule: Rule,
 		message: string,
@@ -79,14 +79,14 @@ export class Reporter {
 		});
 	}
 
-	addManual(filename: string, message: Message): void {
+	public addManual(filename: string, message: Message): void {
 		if (!this.result.hasOwnProperty(filename)) {
 			this.result[filename] = [];
 		}
 		this.result[filename].push(message);
 	}
 
-	save(sources?: Source[]): Report {
+	public save(sources?: Source[]): Report {
 		return {
 			valid: this.isValid(),
 			results: Object.keys(this.result).map(filePath => {

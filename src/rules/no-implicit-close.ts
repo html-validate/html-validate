@@ -3,7 +3,7 @@ import { TagCloseEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class NoImplicitClose extends Rule {
-	documentation(): RuleDocumentation {
+	public documentation(): RuleDocumentation {
 		return {
 			description: `Some elements in HTML has optional end tags. When an optional tag is omitted a browser must handle it as if the end tag was present.
 
@@ -12,7 +12,7 @@ Omitted end tags can be ambigious for humans to read and many editors have troub
 		};
 	}
 
-	setup() {
+	public setup() {
 		this.on("tag:close", (event: TagCloseEvent) => {
 			const closed = event.previous;
 			const by = event.target;

@@ -41,27 +41,27 @@ const functionTable: { [key: string]: PropertyEvaluator } = {
 };
 
 export class MetaTable {
-	readonly elements: ElementTable;
+	public readonly elements: ElementTable;
 
 	constructor() {
 		this.elements = {};
 	}
 
-	init() {
+	public init() {
 		this.resolveGlobal();
 	}
 
-	loadFromObject(obj: ElementTable) {
+	public loadFromObject(obj: ElementTable) {
 		for (const key of Object.keys(obj)) {
 			this.addEntry(key, obj[key]);
 		}
 	}
 
-	loadFromFile(filename: string) {
+	public loadFromFile(filename: string) {
 		this.loadFromObject(require(filename));
 	}
 
-	getMetaFor(tagName: string): MetaElement {
+	public getMetaFor(tagName: string): MetaElement {
 		/* @TODO Only entries with dynamic properties has to be copied, static
 		 * entries could be shared */
 		tagName = tagName.toLowerCase();
@@ -118,7 +118,7 @@ export class MetaTable {
 		return deepmerge(a, b);
 	}
 
-	resolve(node: HtmlElement) {
+	public resolve(node: HtmlElement) {
 		if (node.meta) {
 			expandProperties(node, node.meta);
 		}

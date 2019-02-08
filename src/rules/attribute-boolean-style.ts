@@ -10,21 +10,21 @@ const defaults = {
 type checkFunction = (key: string, value: string | DynamicValue) => boolean;
 
 class AttributeBooleanStyle extends Rule {
-	hasInvalidStyle: checkFunction;
+	private hasInvalidStyle: checkFunction;
 
 	constructor(options: object) {
 		super(Object.assign({}, defaults, options));
 		this.hasInvalidStyle = parseStyle(this.options.style);
 	}
 
-	documentation(): RuleDocumentation {
+	public documentation(): RuleDocumentation {
 		return {
 			description: "Require a specific style when writing boolean attributes.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
 
-	setup() {
+	public setup() {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;
 			doc.visitDepthFirst((node: HtmlElement) => {
@@ -54,7 +54,7 @@ class AttributeBooleanStyle extends Rule {
 		});
 	}
 
-	isBoolean(key: string, rules: PermittedAttribute): boolean {
+	public isBoolean(key: string, rules: PermittedAttribute): boolean {
 		return rules[key] && rules[key].length === 0;
 	}
 }

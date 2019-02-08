@@ -3,7 +3,7 @@ import { MetaTable } from "../meta";
 import { HtmlElement } from "./htmlelement";
 
 export class DOMTree {
-	readonly root: HtmlElement;
+	public readonly root: HtmlElement;
 	private active: HtmlElement;
 	public doctype?: string;
 
@@ -13,11 +13,11 @@ export class DOMTree {
 		this.doctype = null;
 	}
 
-	pushActive(node: HtmlElement): void {
+	public pushActive(node: HtmlElement): void {
 		this.active = node;
 	}
 
-	popActive(): void {
+	public popActive(): void {
 		if (this.active.isRootElement()) {
 			/* root element should never be popped, continue as if nothing happened */
 			return;
@@ -25,34 +25,34 @@ export class DOMTree {
 		this.active = this.active.parent;
 	}
 
-	getActive(): HtmlElement {
+	public getActive(): HtmlElement {
 		return this.active;
 	}
 
 	/**
 	 * Resolve dynamic meta expressions.
 	 */
-	resolveMeta(table: MetaTable) {
+	public resolveMeta(table: MetaTable) {
 		this.visitDepthFirst((node: HtmlElement) => table.resolve(node));
 	}
 
-	getElementsByTagName(tagName: string) {
+	public getElementsByTagName(tagName: string) {
 		return this.root.getElementsByTagName(tagName);
 	}
 
-	visitDepthFirst(callback: (node: HtmlElement) => void): void {
+	public visitDepthFirst(callback: (node: HtmlElement) => void): void {
 		this.root.visitDepthFirst(callback);
 	}
 
-	find(callback: (node: HtmlElement) => boolean): HtmlElement {
+	public find(callback: (node: HtmlElement) => boolean): HtmlElement {
 		return this.root.find(callback);
 	}
 
-	querySelector(selector: string): HtmlElement {
+	public querySelector(selector: string): HtmlElement {
 		return this.root.querySelector(selector);
 	}
 
-	querySelectorAll(selector: string): HtmlElement[] {
+	public querySelectorAll(selector: string): HtmlElement[] {
 		return this.root.querySelectorAll(selector);
 	}
 }

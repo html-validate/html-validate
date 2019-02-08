@@ -3,7 +3,7 @@ import { DOMReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 class InputMissingLabel extends Rule {
-	documentation(): RuleDocumentation {
+	public documentation(): RuleDocumentation {
 		return {
 			description:
 				"Labels are associated with the input element and is required for a17y.",
@@ -11,7 +11,7 @@ class InputMissingLabel extends Rule {
 		};
 	}
 
-	setup() {
+	public setup() {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const root = event.document;
 			for (const elem of root.getElementsByTagName("input")) {

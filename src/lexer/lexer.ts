@@ -48,7 +48,7 @@ export class InvalidTokenError extends Error {
 
 export class Lexer {
 	// eslint-disable-next-line complexity
-	*tokenize(source: Source): TokenStream {
+	public *tokenize(source: Source): TokenStream {
 		const context = new Context(source);
 		context.state = State.INITIAL;
 
@@ -132,13 +132,8 @@ export class Lexer {
 
 	/* istanbul ignore next: used to provide a better error when lexer is detected to be stuck, no known way to reproduce */
 	private errorStuck(context: Context) {
-		const truncated = JSON.stringify(
-			context.string.length > 13
-				? `${context.string.slice(0, 15)}...`
-				: context.string
-		);
 		const state = State[context.state];
-		const message = `failed to tokenize ${truncated}, state ${state} failed to consume data or change state.`;
+		const message = `failed to tokenize ${context.getTruncatedLine()}, state ${state} failed to consume data or change state.`;
 		throw new InvalidTokenError(context.getLocation(), message);
 	}
 
@@ -172,12 +167,7 @@ export class Lexer {
 			}
 		}
 
-		const truncated = JSON.stringify(
-			context.string.length > 13
-				? `${context.string.slice(0, 10)}...`
-				: context.string
-		);
-		const message = `failed to tokenize ${truncated}, ${error}.`;
+		const message = `failed to tokenize ${context.getTruncatedLine()}, ${error}.`;
 		throw new InvalidTokenError(context.getLocation(), message);
 	}
 
