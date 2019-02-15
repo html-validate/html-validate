@@ -6,6 +6,7 @@ const allowedKeys = [
 	"tagName",
 	"metadata",
 	"flow",
+	"foreign",
 	"sectioning",
 	"heading",
 	"phrasing",

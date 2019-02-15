@@ -593,6 +593,7 @@
 
   "math": {
     "flow": true,
+    "foreign": true,
     "phrasing": true,
     "embedded": true,
     "deprecatedAttributes": ["name", "align", "hspace", "vspace"],
@@ -902,6 +903,7 @@
 
   "svg": {
     "flow": true,
+    "foreign": true,
     "phrasing": true,
     "embedded": true
   },
