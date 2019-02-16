@@ -148,7 +148,7 @@ export class Parser {
 		source: Source,
 		startToken: Token,
 		tokenStream: TokenStream
-	) {
+	): void {
 		const tokens = Array.from(
 			this.consumeUntil(tokenStream, TokenType.TAG_CLOSE)
 		);
@@ -165,6 +165,7 @@ export class Parser {
 		);
 		const open = !startToken.data[1];
 		const close = !open || node.closed !== NodeClosed.Open;
+		const foreign = node.meta && node.meta.foreign;
 
 		if (closeOptional) {
 			const active = this.dom.getActive();
@@ -219,7 +220,68 @@ export class Parser {
 			if (!voidClosed) {
 				this.dom.popActive();
 			}
+		} else if (foreign) {
+			/* consume the body of the foreign element so it won't be part of the
+			 * document (only the root foreign element is).  */
+			this.discardForeignBody(node.tagName, tokenStream);
 		}
+	}
+
+	/**
+	 * Discard tokens until the end tag for the foreign element is found.
+	 */
+	protected discardForeignBody(
+		foreignTagName: string,
+		tokenStream: TokenStream
+	): void {
+		/* consume elements until the end tag for this foreign element is found */
+		let nested = 1;
+		let startToken;
+		let endToken;
+		do {
+			/* search for tags */
+			const tokens = Array.from(
+				this.consumeUntil(tokenStream, TokenType.TAG_OPEN)
+			);
+			const [last] = tokens.slice(-1);
+			const [, tagClosed, tagName] = last.data;
+
+			/* keep going unless the new tag matches the foreign root element */
+			if (tagName !== foreignTagName) {
+				continue;
+			}
+
+			/* locate end token and determine if this is a self-closed tag */
+			const endTokens = Array.from(
+				this.consumeUntil(tokenStream, TokenType.TAG_CLOSE)
+			);
+			endToken = endTokens.slice(-1)[0];
+			const selfClosed = endToken.data[0] === "/>";
+
+			/* since foreign element may be nested keep a count for the number of
+			 * opened/closed elements */
+			if (tagClosed) {
+				startToken = last;
+				nested--;
+			} else if (!selfClosed) {
+				nested++;
+			}
+		} while (nested > 0);
+
+		const active = this.dom.getActive();
+		const node = HtmlElement.fromTokens(
+			startToken,
+			endToken,
+			active,
+			this.metaTable
+		);
+
+		this.trigger("tag:close", {
+			target: node,
+			previous: active,
+			location: endToken.location,
+		});
+		this.dom.popActive();
 	}
 
 	protected consumeAttribute(
