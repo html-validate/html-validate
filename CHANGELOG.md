@@ -4,6 +4,8 @@
 
 ### Features
 
+- `--dump-events` output reduced by hiding element metadata and compacting
+  location data.
 - use jest snapshots to test element metadata as it is more maintainable.
 
 ## 0.20.1 (2019-02-06)

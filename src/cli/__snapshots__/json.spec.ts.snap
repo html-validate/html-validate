@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`eventFormatter should return formatted string 1`] = `
+"foo: {
+  \\"foo\\": \\"bar\\",
+  \\"location\\": \\"foo.html:1:2\\",
+  \\"parent\\": \\"[truncated]\\"
+}"
+`;
+
+exports[`eventReplacer should hide large and recursive properties 1`] = `
+"{
+  \\"parent\\": \\"[truncated]\\",
+  \\"children\\": \\"[truncated]\\",
+  \\"meta\\": \\"[truncated]\\",
+  \\"foo\\": \\"bar\\",
+  \\"deep\\": {
+    \\"parent\\": \\"[truncated]\\",
+    \\"spam\\": \\"ham\\"
+  }
+}"
+`;
+
+exports[`eventReplacer should reformat location 1`] = `
+"{
+  \\"location\\": \\"foo.html:1:2\\",
+  \\"deep\\": {
+    \\"location\\": \\"bar.html:3:4\\"
+  }
+}"
+`;
