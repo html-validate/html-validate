@@ -1,8 +1,9 @@
 import defaultConfig from "../config/default";
-import { EventDump, TokenDump } from "../engine";
+import { TokenDump } from "../engine";
 import HtmlValidate from "../htmlvalidate";
 import { Report, Reporter, Result } from "../reporter";
 import { getFormatter } from "./formatter";
+import { eventFormatter } from "./json";
 
 import * as glob from "glob";
 import * as minimist from "minimist";
@@ -58,21 +59,11 @@ function lint(files: string[]): Report {
 }
 
 function dump(files: string[], mode: string) {
-	const filtered = ["parent", "children"];
 	let lines: string[][] = [];
 	switch (mode) {
 		case "dump-events":
 			lines = files.map((filename: string) =>
-				htmlvalidate.dumpEvents(filename).map((entry: EventDump) => {
-					const strdata = JSON.stringify(
-						entry.data,
-						(key, value) => {
-							return filtered.indexOf(key) >= 0 ? "[truncated]" : value;
-						},
-						2
-					);
-					return `${entry.event}: ${strdata}`;
-				})
+				htmlvalidate.dumpEvents(filename).map(eventFormatter)
 			);
 			break;
 		case "dump-tokens":

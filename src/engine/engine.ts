@@ -9,7 +9,7 @@ import { Rule, RuleConstructor, RuleDocumentation, RuleOptions } from "../rule";
 
 export interface EventDump {
 	event: string;
-	data: string;
+	data: any;
 }
 
 export interface TokenDump {
