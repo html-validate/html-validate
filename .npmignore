@@ -12,5 +12,7 @@
 /tslint.json
 /scripts
 
+*.spec.d.ts
+*.spec.js
 *.spec.ts
 *.spec.ts.snap
