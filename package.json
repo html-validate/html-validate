@@ -112,7 +112,8 @@
       "src/**/*.ts",
       "!src/**/*.spec.ts",
       "!src/**/index.ts",
-      "!src/matchers.ts"
+      "!src/matchers.ts",
+      "!src/cli/html-validate.ts"
     ],
     "coverageReporters": [
       "text",
