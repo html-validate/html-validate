@@ -53,6 +53,8 @@ Jest:
     name: ${CI_PROJECT_PATH_SLUG}-${CI_PIPELINE_ID}-coverage
     paths:
       - coverage
+    reports:
+      junit: temp/jest.xml
 
 TSLint:
   stage: test
@@ -72,6 +74,9 @@ Docs:
     - node_modules/.bin/jest docs
     - git status --porcelain
     - test -z "$(git status --porcelain)" || (echo 'working copy dirty, need to commit updated specs'; exit 1)
+  artifacts:
+    reports:
+      junit: temp/jest.xml
 
 .compat: &compat
   stage: compatibility
