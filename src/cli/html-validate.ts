@@ -1,10 +1,13 @@
+/* eslint-disable no-console */
 import defaultConfig from "../config/default";
 import { TokenDump } from "../engine";
 import HtmlValidate from "../htmlvalidate";
 import { Report, Reporter, Result } from "../reporter";
 import { getFormatter } from "./formatter";
 import { eventFormatter } from "./json";
+const pkg = require("../../package.json");
 
+import chalk from "chalk";
 import * as glob from "glob";
 import * as minimist from "minimist";
 
@@ -52,9 +55,14 @@ function getGlobalConfig(rules?: string | string[]) {
 }
 
 function lint(files: string[]): Report {
-	const reports = files.map((filename: string) =>
-		htmlvalidate.validateFile(filename)
-	);
+	const reports = files.map((filename: string) => {
+		try {
+			return htmlvalidate.validateFile(filename);
+		} catch (err) {
+			console.error(chalk.red(`Validator crashed when parsing "${filename}"`));
+			throw err;
+		}
+	});
 	return Reporter.merge(reports);
 }
 
@@ -160,26 +168,44 @@ const files = argv._.reduce((files: string[], pattern: string) => {
 const unique = [...new Set(files)];
 
 if (unique.length === 0) {
-	console.error("No files matching patterns", argv._); // eslint-disable-line no-console
+	console.error("No files matching patterns", argv._);
 	process.exit(1);
 }
 
-if (mode === "lint") {
-	const result = lint(unique);
+try {
+	if (mode === "lint") {
+		const result = lint(unique);
 
-	/* rename stdin if an explicit filename was passed */
-	if (argv["stdin-filename"]) {
-		renameStdin(result, argv["stdin-filename"]);
+		/* rename stdin if an explicit filename was passed */
+		if (argv["stdin-filename"]) {
+			renameStdin(result, argv["stdin-filename"]);
+		}
+
+		formatter(result);
+		process.exit(result.valid ? 0 : 1);
+	} else if (mode === "print-config") {
+		const config = htmlvalidate.getConfigFor(files[0]);
+		const json = JSON.stringify(config.get(), null, 2);
+		console.log(json);
+	} else {
+		const output = dump(unique, mode);
+		console.log(output);
+		process.exit(0);
 	}
-
-	formatter(result);
-	process.exit(result.valid ? 0 : 1);
-} else if (mode === "print-config") {
-	const config = htmlvalidate.getConfigFor(files[0]);
-	const json = JSON.stringify(config.get(), null, 2);
-	console.log(json); // eslint-disable-line no-console
-} else {
-	const output = dump(unique, mode);
-	console.log(output); // eslint-disable-line no-console
-	process.exit(0);
+} catch (err) {
+	console.error(chalk.red("Caught exception:"));
+	if (console.group) console.group();
+	{
+		console.error(err);
+	}
+	if (console.group) console.groupEnd();
+	console.error(chalk.red(`This is a bug in ${pkg.name}-${pkg.version}.`));
+	console.error(
+		chalk.red(
+			`Please file a bug at ${
+				pkg.bugs.url
+			}?issuable_template=Bug\nand include this message in full and if possible the content of the\nfile being parsed (or a reduced testcase).`
+		)
+	);
+	process.exit(1);
 }
