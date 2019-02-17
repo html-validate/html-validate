@@ -51,6 +51,12 @@ class Void extends Rule {
 	}
 
 	private validateActive(node: HtmlElement): void {
+		/* ignore foreign elements, they may or may not be self-closed and both are
+		 * valid */
+		if (node.meta.foreign) {
+			return;
+		}
+
 		const selfOrOmitted =
 			node.closed === NodeClosed.VoidOmitted ||
 			node.closed === NodeClosed.VoidSelfClosed;

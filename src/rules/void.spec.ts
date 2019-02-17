@@ -35,6 +35,11 @@ describe("rule void", () => {
 			expect(report).toBeValid();
 		});
 
+		it("should not report foreign elements", () => {
+			const report = htmlvalidate.validateString("<svg></svg> <svg/>");
+			expect(report).toBeValid();
+		});
+
 		it("should report error when non-void element omitted end tag", () => {
 			const report = htmlvalidate.validateString("<div/>");
 			expect(report).toBeInvalid();
@@ -138,5 +143,12 @@ describe("rule void", () => {
 			const report = htmlvalidate.validateString("<input><input/>");
 			expect(report).toBeValid();
 		});
+	});
+
+	it("should contain documentation", () => {
+		htmlvalidate = new HtmlValidate({
+			rules: { void: "error" },
+		});
+		expect(htmlvalidate.getRuleDocumentation("void")).toMatchSnapshot();
 	});
 });
