@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.21.0 (2019-02-17)
+
 ### Breaking changes
 
 - `button-type` is replaced with `element-required-attributes`.
