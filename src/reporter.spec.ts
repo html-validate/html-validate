@@ -117,6 +117,47 @@ describe("Reporter", () => {
 			]);
 		});
 
+		it("should sort results", () => {
+			const report = new Reporter();
+			report.addManual("foo.html", {
+				ruleId: "mock",
+				severity: 2,
+				message: "c",
+				offset: 3,
+				line: 2,
+				column: 1,
+				size: 1,
+			});
+			report.addManual("foo.html", {
+				ruleId: "mock",
+				severity: 2,
+				message: "b",
+				offset: 1,
+				line: 1,
+				column: 2,
+				size: 1,
+			});
+			report.addManual("foo.html", {
+				ruleId: "mock",
+				severity: 2,
+				message: "a",
+				offset: 0,
+				line: 1,
+				column: 1,
+				size: 1,
+			});
+			expect(report.save().results).toEqual([
+				expect.objectContaining({
+					filePath: "foo.html",
+					messages: [
+						expect.objectContaining({ message: "a" }),
+						expect.objectContaining({ message: "b" }),
+						expect.objectContaining({ message: "c" }),
+					],
+				}),
+			]);
+		});
+
 		it("should map filenames to sources", () => {
 			const report = new Reporter();
 			const sources: Source[] = [
