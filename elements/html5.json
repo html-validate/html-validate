@@ -162,6 +162,7 @@
     "phrasing": true,
     "interactive": true,
     "deprecatedAttributes": ["datasrc", "datafld", "dataformatas"],
+    "requiredAttributes": ["type"],
     "attributes": {
       "autofocus": [],
       "disabled": [],
@@ -328,7 +329,8 @@
 
   "frame": {
     "deprecated": true,
-    "deprecatedAttributes": ["datasrc", "datafld"]
+    "deprecatedAttributes": ["datasrc", "datafld"],
+    "requiredAttributes": ["title"]
   },
 
   "frameset": {
@@ -401,7 +403,8 @@
   "html": {
     "deprecatedAttributes": ["version"],
     "permittedContent": ["head?", "body?"],
-    "permittedOrder": ["head", "body"]
+    "permittedOrder": ["head", "body"],
+    "requiredAttributes": ["lang"]
   },
 
   "i": {
@@ -427,6 +430,7 @@
       "scrolling",
       "vspace"
     ],
+    "requiredAttributes": ["title"],
     "permittedContent": []
   },
 
@@ -468,6 +472,7 @@
       "hspace",
       "vspace"
     ],
+    "requiredAttributes": ["type"],
     "attributes": {
       "autofocus": [],
       "capture": [],
@@ -1032,6 +1037,7 @@
       "valign",
       "width"
     ],
+    "requiredAttributes": ["scope"],
     "permittedContent": ["@flow"],
     "permittedDescendants": [
       { "exclude": ["header", "footer", "@sectioning", "@heading"] }

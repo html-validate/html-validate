@@ -18,11 +18,14 @@ Array [
       },
       Object {
         "column": 2,
-        "context": undefined,
+        "context": Object {
+          "attribute": "type",
+          "element": "button",
+        },
         "line": 2,
-        "message": "Button is missing type attribute",
+        "message": "<button> is missing required attribute \\"type\\"",
         "offset": 22,
-        "ruleId": "button-type",
+        "ruleId": "element-required-attributes",
         "severity": 2,
         "size": 6,
       },
@@ -42,7 +45,7 @@ Array [
 
 <div class=\\"field-wrapper\\">
   <strong>Name: </strong>
-  <input name=\\"name\\">
+  <input type=\\"text\\" name=\\"name\\">
 </div>",
     "warningCount": 0,
   },

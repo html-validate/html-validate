@@ -16,8 +16,11 @@ const allowedKeys = [
 	"void",
 	"transparent",
 	"implicitClosed",
-	"attributes",
+
 	"deprecatedAttributes",
+	"requiredAttributes",
+	"attributes",
+
 	"permittedContent",
 	"permittedDescendants",
 	"permittedOrder",

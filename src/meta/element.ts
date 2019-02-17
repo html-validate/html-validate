@@ -32,9 +32,12 @@ export interface MetaElement {
 	transparent: boolean;
 	implicitClosed: string[];
 
-	/* permitted data */
-	attributes: PermittedAttribute;
+	/* attribute */
 	deprecatedAttributes: string[];
+	requiredAttributes: string[];
+	attributes: PermittedAttribute;
+
+	/* permitted data */
 	permittedContent: Permitted;
 	permittedDescendants: Permitted;
 	permittedOrder: PermittedOrder;

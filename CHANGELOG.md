@@ -2,8 +2,14 @@
 
 ## Upcoming release
 
+### Breaking changes
+
+- `button-type` is replaced with `element-required-attributes`.
+
 ### Features
 
+- new rule `element-required-attributes` replaces `button-type` and allows any
+  element to contain `requiredAttributes` metadata.
 - support foreign elements. The body of the foreign element will be discarded
   from the DOM tree and not trigger any rules.
 - CLI write a more verbose message when unhandled exceptions are raised.

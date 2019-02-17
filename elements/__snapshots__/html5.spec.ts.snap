@@ -874,12 +874,15 @@ Array [
         "size": 6,
       },
       Object {
-        "column": 15,
-        "context": undefined,
-        "line": 12,
-        "message": "Button has invalid type \\"foobar\\"",
-        "offset": 411,
-        "ruleId": "button-type",
+        "column": 2,
+        "context": Object {
+          "attribute": "type",
+          "element": "button",
+        },
+        "line": 15,
+        "message": "<button> is missing required attribute \\"type\\"",
+        "offset": 453,
+        "ruleId": "element-required-attributes",
         "severity": 2,
         "size": 6,
       },
@@ -896,6 +899,9 @@ Array [
 
 <!-- disallowed type variants -->
 <button type=\\"foobar\\"></button>
+
+<!-- missing type -->
+<button></button>
 ",
     "warningCount": 0,
   },
@@ -1735,7 +1741,7 @@ exports[`HTML elements <form> valid markup 1`] = `Array []`;
 exports[`HTML elements <frame> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 1,
+    "errorCount": 2,
     "filePath": "test-files/elements/frame-invalid.html",
     "messages": Array [
       Object {
@@ -1748,8 +1754,25 @@ Array [
         "severity": 2,
         "size": 5,
       },
+      Object {
+        "column": 2,
+        "context": Object {
+          "attribute": "title",
+          "element": "frame",
+        },
+        "line": 6,
+        "message": "<frame> is missing required attribute \\"title\\"",
+        "offset": 153,
+        "ruleId": "element-required-attributes",
+        "severity": 2,
+        "size": 5,
+      },
     ],
     "source": "<!-- element is deprecated -->
+<frame title=\\"foobar\\"></frame>
+
+<!-- should require title attribute -->
+<!-- [html-validate-disable-next deprecated] -->
 <frame></frame>
 ",
     "warningCount": 0,
@@ -1981,7 +2004,7 @@ Array [
         "context": undefined,
         "line": 9,
         "message": "Element <div> is not permitted as content in <head>",
-        "offset": 136,
+        "offset": 146,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 3,
@@ -1991,7 +2014,7 @@ Array [
         "context": undefined,
         "line": 10,
         "message": "Element <span> is not permitted as content in <head>",
-        "offset": 150,
+        "offset": 160,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 4,
@@ -2001,7 +2024,7 @@ Array [
         "context": undefined,
         "line": 18,
         "message": "Element <base> can only appear once under <head>",
-        "offset": 247,
+        "offset": 267,
         "ruleId": "element-permitted-occurrences",
         "severity": 2,
         "size": 4,
@@ -2011,7 +2034,7 @@ Array [
         "context": undefined,
         "line": 26,
         "message": "Element <title> can only appear once under <head>",
-        "offset": 346,
+        "offset": 376,
         "ruleId": "element-permitted-occurrences",
         "severity": 2,
         "size": 5,
@@ -2023,7 +2046,7 @@ Array [
 </div>
 
 <!-- should not allow flow or phrasing -->
-<html>
+<html lang=\\"en\\">
 	<head>
 		<div></div>
 		<span></span>
@@ -2031,7 +2054,7 @@ Array [
 </html>
 
 <!-- should only allow <base> once -->
-<html>
+<html lang=\\"en\\">
 	<head>
 		<base>
 		<base>
@@ -2039,7 +2062,7 @@ Array [
 </html>
 
 <!-- should only allow <titl> once -->
-<html>
+<html lang=\\"en\\">
 	<head>
 		<title></title>
 		<title></title>
@@ -2174,15 +2197,28 @@ exports[`HTML elements <hr> valid markup 1`] = `Array []`;
 exports[`HTML elements <html> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 3,
+    "errorCount": 4,
     "filePath": "test-files/elements/html-invalid.html",
     "messages": Array [
       Object {
+        "column": 2,
+        "context": Object {
+          "attribute": "lang",
+          "element": "html",
+        },
+        "line": 2,
+        "message": "<html> is missing required attribute \\"lang\\"",
+        "offset": 30,
+        "ruleId": "element-required-attributes",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
         "column": 3,
         "context": undefined,
-        "line": 4,
+        "line": 8,
         "message": "Element <head> can only appear once under <html>",
-        "offset": 64,
+        "offset": 119,
         "ruleId": "element-permitted-occurrences",
         "severity": 2,
         "size": 4,
@@ -2190,9 +2226,9 @@ Array [
       Object {
         "column": 3,
         "context": undefined,
-        "line": 10,
+        "line": 14,
         "message": "Element <body> can only appear once under <html>",
-        "offset": 150,
+        "offset": 215,
         "ruleId": "element-permitted-occurrences",
         "severity": 2,
         "size": 4,
@@ -2200,28 +2236,32 @@ Array [
       Object {
         "column": 3,
         "context": undefined,
-        "line": 16,
+        "line": 20,
         "message": "Element <head> must be used before <body> in this context",
-        "offset": 239,
+        "offset": 314,
         "ruleId": "element-permitted-order",
         "severity": 2,
         "size": 4,
       },
     ],
-    "source": "<!-- should not allow multiple head -->
+    "source": "<!-- should require lang -->
 <html>
+</html>
+
+<!-- should not allow multiple head -->
+<html lang=\\"en\\">
 	<head></head>
 	<head></head>
 </html>
 
 <!-- should not allow multiple body -->
-<html>
+<html lang=\\"en\\">
 	<body></body>
 	<body></body>
 </html>
 
 <!-- should not allow body before head -->
-<html>
+<html lang=\\"en\\">
 	<body></body>
 	<head></head>
 </html>
@@ -2260,7 +2300,33 @@ Array [
 
 exports[`HTML elements <i> valid markup 1`] = `Array []`;
 
-exports[`HTML elements <iframe> invalid markup 1`] = `Array []`;
+exports[`HTML elements <iframe> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/iframe-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": Object {
+          "attribute": "title",
+          "element": "iframe",
+        },
+        "line": 2,
+        "message": "<iframe> is missing required attribute \\"title\\"",
+        "offset": 41,
+        "ruleId": "element-required-attributes",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- should require title attribute -->
+<iframe></iframe>
+",
+    "warningCount": 0,
+  },
+]
+`;
 
 exports[`HTML elements <iframe> valid markup 1`] = `Array []`;
 
@@ -2309,21 +2375,21 @@ exports[`HTML elements <img> valid markup 1`] = `Array []`;
 exports[`HTML elements <input> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 12,
+    "errorCount": 13,
     "filePath": "test-files/elements/input-invalid.html",
     "messages": Array [
       Object {
-        "column": 15,
+        "column": 27,
         "context": undefined,
         "line": 2,
         "message": "End tag for <input> must be omitted",
-        "offset": 48,
+        "offset": 60,
         "ruleId": "void",
         "severity": 2,
         "size": 1,
       },
       Object {
-        "column": 19,
+        "column": 31,
         "context": Object {
           "allowed": Array [],
           "attribute": "autofocus",
@@ -2332,13 +2398,13 @@ Array [
         },
         "line": 5,
         "message": "Attribute \\"autofocus\\" has invalid value \\"foobar\\"",
-        "offset": 106,
+        "offset": 130,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
       Object {
-        "column": 17,
+        "column": 29,
         "context": Object {
           "allowed": Array [],
           "attribute": "capture",
@@ -2347,13 +2413,13 @@ Array [
         },
         "line": 6,
         "message": "Attribute \\"capture\\" has invalid value \\"foobar\\"",
-        "offset": 131,
+        "offset": 167,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
       Object {
-        "column": 17,
+        "column": 29,
         "context": Object {
           "allowed": Array [],
           "attribute": "checked",
@@ -2362,13 +2428,13 @@ Array [
         },
         "line": 7,
         "message": "Attribute \\"checked\\" has invalid value \\"foobar\\"",
-        "offset": 156,
+        "offset": 204,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
       Object {
-        "column": 18,
+        "column": 30,
         "context": Object {
           "allowed": Array [],
           "attribute": "disabled",
@@ -2377,13 +2443,13 @@ Array [
         },
         "line": 8,
         "message": "Attribute \\"disabled\\" has invalid value \\"foobar\\"",
-        "offset": 182,
+        "offset": 242,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
       Object {
-        "column": 18,
+        "column": 30,
         "context": Object {
           "allowed": Array [],
           "attribute": "multiple",
@@ -2392,13 +2458,13 @@ Array [
         },
         "line": 9,
         "message": "Attribute \\"multiple\\" has invalid value \\"foobar\\"",
-        "offset": 208,
+        "offset": 280,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
       Object {
-        "column": 18,
+        "column": 30,
         "context": Object {
           "allowed": Array [],
           "attribute": "readonly",
@@ -2407,13 +2473,13 @@ Array [
         },
         "line": 10,
         "message": "Attribute \\"readonly\\" has invalid value \\"foobar\\"",
-        "offset": 234,
+        "offset": 318,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
       Object {
-        "column": 18,
+        "column": 30,
         "context": Object {
           "allowed": Array [],
           "attribute": "required",
@@ -2422,13 +2488,13 @@ Array [
         },
         "line": 11,
         "message": "Attribute \\"required\\" has invalid value \\"foobar\\"",
-        "offset": 260,
+        "offset": 356,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
       Object {
-        "column": 19,
+        "column": 31,
         "context": Object {
           "allowed": Array [
             "none",
@@ -2446,7 +2512,7 @@ Array [
         },
         "line": 12,
         "message": "Attribute \\"inputmode\\" has invalid value \\"foobar\\"",
-        "offset": 287,
+        "offset": 395,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
@@ -2484,13 +2550,13 @@ Array [
         },
         "line": 13,
         "message": "Attribute \\"type\\" has invalid value \\"foobar\\"",
-        "offset": 309,
+        "offset": 417,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
       Object {
-        "column": 20,
+        "column": 32,
         "context": Object {
           "allowed": Array [
             "default",
@@ -2503,36 +2569,52 @@ Array [
         },
         "line": 14,
         "message": "Attribute \\"spellcheck\\" has invalid value \\"foobar\\"",
-        "offset": 337,
+        "offset": 457,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
       Object {
+        "column": 2,
+        "context": Object {
+          "attribute": "type",
+          "element": "input",
+        },
+        "line": 17,
+        "message": "<input> is missing required attribute \\"type\\"",
+        "offset": 507,
+        "ruleId": "element-required-attributes",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
         "column": 3,
         "context": undefined,
-        "line": 18,
+        "line": 21,
         "message": "Element <input> is not permitted as descendant of <button>",
-        "offset": 426,
+        "offset": 594,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 5,
       },
     ],
     "source": "<!-- should not allow end tag -->
-<input></input>
+<input type=\\"text\\"></input>
 
 <!-- should not allow attributes -->
-<input autofocus=\\"foobar\\">
-<input capture=\\"foobar\\">
-<input checked=\\"foobar\\">
-<input disabled=\\"foobar\\">
-<input multiple=\\"foobar\\">
-<input readonly=\\"foobar\\">
-<input required=\\"foobar\\">
-<input inputmode=\\"foobar\\">
+<input type=\\"text\\" autofocus=\\"foobar\\">
+<input type=\\"text\\" capture=\\"foobar\\">
+<input type=\\"text\\" checked=\\"foobar\\">
+<input type=\\"text\\" disabled=\\"foobar\\">
+<input type=\\"text\\" multiple=\\"foobar\\">
+<input type=\\"text\\" readonly=\\"foobar\\">
+<input type=\\"text\\" required=\\"foobar\\">
+<input type=\\"text\\" inputmode=\\"foobar\\">
 <input type=\\"foobar\\">
-<input spellcheck=\\"foobar\\">
+<input type=\\"text\\" spellcheck=\\"foobar\\">
+
+<!-- should not allow missing type -->
+<input>
 
 <!-- should be interactive when type isn't hidden -->
 <button type=\\"button\\">
@@ -4613,7 +4695,7 @@ exports[`HTML elements <tfoot> valid markup 1`] = `Array []`;
 exports[`HTML elements <th> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 4,
+    "errorCount": 6,
     "filePath": "test-files/elements/th-invalid.html",
     "messages": Array [
       Object {
@@ -4621,7 +4703,7 @@ Array [
         "context": undefined,
         "line": 10,
         "message": "Element <header> is not permitted as descendant of <th>",
-        "offset": 166,
+        "offset": 192,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 6,
@@ -4631,7 +4713,7 @@ Array [
         "context": undefined,
         "line": 11,
         "message": "Element <footer> is not permitted as descendant of <th>",
-        "offset": 187,
+        "offset": 213,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 6,
@@ -4641,7 +4723,7 @@ Array [
         "context": undefined,
         "line": 12,
         "message": "Element <article> is not permitted as descendant of <th>",
-        "offset": 208,
+        "offset": 234,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 7,
@@ -4651,26 +4733,70 @@ Array [
         "context": undefined,
         "line": 13,
         "message": "Element <h1> is not permitted as descendant of <th>",
-        "offset": 231,
+        "offset": 257,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 2,
       },
+      Object {
+        "column": 4,
+        "context": Object {
+          "attribute": "scope",
+          "element": "th",
+        },
+        "line": 21,
+        "message": "<th> is missing required attribute \\"scope\\"",
+        "offset": 350,
+        "ruleId": "element-required-attributes",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 14,
+        "context": Object {
+          "allowed": Array [
+            "row",
+            "col",
+            "rowgroup",
+            "colgroup",
+            "auto",
+          ],
+          "attribute": "scope",
+          "element": "th",
+          "value": "foobar",
+        },
+        "line": 24,
+        "message": "Attribute \\"scope\\" has invalid value \\"foobar\\"",
+        "offset": 411,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
     ],
     "source": "<!-- should not be allowed outside <tr> -->
 <div>
-	<th>foo</th>
+	<th scope=\\"auto\\">foo</th>
 </div>
 
 <!-- should not allow <header>, <footer>, sectioning or headings -->
 <table>
 	<tr>
-		<th>
+		<th scope=\\"auto\\">
 			<header></header>
 			<footer></footer>
 			<article></article>
 			<h1></h1>
 		</th>
+	</tr>
+</table>
+
+<table>
+	<tr>
+		<!-- should require scope attribute -->
+		<th>foo</th>
+
+		<!-- invalid scope attribute -->
+		<th scope=\\"foobar\\">bar</th>
 	</tr>
 </table>
 ",
@@ -5185,7 +5311,7 @@ Array [
     "filePath": "test-files/elements/global-attributes-invalid.html",
     "messages": Array [
       Object {
-        "column": 25,
+        "column": 21,
         "context": Object {
           "allowed": Array [
             "",
@@ -5193,12 +5319,12 @@ Array [
             "false",
           ],
           "attribute": "contenteditable",
-          "element": "input",
+          "element": "p",
           "value": "foobar",
         },
         "line": 1,
         "message": "Attribute \\"contenteditable\\" has invalid value \\"foobar\\"",
-        "offset": 24,
+        "offset": 20,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
@@ -5212,7 +5338,7 @@ Array [
             "auto",
           ],
           "attribute": "dir",
-          "element": "input",
+          "element": "p",
           "value": "",
         },
         "line": 2,
@@ -5220,10 +5346,10 @@ Array [
         "offset": 34,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
-        "size": 5,
+        "size": 1,
       },
       Object {
-        "column": 13,
+        "column": 9,
         "context": Object {
           "allowed": Array [
             "ltr",
@@ -5231,12 +5357,12 @@ Array [
             "auto",
           ],
           "attribute": "dir",
-          "element": "input",
+          "element": "p",
           "value": "foobar",
         },
         "line": 3,
         "message": "Attribute \\"dir\\" has invalid value \\"foobar\\"",
-        "offset": 60,
+        "offset": 56,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
@@ -5249,7 +5375,7 @@ Array [
             "false",
           ],
           "attribute": "draggable",
-          "element": "input",
+          "element": "p",
           "value": "",
         },
         "line": 4,
@@ -5257,37 +5383,37 @@ Array [
         "offset": 70,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
-        "size": 5,
+        "size": 1,
       },
       Object {
-        "column": 19,
+        "column": 15,
         "context": Object {
           "allowed": Array [
             "true",
             "false",
           ],
           "attribute": "draggable",
-          "element": "input",
+          "element": "p",
           "value": "foobar",
         },
         "line": 5,
         "message": "Attribute \\"draggable\\" has invalid value \\"foobar\\"",
-        "offset": 108,
+        "offset": 104,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
       Object {
-        "column": 16,
+        "column": 12,
         "context": Object {
           "allowed": Array [],
           "attribute": "hidden",
-          "element": "input",
+          "element": "p",
           "value": "foobar",
         },
         "line": 6,
         "message": "Attribute \\"hidden\\" has invalid value \\"foobar\\"",
-        "offset": 132,
+        "offset": 128,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
@@ -5299,7 +5425,7 @@ Array [
             /-\\?\\\\d\\+/,
           ],
           "attribute": "tabindex",
-          "element": "input",
+          "element": "p",
           "value": "",
         },
         "line": 7,
@@ -5307,34 +5433,34 @@ Array [
         "offset": 142,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
-        "size": 5,
+        "size": 1,
       },
       Object {
-        "column": 18,
+        "column": 14,
         "context": Object {
           "allowed": Array [
             /-\\?\\\\d\\+/,
           ],
           "attribute": "tabindex",
-          "element": "input",
+          "element": "p",
           "value": "foobar",
         },
         "line": 8,
         "message": "Attribute \\"tabindex\\" has invalid value \\"foobar\\"",
-        "offset": 178,
+        "offset": 174,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
       },
     ],
-    "source": "<input contenteditable=\\"foobar\\">
-<input dir=\\"\\">
-<input dir=\\"foobar\\">
-<input draggable=\\"\\">
-<input draggable=\\"foobar\\">
-<input hidden=\\"foobar\\">
-<input tabindex=\\"\\">
-<input tabindex=\\"foobar\\">
+    "source": "<p contenteditable=\\"foobar\\"></p>
+<p dir=\\"\\"></p>
+<p dir=\\"foobar\\"></p>
+<p draggable=\\"\\"></p>
+<p draggable=\\"foobar\\"></p>
+<p hidden=\\"foobar\\"></p>
+<p tabindex=\\"\\"></p>
+<p tabindex=\\"foobar\\"></p>
 ",
     "warningCount": 0,
   },

@@ -98,13 +98,13 @@ First-class support for:
 
 ### Accessibility
 
-<validate name="frontpage-a17y" rules="wcag/h37 button-type input-missing-label">
+<validate name="frontpage-a17y" rules="wcag/h37 element-required-attributes input-missing-label">
   <img src="logo.png">
   <button onclick="myFunction();">Click me!</button>
 
   <div class="field-wrapper">
     <strong>Name: </strong>
-    <input name="name">
+    <input type="text" name="name">
   </div>
 </validate>
 

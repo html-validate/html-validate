@@ -1,15 +1,26 @@
 <!-- should be allowed under <tr> -->
 <table>
 	<tr>
-		<th>foo</th>
+		<th scope="auto">foo</th>
 	</tr>
 </table>
 
 <!-- should allow regular flow content -->
 <table>
 	<tr>
-		<th>
+		<th scope="auto">
 			<div>foo</div>
 		</th>
+	</tr>
+</table>
+
+<!-- allowed scope values -->
+<table>
+	<tr>
+		<th scope="row"></th>
+		<th scope="col"></th>
+		<th scope="rowgroup"></th>
+		<th scope="colgroup"></th>
+		<th scope="auto"></th>
 	</tr>
 </table>

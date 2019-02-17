@@ -17,7 +17,7 @@ markup["frontpage-a17y"] = `<img src="logo.png">
 
 <div class="field-wrapper">
   <strong>Name: </strong>
-  <input name="name">
+  <input type="text" name="name">
 </div>`;
 markup["frontpage-components"] = `<my-inline>
   <my-block></my-block>
@@ -31,7 +31,7 @@ describe("docs/index.md", () => {
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: frontpage-a17y", () => {
-		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h37":"error","button-type":"error","input-missing-label":"error"}});
+		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h37":"error","element-required-attributes":"error","input-missing-label":"error"}});
 		const report = htmlvalidate.validateString(markup["frontpage-a17y"]);
 		expect(report.results).toMatchSnapshot();
 	});

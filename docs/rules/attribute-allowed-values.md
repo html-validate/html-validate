@@ -7,7 +7,21 @@
 
 # Allowed attribute values (`attribute-allowed-values`)
 
-Validates attributes for allowed values.
+Validates attributes for allowed values. Use
+[element-required-attributes](/rules/element-required-attributes.html) tog
+validate presence of attributes.
+
+The requirements comes from the [element metadata](/usage/elements.html):
+
+```js
+{
+  "input": {
+    "attributes": {
+      "type": ["text", "email", "..."]
+    }
+  }
+}
+```
 
 ## Rule details
 
