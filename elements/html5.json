@@ -329,7 +329,8 @@
 
   "frame": {
     "deprecated": true,
-    "deprecatedAttributes": ["datasrc", "datafld"]
+    "deprecatedAttributes": ["datasrc", "datafld"],
+    "requiredAttributes": ["title"]
   },
 
   "frameset": {
@@ -429,6 +430,7 @@
       "scrolling",
       "vspace"
     ],
+    "requiredAttributes": ["title"],
     "permittedContent": []
   },
 
