@@ -4,6 +4,8 @@
 
 ### Features
 
+- support foreign elements. The body of the foreign element will be discarded
+  from the DOM tree and not trigger any rules.
 - CLI write a more verbose message when unhandled exceptions are raised.
 - `--dump-events` output reduced by hiding element metadata and compacting
   location data.
