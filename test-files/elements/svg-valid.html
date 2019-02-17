@@ -1,1 +1,16 @@
-<svg></svg>
+<!-- foreign element should allow unknown children -->
+<svg>
+	<g></g>
+</svg>
+
+<!-- foreign should always allow self-closed -->
+<svg/>
+
+<!-- should allow camelcase attributes -->
+<svg viewBox="1 2 3 4"></svg>
+
+<!-- should allow nesting -->
+<svg>
+	<svg></svg>
+	<svg/>
+</svg>

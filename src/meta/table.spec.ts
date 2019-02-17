@@ -260,6 +260,7 @@ function mockEntry(tagName: string, stub = {}): MetaElement {
 			tagName,
 			metadata: false,
 			flow: false,
+			foreign: false,
 			sectioning: false,
 			heading: false,
 			phrasing: false,

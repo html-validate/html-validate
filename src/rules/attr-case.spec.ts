@@ -90,6 +90,36 @@ describe("rule attr-case", () => {
 		});
 	});
 
+	describe('configured with "ignoreForeign" true', () => {
+		beforeAll(() => {
+			htmlvalidate = new HtmlValidate({
+				rules: { "attr-case": ["error", { ignoreForeign: true }] },
+			});
+		});
+
+		it("should not report error on foreign elements", () => {
+			const report = htmlvalidate.validateString('<svg viewBox=""/>');
+			expect(report).toBeValid();
+		});
+	});
+
+	describe('configured with "ignoreForeign" false', () => {
+		beforeAll(() => {
+			htmlvalidate = new HtmlValidate({
+				rules: { "attr-case": ["error", { ignoreForeign: false }] },
+			});
+		});
+
+		it("should report error on foreign elements", () => {
+			const report = htmlvalidate.validateString('<svg viewBox=""/>');
+			expect(report).toBeInvalid();
+			expect(report).toHaveError(
+				"attr-case",
+				'Attribute "viewBox" should be lowercase'
+			);
+		});
+	});
+
 	it("should throw error if configured with invalid value", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "attr-case": ["error", { style: "foobar" }] },

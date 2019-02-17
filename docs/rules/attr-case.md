@@ -29,11 +29,27 @@ This rule takes an optional object:
 
 ```javascript
 {
-	"style": "lowercase"
+	"style": "lowercase",
+	"ignoreForeign": true
 }
 ```
 
-### Style
+### `style`
 
 - `lowercase` requires all attribute names to be lowercase.
 - `uppercase` requires all attribute names to be uppercase.
+
+### `ignoreForeign`
+
+By default attributes on foreign elements (such as `<svg>` and `<math>`) are
+ignored as they follow their own specifications. For instance, the SVG
+specifications uses camelcase for many attributes.
+
+With this option enabled the following is valid despite camelcase attribute:
+
+<validate name="svg-viewbox" rules="attr-case">
+	<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" />
+</validate>
+
+Disable this option if you want to validate attributes on foreign elements as
+well.

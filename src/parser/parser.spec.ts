@@ -686,6 +686,48 @@ describe("parser", () => {
 			});
 			expect(events.shift()).toBeUndefined();
 		});
+
+		it("foreign elements", () => {
+			parser.parseHtml("<svg><g></g></svg>");
+			expect(events.shift()).toEqual({
+				event: "tag:open",
+				target: "svg",
+			});
+			expect(events.shift()).toEqual({
+				event: "tag:close",
+				previous: "svg",
+				target: "svg",
+			});
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it("nested foreign elements", () => {
+			parser.parseHtml("<svg><svg></svg><svg/></svg>");
+			expect(events.shift()).toEqual({
+				event: "tag:open",
+				target: "svg",
+			});
+			expect(events.shift()).toEqual({
+				event: "tag:close",
+				previous: "svg",
+				target: "svg",
+			});
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it("self-closed foreign elements", () => {
+			parser.parseHtml("<svg/>");
+			expect(events.shift()).toEqual({
+				event: "tag:open",
+				target: "svg",
+			});
+			expect(events.shift()).toEqual({
+				event: "tag:close",
+				previous: "svg",
+				target: "svg",
+			});
+			expect(events.shift()).toBeUndefined();
+		});
 	});
 
 	describe("should postprocess", () => {

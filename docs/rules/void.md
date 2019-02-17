@@ -10,6 +10,8 @@
 HTML [void elements](https://www.w3.org/TR/html5/syntax.html#void-elements)
 cannot have any content and must not have an end tag.
 
+Foreign elements will always be ignored by this rule.
+
 ## Rule details
 
 Examples of **incorrect** code for this rule:

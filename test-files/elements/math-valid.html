@@ -8,3 +8,20 @@
 <math overflow="elide"></math>
 <math overflow="truncate"></math>
 <math overflow="scale"></math>
+
+<!-- foreign element -->
+<math>
+	<msup>
+    <mi>a</mi>
+    <mn>2</mn>
+  </msup>
+</math>
+
+<!-- foreign should always allow self-closed -->
+<math/>
+
+<!-- should allow nesting -->
+<math>
+	<math></math>
+	<math/>
+</math>

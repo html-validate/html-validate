@@ -33,6 +33,7 @@ export interface MetaElement {
 
   /* element properties */
   deprecated: boolean | string;
+  foreign: boolean;
   void: boolean;
   transparent: boolean;
 
@@ -92,6 +93,19 @@ The available evaluators are:
 
 If true the element will trigger the [deprecated](/rules/deprecated.html) rule
 when used. Can optionally be set to a string which will be displayed as well.
+
+## `foreign`
+
+If true the element is [foreign][whatwg-foreign] and will only be parsed for
+valid tokens. The DOM tree will only contain the foreign element itself but none
+of the children. Unless used in an illegal context no rules will trigger on the
+element or its child nodes.
+
+Examples of foreign elements includes `<svg>` and `<math>`. While technically
+XML it has its own set of rules (e.g. SVG uses camelcase attribute which
+triggers the [attr-case](/rules/attr-case.html) rule).
+
+[whatwg-foreign]: https://html.spec.whatwg.org/multipage/syntax.html#foreign-elements
 
 ### `void`
 
