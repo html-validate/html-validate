@@ -11,6 +11,7 @@
 /tsconfig.json
 /tslint.json
 /scripts
+/temp
 
 *.spec.d.ts
 *.spec.js
