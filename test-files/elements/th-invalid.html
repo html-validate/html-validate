@@ -1,16 +1,26 @@
 <!-- should not be allowed outside <tr> -->
 <div>
-	<th>foo</th>
+	<th scope="auto">foo</th>
 </div>
 
 <!-- should not allow <header>, <footer>, sectioning or headings -->
 <table>
 	<tr>
-		<th>
+		<th scope="auto">
 			<header></header>
 			<footer></footer>
 			<article></article>
 			<h1></h1>
 		</th>
+	</tr>
+</table>
+
+<table>
+	<tr>
+		<!-- should require scope attribute -->
+		<th>foo</th>
+
+		<!-- invalid scope attribute -->
+		<th scope="foobar">bar</th>
 	</tr>
 </table>

@@ -1035,6 +1035,7 @@
       "valign",
       "width"
     ],
+    "requiredAttributes": ["scope"],
     "permittedContent": ["@flow"],
     "permittedDescendants": [
       { "exclude": ["header", "footer", "@sectioning", "@heading"] }

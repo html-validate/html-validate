@@ -4652,7 +4652,7 @@ exports[`HTML elements <tfoot> valid markup 1`] = `Array []`;
 exports[`HTML elements <th> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 4,
+    "errorCount": 6,
     "filePath": "test-files/elements/th-invalid.html",
     "messages": Array [
       Object {
@@ -4660,7 +4660,7 @@ Array [
         "context": undefined,
         "line": 10,
         "message": "Element <header> is not permitted as descendant of <th>",
-        "offset": 166,
+        "offset": 192,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 6,
@@ -4670,7 +4670,7 @@ Array [
         "context": undefined,
         "line": 11,
         "message": "Element <footer> is not permitted as descendant of <th>",
-        "offset": 187,
+        "offset": 213,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 6,
@@ -4680,7 +4680,7 @@ Array [
         "context": undefined,
         "line": 12,
         "message": "Element <article> is not permitted as descendant of <th>",
-        "offset": 208,
+        "offset": 234,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 7,
@@ -4690,26 +4690,70 @@ Array [
         "context": undefined,
         "line": 13,
         "message": "Element <h1> is not permitted as descendant of <th>",
-        "offset": 231,
+        "offset": 257,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 2,
       },
+      Object {
+        "column": 4,
+        "context": Object {
+          "attribute": "scope",
+          "element": "th",
+        },
+        "line": 21,
+        "message": "<th> is missing required attribute \\"scope\\"",
+        "offset": 350,
+        "ruleId": "element-required-attributes",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 14,
+        "context": Object {
+          "allowed": Array [
+            "row",
+            "col",
+            "rowgroup",
+            "colgroup",
+            "auto",
+          ],
+          "attribute": "scope",
+          "element": "th",
+          "value": "foobar",
+        },
+        "line": 24,
+        "message": "Attribute \\"scope\\" has invalid value \\"foobar\\"",
+        "offset": 411,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
     ],
     "source": "<!-- should not be allowed outside <tr> -->
 <div>
-	<th>foo</th>
+	<th scope=\\"auto\\">foo</th>
 </div>
 
 <!-- should not allow <header>, <footer>, sectioning or headings -->
 <table>
 	<tr>
-		<th>
+		<th scope=\\"auto\\">
 			<header></header>
 			<footer></footer>
 			<article></article>
 			<h1></h1>
 		</th>
+	</tr>
+</table>
+
+<table>
+	<tr>
+		<!-- should require scope attribute -->
+		<th>foo</th>
+
+		<!-- invalid scope attribute -->
+		<th scope=\\"foobar\\">bar</th>
 	</tr>
 </table>
 ",
