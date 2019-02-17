@@ -24,3 +24,5 @@ Array [
   },
 ]
 `;
+
+exports[`docs/rules/attr-case.md inline validation: svg-viewbox 1`] = `Array []`;

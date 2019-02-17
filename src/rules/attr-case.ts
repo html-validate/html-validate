@@ -1,8 +1,10 @@
+import { HtmlElement } from "../dom";
 import { AttributeEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 const defaults = {
 	style: "lowercase",
+	ignoreForeign: true,
 };
 
 class AttrCase extends Rule {
@@ -23,6 +25,10 @@ class AttrCase extends Rule {
 
 	public setup() {
 		this.on("attr", (event: AttributeEvent) => {
+			if (this.isIgnored(event.target)) {
+				return;
+			}
+
 			const letters = event.key.replace(/[^a-z]+/gi, "");
 			if (!letters.match(this.pattern)) {
 				this.report(
@@ -31,6 +37,14 @@ class AttrCase extends Rule {
 				);
 			}
 		});
+	}
+
+	protected isIgnored(node: HtmlElement): boolean {
+		if (this.options.ignoreForeign) {
+			return node.meta && node.meta.foreign;
+		} else {
+			return false;
+		}
 	}
 }
 
