@@ -1987,7 +1987,7 @@ Array [
         "context": undefined,
         "line": 9,
         "message": "Element <div> is not permitted as content in <head>",
-        "offset": 136,
+        "offset": 146,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 3,
@@ -1997,7 +1997,7 @@ Array [
         "context": undefined,
         "line": 10,
         "message": "Element <span> is not permitted as content in <head>",
-        "offset": 150,
+        "offset": 160,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 4,
@@ -2007,7 +2007,7 @@ Array [
         "context": undefined,
         "line": 18,
         "message": "Element <base> can only appear once under <head>",
-        "offset": 247,
+        "offset": 267,
         "ruleId": "element-permitted-occurrences",
         "severity": 2,
         "size": 4,
@@ -2017,7 +2017,7 @@ Array [
         "context": undefined,
         "line": 26,
         "message": "Element <title> can only appear once under <head>",
-        "offset": 346,
+        "offset": 376,
         "ruleId": "element-permitted-occurrences",
         "severity": 2,
         "size": 5,
@@ -2029,7 +2029,7 @@ Array [
 </div>
 
 <!-- should not allow flow or phrasing -->
-<html>
+<html lang=\\"en\\">
 	<head>
 		<div></div>
 		<span></span>
@@ -2037,7 +2037,7 @@ Array [
 </html>
 
 <!-- should only allow <base> once -->
-<html>
+<html lang=\\"en\\">
 	<head>
 		<base>
 		<base>
@@ -2045,7 +2045,7 @@ Array [
 </html>
 
 <!-- should only allow <titl> once -->
-<html>
+<html lang=\\"en\\">
 	<head>
 		<title></title>
 		<title></title>
@@ -2180,15 +2180,28 @@ exports[`HTML elements <hr> valid markup 1`] = `Array []`;
 exports[`HTML elements <html> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 3,
+    "errorCount": 4,
     "filePath": "test-files/elements/html-invalid.html",
     "messages": Array [
       Object {
+        "column": 2,
+        "context": Object {
+          "attribute": "lang",
+          "element": "html",
+        },
+        "line": 2,
+        "message": "<html> is missing required attribute \\"lang\\"",
+        "offset": 30,
+        "ruleId": "element-required-attributes",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
         "column": 3,
         "context": undefined,
-        "line": 4,
+        "line": 8,
         "message": "Element <head> can only appear once under <html>",
-        "offset": 64,
+        "offset": 119,
         "ruleId": "element-permitted-occurrences",
         "severity": 2,
         "size": 4,
@@ -2196,9 +2209,9 @@ Array [
       Object {
         "column": 3,
         "context": undefined,
-        "line": 10,
+        "line": 14,
         "message": "Element <body> can only appear once under <html>",
-        "offset": 150,
+        "offset": 215,
         "ruleId": "element-permitted-occurrences",
         "severity": 2,
         "size": 4,
@@ -2206,28 +2219,32 @@ Array [
       Object {
         "column": 3,
         "context": undefined,
-        "line": 16,
+        "line": 20,
         "message": "Element <head> must be used before <body> in this context",
-        "offset": 239,
+        "offset": 314,
         "ruleId": "element-permitted-order",
         "severity": 2,
         "size": 4,
       },
     ],
-    "source": "<!-- should not allow multiple head -->
+    "source": "<!-- should require lang -->
 <html>
+</html>
+
+<!-- should not allow multiple head -->
+<html lang=\\"en\\">
 	<head></head>
 	<head></head>
 </html>
 
 <!-- should not allow multiple body -->
-<html>
+<html lang=\\"en\\">
 	<body></body>
 	<body></body>
 </html>
 
 <!-- should not allow body before head -->
-<html>
+<html lang=\\"en\\">
 	<body></body>
 	<head></head>
 </html>
