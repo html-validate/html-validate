@@ -56,7 +56,7 @@
     "void": true,
     "deprecatedAttributes": ["nohref"],
     "attributes": {
-      "shape": ["rect", "circle", "poly"]
+      "shape": ["rect", "circle", "poly", "default"]
     }
   },
 
