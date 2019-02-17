@@ -17,6 +17,10 @@
   location data.
 - use jest snapshots to test element metadata as it is more maintainable.
 
+### Bugfixes
+
+- allow `<area shape="default">` (fixes #31)
+
 ## 0.20.1 (2019-02-06)
 
 ### Bugfixes
