@@ -8,7 +8,8 @@ jest.mock("./engine");
 jest.mock("./parser");
 
 function engineInstance(): Engine {
-	return ((Engine as unknown) as jest.MockInstance<Engine>).mock.instances[0];
+	return ((Engine as unknown) as jest.MockInstance<Engine, any>).mock
+		.instances[0];
 }
 
 function mockConfig(): Config {
@@ -26,7 +27,7 @@ function mockConfig(): Config {
 }
 
 beforeEach(() => {
-	((Engine as unknown) as jest.MockInstance<Engine>).mockClear();
+	((Engine as unknown) as jest.MockInstance<Engine, any>).mockClear();
 });
 
 describe("HtmlValidate", () => {
@@ -152,7 +153,7 @@ describe("HtmlValidate", () => {
 
 	it("getParserFor() should create a parser for given filename", () => {
 		const htmlvalidate = new HtmlValidate();
-		const config = { foo: "bar" };
+		const config = Config.empty();
 		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(() => config);
 		const source: Source = {
 			data: "foo",

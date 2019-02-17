@@ -2,8 +2,8 @@ import { Report } from "../reporter";
 import { getFormatter } from "./formatter";
 
 /* all mocked formatters must return empty string */
-const textFormatter = jest.fn(() => "");
-const jsonFormatter = jest.fn(() => "");
+const textFormatter = jest.fn((report: Report) => ""); // eslint-disable-line @typescript-eslint/no-unused-vars
+const jsonFormatter = jest.fn((report: Report) => ""); // eslint-disable-line @typescript-eslint/no-unused-vars
 
 jest.mock("../formatters/text", () => {
 	return (report: Report) => textFormatter(report);
