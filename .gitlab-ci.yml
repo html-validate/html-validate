@@ -137,9 +137,9 @@ html-validate-angular:
 html-validate-vue:
   <<: *downstream
   variables:
-    PROJECT_ID: 40
+    PROJECT_ID: 10926311
   script:
-    - scripts/trigger-downstream "git.sidvind.com" "${PROJECT_ID}" "${DOWNSTREAM_VUE_TOKEN}" "master" "${CI_COMMIT_TAG}"
+    - scripts/trigger-downstream "gitlab.com" "${PROJECT_ID}" "${DOWNSTREAM_VUE_TOKEN}" "master" "${CI_COMMIT_TAG}"
 
 protractor-html-validate:
   <<: *downstream
