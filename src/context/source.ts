@@ -1,16 +1,12 @@
+import { AttributeData } from "../parser";
+
 /**
  * Source interface.
  *
  * HTML source with file, line and column context.
  */
 
-type ProcessAttributeCallback = ({
-	key,
-	value,
-}: {
-	key: string;
-	value: string;
-}) => void;
+type ProcessAttributeCallback = (attr: AttributeData) => void;
 
 export interface Source {
 	data: string;

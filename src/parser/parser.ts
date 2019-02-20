@@ -15,6 +15,7 @@ import {
 } from "../event";
 import { Lexer, Token, TokenStream, TokenType } from "../lexer";
 import { MetaTable } from "../meta";
+import { AttributeData } from "./attribute-data";
 
 export class Parser {
 	private readonly event: EventHandler;
@@ -291,10 +292,8 @@ export class Parser {
 		next?: Token
 	) {
 		const haveValue = next && next.type === TokenType.ATTR_VALUE;
-		const attr = {
+		const attr: AttributeData = {
 			key: token.data[1],
-			value: undefined as string,
-			quote: undefined as any,
 		};
 		if (haveValue) {
 			attr.value = next.data[1];
