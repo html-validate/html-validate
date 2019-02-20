@@ -70,6 +70,7 @@ about to be closed.
   key: String,
   value: String|undefined,
   quote: 'single'|'double'|undefined,
+  originalAttribute: string;
 }
 ```
 
@@ -78,6 +79,9 @@ Emitted when an element attribute is parsed: `<div foo="bar">`.
 Target node will not have been updated with the new attribute yet
 (e.g. `node.getAttribute(...)` will return `undefined` or a previous
 value).
+
+`originalAttribute` is set when a transformer has modified the attribute and
+contains the original attribute name, e.g. `ng-class` or `v-bind:class`.
 
 ## `whitespace`
 

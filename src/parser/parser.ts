@@ -311,6 +311,7 @@ export class Parser {
 			key: attr.key,
 			value: attr.value,
 			quote: attr.quote,
+			originalAttribute: attr.originalAttribute,
 			location: keyLocation,
 			valueLocation,
 		});
