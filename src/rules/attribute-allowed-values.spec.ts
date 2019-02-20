@@ -1,3 +1,5 @@
+import { Source } from "../context";
+import { DynamicValue } from "../dom";
 import HtmlValidate from "../htmlvalidate";
 import "../matchers";
 
@@ -49,6 +51,23 @@ describe("rule attribute-allowed-values", () => {
 
 	it("should not report error when element has no attribute specification", () => {
 		const report = htmlvalidate.validateString('<div id="text">');
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when attribute is dynamic", () => {
+		const processAttribute = jest.fn(attr => {
+			attr.value = new DynamicValue(attr.value);
+		});
+		const source: Source = {
+			data: '<input type="{{ dynamic }}" required="{{ dynamic }}">',
+			filename: "inline",
+			line: 1,
+			column: 1,
+			hooks: {
+				processAttribute,
+			},
+		};
+		const report = htmlvalidate.validateSource(source);
 		expect(report).toBeValid();
 	});
 

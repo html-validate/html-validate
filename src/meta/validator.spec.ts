@@ -433,9 +433,11 @@ describe("Meta validator", () => {
 		it("should match dynamic value", () => {
 			const rules = {
 				foo: ["bar"],
+				bar: [] as string[],
 			};
 			const dynamic = new DynamicValue("any");
 			expect(Validator.validateAttribute("foo", dynamic, rules)).toBeTruthy();
+			expect(Validator.validateAttribute("bar", dynamic, rules)).toBeTruthy();
 		});
 
 		it("should match if one of multiple allowed matches", () => {
