@@ -2,6 +2,11 @@
 
 ## Upcoming release
 
+### Bugfixes
+
+- `attribute-allowed-values` now ignores boolean attributes with dynamic
+  values. (partially fixes #35)
+
 ## 0.21.0 (2019-02-17)
 
 ### Breaking changes

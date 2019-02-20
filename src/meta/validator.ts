@@ -105,16 +105,16 @@ export class Validator {
 			return true;
 		}
 
-		/* consider an empty array as being a boolean attribute */
-		if (rule.length === 0) {
-			return value === null || value === "" || value === key;
-		}
-
 		/* consider dynamic values as valid as there is no way to properly test them
 		 * while using transformed sources, i.e. it must be tested when running in a
 		 * browser instead */
 		if (value instanceof DynamicValue) {
 			return true;
+		}
+
+		/* consider an empty array as being a boolean attribute */
+		if (rule.length === 0) {
+			return value === null || value === "" || value === key;
 		}
 
 		return rule.some((entry: string | RegExp) => {
