@@ -4,6 +4,10 @@
 
 ### Bugfixes
 
+- `attribute-boolean-style` and `no-dup-attr` now handles when dynamic
+  attributes is used to alias other attributes, e.g `:required="foo"` no longer
+  triggers an boolean style and `class=".."` combined with `:class=".."` no
+  longer triggers duplicate attributes. (fixes #35)
 - `attribute-allowed-values` now ignores boolean attributes with dynamic
   values. (partially fixes #35)
 
