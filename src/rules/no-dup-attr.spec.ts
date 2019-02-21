@@ -1,5 +1,8 @@
+import { Source } from "../context";
+import { DynamicValue } from "../dom";
 import HtmlValidate from "../htmlvalidate";
 import "../matchers";
+import { AttributeData } from "../parser";
 
 describe("rule no-dup-attr", () => {
 	let htmlvalidate: HtmlValidate;
@@ -12,6 +15,28 @@ describe("rule no-dup-attr", () => {
 
 	it("should not report when no attribute is duplicated", () => {
 		const report = htmlvalidate.validateString('<p foo="bar"></p>');
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when attribute is dynamic", () => {
+		const processAttribute = jest.fn((attr: AttributeData) => {
+			if (attr.key.startsWith("dynamic-")) {
+				attr.originalAttribute = attr.key;
+				attr.key = attr.key.replace("dynamic-", "");
+				attr.value = new DynamicValue(attr.value as string);
+			}
+			return attr;
+		});
+		const source: Source = {
+			data: '<input class="foo" dynamic-class="bar">',
+			filename: "inline",
+			line: 1,
+			column: 1,
+			hooks: {
+				processAttribute,
+			},
+		};
+		const report = htmlvalidate.validateSource(source);
 		expect(report).toBeValid();
 	});
 

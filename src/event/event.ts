@@ -18,6 +18,7 @@ export interface AttributeEvent extends Event {
 	key: string;
 	value: string | DynamicValue;
 	quote: '"' | "'" | undefined;
+	originalAttribute: string;
 	target: HtmlElement;
 	valueLocation: Location;
 }

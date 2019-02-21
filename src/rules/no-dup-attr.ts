@@ -19,6 +19,11 @@ class NoDupAttr extends Rule {
 		});
 
 		this.on("attr", (event: AttributeEvent) => {
+			/* ignore dynamic attributes aliasing another, e.g class and ng-class */
+			if (event.originalAttribute) {
+				return;
+			}
+
 			const name = event.key.toLowerCase();
 			if (name in attr) {
 				this.report(event.target, `Attribute "${name}" duplicated`);

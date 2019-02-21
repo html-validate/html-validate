@@ -1,0 +1,5 @@
+<!-- disabled (boolean attribute) set via dynamic value, validator should assume framework handles boolean values properly -->
+<input type="text" dynamic-disabled="foo">
+
+<!-- class is set both via static attribute and via a dynamic attribute, should be valid and not trigger error for duplicated attribute -->
+<div class="foo" dynamic-class="bar"></div>

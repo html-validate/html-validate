@@ -6,17 +6,20 @@ export class Attribute {
 	public readonly value: string | DynamicValue;
 	public readonly keyLocation: Location;
 	public readonly valueLocation: Location;
+	public readonly originalAttribute: string;
 
 	public constructor(
 		key: string,
 		value: string | DynamicValue,
 		keyLocation: Location,
-		valueLocation: Location
+		valueLocation: Location,
+		originalAttribute?: string
 	) {
 		this.key = key;
 		this.value = value;
 		this.keyLocation = keyLocation;
 		this.valueLocation = valueLocation;
+		this.originalAttribute = originalAttribute;
 
 		/* force undefined to null */
 		if (typeof this.value === "undefined") {

@@ -38,6 +38,14 @@ class AttributeBooleanStyle extends Rule {
 				for (const [key, attr] of Object.entries(node.attr)) {
 					if (!this.isBoolean(key, meta.attributes)) continue;
 
+					/* ignore attribute if it is aliased by a dynamic value,
+					 * e.g. ng-required or v-bind:required, since it will probably have a
+					 * value despite the target attribute is a boolean. The framework is
+					 * assumed to handle it properly */
+					if (attr.originalAttribute) {
+						continue;
+					}
+
 					const value =
 						attr.value instanceof DynamicValue
 							? attr.value.toString()
