@@ -1,5 +1,6 @@
 import { Config, ConfigLoader } from "./config";
 import { Source } from "./context";
+import { SourceHooks } from "./context/source";
 import { Engine, EventDump, TokenDump } from "./engine";
 import { Parser } from "./parser";
 import { Report } from "./reporter";
@@ -21,14 +22,16 @@ class HtmlValidate {
 	 * Parse HTML from string.
 	 *
 	 * @param str {string} - Text to parse.
+	 * @param [hooks] {object} - Optional hooks (see Source) for definition.
 	 * @return {object} - Report output.
 	 */
-	public validateString(str: string): Report {
+	public validateString(str: string, hooks?: SourceHooks): Report {
 		const source = {
 			column: 1,
 			data: str,
 			filename: "inline",
 			line: 1,
+			hooks,
 		};
 		return this.validateSource(source);
 	}

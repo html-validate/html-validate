@@ -1,7 +1,6 @@
-import { Source } from "../context";
-import { DynamicValue } from "../dom";
 import HtmlValidate from "../htmlvalidate";
 import "../matchers";
+import { processAttribute } from "../transform/mocks/attribute";
 
 describe("rule attribute-allowed-values", () => {
 	let htmlvalidate: HtmlValidate;
@@ -55,19 +54,12 @@ describe("rule attribute-allowed-values", () => {
 	});
 
 	it("should not report error when attribute is dynamic", () => {
-		const processAttribute = jest.fn(attr => {
-			attr.value = new DynamicValue(attr.value);
-		});
-		const source: Source = {
-			data: '<input type="{{ dynamic }}" required="{{ dynamic }}">',
-			filename: "inline",
-			line: 1,
-			column: 1,
-			hooks: {
+		const report = htmlvalidate.validateString(
+			'<input type="{{ interpolated }}" required="{{ interpolated }}"><input dynamic-type="dynamic" dynamic-required="dynamic">',
+			{
 				processAttribute,
-			},
-		};
-		const report = htmlvalidate.validateSource(source);
+			}
+		);
 		expect(report).toBeValid();
 	});
 

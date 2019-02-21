@@ -1,8 +1,6 @@
-import { AttributeData } from "parser";
-import { Source } from "../context";
-import { DynamicValue } from "../dom";
 import HtmlValidate from "../htmlvalidate";
 import "../matchers";
+import { processAttribute } from "../transform/mocks/attribute";
 
 describe("rule attribute-boolean-style", () => {
 	let htmlvalidate: HtmlValidate;
@@ -51,19 +49,10 @@ describe("rule attribute-boolean-style", () => {
 		});
 
 		it("should report error when attribute is interpolated", () => {
-			const processAttribute = jest.fn(attr => {
-				attr.value = new DynamicValue(attr.value);
-			});
-			const source: Source = {
-				data: '<input required="{{ dynamic }}">',
-				filename: "inline",
-				line: 1,
-				column: 1,
-				hooks: {
-					processAttribute,
-				},
-			};
-			const report = htmlvalidate.validateSource(source);
+			const report = htmlvalidate.validateString(
+				'<input required="{{ dynamic }}">',
+				{ processAttribute }
+			);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-boolean-style",
@@ -72,21 +61,10 @@ describe("rule attribute-boolean-style", () => {
 		});
 
 		it("should not report error when attribute is dynamic", () => {
-			const processAttribute = jest.fn((attr: AttributeData) => {
-				attr.value = new DynamicValue(attr.value as string);
-				attr.originalAttribute = attr.key;
-				attr.key = attr.key.replace("dynamic-", "");
-			});
-			const source: Source = {
-				data: '<input dynamic-required="dynamic">',
-				filename: "inline",
-				line: 1,
-				column: 1,
-				hooks: {
-					processAttribute,
-				},
-			};
-			const report = htmlvalidate.validateSource(source);
+			const report = htmlvalidate.validateString(
+				'<input dynamic-required="dynamic">',
+				{ processAttribute }
+			);
 			expect(report).toBeValid();
 		});
 
@@ -129,19 +107,10 @@ describe("rule attribute-boolean-style", () => {
 		});
 
 		it("should report error when attribute is dynamic", () => {
-			const processAttribute = jest.fn(attr => {
-				attr.value = new DynamicValue(attr.value);
-			});
-			const source: Source = {
-				data: '<input required="{{ dynamic }}"></button>',
-				filename: "inline",
-				line: 1,
-				column: 1,
-				hooks: {
-					processAttribute,
-				},
-			};
-			const report = htmlvalidate.validateSource(source);
+			const report = htmlvalidate.validateString(
+				'<input required="{{ dynamic }}">',
+				{ processAttribute }
+			);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-boolean-style",
@@ -188,19 +157,10 @@ describe("rule attribute-boolean-style", () => {
 		});
 
 		it("should report error when attribute is dynamic", () => {
-			const processAttribute = jest.fn(attr => {
-				attr.value = new DynamicValue(attr.value);
-			});
-			const source: Source = {
-				data: '<input required="{{ dynamic }}"></button>',
-				filename: "inline",
-				line: 1,
-				column: 1,
-				hooks: {
-					processAttribute,
-				},
-			};
-			const report = htmlvalidate.validateSource(source);
+			const report = htmlvalidate.validateString(
+				'<input required="{{ dynamic }}">',
+				{ processAttribute }
+			);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-boolean-style",
