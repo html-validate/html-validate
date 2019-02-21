@@ -47,7 +47,7 @@ ESLint:
 
 Jest:
   stage: test
-  script: node_modules/.bin/jest src
+  script: node_modules/.bin/jest src elements
   coverage: /Lines\s+:\s(\d+.\d+%)/
   artifacts:
     name: ${CI_PROJECT_PATH_SLUG}-${CI_PIPELINE_ID}-coverage
