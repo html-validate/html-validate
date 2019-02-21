@@ -108,10 +108,17 @@ export class HtmlElement extends DOMNode {
 		key: string,
 		value: string | DynamicValue,
 		keyLocation: Location,
-		valueLocation: Location
+		valueLocation: Location,
+		originalAttribute?: string
 	): void {
 		key = key.toLowerCase();
-		this.attr[key] = new Attribute(key, value, keyLocation, valueLocation);
+		this.attr[key] = new Attribute(
+			key,
+			value,
+			keyLocation,
+			valueLocation,
+			originalAttribute
+		);
 	}
 
 	public hasAttribute(key: string): boolean {

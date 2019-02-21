@@ -316,7 +316,13 @@ export class Parser {
 			valueLocation,
 		});
 
-		node.setAttribute(attr.key, attr.value, keyLocation, valueLocation);
+		node.setAttribute(
+			attr.key,
+			attr.value,
+			keyLocation,
+			valueLocation,
+			attr.originalAttribute
+		);
 	}
 
 	/**

@@ -1,3 +1,4 @@
+import { AttributeData } from "parser";
 import { Source } from "../context";
 import { DynamicValue } from "../dom";
 import HtmlValidate from "../htmlvalidate";
@@ -49,12 +50,12 @@ describe("rule attribute-boolean-style", () => {
 			);
 		});
 
-		it("should report error when attribute is dynamic", () => {
+		it("should report error when attribute is interpolated", () => {
 			const processAttribute = jest.fn(attr => {
 				attr.value = new DynamicValue(attr.value);
 			});
 			const source: Source = {
-				data: '<input required="{{ dynamic }}"></button>',
+				data: '<input required="{{ dynamic }}">',
 				filename: "inline",
 				line: 1,
 				column: 1,
@@ -68,6 +69,25 @@ describe("rule attribute-boolean-style", () => {
 				"attribute-boolean-style",
 				'Attribute "required" should omit value'
 			);
+		});
+
+		it("should not report error when attribute is dynamic", () => {
+			const processAttribute = jest.fn((attr: AttributeData) => {
+				attr.value = new DynamicValue(attr.value as string);
+				attr.originalAttribute = attr.key;
+				attr.key = attr.key.replace("dynamic-", "");
+			});
+			const source: Source = {
+				data: '<input dynamic-required="dynamic">',
+				filename: "inline",
+				line: 1,
+				column: 1,
+				hooks: {
+					processAttribute,
+				},
+			};
+			const report = htmlvalidate.validateSource(source);
+			expect(report).toBeValid();
 		});
 
 		it("smoketest", () => {
