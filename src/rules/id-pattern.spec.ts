@@ -1,5 +1,3 @@
-import { Source } from "../context";
-import { DynamicValue } from "../dom";
 import HtmlValidate from "../htmlvalidate";
 import "../matchers";
 import { processAttribute } from "../transform/mocks/attribute";
@@ -19,16 +17,10 @@ describe("rule id-pattern", () => {
 	});
 
 	it("should not report error when id is interpolated", () => {
-		const source: Source = {
-			data: '<p id="{{ interpolated }}"></p>',
-			filename: "inline",
-			line: 1,
-			column: 1,
-			hooks: {
-				processAttribute,
-			},
-		};
-		const report = htmlvalidate.validateSource(source);
+		const report = htmlvalidate.validateString(
+			'<p id="{{ interpolated }}"></p>',
+			{ processAttribute }
+		);
 		expect(report).toBeValid();
 	});
 

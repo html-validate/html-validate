@@ -1,8 +1,5 @@
-import { Source } from "../context";
-import { DynamicValue } from "../dom";
 import HtmlValidate from "../htmlvalidate";
 import "../matchers";
-import { AttributeData } from "../parser";
 import { processAttribute } from "../transform/mocks/attribute";
 
 describe("rule no-dup-attr", () => {
@@ -20,16 +17,10 @@ describe("rule no-dup-attr", () => {
 	});
 
 	it("should not report error when attribute is dynamic", () => {
-		const source: Source = {
-			data: '<input class="foo" dynamic-class="bar">',
-			filename: "inline",
-			line: 1,
-			column: 1,
-			hooks: {
-				processAttribute,
-			},
-		};
-		const report = htmlvalidate.validateSource(source);
+		const report = htmlvalidate.validateString(
+			'<input class="foo" dynamic-class="bar">',
+			{ processAttribute }
+		);
 		expect(report).toBeValid();
 	});
 

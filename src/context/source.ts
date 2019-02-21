@@ -6,7 +6,14 @@ import { AttributeData } from "../parser";
  * HTML source with file, line and column context.
  */
 
-type ProcessAttributeCallback = (attr: AttributeData) => void;
+export type ProcessAttributeCallback = (attr: AttributeData) => void;
+
+export interface SourceHooks {
+	/**
+	 * Called for every attribute.
+	 */
+	processAttribute: ProcessAttributeCallback;
+}
 
 export interface Source {
 	data: string;
@@ -18,10 +25,5 @@ export interface Source {
 	/**
 	 * Hooks for processing the source as it is being parsed.
 	 */
-	hooks?: {
-		/**
-		 * Called for every attribute.
-		 */
-		processAttribute: ProcessAttributeCallback;
-	};
+	hooks?: SourceHooks;
 }

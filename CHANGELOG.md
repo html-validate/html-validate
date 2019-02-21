@@ -2,6 +2,11 @@
 
 ## Upcoming release
 
+### Features
+
+- allow setting hooks when using `HtmlValidate.validateString`, makes it easier
+  to write tests which requires hooks, e.g. processing attributes.
+
 ### Bugfixes
 
 - `attribute-boolean-style` and `no-dup-attr` now handles when dynamic
