@@ -5,6 +5,7 @@ import { EventCallback } from "../event";
 import HtmlValidate from "../htmlvalidate";
 import { InvalidTokenError, Token, TokenStream, TokenType } from "../lexer";
 import "../matchers";
+import { AttributeData } from "./attribute-data";
 import { Parser } from "./parser";
 
 function mergeEvent(event: string, data: any) {
@@ -732,9 +733,63 @@ describe("parser", () => {
 
 	describe("should postprocess", () => {
 		it("attribute", () => {
+			const processAttribute = jest.fn((attr: AttributeData) => [
+				attr /* original attribute */,
+				{
+					/* modified attribute */
+					key: "fred",
+					value: "barney",
+					quote: attr.quote,
+					originalAttribute: attr.key,
+				},
+			]);
+			const source: Source = {
+				data: '<input id="foo">',
+				filename: "inline",
+				line: 1,
+				column: 1,
+				hooks: {
+					processAttribute,
+				},
+			};
+			parser.parseHtml(source);
+			expect(events.shift()).toEqual({ event: "tag:open", target: "input" });
+			expect(events.shift()).toEqual({
+				event: "attr",
+				key: "id",
+				value: "foo",
+				quote: '"',
+				target: "input",
+				valueLocation: expect.objectContaining({
+					line: 1,
+					column: 12,
+				}),
+			});
+			expect(events.shift()).toEqual({
+				event: "attr",
+				key: "fred",
+				value: "barney",
+				quote: '"',
+				originalAttribute: "id",
+				target: "input",
+				valueLocation: expect.objectContaining({
+					line: 1,
+					column: 12,
+				}),
+			});
+			expect(events.shift()).toEqual({
+				event: "tag:close",
+				target: "input",
+				previous: "input",
+			});
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it("attribute (deprecated method)", () => {
 			const processAttribute = jest.fn(attr => {
 				attr.key = "fred";
 				attr.value = "barney";
+				return attr;
 			});
 			const source: Source = {
 				data: '<input id="foo">',

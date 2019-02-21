@@ -1,3 +1,4 @@
+import { ProcessAttributeCallback } from "context/source";
 import { Config } from "../config";
 import { Location, sliceLocation, Source } from "../context";
 import { DOMTree, HtmlElement, NodeClosed } from "../dom";
@@ -291,38 +292,59 @@ export class Parser {
 		token: Token,
 		next?: Token
 	) {
-		const haveValue = next && next.type === TokenType.ATTR_VALUE;
-		const attr: AttributeData = {
-			key: token.data[1],
-		};
-		if (haveValue) {
-			attr.value = next.data[1];
-			attr.quote = next.data[2];
-		}
-		if (source.hooks && source.hooks.processAttribute) {
-			source.hooks.processAttribute(attr);
-		}
-
 		const keyLocation = token.location;
 		const valueLocation = this.getAttributeValueLocation(next);
+		const haveValue = next && next.type === TokenType.ATTR_VALUE;
+		const attrData: AttributeData = {
+			key: token.data[1],
+		};
 
-		this.trigger("attr", {
-			target: node,
-			key: attr.key,
-			value: attr.value,
-			quote: attr.quote,
-			originalAttribute: attr.originalAttribute,
-			location: keyLocation,
-			valueLocation,
-		});
+		if (haveValue) {
+			attrData.value = next.data[1];
+			attrData.quote = next.data[2];
+		}
 
-		node.setAttribute(
-			attr.key,
-			attr.value,
-			keyLocation,
-			valueLocation,
-			attr.originalAttribute
-		);
+		/* get callback to process attributes, default is to just return attribute
+		 * data right away but a transformer may override it to allow aliasing
+		 * attributes, e.g ng-attr-foo or v-bind:foo */
+		let processAttribute: ProcessAttributeCallback = (attr: AttributeData) => [
+			attr,
+		];
+		if (source.hooks && source.hooks.processAttribute) {
+			processAttribute = source.hooks.processAttribute;
+		}
+
+		/* handle deprecated callbacks */
+		let iterator: Iterable<AttributeData>;
+		const legacy = processAttribute(attrData);
+		if (typeof (legacy as any)[Symbol.iterator] !== "function") {
+			/* AttributeData */
+			iterator = [attrData];
+		} else {
+			/* Iterable<AttributeData> */
+			iterator = legacy as Iterable<AttributeData>;
+		}
+
+		/* process attribute(s) */
+		for (const attr of iterator) {
+			this.trigger("attr", {
+				target: node,
+				key: attr.key,
+				value: attr.value,
+				quote: attr.quote,
+				originalAttribute: attr.originalAttribute,
+				location: keyLocation,
+				valueLocation,
+			});
+
+			node.setAttribute(
+				attr.key,
+				attr.value,
+				keyLocation,
+				valueLocation,
+				attr.originalAttribute
+			);
+		}
 	}
 
 	/**

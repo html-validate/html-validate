@@ -16,12 +16,15 @@ jest.mock(
 				line: 1,
 				column: 1,
 				hooks: {
-					processAttribute(attr: AttributeData) {
-						if (!attr.value) return;
+					*processAttribute(attr: AttributeData) {
+						yield attr;
 						if (attr.key.startsWith("dynamic-")) {
-							attr.originalAttribute = attr.key;
-							attr.key = attr.key.replace("dynamic-", "");
-							attr.value = new DynamicValue(attr.value as string);
+							yield {
+								key: attr.key.replace("dynamic-", ""),
+								value: new DynamicValue(attr.value as string),
+								quote: attr.quote,
+								originalAttribute: attr.key,
+							};
 						}
 					},
 				},
