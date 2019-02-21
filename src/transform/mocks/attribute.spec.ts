@@ -3,40 +3,53 @@ import { processAttribute } from "./attribute";
 
 describe("mock attribute processor", () => {
 	it('should handle dynamic-foo="bar" as alias', () => {
-		const attr = processAttribute({
+		const attr = Array.from(
+			processAttribute({
+				key: "dynamic-foo",
+				value: "bar",
+			})
+		);
+		expect(attr).toHaveLength(2);
+		expect(attr[0]).toEqual({
 			key: "dynamic-foo",
 			value: "bar",
 		});
-		expect(attr).toEqual({
+		expect(attr[1]).toEqual({
 			key: "foo",
 			value: expect.any(DynamicValue),
 			originalAttribute: "dynamic-foo",
 		});
-		expect(attr.value).toEqual({
+		expect(attr[1].value).toEqual({
 			expr: "bar",
 		});
 	});
 
 	it('should handle foo="{{ bar }}" as interpolated value', () => {
-		const attr = processAttribute({
-			key: "foo",
-			value: "{{ bar }}",
-		});
-		expect(attr).toEqual({
+		const attr = Array.from(
+			processAttribute({
+				key: "foo",
+				value: "{{ bar }}",
+			})
+		);
+		expect(attr).toHaveLength(1);
+		expect(attr[0]).toEqual({
 			key: "foo",
 			value: expect.any(DynamicValue),
 		});
-		expect(attr.value).toEqual({
+		expect(attr[0].value).toEqual({
 			expr: "{{ bar }}",
 		});
 	});
 
 	it("should leave other attributes intact", () => {
-		const attr = processAttribute({
-			key: "foo",
-			value: "bar",
-		});
-		expect(attr).toEqual({
+		const attr = Array.from(
+			processAttribute({
+				key: "foo",
+				value: "bar",
+			})
+		);
+		expect(attr).toHaveLength(1);
+		expect(attr[0]).toEqual({
 			key: "foo",
 			value: "bar",
 		});

@@ -6,7 +6,9 @@ import { AttributeData } from "../parser";
  * HTML source with file, line and column context.
  */
 
-export type ProcessAttributeCallback = (attr: AttributeData) => void;
+export type ProcessAttributeCallback = (
+	attr: AttributeData
+) => Iterable<AttributeData>;
 
 export interface SourceHooks {
 	/**
