@@ -3,6 +3,7 @@ import { DynamicValue } from "../dom";
 import HtmlValidate from "../htmlvalidate";
 import "../matchers";
 import { AttributeData } from "../parser";
+import { processAttribute } from "../transform/mocks/attribute";
 
 describe("rule no-dup-attr", () => {
 	let htmlvalidate: HtmlValidate;
@@ -19,14 +20,6 @@ describe("rule no-dup-attr", () => {
 	});
 
 	it("should not report error when attribute is dynamic", () => {
-		const processAttribute = jest.fn((attr: AttributeData) => {
-			if (attr.key.startsWith("dynamic-")) {
-				attr.originalAttribute = attr.key;
-				attr.key = attr.key.replace("dynamic-", "");
-				attr.value = new DynamicValue(attr.value as string);
-			}
-			return attr;
-		});
 		const source: Source = {
 			data: '<input class="foo" dynamic-class="bar">',
 			filename: "inline",
