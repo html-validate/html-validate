@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`config transform() should throw sane error when transformer fails  1`] = `"When transforming \\"/path/to/test.foo\\": Failed to frobnicate a baz"`;

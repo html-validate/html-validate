@@ -196,7 +196,11 @@ export class Config {
 	public transform(filename: string): Source[] {
 		const transformer = this.findTransformer(filename);
 		if (transformer) {
-			return transformer.fn(filename);
+			try {
+				return transformer.fn(filename);
+			} catch (err) {
+				throw new Error(`When transforming "${filename}": ${err.message}`);
+			}
 		} else {
 			const data = fs.readFileSync(filename, { encoding: "utf8" });
 			return [
