@@ -10,6 +10,7 @@
 
 ### Features
 
+- exposes `Source` and `AttributeData` in shim.
 - `HtmlElement` will now store duplicated (or aliased) attributes. The biggest
   change this introduces is that `classList` will now contain a merged list of
   all classes. This is needed when combining a static `class` attribute with a
