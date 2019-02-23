@@ -2,6 +2,7 @@ import * as deepmerge from "deepmerge";
 import * as fs from "fs";
 import * as path from "path";
 import { Source } from "../context";
+import { NestedError } from "../error/nested-error";
 import { MetaTable } from "../meta";
 import { ElementTable } from "../meta/element";
 import { RuleConstructor } from "../rule";
@@ -199,7 +200,10 @@ export class Config {
 			try {
 				return transformer.fn(filename);
 			} catch (err) {
-				throw new Error(`When transforming "${filename}": ${err.message}`);
+				throw new NestedError(
+					`When transforming "${filename}": ${err.message}`,
+					err
+				);
 			}
 		} else {
 			const data = fs.readFileSync(filename, { encoding: "utf8" });
