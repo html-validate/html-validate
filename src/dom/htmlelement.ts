@@ -17,6 +17,7 @@ export enum NodeClosed {
 
 let counter = 0;
 
+/* istanbul ignore next: only for testing */
 export function reset() {
 	counter = 0;
 }
@@ -30,7 +31,7 @@ export class HtmlElement extends DOMNode {
 	public readonly unique: number;
 	public readonly depth: number;
 	public closed: NodeClosed;
-	protected readonly attr: { [key: string]: Attribute };
+	protected readonly attr: { [key: string]: Attribute[] };
 
 	constructor(
 		tagName: string,
@@ -112,12 +113,13 @@ export class HtmlElement extends DOMNode {
 		originalAttribute?: string
 	): void {
 		key = key.toLowerCase();
-		this.attr[key] = new Attribute(
-			key,
-			value,
-			keyLocation,
-			valueLocation,
-			originalAttribute
+
+		if (!this.attr[key]) {
+			this.attr[key] = [];
+		}
+
+		this.attr[key].push(
+			new Attribute(key, value, keyLocation, valueLocation, originalAttribute)
 		);
 	}
 
@@ -125,7 +127,9 @@ export class HtmlElement extends DOMNode {
 	 * Get a list of all attributes on this node.
 	 */
 	public get attributes(): Attribute[] {
-		return Object.values(this.attr);
+		return Object.values(this.attr).reduce((result, cur) => {
+			return result.concat(cur);
+		}, []);
 	}
 
 	public hasAttribute(key: string): boolean {
@@ -133,10 +137,32 @@ export class HtmlElement extends DOMNode {
 		return key in this.attr;
 	}
 
-	public getAttribute(key: string): Attribute {
+	/**
+	 * Get attribute.
+	 *
+	 * By default only the first attribute is returned but if the code needs to
+	 * handle duplicate attributes the `all` parameter can be set to get all
+	 * attributes with given key.
+	 *
+	 * This usually only happens when code contains duplicate attributes (which
+	 * `no-dup-attr` will complain about) or when a static attribute is combined
+	 * with a dynamic, consider:
+	 *
+	 * <p class="foo" dynamic-class="bar">
+	 *
+	 * @param {string} key - Attribute name
+	 * @param {boolean} [all=false] - Return single or all attributes.
+	 */
+	public getAttribute(key: string): Attribute;
+	public getAttribute(key: string, all: true): Attribute[];
+	public getAttribute(
+		key: string,
+		all: boolean = false
+	): Attribute | Attribute[] {
 		key = key.toLowerCase();
 		if (key in this.attr) {
-			return this.attr[key];
+			const matches = this.attr[key];
+			return all ? matches : matches[0];
 		} else {
 			return null;
 		}
@@ -167,8 +193,19 @@ export class HtmlElement extends DOMNode {
 		this.children.push(node);
 	}
 
-	get classList() {
-		return new DOMTokenList(this.getAttributeValue("class"));
+	/**
+	 * Return a list of all known classes on the element. Dynamic values are
+	 * ignored.
+	 */
+	get classList(): DOMTokenList {
+		if (!this.hasAttribute("class")) {
+			return new DOMTokenList(null);
+		}
+		const classes = this.getAttribute("class", true)
+			.filter(attr => attr.isStatic)
+			.map(attr => attr.value)
+			.join(" ");
+		return new DOMTokenList(classes);
 	}
 
 	get id() {

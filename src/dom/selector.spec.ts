@@ -9,17 +9,20 @@ describe("Selector", () => {
 	beforeEach(() => {
 		const parser = new Parser(Config.empty());
 		doc = parser.parseHtml(`
-<foo id="barney">first foo</foo>
-<foo CLASS="fred">second foo</foo>
-<bar>
-  <baz class="fred">
-    <foo>third foo</foo>
-  </baz>
-  <foo wilma="flintstone" lorem-123-ipsum="dolor sit amet">forth foo</foo>
-  <spam wilma="rubble"></spam>
-  <baz></baz>
-</bar>
-`).root;
+			<foo id="barney">first foo</foo>
+			<foo CLASS="fred">second foo</foo>
+			<bar>
+
+				<!-- not valid but verify selectors can handle it -->
+				<baz class="a" class="fred" class="b">
+					<foo>third foo</foo>
+				</baz>
+
+				<foo wilma="flintstone" lorem-123-ipsum="dolor sit amet">forth foo</foo>
+				<spam wilma="rubble"></spam>
+				<baz></baz>
+			</bar>
+		`).root;
 	});
 
 	afterEach(() => {

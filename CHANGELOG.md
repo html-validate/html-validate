@@ -10,6 +10,10 @@
 
 ### Features
 
+- `HtmlElement` will now store duplicated (or aliased) attributes. The biggest
+  change this introduces is that `classList` will now contain a merged list of
+  all classes. This is needed when combining a static `class` attribute with a
+  dynamic one.
 - DOM `Attribute` got two flags `isStatic` and `isDynamic` to easily tell if the
   value is static or dynamic.
 - more verbose exception when a transformer fails. (fixes #37)
