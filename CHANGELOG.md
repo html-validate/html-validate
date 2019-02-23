@@ -4,6 +4,7 @@
 
 ### Features
 
+- more verbose exception when a transformer fails. (fixes #37)
 - allow `processAttribute` hook to yield multiple attributes, typically used
   when adding aliased attributes such as `:class`. By adding both the alias and
   the original the latter can be validated as well (e.g. `no-dup-attr` can

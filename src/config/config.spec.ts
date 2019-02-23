@@ -7,6 +7,16 @@ let mockElements: any;
 jest.mock("mock-elements", () => mockElements, { virtual: true });
 jest.mock("mock-plugin", () => "mock plugin", { virtual: true });
 
+/* mock transformers */
+jest.mock(
+	"mock-transformer-error",
+	() =>
+		function mockTranformerError() {
+			throw new Error("Failed to frobnicate a baz");
+		},
+	{ virtual: true }
+);
+
 describe("config", () => {
 	it("should load defaults", () => {
 		const config = Config.empty();
@@ -290,6 +300,19 @@ describe("config", () => {
 					originalData: "<p>Lorem ipsum</p>\n",
 				},
 			]);
+		});
+
+		it("should throw sane error when transformer fails ", () => {
+			const config = Config.fromObject({
+				transform: {
+					"^.*\\.foo$":
+						"mock-transformer-error" /* mocked transformer, see top of file */,
+				},
+			});
+			config.init();
+			expect(() =>
+				config.transform("/path/to/test.foo")
+			).toThrowErrorMatchingSnapshot();
 		});
 	});
 
