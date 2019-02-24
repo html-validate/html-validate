@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.22.0 (2019-02-24)
+
 ### Breaking changes
 
 - `HtmlElement` direct access to `attr` is replaced with `attributes`. The
