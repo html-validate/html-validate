@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://gitlab.com/html-validate/html-validate/issues/new"
   },
-  "main": "shim.js",
+  "main": "build/shim.js",
   "engines": {
     "node": ">=8.0"
   },
