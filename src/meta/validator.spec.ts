@@ -1,5 +1,5 @@
 import { Config } from "../config";
-import { DynamicValue, HtmlElement } from "../dom";
+import { Attribute, DynamicValue, HtmlElement } from "../dom";
 import { Parser } from "../parser";
 import { MetaElement, MetaTable, Validator } from "./";
 
@@ -411,23 +411,33 @@ describe("Meta validator", () => {
 	describe("validateAttribute()", () => {
 		it("should match if no rule is present", () => {
 			const rules = {};
-			expect(Validator.validateAttribute("foo", "bar", rules)).toBeTruthy();
+			expect(
+				Validator.validateAttribute(new Attribute("foo", "bar"), rules)
+			).toBeTruthy();
 		});
 
 		it("should match regexp", () => {
 			const rules = {
 				foo: [/ba.*/],
 			};
-			expect(Validator.validateAttribute("foo", "bar", rules)).toBeTruthy();
-			expect(Validator.validateAttribute("foo", "car", rules)).toBeFalsy();
+			expect(
+				Validator.validateAttribute(new Attribute("foo", "bar"), rules)
+			).toBeTruthy();
+			expect(
+				Validator.validateAttribute(new Attribute("foo", "car"), rules)
+			).toBeFalsy();
 		});
 
 		it("should match string value", () => {
 			const rules = {
 				foo: ["bar"],
 			};
-			expect(Validator.validateAttribute("foo", "bar", rules)).toBeTruthy();
-			expect(Validator.validateAttribute("foo", "car", rules)).toBeFalsy();
+			expect(
+				Validator.validateAttribute(new Attribute("foo", "bar"), rules)
+			).toBeTruthy();
+			expect(
+				Validator.validateAttribute(new Attribute("foo", "car"), rules)
+			).toBeFalsy();
 		});
 
 		it("should match dynamic value", () => {
@@ -436,33 +446,51 @@ describe("Meta validator", () => {
 				bar: [] as string[],
 			};
 			const dynamic = new DynamicValue("any");
-			expect(Validator.validateAttribute("foo", dynamic, rules)).toBeTruthy();
-			expect(Validator.validateAttribute("bar", dynamic, rules)).toBeTruthy();
+			expect(
+				Validator.validateAttribute(new Attribute("foo", dynamic), rules)
+			).toBeTruthy();
+			expect(
+				Validator.validateAttribute(new Attribute("bar", dynamic), rules)
+			).toBeTruthy();
 		});
 
 		it("should match if one of multiple allowed matches", () => {
 			const rules = {
 				foo: ["fred", "barney", "wilma"],
 			};
-			expect(Validator.validateAttribute("foo", "barney", rules)).toBeTruthy();
-			expect(Validator.validateAttribute("foo", "pebble", rules)).toBeFalsy();
+			expect(
+				Validator.validateAttribute(new Attribute("foo", "barney"), rules)
+			).toBeTruthy();
+			expect(
+				Validator.validateAttribute(new Attribute("foo", "pebble"), rules)
+			).toBeFalsy();
 		});
 
 		it("should consider empty list as boolean attribute", () => {
 			const rules = {
 				foo: [] as string[],
 			};
-			expect(Validator.validateAttribute("foo", null, rules)).toBeTruthy();
+			expect(
+				Validator.validateAttribute(new Attribute("foo", null), rules)
+			).toBeTruthy();
 		});
 
 		it("should normalize boolean attributes", () => {
 			const rules = {
 				foo: [] as string[],
 			};
-			expect(Validator.validateAttribute("foo", null, rules)).toBeTruthy();
-			expect(Validator.validateAttribute("foo", "", rules)).toBeTruthy();
-			expect(Validator.validateAttribute("foo", "foo", rules)).toBeTruthy();
-			expect(Validator.validateAttribute("foo", "bar", rules)).toBeFalsy();
+			expect(
+				Validator.validateAttribute(new Attribute("foo", null), rules)
+			).toBeTruthy();
+			expect(
+				Validator.validateAttribute(new Attribute("foo", ""), rules)
+			).toBeTruthy();
+			expect(
+				Validator.validateAttribute(new Attribute("foo", "foo"), rules)
+			).toBeTruthy();
+			expect(
+				Validator.validateAttribute(new Attribute("foo", "bar"), rules)
+			).toBeFalsy();
 		});
 	});
 });

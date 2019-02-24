@@ -1,4 +1,4 @@
-import { DynamicValue, HtmlElement } from "../dom";
+import { Attribute, HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { PermittedAttribute } from "../meta/element";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
@@ -7,7 +7,7 @@ const defaults = {
 	style: "omit",
 };
 
-type checkFunction = (key: string, value: string | DynamicValue) => boolean;
+type checkFunction = (attr: Attribute) => boolean;
 
 class AttributeBooleanStyle extends Rule {
 	private hasInvalidStyle: checkFunction;
@@ -35,8 +35,8 @@ class AttributeBooleanStyle extends Rule {
 				if (!meta || !meta.attributes) return;
 
 				/* check all boolean attributes */
-				for (const [key, attr] of Object.entries(node.attr)) {
-					if (!this.isBoolean(key, meta.attributes)) continue;
+				for (const attr of node.attributes) {
+					if (!this.isBoolean(attr, meta.attributes)) continue;
 
 					/* ignore attribute if it is aliased by a dynamic value,
 					 * e.g. ng-required or v-bind:required, since it will probably have a
@@ -46,14 +46,10 @@ class AttributeBooleanStyle extends Rule {
 						continue;
 					}
 
-					const value =
-						attr.value instanceof DynamicValue
-							? attr.value.toString()
-							: attr.value;
-					if (this.hasInvalidStyle(key, value)) {
+					if (this.hasInvalidStyle(attr)) {
 						this.report(
 							node,
-							reportMessage(key, value, this.options.style),
+							reportMessage(attr, this.options.style),
 							attr.keyLocation
 						);
 					}
@@ -62,19 +58,19 @@ class AttributeBooleanStyle extends Rule {
 		});
 	}
 
-	public isBoolean(key: string, rules: PermittedAttribute): boolean {
-		return rules[key] && rules[key].length === 0;
+	public isBoolean(attr: Attribute, rules: PermittedAttribute): boolean {
+		return rules[attr.key] && rules[attr.key].length === 0;
 	}
 }
 
 function parseStyle(style: string): checkFunction {
 	switch (style.toLowerCase()) {
 		case "omit":
-			return (key, value) => value !== null;
+			return (attr: Attribute) => attr.value !== null;
 		case "empty":
-			return (key, value) => value !== "";
+			return (attr: Attribute) => attr.value !== "";
 		case "name":
-			return (key, value) => value !== key;
+			return (attr: Attribute) => attr.value !== attr.key;
 		default:
 			throw new Error(
 				`Invalid style "${style}" for "attribute-boolean-style" rule`
@@ -82,7 +78,8 @@ function parseStyle(style: string): checkFunction {
 	}
 }
 
-function reportMessage(key: string, value: string, style: string): string {
+function reportMessage(attr: Attribute, style: string): string {
+	const key = attr.key;
 	switch (style.toLowerCase()) {
 		case "omit":
 			return `Attribute "${key}" should omit value`;

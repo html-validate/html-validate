@@ -11,8 +11,8 @@ export class Attribute {
 	public constructor(
 		key: string,
 		value: string | DynamicValue,
-		keyLocation: Location,
-		valueLocation: Location,
+		keyLocation?: Location,
+		valueLocation?: Location,
 		originalAttribute?: string
 	) {
 		this.key = key;
@@ -25,6 +25,20 @@ export class Attribute {
 		if (typeof this.value === "undefined") {
 			this.value = null;
 		}
+	}
+
+	/**
+	 * Flag set to true if the attribute value is static.
+	 */
+	get isStatic() {
+		return !this.isDynamic;
+	}
+
+	/**
+	 * Flag set to true if the attribute value is dynamic.
+	 */
+	get isDynamic() {
+		return this.value instanceof DynamicValue;
 	}
 
 	/**

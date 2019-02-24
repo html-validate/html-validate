@@ -1,3 +1,4 @@
+import { Attribute } from "./attribute";
 import { Combinator, parseCombinator } from "./combinator";
 import { HtmlElement } from "./htmlelement";
 
@@ -49,17 +50,19 @@ class AttrMatcher extends Matcher {
 	}
 
 	public match(node: HtmlElement): boolean {
-		const attr = node.getAttributeValue(this.key);
-		switch (this.op) {
-			case undefined:
-				return attr !== null;
-			case "=":
-				return attr === this.value;
-			default:
-				throw new Error(
-					`Attribute selector operator ${this.op} is not implemented yet`
-				);
-		}
+		const attr = node.getAttribute(this.key, true) || [];
+		return attr.some((cur: Attribute) => {
+			switch (this.op) {
+				case undefined:
+					return true; /* attribute exists */
+				case "=":
+					return cur.value === this.value;
+				default:
+					throw new Error(
+						`Attribute selector operator ${this.op} is not implemented yet`
+					);
+			}
+		});
 	}
 }
 

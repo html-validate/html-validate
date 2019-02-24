@@ -21,7 +21,7 @@ class CloseAttr extends Rule {
 				return;
 			}
 
-			if (Object.keys(event.target.attr).length > 0) {
+			if (Object.keys(event.target.attributes).length > 0) {
 				this.report(event.target, "Close tags cannot have attributes");
 			}
 		});

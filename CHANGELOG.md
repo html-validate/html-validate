@@ -2,8 +2,20 @@
 
 ## Upcoming release
 
+### Breaking changes
+
+- `HtmlElement` direct access to `attr` is replaced with `attributes`. The
+  former was an key-value object and the latter is a flattened array of
+  `Attribute`.
+
 ### Features
 
+- `HtmlElement` will now store duplicated (or aliased) attributes. The biggest
+  change this introduces is that `classList` will now contain a merged list of
+  all classes. This is needed when combining a static `class` attribute with a
+  dynamic one.
+- DOM `Attribute` got two flags `isStatic` and `isDynamic` to easily tell if the
+  value is static or dynamic.
 - more verbose exception when a transformer fails. (fixes #37)
 - allow `processAttribute` hook to yield multiple attributes, typically used
   when adding aliased attributes such as `:class`. By adding both the alias and
@@ -14,6 +26,7 @@
 
 ### Bugfixes
 
+- `[attr]` selector now matches boolean attributes.
 - `attribute-boolean-style` and `no-dup-attr` now handles when dynamic
   attributes is used to alias other attributes, e.g `:required="foo"` no longer
   triggers an boolean style and `class=".."` combined with `:class=".."` no

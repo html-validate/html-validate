@@ -9,17 +9,20 @@ describe("Selector", () => {
 	beforeEach(() => {
 		const parser = new Parser(Config.empty());
 		doc = parser.parseHtml(`
-<foo id="barney">first foo</foo>
-<foo CLASS="fred">second foo</foo>
-<bar>
-  <baz class="fred">
-    <foo>third foo</foo>
-  </baz>
-  <foo wilma="flintstone" lorem-123-ipsum="dolor sit amet">forth foo</foo>
-  <spam wilma="rubble"></spam>
-  <baz></baz>
-</bar>
-`).root;
+			<foo id="barney">first foo</foo>
+			<foo CLASS="fred">second foo</foo>
+			<bar>
+
+				<!-- not valid but verify selectors can handle it -->
+				<baz class="a" class="fred" class="b">
+					<foo>third foo</foo>
+				</baz>
+
+				<foo wilma="flintstone" lorem-123-ipsum="dolor sit amet">forth foo</foo>
+				<spam wilma="rubble" boolean></spam>
+				<baz></baz>
+			</bar>
+		`).root;
 	});
 
 	afterEach(() => {
@@ -88,6 +91,13 @@ describe("Selector", () => {
 		]);
 	});
 
+	it("should match having boolean attribute ([boolean])", () => {
+		const selector = new Selector("[boolean]");
+		expect(Array.from(selector.match(doc))).toEqual([
+			expect.objectContaining({ tagName: "spam", unique: 12 }),
+		]);
+	});
+
 	it("should match having attribute with dashes and numbers ([lorem-123-ipsum])", () => {
 		const selector = new Selector("[lorem-123-ipsum]");
 		expect(Array.from(selector.match(doc))).toEqual([
@@ -99,6 +109,17 @@ describe("Selector", () => {
 		const selector = new Selector('[wilma="flintstone"]');
 		expect(Array.from(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", unique: 10 }),
+		]);
+	});
+
+	it("should match attribute value on duplicated attributes", () => {
+		const selectorA = new Selector('[class="a"]');
+		const selectorB = new Selector('[class="b"]');
+		expect(Array.from(selectorA.match(doc))).toEqual([
+			expect.objectContaining({ tagName: "baz", unique: 6 }),
+		]);
+		expect(Array.from(selectorB.match(doc))).toEqual([
+			expect.objectContaining({ tagName: "baz", unique: 6 }),
 		]);
 	});
 

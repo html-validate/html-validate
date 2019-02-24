@@ -72,4 +72,25 @@ describe("Attribute", () => {
 			expect(attr.valueMatches(/bar/, false)).toBeFalsy();
 		});
 	});
+
+	describe("flags", () => {
+		let staticAttr: Attribute;
+		let dynamicAttr: Attribute;
+
+		beforeEach(() => {
+			const dynamic = new DynamicValue("dynamic");
+			staticAttr = new Attribute("foo", "static", null, null);
+			dynamicAttr = new Attribute("bar", dynamic, null, null);
+		});
+
+		it("isStatic should be true for static attributes", () => {
+			expect(staticAttr.isStatic).toBeTruthy();
+			expect(dynamicAttr.isStatic).toBeFalsy();
+		});
+
+		it("isDynamic should be true for dynamic attributes", () => {
+			expect(staticAttr.isDynamic).toBeFalsy();
+			expect(dynamicAttr.isDynamic).toBeTruthy();
+		});
+	});
 });
