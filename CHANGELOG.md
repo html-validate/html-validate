@@ -4,6 +4,8 @@
 
 ### Features
 
+- DOM `Attribute` got two flags `isStatic` and `isDynamic` to easily tell if the
+  value is static or dynamic.
 - more verbose exception when a transformer fails. (fixes #37)
 - allow `processAttribute` hook to yield multiple attributes, typically used
   when adding aliased attributes such as `:class`. By adding both the alias and

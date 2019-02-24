@@ -28,6 +28,20 @@ export class Attribute {
 	}
 
 	/**
+	 * Flag set to true if the attribute value is static.
+	 */
+	get isStatic() {
+		return !this.isDynamic;
+	}
+
+	/**
+	 * Flag set to true if the attribute value is dynamic.
+	 */
+	get isDynamic() {
+		return this.value instanceof DynamicValue;
+	}
+
+	/**
 	 * Test attribute value.
 	 *
 	 * @param {RegExp|string} pattern - Pattern to match value against. RegExp or
