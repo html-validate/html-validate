@@ -19,6 +19,17 @@ describe("rule element-permitted-content", () => {
 		);
 	});
 
+	it("should report error when descendant is disallowed", () => {
+		const report = htmlvalidate.validateString(
+			"<a><span><button></button></span></a>"
+		);
+		expect(report).toBeInvalid();
+		expect(report).toHaveError(
+			"element-permitted-content",
+			"Element <button> is not permitted as descendant of <a>"
+		);
+	});
+
 	it("should not report error when phrasing a-element is child of @phrasing", () => {
 		const report = htmlvalidate.validateString(
 			"<span><a><span></span></a></span>"
