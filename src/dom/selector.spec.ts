@@ -105,6 +105,17 @@ describe("Selector", () => {
 		]);
 	});
 
+	it("should match attribute value on duplicated attributes", () => {
+		const selectorA = new Selector('[class="a"]');
+		const selectorB = new Selector('[class="b"]');
+		expect(Array.from(selectorA.match(doc))).toEqual([
+			expect.objectContaining({ tagName: "baz", unique: 6 }),
+		]);
+		expect(Array.from(selectorB.match(doc))).toEqual([
+			expect.objectContaining({ tagName: "baz", unique: 6 }),
+		]);
+	});
+
 	it("should match multiple attributes ([wilma][lorem-123-ipsum])", () => {
 		const selector = new Selector("[wilma][lorem-123-ipsum]");
 		expect(Array.from(selector.match(doc))).toEqual([
