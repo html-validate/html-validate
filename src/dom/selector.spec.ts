@@ -19,7 +19,7 @@ describe("Selector", () => {
 				</baz>
 
 				<foo wilma="flintstone" lorem-123-ipsum="dolor sit amet">forth foo</foo>
-				<spam wilma="rubble"></spam>
+				<spam wilma="rubble" boolean></spam>
 				<baz></baz>
 			</bar>
 		`).root;
@@ -87,6 +87,13 @@ describe("Selector", () => {
 		const selector = new Selector("[wilma]");
 		expect(Array.from(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", unique: 10 }),
+			expect.objectContaining({ tagName: "spam", unique: 12 }),
+		]);
+	});
+
+	it("should match having boolean attribute ([boolean])", () => {
+		const selector = new Selector("[boolean]");
+		expect(Array.from(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "spam", unique: 12 }),
 		]);
 	});

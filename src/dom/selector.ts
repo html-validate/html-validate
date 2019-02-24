@@ -54,7 +54,7 @@ class AttrMatcher extends Matcher {
 		return attr.some((cur: Attribute) => {
 			switch (this.op) {
 				case undefined:
-					return cur.value !== null;
+					return true; /* attribute exists */
 				case "=":
 					return cur.value === this.value;
 				default:

@@ -26,6 +26,7 @@
 
 ### Bugfixes
 
+- `[attr]` selector now matches boolean attributes.
 - `attribute-boolean-style` and `no-dup-attr` now handles when dynamic
   attributes is used to alias other attributes, e.g `:required="foo"` no longer
   triggers an boolean style and `class=".."` combined with `:class=".."` no
