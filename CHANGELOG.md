@@ -2,6 +2,12 @@
 
 ## Upcoming release
 
+### Breaking changes
+
+- `HtmlElement` direct access to `attr` is replaced with `attributes`. The
+  former was an key-value object and the latter is a flattened array of
+  `Attribute`.
+
 ### Features
 
 - DOM `Attribute` got two flags `isStatic` and `isDynamic` to easily tell if the

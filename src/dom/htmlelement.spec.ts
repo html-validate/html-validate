@@ -167,6 +167,20 @@ describe("HtmlElement", () => {
 		expect(parent.children[0].unique).toEqual(child.unique);
 	});
 
+	it("attributes should return list of all attributes", () => {
+		const node = new HtmlElement("foo");
+		node.setAttribute("foo", "a", location, location);
+		node.setAttribute("bar", "b", location, location);
+		expect(node.attributes).toEqual([
+			expect.any(Attribute),
+			expect.any(Attribute),
+		]);
+		expect(node.attributes).toEqual([
+			expect.objectContaining({ key: "foo", value: "a" }),
+			expect.objectContaining({ key: "bar", value: "b" }),
+		]);
+	});
+
 	it("hasAttribute()", () => {
 		const node = new HtmlElement("foo");
 		node.setAttribute("foo", "", location, null);

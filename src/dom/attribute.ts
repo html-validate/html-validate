@@ -11,8 +11,8 @@ export class Attribute {
 	public constructor(
 		key: string,
 		value: string | DynamicValue,
-		keyLocation: Location,
-		valueLocation: Location,
+		keyLocation?: Location,
+		valueLocation?: Location,
 		originalAttribute?: string
 	) {
 		this.key = key;

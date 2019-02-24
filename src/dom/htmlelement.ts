@@ -23,7 +23,6 @@ export function reset() {
 
 export class HtmlElement extends DOMNode {
 	public readonly tagName: string;
-	public readonly attr: { [key: string]: Attribute };
 	public readonly children: HtmlElement[];
 	public readonly meta: MetaElement;
 	public readonly parent: HtmlElement;
@@ -31,6 +30,7 @@ export class HtmlElement extends DOMNode {
 	public readonly unique: number;
 	public readonly depth: number;
 	public closed: NodeClosed;
+	protected readonly attr: { [key: string]: Attribute };
 
 	constructor(
 		tagName: string,
@@ -119,6 +119,13 @@ export class HtmlElement extends DOMNode {
 			valueLocation,
 			originalAttribute
 		);
+	}
+
+	/**
+	 * Get a list of all attributes on this node.
+	 */
+	public get attributes(): Attribute[] {
+		return Object.values(this.attr);
 	}
 
 	public hasAttribute(key: string): boolean {

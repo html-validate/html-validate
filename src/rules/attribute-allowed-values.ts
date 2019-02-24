@@ -52,8 +52,8 @@ class AttributeAllowedValues extends Rule<Context> {
 				 * allowed values */
 				if (!meta || !meta.attributes) return;
 
-				for (const [key, attr] of Object.entries(node.attr)) {
-					if (Validator.validateAttribute(key, attr.value, meta.attributes)) {
+				for (const attr of node.attributes) {
+					if (Validator.validateAttribute(attr, meta.attributes)) {
 						continue;
 					}
 
@@ -62,11 +62,11 @@ class AttributeAllowedValues extends Rule<Context> {
 						element: node.tagName,
 						attribute: attr.key,
 						value,
-						allowed: meta.attributes[key],
+						allowed: meta.attributes[attr.key],
 					};
 					this.report(
 						node,
-						`Attribute "${key}" has invalid value "${value}"`,
+						`Attribute "${attr.key}" has invalid value "${value}"`,
 						attr.valueLocation,
 						context
 					);
