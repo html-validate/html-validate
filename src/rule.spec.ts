@@ -46,7 +46,6 @@ describe("rule base class", () => {
 			rule.setServerity(Severity.WARN);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(
-				node,
 				rule,
 				"foo",
 				Severity.WARN,
@@ -59,7 +58,6 @@ describe("rule base class", () => {
 			const node = new HtmlElement("foo", null);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(
-				node,
 				rule,
 				"foo",
 				Severity.ERROR,
@@ -78,7 +76,6 @@ describe("rule base class", () => {
 			const node = new HtmlElement("foo", null);
 			rule.report(node, "foo", mockLocation);
 			expect(reporter.add).toHaveBeenCalledWith(
-				node,
 				rule,
 				"foo",
 				Severity.ERROR,
@@ -94,7 +91,6 @@ describe("rule base class", () => {
 			callback("event", mockEvent);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(
-				node,
 				rule,
 				"foo",
 				Severity.ERROR,
@@ -107,7 +103,6 @@ describe("rule base class", () => {
 			const node = new HtmlElement("foo", null, undefined, null, mockLocation);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(
-				node,
 				rule,
 				"foo",
 				Severity.ERROR,
@@ -121,7 +116,6 @@ describe("rule base class", () => {
 			const node = new HtmlElement("foo", null);
 			rule.report(node, "foo", null, context);
 			expect(reporter.add).toHaveBeenCalledWith(
-				node,
 				rule,
 				"foo",
 				Severity.ERROR,

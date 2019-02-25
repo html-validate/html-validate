@@ -368,7 +368,6 @@ describe("Engine", () => {
 				const add = jest.spyOn(reporter, "add");
 				parser.trigger("dom:load", { location: {} });
 				expect(add).toHaveBeenCalledWith(
-					null,
 					expect.any(Rule),
 					"Definition for rule 'void' was not found",
 					Severity.ERROR,

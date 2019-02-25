@@ -1,6 +1,5 @@
 import { Severity } from "./config";
 import { Location, Source } from "./context";
-import { HtmlElement } from "./dom";
 import { Rule } from "./rule";
 
 export interface Message {
@@ -57,7 +56,6 @@ export class Reporter {
 	}
 
 	public add(
-		node: HtmlElement,
 		rule: Rule,
 		message: string,
 		severity: number,
