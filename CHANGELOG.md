@@ -10,6 +10,10 @@
   `.nodeElements` can be used to access only `HtmlElement` from `.childNodes`
   and is typed `HtmlElement[]`. If your rules use `.children` the
 
+### Bugfixes
+
+- fix cosmetic case of `wcag/h37` rule.
+
 ## 0.22.0 (2019-02-24)
 
 ### Breaking changes
