@@ -663,7 +663,7 @@ describe("parser", () => {
 		it("should contain DOMTree as argument", () => {
 			parser.parseHtml("<div></div>");
 			expect(document).toBeInstanceOf(DOMTree);
-			expect(document.root.children).toHaveLength(1);
+			expect(document.root.childNodes).toHaveLength(1);
 		});
 	});
 

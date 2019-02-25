@@ -2,7 +2,7 @@ import { Location, sliceLocation } from "../context";
 import { Token } from "../lexer";
 import { MetaElement, MetaTable } from "../meta";
 import { Attribute } from "./attribute";
-import { DOMNode } from "./domnode";
+import { DOMNode, NodeType } from "./domnode";
 import { DOMTokenList } from "./domtokenlist";
 import { DynamicValue } from "./dynamic-value";
 import { Selector } from "./selector";
@@ -15,20 +15,11 @@ export enum NodeClosed {
 	ImplicitClosed = 4, //  element with optional end tag <li>foo<li>bar
 }
 
-let counter = 0;
-
-/* istanbul ignore next: only for testing */
-export function reset() {
-	counter = 0;
-}
-
 export class HtmlElement extends DOMNode {
 	public readonly tagName: string;
-	public readonly children: HtmlElement[];
 	public readonly meta: MetaElement;
 	public readonly parent: HtmlElement;
 	public readonly voidElement: boolean;
-	public readonly unique: number;
 	public readonly depth: number;
 	public closed: NodeClosed;
 	protected readonly attr: { [key: string]: Attribute[] };
@@ -43,17 +34,15 @@ export class HtmlElement extends DOMNode {
 		super(tagName, location);
 
 		this.tagName = tagName;
-		this.children = [];
 		this.parent = parent;
 		this.attr = {};
 		this.meta = meta;
 		this.closed = closed;
 		this.voidElement = this.meta ? this.meta.void : false;
-		this.unique = counter++;
 		this.depth = 0;
 
 		if (parent) {
-			parent.children.push(this);
+			parent.childNodes.push(this);
 
 			/* calculate depth in domtree */
 			let cur: HtmlElement = parent;
@@ -99,6 +88,15 @@ export class HtmlElement extends DOMNode {
 			meta,
 			location
 		);
+	}
+
+	/**
+	 * Similar to childNodes but only elements.
+	 */
+	public get childElements(): HtmlElement[] {
+		return this.childNodes.filter(
+			node => node.nodeType === NodeType.ELEMENT_NODE
+		) as HtmlElement[];
 	}
 
 	public is(tagName: string): boolean {
@@ -189,10 +187,6 @@ export class HtmlElement extends DOMNode {
 		}
 	}
 
-	public append(node: HtmlElement) {
-		this.children.push(node);
-	}
-
 	/**
 	 * Return a list of all known classes on the element. Dynamic values are
 	 * ignored.
@@ -212,8 +206,8 @@ export class HtmlElement extends DOMNode {
 		return this.getAttributeValue("id");
 	}
 
-	get siblings() {
-		return this.parent.children;
+	get siblings(): HtmlElement[] {
+		return this.parent.childElements;
 	}
 
 	get previousSibling(): HtmlElement {
@@ -227,7 +221,7 @@ export class HtmlElement extends DOMNode {
 	}
 
 	public getElementsByTagName(tagName: string): HtmlElement[] {
-		return this.children.reduce((matches, node) => {
+		return this.childElements.reduce((matches, node) => {
 			return matches.concat(
 				node.is(tagName) ? [node] : [],
 				node.getElementsByTagName(tagName)
@@ -260,7 +254,7 @@ export class HtmlElement extends DOMNode {
 	 */
 	public visitDepthFirst(callback: (node: HtmlElement) => void): void {
 		function visit(node: HtmlElement): void {
-			node.children.forEach(visit);
+			node.childElements.forEach(visit);
 			if (!node.isRootElement()) {
 				callback(node);
 			}
@@ -273,13 +267,13 @@ export class HtmlElement extends DOMNode {
 	 * Evaluates callbackk on all descendants, returning true if any are true.
 	 */
 	public someChildren(callback: (node: HtmlElement) => boolean) {
-		return this.children.some(visit);
+		return this.childElements.some(visit);
 
 		function visit(node: HtmlElement): boolean {
 			if (callback(node)) {
 				return true;
 			} else {
-				return node.children.some(visit);
+				return node.childElements.some(visit);
 			}
 		}
 	}
@@ -288,13 +282,13 @@ export class HtmlElement extends DOMNode {
 	 * Evaluates callbackk on all descendants, returning true if all are true.
 	 */
 	public everyChildren(callback: (node: HtmlElement) => boolean) {
-		return this.children.every(visit);
+		return this.childElements.every(visit);
 
 		function visit(node: HtmlElement): boolean {
 			if (!callback(node)) {
 				return false;
 			}
-			return node.children.every(visit);
+			return node.childElements.every(visit);
 		}
 	}
 
@@ -308,7 +302,7 @@ export class HtmlElement extends DOMNode {
 			if (callback(node)) {
 				return node;
 			}
-			for (const child of node.children) {
+			for (const child of node.childElements) {
 				const match = child.find(callback);
 				if (match) {
 					return match;

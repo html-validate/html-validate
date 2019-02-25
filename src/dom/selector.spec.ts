@@ -1,6 +1,7 @@
 import { Config } from "../config";
 import { Parser } from "../parser";
-import { HtmlElement, reset as resetDOMCounter } from "./htmlelement";
+import { reset as resetDOMCounter } from "./domnode";
+import { HtmlElement } from "./htmlelement";
 import { Selector } from "./selector";
 
 describe("Selector", () => {

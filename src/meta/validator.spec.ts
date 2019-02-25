@@ -18,7 +18,7 @@ describe("Meta validator", () => {
 				foo: mockEntry("nil", { void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [foo] = parser.parseHtml("<foo/>").root.children;
+			const [foo] = parser.parseHtml("<foo/>").root.childElements;
 			expect(Validator.validatePermitted(foo, undefined)).toBeTruthy();
 		});
 
@@ -29,7 +29,7 @@ describe("Meta validator", () => {
 				nil: mockEntry("nil", { void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [foo, nil] = parser.parseHtml("<foo/><nil/>").root.children;
+			const [foo, nil] = parser.parseHtml("<foo/><nil/>").root.childElements;
 			const rules = ["foo"];
 			expect(Validator.validatePermitted(foo, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -42,7 +42,7 @@ describe("Meta validator", () => {
 				nil: mockEntry("nil", { void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [foo, nil] = parser.parseHtml("<foo/><nil/>").root.children;
+			const [foo, nil] = parser.parseHtml("<foo/><nil/>").root.childElements;
 			const rules = ["foo?"];
 			expect(Validator.validatePermitted(foo, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -55,7 +55,7 @@ describe("Meta validator", () => {
 				meta: mockEntry("meta", { metadata: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [meta, nil] = parser.parseHtml("<meta/><nil/>").root.children;
+			const [meta, nil] = parser.parseHtml("<meta/><nil/>").root.childElements;
 			const rules = ["@meta"];
 			expect(Validator.validatePermitted(meta, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -68,7 +68,7 @@ describe("Meta validator", () => {
 				flow: mockEntry("flow", { flow: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [flow, nil] = parser.parseHtml("<flow/><nil/>").root.children;
+			const [flow, nil] = parser.parseHtml("<flow/><nil/>").root.childElements;
 			const rules = ["@flow"];
 			expect(Validator.validatePermitted(flow, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -83,7 +83,7 @@ describe("Meta validator", () => {
 			const parser = new Parser(new ConfigMock(table));
 			const [sectioning, nil] = parser.parseHtml(
 				"<sectioning/><nil/>"
-			).root.children;
+			).root.childElements;
 			const rules = ["@sectioning"];
 			expect(Validator.validatePermitted(sectioning, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -96,7 +96,9 @@ describe("Meta validator", () => {
 				heading: mockEntry("heading", { heading: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [heading, nil] = parser.parseHtml("<heading/><nil/>").root.children;
+			const [heading, nil] = parser.parseHtml(
+				"<heading/><nil/>"
+			).root.childElements;
 			const rules = ["@heading"];
 			expect(Validator.validatePermitted(heading, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -111,7 +113,7 @@ describe("Meta validator", () => {
 			const parser = new Parser(new ConfigMock(table));
 			const [phrasing, nil] = parser.parseHtml(
 				"<phrasing/><nil/>"
-			).root.children;
+			).root.childElements;
 			const rules = ["@phrasing"];
 			expect(Validator.validatePermitted(phrasing, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -126,7 +128,7 @@ describe("Meta validator", () => {
 			const parser = new Parser(new ConfigMock(table));
 			const [embedded, nil] = parser.parseHtml(
 				"<embedded/><nil/>"
-			).root.children;
+			).root.childElements;
 			const rules = ["@embedded"];
 			expect(Validator.validatePermitted(embedded, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -144,7 +146,7 @@ describe("Meta validator", () => {
 			const parser = new Parser(new ConfigMock(table));
 			const [interactive, nil] = parser.parseHtml(
 				"<interactive/><nil/>"
-			).root.children;
+			).root.childElements;
 			const rules = ["@interactive"];
 			expect(Validator.validatePermitted(interactive, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -160,7 +162,7 @@ describe("Meta validator", () => {
 			const parser = new Parser(new ConfigMock(table));
 			const [flow, phrasing, nil] = parser.parseHtml(
 				"<flow/><phrasing/><nil/>"
-			).root.children;
+			).root.childElements;
 			const rules = ["@flow", "@phrasing"];
 			expect(Validator.validatePermitted(flow, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(phrasing, rules)).toBeTruthy();
@@ -181,7 +183,7 @@ describe("Meta validator", () => {
 			const parser = new Parser(new ConfigMock(table));
 			const [foo, flow, phrasing] = parser.parseHtml(
 				"<foo/><flow/><phrasing/>"
-			).root.children;
+			).root.childElements;
 			const rules = [["@flow", "@phrasing"]];
 			expect(Validator.validatePermitted(foo, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(flow, rules)).toBeFalsy();
@@ -195,7 +197,9 @@ describe("Meta validator", () => {
 				bar: mockEntry("bar", { flow: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [foo, bar] = parser.parseHtml("<foo/><bar/><nil/>").root.children;
+			const [foo, bar] = parser.parseHtml(
+				"<foo/><bar/><nil/>"
+			).root.childElements;
 			const rules = [
 				[
 					"@flow",
@@ -215,7 +219,9 @@ describe("Meta validator", () => {
 				bar: mockEntry("bar", { flow: true, interactive: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [foo, bar] = parser.parseHtml("<foo/><bar/><nil/>").root.children;
+			const [foo, bar] = parser.parseHtml(
+				"<foo/><bar/><nil/>"
+			).root.childElements;
 			const rules = [
 				[
 					"@flow",
@@ -235,7 +241,9 @@ describe("Meta validator", () => {
 				bar: mockEntry("bar", { flow: true, interactive: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [foo, bar] = parser.parseHtml("<foo/><bar/><nil/>").root.children;
+			const [foo, bar] = parser.parseHtml(
+				"<foo/><bar/><nil/>"
+			).root.childElements;
 			const rules = [{ exclude: ["bar", "baz"] }];
 			expect(Validator.validatePermitted(foo, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(bar, rules)).toBeFalsy();
@@ -248,7 +256,9 @@ describe("Meta validator", () => {
 				bar: mockEntry("bar", { flow: true, interactive: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [foo, bar] = parser.parseHtml("<foo/><bar/><nil/>").root.children;
+			const [foo, bar] = parser.parseHtml(
+				"<foo/><bar/><nil/>"
+			).root.childElements;
 			const rules = [
 				[
 					"@flow",
@@ -267,7 +277,7 @@ describe("Meta validator", () => {
 				foo: mockEntry("foo", { flow: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [foo] = parser.parseHtml("<foo/>").root.children;
+			const [foo] = parser.parseHtml("<foo/>").root.childElements;
 			const rules = [["@flow", {}]];
 			expect(Validator.validatePermitted(foo, rules)).toBeTruthy();
 		});
@@ -278,7 +288,7 @@ describe("Meta validator", () => {
 				foo: mockEntry("foo", { flow: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [foo] = parser.parseHtml("<foo/>").root.children;
+			const [foo] = parser.parseHtml("<foo/>").root.childElements;
 			const rules = ["@invalid"];
 			expect(() => {
 				Validator.validatePermitted(foo, rules);
@@ -291,7 +301,7 @@ describe("Meta validator", () => {
 				foo: mockEntry("foo", { flow: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [foo] = parser.parseHtml("<foo/>").root.children;
+			const [foo] = parser.parseHtml("<foo/>").root.childElements;
 			const rules = [
 				[
 					"@flow",
@@ -315,7 +325,7 @@ describe("Meta validator", () => {
 				foo: mockEntry("foo", { void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [foo] = parser.parseHtml("<foo/>").root.children;
+			const [foo] = parser.parseHtml("<foo/>").root.childElements;
 			expect(Validator.validateOccurrences(foo, undefined, 1)).toBeTruthy();
 		});
 
@@ -325,7 +335,7 @@ describe("Meta validator", () => {
 				foo: mockEntry("foo", { void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [foo] = parser.parseHtml("<foo/>").root.children;
+			const [foo] = parser.parseHtml("<foo/>").root.childElements;
 			const rules = ["foo"];
 			expect(Validator.validateOccurrences(foo, rules, 0)).toBeTruthy();
 			expect(Validator.validateOccurrences(foo, rules, 9)).toBeTruthy();
@@ -337,7 +347,7 @@ describe("Meta validator", () => {
 				foo: mockEntry("foo", { void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [foo] = parser.parseHtml("<foo/>").root.children;
+			const [foo] = parser.parseHtml("<foo/>").root.childElements;
 			const rules = ["foo?"];
 			expect(Validator.validateOccurrences(foo, rules, 0)).toBeTruthy();
 			expect(Validator.validateOccurrences(foo, rules, 1)).toBeTruthy();
@@ -350,7 +360,7 @@ describe("Meta validator", () => {
 				foo: mockEntry("foo", { void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [foo] = parser.parseHtml("<foo/>").root.children;
+			const [foo] = parser.parseHtml("<foo/>").root.childElements;
 			const rules = ["foo*"];
 			expect(Validator.validateOccurrences(foo, rules, 0)).toBeTruthy();
 			expect(Validator.validateOccurrences(foo, rules, 9)).toBeTruthy();
@@ -373,35 +383,36 @@ describe("Meta validator", () => {
 		});
 
 		it("should handle undefined rules", () => {
-			const children = parser.parseHtml("<foo/>").root.children;
+			const children = parser.parseHtml("<foo/>").root.childElements;
 			expect(Validator.validateOrder(children, undefined, cb)).toBeTruthy();
 			expect(cb).not.toHaveBeenCalled();
 		});
 
 		it("should return error when elements are out of order", () => {
-			const children = parser.parseHtml("<bar/><foo/>").root.children;
+			const children = parser.parseHtml("<bar/><foo/>").root.childElements;
 			const rules = ["foo", "bar"];
 			expect(Validator.validateOrder(children, rules, cb)).toBeFalsy();
 			expect(cb).toHaveBeenCalledWith(children[1], children[0]);
 		});
 
 		it("should not return error when elements are in order", () => {
-			const children = parser.parseHtml("<foo/><bar/>").root.children;
+			const children = parser.parseHtml("<foo/><bar/>").root.childElements;
 			const rules = ["foo", "bar"];
 			expect(Validator.validateOrder(children, rules, cb)).toBeTruthy();
 			expect(cb).not.toHaveBeenCalled();
 		});
 
 		it("should handle elements with unspecified order", () => {
-			const children = parser.parseHtml("<foo/><bar/><foo/>").root.children;
+			const children = parser.parseHtml("<foo/><bar/><foo/>").root
+				.childElements;
 			const rules = ["foo"];
 			expect(Validator.validateOrder(children, rules, cb)).toBeTruthy();
 			expect(cb).not.toHaveBeenCalled();
 		});
 
 		it("should handle categories", () => {
-			const children1 = parser.parseHtml("<foo/><bar/>").root.children;
-			const children2 = parser.parseHtml("<bar/><foo/>").root.children;
+			const children1 = parser.parseHtml("<foo/><bar/>").root.childElements;
+			const children2 = parser.parseHtml("<bar/><foo/>").root.childElements;
 			const rules = ["foo", "@flow"];
 			expect(Validator.validateOrder(children1, rules, cb)).toBeTruthy();
 			expect(Validator.validateOrder(children2, rules, cb)).toBeFalsy();

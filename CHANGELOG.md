@@ -2,6 +2,14 @@
 
 ## Upcoming release
 
+### Breaking change
+
+- `.children` has been split and moved from `HtmlElement` to
+  `DOMNode`. `.childNodes` replaces the original `.children` but is now typed
+  `DOMNode[]` (and in a future release may contain other node types). A getter
+  `.nodeElements` can be used to access only `HtmlElement` from `.childNodes`
+  and is typed `HtmlElement[]`. If your rules use `.children` the
+
 ## 0.22.0 (2019-02-24)
 
 ### Breaking changes

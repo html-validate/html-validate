@@ -1,7 +1,7 @@
 import * as path from "path";
 import { Severity } from "./config";
 import { Location } from "./context";
-import { HtmlElement } from "./dom";
+import { DOMNode } from "./dom";
 import {
 	AttributeEvent,
 	ConditionalEvent,
@@ -80,19 +80,19 @@ export abstract class Rule<T = any> {
 	 * have any effect.
 	 */
 	public report(
-		node: HtmlElement,
+		node: DOMNode,
 		message: string,
 		location?: Location,
 		context?: T
 	): void {
 		if (this.isEnabled() && (!node || node.ruleEnabled(this.name))) {
 			const where = this.findLocation({ node, location, event: this.event });
-			this.reporter.add(node, this, message, this.severity, where, context);
+			this.reporter.add(this, message, this.severity, where, context);
 		}
 	}
 
 	private findLocation(src: {
-		node: HtmlElement;
+		node: DOMNode;
 		location: Location;
 		event: Event;
 	}): Location {

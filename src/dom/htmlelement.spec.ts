@@ -161,23 +161,6 @@ describe("HtmlElement", () => {
 		expect(c.nextSibling).toBeNull();
 	});
 
-	it("should be assigned a unique id", () => {
-		const n1 = new HtmlElement("foo");
-		const n2 = new HtmlElement("foo");
-		expect(n1.unique).toEqual(expect.any(Number));
-		expect(n2.unique).toEqual(expect.any(Number));
-		expect(n1.unique === n2.unique).toBeFalsy();
-	});
-
-	it("append() should add node as child", () => {
-		const parent = new HtmlElement("parent");
-		const child = new HtmlElement("child");
-		expect(parent.children).toHaveLength(0);
-		parent.append(child);
-		expect(parent.children).toHaveLength(1);
-		expect(parent.children[0].unique).toEqual(child.unique);
-	});
-
 	describe("attributes getter", () => {
 		it("should return list of all attributes", () => {
 			const node = new HtmlElement("foo");

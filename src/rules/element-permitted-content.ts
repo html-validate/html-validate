@@ -56,7 +56,7 @@ class ElementPermittedContent extends Rule {
 		 * the (this elements) parent, i.e. if this node was removed from the DOM it
 		 * should still be valid. */
 		if (cur.meta && cur.meta.transparent) {
-			cur.children.forEach((child: HtmlElement) => {
+			cur.childElements.forEach((child: HtmlElement) => {
 				this.validatePermittedContent(child, parent, rules);
 			});
 		}
