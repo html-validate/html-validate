@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.22.1 (2019-02-25)
+
 ### Breaking change
 
 - `.children` has been split and moved from `HtmlElement` to
