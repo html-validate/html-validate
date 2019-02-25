@@ -135,14 +135,14 @@ export class Engine<T extends Parser = Parser> {
 		function writeNode(node: HtmlElement, level: number, sibling: number) {
 			if (level > 0) {
 				const indent = "  ".repeat(level - 1);
-				const l = node.children.length > 0 ? "┬" : "─";
-				const b = sibling < node.parent.children.length - 1 ? "├" : "└";
+				const l = node.childElements.length > 0 ? "┬" : "─";
+				const b = sibling < node.parent.childElements.length - 1 ? "├" : "└";
 				lines.push(`${indent}${b}─${l} ${node.tagName}${decoration(node)}`);
 			} else {
 				lines.push("(root)");
 			}
 
-			node.children.forEach((child, index) =>
+			node.childElements.forEach((child, index) =>
 				writeNode(child, level + 1, index)
 			);
 		}

@@ -21,7 +21,7 @@ class ElementPermittedOrder extends Rule {
 
 				const rules = node.meta.permittedOrder;
 				Validator.validateOrder(
-					node.children,
+					node.childElements,
 					rules,
 					(child: HtmlElement, prev: HtmlElement) => {
 						this.report(

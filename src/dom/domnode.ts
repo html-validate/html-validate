@@ -15,9 +15,11 @@ export function reset() {
 }
 
 export class DOMNode {
-	public readonly location: Location;
 	public readonly nodeName: string;
 	public readonly nodeType: NodeType;
+	public readonly childNodes: DOMNode[];
+
+	public readonly location: Location;
 	public readonly unique: number;
 
 	/**
@@ -31,12 +33,17 @@ export class DOMNode {
 		this.location = location;
 		this.nodeName = nodeName || DOCUMENT_NODE_NAME;
 		this.disabledRules = new Set();
+		this.childNodes = [];
 		this.unique = counter++;
 
 		this.nodeType = NodeType.ELEMENT_NODE;
 		if (!nodeName) {
 			this.nodeType = NodeType.DOCUMENT_NODE;
 		}
+	}
+
+	public append(node: DOMNode): void {
+		this.childNodes.push(node);
 	}
 
 	public isRootElement(): boolean {

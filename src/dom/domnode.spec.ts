@@ -21,6 +21,15 @@ describe("DOMNode", () => {
 		expect(node.nodeType).toEqual(NodeType.DOCUMENT_NODE);
 	});
 
+	it("append() should add node as child", () => {
+		const parent = new DOMNode("parent");
+		const child = new DOMNode("child");
+		expect(parent.childNodes).toHaveLength(0);
+		parent.append(child);
+		expect(parent.childNodes).toHaveLength(1);
+		expect(parent.childNodes[0].unique).toEqual(child.unique);
+	});
+
 	describe("isRootElement()", () => {
 		it("should return true for root element", () => {
 			const node = new DOMNode(null);
