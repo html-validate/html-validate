@@ -12,6 +12,7 @@
 
 ### Bugfixes
 
+- `<rootDir>` is now respected when configuring plugins.
 - fix cosmetic case of `wcag/h37` rule.
 
 ## 0.22.0 (2019-02-24)

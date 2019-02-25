@@ -186,8 +186,8 @@ export class Config {
 	}
 
 	private loadPlugins(plugins: string[]): Plugin[] {
-		return plugins.map((name: string) => {
-			return require(name);
+		return plugins.map((module: string) => {
+			return require(module.replace("<rootDir>", this.rootDir));
 		});
 	}
 
