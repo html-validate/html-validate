@@ -7,10 +7,18 @@ export enum NodeType {
 	DOCUMENT_NODE = 9,
 }
 
+let counter = 0;
+
+/* istanbul ignore next: only for testing */
+export function reset() {
+	counter = 0;
+}
+
 export class DOMNode {
 	public readonly location: Location;
 	public readonly nodeName: string;
 	public readonly nodeType: NodeType;
+	public readonly unique: number;
 
 	/**
 	 * Set of disabled rules for this node.
@@ -23,6 +31,7 @@ export class DOMNode {
 		this.location = location;
 		this.nodeName = nodeName || DOCUMENT_NODE_NAME;
 		this.disabledRules = new Set();
+		this.unique = counter++;
 
 		this.nodeType = NodeType.ELEMENT_NODE;
 		if (!nodeName) {

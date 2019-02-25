@@ -15,20 +15,12 @@ export enum NodeClosed {
 	ImplicitClosed = 4, //  element with optional end tag <li>foo<li>bar
 }
 
-let counter = 0;
-
-/* istanbul ignore next: only for testing */
-export function reset() {
-	counter = 0;
-}
-
 export class HtmlElement extends DOMNode {
 	public readonly tagName: string;
 	public readonly children: HtmlElement[];
 	public readonly meta: MetaElement;
 	public readonly parent: HtmlElement;
 	public readonly voidElement: boolean;
-	public readonly unique: number;
 	public readonly depth: number;
 	public closed: NodeClosed;
 	protected readonly attr: { [key: string]: Attribute[] };
@@ -49,7 +41,6 @@ export class HtmlElement extends DOMNode {
 		this.meta = meta;
 		this.closed = closed;
 		this.voidElement = this.meta ? this.meta.void : false;
-		this.unique = counter++;
 		this.depth = 0;
 
 		if (parent) {

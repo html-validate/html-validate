@@ -7,6 +7,14 @@ describe("DOMNode", () => {
 		expect(node.nodeType).toEqual(NodeType.ELEMENT_NODE);
 	});
 
+	it("should be assigned a unique id", () => {
+		const n1 = new DOMNode("foo");
+		const n2 = new DOMNode("foo");
+		expect(n1.unique).toEqual(expect.any(Number));
+		expect(n2.unique).toEqual(expect.any(Number));
+		expect(n1.unique === n2.unique).toBeFalsy();
+	});
+
 	it("root element", () => {
 		const node = new DOMNode(null);
 		expect(node.nodeName).toEqual("#document");
