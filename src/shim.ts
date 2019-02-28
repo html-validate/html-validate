@@ -2,7 +2,7 @@
 
 export { default as HtmlValidate } from "./htmlvalidate";
 export { AttributeData } from "./parser";
-export { Config, ConfigLoader } from "./config";
+export { Config, ConfigData, ConfigLoader } from "./config";
 export { DynamicValue } from "./dom/dynamic-value";
 export { Rule } from "./rule";
 export { Source } from "./context";
