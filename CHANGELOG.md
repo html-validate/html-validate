@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Features
+
+- expose `Config`, `ConfigData` and `ConfigLoader` in shim.
+
 ## 0.22.1 (2019-02-25)
 
 ### Breaking change
