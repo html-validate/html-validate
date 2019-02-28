@@ -6,3 +6,4 @@ export { Rule } from "./rule";
 export { TemplateExtractor } from "./transform/template";
 export { Source } from "./context";
 export { AttributeData } from "./parser";
+export { Config, ConfigLoader } from "./config";
