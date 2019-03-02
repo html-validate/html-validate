@@ -4,6 +4,7 @@
 
 ### Features
 
+- docs: precompile syntax highlighting for smoother page loads.
 - expose `Config`, `ConfigData` and `ConfigLoader` in shim.
 
 ## 0.22.1 (2019-02-25)
