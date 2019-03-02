@@ -1,17 +1,13 @@
 const path = require("canonical-path");
 const Package = require("dgeni").Package;
 const packagePath = __dirname;
-const hljs = require("highlight.js");
 
 module.exports = new Package("html-validate-docs", [
 	require("dgeni-packages/ngdoc"),
 	require("dgeni-packages/nunjucks"),
+	require("./highlight"),
 	require("./inline-validate"),
 ])
-
-	/* override markdown renderer from dgeni nunjucks package to allow setting a
-	 * highlighter */
-	.factory(require("./services/renderMarkdown"))
 
 	.processor(require("./processors/rules"))
 
@@ -21,17 +17,10 @@ module.exports = new Package("html-validate-docs", [
 	})
 
 	/* configure markdown syntax highlighting */
-	.config(function(renderMarkdown) {
-		hljs.configure({
+	.config(function(highlight) {
+		highlight.configure({
 			languages: ["js", "json", "typescript", "html", "shell"],
 		});
-		renderMarkdown.highlight = function highlight(code, lang) {
-			if (typeof lang !== "undefined") {
-				return hljs.highlight(lang, code).value;
-			} else {
-				return hljs.highlightAuto(code).value;
-			}
-		};
 	})
 
 	.factory(require("./changelog"))
