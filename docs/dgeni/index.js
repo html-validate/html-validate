@@ -5,6 +5,7 @@ const packagePath = __dirname;
 module.exports = new Package("html-validate-docs", [
 	require("dgeni-packages/ngdoc"),
 	require("dgeni-packages/nunjucks"),
+	require("./highlight"),
 	require("./inline-validate"),
 ])
 
@@ -13,6 +14,13 @@ module.exports = new Package("html-validate-docs", [
 	.config(function(renderDocsProcessor) {
 		renderDocsProcessor.extraData.pkg = require("../../package.json");
 		renderDocsProcessor.extraData.tracking = process.env.GA_TRACKING_ID;
+	})
+
+	/* configure markdown syntax highlighting */
+	.config(function(highlight) {
+		highlight.configure({
+			languages: ["js", "json", "typescript", "html", "shell"],
+		});
 	})
 
 	.factory(require("./changelog"))

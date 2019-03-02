@@ -3,7 +3,7 @@
 <div class="inline-validation">
 	<div class="markup"
 		{%- for attrName, attrValue in doc.validate.attributes %}{$ attrName $}="{$ attrValue $}"{% endfor %}>
-		{% code "html" -%} {$ doc.validate.markup $} {%- endcode %}
+		<pre><code class="hljs lang-html">{$ doc.validate.markup | highlight('html') $}</code></pre>
 	</div>
 
 	{%- if not doc.validate.report.valid %}
