@@ -1,5 +1,6 @@
 import { Location } from "../context";
 import { DOMNode } from "./domnode";
+import { DynamicValue } from "./dynamic-value";
 import { NodeType } from "./nodetype";
 
 const TEXT_NODE_NAME = "#text";
@@ -11,13 +12,14 @@ const TEXT_NODE_NAME = "#text";
  * of its own.
  */
 export class TextNode extends DOMNode {
-	private readonly text: string;
+	private readonly text: string | DynamicValue;
 
 	/**
-	 * @param text - Text to add.
+	 * @param text - Text to add. When a `DynamicValue` is used the expression is
+	 * used as "text".
 	 * @param location - Source code location of this node.
 	 */
-	constructor(text: string, location?: Location) {
+	constructor(text: string | DynamicValue, location?: Location) {
 		super(NodeType.TEXT_NODE, TEXT_NODE_NAME, location);
 		this.text = text;
 	}
@@ -26,6 +28,20 @@ export class TextNode extends DOMNode {
 	 * Get the text from node.
 	 */
 	public get textContent(): string {
-		return this.text;
+		return this.text.toString();
+	}
+
+	/**
+	 * Flag set to true if the attribute value is static.
+	 */
+	public get isStatic(): boolean {
+		return !this.isDynamic;
+	}
+
+	/**
+	 * Flag set to true if the attribute value is dynamic.
+	 */
+	public get isDynamic(): boolean {
+		return this.text instanceof DynamicValue;
 	}
 }

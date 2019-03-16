@@ -196,7 +196,7 @@ export class HtmlElement extends DOMNode {
 	 * @param text - Text to add.
 	 * @param location - Source code location of this text.
 	 */
-	public appendText(text: string, location?: Location): void {
+	public appendText(text: string | DynamicValue, location?: Location) {
 		this.childNodes.push(new TextNode(text, location));
 	}
 
