@@ -469,7 +469,7 @@ export class Parser {
 	private closeTree(token: Token): void {
 		let active;
 		/* tslint:disable-next-line:no-conditional-assignment */
-		while ((active = this.dom.getActive()) && active.tagName) {
+		while ((active = this.dom.getActive()) && !active.isRootElement()) {
 			this.trigger("tag:close", {
 				target: undefined,
 				previous: active,

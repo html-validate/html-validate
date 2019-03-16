@@ -1,11 +1,7 @@
 import { Location } from "../context";
+import { NodeType } from "./nodetype";
 
 const DOCUMENT_NODE_NAME = "#document";
-
-export enum NodeType {
-	ELEMENT_NODE = 1,
-	DOCUMENT_NODE = 9,
-}
 
 let counter = 0;
 
@@ -29,17 +25,21 @@ export class DOMNode {
 	 */
 	private disabledRules: Set<string>;
 
-	constructor(nodeName: string, location?: Location) {
-		this.location = location;
+	/**
+	 * Create a new DOMNode.
+	 *
+	 * @param nodeType - What node type to create.
+	 * @param nodeName - What node name to use. For `HtmlElement` this corresponds
+	 * to the tagName but other node types have specific predefined values.
+	 * @param location - Source code location of this node.
+	 */
+	constructor(nodeType: NodeType, nodeName: string, location?: Location) {
+		this.nodeType = nodeType;
 		this.nodeName = nodeName || DOCUMENT_NODE_NAME;
+		this.location = location;
 		this.disabledRules = new Set();
 		this.childNodes = [];
 		this.unique = counter++;
-
-		this.nodeType = NodeType.ELEMENT_NODE;
-		if (!nodeName) {
-			this.nodeType = NodeType.DOCUMENT_NODE;
-		}
 	}
 
 	public append(node: DOMNode): void {
@@ -48,6 +48,22 @@ export class DOMNode {
 
 	public isRootElement(): boolean {
 		return this.nodeType === NodeType.DOCUMENT_NODE;
+	}
+
+	/**
+	 * Returns a DOMNode representing the first direct child node or `null` if the
+	 * node has no children.
+	 */
+	public get firstChild(): DOMNode {
+		return this.childNodes[0] || null;
+	}
+
+	/**
+	 * Returns a DOMNode representing the last direct child node or `null` if the
+	 * node has no children.
+	 */
+	public get lastChild(): DOMNode {
+		return this.childNodes[this.childNodes.length - 1] || null;
 	}
 
 	/**

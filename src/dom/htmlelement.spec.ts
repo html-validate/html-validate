@@ -1,4 +1,4 @@
-import { Attribute, DOMTree, HtmlElement, NodeClosed } from ".";
+import { Attribute, DOMTree, HtmlElement, NodeClosed, NodeType } from ".";
 import { Config } from "../config";
 import { Location, Source } from "../context";
 import { Token, TokenType } from "../lexer";
@@ -128,6 +128,14 @@ describe("HtmlElement", () => {
 			const node = HtmlElement.fromTokens(startToken, endToken, null, null);
 			expect(node.closed).toEqual(NodeClosed.VoidSelfClosed);
 		});
+	});
+
+	it("rootNode()", () => {
+		const node = HtmlElement.rootNode(location);
+		expect(node.isRootElement()).toBeTruthy();
+		expect(node.nodeType).toEqual(NodeType.DOCUMENT_NODE);
+		expect(node.nodeName).toEqual("#document");
+		expect(node.tagName).toBeUndefined();
 	});
 
 	it("id property should return element id", () => {
