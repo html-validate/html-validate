@@ -4,6 +4,7 @@
 
 ### Features
 
+- add `firstChild` and `lastChild` to `DOMNode`.
 - docs: precompile syntax highlighting for smoother page loads.
 - expose `Config`, `ConfigData` and `ConfigLoader` in shim.
 

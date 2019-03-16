@@ -42,6 +42,36 @@ describe("DOMNode", () => {
 		});
 	});
 
+	describe("firstChild", () => {
+		it("should return first child if present", () => {
+			const node = new DOMNode(NodeType.ELEMENT_NODE, "root");
+			const first = new DOMNode(NodeType.ELEMENT_NODE, "first");
+			const last = new DOMNode(NodeType.ELEMENT_NODE, "last");
+			node.append(first);
+			node.append(last);
+			expect(node.firstChild.unique).toEqual(first.unique);
+		});
+		it("should return null if no children present", () => {
+			const node = new DOMNode(NodeType.ELEMENT_NODE, "root");
+			expect(node.firstChild).toBeNull();
+		});
+	});
+
+	describe("lastChild", () => {
+		it("should return first child if present", () => {
+			const node = new DOMNode(NodeType.ELEMENT_NODE, "root");
+			const first = new DOMNode(NodeType.ELEMENT_NODE, "first");
+			const last = new DOMNode(NodeType.ELEMENT_NODE, "last");
+			node.append(first);
+			node.append(last);
+			expect(node.lastChild.unique).toEqual(last.unique);
+		});
+		it("should return null if no children present", () => {
+			const node = new DOMNode(NodeType.ELEMENT_NODE, "root");
+			expect(node.lastChild).toBeNull();
+		});
+	});
+
 	describe("disabled rules", () => {
 		it("rules should default to enabled", () => {
 			const node = new DOMNode(NodeType.ELEMENT_NODE, "foo");

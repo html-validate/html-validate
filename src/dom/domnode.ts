@@ -51,6 +51,22 @@ export class DOMNode {
 	}
 
 	/**
+	 * Returns a DOMNode representing the first direct child node or `null` if the
+	 * node has no children.
+	 */
+	public get firstChild(): DOMNode {
+		return this.childNodes[0] || null;
+	}
+
+	/**
+	 * Returns a DOMNode representing the last direct child node or `null` if the
+	 * node has no children.
+	 */
+	public get lastChild(): DOMNode {
+		return this.childNodes[this.childNodes.length - 1] || null;
+	}
+
+	/**
 	 * Disable a rule for this node.
 	 */
 	public disableRule(ruleId: string): void {
