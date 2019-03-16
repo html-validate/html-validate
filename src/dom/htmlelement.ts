@@ -2,9 +2,10 @@ import { Location, sliceLocation } from "../context";
 import { Token } from "../lexer";
 import { MetaElement, MetaTable } from "../meta";
 import { Attribute } from "./attribute";
-import { DOMNode, NodeType } from "./domnode";
+import { DOMNode } from "./domnode";
 import { DOMTokenList } from "./domtokenlist";
 import { DynamicValue } from "./dynamic-value";
+import { NodeType } from "./nodetype";
 import { Selector } from "./selector";
 
 export enum NodeClosed {
@@ -31,7 +32,8 @@ export class HtmlElement extends DOMNode {
 		meta?: MetaElement,
 		location?: Location
 	) {
-		super(tagName, location);
+		const nodeType = tagName ? NodeType.ELEMENT_NODE : NodeType.DOCUMENT_NODE;
+		super(nodeType, tagName, location);
 
 		this.tagName = tagName;
 		this.parent = parent;
