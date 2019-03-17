@@ -5,3 +5,4 @@ export { DOMTokenList } from "./domtokenlist";
 export { DOMTree } from "./domtree";
 export { DynamicValue } from "./dynamic-value";
 export { NodeType } from "./nodetype";
+export { TextNode } from "./text";

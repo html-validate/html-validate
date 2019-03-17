@@ -4,6 +4,8 @@
 
 ### Features
 
+- add `textContent` property on `DOMNode` to get text (recursive) from child
+  nodes. A new node type `TextNode` is added.
 - add `firstChild` and `lastChild` to `DOMNode`.
 - docs: precompile syntax highlighting for smoother page loads.
 - expose `Config`, `ConfigData` and `ConfigLoader` in shim.

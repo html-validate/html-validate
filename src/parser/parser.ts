@@ -70,6 +70,7 @@ export class Parser {
 						text: token.data[0],
 						location: token.location,
 					});
+					this.appendText(token.data[0], token.location);
 					break;
 
 				case TokenType.DIRECTIVE:
@@ -85,6 +86,10 @@ export class Parser {
 
 				case TokenType.DOCTYPE_OPEN:
 					this.consumeDoctype(token, tokenStream);
+					break;
+
+				case TokenType.TEXT:
+					this.appendText(token.data, token.location);
 					break;
 
 				case TokenType.EOF:
@@ -461,6 +466,13 @@ export class Parser {
 			throw Error("Triggered event must contain location");
 		}
 		this.event.trigger(event, data);
+	}
+
+	/**
+	 * Appends a text node to the current element on the stack.
+	 */
+	private appendText(text: string, location: Location): void {
+		this.dom.getActive().appendText(text, location);
 	}
 
 	/**
