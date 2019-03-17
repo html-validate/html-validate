@@ -5,7 +5,7 @@ import { Source } from "../context";
 import { NestedError } from "../error/nested-error";
 import { MetaTable } from "../meta";
 import { ElementTable } from "../meta/element";
-import { RuleConstructor } from "../rule";
+import { Plugin } from "../plugin";
 import { ConfigData, TransformMap } from "./config-data";
 import defaultConfig from "./default";
 import { parseSeverity, Severity } from "./severity";
@@ -15,9 +15,6 @@ interface Transformer {
 	fn: (filename: string) => Source[];
 }
 
-interface Plugin {
-	rules: { [key: string]: RuleConstructor };
-}
 const recommended = require("./recommended");
 const document = require("./document");
 let rootDirCache: string = null;
