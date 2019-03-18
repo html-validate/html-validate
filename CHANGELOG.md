@@ -4,6 +4,7 @@
 
 ### Features
 
+- add `processElement` hook on `Source`.
 - add `textContent` property on `DOMNode` to get text (recursive) from child
   nodes. A new node type `TextNode` is added.
 - add `firstChild` and `lastChild` to `DOMNode`.

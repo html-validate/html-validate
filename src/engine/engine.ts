@@ -327,16 +327,13 @@ export class Engine<T extends Parser = Parser> {
 
 	/* istanbul ignore next: tests mock this function */
 	protected requireRule(name: string, options: RuleOptions): any {
-		let Class: RuleConstructor;
+		const moduleName = `../rules/${name}`;
 		try {
-			Class = require(`../rules/${name}`);
-		} catch (e) {
-			if (e.code === "MODULE_NOT_FOUND") {
-				return null;
-			} else {
-				throw e;
-			}
+			require.resolve(moduleName);
+		} catch (err) {
+			return null;
 		}
+		const Class = require(moduleName);
 		return new Class(options);
 	}
 
