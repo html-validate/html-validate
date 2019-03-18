@@ -2,4 +2,25 @@
 
 exports[`docs/rules/attr-quotes.md inline validation: correct 1`] = `Array []`;
 
-exports[`docs/rules/attr-quotes.md inline validation: incorrect 1`] = `Array []`;
+exports[`docs/rules/attr-quotes.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 1,
+        "message": "Attribute \\"class\\" used ' instead of expected \\"",
+        "offset": 3,
+        "ruleId": "attr-quotes",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<p class='foo'></p>",
+    "warningCount": 0,
+  },
+]
+`;
