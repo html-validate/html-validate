@@ -1,11 +1,5 @@
 import { AttributeData } from "../parser";
 
-/**
- * Source interface.
- *
- * HTML source with file, line and column context.
- */
-
 export type ProcessAttributeCallback = (
 	attr: AttributeData
 ) => Iterable<AttributeData>;
@@ -13,10 +7,25 @@ export type ProcessAttributeCallback = (
 export interface SourceHooks {
 	/**
 	 * Called for every attribute.
+	 *
+	 * The original attribute must be yielded as well or no attribute will be
+	 * added.
+	 *
+	 * @generator
+	 * @yields {AttributeData} Attribute data for an attribute to be added to the
+	 * element.
 	 */
 	processAttribute: ProcessAttributeCallback;
 }
 
+/**
+ * Source interface.
+ *
+ * HTML source with file, line and column context.
+ *
+ * Optional hooks can be attached. This is usually added by transformers to
+ * postprocess.
+ */
 export interface Source {
 	data: string;
 	filename: string;
