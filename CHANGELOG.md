@@ -4,6 +4,7 @@
 
 ### Features
 
+- new rule `empty-heading` validating headers have textual content.
 - let plugins add configuration presets.
 - add `processElement` hook on `Source`.
 - add `textContent` property on `DOMNode` to get text (recursive) from child
