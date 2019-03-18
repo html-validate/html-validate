@@ -832,6 +832,21 @@ describe("parser", () => {
 			});
 			expect(events.shift()).toBeUndefined();
 		});
+
+		it("elements", () => {
+			const processElement = jest.fn();
+			const source: Source = {
+				data: "<input>",
+				filename: "inline",
+				line: 1,
+				column: 1,
+				hooks: {
+					processElement,
+				},
+			};
+			parser.parseHtml(source);
+			expect(processElement).toHaveBeenCalledWith(expect.any(HtmlElement));
+		});
 	});
 
 	describe("regressiontesting", () => {

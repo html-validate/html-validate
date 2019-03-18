@@ -1,8 +1,11 @@
+import { HtmlElement } from "../dom";
 import { AttributeData } from "../parser";
 
 export type ProcessAttributeCallback = (
 	attr: AttributeData
 ) => Iterable<AttributeData>;
+
+export type ProcessElementCallback = (node: HtmlElement) => void;
 
 export interface SourceHooks {
 	/**
@@ -15,7 +18,14 @@ export interface SourceHooks {
 	 * @yields {AttributeData} Attribute data for an attribute to be added to the
 	 * element.
 	 */
-	processAttribute: ProcessAttributeCallback;
+	processAttribute?: ProcessAttributeCallback;
+
+	/**
+	 * Called for every element after element is created but before any children.
+	 *
+	 * May modify the element.
+	 */
+	processElement?: ProcessElementCallback;
 }
 
 /**

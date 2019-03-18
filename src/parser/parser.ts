@@ -177,11 +177,7 @@ export class Parser {
 		if (closeOptional) {
 			const active = this.dom.getActive();
 			active.closed = NodeClosed.ImplicitClosed;
-			this.trigger("tag:close", {
-				target: node,
-				previous: active,
-				location: startToken.location,
-			});
+			this.closeElement(source, node, active, startToken.location);
 			this.dom.popActive();
 		}
 
@@ -213,11 +209,7 @@ export class Parser {
 				node.closed = NodeClosed.EndTag;
 			}
 
-			this.trigger("tag:close", {
-				target: node,
-				previous: active,
-				location: endToken.location,
-			});
+			this.closeElement(source, node, active, endToken.location);
 
 			/* if this element is closed with an end tag but is would it will not be
 			 * closed again (it is already closed automatically since it is
@@ -230,14 +222,35 @@ export class Parser {
 		} else if (foreign) {
 			/* consume the body of the foreign element so it won't be part of the
 			 * document (only the root foreign element is).  */
-			this.discardForeignBody(node.tagName, tokenStream);
+			this.discardForeignBody(source, node.tagName, tokenStream);
 		}
+	}
+
+	protected closeElement(
+		source: Source,
+		node: HtmlElement,
+		active: HtmlElement,
+		location: Location
+	) {
+		/* call processElement hook */
+		if (source.hooks && source.hooks.processElement) {
+			const processElement = source.hooks.processElement;
+			processElement(active);
+		}
+
+		/* trigger event */
+		this.trigger("tag:close", {
+			target: node,
+			previous: active,
+			location,
+		});
 	}
 
 	/**
 	 * Discard tokens until the end tag for the foreign element is found.
 	 */
 	protected discardForeignBody(
+		source: Source,
 		foreignTagName: string,
 		tokenStream: TokenStream
 	): void {
@@ -283,11 +296,7 @@ export class Parser {
 			this.metaTable
 		);
 
-		this.trigger("tag:close", {
-			target: node,
-			previous: active,
-			location: endToken.location,
-		});
+		this.closeElement(source, node, active, endToken.location);
 		this.dom.popActive();
 	}
 
