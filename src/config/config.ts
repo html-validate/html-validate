@@ -39,6 +39,7 @@ function loadFromFile(filename: string): ConfigData {
 
 export class Config {
 	private config: ConfigData;
+	private configurations: Map<string, ConfigData>;
 	protected metaTable: MetaTable;
 	protected plugins: Plugin[];
 	protected transformers: Transformer[];
@@ -58,13 +59,6 @@ export class Config {
 	}
 
 	public static fromFile(filename: string): Config {
-		switch (filename) {
-			case "htmlvalidate:recommended":
-				return Config.fromObject(recommended);
-			case "htmlvalidate:document":
-				return Config.fromObject(document);
-		}
-
 		const configdata = loadFromFile(filename);
 		return new Config(configdata);
 	}
@@ -86,6 +80,7 @@ export class Config {
 
 		/* load plugins */
 		this.plugins = this.loadPlugins(this.config.plugins || []);
+		this.configurations = this.loadConfigurations(this.plugins);
 
 		/* process extended configs */
 		for (const extend of this.config.extends) {
@@ -111,7 +106,12 @@ export class Config {
 	}
 
 	private extendConfig(entry: string): ConfigData {
-		const base = Config.fromFile(entry).config;
+		let base: ConfigData;
+		if (this.configurations.has(entry)) {
+			base = this.configurations.get(entry);
+		} else {
+			base = Config.fromFile(entry).config;
+		}
 		return mergeInternal(base, this.config);
 	}
 
@@ -191,9 +191,30 @@ export class Config {
 	}
 
 	private loadPlugins(plugins: string[]): Plugin[] {
-		return plugins.map((module: string) => {
-			return require(module.replace("<rootDir>", this.rootDir));
+		return plugins.map((moduleName: string) => {
+			const plugin = require(moduleName.replace(
+				"<rootDir>",
+				this.rootDir
+			)) as Plugin;
+			plugin.name = moduleName;
+			return plugin;
 		});
+	}
+
+	private loadConfigurations(plugins: Plugin[]): Map<string, ConfigData> {
+		const configs: Map<string, ConfigData> = new Map();
+
+		/* builtin presets */
+		configs.set("htmlvalidate:recommended", recommended);
+		configs.set("htmlvalidate:document", document);
+
+		/* presets from plugins */
+		for (const plugin of plugins) {
+			for (const [name, config] of Object.entries(plugin.configs || {})) {
+				configs.set(`${plugin.name}:${name}`, new Config(config).config);
+			}
+		}
+		return configs;
 	}
 
 	/**

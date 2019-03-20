@@ -42,7 +42,8 @@ Configuration can be extended from sharable configuration.
 }
 ```
 
-Each package and file must export a valid configuration object.
+Each package and file must export a valid configuration object. Plugins may also
+create [configuration presets](/dev/writing-plugins.html).
 
 ### `rules`
 

@@ -13,6 +13,30 @@ module.exports = {
 };
 ```
 
+### Configuration presets
+
+Plugins can create configuration presets similar to a shared configuration:
+
+```js
+module.exports = {
+  configs: {
+    recommended: {
+      "my-rule": "error",
+    },
+  },
+};
+```
+
+Users may then extend the preset using `plugin:name`, e.g.:
+
+```js
+{
+  "extends": [
+    "my-plugin:recommended"
+  ]
+}
+```
+
 ### Rules
 
 See [writing rules](/dev/writing-rules.html) for details on how to write a rules.
