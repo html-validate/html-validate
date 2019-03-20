@@ -19,6 +19,10 @@ const recommended = require("./recommended");
 const document = require("./document");
 let rootDirCache: string = null;
 
+function mergeInternal(base: ConfigData, rhs: ConfigData): ConfigData {
+	return deepmerge(base, rhs);
+}
+
 export class Config {
 	private config: ConfigData;
 	protected metaTable: MetaTable;
@@ -65,20 +69,20 @@ export class Config {
 	}
 
 	constructor(options?: ConfigData) {
-		this.config = {
+		const initial: ConfigData = {
 			extends: [],
 			plugins: [],
 			rules: {},
 			transform: {},
 		};
-		this.mergeInternal(options || {});
+		this.config = mergeInternal(initial, options || {});
 		this.metaTable = null;
 		this.rootDir = this.findRootDir();
 
 		/* process extended configs */
 		for (const extend of this.config.extends) {
-			const base = Config.fromFile(extend);
-			this.config = base.mergeInternal(this.config);
+			const base = Config.fromFile(extend).config;
+			this.config = mergeInternal(base, this.config);
 		}
 	}
 
@@ -98,8 +102,8 @@ export class Config {
 	 *
 	 * @param {Config} rhs - Configuration to merge with this one.
 	 */
-	public merge(rhs: Config) {
-		return new Config(this.mergeInternal(rhs.config));
+	public merge(rhs: Config): Config {
+		return new Config(mergeInternal(this.config, rhs.config));
 	}
 
 	public getMetaTable(): MetaTable {
@@ -146,11 +150,6 @@ export class Config {
 			return path.normalize(`${currentPath}/${src}`);
 		}
 		return src;
-	}
-
-	private mergeInternal(config: ConfigData): ConfigData {
-		this.config = deepmerge(this.config, config);
-		return this.config;
 	}
 
 	public get(): ConfigData {
