@@ -5,7 +5,7 @@ import { Source } from "../context";
 import { NestedError } from "../error/nested-error";
 import { MetaTable } from "../meta";
 import { ElementTable } from "../meta/element";
-import { RuleConstructor } from "../rule";
+import { Plugin } from "../plugin";
 import { ConfigData, TransformMap } from "./config-data";
 import defaultConfig from "./default";
 import { parseSeverity, Severity } from "./severity";
@@ -15,15 +15,31 @@ interface Transformer {
 	fn: (filename: string) => Source[];
 }
 
-interface Plugin {
-	rules: { [key: string]: RuleConstructor };
-}
 const recommended = require("./recommended");
 const document = require("./document");
 let rootDirCache: string = null;
 
+function mergeInternal(base: ConfigData, rhs: ConfigData): ConfigData {
+	return deepmerge(base, rhs);
+}
+
+function loadFromFile(filename: string): ConfigData {
+	const json = require(filename);
+
+	/* expand any relative paths */
+	for (const key of ["extends", "elements", "plugins"]) {
+		if (!json[key]) continue;
+		json[key] = json[key].map((ref: string) => {
+			return Config.expandRelative(ref, path.dirname(filename));
+		});
+	}
+
+	return json;
+}
+
 export class Config {
 	private config: ConfigData;
+	private configurations: Map<string, ConfigData>;
 	protected metaTable: MetaTable;
 	protected plugins: Plugin[];
 	protected transformers: Transformer[];
@@ -43,24 +59,8 @@ export class Config {
 	}
 
 	public static fromFile(filename: string): Config {
-		switch (filename) {
-			case "htmlvalidate:recommended":
-				return Config.fromObject(recommended);
-			case "htmlvalidate:document":
-				return Config.fromObject(document);
-		}
-
-		const json = require(filename);
-
-		/* expand any relative paths */
-		for (const key of ["extends", "elements", "plugins"]) {
-			if (!json[key]) continue;
-			json[key] = json[key].map((ref: string) => {
-				return Config.expandRelative(ref, path.dirname(filename));
-			});
-		}
-
-		return new Config(json);
+		const configdata = loadFromFile(filename);
+		return new Config(configdata);
 	}
 
 	public static defaultConfig(): Config {
@@ -68,27 +68,27 @@ export class Config {
 	}
 
 	constructor(options?: ConfigData) {
-		this.config = {
+		const initial: ConfigData = {
 			extends: [],
 			plugins: [],
 			rules: {},
 			transform: {},
 		};
-		this.mergeInternal(options || {});
+		this.config = mergeInternal(initial, options || {});
 		this.metaTable = null;
 		this.rootDir = this.findRootDir();
 
+		/* load plugins */
+		this.plugins = this.loadPlugins(this.config.plugins || []);
+		this.configurations = this.loadConfigurations(this.plugins);
+
 		/* process extended configs */
 		for (const extend of this.config.extends) {
-			const base = Config.fromFile(extend);
-			this.config = base.mergeInternal(this.config);
+			this.config = this.extendConfig(extend);
 		}
 	}
 
 	public init() {
-		/* load plugins */
-		this.plugins = this.loadPlugins(this.config.plugins || []);
-
 		/* precompile transform patterns */
 		this.transformers = this.precompileTransformers(
 			this.config.transform || {}
@@ -101,8 +101,18 @@ export class Config {
 	 *
 	 * @param {Config} rhs - Configuration to merge with this one.
 	 */
-	public merge(rhs: Config) {
-		return new Config(this.mergeInternal(rhs.config));
+	public merge(rhs: Config): Config {
+		return new Config(mergeInternal(this.config, rhs.config));
+	}
+
+	private extendConfig(entry: string): ConfigData {
+		let base: ConfigData;
+		if (this.configurations.has(entry)) {
+			base = this.configurations.get(entry);
+		} else {
+			base = Config.fromFile(entry).config;
+		}
+		return mergeInternal(base, this.config);
 	}
 
 	public getMetaTable(): MetaTable {
@@ -151,11 +161,6 @@ export class Config {
 		return src;
 	}
 
-	private mergeInternal(config: ConfigData): ConfigData {
-		this.config = deepmerge(this.config, config);
-		return this.config;
-	}
-
 	public get(): ConfigData {
 		const config = Object.assign({}, this.config);
 		if (config.elements) {
@@ -186,9 +191,30 @@ export class Config {
 	}
 
 	private loadPlugins(plugins: string[]): Plugin[] {
-		return plugins.map((module: string) => {
-			return require(module.replace("<rootDir>", this.rootDir));
+		return plugins.map((moduleName: string) => {
+			const plugin = require(moduleName.replace(
+				"<rootDir>",
+				this.rootDir
+			)) as Plugin;
+			plugin.name = moduleName;
+			return plugin;
 		});
+	}
+
+	private loadConfigurations(plugins: Plugin[]): Map<string, ConfigData> {
+		const configs: Map<string, ConfigData> = new Map();
+
+		/* builtin presets */
+		configs.set("htmlvalidate:recommended", recommended);
+		configs.set("htmlvalidate:document", document);
+
+		/* presets from plugins */
+		for (const plugin of plugins) {
+			for (const [name, config] of Object.entries(plugin.configs || {})) {
+				configs.set(`${plugin.name}:${name}`, new Config(config).config);
+			}
+		}
+		return configs;
 	}
 
 	/**

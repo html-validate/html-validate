@@ -5,7 +5,7 @@ import { Severity } from "./severity";
 
 let mockElements: any;
 jest.mock("mock-elements", () => mockElements, { virtual: true });
-jest.mock("mock-plugin", () => "mock plugin", { virtual: true });
+jest.mock("mock-plugin", () => ({ name: "mock plugin" }), { virtual: true });
 
 /* mock transformers */
 jest.mock(
@@ -332,7 +332,7 @@ describe("config", () => {
 				plugins: ["mock-plugin"],
 			});
 			config.init();
-			expect(config.getPlugins()).toEqual(["mock plugin"]);
+			expect(config.getPlugins()).toEqual([{ name: "mock-plugin" }]);
 		});
 	});
 

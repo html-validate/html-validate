@@ -4,6 +4,12 @@ import * as path from "path";
 import { Config, ConfigLoader } from ".";
 import HtmlValidate from "../htmlvalidate";
 
+declare module "./config-data" {
+	interface ConfigData {
+		mockFilenames?: string[];
+	}
+}
+
 class MockConfig {
 	public static empty(): Config {
 		return Config.empty();
@@ -11,7 +17,7 @@ class MockConfig {
 
 	public static fromFile(filename: string): Config {
 		return Config.fromObject({
-			plugins: [filename],
+			mockFilenames: [filename],
 		});
 	}
 }
@@ -39,8 +45,8 @@ describe("ConfigLoader", () => {
 			const config = loader.fromTarget("/path/to/target.html");
 			expect(config.get()).toEqual(
 				expect.objectContaining({
-					plugins: [
-						/* mock sets filename as plugin */
+					mockFilenames: [
+						/* ConfigMock adds all visited filenames to this array */
 						path.resolve("/path/to/.htmlvalidate.json"),
 					],
 				})
@@ -54,8 +60,8 @@ describe("ConfigLoader", () => {
 			const config = loader.fromTarget("/path/to/target.html");
 			expect(config.get()).toEqual(
 				expect.objectContaining({
-					plugins: [
-						/* mock sets filename as plugin */
+					mockFilenames: [
+						/* ConfigMock adds all visited filenames to this array */
 						path.resolve("/path/.htmlvalidate.json"),
 					],
 				})
@@ -67,8 +73,8 @@ describe("ConfigLoader", () => {
 			const config = loader.fromTarget("/path/to/target.html");
 			expect(config.get()).toEqual(
 				expect.objectContaining({
-					plugins: [
-						/* mock sets filename as plugin */
+					mockFilenames: [
+						/* ConfigMock adds all visited filenames to this array */
 						path.resolve("/.htmlvalidate.json"),
 						path.resolve("/path/.htmlvalidate.json"),
 						path.resolve("/path/to/.htmlvalidate.json"),
@@ -90,8 +96,8 @@ describe("ConfigLoader", () => {
 			expect(cache.has("/path/to/target.html")).toBeTruthy();
 			expect(cache.get("/path/to/target.html").get()).toEqual(
 				expect.objectContaining({
-					plugins: [
-						/* mock sets filename as plugin */
+					mockFilenames: [
+						/* ConfigMock adds all visited filenames to this array */
 						path.resolve("/.htmlvalidate.json"),
 						path.resolve("/path/.htmlvalidate.json"),
 						path.resolve("/path/to/.htmlvalidate.json"),
@@ -111,8 +117,8 @@ describe("ConfigLoader", () => {
 			const config = loader.fromTarget("/path/to/target.html");
 			expect(config.get()).toEqual(
 				expect.objectContaining({
-					plugins: [
-						/* mock sets filename as plugin */
+					mockFilenames: [
+						/* ConfigMock adds all visited filenames to this array */
 						path.resolve("/.htmlvalidate.json"),
 						path.resolve("/path/.htmlvalidate.json"),
 						path.resolve("/path/to/.htmlvalidate.json"),
