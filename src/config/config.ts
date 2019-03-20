@@ -23,6 +23,20 @@ function mergeInternal(base: ConfigData, rhs: ConfigData): ConfigData {
 	return deepmerge(base, rhs);
 }
 
+function loadFromFile(filename: string): ConfigData {
+	const json = require(filename);
+
+	/* expand any relative paths */
+	for (const key of ["extends", "elements", "plugins"]) {
+		if (!json[key]) continue;
+		json[key] = json[key].map((ref: string) => {
+			return Config.expandRelative(ref, path.dirname(filename));
+		});
+	}
+
+	return json;
+}
+
 export class Config {
 	private config: ConfigData;
 	protected metaTable: MetaTable;
@@ -51,17 +65,8 @@ export class Config {
 				return Config.fromObject(document);
 		}
 
-		const json = require(filename);
-
-		/* expand any relative paths */
-		for (const key of ["extends", "elements", "plugins"]) {
-			if (!json[key]) continue;
-			json[key] = json[key].map((ref: string) => {
-				return Config.expandRelative(ref, path.dirname(filename));
-			});
-		}
-
-		return new Config(json);
+		const configdata = loadFromFile(filename);
+		return new Config(configdata);
 	}
 
 	public static defaultConfig(): Config {
@@ -81,8 +86,7 @@ export class Config {
 
 		/* process extended configs */
 		for (const extend of this.config.extends) {
-			const base = Config.fromFile(extend).config;
-			this.config = mergeInternal(base, this.config);
+			this.config = this.extendConfig(extend);
 		}
 	}
 
@@ -104,6 +108,11 @@ export class Config {
 	 */
 	public merge(rhs: Config): Config {
 		return new Config(mergeInternal(this.config, rhs.config));
+	}
+
+	private extendConfig(entry: string): ConfigData {
+		const base = Config.fromFile(entry).config;
+		return mergeInternal(base, this.config);
 	}
 
 	public getMetaTable(): MetaTable {
