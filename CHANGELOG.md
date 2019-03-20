@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.23.0 (2019-03-20)
+
 ### Features
 
 - new rule `empty-heading` validating headers have textual content.
