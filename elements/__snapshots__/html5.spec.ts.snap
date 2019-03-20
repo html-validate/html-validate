@@ -1479,7 +1479,7 @@ Array [
 		<header></header>
 		<footer></footer>
 		<article></article>
-		<h1></h1>
+		<h1>Lorem ipsum</h1>
 	</dt>
 </dl>
 ",
@@ -1814,7 +1814,7 @@ exports[`HTML elements <frameset> valid markup 1`] = `Array []`;
 exports[`HTML elements <h1> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 1,
+    "errorCount": 3,
     "filePath": "test-files/elements/h1-invalid.html",
     "messages": Array [
       Object {
@@ -1827,11 +1827,35 @@ Array [
         "severity": 2,
         "size": 3,
       },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 7,
+        "message": "<h1> cannot be empty, must have text content",
+        "offset": 122,
+        "ruleId": "empty-heading",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 8,
+        "message": "<h1> cannot be empty, must have text content",
+        "offset": 132,
+        "ruleId": "empty-heading",
+        "severity": 2,
+        "size": 2,
+      },
     ],
     "source": "<!-- should not allow flow content -->
 <h1>
-	<div></div>
+	<div>Lorem ipsum</div>
 </h1>
+
+<!-- cannot be empty (or whitespace only) -->
+<h1></h1>
+<h1> </h1>
 ",
     "warningCount": 0,
   },
@@ -1843,7 +1867,7 @@ exports[`HTML elements <h1> valid markup 1`] = `Array []`;
 exports[`HTML elements <h2> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 1,
+    "errorCount": 3,
     "filePath": "test-files/elements/h2-invalid.html",
     "messages": Array [
       Object {
@@ -1856,11 +1880,35 @@ Array [
         "severity": 2,
         "size": 3,
       },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 7,
+        "message": "<h2> cannot be empty, must have text content",
+        "offset": 122,
+        "ruleId": "empty-heading",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 8,
+        "message": "<h2> cannot be empty, must have text content",
+        "offset": 132,
+        "ruleId": "empty-heading",
+        "severity": 2,
+        "size": 2,
+      },
     ],
     "source": "<!-- should not allow flow content -->
 <h2>
-	<div></div>
+	<div>Lorem ipsum</div>
 </h2>
+
+<!-- cannot be empty (or whitespace only) -->
+<h2></h2>
+<h2> </h2>
 ",
     "warningCount": 0,
   },
@@ -1872,7 +1920,7 @@ exports[`HTML elements <h2> valid markup 1`] = `Array []`;
 exports[`HTML elements <h3> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 1,
+    "errorCount": 3,
     "filePath": "test-files/elements/h3-invalid.html",
     "messages": Array [
       Object {
@@ -1885,11 +1933,35 @@ Array [
         "severity": 2,
         "size": 3,
       },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 7,
+        "message": "<h3> cannot be empty, must have text content",
+        "offset": 122,
+        "ruleId": "empty-heading",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 8,
+        "message": "<h3> cannot be empty, must have text content",
+        "offset": 132,
+        "ruleId": "empty-heading",
+        "severity": 2,
+        "size": 2,
+      },
     ],
     "source": "<!-- should not allow flow content -->
 <h3>
-	<div></div>
+	<div>Lorem ipsum</div>
 </h3>
+
+<!-- cannot be empty (or whitespace only) -->
+<h3></h3>
+<h3> </h3>
 ",
     "warningCount": 0,
   },
@@ -1901,7 +1973,7 @@ exports[`HTML elements <h3> valid markup 1`] = `Array []`;
 exports[`HTML elements <h4> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 1,
+    "errorCount": 3,
     "filePath": "test-files/elements/h4-invalid.html",
     "messages": Array [
       Object {
@@ -1914,11 +1986,35 @@ Array [
         "severity": 2,
         "size": 3,
       },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 7,
+        "message": "<h4> cannot be empty, must have text content",
+        "offset": 122,
+        "ruleId": "empty-heading",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 8,
+        "message": "<h4> cannot be empty, must have text content",
+        "offset": 132,
+        "ruleId": "empty-heading",
+        "severity": 2,
+        "size": 2,
+      },
     ],
     "source": "<!-- should not allow flow content -->
 <h4>
-	<div></div>
+	<div>Lorem ipsum</div>
 </h4>
+
+<!-- cannot be empty (or whitespace only) -->
+<h4></h4>
+<h4> </h4>
 ",
     "warningCount": 0,
   },
@@ -1930,7 +2026,7 @@ exports[`HTML elements <h4> valid markup 1`] = `Array []`;
 exports[`HTML elements <h5> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 1,
+    "errorCount": 3,
     "filePath": "test-files/elements/h5-invalid.html",
     "messages": Array [
       Object {
@@ -1943,11 +2039,35 @@ Array [
         "severity": 2,
         "size": 3,
       },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 7,
+        "message": "<h5> cannot be empty, must have text content",
+        "offset": 122,
+        "ruleId": "empty-heading",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 8,
+        "message": "<h5> cannot be empty, must have text content",
+        "offset": 132,
+        "ruleId": "empty-heading",
+        "severity": 2,
+        "size": 2,
+      },
     ],
     "source": "<!-- should not allow flow content -->
 <h5>
-	<div></div>
+	<div>Lorem ipsum</div>
 </h5>
+
+<!-- cannot be empty (or whitespace only) -->
+<h5></h5>
+<h5> </h5>
 ",
     "warningCount": 0,
   },
@@ -1959,7 +2079,7 @@ exports[`HTML elements <h5> valid markup 1`] = `Array []`;
 exports[`HTML elements <h6> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 1,
+    "errorCount": 3,
     "filePath": "test-files/elements/h6-invalid.html",
     "messages": Array [
       Object {
@@ -1972,11 +2092,35 @@ Array [
         "severity": 2,
         "size": 3,
       },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 7,
+        "message": "<h6> cannot be empty, must have text content",
+        "offset": 122,
+        "ruleId": "empty-heading",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 8,
+        "message": "<h6> cannot be empty, must have text content",
+        "offset": 132,
+        "ruleId": "empty-heading",
+        "severity": 2,
+        "size": 2,
+      },
     ],
     "source": "<!-- should not allow flow content -->
 <h6>
-	<div></div>
+	<div>Lorem ipsum</div>
 </h6>
+
+<!-- cannot be empty (or whitespace only) -->
+<h6></h6>
+<h6> </h6>
 ",
     "warningCount": 0,
   },
@@ -4748,7 +4892,7 @@ Array [
         },
         "line": 21,
         "message": "<th> is missing required attribute \\"scope\\"",
-        "offset": 350,
+        "offset": 361,
         "ruleId": "element-required-attributes",
         "severity": 2,
         "size": 2,
@@ -4769,7 +4913,7 @@ Array [
         },
         "line": 24,
         "message": "Attribute \\"scope\\" has invalid value \\"foobar\\"",
-        "offset": 411,
+        "offset": 422,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
@@ -4787,7 +4931,7 @@ Array [
 			<header></header>
 			<footer></footer>
 			<article></article>
-			<h1></h1>
+			<h1>Lorem ipsum</h1>
 		</th>
 	</tr>
 </table>
