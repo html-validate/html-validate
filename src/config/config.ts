@@ -84,6 +84,9 @@ export class Config {
 		this.metaTable = null;
 		this.rootDir = this.findRootDir();
 
+		/* load plugins */
+		this.plugins = this.loadPlugins(this.config.plugins || []);
+
 		/* process extended configs */
 		for (const extend of this.config.extends) {
 			this.config = this.extendConfig(extend);
@@ -91,9 +94,6 @@ export class Config {
 	}
 
 	public init() {
-		/* load plugins */
-		this.plugins = this.loadPlugins(this.config.plugins || []);
-
 		/* precompile transform patterns */
 		this.transformers = this.precompileTransformers(
 			this.config.transform || {}
