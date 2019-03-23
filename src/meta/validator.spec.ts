@@ -1,7 +1,7 @@
 import { Config } from "../config";
 import { Attribute, DynamicValue, HtmlElement } from "../dom";
 import { Parser } from "../parser";
-import { MetaElement, MetaTable, Validator } from "./";
+import { MetaData, MetaTable, Validator } from "./";
 
 class ConfigMock extends Config {
 	constructor(metaTable: MetaTable) {
@@ -15,7 +15,7 @@ describe("Meta validator", () => {
 		it("should handle undefined", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				foo: mockEntry("nil", { void: true }),
+				foo: mockEntry({ void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [foo] = parser.parseHtml("<foo/>").root.childElements;
@@ -25,8 +25,8 @@ describe("Meta validator", () => {
 		it("should validate tagName", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				foo: mockEntry("nil", { void: true }),
-				nil: mockEntry("nil", { void: true }),
+				foo: mockEntry({ void: true }),
+				nil: mockEntry({ void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [foo, nil] = parser.parseHtml("<foo/><nil/>").root.childElements;
@@ -38,8 +38,8 @@ describe("Meta validator", () => {
 		it("should validate tagName with qualifier", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				foo: mockEntry("nil", { void: true }),
-				nil: mockEntry("nil", { void: true }),
+				foo: mockEntry({ void: true }),
+				nil: mockEntry({ void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [foo, nil] = parser.parseHtml("<foo/><nil/>").root.childElements;
@@ -51,8 +51,8 @@ describe("Meta validator", () => {
 		it("should validate @meta", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				nil: mockEntry("nil", { void: true }),
-				meta: mockEntry("meta", { metadata: true, void: true }),
+				nil: mockEntry({ void: true }),
+				meta: mockEntry({ metadata: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [meta, nil] = parser.parseHtml("<meta/><nil/>").root.childElements;
@@ -64,8 +64,8 @@ describe("Meta validator", () => {
 		it("should validate @flow", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				nil: mockEntry("nil", { void: true }),
-				flow: mockEntry("flow", { flow: true, void: true }),
+				nil: mockEntry({ void: true }),
+				flow: mockEntry({ flow: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [flow, nil] = parser.parseHtml("<flow/><nil/>").root.childElements;
@@ -77,8 +77,8 @@ describe("Meta validator", () => {
 		it("should validate @sectioning", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				nil: mockEntry("nil", { void: true }),
-				sectioning: mockEntry("sectioning", { sectioning: true, void: true }),
+				nil: mockEntry({ void: true }),
+				sectioning: mockEntry({ sectioning: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [sectioning, nil] = parser.parseHtml(
@@ -92,8 +92,8 @@ describe("Meta validator", () => {
 		it("should validate @heading", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				nil: mockEntry("nil", { void: true }),
-				heading: mockEntry("heading", { heading: true, void: true }),
+				nil: mockEntry({ void: true }),
+				heading: mockEntry({ heading: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [heading, nil] = parser.parseHtml(
@@ -107,8 +107,8 @@ describe("Meta validator", () => {
 		it("should validate @phrasing", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				nil: mockEntry("nil", { void: true }),
-				phrasing: mockEntry("phrasing", { phrasing: true, void: true }),
+				nil: mockEntry({ void: true }),
+				phrasing: mockEntry({ phrasing: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [phrasing, nil] = parser.parseHtml(
@@ -122,8 +122,8 @@ describe("Meta validator", () => {
 		it("should validate @embedded", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				nil: mockEntry("nil", { void: true }),
-				embedded: mockEntry("embedded", { embedded: true, void: true }),
+				nil: mockEntry({ void: true }),
+				embedded: mockEntry({ embedded: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [embedded, nil] = parser.parseHtml(
@@ -137,8 +137,8 @@ describe("Meta validator", () => {
 		it("should validate @interactive", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				nil: mockEntry("nil", { void: true }),
-				interactive: mockEntry("interactive", {
+				nil: mockEntry({ void: true }),
+				interactive: mockEntry({
 					interactive: true,
 					void: true,
 				}),
@@ -155,9 +155,9 @@ describe("Meta validator", () => {
 		it("should validate multiple rules (OR)", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				nil: mockEntry("nil", { void: true }),
-				flow: mockEntry("flow", { flow: true, void: true }),
-				phrasing: mockEntry("phrasing", { phrasing: true, void: true }),
+				nil: mockEntry({ void: true }),
+				flow: mockEntry({ flow: true, void: true }),
+				phrasing: mockEntry({ phrasing: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [flow, phrasing, nil] = parser.parseHtml(
@@ -172,9 +172,9 @@ describe("Meta validator", () => {
 		it("should validate multiple rules (AND)", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				foo: mockEntry("flow", { flow: true, phrasing: true, void: true }),
-				flow: mockEntry("flow", { flow: true, phrasing: false, void: true }),
-				phrasing: mockEntry("phrasing", {
+				foo: mockEntry({ flow: true, phrasing: true, void: true }),
+				flow: mockEntry({ flow: true, phrasing: false, void: true }),
+				phrasing: mockEntry({
 					flow: false,
 					phrasing: true,
 					void: true,
@@ -193,8 +193,8 @@ describe("Meta validator", () => {
 		it("should support excluding tagname", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				foo: mockEntry("foo", { flow: true, void: true }),
-				bar: mockEntry("bar", { flow: true, void: true }),
+				foo: mockEntry({ flow: true, void: true }),
+				bar: mockEntry({ flow: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [foo, bar] = parser.parseHtml(
@@ -215,8 +215,8 @@ describe("Meta validator", () => {
 		it("should support excluding category", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				foo: mockEntry("foo", { flow: true, interactive: false, void: true }),
-				bar: mockEntry("bar", { flow: true, interactive: true, void: true }),
+				foo: mockEntry({ flow: true, interactive: false, void: true }),
+				bar: mockEntry({ flow: true, interactive: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [foo, bar] = parser.parseHtml(
@@ -237,8 +237,8 @@ describe("Meta validator", () => {
 		it("should support excluding multiple targets", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				foo: mockEntry("foo", { flow: true, interactive: false, void: true }),
-				bar: mockEntry("bar", { flow: true, interactive: true, void: true }),
+				foo: mockEntry({ flow: true, interactive: false, void: true }),
+				bar: mockEntry({ flow: true, interactive: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [foo, bar] = parser.parseHtml(
@@ -252,8 +252,8 @@ describe("Meta validator", () => {
 		it("should support excluding multiple targets together", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				foo: mockEntry("foo", { flow: true, interactive: false, void: true }),
-				bar: mockEntry("bar", { flow: true, interactive: true, void: true }),
+				foo: mockEntry({ flow: true, interactive: false, void: true }),
+				bar: mockEntry({ flow: true, interactive: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [foo, bar] = parser.parseHtml(
@@ -274,7 +274,7 @@ describe("Meta validator", () => {
 		it("should handle empty object", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				foo: mockEntry("foo", { flow: true, void: true }),
+				foo: mockEntry({ flow: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [foo] = parser.parseHtml("<foo/>").root.childElements;
@@ -285,7 +285,7 @@ describe("Meta validator", () => {
 		it("should throw error on invalid category", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				foo: mockEntry("foo", { flow: true }),
+				foo: mockEntry({ flow: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [foo] = parser.parseHtml("<foo/>").root.childElements;
@@ -298,7 +298,7 @@ describe("Meta validator", () => {
 		it("should throw error on invalid permitted rule", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				foo: mockEntry("foo", { flow: true }),
+				foo: mockEntry({ flow: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [foo] = parser.parseHtml("<foo/>").root.childElements;
@@ -322,7 +322,7 @@ describe("Meta validator", () => {
 		it("should handle undefined", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				foo: mockEntry("foo", { void: true }),
+				foo: mockEntry({ void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [foo] = parser.parseHtml("<foo/>").root.childElements;
@@ -332,7 +332,7 @@ describe("Meta validator", () => {
 		it("should support missing qualifier", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				foo: mockEntry("foo", { void: true }),
+				foo: mockEntry({ void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [foo] = parser.parseHtml("<foo/>").root.childElements;
@@ -344,7 +344,7 @@ describe("Meta validator", () => {
 		it("should support ? qualifier", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				foo: mockEntry("foo", { void: true }),
+				foo: mockEntry({ void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [foo] = parser.parseHtml("<foo/>").root.childElements;
@@ -357,7 +357,7 @@ describe("Meta validator", () => {
 		it("should support * qualifier", () => {
 			const table = new MetaTable();
 			table.loadFromObject({
-				foo: mockEntry("foo", { void: true }),
+				foo: mockEntry({ void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [foo] = parser.parseHtml("<foo/>").root.childElements;
@@ -375,8 +375,8 @@ describe("Meta validator", () => {
 		beforeEach(() => {
 			table = new MetaTable();
 			table.loadFromObject({
-				foo: mockEntry("foo", { void: true }),
-				bar: mockEntry("bar", { void: true, flow: true }),
+				foo: mockEntry({ void: true }),
+				bar: mockEntry({ void: true, flow: true }),
 			});
 			parser = new Parser(new ConfigMock(table));
 			cb = jest.fn();
@@ -506,10 +506,9 @@ describe("Meta validator", () => {
 	});
 });
 
-function mockEntry(tagName: string, stub = {}): MetaElement {
+function mockEntry(stub = {}): MetaData {
 	return Object.assign(
 		{
-			tagName,
 			metadata: false,
 			flow: false,
 			foreign: false,

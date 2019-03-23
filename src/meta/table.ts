@@ -1,6 +1,12 @@
 import deepmerge from "deepmerge";
 import { HtmlElement } from "../dom";
-import { ElementTable, MetaElement, PropertyExpression } from "./element";
+import {
+	ElementTable,
+	MetaData,
+	MetaDataTable,
+	MetaElement,
+	PropertyExpression,
+} from "./element";
 
 const allowedKeys = [
 	"tagName",
@@ -55,7 +61,7 @@ export class MetaTable {
 		this.resolveGlobal();
 	}
 
-	public loadFromObject(obj: ElementTable) {
+	public loadFromObject(obj: MetaDataTable) {
 		for (const key of Object.keys(obj)) {
 			this.addEntry(key, obj[key]);
 		}
@@ -74,7 +80,7 @@ export class MetaTable {
 			: null;
 	}
 
-	private addEntry(tagName: string, entry: MetaElement): void {
+	private addEntry(tagName: string, entry: MetaData): void {
 		for (const key of Object.keys(entry)) {
 			if (allowedKeys.indexOf(key) === -1) {
 				throw new Error(
@@ -83,13 +89,13 @@ export class MetaTable {
 			}
 		}
 
-		const expanded: MetaElement = Object.assign(
+		const expanded = Object.assign(
 			{
 				tagName,
 				void: false,
 			},
 			entry
-		);
+		) as MetaElement;
 		expandRegex(expanded);
 
 		this.elements[tagName] = expanded;

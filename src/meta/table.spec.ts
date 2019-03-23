@@ -1,6 +1,6 @@
 import { Config } from "../config";
 import { Parser } from "../parser";
-import { MetaElement, MetaTable } from "./";
+import { MetaData, MetaTable } from "./";
 
 class ConfigMock extends Config {
 	constructor(metaTable: MetaTable) {
@@ -14,7 +14,7 @@ describe("MetaTable", () => {
 		const table = new MetaTable();
 		expect(() =>
 			table.loadFromObject({
-				foo: mockEntry("foo", { invalid: true }),
+				foo: mockEntry({ invalid: true }),
 			})
 		).toThrowError('Metadata for <foo> contains unknown property "invalid"');
 	});
@@ -25,7 +25,7 @@ describe("MetaTable", () => {
 		beforeEach(() => {
 			table = new MetaTable();
 			table.loadFromObject({
-				foo: mockEntry("foo", { phrasing: true }),
+				foo: mockEntry({ phrasing: true }),
 			});
 		});
 
@@ -53,7 +53,7 @@ describe("MetaTable", () => {
 		it("should throw exception when function is missing", () => {
 			table = new MetaTable();
 			table.loadFromObject({
-				invalid: mockEntry("dynamic", { interactive: ["invalid"], void: true }),
+				invalid: mockEntry({ interactive: ["invalid"], void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			expect(() => parser.parseHtml("<invalid/>")).toThrowError(
@@ -64,7 +64,7 @@ describe("MetaTable", () => {
 		it("should handle strings", () => {
 			table = new MetaTable();
 			table.loadFromObject({
-				invalid: mockEntry("dynamic", { interactive: "invalid", void: true }),
+				invalid: mockEntry({ interactive: "invalid", void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
 			expect(() => parser.parseHtml("<invalid/>")).toThrowError(
@@ -76,14 +76,14 @@ describe("MetaTable", () => {
 			beforeEach(() => {
 				table = new MetaTable();
 				table.loadFromObject({
-					foo: mockEntry("foo"),
-					spam: mockEntry("spam"),
-					ham: mockEntry("ham"),
-					dynamic: mockEntry("dynamic", {
+					foo: mockEntry(),
+					spam: mockEntry(),
+					ham: mockEntry(),
+					dynamic: mockEntry({
 						interactive: ["isDescendant", "ham"],
 						void: true,
 					}),
-					invalid: mockEntry("dynamic", {
+					invalid: mockEntry({
 						interactive: ["isDescendant", []],
 						void: true,
 					}),
@@ -116,11 +116,11 @@ describe("MetaTable", () => {
 			beforeEach(() => {
 				table = new MetaTable();
 				table.loadFromObject({
-					dynamic: mockEntry("dynamic", {
+					dynamic: mockEntry({
 						interactive: ["hasAttribute", "foo"],
 						void: true,
 					}),
-					invalid: mockEntry("dynamic", {
+					invalid: mockEntry({
 						interactive: ["hasAttribute", []],
 						void: true,
 					}),
@@ -153,23 +153,23 @@ describe("MetaTable", () => {
 			beforeEach(() => {
 				table = new MetaTable();
 				table.loadFromObject({
-					foo: mockEntry("dynamic", {
+					foo: mockEntry({
 						interactive: ["matchAttribute", ["type", "=", "hidden"]],
 						void: true,
 					}),
-					bar: mockEntry("dynamic", {
+					bar: mockEntry({
 						interactive: ["matchAttribute", ["type", "!=", "hidden"]],
 						void: true,
 					}),
-					invalid1: mockEntry("dynamic", {
+					invalid1: mockEntry({
 						interactive: ["matchAttribute", ["type", "#", "hidden"]],
 						void: true,
 					}),
-					invalid2: mockEntry("dynamic", {
+					invalid2: mockEntry({
 						interactive: ["matchAttribute", []],
 						void: true,
 					}),
-					invalid3: mockEntry("dynamic", {
+					invalid3: mockEntry({
 						interactive: ["matchAttribute", "foo"],
 						void: true,
 					}),
@@ -240,7 +240,7 @@ describe("MetaTable", () => {
 	it("should expand regexp", () => {
 		const table = new MetaTable();
 		table.loadFromObject({
-			foo: mockEntry("foo", {
+			foo: mockEntry({
 				attributes: {
 					attr: ["foo", "/bar/", /baz/],
 				},
@@ -254,10 +254,9 @@ describe("MetaTable", () => {
 	});
 });
 
-function mockEntry(tagName: string, stub = {}): MetaElement {
+function mockEntry(stub = {}): MetaData {
 	return Object.assign(
 		{
-			tagName,
 			metadata: false,
 			flow: false,
 			foreign: false,

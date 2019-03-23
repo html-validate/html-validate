@@ -4,7 +4,7 @@ import path from "path";
 import { Source } from "../context";
 import { NestedError } from "../error/nested-error";
 import { MetaTable } from "../meta";
-import { ElementTable } from "../meta/element";
+import { MetaDataTable } from "../meta/element";
 import { Plugin } from "../plugin";
 import { ConfigData, TransformMap } from "./config-data";
 import defaultConfig from "./default";
@@ -129,7 +129,7 @@ export class Config {
 		for (const entry of source) {
 			/* load meta directly from entry */
 			if (typeof entry !== "string") {
-				this.metaTable.loadFromObject(entry as ElementTable);
+				this.metaTable.loadFromObject(entry as MetaDataTable);
 				continue;
 			}
 
