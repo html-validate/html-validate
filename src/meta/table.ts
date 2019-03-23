@@ -1,6 +1,6 @@
+import deepmerge from "deepmerge";
 import { HtmlElement } from "../dom";
 import { ElementTable, MetaElement, PropertyExpression } from "./element";
-const deepmerge = require("deepmerge");
 
 const allowedKeys = [
 	"tagName",

@@ -1,6 +1,6 @@
 import { codeFrameColumns } from "@babel/code-frame";
 import chalk from "chalk";
-import * as path from "path";
+import path from "path";
 import { Message, Result } from "reporter";
 import { FormatterModule } from ".";
 

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-namespace, prefer-template */
 
+import diff from "jest-diff";
 import { TokenType } from "./lexer";
 import { Message, Report, Result } from "./reporter";
-const diff = require("jest-diff");
 
 interface TokenMatcher {
 	type: TokenType;

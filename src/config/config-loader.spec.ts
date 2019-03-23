@@ -1,6 +1,6 @@
-import * as fs from "fs";
-import * as glob from "glob";
-import * as path from "path";
+import fs from "fs";
+import glob from "glob";
+import path from "path";
 import { Config, ConfigLoader } from ".";
 import HtmlValidate from "../htmlvalidate";
 

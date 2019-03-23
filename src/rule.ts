@@ -1,4 +1,4 @@
-import * as path from "path";
+import path from "path";
 import { Severity } from "./config";
 import { Location } from "./context";
 import { DOMNode } from "./dom";

@@ -2,13 +2,14 @@
   "compilerOptions": {
     "alwaysStrict": true,
     "baseUrl": "./src",
-    "module": "commonjs",
-    "target": "es2017",
-    "noImplicitAny": true,
-    "sourceMap": false,
-    "outDir": "build",
+    "declaration": true,
+    "esModuleInterop": true,
     "lib": ["es2017"],
-    "declaration": true
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "outDir": "build",
+    "sourceMap": false,
+    "target": "es2017"
   },
   "sourceMap": true,
   "include": ["src/**/*.ts"],
