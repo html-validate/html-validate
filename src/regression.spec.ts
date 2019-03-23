@@ -1,5 +1,5 @@
 import { readFileSync } from "fs";
-import * as glob from "glob";
+import glob from "glob";
 import { Source } from "./context";
 import { DynamicValue } from "./dom";
 import HtmlValidate from "./htmlvalidate";

@@ -8,8 +8,8 @@ import { eventFormatter } from "./json";
 const pkg = require("../../package.json");
 
 import chalk from "chalk";
-import * as glob from "glob";
-import * as minimist from "minimist";
+import glob from "glob";
+import minimist from "minimist";
 
 function getMode(argv: { [key: string]: any }) {
 	if (argv["dump-events"]) {

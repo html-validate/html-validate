@@ -1,6 +1,6 @@
-import * as deepmerge from "deepmerge";
-import * as fs from "fs";
-import * as path from "path";
+import deepmerge from "deepmerge";
+import fs from "fs";
+import path from "path";
 import { Source } from "../context";
 import { NestedError } from "../error/nested-error";
 import { MetaTable } from "../meta";

@@ -1,4 +1,4 @@
-import * as ESTree from "estree";
+import ESTree from "estree";
 import { Source } from "../context";
 
 const espree = require("espree");
