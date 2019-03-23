@@ -1,7 +1,6 @@
+import fs from "fs";
 import { Formatter } from "../formatters";
 import { Report, Result } from "../reporter";
-
-const fs = require("fs");
 
 type WrappedFormatter = (results: Result[]) => void;
 
