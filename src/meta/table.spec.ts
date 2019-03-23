@@ -1,3 +1,22 @@
+/* mock ajv for easier testing of errors and to allow invalid values though the
+ * validation to ensure the code works anyway */
+interface Validate {
+	(): boolean;
+	errors: any[];
+}
+const validate: Validate = () => {
+	return validate.errors.length === 0;
+};
+validate.errors = [] as any[];
+jest.mock("ajv", () => {
+	class MockAjv {
+		public compile(): () => boolean {
+			return validate;
+		}
+	}
+	return MockAjv;
+});
+
 import { Config } from "../config";
 import { Parser } from "../parser";
 import { MetaData, MetaTable } from "./";
@@ -10,13 +29,28 @@ class ConfigMock extends Config {
 }
 
 describe("MetaTable", () => {
-	it("should throw error when meta has unknown properties", () => {
+	beforeEach(() => {
+		validate.errors = [];
+	});
+
+	it("should throw error if data does not validate", () => {
+		validate.errors = [
+			{
+				keyword: "additionalProperties",
+				dataPath: "/foo",
+				schemaPath: "#/patternProperties/%5E.*%24/additionalProperties",
+				params: { additionalProperty: "invalid" },
+				message: "should NOT have additional properties",
+			},
+		];
 		const table = new MetaTable();
 		expect(() =>
 			table.loadFromObject({
 				foo: mockEntry({ invalid: true }),
 			})
-		).toThrowError('Metadata for <foo> contains unknown property "invalid"');
+		).toThrowError(
+			"Element metadata is not valid: /foo Property invalid is not expected to be here"
+		);
 	});
 
 	describe("getMetaFor", () => {
@@ -268,13 +302,6 @@ function mockEntry(stub = {}): MetaData {
 			deprecated: false,
 			void: false,
 			transparent: false,
-			implicitClosed: [],
-			attributes: {},
-			deprecatedAttributes: [],
-			requiredAttributes: [],
-			permittedContent: [],
-			permittedDescendants: [],
-			permittedOrder: [],
 		},
 		stub
 	);

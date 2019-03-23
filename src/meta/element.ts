@@ -1,5 +1,5 @@
 export interface PermittedGroup {
-	exclude?: string[];
+	exclude?: string | string[];
 }
 
 export type PropertyExpression = string | [string, any];
@@ -27,17 +27,17 @@ export interface MetaData {
 	foreign: boolean;
 	void: boolean;
 	transparent: boolean;
-	implicitClosed: string[];
+	implicitClosed?: string[];
 
 	/* attribute */
-	deprecatedAttributes: string[];
-	requiredAttributes: string[];
-	attributes: PermittedAttribute;
+	deprecatedAttributes?: string[];
+	requiredAttributes?: string[];
+	attributes?: PermittedAttribute;
 
 	/* permitted data */
-	permittedContent: Permitted;
-	permittedDescendants: Permitted;
-	permittedOrder: PermittedOrder;
+	permittedContent?: Permitted;
+	permittedDescendants?: Permitted;
+	permittedOrder?: PermittedOrder;
 }
 
 export interface MetaElement extends MetaData {

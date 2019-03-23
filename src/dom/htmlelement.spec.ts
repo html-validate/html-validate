@@ -591,13 +591,6 @@ function mockEntry(stub = {}): MetaData {
 			deprecated: false,
 			void: false,
 			transparent: false,
-			implicitClosed: [],
-			attributes: {},
-			deprecatedAttributes: [],
-			requiredAttributes: [],
-			permittedContent: [],
-			permittedDescendants: [],
-			permittedOrder: [],
 		},
 		stub
 	);

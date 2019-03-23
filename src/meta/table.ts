@@ -1,3 +1,5 @@
+import Ajv from "ajv";
+import betterAjvErrors from "better-ajv-errors";
 import deepmerge from "deepmerge";
 import { HtmlElement } from "../dom";
 import {
@@ -7,30 +9,7 @@ import {
 	MetaElement,
 	PropertyExpression,
 } from "./element";
-
-const allowedKeys = [
-	"tagName",
-	"metadata",
-	"flow",
-	"foreign",
-	"sectioning",
-	"heading",
-	"phrasing",
-	"embedded",
-	"interactive",
-	"deprecated",
-	"void",
-	"transparent",
-	"implicitClosed",
-
-	"deprecatedAttributes",
-	"requiredAttributes",
-	"attributes",
-
-	"permittedContent",
-	"permittedDescendants",
-	"permittedOrder",
-];
+import { MetaValidationError } from "./validation-error";
 
 const dynamicKeys = [
 	"metadata",
@@ -42,6 +21,12 @@ const dynamicKeys = [
 	"interactive",
 ];
 
+const metaSchema = require("../../elements/schema.json");
+const ajv = new Ajv({
+	jsonPointers: true,
+});
+const validateMeta = ajv.compile(metaSchema);
+
 type PropertyEvaluator = (node: HtmlElement, options: any) => boolean;
 
 const functionTable: { [key: string]: PropertyEvaluator } = {
@@ -49,6 +34,10 @@ const functionTable: { [key: string]: PropertyEvaluator } = {
 	hasAttribute,
 	matchAttribute,
 };
+
+function clone(src: any): any {
+	return JSON.parse(JSON.stringify(src));
+}
 
 export class MetaTable {
 	public readonly elements: ElementTable;
@@ -62,13 +51,26 @@ export class MetaTable {
 	}
 
 	public loadFromObject(obj: MetaDataTable) {
+		const valid = validateMeta(obj);
+		if (!valid) {
+			const output = betterAjvErrors(metaSchema, obj, validateMeta.errors, {
+				format: "js",
+			}) as any;
+			const message = output[0].error;
+			throw new MetaValidationError(
+				`Element metadata is not valid: ${message}`,
+				obj,
+				validateMeta.errors
+			);
+		}
+
 		for (const key of Object.keys(obj)) {
 			this.addEntry(key, obj[key]);
 		}
 	}
 
 	public loadFromFile(filename: string) {
-		this.loadFromObject(require(filename));
+		this.loadFromObject(clone(require(filename)));
 	}
 
 	public getMetaFor(tagName: string): MetaElement {
@@ -81,15 +83,7 @@ export class MetaTable {
 	}
 
 	private addEntry(tagName: string, entry: MetaData): void {
-		for (const key of Object.keys(entry)) {
-			if (allowedKeys.indexOf(key) === -1) {
-				throw new Error(
-					`Metadata for <${tagName}> contains unknown property "${key}"`
-				);
-			}
-		}
-
-		const expanded = Object.assign(
+		const expanded: MetaElement = Object.assign(
 			{
 				tagName,
 				void: false,
