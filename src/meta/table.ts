@@ -1,6 +1,8 @@
 import Ajv from "ajv";
 import betterAjvErrors from "better-ajv-errors";
 import deepmerge from "deepmerge";
+import jsonMergePatch from "json-merge-patch";
+import { SchemaValidationPatch } from "plugin/plugin";
 import { HtmlElement } from "../dom";
 import {
 	ElementTable,
@@ -21,12 +23,6 @@ const dynamicKeys = [
 	"interactive",
 ];
 
-const metaSchema = require("../../elements/schema.json");
-const ajv = new Ajv({
-	jsonPointers: true,
-});
-const validateMeta = ajv.compile(metaSchema);
-
 type PropertyEvaluator = (node: HtmlElement, options: any) => boolean;
 
 const functionTable: { [key: string]: PropertyEvaluator } = {
@@ -41,26 +37,54 @@ function clone(src: any): any {
 
 export class MetaTable {
 	public readonly elements: ElementTable;
+	private schema: object;
 
 	constructor() {
 		this.elements = {};
+		this.schema = clone(require("../../elements/schema.json"));
 	}
 
 	public init() {
 		this.resolveGlobal();
 	}
 
-	public loadFromObject(obj: MetaDataTable) {
-		const valid = validateMeta(obj);
+	/**
+	 * Extend validation schema.
+	 */
+	public extendValidationSchema(patch: SchemaValidationPatch): void {
+		if (patch.properties) {
+			this.schema = jsonMergePatch.apply(this.schema, {
+				patternProperties: {
+					"^.*$": {
+						properties: patch.properties,
+					},
+				},
+			});
+		}
+		if (patch.definitions) {
+			this.schema = jsonMergePatch.apply(this.schema, {
+				definitions: patch.definitions,
+			});
+		}
+	}
+
+	/**
+	 * Load metadata table from object.
+	 */
+	public loadFromObject(obj: MetaDataTable): void {
+		const ajv = new Ajv({ jsonPointers: true });
+		const validator = ajv.compile(this.schema);
+		const valid = validator(obj);
 		if (!valid) {
-			const output = betterAjvErrors(metaSchema, obj, validateMeta.errors, {
+			const output = betterAjvErrors(this.schema, obj, validator.errors, {
 				format: "js",
 			}) as any;
 			const message = output[0].error;
 			throw new MetaValidationError(
 				`Element metadata is not valid: ${message}`,
 				obj,
-				validateMeta.errors
+				this.schema,
+				validator.errors
 			);
 		}
 
@@ -69,7 +93,10 @@ export class MetaTable {
 		}
 	}
 
-	public loadFromFile(filename: string) {
+	/**
+	 * Load metadata table from filename
+	 */
+	public loadFromFile(filename: string): void {
 		this.loadFromObject(clone(require(filename)));
 	}
 

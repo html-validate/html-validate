@@ -4,7 +4,8 @@
 
 ### Features
 
-- reworked validation of elements metadata.
+- reworked and extendable validation of elements metadata. Plugins may now add
+  support for custom metadata.
 
 ### Bugfixes
 

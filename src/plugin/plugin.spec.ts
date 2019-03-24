@@ -35,4 +35,64 @@ describe("Plugin", () => {
 			});
 		});
 	});
+
+	describe("extedMeta", () => {
+		it("should extend validation schema", () => {
+			mockPlugin.elementSchema = {
+				properties: {
+					myMeta: {
+						type: "integer",
+					},
+				},
+			};
+			config = Config.fromObject({
+				plugins: ["mock-plugin"],
+				elements: [
+					{
+						"my-element": {
+							myMeta: 5,
+						},
+					},
+				],
+			});
+			const metaTable = config.getMetaTable();
+			const meta = metaTable.getMetaFor("my-element");
+			expect(meta).toEqual({
+				tagName: "my-element",
+				myMeta: 5,
+				void: false,
+			});
+		});
+		it("should extend validation schema with definition", () => {
+			mockPlugin.elementSchema = {
+				properties: {
+					myMeta: {
+						$ref: "#/definitions/myType",
+					},
+				},
+				definitions: {
+					myType: {
+						type: "integer",
+					},
+				},
+			};
+			config = Config.fromObject({
+				plugins: ["mock-plugin"],
+				elements: [
+					{
+						"my-element": {
+							myMeta: 5,
+						},
+					},
+				],
+			});
+			const metaTable = config.getMetaTable();
+			const meta = metaTable.getMetaFor("my-element");
+			expect(meta).toEqual({
+				tagName: "my-element",
+				myMeta: 5,
+				void: false,
+			});
+		});
+	});
 });

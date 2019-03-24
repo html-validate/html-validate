@@ -69,3 +69,58 @@ This makes the rules accessable as usual when configuring in
   },
 }
 ```
+
+### Extend metadata
+
+Plugins can extend the available [element metadata](/usage/elements.html) by
+setting `elementSchema` with an additional [json
+schema](http://json-schema.org/). The schema is merged using [JSON Merge
+Patch](https://tools.ietf.org/html/rfc7396).
+
+```js
+module.exports = {
+  elementSchema: {
+    // properties are added to elements metadata
+    properties: {
+      myProperty: {
+        type: "string",
+        enum: ["foo", "bar"],
+      },
+      myOtherProperty: {
+        // reuse shared types
+        $ref: "#/definitions/myReferenceType",
+      },
+    },
+
+    // definitions are added to shared types
+    defintions: {
+      myReferenceType: {
+        type: "number",
+      },
+    },
+  },
+};
+```
+
+Extended metadata can be entered into metadata for any element and access by any
+rule similar to regular metadata. Given the schema above any element may contain
+the new property `myProperty`:
+
+```js
+module.exports = {
+  myElement: {
+    myProperty: "foo",
+  },
+};
+```
+
+Rules may then access `myProperty` using `node.meta.myProperty`:
+
+```typescript
+const meta = event.target.meta;
+switch (meta.myProperty) {
+  case "foo": /* ... */
+  case "bar": /* ... */
+  default: /* ... */
+}
+```
