@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Bugfixes
+
+- fix handling of plugins with no rules.
+
 ## 0.23.0 (2019-03-20)
 
 ### Features

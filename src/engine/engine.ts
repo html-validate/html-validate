@@ -32,7 +32,7 @@ export class Engine<T extends Parser = Parser> {
 
 		/* setup plugins */
 		for (const plugin of this.config.getPlugins()) {
-			for (const [name, rule] of Object.entries(plugin.rules)) {
+			for (const [name, rule] of Object.entries(plugin.rules || [])) {
 				this.availableRules[name] = rule;
 			}
 		}

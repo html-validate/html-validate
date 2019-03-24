@@ -406,6 +406,12 @@ describe("Engine", () => {
 				expect(rule).toBeInstanceOf(MyRule);
 				expect(rule.name).toEqual("custom/my-rule");
 			});
+
+			it("should handle plugin without rules", () => {
+				/* mock loading of plugins */
+				(config as any).plugins = [{}];
+				expect(() => new ExposedEngine(config, MockParser)).not.toThrow();
+			});
 		});
 	});
 });
