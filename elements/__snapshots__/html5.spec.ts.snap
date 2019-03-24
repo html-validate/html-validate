@@ -2180,7 +2180,7 @@ Array [
         "context": undefined,
         "line": 26,
         "message": "Element <title> can only appear once under <head>",
-        "offset": 376,
+        "offset": 387,
         "ruleId": "element-permitted-occurrences",
         "severity": 2,
         "size": 5,
@@ -2210,8 +2210,8 @@ Array [
 <!-- should only allow <titl> once -->
 <html lang=\\"en\\">
 	<head>
-		<title></title>
-		<title></title>
+		<title>lorem ipsum</title>
+		<title>lorem ipsum</title>
 	</head>
 </html>
 ",
@@ -5040,15 +5040,35 @@ exports[`HTML elements <time> valid markup 1`] = `Array []`;
 exports[`HTML elements <title> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 3,
+    "errorCount": 5,
     "filePath": "test-files/elements/title-invalid.html",
     "messages": Array [
       Object {
-        "column": 3,
+        "column": 16,
         "context": undefined,
         "line": 3,
+        "message": "<title> cannot be empty, must have text content",
+        "offset": 72,
+        "ruleId": "empty-title",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 17,
+        "context": undefined,
+        "line": 7,
+        "message": "<title> cannot be empty, must have text content",
+        "offset": 106,
+        "ruleId": "empty-title",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 12,
         "message": "Element <title> is not permitted as content in <div>",
-        "offset": 54,
+        "offset": 171,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 5,
@@ -5056,9 +5076,9 @@ Array [
       Object {
         "column": 4,
         "context": undefined,
-        "line": 9,
+        "line": 18,
         "message": "Element <span> is not permitted as content in <title>",
-        "offset": 143,
+        "offset": 260,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 4,
@@ -5066,15 +5086,24 @@ Array [
       Object {
         "column": 4,
         "context": undefined,
-        "line": 10,
+        "line": 19,
         "message": "Element <div> is not permitted as content in <title>",
-        "offset": 162,
+        "offset": 279,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 3,
       },
     ],
-    "source": "<!-- should not be allowed outside <head> -->
+    "source": "<!-- title cannot be empty or whitespace only -->
+<head>
+	<title></title>
+</head>
+
+<head>
+	<title> </title>
+</head>
+
+<!-- should not be allowed outside <head> -->
 <div>
 	<title>foo</title>
 </div>

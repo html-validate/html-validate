@@ -14,6 +14,7 @@ module.exports = {
 		"element-permitted-order": "error",
 		"element-required-attributes": "error",
 		"empty-heading": "error",
+		"empty-title": "error",
 		"no-conditional-comment": "error",
 		"no-deprecated-attr": "error",
 		"no-dup-attr": "error",

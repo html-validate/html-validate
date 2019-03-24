@@ -4,6 +4,7 @@
 
 ### Features
 
+- new rule `empty-title`.
 - add `UserError` exception which is to be used for any error which is not
   caused by an internal error, e.g. configuration errors or a plugin. The error
   supresses the notice about internal error which should be reported as a bug.

@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/empty-title.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/empty-title.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 19,
+        "context": undefined,
+        "line": 2,
+        "message": "<title> cannot be empty, must have text content",
+        "offset": 25,
+        "ruleId": "empty-title",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<head>
+    <title></title>
+</head>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/empty-title.md inline validation: whitespace 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 20,
+        "context": undefined,
+        "line": 2,
+        "message": "<title> cannot be empty, must have text content",
+        "offset": 26,
+        "ruleId": "empty-title",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<head>
+    <title> </title>
+</head>",
+    "warningCount": 0,
+  },
+]
+`;
