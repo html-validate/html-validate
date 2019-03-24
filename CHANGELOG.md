@@ -2,6 +2,11 @@
 
 ## Upcoming release
 
+### Features
+
+- reworked and extendable validation of elements metadata. Plugins may now add
+  support for custom metadata.
+
 ### Bugfixes
 
 - fix handling of plugins with no rules.

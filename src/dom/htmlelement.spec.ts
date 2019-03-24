@@ -2,7 +2,7 @@ import { Attribute, DOMTree, HtmlElement, NodeClosed, NodeType } from ".";
 import { Config } from "../config";
 import { Location, Source } from "../context";
 import { Token, TokenType } from "../lexer";
-import { MetaElement, MetaTable } from "../meta";
+import { MetaData, MetaTable } from "../meta";
 import { Parser } from "../parser";
 import { processAttribute } from "../transform/mocks/attribute";
 import { DynamicValue } from "./dynamic-value";
@@ -107,16 +107,16 @@ describe("HtmlElement", () => {
 
 		it("should set metadata", () => {
 			const [startToken, endToken] = createTokens("foo"); // <foo>
-			const foo: MetaElement = mockEntry("foo");
+			const foo: MetaData = mockEntry();
 			const table = new MetaTable();
 			table.loadFromObject({ foo });
 			const node = HtmlElement.fromTokens(startToken, endToken, null, table);
-			expect(node.meta).toEqual(foo);
+			expect(node.meta).toEqual(expect.objectContaining(foo));
 		});
 
 		it("should set closed for omitted end tag", () => {
 			const [startToken, endToken] = createTokens("foo"); // <foo>
-			const foo: MetaElement = mockEntry("foo", { void: true });
+			const foo: MetaData = mockEntry({ void: true });
 			const table = new MetaTable();
 			table.loadFromObject({ foo });
 			const node = HtmlElement.fromTokens(startToken, endToken, null, table);
@@ -577,10 +577,9 @@ describe("HtmlElement", () => {
 	});
 });
 
-function mockEntry(tagName: string, stub = {}): MetaElement {
+function mockEntry(stub = {}): MetaData {
 	return Object.assign(
 		{
-			tagName,
 			metadata: false,
 			flow: false,
 			foreign: false,
@@ -592,13 +591,6 @@ function mockEntry(tagName: string, stub = {}): MetaElement {
 			deprecated: false,
 			void: false,
 			transparent: false,
-			implicitClosed: [],
-			attributes: {},
-			deprecatedAttributes: [],
-			requiredAttributes: [],
-			permittedContent: [],
-			permittedDescendants: [],
-			permittedOrder: [],
 		},
 		stub
 	);

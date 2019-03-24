@@ -619,7 +619,7 @@
     "flow": true,
     "phrasing": true,
     "permittedContent": ["@phrasing"],
-    "permittedDescendants": [[{ "exclude": "meter" }]]
+    "permittedDescendants": [{ "exclude": "meter" }]
   },
 
   "multicol": {
@@ -630,7 +630,7 @@
     "flow": true,
     "sectioning": true,
     "permittedContent": ["@flow"],
-    "permittedDescendants": [[{ "exclude": "main" }]]
+    "permittedDescendants": [{ "exclude": "main" }]
   },
 
   "nextid": {
@@ -654,7 +654,7 @@
     "flow": true,
     "phrasing": true,
     "transparent": true,
-    "permittedDescendants": [[{ "exclude": "noscript" }]]
+    "permittedDescendants": [{ "exclude": "noscript" }]
   },
 
   "object": {
@@ -770,7 +770,7 @@
     "flow": true,
     "phrasing": true,
     "permittedContent": ["@phrasing"],
-    "permittedDescendants": [[{ "exclude": "progress" }]]
+    "permittedDescendants": [{ "exclude": "progress" }]
   },
 
   "q": {

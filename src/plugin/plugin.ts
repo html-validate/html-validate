@@ -1,6 +1,11 @@
 import { ConfigData } from "../config";
 import { RuleConstructor } from "../rule";
 
+export interface SchemaValidationPatch {
+	properties?: object;
+	definitions?: object;
+}
+
 export interface Plugin {
 	/**
 	 * Name of the plugin.
@@ -20,4 +25,9 @@ export interface Plugin {
 	configs: { [key: string]: ConfigData };
 
 	rules: { [key: string]: RuleConstructor };
+
+	/**
+	 * Extend metadata validation schema.
+	 */
+	elementSchema?: SchemaValidationPatch;
 }

@@ -97,7 +97,7 @@ The available evaluators are:
 If true the element will trigger the [deprecated](/rules/deprecated.html) rule
 when used. Can optionally be set to a string which will be displayed as well.
 
-## `foreign`
+### `foreign`
 
 If true the element is [foreign][whatwg-foreign] and will only be parsed for
 valid tokens. The DOM tree will only contain the foreign element itself but none

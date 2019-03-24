@@ -4,7 +4,7 @@ import path from "path";
 import { Source } from "../context";
 import { NestedError } from "../error/nested-error";
 import { MetaTable } from "../meta";
-import { ElementTable } from "../meta/element";
+import { MetaDataTable } from "../meta/element";
 import { Plugin } from "../plugin";
 import { ConfigData, TransformMap } from "./config-data";
 import defaultConfig from "./default";
@@ -121,37 +121,44 @@ export class Config {
 			return this.metaTable;
 		}
 
-		this.metaTable = new MetaTable();
+		const metaTable = new MetaTable();
 		const source = this.config.elements || ["html5"];
 		const root = path.resolve(__dirname, "..", "..");
+
+		/* extend validation schema from plugins */
+		for (const plugin of this.getPlugins()) {
+			if (plugin.elementSchema) {
+				metaTable.extendValidationSchema(plugin.elementSchema);
+			}
+		}
 
 		/* load from all entries */
 		for (const entry of source) {
 			/* load meta directly from entry */
 			if (typeof entry !== "string") {
-				this.metaTable.loadFromObject(entry as ElementTable);
+				metaTable.loadFromObject(entry as MetaDataTable);
 				continue;
 			}
 
 			/* try searching builtin metadata */
 			const filename = `${root}/elements/${entry}.json`;
 			if (fs.existsSync(filename)) {
-				this.metaTable.loadFromFile(filename);
+				metaTable.loadFromFile(filename);
 				continue;
 			}
 
 			/* try as regular file */
 			if (fs.existsSync(entry)) {
-				this.metaTable.loadFromFile(entry);
+				metaTable.loadFromFile(entry);
 				continue;
 			}
 
 			/* assume it is loadable with require() */
-			this.metaTable.loadFromObject(require(entry));
+			metaTable.loadFromObject(require(entry));
 		}
 
-		this.metaTable.init();
-		return this.metaTable;
+		metaTable.init();
+		return (this.metaTable = metaTable);
 	}
 
 	public static expandRelative(src: string, currentPath: string): string {

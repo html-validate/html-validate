@@ -1,30 +1,17 @@
+import Ajv from "ajv";
+import betterAjvErrors from "better-ajv-errors";
 import deepmerge from "deepmerge";
+import jsonMergePatch from "json-merge-patch";
+import { SchemaValidationPatch } from "plugin/plugin";
 import { HtmlElement } from "../dom";
-import { ElementTable, MetaElement, PropertyExpression } from "./element";
-
-const allowedKeys = [
-	"tagName",
-	"metadata",
-	"flow",
-	"foreign",
-	"sectioning",
-	"heading",
-	"phrasing",
-	"embedded",
-	"interactive",
-	"deprecated",
-	"void",
-	"transparent",
-	"implicitClosed",
-
-	"deprecatedAttributes",
-	"requiredAttributes",
-	"attributes",
-
-	"permittedContent",
-	"permittedDescendants",
-	"permittedOrder",
-];
+import {
+	ElementTable,
+	MetaData,
+	MetaDataTable,
+	MetaElement,
+	PropertyExpression,
+} from "./element";
+import { MetaValidationError } from "./validation-error";
 
 const dynamicKeys = [
 	"metadata",
@@ -44,25 +31,73 @@ const functionTable: { [key: string]: PropertyEvaluator } = {
 	matchAttribute,
 };
 
+function clone(src: any): any {
+	return JSON.parse(JSON.stringify(src));
+}
+
 export class MetaTable {
 	public readonly elements: ElementTable;
+	private schema: object;
 
 	constructor() {
 		this.elements = {};
+		this.schema = clone(require("../../elements/schema.json"));
 	}
 
 	public init() {
 		this.resolveGlobal();
 	}
 
-	public loadFromObject(obj: ElementTable) {
+	/**
+	 * Extend validation schema.
+	 */
+	public extendValidationSchema(patch: SchemaValidationPatch): void {
+		if (patch.properties) {
+			this.schema = jsonMergePatch.apply(this.schema, {
+				patternProperties: {
+					"^.*$": {
+						properties: patch.properties,
+					},
+				},
+			});
+		}
+		if (patch.definitions) {
+			this.schema = jsonMergePatch.apply(this.schema, {
+				definitions: patch.definitions,
+			});
+		}
+	}
+
+	/**
+	 * Load metadata table from object.
+	 */
+	public loadFromObject(obj: MetaDataTable): void {
+		const ajv = new Ajv({ jsonPointers: true });
+		const validator = ajv.compile(this.schema);
+		const valid = validator(obj);
+		if (!valid) {
+			const output = betterAjvErrors(this.schema, obj, validator.errors, {
+				format: "js",
+			}) as any;
+			const message = output[0].error;
+			throw new MetaValidationError(
+				`Element metadata is not valid: ${message}`,
+				obj,
+				this.schema,
+				validator.errors
+			);
+		}
+
 		for (const key of Object.keys(obj)) {
 			this.addEntry(key, obj[key]);
 		}
 	}
 
-	public loadFromFile(filename: string) {
-		this.loadFromObject(require(filename));
+	/**
+	 * Load metadata table from filename
+	 */
+	public loadFromFile(filename: string): void {
+		this.loadFromObject(clone(require(filename)));
 	}
 
 	public getMetaFor(tagName: string): MetaElement {
@@ -74,22 +109,14 @@ export class MetaTable {
 			: null;
 	}
 
-	private addEntry(tagName: string, entry: MetaElement): void {
-		for (const key of Object.keys(entry)) {
-			if (allowedKeys.indexOf(key) === -1) {
-				throw new Error(
-					`Metadata for <${tagName}> contains unknown property "${key}"`
-				);
-			}
-		}
-
+	private addEntry(tagName: string, entry: MetaData): void {
 		const expanded: MetaElement = Object.assign(
 			{
 				tagName,
 				void: false,
 			},
 			entry
-		);
+		) as MetaElement;
 		expandRegex(expanded);
 
 		this.elements[tagName] = expanded;

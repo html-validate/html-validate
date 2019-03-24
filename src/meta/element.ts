@@ -1,5 +1,5 @@
 export interface PermittedGroup {
-	exclude?: string[];
+	exclude?: string | string[];
 }
 
 export type PropertyExpression = string | [string, any];
@@ -12,10 +12,7 @@ export interface PermittedAttribute {
 	[key: string]: Array<string | RegExp>;
 }
 
-export interface MetaElement {
-	/* filled internally for reverse lookup */
-	tagName: string;
-
+export interface MetaData {
 	/* content categories */
 	metadata: boolean | PropertyExpression;
 	flow: boolean | PropertyExpression;
@@ -30,17 +27,22 @@ export interface MetaElement {
 	foreign: boolean;
 	void: boolean;
 	transparent: boolean;
-	implicitClosed: string[];
+	implicitClosed?: string[];
 
 	/* attribute */
-	deprecatedAttributes: string[];
-	requiredAttributes: string[];
-	attributes: PermittedAttribute;
+	deprecatedAttributes?: string[];
+	requiredAttributes?: string[];
+	attributes?: PermittedAttribute;
 
 	/* permitted data */
-	permittedContent: Permitted;
-	permittedDescendants: Permitted;
-	permittedOrder: PermittedOrder;
+	permittedContent?: Permitted;
+	permittedDescendants?: Permitted;
+	permittedOrder?: PermittedOrder;
+}
+
+export interface MetaElement extends MetaData {
+	/* filled internally for reverse lookup */
+	tagName: string;
 
 	[key: string]:
 		| boolean
@@ -48,6 +50,10 @@ export interface MetaElement {
 		| Permitted
 		| PermittedOrder
 		| PermittedAttribute;
+}
+
+export interface MetaDataTable {
+	[tagName: string]: MetaData;
 }
 
 export interface ElementTable {
