@@ -4,6 +4,7 @@
 
 ### Features
 
+- new rule `wcag/h30`.
 - new rule `long-title`.
 - new rule `empty-title`.
 - add `UserError` exception which is to be used for any error which is not

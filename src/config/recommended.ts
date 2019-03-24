@@ -26,6 +26,7 @@ module.exports = {
 		"no-trailing-whitespace": "error",
 		"prefer-button": "error",
 		void: "error",
+		"wcag/h30": "error",
 		"wcag/h32": "error",
 		"wcag/h37": "error",
 		"wcag/h67": "error",
