@@ -4,6 +4,7 @@ import deepmerge from "deepmerge";
 import jsonMergePatch from "json-merge-patch";
 import { SchemaValidationPatch } from "plugin/plugin";
 import { HtmlElement } from "../dom";
+import { UserError } from "../error/user-error";
 import {
 	ElementTable,
 	MetaData,
@@ -97,7 +98,16 @@ export class MetaTable {
 	 * Load metadata table from filename
 	 */
 	public loadFromFile(filename: string): void {
-		this.loadFromObject(clone(require(filename)));
+		let json;
+		try {
+			json = require(filename);
+		} catch (err) {
+			throw new UserError(
+				`Failed to load element metadata from ${filename}`,
+				err
+			);
+		}
+		this.loadFromObject(clone(json));
 	}
 
 	public getMetaFor(tagName: string): MetaElement {

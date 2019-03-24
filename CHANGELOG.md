@@ -4,6 +4,9 @@
 
 ### Features
 
+- add `UserError` exception which is to be used for any error which is not
+  caused by an internal error, e.g. configuration errors or a plugin. The error
+  supresses the notice about internal error which should be reported as a bug.
 - reworked and extendable validation of elements metadata. Plugins may now add
   support for custom metadata.
 

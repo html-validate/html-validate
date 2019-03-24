@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import { Source } from "../context";
 import { NestedError } from "../error/nested-error";
+import { UserError } from "../error/user-error";
 import { MetaTable } from "../meta";
 import { MetaDataTable } from "../meta/element";
 import { Plugin } from "../plugin";
@@ -24,7 +25,12 @@ function mergeInternal(base: ConfigData, rhs: ConfigData): ConfigData {
 }
 
 function loadFromFile(filename: string): ConfigData {
-	const json = require(filename);
+	let json;
+	try {
+		json = require(filename);
+	} catch (err) {
+		throw new UserError(`Failed to read configuration from ${filename}`, err);
+	}
 
 	/* expand any relative paths */
 	for (const key of ["extends", "elements", "plugins"]) {

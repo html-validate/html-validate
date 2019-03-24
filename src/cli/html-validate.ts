@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import defaultConfig from "../config/default";
 import { TokenDump } from "../engine";
+import { UserError } from "../error/user-error";
 import HtmlValidate from "../htmlvalidate";
 import { Report, Reporter, Result } from "../reporter";
 import { getFormatter } from "./formatter";
@@ -199,13 +200,14 @@ try {
 		console.error(err);
 	}
 	if (console.group) console.groupEnd();
-	console.error(chalk.red(`This is a bug in ${pkg.name}-${pkg.version}.`));
-	console.error(
-		chalk.red(
-			`Please file a bug at ${
-				pkg.bugs.url
-			}?issuable_template=Bug\nand include this message in full and if possible the content of the\nfile being parsed (or a reduced testcase).`
-		)
-	);
+	if (!(err instanceof UserError)) {
+		const bugUrl = `${pkg.bugs.url}?issuable_template=Bug`;
+		console.error(chalk.red(`This is a bug in ${pkg.name}-${pkg.version}.`));
+		console.error(
+			chalk.red(
+				`Please file a bug at ${bugUrl}\nand include this message in full and if possible the content of the\nfile being parsed (or a reduced testcase).`
+			)
+		);
+	}
 	process.exit(1);
 }
