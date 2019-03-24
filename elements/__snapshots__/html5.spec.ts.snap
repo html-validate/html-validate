@@ -5040,7 +5040,7 @@ exports[`HTML elements <time> valid markup 1`] = `Array []`;
 exports[`HTML elements <title> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 5,
+    "errorCount": 6,
     "filePath": "test-files/elements/title-invalid.html",
     "messages": Array [
       Object {
@@ -5056,19 +5056,29 @@ Array [
       Object {
         "column": 17,
         "context": undefined,
-        "line": 7,
+        "line": 6,
         "message": "<title> cannot be empty, must have text content",
-        "offset": 106,
+        "offset": 105,
         "ruleId": "empty-title",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 139,
+        "context": undefined,
+        "line": 11,
+        "message": "title text cannot be longer than 70 characters",
+        "offset": 295,
+        "ruleId": "long-title",
         "severity": 2,
         "size": 1,
       },
       Object {
         "column": 3,
         "context": undefined,
-        "line": 12,
+        "line": 16,
         "message": "Element <title> is not permitted as content in <div>",
-        "offset": 171,
+        "offset": 360,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 5,
@@ -5076,9 +5086,9 @@ Array [
       Object {
         "column": 4,
         "context": undefined,
-        "line": 18,
+        "line": 22,
         "message": "Element <span> is not permitted as content in <title>",
-        "offset": 260,
+        "offset": 449,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 4,
@@ -5086,9 +5096,9 @@ Array [
       Object {
         "column": 4,
         "context": undefined,
-        "line": 19,
+        "line": 23,
         "message": "Element <div> is not permitted as content in <title>",
-        "offset": 279,
+        "offset": 468,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 3,
@@ -5098,9 +5108,13 @@ Array [
 <head>
 	<title></title>
 </head>
-
 <head>
 	<title> </title>
+</head>
+
+<!-- title cannot be too long -->
+<head>
+	<title>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</title>
 </head>
 
 <!-- should not be allowed outside <head> -->
