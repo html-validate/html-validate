@@ -6,7 +6,12 @@ $fa-font-path: "fonts";
 @import "frontpage";
 
 main {
-	padding-bottom: 3rem; // to get some space between text and bottom of window.
+	padding-bottom: 3rem;
+}
+
+footer {
+	border-top: 1px solid $navbar-default-border;
+	padding: 3rem 0;
 }
 
 .rules-table {

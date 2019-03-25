@@ -1,4 +1,4 @@
-@ngdoc content
+@ngdoc rule
 @module rules
 @name close-attr
 @summary Disallow end tags from having attributes
