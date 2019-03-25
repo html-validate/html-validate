@@ -1,6 +1,6 @@
-import { HtmlElement } from "../../dom";
 import { DOMReadyEvent } from "../../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../../rule";
+import { hasAltText } from "../helper";
 import { classifyNodeText, TextClassification } from "../helper/text";
 
 class H30 extends Rule {
@@ -40,17 +40,6 @@ class H30 extends Rule {
 			}
 		});
 	}
-}
-
-function hasAltText(image: HtmlElement): boolean {
-	const alt = image.getAttribute("alt");
-
-	/* missing or boolean */
-	if (alt === null || alt.value === null) {
-		return false;
-	}
-
-	return alt.isDynamic || alt.value.toString() !== "";
 }
 
 module.exports = H30;
