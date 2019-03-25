@@ -28,6 +28,7 @@ module.exports = {
 		void: "error",
 		"wcag/h30": "error",
 		"wcag/h32": "error",
+		"wcag/h36": "error",
 		"wcag/h37": "error",
 		"wcag/h67": "error",
 	},

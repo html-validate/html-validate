@@ -2521,7 +2521,7 @@ exports[`HTML elements <img> valid markup 1`] = `Array []`;
 exports[`HTML elements <input> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 13,
+    "errorCount": 14,
     "filePath": "test-files/elements/input-invalid.html",
     "messages": Array [
       Object {
@@ -2743,6 +2743,16 @@ Array [
         "severity": 2,
         "size": 5,
       },
+      Object {
+        "column": 20,
+        "context": undefined,
+        "line": 25,
+        "message": "image used as submit button must have alt text",
+        "offset": 683,
+        "ruleId": "WCAG/H36",
+        "severity": 2,
+        "size": 1,
+      },
     ],
     "source": "<!-- should not allow end tag -->
 <input type=\\"text\\"></input>
@@ -2766,6 +2776,9 @@ Array [
 <button type=\\"button\\">
 	<input type=\\"text\\">
 </button>
+
+<!-- type=\\"image\\" requires alt text -->
+<input type=\\"image\\">
 ",
     "warningCount": 0,
   },

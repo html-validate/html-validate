@@ -4,6 +4,7 @@
 
 ### Features
 
+- new rule `wcag/h36`.
 - new rule `wcag/h30`.
 - new rule `long-title`.
 - new rule `empty-title`.
