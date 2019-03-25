@@ -1,4 +1,4 @@
-@ngdoc content
+@ngdoc rule
 @module rules
 @name no-dup-id
 @summary Disallow duplicated IDs

@@ -1,4 +1,4 @@
-@ngdoc content
+@ngdoc rule
 @module rules
 @name empty-heading
 @category a17y

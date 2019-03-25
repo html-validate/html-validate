@@ -1,4 +1,4 @@
-@ngdoc content
+@ngdoc rule
 @module rules
 @name input-missing-label
 @category a17y

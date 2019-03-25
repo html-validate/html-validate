@@ -12,6 +12,10 @@ function compareName(a, b) {
 	}
 }
 
+function isRuleDocument(doc) {
+	return doc.docType === "rule" && doc.module === "rules";
+}
+
 module.exports = function rulesProcessor(moduleMap, renderDocsProcessor) {
 	return {
 		$runAfter: ["paths-computed"],
@@ -20,9 +24,17 @@ module.exports = function rulesProcessor(moduleMap, renderDocsProcessor) {
 	};
 
 	function process(docs) {
+		/* compule rule source paths */
+		docs.filter(isRuleDocument).forEach(doc => {
+			const docPath = doc.fileInfo.projectRelativePath;
+			doc.ruleSourcePath = docPath
+				.replace("docs", "src")
+				.replace(/\.md$/, ".ts");
+		});
+
 		/* find all available rules */
 		const rules = docs
-			.filter(doc => doc.docType === "content" && doc.module === "rules")
+			.filter(isRuleDocument)
 			.map(doc => ({
 				name: doc.name,
 				url: doc.outputPath,

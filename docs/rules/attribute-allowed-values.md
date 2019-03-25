@@ -1,4 +1,4 @@
-@ngdoc content
+@ngdoc rule
 @module rules
 @name attribute-allowed-values
 @category content-model

@@ -1,4 +1,4 @@
-@ngdoc content
+@ngdoc rule
 @module rules
 @name attr-quotes
 @category style

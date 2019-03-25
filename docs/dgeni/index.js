@@ -78,7 +78,7 @@ module.exports = new Package("html-validate-docs", [
 
 	.config(function(computePathsProcessor, computeIdsProcessor) {
 		computeIdsProcessor.idTemplates.push({
-			docTypes: ["content", "frontpage", "rules", "changelog"],
+			docTypes: ["content", "frontpage", "rule", "rules", "changelog"],
 			getId: function(doc) {
 				return doc.fileInfo.baseName;
 			},
@@ -88,7 +88,7 @@ module.exports = new Package("html-validate-docs", [
 		});
 
 		computePathsProcessor.pathTemplates.push({
-			docTypes: ["content", "frontpage", "rules"],
+			docTypes: ["content", "frontpage", "rule", "rules"],
 			getPath: function(doc) {
 				const dirname = path.dirname(doc.fileInfo.relativePath);
 				return path.join(dirname, doc.fileInfo.baseName);

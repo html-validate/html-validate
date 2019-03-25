@@ -1,4 +1,4 @@
-@ngdoc content
+@ngdoc rule
 @module rules
 @name close-order
 @summary Require elements to be closed in correct order

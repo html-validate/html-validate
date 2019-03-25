@@ -1,4 +1,4 @@
-@ngdoc content
+@ngdoc rule
 @module rules
 @name no-deprecated-attr
 @summary Disallow usage of deprecated attributes
