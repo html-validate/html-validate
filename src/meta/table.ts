@@ -103,7 +103,7 @@ export class MetaTable {
 			json = require(filename);
 		} catch (err) {
 			throw new UserError(
-				`Failed to load element metadata from ${filename}`,
+				`Failed to load element metadata from "${filename}"`,
 				err
 			);
 		}

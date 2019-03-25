@@ -1,5 +1,5 @@
 export class NestedError extends Error {
-	constructor(message: string, nested: Error) {
+	constructor(message: string, nested?: Error) {
 		super(message);
 		Error.captureStackTrace(this, NestedError);
 

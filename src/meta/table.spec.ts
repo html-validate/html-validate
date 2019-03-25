@@ -17,7 +17,17 @@ jest.mock("ajv", () => {
 	return MockAjv;
 });
 
+/* a mocked file which throws an exception when loaded */
+jest.mock(
+	"invalid-file.json",
+	() => {
+		throw new Error("mocked error");
+	},
+	{ virtual: true }
+);
+
 import { Config } from "../config";
+import { UserError } from "../error/user-error";
 import { Parser } from "../parser";
 import { MetaData, MetaTable } from "./";
 
@@ -44,12 +54,23 @@ describe("MetaTable", () => {
 			},
 		];
 		const table = new MetaTable();
-		expect(() =>
+		const fn = () =>
 			table.loadFromObject({
 				foo: mockEntry({ invalid: true }),
-			})
-		).toThrowError(
+			});
+		expect(fn).toThrowError(UserError);
+		expect(fn).toThrowError(
 			"Element metadata is not valid: /foo Property invalid is not expected to be here"
+		);
+	});
+
+	it("should throw user-error if file is not properly formatted json", () => {
+		const table = new MetaTable();
+		expect(() => table.loadFromFile("invalid-file.json")).toThrowError(
+			UserError
+		);
+		expect(() => table.loadFromFile("invalid-file.json")).toThrowError(
+			'Failed to load element metadata from "invalid-file.json"'
 		);
 	});
 

@@ -1,8 +1,9 @@
 import Ajv from "ajv";
 import betterAjvErrors from "better-ajv-errors";
+import { UserError } from "../error/user-error";
 import { MetaDataTable } from "./element";
 
-export class MetaValidationError extends Error {
+export class MetaValidationError extends UserError {
 	private obj: MetaDataTable;
 	private schema: any;
 	private errors: Ajv.ErrorObject[];
