@@ -2180,7 +2180,7 @@ Array [
         "context": undefined,
         "line": 26,
         "message": "Element <title> can only appear once under <head>",
-        "offset": 376,
+        "offset": 387,
         "ruleId": "element-permitted-occurrences",
         "severity": 2,
         "size": 5,
@@ -2210,8 +2210,8 @@ Array [
 <!-- should only allow <titl> once -->
 <html lang=\\"en\\">
 	<head>
-		<title></title>
-		<title></title>
+		<title>lorem ipsum</title>
+		<title>lorem ipsum</title>
 	</head>
 </html>
 ",
@@ -2521,7 +2521,7 @@ exports[`HTML elements <img> valid markup 1`] = `Array []`;
 exports[`HTML elements <input> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 13,
+    "errorCount": 14,
     "filePath": "test-files/elements/input-invalid.html",
     "messages": Array [
       Object {
@@ -2743,6 +2743,16 @@ Array [
         "severity": 2,
         "size": 5,
       },
+      Object {
+        "column": 20,
+        "context": undefined,
+        "line": 25,
+        "message": "image used as submit button must have alt text",
+        "offset": 683,
+        "ruleId": "WCAG/H36",
+        "severity": 2,
+        "size": 1,
+      },
     ],
     "source": "<!-- should not allow end tag -->
 <input type=\\"text\\"></input>
@@ -2766,6 +2776,9 @@ Array [
 <button type=\\"button\\">
 	<input type=\\"text\\">
 </button>
+
+<!-- type=\\"image\\" requires alt text -->
+<input type=\\"image\\">
 ",
     "warningCount": 0,
   },
@@ -5040,15 +5053,45 @@ exports[`HTML elements <time> valid markup 1`] = `Array []`;
 exports[`HTML elements <title> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 3,
+    "errorCount": 6,
     "filePath": "test-files/elements/title-invalid.html",
     "messages": Array [
       Object {
-        "column": 3,
+        "column": 16,
         "context": undefined,
         "line": 3,
+        "message": "<title> cannot be empty, must have text content",
+        "offset": 72,
+        "ruleId": "empty-title",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 17,
+        "context": undefined,
+        "line": 6,
+        "message": "<title> cannot be empty, must have text content",
+        "offset": 105,
+        "ruleId": "empty-title",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 139,
+        "context": undefined,
+        "line": 11,
+        "message": "title text cannot be longer than 70 characters",
+        "offset": 295,
+        "ruleId": "long-title",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 16,
         "message": "Element <title> is not permitted as content in <div>",
-        "offset": 54,
+        "offset": 360,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 5,
@@ -5056,9 +5099,9 @@ Array [
       Object {
         "column": 4,
         "context": undefined,
-        "line": 9,
+        "line": 22,
         "message": "Element <span> is not permitted as content in <title>",
-        "offset": 143,
+        "offset": 449,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 4,
@@ -5066,15 +5109,28 @@ Array [
       Object {
         "column": 4,
         "context": undefined,
-        "line": 10,
+        "line": 23,
         "message": "Element <div> is not permitted as content in <title>",
-        "offset": 162,
+        "offset": 468,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 3,
       },
     ],
-    "source": "<!-- should not be allowed outside <head> -->
+    "source": "<!-- title cannot be empty or whitespace only -->
+<head>
+	<title></title>
+</head>
+<head>
+	<title> </title>
+</head>
+
+<!-- title cannot be too long -->
+<head>
+	<title>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</title>
+</head>
+
+<!-- should not be allowed outside <head> -->
 <div>
 	<title>foo</title>
 </div>

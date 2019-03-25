@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule empty-title should contain documentation 1`] = `
+Object {
+  "description": "The <title> element is used to describe the document and is shown in the browser tab and titlebar. WCAG and SEO requires a descriptive title and preferably unique within the site. Whitespace only is considered empty.",
+  "url": "https://html-validate.org/rules/empty-title.html",
+}
+`;
+
+exports[`rule empty-title smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/rules/empty-title.html",
+    "messages": Array [
+      Object {
+        "column": 15,
+        "context": undefined,
+        "line": 2,
+        "message": "<title> cannot be empty, must have text content",
+        "offset": 41,
+        "ruleId": "empty-title",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 16,
+        "context": undefined,
+        "line": 3,
+        "message": "<title> cannot be empty, must have text content",
+        "offset": 58,
+        "ruleId": "empty-title",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<title>Lorem ipsum</title>
+<title></title>
+<title> </title>
+",
+    "warningCount": 0,
+  },
+]
+`;
