@@ -4,6 +4,7 @@
 
 ### Features
 
+- adding link to edit documentation and view rule source in documentation.
 - new rule `wcag/h36`.
 - new rule `wcag/h30`.
 - new rule `long-title`.
