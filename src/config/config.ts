@@ -29,7 +29,7 @@ function loadFromFile(filename: string): ConfigData {
 	try {
 		json = require(filename);
 	} catch (err) {
-		throw new UserError(`Failed to read configuration from ${filename}`, err);
+		throw new UserError(`Failed to read configuration from "${filename}"`, err);
 	}
 
 	/* expand any relative paths */

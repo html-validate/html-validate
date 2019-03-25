@@ -1,11 +1,21 @@
 import fs from "fs";
 import path from "path";
+import { UserError } from "../error/user-error";
 import { Config } from "./config";
 import { Severity } from "./severity";
 
 let mockElements: any;
 jest.mock("mock-elements", () => mockElements, { virtual: true });
 jest.mock("mock-plugin", () => ({ name: "mock plugin" }), { virtual: true });
+
+/* a mocked file which throws an exception when loaded */
+jest.mock(
+	"invalid-file.json",
+	() => {
+		throw new Error("mocked error");
+	},
+	{ virtual: true }
+);
 
 /* mock transformers */
 jest.mock(
@@ -46,6 +56,13 @@ describe("config", () => {
 			plugins: [],
 			transform: {},
 		});
+	});
+
+	it("should throw user-error if file is not properly formatted json", () => {
+		expect(() => Config.fromFile("invalid-file.json")).toThrowError(UserError);
+		expect(() => Config.fromFile("invalid-file.json")).toThrowError(
+			'Failed to read configuration from "invalid-file.json"'
+		);
 	});
 
 	describe("merge()", () => {
