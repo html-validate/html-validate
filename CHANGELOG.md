@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.24.0 (2019-03-26)
+
 ### Features
 
 - adding link to edit documentation and view rule source in documentation.
