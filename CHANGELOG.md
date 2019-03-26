@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.24.1 (2019-03-26)
+
 ### Bugfixes
 
 - fix broken edit links in footer.
