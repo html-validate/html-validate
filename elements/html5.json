@@ -858,6 +858,12 @@
     ]
   },
 
+  "slot": {
+    "flow": true,
+    "phrasing": true,
+    "transparent": true
+  },
+
   "small": {
     "flow": true,
     "phrasing": true,

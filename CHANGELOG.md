@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Features
+
+- add `<slot>` element.
+
 ## 0.24.1 (2019-03-26)
 
 ### Bugfixes

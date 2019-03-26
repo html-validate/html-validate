@@ -4288,6 +4288,37 @@ Array [
 
 exports[`HTML elements <select> valid markup 1`] = `Array []`;
 
+exports[`HTML elements <slot> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/slot-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <input> is not permitted as descendant of <button>",
+        "offset": 65,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<!-- should be transparent -->
+<button type=\\"button\\">
+	<slot>
+		<input type=\\"text\\">
+	</slot>
+</button>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <slot> valid markup 1`] = `Array []`;
+
 exports[`HTML elements <small> invalid markup 1`] = `
 Array [
   Object {

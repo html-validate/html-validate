@@ -109,6 +109,7 @@ const tagNames = [
 	"script",
 	"section",
 	"select",
+	"slot",
 	"small",
 	"source",
 	"spacer",
