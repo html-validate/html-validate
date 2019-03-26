@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+### Bugfixes
+
+- fix broken import causing typescript API users getting build errors.
+
 ## 0.24.0 (2019-03-26)
 
 ### Features

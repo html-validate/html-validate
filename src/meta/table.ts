@@ -2,9 +2,9 @@ import Ajv from "ajv";
 import betterAjvErrors from "better-ajv-errors";
 import deepmerge from "deepmerge";
 import jsonMergePatch from "json-merge-patch";
-import { SchemaValidationPatch } from "plugin/plugin";
 import { HtmlElement } from "../dom";
 import { UserError } from "../error/user-error";
+import { SchemaValidationPatch } from "../plugin";
 import {
 	ElementTable,
 	MetaData,
