@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/require-sri.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/require-sri.md inline validation: crossorigin 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 5,
+        "message": "SRI \\"integrity\\" attribute is required on <link> element",
+        "offset": 85,
+        "ruleId": "require-sri",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<!--- local resource -->
+<link href=\\"local.css\\">
+
+<!-- resource loaded over CDN -->
+<link href=\\"//cdn.example.net/remote.css\\">",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/require-sri.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 1,
+        "message": "SRI \\"integrity\\" attribute is required on <script> element",
+        "offset": 1,
+        "ruleId": "require-sri",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<script href=\\"//cdn.example.net/jquery.min.js\\"></script>",
+    "warningCount": 0,
+  },
+]
+`;
