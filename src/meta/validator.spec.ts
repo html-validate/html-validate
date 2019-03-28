@@ -437,6 +437,9 @@ describe("Meta validator", () => {
 			expect(
 				Validator.validateAttribute(new Attribute("foo", "car"), rules)
 			).toBeFalsy();
+			expect(
+				Validator.validateAttribute(new Attribute("foo", null), rules)
+			).toBeFalsy();
 		});
 
 		it("should match string value", () => {

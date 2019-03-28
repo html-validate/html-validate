@@ -119,7 +119,7 @@ export class Validator {
 
 		return rule.some((entry: string | RegExp) => {
 			if (entry instanceof RegExp) {
-				return !!value.match(entry);
+				return value && !!value.match(entry);
 			} else {
 				return value === entry;
 			}
