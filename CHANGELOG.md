@@ -15,6 +15,8 @@
 
 ## 0.24.0 (2019-03-26)
 
+- new rule `require-sri`.
+
 ### Features
 
 - adding link to edit documentation and view rule source in documentation.

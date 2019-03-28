@@ -3,5 +3,6 @@ module.exports = {
 		"input-missing-label": "error",
 		"heading-level": "error",
 		"missing-doctype": "error",
+		"require-sri": "error",
 	},
 };

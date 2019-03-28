@@ -566,7 +566,8 @@
     "metadata": true,
     "void": true,
     "attributes": {
-      "crossorigin": ["anonymous", "use-credentials"]
+      "crossorigin": ["anonymous", "use-credentials"],
+      "integrity": ["/.+/"]
     },
     "deprecatedAttributes": ["charset", "methods", "urn", "target"]
   },
@@ -825,6 +826,7 @@
       "async": [],
       "crossorigin": ["anonymous", "use-credentials"],
       "defer": [],
+      "integrity": ["/.+/"],
       "nomodule": []
     },
     "deprecatedAttributes": ["language", "event", "for"]
