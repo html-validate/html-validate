@@ -3017,7 +3017,7 @@ exports[`HTML elements <li> valid markup 1`] = `Array []`;
 exports[`HTML elements <link> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 1,
+    "errorCount": 3,
     "filePath": "test-files/elements/link-invalid.html",
     "messages": Array [
       Object {
@@ -3030,9 +3030,47 @@ Array [
         "severity": 2,
         "size": 1,
       },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            /\\.\\+/,
+          ],
+          "attribute": "integrity",
+          "element": "link",
+          "value": "",
+        },
+        "line": 5,
+        "message": "Attribute \\"integrity\\" has invalid value \\"\\"",
+        "offset": 99,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            /\\.\\+/,
+          ],
+          "attribute": "integrity",
+          "element": "link",
+          "value": "",
+        },
+        "line": 6,
+        "message": "Attribute \\"integrity\\" has invalid value \\"\\"",
+        "offset": 116,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 4,
+      },
     ],
     "source": "<!-- should not allow end tag -->
 <link></link>
+
+<!-- integrity attribute should not be empty -->
+<link integrity>
+<link integrity=\\"\\">
 ",
     "warningCount": 0,
   },
@@ -3510,7 +3548,7 @@ exports[`HTML elements <noframes> valid markup 1`] = `Array []`;
 exports[`HTML elements <noscript> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 1,
+    "errorCount": 3,
     "filePath": "test-files/elements/noscript-invalid.html",
     "messages": Array [
       Object {
@@ -3523,11 +3561,49 @@ Array [
         "severity": 2,
         "size": 8,
       },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            /\\.\\+/,
+          ],
+          "attribute": "integrity",
+          "element": "script",
+          "value": "",
+        },
+        "line": 7,
+        "message": "Attribute \\"integrity\\" has invalid value \\"\\"",
+        "offset": 131,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            /\\.\\+/,
+          ],
+          "attribute": "integrity",
+          "element": "script",
+          "value": "",
+        },
+        "line": 8,
+        "message": "Attribute \\"integrity\\" has invalid value \\"\\"",
+        "offset": 159,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
     ],
     "source": "<!-- should not allow nesting -->
 <noscript>
 	<noscript></noscript>
 </noscript>
+
+<!-- integrity attribute should not be empty -->
+<script integrity></script>
+<script integrity=\\"\\"></script>
 ",
     "warningCount": 0,
   },
