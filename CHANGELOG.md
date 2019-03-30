@@ -4,6 +4,9 @@
 
 ### Features
 
+- new rule `meta-refresh`.
+- new event `element:ready` triggered after an element and its children has been
+  fully constructed.
 - add plugin callbacks `init()` and `setup()`.
 - new rule `require-sri`.
 - add `<slot>` element.

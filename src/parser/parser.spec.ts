@@ -65,6 +65,10 @@ describe("parser", () => {
 				target: "div",
 				previous: "div",
 			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "div",
+			});
 			expect(events.shift()).toBeUndefined();
 		});
 
@@ -76,6 +80,10 @@ describe("parser", () => {
 				target: "h1",
 				previous: "h1",
 			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "h1",
+			});
 			expect(events.shift()).toBeUndefined();
 		});
 
@@ -86,6 +94,10 @@ describe("parser", () => {
 				event: "tag:close",
 				target: "foo-bar",
 				previous: "foo-bar",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "foo-bar",
 			});
 			expect(events.shift()).toBeUndefined();
 		});
@@ -100,9 +112,17 @@ describe("parser", () => {
 				previous: "label",
 			});
 			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "label",
+			});
+			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "label",
 				previous: "div",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "div",
 			});
 			expect(events.shift()).toBeUndefined();
 		});
@@ -115,6 +135,10 @@ describe("parser", () => {
 				target: "input",
 				previous: "input",
 			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "input",
+			});
 			expect(events.shift()).toBeUndefined();
 		});
 
@@ -126,6 +150,10 @@ describe("parser", () => {
 				target: "input",
 				previous: "input",
 			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "input",
+			});
 			expect(events.shift()).toBeUndefined();
 		});
 
@@ -136,6 +164,10 @@ describe("parser", () => {
 				event: "tag:close",
 				target: "input",
 				previous: "input",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "input",
 			});
 			expect(events.shift()).toEqual({
 				event: "tag:close",
@@ -190,6 +222,10 @@ describe("parser", () => {
 				target: "div",
 				previous: "div",
 			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "div",
+			});
 			expect(events.shift()).toBeUndefined();
 		});
 
@@ -223,6 +259,10 @@ describe("parser", () => {
 				target: "div",
 				previous: "div",
 			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "div",
+			});
 			expect(events.shift()).toBeUndefined();
 		});
 
@@ -233,6 +273,10 @@ describe("parser", () => {
 				event: "tag:close",
 				target: "foo:div",
 				previous: "foo:div",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "foo:div",
 			});
 			expect(events.shift()).toBeUndefined();
 		});
@@ -266,6 +310,10 @@ describe("parser", () => {
 				target: "div",
 				previous: "div",
 			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "div",
+			});
 			expect(events.shift()).toBeUndefined();
 		});
 
@@ -288,6 +336,10 @@ describe("parser", () => {
 				target: "div",
 				previous: "div",
 			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "div",
+			});
 			expect(events.shift()).toBeUndefined();
 		});
 
@@ -309,6 +361,10 @@ describe("parser", () => {
 				event: "tag:close",
 				target: "div",
 				previous: "div",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "div",
 			});
 			expect(events.shift()).toBeUndefined();
 		});
@@ -343,6 +399,10 @@ describe("parser", () => {
 				target: "div",
 				previous: "div",
 			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "div",
+			});
 			expect(events.shift()).toBeUndefined();
 		});
 
@@ -361,6 +421,10 @@ describe("parser", () => {
 				event: "tag:close",
 				target: "div",
 				previous: "div",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "div",
 			});
 			expect(events.shift()).toBeUndefined();
 		});
@@ -389,6 +453,10 @@ describe("parser", () => {
 				target: "div",
 				previous: "div",
 			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "div",
+			});
 			expect(events.shift()).toBeUndefined();
 		});
 
@@ -407,6 +475,10 @@ describe("parser", () => {
 				event: "tag:close",
 				target: "div",
 				previous: "div",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "div",
 			});
 			expect(events.shift()).toBeUndefined();
 		});
@@ -430,6 +502,10 @@ describe("parser", () => {
 				target: "div",
 				previous: "div",
 			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "div",
+			});
 			expect(events.shift()).toBeUndefined();
 		});
 
@@ -451,6 +527,10 @@ describe("parser", () => {
 				event: "tag:close",
 				target: "div",
 				previous: "div",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "div",
 			});
 			expect(events.shift()).toBeUndefined();
 		});
@@ -485,6 +565,10 @@ describe("parser", () => {
 				target: "div",
 				previous: "div",
 			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "div",
+			});
 			expect(events.shift()).toBeUndefined();
 		});
 
@@ -507,6 +591,10 @@ describe("parser", () => {
 				target: "input",
 				previous: "input",
 			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "input",
+			});
 			expect(events.shift()).toBeUndefined();
 		});
 
@@ -528,6 +616,10 @@ describe("parser", () => {
 				event: "tag:close",
 				target: "div",
 				previous: "div",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "div",
 			});
 			expect(events.shift()).toBeUndefined();
 		});
@@ -605,11 +697,19 @@ describe("parser", () => {
 				target: "li",
 				previous: "li",
 			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "li",
+			});
 			expect(events.shift()).toEqual({ event: "tag:open", target: "li" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "li",
 				previous: "li",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "li",
 			});
 			expect(events.shift()).toEqual({ event: "tag:open", target: "li" });
 			expect(events.shift()).toEqual({ event: "tag:open", target: "strong" });
@@ -619,9 +719,17 @@ describe("parser", () => {
 				previous: "strong",
 			});
 			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "strong",
+			});
+			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "li",
 				previous: "li",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "li",
 			});
 			expect(events.shift()).toEqual({ event: "tag:open", target: "li" });
 			expect(events.shift()).toEqual({ event: "tag:open", target: "input" });
@@ -631,14 +739,26 @@ describe("parser", () => {
 				previous: "input",
 			});
 			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "input",
+			});
+			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "ul",
 				previous: "li",
 			});
 			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "li",
+			});
+			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "ul",
 				previous: "ul",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "ul",
 			});
 			expect(events.shift()).toBeUndefined();
 		});
@@ -699,6 +819,10 @@ describe("parser", () => {
 				previous: "svg",
 				target: "svg",
 			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "svg",
+			});
 			expect(events.shift()).toBeUndefined();
 		});
 
@@ -713,6 +837,10 @@ describe("parser", () => {
 				previous: "svg",
 				target: "svg",
 			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "svg",
+			});
 			expect(events.shift()).toBeUndefined();
 		});
 
@@ -725,6 +853,10 @@ describe("parser", () => {
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				previous: "svg",
+				target: "svg",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
 				target: "svg",
 			});
 			expect(events.shift()).toBeUndefined();
@@ -794,6 +926,10 @@ describe("parser", () => {
 				target: "input",
 				previous: "input",
 			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "input",
+			});
 			expect(events.shift()).toBeUndefined();
 		});
 
@@ -829,6 +965,10 @@ describe("parser", () => {
 				event: "tag:close",
 				target: "input",
 				previous: "input",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "input",
 			});
 			expect(events.shift()).toBeUndefined();
 		});

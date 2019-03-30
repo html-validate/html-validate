@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule meta-refresh should contain documentation 1`] = `
+Object {
+  "description": "Meta refresh directive must use the \`0;url=...\` format. Non-zero values for time interval is disallowed as people with assistive technology might be unable to read and understand the page content before automatically reloading. For the same reason skipping the url is disallowed as it would put the browser in an infinite loop reloading the same page over and over again.",
+  "url": "https://html-validate.org/rules/meta-refresh.html",
+}
+`;
