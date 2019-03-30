@@ -7,6 +7,7 @@ import {
 	ConditionalEvent,
 	DoctypeEvent,
 	DOMReadyEvent,
+	ElementReadyEvent,
 	Event,
 	TagCloseEvent,
 	TagOpenEvent,
@@ -117,6 +118,10 @@ export abstract class Rule<T = any> {
 	 */
 	public on(event: "tag:open", callback: (event: TagOpenEvent) => void): void;
 	public on(event: "tag:close", callback: (event: TagCloseEvent) => void): void;
+	public on(
+		event: "element:ready",
+		callback: (event: ElementReadyEvent) => void
+	): void;
 	public on(event: "dom:load", callback: (event: Event) => void): void;
 	public on(event: "dom:ready", callback: (event: DOMReadyEvent) => void): void;
 	public on(event: "doctype", callback: (event: DoctypeEvent) => void): void;

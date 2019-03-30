@@ -2,7 +2,7 @@ import { ProcessAttributeCallback } from "context/source";
 import { Config } from "../config";
 import { Location, sliceLocation, Source } from "../context";
 import { DOMTree, HtmlElement, NodeClosed } from "../dom";
-import { EventCallback, EventHandler } from "../event";
+import { ElementReadyEvent, EventCallback, EventHandler } from "../event";
 import {
 	AttributeEvent,
 	ConditionalEvent,
@@ -238,12 +238,21 @@ export class Parser {
 			processElement(active);
 		}
 
-		/* trigger event */
+		/* trigger event for the closing of the element (the </> tag)*/
 		this.trigger("tag:close", {
 			target: node,
 			previous: active,
 			location,
 		});
+
+		/* trigger event for for an element being fully constructed. Special care
+		 * for void elements explicit closed <input></input> */
+		if (active && !active.isRootElement()) {
+			this.trigger("element:ready", {
+				target: active,
+				location: active.location,
+			});
+		}
 	}
 
 	/**
@@ -463,6 +472,7 @@ export class Parser {
 	 */
 	protected trigger(event: "tag:open", data: TagOpenEvent): void;
 	protected trigger(event: "tag:close", data: TagCloseEvent): void;
+	protected trigger(event: "element:ready", data: ElementReadyEvent): void;
 	protected trigger(event: "dom:load", data: Event): void;
 	protected trigger(event: "dom:ready", data: DOMReadyEvent): void;
 	protected trigger(event: "doctype", data: DoctypeEvent): void;

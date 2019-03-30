@@ -14,6 +14,10 @@ export interface TagCloseEvent extends Event {
 	previous: HtmlElement;
 }
 
+export interface ElementReadyEvent extends Event {
+	target: HtmlElement;
+}
+
 export interface AttributeEvent extends Event {
 	key: string;
 	value: string | DynamicValue;

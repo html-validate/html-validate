@@ -249,15 +249,17 @@ describe("Engine", () => {
 				inline('<div id="foo"><p class="bar">baz</p></div>'),
 			];
 			const lines = engine.dumpEvents(source);
-			expect(lines).toHaveLength(8);
+			expect(lines).toHaveLength(10);
 			expect(lines[0].event).toEqual("dom:load");
 			expect(lines[1].event).toEqual("tag:open");
 			expect(lines[2].event).toEqual("attr");
 			expect(lines[3].event).toEqual("tag:open");
 			expect(lines[4].event).toEqual("attr");
 			expect(lines[5].event).toEqual("tag:close");
-			expect(lines[6].event).toEqual("tag:close");
-			expect(lines[7].event).toEqual("dom:ready");
+			expect(lines[6].event).toEqual("element:ready");
+			expect(lines[7].event).toEqual("tag:close");
+			expect(lines[8].event).toEqual("element:ready");
+			expect(lines[9].event).toEqual("dom:ready");
 		});
 	});
 

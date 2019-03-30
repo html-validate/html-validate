@@ -44,8 +44,9 @@ Emitted when a doctype is encountered. `value` is the doctype (without
 }
 ```
 
-Emitted when an opening element is parsed: `<div>`. `target` will be
-newly created Node.
+Emitted when an opening element is parsed: `<div>`. `target` will be newly
+created Node. The element will not have its attribute nor children yet. Use
+`element:ready` to wait for the element to be complete.
 
 ## `tag:close`
 
@@ -57,8 +58,19 @@ newly created Node.
 ```
 
 Emitted when a closing element is parsed: `</div>`. `target` refers to
-the close-element itself and `previous` is the current active element
+the close-tag itself and `previous` is the current active element
 about to be closed.
+
+## `element:ready`
+
+```typescript
+{
+  target: Node,
+}
+```
+
+Emitted when an elemnet is fully constructed (including its children). `target`
+will be the the element.
 
 ## `attr`
 
