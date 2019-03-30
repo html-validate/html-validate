@@ -32,7 +32,7 @@
     "test": "jest --ci",
     "lint": "grunt eslint tslint",
     "version": "sv-update-changelog -i && git add CHANGELOG.md",
-    "preversion": "./scripts/validate-version.sh",
+    "preversion": "./scripts/validate-version",
     "postversion": "git push --follow-tags"
   },
   "husky": {
