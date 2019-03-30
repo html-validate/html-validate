@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# bail out on first error
+set -e
+
+echo Build sources
+grunt ts
+grunt dgeni
+
+echo Run unittests
+npm test
+
+echo Run linting
+ESLINT_STRICT=1 npm run lint
+
+echo Lint documentation
+./bin/html-validate.js docs/**/*.html public/**/.html
