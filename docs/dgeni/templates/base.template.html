@@ -67,7 +67,7 @@
 			{% endblock %}
 		</main>
 
-		{% if doc.fileInfo.projectRelativePath %}
+		{% if doc.fileInfo.projectRelativePath and doc.module != 'error'  %}
 		<footer>
 			<div class="container">
 				<a href="https://gitlab.com/html-validate/html-validate/edit/master/{$ doc.fileInfo.projectRelativePath $}" class="btn btn-default"><i class="fa fa-pencil">&nbsp;</i>Edit this page</a>
