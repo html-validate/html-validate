@@ -20,4 +20,4 @@ If you found a bug or want to suggest a new feature/enhancement please [file a
 new issue](https://gitlab.com/html-validate/html-validate/issues/new).
 
 For questions about the project feel free to contact the project owner at
-[ext@html-validate.org](mailto:ext@html-validate.org).
+[contact@html-validate.org](mailto:contact@html-validate.org).
