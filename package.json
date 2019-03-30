@@ -33,7 +33,9 @@
     "lint": "grunt eslint tslint",
     "version": "sv-update-changelog -i && git add CHANGELOG.md",
     "preversion": "./scripts/validate-version",
-    "postversion": "git push --follow-tags"
+    "postversion": "git push --follow-tags",
+    "tslint": "tslint -t verbose *.ts src/**/*.ts",
+    "tslint:fix": "tslint -t verbose --fix *.ts src/**/*.ts"
   },
   "husky": {
     "hooks": {
