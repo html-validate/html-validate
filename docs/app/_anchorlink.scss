@@ -1,0 +1,23 @@
+.anchorlink {
+	@extend .fa;
+	@extend .fa-link;
+
+	display: none;
+	font-size: 0.9em;
+
+	&:hover {
+		color: $link-color;
+		text-decoration: none;
+	}
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	&:hover .anchorlink {
+		display: inline-block;
+	}
+}
