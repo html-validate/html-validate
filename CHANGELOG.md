@@ -4,6 +4,7 @@
 
 ### Features
 
+- add plugin callbacks `init()` and `setup()`.
 - new rule `require-sri`.
 - add `<slot>` element.
 

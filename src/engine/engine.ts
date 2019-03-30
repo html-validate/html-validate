@@ -28,14 +28,10 @@ export class Engine<T extends Parser = Parser> {
 		this.report = new Reporter();
 		this.config = config;
 		this.ParserClass = ParserClass;
-		this.availableRules = {};
 
-		/* setup plugins */
-		for (const plugin of this.config.getPlugins()) {
-			for (const [name, rule] of Object.entries(plugin.rules || [])) {
-				this.availableRules[name] = rule;
-			}
-		}
+		/* initialize plugins and rules */
+		const result = this.initPlugins(this.config);
+		this.availableRules = result.availableRules;
 	}
 
 	/**
@@ -51,20 +47,8 @@ export class Engine<T extends Parser = Parser> {
 			/* create parser for source */
 			const parser = new this.ParserClass(this.config);
 
-			/* load rules */
-			const rules: { [key: string]: Rule } = {};
-			for (const [
-				ruleId,
-				[severity, options],
-			] of this.config.getRules().entries()) {
-				rules[ruleId] = this.loadRule(
-					ruleId,
-					severity,
-					options,
-					parser,
-					this.report
-				);
-			}
+			/* setup plugins and rules */
+			const { rules } = this.setupPlugins(source, this.config, parser);
 
 			/* setup directive handling */
 			parser.on("directive", (_: string, event: DirectiveEvent) => {
@@ -298,8 +282,83 @@ export class Engine<T extends Parser = Parser> {
 		});
 	}
 
+	/*
+	 * Initialize all plugins. This should only be done once for all sessions.
+	 */
+	protected initPlugins(
+		config: Config
+	): {
+		availableRules: { [key: string]: RuleConstructor };
+	} {
+		for (const plugin of config.getPlugins()) {
+			if (plugin.init) {
+				plugin.init();
+			}
+		}
+
+		return {
+			availableRules: this.initRules(config),
+		};
+	}
+
 	/**
-	 * Load a rule using current config.
+	 * Initializes all rules from plugins and returns an object with a mapping
+	 * between rule name and its constructor.
+	 */
+	protected initRules(config: Config): { [key: string]: RuleConstructor } {
+		const availableRules: { [key: string]: RuleConstructor } = {};
+		for (const plugin of config.getPlugins()) {
+			for (const [name, rule] of Object.entries(plugin.rules || {})) {
+				availableRules[name] = rule;
+			}
+		}
+		return availableRules;
+	}
+
+	/**
+	 * Setup all plugins for this session.
+	 */
+	protected setupPlugins(
+		source: Source,
+		config: Config,
+		parser: Parser
+	): {
+		rules: { [key: string]: Rule };
+	} {
+		const eventHandler = parser.getEventHandler();
+		for (const plugin of config.getPlugins()) {
+			if (plugin.setup) {
+				plugin.setup(source, eventHandler);
+			}
+		}
+
+		return {
+			rules: this.setupRules(config, parser),
+		};
+	}
+
+	/**
+	 * Load and setup all rules for current configuration.
+	 */
+	protected setupRules(
+		config: Config,
+		parser: Parser
+	): { [key: string]: Rule } {
+		const rules: { [key: string]: Rule } = {};
+		for (const [ruleId, [severity, options]] of config.getRules().entries()) {
+			rules[ruleId] = this.loadRule(
+				ruleId,
+				severity,
+				options,
+				parser,
+				this.report
+			);
+		}
+		return rules;
+	}
+
+	/**
+	 * Load and setup a rule using current config.
 	 */
 	protected loadRule(
 		ruleId: string,
@@ -311,9 +370,12 @@ export class Engine<T extends Parser = Parser> {
 		const rule = this.instantiateRule(ruleId, options);
 		rule.name = rule.name || ruleId;
 		rule.init(parser, report, severity);
+
+		/* call setup callback if present */
 		if (rule.setup) {
 			rule.setup();
 		}
+
 		return rule;
 	}
 

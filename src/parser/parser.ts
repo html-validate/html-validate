@@ -477,6 +477,10 @@ export class Parser {
 		this.event.trigger(event, data);
 	}
 
+	public getEventHandler(): EventHandler {
+		return this.event;
+	}
+
 	/**
 	 * Appends a text node to the current element on the stack.
 	 */
