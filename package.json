@@ -31,7 +31,7 @@
     "start": "grunt connect",
     "test": "jest --ci",
     "lint": "grunt eslint tslint",
-    "version": "./scripts/update-changelog.sh && git add CHANGELOG.md",
+    "version": "sv-update-changelog -i && git add CHANGELOG.md",
     "preversion": "./scripts/validate-version.sh",
     "postversion": "git push --follow-tags"
   },
@@ -63,6 +63,7 @@
   "devDependencies": {
     "@babel/core": "^7.4.0",
     "@babel/preset-env": "^7.4.1",
+    "@sidvind/build-scripts": "^1.0.0",
     "@types/babel__code-frame": "^7.0.1",
     "@types/chai": "^4.1.7",
     "@types/estree": "0.0.39",
