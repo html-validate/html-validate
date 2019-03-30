@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 0.24.2 (2019-03-31)
+
 ### Features
 
 - new rule `meta-refresh`.
