@@ -9,6 +9,12 @@ if [[ "$branch" = "HEAD" ]]; then
 	exit 1
 fi
 
+dirty_files=$(git status --porcelain 2>/dev/null | grep -v "^??" | wc -l)
+if [[ "${dirty_files}" != "0" ]]; then
+	echo "Working copy must be clean"
+	exit 1
+fi
+
 # prereleases is ok anywhere
 if [[ "${npm_package_version}" =~ -[0-9]+$ ]]; then
 	exit 0
