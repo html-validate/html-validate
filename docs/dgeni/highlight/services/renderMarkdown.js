@@ -37,6 +37,17 @@ module.exports = function renderMarkdown(trimIndentation) {
 		return renderedCode;
 	};
 
+	// Add § link to all headings
+	renderer.heading = function(text, level, raw) {
+		const slug = raw
+			.toLowerCase()
+			.replace(/\(.*?\)/g, "")
+			.replace(/[^\w]+/g, "-");
+		const id = `${this.options.headerPrefix}${slug}`;
+		const anchor = level > 1 ? ` <a class="anchorlink" href="#${id}"></a>` : "";
+		return `<h${level} id="${id}">${text}${anchor}</h${level}>`;
+	};
+
 	const render = function(content) {
 		return marked(content, {
 			highlight: render.highlight,

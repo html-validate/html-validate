@@ -77,7 +77,7 @@ module.exports = new Package("html-validate-docs", [
 
 	.config(function(computePathsProcessor, computeIdsProcessor) {
 		computeIdsProcessor.idTemplates.push({
-			docTypes: ["content", "frontpage", "rule", "rules", "changelog"],
+			docTypes: ["content", "frontpage", "rule", "rules", "changelog", "error"],
 			getId: function(doc) {
 				return doc.fileInfo.baseName;
 			},
@@ -102,6 +102,15 @@ module.exports = new Package("html-validate-docs", [
 				return path.join(dirname, doc.fileInfo.baseName);
 			},
 			outputPathTemplate: "${path.toLowerCase()}/index.html",
+		});
+
+		computePathsProcessor.pathTemplates.push({
+			docTypes: ["error"],
+			getPath: function(doc) {
+				/* should go directly under output directory, no subdirectory */
+				return doc.fileInfo.baseName;
+			},
+			outputPathTemplate: "${path}.html",
 		});
 	})
 
