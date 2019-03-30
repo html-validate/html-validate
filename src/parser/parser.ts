@@ -93,7 +93,7 @@ export class Parser {
 					break;
 
 				case TokenType.EOF:
-					this.closeTree(token);
+					this.closeTree(source, token.location);
 					break;
 			}
 
@@ -491,15 +491,11 @@ export class Parser {
 	/**
 	 * Trigger close events for any still open elements.
 	 */
-	private closeTree(token: Token): void {
+	private closeTree(source: Source, location: Location): void {
 		let active;
 		/* tslint:disable-next-line:no-conditional-assignment */
 		while ((active = this.dom.getActive()) && !active.isRootElement()) {
-			this.trigger("tag:close", {
-				target: undefined,
-				previous: active,
-				location: token.location,
-			});
+			this.closeElement(source, null, active, location);
 			this.dom.popActive();
 		}
 	}
