@@ -108,7 +108,7 @@
     "jquery": "3.3.1",
     "lint-staged": "8.1.5",
     "load-grunt-tasks": "4.0.0",
-    "prettier": "1.16.4",
+    "prettier": "1.17.0",
     "sass": "1.18.0",
     "serve-static": "1.13.2",
     "strip-ansi": "5.2.0",
