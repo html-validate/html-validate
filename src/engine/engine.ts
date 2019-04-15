@@ -400,13 +400,13 @@ export class Engine<T extends Parser = Parser> {
 	}
 
 	private missingRule(name: string): any {
-		return new class extends Rule {
+		return new (class extends Rule {
 			public setup() {
 				this.on("dom:load", () => {
 					this.report(null, `Definition for rule '${name}' was not found`);
 				});
 			}
-		}({});
+		})({});
 	}
 
 	private reportError(message: string, location: Location): void {
