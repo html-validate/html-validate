@@ -354,11 +354,11 @@ describe("config", () => {
 	});
 
 	it("should find rootDir", () => {
-		const config = new class extends Config {
+		const config = new (class extends Config {
 			public findRootDir() {
 				return super.findRootDir();
 			}
-		}();
+		})();
 		const root = path.resolve(path.join(__dirname, "../.."));
 		expect(config.findRootDir()).toEqual(root);
 		const spy = jest.spyOn(fs, "existsSync").mockImplementation(() => false);
