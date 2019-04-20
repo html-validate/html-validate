@@ -82,7 +82,7 @@ module.exports = new Package("html-validate-docs", [
 				return doc.fileInfo.baseName;
 			},
 			getAliases: function(doc) {
-				return [doc.id];
+				return [doc.id, doc.name];
 			},
 		});
 
