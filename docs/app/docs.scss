@@ -53,28 +53,8 @@ footer {
 	}
 }
 
-.markdown-table + table {
-	@extend .table;
-}
-
-.markdown-table.table-striped + table {
-	@extend .table-striped;
-}
-
-.markdown-table.table-hover + table {
-	@extend .table-hover;
-}
-
-.support-table + table td:last-child {
-	padding-right: 0;
-}
-
 %support {
-	display: inline-block;
-	width: 100%;
 	text-align: center;
-	margin: -$table-cell-padding 0;
-	padding: $table-cell-padding;
 }
 
 .support-no {
@@ -93,4 +73,19 @@ footer {
 	@extend %support;
 	background: $alert-warning-bg;
 	color: $alert-warning-text;
+}
+
+.support-table {
+	em {
+		display: block;
+		margin-top: 1.5rem;
+	}
+}
+
+.table-right {
+	text-align: right;
+}
+
+.table-center {
+	text-align: center;
 }
