@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule no-raw-characters should contain documentation 1`] = `
+Object {
+  "description": "The characters \`<\`, \`>\` and \`&\` hold special meaning in HTML and must be escaped using a character reference (html entity).",
+  "url": "https://html-validate.org/rules/no-raw-characters.html",
+}
+`;
