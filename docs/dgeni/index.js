@@ -16,6 +16,17 @@ module.exports = new Package("html-validate-docs", [
 		renderDocsProcessor.extraData.tracking = process.env.GA_TRACKING_ID;
 	})
 
+	/* disable unused module generation */
+	.config(function(
+		moduleDocsProcessor,
+		generateComponentGroupsProcessor,
+		collectKnownIssuesProcessor
+	) {
+		moduleDocsProcessor.$enabled = false;
+		generateComponentGroupsProcessor.$enabled = false;
+		collectKnownIssuesProcessor.$enabled = false;
+	})
+
 	/* configure markdown syntax highlighting */
 	.config(function(highlight) {
 		highlight.configure({
@@ -79,10 +90,22 @@ module.exports = new Package("html-validate-docs", [
 		computeIdsProcessor.idTemplates.push({
 			docTypes: ["content", "frontpage", "rule", "rules", "changelog", "error"],
 			getId: function(doc) {
-				return doc.fileInfo.baseName;
+				const dir = path.dirname(doc.fileInfo.relativePath);
+				if (dir === ".") {
+					/* documents not in a subdirectory gets basename as id */
+					return doc.fileInfo.baseName;
+				}
+				const name = doc.fileInfo.baseName;
+				if (name !== "index") {
+					/* documents in subdirectory gets dir + name as id, unless .. */
+					return `${dir}/${name}`;
+				} else {
+					/* ... the name is index in which case only the directory is used */
+					return dir;
+				}
 			},
 			getAliases: function(doc) {
-				return [doc.id, doc.name];
+				return [doc.id, doc.name, `${doc.docType}:${doc.name}`];
 			},
 		});
 
