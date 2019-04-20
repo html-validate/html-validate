@@ -8,7 +8,7 @@
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 		<link rel="icon" href="/favicon.ico" type="image/ico">
 		<link rel="stylesheet" href="{$ '/assets/docs.min.css' | assetHash $}">
-		{% if tracking %}
+		{%- if tracking %}
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id={$ tracking $}"></script>
 		<script>
@@ -67,19 +67,19 @@
 		</header>
 
 		<main class="container">
-			{% block content %}
-			{% endblock %}
+			{%- block content %}
+			{%- endblock %}
 		</main>
 
-		{% if doc.fileInfo.projectRelativePath and doc.module != 'error'  %}
+		{%- if doc.fileInfo.projectRelativePath and doc.module != 'error' %}
 		<footer>
 			<div class="container">
 				<a href="https://gitlab.com/html-validate/html-validate/edit/master/{$ doc.fileInfo.projectRelativePath $}" class="btn btn-default"><i class="fa fa-pencil">&nbsp;</i>Edit this page</a>
-				{% block footer %}
-				{% endblock %}
+				{%- block footer %}
+				{%- endblock %}
 			</div>
 		</footer>
-		{% endif %}
+		{%- endif %}
 
 		<script src="{$ '/assets/docs.js' | assetHash $}"></script>
 	</body>
