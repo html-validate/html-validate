@@ -113,9 +113,10 @@ module.exports = new Package("html-validate-docs", [
 			docTypes: ["content", "frontpage", "rule", "rules"],
 			getPath: function(doc) {
 				const dirname = path.dirname(doc.fileInfo.relativePath);
-				return path.join(dirname, doc.fileInfo.baseName);
+				const p = path.join(dirname, doc.fileInfo.baseName);
+				return `${p}.html`;
 			},
-			outputPathTemplate: "${path}.html",
+			outputPathTemplate: "${path}",
 		});
 
 		computePathsProcessor.pathTemplates.push({
