@@ -13,18 +13,28 @@ references (html entities) to be used as plain text:
 - `>` (U+003E) must be escaped using `&gt;`
 - `&` (U+0026) must be escaped using `&amp;`
 
+Additionally, unquoted attribute values further restricts the allowed
+characters:
+
+- `"` (U+0022) must be escaped using `&quot;`
+- `'` (U+0027) must be escaped using `&apos;`
+- `=` (U+003D) must be escaped using `&quals;`
+- `` ` `` (U+0060) must be escaped using `&grave;`
+
 ## Rule details
 
 Examples of **incorrect** code for this rule:
 
 <validate name="incorrect" rules="no-raw-characters">
     <p>Fred & Barney</p>
+    <p class=foo's></p>
 </validate>
 
 Examples of **correct** code for this rule:
 
 <validate name="correct" rules="no-raw-characters">
     <p>Fred &amp; Barney</p>
+    <p class=foo&apos;s></p>
 </validate>
 
 ## Parser

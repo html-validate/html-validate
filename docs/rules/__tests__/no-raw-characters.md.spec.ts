@@ -1,8 +1,10 @@
 import HtmlValidate from "../../../src/htmlvalidate";
 
 const markup: { [key: string]: string } = {};
-markup["incorrect"] = `<p>Fred & Barney</p>`;
-markup["correct"] = `<p>Fred &amp; Barney</p>`;
+markup["incorrect"] = `<p>Fred & Barney</p>
+<p class=foo's></p>`;
+markup["correct"] = `<p>Fred &amp; Barney</p>
+<p class=foo&apos;s></p>`;
 markup["malformed"] = `<p>Fred <3 Barney</p>`;
 
 describe("docs/rules/no-raw-characters.md", () => {

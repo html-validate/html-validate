@@ -45,6 +45,38 @@ describe("rule no-raw-characters", () => {
 		});
 	});
 
+	describe("unquoted attributes", () => {
+		it("should not report error when attribute has no special characters", () => {
+			const report = htmlvalidate.validateString("<p class=foo></p>");
+			expect(report).toBeValid();
+		});
+
+		it("should not report error when attribute has htmlentities", () => {
+			const report = htmlvalidate.validateString("<p class=foo&apos;s></p>");
+			expect(report).toBeValid();
+		});
+
+		it("should not report error for boolean attributes", () => {
+			const report = htmlvalidate.validateString("<input disabled>");
+			expect(report).toBeValid();
+		});
+
+		it("should report error when raw special characters are present", () => {
+			const report = htmlvalidate.validateString("<p class=foo's></p>");
+			expect(report).toBeInvalid();
+			expect(report).toHaveErrors([
+				["no-raw-characters", `Raw "'" must be encoded as "&apos;"`],
+			]);
+		});
+	});
+
+	it("smoketest", () => {
+		const report = htmlvalidate.validateFile(
+			"test-files/rules/no-raw-characters.html"
+		);
+		expect(report.results).toMatchSnapshot();
+	});
+
 	it("should contain documentation", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "no-raw-characters": "error" },

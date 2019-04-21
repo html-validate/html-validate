@@ -1,13 +1,19 @@
 import { Location, sliceLocation } from "../context";
 import { NodeType } from "../dom";
-import { ElementReadyEvent } from "../event";
+import { AttributeEvent, ElementReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-const regexp = /([<>]|&(?![a-zA-Z0-9#]+;))/g;
+const textRegexp = /([<>]|&(?![a-zA-Z0-9#]+;))/g;
+const attrRegexp = /([<>"'=`]|&(?![a-zA-Z0-9#]+;))/g;
+
 const replacementTable: { [key: string]: string } = {
+	'"': "&quot;",
 	"&": "&amp;",
+	"'": "&apos;",
 	"<": "&lt;",
+	"=": "&equals",
 	">": "&gt;",
+	"`": "&grave;",
 };
 
 class NoRawCharacters extends Rule {
@@ -27,15 +33,34 @@ class NoRawCharacters extends Rule {
 				if (child.nodeType !== NodeType.TEXT_NODE) {
 					continue;
 				}
-				this.findRawChars(child.textContent, child.location);
+				this.findRawChars(child.textContent, child.location, textRegexp);
 			}
+		});
+
+		this.on("attr", (event: AttributeEvent) => {
+			/* boolean attributes has no value so nothing to validate */
+			if (!event.value) {
+				return;
+			}
+
+			/* quoted attribute values can contain most symbols except the quotemark
+			 * itself but unescaped quotemarks would cause a parsing error */
+			if (event.quote) {
+				return;
+			}
+
+			this.findRawChars(
+				event.value.toString(),
+				event.valueLocation,
+				attrRegexp
+			);
 		});
 	}
 
 	/**
 	 * Find raw special characters and report as errors.
 	 */
-	private findRawChars(text: string, location: Location): void {
+	private findRawChars(text: string, location: Location, regexp: RegExp): void {
 		let match;
 		do {
 			match = regexp.exec(text);

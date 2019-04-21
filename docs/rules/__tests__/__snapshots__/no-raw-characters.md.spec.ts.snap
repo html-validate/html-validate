@@ -5,7 +5,7 @@ exports[`docs/rules/no-raw-characters.md inline validation: correct 1`] = `Array
 exports[`docs/rules/no-raw-characters.md inline validation: incorrect 1`] = `
 Array [
   Object {
-    "errorCount": 1,
+    "errorCount": 2,
     "filePath": "inline",
     "messages": Array [
       Object {
@@ -18,8 +18,19 @@ Array [
         "severity": 2,
         "size": 1,
       },
+      Object {
+        "column": 13,
+        "context": undefined,
+        "line": 2,
+        "message": "Raw \\"'\\" must be encoded as \\"&apos;\\"",
+        "offset": 33,
+        "ruleId": "no-raw-characters",
+        "severity": 2,
+        "size": 1,
+      },
     ],
-    "source": "<p>Fred & Barney</p>",
+    "source": "<p>Fred & Barney</p>
+<p class=foo's></p>",
     "warningCount": 0,
   },
 ]
