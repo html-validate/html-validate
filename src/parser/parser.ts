@@ -385,7 +385,7 @@ export class Parser {
 		if (quote) {
 			return sliceLocation(token.location, 2, -1);
 		} else {
-			return sliceLocation(token.location, 1, 0);
+			return sliceLocation(token.location, 1);
 		}
 	}
 

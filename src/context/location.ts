@@ -45,6 +45,11 @@ function sliceSize(size: number, begin: number, end?: number): number {
  *
  * It is assumed there is no newlines anywhere between current location and
  * the new.
+ *
+ * @param location Source location
+ * @param begin - Start location. Default is 0.
+ * @param end - End location. Default is size of location. Negative values are
+ * counted from end, e.g. `-2` means `size - 2`.
  */
 export function sliceLocation(
 	location: Location,
