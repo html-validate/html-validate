@@ -2,6 +2,7 @@
 
 ## Upcoming release
 
+- add support for `auto` style for `attr-quotes` rule.
 - new rule `no-raw-characters` to check for presence of unescaped `<`, `>` and
   `&` characters.
 

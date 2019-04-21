@@ -38,15 +38,16 @@ This rule takes an optional object:
 
 ```javascript
 {
-	"style": "double",
+	"style": "auto",
 	"unquoted": false
 }
 ```
 
 ### Style
 
+- `auto` requires usage of `"` unless the attribute value contains `"` (default).
 - `single` requires usage of `'` for all attributes.
-- `double` requires usage of `"` for all attributes (default).
+- `double` requires usage of `"` for all attributes.
 
 ### Unquoted
 
