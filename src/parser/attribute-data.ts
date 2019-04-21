@@ -1,16 +1,19 @@
 import { DynamicValue } from "../dom";
 
+/**
+ * Raw attribute data.
+ */
 export interface AttributeData {
-	/* attribute name */
+	/** Attribute name */
 	key: string;
 
-	/* attribute value */
+	/** Attribute value */
 	value?: string | DynamicValue;
 
-	/* quotation mark (if present) */
+	/** Quotation mark (if present) */
 	quote?: '"' | "'";
 
-	/* original attribute name (when a dynamic attribute is used), e.g
+	/** Original attribute name (when a dynamic attribute is used), e.g
 	 * "ng-attr-foo" or "v-bind:foo" */
 	originalAttribute?: string;
 }

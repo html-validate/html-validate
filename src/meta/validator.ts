@@ -9,7 +9,17 @@ import {
 
 const allowedKeys = ["exclude"];
 
+/**
+ * Helper class to validate elements against metadata rules.
+ */
 export class Validator {
+	/**
+	 * Test if element is used in a proper context.
+	 *
+	 * @param node - Element to test.
+	 * @param rules - List of rules.
+	 * @returns `true` if element passes all tests.
+	 */
 	public static validatePermitted(
 		node: HtmlElement,
 		rules: Permitted
@@ -22,6 +32,18 @@ export class Validator {
 		});
 	}
 
+	/**
+	 * Test if an element is used the correct amount of times.
+	 *
+	 * For instance, a `<table>` element can only contain a single `<tbody>`
+	 * child. If multiple `<tbody>` exists this test will fail both nodes.
+	 *
+	 * @param node - Element to test.
+	 * @param rules - List of rules.
+	 * @param numSiblings - How many siblings of the same type as the element
+	 * exists (including the element itself)
+	 * @returns `true` if the element passes the test.
+	 */
 	public static validateOccurrences(
 		node: HtmlElement,
 		rules: Permitted,
@@ -51,10 +73,10 @@ export class Validator {
 	 * order it will validate each children and ensure each one exists in the
 	 * specified order.
 	 *
-	 * For instance, for a <table> element the <caption> element must come before
-	 * a <thead> which must come before <tbody>.
+	 * For instance, for a `<table>` element the `<caption>` element must come
+	 * before a `<thead>` which must come before `<tbody>`.
 	 *
-	 * @param {HtmlElement[]} children - Array of children to validate.
+	 * @param children - Array of children to validate.
 	 */
 	public static validateOrder(
 		children: HtmlElement[],
@@ -95,6 +117,13 @@ export class Validator {
 		return true;
 	}
 
+	/**
+	 * Test if an attribute has an allowed value and/or format.
+	 *
+	 * @param attr - Attribute to test.
+	 * @param rules - Element attribute metadta.
+	 * @returns `true` if attribute passes all tests.
+	 */
 	public static validateAttribute(
 		attr: Attribute,
 		rules: PermittedAttribute
