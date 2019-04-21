@@ -53,6 +53,33 @@ describe("rule attr-quotes", () => {
 		});
 	});
 
+	describe("with auto option", () => {
+		beforeAll(() => {
+			htmlvalidate = new HtmlValidate({
+				rules: { "attr-quotes": ["error", { style: "auto" }] },
+			});
+		});
+
+		it("should not report when attributes use double quotes", () => {
+			const report = htmlvalidate.validateString('<div foo="bar"></div>');
+			expect(report).toBeValid();
+		});
+
+		it("should not report when attributes use single quotes with double quote present inside", () => {
+			const report = htmlvalidate.validateString(`<div foo='"bar"'></div>`);
+			expect(report).toBeValid();
+		});
+
+		it("should report error when attributes use single quotes", () => {
+			const report = htmlvalidate.validateString("<div foo='bar'></div>");
+			expect(report).toBeInvalid();
+			expect(report).toHaveError(
+				"attr-quotes",
+				'Attribute "foo" used \' instead of expected "'
+			);
+		});
+	});
+
 	describe("with unquoted allowed", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
@@ -109,9 +136,16 @@ describe("rule attr-quotes", () => {
 		);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation (auto)", () => {
 		htmlvalidate = new HtmlValidate({
-			rules: { "attr-quotes": "error" },
+			rules: { "attr-quotes": ["error", { style: "auto" }] },
+		});
+		expect(htmlvalidate.getRuleDocumentation("attr-quotes")).toMatchSnapshot();
+	});
+
+	it("should contain documentation (fixed)", () => {
+		htmlvalidate = new HtmlValidate({
+			rules: { "attr-quotes": ["error", { style: "double" }] },
 		});
 		expect(htmlvalidate.getRuleDocumentation("attr-quotes")).toMatchSnapshot();
 	});
