@@ -4304,7 +4304,7 @@ Array [
         "line": 3,
         "message": "failed to tokenize \\"\\\\n\\", expected </script>.",
         "offset": 207,
-        "ruleId": undefined,
+        "ruleId": "parser-error",
         "severity": 2,
         "size": 0,
       },

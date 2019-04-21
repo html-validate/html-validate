@@ -96,7 +96,7 @@ describe("Engine", () => {
 					column: 1,
 					size: 0,
 					severity: 2,
-					ruleId: undefined,
+					ruleId: "parser-error",
 					message: "parse error",
 				},
 			]);
@@ -239,7 +239,7 @@ describe("Engine", () => {
 			const source: Source[] = [inline("<!-- [html-validate-foo] -->")];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(undefined, 'Unknown directive "foo"');
+			expect(report).toHaveError("parser-error", 'Unknown directive "foo"');
 		});
 	});
 
