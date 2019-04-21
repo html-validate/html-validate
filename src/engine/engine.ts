@@ -60,7 +60,7 @@ export class Engine<T extends Parser = Parser> {
 				parser.parseHtml(source);
 			} catch (e) {
 				if (e instanceof InvalidTokenError) {
-					this.reportError(e.message, e.location);
+					this.reportError("parser-error", e.message, e.location);
 				} else {
 					throw e;
 				}
@@ -176,7 +176,11 @@ export class Engine<T extends Parser = Parser> {
 				this.processDisableNextDirective(rules, parser);
 				break;
 			default:
-				this.reportError(`Unknown directive "${event.action}"`, event.location);
+				this.reportError(
+					"parser-error",
+					`Unknown directive "${event.action}"`,
+					event.location
+				);
 				break;
 		}
 	}
@@ -409,9 +413,13 @@ export class Engine<T extends Parser = Parser> {
 		})({});
 	}
 
-	private reportError(message: string, location: Location): void {
+	private reportError(
+		ruleId: string,
+		message: string,
+		location: Location
+	): void {
 		this.report.addManual(location.filename, {
-			ruleId: undefined,
+			ruleId,
 			severity: Severity.ERROR,
 			message,
 			offset: location.offset,

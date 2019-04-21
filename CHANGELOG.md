@@ -2,6 +2,9 @@
 
 ## Upcoming release
 
+- new rule `no-raw-characters` to check for presence of unescaped `<`, `>` and
+  `&` characters.
+
 ## 0.24.2 (2019-03-31)
 
 ### Features

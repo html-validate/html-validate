@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule no-raw-characters should contain documentation 1`] = `
+Object {
+  "description": "The characters \`<\`, \`>\` and \`&\` hold special meaning in HTML and must be escaped using a character reference (html entity).",
+  "url": "https://html-validate.org/rules/no-raw-characters.html",
+}
+`;
+
+exports[`rule no-raw-characters smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 7,
+    "filePath": "test-files/rules/no-raw-characters.html",
+    "messages": Array [
+      Object {
+        "column": 9,
+        "context": undefined,
+        "line": 2,
+        "message": "Raw \\"&\\" must be encoded as \\"&amp;\\"",
+        "offset": 38,
+        "ruleId": "no-raw-characters",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 9,
+        "context": undefined,
+        "line": 3,
+        "message": "Raw \\">\\" must be encoded as \\"&gt;\\"",
+        "offset": 59,
+        "ruleId": "no-raw-characters",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 9,
+        "context": undefined,
+        "line": 4,
+        "message": "Raw \\"<\\" must be encoded as \\"&lt;\\"",
+        "offset": 80,
+        "ruleId": "no-raw-characters",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 13,
+        "context": undefined,
+        "line": 5,
+        "message": "Raw \\"'\\" must be encoded as \\"&apos;\\"",
+        "offset": 105,
+        "ruleId": "no-raw-characters",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 13,
+        "context": undefined,
+        "line": 6,
+        "message": "Raw \\"\\"\\" must be encoded as \\"&quot;\\"",
+        "offset": 125,
+        "ruleId": "no-raw-characters",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 13,
+        "context": undefined,
+        "line": 7,
+        "message": "Raw \\"\`\\" must be encoded as \\"&grave;\\"",
+        "offset": 145,
+        "ruleId": "no-raw-characters",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 13,
+        "context": undefined,
+        "line": 8,
+        "message": "Raw \\"&\\" must be encoded as \\"&amp;\\"",
+        "offset": 165,
+        "ruleId": "no-raw-characters",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<!-- Should be disallowed -->
+<p>Fred & Barney</p>
+<p>Fred > Barney</p>
+<p>Fred < Barney</p>
+<p class=foo's></p>
+<p class=foo\\"s></p>
+<p class=foo\`s></p>
+<p class=foo&s></p>
+
+<!-- Should be allowed -->
+<p>Fred &amp; Barney</p>
+<p class=foo&apos;s></p>
+",
+    "warningCount": 0,
+  },
+]
+`;
