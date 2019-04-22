@@ -1,16 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`rule no-raw-characters should contain documentation 1`] = `
-Object {
-  "description": "The characters \`<\`, \`>\` and \`&\` hold special meaning in HTML and must be escaped using a character reference (html entity).",
-  "url": "https://html-validate.org/rules/no-raw-characters.html",
-}
-`;
-
-exports[`rule no-raw-characters smoketest 1`] = `
+exports[`rule no-raw-characters default options smoketest 1`] = `
 Array [
   Object {
-    "errorCount": 7,
+    "errorCount": 13,
     "filePath": "test-files/rules/no-raw-characters.html",
     "messages": Array [
       Object {
@@ -83,6 +76,66 @@ Array [
         "severity": 2,
         "size": 1,
       },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 18,
+        "message": "Raw \\"&\\" must be encoded as \\"&amp;\\"",
+        "offset": 335,
+        "ruleId": "no-raw-characters",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 19,
+        "message": "Raw \\"&\\" must be encoded as \\"&amp;\\"",
+        "offset": 338,
+        "ruleId": "no-raw-characters",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 10,
+        "context": undefined,
+        "line": 22,
+        "message": "Raw \\"&\\" must be encoded as \\"&amp;\\"",
+        "offset": 364,
+        "ruleId": "no-raw-characters",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 10,
+        "context": undefined,
+        "line": 23,
+        "message": "Raw \\"&\\" must be encoded as \\"&amp;\\"",
+        "offset": 383,
+        "ruleId": "no-raw-characters",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 11,
+        "context": undefined,
+        "line": 24,
+        "message": "Raw \\"&\\" must be encoded as \\"&amp;\\"",
+        "offset": 400,
+        "ruleId": "no-raw-characters",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 11,
+        "context": undefined,
+        "line": 25,
+        "message": "Raw \\"&\\" must be encoded as \\"&amp;\\"",
+        "offset": 421,
+        "ruleId": "no-raw-characters",
+        "severity": 2,
+        "size": 1,
+      },
     ],
     "source": "<!-- Should be disallowed -->
 <p>Fred & Barney</p>
@@ -96,8 +149,116 @@ Array [
 <!-- Should be allowed -->
 <p>Fred &amp; Barney</p>
 <p class=foo&apos;s></p>
+<p class=\\"'foo'\\"></p>
+<p class='\\"foo\\"'></p>
+
+<!-- Non-ambiguous ampersands -->
+<p>
+	&
+	&foo
+	&amp;
+</p>
+<p id=foo&bar></p>
+<p id=foo&></p>
+<p id=\\"foo&bar\\"></p>
+<p id=\\"foo&\\"></p>
 ",
     "warningCount": 0,
   },
 ]
+`;
+
+exports[`rule no-raw-characters relaxed smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 5,
+    "filePath": "test-files/rules/no-raw-characters.html",
+    "messages": Array [
+      Object {
+        "column": 9,
+        "context": undefined,
+        "line": 3,
+        "message": "Raw \\">\\" must be encoded as \\"&gt;\\"",
+        "offset": 59,
+        "ruleId": "no-raw-characters",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 9,
+        "context": undefined,
+        "line": 4,
+        "message": "Raw \\"<\\" must be encoded as \\"&lt;\\"",
+        "offset": 80,
+        "ruleId": "no-raw-characters",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 13,
+        "context": undefined,
+        "line": 5,
+        "message": "Raw \\"'\\" must be encoded as \\"&apos;\\"",
+        "offset": 105,
+        "ruleId": "no-raw-characters",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 13,
+        "context": undefined,
+        "line": 6,
+        "message": "Raw \\"\\"\\" must be encoded as \\"&quot;\\"",
+        "offset": 125,
+        "ruleId": "no-raw-characters",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 13,
+        "context": undefined,
+        "line": 7,
+        "message": "Raw \\"\`\\" must be encoded as \\"&grave;\\"",
+        "offset": 145,
+        "ruleId": "no-raw-characters",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<!-- Should be disallowed -->
+<p>Fred & Barney</p>
+<p>Fred > Barney</p>
+<p>Fred < Barney</p>
+<p class=foo's></p>
+<p class=foo\\"s></p>
+<p class=foo\`s></p>
+<p class=foo&s></p>
+
+<!-- Should be allowed -->
+<p>Fred &amp; Barney</p>
+<p class=foo&apos;s></p>
+<p class=\\"'foo'\\"></p>
+<p class='\\"foo\\"'></p>
+
+<!-- Non-ambiguous ampersands -->
+<p>
+	&
+	&foo
+	&amp;
+</p>
+<p id=foo&bar></p>
+<p id=foo&></p>
+<p id=\\"foo&bar\\"></p>
+<p id=\\"foo&\\"></p>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`rule no-raw-characters should contain documentation 1`] = `
+Object {
+  "description": "Some characters such as \`<\`, \`>\` and \`&\` hold special meaning in HTML and must be escaped using a character reference (html entity).",
+  "url": "https://html-validate.org/rules/no-raw-characters.html",
+}
 `;

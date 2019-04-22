@@ -27,6 +27,7 @@ module.exports = {
 		"no-raw-characters": "error",
 		"no-trailing-whitespace": "error",
 		"prefer-button": "error",
+		"unrecognized-char-ref": "error",
 		void: "error",
 		"wcag/h30": "error",
 		"wcag/h32": "error",
