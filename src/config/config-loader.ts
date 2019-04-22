@@ -23,7 +23,7 @@ export class ConfigLoader {
 	/**
 	 * @param configClass - Override class to construct.
 	 */
-	constructor(configClass: ConfigClass = Config) {
+	constructor(configClass: ConfigClass) {
 		this.cache = new Map<string, Config>();
 		this.configClass = configClass;
 	}
