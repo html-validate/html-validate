@@ -45,7 +45,7 @@ class NoRawCharacters extends Rule {
 				if (child.nodeType !== NodeType.TEXT_NODE) {
 					continue;
 				}
-				this.findRawChars(child.textContent, child.location, textRegexp, []);
+				this.findRawChars(child.textContent, child.location, textRegexp);
 			}
 		});
 
@@ -64,8 +64,7 @@ class NoRawCharacters extends Rule {
 			this.findRawChars(
 				event.value.toString(),
 				event.valueLocation,
-				event.quote ? quotedAttrRegexp : unquotedAttrRegexp,
-				event.quote ? [otherQuotemark(event.quote)] : []
+				event.quote ? quotedAttrRegexp : unquotedAttrRegexp
 			);
 		});
 	}
@@ -78,12 +77,7 @@ class NoRawCharacters extends Rule {
 	 * @param regexp - Regexp pattern to match using.
 	 * @param ignore - List of characters to ignore for this text.
 	 */
-	private findRawChars(
-		text: string,
-		location: Location,
-		regexp: RegExp,
-		ignore: string[]
-	): void {
+	private findRawChars(text: string, location: Location, regexp: RegExp): void {
 		let match;
 		do {
 			match = regexp.exec(text);
@@ -94,12 +88,6 @@ class NoRawCharacters extends Rule {
 				 * ampersands part of a character reference. Whenever it is a valid
 				 * character reference or not not checked by this rule */
 				if (this.relaxed && char === "&") {
-					continue;
-				}
-
-				/* If the context allows certain values (e.g. ' is allowed if attribute
-				 * is quoted with ") ignore this character and move on */
-				if (ignore.includes(char)) {
 					continue;
 				}
 
@@ -119,14 +107,6 @@ class NoRawCharacters extends Rule {
 				);
 			}
 		} while (match);
-	}
-}
-
-function otherQuotemark(text: '"' | "'"): '"' | "'" {
-	if (text === '"') {
-		return "'";
-	} else {
-		return '"';
 	}
 }
 
