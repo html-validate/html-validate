@@ -10,3 +10,16 @@
 <!-- Should be allowed -->
 <p>Fred &amp; Barney</p>
 <p class=foo&apos;s></p>
+<p class="'foo'"></p>
+<p class='"foo"'></p>
+
+<!-- Non-ambiguous ampersands -->
+<p>
+	&
+	&foo
+	&amp;
+</p>
+<p id=foo&bar></p>
+<p id=foo&></p>
+<p id="foo&bar"></p>
+<p id="foo&"></p>

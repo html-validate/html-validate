@@ -57,3 +57,5 @@ Array [
   },
 ]
 `;
+
+exports[`docs/rules/no-raw-characters.md inline validation: relaxed 1`] = `Array []`;

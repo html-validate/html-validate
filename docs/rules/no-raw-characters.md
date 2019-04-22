@@ -21,6 +21,12 @@ characters:
 - `=` (U+003D) must be escaped using `&quals;`
 - `` ` `` (U+0060) must be escaped using `&grave;`
 
+Quotes attributes must escape only the following characters:
+
+- `&` (U+0026) must be escaped using `&amp;`
+- `"` (U+0022) must be escaped using `&quot;` if attribute is quoted using `"`
+- `'` (U+0027) must be escaped using `&apos;` if attribute is quoted using `'`
+
 ## Rule details
 
 Examples of **incorrect** code for this rule:
@@ -35,6 +41,7 @@ Examples of **correct** code for this rule:
 <validate name="correct" rules="no-raw-characters">
     <p>Fred &amp; Barney</p>
     <p class=foo&apos;s></p>
+    <p class="'foo'"></p>
 </validate>
 
 ## Parser
@@ -48,3 +55,38 @@ followed by a boolean attribute `Barney`.
 <validate name="malformed" rules="no-raw-characters">
     <p>Fred <3 Barney</p>
 </validate>
+
+## Options
+
+This rule takes an optional object:
+
+```javascript
+{
+    "relaxed": false
+}
+```
+
+### `relaxed`
+
+HTML5 introduces the concept of [ambiguous ampersands] and relaxes the rules
+slightly. Using this options ampersands (`&`) only needs to be escaped if the
+context is ambiguous (applies to both text nodes and attribute values).
+
+This is disabled by default as explicit encoding is easier for readers than
+implicitly having to figure out if encoding is needed or not.
+
+Examples of **correct** code with this option:
+
+<validate name="relaxed" rules="no-raw-characters" no-raw-characters='{"relaxed": true}'>
+    <!-- Not ambiguous: & is followed by whitespace -->
+    <p>Fred & Barney</p>
+
+    <!-- Not ambiguous: &Barney is not terminated by ; -->
+    <p>Fred&Barney</p>
+
+    <!-- Not ambiguous: = and " both stops the character reference -->
+    <a href="?foo&bar=1&baz"></p>
+
+</validate>
+
+[ambiguous ampersands]: https://html.spec.whatwg.org/multipage/syntax.html#syntax-ambiguous-ampersand
