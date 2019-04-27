@@ -63,8 +63,8 @@
     "minimist": "^1.2.0"
   },
   "devDependencies": {
-    "@babel/core": "7.4.3",
-    "@babel/preset-env": "7.4.3",
+    "@babel/core": "7.4.4",
+    "@babel/preset-env": "7.4.4",
     "@sidvind/build-scripts": "1.0.0",
     "@types/babel__code-frame": "7.0.1",
     "@types/chai": "4.1.7",
