@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+- extend set of allowed characters in unquoted attributes in lexer.
+
 ## 0.25.0 (2019-04-23)
 
 - new rule `unrecognized-char-ref` for validating character references.
