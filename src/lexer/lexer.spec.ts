@@ -254,35 +254,57 @@ describe("lexer", () => {
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it("unquoted attributes", () => {
-			const token = lexer.tokenize(inlineSource("<foo bar=baz>"));
-			expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
-			expect(token.next()).toBeToken({ type: TokenType.WHITESPACE });
-			expect(token.next()).toBeToken({ type: TokenType.ATTR_NAME });
-			expect(token.next()).toBeToken({
-				type: TokenType.ATTR_VALUE,
-				data: ["=baz", "baz"],
+		describe("unquoted attributes", () => {
+			it("with text", () => {
+				const token = lexer.tokenize(inlineSource("<foo bar=baz>"));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.WHITESPACE });
+				expect(token.next()).toBeToken({ type: TokenType.ATTR_NAME });
+				expect(token.next()).toBeToken({
+					type: TokenType.ATTR_VALUE,
+					data: ["=baz", "baz"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
 			});
-			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
-			expect(token.next()).toBeToken({ type: TokenType.EOF });
-			expect(token.next().done).toBeTruthy();
-		});
 
-		it("unquoted numerical attributes", () => {
-			const token = lexer.tokenize(inlineSource("<foo rows=5>"));
-			expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
-			expect(token.next()).toBeToken({ type: TokenType.WHITESPACE });
-			expect(token.next()).toBeToken({
-				type: TokenType.ATTR_NAME,
-				data: ["rows", "rows"],
+			it("with numerical values", () => {
+				const token = lexer.tokenize(inlineSource("<foo rows=5>"));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.WHITESPACE });
+				expect(token.next()).toBeToken({
+					type: TokenType.ATTR_NAME,
+					data: ["rows", "rows"],
+				});
+				expect(token.next()).toBeToken({
+					type: TokenType.ATTR_VALUE,
+					data: ["=5", "5"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
 			});
-			expect(token.next()).toBeToken({
-				type: TokenType.ATTR_VALUE,
-				data: ["=5", "5"],
+
+			/* while some of these characters are technically illegal the lexer
+			 * shouldn't choke on them, instead there are rules such as
+			 * no-raw-characters that yields useful errors */
+			it.each(Array.from("?/&=`"))("with '%s' character", (char: string) => {
+				const token = lexer.tokenize(inlineSource(`<a href=${char}>`));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.WHITESPACE });
+				expect(token.next()).toBeToken({
+					type: TokenType.ATTR_NAME,
+					data: ["href", "href"],
+				});
+				expect(token.next()).toBeToken({
+					type: TokenType.ATTR_VALUE,
+					data: [`=${char}`, char],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
 			});
-			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
-			expect(token.next()).toBeToken({ type: TokenType.EOF });
-			expect(token.next().done).toBeTruthy();
 		});
 
 		it("attribute without value", () => {

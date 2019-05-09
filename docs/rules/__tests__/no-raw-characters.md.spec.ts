@@ -14,7 +14,10 @@ markup["relaxed"] = `<!-- Not ambiguous: & is followed by whitespace -->
 <p>Fred&Barney</p>
 
 <!-- Not ambiguous: = and " both stops the character reference -->
-<a href="?foo&bar=1&baz"></p>`;
+<a href="?foo&bar=1&baz"></p>
+
+<!-- Not ambiguous: even unquoted & is understod to be stopped by > -->
+<a href=?foo&bar></p>`;
 
 describe("docs/rules/no-raw-characters.md", () => {
 	it("inline validation: incorrect", () => {

@@ -9,7 +9,6 @@ const defaults = {
 
 const textRegexp = /([<>]|&(?![a-zA-Z0-9#]+;))/g;
 const unquotedAttrRegexp = /([<>"'=`]|&(?![a-zA-Z0-9#]+;))/g;
-const quotedAttrRegexp = /(&(?![a-zA-Z0-9#]+;))/g;
 
 const replacementTable: { [key: string]: string } = {
 	'"': "&quot;",
@@ -57,14 +56,14 @@ class NoRawCharacters extends Rule {
 
 			/* quoted attribute values can contain most symbols except the quotemark
 			 * itself but unescaped quotemarks would cause a parsing error */
-			if (this.relaxed && event.quote) {
+			if (event.quote) {
 				return;
 			}
 
 			this.findRawChars(
 				event.value.toString(),
 				event.valueLocation,
-				event.quote ? quotedAttrRegexp : unquotedAttrRegexp
+				unquotedAttrRegexp
 			);
 		});
 	}
