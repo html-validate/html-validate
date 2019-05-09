@@ -96,12 +96,9 @@ describe("rule no-raw-characters", () => {
 		});
 
 		describe("quoted attributes", () => {
-			it("should report error when & are present", () => {
+			it("should not report error when & are present", () => {
 				const report = htmlvalidate.validateString('<p class="foo&s"></p>');
-				expect(report).toBeInvalid();
-				expect(report).toHaveErrors([
-					["no-raw-characters", `Raw "&" must be encoded as "&amp;"`],
-				]);
+				expect(report).toBeValid();
 			});
 			it(`should not report error when " are present in value quoted by '`, () => {
 				const report = htmlvalidate.validateString(`<p class="'"></p>`);

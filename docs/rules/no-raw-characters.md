@@ -23,7 +23,6 @@ characters:
 
 Quotes attributes must escape only the following characters:
 
-- `&` (U+0026) must be escaped using `&amp;`
 - `"` (U+0022) must be escaped using `&quot;` if attribute is quoted using `"`
 - `'` (U+0027) must be escaped using `&apos;` if attribute is quoted using `'`
 
@@ -86,6 +85,9 @@ Examples of **correct** code with this option:
 
     <!-- Not ambiguous: = and " both stops the character reference -->
     <a href="?foo&bar=1&baz"></p>
+
+    <!-- Not ambiguous: even unquoted & is understod to be stopped by > -->
+    <a href=?foo&bar></p>
 
 </validate>
 

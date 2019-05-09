@@ -3,7 +3,7 @@
 exports[`rule no-raw-characters default options smoketest 1`] = `
 Array [
   Object {
-    "errorCount": 13,
+    "errorCount": 11,
     "filePath": "test-files/rules/no-raw-characters.html",
     "messages": Array [
       Object {
@@ -11,7 +11,7 @@ Array [
         "context": undefined,
         "line": 2,
         "message": "Raw \\"&\\" must be encoded as \\"&amp;\\"",
-        "offset": 38,
+        "offset": 39,
         "ruleId": "no-raw-characters",
         "severity": 2,
         "size": 1,
@@ -21,7 +21,7 @@ Array [
         "context": undefined,
         "line": 3,
         "message": "Raw \\">\\" must be encoded as \\"&gt;\\"",
-        "offset": 59,
+        "offset": 60,
         "ruleId": "no-raw-characters",
         "severity": 2,
         "size": 1,
@@ -31,7 +31,7 @@ Array [
         "context": undefined,
         "line": 4,
         "message": "Raw \\"<\\" must be encoded as \\"&lt;\\"",
-        "offset": 80,
+        "offset": 81,
         "ruleId": "no-raw-characters",
         "severity": 2,
         "size": 1,
@@ -41,7 +41,7 @@ Array [
         "context": undefined,
         "line": 5,
         "message": "Raw \\"'\\" must be encoded as \\"&apos;\\"",
-        "offset": 105,
+        "offset": 106,
         "ruleId": "no-raw-characters",
         "severity": 2,
         "size": 1,
@@ -51,7 +51,7 @@ Array [
         "context": undefined,
         "line": 6,
         "message": "Raw \\"\\"\\" must be encoded as \\"&quot;\\"",
-        "offset": 125,
+        "offset": 126,
         "ruleId": "no-raw-characters",
         "severity": 2,
         "size": 1,
@@ -61,7 +61,7 @@ Array [
         "context": undefined,
         "line": 7,
         "message": "Raw \\"\`\\" must be encoded as \\"&grave;\\"",
-        "offset": 145,
+        "offset": 146,
         "ruleId": "no-raw-characters",
         "severity": 2,
         "size": 1,
@@ -71,17 +71,7 @@ Array [
         "context": undefined,
         "line": 8,
         "message": "Raw \\"&\\" must be encoded as \\"&amp;\\"",
-        "offset": 165,
-        "ruleId": "no-raw-characters",
-        "severity": 2,
-        "size": 1,
-      },
-      Object {
-        "column": 2,
-        "context": undefined,
-        "line": 18,
-        "message": "Raw \\"&\\" must be encoded as \\"&amp;\\"",
-        "offset": 335,
+        "offset": 166,
         "ruleId": "no-raw-characters",
         "severity": 2,
         "size": 1,
@@ -91,17 +81,17 @@ Array [
         "context": undefined,
         "line": 19,
         "message": "Raw \\"&\\" must be encoded as \\"&amp;\\"",
-        "offset": 338,
+        "offset": 368,
         "ruleId": "no-raw-characters",
         "severity": 2,
         "size": 1,
       },
       Object {
-        "column": 10,
+        "column": 2,
         "context": undefined,
-        "line": 22,
+        "line": 20,
         "message": "Raw \\"&\\" must be encoded as \\"&amp;\\"",
-        "offset": 364,
+        "offset": 371,
         "ruleId": "no-raw-characters",
         "severity": 2,
         "size": 1,
@@ -111,33 +101,23 @@ Array [
         "context": undefined,
         "line": 23,
         "message": "Raw \\"&\\" must be encoded as \\"&amp;\\"",
-        "offset": 383,
+        "offset": 397,
         "ruleId": "no-raw-characters",
         "severity": 2,
         "size": 1,
       },
       Object {
-        "column": 11,
+        "column": 10,
         "context": undefined,
         "line": 24,
         "message": "Raw \\"&\\" must be encoded as \\"&amp;\\"",
-        "offset": 400,
-        "ruleId": "no-raw-characters",
-        "severity": 2,
-        "size": 1,
-      },
-      Object {
-        "column": 11,
-        "context": undefined,
-        "line": 25,
-        "message": "Raw \\"&\\" must be encoded as \\"&amp;\\"",
-        "offset": 421,
+        "offset": 416,
         "ruleId": "no-raw-characters",
         "severity": 2,
         "size": 1,
       },
     ],
-    "source": "<!-- Should be disallowed -->
+    "source": "<!-- Should not be allowed -->
 <p>Fred & Barney</p>
 <p>Fred > Barney</p>
 <p>Fred < Barney</p>
@@ -151,6 +131,7 @@ Array [
 <p class=foo&apos;s></p>
 <p class=\\"'foo'\\"></p>
 <p class='\\"foo\\"'></p>
+<p if='foo < 9 && bar > 1'></p>
 
 <!-- Non-ambiguous ampersands -->
 <p>
@@ -179,7 +160,7 @@ Array [
         "context": undefined,
         "line": 3,
         "message": "Raw \\">\\" must be encoded as \\"&gt;\\"",
-        "offset": 59,
+        "offset": 60,
         "ruleId": "no-raw-characters",
         "severity": 2,
         "size": 1,
@@ -189,7 +170,7 @@ Array [
         "context": undefined,
         "line": 4,
         "message": "Raw \\"<\\" must be encoded as \\"&lt;\\"",
-        "offset": 80,
+        "offset": 81,
         "ruleId": "no-raw-characters",
         "severity": 2,
         "size": 1,
@@ -199,7 +180,7 @@ Array [
         "context": undefined,
         "line": 5,
         "message": "Raw \\"'\\" must be encoded as \\"&apos;\\"",
-        "offset": 105,
+        "offset": 106,
         "ruleId": "no-raw-characters",
         "severity": 2,
         "size": 1,
@@ -209,7 +190,7 @@ Array [
         "context": undefined,
         "line": 6,
         "message": "Raw \\"\\"\\" must be encoded as \\"&quot;\\"",
-        "offset": 125,
+        "offset": 126,
         "ruleId": "no-raw-characters",
         "severity": 2,
         "size": 1,
@@ -219,13 +200,13 @@ Array [
         "context": undefined,
         "line": 7,
         "message": "Raw \\"\`\\" must be encoded as \\"&grave;\\"",
-        "offset": 145,
+        "offset": 146,
         "ruleId": "no-raw-characters",
         "severity": 2,
         "size": 1,
       },
     ],
-    "source": "<!-- Should be disallowed -->
+    "source": "<!-- Should not be allowed -->
 <p>Fred & Barney</p>
 <p>Fred > Barney</p>
 <p>Fred < Barney</p>
@@ -239,6 +220,7 @@ Array [
 <p class=foo&apos;s></p>
 <p class=\\"'foo'\\"></p>
 <p class='\\"foo\\"'></p>
+<p if='foo < 9 && bar > 1'></p>
 
 <!-- Non-ambiguous ampersands -->
 <p>

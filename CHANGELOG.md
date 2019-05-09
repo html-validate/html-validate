@@ -2,6 +2,7 @@
 
 ## Upcoming release
 
+- allow raw ampersands (`&`) in quoted attributes.
 - extend set of allowed characters in unquoted attributes in lexer.
 
 ## 0.25.0 (2019-04-23)
