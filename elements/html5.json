@@ -898,8 +898,8 @@
   },
 
   "style": {
-    "metadata": true,
-    "permittedContent": []
+    "foreign": true,
+    "metadata": true
   },
 
   "sub": {

@@ -2,6 +2,7 @@
 
 ## Upcoming release
 
+- mark `<style>` as foreign as to not trigger errors inside css content.
 - allow whitespace around attribute equals sign, e.g `class = "foo"`.
 
 ## 0.25.1 (2019-05-10)
