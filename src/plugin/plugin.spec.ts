@@ -51,6 +51,32 @@ describe("Plugin", () => {
 	});
 
 	describe("extedMeta", () => {
+		it("should not throw error when schema isn't extended", () => {
+			config = Config.fromObject({
+				plugins: ["mock-plugin"],
+			});
+			expect(() => {
+				const metaTable = config.getMetaTable();
+				return metaTable.getMetaFor("my-element");
+			}).not.toThrow();
+		});
+
+		it("should give validation errors when schema isn't extended", () => {
+			const config = Config.fromObject({
+				plugins: ["mock-plugin"],
+				elements: [
+					{
+						"my-element": {
+							myMeta: 5,
+						},
+					},
+				],
+			});
+			expect(() => config.getMetaTable()).not.toThrow(
+				"Element metadata is not valid: /my-element Propert myMeta is not expected to be here"
+			);
+		});
+
 		it("should extend validation schema", () => {
 			mockPlugin.elementSchema = {
 				properties: {
@@ -77,6 +103,7 @@ describe("Plugin", () => {
 				void: false,
 			});
 		});
+
 		it("should extend validation schema with definition", () => {
 			mockPlugin.elementSchema = {
 				properties: {
@@ -108,6 +135,20 @@ describe("Plugin", () => {
 				void: false,
 			});
 		});
+
+		it("should handle definition with missing properties", () => {
+			mockPlugin.elementSchema = {
+				definitions: {
+					myType: {
+						type: "integer",
+					},
+				},
+			};
+			config = Config.fromObject({
+				plugins: ["mock-plugin"],
+			});
+			expect(() => config.getMetaTable()).not.toThrow();
+		});
 	});
 
 	describe("callbacks", () => {
@@ -125,7 +166,8 @@ describe("Plugin", () => {
 
 		it("Engine should call plugin init callback", () => {
 			mockPlugin.init = jest.fn();
-			expect(() => new Engine(config, Parser)).not.toThrow();
+			const engine = new Engine(config, Parser);
+			engine.lint([source]);
 			expect(mockPlugin.init).toHaveBeenCalledWith();
 		});
 
