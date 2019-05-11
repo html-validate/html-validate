@@ -441,7 +441,7 @@
     "interactive": ["hasAttribute", "usemap"],
     "void": true,
     "attributes": {
-      "crossorigin": ["anonymous", "use-credentials"],
+      "crossorigin": ["", "anonymous", "use-credentials"],
       "decoding": ["sync", "async", "auto"],
       "ismap": []
     },
@@ -566,7 +566,7 @@
     "metadata": true,
     "void": true,
     "attributes": {
-      "crossorigin": ["anonymous", "use-credentials"],
+      "crossorigin": ["", "anonymous", "use-credentials"],
       "integrity": ["/.+/"]
     },
     "deprecatedAttributes": ["charset", "methods", "urn", "target"]
@@ -832,7 +832,7 @@
     "phrasing": true,
     "attributes": {
       "async": [],
-      "crossorigin": ["anonymous", "use-credentials"],
+      "crossorigin": ["", "anonymous", "use-credentials"],
       "defer": [],
       "integrity": ["/.+/"],
       "nomodule": []

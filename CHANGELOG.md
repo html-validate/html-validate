@@ -2,6 +2,7 @@
 
 ## Upcoming release
 
+- allow `crossorigin` attribute to be boolean or `""` (maps to `"anonymous"`).
 - add `<picture>` element.
 - mark `<style>` as foreign as to not trigger errors inside css content.
 - allow whitespace around attribute equals sign, e.g `class = "foo"`.
