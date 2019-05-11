@@ -243,12 +243,40 @@ describe("lexer", () => {
 			expect(token.next().done).toBeTruthy();
 		});
 
+		it("attribute with whitespace and double-quotes", () => {
+			const token = lexer.tokenize(inlineSource('<foo bar = "baz">'));
+			expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+			expect(token.next()).toBeToken({ type: TokenType.WHITESPACE });
+			expect(token.next()).toBeToken({ type: TokenType.ATTR_NAME });
+			expect(token.next()).toBeToken({
+				type: TokenType.ATTR_VALUE,
+				data: [' = "baz"', "baz", '"'],
+			});
+			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+			expect(token.next()).toBeToken({ type: TokenType.EOF });
+			expect(token.next().done).toBeTruthy();
+		});
+
 		it("attribute with single-quotes", () => {
 			const token = lexer.tokenize(inlineSource("<foo bar='baz'>"));
 			expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
 			expect(token.next()).toBeToken({ type: TokenType.WHITESPACE });
 			expect(token.next()).toBeToken({ type: TokenType.ATTR_NAME });
 			expect(token.next()).toBeToken({ type: TokenType.ATTR_VALUE });
+			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+			expect(token.next()).toBeToken({ type: TokenType.EOF });
+			expect(token.next().done).toBeTruthy();
+		});
+
+		it("attribute with whitespace and single-quotes", () => {
+			const token = lexer.tokenize(inlineSource("<foo bar = 'baz'>"));
+			expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+			expect(token.next()).toBeToken({ type: TokenType.WHITESPACE });
+			expect(token.next()).toBeToken({ type: TokenType.ATTR_NAME });
+			expect(token.next()).toBeToken({
+				type: TokenType.ATTR_VALUE,
+				data: [" = 'baz'", "baz", "'"],
+			});
 			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
 			expect(token.next()).toBeToken({ type: TokenType.EOF });
 			expect(token.next().done).toBeTruthy();
@@ -280,6 +308,20 @@ describe("lexer", () => {
 				expect(token.next()).toBeToken({
 					type: TokenType.ATTR_VALUE,
 					data: ["=5", "5"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
+			it("with whitespace", () => {
+				const token = lexer.tokenize(inlineSource("<foo bar = baz>"));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.WHITESPACE });
+				expect(token.next()).toBeToken({ type: TokenType.ATTR_NAME });
+				expect(token.next()).toBeToken({
+					type: TokenType.ATTR_VALUE,
+					data: [" = baz", "baz"],
 				});
 				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
 				expect(token.next()).toBeToken({ type: TokenType.EOF });

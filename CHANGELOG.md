@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+- allow whitespace around attribute equals sign, e.g `class = "foo"`.
+
 ## 0.25.1 (2019-05-10)
 
 - allow raw ampersands (`&`) in quoted attributes.
