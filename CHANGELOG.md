@@ -2,6 +2,7 @@
 
 ## Upcoming release
 
+- add `<picture>` element.
 - mark `<style>` as foreign as to not trigger errors inside css content.
 - allow whitespace around attribute equals sign, e.g `class = "foo"`.
 

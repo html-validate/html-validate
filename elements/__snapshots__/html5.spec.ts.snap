@@ -3891,6 +3891,51 @@ Array [
 
 exports[`HTML elements <param> valid markup 1`] = `Array []`;
 
+exports[`HTML elements <picture> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/picture-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <source> must be used before <img> in this context",
+        "offset": 78,
+        "ruleId": "element-permitted-order",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <div> is not permitted as content in <picture>",
+        "offset": 185,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- wrong order -->
+<picture>
+  <img src=\\"small.png\\" alt=\\"smaller image\\">
+  <source srcset=\\"large.png\\" media=\\"(min-width: 1024x)\\">
+</picture>
+
+<!-- disallowed elements -->
+<picture>
+	<div>foo</div>
+</picture>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <picture> valid markup 1`] = `Array []`;
+
 exports[`HTML elements <plaintext> invalid markup 1`] = `
 Array [
   Object {

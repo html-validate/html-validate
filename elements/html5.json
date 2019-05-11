@@ -757,6 +757,14 @@
     "deprecatedAttributes": ["datafld", "type", "valuetype"]
   },
 
+  "picture": {
+    "flow": true,
+    "phrasing": true,
+    "embedded": true,
+    "permittedContent": ["source", "img", "script", "template"],
+    "permittedOrder": ["source", "img"]
+  },
+
   "plaintext": {
     "deprecated": true
   },
