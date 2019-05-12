@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 1.0.0 (2019-05-12)
+
 - rule `wcag/h37` now ignores images with `role="presentation` or
   `aria-hidden="true"`.
 - allow `crossorigin` attribute to be boolean or `""` (maps to `"anonymous"`).
