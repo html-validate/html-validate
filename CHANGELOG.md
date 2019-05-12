@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+- rule `wcag/h37` now ignores images with `role="presentation` or
+  `aria-hidden="true"`.
 - allow `crossorigin` attribute to be boolean or `""` (maps to `"anonymous"`).
 - add `<picture>` element.
 - mark `<style>` as foreign as to not trigger errors inside css content.

@@ -21,6 +21,13 @@ describe("rule h37", () => {
 			expect(report).toBeValid();
 		});
 
+		it("should not report when img is hidden from accessibility tree", () => {
+			const report = htmlvalidate.validateString(
+				'<img aria-hidden="true"><img role="presentation">'
+			);
+			expect(report).toBeValid();
+		});
+
 		it("should report error when img is missing alt attribute", () => {
 			const report = htmlvalidate.validateString("<img>");
 			expect(report).toBeInvalid();

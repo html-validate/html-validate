@@ -1,5 +1,6 @@
 import { TagCloseEvent } from "../../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../../rule";
+import { inAccessibilityTree } from "../helper/a17y";
 
 const defaults = {
 	allowEmpty: true,
@@ -31,6 +32,11 @@ class H37 extends Rule {
 
 			/* only validate images */
 			if (!node || node.tagName !== "img") {
+				return;
+			}
+
+			/* ignore images with aria-hidden="true" or role="presentation" */
+			if (!inAccessibilityTree(node)) {
 				return;
 			}
 
