@@ -26,9 +26,9 @@ const MATCH_TAG_CLOSE = /^\/?>/;
 const MATCH_TEXT = /^[^]*?(?=(?:[ \t]*(?:\r\n|\r|\n)|<[^ ]|$))/;
 const MATCH_TAG_LOOKAHEAD = /^[^]*?(?=<|$)/;
 const MATCH_ATTR_START = /^([^\t\r\n\f \/><"'=]+)/; // https://www.w3.org/TR/html/syntax.html#elements-attributes
-const MATCH_ATTR_SINGLE = /^='([^']*?)(')/;
-const MATCH_ATTR_DOUBLE = /^="([^"]*?)(")/;
-const MATCH_ATTR_UNQUOTED = /^=([^\t\r\n\f "'<>][^\t\r\n\f <>]*)/;
+const MATCH_ATTR_SINGLE = /^\s*=\s*'([^']*?)(')/;
+const MATCH_ATTR_DOUBLE = /^\s*=\s*"([^"]*?)(")/;
+const MATCH_ATTR_UNQUOTED = /^\s*=\s*([^\t\r\n\f "'<>][^\t\r\n\f <>]*)/;
 const MATCH_CDATA_BEGIN = /^<!\[CDATA\[/;
 const MATCH_CDATA_END = /^[^]*?]]>/;
 const MATCH_SCRIPT_DATA = /^[^]*?(?=<\/script)/;

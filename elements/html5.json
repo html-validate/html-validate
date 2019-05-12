@@ -441,7 +441,7 @@
     "interactive": ["hasAttribute", "usemap"],
     "void": true,
     "attributes": {
-      "crossorigin": ["anonymous", "use-credentials"],
+      "crossorigin": ["", "anonymous", "use-credentials"],
       "decoding": ["sync", "async", "auto"],
       "ismap": []
     },
@@ -566,7 +566,7 @@
     "metadata": true,
     "void": true,
     "attributes": {
-      "crossorigin": ["anonymous", "use-credentials"],
+      "crossorigin": ["", "anonymous", "use-credentials"],
       "integrity": ["/.+/"]
     },
     "deprecatedAttributes": ["charset", "methods", "urn", "target"]
@@ -757,6 +757,14 @@
     "deprecatedAttributes": ["datafld", "type", "valuetype"]
   },
 
+  "picture": {
+    "flow": true,
+    "phrasing": true,
+    "embedded": true,
+    "permittedContent": ["source", "img", "script", "template"],
+    "permittedOrder": ["source", "img"]
+  },
+
   "plaintext": {
     "deprecated": true
   },
@@ -824,7 +832,7 @@
     "phrasing": true,
     "attributes": {
       "async": [],
-      "crossorigin": ["anonymous", "use-credentials"],
+      "crossorigin": ["", "anonymous", "use-credentials"],
       "defer": [],
       "integrity": ["/.+/"],
       "nomodule": []
@@ -898,8 +906,8 @@
   },
 
   "style": {
-    "metadata": true,
-    "permittedContent": []
+    "foreign": true,
+    "metadata": true
   },
 
   "sub": {

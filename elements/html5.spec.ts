@@ -95,6 +95,7 @@ const tagNames = [
 	"output",
 	"p",
 	"param",
+	"picture",
 	"plaintext",
 	"pre",
 	"progress",
