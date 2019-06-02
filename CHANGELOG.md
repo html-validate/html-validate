@@ -2,6 +2,9 @@
 
 ## Upcoming release
 
+- `querySelector` and friends now handles `[attr="keyword-with-dashes"]` and
+  similar constructs.
+
 ## 1.0.0 (2019-05-12)
 
 - rule `wcag/h37` now ignores images with `role="presentation` or

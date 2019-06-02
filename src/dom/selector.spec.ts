@@ -35,7 +35,7 @@ describe("Selector", () => {
 					<foo test-id="foo-3">third foo</foo>
 				</baz>
 
-				<foo wilma="flintstone" lorem-123-ipsum="dolor sit amet" test-id="foo-4">forth foo</foo>
+				<foo wilma="flintstone" lorem-123-ipsum="dolor-sit-amet" test-id="foo-4">forth foo</foo>
 				<spam wilma="rubble" boolean test-id="spam-1"></spam>
 				<baz test-id="baz-2"></baz>
 			</bar>
@@ -124,6 +124,13 @@ describe("Selector", () => {
 
 	it('should match attribute value ([wilma="flintstone"])', () => {
 		const selector = new Selector('[wilma="flintstone"]');
+		expect(fetch(selector.match(doc))).toEqual([
+			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),
+		]);
+	});
+
+	it('should match attribute value with special characters ([lorem-123-ipsum="dolor-sit-amet"])', () => {
+		const selector = new Selector('[lorem-123-ipsum="dolor-sit-amet"]');
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),
 		]);
