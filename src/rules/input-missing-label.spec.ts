@@ -27,7 +27,7 @@ describe("rule input-missing-label", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"input-missing-label",
-			"Input element does not have a label"
+			"<input> element does not have a <label>"
 		);
 	});
 

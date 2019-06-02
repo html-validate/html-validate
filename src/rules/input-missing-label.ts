@@ -14,7 +14,7 @@ class InputMissingLabel extends Rule {
 	public setup() {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const root = event.document;
-			for (const elem of root.getElementsByTagName("input")) {
+			for (const elem of root.querySelectorAll("input")) {
 				/* try to find label by id */
 				if (findLabelById(root, elem.id)) {
 					continue;
@@ -25,7 +25,7 @@ class InputMissingLabel extends Rule {
 					continue;
 				}
 
-				this.report(elem, "Input element does not have a label");
+				this.report(elem, `<${elem.tagName}> element does not have a <label>`);
 			}
 		});
 	}
@@ -33,10 +33,7 @@ class InputMissingLabel extends Rule {
 
 function findLabelById(root: DOMTree, id: string): HtmlElement {
 	if (!id) return null;
-	return root.find(
-		(node: HtmlElement) =>
-			node.is("label") && node.getAttributeValue("for") === id
-	);
+	return root.querySelector(`label[for="${id}"]`);
 }
 
 function findLabelByParent(el: HtmlElement): HtmlElement {
