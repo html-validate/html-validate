@@ -22,14 +22,17 @@ describe("rule input-missing-label", () => {
 		expect(report).toBeValid();
 	});
 
-	it("should report when label is missing label", () => {
-		const report = htmlvalidate.validateString("<input/>");
-		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"input-missing-label",
-			"<input> element does not have a <label>"
-		);
-	});
+	it.each(["input", "textarea", "select"])(
+		"should report when <%s> is missing label",
+		(tagName: string) => {
+			const report = htmlvalidate.validateString(`<${tagName}/>`);
+			expect(report).toBeInvalid();
+			expect(report).toHaveError(
+				"input-missing-label",
+				`<${tagName}> element does not have a <label>`
+			);
+		}
+	);
 
 	it("smoketest", () => {
 		const report = htmlvalidate.validateFile(

@@ -5,7 +5,7 @@ exports[`docs/rules/input-missing-label.md inline validation: correct 1`] = `Arr
 exports[`docs/rules/input-missing-label.md inline validation: incorrect 1`] = `
 Array [
   Object {
-    "errorCount": 2,
+    "errorCount": 4,
     "filePath": "inline",
     "messages": Array [
       Object {
@@ -21,9 +21,29 @@ Array [
       Object {
         "column": 6,
         "context": undefined,
-        "line": 10,
+        "line": 5,
+        "message": "<textarea> element does not have a <label>",
+        "offset": 98,
+        "ruleId": "input-missing-label",
+        "severity": 2,
+        "size": 8,
+      },
+      Object {
+        "column": 6,
+        "context": undefined,
+        "line": 6,
+        "message": "<select> element does not have a <label>",
+        "offset": 124,
+        "ruleId": "input-missing-label",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 6,
+        "context": undefined,
+        "line": 14,
         "message": "<input> element does not have a <label>",
-        "offset": 168,
+        "offset": 253,
         "ruleId": "input-missing-label",
         "severity": 2,
         "size": 5,
@@ -33,6 +53,10 @@ Array [
 <div>
     <strong>My field</strong>
     <input type=\\"text\\">
+    <textarea></textarea>
+    <select>
+        <option>Option</option>
+    </select>
 </div>
 
 <!-- unassociated label -->

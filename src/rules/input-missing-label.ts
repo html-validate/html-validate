@@ -14,7 +14,7 @@ class InputMissingLabel extends Rule {
 	public setup() {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const root = event.document;
-			for (const elem of root.querySelectorAll("input")) {
+			for (const elem of root.querySelectorAll("input, textarea, select")) {
 				/* try to find label by id */
 				if (findLabelById(root, elem.id)) {
 					continue;

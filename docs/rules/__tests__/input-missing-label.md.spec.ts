@@ -5,6 +5,10 @@ markup["incorrect"] = `<!-- no label element at all -->
 <div>
     <strong>My field</strong>
     <input type="text">
+    <textarea></textarea>
+    <select>
+        <option>Option</option>
+    </select>
 </div>
 
 <!-- unassociated label -->

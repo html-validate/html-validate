@@ -10,31 +10,58 @@ Object {
 exports[`rule input-missing-label smoketest 1`] = `
 Array [
   Object {
-    "errorCount": 1,
+    "errorCount": 3,
     "filePath": "test-files/rules/input-missing-label.html",
     "messages": Array [
       Object {
         "column": 3,
         "context": undefined,
-        "line": 11,
+        "line": 16,
         "message": "<input> element does not have a <label>",
-        "offset": 170,
+        "offset": 258,
         "ruleId": "input-missing-label",
         "severity": 2,
         "size": 5,
       },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 17,
+        "message": "<select> element does not have a <label>",
+        "offset": 268,
+        "ruleId": "input-missing-label",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 18,
+        "message": "<textarea> element does not have a <label>",
+        "offset": 279,
+        "ruleId": "input-missing-label",
+        "severity": 2,
+        "size": 8,
+      },
     ],
-    "source": "<div class=\\"form-group\\">
+    "source": "<!-- have explicit for -->
+<div class=\\"form-group\\">
 	<label for=\\"foo\\">Foo</label>
 	<input id=\\"foo\\"/>
 </div>
+
+<!-- have nested input element -->
 <div class=\\"form-group\\">
 	<label>
 		<input/>
 	</label>
 </div>
+
+<!-- missing labels -->
 <div class=\\"form-group\\">
 	<input/>
+	<select/>
+	<textarea>
 </div>
 ",
     "warningCount": 0,
