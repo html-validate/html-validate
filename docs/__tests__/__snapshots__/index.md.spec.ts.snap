@@ -33,7 +33,7 @@ Array [
         "column": 4,
         "context": undefined,
         "line": 6,
-        "message": "Input element does not have a label",
+        "message": "<input> element does not have a <label>",
         "offset": 130,
         "ruleId": "input-missing-label",
         "severity": 2,
