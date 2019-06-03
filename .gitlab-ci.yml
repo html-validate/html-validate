@@ -96,9 +96,9 @@ Node 10.x (LTS):
   <<: *compat
   image: node:10
 
-Node 11.x (current):
+Node 12.x (current):
   <<: *compat
-  image: node:11
+  image: node:12
 
 Publish to NPM:
   stage: release
