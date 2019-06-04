@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 1.1.0 (2019-06-04)
+
 - `input-missing-label` now validates `<textarea>` and `<select>`.
 - `querySelector` and friends now handles `[attr="keyword-with-dashes"]` and
   similar constructs.
