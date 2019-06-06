@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 1.1.1 (2019-06-07)
+
 - `Reporter` is now exposed in shim.
 - `getFormatter` CLI API now returns output as string instead of writing
   directly to stdout.
