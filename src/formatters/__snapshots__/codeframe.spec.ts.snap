@@ -30,5 +30,6 @@ exports[`codeframe formatter should generate plaintext 1`] = `
   4 | 
 
 
-<red><bold>2 errors and 1 warning found.</></>"
+<red><bold>2 errors and 1 warning found.</></>
+"
 `;

@@ -161,6 +161,7 @@ export default function codeframe(results: Result[]): string {
 
 	output += "\n";
 	output += formatSummary(errors, warnings);
+	output += "\n";
 
 	return errors + warnings > 0 ? output : "";
 }
