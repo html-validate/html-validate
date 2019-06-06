@@ -2,6 +2,7 @@
 
 ## Upcoming release
 
+- `Reporter` is now exposed in shim.
 - `getFormatter` CLI API now returns output as string instead of writing
   directly to stdout.
 - `codeframe` formatter now adds final newline in output.
