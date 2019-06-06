@@ -138,7 +138,7 @@ function formatSummary(errors: number, warnings: number): string {
 	return output;
 }
 
-function codeframe(results: Result[]): string {
+export default function codeframe(results: Result[]): string {
 	let errors = 0;
 	let warnings = 0;
 
@@ -161,6 +161,7 @@ function codeframe(results: Result[]): string {
 
 	output += "\n";
 	output += formatSummary(errors, warnings);
+	output += "\n";
 
 	return errors + warnings > 0 ? output : "";
 }

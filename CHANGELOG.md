@@ -2,6 +2,10 @@
 
 ## Upcoming release
 
+- `getFormatter` CLI API now returns output as string instead of writing
+  directly to stdout.
+- `codeframe` formatter now adds final newline in output.
+
 ## 1.1.0 (2019-06-04)
 
 - `input-missing-label` now validates `<textarea>` and `<select>`.

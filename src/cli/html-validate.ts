@@ -182,7 +182,7 @@ try {
 			renameStdin(result, argv["stdin-filename"]);
 		}
 
-		formatter(result);
+		process.stdout.write(formatter(result));
 		process.exit(result.valid ? 0 : 1);
 	} else if (mode === "print-config") {
 		const config = htmlvalidate.getConfigFor(files[0]);

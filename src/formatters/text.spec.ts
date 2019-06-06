@@ -1,5 +1,5 @@
-const formatter = require("./text");
 import { Result } from "../reporter";
+import formatter from "./text";
 
 describe("text formatter", () => {
 	it("should generate plaintext", () => {
