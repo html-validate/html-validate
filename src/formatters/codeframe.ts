@@ -138,7 +138,7 @@ function formatSummary(errors: number, warnings: number): string {
 	return output;
 }
 
-function codeframe(results: Result[]): string {
+export default function codeframe(results: Result[]): string {
 	let errors = 0;
 	let warnings = 0;
 

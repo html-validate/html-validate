@@ -27,7 +27,7 @@ function getMessageType(message: Message) {
 	}
 }
 
-function checkstyleFormatter(results: Result[]) {
+export default function checkstyleFormatter(results: Result[]) {
 	let output = "";
 
 	output += `<?xml version="1.0" encoding="utf-8"?>`;

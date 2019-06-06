@@ -1,5 +1,5 @@
-const formatter = require("./json");
 import { Result } from "../reporter";
+import formatter from "./json";
 
 describe("json formatter", () => {
 	it("should generate json", () => {

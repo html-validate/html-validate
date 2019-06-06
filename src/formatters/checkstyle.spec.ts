@@ -1,5 +1,5 @@
-const formatter = require("./checkstyle");
 import { Result } from "../reporter";
+import formatter from "./checkstyle";
 
 describe("checkstyle formatter", () => {
 	it("should generate checkstyle xml", () => {
