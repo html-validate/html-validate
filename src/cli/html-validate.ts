@@ -79,9 +79,7 @@ function dump(files: string[], mode: string) {
 			lines = files.map((filename: string) =>
 				htmlvalidate.dumpTokens(filename).map((entry: TokenDump) => {
 					const data = JSON.stringify(entry.data);
-					return `TOKEN: ${entry.token}\n  Data: ${data}\n  Location: ${
-						entry.location
-					}`;
+					return `TOKEN: ${entry.token}\n  Data: ${data}\n  Location: ${entry.location}`;
 				})
 			);
 			break;

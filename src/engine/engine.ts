@@ -90,9 +90,7 @@ export class Engine<T extends Parser = Parser> {
 				lines.push({
 					token: TokenType[token.type],
 					data,
-					location: `${token.location.filename}:${token.location.line}:${
-						token.location.column
-					}`,
+					location: `${token.location.filename}:${token.location.line}:${token.location.column}`,
 				});
 			}
 		}

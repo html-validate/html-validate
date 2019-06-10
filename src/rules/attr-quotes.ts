@@ -24,9 +24,7 @@ class AttrQuotes extends Rule {
 			};
 		} else {
 			return {
-				description: `Attribute values are required to be quoted with ${
-					this.options.style
-				}quotes.`,
+				description: `Attribute values are required to be quoted with ${this.options.style}quotes.`,
 				url: ruleDocumentationUrl(__filename),
 			};
 		}
@@ -62,9 +60,7 @@ class AttrQuotes extends Rule {
 			if (event.quote !== expected) {
 				this.report(
 					event.target,
-					`Attribute "${event.key}" used ${
-						event.quote
-					} instead of expected ${expected}`
+					`Attribute "${event.key}" used ${event.quote} instead of expected ${expected}`
 				);
 			}
 		});

@@ -22,9 +22,7 @@ class PreferButton extends Rule {
 			if (type && type.valueMatches(/^(button|submit|reset|image)$/, false)) {
 				this.report(
 					node,
-					`Prefer to use <button> instead of <input type="${
-						type.value
-					}"> when adding buttons`,
+					`Prefer to use <button> instead of <input type="${type.value}"> when adding buttons`,
 					type.valueLocation
 				);
 			}

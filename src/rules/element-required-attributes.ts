@@ -14,9 +14,7 @@ class ElementRequiredAttributes extends Rule<Context> {
 		};
 
 		if (context) {
-			docs.description = `The <${
-				context.element
-			}> element is required to have a "${context.attribute}" attribute.`;
+			docs.description = `The <${context.element}> element is required to have a "${context.attribute}" attribute.`;
 		}
 
 		return docs;

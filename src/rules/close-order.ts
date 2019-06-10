@@ -20,9 +20,7 @@ class CloseOrder extends Rule {
 			if (!current) {
 				this.report(
 					event.previous,
-					`Missing close-tag, expected '</${
-						active.tagName
-					}>' but document ended before it was found.`
+					`Missing close-tag, expected '</${active.tagName}>' but document ended before it was found.`
 				);
 				return;
 			}
@@ -54,9 +52,7 @@ class CloseOrder extends Rule {
 			if (current.tagName !== active.tagName) {
 				this.report(
 					event.target,
-					`Mismatched close-tag, expected '</${active.tagName}>' but found '</${
-						current.tagName
-					}>'.`,
+					`Mismatched close-tag, expected '</${active.tagName}>' but found '</${current.tagName}>'.`,
 					current.location
 				);
 			}

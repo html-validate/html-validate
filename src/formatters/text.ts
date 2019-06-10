@@ -25,9 +25,7 @@ export default function textFormatter(results: Result[]) {
 				}
 
 				const location = `${result.filePath}:${message.line}:${message.column}`;
-				return `${location}: ${messageType} [${message.ruleId}] ${
-					message.message
-				}\n`;
+				return `${location}: ${messageType} [${message.ruleId}] ${message.message}\n`;
 			})
 			.join("");
 	});

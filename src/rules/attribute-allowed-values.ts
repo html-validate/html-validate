@@ -32,11 +32,7 @@ class AttributeAllowedValues extends Rule<Context> {
 				context.value
 			}"\`, it must match one of the following:\n\n${allowed.join("\n")}`;
 		} else {
-			docs.description = `Element <${context.element}> attribute \`${
-				context.attribute
-			}\` must be a boolean attribute, e.g. \`<${context.element} ${
-				context.attribute
-			}>\``;
+			docs.description = `Element <${context.element}> attribute \`${context.attribute}\` must be a boolean attribute, e.g. \`<${context.element} ${context.attribute}>\``;
 		}
 
 		return docs;
