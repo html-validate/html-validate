@@ -17,3 +17,9 @@ templating.
 
 [html-validate-angular]: https://www.npmjs.com/package/html-validate-angular
 [html-validate-vue]: https://www.npmjs.com/package/html-validate-vue
+
+## List of third-party transformers
+
+- [html-validate-markdown]: transforms code-fence blocks from markdown files.
+
+[html-validate-markdown]: https://www.npmjs.com/package/html-validate-markdown
