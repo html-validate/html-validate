@@ -1,14 +1,10 @@
-const path = require("path");
 const sass = require("sass");
 const serveStatic = require("serve-static");
 
 module.exports = function(grunt) {
 	require("load-grunt-tasks")(grunt);
 
-	grunt.registerTask("test", ["jest"]);
 	grunt.registerTask("default", ["build"]);
-
-	grunt.registerTask("jest", "exec:jest");
 
 	grunt.registerTask("dgeni", "Generate documentation", function() {
 		const Dgeni = require("dgeni");
@@ -27,10 +23,6 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON("package.json"),
-
-		clean: {
-			default: ["build", "public"],
-		},
 
 		sass: {
 			options: {
@@ -86,10 +78,6 @@ module.exports = function(grunt) {
 				src: "docs/app/index.js",
 				dest: "public/assets/docs.js",
 			},
-		},
-
-		exec: {
-			jest: `${path.join("node_modules", ".bin", "jest")} -i --colors --ci`,
 		},
 
 		connect: {
