@@ -33,15 +33,6 @@ module.exports = function(grunt) {
 			default: ["build", "public"],
 		},
 
-		ts: {
-			default: {
-				options: {
-					rootDir: "src",
-				},
-				tsconfig: "./tsconfig.json",
-			},
-		},
-
 		eslint: {
 			default: {
 				options: {
