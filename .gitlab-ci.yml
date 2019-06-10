@@ -42,10 +42,8 @@ pages:
 
 ESLint:
   stage: test
-  variables:
-    ESLINT_STRICT: 1
   script:
-    - node_modules/.bin/grunt eslint
+    - npm run eslint -- --max-warnings 0
 
 Jest:
   stage: test
@@ -61,7 +59,7 @@ Jest:
 TSLint:
   stage: test
   script:
-    - node_modules/.bin/grunt tslint
+    - npm run tslint
 
 Prettier:
   stage: test

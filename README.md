@@ -69,7 +69,7 @@ Linting is done using eslint.
 
     npm run lint
 
-or call `eslint` directly.
+or call `eslint` or `tslint` directly.
 
 ## Build
 

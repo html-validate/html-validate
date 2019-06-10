@@ -1,12 +1,11 @@
 const path = require("path");
 const sass = require("sass");
 const serveStatic = require("serve-static");
-const eslintStrict = process.env.ESLINT_STRICT === "1";
 
 module.exports = function(grunt) {
 	require("load-grunt-tasks")(grunt);
 
-	grunt.registerTask("test", ["eslint", "tslint", "jest"]);
+	grunt.registerTask("test", ["jest"]);
 	grunt.registerTask("default", ["build"]);
 
 	grunt.registerTask("jest", "exec:jest");
@@ -31,24 +30,6 @@ module.exports = function(grunt) {
 
 		clean: {
 			default: ["build", "public"],
-		},
-
-		eslint: {
-			default: {
-				options: {
-					/* CI pipeline sets strict environment to disallow any warnings, but
-					 * allows warnings in development environment to not cause
-					 * annoyances. */
-					maxWarnings: eslintStrict ? 0 : -1,
-				},
-				src: ["*.js", "*.ts", "docs/**/*.js", "src/**/*.ts"],
-			},
-		},
-
-		tslint: {
-			default: {
-				src: ["*.ts", "src/**/*.ts"],
-			},
 		},
 
 		sass: {
