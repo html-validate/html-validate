@@ -26,6 +26,7 @@
     "html-validate": "bin/html-validate.js"
   },
   "scripts": {
+    "build": "tsc",
     "lint": "grunt eslint tslint",
     "postversion": "git push --follow-tags",
     "prettier:check": "prettier '**/*.{ts,js,json,md,scss}' --list-different",

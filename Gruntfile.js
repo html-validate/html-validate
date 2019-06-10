@@ -8,7 +8,6 @@ module.exports = function(grunt) {
 
 	grunt.registerTask("test", ["eslint", "tslint", "jest"]);
 	grunt.registerTask("build", ["ts", "test"]);
-	grunt.registerTask("build:ci", ["ts"]); /* CI runs test in separate stage */
 	grunt.registerTask("default", ["build"]);
 
 	grunt.registerTask("jest", "exec:jest");

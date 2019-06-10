@@ -73,5 +73,5 @@ or call `eslint` directly.
 
 ## Build
 
-    grunt build
+    npm run build
     grunt docs
