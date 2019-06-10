@@ -38,7 +38,7 @@ pages:
     - triggers
   script:
     - npm run build
-    - node_modules/.bin/grunt docs
+    - npm run build:docs
 
 ESLint:
   stage: test
@@ -47,6 +47,7 @@ ESLint:
 
 Jest:
   stage: test
+  dependencies: ["NPM"]
   coverage: /Lines\s+:\s(\d+.\d+%)/
   artifacts:
     name: ${CI_PROJECT_PATH_SLUG}-${CI_PIPELINE_ID}-coverage
@@ -59,11 +60,13 @@ Jest:
 
 TSLint:
   stage: test
+  dependencies: ["NPM"]
   script:
     - npm run tslint
 
 Prettier:
   stage: test
+  dependencies: ["NPM"]
   script:
     - npm run prettier:check
 
@@ -73,11 +76,10 @@ Docs:
     reports:
       junit: temp/jest.xml
   script:
-    - npm run build
-    - node_modules/.bin/grunt docs
+    - npm run build:docs
     - ./bin/html-validate.js docs/**/*.html public/**/.html
     - npm test -- docs
-    - git status --porcelain
+    - git status
     - test -z "$(git status --porcelain)" || (echo 'working copy dirty, need to commit updated specs'; exit 1)
 
 .compat: &compat

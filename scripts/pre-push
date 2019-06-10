@@ -5,7 +5,7 @@ set -e
 
 echo Build sources
 npm run build
-grunt dgeni
+npm run build:docs
 
 echo Run unittests
 npm test

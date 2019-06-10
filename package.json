@@ -27,6 +27,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "build:docs": "grunt docs",
     "clean": "rm -rf build public",
     "eslint": "eslint *.js '{docs,elements,src}/**/*.{js,ts}'",
     "eslint:fix": "eslint --fix *.js '{docs,elements,src}/**/*.{js,ts}'",

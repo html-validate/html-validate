@@ -74,4 +74,11 @@ or call `eslint` or `tslint` directly.
 ## Build
 
     npm run build
-    grunt docs
+
+To build documentation use:
+
+    npm run build:docs
+
+The documentation can be served locally using:
+
+    npm start
