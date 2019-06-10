@@ -4,7 +4,7 @@
 set -e
 
 echo Build sources
-grunt ts
+npm run build
 grunt dgeni
 
 echo Run unittests

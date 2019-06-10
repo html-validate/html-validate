@@ -7,7 +7,6 @@ module.exports = function(grunt) {
 	require("load-grunt-tasks")(grunt);
 
 	grunt.registerTask("test", ["eslint", "tslint", "jest"]);
-	grunt.registerTask("build", ["ts", "test"]);
 	grunt.registerTask("default", ["build"]);
 
 	grunt.registerTask("jest", "exec:jest");

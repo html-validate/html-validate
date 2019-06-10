@@ -30,13 +30,15 @@ Build:
 
 pages:
   stage: build
-  script: node_modules/.bin/grunt build docs
   artifacts:
     paths:
       - public
   only:
     - tags
     - triggers
+  script:
+    - npm run build
+    - node_modules/.bin/grunt docs
 
 ESLint:
   stage: test
@@ -69,7 +71,8 @@ Prettier:
 Docs:
   stage: test
   script:
-    - node_modules/.bin/grunt ts docs
+    - npm run build
+    - node_modules/.bin/grunt docs
     - ./bin/html-validate.js docs/**/*.html public/**/.html
     - node_modules/.bin/jest docs
     - git status --porcelain
@@ -84,7 +87,8 @@ Docs:
   before_script:
     - npm ci
   script:
-    - node_modules/.bin/grunt build
+    - npm test
+    - npm run build
 
 Node 8.x (LTS):
   <<: *compat
