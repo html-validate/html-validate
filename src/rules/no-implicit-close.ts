@@ -28,9 +28,7 @@ Omitted end tags can be ambigious for humans to read and many editors have troub
 			if (closedByParent) {
 				this.report(
 					closed,
-					`Element <${closed.tagName}> is implicitly closed by parent </${
-						by.tagName
-					}>`,
+					`Element <${closed.tagName}> is implicitly closed by parent </${by.tagName}>`,
 					closed.location
 				);
 			} else if (sameTag) {
@@ -42,9 +40,7 @@ Omitted end tags can be ambigious for humans to read and many editors have troub
 			} else {
 				this.report(
 					closed,
-					`Element <${closed.tagName}> is implicitly closed by adjacent <${
-						by.tagName
-					}>`,
+					`Element <${closed.tagName}> is implicitly closed by adjacent <${by.tagName}>`,
 					closed.location
 				);
 			}

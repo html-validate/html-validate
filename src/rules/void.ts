@@ -68,9 +68,7 @@ class Void extends Rule {
 			) {
 				this.report(
 					node,
-					`Expected omitted end tag <${
-						node.tagName
-					}> instead of self-closing element <${node.tagName}/>`
+					`Expected omitted end tag <${node.tagName}> instead of self-closing element <${node.tagName}/>`
 				);
 			}
 
@@ -80,9 +78,7 @@ class Void extends Rule {
 			) {
 				this.report(
 					node,
-					`Expected self-closing element <${
-						node.tagName
-					}/> instead of omitted end-tag <${node.tagName}>`
+					`Expected self-closing element <${node.tagName}/> instead of omitted end-tag <${node.tagName}>`
 				);
 			}
 		}

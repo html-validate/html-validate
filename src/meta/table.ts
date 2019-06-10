@@ -215,9 +215,7 @@ function parseExpression(expr: PropertyExpression): [PropertyEvaluator, any] {
 function isDescendant(node: HtmlElement, tagName: any): boolean {
 	if (typeof tagName !== "string") {
 		throw new Error(
-			`Property expression "isDescendant" must take string argument when evaluating metadata for <${
-				node.tagName
-			}>`
+			`Property expression "isDescendant" must take string argument when evaluating metadata for <${node.tagName}>`
 		);
 	}
 	let cur: HtmlElement = node.parent;
@@ -233,9 +231,7 @@ function isDescendant(node: HtmlElement, tagName: any): boolean {
 function hasAttribute(node: HtmlElement, attr: any): boolean {
 	if (typeof attr !== "string") {
 		throw new Error(
-			`Property expression "hasAttribute" must take string argument when evaluating metadata for <${
-				node.tagName
-			}>`
+			`Property expression "hasAttribute" must take string argument when evaluating metadata for <${node.tagName}>`
 		);
 	}
 	return node.hasAttribute(attr);
@@ -244,9 +240,7 @@ function hasAttribute(node: HtmlElement, attr: any): boolean {
 function matchAttribute(node: HtmlElement, match: any): boolean {
 	if (!Array.isArray(match) || match.length !== 3) {
 		throw new Error(
-			`Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <${
-				node.tagName
-			}>`
+			`Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <${node.tagName}>`
 		);
 	}
 	const [key, op, value] = match.map(x => x.toLowerCase());
@@ -258,9 +252,7 @@ function matchAttribute(node: HtmlElement, match: any): boolean {
 			return nodeValue === value;
 		default:
 			throw new Error(
-				`Property expression "matchAttribute" has invalid operator "${op}" when evaluating metadata for <${
-					node.tagName
-				}>`
+				`Property expression "matchAttribute" has invalid operator "${op}" when evaluating metadata for <${node.tagName}>`
 			);
 	}
 }

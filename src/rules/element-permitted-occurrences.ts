@@ -40,9 +40,7 @@ class ElementPermittedOccurrences extends Rule {
 				) {
 					this.report(
 						node,
-						`Element <${node.tagName}> can only appear once under <${
-							parent.tagName
-						}>`
+						`Element <${node.tagName}> can only appear once under <${parent.tagName}>`
 					);
 				}
 			});
