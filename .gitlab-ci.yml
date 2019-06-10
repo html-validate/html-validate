@@ -47,7 +47,6 @@ ESLint:
 
 Jest:
   stage: test
-  script: node_modules/.bin/jest src elements
   coverage: /Lines\s+:\s(\d+.\d+%)/
   artifacts:
     name: ${CI_PROJECT_PATH_SLUG}-${CI_PIPELINE_ID}-coverage
@@ -55,6 +54,8 @@ Jest:
       - coverage
     reports:
       junit: temp/jest.xml
+  script:
+    - npm test -- src elements
 
 TSLint:
   stage: test
@@ -68,16 +69,16 @@ Prettier:
 
 Docs:
   stage: test
+  artifacts:
+    reports:
+      junit: temp/jest.xml
   script:
     - npm run build
     - node_modules/.bin/grunt docs
     - ./bin/html-validate.js docs/**/*.html public/**/.html
-    - node_modules/.bin/jest docs
+    - npm test -- docs
     - git status --porcelain
     - test -z "$(git status --porcelain)" || (echo 'working copy dirty, need to commit updated specs'; exit 1)
-  artifacts:
-    reports:
-      junit: temp/jest.xml
 
 .compat: &compat
   stage: compatibility
