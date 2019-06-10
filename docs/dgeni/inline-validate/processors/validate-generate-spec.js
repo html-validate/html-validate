@@ -39,7 +39,7 @@ module.exports = function generateValidationsSpecProcessor(log, validateMap) {
 					.replace(/[^/]+/g, ".."),
 			},
 			validations,
-			template: "spec-jest.ts",
+			template: "spec-jest.ts.njk",
 		};
 	}
 };

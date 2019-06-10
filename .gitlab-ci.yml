@@ -26,28 +26,28 @@ Build:
     paths:
       - build/
   script:
-    - node_modules/.bin/grunt build:ci
+    - npm run build
 
 pages:
   stage: build
-  script: node_modules/.bin/grunt build docs
   artifacts:
     paths:
       - public
   only:
     - tags
     - triggers
+  script:
+    - npm run build
+    - npm run build:docs
 
 ESLint:
   stage: test
-  variables:
-    ESLINT_STRICT: 1
   script:
-    - node_modules/.bin/grunt eslint
+    - npm run eslint -- --max-warnings 0
 
 Jest:
   stage: test
-  script: node_modules/.bin/jest src elements
+  dependencies: ["NPM"]
   coverage: /Lines\s+:\s(\d+.\d+%)/
   artifacts:
     name: ${CI_PROJECT_PATH_SLUG}-${CI_PIPELINE_ID}-coverage
@@ -55,28 +55,32 @@ Jest:
       - coverage
     reports:
       junit: temp/jest.xml
+  script:
+    - npm test -- src elements
 
 TSLint:
   stage: test
+  dependencies: ["NPM"]
   script:
-    - node_modules/.bin/grunt tslint
+    - npm run tslint
 
 Prettier:
   stage: test
+  dependencies: ["NPM"]
   script:
     - npm run prettier:check
 
 Docs:
   stage: test
-  script:
-    - node_modules/.bin/grunt ts docs
-    - ./bin/html-validate.js docs/**/*.html public/**/.html
-    - node_modules/.bin/jest docs
-    - git status --porcelain
-    - test -z "$(git status --porcelain)" || (echo 'working copy dirty, need to commit updated specs'; exit 1)
   artifacts:
     reports:
       junit: temp/jest.xml
+  script:
+    - npm run build:docs
+    - ./bin/html-validate.js docs/**/*.html public/**/.html
+    - npm test -- docs
+    - git status
+    - test -z "$(git status --porcelain)" || (echo 'working copy dirty, need to commit updated specs'; exit 1)
 
 .compat: &compat
   stage: compatibility
@@ -84,7 +88,8 @@ Docs:
   before_script:
     - npm ci
   script:
-    - node_modules/.bin/grunt build
+    - npm test
+    - npm run build
 
 Node 8.x (LTS):
   <<: *compat

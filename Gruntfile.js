@@ -1,17 +1,10 @@
-const path = require("path");
 const sass = require("sass");
 const serveStatic = require("serve-static");
-const eslintStrict = process.env.ESLINT_STRICT === "1";
 
 module.exports = function(grunt) {
 	require("load-grunt-tasks")(grunt);
 
-	grunt.registerTask("test", ["eslint", "tslint", "jest"]);
-	grunt.registerTask("build", ["ts", "test"]);
-	grunt.registerTask("build:ci", ["ts"]); /* CI runs test in separate stage */
 	grunt.registerTask("default", ["build"]);
-
-	grunt.registerTask("jest", "exec:jest");
 
 	grunt.registerTask("dgeni", "Generate documentation", function() {
 		const Dgeni = require("dgeni");
@@ -30,37 +23,6 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON("package.json"),
-
-		clean: {
-			default: ["build", "public"],
-		},
-
-		ts: {
-			default: {
-				options: {
-					rootDir: "src",
-				},
-				tsconfig: "./tsconfig.json",
-			},
-		},
-
-		eslint: {
-			default: {
-				options: {
-					/* CI pipeline sets strict environment to disallow any warnings, but
-					 * allows warnings in development environment to not cause
-					 * annoyances. */
-					maxWarnings: eslintStrict ? 0 : -1,
-				},
-				src: ["*.js", "*.ts", "docs/**/*.js", "src/**/*.ts"],
-			},
-		},
-
-		tslint: {
-			default: {
-				src: ["*.ts", "src/**/*.ts"],
-			},
-		},
 
 		sass: {
 			options: {
@@ -116,10 +78,6 @@ module.exports = function(grunt) {
 				src: "docs/app/index.js",
 				dest: "public/assets/docs.js",
 			},
-		},
-
-		exec: {
-			jest: `${path.join("node_modules", ".bin", "jest")} -i --colors --ci`,
 		},
 
 		connect: {

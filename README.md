@@ -69,9 +69,16 @@ Linting is done using eslint.
 
     npm run lint
 
-or call `eslint` directly.
+or call `eslint` or `tslint` directly.
 
 ## Build
 
-    grunt build
-    grunt docs
+    npm run build
+
+To build documentation use:
+
+    npm run build:docs
+
+The documentation can be served locally using:
+
+    npm start

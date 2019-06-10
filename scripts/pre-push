@@ -4,14 +4,15 @@
 set -e
 
 echo Build sources
-grunt ts
-grunt dgeni
+npm run build
+npm run build:docs
 
 echo Run unittests
 npm test
 
 echo Run linting
-ESLINT_STRICT=1 npm run lint
+npm run eslint -- --max-warnings 0
+npm run tslint
 
 echo Lint documentation
 ./bin/html-validate.js docs/**/*.html public/**/.html
