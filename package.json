@@ -26,16 +26,16 @@
     "html-validate": "bin/html-validate.js"
   },
   "scripts": {
+    "lint": "grunt eslint tslint",
+    "postversion": "git push --follow-tags",
     "prettier:check": "prettier '**/*.{ts,js,json,md,scss}' --list-different",
     "prettier:write": "prettier '**/*.{ts,js,json,md,scss}' --write",
+    "preversion": "./scripts/validate-version",
     "start": "grunt connect",
     "test": "jest --ci",
-    "lint": "grunt eslint tslint",
-    "version": "sv-update-changelog -i && git add CHANGELOG.md",
-    "preversion": "./scripts/validate-version",
-    "postversion": "git push --follow-tags",
     "tslint": "tslint -t verbose *.ts src/**/*.ts",
-    "tslint:fix": "tslint -t verbose --fix *.ts src/**/*.ts"
+    "tslint:fix": "tslint -t verbose --fix *.ts src/**/*.ts",
+    "version": "sv-update-changelog -i && git add CHANGELOG.md"
   },
   "husky": {
     "hooks": {
