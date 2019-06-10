@@ -1,0 +1,10 @@
+{
+  "overrides": [
+    {
+      "files": "**/*.spec.ts",
+      "rules": {
+        "dot-notation": "off"
+      }
+    }
+  ]
+}
