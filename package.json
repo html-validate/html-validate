@@ -54,6 +54,18 @@
       "git add"
     ]
   },
+  "renovate": {
+    "extends": [
+      "config:js-lib"
+    ],
+    "automerge": true,
+    "automergeType": "branch",
+    "prCreation": "not-pending",
+    "unpublishSafe": true,
+    "major": {
+      "automerge": false
+    }
+  },
   "dependencies": {
     "@babel/code-frame": "^7.0.0",
     "acorn-walk": "^6.1.1",
