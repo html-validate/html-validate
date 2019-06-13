@@ -90,7 +90,6 @@
     "@types/json-merge-patch": "0.0.4",
     "@types/minimist": "1.2.0",
     "@types/node": "11.13.14",
-    "@types/strip-ansi": "5.2.1",
     "@typescript-eslint/eslint-plugin": "1.10.2",
     "@typescript-eslint/parser": "1.10.2",
     "autoprefixer": "9.6.0",

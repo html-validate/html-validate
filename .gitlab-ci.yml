@@ -1,5 +1,8 @@
 image: node:10
 
+include:
+  - template: Security/License-Management.gitlab-ci.yml
+
 stages:
   - prepare
   - build
