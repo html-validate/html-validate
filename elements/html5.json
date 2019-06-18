@@ -254,13 +254,13 @@
   "div": {
     "flow": true,
     "deprecatedAttributes": ["align", "datasrc", "datafld", "dataformatas"],
-    "permittedContent": ["@flow"]
+    "permittedContent": ["@flow", "dt", "dd"]
   },
 
   "dl": {
     "flow": true,
     "deprecatedAttributes": ["compact"],
-    "permittedContent": ["dt", "dd", "script", "template"]
+    "permittedContent": ["dt", "dd", "div", "script", "template"]
   },
 
   "dt": {

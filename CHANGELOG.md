@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+- allow div to group elements under dl (fixes #44).
+
 ## 1.1.1 (2019-06-07)
 
 - `Reporter` is now exposed in shim.
