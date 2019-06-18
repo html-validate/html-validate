@@ -1254,17 +1254,17 @@ Array [
         "column": 3,
         "context": undefined,
         "line": 3,
-        "message": "Element <dd> is not permitted as content in <div>",
-        "offset": 57,
+        "message": "Element <dd> is not permitted as content in <span>",
+        "offset": 58,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 2,
       },
     ],
     "source": "<!-- should not be allowed in other elements -->
-<div>
+<span>
 	<dd>foo</dd>
-</div>
+</span>
 ",
     "warningCount": 0,
   },
@@ -1381,18 +1381,18 @@ Array [
         "column": 3,
         "context": undefined,
         "line": 3,
-        "message": "Element <div> is not permitted as content in <dl>",
+        "message": "Element <main> is not permitted as content in <dl>",
         "offset": 51,
         "ruleId": "element-permitted-content",
         "severity": 2,
-        "size": 3,
+        "size": 4,
       },
       Object {
         "column": 3,
         "context": undefined,
         "line": 4,
         "message": "Element <span> is not permitted as content in <dl>",
-        "offset": 64,
+        "offset": 66,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 4,
@@ -1400,7 +1400,7 @@ Array [
     ],
     "source": "<!-- should not allow arbirtary content -->
 <dl>
-	<div></div>
+	<main></main>
 	<span></span>
 </dl>
 ",
@@ -1421,8 +1421,8 @@ Array [
         "column": 3,
         "context": undefined,
         "line": 3,
-        "message": "Element <dt> is not permitted as content in <div>",
-        "offset": 52,
+        "message": "Element <dt> is not permitted as content in <span>",
+        "offset": 53,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 2,
@@ -1432,7 +1432,7 @@ Array [
         "context": undefined,
         "line": 9,
         "message": "Element <header> is not permitted as descendant of <dt>",
-        "offset": 146,
+        "offset": 148,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 6,
@@ -1442,7 +1442,7 @@ Array [
         "context": undefined,
         "line": 10,
         "message": "Element <footer> is not permitted as descendant of <dt>",
-        "offset": 166,
+        "offset": 168,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 6,
@@ -1452,7 +1452,7 @@ Array [
         "context": undefined,
         "line": 11,
         "message": "Element <article> is not permitted as descendant of <dt>",
-        "offset": 186,
+        "offset": 188,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 7,
@@ -1462,16 +1462,16 @@ Array [
         "context": undefined,
         "line": 12,
         "message": "Element <h1> is not permitted as descendant of <dt>",
-        "offset": 208,
+        "offset": 210,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 2,
       },
     ],
     "source": "<!-- should not be allowed outside <dl> -->
-<div>
+<span>
 	<dt></dt>
-</div>
+</span>
 
 <!-- should not allow sectioning, header, header or footer -->
 <dl>
