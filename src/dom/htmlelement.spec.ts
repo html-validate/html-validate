@@ -344,6 +344,33 @@ describe("HtmlElement", () => {
 		});
 	});
 
+	describe("closest()", () => {
+		let node: HtmlElement;
+
+		beforeAll(() => {
+			const parser = new Parser(Config.empty());
+			root = parser.parseHtml(`
+				<div id="1" class="x">
+					<div id="2" class="x">
+						<p id="3" class="x"></p>
+					</div>
+				</div>`);
+			node = root.querySelector("p");
+		});
+
+		it("should return first parent matching the selector", () => {
+			expect(node.closest("div").id).toEqual("2");
+		});
+
+		it("should return itself if matching the selector", () => {
+			expect(node.closest(".x").id).toEqual("3");
+		});
+
+		it("should return null if no element matches the selector", () => {
+			expect(node.closest(".y")).toBeNull();
+		});
+	});
+
 	describe("is()", () => {
 		it("should match tagname", () => {
 			const el = new HtmlElement("foo");

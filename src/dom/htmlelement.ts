@@ -102,6 +102,22 @@ export class HtmlElement extends DOMNode {
 		) as HtmlElement[];
 	}
 
+	/**
+	 * Find the first ancestor matching a selector.
+	 *
+	 * Implementation of DOM specification of Element.closest(selectors).
+	 */
+	public closest(selectors: string): HtmlElement {
+		let node: HtmlElement = this;
+		while (node) {
+			if (node.matches(selectors)) {
+				return node;
+			}
+			node = node.parent;
+		}
+		return null;
+	}
+
 	public is(tagName: string): boolean {
 		return (this.tagName && tagName === "*") || this.tagName === tagName;
 	}

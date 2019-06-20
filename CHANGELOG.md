@@ -2,7 +2,8 @@
 
 ## Upcoming release
 
-- add `HtmlElement.matches` to test if a selector matches the given element.
+- add `HtmlElement.closest()` to locate a parent matching the given selector.
+- add `HtmlElement.matches()` to test if a selector matches the given element.
 - fix so multiple combinators can be used in selectors, e.g. `foo > bar > baz`
   now works as expected.
 
