@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/prefer-tbody.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/prefer-tbody.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 2,
+        "message": "Prefer to wrap <tr> elements in <tbody>",
+        "offset": 10,
+        "ruleId": "prefer-tbody",
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<table>
+	<tr><td>...</td></tr>
+</table>",
+    "warningCount": 0,
+  },
+]
+`;

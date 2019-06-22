@@ -1,5 +1,6 @@
 <!-- should be allowed under table and friends -->
 <table>
+	<!-- [html-validate-disable-next prefer-tbody: technically legal, should be allowed if this rule is disabled, this rule is tested in tr-invalid] -->
 	<tr></tr>
 </table>
 <table>
@@ -16,16 +17,20 @@
 
 <!-- should allow <td> and <th> -->
 <table>
-	<tr>
-		<td></td>
-		<th scope="auto"></th>
-	</tr>
+	<tbody>
+		<tr>
+			<td></td>
+			<th scope="auto"></th>
+		</tr>
+	</tbody>
 </table>
 
 <!-- should allow script and template -->
 <table>
-	<tr>
-		<script></script>
-		<template></template>
-	</tr>
+	<tbody>
+		<tr>
+			<script></script>
+			<template></template>
+		</tr>
+	</tbody>
 </table>

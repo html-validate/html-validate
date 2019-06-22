@@ -1,7 +1,14 @@
 <!-- should not allow arbitrary content -->
 <table>
-	<tr>
-		<span>foo</span>
-		<div>foo</div>
-	</tr>
+	<tbody>
+		<tr>
+			<span>foo</span>
+			<div>foo</div>
+		</tr>
+	</tbody>
+</table>
+
+<!-- should prefer nesting in tbody -->
+<table>
+	<tr></tr>
 </table>

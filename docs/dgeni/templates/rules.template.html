@@ -8,18 +8,20 @@
 		<col class="summary">
 	</colgroup>
 	{% for rule in rules %}
-	<tr>
-		<td>
-			{% if rule.recommended %}
-			<span class="fa fa-check"></span>
-			{% endif %}
-			{% if rule.document %}
-			<span class="fa fa-file-text-o"></span>
-			{% endif %}
-		</td>
-		<td><a href="/{$ rule.url $}">{$ rule.name $}</a></td>
-		<td>{$ rule.summary | escape $}</td>
-	</tr>
+	<tbody>
+		<tr>
+			<td>
+				{% if rule.recommended %}
+				<span class="fa fa-check"></span>
+				{% endif %}
+				{% if rule.document %}
+				<span class="fa fa-file-text-o"></span>
+				{% endif %}
+			</td>
+			<td><a href="/{$ rule.url $}">{$ rule.name $}</a></td>
+			<td>{$ rule.summary | escape $}</td>
+		</tr>
+	</tbody>
 	{% endfor %}
 </table>
 {% endmacro -%}
