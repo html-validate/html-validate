@@ -2,6 +2,7 @@
 
 ## Upcoming release
 
+- add `HtmlElement.matches` to test if a selector matches the given element.
 - fix so multiple combinators can be used in selectors, e.g. `foo > bar > baz`
   now works as expected.
 

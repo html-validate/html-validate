@@ -374,6 +374,22 @@ describe("HtmlElement", () => {
 		});
 	});
 
+	describe("matches()", () => {
+		it("should return true if element matches given selector", () => {
+			const node = root.querySelector("#spam");
+			expect(node.matches("ul > li")).toBeTruthy();
+			expect(node.matches("li.baz")).toBeTruthy();
+			expect(node.matches("#parent li")).toBeTruthy();
+		});
+
+		it("should return false if element does not match given selector", () => {
+			const node = root.querySelector("#spam");
+			expect(node.matches("div > li")).toBeFalsy();
+			expect(node.matches("li.foo")).toBeFalsy();
+			expect(node.matches("#ham li")).toBeFalsy();
+		});
+	});
+
 	describe("querySelector()", () => {
 		it("should find element by tagname", () => {
 			const el = root.querySelector("ul");

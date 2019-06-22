@@ -106,6 +106,32 @@ export class HtmlElement extends DOMNode {
 		return (this.tagName && tagName === "*") || this.tagName === tagName;
 	}
 
+	/**
+	 * Match this element against given selectors. Returns true if any selector
+	 * matches.
+	 *
+	 * Implementation of DOM specification of Element.matches(selectors).
+	 */
+	public matches(selector: string): boolean {
+		/* find root element */
+		let root: HtmlElement = this;
+		while (root.parent) {
+			root = root.parent;
+		}
+
+		/* a bit slow implementation as it finds all candidates for the selector and
+		 * then tests if any of them are the current element. A better
+		 * implementation would be to walk the selector right-to-left and test
+		 * ancestors. */
+		for (const match of root.querySelectorAll(selector)) {
+			if (match.unique === this.unique) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public setAttribute(
 		key: string,
 		value: string | DynamicValue,
