@@ -26,7 +26,7 @@ export function getFormatter(formatters: string): (report: Report) => string {
 	return (report: Report) => {
 		return fn
 			.map((formatter: WrappedFormatter) => formatter(report.results))
-			.filter(lines => lines && lines.length > 0)
+			.filter(Boolean)
 			.join("\n");
 	};
 }

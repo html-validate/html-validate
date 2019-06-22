@@ -22,7 +22,7 @@ export class DOMTree {
 			/* root element should never be popped, continue as if nothing happened */
 			return;
 		}
-		this.active = this.active.parent;
+		this.active = this.active.parent || this.root;
 	}
 
 	public getActive(): HtmlElement {
@@ -32,11 +32,11 @@ export class DOMTree {
 	/**
 	 * Resolve dynamic meta expressions.
 	 */
-	public resolveMeta(table: MetaTable) {
+	public resolveMeta(table: MetaTable): void {
 		this.visitDepthFirst((node: HtmlElement) => table.resolve(node));
 	}
 
-	public getElementsByTagName(tagName: string) {
+	public getElementsByTagName(tagName: string): HtmlElement[] {
 		return this.root.getElementsByTagName(tagName);
 	}
 
