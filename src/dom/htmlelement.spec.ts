@@ -344,6 +344,33 @@ describe("HtmlElement", () => {
 		});
 	});
 
+	describe("closest()", () => {
+		let node: HtmlElement;
+
+		beforeAll(() => {
+			const parser = new Parser(Config.empty());
+			root = parser.parseHtml(`
+				<div id="1" class="x">
+					<div id="2" class="x">
+						<p id="3" class="x"></p>
+					</div>
+				</div>`);
+			node = root.querySelector("p");
+		});
+
+		it("should return first parent matching the selector", () => {
+			expect(node.closest("div").id).toEqual("2");
+		});
+
+		it("should return itself if matching the selector", () => {
+			expect(node.closest(".x").id).toEqual("3");
+		});
+
+		it("should return null if no element matches the selector", () => {
+			expect(node.closest(".y")).toBeNull();
+		});
+	});
+
 	describe("is()", () => {
 		it("should match tagname", () => {
 			const el = new HtmlElement("foo");
@@ -371,6 +398,22 @@ describe("HtmlElement", () => {
 				.map((cur: HtmlElement) => cur.tagName);
 			expect(tagNames).toHaveLength(6);
 			expect(tagNames).toEqual(["div", "ul", "li", "li", "p", "span"]);
+		});
+	});
+
+	describe("matches()", () => {
+		it("should return true if element matches given selector", () => {
+			const node = root.querySelector("#spam");
+			expect(node.matches("ul > li")).toBeTruthy();
+			expect(node.matches("li.baz")).toBeTruthy();
+			expect(node.matches("#parent li")).toBeTruthy();
+		});
+
+		it("should return false if element does not match given selector", () => {
+			const node = root.querySelector("#spam");
+			expect(node.matches("div > li")).toBeFalsy();
+			expect(node.matches("li.foo")).toBeFalsy();
+			expect(node.matches("#ham li")).toBeFalsy();
 		});
 	});
 
@@ -428,6 +471,13 @@ describe("HtmlElement", () => {
 			expect(el).toBeInstanceOf(HtmlElement);
 			expect(el.tagName).toEqual("p");
 			expect(el.getAttributeValue("class")).toEqual("bar");
+		});
+
+		it("should find element with multiple child combinators", () => {
+			const el = root.querySelector("#parent > ul > li");
+			expect(el).toBeInstanceOf(HtmlElement);
+			expect(el.tagName).toEqual("li");
+			expect(el.getAttributeValue("class")).toEqual("foo");
 		});
 
 		it("should find element with adjacent sibling combinator", () => {

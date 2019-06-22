@@ -31,39 +31,50 @@ class ElementPermittedContent extends Rule {
 				const parent = node.parent;
 				const rules = parent.meta.permittedContent;
 
-				this.validatePermittedContent(node, parent, rules);
-				this.validatePermittedDescendant(node, parent);
+				/* Run each validation step, stop as soon as any errors are
+				 * reported. This is to prevent multiple similar errors on the same
+				 * element, such as "<dd> is not permitted content under <span>" and
+				 * "<dd> has no permitted ancestors". */
+				[
+					() => this.validatePermittedContent(node, parent, rules),
+					() => this.validatePermittedDescendant(node, parent),
+					() => this.validatePermittedAncestors(node),
+				].some(fn => fn());
 			});
 		});
 	}
 
-	public validatePermittedContent(
+	private validatePermittedContent(
 		cur: HtmlElement,
 		parent: HtmlElement,
 		rules: Permitted
-	): void {
+	): boolean {
 		if (!Validator.validatePermitted(cur, rules)) {
 			this.report(
 				cur,
 				`Element <${cur.tagName}> is not permitted as content in <${parent.tagName}>`
 			);
-			return;
+			return true;
 		}
 
 		/* for transparent elements all of the children must be validated against
 		 * the (this elements) parent, i.e. if this node was removed from the DOM it
 		 * should still be valid. */
 		if (cur.meta && cur.meta.transparent) {
-			cur.childElements.forEach((child: HtmlElement) => {
-				this.validatePermittedContent(child, parent, rules);
-			});
+			return cur.childElements
+				.map((child: HtmlElement) => {
+					return this.validatePermittedContent(child, parent, rules);
+				})
+				.some(Boolean);
 		}
+
+		return false;
 	}
 
-	public validatePermittedDescendant(
+	private validatePermittedDescendant(
 		node: HtmlElement,
 		parent: HtmlElement
-	): void {
+	): boolean {
 		while (!parent.isRootElement()) {
 			if (
 				parent.meta &&
@@ -74,10 +85,26 @@ class ElementPermittedContent extends Rule {
 					node,
 					`Element <${node.tagName}> is not permitted as descendant of <${parent.tagName}>`
 				);
-				return;
+				return true;
 			}
 			parent = parent.parent;
 		}
+		return false;
+	}
+
+	private validatePermittedAncestors(node: HtmlElement): boolean {
+		if (!node.meta) {
+			return false;
+		}
+		const rules = node.meta.requiredAncestors;
+		if (!Validator.validateAncestors(node, rules)) {
+			this.report(
+				node,
+				`Element <${node.tagName}> requires an "${rules[0]}" ancestor`
+			);
+			return true;
+		}
+		return false;
 	}
 }
 

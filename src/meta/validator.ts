@@ -5,6 +5,7 @@ import {
 	PermittedEntry,
 	PermittedGroup,
 	PermittedOrder,
+	RequiredAncestors,
 } from "./element";
 
 const allowedKeys = ["exclude"];
@@ -115,6 +116,23 @@ export class Validator {
 			prev = node;
 		}
 		return true;
+	}
+
+	/**
+	 * Validate element ancestors.
+	 *
+	 * Check if an element has the required set of elements. At least one of the
+	 * selectors must match.
+	 */
+	public static validateAncestors(
+		node: HtmlElement,
+		rules: RequiredAncestors
+	): boolean {
+		if (!rules || rules.length === 0) {
+			return true;
+		}
+
+		return rules.some(rule => node.closest(rule));
 	}
 
 	/**

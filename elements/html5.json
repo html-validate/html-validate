@@ -57,7 +57,8 @@
     "deprecatedAttributes": ["nohref"],
     "attributes": {
       "shape": ["rect", "circle", "poly", "default"]
-    }
+    },
+    "requiredAncestors": ["map"]
   },
 
   "article": {
@@ -231,7 +232,8 @@
 
   "dd": {
     "implicitClosed": ["dd", "dt"],
-    "permittedContent": ["@flow"]
+    "permittedContent": ["@flow"],
+    "requiredAncestors": ["dl > dd", "dl > div > dd"]
   },
 
   "del": {
@@ -268,7 +270,8 @@
     "permittedContent": ["@flow"],
     "permittedDescendants": [
       { "exclude": ["header", "footer", "@sectioning", "@heading"] }
-    ]
+    ],
+    "requiredAncestors": ["dl > dt", "dl > div > dt"]
   },
 
   "em": {

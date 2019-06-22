@@ -46,6 +46,7 @@ export interface MetaElement {
   permittedContent: Permitted;
   permittedDescendants: Permitted;
   permittedOrder: PermittedOrder;
+  requiredAncestors: string[];
 }
 ```
 
@@ -290,6 +291,34 @@ appear anywhere.
 
 This is used by
 [element-permitted-order](/rules/element-permitted-order.html) rule.
+
+### `requiredAncestors`
+
+Requires a specific sequence of ancestors.
+
+Some elements has additional restrictions on parent elements, for instance an
+`<area>` element must have a `<map>` element as ancestor but not neccesarily as
+a direct parent.
+
+`requiredAncestors` is a list of selectors for which at least one must be true
+for the ancestors. The selector may include the element being checked as the
+final part of the selector.
+
+```js
+"dt": {
+  "requiredAncestors": [
+    "dl > dt",
+    "dl > div > dt"
+  ]
+}
+```
+
+This will require `<dt>` elements to either be a direct descendant to `<dl>` or
+with a single `<div>` element between. In both cases a `<dl>` element must be
+present.
+
+This is used by
+[element-permitted-content](/rules/element-permitted-content.html) rule.
 
 ## Global element
 
