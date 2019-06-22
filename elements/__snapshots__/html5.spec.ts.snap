@@ -1247,7 +1247,7 @@ exports[`HTML elements <datalist> valid markup 1`] = `Array []`;
 exports[`HTML elements <dd> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 1,
+    "errorCount": 2,
     "filePath": "test-files/elements/dd-invalid.html",
     "messages": Array [
       Object {
@@ -1260,11 +1260,30 @@ Array [
         "severity": 2,
         "size": 2,
       },
+      Object {
+        "column": 5,
+        "context": undefined,
+        "line": 10,
+        "message": "Element <dd> requires an \\"dl > dd\\" ancestor",
+        "offset": 180,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 2,
+      },
     ],
     "source": "<!-- should not be allowed in other elements -->
 <span>
 	<dd>foo</dd>
 </span>
+
+<!-- should require proper ancestry (only single level grouping allowed) -->
+<dl>
+	<div>
+		<div>
+			<dd>foo</dd>
+		</div>
+	</div>
+</dl>
 ",
     "warningCount": 0,
   },
@@ -1414,7 +1433,7 @@ exports[`HTML elements <dl> valid markup 1`] = `Array []`;
 exports[`HTML elements <dt> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 5,
+    "errorCount": 6,
     "filePath": "test-files/elements/dt-invalid.html",
     "messages": Array [
       Object {
@@ -1467,6 +1486,16 @@ Array [
         "severity": 2,
         "size": 2,
       },
+      Object {
+        "column": 5,
+        "context": undefined,
+        "line": 20,
+        "message": "Element <dt> requires an \\"dl > dt\\" ancestor",
+        "offset": 345,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 2,
+      },
     ],
     "source": "<!-- should not be allowed outside <dl> -->
 <span>
@@ -1481,6 +1510,15 @@ Array [
 		<article></article>
 		<h1>Lorem ipsum</h1>
 	</dt>
+</dl>
+
+<!-- should require proper ancestry (only single level grouping allowed) -->
+<dl>
+	<div>
+		<div>
+			<dt>foo</dt>
+		</div>
+	</div>
 </dl>
 ",
     "warningCount": 0,

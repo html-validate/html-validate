@@ -64,11 +64,6 @@ describe("rule element-permitted-content", () => {
 		expect(report).toBeValid();
 	});
 
-	it("should handle missing meta entry (descendant)", () => {
-		const report = htmlvalidate.validateString("<th><foo>foo</foo></th>");
-		expect(report).toBeValid();
-	});
-
 	it("should handle missing meta entry (parent)", () => {
 		const report = htmlvalidate.validateString("<foo><p>foo</p></foo>");
 		expect(report).toBeValid();

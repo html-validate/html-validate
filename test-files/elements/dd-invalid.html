@@ -2,3 +2,12 @@
 <span>
 	<dd>foo</dd>
 </span>
+
+<!-- should require proper ancestry (only single level grouping allowed) -->
+<dl>
+	<div>
+		<div>
+			<dd>foo</dd>
+		</div>
+	</div>
+</dl>
