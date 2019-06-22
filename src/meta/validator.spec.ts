@@ -419,6 +419,49 @@ describe("Meta validator", () => {
 		});
 	});
 
+	describe("validateAncestors()", () => {
+		let root: HtmlElement;
+
+		beforeAll(() => {
+			const parser = new Parser(Config.empty());
+			root = parser.parseHtml(`
+				<dl id="variant-1">
+					<dt></dt>
+					<dd></dd>
+				</dl>`).root;
+		});
+
+		it("should match if no rule is present", () => {
+			const node = root.querySelector("dd");
+			expect(Validator.validateAncestors(node, undefined)).toBeTruthy();
+			expect(Validator.validateAncestors(node, [])).toBeTruthy();
+		});
+
+		it("should match ancestors", () => {
+			const rules: string[] = ["dl"];
+			const node = root.querySelector("dd");
+			expect(Validator.validateAncestors(node, rules)).toBeTruthy();
+		});
+
+		it("should match itself", () => {
+			const rules: string[] = ["dl > dd"];
+			const node = root.querySelector("dd");
+			expect(Validator.validateAncestors(node, rules)).toBeTruthy();
+		});
+
+		it("should match if one rule matches", () => {
+			const rules: string[] = ["spam", "dl"];
+			const node = root.querySelector("dd");
+			expect(Validator.validateAncestors(node, rules)).toBeTruthy();
+		});
+
+		it("should return false if no rule matches", () => {
+			const rules: string[] = ["spam"];
+			const node = root.querySelector("dd");
+			expect(Validator.validateAncestors(node, rules)).toBeFalsy();
+		});
+	});
+
 	describe("validateAttribute()", () => {
 		it("should match if no rule is present", () => {
 			const rules = {};
