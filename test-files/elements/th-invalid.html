@@ -5,22 +5,26 @@
 
 <!-- should not allow <header>, <footer>, sectioning or headings -->
 <table>
-	<tr>
-		<th scope="auto">
-			<header></header>
-			<footer></footer>
-			<article></article>
-			<h1>Lorem ipsum</h1>
-		</th>
-	</tr>
+	<tbody>
+		<tr>
+			<th scope="auto">
+				<header></header>
+				<footer></footer>
+				<article></article>
+				<h1>Lorem ipsum</h1>
+			</th>
+		</tr>
+	</tbody>
 </table>
 
 <table>
-	<tr>
-		<!-- should require scope attribute -->
-		<th>foo</th>
+	<tbody>
+		<tr>
+			<!-- should require scope attribute -->
+			<th>foo</th>
 
-		<!-- invalid scope attribute -->
-		<th scope="foobar">bar</th>
-	</tr>
+			<!-- invalid scope attribute -->
+			<th scope="foobar">bar</th>
+		</tr>
+	</tbody>
 </table>

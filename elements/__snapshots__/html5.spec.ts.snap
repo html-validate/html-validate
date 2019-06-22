@@ -4722,7 +4722,7 @@ exports[`HTML elements <svg> valid markup 1`] = `Array []`;
 exports[`HTML elements <table> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 8,
+    "errorCount": 9,
     "filePath": "test-files/elements/table-invalid.html",
     "messages": Array [
       Object {
@@ -4805,6 +4805,16 @@ Array [
         "severity": 2,
         "size": 5,
       },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 37,
+        "message": "Prefer to wrap <tr> elements in <tbody>",
+        "offset": 561,
+        "ruleId": "prefer-tbody",
+        "severity": 2,
+        "size": 2,
+      },
     ],
     "source": "<!-- should not allow other content -->
 <table>
@@ -4838,6 +4848,11 @@ Array [
 <table>
 	<tfoot></tfoot>
 	<tbody></tbody>
+</table>
+
+<!-- should prefer to wrap <tr> in <tbody> -->
+<table>
+	<tr></tr>
 </table>
 ",
     "warningCount": 0,
@@ -5012,60 +5027,60 @@ Array [
     "filePath": "test-files/elements/th-invalid.html",
     "messages": Array [
       Object {
-        "column": 5,
-        "context": undefined,
-        "line": 10,
-        "message": "Element <header> is not permitted as descendant of <th>",
-        "offset": 192,
-        "ruleId": "element-permitted-content",
-        "severity": 2,
-        "size": 6,
-      },
-      Object {
-        "column": 5,
+        "column": 6,
         "context": undefined,
         "line": 11,
-        "message": "Element <footer> is not permitted as descendant of <th>",
-        "offset": 213,
+        "message": "Element <header> is not permitted as descendant of <th>",
+        "offset": 204,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 6,
       },
       Object {
-        "column": 5,
+        "column": 6,
         "context": undefined,
         "line": 12,
+        "message": "Element <footer> is not permitted as descendant of <th>",
+        "offset": 226,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 6,
+        "context": undefined,
+        "line": 13,
         "message": "Element <article> is not permitted as descendant of <th>",
-        "offset": 234,
+        "offset": 248,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 7,
       },
       Object {
-        "column": 5,
+        "column": 6,
         "context": undefined,
-        "line": 13,
+        "line": 14,
         "message": "Element <h1> is not permitted as descendant of <th>",
-        "offset": 257,
+        "offset": 272,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 2,
       },
       Object {
-        "column": 4,
+        "column": 5,
         "context": Object {
           "attribute": "scope",
           "element": "th",
         },
-        "line": 21,
+        "line": 24,
         "message": "<th> is missing required attribute \\"scope\\"",
-        "offset": 361,
+        "offset": 400,
         "ruleId": "element-required-attributes",
         "severity": 2,
         "size": 2,
       },
       Object {
-        "column": 14,
+        "column": 15,
         "context": Object {
           "allowed": Array [
             "row",
@@ -5078,9 +5093,9 @@ Array [
           "element": "th",
           "value": "foobar",
         },
-        "line": 24,
+        "line": 27,
         "message": "Attribute \\"scope\\" has invalid value \\"foobar\\"",
-        "offset": 422,
+        "offset": 463,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 6,
@@ -5093,24 +5108,28 @@ Array [
 
 <!-- should not allow <header>, <footer>, sectioning or headings -->
 <table>
-	<tr>
-		<th scope=\\"auto\\">
-			<header></header>
-			<footer></footer>
-			<article></article>
-			<h1>Lorem ipsum</h1>
-		</th>
-	</tr>
+	<tbody>
+		<tr>
+			<th scope=\\"auto\\">
+				<header></header>
+				<footer></footer>
+				<article></article>
+				<h1>Lorem ipsum</h1>
+			</th>
+		</tr>
+	</tbody>
 </table>
 
 <table>
-	<tr>
-		<!-- should require scope attribute -->
-		<th>foo</th>
+	<tbody>
+		<tr>
+			<!-- should require scope attribute -->
+			<th>foo</th>
 
-		<!-- invalid scope attribute -->
-		<th scope=\\"foobar\\">bar</th>
-	</tr>
+			<!-- invalid scope attribute -->
+			<th scope=\\"foobar\\">bar</th>
+		</tr>
+	</tbody>
 </table>
 ",
     "warningCount": 0,
@@ -5307,36 +5326,53 @@ exports[`HTML elements <title> valid markup 1`] = `Array []`;
 exports[`HTML elements <tr> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 2,
+    "errorCount": 3,
     "filePath": "test-files/elements/tr-invalid.html",
     "messages": Array [
       Object {
-        "column": 4,
+        "column": 5,
         "context": undefined,
-        "line": 4,
+        "line": 5,
         "message": "Element <span> is not permitted as content in <tr>",
-        "offset": 61,
+        "offset": 72,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 4,
       },
       Object {
-        "column": 4,
+        "column": 5,
         "context": undefined,
-        "line": 5,
+        "line": 6,
         "message": "Element <div> is not permitted as content in <tr>",
-        "offset": 80,
+        "offset": 92,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 3,
       },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 13,
+        "message": "Prefer to wrap <tr> elements in <tbody>",
+        "offset": 184,
+        "ruleId": "prefer-tbody",
+        "severity": 2,
+        "size": 2,
+      },
     ],
     "source": "<!-- should not allow arbitrary content -->
 <table>
-	<tr>
-		<span>foo</span>
-		<div>foo</div>
-	</tr>
+	<tbody>
+		<tr>
+			<span>foo</span>
+			<div>foo</div>
+		</tr>
+	</tbody>
+</table>
+
+<!-- should prefer nesting in tbody -->
+<table>
+	<tr></tr>
 </table>
 ",
     "warningCount": 0,

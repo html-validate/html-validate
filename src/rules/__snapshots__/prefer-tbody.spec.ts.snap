@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule prefer-tbody should contain documentation 1`] = `
+Object {
+  "description": "While \`<tbody>\` is optional is relays semantic information about its contents. Where applicable it should also be combined with \`<thead>\` and \`<tfoot>\`.",
+  "url": "https://html-validate.org/rules/prefer-tbody.html",
+}
+`;
