@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 1.2.0 (2019-06-23)
+
 - new rule `prefer-tbody` to validate presence of `<tbody>` in `<table`.
 - add `requiredAncestors` metadata and validation to test elements with
   additional requirements for the parent elements, such as `<area>` and
