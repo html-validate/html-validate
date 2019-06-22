@@ -430,6 +430,13 @@ describe("HtmlElement", () => {
 			expect(el.getAttributeValue("class")).toEqual("bar");
 		});
 
+		it("should find element with multiple child combinators", () => {
+			const el = root.querySelector("#parent > ul > li");
+			expect(el).toBeInstanceOf(HtmlElement);
+			expect(el.tagName).toEqual("li");
+			expect(el.getAttributeValue("class")).toEqual("foo");
+		});
+
 		it("should find element with adjacent sibling combinator", () => {
 			const el = root.querySelector("li + li");
 			expect(el).toBeInstanceOf(HtmlElement);

@@ -147,7 +147,11 @@ export class Selector {
 	}
 
 	private static parse(selector: string): Pattern[] {
-		const pattern = selector.replace(/([+~>]) /, "$1").split(/ +/);
+		/* strip whitespace before combinators, "ul > li" becomes "ul >li", for
+		 * easier parsing */
+		selector = selector.replace(/([+~>]) /g, "$1");
+
+		const pattern = selector.split(/ +/);
 		return pattern.map((part: string) => new Pattern(part));
 	}
 

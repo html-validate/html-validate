@@ -2,6 +2,9 @@
 
 ## Upcoming release
 
+- fix so multiple combinators can be used in selectors, e.g. `foo > bar > baz`
+  now works as expected.
+
 ## 1.1.2 (2019-06-18)
 
 - allow div to group elements under dl (fixes #44).
