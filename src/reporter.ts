@@ -70,7 +70,7 @@ export class Reporter {
 		reports.forEach((report: Report) => {
 			report.results.forEach((result: Result) => {
 				const key = result.filePath;
-				if (merged.hasOwnProperty(key)) {
+				if (key in merged) {
 					merged[key].messages = [].concat(
 						merged[key].messages,
 						result.messages
@@ -90,7 +90,7 @@ export class Reporter {
 		location: Location,
 		context?: any
 	) {
-		if (!this.result.hasOwnProperty(location.filename)) {
+		if (!(location.filename in this.result)) {
 			this.result[location.filename] = [];
 		}
 		this.result[location.filename].push({
@@ -106,7 +106,7 @@ export class Reporter {
 	}
 
 	public addManual(filename: string, message: Message): void {
-		if (!this.result.hasOwnProperty(filename)) {
+		if (!(filename in this.result)) {
 			this.result[filename] = [];
 		}
 		this.result[filename].push(message);
