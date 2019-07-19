@@ -135,7 +135,7 @@ integrations with tools it might be desirable to keep a single instance of
 `HtmlValidate` around and in that case the cache needs to be flushed if
 configuration changes are detected.
 
-```
+```typescript
 /* flush everything */
 htmlvalidate.flushConfigCache();
 
