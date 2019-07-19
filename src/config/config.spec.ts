@@ -210,11 +210,13 @@ describe("config", () => {
 			const config = Config.fromObject({
 				extends: [`${process.cwd()}/test-files/config-extending.json`],
 			});
-			expect(Array.from(config.getRules().entries())).toEqual([
-				["foo", [Severity.ERROR, {}]],
-				["bar", [Severity.WARN, {}]],
-				["baz", [Severity.ERROR, {}]],
-			]);
+			expect(config.getRules()).toEqual(
+				new Map([
+					["foo", [Severity.ERROR, {}]],
+					["bar", [Severity.WARN, {}]],
+					["baz", [Severity.ERROR, {}]],
+				])
+			);
 		});
 
 		it("should support htmlvalidate:recommended", () => {
@@ -245,6 +247,20 @@ describe("config", () => {
 					["foo", [Severity.WARN, {}]],
 					["bar", [Severity.WARN, {}]],
 					["baz", [Severity.ERROR, {}]],
+				])
+			);
+		});
+
+		it("should be resolved in correct order", () => {
+			const config = Config.fromObject({
+				extends: ["mock-plugin-presets:base", "mock-plugin-presets:no-foo"],
+				plugins: ["mock-plugin-presets"],
+			});
+			expect(config.getRules()).toEqual(
+				new Map([
+					["foo", [Severity.DISABLED, {}]],
+					["bar", [Severity.WARN, {}]],
+					["baz", [Severity.DISABLED, {}]],
 				])
 			);
 		});

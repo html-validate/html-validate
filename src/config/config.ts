@@ -165,7 +165,7 @@ export class Config {
 		} else {
 			base = Config.fromFile(entry).config;
 		}
-		return mergeInternal(base, this.config);
+		return mergeInternal(this.config, base);
 	}
 
 	/**
