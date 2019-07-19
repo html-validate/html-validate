@@ -20,8 +20,21 @@ const recommended = require("./recommended");
 const document = require("./document");
 let rootDirCache: string = null;
 
+function overwriteMerge<T>(a: T[], b: T[]): T[] {
+	return b;
+}
+
 function mergeInternal(base: ConfigData, rhs: ConfigData): ConfigData {
-	return deepmerge(base, rhs);
+	const dst = deepmerge(base, Object.assign({}, rhs, { rules: {} }));
+
+	/* rules need some special care, should overwrite arrays instead of
+	 * concaternation, i.e. ["error", {...options}] should not be merged by
+	 * appending to old value */
+	if (rhs.rules) {
+		dst.rules = deepmerge(dst.rules, rhs.rules, { arrayMerge: overwriteMerge });
+	}
+
+	return dst;
 }
 
 function loadFromFile(filename: string): ConfigData {
@@ -114,6 +127,12 @@ export class Config {
 		/* process extended configs */
 		for (const extend of this.config.extends) {
 			this.config = this.extendConfig(extend);
+		}
+
+		/* rules explicitly set by passed options should have precedence over any
+		 * extended rules, not the other way around. */
+		if (options && options.rules) {
+			this.config = mergeInternal(this.config, { rules: options.rules });
 		}
 	}
 
@@ -228,7 +247,7 @@ export class Config {
 	 */
 	public getRules(): Map<string, [Severity, any]> {
 		const rules = new Map<string, [Severity, any]>();
-		for (const [ruleId, data] of Object.entries(this.config.rules || {})) {
+		for (const [ruleId, data] of Object.entries(this.config.rules)) {
 			let options = data;
 			if (!Array.isArray(options)) {
 				options = [options, {}];
