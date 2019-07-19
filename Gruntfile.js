@@ -10,7 +10,12 @@ module.exports = function(grunt) {
 		const Dgeni = require("dgeni");
 		const done = this.async();
 		const dgeni = new Dgeni([require("./docs/dgeni")]);
-		dgeni.generate().then(done);
+		dgeni
+			.generate()
+			.then(done)
+			.catch(() => {
+				grunt.fatal("Dgeni failed to generate docs");
+			});
 	});
 
 	grunt.registerTask("docs", "Build documentation app", [
