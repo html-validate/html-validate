@@ -30,7 +30,7 @@
     "no-console": "warn",
     "no-dupe-class-members": "off",
     "no-undef": "off",
-    "prettier/prettier": "error",
+    "prettier/prettier": "warn",
     "strict": "off"
   },
 
@@ -41,17 +41,11 @@
         "jest": true
       },
       "plugins": ["jest"],
+      "extends": ["plugin:jest/recommended", "plugin:jest/style"],
       "rules": {
         "jest/no-disabled-tests": "warn",
         "jest/no-focused-tests": "warn",
-        "jest/no-identical-title": "error",
-        "jest/no-test-prefixes": "warn",
-        "jest/prefer-to-have-length": "error",
-        "jest/prefer-to-be-null": "error",
-        "jest/prefer-to-be-undefined": "error",
-        "jest/valid-describe": "error",
-        "jest/valid-expect": "error",
-        "jest/valid-expect-in-promise": "error"
+        "jest/no-test-prefixes": "warn"
       }
     }
   ]

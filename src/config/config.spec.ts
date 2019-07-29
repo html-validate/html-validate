@@ -81,8 +81,8 @@ describe("config", () => {
 	});
 
 	it("should throw user-error if file is not properly formatted json", () => {
-		expect(() => Config.fromFile("invalid-file.json")).toThrowError(UserError);
-		expect(() => Config.fromFile("invalid-file.json")).toThrowError(
+		expect(() => Config.fromFile("invalid-file.json")).toThrow(UserError);
+		expect(() => Config.fromFile("invalid-file.json")).toThrow(
 			'Failed to read configuration from "invalid-file.json"'
 		);
 	});

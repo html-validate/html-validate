@@ -677,7 +677,7 @@ describe("parser", () => {
 					location: { filename: "inline", offset: 0, line: 1, column: 1 },
 					data: ["", "!"],
 				});
-			}).toThrowError('Failed to parse directive "!"');
+			}).toThrow('Failed to parse directive "!"');
 		});
 	});
 
@@ -1074,7 +1074,7 @@ describe("parser", () => {
 			][Symbol.iterator]();
 			expect(() =>
 				Array.from(parser.consumeUntil(src, TokenType.TAG_CLOSE))
-			).toThrowError("stream ended before consumeUntil finished");
+			).toThrow("stream ended before consumeUntil finished");
 		});
 	});
 
@@ -1121,7 +1121,7 @@ describe("parser", () => {
 		});
 
 		it("should throw error if event is missing location", () => {
-			expect(() => parser.trigger("foo", {})).toThrowError(
+			expect(() => parser.trigger("foo", {})).toThrow(
 				"Triggered event must contain location"
 			);
 		});

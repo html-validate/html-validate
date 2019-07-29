@@ -58,18 +58,16 @@ describe("MetaTable", () => {
 			table.loadFromObject({
 				foo: mockEntry({ invalid: true }),
 			});
-		expect(fn).toThrowError(UserError);
-		expect(fn).toThrowError(
+		expect(fn).toThrow(UserError);
+		expect(fn).toThrow(
 			"Element metadata is not valid: /foo Property invalid is not expected to be here"
 		);
 	});
 
 	it("should throw user-error if file is not properly formatted json", () => {
 		const table = new MetaTable();
-		expect(() => table.loadFromFile("invalid-file.json")).toThrowError(
-			UserError
-		);
-		expect(() => table.loadFromFile("invalid-file.json")).toThrowError(
+		expect(() => table.loadFromFile("invalid-file.json")).toThrow(UserError);
+		expect(() => table.loadFromFile("invalid-file.json")).toThrow(
 			'Failed to load element metadata from "invalid-file.json"'
 		);
 	});
@@ -111,7 +109,7 @@ describe("MetaTable", () => {
 				invalid: mockEntry({ interactive: ["invalid"], void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			expect(() => parser.parseHtml("<invalid/>")).toThrowError(
+			expect(() => parser.parseHtml("<invalid/>")).toThrow(
 				'Failed to find function "invalid" when evaluating property expression'
 			);
 		});
@@ -122,7 +120,7 @@ describe("MetaTable", () => {
 				invalid: mockEntry({ interactive: "invalid", void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			expect(() => parser.parseHtml("<invalid/>")).toThrowError(
+			expect(() => parser.parseHtml("<invalid/>")).toThrow(
 				'Failed to find function "invalid" when evaluating property expression'
 			);
 		});
@@ -161,7 +159,7 @@ describe("MetaTable", () => {
 
 			it("should throw exception when invalid argument is used", () => {
 				const parser = new Parser(new ConfigMock(table));
-				expect(() => parser.parseHtml("<invalid/>")).toThrowError(
+				expect(() => parser.parseHtml("<invalid/>")).toThrow(
 					'Property expression "isDescendant" must take string argument when evaluating metadata for <invalid>'
 				);
 			});
@@ -198,7 +196,7 @@ describe("MetaTable", () => {
 
 			it("should throw exception when invalid argument is used", () => {
 				const parser = new Parser(new ConfigMock(table));
-				expect(() => parser.parseHtml("<invalid/>")).toThrowError(
+				expect(() => parser.parseHtml("<invalid/>")).toThrow(
 					'Property expression "hasAttribute" must take string argument when evaluating metadata for <invalid>'
 				);
 			});
@@ -275,17 +273,17 @@ describe("MetaTable", () => {
 
 			it("should throw exception when invalid operator is used", () => {
 				const parser = new Parser(new ConfigMock(table));
-				expect(() => parser.parseHtml("<invalid1/>")).toThrowError(
+				expect(() => parser.parseHtml("<invalid1/>")).toThrow(
 					'Property expression "matchAttribute" has invalid operator "#" when evaluating metadata for <invalid1>'
 				);
 			});
 
 			it("should throw exception when parameters is malformed", () => {
 				const parser = new Parser(new ConfigMock(table));
-				expect(() => parser.parseHtml("<invalid2/>")).toThrowError(
+				expect(() => parser.parseHtml("<invalid2/>")).toThrow(
 					'Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <invalid2>'
 				);
-				expect(() => parser.parseHtml("<invalid3/>")).toThrowError(
+				expect(() => parser.parseHtml("<invalid3/>")).toThrow(
 					'Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <invalid3>'
 				);
 			});
