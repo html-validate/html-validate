@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+## 1.2.1 (2019-07-30)
+
 - fix configuration when using multiple extends.
 
 ## 1.2.0 (2019-06-23)
