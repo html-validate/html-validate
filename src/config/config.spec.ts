@@ -27,6 +27,28 @@ jest.mock(
 	{ virtual: true }
 );
 
+/* mock plugin with config presets */
+jest.mock(
+	"mock-plugin-presets",
+	() => ({
+		configs: {
+			base: {
+				rules: {
+					foo: "error",
+					bar: "warn",
+					baz: "off",
+				},
+			},
+			"no-foo": {
+				rules: {
+					foo: "off",
+				},
+			},
+		},
+	}),
+	{ virtual: true }
+);
+
 describe("config", () => {
 	it("should load defaults", () => {
 		const config = Config.empty();
@@ -83,6 +105,12 @@ describe("config", () => {
 	});
 
 	describe("getRules()", () => {
+		it("should handle when config is missing rules", () => {
+			const config = Config.fromObject({ rules: null });
+			expect(config.get().rules).toEqual({});
+			expect(config.getRules()).toEqual(new Map());
+		});
+
 		it("should return parsed rules", () => {
 			const config = Config.fromObject({ rules: { foo: "error" } });
 			expect(config.get().rules).toEqual({ foo: "error" });
@@ -182,11 +210,13 @@ describe("config", () => {
 			const config = Config.fromObject({
 				extends: [`${process.cwd()}/test-files/config-extending.json`],
 			});
-			expect(Array.from(config.getRules().entries())).toEqual([
-				["foo", [Severity.ERROR, {}]],
-				["bar", [Severity.WARN, {}]],
-				["baz", [Severity.ERROR, {}]],
-			]);
+			expect(config.getRules()).toEqual(
+				new Map([
+					["foo", [Severity.ERROR, {}]],
+					["bar", [Severity.WARN, {}]],
+					["baz", [Severity.ERROR, {}]],
+				])
+			);
 		});
 
 		it("should support htmlvalidate:recommended", () => {
@@ -201,6 +231,38 @@ describe("config", () => {
 				extends: ["htmlvalidate:document"],
 			});
 			expect(config.getRules()).toBeDefined();
+		});
+
+		it("passed config should have precedence over extended", () => {
+			const config = Config.fromObject({
+				extends: ["mock-plugin-presets:base"],
+				plugins: ["mock-plugin-presets"],
+				rules: {
+					foo: "warn",
+					baz: "error",
+				},
+			});
+			expect(config.getRules()).toEqual(
+				new Map([
+					["foo", [Severity.WARN, {}]],
+					["bar", [Severity.WARN, {}]],
+					["baz", [Severity.ERROR, {}]],
+				])
+			);
+		});
+
+		it("should be resolved in correct order", () => {
+			const config = Config.fromObject({
+				extends: ["mock-plugin-presets:base", "mock-plugin-presets:no-foo"],
+				plugins: ["mock-plugin-presets"],
+			});
+			expect(config.getRules()).toEqual(
+				new Map([
+					["foo", [Severity.DISABLED, {}]],
+					["bar", [Severity.WARN, {}]],
+					["baz", [Severity.DISABLED, {}]],
+				])
+			);
 		});
 	});
 

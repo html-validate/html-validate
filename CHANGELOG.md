@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+- fix configuration when using multiple extends.
+
 ## 1.2.0 (2019-06-23)
 
 - new rule `prefer-tbody` to validate presence of `<tbody>` in `<table`.
