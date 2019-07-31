@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, no-process-exit */
 import defaultConfig from "../config/default";
 import { TokenDump } from "../engine";
 import { UserError } from "../error/user-error";

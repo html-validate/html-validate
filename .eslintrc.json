@@ -8,10 +8,11 @@
   "extends": [
     "sidvind/es2017",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:node/recommended-module"
   ],
 
-  "plugins": ["@typescript-eslint", "prettier"],
+  "plugins": ["@typescript-eslint", "node", "prettier"],
 
   "rules": {
     "@typescript-eslint/array-type": "off",
@@ -30,6 +31,8 @@
     "no-console": "warn",
     "no-dupe-class-members": "off",
     "no-undef": "off",
+    "node/no-missing-import": "off",
+    "node/no-unsupported-features/es-syntax": "off",
     "prettier/prettier": "warn",
     "strict": "off"
   },
