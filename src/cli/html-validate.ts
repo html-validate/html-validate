@@ -164,7 +164,7 @@ const files = argv._.reduce((files: string[], pattern: string) => {
 	}
 	return files.concat(glob.sync(pattern));
 }, []);
-const unique = [...new Set(files)];
+const unique = Array.from(new Set(files));
 
 if (unique.length === 0) {
 	console.error("No files matching patterns", argv._);

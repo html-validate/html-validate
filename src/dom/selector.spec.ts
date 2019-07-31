@@ -17,7 +17,7 @@ function stripHtmlElement(node: HtmlElement): object {
 }
 
 function fetch(it: IterableIterator<HtmlElement>): object[] {
-	return Array.from(it).map(stripHtmlElement);
+	return Array.from(it, stripHtmlElement);
 }
 
 describe("Selector", () => {

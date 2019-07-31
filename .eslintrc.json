@@ -8,6 +8,7 @@
   "extends": [
     "sidvind/es2017",
     "plugin:@typescript-eslint/recommended",
+    "plugin:array-func/recommended",
     "plugin:prettier/recommended",
     "plugin:node/recommended-module",
     "plugin:import/errors",
@@ -15,7 +16,7 @@
     "plugin:import/typescript"
   ],
 
-  "plugins": ["@typescript-eslint", "node", "prettier"],
+  "plugins": ["@typescript-eslint", "array-func", "node", "prettier"],
 
   "rules": {
     "@typescript-eslint/array-type": "off",
