@@ -348,7 +348,8 @@ export class Config {
 
 		/* try to locate package.json */
 		let current = process.cwd();
-		for (;;) {
+		// eslint-disable-next-line no-constant-condition
+		while (true) {
 			const search = path.join(current, "package.json");
 			if (fs.existsSync(search)) {
 				return (rootDirCache = current);

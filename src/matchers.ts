@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-namespace, prefer-template */
+/* eslint-disable @typescript-eslint/no-namespace, prefer-template, sonarjs/no-duplicate-string */
 
 import diff from "jest-diff";
 import { TokenType } from "./lexer";

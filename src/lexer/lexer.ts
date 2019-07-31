@@ -174,18 +174,14 @@ export class Lexer {
 	/**
 	 * Called when entering a new state.
 	 */
-	private enter(context: Context, state: State, data: any) {
-		switch (state) {
-			case State.TAG:
-				/* request script tag tokenization */
-				if (data && data[0][0] === "<") {
-					if (data[0] === "<script") {
-						context.contentModel = ContentModel.SCRIPT;
-					} else {
-						context.contentModel = ContentModel.TEXT;
-					}
-				}
-				break;
+	private enter(context: Context, state: State, data: RegExpMatchArray): void {
+		/* script tags require a different content model */
+		if (state === State.TAG && data && data[0][0] === "<") {
+			if (data[0] === "<script") {
+				context.contentModel = ContentModel.SCRIPT;
+			} else {
+				context.contentModel = ContentModel.TEXT;
+			}
 		}
 	}
 

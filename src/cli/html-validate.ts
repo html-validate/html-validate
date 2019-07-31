@@ -12,24 +12,32 @@ import chalk from "chalk";
 import glob from "glob";
 import minimist from "minimist";
 
-function getMode(argv: { [key: string]: any }) {
+enum Mode {
+	LINT,
+	DUMP_EVENTS,
+	DUMP_TOKENS,
+	DUMP_TREE,
+	PRINT_CONFIG,
+}
+
+function getMode(argv: { [key: string]: any }): Mode {
 	if (argv["dump-events"]) {
-		return "dump-events";
+		return Mode.DUMP_EVENTS;
 	}
 
 	if (argv["dump-tokens"]) {
-		return "dump-tokens";
+		return Mode.DUMP_TOKENS;
 	}
 
 	if (argv["dump-tree"]) {
-		return "dump-tree";
+		return Mode.DUMP_TREE;
 	}
 
 	if (argv["print-config"]) {
-		return "print-config";
+		return Mode.PRINT_CONFIG;
 	}
 
-	return "lint";
+	return Mode.LINT;
 }
 
 function getGlobalConfig(rules?: string | string[]) {
@@ -67,15 +75,15 @@ function lint(files: string[]): Report {
 	return Reporter.merge(reports);
 }
 
-function dump(files: string[], mode: string) {
+function dump(files: string[], mode: Mode) {
 	let lines: string[][] = [];
 	switch (mode) {
-		case "dump-events":
+		case Mode.DUMP_EVENTS:
 			lines = files.map((filename: string) =>
 				htmlvalidate.dumpEvents(filename).map(eventFormatter)
 			);
 			break;
-		case "dump-tokens":
+		case Mode.DUMP_TOKENS:
 			lines = files.map((filename: string) =>
 				htmlvalidate.dumpTokens(filename).map((entry: TokenDump) => {
 					const data = JSON.stringify(entry.data);
@@ -83,7 +91,7 @@ function dump(files: string[], mode: string) {
 				})
 			);
 			break;
-		case "dump-tree":
+		case Mode.DUMP_TREE:
 			lines = files.map((filename: string) => htmlvalidate.dumpTree(filename));
 			break;
 		default:
@@ -103,6 +111,7 @@ function renameStdin(report: Report, filename: string): void {
 }
 
 const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
+	// eslint-disable-next-line sonarjs/no-duplicate-string
 	string: ["f", "formatter", "rule", "stdin-filename"],
 	boolean: ["dump-events", "dump-tokens", "dump-tree", "print-config", "stdin"],
 	alias: {
@@ -172,7 +181,7 @@ if (unique.length === 0) {
 }
 
 try {
-	if (mode === "lint") {
+	if (mode === Mode.LINT) {
 		const result = lint(unique);
 
 		/* rename stdin if an explicit filename was passed */
@@ -182,7 +191,7 @@ try {
 
 		process.stdout.write(formatter(result));
 		process.exit(result.valid ? 0 : 1);
-	} else if (mode === "print-config") {
+	} else if (mode === Mode.PRINT_CONFIG) {
 		const config = htmlvalidate.getConfigFor(files[0]);
 		const json = JSON.stringify(config.get(), null, 2);
 		console.log(json);

@@ -13,10 +13,17 @@
     "plugin:node/recommended-module",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "plugin:sonarjs/recommended"
   ],
 
-  "plugins": ["@typescript-eslint", "array-func", "node", "prettier"],
+  "plugins": [
+    "@typescript-eslint",
+    "array-func",
+    "node",
+    "prettier",
+    "sonarjs"
+  ],
 
   "rules": {
     "@typescript-eslint/array-type": "off",
@@ -53,7 +60,9 @@
       "rules": {
         "jest/no-disabled-tests": "warn",
         "jest/no-focused-tests": "warn",
-        "jest/no-test-prefixes": "warn"
+        "jest/no-test-prefixes": "warn",
+        "sonarjs/no-duplicate-string": "off",
+        "sonarjs/no-identical-functions": "off"
       }
     }
   ]

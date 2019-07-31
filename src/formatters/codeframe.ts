@@ -133,9 +133,7 @@ function formatSummary(errors: number, warnings: number): string {
 		summary.push(`${warnings} ${pluralize("warning", warnings)}`);
 	}
 
-	const output = chalk[summaryColor].bold(`${summary.join(" and ")} found.`);
-
-	return output;
+	return chalk[summaryColor].bold(`${summary.join(" and ")} found.`);
 }
 
 export default function codeframe(results: Result[]): string {

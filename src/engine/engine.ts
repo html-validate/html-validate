@@ -193,9 +193,7 @@ export class Engine<T extends Parser = Parser> {
 
 		/* enable rules on node */
 		parser.on("tag:open", (event: string, data: TagOpenEvent) => {
-			for (const rule of rules) {
-				data.target.enableRule(rule.name);
-			}
+			data.target.enableRules(rules.map(rule => rule.name));
 		});
 	}
 
@@ -206,9 +204,7 @@ export class Engine<T extends Parser = Parser> {
 
 		/* disable rules on node */
 		parser.on("tag:open", (event: string, data: TagOpenEvent) => {
-			for (const rule of rules) {
-				data.target.disableRule(rule.name);
-			}
+			data.target.disableRules(rules.map(rule => rule.name));
 		});
 	}
 
@@ -228,9 +224,7 @@ export class Engine<T extends Parser = Parser> {
 
 				/* disable rules directly on the node so it will be recorded for later,
 				 * more specifically when using the domtree to trigger errors */
-				for (const rule of rules) {
-					data.target.disableRule(rule.name);
-				}
+				data.target.disableRules(rules.map(rule => rule.name));
 			}
 		);
 
@@ -267,9 +261,7 @@ export class Engine<T extends Parser = Parser> {
 		const unregister = parser.on(
 			"tag:open",
 			(event: string, data: TagOpenEvent) => {
-				for (const rule of rules) {
-					data.target.disableRule(rule.name);
-				}
+				data.target.disableRules(rules.map(rule => rule.name));
 			}
 		);
 
