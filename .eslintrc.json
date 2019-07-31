@@ -9,7 +9,10 @@
     "sidvind/es2017",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
-    "plugin:node/recommended-module"
+    "plugin:node/recommended-module",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
   ],
 
   "plugins": ["@typescript-eslint", "node", "prettier"],
@@ -28,6 +31,7 @@
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/type-annotation-spacing": "error",
     "consistent-this": "off",
+    "import/named": "off",
     "no-console": "warn",
     "no-dupe-class-members": "off",
     "no-undef": "off",

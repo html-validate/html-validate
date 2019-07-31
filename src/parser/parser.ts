@@ -1,15 +1,17 @@
-import { ProcessAttributeCallback } from "context/source";
 import { Config } from "../config";
 import { Location, sliceLocation, Source } from "../context";
+import { ProcessAttributeCallback } from "../context/source";
 import { DOMTree, HtmlElement, NodeClosed } from "../dom";
-import { ElementReadyEvent, EventCallback, EventHandler } from "../event";
 import {
 	AttributeEvent,
 	ConditionalEvent,
 	DirectiveEvent,
 	DoctypeEvent,
 	DOMReadyEvent,
+	ElementReadyEvent,
 	Event,
+	EventCallback,
+	EventHandler,
 	TagCloseEvent,
 	TagOpenEvent,
 	WhitespaceEvent,

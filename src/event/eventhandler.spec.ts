@@ -1,4 +1,4 @@
-import EventHandler from "./eventhandler";
+import { EventHandler } from "./eventhandler";
 
 describe("eventhandler", () => {
 	let eventhandler: EventHandler;

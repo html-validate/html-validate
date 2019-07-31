@@ -1,5 +1,4 @@
-import { HtmlElement } from "../dom";
-import { NodeClosed } from "../dom";
+import { HtmlElement, NodeClosed } from "../dom";
 import { TagCloseEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
