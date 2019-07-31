@@ -13,6 +13,8 @@ class ElementName extends Rule {
 
 	constructor(options: object) {
 		super(Object.assign({}, defaults, options));
+
+		// eslint-disable-next-line security/detect-non-literal-regexp
 		this.pattern = new RegExp(this.options.pattern);
 	}
 

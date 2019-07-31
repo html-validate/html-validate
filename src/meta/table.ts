@@ -181,6 +181,7 @@ function expandRegex(entry: MetaElement) {
 		entry.attributes[name] = values.map((value: string | RegExp) => {
 			const match = typeof value === "string" && value.match(/^\/(.*)\/$/);
 			if (match) {
+				// eslint-disable-next-line security/detect-non-literal-regexp
 				return new RegExp(match[1]);
 			} else {
 				return value;

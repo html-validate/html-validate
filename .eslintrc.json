@@ -14,6 +14,7 @@
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
+    "plugin:security/recommended",
     "plugin:sonarjs/recommended"
   ],
 
@@ -22,6 +23,7 @@
     "array-func",
     "node",
     "prettier",
+    "security",
     "sonarjs"
   ],
 
@@ -46,6 +48,10 @@
     "node/no-missing-import": "off",
     "node/no-unsupported-features/es-syntax": "off",
     "prettier/prettier": "warn",
+    "security/detect-non-literal-fs-filename": "off",
+    "security/detect-non-literal-require": "off",
+    "security/detect-object-injection": "off",
+    "security/detect-unsafe-regex": "off",
     "strict": "off"
   },
 
