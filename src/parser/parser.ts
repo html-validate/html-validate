@@ -1,15 +1,17 @@
-import { ProcessAttributeCallback } from "context/source";
 import { Config } from "../config";
 import { Location, sliceLocation, Source } from "../context";
+import { ProcessAttributeCallback } from "../context/source";
 import { DOMTree, HtmlElement, NodeClosed } from "../dom";
-import { ElementReadyEvent, EventCallback, EventHandler } from "../event";
 import {
 	AttributeEvent,
 	ConditionalEvent,
 	DirectiveEvent,
 	DoctypeEvent,
 	DOMReadyEvent,
+	ElementReadyEvent,
 	Event,
+	EventCallback,
+	EventHandler,
 	TagCloseEvent,
 	TagOpenEvent,
 	WhitespaceEvent,
@@ -245,7 +247,7 @@ export class Parser {
 		node: HtmlElement,
 		active: HtmlElement,
 		location: Location
-	) {
+	): void {
 		/* call processElement hook */
 		if (source.hooks && source.hooks.processElement) {
 			const processElement = source.hooks.processElement;
@@ -328,7 +330,7 @@ export class Parser {
 		node: HtmlElement,
 		token: Token,
 		next?: Token
-	) {
+	): void {
 		const keyLocation = token.location;
 		const valueLocation = this.getAttributeValueLocation(next);
 		const haveValue = next && next.type === TokenType.ATTR_VALUE;
@@ -344,9 +346,9 @@ export class Parser {
 		/* get callback to process attributes, default is to just return attribute
 		 * data right away but a transformer may override it to allow aliasing
 		 * attributes, e.g ng-attr-foo or v-bind:foo */
-		let processAttribute: ProcessAttributeCallback = (attr: AttributeData) => [
-			attr,
-		];
+		let processAttribute: ProcessAttributeCallback = (
+			attr: AttributeData
+		): Iterable<AttributeData> => [attr];
 		if (source.hooks && source.hooks.processAttribute) {
 			processAttribute = source.hooks.processAttribute;
 		}
@@ -403,7 +405,7 @@ export class Parser {
 		}
 	}
 
-	protected consumeDirective(token: Token) {
+	protected consumeDirective(token: Token): void {
 		const directive = token.data[1];
 		const match = directive.match(/^([a-zA-Z0-9-]+)\s*(.*?)(?:\s*:\s*(.*))?$/);
 		if (!match) {
@@ -422,7 +424,7 @@ export class Parser {
 	/**
 	 * Consumes doctype tokens. Emits doctype event.
 	 */
-	protected consumeDoctype(startToken: Token, tokenStream: TokenStream) {
+	protected consumeDoctype(startToken: Token, tokenStream: TokenStream): void {
 		const tokens = Array.from(
 			this.consumeUntil(tokenStream, TokenType.DOCTYPE_CLOSE)
 		);

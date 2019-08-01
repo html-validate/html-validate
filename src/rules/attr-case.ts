@@ -23,7 +23,7 @@ class AttrCase extends Rule {
 		};
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("attr", (event: AttributeEvent) => {
 			if (this.isIgnored(event.target)) {
 				return;

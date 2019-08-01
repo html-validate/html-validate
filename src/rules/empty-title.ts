@@ -9,7 +9,7 @@ class EmptyTitle extends Rule {
 		};
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("tag:close", event => {
 			const node = event.previous;
 			if (node.tagName !== "title") return;

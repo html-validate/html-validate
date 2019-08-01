@@ -417,7 +417,7 @@ describe("config", () => {
 
 	it("should find rootDir", () => {
 		const config = new (class extends Config {
-			public findRootDir() {
+			public findRootDir(): string {
 				return super.findRootDir();
 			}
 		})();

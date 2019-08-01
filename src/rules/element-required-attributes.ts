@@ -20,7 +20,7 @@ class ElementRequiredAttributes extends Rule<Context> {
 		return docs;
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("tag:close", (event: TagCloseEvent) => {
 			const node = event.previous;
 			const meta = node.meta;

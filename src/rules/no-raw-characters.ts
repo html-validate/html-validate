@@ -10,15 +10,15 @@ const defaults = {
 const textRegexp = /([<>]|&(?![a-zA-Z0-9#]+;))/g;
 const unquotedAttrRegexp = /([<>"'=`]|&(?![a-zA-Z0-9#]+;))/g;
 
-const replacementTable: { [key: string]: string } = {
-	'"': "&quot;",
-	"&": "&amp;",
-	"'": "&apos;",
-	"<": "&lt;",
-	"=": "&equals;",
-	">": "&gt;",
-	"`": "&grave;",
-};
+const replacementTable: Map<string, string> = new Map([
+	['"', "&quot;"],
+	["&", "&amp;"],
+	["'", "&apos;"],
+	["<", "&lt;"],
+	["=", "&equals;"],
+	[">", "&gt;"],
+	["`", "&grave;"],
+]);
 
 class NoRawCharacters extends Rule {
 	private relaxed: boolean;
@@ -35,7 +35,7 @@ class NoRawCharacters extends Rule {
 		};
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("element:ready", (event: ElementReadyEvent) => {
 			const node = event.target;
 
@@ -91,7 +91,7 @@ class NoRawCharacters extends Rule {
 				}
 
 				/* determine replacement character and location */
-				const replacement = replacementTable[char];
+				const replacement = replacementTable.get(char);
 				const charLocation = sliceLocation(
 					location,
 					match.index,

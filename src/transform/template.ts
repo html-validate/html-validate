@@ -1,4 +1,7 @@
+// imported only for type declarations via @types/estree
+// eslint-disable-next-line import/no-unresolved
 import ESTree from "estree";
+
 import fs from "fs";
 import { Source } from "../context";
 
@@ -81,7 +84,11 @@ function extractLiteral(
 	}
 }
 
-function compareKey(node: ESTree.Expression, key: string, filename: string) {
+function compareKey(
+	node: ESTree.Expression,
+	key: string,
+	filename: string
+): boolean {
 	switch (node.type) {
 		case "Identifier":
 			return node.name === key;

@@ -9,7 +9,7 @@ class NoDeprecatedAttr extends Rule {
 		};
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("attr", (event: AttributeEvent) => {
 			const node = event.target;
 			const meta = node.meta;

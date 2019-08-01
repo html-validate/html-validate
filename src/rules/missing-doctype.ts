@@ -9,7 +9,7 @@ class MissingDoctype extends Rule {
 		};
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const dom = event.document;
 			if (!dom.doctype) {

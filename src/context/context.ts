@@ -31,7 +31,7 @@ export class Context {
 		);
 	}
 
-	public consume(n: number | string[], state: number) {
+	public consume(n: number | string[], state: number): void {
 		/* if "n" is an regex match the first value is the full matched
 		 * string so consume that many characters. */
 		if (typeof n !== "number") {

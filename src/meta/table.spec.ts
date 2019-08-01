@@ -4,7 +4,7 @@ interface Validate {
 	(): boolean;
 	errors: any[];
 }
-const validate: Validate = () => {
+const validate: Validate = (): boolean => {
 	return validate.errors.length === 0;
 };
 validate.errors = [] as any[];
@@ -54,7 +54,7 @@ describe("MetaTable", () => {
 			},
 		];
 		const table = new MetaTable();
-		const fn = () =>
+		const fn = (): void =>
 			table.loadFromObject({
 				foo: mockEntry({ invalid: true }),
 			});

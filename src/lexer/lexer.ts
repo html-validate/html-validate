@@ -119,7 +119,7 @@ export class Lexer {
 	}
 
 	/* istanbul ignore next: used to provide a better error when an unhandled state happens */
-	private unhandled(context: Context) {
+	private unhandled(context: Context): void {
 		const truncated = JSON.stringify(
 			context.string.length > 13
 				? `${context.string.slice(0, 15)}...`
@@ -131,7 +131,7 @@ export class Lexer {
 	}
 
 	/* istanbul ignore next: used to provide a better error when lexer is detected to be stuck, no known way to reproduce */
-	private errorStuck(context: Context) {
+	private errorStuck(context: Context): void {
 		const state = State[context.state];
 		const message = `failed to tokenize ${context.getTruncatedLine()}, state ${state} failed to consume data or change state.`;
 		throw new InvalidTokenError(context.getLocation(), message);
@@ -140,7 +140,7 @@ export class Lexer {
 	private evalNextState(
 		nextState: State | ((token: Token) => State),
 		token: Token
-	) {
+	): State {
 		if (typeof nextState === "function") {
 			return nextState(token);
 		} else {
@@ -148,7 +148,11 @@ export class Lexer {
 		}
 	}
 
-	private *match(context: Context, tests: LexerTest[], error: string) {
+	private *match(
+		context: Context,
+		tests: LexerTest[],
+		error: string
+	): Iterable<Token> {
 		let match;
 		const n = tests.length;
 		for (let i = 0; i < n; i++) {
@@ -174,22 +178,18 @@ export class Lexer {
 	/**
 	 * Called when entering a new state.
 	 */
-	private enter(context: Context, state: State, data: any) {
-		switch (state) {
-			case State.TAG:
-				/* request script tag tokenization */
-				if (data && data[0][0] === "<") {
-					if (data[0] === "<script") {
-						context.contentModel = ContentModel.SCRIPT;
-					} else {
-						context.contentModel = ContentModel.TEXT;
-					}
-				}
-				break;
+	private enter(context: Context, state: State, data: RegExpMatchArray): void {
+		/* script tags require a different content model */
+		if (state === State.TAG && data && data[0][0] === "<") {
+			if (data[0] === "<script") {
+				context.contentModel = ContentModel.SCRIPT;
+			} else {
+				context.contentModel = ContentModel.TEXT;
+			}
 		}
 	}
 
-	private *tokenizeInitial(context: Context) {
+	private *tokenizeInitial(context: Context): Iterable<Token> {
 		yield* this.match(
 			context,
 			[
@@ -202,7 +202,7 @@ export class Lexer {
 		);
 	}
 
-	private *tokenizeDoctype(context: Context) {
+	private *tokenizeDoctype(context: Context): Iterable<Token> {
 		yield* this.match(
 			context,
 			[
@@ -214,8 +214,8 @@ export class Lexer {
 		);
 	}
 
-	private *tokenizeTag(context: Context) {
-		function nextState(token: Token) {
+	private *tokenizeTag(context: Context): Iterable<Token> {
+		function nextState(token: Token): State {
 			switch (context.contentModel) {
 				case ContentModel.TEXT:
 					return State.TEXT;
@@ -244,7 +244,7 @@ export class Lexer {
 		);
 	}
 
-	private *tokenizeAttr(context: Context) {
+	private *tokenizeAttr(context: Context): Iterable<Token> {
 		yield* this.match(
 			context,
 			[
@@ -257,7 +257,7 @@ export class Lexer {
 		);
 	}
 
-	private *tokenizeText(context: Context) {
+	private *tokenizeText(context: Context): Iterable<Token> {
 		yield* this.match(
 			context,
 			[
@@ -274,7 +274,7 @@ export class Lexer {
 		);
 	}
 
-	private *tokenizeCDATA(context: Context) {
+	private *tokenizeCDATA(context: Context): Iterable<Token> {
 		yield* this.match(
 			context,
 			[[MATCH_CDATA_END, State.TEXT, false]],
@@ -282,7 +282,7 @@ export class Lexer {
 		);
 	}
 
-	private *tokenizeScript(context: Context) {
+	private *tokenizeScript(context: Context): Iterable<Token> {
 		yield* this.match(
 			context,
 			[

@@ -26,7 +26,7 @@ class H37 extends Rule {
 		}
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("tag:close", (event: TagCloseEvent) => {
 			const node = event.previous;
 

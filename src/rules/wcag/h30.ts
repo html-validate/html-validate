@@ -17,7 +17,7 @@ class H30 extends Rule {
 		this.name = "WCAG/H30";
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const links = event.document.getElementsByTagName("a");
 			for (const link of links) {

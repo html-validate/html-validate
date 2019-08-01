@@ -10,7 +10,7 @@ class NoDupAttr extends Rule {
 		};
 	}
 
-	public setup() {
+	public setup(): void {
 		let attr: { [key: string]: boolean } = {};
 
 		this.on("tag:open", () => {

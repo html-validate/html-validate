@@ -40,6 +40,7 @@ function mergeInternal(base: ConfigData, rhs: ConfigData): ConfigData {
 function loadFromFile(filename: string): ConfigData {
 	let json;
 	try {
+		// eslint-disable-next-line security/detect-non-literal-require
 		json = require(filename);
 	} catch (err) {
 		throw new UserError(`Failed to read configuration from "${filename}"`, err);
@@ -141,7 +142,7 @@ export class Config {
 	 *
 	 * Must be called before trying to use config.
 	 */
-	public init() {
+	public init(): void {
 		/* precompile transform patterns */
 		this.transformers = this.precompileTransformers(
 			this.config.transform || {}
@@ -210,6 +211,7 @@ export class Config {
 			}
 
 			/* assume it is loadable with require() */
+			// eslint-disable-next-line security/detect-non-literal-require
 			metaTable.loadFromObject(require(entry));
 		}
 
@@ -269,6 +271,7 @@ export class Config {
 
 	private loadPlugins(plugins: string[]): Plugin[] {
 		return plugins.map((moduleName: string) => {
+			// eslint-disable-next-line security/detect-non-literal-require
 			const plugin = require(moduleName.replace(
 				"<rootDir>",
 				this.rootDir
@@ -335,20 +338,24 @@ export class Config {
 	private precompileTransformers(transform: TransformMap): Transformer[] {
 		return Object.entries(transform).map(([pattern, module]) => {
 			return {
+				// eslint-disable-next-line security/detect-non-literal-regexp
 				pattern: new RegExp(pattern),
+
+				// eslint-disable-next-line security/detect-non-literal-require
 				fn: require(module.replace("<rootDir>", this.rootDir)),
 			};
 		});
 	}
 
-	protected findRootDir() {
+	protected findRootDir(): string {
 		if (rootDirCache !== null) {
 			return rootDirCache;
 		}
 
 		/* try to locate package.json */
 		let current = process.cwd();
-		for (;;) {
+		// eslint-disable-next-line no-constant-condition
+		while (true) {
 			const search = path.join(current, "package.json");
 			if (fs.existsSync(search)) {
 				return (rootDirCache = current);

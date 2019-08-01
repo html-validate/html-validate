@@ -16,7 +16,7 @@ class H32 extends Rule {
 		this.name = "WCAG/H32";
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const forms = event.document.getElementsByTagName("form");
 			forms.forEach((node: HtmlElement) => {

@@ -35,7 +35,7 @@ class AttrQuotes extends Rule {
 		this.style = parseStyle(this.options.style);
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("attr", (event: AttributeEvent) => {
 			/* ignore attributes with no value */
 			if (typeof event.value === "undefined") {
@@ -75,7 +75,7 @@ class AttrQuotes extends Rule {
 	}
 }
 
-function parseStyle(style: string) {
+function parseStyle(style: string): QuoteStyle {
 	switch (style.toLowerCase()) {
 		case "auto":
 			return QuoteStyle.AUTO_QUOTE;

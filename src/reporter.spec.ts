@@ -1,5 +1,5 @@
 import { Source } from "./context";
-import { Message, Reporter } from "./reporter";
+import { Message, Reporter, Result } from "./reporter";
 
 describe("Reporter", () => {
 	describe("merge()", () => {
@@ -186,7 +186,7 @@ describe("Reporter", () => {
 	});
 });
 
-function createResult(filename: string, messages: string[]) {
+function createResult(filename: string, messages: string[]): Result {
 	return {
 		filePath: filename,
 		messages: messages.map(cur => createMessage(cur)),

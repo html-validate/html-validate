@@ -15,7 +15,7 @@ class H36 extends Rule {
 		this.name = "WCAG/H36";
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("tag:close", event => {
 			/* only handle input elements */
 			const node = event.previous;

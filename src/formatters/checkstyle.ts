@@ -9,14 +9,14 @@ const entities: { [key: string]: string } = {
 	"&": "&amp;",
 };
 
-function xmlescape(src: any) {
+function xmlescape(src: any): string {
 	if (src === null || src === undefined) return src;
 	return src.toString().replace(/[><'"&]/g, (match: string) => {
 		return entities[match];
 	});
 }
 
-function getMessageType(message: Message) {
+function getMessageType(message: Message): "error" | "warning" {
 	switch (message.severity) {
 		case 2:
 			return "error";
@@ -27,7 +27,7 @@ function getMessageType(message: Message) {
 	}
 }
 
-export default function checkstyleFormatter(results: Result[]) {
+export default function checkstyleFormatter(results: Result[]): string {
 	let output = "";
 
 	output += `<?xml version="1.0" encoding="utf-8"?>`;

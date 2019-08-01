@@ -1,5 +1,4 @@
-import { HtmlElement } from "../dom";
-import { NodeClosed } from "../dom";
+import { HtmlElement, NodeClosed } from "../dom";
 import { TagCloseEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
@@ -29,7 +28,7 @@ class Void extends Rule {
 		this.style = parseStyle(this.options.style);
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("tag:close", (event: TagCloseEvent) => {
 			const current = event.target; // The current element being closed
 			const active = event.previous; // The current active element (that is, the current element on the stack)

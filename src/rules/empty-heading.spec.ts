@@ -24,7 +24,7 @@ describe("rule empty-heading", () => {
 	});
 
 	it("should not report when heading has dynamic text", () => {
-		function processElement(node: HtmlElement) {
+		function processElement(node: HtmlElement): void {
 			node.appendText(new DynamicValue(""));
 		}
 		const report = htmlvalidate.validateString("<h1></h1>", {

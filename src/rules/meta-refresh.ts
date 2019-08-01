@@ -8,7 +8,7 @@ class MetaRefresh extends Rule {
 		};
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("element:ready", ({ target }) => {
 			/* only handle <meta> */
 			if (!target.is("meta")) {

@@ -103,7 +103,7 @@ export class Engine<T extends Parser = Parser> {
 		const dom = parser.parseHtml(source[0]);
 		const lines: string[] = [];
 
-		function decoration(node: HtmlElement) {
+		function decoration(node: HtmlElement): string {
 			let output = "";
 			if (node.hasAttribute("id")) {
 				output += `#${node.id}`;
@@ -114,7 +114,11 @@ export class Engine<T extends Parser = Parser> {
 			return output;
 		}
 
-		function writeNode(node: HtmlElement, level: number, sibling: number) {
+		function writeNode(
+			node: HtmlElement,
+			level: number,
+			sibling: number
+		): void {
 			if (level > 0) {
 				const indent = "  ".repeat(level - 1);
 				const l = node.childElements.length > 0 ? "┬" : "─";
@@ -193,9 +197,7 @@ export class Engine<T extends Parser = Parser> {
 
 		/* enable rules on node */
 		parser.on("tag:open", (event: string, data: TagOpenEvent) => {
-			for (const rule of rules) {
-				data.target.enableRule(rule.name);
-			}
+			data.target.enableRules(rules.map(rule => rule.name));
 		});
 	}
 
@@ -206,9 +208,7 @@ export class Engine<T extends Parser = Parser> {
 
 		/* disable rules on node */
 		parser.on("tag:open", (event: string, data: TagOpenEvent) => {
-			for (const rule of rules) {
-				data.target.disableRule(rule.name);
-			}
+			data.target.disableRules(rules.map(rule => rule.name));
 		});
 	}
 
@@ -228,9 +228,7 @@ export class Engine<T extends Parser = Parser> {
 
 				/* disable rules directly on the node so it will be recorded for later,
 				 * more specifically when using the domtree to trigger errors */
-				for (const rule of rules) {
-					data.target.disableRule(rule.name);
-				}
+				data.target.disableRules(rules.map(rule => rule.name));
 			}
 		);
 
@@ -267,9 +265,7 @@ export class Engine<T extends Parser = Parser> {
 		const unregister = parser.on(
 			"tag:open",
 			(event: string, data: TagOpenEvent) => {
-				for (const rule of rules) {
-					data.target.disableRule(rule.name);
-				}
+				data.target.disableRules(rules.map(rule => rule.name));
 			}
 		);
 
@@ -403,7 +399,7 @@ export class Engine<T extends Parser = Parser> {
 
 	private missingRule(name: string): any {
 		return new (class extends Rule {
-			public setup() {
+			public setup(): void {
 				this.on("dom:load", () => {
 					this.report(null, `Definition for rule '${name}' was not found`);
 				});

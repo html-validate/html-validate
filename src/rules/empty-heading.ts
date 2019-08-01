@@ -11,7 +11,7 @@ class EmptyHeading extends Rule {
 		};
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("dom:ready", ({ document }) => {
 			const headings = document.querySelectorAll(selector);
 			for (const heading of headings) {

@@ -89,7 +89,7 @@ export class Reporter {
 		severity: number,
 		location: Location,
 		context?: any
-	) {
+	): void {
 		if (!(location.filename in this.result)) {
 			this.result[location.filename] = [];
 		}
@@ -139,11 +139,11 @@ export class Reporter {
 	}
 }
 
-function countErrors(messages: Message[]) {
+function countErrors(messages: Message[]): number {
 	return messages.filter(m => m.severity === Severity.ERROR).length;
 }
 
-function countWarnings(messages: Message[]) {
+function countWarnings(messages: Message[]): number {
 	return messages.filter(m => m.severity === Severity.WARN).length;
 }
 

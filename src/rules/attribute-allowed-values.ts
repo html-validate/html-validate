@@ -38,7 +38,7 @@ class AttributeAllowedValues extends Rule<Context> {
 		return docs;
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;
 			doc.visitDepthFirst((node: HtmlElement) => {

@@ -8,14 +8,33 @@
   "extends": [
     "sidvind/es2017",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "plugin:array-func/recommended",
+    "plugin:prettier/recommended",
+    "plugin:node/recommended-module",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    "plugin:security/recommended",
+    "plugin:sonarjs/recommended"
   ],
 
-  "plugins": ["@typescript-eslint", "prettier"],
+  "plugins": [
+    "@typescript-eslint",
+    "array-func",
+    "node",
+    "prettier",
+    "security",
+    "sonarjs"
+  ],
 
   "rules": {
     "@typescript-eslint/array-type": "off",
-    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      {
+        "allowExpressions": true
+      }
+    ],
     "@typescript-eslint/explicit-member-accessibility": "off",
     "@typescript-eslint/indent": "off",
     "@typescript-eslint/member-delimiter-style": "error",
@@ -27,10 +46,17 @@
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/type-annotation-spacing": "error",
     "consistent-this": "off",
+    "import/named": "off",
     "no-console": "warn",
     "no-dupe-class-members": "off",
     "no-undef": "off",
+    "node/no-missing-import": "off",
+    "node/no-unsupported-features/es-syntax": "off",
     "prettier/prettier": "warn",
+    "security/detect-non-literal-fs-filename": "off",
+    "security/detect-non-literal-require": "off",
+    "security/detect-object-injection": "off",
+    "security/detect-unsafe-regex": "off",
     "strict": "off"
   },
 
@@ -45,7 +71,9 @@
       "rules": {
         "jest/no-disabled-tests": "warn",
         "jest/no-focused-tests": "warn",
-        "jest/no-test-prefixes": "warn"
+        "jest/no-test-prefixes": "warn",
+        "sonarjs/no-duplicate-string": "off",
+        "sonarjs/no-identical-functions": "off"
       }
     }
   ]

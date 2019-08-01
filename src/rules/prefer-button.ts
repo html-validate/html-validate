@@ -9,7 +9,7 @@ class PreferButton extends Rule {
 		};
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("tag:close", (event: TagCloseEvent) => {
 			const node = event.previous;
 

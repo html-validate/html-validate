@@ -24,7 +24,7 @@ class AttributeBooleanStyle extends Rule {
 		};
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;
 			doc.visitDepthFirst((node: HtmlElement) => {

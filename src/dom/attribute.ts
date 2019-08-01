@@ -46,7 +46,7 @@ export class Attribute {
 	/**
 	 * Flag set to true if the attribute value is static.
 	 */
-	public get isStatic() {
+	public get isStatic(): boolean {
 		return !this.isDynamic;
 	}
 

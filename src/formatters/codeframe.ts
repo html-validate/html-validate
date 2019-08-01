@@ -1,8 +1,8 @@
 import { codeFrameColumns } from "@babel/code-frame";
 import chalk from "chalk";
 import path from "path";
-import { Message, Result } from "reporter";
 import { FormatterModule } from ".";
+import { Message, Result } from "../reporter";
 
 interface SourcePoint {
 	line: number;
@@ -133,9 +133,7 @@ function formatSummary(errors: number, warnings: number): string {
 		summary.push(`${warnings} ${pluralize("warning", warnings)}`);
 	}
 
-	const output = chalk[summaryColor].bold(`${summary.join(" and ")} found.`);
-
-	return output;
+	return chalk[summaryColor].bold(`${summary.join(" and ")} found.`);
 }
 
 export default function codeframe(results: Result[]): string {

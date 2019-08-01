@@ -60,7 +60,8 @@ export class ConfigLoader {
 		let current = path.resolve(path.dirname(filename));
 		let config = this.configClass.empty();
 
-		for (;;) {
+		// eslint-disable-next-line no-constant-condition
+		while (true) {
 			const search = path.join(current, ".htmlvalidate.json");
 
 			if (fs.existsSync(search)) {

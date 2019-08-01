@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-namespace, prefer-template */
+/* eslint-disable @typescript-eslint/no-namespace, prefer-template, sonarjs/no-duplicate-string */
 
 import diff from "jest-diff";
 import { TokenType } from "./lexer";
@@ -22,7 +22,7 @@ declare global {
 	}
 }
 
-function toBeValid(report: Report) {
+function toBeValid(report: Report): jest.CustomMatcherResult {
 	if (report.valid) {
 		return {
 			pass: true,
@@ -38,7 +38,7 @@ function toBeValid(report: Report) {
 	}
 }
 
-function toBeInvalid(report: Report) {
+function toBeInvalid(report: Report): jest.CustomMatcherResult {
 	if (report.valid) {
 		return {
 			pass: false,
@@ -52,7 +52,11 @@ function toBeInvalid(report: Report) {
 	}
 }
 
-function toHaveError(report: Report, ruleId: any, message: any) {
+function toHaveError(
+	report: Report,
+	ruleId: any,
+	message: any
+): jest.CustomMatcherResult {
 	const actual = report.results.reduce(
 		(aggregated: Message[], result: Result) => {
 			return aggregated.concat(result.messages);
@@ -62,7 +66,7 @@ function toHaveError(report: Report, ruleId: any, message: any) {
 	const matcher = [expect.objectContaining({ ruleId, message })];
 	const pass = this.equals(actual, matcher);
 	const diffString = diff(matcher, actual, { expand: this.expand });
-	const resultMessage = () =>
+	const resultMessage = (): string =>
 		this.utils.matcherHint(".toHaveError") +
 		"\n\n" +
 		"Expected token to equal:\n" +
@@ -74,7 +78,10 @@ function toHaveError(report: Report, ruleId: any, message: any) {
 	return { pass, message: resultMessage };
 }
 
-function toHaveErrors(report: Report, errors: Array<[string, string] | {}>) {
+function toHaveErrors(
+	report: Report,
+	errors: Array<[string, string] | {}>
+): jest.CustomMatcherResult {
 	const actual = report.results.reduce(
 		(aggregated: Message[], result: Result) => {
 			return aggregated.concat(result.messages);
@@ -91,7 +98,7 @@ function toHaveErrors(report: Report, errors: Array<[string, string] | {}>) {
 	});
 	const pass = this.equals(actual, matcher);
 	const diffString = diff(matcher, actual, { expand: this.expand });
-	const resultMessage = () =>
+	const resultMessage = (): string =>
 		this.utils.matcherHint(".toHaveErrors") +
 		"\n\n" +
 		"Expected token to equal:\n" +
@@ -103,7 +110,7 @@ function toHaveErrors(report: Report, errors: Array<[string, string] | {}>) {
 	return { pass, message: resultMessage };
 }
 
-function toBeToken(actual: any, expected: any) {
+function toBeToken(actual: any, expected: any): jest.CustomMatcherResult {
 	const token = actual.value;
 
 	if (token.type) {
@@ -117,7 +124,7 @@ function toBeToken(actual: any, expected: any) {
 	const matcher = expect.objectContaining(expected);
 	const pass = this.equals(token, matcher);
 	const diffString = diff(matcher, token, { expand: this.expand });
-	const message = () =>
+	const message = (): string =>
 		this.utils.matcherHint(".toBeToken") +
 		"\n\n" +
 		"Expected token to equal:\n" +

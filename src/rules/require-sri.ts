@@ -28,7 +28,7 @@ class RequireSri extends Rule {
 		};
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("tag:close", (event: TagCloseEvent) => {
 			/* only handle thats supporting and requires sri */
 			const node = event.previous;

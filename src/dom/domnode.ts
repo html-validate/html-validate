@@ -6,7 +6,7 @@ const DOCUMENT_NODE_NAME = "#document";
 let counter = 0;
 
 /* istanbul ignore next: only for testing */
-export function reset() {
+export function reset(): void {
 	counter = 0;
 }
 
@@ -81,10 +81,28 @@ export class DOMNode {
 	}
 
 	/**
+	 * Disables multiple rules.
+	 */
+	public disableRules(rules: string[]): void {
+		for (const rule of rules) {
+			this.disableRule(rule);
+		}
+	}
+
+	/**
 	 * Enable a previously disabled rule for this node.
 	 */
 	public enableRule(ruleId: string): void {
 		this.disabledRules.delete(ruleId);
+	}
+
+	/**
+	 * Enables multiple rules.
+	 */
+	public enableRules(rules: string[]): void {
+		for (const rule of rules) {
+			this.enableRule(rule);
+		}
 	}
 
 	/**
