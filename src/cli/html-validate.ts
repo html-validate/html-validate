@@ -1,4 +1,5 @@
 /* eslint-disable no-console, no-process-exit */
+import { ConfigData } from "../config";
 import defaultConfig from "../config/default";
 import { TokenDump } from "../engine";
 import { UserError } from "../error/user-error";
@@ -6,6 +7,7 @@ import HtmlValidate from "../htmlvalidate";
 import { Report, Reporter, Result } from "../reporter";
 import { getFormatter } from "./formatter";
 import { eventFormatter } from "./json";
+
 const pkg = require("../../package.json");
 
 import chalk from "chalk";
@@ -40,7 +42,7 @@ function getMode(argv: { [key: string]: any }): Mode {
 	return Mode.LINT;
 }
 
-function getGlobalConfig(rules?: string | string[]) {
+function getGlobalConfig(rules?: string | string[]): ConfigData {
 	const config: any = Object.assign({}, defaultConfig);
 	if (rules) {
 		if (Array.isArray(rules)) {
@@ -75,7 +77,7 @@ function lint(files: string[]): Report {
 	return Reporter.merge(reports);
 }
 
-function dump(files: string[], mode: Mode) {
+function dump(files: string[], mode: Mode): string {
 	let lines: string[][] = [];
 	switch (mode) {
 		case Mode.DUMP_EVENTS:
@@ -122,7 +124,7 @@ const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
 	},
 });
 
-function showUsage() {
+function showUsage(): void {
 	const pkg = require("../../package.json");
 	process.stdout.write(`${pkg.name}-${pkg.version}
 Usage: html-validate [OPTIONS] [FILENAME..] [DIR..]

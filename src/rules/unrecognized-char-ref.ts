@@ -15,7 +15,7 @@ class UnknownCharReference extends Rule<string> {
 		};
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("element:ready", (event: ElementReadyEvent) => {
 			const node = event.target;
 

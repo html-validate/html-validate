@@ -380,7 +380,7 @@ describe("Engine", () => {
 
 			it("should load from plugins", () => {
 				class MyRule {
-					public init() {
+					public init(): void {
 						/* do nothing */
 					}
 				}

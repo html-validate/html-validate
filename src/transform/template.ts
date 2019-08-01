@@ -84,7 +84,11 @@ function extractLiteral(
 	}
 }
 
-function compareKey(node: ESTree.Expression, key: string, filename: string) {
+function compareKey(
+	node: ESTree.Expression,
+	key: string,
+	filename: string
+): boolean {
 	switch (node.type) {
 		case "Identifier":
 			return node.name === key;

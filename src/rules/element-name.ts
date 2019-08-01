@@ -26,7 +26,7 @@ class ElementName extends Rule {
 		};
 	}
 
-	public setup() {
+	public setup(): void {
 		const xmlns = /^(.+):.+$/;
 		this.on("tag:open", (event: TagOpenEvent) => {
 			const target = event.target;

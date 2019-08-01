@@ -11,7 +11,7 @@ class Deprecated extends Rule {
 		};
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("tag:open", (event: TagOpenEvent) => {
 			const node = event.target;
 

@@ -1,8 +1,9 @@
+import { Source } from "../context";
 import "../matchers";
 import { Lexer } from "./lexer";
 import { TokenType } from "./token";
 
-function inlineSource(source: string, { line = 1, column = 1 } = {}) {
+function inlineSource(source: string, { line = 1, column = 1 } = {}): Source {
 	return {
 		data: source,
 		filename: "inline",

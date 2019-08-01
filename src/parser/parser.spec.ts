@@ -8,7 +8,7 @@ import "../matchers";
 import { AttributeData } from "./attribute-data";
 import { Parser } from "./parser";
 
-function mergeEvent(event: string, data: any) {
+function mergeEvent(event: string, data: any): any {
 	const merged = Object.assign({}, { event }, data);
 
 	/* not useful for these tests */
@@ -25,7 +25,7 @@ function mergeEvent(event: string, data: any) {
 }
 
 class ExposedParser extends Parser {
-	public consumeDirective(token: Token) {
+	public consumeDirective(token: Token): void {
 		super.consumeDirective(token);
 	}
 
@@ -36,7 +36,7 @@ class ExposedParser extends Parser {
 		yield* super.consumeUntil(tokenStream, search);
 	}
 
-	public trigger(event: any, data: any) {
+	public trigger(event: any, data: any): void {
 		super.trigger(event, data);
 	}
 }

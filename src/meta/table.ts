@@ -45,7 +45,7 @@ export class MetaTable {
 		this.schema = clone(require("../../elements/schema.json"));
 	}
 
-	public init() {
+	public init(): void {
 		this.resolveGlobal();
 	}
 
@@ -159,14 +159,14 @@ export class MetaTable {
 		return deepmerge(a, b);
 	}
 
-	public resolve(node: HtmlElement) {
+	public resolve(node: HtmlElement): void {
 		if (node.meta) {
 			expandProperties(node, node.meta);
 		}
 	}
 }
 
-function expandProperties(node: HtmlElement, entry: MetaElement) {
+function expandProperties(node: HtmlElement, entry: MetaElement): void {
 	for (const key of dynamicKeys) {
 		const property = entry[key];
 		if (property && typeof property !== "boolean") {
@@ -175,7 +175,7 @@ function expandProperties(node: HtmlElement, entry: MetaElement) {
 	}
 }
 
-function expandRegex(entry: MetaElement) {
+function expandRegex(entry: MetaElement): RegExp {
 	if (!entry.attributes) return;
 	for (const [name, values] of Object.entries(entry.attributes)) {
 		entry.attributes[name] = values.map((value: string | RegExp) => {

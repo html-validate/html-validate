@@ -103,7 +103,7 @@ export class Engine<T extends Parser = Parser> {
 		const dom = parser.parseHtml(source[0]);
 		const lines: string[] = [];
 
-		function decoration(node: HtmlElement) {
+		function decoration(node: HtmlElement): string {
 			let output = "";
 			if (node.hasAttribute("id")) {
 				output += `#${node.id}`;
@@ -114,7 +114,11 @@ export class Engine<T extends Parser = Parser> {
 			return output;
 		}
 
-		function writeNode(node: HtmlElement, level: number, sibling: number) {
+		function writeNode(
+			node: HtmlElement,
+			level: number,
+			sibling: number
+		): void {
 			if (level > 0) {
 				const indent = "  ".repeat(level - 1);
 				const l = node.childElements.length > 0 ? "┬" : "─";
@@ -395,7 +399,7 @@ export class Engine<T extends Parser = Parser> {
 
 	private missingRule(name: string): any {
 		return new (class extends Rule {
-			public setup() {
+			public setup(): void {
 				this.on("dom:load", () => {
 					this.report(null, `Definition for rule '${name}' was not found`);
 				});

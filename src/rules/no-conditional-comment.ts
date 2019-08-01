@@ -10,7 +10,7 @@ class NoConditionalComment extends Rule {
 		};
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("conditional", (event: ConditionalEvent) => {
 			this.report(
 				null,

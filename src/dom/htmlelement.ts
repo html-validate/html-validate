@@ -56,7 +56,7 @@ export class HtmlElement extends DOMNode {
 		}
 	}
 
-	public static rootNode(location: Location) {
+	public static rootNode(location: Location): HtmlElement {
 		return new HtmlElement(
 			undefined,
 			undefined,
@@ -71,7 +71,7 @@ export class HtmlElement extends DOMNode {
 		endToken: Token,
 		parent: HtmlElement,
 		metaTable: MetaTable
-	) {
+	): HtmlElement {
 		const tagName = startToken.data[2];
 		if (!tagName) {
 			throw new Error("tagName cannot be empty");
@@ -238,7 +238,7 @@ export class HtmlElement extends DOMNode {
 	 * @param text - Text to add.
 	 * @param location - Source code location of this text.
 	 */
-	public appendText(text: string | DynamicValue, location?: Location) {
+	public appendText(text: string | DynamicValue, location?: Location): void {
 		this.childNodes.push(new TextNode(text, location));
 	}
 
@@ -257,7 +257,7 @@ export class HtmlElement extends DOMNode {
 		return new DOMTokenList(classes);
 	}
 
-	get id() {
+	get id(): string {
 		return this.getAttributeValue("id");
 	}
 
@@ -321,7 +321,7 @@ export class HtmlElement extends DOMNode {
 	/**
 	 * Evaluates callbackk on all descendants, returning true if any are true.
 	 */
-	public someChildren(callback: (node: HtmlElement) => boolean) {
+	public someChildren(callback: (node: HtmlElement) => boolean): boolean {
 		return this.childElements.some(visit);
 
 		function visit(node: HtmlElement): boolean {
@@ -336,7 +336,7 @@ export class HtmlElement extends DOMNode {
 	/**
 	 * Evaluates callbackk on all descendants, returning true if all are true.
 	 */
-	public everyChildren(callback: (node: HtmlElement) => boolean) {
+	public everyChildren(callback: (node: HtmlElement) => boolean): boolean {
 		return this.childElements.every(visit);
 
 		function visit(node: HtmlElement): boolean {

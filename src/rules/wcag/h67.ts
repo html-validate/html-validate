@@ -15,7 +15,7 @@ class H67 extends Rule {
 		this.name = "WCAG/H67";
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("tag:close", (event: TagCloseEvent) => {
 			const node = event.target;
 

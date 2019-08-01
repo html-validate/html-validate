@@ -1,7 +1,7 @@
 import { FormatterModule } from ".";
 import { Result } from "../reporter";
 
-export default function textFormatter(results: Result[]) {
+export default function textFormatter(results: Result[]): string {
 	let output = "";
 	let total = 0;
 

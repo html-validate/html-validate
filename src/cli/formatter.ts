@@ -4,7 +4,10 @@ import { Report, Result } from "../reporter";
 
 type WrappedFormatter = (results: Result[]) => string;
 
-function wrap(formatter: Formatter, dst: string) {
+function wrap(
+	formatter: Formatter,
+	dst: string
+): (results: Result[]) => string {
 	return (results: Result[]) => {
 		const output = formatter(results);
 		if (dst) {

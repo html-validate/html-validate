@@ -142,7 +142,7 @@ export class Config {
 	 *
 	 * Must be called before trying to use config.
 	 */
-	public init() {
+	public init(): void {
 		/* precompile transform patterns */
 		this.transformers = this.precompileTransformers(
 			this.config.transform || {}
@@ -347,7 +347,7 @@ export class Config {
 		});
 	}
 
-	protected findRootDir() {
+	protected findRootDir(): string {
 		if (rootDirCache !== null) {
 			return rootDirCache;
 		}

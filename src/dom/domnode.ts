@@ -6,7 +6,7 @@ const DOCUMENT_NODE_NAME = "#document";
 let counter = 0;
 
 /* istanbul ignore next: only for testing */
-export function reset() {
+export function reset(): void {
 	counter = 0;
 }
 

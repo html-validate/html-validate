@@ -206,7 +206,7 @@ describe("Plugin", () => {
 
 		it("Engine should call rule init callback", () => {
 			const mockRule: Rule = new (class extends Rule {
-				public setup() {
+				public setup(): void {
 					/* do nothing */
 				}
 			})({});

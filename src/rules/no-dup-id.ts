@@ -9,7 +9,7 @@ class NoDupID extends Rule {
 		};
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const existing: { [key: string]: boolean } = {};
 			const elements = event.document.querySelectorAll("[id]");

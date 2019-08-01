@@ -12,7 +12,7 @@ Omitted end tags can be ambigious for humans to read and many editors have troub
 		};
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("tag:close", (event: TagCloseEvent) => {
 			const closed = event.previous;
 			const by = event.target;

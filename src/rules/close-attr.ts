@@ -9,7 +9,7 @@ class CloseAttr extends Rule {
 		};
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("tag:close", (event: TagCloseEvent) => {
 			/* handle unclosed tags */
 			if (!event.target) {

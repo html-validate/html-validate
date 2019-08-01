@@ -12,7 +12,7 @@ class HeadingLevel extends Rule {
 		};
 	}
 
-	public setup() {
+	public setup(): void {
 		let current = 0;
 		this.on("tag:open", (event: TagOpenEvent) => {
 			/* ensure it is a heading */

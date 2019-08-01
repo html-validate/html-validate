@@ -22,7 +22,7 @@ class ElementCase extends Rule {
 		};
 	}
 
-	public setup() {
+	public setup(): void {
 		this.on("tag:open", (event: TagOpenEvent) => {
 			const letters = event.target.tagName.replace(/[^a-z]+/gi, "");
 			if (!letters.match(this.pattern)) {
