@@ -1,6 +1,6 @@
 {
   "name": "html-validate",
-  "version": "1.2.1",
+  "version": "0.0.0-development",
   "description": "html linter",
   "keywords": [
     "html",
@@ -32,15 +32,14 @@
     "eslint": "eslint *.js '{docs,elements,src}/**/*.{js,ts}'",
     "eslint:fix": "eslint --fix *.js '{docs,elements,src}/**/*.{js,ts}'",
     "lint": "npm run eslint && npm run tslint",
-    "postversion": "git push --follow-tags",
     "prettier:check": "prettier '**/*.{ts,js,json,md,scss}' --list-different",
     "prettier:write": "prettier '**/*.{ts,js,json,md,scss}' --write",
     "preversion": "./scripts/validate-version",
+    "semantic-release": "semantic-release --dry-run",
     "start": "grunt connect",
     "test": "jest --ci",
     "tslint": "tslint -t verbose *.ts src/**/*.ts",
-    "tslint:fix": "tslint -t verbose --fix *.ts src/**/*.ts",
-    "version": "sv-update-changelog -i && git add CHANGELOG.md"
+    "tslint:fix": "tslint -t verbose --fix *.ts src/**/*.ts"
   },
   "husky": {
     "hooks": {
@@ -66,6 +65,16 @@
       "automerge": false
     }
   },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      "@semantic-release/gitlab",
+      "@semantic-release/changelog",
+      "@semantic-release/git"
+    ]
+  },
   "dependencies": {
     "@babel/code-frame": "^7.0.0",
     "acorn-walk": "^6.1.1",
@@ -82,7 +91,11 @@
   "devDependencies": {
     "@babel/core": "7.5.5",
     "@babel/preset-env": "7.5.5",
-    "@sidvind/build-scripts": "1.0.0",
+    "@semantic-release/changelog": "^3.0.4",
+    "@semantic-release/git": "^7.0.16",
+    "@semantic-release/gitlab": "^3.1.7",
+    "@semantic-release/npm": "^5.1.13",
+    "@semantic-release/release-notes-generator": "^7.3.0",
     "@types/babel__code-frame": "7.0.1",
     "@types/estree": "0.0.39",
     "@types/glob": "7.1.1",
@@ -126,6 +139,7 @@
     "load-grunt-tasks": "5.1.0",
     "prettier": "1.18.2",
     "sass": "1.22.9",
+    "semantic-release": "^15.13.19",
     "serve-static": "1.14.1",
     "strip-ansi": "5.2.0",
     "ts-jest": "24.0.2",
