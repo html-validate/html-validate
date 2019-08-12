@@ -1,6 +1,6 @@
 {
   "name": "html-validate",
-  "version": "0.0.0-development",
+  "version": "1.3.0",
   "description": "html linter",
   "keywords": [
     "html",

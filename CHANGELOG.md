@@ -1,3 +1,10 @@
+# [1.3.0](https://gitlab.com/html-validate/html-validate/compare/v1.2.1...v1.3.0) (2019-08-12)
+
+
+### Features
+
+* **rules:** new rule no-missing-references ([4653384](https://gitlab.com/html-validate/html-validate/commit/4653384))
+
 # html-validate changelog
 
 ## 1.2.1 (2019-07-30)
