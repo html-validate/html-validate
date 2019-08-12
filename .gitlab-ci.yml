@@ -112,6 +112,11 @@ Release:
   stage: release
   only:
     - master
+  variables:
+    - GIT_AUTHOR_NAME: "David Sveningsson"
+    - GIT_AUTHOR_EMAIL "ext@sidvind.com"
+    - GIT_COMMITTER_NAME "David Sveningsson"
+    - GIT_COMMITTER_EMAIL "ext@sidvind.com"
   script:
     - npm run semantic-release
 
