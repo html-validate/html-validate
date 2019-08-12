@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/no-missing-references.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/no-missing-references.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 13,
+        "context": Object {
+          "key": "for",
+          "value": "missing-input",
+        },
+        "line": 1,
+        "message": "Element references missing id \\"missing-input\\"",
+        "offset": 12,
+        "ruleId": "no-missing-references",
+        "severity": 2,
+        "size": 13,
+      },
+      Object {
+        "column": 23,
+        "context": Object {
+          "key": "aria-labelledby",
+          "value": "missing-text",
+        },
+        "line": 2,
+        "message": "Element references missing id \\"missing-text\\"",
+        "offset": 58,
+        "ruleId": "no-missing-references",
+        "severity": 2,
+        "size": 12,
+      },
+      Object {
+        "column": 24,
+        "context": Object {
+          "key": "aria-describedby",
+          "value": "missing-text",
+        },
+        "line": 3,
+        "message": "Element references missing id \\"missing-text\\"",
+        "offset": 102,
+        "ruleId": "no-missing-references",
+        "severity": 2,
+        "size": 12,
+      },
+    ],
+    "source": "<label for=\\"missing-input\\"></label>
+<div aria-labelledby=\\"missing-text\\"></div>
+<div aria-describedby=\\"missing-text\\"></div>",
+    "warningCount": 0,
+  },
+]
+`;
