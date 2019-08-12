@@ -1,7 +1,5 @@
 # html-validate changelog
 
-## Upcoming release
-
 ## 1.2.1 (2019-07-30)
 
 - fix configuration when using multiple extends.

@@ -108,10 +108,10 @@ Node 12.x (current):
   <<: *compat
   image: node:12
 
-Publish to NPM:
+Release:
   stage: release
   only:
-    - tags
+    - master
   script:
     - npm run semantic-release
 
