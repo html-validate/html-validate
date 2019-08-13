@@ -1,4 +1,4 @@
-image: node:10
+image: node:latest
 
 include:
   - template: Security/License-Management.gitlab-ci.yml
