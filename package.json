@@ -71,8 +71,12 @@
       "@semantic-release/release-notes-generator",
       "@semantic-release/npm",
       "@semantic-release/gitlab",
-      "@semantic-release/changelog",
-      "@semantic-release/git"
+      ["@semantic-release/changelog", {
+        "changelogTitle": "# html-validate changelog\n\n"
+      }],
+      ["@semantic-release/git", {
+        "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
+      }]
     ]
   },
   "dependencies": {
