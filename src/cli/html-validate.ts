@@ -114,7 +114,7 @@ function renameStdin(report: Report, filename: string): void {
 
 const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
 	// eslint-disable-next-line sonarjs/no-duplicate-string
-	string: ["f", "formatter", "rule", "stdin-filename"],
+	string: ["f", "formatter", "max-warnings", "rule", "stdin-filename"],
 	boolean: ["dump-events", "dump-tokens", "dump-tree", "print-config", "stdin"],
 	alias: {
 		f: "formatter",
@@ -131,6 +131,7 @@ Usage: html-validate [OPTIONS] [FILENAME..] [DIR..]
 
 Common options:
   -f, --formatter=FORMATTER      specify the formatter to use.
+      --max-warnings=INT         number of warnings to trigger nonzero exit code
       --rule=RULE:SEVERITY       set additional rule, use comma separator for
                                  multiple.
       --stdin                    process markup from stdin.
@@ -166,7 +167,16 @@ if (argv.h || argv.help || argv._.length === 0) {
 const mode = getMode(argv);
 const config = getGlobalConfig(argv.rule);
 const formatter = getFormatter(argv.formatter);
+const maxWarnings = parseInt(argv["max-warnings"] || "-1", 10);
 const htmlvalidate = new HtmlValidate(config);
+
+/* sanity check: ensure maxWarnings has a valid value */
+if (isNaN(maxWarnings)) {
+	console.log(
+		`Invalid value "${argv["max-warnings"]}" given to --max-warnings`
+	);
+	process.exit(1);
+}
 
 const files = argv._.reduce((files: string[], pattern: string) => {
 	/* process - as standard input */
@@ -192,6 +202,14 @@ try {
 		}
 
 		process.stdout.write(formatter(result));
+
+		if (maxWarnings >= 0 && result.warningCount > maxWarnings) {
+			console.log(
+				`\nhtml-validate found too many warnings (maxiumum: ${maxWarnings}).`
+			);
+			result.valid = false;
+		}
+
 		process.exit(result.valid ? 0 : 1);
 	} else if (mode === Mode.PRINT_CONFIG) {
 		const config = htmlvalidate.getConfigFor(files[0]);
