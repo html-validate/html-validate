@@ -80,7 +80,16 @@ export class Reporter {
 				}
 			});
 		});
-		return { valid, results: Object.keys(merged).map(key => merged[key]) };
+		const results: Result[] = Object.values(merged).map((result: Result) => {
+			/* recalculate error- and warning-count */
+			result.errorCount = countErrors(result.messages);
+			result.warningCount = countWarnings(result.messages);
+			return result;
+		});
+		return {
+			valid,
+			results,
+		};
 	}
 
 	public add(

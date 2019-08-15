@@ -42,8 +42,10 @@ describe("Reporter", () => {
 				"barney",
 				"wilma",
 			]);
+			expect(merged.results[0].errorCount).toEqual(3);
 			expect(merged.results[1].filePath).toEqual("bar");
 			expect(merged.results[1].messages.map(x => x.message)).toEqual(["spam"]);
+			expect(merged.results[1].errorCount).toEqual(1);
 		});
 	});
 
