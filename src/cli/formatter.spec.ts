@@ -40,6 +40,8 @@ const report: Report = {
 			warningCount: 0,
 		},
 	],
+	errorCount: 1,
+	warningCount: 0,
 };
 
 describe("cli/formatters", () => {
