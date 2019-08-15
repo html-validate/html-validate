@@ -1,5 +1,22 @@
 # html-validate changelog
 
+
+
+# [1.4.0](https://gitlab.com/html-validate/html-validate/compare/v1.3.0...v1.4.0) (2019-08-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency acorn-walk to v7 ([1fe89e0](https://gitlab.com/html-validate/html-validate/commit/1fe89e0))
+* **reporter:** fix {error,warning}Count after merging reports ([bc657d0](https://gitlab.com/html-validate/html-validate/commit/bc657d0))
+* **reporter:** require {error,warning}Count to be present in Result ([b1306a4](https://gitlab.com/html-validate/html-validate/commit/b1306a4))
+
+
+### Features
+
+* **cli:** add new --max-warnings flag ([e78a1dc](https://gitlab.com/html-validate/html-validate/commit/e78a1dc))
+* **reporter:** add {error,warning}Count summary to Report object ([2bae1d0](https://gitlab.com/html-validate/html-validate/commit/2bae1d0))
+
 # [1.3.0](https://gitlab.com/html-validate/html-validate/compare/v1.2.1...v1.3.0) (2019-08-12)
 
 ### Features
