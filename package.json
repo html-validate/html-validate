@@ -81,7 +81,7 @@
   },
   "dependencies": {
     "@babel/code-frame": "^7.0.0",
-    "acorn-walk": "^6.1.1",
+    "acorn-walk": "^7.0.0",
     "ajv": "^6.10.0",
     "better-ajv-errors": "^0.6.2",
     "chalk": "^2.4.2",
