@@ -52,6 +52,12 @@ export interface Report {
 
 	/** Detailed results per validated source */
 	results: Result[];
+
+	/** Total number of errors across all sources */
+	errorCount: number;
+
+	/** Total warnings of errors across all sources */
+	warningCount: number;
 }
 
 export class Reporter {
@@ -89,6 +95,8 @@ export class Reporter {
 		return {
 			valid,
 			results,
+			errorCount: sumErrors(results),
+			warningCount: sumWarnings(results),
 		};
 	}
 
@@ -122,7 +130,7 @@ export class Reporter {
 	}
 
 	public save(sources?: Source[]): Report {
-		return {
+		const report: Report = {
 			valid: this.isValid(),
 			results: Object.keys(this.result).map(filePath => {
 				const messages = [].concat(this.result[filePath]).sort(messageSort);
@@ -137,7 +145,12 @@ export class Reporter {
 					source: source ? source.originalData || source.data : null,
 				};
 			}),
+			errorCount: 0,
+			warningCount: 0,
 		};
+		report.errorCount = sumErrors(report.results);
+		report.warningCount = sumWarnings(report.results);
+		return report;
 	}
 
 	protected isValid(): boolean {
@@ -154,6 +167,18 @@ function countErrors(messages: Message[]): number {
 
 function countWarnings(messages: Message[]): number {
 	return messages.filter(m => m.severity === Severity.WARN).length;
+}
+
+function sumErrors(results: Result[]): number {
+	return results.reduce((sum: number, result: Result) => {
+		return sum + result.errorCount;
+	}, 0);
+}
+
+function sumWarnings(results: Result[]): number {
+	return results.reduce((sum: number, result: Result) => {
+		return sum + result.warningCount;
+	}, 0);
 }
 
 function messageSort(a: Message, b: Message): number {

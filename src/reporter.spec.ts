@@ -5,16 +5,16 @@ describe("Reporter", () => {
 	describe("merge()", () => {
 		it("should set valid only if all reports are valid", () => {
 			const none = Reporter.merge([
-				{ valid: false, results: [] },
-				{ valid: false, results: [] },
+				{ valid: false, results: [], errorCount: 1, warningCount: 2 },
+				{ valid: false, results: [], errorCount: 3, warningCount: 4 },
 			]);
 			const one = Reporter.merge([
-				{ valid: true, results: [] },
-				{ valid: false, results: [] },
+				{ valid: true, results: [], errorCount: 0, warningCount: 0 },
+				{ valid: false, results: [], errorCount: 1, warningCount: 0 },
 			]);
 			const all = Reporter.merge([
-				{ valid: true, results: [] },
-				{ valid: true, results: [] },
+				{ valid: true, results: [], errorCount: 0, warningCount: 0 },
+				{ valid: true, results: [], errorCount: 0, warningCount: 0 },
 			]);
 			expect(none.valid).toBeFalsy();
 			expect(one.valid).toBeFalsy();
@@ -29,10 +29,14 @@ describe("Reporter", () => {
 						createResult("foo", ["fred", "barney"]),
 						createResult("bar", ["spam"]),
 					],
+					errorCount: 3,
+					warningCount: 0,
 				},
 				{
 					valid: false,
 					results: [createResult("foo", ["wilma"])],
+					errorCount: 1,
+					warningCount: 0,
 				},
 			]);
 			expect(merged.results).toHaveLength(2);
@@ -46,6 +50,8 @@ describe("Reporter", () => {
 			expect(merged.results[1].filePath).toEqual("bar");
 			expect(merged.results[1].messages.map(x => x.message)).toEqual(["spam"]);
 			expect(merged.results[1].errorCount).toEqual(1);
+			expect(merged.errorCount).toEqual(4);
+			expect(merged.warningCount).toEqual(0);
 		});
 	});
 
