@@ -6,6 +6,8 @@ describe("checkstyle formatter", () => {
 		const results: Result[] = [
 			{
 				filePath: "regular.html",
+				errorCount: 1,
+				warningCount: 0,
 				messages: [
 					{
 						ruleId: "foo",
@@ -29,6 +31,8 @@ describe("checkstyle formatter", () => {
 			},
 			{
 				filePath: "edge-cases.html",
+				errorCount: 2,
+				warningCount: 0,
 				messages: [
 					{
 						ruleId: "foo",
@@ -69,7 +73,9 @@ describe("checkstyle formatter", () => {
 	});
 
 	it("should empty messages", () => {
-		const results: Result[] = [{ filePath: "empty.html", messages: [] }];
+		const results: Result[] = [
+			{ filePath: "empty.html", messages: [], errorCount: 0, warningCount: 0 },
+		];
 		expect(formatter(results)).toMatchSnapshot();
 	});
 });

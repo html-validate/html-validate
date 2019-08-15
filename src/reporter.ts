@@ -38,8 +38,8 @@ export interface Message {
 export interface Result {
 	messages: Message[];
 	filePath: string;
-	errorCount?: number;
-	warningCount?: number;
+	errorCount: number;
+	warningCount: number;
 	source?: string;
 }
 

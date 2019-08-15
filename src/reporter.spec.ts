@@ -190,6 +190,8 @@ function createResult(filename: string, messages: string[]): Result {
 	return {
 		filePath: filename,
 		messages: messages.map(cur => createMessage(cur)),
+		errorCount: messages.length,
+		warningCount: 0,
 	};
 }
 

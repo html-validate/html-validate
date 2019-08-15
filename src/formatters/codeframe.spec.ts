@@ -70,7 +70,9 @@ describe("codeframe formatter", () => {
 	});
 
 	it("should empty messages", () => {
-		const results: Result[] = [{ filePath: "empty.html", messages: [] }];
+		const results: Result[] = [
+			{ filePath: "empty.html", messages: [], errorCount: 0, warningCount: 0 },
+		];
 		expect(formatter(results)).toMatchSnapshot();
 	});
 });
