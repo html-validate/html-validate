@@ -78,6 +78,12 @@
         }
       ],
       [
+        "@semantic-release/exec",
+        {
+          "prepare": "npm run prettier:write"
+        }
+      ],
+      [
         "@semantic-release/git",
         {
           "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
@@ -102,6 +108,7 @@
     "@babel/core": "7.5.5",
     "@babel/preset-env": "7.5.5",
     "@semantic-release/changelog": "3.0.4",
+    "@semantic-release/exec": "3.3.6",
     "@semantic-release/git": "7.0.16",
     "@semantic-release/gitlab": "3.1.7",
     "@semantic-release/npm": "5.1.13",
