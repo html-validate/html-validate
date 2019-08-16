@@ -108,6 +108,7 @@ export class HtmlElement extends DOMNode {
 	 * Implementation of DOM specification of Element.closest(selectors).
 	 */
 	public closest(selectors: string): HtmlElement {
+		/* eslint-disable-next-line @typescript-eslint/no-this-alias */
 		let node: HtmlElement = this;
 		while (node) {
 			if (node.matches(selectors)) {
@@ -130,6 +131,7 @@ export class HtmlElement extends DOMNode {
 	 */
 	public matches(selector: string): boolean {
 		/* find root element */
+		/* eslint-disable-next-line @typescript-eslint/no-this-alias */
 		let root: HtmlElement = this;
 		while (root.parent) {
 			root = root.parent;
