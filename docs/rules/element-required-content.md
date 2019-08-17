@@ -25,6 +25,8 @@ Examples of **incorrect** code for this rule:
 
 <validate name="incorrect" rules="element-required-content">
     <html>
+        <head>
+        </head>
     </html>
 </validate>
 
@@ -32,7 +34,9 @@ Examples of **correct** code for this rule:
 
 <validate name="correct" rules="element-required-content">
     <html>
-        <head></head>
+        <head>
+            <title>foo</title>
+        </head>
         <body></body>
     </html>
 </validate>

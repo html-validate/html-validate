@@ -388,7 +388,8 @@
 
   "head": {
     "deprecatedAttributes": ["profile"],
-    "permittedContent": ["base?", "title?", "@meta"]
+    "permittedContent": ["base?", "title?", "@meta"],
+    "requiredContent": ["title"]
   },
 
   "header": {

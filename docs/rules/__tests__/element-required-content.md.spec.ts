@@ -2,9 +2,13 @@ import HtmlValidate from "../../../src/htmlvalidate";
 
 const markup: { [key: string]: string } = {};
 markup["incorrect"] = `<html>
+    <head>
+    </head>
 </html>`;
 markup["correct"] = `<html>
-    <head></head>
+    <head>
+        <title>foo</title>
+    </head>
     <body></body>
 </html>`;
 
