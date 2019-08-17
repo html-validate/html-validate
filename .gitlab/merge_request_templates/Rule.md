@@ -1,6 +1,5 @@
 ## Checklist
 
-- [ ] Changelog updated
 - [ ] Documentation updated
 - [ ] Rule added to recommended list
 - [ ] Change covered by a testcase
