@@ -299,7 +299,8 @@
     },
     "deprecatedAttributes": ["datafld"],
     "permittedContent": ["@flow", "legend?"],
-    "permittedOrder": ["legend", "@flow"]
+    "permittedOrder": ["legend", "@flow"],
+    "requiredContent": ["legend"]
   },
 
   "figcaption": {

@@ -202,8 +202,8 @@ textual description of the content. E.g. it cannot suggest to use `<abbr>` or
 		</tr>
 		<tr>
 			<td class="table-right">H71</td>
-			<td>Providing a description for groups of form controls using fieldset and legend elements</td>
-			<td class="support-planned">Partial planned</td>
+			<td>Providing a description for groups of form controls using fieldset and legend elements.<em>{@link rule:element-required-content} validates presence of <code>&lt;legend&gt;</code> inside <code>&lt;fieldset&gt;</code>, but not whenever <code>&lt;fieldset&gt;</code> itself is used.</em></td>
+			<td class="support-yes">Yes</td>
 		</tr>
 		<tr>
 			<td class="table-right">H73</td>
