@@ -10,7 +10,7 @@ class ElementCase extends Rule {
 	private pattern: RegExp;
 	private lettercase: string;
 
-	constructor(options: object) {
+	public constructor(options: object) {
 		super(Object.assign({}, defaults, options));
 		[this.pattern, this.lettercase] = parseStyle(this.options.style);
 	}

@@ -1,7 +1,7 @@
 export class DynamicValue {
 	public readonly expr: string;
 
-	constructor(expr: string) {
+	public constructor(expr: string) {
 		this.expr = expr;
 	}
 

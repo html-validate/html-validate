@@ -11,7 +11,7 @@ const defaults = {
 class ElementName extends Rule {
 	private pattern: RegExp;
 
-	constructor(options: object) {
+	public constructor(options: object) {
 		super(Object.assign({}, defaults, options));
 
 		// eslint-disable-next-line security/detect-non-literal-regexp

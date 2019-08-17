@@ -7,7 +7,7 @@ const defaults = {
 class LongTitle extends Rule {
 	private maxlength: number;
 
-	constructor(options: object) {
+	public constructor(options: object) {
 		super(Object.assign({}, defaults, options));
 		this.maxlength = parseInt(this.options.maxlength, 10);
 	}

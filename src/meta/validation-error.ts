@@ -8,7 +8,7 @@ export class MetaValidationError extends UserError {
 	private schema: any;
 	private errors: Ajv.ErrorObject[];
 
-	constructor(
+	public constructor(
 		message: string,
 		obj: MetaDataTable,
 		schema: any,

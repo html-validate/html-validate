@@ -4,7 +4,7 @@ import { Parser } from "../parser";
 import { MetaData, MetaTable, Validator } from "./";
 
 class ConfigMock extends Config {
-	constructor(metaTable: MetaTable) {
+	public constructor(metaTable: MetaTable) {
 		super();
 		this.metaTable = metaTable;
 	}

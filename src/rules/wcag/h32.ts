@@ -11,7 +11,7 @@ class H32 extends Rule {
 		};
 	}
 
-	constructor(options: object) {
+	public constructor(options: object) {
 		super(options);
 		this.name = "WCAG/H32";
 	}

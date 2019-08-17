@@ -63,7 +63,7 @@ export interface Report {
 export class Reporter {
 	protected result: { [filename: string]: Message[] };
 
-	constructor() {
+	public constructor() {
 		this.result = {};
 	}
 

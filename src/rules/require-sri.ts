@@ -16,7 +16,7 @@ type Target = "all" | "crossorigin";
 class RequireSri extends Rule {
 	private target: Target;
 
-	constructor(options: object) {
+	public constructor(options: object) {
 		super(Object.assign({}, defaults, options));
 		this.target = this.options.target;
 	}

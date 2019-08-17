@@ -26,7 +26,7 @@ export class HtmlElement extends DOMNode {
 	public closed: NodeClosed;
 	protected readonly attr: { [key: string]: Attribute[] };
 
-	constructor(
+	public constructor(
 		tagName: string,
 		parent?: HtmlElement,
 		closed: NodeClosed = NodeClosed.EndTag,
@@ -248,7 +248,7 @@ export class HtmlElement extends DOMNode {
 	 * Return a list of all known classes on the element. Dynamic values are
 	 * ignored.
 	 */
-	get classList(): DOMTokenList {
+	public get classList(): DOMTokenList {
 		if (!this.hasAttribute("class")) {
 			return new DOMTokenList(null);
 		}
@@ -259,20 +259,20 @@ export class HtmlElement extends DOMNode {
 		return new DOMTokenList(classes);
 	}
 
-	get id(): string {
+	public get id(): string {
 		return this.getAttributeValue("id");
 	}
 
-	get siblings(): HtmlElement[] {
+	public get siblings(): HtmlElement[] {
 		return this.parent.childElements;
 	}
 
-	get previousSibling(): HtmlElement {
+	public get previousSibling(): HtmlElement {
 		const i = this.siblings.findIndex(node => node.unique === this.unique);
 		return i >= 1 ? this.siblings[i - 1] : null;
 	}
 
-	get nextSibling(): HtmlElement {
+	public get nextSibling(): HtmlElement {
 		const i = this.siblings.findIndex(node => node.unique === this.unique);
 		return i <= this.siblings.length - 2 ? this.siblings[i + 1] : null;
 	}

@@ -23,7 +23,7 @@ class Void extends Rule {
 		};
 	}
 
-	constructor(options: object) {
+	public constructor(options: object) {
 		super(Object.assign({}, defaults, options));
 		this.style = parseStyle(this.options.style);
 	}

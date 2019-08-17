@@ -10,7 +10,7 @@ const defaults = {
 class ClassPattern extends Rule {
 	private pattern: RegExp;
 
-	constructor(options: object) {
+	public constructor(options: object) {
 		super(Object.assign({}, defaults, options));
 		this.pattern = parsePattern(this.options.pattern);
 	}

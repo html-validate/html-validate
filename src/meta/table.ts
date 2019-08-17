@@ -40,7 +40,7 @@ export class MetaTable {
 	public readonly elements: ElementTable;
 	private schema: object;
 
-	constructor() {
+	public constructor() {
 		this.elements = {};
 		this.schema = clone(require("../../elements/schema.json"));
 	}

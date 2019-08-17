@@ -16,7 +16,7 @@ class H37 extends Rule {
 		};
 	}
 
-	constructor(options: object) {
+	public constructor(options: object) {
 		super(Object.assign({}, defaults, options));
 		this.name = "WCAG/H37";
 

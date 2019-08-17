@@ -110,7 +110,7 @@ export class Config {
 		return new Config(defaultConfig);
 	}
 
-	constructor(options?: ConfigData) {
+	public constructor(options?: ConfigData) {
 		const initial: ConfigData = {
 			extends: [],
 			plugins: [],

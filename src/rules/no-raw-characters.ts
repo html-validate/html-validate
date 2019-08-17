@@ -23,7 +23,7 @@ const replacementTable: Map<string, string> = new Map([
 class NoRawCharacters extends Rule {
 	private relaxed: boolean;
 
-	constructor(options: object) {
+	public constructor(options: object) {
 		super(Object.assign({}, defaults, options));
 		this.relaxed = this.options.relaxed;
 	}

@@ -3,7 +3,7 @@ import { DynamicValue } from "./dynamic-value";
 export class DOMTokenList extends Array<string> {
 	public readonly value: string;
 
-	constructor(value: string | DynamicValue) {
+	public constructor(value: string | DynamicValue) {
 		if (value && typeof value === "string") {
 			super(...value.trim().split(/ +/));
 		} else {

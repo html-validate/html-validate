@@ -12,7 +12,7 @@ type checkFunction = (attr: Attribute) => boolean;
 class AttributeBooleanStyle extends Rule {
 	private hasInvalidStyle: checkFunction;
 
-	constructor(options: object) {
+	public constructor(options: object) {
 		super(Object.assign({}, defaults, options));
 		this.hasInvalidStyle = parseStyle(this.options.style);
 	}

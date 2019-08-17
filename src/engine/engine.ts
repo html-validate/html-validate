@@ -24,7 +24,7 @@ export class Engine<T extends Parser = Parser> {
 	protected ParserClass: new (config: Config) => T;
 	protected availableRules: { [key: string]: RuleConstructor };
 
-	constructor(config: Config, ParserClass: new (config: Config) => T) {
+	public constructor(config: Config, ParserClass: new (config: Config) => T) {
 		this.report = new Reporter();
 		this.config = config;
 		this.ParserClass = ParserClass;

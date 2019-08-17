@@ -19,7 +19,7 @@ export class TextNode extends DOMNode {
 	 * used as "text".
 	 * @param location - Source code location of this node.
 	 */
-	constructor(text: string | DynamicValue, location?: Location) {
+	public constructor(text: string | DynamicValue, location?: Location) {
 		super(NodeType.TEXT_NODE, TEXT_NODE_NAME, location);
 		this.text = text;
 	}
