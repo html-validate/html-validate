@@ -434,6 +434,7 @@ export class Parser {
 		this.dom.doctype = value;
 		this.trigger("doctype", {
 			value,
+			valueLocation: tokens[0].location,
 			location: startToken.location,
 		});
 	}
