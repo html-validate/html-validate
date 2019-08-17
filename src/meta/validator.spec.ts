@@ -462,6 +462,29 @@ describe("Meta validator", () => {
 		});
 	});
 
+	describe("validateRequiredContent()", () => {
+		let parser: Parser;
+
+		beforeAll(() => {
+			parser = new Parser(Config.empty());
+		});
+
+		it("should match if no rule is present", () => {
+			const node = parser.parseHtml("<div></div>").querySelector("div");
+			expect(Validator.validateRequiredContent(node, undefined)).toEqual([]);
+			expect(Validator.validateRequiredContent(node, [])).toEqual([]);
+		});
+
+		it("should return missing content", () => {
+			const node = parser
+				.parseHtml("<div><foo></foo></div>")
+				.querySelector("div");
+			expect(
+				Validator.validateRequiredContent(node, ["foo", "bar", "baz"])
+			).toEqual(["bar", "baz"]);
+		});
+	});
+
 	describe("validateAttribute()", () => {
 		it("should match if no rule is present", () => {
 			const rules = {};

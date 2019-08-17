@@ -8,6 +8,7 @@ export type Permitted = PermittedEntry[];
 
 export type PermittedOrder = string[];
 export type RequiredAncestors = string[];
+export type RequiredContent = string[];
 
 export interface PermittedAttribute {
 	[key: string]: Array<string | RegExp>;
@@ -40,6 +41,7 @@ export interface MetaData {
 	permittedDescendants?: Permitted;
 	permittedOrder?: PermittedOrder;
 	requiredAncestors?: RequiredAncestors;
+	requiredContent?: RequiredContent;
 }
 
 export interface MetaElement extends MetaData {

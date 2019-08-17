@@ -1,0 +1,63 @@
+import HtmlValidate from "../htmlvalidate";
+import "../matchers";
+
+describe("rule element-required-content", () => {
+	let htmlvalidate: HtmlValidate;
+
+	beforeAll(() => {
+		htmlvalidate = new HtmlValidate({
+			rules: { "element-required-content": "error" },
+		});
+	});
+
+	it("should not report error when element has all required content", () => {
+		const report = htmlvalidate.validateString(
+			"<html><head></head><body></body></html>"
+		);
+		expect(report).toBeValid();
+	});
+
+	it("should report error when element is missing required content", () => {
+		const report = htmlvalidate.validateString("<html><body></body></html>");
+		expect(report).toBeInvalid();
+		expect(report).toHaveErrors([
+			[
+				"element-required-content",
+				"<html> element must have <head> as content",
+			],
+		]);
+	});
+
+	it("should report all errors when element is missing multiple content", () => {
+		const report = htmlvalidate.validateString("<html></html>");
+		expect(report).toBeInvalid();
+		expect(report).toHaveErrors([
+			[
+				"element-required-content",
+				"<html> element must have <head> as content",
+			],
+			[
+				"element-required-content",
+				"<html> element must have <body> as content",
+			],
+		]);
+	});
+
+	it("should contain documentation", () => {
+		expect(
+			htmlvalidate.getRuleDocumentation("element-required-content")
+		).toMatchSnapshot();
+	});
+
+	it("should contain contextual documentation", () => {
+		htmlvalidate = new HtmlValidate({
+			rules: { "element-required-content": "error" },
+		});
+		expect(
+			htmlvalidate.getRuleDocumentation("element-required-content", null, {
+				node: "my-element",
+				missing: "my-other-element",
+			})
+		).toMatchSnapshot();
+	});
+});

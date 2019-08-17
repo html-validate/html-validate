@@ -34,7 +34,8 @@
         "permittedContent": { "$ref": "#/definitions/Permitted" },
         "permittedDescendants": { "$ref": "#/definitions/Permitted" },
         "permittedOrder": { "$ref": "#/definitions/PermittedOrder" },
-        "requiredAncestors": { "$ref": "#/definitions/RequiredAncestors" }
+        "requiredAncestors": { "$ref": "#/definitions/RequiredAncestors" },
+        "requiredContent": { "$ref": "#/definitions/RequiredContent" }
       },
       "additionalProperties": false
     }
@@ -127,6 +128,13 @@
     },
 
     "RequiredAncestors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+
+    "RequiredContent": {
       "type": "array",
       "items": {
         "type": "string"

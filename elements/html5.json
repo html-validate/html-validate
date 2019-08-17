@@ -411,7 +411,8 @@
     "deprecatedAttributes": ["version"],
     "permittedContent": ["head?", "body?"],
     "permittedOrder": ["head", "body"],
-    "requiredAttributes": ["lang"]
+    "requiredAttributes": ["lang"],
+    "requiredContent": ["head", "body"]
   },
 
   "i": {

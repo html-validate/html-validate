@@ -2253,9 +2253,9 @@ Array [
       Object {
         "column": 4,
         "context": undefined,
-        "line": 18,
+        "line": 19,
         "message": "Element <base> can only appear once under <head>",
-        "offset": 267,
+        "offset": 282,
         "ruleId": "element-permitted-occurrences",
         "severity": 2,
         "size": 4,
@@ -2263,9 +2263,9 @@ Array [
       Object {
         "column": 4,
         "context": undefined,
-        "line": 26,
+        "line": 28,
         "message": "Element <title> can only appear once under <head>",
-        "offset": 387,
+        "offset": 417,
         "ruleId": "element-permitted-occurrences",
         "severity": 2,
         "size": 5,
@@ -2282,6 +2282,7 @@ Array [
 		<div></div>
 		<span></span>
 	</head>
+	<body></body>
 </html>
 
 <!-- should only allow <base> once -->
@@ -2290,6 +2291,7 @@ Array [
 		<base>
 		<base>
 	</head>
+	<body></body>
 </html>
 
 <!-- should only allow <titl> once -->
@@ -2298,6 +2300,7 @@ Array [
 		<title>lorem ipsum</title>
 		<title>lorem ipsum</title>
 	</head>
+	<body></body>
 </html>
 ",
     "warningCount": 0,
@@ -2428,7 +2431,7 @@ exports[`HTML elements <hr> valid markup 1`] = `Array []`;
 exports[`HTML elements <html> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 4,
+    "errorCount": 6,
     "filePath": "test-files/elements/html-invalid.html",
     "messages": Array [
       Object {
@@ -2445,12 +2448,28 @@ Array [
         "size": 4,
       },
       Object {
-        "column": 3,
-        "context": undefined,
+        "column": 2,
+        "context": Object {
+          "missing": "head",
+          "node": "html",
+        },
         "line": 8,
-        "message": "Element <head> can only appear once under <html>",
-        "offset": 119,
-        "ruleId": "element-permitted-occurrences",
+        "message": "<html> element must have <head> as content",
+        "offset": 118,
+        "ruleId": "element-required-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "missing": "body",
+          "node": "html",
+        },
+        "line": 8,
+        "message": "<html> element must have <body> as content",
+        "offset": 118,
+        "ruleId": "element-required-content",
         "severity": 2,
         "size": 4,
       },
@@ -2458,8 +2477,8 @@ Array [
         "column": 3,
         "context": undefined,
         "line": 14,
-        "message": "Element <body> can only appear once under <html>",
-        "offset": 215,
+        "message": "Element <head> can only appear once under <html>",
+        "offset": 217,
         "ruleId": "element-permitted-occurrences",
         "severity": 2,
         "size": 4,
@@ -2467,9 +2486,19 @@ Array [
       Object {
         "column": 3,
         "context": undefined,
-        "line": 20,
+        "line": 22,
+        "message": "Element <body> can only appear once under <html>",
+        "offset": 343,
+        "ruleId": "element-permitted-occurrences",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 28,
         "message": "Element <head> must be used before <body> in this context",
-        "offset": 314,
+        "offset": 442,
         "ruleId": "element-permitted-order",
         "severity": 2,
         "size": 4,
@@ -2477,16 +2506,24 @@ Array [
     ],
     "source": "<!-- should require lang -->
 <html>
+	<head></head>
+	<body></body>
+</html>
+
+<!-- should require <head> and <body> -->
+<html lang=\\"en\\">
 </html>
 
 <!-- should not allow multiple head -->
 <html lang=\\"en\\">
 	<head></head>
 	<head></head>
+	<body></body>
 </html>
 
 <!-- should not allow multiple body -->
 <html lang=\\"en\\">
+	<head></head>
 	<body></body>
 	<body></body>
 </html>

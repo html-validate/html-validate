@@ -6,6 +6,7 @@ import {
 	PermittedGroup,
 	PermittedOrder,
 	RequiredAncestors,
+	RequiredContent,
 } from "./element";
 
 const allowedKeys = ["exclude"];
@@ -133,6 +134,30 @@ export class Validator {
 		}
 
 		return rules.some(rule => node.closest(rule));
+	}
+
+	/**
+	 * Validate element required content.
+	 *
+	 * Check if an element has the required set of elements. At least one of the
+	 * selectors must match.
+	 *
+	 * Returns [] when valid or a list of tagNames missing as content.
+	 */
+	public static validateRequiredContent(
+		node: HtmlElement,
+		rules: RequiredContent
+	): string[] {
+		if (!rules || rules.length === 0) {
+			return [];
+		}
+
+		return rules.filter(tagName => {
+			const haveMatchingChild = node.childElements.some(child =>
+				child.is(tagName)
+			);
+			return !haveMatchingChild;
+		});
 	}
 
 	/**
