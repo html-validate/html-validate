@@ -1,4 +1,4 @@
-/* eslint-disable no-console, no-process-exit */
+/* eslint-disable no-console, no-process-exit, sonarjs/no-duplicate-string */
 import { ConfigData } from "../config";
 import defaultConfig from "../config/default";
 import { TokenDump } from "../engine";
@@ -42,8 +42,14 @@ function getMode(argv: { [key: string]: any }): Mode {
 	return Mode.LINT;
 }
 
-function getGlobalConfig(rules?: string | string[]): ConfigData {
-	const config: any = Object.assign({}, defaultConfig);
+function getGlobalConfig(
+	configFile: string,
+	rules?: string | string[]
+): ConfigData {
+	const baseConfig: ConfigData = configFile
+		? require(`${process.cwd()}/${configFile}`)
+		: defaultConfig;
+	const config: any = Object.assign({}, baseConfig);
 	if (rules) {
 		if (Array.isArray(rules)) {
 			rules = rules.join(",");
@@ -113,10 +119,18 @@ function renameStdin(report: Report, filename: string): void {
 }
 
 const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
-	// eslint-disable-next-line sonarjs/no-duplicate-string
-	string: ["f", "formatter", "max-warnings", "rule", "stdin-filename"],
+	string: [
+		"c",
+		"config",
+		"f",
+		"formatter",
+		"max-warnings",
+		"rule",
+		"stdin-filename",
+	],
 	boolean: ["dump-events", "dump-tokens", "dump-tree", "print-config", "stdin"],
 	alias: {
+		c: "config",
 		f: "formatter",
 	},
 	default: {
@@ -143,6 +157,7 @@ Debugging options:
       --dump-tree                output nodes from the dom tree.
 
 Miscellaneous:
+  -c, --config=STRING            use custom configuration file.
       --print-config             output configuration for given file.
 
 Formatters:
@@ -165,7 +180,7 @@ if (argv.h || argv.help || argv._.length === 0) {
 }
 
 const mode = getMode(argv);
-const config = getGlobalConfig(argv.rule);
+const config = getGlobalConfig(argv.config, argv.rule);
 const formatter = getFormatter(argv.formatter);
 const maxWarnings = parseInt(argv["max-warnings"] || "-1", 10);
 const htmlvalidate = new HtmlValidate(config);
