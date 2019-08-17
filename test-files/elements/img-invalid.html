@@ -1,7 +1,13 @@
+<!-- must have src attribute -->
+<img>
+
+<!-- src must be non-empty -->
+<img src="">
+
 <!-- should not allow end tag -->
-<img></img>
+<img src="foo.png"></img>
 
 <!-- should be interactive if usemap is set -->
 <button type="button">
-	<img usemap>
+	<img src="foo.png" usemap>
 </button>
