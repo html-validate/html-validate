@@ -1,5 +1,27 @@
 # html-validate changelog
 
+
+
+# [1.5.0](https://gitlab.com/html-validate/html-validate/compare/v1.4.0...v1.5.0) (2019-08-17)
+
+
+### Bug Fixes
+
+* **elements:** <img> must have non-empty src ([8916e19](https://gitlab.com/html-validate/html-validate/commit/8916e19))
+* **rules:** change output format of wcag/h37 and element-required-attributes to match ([26f5074](https://gitlab.com/html-validate/html-validate/commit/26f5074))
+
+
+### Features
+
+* **cli:** add --config to specify a custom configuration file ([87b565f](https://gitlab.com/html-validate/html-validate/commit/87b565f))
+* **elements:** <fieldset> requires <legend> ([0bce9dd](https://gitlab.com/html-validate/html-validate/commit/0bce9dd))
+* **elements:** <head> requires <title> ([8aaa801](https://gitlab.com/html-validate/html-validate/commit/8aaa801))
+* **elements:** src, href, etc attributes cannot be empty ([89c7ac6](https://gitlab.com/html-validate/html-validate/commit/89c7ac6))
+* **parser:** include valueLocation in doctype event ([803ddae](https://gitlab.com/html-validate/html-validate/commit/803ddae))
+* **rules:** new rule doctype-html ([46061a7](https://gitlab.com/html-validate/html-validate/commit/46061a7))
+* **rules:** new rule element-required-content ([664dead](https://gitlab.com/html-validate/html-validate/commit/664dead))
+* **rules:** new rule no-style-tag ([a1dff5c](https://gitlab.com/html-validate/html-validate/commit/a1dff5c))
+
 # [1.4.0](https://gitlab.com/html-validate/html-validate/compare/v1.3.0...v1.4.0) (2019-08-15)
 
 ### Bug Fixes
