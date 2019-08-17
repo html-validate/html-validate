@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule doctype-html should contain documentation 1`] = `
+Object {
+  "description": "HTML5 documents should use the \\"html\\" doctype (short form, not legacy string)",
+  "url": "https://html-validate.org/rules/doctype-html.html",
+}
+`;
