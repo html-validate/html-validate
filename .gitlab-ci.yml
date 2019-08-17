@@ -80,7 +80,8 @@ Docs:
       junit: temp/jest.xml
   script:
     - npm run build:docs
-    - ./bin/html-validate.js docs/**/*.html public/**/.html
+    - npm run htmlvalidate -- --config docs/htmlvalidate-templates.json 'docs/**/*.html'
+    - npm run htmlvalidate -- --config docs/htmlvalidate-public.json 'public/**/*.html'
     - npm test -- docs
     - git status
     - test -z "$(git status --porcelain)" || (echo 'working copy dirty, need to commit updated specs'; exit 1)

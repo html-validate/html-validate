@@ -31,6 +31,7 @@
     "clean": "rm -rf build public",
     "eslint": "eslint *.js '{docs,elements,src}/**/*.{js,ts}'",
     "eslint:fix": "eslint --fix *.js '{docs,elements,src}/**/*.{js,ts}'",
+    "htmlvalidate": "./bin/html-validate.js",
     "lint": "npm run eslint && npm run tslint",
     "prettier:check": "prettier '**/*.{ts,js,json,md,scss}' --list-different",
     "prettier:write": "prettier '**/*.{ts,js,json,md,scss}' --write",

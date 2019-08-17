@@ -44,7 +44,10 @@ module.exports = function renderMarkdown(trimIndentation) {
 			.replace(/\(.*?\)/g, "")
 			.replace(/[^\w]+/g, "-");
 		const id = `${this.options.headerPrefix}${slug}`;
-		const anchor = level > 1 ? ` <a class="anchorlink" href="#${id}"></a>` : "";
+		const anchor =
+			level > 1
+				? ` <!-- [html-validate-disable-next wcag/h30] --><a class="anchorlink" href="#${id}" aria-hidden="true"></a>`
+				: "";
 		return `<h${level} id="${id}">${text}${anchor}</h${level}>`;
 	};
 

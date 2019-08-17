@@ -54,7 +54,7 @@ element is missing.
 **Learn more about [writing element metadata](usage/elements.html) for custom
 components.**
 
-### Accessibility
+### Accessibility tests
 
 Validates technical aspects of <abbr title="accessibility">a11y</abbr>
 guidelines such as WCAG 2.1.

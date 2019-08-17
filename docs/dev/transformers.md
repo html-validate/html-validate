@@ -5,7 +5,7 @@
 
 # Transformers
 
-### `TemplateExtractor`
+## `TemplateExtractor`
 
 Extracts templates from javascript sources.
 
@@ -17,7 +17,7 @@ const te = TemplateExtractor.fromFilename("my-file.js");
 const source = te.extractObjectProperty("template");
 ```
 
-### Source hooks
+## Source hooks
 
 Transformers can add hooks for additional processing by setting `source.hooks`:
 
@@ -38,13 +38,13 @@ source.hooks = {
 };
 ```
 
-#### `processAttribute`
+### `processAttribute`
 
 Called before an attribute is set on `HtmlElement` and can be used to modify
 both the key and value. If the attribute is processed with scripting
 (e.g. databinding) the value may be replaced with `DynamicValue`.
 
-#### `processElement`
+### `processElement`
 
 Called after element is fully created but before children are parsed. Can be
 used to manipluate elements (e.g. add dynamic text from frameworks).

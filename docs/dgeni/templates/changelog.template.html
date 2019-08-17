@@ -1,5 +1,6 @@
 {% extends "base.template.html" %}
 
 {% block content %}
+	<!-- [html-validate-disable no-dup-id, heading-level: changelog generator generates headings with these errors] -->
 	{$ doc.description | marked $}
 {% endblock %}

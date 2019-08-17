@@ -66,9 +66,9 @@ module.exports = {
 };
 ```
 
-### Callbacks
+## Callbacks
 
-#### `init()`
+### `init()`
 
 The `init` callback is called once during validation engine initialization and
 can be used to initialize resources required later.
@@ -78,7 +78,7 @@ file (as the configuration might change) thus this callback can still be called
 multiple times. If you need initialization that happens exactly once for any
 scenario you can run it in your plugin file global scope.
 
-#### `setup(source: Source, eventhandler: EventHandler)`
+### `setup(source: Source, eventhandler: EventHandler)`
 
 Called once per source and can be used to prepare the plugin for validation,
 e.g. rules that requires initialization.
@@ -88,7 +88,7 @@ events](/dev/events.html) (same as rules).
 
 The callback may not manpiulate the source object.
 
-### Configuration presets
+## Configuration presets
 
 Plugins can create configuration presets similar to a shared configuration:
 
@@ -112,7 +112,7 @@ Users may then extend the preset using `plugin:name`, e.g.:
 }
 ```
 
-### Rules
+## Rules
 
 See [writing rules](/dev/writing-rules.html) for details on how to write a rules.
 
@@ -145,7 +145,7 @@ This makes the rules accessable as usual when configuring in
 }
 ```
 
-### Extend metadata
+## Extend metadata
 
 Plugins can extend the available [element metadata](/usage/elements.html) by
 setting `elementSchema` with an additional [json

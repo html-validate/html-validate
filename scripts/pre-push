@@ -15,4 +15,5 @@ npm run eslint -- --max-warnings 0
 npm run tslint
 
 echo Lint documentation
-./bin/html-validate.js docs/**/*.html public/**/.html
+npm run htmlvalidate -- --config docs/htmlvalidate-templates.json 'docs/**/*.html'
+npm run htmlvalidate -- --config docs/htmlvalidate-public.json 'public/**/*.html'

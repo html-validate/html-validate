@@ -177,7 +177,7 @@ textual description of the content. E.g. it cannot suggest to use `<abbr>` or
 		</tr>
 		<tr>
 			<td class="table-right">H64</td>
-			<td>Using the title attribute of the frame and iframe elements.<em>Use {@link rule:element-required-attributes} to validate. <code>title<code> is a required attribute on <code>&lt;frame&gt;</code> and <code>&lt;iframe&gt;</code> elements.</em></td>
+			<td>Using the title attribute of the frame and iframe elements.<em>Use {@link rule:element-required-attributes} to validate. <code>title</code> is a required attribute on <code>&lt;frame&gt;</code> and <code>&lt;iframe&gt;</code> elements.</em></td>
 			<td class="support-yes">Yes</td>
 		</tr>
 		<tr>

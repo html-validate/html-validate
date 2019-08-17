@@ -56,18 +56,18 @@ class MyRule extends Rule<ContextualData> {
 }
 ```
 
-### API
+## API
 
-#### `options: {[key: string]: any}`
+### `options: {[key: string]: any}`
 
 Object with all the options passed from the configuration.
 
-#### `on(event: string, callback: (event: Event)): void`
+### `on(event: string, callback: (event: Event)): void`
 
 Listen for events. See [events](/dev/events.html) for a full list of available
 events and data.
 
-#### `report(node: HtmlElement, message: string, location?: Location, context?: T): void`
+### `report(node: HtmlElement, message: string, location?: Location, context?: T): void`
 
 Report a new error.
 

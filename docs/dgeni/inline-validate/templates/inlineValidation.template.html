@@ -1,5 +1,7 @@
 {# <!-- [html-validate-disable attr-case: since nunjucks templating is not stripped it flags the attributes as wrong case] -->  #}
+{# <!-- [html-validate-disable close-order: marked wraps the content in a <p> which breaks the layout, has a hack it is closed and reopened in this template so the final output is ok] -->  #}
 
+</p>
 <div class="inline-validation">
 	<div class="markup"
 		{%- for attrName, attrValue in doc.validate.attributes %}{$ attrName $}="{$ attrValue $}"{% endfor %}>
@@ -12,3 +14,4 @@
 	</div>
 	{%- endif %}
 </div>
+<p>
