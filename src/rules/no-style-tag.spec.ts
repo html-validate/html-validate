@@ -15,7 +15,7 @@ describe("rule no-style-tag", () => {
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when <style> is used", () => {
+	it("should report error when <style> is used", () => {
 		const html = "<style>foo</style>";
 		const report = htmlvalidate.validateString(html);
 		expect(report).toBeInvalid();
