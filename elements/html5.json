@@ -446,7 +446,8 @@
     "attributes": {
       "crossorigin": ["", "anonymous", "use-credentials"],
       "decoding": ["sync", "async", "auto"],
-      "ismap": []
+      "ismap": [],
+      "src": ["/.+/"]
     },
     "deprecatedAttributes": [
       "datasrc",
@@ -457,7 +458,8 @@
       "border",
       "hspace",
       "vspace"
-    ]
+    ],
+    "requiredAttributes": ["src"]
   },
 
   "input": {

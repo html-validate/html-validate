@@ -33,7 +33,7 @@ describe("rule h37", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"WCAG/H37",
-				"<img> is missing required alt attribute"
+				'<img> is missing required "alt" attribute'
 			);
 		});
 
@@ -62,7 +62,7 @@ describe("rule h37", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"WCAG/H37",
-				"<img> is missing required alt attribute"
+				'<img> is missing required "alt" attribute'
 			);
 		});
 
@@ -71,7 +71,7 @@ describe("rule h37", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"WCAG/H37",
-				"<img> is missing required alt attribute"
+				'<img> is missing required "alt" attribute'
 			);
 		});
 
@@ -100,7 +100,7 @@ describe("rule h37", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"WCAG/H37",
-				"<img> is missing required alt attribute"
+				'<img> is missing required "alt" attribute'
 			);
 		});
 

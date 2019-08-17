@@ -16,7 +16,7 @@ Array [
         "column": 2,
         "context": undefined,
         "line": 1,
-        "message": "<img> is missing required alt attribute",
+        "message": "<img> is missing required \\"alt\\" attribute",
         "offset": 1,
         "ruleId": "WCAG/H37",
         "severity": 2,

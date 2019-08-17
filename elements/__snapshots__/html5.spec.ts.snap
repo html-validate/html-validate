@@ -882,7 +882,7 @@ Array [
           "element": "button",
         },
         "line": 15,
-        "message": "<button> is missing required attribute \\"type\\"",
+        "message": "<button> is missing required \\"type\\" attribute",
         "offset": 453,
         "ruleId": "element-required-attributes",
         "severity": 2,
@@ -1801,7 +1801,7 @@ Array [
           "element": "frame",
         },
         "line": 6,
-        "message": "<frame> is missing required attribute \\"title\\"",
+        "message": "<frame> is missing required \\"title\\" attribute",
         "offset": 153,
         "ruleId": "element-required-attributes",
         "severity": 2,
@@ -2391,7 +2391,7 @@ Array [
           "element": "html",
         },
         "line": 2,
-        "message": "<html> is missing required attribute \\"lang\\"",
+        "message": "<html> is missing required \\"lang\\" attribute",
         "offset": 30,
         "ruleId": "element-required-attributes",
         "severity": 2,
@@ -2497,7 +2497,7 @@ Array [
           "element": "iframe",
         },
         "line": 2,
-        "message": "<iframe> is missing required attribute \\"title\\"",
+        "message": "<iframe> is missing required \\"title\\" attribute",
         "offset": 41,
         "ruleId": "element-required-attributes",
         "severity": 2,
@@ -2517,15 +2517,45 @@ exports[`HTML elements <iframe> valid markup 1`] = `Array []`;
 exports[`HTML elements <img> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 2,
+    "errorCount": 4,
     "filePath": "test-files/elements/img-invalid.html",
     "messages": Array [
       Object {
-        "column": 11,
-        "context": undefined,
+        "column": 2,
+        "context": Object {
+          "attribute": "src",
+          "element": "img",
+        },
         "line": 2,
+        "message": "<img> is missing required \\"src\\" attribute",
+        "offset": 34,
+        "ruleId": "element-required-attributes",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            /\\.\\+/,
+          ],
+          "attribute": "src",
+          "element": "img",
+          "value": "",
+        },
+        "line": 5,
+        "message": "Attribute \\"src\\" has invalid value \\"\\"",
+        "offset": 72,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 25,
+        "context": undefined,
+        "line": 8,
         "message": "End tag for <img> must be omitted",
-        "offset": 44,
+        "offset": 143,
         "ruleId": "void",
         "severity": 2,
         "size": 1,
@@ -2533,20 +2563,26 @@ Array [
       Object {
         "column": 3,
         "context": undefined,
-        "line": 6,
+        "line": 12,
         "message": "Element <img> is not permitted as descendant of <button>",
-        "offset": 120,
+        "offset": 219,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow end tag -->
-<img></img>
+    "source": "<!-- must have src attribute -->
+<img>
+
+<!-- src must be non-empty -->
+<img src=\\"\\">
+
+<!-- should not allow end tag -->
+<img src=\\"foo.png\\"></img>
 
 <!-- should be interactive if usemap is set -->
 <button type=\\"button\\">
-	<img usemap>
+	<img src=\\"foo.png\\" usemap>
 </button>
 ",
     "warningCount": 0,
@@ -2765,7 +2801,7 @@ Array [
           "element": "input",
         },
         "line": 17,
-        "message": "<input> is missing required attribute \\"type\\"",
+        "message": "<input> is missing required \\"type\\" attribute",
         "offset": 507,
         "ruleId": "element-required-attributes",
         "severity": 2,
@@ -5073,7 +5109,7 @@ Array [
           "element": "th",
         },
         "line": 24,
-        "message": "<th> is missing required attribute \\"scope\\"",
+        "message": "<th> is missing required \\"scope\\" attribute",
         "offset": 400,
         "ruleId": "element-required-attributes",
         "severity": 2,
