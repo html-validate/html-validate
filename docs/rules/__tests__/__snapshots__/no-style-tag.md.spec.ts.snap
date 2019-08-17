@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/no-style-tag.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/no-style-tag.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "context": undefined,
+        "line": 1,
+        "message": "Use external stylesheet with <link> instead of <style> tag",
+        "offset": 0,
+        "ruleId": "no-style-tag",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<style>
+    body {
+        background-color: hotpink;
+    }
+</style>",
+    "warningCount": 0,
+  },
+]
+`;
