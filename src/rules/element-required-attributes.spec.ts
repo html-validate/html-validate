@@ -15,7 +15,7 @@ describe("rule element-required-attributes", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"element-required-attributes",
-			'<input> is missing required attribute "type"'
+			'<input> is missing required "type" attribute'
 		);
 	});
 

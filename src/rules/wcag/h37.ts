@@ -55,7 +55,7 @@ class H37 extends Rule {
 
 			this.report(
 				node,
-				"<img> is missing required alt attribute",
+				'<img> is missing required "alt" attribute',
 				node.location
 			);
 		});

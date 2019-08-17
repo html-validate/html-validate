@@ -15,7 +15,7 @@ Array [
           "element": "input",
         },
         "line": 1,
-        "message": "<input> is missing required attribute \\"type\\"",
+        "message": "<input> is missing required \\"type\\" attribute",
         "offset": 1,
         "ruleId": "element-required-attributes",
         "severity": 2,

@@ -36,7 +36,7 @@ class ElementRequiredAttributes extends Rule<Context> {
 
 				this.report(
 					node,
-					`<${node.tagName}> is missing required attribute "${key}"`,
+					`<${node.tagName}> is missing required "${key}" attribute`,
 					node.location,
 					context
 				);
