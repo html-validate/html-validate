@@ -1,28 +1,42 @@
 <!-- should not be allowed outside <html> -->
 <div>
-	<head></head>
+	<head>
+		<title>foo</title>
+	</head>
 </div>
+
+<!-- should require title -->
+<html lang="en">
+	<head>
+	</head>
+	<body></body>
+</html>
 
 <!-- should not allow flow or phrasing -->
 <html lang="en">
 	<head>
+		<title>foo</title>
 		<div></div>
 		<span></span>
 	</head>
+	<body></body>
 </html>
 
 <!-- should only allow <base> once -->
 <html lang="en">
 	<head>
+		<title>foo</title>
 		<base>
 		<base>
 	</head>
+	<body></body>
 </html>
 
-<!-- should only allow <titl> once -->
+<!-- should only allow <title> once -->
 <html lang="en">
 	<head>
 		<title>lorem ipsum</title>
 		<title>lorem ipsum</title>
 	</head>
+	<body></body>
 </html>

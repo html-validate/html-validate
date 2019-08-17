@@ -299,7 +299,8 @@
     },
     "deprecatedAttributes": ["datafld"],
     "permittedContent": ["@flow", "legend?"],
-    "permittedOrder": ["legend", "@flow"]
+    "permittedOrder": ["legend", "@flow"],
+    "requiredContent": ["legend"]
   },
 
   "figcaption": {
@@ -388,7 +389,8 @@
 
   "head": {
     "deprecatedAttributes": ["profile"],
-    "permittedContent": ["base?", "title?", "@meta"]
+    "permittedContent": ["base?", "title?", "@meta"],
+    "requiredContent": ["title"]
   },
 
   "header": {
@@ -411,7 +413,8 @@
     "deprecatedAttributes": ["version"],
     "permittedContent": ["head?", "body?"],
     "permittedOrder": ["head", "body"],
-    "requiredAttributes": ["lang"]
+    "requiredAttributes": ["lang"],
+    "requiredContent": ["head", "body"]
   },
 
   "i": {

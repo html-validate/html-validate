@@ -47,6 +47,7 @@ export interface MetaElement {
   permittedDescendants: Permitted;
   permittedOrder: PermittedOrder;
   requiredAncestors: string[];
+  requiredContent: string[];
 }
 ```
 
@@ -319,6 +320,27 @@ present.
 
 This is used by
 [element-permitted-content](/rules/element-permitted-content.html) rule.
+
+### `requiredContent`
+
+Requires certain content in an element.
+
+Some elements has requirements of what content must be present. For instance,
+the `<head>` element requires a `<title>` element.
+
+`requiredContent` is a list of tagnames which must be present as a direct
+descentant of the element.
+
+```js
+"head": {
+  "requiredContent": [
+    "title"
+  ]
+}
+```
+
+This is used by [element-required-content](/rules/element-required-content.html)
+rule.
 
 ## Global element
 

@@ -119,6 +119,11 @@ export class HtmlElement extends DOMNode {
 		return null;
 	}
 
+	/**
+	 * Tests if this element has given tagname.
+	 *
+	 * If passing "*" this test will pass if any tagname is set.
+	 */
 	public is(tagName: string): boolean {
 		return (this.tagName && tagName === "*") || this.tagName === tagName;
 	}

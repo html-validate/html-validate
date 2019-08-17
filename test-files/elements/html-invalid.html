@@ -1,15 +1,31 @@
 <!-- should require lang -->
 <html>
+	<head>
+		<title>foo</title>
+	</head>
+	<body></body>
+</html>
+
+<!-- should require <head> and <body> -->
+<html lang="en">
 </html>
 
 <!-- should not allow multiple head -->
 <html lang="en">
-	<head></head>
-	<head></head>
+	<head>
+		<title>foo</title>
+	</head>
+	<head>
+		<title>bar</title>
+	</head>
+	<body></body>
 </html>
 
 <!-- should not allow multiple body -->
 <html lang="en">
+	<head>
+		<title>foo</title>
+	</head>
 	<body></body>
 	<body></body>
 </html>
@@ -17,5 +33,7 @@
 <!-- should not allow body before head -->
 <html lang="en">
 	<body></body>
-	<head></head>
+	<head>
+		<title>foo</title>
+	</head>
 </html>

@@ -1632,21 +1632,38 @@ exports[`HTML elements <embed> valid markup 1`] = `Array []`;
 exports[`HTML elements <fieldset> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 1,
+    "errorCount": 2,
     "filePath": "test-files/elements/fieldset-invalid.html",
     "messages": Array [
       Object {
+        "column": 2,
+        "context": Object {
+          "missing": "legend",
+          "node": "fieldset",
+        },
+        "line": 2,
+        "message": "<fieldset> element must have <legend> as content",
+        "offset": 29,
+        "ruleId": "element-required-content",
+        "severity": 2,
+        "size": 8,
+      },
+      Object {
         "column": 3,
         "context": undefined,
-        "line": 4,
+        "line": 8,
         "message": "Element <legend> must be used before <div> in this context",
-        "offset": 92,
+        "offset": 144,
         "ruleId": "element-permitted-order",
         "severity": 2,
         "size": 6,
       },
     ],
-    "source": "<!-- should not allow legend and flow content out-of-order -->
+    "source": "<!-- must have <legend> -->
+<fieldset>
+</fieldset>
+
+<!-- should not allow legend and flow content out-of-order -->
 <fieldset>
 	<div>bar</div>
 	<legend>foo</legend>
@@ -2217,7 +2234,7 @@ exports[`HTML elements <h6> valid markup 1`] = `Array []`;
 exports[`HTML elements <head> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 5,
+    "errorCount": 6,
     "filePath": "test-files/elements/head-invalid.html",
     "messages": Array [
       Object {
@@ -2231,11 +2248,24 @@ Array [
         "size": 4,
       },
       Object {
+        "column": 3,
+        "context": Object {
+          "missing": "title",
+          "node": "head",
+        },
+        "line": 10,
+        "message": "<head> element must have <title> as content",
+        "offset": 147,
+        "ruleId": "element-required-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
         "column": 4,
         "context": undefined,
-        "line": 9,
+        "line": 19,
         "message": "Element <div> is not permitted as content in <head>",
-        "offset": 146,
+        "offset": 278,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 3,
@@ -2243,9 +2273,9 @@ Array [
       Object {
         "column": 4,
         "context": undefined,
-        "line": 10,
+        "line": 20,
         "message": "Element <span> is not permitted as content in <head>",
-        "offset": 160,
+        "offset": 292,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 4,
@@ -2253,9 +2283,9 @@ Array [
       Object {
         "column": 4,
         "context": undefined,
-        "line": 18,
+        "line": 30,
         "message": "Element <base> can only appear once under <head>",
-        "offset": 267,
+        "offset": 435,
         "ruleId": "element-permitted-occurrences",
         "severity": 2,
         "size": 4,
@@ -2263,9 +2293,9 @@ Array [
       Object {
         "column": 4,
         "context": undefined,
-        "line": 26,
+        "line": 39,
         "message": "Element <title> can only appear once under <head>",
-        "offset": 387,
+        "offset": 571,
         "ruleId": "element-permitted-occurrences",
         "severity": 2,
         "size": 5,
@@ -2273,31 +2303,45 @@ Array [
     ],
     "source": "<!-- should not be allowed outside <html> -->
 <div>
-	<head></head>
+	<head>
+		<title>foo</title>
+	</head>
 </div>
+
+<!-- should require title -->
+<html lang=\\"en\\">
+	<head>
+	</head>
+	<body></body>
+</html>
 
 <!-- should not allow flow or phrasing -->
 <html lang=\\"en\\">
 	<head>
+		<title>foo</title>
 		<div></div>
 		<span></span>
 	</head>
+	<body></body>
 </html>
 
 <!-- should only allow <base> once -->
 <html lang=\\"en\\">
 	<head>
+		<title>foo</title>
 		<base>
 		<base>
 	</head>
+	<body></body>
 </html>
 
-<!-- should only allow <titl> once -->
+<!-- should only allow <title> once -->
 <html lang=\\"en\\">
 	<head>
 		<title>lorem ipsum</title>
 		<title>lorem ipsum</title>
 	</head>
+	<body></body>
 </html>
 ",
     "warningCount": 0,
@@ -2428,7 +2472,7 @@ exports[`HTML elements <hr> valid markup 1`] = `Array []`;
 exports[`HTML elements <html> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 4,
+    "errorCount": 6,
     "filePath": "test-files/elements/html-invalid.html",
     "messages": Array [
       Object {
@@ -2445,11 +2489,37 @@ Array [
         "size": 4,
       },
       Object {
+        "column": 2,
+        "context": Object {
+          "missing": "head",
+          "node": "html",
+        },
+        "line": 10,
+        "message": "<html> element must have <head> as content",
+        "offset": 141,
+        "ruleId": "element-required-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "missing": "body",
+          "node": "html",
+        },
+        "line": 10,
+        "message": "<html> element must have <body> as content",
+        "offset": 141,
+        "ruleId": "element-required-content",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
         "column": 3,
         "context": undefined,
-        "line": 8,
+        "line": 18,
         "message": "Element <head> can only appear once under <html>",
-        "offset": 119,
+        "offset": 263,
         "ruleId": "element-permitted-occurrences",
         "severity": 2,
         "size": 4,
@@ -2457,9 +2527,9 @@ Array [
       Object {
         "column": 3,
         "context": undefined,
-        "line": 14,
+        "line": 30,
         "message": "Element <body> can only appear once under <html>",
-        "offset": 215,
+        "offset": 435,
         "ruleId": "element-permitted-occurrences",
         "severity": 2,
         "size": 4,
@@ -2467,9 +2537,9 @@ Array [
       Object {
         "column": 3,
         "context": undefined,
-        "line": 20,
+        "line": 36,
         "message": "Element <head> must be used before <body> in this context",
-        "offset": 314,
+        "offset": 534,
         "ruleId": "element-permitted-order",
         "severity": 2,
         "size": 4,
@@ -2477,16 +2547,32 @@ Array [
     ],
     "source": "<!-- should require lang -->
 <html>
+	<head>
+		<title>foo</title>
+	</head>
+	<body></body>
+</html>
+
+<!-- should require <head> and <body> -->
+<html lang=\\"en\\">
 </html>
 
 <!-- should not allow multiple head -->
 <html lang=\\"en\\">
-	<head></head>
-	<head></head>
+	<head>
+		<title>foo</title>
+	</head>
+	<head>
+		<title>bar</title>
+	</head>
+	<body></body>
 </html>
 
 <!-- should not allow multiple body -->
 <html lang=\\"en\\">
+	<head>
+		<title>foo</title>
+	</head>
 	<body></body>
 	<body></body>
 </html>
@@ -2494,7 +2580,9 @@ Array [
 <!-- should not allow body before head -->
 <html lang=\\"en\\">
 	<body></body>
-	<head></head>
+	<head>
+		<title>foo</title>
+	</head>
 </html>
 ",
     "warningCount": 0,
