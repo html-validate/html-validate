@@ -1558,22 +1558,69 @@ exports[`HTML elements <em> valid markup 1`] = `Array []`;
 exports[`HTML elements <embed> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 1,
+    "errorCount": 4,
     "filePath": "test-files/elements/embed-invalid.html",
     "messages": Array [
       Object {
-        "column": 15,
+        "column": 51,
         "context": undefined,
         "line": 2,
         "message": "End tag for <embed> must be omitted",
-        "offset": 61,
+        "offset": 97,
         "ruleId": "void",
         "severity": 2,
         "size": 1,
       },
+      Object {
+        "column": 2,
+        "context": Object {
+          "attribute": "src",
+          "element": "embed",
+        },
+        "line": 5,
+        "message": "<embed> is missing required \\"src\\" attribute",
+        "offset": 136,
+        "ruleId": "element-required-attributes",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "attribute": "title",
+          "element": "embed",
+        },
+        "line": 5,
+        "message": "<embed> is missing required \\"title\\" attribute",
+        "offset": 136,
+        "ruleId": "element-required-attributes",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            /\\.\\+/,
+          ],
+          "attribute": "src",
+          "element": "embed",
+          "value": "",
+        },
+        "line": 6,
+        "message": "Attribute \\"src\\" has invalid value \\"\\"",
+        "offset": 144,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 5,
+      },
     ],
     "source": "<!-- should not be allowed to have end tag -->
-<embed></embed>
+<embed src=\\"url\\" title=\\"My embedded thing\\"></embed>
+
+<!-- should have src and title -->
+<embed>
+<embed src=\\"\\" title=\\"\\">
 ",
     "warningCount": 0,
   },
@@ -2487,7 +2534,7 @@ exports[`HTML elements <i> valid markup 1`] = `Array []`;
 exports[`HTML elements <iframe> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 1,
+    "errorCount": 2,
     "filePath": "test-files/elements/iframe-invalid.html",
     "messages": Array [
       Object {
@@ -2503,9 +2550,29 @@ Array [
         "severity": 2,
         "size": 6,
       },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            /\\.\\+/,
+          ],
+          "attribute": "src",
+          "element": "iframe",
+          "value": "",
+        },
+        "line": 5,
+        "message": "Attribute \\"src\\" has invalid value \\"\\"",
+        "offset": 91,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
     ],
     "source": "<!-- should require title attribute -->
 <iframe></iframe>
+
+<!-- invalid src attribute -->
+<iframe src=\\"\\" title=\\"My page\\"></iframe>
 ",
     "warningCount": 0,
   },
@@ -3091,15 +3158,15 @@ exports[`HTML elements <li> valid markup 1`] = `Array []`;
 exports[`HTML elements <link> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 3,
+    "errorCount": 5,
     "filePath": "test-files/elements/link-invalid.html",
     "messages": Array [
       Object {
-        "column": 13,
+        "column": 28,
         "context": undefined,
         "line": 2,
         "message": "End tag for <link> must be omitted",
-        "offset": 46,
+        "offset": 61,
         "ruleId": "void",
         "severity": 2,
         "size": 1,
@@ -3107,16 +3174,29 @@ Array [
       Object {
         "column": 2,
         "context": Object {
+          "attribute": "href",
+          "element": "link",
+        },
+        "line": 5,
+        "message": "<link> is missing required \\"href\\" attribute",
+        "offset": 110,
+        "ruleId": "element-required-attributes",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
           "allowed": Array [
             /\\.\\+/,
           ],
-          "attribute": "integrity",
+          "attribute": "href",
           "element": "link",
           "value": "",
         },
-        "line": 5,
-        "message": "Attribute \\"integrity\\" has invalid value \\"\\"",
-        "offset": 99,
+        "line": 6,
+        "message": "Attribute \\"href\\" has invalid value \\"\\"",
+        "offset": 117,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 4,
@@ -3131,20 +3211,41 @@ Array [
           "element": "link",
           "value": "",
         },
-        "line": 6,
+        "line": 9,
         "message": "Attribute \\"integrity\\" has invalid value \\"\\"",
-        "offset": 116,
+        "offset": 182,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            /\\.\\+/,
+          ],
+          "attribute": "integrity",
+          "element": "link",
+          "value": "",
+        },
+        "line": 10,
+        "message": "Attribute \\"integrity\\" has invalid value \\"\\"",
+        "offset": 213,
         "ruleId": "attribute-allowed-values",
         "severity": 2,
         "size": 4,
       },
     ],
     "source": "<!-- should not allow end tag -->
-<link></link>
+<link href=\\"my-url\\" ></link>
+
+<!-- href should not be omitted or empty -->
+<link>
+<link href=\\"\\">
 
 <!-- integrity attribute should not be empty -->
-<link integrity>
-<link integrity=\\"\\">
+<link href=\\"my-url\\" integrity>
+<link href=\\"my-url\\" integrity=\\"\\">
 ",
     "warningCount": 0,
   },
@@ -3689,7 +3790,7 @@ exports[`HTML elements <noscript> valid markup 1`] = `Array []`;
 exports[`HTML elements <object> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 3,
+    "errorCount": 4,
     "filePath": "test-files/elements/object-invalid.html",
     "messages": Array [
       Object {
@@ -3703,11 +3804,28 @@ Array [
         "size": 3,
       },
       Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            /\\.\\+/,
+          ],
+          "attribute": "data",
+          "element": "object",
+          "value": "",
+        },
+        "line": 9,
+        "message": "Attribute \\"data\\" has invalid value \\"\\"",
+        "offset": 118,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
         "column": 3,
         "context": undefined,
-        "line": 11,
+        "line": 14,
         "message": "Element <param> must be used before <div> in this context",
-        "offset": 155,
+        "offset": 214,
         "ruleId": "element-permitted-order",
         "severity": 2,
         "size": 5,
@@ -3715,9 +3833,9 @@ Array [
       Object {
         "column": 3,
         "context": undefined,
-        "line": 16,
+        "line": 19,
         "message": "Element <object> is not permitted as descendant of <button>",
-        "offset": 246,
+        "offset": 305,
         "ruleId": "element-permitted-content",
         "severity": 2,
         "size": 6,
@@ -3729,6 +3847,9 @@ Array [
 		<div>foo</div>
 	</object>
 </span>
+
+<!-- invalid data attribute -->
+<object data=\\"\\"></object>
 
 <!-- should not allow flow before <param> -->
 <object>
@@ -4405,32 +4526,55 @@ exports[`HTML elements <samp> valid markup 1`] = `Array []`;
 exports[`HTML elements <script> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 2,
+    "errorCount": 3,
     "filePath": "test-files/elements/script-invalid.html",
     "messages": Array [
       Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            /\\.\\+/,
+          ],
+          "attribute": "src",
+          "element": "script",
+          "value": "",
+        },
+        "line": 2,
+        "message": "Attribute \\"src\\" has invalid value \\"\\"",
+        "offset": 40,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 9,
+        "context": undefined,
+        "line": 5,
+        "message": "Attribute \\"language\\" is deprecated on <script> element",
+        "offset": 103,
+        "ruleId": "no-deprecated-attr",
+        "severity": 2,
+        "size": 8,
+      },
+      Object {
         "column": 8,
         "context": undefined,
-        "line": 2,
+        "line": 8,
         "message": "End tag for <script> must not be omitted",
-        "offset": 196,
+        "offset": 330,
         "ruleId": "void",
         "severity": 2,
         "size": 2,
       },
-      Object {
-        "column": 9,
-        "line": 3,
-        "message": "failed to tokenize \\"\\\\n\\", expected </script>.",
-        "offset": 207,
-        "ruleId": "parser-error",
-        "severity": 2,
-        "size": 0,
-      },
     ],
-    "source": "<!-- must not omit end tag in any way, because the way the scripttag is tokenized both according to spec and this tool it must explicitly be ended with </>. Dragons ahead if not obeyed -->
+    "source": "<!-- src attribute cannot be empty -->
+<script src=\\"\\"></script>
+
+<!-- deprecated attribute -->
+<script language=\\"vbscript\\"></script>
+
+<!-- must not omit end tag in any way, because the way the scripttag is tokenized both according to spec and this tool it must explicitly be ended with </>. Dragons ahead if not obeyed -->
 <script/>
-<script>
 ",
     "warningCount": 0,
   },

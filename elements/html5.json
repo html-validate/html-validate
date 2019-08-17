@@ -285,7 +285,11 @@
     "phrasing": true,
     "embedded": true,
     "interactive": true,
-    "void": true
+    "void": true,
+    "attributes": {
+      "src": ["/.+/"]
+    },
+    "requiredAttributes": ["src", "title"]
   },
 
   "fieldset": {
@@ -421,6 +425,9 @@
     "phrasing": true,
     "embedded": true,
     "interactive": true,
+    "attributes": {
+      "src": ["/.+/"]
+    },
     "deprecatedAttributes": [
       "align",
       "allowtransparency",
@@ -572,8 +579,10 @@
     "void": true,
     "attributes": {
       "crossorigin": ["", "anonymous", "use-credentials"],
-      "integrity": ["/.+/"]
+      "integrity": ["/.+/"],
+      "href": ["/.+/"]
     },
+    "requiredAttributes": ["href"],
     "deprecatedAttributes": ["charset", "methods", "urn", "target"]
   },
 
@@ -669,6 +678,9 @@
     "embedded": true,
     "interactive": ["hasAttribute", "usemap"],
     "transparent": true,
+    "attributes": {
+      "data": ["/.+/"]
+    },
     "deprecatedAttributes": [
       "align",
       "archive",
@@ -840,7 +852,8 @@
       "crossorigin": ["", "anonymous", "use-credentials"],
       "defer": [],
       "integrity": ["/.+/"],
-      "nomodule": []
+      "nomodule": [],
+      "src": ["/.+/"]
     },
     "deprecatedAttributes": ["language", "event", "for"]
   },
