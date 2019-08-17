@@ -31,6 +31,11 @@ describe("rule no-missing-references", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error when reference is empty string", () => {
+		const report = htmlvalidate.validateString('<label for=""></label>');
+		expect(report).toBeValid();
+	});
+
 	it('should report error when <label for=".."> is referencing missing element', () => {
 		const report = htmlvalidate.validateString('<label for="missing"></label>');
 		expect(report).toBeInvalid();
