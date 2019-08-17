@@ -54,9 +54,15 @@ module.exports = function(grunt) {
 		},
 
 		copy: {
-			fonts: {
+			fontawesome: {
 				expand: true,
 				cwd: "node_modules/font-awesome/fonts",
+				src: "*",
+				dest: "public/assets/fonts/",
+			},
+			glyphicons: {
+				expand: true,
+				cwd: "node_modules/bootstrap-sass/assets/fonts/bootstrap",
 				src: "*",
 				dest: "public/assets/fonts/",
 			},
