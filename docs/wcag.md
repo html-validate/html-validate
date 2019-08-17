@@ -77,7 +77,7 @@ textual description of the content. E.g. it cannot suggest to use `<abbr>` or
 		</tr>
 		<tr>
 			<td class="table-right">H37</td>
-			<td>Using alt attributes on img elements.<em>Use {@link rule:wcag/h37} to validate. Only checks for presence of text or explicit `"alt=""` for decorative images.</em></td>
+			<td>Using alt attributes on img elements.<em>Use {@link rule:wcag/h37} to validate. Only checks for presence of text or explicit <code>alt=""</code> for decorative images.</em></td>
 			<td class="support-yes">Yes</td>
 		</tr>
 		<tr>
@@ -102,7 +102,7 @@ textual description of the content. E.g. it cannot suggest to use `<abbr>` or
 		</tr>
 		<tr>
 			<td class="table-right">H44</td>
-			<td>Using label elements to associate text labels with form controls.<em>Use {@link rule:input-missing-label} to validate. Rule is only enabled by default in document mode (`htmlvalidate:document`).</em></td>
+			<td>Using label elements to associate text labels with form controls.<em>Use {@link rule:input-missing-label} to validate. Rule is only enabled by default in document mode (<code>htmlvalidate:document</code>).</em></td>
 			<td class="support-yes">Yes</td>
 		</tr>
 		<tr>
@@ -147,7 +147,7 @@ textual description of the content. E.g. it cannot suggest to use `<abbr>` or
 		</tr>
 		<tr>
 			<td class="table-right">H57</td>
-			<td>Using language attributes on the html element.<em>Use {@link rule:element-required-attributes} to validate. `lang` is a required attribute on `<html>` elements.</em></td>
+			<td>Using language attributes on the html element.<em>Use {@link rule:element-required-attributes} to validate. <code>lang</code> is a required attribute on <code>&lt;html&gt;</code> elements.</em></td>
 			<td class="support-yes">Yes</td>
 		</tr>
 		<tr>
@@ -172,12 +172,12 @@ textual description of the content. E.g. it cannot suggest to use `<abbr>` or
 		</tr>
 		<tr>
 			<td class="table-right">H63</td>
-			<td>Using the scope attribute to associate header cells and data cells in data tables.<em>Use {@link rule:element-required-attributes} to validate. `scope` is a required attribute on `<th>` elements.</em></td>
+			<td>Using the scope attribute to associate header cells and data cells in data tables.<em>Use {@link rule:element-required-attributes} to validate. <code>scope</code> is a required attribute on <code>&gt;th&lt;</code> elements.</em></td>
 			<td class="support-yes">Yes</td>
 		</tr>
 		<tr>
 			<td class="table-right">H64</td>
-			<td>Using the title attribute of the frame and iframe elements.<em>Use {@link rule:element-required-attributes} to validate. `title` is a required attribute on `<frame>` and `<iframe>` elements.</em></td>
+			<td>Using the title attribute of the frame and iframe elements.<em>Use {@link rule:element-required-attributes} to validate. <code>title<code> is a required attribute on <code>&lt;frame&gt;</code> and <code>&lt;iframe&gt;</code> elements.</em></td>
 			<td class="support-yes">Yes</td>
 		</tr>
 		<tr>
