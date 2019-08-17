@@ -98,6 +98,9 @@ export interface DirectiveEvent extends Event {
 export interface DoctypeEvent extends Event {
 	/** Selected doctype */
 	value: string;
+
+	/** Location of doctype value */
+	valueLocation: Location;
 }
 
 /**

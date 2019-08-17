@@ -29,12 +29,17 @@ Emitted after the parsing has finished loading the DOM tree.
 
 ```typescript
 {
+  location: Location,
   value: string,
+  valueLocation: Location,
 }
 ```
 
 Emitted when a doctype is encountered. `value` is the doctype (without
 `<doctype` and `>`).
+
+`location` refers to the doctype opening tag and `valueLocation` to the value
+(as described above)
 
 ## `tag:open`
 

@@ -790,7 +790,15 @@ describe("parser", () => {
 	describe("should parse", () => {
 		it("doctype", () => {
 			const dom = parser.parseHtml("<!doctype foobar>");
-			expect(events.shift()).toEqual({ event: "doctype", value: "foobar" });
+			expect(events.shift()).toEqual({
+				event: "doctype",
+				value: "foobar",
+				valueLocation: expect.objectContaining({
+					line: 1,
+					column: 11,
+					size: 6,
+				}),
+			});
 			expect(events.shift()).toBeUndefined();
 			expect(dom.doctype).toEqual("foobar");
 		});
