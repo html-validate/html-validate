@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/no-unknown-elements.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/no-unknown-elements.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "context": "custom-element",
+        "line": 1,
+        "message": "Unknown element <custom-element>",
+        "offset": 0,
+        "ruleId": "no-unknown-elements",
+        "severity": 2,
+        "size": 15,
+      },
+    ],
+    "source": "<custom-element></custom-element>",
+    "warningCount": 0,
+  },
+]
+`;
