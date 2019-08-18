@@ -6,7 +6,8 @@
       "draggable": ["true", "false"],
       "hidden": [],
       "tabindex": ["/-?\\d+/"]
-    }
+    },
+    "deprecatedAttributes": ["contextmenu"]
   },
 
   "a": {
