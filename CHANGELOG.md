@@ -1,5 +1,15 @@
 # html-validate changelog
 
+## [1.5.1](https://gitlab.com/html-validate/html-validate/compare/v1.5.0...v1.5.1) (2019-08-20)
+
+### Bug Fixes
+
+- **elements:** mark contextmenu attribute as deprecated ([db4069f](https://gitlab.com/html-validate/html-validate/commit/db4069f))
+
+### Features
+
+- **rules:** new rule no-unknown-elements ([96f5fcf](https://gitlab.com/html-validate/html-validate/commit/96f5fcf))
+
 ## [1.5.0](https://gitlab.com/html-validate/html-validate/compare/v1.4.0...v1.5.0) (2019-08-17)
 
 ### Bug Fixes
