@@ -1,6 +1,6 @@
 # html-validate changelog
 
-# [1.5.0](https://gitlab.com/html-validate/html-validate/compare/v1.4.0...v1.5.0) (2019-08-17)
+## [1.5.0](https://gitlab.com/html-validate/html-validate/compare/v1.4.0...v1.5.0) (2019-08-17)
 
 ### Bug Fixes
 
@@ -18,7 +18,7 @@
 - **rules:** new rule element-required-content ([664dead](https://gitlab.com/html-validate/html-validate/commit/664dead))
 - **rules:** new rule no-style-tag ([a1dff5c](https://gitlab.com/html-validate/html-validate/commit/a1dff5c))
 
-# [1.4.0](https://gitlab.com/html-validate/html-validate/compare/v1.3.0...v1.4.0) (2019-08-15)
+## [1.4.0](https://gitlab.com/html-validate/html-validate/compare/v1.3.0...v1.4.0) (2019-08-15)
 
 ### Bug Fixes
 

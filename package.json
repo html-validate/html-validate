@@ -74,7 +74,7 @@
       [
         "@semantic-release/changelog",
         {
-          "changelogTitle": "# html-validate changelog\n\n"
+          "changelogTitle": "# html-validate changelog"
         }
       ],
       [
