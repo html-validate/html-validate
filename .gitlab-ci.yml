@@ -112,7 +112,7 @@ Node 12.x (current):
 Release:
   stage: release
   only:
-    - master
+    - web
   variables:
     GIT_AUTHOR_NAME: "David Sveningsson"
     GIT_AUTHOR_EMAIL: "ext@sidvind.com"
