@@ -89,6 +89,7 @@ Docs:
 .compat: &compat
   stage: compatibility
   dependencies: []
+  needs: ["Build"]
   before_script:
     - npm ci
   script:
