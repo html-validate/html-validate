@@ -126,11 +126,8 @@ Release:
   stage: postrelease
   only:
     - tags
-  dependencies: []
   variables:
     UPSTREAM_VERSION: "${CI_COMMIT_TAG}"
-  before_script:
-    - sleep 10
 
 grunt-html-validate:
   <<: *downstream
