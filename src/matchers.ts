@@ -16,7 +16,7 @@ declare global {
 			toBeValid(): R;
 			toBeInvalid(): R;
 			toBeToken(expected: TokenMatcher): R;
-			toHaveError(ruleId: string, message: string): R;
+			toHaveError(ruleId: string, message: string, context?: any): R;
 			toHaveErrors(errors: Array<[string, string] | {}>): R;
 		}
 	}
@@ -55,7 +55,8 @@ function toBeInvalid(report: Report): jest.CustomMatcherResult {
 function toHaveError(
 	report: Report,
 	ruleId: any,
-	message: any
+	message: any,
+	context?: any
 ): jest.CustomMatcherResult {
 	const actual = report.results.reduce(
 		(aggregated: Message[], result: Result) => {
@@ -63,7 +64,13 @@ function toHaveError(
 		},
 		[]
 	);
-	const matcher = [expect.objectContaining({ ruleId, message })];
+
+	const expected: any = { ruleId, message };
+	if (context) {
+		expected.context = context;
+	}
+
+	const matcher = [expect.objectContaining(expected)];
 	const pass = this.equals(actual, matcher);
 	const diffString = diff(matcher, actual, { expand: this.expand });
 	const resultMessage = (): string =>
