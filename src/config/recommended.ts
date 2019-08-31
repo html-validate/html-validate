@@ -37,6 +37,7 @@ module.exports = {
 		"unrecognized-char-ref": "error",
 		void: "error",
 		"void-content": "error",
+		"void-style": "error",
 		"wcag/h30": "error",
 		"wcag/h32": "error",
 		"wcag/h36": "error",

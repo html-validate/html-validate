@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule void-style should have contextual documentation 1`] = `
+Object {
+  "description": "The current configuration requires void elements to omit end tag, use <foo> instead.",
+  "url": "https://html-validate.org/rules/void-style.html",
+}
+`;
+
+exports[`rule void-style should have contextual documentation 2`] = `
+Object {
+  "description": "The current configuration requires void elements to be self-closed, use <bar/> instead.",
+  "url": "https://html-validate.org/rules/void-style.html",
+}
+`;
+
+exports[`rule void-style should have documentation 1`] = `
+Object {
+  "description": "The current configuration requires a specific style for ending void elements.",
+  "url": "https://html-validate.org/rules/void-style.html",
+}
+`;
