@@ -36,7 +36,7 @@ module.exports = {
 		"prefer-tbody": "error",
 		"svg-focusable": "error",
 		"unrecognized-char-ref": "error",
-		void: "error",
+		void: "off",
 		"void-content": "error",
 		"void-style": "error",
 		"wcag/h30": "error",

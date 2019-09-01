@@ -350,11 +350,11 @@ Array [
     "messages": Array [
       Object {
         "column": 6,
-        "context": undefined,
+        "context": "br",
         "line": 2,
         "message": "End tag for <br> must be omitted",
         "offset": 49,
-        "ruleId": "void",
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 3,
@@ -392,11 +392,11 @@ Array [
     "messages": Array [
       Object {
         "column": 6,
-        "context": undefined,
+        "context": "br",
         "line": 2,
         "message": "End tag for <br> must be omitted",
         "offset": 42,
-        "ruleId": "void",
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 3,
@@ -452,11 +452,11 @@ Array [
     "messages": Array [
       Object {
         "column": 6,
-        "context": undefined,
+        "context": "br",
         "line": 2,
         "message": "End tag for <br> must be omitted",
         "offset": 44,
-        "ruleId": "void",
+        "ruleId": "void-content",
         "selector": null,
         "severity": 1,
         "size": 3,

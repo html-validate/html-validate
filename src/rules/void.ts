@@ -21,6 +21,10 @@ const defaults: RuleOptions = {
 class Void extends Rule<void, RuleOptions> {
 	private style: Style;
 
+	public get deprecated(): boolean {
+		return true;
+	}
+
 	public documentation(): RuleDocumentation {
 		return {
 			description:
