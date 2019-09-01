@@ -22,11 +22,21 @@ declare global {
 	}
 }
 
+/**
+ * Takes all messages from all files and flattens to a single array.
+ */
+function flattenMessages(report: Report): Message[] {
+	return report.results.reduce((aggregated: Message[], result: Result) => {
+		return aggregated.concat(result.messages);
+	}, []);
+}
+
 function toBeValid(report: Report): jest.CustomMatcherResult {
 	if (report.valid) {
 		return {
 			pass: true,
-			message: () => "Result should not contain error",
+			message: /* istanbul ignore next */ () =>
+				"Result should not contain error",
 		};
 	} else {
 		const firstError = report.results[0].messages[0];
@@ -42,12 +52,13 @@ function toBeInvalid(report: Report): jest.CustomMatcherResult {
 	if (report.valid) {
 		return {
 			pass: false,
-			message: () => "Result should be successful",
+			message: () => "Result should be invalid but had no errors",
 		};
 	} else {
 		return {
 			pass: true,
-			message: () => "Result should not contain error",
+			message: /* istanbul ignore next */ () =>
+				"Result should not contain error",
 		};
 	}
 }
@@ -58,13 +69,7 @@ function toHaveError(
 	message: any,
 	context?: any
 ): jest.CustomMatcherResult {
-	const actual = report.results.reduce(
-		(aggregated: Message[], result: Result) => {
-			return aggregated.concat(result.messages);
-		},
-		[]
-	);
-
+	const actual = flattenMessages(report);
 	const expected: any = { ruleId, message };
 	if (context) {
 		expected.context = context;
@@ -80,7 +85,9 @@ function toHaveError(
 		`  ${this.utils.printExpected(matcher)}\n` +
 		"Received:\n" +
 		`  ${this.utils.printReceived(actual)}` +
-		(diffString ? `\n\nDifference:\n\n${diffString}` : "");
+		/* istanbul ignore next */ (diffString
+			? `\n\nDifference:\n\n${diffString}`
+			: "");
 
 	return { pass, message: resultMessage };
 }
@@ -89,12 +96,7 @@ function toHaveErrors(
 	report: Report,
 	errors: Array<[string, string] | {}>
 ): jest.CustomMatcherResult {
-	const actual = report.results.reduce(
-		(aggregated: Message[], result: Result) => {
-			return aggregated.concat(result.messages);
-		},
-		[]
-	);
+	const actual = flattenMessages(report);
 	const matcher = errors.map(entry => {
 		if (Array.isArray(entry)) {
 			const [ruleId, message] = entry;
@@ -112,7 +114,9 @@ function toHaveErrors(
 		`  ${this.utils.printExpected(matcher)}\n` +
 		"Received:\n" +
 		`  ${this.utils.printReceived(actual)}` +
-		(diffString ? `\n\nDifference:\n\n${diffString}` : "");
+		/* istanbul ignore next */ (diffString
+			? `\n\nDifference:\n\n${diffString}`
+			: "");
 
 	return { pass, message: resultMessage };
 }
@@ -120,10 +124,12 @@ function toHaveErrors(
 function toBeToken(actual: any, expected: any): jest.CustomMatcherResult {
 	const token = actual.value;
 
+	// istanbul ignore next: TokenMatcher requires "type" property to be set, this is just a failsafe
 	if (token.type) {
 		token.type = TokenType[token.type];
 	}
 
+	// istanbul ignore next: TokenMatcher requires "type" property to be set, this is just a failsafe
 	if (expected.type) {
 		expected.type = TokenType[expected.type];
 	}
@@ -138,7 +144,9 @@ function toBeToken(actual: any, expected: any): jest.CustomMatcherResult {
 		`  ${this.utils.printExpected(matcher)}\n` +
 		"Received:\n" +
 		`  ${this.utils.printReceived(token)}` +
-		(diffString ? `\n\nDifference:\n\n${diffString}` : "");
+		/* istanbul ignore next */ (diffString
+			? `\n\nDifference:\n\n${diffString}`
+			: "");
 
 	return { pass, message };
 }
