@@ -7,6 +7,7 @@ module.exports = {
 		"close-attr": "error",
 		"close-order": "error",
 		deprecated: "error",
+		"deprecated-rule": "warn",
 		"doctype-html": "error",
 		"element-case": "error",
 		"element-name": "error",
