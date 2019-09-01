@@ -42,7 +42,7 @@ function toBeInvalid(report: Report): jest.CustomMatcherResult {
 	if (report.valid) {
 		return {
 			pass: false,
-			message: () => "Result should be successful",
+			message: () => "Result should be invalid but had no errors",
 		};
 	} else {
 		return {
