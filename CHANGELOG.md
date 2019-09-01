@@ -1,5 +1,15 @@
 # html-validate changelog
 
+# [1.6.0](https://gitlab.com/html-validate/html-validate/compare/v1.5.1...v1.6.0) (2019-09-01)
+
+### Bug Fixes
+
+- **matchers:** typo in error message ([daeabba](https://gitlab.com/html-validate/html-validate/commit/daeabba))
+
+### Features
+
+- **matchers:** optionally test context ([44fcf47](https://gitlab.com/html-validate/html-validate/commit/44fcf47))
+
 ## [1.5.1](https://gitlab.com/html-validate/html-validate/compare/v1.5.0...v1.5.1) (2019-08-20)
 
 ### Bug Fixes
