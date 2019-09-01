@@ -170,7 +170,6 @@
       "src/**/*.ts",
       "!src/**/*.spec.ts",
       "!src/**/index.ts",
-      "!src/matchers.ts",
       "!src/shim.ts",
       "!src/cli/html-validate.ts"
     ],
