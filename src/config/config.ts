@@ -240,9 +240,13 @@ export class Config {
 	public get(): ConfigData {
 		const config = Object.assign({}, this.config);
 		if (config.elements) {
-			config.elements = config.elements.map((cur: string) =>
-				cur.replace(this.rootDir, "<rootDir>")
-			);
+			config.elements = config.elements.map((cur: string | object) => {
+				if (typeof cur === "string") {
+					return cur.replace(this.rootDir, "<rootDir>");
+				} else {
+					return cur;
+				}
+			});
 		}
 		return config;
 	}

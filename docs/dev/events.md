@@ -5,6 +5,17 @@
 
 # Events
 
+## `config:ready`
+
+```typescript
+{
+  config: ConfigData;
+  rules: { [ruleId: string]: Rule };
+}
+```
+
+Emitted after after configuration is ready but before DOM is initialized.
+
 ## `dom:load`
 
 ```typescript

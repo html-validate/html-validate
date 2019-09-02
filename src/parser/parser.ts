@@ -5,6 +5,7 @@ import { DOMTree, HtmlElement, NodeClosed } from "../dom";
 import {
 	AttributeEvent,
 	ConditionalEvent,
+	ConfigReadyEvent,
 	DirectiveEvent,
 	DoctypeEvent,
 	DOMReadyEvent,
@@ -522,17 +523,18 @@ export class Parser {
 	 * @param {string} event - Event name
 	 * @param {Event} data - Event data
 	 */
-	protected trigger(event: "tag:open", data: TagOpenEvent): void;
-	protected trigger(event: "tag:close", data: TagCloseEvent): void;
-	protected trigger(event: "element:ready", data: ElementReadyEvent): void;
-	protected trigger(event: "dom:load", data: Event): void;
-	protected trigger(event: "dom:ready", data: DOMReadyEvent): void;
-	protected trigger(event: "doctype", data: DoctypeEvent): void;
-	protected trigger(event: "attr", data: AttributeEvent): void;
-	protected trigger(event: "whitespace", data: WhitespaceEvent): void;
-	protected trigger(event: "conditional", data: ConditionalEvent): void;
-	protected trigger(event: "directive", data: DirectiveEvent): void;
-	protected trigger(event: any, data: any): void {
+	public trigger(event: "config:ready", data: ConfigReadyEvent): void;
+	public trigger(event: "tag:open", data: TagOpenEvent): void;
+	public trigger(event: "tag:close", data: TagCloseEvent): void;
+	public trigger(event: "element:ready", data: ElementReadyEvent): void;
+	public trigger(event: "dom:load", data: Event): void;
+	public trigger(event: "dom:ready", data: DOMReadyEvent): void;
+	public trigger(event: "doctype", data: DoctypeEvent): void;
+	public trigger(event: "attr", data: AttributeEvent): void;
+	public trigger(event: "whitespace", data: WhitespaceEvent): void;
+	public trigger(event: "conditional", data: ConditionalEvent): void;
+	public trigger(event: "directive", data: DirectiveEvent): void;
+	public trigger(event: any, data: any): void {
 		if (typeof data.location === "undefined") {
 			throw Error("Triggered event must contain location");
 		}

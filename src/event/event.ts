@@ -1,5 +1,7 @@
+import { ConfigData } from "../config";
 import { Location } from "../context";
 import { DOMTree, DynamicValue, HtmlElement } from "../dom";
+import { Rule } from "../rule";
 
 /**
  * @hidden
@@ -7,6 +9,14 @@ import { DOMTree, DynamicValue, HtmlElement } from "../dom";
 export interface Event {
 	/** Event location. */
 	location: Location;
+}
+
+/**
+ * Configuration ready event.
+ */
+export interface ConfigReadyEvent extends Event {
+	config: ConfigData;
+	rules: { [ruleId: string]: Rule };
 }
 
 /**

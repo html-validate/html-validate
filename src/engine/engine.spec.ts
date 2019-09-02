@@ -37,11 +37,6 @@ class MockParser extends Parser {
 				return super.parseHtml(source);
 		}
 	}
-
-	/* exposed for testing */
-	public trigger(event: any, data: any): void {
-		return super.trigger(event, data);
-	}
 }
 
 class ExposedEngine<T extends Parser> extends Engine<T> {
@@ -112,6 +107,21 @@ describe("Engine", () => {
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("close-order", expect.any(String));
+		});
+
+		it("should generate config:ready event", () => {
+			const source: Source[] = [inline("<div></div>")];
+			const parser = new Parser(config);
+			const spy = jest.fn();
+			parser.on("config:ready", spy);
+			jest.spyOn(engine, "instantiateParser").mockReturnValue(parser);
+			engine.lint(source);
+			expect(spy).toHaveBeenCalledTimes(1);
+			expect(spy).toHaveBeenCalledWith("config:ready", {
+				location: null,
+				config: config.get(),
+				rules: expect.anything(),
+			});
 		});
 	});
 
@@ -368,7 +378,7 @@ describe("Engine", () => {
 				engine.requireRule = jest.fn(() => null);
 				engine.loadRule("void", Severity.ERROR, {}, parser, reporter);
 				const add = jest.spyOn(reporter, "add");
-				parser.trigger("dom:load", { location: {} });
+				parser.trigger("dom:load", { location: null });
 				expect(add).toHaveBeenCalledWith(
 					expect.any(Rule),
 					"Definition for rule 'void' was not found",

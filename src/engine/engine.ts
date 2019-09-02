@@ -1,7 +1,12 @@
 import { Config, Severity } from "../config";
 import { Location, Source } from "../context";
 import { HtmlElement } from "../dom";
-import { DirectiveEvent, TagCloseEvent, TagOpenEvent } from "../event";
+import {
+	ConfigReadyEvent,
+	DirectiveEvent,
+	TagCloseEvent,
+	TagOpenEvent,
+} from "../event";
 import { InvalidTokenError, Lexer, TokenType } from "../lexer";
 import { Parser } from "../parser";
 import { Report, Reporter } from "../reporter";
@@ -45,10 +50,18 @@ export class Engine<T extends Parser = Parser> {
 	public lint(sources: Source[]): Report {
 		for (const source of sources) {
 			/* create parser for source */
-			const parser = new this.ParserClass(this.config);
+			const parser = this.instantiateParser();
 
 			/* setup plugins and rules */
 			const { rules } = this.setupPlugins(source, this.config, parser);
+
+			/* trigger configuration ready event */
+			const event: ConfigReadyEvent = {
+				location: null,
+				config: this.config.get(),
+				rules,
+			};
+			parser.trigger("config:ready", event);
 
 			/* setup directive handling */
 			parser.on("directive", (_: string, event: DirectiveEvent) => {
@@ -152,6 +165,15 @@ export class Engine<T extends Parser = Parser> {
 		} else {
 			return null;
 		}
+	}
+
+	/**
+	 * Create a new parser instance with the current configuration.
+	 *
+	 * @hidden
+	 */
+	public instantiateParser(): Parser {
+		return new this.ParserClass(this.config);
 	}
 
 	private processDirective(
