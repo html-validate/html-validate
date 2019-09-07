@@ -29,6 +29,13 @@ class AttrCase extends Rule {
 				return;
 			}
 
+			/* ignore case for dynamic attributes, the original attributes will be
+			 * checked instead (this prevents duplicated errors for the same source
+			 * attribute) */
+			if (event.originalAttribute) {
+				return;
+			}
+
 			const letters = event.key.replace(/[^a-z]+/gi, "");
 			if (!letters.match(this.pattern)) {
 				this.report(
