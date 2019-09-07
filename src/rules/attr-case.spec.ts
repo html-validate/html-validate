@@ -1,5 +1,6 @@
 import HtmlValidate from "../htmlvalidate";
 import "../matchers";
+import { processAttribute } from "../transform/mocks/attribute";
 
 describe("rule attr-case", () => {
 	let htmlvalidate: HtmlValidate;
@@ -118,6 +119,22 @@ describe("rule attr-case", () => {
 				'Attribute "viewBox" should be lowercase'
 			);
 		});
+	});
+
+	it("should not report duplicate errors for dynamic attributes", () => {
+		htmlvalidate = new HtmlValidate({
+			rules: { "attr-case": "error" },
+		});
+		const report = htmlvalidate.validateString('<input dynamic-fooBar="foo">', {
+			processAttribute,
+		});
+		expect(report).toBeInvalid();
+		expect(report).toHaveErrors([
+			{
+				ruleId: "attr-case",
+				message: 'Attribute "dynamic-fooBar" should be lowercase',
+			},
+		]);
 	});
 
 	it("should throw error if configured with invalid value", () => {
