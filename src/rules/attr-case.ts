@@ -61,6 +61,10 @@ function parseStyle(style: string): [RegExp, string] {
 			return [/^[a-z]*$/, "lowercase"];
 		case "uppercase":
 			return [/^[A-Z]*$/, "uppercase"];
+		case "pascalcase":
+			return [/^[A-Z][A-Za-z]*$/, "PascalCase"];
+		case "camelcase":
+			return [/^[a-z][A-Za-z]*$/, "camelCase"];
 		default:
 			throw new Error(`Invalid style "${style}" for "attr-case" rule`);
 	}
