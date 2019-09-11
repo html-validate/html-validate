@@ -658,56 +658,19 @@ describe("lexer", () => {
 			expect(token.next().done).toBeTruthy();
 		});
 
-		describe("browser conditional", () => {
-			it("downlevel-hidden", () => {
-				const token = lexer.tokenize(
-					inlineSource("<!--[if IE 6]>foo<![endif]-->")
-				);
-				expect(token.next()).toBeToken({
-					type: TokenType.CONDITIONAL,
-					data: ["<!--[if IE 6]>", "if IE 6"],
-				});
-				expect(token.next()).toBeToken({ type: TokenType.TEXT, data: ["foo"] });
-				expect(token.next()).toBeToken({
-					type: TokenType.CONDITIONAL,
-					data: ["<![endif]-->", "endif"],
-				});
-				expect(token.next()).toBeToken({ type: TokenType.EOF });
-				expect(token.next().done).toBeTruthy();
+		/* downlevel reveal is a non-standard "tag", handled separately */
+		it("browser conditional downlevel-reveal", () => {
+			const token = lexer.tokenize(inlineSource("<![if IE 6]>foo<![endif]>"));
+			expect(token.next()).toBeToken({
+				type: TokenType.CONDITIONAL,
+				data: ["<![if IE 6]>", "if IE 6"],
 			});
-
-			it("downlevel-reveal", () => {
-				const token = lexer.tokenize(inlineSource("<![if IE 6]>foo<![endif]>"));
-				expect(token.next()).toBeToken({
-					type: TokenType.CONDITIONAL,
-					data: ["<![if IE 6]>", "if IE 6"],
-				});
-				expect(token.next()).toBeToken({ type: TokenType.TEXT, data: ["foo"] });
-				expect(token.next()).toBeToken({
-					type: TokenType.CONDITIONAL,
-					data: ["<![endif]>", "endif"],
-				});
-				expect(token.next()).toBeToken({ type: TokenType.EOF });
+			expect(token.next()).toBeToken({ type: TokenType.TEXT, data: ["foo"] });
+			expect(token.next()).toBeToken({
+				type: TokenType.CONDITIONAL,
+				data: ["<![endif]>", "endif"],
 			});
-
-			it("nested comment", () => {
-				const token = lexer.tokenize(
-					inlineSource("<!--[if IE 6]><!-- foo --><![endif]-->")
-				);
-				expect(token.next()).toBeToken({
-					type: TokenType.CONDITIONAL,
-					data: ["<!--[if IE 6]>", "if IE 6"],
-				});
-				expect(token.next()).toBeToken({
-					type: TokenType.COMMENT,
-					data: ["<!-- foo -->", " foo "],
-				});
-				expect(token.next()).toBeToken({
-					type: TokenType.CONDITIONAL,
-					data: ["<![endif]-->", "endif"],
-				});
-				expect(token.next()).toBeToken({ type: TokenType.EOF });
-			});
+			expect(token.next()).toBeToken({ type: TokenType.EOF });
 		});
 	});
 });

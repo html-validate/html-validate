@@ -35,7 +35,7 @@ const MATCH_SCRIPT_DATA = /^[^]*?(?=<\/script)/;
 const MATCH_SCRIPT_END = /^<(\/)(script)/;
 const MATCH_DIRECTIVE = /^<!--\s\[html-validate-(.*?)]\s-->/;
 const MATCH_COMMENT = /^<!--([^]*?)-->/;
-const MATCH_CONDITIONAL = /^<!(?:--)?\[([^\]]*?)\](?:--)?>/;
+const MATCH_CONDITIONAL = /^<!\[([^\]]*?)\]>/;
 
 export class InvalidTokenError extends Error {
 	public location: Location;

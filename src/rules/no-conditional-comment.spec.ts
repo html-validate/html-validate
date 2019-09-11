@@ -15,26 +15,17 @@ describe("rule no-conditional-comment", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should report error when <!--[...]--> is used", () => {
+		const report = htmlvalidate.validateString("<!--[if foo]-->");
+		expect(report).toBeInvalid();
+		expect(report).toHaveError(
+			"no-conditional-comment",
+			"Use of conditional comments are deprecated"
+		);
+	});
+
 	it("should report error when <![...]> is used", () => {
-		const report = htmlvalidate.validateString("<![if foo]>");
-		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"no-conditional-comment",
-			"Use of conditional comments are deprecated"
-		);
-	});
-
-	it("should report error when <!--[...]> is used", () => {
-		const report = htmlvalidate.validateString("<!--[if foo]>");
-		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"no-conditional-comment",
-			"Use of conditional comments are deprecated"
-		);
-	});
-
-	it("should report error when <![...]--> is used", () => {
-		const report = htmlvalidate.validateString("<![endif]-->");
+		const report = htmlvalidate.validateString("<!-- foo <![if bar]> baz -->");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"no-conditional-comment",

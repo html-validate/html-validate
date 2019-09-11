@@ -3,7 +3,7 @@
 exports[`docs/rules/no-conditional-comment.md inline validation: incorrect 1`] = `
 Array [
   Object {
-    "errorCount": 2,
+    "errorCount": 4,
     "filePath": "inline",
     "messages": Array [
       Object {
@@ -19,18 +19,40 @@ Array [
       Object {
         "column": 1,
         "context": undefined,
+        "line": 3,
+        "message": "Use of conditional comments are deprecated",
+        "offset": 53,
+        "ruleId": "no-conditional-comment",
+        "severity": 2,
+        "size": 12,
+      },
+      Object {
+        "column": 1,
+        "context": undefined,
         "line": 5,
         "message": "Use of conditional comments are deprecated",
-        "offset": 44,
+        "offset": 67,
+        "ruleId": "no-conditional-comment",
+        "severity": 2,
+        "size": 11,
+      },
+      Object {
+        "column": 1,
+        "context": undefined,
+        "line": 7,
+        "message": "Use of conditional comments are deprecated",
+        "offset": 123,
         "ruleId": "no-conditional-comment",
         "severity": 2,
         "size": 10,
       },
     ],
-    "source": "<![if IE 6]>
-<style>
-    /* ... */
-</style>
+    "source": "<!--[if IE]>
+<p>You are using Internet Explorer.</p>
+<![endif]-->
+
+<![if !IE]>
+<p>You are not using Internet Explorer.</p>
 <![endif]>",
     "warningCount": 0,
   },

@@ -19,6 +19,7 @@ import {
 import { Lexer, Token, TokenStream, TokenType } from "../lexer";
 import { MetaTable } from "../meta";
 import { AttributeData } from "./attribute-data";
+import { parseConditionalComment } from "./conditional-comment";
 
 /**
  * Parse HTML document into a DOM tree.
@@ -45,6 +46,7 @@ export class Parser {
 	 * @param source - HTML markup.
 	 * @returns DOM tree representing the HTML markup.
 	 */
+	// eslint-disable-next-line complexity
 	public parseHtml(source: string | Source): DOMTree {
 		if (typeof source === "string") {
 			source = {
@@ -98,6 +100,10 @@ export class Parser {
 						condition: token.data[1],
 						location: token.location,
 					});
+					break;
+
+				case TokenType.COMMENT:
+					this.consumeComment(token);
 					break;
 
 				case TokenType.DOCTYPE_OPEN:
@@ -419,6 +425,24 @@ export class Parser {
 			comment: comment || "",
 			location: token.location,
 		});
+	}
+
+	/**
+	 * Consumes comment token.
+	 *
+	 * Tries to find IE conditional comments and emits conditional token if found.
+	 */
+	protected consumeComment(token: Token): void {
+		const comment = token.data[0];
+		for (const conditional of parseConditionalComment(
+			comment,
+			token.location
+		)) {
+			this.trigger("conditional", {
+				condition: conditional.expression,
+				location: conditional.location,
+			});
+		}
 	}
 
 	/**
