@@ -36,8 +36,10 @@ This rule takes an optional object:
 
 ### `style`
 
+- `camelcase` requires all attribute names to be camelCase.
 - `lowercase` requires all attribute names to be lowercase.
-- `uppercase` requires all attribute names to be uppercase.
+- `pascalcase` requires all attribute names to be PascalCase.
+- `uppercase` requires all attribute names to be UPPERCASE.
 
 ### `ignoreForeign`
 

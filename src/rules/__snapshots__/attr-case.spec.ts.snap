@@ -1,5 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule attr-case configured with "camelcase" smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/rules/attr-case.html",
+    "messages": Array [
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 2,
+        "message": "Attribute \\"ID\\" should be camelCase",
+        "offset": 23,
+        "ruleId": "attr-case",
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<p id=\\"foo\\">foo</p>
+<p ID=\\"bar\\">bar</p>
+<p clAss=\\"baz\\">baz</p>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
 exports[`rule attr-case configured with "lowercase" smoketest 1`] = `
 Array [
   Object {
@@ -21,6 +47,42 @@ Array [
         "context": undefined,
         "line": 3,
         "message": "Attribute \\"clAss\\" should be lowercase",
+        "offset": 43,
+        "ruleId": "attr-case",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<p id=\\"foo\\">foo</p>
+<p ID=\\"bar\\">bar</p>
+<p clAss=\\"baz\\">baz</p>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`rule attr-case configured with "pascalcase" smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/rules/attr-case.html",
+    "messages": Array [
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 1,
+        "message": "Attribute \\"id\\" should be PascalCase",
+        "offset": 3,
+        "ruleId": "attr-case",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 3,
+        "message": "Attribute \\"clAss\\" should be PascalCase",
         "offset": 43,
         "ruleId": "attr-case",
         "severity": 2,

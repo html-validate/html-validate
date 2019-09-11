@@ -91,6 +91,92 @@ describe("rule attr-case", () => {
 		});
 	});
 
+	describe('configured with "pascalcase"', () => {
+		beforeAll(() => {
+			htmlvalidate = new HtmlValidate({
+				rules: { "attr-case": ["error", { style: "pascalcase" }] },
+			});
+		});
+
+		it("should not report error when attributes is PascalCase", () => {
+			const report = htmlvalidate.validateString('<div FooBar="baz"></div>');
+			expect(report).toBeValid();
+		});
+
+		it("should not report error when attributes is UPPERCASE", () => {
+			const report = htmlvalidate.validateString('<div FOOBAR="baz"></div>');
+			expect(report).toBeValid();
+		});
+
+		it("should report error when attributes is lowercase", () => {
+			const report = htmlvalidate.validateString('<div foobar="baz"></div>');
+			expect(report).toBeInvalid();
+			expect(report).toHaveError(
+				"attr-case",
+				'Attribute "foobar" should be PascalCase'
+			);
+		});
+
+		it("should report error when attributes is camelCase", () => {
+			const report = htmlvalidate.validateString('<div fooBar="baz"></div>');
+			expect(report).toBeInvalid();
+			expect(report).toHaveError(
+				"attr-case",
+				'Attribute "fooBar" should be PascalCase'
+			);
+		});
+
+		it("smoketest", () => {
+			const report = htmlvalidate.validateFile(
+				"test-files/rules/attr-case.html"
+			);
+			expect(report.results).toMatchSnapshot();
+		});
+	});
+
+	describe('configured with "camelcase"', () => {
+		beforeAll(() => {
+			htmlvalidate = new HtmlValidate({
+				rules: { "attr-case": ["error", { style: "camelcase" }] },
+			});
+		});
+
+		it("should not report error when attributes is camelCase", () => {
+			const report = htmlvalidate.validateString('<div fooBar="baz"></div>');
+			expect(report).toBeValid();
+		});
+
+		it("should not report error when attributes is lowercase", () => {
+			const report = htmlvalidate.validateString('<div foobar="baz"></div>');
+			expect(report).toBeValid();
+		});
+
+		it("should report error when attributes is UPPERCASE", () => {
+			const report = htmlvalidate.validateString('<div FOOBAR="baz"></div>');
+			expect(report).toBeInvalid();
+			expect(report).toHaveError(
+				"attr-case",
+				'Attribute "FOOBAR" should be camelCase'
+			);
+		});
+
+		it("should report error when attributes is PascalCase", () => {
+			const report = htmlvalidate.validateString('<div FooBar="baz"></div>');
+			expect(report).toBeInvalid();
+			expect(report).toHaveError(
+				"attr-case",
+				'Attribute "FooBar" should be camelCase'
+			);
+		});
+
+		it("smoketest", () => {
+			const report = htmlvalidate.validateFile(
+				"test-files/rules/attr-case.html"
+			);
+			expect(report.results).toMatchSnapshot();
+		});
+	});
+
 	describe('configured with "ignoreForeign" true', () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
