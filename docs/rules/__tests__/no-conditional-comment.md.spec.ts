@@ -1,10 +1,12 @@
 import HtmlValidate from "../../../src/htmlvalidate";
 
 const markup: { [key: string]: string } = {};
-markup["incorrect"] = `<![if IE 6]>
-<style>
-    /* ... */
-</style>
+markup["incorrect"] = `<!--[if IE]>
+<p>You are using Internet Explorer.</p>
+<![endif]-->
+
+<![if !IE]>
+<p>You are not using Internet Explorer.</p>
 <![endif]>`;
 
 describe("docs/rules/no-conditional-comment.md", () => {
