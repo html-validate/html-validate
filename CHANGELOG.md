@@ -1,5 +1,17 @@
 # html-validate changelog
 
+# [1.7.0](https://gitlab.com/html-validate/html-validate/compare/v1.6.0...v1.7.0) (2019-09-11)
+
+### Bug Fixes
+
+- **parser:** fix conditional comments pushing elements into tree ([b26fe80](https://gitlab.com/html-validate/html-validate/commit/b26fe80)), closes [#51](https://gitlab.com/html-validate/html-validate/issues/51)
+- **rules:** attr-case no longer reports duplicate errors for dynamic attributes ([c06ae67](https://gitlab.com/html-validate/html-validate/commit/c06ae67)), closes [#48](https://gitlab.com/html-validate/html-validate/issues/48)
+
+### Features
+
+- **location:** allow sliceLocation to wrap line/column ([cbd7796](https://gitlab.com/html-validate/html-validate/commit/cbd7796))
+- **rules:** add PascalCase and camelCase styles for `attr-case` ([9e91f81](https://gitlab.com/html-validate/html-validate/commit/9e91f81)), closes [#49](https://gitlab.com/html-validate/html-validate/issues/49)
+
 # [1.6.0](https://gitlab.com/html-validate/html-validate/compare/v1.5.1...v1.6.0) (2019-09-01)
 
 ### Bug Fixes
