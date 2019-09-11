@@ -68,4 +68,23 @@ describe("sliceLocation()", () => {
 			size: null,
 		});
 	});
+
+	it("should wrap line/column when newlines are present", () => {
+		const text = "foo\nbar baz\nspam";
+		(location as any).size = text.length;
+		expect(sliceLocation(location, 8, 11, text)).toEqual({
+			filename: "-",
+			offset: 8,
+			line: 2,
+			column: 5,
+			size: 3,
+		});
+		expect(sliceLocation(location, 12, 16, text)).toEqual({
+			filename: "-",
+			offset: 12,
+			line: 3,
+			column: 1,
+			size: 4,
+		});
+	});
 });
