@@ -25,6 +25,11 @@ describe("rule no-deprecated-attr", () => {
 	});
 
 	it("should not report when regular element has no deprecated attributes", () => {
+		/* use custom meta as html5 has global deprecations */
+		const htmlvalidate = new HtmlValidate({
+			elements: [{ abbr: {} }],
+			rules: { "no-deprecated-attr": "error" },
+		});
 		const report = htmlvalidate.validateString(
 			'<abbr style="background: red;"></abbr>'
 		);
