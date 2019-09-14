@@ -381,7 +381,7 @@ describe("config", () => {
 			]);
 		});
 
-		it("should throw sane error when transformer fails ", () => {
+		it("should throw sane error when transformer fails", () => {
 			const config = Config.fromObject({
 				transform: {
 					"^.*\\.foo$":
@@ -392,6 +392,16 @@ describe("config", () => {
 			expect(() =>
 				config.transform("/path/to/test.foo")
 			).toThrowErrorMatchingSnapshot();
+		});
+
+		it("should throw sane error when transformer fails to load", () => {
+			const config = Config.fromObject({
+				transform: {
+					"^.*\\.foo$":
+						"missing-transformer" /* mocked transformer, see top of file */,
+				},
+			});
+			expect(() => config.init()).toThrowErrorMatchingSnapshot();
 		});
 	});
 

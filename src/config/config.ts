@@ -2,13 +2,13 @@ import deepmerge from "deepmerge";
 import fs from "fs";
 import path from "path";
 import { Source } from "../context";
-import { NestedError } from "../error/nested-error";
-import { UserError } from "../error/user-error";
+import { NestedError } from "../error";
 import { MetaTable } from "../meta";
 import { MetaDataTable } from "../meta/element";
 import { Plugin } from "../plugin";
 import { ConfigData, TransformMap } from "./config-data";
 import defaultConfig from "./default";
+import { ConfigError } from "./error";
 import { parseSeverity, Severity } from "./severity";
 
 interface Transformer {
@@ -43,7 +43,10 @@ function loadFromFile(filename: string): ConfigData {
 		// eslint-disable-next-line security/detect-non-literal-require
 		json = require(filename);
 	} catch (err) {
-		throw new UserError(`Failed to read configuration from "${filename}"`, err);
+		throw new ConfigError(
+			`Failed to read configuration from "${filename}"`,
+			err
+		);
 	}
 
 	/* expand any relative paths */
@@ -337,13 +340,17 @@ export class Config {
 
 	private precompileTransformers(transform: TransformMap): Transformer[] {
 		return Object.entries(transform).map(([pattern, module]) => {
-			return {
-				// eslint-disable-next-line security/detect-non-literal-regexp
-				pattern: new RegExp(pattern),
+			try {
+				return {
+					// eslint-disable-next-line security/detect-non-literal-regexp
+					pattern: new RegExp(pattern),
 
-				// eslint-disable-next-line security/detect-non-literal-require
-				fn: require(module.replace("<rootDir>", this.rootDir)),
-			};
+					// eslint-disable-next-line security/detect-non-literal-require
+					fn: require(module.replace("<rootDir>", this.rootDir)),
+				};
+			} catch (err) {
+				throw new ConfigError(`Failed to load transformer "${module}"`, err);
+			}
 		});
 	}
 
