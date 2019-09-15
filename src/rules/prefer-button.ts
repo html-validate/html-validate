@@ -19,7 +19,13 @@ class PreferButton extends Rule {
 			}
 
 			const type = node.getAttribute("type");
-			if (type && type.valueMatches(/^(button|submit|reset|image)$/, false)) {
+
+			/* sanity check: handle missing and boolean attributes */
+			if (!type || type.value === null) {
+				return;
+			}
+
+			if (type.valueMatches(/^(button|submit|reset|image)$/, false)) {
 				this.report(
 					node,
 					`Prefer to use <button> instead of <input type="${type.value}"> when adding buttons`,

@@ -10,6 +10,16 @@ describe("rule prefer-button", () => {
 		});
 	});
 
+	it("should not report error when type attribute is missing type attribute", () => {
+		const report = htmlvalidate.validateString("<input>");
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when type attribute is missing value", () => {
+		const report = htmlvalidate.validateString("<input type>");
+		expect(report).toBeValid();
+	});
+
 	it("should not report error when using regular input fields", () => {
 		const report = htmlvalidate.validateString('<input type="text">');
 		expect(report).toBeValid();
