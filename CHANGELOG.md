@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [1.7.1](https://gitlab.com/html-validate/html-validate/compare/v1.7.0...v1.7.1) (2019-09-15)
+
+### Bug Fixes
+
+- **config:** better error message when transformer fails to load ([c5a4f38](https://gitlab.com/html-validate/html-validate/commit/c5a4f38))
+
 # [1.7.0](https://gitlab.com/html-validate/html-validate/compare/v1.6.0...v1.7.0) (2019-09-11)
 
 ### Bug Fixes
