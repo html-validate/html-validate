@@ -122,6 +122,7 @@ const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
 	string: [
 		"c",
 		"config",
+		"ext",
 		"f",
 		"formatter",
 		"max-warnings",
@@ -144,6 +145,7 @@ function showUsage(): void {
 Usage: html-validate [OPTIONS] [FILENAME..] [DIR..]
 
 Common options:
+      --ext=STRING               specify file extensions (commaseparated).
   -f, --formatter=FORMATTER      specify the formatter to use.
       --max-warnings=INT         number of warnings to trigger nonzero exit code
       --rule=RULE:SEVERITY       set additional rule, use comma separator for
@@ -193,7 +195,12 @@ if (isNaN(maxWarnings)) {
 	process.exit(1);
 }
 
-const files = expandFiles(argv._);
+/* parse extensions (used when expanding directories) */
+const extensions = (argv.ext || "html").split(",").map((cur: string) => {
+	return cur[0] === "." ? cur.slice(1) : cur;
+});
+
+const files = expandFiles(argv._, { extensions });
 if (files.length === 0) {
 	console.error("No files matching patterns", argv._);
 	process.exit(1);
