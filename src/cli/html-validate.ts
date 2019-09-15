@@ -5,13 +5,13 @@ import { TokenDump } from "../engine";
 import { UserError } from "../error/user-error";
 import HtmlValidate from "../htmlvalidate";
 import { Report, Reporter, Result } from "../reporter";
+import { expandFiles } from "./expand-files";
 import { getFormatter } from "./formatter";
 import { eventFormatter } from "./json";
 
 const pkg = require("../../package.json");
 
 import chalk from "chalk";
-import glob from "glob";
 import minimist from "minimist";
 
 enum Mode {
@@ -193,23 +193,15 @@ if (isNaN(maxWarnings)) {
 	process.exit(1);
 }
 
-const files = argv._.reduce((files: string[], pattern: string) => {
-	/* process - as standard input */
-	if (pattern === "-") {
-		pattern = "/dev/stdin";
-	}
-	return files.concat(glob.sync(pattern));
-}, []);
-const unique = Array.from(new Set(files));
-
-if (unique.length === 0) {
+const files = expandFiles(argv._);
+if (files.length === 0) {
 	console.error("No files matching patterns", argv._);
 	process.exit(1);
 }
 
 try {
 	if (mode === Mode.LINT) {
-		const result = lint(unique);
+		const result = lint(files);
 
 		/* rename stdin if an explicit filename was passed */
 		if (argv["stdin-filename"]) {
@@ -231,7 +223,7 @@ try {
 		const json = JSON.stringify(config.get(), null, 2);
 		console.log(json);
 	} else {
-		const output = dump(unique, mode);
+		const output = dump(files, mode);
 		console.log(output);
 		process.exit(0);
 	}
