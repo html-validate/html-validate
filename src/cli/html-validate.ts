@@ -125,6 +125,8 @@ const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
 		"ext",
 		"f",
 		"formatter",
+		"h",
+		"help",
 		"max-warnings",
 		"rule",
 		"stdin-filename",
@@ -140,9 +142,17 @@ const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
 	alias: {
 		c: "config",
 		f: "formatter",
+		h: "help",
 	},
 	default: {
 		formatter: "stylish",
+	},
+	unknown: (opt: string) => {
+		if (opt[0] === "-") {
+			process.stderr.write(`unknown option ${opt}\n`);
+			process.exit(1);
+		}
+		return true;
 	},
 });
 
@@ -193,7 +203,7 @@ if (argv.version) {
 	process.exit();
 }
 
-if (argv.h || argv.help || argv._.length === 0) {
+if (argv.help || argv._.length === 0) {
 	showUsage();
 	process.exit();
 }
