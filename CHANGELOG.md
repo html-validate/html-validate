@@ -1,5 +1,21 @@
 # html-validate changelog
 
+# [1.8.0](https://gitlab.com/html-validate/html-validate/compare/v1.7.1...v1.8.0) (2019-09-16)
+
+### Bug Fixes
+
+- **rules:** fix prefer-button crashing on boolean type attribute ([94ce2a8](https://gitlab.com/html-validate/html-validate/commit/94ce2a8))
+
+### Features
+
+- **cli:** allow specifying extensions ([2bdd75f](https://gitlab.com/html-validate/html-validate/commit/2bdd75f))
+- **cli:** cli learned `--version` to print version number ([95c6737](https://gitlab.com/html-validate/html-validate/commit/95c6737))
+- **cli:** exit early when encountering unknown cli arguments ([1381c51](https://gitlab.com/html-validate/html-validate/commit/1381c51))
+- **cli:** expose expandFiles function ([edab9cf](https://gitlab.com/html-validate/html-validate/commit/edab9cf))
+- **cli:** handle passing directories ([f152a12](https://gitlab.com/html-validate/html-validate/commit/f152a12))
+- **cli:** support setting cwd when calling expandFiles ([420dc88](https://gitlab.com/html-validate/html-validate/commit/420dc88))
+- **event:** new event config:ready ([c2990b5](https://gitlab.com/html-validate/html-validate/commit/c2990b5))
+
 ## [1.7.1](https://gitlab.com/html-validate/html-validate/compare/v1.7.0...v1.7.1) (2019-09-15)
 
 ### Bug Fixes
