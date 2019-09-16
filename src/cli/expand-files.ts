@@ -47,7 +47,8 @@ export function expandFiles(
 	const files = patterns.reduce((result: string[], pattern: string) => {
 		/* process - as standard input */
 		if (pattern === "-") {
-			pattern = "/dev/stdin";
+			result.push("/dev/stdin");
+			return result;
 		}
 
 		for (const filename of glob.sync(pattern, { cwd })) {
