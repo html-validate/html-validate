@@ -129,7 +129,14 @@ const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
 		"rule",
 		"stdin-filename",
 	],
-	boolean: ["dump-events", "dump-tokens", "dump-tree", "print-config", "stdin"],
+	boolean: [
+		"dump-events",
+		"dump-tokens",
+		"dump-tree",
+		"print-config",
+		"stdin",
+		"version",
+	],
 	alias: {
 		c: "config",
 		f: "formatter",
@@ -140,7 +147,6 @@ const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
 });
 
 function showUsage(): void {
-	const pkg = require("../../package.json");
 	process.stdout.write(`${pkg.name}-${pkg.version}
 Usage: html-validate [OPTIONS] [FILENAME..] [DIR..]
 
@@ -161,6 +167,8 @@ Debugging options:
 Miscellaneous:
   -c, --config=STRING            use custom configuration file.
       --print-config             output configuration for given file.
+  -h, --help                     show help.
+      --version                  show version.
 
 Formatters:
 
@@ -172,8 +180,17 @@ e.g. "checkstyle=build/html-validate.xml"
 `);
 }
 
+function showVersion(): void {
+	process.stdout.write(`${pkg.name}-${pkg.version}\n`);
+}
+
 if (argv.stdin) {
 	argv._.push("-");
+}
+
+if (argv.version) {
+	showVersion();
+	process.exit();
 }
 
 if (argv.h || argv.help || argv._.length === 0) {
