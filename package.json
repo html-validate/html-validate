@@ -154,7 +154,7 @@
     "jquery": "3.4.1",
     "lint-staged": "9.2.5",
     "load-grunt-tasks": "5.1.0",
-    "minimatch": "^3.0.4",
+    "minimatch": "3.0.4",
     "prettier": "1.18.2",
     "sass": "1.22.12",
     "semantic-release": "15.13.24",
