@@ -12,6 +12,7 @@ import {
 	TagCloseEvent,
 	TagOpenEvent,
 	WhitespaceEvent,
+	ConfigReadyEvent,
 } from "./event";
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";
@@ -117,6 +118,10 @@ export abstract class Rule<T = any> {
 	 *
 	 * @param event - Event name
 	 */
+	public on(
+		event: "config:ready",
+		callback: (event: ConfigReadyEvent) => void
+	): void;
 	public on(event: "tag:open", callback: (event: TagOpenEvent) => void): void;
 	public on(event: "tag:close", callback: (event: TagCloseEvent) => void): void;
 	public on(
