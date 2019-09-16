@@ -5,13 +5,13 @@ import { TokenDump } from "../engine";
 import { UserError } from "../error/user-error";
 import HtmlValidate from "../htmlvalidate";
 import { Report, Reporter, Result } from "../reporter";
+import { expandFiles } from "./expand-files";
 import { getFormatter } from "./formatter";
 import { eventFormatter } from "./json";
 
 const pkg = require("../../package.json");
 
 import chalk from "chalk";
-import glob from "glob";
 import minimist from "minimist";
 
 enum Mode {
@@ -122,28 +122,46 @@ const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
 	string: [
 		"c",
 		"config",
+		"ext",
 		"f",
 		"formatter",
+		"h",
+		"help",
 		"max-warnings",
 		"rule",
 		"stdin-filename",
 	],
-	boolean: ["dump-events", "dump-tokens", "dump-tree", "print-config", "stdin"],
+	boolean: [
+		"dump-events",
+		"dump-tokens",
+		"dump-tree",
+		"print-config",
+		"stdin",
+		"version",
+	],
 	alias: {
 		c: "config",
 		f: "formatter",
+		h: "help",
 	},
 	default: {
 		formatter: "stylish",
 	},
+	unknown: (opt: string) => {
+		if (opt[0] === "-") {
+			process.stderr.write(`unknown option ${opt}\n`);
+			process.exit(1);
+		}
+		return true;
+	},
 });
 
 function showUsage(): void {
-	const pkg = require("../../package.json");
 	process.stdout.write(`${pkg.name}-${pkg.version}
 Usage: html-validate [OPTIONS] [FILENAME..] [DIR..]
 
 Common options:
+      --ext=STRING               specify file extensions (commaseparated).
   -f, --formatter=FORMATTER      specify the formatter to use.
       --max-warnings=INT         number of warnings to trigger nonzero exit code
       --rule=RULE:SEVERITY       set additional rule, use comma separator for
@@ -159,6 +177,8 @@ Debugging options:
 Miscellaneous:
   -c, --config=STRING            use custom configuration file.
       --print-config             output configuration for given file.
+  -h, --help                     show help.
+      --version                  show version.
 
 Formatters:
 
@@ -170,11 +190,20 @@ e.g. "checkstyle=build/html-validate.xml"
 `);
 }
 
+function showVersion(): void {
+	process.stdout.write(`${pkg.name}-${pkg.version}\n`);
+}
+
 if (argv.stdin) {
 	argv._.push("-");
 }
 
-if (argv.h || argv.help || argv._.length === 0) {
+if (argv.version) {
+	showVersion();
+	process.exit();
+}
+
+if (argv.help || argv._.length === 0) {
 	showUsage();
 	process.exit();
 }
@@ -193,23 +222,20 @@ if (isNaN(maxWarnings)) {
 	process.exit(1);
 }
 
-const files = argv._.reduce((files: string[], pattern: string) => {
-	/* process - as standard input */
-	if (pattern === "-") {
-		pattern = "/dev/stdin";
-	}
-	return files.concat(glob.sync(pattern));
-}, []);
-const unique = Array.from(new Set(files));
+/* parse extensions (used when expanding directories) */
+const extensions = (argv.ext || "html").split(",").map((cur: string) => {
+	return cur[0] === "." ? cur.slice(1) : cur;
+});
 
-if (unique.length === 0) {
+const files = expandFiles(argv._, { extensions });
+if (files.length === 0) {
 	console.error("No files matching patterns", argv._);
 	process.exit(1);
 }
 
 try {
 	if (mode === Mode.LINT) {
-		const result = lint(unique);
+		const result = lint(files);
 
 		/* rename stdin if an explicit filename was passed */
 		if (argv["stdin-filename"]) {
@@ -231,7 +257,7 @@ try {
 		const json = JSON.stringify(config.get(), null, 2);
 		console.log(json);
 	} else {
-		const output = dump(unique, mode);
+		const output = dump(files, mode);
 		console.log(output);
 		process.exit(0);
 	}
