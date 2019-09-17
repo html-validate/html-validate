@@ -30,6 +30,7 @@ module.exports = {
 		"no-trailing-whitespace": "error",
 		"prefer-button": "error",
 		"prefer-tbody": "error",
+		"svg-focusable": "error",
 		"unrecognized-char-ref": "error",
 		void: "error",
 		"wcag/h30": "error",

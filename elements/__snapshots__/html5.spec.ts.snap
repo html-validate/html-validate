@@ -4983,7 +4983,30 @@ Array [
 
 exports[`HTML elements <sup> valid markup 1`] = `Array []`;
 
-exports[`HTML elements <svg> invalid markup 1`] = `Array []`;
+exports[`HTML elements <svg> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "test-files/elements/svg-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<svg> is missing required \\"focusable\\" attribute",
+        "offset": 39,
+        "ruleId": "svg-focusable",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- requires focusable attribute -->
+<svg></svg>
+",
+    "warningCount": 0,
+  },
+]
+`;
 
 exports[`HTML elements <svg> valid markup 1`] = `Array []`;
 
