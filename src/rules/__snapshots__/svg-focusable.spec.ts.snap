@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule svg-focusable should contain documentation 1`] = `
+Object {
+  "description": "Inline SVG elements in IE are focusable by default which may cause issues with tab-ordering. The \`focusable\` attribute should explicitly be set to avoid unintended behaviour.",
+  "url": "https://html-validate.org/rules/svg-focusable.html",
+}
+`;

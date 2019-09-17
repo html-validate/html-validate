@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/svg-focusable.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/svg-focusable.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 2,
+        "message": "<svg> is missing required \\"focusable\\" attribute",
+        "offset": 15,
+        "ruleId": "svg-focusable",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<a href=\\"#\\">
+	<svg></svg>
+</a>",
+    "warningCount": 0,
+  },
+]
+`;
