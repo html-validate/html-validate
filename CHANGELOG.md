@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [1.9.1](https://gitlab.com/html-validate/html-validate/compare/v1.9.0...v1.9.1) (2019-09-19)
+
+### Bug Fixes
+
+- **rules:** fix handling of invalid void style ([4682d96](https://gitlab.com/html-validate/html-validate/commit/4682d96)), closes [#52](https://gitlab.com/html-validate/html-validate/issues/52)
+
 # [1.9.0](https://gitlab.com/html-validate/html-validate/compare/v1.8.0...v1.9.0) (2019-09-17)
 
 ### Features
