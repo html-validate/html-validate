@@ -1,5 +1,12 @@
 # html-validate changelog
 
+# [1.10.0](https://gitlab.com/html-validate/html-validate/compare/v1.9.1...v1.10.0) (2019-09-19)
+
+### Features
+
+- **api:** better exposure of cli api ([2c16c5b](https://gitlab.com/html-validate/html-validate/commit/2c16c5b))
+- **api:** new method `validateMultipleFiles` ([536be69](https://gitlab.com/html-validate/html-validate/commit/536be69))
+
 ## [1.9.1](https://gitlab.com/html-validate/html-validate/compare/v1.9.0...v1.9.1) (2019-09-19)
 
 ### Bug Fixes
