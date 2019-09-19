@@ -2,6 +2,7 @@
 
 export { default as HtmlValidate } from "./htmlvalidate";
 export { AttributeData } from "./parser";
+export { CLI } from "./cli/cli";
 export { Config, ConfigData, ConfigLoader } from "./config";
 export { DynamicValue } from "./dom/dynamic-value";
 export { Rule } from "./rule";
