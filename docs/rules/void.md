@@ -50,5 +50,5 @@ This rule takes an optional object:
 
 - `omit` requires end tag to be omitted and disallows self-closing
   elements (default).
-- `selfclosing` requests self-closing any void element.
+- `selfclose` requests self-closing any void element.
 - `any` allows both omitting and self-closing elements.
