@@ -95,9 +95,10 @@ function parseStyle(name: string): Style {
 		case "omit":
 			return Style.AlwaysOmit;
 		case "selfclose":
+		case "selfclosing":
 			return Style.AlwaysSelfclose;
 		default:
-			return Style.Any;
+			throw new Error(`Invalid style "${name}" for "void" rule`);
 	}
 }
 

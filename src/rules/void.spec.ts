@@ -132,17 +132,13 @@ describe("rule void", () => {
 		});
 	});
 
-	describe('configured with style="foobar"', () => {
-		beforeAll(() => {
-			htmlvalidate = new HtmlValidate({
-				rules: { void: ["error", { style: "foobar" }] },
-			});
+	it("should throw error if configured with invalid value", () => {
+		htmlvalidate = new HtmlValidate({
+			rules: { void: ["error", { style: "foobar" }] },
 		});
-
-		it('should default to "any"', () => {
-			const report = htmlvalidate.validateString("<input><input/>");
-			expect(report).toBeValid();
-		});
+		expect(() => htmlvalidate.validateString("<input>")).toThrow(
+			`Invalid style "foobar" for "void" rule`
+		);
 	});
 
 	it("should contain documentation", () => {
