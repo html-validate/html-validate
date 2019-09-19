@@ -4,7 +4,7 @@ import path from "path";
 
 const DEFAULT_EXTENSIONS = ["html"];
 
-interface ExpandOptions {
+export interface ExpandOptions {
 	/**
 	 * Working directory. Defaults to `process.cwd()`.
 	 */

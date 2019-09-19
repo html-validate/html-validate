@@ -3,7 +3,7 @@ import { Source } from "./context";
 import { SourceHooks } from "./context/source";
 import { Engine, EventDump, TokenDump } from "./engine";
 import { Parser } from "./parser";
-import { Report } from "./reporter";
+import { Report, Reporter } from "./reporter";
 import { RuleDocumentation } from "./rule";
 
 /**
@@ -70,6 +70,19 @@ class HtmlValidate {
 		const source = config.transform(filename);
 		const engine = new Engine(config, Parser);
 		return engine.lint(source);
+	}
+
+	/**
+	 * Parse and validate HTML from multiple files. Result is merged together to a
+	 * single report.
+	 *
+	 * @param filenames - Filenames to read and parse.
+	 * @returns Report output.
+	 */
+	public validateMultipleFiles(filenames: string[]): Report {
+		return Reporter.merge(
+			filenames.map(filename => this.validateFile(filename))
+		);
 	}
 
 	/**
