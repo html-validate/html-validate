@@ -30,6 +30,7 @@ export interface MetaData {
 	void: boolean;
 	transparent: boolean;
 	implicitClosed?: string[];
+	scriptSupporting: boolean;
 
 	/* attribute */
 	deprecatedAttributes?: string[];

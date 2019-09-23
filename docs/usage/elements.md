@@ -36,6 +36,7 @@ export interface MetaElement {
   foreign: boolean;
   void: boolean;
   transparent: boolean;
+  scriptSupporting: boolean;
 
   /* attributes */
   deprecatedAttributes: string[];
@@ -129,6 +130,15 @@ as a child of a `<span>` element (phrasing) it only allows new phrasing content.
 
 For custom elements it can be useful to set this if the content category isn't
 flow.
+
+### `scriptSupporting`
+
+Elements whose primary purpose is to support scripting should set this flag to `true`.
+Some elements will generally only allow a very narrow set of children (such as `<ul>` only allowing `<li>`) but usually also allows [script-supporting elements][whatwg-scriptsupporting].
+
+In HTML5 both the `<script>` and `<template>` tags are considered script-supporting but javascript frameworks and web-components may include additional tags.
+
+[whatwg-scriptsupporting]: https://html.spec.whatwg.org/multipage/dom.html#script-supporting-elements-2
 
 ## Permitted content
 

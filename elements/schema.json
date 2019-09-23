@@ -20,6 +20,7 @@
         "void": { "type": "boolean" },
         "transparent": { "type": "boolean" },
         "implicitClosed": { "type": "array", "contains": { "type": "string" } },
+        "scriptSupporting": { "type": "boolean" },
 
         "deprecatedAttributes": {
           "type": "array",
