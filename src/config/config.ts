@@ -200,16 +200,19 @@ export class Config {
 				continue;
 			}
 
+			let filename: string;
+
 			/* try searching builtin metadata */
-			const filename = `${root}/elements/${entry}.json`;
+			filename = `${root}/elements/${entry}.json`;
 			if (fs.existsSync(filename)) {
 				metaTable.loadFromFile(filename);
 				continue;
 			}
 
 			/* try as regular file */
-			if (fs.existsSync(entry)) {
-				metaTable.loadFromFile(entry);
+			filename = entry.replace("<rootDir>", this.rootDir);
+			if (fs.existsSync(filename)) {
+				metaTable.loadFromFile(filename);
 				continue;
 			}
 
