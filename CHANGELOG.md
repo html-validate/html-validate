@@ -1,5 +1,15 @@
 # html-validate changelog
 
+# [1.11.0](https://gitlab.com/html-validate/html-validate/compare/v1.10.0...v1.11.0) (2019-09-23)
+
+### Bug Fixes
+
+- **config:** expand `<rootDir>` in elements ([eeddf4c](https://gitlab.com/html-validate/html-validate/commit/eeddf4c))
+
+### Features
+
+- **meta:** new property `scriptSupporting` ([c271a04](https://gitlab.com/html-validate/html-validate/commit/c271a04))
+
 # [1.10.0](https://gitlab.com/html-validate/html-validate/compare/v1.9.1...v1.10.0) (2019-09-19)
 
 ### Features
