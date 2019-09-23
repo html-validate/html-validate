@@ -321,6 +321,7 @@ function mockEntry(stub = {}): MetaData {
 			deprecated: false,
 			void: false,
 			transparent: false,
+			scriptSupporting: false,
 		},
 		stub
 	);

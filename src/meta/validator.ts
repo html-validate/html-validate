@@ -235,6 +235,7 @@ export class Validator {
 	 * @param {HtmlElement} node - The node to test against
 	 * @param {string} category - Name of category with '@' prefix or tag name.
 	 */
+	// eslint-disable-next-line complexity
 	private static validatePermittedCategory(
 		node: HtmlElement,
 		category: string
@@ -265,6 +266,8 @@ export class Validator {
 				return node.meta.embedded as boolean;
 			case "@interactive":
 				return node.meta.interactive as boolean;
+			case "@script":
+				return node.meta.scriptSupporting;
 			default:
 				throw new Error(`Invalid content category "${category}"`);
 		}

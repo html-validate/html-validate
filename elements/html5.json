@@ -263,7 +263,7 @@
   "dl": {
     "flow": true,
     "deprecatedAttributes": ["compact"],
-    "permittedContent": ["dt", "dd", "div", "script", "template"]
+    "permittedContent": ["@script", "dt", "dd", "div"]
   },
 
   "dt": {
@@ -712,7 +712,7 @@
       "type": ["a", "A", "i", "I", "1"]
     },
     "deprecatedAttributes": ["compact"],
-    "permittedContent": ["li", "script", "template"]
+    "permittedContent": ["@script", "li"]
   },
 
   "optgroup": {
@@ -720,7 +720,7 @@
     "attributes": {
       "disabled": []
     },
-    "permittedContent": ["option", "script", "template"]
+    "permittedContent": ["@script", "option"]
   },
 
   "option": {
@@ -782,7 +782,7 @@
     "flow": true,
     "phrasing": true,
     "embedded": true,
-    "permittedContent": ["source", "img", "script", "template"],
+    "permittedContent": ["@script", "source", "img"],
     "permittedOrder": ["source", "img"]
   },
 
@@ -851,6 +851,7 @@
     "metadata": true,
     "flow": true,
     "phrasing": true,
+    "scriptSupporting": true,
     "attributes": {
       "async": [],
       "crossorigin": ["", "anonymous", "use-credentials"],
@@ -880,13 +881,12 @@
       "size": ["/\\d+/"]
     },
     "permittedContent": [
+      "@script",
       "datasrc",
       "datafld",
       "dataformatas",
       "option",
-      "optgroup",
-      "script",
-      "template"
+      "optgroup"
     ]
   },
 
@@ -969,11 +969,10 @@
       "width"
     ],
     "permittedContent": [
+      "@script",
       "caption?",
       "colgroup",
-      "script",
       "tbody",
-      "template",
       "tfoot?",
       "thead?",
       "tr"
@@ -990,7 +989,7 @@
       "charoff",
       "valign"
     ],
-    "permittedContent": ["tr", "script", "template"]
+    "permittedContent": ["@script", "tr"]
   },
 
   "td": {
@@ -1019,7 +1018,8 @@
   "template": {
     "metadata": true,
     "flow": true,
-    "phrasing": true
+    "phrasing": true,
+    "scriptSupporting": true
   },
 
   "textarea": {
@@ -1052,7 +1052,7 @@
       "charoff",
       "valign"
     ],
-    "permittedContent": ["tr", "script", "template"]
+    "permittedContent": ["@script", "tr"]
   },
 
   "th": {
@@ -1091,7 +1091,7 @@
       "charoff",
       "valign"
     ],
-    "permittedContent": ["tr", "script", "template"]
+    "permittedContent": ["@script", "tr"]
   },
 
   "time": {
@@ -1115,7 +1115,7 @@
       "charoff",
       "valign"
     ],
-    "permittedContent": ["td", "th", "script", "template"]
+    "permittedContent": ["@script", "td", "th"]
   },
 
   "track": {
@@ -1135,7 +1135,7 @@
   "ul": {
     "flow": true,
     "deprecatedAttributes": ["compact", "type"],
-    "permittedContent": ["li", "script", "template"]
+    "permittedContent": ["@script", "li"]
   },
 
   "var": {
