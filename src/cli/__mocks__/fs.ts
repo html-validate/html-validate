@@ -21,4 +21,7 @@ function statSync(dir: string): any {
 module.exports = {
 	setMockDirectories,
 	statSync,
+	readFileSync: () => {
+		throw new Error("ENOENT");
+	},
 };
