@@ -177,6 +177,12 @@ class HtmlValidate {
 	 * @param filename - Filename to get configuration for.
 	 */
 	public getConfigFor(filename: string): Config {
+		/* special case when the global configuration is marked as root, should not
+		 * try to load and more configuration files */
+		if (this.globalConfig.isRootFound()) {
+			return this.globalConfig;
+		}
+
 		const config = this.configLoader.fromTarget(filename);
 		const merged = this.globalConfig.merge(config);
 		merged.init();

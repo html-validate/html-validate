@@ -17,6 +17,9 @@ class MockConfig {
 
 	public static fromFile(filename: string): Config {
 		return Config.fromObject({
+			/* set root to true for if the last directory name is literal "root" */
+			root: path.basename(path.dirname(filename)) === "root",
+
 			mockFilenames: [filename],
 		});
 	}
@@ -78,6 +81,20 @@ describe("ConfigLoader", () => {
 						path.resolve("/.htmlvalidate.json"),
 						path.resolve("/path/.htmlvalidate.json"),
 						path.resolve("/path/to/.htmlvalidate.json"),
+					],
+				})
+			);
+		});
+
+		it("should stop searching when root is found", () => {
+			jest.spyOn(fs, "existsSync").mockImplementation(() => true);
+			const config = loader.fromTarget("/project/root/src/target.html");
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					mockFilenames: [
+						/* ConfigMock adds all visited filenames to this array */
+						path.resolve("/project/root/.htmlvalidate.json"),
+						path.resolve("/project/root/src/.htmlvalidate.json"),
 					],
 				})
 			);
