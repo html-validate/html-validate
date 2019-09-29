@@ -75,7 +75,7 @@ plugins](dev/writing-plugins.html).**
 First-class support for:
 
 - [angular](https://www.npmjs.com/package/html-validate-angular)
-- [vue](https://www.npmjs.com/package/html-validate-vue)
+- [vue](frameworks/vue.html)
 - [protractor](https://www.npmjs.com/package/protractor-html-validate)
 
 @block Examples
