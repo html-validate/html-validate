@@ -131,6 +131,38 @@ will transform `*.vue` with the `html-validate-vue` NPM package. Use a relative
 path to use a local script (use `<rootDir>` to refer to the path to
 `package.json`, e.g. `<rootDir>/my-transformer.js`).
 
+### `root`
+
+By default, configuration is search in the file structure until the root
+directory (typically `/`) is found:
+
+- `/home/user/project/src/.htmlvalidate.json`
+- `/home/user/project/.htmlvalidate.json`
+- `/home/user/.htmlvalidate.json`
+- `/home/.htmlvalidate.json`
+- `/.htmlvalidate.json`
+
+By setting the `root` property to `true` the search is stopped. This can be used
+to prevent searching from outside the project directory or to use a specific
+configuration for a specific directory without loading project configuration.
+
+For instance, if `/home/project/.htmlvalidate.json` contains:
+
+```js
+{
+  "root": true
+}
+```
+
+only the following files would be searched:
+
+- `/home/user/project/src/.htmlvalidate.json`
+- `/home/user/project/.htmlvalidate.json`
+
+This also affects CLI `--config` and the API, e.g. when using `--config` with a
+configuration using `"root": true` will prevent any additional files to be
+loaded.
+
 ## Inline configuration
 
 Configuration can be changed inline using directive of the form:

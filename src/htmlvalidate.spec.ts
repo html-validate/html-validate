@@ -151,6 +151,52 @@ describe("HtmlValidate", () => {
 		});
 	});
 
+	describe("getConfigFor()", () => {
+		it("should load configuration files and merge result", () => {
+			const htmlvalidate = new HtmlValidate({
+				rules: {
+					fred: "error",
+				},
+			});
+			const fromTarget = jest
+				.spyOn((htmlvalidate as any).configLoader, "fromTarget")
+				.mockImplementation(() =>
+					Config.fromObject({
+						rules: {
+							barney: "error",
+						},
+					})
+				);
+			const config = htmlvalidate.getConfigFor("my-file.html");
+			expect(fromTarget).toHaveBeenCalledWith("my-file.html");
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					rules: {
+						fred: "error",
+						barney: "error",
+					},
+				})
+			);
+		});
+
+		it("should not load configuration files if global config is root", () => {
+			const htmlvalidate = new HtmlValidate({
+				root: true,
+			});
+			const fromTarget = jest.spyOn(
+				(htmlvalidate as any).configLoader,
+				"fromTarget"
+			);
+			const config = htmlvalidate.getConfigFor("my-file.html");
+			expect(fromTarget).not.toHaveBeenCalled();
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					root: true,
+				})
+			);
+		});
+	});
+
 	it("getParserFor() should create a parser for given filename", () => {
 		const htmlvalidate = new HtmlValidate();
 		const config = Config.empty();

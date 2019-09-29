@@ -34,6 +34,12 @@ function mergeInternal(base: ConfigData, rhs: ConfigData): ConfigData {
 		dst.rules = deepmerge(dst.rules, rhs.rules, { arrayMerge: overwriteMerge });
 	}
 
+	/* root property is merged with boolean "or" since it should always be truthy
+	 * if any config has it set. */
+	if (base.root || rhs.root) {
+		dst.root = base.root || rhs.root;
+	}
+
 	return dst;
 }
 
@@ -150,6 +156,13 @@ export class Config {
 		this.transformers = this.precompileTransformers(
 			this.config.transform || {}
 		);
+	}
+
+	/**
+	 * Returns true if this configuration is marked as "root".
+	 */
+	public isRootFound(): boolean {
+		return this.config.root;
 	}
 
 	/**

@@ -5,6 +5,11 @@ export interface TransformMap {
 }
 
 export interface ConfigData {
+	/**
+	 * If set to true no new configurations will be searched.
+	 */
+	root?: boolean;
+
 	extends?: string[];
 
 	/**

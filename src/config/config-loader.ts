@@ -69,6 +69,11 @@ export class ConfigLoader {
 				config = local.merge(config);
 			}
 
+			/* stop if a configuration with "root" is set to true */
+			if (config.isRootFound()) {
+				break;
+			}
+
 			/* get the parent directory */
 			const child = current;
 			current = path.dirname(current);
