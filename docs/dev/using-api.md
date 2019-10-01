@@ -174,3 +174,18 @@ test("should not frobnicate a flux", () => {
   );
 });
 ```
+
+## CLI tools
+
+The CLI interface can be wrapped using the `CLI` class.
+
+```js
+const cli = new CLI({
+  configFile: argv.configFile,
+  rules: argv.rules,
+});
+const htmlvalidate = cli.getValidator();
+const formatter = cli.getFormatter(argv.formatter);
+const files = cli.expandFiles("**/*.html");
+const report = htmlvalidate.validateMultipleFiles(files);
+```

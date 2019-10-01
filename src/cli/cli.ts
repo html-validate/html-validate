@@ -16,6 +16,12 @@ export class CLI {
 	private options: CLIOptions;
 	private config: ConfigData;
 
+	/**
+	 * Create new CLI helper.
+	 *
+	 * Can be used to create tooling with similar properties to bundled CLI
+	 * script.
+	 */
 	public constructor(options?: CLIOptions) {
 		this.options = options || {};
 		this.config = this.getConfig();
@@ -32,6 +38,10 @@ export class CLI {
 		return getFormatter(formatters);
 	}
 
+	/**
+	 * Get HtmlValidate instance with configuration based on options passed to the
+	 * constructor.
+	 */
 	public getValidator(): HtmlValidate {
 		return new HtmlValidate(this.config);
 	}
