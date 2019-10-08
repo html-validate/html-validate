@@ -1,5 +1,14 @@
 # html-validate changelog
 
+# [1.12.0](https://gitlab.com/html-validate/html-validate/compare/v1.11.0...v1.12.0) (2019-10-08)
+
+### Features
+
+- **cli:** new API to get validator instance ([6f4be7d](https://gitlab.com/html-validate/html-validate/commit/6f4be7d))
+- **cli:** support passing options to CLI class ([aa544d6](https://gitlab.com/html-validate/html-validate/commit/aa544d6))
+- **config:** add `root` property to stop searching file system ([9040ed5](https://gitlab.com/html-validate/html-validate/commit/9040ed5))
+- **shim:** expose HtmlElement in shim ([dbb673f](https://gitlab.com/html-validate/html-validate/commit/dbb673f))
+
 # [1.11.0](https://gitlab.com/html-validate/html-validate/compare/v1.10.0...v1.11.0) (2019-09-23)
 
 ### Bug Fixes
