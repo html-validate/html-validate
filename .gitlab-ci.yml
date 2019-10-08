@@ -43,14 +43,23 @@ pages:
     - npm run build
     - npm run build:docs
 
+Changelog:
+  stage: test
+  needs: ["NPM"]
+  dependencies: ["NPM"]
+  script:
+    - npm run commitlint -- --from=origin/master --to=${CI_COMMIT_SHA}
+
 ESLint:
   stage: test
+  needs: ["NPM"]
   script:
     - npm run eslint -- --max-warnings 0
 
 Jest:
   stage: test
   dependencies: ["NPM"]
+  needs: ["NPM"]
   coverage: /Lines\s+:\s(\d+.\d+%)/
   artifacts:
     name: ${CI_PROJECT_PATH_SLUG}-${CI_PIPELINE_ID}-coverage
@@ -64,6 +73,7 @@ Jest:
 TSLint:
   stage: test
   dependencies: ["NPM"]
+  needs: ["NPM"]
   script:
     - npm run tslint
 
