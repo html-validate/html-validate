@@ -1,18 +1,14 @@
 /* eslint-disable no-console, no-process-exit, sonarjs/no-duplicate-string */
-import { ConfigData } from "../config";
-import defaultConfig from "../config/default";
 import { TokenDump } from "../engine";
 import { UserError } from "../error/user-error";
-import HtmlValidate from "../htmlvalidate";
 import { Report, Reporter, Result } from "../reporter";
-import { expandFiles } from "./expand-files";
-import { getFormatter } from "./formatter";
 import { eventFormatter } from "./json";
 
 const pkg = require("../../package.json");
 
 import chalk from "chalk";
 import minimist from "minimist";
+import { CLI } from "./cli";
 
 enum Mode {
 	LINT,
@@ -40,35 +36,6 @@ function getMode(argv: { [key: string]: any }): Mode {
 	}
 
 	return Mode.LINT;
-}
-
-function getGlobalConfig(
-	configFile: string,
-	rules?: string | string[]
-): ConfigData {
-	const baseConfig: ConfigData = configFile
-		? require(`${process.cwd()}/${configFile}`)
-		: defaultConfig;
-	const config: any = Object.assign({}, baseConfig);
-	if (rules) {
-		if (Array.isArray(rules)) {
-			rules = rules.join(",");
-		}
-		const raw = rules
-			.split(",")
-			.map((x: string) => x.replace(/ *(.*):/, '"$1":'))
-			.join(",");
-		try {
-			const rules = JSON.parse(`{${raw}}`);
-			config.extends = [];
-			config.rules = rules;
-		} catch (e) {
-			process.stderr.write(
-				`Error while parsing "${rules}": ${e.message}, rules ignored.\n`
-			);
-		}
-	}
-	return config;
 }
 
 function lint(files: string[]): Report {
@@ -208,11 +175,14 @@ if (argv.help || argv._.length === 0) {
 	process.exit();
 }
 
+const cli = new CLI({
+	configFile: argv.config,
+	rules: argv.rule,
+});
 const mode = getMode(argv);
-const config = getGlobalConfig(argv.config, argv.rule);
-const formatter = getFormatter(argv.formatter);
+const formatter = cli.getFormatter(argv.formatter);
 const maxWarnings = parseInt(argv["max-warnings"] || "-1", 10);
-const htmlvalidate = new HtmlValidate(config);
+const htmlvalidate = cli.getValidator();
 
 /* sanity check: ensure maxWarnings has a valid value */
 if (isNaN(maxWarnings)) {
@@ -227,7 +197,7 @@ const extensions = (argv.ext || "html").split(",").map((cur: string) => {
 	return cur[0] === "." ? cur.slice(1) : cur;
 });
 
-const files = expandFiles(argv._, { extensions });
+const files = cli.expandFiles(argv._, { extensions });
 if (files.length === 0) {
 	console.error("No files matching patterns", argv._);
 	process.exit(1);
