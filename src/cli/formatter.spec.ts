@@ -1,5 +1,5 @@
 import { Report } from "../reporter";
-import { getFormatter } from "./formatter";
+import { CLI } from "./cli";
 
 /* all mocked formatters must return empty string */
 const textFormatter = jest.fn((report: Report) => ""); // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -44,22 +44,28 @@ const report: Report = {
 	warningCount: 0,
 };
 
+let cli: CLI;
+
+beforeEach(() => {
+	cli = new CLI();
+});
+
 describe("cli/formatters", () => {
 	it("should call formatter", () => {
-		const wrapped = getFormatter("text");
+		const wrapped = cli.getFormatter("text");
 		wrapped(report);
 		expect(textFormatter).toHaveBeenCalledWith(report.results);
 	});
 
 	it("should call multiple formatters", () => {
-		const wrapped = getFormatter("text,json");
+		const wrapped = cli.getFormatter("text,json");
 		wrapped(report);
 		expect(textFormatter).toHaveBeenCalledWith(report.results);
 		expect(jsonFormatter).toHaveBeenCalledWith(report.results);
 	});
 
 	it("should redirect output", () => {
-		const wrapped = getFormatter("text=foo.txt");
+		const wrapped = cli.getFormatter("text=foo.txt");
 		wrapped(report);
 		expect(writeFileSync).toHaveBeenCalledWith("foo.txt", "", "utf-8");
 	});

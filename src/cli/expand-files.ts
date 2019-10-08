@@ -39,7 +39,7 @@ function directoryPattern(extensions: string[]): string {
  */
 export function expandFiles(
 	patterns: string[],
-	options: ExpandOptions = {}
+	options: ExpandOptions
 ): string[] {
 	const cwd = options.cwd || process.cwd();
 	const extensions = options.extensions || DEFAULT_EXTENSIONS;

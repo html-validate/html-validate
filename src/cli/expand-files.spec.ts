@@ -3,7 +3,7 @@ jest.mock("glob");
 
 import fs from "fs";
 import glob from "glob";
-import { expandFiles } from "./expand-files";
+import { CLI } from "./cli";
 
 declare module "fs" {
 	function setMockDirectories(directories: string[]): void;
@@ -14,7 +14,10 @@ declare module "glob" {
 	function resetMock(): void;
 }
 
+let cli: CLI;
+
 beforeEach(() => {
+	cli = new CLI();
 	glob.setMockFiles([
 		"/dev/stdin",
 		"foo.html",
@@ -36,7 +39,7 @@ afterAll(() => {
 describe("expandFiles()", () => {
 	it("should expand globs", () => {
 		const spy = jest.spyOn(glob, "sync");
-		expect(expandFiles(["foo.html", "bar/**/*.html"])).toEqual([
+		expect(cli.expandFiles(["foo.html", "bar/**/*.html"])).toEqual([
 			"foo.html",
 			"bar/fred.html",
 			"bar/barney.html",
@@ -46,18 +49,21 @@ describe("expandFiles()", () => {
 	});
 
 	it("should expand directories (default extensions)", () => {
-		expect(expandFiles(["bar"])).toEqual(["bar/fred.html", "bar/barney.html"]);
+		expect(cli.expandFiles(["bar"])).toEqual([
+			"bar/fred.html",
+			"bar/barney.html",
+		]);
 	});
 
 	it("should expand directories (explicit extensions)", () => {
-		expect(expandFiles(["bar"], { extensions: ["js", "json"] })).toEqual([
+		expect(cli.expandFiles(["bar"], { extensions: ["js", "json"] })).toEqual([
 			"bar/fred.json",
 			"bar/barney.js",
 		]);
 	});
 
 	it("should expand directories (no extensions => all files)", () => {
-		expect(expandFiles(["bar"], { extensions: [] })).toEqual([
+		expect(cli.expandFiles(["bar"], { extensions: [] })).toEqual([
 			"bar/fred.html",
 			"bar/fred.json",
 			"bar/barney.html",
@@ -66,10 +72,10 @@ describe("expandFiles()", () => {
 	});
 
 	it("should remove duplicates", () => {
-		expect(expandFiles(["foo.html", "foo.html"])).toEqual(["foo.html"]);
+		expect(cli.expandFiles(["foo.html", "foo.html"])).toEqual(["foo.html"]);
 	});
 
 	it("should replace - placeholder", () => {
-		expect(expandFiles(["-"])).toEqual(["/dev/stdin"]);
+		expect(cli.expandFiles(["-"])).toEqual(["/dev/stdin"]);
 	});
 });
