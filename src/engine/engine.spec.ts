@@ -389,8 +389,8 @@ describe("Engine", () => {
 			});
 
 			it("should load from plugins", () => {
-				class MyRule {
-					public init(): void {
+				class MyRule extends Rule {
+					public setup(): void {
 						/* do nothing */
 					}
 				}
@@ -417,6 +417,34 @@ describe("Engine", () => {
 				);
 				expect(rule).toBeInstanceOf(MyRule);
 				expect(rule.name).toEqual("custom/my-rule");
+			});
+
+			it("should handle missing setup callback", () => {
+				// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+				// @ts-ignore: abstract method not implemented, but plugin might be vanilla js so want to handle the case
+				class MyRule extends Rule {}
+
+				/* mock loading of plugins */
+				(config as any).plugins = [
+					{
+						rules: {
+							"custom/my-rule": MyRule,
+						},
+					},
+				];
+
+				const engine: ExposedEngine<Parser> = new ExposedEngine(
+					config,
+					MockParser
+				);
+				const rule = engine.loadRule(
+					"custom/my-rule",
+					Severity.ERROR,
+					{},
+					parser,
+					reporter
+				);
+				expect(rule).toBeInstanceOf(MyRule);
 			});
 
 			it("should handle plugin without rules", () => {
