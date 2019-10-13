@@ -66,6 +66,15 @@ export abstract class Rule<T = any> {
 	}
 
 	/**
+	 * Returns `true` if rule is deprecated.
+	 *
+	 * Overridden by subclasses.
+	 */
+	public get deprecated(): boolean {
+		return false;
+	}
+
+	/**
 	 * Test if rule is enabled.
 	 *
 	 * To be considered enabled the enabled flag must be true and the severity at
