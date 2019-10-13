@@ -1,7 +1,7 @@
 import fs from "fs";
 import glob from "glob";
 import path from "path";
-import { Config, ConfigLoader } from ".";
+import { Config, ConfigData, ConfigLoader, RuleConfig } from ".";
 import HtmlValidate from "../htmlvalidate";
 
 declare module "./config-data" {
@@ -179,13 +179,30 @@ describe("ConfigLoader", () => {
 			loader = new ConfigLoader(Config);
 		});
 
+		/* extract only relevant rules from configuration to avoid bloat when new
+		 * rules are added to recommended config */
+		function filter(src: Config): ConfigData {
+			const whitelisted = ["void", "deprecated", "element-permitted-content"];
+			const data = src.get();
+			data.rules = Object.keys(data.rules)
+				.filter(key => whitelisted.includes(key))
+				.reduce(
+					(dst, key) => {
+						dst[key] = data.rules[key];
+						return dst;
+					},
+					{} as RuleConfig
+				);
+			return data;
+		}
+
 		const files = glob.sync("test-files/config/**/*.html");
 		files.forEach((filename: string) => {
 			it(filename, () => {
 				const htmlvalidate = new HtmlValidate();
 				const config = htmlvalidate.getConfigFor(filename);
 				const report = htmlvalidate.validateFile(filename);
-				expect(config.get()).toMatchSnapshot();
+				expect(filter(config)).toMatchSnapshot();
 				expect(report.results).toMatchSnapshot();
 			});
 		});
