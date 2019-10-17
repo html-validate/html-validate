@@ -1,7 +1,8 @@
-import { Config, ConfigLoader } from "./config";
+import { Config, ConfigLoader, Severity } from "./config";
 import { Source } from "./context";
 import HtmlValidate from "./htmlvalidate";
 import { Parser } from "./parser";
+import { Message } from "./reporter";
 
 const engine = {
 	lint: jest.fn(),
@@ -103,6 +104,120 @@ describe("HtmlValidate", () => {
 				line: 1,
 			},
 		]);
+	});
+
+	describe("validateMultipleFiles()", () => {
+		const warning: Message = {
+			ruleId: "mock-warning",
+			message: "mock warning message",
+			severity: Severity.WARN,
+			line: 1,
+			column: 1,
+			offset: 0,
+			size: 1,
+		};
+		const error: Message = {
+			ruleId: "mock-error",
+			message: "mock error message",
+			severity: Severity.ERROR,
+			line: 1,
+			column: 1,
+			offset: 0,
+			size: 1,
+		};
+
+		it("should call validateFile for each file", () => {
+			expect.assertions(3);
+			const htmlvalidate = new HtmlValidate();
+			const spy = jest.spyOn(htmlvalidate, "validateFile").mockReturnValue({
+				valid: true,
+				results: [],
+				errorCount: 0,
+				warningCount: 0,
+			});
+			htmlvalidate.validateMultipleFiles(["foo.html", "bar.html"]);
+			expect(spy).toHaveBeenCalledTimes(2);
+			expect(spy).toHaveBeenCalledWith("foo.html");
+			expect(spy).toHaveBeenCalledWith("bar.html");
+		});
+
+		it("should merge reports", () => {
+			expect.assertions(1);
+			const htmlvalidate = new HtmlValidate();
+			jest
+				.spyOn(htmlvalidate, "validateFile")
+				.mockReturnValueOnce({
+					valid: true,
+					results: [
+						{
+							filePath: "foo.html",
+							messages: [warning],
+							errorCount: 0,
+							warningCount: 1,
+						},
+					],
+					errorCount: 0,
+					warningCount: 1,
+				})
+				.mockReturnValueOnce({
+					valid: false,
+					results: [
+						{
+							filePath: "bar.html",
+							messages: [error],
+							errorCount: 1,
+							warningCount: 0,
+						},
+					],
+					errorCount: 1,
+					warningCount: 0,
+				});
+			const report = htmlvalidate.validateMultipleFiles([
+				"foo.html",
+				"bar.html",
+			]);
+			expect(report).toMatchInlineSnapshot(`
+			Object {
+			  "errorCount": 1,
+			  "results": Array [
+			    Object {
+			      "errorCount": 0,
+			      "filePath": "foo.html",
+			      "messages": Array [
+			        Object {
+			          "column": 1,
+			          "line": 1,
+			          "message": "mock warning message",
+			          "offset": 0,
+			          "ruleId": "mock-warning",
+			          "severity": 1,
+			          "size": 1,
+			        },
+			      ],
+			      "warningCount": 1,
+			    },
+			    Object {
+			      "errorCount": 1,
+			      "filePath": "bar.html",
+			      "messages": Array [
+			        Object {
+			          "column": 1,
+			          "line": 1,
+			          "message": "mock error message",
+			          "offset": 0,
+			          "ruleId": "mock-error",
+			          "severity": 2,
+			          "size": 1,
+			        },
+			      ],
+			      "warningCount": 0,
+			    },
+			  ],
+			  "valid": false,
+			  "warningCount": 1,
+			}
+		`);
+		});
 	});
 
 	it("dumpTokens() should dump tokens", () => {
