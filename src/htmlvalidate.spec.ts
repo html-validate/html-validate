@@ -1,16 +1,22 @@
 import { Config, ConfigLoader } from "./config";
 import { Source } from "./context";
-import { Engine } from "./engine";
 import HtmlValidate from "./htmlvalidate";
 import { Parser } from "./parser";
 
-jest.mock("./engine");
-jest.mock("./parser");
+const engine = {
+	lint: jest.fn(),
+	dumpEvents: jest.fn(),
+	dumpTree: jest.fn(),
+	dumpTokens: jest.fn(),
+	getRuleDocumentation: jest.fn(),
+};
 
-function engineInstance(): Engine {
-	return ((Engine as unknown) as jest.MockInstance<Engine, any>).mock
-		.instances[0];
-}
+jest.mock("./engine", () => {
+	return {
+		Engine: jest.fn().mockImplementation(() => engine),
+	};
+});
+jest.mock("./parser");
 
 function mockConfig(): Config {
 	const config = Config.empty();
@@ -27,7 +33,7 @@ function mockConfig(): Config {
 }
 
 beforeEach(() => {
-	((Engine as unknown) as jest.MockInstance<Engine, any>).mockClear();
+	jest.clearAllMocks();
 });
 
 describe("HtmlValidate", () => {
@@ -50,10 +56,12 @@ describe("HtmlValidate", () => {
 	});
 
 	it("validateString() should lint given string", () => {
+		const mockReport = "mock-report";
+		engine.lint.mockReturnValue(mockReport);
 		const htmlvalidate = new HtmlValidate();
 		const str = "foobar";
-		htmlvalidate.validateString(str);
-		const engine = engineInstance();
+		const report = htmlvalidate.validateString(str);
+		expect(report).toEqual(mockReport);
 		expect(engine.lint).toHaveBeenCalledWith([
 			{
 				column: 1,
@@ -65,6 +73,8 @@ describe("HtmlValidate", () => {
 	});
 
 	it("validateSource() should lint given source", () => {
+		const mockReport = "mock-report";
+		engine.lint.mockReturnValue(mockReport);
 		const htmlvalidate = new HtmlValidate();
 		const source: Source = {
 			data: "foo",
@@ -72,17 +82,19 @@ describe("HtmlValidate", () => {
 			line: 1,
 			column: 1,
 		};
-		htmlvalidate.validateSource(source);
-		const engine = engineInstance();
+		const report = htmlvalidate.validateSource(source);
+		expect(report).toEqual(mockReport);
 		expect(engine.lint).toHaveBeenCalledWith([source]);
 	});
 
 	it("validateFile() should lint given file", () => {
+		const mockReport = "mock-report";
+		engine.lint.mockReturnValue(mockReport);
 		const htmlvalidate = new HtmlValidate();
 		const filename = "foo.html";
 		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
-		htmlvalidate.validateFile(filename);
-		const engine = engineInstance();
+		const report = htmlvalidate.validateFile(filename);
+		expect(report).toEqual(mockReport);
 		expect(engine.lint).toHaveBeenCalledWith([
 			{
 				column: 1,
@@ -98,7 +110,6 @@ describe("HtmlValidate", () => {
 		const filename = "foo.html";
 		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
 		htmlvalidate.dumpTokens(filename);
-		const engine = engineInstance();
 		expect(engine.dumpTokens).toHaveBeenCalledWith([
 			{
 				column: 1,
@@ -114,7 +125,6 @@ describe("HtmlValidate", () => {
 		const filename = "foo.html";
 		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
 		htmlvalidate.dumpEvents(filename);
-		const engine = engineInstance();
 		expect(engine.dumpEvents).toHaveBeenCalledWith([
 			{
 				column: 1,
@@ -130,7 +140,6 @@ describe("HtmlValidate", () => {
 		const filename = "foo.html";
 		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
 		htmlvalidate.dumpTree(filename);
-		const engine = engineInstance();
 		expect(engine.dumpTree).toHaveBeenCalledWith([
 			{
 				column: 1,
@@ -145,7 +154,6 @@ describe("HtmlValidate", () => {
 		const htmlvalidate = new HtmlValidate();
 		const config = Config.empty();
 		htmlvalidate.getRuleDocumentation("foo", config, { bar: "baz" });
-		const engine = engineInstance();
 		expect(engine.getRuleDocumentation).toHaveBeenCalledWith("foo", {
 			bar: "baz",
 		});
