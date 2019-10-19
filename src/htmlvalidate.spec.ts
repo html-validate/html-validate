@@ -1,16 +1,23 @@
-import { Config, ConfigLoader } from "./config";
+import { Config, ConfigLoader, Severity } from "./config";
 import { Source } from "./context";
-import { Engine } from "./engine";
 import HtmlValidate from "./htmlvalidate";
 import { Parser } from "./parser";
+import { Message } from "./reporter";
 
-jest.mock("./engine");
+const engine = {
+	lint: jest.fn(),
+	dumpEvents: jest.fn(),
+	dumpTree: jest.fn(),
+	dumpTokens: jest.fn(),
+	getRuleDocumentation: jest.fn(),
+};
+
+jest.mock("./engine", () => {
+	return {
+		Engine: jest.fn().mockImplementation(() => engine),
+	};
+});
 jest.mock("./parser");
-
-function engineInstance(): Engine {
-	return ((Engine as unknown) as jest.MockInstance<Engine, any>).mock
-		.instances[0];
-}
 
 function mockConfig(): Config {
 	const config = Config.empty();
@@ -27,7 +34,7 @@ function mockConfig(): Config {
 }
 
 beforeEach(() => {
-	((Engine as unknown) as jest.MockInstance<Engine, any>).mockClear();
+	jest.clearAllMocks();
 });
 
 describe("HtmlValidate", () => {
@@ -50,10 +57,12 @@ describe("HtmlValidate", () => {
 	});
 
 	it("validateString() should lint given string", () => {
+		const mockReport = "mock-report";
+		engine.lint.mockReturnValue(mockReport);
 		const htmlvalidate = new HtmlValidate();
 		const str = "foobar";
-		htmlvalidate.validateString(str);
-		const engine = engineInstance();
+		const report = htmlvalidate.validateString(str);
+		expect(report).toEqual(mockReport);
 		expect(engine.lint).toHaveBeenCalledWith([
 			{
 				column: 1,
@@ -65,6 +74,8 @@ describe("HtmlValidate", () => {
 	});
 
 	it("validateSource() should lint given source", () => {
+		const mockReport = "mock-report";
+		engine.lint.mockReturnValue(mockReport);
 		const htmlvalidate = new HtmlValidate();
 		const source: Source = {
 			data: "foo",
@@ -72,17 +83,19 @@ describe("HtmlValidate", () => {
 			line: 1,
 			column: 1,
 		};
-		htmlvalidate.validateSource(source);
-		const engine = engineInstance();
+		const report = htmlvalidate.validateSource(source);
+		expect(report).toEqual(mockReport);
 		expect(engine.lint).toHaveBeenCalledWith([source]);
 	});
 
 	it("validateFile() should lint given file", () => {
+		const mockReport = "mock-report";
+		engine.lint.mockReturnValue(mockReport);
 		const htmlvalidate = new HtmlValidate();
 		const filename = "foo.html";
 		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
-		htmlvalidate.validateFile(filename);
-		const engine = engineInstance();
+		const report = htmlvalidate.validateFile(filename);
+		expect(report).toEqual(mockReport);
 		expect(engine.lint).toHaveBeenCalledWith([
 			{
 				column: 1,
@@ -93,12 +106,125 @@ describe("HtmlValidate", () => {
 		]);
 	});
 
+	describe("validateMultipleFiles()", () => {
+		const warning: Message = {
+			ruleId: "mock-warning",
+			message: "mock warning message",
+			severity: Severity.WARN,
+			line: 1,
+			column: 1,
+			offset: 0,
+			size: 1,
+		};
+		const error: Message = {
+			ruleId: "mock-error",
+			message: "mock error message",
+			severity: Severity.ERROR,
+			line: 1,
+			column: 1,
+			offset: 0,
+			size: 1,
+		};
+
+		it("should call validateFile for each file", () => {
+			expect.assertions(3);
+			const htmlvalidate = new HtmlValidate();
+			const spy = jest.spyOn(htmlvalidate, "validateFile").mockReturnValue({
+				valid: true,
+				results: [],
+				errorCount: 0,
+				warningCount: 0,
+			});
+			htmlvalidate.validateMultipleFiles(["foo.html", "bar.html"]);
+			expect(spy).toHaveBeenCalledTimes(2);
+			expect(spy).toHaveBeenCalledWith("foo.html");
+			expect(spy).toHaveBeenCalledWith("bar.html");
+		});
+
+		it("should merge reports", () => {
+			expect.assertions(1);
+			const htmlvalidate = new HtmlValidate();
+			jest
+				.spyOn(htmlvalidate, "validateFile")
+				.mockReturnValueOnce({
+					valid: true,
+					results: [
+						{
+							filePath: "foo.html",
+							messages: [warning],
+							errorCount: 0,
+							warningCount: 1,
+						},
+					],
+					errorCount: 0,
+					warningCount: 1,
+				})
+				.mockReturnValueOnce({
+					valid: false,
+					results: [
+						{
+							filePath: "bar.html",
+							messages: [error],
+							errorCount: 1,
+							warningCount: 0,
+						},
+					],
+					errorCount: 1,
+					warningCount: 0,
+				});
+			const report = htmlvalidate.validateMultipleFiles([
+				"foo.html",
+				"bar.html",
+			]);
+			expect(report).toMatchInlineSnapshot(`
+			Object {
+			  "errorCount": 1,
+			  "results": Array [
+			    Object {
+			      "errorCount": 0,
+			      "filePath": "foo.html",
+			      "messages": Array [
+			        Object {
+			          "column": 1,
+			          "line": 1,
+			          "message": "mock warning message",
+			          "offset": 0,
+			          "ruleId": "mock-warning",
+			          "severity": 1,
+			          "size": 1,
+			        },
+			      ],
+			      "warningCount": 1,
+			    },
+			    Object {
+			      "errorCount": 1,
+			      "filePath": "bar.html",
+			      "messages": Array [
+			        Object {
+			          "column": 1,
+			          "line": 1,
+			          "message": "mock error message",
+			          "offset": 0,
+			          "ruleId": "mock-error",
+			          "severity": 2,
+			          "size": 1,
+			        },
+			      ],
+			      "warningCount": 0,
+			    },
+			  ],
+			  "valid": false,
+			  "warningCount": 1,
+			}
+		`);
+		});
+	});
+
 	it("dumpTokens() should dump tokens", () => {
 		const htmlvalidate = new HtmlValidate();
 		const filename = "foo.html";
 		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
 		htmlvalidate.dumpTokens(filename);
-		const engine = engineInstance();
 		expect(engine.dumpTokens).toHaveBeenCalledWith([
 			{
 				column: 1,
@@ -114,7 +240,6 @@ describe("HtmlValidate", () => {
 		const filename = "foo.html";
 		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
 		htmlvalidate.dumpEvents(filename);
-		const engine = engineInstance();
 		expect(engine.dumpEvents).toHaveBeenCalledWith([
 			{
 				column: 1,
@@ -130,7 +255,6 @@ describe("HtmlValidate", () => {
 		const filename = "foo.html";
 		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
 		htmlvalidate.dumpTree(filename);
-		const engine = engineInstance();
 		expect(engine.dumpTree).toHaveBeenCalledWith([
 			{
 				column: 1,
@@ -145,7 +269,6 @@ describe("HtmlValidate", () => {
 		const htmlvalidate = new HtmlValidate();
 		const config = Config.empty();
 		htmlvalidate.getRuleDocumentation("foo", config, { bar: "baz" });
-		const engine = engineInstance();
 		expect(engine.getRuleDocumentation).toHaveBeenCalledWith("foo", {
 			bar: "baz",
 		});
