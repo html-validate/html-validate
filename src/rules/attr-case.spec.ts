@@ -211,9 +211,13 @@ describe("rule attr-case", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "attr-case": "error" },
 		});
-		const report = htmlvalidate.validateString('<input dynamic-fooBar="foo">', {
-			processAttribute,
-		});
+		const report = htmlvalidate.validateString(
+			'<input dynamic-fooBar="foo">',
+			null,
+			{
+				processAttribute,
+			}
+		);
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
 			{
