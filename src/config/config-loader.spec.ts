@@ -42,9 +42,11 @@ describe("ConfigLoader", () => {
 		});
 
 		it("should load configuration", () => {
-			jest.spyOn(fs, "existsSync").mockImplementation((filename: string) => {
-				return filename === path.resolve("/path/to/.htmlvalidate.json");
-			});
+			jest
+				.spyOn(fs, "existsSync")
+				.mockImplementation((filename: fs.PathLike) => {
+					return filename === path.resolve("/path/to/.htmlvalidate.json");
+				});
 			const config = loader.fromTarget("/path/to/target.html");
 			expect(config.get()).toEqual(
 				expect.objectContaining({
@@ -57,9 +59,11 @@ describe("ConfigLoader", () => {
 		});
 
 		it("should load configuration from parent directory", () => {
-			jest.spyOn(fs, "existsSync").mockImplementation((filename: string) => {
-				return filename === path.resolve("/path/.htmlvalidate.json");
-			});
+			jest
+				.spyOn(fs, "existsSync")
+				.mockImplementation((filename: fs.PathLike) => {
+					return filename === path.resolve("/path/.htmlvalidate.json");
+				});
 			const config = loader.fromTarget("/path/to/target.html");
 			expect(config.get()).toEqual(
 				expect.objectContaining({
