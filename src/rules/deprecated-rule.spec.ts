@@ -41,6 +41,18 @@ describe("rule deprecated-rule", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error when no deprecated rule is disabled", () => {
+		const htmlvalidate = new HtmlValidate({
+			plugins: ["my-plugin"],
+			rules: {
+				"custom/deprecated": "off",
+				"deprecated-rule": "error",
+			},
+		});
+		const report = htmlvalidate.validateString("<div></div>");
+		expect(report).toBeValid();
+	});
+
 	it("should report error when a rule is deprecated", () => {
 		const htmlvalidate = new HtmlValidate({
 			plugins: ["my-plugin"],
