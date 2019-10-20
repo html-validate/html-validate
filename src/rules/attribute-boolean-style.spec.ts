@@ -51,6 +51,7 @@ describe("rule attribute-boolean-style", () => {
 		it("should report error when attribute is interpolated", () => {
 			const report = htmlvalidate.validateString(
 				'<input required="{{ dynamic }}">',
+				null,
 				{ processAttribute }
 			);
 			expect(report).toBeInvalid();
@@ -63,6 +64,7 @@ describe("rule attribute-boolean-style", () => {
 		it("should not report error when attribute is dynamic", () => {
 			const report = htmlvalidate.validateString(
 				'<input dynamic-required="dynamic">',
+				null,
 				{ processAttribute }
 			);
 			expect(report).toBeValid();
@@ -109,6 +111,7 @@ describe("rule attribute-boolean-style", () => {
 		it("should report error when attribute is dynamic", () => {
 			const report = htmlvalidate.validateString(
 				'<input required="{{ dynamic }}">',
+				null,
 				{ processAttribute }
 			);
 			expect(report).toBeInvalid();
@@ -159,6 +162,7 @@ describe("rule attribute-boolean-style", () => {
 		it("should report error when attribute is dynamic", () => {
 			const report = htmlvalidate.validateString(
 				'<input required="{{ dynamic }}">',
+				null,
 				{ processAttribute }
 			);
 			expect(report).toBeInvalid();

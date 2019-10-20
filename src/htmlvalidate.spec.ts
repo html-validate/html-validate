@@ -56,21 +56,33 @@ describe("HtmlValidate", () => {
 		);
 	});
 
-	it("validateString() should lint given string", () => {
-		const mockReport = "mock-report";
-		engine.lint.mockReturnValue(mockReport);
-		const htmlvalidate = new HtmlValidate();
-		const str = "foobar";
-		const report = htmlvalidate.validateString(str);
-		expect(report).toEqual(mockReport);
-		expect(engine.lint).toHaveBeenCalledWith([
-			{
-				column: 1,
-				data: str,
-				filename: "inline",
-				line: 1,
-			},
-		]);
+	describe("validateString()", () => {
+		it("should validate given string", () => {
+			const mockReport = "mock-report";
+			engine.lint.mockReturnValue(mockReport);
+			const htmlvalidate = new HtmlValidate();
+			const str = "foobar";
+			const report = htmlvalidate.validateString(str);
+			expect(report).toEqual(mockReport);
+			expect(engine.lint).toHaveBeenCalledWith([
+				{
+					column: 1,
+					data: str,
+					filename: "inline",
+					line: 1,
+				},
+			]);
+		});
+
+		it("should load configuration if filename is given", () => {
+			const mockReport = "mock-report";
+			engine.lint.mockReturnValue(mockReport);
+			const htmlvalidate = new HtmlValidate();
+			const spy = jest.spyOn(htmlvalidate, "getConfigFor");
+			const str = "foobar";
+			htmlvalidate.validateString(str, "my-file.html");
+			expect(spy).toHaveBeenCalledWith("my-file.html");
+		});
 	});
 
 	it("validateSource() should lint given source", () => {

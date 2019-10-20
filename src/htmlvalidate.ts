@@ -33,14 +33,19 @@ class HtmlValidate {
 	 * Parse and validate HTML from string.
 	 *
 	 * @param str - Text to parse.
+	 * @param filename - If set configuration is loaded for given filename.
 	 * @param hooks - Optional hooks (see [[Source]]) for definition.
 	 * @returns Report output.
 	 */
-	public validateString(str: string, hooks?: SourceHooks): Report {
+	public validateString(
+		str: string,
+		filename?: string,
+		hooks?: SourceHooks
+	): Report {
 		const source = {
 			column: 1,
 			data: str,
-			filename: "inline",
+			filename: filename || "inline",
 			line: 1,
 			hooks,
 		};
@@ -54,7 +59,7 @@ class HtmlValidate {
 	 * @returns Report output.
 	 */
 	public validateSource(source: Source): Report {
-		const config = this.getConfigFor("inline");
+		const config = this.getConfigFor(source.filename);
 		const engine = new Engine(config, Parser);
 		return engine.lint([source]);
 	}

@@ -19,6 +19,7 @@ describe("rule no-dup-attr", () => {
 	it("should not report error when attribute is dynamic", () => {
 		const report = htmlvalidate.validateString(
 			'<input class="foo" dynamic-class="bar">',
+			null,
 			{ processAttribute }
 		);
 		expect(report).toBeValid();
@@ -43,6 +44,7 @@ describe("rule no-dup-attr", () => {
 	it("should report error when dynamic element is used multiple times", () => {
 		const report = htmlvalidate.validateString(
 			'<input dynamic-class="foo" dynamic-class="bar">',
+			null,
 			{ processAttribute }
 		);
 		expect(report).toBeInvalid();

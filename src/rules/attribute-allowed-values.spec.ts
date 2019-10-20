@@ -56,6 +56,7 @@ describe("rule attribute-allowed-values", () => {
 	it("should not report error when attribute is dynamic", () => {
 		const report = htmlvalidate.validateString(
 			'<input type="{{ interpolated }}" required="{{ interpolated }}"><input dynamic-type="dynamic" dynamic-required="dynamic">',
+			null,
 			{
 				processAttribute,
 			}
