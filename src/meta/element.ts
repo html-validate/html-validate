@@ -50,6 +50,7 @@ export interface MetaElement extends MetaData {
 	tagName: string;
 
 	[key: string]:
+		| undefined
 		| boolean
 		| PropertyExpression
 		| Permitted

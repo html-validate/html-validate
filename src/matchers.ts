@@ -31,7 +31,10 @@ function flattenMessages(report: Report): Message[] {
 	}, []);
 }
 
-function toBeValid(report: Report): jest.CustomMatcherResult {
+function toBeValid(
+	this: jest.MatcherUtils,
+	report: Report
+): jest.CustomMatcherResult {
 	if (report.valid) {
 		return {
 			pass: true,
@@ -48,7 +51,10 @@ function toBeValid(report: Report): jest.CustomMatcherResult {
 	}
 }
 
-function toBeInvalid(report: Report): jest.CustomMatcherResult {
+function toBeInvalid(
+	this: jest.MatcherUtils,
+	report: Report
+): jest.CustomMatcherResult {
 	if (report.valid) {
 		return {
 			pass: false,
@@ -64,6 +70,7 @@ function toBeInvalid(report: Report): jest.CustomMatcherResult {
 }
 
 function toHaveError(
+	this: jest.MatcherUtils,
 	report: Report,
 	ruleId: any,
 	message: any,
@@ -93,6 +100,7 @@ function toHaveError(
 }
 
 function toHaveErrors(
+	this: jest.MatcherUtils,
 	report: Report,
 	errors: Array<[string, string] | {}>
 ): jest.CustomMatcherResult {
@@ -121,7 +129,11 @@ function toHaveErrors(
 	return { pass, message: resultMessage };
 }
 
-function toBeToken(actual: any, expected: any): jest.CustomMatcherResult {
+function toBeToken(
+	this: jest.MatcherUtils,
+	actual: any,
+	expected: any
+): jest.CustomMatcherResult {
 	const token = actual.value;
 
 	// istanbul ignore next: TokenMatcher requires "type" property to be set, this is just a failsafe

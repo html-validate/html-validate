@@ -9,7 +9,9 @@
     "noImplicitAny": true,
     "outDir": "build",
     "sourceMap": false,
-    "target": "es2017"
+    "target": "es2017",
+    "strict": true,
+    "strictNullChecks": false
   },
   "sourceMap": true,
   "include": ["src/**/*.ts"],
