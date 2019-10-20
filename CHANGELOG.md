@@ -1,5 +1,13 @@
 # html-validate changelog
 
+# [1.14.0](https://gitlab.com/html-validate/html-validate/compare/v1.13.0...v1.14.0) (2019-10-20)
+
+### Features
+
+- **shim:** expose more types ([86bb78d](https://gitlab.com/html-validate/html-validate/commit/86bb78d))
+- enable typescript strict mode (excect strict null) ([5d2b45e](https://gitlab.com/html-validate/html-validate/commit/5d2b45e))
+- **htmlvalidate:** support passing filename to `validateString` ([c2e09a2](https://gitlab.com/html-validate/html-validate/commit/c2e09a2))
+
 # [1.13.0](https://gitlab.com/html-validate/html-validate/compare/v1.12.0...v1.13.0) (2019-10-13)
 
 ### Features
