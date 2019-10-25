@@ -131,7 +131,7 @@
     "@types/node": "11.13.22",
     "@typescript-eslint/eslint-plugin": "2.5.0",
     "@typescript-eslint/parser": "2.5.0",
-    "autoprefixer": "9.6.5",
+    "autoprefixer": "9.7.0",
     "babelify": "10.0.0",
     "bootstrap-sass": "3.4.1",
     "canonical-path": "1.0.0",
