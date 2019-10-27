@@ -17,6 +17,11 @@ describe("rule input-missing-label", () => {
 		expect(report).toBeValid();
 	});
 
+	it('should not report input type="hidden" is missing label', () => {
+		const report = htmlvalidate.validateString('<input type="hidden" />');
+		expect(report).toBeValid();
+	});
+
 	it("should not report when input is nested inside label", () => {
 		const report = htmlvalidate.validateString("<label>foo <input/></label>");
 		expect(report).toBeValid();
