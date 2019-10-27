@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [1.14.1](https://gitlab.com/html-validate/html-validate/compare/v1.14.0...v1.14.1) (2019-10-27)
+
+### Bug Fixes
+
+- input hidden should not have label ([66cf13d](https://gitlab.com/html-validate/html-validate/commit/66cf13d489cbb641fabe83121fa0f135440875f8)), closes [#53](https://gitlab.com/html-validate/html-validate/issues/53)
+
 # [1.14.0](https://gitlab.com/html-validate/html-validate/compare/v1.13.0...v1.14.0) (2019-10-20)
 
 ### Features
