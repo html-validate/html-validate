@@ -277,6 +277,41 @@ describe("HtmlValidate", () => {
 		]);
 	});
 
+	it("dumpSources() should dump sources", () => {
+		const htmlvalidate = new HtmlValidate();
+		const filename = "foo.html";
+		const config = Config.empty();
+		config.init();
+		config.transform = jest.fn((filename: string) => [
+			{
+				column: 1,
+				data: `first markup`,
+				filename,
+				line: 1,
+			},
+			{
+				column: 3,
+				data: `second markup`,
+				filename,
+				line: 5,
+			},
+		]);
+		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(() => config);
+		const output = htmlvalidate.dumpSource(filename);
+		expect(output).toMatchInlineSnapshot(`
+		Array [
+		  "Source foo.html@1:1",
+		  "---",
+		  "first markup",
+		  "---",
+		  "Source foo.html@5:3",
+		  "---",
+		  "second markup",
+		  "---",
+		]
+	`);
+	});
+
 	it("getRuleDocumentation() should delegate call to engine", () => {
 		const htmlvalidate = new HtmlValidate();
 		const config = Config.empty();

@@ -136,6 +136,31 @@ class HtmlValidate {
 	}
 
 	/**
+	 * Transform filename and output source data.
+	 *
+	 * Using CLI this is enabled with `--dump-source`. Mostly useful for
+	 * debugging.
+	 *
+	 * @param filename - Filename to dump source from.
+	 */
+	public dumpSource(filename: string): string[] {
+		const config = this.getConfigFor(filename);
+		const sources = config.transform(filename);
+		return sources.reduce(
+			(result: string[], source: Source) => {
+				result.push(
+					`Source ${source.filename}@${source.line}:${source.column}`
+				);
+				result.push("---");
+				result = result.concat(source.data.split("\n"));
+				result.push("---");
+				return result;
+			},
+			[] as string[]
+		);
+	}
+
+	/**
 	 * Get contextual documentation for the given rule.
 	 *
 	 * Typical usage:

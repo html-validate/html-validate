@@ -16,6 +16,7 @@ enum Mode {
 	DUMP_EVENTS,
 	DUMP_TOKENS,
 	DUMP_TREE,
+	DUMP_SOURCE,
 	PRINT_CONFIG,
 }
 
@@ -26,6 +27,10 @@ function getMode(argv: { [key: string]: any }): Mode {
 
 	if (argv["dump-events"]) {
 		return Mode.DUMP_EVENTS;
+	}
+
+	if (argv["dump-source"]) {
+		return Mode.DUMP_SOURCE;
 	}
 
 	if (argv["dump-tokens"]) {
@@ -74,6 +79,11 @@ function dump(files: string[], mode: Mode): string {
 		case Mode.DUMP_TREE:
 			lines = files.map((filename: string) => htmlvalidate.dumpTree(filename));
 			break;
+		case Mode.DUMP_SOURCE:
+			lines = files.map((filename: string) =>
+				htmlvalidate.dumpSource(filename)
+			);
+			break;
 		default:
 			throw new Error(`Unknown mode "${mode}"`);
 	}
@@ -104,6 +114,7 @@ const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
 	boolean: [
 		"init",
 		"dump-events",
+		"dump-source",
 		"dump-tokens",
 		"dump-tree",
 		"h",
@@ -142,17 +153,18 @@ Common options:
       --stdin                    process markup from stdin.
       --stdin-filename=STRING    specify filename to report when using stdin
 
-Debugging options:
-      --dump-events              output events during parsing.
-      --dump-tokens              output tokens from lexing stage.
-      --dump-tree                output nodes from the dom tree.
-
 Miscellaneous:
   -c, --config=STRING            use custom configuration file.
       --init                     initialize project with a new configuration
       --print-config             output configuration for given file.
   -h, --help                     show help.
       --version                  show version.
+
+Debugging options:
+      --dump-events              output events during parsing.
+      --dump-source              output post-transformed source data.
+      --dump-tokens              output tokens from lexing stage.
+      --dump-tree                output nodes from the dom tree.
 
 Formatters:
 
