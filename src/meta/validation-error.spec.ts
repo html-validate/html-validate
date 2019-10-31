@@ -15,6 +15,9 @@ it("MetaValidationError should pretty-print validation errors ", () => {
 	} catch (err) {
 		if (err instanceof MetaValidationError) {
 			const output = (err.prettyError() as unknown) as string;
+
+			/* cannot test prettyError() method with builtin helpers */
+			/* eslint-disable-next-line jest/no-try-expect */
 			expect(stripAnsi(output)).toMatchSnapshot();
 		}
 	}
