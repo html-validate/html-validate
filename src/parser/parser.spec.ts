@@ -178,29 +178,29 @@ describe("parser", () => {
 		});
 
 		it("with text node", () => {
-			parser.parseHtml("<p>Lorem ipsum</p>");
+			expect(() => parser.parseHtml("<p>Lorem ipsum</p>")).not.toThrow();
 		});
 
 		it("with trailing text", () => {
-			parser.parseHtml("<p>Lorem ipsum</p>\n");
+			expect(() => parser.parseHtml("<p>Lorem ipsum</p>\n")).not.toThrow();
 		});
 
 		it("unclosed", () => {
-			parser.parseHtml("<p>");
+			expect(() => parser.parseHtml("<p>")).not.toThrow();
 		});
 
 		it("unopened", () => {
-			parser.parseHtml("</p>");
+			expect(() => parser.parseHtml("</p>")).not.toThrow();
 		});
 
 		it("multiple unopened", () => {
 			/* mostly for regression testing: root element should never be
 			 * popped from node stack. */
-			parser.parseHtml("</p></p></p></p></p></p>");
+			expect(() => parser.parseHtml("</p></p></p></p></p></p>")).not.toThrow();
 		});
 
 		it("with only text", () => {
-			parser.parseHtml("Lorem ipsum");
+			expect(() => parser.parseHtml("Lorem ipsum")).not.toThrow();
 		});
 
 		it("with newlines", () => {
