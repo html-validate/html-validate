@@ -118,6 +118,15 @@ filesystem. Set the `root` property to `true` to prevent this behaviour:
 }
 ```
 
+### `--init`
+
+Initialize project with a new configuration.
+
+    html-validate --init
+
+The new configuration will be written to the current directory (in
+`.htmlvalidate.json`).
+
 ### `--print-config`
 
 Instead of validating file print the configuration generated.

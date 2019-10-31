@@ -12,6 +12,7 @@ import { CLI } from "./cli";
 
 enum Mode {
 	LINT,
+	INIT,
 	DUMP_EVENTS,
 	DUMP_TOKENS,
 	DUMP_TREE,
@@ -19,6 +20,10 @@ enum Mode {
 }
 
 function getMode(argv: { [key: string]: any }): Mode {
+	if (argv.init) {
+		return Mode.INIT;
+	}
+
 	if (argv["dump-events"]) {
 		return Mode.DUMP_EVENTS;
 	}
@@ -92,16 +97,17 @@ const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
 		"ext",
 		"f",
 		"formatter",
-		"h",
-		"help",
 		"max-warnings",
 		"rule",
 		"stdin-filename",
 	],
 	boolean: [
+		"init",
 		"dump-events",
 		"dump-tokens",
 		"dump-tree",
+		"h",
+		"help",
 		"print-config",
 		"stdin",
 		"version",
@@ -143,6 +149,7 @@ Debugging options:
 
 Miscellaneous:
   -c, --config=STRING            use custom configuration file.
+      --init                     initialize project with a new configuration
       --print-config             output configuration for given file.
   -h, --help                     show help.
       --version                  show version.
@@ -170,7 +177,7 @@ if (argv.version) {
 	process.exit();
 }
 
-if (argv.help || argv._.length === 0) {
+if (argv.help || (argv._.length === 0 && !argv.init)) {
 	showUsage();
 	process.exit();
 }
@@ -198,7 +205,7 @@ const extensions = (argv.ext || "html").split(",").map((cur: string) => {
 });
 
 const files = cli.expandFiles(argv._, { extensions });
-if (files.length === 0) {
+if (files.length === 0 && mode !== Mode.INIT) {
 	console.error("No files matching patterns", argv._);
 	process.exit(1);
 }
@@ -222,6 +229,18 @@ try {
 		}
 
 		process.exit(result.valid ? 0 : 1);
+	} else if (mode === Mode.INIT) {
+		cli
+			.init(process.cwd())
+			.then(result => {
+				console.log(`Configuration written to "${result.filename}"`);
+			})
+			.catch(err => {
+				if (err) {
+					console.error(err);
+				}
+				process.exit(1);
+			});
 	} else if (mode === Mode.PRINT_CONFIG) {
 		const config = htmlvalidate.getConfigFor(files[0]);
 		const json = JSON.stringify(config.get(), null, 2);

@@ -6,6 +6,7 @@ import HtmlValidate from "../htmlvalidate";
 import { Report } from "../reporter";
 import { expandFiles, ExpandOptions } from "./expand-files";
 import { getFormatter } from "./formatter";
+import { init, InitResult } from "./init";
 
 export interface CLIOptions {
 	configFile?: string;
@@ -36,6 +37,16 @@ export class CLI {
 
 	public getFormatter(formatters: string): (report: Report) => string {
 		return getFormatter(formatters);
+	}
+
+	/**
+	 * Initialize project with a new configuration.
+	 *
+	 * A new `.htmlvalidate.json` file will be placed in the path provided by
+	 * `cwd`.
+	 */
+	public init(cwd: string): Promise<InitResult> {
+		return init(cwd);
 	}
 
 	/**
