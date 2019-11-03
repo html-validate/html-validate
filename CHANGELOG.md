@@ -1,5 +1,16 @@
 # html-validate changelog
 
+# [1.15.0](https://gitlab.com/html-validate/html-validate/compare/v1.14.1...v1.15.0) (2019-11-03)
+
+### Bug Fixes
+
+- **cli:** `--help` does not take an argument ([e22293f](https://gitlab.com/html-validate/html-validate/commit/e22293fc3257f6ba9732016d2be44214299e23c2))
+
+### Features
+
+- **cli:** add `--dump-source` to debug transformers ([4d32a0d](https://gitlab.com/html-validate/html-validate/commit/4d32a0d6fc8e3caaa62107affa94fe0fe16aab1f))
+- **cli:** add `--init` to create initial configuration ([6852d30](https://gitlab.com/html-validate/html-validate/commit/6852d30dcbccc5ebed3267c6dd181146156646f0))
+
 ## [1.14.1](https://gitlab.com/html-validate/html-validate/compare/v1.14.0...v1.14.1) (2019-10-27)
 
 ### Bug Fixes
