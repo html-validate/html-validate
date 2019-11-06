@@ -119,7 +119,7 @@
     "@commitlint/config-conventional": "8.2.0",
     "@semantic-release/changelog": "3.0.5",
     "@semantic-release/exec": "3.3.8",
-    "@semantic-release/git": "7.0.17",
+    "@semantic-release/git": "7.0.18",
     "@semantic-release/gitlab": "4.0.3",
     "@semantic-release/npm": "5.3.4",
     "@semantic-release/release-notes-generator": "7.3.2",
