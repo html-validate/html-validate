@@ -16,7 +16,6 @@ class DeprecatedRule extends Rule {
 			for (const rule of this.getDeprecatedRules(event)) {
 				if (rule.getSeverity() > Severity.DISABLED) {
 					this.report(null, `Usage of deprecated rule "${rule.name}"`);
-					continue;
 				}
 			}
 		});
