@@ -54,6 +54,21 @@ it("should not overwrite configuration unless requested", async () => {
 	expect(fs.writeFile).not.toHaveBeenCalled();
 });
 
+it("should always create configuration when config is missing", async () => {
+	expect.assertions(1);
+	fs.existsSync.mockReturnValue(false);
+	inquirer.prompt.mockResolvedValue({
+		write: undefined,
+		frameworks: [],
+	});
+	await cli.init(".");
+	expect(fs.writeFile).toHaveBeenCalledWith(
+		"./.htmlvalidate.json",
+		expect.anything(),
+		expect.anything()
+	);
+});
+
 it("should propagate errors from fs.writeFile", async () => {
 	expect.assertions(1);
 	fs.existsSync.mockReturnValue(false);
