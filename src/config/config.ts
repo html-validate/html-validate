@@ -13,7 +13,7 @@ import { parseSeverity, Severity } from "./severity";
 
 interface Transformer {
 	pattern: RegExp;
-	fn: (filename: string) => Source[];
+	fn: (source: Source) => Source[];
 }
 
 const recommended = require("./recommended");
@@ -321,35 +321,47 @@ export class Config {
 	}
 
 	/**
-	 * Transform a source file.
+	 * Transform a source.
 	 *
-	 * @param filename - Filename to transform (according to configured
-	 * transformations)
-	 * @return A list of extracted sources ready for validation.
+	 * When transforming zero or more new sources will be generated.
+	 *
+	 * @param source - Current source to transform.
+	 * @return A list of transformed sources ready for validation.
 	 */
-	public transform(filename: string): Source[] {
-		const transformer = this.findTransformer(filename);
+	public transformSource(source: Source): Source[] {
+		const transformer = this.findTransformer(source.filename);
 		if (transformer) {
 			try {
-				return transformer.fn(filename);
+				return transformer.fn(source);
 			} catch (err) {
 				throw new NestedError(
-					`When transforming "${filename}": ${err.message}`,
+					`When transforming "${source.filename}": ${err.message}`,
 					err
 				);
 			}
 		} else {
-			const data = fs.readFileSync(filename, { encoding: "utf8" });
-			return [
-				{
-					data,
-					filename,
-					line: 1,
-					column: 1,
-					originalData: data,
-				},
-			];
+			return [source];
 		}
+	}
+
+	/**
+	 * Wrapper around [[transformSource]] which reads a file before passing it
+	 * as-is to transformSource.
+	 *
+	 * @param source - Filename to transform (according to configured
+	 * transformations)
+	 * @return A list of transformed sources ready for validation.
+	 */
+	public transformFilename(filename: string): Source[] {
+		const data = fs.readFileSync(filename, { encoding: "utf8" });
+		const source: Source = {
+			data,
+			filename,
+			line: 1,
+			column: 1,
+			originalData: data,
+		};
+		return this.transformSource(source);
 	}
 
 	private findTransformer(filename: string): Transformer | null {

@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { Source } from "../context";
 import { UserError } from "../error/user-error";
 import { Config } from "./config";
 import { Severity } from "./severity";
@@ -326,7 +327,14 @@ describe("config", () => {
 		});
 	});
 
-	describe("transform()", () => {
+	describe("transformSource()", () => {
+		const source: Source = {
+			filename: "/path/to/test.foo",
+			data: "original data",
+			line: 2,
+			column: 3,
+		};
+
 		it("should match filename against transformer", () => {
 			const config = Config.fromObject({
 				transform: {
@@ -334,13 +342,30 @@ describe("config", () => {
 				},
 			});
 			config.init();
-			expect(config.transform("/path/to/test.foo")).toEqual([
+			expect(config.transformSource(source)).toEqual([
 				{
 					data: "mocked source",
 					filename: "/path/to/test.foo",
 					line: 1,
 					column: 1,
-					originalData: "mocked original source",
+					originalData: "original data",
+				},
+			]);
+		});
+
+		it("should return original source if no transformer is found", () => {
+			const config = Config.fromObject({
+				transform: {
+					"^.*\\.bar$": "../transform/mock",
+				},
+			});
+			config.init();
+			expect(config.transformSource(source)).toEqual([
+				{
+					data: "original data",
+					filename: "/path/to/test.foo",
+					line: 2,
+					column: 3,
 				},
 			]);
 		});
@@ -352,31 +377,13 @@ describe("config", () => {
 				},
 			});
 			config.init();
-			expect(config.transform("/path/to/test.foo")).toEqual([
+			expect(config.transformSource(source)).toEqual([
 				{
 					data: "mocked source",
 					filename: "/path/to/test.foo",
 					line: 1,
 					column: 1,
-					originalData: "mocked original source",
-				},
-			]);
-		});
-
-		it("should default to reading full file", () => {
-			const config = Config.fromObject({
-				transform: {
-					"^.*\\.foo$": "../transform/mock",
-				},
-			});
-			config.init();
-			expect(config.transform("test-files/parser/simple.html")).toEqual([
-				{
-					data: "<p>Lorem ipsum</p>\n",
-					filename: "test-files/parser/simple.html",
-					line: 1,
-					column: 1,
-					originalData: "<p>Lorem ipsum</p>\n",
+					originalData: "original data",
 				},
 			]);
 		});
@@ -390,7 +397,7 @@ describe("config", () => {
 			});
 			config.init();
 			expect(() =>
-				config.transform("/path/to/test.foo")
+				config.transformSource(source)
 			).toThrowErrorMatchingSnapshot();
 		});
 
@@ -402,6 +409,28 @@ describe("config", () => {
 				},
 			});
 			expect(() => config.init()).toThrowErrorMatchingSnapshot();
+		});
+	});
+
+	describe("transformFilename()", () => {
+		it("should default to reading full file", () => {
+			const config = Config.fromObject({
+				transform: {
+					"^.*\\.foo$": "../transform/mock",
+				},
+			});
+			config.init();
+			expect(config.transformFilename("test-files/parser/simple.html")).toEqual(
+				[
+					{
+						data: "<p>Lorem ipsum</p>\n",
+						filename: "test-files/parser/simple.html",
+						line: 1,
+						column: 1,
+						originalData: "<p>Lorem ipsum</p>\n",
+					},
+				]
+			);
 		});
 	});
 

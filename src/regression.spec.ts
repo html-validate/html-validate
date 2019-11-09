@@ -1,4 +1,3 @@
-import { readFileSync } from "fs";
 import glob from "glob";
 import { Source } from "./context";
 import { DynamicValue } from "./dom";
@@ -8,25 +7,18 @@ import { AttributeData } from "./parser";
 jest.mock(
 	"mock-transformer",
 	() => {
-		return function transformer(filename: string) {
-			const data = readFileSync(filename, { encoding: "utf-8" });
-			const source: Source = {
-				data,
-				filename,
-				line: 1,
-				column: 1,
-				hooks: {
-					*processAttribute(attr: AttributeData) {
-						yield attr;
-						if (attr.key.startsWith("dynamic-")) {
-							yield {
-								key: attr.key.replace("dynamic-", ""),
-								value: new DynamicValue(attr.value as string),
-								quote: attr.quote,
-								originalAttribute: attr.key,
-							};
-						}
-					},
+		return function transformer(source: Source) {
+			source.hooks = {
+				*processAttribute(attr: AttributeData) {
+					yield attr;
+					if (attr.key.startsWith("dynamic-")) {
+						yield {
+							key: attr.key.replace("dynamic-", ""),
+							value: new DynamicValue(attr.value as string),
+							quote: attr.quote,
+							originalAttribute: attr.key,
+						};
+					}
 				},
 			};
 			return [source];
