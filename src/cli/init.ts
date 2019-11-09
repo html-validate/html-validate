@@ -80,7 +80,9 @@ export async function init(cwd: string): Promise<InitResult> {
 
 	/* prompt user for questions */
 	const answers = await inquirer.prompt(questions);
-	if (!answers.write) {
+
+	/* dont overwrite configuration unless explicitly requested */
+	if (exists && !answers.write) {
 		return Promise.reject();
 	}
 
