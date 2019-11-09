@@ -1,5 +1,16 @@
 # html-validate changelog
 
+# [1.16.0](https://gitlab.com/html-validate/html-validate/compare/v1.15.0...v1.16.0) (2019-11-09)
+
+### Bug Fixes
+
+- **cli:** fix `--init` not creating configuration unless overwriting ([9098529](https://gitlab.com/html-validate/html-validate/commit/90985293bf941c54055c93b35a6c6f865a2f65e6))
+- **config:** use `readFile` to prevent unintended caching ([4864bfa](https://gitlab.com/html-validate/html-validate/commit/4864bfa26edaf77b7bf7b0f551ffe7469a803c42))
+
+### Features
+
+- **shim:** expose version number in shim ([890d122](https://gitlab.com/html-validate/html-validate/commit/890d12269cfbfff7ce6b4e49e1876bb51ca7ccdd))
+
 # [1.15.0](https://gitlab.com/html-validate/html-validate/compare/v1.14.1...v1.15.0) (2019-11-03)
 
 ### Bug Fixes
