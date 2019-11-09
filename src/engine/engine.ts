@@ -271,7 +271,6 @@ export class Engine<T extends Parser = Parser> {
 					for (const rule of rules) {
 						rule.setEnabled(true);
 					}
-					return;
 				}
 			}
 		);
