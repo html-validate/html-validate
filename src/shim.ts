@@ -9,3 +9,6 @@ export { Rule } from "./rule";
 export { Source, Location } from "./context";
 export { Reporter, Message, Result } from "./reporter";
 export { TemplateExtractor } from "./transform/template";
+
+const pkg = require("../package.json");
+export const version = pkg.version;
