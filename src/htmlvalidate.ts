@@ -55,13 +55,14 @@ class HtmlValidate {
 	/**
 	 * Parse and validate HTML from [[Source]].
 	 *
-	 * @param source - Source to parse.
+	 * @param input - Source to parse.
 	 * @returns Report output.
 	 */
-	public validateSource(source: Source): Report {
-		const config = this.getConfigFor(source.filename);
+	public validateSource(input: Source): Report {
+		const config = this.getConfigFor(input.filename);
+		const source = config.transformSource(input);
 		const engine = new Engine(config, Parser);
-		return engine.lint([source]);
+		return engine.lint(source);
 	}
 
 	/**
