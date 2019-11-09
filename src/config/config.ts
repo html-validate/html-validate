@@ -46,8 +46,8 @@ function mergeInternal(base: ConfigData, rhs: ConfigData): ConfigData {
 function loadFromFile(filename: string): ConfigData {
 	let json;
 	try {
-		// eslint-disable-next-line security/detect-non-literal-require
-		json = require(filename);
+		const data = fs.readFileSync(filename, "utf-8");
+		json = JSON.parse(data);
 	} catch (err) {
 		throw new ConfigError(
 			`Failed to read configuration from "${filename}"`,
