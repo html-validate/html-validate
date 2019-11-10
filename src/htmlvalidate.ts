@@ -147,18 +147,13 @@ class HtmlValidate {
 	public dumpSource(filename: string): string[] {
 		const config = this.getConfigFor(filename);
 		const sources = config.transformFilename(filename);
-		return sources.reduce(
-			(result: string[], source: Source) => {
-				result.push(
-					`Source ${source.filename}@${source.line}:${source.column}`
-				);
-				result.push("---");
-				result = result.concat(source.data.split("\n"));
-				result.push("---");
-				return result;
-			},
-			[] as string[]
-		);
+		return sources.reduce((result: string[], source: Source) => {
+			result.push(`Source ${source.filename}@${source.line}:${source.column}`);
+			result.push("---");
+			result = result.concat(source.data.split("\n"));
+			result.push("---");
+			return result;
+		}, [] as string[]);
 	}
 
 	/**
