@@ -22,7 +22,7 @@ jest.mock("./parser");
 function mockConfig(): Config {
 	const config = Config.empty();
 	config.init();
-	config.transform = jest.fn((filename: string) => [
+	config.transformFilename = jest.fn((filename: string) => [
 		{
 			column: 1,
 			data: `source from ${filename}`,
@@ -282,7 +282,7 @@ describe("HtmlValidate", () => {
 		const filename = "foo.html";
 		const config = Config.empty();
 		config.init();
-		config.transform = jest.fn((filename: string) => [
+		config.transformFilename = jest.fn((filename: string) => [
 			{
 				column: 1,
 				data: `first markup`,

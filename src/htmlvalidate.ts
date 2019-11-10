@@ -55,13 +55,14 @@ class HtmlValidate {
 	/**
 	 * Parse and validate HTML from [[Source]].
 	 *
-	 * @param source - Source to parse.
+	 * @param input - Source to parse.
 	 * @returns Report output.
 	 */
-	public validateSource(source: Source): Report {
-		const config = this.getConfigFor(source.filename);
+	public validateSource(input: Source): Report {
+		const config = this.getConfigFor(input.filename);
+		const source = config.transformSource(input);
 		const engine = new Engine(config, Parser);
-		return engine.lint([source]);
+		return engine.lint(source);
 	}
 
 	/**
@@ -72,7 +73,7 @@ class HtmlValidate {
 	 */
 	public validateFile(filename: string): Report {
 		const config = this.getConfigFor(filename);
-		const source = config.transform(filename);
+		const source = config.transformFilename(filename);
 		const engine = new Engine(config, Parser);
 		return engine.lint(source);
 	}
@@ -100,7 +101,7 @@ class HtmlValidate {
 	 */
 	public dumpTokens(filename: string): TokenDump[] {
 		const config = this.getConfigFor(filename);
-		const source = config.transform(filename);
+		const source = config.transformFilename(filename);
 		const engine = new Engine(config, Parser);
 		return engine.dumpTokens(source);
 	}
@@ -115,7 +116,7 @@ class HtmlValidate {
 	 */
 	public dumpEvents(filename: string): EventDump[] {
 		const config = this.getConfigFor(filename);
-		const source = config.transform(filename);
+		const source = config.transformFilename(filename);
 		const engine = new Engine(config, Parser);
 		return engine.dumpEvents(source);
 	}
@@ -130,7 +131,7 @@ class HtmlValidate {
 	 */
 	public dumpTree(filename: string): string[] {
 		const config = this.getConfigFor(filename);
-		const source = config.transform(filename);
+		const source = config.transformFilename(filename);
 		const engine = new Engine(config, Parser);
 		return engine.dumpTree(source);
 	}
@@ -145,7 +146,7 @@ class HtmlValidate {
 	 */
 	public dumpSource(filename: string): string[] {
 		const config = this.getConfigFor(filename);
-		const sources = config.transform(filename);
+		const sources = config.transformFilename(filename);
 		return sources.reduce(
 			(result: string[], source: Source) => {
 				result.push(

@@ -25,6 +25,17 @@
   "bin": {
     "html-validate": "bin/html-validate.js"
   },
+  "files": [
+    "bin",
+    "build",
+    "elements",
+    "!*.snap",
+    "!*.spec.d.ts",
+    "!*.spec.js",
+    "!*.spec.ts",
+    "!__mocks__",
+    "!build/rules/**/*.d.ts"
+  ],
   "scripts": {
     "build": "tsc",
     "build:docs": "grunt docs",

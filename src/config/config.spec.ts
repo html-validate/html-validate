@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { Source } from "../context";
 import { UserError } from "../error/user-error";
 import { Config } from "./config";
 import { Severity } from "./severity";
@@ -326,59 +327,97 @@ describe("config", () => {
 		});
 	});
 
-	describe("transform()", () => {
+	describe("transformSource()", () => {
+		let source: Source;
+
+		beforeEach(() => {
+			source = {
+				filename: "/path/to/test.foo",
+				data: "original data",
+				line: 2,
+				column: 3,
+			};
+		});
+
 		it("should match filename against transformer", () => {
 			const config = Config.fromObject({
 				transform: {
-					"^.*\\.foo$": "../transform/mock",
+					"^.*\\.foo$": "mock-transform",
 				},
 			});
 			config.init();
-			expect(config.transform("/path/to/test.foo")).toEqual([
-				{
-					data: "mocked source",
-					filename: "/path/to/test.foo",
-					line: 1,
-					column: 1,
-					originalData: "mocked original source",
+			expect(config.transformSource(source)).toMatchInlineSnapshot(`
+				Array [
+				  Object {
+				    "column": 1,
+				    "data": "transformed source (was: original data)",
+				    "filename": "/path/to/test.foo",
+				    "line": 1,
+				    "originalData": "original data",
+				  },
+				]
+			`);
+		});
+
+		it("should return original source if no transformer is found", () => {
+			const config = Config.fromObject({
+				transform: {
+					"^.*\\.bar$": "mock-transform",
 				},
-			]);
+			});
+			config.init();
+			expect(config.transformSource(source)).toMatchInlineSnapshot(`
+				Array [
+				  Object {
+				    "column": 3,
+				    "data": "original data",
+				    "filename": "/path/to/test.foo",
+				    "line": 2,
+				  },
+				]
+			`);
+		});
+
+		it("should support chaining transformer", () => {
+			const config = Config.fromObject({
+				transform: {
+					"^.*\\.bar$": "mock-transform-chain-foo",
+					"^.*\\.foo$": "mock-transform",
+				},
+			});
+			config.init();
+			source.filename = "/path/to/test.bar";
+			expect(config.transformSource(source)).toMatchInlineSnapshot(`
+				Array [
+				  Object {
+				    "column": 1,
+				    "data": "transformed source (was: data from mock-transform-chain-foo (was: original data))",
+				    "filename": "/path/to/test.bar",
+				    "line": 1,
+				    "originalData": "original data",
+				  },
+				]
+			`);
 		});
 
 		it("should replace <rootDir>", () => {
 			const config = Config.fromObject({
 				transform: {
-					"^.*\\.foo$": "<rootDir>/src/transform/mock",
+					"^.*\\.foo$": "<rootDir>/src/transform/__mocks__/mock-transform",
 				},
 			});
 			config.init();
-			expect(config.transform("/path/to/test.foo")).toEqual([
-				{
-					data: "mocked source",
-					filename: "/path/to/test.foo",
-					line: 1,
-					column: 1,
-					originalData: "mocked original source",
-				},
-			]);
-		});
-
-		it("should default to reading full file", () => {
-			const config = Config.fromObject({
-				transform: {
-					"^.*\\.foo$": "../transform/mock",
-				},
-			});
-			config.init();
-			expect(config.transform("test-files/parser/simple.html")).toEqual([
-				{
-					data: "<p>Lorem ipsum</p>\n",
-					filename: "test-files/parser/simple.html",
-					line: 1,
-					column: 1,
-					originalData: "<p>Lorem ipsum</p>\n",
-				},
-			]);
+			expect(config.transformSource(source)).toMatchInlineSnapshot(`
+				Array [
+				  Object {
+				    "column": 1,
+				    "data": "transformed source (was: original data)",
+				    "filename": "/path/to/test.foo",
+				    "line": 1,
+				    "originalData": "original data",
+				  },
+				]
+			`);
 		});
 
 		it("should throw sane error when transformer fails", () => {
@@ -390,7 +429,7 @@ describe("config", () => {
 			});
 			config.init();
 			expect(() =>
-				config.transform("/path/to/test.foo")
+				config.transformSource(source)
 			).toThrowErrorMatchingSnapshot();
 		});
 
@@ -402,6 +441,31 @@ describe("config", () => {
 				},
 			});
 			expect(() => config.init()).toThrowErrorMatchingSnapshot();
+		});
+	});
+
+	describe("transformFilename()", () => {
+		it("should default to reading full file", () => {
+			const config = Config.fromObject({
+				transform: {
+					"^.*\\.foo$": "mock-transform",
+				},
+			});
+			config.init();
+			expect(config.transformFilename("test-files/parser/simple.html"))
+				.toMatchInlineSnapshot(`
+					Array [
+					  Object {
+					    "column": 1,
+					    "data": "<p>Lorem ipsum</p>
+					",
+					    "filename": "test-files/parser/simple.html",
+					    "line": 1,
+					    "originalData": "<p>Lorem ipsum</p>
+					",
+					  },
+					]
+				`);
 		});
 	});
 

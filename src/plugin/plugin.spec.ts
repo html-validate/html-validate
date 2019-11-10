@@ -1,9 +1,11 @@
 import { Config } from "../config";
 import { Source } from "../context";
 import { Engine } from "../engine";
+import { NestedError } from "../error";
 import { EventHandler } from "../event";
 import { Parser } from "../parser";
 import { Rule } from "../rule";
+import { Transformer } from "../transform";
 import { Plugin } from "./plugin";
 
 let mockPlugin: Plugin;
@@ -220,6 +222,167 @@ describe("Plugin", () => {
 				.mockImplementation(() => mockRule);
 			engine.lint([source]);
 			expect(setup).toHaveBeenCalledWith();
+		});
+	});
+
+	describe("transform", () => {
+		it("should support exposing unnamed transform", () => {
+			expect.assertions(1);
+			mockPlugin.transformer = function transform(source: Source): Source[] {
+				return [
+					{
+						data: "transformed from unnamed transformer",
+						filename: source.filename,
+						line: source.line,
+						column: source.column,
+						originalData: source.data,
+					},
+				];
+			} as Transformer;
+			config = Config.fromObject({
+				plugins: ["mock-plugin"],
+				transform: {
+					".*": "mock-plugin",
+				},
+			});
+			config.init();
+			const sources = config.transformSource({
+				data: "original data",
+				filename: "/path/to/mock.filename",
+				line: 2,
+				column: 3,
+			});
+			expect(sources).toMatchInlineSnapshot(`
+				Array [
+				  Object {
+				    "column": 3,
+				    "data": "transformed from unnamed transformer",
+				    "filename": "/path/to/mock.filename",
+				    "line": 2,
+				    "originalData": "original data",
+				  },
+				]
+			`);
+		});
+
+		it("should support exposing named transform", () => {
+			expect.assertions(1);
+			mockPlugin.transformer = {
+				foobar: function transform(source: Source): Source[] {
+					return [
+						{
+							data: "transformed from named transformer",
+							filename: source.filename,
+							line: source.line,
+							column: source.column,
+							originalData: source.data,
+						},
+					];
+				} as Transformer,
+			};
+			config = Config.fromObject({
+				plugins: ["mock-plugin"],
+				transform: {
+					".*": "mock-plugin:foobar",
+				},
+			});
+			config.init();
+			const sources = config.transformSource({
+				data: "original data",
+				filename: "/path/to/mock.filename",
+				line: 2,
+				column: 3,
+			});
+			expect(sources).toMatchInlineSnapshot(`
+				Array [
+				  Object {
+				    "column": 3,
+				    "data": "transformed from named transformer",
+				    "filename": "/path/to/mock.filename",
+				    "line": 2,
+				    "originalData": "original data",
+				  },
+				]
+			`);
+		});
+
+		it("should throw error when named transform is missing", () => {
+			expect.assertions(3);
+			mockPlugin.transformer = {};
+			config = Config.fromObject({
+				plugins: ["mock-plugin"],
+				transform: {
+					".*": "mock-plugin:foobar",
+				},
+			});
+			try {
+				config.init();
+			} catch (err) {
+				/* need to test NestedError to ensure the error messsage is sane */
+				/* eslint-disable jest/no-try-expect */
+				expect(err).toBeInstanceOf(NestedError);
+				expect(err.message).toContain(
+					'Failed to load transformer "mock-plugin:foobar"'
+				);
+				expect(err.stack).toContain(
+					'Plugin "mock-plugin" does not expose a transformer named "foobar".'
+				);
+				/* eslint-enable jest/no-try-expect */
+			}
+		});
+
+		it("should throw error when referencing named transformer without name", () => {
+			expect.assertions(3);
+			mockPlugin.transformer = {
+				foobar: null,
+			};
+			config = Config.fromObject({
+				plugins: ["mock-plugin"],
+				transform: {
+					".*": "mock-plugin",
+				},
+			});
+			try {
+				config.init();
+			} catch (err) {
+				/* need to test NestedError to ensure the error messsage is sane */
+				/* eslint-disable jest/no-try-expect */
+				expect(err).toBeInstanceOf(NestedError);
+				expect(err.message).toContain(
+					'Failed to load transformer "mock-plugin"'
+				);
+				expect(err.stack).toContain(
+					'Transformer "mock-plugin" refers to unnamed transformer but plugin exposes only named.'
+				);
+				/* eslint-enable jest/no-try-expect */
+			}
+		});
+
+		it("should throw error when referencing unnamed transformer with name", () => {
+			expect.assertions(3);
+			mockPlugin.transformer = function transform(): Source[] {
+				return [];
+			};
+			config = Config.fromObject({
+				plugins: ["mock-plugin"],
+				transform: {
+					".*": "mock-plugin:foobar",
+				},
+			});
+			try {
+				config.init();
+			} catch (err) {
+				/* need to test NestedError to ensure the error messsage is sane */
+				/* eslint-disable jest/no-try-expect */
+				expect(err).toBeInstanceOf(NestedError);
+				expect(err.message).toContain(
+					'Failed to load transformer "mock-plugin:foobar"'
+				);
+				expect(err.stack).toContain(
+					'Transformer "mock-plugin:foobar" refers to named transformer but plugin exposes only unnamed, use "mock-plugin" instead.'
+				);
+				/* eslint-enable jest/no-try-expect */
+			}
 		});
 	});
 });

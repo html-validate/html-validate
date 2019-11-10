@@ -6,14 +6,15 @@ import { NestedError } from "../error";
 import { MetaTable } from "../meta";
 import { MetaDataTable } from "../meta/element";
 import { Plugin } from "../plugin";
+import { TransformContext, Transformer } from "../transform";
 import { ConfigData, TransformMap } from "./config-data";
 import defaultConfig from "./default";
 import { ConfigError } from "./error";
 import { parseSeverity, Severity } from "./severity";
 
-interface Transformer {
+interface TransformerEntry {
 	pattern: RegExp;
-	fn: (filename: string) => Source[];
+	fn: Transformer;
 }
 
 const recommended = require("./recommended");
@@ -76,7 +77,7 @@ export class Config {
 	private configurations: Map<string, ConfigData>;
 	protected metaTable: MetaTable;
 	protected plugins: Plugin[];
-	protected transformers: Transformer[];
+	protected transformers: TransformerEntry[];
 	protected rootDir: string;
 
 	/**
@@ -321,57 +322,119 @@ export class Config {
 	}
 
 	/**
-	 * Transform a source file.
+	 * Transform a source.
 	 *
-	 * @param filename - Filename to transform (according to configured
-	 * transformations)
-	 * @return A list of extracted sources ready for validation.
+	 * When transforming zero or more new sources will be generated.
+	 *
+	 * @param source - Current source to transform.
+	 * @param filename - If set it is the filename used to match
+	 * transformer. Default is to use filename from source.
+	 * @return A list of transformed sources ready for validation.
 	 */
-	public transform(filename: string): Source[] {
-		const transformer = this.findTransformer(filename);
+	public transformSource(source: Source, filename?: string): Source[] {
+		const transformer = this.findTransformer(filename || source.filename);
+		const context: TransformContext = {
+			chain: (source: Source, filename: string) => {
+				return this.transformSource(source, filename);
+			},
+		};
 		if (transformer) {
 			try {
-				return transformer.fn(filename);
+				return Array.from(transformer.fn.call(context, source));
 			} catch (err) {
 				throw new NestedError(
-					`When transforming "${filename}": ${err.message}`,
+					`When transforming "${source.filename}": ${err.message}`,
 					err
 				);
 			}
 		} else {
-			const data = fs.readFileSync(filename, { encoding: "utf8" });
-			return [
-				{
-					data,
-					filename,
-					line: 1,
-					column: 1,
-					originalData: data,
-				},
-			];
+			return [source];
 		}
 	}
 
-	private findTransformer(filename: string): Transformer | null {
-		return this.transformers.find((entry: Transformer) =>
+	/**
+	 * Wrapper around [[transformSource]] which reads a file before passing it
+	 * as-is to transformSource.
+	 *
+	 * @param source - Filename to transform (according to configured
+	 * transformations)
+	 * @return A list of transformed sources ready for validation.
+	 */
+	public transformFilename(filename: string): Source[] {
+		const data = fs.readFileSync(filename, { encoding: "utf8" });
+		const source: Source = {
+			data,
+			filename,
+			line: 1,
+			column: 1,
+			originalData: data,
+		};
+		return this.transformSource(source);
+	}
+
+	private findTransformer(filename: string): TransformerEntry | null {
+		return this.transformers.find((entry: TransformerEntry) =>
 			entry.pattern.test(filename)
 		);
 	}
 
-	private precompileTransformers(transform: TransformMap): Transformer[] {
-		return Object.entries(transform).map(([pattern, module]) => {
+	private precompileTransformers(transform: TransformMap): TransformerEntry[] {
+		return Object.entries(transform).map(([pattern, name]) => {
 			try {
 				return {
 					// eslint-disable-next-line security/detect-non-literal-regexp
 					pattern: new RegExp(pattern),
 
-					// eslint-disable-next-line security/detect-non-literal-require
-					fn: require(module.replace("<rootDir>", this.rootDir)),
+					fn: this.getTransformFunction(name),
 				};
 			} catch (err) {
-				throw new ConfigError(`Failed to load transformer "${module}"`, err);
+				throw new ConfigError(`Failed to load transformer "${name}"`, err);
 			}
 		});
+	}
+
+	/**
+	 * Get transformation function requested by configuration.
+	 *
+	 * Searches:
+	 *
+	 * - Named transformers from plugins.
+	 * - Unnamed transformer from plugin.
+	 * - Standalone modules (local or node_modules)
+	 */
+	private getTransformFunction(name: string): Transformer {
+		/* try to match a named transformer from plugin */
+		const match = name.match(/(.*):(.*)/);
+		if (match) {
+			const [, pluginName, key] = match;
+			const plugin = this.plugins.find(cur => cur.name === pluginName);
+			if (typeof plugin.transformer === "function") {
+				throw new ConfigError(
+					`Transformer "${name}" refers to named transformer but plugin exposes only unnamed, use "${pluginName}" instead.`
+				);
+			}
+			if (!plugin.transformer[key]) {
+				throw new ConfigError(
+					`Plugin "${pluginName}" does not expose a transformer named "${key}".`
+				);
+			}
+			return plugin.transformer[key];
+		}
+
+		/* try to match an unnamed transformer from plugin */
+		const plugin = this.plugins.find(cur => (cur.name = name));
+		if (plugin) {
+			if (typeof plugin.transformer !== "function") {
+				throw new ConfigError(
+					`Transformer "${name}" refers to unnamed transformer but plugin exposes only named.`
+				);
+			}
+			return plugin.transformer;
+		}
+
+		/* assume transformer refers to a regular module */
+		// eslint-disable-next-line security/detect-non-literal-require
+		return require(name.replace("<rootDir>", this.rootDir));
 	}
 
 	protected findRootDir(): string {

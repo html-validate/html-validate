@@ -12,6 +12,7 @@
     "member-access": true,
     "member-ordering": false,
     "no-console": false,
+    "no-empty-interface": false,
     "no-shadowed-variable": false,
     "no-var-requires": false,
     "object-literal-sort-keys": false,
