@@ -2,6 +2,7 @@ import { ConfigData } from "../config";
 import { Source } from "../context";
 import { EventHandler } from "../event";
 import { RuleConstructor } from "../rule";
+import { Transformer } from "../transform";
 
 export interface SchemaValidationPatch {
 	properties?: object;
@@ -39,8 +40,9 @@ export interface Plugin {
 	 *
 	 * Each key should be the unprefixed name which a configuration later can
 	 * access using `${plugin}:${key}`, e.g. if a plugin named "my-plugin" exposes
-	 * a preset named "foobar" it can be accessed using `"extends":
-	 * ["my-plugin:foobar"]`.
+	 * a preset named "foobar" it can be accessed using:
+	 *
+	 * "extends": ["my-plugin:foobar"]
 	 */
 	configs: { [key: string]: ConfigData };
 
@@ -48,6 +50,30 @@ export interface Plugin {
 	 * List of new rules present.
 	 */
 	rules: { [key: string]: RuleConstructor };
+
+	/**
+	 * Transformer available in this plugin.
+	 *
+	 * Can be given either as a single unnamed transformer or an object with
+	 * multiple named.
+	 *
+	 * Unnamed transformers use the plugin name similar to how a standalone
+	 * transformer would work:
+	 *
+	 * "transform": {
+	 *   "^.*\\.foo$": "my-plugin"
+	 * }
+	 *
+	 * For named transformers each key should be the unprefixed name which a
+	 * configuration later can access using `${plugin}:${key}`, e.g. if a plugin
+	 * named "my-plugin" exposes a transformer named "foobar" it can be accessed
+	 * using:
+	 *
+	 * "transform": {
+	 *   "^.*\\.foo$": "my-plugin:foobar"
+	 * }
+	 */
+	transformer: Transformer | Record<string, Transformer>;
 
 	/**
 	 * Extend metadata validation schema.

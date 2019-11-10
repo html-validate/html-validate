@@ -379,19 +379,62 @@ export class Config {
 	}
 
 	private precompileTransformers(transform: TransformMap): TransformerEntry[] {
-		return Object.entries(transform).map(([pattern, module]) => {
+		return Object.entries(transform).map(([pattern, name]) => {
 			try {
 				return {
 					// eslint-disable-next-line security/detect-non-literal-regexp
 					pattern: new RegExp(pattern),
 
-					// eslint-disable-next-line security/detect-non-literal-require
-					fn: require(module.replace("<rootDir>", this.rootDir)),
+					fn: this.getTransformFunction(name),
 				};
 			} catch (err) {
-				throw new ConfigError(`Failed to load transformer "${module}"`, err);
+				throw new ConfigError(`Failed to load transformer "${name}"`, err);
 			}
 		});
+	}
+
+	/**
+	 * Get transformation function requested by configuration.
+	 *
+	 * Searches:
+	 *
+	 * - Named transformers from plugins.
+	 * - Unnamed transformer from plugin.
+	 * - Standalone modules (local or node_modules)
+	 */
+	private getTransformFunction(name: string): Transformer {
+		/* try to match a named transformer from plugin */
+		const match = name.match(/(.*):(.*)/);
+		if (match) {
+			const [, pluginName, key] = match;
+			const plugin = this.plugins.find(cur => cur.name === pluginName);
+			if (typeof plugin.transformer === "function") {
+				throw new ConfigError(
+					`Transformer "${name}" refers to named transformer but plugin exposes only unnamed, use "${pluginName}" instead.`
+				);
+			}
+			if (!plugin.transformer[key]) {
+				throw new ConfigError(
+					`Plugin "${pluginName}" does not expose a transformer named "${key}".`
+				);
+			}
+			return plugin.transformer[key];
+		}
+
+		/* try to match an unnamed transformer from plugin */
+		const plugin = this.plugins.find(cur => (cur.name = name));
+		if (plugin) {
+			if (typeof plugin.transformer !== "function") {
+				throw new ConfigError(
+					`Transformer "${name}" refers to unnamed transformer but plugin exposes only named.`
+				);
+			}
+			return plugin.transformer;
+		}
+
+		/* assume transformer refers to a regular module */
+		// eslint-disable-next-line security/detect-non-literal-require
+		return require(name.replace("<rootDir>", this.rootDir));
 	}
 
 	protected findRootDir(): string {
