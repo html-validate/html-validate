@@ -11,5 +11,5 @@ export interface TransformContext {
 	 * @param filename - Filename to use to match next transformer (unrelated to
 	 * filename set in source)
 	 */
-	chain(source: Source, filename: string): Source[];
+	chain(source: Source, filename: string): Iterable<Source>;
 }

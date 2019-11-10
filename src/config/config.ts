@@ -340,7 +340,7 @@ export class Config {
 		};
 		if (transformer) {
 			try {
-				return transformer.fn.call(context, source);
+				return Array.from(transformer.fn.call(context, source));
 			} catch (err) {
 				throw new NestedError(
 					`When transforming "${source.filename}": ${err.message}`,

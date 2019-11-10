@@ -4,11 +4,11 @@ import { Transformer, TransformContext } from "..";
 /**
  * Mock transformer chaining to a .foo file transformer.
  */
-module.exports = function mockTransformChainFoo(
+module.exports = function* mockTransformChainFoo(
 	this: TransformContext,
 	source: Source
 ) {
-	return this.chain(
+	yield* this.chain(
 		{
 			data: `data from mock-transform-chain-foo (was: ${source.data})`,
 			filename: source.filename,

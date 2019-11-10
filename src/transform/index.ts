@@ -4,4 +4,7 @@ import { TransformContext } from "./context";
 export { TransformContext } from "./context";
 export { TemplateExtractor } from "./template";
 
-export type Transformer = (this: TransformContext, source: Source) => Source[];
+export type Transformer = (
+	this: TransformContext,
+	source: Source
+) => Iterable<Source>;

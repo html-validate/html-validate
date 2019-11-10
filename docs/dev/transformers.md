@@ -15,7 +15,7 @@ import { Transformer, TransformContext } from "html-validate";
 module.exports = function(
   this: TransformContext,
   source: Source
-): Source[] {
+): Iterable<Source> {
   /* ... */
 };
 ```
@@ -24,7 +24,7 @@ module.exports = function(
 
 ```typescript
 export interface TransformContext {
-  chain(source: Source, filename: string): Source[];
+  chain(source: Source, filename: string): Iterable<Source>;
 }
 ```
 
@@ -34,8 +34,9 @@ Chain transformations. Sometimes multiple transformers must be applied. For
 instance, a Markdown file with JSX in a code-block.
 
 ```typescript
-const source = myTransformation();
-return this.chain(source, `${originalFilename}.foo`);
+for (const source of myTransformation()) {
+  yield * this.chain(source, `${originalFilename}.foo`);
+}
 ```
 
 The above snippet will chain transformations using the current transformer
