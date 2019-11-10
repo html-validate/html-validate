@@ -5,6 +5,42 @@
 
 # Transformers
 
+## API
+
+Each transformer must implement the following API:
+
+```typescript
+import { Transformer, TransformContext } from "html-validate";
+
+module.exports = function(
+  this: TransformContext,
+  source: Source
+): Source[] {
+  /* ... */
+};
+```
+
+### `TransformContext`
+
+```typescript
+export interface TransformContext {
+  chain(source: Source, filename: string): Source[];
+}
+```
+
+#### `chain`
+
+Chain transformations. Sometimes multiple transformers must be applied. For
+instance, a Markdown file with JSX in a code-block.
+
+```typescript
+const source = myTransformation();
+return this.chain(source, `${originalFilename}.foo`);
+```
+
+The above snippet will chain transformations using the current transformer
+matching `*.foo` files, if it is configured.
+
 ## `TemplateExtractor`
 
 Extracts templates from javascript sources.

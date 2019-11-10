@@ -378,6 +378,28 @@ describe("config", () => {
 			`);
 		});
 
+		it("should support chaining transformer", () => {
+			const config = Config.fromObject({
+				transform: {
+					"^.*\\.bar$": "mock-transform-chain-foo",
+					"^.*\\.foo$": "mock-transform",
+				},
+			});
+			config.init();
+			source.filename = "/path/to/test.bar";
+			expect(config.transformSource(source)).toMatchInlineSnapshot(`
+				Array [
+				  Object {
+				    "column": 1,
+				    "data": "transformed source (was: data from mock-transform-chain-foo (was: original data))",
+				    "filename": "/path/to/test.bar",
+				    "line": 1,
+				    "originalData": "original data",
+				  },
+				]
+			`);
+		});
+
 		it("should replace <rootDir>", () => {
 			const config = Config.fromObject({
 				transform: {

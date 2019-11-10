@@ -327,11 +327,17 @@ export class Config {
 	 * When transforming zero or more new sources will be generated.
 	 *
 	 * @param source - Current source to transform.
+	 * @param filename - If set it is the filename used to match
+	 * transformer. Default is to use filename from source.
 	 * @return A list of transformed sources ready for validation.
 	 */
-	public transformSource(source: Source): Source[] {
-		const transformer = this.findTransformer(source.filename);
-		const context: TransformContext = {};
+	public transformSource(source: Source, filename?: string): Source[] {
+		const transformer = this.findTransformer(filename || source.filename);
+		const context: TransformContext = {
+			chain: (source: Source, filename: string) => {
+				return this.transformSource(source, filename);
+			},
+		};
 		if (transformer) {
 			try {
 				return transformer.fn.call(context, source);
