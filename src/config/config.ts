@@ -6,14 +6,15 @@ import { NestedError } from "../error";
 import { MetaTable } from "../meta";
 import { MetaDataTable } from "../meta/element";
 import { Plugin } from "../plugin";
+import { TransformContext, Transformer } from "../transform";
 import { ConfigData, TransformMap } from "./config-data";
 import defaultConfig from "./default";
 import { ConfigError } from "./error";
 import { parseSeverity, Severity } from "./severity";
 
-interface Transformer {
+interface TransformerEntry {
 	pattern: RegExp;
-	fn: (source: Source) => Source[];
+	fn: Transformer;
 }
 
 const recommended = require("./recommended");
@@ -76,7 +77,7 @@ export class Config {
 	private configurations: Map<string, ConfigData>;
 	protected metaTable: MetaTable;
 	protected plugins: Plugin[];
-	protected transformers: Transformer[];
+	protected transformers: TransformerEntry[];
 	protected rootDir: string;
 
 	/**
@@ -330,9 +331,10 @@ export class Config {
 	 */
 	public transformSource(source: Source): Source[] {
 		const transformer = this.findTransformer(source.filename);
+		const context: TransformContext = {};
 		if (transformer) {
 			try {
-				return transformer.fn(source);
+				return transformer.fn.call(context, source);
 			} catch (err) {
 				throw new NestedError(
 					`When transforming "${source.filename}": ${err.message}`,
@@ -364,13 +366,13 @@ export class Config {
 		return this.transformSource(source);
 	}
 
-	private findTransformer(filename: string): Transformer | null {
-		return this.transformers.find((entry: Transformer) =>
+	private findTransformer(filename: string): TransformerEntry | null {
+		return this.transformers.find((entry: TransformerEntry) =>
 			entry.pattern.test(filename)
 		);
 	}
 
-	private precompileTransformers(transform: TransformMap): Transformer[] {
+	private precompileTransformers(transform: TransformMap): TransformerEntry[] {
 		return Object.entries(transform).map(([pattern, module]) => {
 			try {
 				return {
