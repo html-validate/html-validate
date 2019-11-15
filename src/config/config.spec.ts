@@ -349,6 +349,17 @@ describe("config", () => {
 			`);
 		});
 
+		it("should throw error if transformer uses obsolete API", () => {
+			const config = Config.fromObject({
+				transform: {
+					"^.*\\.foo$": "mock-transform-obsolete",
+				},
+			});
+			expect(() => config.init()).toThrow(
+				/Failed to load transformer "mock-transform-obsolete": Transformer uses API version 0 but only version \d+ is supported/
+			);
+		});
+
 		it("should return original source if no transformer is found", () => {
 			const config = Config.fromObject({
 				transform: {

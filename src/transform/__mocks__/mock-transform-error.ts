@@ -1,9 +1,13 @@
 import { Source } from "../../context";
-import { Transformer } from "..";
+import { Transformer, TRANSFORMER_API } from "..";
 
 /**
  * Mock transformer always failing with an exception
  */
-module.exports = function mockTransformError(): Iterable<Source> {
+function mockTransformError(): Iterable<Source> {
 	throw new Error("Failed to frobnicate a baz");
-} as Transformer;
+}
+
+mockTransformError.api = TRANSFORMER_API.VERSION;
+
+module.exports = mockTransformError as Transformer;

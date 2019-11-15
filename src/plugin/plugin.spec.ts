@@ -4,7 +4,7 @@ import { Engine } from "../engine";
 import { EventHandler } from "../event";
 import { Parser } from "../parser";
 import { Rule } from "../rule";
-import { Transformer } from "../transform";
+import { Transformer, TRANSFORMER_API } from "../transform";
 import { Plugin } from "./plugin";
 
 let mockPlugin: Plugin;
@@ -227,7 +227,7 @@ describe("Plugin", () => {
 	describe("transform", () => {
 		it("should support exposing unnamed transform", () => {
 			expect.assertions(1);
-			mockPlugin.transformer = function transform(source: Source): Source[] {
+			function transform(source: Source): Source[] {
 				return [
 					{
 						data: "transformed from unnamed transformer",
@@ -237,7 +237,9 @@ describe("Plugin", () => {
 						originalData: source.data,
 					},
 				];
-			} as Transformer;
+			}
+			transform.api = TRANSFORMER_API.VERSION;
+			mockPlugin.transformer = transform as Transformer;
 			config = Config.fromObject({
 				plugins: ["mock-plugin"],
 				transform: {
@@ -266,18 +268,20 @@ describe("Plugin", () => {
 
 		it("should support exposing named transform", () => {
 			expect.assertions(1);
+			function transform(source: Source): Source[] {
+				return [
+					{
+						data: "transformed from named transformer",
+						filename: source.filename,
+						line: source.line,
+						column: source.column,
+						originalData: source.data,
+					},
+				];
+			}
+			transform.api = TRANSFORMER_API.VERSION;
 			mockPlugin.transformer = {
-				foobar: function transform(source: Source): Source[] {
-					return [
-						{
-							data: "transformed from named transformer",
-							filename: source.filename,
-							line: source.line,
-							column: source.column,
-							originalData: source.data,
-						},
-					];
-				} as Transformer,
+				foobar: transform as Transformer,
 			};
 			config = Config.fromObject({
 				plugins: ["mock-plugin"],
