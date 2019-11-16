@@ -18,16 +18,6 @@ jest.mock(
 	{ virtual: true }
 );
 
-/* mock transformers */
-jest.mock(
-	"mock-transformer-error",
-	() =>
-		function mockTranformerError() {
-			throw new Error("Failed to frobnicate a baz");
-		},
-	{ virtual: true }
-);
-
 /* mock plugin with config presets */
 jest.mock(
 	"mock-plugin-presets",
@@ -423,8 +413,7 @@ describe("config", () => {
 		it("should throw sane error when transformer fails", () => {
 			const config = Config.fromObject({
 				transform: {
-					"^.*\\.foo$":
-						"mock-transformer-error" /* mocked transformer, see top of file */,
+					"^.*\\.foo$": "mock-transform-error",
 				},
 			});
 			config.init();
