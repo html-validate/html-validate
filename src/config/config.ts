@@ -388,7 +388,14 @@ export class Config {
 					fn: this.getTransformFunction(name),
 				};
 			} catch (err) {
-				throw new ConfigError(`Failed to load transformer "${name}"`, err);
+				if (err instanceof ConfigError) {
+					throw new ConfigError(
+						`Failed to load transformer "${name}": ${err.message}`,
+						err
+					);
+				} else {
+					throw new ConfigError(`Failed to load transformer "${name}"`, err);
+				}
 			}
 		});
 	}
