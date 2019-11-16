@@ -12,12 +12,16 @@ Each transformer must implement the following API:
 ```typescript
 import { Transformer, TransformContext } from "html-validate";
 
-module.exports = function(
-  this: TransformContext,
-  source: Source
-): Iterable<Source> {
+/* implementation */
+function myTransform(this: TransformContext, source: Source): Iterable<Source> {
   /* ... */
-};
+}
+
+/* api version declaration */
+myTransform.api = 1;
+
+/* export */
+module.exports = myTransform as Transfomer;
 ```
 
 ### `TransformContext`

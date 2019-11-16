@@ -1,10 +1,10 @@
 import { Source } from "../../context";
-import { Transformer } from "..";
+import { Transformer, TRANSFORMER_API } from "..";
 
 /**
  * Transformer returning a single mocked source.
  */
-module.exports = function mockTransform(source: Source) {
+function mockTransform(source: Source): Iterable<Source> {
 	return [
 		{
 			data: `transformed source (was: ${source.data})`,
@@ -14,4 +14,9 @@ module.exports = function mockTransform(source: Source) {
 			originalData: source.originalData || source.data,
 		},
 	];
-} as Transformer;
+}
+
+/* mocks are always written against current version */
+mockTransform.api = TRANSFORMER_API.VERSION;
+
+module.exports = mockTransform as Transformer;

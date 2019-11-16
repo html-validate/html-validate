@@ -1,13 +1,13 @@
 import { Source } from "../../context";
-import { Transformer, TransformContext } from "..";
+import { Transformer, TransformContext, TRANSFORMER_API } from "..";
 
 /**
  * Mock transformer chaining to a .foo file transformer.
  */
-module.exports = function* mockTransformChainFoo(
+function* mockTransformChainFoo(
 	this: TransformContext,
 	source: Source
-) {
+): Iterable<Source> {
 	yield* this.chain(
 		{
 			data: `data from mock-transform-chain-foo (was: ${source.data})`,
@@ -18,4 +18,9 @@ module.exports = function* mockTransformChainFoo(
 		},
 		`${source.filename}.foo`
 	);
-} as Transformer;
+}
+
+/* mocks are always written against current version */
+mockTransformChainFoo.api = TRANSFORMER_API.VERSION;
+
+module.exports = mockTransformChainFoo as Transformer;

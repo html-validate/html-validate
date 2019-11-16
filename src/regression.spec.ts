@@ -3,11 +3,12 @@ import { Source } from "./context";
 import { DynamicValue } from "./dom";
 import HtmlValidate from "./htmlvalidate";
 import { AttributeData } from "./parser";
+import { Transformer, TRANSFORMER_API } from "./transform";
 
 jest.mock(
 	"mock-transformer",
 	() => {
-		return function transformer(source: Source) {
+		function transformer(source: Source): Iterable<Source> {
 			source.hooks = {
 				*processAttribute(attr: AttributeData) {
 					yield attr;
@@ -22,7 +23,9 @@ jest.mock(
 				},
 			};
 			return [source];
-		};
+		}
+		transformer.api = TRANSFORMER_API.VERSION;
+		return transformer as Transformer;
 	},
 	{ virtual: true }
 );

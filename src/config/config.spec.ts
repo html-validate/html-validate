@@ -18,16 +18,6 @@ jest.mock(
 	{ virtual: true }
 );
 
-/* mock transformers */
-jest.mock(
-	"mock-transformer-error",
-	() =>
-		function mockTranformerError() {
-			throw new Error("Failed to frobnicate a baz");
-		},
-	{ virtual: true }
-);
-
 /* mock plugin with config presets */
 jest.mock(
 	"mock-plugin-presets",
@@ -359,6 +349,17 @@ describe("config", () => {
 			`);
 		});
 
+		it("should throw error if transformer uses obsolete API", () => {
+			const config = Config.fromObject({
+				transform: {
+					"^.*\\.foo$": "mock-transform-obsolete",
+				},
+			});
+			expect(() => config.init()).toThrow(
+				/Failed to load transformer "mock-transform-obsolete": Transformer uses API version 0 but only version \d+ is supported/
+			);
+		});
+
 		it("should return original source if no transformer is found", () => {
 			const config = Config.fromObject({
 				transform: {
@@ -423,8 +424,7 @@ describe("config", () => {
 		it("should throw sane error when transformer fails", () => {
 			const config = Config.fromObject({
 				transform: {
-					"^.*\\.foo$":
-						"mock-transformer-error" /* mocked transformer, see top of file */,
+					"^.*\\.foo$": "mock-transform-error",
 				},
 			});
 			config.init();

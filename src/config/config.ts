@@ -6,7 +6,7 @@ import { NestedError } from "../error";
 import { MetaTable } from "../meta";
 import { MetaDataTable } from "../meta/element";
 import { Plugin } from "../plugin";
-import { TransformContext, Transformer } from "../transform";
+import { TransformContext, Transformer, TRANSFORMER_API } from "../transform";
 import { ConfigData, TransformMap } from "./config-data";
 import defaultConfig from "./default";
 import { ConfigError } from "./error";
@@ -381,14 +381,31 @@ export class Config {
 	private precompileTransformers(transform: TransformMap): TransformerEntry[] {
 		return Object.entries(transform).map(([pattern, name]) => {
 			try {
+				const fn = this.getTransformFunction(name);
+				const version = (fn as any).api || 0;
+
+				/* check if transformer version is supported */
+				if (version !== TRANSFORMER_API.VERSION) {
+					throw new ConfigError(
+						`Transformer uses API version ${version} but only version ${TRANSFORMER_API.VERSION} is supported`
+					);
+				}
+
 				return {
 					// eslint-disable-next-line security/detect-non-literal-regexp
 					pattern: new RegExp(pattern),
 
-					fn: this.getTransformFunction(name),
+					fn,
 				};
 			} catch (err) {
-				throw new ConfigError(`Failed to load transformer "${name}"`, err);
+				if (err instanceof ConfigError) {
+					throw new ConfigError(
+						`Failed to load transformer "${name}": ${err.message}`,
+						err
+					);
+				} else {
+					throw new ConfigError(`Failed to load transformer "${name}"`, err);
+				}
 			}
 		});
 	}
