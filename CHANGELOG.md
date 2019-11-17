@@ -1,5 +1,25 @@
 # html-validate changelog
 
+# [2.0.0](https://gitlab.com/html-validate/html-validate/compare/v1.16.0...v2.0.0) (2019-11-17)
+
+### Features
+
+- **config:** transformers must now operate on `Source` ([9c2112c](https://gitlab.com/html-validate/html-validate/commit/9c2112c8fb71275434b3d212df0953a4ea467db4))
+- **config:** wrap transformer error message better ([9f833e9](https://gitlab.com/html-validate/html-validate/commit/9f833e9d4dcc17ad32cca43a546da5f62e52dfe2))
+- **htmlvalidate:** string sources are now transformed too ([0645e37](https://gitlab.com/html-validate/html-validate/commit/0645e3760bd8d0f168a2c1faaa3e7097aa00b330))
+- **plugin:** support exposing transformers from plugins ([1370565](https://gitlab.com/html-validate/html-validate/commit/13705651c1b00e9dbd5cc3914b317f964391d6a8))
+- **transform:** add context object as `this` ([cb76cb3](https://gitlab.com/html-validate/html-validate/commit/cb76cb33664ca6e3ca37772aa14a4984faf55804))
+- **transform:** add version number to API ([94a5663](https://gitlab.com/html-validate/html-validate/commit/94a5663440c904fb0ad80dcbbab60ad73c79f741))
+- **transform:** adding test utils ([9e42590](https://gitlab.com/html-validate/html-validate/commit/9e42590a6112a095a0d9b01eb1af98189168f25e))
+- **transform:** support chaining transformers ([4a6fd51](https://gitlab.com/html-validate/html-validate/commit/4a6fd51620621f228aa4897abded19ce1abc7d1e))
+- **transform:** support returning iterators ([623b2f2](https://gitlab.com/html-validate/html-validate/commit/623b2f20efdce9ee4b3f39d1cf698d412116e79b))
+
+### BREAKING CHANGES
+
+- **config:** Previously transformers took a filename and had to read data of
+  the file itself. Transformers will now receive a `Source` instance with the data
+  preread.
+
 # [1.16.0](https://gitlab.com/html-validate/html-validate/compare/v1.15.0...v1.16.0) (2019-11-09)
 
 ### Bug Fixes
