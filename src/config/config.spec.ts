@@ -529,6 +529,28 @@ describe("config", () => {
 			});
 			expect(() => config.init()).toThrowErrorMatchingSnapshot();
 		});
+
+		it("should throw error when trying to load unnamed transform from plugin without any", () => {
+			jest.mock("mock-plugin-notransform", () => ({}), { virtual: true });
+			const config = Config.fromObject({
+				plugins: ["mock-plugin-notransform"],
+				transform: {
+					"^.*\\.foo$": "mock-plugin-notransform",
+				},
+			});
+			expect(() => config.init()).toThrowErrorMatchingSnapshot();
+		});
+
+		it("should throw error when trying to load named transform from plugin without any", () => {
+			jest.mock("mock-plugin-notransform", () => ({}), { virtual: true });
+			const config = Config.fromObject({
+				plugins: ["mock-plugin-notransform"],
+				transform: {
+					"^.*\\.foo$": "mock-plugin-notransform:named",
+				},
+			});
+			expect(() => config.init()).toThrowErrorMatchingSnapshot();
+		});
 	});
 
 	describe("transformFilename()", () => {
