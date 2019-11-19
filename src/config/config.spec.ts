@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { Source } from "../context";
 import { UserError } from "../error/user-error";
+import { Transformer, TRANSFORMER_API } from "../transform";
 import { Config } from "./config";
 import { Severity } from "./severity";
 
@@ -347,6 +348,92 @@ describe("config", () => {
 				  },
 				]
 			`);
+		});
+
+		describe("should handle transformers from plugins", () => {
+			let config: Config;
+
+			beforeEach(() => {
+				function transform(source: Source): Source[] {
+					return [
+						Object.assign(source, {
+							data: `transformed from ${source.filename}`,
+						}),
+					];
+				}
+				transform.api = TRANSFORMER_API.VERSION;
+				jest.mock(
+					"mock-plugin-unnamed",
+					() => ({
+						transformer: transform as Transformer,
+					}),
+					{ virtual: true }
+				);
+				jest.mock(
+					"mock-plugin-named",
+					() => ({
+						transformer: {
+							foobar: transform as Transformer,
+						},
+					}),
+					{ virtual: true }
+				);
+				config = Config.fromObject({
+					plugins: ["mock-plugin-unnamed", "mock-plugin-named"],
+					transform: {
+						"\\.unnamed$": "mock-plugin-unnamed",
+						"\\.named$": "mock-plugin-named:foobar",
+						"\\.nonplugin$": "mock-transform",
+					},
+				});
+				config.init();
+			});
+
+			it("unnamed", () => {
+				expect.assertions(1);
+				source.filename = "foo.unnamed";
+				expect(config.transformSource(source)).toMatchInlineSnapshot(`
+					Array [
+					  Object {
+					    "column": 3,
+					    "data": "transformed from foo.unnamed",
+					    "filename": "foo.unnamed",
+					    "line": 2,
+					  },
+					]
+				`);
+			});
+
+			it("named", () => {
+				expect.assertions(1);
+				source.filename = "bar.named";
+				expect(config.transformSource(source)).toMatchInlineSnapshot(`
+					Array [
+					  Object {
+					    "column": 3,
+					    "data": "transformed from bar.named",
+					    "filename": "bar.named",
+					    "line": 2,
+					  },
+					]
+				`);
+			});
+
+			it("non-plugin (regression test issue 54)", () => {
+				expect.assertions(1);
+				source.filename = "bar.nonplugin";
+				expect(config.transformSource(source)).toMatchInlineSnapshot(`
+					Array [
+					  Object {
+					    "column": 1,
+					    "data": "transformed source (was: original data)",
+					    "filename": "bar.nonplugin",
+					    "line": 1,
+					    "originalData": "original data",
+					  },
+					]
+				`);
+			});
 		});
 
 		it("should throw error if transformer uses obsolete API", () => {
