@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## [2.0.1](https://gitlab.com/html-validate/html-validate/compare/v2.0.0...v2.0.1) (2019-11-19)
+
+### Bug Fixes
+
+- **config:** better error when loading missing transformer from plugin ([db48a01](https://gitlab.com/html-validate/html-validate/commit/db48a015888a18dc2f6a17fd8466a98d29882509))
+- **config:** fix loading non-plugin transformer with plugin present ([c9ad080](https://gitlab.com/html-validate/html-validate/commit/c9ad08087305a4c36821a66552d4b7389fc42e86)), closes [#54](https://gitlab.com/html-validate/html-validate/issues/54)
+
 # [2.0.0](https://gitlab.com/html-validate/html-validate/compare/v1.16.0...v2.0.0) (2019-11-17)
 
 ### Features
