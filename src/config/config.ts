@@ -425,6 +425,9 @@ export class Config {
 		if (match) {
 			const [, pluginName, key] = match;
 			const plugin = this.plugins.find(cur => cur.name === pluginName);
+			if (!plugin.transformer) {
+				throw new ConfigError(`Plugin does not expose any transformer`);
+			}
 			if (typeof plugin.transformer === "function") {
 				throw new ConfigError(
 					`Transformer "${name}" refers to named transformer but plugin exposes only unnamed, use "${pluginName}" instead.`
@@ -439,8 +442,11 @@ export class Config {
 		}
 
 		/* try to match an unnamed transformer from plugin */
-		const plugin = this.plugins.find(cur => (cur.name = name));
+		const plugin = this.plugins.find(cur => cur.name === name);
 		if (plugin) {
+			if (!plugin.transformer) {
+				throw new ConfigError(`Plugin does not expose any transformer`);
+			}
 			if (typeof plugin.transformer !== "function") {
 				throw new ConfigError(
 					`Transformer "${name}" refers to unnamed transformer but plugin exposes only named.`

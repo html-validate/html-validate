@@ -73,7 +73,7 @@ export interface Plugin {
 	 *   "^.*\\.foo$": "my-plugin:foobar"
 	 * }
 	 */
-	transformer: Transformer | Record<string, Transformer>;
+	transformer?: Transformer | Record<string, Transformer>;
 
 	/**
 	 * Extend metadata validation schema.
