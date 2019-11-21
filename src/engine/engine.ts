@@ -386,9 +386,10 @@ export class Engine<T extends Parser = Parser> {
 		parser: Parser,
 		report: Reporter
 	): Rule {
+		const meta = this.config.getMetaTable();
 		const rule = this.instantiateRule(ruleId, options);
 		rule.name = rule.name || ruleId;
-		rule.init(parser, report, severity);
+		rule.init(parser, report, severity, meta);
 
 		/* call setup callback if present */
 		if (rule.setup) {

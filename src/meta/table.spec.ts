@@ -305,6 +305,35 @@ describe("MetaTable", () => {
 			attr: ["foo", /bar/, /baz/],
 		});
 	});
+
+	describe("getTagsWithProperty()", () => {
+		it("should return list of all tags with given property enabled", () => {
+			expect.assertions(2);
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry({
+					flow: true,
+				}),
+				bar: mockEntry({
+					flow: true,
+					phrasing: true,
+				}),
+			});
+			expect(table.getTagsWithProperty("flow")).toEqual(["foo", "bar"]);
+			expect(table.getTagsWithProperty("phrasing")).toEqual(["bar"]);
+		});
+
+		it("should return empty list if nothing matches", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry({
+					flow: true,
+				}),
+			});
+			expect(table.getTagsWithProperty("phrasing")).toEqual([]);
+		});
+	});
 });
 
 function mockEntry(stub = {}): MetaData {

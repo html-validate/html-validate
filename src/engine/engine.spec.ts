@@ -3,6 +3,7 @@ import { Source } from "../context";
 import { DOMTree } from "../dom";
 import { InvalidTokenError } from "../lexer";
 import "../matchers";
+import { MetaTable } from "../meta";
 import { Parser } from "../parser";
 import { Reporter } from "../reporter";
 import { Rule, RuleOptions } from "../rule";
@@ -355,7 +356,8 @@ describe("Engine", () => {
 				expect(rule.init).toHaveBeenCalledWith(
 					parser,
 					reporter,
-					Severity.ERROR
+					Severity.ERROR,
+					expect.any(MetaTable)
 				);
 				expect(rule.setup).toHaveBeenCalledWith();
 				expect(rule.name).toEqual("void");

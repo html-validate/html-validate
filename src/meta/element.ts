@@ -46,6 +46,21 @@ export interface MetaData {
 	requiredContent?: RequiredContent;
 }
 
+export type MetaLookupableProperty =
+	| "metadata"
+	| "flow"
+	| "sectioning"
+	| "heading"
+	| "phrasing"
+	| "embedded"
+	| "interactive"
+	| "deprecated"
+	| "foreign"
+	| "void"
+	| "transparent"
+	| "scriptSupporting"
+	| "form";
+
 export interface MetaElement extends MetaData {
 	/* filled internally for reverse lookup */
 	tagName: string;

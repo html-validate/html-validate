@@ -5,6 +5,7 @@ import { Event } from "./event";
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";
 import { Rule, ruleDocumentationUrl } from "./rule";
+import { MetaTable } from "./meta";
 
 class MockRule extends Rule {
 	public setup(): void {
@@ -15,6 +16,7 @@ class MockRule extends Rule {
 describe("rule base class", () => {
 	let parser: Parser;
 	let reporter: Reporter;
+	let meta: MetaTable;
 	let rule: Rule;
 	let mockLocation: Location;
 	let mockEvent: Event;
@@ -24,10 +26,12 @@ describe("rule base class", () => {
 		parser.on = jest.fn();
 		reporter = new Reporter();
 		reporter.add = jest.fn();
+		meta = new MetaTable();
+		meta.loadFromFile("../../elements/html5.json");
 
 		rule = new MockRule({});
 		rule.name = "mock-rule";
-		rule.init(parser, reporter, Severity.ERROR);
+		rule.init(parser, reporter, Severity.ERROR, meta);
 		mockLocation = { filename: "mock-file", offset: 1, line: 1, column: 2 };
 		mockEvent = {
 			location: mockLocation,
@@ -172,6 +176,12 @@ describe("rule base class", () => {
 
 	it("documentation() should return null", () => {
 		expect(rule.documentation()).toBeNull();
+	});
+
+	it("getTagsWithProperty() should lookup properties from metadata", () => {
+		const spy = jest.spyOn(meta, "getTagsWithProperty");
+		expect(rule.getTagsWithProperty("form")).toEqual(["form"]);
+		expect(spy).toHaveBeenCalledWith("form");
 	});
 });
 

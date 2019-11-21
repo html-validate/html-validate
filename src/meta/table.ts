@@ -10,6 +10,7 @@ import {
 	MetaData,
 	MetaDataTable,
 	MetaElement,
+	MetaLookupableProperty,
 	PropertyExpression,
 } from "./element";
 import { MetaValidationError } from "./validation-error";
@@ -117,6 +118,15 @@ export class MetaTable {
 		return this.elements[tagName]
 			? Object.assign({}, this.elements[tagName])
 			: null;
+	}
+
+	/**
+	 * Find all tags which has enabled given property.
+	 */
+	public getTagsWithProperty(propName: MetaLookupableProperty): string[] {
+		return Object.entries(this.elements)
+			.filter(([, entry]) => entry[propName])
+			.map(([tagName]) => tagName);
 	}
 
 	private addEntry(tagName: string, entry: MetaData): void {
