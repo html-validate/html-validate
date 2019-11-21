@@ -1,5 +1,19 @@
 # html-validate changelog
 
+# [2.1.0](https://gitlab.com/html-validate/html-validate/compare/v2.0.1...v2.1.0) (2019-11-21)
+
+### Bug Fixes
+
+- **deps:** update dependency chalk to v3 ([f84bd35](https://gitlab.com/html-validate/html-validate/commit/f84bd35b637e558cdcaf01fec9ed6ebc52d895ca))
+- **rules:** wcag/h32 support custom form elements ([e00e1ed](https://gitlab.com/html-validate/html-validate/commit/e00e1ed30e714b679e161308daa07df80e89edde))
+
+### Features
+
+- **meta:** add method to query all tags with given property ([eb3c593](https://gitlab.com/html-validate/html-validate/commit/eb3c59343efa911e4e5ed22f4eb87408e3036325))
+- **meta:** adding `form` property ([edf05b0](https://gitlab.com/html-validate/html-validate/commit/edf05b09d0600be548b4d52b79421f6d13713010))
+- **meta:** allow inheritance ([5c7725d](https://gitlab.com/html-validate/html-validate/commit/5c7725d5d5062e3a55fd189ccd29712bd4cc26cd))
+- **meta:** support [@form](https://gitlab.com/form) category ([66d75a8](https://gitlab.com/html-validate/html-validate/commit/66d75a86783f247c62302c431ab8ce35d22b4215))
+
 ## [2.0.1](https://gitlab.com/html-validate/html-validate/compare/v2.0.0...v2.0.1) (2019-11-19)
 
 ### Bug Fixes
