@@ -144,6 +144,14 @@ const tagNames = [
 describe("HTML elements", () => {
 	const htmlvalidate = new HtmlValidate({
 		extends: ["htmlvalidate:recommended"],
+		elements: [
+			"html5",
+			{
+				"custom-form": {
+					inherit: "form",
+				},
+			},
+		],
 		rules: {
 			/* allow any style of boolean attributes, some tests runs all of them */
 			"attribute-boolean-style": "off",

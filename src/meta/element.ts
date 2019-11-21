@@ -15,6 +15,9 @@ export interface PermittedAttribute {
 }
 
 export interface MetaData {
+	/* special keyword to extend metadata from another entry */
+	inherit?: string;
+
 	/* content categories */
 	metadata: boolean | PropertyExpression;
 	flow: boolean | PropertyExpression;
@@ -31,6 +34,7 @@ export interface MetaData {
 	transparent: boolean;
 	implicitClosed?: string[];
 	scriptSupporting: boolean;
+	form: boolean;
 
 	/* attribute */
 	deprecatedAttributes?: string[];
@@ -44,6 +48,21 @@ export interface MetaData {
 	requiredAncestors?: RequiredAncestors;
 	requiredContent?: RequiredContent;
 }
+
+export type MetaLookupableProperty =
+	| "metadata"
+	| "flow"
+	| "sectioning"
+	| "heading"
+	| "phrasing"
+	| "embedded"
+	| "interactive"
+	| "deprecated"
+	| "foreign"
+	| "void"
+	| "transparent"
+	| "scriptSupporting"
+	| "form";
 
 export interface MetaElement extends MetaData {
 	/* filled internally for reverse lookup */

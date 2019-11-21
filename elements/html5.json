@@ -326,6 +326,7 @@
 
   "form": {
     "flow": true,
+    "form": true,
     "attributes": {
       "autocomplete": ["on", "off"],
       "method": ["get", "post"],
@@ -333,7 +334,7 @@
     },
     "deprecatedAttributes": ["accept"],
     "permittedContent": ["@flow"],
-    "permittedDescendants": [{ "exclude": ["form"] }]
+    "permittedDescendants": [{ "exclude": ["@form"] }]
   },
 
   "frame": {

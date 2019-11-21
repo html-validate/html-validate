@@ -37,6 +37,7 @@ export interface MetaElement {
   void: boolean;
   transparent: boolean;
   scriptSupporting: boolean;
+  form: boolean;
 
   /* attributes */
   deprecatedAttributes: string[];
@@ -49,6 +50,9 @@ export interface MetaElement {
   permittedOrder: PermittedOrder;
   requiredAncestors: string[];
   requiredContent: string[];
+
+  /* inheritance */
+  inherit?: string;
 }
 ```
 
@@ -139,6 +143,11 @@ Some elements will generally only allow a very narrow set of children (such as `
 In HTML5 both the `<script>` and `<template>` tags are considered script-supporting but javascript frameworks and web-components may include additional tags.
 
 [whatwg-scriptsupporting]: https://html.spec.whatwg.org/multipage/dom.html#script-supporting-elements-2
+
+### `form`
+
+Elements which are considered to be a form-element should set this flag to `true`.
+In plain HTML only the `<form>` element is considered a form but when using custom components the form element might be wrapped inside and to make rules related to forms pick up the custom element this flag should be set.
 
 ## Permitted content
 
@@ -364,3 +373,33 @@ elements, e.g. global attributes.
   ]
 }
 ```
+
+## Inheritance
+
+Elements can inherit from other elements using the `inherits` property.
+When inheriting all properties will be duplicated to the new element.
+Any new property set on the element will override the parent element.
+
+Given the following metadata:
+
+```js
+"foo": {
+  "flow": true,
+  "transparent": true
+},
+"bar": {
+  "inherit": "foo",
+  "transparent": false
+}
+```
+
+The final `<bar>` metadata will be merged to:
+
+```js
+"bar": {
+  "flow": true,
+  "transparent": false
+}
+```
+
+Elements being inherited must be defined before the inheritor or an error will be thrown.

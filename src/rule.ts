@@ -16,6 +16,7 @@ import {
 } from "./event";
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";
+import { MetaTable, MetaLookupableProperty } from "./meta";
 
 const homepage = require("../package.json").homepage;
 
@@ -33,6 +34,7 @@ export type RuleConstructor = new (options: RuleOptions) => Rule;
 export abstract class Rule<T = any> {
 	private reporter: Reporter;
 	private parser: Parser;
+	private meta: MetaTable;
 	private enabled: boolean; // rule enabled/disabled, irregardless of severity
 	private severity: number; // rule severity, 0: off, 1: warning 2: error
 	private event: any;
@@ -82,6 +84,10 @@ export abstract class Rule<T = any> {
 	 */
 	public isEnabled(): boolean {
 		return this.enabled && this.severity >= Severity.WARN;
+	}
+
+	public getTagsWithProperty(propName: MetaLookupableProperty): string[] {
+		return this.meta.getTagsWithProperty(propName);
 	}
 
 	/**
@@ -166,10 +172,16 @@ export abstract class Rule<T = any> {
 	 *
 	 * @hidden
 	 */
-	public init(parser: Parser, reporter: Reporter, severity: number): void {
+	public init(
+		parser: Parser,
+		reporter: Reporter,
+		severity: number,
+		meta: MetaTable
+	): void {
 		this.parser = parser;
 		this.reporter = reporter;
 		this.severity = severity;
+		this.meta = meta;
 	}
 
 	/**

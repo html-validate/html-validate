@@ -268,6 +268,8 @@ export class Validator {
 				return node.meta.interactive as boolean;
 			case "@script":
 				return node.meta.scriptSupporting;
+			case "@form":
+				return node.meta.form;
 			default:
 				throw new Error(`Invalid content category "${category}"`);
 		}

@@ -17,8 +17,14 @@ class H32 extends Rule {
 	}
 
 	public setup(): void {
+		/* query all tags with form property, normally this is only the <form> tag
+		 * but with custom element metadata other tags might be considered form
+		 * (usually a component wrapping a <form> element) */
+		const formTags = this.getTagsWithProperty("form");
+		const formSelector = formTags.join(",");
+
 		this.on("dom:ready", (event: DOMReadyEvent) => {
-			const forms = event.document.getElementsByTagName("form");
+			const forms = event.document.querySelectorAll(formSelector);
 			forms.forEach((node: HtmlElement) => {
 				/* find submit buttons */
 				for (const button of node.querySelectorAll("button,input")) {
@@ -28,7 +34,10 @@ class H32 extends Rule {
 					}
 				}
 
-				this.report(node, "<form> element must have a submit button");
+				this.report(
+					node,
+					`<${node.tagName}> element must have a submit button`
+				);
 			});
 		});
 	}

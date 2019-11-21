@@ -5,6 +5,8 @@
     "^.*$": {
       "type": "object",
       "properties": {
+        "inherit": { "type": "string" },
+
         "embedded": { "$ref": "#/definitions/contentCategory" },
         "flow": { "$ref": "#/definitions/contentCategory" },
         "heading": { "$ref": "#/definitions/contentCategory" },
@@ -21,6 +23,7 @@
         "transparent": { "type": "boolean" },
         "implicitClosed": { "type": "array", "contains": { "type": "string" } },
         "scriptSupporting": { "type": "boolean" },
+        "form": { "type": "boolean" },
 
         "deprecatedAttributes": {
           "type": "array",

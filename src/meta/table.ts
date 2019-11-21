@@ -10,6 +10,7 @@ import {
 	MetaData,
 	MetaDataTable,
 	MetaElement,
+	MetaLookupableProperty,
 	PropertyExpression,
 } from "./element";
 import { MetaValidationError } from "./validation-error";
@@ -119,14 +120,37 @@ export class MetaTable {
 			: null;
 	}
 
+	/**
+	 * Find all tags which has enabled given property.
+	 */
+	public getTagsWithProperty(propName: MetaLookupableProperty): string[] {
+		return Object.entries(this.elements)
+			.filter(([, entry]) => entry[propName])
+			.map(([tagName]) => tagName);
+	}
+
 	private addEntry(tagName: string, entry: MetaData): void {
-		const expanded: MetaElement = Object.assign(
-			{
-				tagName,
-				void: false,
-			},
-			entry
-		) as MetaElement;
+		const defaultEntry = {
+			void: false,
+		};
+		let parent = {};
+
+		/* handle inheritance */
+		if (entry.inherit) {
+			const name = entry.inherit;
+			parent = this.elements[name];
+			if (!parent) {
+				throw new UserError(
+					`Element <${tagName}> cannot inherit from <${name}>: no such element`
+				);
+			}
+			delete entry.inherit;
+		}
+
+		/* merge all sources together */
+		const expanded: MetaElement = Object.assign(defaultEntry, parent, entry, {
+			tagName,
+		}) as MetaElement;
 		expandRegex(expanded);
 
 		this.elements[tagName] = expanded;
