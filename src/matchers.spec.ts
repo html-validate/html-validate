@@ -2,7 +2,7 @@ import { Severity } from "./config";
 import { Token, TokenType } from "./lexer";
 import "./matchers";
 import { Report, Reporter } from "./reporter";
-import stripAnsi from "strip-ansi";
+import stripAnsi = require("strip-ansi");
 
 let reportOk: Report;
 let reportError: Report;
