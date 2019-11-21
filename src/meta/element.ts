@@ -31,6 +31,7 @@ export interface MetaData {
 	transparent: boolean;
 	implicitClosed?: string[];
 	scriptSupporting: boolean;
+	form: boolean;
 
 	/* attribute */
 	deprecatedAttributes?: string[];

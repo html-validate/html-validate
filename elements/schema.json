@@ -21,6 +21,7 @@
         "transparent": { "type": "boolean" },
         "implicitClosed": { "type": "array", "contains": { "type": "string" } },
         "scriptSupporting": { "type": "boolean" },
+        "form": { "type": "boolean" },
 
         "deprecatedAttributes": {
           "type": "array",

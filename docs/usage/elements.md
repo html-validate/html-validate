@@ -37,6 +37,7 @@ export interface MetaElement {
   void: boolean;
   transparent: boolean;
   scriptSupporting: boolean;
+  form: boolean;
 
   /* attributes */
   deprecatedAttributes: string[];
@@ -139,6 +140,11 @@ Some elements will generally only allow a very narrow set of children (such as `
 In HTML5 both the `<script>` and `<template>` tags are considered script-supporting but javascript frameworks and web-components may include additional tags.
 
 [whatwg-scriptsupporting]: https://html.spec.whatwg.org/multipage/dom.html#script-supporting-elements-2
+
+### `form`
+
+Elements which are considered to be a form-element should set this flag to `true`.
+In plain HTML only the `<form>` element is considered a form but when using custom components the form element might be wrapped inside and to make rules related to forms pick up the custom element this flag should be set.
 
 ## Permitted content
 
