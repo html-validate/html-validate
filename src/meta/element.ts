@@ -15,6 +15,9 @@ export interface PermittedAttribute {
 }
 
 export interface MetaData {
+	/* special keyword to extend metadata from another entry */
+	inherit?: string;
+
 	/* content categories */
 	metadata: boolean | PropertyExpression;
 	flow: boolean | PropertyExpression;

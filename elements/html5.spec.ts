@@ -148,8 +148,7 @@ describe("HTML elements", () => {
 			"html5",
 			{
 				"custom-form": {
-					flow: true,
-					form: true,
+					inherit: "form",
 				},
 			},
 		],

@@ -130,13 +130,27 @@ export class MetaTable {
 	}
 
 	private addEntry(tagName: string, entry: MetaData): void {
-		const expanded: MetaElement = Object.assign(
-			{
-				tagName,
-				void: false,
-			},
-			entry
-		) as MetaElement;
+		const defaultEntry = {
+			void: false,
+		};
+		let parent = {};
+
+		/* handle inheritance */
+		if (entry.inherit) {
+			const name = entry.inherit;
+			parent = this.elements[name];
+			if (!parent) {
+				throw new UserError(
+					`Element <${tagName}> cannot inherit from <${name}>: no such element`
+				);
+			}
+			delete entry.inherit;
+		}
+
+		/* merge all sources together */
+		const expanded: MetaElement = Object.assign(defaultEntry, parent, entry, {
+			tagName,
+		}) as MetaElement;
 		expandRegex(expanded);
 
 		this.elements[tagName] = expanded;

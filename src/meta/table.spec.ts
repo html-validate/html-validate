@@ -306,6 +306,61 @@ describe("MetaTable", () => {
 		});
 	});
 
+	describe("inheritance", () => {
+		it("should be supported", () => {
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry({
+					flow: true,
+				}),
+				bar: {
+					inherit: "foo",
+				} as MetaData,
+			});
+			const bar = table.getMetaFor("bar");
+			expect(bar).toEqual(
+				expect.objectContaining({
+					tagName: "bar",
+					flow: true,
+					phrasing: false,
+				})
+			);
+		});
+
+		it("should allow overriding", () => {
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry({
+					flow: true,
+					phrasing: true,
+				}),
+				bar: {
+					inherit: "foo",
+					flow: false,
+				} as MetaData,
+			});
+			const bar = table.getMetaFor("bar");
+			expect(bar).toEqual(
+				expect.objectContaining({
+					tagName: "bar",
+					flow: false,
+					phrasing: true,
+				})
+			);
+		});
+
+		it("should throw error when extending missing element", () => {
+			const table = new MetaTable();
+			expect(() => {
+				table.loadFromObject({
+					foo: {
+						inherit: "bar",
+					} as MetaData,
+				});
+			}).toThrow("Element <foo> cannot inherit from <bar>: no such element");
+		});
+	});
+
 	describe("getTagsWithProperty()", () => {
 		it("should return list of all tags with given property enabled", () => {
 			expect.assertions(2);

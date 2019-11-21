@@ -50,6 +50,9 @@ export interface MetaElement {
   permittedOrder: PermittedOrder;
   requiredAncestors: string[];
   requiredContent: string[];
+
+  /* inheritance */
+  inherit?: string;
 }
 ```
 
@@ -370,3 +373,33 @@ elements, e.g. global attributes.
   ]
 }
 ```
+
+## Inheritance
+
+Elements can inherit from other elements using the `inherits` property.
+When inheriting all properties will be duplicated to the new element.
+Any new property set on the element will override the parent element.
+
+Given the following metadata:
+
+```js
+"foo": {
+  "flow": true,
+  "transparent": true
+},
+"bar": {
+  "inherit": "foo",
+  "transparent": false
+}
+```
+
+The final `<bar>` metadata will be merged to:
+
+```js
+"bar": {
+  "flow": true,
+  "transparent": false
+}
+```
+
+Elements being inherited must be defined before the inheritor or an error will be thrown.

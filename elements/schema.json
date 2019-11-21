@@ -5,6 +5,8 @@
     "^.*$": {
       "type": "object",
       "properties": {
+        "inherit": { "type": "string" },
+
         "embedded": { "$ref": "#/definitions/contentCategory" },
         "flow": { "$ref": "#/definitions/contentCategory" },
         "heading": { "$ref": "#/definitions/contentCategory" },
