@@ -6,6 +6,14 @@ describe("wcag/h32", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			elements: [
+				"html5",
+				{
+					"my-form": {
+						form: true,
+					},
+				},
+			],
 			rules: { "wcag/h32": "error" },
 		});
 	});
@@ -41,6 +49,15 @@ describe("wcag/h32", () => {
 		expect(report).toHaveError(
 			"WCAG/H32",
 			"<form> element must have a submit button"
+		);
+	});
+
+	it("should support custom elements", () => {
+		const report = htmlvalidate.validateString("<my-form></my-form>");
+		expect(report).toBeInvalid();
+		expect(report).toHaveError(
+			"WCAG/H32",
+			"<my-form> element must have a submit button"
 		);
 	});
 
