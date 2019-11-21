@@ -152,6 +152,40 @@ describe("Meta validator", () => {
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
 		});
 
+		it("should validate @script", () => {
+			const table = new MetaTable();
+			table.loadFromObject({
+				nil: mockEntry({ void: true }),
+				scripting: mockEntry({
+					scriptSupporting: true,
+					void: true,
+				}),
+			});
+			const parser = new Parser(new ConfigMock(table));
+			const [script, nil] = parser.parseHtml(
+				"<scripting/><nil/>"
+			).root.childElements;
+			const rules = ["@script"];
+			expect(Validator.validatePermitted(script, rules)).toBeTruthy();
+			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
+		});
+
+		it("should validate @form", () => {
+			const table = new MetaTable();
+			table.loadFromObject({
+				nil: mockEntry({ void: true }),
+				form: mockEntry({
+					form: true,
+					void: true,
+				}),
+			});
+			const parser = new Parser(new ConfigMock(table));
+			const [form, nil] = parser.parseHtml("<form/><nil/>").root.childElements;
+			const rules = ["@form"];
+			expect(Validator.validatePermitted(form, rules)).toBeTruthy();
+			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
+		});
+
 		it("should validate multiple rules (OR)", () => {
 			const table = new MetaTable();
 			table.loadFromObject({

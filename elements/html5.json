@@ -334,7 +334,7 @@
     },
     "deprecatedAttributes": ["accept"],
     "permittedContent": ["@flow"],
-    "permittedDescendants": [{ "exclude": ["form"] }]
+    "permittedDescendants": [{ "exclude": ["@form"] }]
   },
 
   "frame": {
