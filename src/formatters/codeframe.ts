@@ -1,5 +1,5 @@
 import { codeFrameColumns } from "@babel/code-frame";
-import chalk from "chalk";
+import chalk = require("chalk");
 import path from "path";
 import { FormatterModule } from ".";
 import { Message, Result } from "../reporter";

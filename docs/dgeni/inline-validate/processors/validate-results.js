@@ -11,13 +11,13 @@ module.exports = function generateValidationResultsProcessor(log, validateMap) {
 	};
 
 	function $process() {
-		const oldEnabled = chalk.enabled;
-		chalk.enabled = false;
+		const oldLevel = chalk.level;
+		chalk.level = 0;
 		validateMap.forEach(validation => {
 			htmlvalidate = new HtmlValidate(validation.config);
 			validation.report = htmlvalidate.validateString(validation.markup);
 			validation.codeframe = codeframe(validation.report.results);
 		});
-		chalk.enabled = oldEnabled;
+		chalk.level = oldLevel;
 	}
 };
