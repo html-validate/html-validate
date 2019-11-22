@@ -15,7 +15,7 @@ export interface Plugin {
 	 *
 	 * Read-only property set by config.
 	 */
-	name: string;
+	name?: string;
 
 	/**
 	 * Initialization callback.
@@ -44,12 +44,12 @@ export interface Plugin {
 	 *
 	 * "extends": ["my-plugin:foobar"]
 	 */
-	configs: { [key: string]: ConfigData };
+	configs?: Record<string, ConfigData>;
 
 	/**
 	 * List of new rules present.
 	 */
-	rules: { [key: string]: RuleConstructor };
+	rules?: Record<string, RuleConstructor>;
 
 	/**
 	 * Transformer available in this plugin.
