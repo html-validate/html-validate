@@ -14,7 +14,7 @@ export interface Plugin {
    *
    * Read-only property set by config.
    */
-  name: string;
+  name?: string;
 
   /**
    * Initialization callback.
@@ -43,12 +43,12 @@ export interface Plugin {
    *
    * "extends": ["my-plugin:foobar"]
    */
-  configs: { [key: string]: ConfigData };
+  configs?: { [key: string]: ConfigData };
 
   /**
    * List of new rules present.
    */
-  rules: { [key: string]: RuleConstructor };
+  rules?: { [key: string]: RuleConstructor };
 
   /**
    * Transformer available in this plugin.
@@ -72,7 +72,7 @@ export interface Plugin {
    *   "^.*\\.foo$": "my-plugin:foobar"
    * }
    */
-  transformer: Transformer | Record<string, Transformer>;
+  transformer?: Transformer | Record<string, Transformer>;
 
   /**
    * Extend metadata validation schema.
