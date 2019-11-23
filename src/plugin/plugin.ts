@@ -13,7 +13,14 @@ export interface Plugin {
 	/**
 	 * Name of the plugin.
 	 *
-	 * Read-only property set by config.
+	 * If specified this is the name used when referring to the plugin. Default is
+	 * to use the name/path the user used when loading the plugin. To be less
+	 * confusing for users you should use the same name as your package.
+	 *
+	 * The name must be a valid package name according to NPM (basically lowercase
+	 * characters, must not begin with dot, slash or non-url safe characters).
+	 *
+	 * Hint: import and use the name from `package.json`.
 	 */
 	name?: string;
 

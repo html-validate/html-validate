@@ -27,6 +27,56 @@ describe("Plugin", () => {
 		mockPlugin = require("mock-plugin");
 	});
 
+	describe("name", () => {
+		it("should use plugin name if set", () => {
+			expect.assertions(1);
+			mockPlugin.name = "my-plugin";
+			mockPlugin.configs = {
+				foo: {
+					rules: {
+						"my-rule": "error",
+					},
+				},
+			};
+			config = Config.fromObject({
+				extends: ["my-plugin:foo"],
+				plugins: ["mock-plugin"],
+			});
+			expect(config.get()).toEqual({
+				extends: ["my-plugin:foo"],
+				plugins: ["mock-plugin"],
+				rules: {
+					"my-rule": "error",
+				},
+				transform: {},
+			});
+		});
+
+		it("should default to package name", () => {
+			expect.assertions(1);
+			mockPlugin.name = null;
+			mockPlugin.configs = {
+				foo: {
+					rules: {
+						"my-rule": "error",
+					},
+				},
+			};
+			config = Config.fromObject({
+				extends: ["mock-plugin:foo"],
+				plugins: ["mock-plugin"],
+			});
+			expect(config.get()).toEqual({
+				extends: ["mock-plugin:foo"],
+				plugins: ["mock-plugin"],
+				rules: {
+					"my-rule": "error",
+				},
+				transform: {},
+			});
+		});
+	});
+
 	describe("configs", () => {
 		it("should add extendable predefined configurations", () => {
 			mockPlugin.configs = {

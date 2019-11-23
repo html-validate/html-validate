@@ -300,7 +300,7 @@ export class Config {
 				"<rootDir>",
 				this.rootDir
 			)) as Plugin;
-			plugin.name = moduleName;
+			plugin.name = plugin.name || moduleName;
 			return plugin;
 		});
 	}

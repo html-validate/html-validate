@@ -8,7 +8,7 @@ import { Severity } from "./severity";
 
 let mockElements: any;
 jest.mock("mock-elements", () => mockElements, { virtual: true });
-jest.mock("mock-plugin", () => ({ name: "mock plugin" }), { virtual: true });
+jest.mock("mock-plugin", () => ({}), { virtual: true });
 
 /* a mocked file which throws an exception when loaded */
 jest.mock(
