@@ -4,6 +4,7 @@ import { Source } from "../context";
 import { UserError } from "../error/user-error";
 import { Transformer, TRANSFORMER_API } from "../transform";
 import { Config } from "./config";
+import { ConfigError } from "./error";
 import { Severity } from "./severity";
 
 let mockElements: any;
@@ -315,6 +316,16 @@ describe("config", () => {
 			});
 			const metatable = config.getMetaTable();
 			expect(Object.keys(metatable.elements)).not.toHaveLength(0);
+		});
+
+		it("should throw ConfigError when module doesn't exist", () => {
+			const config = Config.fromObject({
+				elements: ["missing-module"],
+			});
+			expect(() => config.getMetaTable()).toThrow(ConfigError);
+			expect(() => config.getMetaTable()).toThrow(
+				/Failed to load elements from "missing-module": .*/
+			);
 		});
 	});
 

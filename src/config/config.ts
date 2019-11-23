@@ -231,8 +231,15 @@ export class Config {
 			}
 
 			/* assume it is loadable with require() */
-			// eslint-disable-next-line security/detect-non-literal-require
-			metaTable.loadFromObject(require(entry));
+			try {
+				// eslint-disable-next-line security/detect-non-literal-require
+				metaTable.loadFromObject(require(entry));
+			} catch (err) {
+				throw new ConfigError(
+					`Failed to load elements from "${entry}": ${err.message}`,
+					err
+				);
+			}
 		}
 
 		metaTable.init();
