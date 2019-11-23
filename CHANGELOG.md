@@ -1,5 +1,17 @@
 # html-validate changelog
 
+# [2.2.0](https://gitlab.com/html-validate/html-validate/compare/v2.1.0...v2.2.0) (2019-11-23)
+
+### Bug Fixes
+
+- **config:** throw ConfigError when elements cannot be loaded ([62c08e7](https://gitlab.com/html-validate/html-validate/commit/62c08e7c8bf9deaa47f8b9f1afbf48dcc69bba32))
+- **docs:** update plugin docs ([340d0ca](https://gitlab.com/html-validate/html-validate/commit/340d0ca23875331b4267a7fd0226532904ed8fda))
+- **plugin:** make all fields optional ([a587239](https://gitlab.com/html-validate/html-validate/commit/a5872397a9a0732a4cea1901c65e024767809d4a))
+
+### Features
+
+- **plugin:** allow specifying name ([6554f72](https://gitlab.com/html-validate/html-validate/commit/6554f72fb11e2da59ab07774f0898b20654e2a5b))
+
 # [2.1.0](https://gitlab.com/html-validate/html-validate/compare/v2.0.1...v2.1.0) (2019-11-21)
 
 ### Bug Fixes
