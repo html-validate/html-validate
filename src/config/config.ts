@@ -341,6 +341,9 @@ export class Config {
 	public transformSource(source: Source, filename?: string): Source[] {
 		const transformer = this.findTransformer(filename || source.filename);
 		const context: TransformContext = {
+			hasChain: (filename: string): boolean => {
+				return !!this.findTransformer(filename);
+			},
 			chain: (source: Source, filename: string) => {
 				return this.transformSource(source, filename);
 			},

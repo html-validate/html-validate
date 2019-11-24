@@ -499,6 +499,30 @@ describe("config", () => {
 			`);
 		});
 
+		it("should support testing if chain is present", () => {
+			const config = Config.fromObject({
+				transform: {
+					"^.*\\.foo$": "mock-transform-optional-chain",
+					"^.*\\.bar$": "mock-transform",
+				},
+			});
+			config.init();
+			source.filename = "/path/to/test.bar.foo";
+			expect(config.transformSource(source)).toMatchInlineSnapshot(`
+				Array [
+				  Object {
+				    "column": 1,
+				    "data": "transformed source (was: data from mock-transform-optional-chain (was: original data))",
+				    "filename": "/path/to/test.bar.foo",
+				    "line": 1,
+				    "originalData": "original data",
+				  },
+				]
+			`);
+			source.filename = "/path/to/test.baz.foo";
+			expect(config.transformSource(source)).toEqual([]);
+		});
+
 		it("should replace <rootDir>", () => {
 			const config = Config.fromObject({
 				transform: {
