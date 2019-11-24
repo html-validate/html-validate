@@ -18,18 +18,21 @@ exports[`should generate configuration for angularjs 1`] = `
 exports[`should generate configuration for combined 1`] = `
 "{
   \\"elements\\": [
-    \\"html5\\",
-    \\"html-validate-vue/elements\\"
+    \\"html5\\"
   ],
   \\"extends\\": [
-    \\"htmlvalidate:recommended\\"
+    \\"htmlvalidate:recommended\\",
+    \\"html-valudate-vue:recommended\\"
   ],
   \\"transform\\": {
     \\"^.*\\\\\\\\.js$\\": \\"html-validate-angular/js\\",
     \\"^.*\\\\\\\\.html$\\": \\"html-validate-angular/html\\",
     \\"^.*\\\\\\\\.vue$\\": \\"html-validate-vue\\",
     \\"^.*\\\\\\\\.md$\\": \\"html-validate-markdown\\"
-  }
+  },
+  \\"plugins\\": [
+    \\"html-validate-vue\\"
+  ]
 }"
 `;
 
@@ -61,11 +64,14 @@ exports[`should generate configuration for markdown 1`] = `
 exports[`should generate configuration for vuejs 1`] = `
 "{
   \\"elements\\": [
-    \\"html5\\",
-    \\"html-validate-vue/elements\\"
+    \\"html5\\"
   ],
   \\"extends\\": [
-    \\"htmlvalidate:recommended\\"
+    \\"htmlvalidate:recommended\\",
+    \\"html-valudate-vue:recommended\\"
+  ],
+  \\"plugins\\": [
+    \\"html-validate-vue\\"
   ],
   \\"transform\\": {
     \\"^.*\\\\\\\\.vue$\\": \\"html-validate-vue\\"
