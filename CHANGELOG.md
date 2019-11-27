@@ -1,5 +1,15 @@
 # html-validate changelog
 
+# [2.3.0](https://gitlab.com/html-validate/html-validate/compare/v2.2.0...v2.3.0) (2019-11-27)
+
+### Bug Fixes
+
+- **config:** update `--init` config for html-validate-vue@2 ([6553ded](https://gitlab.com/html-validate/html-validate/commit/6553ded78cf8cd51c8eec9ba2ef08f8e25e84612))
+
+### Features
+
+- **transform:** support `hasChain` to test if a transformer is present ([e8ef4f5](https://gitlab.com/html-validate/html-validate/commit/e8ef4f5e1f89c70bad43cbf5d04f47789080ab4e))
+
 # [2.2.0](https://gitlab.com/html-validate/html-validate/compare/v2.1.0...v2.2.0) (2019-11-23)
 
 ### Bug Fixes
