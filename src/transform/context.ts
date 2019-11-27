@@ -2,6 +2,16 @@ import { Source } from "../context";
 
 export interface TransformContext {
 	/**
+	 * Test if an additional chainable transformer is present.
+	 *
+	 * Returns true only if there is a transformer configured for the given
+	 * filename.
+	 *
+	 * @param filename - Filename to use to match next transformer.
+	 */
+	hasChain(filename: string): boolean;
+
+	/**
 	 * Chain transformations.
 	 *
 	 * Sometimes multiple transformers must be applied. For instance, a Markdown
