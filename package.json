@@ -147,7 +147,7 @@
     "@semantic-release/npm": "5.3.4",
     "@semantic-release/release-notes-generator": "7.3.4",
     "@types/babel__code-frame": "7.0.1",
-    "@types/estree": "0.0.39",
+    "@types/estree": "0.0.40",
     "@types/glob": "7.1.1",
     "@types/inquirer": "6.5.0",
     "@types/jest": "24.0.23",
