@@ -186,7 +186,7 @@
     "jest-diff": "24.9.0",
     "jest-junit": "9.0.0",
     "jquery": "3.4.1",
-    "lint-staged": "9.4.3",
+    "lint-staged": "9.5.0",
     "load-grunt-tasks": "5.1.0",
     "minimatch": "3.0.4",
     "prettier": "1.19.1",
