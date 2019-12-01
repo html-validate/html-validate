@@ -1,5 +1,17 @@
 # html-validate changelog
 
+# [2.4.0](https://gitlab.com/html-validate/html-validate/compare/v2.3.0...v2.4.0) (2019-12-01)
+
+### Bug Fixes
+
+- **config:** `init` can now safely be called multiple times ([ed46c19](https://gitlab.com/html-validate/html-validate/commit/ed46c19ef8c3f8a01a5db51f0a879f10fde597a4))
+- **htmlvalidate:** initialize global config if needed ([6d05747](https://gitlab.com/html-validate/html-validate/commit/6d05747de0114b72188955a8c2a11f3816dfdc6d))
+
+### Features
+
+- **htmlvalidate:** retain `offset` when yielding multiple sources ([fe1705e](https://gitlab.com/html-validate/html-validate/commit/fe1705e13950c0bbb281e1806432b12d3eebed1a))
+- **transform:** add `offsetToLineColumn` helper ([1e61d00](https://gitlab.com/html-validate/html-validate/commit/1e61d001fcd29d434bd2d68a7e7d9a8a12feea5b))
+
 # [2.3.0](https://gitlab.com/html-validate/html-validate/compare/v2.2.0...v2.3.0) (2019-11-27)
 
 ### Bug Fixes
