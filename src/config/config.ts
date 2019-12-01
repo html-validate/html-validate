@@ -75,6 +75,8 @@ function loadFromFile(filename: string): ConfigData {
 export class Config {
 	private config: ConfigData;
 	private configurations: Map<string, ConfigData>;
+	private initialized: boolean;
+
 	protected metaTable: MetaTable;
 	protected plugins: Plugin[];
 	protected transformers: TransformerEntry[];
@@ -130,6 +132,7 @@ export class Config {
 		this.config = mergeInternal(initial, options || {});
 		this.metaTable = null;
 		this.rootDir = this.findRootDir();
+		this.initialized = false;
 
 		/* load plugins */
 		this.plugins = this.loadPlugins(this.config.plugins || []);
@@ -150,13 +153,20 @@ export class Config {
 	/**
 	 * Initialize plugins, transforms etc.
 	 *
-	 * Must be called before trying to use config.
+	 * Must be called before trying to use config. Can safely be called multiple
+	 * times.
 	 */
 	public init(): void {
+		if (this.initialized) {
+			return;
+		}
+
 		/* precompile transform patterns */
 		this.transformers = this.precompileTransformers(
 			this.config.transform || {}
 		);
+
+		this.initialized = true;
 	}
 
 	/**

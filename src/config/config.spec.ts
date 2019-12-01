@@ -614,6 +614,17 @@ describe("config", () => {
 	});
 
 	describe("init()", () => {
+		it("should handle being called multiple times", () => {
+			expect.assertions(1);
+			const config = Config.fromObject({});
+			const spy = jest
+				.spyOn(config as any, "precompileTransformers")
+				.mockReturnValue([]);
+			config.init();
+			config.init();
+			expect(spy).toHaveBeenCalledTimes(1);
+		});
+
 		it("should handle unset fields", () => {
 			const config = Config.fromObject({
 				plugins: null,
