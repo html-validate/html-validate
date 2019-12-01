@@ -90,6 +90,31 @@ const te = TemplateExtractor.fromFilename("my-file.js");
 const source = te.extractObjectProperty("template");
 ```
 
+## Source
+
+The validator engine works on a `Source` object.
+A transformer take a source object as argument and returns zero or more new sources.
+
+```typescript
+export interface Source {
+  data: string;
+  filename: string;
+  line: number;
+  column: number;
+  offset: number;
+  originalData?: string;
+  hooks?: SourceHooks;
+}
+```
+
+The `data` property is the markup/source code for the source object.
+Since the `data` property might be only a small part of the original file there is also the related property `originalData` which is the full markup/source code of the file.
+`line`, `column` and `offset` is the starting location of the `data` relative to `originalData`.
+Line and column start at 1 and offset start at 0.
+`filename` is always the original filename.
+If the transformer wants to apply hooks for later processing they are set directly on the `hooks` property.
+Hooks should only be added in the last transformer, if chaining is used the hook might be overwritten or ignored.
+
 ## Source hooks
 
 Transformers can add hooks for additional processing by setting `source.hooks`:
