@@ -156,7 +156,7 @@
     "@types/node": "11.15.3",
     "@typescript-eslint/eslint-plugin": "2.9.0",
     "@typescript-eslint/parser": "2.9.0",
-    "autoprefixer": "9.7.2",
+    "autoprefixer": "9.7.3",
     "babelify": "10.0.0",
     "bootstrap-sass": "3.4.1",
     "canonical-path": "1.0.0",
