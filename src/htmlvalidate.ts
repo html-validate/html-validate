@@ -206,6 +206,7 @@ class HtmlValidate {
 		/* special case when the global configuration is marked as root, should not
 		 * try to load and more configuration files */
 		if (this.globalConfig.isRootFound()) {
+			this.globalConfig.init();
 			return this.globalConfig;
 		}
 
