@@ -169,13 +169,20 @@ describe("Reporter", () => {
 		it("should map filenames to sources", () => {
 			const report = new Reporter();
 			const sources: Source[] = [
-				{ filename: "foo.html", data: "<foo></foo>", line: 1, column: 1 },
+				{
+					filename: "foo.html",
+					data: "<foo></foo>",
+					line: 1,
+					column: 1,
+					offset: 0,
+				},
 				{
 					filename: "bar.html",
 					data: "transformed",
 					originalData: "<bar></bar>",
 					line: 1,
 					column: 1,
+					offset: 0,
 				},
 			];
 			report.addManual("foo.html", createMessage("error", 1));

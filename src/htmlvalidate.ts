@@ -43,10 +43,11 @@ class HtmlValidate {
 		hooks?: SourceHooks
 	): Report {
 		const source = {
-			column: 1,
 			data: str,
 			filename: filename || "inline",
 			line: 1,
+			column: 1,
+			offset: 0,
 			hooks,
 		};
 		return this.validateSource(source);
@@ -206,6 +207,7 @@ class HtmlValidate {
 		/* special case when the global configuration is marked as root, should not
 		 * try to load and more configuration files */
 		if (this.globalConfig.isRootFound()) {
+			this.globalConfig.init();
 			return this.globalConfig;
 		}
 

@@ -19,6 +19,7 @@ export function transformFile(
 		filename,
 		line: 1,
 		column: 1,
+		offset: 0,
 		data,
 	};
 	return transformSource(fn, source, chain);
@@ -40,6 +41,7 @@ export function transformString(
 		filename: "inline",
 		line: 1,
 		column: 1,
+		offset: 0,
 		data,
 	};
 	return transformSource(fn, source, chain);

@@ -19,7 +19,7 @@ export class Context {
 		this.state = undefined;
 		this.string = source.data;
 		this.filename = source.filename;
-		this.offset = 0;
+		this.offset = source.offset;
 		this.line = source.line;
 		this.column = source.column;
 		this.contentModel = ContentModel.TEXT;

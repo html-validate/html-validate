@@ -9,6 +9,7 @@ function inlineSource(source: string, { line = 1, column = 1 } = {}): Source {
 		filename: "inline",
 		line,
 		column,
+		offset: 0,
 	};
 }
 

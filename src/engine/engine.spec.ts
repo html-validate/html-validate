@@ -14,6 +14,7 @@ function inline(source: string): Source {
 		filename: "inline",
 		line: 1,
 		column: 1,
+		offset: 0,
 		data: source,
 	};
 }

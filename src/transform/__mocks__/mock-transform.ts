@@ -11,6 +11,7 @@ function mockTransform(source: Source): Iterable<Source> {
 			filename: source.filename,
 			line: 1,
 			column: 1,
+			offset: 0,
 			originalData: source.originalData || source.data,
 		},
 	];

@@ -39,8 +39,37 @@ export interface SourceHooks {
 export interface Source {
 	data: string;
 	filename: string;
+
+	/**
+	 * Line in the original data.
+	 *
+	 * Starts at 1 (first line).
+	 */
 	line: number;
+
+	/**
+	 * Column in the original data.
+	 *
+	 * Starts at 1 (first column).
+	 */
 	column: number;
+
+	/**
+	 * Offset in the original data.
+	 *
+	 * Starts at 0 (first character).
+	 */
+	offset: number;
+
+	/**
+	 * Original data. When a transformer extracts a portion of the original source
+	 * this must be set to the full original source.
+	 *
+	 * Since the transformer might be chained always test if the input source
+	 * itself has `originalData` set, e.g.:
+	 *
+	 * `originalData = input.originalData || input.data`.
+	 */
 	originalData?: string;
 
 	/**

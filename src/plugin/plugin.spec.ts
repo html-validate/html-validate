@@ -21,6 +21,7 @@ describe("Plugin", () => {
 			filename: "inline",
 			line: 1,
 			column: 1,
+			offset: 0,
 		};
 
 		/* reset mock */
@@ -284,6 +285,7 @@ describe("Plugin", () => {
 						filename: source.filename,
 						line: source.line,
 						column: source.column,
+						offset: source.offset,
 						originalData: source.data,
 					},
 				];
@@ -302,6 +304,7 @@ describe("Plugin", () => {
 				filename: "/path/to/mock.filename",
 				line: 2,
 				column: 3,
+				offset: 4,
 			});
 			expect(sources).toMatchInlineSnapshot(`
 				Array [
@@ -310,6 +313,7 @@ describe("Plugin", () => {
 				    "data": "transformed from unnamed transformer",
 				    "filename": "/path/to/mock.filename",
 				    "line": 2,
+				    "offset": 4,
 				    "originalData": "original data",
 				  },
 				]
@@ -325,6 +329,7 @@ describe("Plugin", () => {
 						filename: source.filename,
 						line: source.line,
 						column: source.column,
+						offset: source.offset,
 						originalData: source.data,
 					},
 				];
@@ -345,6 +350,7 @@ describe("Plugin", () => {
 				filename: "/path/to/mock.filename",
 				line: 2,
 				column: 3,
+				offset: 4,
 			});
 			expect(sources).toMatchInlineSnapshot(`
 				Array [
@@ -353,6 +359,7 @@ describe("Plugin", () => {
 				    "data": "transformed from named transformer",
 				    "filename": "/path/to/mock.filename",
 				    "line": 2,
+				    "offset": 4,
 				    "originalData": "original data",
 				  },
 				]

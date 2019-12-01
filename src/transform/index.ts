@@ -3,6 +3,7 @@ import { TransformContext } from "./context";
 
 export { TransformContext } from "./context";
 export { TemplateExtractor } from "./template";
+export { offsetToLineColumn } from "./helpers";
 
 export type Transformer = (
 	this: TransformContext,

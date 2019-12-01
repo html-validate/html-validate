@@ -338,6 +338,7 @@ describe("config", () => {
 				data: "original data",
 				line: 2,
 				column: 3,
+				offset: 4,
 			};
 		});
 
@@ -355,6 +356,7 @@ describe("config", () => {
 				    "data": "transformed source (was: original data)",
 				    "filename": "/path/to/test.foo",
 				    "line": 1,
+				    "offset": 0,
 				    "originalData": "original data",
 				  },
 				]
@@ -410,6 +412,7 @@ describe("config", () => {
 					    "data": "transformed from foo.unnamed",
 					    "filename": "foo.unnamed",
 					    "line": 2,
+					    "offset": 4,
 					  },
 					]
 				`);
@@ -425,6 +428,7 @@ describe("config", () => {
 					    "data": "transformed from bar.named",
 					    "filename": "bar.named",
 					    "line": 2,
+					    "offset": 4,
 					  },
 					]
 				`);
@@ -440,6 +444,7 @@ describe("config", () => {
 					    "data": "transformed source (was: original data)",
 					    "filename": "bar.nonplugin",
 					    "line": 1,
+					    "offset": 0,
 					    "originalData": "original data",
 					  },
 					]
@@ -472,6 +477,7 @@ describe("config", () => {
 				    "data": "original data",
 				    "filename": "/path/to/test.foo",
 				    "line": 2,
+				    "offset": 4,
 				  },
 				]
 			`);
@@ -493,6 +499,7 @@ describe("config", () => {
 				    "data": "transformed source (was: data from mock-transform-chain-foo (was: original data))",
 				    "filename": "/path/to/test.bar",
 				    "line": 1,
+				    "offset": 0,
 				    "originalData": "original data",
 				  },
 				]
@@ -515,6 +522,7 @@ describe("config", () => {
 				    "data": "transformed source (was: data from mock-transform-optional-chain (was: original data))",
 				    "filename": "/path/to/test.bar.foo",
 				    "line": 1,
+				    "offset": 0,
 				    "originalData": "original data",
 				  },
 				]
@@ -537,6 +545,7 @@ describe("config", () => {
 				    "data": "transformed source (was: original data)",
 				    "filename": "/path/to/test.foo",
 				    "line": 1,
+				    "offset": 0,
 				    "originalData": "original data",
 				  },
 				]
@@ -605,6 +614,7 @@ describe("config", () => {
 					",
 					    "filename": "test-files/parser/simple.html",
 					    "line": 1,
+					    "offset": 0,
 					    "originalData": "<p>Lorem ipsum</p>
 					",
 					  },
@@ -614,6 +624,17 @@ describe("config", () => {
 	});
 
 	describe("init()", () => {
+		it("should handle being called multiple times", () => {
+			expect.assertions(1);
+			const config = Config.fromObject({});
+			const spy = jest
+				.spyOn(config as any, "precompileTransformers")
+				.mockReturnValue([]);
+			config.init();
+			config.init();
+			expect(spy).toHaveBeenCalledTimes(1);
+		});
+
 		it("should handle unset fields", () => {
 			const config = Config.fromObject({
 				plugins: null,
