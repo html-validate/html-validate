@@ -17,6 +17,7 @@ describe("a17y helpers", () => {
 			filename: "inline",
 			line: 1,
 			column: 1,
+			offset: 0,
 			hooks: {
 				processAttribute,
 			},

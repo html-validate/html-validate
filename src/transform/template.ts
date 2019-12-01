@@ -27,13 +27,39 @@ function joinTemplateLiteral(nodes: ESTree.TemplateElement[]): string {
 	return output;
 }
 
+/**
+ * espree locations does not include offset, need to calculate it manually.
+ */
+function computeOffset(position: ESTree.Position, data: string): number {
+	let line = position.line;
+	let column = position.column + 1;
+	for (let i = 0; i < data.length; i++) {
+		if (line > 1) {
+			/* not yet on the correct line */
+			if (data[i] === "\n") {
+				line--;
+			}
+		} else if (column > 1) {
+			/* not yet on the correct column */
+			column--;
+		} else {
+			/* line/column found, return current position */
+			return i;
+		}
+	}
+	/* istanbul ignore next: should never reach this line unless espree passes bad
+	 * positions, no sane way to test */
+	throw new Error("Failed to compute location offset from position");
+}
+
 function extractLiteral(
 	node:
 		| ESTree.Expression
 		| ESTree.Pattern
 		| ESTree.Literal
 		| ESTree.BlockStatement,
-	filename: string
+	filename: string,
+	data: string
 ): Source {
 	switch (node.type) {
 		/* ignored nodes */
@@ -46,6 +72,7 @@ function extractLiteral(
 				filename: null,
 				line: node.loc.start.line,
 				column: node.loc.start.column + 1,
+				offset: computeOffset(node.loc.start, data) + 1,
 			};
 
 		case "TemplateLiteral":
@@ -54,6 +81,7 @@ function extractLiteral(
 				filename: null,
 				line: node.loc.start.line,
 				column: node.loc.start.column + 1,
+				offset: computeOffset(node.loc.start, data) + 1,
 			};
 
 		case "TaggedTemplateExpression":
@@ -62,12 +90,13 @@ function extractLiteral(
 				filename: null,
 				line: node.quasi.loc.start.line,
 				column: node.quasi.loc.start.column + 1,
+				offset: computeOffset(node.quasi.loc.start, data) + 1,
 			};
 
 		case "ArrowFunctionExpression": {
 			const whitelist = ["Literal", "TemplateLiteral"];
 			if (whitelist.includes(node.body.type)) {
-				return extractLiteral(node.body, filename);
+				return extractLiteral(node.body, filename, data);
 			} else {
 				return null;
 			}
@@ -110,20 +139,22 @@ function compareKey(
 export class TemplateExtractor {
 	protected ast: ESTree.Program;
 	private filename: string;
+	private data: string;
 
-	private constructor(ast: ESTree.Program, filename: string) {
+	private constructor(ast: ESTree.Program, filename: string, data: string) {
 		this.ast = ast;
 		this.filename = filename;
+		this.data = data;
 	}
 
 	public static fromFilename(filename: string): TemplateExtractor {
-		const source = fs.readFileSync(filename);
+		const source = fs.readFileSync(filename, "utf-8");
 		const ast = espree.parse(source, {
 			ecmaVersion: 2017,
 			sourceType: "module",
 			loc: true,
 		});
-		return new TemplateExtractor(ast, filename);
+		return new TemplateExtractor(ast, filename, source);
 	}
 
 	/**
@@ -146,7 +177,7 @@ export class TemplateExtractor {
 			sourceType: "module",
 			loc: true,
 		});
-		return new TemplateExtractor(ast, filename || "inline");
+		return new TemplateExtractor(ast, filename || "inline", source);
 	}
 
 	/**
@@ -165,6 +196,7 @@ export class TemplateExtractor {
 				data,
 				filename,
 				line: 1,
+				offset: 0,
 			},
 		];
 	}
@@ -187,11 +219,11 @@ export class TemplateExtractor {
 	 */
 	public extractObjectProperty(key: string): Source[] {
 		const result: Source[] = [];
-		const filename = this.filename;
+		const { filename, data } = this;
 		walk.simple(this.ast, {
 			Property(node: ESTree.Property) {
 				if (compareKey(node.key, key, filename)) {
-					const source = extractLiteral(node.value, filename);
+					const source = extractLiteral(node.value, filename, data);
 					if (source) {
 						source.filename = filename;
 						result.push(source);

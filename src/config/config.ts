@@ -387,6 +387,7 @@ export class Config {
 			filename,
 			line: 1,
 			column: 1,
+			offset: 0,
 			originalData: data,
 		};
 		return this.transformSource(source);

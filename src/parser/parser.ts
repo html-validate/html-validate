@@ -55,13 +55,14 @@ export class Parser {
 				filename: "inline",
 				line: 1,
 				column: 1,
+				offset: 0,
 			};
 		}
 
 		/* reset DOM in case there are multiple calls in the same session */
 		this.dom = new DOMTree({
 			filename: source.filename,
-			offset: 0,
+			offset: source.offset,
 			line: source.line,
 			column: source.column,
 		});

@@ -24,10 +24,11 @@ function mockConfig(): Config {
 	config.init();
 	config.transformFilename = jest.fn((filename: string) => [
 		{
-			column: 1,
 			data: `source from ${filename}`,
 			filename,
 			line: 1,
+			column: 1,
+			offset: 0,
 		},
 	]);
 	return config;
@@ -70,6 +71,7 @@ describe("HtmlValidate", () => {
 					data: str,
 					filename: "inline",
 					line: 1,
+					offset: 0,
 				},
 			]);
 		});
@@ -94,6 +96,7 @@ describe("HtmlValidate", () => {
 			filename: "inline",
 			line: 1,
 			column: 1,
+			offset: 0,
 		};
 		const report = htmlvalidate.validateSource(source);
 		expect(report).toEqual(mockReport);
@@ -114,6 +117,7 @@ describe("HtmlValidate", () => {
 				data: "source from foo.html",
 				filename,
 				line: 1,
+				offset: 0,
 			},
 		]);
 	});
@@ -243,6 +247,7 @@ describe("HtmlValidate", () => {
 				data: "source from foo.html",
 				filename,
 				line: 1,
+				offset: 0,
 			},
 		]);
 	});
@@ -258,6 +263,7 @@ describe("HtmlValidate", () => {
 				data: "source from foo.html",
 				filename,
 				line: 1,
+				offset: 0,
 			},
 		]);
 	});
@@ -273,6 +279,7 @@ describe("HtmlValidate", () => {
 				data: "source from foo.html",
 				filename,
 				line: 1,
+				offset: 0,
 			},
 		]);
 	});
@@ -284,16 +291,18 @@ describe("HtmlValidate", () => {
 		config.init();
 		config.transformFilename = jest.fn((filename: string) => [
 			{
-				column: 1,
 				data: `first markup`,
 				filename,
 				line: 1,
+				column: 1,
+				offset: 0,
 			},
 			{
-				column: 3,
 				data: `second markup`,
 				filename,
 				line: 5,
+				column: 3,
+				offset: 29,
 			},
 		]);
 		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(() => config);
@@ -376,6 +385,7 @@ describe("HtmlValidate", () => {
 			filename: "inline",
 			line: 1,
 			column: 1,
+			offset: 0,
 		};
 		const parser = htmlvalidate.getParserFor(source);
 		expect(parser).toBeInstanceOf(Parser);

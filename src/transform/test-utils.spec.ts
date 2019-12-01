@@ -19,6 +19,7 @@ it("transformFile() should read file and apply transformer", () => {
 		    "data": "mocked file data",
 		    "filename": "foo.html",
 		    "line": 1,
+		    "offset": 0,
 		  },
 		]
 	`);
@@ -34,6 +35,7 @@ it("transformString() should apply transformer", () => {
 		    "data": "inline data",
 		    "filename": "inline",
 		    "line": 1,
+		    "offset": 0,
 		  },
 		]
 	`);
@@ -44,6 +46,7 @@ it("transformSource() should apply transformer", () => {
 		filename: "bar.html",
 		line: 1,
 		column: 2,
+		offset: 3,
 		data: "source data",
 	};
 	const transformer = jest.fn((source: Source) => [source]);
@@ -55,6 +58,7 @@ it("transformSource() should apply transformer", () => {
 		    "data": "source data",
 		    "filename": "bar.html",
 		    "line": 1,
+		    "offset": 3,
 		  },
 		]
 	`);
@@ -65,6 +69,7 @@ it("transformSource() should support chaining", () => {
 		filename: "bar.html",
 		line: 1,
 		column: 2,
+		offset: 3,
 		data: "source data",
 	};
 	const transformer = jest.fn(function(this: TransformContext, source: Source) {
@@ -78,6 +83,7 @@ it("transformSource() should support chaining", () => {
 		    "data": "source data",
 		    "filename": "bar.html",
 		    "line": 1,
+		    "offset": 3,
 		  },
 		]
 	`);
@@ -88,6 +94,7 @@ it("transformSource() should support custom chaining", () => {
 		filename: "bar.html",
 		line: 1,
 		column: 2,
+		offset: 3,
 		data: "source data",
 	};
 	const chain = jest.fn((source: Source) => [source]);
@@ -103,6 +110,7 @@ it("transformSource() should support custom chaining", () => {
 		    "data": "source data",
 		    "filename": "bar.html",
 		    "line": 1,
+		    "offset": 3,
 		  },
 		]
 	`);

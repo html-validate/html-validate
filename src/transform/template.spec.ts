@@ -5,7 +5,13 @@ describe("TemplateExtractor", () => {
 		it("should extract templates from object property", () => {
 			const te = TemplateExtractor.fromString('foo({template: "<b>foo</b>"})');
 			expect(te.extractObjectProperty("template")).toEqual([
-				{ data: "<b>foo</b>", filename: "inline", line: 1, column: 16 },
+				{
+					data: "<b>foo</b>",
+					filename: "inline",
+					line: 1,
+					column: 16,
+					offset: 16,
+				},
 			]);
 		});
 
@@ -14,7 +20,13 @@ describe("TemplateExtractor", () => {
 				'foo({"template": "<b>foo</b>"})'
 			);
 			expect(te.extractObjectProperty("template")).toEqual([
-				{ data: "<b>foo</b>", filename: "inline", line: 1, column: 18 },
+				{
+					data: "<b>foo</b>",
+					filename: "inline",
+					line: 1,
+					column: 18,
+					offset: 18,
+				},
 			]);
 		});
 
@@ -26,14 +38,26 @@ describe("TemplateExtractor", () => {
 		it("should handle single quotes", () => {
 			const te = TemplateExtractor.fromString("foo({template: '<b>foo</b>'})");
 			expect(te.extractObjectProperty("template")).toEqual([
-				{ data: "<b>foo</b>", filename: "inline", line: 1, column: 16 },
+				{
+					data: "<b>foo</b>",
+					filename: "inline",
+					line: 1,
+					column: 16,
+					offset: 16,
+				},
 			]);
 		});
 
 		it("should handle double quotes", () => {
 			const te = TemplateExtractor.fromString('foo({template: "<b>foo</b>"})');
 			expect(te.extractObjectProperty("template")).toEqual([
-				{ data: "<b>foo</b>", filename: "inline", line: 1, column: 16 },
+				{
+					data: "<b>foo</b>",
+					filename: "inline",
+					line: 1,
+					column: 16,
+					offset: 16,
+				},
 			]);
 		});
 
@@ -42,7 +66,13 @@ describe("TemplateExtractor", () => {
 				"foo({template: `<b>${foo}</b>`})"
 			);
 			expect(te.extractObjectProperty("template")).toEqual([
-				{ data: "<b>      </b>", filename: "inline", line: 1, column: 16 },
+				{
+					data: "<b>      </b>",
+					filename: "inline",
+					line: 1,
+					column: 16,
+					offset: 16,
+				},
 			]);
 		});
 
@@ -51,7 +81,13 @@ describe("TemplateExtractor", () => {
 				"foo({template: foo`<b>${foo}</b>`})"
 			);
 			expect(te.extractObjectProperty("template")).toEqual([
-				{ data: "<b>      </b>", filename: "inline", line: 1, column: 19 },
+				{
+					data: "<b>      </b>",
+					filename: "inline",
+					line: 1,
+					column: 19,
+					offset: 19,
+				},
 			]);
 		});
 
@@ -60,7 +96,13 @@ describe("TemplateExtractor", () => {
 				"foo({template: (foo) => `<b>${foo}</b>`})"
 			);
 			expect(te.extractObjectProperty("template")).toEqual([
-				{ data: "<b>      </b>", filename: "inline", line: 1, column: 25 },
+				{
+					data: "<b>      </b>",
+					filename: "inline",
+					line: 1,
+					column: 25,
+					offset: 25,
+				},
 			]);
 		});
 
@@ -89,18 +131,21 @@ describe("TemplateExtractor", () => {
 				filename: "test-files/extract.js",
 				line: 2,
 				column: 12,
+				offset: 53,
 			},
 			{
 				data: "<b>foo</b>",
 				filename: "test-files/extract.js",
 				line: 6,
 				column: 12,
+				offset: 113,
 			},
 			{
 				data: "<p>foo</p>",
 				filename: "test-files/extract.js",
 				line: 10,
 				column: 12,
+				offset: 165,
 			},
 		]);
 	});
@@ -112,6 +157,7 @@ describe("TemplateExtractor", () => {
 				filename: "test-files/extract.js",
 				line: 1,
 				column: 1,
+				offset: 0,
 			},
 		]);
 	});

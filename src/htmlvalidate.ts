@@ -43,10 +43,11 @@ class HtmlValidate {
 		hooks?: SourceHooks
 	): Report {
 		const source = {
-			column: 1,
 			data: str,
 			filename: filename || "inline",
 			line: 1,
+			column: 1,
+			offset: 0,
 			hooks,
 		};
 		return this.validateSource(source);
