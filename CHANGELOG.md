@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [2.4.1](https://gitlab.com/html-validate/html-validate/compare/v2.4.0...v2.4.1) (2019-12-02)
+
+### Bug Fixes
+
+- **lexer:** handle missing `Source` properties (like `offset`) ([2092942](https://gitlab.com/html-validate/html-validate/commit/20929425dd69eadcc5432d11f33b53a35050b76c))
+
 # [2.4.0](https://gitlab.com/html-validate/html-validate/compare/v2.3.0...v2.4.0) (2019-12-01)
 
 ### Bug Fixes
