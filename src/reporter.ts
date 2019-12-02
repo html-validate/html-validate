@@ -135,7 +135,7 @@ export class Reporter {
 			results: Object.keys(this.result).map(filePath => {
 				const messages = [].concat(this.result[filePath]).sort(messageSort);
 				const source = (sources || []).find(
-					(source: Source) => source.filename === filePath
+					(source: Source) => filePath === (source.filename ?? "")
 				);
 				return {
 					filePath,

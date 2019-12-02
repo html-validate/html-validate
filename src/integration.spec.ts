@@ -109,3 +109,36 @@ it("should compute correct line, column and offset when using transformed source
 		}
 	`);
 });
+
+it("should handle source missing properties", () => {
+	expect.assertions(2);
+	const source = {
+		data: "<p>lorem ipsum</i>",
+	};
+	const htmlvalidate = new HtmlValidate({
+		root: true,
+		extends: ["htmlvalidate:recommended"],
+	});
+	const report = htmlvalidate.validateSource(source as Source);
+	expect(report).toBeInvalid();
+	expect(report.results[0]).toMatchInlineSnapshot(`
+		Object {
+		  "errorCount": 1,
+		  "filePath": "",
+		  "messages": Array [
+		    Object {
+		      "column": 16,
+		      "context": undefined,
+		      "line": 1,
+		      "message": "Mismatched close-tag, expected '</p>' but found '</i>'.",
+		      "offset": 15,
+		      "ruleId": "close-order",
+		      "severity": 2,
+		      "size": 2,
+		    },
+		  ],
+		  "source": "<p>lorem ipsum</i>",
+		  "warningCount": 0,
+		}
+	`);
+});

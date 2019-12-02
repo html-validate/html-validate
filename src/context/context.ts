@@ -18,10 +18,10 @@ export class Context {
 	public constructor(source: Source) {
 		this.state = undefined;
 		this.string = source.data;
-		this.filename = source.filename;
-		this.offset = source.offset;
-		this.line = source.line;
-		this.column = source.column;
+		this.filename = source.filename ?? "";
+		this.offset = source.offset ?? 0;
+		this.line = source.line ?? 1;
+		this.column = source.column ?? 1;
 		this.contentModel = ContentModel.TEXT;
 	}
 
