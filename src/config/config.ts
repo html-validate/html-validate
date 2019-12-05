@@ -312,13 +312,20 @@ export class Config {
 
 	private loadPlugins(plugins: string[]): Plugin[] {
 		return plugins.map((moduleName: string) => {
-			// eslint-disable-next-line security/detect-non-literal-require
-			const plugin = require(moduleName.replace(
-				"<rootDir>",
-				this.rootDir
-			)) as Plugin;
-			plugin.name = plugin.name || moduleName;
-			return plugin;
+			try {
+				// eslint-disable-next-line security/detect-non-literal-require
+				const plugin = require(moduleName.replace(
+					"<rootDir>",
+					this.rootDir
+				)) as Plugin;
+				plugin.name = plugin.name || moduleName;
+				return plugin;
+			} catch (err) {
+				throw new ConfigError(
+					`Failed to load plugin "${moduleName}": ${err}`,
+					err
+				);
+			}
 		});
 	}
 
