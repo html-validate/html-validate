@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [2.4.2](https://gitlab.com/html-validate/html-validate/compare/v2.4.1...v2.4.2) (2019-12-05)
+
+### Bug Fixes
+
+- **config:** handle exceptions from loading plugin ([3aec3f3](https://gitlab.com/html-validate/html-validate/commit/3aec3f3ff019f5e3815d4b04e66ee610469e815d)), closes [#55](https://gitlab.com/html-validate/html-validate/issues/55)
+
 ## [2.4.1](https://gitlab.com/html-validate/html-validate/compare/v2.4.0...v2.4.1) (2019-12-02)
 
 ### Bug Fixes
