@@ -1,4 +1,5 @@
 import { Config } from "../config";
+import { ConfigError } from "../config/error";
 import { Source } from "../context";
 import { Engine } from "../engine";
 import { EventHandler } from "../event";
@@ -26,6 +27,15 @@ describe("Plugin", () => {
 
 		/* reset mock */
 		mockPlugin = require("mock-plugin");
+	});
+
+	it("should throw ConfigError when loading plugin fails", () => {
+		expect.assertions(2);
+		const loadConfig = (): void => {
+			Config.fromObject({ plugins: ["missing-plugin"] });
+		};
+		expect(loadConfig).toThrow(ConfigError);
+		expect(loadConfig).toThrow(/Failed to load plugin "missing-plugin":/);
 	});
 
 	describe("name", () => {
