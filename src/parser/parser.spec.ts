@@ -1,5 +1,5 @@
 import { Config } from "../config";
-import { Source } from "../context";
+import { Location, Source } from "../context";
 import { DOMTree, HtmlElement, TextNode } from "../dom";
 import { EventCallback } from "../event";
 import HtmlValidate from "../htmlvalidate";
@@ -31,9 +31,10 @@ class ExposedParser extends Parser {
 
 	public *consumeUntil(
 		tokenStream: TokenStream,
-		search: TokenType
+		search: TokenType,
+		errorLocation: Location
 	): IterableIterator<Token> {
-		yield* super.consumeUntil(tokenStream, search);
+		yield* super.consumeUntil(tokenStream, search, errorLocation);
 	}
 
 	public trigger(event: any, data: any): void {
@@ -1055,7 +1056,15 @@ describe("parser", () => {
 					data: null,
 				},
 			][Symbol.iterator]();
-			const result = Array.from(parser.consumeUntil(src, TokenType.TAG_CLOSE));
+			const location: Location = {
+				filename: "inline",
+				line: 1,
+				column: 1,
+				offset: 0,
+			};
+			const result = Array.from(
+				parser.consumeUntil(src, TokenType.TAG_CLOSE, location)
+			);
 			expect(result).toEqual([
 				{
 					type: TokenType.TAG_OPEN,
@@ -1083,9 +1092,15 @@ describe("parser", () => {
 					data: null,
 				},
 			][Symbol.iterator]();
+			const location: Location = {
+				filename: "inline",
+				line: 1,
+				column: 1,
+				offset: 0,
+			};
 			expect(() =>
-				Array.from(parser.consumeUntil(src, TokenType.TAG_CLOSE))
-			).toThrow("stream ended before consumeUntil finished");
+				Array.from(parser.consumeUntil(src, TokenType.TAG_CLOSE, location))
+			).toThrow("stream ended before TAG_CLOSE token was found");
 		});
 	});
 

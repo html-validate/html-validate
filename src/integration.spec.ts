@@ -142,3 +142,31 @@ it("should handle source missing properties", () => {
 		}
 	`);
 });
+
+it("should report parser-error when last tag is left unopened", () => {
+	expect.assertions(2);
+	const htmlvalidate = new HtmlValidate({
+		root: true,
+	});
+	const report = htmlvalidate.validateString("<div");
+	expect(report).toBeInvalid();
+	expect(report.results[0]).toMatchInlineSnapshot(`
+		Object {
+		  "errorCount": 1,
+		  "filePath": "inline",
+		  "messages": Array [
+		    Object {
+		      "column": 1,
+		      "line": 1,
+		      "message": "stream ended before TAG_CLOSE token was found",
+		      "offset": 0,
+		      "ruleId": "parser-error",
+		      "severity": 2,
+		      "size": 4,
+		    },
+		  ],
+		  "source": "<div",
+		  "warningCount": 0,
+		}
+	`);
+});

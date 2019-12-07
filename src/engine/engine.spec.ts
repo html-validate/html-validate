@@ -4,7 +4,7 @@ import { DOMTree } from "../dom";
 import { InvalidTokenError } from "../lexer";
 import "../matchers";
 import { MetaTable } from "../meta";
-import { Parser } from "../parser";
+import { Parser, ParserError } from "../parser";
 import { Reporter } from "../reporter";
 import { Rule, RuleOptions } from "../rule";
 import { Engine } from "./engine";
@@ -23,15 +23,25 @@ class MockParser extends Parser {
 	public parseHtml(source: string | Source): DOMTree {
 		if (typeof source === "string") return null;
 		switch (source.data) {
-			case "parse-error":
+			case "invalid-token-error":
 				throw new InvalidTokenError(
 					{
 						filename: source.filename,
-						offset: 0,
 						line: 1,
 						column: 1,
+						offset: 0,
 					},
-					"parse error"
+					"invalid token error"
+				);
+			case "parser-error":
+				throw new ParserError(
+					{
+						filename: source.filename,
+						line: 1,
+						column: 1,
+						offset: 0,
+					},
+					"parser error"
 				);
 			case "exception":
 				throw new Error("exception");
@@ -82,21 +92,55 @@ describe("Engine", () => {
 		});
 
 		it("should report lexing errors", () => {
-			const source: Source[] = [inline("parse-error")]; // see MockParser, will raise InvalidTokenError
+			const source: Source[] = [inline("invalid-token-error")]; // see MockParser, will raise InvalidTokenError
 			const report = engine.lint(source);
 			expect(report.valid).toBeFalsy();
 			expect(report.results).toHaveLength(1);
-			expect(report.results[0].messages).toEqual([
-				{
-					offset: 0,
-					line: 1,
-					column: 1,
-					size: 0,
-					severity: 2,
-					ruleId: "parser-error",
-					message: "parse error",
-				},
-			]);
+			expect(report.results[0]).toMatchInlineSnapshot(`
+				Object {
+				  "errorCount": 1,
+				  "filePath": "inline",
+				  "messages": Array [
+				    Object {
+				      "column": 1,
+				      "line": 1,
+				      "message": "invalid token error",
+				      "offset": 0,
+				      "ruleId": "parser-error",
+				      "severity": 2,
+				      "size": 0,
+				    },
+				  ],
+				  "source": "invalid-token-error",
+				  "warningCount": 0,
+				}
+			`);
+		});
+
+		it("should report parser errors", () => {
+			const source: Source[] = [inline("parser-error")]; // see MockParser, will raise ParserError
+			const report = engine.lint(source);
+			expect(report.valid).toBeFalsy();
+			expect(report.results).toHaveLength(1);
+			expect(report.results[0]).toMatchInlineSnapshot(`
+				Object {
+				  "errorCount": 1,
+				  "filePath": "inline",
+				  "messages": Array [
+				    Object {
+				      "column": 1,
+				      "line": 1,
+				      "message": "parser error",
+				      "offset": 0,
+				      "ruleId": "parser-error",
+				      "severity": 2,
+				      "size": 0,
+				    },
+				  ],
+				  "source": "parser-error",
+				  "warningCount": 0,
+				}
+			`);
 		});
 
 		it("should pass exceptions", () => {
