@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [2.4.3](https://gitlab.com/html-validate/html-validate/compare/v2.4.2...v2.4.3) (2019-12-08)
+
+### Bug Fixes
+
+- **parser:** report parser-error when stream ends before required token ([50e1d67](https://gitlab.com/html-validate/html-validate/commit/50e1d67c5c79b44d53fe3889ee76ed9577c04865))
+
 ## [2.4.2](https://gitlab.com/html-validate/html-validate/compare/v2.4.1...v2.4.2) (2019-12-05)
 
 ### Bug Fixes
