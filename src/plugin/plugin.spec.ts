@@ -325,6 +325,9 @@ describe("Plugin", () => {
 				    "line": 2,
 				    "offset": 4,
 				    "originalData": "original data",
+				    "transformedBy": Array [
+				      "mock-plugin",
+				    ],
 				  },
 				]
 			`);
@@ -371,6 +374,9 @@ describe("Plugin", () => {
 				    "line": 2,
 				    "offset": 4,
 				    "originalData": "original data",
+				    "transformedBy": Array [
+				      "mock-plugin:foobar",
+				    ],
 				  },
 				]
 			`);

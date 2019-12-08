@@ -358,6 +358,9 @@ describe("config", () => {
 				    "line": 1,
 				    "offset": 0,
 				    "originalData": "original data",
+				    "transformedBy": Array [
+				      "mock-transform",
+				    ],
 				  },
 				]
 			`);
@@ -413,6 +416,9 @@ describe("config", () => {
 					    "filename": "foo.unnamed",
 					    "line": 2,
 					    "offset": 4,
+					    "transformedBy": Array [
+					      "mock-plugin-unnamed",
+					    ],
 					  },
 					]
 				`);
@@ -429,6 +435,9 @@ describe("config", () => {
 					    "filename": "bar.named",
 					    "line": 2,
 					    "offset": 4,
+					    "transformedBy": Array [
+					      "mock-plugin-named:foobar",
+					    ],
 					  },
 					]
 				`);
@@ -446,6 +455,9 @@ describe("config", () => {
 					    "line": 1,
 					    "offset": 0,
 					    "originalData": "original data",
+					    "transformedBy": Array [
+					      "mock-transform",
+					    ],
 					  },
 					]
 				`);
@@ -501,6 +513,10 @@ describe("config", () => {
 				    "line": 1,
 				    "offset": 0,
 				    "originalData": "original data",
+				    "transformedBy": Array [
+				      "mock-transform",
+				      "mock-transform-chain-foo",
+				    ],
 				  },
 				]
 			`);
@@ -524,6 +540,10 @@ describe("config", () => {
 				    "line": 1,
 				    "offset": 0,
 				    "originalData": "original data",
+				    "transformedBy": Array [
+				      "mock-transform",
+				      "mock-transform-optional-chain",
+				    ],
 				  },
 				]
 			`);
@@ -547,6 +567,9 @@ describe("config", () => {
 				    "line": 1,
 				    "offset": 0,
 				    "originalData": "original data",
+				    "transformedBy": Array [
+				      "<rootDir>/src/transform/__mocks__/mock-transform",
+				    ],
 				  },
 				]
 			`);

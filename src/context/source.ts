@@ -76,4 +76,11 @@ export interface Source {
 	 * Hooks for processing the source as it is being parsed.
 	 */
 	hooks?: SourceHooks;
+
+	/**
+	 * Internal property to keep track of what transformers has run on this
+	 * source. Entries are in reverse-order, e.g. the last applied transform is
+	 * first.
+	 */
+	transformedBy?: string[];
 }

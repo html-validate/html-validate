@@ -289,13 +289,14 @@ describe("HtmlValidate", () => {
 		const filename = "foo.html";
 		const config = Config.empty();
 		config.init();
-		config.transformFilename = jest.fn((filename: string) => [
+		config.transformFilename = jest.fn((filename: string): Source[] => [
 			{
 				data: `first markup`,
 				filename,
 				line: 1,
 				column: 1,
 				offset: 0,
+				transformedBy: ["bar", "foo"],
 			},
 			{
 				data: `second markup`,
@@ -303,22 +304,30 @@ describe("HtmlValidate", () => {
 				line: 5,
 				column: 3,
 				offset: 29,
+				hooks: {
+					processElement: () => null,
+				},
 			},
 		]);
 		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(() => config);
 		const output = htmlvalidate.dumpSource(filename);
 		expect(output).toMatchInlineSnapshot(`
-		Array [
-		  "Source foo.html@1:1",
-		  "---",
-		  "first markup",
-		  "---",
-		  "Source foo.html@5:3",
-		  "---",
-		  "second markup",
-		  "---",
-		]
-	`);
+			Array [
+			  "Source foo.html@1:1 (offset: 0)",
+			  "Transformed by:",
+			  " - foo",
+			  " - bar",
+			  "---",
+			  "first markup",
+			  "---",
+			  "Source foo.html@5:3 (offset: 29)",
+			  "Hooks",
+			  " - processElement",
+			  "---",
+			  "second markup",
+			  "---",
+			]
+		`);
 	});
 
 	it("getRuleDocumentation() should delegate call to engine", () => {
