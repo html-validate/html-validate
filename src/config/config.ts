@@ -410,6 +410,14 @@ export class Config {
 		return this.transformSource(source);
 	}
 
+	/**
+	 * Returns true if a transformer matches given filename.
+	 */
+	public canTransform(filename: string): boolean {
+		const entry = this.findTransformer(filename);
+		return !!entry;
+	}
+
 	private findTransformer(filename: string): TransformerEntry | null {
 		return this.transformers.find((entry: TransformerEntry) =>
 			entry.pattern.test(filename)

@@ -5,6 +5,7 @@ import { Engine, EventDump, TokenDump } from "./engine";
 import { Parser } from "./parser";
 import { Report, Reporter } from "./reporter";
 import { RuleDocumentation } from "./rule";
+import path from "path";
 
 /**
  * Primary API for using HTML-validate.
@@ -90,6 +91,27 @@ class HtmlValidate {
 		return Reporter.merge(
 			filenames.map(filename => this.validateFile(filename))
 		);
+	}
+
+	/**
+	 * Returns true if the given filename can be validated.
+	 *
+	 * A file is considered to be validatable if the extension is `.html` or if a
+	 * transformer matches the filename.
+	 *
+	 * This is mostly useful for tooling to determine whenever to validate the
+	 * file or not. CLI tools will run on all the given files anyway.
+	 */
+	public canValidate(filename: string): boolean {
+		/* .html is always supported */
+		const extension = path.extname(filename).toLowerCase();
+		if (extension === ".html") {
+			return true;
+		}
+
+		/* test if there is a matching transformer */
+		const config = this.getConfigFor(filename);
+		return config.canTransform(filename);
 	}
 
 	/**
