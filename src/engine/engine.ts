@@ -8,7 +8,7 @@ import {
 	TagOpenEvent,
 } from "../event";
 import { InvalidTokenError, Lexer, TokenType } from "../lexer";
-import { Parser } from "../parser";
+import { Parser, ParserError } from "../parser";
 import { Report, Reporter } from "../reporter";
 import { Rule, RuleConstructor, RuleDocumentation, RuleOptions } from "../rule";
 
@@ -72,7 +72,7 @@ export class Engine<T extends Parser = Parser> {
 			try {
 				parser.parseHtml(source);
 			} catch (e) {
-				if (e instanceof InvalidTokenError) {
+				if (e instanceof InvalidTokenError || e instanceof ParserError) {
 					this.reportError("parser-error", e.message, e.location);
 				} else {
 					throw e;

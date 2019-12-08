@@ -21,6 +21,7 @@ import { Lexer, Token, TokenStream, TokenType } from "../lexer";
 import { MetaTable } from "../meta";
 import { AttributeData } from "./attribute-data";
 import { parseConditionalComment } from "./conditional-comment";
+import { ParserError } from "./parser-error";
 
 /**
  * Parse HTML document into a DOM tree.
@@ -181,7 +182,7 @@ export class Parser {
 		tokenStream: TokenStream
 	): void {
 		const tokens = Array.from(
-			this.consumeUntil(tokenStream, TokenType.TAG_CLOSE)
+			this.consumeUntil(tokenStream, TokenType.TAG_CLOSE, startToken.location)
 		);
 		const endToken = tokens.slice(-1)[0];
 		const closeOptional = this.closeOptional(startToken);
@@ -246,7 +247,12 @@ export class Parser {
 		} else if (foreign) {
 			/* consume the body of the foreign element so it won't be part of the
 			 * document (only the root foreign element is).  */
-			this.discardForeignBody(source, node.tagName, tokenStream);
+			this.discardForeignBody(
+				source,
+				node.tagName,
+				tokenStream,
+				startToken.location
+			);
 		}
 	}
 
@@ -285,7 +291,8 @@ export class Parser {
 	protected discardForeignBody(
 		source: Source,
 		foreignTagName: string,
-		tokenStream: TokenStream
+		tokenStream: TokenStream,
+		errorLocation: Location
 	): void {
 		/* consume elements until the end tag for this foreign element is found */
 		let nested = 1;
@@ -294,7 +301,7 @@ export class Parser {
 		do {
 			/* search for tags */
 			const tokens = Array.from(
-				this.consumeUntil(tokenStream, TokenType.TAG_OPEN)
+				this.consumeUntil(tokenStream, TokenType.TAG_OPEN, errorLocation)
 			);
 			const [last] = tokens.slice(-1);
 			const [, tagClosed, tagName] = last.data;
@@ -306,7 +313,7 @@ export class Parser {
 
 			/* locate end token and determine if this is a self-closed tag */
 			const endTokens = Array.from(
-				this.consumeUntil(tokenStream, TokenType.TAG_CLOSE)
+				this.consumeUntil(tokenStream, TokenType.TAG_CLOSE, last.location)
 			);
 			endToken = endTokens.slice(-1)[0];
 			const selfClosed = endToken.data[0] === "/>";
@@ -452,7 +459,11 @@ export class Parser {
 	 */
 	protected consumeDoctype(startToken: Token, tokenStream: TokenStream): void {
 		const tokens = Array.from(
-			this.consumeUntil(tokenStream, TokenType.DOCTYPE_CLOSE)
+			this.consumeUntil(
+				tokenStream,
+				TokenType.DOCTYPE_CLOSE,
+				startToken.location
+			)
 		);
 		const doctype =
 			tokens[0]; /* first token is the doctype, second is the closing ">" */
@@ -467,10 +478,13 @@ export class Parser {
 
 	/**
 	 * Return a list of tokens found until the expected token was found.
+	 *
+	 * @param errorLocation - What location to use if an error occurs
 	 */
 	protected *consumeUntil(
 		tokenStream: TokenStream,
-		search: TokenType
+		search: TokenType,
+		errorLocation: Location
 	): IterableIterator<Token> {
 		let it = this.next(tokenStream);
 		while (!it.done) {
@@ -479,7 +493,10 @@ export class Parser {
 			if (token.type === search) return;
 			it = this.next(tokenStream);
 		}
-		throw Error("stream ended before consumeUntil finished");
+		throw new ParserError(
+			errorLocation,
+			`stream ended before ${TokenType[search]} token was found`
+		);
 	}
 
 	private next(tokenStream: TokenStream): IteratorResult<Token> {
