@@ -149,7 +149,23 @@ class HtmlValidate {
 		const config = this.getConfigFor(filename);
 		const sources = config.transformFilename(filename);
 		return sources.reduce((result: string[], source: Source) => {
-			result.push(`Source ${source.filename}@${source.line}:${source.column}`);
+			result.push(
+				`Source ${source.filename}@${source.line}:${source.column} (offset: ${source.offset})`
+			);
+			if (source.transformedBy) {
+				result.push("Transformed by:");
+				result = result.concat(
+					source.transformedBy.reverse().map(name => ` - ${name}`)
+				);
+			}
+			if (source.hooks) {
+				result.push("Hooks");
+				for (const [key, present] of Object.entries(source.hooks)) {
+					if (present) {
+						result.push(` - ${key}`);
+					}
+				}
+			}
 			result.push("---");
 			result = result.concat(source.data.split("\n"));
 			result.push("---");

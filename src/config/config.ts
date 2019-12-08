@@ -14,6 +14,7 @@ import { parseSeverity, Severity } from "./severity";
 
 interface TransformerEntry {
 	pattern: RegExp;
+	name: string;
 	fn: Transformer;
 }
 
@@ -367,7 +368,16 @@ export class Config {
 		};
 		if (transformer) {
 			try {
-				return Array.from(transformer.fn.call(context, source));
+				return Array.from(
+					transformer.fn.call(context, source),
+					(cur: Source) => {
+						/* keep track of which transformers that has been run on this source
+						 * by appending this entry to the transformedBy array */
+						cur.transformedBy = cur.transformedBy || [];
+						cur.transformedBy.push(transformer.name);
+						return cur;
+					}
+				);
 			} catch (err) {
 				throw new NestedError(
 					`When transforming "${source.filename}": ${err.message}`,
@@ -423,6 +433,7 @@ export class Config {
 					// eslint-disable-next-line security/detect-non-literal-regexp
 					pattern: new RegExp(pattern),
 
+					name,
 					fn,
 				};
 			} catch (err) {
