@@ -1,5 +1,18 @@
 # html-validate changelog
 
+# [2.5.0](https://gitlab.com/html-validate/html-validate/compare/v2.4.3...v2.5.0) (2019-12-09)
+
+### Bug Fixes
+
+- **config:** keep track of plugin original name ([9e7ea3e](https://gitlab.com/html-validate/html-validate/commit/9e7ea3e2b36cc71c5e098004bd6e1d232b413ca7))
+- **config:** throw error is plugin is missing ([bc61a6b](https://gitlab.com/html-validate/html-validate/commit/bc61a6be2684a53c1704edc62e85a401ca08c1f0))
+- **htmlvalidate:** more verbose output from `--dump-source` ([f0089c6](https://gitlab.com/html-validate/html-validate/commit/f0089c68e851f85f873a0b6d741d8b36520a26ee))
+- **htmlvalidate:** prefer html-validate:recommended ([8deb03a](https://gitlab.com/html-validate/html-validate/commit/8deb03a246c38afb790aff7c01db602e121baefe))
+
+### Features
+
+- **htmlvalidate:** new method `canValidate` to test if a file can be validated ([f523028](https://gitlab.com/html-validate/html-validate/commit/f5230285017acf3f83838c3f36293d8f5545082d))
+
 ## [2.4.3](https://gitlab.com/html-validate/html-validate/compare/v2.4.2...v2.4.3) (2019-12-08)
 
 ### Bug Fixes
