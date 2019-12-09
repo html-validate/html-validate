@@ -236,6 +236,31 @@ describe("HtmlValidate", () => {
 		});
 	});
 
+	describe("canValidate()", () => {
+		let htmlvalidate: HtmlValidate;
+
+		beforeEach(() => {
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				transform: {
+					"^.*\\.foo$": "mock-transform",
+				},
+			});
+		});
+
+		it("should return true if file extension is .html", () => {
+			expect(htmlvalidate.canValidate("my-file.html")).toBeTruthy();
+		});
+
+		it("should return true if a transformer can handle the file", () => {
+			expect(htmlvalidate.canValidate("my-file.foo")).toBeTruthy();
+		});
+
+		it("should return false if no transformer can handle the file", () => {
+			expect(htmlvalidate.canValidate("my-file.bar")).toBeFalsy();
+		});
+	});
+
 	it("dumpTokens() should dump tokens", () => {
 		const htmlvalidate = new HtmlValidate();
 		const filename = "foo.html";

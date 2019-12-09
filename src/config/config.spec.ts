@@ -646,6 +646,27 @@ describe("config", () => {
 		});
 	});
 
+	describe("canTransform()", () => {
+		let config: Config;
+
+		beforeEach(() => {
+			config = Config.fromObject({
+				transform: {
+					"^.*\\.foo$": "mock-transform",
+				},
+			});
+			config.init();
+		});
+
+		it("should return true if a transformer can handle the file", () => {
+			expect(config.canTransform("my-file.foo")).toBeTruthy();
+		});
+
+		it("should return false if no transformer can handle the file", () => {
+			expect(config.canTransform("my-file.bar")).toBeFalsy();
+		});
+	});
+
 	describe("init()", () => {
 		it("should handle being called multiple times", () => {
 			expect.assertions(1);
