@@ -475,6 +475,17 @@ describe("config", () => {
 			);
 		});
 
+		it("should throw error if transformer refers to missing plugin", () => {
+			const config = Config.fromObject({
+				transform: {
+					"^.*\\.foo$": "missing-plugin:foo",
+				},
+			});
+			expect(() => config.init()).toThrow(
+				'Failed to load transformer "missing-plugin:foo": No plugin named "missing-plugin" has been loaded'
+			);
+		});
+
 		it("should return original source if no transformer is found", () => {
 			const config = Config.fromObject({
 				transform: {

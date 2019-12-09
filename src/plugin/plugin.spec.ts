@@ -382,6 +382,19 @@ describe("Plugin", () => {
 			`);
 		});
 
+		it("should throw error when named transform is missing plugin", () => {
+			expect.assertions(1);
+			mockPlugin.transformer = {};
+			config = Config.fromObject({
+				transform: {
+					".*": "missing-plugin:foobar",
+				},
+			});
+			expect(() => config.init()).toThrow(
+				'Failed to load transformer "missing-plugin:foobar": No plugin named "missing-plugin" has been loaded'
+			);
+		});
+
 		it("should throw error when named transform is missing", () => {
 			expect.assertions(1);
 			mockPlugin.transformer = {};

@@ -472,6 +472,11 @@ export class Config {
 		if (match) {
 			const [, pluginName, key] = match;
 			const plugin = this.plugins.find(cur => cur.name === pluginName);
+			if (!plugin) {
+				throw new ConfigError(
+					`No plugin named "${pluginName}" has been loaded`
+				);
+			}
 			if (!plugin.transformer) {
 				throw new ConfigError(`Plugin does not expose any transformer`);
 			}
