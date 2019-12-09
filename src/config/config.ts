@@ -117,7 +117,7 @@ export class Config {
 	 * configuration for a file to validate use `ConfigLoader.fromTarget()`.
 	 *
 	 * @param filename - The file to read from or one of the presets such as
-	 * `htmlvalidate:recommended`.
+	 * `html-validate:recommended`.
 	 */
 	public static fromFile(filename: string): Config {
 		const configdata = loadFromFile(filename);
@@ -343,6 +343,10 @@ export class Config {
 		const configs: Map<string, ConfigData> = new Map();
 
 		/* builtin presets */
+		configs.set("html-validate:recommended", recommended);
+		configs.set("html-validate:document", document);
+
+		/* aliases for convenience */
 		configs.set("htmlvalidate:recommended", recommended);
 		configs.set("htmlvalidate:document", document);
 

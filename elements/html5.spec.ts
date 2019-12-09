@@ -143,7 +143,7 @@ const tagNames = [
 
 describe("HTML elements", () => {
 	const htmlvalidate = new HtmlValidate({
-		extends: ["htmlvalidate:recommended"],
+		extends: ["html-validate:recommended"],
 		elements: [
 			"html5",
 			{

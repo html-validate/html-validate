@@ -66,7 +66,7 @@ describe("config", () => {
 	it("defaultConfig() should load defaults", () => {
 		const config = Config.defaultConfig();
 		expect(config.get()).toEqual({
-			extends: ["htmlvalidate:recommended"],
+			extends: ["html-validate:recommended"],
 			rules: expect.any(Object),
 			plugins: [],
 			transform: {},
@@ -212,9 +212,23 @@ describe("config", () => {
 			);
 		});
 
+		it("should support html-validate:recommended", () => {
+			const config = Config.fromObject({
+				extends: ["html-validate:recommended"],
+			});
+			expect(config.getRules()).toBeDefined();
+		});
+
 		it("should support htmlvalidate:recommended", () => {
 			const config = Config.fromObject({
 				extends: ["htmlvalidate:recommended"],
+			});
+			expect(config.getRules()).toBeDefined();
+		});
+
+		it("should support html-validate:document", () => {
+			const config = Config.fromObject({
+				extends: ["html-validate:document"],
 			});
 			expect(config.getRules()).toBeDefined();
 		});

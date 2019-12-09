@@ -34,7 +34,7 @@ describe("regression tests", () => {
 	for (const filename of glob.sync("test-files/issues/**/*.html")) {
 		it(filename, () => {
 			const htmlvalidate = new HtmlValidate({
-				extends: ["htmlvalidate:recommended"],
+				extends: ["html-validate:recommended"],
 				transform: {
 					".*": "mock-transformer",
 				},

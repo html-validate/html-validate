@@ -117,7 +117,7 @@ it("should handle source missing properties", () => {
 	};
 	const htmlvalidate = new HtmlValidate({
 		root: true,
-		extends: ["htmlvalidate:recommended"],
+		extends: ["html-validate:recommended"],
 	});
 	const report = htmlvalidate.validateSource(source as Source);
 	expect(report).toBeInvalid();

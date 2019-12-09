@@ -106,7 +106,7 @@ module.exports = function parseValidatesProcessor(
 				return dst;
 			}, {});
 		} else {
-			config.extends = ["htmlvalidate:recommended"];
+			config.extends = ["html-validate:recommended"];
 		}
 		return config;
 	}

@@ -43,7 +43,7 @@ describe("HtmlValidate", () => {
 		const htmlvalidate = new HtmlValidate();
 		expect((htmlvalidate as any).globalConfig.config).toEqual(
 			expect.objectContaining({
-				extends: ["htmlvalidate:recommended"],
+				extends: ["html-validate:recommended"],
 			})
 		);
 	});

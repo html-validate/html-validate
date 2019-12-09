@@ -18,7 +18,7 @@ Create `.htmlvalidate.json`:
 ```js
 {
   "extends": [
-    "htmlvalidate:recommended"
+    "html-validate:recommended"
   ],
 }
 ```
