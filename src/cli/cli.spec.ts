@@ -16,7 +16,7 @@ describe("CLI", () => {
 			const cli = new CLI();
 			const htmlvalidate = cli.getValidator();
 			expect(HtmlValidate).toHaveBeenCalledWith({
-				extends: ["htmlvalidate:recommended"],
+				extends: ["html-validate:recommended"],
 			});
 			expect(htmlvalidate).toBeDefined();
 		});

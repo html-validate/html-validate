@@ -28,7 +28,7 @@ constructor:
 
 ```typescript
 const htmlvalidate = new HtmlValidate({
-  extends: ["htmlvalidate:recommended"],
+  extends: ["html-validate:recommended"],
 });
 ```
 

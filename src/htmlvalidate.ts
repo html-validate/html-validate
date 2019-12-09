@@ -180,7 +180,7 @@ class HtmlValidate {
 					source.transformedBy.reverse().map(name => ` - ${name}`)
 				);
 			}
-			if (source.hooks) {
+			if (source.hooks && Object.keys(source.hooks).length > 0) {
 				result.push("Hooks");
 				for (const [key, present] of Object.entries(source.hooks)) {
 					if (present) {

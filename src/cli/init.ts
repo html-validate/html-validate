@@ -56,7 +56,7 @@ export async function init(cwd: string): Promise<InitResult> {
 	const exists = fs.existsSync(filename);
 	const initialConfig: ConfigData = {
 		elements: ["html5"],
-		extends: ["htmlvalidate:recommended"],
+		extends: ["html-validate:recommended"],
 	};
 	const when = /* istanbul ignore next */ (answers: any): boolean => {
 		return !exists || answers.write;

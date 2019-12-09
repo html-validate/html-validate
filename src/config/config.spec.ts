@@ -66,7 +66,7 @@ describe("config", () => {
 	it("defaultConfig() should load defaults", () => {
 		const config = Config.defaultConfig();
 		expect(config.get()).toEqual({
-			extends: ["htmlvalidate:recommended"],
+			extends: ["html-validate:recommended"],
 			rules: expect.any(Object),
 			plugins: [],
 			transform: {},
@@ -212,9 +212,23 @@ describe("config", () => {
 			);
 		});
 
+		it("should support html-validate:recommended", () => {
+			const config = Config.fromObject({
+				extends: ["html-validate:recommended"],
+			});
+			expect(config.getRules()).toBeDefined();
+		});
+
 		it("should support htmlvalidate:recommended", () => {
 			const config = Config.fromObject({
 				extends: ["htmlvalidate:recommended"],
+			});
+			expect(config.getRules()).toBeDefined();
+		});
+
+		it("should support html-validate:document", () => {
+			const config = Config.fromObject({
+				extends: ["html-validate:document"],
 			});
 			expect(config.getRules()).toBeDefined();
 		});
@@ -475,6 +489,17 @@ describe("config", () => {
 			);
 		});
 
+		it("should throw error if transformer refers to missing plugin", () => {
+			const config = Config.fromObject({
+				transform: {
+					"^.*\\.foo$": "missing-plugin:foo",
+				},
+			});
+			expect(() => config.init()).toThrow(
+				'Failed to load transformer "missing-plugin:foo": No plugin named "missing-plugin" has been loaded'
+			);
+		});
+
 		it("should return original source if no transformer is found", () => {
 			const config = Config.fromObject({
 				transform: {
@@ -694,7 +719,9 @@ describe("config", () => {
 				plugins: ["mock-plugin"],
 			});
 			config.init();
-			expect(config.getPlugins()).toEqual([{ name: "mock-plugin" }]);
+			expect(config.getPlugins()).toEqual([
+				expect.objectContaining({ name: "mock-plugin" }),
+			]);
 		});
 	});
 

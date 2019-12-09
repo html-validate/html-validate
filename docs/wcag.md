@@ -102,7 +102,7 @@ textual description of the content. E.g. it cannot suggest to use `<abbr>` or
 		</tr>
 		<tr>
 			<td class="table-right">H44</td>
-			<td>Using label elements to associate text labels with form controls.<em>Use {@link rule:input-missing-label} to validate. Rule is only enabled by default in document mode (<code>htmlvalidate:document</code>).</em></td>
+			<td>Using label elements to associate text labels with form controls.<em>Use {@link rule:input-missing-label} to validate. Rule is only enabled by default in document mode (<code>html-validate:document</code>).</em></td>
 			<td class="support-yes">Yes</td>
 		</tr>
 		<tr>

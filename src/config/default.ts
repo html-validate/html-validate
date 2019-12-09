@@ -1,3 +1,3 @@
 export default {
-	extends: ["htmlvalidate:recommended"],
+	extends: ["html-validate:recommended"],
 };

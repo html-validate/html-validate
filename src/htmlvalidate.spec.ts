@@ -43,7 +43,7 @@ describe("HtmlValidate", () => {
 		const htmlvalidate = new HtmlValidate();
 		expect((htmlvalidate as any).globalConfig.config).toEqual(
 			expect.objectContaining({
-				extends: ["htmlvalidate:recommended"],
+				extends: ["html-validate:recommended"],
 			})
 		);
 	});
@@ -331,7 +331,16 @@ describe("HtmlValidate", () => {
 				offset: 29,
 				hooks: {
 					processElement: () => null,
+					processAttribute: null,
 				},
+			},
+			{
+				data: `third markup`,
+				filename,
+				line: 12,
+				column: 1,
+				offset: 69,
+				hooks: {},
 			},
 		]);
 		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(() => config);
@@ -350,6 +359,10 @@ describe("HtmlValidate", () => {
 			  " - processElement",
 			  "---",
 			  "second markup",
+			  "---",
+			  "Source foo.html@12:1 (offset: 69)",
+			  "---",
+			  "third markup",
 			  "---",
 			]
 		`);

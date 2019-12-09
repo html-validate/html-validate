@@ -4,6 +4,6 @@
 @description
 
 Rules with <span class="fa fa-check"></span> are enabled by
-`htmlvalidate:recommended`.<br>
+`html-validate:recommended`.<br>
 Rules with <span class="fa fa-file-text-o"></span> are enabled by
-`htmlvalidate:document`.
+`html-validate:document`.

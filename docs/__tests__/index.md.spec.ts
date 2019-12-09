@@ -26,7 +26,7 @@ markup["frontpage-components"] = `<my-inline>
 
 describe("docs/index.md", () => {
 	it("inline validation: frontpage-contentmodel", () => {
-		const htmlvalidate = new HtmlValidate({"extends":["htmlvalidate:recommended"]});
+		const htmlvalidate = new HtmlValidate({"extends":["html-validate:recommended"]});
 		const report = htmlvalidate.validateString(markup["frontpage-contentmodel"]);
 		expect(report.results).toMatchSnapshot();
 	});
@@ -36,7 +36,7 @@ describe("docs/index.md", () => {
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: frontpage-components", () => {
-		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-inline":{"phrasing":true,"permittedContent":["@phrasing"]},"my-block":{"flow":true},"my-deprecated":{"phrasing":true,"deprecated":"replaced with <my-other>"}}],"extends":["htmlvalidate:recommended"]});
+		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-inline":{"phrasing":true,"permittedContent":["@phrasing"]},"my-block":{"flow":true},"my-deprecated":{"phrasing":true,"deprecated":"replaced with <my-other>"}}],"extends":["html-validate:recommended"]});
 		const report = htmlvalidate.validateString(markup["frontpage-components"]);
 		expect(report.results).toMatchSnapshot();
 	});

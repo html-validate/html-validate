@@ -3,7 +3,7 @@
 exports[`ConfigLoader smoketest test-files/config/directive/disable.html 1`] = `
 Object {
   "extends": Array [
-    "htmlvalidate:recommended",
+    "html-validate:recommended",
   ],
   "plugins": Array [],
   "rules": Object {
@@ -59,7 +59,7 @@ Array [
 exports[`ConfigLoader smoketest test-files/config/directive/disable-block.html 1`] = `
 Object {
   "extends": Array [
-    "htmlvalidate:recommended",
+    "html-validate:recommended",
   ],
   "plugins": Array [],
   "rules": Object {
@@ -146,7 +146,7 @@ Should handle when root element is parent but no children
 exports[`ConfigLoader smoketest test-files/config/directive/disable-multiple.html 1`] = `
 Object {
   "extends": Array [
-    "htmlvalidate:recommended",
+    "html-validate:recommended",
   ],
   "plugins": Array [],
   "rules": Object {
@@ -199,7 +199,7 @@ Array [
 exports[`ConfigLoader smoketest test-files/config/directive/disable-next.html 1`] = `
 Object {
   "extends": Array [
-    "htmlvalidate:recommended",
+    "html-validate:recommended",
   ],
   "plugins": Array [],
   "rules": Object {
@@ -256,7 +256,7 @@ Object {
     "<rootDir>/test-files/config/elements/elements.json",
   ],
   "extends": Array [
-    "htmlvalidate:recommended",
+    "html-validate:recommended",
   ],
   "plugins": Array [],
   "rules": Object {
@@ -312,7 +312,7 @@ Array [
 exports[`ConfigLoader smoketest test-files/config/file.html 1`] = `
 Object {
   "extends": Array [
-    "htmlvalidate:recommended",
+    "html-validate:recommended",
   ],
   "plugins": Array [],
   "rules": Object {
@@ -352,7 +352,7 @@ Array [
 exports[`ConfigLoader smoketest test-files/config/off/error/file.html 1`] = `
 Object {
   "extends": Array [
-    "htmlvalidate:recommended",
+    "html-validate:recommended",
   ],
   "plugins": Array [],
   "rules": Object {
@@ -392,7 +392,7 @@ Array [
 exports[`ConfigLoader smoketest test-files/config/off/file.html 1`] = `
 Object {
   "extends": Array [
-    "htmlvalidate:recommended",
+    "html-validate:recommended",
   ],
   "plugins": Array [],
   "rules": Object {
@@ -409,7 +409,7 @@ exports[`ConfigLoader smoketest test-files/config/off/file.html 2`] = `Array []`
 exports[`ConfigLoader smoketest test-files/config/warn/file.html 1`] = `
 Object {
   "extends": Array [
-    "htmlvalidate:recommended",
+    "html-validate:recommended",
   ],
   "plugins": Array [],
   "rules": Object {
