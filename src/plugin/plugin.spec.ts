@@ -26,6 +26,7 @@ describe("Plugin", () => {
 		};
 
 		/* reset mock */
+		jest.resetModules();
 		mockPlugin = require("mock-plugin");
 	});
 
@@ -66,6 +67,30 @@ describe("Plugin", () => {
 		it("should default to package name", () => {
 			expect.assertions(1);
 			mockPlugin.name = null;
+			mockPlugin.configs = {
+				foo: {
+					rules: {
+						"my-rule": "error",
+					},
+				},
+			};
+			config = Config.fromObject({
+				extends: ["mock-plugin:foo"],
+				plugins: ["mock-plugin"],
+			});
+			expect(config.get()).toEqual({
+				extends: ["mock-plugin:foo"],
+				plugins: ["mock-plugin"],
+				rules: {
+					"my-rule": "error",
+				},
+				transform: {},
+			});
+		});
+
+		it("should retain original name", () => {
+			expect.assertions(1);
+			mockPlugin.name = "my-plugin";
 			mockPlugin.configs = {
 				foo: {
 					rules: {

@@ -18,6 +18,14 @@ interface TransformerEntry {
 	fn: Transformer;
 }
 
+/**
+ * Internal interface for a loaded plugin.
+ */
+interface LoadedPlugin extends Plugin {
+	name: string;
+	originalName: string;
+}
+
 const recommended = require("./recommended");
 const document = require("./document");
 let rootDirCache: string = null;
@@ -79,7 +87,7 @@ export class Config {
 	private initialized: boolean;
 
 	protected metaTable: MetaTable;
-	protected plugins: Plugin[];
+	protected plugins: LoadedPlugin[];
 	protected transformers: TransformerEntry[];
 	protected rootDir: string;
 
@@ -311,15 +319,16 @@ export class Config {
 		return this.plugins;
 	}
 
-	private loadPlugins(plugins: string[]): Plugin[] {
+	private loadPlugins(plugins: string[]): LoadedPlugin[] {
 		return plugins.map((moduleName: string) => {
 			try {
 				// eslint-disable-next-line security/detect-non-literal-require
 				const plugin = require(moduleName.replace(
 					"<rootDir>",
 					this.rootDir
-				)) as Plugin;
+				)) as LoadedPlugin;
 				plugin.name = plugin.name || moduleName;
+				plugin.originalName = moduleName;
 				return plugin;
 			} catch (err) {
 				throw new ConfigError(
@@ -330,7 +339,7 @@ export class Config {
 		});
 	}
 
-	private loadConfigurations(plugins: Plugin[]): Map<string, ConfigData> {
+	private loadConfigurations(plugins: LoadedPlugin[]): Map<string, ConfigData> {
 		const configs: Map<string, ConfigData> = new Map();
 
 		/* builtin presets */
@@ -340,9 +349,16 @@ export class Config {
 		/* presets from plugins */
 		for (const plugin of plugins) {
 			for (const [name, config] of Object.entries(plugin.configs || {})) {
-				configs.set(`${plugin.name}:${name}`, new Config(config).config);
+				/* add configuration with name provided by plugin */
+				configs.set(`${plugin.name}:${name}`, config);
+
+				/* add configuration with name provided by user (in config file) */
+				if (plugin.name !== plugin.originalName) {
+					configs.set(`${plugin.originalName}:${name}`, config);
+				}
 			}
 		}
+
 		return configs;
 	}
 

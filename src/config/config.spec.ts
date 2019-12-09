@@ -705,7 +705,9 @@ describe("config", () => {
 				plugins: ["mock-plugin"],
 			});
 			config.init();
-			expect(config.getPlugins()).toEqual([{ name: "mock-plugin" }]);
+			expect(config.getPlugins()).toEqual([
+				expect.objectContaining({ name: "mock-plugin" }),
+			]);
 		});
 	});
 
