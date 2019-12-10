@@ -281,6 +281,21 @@ describe("parser", () => {
 			});
 			expect(events.shift()).toBeUndefined();
 		});
+
+		describe("templating as text", () => {
+			it.each`
+				input
+				${"<% ... %>"}
+				${"<? ... ?>"}
+				${"<$ ... $>"}
+			`("$input", ({ input }) => {
+				expect.assertions(1);
+				const text = `lorem ${input} ipsum`;
+				const doc = parser.parseHtml(`<p>${text}</p>`);
+				const element = doc.querySelector("p");
+				expect(element.textContent).toEqual(text);
+			});
+		});
 	});
 
 	describe("should fail on", () => {

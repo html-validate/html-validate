@@ -9,6 +9,7 @@ const defaults = {
 
 const textRegexp = /([<>]|&(?![a-zA-Z0-9#]+;))/g;
 const unquotedAttrRegexp = /([<>"'=`]|&(?![a-zA-Z0-9#]+;))/g;
+const matchTemplate = /^(<%.*?%>|<\?.*?\?>|<\$.*?\$>)$/;
 
 const replacementTable: Map<string, string> = new Map([
 	['"', "&quot;"],
@@ -44,6 +45,12 @@ class NoRawCharacters extends Rule {
 				if (child.nodeType !== NodeType.TEXT_NODE) {
 					continue;
 				}
+
+				/* workaround for templating <% ... %> etc */
+				if (child.textContent.match(matchTemplate)) {
+					continue;
+				}
+
 				this.findRawChars(child.textContent, child.location, textRegexp);
 			}
 		});

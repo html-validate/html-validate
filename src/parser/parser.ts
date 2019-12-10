@@ -114,6 +114,7 @@ export class Parser {
 					break;
 
 				case TokenType.TEXT:
+				case TokenType.TEMPLATING:
 					this.appendText(token.data, token.location);
 					break;
 
