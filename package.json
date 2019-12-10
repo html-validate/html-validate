@@ -41,6 +41,7 @@
     "build:docs": "grunt docs",
     "clean": "rm -rf build public",
     "commitlint": "commitlint",
+    "debug": "node --inspect ./node_modules/.bin/jest --runInBand --watch --no-coverage",
     "eslint": "eslint *.js '{docs,elements,src}/**/*.{js,ts}'",
     "eslint:fix": "eslint --fix *.js '{docs,elements,src}/**/*.{js,ts}'",
     "htmlvalidate": "./bin/html-validate.js",
