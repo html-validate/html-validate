@@ -11,6 +11,7 @@ export enum TokenType {
 	ATTR_NAME,
 	ATTR_VALUE,
 	TEXT,
+	TEMPLATING,
 	SCRIPT,
 	COMMENT,
 	CONDITIONAL,

@@ -24,6 +24,7 @@ const MATCH_XML_TAG = /^<\?xml.*?\?>\n/;
 const MATCH_TAG_OPEN = /^<(\/?)([a-zA-Z0-9\-:]+)/; // https://www.w3.org/TR/html/syntax.html#start-tags
 const MATCH_TAG_CLOSE = /^\/?>/;
 const MATCH_TEXT = /^[^]*?(?=(?:[ \t]*(?:\r\n|\r|\n)|<[^ ]|$))/;
+const MATCH_TEMPLATING = /^(?:<%.*?%>|<\?.*?\?>|<\$.*?\$>)/;
 const MATCH_TAG_LOOKAHEAD = /^[^]*?(?=<|$)/;
 const MATCH_ATTR_START = /^([^\t\r\n\f \/><"'=]+)/; // https://www.w3.org/TR/html/syntax.html#elements-attributes
 const MATCH_ATTR_SINGLE = /^\s*=\s*'([^']*?)(')/;
@@ -266,6 +267,7 @@ export class Lexer {
 				[MATCH_DIRECTIVE, State.TEXT, TokenType.DIRECTIVE],
 				[MATCH_CONDITIONAL, State.TEXT, TokenType.CONDITIONAL],
 				[MATCH_COMMENT, State.TEXT, TokenType.COMMENT],
+				[MATCH_TEMPLATING, State.TEXT, TokenType.TEMPLATING],
 				[MATCH_TAG_OPEN, State.TAG, TokenType.TAG_OPEN],
 				[MATCH_TEXT, State.TEXT, TokenType.TEXT],
 				[MATCH_TAG_LOOKAHEAD, State.TEXT, TokenType.TEXT],

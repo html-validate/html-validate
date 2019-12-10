@@ -674,4 +674,20 @@ describe("lexer", () => {
 			expect(token.next()).toBeToken({ type: TokenType.EOF });
 		});
 	});
+
+	describe("should not choke on templating", () => {
+		it.each`
+			input
+			${"<% ... %>"}
+			${"<? ... ?>"}
+			${"<$ ... $>"}
+		`("$input", ({ input }) => {
+			const token = lexer.tokenize(inlineSource(input));
+			expect(token.next()).toBeToken({
+				type: TokenType.TEMPLATING,
+				data: [input],
+			});
+			expect(token.next()).toBeToken({ type: TokenType.EOF });
+		});
+	});
 });

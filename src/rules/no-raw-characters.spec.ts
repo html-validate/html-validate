@@ -118,6 +118,21 @@ describe("rule no-raw-characters", () => {
 			});
 		});
 
+		describe("should not report templating", () => {
+			it.each`
+				input
+				${"<% ... %>"}
+				${"<? ... ?>"}
+				${"<$ ... $>"}
+			`("$input", ({ input }) => {
+				expect.assertions(1);
+				const report = htmlvalidate.validateString(
+					`<p>lorem ${input} ipsum</p>`
+				);
+				expect(report).toBeValid();
+			});
+		});
+
 		it("smoketest", () => {
 			const report = htmlvalidate.validateFile(
 				"test-files/rules/no-raw-characters.html"
