@@ -21,17 +21,17 @@
         "foreign": { "type": "boolean" },
         "void": { "type": "boolean" },
         "transparent": { "type": "boolean" },
-        "implicitClosed": { "type": "array", "contains": { "type": "string" } },
+        "implicitClosed": { "type": "array", "items": { "type": "string" } },
         "scriptSupporting": { "type": "boolean" },
         "form": { "type": "boolean" },
 
         "deprecatedAttributes": {
           "type": "array",
-          "contains": { "type": "string" }
+          "items": { "type": "string" }
         },
         "requiredAttributes": {
           "type": "array",
-          "contains": { "type": "string" }
+          "items": { "type": "string" }
         },
         "attributes": { "$ref": "#/definitions/PermittedAttribute" },
 
