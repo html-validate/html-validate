@@ -7,6 +7,7 @@ module.exports = new Package("html-validate-docs", [
 	require("dgeni-packages/nunjucks"),
 	require("./highlight"),
 	require("./inline-validate"),
+	require("./schema"),
 ])
 
 	.processor(require("./processors/rules"))
@@ -44,7 +45,8 @@ module.exports = new Package("html-validate-docs", [
 		log,
 		readFilesProcessor,
 		templateFinder,
-		writeFilesProcessor
+		writeFilesProcessor,
+		copySchema
 	) {
 		log.level = "info";
 
@@ -61,6 +63,9 @@ module.exports = new Package("html-validate-docs", [
 				fileReader: "changelogFileReader",
 			},
 		];
+
+		copySchema.outputFolder = "public/schemas";
+		copySchema.files = ["elements/elements.json"];
 
 		writeFilesProcessor.outputFolder = "public";
 	})
