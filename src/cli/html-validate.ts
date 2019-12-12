@@ -1,6 +1,7 @@
 /* eslint-disable no-console, no-process-exit, sonarjs/no-duplicate-string */
 import { TokenDump } from "../engine";
 import { UserError } from "../error/user-error";
+import { MetaValidationError } from "../meta/validation-error";
 import { Report, Reporter, Result } from "../reporter";
 import { eventFormatter } from "./json";
 
@@ -98,6 +99,39 @@ function renameStdin(report: Report, filename: string): void {
 	if (stdin) {
 		stdin.filePath = filename;
 	}
+}
+
+function handleValidationError(err: MetaValidationError): void {
+	console.log(err.prettyError());
+}
+
+function handleUserError(err: UserError): void {
+	console.error(chalk.red("Caught exception:"));
+	if (console.group) console.group();
+	{
+		console.error(err);
+	}
+	if (console.group) console.groupEnd();
+}
+
+function handleUnknownError(err: Error): void {
+	console.error(chalk.red("Caught exception:"));
+	if (console.group) console.group();
+	{
+		console.error(err);
+	}
+	if (console.group) console.groupEnd();
+	const bugUrl = `${pkg.bugs.url}?issuable_template=Bug`;
+	console.error(chalk.red(`This is a bug in ${pkg.name}-${pkg.version}.`));
+	console.error(
+		chalk.red(
+			[
+				`Please file a bug at ${bugUrl}`,
+				`and include this message in full and if possible the content of the`,
+				`file being parsed (or a reduced testcase).`,
+			].join("\n")
+		)
+	);
 }
 
 const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
@@ -263,20 +297,12 @@ try {
 		process.exit(0);
 	}
 } catch (err) {
-	console.error(chalk.red("Caught exception:"));
-	if (console.group) console.group();
-	{
-		console.error(err);
-	}
-	if (console.group) console.groupEnd();
-	if (!(err instanceof UserError)) {
-		const bugUrl = `${pkg.bugs.url}?issuable_template=Bug`;
-		console.error(chalk.red(`This is a bug in ${pkg.name}-${pkg.version}.`));
-		console.error(
-			chalk.red(
-				`Please file a bug at ${bugUrl}\nand include this message in full and if possible the content of the\nfile being parsed (or a reduced testcase).`
-			)
-		);
+	if (err instanceof MetaValidationError) {
+		handleValidationError(err);
+	} else if (err instanceof UserError) {
+		handleUserError(err);
+	} else {
+		handleUnknownError(err);
 	}
 	process.exit(1);
 }
