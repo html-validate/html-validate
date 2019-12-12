@@ -1,5 +1,17 @@
 # html-validate changelog
 
+# [2.6.0](https://gitlab.com/html-validate/html-validate/compare/v2.5.0...v2.6.0) (2019-12-12)
+
+### Bug Fixes
+
+- **cli:** useful error message when metadata is invalid ([165da72](https://gitlab.com/html-validate/html-validate/commit/165da729ade4f64a946b83f6cd8b57a69186f51d))
+- **elements:** allow `requiredAttributes` and others to be empty array ([244d038](https://gitlab.com/html-validate/html-validate/commit/244d0384ca62a5f73985116699690dd87e3fbea1)), closes [#59](https://gitlab.com/html-validate/html-validate/issues/59)
+- **error:** better schema validation error ([9a5f8fe](https://gitlab.com/html-validate/html-validate/commit/9a5f8fe0a6d7fddd53e1002c028fd0218febfede))
+
+### Features
+
+- **lexer:** handle rudimentary template tags such as `<% .. %>` ([a0f6190](https://gitlab.com/html-validate/html-validate/commit/a0f619045642fabac73d6fff6a1d832f37fdc075))
+
 # [2.5.0](https://gitlab.com/html-validate/html-validate/compare/v2.4.3...v2.5.0) (2019-12-09)
 
 ### Bug Fixes
