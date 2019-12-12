@@ -1,11 +1,13 @@
+import Ajv from "ajv";
 import deepmerge from "deepmerge";
 import fs from "fs";
 import path from "path";
 import { Source } from "../context";
-import { NestedError } from "../error";
+import { NestedError, SchemaValidationError } from "../error";
 import { MetaTable } from "../meta";
 import { MetaDataTable } from "../meta/element";
 import { Plugin } from "../plugin";
+import schema from "../schema/config.json";
 import { TransformContext, Transformer, TRANSFORMER_API } from "../transform";
 import { ConfigData, TransformMap } from "./config-data";
 import defaultConfig from "./default";
@@ -29,6 +31,10 @@ interface LoadedPlugin extends Plugin {
 const recommended = require("./recommended");
 const document = require("./document");
 let rootDirCache: string = null;
+
+const ajv = new Ajv({ jsonPointers: true });
+ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-06.json"));
+const validator = ajv.compile(schema);
 
 function overwriteMerge<T>(a: T[], b: T[]): T[] {
 	return b;
@@ -106,7 +112,11 @@ export class Config {
 	/**
 	 * Create configuration from object.
 	 */
-	public static fromObject(options: ConfigData): Config {
+	public static fromObject(
+		options: ConfigData,
+		filename: string | null = null
+	): Config {
+		Config.validate(options, filename);
 		return new Config(options);
 	}
 
@@ -121,7 +131,25 @@ export class Config {
 	 */
 	public static fromFile(filename: string): Config {
 		const configdata = loadFromFile(filename);
-		return new Config(configdata);
+		return Config.fromObject(configdata, filename);
+	}
+
+	/**
+	 * Validate configuration data.
+	 *
+	 * Throws SchemaValidationError if invalid.
+	 */
+	public static validate(options: ConfigData, filename?: string): void {
+		const valid = validator(options);
+		if (!valid) {
+			throw new SchemaValidationError(
+				filename,
+				`Invalid configuration`,
+				options,
+				schema,
+				validator.errors
+			);
+		}
 	}
 
 	/**

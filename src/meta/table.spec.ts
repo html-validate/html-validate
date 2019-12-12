@@ -13,6 +13,9 @@ jest.mock("ajv", () => {
 		public compile(): () => boolean {
 			return validate;
 		}
+		public addMetaSchema(): void {
+			/* do nothing */
+		}
 	}
 	return MockAjv;
 });

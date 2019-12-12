@@ -4,6 +4,7 @@ import jsonMergePatch from "json-merge-patch";
 import { HtmlElement } from "../dom";
 import { SchemaValidationError, UserError } from "../error";
 import { SchemaValidationPatch } from "../plugin";
+import schema from "../schema/elements.json";
 import {
 	ElementTable,
 	MetaData,
@@ -41,7 +42,7 @@ export class MetaTable {
 
 	public constructor() {
 		this.elements = {};
-		this.schema = clone(require("../../elements/elements.json"));
+		this.schema = clone(schema);
 	}
 
 	public init(): void {

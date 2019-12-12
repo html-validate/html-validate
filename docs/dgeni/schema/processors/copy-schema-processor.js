@@ -10,7 +10,7 @@ module.exports = function copySchemaProcessor(copySchema, readFilesProcessor) {
 
 	function $process() {
 		const root = readFilesProcessor.basePath;
-		const outputFolder = path.join(root, copySchema.outputFolder, "schemas");
+		const outputFolder = path.join(root, copySchema.outputFolder);
 
 		mkdirp.sync(outputFolder);
 

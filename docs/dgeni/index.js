@@ -65,7 +65,7 @@ module.exports = new Package("html-validate-docs", [
 		];
 
 		copySchema.outputFolder = "public/schemas";
-		copySchema.files = ["elements/elements.json"];
+		copySchema.files = ["src/schema/elements.json", "src/schema/config.json"];
 
 		writeFilesProcessor.outputFolder = "public";
 	})

@@ -10,6 +10,19 @@ declare module "./config-data" {
 	}
 }
 
+jest.mock("ajv", () => {
+	class MockAjv {
+		public compile(): () => boolean {
+			/* always valid */
+			return () => true;
+		}
+		public addMetaSchema(): void {
+			/* do nothing */
+		}
+	}
+	return MockAjv;
+});
+
 class MockConfig {
 	public static empty(): Config {
 		return Config.empty();

@@ -103,8 +103,12 @@ function renameStdin(report: Report, filename: string): void {
 }
 
 function handleValidationError(err: SchemaValidationError): void {
-	const filename = path.relative(process.cwd(), err.filename);
-	console.log(chalk.red(`A configuration error was found in "${filename}":`));
+	if (err.filename) {
+		const filename = path.relative(process.cwd(), err.filename);
+		console.log(chalk.red(`A configuration error was found in "${filename}":`));
+	} else {
+		console.log(chalk.red(`A configuration error was found:`));
+	}
 	if (console.group) console.group();
 	{
 		console.log(err.prettyError());
