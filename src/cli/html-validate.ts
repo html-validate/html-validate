@@ -1,7 +1,7 @@
 /* eslint-disable no-console, no-process-exit, sonarjs/no-duplicate-string */
 import { TokenDump } from "../engine";
+import { SchemaValidationError } from "../error";
 import { UserError } from "../error/user-error";
-import { MetaValidationError } from "../meta/validation-error";
 import { Report, Reporter, Result } from "../reporter";
 import { eventFormatter } from "./json";
 
@@ -9,6 +9,7 @@ const pkg = require("../../package.json");
 
 import chalk from "chalk";
 import minimist from "minimist";
+import path from "path";
 import { CLI } from "./cli";
 
 enum Mode {
@@ -101,8 +102,14 @@ function renameStdin(report: Report, filename: string): void {
 	}
 }
 
-function handleValidationError(err: MetaValidationError): void {
-	console.log(err.prettyError());
+function handleValidationError(err: SchemaValidationError): void {
+	const filename = path.relative(process.cwd(), err.filename);
+	console.log(chalk.red(`A configuration error was found in "${filename}":`));
+	if (console.group) console.group();
+	{
+		console.log(err.prettyError());
+	}
+	if (console.group) console.groupEnd();
 }
 
 function handleUserError(err: UserError): void {
@@ -297,7 +304,7 @@ try {
 		process.exit(0);
 	}
 } catch (err) {
-	if (err instanceof MetaValidationError) {
+	if (err instanceof SchemaValidationError) {
 		handleValidationError(err);
 	} else if (err instanceof UserError) {
 		handleUserError(err);

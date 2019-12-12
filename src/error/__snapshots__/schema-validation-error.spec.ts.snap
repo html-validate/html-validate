@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MetaValidationError should pretty-print validation errors  1`] = `
+exports[`SchemaValidationError should pretty-print validation errors  1`] = `
 "TYPE should be boolean
 
   1 | {

@@ -1,9 +1,9 @@
 import stripAnsi = require("strip-ansi");
-import { MetaElement } from "./element";
-import { MetaTable } from "./table";
-import { MetaValidationError } from "./validation-error";
+import { MetaElement } from "../meta/element";
+import { MetaTable } from "../meta/table";
+import { SchemaValidationError } from "./schema-validation-error";
 
-it("MetaValidationError should pretty-print validation errors ", () => {
+it("SchemaValidationError should pretty-print validation errors ", () => {
 	expect.assertions(1);
 	const table = new MetaTable();
 	try {
@@ -13,7 +13,7 @@ it("MetaValidationError should pretty-print validation errors ", () => {
 			} as unknown) as MetaElement,
 		});
 	} catch (err) {
-		if (err instanceof MetaValidationError) {
+		if (err instanceof SchemaValidationError) {
 			const output = (err.prettyError() as unknown) as string;
 
 			/* cannot test prettyError() method with builtin helpers */
