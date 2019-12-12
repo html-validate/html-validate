@@ -3,7 +3,7 @@ import betterAjvErrors from "better-ajv-errors";
 import deepmerge from "deepmerge";
 import jsonMergePatch from "json-merge-patch";
 import { HtmlElement } from "../dom";
-import { UserError } from "../error/user-error";
+import { SchemaValidationError, UserError } from "../error";
 import { SchemaValidationPatch } from "../plugin";
 import {
 	ElementTable,
@@ -13,7 +13,6 @@ import {
 	MetaLookupableProperty,
 	PropertyExpression,
 } from "./element";
-import { MetaValidationError } from "./validation-error";
 
 const dynamicKeys = [
 	"metadata",
@@ -73,7 +72,10 @@ export class MetaTable {
 	/**
 	 * Load metadata table from object.
 	 */
-	public loadFromObject(obj: MetaDataTable): void {
+	public loadFromObject(
+		obj: MetaDataTable,
+		filename: string | null = null
+	): void {
 		const ajv = new Ajv({ jsonPointers: true });
 		const validator = ajv.compile(this.schema);
 		const valid = validator(obj);
@@ -82,7 +84,8 @@ export class MetaTable {
 				format: "js",
 			}) as any;
 			const message = output[0].error;
-			throw new MetaValidationError(
+			throw new SchemaValidationError(
+				filename,
 				`Element metadata is not valid: ${message}`,
 				obj,
 				this.schema,
@@ -108,7 +111,7 @@ export class MetaTable {
 				err
 			);
 		}
-		this.loadFromObject(clone(json));
+		this.loadFromObject(clone(json), filename);
 	}
 
 	public getMetaFor(tagName: string): MetaElement {
