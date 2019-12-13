@@ -1,6 +1,6 @@
 import { Location, sliceLocation } from "../context";
 import { Token } from "../lexer";
-import { MetaElement, MetaTable } from "../meta";
+import { MetaCopyableProperty, MetaElement, MetaTable } from "../meta";
 import { Attribute } from "./attribute";
 import { DOMNode } from "./domnode";
 import { DOMTokenList } from "./domtokenlist";
@@ -19,12 +19,12 @@ export enum NodeClosed {
 
 export class HtmlElement extends DOMNode {
 	public readonly tagName: string;
-	public readonly meta: MetaElement;
 	public readonly parent: HtmlElement;
 	public readonly voidElement: boolean;
 	public readonly depth: number;
 	public closed: NodeClosed;
 	protected readonly attr: { [key: string]: Attribute[] };
+	private metaElement: MetaElement;
 
 	public constructor(
 		tagName: string,
@@ -39,9 +39,9 @@ export class HtmlElement extends DOMNode {
 		this.tagName = tagName;
 		this.parent = parent;
 		this.attr = {};
-		this.meta = meta;
+		this.metaElement = meta;
 		this.closed = closed;
-		this.voidElement = this.meta ? this.meta.void : false;
+		this.voidElement = meta ? meta.void : false;
 		this.depth = 0;
 
 		if (parent) {
@@ -129,6 +129,47 @@ export class HtmlElement extends DOMNode {
 	}
 
 	/**
+	 * Load new element metadata onto this element.
+	 *
+	 * Do note that semantics such as `void` cannot be changed (as the element has
+	 * already been created). In addition the element will still "be" the same
+	 * element, i.e. even if loading meta for a `<p>` tag upon a `<div>` tag it
+	 * will still be a `<div>` as far as the rest of the validator is concerned.
+	 *
+	 * In fact only certain properties will be copied onto the element:
+	 *
+	 * - content categories (flow, phrasing, etc)
+	 * - required attributes
+	 * - attribute allowed values
+	 * - permitted/required elements
+	 *
+	 * Properties *not* loaded:
+	 *
+	 * - inherit
+	 * - deprecated
+	 * - foreign
+	 * - void
+	 * - implicitClosed
+	 * - scriptSupporting
+	 * - deprecatedAttributes
+	 *
+	 * Changes to element metadata will only be visible after `element:ready` (and
+	 * the subsequent `dom:ready` event).
+	 */
+	public loadMeta(meta: MetaElement): void {
+		if (!this.metaElement) {
+			this.metaElement = {} as MetaElement;
+		}
+		for (const key of MetaCopyableProperty) {
+			if (typeof meta[key] !== "undefined") {
+				this.metaElement[key] = meta[key];
+			} else {
+				delete this.metaElement[key];
+			}
+		}
+	}
+
+	/**
 	 * Match this element against given selectors. Returns true if any selector
 	 * matches.
 	 *
@@ -153,6 +194,10 @@ export class HtmlElement extends DOMNode {
 		}
 
 		return false;
+	}
+
+	public get meta(): MetaElement {
+		return this.metaElement;
 	}
 
 	public setAttribute(

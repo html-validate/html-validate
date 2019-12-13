@@ -1,6 +1,9 @@
 import { Config } from "../config";
 import { Location, sliceLocation, Source } from "../context";
-import { ProcessAttributeCallback } from "../context/source";
+import {
+	ProcessAttributeCallback,
+	ProcessElementContext,
+} from "../context/source";
 import { DOMTree, HtmlElement, NodeClosed } from "../dom";
 import {
 	AttributeEvent,
@@ -200,6 +203,8 @@ export class Parser {
 		const close = !open || node.closed !== NodeClosed.Open;
 		const foreign = node.meta && node.meta.foreign;
 
+		/* if the previous tag to be implicitly closed by the current tag we close
+		 * it and pop it from the stack before continuing processing this tag */
 		if (closeOptional) {
 			const active = this.dom.getActive();
 			active.closed = NodeClosed.ImplicitClosed;
@@ -264,10 +269,7 @@ export class Parser {
 		location: Location
 	): void {
 		/* call processElement hook */
-		if (source.hooks && source.hooks.processElement) {
-			const processElement = source.hooks.processElement;
-			processElement(active);
-		}
+		this.processElement(active, source);
 
 		/* trigger event for the closing of the element (the </> tag)*/
 		this.trigger("tag:close", {
@@ -283,6 +285,19 @@ export class Parser {
 				target: active,
 				location: active.location,
 			});
+		}
+	}
+
+	private processElement(node: HtmlElement, source: Source): void {
+		if (source.hooks && source.hooks.processElement) {
+			const processElement = source.hooks.processElement;
+			const metaTable = this.metaTable;
+			const context: ProcessElementContext = {
+				getMetaFor(tagName: string) {
+					return metaTable.getMetaFor(tagName);
+				},
+			};
+			processElement.call(context, node);
 		}
 	}
 
@@ -371,7 +386,7 @@ export class Parser {
 
 		/* handle deprecated callbacks */
 		let iterator: Iterable<AttributeData>;
-		const legacy = processAttribute(attrData);
+		const legacy = processAttribute.call({}, attrData);
 		if (typeof (legacy as any)[Symbol.iterator] !== "function") {
 			/* AttributeData */
 			iterator = [attrData];

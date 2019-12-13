@@ -2,7 +2,7 @@ import { Attribute, DOMTree, HtmlElement, NodeClosed, NodeType } from ".";
 import { Config } from "../config";
 import { Location, Source } from "../context";
 import { Token, TokenType } from "../lexer";
-import { MetaData, MetaTable } from "../meta";
+import { MetaData, MetaElement, MetaTable } from "../meta";
 import { Parser } from "../parser";
 import { processAttribute } from "../transform/mocks/attribute";
 import { DynamicValue } from "./dynamic-value";
@@ -382,6 +382,43 @@ describe("HtmlElement", () => {
 		it("should match any tag when using asterisk", () => {
 			const el = new HtmlElement("foo");
 			expect(el.is("*")).toBeTruthy();
+		});
+	});
+
+	describe("loadMeta()", () => {
+		let node: HtmlElement;
+		const original = {
+			inherit: "foo",
+			flow: true,
+		} as MetaElement;
+
+		beforeEach(() => {
+			node = new HtmlElement("my-element", null, null, original);
+		});
+
+		it("should overwrite copyable properties", () => {
+			expect.assertions(1);
+			node.loadMeta({ flow: false } as MetaElement);
+			expect(node.meta.flow).toEqual(false);
+		});
+
+		it("should not overwrite non-copyable properties", () => {
+			expect.assertions(1);
+			node.loadMeta({ inherit: "bar" } as MetaElement);
+			expect(node.meta.inherit).toEqual("foo");
+		});
+
+		it("should remove missing properties", () => {
+			expect.assertions(1);
+			node.loadMeta({} as MetaElement);
+			expect(node.meta.flow).toBeUndefined();
+		});
+
+		it("should handle when original meta is null", () => {
+			expect.assertions(1);
+			const node = new HtmlElement("my-element");
+			node.loadMeta({ flow: false } as MetaElement);
+			expect(node.meta.flow).toEqual(false);
 		});
 	});
 

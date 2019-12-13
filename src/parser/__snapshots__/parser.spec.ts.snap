@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parser should postprocess elements allow modifiy element metadata 1`] = `
+Object {
+  "attributes": Object {
+    "contenteditable": Array [
+      "",
+      "true",
+      "false",
+    ],
+    "dir": Array [
+      "ltr",
+      "rtl",
+      "auto",
+    ],
+    "draggable": Array [
+      "true",
+      "false",
+    ],
+    "hidden": Array [],
+    "tabindex": Array [
+      /-\\?\\\\d\\+/,
+    ],
+  },
+  "deprecatedAttributes": Array [
+    "contextmenu",
+  ],
+  "flow": true,
+  "permittedContent": Array [
+    "@flow",
+    "dt",
+    "dd",
+  ],
+  "tagName": "i",
+  "void": false,
+}
+`;
+
+exports[`parser should postprocess elements allow modifiy element metadata 2`] = `
+Object {
+  "attributes": Object {
+    "contenteditable": Array [
+      "",
+      "true",
+      "false",
+    ],
+    "dir": Array [
+      "ltr",
+      "rtl",
+      "auto",
+    ],
+    "draggable": Array [
+      "true",
+      "false",
+    ],
+    "hidden": Array [],
+    "tabindex": Array [
+      /-\\?\\\\d\\+/,
+    ],
+  },
+  "deprecatedAttributes": Array [
+    "contextmenu",
+  ],
+  "flow": true,
+  "permittedContent": Array [
+    "@phrasing",
+  ],
+  "phrasing": true,
+  "tagName": "u",
+  "void": false,
+}
+`;
