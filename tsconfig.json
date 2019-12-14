@@ -8,6 +8,7 @@
     "module": "commonjs",
     "noImplicitAny": true,
     "outDir": "build",
+    "resolveJsonModule": true,
     "sourceMap": false,
     "target": "es2017",
     "strict": true,

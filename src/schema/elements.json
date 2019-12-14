@@ -1,5 +1,8 @@
 {
-  "$id": "https://html-validate.org/schemas/metadata.json",
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$id": "https://html-validate.org/schemas/elements.json",
+  "version": "1.0",
+
   "type": "object",
   "patternProperties": {
     "^.*$": {

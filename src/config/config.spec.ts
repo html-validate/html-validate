@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { Source } from "../context";
+import { SchemaValidationError } from "../error";
 import { UserError } from "../error/user-error";
 import { Transformer, TRANSFORMER_API } from "../transform";
 import { Config } from "./config";
@@ -80,6 +81,17 @@ describe("config", () => {
 		);
 	});
 
+	it("should throw error if file is invalid", () => {
+		expect(() =>
+			Config.fromObject({
+				rules: "spam",
+			} as any)
+		).toThrow("Invalid configuration: /rules: type should be object");
+		expect(() => Config.fromFile("invalid-file.json")).toThrow(
+			'Failed to read configuration from "invalid-file.json"'
+		);
+	});
+
 	describe("merge()", () => {
 		it("should merge two configs", () => {
 			const a = Config.fromObject({ rules: { foo: 1 } });
@@ -99,7 +111,7 @@ describe("config", () => {
 
 	describe("getRules()", () => {
 		it("should handle when config is missing rules", () => {
-			const config = Config.fromObject({ rules: null });
+			const config = Config.fromObject({ rules: undefined });
 			expect(config.get().rules).toEqual({});
 			expect(config.getRules()).toEqual(new Map());
 		});
@@ -142,16 +154,6 @@ describe("config", () => {
 			]);
 		});
 
-		it("should throw on invalid severity", () => {
-			const fn = Config.fromObject as (options: any) => Config;
-			const config = fn({
-				rules: {
-					bar: "foo",
-				},
-			});
-			expect(() => config.getRules()).toThrow('Invalid severity "foo"');
-		});
-
 		it("should retain options", () => {
 			const config = Config.fromObject({
 				rules: {
@@ -165,11 +167,6 @@ describe("config", () => {
 				["bar", [Severity.ERROR, { bar: false }]],
 				["baz", [Severity.WARN, {}]],
 			]);
-		});
-
-		it("should handle when rules are unset", () => {
-			const config = Config.fromObject({ rules: null });
-			expect(Array.from(config.getRules().entries())).toEqual([]);
 		});
 	});
 
@@ -728,8 +725,8 @@ describe("config", () => {
 
 		it("should handle unset fields", () => {
 			const config = Config.fromObject({
-				plugins: null,
-				transform: null,
+				plugins: undefined,
+				transform: undefined,
 			});
 			expect(() => {
 				config.init();
@@ -758,5 +755,49 @@ describe("config", () => {
 		const spy = jest.spyOn(fs, "existsSync").mockImplementation(() => false);
 		expect(config.findRootDir()).toEqual(process.cwd());
 		spy.mockRestore();
+	});
+
+	describe("schema validation", () => {
+		describe("valid", () => {
+			it.each([
+				["empty", {}],
+				["root true", { root: true }],
+				["root false", { root: false }],
+				["extends empty", { extends: [] }],
+				["extends string", { extends: ["foo", "bar", "baz"] }],
+				["elements empty", { elements: [] }],
+				["elements string", { elements: ["foo", "bar", "baz"] }],
+				["plugins empty", { plugins: [] }],
+				["plugins string", { plugins: ["foo", "bar", "baz"] }],
+				["transform empty", { transform: {} }],
+				["transform patterns", { transform: { "^foo$": "bar" } }],
+				["rules empty", { rules: {} }],
+				["rules with numeric severity", { rules: { foo: 0, bar: 1, baz: 2 } }],
+				["rules with severity", { rules: { a: "off", b: "warn", c: "error" } }],
+				["rules with missing options", { rules: { foo: ["error"] } }],
+				["rules with options", { rules: { foo: ["error", { spam: "ham" }] } }],
+			] as Array<[string, any]>)("%s", (_, config: any) => {
+				expect(() => Config.validate(config)).not.toThrow();
+			});
+		});
+
+		describe("invalid", () => {
+			it.each([
+				["root garbage", { root: "asdf" }],
+				["extends garbage", { extends: "asdf" }],
+				["extends invalid", { extends: [1] }],
+				["elements garbage", { elements: "asdf" }],
+				["elements invalid", { elements: [1] }],
+				["plugins garbage", { plugins: "asdf" }],
+				["plugins invalid", { plugins: [1] }],
+				["transform garbage", { transform: "asdf" }],
+				["transform invalid", { transform: { foo: 1 } }],
+				["rules with invalid numeric severity", { rules: { foo: -1, bar: 3 } }],
+				["rules with invalid severity", { rules: { foo: "spam" } }],
+				["additional property", { foo: "bar" }],
+			] as Array<[string, any]>)("%s", (_, config: any) => {
+				expect(() => Config.validate(config)).toThrow(SchemaValidationError);
+			});
+		});
 	});
 });

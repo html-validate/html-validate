@@ -4,6 +4,7 @@ import jsonMergePatch from "json-merge-patch";
 import { HtmlElement } from "../dom";
 import { SchemaValidationError, UserError } from "../error";
 import { SchemaValidationPatch } from "../plugin";
+import schema from "../schema/elements.json";
 import {
 	ElementTable,
 	MetaData,
@@ -41,7 +42,7 @@ export class MetaTable {
 
 	public constructor() {
 		this.elements = {};
-		this.schema = clone(require("../../elements/schema.json"));
+		this.schema = clone(schema);
 	}
 
 	public init(): void {
@@ -76,6 +77,7 @@ export class MetaTable {
 		filename: string | null = null
 	): void {
 		const ajv = new Ajv({ jsonPointers: true });
+		ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-06.json"));
 		const validator = ajv.compile(this.schema);
 		const valid = validator(obj);
 		if (!valid) {
