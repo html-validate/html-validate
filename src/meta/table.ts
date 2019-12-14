@@ -1,4 +1,3 @@
-import betterAjvErrors from "@sidvind/better-ajv-errors";
 import Ajv from "ajv";
 import deepmerge from "deepmerge";
 import jsonMergePatch from "json-merge-patch";
@@ -80,13 +79,9 @@ export class MetaTable {
 		const validator = ajv.compile(this.schema);
 		const valid = validator(obj);
 		if (!valid) {
-			const output = betterAjvErrors(this.schema, obj, validator.errors, {
-				format: "js",
-			}) as any;
-			const message = output[0].error;
 			throw new SchemaValidationError(
 				filename,
-				`Element metadata is not valid: ${message}`,
+				`Element metadata is not valid`,
 				obj,
 				this.schema,
 				validator.errors
