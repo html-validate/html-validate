@@ -643,6 +643,28 @@ describe("config", () => {
 			});
 			expect(() => config.init()).toThrowErrorMatchingSnapshot();
 		});
+
+		it("should throw error when trying to load garbage as transformer", () => {
+			jest.mock("mock-garbage", () => "foobar", { virtual: true });
+			const config = Config.fromObject({
+				transform: {
+					"^.*\\.foo$": "mock-garbage",
+				},
+			});
+			expect(() => config.init()).toThrowErrorMatchingSnapshot();
+		});
+
+		it("should throw helpful error when trying to load unregistered plugin as transformer", () => {
+			jest.mock("mock-plugin-unregistered", () => ({ transformer: {} }), {
+				virtual: true,
+			});
+			const config = Config.fromObject({
+				transform: {
+					"^.*\\.foo$": "mock-plugin-unregistered",
+				},
+			});
+			expect(() => config.init()).toThrowErrorMatchingSnapshot();
+		});
 	});
 
 	describe("transformFilename()", () => {

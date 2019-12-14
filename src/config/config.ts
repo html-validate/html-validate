@@ -529,7 +529,18 @@ export class Config {
 
 		/* assume transformer refers to a regular module */
 		// eslint-disable-next-line security/detect-non-literal-require
-		return require(name.replace("<rootDir>", this.rootDir));
+		const fn = require(name.replace("<rootDir>", this.rootDir));
+		if (typeof fn !== "function") {
+			/* this is not a proper transformer, is it a plugin exposing a transformer? */
+			if (fn.transformer) {
+				throw new ConfigError(
+					`Module is not a valid transformer. This looks like a plugin, did you forget to load the plugin first?`
+				);
+			} else {
+				throw new ConfigError(`Module is not a valid transformer.`);
+			}
+		}
+		return fn;
 	}
 
 	protected findRootDir(): string {
