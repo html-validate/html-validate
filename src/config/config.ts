@@ -485,61 +485,101 @@ export class Config {
 	 * - Named transformers from plugins.
 	 * - Unnamed transformer from plugin.
 	 * - Standalone modules (local or node_modules)
+	 *
+	 * @param name - Key from configuration
 	 */
 	private getTransformFunction(name: string): Transformer {
 		/* try to match a named transformer from plugin */
 		const match = name.match(/(.*):(.*)/);
 		if (match) {
 			const [, pluginName, key] = match;
-			const plugin = this.plugins.find(cur => cur.name === pluginName);
-			if (!plugin) {
-				throw new ConfigError(
-					`No plugin named "${pluginName}" has been loaded`
-				);
-			}
-			if (!plugin.transformer) {
-				throw new ConfigError(`Plugin does not expose any transformer`);
-			}
-			if (typeof plugin.transformer === "function") {
-				throw new ConfigError(
-					`Transformer "${name}" refers to named transformer but plugin exposes only unnamed, use "${pluginName}" instead.`
-				);
-			}
-			if (!plugin.transformer[key]) {
-				throw new ConfigError(
-					`Plugin "${pluginName}" does not expose a transformer named "${key}".`
-				);
-			}
-			return plugin.transformer[key];
+			return this.getNamedTransformerFromPlugin(name, pluginName, key);
 		}
 
 		/* try to match an unnamed transformer from plugin */
 		const plugin = this.plugins.find(cur => cur.name === name);
 		if (plugin) {
-			if (!plugin.transformer) {
-				throw new ConfigError(`Plugin does not expose any transformer`);
-			}
-			if (typeof plugin.transformer !== "function") {
-				throw new ConfigError(
-					`Transformer "${name}" refers to unnamed transformer but plugin exposes only named.`
-				);
-			}
-			return plugin.transformer;
+			return this.getUnnamedTransformerFromPlugin(name, plugin);
 		}
 
 		/* assume transformer refers to a regular module */
+		return this.getTransformerFromModule(name);
+	}
+
+	/**
+	 * @param name - Original name from configuration
+	 * @param pluginName - Name of plugin
+	 * @param key - Name of transform (from plugin)
+	 */
+	private getNamedTransformerFromPlugin(
+		name: string,
+		pluginName: string,
+		key: string
+	): Transformer {
+		const plugin = this.plugins.find(cur => cur.name === pluginName);
+		if (!plugin) {
+			throw new ConfigError(`No plugin named "${pluginName}" has been loaded`);
+		}
+
+		if (!plugin.transformer) {
+			throw new ConfigError(`Plugin does not expose any transformer`);
+		}
+
+		if (typeof plugin.transformer === "function") {
+			throw new ConfigError(
+				`Transformer "${name}" refers to named transformer but plugin exposes only unnamed, use "${pluginName}" instead.`
+			);
+		}
+
+		if (!plugin.transformer[key]) {
+			throw new ConfigError(
+				`Plugin "${pluginName}" does not expose a transformer named "${key}".`
+			);
+		}
+
+		return plugin.transformer[key];
+	}
+
+	/**
+	 * @param name - Original name from configuration
+	 * @param plugin - Plugin instance
+	 */
+	private getUnnamedTransformerFromPlugin(
+		name: string,
+		plugin: Plugin
+	): Transformer {
+		if (!plugin.transformer) {
+			throw new ConfigError(`Plugin does not expose any transformer`);
+		}
+
+		if (typeof plugin.transformer !== "function") {
+			throw new ConfigError(
+				`Transformer "${name}" refers to unnamed transformer but plugin exposes only named.`
+			);
+		}
+
+		return plugin.transformer;
+	}
+
+	private getTransformerFromModule(name: string): Transformer {
+		/* expand <rootDir> */
+		const moduleName = name.replace("<rootDir>", this.rootDir);
+
 		// eslint-disable-next-line security/detect-non-literal-require
-		const fn = require(name.replace("<rootDir>", this.rootDir));
+		const fn = require(moduleName);
+
+		/* sanity check */
 		if (typeof fn !== "function") {
 			/* this is not a proper transformer, is it a plugin exposing a transformer? */
 			if (fn.transformer) {
 				throw new ConfigError(
 					`Module is not a valid transformer. This looks like a plugin, did you forget to load the plugin first?`
 				);
-			} else {
-				throw new ConfigError(`Module is not a valid transformer.`);
 			}
+
+			throw new ConfigError(`Module is not a valid transformer.`);
 		}
+
 		return fn;
 	}
 
