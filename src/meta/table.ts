@@ -1,5 +1,5 @@
+import betterAjvErrors from "@sidvind/better-ajv-errors";
 import Ajv from "ajv";
-import betterAjvErrors from "better-ajv-errors";
 import deepmerge from "deepmerge";
 import jsonMergePatch from "json-merge-patch";
 import { HtmlElement } from "../dom";

@@ -8,14 +8,18 @@ exports[`SchemaValidationError should pretty-print validation errors  1`] = `
 > 3 |     \\"flow\\": \\"spam\\"
     |             ^^^^^^ 👈🏽  type should be boolean
   4 |   }
-  5 | },TYPE should be array
+  5 | }
+
+TYPE should be array
 
   1 | {
   2 |   \\"foo\\": {
 > 3 |     \\"flow\\": \\"spam\\"
     |             ^^^^^^ 👈🏽  type should be array
   4 |   }
-  5 | },ANYOF should match some schema in anyOf
+  5 | }
+
+ANYOF should match some schema in anyOf
 
   1 | {
   2 |   \\"foo\\": {

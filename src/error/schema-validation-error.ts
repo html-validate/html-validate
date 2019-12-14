@@ -1,5 +1,5 @@
+import betterAjvErrors from "@sidvind/better-ajv-errors";
 import Ajv from "ajv";
-import betterAjvErrors from "better-ajv-errors";
 import { UserError } from "../error/user-error";
 
 export class SchemaValidationError extends UserError {

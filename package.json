@@ -131,9 +131,9 @@
   },
   "dependencies": {
     "@babel/code-frame": "^7.0.0",
+    "@sidvind/better-ajv-errors": "^0.6.9",
     "acorn-walk": "^7.0.0",
     "ajv": "^6.10.0",
-    "better-ajv-errors": "^0.6.2",
     "chalk": "^3.0.0",
     "deepmerge": "^4.0.0",
     "eslint": "^6.0.0",
