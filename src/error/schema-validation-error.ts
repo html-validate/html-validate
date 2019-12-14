@@ -2,6 +2,14 @@ import betterAjvErrors from "@sidvind/better-ajv-errors";
 import Ajv from "ajv";
 import { UserError } from "../error/user-error";
 
+function getSummary(schema: any, obj: any, errors: Ajv.ErrorObject[]): string {
+	const output = betterAjvErrors(schema, obj, errors, {
+		format: "js",
+	}) as any;
+	// istanbul ignore next: for safety only
+	return output.length > 0 ? output[0].error : "unknown validation error";
+}
+
 export class SchemaValidationError extends UserError {
 	public filename: string | null;
 	private obj: any;
@@ -15,7 +23,9 @@ export class SchemaValidationError extends UserError {
 		schema: any,
 		errors: Ajv.ErrorObject[]
 	) {
-		super(message);
+		const summary = getSummary(schema, obj, errors);
+		super(`${message}: ${summary}`);
+
 		this.filename = filename;
 		this.obj = obj;
 		this.schema = schema;
