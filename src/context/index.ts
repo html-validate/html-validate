@@ -1,3 +1,3 @@
-export { Source } from "./source";
+export { Source, ProcessElementContext } from "./source";
 export { Location, sliceLocation } from "./location";
 export { Context, ContentModel } from "./context";

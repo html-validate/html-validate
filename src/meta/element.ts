@@ -49,6 +49,10 @@ export interface MetaData {
 	requiredContent?: RequiredContent;
 }
 
+/**
+ * Properties listed here can be used to reverse search elements with the given
+ * property enabled. See [[MetaTable.getTagsWithProperty]].
+ */
 export type MetaLookupableProperty =
 	| "metadata"
 	| "flow"
@@ -63,6 +67,29 @@ export type MetaLookupableProperty =
 	| "transparent"
 	| "scriptSupporting"
 	| "form";
+
+/**
+ * Properties listed here can be copied (loaded) onto another element using
+ * [[HtmlElement.loadMeta]].
+ */
+export const MetaCopyableProperty = [
+	"metadata",
+	"flow",
+	"sectioning",
+	"heading",
+	"phrasing",
+	"embedded",
+	"interactive",
+	"transparent",
+	"form",
+	"requiredAttributes",
+	"attributes",
+	"permittedContent",
+	"permittedDescendants",
+	"permittedOrder",
+	"requiredAncestors",
+	"requiredContent",
+];
 
 export interface MetaElement extends MetaData {
 	/* filled internally for reverse lookup */

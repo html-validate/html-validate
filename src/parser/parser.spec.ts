@@ -1,5 +1,5 @@
 import { Config } from "../config";
-import { Location, Source } from "../context";
+import { Location, ProcessElementContext, Source } from "../context";
 import { DOMTree, HtmlElement, TextNode } from "../dom";
 import { EventCallback } from "../event";
 import HtmlValidate from "../htmlvalidate";
@@ -999,20 +999,55 @@ describe("parser", () => {
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it("elements", () => {
-			const processElement = jest.fn();
-			const source: Source = {
-				data: "<input>",
-				filename: "inline",
-				line: 1,
-				column: 1,
-				offset: 0,
-				hooks: {
-					processElement,
-				},
-			};
-			parser.parseHtml(source);
-			expect(processElement).toHaveBeenCalledWith(expect.any(HtmlElement));
+		describe("elements", () => {
+			it("by calling hook", () => {
+				let context: any;
+				const processElement = jest.fn(function(this: any) {
+					context = this;
+				});
+				const source: Source = {
+					data: "<input>",
+					filename: "inline",
+					line: 1,
+					column: 1,
+					offset: 0,
+					hooks: {
+						processElement,
+					},
+				};
+				parser.parseHtml(source);
+				expect(processElement).toHaveBeenCalledWith(expect.any(HtmlElement));
+				expect(context).toEqual({
+					getMetaFor: expect.any(Function),
+				});
+			});
+
+			it("allow modifiy element metadata", () => {
+				expect.assertions(2);
+				function processElement(
+					this: ProcessElementContext,
+					node: HtmlElement
+				): void {
+					if (node.tagName === "i") {
+						node.loadMeta(this.getMetaFor("div"));
+					}
+				}
+				const source: Source = {
+					data: "<i></i><u></u>",
+					filename: "inline",
+					line: 1,
+					column: 1,
+					offset: 0,
+					hooks: {
+						processElement,
+					},
+				};
+				const doc = parser.parseHtml(source);
+				const i = doc.querySelector("i");
+				const u = doc.querySelector("u");
+				expect(i.meta).toMatchSnapshot();
+				expect(u.meta).toMatchSnapshot();
+			});
 		});
 	});
 

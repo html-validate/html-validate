@@ -52,7 +52,7 @@ class ElementPermittedContent extends Rule {
 		if (!Validator.validatePermitted(cur, rules)) {
 			this.report(
 				cur,
-				`Element <${cur.tagName}> is not permitted as content in <${parent.tagName}>`
+				`Element <${cur.tagName}> is not permitted as content in ${parent.annotatedName}`
 			);
 			return true;
 		}
@@ -83,7 +83,7 @@ class ElementPermittedContent extends Rule {
 			) {
 				this.report(
 					node,
-					`Element <${node.tagName}> is not permitted as descendant of <${parent.tagName}>`
+					`Element <${node.tagName}> is not permitted as descendant of ${parent.annotatedName}`
 				);
 				return true;
 			}

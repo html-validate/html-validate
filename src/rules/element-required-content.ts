@@ -42,7 +42,7 @@ class ElementRequiredContent extends Rule<Context> {
 					};
 					this.report(
 						node,
-						`<${node.tagName}> element must have <${missing}> as content`,
+						`${node.annotatedName} element must have <${missing}> as content`,
 						null,
 						context
 					);

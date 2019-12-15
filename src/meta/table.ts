@@ -111,9 +111,12 @@ export class MetaTable {
 		this.loadFromObject(clone(json), filename);
 	}
 
+	/**
+	 * Get [[MetaElement]] for the given tag or null if the element doesn't exist.
+	 *
+	 * @returns A shallow copy of metadata.
+	 */
 	public getMetaFor(tagName: string): MetaElement {
-		/* @TODO Only entries with dynamic properties has to be copied, static
-		 * entries could be shared */
 		tagName = tagName.toLowerCase();
 		return this.elements[tagName]
 			? Object.assign({}, this.elements[tagName])

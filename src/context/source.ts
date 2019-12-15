@@ -1,11 +1,20 @@
 import { HtmlElement } from "../dom";
+import { MetaElement } from "../meta";
 import { AttributeData } from "../parser";
 
 export type ProcessAttributeCallback = (
+	this: {},
 	attr: AttributeData
 ) => Iterable<AttributeData>;
 
-export type ProcessElementCallback = (node: HtmlElement) => void;
+export interface ProcessElementContext {
+	getMetaFor(tagName: string): MetaElement;
+}
+
+export type ProcessElementCallback = (
+	this: ProcessElementContext,
+	node: HtmlElement
+) => void;
 
 export interface SourceHooks {
 	/**
