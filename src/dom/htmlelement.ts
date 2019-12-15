@@ -25,6 +25,7 @@ export class HtmlElement extends DOMNode {
 	public closed: NodeClosed;
 	protected readonly attr: { [key: string]: Attribute[] };
 	private metaElement: MetaElement;
+	private annotation: string | null;
 
 	public constructor(
 		tagName: string,
@@ -43,6 +44,7 @@ export class HtmlElement extends DOMNode {
 		this.closed = closed;
 		this.voidElement = meta ? meta.void : false;
 		this.depth = 0;
+		this.annotation = null;
 
 		if (parent) {
 			parent.childNodes.push(this);
@@ -91,6 +93,19 @@ export class HtmlElement extends DOMNode {
 			meta,
 			location
 		);
+	}
+
+	/**
+	 * Returns annotated name if set or defaults to `<tagName>`.
+	 *
+	 * E.g. `my-annotation` or `<div>`.
+	 */
+	public get annotatedName(): string {
+		if (this.annotation) {
+			return this.annotation;
+		} else {
+			return `<${this.tagName}>`;
+		}
 	}
 
 	/**
@@ -198,6 +213,13 @@ export class HtmlElement extends DOMNode {
 
 	public get meta(): MetaElement {
 		return this.metaElement;
+	}
+
+	/**
+	 * Set annotation for this element.
+	 */
+	public setAnnotation(text: string): void {
+		this.annotation = text;
 	}
 
 	public setAttribute(

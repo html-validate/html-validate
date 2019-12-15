@@ -131,6 +131,21 @@ describe("HtmlElement", () => {
 		});
 	});
 
+	describe("annotatedName", () => {
+		it("should use annotation if set", () => {
+			expect.assertions(1);
+			const node = new HtmlElement("my-element");
+			node.setAnnotation("my annotation");
+			expect(node.annotatedName).toEqual("my annotation");
+		});
+
+		it("should default to <tagName>", () => {
+			expect.assertions(1);
+			const node = new HtmlElement("my-element");
+			expect(node.annotatedName).toEqual("<my-element>");
+		});
+	});
+
 	it("rootNode()", () => {
 		const node = HtmlElement.rootNode(location);
 		expect(node.isRootElement()).toBeTruthy();
