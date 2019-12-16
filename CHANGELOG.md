@@ -1,5 +1,19 @@
 # html-validate changelog
 
+# [2.7.0](https://gitlab.com/html-validate/html-validate/compare/v2.6.0...v2.7.0) (2019-12-16)
+
+### Bug Fixes
+
+- **config:** more helpful error when user forgot to load plugin ([62bbbe5](https://gitlab.com/html-validate/html-validate/commit/62bbbe503a5674369f24cf2a7116518b64cc2146))
+
+### Features
+
+- **config:** configuration schema validation ([c9fe45f](https://gitlab.com/html-validate/html-validate/commit/c9fe45fe4de2c807ec9dbed8126698f2480a7135)), closes [#61](https://gitlab.com/html-validate/html-validate/issues/61)
+- **dom:** allow plugins to modify element annotation ([979da57](https://gitlab.com/html-validate/html-validate/commit/979da571ab69f22519973e7deda7531fc2560237))
+- **dom:** allow plugins to modify element metadata ([cbe3e78](https://gitlab.com/html-validate/html-validate/commit/cbe3e78561e38b0abcef0a7d87a0e2aa6897ccb3)), closes [#62](https://gitlab.com/html-validate/html-validate/issues/62)
+- **elements:** make schema publicly accessible ([bcab9e4](https://gitlab.com/html-validate/html-validate/commit/bcab9e4121d80fe92cdd12da84925e07e5b98297))
+- **rules:** use annotated name ([1895ef4](https://gitlab.com/html-validate/html-validate/commit/1895ef4311c36cca17e8c68ebd58724df082c335))
+
 # [2.6.0](https://gitlab.com/html-validate/html-validate/compare/v2.5.0...v2.6.0) (2019-12-12)
 
 ### Bug Fixes
