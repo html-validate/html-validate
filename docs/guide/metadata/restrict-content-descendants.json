@@ -1,0 +1,10 @@
+{
+  "footer": {
+    "flow": true,
+    "sectioning": true
+  },
+  "my-component": {
+    "flow": true,
+    "permittedDescendants": [{ "exclude": ["@sectioning", "my-component"] }]
+  }
+}

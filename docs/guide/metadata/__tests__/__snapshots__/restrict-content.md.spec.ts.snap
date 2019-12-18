@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/guide/metadata/restrict-content.md inline validation: descendants 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 6,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <footer> is not permitted as descendant of <my-component>",
+        "offset": 63,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 6,
+        "context": undefined,
+        "line": 7,
+        "message": "Element <my-component> is not permitted as descendant of <my-component>",
+        "offset": 137,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 12,
+      },
+    ],
+    "source": "<my-component>
+<!-- the div itself is allowed -->
+  <div>
+    <footer>
+      sectioning element can no longer be used
+    </footer>
+    <my-component>
+      nor can the component be nested
+    </my-component>
+  </div>
+  <span>also allowed</span>
+  <h1>not allowed</h1>
+</my-component>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/guide/metadata/restrict-content.md inline validation: exclude 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <h1> is not permitted as content in <my-component>",
+        "offset": 67,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<my-component>
+  <div>allowed</div>
+  <span>also allowed</span>
+  <h1>not allowed</h1>
+</my-component>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/guide/metadata/restrict-content.md inline validation: tags 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <button> is not permitted as content in <my-component>",
+        "offset": 18,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<my-component>
+  <button type=\\"button\\">click me!</button>
+</my-component>",
+    "warningCount": 0,
+  },
+]
+`;

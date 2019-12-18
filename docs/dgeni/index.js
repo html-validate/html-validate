@@ -30,6 +30,10 @@ module.exports = new Package("html-validate-docs", [
 		readFilesProcessor.fileReaders.push(changelogFileReader);
 	})
 
+	.config(function(getLinkInfo) {
+		getLinkInfo.relativeLinks = true;
+	})
+
 	.config(function(log, readFilesProcessor, writeFilesProcessor, copySchema) {
 		log.level = "info";
 
