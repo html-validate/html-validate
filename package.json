@@ -144,7 +144,6 @@
     "lint-staged": "9.5.0",
     "load-grunt-tasks": "5.1.0",
     "minimatch": "3.0.4",
-    "mkdirp": "0.5.1",
     "prettier": "1.19.1",
     "sass": "1.24.4",
     "semantic-release": "15.14.0",

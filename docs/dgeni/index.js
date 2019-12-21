@@ -48,7 +48,7 @@ module.exports = new Package("html-validate-docs", [
 			},
 		];
 
-		copySchema.outputFolder = "public/schemas";
+		copySchema.outputFolder = "schemas";
 		copySchema.files = ["src/schema/elements.json", "src/schema/config.json"];
 
 		writeFilesProcessor.outputFolder = "public";
@@ -135,4 +135,11 @@ module.exports = new Package("html-validate-docs", [
 	.config(function(checkAnchorLinksProcessor) {
 		checkAnchorLinksProcessor.ignoredLinks.push(/^\/$/);
 		checkAnchorLinksProcessor.ignoredLinks.push(/^\/changelog$/);
+		checkAnchorLinksProcessor.checkDoc = doc => {
+			return (
+				doc.path &&
+				doc.outputPath &&
+				[".html", ".json"].includes(path.extname(doc.outputPath))
+			);
+		};
 	});

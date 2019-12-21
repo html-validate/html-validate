@@ -1,6 +1,5 @@
 const path = require("path");
 const fs = require("fs");
-const mkdirp = require("mkdirp");
 
 module.exports = function copySchemaProcessor(copySchema, readFilesProcessor) {
 	return {
@@ -8,15 +7,20 @@ module.exports = function copySchemaProcessor(copySchema, readFilesProcessor) {
 		$process,
 	};
 
-	function $process() {
+	function $process(docs) {
 		const root = readFilesProcessor.basePath;
-		const outputFolder = path.join(root, copySchema.outputFolder);
-
-		mkdirp.sync(outputFolder);
+		const outputFolder = copySchema.outputFolder;
 
 		for (const src of copySchema.files) {
-			const name = path.basename(src);
-			fs.copyFileSync(path.join(root, src), path.join(outputFolder, name));
+			const { base, name } = path.parse(src);
+			docs.push({
+				id: `schema:${name}`,
+				name: `schemas/${name}`,
+				docType: "schema",
+				fileContents: fs.readFileSync(path.join(root, src), "utf-8"),
+				path: path.join(outputFolder, base),
+				template: "schema.json",
+			});
 		}
 	}
 };
