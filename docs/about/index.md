@@ -1,6 +1,7 @@
-@ngdoc content
-@name About html-validate
-@description
+---
+docType: content
+title: About html-validate
+---
 
 # About
 

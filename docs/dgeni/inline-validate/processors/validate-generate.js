@@ -21,7 +21,7 @@ module.exports = function generateInlineValidationsProcessor(log, validateMap) {
 			startingLine: validation.doc.startingLine,
 			endingLine: validation.doc.endingLine,
 			validate: validation,
-			template: "inline/inlineValidation.template.html",
+			template: "inlineValidation.template.html",
 		};
 	}
 };

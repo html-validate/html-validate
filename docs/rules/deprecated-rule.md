@@ -1,7 +1,8 @@
-@ngdoc rule
-@name deprecated-rule
-@summary Disallow usage of deprecated rules
-@description
+---
+docType: rule
+name: deprecated-rule
+summary: Disallow usage of deprecated rules
+---
 
 # Disallow usage of deprecated rules (`deprecated-rule`)
 

@@ -1,8 +1,9 @@
-@ngdoc rule
-@name element-permitted-content
-@category content-model
-@summary Validate permitted content from content model
-@description
+---
+docType: rule
+name: element-permitted-content
+category: content-model
+summary: Validate permitted content from content model
+---
 
 # verify element content model (`element-permitted-content`)
 

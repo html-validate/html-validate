@@ -1,7 +1,8 @@
-@ngdoc rule
-@name no-dup-id
-@summary Disallow duplicated IDs
-@description
+---
+docType: rule
+name: no-dup-id
+summary: Disallow duplicated IDs
+---
 
 # disallows elements width duplicated ID (`no-dup-id`)
 

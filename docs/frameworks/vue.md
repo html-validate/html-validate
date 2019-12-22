@@ -1,6 +1,7 @@
-@ngdoc content
-@name Usage with Vue.js
-@description
+---
+docType: content
+title: Usage with Vue.js
+---
 
 # Usage with Vue.js
 

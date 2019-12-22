@@ -1,6 +1,7 @@
-@ngdoc content
-@name Elements metadata
-@description
+---
+docType: content
+title: Elements metadata
+---
 
 # Elements metadata
 

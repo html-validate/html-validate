@@ -1,6 +1,6 @@
-@ngdoc frontpage
-@name
-@description
+---
+docType: frontpage
+---
 
 @block Features
 

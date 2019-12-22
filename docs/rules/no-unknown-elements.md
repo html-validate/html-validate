@@ -1,7 +1,8 @@
-@ngdoc rule
-@name no-unknown-elements
-@summary Disallow usage of unknown elements
-@description
+---
+docType: rule
+name: no-unknown-elements
+summary: Disallow usage of unknown elements
+---
 
 # Disallow usage of unknown elements (`no-unknown-elements`)
 

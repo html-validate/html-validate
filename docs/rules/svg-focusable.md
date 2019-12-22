@@ -1,8 +1,9 @@
-@ngdoc rule
-@name svg-focusable
-@category a17y
-@summary Require <svg> to have focusable attribute
-@description
+---
+docType: rule
+name: svg-focusable
+category: a17y
+summary: Require <svg> to have focusable attribute
+---
 
 # Require `<svg>` elements to have focusable attribute (`svg-focusable`)
 

@@ -1,8 +1,9 @@
-@ngdoc rule
-@name element-required-attributes
-@category content-model
-@summary Ensure required attributes are set
-@description
+---
+docType: rule
+name: element-required-attributes
+category: content-model
+summary: Ensure required attributes are set
+---
 
 # Require attribute (`element-required-attributes`)
 

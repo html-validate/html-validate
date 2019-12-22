@@ -1,8 +1,9 @@
-@ngdoc rule
-@name empty-heading
-@category a17y
-@summary Require headings to have textual content
-@description
+---
+docType: rule
+name: empty-heading
+category: a17y
+summary: Require headings to have textual content
+---
 
 # require headings to have textual content (`empty-heading`)
 

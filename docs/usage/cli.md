@@ -1,6 +1,7 @@
-@ngdoc content
-@name Using CLI
-@description
+---
+docType: content
+name: Using CLI
+---
 
 # Using the Command Line Interface
 

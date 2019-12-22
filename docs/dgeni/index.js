@@ -3,8 +3,7 @@ const Package = require("dgeni").Package;
 const packagePath = __dirname;
 
 module.exports = new Package("html-validate-docs", [
-	require("dgeni-packages/ngdoc"),
-	require("dgeni-packages/nunjucks"),
+	require("dgeni-front-matter"),
 	require("./highlight"),
 	require("./inline-validate"),
 	require("./schema"),
@@ -12,20 +11,16 @@ module.exports = new Package("html-validate-docs", [
 
 	.processor(require("./processors/rules"))
 
+	.config(function(templateFinder, templateEngine) {
+		templateEngine.config.tags = {
+			variableStart: "{$",
+			variableEnd: "$}",
+		};
+	})
+
 	.config(function(renderDocsProcessor) {
 		renderDocsProcessor.extraData.pkg = require("../../package.json");
 		renderDocsProcessor.extraData.tracking = process.env.GA_TRACKING_ID;
-	})
-
-	/* disable unused module generation */
-	.config(function(
-		moduleDocsProcessor,
-		generateComponentGroupsProcessor,
-		collectKnownIssuesProcessor
-	) {
-		moduleDocsProcessor.$enabled = false;
-		generateComponentGroupsProcessor.$enabled = false;
-		collectKnownIssuesProcessor.$enabled = false;
 	})
 
 	/* configure markdown syntax highlighting */
@@ -49,7 +44,7 @@ module.exports = new Package("html-validate-docs", [
 			{
 				include: "docs/**/*.md",
 				basePath: "docs",
-				fileReader: "ngdocFileReader",
+				fileReader: "frontMatterFileReader",
 			},
 			{
 				include: "CHANGELOG.md",

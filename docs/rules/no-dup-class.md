@@ -1,7 +1,8 @@
-@ngdoc rule
-@name no-dup-class
-@summary Disallow duplicated classes
-@description
+---
+docType: rule
+name: no-dup-class
+summary: Disallow duplicated classes
+---
 
 # disallows duplicated classes on same element (`no-dup-class`)
 

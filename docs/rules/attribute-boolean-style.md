@@ -1,8 +1,9 @@
-@ngdoc rule
-@name attribute-boolean-style
-@category style
-@summary Require a specific style for boolean attributes
-@description
+---
+docType: rule
+name: attribute-boolean-style
+category: style
+summary: Require a specific style for boolean attributes
+---
 
 # Boolean attribute style (`attribute-boolean-style`)
 

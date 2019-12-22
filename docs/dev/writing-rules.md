@@ -1,6 +1,7 @@
-@ngdoc content
-@name Writing rules
-@description
+---
+docType: content
+title: Writing rules
+---
 
 # Writing rules
 

@@ -1,8 +1,9 @@
-@ngdoc rule
-@name no-trailing-whitespace
-@category style
-@summary Disallow trailing whitespace
-@description
+---
+docType: rule
+name: no-trailing-whitespace
+category: style
+summary: Disallow trailing whitespace
+---
 
 # disallows trailing whitespace at the end of lines (`no-trailing-whitespace`)
 

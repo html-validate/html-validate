@@ -1,6 +1,7 @@
-@ngdoc content
-@name Developers guide
-@description
+---
+docType: content
+title: Developers guide
+---
 
 # Developers guide
 

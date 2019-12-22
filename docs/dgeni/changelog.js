@@ -1,22 +1,9 @@
-const preamble = `
-@ngdoc changelog
-@name Changelog
-@description
-
-`;
-
 function fixHeading(src) {
 	return src.replace(/^# html-validate changelog/, "# Changelog");
 }
 
-function dropUpcoming(src) {
-	return src.replace(/^## Upcoming release$[^]*?^(?=## )/m, "");
-}
-
 function prepare(src) {
-	src = fixHeading(src);
-	src = dropUpcoming(src);
-	return preamble + src;
+	return fixHeading(src);
 }
 
 module.exports = function changelogFileReader() {
@@ -25,6 +12,8 @@ module.exports = function changelogFileReader() {
 		getDocs: function(fileInfo) {
 			return [
 				{
+					docType: "changelog",
+					title: "Changelog",
 					content: prepare(fileInfo.content),
 					startingLine: 1,
 				},

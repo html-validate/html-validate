@@ -1,6 +1,7 @@
-@ngdoc content
-@name Grunt task
-@description
+---
+docType: content
+title: Grunt task
+---
 
 # Grunt task
 

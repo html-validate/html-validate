@@ -1,6 +1,7 @@
-@ngdoc content
-@name Getting started
-@description
+---
+docType: content
+title: Getting started
+---
 
 # Gettings started
 

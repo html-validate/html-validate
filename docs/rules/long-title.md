@@ -1,8 +1,9 @@
-@ngdoc rule
-@name long-title
-@category seo
-@summary Require title not to have too long text
-@description
+---
+docType: rule
+name: long-title
+category: seo
+summary: Require title not to have too long text
+---
 
 # require title not to have too long text (`long-title`)
 

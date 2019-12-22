@@ -1,6 +1,7 @@
-@ngdoc content
-@name Events
-@description
+---
+docType: content
+title: Events
+---
 
 # Events
 

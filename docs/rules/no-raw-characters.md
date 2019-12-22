@@ -1,7 +1,8 @@
-@ngdoc rule
-@name no-raw-characters
-@summary Disallow the use of unescaped special characters
-@description
+---
+docType: rule
+name: no-raw-characters
+summary: Disallow the use of unescaped special characters
+---
 
 # disallow the use of unescaped special characters (`no-raw-characters`)
 

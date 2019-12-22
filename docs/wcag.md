@@ -1,6 +1,7 @@
-@ngdoc content
-@name WCAG 2.1 support table
-@description
+---
+docType: content
+title: "WCAG 2.1 support table"
+---
 
 # WCAG 2.1 support table
 

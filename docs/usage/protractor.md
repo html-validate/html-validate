@@ -1,6 +1,7 @@
-@ngdoc content
-@name Protractor plugin
-@description
+---
+docType: content
+title: Protractor plugin
+---
 
 # Protractor plugin
 

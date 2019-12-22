@@ -1,8 +1,9 @@
-@ngdoc rule
-@name class-pattern
-@category style
-@summary Require classes to match a specific pattern
-@description
+---
+docType: rule
+name: class-pattern
+category: style
+summary: Require classes to match a specific pattern
+---
 
 # require a specific class format (`class-pattern`)
 

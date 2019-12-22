@@ -1,8 +1,9 @@
-@ngdoc rule
-@name void
-@category style
-@summary Disallow void element with content
-@description
+---
+docType: rule
+name: void
+category: style
+summary: Disallow void element with content
+---
 
 # disallows void element with content (`void`)
 

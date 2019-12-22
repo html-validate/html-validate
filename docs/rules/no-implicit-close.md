@@ -1,8 +1,9 @@
-@ngdoc rule
-@name no-implicit-close
-@category style
-@summary Require elements with optional end tags to be explicitly closed
-@description
+---
+docType: rule
+name: no-implicit-close
+category: style
+summary: Require elements with optional end tags to be explicitly closed
+---
 
 # requires elements to be explicitly closed (`no-implicit-closed`)
 
