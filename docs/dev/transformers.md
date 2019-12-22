@@ -145,4 +145,4 @@ both the key and value. If the attribute is processed with scripting
 ### `processElement`
 
 Called after element is fully created but before children are parsed. Can be
-used to manipluate elements (e.g. add dynamic text from frameworks).
+used to manipulate elements (e.g. add dynamic text from frameworks).

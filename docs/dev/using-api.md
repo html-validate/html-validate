@@ -19,7 +19,7 @@ if (!report.valid) {
 }
 ```
 
-`validateFile` is a highlevel API which automatically locates configuration
+`validateFile` is a high-level API which automatically locates configuration
 files, load plugins, runs any transformations etc and is very similar to using
 the CLI tool (in fact, the CLI tool uses this very API).
 
@@ -143,7 +143,7 @@ htmlvalidate.flushConfigCache();
 htmlvalidate.flushConfigCache("myfile.html");
 ```
 
-## Unittesting
+## Unit testing
 
 If using jest to write tests there is a couple of helpers to assist writing
 tests:

@@ -48,7 +48,7 @@ Examples of **correct** code for this rule:
 Note that documents using unescaped `<` might not parse properly due to the
 strict parsing of HTML-validate. This is intentional.
 
-For instance, in the following case `<3` is misinterpretated as a tag `<3>`
+For instance, in the following case `<3` is misinterpreted as a tag `<3>`
 followed by a boolean attribute `Barney`.
 
 <validate name="malformed" rules="no-raw-characters">

@@ -118,7 +118,7 @@ e.g. rules that requires initialization.
 If needed the callback may setup event listeners for [parser
 events](/dev/events.html) (same as rules).
 
-The callback may not manpiulate the source object.
+The callback may not manipulate the source object.
 
 ## Configuration presets
 
@@ -163,7 +163,7 @@ module.exports = {
 };
 ```
 
-This makes the rules accessable as usual when configuring in
+This makes the rules accessible as usual when configuring in
 `.htmlvalidate.json`:
 
 ```js

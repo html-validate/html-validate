@@ -85,7 +85,7 @@ about to be closed.
 }
 ```
 
-Emitted when an elemnet is fully constructed (including its children). `target`
+Emitted when an element is fully constructed (including its children). `target`
 will be the the element.
 
 ## `attr`
@@ -130,5 +130,5 @@ Emitted when inter-element, leading and trailing whitespace is parsed.
 ```
 
 Emitted when a conditional comment `<![conditional]>` is parsed. The parser
-ignores and condition and run all possbile branches but raises the event for any
+ignores and condition and run all possible branches but raises the event for any
 rules that wishes to do anything with it.

@@ -317,7 +317,7 @@ This is used by
 Requires a specific sequence of ancestors.
 
 Some elements has additional restrictions on parent elements, for instance an
-`<area>` element must have a `<map>` element as ancestor but not neccesarily as
+`<area>` element must have a `<map>` element as ancestor but not necessarily as
 a direct parent.
 
 `requiredAncestors` is a list of selectors for which at least one must be true
@@ -348,7 +348,7 @@ Some elements has requirements of what content must be present. For instance,
 the `<head>` element requires a `<title>` element.
 
 `requiredContent` is a list of tagnames which must be present as a direct
-descentant of the element.
+descendant of the element.
 
 ```js
 "head": {
