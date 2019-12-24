@@ -92,42 +92,7 @@
     }
   },
   "release": {
-    "plugins": [
-      [
-        "@semantic-release/commit-analyzer",
-        {
-          "preset": "angular",
-          "releaseRules": [
-            {
-              "type": "chore",
-              "scope": "deps",
-              "release": "patch"
-            }
-          ]
-        }
-      ],
-      "@semantic-release/release-notes-generator",
-      "@semantic-release/npm",
-      "@semantic-release/gitlab",
-      [
-        "@semantic-release/changelog",
-        {
-          "changelogTitle": "# html-validate changelog"
-        }
-      ],
-      [
-        "@semantic-release/exec",
-        {
-          "prepareCmd": "npm run prettier:write"
-        }
-      ],
-      [
-        "@semantic-release/git",
-        {
-          "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
-        }
-      ]
-    ]
+    "extends": "@html-validate/semantic-release-config"
   },
   "dependencies": {
     "@babel/code-frame": "^7.0.0",
@@ -148,12 +113,7 @@
     "@babel/preset-env": "7.7.7",
     "@commitlint/cli": "8.2.0",
     "@commitlint/config-conventional": "8.2.0",
-    "@semantic-release/changelog": "3.0.6",
-    "@semantic-release/exec": "3.3.8",
-    "@semantic-release/git": "7.0.18",
-    "@semantic-release/gitlab": "4.1.0",
-    "@semantic-release/npm": "5.3.5",
-    "@semantic-release/release-notes-generator": "7.3.5",
+    "@html-validate/semantic-release-config": "1.0.3",
     "@types/babel__code-frame": "7.0.1",
     "@types/estree": "0.0.41",
     "@types/glob": "7.1.1",
