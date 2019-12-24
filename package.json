@@ -80,16 +80,7 @@
     ]
   },
   "renovate": {
-    "extends": [
-      "config:js-lib"
-    ],
-    "automerge": true,
-    "automergeType": "branch",
-    "prCreation": "not-pending",
-    "unpublishSafe": true,
-    "major": {
-      "automerge": false
-    }
+    "extends": ["@html-validate"]
   },
   "release": {
     "extends": "@html-validate/semantic-release-config"
