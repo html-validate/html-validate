@@ -72,6 +72,7 @@
       "git add"
     ]
   },
+  "prettier": "@html-validate/prettier-config",
   "renovate": {
     "extends": [
       "@html-validate"
@@ -100,6 +101,7 @@
     "@commitlint/cli": "8.2.0",
     "@html-validate/commitlint-config": "1.0.1",
     "@html-validate/eslint-config": "1.0.5",
+    "@html-validate/prettier-config": "1.0.0",
     "@html-validate/semantic-release-config": "1.0.3",
     "@types/babel__code-frame": "7.0.1",
     "@types/estree": "0.0.41",
