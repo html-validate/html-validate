@@ -56,15 +56,8 @@
   },
   "commitlint": {
     "extends": [
-      "@commitlint/config-conventional"
-    ],
-    "rules": {
-      "header-max-length": [
-        2,
-        "always",
-        90
-      ]
-    }
+      "@html-validate"
+    ]
   },
   "husky": {
     "hooks": {
@@ -80,7 +73,9 @@
     ]
   },
   "renovate": {
-    "extends": ["@html-validate"]
+    "extends": [
+      "@html-validate"
+    ]
   },
   "release": {
     "extends": "@html-validate/semantic-release-config"
@@ -103,7 +98,7 @@
     "@babel/core": "7.7.7",
     "@babel/preset-env": "7.7.7",
     "@commitlint/cli": "8.2.0",
-    "@commitlint/config-conventional": "8.2.0",
+    "@html-validate/commitlint-config": "1.0.1",
     "@html-validate/eslint-config": "1.0.5",
     "@html-validate/semantic-release-config": "1.0.3",
     "@types/babel__code-frame": "7.0.1",
