@@ -1,15 +1,11 @@
 {
-  "parser": "@typescript-eslint/parser",
-
   "env": {
     "node": true
   },
 
   "extends": [
-    "sidvind/es2017",
-    "plugin:@typescript-eslint/recommended",
+    "@html-validate",
     "plugin:array-func/recommended",
-    "plugin:prettier/recommended",
     "plugin:node/recommended-module",
     "plugin:import/errors",
     "plugin:import/warnings",
@@ -18,68 +14,34 @@
     "plugin:sonarjs/recommended"
   ],
 
-  "plugins": [
-    "@typescript-eslint",
-    "array-func",
-    "node",
-    "prettier",
-    "security",
-    "sonarjs"
-  ],
+  "plugins": ["array-func", "node", "security", "sonarjs"],
 
   "rules": {
-    "@typescript-eslint/array-type": "off",
-    "@typescript-eslint/explicit-function-return-type": [
-      "error",
-      {
-        "allowExpressions": true
-      }
-    ],
-    "@typescript-eslint/explicit-member-accessibility": "error",
-    "@typescript-eslint/indent": "off",
-    "@typescript-eslint/member-delimiter-style": "error",
-    "@typescript-eslint/no-inferrable-types": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/triple-slash-reference": "error",
-    "@typescript-eslint/no-unused-vars": "warn",
-    "@typescript-eslint/no-use-before-define": "off",
-    "@typescript-eslint/no-var-requires": "off",
-    "@typescript-eslint/type-annotation-spacing": "error",
-    "consistent-this": "off",
     "import/named": "off",
-    "no-console": "warn",
-    "no-dupe-class-members": "off",
-    "no-undef": "off",
     "node/no-missing-import": "off",
     "node/no-unsupported-features/es-syntax": "off",
-    "prettier/prettier": "warn",
     "security/detect-non-literal-fs-filename": "off",
     "security/detect-non-literal-require": "off",
     "security/detect-object-injection": "off",
-    "security/detect-unsafe-regex": "off",
-    "strict": "off"
+    "security/detect-unsafe-regex": "off"
   },
 
   "overrides": [
     {
-      "files": "*.spec.ts",
-      "env": {
-        "jest": true
-      },
-      "plugins": ["jest"],
-      "extends": ["plugin:jest/recommended", "plugin:jest/style"],
+      "files": "**/*.ts",
+      "extends": ["@html-validate/eslint-config/typescript"],
       "rules": {
-        "jest/no-disabled-tests": "warn",
-        "jest/no-focused-tests": "warn",
-        "jest/no-test-prefixes": "warn",
-        "sonarjs/no-duplicate-string": "off",
-        "sonarjs/no-identical-functions": "off"
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-use-before-define": "off",
+        "@typescript-eslint/no-var-requires": "off"
       }
     },
     {
-      "files": "*.js",
+      "files": "*.spec.[jt]s",
+      "extends": ["@html-validate/eslint-config/jest"],
       "rules": {
-        "@typescript-eslint/explicit-function-return-type": "off"
+        "sonarjs/no-duplicate-string": "off",
+        "sonarjs/no-identical-functions": "off"
       }
     }
   ]
