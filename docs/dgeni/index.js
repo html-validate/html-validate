@@ -4,6 +4,7 @@ const packagePath = __dirname;
 
 module.exports = new Package("html-validate-docs", [
 	require("dgeni-front-matter"),
+	require("./bootstrap"),
 	require("./highlight"),
 	require("./inline-validate"),
 	require("./schema"),
