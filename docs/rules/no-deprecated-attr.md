@@ -1,8 +1,8 @@
-@ngdoc rule
-@module rules
-@name no-deprecated-attr
-@summary Disallow usage of deprecated attributes
-@description
+---
+docType: rule
+name: no-deprecated-attr
+summary: Disallow usage of deprecated attributes
+---
 
 # disallows usage of deprecated attributes (`no-deprecated-attr`)
 

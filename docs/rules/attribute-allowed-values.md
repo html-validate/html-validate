@@ -1,9 +1,9 @@
-@ngdoc rule
-@module rules
-@name attribute-allowed-values
-@category content-model
-@summary Validate permitted attribute values
-@description
+---
+docType: rule
+name: attribute-allowed-values
+category: content-model
+summary: Validate permitted attribute values
+---
 
 # Allowed attribute values (`attribute-allowed-values`)
 

@@ -1,9 +1,9 @@
-@ngdoc rule
-@module rules
-@name element-case
-@category style
-@summary Require a specific case for element names
-@description
+---
+docType: rule
+name: element-case
+category: style
+summary: Require a specific case for element names
+---
 
 # element name case (`element-case`)
 

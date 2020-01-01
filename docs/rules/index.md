@@ -1,7 +1,7 @@
-@ngdoc rules
-@module rules
-@name Available rules
-@description
+---
+docType: rules
+name: Available rules
+---
 
 Rules with <span class="fa fa-check"></span> are enabled by
 `html-validate:recommended`.<br>

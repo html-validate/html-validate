@@ -1,9 +1,9 @@
-@ngdoc rule
-@module rules
-@name attr-case
-@category style
-@summary Require a specific case for attribute names
-@description
+---
+docType: rule
+name: attr-case
+category: style
+summary: Require a specific case for attribute names
+---
 
 # attribute name case (`attr-case`)
 

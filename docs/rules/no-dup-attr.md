@@ -1,8 +1,8 @@
-@ngdoc rule
-@module rules
-@name no-dup-attr
-@summary Disallow duplicated attributes
-@description
+---
+docType: rule
+name: no-dup-attr
+summary: Disallow duplicated attributes
+---
 
 # disallows duplicated attributes on same element (`no-dup-attr`)
 

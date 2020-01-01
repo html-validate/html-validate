@@ -4,13 +4,13 @@
 </p>
 <div class="inline-validation">
 	<div class="markup"
-		{%- for attrName, attrValue in doc.validate.attributes %}{$ attrName $}="{$ attrValue $}"{% endfor %}>
-		<pre><code class="hljs lang-html">{$ doc.validate.markup | highlight('html') $}</code></pre>
+		{%- for attrName, attrValue in doc.validate.attributes %}{{ attrName }}="{{ attrValue }}"{% endfor %}>
+		<pre><code class="hljs lang-html">{{ doc.validate.markup | highlight('html') }}</code></pre>
 	</div>
 
 	{%- if not doc.validate.report.valid %}
 	<div class="messages">
-		<pre>{$ doc.validate.codeframe | escape $}</pre>
+		<pre>{{ doc.validate.codeframe | escape }}</pre>
 	</div>
 	{%- endif %}
 </div>

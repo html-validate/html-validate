@@ -5,18 +5,18 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		{#- <!-- [html-validate-disable-next long-title] --> #}
-		<title>HTML-validate{% if doc.name %} - {$ doc.title or doc.name $}{% endif %}</title>
+		<title>HTML-validate{% if doc.title or doc.name %} - {{ (doc.title or doc.name) | escape }}{% endif %}</title>
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 		<link rel="icon" href="/favicon.ico" type="image/ico">
-		<link rel="stylesheet" href="{$ '/assets/docs.min.css' | assetHash $}">
+		<link rel="stylesheet" href="{{ '/assets/docs.min.css' | assetHash }}">
 		{%- if tracking %}
 		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id={$ tracking $}"></script>
+		<script async src="https://www.googletagmanager.com/gtag/js?id={{ tracking }}"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
 			gtag('js', new Date());
-			gtag('config', '{$ tracking $}');
+			gtag('config', '{{ tracking }}');
 		</script>
 		{% endif %}
 	</head>
@@ -52,8 +52,8 @@
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Developers guide <span class="caret"></span></a>
 								<ul class="dropdown-menu">
-									<li><a href="{$ pkg.repository.url $}">Getting the source code</a></li>
-									<li><a href="{$ pkg.bugs.url $}">File issue</a></li>
+									<li><a href="{{ pkg.repository.url }}">Getting the source code</a></li>
+									<li><a href="{{ pkg.bugs.url }}">File issue</a></li>
 									<li role="separator" class="divider"></li>
 									<li><a href="/dev/using-api.html">Using API</a></li>
 									<li><a href="/dev/writing-rules.html">Writing rules</a></li>
@@ -65,7 +65,7 @@
 							<li><a href="/changelog">Changelog</a></li>
 							<li><a href="/about">About</a></li>
 						</ul>
-						<p class="navbar-text navbar-right">{$ pkg.name $}-{$ pkg.version $}</p>
+						<p class="navbar-text navbar-right">{{ pkg.name }}-{{ pkg.version }}</p>
 					</div>
 				</div>
 			</nav>
@@ -76,22 +76,22 @@
 			{%- endblock %}
 		</main>
 
-		{%- if doc.fileInfo.projectRelativePath and doc.module != 'error' %}
+		{%- if doc.fileInfo.projectRelativePath and doc.docType != 'error' %}
 		<footer>
 			<div class="container">
-				<a href="https://gitlab.com/html-validate/html-validate/edit/master/{$ doc.fileInfo.projectRelativePath $}" class="btn btn-default"><i class="fa fa-pencil">&nbsp;</i>Edit this page</a>
+				<a href="https://gitlab.com/html-validate/html-validate/edit/master/{{ doc.fileInfo.projectRelativePath }}" class="btn btn-default"><i class="fa fa-pencil">&nbsp;</i>Edit this page</a>
 				{%- block footer %}
 				{%- endblock %}
 			</div>
 		</footer>
 		{%- endif %}
 
-		<script src="{$ '/assets/docs.js' | assetHash $}"></script>
+		<script src="{{ '/assets/docs.js' | assetHash }}"></script>
 	</body>
 </html>
 <!--
-	Document ID: {$ doc.id $}
-	Document type: {$ doc.docType $}
-	Document name: {$ doc.name $}
-	Document alias: {$ doc.aliases $}
+	Document ID: {{ doc.id }}
+	Document type: {{ doc.docType }}
+	Document name: {{ doc.name }}
+	Document alias: {{ doc.aliases }}
 -->

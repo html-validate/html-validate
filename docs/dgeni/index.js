@@ -3,8 +3,7 @@ const Package = require("dgeni").Package;
 const packagePath = __dirname;
 
 module.exports = new Package("html-validate-docs", [
-	require("dgeni-packages/ngdoc"),
-	require("dgeni-packages/nunjucks"),
+	require("dgeni-front-matter"),
 	require("./highlight"),
 	require("./inline-validate"),
 	require("./schema"),
@@ -15,17 +14,6 @@ module.exports = new Package("html-validate-docs", [
 	.config(function(renderDocsProcessor) {
 		renderDocsProcessor.extraData.pkg = require("../../package.json");
 		renderDocsProcessor.extraData.tracking = process.env.GA_TRACKING_ID;
-	})
-
-	/* disable unused module generation */
-	.config(function(
-		moduleDocsProcessor,
-		generateComponentGroupsProcessor,
-		collectKnownIssuesProcessor
-	) {
-		moduleDocsProcessor.$enabled = false;
-		generateComponentGroupsProcessor.$enabled = false;
-		collectKnownIssuesProcessor.$enabled = false;
 	})
 
 	/* configure markdown syntax highlighting */
@@ -41,13 +29,7 @@ module.exports = new Package("html-validate-docs", [
 		readFilesProcessor.fileReaders.push(changelogFileReader);
 	})
 
-	.config(function(
-		log,
-		readFilesProcessor,
-		templateFinder,
-		writeFilesProcessor,
-		copySchema
-	) {
+	.config(function(log, readFilesProcessor, writeFilesProcessor, copySchema) {
 		log.level = "info";
 
 		readFilesProcessor.basePath = path.resolve(packagePath, "../..");
@@ -55,7 +37,7 @@ module.exports = new Package("html-validate-docs", [
 			{
 				include: "docs/**/*.md",
 				basePath: "docs",
-				fileReader: "ngdocFileReader",
+				fileReader: "frontMatterFileReader",
 			},
 			{
 				include: "CHANGELOG.md",
@@ -110,7 +92,12 @@ module.exports = new Package("html-validate-docs", [
 				}
 			},
 			getAliases: function(doc) {
-				return [doc.id, doc.name, `${doc.docType}:${doc.name}`];
+				const alias = [doc.id];
+				if (doc.name) {
+					alias.push(doc.name);
+					alias.push(`${doc.docType}:${doc.name}`);
+				}
+				return alias;
 			},
 		});
 

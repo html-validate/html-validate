@@ -1,9 +1,9 @@
-@ngdoc rule
-@module rules
-@name attr-quotes
-@category style
-@summary Require attribute quoting
-@description
+---
+docType: rule
+name: attr-quotes
+category: style
+summary: Require attribute quoting
+---
 
 # requires a specific style of attribute quoting (`attr-quotes`)
 

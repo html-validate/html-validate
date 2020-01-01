@@ -1,8 +1,8 @@
-@ngdoc rule
-@module rules
-@name no-conditional-comment
-@summary Disallow usage of conditional comments
-@description
+---
+docType: rule
+name: no-conditional-comment
+summary: Disallow usage of conditional comments
+---
 
 # disallow usage of conditional comments (`no-conditional-comment`)
 

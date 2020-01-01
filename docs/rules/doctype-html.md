@@ -1,8 +1,8 @@
-@ngdoc rule
-@module rules
-@name doctype-html
-@summary Require usage of "html" doctype
-@description
+---
+docType: rule
+name: doctype-html
+summary: Require usage of "html" doctype
+---
 
 # Require usage of "html" doctype (`doctype-html`)
 

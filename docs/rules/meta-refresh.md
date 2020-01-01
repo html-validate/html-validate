@@ -1,8 +1,8 @@
-@ngdoc rule
-@module rules
-@name meta-refresh
-@summary Require meta refresh to have 0 second delay
-@description
+---
+docType: rule
+name: meta-refresh
+summary: Require meta refresh to have 0 second delay
+---
 
 # require meta refresh to have 0 second delay (`meta-refresh`)
 

@@ -1,7 +1,7 @@
-@ngdoc content
-@module dev
-@name Writing plugins
-@description
+---
+docType: content
+title: Writing plugins
+---
 
 # Writing plugins
 

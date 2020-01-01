@@ -1,9 +1,9 @@
-@ngdoc rule
-@module rules
-@name element-permitted-occurrences
-@category content-model
-@summary Validate permitted number of occurrences from content model
-@description
+---
+docType: rule
+name: element-permitted-occurrences
+category: content-model
+summary: Validate permitted number of occurrences from content model
+---
 
 # verify element content model (`element-permitted-occurrences`)
 

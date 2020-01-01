@@ -1,9 +1,9 @@
 {% extends "base.template.html" %}
 
 {% block content %}
-	{$ doc.description | marked $}
+	{{ doc.description | marked }}
 {% endblock %}
 
 {% block footer %}
-	<a href="https://gitlab.com/html-validate/html-validate/blob/master/{$ doc.ruleSourcePath $}" class="btn btn-default"><i class="fa fa-search">&nbsp;</i>View rule source</a>
+	<a href="https://gitlab.com/html-validate/html-validate/blob/master/{{ doc.ruleSourcePath }}" class="btn btn-default"><i class="fa fa-search">&nbsp;</i>View rule source</a>
 {% endblock %}

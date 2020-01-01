@@ -1,8 +1,8 @@
-@ngdoc rule
-@module rules
-@name prefer-tbody
-@summary Prefer to wrap <tr> inside <tbody>
-@description
+---
+docType: rule
+name: prefer-tbody
+summary: Prefer to wrap <tr> inside <tbody>
+---
 
 # Prefer to wrap `<tr>` inside `<tbody>` (`prefer-tbody`)
 

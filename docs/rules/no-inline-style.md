@@ -1,9 +1,9 @@
-@ngdoc rule
-@module rules
-@name no-inline-style
-@category style
-@summary Disallow inline style
-@description
+---
+docType: rule
+name: no-inline-style
+category: style
+summary: Disallow inline style
+---
 
 # disallow inline style (`no-inline-style`)
 

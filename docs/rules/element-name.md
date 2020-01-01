@@ -1,8 +1,8 @@
-@ngdoc rule
-@module rules
-@name element-name
-@summary Disallow invalid element names
-@description
+---
+docType: rule
+name: element-name
+summary: Disallow invalid element names
+---
 
 # disallow invalid element names (`element-name`)
 

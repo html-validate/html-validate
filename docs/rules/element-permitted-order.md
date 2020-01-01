@@ -1,9 +1,9 @@
-@ngdoc rule
-@module rules
-@name element-permitted-order
-@category content-model
-@summary Validate required order from content model
-@description
+---
+docType: rule
+name: element-permitted-order
+category: content-model
+summary: Validate required order from content model
+---
 
 # verify element content model (`element-permitted-order`)
 

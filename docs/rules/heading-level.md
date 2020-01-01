@@ -1,9 +1,9 @@
-@ngdoc rule
-@module rules
-@name heading-level
-@category document
-@summary Require headings to start at h1 and be sequential
-@description
+---
+docType: rule
+name: heading-level
+category: document
+summary: Require headings to start at h1 and be sequential
+---
 
 # heading level (`heading-level`)
 

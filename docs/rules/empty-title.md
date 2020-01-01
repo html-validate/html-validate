@@ -1,9 +1,9 @@
-@ngdoc rule
-@module rules
-@name empty-title
-@category a17y
-@summary Require title to have textual content
-@description
+---
+docType: rule
+name: empty-title
+category: a17y
+summary: Require title to have textual content
+---
 
 # require title to have textual content (`empty-title`)
 

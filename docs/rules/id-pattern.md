@@ -1,9 +1,9 @@
-@ngdoc rule
-@module rules
-@name id-pattern
-@category style
-@summary Require IDs to match a specific pattern
-@description
+---
+docType: rule
+name: id-pattern
+category: style
+summary: Require IDs to match a specific pattern
+---
 
 # require a specific ID format (`id-pattern`)
 

@@ -1,9 +1,9 @@
-@ngdoc rule
-@module rules
-@name input-missing-label
-@category a17y
-@summary Require input to have label
-@description
+---
+docType: rule
+name: input-missing-label
+category: a17y
+summary: Require input to have label
+---
 
 # require input elements to have a label (`input-missing-label`)
 

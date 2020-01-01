@@ -1,7 +1,7 @@
-@ngdoc content
-@module dev
-@name Transformers
-@description
+---
+docType: content
+title: Transformers
+---
 
 # Transformers
 

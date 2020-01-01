@@ -1,8 +1,8 @@
-@ngdoc rule
-@module rules
-@name unrecognized-char-ref
-@summary Disallow unrecognized character references
-@description
+---
+docType: rule
+name: unrecognized-char-ref
+summary: Disallow unrecognized character references
+---
 
 # disallow unrecognized character references (`unrecognized-char-ref`)
 

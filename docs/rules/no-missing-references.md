@@ -1,9 +1,9 @@
-@ngdoc rule
-@module rules
-@name no-missing-references
-@category document
-@summary Require all element references to exist
-@description
+---
+docType: rule
+name: no-missing-references
+category: document
+summary: Require all element references to exist
+---
 
 # no missing references (`no-missing-references`)
 

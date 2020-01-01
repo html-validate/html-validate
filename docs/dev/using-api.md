@@ -1,7 +1,7 @@
-@ngdoc content
-@module dev
-@name Using API
-@description
+---
+docType: content
+title: Using API
+---
 
 # Using API
 

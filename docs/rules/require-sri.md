@@ -1,8 +1,8 @@
-@ngdoc rule
-@module rules
-@name require-sri
-@summary Require SRI for resources
-@description
+---
+docType: rule
+name: require-sri
+summary: Require SRI for resources
+---
 
 # require SRI for resources (`require-sri`)
 

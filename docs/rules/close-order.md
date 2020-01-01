@@ -1,8 +1,8 @@
-@ngdoc rule
-@module rules
-@name close-order
-@summary Require elements to be closed in correct order
-@description
+---
+docType: rule
+name: close-order
+summary: Require elements to be closed in correct order
+---
 
 # disallows elements closed in the wrong order (`close-order`)
 

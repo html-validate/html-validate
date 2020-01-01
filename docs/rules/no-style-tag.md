@@ -1,8 +1,8 @@
-@ngdoc rule
-@module rules
-@name no-style-tag
-@summary Disallow usage of <style> tag
-@description
+---
+docType: rule
+name: no-style-tag
+summary: Disallow usage of <style> tag
+---
 
 # Disallow usage of `<style>` tag (`no-style-tag`)
 

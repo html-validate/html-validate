@@ -1,8 +1,8 @@
-@ngdoc rule
-@module rules
-@name close-attr
-@summary Disallow end tags from having attributes
-@description
+---
+docType: rule
+name: close-attr
+summary: Disallow end tags from having attributes
+---
 
 # disallows end tags with attributes (`close-attr`)
 

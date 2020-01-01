@@ -18,8 +18,8 @@
 				<span class="fa fa-file-text-o"></span>
 				{% endif %}
 			</td>
-			<td><a href="/{$ rule.url $}">{$ rule.name $}</a></td>
-			<td>{$ rule.summary | escape $}</td>
+			<td><a href="/{{ rule.url }}">{{ rule.name }}</a></td>
+			<td>{{ rule.summary | escape }}</td>
 		</tr>
 	</tbody>
 	{% endfor %}
@@ -29,24 +29,24 @@
 {% block content %}
 <h1>Available rules</h1>
 
-{$ doc.description | marked $}
+{{ doc.description | marked }}
 
-{$ ruleTable(rules['other']) $}
+{{ ruleTable(rules['other']) }}
 
 <h2>Content model</h2>
-{$ ruleTable(rules['content-model']) $}
+{{ ruleTable(rules['content-model']) }}
 
 <h2>Accessibility</h2>
-{$ ruleTable(rules['a17y']) $}
+{{ ruleTable(rules['a17y']) }}
 
 <h2>SEO</h2>
-{$ ruleTable(rules['seo']) $}
+{{ ruleTable(rules['seo']) }}
 
 <h2>Style</h2>
-{$ ruleTable(rules['style']) $}
+{{ ruleTable(rules['style']) }}
 
 <h2>Document</h2>
 <p>These rules is to be used on full documents.</p>
-{$ ruleTable(rules['document']) $}
+{{ ruleTable(rules['document']) }}
 
 {% endblock %}

@@ -1,9 +1,9 @@
-@ngdoc rule
-@module rules
-@name missing-doctype
-@category document
-@summary Require document to have a doctype
-@description
+---
+docType: rule
+name: missing-doctype
+category: document
+summary: Require document to have a doctype
+---
 
 # Require a doctype for the document (`missing-doctype`)
 

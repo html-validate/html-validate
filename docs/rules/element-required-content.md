@@ -1,9 +1,9 @@
-@ngdoc rule
-@module rules
-@name element-required-content
-@category content-model
-@summary Ensure required elements are present
-@description
+---
+docType: rule
+name: element-required-content
+category: content-model
+summary: Ensure required elements are present
+---
 
 # Ensure required elements are present (`element-required-content`)
 
