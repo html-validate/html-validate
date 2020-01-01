@@ -1,6 +1,5 @@
 const preamble = `
 @ngdoc changelog
-@module usage
 @name Changelog
 @description
 

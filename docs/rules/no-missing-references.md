@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name no-missing-references
 @category document
 @summary Require all element references to exist

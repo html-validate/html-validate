@@ -1,5 +1,4 @@
 @ngdoc frontpage
-@module frontpage
 @name
 @description
 

@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name attribute-allowed-values
 @category content-model
 @summary Validate permitted attribute values

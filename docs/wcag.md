@@ -1,5 +1,4 @@
 @ngdoc content
-@module frontpage
 @name WCAG 2.1 support table
 @description
 

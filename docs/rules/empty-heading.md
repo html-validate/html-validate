@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name empty-heading
 @category a17y
 @summary Require headings to have textual content

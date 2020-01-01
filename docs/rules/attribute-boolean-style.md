@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name attribute-boolean-style
 @category style
 @summary Require a specific style for boolean attributes

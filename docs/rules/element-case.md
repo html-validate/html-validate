@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name element-case
 @category style
 @summary Require a specific case for element names

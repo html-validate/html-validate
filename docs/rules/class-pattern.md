@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name class-pattern
 @category style
 @summary Require classes to match a specific pattern

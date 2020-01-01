@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name attr-quotes
 @category style
 @summary Require attribute quoting

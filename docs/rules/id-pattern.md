@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name id-pattern
 @category style
 @summary Require IDs to match a specific pattern

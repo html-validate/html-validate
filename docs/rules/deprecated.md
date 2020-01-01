@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name deprecated
 @summary Disallow usage of deprecated elements
 @description

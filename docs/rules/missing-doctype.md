@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name missing-doctype
 @category document
 @summary Require document to have a doctype

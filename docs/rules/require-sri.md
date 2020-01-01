@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name require-sri
 @summary Require SRI for resources
 @description

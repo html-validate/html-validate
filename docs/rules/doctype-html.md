@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name doctype-html
 @summary Require usage of "html" doctype
 @description

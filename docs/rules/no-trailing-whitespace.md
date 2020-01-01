@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name no-trailing-whitespace
 @category style
 @summary Disallow trailing whitespace

@@ -1,5 +1,4 @@
 @ngdoc rules
-@module rules
 @name Available rules
 @description
 

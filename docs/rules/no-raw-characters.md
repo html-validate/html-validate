@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name no-raw-characters
 @summary Disallow the use of unescaped special characters
 @description

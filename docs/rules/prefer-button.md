@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name prefer-button
 @summary Prefer to use <button> instead of <input> for buttons
 @description

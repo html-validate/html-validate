@@ -1,5 +1,4 @@
 @ngdoc content
-@module frameworks
 @name Usage with Vue.js
 @description
 

@@ -13,7 +13,7 @@ function compareName(a, b) {
 }
 
 function isRuleDocument(doc) {
-	return doc.docType === "rule" && doc.module === "rules";
+	return doc.docType === "rule";
 }
 
 module.exports = function rulesProcessor(renderDocsProcessor) {

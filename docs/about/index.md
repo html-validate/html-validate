@@ -1,5 +1,4 @@
 @ngdoc content
-@module about
 @name About html-validate
 @description
 

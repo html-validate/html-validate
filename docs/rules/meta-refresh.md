@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name meta-refresh
 @summary Require meta refresh to have 0 second delay
 @description

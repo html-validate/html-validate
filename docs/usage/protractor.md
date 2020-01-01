@@ -1,5 +1,4 @@
 @ngdoc content
-@module usage
 @name Protractor plugin
 @description
 

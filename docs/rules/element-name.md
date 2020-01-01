@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name element-name
 @summary Disallow invalid element names
 @description

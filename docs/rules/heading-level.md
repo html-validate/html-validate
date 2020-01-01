@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name heading-level
 @category document
 @summary Require headings to start at h1 and be sequential

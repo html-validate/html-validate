@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name no-implicit-close
 @category style
 @summary Require elements with optional end tags to be explicitly closed

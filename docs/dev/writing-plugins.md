@@ -1,5 +1,4 @@
 @ngdoc content
-@module dev
 @name Writing plugins
 @description
 

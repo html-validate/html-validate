@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name svg-focusable
 @category a17y
 @summary Require <svg> to have focusable attribute

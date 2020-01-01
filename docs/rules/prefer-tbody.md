@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name prefer-tbody
 @summary Prefer to wrap <tr> inside <tbody>
 @description

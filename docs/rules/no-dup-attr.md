@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name no-dup-attr
 @summary Disallow duplicated attributes
 @description

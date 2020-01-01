@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name no-conditional-comment
 @summary Disallow usage of conditional comments
 @description

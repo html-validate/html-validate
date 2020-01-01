@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name empty-title
 @category a17y
 @summary Require title to have textual content

@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name no-inline-style
 @category style
 @summary Disallow inline style

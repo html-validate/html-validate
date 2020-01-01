@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name element-permitted-content
 @category content-model
 @summary Validate permitted content from content model

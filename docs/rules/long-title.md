@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name long-title
 @category seo
 @summary Require title not to have too long text

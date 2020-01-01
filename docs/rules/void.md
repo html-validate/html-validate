@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name void
 @category style
 @summary Disallow void element with content

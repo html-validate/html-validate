@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name no-dup-class
 @summary Disallow duplicated classes
 @description

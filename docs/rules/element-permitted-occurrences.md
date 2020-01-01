@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name element-permitted-occurrences
 @category content-model
 @summary Validate permitted number of occurrences from content model

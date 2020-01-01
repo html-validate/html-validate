@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name unrecognized-char-ref
 @summary Disallow unrecognized character references
 @description

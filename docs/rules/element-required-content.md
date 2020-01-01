@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name element-required-content
 @category content-model
 @summary Ensure required elements are present

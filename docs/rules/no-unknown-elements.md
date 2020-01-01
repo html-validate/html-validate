@@ -1,5 +1,4 @@
 @ngdoc rule
-@module rules
 @name no-unknown-elements
 @summary Disallow usage of unknown elements
 @description
