@@ -1,6 +1,7 @@
 {
   "extends": ["html-validate:recommended", "html-validate:document"],
   "rules": {
+    "long-title": ["error", { "maxlength": 120 }],
     "no-trailing-whitespace": "off",
     "require-sri": "off"
   }
