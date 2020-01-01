@@ -90,6 +90,50 @@ describe("rule element-case", () => {
 		});
 	});
 
+	describe('configured with "pascalcase"', () => {
+		beforeAll(() => {
+			htmlvalidate = new HtmlValidate({
+				rules: { "element-case": ["error", { style: "pascalcase" }] },
+			});
+		});
+
+		it("should report error when element is lowercase", () => {
+			const report = htmlvalidate.validateString("<foo-bar></foo-bar>");
+			expect(report).toBeInvalid();
+			expect(report).toHaveError(
+				"element-case",
+				'Element "foo-bar" should be PascalCase'
+			);
+		});
+
+		it("should not report error when element is pascalcase", () => {
+			const report = htmlvalidate.validateString("<FooBar></FooBar>");
+			expect(report).toBeValid();
+		});
+	});
+
+	describe('configured with "camelcase"', () => {
+		beforeAll(() => {
+			htmlvalidate = new HtmlValidate({
+				rules: { "element-case": ["error", { style: "camelcase" }] },
+			});
+		});
+
+		it("should report error when element is pascalcase", () => {
+			const report = htmlvalidate.validateString("<FooBar></FooBar>");
+			expect(report).toBeInvalid();
+			expect(report).toHaveError(
+				"element-case",
+				'Element "FooBar" should be camelCase'
+			);
+		});
+
+		it("should not report error when element is camelcase", () => {
+			const report = htmlvalidate.validateString("<fooBar></fooBar>");
+			expect(report).toBeValid();
+		});
+	});
+
 	it("should throw error if configured with invalid value", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "element-case": ["error", { style: "foobar" }] },

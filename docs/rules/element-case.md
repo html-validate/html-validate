@@ -35,5 +35,7 @@ This rule takes an optional object:
 
 ### Style
 
+- `camelcase` requires all element names to be camelCase.
 - `lowercase` requires all element names to be lowercase.
-- `uppercase` requires all element names to be uppercase.
+- `pascalcase` requires all element names to be PascalCase.
+- `uppercase` requires all element names to be UPPERCASE.
