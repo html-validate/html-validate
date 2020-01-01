@@ -16,7 +16,7 @@ function isRuleDocument(doc) {
 	return doc.docType === "rule" && doc.module === "rules";
 }
 
-module.exports = function rulesProcessor(moduleMap, renderDocsProcessor) {
+module.exports = function rulesProcessor(renderDocsProcessor) {
 	return {
 		$runAfter: ["paths-computed"],
 		$runBefore: ["rendering-docs"],
@@ -24,17 +24,25 @@ module.exports = function rulesProcessor(moduleMap, renderDocsProcessor) {
 	};
 
 	function process(docs) {
+		const ruleDocs = docs.filter(isRuleDocument);
+
 		/* compule rule source paths */
-		docs.filter(isRuleDocument).forEach(doc => {
+		ruleDocs.forEach(doc => {
 			const docPath = doc.fileInfo.projectRelativePath;
 			doc.ruleSourcePath = docPath
 				.replace("docs", "src")
 				.replace(/\.md$/, ".ts");
 		});
 
+		/* generate title */
+		ruleDocs.forEach(doc => {
+			if (!doc.title) {
+				doc.title = `${doc.summary} (${doc.name})`;
+			}
+		});
+
 		/* find all available rules */
-		const rules = docs
-			.filter(isRuleDocument)
+		const rules = ruleDocs
 			.map(doc => ({
 				name: doc.name,
 				url: doc.outputPath,
