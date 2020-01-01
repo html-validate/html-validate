@@ -11,13 +11,6 @@ module.exports = new Package("html-validate-docs", [
 
 	.processor(require("./processors/rules"))
 
-	.config(function(templateFinder, templateEngine) {
-		templateEngine.config.tags = {
-			variableStart: "{$",
-			variableEnd: "$}",
-		};
-	})
-
 	.config(function(renderDocsProcessor) {
 		renderDocsProcessor.extraData.pkg = require("../../package.json");
 		renderDocsProcessor.extraData.tracking = process.env.GA_TRACKING_ID;

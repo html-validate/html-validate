@@ -9,12 +9,12 @@
 </div>
 
 <div class="frontpage">
-	{$ doc.description | marked $}
+	{{ doc.description | marked }}
 
 	{% for block in doc.blocks %}
-		<h2>{$ block.title $}</h2>
-		<div class="frontpage {$ block.className $}">
-			{$ block.body | marked $}
+		<h2>{{ block.title }}</h2>
+		<div class="frontpage {{ block.className }}">
+			{{ block.body | marked }}
 		</div>
 	{% endfor %}
 </div>

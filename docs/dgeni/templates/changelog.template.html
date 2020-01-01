@@ -2,5 +2,5 @@
 
 {% block content %}
 	<!-- [html-validate-disable no-dup-id, heading-level: changelog generator generates headings with these errors] -->
-	{$ doc.description | marked $}
+	{{ doc.description | marked }}
 {% endblock %}
