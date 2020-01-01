@@ -1,18 +1,18 @@
 import { sliceLocation } from "../context";
 import { TagOpenEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { CaseStyle } from "./helper/case-style";
 
 const defaults = {
 	style: "lowercase",
 };
 
 class ElementCase extends Rule {
-	private pattern: RegExp;
-	private lettercase: string;
+	private style: CaseStyle;
 
 	public constructor(options: object) {
 		super(Object.assign({}, defaults, options));
-		[this.pattern, this.lettercase] = parseStyle(this.options.style);
+		this.style = new CaseStyle(this.options.style, "element-case");
 	}
 
 	public documentation(): RuleDocumentation {
@@ -25,30 +25,15 @@ class ElementCase extends Rule {
 	public setup(): void {
 		this.on("tag:open", (event: TagOpenEvent) => {
 			const letters = event.target.tagName.replace(/[^a-z]+/gi, "");
-			if (!letters.match(this.pattern)) {
+			if (!this.style.match(letters)) {
 				const location = sliceLocation(event.location, 1);
 				this.report(
 					event.target,
-					`Element "${event.target.tagName}" should be ${this.lettercase}`,
+					`Element "${event.target.tagName}" should be ${this.style.name}`,
 					location
 				);
 			}
 		});
-	}
-}
-
-function parseStyle(style: string): [RegExp, string] {
-	switch (style.toLowerCase()) {
-		case "lowercase":
-			return [/^[a-z]*$/, "lowercase"];
-		case "uppercase":
-			return [/^[A-Z]*$/, "uppercase"];
-		case "pascalcase":
-			return [/^[A-Z][A-Za-z]*$/, "PascalCase"];
-		case "camelcase":
-			return [/^[a-z][A-Za-z]*$/, "camelCase"];
-		default:
-			throw new Error(`Invalid style "${style}" for "element-case" rule`);
 	}
 }
 

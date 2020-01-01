@@ -1,6 +1,7 @@
 import { HtmlElement } from "../dom";
 import { AttributeEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { CaseStyle } from "./helper/case-style";
 
 const defaults = {
 	style: "lowercase",
@@ -8,12 +9,11 @@ const defaults = {
 };
 
 class AttrCase extends Rule {
-	private pattern: RegExp;
-	private lettercase: string;
+	private style: CaseStyle;
 
 	public constructor(options: object) {
 		super(Object.assign({}, defaults, options));
-		[this.pattern, this.lettercase] = parseStyle(this.options.style);
+		this.style = new CaseStyle(this.options.style, "attr-case");
 	}
 
 	public documentation(): RuleDocumentation {
@@ -37,10 +37,10 @@ class AttrCase extends Rule {
 			}
 
 			const letters = event.key.replace(/[^a-z]+/gi, "");
-			if (!letters.match(this.pattern)) {
+			if (!this.style.match(letters)) {
 				this.report(
 					event.target,
-					`Attribute "${event.key}" should be ${this.lettercase}`
+					`Attribute "${event.key}" should be ${this.style.name}`
 				);
 			}
 		});
@@ -52,21 +52,6 @@ class AttrCase extends Rule {
 		} else {
 			return false;
 		}
-	}
-}
-
-function parseStyle(style: string): [RegExp, string] {
-	switch (style.toLowerCase()) {
-		case "lowercase":
-			return [/^[a-z]*$/, "lowercase"];
-		case "uppercase":
-			return [/^[A-Z]*$/, "uppercase"];
-		case "pascalcase":
-			return [/^[A-Z][A-Za-z]*$/, "PascalCase"];
-		case "camelcase":
-			return [/^[a-z][A-Za-z]*$/, "camelCase"];
-		default:
-			throw new Error(`Invalid style "${style}" for "attr-case" rule`);
 	}
 }
 
