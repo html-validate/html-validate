@@ -8,9 +8,15 @@
 		<pre><code class="hljs lang-html">{{ doc.validate.markup | highlight('html') }}</code></pre>
 	</div>
 
-	{%- if not doc.validate.report.valid %}
+	{%- if doc.validate.showResults %}
 	<div class="messages">
-		<pre>{{ doc.validate.codeframe | escape }}</pre>
+		<pre>
+			{%- if not doc.validate.report.valid -%}
+				{{- doc.validate.codeframe | escape -}}
+			{%- else -%}
+				0 errors found
+			{%- endif -%}
+		</pre>
 	</div>
 	{%- endif %}
 </div>

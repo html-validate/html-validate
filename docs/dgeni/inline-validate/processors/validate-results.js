@@ -17,6 +17,10 @@ module.exports = function generateValidationResultsProcessor(log, validateMap) {
 			htmlvalidate = new HtmlValidate(validation.config);
 			validation.report = htmlvalidate.validateString(validation.markup);
 			validation.codeframe = codeframe(validation.report.results);
+
+			if (validation.showResults === "auto") {
+				validation.showResults = !validation.report.valid;
+			}
 		});
 		chalk.level = oldLevel;
 	}

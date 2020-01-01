@@ -34,6 +34,7 @@ module.exports = function parseValidatesProcessor(
 
 						const name = attr.name;
 						const rules = attr.rules ? attr.rules.split(/ +/) : undefined;
+						const showResults = attr.results ? Boolean(attr.results) : "auto";
 						const elements = readElements(doc.fileInfo, attr.elements);
 						const id = uniqueName(validateMap, `markup-${attr.name}`);
 						const markup = trimIndentation(validateMarkup);
@@ -43,6 +44,7 @@ module.exports = function parseValidatesProcessor(
 							config,
 							name,
 							markup,
+							showResults,
 							id,
 							doc,
 						};
