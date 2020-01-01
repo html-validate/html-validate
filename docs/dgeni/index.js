@@ -41,13 +41,7 @@ module.exports = new Package("html-validate-docs", [
 		readFilesProcessor.fileReaders.push(changelogFileReader);
 	})
 
-	.config(function(
-		log,
-		readFilesProcessor,
-		templateFinder,
-		writeFilesProcessor,
-		copySchema
-	) {
+	.config(function(log, readFilesProcessor, writeFilesProcessor, copySchema) {
 		log.level = "info";
 
 		readFilesProcessor.basePath = path.resolve(packagePath, "../..");
@@ -110,7 +104,12 @@ module.exports = new Package("html-validate-docs", [
 				}
 			},
 			getAliases: function(doc) {
-				return [doc.id, doc.name, `${doc.docType}:${doc.name}`];
+				const alias = [doc.id];
+				if (doc.name) {
+					alias.push(doc.name);
+					alias.push(`${doc.docType}:${doc.name}`);
+				}
+				return alias;
 			},
 		});
 
