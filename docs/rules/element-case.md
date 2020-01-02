@@ -23,6 +23,14 @@ Examples of **correct** code for this rule:
     <div>...</div>
 </validate>
 
+### Matching case
+
+When using styles such as `pascalcase` the start and end tag must have matching case:
+
+<validate name="matching" rules="element-case" element-case='{"style": "pascalcase"}'>
+    <FooBar>...</Foobar>
+</validate>
+
 ## Options
 
 This rule takes an optional object:
