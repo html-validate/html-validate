@@ -25,4 +25,29 @@ Array [
 ]
 `;
 
+exports[`docs/rules/attr-case.md inline validation: multiple 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 3,
+        "message": "Attribute \\"fooBar\\" should be lowercase or uppercase",
+        "offset": 33,
+        "ruleId": "attr-case",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<p foobar></p>
+<p FOOBAR></p>
+<p fooBar></p>",
+    "warningCount": 0,
+  },
+]
+`;
+
 exports[`docs/rules/attr-case.md inline validation: svg-viewbox 1`] = `Array []`;
