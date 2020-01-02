@@ -1,5 +1,14 @@
 # html-validate changelog
 
+# [2.8.0](https://gitlab.com/html-validate/html-validate/compare/v2.7.0...v2.8.0) (2020-01-02)
+
+### Features
+
+- **rule:** validate matching case for start and end tags ([288cf86](https://gitlab.com/html-validate/html-validate/commit/288cf867dc6b1fdaf899cc695bb70b35c9a720a0))
+- **rules:** refactor `parseStyle` from `element-case` and `attr-case` ([24d8fad](https://gitlab.com/html-validate/html-validate/commit/24d8fad19ba677502e1c19f8180efea44aa9cf34))
+- **rules:** support multiple case styles ([5a397bd](https://gitlab.com/html-validate/html-validate/commit/5a397bd9aa281710f24925bec8dcc1bc29605403)), closes [#50](https://gitlab.com/html-validate/html-validate/issues/50)
+- **rules:** support pascalcase and camelcase for `element-case` rule ([be7d692](https://gitlab.com/html-validate/html-validate/commit/be7d692838826a0de908d6cbb2867d02c43cee66))
+
 # [2.7.0](https://gitlab.com/html-validate/html-validate/compare/v2.6.0...v2.7.0) (2019-12-16)
 
 ### Bug Fixes
