@@ -24,3 +24,28 @@ Array [
   },
 ]
 `;
+
+exports[`docs/rules/element-case.md inline validation: multiple 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 3,
+        "message": "Element \\"fooBar\\" should be lowercase or PascalCase",
+        "offset": 39,
+        "ruleId": "element-case",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<foo-bar></foo-bar>
+<FooBar></FooBar>
+<fooBar></fooBar>",
+    "warningCount": 0,
+  },
+]
+`;

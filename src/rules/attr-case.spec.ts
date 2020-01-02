@@ -207,6 +207,21 @@ describe("rule attr-case", () => {
 		});
 	});
 
+	it("should handle multiple styles", () => {
+		expect.assertions(3);
+		htmlvalidate = new HtmlValidate({
+			rules: {
+				"attr-case": ["error", { style: ["lowercase", "camelcase"] }],
+			},
+		});
+		expect(htmlvalidate.validateString("<div foo-bar></div>")).toBeValid();
+		expect(htmlvalidate.validateString("<div fooBar></div>")).toBeValid();
+		expect(htmlvalidate.validateString("<div FooBar></div>")).toHaveError(
+			"attr-case",
+			'Attribute "FooBar" should be lowercase or camelCase'
+		);
+	});
+
 	it("should not report duplicate errors for dynamic attributes", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "attr-case": "error" },
@@ -232,7 +247,7 @@ describe("rule attr-case", () => {
 			rules: { "attr-case": ["error", { style: "foobar" }] },
 		});
 		expect(() => htmlvalidate.validateString("<foo></foo>")).toThrow(
-			`Invalid style "foobar" for "attr-case" rule`
+			`Invalid style "foobar" for attr-case rule`
 		);
 	});
 

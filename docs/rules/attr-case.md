@@ -41,6 +41,17 @@ This rule takes an optional object:
 - `pascalcase` requires all attribute names to be PascalCase.
 - `uppercase` requires all attribute names to be UPPERCASE.
 
+Multiple styles can be set as an array of strings.
+With multiple styles the attribute must match at least one pattern to be considered valid.
+
+For instance, when configured with `{"style": ["lowercase", "uppercase"]}` attributes can be either lowercase or uppercase:
+
+<validate name="multiple" rules="attr-case" attr-case='{"style": ["lowercase", "uppercase"]}'>
+    <p foobar></p>
+    <p FOOBAR></p>
+    <p fooBar></p>
+</validate>
+
 ### `ignoreForeign`
 
 By default attributes on foreign elements (such as `<svg>` and `<math>`) are

@@ -134,12 +134,27 @@ describe("rule element-case", () => {
 		});
 	});
 
+	it("should handle multiple styles", () => {
+		expect.assertions(3);
+		htmlvalidate = new HtmlValidate({
+			rules: {
+				"element-case": ["error", { style: ["lowercase", "pascalcase"] }],
+			},
+		});
+		expect(htmlvalidate.validateString("<foo-bar></foo-bar>")).toBeValid();
+		expect(htmlvalidate.validateString("<FooBar></FooBar>")).toBeValid();
+		expect(htmlvalidate.validateString("<fooBar></fooBar>")).toHaveError(
+			"element-case",
+			'Element "fooBar" should be lowercase or PascalCase'
+		);
+	});
+
 	it("should throw error if configured with invalid value", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "element-case": ["error", { style: "foobar" }] },
 		});
 		expect(() => htmlvalidate.validateString("<foo></foo>")).toThrow(
-			`Invalid style "foobar" for "element-case" rule`
+			`Invalid style "foobar" for element-case rule`
 		);
 	});
 
