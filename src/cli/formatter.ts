@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 import { Formatter } from "../formatters";
 import { Report, Result } from "../reporter";
 
@@ -11,6 +12,7 @@ function wrap(
 	return (results: Result[]) => {
 		const output = formatter(results);
 		if (dst) {
+			fs.mkdirSync(path.dirname(dst), { recursive: true });
 			fs.writeFileSync(dst, output, "utf-8");
 			return null;
 		} else {

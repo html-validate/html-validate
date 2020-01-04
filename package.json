@@ -40,6 +40,7 @@
     "build": "tsc",
     "build:docs": "grunt docs",
     "clean": "rm -rf build public",
+    "compatibility": "scripts/compatibility.sh",
     "commitlint": "commitlint",
     "debug": "node --inspect ./node_modules/.bin/jest --runInBand --watch --no-coverage",
     "eslint": "eslint *.js '{docs,elements,src}/**/*.{js,ts}'",

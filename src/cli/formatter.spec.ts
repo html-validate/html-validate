@@ -13,9 +13,11 @@ jest.mock("../formatters/json", () => {
 	return (report: Report) => jsonFormatter(report);
 });
 
+const mkdirSync = jest.fn();
 const writeFileSync = jest.fn();
 jest.mock("fs", () => {
 	return {
+		mkdirSync: (...args: any[]) => mkdirSync(...args),
 		writeFileSync: (...args: any[]) => writeFileSync(...args),
 	};
 });
@@ -65,8 +67,9 @@ describe("cli/formatters", () => {
 	});
 
 	it("should redirect output", () => {
-		const wrapped = cli.getFormatter("text=foo.txt");
+		const wrapped = cli.getFormatter("text=mydir/foo.txt");
 		wrapped(report);
-		expect(writeFileSync).toHaveBeenCalledWith("foo.txt", "", "utf-8");
+		expect(mkdirSync).toHaveBeenCalledWith("mydir", { recursive: true });
+		expect(writeFileSync).toHaveBeenCalledWith("mydir/foo.txt", "", "utf-8");
 	});
 });
