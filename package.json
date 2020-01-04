@@ -99,7 +99,7 @@
   "devDependencies": {
     "@babel/core": "7.7.7",
     "@babel/preset-env": "7.7.7",
-    "@commitlint/cli": "8.3.3",
+    "@commitlint/cli": "8.3.4",
     "@html-validate/commitlint-config": "1.0.1",
     "@html-validate/eslint-config": "1.0.5",
     "@html-validate/prettier-config": "1.0.0",
