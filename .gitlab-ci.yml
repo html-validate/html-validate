@@ -105,10 +105,11 @@ Docs:
   script:
     - npm test
     - npm run build
+    - npm run compatibility
 
 Node 8.x (LTS):
   <<: *compat
-  image: node:8
+  image: node:8.5
   before_script:
     - npm install
 
@@ -116,9 +117,13 @@ Node 10.x (LTS):
   <<: *compat
   image: node:10
 
-Node 12.x (current):
+Node 12.x (LTS):
   <<: *compat
   image: node:12
+
+Node 13.x (current):
+  <<: *compat
+  image: node:13
 
 Release:
   stage: release
