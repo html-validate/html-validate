@@ -109,7 +109,7 @@ Docs:
 
 Node 8.x (LTS):
   <<: *compat
-  image: node:8.5
+  image: node:8.17
   before_script:
     - npm install
 
