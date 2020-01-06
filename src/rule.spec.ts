@@ -1,3 +1,4 @@
+import path from "path";
 import { Config, Severity } from "./config";
 import { Location } from "./context";
 import { HtmlElement } from "./dom";
@@ -27,7 +28,7 @@ describe("rule base class", () => {
 		reporter = new Reporter();
 		reporter.add = jest.fn();
 		meta = new MetaTable();
-		meta.loadFromFile("../../elements/html5.json");
+		meta.loadFromFile(path.join(__dirname, "../elements/html5.json"));
 
 		rule = new MockRule({});
 		rule.name = "mock-rule";
