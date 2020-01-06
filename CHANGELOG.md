@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## [2.8.1](https://gitlab.com/html-validate/html-validate/compare/v2.8.0...v2.8.1) (2020-01-06)
+
+### Bug Fixes
+
+- **cli:** create output directory as needed ([b5569f3](https://gitlab.com/html-validate/html-validate/commit/b5569f3abd47c02348f2aa31a430e1ab31ba65a5))
+- **meta:** load metadata with `readFile` instead of `require` ([c5de95b](https://gitlab.com/html-validate/html-validate/commit/c5de95b8a41707bd58a688f130e8beecbece077a))
+
 # [2.8.0](https://gitlab.com/html-validate/html-validate/compare/v2.7.0...v2.8.0) (2020-01-02)
 
 ### Features
