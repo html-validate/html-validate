@@ -6,6 +6,7 @@ Object {
     "html-validate:recommended",
   ],
   "plugins": Array [],
+  "root": true,
   "rules": Object {
     "deprecated": "error",
     "element-permitted-content": "off",
@@ -64,6 +65,7 @@ Object {
     "html-validate:recommended",
   ],
   "plugins": Array [],
+  "root": true,
   "rules": Object {
     "deprecated": "error",
     "element-permitted-content": "off",
@@ -155,6 +157,7 @@ Object {
     "html-validate:recommended",
   ],
   "plugins": Array [],
+  "root": true,
   "rules": Object {
     "deprecated": "error",
     "element-permitted-content": "off",
@@ -210,6 +213,7 @@ Object {
     "html-validate:recommended",
   ],
   "plugins": Array [],
+  "root": true,
   "rules": Object {
     "deprecated": "error",
     "element-permitted-content": "off",
@@ -269,6 +273,7 @@ Object {
     "html-validate:recommended",
   ],
   "plugins": Array [],
+  "root": true,
   "rules": Object {
     "deprecated": "error",
     "element-permitted-content": "error",
@@ -327,6 +332,7 @@ Object {
     "html-validate:recommended",
   ],
   "plugins": Array [],
+  "root": true,
   "rules": Object {
     "deprecated": "error",
     "element-permitted-content": "error",
@@ -368,6 +374,7 @@ Object {
     "html-validate:recommended",
   ],
   "plugins": Array [],
+  "root": true,
   "rules": Object {
     "deprecated": "error",
     "element-permitted-content": "error",
@@ -409,6 +416,7 @@ Object {
     "html-validate:recommended",
   ],
   "plugins": Array [],
+  "root": true,
   "rules": Object {
     "deprecated": "error",
     "element-permitted-content": "error",
@@ -426,6 +434,7 @@ Object {
     "html-validate:recommended",
   ],
   "plugins": Array [],
+  "root": true,
   "rules": Object {
     "deprecated": "error",
     "element-permitted-content": "error",

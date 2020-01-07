@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/void-content.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/void-content.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 7,
+        "context": "img",
+        "line": 1,
+        "message": "End tag for <img> must be omitted",
+        "offset": 6,
+        "ruleId": "void-content",
+        "selector": null,
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<img></img>
+<div/>",
+    "warningCount": 0,
+  },
+]
+`;

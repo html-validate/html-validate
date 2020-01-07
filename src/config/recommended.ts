@@ -36,6 +36,7 @@ module.exports = {
 		"svg-focusable": "error",
 		"unrecognized-char-ref": "error",
 		void: "error",
+		"void-content": "error",
 		"wcag/h30": "error",
 		"wcag/h32": "error",
 		"wcag/h36": "error",

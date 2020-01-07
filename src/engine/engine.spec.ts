@@ -77,6 +77,7 @@ describe("Engine", () => {
 			extends: ["html-validate:recommended"],
 			rules: {
 				deprecated: "off",
+				"void-content": "off",
 			},
 		});
 		config.init();

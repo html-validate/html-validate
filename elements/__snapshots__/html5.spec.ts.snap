@@ -237,7 +237,7 @@ exports[`HTML elements <applet> valid markup 1`] = `Array []`;
 exports[`HTML elements <area> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 4,
+    "errorCount": 6,
     "filePath": "test-files/elements/area-invalid.html",
     "messages": Array [
       Object {
@@ -252,12 +252,34 @@ Array [
         "size": 5,
       },
       Object {
+        "column": 9,
+        "context": "area",
+        "line": 6,
+        "message": "End tag for <area> must be omitted",
+        "offset": 96,
+        "ruleId": "void-content",
+        "selector": null,
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
         "column": 3,
         "context": undefined,
         "line": 11,
         "message": "End tag for <area> must be omitted",
         "offset": 168,
         "ruleId": "void",
+        "selector": null,
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 3,
+        "context": "area",
+        "line": 11,
+        "message": "End tag for <area> must be omitted",
+        "offset": 168,
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 5,
@@ -552,7 +574,7 @@ exports[`HTML elements <b> valid markup 1`] = `Array []`;
 exports[`HTML elements <base> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 2,
+    "errorCount": 3,
     "filePath": "test-files/elements/base-invalid.html",
     "messages": Array [
       Object {
@@ -573,6 +595,17 @@ Array [
         "message": "End tag for <base> must be omitted",
         "offset": 109,
         "ruleId": "void",
+        "selector": null,
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 8,
+        "context": "base",
+        "line": 7,
+        "message": "End tag for <base> must be omitted",
+        "offset": 109,
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 5,
@@ -822,7 +855,7 @@ exports[`HTML elements <body> valid markup 1`] = `Array []`;
 exports[`HTML elements <br> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 1,
+    "errorCount": 2,
     "filePath": "test-files/elements/br-invalid.html",
     "messages": Array [
       Object {
@@ -832,6 +865,17 @@ Array [
         "message": "End tag for <br> must be omitted",
         "offset": 39,
         "ruleId": "void",
+        "selector": null,
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 6,
+        "context": "br",
+        "line": 2,
+        "message": "End tag for <br> must be omitted",
+        "offset": 39,
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 3,
@@ -1118,7 +1162,7 @@ exports[`HTML elements <code> valid markup 1`] = `Array []`;
 exports[`HTML elements <col> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 2,
+    "errorCount": 3,
     "filePath": "test-files/elements/col-invalid.html",
     "messages": Array [
       Object {
@@ -1139,6 +1183,17 @@ Array [
         "message": "End tag for <col> must be omitted",
         "offset": 134,
         "ruleId": "void",
+        "selector": null,
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 9,
+        "context": "col",
+        "line": 9,
+        "message": "End tag for <col> must be omitted",
+        "offset": 134,
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 4,
@@ -1630,7 +1685,7 @@ exports[`HTML elements <em> valid markup 1`] = `Array []`;
 exports[`HTML elements <embed> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 4,
+    "errorCount": 5,
     "filePath": "test-files/elements/embed-invalid.html",
     "messages": Array [
       Object {
@@ -1640,6 +1695,17 @@ Array [
         "message": "End tag for <embed> must be omitted",
         "offset": 91,
         "ruleId": "void",
+        "selector": null,
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 45,
+        "context": "embed",
+        "line": 2,
+        "message": "End tag for <embed> must be omitted",
+        "offset": 91,
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 6,
@@ -2561,7 +2627,7 @@ exports[`HTML elements <hgroup> valid markup 1`] = `Array []`;
 exports[`HTML elements <hr> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 2,
+    "errorCount": 3,
     "filePath": "test-files/elements/hr-invalid.html",
     "messages": Array [
       Object {
@@ -2571,6 +2637,17 @@ Array [
         "message": "End tag for <hr> must be omitted",
         "offset": 39,
         "ruleId": "void",
+        "selector": null,
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 6,
+        "context": "hr",
+        "line": 2,
+        "message": "End tag for <hr> must be omitted",
+        "offset": 39,
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 3,
@@ -2812,7 +2889,7 @@ exports[`HTML elements <iframe> valid markup 1`] = `Array []`;
 exports[`HTML elements <img> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 4,
+    "errorCount": 5,
     "filePath": "test-files/elements/img-invalid.html",
     "messages": Array [
       Object {
@@ -2859,6 +2936,17 @@ Array [
         "size": 4,
       },
       Object {
+        "column": 21,
+        "context": "img",
+        "line": 8,
+        "message": "End tag for <img> must be omitted",
+        "offset": 139,
+        "ruleId": "void-content",
+        "selector": null,
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
         "column": 3,
         "context": undefined,
         "line": 12,
@@ -2894,7 +2982,7 @@ exports[`HTML elements <img> valid markup 1`] = `Array []`;
 exports[`HTML elements <input> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 14,
+    "errorCount": 15,
     "filePath": "test-files/elements/input-invalid.html",
     "messages": Array [
       Object {
@@ -2904,6 +2992,17 @@ Array [
         "message": "End tag for <input> must be omitted",
         "offset": 54,
         "ruleId": "void",
+        "selector": null,
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 21,
+        "context": "input",
+        "line": 2,
+        "message": "End tag for <input> must be omitted",
+        "offset": 54,
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 6,
@@ -3261,7 +3360,7 @@ exports[`HTML elements <kbd> valid markup 1`] = `Array []`;
 exports[`HTML elements <keygen> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 1,
+    "errorCount": 2,
     "filePath": "test-files/elements/keygen-invalid.html",
     "messages": Array [
       Object {
@@ -3271,6 +3370,17 @@ Array [
         "message": "End tag for <keygen> must be omitted",
         "offset": 38,
         "ruleId": "void",
+        "selector": null,
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 10,
+        "context": "keygen",
+        "line": 2,
+        "message": "End tag for <keygen> must be omitted",
+        "offset": 38,
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 7,
@@ -3413,7 +3523,7 @@ exports[`HTML elements <li> valid markup 1`] = `Array []`;
 exports[`HTML elements <link> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 5,
+    "errorCount": 6,
     "filePath": "test-files/elements/link-invalid.html",
     "messages": Array [
       Object {
@@ -3423,6 +3533,17 @@ Array [
         "message": "End tag for <link> must be omitted",
         "offset": 56,
         "ruleId": "void",
+        "selector": null,
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 23,
+        "context": "link",
+        "line": 2,
+        "message": "End tag for <link> must be omitted",
+        "offset": 56,
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 5,
@@ -3757,7 +3878,7 @@ exports[`HTML elements <math> valid markup 1`] = `Array []`;
 exports[`HTML elements <meta> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 1,
+    "errorCount": 2,
     "filePath": "test-files/elements/meta-invalid.html",
     "messages": Array [
       Object {
@@ -3767,6 +3888,17 @@ Array [
         "message": "End tag for <meta> must be omitted",
         "offset": 36,
         "ruleId": "void",
+        "selector": null,
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 8,
+        "context": "meta",
+        "line": 2,
+        "message": "End tag for <meta> must be omitted",
+        "offset": 36,
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 5,
@@ -4339,7 +4471,7 @@ exports[`HTML elements <p> valid markup 1`] = `Array []`;
 exports[`HTML elements <param> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 2,
+    "errorCount": 3,
     "filePath": "test-files/elements/param-invalid.html",
     "messages": Array [
       Object {
@@ -4349,6 +4481,17 @@ Array [
         "message": "End tag for <param> must be omitted",
         "offset": 37,
         "ruleId": "void",
+        "selector": null,
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 9,
+        "context": "param",
+        "line": 2,
+        "message": "End tag for <param> must be omitted",
+        "offset": 37,
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 6,
@@ -5007,7 +5150,7 @@ exports[`HTML elements <small> valid markup 1`] = `Array []`;
 exports[`HTML elements <source> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 2,
+    "errorCount": 3,
     "filePath": "test-files/elements/source-invalid.html",
     "messages": Array [
       Object {
@@ -5017,6 +5160,17 @@ Array [
         "message": "End tag for <source> must be omitted",
         "offset": 47,
         "ruleId": "void",
+        "selector": null,
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 11,
+        "context": "source",
+        "line": 3,
+        "message": "End tag for <source> must be omitted",
+        "offset": 47,
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 7,
@@ -5952,7 +6106,7 @@ exports[`HTML elements <tr> valid markup 1`] = `Array []`;
 exports[`HTML elements <track> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 1,
+    "errorCount": 2,
     "filePath": "test-files/elements/track-invalid.html",
     "messages": Array [
       Object {
@@ -5962,6 +6116,17 @@ Array [
         "message": "End tag for <track> must be omitted",
         "offset": 46,
         "ruleId": "void",
+        "selector": null,
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 10,
+        "context": "track",
+        "line": 3,
+        "message": "End tag for <track> must be omitted",
+        "offset": 46,
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 6,
@@ -6224,7 +6389,7 @@ exports[`HTML elements <video> valid markup 1`] = `Array []`;
 exports[`HTML elements <wbr> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 1,
+    "errorCount": 2,
     "filePath": "test-files/elements/wbr-invalid.html",
     "messages": Array [
       Object {
@@ -6234,6 +6399,17 @@ Array [
         "message": "End tag for <wbr> must be omitted",
         "offset": 35,
         "ruleId": "void",
+        "selector": null,
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 7,
+        "context": "wbr",
+        "line": 2,
+        "message": "End tag for <wbr> must be omitted",
+        "offset": 35,
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 4,
