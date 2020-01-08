@@ -1,17 +1,22 @@
 import { HtmlElement } from "../dom";
 import { AttributeEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
-import { CaseStyle } from "./helper/case-style";
+import { CaseStyle, CaseStyleName } from "./helper/case-style";
 
-const defaults = {
+interface RuleOptions {
+	style: CaseStyleName | CaseStyleName[];
+	ignoreForeign: boolean;
+}
+
+const defaults: RuleOptions = {
 	style: "lowercase",
 	ignoreForeign: true,
 };
 
-class AttrCase extends Rule {
+class AttrCase extends Rule<void, RuleOptions> {
 	private style: CaseStyle;
 
-	public constructor(options: object) {
+	public constructor(options: RuleOptions) {
 		super(Object.assign({}, defaults, options));
 		this.style = new CaseStyle(this.options.style, "attr-case");
 	}

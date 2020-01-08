@@ -1,5 +1,11 @@
 import { ConfigError } from "../../config/error";
 
+export type CaseStyleName =
+	| "lowercase"
+	| "uppercase"
+	| "pascalcase"
+	| "camelcase";
+
 interface Style {
 	pattern: RegExp;
 	name: string;
@@ -14,7 +20,7 @@ export class CaseStyle {
 	/**
 	 * @param style - Name of a valid case style.
 	 */
-	public constructor(style: string | string[], ruleId: string) {
+	public constructor(style: CaseStyleName | CaseStyleName[], ruleId: string) {
 		if (!Array.isArray(style)) {
 			style = [style];
 		}
@@ -46,7 +52,7 @@ export class CaseStyle {
 		}
 	}
 
-	private parseStyle(style: string[], ruleId: string): Style[] {
+	private parseStyle(style: CaseStyleName[], ruleId: string): Style[] {
 		return style.map(
 			(cur: string): Style => {
 				switch (cur.toLowerCase()) {

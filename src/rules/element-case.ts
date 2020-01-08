@@ -2,16 +2,20 @@ import { Location, sliceLocation } from "../context";
 import { HtmlElement } from "../dom";
 import { TagCloseEvent, TagOpenEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
-import { CaseStyle } from "./helper/case-style";
+import { CaseStyle, CaseStyleName } from "./helper/case-style";
 
-const defaults = {
+interface RuleOptions {
+	style: CaseStyleName;
+}
+
+const defaults: RuleOptions = {
 	style: "lowercase",
 };
 
-class ElementCase extends Rule {
+class ElementCase extends Rule<void, RuleOptions> {
 	private style: CaseStyle;
 
-	public constructor(options: object) {
+	public constructor(options: RuleOptions) {
 		super(Object.assign({}, defaults, options));
 		this.style = new CaseStyle(this.options.style, "element-case");
 	}

@@ -1,15 +1,19 @@
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-const defaults = {
+interface RuleOptions {
+	maxlength: number;
+}
+
+const defaults: RuleOptions = {
 	maxlength: 70,
 };
 
-class LongTitle extends Rule {
+class LongTitle extends Rule<void, RuleOptions> {
 	private maxlength: number;
 
-	public constructor(options: object) {
+	public constructor(options: RuleOptions) {
 		super(Object.assign({}, defaults, options));
-		this.maxlength = parseInt(this.options.maxlength, 10);
+		this.maxlength = this.options.maxlength;
 	}
 
 	public documentation(): RuleDocumentation {

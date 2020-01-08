@@ -20,18 +20,14 @@ import { MetaTable, MetaLookupableProperty } from "./meta";
 
 const homepage = require("../package.json").homepage;
 
-export interface RuleOptions {
-	[key: string]: any;
-}
-
 export interface RuleDocumentation {
 	description: string;
 	url?: string;
 }
 
-export type RuleConstructor = new (options: RuleOptions) => Rule;
+export type RuleConstructor = new (options?: any) => Rule;
 
-export abstract class Rule<T = any> {
+export abstract class Rule<ContextType = void, OptionsType = void> {
 	private reporter: Reporter;
 	private parser: Parser;
 	private meta: MetaTable;
@@ -48,9 +44,9 @@ export abstract class Rule<T = any> {
 	/**
 	 * Rule options.
 	 */
-	public readonly options: RuleOptions;
+	public readonly options: OptionsType;
 
-	public constructor(options: RuleOptions) {
+	public constructor(options: OptionsType) {
 		this.options = options;
 		this.enabled = true;
 	}
@@ -100,7 +96,7 @@ export abstract class Rule<T = any> {
 		node: DOMNode,
 		message: string,
 		location?: Location,
-		context?: T
+		context?: ContextType
 	): void {
 		if (this.isEnabled() && (!node || node.ruleEnabled(this.name))) {
 			const where = this.findLocation({ node, location, event: this.event });
@@ -202,7 +198,7 @@ export abstract class Rule<T = any> {
 	 * additional documentation is available.
 	 */
 	/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-	public documentation(context?: T): RuleDocumentation {
+	public documentation(context?: ContextType): RuleDocumentation {
 		return null;
 	}
 }

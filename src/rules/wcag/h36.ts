@@ -10,7 +10,7 @@ class H36 extends Rule {
 		};
 	}
 
-	public constructor(options: object) {
+	public constructor(options: void) {
 		super(options);
 		this.name = "WCAG/H36";
 	}

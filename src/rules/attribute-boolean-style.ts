@@ -3,16 +3,20 @@ import { DOMReadyEvent } from "../event";
 import { PermittedAttribute } from "../meta/element";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-const defaults = {
+interface Options {
+	style?: string;
+}
+
+const defaults: Options = {
 	style: "omit",
 };
 
 type checkFunction = (attr: Attribute) => boolean;
 
-class AttributeBooleanStyle extends Rule {
+class AttributeBooleanStyle extends Rule<void, Options> {
 	private hasInvalidStyle: checkFunction;
 
-	public constructor(options: object) {
+	public constructor(options: Options) {
 		super(Object.assign({}, defaults, options));
 		this.hasInvalidStyle = parseStyle(this.options.style);
 	}

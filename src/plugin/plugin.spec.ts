@@ -296,7 +296,7 @@ describe("Plugin", () => {
 				public setup(): void {
 					/* do nothing */
 				}
-			})({});
+			})();
 			mockPlugin.rules = {
 				"mock-rule": null /* instantiateRule is mocked, this can be anything */,
 			};

@@ -2,9 +2,11 @@ import { HtmlElement, NodeClosed } from "../dom";
 import { TagCloseEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-const defaults = {
-	style: "omit",
-};
+type StyleName = "any" | "omit" | "selfclose" | "selfclosing";
+
+interface RuleOptions {
+	style: StyleName;
+}
 
 enum Style {
 	Any = 0,
@@ -12,7 +14,11 @@ enum Style {
 	AlwaysSelfclose = 2,
 }
 
-class Void extends Rule {
+const defaults: RuleOptions = {
+	style: "omit",
+};
+
+class Void extends Rule<void, RuleOptions> {
 	private style: Style;
 
 	public documentation(): RuleDocumentation {
@@ -23,7 +29,7 @@ class Void extends Rule {
 		};
 	}
 
-	public constructor(options: object) {
+	public constructor(options: RuleOptions) {
 		super(Object.assign({}, defaults, options));
 		this.style = parseStyle(this.options.style);
 	}
@@ -88,7 +94,7 @@ class Void extends Rule {
 	}
 }
 
-function parseStyle(name: string): Style {
+function parseStyle(name: StyleName): Style {
 	switch (name) {
 		case "any":
 			return Style.Any;

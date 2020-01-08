@@ -5,7 +5,7 @@ export { AttributeData } from "./parser";
 export { CLI } from "./cli/cli";
 export { Config, ConfigData, ConfigLoader, Severity } from "./config";
 export { DynamicValue, HtmlElement } from "./dom";
-export { Rule } from "./rule";
+export { Rule, RuleDocumentation } from "./rule";
 export { Source, Location, ProcessElementContext } from "./context";
 export { Reporter, Message, Result } from "./reporter";
 export { Transformer, TemplateExtractor } from "./transform";

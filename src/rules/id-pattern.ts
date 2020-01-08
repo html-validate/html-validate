@@ -1,16 +1,20 @@
 import { DynamicValue } from "../dom";
 import { AttributeEvent } from "../event";
-import { describePattern, parsePattern } from "../pattern";
+import { describePattern, parsePattern, PatternName } from "../pattern";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-const defaults = {
+interface RuleOptions {
+	pattern: PatternName;
+}
+
+const defaults: RuleOptions = {
 	pattern: "kebabcase",
 };
 
-class IdPattern extends Rule {
+class IdPattern extends Rule<void, RuleOptions> {
 	private pattern: RegExp;
 
-	public constructor(options: object) {
+	public constructor(options: RuleOptions) {
 		super(Object.assign({}, defaults, options));
 		this.pattern = parsePattern(this.options.pattern);
 	}

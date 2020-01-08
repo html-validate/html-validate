@@ -100,12 +100,12 @@ export class Reporter {
 		};
 	}
 
-	public add(
-		rule: Rule,
+	public add<ContextType, OptionsType>(
+		rule: Rule<ContextType, OptionsType>,
 		message: string,
 		severity: number,
 		location: Location,
-		context?: any
+		context?: ContextType
 	): void {
 		if (!(location.filename in this.result)) {
 			this.result[location.filename] = [];

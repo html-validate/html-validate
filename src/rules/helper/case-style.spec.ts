@@ -39,7 +39,7 @@ it("should handle multiple patterns", () => {
 it("should throw exception for unknown styles", () => {
 	expect.assertions(1);
 	expect(() => {
-		return new CaseStyle("unknown-style", "test-case");
+		return new CaseStyle("unknown-style" as any, "test-case");
 	}).toThrow('Invalid style "unknown-style" for test-case rule');
 });
 

@@ -8,7 +8,11 @@ import { Reporter } from "./reporter";
 import { Rule, ruleDocumentationUrl } from "./rule";
 import { MetaTable } from "./meta";
 
-class MockRule extends Rule {
+interface RuleContext {
+	foo: string;
+}
+
+class MockRule extends Rule<RuleContext> {
 	public setup(): void {
 		/* do nothing */
 	}
@@ -18,7 +22,7 @@ describe("rule base class", () => {
 	let parser: Parser;
 	let reporter: Reporter;
 	let meta: MetaTable;
-	let rule: Rule;
+	let rule: MockRule;
 	let mockLocation: Location;
 	let mockEvent: Event;
 
@@ -30,7 +34,7 @@ describe("rule base class", () => {
 		meta = new MetaTable();
 		meta.loadFromFile(path.join(__dirname, "../elements/html5.json"));
 
-		rule = new MockRule({});
+		rule = new MockRule();
 		rule.name = "mock-rule";
 		rule.init(parser, reporter, Severity.ERROR, meta);
 		mockLocation = { filename: "mock-file", offset: 1, line: 1, column: 2 };
