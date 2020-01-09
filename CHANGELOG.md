@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [2.8.2](https://gitlab.com/html-validate/html-validate/compare/v2.8.1...v2.8.2) (2020-01-09)
+
+### Bug Fixes
+
+- create directory only if missing ([5db6fe8](https://gitlab.com/html-validate/html-validate/commit/5db6fe8ad82ba04d691dec5aacfcba9be8aee759))
+
 ## [2.8.1](https://gitlab.com/html-validate/html-validate/compare/v2.8.0...v2.8.1) (2020-01-06)
 
 ### Bug Fixes
