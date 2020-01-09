@@ -13,12 +13,17 @@ jest.mock("../formatters/json", () => {
 	return (report: Report) => jsonFormatter(report);
 });
 
-const mkdirSync = jest.fn();
-const writeFileSync = jest.fn();
+const fs = {
+	existsSync: jest.fn().mockReturnValue(true),
+	mkdirSync: jest.fn(),
+	writeFileSync: jest.fn(),
+};
+
 jest.mock("fs", () => {
 	return {
-		mkdirSync: (...args: any[]) => mkdirSync(...args),
-		writeFileSync: (...args: any[]) => writeFileSync(...args),
+		existsSync: (...args: any[]) => fs.existsSync(...args),
+		mkdirSync: (...args: any[]) => fs.mkdirSync(...args),
+		writeFileSync: (...args: any[]) => fs.writeFileSync(...args),
 	};
 });
 
@@ -66,10 +71,18 @@ describe("cli/formatters", () => {
 		expect(jsonFormatter).toHaveBeenCalledWith(report.results);
 	});
 
-	it("should redirect output", () => {
+	it("should redirect output to file", () => {
+		const wrapped = cli.getFormatter("text=foo.txt");
+		wrapped(report);
+		expect(fs.mkdirSync).not.toHaveBeenCalled();
+		expect(fs.writeFileSync).toHaveBeenCalledWith("foo.txt", "", "utf-8");
+	});
+
+	it("should create directory if missing", () => {
+		fs.existsSync.mockReturnValue(false);
 		const wrapped = cli.getFormatter("text=mydir/foo.txt");
 		wrapped(report);
-		expect(mkdirSync).toHaveBeenCalledWith("mydir", { recursive: true });
-		expect(writeFileSync).toHaveBeenCalledWith("mydir/foo.txt", "", "utf-8");
+		expect(fs.mkdirSync).toHaveBeenCalledWith("mydir", { recursive: true });
+		expect(fs.writeFileSync).toHaveBeenCalledWith("mydir/foo.txt", "", "utf-8");
 	});
 });

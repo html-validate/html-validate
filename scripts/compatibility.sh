@@ -17,6 +17,18 @@ if [[ $? = 0 ]]; then
 fi
 
 echo "Testing if html-validate will save report to file"
+mkdir -p temp
+./bin/html-validate.js -f json=temp/report.json test-files/elements/table-valid.html
+if [[ $? != 0 ]]; then
+	echo "Compatibility test failed, expected command to exit with zero status"
+	exit 1
+fi
+if [[ "$(cat temp/report.json)" != "[]" ]]; then
+	echo "Compatibility test failed, expected command to write report to file"
+	exit 1
+fi
+
+echo "Testing if html-validate will save report to file in subdirectory"
 ./bin/html-validate.js -f json=temp/compatibility/report.json test-files/elements/table-valid.html
 if [[ $? != 0 ]]; then
 	echo "Compatibility test failed, expected command to exit with zero status"

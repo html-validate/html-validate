@@ -12,7 +12,10 @@ function wrap(
 	return (results: Result[]) => {
 		const output = formatter(results);
 		if (dst) {
-			fs.mkdirSync(path.dirname(dst), { recursive: true });
+			const dir = path.dirname(dst);
+			if (!fs.existsSync(dir)) {
+				fs.mkdirSync(dir, { recursive: true });
+			}
 			fs.writeFileSync(dst, output, "utf-8");
 			return null;
 		} else {
