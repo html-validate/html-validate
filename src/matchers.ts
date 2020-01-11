@@ -1,8 +1,10 @@
-/* eslint-disable @typescript-eslint/no-namespace, prefer-template, sonarjs/no-duplicate-string */
+/* eslint-disable @typescript-eslint/no-namespace, @typescript-eslint/ban-ts-ignore, prefer-template, sonarjs/no-duplicate-string */
 
 import diff from "jest-diff";
 import { TokenType } from "./lexer";
 import { Message, Report, Result } from "./reporter";
+import { ConfigData } from "./config";
+import HtmlValidate from "./htmlvalidate";
 
 interface TokenMatcher {
 	type: TokenType;
@@ -18,6 +20,15 @@ declare global {
 			toBeToken(expected: TokenMatcher): R;
 			toHaveError(ruleId: string, message: string, context?: any): R;
 			toHaveErrors(errors: Array<[string, string] | {}>): R;
+
+			/**
+			 * Validate string or HTMLElement.
+			 *
+			 * Test passes if result is valid.
+			 *
+			 * @param config - Optional HTML-Validate configuration object.
+			 */
+			toHTMLValidate(config?: ConfigData): R;
 		}
 	}
 }
@@ -129,6 +140,37 @@ function toHaveErrors(
 	return { pass, message: resultMessage };
 }
 
+function toHTMLValidate(
+	this: jest.MatcherUtils,
+	// @ts-ignore DOM library not available
+	actual: string | HTMLElement,
+	config?: ConfigData,
+	filename?: string
+): jest.CustomMatcherResult {
+	// @ts-ignore DOM library not available
+	if (actual instanceof HTMLElement) {
+		actual = actual.outerHTML;
+	}
+
+	const htmlvalidate = new HtmlValidate(config);
+	const report = htmlvalidate.validateString(actual, filename || this.testPath);
+	const pass = report.valid;
+	if (pass) {
+		return { pass, message: () => "HTML is valid when an error was expected" };
+	} else {
+		const errors = report.results[0].messages.map(
+			message => `  ${message.message} [${message.ruleId}]`
+		);
+		return {
+			pass,
+			message: () =>
+				["Expected HTML to be valid but had the following errors:", ""]
+					.concat(errors)
+					.join("\n"),
+		};
+	}
+}
+
 function toBeToken(
 	this: jest.MatcherUtils,
 	actual: any,
@@ -168,5 +210,6 @@ expect.extend({
 	toBeInvalid,
 	toHaveError,
 	toHaveErrors,
+	toHTMLValidate,
 	toBeToken,
 });

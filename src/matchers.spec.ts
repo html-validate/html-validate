@@ -188,3 +188,74 @@ describe("toBeToken()", () => {
 		expect(stripAnsi(error.message)).toMatchSnapshot();
 	});
 });
+
+describe("toHTMLValidate()", () => {
+	it("should pass if markup is valid", () => {
+		expect.assertions(1);
+		expect("<p></p>").toHTMLValidate();
+	});
+
+	it("should pass if markup is invalid but negated", () => {
+		expect.assertions(1);
+		expect("<p></i>").not.toHTMLValidate();
+	});
+
+	it("should fail if markup is invalid", async () => {
+		expect.assertions(3);
+		let error: Error;
+		try {
+			await expect("<a><button></i>").toHTMLValidate();
+		} catch (e) {
+			error = e;
+		}
+		expect(error).toBeDefined();
+		expect(stripAnsi(error.message)).toMatchInlineSnapshot(`
+			"Expected HTML to be valid but had the following errors:
+
+			  Anchor link must have a text describing its purpose [WCAG/H30]
+			  <button> is missing required \\"type\\" attribute [element-required-attributes]
+			  Element <button> is not permitted as descendant of <a> [element-permitted-content]
+			  Mismatched close-tag, expected '</button>' but found '</i>'. [close-order]
+			  Missing close-tag, expected '</a>' but document ended before it was found. [close-order]"
+		`);
+	});
+
+	it("should fail if markup is valid but negated", async () => {
+		expect.assertions(3);
+		let error: Error;
+		try {
+			await expect("<p></p>").not.toHTMLValidate();
+		} catch (e) {
+			error = e;
+		}
+		expect(error).toBeDefined();
+		expect(stripAnsi(error.message)).toMatchInlineSnapshot(
+			`"HTML is valid when an error was expected"`
+		);
+	});
+
+	it("should support configuration object", () => {
+		expect.assertions(1);
+		expect("<p></i>").toHTMLValidate({
+			rules: {
+				"close-order": "off",
+			},
+		});
+	});
+
+	it("should support jsdom", () => {
+		/* eslint-disable-next-line @typescript-eslint/ban-ts-ignore */
+		// @ts-ignore DOM library not available
+		const doc = document;
+
+		expect.assertions(2);
+
+		/* should pass */
+		const p = doc.createElement("p");
+		expect(p).toHTMLValidate();
+
+		/* should fail (type not set) */
+		const button = doc.createElement("button");
+		expect(button).not.toHTMLValidate();
+	});
+});
