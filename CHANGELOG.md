@@ -1,5 +1,12 @@
 # html-validate changelog
 
+# [2.9.0](https://gitlab.com/html-validate/html-validate/compare/v2.8.2...v2.9.0) (2020-01-17)
+
+### Features
+
+- **jest:** add `toHTMLValidate()` ([44388ea](https://gitlab.com/html-validate/html-validate/commit/44388ea0f759a33831967859386299d95b528c63))
+- **rules:** check references from `aria-controls` ([9e9805d](https://gitlab.com/html-validate/html-validate/commit/9e9805dc0e89e92411f7845a4fedc7ade0ca8cdd))
+
 ## [2.8.2](https://gitlab.com/html-validate/html-validate/compare/v2.8.1...v2.8.2) (2020-01-09)
 
 ### Bug Fixes
