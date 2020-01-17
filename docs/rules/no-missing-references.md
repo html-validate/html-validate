@@ -13,8 +13,9 @@ current document.
 Checked attributes:
 
 - `for`
-- `aria-labelledby`
+- `aria-controls`
 - `aria-describedby`
+- `aria-labelledby`
 
 ## Rule details
 
