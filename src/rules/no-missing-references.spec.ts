@@ -31,6 +31,13 @@ describe("rule no-missing-references", () => {
 		expect(report).toBeValid();
 	});
 
+	it('should not report error when <ANY aria-controls=".."> is referencing existing element', () => {
+		const report = htmlvalidate.validateString(
+			'<div aria-controls="existing"></div><span id="existing"></span>'
+		);
+		expect(report).toBeValid();
+	});
+
 	it("should not report error when reference is empty string", () => {
 		const report = htmlvalidate.validateString('<label for=""></label>');
 		expect(report).toBeValid();
@@ -59,6 +66,17 @@ describe("rule no-missing-references", () => {
 	it('should report error when <ANY aria-describedby=".."> is referencing missing element', () => {
 		const report = htmlvalidate.validateString(
 			'<div aria-describedby="missing"></div>'
+		);
+		expect(report).toBeInvalid();
+		expect(report).toHaveError(
+			"no-missing-references",
+			'Element references missing id "missing"'
+		);
+	});
+
+	it('should report error when <ANY aria-controls=".."> is referencing missing element', () => {
+		const report = htmlvalidate.validateString(
+			'<div aria-controls="missing"></div>'
 		);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(

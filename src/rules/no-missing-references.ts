@@ -7,6 +7,8 @@ interface Context {
 	value: string;
 }
 
+const ARIA = ["aria-controls", "aria-describedby", "aria-labelledby"];
+
 class NoMissingReferences extends Rule<Context> {
 	public documentation(context: Context): RuleDocumentation {
 		if (context) {
@@ -32,16 +34,12 @@ class NoMissingReferences extends Rule<Context> {
 				this.validateReference(document, node, attr);
 			}
 
-			/* verify <ANY aria-labelledby=".."> */
-			for (const node of document.querySelectorAll("[aria-labelledby]")) {
-				const attr = node.getAttribute("aria-labelledby");
-				this.validateReference(document, node, attr);
-			}
-
-			/* verify <ANY aria-describedby=".."> */
-			for (const node of document.querySelectorAll("[aria-describedby]")) {
-				const attr = node.getAttribute("aria-describedby");
-				this.validateReference(document, node, attr);
+			/* verify WAI-ARIA properties */
+			for (const property of ARIA) {
+				for (const node of document.querySelectorAll(`[${property}]`)) {
+					const attr = node.getAttribute(property);
+					this.validateReference(document, node, attr);
+				}
 			}
 		});
 	}
