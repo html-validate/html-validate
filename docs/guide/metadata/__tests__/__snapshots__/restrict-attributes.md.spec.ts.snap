@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/guide/metadata/restrict-attributes.md inline validation: boolean 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 15,
+        "context": undefined,
+        "line": 2,
+        "message": "Attribute \\"quacks\\" should omit value",
+        "offset": 54,
+        "ruleId": "attribute-boolean-style",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 23,
+        "context": Object {
+          "allowed": Array [],
+          "attribute": "quacks",
+          "element": "my-component",
+          "value": "duck",
+        },
+        "line": 2,
+        "message": "Attribute \\"quacks\\" has invalid value \\"duck\\"",
+        "offset": 62,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<my-component quacks>...</my-component>
+<my-component quacks=\\"duck\\">...</my-component>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/guide/metadata/restrict-attributes.md inline validation: deprecated 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 15,
+        "context": undefined,
+        "line": 1,
+        "message": "Attribute \\"duck\\" is deprecated on <my-component> element",
+        "offset": 14,
+        "ruleId": "no-deprecated-attr",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<my-component duck=\\"dewey\\">...</my-component>
+<my-component>...</my-component>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/guide/metadata/restrict-attributes.md inline validation: enum 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 21,
+        "context": Object {
+          "allowed": Array [
+            "huey",
+            "dewey",
+            "louie",
+          ],
+          "attribute": "duck",
+          "element": "my-component",
+          "value": "flintheart",
+        },
+        "line": 2,
+        "message": "Attribute \\"duck\\" has invalid value \\"flintheart\\"",
+        "offset": 66,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 10,
+      },
+    ],
+    "source": "<my-component duck=\\"dewey\\">...</my-component>
+<my-component duck=\\"flintheart\\">...</my-component>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/guide/metadata/restrict-attributes.md inline validation: regexp 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 22,
+        "context": Object {
+          "allowed": Array [
+            /\\\\d\\+/,
+          ],
+          "attribute": "ducks",
+          "element": "my-component",
+          "value": "huey",
+        },
+        "line": 2,
+        "message": "Attribute \\"ducks\\" has invalid value \\"huey\\"",
+        "offset": 64,
+        "ruleId": "attribute-allowed-values",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<my-component ducks=\\"3\\">...</my-component>
+<my-component ducks=\\"huey\\">...</my-component>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/guide/metadata/restrict-attributes.md inline validation: required 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": Object {
+          "attribute": "duck",
+          "element": "my-component",
+        },
+        "line": 2,
+        "message": "<my-component> is missing required \\"duck\\" attribute",
+        "offset": 47,
+        "ruleId": "element-required-attributes",
+        "severity": 2,
+        "size": 12,
+      },
+    ],
+    "source": "<my-component duck=\\"dewey\\">...</my-component>
+<my-component>...</my-component>",
+    "warningCount": 0,
+  },
+]
+`;

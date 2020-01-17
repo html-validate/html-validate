@@ -31,22 +31,36 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="/">HTML-validate</a>
+						<a class="navbar-brand" href="/">HTML-validate <small class="visible-xs-inline visible-sm-inline">v{{ pkg.version }}</small></a>
 					</div>
 					<div class="collapse navbar-collapse" id="navbar">
 						<ul class="nav navbar-nav">
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User guide <span class="caret"></span></a>
 								<ul class="dropdown-menu">
-									<li><a href="/usage">Gettings started</a></li>
+									<li><a href="/usage">Getting started</a></li>
 									<li><a href="/usage/cli.html">Using CLI</a></li>
 									<li><a href="/usage/elements.html">Elements</a></li>
 									<li><a href="/usage/transformers.html">Transfomers</a></li>
 									<li role="separator" class="divider"></li>
+									<li><a href="/usage/vscode.html">VS Code</a></li>
+									<li role="separator" class="divider"></li>
+									<li><a href="/frameworks/angularjs.html">AngularJS</a></li>
 									<li><a href="/usage/grunt.html">Grunt</a></li>
 									<li><a href="/frameworks/jest.html">Jest</a></li>
 									<li><a href="/usage/protractor.html">Protractor</a></li>
 									<li><a href="/frameworks/vue.html">Vue.js</a></li>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Elements <span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li>{@link guide/metadata/simple-component A simple component}</li>
+									<li>{@link guide/metadata/restrict-content Restricting element content}</li>
+									<li>{@link guide/metadata/restrict-attributes Restricting element attributes}</li>
+									<li>{@link guide/metadata/inheritance Inheritance}</li>
+									<li>{@link guide/metadata/best-practice Best practice}</li>
+									<li>{@link guide/metadata/writing-tests Writing tests}</li>
 								</ul>
 							</li>
 							<li><a href="/rules">Rules</a></li>
@@ -66,7 +80,7 @@
 							<li><a href="/changelog">Changelog</a></li>
 							<li><a href="/about">About</a></li>
 						</ul>
-						<p class="navbar-text navbar-right">{{ pkg.name }}-{{ pkg.version }}</p>
+						<p class="navbar-text navbar-right hidden-xs hidden-sm">{{ pkg.name }}-{{ pkg.version }}</p>
 					</div>
 				</div>
 			</nav>

@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/guide/metadata/inheritance.md inline validation: inheritance 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 5,
+        "message": "Element <div> is not permitted as content in <my-component>",
+        "offset": 76,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<my-component>
+  <span>lorem ipsum</span>
+</my-component>
+<my-component>
+  <div>lorem ipsum</div>
+</my-component>",
+    "warningCount": 0,
+  },
+]
+`;

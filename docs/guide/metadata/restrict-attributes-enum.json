@@ -1,0 +1,8 @@
+{
+  "my-component": {
+    "flow": true,
+    "attributes": {
+      "duck": ["huey", "dewey", "louie"]
+    }
+  }
+}

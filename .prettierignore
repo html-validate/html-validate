@@ -13,3 +13,4 @@
 
 # nunjucks templates
 /docs/dgeni/inline-validate/templates
+/docs/dgeni/schema/templates

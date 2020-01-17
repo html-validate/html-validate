@@ -1,0 +1,8 @@
+{
+  "my-component": {
+    "flow": true,
+    "attributes": {
+      "ducks": ["/\\d+/"]
+    }
+  }
+}

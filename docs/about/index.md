@@ -9,7 +9,7 @@ HTML-validate was created by David Sveningsson in early 2016 with a few goals in
 
 - Enterprise and privacy friendly: no data should leave the machine.
 - Pluggable and extendable: must be easy to extend with own domain-specific
-  functionallity and rules.
+  functionality and rules.
 - Strict and non-forgiving: should never try to autocorrect or guess anything.
 - First-class support for views, components and templates, including when using
   javascript frameworks.

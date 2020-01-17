@@ -3,7 +3,7 @@ docType: content
 title: Getting started
 ---
 
-# Gettings started
+# Getting started
 
 HTML-validate is an offline HTML5 validator.
 
@@ -99,7 +99,7 @@ metadata.
 ### `plugins`
 
 List of extra plugins to load. Can be either a NPM package or relative path to a
-local file, i.e. when writing custom rules inside the repo.
+local file, i.e. when writing custom rules inside the repository.
 
 Plugins can contain additional rules.
 
@@ -194,7 +194,7 @@ directive.
 
     <!-- [html-validate-disable-block void] -->
 
-Disables a rule for a block of elements. All siblings and descendats following
+Disables a rule for a block of elements. All siblings and descendants following
 the directive will not trigger any errors.
 
 ```html

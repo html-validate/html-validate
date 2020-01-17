@@ -1,0 +1,6 @@
+{
+  "my-component": {
+    "flow": true,
+    "permittedContent": ["span", "strong", "em"]
+  }
+}

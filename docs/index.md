@@ -7,7 +7,7 @@ docType: frontpage
 ### Fragments and components
 
 In addition to validating plain `.html` files HTML-validate can also validate
-sources inside `.js` components (or any other source) by extracting html
+sources inside `.js` components (or any other source) by extracting HTML
 fragments (transforming).
 
 Neither `.html` files or component fragments need to be a complete document
@@ -36,7 +36,7 @@ validator should be strict. No corrections, assumptions or guessing is done. If
 the markup is invalid the parser will tell you so.
 
 By ensuring the markup is strictly valid it reduces the amount of bugs where
-different browsers autocorrected the markup differently (this is especially true
+different browsers autocorrect the markup differently (this is especially true
 for mobile browsers).
 
 ### HTML5 content model
@@ -46,7 +46,7 @@ as whenever an element is allowed in the current context or if a required
 element is missing.
 
 - permitted ancestors and descendants
-- permitted order ond occurrences
+- permitted order and occurrences
 - deprecated elements and attributes
 - flow ("block"), phrasing ("inline") etc
 
@@ -55,7 +55,7 @@ components.**
 
 ### Accessibility tests
 
-Validates technical aspects of <abbr title="accessibility">a11y</abbr>
+Validates technical aspects of <abbr title="accessibility">A11Y</abbr>
 guidelines such as WCAG 2.1.
 
 - [WCAG 2.1 support table](wcag.html)
@@ -73,9 +73,9 @@ plugins](dev/writing-plugins.html).**
 
 First-class support for:
 
-- [angular](https://www.npmjs.com/package/html-validate-angular)
-- [vue](frameworks/vue.html)
-- [protractor](https://www.npmjs.com/package/protractor-html-validate)
+- {@link frameworks/angularjs AngularJS}
+- {@link frameworks/vue Vue.js}
+- {@link usage/protractor Protractor}
 
 @block Examples
 

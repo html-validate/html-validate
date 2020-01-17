@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/guide/metadata/simple-component.md inline validation: basic-metadata 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <my-component> is not permitted as content in <div>",
+        "offset": 9,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 12,
+      },
+    ],
+    "source": "<div>
+  <my-component>lorem ipsum</my-component>
+</div>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/guide/metadata/simple-component.md inline validation: flow--metadata-2 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 2,
+        "message": "Element <my-component> is not permitted as content in <span>",
+        "offset": 10,
+        "ruleId": "element-permitted-content",
+        "severity": 2,
+        "size": 12,
+      },
+    ],
+    "source": "<span>
+  <my-component>lorem ipsum</my-component>
+</span>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/guide/metadata/simple-component.md inline validation: flow-metadata-1 1`] = `Array []`;
+
+exports[`docs/guide/metadata/simple-component.md inline validation: no-metadata-1 1`] = `Array []`;
+
+exports[`docs/guide/metadata/simple-component.md inline validation: no-metadata-2 1`] = `Array []`;
+
+exports[`docs/guide/metadata/simple-component.md inline validation: no-metadata-3 1`] = `Array []`;
+
+exports[`docs/guide/metadata/simple-component.md inline validation: phrasing-metadata 1`] = `Array []`;
