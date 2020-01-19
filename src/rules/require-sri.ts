@@ -2,7 +2,13 @@ import { Attribute, HtmlElement } from "../dom";
 import { TagCloseEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-const defaults = {
+type Target = "all" | "crossorigin";
+
+interface RuleOptions {
+	target: Target;
+}
+
+const defaults: RuleOptions = {
 	target: "all",
 };
 
@@ -11,12 +17,11 @@ const supportSri: { [key: string]: string } = {
 	link: "href",
 	script: "src",
 };
-type Target = "all" | "crossorigin";
 
-class RequireSri extends Rule {
+class RequireSri extends Rule<void, RuleOptions> {
 	private target: Target;
 
-	public constructor(options: object) {
+	public constructor(options: RuleOptions) {
 		super(Object.assign({}, defaults, options));
 		this.target = this.options.target;
 	}

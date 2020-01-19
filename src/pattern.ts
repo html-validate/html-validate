@@ -1,4 +1,6 @@
-export function parsePattern(pattern: string): RegExp {
+export type PatternName = "kebabcase" | "camelcase" | "underscore" | string;
+
+export function parsePattern(pattern: PatternName): RegExp {
 	switch (pattern) {
 		case "kebabcase":
 			return /^[a-z0-9-]+$/;
@@ -15,7 +17,7 @@ export function parsePattern(pattern: string): RegExp {
 	}
 }
 
-export function describePattern(pattern: string): string {
+export function describePattern(pattern: PatternName): string {
 	const regexp = parsePattern(pattern).toString();
 	switch (pattern) {
 		case "kebabcase":

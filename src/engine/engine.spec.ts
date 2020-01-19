@@ -6,8 +6,8 @@ import "../matchers";
 import { MetaTable } from "../meta";
 import { Parser, ParserError } from "../parser";
 import { Reporter } from "../reporter";
-import { Rule, RuleOptions } from "../rule";
-import { Engine } from "./engine";
+import { Rule } from "../rule";
+import { Engine, RuleOptions } from "./engine";
 
 function inline(source: string): Source {
 	return {

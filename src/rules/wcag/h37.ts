@@ -2,12 +2,17 @@ import { TagCloseEvent } from "../../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../../rule";
 import { inAccessibilityTree } from "../helper/a17y";
 
-const defaults = {
+interface RuleOptions {
+	allowEmpty: boolean;
+	alias: string | string[];
+}
+
+const defaults: RuleOptions = {
 	allowEmpty: true,
-	alias: [] as string[],
+	alias: [],
 };
 
-class H37 extends Rule {
+class H37 extends Rule<void, RuleOptions> {
 	public documentation(): RuleDocumentation {
 		return {
 			description:
@@ -16,7 +21,7 @@ class H37 extends Rule {
 		};
 	}
 
-	public constructor(options: object) {
+	public constructor(options: RuleOptions) {
 		super(Object.assign({}, defaults, options));
 		this.name = "WCAG/H37";
 

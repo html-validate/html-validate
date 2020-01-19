@@ -2,16 +2,22 @@ import { sliceLocation } from "../context";
 import { TagOpenEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-const defaults = {
+interface RuleOptions {
+	pattern: string;
+	whitelist: string[];
+	blacklist: string[];
+}
+
+const defaults: RuleOptions = {
 	pattern: "^[a-z][a-z0-9\\-._]*-[a-z0-9\\-._]*$",
-	whitelist: [] as string[],
-	blacklist: [] as string[],
+	whitelist: [],
+	blacklist: [],
 };
 
-class ElementName extends Rule {
+class ElementName extends Rule<void, RuleOptions> {
 	private pattern: RegExp;
 
-	public constructor(options: object) {
+	public constructor(options: RuleOptions) {
 		super(Object.assign({}, defaults, options));
 
 		// eslint-disable-next-line security/detect-non-literal-regexp

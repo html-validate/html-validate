@@ -10,7 +10,9 @@ import {
 import { InvalidTokenError, Lexer, TokenType } from "../lexer";
 import { Parser, ParserError } from "../parser";
 import { Report, Reporter } from "../reporter";
-import { Rule, RuleConstructor, RuleDocumentation, RuleOptions } from "../rule";
+import { Rule, RuleConstructor, RuleDocumentation } from "../rule";
+
+export type RuleOptions = Record<string, any>;
 
 export interface EventDump {
 	event: string;
@@ -426,7 +428,7 @@ export class Engine<T extends Parser = Parser> {
 					this.report(null, `Definition for rule '${name}' was not found`);
 				});
 			}
-		})({});
+		})();
 	}
 
 	private reportError(

@@ -3,7 +3,11 @@ import { NodeType } from "../dom";
 import { AttributeEvent, ElementReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-const defaults = {
+interface RuleOptions {
+	relaxed: boolean;
+}
+
+const defaults: RuleOptions = {
 	relaxed: false,
 };
 
@@ -21,10 +25,10 @@ const replacementTable: Map<string, string> = new Map([
 	["`", "&grave;"],
 ]);
 
-class NoRawCharacters extends Rule {
+class NoRawCharacters extends Rule<void, RuleOptions> {
 	private relaxed: boolean;
 
-	public constructor(options: object) {
+	public constructor(options: RuleOptions) {
 		super(Object.assign({}, defaults, options));
 		this.relaxed = this.options.relaxed;
 	}

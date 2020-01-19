@@ -8,12 +8,17 @@ enum QuoteStyle {
 	AUTO_QUOTE = "auto",
 }
 
-const defaults = {
+interface Options {
+	style?: '"' | "'" | "auto";
+	unquoted?: boolean;
+}
+
+const defaults: Options = {
 	style: "auto",
 	unquoted: false,
 };
 
-class AttrQuotes extends Rule {
+class AttrQuotes extends Rule<void, Options> {
 	private style: QuoteStyle;
 
 	public documentation(): RuleDocumentation {
@@ -30,7 +35,7 @@ class AttrQuotes extends Rule {
 		}
 	}
 
-	public constructor(options: object) {
+	public constructor(options: Options) {
 		super(Object.assign({}, defaults, options));
 		this.style = parseStyle(this.options.style);
 	}
