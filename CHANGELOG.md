@@ -1,5 +1,12 @@
 # html-validate changelog
 
+# [2.10.0](https://gitlab.com/html-validate/html-validate/compare/v2.9.0...v2.10.0) (2020-01-22)
+
+### Features
+
+- **rules:** make options typesafe ([c85342a](https://gitlab.com/html-validate/html-validate/commit/c85342a5426ddba081fed8becaf3d4d499f0b66e))
+- **rules:** new rule `prefer-native-element` ([06c44ce](https://gitlab.com/html-validate/html-validate/commit/06c44cec1c66b518c030a31517d8cfd454c0c2d2))
+
 # [2.9.0](https://gitlab.com/html-validate/html-validate/compare/v2.8.2...v2.9.0) (2020-01-17)
 
 ### Features
