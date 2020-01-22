@@ -1,0 +1,338 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule prefer-native-element default config smoketest 1`] = `
+Array [
+  Object {
+    "errorCount": 22,
+    "filePath": "test-files/rules/prefer-native-element.html",
+    "messages": Array [
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "article",
+          "role": "article",
+        },
+        "line": 3,
+        "message": "Prefer to use the native <article> element",
+        "offset": 33,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 14,
+      },
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "header",
+          "role": "banner",
+        },
+        "line": 4,
+        "message": "Prefer to use the native <header> element",
+        "offset": 60,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 13,
+      },
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "button",
+          "role": "button",
+        },
+        "line": 5,
+        "message": "Prefer to use the native <button> element",
+        "offset": 86,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 13,
+      },
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "td",
+          "role": "cell",
+        },
+        "line": 6,
+        "message": "Prefer to use the native <td> element",
+        "offset": 112,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 11,
+      },
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "input",
+          "role": "checkbox",
+        },
+        "line": 7,
+        "message": "Prefer to use the native <input> element",
+        "offset": 136,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 15,
+      },
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "aside",
+          "role": "complementary",
+        },
+        "line": 8,
+        "message": "Prefer to use the native <aside> element",
+        "offset": 164,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 20,
+      },
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "footer",
+          "role": "contentinfo",
+        },
+        "line": 9,
+        "message": "Prefer to use the native <footer> element",
+        "offset": 197,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 18,
+      },
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "figure",
+          "role": "figure",
+        },
+        "line": 10,
+        "message": "Prefer to use the native <figure> element",
+        "offset": 228,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 13,
+      },
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "form",
+          "role": "form",
+        },
+        "line": 11,
+        "message": "Prefer to use the native <form> element",
+        "offset": 254,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 11,
+      },
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "hN",
+          "role": "heading",
+        },
+        "line": 12,
+        "message": "Prefer to use the native <hN> element",
+        "offset": 278,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 14,
+      },
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "input",
+          "role": "input",
+        },
+        "line": 13,
+        "message": "Prefer to use the native <input> element",
+        "offset": 305,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 12,
+      },
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "a",
+          "role": "link",
+        },
+        "line": 14,
+        "message": "Prefer to use the native <a> element",
+        "offset": 330,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 11,
+      },
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "ul",
+          "role": "list",
+        },
+        "line": 15,
+        "message": "Prefer to use the native <ul> element",
+        "offset": 354,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 11,
+      },
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "select",
+          "role": "listbox",
+        },
+        "line": 16,
+        "message": "Prefer to use the native <select> element",
+        "offset": 378,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 14,
+      },
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "li",
+          "role": "listitem",
+        },
+        "line": 17,
+        "message": "Prefer to use the native <li> element",
+        "offset": 405,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 15,
+      },
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "main",
+          "role": "main",
+        },
+        "line": 18,
+        "message": "Prefer to use the native <main> element",
+        "offset": 433,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 11,
+      },
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "nav",
+          "role": "navigation",
+        },
+        "line": 19,
+        "message": "Prefer to use the native <nav> element",
+        "offset": 457,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 17,
+      },
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "progress",
+          "role": "progressbar",
+        },
+        "line": 20,
+        "message": "Prefer to use the native <progress> element",
+        "offset": 487,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 18,
+      },
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "input",
+          "role": "radio",
+        },
+        "line": 21,
+        "message": "Prefer to use the native <input> element",
+        "offset": 518,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 12,
+      },
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "section",
+          "role": "region",
+        },
+        "line": 22,
+        "message": "Prefer to use the native <section> element",
+        "offset": 543,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 13,
+      },
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "table",
+          "role": "table",
+        },
+        "line": 23,
+        "message": "Prefer to use the native <table> element",
+        "offset": 569,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 12,
+      },
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "textarea",
+          "role": "textbox",
+        },
+        "line": 24,
+        "message": "Prefer to use the native <textarea> element",
+        "offset": 594,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 14,
+      },
+    ],
+    "source": "<div role=\\"unknown\\"></div>
+
+<div role=\\"article\\"></div>
+<div role=\\"banner\\"></div>
+<div role=\\"button\\"></div>
+<div role=\\"cell\\"></div>
+<div role=\\"checkbox\\"></div>
+<div role=\\"complementary\\"></div>
+<div role=\\"contentinfo\\"></div>
+<div role=\\"figure\\"></div>
+<div role=\\"form\\"></div>
+<div role=\\"heading\\"></div>
+<div role=\\"input\\"></div>
+<div role=\\"link\\"></div>
+<div role=\\"list\\"></div>
+<div role=\\"listbox\\"></div>
+<div role=\\"listitem\\"></div>
+<div role=\\"main\\"></div>
+<div role=\\"navigation\\"></div>
+<div role=\\"progressbar\\"></div>
+<div role=\\"radio\\"></div>
+<div role=\\"region\\"></div>
+<div role=\\"table\\"></div>
+<div role=\\"textbox\\"></div>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`rule prefer-native-element should contain contextual documentation 1`] = `
+Object {
+  "description": "Instead of using the WAI-ARIA role \\"the-role\\" prefer to use the native <the-replacement> element.",
+  "url": "https://html-validate.org/rules/prefer-native-element.html",
+}
+`;
+
+exports[`rule prefer-native-element should contain documentation 1`] = `
+Object {
+  "description": "Instead of using WAI-ARIA roles prefer to use the native HTML elements.",
+  "url": "https://html-validate.org/rules/prefer-native-element.html",
+}
+`;

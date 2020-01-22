@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/prefer-native-element.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/prefer-native-element.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 6,
+        "context": Object {
+          "replacement": "main",
+          "role": "main",
+        },
+        "line": 1,
+        "message": "Prefer to use the native <main> element",
+        "offset": 5,
+        "ruleId": "prefer-native-element",
+        "severity": 2,
+        "size": 11,
+      },
+    ],
+    "source": "<div role=\\"main\\">
+  <p>Lorem ipsum</p>
+</div>",
+    "warningCount": 0,
+  },
+]
+`;
