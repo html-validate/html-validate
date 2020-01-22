@@ -27,6 +27,13 @@ footer {
 	padding: 3rem 0;
 }
 
+table {
+	th,
+	td {
+		padding: $table-cell-padding;
+	}
+}
+
 .rules-table {
 	.set {
 		width: 5%;
