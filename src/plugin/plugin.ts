@@ -56,7 +56,7 @@ export interface Plugin {
 	/**
 	 * List of new rules present.
 	 */
-	rules?: Record<string, RuleConstructor>;
+	rules?: Record<string, RuleConstructor<any, any>>;
 
 	/**
 	 * Transformer available in this plugin.

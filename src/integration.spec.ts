@@ -10,7 +10,7 @@ it("should compute correct line, column and offset when using transformed source
 	expect.assertions(2);
 
 	/* create a mock rule which reports error on root element */
-	class MockRule extends Rule {
+	class MockRule extends Rule<string, void> {
 		public setup(): void {
 			this.on("dom:ready", (event: DOMReadyEvent) => {
 				const root = event.document.root;

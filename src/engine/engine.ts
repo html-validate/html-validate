@@ -29,7 +29,7 @@ export class Engine<T extends Parser = Parser> {
 	protected report: Reporter;
 	protected config: Config;
 	protected ParserClass: new (config: Config) => T;
-	protected availableRules: { [key: string]: RuleConstructor };
+	protected availableRules: { [key: string]: RuleConstructor<any, any> };
 
 	public constructor(config: Config, ParserClass: new (config: Config) => T) {
 		this.report = new Reporter();
@@ -309,7 +309,7 @@ export class Engine<T extends Parser = Parser> {
 	protected initPlugins(
 		config: Config
 	): {
-		availableRules: { [key: string]: RuleConstructor };
+		availableRules: { [key: string]: RuleConstructor<any, any> };
 	} {
 		for (const plugin of config.getPlugins()) {
 			if (plugin.init) {
@@ -326,8 +326,10 @@ export class Engine<T extends Parser = Parser> {
 	 * Initializes all rules from plugins and returns an object with a mapping
 	 * between rule name and its constructor.
 	 */
-	protected initRules(config: Config): { [key: string]: RuleConstructor } {
-		const availableRules: { [key: string]: RuleConstructor } = {};
+	protected initRules(
+		config: Config
+	): { [key: string]: RuleConstructor<any, any> } {
+		const availableRules: { [key: string]: RuleConstructor<any, any> } = {};
 		for (const plugin of config.getPlugins()) {
 			for (const [name, rule] of Object.entries(plugin.rules || {})) {
 				availableRules[name] = rule;

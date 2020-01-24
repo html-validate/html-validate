@@ -25,7 +25,7 @@ export interface RuleDocumentation {
 	url?: string;
 }
 
-export type RuleConstructor = new (options?: any) => Rule;
+export type RuleConstructor<T, U> = new (options?: any) => Rule<T, U>;
 
 export abstract class Rule<ContextType = void, OptionsType = void> {
 	private reporter: Reporter;
