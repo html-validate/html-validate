@@ -16,8 +16,8 @@ main {
 header {
 	.nav > li > a {
 		@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
-			padding-left: 10px;
-			padding-right: 10px;
+			padding-left: 8px;
+			padding-right: 8px;
 		}
 	}
 }
