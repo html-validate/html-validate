@@ -153,4 +153,30 @@ describe("Selector", () => {
 			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),
 		]);
 	});
+
+	it("should match pseudo-classes", () => {
+		expect.assertions(1);
+		const selector = new Selector("foo:first-child");
+		expect(fetch(selector.match(doc))).toEqual([
+			expect.objectContaining({ tagName: "foo", testId: "foo-1" }),
+			expect.objectContaining({ tagName: "foo", testId: "foo-3" }),
+		]);
+	});
+
+	it("should match pseudo-classes with arguments", () => {
+		expect.assertions(1);
+		const selector = new Selector("foo:nth-child(1)");
+		expect(fetch(selector.match(doc))).toEqual([
+			expect.objectContaining({ tagName: "foo", testId: "foo-1" }),
+			expect.objectContaining({ tagName: "foo", testId: "foo-3" }),
+		]);
+	});
+
+	it("should throw error for invalid pseudo-classes", () => {
+		expect.assertions(1);
+		const selector = new Selector("foo:missing");
+		expect(() => fetch(selector.match(doc))).toThrow(
+			'Pseudo-class "missing" is not implemented'
+		);
+	});
 });
