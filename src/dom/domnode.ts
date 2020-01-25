@@ -1,6 +1,8 @@
 import { Location } from "../context";
 import { NodeType } from "./nodetype";
 
+export type DOMInternalID = number;
+
 const DOCUMENT_NODE_NAME = "#document";
 
 let counter = 0;
@@ -16,7 +18,7 @@ export class DOMNode {
 	public readonly childNodes: DOMNode[];
 
 	public readonly location: Location;
-	public readonly unique: number;
+	public readonly unique: DOMInternalID;
 
 	/**
 	 * Set of disabled rules for this node.
