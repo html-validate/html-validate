@@ -229,24 +229,24 @@ Array [
     "filePath": "test-files/elements/area-invalid.html",
     "messages": Array [
       Object {
-        "column": 14,
+        "column": 9,
         "context": undefined,
         "line": 6,
         "message": "End tag for <area> must be omitted",
-        "offset": 101,
+        "offset": 96,
         "ruleId": "void",
         "severity": 2,
-        "size": 1,
+        "size": 5,
       },
       Object {
-        "column": 8,
+        "column": 3,
         "context": undefined,
         "line": 11,
         "message": "End tag for <area> must be omitted",
-        "offset": 173,
+        "offset": 168,
         "ruleId": "void",
         "severity": 2,
-        "size": 1,
+        "size": 5,
       },
       Object {
         "column": 3,
@@ -540,14 +540,14 @@ Array [
         "size": 4,
       },
       Object {
-        "column": 13,
+        "column": 8,
         "context": undefined,
         "line": 7,
         "message": "End tag for <base> must be omitted",
-        "offset": 114,
+        "offset": 109,
         "ruleId": "void",
         "severity": 2,
-        "size": 1,
+        "size": 5,
       },
     ],
     "source": "<!-- should not be allowed outside <head> -->
@@ -790,14 +790,14 @@ Array [
     "filePath": "test-files/elements/br-invalid.html",
     "messages": Array [
       Object {
-        "column": 9,
+        "column": 6,
         "context": undefined,
         "line": 2,
         "message": "End tag for <br> must be omitted",
-        "offset": 42,
+        "offset": 39,
         "ruleId": "void",
         "severity": 2,
-        "size": 1,
+        "size": 3,
       },
     ],
     "source": "<!-- should not allow end tag -->
@@ -1083,14 +1083,14 @@ Array [
         "size": 3,
       },
       Object {
-        "column": 13,
+        "column": 9,
         "context": undefined,
         "line": 9,
         "message": "End tag for <col> must be omitted",
-        "offset": 138,
+        "offset": 134,
         "ruleId": "void",
         "severity": 2,
-        "size": 1,
+        "size": 4,
       },
     ],
     "source": "<!-- should not be allowed under other content -->
@@ -1562,14 +1562,14 @@ Array [
     "filePath": "test-files/elements/embed-invalid.html",
     "messages": Array [
       Object {
-        "column": 51,
+        "column": 45,
         "context": undefined,
         "line": 2,
         "message": "End tag for <embed> must be omitted",
-        "offset": 97,
+        "offset": 91,
         "ruleId": "void",
         "severity": 2,
-        "size": 1,
+        "size": 6,
       },
       Object {
         "column": 2,
@@ -2451,14 +2451,14 @@ Array [
     "filePath": "test-files/elements/hr-invalid.html",
     "messages": Array [
       Object {
-        "column": 9,
+        "column": 6,
         "context": undefined,
         "line": 2,
         "message": "End tag for <hr> must be omitted",
-        "offset": 42,
+        "offset": 39,
         "ruleId": "void",
         "severity": 2,
-        "size": 1,
+        "size": 3,
       },
       Object {
         "column": 8,
@@ -2721,14 +2721,14 @@ Array [
         "size": 3,
       },
       Object {
-        "column": 25,
+        "column": 21,
         "context": undefined,
         "line": 8,
         "message": "End tag for <img> must be omitted",
-        "offset": 143,
+        "offset": 139,
         "ruleId": "void",
         "severity": 2,
-        "size": 1,
+        "size": 4,
       },
       Object {
         "column": 3,
@@ -2769,14 +2769,14 @@ Array [
     "filePath": "test-files/elements/input-invalid.html",
     "messages": Array [
       Object {
-        "column": 27,
+        "column": 21,
         "context": undefined,
         "line": 2,
         "message": "End tag for <input> must be omitted",
-        "offset": 60,
+        "offset": 54,
         "ruleId": "void",
         "severity": 2,
-        "size": 1,
+        "size": 6,
       },
       Object {
         "column": 31,
@@ -3119,14 +3119,14 @@ Array [
     "filePath": "test-files/elements/keygen-invalid.html",
     "messages": Array [
       Object {
-        "column": 17,
+        "column": 10,
         "context": undefined,
         "line": 2,
         "message": "End tag for <keygen> must be omitted",
-        "offset": 45,
+        "offset": 38,
         "ruleId": "void",
         "severity": 2,
-        "size": 1,
+        "size": 7,
       },
     ],
     "source": "<!-- should omit end tag -->
@@ -3265,14 +3265,14 @@ Array [
     "filePath": "test-files/elements/link-invalid.html",
     "messages": Array [
       Object {
-        "column": 28,
+        "column": 23,
         "context": undefined,
         "line": 2,
         "message": "End tag for <link> must be omitted",
-        "offset": 61,
+        "offset": 56,
         "ruleId": "void",
         "severity": 2,
-        "size": 1,
+        "size": 5,
       },
       Object {
         "column": 2,
@@ -3595,14 +3595,14 @@ Array [
     "filePath": "test-files/elements/meta-invalid.html",
     "messages": Array [
       Object {
-        "column": 13,
+        "column": 8,
         "context": undefined,
         "line": 2,
         "message": "End tag for <meta> must be omitted",
-        "offset": 41,
+        "offset": 36,
         "ruleId": "void",
         "severity": 2,
-        "size": 1,
+        "size": 5,
       },
     ],
     "source": "<!-- should omit end tag -->
@@ -4154,14 +4154,14 @@ Array [
     "filePath": "test-files/elements/param-invalid.html",
     "messages": Array [
       Object {
-        "column": 15,
+        "column": 9,
         "context": undefined,
         "line": 2,
         "message": "End tag for <param> must be omitted",
-        "offset": 43,
+        "offset": 37,
         "ruleId": "void",
         "severity": 2,
-        "size": 1,
+        "size": 6,
       },
       Object {
         "column": 3,
@@ -4795,14 +4795,14 @@ Array [
     "filePath": "test-files/elements/source-invalid.html",
     "messages": Array [
       Object {
-        "column": 18,
+        "column": 11,
         "context": undefined,
         "line": 3,
         "message": "End tag for <source> must be omitted",
-        "offset": 54,
+        "offset": 47,
         "ruleId": "void",
         "severity": 2,
-        "size": 1,
+        "size": 7,
       },
       Object {
         "column": 3,
@@ -5695,14 +5695,14 @@ Array [
     "filePath": "test-files/elements/track-invalid.html",
     "messages": Array [
       Object {
-        "column": 16,
+        "column": 10,
         "context": undefined,
         "line": 3,
         "message": "End tag for <track> must be omitted",
-        "offset": 52,
+        "offset": 46,
         "ruleId": "void",
         "severity": 2,
-        "size": 1,
+        "size": 6,
       },
     ],
     "source": "<!-- should omit end tag -->
@@ -5955,14 +5955,14 @@ Array [
     "filePath": "test-files/elements/wbr-invalid.html",
     "messages": Array [
       Object {
-        "column": 11,
+        "column": 7,
         "context": undefined,
         "line": 2,
         "message": "End tag for <wbr> must be omitted",
-        "offset": 39,
+        "offset": 35,
         "ruleId": "void",
         "severity": 2,
-        "size": 1,
+        "size": 4,
       },
     ],
     "source": "<!-- should omit end tag -->

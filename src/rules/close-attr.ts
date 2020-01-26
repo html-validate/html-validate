@@ -21,8 +21,14 @@ class CloseAttr extends Rule {
 				return;
 			}
 
-			if (Object.keys(event.target.attributes).length > 0) {
-				this.report(event.target, "Close tags cannot have attributes");
+			const node = event.target;
+			if (Object.keys(node.attributes).length > 0) {
+				const first = node.attributes[0];
+				this.report(
+					null,
+					"Close tags cannot have attributes",
+					first.keyLocation
+				);
 			}
 		});
 	}

@@ -19,14 +19,14 @@ Array [
         "size": 2,
       },
       Object {
-        "column": 11,
+        "column": 7,
         "context": undefined,
         "line": 5,
         "message": "End tag for <img> must be omitted",
-        "offset": 47,
+        "offset": 43,
         "ruleId": "void",
         "severity": 2,
-        "size": 1,
+        "size": 4,
       },
     ],
     "source": "<fieldset>

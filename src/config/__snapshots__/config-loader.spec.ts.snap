@@ -331,14 +331,14 @@ Array [
     "filePath": "test-files/config/file.html",
     "messages": Array [
       Object {
-        "column": 9,
+        "column": 6,
         "context": undefined,
         "line": 2,
         "message": "End tag for <br> must be omitted",
-        "offset": 52,
+        "offset": 49,
         "ruleId": "void",
         "severity": 2,
-        "size": 1,
+        "size": 3,
       },
     ],
     "source": "<!-- default configuration yields error -->
@@ -371,14 +371,14 @@ Array [
     "filePath": "test-files/config/off/error/file.html",
     "messages": Array [
       Object {
-        "column": 9,
+        "column": 6,
         "context": undefined,
         "line": 2,
         "message": "End tag for <br> must be omitted",
-        "offset": 45,
+        "offset": 42,
         "ruleId": "void",
         "severity": 2,
-        "size": 1,
+        "size": 3,
       },
     ],
     "source": "<!-- reconfigured to yield error -->
@@ -428,14 +428,14 @@ Array [
     "filePath": "test-files/config/warn/file.html",
     "messages": Array [
       Object {
-        "column": 9,
+        "column": 6,
         "context": undefined,
         "line": 2,
         "message": "End tag for <br> must be omitted",
-        "offset": 47,
+        "offset": 44,
         "ruleId": "void",
         "severity": 1,
-        "size": 1,
+        "size": 3,
       },
     ],
     "source": "<!-- configured to yield a warning -->

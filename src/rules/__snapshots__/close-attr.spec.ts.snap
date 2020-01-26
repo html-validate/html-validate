@@ -14,14 +14,14 @@ Array [
     "filePath": "test-files/rules/close-attr.html",
     "messages": Array [
       Object {
-        "column": 15,
+        "column": 12,
         "context": undefined,
         "line": 3,
         "message": "Close tags cannot have attributes",
-        "offset": 36,
+        "offset": 33,
         "ruleId": "close-attr",
         "severity": 2,
-        "size": 1,
+        "size": 3,
       },
     ],
     "source": "<input foo>

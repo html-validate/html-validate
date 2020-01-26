@@ -1,8 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/rules/close-order.md inline validation: correct 1`] = `Array []`;
+exports[`docs/rules/close-order.md inline validation: correct-1 1`] = `Array []`;
 
-exports[`docs/rules/close-order.md inline validation: incorrect 1`] = `
+exports[`docs/rules/close-order.md inline validation: correct-2 1`] = `Array []`;
+
+exports[`docs/rules/close-order.md inline validation: incorrect-1 1`] = `
 Array [
   Object {
     "errorCount": 2,
@@ -11,9 +13,9 @@ Array [
       Object {
         "column": 13,
         "context": undefined,
-        "line": 1,
+        "line": 2,
         "message": "Mismatched close-tag, expected '</strong>' but found '</p>'.",
-        "offset": 12,
+        "offset": 43,
         "ruleId": "close-order",
         "severity": 2,
         "size": 2,
@@ -21,15 +23,64 @@ Array [
       Object {
         "column": 17,
         "context": undefined,
-        "line": 1,
+        "line": 2,
         "message": "Mismatched close-tag, expected '</p>' but found '</strong>'.",
-        "offset": 16,
+        "offset": 47,
         "ruleId": "close-order",
         "severity": 2,
         "size": 7,
       },
     ],
-    "source": "<p><strong></p></strong>",
+    "source": "<!-- closed in wrong order -->
+<p><strong></p></strong>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/close-order.md inline validation: incorrect-2 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 6,
+        "context": undefined,
+        "line": 2,
+        "message": "Missing close-tag, expected '</div>' but document ended before it was found.",
+        "offset": 36,
+        "ruleId": "close-order",
+        "severity": 2,
+        "size": 0,
+      },
+    ],
+    "source": "<!-- opened but not closed -->
+<div>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/close-order.md inline validation: incorrect-3 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "Unexpected close-tag, expected opening tag.",
+        "offset": 32,
+        "ruleId": "close-order",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<!-- closed but not opened -->
+</div>",
     "warningCount": 0,
   },
 ]
