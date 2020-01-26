@@ -1,3 +1,4 @@
+import { Location } from "../context";
 import { NodeClosed } from "../dom";
 import { TagCloseEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
@@ -19,8 +20,9 @@ class CloseOrder extends Rule {
 			/* handle unclosed tags */
 			if (!current) {
 				this.report(
-					event.previous,
-					`Missing close-tag, expected '</${active.tagName}>' but document ended before it was found.`
+					null,
+					`Missing close-tag, expected '</${active.tagName}>' but document ended before it was found.`,
+					event.location
 				);
 				return;
 			}
@@ -41,9 +43,17 @@ class CloseOrder extends Rule {
 
 			/* handle unopened tags */
 			if (!active || active.isRootElement()) {
+				const location: Location = {
+					filename: current.location.filename,
+					line: current.location.line,
+					column: current.location.column,
+					offset: current.location.offset,
+					size: current.tagName.length + 1,
+				};
 				this.report(
-					event.previous,
-					"Unexpected close-tag, expected opening tag."
+					null,
+					"Unexpected close-tag, expected opening tag.",
+					location
 				);
 				return;
 			}
@@ -51,7 +61,7 @@ class CloseOrder extends Rule {
 			/* check for matching tagnames */
 			if (current.tagName !== active.tagName) {
 				this.report(
-					event.target,
+					null,
 					`Mismatched close-tag, expected '</${active.tagName}>' but found '</${current.tagName}>'.`,
 					current.location
 				);

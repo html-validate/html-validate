@@ -24,14 +24,14 @@ Array [
         "size": 4,
       },
       Object {
-        "column": 5,
+        "column": 2,
         "context": undefined,
         "line": 12,
         "message": "Unexpected close-tag, expected opening tag.",
-        "offset": 112,
+        "offset": 109,
         "ruleId": "close-order",
         "severity": 2,
-        "size": 1,
+        "size": 3,
       },
     ],
     "source": "<div>

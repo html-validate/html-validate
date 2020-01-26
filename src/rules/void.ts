@@ -51,7 +51,11 @@ class Void extends Rule<void, RuleOptions> {
 
 	private validateCurrent(node: HtmlElement): void {
 		if (node.voidElement && node.closed === NodeClosed.EndTag) {
-			this.report(node, `End tag for <${node.tagName}> must be omitted`);
+			this.report(
+				null,
+				`End tag for <${node.tagName}> must be omitted`,
+				node.location
+			);
 		}
 	}
 

@@ -1,5 +1,5 @@
 import { Location, sliceLocation } from "../context";
-import { NodeType } from "../dom";
+import { DOMNode, NodeType } from "../dom";
 import { AttributeEvent, ElementReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
@@ -55,7 +55,7 @@ class NoRawCharacters extends Rule<void, RuleOptions> {
 					continue;
 				}
 
-				this.findRawChars(child.textContent, child.location, textRegexp);
+				this.findRawChars(node, child.textContent, child.location, textRegexp);
 			}
 		});
 
@@ -72,6 +72,7 @@ class NoRawCharacters extends Rule<void, RuleOptions> {
 			}
 
 			this.findRawChars(
+				event.target,
 				event.value.toString(),
 				event.valueLocation,
 				unquotedAttrRegexp
@@ -87,7 +88,12 @@ class NoRawCharacters extends Rule<void, RuleOptions> {
 	 * @param regexp - Regexp pattern to match using.
 	 * @param ignore - List of characters to ignore for this text.
 	 */
-	private findRawChars(text: string, location: Location, regexp: RegExp): void {
+	private findRawChars(
+		node: DOMNode,
+		text: string,
+		location: Location,
+		regexp: RegExp
+	): void {
 		let match;
 		do {
 			match = regexp.exec(text);
@@ -111,7 +117,7 @@ class NoRawCharacters extends Rule<void, RuleOptions> {
 
 				/* report as error */
 				this.report(
-					null,
+					node,
 					`Raw "${char}" must be encoded as "${replacement}"`,
 					charLocation
 				);
