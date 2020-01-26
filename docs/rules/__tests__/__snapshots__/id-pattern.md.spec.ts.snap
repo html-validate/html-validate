@@ -15,6 +15,7 @@ Array [
         "message": "ID \\"fooBar\\" does not match required pattern \\"/^[a-z0-9-]+$/\\"",
         "offset": 9,
         "ruleId": "id-pattern",
+        "selector": "div",
         "severity": 2,
         "size": 6,
       },

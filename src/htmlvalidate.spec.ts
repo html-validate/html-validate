@@ -131,6 +131,7 @@ describe("HtmlValidate", () => {
 			column: 1,
 			offset: 0,
 			size: 1,
+			selector: null,
 		};
 		const error: Message = {
 			ruleId: "mock-error",
@@ -140,6 +141,7 @@ describe("HtmlValidate", () => {
 			column: 1,
 			offset: 0,
 			size: 1,
+			selector: null,
 		};
 
 		it("should call validateFile for each file", () => {
@@ -206,6 +208,7 @@ describe("HtmlValidate", () => {
 			          "message": "mock warning message",
 			          "offset": 0,
 			          "ruleId": "mock-warning",
+			          "selector": null,
 			          "severity": 1,
 			          "size": 1,
 			        },
@@ -222,6 +225,7 @@ describe("HtmlValidate", () => {
 			          "message": "mock error message",
 			          "offset": 0,
 			          "ruleId": "mock-error",
+			          "selector": null,
 			          "severity": 2,
 			          "size": 1,
 			        },

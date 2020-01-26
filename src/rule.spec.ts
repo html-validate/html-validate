@@ -58,6 +58,9 @@ describe("rule base class", () => {
 				rule,
 				"foo",
 				Severity.WARN,
+				expect.objectContaining({
+					unique: node.unique,
+				}),
 				expect.anything(),
 				undefined
 			);
@@ -70,6 +73,9 @@ describe("rule base class", () => {
 				rule,
 				"foo",
 				Severity.ERROR,
+				expect.objectContaining({
+					unique: node.unique,
+				}),
 				expect.anything(),
 				undefined
 			);
@@ -88,6 +94,9 @@ describe("rule base class", () => {
 				rule,
 				"foo",
 				Severity.ERROR,
+				expect.objectContaining({
+					unique: node.unique,
+				}),
 				mockLocation,
 				undefined
 			);
@@ -103,6 +112,9 @@ describe("rule base class", () => {
 				rule,
 				"foo",
 				Severity.ERROR,
+				expect.objectContaining({
+					unique: node.unique,
+				}),
 				mockEvent.location,
 				undefined
 			);
@@ -115,6 +127,9 @@ describe("rule base class", () => {
 				rule,
 				"foo",
 				Severity.ERROR,
+				expect.objectContaining({
+					unique: node.unique,
+				}),
 				mockLocation,
 				undefined
 			);
@@ -128,6 +143,9 @@ describe("rule base class", () => {
 				rule,
 				"foo",
 				Severity.ERROR,
+				expect.objectContaining({
+					unique: node.unique,
+				}),
 				expect.anything(),
 				{ foo: "bar" }
 			);

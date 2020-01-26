@@ -20,6 +20,7 @@ Array [
         "message": "Attribute \\"id\\" duplicated",
         "offset": 31,
         "ruleId": "no-dup-attr",
+        "selector": "#foo",
         "severity": 2,
         "size": 2,
       },

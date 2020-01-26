@@ -20,6 +20,7 @@ Array [
         "message": "Element <caption> can only appear once under <table>",
         "offset": 32,
         "ruleId": "element-permitted-occurrences",
+        "selector": "table > caption:nth-child(2)",
         "severity": 2,
         "size": 7,
       },

@@ -92,6 +92,7 @@ describe("Reporter", () => {
 							ruleId: "mock",
 							severity: 2,
 							message: "error",
+							selector: null,
 						},
 						{
 							offset: 0,
@@ -101,6 +102,7 @@ describe("Reporter", () => {
 							ruleId: "mock",
 							severity: 1,
 							message: "warning",
+							selector: null,
 						},
 					],
 					source: null,
@@ -118,6 +120,7 @@ describe("Reporter", () => {
 							ruleId: "mock",
 							severity: 2,
 							message: "another error",
+							selector: null,
 						},
 					],
 					source: null,
@@ -135,6 +138,7 @@ describe("Reporter", () => {
 				line: 2,
 				column: 1,
 				size: 1,
+				selector: null,
 			});
 			report.addManual("foo.html", {
 				ruleId: "mock",
@@ -144,6 +148,7 @@ describe("Reporter", () => {
 				line: 1,
 				column: 2,
 				size: 1,
+				selector: null,
 			});
 			report.addManual("foo.html", {
 				ruleId: "mock",
@@ -153,6 +158,7 @@ describe("Reporter", () => {
 				line: 1,
 				column: 1,
 				size: 1,
+				selector: null,
 			});
 			expect(report.save().results).toEqual([
 				expect.objectContaining({
@@ -219,5 +225,6 @@ function createMessage(message: string, severity: number = 2): Message {
 		line: 1,
 		column: 1,
 		size: 1,
+		selector: null,
 	};
 }

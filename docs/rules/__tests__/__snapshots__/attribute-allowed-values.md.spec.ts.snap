@@ -43,6 +43,7 @@ Array [
         "message": "Attribute \\"type\\" has invalid value \\"foobar\\"",
         "offset": 13,
         "ruleId": "attribute-allowed-values",
+        "selector": "input",
         "severity": 2,
         "size": 6,
       },

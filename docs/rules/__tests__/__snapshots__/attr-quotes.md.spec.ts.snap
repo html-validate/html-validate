@@ -15,6 +15,7 @@ Array [
         "message": "Attribute \\"class\\" used ' instead of expected \\"",
         "offset": 3,
         "ruleId": "attr-quotes",
+        "selector": "p",
         "severity": 2,
         "size": 5,
       },

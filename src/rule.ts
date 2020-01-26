@@ -100,7 +100,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	): void {
 		if (this.isEnabled() && (!node || node.ruleEnabled(this.name))) {
 			const where = this.findLocation({ node, location, event: this.event });
-			this.reporter.add(this, message, this.severity, where, context);
+			this.reporter.add(this, message, this.severity, node, where, context);
 		}
 	}
 

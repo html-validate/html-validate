@@ -19,6 +19,7 @@ Array [
         "message": "<img> is missing required \\"alt\\" attribute",
         "offset": 1,
         "ruleId": "WCAG/H37",
+        "selector": "img",
         "severity": 2,
         "size": 3,
       },

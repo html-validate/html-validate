@@ -17,6 +17,7 @@ describe("checkstyle formatter", () => {
 						line: 1,
 						column: 5,
 						size: 1,
+						selector: null,
 					},
 					{
 						ruleId: "bar",
@@ -26,6 +27,7 @@ describe("checkstyle formatter", () => {
 						line: 2,
 						column: 4,
 						size: 1,
+						selector: null,
 					},
 				],
 			},
@@ -42,6 +44,7 @@ describe("checkstyle formatter", () => {
 						line: 1,
 						column: 1,
 						size: 1,
+						selector: null,
 					},
 					{
 						ruleId: "bar",
@@ -51,6 +54,7 @@ describe("checkstyle formatter", () => {
 						line: 2,
 						column: 2,
 						size: 1,
+						selector: null,
 					},
 					{
 						ruleId: undefined,
@@ -60,6 +64,7 @@ describe("checkstyle formatter", () => {
 						line: undefined,
 						column: null,
 						size: undefined,
+						selector: null,
 					},
 				],
 			},

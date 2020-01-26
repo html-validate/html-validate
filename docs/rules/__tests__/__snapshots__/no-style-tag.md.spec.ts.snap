@@ -15,6 +15,7 @@ Array [
         "message": "Use external stylesheet with <link> instead of <style> tag",
         "offset": 0,
         "ruleId": "no-style-tag",
+        "selector": "style",
         "severity": 2,
         "size": 6,
       },

@@ -30,6 +30,7 @@ describe("codeframe formatter", () => {
 						line: 1,
 						column: 6,
 						size: 25,
+						selector: null,
 					},
 					{
 						ruleId: "bar",
@@ -39,6 +40,7 @@ describe("codeframe formatter", () => {
 						line: 2,
 						column: 4,
 						size: 1,
+						selector: null,
 					},
 				],
 				source,
@@ -56,6 +58,7 @@ describe("codeframe formatter", () => {
 						line: 3,
 						column: 3,
 						size: 1,
+						selector: null,
 					},
 				],
 				source,

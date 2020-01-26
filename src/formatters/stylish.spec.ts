@@ -25,6 +25,7 @@ describe("stylish formatter", () => {
 						line: 1,
 						column: 5,
 						size: 1,
+						selector: null,
 					},
 					{
 						ruleId: "bar",
@@ -34,6 +35,7 @@ describe("stylish formatter", () => {
 						line: 2,
 						column: 4,
 						size: 1,
+						selector: null,
 					},
 				],
 			},
@@ -50,6 +52,7 @@ describe("stylish formatter", () => {
 						line: 3,
 						column: 3,
 						size: 1,
+						selector: null,
 					},
 				],
 			},

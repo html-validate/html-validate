@@ -7,7 +7,7 @@ export { Config, ConfigData, ConfigLoader, Severity } from "./config";
 export { DynamicValue, HtmlElement } from "./dom";
 export { Rule, RuleDocumentation } from "./rule";
 export { Source, Location, ProcessElementContext } from "./context";
-export { Reporter, Message, Result } from "./reporter";
+export { Report, Reporter, Message, Result } from "./reporter";
 export { Transformer, TemplateExtractor } from "./transform";
 
 const pkg = require("../package.json");

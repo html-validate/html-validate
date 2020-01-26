@@ -107,6 +107,7 @@ describe("Engine", () => {
 				      "message": "invalid token error",
 				      "offset": 0,
 				      "ruleId": "parser-error",
+				      "selector": null,
 				      "severity": 2,
 				      "size": 0,
 				    },
@@ -133,6 +134,7 @@ describe("Engine", () => {
 				      "message": "parser error",
 				      "offset": 0,
 				      "ruleId": "parser-error",
+				      "selector": null,
 				      "severity": 2,
 				      "size": 0,
 				    },
@@ -430,6 +432,7 @@ describe("Engine", () => {
 					expect.any(Rule),
 					"Definition for rule 'void' was not found",
 					Severity.ERROR,
+					null,
 					{},
 					undefined
 				);

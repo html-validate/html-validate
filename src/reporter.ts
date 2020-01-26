@@ -1,6 +1,7 @@
 import { Severity } from "./config";
 import { Location, Source } from "./context";
 import { Rule } from "./rule";
+import { DOMNode } from "./dom";
 
 /**
  * Reported error message.
@@ -26,6 +27,9 @@ export interface Message {
 
 	/** From start offset, how many characters is this message relevant for */
 	size: number;
+
+	/** DOM selector */
+	selector: string | null;
 
 	/**
 	 * Optional error context used to provide context-aware documentation.
@@ -104,6 +108,7 @@ export class Reporter {
 		rule: Rule<ContextType, OptionsType>,
 		message: string,
 		severity: number,
+		node: DOMNode,
 		location: Location,
 		context?: ContextType
 	): void {
@@ -118,6 +123,7 @@ export class Reporter {
 			line: location.line,
 			column: location.column,
 			size: location.size || 0,
+			selector: node ? node.generateSelector() : null,
 			context,
 		});
 	}

@@ -20,6 +20,7 @@ Array [
         "message": "<marquee> is deprecated",
         "offset": 20,
         "ruleId": "deprecated",
+        "selector": "marquee",
         "severity": 2,
         "size": 7,
       },

@@ -1,6 +1,7 @@
 import { Attribute } from "./attribute";
 import { Combinator, parseCombinator } from "./combinator";
 import { HtmlElement } from "./htmlelement";
+import { factory as pseudoClassFunction } from "./pseudoclass";
 
 class Matcher {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -66,6 +67,23 @@ class AttrMatcher extends Matcher {
 	}
 }
 
+class PseudoClassMatcher extends Matcher {
+	private readonly name: string;
+	private readonly args: string;
+
+	public constructor(pseudoclass: string) {
+		super();
+		const [, name, args] = pseudoclass.match(/^([^(]+)(?:\((.*)\))?$/);
+		this.name = name;
+		this.args = args;
+	}
+
+	public match(node: HtmlElement): boolean {
+		const fn = pseudoClassFunction(this.name);
+		return fn(node, this.args);
+	}
+}
+
 class Pattern {
 	public readonly combinator: Combinator;
 	public readonly tagName: string;
@@ -73,12 +91,12 @@ class Pattern {
 	private readonly pattern: Matcher[];
 
 	public constructor(pattern: string) {
-		const match = pattern.match(/^([~+\->]?)((?:[*]|[^.#[]+)?)(.*)$/);
+		const match = pattern.match(/^([~+\->]?)((?:[*]|[^.#[:]+)?)(.*)$/);
 		match.shift(); /* remove full matched string */
 		this.selector = pattern;
 		this.combinator = parseCombinator(match.shift());
 		this.tagName = match.shift() || "*";
-		const p = match[0] ? match[0].split(/(?=[.#[])/) : [];
+		const p = match[0] ? match[0].split(/(?=[.#[:])/) : [];
 		this.pattern = p.map((cur: string) => Pattern.createMatcher(cur));
 	}
 
@@ -97,6 +115,8 @@ class Pattern {
 				return new IdMatcher(pattern.slice(1));
 			case "[":
 				return new AttrMatcher(pattern.slice(1, -1));
+			case ":":
+				return new PseudoClassMatcher(pattern.slice(1));
 			default:
 				/* istanbul ignore next: fallback solution, the switch cases should cover
 				 * everything and there is no known way to trigger this fallback */

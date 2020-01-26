@@ -13,6 +13,7 @@ Array [
         "message": "Element <div> is not permitted as content in <my-component>",
         "offset": 76,
         "ruleId": "element-permitted-content",
+        "selector": "my-component:nth-child(2) > div",
         "severity": 2,
         "size": 3,
       },

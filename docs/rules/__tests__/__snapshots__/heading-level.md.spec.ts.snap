@@ -15,6 +15,7 @@ Array [
         "message": "Heading level can only increase by one, expected h2",
         "offset": 20,
         "ruleId": "heading-level",
+        "selector": "h3",
         "severity": 2,
         "size": 2,
       },
