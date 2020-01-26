@@ -135,6 +135,52 @@ export class HtmlElement extends DOMNode {
 	}
 
 	/**
+	 * Generate a DOM selector for this element. The returned selector will be
+	 * unique inside the current document.
+	 */
+	public generateSelector(): string | null {
+		/* root element cannot have a selector as it isn't a proper element */
+		if (this.isRootElement()) {
+			return null;
+		}
+
+		const parts = [];
+
+		let root: HtmlElement;
+		for (root = this; root.parent; root = root.parent) {
+			/* .. */
+		}
+
+		// eslint-disable-next-line @typescript-eslint/no-this-alias
+		for (let cur: HtmlElement = this; cur.parent; cur = cur.parent) {
+			/* if a unique id is present, use it and short-circuit */
+			if (cur.id) {
+				const matches = root.querySelectorAll(`#${cur.id}`);
+				if (matches.length === 1) {
+					parts.push(`#${cur.id}`);
+					break;
+				}
+			}
+
+			const parent = cur.parent;
+			const child = parent.childElements;
+			const index = child.findIndex(it => it.unique === cur.unique);
+			const numOfType = child.filter(it => it.is(cur.tagName)).length;
+			const solo = numOfType === 1;
+
+			/* if this is the only tagName in this level of siblings nth-child isn't needed */
+			if (solo) {
+				parts.push(cur.tagName.toLowerCase());
+				continue;
+			}
+
+			/* this will generate the worst kind of selector but at least it will be accurate (optimizations welcome) */
+			parts.push(`${cur.tagName.toLowerCase()}:nth-child(${index + 1})`);
+		}
+		return parts.reverse().join(" > ");
+	}
+
+	/**
 	 * Tests if this element has given tagname.
 	 *
 	 * If passing "*" this test will pass if any tagname is set.
@@ -302,7 +348,7 @@ export class HtmlElement extends DOMNode {
 	 * @param {string} key - Attribute name
 	 * @return Attribute value or null.
 	 */
-	public getAttributeValue(key: string): string {
+	public getAttributeValue(key: string): string | null {
 		const attr = this.getAttribute(key);
 		if (attr) {
 			return attr.value !== null ? attr.value.toString() : null;
@@ -336,7 +382,10 @@ export class HtmlElement extends DOMNode {
 		return new DOMTokenList(classes);
 	}
 
-	public get id(): string {
+	/**
+	 * Get element ID if present.
+	 */
+	public get id(): string | null {
 		return this.getAttributeValue("id");
 	}
 

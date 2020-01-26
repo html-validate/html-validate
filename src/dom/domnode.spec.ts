@@ -137,4 +137,12 @@ describe("DOMNode", () => {
 			expect(node.ruleEnabled("my-rule")).toBeTruthy();
 		});
 	});
+
+	describe("generateSelector()", () => {
+		it("should default to return null", () => {
+			expect.assertions(1);
+			const node = new DOMNode(NodeType.TEXT_NODE, "#text");
+			expect(node.generateSelector()).toBeNull();
+		});
+	});
 });

@@ -387,6 +387,54 @@ describe("HtmlElement", () => {
 		});
 	});
 
+	describe("generateSelector()", () => {
+		let parser: Parser;
+
+		beforeAll(() => {
+			parser = new Parser(Config.empty());
+		});
+
+		it("should generate a unique selector", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml(`
+				<div>
+					<i>a</i>
+					<p>b</p>
+					<i>c</i>
+					<p>d</p>
+				</div>
+			`);
+			const el = document.querySelector("div").childElements[3];
+			expect(el.generateSelector()).toEqual("div > p:nth-child(4)");
+		});
+
+		it("should use id if a unique id is present", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml(`
+				<div>
+					<div id="foo">
+						<p></p>
+					</div>
+				</div>
+			`);
+			const el = document.querySelector("p");
+			expect(el.generateSelector()).toEqual("#foo > p");
+		});
+
+		it("should normalize tagnames", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml(`<dIV></DIv>`);
+			const el = document.querySelector("div");
+			expect(el.generateSelector()).toEqual("div");
+		});
+
+		it("root element should not receive selector", () => {
+			expect.assertions(1);
+			const el = HtmlElement.rootNode(null);
+			expect(el.generateSelector()).toBeNull();
+		});
+	});
+
 	describe("is()", () => {
 		it("should match tagname", () => {
 			const el = new HtmlElement("foo");

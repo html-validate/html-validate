@@ -117,4 +117,8 @@ export class DOMNode {
 	public ruleEnabled(ruleId: string): boolean {
 		return !this.disabledRules.has(ruleId);
 	}
+
+	public generateSelector(): string | null {
+		return null;
+	}
 }
