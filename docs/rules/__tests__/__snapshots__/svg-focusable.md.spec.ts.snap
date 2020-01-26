@@ -15,6 +15,7 @@ Array [
         "message": "<svg> is missing required \\"focusable\\" attribute",
         "offset": 15,
         "ruleId": "svg-focusable",
+        "selector": "a > svg",
         "severity": 2,
         "size": 3,
       },

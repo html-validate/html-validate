@@ -15,6 +15,7 @@ Array [
         "message": "Inline style is not allowed",
         "offset": 3,
         "ruleId": "no-inline-style",
+        "selector": "p",
         "severity": 2,
         "size": 5,
       },

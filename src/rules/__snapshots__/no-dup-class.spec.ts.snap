@@ -20,6 +20,7 @@ Array [
         "message": "Class \\"foo\\" duplicated",
         "offset": 66,
         "ruleId": "no-dup-class",
+        "selector": "div:nth-child(3)",
         "severity": 2,
         "size": 11,
       },

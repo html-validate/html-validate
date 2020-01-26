@@ -18,6 +18,7 @@ Array [
         "message": "Prefer to use the native <main> element",
         "offset": 5,
         "ruleId": "prefer-native-element",
+        "selector": "div",
         "severity": 2,
         "size": 11,
       },

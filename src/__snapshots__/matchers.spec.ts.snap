@@ -41,7 +41,7 @@ exports[`toHaveError() should fail if error has mismatched context 1`] = `
 Expected token to equal:
   [ObjectContaining {\\"context\\": {\\"foo\\": \\"spam\\"}, \\"message\\": \\"mock message\\", \\"ruleId\\": \\"my-rule\\"}]
 Received:
-  [{\\"column\\": 15, \\"context\\": {\\"foo\\": \\"bar\\"}, \\"line\\": 2, \\"message\\": \\"mock message\\", \\"offset\\": 43, \\"ruleId\\": \\"my-rule\\", \\"severity\\": 2, \\"size\\": 12}]
+  [{\\"column\\": 15, \\"context\\": {\\"foo\\": \\"bar\\"}, \\"line\\": 2, \\"message\\": \\"mock message\\", \\"offset\\": 43, \\"ruleId\\": \\"my-rule\\", \\"selector\\": null, \\"severity\\": 2, \\"size\\": 12}]
 
 Difference:
 
@@ -60,6 +60,7 @@ Difference:
       \\"message\\": \\"mock message\\",
 +     \\"offset\\": 43,
       \\"ruleId\\": \\"my-rule\\",
++     \\"selector\\": null,
 +     \\"severity\\": 2,
 +     \\"size\\": 12,
     },
@@ -72,7 +73,7 @@ exports[`toHaveError() should fail if error is missing 1`] = `
 Expected token to equal:
   [ObjectContaining {\\"message\\": \\"asdf\\", \\"ruleId\\": \\"asdf\\"}]
 Received:
-  [{\\"column\\": 15, \\"context\\": {\\"foo\\": \\"bar\\"}, \\"line\\": 2, \\"message\\": \\"mock message\\", \\"offset\\": 43, \\"ruleId\\": \\"my-rule\\", \\"severity\\": 2, \\"size\\": 12}]
+  [{\\"column\\": 15, \\"context\\": {\\"foo\\": \\"bar\\"}, \\"line\\": 2, \\"message\\": \\"mock message\\", \\"offset\\": 43, \\"ruleId\\": \\"my-rule\\", \\"selector\\": null, \\"severity\\": 2, \\"size\\": 12}]
 
 Difference:
 
@@ -92,6 +93,7 @@ Difference:
 +     \\"message\\": \\"mock message\\",
 +     \\"offset\\": 43,
 +     \\"ruleId\\": \\"my-rule\\",
++     \\"selector\\": null,
 +     \\"severity\\": 2,
 +     \\"size\\": 12,
     },
@@ -104,7 +106,7 @@ exports[`toHaveErrors() should fail if error any missing 1`] = `
 Expected token to equal:
   [ObjectContaining {\\"message\\": \\"mock message\\", \\"ruleId\\": \\"my-rule\\"}, ObjectContaining {\\"message\\": \\"spam\\", \\"ruleId\\": \\"spam\\"}]
 Received:
-  [{\\"column\\": 15, \\"context\\": {\\"foo\\": \\"bar\\"}, \\"line\\": 2, \\"message\\": \\"mock message\\", \\"offset\\": 43, \\"ruleId\\": \\"my-rule\\", \\"severity\\": 2, \\"size\\": 12}, {\\"column\\": 15, \\"line\\": 2, \\"message\\": \\"another message\\", \\"offset\\": 43, \\"ruleId\\": \\"another-rule\\", \\"severity\\": 2, \\"size\\": 12}]
+  [{\\"column\\": 15, \\"context\\": {\\"foo\\": \\"bar\\"}, \\"line\\": 2, \\"message\\": \\"mock message\\", \\"offset\\": 43, \\"ruleId\\": \\"my-rule\\", \\"selector\\": null, \\"severity\\": 2, \\"size\\": 12}, {\\"column\\": 15, \\"line\\": 2, \\"message\\": \\"another message\\", \\"offset\\": 43, \\"ruleId\\": \\"another-rule\\", \\"selector\\": null, \\"severity\\": 2, \\"size\\": 12}]
 
 Difference:
 
@@ -122,6 +124,7 @@ Difference:
       \\"message\\": \\"mock message\\",
 +     \\"offset\\": 43,
       \\"ruleId\\": \\"my-rule\\",
++     \\"selector\\": null,
 +     \\"severity\\": 2,
 +     \\"size\\": 12,
     },
@@ -134,6 +137,7 @@ Difference:
 +     \\"message\\": \\"another message\\",
 +     \\"offset\\": 43,
 +     \\"ruleId\\": \\"another-rule\\",
++     \\"selector\\": null,
 +     \\"severity\\": 2,
 +     \\"size\\": 12,
     },

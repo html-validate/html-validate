@@ -21,6 +21,7 @@ beforeEach(() => {
 		column: 15,
 		offset: 43,
 		size: 12,
+		selector: null,
 		context: {
 			foo: "bar",
 		},
@@ -36,6 +37,7 @@ beforeEach(() => {
 		column: 15,
 		offset: 43,
 		size: 12,
+		selector: null,
 	});
 	reportMultipleErrors = reporter.save();
 });

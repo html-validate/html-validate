@@ -17,6 +17,7 @@ describe("text formatter", () => {
 						line: 1,
 						column: 5,
 						size: 1,
+						selector: null,
 					},
 					{
 						ruleId: "bar",
@@ -26,6 +27,7 @@ describe("text formatter", () => {
 						line: 2,
 						column: 4,
 						size: 1,
+						selector: null,
 					},
 				],
 			},
@@ -42,6 +44,7 @@ describe("text formatter", () => {
 						line: 3,
 						column: 3,
 						size: 1,
+						selector: null,
 					},
 				],
 			},

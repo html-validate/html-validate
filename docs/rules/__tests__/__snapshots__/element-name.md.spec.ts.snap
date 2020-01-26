@@ -15,6 +15,7 @@ Array [
         "message": "<foobar> is not a valid element name",
         "offset": 1,
         "ruleId": "element-name",
+        "selector": "foobar",
         "severity": 2,
         "size": 6,
       },

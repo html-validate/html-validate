@@ -15,6 +15,7 @@ Array [
         "message": "<img> with empty alt text cannot have title attribute",
         "offset": 5,
         "ruleId": "WCAG/H67",
+        "selector": "img",
         "severity": 2,
         "size": 5,
       },

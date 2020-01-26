@@ -15,6 +15,7 @@ Array [
         "message": "Duplicate ID \\"foo\\"",
         "offset": 30,
         "ruleId": "no-dup-id",
+        "selector": "div:nth-child(2)",
         "severity": 2,
         "size": 3,
       },

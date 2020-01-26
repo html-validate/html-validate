@@ -40,6 +40,7 @@ const report: Report = {
 					line: 1,
 					column: 2,
 					size: 1,
+					selector: null,
 				},
 			],
 			filePath: "mock-file.html",
