@@ -394,6 +394,16 @@ describe("HtmlElement", () => {
 			expect(el.is("bar")).toBeFalsy();
 		});
 
+		it("should match case-insensitive", () => {
+			expect.assertions(4);
+			const a = new HtmlElement("foo");
+			const b = new HtmlElement("BAR");
+			expect(a.is("foo")).toBeTruthy();
+			expect(a.is("FOO")).toBeTruthy();
+			expect(b.is("bar")).toBeTruthy();
+			expect(b.is("BAR")).toBeTruthy();
+		});
+
 		it("should match any tag when using asterisk", () => {
 			const el = new HtmlElement("foo");
 			expect(el.is("*")).toBeTruthy();

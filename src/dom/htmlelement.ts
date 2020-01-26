@@ -140,7 +140,12 @@ export class HtmlElement extends DOMNode {
 	 * If passing "*" this test will pass if any tagname is set.
 	 */
 	public is(tagName: string): boolean {
-		return (this.tagName && tagName === "*") || this.tagName === tagName;
+		if (!this.tagName) {
+			return false;
+		}
+		return (
+			tagName === "*" || this.tagName.toLowerCase() === tagName.toLowerCase()
+		);
 	}
 
 	/**
