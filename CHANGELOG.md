@@ -1,5 +1,21 @@
 # html-validate changelog
 
+# [2.11.0](https://gitlab.com/html-validate/html-validate/compare/v2.10.0...v2.11.0) (2020-01-26)
+
+### Bug Fixes
+
+- **dom:** use case-insensitive match for `is()` ([d2687c2](https://gitlab.com/html-validate/html-validate/commit/d2687c2e90543044f2fab5480677e6883a5b82cb))
+- **plugin:** fix rule type definition ([6f0213d](https://gitlab.com/html-validate/html-validate/commit/6f0213da6f484fea9a51572592b970a7b9a0badd))
+
+### Features
+
+- **dom:** add `generateSelector` ([12e718e](https://gitlab.com/html-validate/html-validate/commit/12e718ec2c18eec34b5a7f9feb317d8ab07d4a13))
+- **dom:** new type `DOMInternalID` ([ada3cd3](https://gitlab.com/html-validate/html-validate/commit/ada3cd31bf2fb941a5ccc72fc79515341ff5ba4a))
+- **dom:** support pseudo-classes `:first-child`, `:last-child` and `:nth-child` ([af39ea1](https://gitlab.com/html-validate/html-validate/commit/af39ea1d42e2396947b5993766c15ef17481be71))
+- **rules:** add selector to reported errors ([6b6ae3d](https://gitlab.com/html-validate/html-validate/commit/6b6ae3da04ae67c44bfda42081de8cbe177c5579))
+- **rules:** improved reported error location for some rules ([216b449](https://gitlab.com/html-validate/html-validate/commit/216b4499220befb13b99ad28b2f8fddb811d746f))
+- **shim:** expose `Report` ([6091050](https://gitlab.com/html-validate/html-validate/commit/609105017e66899f30dfddae597e9dc016984403))
+
 # [2.10.0](https://gitlab.com/html-validate/html-validate/compare/v2.9.0...v2.10.0) (2020-01-22)
 
 ### Features
