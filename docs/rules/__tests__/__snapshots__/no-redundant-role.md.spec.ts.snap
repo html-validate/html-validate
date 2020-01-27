@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/no-redundant-role.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/no-redundant-role.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 13,
+        "context": Object {
+          "role": "main",
+          "tagname": "main",
+        },
+        "line": 1,
+        "message": "Redundant role \\"main\\" on <main>",
+        "offset": 12,
+        "ruleId": "no-redundant-role",
+        "selector": "main",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 15,
+        "context": Object {
+          "role": "listitem",
+          "tagname": "li",
+        },
+        "line": 3,
+        "message": "Redundant role \\"listitem\\" on <li>",
+        "offset": 40,
+        "ruleId": "no-redundant-role",
+        "selector": "main > ul > li",
+        "severity": 2,
+        "size": 8,
+      },
+    ],
+    "source": "<main role=\\"main\\">
+  <ul>
+    <li role=\\"listitem\\">Lorem ipsum</li>
+  </ul>
+</main>",
+    "warningCount": 0,
+  },
+]
+`;
