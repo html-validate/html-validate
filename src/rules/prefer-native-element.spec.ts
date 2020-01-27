@@ -33,6 +33,11 @@ describe("rule prefer-native-element", () => {
 			expect(report).toBeValid();
 		});
 
+		it("should not report error when element has redundant role", () => {
+			const report = htmlvalidate.validateString('<main role="main"></main>');
+			expect(report).toBeValid();
+		});
+
 		it("should report error when using role with native equivalent element", () => {
 			const report = htmlvalidate.validateString('<div role="main"></div>');
 			expect(report).toBeInvalid();
