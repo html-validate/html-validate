@@ -78,8 +78,14 @@ class PreferNativeElement extends Rule<RuleContext, RuleOptions> {
 				return;
 			}
 
-			/* report error */
+			/* dont report when the element is already of the right type but has a
+			 * redundant role, such as <main role="main"> */
 			const replacement = mapping[role];
+			if (event.target.is(replacement)) {
+				return;
+			}
+
+			/* report error */
 			const context: RuleContext = { role, replacement };
 			const location = this.getLocation(event);
 			this.report(
