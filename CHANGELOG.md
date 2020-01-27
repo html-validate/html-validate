@@ -1,5 +1,15 @@
 # html-validate changelog
 
+# [2.12.0](https://gitlab.com/html-validate/html-validate/compare/v2.11.0...v2.12.0) (2020-01-27)
+
+### Bug Fixes
+
+- **rules:** dont report elements where the tag is already correct ([ee354a0](https://gitlab.com/html-validate/html-validate/commit/ee354a0070f4ac6657cf0a5ce84bddadb3d2dab7)), closes [#65](https://gitlab.com/html-validate/html-validate/issues/65)
+
+### Features
+
+- **rules:** new rule no-redundant-role ([a32b816](https://gitlab.com/html-validate/html-validate/commit/a32b81623ac4c8603923b4ff1a41c342a5dfe1d2)), closes [#65](https://gitlab.com/html-validate/html-validate/issues/65)
+
 # [2.11.0](https://gitlab.com/html-validate/html-validate/compare/v2.10.0...v2.11.0) (2020-01-26)
 
 ### Bug Fixes
