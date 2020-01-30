@@ -29,6 +29,7 @@ module.exports = {
 		"no-inline-style": "error",
 		"no-raw-characters": "error",
 		"no-redundant-role": "error",
+		"no-self-closing": "error",
 		"no-trailing-whitespace": "error",
 		"prefer-button": "error",
 		"prefer-native-element": "error",

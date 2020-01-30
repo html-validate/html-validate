@@ -1,7 +1,7 @@
 <i/>Outside block, should trigger
 <div>
 	<i/>Inside block, before directive, should trigger
-	<!-- [html-validate-disable-block void] -->
+	<!-- [html-validate-disable-block no-self-closing] -->
 	<i/>Inside block, after directive, shout not trigger
 	<div>
 		<i/>Inside block, after directive, shout not trigger
@@ -11,9 +11,9 @@
 <i/>Outside block, should trigger
 
 <div>
-	<!-- [html-validate-disable-block void] -->
+	<!-- [html-validate-disable-block no-self-closing] -->
 </div>
 <i/>Outside block, should trigger
 
-<!-- [html-validate-disable-block void] -->
+<!-- [html-validate-disable-block no-self-closing] -->
 Should handle when root element is parent but no children

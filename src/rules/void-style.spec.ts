@@ -30,6 +30,11 @@ describe("rule void-style", () => {
 			expect(report).toBeValid();
 		});
 
+		it("should not report when non-void element is self-closed", () => {
+			const report = htmlvalidate.validateString("<div/>");
+			expect(report).toBeValid();
+		});
+
 		it("should not report when xml namespaces is used", () => {
 			const report = htmlvalidate.validateString("<xi:include/>");
 			expect(report).toBeValid();

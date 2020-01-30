@@ -13,7 +13,7 @@ Void elements are implicitly closed (`<img>`) but may optionally be XML-style se
 This rules enforces usage of one of the two styles.
 Default is to omit self-closing tag.
 
-Non-void elements are ignored by this rule.
+This rule has no effect on non-void elements, see the related rule {@link no-self-closing}.
 
 ## Rule details
 

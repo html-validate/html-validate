@@ -10,7 +10,7 @@ Object {
   "rules": Object {
     "deprecated": "error",
     "element-permitted-content": "off",
-    "void": "error",
+    "no-self-closing": "error",
   },
   "transform": Object {},
 }
@@ -24,22 +24,22 @@ Array [
     "messages": Array [
       Object {
         "column": 3,
-        "context": undefined,
+        "context": "i",
         "line": 1,
-        "message": "End tag for <i> must not be omitted",
+        "message": "<i> must not be self-closed",
         "offset": 2,
-        "ruleId": "void",
+        "ruleId": "no-self-closing",
         "selector": "i",
         "severity": 2,
         "size": 2,
       },
       Object {
         "column": 3,
-        "context": undefined,
+        "context": "i",
         "line": 8,
-        "message": "End tag for <i> must not be omitted",
-        "offset": 190,
-        "ruleId": "void",
+        "message": "<i> must not be self-closed",
+        "offset": 212,
+        "ruleId": "no-self-closing",
         "selector": "i:nth-child(4)",
         "severity": 2,
         "size": 2,
@@ -47,11 +47,11 @@ Array [
     ],
     "source": "<i/>Before disable, should trigger
 
-<!-- [html-validate-disable void] -->
+<!-- [html-validate-disable no-self-closing] -->
 <i/>After disable, should not trigger
 <i/>After disable, should not trigger
 
-<!-- [html-validate-enable void] -->
+<!-- [html-validate-enable no-self-closing] -->
 <i/>Before after, should trigger
 ",
     "warningCount": 0,
@@ -69,7 +69,7 @@ Object {
   "rules": Object {
     "deprecated": "error",
     "element-permitted-content": "off",
-    "void": "error",
+    "no-self-closing": "error",
   },
   "transform": Object {},
 }
@@ -83,44 +83,44 @@ Array [
     "messages": Array [
       Object {
         "column": 3,
-        "context": undefined,
+        "context": "i",
         "line": 1,
-        "message": "End tag for <i> must not be omitted",
+        "message": "<i> must not be self-closed",
         "offset": 2,
-        "ruleId": "void",
+        "ruleId": "no-self-closing",
         "selector": "i",
         "severity": 2,
         "size": 2,
       },
       Object {
         "column": 4,
-        "context": undefined,
+        "context": "i",
         "line": 3,
-        "message": "End tag for <i> must not be omitted",
+        "message": "<i> must not be self-closed",
         "offset": 43,
-        "ruleId": "void",
+        "ruleId": "no-self-closing",
         "selector": "div > i",
         "severity": 2,
         "size": 2,
       },
       Object {
         "column": 3,
-        "context": undefined,
+        "context": "i",
         "line": 11,
-        "message": "End tag for <i> must not be omitted",
-        "offset": 324,
-        "ruleId": "void",
+        "message": "<i> must not be self-closed",
+        "offset": 335,
+        "ruleId": "no-self-closing",
         "selector": "i:nth-child(3)",
         "severity": 2,
         "size": 2,
       },
       Object {
         "column": 3,
-        "context": undefined,
+        "context": "i",
         "line": 16,
-        "message": "End tag for <i> must not be omitted",
-        "offset": 417,
-        "ruleId": "void",
+        "message": "<i> must not be self-closed",
+        "offset": 439,
+        "ruleId": "no-self-closing",
         "selector": "i:nth-child(5)",
         "severity": 2,
         "size": 2,
@@ -129,7 +129,7 @@ Array [
     "source": "<i/>Outside block, should trigger
 <div>
 	<i/>Inside block, before directive, should trigger
-	<!-- [html-validate-disable-block void] -->
+	<!-- [html-validate-disable-block no-self-closing] -->
 	<i/>Inside block, after directive, shout not trigger
 	<div>
 		<i/>Inside block, after directive, shout not trigger
@@ -139,11 +139,11 @@ Array [
 <i/>Outside block, should trigger
 
 <div>
-	<!-- [html-validate-disable-block void] -->
+	<!-- [html-validate-disable-block no-self-closing] -->
 </div>
 <i/>Outside block, should trigger
 
-<!-- [html-validate-disable-block void] -->
+<!-- [html-validate-disable-block no-self-closing] -->
 Should handle when root element is parent but no children
 ",
     "warningCount": 0,
@@ -161,7 +161,7 @@ Object {
   "rules": Object {
     "deprecated": "error",
     "element-permitted-content": "off",
-    "void": "error",
+    "no-self-closing": "error",
   },
   "transform": Object {},
 }
@@ -186,11 +186,11 @@ Array [
       },
       Object {
         "column": 7,
-        "context": undefined,
+        "context": "blink",
         "line": 1,
-        "message": "End tag for <blink> must not be omitted",
+        "message": "<blink> must not be self-closed",
         "offset": 6,
-        "ruleId": "void",
+        "ruleId": "no-self-closing",
         "selector": "blink",
         "severity": 2,
         "size": 2,
@@ -198,7 +198,7 @@ Array [
     ],
     "source": "<blink/>
 <div>
-	<!-- [html-validate-disable-block void, deprecated] -->
+	<!-- [html-validate-disable-block no-self-closing, deprecated] -->
 	<blink/>
 </div>
 ",
@@ -217,7 +217,7 @@ Object {
   "rules": Object {
     "deprecated": "error",
     "element-permitted-content": "off",
-    "void": "error",
+    "no-self-closing": "error",
   },
   "transform": Object {},
 }
@@ -231,22 +231,22 @@ Array [
     "messages": Array [
       Object {
         "column": 3,
-        "context": undefined,
+        "context": "i",
         "line": 1,
-        "message": "End tag for <i> must not be omitted",
+        "message": "<i> must not be self-closed",
         "offset": 2,
-        "ruleId": "void",
+        "ruleId": "no-self-closing",
         "selector": "i",
         "severity": 2,
         "size": 2,
       },
       Object {
         "column": 3,
-        "context": undefined,
+        "context": "i",
         "line": 5,
-        "message": "End tag for <i> must not be omitted",
-        "offset": 125,
-        "ruleId": "void",
+        "message": "<i> must not be self-closed",
+        "offset": 136,
+        "ruleId": "no-self-closing",
         "selector": "i:nth-child(3)",
         "severity": 2,
         "size": 2,
@@ -254,7 +254,7 @@ Array [
     ],
     "source": "<i/>Before disable, should trigger
 
-<!-- [html-validate-disable-next void] -->
+<!-- [html-validate-disable-next no-self-closing] -->
 <i/>First after disable, should not trigger
 <i/>Second after disable, should trigger
 ",
@@ -277,7 +277,7 @@ Object {
   "rules": Object {
     "deprecated": "error",
     "element-permitted-content": "error",
-    "void": "error",
+    "no-self-closing": "error",
   },
   "transform": Object {},
 }
@@ -336,7 +336,7 @@ Object {
   "rules": Object {
     "deprecated": "error",
     "element-permitted-content": "error",
-    "void": "error",
+    "no-self-closing": "error",
   },
   "transform": Object {},
 }
@@ -378,7 +378,7 @@ Object {
   "rules": Object {
     "deprecated": "error",
     "element-permitted-content": "error",
-    "void": "error",
+    "no-self-closing": "error",
   },
   "transform": Object {},
 }
@@ -420,7 +420,7 @@ Object {
   "rules": Object {
     "deprecated": "error",
     "element-permitted-content": "error",
-    "void": "off",
+    "no-self-closing": "error",
   },
   "transform": Object {},
 }
@@ -438,7 +438,7 @@ Object {
   "rules": Object {
     "deprecated": "error",
     "element-permitted-content": "error",
-    "void": "warn",
+    "no-self-closing": "error",
   },
   "transform": Object {},
 }

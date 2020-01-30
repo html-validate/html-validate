@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/no-self-closing.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/no-self-closing.md inline validation: foreign 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 5,
+        "context": "svg",
+        "line": 1,
+        "message": "<svg> must not be self-closed",
+        "offset": 4,
+        "ruleId": "no-self-closing",
+        "selector": "svg",
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<svg/>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/no-self-closing.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 5,
+        "context": "div",
+        "line": 1,
+        "message": "<div> must not be self-closed",
+        "offset": 4,
+        "ruleId": "no-self-closing",
+        "selector": "div",
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<div/>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/no-self-closing.md inline validation: xml 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 12,
+        "context": "xi:include",
+        "line": 1,
+        "message": "<xi:include> must not be self-closed",
+        "offset": 11,
+        "ruleId": "no-self-closing",
+        "selector": "xi:include",
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<xi:include/>",
+    "warningCount": 0,
+  },
+]
+`;
