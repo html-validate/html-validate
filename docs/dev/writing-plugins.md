@@ -277,3 +277,53 @@ switch (meta.myProperty) {
   default: /* ... */
 }
 ```
+
+### Copyable metadata
+
+Plugins leveraging usage of `loadMeta` for advanced handling of metadata loading must explicitly mark the copyable properties as `copyable`:
+
+```js
+module.exports = {
+  elementSchema: {
+    properties: {
+      foo: {
+        copyable: true,
+      },
+      bar: {
+        copyable: false,
+      },
+    },
+  },
+};
+```
+
+Given these two properties only `foo` will be copied (loaded) onto the element when using `loadMeta`:
+
+```js
+module.exports = {
+  "my-element": {
+    foo: "original",
+    bar: "original",
+  },
+  "my-element:slot": {
+    foo: "overwritten",
+    bar: "overwritten",
+  },
+};
+```
+
+```js
+function processElement(node) {
+  const meta = this.getMetaFor("my-element:slot");
+  node.loadMeta(meta);
+}
+```
+
+The resulting metadata will now be:
+
+```json
+{
+  "foo": "overwritten",
+  "bar": "original"
+}
+```

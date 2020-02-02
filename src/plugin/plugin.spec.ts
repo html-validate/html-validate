@@ -1,6 +1,7 @@
 import { Config } from "../config";
 import { ConfigError } from "../config/error";
 import { Source } from "../context";
+import { HtmlElement } from "../dom";
 import { Engine } from "../engine";
 import { EventHandler } from "../event";
 import { Parser } from "../parser";
@@ -235,6 +236,45 @@ describe("Plugin", () => {
 				plugins: ["mock-plugin"],
 			});
 			expect(() => config.getMetaTable()).not.toThrow();
+		});
+
+		it("should support copyable properties", () => {
+			mockPlugin.elementSchema = {
+				properties: {
+					foo: {
+						copyable: true,
+					},
+					bar: {
+						copyable: false,
+					},
+				},
+			};
+			config = Config.fromObject({
+				plugins: ["mock-plugin"],
+				elements: [
+					{
+						"my-element": {
+							foo: "original",
+							bar: "original",
+						},
+						"my-element:real": {
+							foo: "copied",
+							bar: "copied",
+						},
+					},
+				],
+			});
+			const metaTable = config.getMetaTable();
+			const a = metaTable.getMetaFor("my-element");
+			const b = metaTable.getMetaFor("my-element:real");
+			const node = new HtmlElement("my-element", null, null, a);
+			node.loadMeta(b);
+			expect(node.meta).toEqual({
+				tagName: "my-element",
+				foo: "copied" /* foo is marked for copying */,
+				bar: "original" /* bar is not marked for copying */,
+				void: false /* autofilled */,
+			});
 		});
 	});
 

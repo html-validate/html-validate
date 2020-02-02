@@ -5,7 +5,7 @@ import path from "path";
 import { Source } from "../context";
 import { NestedError, SchemaValidationError } from "../error";
 import { MetaTable } from "../meta";
-import { MetaDataTable } from "../meta/element";
+import { MetaCopyableProperty, MetaDataTable } from "../meta/element";
 import { Plugin } from "../plugin";
 import schema from "../schema/config.json";
 import { TransformContext, Transformer, TRANSFORMER_API } from "../transform";
@@ -174,6 +174,7 @@ export class Config {
 		/* load plugins */
 		this.plugins = this.loadPlugins(this.config.plugins || []);
 		this.configurations = this.loadConfigurations(this.plugins);
+		this.extendMeta(this.plugins);
 
 		/* process extended configs */
 		for (const extend of this.config.extends) {
@@ -392,6 +393,25 @@ export class Config {
 		}
 
 		return configs;
+	}
+
+	private extendMeta(plugins: LoadedPlugin[]): void {
+		for (const plugin of plugins) {
+			if (!plugin.elementSchema) {
+				continue;
+			}
+
+			const { properties } = plugin.elementSchema;
+			if (!properties) {
+				continue;
+			}
+
+			for (const [key, schema] of Object.entries(properties)) {
+				if (schema.copyable && !MetaCopyableProperty.includes(key)) {
+					MetaCopyableProperty.push(key);
+				}
+			}
+		}
 	}
 
 	/**
