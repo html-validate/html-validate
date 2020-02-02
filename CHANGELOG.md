@@ -1,5 +1,11 @@
 # html-validate changelog
 
+# [2.13.0](https://gitlab.com/html-validate/html-validate/compare/v2.12.0...v2.13.0) (2020-02-02)
+
+### Features
+
+- **meta:** allow plugins to add copyable metadata ([242eaa8](https://gitlab.com/html-validate/html-validate/commit/242eaa882afb71e527b07a2a92e6d45adf4f02e7))
+
 # [2.12.0](https://gitlab.com/html-validate/html-validate/compare/v2.11.0...v2.12.0) (2020-01-27)
 
 ### Bug Fixes
