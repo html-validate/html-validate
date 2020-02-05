@@ -30,9 +30,11 @@ overrides for Vue.js.
 
 Configure with:
 
-```js
+```json
 {
-  "elements": ["html5", "html-validate-vue/elements"],
+  "plugins": ["html-validate-vue"],
+  "extends": ["html-validate:recommended", "html-validate-vue:recommended"],
+  "elements": ["html5"],
   "transform": {
     "^.*\\.vue$": "html-validate-vue"
   }
