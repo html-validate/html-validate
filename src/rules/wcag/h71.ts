@@ -19,7 +19,7 @@ class H71 extends Rule {
 	public setup(): void {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const { document } = event;
-			const fieldsets = document.querySelectorAll("fieldset");
+			const fieldsets = document.querySelectorAll(this.selector);
 			for (const fieldset of fieldsets) {
 				this.validate(fieldset);
 			}
@@ -38,6 +38,10 @@ class H71 extends Rule {
 			node,
 			`${node.annotatedName} must have a <legend> as the first child`
 		);
+	}
+
+	private get selector(): string {
+		return this.getTagsDerivedFrom("fieldset").join(",");
 	}
 }
 

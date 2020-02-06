@@ -206,6 +206,12 @@ describe("rule base class", () => {
 		expect(rule.getTagsWithProperty("form")).toEqual(["form"]);
 		expect(spy).toHaveBeenCalledWith("form");
 	});
+
+	it("getTagsDerivedFrom() should lookup properties from metadata", () => {
+		const spy = jest.spyOn(meta, "getTagsDerivedFrom");
+		expect(rule.getTagsDerivedFrom("form")).toEqual(["form"]);
+		expect(spy).toHaveBeenCalledWith("form");
+	});
 });
 
 it("ruleDocumentationUrl() should return URL to rule documentation", () => {

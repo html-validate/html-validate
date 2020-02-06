@@ -6,6 +6,14 @@ describe("wcag/h71", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			elements: [
+				"html5",
+				{
+					custom: {
+						inherit: "fieldset",
+					},
+				},
+			],
 			rules: { "wcag/h71": "error" },
 		});
 	});
@@ -16,6 +24,15 @@ describe("wcag/h71", () => {
 		expect(report).toHaveError(
 			"WCAG/H71",
 			"<fieldset> must have a <legend> as the first child"
+		);
+	});
+
+	it("should report error when custom element inherits from <fieldset>", () => {
+		const report = htmlvalidate.validateString("<custom></custom>");
+		expect(report).toBeInvalid();
+		expect(report).toHaveError(
+			"WCAG/H71",
+			"<custom> must have a <legend> as the first child"
 		);
 	});
 

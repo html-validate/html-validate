@@ -82,8 +82,18 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		return this.enabled && this.severity >= Severity.WARN;
 	}
 
+	/**
+	 * Find all tags which has enabled given property.
+	 */
 	public getTagsWithProperty(propName: MetaLookupableProperty): string[] {
 		return this.meta.getTagsWithProperty(propName);
+	}
+
+	/**
+	 * Find tag matching tagName or inheriting from it.
+	 */
+	public getTagsDerivedFrom(tagName: string): string[] {
+		return this.meta.getTagsDerivedFrom(tagName);
 	}
 
 	/**
