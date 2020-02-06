@@ -1708,23 +1708,9 @@ exports[`HTML elements <embed> valid markup 1`] = `Array []`;
 exports[`HTML elements <fieldset> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 3,
+    "errorCount": 2,
     "filePath": "test-files/elements/fieldset-invalid.html",
     "messages": Array [
-      Object {
-        "column": 2,
-        "context": Object {
-          "missing": "legend",
-          "node": "fieldset",
-        },
-        "line": 2,
-        "message": "<fieldset> element must have <legend> as content",
-        "offset": 29,
-        "ruleId": "element-required-content",
-        "selector": "fieldset:nth-child(1)",
-        "severity": 2,
-        "size": 8,
-      },
       Object {
         "column": 2,
         "context": undefined,
