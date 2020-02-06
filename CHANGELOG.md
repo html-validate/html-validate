@@ -1,5 +1,13 @@
 # html-validate changelog
 
+# [2.14.0](https://gitlab.com/html-validate/html-validate/compare/v2.13.0...v2.14.0) (2020-02-06)
+
+### Features
+
+- **elements:** make `<legend>` in `<fieldset>` optional (covered by new h71 rule instead) ([f3a59b9](https://gitlab.com/html-validate/html-validate/commit/f3a59b917addb05e920b30e7ce32c1be375157e2))
+- **rules:** new method `getTagsDerivedFrom` to get tag and tags inheriting from it ([0118738](https://gitlab.com/html-validate/html-validate/commit/011873818a5e8997887547895a5be519baa589b0))
+- **rules:** new rule `wcag/h71` requiring `<fieldset>` to have `<legend>` ([1b8ceab](https://gitlab.com/html-validate/html-validate/commit/1b8ceab724e9bb886b6b9d08a1c7563163786ad9))
+
 # [2.13.0](https://gitlab.com/html-validate/html-validate/compare/v2.12.0...v2.13.0) (2020-02-02)
 
 ### Features
