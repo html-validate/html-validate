@@ -392,6 +392,27 @@ describe("MetaTable", () => {
 			expect(table.getTagsWithProperty("phrasing")).toEqual([]);
 		});
 	});
+
+	describe("getTagsDerivedFrom()", () => {
+		it("should return list of all tags derived from given tagname", () => {
+			expect.assertions(2);
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry({}),
+				bar: mockEntry({
+					inherit: "foo",
+				}),
+			});
+			expect(table.getTagsDerivedFrom("foo")).toEqual(["foo", "bar"]);
+			expect(table.getTagsDerivedFrom("bar")).toEqual(["bar"]);
+		});
+
+		it("should return empty list if nothing matches", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			expect(table.getTagsDerivedFrom("missing")).toEqual([]);
+		});
+	});
 });
 
 function mockEntry(stub = {}): MetaData {

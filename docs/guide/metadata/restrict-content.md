@@ -105,29 +105,32 @@ The most common case is to prevent nesting of the component or limit usage of ce
 
 Other properties to limit content also exits, check the [element metadata reference](/usage/elements.html) for details.
 
-### Case study: `<fieldset>`
+### Case study: `<html>`
+
+(simplified for brevity)
 
 ```json
 {
-  "fieldset": {
-    "flow": true,
-    "permittedContent": ["@flow", "legend?"],
-    "permittedOrder": ["legend", "@flow"],
-    "requiredContent": ["legend"]
+  "html": {
+    "permittedContent": ["head?", "body?"],
+    "permittedOrder": ["head", "body"],
+    "requiredContent": ["head", "body"]
   }
 }
 ```
 
-Like we seen before the `permittedContent` property is used to restrict to only accept flow content and the `<legend>` element.
-Note the usage of a trailing `?` after legend, this limits the allowed occurrences to 0 or 1 (2 or more is disallowed).
+Like we seen before the `permittedContent` property is used to restrict to only accept the `<head>` and `<body>` elements.
+Note the usage of a trailing `?`, this limits the allowed occurrences to 0 or 1 (2 or more is disallowed).
+Default is to allow any number of occurrences.
 
-Next it uses `permittedOrder` to declare that `<legend>` must come before any flow content.
-`permittedOrder` must not list all the possible elements from `permittedContent` but for the items listed the order must be adhered to.
-Unlisted elements can be used in any order.
+Next it uses `permittedOrder` to declare that `<head>` must come before `<body>`.
+`permittedOrder` doesnt have to list all the possible elements from `permittedContent` but for the items listed the order must be adhered to.
+Contents groups such as `@flow` is allowed and unlisted elements can be used in any anywhere (even inbetween listed elements).
 
-Lastly it uses `requiredContent` to declare that a `<legend>` element must be present.
+Lastly it uses `requiredContent` to declare that both `<head>` and `<body>` must be present.
 
-To sum up, the `<fieldset>` elements puts the following restrictions in place:
+To sum up, the `<html>` elements puts the following restrictions in place:
 
-- It must contain a single `<legend>` element.
-- The `<legend>` element must come before any other content.
+- It must contain a single `<head>` element.
+- It must contain a single `<body>` element.
+- The `<head>` element must come before the `<body>` element.

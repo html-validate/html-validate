@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`wcag/h71 should contain documentation 1`] = `
+Object {
+  "description": "H71: Providing a description for groups of form controls using fieldset and legend elements",
+  "url": "https://html-validate.org/rules/h71.html",
+}
+`;

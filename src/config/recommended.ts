@@ -41,5 +41,6 @@ module.exports = {
 		"wcag/h36": "error",
 		"wcag/h37": "error",
 		"wcag/h67": "error",
+		"wcag/h71": "error",
 	},
 };

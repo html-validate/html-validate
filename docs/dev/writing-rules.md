@@ -175,3 +175,11 @@ Report a new error.
   location)
 - _`context`_ - If set it will be passed to `documentation()` later to allow
   retrieving contextual documentation.
+
+### `getTagsWithProperty(propName: MetaLookupableProperty): string[]`
+
+Find all tags which has enabled given property.
+
+### `getTagsDerivedFrom(tagName: string): string[]`
+
+Find tag matching tagName or inheriting from it.

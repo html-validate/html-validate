@@ -134,6 +134,15 @@ export class MetaTable {
 			.map(([tagName]) => tagName);
 	}
 
+	/**
+	 * Find tag matching tagName or inheriting from it.
+	 */
+	public getTagsDerivedFrom(tagName: string): string[] {
+		return Object.entries(this.elements)
+			.filter(([key, entry]) => key === tagName || entry.inherit === tagName)
+			.map(([tagName]) => tagName);
+	}
+
 	private addEntry(tagName: string, entry: MetaData): void {
 		const defaultEntry = {
 			void: false,
@@ -149,7 +158,6 @@ export class MetaTable {
 					`Element <${tagName}> cannot inherit from <${name}>: no such element`
 				);
 			}
-			delete entry.inherit;
 		}
 
 		/* merge all sources together */
