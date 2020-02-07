@@ -400,6 +400,7 @@ describe("config", () => {
 					"mock-plugin-named",
 					() => ({
 						transformer: {
+							default: transform as Transformer,
 							foobar: transform as Transformer,
 						},
 					}),
@@ -409,6 +410,7 @@ describe("config", () => {
 					plugins: ["mock-plugin-unnamed", "mock-plugin-named"],
 					transform: {
 						"\\.unnamed$": "mock-plugin-unnamed",
+						"\\.default$": "mock-plugin-named",
 						"\\.named$": "mock-plugin-named:foobar",
 						"\\.nonplugin$": "mock-transform",
 					},
@@ -448,6 +450,25 @@ describe("config", () => {
 					    "offset": 4,
 					    "transformedBy": Array [
 					      "mock-plugin-named:foobar",
+					    ],
+					  },
+					]
+				`);
+			});
+
+			it("unnamed default", () => {
+				expect.assertions(1);
+				source.filename = "bar.default";
+				expect(config.transformSource(source)).toMatchInlineSnapshot(`
+					Array [
+					  Object {
+					    "column": 3,
+					    "data": "transformed from bar.default",
+					    "filename": "bar.default",
+					    "line": 2,
+					    "offset": 4,
+					    "transformedBy": Array [
+					      "mock-plugin-named",
 					    ],
 					  },
 					]

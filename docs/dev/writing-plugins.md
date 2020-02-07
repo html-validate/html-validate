@@ -223,6 +223,8 @@ Users may then extend the preset using `plugin:name`, e.g.:
 }
 ```
 
+If you expose a transformer named `default` it will be loaded when using the plugin as name, i.e. `my-plugin` and `my-plugin:default` is equivalent.
+
 ## Extend metadata
 
 Plugins can extend the available [element metadata](/usage/elements.html) by

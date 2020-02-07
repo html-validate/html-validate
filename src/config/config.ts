@@ -601,6 +601,9 @@ export class Config {
 		}
 
 		if (typeof plugin.transformer !== "function") {
+			if (plugin.transformer.default) {
+				return plugin.transformer.default;
+			}
 			throw new ConfigError(
 				`Transformer "${name}" refers to unnamed transformer but plugin exposes only named.`
 			);
