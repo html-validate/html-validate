@@ -7,10 +7,10 @@ title: Usage with Jest
 
 `html-validate` comes with Jest support built-in.
 
-In you test import `matchers`:
+In you test import `html-validate/jest`:
 
 ```js
-import "html-validate/build/matchers";
+import "html-validate/jest";
 ```
 
 This makes all the custom matchers available.
@@ -49,6 +49,8 @@ If you need to override this (perhaps because the test-case isn't in the same fo
 ```js
 expect("<p></i>").toHTMLValidate(null, "path/to/my-file.html");
 ```
+
+This can also be used to apply transformations to the markup.
 
 Additionally, the `root` configuration property can be used to skip loading from `.htmlvalidate.json` but remember to actually include the rules you need:
 

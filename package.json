@@ -29,6 +29,7 @@
     "bin",
     "build",
     "elements",
+    "jest.{js,d.ts}",
     "!*.snap",
     "!*.spec.d.ts",
     "!*.spec.js",
