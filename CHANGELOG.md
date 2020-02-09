@@ -1,5 +1,11 @@
 # html-validate changelog
 
+# [2.15.0](https://gitlab.com/html-validate/html-validate/compare/v2.14.0...v2.15.0) (2020-02-09)
+
+### Features
+
+- **plugin:** load `default` transformer if loading named transformer without name ([efb0eb9](https://gitlab.com/html-validate/html-validate/commit/efb0eb9de250ad80f812bd2a0d6bd6c96d21a41a))
+
 # [2.14.0](https://gitlab.com/html-validate/html-validate/compare/v2.13.0...v2.14.0) (2020-02-06)
 
 ### Features
