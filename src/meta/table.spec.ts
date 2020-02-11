@@ -32,7 +32,7 @@ jest.mock(
 import { Config } from "../config";
 import { UserError } from "../error/user-error";
 import { Parser } from "../parser";
-import { MetaData, MetaTable } from "./";
+import { MetaData, MetaTable } from ".";
 
 class ConfigMock extends Config {
 	public constructor(metaTable: MetaTable) {

@@ -1,5 +1,5 @@
-import { lastChild } from "./last-child";
 import { HtmlElement } from "../htmlelement";
+import { lastChild } from "./last-child";
 
 it("should return true if element is last child", () => {
 	expect.assertions(2);

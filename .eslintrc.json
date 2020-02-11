@@ -7,9 +7,6 @@
     "@html-validate",
     "plugin:array-func/recommended",
     "plugin:node/recommended-module",
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "plugin:import/typescript",
     "plugin:security/recommended",
     "plugin:sonarjs/recommended"
   ],

@@ -1,8 +1,8 @@
 import fs from "fs";
-import glob from "glob";
 import path from "path";
-import { Config, ConfigData, ConfigLoader, RuleConfig } from ".";
+import glob from "glob";
 import HtmlValidate from "../htmlvalidate";
+import { Config, ConfigData, ConfigLoader, RuleConfig } from ".";
 
 declare module "./config-data" {
 	interface ConfigData {

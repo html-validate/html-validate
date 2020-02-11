@@ -1,4 +1,5 @@
 import path from "path";
+
 let mockDirectory: string[] = [];
 
 function setMockDirectories(directories: string[]): void {

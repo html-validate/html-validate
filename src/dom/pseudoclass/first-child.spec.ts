@@ -1,5 +1,5 @@
-import { firstChild } from "./first-child";
 import { HtmlElement } from "../htmlelement";
+import { firstChild } from "./first-child";
 
 it("should return true if element is first child", () => {
 	expect.assertions(2);

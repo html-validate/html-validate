@@ -1,5 +1,5 @@
-import deepmerge from "deepmerge";
 import fs from "fs";
+import deepmerge from "deepmerge";
 import inquirer from "inquirer";
 import { ConfigData } from "../config";
 

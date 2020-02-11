@@ -1,4 +1,3 @@
-import { Attribute, DOMTree, HtmlElement, NodeClosed, NodeType } from ".";
 import { Config } from "../config";
 import { Location, Source } from "../context";
 import { Token, TokenType } from "../lexer";
@@ -6,6 +5,7 @@ import { MetaData, MetaElement, MetaTable } from "../meta";
 import { Parser } from "../parser";
 import { processAttribute } from "../transform/mocks/attribute";
 import { DynamicValue } from "./dynamic-value";
+import { Attribute, DOMTree, HtmlElement, NodeClosed, NodeType } from ".";
 
 interface LocationSpec {
 	column: number;

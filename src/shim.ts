@@ -13,4 +13,5 @@ export { Plugin } from "./plugin";
 export { Parser } from "./parser";
 
 const pkg = require("../package.json");
+
 export const version = pkg.version;

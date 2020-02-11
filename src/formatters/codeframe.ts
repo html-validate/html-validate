@@ -1,8 +1,9 @@
-import { codeFrameColumns } from "@babel/code-frame";
-import chalk = require("chalk");
 import path from "path";
-import { FormatterModule } from ".";
+import { codeFrameColumns } from "@babel/code-frame";
 import { Message, Result } from "../reporter";
+import { FormatterModule } from ".";
+
+import chalk = require("chalk");
 
 interface SourcePoint {
 	line: number;

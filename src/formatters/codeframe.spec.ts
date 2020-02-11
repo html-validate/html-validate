@@ -1,3 +1,5 @@
+import { Result } from "../reporter";
+
 /* force colors on when running stylish tests */
 const defaultColor = process.env.FORCE_COLOR;
 process.env.FORCE_COLOR = "1";
@@ -6,8 +8,6 @@ import formatter from "./codeframe";
 
 /* restore color, need only to be set when importing library */
 process.env.FORCE_COLOR = defaultColor;
-
-import { Result } from "../reporter";
 
 const source = `<div id="foo"
     class="bar"

@@ -1,6 +1,6 @@
 import betterAjvErrors from "@sidvind/better-ajv-errors";
 import Ajv from "ajv";
-import { UserError } from "../error/user-error";
+import { UserError } from "./user-error";
 
 function getSummary(schema: any, obj: any, errors: Ajv.ErrorObject[]): string {
 	const output = betterAjvErrors(schema, obj, errors, {

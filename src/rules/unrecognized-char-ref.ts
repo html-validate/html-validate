@@ -4,6 +4,7 @@ import { AttributeEvent, ElementReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 const entities = require("../../elements/entities.json");
+
 const regexp = /&([a-z0-9]+|#x?[0-9a-f]+);/gi;
 
 class UnknownCharReference extends Rule<string> {
