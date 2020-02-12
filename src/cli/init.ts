@@ -22,7 +22,7 @@ const frameworkConfig: Record<string, ConfigData> = {
 	},
 	[Frameworks.vuejs]: {
 		plugins: ["html-validate-vue"],
-		extends: ["html-valudate-vue:recommended"],
+		extends: ["html-validate-vue:recommended"],
 		transform: {
 			"^.*\\.vue$": "html-validate-vue",
 		},

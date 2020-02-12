@@ -22,7 +22,7 @@ exports[`should generate configuration for combined 1`] = `
   ],
   \\"extends\\": [
     \\"html-validate:recommended\\",
-    \\"html-valudate-vue:recommended\\"
+    \\"html-validate-vue:recommended\\"
   ],
   \\"transform\\": {
     \\"^.*\\\\\\\\.js$\\": \\"html-validate-angular/js\\",
@@ -68,7 +68,7 @@ exports[`should generate configuration for vuejs 1`] = `
   ],
   \\"extends\\": [
     \\"html-validate:recommended\\",
-    \\"html-valudate-vue:recommended\\"
+    \\"html-validate-vue:recommended\\"
   ],
   \\"plugins\\": [
     \\"html-validate-vue\\"
