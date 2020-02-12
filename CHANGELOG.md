@@ -1,5 +1,20 @@
 # html-validate changelog
 
+# [2.16.0](https://gitlab.com/html-validate/html-validate/compare/v2.15.0...v2.16.0) (2020-02-12)
+
+### Bug Fixes
+
+- **cli:** fix typo when using `--init` with vuejs ([6eee478](https://gitlab.com/html-validate/html-validate/commit/6eee47872e164b16e4152f309ab5971019222ff9))
+- **dom:** `querySelector` and friends return empty when selector is empty ([6a871de](https://gitlab.com/html-validate/html-validate/commit/6a871de7bb240507693d266b37c6e4f9228b7e5e))
+- **schema:** add title and description to most properties ([a7cea78](https://gitlab.com/html-validate/html-validate/commit/a7cea78ed39643e5808cfd08243f492a235200e7))
+- **schema:** handle `$schema` in config and elements ([a4f9054](https://gitlab.com/html-validate/html-validate/commit/a4f90541c74070f30d033827789336ad27063b3a))
+- add missing `jest.js` and `jest.d.ts` ([8b767c2](https://gitlab.com/html-validate/html-validate/commit/8b767c2032297b8534c7feac98414fc4d90c5bd2))
+
+### Features
+
+- add import `html-validate/jest` as a shortcut to the jest matchers ([4ccf6ed](https://gitlab.com/html-validate/html-validate/commit/4ccf6ed6b1da47d44bb256db4156edbdbb1ddf4e))
+- expose `NodeClosed`, `TextNode`, `Plugin` and `Parser` ([f344527](https://gitlab.com/html-validate/html-validate/commit/f3445274d4e713e2c851bd524ebb429da9408abb))
+
 # [2.15.0](https://gitlab.com/html-validate/html-validate/compare/v2.14.0...v2.15.0) (2020-02-09)
 
 ### Features
