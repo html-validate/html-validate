@@ -92,6 +92,7 @@ export class MetaTable {
 		}
 
 		for (const key of Object.keys(obj)) {
+			if (key === "$schema") continue;
 			this.addEntry(key, obj[key]);
 		}
 	}

@@ -32,6 +32,7 @@ jest.mock(
 import { Config } from "../config";
 import { UserError } from "../error/user-error";
 import { Parser } from "../parser";
+import { MetaDataTable } from "./element";
 import { MetaData, MetaTable } from ".";
 
 class ConfigMock extends Config {
@@ -73,6 +74,19 @@ describe("MetaTable", () => {
 		expect(() => table.loadFromFile("invalid-file.json")).toThrow(
 			'Failed to load element metadata from "invalid-file.json"'
 		);
+	});
+
+	it("should ignore $schema property", () => {
+		expect.assertions(2);
+		const table = new MetaTable();
+		table.loadFromObject(({
+			$schema: "https://example.net/schema.json",
+			foo: {
+				flow: true,
+			},
+		} as unknown) as MetaDataTable);
+		expect(table.getMetaFor("foo")).toBeDefined();
+		expect(table.getMetaFor("$schema")).toBeNull();
 	});
 
 	describe("getMetaFor", () => {

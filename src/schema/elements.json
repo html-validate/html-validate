@@ -4,6 +4,13 @@
   "version": "1.0",
 
   "type": "object",
+
+  "properties": {
+    "$schema": {
+      "type": "string"
+    }
+  },
+
   "patternProperties": {
     "^.*$": {
       "type": "object",
@@ -44,7 +51,7 @@
         "requiredAncestors": { "$ref": "#/definitions/RequiredAncestors" },
         "requiredContent": { "$ref": "#/definitions/RequiredContent" }
       },
-      "additionalProperties": false
+      "additionalProperties": true
     }
   },
 
