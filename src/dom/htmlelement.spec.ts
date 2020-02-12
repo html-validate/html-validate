@@ -609,6 +609,11 @@ describe("HtmlElement", () => {
 			const el = root.querySelector("foobar");
 			expect(el).toBeNull();
 		});
+
+		it("should return null if selector is empty", () => {
+			const el = root.querySelector("");
+			expect(el).toBeNull();
+		});
 	});
 
 	describe("querySelectorAll()", () => {
@@ -634,6 +639,11 @@ describe("HtmlElement", () => {
 
 		it("should return [] when nothing matches", () => {
 			const el = root.querySelectorAll("missing");
+			expect(el).toEqual([]);
+		});
+
+		it("should return [] if selector is empty", () => {
+			const el = root.querySelectorAll("");
 			expect(el).toEqual([]);
 		});
 	});
