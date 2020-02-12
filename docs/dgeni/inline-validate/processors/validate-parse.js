@@ -67,6 +67,7 @@ module.exports = function parseValidatesProcessor(
 	function readElements(fileInfo, filename) {
 		if (!filename) return filename;
 		const dir = path.dirname(fileInfo.filePath);
+		/* eslint-disable-next-line import/no-dynamic-require */
 		return require(`${dir}/${filename}`);
 	}
 

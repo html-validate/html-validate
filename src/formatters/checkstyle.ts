@@ -1,5 +1,5 @@
-import { FormatterModule } from ".";
 import { Message, Result } from "../reporter";
+import { FormatterModule } from ".";
 
 const entities: { [key: string]: string } = {
 	">": "&gt;",

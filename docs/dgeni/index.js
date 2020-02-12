@@ -1,5 +1,6 @@
 const path = require("canonical-path");
 const Package = require("dgeni").Package;
+
 const packagePath = __dirname;
 
 module.exports = new Package("html-validate-docs", [

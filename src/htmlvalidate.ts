@@ -1,3 +1,4 @@
+import path from "path";
 import { Config, ConfigData, ConfigLoader } from "./config";
 import { Source } from "./context";
 import { SourceHooks } from "./context/source";
@@ -5,7 +6,6 @@ import { Engine, EventDump, TokenDump } from "./engine";
 import { Parser } from "./parser";
 import { Report, Reporter } from "./reporter";
 import { RuleDocumentation } from "./rule";
-import path from "path";
 
 /**
  * Primary API for using HTML-validate.

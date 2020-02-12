@@ -1,5 +1,5 @@
-import { FormatterModule } from ".";
 import { Result } from "../reporter";
+import { FormatterModule } from ".";
 
 export default function textFormatter(results: Result[]): string {
 	let output = "";

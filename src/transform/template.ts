@@ -1,8 +1,9 @@
+import fs from "fs";
+
 // imported only for type declarations via @types/estree
 // eslint-disable-next-line import/no-unresolved
 import ESTree from "estree";
 
-import fs from "fs";
 import { Source } from "../context";
 
 const espree = require("espree");

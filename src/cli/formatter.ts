@@ -28,6 +28,7 @@ export function getFormatter(formatters: string): (report: Report) => string {
 	const fn: WrappedFormatter[] = formatters.split(",").map(cur => {
 		const [name, dst] = cur.split("=", 2);
 		const moduleName = name.replace(/[^a-z]+/g, "");
+		/* eslint-disable-next-line import/no-dynamic-require */
 		const formatter = require(`../formatters/${moduleName}`);
 		return wrap(formatter, dst);
 	});

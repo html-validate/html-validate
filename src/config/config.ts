@@ -1,7 +1,7 @@
-import Ajv from "ajv";
-import deepmerge from "deepmerge";
 import fs from "fs";
 import path from "path";
+import Ajv from "ajv";
+import deepmerge from "deepmerge";
 import { Source } from "../context";
 import { NestedError, SchemaValidationError } from "../error";
 import { MetaTable } from "../meta";
@@ -30,10 +30,12 @@ interface LoadedPlugin extends Plugin {
 
 const recommended = require("./recommended");
 const document = require("./document");
+
 let rootDirCache: string = null;
 
 const ajv = new Ajv({ jsonPointers: true });
 ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-06.json"));
+
 const validator = ajv.compile(schema);
 
 function overwriteMerge<T>(a: T[], b: T[]): T[] {
@@ -280,7 +282,7 @@ export class Config {
 
 			/* assume it is loadable with require() */
 			try {
-				// eslint-disable-next-line security/detect-non-literal-require
+				// eslint-disable-next-line security/detect-non-literal-require, import/no-dynamic-require
 				metaTable.loadFromObject(require(entry));
 			} catch (err) {
 				throw new ConfigError(
@@ -351,7 +353,7 @@ export class Config {
 	private loadPlugins(plugins: string[]): LoadedPlugin[] {
 		return plugins.map((moduleName: string) => {
 			try {
-				// eslint-disable-next-line security/detect-non-literal-require
+				// eslint-disable-next-line security/detect-non-literal-require, import/no-dynamic-require
 				const plugin = require(moduleName.replace(
 					"<rootDir>",
 					this.rootDir
@@ -616,7 +618,7 @@ export class Config {
 		/* expand <rootDir> */
 		const moduleName = name.replace("<rootDir>", this.rootDir);
 
-		// eslint-disable-next-line security/detect-non-literal-require
+		// eslint-disable-next-line security/detect-non-literal-require, import/no-dynamic-require
 		const fn = require(moduleName);
 
 		/* sanity check */

@@ -1,7 +1,7 @@
 import { Config } from "../config";
 import { Attribute, DynamicValue, HtmlElement } from "../dom";
 import { Parser } from "../parser";
-import { MetaData, MetaTable, Validator } from "./";
+import { MetaData, MetaTable, Validator } from ".";
 
 class ConfigMock extends Config {
 	public constructor(metaTable: MetaTable) {

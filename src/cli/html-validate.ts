@@ -1,16 +1,16 @@
 /* eslint-disable no-console, no-process-exit, sonarjs/no-duplicate-string */
+import path from "path";
+import chalk from "chalk";
+import minimist from "minimist";
 import { TokenDump } from "../engine";
 import { SchemaValidationError } from "../error";
 import { UserError } from "../error/user-error";
 import { Report, Reporter, Result } from "../reporter";
 import { eventFormatter } from "./json";
 
-const pkg = require("../../package.json");
-
-import chalk from "chalk";
-import minimist from "minimist";
-import path from "path";
 import { CLI } from "./cli";
+
+const pkg = require("../../package.json");
 
 enum Mode {
 	LINT,

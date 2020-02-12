@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
 const path = require("canonical-path");
+
 const packagePath = __dirname;
 const Package = require("dgeni").Package;
 

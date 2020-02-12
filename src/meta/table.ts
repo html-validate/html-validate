@@ -1,6 +1,6 @@
+import fs from "fs";
 import Ajv from "ajv";
 import deepmerge from "deepmerge";
-import fs from "fs";
 import jsonMergePatch from "json-merge-patch";
 import { HtmlElement } from "../dom";
 import { SchemaValidationError, UserError } from "../error";

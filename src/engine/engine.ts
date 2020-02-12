@@ -419,6 +419,7 @@ export class Engine<T extends Parser = Parser> {
 		} catch (err) {
 			return null;
 		}
+		/* eslint-disable-next-line import/no-dynamic-require */
 		const Class = require(moduleName);
 		return new Class(options);
 	}

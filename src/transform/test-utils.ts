@@ -1,6 +1,6 @@
 import fs from "fs";
-import { TransformContext, Transformer } from ".";
 import { Source } from "../context";
+import { TransformContext, Transformer } from ".";
 
 /**
  * Helper function to call a transformer function in test-cases.
