@@ -15,41 +15,130 @@
     "^.*$": {
       "type": "object",
       "properties": {
-        "inherit": { "type": "string" },
+        "inherit": {
+          "title": "Inherit from another element",
+          "description": "Most properties from the parent element will be copied onto this one",
+          "type": "string"
+        },
 
-        "embedded": { "$ref": "#/definitions/contentCategory" },
-        "flow": { "$ref": "#/definitions/contentCategory" },
-        "heading": { "$ref": "#/definitions/contentCategory" },
-        "interactive": { "$ref": "#/definitions/contentCategory" },
-        "metadata": { "$ref": "#/definitions/contentCategory" },
-        "phrasing": { "$ref": "#/definitions/contentCategory" },
-        "sectioning": { "$ref": "#/definitions/contentCategory" },
+        "embedded": {
+          "title": "Mark this element as belonging in the embedded content category",
+          "$ref": "#/definitions/contentCategory"
+        },
+
+        "flow": {
+          "title": "Mark this element as belonging in the flow content category",
+          "$ref": "#/definitions/contentCategory"
+        },
+
+        "heading": {
+          "title": "Mark this element as belonging in the heading content category",
+          "$ref": "#/definitions/contentCategory"
+        },
+
+        "interactive": {
+          "title": "Mark this element as belonging in the interactive content category",
+          "$ref": "#/definitions/contentCategory"
+        },
+
+        "metadata": {
+          "title": "Mark this element as belonging in the metadata content category",
+          "$ref": "#/definitions/contentCategory"
+        },
+
+        "phrasing": {
+          "title": "Mark this element as belonging in the phrasing content category",
+          "$ref": "#/definitions/contentCategory"
+        },
+
+        "sectioning": {
+          "title": "Mark this element as belonging in the sectioning content category",
+          "$ref": "#/definitions/contentCategory"
+        },
 
         "deprecated": {
+          "title": "Mark element as deprecated",
+          "description": "Deprecated elements should not be used. If a message is provided it will be included in the error",
           "anyOf": [{ "type": "boolean" }, { "type": "string" }]
         },
-        "foreign": { "type": "boolean" },
-        "void": { "type": "boolean" },
-        "transparent": { "type": "boolean" },
-        "implicitClosed": { "type": "array", "items": { "type": "string" } },
-        "scriptSupporting": { "type": "boolean" },
-        "form": { "type": "boolean" },
+
+        "foreign": {
+          "title": "Mark element as foreign",
+          "description": "Foreign elements are elements which have a start and end tag but is otherwize not parsed",
+          "type": "boolean"
+        },
+
+        "void": {
+          "title": "Mark element as void",
+          "description": "Void elements are elements which cannot have content and thus must not use an end tag",
+          "type": "boolean"
+        },
+
+        "transparent": {
+          "title": "Mark element as transparent",
+          "description": "Transparent elements follows the same content model as its parent, i.e. the content must be allowed in the parent.",
+          "type": "boolean"
+        },
+
+        "implicitClosed": {
+          "title": "List of elements which implicitly closes this element",
+          "description": "Some elements are automatically closed when another start tag occurs",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+
+        "scriptSupporting": {
+          "title": "Mark element as script-supporting",
+          "description": "Script-supporting elements are elements which can be inserted where othersise not permitted to assist in templating",
+          "type": "boolean"
+        },
+
+        "form": {
+          "title": "Mark element as a submittable form element",
+          "type": "boolean"
+        },
 
         "deprecatedAttributes": {
+          "title": "List of deprecated attributes",
           "type": "array",
           "items": { "type": "string" }
         },
-        "requiredAttributes": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "attributes": { "$ref": "#/definitions/PermittedAttribute" },
 
-        "permittedContent": { "$ref": "#/definitions/Permitted" },
-        "permittedDescendants": { "$ref": "#/definitions/Permitted" },
-        "permittedOrder": { "$ref": "#/definitions/PermittedOrder" },
-        "requiredAncestors": { "$ref": "#/definitions/RequiredAncestors" },
-        "requiredContent": { "$ref": "#/definitions/RequiredContent" }
+        "requiredAttributes": {
+          "title": "List of required attributes",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+
+        "attributes": {
+          "title": "List of known attributes and allowed values",
+          "$ref": "#/definitions/PermittedAttribute"
+        },
+
+        "permittedContent": {
+          "title": "List of elements or categories allowed as content in this element",
+          "$ref": "#/definitions/Permitted"
+        },
+
+        "permittedDescendants": {
+          "title": "List of elements or categories allowed as descendants in this element",
+          "$ref": "#/definitions/Permitted"
+        },
+
+        "permittedOrder": {
+          "title": "Required order of child elements",
+          "$ref": "#/definitions/PermittedOrder"
+        },
+
+        "requiredAncestors": {
+          "title": "List of required ancestor elements",
+          "$ref": "#/definitions/RequiredAncestors"
+        },
+
+        "requiredContent": {
+          "title": "List of required content elements",
+          "$ref": "#/definitions/RequiredContent"
+        }
       },
       "additionalProperties": true
     }
