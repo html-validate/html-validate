@@ -6,6 +6,10 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
+    "$schema": {
+      "type": "string"
+    },
+
     "root": {
       "type": "boolean",
       "title": "Mark as root configuration",

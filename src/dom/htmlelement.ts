@@ -426,6 +426,9 @@ export class HtmlElement extends DOMNode {
 	private *querySelectorImpl(
 		selectorList: string
 	): IterableIterator<HtmlElement> {
+		if (!selectorList) {
+			return;
+		}
 		for (const selector of selectorList.split(/,\s*/)) {
 			const pattern = new Selector(selector);
 			yield* pattern.match(this);
