@@ -22,6 +22,20 @@ describe("wcag/h30", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report when link has aria-label", () => {
+		const report = htmlvalidate.validateString(
+			'<a aria-label="lorem ipsum"></a>'
+		);
+		expect(report).toBeValid();
+	});
+
+	it("should not report when descendant has aria-label", () => {
+		const report = htmlvalidate.validateString(
+			'<a><span aria-label="lorem ipsum"></span></a>'
+		);
+		expect(report).toBeValid();
+	});
+
 	it("should report error when link is missing text", () => {
 		const report = htmlvalidate.validateString("<a></a>");
 		expect(report).toBeInvalid();
