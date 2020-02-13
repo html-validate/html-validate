@@ -124,8 +124,8 @@ Note the usage of a trailing `?`, this limits the allowed occurrences to 0 or 1 
 Default is to allow any number of occurrences.
 
 Next it uses `permittedOrder` to declare that `<head>` must come before `<body>`.
-`permittedOrder` doesnt have to list all the possible elements from `permittedContent` but for the items listed the order must be adhered to.
-Contents groups such as `@flow` is allowed and unlisted elements can be used in any anywhere (even inbetween listed elements).
+`permittedOrder` doesn't have to list all the possible elements from `permittedContent` but for the items listed the order must be adhered to.
+Contents groups such as `@flow` is allowed and unlisted elements can be used in any anywhere (even between listed elements).
 
 Lastly it uses `requiredContent` to declare that both `<head>` and `<body>` must be present.
 
