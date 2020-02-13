@@ -1,6 +1,6 @@
 import { DOMReadyEvent } from "../../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../../rule";
-import { hasAltText } from "../helper";
+import { hasAltText, hasAriaLabel } from "../helper";
 import { classifyNodeText, TextClassification } from "../helper/text";
 
 class H30 extends Rule {
@@ -30,6 +30,12 @@ class H30 extends Rule {
 				/* check if image with alt-text is present */
 				const images = link.querySelectorAll("img");
 				if (images.some(image => hasAltText(image))) {
+					continue;
+				}
+
+				/* check if aria-label is present on either the <a> element or a descendant */
+				const labels = link.querySelectorAll("[aria-label]");
+				if (hasAriaLabel(link) || labels.some(cur => hasAriaLabel(cur))) {
 					continue;
 				}
 
