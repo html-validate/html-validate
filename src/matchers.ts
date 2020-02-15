@@ -152,8 +152,9 @@ function toHTMLValidate(
 		actual = actual.outerHTML;
 	}
 
-	const htmlvalidate = new HtmlValidate(config);
-	const report = htmlvalidate.validateString(actual, filename || this.testPath);
+	const actualFilename = filename || this.testPath;
+	const htmlvalidate = new HtmlValidate();
+	const report = htmlvalidate.validateString(actual, actualFilename, config);
 	const pass = report.valid;
 	if (pass) {
 		return { pass, message: () => "HTML is valid when an error was expected" };

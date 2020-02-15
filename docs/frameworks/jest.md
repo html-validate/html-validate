@@ -44,13 +44,13 @@ expect("<p></i>").toHTMLValidate({
 ```
 
 By default configuration is also read from `.htmlvalidate.json` files where the test-case filename is used to match.
-If you need to override this (perhaps because the test-case isn't in the same folder) you can pass in a custom filename as the third argument:
+This means you can apply transformations using patterns such as `^.*\\.(spec|test).js$`.
+
+If you need to override the filename (perhaps because the test-case isn't in the same folder) you can pass in a custom filename as the third argument:
 
 ```js
 expect("<p></i>").toHTMLValidate(null, "path/to/my-file.html");
 ```
-
-This can also be used to apply transformations to the markup.
 
 Additionally, the `root` configuration property can be used to skip loading from `.htmlvalidate.json` but remember to actually include the rules you need:
 
