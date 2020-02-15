@@ -83,7 +83,25 @@ describe("HtmlValidate", () => {
 			const spy = jest.spyOn(htmlvalidate, "getConfigFor");
 			const str = "foobar";
 			htmlvalidate.validateString(str, "my-file.html");
-			expect(spy).toHaveBeenCalledWith("my-file.html");
+			expect(spy).toHaveBeenCalledWith("my-file.html", undefined);
+		});
+
+		it("should allow overriding configuration", () => {
+			const mockReport = "mock-report";
+			engine.lint.mockReturnValue(mockReport);
+			const htmlvalidate = new HtmlValidate();
+			const spy = jest.spyOn(htmlvalidate, "getConfigFor");
+			const str = "foobar";
+			htmlvalidate.validateString(str, "my-file.html", {
+				rules: {
+					deprecated: "off",
+				},
+			});
+			expect(spy).toHaveBeenCalledWith("my-file.html", {
+				rules: {
+					deprecated: "off",
+				},
+			});
 		});
 	});
 
@@ -382,10 +400,11 @@ describe("HtmlValidate", () => {
 	});
 
 	describe("getConfigFor()", () => {
-		it("should load configuration files and merge result", () => {
+		it("should load configuration files and merge result in correct order", () => {
 			const htmlvalidate = new HtmlValidate({
 				rules: {
-					fred: "error",
+					a: "error",
+					b: "error",
 				},
 			});
 			const fromTarget = jest
@@ -393,7 +412,8 @@ describe("HtmlValidate", () => {
 				.mockImplementation(() =>
 					Config.fromObject({
 						rules: {
-							barney: "error",
+							a: "warn",
+							c: "warn",
 						},
 					})
 				);
@@ -402,8 +422,46 @@ describe("HtmlValidate", () => {
 			expect(config.get()).toEqual(
 				expect.objectContaining({
 					rules: {
-						fred: "error",
-						barney: "error",
+						a: "warn",
+						b: "error",
+						c: "warn",
+					},
+				})
+			);
+		});
+
+		it("should apply configuration override in correct order", () => {
+			/* constructor global config */
+			const htmlvalidate = new HtmlValidate({
+				rules: {
+					a: "error",
+					b: "error",
+					c: "error",
+				},
+			});
+			/* .htmlvalidate.json */
+			jest
+				.spyOn((htmlvalidate as any).configLoader, "fromTarget")
+				.mockImplementation(() =>
+					Config.fromObject({
+						rules: {
+							a: "warn",
+							b: "warn",
+						},
+					})
+				);
+			/* override */
+			const config = htmlvalidate.getConfigFor("my-file.html", {
+				rules: {
+					a: "off",
+				},
+			});
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					rules: {
+						a: "off",
+						b: "warn",
+						c: "error",
 					},
 				})
 			);
@@ -422,6 +480,55 @@ describe("HtmlValidate", () => {
 			expect(config.get()).toEqual(
 				expect.objectContaining({
 					root: true,
+				})
+			);
+		});
+
+		it("should merge global with override when global is root", () => {
+			const htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: {
+					a: "error",
+				},
+			});
+			const config = htmlvalidate.getConfigFor("my-file.html", {
+				rules: {
+					a: "off",
+				},
+			});
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					root: true,
+					rules: {
+						a: "off",
+					},
+				})
+			);
+		});
+
+		it("should not load global configuration files if override config is root", () => {
+			const htmlvalidate = new HtmlValidate({
+				rules: {
+					a: "error",
+				},
+			});
+			const fromTarget = jest.spyOn(
+				(htmlvalidate as any).configLoader,
+				"fromTarget"
+			);
+			const config = htmlvalidate.getConfigFor("my-file.html", {
+				root: true,
+				rules: {
+					b: "error",
+				},
+			});
+			expect(fromTarget).not.toHaveBeenCalled();
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					root: true,
+					rules: {
+						b: "error",
+					},
 				})
 			);
 		});

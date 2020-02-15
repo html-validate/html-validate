@@ -68,7 +68,7 @@ Jest:
     reports:
       junit: temp/jest.xml
   script:
-    - npm test -- src elements
+    - npm test -- src elements tests
 
 TSLint:
   stage: test

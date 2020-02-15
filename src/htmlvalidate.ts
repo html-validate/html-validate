@@ -7,6 +7,10 @@ import { Parser } from "./parser";
 import { Report, Reporter } from "./reporter";
 import { RuleDocumentation } from "./rule";
 
+function isSourceHooks(value: any): value is SourceHooks {
+	return Boolean(value && (value.processAttribute || value.processElement));
+}
+
 /**
  * Primary API for using HTML-validate.
  *
@@ -41,8 +45,12 @@ class HtmlValidate {
 	public validateString(
 		str: string,
 		filename?: string,
+		options?: SourceHooks | ConfigData,
 		hooks?: SourceHooks
 	): Report {
+		if (isSourceHooks(options)) {
+			return this.validateString(str, filename, null, options);
+		}
 		const source = {
 			data: str,
 			filename: filename || "inline",
@@ -51,7 +59,7 @@ class HtmlValidate {
 			offset: 0,
 			hooks,
 		};
-		return this.validateSource(source);
+		return this.validateSource(source, options);
 	}
 
 	/**
@@ -60,8 +68,8 @@ class HtmlValidate {
 	 * @param input - Source to parse.
 	 * @returns Report output.
 	 */
-	public validateSource(input: Source): Report {
-		const config = this.getConfigFor(input.filename);
+	public validateSource(input: Source, configOverride?: ConfigData): Report {
+		const config = this.getConfigFor(input.filename, configOverride);
 		const source = config.transformSource(input);
 		const engine = new Engine(config, Parser);
 		return engine.lint(source);
@@ -239,18 +247,41 @@ class HtmlValidate {
 	/**
 	 * Get configuration for given filename.
 	 *
+	 * Configuration is read from three sources and in the following order:
+	 *
+	 * 1. Global configuration passed to constructor.
+	 * 2. `.htmlvalidate.json` files found when traversing the directory structure.
+	 * 3. Override passed to this function.
+	 *
+	 * The `root` property set to `true` affects the configuration as following:
+	 *
+	 * 1. If set in override the override is returned as-is.
+	 * 2. If set in the global config the override is merged into global and
+	 * returned. No `.htmlvalidate.json` files are searched.
+	 * 3. Setting `root` in `.htmlvalidate.json` only stops directory traversal.
+	 *
 	 * @param filename - Filename to get configuration for.
+	 * @param configOverride - Configuration to apply last.
 	 */
-	public getConfigFor(filename: string): Config {
+	public getConfigFor(filename: string, configOverride?: ConfigData): Config {
+		/* special case when the overridden configuration is marked as root, should
+		 * not try to load any more configuration files */
+		const override = Config.fromObject(configOverride || {});
+		if (override.isRootFound()) {
+			override.init();
+			return override;
+		}
+
 		/* special case when the global configuration is marked as root, should not
 		 * try to load and more configuration files */
 		if (this.globalConfig.isRootFound()) {
-			this.globalConfig.init();
-			return this.globalConfig;
+			const merged = this.globalConfig.merge(override);
+			merged.init();
+			return merged;
 		}
 
 		const config = this.configLoader.fromTarget(filename);
-		const merged = this.globalConfig.merge(config);
+		const merged = this.globalConfig.merge(config).merge(override);
 		merged.init();
 		return merged;
 	}
