@@ -179,7 +179,8 @@
     "roots": [
       "<rootDir>/docs",
       "<rootDir>/elements",
-      "<rootDir>/src"
+      "<rootDir>/src",
+      "<rootDir>/tests"
     ],
     "snapshotSerializers": [
       "pretty-format/build/plugins/ConvertAnsi"
