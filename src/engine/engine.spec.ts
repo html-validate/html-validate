@@ -7,6 +7,7 @@ import { MetaTable } from "../meta";
 import { Parser, ParserError } from "../parser";
 import { Reporter } from "../reporter";
 import { Rule } from "../rule";
+import { ConfigReadyEvent } from "../event";
 import { Engine, RuleOptions } from "./engine";
 
 function inline(source: string): Source {
@@ -165,11 +166,19 @@ describe("Engine", () => {
 			jest.spyOn(engine, "instantiateParser").mockReturnValue(parser);
 			engine.lint(source);
 			expect(spy).toHaveBeenCalledTimes(1);
-			expect(spy).toHaveBeenCalledWith("config:ready", {
-				location: null,
-				config: config.get(),
-				rules: expect.anything(),
-			});
+			expect(spy).toHaveBeenCalledWith("config:ready", expect.anything());
+			const event = spy.mock.calls[0][1] as ConfigReadyEvent;
+			expect(event.location).toMatchInlineSnapshot(`
+				Object {
+				  "column": 1,
+				  "filename": "inline",
+				  "line": 1,
+				  "offset": 0,
+				  "size": 1,
+				}
+			`);
+			expect(event.config).toEqual(config.get());
+			expect(event.rules).toBeDefined();
 		});
 	});
 

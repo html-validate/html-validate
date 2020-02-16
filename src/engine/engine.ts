@@ -59,7 +59,13 @@ export class Engine<T extends Parser = Parser> {
 
 			/* trigger configuration ready event */
 			const event: ConfigReadyEvent = {
-				location: null,
+				location: {
+					filename: source.filename,
+					line: 1,
+					column: 1,
+					offset: 0,
+					size: 1,
+				},
 				config: this.config.get(),
 				rules,
 			};
