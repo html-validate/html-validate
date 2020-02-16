@@ -122,9 +122,9 @@ module.exports = new Package("html-validate-docs", [
 			docTypes: ["changelog"],
 			getPath: function(doc) {
 				const dirname = path.dirname(doc.fileInfo.relativePath);
-				return path.join(dirname, doc.fileInfo.baseName);
+				return path.join(dirname, doc.fileInfo.baseName, "index.html");
 			},
-			outputPathTemplate: "${path.toLowerCase()}/index.html",
+			outputPathTemplate: "${path.toLowerCase()}",
 		});
 
 		computePathsProcessor.pathTemplates.push({
