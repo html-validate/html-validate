@@ -2812,7 +2812,7 @@ exports[`HTML elements <iframe> valid markup 1`] = `Array []`;
 exports[`HTML elements <img> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 4,
+    "errorCount": 5,
     "filePath": "test-files/elements/img-invalid.html",
     "messages": Array [
       Object {
@@ -2848,11 +2848,29 @@ Array [
         "size": 3,
       },
       Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            /\\.\\+/,
+          ],
+          "attribute": "srcset",
+          "element": "img",
+          "value": "",
+        },
+        "line": 8,
+        "message": "Attribute \\"srcset\\" has invalid value \\"\\"",
+        "offset": 120,
+        "ruleId": "attribute-allowed-values",
+        "selector": "img:nth-child(3)",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
         "column": 21,
         "context": "img",
-        "line": 8,
+        "line": 11,
         "message": "End tag for <img> must be omitted",
-        "offset": 139,
+        "offset": 204,
         "ruleId": "void-content",
         "selector": null,
         "severity": 2,
@@ -2861,9 +2879,9 @@ Array [
       Object {
         "column": 3,
         "context": undefined,
-        "line": 12,
+        "line": 15,
         "message": "Element <img> is not permitted as descendant of <button>",
-        "offset": 219,
+        "offset": 284,
         "ruleId": "element-permitted-content",
         "selector": "button > img",
         "severity": 2,
@@ -2875,6 +2893,9 @@ Array [
 
 <!-- src must be non-empty -->
 <img src=\\"\\">
+
+<!-- srcset must be non-empty -->
+<img src=\\"foo.png\\" srcset=\\"\\">
 
 <!-- should not allow end tag -->
 <img src=\\"foo.png\\"></img>

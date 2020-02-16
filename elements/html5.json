@@ -458,7 +458,8 @@
       "crossorigin": ["", "anonymous", "use-credentials"],
       "decoding": ["sync", "async", "auto"],
       "ismap": [],
-      "src": ["/.+/"]
+      "src": ["/.+/"],
+      "srcset": ["/.+/"]
     },
     "deprecatedAttributes": [
       "datasrc",
