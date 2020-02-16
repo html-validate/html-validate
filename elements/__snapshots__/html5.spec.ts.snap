@@ -4859,7 +4859,7 @@ exports[`HTML elements <samp> valid markup 1`] = `Array []`;
 exports[`HTML elements <script> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 4,
+    "errorCount": 6,
     "filePath": "test-files/elements/script-invalid.html",
     "messages": Array [
       Object {
@@ -4884,38 +4884,64 @@ Array [
         "column": 9,
         "context": undefined,
         "line": 5,
-        "message": "Attribute \\"language\\" is deprecated on <script> element",
-        "offset": 103,
-        "ruleId": "no-deprecated-attr",
+        "message": "\\"type\\" attribute is unnecessary for javascript resources",
+        "offset": 132,
+        "ruleId": "script-type",
         "selector": "script:nth-child(2)",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 9,
+        "context": undefined,
+        "line": 6,
+        "message": "\\"type\\" attribute is unnecessary for javascript resources",
+        "offset": 158,
+        "ruleId": "script-type",
+        "selector": "script:nth-child(3)",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 9,
+        "context": undefined,
+        "line": 9,
+        "message": "Attribute \\"language\\" is deprecated on <script> element",
+        "offset": 230,
+        "ruleId": "no-deprecated-attr",
+        "selector": "script:nth-child(4)",
         "severity": 2,
         "size": 8,
       },
       Object {
         "column": 8,
         "context": "script",
-        "line": 8,
+        "line": 12,
         "message": "<script> must not be self-closed",
-        "offset": 330,
+        "offset": 457,
         "ruleId": "no-self-closing",
-        "selector": "script:nth-child(3)",
+        "selector": "script:nth-child(5)",
         "severity": 2,
         "size": 2,
       },
       Object {
         "column": 8,
         "context": undefined,
-        "line": 8,
+        "line": 12,
         "message": "End tag for <script> must not be omitted",
-        "offset": 330,
+        "offset": 457,
         "ruleId": "script-element",
-        "selector": "script:nth-child(3)",
+        "selector": "script:nth-child(5)",
         "severity": 2,
         "size": 2,
       },
     ],
     "source": "<!-- src attribute cannot be empty -->
 <script src=\\"\\"></script>
+
+<!-- type attribute should be omitted when empty or js -->
+<script type=\\"\\"></script>
+<script type=\\"text/javascript\\"></script>
 
 <!-- deprecated attribute -->
 <script language=\\"vbscript\\"></script>

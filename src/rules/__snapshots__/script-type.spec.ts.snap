@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule script-type should contain documentation 1`] = `
+Object {
+  "description": "While valid the HTML5 standard encourages authors to omit the type element for JavaScript resources.",
+  "url": "https://html-validate.org/rules/script-type.html",
+}
+`;
