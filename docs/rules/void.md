@@ -12,6 +12,8 @@ cannot have any content and must not have an end tag.
 
 Foreign elements will always be ignored by this rule.
 
+**Deprecated:** This rule is deprecated. It has been replaced by the rules {@link void-content}, {@link void-style} and {@link no-self-closing}.
+
 ## Rule details
 
 Examples of **incorrect** code for this rule:

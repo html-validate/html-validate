@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule void-content should contain documentation 1`] = `
+Object {
+  "description": "HTML void elements cannot have any content and must not have content or end tag.",
+  "url": "https://html-validate.org/rules/void-content.html",
+}
+`;
+
+exports[`rule void-content should provide contextual documentation 1`] = `
+Object {
+  "description": "<foo> is a void element and must not have content or end tag.",
+  "url": "https://html-validate.org/rules/void-content.html",
+}
+`;

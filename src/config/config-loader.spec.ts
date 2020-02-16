@@ -199,7 +199,11 @@ describe("ConfigLoader", () => {
 		/* extract only relevant rules from configuration to avoid bloat when new
 		 * rules are added to recommended config */
 		function filter(src: Config): ConfigData {
-			const whitelisted = ["void", "deprecated", "element-permitted-content"];
+			const whitelisted = [
+				"no-self-closing",
+				"deprecated",
+				"element-permitted-content",
+			];
 			const data = src.get();
 			data.rules = Object.keys(data.rules)
 				.filter(key => whitelisted.includes(key))

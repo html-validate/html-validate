@@ -242,22 +242,22 @@ Array [
     "messages": Array [
       Object {
         "column": 9,
-        "context": undefined,
+        "context": "area",
         "line": 6,
         "message": "End tag for <area> must be omitted",
         "offset": 96,
-        "ruleId": "void",
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 5,
       },
       Object {
         "column": 3,
-        "context": undefined,
+        "context": "area",
         "line": 11,
         "message": "End tag for <area> must be omitted",
         "offset": 168,
-        "ruleId": "void",
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 5,
@@ -568,11 +568,11 @@ Array [
       },
       Object {
         "column": 8,
-        "context": undefined,
+        "context": "base",
         "line": 7,
         "message": "End tag for <base> must be omitted",
         "offset": 109,
-        "ruleId": "void",
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 5,
@@ -827,11 +827,11 @@ Array [
     "messages": Array [
       Object {
         "column": 6,
-        "context": undefined,
+        "context": "br",
         "line": 2,
         "message": "End tag for <br> must be omitted",
         "offset": 39,
-        "ruleId": "void",
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 3,
@@ -1134,11 +1134,11 @@ Array [
       },
       Object {
         "column": 9,
-        "context": undefined,
+        "context": "col",
         "line": 9,
         "message": "End tag for <col> must be omitted",
         "offset": 134,
-        "ruleId": "void",
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 4,
@@ -1635,11 +1635,11 @@ Array [
     "messages": Array [
       Object {
         "column": 45,
-        "context": undefined,
+        "context": "embed",
         "line": 2,
         "message": "End tag for <embed> must be omitted",
         "offset": 91,
-        "ruleId": "void",
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 6,
@@ -2566,11 +2566,11 @@ Array [
     "messages": Array [
       Object {
         "column": 6,
-        "context": undefined,
+        "context": "hr",
         "line": 2,
         "message": "End tag for <hr> must be omitted",
         "offset": 39,
-        "ruleId": "void",
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 3,
@@ -2849,11 +2849,11 @@ Array [
       },
       Object {
         "column": 21,
-        "context": undefined,
+        "context": "img",
         "line": 8,
         "message": "End tag for <img> must be omitted",
         "offset": 139,
-        "ruleId": "void",
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 4,
@@ -2899,11 +2899,11 @@ Array [
     "messages": Array [
       Object {
         "column": 21,
-        "context": undefined,
+        "context": "input",
         "line": 2,
         "message": "End tag for <input> must be omitted",
         "offset": 54,
-        "ruleId": "void",
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 6,
@@ -3266,11 +3266,11 @@ Array [
     "messages": Array [
       Object {
         "column": 10,
-        "context": undefined,
+        "context": "keygen",
         "line": 2,
         "message": "End tag for <keygen> must be omitted",
         "offset": 38,
-        "ruleId": "void",
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 7,
@@ -3418,11 +3418,11 @@ Array [
     "messages": Array [
       Object {
         "column": 23,
-        "context": undefined,
+        "context": "link",
         "line": 2,
         "message": "End tag for <link> must be omitted",
         "offset": 56,
-        "ruleId": "void",
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 5,
@@ -3762,11 +3762,11 @@ Array [
     "messages": Array [
       Object {
         "column": 8,
-        "context": undefined,
+        "context": "meta",
         "line": 2,
         "message": "End tag for <meta> must be omitted",
         "offset": 36,
-        "ruleId": "void",
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 5,
@@ -4344,11 +4344,11 @@ Array [
     "messages": Array [
       Object {
         "column": 9,
-        "context": undefined,
+        "context": "param",
         "line": 2,
         "message": "End tag for <param> must be omitted",
         "offset": 37,
-        "ruleId": "void",
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 6,
@@ -4838,7 +4838,7 @@ exports[`HTML elements <samp> valid markup 1`] = `Array []`;
 exports[`HTML elements <script> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 3,
+    "errorCount": 4,
     "filePath": "test-files/elements/script-invalid.html",
     "messages": Array [
       Object {
@@ -4872,11 +4872,22 @@ Array [
       },
       Object {
         "column": 8,
+        "context": "script",
+        "line": 8,
+        "message": "<script> must not be self-closed",
+        "offset": 330,
+        "ruleId": "no-self-closing",
+        "selector": "script:nth-child(3)",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 8,
         "context": undefined,
         "line": 8,
         "message": "End tag for <script> must not be omitted",
         "offset": 330,
-        "ruleId": "void",
+        "ruleId": "script-element",
         "selector": "script:nth-child(3)",
         "severity": 2,
         "size": 2,
@@ -5012,11 +5023,11 @@ Array [
     "messages": Array [
       Object {
         "column": 11,
-        "context": undefined,
+        "context": "source",
         "line": 3,
         "message": "End tag for <source> must be omitted",
         "offset": 47,
-        "ruleId": "void",
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 7,
@@ -5957,11 +5968,11 @@ Array [
     "messages": Array [
       Object {
         "column": 10,
-        "context": undefined,
+        "context": "track",
         "line": 3,
         "message": "End tag for <track> must be omitted",
         "offset": 46,
-        "ruleId": "void",
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 6,
@@ -6229,11 +6240,11 @@ Array [
     "messages": Array [
       Object {
         "column": 7,
-        "context": undefined,
+        "context": "wbr",
         "line": 2,
         "message": "End tag for <wbr> must be omitted",
         "offset": 35,
-        "ruleId": "void",
+        "ruleId": "void-content",
         "selector": null,
         "severity": 2,
         "size": 4,

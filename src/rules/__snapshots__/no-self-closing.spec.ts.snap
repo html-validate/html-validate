@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule no-self-closing should contain contextual documentation 1`] = `
+Object {
+  "description": "Self-closing elements are disallowed. Use regular end tag <div></div> instead of self-closing <div/>.",
+  "url": "https://html-validate.org/rules/no-self-closing.html",
+}
+`;
+
+exports[`rule no-self-closing should contain documentation 1`] = `
+Object {
+  "description": "Self-closing elements are disallowed. Use regular end tag <element></element> instead of self-closing <element/>.",
+  "url": "https://html-validate.org/rules/no-self-closing.html",
+}
+`;

@@ -1,5 +1,6 @@
 {
+  "root": true,
   "rules": {
-    "void": "error"
+    "void-content": "error"
   }
 }

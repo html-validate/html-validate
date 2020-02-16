@@ -185,12 +185,12 @@ describe("Engine", () => {
 		it('"enable" should enable rule', () => {
 			const source: Source[] = [
 				inline(
-					"<!-- [html-validate-disable void] --><i/><!-- [html-validate-enable void] --><i/>"
+					"<!-- [html-validate-disable no-self-closing] --><i/><!-- [html-validate-enable no-self-closing] --><i/>"
 				),
 			];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
-			expect(report).toHaveErrors([{ ruleId: "void", column: 80 }]);
+			expect(report).toHaveErrors([{ ruleId: "no-self-closing", column: 102 }]);
 		});
 
 		it('"enable" set severity to error if off', () => {
@@ -219,15 +219,15 @@ describe("Engine", () => {
 		it('"disable-block" should disable rule for all subsequent occurrences until block closes', () => {
 			const source: Source[] = [
 				inline(
-					"<i/><div><i/><!-- [html-validate-disable-block void] --><i/><i/></div><i/>"
+					"<i/><div><i/><!-- [html-validate-disable-block no-self-closing] --><i/><i/></div><i/>"
 				),
 			];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
 			expect(report).toHaveErrors([
-				{ ruleId: "void", column: 3 },
-				{ ruleId: "void", column: 12 },
-				{ ruleId: "void", column: 73 },
+				{ ruleId: "no-self-closing", column: 3 },
+				{ ruleId: "no-self-closing", column: 12 },
+				{ ruleId: "no-self-closing", column: 84 },
 			]);
 		});
 
@@ -247,7 +247,9 @@ describe("Engine", () => {
 
 		it('"disable-block" should handle empty block', () => {
 			const source: Source[] = [
-				inline("<div><!-- [html-validate-disable-block void] --></div>"),
+				inline(
+					"<div><!-- [html-validate-disable-block no-self-closing] --></div>"
+				),
 			];
 			const report = engine.lint(source);
 			expect(report).toBeValid();
@@ -255,7 +257,7 @@ describe("Engine", () => {
 
 		it('"disable-block" should handle root element', () => {
 			const source: Source[] = [
-				inline("<!-- [html-validate-disable-block void] --><i/>"),
+				inline("<!-- [html-validate-disable-block no-self-closing] --><i/>"),
 			];
 			const report = engine.lint(source);
 			expect(report).toBeValid();
@@ -263,7 +265,7 @@ describe("Engine", () => {
 
 		it('"disable-block" should handle empty root element', () => {
 			const source: Source[] = [
-				inline("<!-- [html-validate-disable-block void] -->"),
+				inline("<!-- [html-validate-disable-block no-self-closing] -->"),
 			];
 			const report = engine.lint(source);
 			expect(report).toBeValid();

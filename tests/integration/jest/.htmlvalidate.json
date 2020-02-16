@@ -1,5 +1,6 @@
 {
   "rules": {
-    "void": ["error", { "style": "selfclose" }]
+    "void": "off",
+    "void-style": ["error", { "style": "selfclose" }]
   }
 }

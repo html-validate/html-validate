@@ -164,6 +164,9 @@ describe("HTML elements", () => {
 			 * yield any errors */
 			"prefer-button": "off",
 
+			/* void is being deprecated */
+			void: "off",
+
 			/* none of the WCAG rules should trigger in these tests, they are tested
 			 * separately and adds too much noise here */
 			"wcag/h32": "off",

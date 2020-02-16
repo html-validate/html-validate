@@ -1,5 +1,5 @@
 {
   "rules": {
-    "void": "warn"
+    "void-content": "warn"
   }
 }
