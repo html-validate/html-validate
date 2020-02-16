@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule script-element should contain documentation 1`] = `
+Object {
+  "description": "The end tag for \`<script>\` is a hard requirement and must never be omitted even when using the \`src\` attribute.",
+  "url": "https://html-validate.org/rules/script-element.html",
+}
+`;

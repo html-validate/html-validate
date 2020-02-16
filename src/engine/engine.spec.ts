@@ -76,7 +76,7 @@ describe("Engine", () => {
 		config = Config.fromObject({
 			extends: ["html-validate:recommended"],
 			rules: {
-				deprecated: "off"
+				deprecated: "off",
 			},
 		});
 		config.init();
