@@ -35,6 +35,7 @@ module.exports = {
 		"prefer-native-element": "error",
 		"prefer-tbody": "error",
 		"script-element": "error",
+		"script-type": "error",
 		"svg-focusable": "error",
 		"unrecognized-char-ref": "error",
 		void: "off",
