@@ -47,7 +47,6 @@
     "eslint": "eslint --ext js,ts .",
     "eslint:fix": "eslint --ext js,ts . --fix",
     "htmlvalidate": "./bin/html-validate.js",
-    "lint": "npm run eslint && npm run tslint",
     "prettier:check": "prettier '**/*.{ts,js,json,md,scss}' --list-different",
     "prettier:write": "prettier '**/*.{ts,js,json,md,scss}' --write",
     "semantic-release": "semantic-release",
