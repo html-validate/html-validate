@@ -1,5 +1,26 @@
 # html-validate changelog
 
+# [2.17.0](https://gitlab.com/html-validate/html-validate/compare/v2.16.0...v2.17.0) (2020-02-17)
+
+### Bug Fixes
+
+- **elements:** `<img>` `srcset` attribute cannot be empty ([27699ad](https://gitlab.com/html-validate/html-validate/commit/27699ad08d4f9363b275449df3110f36f1b0ee9d))
+- **jest:** typescript compatibility with jest@23 ([4efae54](https://gitlab.com/html-validate/html-validate/commit/4efae544dbe9cd499e352776edbde1ea03d83706))
+- **rules:** add `aria-label` helper ([6d5d963](https://gitlab.com/html-validate/html-validate/commit/6d5d9630666bec57e70ea3ce563cbef558e2ab3b))
+- **rules:** fix `deprecated-rule` missing location ([1156c1e](https://gitlab.com/html-validate/html-validate/commit/1156c1e8b6153ee8ac5691df8f3fdeddfb896255))
+- change config merge order in `toHTMLValidate` ([204a8fa](https://gitlab.com/html-validate/html-validate/commit/204a8faac7cfe34b8e0fe2b834124b2b9502e231))
+- **rules:** handle `aria-label` on links for WCAG H30 ([eb01542](https://gitlab.com/html-validate/html-validate/commit/eb01542abb0fbf4104672794e621b6bf5564903c)), closes [#67](https://gitlab.com/html-validate/html-validate/issues/67)
+
+### Features
+
+- **rules:** mark `void` as deprecated ([f6afc0f](https://gitlab.com/html-validate/html-validate/commit/f6afc0fd15877695b735754d0eca6dc013252abc)), closes [#58](https://gitlab.com/html-validate/html-validate/issues/58)
+- **rules:** new rule `no-self-closing` ([d9c869b](https://gitlab.com/html-validate/html-validate/commit/d9c869b36e3c5c9c4027809417b535bcd565c5cc)), closes [#58](https://gitlab.com/html-validate/html-validate/issues/58)
+- **rules:** new rule `script-element` ([48ad6da](https://gitlab.com/html-validate/html-validate/commit/48ad6da1b965d0299d022dbc27c25ebc0ed3ffc8))
+- **rules:** new rule `script-type` ([a680f1d](https://gitlab.com/html-validate/html-validate/commit/a680f1d297100c92f08f5d5de2ac39ee27915c15))
+- **rules:** new rule `void-content` ([c93c63b](https://gitlab.com/html-validate/html-validate/commit/c93c63b1a3609d90cc493a6cb448b071905926f0)), closes [#58](https://gitlab.com/html-validate/html-validate/issues/58)
+- **rules:** new rule `void-style` ([f30de03](https://gitlab.com/html-validate/html-validate/commit/f30de03ea4f8caaf065047d5e3bd44417d0202ad)), closes [#58](https://gitlab.com/html-validate/html-validate/issues/58)
+- allow configuration override when using `validate{String,Source}` ([6e62852](https://gitlab.com/html-validate/html-validate/commit/6e62852c88182defbe9b465ab5652f456310d07e))
+
 # [2.16.0](https://gitlab.com/html-validate/html-validate/compare/v2.15.0...v2.16.0) (2020-02-12)
 
 ### Bug Fixes
