@@ -70,13 +70,6 @@ Jest:
   script:
     - npm test -- src elements tests
 
-TSLint:
-  stage: test
-  dependencies: ["NPM"]
-  needs: ["NPM"]
-  script:
-    - npm run tslint
-
 Prettier:
   stage: test
   dependencies: ["NPM"]

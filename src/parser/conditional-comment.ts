@@ -13,7 +13,6 @@ export function* parseConditionalComment(
 ): IterableIterator<ConditionalComment> {
 	let match: RegExpExecArray;
 
-	// tslint:disable-next-line no-conditional-assignment
 	while ((match = regexp.exec(comment)) !== null) {
 		const expression = match[1];
 		const begin = match.index;

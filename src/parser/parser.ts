@@ -594,7 +594,6 @@ export class Parser {
 	 */
 	private closeTree(source: Source, location: Location): void {
 		let active;
-		/* tslint:disable-next-line:no-conditional-assignment */
 		while ((active = this.dom.getActive()) && !active.isRootElement()) {
 			this.closeElement(source, null, active, location);
 			this.dom.popActive();

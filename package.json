@@ -51,9 +51,7 @@
     "prettier:write": "prettier '**/*.{ts,js,json,md,scss}' --write",
     "semantic-release": "semantic-release",
     "start": "grunt connect",
-    "test": "jest --ci",
-    "tslint": "tslint -t verbose *.ts src/**/*.ts",
-    "tslint:fix": "tslint -t verbose --fix *.ts src/**/*.ts"
+    "test": "jest --ci"
   },
   "commitlint": {
     "extends": [
@@ -147,8 +145,6 @@
     "stringmap": "0.2.2",
     "strip-ansi": "6.0.0",
     "ts-jest": "25.2.0",
-    "tslint": "5.20.1",
-    "tslint-config-prettier": "1.18.0",
     "typescript": "3.7.5"
   },
   "jest": {
