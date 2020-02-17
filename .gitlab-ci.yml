@@ -144,6 +144,14 @@ Release:
   variables:
     UPSTREAM_VERSION: "${CI_COMMIT_TAG}"
 
+cypress-html-validate:
+  <<: *downstream
+  trigger: html-validate/cypress-html-validate
+
+example-plugin:
+  <<: *downstream
+  trigger: html-validate/example-plugin
+
 grunt-html-validate:
   <<: *downstream
   trigger: html-validate/grunt-html-validate
@@ -152,6 +160,10 @@ html-validate-angular:
   <<: *downstream
   trigger: html-validate/html-validate-angular
 
+html-validate-jest-snapshot:
+  <<: *downstream
+  trigger: html-validate/html-validate-jest-snapshot
+
 html-validate-vue:
   <<: *downstream
   trigger: html-validate/html-validate-vue
@@ -159,3 +171,7 @@ html-validate-vue:
 protractor-html-validate:
   <<: *downstream
   trigger: html-validate/protractor-html-validate
+
+vue-cli-plugin-html-validate:
+  <<: *downstream
+  trigger: html-validate/vue-cli-plugin-html-validate
