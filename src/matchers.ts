@@ -14,7 +14,7 @@ interface TokenMatcher {
 
 declare global {
 	namespace jest {
-		interface Matchers<R, T> {
+		interface Matchers<R, T = {}> {
 			toBeValid(): R;
 			toBeInvalid(): R;
 			toBeToken(expected: TokenMatcher): R;
