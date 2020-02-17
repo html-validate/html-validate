@@ -101,7 +101,7 @@
     "@html-validate/commitlint-config": "1.0.1",
     "@html-validate/eslint-config": "1.1.2",
     "@html-validate/prettier-config": "1.0.0",
-    "@html-validate/semantic-release-config": "1.0.8",
+    "@html-validate/semantic-release-config": "1.0.9",
     "@types/babel__code-frame": "7.0.1",
     "@types/estree": "0.0.42",
     "@types/glob": "7.1.1",
