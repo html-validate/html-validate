@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [2.17.1](https://gitlab.com/html-validate/html-validate/compare/v2.17.0...v2.17.1) (2020-03-02)
+
+### Bug Fixes
+
+- disable `void-style` when using `toHTMLValidate` matcher ([4d6bb3d](https://gitlab.com/html-validate/html-validate/commit/4d6bb3d7fe8f0e174082eb3c39d7f6dcd9109f56))
+
 # [2.17.0](https://gitlab.com/html-validate/html-validate/compare/v2.16.0...v2.17.0) (2020-02-17)
 
 ### Bug Fixes
