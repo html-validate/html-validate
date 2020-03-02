@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace, @typescript-eslint/ban-ts-ignore, prefer-template, sonarjs/no-duplicate-string */
 
 import diff from "jest-diff";
+import deepmerge from "deepmerge";
 import { TokenType } from "./lexer";
 import { Message, Report, Result } from "./reporter";
 import { ConfigData } from "./config";
@@ -144,13 +145,22 @@ function toHTMLValidate(
 	this: jest.MatcherUtils,
 	// @ts-ignore DOM library not available
 	actual: string | HTMLElement,
-	config?: ConfigData,
+	userConfig?: ConfigData,
 	filename?: string
 ): jest.CustomMatcherResult {
 	// @ts-ignore DOM library not available
 	if (actual instanceof HTMLElement) {
 		actual = actual.outerHTML;
 	}
+
+	const defaultConfig = {
+		rules: {
+			/* jsdom normalizes style so disabling rule when using this matcher or it
+			 * gets quite noisy when configured with self-closing */
+			"void-style": "off",
+		},
+	};
+	const config = deepmerge(defaultConfig, userConfig || {});
 
 	const actualFilename = filename || this.testPath;
 	const htmlvalidate = new HtmlValidate();
