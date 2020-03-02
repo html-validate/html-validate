@@ -246,6 +246,11 @@ describe("toHTMLValidate()", () => {
 		});
 	});
 
+	it("should ignore void-style by default", () => {
+		expect.assertions(1);
+		expect("<hr><hr/>").toHTMLValidate();
+	});
+
 	it("should support jsdom", () => {
 		/* eslint-disable-next-line @typescript-eslint/ban-ts-ignore */
 		// @ts-ignore DOM library not available
