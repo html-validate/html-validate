@@ -4,6 +4,7 @@ module.exports = {
 		"attr-quotes": "error",
 		"attribute-allowed-values": "error",
 		"attribute-boolean-style": "error",
+		"attribute-empty-style": "error",
 		"close-attr": "error",
 		"close-order": "error",
 		deprecated: "error",

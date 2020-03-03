@@ -153,8 +153,9 @@ describe("HTML elements", () => {
 			},
 		],
 		rules: {
-			/* allow any style of boolean attributes, some tests runs all of them */
+			/* allow any style of boolean/empty attributes, some tests runs all of them */
 			"attribute-boolean-style": "off",
+			"attribute-empty-style": "off",
 
 			/* messes with tests validating that elements with support implicit close
 			 * does so */

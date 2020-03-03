@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule attribute-empty-style should contain documentation 1`] = `
+Object {
+  "description": "Require a specific style for attributes with empty values.",
+  "url": "https://html-validate.org/rules/attribute-empty-style.html",
+}
+`;

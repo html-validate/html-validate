@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/attribute-empty-style.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/attribute-empty-style.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 1,
+        "message": "Attribute \\"download\\" should omit value",
+        "offset": 3,
+        "ruleId": "attribute-empty-style",
+        "selector": "a",
+        "severity": 2,
+        "size": 8,
+      },
+    ],
+    "source": "<a download=\\"\\"></a>",
+    "warningCount": 0,
+  },
+]
+`;

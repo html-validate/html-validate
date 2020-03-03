@@ -13,6 +13,14 @@ describe("rule attribute-boolean-style", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report for empty attributes", () => {
+		htmlvalidate = new HtmlValidate({
+			rules: { "attribute-boolean-style": ["error", { style: "omit" }] },
+		});
+		const report = htmlvalidate.validateString('<a download=""></a>');
+		expect(report).toBeValid();
+	});
+
 	describe('configured with "omit"', () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
