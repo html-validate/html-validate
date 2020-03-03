@@ -25,6 +25,9 @@
       "name",
       "urn"
     ],
+    "attributes": {
+      "download": ["", "/.+/"]
+    },
     "permittedDescendants": [{ "exclude": "@interactive" }]
   },
 

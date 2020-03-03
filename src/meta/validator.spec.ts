@@ -589,6 +589,18 @@ describe("Meta validator", () => {
 			).toBeTruthy();
 		});
 
+		it("should consider empty value as either null or empty string", () => {
+			const rules = {
+				foo: [""] as string[],
+			};
+			expect(
+				Validator.validateAttribute(new Attribute("foo", null), rules)
+			).toBeTruthy();
+			expect(
+				Validator.validateAttribute(new Attribute("foo", ""), rules)
+			).toBeTruthy();
+		});
+
 		it("should normalize boolean attributes", () => {
 			const rules = {
 				foo: [] as string[],

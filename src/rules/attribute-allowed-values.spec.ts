@@ -64,6 +64,21 @@ describe("rule attribute-allowed-values", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error when element allows empty value and attribute is null", () => {
+		const report = htmlvalidate.validateString("<a download>");
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when element allows empty value and attribute is empty string", () => {
+		const report = htmlvalidate.validateString('<a download="">');
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when element allows empty and other values and attribute is non-empty string", () => {
+		const report = htmlvalidate.validateString('<a download="foobar">');
+		expect(report).toBeValid();
+	});
+
 	it("smoketest", () => {
 		const report = htmlvalidate.validateFile(
 			"test-files/rules/attribute-allowed-values.html"
