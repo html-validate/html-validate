@@ -183,10 +183,17 @@ export class Validator {
 		if (value instanceof DynamicValue) {
 			return true;
 		}
+		const empty = value === null || value === "";
 
 		/* consider an empty array as being a boolean attribute */
 		if (rule.length === 0) {
-			return value === null || value === "" || value === attr.key;
+			return empty || value === attr.key;
+		}
+
+		/* if the empty string is present allow both "" and null
+		 * (boolean-attribute-style will regulate which is allowed) */
+		if (rule.includes("") && empty) {
+			return true;
 		}
 
 		return rule.some((entry: string | RegExp) => {

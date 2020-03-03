@@ -7,7 +7,19 @@ summary: Require a specific style for boolean attributes
 
 # Boolean attribute style (`attribute-boolean-style`)
 
-Require a specific style when writing boolean attributes.
+Boolean attributes are attributes without a value and the presence of the attribute is considered a boolean `true` and absense a boolean `false`.
+The [HTML5 standard][whatwg] allows three styles to write boolean attributes:
+
+- `<input required>` (omitting the value)
+- `<input required="">` (empty string)
+- `<input required="required">` (attribute name)
+
+This rule requires a specific style when writing boolean attributes.
+Default is to omit the value.
+
+This rule does not have an effect on regular attributes with empty values, see {@link attribute-empty-style} instead.
+
+[whatwg]: https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attributes
 
 ## Rule details
 
