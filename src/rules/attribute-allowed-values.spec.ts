@@ -25,7 +25,7 @@ describe("rule attribute-allowed-values", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"attribute-allowed-values",
-			'Attribute "type" has invalid value ""'
+			'Attribute "type" is missing value'
 		);
 	});
 

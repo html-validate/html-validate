@@ -196,9 +196,13 @@ export class Validator {
 			return true;
 		}
 
+		if (value === null || value === undefined) {
+			return false;
+		}
+
 		return rule.some((entry: string | RegExp) => {
 			if (entry instanceof RegExp) {
-				return value && !!value.match(entry);
+				return !!value.match(entry);
 			} else {
 				return value === entry;
 			}

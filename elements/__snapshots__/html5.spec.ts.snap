@@ -3,7 +3,7 @@
 exports[`HTML elements <a> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 4,
+    "errorCount": 5,
     "filePath": "test-files/elements/a-invalid.html",
     "messages": Array [
       Object {
@@ -50,6 +50,24 @@ Array [
         "severity": 2,
         "size": 1,
       },
+      Object {
+        "column": 4,
+        "context": Object {
+          "allowed": Array [
+            /\\.\\*/,
+          ],
+          "attribute": "href",
+          "element": "a",
+          "value": "",
+        },
+        "line": 12,
+        "message": "Attribute \\"href\\" is missing value",
+        "offset": 341,
+        "ruleId": "attribute-allowed-values",
+        "selector": "a:nth-child(5)",
+        "severity": 2,
+        "size": 4,
+      },
     ],
     "source": "<!-- should be transparent -->
 <span><a><div>foo</div></a></span>
@@ -60,6 +78,9 @@ Array [
 
 <!-- should not allow nesting -->
 <a><span><a>foo</a></span></a>
+
+<!-- should not allow omitted href value -->
+<a href>foo</a>
 ",
     "warningCount": 0,
   },
@@ -3481,7 +3502,7 @@ Array [
         "size": 4,
       },
       Object {
-        "column": 2,
+        "column": 21,
         "context": Object {
           "allowed": Array [
             /\\.\\+/,
@@ -3491,12 +3512,12 @@ Array [
           "value": "",
         },
         "line": 9,
-        "message": "Attribute \\"integrity\\" has invalid value \\"\\"",
-        "offset": 182,
+        "message": "Attribute \\"integrity\\" is missing value",
+        "offset": 201,
         "ruleId": "attribute-allowed-values",
         "selector": "link:nth-child(4)",
         "severity": 2,
-        "size": 4,
+        "size": 9,
       },
       Object {
         "column": 2,
@@ -3634,7 +3655,7 @@ Array [
     "filePath": "test-files/elements/math-invalid.html",
     "messages": Array [
       Object {
-        "column": 2,
+        "column": 7,
         "context": Object {
           "allowed": Array [
             "ltr",
@@ -3648,12 +3669,12 @@ Array [
           "value": "",
         },
         "line": 2,
-        "message": "Attribute \\"dir\\" has invalid value \\"\\"",
-        "offset": 32,
+        "message": "Attribute \\"dir\\" is missing value",
+        "offset": 37,
         "ruleId": "attribute-allowed-values",
         "selector": "math:nth-child(1)",
         "severity": 2,
-        "size": 4,
+        "size": 3,
       },
       Object {
         "column": 12,
@@ -3678,7 +3699,7 @@ Array [
         "size": 6,
       },
       Object {
-        "column": 2,
+        "column": 7,
         "context": Object {
           "allowed": Array [
             "block",
@@ -3689,12 +3710,12 @@ Array [
           "value": "",
         },
         "line": 4,
-        "message": "Attribute \\"display\\" has invalid value \\"\\"",
-        "offset": 77,
+        "message": "Attribute \\"display\\" is missing value",
+        "offset": 82,
         "ruleId": "attribute-allowed-values",
         "selector": "math:nth-child(3)",
         "severity": 2,
-        "size": 4,
+        "size": 7,
       },
       Object {
         "column": 16,
@@ -3716,7 +3737,7 @@ Array [
         "size": 6,
       },
       Object {
-        "column": 2,
+        "column": 7,
         "context": Object {
           "allowed": Array [
             "linebreak",
@@ -3730,12 +3751,12 @@ Array [
           "value": "",
         },
         "line": 6,
-        "message": "Attribute \\"overflow\\" has invalid value \\"\\"",
-        "offset": 130,
+        "message": "Attribute \\"overflow\\" is missing value",
+        "offset": 135,
         "ruleId": "attribute-allowed-values",
         "selector": "math:nth-child(5)",
         "severity": 2,
-        "size": 4,
+        "size": 8,
       },
       Object {
         "column": 17,
@@ -4037,7 +4058,7 @@ Array [
         "size": 8,
       },
       Object {
-        "column": 2,
+        "column": 9,
         "context": Object {
           "allowed": Array [
             /\\.\\+/,
@@ -4047,12 +4068,12 @@ Array [
           "value": "",
         },
         "line": 7,
-        "message": "Attribute \\"integrity\\" has invalid value \\"\\"",
-        "offset": 131,
+        "message": "Attribute \\"integrity\\" is missing value",
+        "offset": 138,
         "ruleId": "attribute-allowed-values",
         "selector": "script:nth-child(2)",
         "severity": 2,
-        "size": 6,
+        "size": 9,
       },
       Object {
         "column": 2,

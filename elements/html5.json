@@ -26,7 +26,8 @@
       "urn"
     ],
     "attributes": {
-      "download": ["", "/.+/"]
+      "download": ["", "/.+/"],
+      "href": ["/.*/"]
     },
     "permittedDescendants": [{ "exclude": "@interactive" }]
   },
