@@ -28,11 +28,13 @@ The requirements comes from the [element metadata](/usage/elements.html):
 Examples of **incorrect** code for this rule:
 
 <validate name="incorrect" rules="attribute-allowed-values">
+    <a href>...</a>
     <input type="foobar">
 </validate>
 
 Examples of **correct** code for this rule:
 
 <validate name="correct" rules="attribute-allowed-values">
+    <a href="page.html">...</a>
     <input type="text">
 </validate>

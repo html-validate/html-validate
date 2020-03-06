@@ -169,12 +169,15 @@ An object with allowed attribute values.
 With this metadata the attribute `"foo"` may only have the values `"bar"` or
 `"foo"`.
 
-- To allow empty values explicitly list `""`:  
-  `"my-attr": ["", "value 1", "value 2"]`
-- Boolean attributes must be set to an empty list `[]`:  
-  `"my-attr": []`
-
 Regular expressions can also be used, e.g `"/-?\\d+/"` to match numbers.
+
+- To allow empty values explicitly list `""`:
+  - `"my-attr": ["", "value 1", "value 2"]`
+- Boolean attributes must be set to an empty list `[]` or include `""`:
+  - `"my-attr": []`
+  - `"my-attr": [""]`
+- To allow empty string `my-attr=""` but not omitted value `my-attr` use regexp:
+  - `"my-attr": ["/.*/"]`
 
 This is used by the
 [attribute-allowed-values](/rules/attribute-allowed-values.html) rule.

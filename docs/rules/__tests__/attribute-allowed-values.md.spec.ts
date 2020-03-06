@@ -1,8 +1,10 @@
 import HtmlValidate from "../../../src/htmlvalidate";
 
 const markup: { [key: string]: string } = {};
-markup["incorrect"] = `<input type="foobar">`;
-markup["correct"] = `<input type="text">`;
+markup["incorrect"] = `<a href>...</a>
+<input type="foobar">`;
+markup["correct"] = `<a href="page.html">...</a>
+<input type="text">`;
 
 describe("docs/rules/attribute-allowed-values.md", () => {
 	it("inline validation: incorrect", () => {

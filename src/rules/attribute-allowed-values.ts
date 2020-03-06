@@ -1,4 +1,5 @@
-import { HtmlElement } from "../dom";
+import { Location } from "../context";
+import { HtmlElement, Attribute } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { Validator } from "../meta";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
@@ -60,15 +61,29 @@ class AttributeAllowedValues extends Rule<Context> {
 						value,
 						allowed: meta.attributes[attr.key],
 					};
-					this.report(
-						node,
-						`Attribute "${attr.key}" has invalid value "${value}"`,
-						attr.valueLocation,
-						context
-					);
+					const message = this.getMessage(attr);
+					const location = this.getLocation(attr);
+					this.report(node, message, location, context);
 				}
 			});
 		});
+	}
+
+	private getMessage(attr: Attribute): string {
+		const { key, value } = attr;
+		if (value !== null) {
+			return `Attribute "${key}" has invalid value "${value.toString()}"`;
+		} else {
+			return `Attribute "${key}" is missing value`;
+		}
+	}
+
+	private getLocation(attr: Attribute): Location {
+		if (attr.value !== null) {
+			return attr.valueLocation;
+		} else {
+			return attr.keyLocation;
+		}
 	}
 }
 

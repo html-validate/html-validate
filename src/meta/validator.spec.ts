@@ -527,19 +527,26 @@ describe("Meta validator", () => {
 			).toBeTruthy();
 		});
 
-		it("should match regexp", () => {
-			const rules = {
-				foo: [/ba.*/],
-			};
-			expect(
-				Validator.validateAttribute(new Attribute("foo", "bar"), rules)
-			).toBeTruthy();
-			expect(
-				Validator.validateAttribute(new Attribute("foo", "car"), rules)
-			).toBeFalsy();
-			expect(
-				Validator.validateAttribute(new Attribute("foo", null), rules)
-			).toBeFalsy();
+		it.each`
+			regex     | value
+			${/ba.*/} | ${"bar"}
+			${/.*/}   | ${"foo"}
+			${/.*/}   | ${""}
+		`("should match regexp $regex vs $value", ({ regex, value }) => {
+			const rules = { foo: [regex] };
+			const attr = new Attribute("foo", value);
+			expect(Validator.validateAttribute(attr, rules)).toBeTruthy();
+		});
+
+		it.each`
+			regex     | value    | expected
+			${/ba.*/} | ${"car"} | ${false}
+			${/ba.*/} | ${null}  | ${false}
+			${/.*/}   | ${null}  | ${false}
+		`("should not match regexp $regex vs $value", ({ regex, value }) => {
+			const rules = { foo: [regex] };
+			const attr = new Attribute("foo", value);
+			expect(Validator.validateAttribute(attr, rules)).toBeFalsy();
 		});
 
 		it("should match string value", () => {
@@ -577,6 +584,15 @@ describe("Meta validator", () => {
 			).toBeTruthy();
 			expect(
 				Validator.validateAttribute(new Attribute("foo", "pebble"), rules)
+			).toBeFalsy();
+		});
+
+		it("should handle null", () => {
+			const rules = {
+				foo: ["foo", "/bar/"],
+			};
+			expect(
+				Validator.validateAttribute(new Attribute("foo", null), rules)
 			).toBeFalsy();
 		});
 
