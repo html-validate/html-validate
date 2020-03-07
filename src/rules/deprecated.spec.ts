@@ -50,4 +50,10 @@ describe("rule deprecated", () => {
 	it("should contain documentation", () => {
 		expect(htmlvalidate.getRuleDocumentation("deprecated")).toMatchSnapshot();
 	});
+
+	it("should contain contextual documentation", () => {
+		expect(
+			htmlvalidate.getRuleDocumentation("deprecated", null, "center")
+		).toMatchSnapshot();
+	});
 });

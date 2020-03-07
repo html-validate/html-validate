@@ -1,8 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule deprecated should contain contextual documentation 1`] = `
+Object {
+  "description": "HTML5 has deprecated the \`<center>\` element. It should not be used in new code.",
+  "url": "https://html-validate.org/rules/deprecated.html",
+}
+`;
+
 exports[`rule deprecated should contain documentation 1`] = `
 Object {
-  "description": "HTML5 deprecated many old elements and they should not be used in new code.",
+  "description": "HTML5 has deprecated many old elements and they should not be used in new code.",
   "url": "https://html-validate.org/rules/deprecated.html",
 }
 `;

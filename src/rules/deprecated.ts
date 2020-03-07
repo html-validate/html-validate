@@ -2,13 +2,17 @@ import { sliceLocation } from "../context";
 import { TagOpenEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class Deprecated extends Rule {
-	public documentation(): RuleDocumentation {
-		return {
+class Deprecated extends Rule<string> {
+	public documentation(context?: string): RuleDocumentation {
+		const doc: RuleDocumentation = {
 			description:
-				"HTML5 deprecated many old elements and they should not be used in new code.",
+				"HTML5 has deprecated many old elements and they should not be used in new code.",
 			url: ruleDocumentationUrl(__filename),
 		};
+		if (context) {
+			doc.description = `HTML5 has deprecated the \`<${context}>\` element. It should not be used in new code.`;
+		}
+		return doc;
 	}
 
 	public setup(): void {
