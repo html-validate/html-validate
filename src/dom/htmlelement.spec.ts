@@ -655,6 +655,7 @@ describe("HtmlElement", () => {
 				offset: 0,
 				line: 1,
 				column: 1,
+				size: 1,
 			});
 			/* eslint-disable @typescript-eslint/no-unused-vars */
 			const a = new HtmlElement("a", root);

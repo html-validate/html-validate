@@ -37,7 +37,13 @@ describe("rule base class", () => {
 		rule = new MockRule();
 		rule.name = "mock-rule";
 		rule.init(parser, reporter, Severity.ERROR, meta);
-		mockLocation = { filename: "mock-file", offset: 1, line: 1, column: 2 };
+		mockLocation = {
+			filename: "mock-file",
+			offset: 1,
+			line: 1,
+			column: 2,
+			size: 1,
+		};
 		mockEvent = {
 			location: mockLocation,
 		};

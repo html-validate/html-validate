@@ -69,6 +69,7 @@ export class Parser {
 			offset: source.offset ?? 0,
 			line: source.line ?? 1,
 			column: source.column ?? 1,
+			size: 0,
 		});
 
 		/* trigger any rules waiting for DOM load event */

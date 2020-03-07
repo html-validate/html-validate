@@ -21,10 +21,10 @@ export interface Location {
 	readonly column: number;
 
 	/**
-	 * If set it contains how many characters this location refers to. This
-	 * includes any whitespace characters such as newlines.
+	 * The number of characters this location refers to. This includes any
+	 * whitespace characters such as newlines.
 	 */
-	readonly size?: number;
+	readonly size: number;
 }
 
 interface LocationRW {
@@ -32,7 +32,7 @@ interface LocationRW {
 	offset: number;
 	line: number;
 	column: number;
-	size?: number;
+	size: number;
 }
 
 function sliceSize(size: number, begin: number, end?: number): number {
