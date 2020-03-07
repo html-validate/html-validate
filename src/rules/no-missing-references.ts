@@ -51,7 +51,7 @@ class NoMissingReferences extends Rule<Context> {
 	): void {
 		const id = attr.value;
 
-		if (id instanceof DynamicValue || id === "") {
+		if (id instanceof DynamicValue || id === null || id === "") {
 			return;
 		}
 
