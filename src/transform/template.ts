@@ -65,9 +65,13 @@ function extractLiteral(
 	switch (node.type) {
 		/* ignored nodes */
 		case "FunctionExpression":
+		case "Identifier":
 			return null;
 
 		case "Literal":
+			if (typeof node.value !== "string") {
+				return null;
+			}
 			return {
 				data: node.value.toString(),
 				filename: null,

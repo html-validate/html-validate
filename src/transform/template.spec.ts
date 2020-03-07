@@ -30,6 +30,19 @@ describe("TemplateExtractor", () => {
 			]);
 		});
 
+		it.each`
+			type            | value
+			${"null"}       | ${null}
+			${"undefined"}  | ${undefined}
+			${"boolean"}    | ${true}
+			${"number"}     | ${12}
+			${"regexp"}     | ${/foo/}
+			${"identifier"} | ${"foo"}
+		`("should ignore $type value", ({ value }) => {
+			const te = TemplateExtractor.fromString(`foo({"template": ${value}})`);
+			expect(te.extractObjectProperty("template")).toEqual([]);
+		});
+
 		it("should ignore other properties", () => {
 			const te = TemplateExtractor.fromString('foo({bar: "<b>foo</b>"})');
 			expect(te.extractObjectProperty("template")).toEqual([]);
