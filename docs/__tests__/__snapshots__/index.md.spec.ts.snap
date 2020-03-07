@@ -74,7 +74,9 @@ Array [
       },
       Object {
         "column": 4,
-        "context": undefined,
+        "context": Object {
+          "tagName": "my-deprecated",
+        },
         "line": 3,
         "message": "<my-deprecated> is deprecated: replaced with <my-other>",
         "offset": 39,
@@ -123,7 +125,11 @@ Array [
       },
       Object {
         "column": 6,
-        "context": undefined,
+        "context": Object {
+          "documentation": "\`<blink>\` has no direct replacement and blinking text is frowned upon by accessibility standards.",
+          "source": "non-standard",
+          "tagName": "blink",
+        },
         "line": 8,
         "message": "<blink> is deprecated",
         "offset": 138,

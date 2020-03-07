@@ -39,7 +39,11 @@
   },
 
   "acronym": {
-    "deprecated": true
+    "deprecated": {
+      "message": "use <abbr> instead",
+      "documentation": "`<abbr>` can be used as a replacement.",
+      "source": "html5"
+    }
   },
 
   "address": {
@@ -51,7 +55,9 @@
   },
 
   "applet": {
-    "deprecated": true,
+    "deprecated": {
+      "source": "html5"
+    },
     "deprecatedAttributes": ["datasrc", "datafld"]
   },
 
@@ -106,7 +112,11 @@
   },
 
   "basefont": {
-    "deprecated": true
+    "deprecated": {
+      "message": "use CSS instead",
+      "documentation": "Use CSS `font-size` property instead.",
+      "source": "html4"
+    }
   },
 
   "bdi": {
@@ -122,15 +132,26 @@
   },
 
   "bgsound": {
-    "deprecated": true
+    "deprecated": {
+      "message": "use <audio> instead",
+      "documentation": "Use the `<audio>` element instead but consider accessibility concerns with autoplaying sounds.",
+      "source": "non-standard"
+    }
   },
 
   "big": {
-    "deprecated": true
+    "deprecated": {
+      "message": "use CSS instead",
+      "documentation": "Use CSS `font-size` property instead.",
+      "source": "html5"
+    }
   },
 
   "blink": {
-    "deprecated": true
+    "deprecated": {
+      "documentation": "`<blink>` has no direct replacement and blinking text is frowned upon by accessibility standards.",
+      "source": "non-standard"
+    }
   },
 
   "blockquote": {
@@ -192,7 +213,11 @@
   },
 
   "center": {
-    "deprecated": true
+    "deprecated": {
+      "message": "use CSS instead",
+      "documentation": "Use the CSS `text-align` or `margin: auto` properties instead.",
+      "source": "html4"
+    }
   },
 
   "cite": {
@@ -255,7 +280,10 @@
   },
 
   "dir": {
-    "deprecated": true
+    "deprecated": {
+      "documentation": "The non-standard `<dir>` element has no direct replacement but MDN recommends replacing with `<ul>` and CSS.",
+      "source": "html4"
+    }
   },
 
   "div": {
@@ -318,7 +346,11 @@
   },
 
   "font": {
-    "deprecated": true
+    "deprecated": {
+      "message": "use CSS instead",
+      "documentation": "Use CSS font properties instead.",
+      "source": "html4"
+    }
   },
 
   "footer": {
@@ -341,13 +373,19 @@
   },
 
   "frame": {
-    "deprecated": true,
+    "deprecated": {
+      "documentation": "The `<frame>` element can be replaced with the `<iframe>` element but a better solution is to remove usage of frames entirely.",
+      "source": "html5"
+    },
     "deprecatedAttributes": ["datasrc", "datafld"],
     "requiredAttributes": ["title"]
   },
 
   "frameset": {
-    "deprecated": true
+    "deprecated": {
+      "documentation": "The `<frameset>` element can be replaced with the `<iframe>` element but a better solution is to remove usage of frames entirely.",
+      "source": "html5"
+    }
   },
 
   "h1": {
@@ -547,7 +585,9 @@
   },
 
   "isindex": {
-    "deprecated": true
+    "deprecated": {
+      "source": "html4"
+    }
   },
 
   "kbd": {
@@ -596,7 +636,9 @@
   },
 
   "listing": {
-    "deprecated": true
+    "deprecated": {
+      "source": "html32"
+    }
   },
 
   "main": {
@@ -616,7 +658,10 @@
   },
 
   "marquee": {
-    "deprecated": true,
+    "deprecated": {
+      "documentation": "Marked as obsolete by both W3C and WHATWG standards but still implemented in most browsers. Animated text should be avoided for accessibility reasons as well.",
+      "source": "html5"
+    },
     "deprecatedAttributes": ["datasrc", "datafld", "dataformatas"]
   },
 
@@ -647,7 +692,11 @@
   },
 
   "multicol": {
-    "deprecated": true
+    "deprecated": {
+      "message": "use CSS instead",
+      "documentation": "Use CSS columns instead.",
+      "source": "html5"
+    }
   },
 
   "nav": {
@@ -658,19 +707,29 @@
   },
 
   "nextid": {
-    "deprecated": true
+    "deprecated": {
+      "source": "html32"
+    }
   },
 
   "nobr": {
-    "deprecated": true
+    "deprecated": {
+      "message": "use CSS instead",
+      "documentation": "Use CSS `white-space` property instead.",
+      "source": "non-standard"
+    }
   },
 
   "noembed": {
-    "deprecated": true
+    "deprecated": {
+      "source": "non-standard"
+    }
   },
 
   "noframes": {
-    "deprecated": true
+    "deprecated": {
+      "source": "html5"
+    }
   },
 
   "noscript": {
@@ -792,7 +851,11 @@
   },
 
   "plaintext": {
-    "deprecated": true
+    "deprecated": {
+      "message": "use <pre> or CSS instead",
+      "documentation": "Use the `<pre>` element or use CSS to set a monospace font.",
+      "source": "html2"
+    }
   },
 
   "pre": {
@@ -912,7 +975,11 @@
   },
 
   "spacer": {
-    "deprecated": true
+    "deprecated": {
+      "message": "use CSS instead",
+      "documentation": "Use CSS margin or padding instead.",
+      "source": "non-standard"
+    }
   },
 
   "span": {
@@ -923,7 +990,11 @@
   },
 
   "strike": {
-    "deprecated": true
+    "deprecated": {
+      "message": "use <del> or <s> instead",
+      "documentation": "Use the `<del>` or `<s>` element instead.",
+      "source": "html5"
+    }
   },
 
   "strong": {
@@ -1128,7 +1199,10 @@
   },
 
   "tt": {
-    "deprecated": true
+    "deprecated": {
+      "documentation": "Use a more semantically correct element such as `<code>`, `<var>` or `<pre>`.",
+      "source": "html4"
+    }
   },
 
   "u": {
@@ -1170,6 +1244,9 @@
   },
 
   "xmp": {
-    "deprecated": true
+    "deprecated": {
+      "documentation": "Use `<pre>` or `<code>` and escape content using HTML entities instead.",
+      "source": "html32"
+    }
   }
 }

@@ -59,7 +59,11 @@
         "deprecated": {
           "title": "Mark element as deprecated",
           "description": "Deprecated elements should not be used. If a message is provided it will be included in the error",
-          "anyOf": [{ "type": "boolean" }, { "type": "string" }]
+          "anyOf": [
+            { "type": "boolean" },
+            { "type": "string" },
+            { "$ref": "#/definitions/deprecatedElement" }
+          ]
         },
 
         "foreign": {
@@ -176,6 +180,26 @@
           "type": "string"
         }
       ]
+    },
+
+    "deprecatedElement": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "message": {
+          "type": "string",
+          "title": "A short text message shown next to the regular error message."
+        },
+        "documentation": {
+          "type": "string",
+          "title": "An extended markdown formatted message shown with the contextual rule documentation."
+        },
+        "source": {
+          "type": "string",
+          "title": "Element source, e.g. what standard or library deprecated this element.",
+          "default": "html5"
+        }
+      }
     },
 
     "Permitted": {

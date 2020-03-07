@@ -10,7 +10,9 @@ Array [
     "messages": Array [
       Object {
         "column": 2,
-        "context": undefined,
+        "context": Object {
+          "tagName": "my-element",
+        },
         "line": 1,
         "message": "<my-element> is deprecated: replaced with <other-element>",
         "offset": 1,
@@ -34,9 +36,14 @@ Array [
     "messages": Array [
       Object {
         "column": 2,
-        "context": undefined,
+        "context": Object {
+          "documentation": "Use the CSS \`text-align\` or \`margin: auto\` properties instead.",
+          "message": "use CSS instead",
+          "source": "html4",
+          "tagName": "center",
+        },
         "line": 1,
-        "message": "<center> is deprecated",
+        "message": "<center> is deprecated: use CSS instead",
         "offset": 1,
         "ruleId": "deprecated",
         "selector": "center",
@@ -45,9 +52,14 @@ Array [
       },
       Object {
         "column": 2,
-        "context": undefined,
+        "context": Object {
+          "documentation": "Use CSS \`font-size\` property instead.",
+          "message": "use CSS instead",
+          "source": "html5",
+          "tagName": "big",
+        },
         "line": 2,
-        "message": "<big> is deprecated",
+        "message": "<big> is deprecated: use CSS instead",
         "offset": 22,
         "ruleId": "deprecated",
         "selector": "big",
