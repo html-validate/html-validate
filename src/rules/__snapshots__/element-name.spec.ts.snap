@@ -8,7 +8,11 @@ Array [
     "messages": Array [
       Object {
         "column": 2,
-        "context": undefined,
+        "context": Object {
+          "blacklist": Array [],
+          "pattern": "^foo-\\\\w+$",
+          "tagName": "spam-ham",
+        },
         "line": 27,
         "message": "<spam-ham> is not a valid element name",
         "offset": 319,
@@ -19,7 +23,11 @@ Array [
       },
       Object {
         "column": 2,
-        "context": undefined,
+        "context": Object {
+          "blacklist": Array [],
+          "pattern": "^foo-\\\\w+$",
+          "tagName": "foo",
+        },
         "line": 30,
         "message": "<foo> is not a valid element name",
         "offset": 372,
@@ -30,7 +38,11 @@ Array [
       },
       Object {
         "column": 2,
-        "context": undefined,
+        "context": Object {
+          "blacklist": Array [],
+          "pattern": "^foo-\\\\w+$",
+          "tagName": "1-bar",
+        },
         "line": 31,
         "message": "<1-bar> is not a valid element name",
         "offset": 384,
@@ -85,7 +97,11 @@ Array [
     "messages": Array [
       Object {
         "column": 2,
-        "context": undefined,
+        "context": Object {
+          "blacklist": Array [],
+          "pattern": "^[a-z][a-z0-9\\\\-._]*-[a-z0-9\\\\-._]*$",
+          "tagName": "foo",
+        },
         "line": 30,
         "message": "<foo> is not a valid element name",
         "offset": 372,
@@ -96,7 +112,11 @@ Array [
       },
       Object {
         "column": 2,
-        "context": undefined,
+        "context": Object {
+          "blacklist": Array [],
+          "pattern": "^[a-z][a-z0-9\\\\-._]*-[a-z0-9\\\\-._]*$",
+          "tagName": "1-bar",
+        },
         "line": 31,
         "message": "<1-bar> is not a valid element name",
         "offset": 384,
@@ -143,9 +163,39 @@ Array [
 ]
 `;
 
+exports[`rule element-name should contain contextual documentation for blacklisted element 1`] = `
+Object {
+  "description": "<element-name> is blacklisted by the project configuration.
+
+The following names are blacklisted:
+- element-name",
+  "url": "https://html-validate.org/rules/element-name.html",
+}
+`;
+
+exports[`rule element-name should contain contextual documentation for element not matching custom pattern 1`] = `
+Object {
+  "description": "<element-name> is not a valid element name. This project is configured to only allow names matching the following regular expression:
+
+- \`^foo-.+$\`",
+  "url": "https://html-validate.org/rules/element-name.html",
+}
+`;
+
+exports[`rule element-name should contain contextual documentation for element not matching default pattern 1`] = `
+Object {
+  "description": "<element-name> is not a valid element name. If this is a custom element HTML requires the name to follow these rules:
+
+- The name must begin with \`a-z\`
+- The name must include a hyphen \`-\`
+- It may include alphanumerical characters \`a-z0-9\` or hyphens \`-\`, dots \`.\` or underscores \`_\`.",
+  "url": "https://html-validate.org/rules/element-name.html",
+}
+`;
+
 exports[`rule element-name should contain documentation 1`] = `
 Object {
-  "description": "HTML defines what content is considered a valid (custom) element name.",
+  "description": "This is not a valid element name.",
   "url": "https://html-validate.org/rules/element-name.html",
 }
 `;

@@ -2,6 +2,12 @@ import { sliceLocation } from "../context";
 import { TagOpenEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
+interface Context {
+	tagName: string;
+	pattern: string;
+	blacklist: string[];
+}
+
 interface RuleOptions {
 	pattern: string;
 	whitelist: string[];
@@ -14,7 +20,7 @@ const defaults: RuleOptions = {
 	blacklist: [],
 };
 
-class ElementName extends Rule<void, RuleOptions> {
+class ElementName extends Rule<Context, RuleOptions> {
 	private pattern: RegExp;
 
 	public constructor(options: RuleOptions) {
@@ -24,12 +30,42 @@ class ElementName extends Rule<void, RuleOptions> {
 		this.pattern = new RegExp(this.options.pattern);
 	}
 
-	public documentation(): RuleDocumentation {
+	public documentation(context: Context): RuleDocumentation {
 		return {
-			description:
-				"HTML defines what content is considered a valid (custom) element name.",
+			description: this.documentationMessages(context).join("\n"),
 			url: ruleDocumentationUrl(__filename),
 		};
+	}
+
+	private documentationMessages(context: Context): string[] {
+		if (!context) {
+			return ["This is not a valid element name."];
+		}
+
+		if (context.blacklist.includes(context.tagName)) {
+			return [
+				`<${context.tagName}> is blacklisted by the project configuration.`,
+				"",
+				"The following names are blacklisted:",
+				...context.blacklist.map(cur => `- ${cur}`),
+			];
+		}
+
+		if (context.pattern !== defaults.pattern) {
+			return [
+				`<${context.tagName}> is not a valid element name. This project is configured to only allow names matching the following regular expression:`,
+				"",
+				`- \`${context.pattern}\``,
+			];
+		}
+
+		return [
+			`<${context.tagName}> is not a valid element name. If this is a custom element HTML requires the name to follow these rules:`,
+			"",
+			"- The name must begin with `a-z`",
+			"- The name must include a hyphen `-`",
+			"- It may include alphanumerical characters `a-z0-9` or hyphens `-`, dots `.` or underscores `_`.",
+		];
 	}
 
 	public setup(): void {
@@ -38,10 +74,20 @@ class ElementName extends Rule<void, RuleOptions> {
 			const target = event.target;
 			const tagName = target.tagName;
 			const location = sliceLocation(event.location, 1);
+			const context: Context = {
+				tagName,
+				pattern: this.options.pattern,
+				blacklist: this.options.blacklist,
+			};
 
 			/* check if element is blacklisted */
-			if (this.options.blacklist.indexOf(tagName) >= 0) {
-				this.report(target, `<${tagName}> element is blacklisted`, location);
+			if (this.options.blacklist.includes(tagName)) {
+				this.report(
+					target,
+					`<${tagName}> element is blacklisted`,
+					location,
+					context
+				);
 			}
 
 			/* assume that an element with meta has valid name as it is a builtin
@@ -65,7 +111,8 @@ class ElementName extends Rule<void, RuleOptions> {
 				this.report(
 					target,
 					`<${tagName}> is not a valid element name`,
-					location
+					location,
+					context
 				);
 			}
 		});
