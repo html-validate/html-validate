@@ -213,18 +213,30 @@ function expandProperties(node: HtmlElement, entry: MetaElement): void {
 	}
 }
 
-function expandRegex(entry: MetaElement): RegExp {
+/**
+ * Given a string it returns either the string as-is or if the string is wrapped
+ * in /../ it creates and returns a regex instead.
+ */
+function expandRegexValue(value: string | RegExp): string | RegExp {
+	if (value instanceof RegExp) {
+		return value;
+	}
+	const match = value.match(/^\/(.*)\/$/);
+	if (match) {
+		// eslint-disable-next-line security/detect-non-literal-regexp
+		return new RegExp(match[1]);
+	} else {
+		return value;
+	}
+}
+
+/**
+ * Expand all regular expressions in strings ("/../"). This mutates the object.
+ */
+function expandRegex(entry: MetaElement): void {
 	if (!entry.attributes) return;
 	for (const [name, values] of Object.entries(entry.attributes)) {
-		entry.attributes[name] = values.map((value: string | RegExp) => {
-			const match = typeof value === "string" && value.match(/^\/(.*)\/$/);
-			if (match) {
-				// eslint-disable-next-line security/detect-non-literal-regexp
-				return new RegExp(match[1]);
-			} else {
-				return value;
-			}
-		});
+		entry.attributes[name] = values.map(expandRegexValue);
 	}
 }
 
