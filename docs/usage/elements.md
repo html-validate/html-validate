@@ -32,7 +32,7 @@ export interface MetaElement {
   interactive: boolean | PropertyExpression;
 
   /* element properties */
-  deprecated: boolean | string;
+  deprecated: boolean | string | DeprecatedElement;
   foreign: boolean;
   void: boolean;
   transparent: boolean;
@@ -101,8 +101,35 @@ The available evaluators are:
 
 ### `deprecated`
 
-If true the element will trigger the [deprecated](/rules/deprecated.html) rule
-when used. Can optionally be set to a string which will be displayed as well.
+If truthy the element will trigger the [deprecated](/rules/deprecated.html) rule
+when used.
+
+Can be set to `true`, a string or an object.
+
+```typescript
+interface DeprecatedElement {
+  message?: string;
+  documentation?: string;
+  source?: string;
+}
+```
+
+Setting `true` is the same as the empty object.
+Setting a string is the same as setting `message` to the string.
+
+If the `message` property is set the text will be displayed in the error message.
+
+If the `documentation` property is set the text will be rendered as markdown and shown in the contextual documentation shown by editors.
+`$tagname` can be used as a placeholder in the text.
+
+If the `source` property is set it is used to help the end-user to understand when and by what it is deprecated.
+It can be set to:
+
+- HTML major revision, e.g. `html5` or `html4`.
+- HTML minor revision, e.g. `html53` or `html32`.
+- `whatwg`: WHATWG Living Standard.
+- `non-standard`: non-standard element implemented only by one or few browsers.
+- your library or application name.
 
 ### `foreign`
 

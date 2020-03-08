@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule deprecated-rule should contain contextual documentation 1`] = `
+Object {
+  "description": "The rule \\"my-rule\\" is deprecated and should not be used any longer, consult documentation for further information.",
+  "url": "https://html-validate.org/rules/deprecated-rule.html",
+}
+`;
+
 exports[`rule deprecated-rule should contain documentation 1`] = `
 Object {
   "description": "This rule is deprecated and should not be used any longer, consult documentation for further information.",

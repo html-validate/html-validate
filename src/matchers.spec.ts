@@ -167,6 +167,7 @@ describe("toBeToken()", () => {
 			line: 1,
 			column: 2,
 			offset: 1,
+			size: 1,
 		},
 	};
 

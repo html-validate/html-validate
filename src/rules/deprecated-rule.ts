@@ -2,11 +2,12 @@ import { Severity } from "../config";
 import { ConfigReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class DeprecatedRule extends Rule {
-	public documentation(): RuleDocumentation {
+class DeprecatedRule extends Rule<string> {
+	public documentation(context: string): RuleDocumentation {
 		return {
-			description:
-				"This rule is deprecated and should not be used any longer, consult documentation for further information.",
+			description: `${
+				context ? `The rule "${context}"` : "This rule"
+			} is deprecated and should not be used any longer, consult documentation for further information.`,
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
@@ -15,7 +16,12 @@ class DeprecatedRule extends Rule {
 		this.on("config:ready", (event: ConfigReadyEvent) => {
 			for (const rule of this.getDeprecatedRules(event)) {
 				if (rule.getSeverity() > Severity.DISABLED) {
-					this.report(null, `Usage of deprecated rule "${rule.name}"`);
+					this.report(
+						null,
+						`Usage of deprecated rule "${rule.name}"`,
+						null,
+						rule.name
+					);
 				}
 			}
 		});

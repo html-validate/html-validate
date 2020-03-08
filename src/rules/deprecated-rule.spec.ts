@@ -75,4 +75,11 @@ describe("rule deprecated-rule", () => {
 			htmlvalidate.getRuleDocumentation("deprecated-rule")
 		).toMatchSnapshot();
 	});
+
+	it("should contain contextual documentation", () => {
+		const htmlvalidate = new HtmlValidate();
+		expect(
+			htmlvalidate.getRuleDocumentation("deprecated-rule", null, "my-rule")
+		).toMatchSnapshot();
+	});
 });

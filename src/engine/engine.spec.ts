@@ -31,6 +31,7 @@ class MockParser extends Parser {
 						line: 1,
 						column: 1,
 						offset: 0,
+						size: 1,
 					},
 					"invalid token error"
 				);
@@ -41,6 +42,7 @@ class MockParser extends Parser {
 						line: 1,
 						column: 1,
 						offset: 0,
+						size: 1,
 					},
 					"parser error"
 				);
@@ -110,7 +112,7 @@ describe("Engine", () => {
 				      "ruleId": "parser-error",
 				      "selector": null,
 				      "severity": 2,
-				      "size": 0,
+				      "size": 1,
 				    },
 				  ],
 				  "source": "invalid-token-error",
@@ -137,7 +139,7 @@ describe("Engine", () => {
 				      "ruleId": "parser-error",
 				      "selector": null,
 				      "severity": 2,
-				      "size": 0,
+				      "size": 1,
 				    },
 				  ],
 				  "source": "parser-error",

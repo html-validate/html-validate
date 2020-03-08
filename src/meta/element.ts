@@ -14,6 +14,12 @@ export interface PermittedAttribute {
 	[key: string]: Array<string | RegExp>;
 }
 
+export interface DeprecatedElement {
+	message?: string;
+	documentation?: string;
+	source?: string;
+}
+
 export interface MetaData {
 	/* special keyword to extend metadata from another entry */
 	inherit?: string;
@@ -28,7 +34,7 @@ export interface MetaData {
 	interactive: boolean | PropertyExpression;
 
 	/* element properties */
-	deprecated: boolean | string;
+	deprecated: boolean | string | DeprecatedElement;
 	foreign: boolean;
 	void: boolean;
 	transparent: boolean;
@@ -98,6 +104,7 @@ export interface MetaElement extends MetaData {
 	[key: string]:
 		| undefined
 		| boolean
+		| DeprecatedElement
 		| PropertyExpression
 		| Permitted
 		| PermittedOrder

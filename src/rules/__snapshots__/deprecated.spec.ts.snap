@@ -1,8 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule deprecated should contain contextual documentation 1`] = `
+Object {
+  "description": "The \`<center>\` element is deprecated and should not be used in new code.",
+  "url": "https://html-validate.org/rules/deprecated.html",
+}
+`;
+
+exports[`rule deprecated should contain contextual documentation 2`] = `
+Object {
+  "description": "The \`<blink>\` element is deprecated in HTML 5 and should not be used in new code.",
+  "url": "https://html-validate.org/rules/deprecated.html",
+}
+`;
+
+exports[`rule deprecated should contain contextual documentation 3`] = `
+Object {
+  "description": "The \`<blink>\` element is deprecated in HTML 4.1 and should not be used in new code.",
+  "url": "https://html-validate.org/rules/deprecated.html",
+}
+`;
+
+exports[`rule deprecated should contain contextual documentation 4`] = `
+Object {
+  "description": "The \`<blink>\` element is deprecated and should not be used in new code.
+
+extra documentation for <blink>",
+  "url": "https://html-validate.org/rules/deprecated.html",
+}
+`;
+
 exports[`rule deprecated should contain documentation 1`] = `
 Object {
-  "description": "HTML5 deprecated many old elements and they should not be used in new code.",
+  "description": "This element is deprecated and should not be used in new code.",
   "url": "https://html-validate.org/rules/deprecated.html",
 }
 `;
@@ -15,7 +45,11 @@ Array [
     "messages": Array [
       Object {
         "column": 2,
-        "context": undefined,
+        "context": Object {
+          "documentation": "Marked as obsolete by both W3C and WHATWG standards but still implemented in most browsers. Animated text should be avoided for accessibility reasons as well.",
+          "source": "html5",
+          "tagName": "marquee",
+        },
         "line": 2,
         "message": "<marquee> is deprecated",
         "offset": 20,

@@ -1,6 +1,8 @@
 import HtmlValidate from "../htmlvalidate";
 import "../matchers";
 
+const DEFAULT_PATTERN = "^[a-z][a-z0-9\\-._]*-[a-z0-9\\-._]*$";
+
 describe("rule element-name", () => {
 	let htmlvalidate: HtmlValidate;
 
@@ -120,5 +122,52 @@ describe("rule element-name", () => {
 			rules: { "element-name": "error" },
 		});
 		expect(htmlvalidate.getRuleDocumentation("element-name")).toMatchSnapshot();
+	});
+
+	describe("should contain contextual documentation for", () => {
+		it("blacklisted element", () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				rules: { "element-name": "error" },
+			});
+			const context = {
+				tagName: "element-name",
+				pattern: DEFAULT_PATTERN,
+				blacklist: ["element-name"],
+			};
+			expect(
+				htmlvalidate.getRuleDocumentation("element-name", null, context)
+			).toMatchSnapshot();
+		});
+
+		it("element not matching default pattern", () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				rules: { "element-name": "error" },
+			});
+			const context = {
+				tagName: "element-name",
+				pattern: DEFAULT_PATTERN,
+				blacklist: [] as string[],
+			};
+			expect(
+				htmlvalidate.getRuleDocumentation("element-name", null, context)
+			).toMatchSnapshot();
+		});
+
+		it("element not matching custom pattern", () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				rules: { "element-name": "error" },
+			});
+			const context = {
+				tagName: "element-name",
+				pattern: "^foo-.+$",
+				blacklist: [] as string[],
+			};
+			expect(
+				htmlvalidate.getRuleDocumentation("element-name", null, context)
+			).toMatchSnapshot();
+		});
 	});
 });

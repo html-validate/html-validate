@@ -17,6 +17,11 @@ describe("rule no-dup-id", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report when id is missing value", () => {
+		const report = htmlvalidate.validateString("<hr id><hr id>");
+		expect(report).toBeValid();
+	});
+
 	it("should report when id is duplicated", () => {
 		const report = htmlvalidate.validateString(
 			'<p id="foo"></p><p id="foo"></p>'

@@ -10,7 +10,11 @@ Array [
     "messages": Array [
       Object {
         "column": 2,
-        "context": undefined,
+        "context": Object {
+          "blacklist": Array [],
+          "pattern": "^[a-z][a-z0-9\\\\-._]*-[a-z0-9\\\\-._]*$",
+          "tagName": "foobar",
+        },
         "line": 1,
         "message": "<foobar> is not a valid element name",
         "offset": 1,
