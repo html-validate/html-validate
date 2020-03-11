@@ -120,6 +120,7 @@ Node 13.x (current):
 
 Release:
   stage: release
+  image: node:12
   only:
     - web
   variables:
