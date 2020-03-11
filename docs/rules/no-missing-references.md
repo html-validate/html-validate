@@ -5,17 +5,18 @@ category: document
 summary: Require all element references to exist
 ---
 
-# no missing references (`no-missing-references`)
+# No missing references (`no-missing-references`)
 
 Require all elements referenced by attributes such as `for` to exist in the
 current document.
 
 Checked attributes:
 
-- `for`
-- `aria-controls`
-- `aria-describedby`
-- `aria-labelledby`
+- `label[for]`
+- `input[list]`
+- `*[aria-controls]`
+- `*[aria-describedby]`
+- `*[aria-labelledby]`
 
 ## Rule details
 
