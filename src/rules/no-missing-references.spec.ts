@@ -17,6 +17,13 @@ describe("rule no-missing-references", () => {
 		expect(report).toBeValid();
 	});
 
+	it('should not report error when <input list=".."> is referencing existing element', () => {
+		const report = htmlvalidate.validateString(
+			'<input list="existing"><datalist id="existing"></datalist>'
+		);
+		expect(report).toBeValid();
+	});
+
 	it('should not report error when <ANY aria-labelledby=".."> is referencing existing element', () => {
 		const report = htmlvalidate.validateString(
 			'<div aria-labelledby="existing"></div><span id="existing"></span>'
@@ -50,6 +57,15 @@ describe("rule no-missing-references", () => {
 
 	it('should report error when <label for=".."> is referencing missing element', () => {
 		const report = htmlvalidate.validateString('<label for="missing"></label>');
+		expect(report).toBeInvalid();
+		expect(report).toHaveError(
+			"no-missing-references",
+			'Element references missing id "missing"'
+		);
+	});
+
+	it('should report error when <input list=".."> is referencing missing element', () => {
+		const report = htmlvalidate.validateString('<input list="missing">');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"no-missing-references",

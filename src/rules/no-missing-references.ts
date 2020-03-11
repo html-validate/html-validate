@@ -34,6 +34,12 @@ class NoMissingReferences extends Rule<Context> {
 				this.validateReference(document, node, attr);
 			}
 
+			/* verify <input list=".."> */
+			for (const node of document.querySelectorAll("input[list]")) {
+				const attr = node.getAttribute("list");
+				this.validateReference(document, node, attr);
+			}
+
 			/* verify WAI-ARIA properties */
 			for (const property of ARIA) {
 				for (const node of document.querySelectorAll(`[${property}]`)) {
