@@ -1,5 +1,26 @@
 # html-validate changelog
 
+# [2.18.0](https://gitlab.com/html-validate/html-validate/compare/v2.17.1...v2.18.0) (2020-03-11)
+
+### Bug Fixes
+
+- validate `input[list]` ([9c70db2](https://gitlab.com/html-validate/html-validate/commit/9c70db243aa3fa0c9243bc6fd6a206bac28a5873))
+- **rules:** `no-dup-id` handles when id is set but omitted value ([5f678a5](https://gitlab.com/html-validate/html-validate/commit/5f678a566c006d50b90fee23d140b5f49784b0e0))
+- **rules:** `no-missing-references` ignores omitted references ([b8863cd](https://gitlab.com/html-validate/html-validate/commit/b8863cd8ebd8c5c05e97ef9e5e662f406aa1cb92))
+- **rules:** add contextual documentation for `deprecated` ([7fbf433](https://gitlab.com/html-validate/html-validate/commit/7fbf433f9ce70ce34759448936d40c7dd96f55ae))
+- **rules:** add contextual documentation for `element-name` ([2a98bad](https://gitlab.com/html-validate/html-validate/commit/2a98bada16a15c802a3e050e9274153237e916fd))
+- **rules:** better and more contextual messages for `deprecated` ([3602be7](https://gitlab.com/html-validate/html-validate/commit/3602be730dd2ec54e1de702171ce606e4043c02a))
+- **rules:** contextual documentation for `deprecated-rule` ([8b10601](https://gitlab.com/html-validate/html-validate/commit/8b10601405f74ddbe62a6d666153dece1b3ad9a4))
+- **rules:** improve documentation for `doctype-html` ([1a896a8](https://gitlab.com/html-validate/html-validate/commit/1a896a87f8e7c253e4d21faf01aae6f52df754f8))
+- **shim:** expose `ConfigError` and `UserError` ([2d002c7](https://gitlab.com/html-validate/html-validate/commit/2d002c79f1f6f088c1792de768ba80777629b739))
+- **transform:** ignore non-string values in `TemplateExtractor` ([7f27c8b](https://gitlab.com/html-validate/html-validate/commit/7f27c8b6b0ff4f4afd85501b0b554886742b5c6f))
+- allow both null and empty string when attribute allows empty values ([5b6991b](https://gitlab.com/html-validate/html-validate/commit/5b6991b6ea7d8b4418168b1f9d0f8bef7cac935e))
+
+### Features
+
+- `attribute-allowed-values` handle omitted values ([962d079](https://gitlab.com/html-validate/html-validate/commit/962d0791dae6ad4fed663909556c480f5789cd81))
+- new rule `attribute-empty-style` ([a328b55](https://gitlab.com/html-validate/html-validate/commit/a328b558adced37c05b76dddd6cf6f83d36fe72d))
+
 ## [2.17.1](https://gitlab.com/html-validate/html-validate/compare/v2.17.0...v2.17.1) (2020-03-02)
 
 ### Bug Fixes
