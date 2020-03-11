@@ -2,7 +2,9 @@
   "my-component": {
     "flow": true,
     "attributes": {
-      "duck": ["huey", "dewey", "louie"]
+      "duck": {
+        "enum": ["huey", "dewey", "louie"]
+      }
     }
   }
 }

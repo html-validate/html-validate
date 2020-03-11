@@ -14,6 +14,7 @@ import {
 	MetaLookupableProperty,
 	PropertyExpression,
 } from "./element";
+import { migrateElement } from "./migrate";
 
 const dynamicKeys = [
 	"metadata",
@@ -108,24 +109,22 @@ export class MetaTable {
 		obj: MetaDataTable,
 		filename: string | null = null
 	): void {
-		const ajv = new Ajv({ jsonPointers: true });
-		ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-06.json"));
-		ajv.addKeyword("regexp", ajvRegexpKeyword);
-		const validator = ajv.compile(this.schema);
-		const valid = validator(obj);
+		const migrated = migrateElement(obj);
+		const validator = this.getSchemaValidator();
+		const valid = validator(migrated);
 		if (!valid) {
 			throw new SchemaValidationError(
 				filename,
 				`Element metadata is not valid`,
-				obj,
+				migrated,
 				this.schema,
 				validator.errors
 			);
 		}
 
-		for (const key of Object.keys(obj)) {
+		for (const [key, value] of Object.entries(migrated)) {
 			if (key === "$schema") continue;
-			this.addEntry(key, obj[key]);
+			this.addEntry(key, value);
 		}
 	}
 
@@ -143,7 +142,7 @@ export class MetaTable {
 				err
 			);
 		}
-		this.loadFromObject(clone(json), filename);
+		this.loadFromObject(json, filename);
 	}
 
 	/**
@@ -200,6 +199,16 @@ export class MetaTable {
 		expandRegex(expanded);
 
 		this.elements[tagName] = expanded;
+	}
+
+	/**
+	 * Construct a new AJV schema validator.
+	 */
+	private getSchemaValidator(): Ajv.ValidateFunction {
+		const ajv = new Ajv({ jsonPointers: true });
+		ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-06.json"));
+		ajv.addKeyword("regexp", ajvRegexpKeyword);
+		return ajv.compile(this.schema);
 	}
 
 	/**
@@ -269,7 +278,9 @@ function expandRegexValue(value: string | RegExp): string | RegExp {
 function expandRegex(entry: MetaElement): void {
 	if (!entry.attributes) return;
 	for (const [name, values] of Object.entries(entry.attributes)) {
-		entry.attributes[name] = values.map(expandRegexValue);
+		if (values.enum) {
+			entry.attributes[name].enum = values.enum.map(expandRegexValue);
+		}
 	}
 }
 

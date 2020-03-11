@@ -53,9 +53,11 @@ Array [
       Object {
         "column": 4,
         "context": Object {
-          "allowed": Array [
-            /\\.\\*/,
-          ],
+          "allowed": Object {
+            "enum": Array [
+              /\\.\\*/,
+            ],
+          },
           "attribute": "href",
           "element": "a",
           "value": "",
@@ -294,12 +296,14 @@ Array [
       Object {
         "column": 3,
         "context": Object {
-          "allowed": Array [
-            "rect",
-            "circle",
-            "poly",
-            "default",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "rect",
+              "circle",
+              "poly",
+              "default",
+            ],
+          },
           "attribute": "shape",
           "element": "area",
           "value": "",
@@ -315,12 +319,14 @@ Array [
       Object {
         "column": 15,
         "context": Object {
-          "allowed": Array [
-            "rect",
-            "circle",
-            "poly",
-            "default",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "rect",
+              "circle",
+              "poly",
+              "default",
+            ],
+          },
           "attribute": "shape",
           "element": "area",
           "value": "foobar",
@@ -497,12 +503,15 @@ Array [
       Object {
         "column": 17,
         "context": Object {
-          "allowed": Array [
-            "",
-            "none",
-            "metadata",
-            "auto",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "",
+              "none",
+              "metadata",
+              "auto",
+            ],
+            "omit": true,
+          },
           "attribute": "preload",
           "element": "audio",
           "value": "foobar",
@@ -948,11 +957,13 @@ Array [
       Object {
         "column": 15,
         "context": Object {
-          "allowed": Array [
-            "submit",
-            "reset",
-            "button",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "submit",
+              "reset",
+              "button",
+            ],
+          },
           "attribute": "type",
           "element": "button",
           "value": "foobar",
@@ -1732,9 +1743,11 @@ Array [
       Object {
         "column": 2,
         "context": Object {
-          "allowed": Array [
-            /\\.\\+/,
-          ],
+          "allowed": Object {
+            "enum": Array [
+              /\\.\\+/,
+            ],
+          },
           "attribute": "src",
           "element": "embed",
           "value": "",
@@ -2852,9 +2865,11 @@ Array [
       Object {
         "column": 2,
         "context": Object {
-          "allowed": Array [
-            /\\.\\+/,
-          ],
+          "allowed": Object {
+            "enum": Array [
+              /\\.\\+/,
+            ],
+          },
           "attribute": "src",
           "element": "iframe",
           "value": "",
@@ -2904,9 +2919,11 @@ Array [
       Object {
         "column": 2,
         "context": Object {
-          "allowed": Array [
-            /\\.\\+/,
-          ],
+          "allowed": Object {
+            "enum": Array [
+              /\\.\\+/,
+            ],
+          },
           "attribute": "src",
           "element": "img",
           "value": "",
@@ -2922,9 +2939,11 @@ Array [
       Object {
         "column": 2,
         "context": Object {
-          "allowed": Array [
-            /\\.\\+/,
-          ],
+          "allowed": Object {
+            "enum": Array [
+              /\\.\\+/,
+            ],
+          },
           "attribute": "srcset",
           "element": "img",
           "value": "",
@@ -3004,7 +3023,9 @@ Array [
       Object {
         "column": 31,
         "context": Object {
-          "allowed": Array [],
+          "allowed": Object {
+            "boolean": true,
+          },
           "attribute": "autofocus",
           "element": "input",
           "value": "foobar",
@@ -3020,7 +3041,9 @@ Array [
       Object {
         "column": 29,
         "context": Object {
-          "allowed": Array [],
+          "allowed": Object {
+            "boolean": true,
+          },
           "attribute": "capture",
           "element": "input",
           "value": "foobar",
@@ -3036,7 +3059,9 @@ Array [
       Object {
         "column": 29,
         "context": Object {
-          "allowed": Array [],
+          "allowed": Object {
+            "boolean": true,
+          },
           "attribute": "checked",
           "element": "input",
           "value": "foobar",
@@ -3052,7 +3077,9 @@ Array [
       Object {
         "column": 30,
         "context": Object {
-          "allowed": Array [],
+          "allowed": Object {
+            "boolean": true,
+          },
           "attribute": "disabled",
           "element": "input",
           "value": "foobar",
@@ -3068,7 +3095,9 @@ Array [
       Object {
         "column": 30,
         "context": Object {
-          "allowed": Array [],
+          "allowed": Object {
+            "boolean": true,
+          },
           "attribute": "multiple",
           "element": "input",
           "value": "foobar",
@@ -3084,7 +3113,9 @@ Array [
       Object {
         "column": 30,
         "context": Object {
-          "allowed": Array [],
+          "allowed": Object {
+            "boolean": true,
+          },
           "attribute": "readonly",
           "element": "input",
           "value": "foobar",
@@ -3100,7 +3131,9 @@ Array [
       Object {
         "column": 30,
         "context": Object {
-          "allowed": Array [],
+          "allowed": Object {
+            "boolean": true,
+          },
           "attribute": "required",
           "element": "input",
           "value": "foobar",
@@ -3116,16 +3149,18 @@ Array [
       Object {
         "column": 31,
         "context": Object {
-          "allowed": Array [
-            "none",
-            "text",
-            "decimal",
-            "numeric",
-            "tel",
-            "search",
-            "email",
-            "url",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "none",
+              "text",
+              "decimal",
+              "numeric",
+              "tel",
+              "search",
+              "email",
+              "url",
+            ],
+          },
           "attribute": "inputmode",
           "element": "input",
           "value": "foobar",
@@ -3141,30 +3176,32 @@ Array [
       Object {
         "column": 14,
         "context": Object {
-          "allowed": Array [
-            "button",
-            "checkbox",
-            "color",
-            "date",
-            "datetime-local",
-            "email",
-            "file",
-            "hidden",
-            "image",
-            "month",
-            "number",
-            "password",
-            "radio",
-            "range",
-            "reset",
-            "search",
-            "submit",
-            "tel",
-            "text",
-            "time",
-            "url",
-            "week",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "button",
+              "checkbox",
+              "color",
+              "date",
+              "datetime-local",
+              "email",
+              "file",
+              "hidden",
+              "image",
+              "month",
+              "number",
+              "password",
+              "radio",
+              "range",
+              "reset",
+              "search",
+              "submit",
+              "tel",
+              "text",
+              "time",
+              "url",
+              "week",
+            ],
+          },
           "attribute": "type",
           "element": "input",
           "value": "foobar",
@@ -3180,11 +3217,13 @@ Array [
       Object {
         "column": 32,
         "context": Object {
-          "allowed": Array [
-            "default",
-            "false",
-            "true",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "default",
+              "false",
+              "true",
+            ],
+          },
           "attribute": "spellcheck",
           "element": "input",
           "value": "foobar",
@@ -3540,9 +3579,11 @@ Array [
       Object {
         "column": 2,
         "context": Object {
-          "allowed": Array [
-            /\\.\\+/,
-          ],
+          "allowed": Object {
+            "enum": Array [
+              /\\.\\+/,
+            ],
+          },
           "attribute": "href",
           "element": "link",
           "value": "",
@@ -3558,9 +3599,11 @@ Array [
       Object {
         "column": 21,
         "context": Object {
-          "allowed": Array [
-            /\\.\\+/,
-          ],
+          "allowed": Object {
+            "enum": Array [
+              /\\.\\+/,
+            ],
+          },
           "attribute": "integrity",
           "element": "link",
           "value": "",
@@ -3576,9 +3619,11 @@ Array [
       Object {
         "column": 2,
         "context": Object {
-          "allowed": Array [
-            /\\.\\+/,
-          ],
+          "allowed": Object {
+            "enum": Array [
+              /\\.\\+/,
+            ],
+          },
           "attribute": "integrity",
           "element": "link",
           "value": "",
@@ -3718,13 +3763,15 @@ Array [
       Object {
         "column": 7,
         "context": Object {
-          "allowed": Array [
-            "ltr",
-            "rtl",
-            "ltr",
-            "rtl",
-            "auto",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "ltr",
+              "rtl",
+              "ltr",
+              "rtl",
+              "auto",
+            ],
+          },
           "attribute": "dir",
           "element": "math",
           "value": "",
@@ -3740,13 +3787,15 @@ Array [
       Object {
         "column": 12,
         "context": Object {
-          "allowed": Array [
-            "ltr",
-            "rtl",
-            "ltr",
-            "rtl",
-            "auto",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "ltr",
+              "rtl",
+              "ltr",
+              "rtl",
+              "auto",
+            ],
+          },
           "attribute": "dir",
           "element": "math",
           "value": "foobar",
@@ -3762,10 +3811,12 @@ Array [
       Object {
         "column": 7,
         "context": Object {
-          "allowed": Array [
-            "block",
-            "inline",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "block",
+              "inline",
+            ],
+          },
           "attribute": "display",
           "element": "math",
           "value": "",
@@ -3781,10 +3832,12 @@ Array [
       Object {
         "column": 16,
         "context": Object {
-          "allowed": Array [
-            "block",
-            "inline",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "block",
+              "inline",
+            ],
+          },
           "attribute": "display",
           "element": "math",
           "value": "foobar",
@@ -3800,13 +3853,15 @@ Array [
       Object {
         "column": 7,
         "context": Object {
-          "allowed": Array [
-            "linebreak",
-            "scroll",
-            "elide",
-            "truncate",
-            "scale",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "linebreak",
+              "scroll",
+              "elide",
+              "truncate",
+              "scale",
+            ],
+          },
           "attribute": "overflow",
           "element": "math",
           "value": "",
@@ -3822,13 +3877,15 @@ Array [
       Object {
         "column": 17,
         "context": Object {
-          "allowed": Array [
-            "linebreak",
-            "scroll",
-            "elide",
-            "truncate",
-            "scale",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "linebreak",
+              "scroll",
+              "elide",
+              "truncate",
+              "scale",
+            ],
+          },
           "attribute": "overflow",
           "element": "math",
           "value": "foobar",
@@ -4140,9 +4197,11 @@ Array [
       Object {
         "column": 9,
         "context": Object {
-          "allowed": Array [
-            /\\.\\+/,
-          ],
+          "allowed": Object {
+            "enum": Array [
+              /\\.\\+/,
+            ],
+          },
           "attribute": "integrity",
           "element": "script",
           "value": "",
@@ -4158,9 +4217,11 @@ Array [
       Object {
         "column": 2,
         "context": Object {
-          "allowed": Array [
-            /\\.\\+/,
-          ],
+          "allowed": Object {
+            "enum": Array [
+              /\\.\\+/,
+            ],
+          },
           "attribute": "integrity",
           "element": "script",
           "value": "",
@@ -4210,9 +4271,11 @@ Array [
       Object {
         "column": 2,
         "context": Object {
-          "allowed": Array [
-            /\\.\\+/,
-          ],
+          "allowed": Object {
+            "enum": Array [
+              /\\.\\+/,
+            ],
+          },
           "attribute": "data",
           "element": "object",
           "value": "",
@@ -4971,9 +5034,11 @@ Array [
       Object {
         "column": 2,
         "context": Object {
-          "allowed": Array [
-            /\\.\\+/,
-          ],
+          "allowed": Object {
+            "enum": Array [
+              /\\.\\+/,
+            ],
+          },
           "attribute": "src",
           "element": "script",
           "value": "",
@@ -5809,13 +5874,15 @@ Array [
       Object {
         "column": 15,
         "context": Object {
-          "allowed": Array [
-            "row",
-            "col",
-            "rowgroup",
-            "colgroup",
-            "auto",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "row",
+              "col",
+              "rowgroup",
+              "colgroup",
+              "auto",
+            ],
+          },
           "attribute": "scope",
           "element": "th",
           "value": "foobar",
@@ -6346,12 +6413,15 @@ Array [
       Object {
         "column": 17,
         "context": Object {
-          "allowed": Array [
-            "",
-            "none",
-            "metadata",
-            "auto",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "",
+              "none",
+              "metadata",
+              "auto",
+            ],
+            "omit": true,
+          },
           "attribute": "preload",
           "element": "video",
           "value": "foobar",
@@ -6468,11 +6538,14 @@ Array [
       Object {
         "column": 21,
         "context": Object {
-          "allowed": Array [
-            "",
-            "true",
-            "false",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "",
+              "true",
+              "false",
+            ],
+            "omit": true,
+          },
           "attribute": "contenteditable",
           "element": "p",
           "value": "foobar",
@@ -6488,11 +6561,13 @@ Array [
       Object {
         "column": 2,
         "context": Object {
-          "allowed": Array [
-            "ltr",
-            "rtl",
-            "auto",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "ltr",
+              "rtl",
+              "auto",
+            ],
+          },
           "attribute": "dir",
           "element": "p",
           "value": "",
@@ -6508,11 +6583,13 @@ Array [
       Object {
         "column": 9,
         "context": Object {
-          "allowed": Array [
-            "ltr",
-            "rtl",
-            "auto",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "ltr",
+              "rtl",
+              "auto",
+            ],
+          },
           "attribute": "dir",
           "element": "p",
           "value": "foobar",
@@ -6528,10 +6605,12 @@ Array [
       Object {
         "column": 2,
         "context": Object {
-          "allowed": Array [
-            "true",
-            "false",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "true",
+              "false",
+            ],
+          },
           "attribute": "draggable",
           "element": "p",
           "value": "",
@@ -6547,10 +6626,12 @@ Array [
       Object {
         "column": 15,
         "context": Object {
-          "allowed": Array [
-            "true",
-            "false",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "true",
+              "false",
+            ],
+          },
           "attribute": "draggable",
           "element": "p",
           "value": "foobar",
@@ -6566,7 +6647,9 @@ Array [
       Object {
         "column": 12,
         "context": Object {
-          "allowed": Array [],
+          "allowed": Object {
+            "boolean": true,
+          },
           "attribute": "hidden",
           "element": "p",
           "value": "foobar",
@@ -6582,9 +6665,11 @@ Array [
       Object {
         "column": 2,
         "context": Object {
-          "allowed": Array [
-            /-\\?\\\\d\\+/,
-          ],
+          "allowed": Object {
+            "enum": Array [
+              /-\\?\\\\d\\+/,
+            ],
+          },
           "attribute": "tabindex",
           "element": "p",
           "value": "",
@@ -6600,9 +6685,11 @@ Array [
       Object {
         "column": 14,
         "context": Object {
-          "allowed": Array [
-            /-\\?\\\\d\\+/,
-          ],
+          "allowed": Object {
+            "enum": Array [
+              /-\\?\\\\d\\+/,
+            ],
+          },
           "attribute": "tabindex",
           "element": "p",
           "value": "foobar",

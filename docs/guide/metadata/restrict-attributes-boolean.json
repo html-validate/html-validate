@@ -2,7 +2,9 @@
   "my-component": {
     "flow": true,
     "attributes": {
-      "quacks": []
+      "quacks": {
+        "boolean": true
+      }
     }
   }
 }

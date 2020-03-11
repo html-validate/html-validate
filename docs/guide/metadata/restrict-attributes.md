@@ -17,7 +17,9 @@ Assuming our `<my-component>` element has a `duck` attribute which can take the 
   "my-component": {
     "flow": true,
     "attributes": {
-      "duck": ["huey", "dewey", "louie"]
+      "duck": {
+        "enum": ["huey", "dewey", "louie"]
+      }
     }
   }
 }
@@ -35,7 +37,9 @@ We can also specify regular expressions by surrounding the string with `/` (reme
   "my-component": {
     "flow": true,
     "attributes": {
-      "ducks": ["/\\d+/"]
+      "ducks": {
+        "enum": ["/\\d+/"]
+      }
     }
   }
 }
@@ -55,14 +59,16 @@ We can also specify regular expressions by surrounding the string with `/` (reme
 	</ul>
 </div>
 
-To force a boolean value similar to `disabled`, `selected` etc use an empty array `[]`:
+To force a boolean value similar to `disabled`, `selected` etc instead set the `boolean` property to `true`.
 
 ```json
 {
   "my-component": {
     "flow": true,
     "attributes": {
-      "quacks": []
+      "quacks": {
+        "boolean": true
+      }
     }
   }
 }

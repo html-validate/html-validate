@@ -20,7 +20,9 @@ Array [
       Object {
         "column": 23,
         "context": Object {
-          "allowed": Array [],
+          "allowed": Object {
+            "boolean": true,
+          },
           "attribute": "quacks",
           "element": "my-component",
           "value": "duck",
@@ -75,11 +77,13 @@ Array [
       Object {
         "column": 21,
         "context": Object {
-          "allowed": Array [
-            "huey",
-            "dewey",
-            "louie",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "huey",
+              "dewey",
+              "louie",
+            ],
+          },
           "attribute": "duck",
           "element": "my-component",
           "value": "flintheart",
@@ -109,9 +113,11 @@ Array [
       Object {
         "column": 22,
         "context": Object {
-          "allowed": Array [
-            /\\\\d\\+/,
-          ],
+          "allowed": Object {
+            "enum": Array [
+              /\\\\d\\+/,
+            ],
+          },
           "attribute": "ducks",
           "element": "my-component",
           "value": "huey",

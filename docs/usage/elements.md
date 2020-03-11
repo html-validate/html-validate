@@ -42,7 +42,7 @@ export interface MetaElement {
   /* attributes */
   deprecatedAttributes?: string[];
   requiredAttributes?: string[];
-  attributes?: PermittedAttribute;
+  attributes?: Record<string, MetaAttribute>;
 
   /* permitted data */
   permittedContent?: Permitted;
@@ -182,6 +182,60 @@ In plain HTML only the `<form>` element is considered a form but when using cust
 
 An object with allowed attribute values.
 
+```typescript
+export interface MetaAttribute {
+  boolean?: boolean;
+  enum?: Array<string | RegExp>;
+  omit?: boolean;
+}
+```
+
+```json
+{
+  "custom-element": {
+    "attributes": {
+      "foo": {
+        "boolean": false,
+        "omit": false,
+        "enum": ["bar", "baz"]
+      }
+    }
+  }
+}
+```
+
+With this metadata the attribute `"foo"` may only have the values `"bar"` or`"foo"`.
+The value cannot be omitted or be used as a boolean property.
+
+This is used by the {@link attribute-allowed-values} rule.
+
+#### `attribute.enum`
+
+The `enum` property is a list of allowed values the attribute can have.
+It can be either strings or regular expressions using `"/../"` e.g `"/-?\\d+/"` to match numbers.
+If unset any value is accepted.
+
+#### `attribute.boolean`
+
+The `boolean` property takes priority and if set it allows the value to be:
+
+- Omitted: `required`
+- Empty string: `required=""`
+- The attribute key: `required="required"`
+
+The {@link attribute-boolean-style} rule regulates which of the styles to use but the content validator considers all three styles to be valid for boolean attributes.
+
+#### `attribute.omit`
+
+The `omit` property allows the value to be either omitted or an empty string.
+When using `omit` the empty string `""` is implied in `enum`.
+
+The {@link attribute-empty-style} rule regulates whenever omitted values or empty string is preferred.
+
+#### Deprecated method
+
+The previous (now deprecated) method was to assign an enumerated list of valid values:
+
 ```js
 "custom-element": {
   "attributes": {
@@ -193,21 +247,16 @@ An object with allowed attribute values.
 }
 ```
 
-With this metadata the attribute `"foo"` may only have the values `"bar"` or
-`"foo"`.
+With this metadata the attribute `"foo"` may only have the values `"bar"` or `"foo"`.
+Just as with the `enum` property regular expressions could be passed.
 
-Regular expressions can also be used, e.g `"/-?\\d+/"` to match numbers.
+It features a number of quirks:
 
-- To allow empty values explicitly list `""`:
-  - `"my-attr": ["", "value 1", "value 2"]`
-- Boolean attributes must be set to an empty list `[]` or include `""`:
-  - `"my-attr": []`
-  - `"my-attr": [""]`
-- To allow empty string `my-attr=""` but not omitted value `my-attr` use regexp:
-  - `"my-attr": ["/.*/"]`
+- The value `""` enabled both omitted and `""`.
+- The empty list `[]` enabled boolean attribute.
+- Some corner-cases could not be expressed.
 
-This is used by the
-[attribute-allowed-values](/rules/attribute-allowed-values.html) rule.
+While still supported this syntax should be migrated to the new syntax and is scheduled to be removed in the next major version.
 
 ### `requiredAttributes`
 

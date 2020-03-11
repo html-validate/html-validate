@@ -1,6 +1,7 @@
 import { Config } from "../config";
 import { Attribute, DynamicValue, HtmlElement } from "../dom";
 import { Parser } from "../parser";
+import { PermittedAttribute } from "./element";
 import { MetaData, MetaTable, Validator } from ".";
 
 class ConfigMock extends Config {
@@ -557,12 +558,18 @@ describe("Meta validator", () => {
 	});
 
 	describe("validateAttribute()", () => {
+		function validateAttribute(
+			key: string,
+			value: null | string | DynamicValue,
+			rules: PermittedAttribute
+		): boolean {
+			return Validator.validateAttribute(new Attribute(key, value), rules);
+		}
+
 		it("should match if no rule is present", () => {
 			expect.assertions(1);
-			const rules = {};
-			expect(
-				Validator.validateAttribute(new Attribute("foo", "bar"), rules)
-			).toBeTruthy();
+			const rules: PermittedAttribute = {};
+			expect(validateAttribute("foo", "bar", rules)).toBeTruthy();
 		});
 
 		it.each`
@@ -572,9 +579,8 @@ describe("Meta validator", () => {
 			${/.*/}   | ${""}
 		`("should match regexp $regex vs $value", ({ regex, value }) => {
 			expect.assertions(1);
-			const rules = { foo: [regex] };
-			const attr = new Attribute("foo", value);
-			expect(Validator.validateAttribute(attr, rules)).toBeTruthy();
+			const rules: PermittedAttribute = { foo: { enum: [regex] } };
+			expect(validateAttribute("foo", value, rules)).toBeTruthy();
 		});
 
 		it.each`
@@ -584,102 +590,117 @@ describe("Meta validator", () => {
 			${/.*/}   | ${null}  | ${false}
 		`("should not match regexp $regex vs $value", ({ regex, value }) => {
 			expect.assertions(1);
-			const rules = { foo: [regex] };
-			const attr = new Attribute("foo", value);
-			expect(Validator.validateAttribute(attr, rules)).toBeFalsy();
+			const rules: PermittedAttribute = { foo: { enum: [regex] } };
+			expect(validateAttribute("foo", value, rules)).toBeFalsy();
 		});
 
 		it("should match string value", () => {
 			expect.assertions(2);
-			const rules = {
-				foo: ["bar"],
+			const rules: PermittedAttribute = {
+				foo: { enum: ["bar"] },
 			};
-			expect(
-				Validator.validateAttribute(new Attribute("foo", "bar"), rules)
-			).toBeTruthy();
-			expect(
-				Validator.validateAttribute(new Attribute("foo", "car"), rules)
-			).toBeFalsy();
+			expect(validateAttribute("foo", "bar", rules)).toBeTruthy();
+			expect(validateAttribute("foo", "car", rules)).toBeFalsy();
 		});
 
 		it("should match dynamic value", () => {
 			expect.assertions(2);
-			const rules = {
-				foo: ["bar"],
-				bar: [] as string[],
+			const rules: PermittedAttribute = {
+				foo: { enum: ["bar"] },
+				bar: { boolean: true },
 			};
 			const dynamic = new DynamicValue("any");
-			expect(
-				Validator.validateAttribute(new Attribute("foo", dynamic), rules)
-			).toBeTruthy();
-			expect(
-				Validator.validateAttribute(new Attribute("bar", dynamic), rules)
-			).toBeTruthy();
+			expect(validateAttribute("foo", dynamic, rules)).toBeTruthy();
+			expect(validateAttribute("bar", dynamic, rules)).toBeTruthy();
 		});
 
 		it("should match if one of multiple allowed matches", () => {
 			expect.assertions(2);
-			const rules = {
-				foo: ["fred", "barney", "wilma"],
+			const rules: PermittedAttribute = {
+				foo: { enum: ["fred", "barney", "wilma"] },
 			};
-			expect(
-				Validator.validateAttribute(new Attribute("foo", "barney"), rules)
-			).toBeTruthy();
-			expect(
-				Validator.validateAttribute(new Attribute("foo", "pebble"), rules)
-			).toBeFalsy();
+			expect(validateAttribute("foo", "barney", rules)).toBeTruthy();
+			expect(validateAttribute("foo", "pebble", rules)).toBeFalsy();
+		});
+
+		it("should handle empty enumeration", () => {
+			expect.assertions(3);
+			const rules: PermittedAttribute = {
+				foo: { enum: [] },
+			};
+			expect(validateAttribute("foo", null, rules)).toBeFalsy();
+			expect(validateAttribute("foo", "", rules)).toBeFalsy();
+			expect(validateAttribute("foo", "foo", rules)).toBeFalsy();
 		});
 
 		it("should handle null", () => {
 			expect.assertions(1);
-			const rules = {
-				foo: ["foo", "/bar/"],
+			const rules: PermittedAttribute = {
+				foo: { enum: ["foo", "/bar/"] },
 			};
-			expect(
-				Validator.validateAttribute(new Attribute("foo", null), rules)
-			).toBeFalsy();
+			expect(validateAttribute("foo", null, rules)).toBeFalsy();
 		});
 
-		it("should consider empty list as boolean attribute", () => {
-			expect.assertions(1);
-			const rules = {
-				foo: [] as string[],
+		it("should consider boolean property as boolean attribute", () => {
+			expect.assertions(3);
+			const rules: PermittedAttribute = {
+				foo: { boolean: true },
 			};
-			expect(
-				Validator.validateAttribute(new Attribute("foo", null), rules)
-			).toBeTruthy();
+			expect(validateAttribute("foo", null, rules)).toBeTruthy();
+			expect(validateAttribute("foo", "", rules)).toBeTruthy();
+			expect(validateAttribute("foo", "foo", rules)).toBeTruthy();
 		});
 
-		it("should consider empty value as either null or empty string", () => {
-			expect.assertions(2);
-			const rules = {
-				foo: [""] as string[],
+		it("should consider omit property as either null or empty string", () => {
+			expect.assertions(3);
+			const rules: PermittedAttribute = {
+				foo: { omit: true },
 			};
-			expect(
-				Validator.validateAttribute(new Attribute("foo", null), rules)
-			).toBeTruthy();
-			expect(
-				Validator.validateAttribute(new Attribute("foo", ""), rules)
-			).toBeTruthy();
+			expect(validateAttribute("foo", null, rules)).toBeTruthy();
+			expect(validateAttribute("foo", "", rules)).toBeTruthy();
+			expect(validateAttribute("foo", "foo", rules)).toBeFalsy();
+		});
+
+		it("should consider empty string as empty string", () => {
+			expect.assertions(3);
+			const rules: PermittedAttribute = {
+				foo: { enum: [""] },
+			};
+			expect(validateAttribute("foo", null, rules)).toBeFalsy();
+			expect(validateAttribute("foo", "", rules)).toBeTruthy();
+			expect(validateAttribute("foo", "foo", rules)).toBeFalsy();
+		});
+
+		describe("should handle omit and enum combined", () => {
+			it.each`
+				omit     | enum    | value   | expected
+				${false} | ${[]}   | ${null} | ${false}
+				${false} | ${[]}   | ${""}   | ${false}
+				${false} | ${[""]} | ${null} | ${false}
+				${false} | ${[""]} | ${""}   | ${true}
+				${true}  | ${[]}   | ${null} | ${true}
+				${true}  | ${[]}   | ${""}   | ${true}
+				${true}  | ${[""]} | ${null} | ${true}
+				${true}  | ${[""]} | ${""}   | ${true}
+			`("omit: $omit enum: $enum value: ${$value}", options => {
+				const { expected, value } = options;
+				expect.assertions(1);
+				const rules: PermittedAttribute = {
+					foo: options,
+				};
+				expect(validateAttribute("foo", value, rules)).toEqual(expected);
+			});
 		});
 
 		it("should normalize boolean attributes", () => {
 			expect.assertions(4);
-			const rules = {
-				foo: [] as string[],
+			const rules: PermittedAttribute = {
+				foo: { boolean: true },
 			};
-			expect(
-				Validator.validateAttribute(new Attribute("foo", null), rules)
-			).toBeTruthy();
-			expect(
-				Validator.validateAttribute(new Attribute("foo", ""), rules)
-			).toBeTruthy();
-			expect(
-				Validator.validateAttribute(new Attribute("foo", "foo"), rules)
-			).toBeTruthy();
-			expect(
-				Validator.validateAttribute(new Attribute("foo", "bar"), rules)
-			).toBeFalsy();
+			expect(validateAttribute("foo", null, rules)).toBeTruthy();
+			expect(validateAttribute("foo", "", rules)).toBeTruthy();
+			expect(validateAttribute("foo", "foo", rules)).toBeTruthy();
+			expect(validateAttribute("foo", "bar", rules)).toBeFalsy();
 		});
 	});
 });

@@ -183,9 +183,15 @@ it("should allow inline metadata", () => {
 			{
 				foo: {
 					attributes: {
-						"string-value": ["foo"],
-						"string-regexp": ["/foo/"],
-						"literal-regexp": [/foo/],
+						"string-value": {
+							enum: ["foo"],
+						},
+						"string-regexp": {
+							enum: ["/foo/"],
+						},
+						"literal-regexp": {
+							enum: [/foo/],
+						},
 					},
 				},
 			},

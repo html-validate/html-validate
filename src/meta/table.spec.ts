@@ -50,6 +50,33 @@ describe("MetaTable", () => {
 		validate.errors = [];
 	});
 
+	describe("should migrate old formats", () => {
+		it("attributes string to object", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: {
+					attributes: {
+						"my-attr": ["a"] as unknown,
+					},
+				},
+			});
+			expect(table.getMetaFor("foo")).toMatchInlineSnapshot(`
+				Object {
+				  "attributes": Object {
+				    "my-attr": Object {
+				      "enum": Array [
+				        "a",
+				      ],
+				    },
+				  },
+				  "tagName": "foo",
+				  "void": false,
+				}
+			`);
+		});
+	});
+
 	it("should throw error if data does not validate", () => {
 		expect.assertions(2);
 		validate.errors = [
@@ -338,14 +365,14 @@ describe("MetaTable", () => {
 			table.loadFromObject({
 				foo: mockEntry({
 					attributes: {
-						attr: ["/foo/"],
+						attr: { enum: ["/foo/"] },
 					},
 				}),
 			});
 			const meta = table.getMetaFor("foo");
 			expect(meta).not.toBeUndefined();
 			expect(meta.attributes).toEqual({
-				attr: [/foo/],
+				attr: { enum: [/foo/] },
 			});
 		});
 
@@ -355,14 +382,14 @@ describe("MetaTable", () => {
 			table.loadFromObject({
 				foo: mockEntry({
 					attributes: {
-						attr: ["/foo/i"],
+						attr: { enum: ["/foo/i"] },
 					},
 				}),
 			});
 			const meta = table.getMetaFor("foo");
 			expect(meta).not.toBeUndefined();
 			expect(meta.attributes).toEqual({
-				attr: [/foo/i],
+				attr: { enum: [/foo/i] },
 			});
 		});
 
@@ -372,14 +399,14 @@ describe("MetaTable", () => {
 			table.loadFromObject({
 				foo: mockEntry({
 					attributes: {
-						attr: [/foo/],
+						attr: { enum: [/foo/] },
 					},
 				}),
 			});
 			const meta = table.getMetaFor("foo");
 			expect(meta).not.toBeUndefined();
 			expect(meta.attributes).toEqual({
-				attr: [/foo/],
+				attr: { enum: [/foo/] },
 			});
 		});
 	});

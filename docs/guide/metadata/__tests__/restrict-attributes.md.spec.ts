@@ -15,19 +15,19 @@ markup["deprecated"] = `<my-component duck="dewey">...</my-component>
 describe("docs/guide/metadata/restrict-attributes.md", () => {
 	it("inline validation: enum", () => {
 		expect.assertions(1);
-		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"flow":true,"attributes":{"duck":["huey","dewey","louie"]}}}],"extends":["html-validate:recommended"]});
+		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"flow":true,"attributes":{"duck":{"enum":["huey","dewey","louie"]}}}}],"extends":["html-validate:recommended"]});
 		const report = htmlvalidate.validateString(markup["enum"]);
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: regexp", () => {
 		expect.assertions(1);
-		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"flow":true,"attributes":{"ducks":["/\\d+/"]}}}],"extends":["html-validate:recommended"]});
+		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"flow":true,"attributes":{"ducks":{"enum":["/\\d+/"]}}}}],"extends":["html-validate:recommended"]});
 		const report = htmlvalidate.validateString(markup["regexp"]);
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: boolean", () => {
 		expect.assertions(1);
-		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"flow":true,"attributes":{"quacks":[]}}}],"extends":["html-validate:recommended"]});
+		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"flow":true,"attributes":{"quacks":{"boolean":true}}}}],"extends":["html-validate:recommended"]});
 		const report = htmlvalidate.validateString(markup["boolean"]);
 		expect(report.results).toMatchSnapshot();
 	});

@@ -10,14 +10,26 @@ export type PermittedOrder = string[];
 export type RequiredAncestors = string[];
 export type RequiredContent = string[];
 
-export interface PermittedAttribute {
-	[key: string]: Array<string | RegExp>;
-}
-
 export interface DeprecatedElement {
 	message?: string;
 	documentation?: string;
 	source?: string;
+}
+
+export interface MetaAttribute {
+	/* if true this attribute can only take boolean values: my-attr, my-attr="" or my-attr="my-attr" */
+	boolean?: boolean;
+
+	/* if set it is an exhaustive list of all possible values (as string or regex)
+	 * this attribute can have (each token if list is set) */
+	enum?: Array<string | RegExp>;
+
+	/* if true this attribute can omit the value */
+	omit?: boolean;
+}
+
+export interface PermittedAttribute {
+	[key: string]: MetaAttribute;
 }
 
 export interface MetaData {
