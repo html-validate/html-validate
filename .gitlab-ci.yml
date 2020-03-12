@@ -129,7 +129,7 @@ Release:
     GIT_COMMITTER_NAME: "David Sveningsson"
     GIT_COMMITTER_EMAIL: "ext@sidvind.com"
   script:
-    - npm run semantic-release -- --debug
+    - npm run semantic-release
 
 .downstream: &downstream
   stage: postrelease
