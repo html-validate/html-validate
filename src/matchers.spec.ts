@@ -253,11 +253,11 @@ describe("toHTMLValidate()", () => {
 	});
 
 	it("should support jsdom", () => {
+		expect.assertions(2);
+
 		/* eslint-disable-next-line @typescript-eslint/ban-ts-ignore */
 		// @ts-ignore DOM library not available
 		const doc = document;
-
-		expect.assertions(2);
 
 		/* should pass */
 		const p = doc.createElement("p");

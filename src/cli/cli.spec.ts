@@ -13,6 +13,7 @@ describe("CLI", () => {
 
 	describe("getValidator()", () => {
 		it("should create new HtmlValidate instance", () => {
+			expect.assertions(2);
 			const cli = new CLI();
 			const htmlvalidate = cli.getValidator();
 			expect(HtmlValidate).toHaveBeenCalledWith({
@@ -22,6 +23,7 @@ describe("CLI", () => {
 		});
 
 		it("should use configuration file", () => {
+			expect.assertions(3);
 			const readFileSync = jest
 				.spyOn(fs, "readFileSync")
 				.mockImplementation(() => '{"rules": {"foo": "error"}}');
@@ -39,6 +41,7 @@ describe("CLI", () => {
 		});
 
 		it("should configure single rule", () => {
+			expect.assertions(2);
 			const cli = new CLI({
 				rules: "foo:1",
 			});
@@ -53,6 +56,7 @@ describe("CLI", () => {
 		});
 
 		it("should configure multiple rule", () => {
+			expect.assertions(2);
 			const cli = new CLI({
 				rules: ["foo:1", "bar:0"],
 			});

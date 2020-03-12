@@ -9,6 +9,7 @@ describe("eventhandler", () => {
 
 	describe("on", () => {
 		it("should call listener on named event", () => {
+			expect.assertions(3);
 			const callback = jest.fn();
 			eventhandler.on("foo", callback);
 			eventhandler.trigger("foo", { bar: true });
@@ -19,6 +20,7 @@ describe("eventhandler", () => {
 		});
 
 		it("should not call listener on other events", () => {
+			expect.assertions(1);
 			const callback = jest.fn();
 			eventhandler.on("foo", callback);
 			eventhandler.trigger("spam", { bar: true });
@@ -26,6 +28,7 @@ describe("eventhandler", () => {
 		});
 
 		it("should call wildcard listener on any event", () => {
+			expect.assertions(2);
 			const callback = jest.fn();
 			eventhandler.on("*", callback);
 			eventhandler.trigger("foo", { bar: true });
@@ -34,6 +37,7 @@ describe("eventhandler", () => {
 		});
 
 		it("should not call listener after deregistration", () => {
+			expect.assertions(1);
 			const callback = jest.fn();
 			const deregister = eventhandler.on("foo", callback);
 			deregister();
@@ -42,6 +46,7 @@ describe("eventhandler", () => {
 		});
 
 		it("should handle multiple events separated by comma", () => {
+			expect.assertions(3);
 			const callback = jest.fn();
 			eventhandler.on("foo, bar", callback);
 			eventhandler.trigger("foo", { bar: 1 });
@@ -52,6 +57,7 @@ describe("eventhandler", () => {
 		});
 
 		it("should unregister all events after using multiple space separated events", () => {
+			expect.assertions(1);
 			const callback = jest.fn();
 			const deregister = eventhandler.on("foo,bar", callback);
 			deregister();
@@ -63,6 +69,7 @@ describe("eventhandler", () => {
 
 	describe("once", () => {
 		it("should call listener only once", () => {
+			expect.assertions(2);
 			const callback = jest.fn();
 			eventhandler.once("foo", callback);
 			eventhandler.trigger("foo", { bar: true });
@@ -72,6 +79,7 @@ describe("eventhandler", () => {
 		});
 
 		it("should not call listener after deregistration", () => {
+			expect.assertions(1);
 			const callback = jest.fn();
 			const deregister = eventhandler.once("foo", callback);
 			deregister();

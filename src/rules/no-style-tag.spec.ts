@@ -11,11 +11,13 @@ describe("rule no-style-tag", () => {
 	});
 
 	it("should not report for other tags", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString("<div></div>");
 		expect(report).toBeValid();
 	});
 
 	it("should report error when <style> is used", () => {
+		expect.assertions(2);
 		const html = "<style>foo</style>";
 		const report = htmlvalidate.validateString(html);
 		expect(report).toBeInvalid();
@@ -26,6 +28,7 @@ describe("rule no-style-tag", () => {
 	});
 
 	it("should contain documentation", () => {
+		expect.assertions(1);
 		expect(htmlvalidate.getRuleDocumentation("no-style-tag")).toMatchSnapshot();
 	});
 });

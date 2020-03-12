@@ -12,16 +12,19 @@ describe("rule h37", () => {
 		});
 
 		it("should not report when img has alt attribute", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString('<img alt="foobar">');
 			expect(report).toBeValid();
 		});
 
 		it("should not report when img has empty alt attribute", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString('<img alt="">');
 			expect(report).toBeValid();
 		});
 
 		it("should not report when img is hidden from accessibility tree", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString(
 				'<img aria-hidden="true"><img role="presentation">'
 			);
@@ -29,6 +32,7 @@ describe("rule h37", () => {
 		});
 
 		it("should report error when img is missing alt attribute", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<img>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -38,6 +42,7 @@ describe("rule h37", () => {
 		});
 
 		it("smoketest", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateFile(
 				"test-files/rules/wcag/h37.html"
 			);
@@ -53,11 +58,13 @@ describe("rule h37", () => {
 		});
 
 		it("should not report when img has alt attribute", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString('<img alt="foobar">');
 			expect(report).toBeValid();
 		});
 
 		it("should report when img has empty alt attribute", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString('<img alt="">');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -67,6 +74,7 @@ describe("rule h37", () => {
 		});
 
 		it("should report error when img is missing alt attribute", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<img>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -76,6 +84,7 @@ describe("rule h37", () => {
 		});
 
 		it("smoketest", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateFile(
 				"test-files/rules/wcag/h37.html"
 			);
@@ -91,11 +100,13 @@ describe("rule h37", () => {
 		});
 
 		it("should not report when img has alias attribute set", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString('<img translate-attr="...">');
 			expect(report).toBeValid();
 		});
 
 		it("should report error when img is missing both alt and aliases", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<img>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -105,6 +116,7 @@ describe("rule h37", () => {
 		});
 
 		it("smoketest", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateFile(
 				"test-files/rules/wcag/h37.html"
 			);
@@ -120,11 +132,13 @@ describe("rule h37", () => {
 		});
 
 		it("should not report when img has alias attribute set", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString('<img translate-attr="...">');
 			expect(report).toBeValid();
 		});
 
 		it("smoketest", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateFile(
 				"test-files/rules/wcag/h37.html"
 			);
@@ -133,6 +147,7 @@ describe("rule h37", () => {
 	});
 
 	it("should contain documentation", () => {
+		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "wcag/h37": "error" },
 		});

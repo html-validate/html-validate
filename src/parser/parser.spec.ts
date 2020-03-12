@@ -59,6 +59,7 @@ describe("parser", () => {
 
 	describe("should parse elements", () => {
 		it("simple element", () => {
+			expect.assertions(4);
 			parser.parseHtml("<div></div>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -74,6 +75,7 @@ describe("parser", () => {
 		});
 
 		it("with numbers", () => {
+			expect.assertions(4);
 			parser.parseHtml("<h1></h1>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "h1" });
 			expect(events.shift()).toEqual({
@@ -89,6 +91,7 @@ describe("parser", () => {
 		});
 
 		it("with dashes", () => {
+			expect.assertions(4);
 			parser.parseHtml("<foo-bar></foo-bar>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "foo-bar" });
 			expect(events.shift()).toEqual({
@@ -104,6 +107,7 @@ describe("parser", () => {
 		});
 
 		it("elements closed on wrong order", () => {
+			expect.assertions(7);
 			parser.parseHtml("<div><label></div></label>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({ event: "tag:open", target: "label" });
@@ -129,6 +133,7 @@ describe("parser", () => {
 		});
 
 		it("self-closing elements", () => {
+			expect.assertions(4);
 			parser.parseHtml("<input/>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "input" });
 			expect(events.shift()).toEqual({
@@ -144,6 +149,7 @@ describe("parser", () => {
 		});
 
 		it("void elements", () => {
+			expect.assertions(4);
 			parser.parseHtml("<input>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "input" });
 			expect(events.shift()).toEqual({
@@ -159,6 +165,7 @@ describe("parser", () => {
 		});
 
 		it("void elements with close tag", () => {
+			expect.assertions(5);
 			parser.parseHtml("<input></input>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "input" });
 			expect(events.shift()).toEqual({
@@ -179,32 +186,39 @@ describe("parser", () => {
 		});
 
 		it("with text node", () => {
+			expect.assertions(1);
 			expect(() => parser.parseHtml("<p>Lorem ipsum</p>")).not.toThrow();
 		});
 
 		it("with trailing text", () => {
+			expect.assertions(1);
 			expect(() => parser.parseHtml("<p>Lorem ipsum</p>\n")).not.toThrow();
 		});
 
 		it("unclosed", () => {
+			expect.assertions(1);
 			expect(() => parser.parseHtml("<p>")).not.toThrow();
 		});
 
 		it("unopened", () => {
+			expect.assertions(1);
 			expect(() => parser.parseHtml("</p>")).not.toThrow();
 		});
 
 		it("multiple unopened", () => {
+			expect.assertions(1);
 			/* mostly for regression testing: root element should never be
 			 * popped from node stack. */
 			expect(() => parser.parseHtml("</p></p></p></p></p></p>")).not.toThrow();
 		});
 
 		it("with only text", () => {
+			expect.assertions(1);
 			expect(() => parser.parseHtml("Lorem ipsum")).not.toThrow();
 		});
 
 		it("with newlines", () => {
+			expect.assertions(5);
 			parser.parseHtml('<div\nfoo="bar"></div>');
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -231,6 +245,7 @@ describe("parser", () => {
 		});
 
 		it("with newline after attribute", () => {
+			expect.assertions(6);
 			parser.parseHtml('<div foo="bar"\nspam="ham"></div>');
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -268,6 +283,7 @@ describe("parser", () => {
 		});
 
 		it("with xml namespaces", () => {
+			expect.assertions(4);
 			parser.parseHtml("<foo:div></foo:div>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "foo:div" });
 			expect(events.shift()).toEqual({
@@ -300,6 +316,7 @@ describe("parser", () => {
 
 	describe("should fail on", () => {
 		it('start tag with missing ">"', () => {
+			expect.assertions(1);
 			expect(() => {
 				parser.parseHtml("<p\n<p>foo</p></p>");
 			}).toThrow(InvalidTokenError);
@@ -308,6 +325,7 @@ describe("parser", () => {
 
 	describe("should parse attributes", () => {
 		it("without quotes", () => {
+			expect.assertions(5);
 			parser.parseHtml("<div foo=bar></div>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -334,6 +352,7 @@ describe("parser", () => {
 		});
 
 		it("with single quotes", () => {
+			expect.assertions(5);
 			parser.parseHtml("<div foo='bar'></div>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -360,6 +379,7 @@ describe("parser", () => {
 		});
 
 		it("with double quote", () => {
+			expect.assertions(5);
 			parser.parseHtml('<div foo="bar"></div>');
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -386,6 +406,7 @@ describe("parser", () => {
 		});
 
 		it("with nested quotes", () => {
+			expect.assertions(6);
 			parser.parseHtml("<div foo='\"foo\"' bar=\"'foo'\"></div>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -423,6 +444,7 @@ describe("parser", () => {
 		});
 
 		it("without value", () => {
+			expect.assertions(5);
 			parser.parseHtml("<div foo></div>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -446,6 +468,7 @@ describe("parser", () => {
 		});
 
 		it("with empty value", () => {
+			expect.assertions(6);
 			parser.parseHtml("<div foo=\"\" bar=''></div>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -477,6 +500,7 @@ describe("parser", () => {
 		});
 
 		it("with dashes", () => {
+			expect.assertions(5);
 			parser.parseHtml("<div foo-bar-baz></div>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -500,6 +524,7 @@ describe("parser", () => {
 		});
 
 		it("with spaces inside", () => {
+			expect.assertions(5);
 			parser.parseHtml('<div class="foo bar baz"></div>');
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -526,6 +551,7 @@ describe("parser", () => {
 		});
 
 		it("with uncommon characters", () => {
+			expect.assertions(5);
 			parser.parseHtml('<div a2?()!="foo"></div>');
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -552,6 +578,7 @@ describe("parser", () => {
 		});
 
 		it("with multiple attributes", () => {
+			expect.assertions(6);
 			parser.parseHtml('<div foo="bar" spam="ham"></div>');
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -589,6 +616,7 @@ describe("parser", () => {
 		});
 
 		it("on self-closing elements", () => {
+			expect.assertions(5);
 			parser.parseHtml('<input type="text"/>');
 			expect(events.shift()).toEqual({ event: "tag:open", target: "input" });
 			expect(events.shift()).toEqual({
@@ -615,6 +643,7 @@ describe("parser", () => {
 		});
 
 		it("with xml namespaces", () => {
+			expect.assertions(5);
 			parser.parseHtml('<div foo:bar="baz"></div>');
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -643,6 +672,7 @@ describe("parser", () => {
 
 	describe("should parse directive", () => {
 		it("with action", () => {
+			expect.assertions(2);
 			parser.parseHtml("<!-- [html-validate-foo-bar] -->");
 			expect(events.shift()).toEqual({
 				event: "directive",
@@ -654,6 +684,7 @@ describe("parser", () => {
 		});
 
 		it("with options", () => {
+			expect.assertions(2);
 			parser.parseHtml("<!-- [html-validate-enable foo bar] -->");
 			expect(events.shift()).toEqual({
 				event: "directive",
@@ -665,6 +696,7 @@ describe("parser", () => {
 		});
 
 		it("with comment", () => {
+			expect.assertions(2);
 			parser.parseHtml("<!-- [html-validate-enable: lorem ipsum] -->");
 			expect(events.shift()).toEqual({
 				event: "directive",
@@ -676,6 +708,7 @@ describe("parser", () => {
 		});
 
 		it("with options and comment", () => {
+			expect.assertions(2);
 			parser.parseHtml("<!-- [html-validate-enable foo bar: baz] -->");
 			expect(events.shift()).toEqual({
 				event: "directive",
@@ -687,6 +720,7 @@ describe("parser", () => {
 		});
 
 		it("throw on invalid directive", () => {
+			expect.assertions(1);
 			expect(() => {
 				parser.consumeDirective({
 					type: TokenType.DIRECTIVE,
@@ -705,6 +739,7 @@ describe("parser", () => {
 
 	describe("should handle optional end tags", () => {
 		it("<li>", () => {
+			expect.assertions(22);
 			parser.parseHtml(`
 				<ul>
 					<li>explicit</li>
@@ -798,11 +833,13 @@ describe("parser", () => {
 		});
 
 		it("should trigger when parsing is complete", () => {
+			expect.assertions(1);
 			parser.parseHtml("<div></div>");
 			expect(callback).toHaveBeenCalled();
 		});
 
 		it("should contain DOMTree as argument", () => {
+			expect.assertions(2);
 			parser.parseHtml("<div></div>");
 			expect(document).toBeInstanceOf(DOMTree);
 			expect(document.root.childNodes).toHaveLength(1);
@@ -811,6 +848,7 @@ describe("parser", () => {
 
 	describe("should parse", () => {
 		it("doctype", () => {
+			expect.assertions(3);
 			const dom = parser.parseHtml("<!doctype foobar>");
 			expect(events.shift()).toEqual({
 				event: "doctype",
@@ -826,6 +864,7 @@ describe("parser", () => {
 		});
 
 		it("conditional comment", () => {
+			expect.assertions(3);
 			parser.parseHtml("<!--[if IE 6]>foo<![endif]-->");
 			expect(events.shift()).toEqual({
 				event: "conditional",
@@ -839,6 +878,7 @@ describe("parser", () => {
 		});
 
 		it("foreign elements", () => {
+			expect.assertions(4);
 			parser.parseHtml("<svg><g></g></svg>");
 			expect(events.shift()).toEqual({
 				event: "tag:open",
@@ -857,6 +897,7 @@ describe("parser", () => {
 		});
 
 		it("nested foreign elements", () => {
+			expect.assertions(4);
 			parser.parseHtml("<svg><svg></svg><svg/></svg>");
 			expect(events.shift()).toEqual({
 				event: "tag:open",
@@ -875,6 +916,7 @@ describe("parser", () => {
 		});
 
 		it("self-closed foreign elements", () => {
+			expect.assertions(4);
 			parser.parseHtml("<svg/>");
 			expect(events.shift()).toEqual({
 				event: "tag:open",
@@ -893,6 +935,7 @@ describe("parser", () => {
 		});
 
 		it("should parse elements with text", () => {
+			expect.assertions(8);
 			const doc = parser.parseHtml("<b>foo</b> <u>bar</ul>").root;
 			expect(doc.childNodes).toHaveLength(3);
 			expect(doc.childNodes[0]).toBeInstanceOf(HtmlElement);
@@ -907,6 +950,7 @@ describe("parser", () => {
 
 	describe("should postprocess", () => {
 		it("attribute", () => {
+			expect.assertions(6);
 			const processAttribute = jest.fn((attr: AttributeData) => [
 				attr /* original attribute */,
 				{
@@ -965,6 +1009,7 @@ describe("parser", () => {
 		});
 
 		it("attribute (deprecated method)", () => {
+			expect.assertions(5);
 			const processAttribute = jest.fn(attr => {
 				attr.key = "fred";
 				attr.value = "barney";
@@ -1007,6 +1052,7 @@ describe("parser", () => {
 
 		describe("elements", () => {
 			it("by calling hook", () => {
+				expect.assertions(2);
 				let context: any;
 				const processElement = jest.fn(function(this: any) {
 					context = this;
@@ -1067,6 +1113,7 @@ describe("parser", () => {
 		});
 
 		it("multiline", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateFile(
 				"./test-files/parser/multiline.html"
 			);
@@ -1074,6 +1121,7 @@ describe("parser", () => {
 		});
 
 		it("xi:include", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateFile(
 				"./test-files/parser/xi-include.html"
 			);
@@ -1081,6 +1129,7 @@ describe("parser", () => {
 		});
 
 		it("cdata", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateFile(
 				"./test-files/parser/cdata.html"
 			);
@@ -1090,6 +1139,7 @@ describe("parser", () => {
 
 	describe("consumeUntil()", () => {
 		it("should yield list of tokens until match is found (inclusive)", () => {
+			expect.assertions(1);
 			const src: TokenStream = [
 				{
 					type: TokenType.TAG_OPEN,
@@ -1184,6 +1234,7 @@ describe("parser", () => {
 		});
 
 		it("should throw error if no match is found", () => {
+			expect.assertions(1);
 			const src: TokenStream = [
 				{
 					type: TokenType.COMMENT,
@@ -1211,6 +1262,7 @@ describe("parser", () => {
 	});
 
 	it("should recalculate location size", () => {
+		expect.assertions(1);
 		const dom = parser.parseHtml('<div class="foo">\n\tlorem ipsum\n</div>');
 		const div = dom.querySelector("div");
 		expect(div.location).toEqual({
@@ -1223,12 +1275,14 @@ describe("parser", () => {
 	});
 
 	it("on() should delegate to eventhandler", () => {
+		expect.assertions(1);
 		const delegate = jest.spyOn((parser as any).event, "on");
 		parser.on("foo", () => null);
 		expect(delegate).toHaveBeenCalledWith("foo", expect.any(Function));
 	});
 
 	it("once() should delegate to eventhandler", () => {
+		expect.assertions(1);
 		const delegate = jest.spyOn((parser as any).event, "once");
 		parser.once("foo", () => null);
 		expect(delegate).toHaveBeenCalledWith("foo", expect.any(Function));
@@ -1236,6 +1290,7 @@ describe("parser", () => {
 
 	describe("defer()", () => {
 		it("should push wildcard event on event queue", () => {
+			expect.assertions(2);
 			const cb = jest.fn();
 			(parser as any).event.once = jest.fn((event, fn) => fn());
 			parser.defer(cb);
@@ -1246,6 +1301,7 @@ describe("parser", () => {
 
 	describe("trigger()", () => {
 		it("should pass event to eventhandler", () => {
+			expect.assertions(1);
 			const trigger = jest.spyOn((parser as any).event, "trigger");
 			const event = { location: {} };
 			parser.trigger("foo", event);
@@ -1253,6 +1309,7 @@ describe("parser", () => {
 		});
 
 		it("should throw error if event is missing location", () => {
+			expect.assertions(1);
 			expect(() => parser.trigger("foo", {})).toThrow(
 				"Triggered event must contain location"
 			);

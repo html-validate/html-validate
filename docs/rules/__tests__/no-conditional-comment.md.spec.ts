@@ -11,6 +11,7 @@ markup["incorrect"] = `<!--[if IE]>
 
 describe("docs/rules/no-conditional-comment.md", () => {
 	it("inline validation: incorrect", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-conditional-comment":"error"}});
 		const report = htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();

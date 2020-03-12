@@ -11,6 +11,7 @@ describe("rule element-required-content", () => {
 	});
 
 	it("should not report error when element has all required content", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString(
 			"<html><head><title></title></head><body></body></html>"
 		);
@@ -18,6 +19,7 @@ describe("rule element-required-content", () => {
 	});
 
 	it("should report error when element is missing required content", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString("<html><body></body></html>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
@@ -29,6 +31,7 @@ describe("rule element-required-content", () => {
 	});
 
 	it("should report all errors when element is missing multiple content", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString("<html></html>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
@@ -44,12 +47,14 @@ describe("rule element-required-content", () => {
 	});
 
 	it("should contain documentation", () => {
+		expect.assertions(1);
 		expect(
 			htmlvalidate.getRuleDocumentation("element-required-content")
 		).toMatchSnapshot();
 	});
 
 	it("should contain contextual documentation", () => {
+		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "element-required-content": "error" },
 		});

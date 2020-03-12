@@ -12,11 +12,13 @@ describe("rule no-dup-attr", () => {
 	});
 
 	it("should not report when no attribute is duplicated", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString('<p foo="bar"></p>');
 		expect(report).toBeValid();
 	});
 
 	it("should not report error when attribute is dynamic", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString(
 			'<input class="foo" dynamic-class="bar">',
 			null,
@@ -26,6 +28,7 @@ describe("rule no-dup-attr", () => {
 	});
 
 	it("should report when attribute is duplicated", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString(
 			'<p foo="bar" foo="baz"></p></p>'
 		);
@@ -34,6 +37,7 @@ describe("rule no-dup-attr", () => {
 	});
 
 	it("should report when attribute is duplicated case insensitive", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString(
 			'<p foo="bar" FOO="baz"></p></p>'
 		);
@@ -42,6 +46,7 @@ describe("rule no-dup-attr", () => {
 	});
 
 	it("should report error when dynamic element is used multiple times", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString(
 			'<input dynamic-class="foo" dynamic-class="bar">',
 			null,
@@ -55,6 +60,7 @@ describe("rule no-dup-attr", () => {
 	});
 
 	it("smoketest", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateFile(
 			"test-files/rules/no-dup-attr.html"
 		);
@@ -62,6 +68,7 @@ describe("rule no-dup-attr", () => {
 	});
 
 	it("should contain documentation", () => {
+		expect.assertions(1);
 		expect(htmlvalidate.getRuleDocumentation("no-dup-attr")).toMatchSnapshot();
 	});
 });

@@ -11,6 +11,7 @@ describe("missing rule", () => {
 	});
 
 	it("should report error when rule is not defined", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString("<p></p>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(

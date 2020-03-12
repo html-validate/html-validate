@@ -116,6 +116,7 @@ describe("Plugin", () => {
 
 	describe("configs", () => {
 		it("should add extendable predefined configurations", () => {
+			expect.assertions(1);
 			mockPlugin.configs = {
 				foo: {
 					rules: {
@@ -140,6 +141,7 @@ describe("Plugin", () => {
 
 	describe("extedMeta", () => {
 		it("should not throw error when schema isn't extended", () => {
+			expect.assertions(1);
 			config = Config.fromObject({
 				plugins: ["mock-plugin"],
 			});
@@ -150,6 +152,7 @@ describe("Plugin", () => {
 		});
 
 		it("should give validation errors when schema isn't extended", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				plugins: ["mock-plugin"],
 				elements: [
@@ -166,6 +169,7 @@ describe("Plugin", () => {
 		});
 
 		it("should extend validation schema", () => {
+			expect.assertions(1);
 			mockPlugin.elementSchema = {
 				properties: {
 					myMeta: {
@@ -193,6 +197,7 @@ describe("Plugin", () => {
 		});
 
 		it("should extend validation schema with definition", () => {
+			expect.assertions(1);
 			mockPlugin.elementSchema = {
 				properties: {
 					myMeta: {
@@ -225,6 +230,7 @@ describe("Plugin", () => {
 		});
 
 		it("should handle definition with missing properties", () => {
+			expect.assertions(1);
 			mockPlugin.elementSchema = {
 				definitions: {
 					myType: {
@@ -239,6 +245,7 @@ describe("Plugin", () => {
 		});
 
 		it("should support copyable properties", () => {
+			expect.assertions(1);
 			mockPlugin.elementSchema = {
 				properties: {
 					foo: {
@@ -288,10 +295,12 @@ describe("Plugin", () => {
 		});
 
 		it("Engine should handle missing plugin callbacks", () => {
+			expect.assertions(1);
 			expect(() => new Engine(config, Parser)).not.toThrow();
 		});
 
 		it("Engine should call plugin init callback", () => {
+			expect.assertions(1);
 			mockPlugin.init = jest.fn();
 			const engine = new Engine(config, Parser);
 			engine.lint([source]);
@@ -299,6 +308,7 @@ describe("Plugin", () => {
 		});
 
 		it("Engine should call plugin setup callback", () => {
+			expect.assertions(1);
 			mockPlugin.setup = jest.fn();
 			const engine = new Engine(config, Parser);
 			engine.lint([source]);
@@ -309,6 +319,7 @@ describe("Plugin", () => {
 		});
 
 		it("Parser events should trigger plugin eventhandler", () => {
+			expect.assertions(1);
 			const handler = jest.fn();
 			mockPlugin.setup = (source: Source, eventhandler: EventHandler) => {
 				eventhandler.on("dom:ready", handler);
@@ -332,6 +343,7 @@ describe("Plugin", () => {
 		});
 
 		it("Engine should call rule init callback", () => {
+			expect.assertions(1);
 			const mockRule: Rule = new (class extends Rule {
 				public setup(): void {
 					/* do nothing */

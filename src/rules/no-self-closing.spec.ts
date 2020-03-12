@@ -12,31 +12,37 @@ describe("rule no-self-closing", () => {
 		});
 
 		it("should not report error when element has end tag", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<div></div>");
 			expect(report).toBeValid();
 		});
 
 		it("should not report error for foreign elements", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<svg/>");
 			expect(report).toBeValid();
 		});
 
 		it("should not report error for xml namespaces", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<xi:include/>");
 			expect(report).toBeValid();
 		});
 
 		it("should not report error for void", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<input/>");
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when void element has end tag", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<input></input>");
 			expect(report).toBeValid();
 		});
 
 		it("should report error when element is self-closed", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<div/>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -46,6 +52,7 @@ describe("rule no-self-closing", () => {
 		});
 
 		it("should report error for unknown elements", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<custom-element/>");
 			expect(report).toHaveError(
 				"no-self-closing",
@@ -62,6 +69,7 @@ describe("rule no-self-closing", () => {
 		});
 
 		it("should report error for foreign elements", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<svg/>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -79,6 +87,7 @@ describe("rule no-self-closing", () => {
 		});
 
 		it("should report error for elements in xml namespace", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<xi:include/>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -89,6 +98,7 @@ describe("rule no-self-closing", () => {
 	});
 
 	it("should contain documentation", () => {
+		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "no-self-closing": "error" },
 		});
@@ -98,6 +108,7 @@ describe("rule no-self-closing", () => {
 	});
 
 	it("should contain contextual documentation", () => {
+		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "no-self-closing": "error" },
 		});

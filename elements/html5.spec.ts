@@ -178,12 +178,14 @@ describe("HTML elements", () => {
 
 	describe(`global attributes`, () => {
 		it("valid markup", () => {
+			expect.assertions(1);
 			const filename = `${fileDirectory}/global-attributes-valid.html`;
 			const report = htmlvalidate.validateFile(filename);
 			expect(report.results).toMatchSnapshot();
 		});
 
 		it("invalid markup", () => {
+			expect.assertions(1);
 			const filename = `${fileDirectory}/global-attributes-invalid.html`;
 			const report = htmlvalidate.validateFile(filename);
 			expect(report.results).toMatchSnapshot();
@@ -196,11 +198,13 @@ describe("HTML elements", () => {
 
 		describe(`<${tagName}>`, () => {
 			it("valid markup", () => {
+				expect.assertions(1);
 				const report = htmlvalidate.validateFile(filename("valid"));
 				expect(report.results).toMatchSnapshot();
 			});
 
 			it("invalid markup", () => {
+				expect.assertions(1);
 				const report = htmlvalidate.validateFile(filename("invalid"));
 				expect(report.results).toMatchSnapshot();
 			});

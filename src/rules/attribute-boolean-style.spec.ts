@@ -6,6 +6,7 @@ describe("rule attribute-boolean-style", () => {
 	let htmlvalidate: HtmlValidate;
 
 	it("should not report for non-boolean attributes", () => {
+		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "attribute-boolean-style": ["error", { style: "omit" }] },
 		});
@@ -14,6 +15,7 @@ describe("rule attribute-boolean-style", () => {
 	});
 
 	it("should not report for empty attributes", () => {
+		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "attribute-boolean-style": ["error", { style: "omit" }] },
 		});
@@ -29,16 +31,19 @@ describe("rule attribute-boolean-style", () => {
 		});
 
 		it("should not report error when value is omitted", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<input required>");
 			expect(report).toBeValid();
 		});
 
 		it("should not report error for non-boolean attributes", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString('<input type="text">');
 			expect(report).toBeValid();
 		});
 
 		it("should report error when value is empty string", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString('<input required="">');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -48,6 +53,7 @@ describe("rule attribute-boolean-style", () => {
 		});
 
 		it("should report error when value is attribute name", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString('<input required="required">');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -57,6 +63,7 @@ describe("rule attribute-boolean-style", () => {
 		});
 
 		it("should report error when attribute is interpolated", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString(
 				'<input required="{{ dynamic }}">',
 				null,
@@ -70,6 +77,7 @@ describe("rule attribute-boolean-style", () => {
 		});
 
 		it("should not report error when attribute is dynamic", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString(
 				'<input dynamic-required="dynamic">',
 				null,
@@ -79,6 +87,7 @@ describe("rule attribute-boolean-style", () => {
 		});
 
 		it("smoketest", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateFile(
 				"test-files/rules/attribute-boolean-style.html"
 			);
@@ -94,6 +103,7 @@ describe("rule attribute-boolean-style", () => {
 		});
 
 		it("should report error when value is omitted", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<input required>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -103,11 +113,13 @@ describe("rule attribute-boolean-style", () => {
 		});
 
 		it("should not report error when value is empty string", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString('<input required="">');
 			expect(report).toBeValid();
 		});
 
 		it("should report error when value is attribute name", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString('<input required="required">');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -117,6 +129,7 @@ describe("rule attribute-boolean-style", () => {
 		});
 
 		it("should report error when attribute is dynamic", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString(
 				'<input required="{{ dynamic }}">',
 				null,
@@ -130,6 +143,7 @@ describe("rule attribute-boolean-style", () => {
 		});
 
 		it("smoketest", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateFile(
 				"test-files/rules/attribute-boolean-style.html"
 			);
@@ -144,7 +158,8 @@ describe("rule attribute-boolean-style", () => {
 			});
 		});
 
-		it("should not report error when value is omitted", () => {
+		it("should report error when value is omitted", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<input required>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -154,6 +169,7 @@ describe("rule attribute-boolean-style", () => {
 		});
 
 		it("should report error when value is empty string", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString('<input required="">');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -162,12 +178,14 @@ describe("rule attribute-boolean-style", () => {
 			);
 		});
 
-		it("should report error when value is attribute name", () => {
+		it("should not report error when value is attribute name", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString('<input required="required">');
 			expect(report).toBeValid();
 		});
 
 		it("should report error when attribute is dynamic", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString(
 				'<input required="{{ dynamic }}">',
 				null,
@@ -181,6 +199,7 @@ describe("rule attribute-boolean-style", () => {
 		});
 
 		it("smoketest", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateFile(
 				"test-files/rules/attribute-boolean-style.html"
 			);
@@ -189,6 +208,7 @@ describe("rule attribute-boolean-style", () => {
 	});
 
 	it("should throw error if configured with invalid value", () => {
+		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "attribute-boolean-style": ["error", { style: "foobar" }] },
 		});
@@ -198,6 +218,7 @@ describe("rule attribute-boolean-style", () => {
 	});
 
 	it("should contain documentation", () => {
+		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "attribute-boolean-style": "error" },
 		});

@@ -12,11 +12,13 @@ describe("rule void-style", () => {
 		});
 
 		it("should not report when void element omitted end tag", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<input>");
 			expect(report).toBeValid();
 		});
 
 		it("should report when void element is self-closed", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<input/>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -26,16 +28,19 @@ describe("rule void-style", () => {
 		});
 
 		it("should not report when non-void element has end tag", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<div></div>");
 			expect(report).toBeValid();
 		});
 
 		it("should not report when non-void element is self-closed", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<div/>");
 			expect(report).toBeValid();
 		});
 
 		it("should not report when xml namespaces is used", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<xi:include/>");
 			expect(report).toBeValid();
 		});
@@ -49,11 +54,13 @@ describe("rule void-style", () => {
 		});
 
 		it("should not report when void element omits end tag", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<input>");
 			expect(report).toBeValid();
 		});
 
 		it("should report when void element is self-closed", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<input/>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -71,6 +78,7 @@ describe("rule void-style", () => {
 		});
 
 		it("should report when void element omits end tag", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<input>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -80,12 +88,14 @@ describe("rule void-style", () => {
 		});
 
 		it("should not report when void element is self-closed", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<input/>");
 			expect(report).toBeValid();
 		});
 	});
 
 	it("should throw error if configured with invalid value", () => {
+		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "void-style": ["error", { style: "foobar" }] },
 		});
@@ -95,6 +105,7 @@ describe("rule void-style", () => {
 	});
 
 	it("should have documentation", () => {
+		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "void-style": "error" },
 		});
@@ -102,6 +113,7 @@ describe("rule void-style", () => {
 	});
 
 	it("should have contextual documentation", () => {
+		expect.assertions(2);
 		htmlvalidate = new HtmlValidate({
 			rules: { "void-style": "error" },
 		});

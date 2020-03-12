@@ -45,16 +45,19 @@ jest.mock(
 
 describe("config", () => {
 	it("should load defaults", () => {
+		expect.assertions(1);
 		const config = Config.empty();
 		expect(config.get()).toBeDefined();
 	});
 
 	it("should contain no rules by default", () => {
+		expect.assertions(1);
 		const config = Config.empty();
 		expect(Object.keys(config.get().rules)).toHaveLength(0);
 	});
 
 	it("empty() should load empty config", () => {
+		expect.assertions(1);
 		const config = Config.empty();
 		expect(config.get()).toEqual({
 			extends: [],
@@ -65,6 +68,7 @@ describe("config", () => {
 	});
 
 	it("defaultConfig() should load defaults", () => {
+		expect.assertions(1);
 		const config = Config.defaultConfig();
 		expect(config.get()).toEqual({
 			extends: ["html-validate:recommended"],
@@ -75,6 +79,7 @@ describe("config", () => {
 	});
 
 	it("should throw user-error if file is not properly formatted json", () => {
+		expect.assertions(2);
 		expect(() => Config.fromFile("invalid-file.json")).toThrow(UserError);
 		expect(() => Config.fromFile("invalid-file.json")).toThrow(
 			'Failed to read configuration from "invalid-file.json"'
@@ -82,6 +87,7 @@ describe("config", () => {
 	});
 
 	it("should throw error if file is invalid", () => {
+		expect.assertions(2);
 		expect(() =>
 			Config.fromObject({
 				rules: "spam",
@@ -94,6 +100,7 @@ describe("config", () => {
 
 	describe("merge()", () => {
 		it("should merge two configs", () => {
+			expect.assertions(1);
 			const a = Config.fromObject({ rules: { foo: 1 } });
 			const b = Config.fromObject({ rules: { bar: 1 } });
 			const merged = a.merge(b);
@@ -111,12 +118,14 @@ describe("config", () => {
 
 	describe("getRules()", () => {
 		it("should handle when config is missing rules", () => {
+			expect.assertions(2);
 			const config = Config.fromObject({ rules: undefined });
 			expect(config.get().rules).toEqual({});
 			expect(config.getRules()).toEqual(new Map());
 		});
 
 		it("should return parsed rules", () => {
+			expect.assertions(2);
 			const config = Config.fromObject({ rules: { foo: "error" } });
 			expect(config.get().rules).toEqual({ foo: "error" });
 			expect(Array.from(config.getRules().entries())).toEqual([
@@ -125,6 +134,7 @@ describe("config", () => {
 		});
 
 		it("should parse severity from string", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				rules: {
 					foo: "error",
@@ -140,6 +150,7 @@ describe("config", () => {
 		});
 
 		it("should retain severity from integer", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				rules: {
 					foo: 2,
@@ -155,6 +166,7 @@ describe("config", () => {
 		});
 
 		it("should retain options", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				rules: {
 					foo: [2, { foo: true }],
@@ -172,6 +184,7 @@ describe("config", () => {
 
 	describe("fromFile()", () => {
 		it("should support JSON", () => {
+			expect.assertions(1);
 			const config = Config.fromFile(`${process.cwd()}/test-files/config.json`);
 			expect(Array.from(config.getRules().entries())).toEqual([
 				["foo", [Severity.ERROR, {}]],
@@ -183,6 +196,7 @@ describe("config", () => {
 
 	describe("extend", () => {
 		it("should extend base configuration", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				extends: [`${process.cwd()}/test-files/config.json`],
 				rules: {
@@ -197,6 +211,7 @@ describe("config", () => {
 		});
 
 		it("should support deep extending", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				extends: [`${process.cwd()}/test-files/config-extending.json`],
 			});
@@ -210,6 +225,7 @@ describe("config", () => {
 		});
 
 		it("should support html-validate:recommended", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				extends: ["html-validate:recommended"],
 			});
@@ -217,6 +233,7 @@ describe("config", () => {
 		});
 
 		it("should support htmlvalidate:recommended", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				extends: ["htmlvalidate:recommended"],
 			});
@@ -224,6 +241,7 @@ describe("config", () => {
 		});
 
 		it("should support html-validate:document", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				extends: ["html-validate:document"],
 			});
@@ -231,6 +249,7 @@ describe("config", () => {
 		});
 
 		it("should support htmlvalidate:document", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				extends: ["htmlvalidate:document"],
 			});
@@ -238,6 +257,7 @@ describe("config", () => {
 		});
 
 		it("passed config should have precedence over extended", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				extends: ["mock-plugin-presets:base"],
 				plugins: ["mock-plugin-presets"],
@@ -256,6 +276,7 @@ describe("config", () => {
 		});
 
 		it("should be resolved in correct order", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				extends: ["mock-plugin-presets:base", "mock-plugin-presets:no-foo"],
 				plugins: ["mock-plugin-presets"],
@@ -272,34 +293,40 @@ describe("config", () => {
 
 	describe("expandRelative()", () => {
 		it("should expand ./foo", () => {
+			expect.assertions(1);
 			expect(Config.expandRelative("./foo", "/path")).toEqual(
 				path.join(path.sep, "path", "foo")
 			);
 		});
 
 		it("should expand ../foo", () => {
+			expect.assertions(1);
 			expect(Config.expandRelative("../foo", "/path/bar")).toEqual(
 				path.join(path.sep, "path", "foo")
 			);
 		});
 
 		it("should not expand /foo", () => {
+			expect.assertions(1);
 			expect(Config.expandRelative("/foo", "/path")).toEqual("/foo");
 		});
 
 		it("should not expand foo", () => {
+			expect.assertions(1);
 			expect(Config.expandRelative("foo", "/path")).toEqual("foo");
 		});
 	});
 
 	describe("getMetaTable()", () => {
 		it("should load metadata", () => {
+			expect.assertions(1);
 			const config = Config.empty();
 			const metatable = config.getMetaTable();
 			expect(Object.keys(metatable.elements)).not.toHaveLength(0);
 		});
 
 		it("should load inline metadata", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				elements: [
 					{
@@ -312,6 +339,7 @@ describe("config", () => {
 		});
 
 		it("should cache table", () => {
+			expect.assertions(1);
 			const config = Config.empty();
 			const a = config.getMetaTable();
 			const b = config.getMetaTable();
@@ -319,6 +347,7 @@ describe("config", () => {
 		});
 
 		it("should load metadata from module", () => {
+			expect.assertions(1);
 			mockElements = {
 				foo: {},
 			};
@@ -330,6 +359,7 @@ describe("config", () => {
 		});
 
 		it("should throw ConfigError when module doesn't exist", () => {
+			expect.assertions(2);
 			const config = Config.fromObject({
 				elements: ["missing-module"],
 			});
@@ -354,6 +384,7 @@ describe("config", () => {
 		});
 
 		it("should match filename against transformer", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				transform: {
 					"^.*\\.foo$": "mock-transform",
@@ -497,6 +528,7 @@ describe("config", () => {
 		});
 
 		it("should throw error if transformer uses obsolete API", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				transform: {
 					"^.*\\.foo$": "mock-transform-obsolete",
@@ -508,6 +540,7 @@ describe("config", () => {
 		});
 
 		it("should throw error if transformer refers to missing plugin", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				transform: {
 					"^.*\\.foo$": "missing-plugin:foo",
@@ -519,6 +552,7 @@ describe("config", () => {
 		});
 
 		it("should return original source if no transformer is found", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				transform: {
 					"^.*\\.bar$": "mock-transform",
@@ -539,6 +573,7 @@ describe("config", () => {
 		});
 
 		it("should support chaining transformer", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				transform: {
 					"^.*\\.bar$": "mock-transform-chain-foo",
@@ -566,6 +601,7 @@ describe("config", () => {
 		});
 
 		it("should support testing if chain is present", () => {
+			expect.assertions(2);
 			const config = Config.fromObject({
 				transform: {
 					"^.*\\.foo$": "mock-transform-optional-chain",
@@ -595,6 +631,7 @@ describe("config", () => {
 		});
 
 		it("should replace <rootDir>", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				transform: {
 					"^.*\\.foo$": "<rootDir>/src/transform/__mocks__/mock-transform",
@@ -619,6 +656,7 @@ describe("config", () => {
 		});
 
 		it("should throw sane error when transformer fails", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				transform: {
 					"^.*\\.foo$": "mock-transform-error",
@@ -631,6 +669,7 @@ describe("config", () => {
 		});
 
 		it("should throw sane error when transformer fails to load", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				transform: {
 					"^.*\\.foo$":
@@ -641,6 +680,7 @@ describe("config", () => {
 		});
 
 		it("should throw error when trying to load unnamed transform from plugin without any", () => {
+			expect.assertions(1);
 			jest.mock("mock-plugin-notransform", () => ({}), { virtual: true });
 			const config = Config.fromObject({
 				plugins: ["mock-plugin-notransform"],
@@ -652,6 +692,7 @@ describe("config", () => {
 		});
 
 		it("should throw error when trying to load named transform from plugin without any", () => {
+			expect.assertions(1);
 			jest.mock("mock-plugin-notransform", () => ({}), { virtual: true });
 			const config = Config.fromObject({
 				plugins: ["mock-plugin-notransform"],
@@ -663,6 +704,7 @@ describe("config", () => {
 		});
 
 		it("should throw error when trying to load garbage as transformer", () => {
+			expect.assertions(1);
 			jest.mock("mock-garbage", () => "foobar", { virtual: true });
 			const config = Config.fromObject({
 				transform: {
@@ -673,6 +715,7 @@ describe("config", () => {
 		});
 
 		it("should throw helpful error when trying to load unregistered plugin as transformer", () => {
+			expect.assertions(1);
 			jest.mock("mock-plugin-unregistered", () => ({ transformer: {} }), {
 				virtual: true,
 			});
@@ -687,6 +730,7 @@ describe("config", () => {
 
 	describe("transformFilename()", () => {
 		it("should default to reading full file", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				transform: {
 					"^.*\\.foo$": "mock-transform",
@@ -724,10 +768,12 @@ describe("config", () => {
 		});
 
 		it("should return true if a transformer can handle the file", () => {
+			expect.assertions(1);
 			expect(config.canTransform("my-file.foo")).toBeTruthy();
 		});
 
 		it("should return false if no transformer can handle the file", () => {
+			expect.assertions(1);
 			expect(config.canTransform("my-file.bar")).toBeFalsy();
 		});
 	});
@@ -745,6 +791,7 @@ describe("config", () => {
 		});
 
 		it("should handle unset fields", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				plugins: undefined,
 				transform: undefined,
@@ -755,6 +802,7 @@ describe("config", () => {
 		});
 
 		it("should load plugins", () => {
+			expect.assertions(1);
 			const config = Config.fromObject({
 				plugins: ["mock-plugin"],
 			});
@@ -766,6 +814,7 @@ describe("config", () => {
 	});
 
 	it("should find rootDir", () => {
+		expect.assertions(2);
 		const config = new (class extends Config {
 			public findRootDir(): string {
 				return super.findRootDir();

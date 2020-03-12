@@ -12,11 +12,13 @@ markup["correct"] = `<table>
 
 describe("docs/rules/element-permitted-occurrences.md", () => {
 	it("inline validation: incorrect", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"element-permitted-occurrences":"error"}});
 		const report = htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: correct", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"element-permitted-occurrences":"error"}});
 		const report = htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();

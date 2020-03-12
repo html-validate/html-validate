@@ -11,6 +11,7 @@ describe("rule element-permitted-content", () => {
 	});
 
 	it("should report error when @flow is child of @phrasing", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString("<span><div></div></span>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
@@ -20,6 +21,7 @@ describe("rule element-permitted-content", () => {
 	});
 
 	it("should report error when descendant is disallowed", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString(
 			"<a><span><button></button></span></a>"
 		);
@@ -31,6 +33,7 @@ describe("rule element-permitted-content", () => {
 	});
 
 	it("should not report error when phrasing a-element is child of @phrasing", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString(
 			"<span><a><span></span></a></span>"
 		);
@@ -38,6 +41,7 @@ describe("rule element-permitted-content", () => {
 	});
 
 	it("should report error when non-phrasing a-element is child of @phrasing", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString(
 			"<span><a><div></div></a></span>"
 		);
@@ -49,6 +53,7 @@ describe("rule element-permitted-content", () => {
 	});
 
 	it("should report error when label contains non-phrasing", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString(
 			"<label><div>foobar</div></label>"
 		);
@@ -60,16 +65,19 @@ describe("rule element-permitted-content", () => {
 	});
 
 	it("should handle missing meta entry (child)", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString("<p><foo>foo</foo></p>");
 		expect(report).toBeValid();
 	});
 
 	it("should handle missing meta entry (parent)", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString("<foo><p>foo</p></foo>");
 		expect(report).toBeValid();
 	});
 
 	it("should contain documentation", () => {
+		expect.assertions(1);
 		expect(
 			htmlvalidate.getRuleDocumentation("element-permitted-content")
 		).toMatchSnapshot();

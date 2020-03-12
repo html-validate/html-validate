@@ -40,6 +40,7 @@ beforeEach(() => {
 
 describe("HtmlValidate", () => {
 	it("should load default config if no configuration was passed", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
 		expect((htmlvalidate as any).globalConfig.config).toEqual(
 			expect.objectContaining({
@@ -49,6 +50,7 @@ describe("HtmlValidate", () => {
 	});
 
 	it("should not load default config if configuration was passed", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({});
 		expect((htmlvalidate as any).globalConfig.config).toEqual(
 			expect.objectContaining({
@@ -59,6 +61,7 @@ describe("HtmlValidate", () => {
 
 	describe("validateString()", () => {
 		it("should validate given string", () => {
+			expect.assertions(2);
 			const mockReport = "mock-report";
 			engine.lint.mockReturnValue(mockReport);
 			const htmlvalidate = new HtmlValidate();
@@ -77,6 +80,7 @@ describe("HtmlValidate", () => {
 		});
 
 		it("should load configuration if filename is given", () => {
+			expect.assertions(1);
 			const mockReport = "mock-report";
 			engine.lint.mockReturnValue(mockReport);
 			const htmlvalidate = new HtmlValidate();
@@ -87,6 +91,7 @@ describe("HtmlValidate", () => {
 		});
 
 		it("should allow overriding configuration", () => {
+			expect.assertions(1);
 			const mockReport = "mock-report";
 			engine.lint.mockReturnValue(mockReport);
 			const htmlvalidate = new HtmlValidate();
@@ -106,6 +111,7 @@ describe("HtmlValidate", () => {
 	});
 
 	it("validateSource() should lint given source", () => {
+		expect.assertions(2);
 		const mockReport = "mock-report";
 		engine.lint.mockReturnValue(mockReport);
 		const htmlvalidate = new HtmlValidate();
@@ -122,6 +128,7 @@ describe("HtmlValidate", () => {
 	});
 
 	it("validateFile() should lint given file", () => {
+		expect.assertions(2);
 		const mockReport = "mock-report";
 		engine.lint.mockReturnValue(mockReport);
 		const htmlvalidate = new HtmlValidate();
@@ -271,19 +278,23 @@ describe("HtmlValidate", () => {
 		});
 
 		it("should return true if file extension is .html", () => {
+			expect.assertions(1);
 			expect(htmlvalidate.canValidate("my-file.html")).toBeTruthy();
 		});
 
 		it("should return true if a transformer can handle the file", () => {
+			expect.assertions(1);
 			expect(htmlvalidate.canValidate("my-file.foo")).toBeTruthy();
 		});
 
 		it("should return false if no transformer can handle the file", () => {
+			expect.assertions(1);
 			expect(htmlvalidate.canValidate("my-file.bar")).toBeFalsy();
 		});
 	});
 
 	it("dumpTokens() should dump tokens", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
 		const filename = "foo.html";
 		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
@@ -300,6 +311,7 @@ describe("HtmlValidate", () => {
 	});
 
 	it("dumpEvents() should dump events", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
 		const filename = "foo.html";
 		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
@@ -316,6 +328,7 @@ describe("HtmlValidate", () => {
 	});
 
 	it("dumpTree() should dump tree", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
 		const filename = "foo.html";
 		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
@@ -332,6 +345,7 @@ describe("HtmlValidate", () => {
 	});
 
 	it("dumpSources() should dump sources", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
 		const filename = "foo.html";
 		const config = Config.empty();
@@ -391,6 +405,7 @@ describe("HtmlValidate", () => {
 	});
 
 	it("getRuleDocumentation() should delegate call to engine", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
 		const config = Config.empty();
 		htmlvalidate.getRuleDocumentation("foo", config, { bar: "baz" });
@@ -401,6 +416,7 @@ describe("HtmlValidate", () => {
 
 	describe("getConfigFor()", () => {
 		it("should load configuration files and merge result in correct order", () => {
+			expect.assertions(2);
 			const htmlvalidate = new HtmlValidate({
 				rules: {
 					a: "error",
@@ -431,6 +447,7 @@ describe("HtmlValidate", () => {
 		});
 
 		it("should apply configuration override in correct order", () => {
+			expect.assertions(1);
 			/* constructor global config */
 			const htmlvalidate = new HtmlValidate({
 				rules: {
@@ -468,6 +485,7 @@ describe("HtmlValidate", () => {
 		});
 
 		it("should not load configuration files if global config is root", () => {
+			expect.assertions(2);
 			const htmlvalidate = new HtmlValidate({
 				root: true,
 			});
@@ -485,6 +503,7 @@ describe("HtmlValidate", () => {
 		});
 
 		it("should merge global with override when global is root", () => {
+			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate({
 				root: true,
 				rules: {
@@ -507,6 +526,7 @@ describe("HtmlValidate", () => {
 		});
 
 		it("should not load global configuration files if override config is root", () => {
+			expect.assertions(2);
 			const htmlvalidate = new HtmlValidate({
 				rules: {
 					a: "error",
@@ -535,6 +555,7 @@ describe("HtmlValidate", () => {
 	});
 
 	it("getParserFor() should create a parser for given filename", () => {
+		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate();
 		const config = Config.empty();
 		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(() => config);
@@ -551,6 +572,7 @@ describe("HtmlValidate", () => {
 	});
 
 	it("flushConfigCache() should delegate to configLoader", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
 		const flush = jest.spyOn(
 			(htmlvalidate as any).configLoader as ConfigLoader,

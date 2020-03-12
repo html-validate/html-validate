@@ -12,11 +12,13 @@ markup["correct"] = `<label for="my-input"></label>
 
 describe("docs/rules/no-missing-references.md", () => {
 	it("inline validation: incorrect", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-missing-references":"error"}});
 		const report = htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: correct", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-missing-references":"error"}});
 		const report = htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();

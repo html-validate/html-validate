@@ -33,6 +33,7 @@ jest.mock(
 describe("regression tests", () => {
 	for (const filename of glob.sync("test-files/issues/**/*.html")) {
 		it(filename, () => {
+			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate({
 				extends: ["html-validate:recommended"],
 				transform: {

@@ -25,16 +25,19 @@ markup["descendants"] = `<my-component>
 
 describe("docs/guide/metadata/restrict-content.md", () => {
 	it("inline validation: tags", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"flow":true,"permittedContent":["span","strong","em"]}}],"extends":["html-validate:recommended"]});
 		const report = htmlvalidate.validateString(markup["tags"]);
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: exclude", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"flow":true,"permittedContent":[{"exclude":"@heading"}]}}],"extends":["html-validate:recommended"]});
 		const report = htmlvalidate.validateString(markup["exclude"]);
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: descendants", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"elements":["html5",{"footer":{"flow":true,"sectioning":true},"my-component":{"flow":true,"permittedDescendants":[{"exclude":["@sectioning","my-component"]}]}}],"extends":["html-validate:recommended"]});
 		const report = htmlvalidate.validateString(markup["descendants"]);
 		expect(report.results).toMatchSnapshot();

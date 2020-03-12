@@ -3,6 +3,7 @@ import { TemplateExtractor } from "./template";
 describe("TemplateExtractor", () => {
 	describe("extractObjectProperty()", () => {
 		it("should extract templates from object property", () => {
+			expect.assertions(1);
 			const te = TemplateExtractor.fromString('foo({template: "<b>foo</b>"})');
 			expect(te.extractObjectProperty("template")).toEqual([
 				{
@@ -16,6 +17,7 @@ describe("TemplateExtractor", () => {
 		});
 
 		it("should handle literal", () => {
+			expect.assertions(1);
 			const te = TemplateExtractor.fromString(
 				'foo({"template": "<b>foo</b>"})'
 			);
@@ -44,11 +46,13 @@ describe("TemplateExtractor", () => {
 		});
 
 		it("should ignore other properties", () => {
+			expect.assertions(1);
 			const te = TemplateExtractor.fromString('foo({bar: "<b>foo</b>"})');
 			expect(te.extractObjectProperty("template")).toEqual([]);
 		});
 
 		it("should handle single quotes", () => {
+			expect.assertions(1);
 			const te = TemplateExtractor.fromString("foo({template: '<b>foo</b>'})");
 			expect(te.extractObjectProperty("template")).toEqual([
 				{
@@ -62,6 +66,7 @@ describe("TemplateExtractor", () => {
 		});
 
 		it("should handle double quotes", () => {
+			expect.assertions(1);
 			const te = TemplateExtractor.fromString('foo({template: "<b>foo</b>"})');
 			expect(te.extractObjectProperty("template")).toEqual([
 				{
@@ -75,6 +80,7 @@ describe("TemplateExtractor", () => {
 		});
 
 		it("should handle template literal", () => {
+			expect.assertions(1);
 			const te = TemplateExtractor.fromString(
 				"foo({template: `<b>${foo}</b>`})"
 			);
@@ -90,6 +96,7 @@ describe("TemplateExtractor", () => {
 		});
 
 		it("should handle tagged template", () => {
+			expect.assertions(1);
 			const te = TemplateExtractor.fromString(
 				"foo({template: foo`<b>${foo}</b>`})"
 			);
@@ -105,6 +112,7 @@ describe("TemplateExtractor", () => {
 		});
 
 		it("should extract templates from arrow function returning template", () => {
+			expect.assertions(1);
 			const te = TemplateExtractor.fromString(
 				"foo({template: (foo) => `<b>${foo}</b>`})"
 			);
@@ -121,6 +129,7 @@ describe("TemplateExtractor", () => {
 
 		/* ignored because it is deemed to difficult to figure out the actual return value (i.e. the user can do too complex things) */
 		it("should ignore arrow function width function body", () => {
+			expect.assertions(1);
 			const te = TemplateExtractor.fromString(
 				"foo({template: (foo) => { return `<b>${foo}</b>`; }})"
 			);
@@ -129,6 +138,7 @@ describe("TemplateExtractor", () => {
 
 		/* ignored because it is deemed to difficult to figure out the actual return value (i.e. the user can do too complex things) */
 		it("should ignore regular function", () => {
+			expect.assertions(1);
 			const te = TemplateExtractor.fromString(
 				"foo({template: function(foo){ return `<b>${foo}</b>`; }})"
 			);
@@ -137,6 +147,7 @@ describe("TemplateExtractor", () => {
 	});
 
 	it("should extract from file", () => {
+		expect.assertions(1);
 		const te = TemplateExtractor.fromFilename("test-files/extract.js");
 		expect(te.extractObjectProperty("template")).toEqual([
 			{
@@ -164,6 +175,7 @@ describe("TemplateExtractor", () => {
 	});
 
 	it("createSource() should create source from file as-is", () => {
+		expect.assertions(1);
 		expect(TemplateExtractor.createSource("test-files/extract.js")).toEqual([
 			{
 				data: expect.any(String),

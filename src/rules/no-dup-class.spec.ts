@@ -11,16 +11,19 @@ describe("rule no-dup-class", () => {
 	});
 
 	it("should not report when class is missing", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString("<p></p>");
 		expect(report).toBeValid();
 	});
 
 	it("should not report when class has no duplicates", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString('<p class="foo bar"></p>');
 		expect(report).toBeValid();
 	});
 
 	it("should report when when class has duplicates", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString(
 			'<p class="foo bar foo"></p></p>'
 		);
@@ -29,6 +32,7 @@ describe("rule no-dup-class", () => {
 	});
 
 	it("smoketest", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateFile(
 			"test-files/rules/no-dup-class.html"
 		);
@@ -36,6 +40,7 @@ describe("rule no-dup-class", () => {
 	});
 
 	it("should contain documentation", () => {
+		expect.assertions(1);
 		expect(htmlvalidate.getRuleDocumentation("no-dup-class")).toMatchSnapshot();
 	});
 });

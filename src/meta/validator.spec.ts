@@ -13,6 +13,7 @@ class ConfigMock extends Config {
 describe("Meta validator", () => {
 	describe("validatePermitted()", () => {
 		it("should handle undefined", () => {
+			expect.assertions(1);
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry({ void: true }),
@@ -23,6 +24,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should validate tagName", () => {
+			expect.assertions(2);
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry({ void: true }),
@@ -36,6 +38,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should validate tagName with qualifier", () => {
+			expect.assertions(2);
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry({ void: true }),
@@ -49,6 +52,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should validate @meta", () => {
+			expect.assertions(2);
 			const table = new MetaTable();
 			table.loadFromObject({
 				nil: mockEntry({ void: true }),
@@ -62,6 +66,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should validate @flow", () => {
+			expect.assertions(2);
 			const table = new MetaTable();
 			table.loadFromObject({
 				nil: mockEntry({ void: true }),
@@ -75,6 +80,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should validate @sectioning", () => {
+			expect.assertions(2);
 			const table = new MetaTable();
 			table.loadFromObject({
 				nil: mockEntry({ void: true }),
@@ -90,6 +96,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should validate @heading", () => {
+			expect.assertions(2);
 			const table = new MetaTable();
 			table.loadFromObject({
 				nil: mockEntry({ void: true }),
@@ -105,6 +112,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should validate @phrasing", () => {
+			expect.assertions(2);
 			const table = new MetaTable();
 			table.loadFromObject({
 				nil: mockEntry({ void: true }),
@@ -120,6 +128,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should validate @embedded", () => {
+			expect.assertions(2);
 			const table = new MetaTable();
 			table.loadFromObject({
 				nil: mockEntry({ void: true }),
@@ -135,6 +144,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should validate @interactive", () => {
+			expect.assertions(2);
 			const table = new MetaTable();
 			table.loadFromObject({
 				nil: mockEntry({ void: true }),
@@ -153,6 +163,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should validate @script", () => {
+			expect.assertions(2);
 			const table = new MetaTable();
 			table.loadFromObject({
 				nil: mockEntry({ void: true }),
@@ -171,6 +182,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should validate @form", () => {
+			expect.assertions(2);
 			const table = new MetaTable();
 			table.loadFromObject({
 				nil: mockEntry({ void: true }),
@@ -187,6 +199,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should validate multiple rules (OR)", () => {
+			expect.assertions(3);
 			const table = new MetaTable();
 			table.loadFromObject({
 				nil: mockEntry({ void: true }),
@@ -204,6 +217,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should validate multiple rules (AND)", () => {
+			expect.assertions(3);
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry({ flow: true, phrasing: true, void: true }),
@@ -225,6 +239,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should support excluding tagname", () => {
+			expect.assertions(2);
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry({ flow: true, void: true }),
@@ -247,6 +262,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should support excluding category", () => {
+			expect.assertions(2);
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry({ flow: true, interactive: false, void: true }),
@@ -269,6 +285,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should support excluding multiple targets", () => {
+			expect.assertions(2);
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry({ flow: true, interactive: false, void: true }),
@@ -284,6 +301,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should support excluding multiple targets together", () => {
+			expect.assertions(2);
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry({ flow: true, interactive: false, void: true }),
@@ -306,6 +324,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should handle empty object", () => {
+			expect.assertions(1);
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry({ flow: true, void: true }),
@@ -317,6 +336,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should throw error on invalid category", () => {
+			expect.assertions(1);
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry({ flow: true }),
@@ -330,6 +350,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should throw error on invalid permitted rule", () => {
+			expect.assertions(1);
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry({ flow: true }),
@@ -354,6 +375,7 @@ describe("Meta validator", () => {
 
 	describe("validateOccurrences()", () => {
 		it("should handle undefined", () => {
+			expect.assertions(1);
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry({ void: true }),
@@ -364,6 +386,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should support missing qualifier", () => {
+			expect.assertions(2);
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry({ void: true }),
@@ -376,6 +399,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should support ? qualifier", () => {
+			expect.assertions(3);
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry({ void: true }),
@@ -389,6 +413,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should support * qualifier", () => {
+			expect.assertions(2);
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry({ void: true }),
@@ -417,12 +442,14 @@ describe("Meta validator", () => {
 		});
 
 		it("should handle undefined rules", () => {
+			expect.assertions(2);
 			const children = parser.parseHtml("<foo/>").root.childElements;
 			expect(Validator.validateOrder(children, undefined, cb)).toBeTruthy();
 			expect(cb).not.toHaveBeenCalled();
 		});
 
 		it("should return error when elements are out of order", () => {
+			expect.assertions(2);
 			const children = parser.parseHtml("<bar/><foo/>").root.childElements;
 			const rules = ["foo", "bar"];
 			expect(Validator.validateOrder(children, rules, cb)).toBeFalsy();
@@ -430,6 +457,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should not return error when elements are in order", () => {
+			expect.assertions(2);
 			const children = parser.parseHtml("<foo/><bar/>").root.childElements;
 			const rules = ["foo", "bar"];
 			expect(Validator.validateOrder(children, rules, cb)).toBeTruthy();
@@ -437,6 +465,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should handle elements with unspecified order", () => {
+			expect.assertions(2);
 			const children = parser.parseHtml("<foo/><bar/><foo/>").root
 				.childElements;
 			const rules = ["foo"];
@@ -445,6 +474,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should handle categories", () => {
+			expect.assertions(2);
 			const children1 = parser.parseHtml("<foo/><bar/>").root.childElements;
 			const children2 = parser.parseHtml("<bar/><foo/>").root.childElements;
 			const rules = ["foo", "@flow"];
@@ -466,30 +496,35 @@ describe("Meta validator", () => {
 		});
 
 		it("should match if no rule is present", () => {
+			expect.assertions(2);
 			const node = root.querySelector("dd");
 			expect(Validator.validateAncestors(node, undefined)).toBeTruthy();
 			expect(Validator.validateAncestors(node, [])).toBeTruthy();
 		});
 
 		it("should match ancestors", () => {
+			expect.assertions(1);
 			const rules: string[] = ["dl"];
 			const node = root.querySelector("dd");
 			expect(Validator.validateAncestors(node, rules)).toBeTruthy();
 		});
 
 		it("should match itself", () => {
+			expect.assertions(1);
 			const rules: string[] = ["dl > dd"];
 			const node = root.querySelector("dd");
 			expect(Validator.validateAncestors(node, rules)).toBeTruthy();
 		});
 
 		it("should match if one rule matches", () => {
+			expect.assertions(1);
 			const rules: string[] = ["spam", "dl"];
 			const node = root.querySelector("dd");
 			expect(Validator.validateAncestors(node, rules)).toBeTruthy();
 		});
 
 		it("should return false if no rule matches", () => {
+			expect.assertions(1);
 			const rules: string[] = ["spam"];
 			const node = root.querySelector("dd");
 			expect(Validator.validateAncestors(node, rules)).toBeFalsy();
@@ -504,12 +539,14 @@ describe("Meta validator", () => {
 		});
 
 		it("should match if no rule is present", () => {
+			expect.assertions(2);
 			const node = parser.parseHtml("<div></div>").querySelector("div");
 			expect(Validator.validateRequiredContent(node, undefined)).toEqual([]);
 			expect(Validator.validateRequiredContent(node, [])).toEqual([]);
 		});
 
 		it("should return missing content", () => {
+			expect.assertions(1);
 			const node = parser
 				.parseHtml("<div><foo></foo></div>")
 				.querySelector("div");
@@ -521,6 +558,7 @@ describe("Meta validator", () => {
 
 	describe("validateAttribute()", () => {
 		it("should match if no rule is present", () => {
+			expect.assertions(1);
 			const rules = {};
 			expect(
 				Validator.validateAttribute(new Attribute("foo", "bar"), rules)
@@ -533,6 +571,7 @@ describe("Meta validator", () => {
 			${/.*/}   | ${"foo"}
 			${/.*/}   | ${""}
 		`("should match regexp $regex vs $value", ({ regex, value }) => {
+			expect.assertions(1);
 			const rules = { foo: [regex] };
 			const attr = new Attribute("foo", value);
 			expect(Validator.validateAttribute(attr, rules)).toBeTruthy();
@@ -544,12 +583,14 @@ describe("Meta validator", () => {
 			${/ba.*/} | ${null}  | ${false}
 			${/.*/}   | ${null}  | ${false}
 		`("should not match regexp $regex vs $value", ({ regex, value }) => {
+			expect.assertions(1);
 			const rules = { foo: [regex] };
 			const attr = new Attribute("foo", value);
 			expect(Validator.validateAttribute(attr, rules)).toBeFalsy();
 		});
 
 		it("should match string value", () => {
+			expect.assertions(2);
 			const rules = {
 				foo: ["bar"],
 			};
@@ -562,6 +603,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should match dynamic value", () => {
+			expect.assertions(2);
 			const rules = {
 				foo: ["bar"],
 				bar: [] as string[],
@@ -576,6 +618,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should match if one of multiple allowed matches", () => {
+			expect.assertions(2);
 			const rules = {
 				foo: ["fred", "barney", "wilma"],
 			};
@@ -588,6 +631,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should handle null", () => {
+			expect.assertions(1);
 			const rules = {
 				foo: ["foo", "/bar/"],
 			};
@@ -597,6 +641,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should consider empty list as boolean attribute", () => {
+			expect.assertions(1);
 			const rules = {
 				foo: [] as string[],
 			};
@@ -606,6 +651,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should consider empty value as either null or empty string", () => {
+			expect.assertions(2);
 			const rules = {
 				foo: [""] as string[],
 			};
@@ -618,6 +664,7 @@ describe("Meta validator", () => {
 		});
 
 		it("should normalize boolean attributes", () => {
+			expect.assertions(4);
 			const rules = {
 				foo: [] as string[],
 			};

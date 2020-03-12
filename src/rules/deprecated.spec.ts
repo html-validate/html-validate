@@ -19,17 +19,20 @@ describe("rule deprecated", () => {
 	});
 
 	it("should not report when regular element is used", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString("<p></p>");
 		expect(report).toBeValid();
 	});
 
 	it("should report error when deprecated element is used", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString("<marquee>foobar</marquee>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("deprecated", "<marquee> is deprecated");
 	});
 
 	it("should report error when element with deprecation message is used", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString(
 			"<custom-deprecated>foobar</custom-deprecated>"
 		);
@@ -41,6 +44,7 @@ describe("rule deprecated", () => {
 	});
 
 	it("smoketest", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateFile(
 			"test-files/rules/deprecated.html"
 		);
@@ -84,10 +88,12 @@ describe("rule deprecated", () => {
 	});
 
 	it("should contain documentation", () => {
+		expect.assertions(1);
 		expect(htmlvalidate.getRuleDocumentation("deprecated")).toMatchSnapshot();
 	});
 
 	it("should contain contextual documentation", () => {
+		expect.assertions(4);
 		expect(
 			htmlvalidate.getRuleDocumentation("deprecated", null, {
 				tagName: "center",

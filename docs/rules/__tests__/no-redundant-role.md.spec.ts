@@ -12,11 +12,13 @@ markup["correct"] = `<ul>
 
 describe("docs/rules/no-redundant-role.md", () => {
 	it("inline validation: incorrect", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-redundant-role":"error"}});
 		const report = htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: correct", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-redundant-role":"error"}});
 		const report = htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();

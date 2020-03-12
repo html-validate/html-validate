@@ -7,11 +7,13 @@ markup["correct"] = `<div></div>
 
 describe("docs/rules/element-name.md", () => {
 	it("inline validation: incorrect", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"element-name":"error"}});
 		const report = htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: correct", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"element-name":"error"}});
 		const report = htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();

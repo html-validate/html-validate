@@ -12,11 +12,13 @@ describe("rule id-pattern", () => {
 	});
 
 	it("should not report error when id follows pattern", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString('<p id="foo-bar"></p>');
 		expect(report).toBeValid();
 	});
 
 	it("should not report error when id is interpolated", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString(
 			'<p id="{{ interpolated }}"></p>',
 			null,
@@ -26,6 +28,7 @@ describe("rule id-pattern", () => {
 	});
 
 	it("should report error when id does not follow pattern", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString('<p id="fooBar"></p>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
@@ -35,11 +38,13 @@ describe("rule id-pattern", () => {
 	});
 
 	it("should ignore other attributes", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString('<p spam="fooBar"></p>');
 		expect(report).toBeValid();
 	});
 
 	it("smoketest", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateFile(
 			"test-files/rules/id-pattern.html"
 		);
@@ -47,6 +52,7 @@ describe("rule id-pattern", () => {
 	});
 
 	it("should contain documentation", () => {
+		expect.assertions(1);
 		expect(htmlvalidate.getRuleDocumentation("id-pattern")).toMatchSnapshot();
 	});
 });

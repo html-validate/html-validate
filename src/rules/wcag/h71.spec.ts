@@ -19,6 +19,7 @@ describe("wcag/h71", () => {
 	});
 
 	it("should report error when <fieldset> is missing <legend>", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString("<fieldset></fieldset>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
@@ -28,6 +29,7 @@ describe("wcag/h71", () => {
 	});
 
 	it("should report error when custom element inherits from <fieldset>", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString("<custom></custom>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
@@ -37,6 +39,7 @@ describe("wcag/h71", () => {
 	});
 
 	it("should not report when <fieldset> have <legend>", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString(
 			"<fieldset><legend>foo</legend></fieldset>"
 		);
@@ -44,6 +47,7 @@ describe("wcag/h71", () => {
 	});
 
 	it("should not report when <fieldset> have multiple <legend>", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString(
 			"<fieldset><legend>foo</legend><legend>bar</legend></fieldset>"
 		);
@@ -51,6 +55,7 @@ describe("wcag/h71", () => {
 	});
 
 	it("should not report when <fieldset> have out-of-order <legend>", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString(
 			"<fieldset><div>foo</div><legend>bar</legend></fieldset>"
 		);
@@ -58,6 +63,7 @@ describe("wcag/h71", () => {
 	});
 
 	it("should contain documentation", () => {
+		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "wcag/h71": "error" },
 		});

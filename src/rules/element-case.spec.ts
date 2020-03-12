@@ -12,16 +12,19 @@ describe("rule element-case", () => {
 		});
 
 		it("should not report error when element is lowercase", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<foo></foo>");
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when element has special characters", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<foo-bar-9></foo-bar-9>");
 			expect(report).toBeValid();
 		});
 
 		it("should report error when element is uppercase", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<FOO></FOO>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -31,6 +34,7 @@ describe("rule element-case", () => {
 		});
 
 		it("should report error when element is mixed", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<fOo></fOo>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -40,6 +44,7 @@ describe("rule element-case", () => {
 		});
 
 		it("smoketest", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateFile(
 				"test-files/rules/element-case.html"
 			);
@@ -55,6 +60,7 @@ describe("rule element-case", () => {
 		});
 
 		it("should report error when element is lowercase", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<foo></foo>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -64,16 +70,19 @@ describe("rule element-case", () => {
 		});
 
 		it("should not report error when element has special characters", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<FOO-BAR-9></FOO-BAR-9>");
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when element is uppercase", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<FOO></FOO>");
 			expect(report).toBeValid();
 		});
 
 		it("should report error when element is mixed", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<fOo></fOo>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -83,6 +92,7 @@ describe("rule element-case", () => {
 		});
 
 		it("smoketest", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateFile(
 				"test-files/rules/element-case.html"
 			);
@@ -98,6 +108,7 @@ describe("rule element-case", () => {
 		});
 
 		it("should report error when element is lowercase", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<foo-bar></foo-bar>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -107,6 +118,7 @@ describe("rule element-case", () => {
 		});
 
 		it("should not report error when element is pascalcase", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<FooBar></FooBar>");
 			expect(report).toBeValid();
 		});
@@ -120,6 +132,7 @@ describe("rule element-case", () => {
 		});
 
 		it("should report error when element is pascalcase", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<FooBar></FooBar>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -129,6 +142,7 @@ describe("rule element-case", () => {
 		});
 
 		it("should not report error when element is camelcase", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<fooBar></fooBar>");
 			expect(report).toBeValid();
 		});
@@ -150,6 +164,7 @@ describe("rule element-case", () => {
 	});
 
 	it("should throw error if configured with invalid value", () => {
+		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "element-case": ["error", { style: "foobar" }] },
 		});
@@ -180,6 +195,7 @@ describe("rule element-case", () => {
 	});
 
 	it("should contain documentation", () => {
+		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "element-case": "error" },
 		});

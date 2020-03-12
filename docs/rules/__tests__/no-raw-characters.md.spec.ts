@@ -21,21 +21,25 @@ markup["relaxed"] = `<!-- Not ambiguous: & is followed by whitespace -->
 
 describe("docs/rules/no-raw-characters.md", () => {
 	it("inline validation: incorrect", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-raw-characters":"error"}});
 		const report = htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: correct", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-raw-characters":"error"}});
 		const report = htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: malformed", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-raw-characters":"error"}});
 		const report = htmlvalidate.validateString(markup["malformed"]);
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: relaxed", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-raw-characters":["error",{"relaxed":true}]}});
 		const report = htmlvalidate.validateString(markup["relaxed"]);
 		expect(report.results).toMatchSnapshot();

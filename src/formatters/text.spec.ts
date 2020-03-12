@@ -3,6 +3,7 @@ import formatter from "./text";
 
 describe("text formatter", () => {
 	it("should generate plaintext", () => {
+		expect.assertions(1);
 		const results: Result[] = [
 			{
 				filePath: "regular.html",
@@ -53,11 +54,13 @@ describe("text formatter", () => {
 	});
 
 	it("should empty result", () => {
+		expect.assertions(1);
 		const results: Result[] = [];
 		expect(formatter(results)).toMatchSnapshot();
 	});
 
 	it("should empty messages", () => {
+		expect.assertions(1);
 		const results: Result[] = [
 			{ filePath: "empty.html", messages: [], errorCount: 0, warningCount: 0 },
 		];

@@ -51,12 +51,14 @@ describe("rule base class", () => {
 
 	describe("report()", () => {
 		it('should not add message with severity "disabled"', () => {
+			expect.assertions(1);
 			rule.setServerity(Severity.DISABLED);
 			rule.report(null, "foo");
 			expect(reporter.add).not.toHaveBeenCalled();
 		});
 
 		it('should add message with severity "warn"', () => {
+			expect.assertions(1);
 			const node = new HtmlElement("foo", null);
 			rule.setServerity(Severity.WARN);
 			rule.report(node, "foo");
@@ -73,6 +75,7 @@ describe("rule base class", () => {
 		});
 
 		it('should add message with severity "error"', () => {
+			expect.assertions(1);
 			const node = new HtmlElement("foo", null);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(
@@ -88,12 +91,14 @@ describe("rule base class", () => {
 		});
 
 		it("should not add message when disabled", () => {
+			expect.assertions(1);
 			rule.setEnabled(false);
 			rule.report(null, "foo");
 			expect(reporter.add).not.toHaveBeenCalled();
 		});
 
 		it("should use explicit location if provided", () => {
+			expect.assertions(1);
 			const node = new HtmlElement("foo", null);
 			rule.report(node, "foo", mockLocation);
 			expect(reporter.add).toHaveBeenCalledWith(
@@ -109,6 +114,7 @@ describe("rule base class", () => {
 		});
 
 		it("should use event location if no explicit location", () => {
+			expect.assertions(1);
 			const node = new HtmlElement("foo", null);
 			rule.on("*", () => null);
 			const callback = (parser.on as any).mock.calls[0][1];
@@ -127,6 +133,7 @@ describe("rule base class", () => {
 		});
 
 		it("should use node location if no node location", () => {
+			expect.assertions(1);
 			const node = new HtmlElement("foo", null, undefined, null, mockLocation);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(
@@ -142,6 +149,7 @@ describe("rule base class", () => {
 		});
 
 		it("should set context if provided", () => {
+			expect.assertions(1);
 			const context = { foo: "bar" };
 			const node = new HtmlElement("foo", null);
 			rule.report(node, "foo", null, context);
@@ -158,6 +166,7 @@ describe("rule base class", () => {
 		});
 
 		it("should not add message if node has disabled rule", () => {
+			expect.assertions(1);
 			const node = new HtmlElement("foo", null);
 			node.disableRule("mock-rule");
 			rule.setServerity(Severity.ERROR);
@@ -179,24 +188,28 @@ describe("rule base class", () => {
 		});
 
 		it('should not deliver events with severity "disabled"', () => {
+			expect.assertions(1);
 			rule.setServerity(Severity.DISABLED);
 			callback("event", mockEvent);
 			expect(delivered).toBeFalsy();
 		});
 
 		it('should deliver events with severity "warn"', () => {
+			expect.assertions(1);
 			rule.setServerity(Severity.WARN);
 			callback("event", mockEvent);
 			expect(delivered).toBeTruthy();
 		});
 
 		it('should deliver events with severity "error"', () => {
+			expect.assertions(1);
 			rule.setServerity(Severity.ERROR);
 			callback("event", mockEvent);
 			expect(delivered).toBeTruthy();
 		});
 
 		it("should not deliver events when disabled", () => {
+			expect.assertions(1);
 			rule.setEnabled(false);
 			callback("event", mockEvent);
 			expect(delivered).toBeFalsy();
@@ -204,16 +217,19 @@ describe("rule base class", () => {
 	});
 
 	it("documentation() should return null", () => {
+		expect.assertions(1);
 		expect(rule.documentation()).toBeNull();
 	});
 
 	it("getTagsWithProperty() should lookup properties from metadata", () => {
+		expect.assertions(2);
 		const spy = jest.spyOn(meta, "getTagsWithProperty");
 		expect(rule.getTagsWithProperty("form")).toEqual(["form"]);
 		expect(spy).toHaveBeenCalledWith("form");
 	});
 
 	it("getTagsDerivedFrom() should lookup properties from metadata", () => {
+		expect.assertions(2);
 		const spy = jest.spyOn(meta, "getTagsDerivedFrom");
 		expect(rule.getTagsDerivedFrom("form")).toEqual(["form"]);
 		expect(spy).toHaveBeenCalledWith("form");
@@ -221,6 +237,7 @@ describe("rule base class", () => {
 });
 
 it("ruleDocumentationUrl() should return URL to rule documentation", () => {
+	expect.assertions(1);
 	expect(ruleDocumentationUrl("src/rules/foo.ts")).toEqual(
 		"https://html-validate.org/rules/foo.html"
 	);

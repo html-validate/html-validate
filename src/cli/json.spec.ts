@@ -3,6 +3,7 @@ import { eventFormatter, eventReplacer } from "./json";
 
 describe("eventReplacer", () => {
 	it("should hide large and recursive properties", () => {
+		expect.assertions(1);
 		const obj = {
 			parent: "recursive object",
 			children: "recursive and large object",
@@ -17,6 +18,7 @@ describe("eventReplacer", () => {
 	});
 
 	it("should reformat location", () => {
+		expect.assertions(1);
 		const obj = {
 			location: {
 				filename: "foo.html",
@@ -37,6 +39,7 @@ describe("eventReplacer", () => {
 
 describe("eventFormatter", () => {
 	it("should return formatted string", () => {
+		expect.assertions(1);
 		const entry: EventDump = {
 			event: "foo",
 			data: {

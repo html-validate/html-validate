@@ -6,6 +6,7 @@ import { TransformContext } from ".";
 jest.mock("fs");
 
 it("transformFile() should read file and apply transformer", () => {
+	expect.assertions(2);
 	const transformer = jest.fn((source: Source) => [source]);
 	const readFileSync = jest
 		.spyOn(fs, "readFileSync")
@@ -26,6 +27,7 @@ it("transformFile() should read file and apply transformer", () => {
 });
 
 it("transformString() should apply transformer", () => {
+	expect.assertions(1);
 	const transformer = jest.fn((source: Source) => [source]);
 	const result = transformString(transformer, "inline data");
 	expect(result).toMatchInlineSnapshot(`
@@ -42,6 +44,7 @@ it("transformString() should apply transformer", () => {
 });
 
 it("transformSource() should apply transformer", () => {
+	expect.assertions(1);
 	const source: Source = {
 		filename: "bar.html",
 		line: 1,
@@ -65,6 +68,7 @@ it("transformSource() should apply transformer", () => {
 });
 
 it("transformSource() should support chaining", () => {
+	expect.assertions(1);
 	const source: Source = {
 		filename: "bar.html",
 		line: 1,
@@ -90,6 +94,7 @@ it("transformSource() should support chaining", () => {
 });
 
 it("transformSource() should support custom chaining", () => {
+	expect.assertions(2);
 	const source: Source = {
 		filename: "bar.html",
 		line: 1,

@@ -55,6 +55,7 @@ describe("ConfigLoader", () => {
 		});
 
 		it("should load configuration", () => {
+			expect.assertions(1);
 			jest
 				.spyOn(fs, "existsSync")
 				.mockImplementation((filename: fs.PathLike) => {
@@ -72,6 +73,7 @@ describe("ConfigLoader", () => {
 		});
 
 		it("should load configuration from parent directory", () => {
+			expect.assertions(1);
 			jest
 				.spyOn(fs, "existsSync")
 				.mockImplementation((filename: fs.PathLike) => {
@@ -89,6 +91,7 @@ describe("ConfigLoader", () => {
 		});
 
 		it("should load configuration from multiple files", () => {
+			expect.assertions(1);
 			jest.spyOn(fs, "existsSync").mockImplementation(() => true);
 			const config = loader.fromTarget("/path/to/target.html");
 			expect(config.get()).toEqual(
@@ -104,6 +107,7 @@ describe("ConfigLoader", () => {
 		});
 
 		it("should stop searching when root is found", () => {
+			expect.assertions(1);
 			jest.spyOn(fs, "existsSync").mockImplementation(() => true);
 			const config = loader.fromTarget("/project/root/src/target.html");
 			expect(config.get()).toEqual(
@@ -118,11 +122,13 @@ describe("ConfigLoader", () => {
 		});
 
 		it("should load empty config for inline sources", () => {
+			expect.assertions(1);
 			const config = loader.fromTarget("inline");
 			expect(config.get()).toEqual(Config.empty().get());
 		});
 
 		it("should cache results", () => {
+			expect.assertions(3);
 			jest.spyOn(fs, "existsSync").mockImplementation(() => true);
 			const cache = getInteralCache(loader);
 			expect(cache.has("/path/to/target.html")).toBeFalsy();
@@ -141,6 +147,7 @@ describe("ConfigLoader", () => {
 		});
 
 		it("should load from cache if present", () => {
+			expect.assertions(2);
 			jest.spyOn(fs, "existsSync").mockImplementation(() => true);
 			const cache = getInteralCache(loader);
 			loader.fromTarget("/path/to/target.html");
@@ -168,6 +175,7 @@ describe("ConfigLoader", () => {
 		});
 
 		it("flush() should clear cache", () => {
+			expect.assertions(2);
 			const cache = getInteralCache(loader);
 			cache.set("foo", null);
 			cache.set("bar", null);
@@ -178,6 +186,7 @@ describe("ConfigLoader", () => {
 		});
 
 		it("flush() should clear single filename", () => {
+			expect.assertions(5);
 			const cache = getInteralCache(loader);
 			cache.set("foo", null);
 			cache.set("bar", null);
@@ -217,6 +226,7 @@ describe("ConfigLoader", () => {
 		const files = glob.sync("test-files/config/**/*.html");
 		files.forEach((filename: string) => {
 			it(filename, () => {
+				expect.assertions(2);
 				const htmlvalidate = new HtmlValidate();
 				const config = htmlvalidate.getConfigFor(filename);
 				const report = htmlvalidate.validateFile(filename);

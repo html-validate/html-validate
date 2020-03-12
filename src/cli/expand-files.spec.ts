@@ -38,6 +38,7 @@ afterAll(() => {
 
 describe("expandFiles()", () => {
 	it("should expand globs", () => {
+		expect.assertions(3);
 		const spy = jest.spyOn(glob, "sync");
 		expect(cli.expandFiles(["foo.html", "bar/**/*.html"])).toEqual([
 			"foo.html",
@@ -49,6 +50,7 @@ describe("expandFiles()", () => {
 	});
 
 	it("should expand directories (default extensions)", () => {
+		expect.assertions(1);
 		expect(cli.expandFiles(["bar"])).toEqual([
 			"bar/fred.html",
 			"bar/barney.html",
@@ -56,6 +58,7 @@ describe("expandFiles()", () => {
 	});
 
 	it("should expand directories (explicit extensions)", () => {
+		expect.assertions(1);
 		expect(cli.expandFiles(["bar"], { extensions: ["js", "json"] })).toEqual([
 			"bar/fred.json",
 			"bar/barney.js",
@@ -63,6 +66,7 @@ describe("expandFiles()", () => {
 	});
 
 	it("should expand directories (no extensions => all files)", () => {
+		expect.assertions(1);
 		expect(cli.expandFiles(["bar"], { extensions: [] })).toEqual([
 			"bar/fred.html",
 			"bar/fred.json",
@@ -72,10 +76,12 @@ describe("expandFiles()", () => {
 	});
 
 	it("should remove duplicates", () => {
+		expect.assertions(1);
 		expect(cli.expandFiles(["foo.html", "foo.html"])).toEqual(["foo.html"]);
 	});
 
 	it("should replace - placeholder", () => {
+		expect.assertions(1);
 		expect(cli.expandFiles(["-"])).toEqual(["/dev/stdin"]);
 	});
 });

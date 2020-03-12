@@ -13,16 +13,19 @@ describe("rule attr-case", () => {
 		});
 
 		it("should not report error when attributes is lowercase", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString('<div foo="bar"></div>');
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when attribute has special characters", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString('<div foo-bar-9="bar"></div>');
 			expect(report).toBeValid();
 		});
 
 		it("should report error when attributes is uppercase", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString('<div FOO="bar"></div>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -32,6 +35,7 @@ describe("rule attr-case", () => {
 		});
 
 		it("should report error when attributes is mixed", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString('<div clAss="bar"></div>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -41,6 +45,7 @@ describe("rule attr-case", () => {
 		});
 
 		it("smoketest", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateFile(
 				"test-files/rules/attr-case.html"
 			);
@@ -56,6 +61,7 @@ describe("rule attr-case", () => {
 		});
 
 		it("should report error when attributes is lowercase", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString('<div foo="bar"></div>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -65,16 +71,19 @@ describe("rule attr-case", () => {
 		});
 
 		it("should not report error when attribute has special characters", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString('<div FOO-BAR-9="bar"></div>');
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when attributes is uppercase", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString('<div FOO="bar"></div>');
 			expect(report).toBeValid();
 		});
 
 		it("should report error when attributes is mixed", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString('<div clAss="bar"></div>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -84,6 +93,7 @@ describe("rule attr-case", () => {
 		});
 
 		it("smoketest", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateFile(
 				"test-files/rules/attr-case.html"
 			);
@@ -99,16 +109,19 @@ describe("rule attr-case", () => {
 		});
 
 		it("should not report error when attributes is PascalCase", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString('<div FooBar="baz"></div>');
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when attributes is UPPERCASE", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString('<div FOOBAR="baz"></div>');
 			expect(report).toBeValid();
 		});
 
 		it("should report error when attributes is lowercase", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString('<div foobar="baz"></div>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -118,6 +131,7 @@ describe("rule attr-case", () => {
 		});
 
 		it("should report error when attributes is camelCase", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString('<div fooBar="baz"></div>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -127,6 +141,7 @@ describe("rule attr-case", () => {
 		});
 
 		it("smoketest", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateFile(
 				"test-files/rules/attr-case.html"
 			);
@@ -142,16 +157,19 @@ describe("rule attr-case", () => {
 		});
 
 		it("should not report error when attributes is camelCase", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString('<div fooBar="baz"></div>');
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when attributes is lowercase", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString('<div foobar="baz"></div>');
 			expect(report).toBeValid();
 		});
 
 		it("should report error when attributes is UPPERCASE", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString('<div FOOBAR="baz"></div>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -161,6 +179,7 @@ describe("rule attr-case", () => {
 		});
 
 		it("should report error when attributes is PascalCase", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString('<div FooBar="baz"></div>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -170,6 +189,7 @@ describe("rule attr-case", () => {
 		});
 
 		it("smoketest", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateFile(
 				"test-files/rules/attr-case.html"
 			);
@@ -185,6 +205,7 @@ describe("rule attr-case", () => {
 		});
 
 		it("should not report error on foreign elements", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString('<svg viewBox=""/>');
 			expect(report).toBeValid();
 		});
@@ -198,6 +219,7 @@ describe("rule attr-case", () => {
 		});
 
 		it("should report error on foreign elements", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString('<svg viewBox=""/>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -223,6 +245,7 @@ describe("rule attr-case", () => {
 	});
 
 	it("should not report duplicate errors for dynamic attributes", () => {
+		expect.assertions(2);
 		htmlvalidate = new HtmlValidate({
 			rules: { "attr-case": "error" },
 		});
@@ -243,6 +266,7 @@ describe("rule attr-case", () => {
 	});
 
 	it("should throw error if configured with invalid value", () => {
+		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "attr-case": ["error", { style: "foobar" }] },
 		});
@@ -252,6 +276,7 @@ describe("rule attr-case", () => {
 	});
 
 	it("should contain documentation", () => {
+		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "attr-case": "error" },
 		});

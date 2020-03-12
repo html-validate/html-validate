@@ -7,12 +7,14 @@ import { TextNode } from "./text";
 
 describe("DOMNode", () => {
 	it("should set nodeName and nodeType", () => {
+		expect.assertions(2);
 		const node = new DOMNode(NodeType.ELEMENT_NODE, "foo");
 		expect(node.nodeName).toEqual("foo");
 		expect(node.nodeType).toEqual(NodeType.ELEMENT_NODE);
 	});
 
 	it("should be assigned a unique id", () => {
+		expect.assertions(3);
 		const n1 = new DOMNode(NodeType.ELEMENT_NODE, "foo");
 		const n2 = new DOMNode(NodeType.ELEMENT_NODE, "foo");
 		expect(n1.unique).toEqual(expect.any(Number));
@@ -21,12 +23,14 @@ describe("DOMNode", () => {
 	});
 
 	it("root element", () => {
+		expect.assertions(2);
 		const node = new DOMNode(NodeType.DOCUMENT_NODE, "#document");
 		expect(node.nodeName).toEqual("#document");
 		expect(node.nodeType).toEqual(NodeType.DOCUMENT_NODE);
 	});
 
 	it("append() should add node as child", () => {
+		expect.assertions(3);
 		const parent = new DOMNode(NodeType.ELEMENT_NODE, "parent");
 		const child = new DOMNode(NodeType.ELEMENT_NODE, "child");
 		expect(parent.childNodes).toHaveLength(0);
@@ -37,10 +41,12 @@ describe("DOMNode", () => {
 
 	describe("isRootElement()", () => {
 		it("should return true for root element", () => {
+			expect.assertions(1);
 			const node = new DOMNode(NodeType.DOCUMENT_NODE, "#document");
 			expect(node.isRootElement()).toBeTruthy();
 		});
 		it("should false true for other element", () => {
+			expect.assertions(1);
 			const node = new DOMNode(NodeType.ELEMENT_NODE, "foo");
 			expect(node.isRootElement()).toBeFalsy();
 		});
@@ -48,6 +54,7 @@ describe("DOMNode", () => {
 
 	describe("firstChild", () => {
 		it("should return first child if present", () => {
+			expect.assertions(1);
 			const node = new DOMNode(NodeType.ELEMENT_NODE, "root");
 			const first = new DOMNode(NodeType.ELEMENT_NODE, "first");
 			const last = new DOMNode(NodeType.ELEMENT_NODE, "last");
@@ -56,6 +63,7 @@ describe("DOMNode", () => {
 			expect(node.firstChild.unique).toEqual(first.unique);
 		});
 		it("should return null if no children present", () => {
+			expect.assertions(1);
 			const node = new DOMNode(NodeType.ELEMENT_NODE, "root");
 			expect(node.firstChild).toBeNull();
 		});
@@ -63,6 +71,7 @@ describe("DOMNode", () => {
 
 	describe("lastChild", () => {
 		it("should return first child if present", () => {
+			expect.assertions(1);
 			const node = new DOMNode(NodeType.ELEMENT_NODE, "root");
 			const first = new DOMNode(NodeType.ELEMENT_NODE, "first");
 			const last = new DOMNode(NodeType.ELEMENT_NODE, "last");
@@ -71,6 +80,7 @@ describe("DOMNode", () => {
 			expect(node.lastChild.unique).toEqual(last.unique);
 		});
 		it("should return null if no children present", () => {
+			expect.assertions(1);
 			const node = new DOMNode(NodeType.ELEMENT_NODE, "root");
 			expect(node.lastChild).toBeNull();
 		});
@@ -78,6 +88,7 @@ describe("DOMNode", () => {
 
 	describe("textContent", () => {
 		it("should get text from children", () => {
+			expect.assertions(1);
 			const root = new HtmlElement("root");
 			const a = new HtmlElement("a", root);
 			const b = new HtmlElement("b", root);
@@ -87,6 +98,7 @@ describe("DOMNode", () => {
 		});
 
 		it("should get text from children (recursive)", () => {
+			expect.assertions(1);
 			const root = new HtmlElement("root");
 			const a = new HtmlElement("a", root);
 			const b = new HtmlElement("b", root);
@@ -97,6 +109,7 @@ describe("DOMNode", () => {
 		});
 
 		it("should get text from children intermixed with text", () => {
+			expect.assertions(1);
 			const root = new HtmlElement("root");
 			const a = new HtmlElement("a");
 			const b = new TextNode(" bar ");
@@ -110,6 +123,7 @@ describe("DOMNode", () => {
 		});
 
 		it("smoketest", () => {
+			expect.assertions(1);
 			const markup = `lorem <i>ipsum</i> <b>dolor <u>sit amet</u></b>`;
 			const parser = new Parser(Config.empty());
 			const doc = parser.parseHtml(markup).root;
@@ -119,17 +133,20 @@ describe("DOMNode", () => {
 
 	describe("disabled rules", () => {
 		it("rules should default to enabled", () => {
+			expect.assertions(1);
 			const node = new DOMNode(NodeType.ELEMENT_NODE, "foo");
 			expect(node.ruleEnabled("my-rule")).toBeTruthy();
 		});
 
 		it("disableRule() should disable rule", () => {
+			expect.assertions(1);
 			const node = new DOMNode(NodeType.ELEMENT_NODE, "foo");
 			node.disableRule("my-rule");
 			expect(node.ruleEnabled("my-rule")).toBeFalsy();
 		});
 
 		it("enableRule() should enable rule", () => {
+			expect.assertions(2);
 			const node = new DOMNode(NodeType.ELEMENT_NODE, "foo");
 			node.disableRule("my-rule");
 			expect(node.ruleEnabled("my-rule")).toBeFalsy();

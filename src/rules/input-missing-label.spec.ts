@@ -11,6 +11,7 @@ describe("rule input-missing-label", () => {
 	});
 
 	it("should not report when input id has matching label", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString(
 			'<label for="foo">foo</label><input id="foo"/>'
 		);
@@ -18,11 +19,13 @@ describe("rule input-missing-label", () => {
 	});
 
 	it('should not report input type="hidden" is missing label', () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString('<input type="hidden" />');
 		expect(report).toBeValid();
 	});
 
 	it("should not report when input is nested inside label", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString("<label>foo <input/></label>");
 		expect(report).toBeValid();
 	});
@@ -40,6 +43,7 @@ describe("rule input-missing-label", () => {
 	);
 
 	it("smoketest", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateFile(
 			"test-files/rules/input-missing-label.html"
 		);
@@ -47,6 +51,7 @@ describe("rule input-missing-label", () => {
 	});
 
 	it("should contain documentation", () => {
+		expect.assertions(1);
 		expect(
 			htmlvalidate.getRuleDocumentation("input-missing-label")
 		).toMatchSnapshot();

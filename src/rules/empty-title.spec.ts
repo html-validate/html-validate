@@ -12,11 +12,13 @@ describe("rule empty-title", () => {
 	});
 
 	it("should not report when title has text", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString("<title>lorem ipsum</title>");
 		expect(report).toBeValid();
 	});
 
 	it("should not report when title has children with text", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString(
 			"<title><span>lorem ipsum</span></title>"
 		);
@@ -24,6 +26,7 @@ describe("rule empty-title", () => {
 	});
 
 	it("should not report when title has dynamic text", () => {
+		expect.assertions(1);
 		function processElement(node: HtmlElement): void {
 			node.appendText(new DynamicValue(""));
 		}
@@ -34,6 +37,7 @@ describe("rule empty-title", () => {
 	});
 
 	it("should report error when title has no text content", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString("<title></title>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
@@ -43,6 +47,7 @@ describe("rule empty-title", () => {
 	});
 
 	it("should report error when title has no children with content", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString("<title><span></span></title>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
@@ -52,6 +57,7 @@ describe("rule empty-title", () => {
 	});
 
 	it("should report error when title only has whitespace content", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString("<title> </title>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
@@ -61,6 +67,7 @@ describe("rule empty-title", () => {
 	});
 
 	it("should report error when title only has comment", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString(
 			"<title>\n<!-- foo -->\n</title>"
 		);
@@ -72,6 +79,7 @@ describe("rule empty-title", () => {
 	});
 
 	it("smoketest", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateFile(
 			"test-files/rules/empty-title.html"
 		);
@@ -79,6 +87,7 @@ describe("rule empty-title", () => {
 	});
 
 	it("should contain documentation", () => {
+		expect.assertions(1);
 		expect(htmlvalidate.getRuleDocumentation("empty-title")).toMatchSnapshot();
 	});
 });

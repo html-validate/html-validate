@@ -3,6 +3,7 @@ import { processAttribute } from "./attribute";
 
 describe("mock attribute processor", () => {
 	it('should handle dynamic-foo="bar" as alias', () => {
+		expect.assertions(4);
 		const attr = Array.from(
 			processAttribute({
 				key: "dynamic-foo",
@@ -25,6 +26,7 @@ describe("mock attribute processor", () => {
 	});
 
 	it('should handle foo="{{ bar }}" as interpolated value', () => {
+		expect.assertions(3);
 		const attr = Array.from(
 			processAttribute({
 				key: "foo",
@@ -42,6 +44,7 @@ describe("mock attribute processor", () => {
 	});
 
 	it("should leave other attributes intact", () => {
+		expect.assertions(2);
 		const attr = Array.from(
 			processAttribute({
 				key: "foo",

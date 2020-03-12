@@ -88,6 +88,7 @@ describe("Engine", () => {
 
 	describe("lint()", () => {
 		it("should parse markup and return results", () => {
+			expect.assertions(2);
 			const source: Source[] = [inline("<div></div>")];
 			const report = engine.lint(source);
 			expect(report).toBeValid();
@@ -95,6 +96,7 @@ describe("Engine", () => {
 		});
 
 		it("should report lexing errors", () => {
+			expect.assertions(3);
 			const source: Source[] = [inline("invalid-token-error")]; // see MockParser, will raise InvalidTokenError
 			const report = engine.lint(source);
 			expect(report.valid).toBeFalsy();
@@ -122,6 +124,7 @@ describe("Engine", () => {
 		});
 
 		it("should report parser errors", () => {
+			expect.assertions(3);
 			const source: Source[] = [inline("parser-error")]; // see MockParser, will raise ParserError
 			const report = engine.lint(source);
 			expect(report.valid).toBeFalsy();
@@ -149,11 +152,13 @@ describe("Engine", () => {
 		});
 
 		it("should pass exceptions", () => {
+			expect.assertions(1);
 			const source: Source[] = [inline("exception")]; // see MockParser, will raise generic exception
 			expect(() => engine.lint(source)).toThrow("exception");
 		});
 
 		it("should report error for invalid markup", () => {
+			expect.assertions(2);
 			const source: Source[] = [inline("<p></i>")];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
@@ -161,6 +166,7 @@ describe("Engine", () => {
 		});
 
 		it("should generate config:ready event", () => {
+			expect.assertions(5);
 			const source: Source[] = [inline("<div></div>")];
 			const parser = new Parser(config);
 			const spy = jest.fn();
@@ -186,6 +192,7 @@ describe("Engine", () => {
 
 	describe("directive", () => {
 		it('"disable" should disable rule', () => {
+			expect.assertions(1);
 			const source: Source[] = [
 				inline("<!-- [html-validate-disable close-order] --><p></i><p></i>"),
 			];
@@ -194,6 +201,7 @@ describe("Engine", () => {
 		});
 
 		it('"enable" should enable rule', () => {
+			expect.assertions(2);
 			const source: Source[] = [
 				inline(
 					"<!-- [html-validate-disable no-self-closing] --><i/><!-- [html-validate-enable no-self-closing] --><i/>"
@@ -205,6 +213,7 @@ describe("Engine", () => {
 		});
 
 		it('"enable" set severity to error if off', () => {
+			expect.assertions(2);
 			const source: Source[] = [
 				inline(
 					"<blink></blink><!-- [html-validate-enable deprecated] --><blink></blink>"
@@ -216,6 +225,7 @@ describe("Engine", () => {
 		});
 
 		it('"disable" should only disable selected rule', () => {
+			expect.assertions(2);
 			const source: Source[] = [
 				inline("<!-- [html-validate-disable foobar] --><p></i><p></i>"),
 			];
@@ -228,6 +238,7 @@ describe("Engine", () => {
 		});
 
 		it('"disable-block" should disable rule for all subsequent occurrences until block closes', () => {
+			expect.assertions(2);
 			const source: Source[] = [
 				inline(
 					"<i/><div><i/><!-- [html-validate-disable-block no-self-closing] --><i/><i/></div><i/>"
@@ -243,6 +254,7 @@ describe("Engine", () => {
 		});
 
 		it('"disable-block" should disable rule on nodes', () => {
+			expect.assertions(2);
 			const source: Source[] = [
 				inline(
 					'<div><input type="foo"><!-- [html-validate-disable-block attribute-allowed-values] --><input type="foo"></div><input type="foo">'
@@ -257,6 +269,7 @@ describe("Engine", () => {
 		});
 
 		it('"disable-block" should handle empty block', () => {
+			expect.assertions(1);
 			const source: Source[] = [
 				inline(
 					"<div><!-- [html-validate-disable-block no-self-closing] --></div>"
@@ -267,6 +280,7 @@ describe("Engine", () => {
 		});
 
 		it('"disable-block" should handle root element', () => {
+			expect.assertions(1);
 			const source: Source[] = [
 				inline("<!-- [html-validate-disable-block no-self-closing] --><i/>"),
 			];
@@ -275,6 +289,7 @@ describe("Engine", () => {
 		});
 
 		it('"disable-block" should handle empty root element', () => {
+			expect.assertions(1);
 			const source: Source[] = [
 				inline("<!-- [html-validate-disable-block no-self-closing] -->"),
 			];
@@ -283,6 +298,7 @@ describe("Engine", () => {
 		});
 
 		it('"disable-next" should disable rule once', () => {
+			expect.assertions(2);
 			const source: Source[] = [
 				inline(
 					"<!-- [html-validate-disable-next close-order] --><p></i><p></i>"
@@ -294,6 +310,7 @@ describe("Engine", () => {
 		});
 
 		it('"disable-next" should disable rule on nodes', () => {
+			expect.assertions(2);
 			const source: Source[] = [
 				inline(
 					'<!-- [html-validate-disable-next attribute-allowed-values] --><input type="foo"><input type="foo">'
@@ -307,6 +324,7 @@ describe("Engine", () => {
 		});
 
 		it("should report unknown directives", () => {
+			expect.assertions(2);
 			const source: Source[] = [inline("<!-- [html-validate-foo] -->")];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
@@ -316,6 +334,7 @@ describe("Engine", () => {
 
 	describe("dumpEvents()", () => {
 		it("should dump parser events", () => {
+			expect.assertions(11);
 			const source: Source[] = [
 				inline('<div id="foo"><p class="bar">baz</p></div>'),
 			];
@@ -336,6 +355,7 @@ describe("Engine", () => {
 
 	describe("dumpTokens()", () => {
 		it("should dump lexer tokens", () => {
+			expect.assertions(1);
 			const source: Source[] = [
 				inline('<div id="foo"><p class="bar">baz</p></div>'),
 			];
@@ -363,6 +383,7 @@ describe("Engine", () => {
 
 	describe("dumpTree()", () => {
 		it("should dump DOM tree", () => {
+			expect.assertions(1);
 			const source: Source[] = [
 				inline(
 					'<div id="foo"><p class="bar">baz</p><ul><li>fred</li><li>barney</li></ul></div>'
@@ -375,6 +396,7 @@ describe("Engine", () => {
 
 	describe("getRuleDocumentation()", () => {
 		it("should get rule documentation", () => {
+			expect.assertions(1);
 			const docs = engine.getRuleDocumentation("void");
 			expect(docs).toEqual({
 				description: expect.any(String),
@@ -383,6 +405,7 @@ describe("Engine", () => {
 		});
 
 		it("should return null if rule is unknown", () => {
+			expect.assertions(1);
 			const docs = engine.getRuleDocumentation("missing-rule");
 			expect(docs).toBeNull();
 		});
@@ -404,6 +427,7 @@ describe("Engine", () => {
 			});
 
 			it("should load and initialize rule", () => {
+				expect.assertions(4);
 				engine.requireRule = jest.fn(() => mockRule);
 				const rule = engine.loadRule(
 					"void",
@@ -424,6 +448,7 @@ describe("Engine", () => {
 			});
 
 			it("should use rule-defined name if set", () => {
+				expect.assertions(1);
 				engine.requireRule = jest.fn(() => mockRule);
 				mockRule.name = "foobar";
 				const rule = engine.loadRule(
@@ -437,6 +462,7 @@ describe("Engine", () => {
 			});
 
 			it("should add error if rule cannot be found", () => {
+				expect.assertions(1);
 				engine.requireRule = jest.fn(() => null);
 				engine.loadRule("void", Severity.ERROR, {}, parser, reporter);
 				const add = jest.spyOn(reporter, "add");
@@ -452,6 +478,7 @@ describe("Engine", () => {
 			});
 
 			it("should load from plugins", () => {
+				expect.assertions(2);
 				class MyRule extends Rule {
 					public setup(): void {
 						/* do nothing */
@@ -483,6 +510,7 @@ describe("Engine", () => {
 			});
 
 			it("should handle missing setup callback", () => {
+				expect.assertions(1);
 				// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 				// @ts-ignore: abstract method not implemented, but plugin might be vanilla js so want to handle the case
 				class MyRule extends Rule {}
@@ -511,6 +539,7 @@ describe("Engine", () => {
 			});
 
 			it("should handle plugin without rules", () => {
+				expect.assertions(1);
 				/* mock loading of plugins */
 				(config as any).plugins = [{}];
 				expect(() => new ExposedEngine(config, MockParser)).not.toThrow();

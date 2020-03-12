@@ -11,6 +11,7 @@ describe("wcag/h36", () => {
 	});
 
 	it("should not report when image has alt text", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString(
 			'<input type="image" alt="submit">'
 		);
@@ -18,16 +19,19 @@ describe("wcag/h36", () => {
 	});
 
 	it("should not report on other input fields", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString('<input type="text">');
 		expect(report).toBeValid();
 	});
 
 	it("should not report on other elements", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString('<p type="image"></p>');
 		expect(report).toBeValid();
 	});
 
 	it("should report error when image is missing alt attribute", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString('<input type="image">');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
@@ -37,6 +41,7 @@ describe("wcag/h36", () => {
 	});
 
 	it("should report error when image has empty alt text", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString('<input type="image" alt="">');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
@@ -46,6 +51,7 @@ describe("wcag/h36", () => {
 	});
 
 	it("should contain documentation", () => {
+		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "wcag/h36": "error" },
 		});

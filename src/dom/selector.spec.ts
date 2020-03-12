@@ -47,6 +47,7 @@ describe("Selector", () => {
 	});
 
 	it("should match tagName (foo)", () => {
+		expect.assertions(1);
 		const selector = new Selector("foo");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-1" }),
@@ -57,6 +58,7 @@ describe("Selector", () => {
 	});
 
 	it("should match descendant (bar foo)", () => {
+		expect.assertions(1);
 		const selector = new Selector("bar foo");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-3" }),
@@ -65,6 +67,7 @@ describe("Selector", () => {
 	});
 
 	it("should match child (bar > foo)", () => {
+		expect.assertions(1);
 		const selector = new Selector("bar > foo");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),
@@ -72,6 +75,7 @@ describe("Selector", () => {
 	});
 
 	it("should match adjacent sibling (baz + foo)", () => {
+		expect.assertions(1);
 		const selector = new Selector("baz + foo");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),
@@ -79,6 +83,7 @@ describe("Selector", () => {
 	});
 
 	it("should match general sibling (foo ~ baz)", () => {
+		expect.assertions(1);
 		const selector = new Selector("foo ~ baz");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "baz", testId: "baz-2" }),
@@ -86,6 +91,7 @@ describe("Selector", () => {
 	});
 
 	it("should match class (.fred)", () => {
+		expect.assertions(1);
 		const selector = new Selector(".fred");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-2" }),
@@ -94,6 +100,7 @@ describe("Selector", () => {
 	});
 
 	it("should match id (#barney)", () => {
+		expect.assertions(1);
 		const selector = new Selector("#barney");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-1" }),
@@ -101,6 +108,7 @@ describe("Selector", () => {
 	});
 
 	it("should match having attribute ([wilma])", () => {
+		expect.assertions(1);
 		const selector = new Selector("[wilma]");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),
@@ -109,6 +117,7 @@ describe("Selector", () => {
 	});
 
 	it("should match having boolean attribute ([boolean])", () => {
+		expect.assertions(1);
 		const selector = new Selector("[boolean]");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "spam", testId: "spam-1" }),
@@ -116,6 +125,7 @@ describe("Selector", () => {
 	});
 
 	it("should match having attribute with dashes and numbers ([lorem-123-ipsum])", () => {
+		expect.assertions(1);
 		const selector = new Selector("[lorem-123-ipsum]");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),
@@ -123,6 +133,7 @@ describe("Selector", () => {
 	});
 
 	it('should match attribute value ([wilma="flintstone"])', () => {
+		expect.assertions(1);
 		const selector = new Selector('[wilma="flintstone"]');
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),
@@ -130,6 +141,7 @@ describe("Selector", () => {
 	});
 
 	it('should match attribute value with special characters ([lorem-123-ipsum="dolor-sit-amet"])', () => {
+		expect.assertions(1);
 		const selector = new Selector('[lorem-123-ipsum="dolor-sit-amet"]');
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),
@@ -137,6 +149,7 @@ describe("Selector", () => {
 	});
 
 	it("should match attribute value on duplicated attributes", () => {
+		expect.assertions(2);
 		const selectorA = new Selector('[class="a"]');
 		const selectorB = new Selector('[class="b"]');
 		expect(fetch(selectorA.match(doc))).toEqual([
@@ -148,6 +161,7 @@ describe("Selector", () => {
 	});
 
 	it("should match multiple attributes ([wilma][lorem-123-ipsum])", () => {
+		expect.assertions(1);
 		const selector = new Selector("[wilma][lorem-123-ipsum]");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),

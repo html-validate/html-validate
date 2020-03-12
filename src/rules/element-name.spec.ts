@@ -14,6 +14,7 @@ describe("rule element-name", () => {
 		});
 
 		it("should report error when custom element name does not have a dash", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<foobar></foobar>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -23,6 +24,7 @@ describe("rule element-name", () => {
 		});
 
 		it("should report error when custom element name does not start with letter", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<1-foo></1-foo>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -32,11 +34,13 @@ describe("rule element-name", () => {
 		});
 
 		it("should not report error when custom element name is valid", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<foo-bar></foo-bar>");
 			expect(report).toBeValid();
 		});
 
 		it("should not report when using builtin elements", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString(
 				"<span><a><span></span></a></span>"
 			);
@@ -44,11 +48,13 @@ describe("rule element-name", () => {
 		});
 
 		it("should not report error for xml namespaces", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<xmlns:foo></xmlns:foo>");
 			expect(report).toBeValid();
 		});
 
 		it("smoketest", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateFile(
 				"test-files/rules/element-name.html"
 			);
@@ -64,6 +70,7 @@ describe("rule element-name", () => {
 		});
 
 		it("should report error when custom element name does not match pattern", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<spam-ham></spam-ham>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -73,11 +80,13 @@ describe("rule element-name", () => {
 		});
 
 		it("should not report error when custom element name does match pattern", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<foo-bar></foo-bar>");
 			expect(report).toBeValid();
 		});
 
 		it("should not report when using builtin elements", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString(
 				"<span><a><span></span></a></span>"
 			);
@@ -85,11 +94,13 @@ describe("rule element-name", () => {
 		});
 
 		it("should not report error for xml namespaces", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<xmlns:foo></xmlns:foo>");
 			expect(report).toBeValid();
 		});
 
 		it("smoketest", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateFile(
 				"test-files/rules/element-name.html"
 			);
@@ -98,6 +109,7 @@ describe("rule element-name", () => {
 	});
 
 	it("should ignore whitelisted element", () => {
+		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "element-name": ["error", { whitelist: ["foobar"] }] },
 		});
@@ -106,6 +118,7 @@ describe("rule element-name", () => {
 	});
 
 	it("should report error when using blacklisted element", () => {
+		expect.assertions(2);
 		htmlvalidate = new HtmlValidate({
 			rules: { "element-name": ["error", { blacklist: ["foo-bar"] }] },
 		});
@@ -118,6 +131,7 @@ describe("rule element-name", () => {
 	});
 
 	it("should contain documentation", () => {
+		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "element-name": "error" },
 		});

@@ -13,16 +13,19 @@ markup["whitespace"] = `<head>
 
 describe("docs/rules/empty-title.md", () => {
 	it("inline validation: incorrect", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"empty-title":"error"}});
 		const report = htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: correct", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"empty-title":"error"}});
 		const report = htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: whitespace", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"empty-title":"error"}});
 		const report = htmlvalidate.validateString(markup["whitespace"]);
 		expect(report.results).toMatchSnapshot();

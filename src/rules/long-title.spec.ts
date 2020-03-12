@@ -5,6 +5,7 @@ describe("rule long-title", () => {
 	let htmlvalidate: HtmlValidate;
 
 	it("should report when title has long text", () => {
+		expect.assertions(2);
 		htmlvalidate = new HtmlValidate({
 			rules: { "long-title": "error" },
 		});
@@ -19,6 +20,7 @@ describe("rule long-title", () => {
 	});
 
 	it("should not report when title has short text", () => {
+		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "long-title": "error" },
 		});
@@ -27,6 +29,7 @@ describe("rule long-title", () => {
 	});
 
 	it("should support setting custom max length", () => {
+		expect.assertions(2);
 		htmlvalidate = new HtmlValidate({
 			rules: { "long-title": ["error", { maxlength: 10 }] },
 		});
@@ -41,6 +44,7 @@ describe("rule long-title", () => {
 	});
 
 	it("should contain documentation", () => {
+		expect.assertions(1);
 		expect(htmlvalidate.getRuleDocumentation("long-title")).toMatchSnapshot();
 	});
 });

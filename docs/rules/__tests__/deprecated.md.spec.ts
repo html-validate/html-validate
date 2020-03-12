@@ -8,16 +8,19 @@ markup["custom-message"] = `<my-element>...</my-element>`;
 
 describe("docs/rules/deprecated.md", () => {
 	it("inline validation: incorrect", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"deprecated":"error"}});
 		const report = htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: correct", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"deprecated":"error"}});
 		const report = htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: custom-message", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-element":{"deprecated":"replaced with <other-element>"}}],"rules":{"deprecated":"error"}});
 		const report = htmlvalidate.validateString(markup["custom-message"]);
 		expect(report.results).toMatchSnapshot();

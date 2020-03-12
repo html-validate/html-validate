@@ -11,11 +11,13 @@ describe("rule no-implicit-close", () => {
 	});
 
 	it("should not report when element is explicitly closed", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString("<li></li>");
 		expect(report).toBeValid();
 	});
 
 	it("should report error when element is implicitly closed by parent", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString("<ul><li>foo</ul>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
@@ -25,6 +27,7 @@ describe("rule no-implicit-close", () => {
 	});
 
 	it("should report error when element is implicitly closed by sibling", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString("<li>foo<li>bar");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
@@ -34,6 +37,7 @@ describe("rule no-implicit-close", () => {
 	});
 
 	it("should report error when element is implicitly closed by adjacent block element", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString("<p>foo<div>bar");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
@@ -43,6 +47,7 @@ describe("rule no-implicit-close", () => {
 	});
 
 	it("smoketest", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateFile(
 			"test-files/rules/no-implicit-close.html"
 		);
@@ -50,6 +55,7 @@ describe("rule no-implicit-close", () => {
 	});
 
 	it("should contain documentation", () => {
+		expect.assertions(1);
 		expect(
 			htmlvalidate.getRuleDocumentation("no-implicit-close")
 		).toMatchSnapshot();

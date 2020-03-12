@@ -13,6 +13,7 @@ describe("DOMTree", () => {
 	});
 
 	it("should keep track of active element", () => {
+		expect.assertions(3);
 		expect(tree.getActive().unique).toEqual(tree.root.unique);
 		tree.pushActive(node);
 		expect(tree.getActive().unique).toEqual(node.unique);
@@ -21,12 +22,14 @@ describe("DOMTree", () => {
 	});
 
 	it("should handle out-of-order pops", () => {
+		expect.assertions(2);
 		expect(tree.getActive().unique).toEqual(tree.root.unique);
 		tree.popActive();
 		expect(tree.getActive().unique).toEqual(tree.root.unique);
 	});
 
 	it("resolveMeta() should resolve meta on all nodes", () => {
+		expect.assertions(1);
 		const table = new MetaTable();
 		const spy = jest.spyOn(table, "resolve");
 		tree.resolveMeta(table);
@@ -34,6 +37,7 @@ describe("DOMTree", () => {
 	});
 
 	it("getElementsByTagName() should delegate call to root element", () => {
+		expect.assertions(2);
 		const expected = [node];
 		const spy = jest
 			.spyOn(tree.root, "getElementsByTagName")
@@ -44,6 +48,7 @@ describe("DOMTree", () => {
 	});
 
 	it("visitDepthFirst() should delegate call to root element", () => {
+		expect.assertions(1);
 		const spy = jest.spyOn(tree.root, "visitDepthFirst");
 		const cb = jest.fn();
 		tree.visitDepthFirst(cb);
@@ -51,6 +56,7 @@ describe("DOMTree", () => {
 	});
 
 	it("find() should delegate call to root element", () => {
+		expect.assertions(2);
 		const spy = jest.spyOn(tree.root, "find").mockReturnValue(node);
 		const cb = jest.fn().mockReturnValue(true);
 		expect(tree.find(cb)).toBe(node);
@@ -58,6 +64,7 @@ describe("DOMTree", () => {
 	});
 
 	it("querySelector() should delegate call to root element", () => {
+		expect.assertions(2);
 		const spy = jest.spyOn(tree.root, "querySelector").mockReturnValue(node);
 		const selector = "foo";
 		expect(tree.querySelector(selector)).toBe(node);
@@ -65,6 +72,7 @@ describe("DOMTree", () => {
 	});
 
 	it("querySelectorAll() should delegate call to root element", () => {
+		expect.assertions(2);
 		const expected = [node];
 		const spy = jest
 			.spyOn(tree.root, "querySelectorAll")

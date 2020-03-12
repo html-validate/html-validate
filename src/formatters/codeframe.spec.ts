@@ -16,6 +16,7 @@ const source = `<div id="foo"
 
 describe("codeframe formatter", () => {
 	it("should generate plaintext", () => {
+		expect.assertions(1);
 		const results: Result[] = [
 			{
 				filePath: "regular.html",
@@ -68,11 +69,13 @@ describe("codeframe formatter", () => {
 	});
 
 	it("should empty result", () => {
+		expect.assertions(1);
 		const results: Result[] = [];
 		expect(formatter(results)).toMatchSnapshot();
 	});
 
 	it("should empty messages", () => {
+		expect.assertions(1);
 		const results: Result[] = [
 			{ filePath: "empty.html", messages: [], errorCount: 0, warningCount: 0 },
 		];

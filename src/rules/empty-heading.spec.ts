@@ -12,11 +12,13 @@ describe("rule empty-heading", () => {
 	});
 
 	it("should not report when heading has text", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString("<h1>lorem ipsum</h1>");
 		expect(report).toBeValid();
 	});
 
 	it("should not report when heading has children with text", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateString(
 			"<h1><span>lorem ipsum</span></h1>"
 		);
@@ -24,6 +26,7 @@ describe("rule empty-heading", () => {
 	});
 
 	it("should not report when heading has dynamic text", () => {
+		expect.assertions(1);
 		function processElement(node: HtmlElement): void {
 			node.appendText(new DynamicValue(""));
 		}
@@ -34,6 +37,7 @@ describe("rule empty-heading", () => {
 	});
 
 	it("should report error when heading has no text content", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString("<h1></h1>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
@@ -43,6 +47,7 @@ describe("rule empty-heading", () => {
 	});
 
 	it("should report error when heading has no children with content", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString("<h1><span></span></h1>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
@@ -52,6 +57,7 @@ describe("rule empty-heading", () => {
 	});
 
 	it("should report error when heading only has whitespace content", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString("<h1> </h1>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
@@ -61,6 +67,7 @@ describe("rule empty-heading", () => {
 	});
 
 	it("should report error when heading only has comment", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString("<h1>\n<!-- foo -->\n</h1>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
@@ -70,6 +77,7 @@ describe("rule empty-heading", () => {
 	});
 
 	it("should report error for all heading levels", () => {
+		expect.assertions(6);
 		expect(htmlvalidate.validateString("<h1></h1>")).toBeInvalid();
 		expect(htmlvalidate.validateString("<h2></h2>")).toBeInvalid();
 		expect(htmlvalidate.validateString("<h3></h3>")).toBeInvalid();
@@ -79,6 +87,7 @@ describe("rule empty-heading", () => {
 	});
 
 	it("smoketest", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateFile(
 			"test-files/rules/empty-heading.html"
 		);
@@ -86,6 +95,7 @@ describe("rule empty-heading", () => {
 	});
 
 	it("should contain documentation", () => {
+		expect.assertions(1);
 		expect(
 			htmlvalidate.getRuleDocumentation("empty-heading")
 		).toMatchSnapshot();

@@ -4,6 +4,7 @@ import { Message, Reporter, Result } from "./reporter";
 describe("Reporter", () => {
 	describe("merge()", () => {
 		it("should set valid only if all reports are valid", () => {
+			expect.assertions(3);
 			const none = Reporter.merge([
 				{ valid: false, results: [], errorCount: 1, warningCount: 2 },
 				{ valid: false, results: [], errorCount: 3, warningCount: 4 },
@@ -22,6 +23,7 @@ describe("Reporter", () => {
 		});
 
 		it("should merge and group messages by filename", () => {
+			expect.assertions(9);
 			const merged = Reporter.merge([
 				{
 					valid: false,
@@ -57,23 +59,27 @@ describe("Reporter", () => {
 
 	describe("save()", () => {
 		it("should set valid to true if there are no errors", () => {
+			expect.assertions(1);
 			const report = new Reporter();
 			expect(report.save().valid).toBeTruthy();
 		});
 
 		it("should set valid to true if there are only warnings", () => {
+			expect.assertions(1);
 			const report = new Reporter();
 			report.addManual("filename", createMessage("warning", 1));
 			expect(report.save().valid).toBeTruthy();
 		});
 
 		it("should set valid to false if there are any errors", () => {
+			expect.assertions(1);
 			const report = new Reporter();
 			report.addManual("filename", createMessage("error", 2));
 			expect(report.save().valid).toBeFalsy();
 		});
 
 		it("should set results", () => {
+			expect.assertions(1);
 			const report = new Reporter();
 			report.addManual("foo.html", createMessage("error", 2));
 			report.addManual("foo.html", createMessage("warning", 1));
@@ -129,6 +135,7 @@ describe("Reporter", () => {
 		});
 
 		it("should sort results", () => {
+			expect.assertions(1);
 			const report = new Reporter();
 			report.addManual("foo.html", {
 				ruleId: "mock",
@@ -173,6 +180,7 @@ describe("Reporter", () => {
 		});
 
 		it("should map filenames to sources", () => {
+			expect.assertions(1);
 			const report = new Reporter();
 			const sources: Source[] = [
 				{

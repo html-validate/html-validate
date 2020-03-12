@@ -3,6 +3,7 @@ import formatter from "./json";
 
 describe("json formatter", () => {
 	it("should generate json", () => {
+		expect.assertions(1);
 		const results: Result[] = [
 			{
 				filePath: "regular.html",
@@ -53,11 +54,13 @@ describe("json formatter", () => {
 	});
 
 	it("should empty result", () => {
+		expect.assertions(1);
 		const results: Result[] = [];
 		expect(formatter(results)).toMatchSnapshot();
 	});
 
 	it("should empty messages", () => {
+		expect.assertions(1);
 		const results: Result[] = [
 			{ filePath: "empty.html", messages: [], errorCount: 0, warningCount: 0 },
 		];

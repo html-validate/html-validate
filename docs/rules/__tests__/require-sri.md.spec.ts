@@ -11,16 +11,19 @@ markup["crossorigin"] = `<!--- local resource -->
 
 describe("docs/rules/require-sri.md", () => {
 	it("inline validation: incorrect", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"require-sri":"error"}});
 		const report = htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: correct", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"require-sri":"error"}});
 		const report = htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: crossorigin", () => {
+		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"require-sri":["error",{"target":"crossdomain"}]}});
 		const report = htmlvalidate.validateString(markup["crossorigin"]);
 		expect(report.results).toMatchSnapshot();

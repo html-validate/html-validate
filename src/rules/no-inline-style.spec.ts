@@ -11,6 +11,7 @@ describe("rule no-inline-style", () => {
 	});
 
 	it("should report when style attribute is used", () => {
+		expect.assertions(2);
 		const report = htmlvalidate.validateString('<p style=""></p>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
@@ -20,6 +21,7 @@ describe("rule no-inline-style", () => {
 	});
 
 	it("smoketest", () => {
+		expect.assertions(1);
 		const report = htmlvalidate.validateFile(
 			"test-files/rules/no-inline-style.html"
 		);
@@ -27,6 +29,7 @@ describe("rule no-inline-style", () => {
 	});
 
 	it("should contain documentation", () => {
+		expect.assertions(1);
 		expect(
 			htmlvalidate.getRuleDocumentation("no-inline-style")
 		).toMatchSnapshot();

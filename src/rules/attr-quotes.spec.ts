@@ -12,16 +12,19 @@ describe("rule attr-quotes", () => {
 		});
 
 		it("should not report when attributes use double quotes", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString('<div foo="bar"></div>');
 			expect(report).toBeValid();
 		});
 
 		it("should not report for boolean attribute", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<input checked>");
 			expect(report).toBeValid();
 		});
 
 		it("should report error when attributes use single quotes", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<div foo='bar'></div>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -39,6 +42,7 @@ describe("rule attr-quotes", () => {
 		});
 
 		it("should report error when attributes use double quotes", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString('<div foo="bar"></div>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -48,6 +52,7 @@ describe("rule attr-quotes", () => {
 		});
 
 		it("should not report when attributes use single quotes", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<div foo='bar'></div>");
 			expect(report).toBeValid();
 		});
@@ -61,16 +66,19 @@ describe("rule attr-quotes", () => {
 		});
 
 		it("should not report when attributes use double quotes", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString('<div foo="bar"></div>');
 			expect(report).toBeValid();
 		});
 
 		it("should not report when attributes use single quotes with double quote present inside", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString(`<div foo='"bar"'></div>`);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when attributes use single quotes", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<div foo='bar'></div>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -90,11 +98,13 @@ describe("rule attr-quotes", () => {
 		});
 
 		it("should not report when attributes is using quotes", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString('<div foo="bar"></div>');
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when attribute value is unquoted", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString("<div foo=5></div>");
 			expect(report).toBeValid();
 		});
@@ -110,11 +120,13 @@ describe("rule attr-quotes", () => {
 		});
 
 		it("should not report when attributes is using quotes", () => {
+			expect.assertions(1);
 			const report = htmlvalidate.validateString('<div foo="bar"></div>');
 			expect(report).toBeValid();
 		});
 
 		it("should report error when attribute value is unquoted", () => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString("<div foo=5></div>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -125,6 +137,7 @@ describe("rule attr-quotes", () => {
 	});
 
 	it("should default to double quotes for invalid style", () => {
+		expect.assertions(2);
 		htmlvalidate = new HtmlValidate({
 			rules: { "attr-quotes": ["error", { style: "foobar" }] },
 		});
@@ -137,6 +150,7 @@ describe("rule attr-quotes", () => {
 	});
 
 	it("should contain documentation (auto)", () => {
+		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "attr-quotes": ["error", { style: "auto" }] },
 		});
@@ -144,6 +158,7 @@ describe("rule attr-quotes", () => {
 	});
 
 	it("should contain documentation (fixed)", () => {
+		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "attr-quotes": ["error", { style: "double" }] },
 		});

@@ -60,12 +60,14 @@ beforeEach(() => {
 
 describe("cli/formatters", () => {
 	it("should call formatter", () => {
+		expect.assertions(1);
 		const wrapped = cli.getFormatter("text");
 		wrapped(report);
 		expect(textFormatter).toHaveBeenCalledWith(report.results);
 	});
 
 	it("should call multiple formatters", () => {
+		expect.assertions(2);
 		const wrapped = cli.getFormatter("text,json");
 		wrapped(report);
 		expect(textFormatter).toHaveBeenCalledWith(report.results);
@@ -73,6 +75,7 @@ describe("cli/formatters", () => {
 	});
 
 	it("should redirect output to file", () => {
+		expect.assertions(2);
 		const wrapped = cli.getFormatter("text=foo.txt");
 		wrapped(report);
 		expect(fs.mkdirSync).not.toHaveBeenCalled();
@@ -80,6 +83,7 @@ describe("cli/formatters", () => {
 	});
 
 	it("should create directory if missing", () => {
+		expect.assertions(2);
 		fs.existsSync.mockReturnValue(false);
 		const wrapped = cli.getFormatter("text=mydir/foo.txt");
 		wrapped(report);

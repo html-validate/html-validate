@@ -13,6 +13,7 @@ function mockLocation(text: string): Location {
 
 describe("parseConditionalComment()", () => {
 	it("should find conditions", () => {
+		expect.assertions(1);
 		const comment = "<!--[if gt IE 6]><!-->foo<!--<![endif]-->";
 		const location = mockLocation(comment);
 		const conditions = Array.from(parseConditionalComment(comment, location));

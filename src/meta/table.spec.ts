@@ -48,6 +48,7 @@ describe("MetaTable", () => {
 	});
 
 	it("should throw error if data does not validate", () => {
+		expect.assertions(2);
 		validate.errors = [
 			{
 				keyword: "additionalProperties",
@@ -69,6 +70,7 @@ describe("MetaTable", () => {
 	});
 
 	it("should throw user-error if file is not properly formatted json", () => {
+		expect.assertions(2);
 		const table = new MetaTable();
 		expect(() => table.loadFromFile("invalid-file.json")).toThrow(UserError);
 		expect(() => table.loadFromFile("invalid-file.json")).toThrow(
@@ -100,17 +102,20 @@ describe("MetaTable", () => {
 		});
 
 		it("should be populated for known elements", () => {
+			expect.assertions(2);
 			const meta = table.getMetaFor("foo");
 			expect(meta).not.toBeUndefined();
 			expect(meta.tagName).toEqual("foo");
 		});
 
 		it("should be null for unknown elements", () => {
+			expect.assertions(1);
 			const meta = table.getMetaFor("bar");
 			expect(meta).toBeNull();
 		});
 
 		it("should be case insensitive", () => {
+			expect.assertions(2);
 			const meta = table.getMetaFor("FOO");
 			expect(meta).not.toBeUndefined();
 			expect(meta.tagName).toEqual("foo");
@@ -121,6 +126,7 @@ describe("MetaTable", () => {
 		let table: MetaTable;
 
 		it("should throw exception when function is missing", () => {
+			expect.assertions(1);
 			table = new MetaTable();
 			table.loadFromObject({
 				invalid: mockEntry({ interactive: ["invalid"], void: true }),
@@ -132,6 +138,7 @@ describe("MetaTable", () => {
 		});
 
 		it("should handle strings", () => {
+			expect.assertions(1);
 			table = new MetaTable();
 			table.loadFromObject({
 				invalid: mockEntry({ interactive: "invalid", void: true }),
@@ -161,6 +168,7 @@ describe("MetaTable", () => {
 			});
 
 			it("should be true if child is a descendant of given tagName", () => {
+				expect.assertions(1);
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml("<foo><ham><dynamic/></ham></foo>").root;
 				const el = dom.getElementsByTagName("dynamic");
@@ -168,6 +176,7 @@ describe("MetaTable", () => {
 			});
 
 			it("should be false if child is not a descendant of given tagName", () => {
+				expect.assertions(1);
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml("<foo><spam><dynamic/></spam></foo>").root;
 				const el = dom.getElementsByTagName("dynamic");
@@ -175,6 +184,7 @@ describe("MetaTable", () => {
 			});
 
 			it("should throw exception when invalid argument is used", () => {
+				expect.assertions(1);
 				const parser = new Parser(new ConfigMock(table));
 				expect(() => parser.parseHtml("<invalid/>")).toThrow(
 					'Property expression "isDescendant" must take string argument when evaluating metadata for <invalid>'
@@ -198,6 +208,7 @@ describe("MetaTable", () => {
 			});
 
 			it("should be true if element has given attribute", () => {
+				expect.assertions(1);
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml("<dynamic foo/>").root;
 				const el = dom.getElementsByTagName("dynamic");
@@ -205,6 +216,7 @@ describe("MetaTable", () => {
 			});
 
 			it("should be false if element does not have given attribute", () => {
+				expect.assertions(1);
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml("<dynamic bar/>").root;
 				const el = dom.getElementsByTagName("dynamic");
@@ -212,6 +224,7 @@ describe("MetaTable", () => {
 			});
 
 			it("should throw exception when invalid argument is used", () => {
+				expect.assertions(1);
 				const parser = new Parser(new ConfigMock(table));
 				expect(() => parser.parseHtml("<invalid/>")).toThrow(
 					'Property expression "hasAttribute" must take string argument when evaluating metadata for <invalid>'
@@ -247,6 +260,7 @@ describe("MetaTable", () => {
 			});
 
 			it('should be true when "=" is used to match existing value', () => {
+				expect.assertions(1);
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml('<foo type="hidden"/>').root;
 				const el = dom.getElementsByTagName("foo");
@@ -254,6 +268,7 @@ describe("MetaTable", () => {
 			});
 
 			it('should be false when "=" is used to match other value', () => {
+				expect.assertions(1);
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml('<foo type="other"/>').root;
 				const el = dom.getElementsByTagName("foo");
@@ -261,6 +276,7 @@ describe("MetaTable", () => {
 			});
 
 			it('should be false when "=" is used to match missing value', () => {
+				expect.assertions(1);
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml("<foo/>").root;
 				const el = dom.getElementsByTagName("foo");
@@ -268,6 +284,7 @@ describe("MetaTable", () => {
 			});
 
 			it('should be false when "!=" is used to match existing value', () => {
+				expect.assertions(1);
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml('<bar type="hidden"/>').root;
 				const el = dom.getElementsByTagName("bar");
@@ -275,6 +292,7 @@ describe("MetaTable", () => {
 			});
 
 			it('should be true when "!=" is used to match other value', () => {
+				expect.assertions(1);
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml('<bar type="other"/>').root;
 				const el = dom.getElementsByTagName("bar");
@@ -282,6 +300,7 @@ describe("MetaTable", () => {
 			});
 
 			it('should be false when "!=" is used to match missing value', () => {
+				expect.assertions(1);
 				const parser = new Parser(new ConfigMock(table));
 				const dom = parser.parseHtml("<bar/>").root;
 				const el = dom.getElementsByTagName("bar");
@@ -289,6 +308,7 @@ describe("MetaTable", () => {
 			});
 
 			it("should throw exception when invalid operator is used", () => {
+				expect.assertions(1);
 				const parser = new Parser(new ConfigMock(table));
 				expect(() => parser.parseHtml("<invalid1/>")).toThrow(
 					'Property expression "matchAttribute" has invalid operator "#" when evaluating metadata for <invalid1>'
@@ -296,6 +316,7 @@ describe("MetaTable", () => {
 			});
 
 			it("should throw exception when parameters is malformed", () => {
+				expect.assertions(2);
 				const parser = new Parser(new ConfigMock(table));
 				expect(() => parser.parseHtml("<invalid2/>")).toThrow(
 					'Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <invalid2>'
@@ -308,6 +329,7 @@ describe("MetaTable", () => {
 	});
 
 	it("should expand regexp", () => {
+		expect.assertions(2);
 		const table = new MetaTable();
 		table.loadFromObject({
 			foo: mockEntry({
@@ -325,6 +347,7 @@ describe("MetaTable", () => {
 
 	describe("inheritance", () => {
 		it("should be supported", () => {
+			expect.assertions(1);
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry({
@@ -345,6 +368,7 @@ describe("MetaTable", () => {
 		});
 
 		it("should allow overriding", () => {
+			expect.assertions(1);
 			const table = new MetaTable();
 			table.loadFromObject({
 				foo: mockEntry({
@@ -367,6 +391,7 @@ describe("MetaTable", () => {
 		});
 
 		it("should throw error when extending missing element", () => {
+			expect.assertions(1);
 			const table = new MetaTable();
 			expect(() => {
 				table.loadFromObject({

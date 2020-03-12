@@ -20,6 +20,7 @@ const valueLocation: Location = {
 
 describe("Attribute", () => {
 	it("should set fields", () => {
+		expect.assertions(4);
 		const attr = new Attribute("foo", "bar", keyLocation, valueLocation);
 		expect(attr.key).toEqual("foo");
 		expect(attr.value).toEqual("bar");
@@ -28,6 +29,7 @@ describe("Attribute", () => {
 	});
 
 	it("should force value to null if passing undefined", () => {
+		expect.assertions(3);
 		const a = new Attribute("foo", undefined, keyLocation, null);
 		const b = new Attribute("foo", null, keyLocation, null);
 		const c = new Attribute("foo", "", keyLocation, valueLocation);
@@ -38,12 +40,14 @@ describe("Attribute", () => {
 
 	describe("valueMatches()", () => {
 		it("should match string", () => {
+			expect.assertions(2);
 			const attr = new Attribute("foo", "bar", keyLocation, valueLocation);
 			expect(attr.valueMatches("bar")).toBeTruthy();
 			expect(attr.valueMatches("ar")).toBeFalsy();
 		});
 
 		it("should match regexp", () => {
+			expect.assertions(3);
 			const attr = new Attribute("foo", "bar", keyLocation, valueLocation);
 			expect(attr.valueMatches(/bar/)).toBeTruthy();
 			expect(attr.valueMatches(/ar$/)).toBeTruthy();
@@ -51,6 +55,7 @@ describe("Attribute", () => {
 		});
 
 		it("should match DynamicValue", () => {
+			expect.assertions(2);
 			const attr = new Attribute(
 				"foo",
 				new DynamicValue("bar"),
@@ -62,6 +67,7 @@ describe("Attribute", () => {
 		});
 
 		it("should match ignore DynamicValue", () => {
+			expect.assertions(2);
 			const attr = new Attribute(
 				"foo",
 				new DynamicValue("bar"),
@@ -84,11 +90,13 @@ describe("Attribute", () => {
 		});
 
 		it("isStatic should be true for static attributes", () => {
+			expect.assertions(2);
 			expect(staticAttr.isStatic).toBeTruthy();
 			expect(dynamicAttr.isStatic).toBeFalsy();
 		});
 
 		it("isDynamic should be true for dynamic attributes", () => {
+			expect.assertions(2);
 			expect(staticAttr.isDynamic).toBeFalsy();
 			expect(dynamicAttr.isDynamic).toBeTruthy();
 		});
