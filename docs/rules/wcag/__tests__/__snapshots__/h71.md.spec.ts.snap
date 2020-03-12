@@ -14,7 +14,7 @@ Array [
         "line": 1,
         "message": "<fieldset> must have a <legend> as the first child",
         "offset": 1,
-        "ruleId": "WCAG/H71",
+        "ruleId": "wcag/h71",
         "selector": "fieldset",
         "severity": 2,
         "size": 8,

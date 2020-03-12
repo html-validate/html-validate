@@ -36,7 +36,7 @@ describe("rule h37", () => {
 			const report = htmlvalidate.validateString("<img>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
-				"WCAG/H37",
+				"wcag/h37",
 				'<img> is missing required "alt" attribute'
 			);
 		});
@@ -68,7 +68,7 @@ describe("rule h37", () => {
 			const report = htmlvalidate.validateString('<img alt="">');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
-				"WCAG/H37",
+				"wcag/h37",
 				'<img> is missing required "alt" attribute'
 			);
 		});
@@ -78,7 +78,7 @@ describe("rule h37", () => {
 			const report = htmlvalidate.validateString("<img>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
-				"WCAG/H37",
+				"wcag/h37",
 				'<img> is missing required "alt" attribute'
 			);
 		});
@@ -110,7 +110,7 @@ describe("rule h37", () => {
 			const report = htmlvalidate.validateString("<img>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
-				"WCAG/H37",
+				"wcag/h37",
 				'<img> is missing required "alt" attribute'
 			);
 		});

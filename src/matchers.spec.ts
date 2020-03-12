@@ -216,7 +216,7 @@ describe("toHTMLValidate()", () => {
 		expect(stripAnsi(error.message)).toMatchInlineSnapshot(`
 			"Expected HTML to be valid but had the following errors:
 
-			  Anchor link must have a text describing its purpose [WCAG/H30]
+			  Anchor link must have a text describing its purpose [wcag/h30]
 			  <button> is missing required \\"type\\" attribute [element-required-attributes]
 			  Element <button> is not permitted as descendant of <a> [element-permitted-content]
 			  Mismatched close-tag, expected '</button>' but found '</i>'. [close-order]

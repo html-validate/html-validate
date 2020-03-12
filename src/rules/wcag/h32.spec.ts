@@ -39,7 +39,7 @@ describe("wcag/h32", () => {
 		const report = htmlvalidate.validateString("<form></form>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
-			"WCAG/H32",
+			"wcag/h32",
 			"<form> element must have a submit button"
 		);
 	});
@@ -51,7 +51,7 @@ describe("wcag/h32", () => {
 		);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
-			"WCAG/H32",
+			"wcag/h32",
 			"<form> element must have a submit button"
 		);
 	});
@@ -61,7 +61,7 @@ describe("wcag/h32", () => {
 		const report = htmlvalidate.validateString("<my-form></my-form>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
-			"WCAG/H32",
+			"wcag/h32",
 			"<my-form> element must have a submit button"
 		);
 	});

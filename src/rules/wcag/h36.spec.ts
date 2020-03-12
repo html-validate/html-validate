@@ -35,7 +35,7 @@ describe("wcag/h36", () => {
 		const report = htmlvalidate.validateString('<input type="image">');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
-			"WCAG/H36",
+			"wcag/h36",
 			"image used as submit button must have alt text"
 		);
 	});
@@ -45,7 +45,7 @@ describe("wcag/h36", () => {
 		const report = htmlvalidate.validateString('<input type="image" alt="">');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
-			"WCAG/H36",
+			"wcag/h36",
 			"image used as submit button must have alt text"
 		);
 	});
