@@ -14,7 +14,7 @@ Array [
         "line": 1,
         "message": "Anchor link must have a text describing its purpose",
         "offset": 1,
-        "ruleId": "WCAG/H30",
+        "ruleId": "wcag/h30",
         "selector": "a",
         "severity": 2,
         "size": 1,

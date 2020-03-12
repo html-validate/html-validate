@@ -23,7 +23,6 @@ class H37 extends Rule<void, RuleOptions> {
 
 	public constructor(options: RuleOptions) {
 		super(Object.assign({}, defaults, options));
-		this.name = "WCAG/H37";
 
 		/* ensure alias is array */
 		if (!Array.isArray(this.options.alias)) {

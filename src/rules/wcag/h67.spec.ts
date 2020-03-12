@@ -39,7 +39,7 @@ describe("wcag/h67", () => {
 		const report = htmlvalidate.validateString('<img title="bar">');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
-			"WCAG/H67",
+			"wcag/h67",
 			"<img> with empty alt text cannot have title attribute"
 		);
 	});
@@ -49,7 +49,7 @@ describe("wcag/h67", () => {
 		const report = htmlvalidate.validateString('<img title="bar">');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
-			"WCAG/H67",
+			"wcag/h67",
 			"<img> with empty alt text cannot have title attribute"
 		);
 	});

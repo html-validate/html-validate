@@ -14,7 +14,7 @@ Array [
         "line": 1,
         "message": "<form> element must have a submit button",
         "offset": 1,
-        "ruleId": "WCAG/H32",
+        "ruleId": "wcag/h32",
         "selector": "form",
         "severity": 2,
         "size": 4,

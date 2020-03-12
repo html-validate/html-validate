@@ -45,7 +45,7 @@ describe("wcag/h30", () => {
 		const report = htmlvalidate.validateString("<a></a>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
-			"WCAG/H30",
+			"wcag/h30",
 			"Anchor link must have a text describing its purpose"
 		);
 	});
@@ -55,7 +55,7 @@ describe("wcag/h30", () => {
 		const report = htmlvalidate.validateString("<a><img></a>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
-			"WCAG/H30",
+			"wcag/h30",
 			"Anchor link must have a text describing its purpose"
 		);
 	});
@@ -65,7 +65,7 @@ describe("wcag/h30", () => {
 		const report = htmlvalidate.validateString('<a><img alt=""></a>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
-			"WCAG/H30",
+			"wcag/h30",
 			"Anchor link must have a text describing its purpose"
 		);
 	});

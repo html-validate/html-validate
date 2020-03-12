@@ -11,11 +11,6 @@ class H32 extends Rule {
 		};
 	}
 
-	public constructor(options: void) {
-		super(options);
-		this.name = "WCAG/H32";
-	}
-
 	public setup(): void {
 		/* query all tags with form property, normally this is only the <form> tag
 		 * but with custom element metadata other tags might be considered form

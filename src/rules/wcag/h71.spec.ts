@@ -23,7 +23,7 @@ describe("wcag/h71", () => {
 		const report = htmlvalidate.validateString("<fieldset></fieldset>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
-			"WCAG/H71",
+			"wcag/h71",
 			"<fieldset> must have a <legend> as the first child"
 		);
 	});
@@ -33,7 +33,7 @@ describe("wcag/h71", () => {
 		const report = htmlvalidate.validateString("<custom></custom>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
-			"WCAG/H71",
+			"wcag/h71",
 			"<custom> must have a <legend> as the first child"
 		);
 	});

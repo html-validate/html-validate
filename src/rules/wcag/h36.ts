@@ -10,11 +10,6 @@ class H36 extends Rule {
 		};
 	}
 
-	public constructor(options: void) {
-		super(options);
-		this.name = "WCAG/H36";
-	}
-
 	public setup(): void {
 		this.on("tag:close", event => {
 			/* only handle input elements */

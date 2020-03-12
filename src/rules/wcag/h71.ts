@@ -11,11 +11,6 @@ class H71 extends Rule {
 		};
 	}
 
-	public constructor(options: void) {
-		super(options);
-		this.name = "WCAG/H71";
-	}
-
 	public setup(): void {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const { document } = event;
