@@ -66,6 +66,7 @@ Array [
               "url",
               "week",
             ],
+            "required": true,
           },
           "attribute": "type",
           "element": "input",

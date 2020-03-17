@@ -81,13 +81,17 @@ To force a boolean value similar to `disabled`, `selected` etc instead set the `
 
 ## Define required attributes
 
-To define a list of required attributes use `requiredAttributes`:
+Required attributes (attributes that must be set on an element) can be specified by setting `required` to `true`:
 
 ```json
 {
   "my-component": {
     "flow": true,
-    "requiredAttributes": ["duck"]
+    "attributes": {
+      "duck": {
+        "required": true
+      }
+    }
   }
 }
 ```
@@ -99,13 +103,17 @@ To define a list of required attributes use `requiredAttributes`:
 
 ## Deprecating attributes
 
-Similar to required attribute we can use `deprecatedAttributes` to deprecate attributes:
+Similar to required attribute we can set `deprecated` to true or a message to mark an attribute as deprecated:
 
 ```json
 {
   "my-component": {
     "flow": true,
-    "deprecatedAttributes": ["duck"]
+    "attributes": {
+      "duck": {
+        "deprecated": true
+      }
+    }
   }
 }
 ```

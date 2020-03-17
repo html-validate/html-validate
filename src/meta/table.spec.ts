@@ -411,6 +411,82 @@ describe("MetaTable", () => {
 		});
 	});
 
+	describe("global element", () => {
+		it("should be merged with all elements", () => {
+			expect.assertions(2);
+			const table = new MetaTable();
+			table.loadFromObject({
+				"*": mockEntry({
+					attributes: {
+						"my-attr": {},
+					},
+				}),
+				foo: mockEntry({
+					flow: true,
+				}),
+				bar: mockEntry({
+					phrasing: true,
+				}),
+			});
+			table.init();
+			const foo = table.getMetaFor("foo");
+			const bar = table.getMetaFor("bar");
+			expect(foo).toEqual(
+				expect.objectContaining({
+					tagName: "foo",
+					void: false,
+					attributes: {
+						"my-attr": {},
+					},
+				})
+			);
+			expect(bar).toEqual(
+				expect.objectContaining({
+					tagName: "bar",
+					void: false,
+					attributes: {
+						"my-attr": {},
+					},
+				})
+			);
+		});
+
+		it("should merge attributes", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			table.loadFromObject({
+				"*": mockEntry({
+					attributes: {
+						a: { enum: ["1"] },
+						b: { enum: ["2"] },
+						c: { enum: ["3"] },
+					},
+				}),
+				foo: mockEntry({
+					attributes: {
+						b: { enum: ["4"] },
+						c: { enum: [] },
+						d: { enum: ["6"] },
+					},
+				}),
+			});
+			table.init();
+			const foo = table.getMetaFor("foo");
+			expect(foo).toEqual(
+				expect.objectContaining({
+					tagName: "foo",
+					void: false,
+					attributes: {
+						a: { enum: ["1"] },
+						b: { enum: ["4"] },
+						c: { enum: [] },
+						d: { enum: ["6"] },
+					},
+				})
+			);
+		});
+	});
+
 	describe("inheritance", () => {
 		it("should be supported", () => {
 			expect.assertions(1);

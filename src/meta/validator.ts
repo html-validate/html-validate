@@ -201,7 +201,7 @@ export class Validator {
 
 		/* skip attribute if it not have enumerated list */
 		if (!rule.enum) {
-			return false;
+			return true;
 		}
 
 		if (value === null || value === undefined) {

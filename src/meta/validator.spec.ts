@@ -633,6 +633,16 @@ describe("Meta validator", () => {
 			expect(validateAttribute("foo", "foo", rules)).toBeFalsy();
 		});
 
+		it("should handle missing enumeration", () => {
+			expect.assertions(3);
+			const rules: PermittedAttribute = {
+				foo: {},
+			};
+			expect(validateAttribute("foo", null, rules)).toBeTruthy();
+			expect(validateAttribute("foo", "", rules)).toBeTruthy();
+			expect(validateAttribute("foo", "foo", rules)).toBeTruthy();
+		});
+
 		it("should handle null", () => {
 			expect.assertions(1);
 			const rules: PermittedAttribute = {
@@ -652,13 +662,12 @@ describe("Meta validator", () => {
 		});
 
 		it("should consider omit property as either null or empty string", () => {
-			expect.assertions(3);
+			expect.assertions(2);
 			const rules: PermittedAttribute = {
 				foo: { omit: true },
 			};
 			expect(validateAttribute("foo", null, rules)).toBeTruthy();
 			expect(validateAttribute("foo", "", rules)).toBeTruthy();
-			expect(validateAttribute("foo", "foo", rules)).toBeFalsy();
 		});
 
 		it("should consider empty string as empty string", () => {

@@ -38,6 +38,10 @@ function clone(src: any): any {
 	return JSON.parse(JSON.stringify(src));
 }
 
+function overwriteMerge<T>(a: T[], b: T[]): T[] {
+	return b;
+}
+
 /**
  * AJV keyword "regexp" to validate the type to be a regular expression.
  * Injects errors with the "type" keyword to give the same output.
@@ -235,7 +239,7 @@ export class MetaTable {
 	}
 
 	private mergeElement(a: MetaElement, b: MetaElement): MetaElement {
-		return deepmerge(a, b);
+		return deepmerge(b, a, { arrayMerge: overwriteMerge });
 	}
 
 	public resolve(node: HtmlElement): void {

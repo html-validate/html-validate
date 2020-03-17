@@ -33,13 +33,13 @@ describe("docs/guide/metadata/restrict-attributes.md", () => {
 	});
 	it("inline validation: required", () => {
 		expect.assertions(1);
-		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"flow":true,"requiredAttributes":["duck"]}}],"extends":["html-validate:recommended"]});
+		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"flow":true,"attributes":{"duck":{"required":true}}}}],"extends":["html-validate:recommended"]});
 		const report = htmlvalidate.validateString(markup["required"]);
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: deprecated", () => {
 		expect.assertions(1);
-		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"flow":true,"deprecatedAttributes":["duck"]}}],"extends":["html-validate:recommended"]});
+		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"flow":true,"attributes":{"duck":{"deprecated":true}}}}],"extends":["html-validate:recommended"]});
 		const report = htmlvalidate.validateString(markup["deprecated"]);
 		expect(report.results).toMatchSnapshot();
 	});

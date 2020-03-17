@@ -80,4 +80,42 @@ describe("should migrate attributes", () => {
 		const result = migrateElement(src);
 		expect(result.foo.attributes).toBeUndefined();
 	});
+
+	it("deprecated", () => {
+		expect.assertions(2);
+		const src = {
+			foo: { deprecatedAttributes: ["my-attr"] },
+			bar: { attributes: { "my-attr": {} }, deprecatedAttributes: ["my-attr"] },
+		};
+		const result = migrateElement(src);
+		expect(result.foo.attributes).toEqual({
+			"my-attr": {
+				deprecated: true,
+			},
+		});
+		expect(result.bar.attributes).toEqual({
+			"my-attr": {
+				deprecated: true,
+			},
+		});
+	});
+
+	it("required", () => {
+		expect.assertions(2);
+		const src = {
+			foo: { requiredAttributes: ["my-attr"] },
+			bar: { attributes: { "my-attr": {} }, requiredAttributes: ["my-attr"] },
+		};
+		const result = migrateElement(src);
+		expect(result.foo.attributes).toEqual({
+			"my-attr": {
+				required: true,
+			},
+		});
+		expect(result.bar.attributes).toEqual({
+			"my-attr": {
+				required: true,
+			},
+		});
+	});
 });

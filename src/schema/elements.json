@@ -229,6 +229,10 @@
                   "type": "boolean",
                   "title": "Set to true if this is a boolean attribute"
                 },
+                "deprecated": {
+                  "title": "Set to true or string if this attribute is deprecated",
+                  "oneOf": [{ "type": "boolean" }, { "type": "string" }]
+                },
                 "enum": {
                   "type": "array",
                   "title": "Exhaustive list of values (string or regex) this attribute accepts",
@@ -240,6 +244,10 @@
                 "omit": {
                   "type": "boolean",
                   "title": "Set to true if this attribute can optionally omit its value"
+                },
+                "required": {
+                  "type": "boolean",
+                  "title": "Set to true if this attribute is required"
                 }
               }
             },

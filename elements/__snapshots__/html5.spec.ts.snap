@@ -963,6 +963,7 @@ Array [
               "reset",
               "button",
             ],
+            "required": true,
           },
           "attribute": "type",
           "element": "button",
@@ -1747,6 +1748,7 @@ Array [
             "enum": Array [
               /\\.\\+/,
             ],
+            "required": true,
           },
           "attribute": "src",
           "element": "embed",
@@ -2923,6 +2925,7 @@ Array [
             "enum": Array [
               /\\.\\+/,
             ],
+            "required": true,
           },
           "attribute": "src",
           "element": "img",
@@ -3201,6 +3204,7 @@ Array [
               "url",
               "week",
             ],
+            "required": true,
           },
           "attribute": "type",
           "element": "input",
@@ -3583,6 +3587,7 @@ Array [
             "enum": Array [
               /\\.\\+/,
             ],
+            "required": true,
           },
           "attribute": "href",
           "element": "link",
@@ -3767,9 +3772,6 @@ Array [
             "enum": Array [
               "ltr",
               "rtl",
-              "ltr",
-              "rtl",
-              "auto",
             ],
           },
           "attribute": "dir",
@@ -3791,9 +3793,6 @@ Array [
             "enum": Array [
               "ltr",
               "rtl",
-              "ltr",
-              "rtl",
-              "auto",
             ],
           },
           "attribute": "dir",
@@ -5882,6 +5881,7 @@ Array [
               "colgroup",
               "auto",
             ],
+            "required": true,
           },
           "attribute": "scope",
           "element": "th",

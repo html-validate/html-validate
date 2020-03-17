@@ -1,24 +1,62 @@
 import { MetaAttribute, MetaDataTable } from "./element";
 
 function migrateAttributes(element: any): void {
-	if (!element.attributes) {
+	const {
+		attributes = {},
+		deprecatedAttributes = [],
+		requiredAttributes = [],
+	} = element;
+
+	/* get unique keys from attributes, requiredAttributes and deprecatedAttributes */
+	const keys = Array.from(
+		new Set([
+			...Object.keys(attributes),
+			...deprecatedAttributes,
+			...requiredAttributes,
+		])
+	);
+
+	/* if there is none there is nothing to migrate */
+	if (keys.length === 0) {
 		return;
 	}
 
-	for (const [key, attr] of Object.entries<any>(element.attributes)) {
+	/* initialize new attribute object */
+	const result: Record<string, MetaAttribute> = keys.reduce((dst, key) => {
+		dst[key] = {};
+		return dst;
+	}, {});
+
+	/* copy over old attribute data into new structure */
+	for (const [key, attr] of Object.entries<any>(attributes)) {
 		if (Array.isArray(attr)) {
-			const metaAttribute: MetaAttribute = {};
 			if (attr.length === 0) {
-				metaAttribute.boolean = true;
+				result[key].boolean = true;
 			} else {
-				metaAttribute.enum = attr;
+				result[key].enum = attr;
 				if (attr.includes("")) {
-					metaAttribute.omit = true;
+					result[key].omit = true;
 				}
 			}
-			element.attributes[key] = metaAttribute;
+		} else {
+			Object.assign(result[key], attr);
 		}
 	}
+
+	/* mark deprecated attributes */
+	for (const key of Object.values<string>(deprecatedAttributes)) {
+		result[key].deprecated = true;
+	}
+
+	/* mark required attributes */
+	for (const key of Object.values<string>(requiredAttributes)) {
+		result[key].required = true;
+	}
+
+	/* update new attributes and remove deprecated properties */
+	element.attributes = result;
+	delete element.deprecatedAttributes;
+	delete element.requiredAttributes;
 }
 
 export function migrateElement(src: any): MetaDataTable {

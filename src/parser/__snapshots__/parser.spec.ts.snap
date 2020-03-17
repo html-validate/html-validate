@@ -3,6 +3,9 @@
 exports[`parser should postprocess elements allow modifiy element metadata 1`] = `
 Object {
   "attributes": Object {
+    "align": Object {
+      "deprecated": true,
+    },
     "contenteditable": Object {
       "enum": Array [
         "",
@@ -10,6 +13,18 @@ Object {
         "false",
       ],
       "omit": true,
+    },
+    "contextmenu": Object {
+      "deprecated": true,
+    },
+    "datafld": Object {
+      "deprecated": true,
+    },
+    "dataformatas": Object {
+      "deprecated": true,
+    },
+    "datasrc": Object {
+      "deprecated": true,
     },
     "dir": Object {
       "enum": Array [
@@ -33,9 +48,6 @@ Object {
       ],
     },
   },
-  "deprecatedAttributes": Array [
-    "contextmenu",
-  ],
   "flow": true,
   "permittedContent": Array [
     "@flow",
@@ -58,6 +70,9 @@ Object {
       ],
       "omit": true,
     },
+    "contextmenu": Object {
+      "deprecated": true,
+    },
     "dir": Object {
       "enum": Array [
         "ltr",
@@ -80,9 +95,6 @@ Object {
       ],
     },
   },
-  "deprecatedAttributes": Array [
-    "contextmenu",
-  ],
   "flow": true,
   "permittedContent": Array [
     "@phrasing",

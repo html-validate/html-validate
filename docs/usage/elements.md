@@ -40,8 +40,6 @@ export interface MetaElement {
   form?: boolean;
 
   /* attributes */
-  deprecatedAttributes?: string[];
-  requiredAttributes?: string[];
   attributes?: Record<string, MetaAttribute>;
 
   /* permitted data */
@@ -185,7 +183,9 @@ An object with allowed attribute values.
 ```typescript
 export interface MetaAttribute {
   boolean?: boolean;
+  deprecated?: boolean | string;
   enum?: Array<string | RegExp>;
+  required?: boolean;
   omit?: boolean;
 }
 ```
@@ -232,6 +232,18 @@ When using `omit` the empty string `""` is implied in `enum`.
 
 The {@link attribute-empty-style} rule regulates whenever omitted values or empty string is preferred.
 
+#### `attribute.deprecated`
+
+If set to `true` or `string` this attribute is marked as deprecated and should not be used in new code.
+
+This is used by the [no-deprecated-attr](/rules/no-deprecated-attr.html) rule.
+
+#### `attribute.required`
+
+If set to `true` this attribute is required to be present on the element.
+
+This is used by the [element-required-attributes](/rules/element-required-attributes.html) rule.
+
 #### Deprecated method
 
 The previous (now deprecated) method was to assign an enumerated list of valid values:
@@ -260,36 +272,13 @@ While still supported this syntax should be migrated to the new syntax and is sc
 
 ### `requiredAttributes`
 
-A list of required attributes the element must have.
-
-```js
-"custom-element": {
-  "requiredAttributes": [
-    "foo"
-  ]
-}
-```
-
-Given the above metadata the attribute `"foo"` must be present on the element
-`<custom-element>`.
-
-This is used by the
-[element-required-attributes](/rules/element-required-attributes.html) rule.
+Deprecated: set `required` property directly on `attribute` instead.
+See above.
 
 ### `deprecatedAttributes`
 
-A list of attributes which is no longer allowed (deprecated) for this element.
-
-```js
-"custom-element": {
-  "deprecatedAttributes": [
-    "old-attribute",
-    "another-attribute"
-  ]
-}
-```
-
-This is used by the [no-deprecated-attr](/rules/no-deprecated-attr.html) rule.
+Deprecated: set `deprecated` property directly on `attribute` instead.
+See above.
 
 ### `permittedContent`
 
