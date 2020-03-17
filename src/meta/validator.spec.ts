@@ -711,6 +711,26 @@ describe("Meta validator", () => {
 			expect(validateAttribute("foo", "foo", rules)).toBeTruthy();
 			expect(validateAttribute("foo", "bar", rules)).toBeFalsy();
 		});
+
+		it.each`
+			value           | expected
+			${"foo"}        | ${true}
+			${"bar"}        | ${true}
+			${"baz"}        | ${false}
+			${"foo bar"}    | ${true}
+			${"foo baz"}    | ${false}
+			${"foo    bar"} | ${true}
+			${"foo    baz"} | ${false}
+		`(
+			'should validate each token when using list: "$value"',
+			({ value, expected }) => {
+				expect.assertions(1);
+				const rules: PermittedAttribute = {
+					foo: { list: true, enum: ["foo", "bar"] },
+				};
+				expect(validateAttribute("foo", value, rules)).toBe(expected);
+			}
+		);
 	});
 });
 

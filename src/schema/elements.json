@@ -233,6 +233,10 @@
                   "title": "Set to true or string if this attribute is deprecated",
                   "oneOf": [{ "type": "boolean" }, { "type": "string" }]
                 },
+                "list": {
+                  "type": "boolean",
+                  "title": "Set to true if this attribute is a list of space-separated tokens, each which must be valid by itself"
+                },
                 "enum": {
                   "type": "array",
                   "title": "Exhaustive list of values (string or regex) this attribute accepts",

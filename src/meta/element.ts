@@ -27,6 +27,10 @@ export interface MetaAttribute {
 	 * this attribute can have (each token if list is set) */
 	enum?: Array<string | RegExp>;
 
+	/* if true this attribute contains space-separated tokens and each token must
+	 * be valid by itself */
+	list?: boolean;
+
 	/* if true this attribute can omit the value */
 	omit?: boolean;
 
