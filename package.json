@@ -136,7 +136,7 @@
     "jquery": "3.4.1",
     "lint-staged": "10.0.8",
     "load-grunt-tasks": "5.1.0",
-    "marked": "0.8.0",
+    "marked": "0.8.1",
     "minimatch": "3.0.4",
     "prettier": "1.19.1",
     "sass": "1.26.3",
