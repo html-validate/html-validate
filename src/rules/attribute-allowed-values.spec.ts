@@ -1,12 +1,22 @@
 import HtmlValidate from "../htmlvalidate";
 import "../matchers";
+import { MetaDataTable } from "../meta";
 import { processAttribute } from "../transform/mocks/attribute";
+
+const metadata: MetaDataTable = {
+	"mock-element": {
+		attributes: {
+			"case-insensitive": ["/foo/i"],
+		},
+	},
+};
 
 describe("rule attribute-allowed-values", () => {
 	let htmlvalidate: HtmlValidate;
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			elements: ["html5", metadata],
 			rules: { "attribute-allowed-values": "error" },
 		});
 	});
@@ -86,6 +96,18 @@ describe("rule attribute-allowed-values", () => {
 	it("should not report error when element allows empty and other values and attribute is non-empty string", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateString('<a download="foobar">');
+		expect(report).toBeValid();
+	});
+
+	it("should support case-insensitive comparison", () => {
+		expect.assertions(1);
+		const report = htmlvalidate.validateString(
+			[
+				'<mock-element case-insensitive="foo"></mock-element>',
+				'<mock-element case-insensitive="FOO"></mock-element>',
+				'<mock-element case-insensitive="Foo"></mock-element>',
+			].join("\n")
+		);
 		expect(report).toBeValid();
 	});
 
