@@ -23,33 +23,33 @@ Each entry can contain the following properties:
 ```typescript
 export interface MetaElement {
   /* content categories */
-  metadata: boolean | PropertyExpression;
-  flow: boolean | PropertyExpression;
-  sectioning: boolean | PropertyExpression;
-  heading: boolean | PropertyExpression;
-  phrasing: boolean | PropertyExpression;
-  embedded: boolean | PropertyExpression;
-  interactive: boolean | PropertyExpression;
+  metadata?: boolean | PropertyExpression;
+  flow?: boolean | PropertyExpression;
+  sectioning?: boolean | PropertyExpression;
+  heading?: boolean | PropertyExpression;
+  phrasing?: boolean | PropertyExpression;
+  embedded?: boolean | PropertyExpression;
+  interactive?: boolean | PropertyExpression;
 
   /* element properties */
-  deprecated: boolean | string | DeprecatedElement;
-  foreign: boolean;
-  void: boolean;
-  transparent: boolean;
-  scriptSupporting: boolean;
-  form: boolean;
+  deprecated?: boolean | string | DeprecatedElement;
+  foreign?: boolean;
+  void?: boolean;
+  transparent?: boolean;
+  scriptSupporting?: boolean;
+  form?: boolean;
 
   /* attributes */
-  deprecatedAttributes: string[];
-  requiredAttributes: string[];
-  attributes: PermittedAttribute;
+  deprecatedAttributes?: string[];
+  requiredAttributes?: string[];
+  attributes?: PermittedAttribute;
 
   /* permitted data */
-  permittedContent: Permitted;
-  permittedDescendants: Permitted;
-  permittedOrder: PermittedOrder;
-  requiredAncestors: string[];
-  requiredContent: string[];
+  permittedContent?: Permitted;
+  permittedDescendants?: Permitted;
+  permittedOrder?: PermittedOrder;
+  requiredAncestors?: string[];
+  requiredContent?: string[];
 
   /* inheritance */
   inherit?: string;
