@@ -222,7 +222,9 @@
         "^.*$": {
           "type": "array",
           "uniqueItems": true,
-          "items": { "type": "string" }
+          "items": {
+            "anyOf": [{ "type": "string" }, { "regexp": true }]
+          }
         }
       }
     },

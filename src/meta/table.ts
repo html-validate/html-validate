@@ -37,6 +37,37 @@ function clone(src: any): any {
 	return JSON.parse(JSON.stringify(src));
 }
 
+/**
+ * AJV keyword "regexp" to validate the type to be a regular expression.
+ * Injects errors with the "type" keyword to give the same output.
+ */
+/* istanbul ignore next: manual testing */
+const ajvRegexpValidate: Ajv.ValidateFunction = function(
+	data: any,
+	dataPath: string
+): boolean {
+	const valid = data instanceof RegExp;
+	if (!valid) {
+		ajvRegexpValidate.errors = [
+			{
+				dataPath,
+				schemaPath: undefined,
+				keyword: "type",
+				message: "should be regexp",
+				params: {
+					keyword: "type",
+				},
+			},
+		];
+	}
+	return valid;
+};
+const ajvRegexpKeyword: Ajv.KeywordDefinition = {
+	schema: false,
+	errors: true,
+	validate: ajvRegexpValidate,
+};
+
 export class MetaTable {
 	public readonly elements: ElementTable;
 	private schema: object;
@@ -79,6 +110,7 @@ export class MetaTable {
 	): void {
 		const ajv = new Ajv({ jsonPointers: true });
 		ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-06.json"));
+		ajv.addKeyword("regexp", ajvRegexpKeyword);
 		const validator = ajv.compile(this.schema);
 		const valid = validator(obj);
 		if (!valid) {
