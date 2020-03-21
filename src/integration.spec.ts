@@ -175,3 +175,28 @@ it("should report parser-error when last tag is left unopened", () => {
 		}
 	`);
 });
+
+it("should allow inline metadata", () => {
+	expect.assertions(1);
+	const htmlvalidate = new HtmlValidate({
+		elements: [
+			{
+				foo: {
+					attributes: {
+						"string-value": ["foo"],
+						"string-regexp": ["/foo/"],
+						"literal-regexp": [/foo/],
+					},
+				},
+			},
+		],
+	});
+	const report = htmlvalidate.validateString(
+		[
+			'<foo string="foo"></foo>',
+			'<foo string-regexp="foo"></foo>',
+			'<foo literal-regexp="foo"></foo>',
+		].join("\n")
+	);
+	expect(report).toBeValid();
+});
