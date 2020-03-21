@@ -43,7 +43,10 @@ const defaults: RuleOptions = {
 	exclude: null,
 };
 
-class PreferNativeElement extends Rule<RuleContext, RuleOptions> {
+export default class PreferNativeElement extends Rule<
+	RuleContext,
+	RuleOptions
+> {
 	public constructor(options: RuleOptions) {
 		super(Object.assign({}, defaults, options));
 	}
@@ -133,5 +136,3 @@ class PreferNativeElement extends Rule<RuleContext, RuleOptions> {
 		};
 	}
 }
-
-module.exports = PreferNativeElement;

@@ -1,7 +1,7 @@
 import { AttributeEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class NoDupAttr extends Rule {
+export default class NoDupAttr extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description:
@@ -32,5 +32,3 @@ class NoDupAttr extends Rule {
 		});
 	}
 }
-
-module.exports = NoDupAttr;

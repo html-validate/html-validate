@@ -18,7 +18,7 @@ const supportSri: { [key: string]: string } = {
 	script: "src",
 };
 
-class RequireSri extends Rule<void, RuleOptions> {
+export default class RequireSri extends Rule<void, RuleOptions> {
 	private target: Target;
 
 	public constructor(options: RuleOptions) {
@@ -71,5 +71,3 @@ class RequireSri extends Rule<void, RuleOptions> {
 		return node.getAttribute(key);
 	}
 }
-
-module.exports = RequireSri;

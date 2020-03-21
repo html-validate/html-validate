@@ -1,7 +1,7 @@
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 import { classifyNodeText, TextClassification } from "./helper/text";
 
-class EmptyTitle extends Rule {
+export default class EmptyTitle extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description: `The <title> element is used to describe the document and is shown in the browser tab and titlebar. WCAG and SEO requires a descriptive title and preferably unique within the site. Whitespace only is considered empty.`,
@@ -30,5 +30,3 @@ class EmptyTitle extends Rule {
 		});
 	}
 }
-
-module.exports = EmptyTitle;

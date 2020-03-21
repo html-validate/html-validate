@@ -3,7 +3,7 @@ import { classifyNodeText, TextClassification } from "./helper/text";
 
 const selector = ["h1", "h2", "h3", "h4", "h5", "h6"].join(",");
 
-class EmptyHeading extends Rule {
+export default class EmptyHeading extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description: `Assistive technology such as screen readers require textual content in headings. Whitespace only is considered empty.`,
@@ -32,5 +32,3 @@ class EmptyHeading extends Rule {
 		});
 	}
 }
-
-module.exports = EmptyHeading;

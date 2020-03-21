@@ -11,6 +11,7 @@ import { InvalidTokenError, Lexer, TokenType } from "../lexer";
 import { Parser, ParserError } from "../parser";
 import { Report, Reporter } from "../reporter";
 import { Rule, RuleConstructor, RuleDocumentation } from "../rule";
+import bundledRules from "../rules";
 
 export type RuleOptions = Record<string, any>;
 
@@ -38,7 +39,10 @@ export class Engine<T extends Parser = Parser> {
 
 		/* initialize plugins and rules */
 		const result = this.initPlugins(this.config);
-		this.availableRules = result.availableRules;
+		this.availableRules = {
+			...bundledRules,
+			...result.availableRules,
+		};
 	}
 
 	/**
@@ -398,7 +402,7 @@ export class Engine<T extends Parser = Parser> {
 	): Rule {
 		const meta = this.config.getMetaTable();
 		const rule = this.instantiateRule(ruleId, options);
-		rule.name = rule.name || ruleId;
+		rule.name = ruleId;
 		rule.init(parser, report, severity, meta);
 
 		/* call setup callback if present */
@@ -411,23 +415,11 @@ export class Engine<T extends Parser = Parser> {
 
 	protected instantiateRule(name: string, options: RuleOptions): Rule {
 		if (this.availableRules[name]) {
-			return new this.availableRules[name](options);
+			const RuleConstructor = this.availableRules[name];
+			return new RuleConstructor(options);
 		} else {
-			return this.requireRule(name, options) || this.missingRule(name);
+			return this.missingRule(name);
 		}
-	}
-
-	/* istanbul ignore next: tests mock this function */
-	protected requireRule(name: string, options: RuleOptions): any {
-		const moduleName = `../rules/${name}`;
-		try {
-			require.resolve(moduleName);
-		} catch (err) {
-			return null;
-		}
-		/* eslint-disable-next-line import/no-dynamic-require */
-		const Class = require(moduleName);
-		return new Class(options);
 	}
 
 	private missingRule(name: string): any {

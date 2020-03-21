@@ -6,7 +6,7 @@ interface Context {
 	attribute: string;
 }
 
-class ElementRequiredAttributes extends Rule<Context> {
+export default class ElementRequiredAttributes extends Rule<Context> {
 	public documentation(context?: Context): RuleDocumentation {
 		const docs: RuleDocumentation = {
 			description: "Element is missing a required attribute",
@@ -44,5 +44,3 @@ class ElementRequiredAttributes extends Rule<Context> {
 		});
 	}
 }
-
-module.exports = ElementRequiredAttributes;

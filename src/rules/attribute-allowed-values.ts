@@ -11,7 +11,7 @@ interface Context {
 	allowed: Array<string | RegExp>;
 }
 
-class AttributeAllowedValues extends Rule<Context> {
+export default class AttributeAllowedValues extends Rule<Context> {
 	public documentation(context?: Context): RuleDocumentation {
 		const docs: RuleDocumentation = {
 			description: "Attribute has invalid value.",
@@ -86,5 +86,3 @@ class AttributeAllowedValues extends Rule<Context> {
 		}
 	}
 }
-
-module.exports = AttributeAllowedValues;

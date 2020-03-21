@@ -3,7 +3,7 @@ import { DOMReadyEvent } from "../event";
 import { Validator } from "../meta";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class ElementPermittedOrder extends Rule {
+export default class ElementPermittedOrder extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description: "Some elements has a specific order the children must use.",
@@ -34,5 +34,3 @@ class ElementPermittedOrder extends Rule {
 		});
 	}
 }
-
-module.exports = ElementPermittedOrder;

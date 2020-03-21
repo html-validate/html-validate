@@ -20,7 +20,7 @@ const defaults: RuleOptions = {
 	blacklist: [],
 };
 
-class ElementName extends Rule<Context, RuleOptions> {
+export default class ElementName extends Rule<Context, RuleOptions> {
 	private pattern: RegExp;
 
 	public constructor(options: RuleOptions) {
@@ -118,5 +118,3 @@ class ElementName extends Rule<Context, RuleOptions> {
 		});
 	}
 }
-
-module.exports = ElementName;

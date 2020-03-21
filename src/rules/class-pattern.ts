@@ -11,7 +11,7 @@ const defaults: RuleOptions = {
 	pattern: "kebabcase",
 };
 
-class ClassPattern extends Rule<void, RuleOptions> {
+export default class ClassPattern extends Rule<void, RuleOptions> {
 	private pattern: RegExp;
 
 	public constructor(options: RuleOptions) {
@@ -46,5 +46,3 @@ class ClassPattern extends Rule<void, RuleOptions> {
 		});
 	}
 }
-
-module.exports = ClassPattern;

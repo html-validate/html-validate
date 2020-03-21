@@ -3,7 +3,7 @@ import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../../rule";
 import { hasAltText, hasAriaLabel } from "../helper";
 import { classifyNodeText, TextClassification } from "../helper/text";
 
-class H30 extends Rule {
+export default class H30 extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description:
@@ -42,5 +42,3 @@ class H30 extends Rule {
 		});
 	}
 }
-
-module.exports = H30;

@@ -1,7 +1,7 @@
 import { WhitespaceEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class NoTrailingWhitespace extends Rule {
+export default class NoTrailingWhitespace extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description:
@@ -18,5 +18,3 @@ class NoTrailingWhitespace extends Rule {
 		});
 	}
 }
-
-module.exports = NoTrailingWhitespace;

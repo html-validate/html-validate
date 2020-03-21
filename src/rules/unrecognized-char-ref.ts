@@ -7,7 +7,7 @@ const entities = require("../../elements/entities.json");
 
 const regexp = /&([a-z0-9]+|#x?[0-9a-f]+);/gi;
 
-class UnknownCharReference extends Rule<string> {
+export default class UnknownCharReference extends Rule<string> {
 	public documentation(context: string): RuleDocumentation {
 		return {
 			description: `HTML defines a set of valid character references but ${context ||
@@ -71,5 +71,3 @@ class UnknownCharReference extends Rule<string> {
 		} while (match);
 	}
 }
-
-module.exports = UnknownCharReference;

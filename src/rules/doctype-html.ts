@@ -1,7 +1,7 @@
 import { DoctypeEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class NoStyleTag extends Rule {
+export default class NoStyleTag extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description: [
@@ -24,5 +24,3 @@ class NoStyleTag extends Rule {
 		});
 	}
 }
-
-module.exports = NoStyleTag;

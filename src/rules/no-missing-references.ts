@@ -9,7 +9,7 @@ interface Context {
 
 const ARIA = ["aria-controls", "aria-describedby", "aria-labelledby"];
 
-class NoMissingReferences extends Rule<Context> {
+export default class NoMissingReferences extends Rule<Context> {
 	public documentation(context: Context): RuleDocumentation {
 		if (context) {
 			return {
@@ -73,5 +73,3 @@ class NoMissingReferences extends Rule<Context> {
 		}
 	}
 }
-
-module.exports = NoMissingReferences;

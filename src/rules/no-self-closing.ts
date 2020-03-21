@@ -13,7 +13,7 @@ const defaults: RuleOptions = {
 	ignoreXML: true,
 };
 
-class NoSelfClosing extends Rule<string, RuleOptions> {
+export default class NoSelfClosing extends Rule<string, RuleOptions> {
 	public constructor(options: RuleOptions) {
 		super(Object.assign({}, defaults, options));
 	}
@@ -76,5 +76,3 @@ function isRelevant(node: HtmlElement, options: RuleOptions): boolean {
 
 	return true;
 }
-
-module.exports = NoSelfClosing;

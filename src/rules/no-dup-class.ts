@@ -2,7 +2,7 @@ import { DOMTokenList } from "../dom";
 import { AttributeEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class NoDupClass extends Rule {
+export default class NoDupClass extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description: "Prevents unnecessary duplication of class names.",
@@ -31,5 +31,3 @@ class NoDupClass extends Rule {
 		});
 	}
 }
-
-module.exports = NoDupClass;

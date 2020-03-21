@@ -1,7 +1,7 @@
 import { AttributeEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class NoInlineStyle extends Rule {
+export default class NoInlineStyle extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description:
@@ -18,5 +18,3 @@ class NoInlineStyle extends Rule {
 		});
 	}
 }
-
-module.exports = NoInlineStyle;

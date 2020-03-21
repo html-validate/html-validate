@@ -2,7 +2,7 @@ import { NodeClosed } from "../dom";
 import { TagCloseEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class ScriptElement extends Rule {
+export default class ScriptElement extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description:
@@ -25,5 +25,3 @@ class ScriptElement extends Rule {
 		});
 	}
 }
-
-module.exports = ScriptElement;

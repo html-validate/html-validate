@@ -2,7 +2,7 @@ import { DOMReadyEvent } from "../../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../../rule";
 import { HtmlElement } from "../../dom";
 
-class H71 extends Rule {
+export default class H71 extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description:
@@ -39,5 +39,3 @@ class H71 extends Rule {
 		return this.getTagsDerivedFrom("fieldset").join(",");
 	}
 }
-
-module.exports = H71;

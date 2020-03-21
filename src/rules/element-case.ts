@@ -12,7 +12,7 @@ const defaults: RuleOptions = {
 	style: "lowercase",
 };
 
-class ElementCase extends Rule<void, RuleOptions> {
+export default class ElementCase extends Rule<void, RuleOptions> {
 	private style: CaseStyle;
 
 	public constructor(options: RuleOptions) {
@@ -72,5 +72,3 @@ class ElementCase extends Rule<void, RuleOptions> {
 		}
 	}
 }
-
-module.exports = ElementCase;
