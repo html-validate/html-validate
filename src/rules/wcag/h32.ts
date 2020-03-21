@@ -2,7 +2,7 @@ import { HtmlElement } from "../../dom";
 import { DOMReadyEvent } from "../../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../../rule";
 
-class H32 extends Rule {
+export default class H32 extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description:
@@ -37,5 +37,3 @@ class H32 extends Rule {
 		});
 	}
 }
-
-module.exports = H32;

@@ -20,7 +20,7 @@ interface RuleOptions {
 	style: string;
 }
 
-class VoidStyle extends Rule<RuleContext, RuleOptions> {
+export default class VoidStyle extends Rule<RuleContext, RuleOptions> {
 	private style: Style;
 
 	public constructor(options: RuleOptions) {
@@ -120,5 +120,3 @@ function styleDescription(style: Style): [string, string] {
 			throw new Error(`Unknown style`);
 	}
 }
-
-module.exports = VoidStyle;

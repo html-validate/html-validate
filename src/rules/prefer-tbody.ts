@@ -1,7 +1,7 @@
 import { DOMReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class PreferTbody extends Rule {
+export default class PreferTbody extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description: `While \`<tbody>\` is optional is relays semantic information about its contents. Where applicable it should also be combined with \`<thead>\` and \`<tfoot>\`.`,
@@ -25,5 +25,3 @@ class PreferTbody extends Rule {
 		});
 	}
 }
-
-module.exports = PreferTbody;

@@ -3,7 +3,7 @@ import { DOMReadyEvent } from "../event";
 import { Validator } from "../meta";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class ElementPermittedOccurrences extends Rule {
+export default class ElementPermittedOccurrences extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description:
@@ -47,5 +47,3 @@ class ElementPermittedOccurrences extends Rule {
 		});
 	}
 }
-
-module.exports = ElementPermittedOccurrences;

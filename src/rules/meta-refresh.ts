@@ -1,6 +1,6 @@
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class MetaRefresh extends Rule {
+export default class MetaRefresh extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description: `Meta refresh directive must use the \`0;url=...\` format. Non-zero values for time interval is disallowed as people with assistive technology might be unable to read and understand the page content before automatically reloading. For the same reason skipping the url is disallowed as it would put the browser in an infinite loop reloading the same page over and over again.`,
@@ -63,5 +63,3 @@ function parseContent(text: string): { delay: number; url: string } {
 		return null;
 	}
 }
-
-module.exports = MetaRefresh;

@@ -3,7 +3,7 @@ import { NodeClosed } from "../dom";
 import { TagCloseEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class CloseOrder extends Rule {
+export default class CloseOrder extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description:
@@ -69,5 +69,3 @@ class CloseOrder extends Rule {
 		});
 	}
 }
-
-module.exports = CloseOrder;

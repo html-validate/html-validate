@@ -25,7 +25,7 @@ const replacementTable: Map<string, string> = new Map([
 	["`", "&grave;"],
 ]);
 
-class NoRawCharacters extends Rule<void, RuleOptions> {
+export default class NoRawCharacters extends Rule<void, RuleOptions> {
 	private relaxed: boolean;
 
 	public constructor(options: RuleOptions) {
@@ -125,5 +125,3 @@ class NoRawCharacters extends Rule<void, RuleOptions> {
 		} while (match);
 	}
 }
-
-module.exports = NoRawCharacters;

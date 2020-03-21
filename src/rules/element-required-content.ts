@@ -8,7 +8,7 @@ interface Context {
 	missing: string;
 }
 
-class ElementRequiredContent extends Rule<Context> {
+export default class ElementRequiredContent extends Rule<Context> {
 	public documentation(context: Context): RuleDocumentation {
 		if (context) {
 			return {
@@ -51,5 +51,3 @@ class ElementRequiredContent extends Rule<Context> {
 		});
 	}
 }
-
-module.exports = ElementRequiredContent;

@@ -4,7 +4,7 @@ import { Validator } from "../meta";
 import { Permitted } from "../meta/element";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class ElementPermittedContent extends Rule {
+export default class ElementPermittedContent extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description:
@@ -107,5 +107,3 @@ class ElementPermittedContent extends Rule {
 		return false;
 	}
 }
-
-module.exports = ElementPermittedContent;

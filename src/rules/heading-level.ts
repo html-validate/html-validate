@@ -3,7 +3,7 @@ import { HtmlElement } from "../dom";
 import { TagOpenEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class HeadingLevel extends Rule {
+export default class HeadingLevel extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description:
@@ -60,5 +60,3 @@ class HeadingLevel extends Rule {
 		return match ? parseInt(match[1], 10) : null;
 	}
 }
-
-module.exports = HeadingLevel;

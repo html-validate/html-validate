@@ -12,7 +12,7 @@ const defaults: RuleOptions = {
 	alias: [],
 };
 
-class H37 extends Rule<void, RuleOptions> {
+export default class H37 extends Rule<void, RuleOptions> {
 	public documentation(): RuleDocumentation {
 		return {
 			description:
@@ -65,5 +65,3 @@ class H37 extends Rule<void, RuleOptions> {
 		});
 	}
 }
-
-module.exports = H37;

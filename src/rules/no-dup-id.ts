@@ -1,7 +1,7 @@
 import { DOMReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class NoDupID extends Rule {
+export default class NoDupID extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description: "The ID of an element must be unique.",
@@ -29,5 +29,3 @@ class NoDupID extends Rule {
 		});
 	}
 }
-
-module.exports = NoDupID;

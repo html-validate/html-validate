@@ -2,7 +2,7 @@ import { HtmlElement } from "../dom";
 import { ElementReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class SvgFocusable extends Rule {
+export default class SvgFocusable extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description: `Inline SVG elements in IE are focusable by default which may cause issues with tab-ordering. The \`focusable\` attribute should explicitly be set to avoid unintended behaviour.`,
@@ -29,5 +29,3 @@ class SvgFocusable extends Rule {
 		);
 	}
 }
-
-module.exports = SvgFocusable;

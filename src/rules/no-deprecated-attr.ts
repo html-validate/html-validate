@@ -1,7 +1,7 @@
 import { AttributeEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class NoDeprecatedAttr extends Rule {
+export default class NoDeprecatedAttr extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description: "HTML5 deprecated many old attributes.",
@@ -30,5 +30,3 @@ class NoDeprecatedAttr extends Rule {
 		});
 	}
 }
-
-module.exports = NoDeprecatedAttr;

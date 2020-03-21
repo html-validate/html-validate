@@ -9,7 +9,7 @@ const javascript = [
 	"text/javascript",
 ];
 
-class ScriptType extends Rule {
+export default class ScriptType extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description:
@@ -49,5 +49,3 @@ class ScriptType extends Rule {
 		return javascript.includes(match[1]);
 	}
 }
-
-module.exports = ScriptType;

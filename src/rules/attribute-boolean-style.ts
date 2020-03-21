@@ -13,7 +13,7 @@ const defaults: Options = {
 
 type checkFunction = (attr: Attribute) => boolean;
 
-class AttributeBooleanStyle extends Rule<void, Options> {
+export default class AttributeBooleanStyle extends Rule<void, Options> {
 	private hasInvalidStyle: checkFunction;
 
 	public constructor(options: Options) {
@@ -95,5 +95,3 @@ function reportMessage(attr: Attribute, style: string): string {
 	/* istanbul ignore next: the above switch should cover all cases */
 	return "";
 }
-
-module.exports = AttributeBooleanStyle;

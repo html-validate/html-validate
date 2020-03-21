@@ -1,7 +1,7 @@
 import { ConditionalEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class NoConditionalComment extends Rule {
+export default class NoConditionalComment extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description:
@@ -20,5 +20,3 @@ class NoConditionalComment extends Rule {
 		});
 	}
 }
-
-module.exports = NoConditionalComment;

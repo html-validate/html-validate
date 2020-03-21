@@ -1,7 +1,7 @@
 import { TagCloseEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class PreferButton extends Rule {
+export default class PreferButton extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description: `Prefer to use the generic \`<button>\` element instead of \`<input>\`.`,
@@ -35,5 +35,3 @@ class PreferButton extends Rule {
 		});
 	}
 }
-
-module.exports = PreferButton;

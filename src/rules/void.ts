@@ -18,7 +18,7 @@ const defaults: RuleOptions = {
 	style: "omit",
 };
 
-class Void extends Rule<void, RuleOptions> {
+export default class Void extends Rule<void, RuleOptions> {
 	private style: Style;
 
 	public get deprecated(): boolean {
@@ -115,5 +115,3 @@ function parseStyle(name: StyleName): Style {
 			throw new Error(`Invalid style "${name}" for "void" rule`);
 	}
 }
-
-module.exports = Void;

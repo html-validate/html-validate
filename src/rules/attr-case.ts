@@ -13,7 +13,7 @@ const defaults: RuleOptions = {
 	ignoreForeign: true,
 };
 
-class AttrCase extends Rule<void, RuleOptions> {
+export default class AttrCase extends Rule<void, RuleOptions> {
 	private style: CaseStyle;
 
 	public constructor(options: RuleOptions) {
@@ -59,5 +59,3 @@ class AttrCase extends Rule<void, RuleOptions> {
 		}
 	}
 }
-
-module.exports = AttrCase;

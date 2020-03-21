@@ -1,7 +1,7 @@
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../../rule";
 import { hasAltText } from "../helper";
 
-class H36 extends Rule {
+export default class H36 extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description:
@@ -27,5 +27,3 @@ class H36 extends Rule {
 		});
 	}
 }
-
-module.exports = H36;

@@ -2,7 +2,7 @@ import { DOMTree, HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class InputMissingLabel extends Rule {
+export default class InputMissingLabel extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description:
@@ -54,5 +54,3 @@ function findLabelByParent(el: HtmlElement): HtmlElement {
 	}
 	return null;
 }
-
-module.exports = InputMissingLabel;

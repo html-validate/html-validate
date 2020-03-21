@@ -8,7 +8,7 @@ const defaults: RuleOptions = {
 	maxlength: 70,
 };
 
-class LongTitle extends Rule<void, RuleOptions> {
+export default class LongTitle extends Rule<void, RuleOptions> {
 	private maxlength: number;
 
 	public constructor(options: RuleOptions) {
@@ -38,5 +38,3 @@ class LongTitle extends Rule<void, RuleOptions> {
 		});
 	}
 }
-
-module.exports = LongTitle;

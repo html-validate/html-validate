@@ -66,8 +66,9 @@ class ExposedEngine<T extends Parser> extends Engine<T> {
 		return super.loadRule(name, severity, options, parser, report);
 	}
 
-	public requireRule(name: string, options: RuleOptions): any {
-		return super.requireRule(name, options);
+	/* exposed for testing */
+	public instantiateRule(name: string, options: RuleOptions): Rule {
+		return super.instantiateRule(name, options);
 	}
 }
 
@@ -428,7 +429,7 @@ describe("Engine", () => {
 
 			it("should load and initialize rule", () => {
 				expect.assertions(4);
-				engine.requireRule = jest.fn(() => mockRule);
+				jest.spyOn(engine, "instantiateRule").mockReturnValueOnce(mockRule);
 				const rule = engine.loadRule(
 					"void",
 					Severity.ERROR,
@@ -447,29 +448,14 @@ describe("Engine", () => {
 				expect(rule.name).toEqual("void");
 			});
 
-			it("should use rule-defined name if set", () => {
-				expect.assertions(1);
-				engine.requireRule = jest.fn(() => mockRule);
-				mockRule.name = "foobar";
-				const rule = engine.loadRule(
-					"void",
-					Severity.ERROR,
-					{},
-					parser,
-					reporter
-				);
-				expect(rule.name).toEqual("foobar");
-			});
-
 			it("should add error if rule cannot be found", () => {
 				expect.assertions(1);
-				engine.requireRule = jest.fn(() => null);
-				engine.loadRule("void", Severity.ERROR, {}, parser, reporter);
+				engine.loadRule("foobar", Severity.ERROR, {}, parser, reporter);
 				const add = jest.spyOn(reporter, "add");
 				parser.trigger("dom:load", { location: null });
 				expect(add).toHaveBeenCalledWith(
 					expect.any(Rule),
-					"Definition for rule 'void' was not found",
+					"Definition for rule 'foobar' was not found",
 					Severity.ERROR,
 					null,
 					{},

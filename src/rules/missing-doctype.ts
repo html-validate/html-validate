@@ -1,7 +1,7 @@
 import { DOMReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class MissingDoctype extends Rule {
+export default class MissingDoctype extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description: "Requires that the document contains a doctype.",
@@ -18,5 +18,3 @@ class MissingDoctype extends Rule {
 		});
 	}
 }
-
-module.exports = MissingDoctype;

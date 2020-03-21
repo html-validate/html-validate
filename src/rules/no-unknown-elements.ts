@@ -1,7 +1,7 @@
 import { TagOpenEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class NoUnknownElements extends Rule<string> {
+export default class NoUnknownElements extends Rule<string> {
 	public documentation(context: string): RuleDocumentation {
 		const element = context ? ` <${context}>` : "";
 		return {
@@ -24,5 +24,3 @@ class NoUnknownElements extends Rule<string> {
 		});
 	}
 }
-
-module.exports = NoUnknownElements;

@@ -2,7 +2,7 @@ import { NodeClosed } from "../dom";
 import { TagCloseEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class VoidElement extends Rule<string> {
+export default class VoidContent extends Rule<string> {
 	public documentation(tagName: string): RuleDocumentation {
 		const doc: RuleDocumentation = {
 			description:
@@ -38,5 +38,3 @@ class VoidElement extends Rule<string> {
 		});
 	}
 }
-
-module.exports = VoidElement;

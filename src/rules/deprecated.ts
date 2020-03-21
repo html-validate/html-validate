@@ -8,7 +8,7 @@ interface Context extends DeprecatedElement {
 	tagName: string;
 }
 
-class Deprecated extends Rule<Context> {
+export default class Deprecated extends Rule<Context> {
 	public documentation(context?: Context): RuleDocumentation {
 		const doc: RuleDocumentation = {
 			description:
@@ -104,5 +104,3 @@ function prettySource(source: string): string {
 			return `by ${source}`;
 	}
 }
-
-module.exports = Deprecated;

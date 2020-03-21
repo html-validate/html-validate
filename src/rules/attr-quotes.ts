@@ -18,7 +18,7 @@ const defaults: Options = {
 	unquoted: false,
 };
 
-class AttrQuotes extends Rule<void, Options> {
+export default class AttrQuotes extends Rule<void, Options> {
 	private style: QuoteStyle;
 
 	public documentation(): RuleDocumentation {
@@ -92,5 +92,3 @@ function parseStyle(style: string): QuoteStyle {
 			return QuoteStyle.DOUBLE_QUOTE;
 	}
 }
-
-module.exports = AttrQuotes;

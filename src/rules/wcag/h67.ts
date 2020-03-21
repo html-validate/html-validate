@@ -1,7 +1,7 @@
 import { TagCloseEvent } from "../../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../../rule";
 
-class H67 extends Rule {
+export default class H67 extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description:
@@ -39,5 +39,3 @@ class H67 extends Rule {
 		});
 	}
 }
-
-module.exports = H67;

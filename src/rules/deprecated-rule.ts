@@ -2,7 +2,7 @@ import { Severity } from "../config";
 import { ConfigReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class DeprecatedRule extends Rule<string> {
+export default class DeprecatedRule extends Rule<string> {
 	public documentation(context: string): RuleDocumentation {
 		return {
 			description: `${
@@ -32,5 +32,3 @@ class DeprecatedRule extends Rule<string> {
 		return rules.filter(rule => rule.deprecated);
 	}
 }
-
-module.exports = DeprecatedRule;

@@ -1,7 +1,7 @@
 import { TagCloseEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-class CloseAttr extends Rule {
+export default class CloseAttr extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description: "HTML disallows end tags to have attributes.",
@@ -33,5 +33,3 @@ class CloseAttr extends Rule {
 		});
 	}
 }
-
-module.exports = CloseAttr;
