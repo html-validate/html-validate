@@ -328,20 +328,56 @@ describe("MetaTable", () => {
 		});
 	});
 
-	it("should expand regexp", () => {
-		expect.assertions(2);
-		const table = new MetaTable();
-		table.loadFromObject({
-			foo: mockEntry({
-				attributes: {
-					attr: ["foo", "/bar/", /baz/],
-				},
-			}),
+	describe("regexp", () => {
+		it("should expand regular expression from string", () => {
+			expect.assertions(2);
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry({
+					attributes: {
+						attr: ["/foo/"],
+					},
+				}),
+			});
+			const meta = table.getMetaFor("foo");
+			expect(meta).not.toBeUndefined();
+			expect(meta.attributes).toEqual({
+				attr: [/foo/],
+			});
 		});
-		const meta = table.getMetaFor("foo");
-		expect(meta).not.toBeUndefined();
-		expect(meta.attributes).toEqual({
-			attr: ["foo", /bar/, /baz/],
+
+		it("should handle case-insensitive flag", () => {
+			expect.assertions(2);
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry({
+					attributes: {
+						attr: ["/foo/i"],
+					},
+				}),
+			});
+			const meta = table.getMetaFor("foo");
+			expect(meta).not.toBeUndefined();
+			expect(meta.attributes).toEqual({
+				attr: [/foo/i],
+			});
+		});
+
+		it("should retain literal regexp", () => {
+			expect.assertions(2);
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry({
+					attributes: {
+						attr: [/foo/],
+					},
+				}),
+			});
+			const meta = table.getMetaFor("foo");
+			expect(meta).not.toBeUndefined();
+			expect(meta.attributes).toEqual({
+				attr: [/foo/],
+			});
 		});
 	});
 

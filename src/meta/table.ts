@@ -221,10 +221,11 @@ function expandRegexValue(value: string | RegExp): string | RegExp {
 	if (value instanceof RegExp) {
 		return value;
 	}
-	const match = value.match(/^\/(.*)\/$/);
+	const match = value.match(/^\/(.*)\/([i]*)$/);
 	if (match) {
+		const [, expr, flags] = match;
 		// eslint-disable-next-line security/detect-non-literal-regexp
-		return new RegExp(match[1]);
+		return new RegExp(expr, flags);
 	} else {
 		return value;
 	}
