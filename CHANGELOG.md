@@ -1,5 +1,18 @@
 # html-validate changelog
 
+## [2.18.1](https://gitlab.com/html-validate/html-validate/compare/v2.18.0...v2.18.1) (2020-03-22)
+
+### Bug Fixes
+
+- **meta:** allow regexp literal in element schema ([444a472](https://gitlab.com/html-validate/html-validate/commit/444a4726f7b8693188ad80c725f57f0e33844ca7)), closes [#70](https://gitlab.com/html-validate/html-validate/issues/70)
+- **meta:** make all meta properties optional in type declaration ([eac5052](https://gitlab.com/html-validate/html-validate/commit/eac505234e2bdac2fb6d19ba8ef81bd947a7bba9))
+- **meta:** support case-insensitive regexp flag ([96e7343](https://gitlab.com/html-validate/html-validate/commit/96e734396f9ee90358a4b74e091f14387eda9c99)), closes [#69](https://gitlab.com/html-validate/html-validate/issues/69)
+- **rules:** use original wcag rule names ([1d5aa3c](https://gitlab.com/html-validate/html-validate/commit/1d5aa3c83add6b51bf062508cbaf9a868572446f))
+
+### Reverts
+
+- Revert "ci: temporary add debug to troubleshoot @semantic-release/gitlab" ([b4d016b](https://gitlab.com/html-validate/html-validate/commit/b4d016b442e618b38b5140de17d59b6393956ded))
+
 # [2.18.0](https://gitlab.com/html-validate/html-validate/compare/v2.17.1...v2.18.0) (2020-03-11)
 
 ### Bug Fixes
