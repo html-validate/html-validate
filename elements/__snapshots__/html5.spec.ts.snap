@@ -505,7 +505,6 @@ Array [
         "context": Object {
           "allowed": Object {
             "enum": Array [
-              "",
               "none",
               "metadata",
               "auto",
@@ -6415,7 +6414,6 @@ Array [
         "context": Object {
           "allowed": Object {
             "enum": Array [
-              "",
               "none",
               "metadata",
               "auto",
@@ -6540,7 +6538,6 @@ Array [
         "context": Object {
           "allowed": Object {
             "enum": Array [
-              "",
               "true",
               "false",
             ],
