@@ -69,7 +69,7 @@ export default class AttributeEmptyStyle extends Rule<void, Options> {
 }
 
 function allowsEmpty(attr: Attribute, rules: PermittedAttribute): boolean {
-	return rules[attr.key] && rules[attr.key].includes("");
+	return rules[attr.key]?.omit;
 }
 
 function isEmptyValue(attr: Attribute): boolean {

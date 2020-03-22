@@ -1,4 +1,4 @@
-import { Attribute, DynamicValue, HtmlElement } from "../dom";
+import { Attribute, DynamicValue, HtmlElement, DOMTokenList } from "../dom";
 import {
 	Permitted,
 	PermittedAttribute,
@@ -7,6 +7,7 @@ import {
 	PermittedOrder,
 	RequiredAncestors,
 	RequiredContent,
+	MetaAttribute,
 } from "./element";
 
 const allowedKeys = ["exclude"];
@@ -167,6 +168,7 @@ export class Validator {
 	 * @param rules - Element attribute metadta.
 	 * @returns `true` if attribute passes all tests.
 	 */
+	/* eslint-disable-next-line complexity */
 	public static validateAttribute(
 		attr: Attribute,
 		rules: PermittedAttribute
@@ -183,16 +185,38 @@ export class Validator {
 		if (value instanceof DynamicValue) {
 			return true;
 		}
+
 		const empty = value === null || value === "";
 
-		/* consider an empty array as being a boolean attribute */
-		if (rule.length === 0) {
+		/* if boolean is set the value can be either null, empty string or the
+		 * attribute key (attribute-boolean-style regulates style) */
+		if (rule.boolean) {
 			return empty || value === attr.key;
 		}
 
-		/* if the empty string is present allow both "" and null
-		 * (boolean-attribute-style will regulate which is allowed) */
-		if (rule.includes("") && empty) {
+		/* if omit is set the value can be either null or empty string
+		 * (attribute-empty style regulates style) */
+		if (rule.omit && empty) {
+			return true;
+		}
+
+		/* validate each token when using list, all tokens must be valid */
+		if (rule.list) {
+			const tokens = new DOMTokenList(value);
+			return tokens.every(token => {
+				return this.validateAttributeValue(token, rule);
+			});
+		}
+
+		return this.validateAttributeValue(value, rule);
+	}
+
+	private static validateAttributeValue(
+		value: string,
+		rule: MetaAttribute
+	): boolean {
+		/* skip attribute if it not have enumerated list */
+		if (!rule.enum) {
 			return true;
 		}
 
@@ -200,7 +224,7 @@ export class Validator {
 			return false;
 		}
 
-		return rule.some((entry: string | RegExp) => {
+		return rule.enum.some((entry: string | RegExp) => {
 			if (entry instanceof RegExp) {
 				return !!value.match(entry);
 			} else {

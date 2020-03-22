@@ -14,6 +14,7 @@ import {
 	MetaLookupableProperty,
 	PropertyExpression,
 } from "./element";
+import { migrateElement } from "./migrate";
 
 const dynamicKeys = [
 	"metadata",
@@ -35,6 +36,10 @@ const functionTable: { [key: string]: PropertyEvaluator } = {
 
 function clone(src: any): any {
 	return JSON.parse(JSON.stringify(src));
+}
+
+function overwriteMerge<T>(a: T[], b: T[]): T[] {
+	return b;
 }
 
 /**
@@ -108,24 +113,22 @@ export class MetaTable {
 		obj: MetaDataTable,
 		filename: string | null = null
 	): void {
-		const ajv = new Ajv({ jsonPointers: true });
-		ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-06.json"));
-		ajv.addKeyword("regexp", ajvRegexpKeyword);
-		const validator = ajv.compile(this.schema);
-		const valid = validator(obj);
+		const migrated = migrateElement(obj);
+		const validator = this.getSchemaValidator();
+		const valid = validator(migrated);
 		if (!valid) {
 			throw new SchemaValidationError(
 				filename,
 				`Element metadata is not valid`,
-				obj,
+				migrated,
 				this.schema,
 				validator.errors
 			);
 		}
 
-		for (const key of Object.keys(obj)) {
+		for (const [key, value] of Object.entries(migrated)) {
 			if (key === "$schema") continue;
-			this.addEntry(key, obj[key]);
+			this.addEntry(key, value);
 		}
 	}
 
@@ -143,7 +146,7 @@ export class MetaTable {
 				err
 			);
 		}
-		this.loadFromObject(clone(json), filename);
+		this.loadFromObject(json, filename);
 	}
 
 	/**
@@ -203,6 +206,16 @@ export class MetaTable {
 	}
 
 	/**
+	 * Construct a new AJV schema validator.
+	 */
+	private getSchemaValidator(): Ajv.ValidateFunction {
+		const ajv = new Ajv({ jsonPointers: true });
+		ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-06.json"));
+		ajv.addKeyword("regexp", ajvRegexpKeyword);
+		return ajv.compile(this.schema);
+	}
+
+	/**
 	 * Finds the global element definition and merges each known element with the
 	 * global, e.g. to assign global attributes.
 	 */
@@ -226,7 +239,7 @@ export class MetaTable {
 	}
 
 	private mergeElement(a: MetaElement, b: MetaElement): MetaElement {
-		return deepmerge(a, b);
+		return deepmerge(b, a, { arrayMerge: overwriteMerge });
 	}
 
 	public resolve(node: HtmlElement): void {
@@ -269,7 +282,9 @@ function expandRegexValue(value: string | RegExp): string | RegExp {
 function expandRegex(entry: MetaElement): void {
 	if (!entry.attributes) return;
 	for (const [name, values] of Object.entries(entry.attributes)) {
-		entry.attributes[name] = values.map(expandRegexValue);
+		if (values.enum) {
+			entry.attributes[name].enum = values.enum.map(expandRegexValue);
+		}
 	}
 }
 

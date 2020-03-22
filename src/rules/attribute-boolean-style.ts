@@ -63,7 +63,7 @@ export default class AttributeBooleanStyle extends Rule<void, Options> {
 	}
 
 	public isBoolean(attr: Attribute, rules: PermittedAttribute): boolean {
-		return rules[attr.key] && rules[attr.key].length === 0;
+		return rules[attr.key]?.boolean;
 	}
 }
 
