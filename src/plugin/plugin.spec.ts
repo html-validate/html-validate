@@ -192,7 +192,6 @@ describe("Plugin", () => {
 			expect(meta).toEqual({
 				tagName: "my-element",
 				myMeta: 5,
-				void: false,
 			});
 		});
 
@@ -225,7 +224,6 @@ describe("Plugin", () => {
 			expect(meta).toEqual({
 				tagName: "my-element",
 				myMeta: 5,
-				void: false,
 			});
 		});
 
@@ -280,7 +278,6 @@ describe("Plugin", () => {
 				tagName: "my-element",
 				foo: "copied" /* foo is marked for copying */,
 				bar: "original" /* bar is not marked for copying */,
-				void: false /* autofilled */,
 			});
 		});
 	});

@@ -42,7 +42,7 @@ export class HtmlElement extends DOMNode {
 		this.attr = {};
 		this.metaElement = meta;
 		this.closed = closed;
-		this.voidElement = meta ? meta.void : false;
+		this.voidElement = meta ? Boolean(meta.void) : false;
 		this.depth = 0;
 		this.annotation = null;
 
