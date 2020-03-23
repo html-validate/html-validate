@@ -452,6 +452,64 @@ describe("MetaTable", () => {
 			);
 		});
 
+		it("should merge objects", () => {
+			expect.assertions(2);
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: {
+					attributes: {
+						a: ["1"],
+						b: ["1"],
+						c: ["1"],
+					},
+				},
+				bar: {
+					inherit: "foo",
+					attributes: {
+						b: ["2"],
+						c: null,
+					},
+				},
+			});
+			table.loadFromObject({
+				foo: {
+					attributes: {
+						a: ["2"],
+						b: null,
+					},
+				},
+			});
+			const foo = table.getMetaFor("foo");
+			const bar = table.getMetaFor("bar");
+			expect(foo).toMatchInlineSnapshot(`
+				Object {
+				  "attributes": Object {
+				    "a": Array [
+				      "2",
+				    ],
+				    "c": Array [
+				      "1",
+				    ],
+				  },
+				  "tagName": "foo",
+				}
+			`);
+			expect(bar).toMatchInlineSnapshot(`
+				Object {
+				  "attributes": Object {
+				    "a": Array [
+				      "1",
+				    ],
+				    "b": Array [
+				      "2",
+				    ],
+				  },
+				  "inherit": "foo",
+				  "tagName": "bar",
+				}
+			`);
+		});
+
 		it("should throw error when extending missing element", () => {
 			expect.assertions(1);
 			const table = new MetaTable();

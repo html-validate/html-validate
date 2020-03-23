@@ -37,6 +37,10 @@ function clone(src: any): any {
 	return JSON.parse(JSON.stringify(src));
 }
 
+function overwriteMerge<T>(a: T[], b: T[]): T[] {
+	return b;
+}
+
 /**
  * AJV keyword "regexp" to validate the type to be a regular expression.
  * Injects errors with the "type" keyword to give the same output.
@@ -177,7 +181,6 @@ export class MetaTable {
 	}
 
 	private addEntry(tagName: string, entry: MetaData): void {
-		const defaultEntry = {};
 		let parent = this.elements[tagName] || {};
 
 		/* handle inheritance */
@@ -192,9 +195,11 @@ export class MetaTable {
 		}
 
 		/* merge all sources together */
-		const expanded: MetaElement = Object.assign(defaultEntry, parent, entry, {
-			tagName,
-		}) as MetaElement;
+		const expanded: MetaElement = deepmerge(
+			parent,
+			{ ...entry, tagName },
+			{ arrayMerge: overwriteMerge }
+		);
 		expandRegex(expanded);
 
 		this.elements[tagName] = expanded;
@@ -267,7 +272,11 @@ function expandRegexValue(value: string | RegExp): string | RegExp {
 function expandRegex(entry: MetaElement): void {
 	if (!entry.attributes) return;
 	for (const [name, values] of Object.entries(entry.attributes)) {
-		entry.attributes[name] = values.map(expandRegexValue);
+		if (values) {
+			entry.attributes[name] = values.map(expandRegexValue);
+		} else {
+			delete entry.attributes[name];
+		}
 	}
 }
 
