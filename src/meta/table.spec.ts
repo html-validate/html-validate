@@ -406,6 +406,29 @@ describe("MetaTable", () => {
 			);
 		});
 
+		it("should be implied when a previous element of the same name exists", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: {
+					flow: true,
+				},
+			});
+			table.loadFromObject({
+				foo: {
+					phrasing: true,
+				},
+			});
+			const foo = table.getMetaFor("foo");
+			expect(foo).toEqual(
+				expect.objectContaining({
+					tagName: "foo",
+					flow: true,
+					phrasing: true,
+				})
+			);
+		});
+
 		it("should allow overriding", () => {
 			expect.assertions(1);
 			const table = new MetaTable();

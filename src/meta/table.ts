@@ -178,7 +178,7 @@ export class MetaTable {
 
 	private addEntry(tagName: string, entry: MetaData): void {
 		const defaultEntry = {};
-		let parent = {};
+		let parent = this.elements[tagName] || {};
 
 		/* handle inheritance */
 		if (entry.inherit) {

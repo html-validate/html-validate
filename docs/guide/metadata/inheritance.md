@@ -39,3 +39,5 @@ When inheriting you can still override any properties from the inherited element
 		For instance <code>&lt;input&gt;</code> is a <code>void</code> element but custom elements cannot be pure <code>void</code> thus if you inherit from it you must set <code>void</code> to <code>false</code>.
 	</p>
 </div>
+
+Inheritance is implied when overwriting existing elements, e.g. when overwriting builtin elements or loading multiple definitions of the same component.
