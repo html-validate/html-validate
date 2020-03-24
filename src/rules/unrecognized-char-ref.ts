@@ -10,8 +10,9 @@ const regexp = /&([a-z0-9]+|#x?[0-9a-f]+);/gi;
 export default class UnknownCharReference extends Rule<string> {
 	public documentation(context: string): RuleDocumentation {
 		return {
-			description: `HTML defines a set of valid character references but ${context ||
-				"this"} is not a valid one.`,
+			description: `HTML defines a set of valid character references but ${
+				context || "this"
+			} is not a valid one.`,
 			url: ruleDocumentationUrl(__filename),
 		};
 	}

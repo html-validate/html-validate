@@ -1010,7 +1010,7 @@ describe("parser", () => {
 
 		it("attribute (deprecated method)", () => {
 			expect.assertions(5);
-			const processAttribute = jest.fn(attr => {
+			const processAttribute = jest.fn((attr) => {
 				attr.key = "fred";
 				attr.value = "barney";
 				return attr;
@@ -1054,7 +1054,7 @@ describe("parser", () => {
 			it("by calling hook", () => {
 				expect.assertions(2);
 				let context: any;
-				const processElement = jest.fn(function(this: any) {
+				const processElement = jest.fn(function (this: any) {
 					context = this;
 				});
 				const source: Source = {

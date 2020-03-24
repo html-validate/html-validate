@@ -10,7 +10,7 @@ module.exports = function generateValidationsSpecProcessor(log, validateMap) {
 	function $process(docs) {
 		const specs = {};
 
-		validateMap.forEach(validation => {
+		validateMap.forEach((validation) => {
 			const key = validation.doc.fileInfo.relativePath;
 
 			if (!specs[key]) {

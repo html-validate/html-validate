@@ -18,12 +18,12 @@ export function classifyNodeText(node: HtmlElement): TextClassification {
 	const text = findTextNodes(node);
 
 	/* if any text is dynamic classify as dynamic */
-	if (text.some(cur => cur.isDynamic)) {
+	if (text.some((cur) => cur.isDynamic)) {
 		return TextClassification.DYNAMIC_TEXT;
 	}
 
 	/* if any text has non-whitespace character classify as static */
-	if (text.some(cur => cur.textContent.match(/\S/) !== null)) {
+	if (text.some((cur) => cur.textContent.match(/\S/) !== null)) {
 		return TextClassification.STATIC_TEXT;
 	}
 

@@ -24,13 +24,13 @@ export default class H30 extends Rule {
 
 				/* check if image with alt-text is present */
 				const images = link.querySelectorAll("img");
-				if (images.some(image => hasAltText(image))) {
+				if (images.some((image) => hasAltText(image))) {
 					continue;
 				}
 
 				/* check if aria-label is present on either the <a> element or a descendant */
 				const labels = link.querySelectorAll("[aria-label]");
-				if (hasAriaLabel(link) || labels.some(cur => hasAriaLabel(cur))) {
+				if (hasAriaLabel(link) || labels.some((cur) => hasAriaLabel(cur))) {
 					continue;
 				}
 

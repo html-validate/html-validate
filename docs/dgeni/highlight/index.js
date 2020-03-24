@@ -9,11 +9,11 @@ module.exports = new Package("highlight", [require("dgeni-packages/nunjucks")])
 	.factory(require("./filters/highlight"))
 
 	/* enable syntax highlighting */
-	.config(function(renderMarkdown, highlight) {
+	.config(function (renderMarkdown, highlight) {
 		renderMarkdown.highlight = highlight;
 	})
 
 	/* add highlight filter */
-	.config(function(templateEngine, highlightFilter) {
+	.config(function (templateEngine, highlightFilter) {
 		templateEngine.filters.push(highlightFilter);
 	});

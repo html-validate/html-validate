@@ -10,7 +10,7 @@ function getNthChild(node: HtmlElement): number {
 
 	if (!cache[node.unique]) {
 		const parent = node.parent;
-		const index = parent.childElements.findIndex(cur => {
+		const index = parent.childElements.findIndex((cur) => {
 			return cur.unique === node.unique;
 		});
 		cache[node.unique] = index + 1; /* nthChild starts at 1 */

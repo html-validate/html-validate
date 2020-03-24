@@ -6,7 +6,7 @@ module.exports = function generateInlineValidationsProcessor(log, validateMap) {
 	};
 
 	function $process(docs) {
-		validateMap.forEach(validation => {
+		validateMap.forEach((validation) => {
 			const inlineValidationDoc = createInlineValidateDoc(validation);
 			docs.push(inlineValidationDoc);
 			validation.inlineValidationDoc = inlineValidationDoc;

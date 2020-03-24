@@ -39,7 +39,7 @@ export default class ElementPermittedContent extends Rule {
 					() => this.validatePermittedContent(node, parent, rules),
 					() => this.validatePermittedDescendant(node, parent),
 					() => this.validatePermittedAncestors(node),
-				].some(fn => fn());
+				].some((fn) => fn());
 			});
 		});
 	}

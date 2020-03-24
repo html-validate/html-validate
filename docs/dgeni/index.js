@@ -13,13 +13,13 @@ module.exports = new Package("html-validate-docs", [
 
 	.processor(require("./processors/rules"))
 
-	.config(function(renderDocsProcessor) {
+	.config(function (renderDocsProcessor) {
 		renderDocsProcessor.extraData.pkg = require("../../package.json");
 		renderDocsProcessor.extraData.tracking = process.env.GA_TRACKING_ID;
 	})
 
 	/* configure markdown syntax highlighting */
-	.config(function(highlight) {
+	.config(function (highlight) {
 		highlight.configure({
 			languages: ["js", "json", "typescript", "html", "shell"],
 		});
@@ -27,15 +27,15 @@ module.exports = new Package("html-validate-docs", [
 
 	.factory(require("./changelog"))
 
-	.config(function(readFilesProcessor, changelogFileReader) {
+	.config(function (readFilesProcessor, changelogFileReader) {
 		readFilesProcessor.fileReaders.push(changelogFileReader);
 	})
 
-	.config(function(getLinkInfo) {
+	.config(function (getLinkInfo) {
 		getLinkInfo.relativeLinks = true;
 	})
 
-	.config(function(log, readFilesProcessor, writeFilesProcessor, copySchema) {
+	.config(function (log, readFilesProcessor, writeFilesProcessor, copySchema) {
 		log.level = "info";
 
 		readFilesProcessor.basePath = path.resolve(packagePath, "../..");
@@ -59,14 +59,14 @@ module.exports = new Package("html-validate-docs", [
 		writeFilesProcessor.outputFolder = "public";
 	})
 
-	.config(function(parseTagsProcessor, getInjectables) {
+	.config(function (parseTagsProcessor, getInjectables) {
 		parseTagsProcessor.tagDefinitions = parseTagsProcessor.tagDefinitions.concat(
 			getInjectables(require("./tag-defs"))
 		);
 	})
 
 	/* add custom nunjuck filters */
-	.config(function(templateEngine) {
+	.config(function (templateEngine) {
 		templateEngine.filters = templateEngine.filters.concat(
 			require("./filters")
 		);
@@ -74,16 +74,16 @@ module.exports = new Package("html-validate-docs", [
 
 	/* add the local template folder first in the search path so it overrides
 	 * dgeni-packages bundled templates */
-	.config(function(templateFinder) {
+	.config(function (templateFinder) {
 		templateFinder.templateFolders.unshift(
 			path.resolve(packagePath, "templates")
 		);
 	})
 
-	.config(function(computePathsProcessor, computeIdsProcessor) {
+	.config(function (computePathsProcessor, computeIdsProcessor) {
 		computeIdsProcessor.idTemplates.push({
 			docTypes: ["content", "frontpage", "rule", "rules", "changelog", "error"],
-			getId: function(doc) {
+			getId: function (doc) {
 				const dir = path.dirname(doc.fileInfo.relativePath);
 				if (dir === ".") {
 					/* documents not in a subdirectory gets basename as id */
@@ -98,7 +98,7 @@ module.exports = new Package("html-validate-docs", [
 					return dir;
 				}
 			},
-			getAliases: function(doc) {
+			getAliases: function (doc) {
 				const alias = [doc.id];
 				if (doc.name) {
 					alias.push(doc.name);
@@ -110,7 +110,7 @@ module.exports = new Package("html-validate-docs", [
 
 		computePathsProcessor.pathTemplates.push({
 			docTypes: ["content", "frontpage", "rule", "rules"],
-			getPath: function(doc) {
+			getPath: function (doc) {
 				const dirname = path.dirname(doc.fileInfo.relativePath);
 				const p = path.join(dirname, doc.fileInfo.baseName);
 				return `${p}.html`;
@@ -120,7 +120,7 @@ module.exports = new Package("html-validate-docs", [
 
 		computePathsProcessor.pathTemplates.push({
 			docTypes: ["changelog"],
-			getPath: function(doc) {
+			getPath: function (doc) {
 				const dirname = path.dirname(doc.fileInfo.relativePath);
 				return path.join(dirname, doc.fileInfo.baseName, "index.html");
 			},
@@ -129,7 +129,7 @@ module.exports = new Package("html-validate-docs", [
 
 		computePathsProcessor.pathTemplates.push({
 			docTypes: ["error"],
-			getPath: function(doc) {
+			getPath: function (doc) {
 				/* should go directly under output directory, no subdirectory */
 				return doc.fileInfo.baseName;
 			},
@@ -137,10 +137,10 @@ module.exports = new Package("html-validate-docs", [
 		});
 	})
 
-	.config(function(checkAnchorLinksProcessor) {
+	.config(function (checkAnchorLinksProcessor) {
 		checkAnchorLinksProcessor.ignoredLinks.push(/^\/$/);
 		checkAnchorLinksProcessor.ignoredLinks.push(/^\/changelog$/);
-		checkAnchorLinksProcessor.checkDoc = doc => {
+		checkAnchorLinksProcessor.checkDoc = (doc) => {
 			return (
 				doc.path &&
 				doc.outputPath &&

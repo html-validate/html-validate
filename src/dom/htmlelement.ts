@@ -113,7 +113,7 @@ export class HtmlElement extends DOMNode {
 	 */
 	public get childElements(): HtmlElement[] {
 		return this.childNodes.filter(
-			node => node.nodeType === NodeType.ELEMENT_NODE
+			(node) => node.nodeType === NodeType.ELEMENT_NODE
 		) as HtmlElement[];
 	}
 
@@ -164,8 +164,8 @@ export class HtmlElement extends DOMNode {
 
 			const parent = cur.parent;
 			const child = parent.childElements;
-			const index = child.findIndex(it => it.unique === cur.unique);
-			const numOfType = child.filter(it => it.is(cur.tagName)).length;
+			const index = child.findIndex((it) => it.unique === cur.unique);
+			const numOfType = child.filter((it) => it.is(cur.tagName)).length;
 			const solo = numOfType === 1;
 
 			/* if this is the only tagName in this level of siblings nth-child isn't needed */
@@ -376,8 +376,8 @@ export class HtmlElement extends DOMNode {
 			return new DOMTokenList(null);
 		}
 		const classes = this.getAttribute("class", true)
-			.filter(attr => attr.isStatic)
-			.map(attr => attr.value)
+			.filter((attr) => attr.isStatic)
+			.map((attr) => attr.value)
 			.join(" ");
 		return new DOMTokenList(classes);
 	}
@@ -394,12 +394,12 @@ export class HtmlElement extends DOMNode {
 	}
 
 	public get previousSibling(): HtmlElement {
-		const i = this.siblings.findIndex(node => node.unique === this.unique);
+		const i = this.siblings.findIndex((node) => node.unique === this.unique);
 		return i >= 1 ? this.siblings[i - 1] : null;
 	}
 
 	public get nextSibling(): HtmlElement {
-		const i = this.siblings.findIndex(node => node.unique === this.unique);
+		const i = this.siblings.findIndex((node) => node.unique === this.unique);
 		return i <= this.siblings.length - 2 ? this.siblings[i + 1] : null;
 	}
 

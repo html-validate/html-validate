@@ -102,7 +102,7 @@ export class Engine<T extends Parser = Parser> {
 		parser.on("*", (event, data) => {
 			lines.push({ event, data });
 		});
-		source.forEach(src => parser.parseHtml(src));
+		source.forEach((src) => parser.parseHtml(src));
 		return lines;
 	}
 
@@ -195,9 +195,9 @@ export class Engine<T extends Parser = Parser> {
 	): void {
 		const rules = event.data
 			.split(",")
-			.map(name => name.trim())
-			.map(name => allRules[name])
-			.filter(rule => rule); /* filter out missing rules */
+			.map((name) => name.trim())
+			.map((name) => allRules[name])
+			.filter((rule) => rule); /* filter out missing rules */
 		switch (event.action) {
 			case "enable":
 				this.processEnableDirective(rules, parser);
@@ -231,7 +231,7 @@ export class Engine<T extends Parser = Parser> {
 
 		/* enable rules on node */
 		parser.on("tag:open", (event: string, data: TagOpenEvent) => {
-			data.target.enableRules(rules.map(rule => rule.name));
+			data.target.enableRules(rules.map((rule) => rule.name));
 		});
 	}
 
@@ -242,7 +242,7 @@ export class Engine<T extends Parser = Parser> {
 
 		/* disable rules on node */
 		parser.on("tag:open", (event: string, data: TagOpenEvent) => {
-			data.target.disableRules(rules.map(rule => rule.name));
+			data.target.disableRules(rules.map((rule) => rule.name));
 		});
 	}
 
@@ -262,7 +262,7 @@ export class Engine<T extends Parser = Parser> {
 
 				/* disable rules directly on the node so it will be recorded for later,
 				 * more specifically when using the domtree to trigger errors */
-				data.target.disableRules(rules.map(rule => rule.name));
+				data.target.disableRules(rules.map((rule) => rule.name));
 			}
 		);
 
@@ -298,7 +298,7 @@ export class Engine<T extends Parser = Parser> {
 		const unregister = parser.on(
 			"tag:open",
 			(event: string, data: TagOpenEvent) => {
-				data.target.disableRules(rules.map(rule => rule.name));
+				data.target.disableRules(rules.map((rule) => rule.name));
 			}
 		);
 

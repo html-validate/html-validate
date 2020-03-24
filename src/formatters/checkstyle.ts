@@ -33,12 +33,12 @@ export default function checkstyleFormatter(results: Result[]): string {
 	output += `<?xml version="1.0" encoding="utf-8"?>`;
 	output += `<checkstyle version="4.3">`;
 
-	results.forEach(result => {
+	results.forEach((result) => {
 		const messages = result.messages;
 
 		output += `<file name="${xmlescape(result.filePath)}">`;
 
-		messages.forEach(message => {
+		messages.forEach((message) => {
 			const ruleId = message.ruleId
 				? xmlescape(`htmlvalidate.rules.${message.ruleId}`)
 				: "";
