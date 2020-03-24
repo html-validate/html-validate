@@ -54,7 +54,6 @@ Object {
     "dd",
   ],
   "tagName": "i",
-  "void": false,
 }
 `;
 
@@ -99,6 +98,5 @@ Object {
   ],
   "phrasing": true,
   "tagName": "u",
-  "void": false,
 }
 `;

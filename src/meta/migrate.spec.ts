@@ -1,4 +1,5 @@
 import { migrateElement } from "./migrate";
+import { MetaAttribute } from "./element";
 
 it("should not migrate up-to-date data ", () => {
 	expect.assertions(1);
@@ -116,6 +117,21 @@ describe("should migrate attributes", () => {
 			"my-attr": {
 				required: true,
 			},
+		});
+	});
+
+	it("null", () => {
+		expect.assertions(1);
+		const src = {
+			foo: {
+				attributes: {
+					"my-attr": null as MetaAttribute,
+				},
+			},
+		};
+		const result = migrateElement(src);
+		expect(result.foo.attributes).toEqual({
+			"my-attr": null,
 		});
 	});
 });

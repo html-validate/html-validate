@@ -5,7 +5,7 @@ export default function textFormatter(results: Result[]): string {
 	let output = "";
 	let total = 0;
 
-	results.forEach(result => {
+	results.forEach((result) => {
 		const messages = result.messages;
 
 		if (messages.length === 0) {
@@ -15,7 +15,7 @@ export default function textFormatter(results: Result[]): string {
 		total += messages.length;
 
 		output += messages
-			.map(message => {
+			.map((message) => {
 				let messageType;
 
 				if (message.severity === 2) {

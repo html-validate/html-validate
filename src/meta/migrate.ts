@@ -1,5 +1,6 @@
 import { MetaAttribute, MetaDataTable } from "./element";
 
+/* eslint-disable-next-line sonarjs/cognitive-complexity */
 function migrateAttributes(element: any): void {
 	const {
 		attributes = {},
@@ -38,6 +39,8 @@ function migrateAttributes(element: any): void {
 					result[key].omit = true;
 				}
 			}
+		} else if (attr === null) {
+			result[key] = null;
 		} else {
 			Object.assign(result[key], attr);
 		}

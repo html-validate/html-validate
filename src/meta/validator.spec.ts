@@ -691,7 +691,7 @@ describe("Meta validator", () => {
 				${true}  | ${[]}   | ${""}   | ${true}
 				${true}  | ${[""]} | ${null} | ${true}
 				${true}  | ${[""]} | ${""}   | ${true}
-			`("omit: $omit enum: $enum value: ${$value}", options => {
+			`("omit: $omit enum: $enum value: ${$value}", (options) => {
 				const { expected, value } = options;
 				expect.assertions(1);
 				const rules: PermittedAttribute = {

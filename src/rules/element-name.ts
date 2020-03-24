@@ -47,7 +47,7 @@ export default class ElementName extends Rule<Context, RuleOptions> {
 				`<${context.tagName}> is blacklisted by the project configuration.`,
 				"",
 				"The following names are blacklisted:",
-				...context.blacklist.map(cur => `- ${cur}`),
+				...context.blacklist.map((cur) => `- ${cur}`),
 			];
 		}
 

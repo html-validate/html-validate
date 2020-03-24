@@ -2,7 +2,7 @@ module.exports = function alertWarningInlineTagDef() {
 	return {
 		name: "alert-warning",
 		description: "Add bootstrap warning alert",
-		handler: function(doc, tagName, tagDescription) {
+		handler: function (doc, tagName, tagDescription) {
 			return `<div class="alert alert-warning"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ${tagDescription}</div>`;
 		},
 	};

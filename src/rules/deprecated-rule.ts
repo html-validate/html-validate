@@ -29,6 +29,6 @@ export default class DeprecatedRule extends Rule<string> {
 
 	private getDeprecatedRules(event: ConfigReadyEvent): Rule[] {
 		const rules = Object.values(event.rules);
-		return rules.filter(rule => rule.deprecated);
+		return rules.filter((rule) => rule.deprecated);
 	}
 }

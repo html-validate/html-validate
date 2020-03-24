@@ -29,7 +29,7 @@ export default class Deprecated extends Rule<Context> {
 				text.push(context.documentation);
 			}
 			doc.description = text
-				.map(cur => cur.replace(/\$tagname/g, context.tagName))
+				.map((cur) => cur.replace(/\$tagname/g, context.tagName))
 				.join("\n\n");
 		}
 		return doc;

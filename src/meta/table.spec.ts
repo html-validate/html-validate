@@ -71,7 +71,6 @@ describe("MetaTable", () => {
 				    },
 				  },
 				  "tagName": "foo",
-				  "void": false,
 				}
 			`);
 		});
@@ -509,6 +508,29 @@ describe("MetaTable", () => {
 			);
 		});
 
+		it("should be implied when a previous element of the same name exists", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: {
+					flow: true,
+				},
+			});
+			table.loadFromObject({
+				foo: {
+					phrasing: true,
+				},
+			});
+			const foo = table.getMetaFor("foo");
+			expect(foo).toEqual(
+				expect.objectContaining({
+					tagName: "foo",
+					flow: true,
+					phrasing: true,
+				})
+			);
+		});
+
 		it("should allow overriding", () => {
 			expect.assertions(1);
 			const table = new MetaTable();
@@ -530,6 +552,72 @@ describe("MetaTable", () => {
 					phrasing: true,
 				})
 			);
+		});
+
+		it("should merge objects", () => {
+			expect.assertions(2);
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: {
+					attributes: {
+						a: { enum: ["1"] },
+						b: { enum: ["1"] },
+						c: { enum: ["1"] },
+					},
+				},
+				bar: {
+					inherit: "foo",
+					attributes: {
+						b: { enum: ["2"] },
+						c: null,
+					},
+				},
+			});
+			table.loadFromObject({
+				foo: {
+					attributes: {
+						a: { enum: ["2"] },
+						b: null,
+					},
+				},
+			});
+			const foo = table.getMetaFor("foo");
+			const bar = table.getMetaFor("bar");
+			expect(foo).toMatchInlineSnapshot(`
+				Object {
+				  "attributes": Object {
+				    "a": Object {
+				      "enum": Array [
+				        "2",
+				      ],
+				    },
+				    "c": Object {
+				      "enum": Array [
+				        "1",
+				      ],
+				    },
+				  },
+				  "tagName": "foo",
+				}
+			`);
+			expect(bar).toMatchInlineSnapshot(`
+				Object {
+				  "attributes": Object {
+				    "a": Object {
+				      "enum": Array [
+				        "1",
+				      ],
+				    },
+				    "b": Object {
+				      "enum": Array [
+				        "2",
+				      ],
+				    },
+				  },
+				  "inherit": "foo",
+				  "tagName": "bar",
+				}
+			`);
 		});
 
 		it("should throw error when extending missing element", () => {

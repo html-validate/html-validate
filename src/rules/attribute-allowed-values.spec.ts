@@ -167,6 +167,7 @@ describe("rule attribute-allowed-values", () => {
 	});
 
 	it("contain contextual documentation when attribute is omitted", () => {
+		expect.assertions(1);
 		const context = {
 			element: "any",
 			attribute: "foo",

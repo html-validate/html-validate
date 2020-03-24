@@ -30,7 +30,7 @@ export class Validator {
 		if (!rules) {
 			return true;
 		}
-		return rules.some(rule => {
+		return rules.some((rule) => {
 			return Validator.validatePermittedRule(node, rule);
 		});
 	}
@@ -55,7 +55,7 @@ export class Validator {
 		if (!rules) {
 			return true;
 		}
-		const category = rules.find(cur => {
+		const category = rules.find((cur) => {
 			/** @todo handle complex rules and not just plain arrays (but as of now
 			 * there is no use-case for it) */
 			// istanbul ignore next
@@ -134,7 +134,7 @@ export class Validator {
 			return true;
 		}
 
-		return rules.some(rule => node.closest(rule));
+		return rules.some((rule) => node.closest(rule));
 	}
 
 	/**
@@ -153,8 +153,8 @@ export class Validator {
 			return [];
 		}
 
-		return rules.filter(tagName => {
-			const haveMatchingChild = node.childElements.some(child =>
+		return rules.filter((tagName) => {
+			const haveMatchingChild = node.childElements.some((child) =>
 				child.is(tagName)
 			);
 			return !haveMatchingChild;
@@ -203,7 +203,7 @@ export class Validator {
 		/* validate each token when using list, all tokens must be valid */
 		if (rule.list) {
 			const tokens = new DOMTokenList(value);
-			return tokens.every(token => {
+			return tokens.every((token) => {
 				return this.validateAttributeValue(token, rule);
 			});
 		}

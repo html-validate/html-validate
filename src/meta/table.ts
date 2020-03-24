@@ -47,7 +47,7 @@ function overwriteMerge<T>(a: T[], b: T[]): T[] {
  * Injects errors with the "type" keyword to give the same output.
  */
 /* istanbul ignore next: manual testing */
-const ajvRegexpValidate: Ajv.ValidateFunction = function(
+const ajvRegexpValidate: Ajv.ValidateFunction = function (
 	data: any,
 	dataPath: string
 ): boolean {
@@ -180,10 +180,7 @@ export class MetaTable {
 	}
 
 	private addEntry(tagName: string, entry: MetaData): void {
-		const defaultEntry = {
-			void: false,
-		};
-		let parent = {};
+		let parent = this.elements[tagName] || {};
 
 		/* handle inheritance */
 		if (entry.inherit) {
@@ -197,9 +194,11 @@ export class MetaTable {
 		}
 
 		/* merge all sources together */
-		const expanded: MetaElement = Object.assign(defaultEntry, parent, entry, {
-			tagName,
-		}) as MetaElement;
+		const expanded: MetaElement = deepmerge(
+			parent,
+			{ ...entry, tagName },
+			{ arrayMerge: overwriteMerge }
+		);
 		expandRegex(expanded);
 
 		this.elements[tagName] = expanded;
@@ -281,9 +280,15 @@ function expandRegexValue(value: string | RegExp): string | RegExp {
  */
 function expandRegex(entry: MetaElement): void {
 	if (!entry.attributes) return;
-	for (const [name, values] of Object.entries(entry.attributes)) {
-		if (values.enum) {
-			entry.attributes[name].enum = values.enum.map(expandRegexValue);
+	for (const [name, attr] of Object.entries(entry.attributes)) {
+		/* remove unset attributes completely */
+		if (!attr) {
+			delete entry.attributes[name];
+			continue;
+		}
+
+		if (attr.enum) {
+			attr.enum = attr.enum.map(expandRegexValue);
 		}
 	}
 }
@@ -342,7 +347,7 @@ function matchAttribute(node: HtmlElement, match: any): boolean {
 			`Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <${node.tagName}>`
 		);
 	}
-	const [key, op, value] = match.map(x => x.toLowerCase());
+	const [key, op, value] = match.map((x) => x.toLowerCase());
 	const nodeValue = (node.getAttributeValue(key) || "").toLowerCase();
 	switch (op) {
 		case "!=":
