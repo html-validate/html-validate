@@ -289,10 +289,10 @@ try {
 	} else if (mode === Mode.INIT) {
 		cli
 			.init(process.cwd())
-			.then(result => {
+			.then((result) => {
 				console.log(`Configuration written to "${result.filename}"`);
 			})
-			.catch(err => {
+			.catch((err) => {
 				if (err) {
 					console.error(err);
 				}

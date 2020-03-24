@@ -34,11 +34,11 @@ export class CaseStyle {
 	 * Test if a text matches this case style.
 	 */
 	public match(text: string): boolean {
-		return this.styles.some(style => text.match(style.pattern));
+		return this.styles.some((style) => text.match(style.pattern));
 	}
 
 	public get name(): string {
-		const names = this.styles.map(style => style.name);
+		const names = this.styles.map((style) => style.name);
 		switch (this.styles.length) {
 			case 1:
 				return names[0];

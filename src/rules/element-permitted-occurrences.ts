@@ -24,7 +24,7 @@ export default class ElementPermittedOccurrences extends Rule {
 
 				const rules = parent.meta.permittedContent;
 				const siblings = parent.childElements.filter(
-					cur => cur.tagName === node.tagName
+					(cur) => cur.tagName === node.tagName
 				);
 				const first = node.unique === siblings[0].unique;
 

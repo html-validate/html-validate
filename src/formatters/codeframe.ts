@@ -142,13 +142,13 @@ export default function codeframe(results: Result[]): string {
 	let warnings = 0;
 
 	const resultsWithMessages = results.filter(
-		result => result.messages.length > 0
+		(result) => result.messages.length > 0
 	);
 
 	let output = resultsWithMessages
 		.reduce((resultsOutput, result) => {
 			const messages = result.messages.map(
-				message => `${formatMessage(message, result)}\n\n`
+				(message) => `${formatMessage(message, result)}\n\n`
 			);
 
 			errors += result.errorCount;

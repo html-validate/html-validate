@@ -8,7 +8,7 @@ module.exports = function renderMarkdown(trimIndentation) {
 
 	// remove the leading whitespace from the code block before it gets to the
 	// markdown code render function
-	renderer.code = function(code, string, language) {
+	renderer.code = function (code, string, language) {
 		const trimmedCode = trimIndentation(code);
 		let renderedCode = marked.Renderer.prototype.code.call(
 			this,
@@ -38,7 +38,7 @@ module.exports = function renderMarkdown(trimIndentation) {
 	};
 
 	// Add § link to all headings
-	renderer.heading = function(text, level, raw) {
+	renderer.heading = function (text, level, raw) {
 		const slug = raw
 			.toLowerCase()
 			.replace(/\(.*?\)/g, "")
@@ -51,7 +51,7 @@ module.exports = function renderMarkdown(trimIndentation) {
 		return `<h${level} id="${id}">${text}${anchor}</h${level}>`;
 	};
 
-	const render = function(content) {
+	const render = function (content) {
 		return marked(content, {
 			highlight: render.highlight,
 			renderer,

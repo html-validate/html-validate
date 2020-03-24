@@ -30,11 +30,11 @@ function syncMock(pattern: string, options: Options = {}): string[] {
 	let src = mockFiles;
 	if (dir) {
 		src = src
-			.filter(cur => cur.startsWith(dir))
-			.map(cur => cur.slice(dir.length));
+			.filter((cur) => cur.startsWith(dir))
+			.map((cur) => cur.slice(dir.length));
 	}
 
-	return src.filter(cur => minimatch(cur, pattern));
+	return src.filter((cur) => minimatch(cur, pattern));
 }
 
 glob.setMockFiles = setMockFiles;

@@ -16,7 +16,7 @@ module.exports = function parseValidatesProcessor(
 	};
 
 	function $process(docs) {
-		docs.forEach(doc => {
+		docs.forEach((doc) => {
 			try {
 				if (!doc.content) {
 					return;
@@ -73,7 +73,7 @@ module.exports = function parseValidatesProcessor(
 
 	function extractAttributes(attributeText) {
 		const attributes = {};
-		attributeText.replace(ATTRIBUTE_REGEX, function(match, prop, val1, val2) {
+		attributeText.replace(ATTRIBUTE_REGEX, function (match, prop, val1, val2) {
 			attributes[prop] = val1 || val2;
 		});
 		return attributes;

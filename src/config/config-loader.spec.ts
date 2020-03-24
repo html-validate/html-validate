@@ -218,7 +218,7 @@ describe("ConfigLoader", () => {
 			];
 			const data = src.get();
 			data.rules = Object.keys(data.rules)
-				.filter(key => whitelisted.includes(key))
+				.filter((key) => whitelisted.includes(key))
 				.reduce((dst, key) => {
 					dst[key] = data.rules[key];
 					return dst;

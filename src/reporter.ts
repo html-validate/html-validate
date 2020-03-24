@@ -75,7 +75,7 @@ export class Reporter {
 	 * Merge two or more reports into a single one.
 	 */
 	public static merge(reports: Report[]): Report {
-		const valid = reports.every(report => report.valid);
+		const valid = reports.every((report) => report.valid);
 		const merged: { [key: string]: Result } = {};
 		reports.forEach((report: Report) => {
 			report.results.forEach((result: Result) => {
@@ -138,7 +138,7 @@ export class Reporter {
 	public save(sources?: Source[]): Report {
 		const report: Report = {
 			valid: this.isValid(),
-			results: Object.keys(this.result).map(filePath => {
+			results: Object.keys(this.result).map((filePath) => {
 				const messages = [].concat(this.result[filePath]).sort(messageSort);
 				const source = (sources || []).find(
 					(source: Source) => filePath === (source.filename ?? "")
@@ -168,11 +168,11 @@ export class Reporter {
 }
 
 function countErrors(messages: Message[]): number {
-	return messages.filter(m => m.severity === Severity.ERROR).length;
+	return messages.filter((m) => m.severity === Severity.ERROR).length;
 }
 
 function countWarnings(messages: Message[]): number {
-	return messages.filter(m => m.severity === Severity.WARN).length;
+	return messages.filter((m) => m.severity === Severity.WARN).length;
 }
 
 function sumErrors(results: Result[]): number {

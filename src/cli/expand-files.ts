@@ -59,7 +59,7 @@ export function expandFiles(
 					[directoryPattern(extensions)],
 					Object.assign({}, options, { cwd: fullpath })
 				);
-				result = result.concat(dir.map(cur => path.join(filename, cur)));
+				result = result.concat(dir.map((cur) => path.join(filename, cur)));
 				continue;
 			}
 

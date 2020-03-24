@@ -97,7 +97,7 @@ class HtmlValidate {
 	 */
 	public validateMultipleFiles(filenames: string[]): Report {
 		return Reporter.merge(
-			filenames.map(filename => this.validateFile(filename))
+			filenames.map((filename) => this.validateFile(filename))
 		);
 	}
 
@@ -185,7 +185,7 @@ class HtmlValidate {
 			if (source.transformedBy) {
 				result.push("Transformed by:");
 				result = result.concat(
-					source.transformedBy.reverse().map(name => ` - ${name}`)
+					source.transformedBy.reverse().map((name) => ` - ${name}`)
 				);
 			}
 			if (source.hooks && Object.keys(source.hooks).length > 0) {

@@ -15,30 +15,30 @@ module.exports = new Package("inline-validate", [])
 	.factory(require("./services/validateMap"))
 	.factory(require("./inline-tag-defs/inline-validation"))
 
-	.config(function(templateFinder) {
+	.config(function (templateFinder) {
 		templateFinder.templateFolders.push(path.resolve(packagePath, "templates"));
 	})
 
-	.config(function(inlineTagProcessor, inlineValidationInlineTagDef) {
+	.config(function (inlineTagProcessor, inlineValidationInlineTagDef) {
 		inlineTagProcessor.inlineTagDefinitions.push(inlineValidationInlineTagDef);
 	})
 
-	.config(function(computePathsProcessor, computeIdsProcessor) {
+	.config(function (computePathsProcessor, computeIdsProcessor) {
 		computePathsProcessor.pathTemplates.push({
 			docTypes: ["validate-config", "validate-markup"],
-			getPath: function() {},
+			getPath: function () {},
 			outputPathTemplate: "inline-validations/${id}",
 		});
 		computePathsProcessor.pathTemplates.push({
 			docTypes: ["validate-spec"],
-			getPath: function() {},
+			getPath: function () {},
 			outputPathTemplate:
 				"../${fileInfo.path}/__tests__/${fileInfo.file}.spec.ts",
 		});
 		computePathsProcessor.pathTemplates.push({
 			docTypes: ["inlineValidation"],
 			pathTemplate: "inline-validations/${validate.id}",
-			getOutputPath: function() {},
+			getOutputPath: function () {},
 		});
 		computeIdsProcessor.idTemplates.push({
 			docTypes: [
@@ -47,7 +47,7 @@ module.exports = new Package("inline-validate", [])
 				"validate-spec",
 				"inlineValidation",
 			],
-			getAliases: function(doc) {
+			getAliases: function (doc) {
 				return [doc.id];
 			},
 		});

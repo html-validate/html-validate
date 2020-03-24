@@ -52,7 +52,7 @@ export class DOMNode {
 	 * Get the text (recursive) from all child nodes.
 	 */
 	public get textContent(): string {
-		return this.childNodes.map(node => node.textContent).join("");
+		return this.childNodes.map((node) => node.textContent).join("");
 	}
 
 	public append(node: DOMNode): void {

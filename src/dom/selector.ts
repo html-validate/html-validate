@@ -183,7 +183,7 @@ export class Selector {
 			case Combinator.DESCENDANT:
 				return root.getElementsByTagName(pattern.tagName);
 			case Combinator.CHILD:
-				return root.childElements.filter(node => node.is(pattern.tagName));
+				return root.childElements.filter((node) => node.is(pattern.tagName));
 			case Combinator.ADJACENT_SIBLING:
 				return Selector.findAdjacentSibling(root);
 			case Combinator.GENERAL_SIBLING:
@@ -196,7 +196,7 @@ export class Selector {
 
 	private static findAdjacentSibling(node: HtmlElement): HtmlElement[] {
 		let adjacent = false;
-		return node.siblings.filter(cur => {
+		return node.siblings.filter((cur) => {
 			if (adjacent) {
 				adjacent = false;
 				return true;
@@ -210,7 +210,7 @@ export class Selector {
 
 	private static findGeneralSibling(node: HtmlElement): HtmlElement[] {
 		let after = false;
-		return node.siblings.filter(cur => {
+		return node.siblings.filter((cur) => {
 			if (after) {
 				return true;
 			}

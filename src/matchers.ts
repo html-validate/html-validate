@@ -117,7 +117,7 @@ function toHaveErrors(
 	errors: Array<[string, string] | {}>
 ): jest.CustomMatcherResult {
 	const actual = flattenMessages(report);
-	const matcher = errors.map(entry => {
+	const matcher = errors.map((entry) => {
 		if (Array.isArray(entry)) {
 			const [ruleId, message] = entry;
 			return expect.objectContaining({ ruleId, message });
@@ -170,7 +170,7 @@ function toHTMLValidate(
 		return { pass, message: () => "HTML is valid when an error was expected" };
 	} else {
 		const errors = report.results[0].messages.map(
-			message => `  ${message.message} [${message.ruleId}]`
+			(message) => `  ${message.message} [${message.ruleId}]`
 		);
 		return {
 			pass,

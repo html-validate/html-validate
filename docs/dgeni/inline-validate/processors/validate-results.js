@@ -13,7 +13,7 @@ module.exports = function generateValidationResultsProcessor(log, validateMap) {
 	function $process() {
 		const oldLevel = chalk.level;
 		chalk.level = 0;
-		validateMap.forEach(validation => {
+		validateMap.forEach((validation) => {
 			htmlvalidate = new HtmlValidate(validation.config);
 			validation.report = htmlvalidate.validateString(validation.markup);
 			validation.codeframe = codeframe(validation.report.results);

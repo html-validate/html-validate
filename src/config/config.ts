@@ -547,7 +547,7 @@ export class Config {
 		}
 
 		/* try to match an unnamed transformer from plugin */
-		const plugin = this.plugins.find(cur => cur.name === name);
+		const plugin = this.plugins.find((cur) => cur.name === name);
 		if (plugin) {
 			return this.getUnnamedTransformerFromPlugin(name, plugin);
 		}
@@ -566,7 +566,7 @@ export class Config {
 		pluginName: string,
 		key: string
 	): Transformer {
-		const plugin = this.plugins.find(cur => cur.name === pluginName);
+		const plugin = this.plugins.find((cur) => cur.name === pluginName);
 		if (!plugin) {
 			throw new ConfigError(`No plugin named "${pluginName}" has been loaded`);
 		}

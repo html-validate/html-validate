@@ -20,7 +20,7 @@ In `cypress/plugins/index.js`:
 ```js
 const htmlvalidate = require("cypress-html-validate/dist/plugin");
 
-module.exports = on => {
+module.exports = (on) => {
   htmlvalidate.install(on);
 };
 ```

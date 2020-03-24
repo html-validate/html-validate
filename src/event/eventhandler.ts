@@ -59,7 +59,7 @@ export class EventHandler {
 			this.listeners[event] || [],
 			this.listeners["*"] || []
 		);
-		callbacks.forEach(listener => {
+		callbacks.forEach((listener) => {
 			listener.call(null, event, data);
 		});
 	}

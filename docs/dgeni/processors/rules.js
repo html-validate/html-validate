@@ -27,7 +27,7 @@ module.exports = function rulesProcessor(renderDocsProcessor) {
 		const ruleDocs = docs.filter(isRuleDocument);
 
 		/* compule rule source paths */
-		ruleDocs.forEach(doc => {
+		ruleDocs.forEach((doc) => {
 			const docPath = doc.fileInfo.projectRelativePath;
 			doc.ruleSourcePath = docPath
 				.replace("docs", "src")
@@ -35,7 +35,7 @@ module.exports = function rulesProcessor(renderDocsProcessor) {
 		});
 
 		/* generate title */
-		ruleDocs.forEach(doc => {
+		ruleDocs.forEach((doc) => {
 			if (!doc.title) {
 				doc.title = `${doc.summary} (${doc.name})`;
 			}
@@ -43,7 +43,7 @@ module.exports = function rulesProcessor(renderDocsProcessor) {
 
 		/* find all available rules */
 		const rules = ruleDocs
-			.map(doc => ({
+			.map((doc) => ({
 				name: doc.name,
 				url: doc.outputPath,
 				category: doc.category,
@@ -55,7 +55,7 @@ module.exports = function rulesProcessor(renderDocsProcessor) {
 
 		/* group rules into categories */
 		const categories = {};
-		rules.forEach(rule => {
+		rules.forEach((rule) => {
 			const category = rule.category || "other";
 			if (!(category in categories)) {
 				categories[category] = [];
