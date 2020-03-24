@@ -1,5 +1,15 @@
 # html-validate changelog
 
+# [2.19.0](https://gitlab.com/html-validate/html-validate/compare/v2.18.1...v2.19.0) (2020-03-24)
+
+### Bug Fixes
+
+- **meta:** deep merge during inheritance ([85c377d](https://gitlab.com/html-validate/html-validate/commit/85c377d185492407d72fde39bd14d6a80935a56a)), closes [#72](https://gitlab.com/html-validate/html-validate/issues/72)
+
+### Features
+
+- **meta:** implicit inheritance when overriding existing element ([8833a0f](https://gitlab.com/html-validate/html-validate/commit/8833a0fcc9873eee4938619cdae78afa45e48ce5))
+
 ## [2.18.1](https://gitlab.com/html-validate/html-validate/compare/v2.18.0...v2.18.1) (2020-03-22)
 
 ### Bug Fixes
