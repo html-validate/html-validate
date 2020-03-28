@@ -1,8 +1,6 @@
-import { FormatterModule } from ".";
+import { Formatter } from "./formatter";
 
 const stylish = require("eslint/lib/cli-engine/formatters/stylish");
 
-export default stylish;
-
-declare const module: FormatterModule;
-module.exports = stylish;
+const formatter: Formatter = stylish;
+export default formatter;

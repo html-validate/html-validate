@@ -90,4 +90,11 @@ describe("cli/formatters", () => {
 		expect(fs.mkdirSync).toHaveBeenCalledWith("mydir", { recursive: true });
 		expect(fs.writeFileSync).toHaveBeenCalledWith("mydir/foo.txt", "", "utf-8");
 	});
+
+	it("should throw error when formatter is missing", () => {
+		expect.assertions(1);
+		expect(() => cli.getFormatter("missing")).toThrow(
+			'No formatter named "missing"'
+		);
+	});
 });

@@ -1,6 +1,6 @@
 const chalk = require("chalk");
 const HtmlValidate = require("../../../../build/htmlvalidate").default;
-const codeframe = require("../../../../build/formatters/codeframe");
+const codeframe = require("../../../../build/formatters/codeframe").default;
 
 module.exports = function generateValidationResultsProcessor(log, validateMap) {
 	return {

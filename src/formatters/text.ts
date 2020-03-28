@@ -1,7 +1,7 @@
 import { Result } from "../reporter";
-import { FormatterModule } from ".";
+import { Formatter } from "./formatter";
 
-export default function textFormatter(results: Result[]): string {
+function textFormatter(results: Result[]): string {
 	let output = "";
 	let total = 0;
 
@@ -33,5 +33,5 @@ export default function textFormatter(results: Result[]): string {
 	return total > 0 ? output : "";
 }
 
-declare const module: FormatterModule;
-module.exports = textFormatter;
+const formatter: Formatter = textFormatter;
+export default formatter;
