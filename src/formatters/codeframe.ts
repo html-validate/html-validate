@@ -1,7 +1,7 @@
 import path from "path";
 import { codeFrameColumns } from "@babel/code-frame";
 import { Message, Result } from "../reporter";
-import { FormatterModule } from ".";
+import { Formatter } from "./formatter";
 
 import chalk = require("chalk");
 
@@ -13,8 +13,6 @@ interface SourcePoint {
 /**
  * Codeframe formatter based on ESLint codeframe.
  */
-
-declare const module: FormatterModule;
 
 /**
  * Given a word and a count, append an s if count is not one.
@@ -137,7 +135,7 @@ function formatSummary(errors: number, warnings: number): string {
 	return chalk[summaryColor].bold(`${summary.join(" and ")} found.`);
 }
 
-export default function codeframe(results: Result[]): string {
+function codeframe(results: Result[]): string {
 	let errors = 0;
 	let warnings = 0;
 
@@ -165,4 +163,5 @@ export default function codeframe(results: Result[]): string {
 	return errors + warnings > 0 ? output : "";
 }
 
-module.exports = codeframe;
+const formatter: Formatter = codeframe;
+export default formatter;

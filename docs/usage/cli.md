@@ -44,6 +44,8 @@ Possible formats are:
 Multiples formatters can be set with a comma-separated list: `--formatter stylish,checkstyle`.
 Output can be redirected to a file using `name=path`: `--formatter checkstyle=result.xml`.
 
+Custom formatters can be used by specifying a package name: `--formater my-custom-formatter`.
+
     html-validate --formatter stylish file.html
 
 ### `--max-warnings`

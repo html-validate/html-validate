@@ -4,6 +4,7 @@ import { CLI } from "./cli";
 /* all mocked formatters must return empty string */
 const textFormatter = jest.fn((report: Report) => ""); // eslint-disable-line @typescript-eslint/no-unused-vars
 const jsonFormatter = jest.fn((report: Report) => ""); // eslint-disable-line @typescript-eslint/no-unused-vars
+const customFormatter = jest.fn((report: Report) => ""); // eslint-disable-line @typescript-eslint/no-unused-vars
 
 jest.mock("../formatters/text", () => {
 	return (report: Report) => textFormatter(report);
@@ -12,6 +13,14 @@ jest.mock("../formatters/text", () => {
 jest.mock("../formatters/json", () => {
 	return (report: Report) => jsonFormatter(report);
 });
+
+jest.mock(
+	"custom-formatter",
+	() => {
+		return (report: Report) => customFormatter(report);
+	},
+	{ virtual: true }
+);
 
 const fs = {
 	existsSync: jest.fn().mockReturnValue(true),
@@ -74,6 +83,13 @@ describe("cli/formatters", () => {
 		expect(jsonFormatter).toHaveBeenCalledWith(report.results);
 	});
 
+	it("should call custom formatter", () => {
+		expect.assertions(1);
+		const wrapped = cli.getFormatter("custom-formatter");
+		wrapped(report);
+		expect(customFormatter).toHaveBeenCalledWith(report.results);
+	});
+
 	it("should redirect output to file", () => {
 		expect.assertions(2);
 		const wrapped = cli.getFormatter("text=foo.txt");
@@ -89,5 +105,12 @@ describe("cli/formatters", () => {
 		wrapped(report);
 		expect(fs.mkdirSync).toHaveBeenCalledWith("mydir", { recursive: true });
 		expect(fs.writeFileSync).toHaveBeenCalledWith("mydir/foo.txt", "", "utf-8");
+	});
+
+	it("should throw error when formatter is missing", () => {
+		expect.assertions(1);
+		expect(() => cli.getFormatter("missing")).toThrow(
+			'No formatter named "missing"'
+		);
 	});
 });
