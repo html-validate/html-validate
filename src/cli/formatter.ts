@@ -27,10 +27,16 @@ function wrap(
 
 function loadFormatter(name: string): Formatter {
 	const fn = formatterFactory(name);
-	if (!fn) {
-		throw new UserError(`No formatter named "${name}"`);
+	if (fn) {
+		return fn;
 	}
-	return fn;
+
+	try {
+		/* eslint-disable-next-line import/no-dynamic-require */
+		return require(name);
+	} catch (error) {
+		throw new UserError(`No formatter named "${name}"`, error);
+	}
 }
 
 export function getFormatter(formatters: string): (report: Report) => string {
