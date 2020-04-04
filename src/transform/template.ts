@@ -142,7 +142,8 @@ function compareKey(
 }
 
 export class TemplateExtractor {
-	protected ast: ESTree.Program;
+	private ast: ESTree.Program;
+
 	private filename: string;
 	private data: string;
 
