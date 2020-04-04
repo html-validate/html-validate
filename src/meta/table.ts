@@ -1,4 +1,3 @@
-import fs from "fs";
 import Ajv from "ajv";
 import deepmerge from "deepmerge";
 import jsonMergePatch from "json-merge-patch";
@@ -137,17 +136,21 @@ export class MetaTable {
 	 * Load metadata table from filename
 	 */
 	public loadFromFile(filename: string): void {
-		let json;
 		try {
-			const data = fs.readFileSync(filename, "utf-8");
-			json = JSON.parse(data);
+			/* remove cached copy so we always load a fresh copy, important for
+			 * editors which keep a long-running instance of [[HtmlValidate]]
+			 * around. */
+			delete require.cache[require.resolve(filename)];
+
+			/* load using require as it can process both js and json */
+			const data = require(filename); // eslint-disable-line import/no-dynamic-require
+			this.loadFromObject(data, filename);
 		} catch (err) {
 			throw new UserError(
 				`Failed to load element metadata from "${filename}"`,
 				err
 			);
 		}
-		this.loadFromObject(clone(json), filename);
 	}
 
 	/**
