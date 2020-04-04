@@ -158,7 +158,7 @@ export class MetaTable {
 	 *
 	 * @returns A shallow copy of metadata.
 	 */
-	public getMetaFor(tagName: string): MetaElement {
+	public getMetaFor(tagName: string): MetaElement | null {
 		tagName = tagName.toLowerCase();
 		return this.elements[tagName]
 			? Object.assign({}, this.elements[tagName])

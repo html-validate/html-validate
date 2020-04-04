@@ -21,7 +21,7 @@ import {
 	WhitespaceEvent,
 } from "../event";
 import { Lexer, Token, TokenStream, TokenType } from "../lexer";
-import { MetaTable } from "../meta";
+import { MetaTable, MetaElement } from "../meta";
 import { AttributeData } from "./attribute-data";
 import { parseConditionalComment } from "./conditional-comment";
 import { ParserError } from "./parser-error";
@@ -294,7 +294,7 @@ export class Parser {
 			const processElement = source.hooks.processElement;
 			const metaTable = this.metaTable;
 			const context: ProcessElementContext = {
-				getMetaFor(tagName: string) {
+				getMetaFor(tagName: string): MetaElement | null {
 					return metaTable.getMetaFor(tagName);
 				},
 			};
