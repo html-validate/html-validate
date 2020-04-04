@@ -1,3 +1,5 @@
+import path from "path";
+
 /* mock ajv for easier testing of errors and to allow invalid values though the
  * validation to ensure the code works anyway */
 interface Validate {
@@ -92,6 +94,49 @@ describe("MetaTable", () => {
 		} as unknown) as MetaDataTable);
 		expect(table.getMetaFor("foo")).toBeDefined();
 		expect(table.getMetaFor("$schema")).toBeNull();
+	});
+
+	describe("should load metadata from", () => {
+		const fileDir = path.resolve(__dirname, "../../test-files/meta");
+
+		it("json file", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			const filename = path.join(fileDir, "elements-json.json");
+			table.loadFromFile(filename);
+			expect(table.getMetaFor("foo")).toMatchInlineSnapshot(`
+				Object {
+				  "flow": true,
+				  "tagName": "foo",
+				}
+			`);
+		});
+
+		it("js file", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			const filename = path.join(fileDir, "elements-js.js");
+			table.loadFromFile(filename);
+			expect(table.getMetaFor("foo")).toMatchInlineSnapshot(`
+				Object {
+				  "flow": true,
+				  "tagName": "foo",
+				}
+			`);
+		});
+
+		it("js without extension", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			const filename = path.join(fileDir, "elements-js");
+			table.loadFromFile(filename);
+			expect(table.getMetaFor("foo")).toMatchInlineSnapshot(`
+				Object {
+				  "flow": true,
+				  "tagName": "foo",
+				}
+			`);
+		});
 	});
 
 	describe("getMetaFor", () => {
