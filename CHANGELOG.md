@@ -1,5 +1,18 @@
 # html-validate changelog
 
+# [2.20.0](https://gitlab.com/html-validate/html-validate/compare/v2.19.0...v2.20.0) (2020-04-05)
+
+### Bug Fixes
+
+- **meta:** add missing null return type to MetaTable.getMetaFor ([44eac5b](https://gitlab.com/html-validate/html-validate/commit/44eac5b4efffdd0bcf6973364b595501eabe9b25))
+- allow loading elements from js-file again ([5569a94](https://gitlab.com/html-validate/html-validate/commit/5569a9428cef8ca168d79a2e75be851e141838e8))
+- make `ast` property private ([cb1a2c8](https://gitlab.com/html-validate/html-validate/commit/cb1a2c867583616819488102a3a46431821615a6))
+
+### Features
+
+- support loading custom formatters ([0b02a31](https://gitlab.com/html-validate/html-validate/commit/0b02a31c4f34cca840c9ada60e76634976461f38))
+- **formatters:** use factory to load formatters to make it more webpack-friendly ([81bef6e](https://gitlab.com/html-validate/html-validate/commit/81bef6e79287884ee2a6c804cefe136e222c1b78))
+
 # [2.19.0](https://gitlab.com/html-validate/html-validate/compare/v2.18.1...v2.19.0) (2020-03-24)
 
 ### Bug Fixes
