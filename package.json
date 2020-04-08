@@ -93,7 +93,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.9.0",
-    "@babel/preset-env": "7.9.0",
+    "@babel/preset-env": "7.9.5",
     "@commitlint/cli": "8.3.5",
     "@html-validate/commitlint-config": "1.0.3",
     "@html-validate/eslint-config": "1.2.2",
