@@ -97,6 +97,7 @@
     "@commitlint/cli": "8.3.5",
     "@html-validate/commitlint-config": "1.0.3",
     "@html-validate/eslint-config": "1.2.3",
+    "@html-validate/jest-config": "1.0.1",
     "@html-validate/prettier-config": "1.0.1",
     "@html-validate/semantic-release-config": "1.0.16",
     "@types/babel__code-frame": "7.0.1",
@@ -132,7 +133,6 @@
     "husky": "4.2.5",
     "jest": "25.3.0",
     "jest-diff": "25.3.0",
-    "jest-junit": "10.0.0",
     "jquery": "3.5.0",
     "lint-staged": "10.1.3",
     "load-grunt-tasks": "5.1.0",
@@ -148,28 +148,13 @@
     "typescript": "3.8.3"
   },
   "jest": {
-    "collectCoverage": true,
+    "preset": "@html-validate/jest-config",
     "collectCoverageFrom": [
       "src/**/*.ts",
       "!src/**/*.spec.ts",
       "!src/**/index.ts",
       "!src/shim.ts",
       "!src/cli/html-validate.ts"
-    ],
-    "coverageReporters": [
-      "text",
-      "text-summary",
-      "html"
-    ],
-    "reporters": [
-      "default",
-      [
-        "jest-junit",
-        {
-          "outputDirectory": "temp",
-          "outputName": "./jest.xml"
-        }
-      ]
     ],
     "roots": [
       "<rootDir>/docs",
@@ -179,14 +164,6 @@
     ],
     "snapshotSerializers": [
       "pretty-format/build/plugins/ConvertAnsi"
-    ],
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "(/__tests__/.+|(\\.|/)(test|spec))\\.tsx?$",
-    "moduleFileExtensions": [
-      "ts",
-      "js"
     ]
   }
 }
