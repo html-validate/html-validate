@@ -109,29 +109,29 @@ function handleValidationError(err: SchemaValidationError): void {
 	} else {
 		console.log(chalk.red(`A configuration error was found:`));
 	}
-	if (console.group) console.group();
+	console.group();
 	{
 		console.log(err.prettyError());
 	}
-	if (console.group) console.groupEnd();
+	console.groupEnd();
 }
 
 function handleUserError(err: UserError): void {
 	console.error(chalk.red("Caught exception:"));
-	if (console.group) console.group();
+	console.group();
 	{
 		console.error(err);
 	}
-	if (console.group) console.groupEnd();
+	console.groupEnd();
 }
 
 function handleUnknownError(err: Error): void {
 	console.error(chalk.red("Caught exception:"));
-	if (console.group) console.group();
+	console.group();
 	{
 		console.error(err);
 	}
-	if (console.group) console.groupEnd();
+	console.groupEnd();
 	const bugUrl = `${pkg.bugs.url}?issuable_template=Bug`;
 	console.error(chalk.red(`This is a bug in ${pkg.name}-${pkg.version}.`));
 	console.error(
