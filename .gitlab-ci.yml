@@ -162,6 +162,10 @@ html-validate-vue:
   <<: *downstream
   trigger: html-validate/html-validate-vue
 
+html-validate-vue-webpack-plugin:
+  <<: *downstream
+  trigger: html-validate/html-validate-vue
+
 protractor-html-validate:
   <<: *downstream
   trigger: html-validate/protractor-html-validate
