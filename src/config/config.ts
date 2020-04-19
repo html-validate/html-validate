@@ -64,8 +64,12 @@ function mergeInternal(base: ConfigData, rhs: ConfigData): ConfigData {
 function loadFromFile(filename: string): ConfigData {
 	let json;
 	try {
-		const data = fs.readFileSync(filename, "utf-8");
-		json = JSON.parse(data);
+		/* remove cached copy so we always load a fresh copy, important for editors
+		 * which keep a long-running instance of [[HtmlValidate]] around. */
+		delete require.cache[require.resolve(filename)];
+
+		/* load using require as it can process both js and json */
+		json = require(filename); // eslint-disable-line import/no-dynamic-require
 	} catch (err) {
 		throw new ConfigError(
 			`Failed to read configuration from "${filename}"`,

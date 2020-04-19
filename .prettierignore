@@ -17,6 +17,7 @@
 
 # will contain errors
 /test-files/**/*.html
+/tests/**/*.html
 
 # local test files
 /sites

@@ -1,0 +1,7 @@
+{
+  "elements": ["./elements.js"],
+  "rules": {
+    "deprecated": "error",
+    "no-unknown-elements": "error"
+  }
+}
