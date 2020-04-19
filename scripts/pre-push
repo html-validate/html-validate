@@ -12,6 +12,7 @@ npm test
 
 echo Run linting
 npm run eslint -- --max-warnings 0
+npm run prettier:check
 
 echo Lint documentation
 npm run htmlvalidate -- --config docs/htmlvalidate-templates.json 'docs/**/*.html'

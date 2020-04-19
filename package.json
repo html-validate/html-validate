@@ -66,7 +66,7 @@
     }
   },
   "lint-staged": {
-    "*.{ts,js,json,md,scss}": "prettier --write"
+    "*.{ts,js,json,html,md,scss}": "prettier --write"
   },
   "prettier": "@html-validate/prettier-config",
   "renovate": {
