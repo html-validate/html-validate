@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [2.20.1](https://gitlab.com/html-validate/html-validate/compare/v2.20.0...v2.20.1) (2020-04-19)
+
+### Bug Fixes
+
+- handle loading js-files via `extends` again ([e29987f](https://gitlab.com/html-validate/html-validate/commit/e29987f213a1f295751c285c582209047c68bc2b))
+
 # [2.20.0](https://gitlab.com/html-validate/html-validate/compare/v2.19.0...v2.20.0) (2020-04-05)
 
 ### Bug Fixes
