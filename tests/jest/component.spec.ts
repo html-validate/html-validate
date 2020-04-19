@@ -1,4 +1,4 @@
-import "../../../src/matchers";
+import "../../src/matchers";
 
 it("should validate ok", () => {
 	expect.assertions(1);
