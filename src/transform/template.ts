@@ -9,6 +9,11 @@ import { Source } from "../context";
 const espree = require("espree");
 const walk = require("acorn-walk");
 
+export interface Position {
+	line: number;
+	column: number;
+}
+
 /* espree puts location information a bit different than estree */
 declare module "estree" {
 	interface TemplateElement {
@@ -29,9 +34,13 @@ function joinTemplateLiteral(nodes: ESTree.TemplateElement[]): string {
 }
 
 /**
- * espree locations does not include offset, need to calculate it manually.
+ * Compute source offset from line and column and the given markup.
+ *
+ * @param position - Line and column.
+ * @param data - Source markup.
+ * @returns The byte offset into the markup which line and column corresponds to.
  */
-function computeOffset(position: ESTree.Position, data: string): number {
+export function computeOffset(position: Position, data: string): number {
 	let line = position.line;
 	let column = position.column + 1;
 	for (let i = 0; i < data.length; i++) {
