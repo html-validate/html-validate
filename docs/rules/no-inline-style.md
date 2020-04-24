@@ -5,7 +5,7 @@ category: style
 summary: Disallow inline style
 ---
 
-# disallow inline style (`no-inline-style`)
+# Disallow inline style (`no-inline-style`)
 
 Inline style is a sign of unstructured CSS. Use class or ID with a separate
 stylesheet.
@@ -23,3 +23,31 @@ Examples of **correct** code for this rule:
 <validate name="correct" rules="no-inline-style">
     <p class="error"></p>
 </validate>
+
+## Options
+
+This rule takes an optional object:
+
+```javascript
+{
+	"include": []
+	"exclude": []
+}
+```
+
+Both `include` and `exclude` are only useful when using a framework with dynamic attributes such as `ng-style` or `:style` to allow/disallow one or more specific variant of the attribute.
+For instance:
+
+```html
+<p :style="style></p>
+```
+
+would normally trigger the rule when using {@link frameworks/vue html-validate-vue} but by adding `:style` to `exclude` it can be allowed.
+
+### `include`
+
+If set only attributes listed in this array generates errors.
+
+### `exclude`
+
+If set attributes listed in this array is ignored.
