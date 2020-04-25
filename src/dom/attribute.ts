@@ -13,7 +13,7 @@ export class Attribute {
 	public readonly value: string | DynamicValue;
 	public readonly keyLocation: Location;
 	public readonly valueLocation: Location;
-	public readonly originalAttribute: string;
+	public readonly originalAttribute?: string;
 
 	/**
 	 * @param key - Attribute name.

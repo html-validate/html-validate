@@ -273,11 +273,21 @@ export class HtmlElement extends DOMNode {
 		this.annotation = text;
 	}
 
+	/**
+	 * Set attribute. Stores all attributes set even with the same name.
+	 *
+	 * @param key - Attribute name
+	 * @param value - Attribute value. Use `null` if no value is present.
+	 * @param keyLocation - Location of the attribute name.
+	 * @param valueLocation - Location of the attribute value (excluding quotation)
+	 * @param originalAttribute - If attribute is an alias for another attribute
+	 * (dynamic attributes) set this to the original attribute name.
+	 */
 	public setAttribute(
 		key: string,
-		value: string | DynamicValue,
-		keyLocation: Location,
-		valueLocation: Location,
+		value: string | DynamicValue | null,
+		keyLocation: Location | null,
+		valueLocation: Location | null,
 		originalAttribute?: string
 	): void {
 		key = key.toLowerCase();
