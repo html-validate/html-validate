@@ -118,6 +118,10 @@ Node 13.x (current):
   <<: *compat
   image: node:13
 
+Node 14.x (current):
+  <<: *compat
+  image: node:14
+
 Release:
   stage: release
   image: node:12
