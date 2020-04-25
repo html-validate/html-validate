@@ -106,6 +106,9 @@ export class MetaTable {
 
 	/**
 	 * Load metadata table from object.
+	 *
+	 * @param obj - Object with metadata to load
+	 * @param filename - Optional filename used when presenting validation error
 	 */
 	public loadFromObject(
 		obj: MetaDataTable,
@@ -134,6 +137,8 @@ export class MetaTable {
 
 	/**
 	 * Load metadata table from filename
+	 *
+	 * @param filename - Filename to load
 	 */
 	public loadFromFile(filename: string): void {
 		try {
@@ -146,6 +151,9 @@ export class MetaTable {
 			const data = require(filename); // eslint-disable-line import/no-dynamic-require
 			this.loadFromObject(data, filename);
 		} catch (err) {
+			if (err instanceof SchemaValidationError) {
+				throw err;
+			}
 			throw new UserError(
 				`Failed to load element metadata from "${filename}"`,
 				err
