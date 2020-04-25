@@ -1,7 +1,8 @@
 import fs from "fs";
 import path from "path";
-import { Formatter } from "../formatters";
+import { getFormatter as formatterFactory, Formatter } from "../formatters";
 import { Report, Result } from "../reporter";
+import { UserError } from "../error";
 
 type WrappedFormatter = (results: Result[]) => string;
 
@@ -24,13 +25,25 @@ function wrap(
 	};
 }
 
+function loadFormatter(name: string): Formatter {
+	const fn = formatterFactory(name);
+	if (fn) {
+		return fn;
+	}
+
+	try {
+		/* eslint-disable-next-line import/no-dynamic-require */
+		return require(name);
+	} catch (error) {
+		throw new UserError(`No formatter named "${name}"`, error);
+	}
+}
+
 export function getFormatter(formatters: string): (report: Report) => string {
 	const fn: WrappedFormatter[] = formatters.split(",").map((cur) => {
 		const [name, dst] = cur.split("=", 2);
-		const moduleName = name.replace(/[^a-z]+/g, "");
-		/* eslint-disable-next-line import/no-dynamic-require */
-		const formatter = require(`../formatters/${moduleName}`);
-		return wrap(formatter, dst);
+		const fn = loadFormatter(name);
+		return wrap(fn, dst);
 	});
 	return (report: Report) => {
 		return fn

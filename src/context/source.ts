@@ -8,7 +8,7 @@ export type ProcessAttributeCallback = (
 ) => Iterable<AttributeData>;
 
 export interface ProcessElementContext {
-	getMetaFor(tagName: string): MetaElement;
+	getMetaFor(tagName: string): MetaElement | null;
 }
 
 export type ProcessElementCallback = (

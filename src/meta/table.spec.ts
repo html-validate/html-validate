@@ -1,3 +1,5 @@
+import path from "path";
+
 /* mock ajv for easier testing of errors and to allow invalid values though the
  * validation to ensure the code works anyway */
 interface Validate {
@@ -33,7 +35,7 @@ jest.mock(
 );
 
 import { Config } from "../config";
-import { UserError } from "../error/user-error";
+import { UserError, SchemaValidationError } from "../error";
 import { Parser } from "../parser";
 import { MetaDataTable } from "./element";
 import { MetaData, MetaTable } from ".";
@@ -76,7 +78,7 @@ describe("MetaTable", () => {
 		});
 	});
 
-	it("should throw error if data does not validate", () => {
+	it("should throw SchemaValidationError if object does not validate", () => {
 		expect.assertions(2);
 		validate.errors = [
 			{
@@ -92,13 +94,35 @@ describe("MetaTable", () => {
 			table.loadFromObject({
 				foo: mockEntry({ invalid: true }),
 			});
-		expect(fn).toThrow(UserError);
+		expect(fn).toThrow(SchemaValidationError);
 		expect(fn).toThrow(
 			"Element metadata is not valid: /foo Property invalid is not expected to be here"
 		);
 	});
 
-	it("should throw user-error if file is not properly formatted json", () => {
+	it("should throw SchemaValidationError if file does not validate", () => {
+		expect.assertions(2);
+		const filename = path.resolve(
+			__dirname,
+			"../../test-files/meta/invalid-schema.json"
+		);
+		const table = new MetaTable();
+		validate.errors = [
+			{
+				keyword: "additionalProperties",
+				dataPath: "/foo",
+				schemaPath: "#/patternProperties/%5E.*%24/additionalProperties",
+				params: { additionalProperty: "invalid" },
+				message: "should NOT have additional properties",
+			},
+		];
+		expect(() => table.loadFromFile(filename)).toThrow(SchemaValidationError);
+		expect(() => table.loadFromFile(filename)).toThrow(
+			"Element metadata is not valid: /foo Property invalid is not expected to be here"
+		);
+	});
+
+	it("should throw UserError if file is not properly formatted json", () => {
 		expect.assertions(2);
 		const table = new MetaTable();
 		expect(() => table.loadFromFile("invalid-file.json")).toThrow(UserError);
@@ -118,6 +142,49 @@ describe("MetaTable", () => {
 		} as unknown) as MetaDataTable);
 		expect(table.getMetaFor("foo")).toBeDefined();
 		expect(table.getMetaFor("$schema")).toBeNull();
+	});
+
+	describe("should load metadata from", () => {
+		const fileDir = path.resolve(__dirname, "../../test-files/meta");
+
+		it("json file", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			const filename = path.join(fileDir, "elements-json.json");
+			table.loadFromFile(filename);
+			expect(table.getMetaFor("foo")).toMatchInlineSnapshot(`
+				Object {
+				  "flow": true,
+				  "tagName": "foo",
+				}
+			`);
+		});
+
+		it("js file", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			const filename = path.join(fileDir, "elements-js.js");
+			table.loadFromFile(filename);
+			expect(table.getMetaFor("foo")).toMatchInlineSnapshot(`
+				Object {
+				  "flow": true,
+				  "tagName": "foo",
+				}
+			`);
+		});
+
+		it("js without extension", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			const filename = path.join(fileDir, "elements-js");
+			table.loadFromFile(filename);
+			expect(table.getMetaFor("foo")).toMatchInlineSnapshot(`
+				Object {
+				  "flow": true,
+				  "tagName": "foo",
+				}
+			`);
+		});
 	});
 
 	describe("getMetaFor", () => {

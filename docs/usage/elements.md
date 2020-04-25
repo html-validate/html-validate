@@ -342,6 +342,34 @@ using `exclude`:
 }
 ```
 
+#### Combining (AND)
+
+Permitted content matches if the element matches any of the entries.
+Entires can also be combined so multiple entries must all match by wrapping entires in an array:
+
+```js
+"custom-elements": {
+  "permittedContent": [
+    ["@flow", {"exclude": "div"}]
+  ]
+}
+```
+
+This will allow any flow content except `<div>`.
+
+Be careful when using multiple combined entries as each group will still match if any matches:
+
+```js
+"custom-elements": {
+  "permittedContent": [
+	"@flow",
+    ["@phrasing", {"exclude": "em"}]
+  ]
+}
+```
+
+Since `<em>` will match `@flow` it will be allowed even if excluded by the next entry.
+
 #### Limit occurrences
 
 If a child is only allowed once it can be suffixed with `?` to limit to 0 or 1

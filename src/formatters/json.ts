@@ -1,9 +1,9 @@
 import { Result } from "../reporter";
-import { FormatterModule } from ".";
+import { Formatter } from "./formatter";
 
-export default function jsonFormatter(results: Result[]): string {
+function jsonFormatter(results: Result[]): string {
 	return JSON.stringify(results);
 }
 
-declare const module: FormatterModule;
-module.exports = jsonFormatter;
+const formatter: Formatter = jsonFormatter;
+export default formatter;

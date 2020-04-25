@@ -1,5 +1,5 @@
 import { Message, Result } from "../reporter";
-import { FormatterModule } from ".";
+import { Formatter } from "./formatter";
 
 const entities: { [key: string]: string } = {
 	">": "&gt;",
@@ -27,7 +27,7 @@ function getMessageType(message: Message): "error" | "warning" {
 	}
 }
 
-export default function checkstyleFormatter(results: Result[]): string {
+function checkstyleFormatter(results: Result[]): string {
 	let output = "";
 
 	output += `<?xml version="1.0" encoding="utf-8"?>`;
@@ -61,5 +61,5 @@ export default function checkstyleFormatter(results: Result[]): string {
 	return output;
 }
 
-declare const module: FormatterModule;
-module.exports = checkstyleFormatter;
+const formatter: Formatter = checkstyleFormatter;
+export default formatter;

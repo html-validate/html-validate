@@ -22,14 +22,14 @@ export interface Plugin {
 	 *
 	 * Hint: import and use the name from `package.json`.
 	 */
-	name?: string;
+	name?: string | null;
 
 	/**
 	 * Initialization callback.
 	 *
 	 * Called once per plugin during initialization.
 	 */
-	init?: () => void;
+	init?: () => void | null;
 
 	/**
 	 * Setup callback.
@@ -40,7 +40,7 @@ export interface Plugin {
 	 * @param eventhandler Eventhandler from parser. Can be used to listen for
 	 * parser events.
 	 */
-	setup?: (source: Source, eventhandler: EventHandler) => void;
+	setup?: (source: Source, eventhandler: EventHandler) => void | null;
 
 	/**
 	 * Configuration presets.
@@ -51,12 +51,12 @@ export interface Plugin {
 	 *
 	 * "extends": ["my-plugin:foobar"]
 	 */
-	configs?: Record<string, ConfigData>;
+	configs?: Record<string, ConfigData | null> | null;
 
 	/**
 	 * List of new rules present.
 	 */
-	rules?: Record<string, RuleConstructor<any, any>>;
+	rules?: Record<string, RuleConstructor<any, any> | null> | null;
 
 	/**
 	 * Transformer available in this plugin.
@@ -80,10 +80,10 @@ export interface Plugin {
 	 *   "^.*\\.foo$": "my-plugin:foobar"
 	 * }
 	 */
-	transformer?: Transformer | Record<string, Transformer>;
+	transformer?: Transformer | Record<string, Transformer | null> | null;
 
 	/**
 	 * Extend metadata validation schema.
 	 */
-	elementSchema?: SchemaValidationPatch;
+	elementSchema?: SchemaValidationPatch | null;
 }

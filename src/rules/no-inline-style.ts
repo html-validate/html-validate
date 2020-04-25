@@ -1,7 +1,21 @@
 import { AttributeEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-export default class NoInlineStyle extends Rule {
+export interface RuleOptions {
+	include: string[] | null;
+	exclude: string[] | null;
+}
+
+const defaults: RuleOptions = {
+	include: null,
+	exclude: null,
+};
+
+export default class NoInlineStyle extends Rule<void, RuleOptions> {
+	public constructor(options: RuleOptions) {
+		super(Object.assign({}, defaults, options));
+	}
+
 	public documentation(): RuleDocumentation {
 		return {
 			description:
@@ -12,9 +26,30 @@ export default class NoInlineStyle extends Rule {
 
 	public setup(): void {
 		this.on("attr", (event: AttributeEvent) => {
-			if (event.key === "style") {
+			if (this.isRelevant(event)) {
 				this.report(event.target, "Inline style is not allowed");
 			}
 		});
+	}
+
+	private isRelevant(event: AttributeEvent): boolean {
+		if (event.key !== "style") {
+			return false;
+		}
+
+		const { include, exclude } = this.options;
+		const key = event.originalAttribute || event.key;
+
+		/* ignore attributes not present in "include" */
+		if (include && !include.includes(key)) {
+			return false;
+		}
+
+		/* ignore attributes present in "exclude" */
+		if (exclude && exclude.includes(key)) {
+			return false;
+		}
+
+		return true;
 	}
 }

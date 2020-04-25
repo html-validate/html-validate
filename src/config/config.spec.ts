@@ -183,9 +183,31 @@ describe("config", () => {
 	});
 
 	describe("fromFile()", () => {
-		it("should support JSON", () => {
+		const fileDir = path.resolve(__dirname, "../../test-files");
+
+		it("should support JSON file", () => {
 			expect.assertions(1);
-			const config = Config.fromFile(`${process.cwd()}/test-files/config.json`);
+			const config = Config.fromFile(path.join(fileDir, "config.json"));
+			expect(Array.from(config.getRules().entries())).toEqual([
+				["foo", [Severity.ERROR, {}]],
+				["bar", [Severity.WARN, {}]],
+				["baz", [Severity.DISABLED, {}]],
+			]);
+		});
+
+		it("should support js file", () => {
+			expect.assertions(1);
+			const config = Config.fromFile(path.join(fileDir, "config.js"));
+			expect(Array.from(config.getRules().entries())).toEqual([
+				["foo", [Severity.ERROR, {}]],
+				["bar", [Severity.WARN, {}]],
+				["baz", [Severity.DISABLED, {}]],
+			]);
+		});
+
+		it("should support js file without extension", () => {
+			expect.assertions(1);
+			const config = Config.fromFile(path.join(fileDir, "config"));
 			expect(Array.from(config.getRules().entries())).toEqual([
 				["foo", [Severity.ERROR, {}]],
 				["bar", [Severity.WARN, {}]],
