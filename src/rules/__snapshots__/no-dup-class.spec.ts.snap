@@ -14,15 +14,15 @@ Array [
     "filePath": "test-files/rules/no-dup-class.html",
     "messages": Array [
       Object {
-        "column": 13,
+        "column": 21,
         "context": undefined,
         "line": 5,
         "message": "Class \\"foo\\" duplicated",
-        "offset": 66,
+        "offset": 74,
         "ruleId": "no-dup-class",
         "selector": "div:nth-child(3)",
         "severity": 2,
-        "size": 11,
+        "size": 3,
       },
     ],
     "source": "<div class=\\"foo\\"></div>

@@ -16,15 +16,12 @@ export default class NoDupClass extends Rule {
 				return;
 			}
 
-			const classes = new DOMTokenList(event.value);
+			const classes = new DOMTokenList(event.value, event.valueLocation);
 			const unique: Set<string> = new Set();
-			classes.forEach((cur) => {
+			classes.forEach((cur: string, index: number) => {
 				if (unique.has(cur)) {
-					this.report(
-						event.target,
-						`Class "${cur}" duplicated`,
-						event.valueLocation
-					);
+					const location = classes.location(index);
+					this.report(event.target, `Class "${cur}" duplicated`, location);
 				}
 				unique.add(cur);
 			});

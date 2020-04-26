@@ -1,3 +1,4 @@
+import { Location } from "../context";
 import { DOMTokenList } from "./domtokenlist";
 import { DynamicValue } from "./dynamic-value";
 
@@ -64,6 +65,55 @@ describe("DOMTokenList", () => {
 			const list = new DOMTokenList("foo bar baz");
 			expect(list.item(-1)).toBeUndefined();
 			expect(list.item(3)).toBeUndefined();
+		});
+	});
+
+	describe("location()", () => {
+		const location: Location = {
+			filename: "mock",
+			line: 1,
+			column: 1,
+			offset: 0,
+			size: 11,
+		};
+
+		it("should return location by index", () => {
+			expect.assertions(3);
+			const list = new DOMTokenList("foo bar baz", location);
+			expect(list.location(0)).toEqual({
+				filename: "mock",
+				line: 1,
+				column: 1,
+				offset: 0,
+				size: 3,
+			});
+			expect(list.location(1)).toEqual({
+				filename: "mock",
+				line: 1,
+				column: 5,
+				offset: 4,
+				size: 3,
+			});
+			expect(list.location(2)).toEqual({
+				filename: "mock",
+				line: 1,
+				column: 9,
+				offset: 8,
+				size: 3,
+			});
+		});
+
+		it("should return undefined if out of range", () => {
+			expect.assertions(2);
+			const list = new DOMTokenList("foo bar baz", location);
+			expect(list.location(-1)).toBeUndefined();
+			expect(list.location(3)).toBeUndefined();
+		});
+
+		it("should throw error when accessing location without base location", () => {
+			expect.assertions(1);
+			const list = new DOMTokenList("foo");
+			expect(() => list.location(0)).toThrow();
 		});
 	});
 
