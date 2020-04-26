@@ -5,7 +5,7 @@ category: style
 summary: Require classes to match a specific pattern
 ---
 
-# require a specific class format (`class-pattern`)
+# Require a specific class format (`class-pattern`)
 
 Requires all classes to match a given pattern.
 
@@ -14,13 +14,13 @@ Requires all classes to match a given pattern.
 Examples of **incorrect** code for this rule:
 
 <validate name="incorrect" rules="class-pattern">
-<div class="fooBar"></foobar>
+    <div class="fooBar"></foobar>
 </validate>
 
 Examples of **correct** code for this rule:
 
 <validate name="correct" rules="class-pattern">
-<div class="foo-bar"></div>
+    <div class="foo-bar"></div>
 </validate>
 
 ## Options
