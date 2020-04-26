@@ -4,7 +4,7 @@ name: no-dup-class
 summary: Disallow duplicated classes
 ---
 
-# disallows duplicated classes on same element (`no-dup-class`)
+# Disallows duplicated classes on same element (`no-dup-class`)
 
 Prevents unnecessary duplication of class names.
 

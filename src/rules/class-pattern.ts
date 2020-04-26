@@ -33,13 +33,14 @@ export default class ClassPattern extends Rule<void, RuleOptions> {
 				return;
 			}
 
-			const classes = new DOMTokenList(event.value);
-			classes.forEach((cur) => {
+			const classes = new DOMTokenList(event.value, event.valueLocation);
+			classes.forEach((cur: string, index: number) => {
 				if (!cur.match(this.pattern)) {
+					const location = classes.location(index);
 					this.report(
 						event.target,
 						`Class "${cur}" does not match required pattern "${this.pattern}"`,
-						event.valueLocation
+						location
 					);
 				}
 			});
