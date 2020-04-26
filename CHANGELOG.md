@@ -1,5 +1,19 @@
 # html-validate changelog
 
+# [2.21.0](https://gitlab.com/html-validate/html-validate/compare/v2.20.1...v2.21.0) (2020-04-26)
+
+### Bug Fixes
+
+- **meta:** throw schema validation error when element metadata does not validate ([6ecf050](https://gitlab.com/html-validate/html-validate/commit/6ecf0501f3f8284c9248ac5fd0643d1c32049333)), closes [#81](https://gitlab.com/html-validate/html-validate/issues/81)
+- **schema:** allow `permittedContent` and `permittedDescendants` to use AND-syntax ([2fa742c](https://gitlab.com/html-validate/html-validate/commit/2fa742c03b84145d0fa334809ff1f98f80cfc263)), closes [#82](https://gitlab.com/html-validate/html-validate/issues/82)
+- **transform:** expose `computeOffset` ([d033538](https://gitlab.com/html-validate/html-validate/commit/d033538c58ff921026fc3a025e679c8b8f2e144e))
+
+### Features
+
+- **dom:** `DOMTokenList` can extract location data for each token ([4f4dfe0](https://gitlab.com/html-validate/html-validate/commit/4f4dfe05ccdb93c8ba27754e8ae9785fc91508eb)), closes [#74](https://gitlab.com/html-validate/html-validate/issues/74)
+- **rules:** add `include` and `exclude` options to `no-inline-style` ([6604e88](https://gitlab.com/html-validate/html-validate/commit/6604e88e96d59c67d596b92be760b1ba5a971589)), closes [html-validate/html-validate-angular#3](https://gitlab.com/html-validate/html-validate-angular/issues/3)
+- **rules:** use more precise location from `DOMTokenList` ([e874784](https://gitlab.com/html-validate/html-validate/commit/e874784858badb3a448cc739189cdac5ef577efe))
+
 ## [2.20.1](https://gitlab.com/html-validate/html-validate/compare/v2.20.0...v2.20.1) (2020-04-19)
 
 ### Bug Fixes
