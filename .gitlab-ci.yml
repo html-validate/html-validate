@@ -68,7 +68,7 @@ Jest:
     reports:
       junit: temp/jest.xml
   script:
-    - npm test -- src elements tests
+    - npm test -- src/ elements/ tests/
 
 Prettier:
   stage: test

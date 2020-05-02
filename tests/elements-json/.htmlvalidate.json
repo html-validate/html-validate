@@ -1,4 +1,5 @@
 {
+  "root": true,
   "elements": ["./elements.json"],
   "rules": {
     "deprecated": "error",

@@ -1,4 +1,5 @@
 {
+  "root": true,
   "elements": ["./elements.js"],
   "rules": {
     "deprecated": "error",
