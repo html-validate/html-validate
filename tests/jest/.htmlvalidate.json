@@ -1,4 +1,5 @@
 {
+  "root": true,
   "rules": {
     "void": "off",
     "void-style": ["error", { "style": "selfclose" }]
