@@ -133,7 +133,7 @@
     "husky": "4.2.5",
     "jest": "25.5.4",
     "jest-diff": "25.5.0",
-    "jquery": "3.5.0",
+    "jquery": "3.5.1",
     "lint-staged": "10.2.2",
     "load-grunt-tasks": "5.1.0",
     "marked": "0.8.2",
