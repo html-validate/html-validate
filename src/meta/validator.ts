@@ -24,7 +24,7 @@ export class Validator {
 	 */
 	public static validatePermitted(
 		node: HtmlElement,
-		rules: Permitted
+		rules: Permitted | null
 	): boolean {
 		if (!rules) {
 			return true;
@@ -48,7 +48,7 @@ export class Validator {
 	 */
 	public static validateOccurrences(
 		node: HtmlElement,
-		rules: Permitted,
+		rules: Permitted | null,
 		numSiblings: number
 	): boolean {
 		if (!rules) {
@@ -82,7 +82,7 @@ export class Validator {
 	 */
 	public static validateOrder(
 		children: HtmlElement[],
-		rules: PermittedOrder,
+		rules: PermittedOrder | null,
 		cb: (node: HtmlElement, prev: HtmlElement) => void
 	): boolean {
 		if (!rules) {
@@ -127,7 +127,7 @@ export class Validator {
 	 */
 	public static validateAncestors(
 		node: HtmlElement,
-		rules: RequiredAncestors
+		rules: RequiredAncestors | null
 	): boolean {
 		if (!rules || rules.length === 0) {
 			return true;
@@ -146,7 +146,7 @@ export class Validator {
 	 */
 	public static validateRequiredContent(
 		node: HtmlElement,
-		rules: RequiredContent
+		rules: RequiredContent | null
 	): string[] {
 		if (!rules || rules.length === 0) {
 			return [];

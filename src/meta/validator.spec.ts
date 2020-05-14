@@ -12,7 +12,7 @@ class ConfigMock extends Config {
 
 describe("Meta validator", () => {
 	describe("validatePermitted()", () => {
-		it("should handle undefined", () => {
+		it("should handle null", () => {
 			expect.assertions(1);
 			const table = new MetaTable();
 			table.loadFromObject({
@@ -20,7 +20,7 @@ describe("Meta validator", () => {
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [foo] = parser.parseHtml("<foo/>").root.childElements;
-			expect(Validator.validatePermitted(foo, undefined)).toBeTruthy();
+			expect(Validator.validatePermitted(foo, null)).toBeTruthy();
 		});
 
 		it("should validate tagName", () => {
@@ -374,7 +374,7 @@ describe("Meta validator", () => {
 	});
 
 	describe("validateOccurrences()", () => {
-		it("should handle undefined", () => {
+		it("should handle null", () => {
 			expect.assertions(1);
 			const table = new MetaTable();
 			table.loadFromObject({
@@ -382,7 +382,7 @@ describe("Meta validator", () => {
 			});
 			const parser = new Parser(new ConfigMock(table));
 			const [foo] = parser.parseHtml("<foo/>").root.childElements;
-			expect(Validator.validateOccurrences(foo, undefined, 1)).toBeTruthy();
+			expect(Validator.validateOccurrences(foo, null, 1)).toBeTruthy();
 		});
 
 		it("should support missing qualifier", () => {
@@ -441,10 +441,10 @@ describe("Meta validator", () => {
 			cb = jest.fn();
 		});
 
-		it("should handle undefined rules", () => {
+		it("should handle null rules", () => {
 			expect.assertions(2);
 			const children = parser.parseHtml("<foo/>").root.childElements;
-			expect(Validator.validateOrder(children, undefined, cb)).toBeTruthy();
+			expect(Validator.validateOrder(children, null, cb)).toBeTruthy();
 			expect(cb).not.toHaveBeenCalled();
 		});
 
@@ -498,7 +498,7 @@ describe("Meta validator", () => {
 		it("should match if no rule is present", () => {
 			expect.assertions(2);
 			const node = root.querySelector("dd");
-			expect(Validator.validateAncestors(node, undefined)).toBeTruthy();
+			expect(Validator.validateAncestors(node, null)).toBeTruthy();
 			expect(Validator.validateAncestors(node, [])).toBeTruthy();
 		});
 
@@ -541,7 +541,7 @@ describe("Meta validator", () => {
 		it("should match if no rule is present", () => {
 			expect.assertions(2);
 			const node = parser.parseHtml("<div></div>").querySelector("div");
-			expect(Validator.validateRequiredContent(node, undefined)).toEqual([]);
+			expect(Validator.validateRequiredContent(node, null)).toEqual([]);
 			expect(Validator.validateRequiredContent(node, [])).toEqual([]);
 		});
 
