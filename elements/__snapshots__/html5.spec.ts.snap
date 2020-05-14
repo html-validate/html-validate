@@ -1432,6 +1432,75 @@ Array [
 
 exports[`HTML elements <del> valid markup 1`] = `Array []`;
 
+exports[`HTML elements <details> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "test-files/elements/details-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 4,
+        "message": "Element <summary> must be used before <div> in this context",
+        "offset": 62,
+        "ruleId": "element-permitted-order",
+        "selector": "details:nth-child(1) > summary",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "missing": "summary",
+          "node": "details",
+        },
+        "line": 8,
+        "message": "<details> element must have <summary> as content",
+        "offset": 123,
+        "ruleId": "element-required-content",
+        "selector": "details:nth-child(2)",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 16,
+        "context": Object {
+          "allowed": Array [],
+          "attribute": "open",
+          "element": "details",
+          "value": "foobar",
+        },
+        "line": 11,
+        "message": "Attribute \\"open\\" has invalid value \\"foobar\\"",
+        "offset": 193,
+        "ruleId": "attribute-allowed-values",
+        "selector": "details:nth-child(3)",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- summary must go before flow -->
+<details>
+	<div></div>
+	<summary></summary>
+</details>
+
+<!-- summary is required -->
+<details></details>
+
+<!-- open attribute is boolean -->
+<details open=\\"foobar\\">
+	<summary></summary>
+</details>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <details> valid markup 1`] = `Array []`;
+
 exports[`HTML elements <dfn> invalid markup 1`] = `
 Array [
   Object {
@@ -5367,6 +5436,54 @@ Array [
 `;
 
 exports[`HTML elements <sub> valid markup 1`] = `Array []`;
+
+exports[`HTML elements <summary> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "test-files/elements/summary-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 3,
+        "context": undefined,
+        "line": 3,
+        "message": "Element <summary> is not permitted as content in <div>",
+        "offset": 58,
+        "ruleId": "element-permitted-content",
+        "selector": "div > summary",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 4,
+        "context": undefined,
+        "line": 9,
+        "message": "Element <p> is not permitted as content in <summary>",
+        "offset": 159,
+        "ruleId": "element-permitted-content",
+        "selector": "details > summary > p",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<!-- should not allow under arbitrary content -->
+<div>
+	<summary>lorem ipsum</summary>
+</div>
+
+<!-- should not allow flow content -->
+<details>
+	<summary>
+		<p>lorem ipsum</p>
+	</summary>
+</details>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <summary> valid markup 1`] = `Array []`;
 
 exports[`HTML elements <sup> invalid markup 1`] = `
 Array [

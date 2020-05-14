@@ -272,6 +272,18 @@
     "transparent": true
   },
 
+  "details": {
+    "flow": true,
+    "sectioning": true,
+    "interactive": true,
+    "attributes": {
+      "open": []
+    },
+    "permittedContent": ["summary", "@flow"],
+    "permittedOrder": ["summary", "@flow"],
+    "requiredContent": ["summary"]
+  },
+
   "dfn": {
     "flow": true,
     "phrasing": true,
@@ -1012,6 +1024,10 @@
     "flow": true,
     "phrasing": true,
     "permittedContent": ["@phrasing"]
+  },
+
+  "summary": {
+    "permittedContent": ["@phrasing", "@heading"]
   },
 
   "sup": {
