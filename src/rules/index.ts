@@ -25,6 +25,7 @@ import InputMissingLabel from "./input-missing-label";
 import LongTitle from "./long-title";
 import MetaRefresh from "./meta-refresh";
 import MissingDoctype from "./missing-doctype";
+import NoAutoplay from "./no-autoplay";
 import NoConditionalComment from "./no-conditional-comment";
 import NoDeprecatedAttr from "./no-deprecated-attr";
 import NoDupAttr from "./no-dup-attr";
@@ -79,6 +80,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"long-title": LongTitle,
 	"meta-refresh": MetaRefresh,
 	"missing-doctype": MissingDoctype,
+	"no-autoplay": NoAutoplay,
 	"no-conditional-comment": NoConditionalComment,
 	"no-deprecated-attr": NoDeprecatedAttr,
 	"no-dup-attr": NoDupAttr,
