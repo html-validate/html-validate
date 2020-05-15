@@ -57,7 +57,7 @@ export default class PreferButton extends Rule<RuleContext, RuleOptions> {
 			}
 
 			/* ignore types configured to be ignored */
-			if (this.isIgnored(event.value)) {
+			if (this.isKeywordIgnored(event.value)) {
 				return;
 			}
 
@@ -70,21 +70,5 @@ export default class PreferButton extends Rule<RuleContext, RuleOptions> {
 			const message = `Prefer to use <button> instead of <input type="${event.value}"> when adding buttons`;
 			this.report(node, message, event.valueLocation, context);
 		});
-	}
-
-	private isIgnored(type: string): boolean {
-		const { include, exclude } = this.options;
-
-		/* ignore roles not present in "include" */
-		if (include && !include.includes(type)) {
-			return true;
-		}
-
-		/* ignore roles present in "excludes" */
-		if (exclude && exclude.includes(type)) {
-			return true;
-		}
-
-		return false;
 	}
 }

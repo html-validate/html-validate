@@ -101,7 +101,7 @@ export default class PreferNativeElement extends Rule<
 	}
 
 	private isIgnored(role: string): boolean {
-		const { mapping, include, exclude } = this.options;
+		const { mapping } = this.options;
 
 		/* ignore roles not mapped to native elements */
 		const replacement = mapping[role];
@@ -109,17 +109,7 @@ export default class PreferNativeElement extends Rule<
 			return true;
 		}
 
-		/* ignore roles not present in "include" */
-		if (include && !include.includes(role)) {
-			return true;
-		}
-
-		/* ignore roles present in "excludes" */
-		if (exclude && exclude.includes(role)) {
-			return true;
-		}
-
-		return false;
+		return this.isKeywordIgnored(role);
 	}
 
 	private getLocation(event: AttributeEvent): Location {

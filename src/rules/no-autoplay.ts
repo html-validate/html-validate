@@ -48,7 +48,7 @@ export default class NoAutoplay extends Rule<RuleContext, RuleOptions> {
 
 			/* ignore tagnames configured to be ignored */
 			const tagName = event.target.tagName;
-			if (this.isIgnored(tagName)) {
+			if (this.isKeywordIgnored(tagName)) {
 				return;
 			}
 
@@ -62,21 +62,5 @@ export default class NoAutoplay extends Rule<RuleContext, RuleOptions> {
 				context
 			);
 		});
-	}
-
-	private isIgnored(tagName: string): boolean {
-		const { include, exclude } = this.options;
-
-		/* ignore tagnames not present in "include" */
-		if (include && !include.includes(tagName)) {
-			return true;
-		}
-
-		/* ignore tagnames present in "excludes" */
-		if (exclude && exclude.includes(tagName)) {
-			return true;
-		}
-
-		return false;
 	}
 }
