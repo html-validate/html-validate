@@ -1,5 +1,17 @@
 # html-validate changelog
 
+# [2.22.0](https://gitlab.com/html-validate/html-validate/compare/v2.21.0...v2.22.0) (2020-05-15)
+
+### Bug Fixes
+
+- **elements:** add `<details>` and `<summary>` elements ([47ba673](https://gitlab.com/html-validate/html-validate/commit/47ba6739951a37bdb285400d392ff27ec57ff89e)), closes [#89](https://gitlab.com/html-validate/html-validate/issues/89)
+- `<legend>` should allow heading elements ([73e150f](https://gitlab.com/html-validate/html-validate/commit/73e150f13a8b797458dac4fcbe3a22997422f4d9))
+- **deps:** update dependency json-merge-patch to v1 ([e9f83d2](https://gitlab.com/html-validate/html-validate/commit/e9f83d2047aed16e81fe006795c9b30111478534))
+
+### Features
+
+- **rules:** new rule `no-autoplay` ([9ed5474](https://gitlab.com/html-validate/html-validate/commit/9ed5474493eedebd2db5c673060538d244b69f63)), closes [#84](https://gitlab.com/html-validate/html-validate/issues/84)
+
 # [2.21.0](https://gitlab.com/html-validate/html-validate/compare/v2.20.1...v2.21.0) (2020-04-26)
 
 ### Bug Fixes
