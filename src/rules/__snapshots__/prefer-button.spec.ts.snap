@@ -1,13 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`rule prefer-button should contain documentation 1`] = `
-Object {
-  "description": "Prefer to use the generic \`<button>\` element instead of \`<input>\`.",
-  "url": "https://html-validate.org/rules/prefer-button.html",
-}
-`;
-
-exports[`rule prefer-button smoketest 1`] = `
+exports[`rule prefer-button default config smoketest 1`] = `
 Array [
   Object {
     "errorCount": 4,
@@ -15,7 +8,9 @@ Array [
     "messages": Array [
       Object {
         "column": 14,
-        "context": undefined,
+        "context": Object {
+          "type": "button",
+        },
         "line": 5,
         "message": "Prefer to use <button> instead of <input type=\\"button\\"> when adding buttons",
         "offset": 64,
@@ -26,7 +21,9 @@ Array [
       },
       Object {
         "column": 14,
-        "context": undefined,
+        "context": Object {
+          "type": "submit",
+        },
         "line": 8,
         "message": "Prefer to use <button> instead of <input type=\\"submit\\"> when adding buttons",
         "offset": 119,
@@ -37,7 +34,9 @@ Array [
       },
       Object {
         "column": 14,
-        "context": undefined,
+        "context": Object {
+          "type": "reset",
+        },
         "line": 11,
         "message": "Prefer to use <button> instead of <input type=\\"reset\\"> when adding buttons",
         "offset": 174,
@@ -48,7 +47,9 @@ Array [
       },
       Object {
         "column": 14,
-        "context": undefined,
+        "context": Object {
+          "type": "image",
+        },
         "line": 14,
         "message": "Prefer to use <button> instead of <input type=\\"image\\"> when adding buttons",
         "offset": 227,
@@ -77,4 +78,46 @@ Array [
     "warningCount": 0,
   },
 ]
+`;
+
+exports[`rule prefer-button should contain contextual documentation for type "button" 1`] = `
+Object {
+  "description": "Prefer to use \`<button type=\\"button\\">\` instead of \`\\"<input type=\\"button\\">\`.",
+  "url": "https://html-validate.org/rules/prefer-button.html",
+}
+`;
+
+exports[`rule prefer-button should contain contextual documentation for type "image" 1`] = `
+Object {
+  "description": "Prefer to use \`<button type=\\"button\\">\` instead of \`\\"<input type=\\"image\\">\`.",
+  "url": "https://html-validate.org/rules/prefer-button.html",
+}
+`;
+
+exports[`rule prefer-button should contain contextual documentation for type "reset" 1`] = `
+Object {
+  "description": "Prefer to use \`<button type=\\"reset\\">\` instead of \`\\"<input type=\\"reset\\">\`.",
+  "url": "https://html-validate.org/rules/prefer-button.html",
+}
+`;
+
+exports[`rule prefer-button should contain contextual documentation for type "submit" 1`] = `
+Object {
+  "description": "Prefer to use \`<button type=\\"submit\\">\` instead of \`\\"<input type=\\"submit\\">\`.",
+  "url": "https://html-validate.org/rules/prefer-button.html",
+}
+`;
+
+exports[`rule prefer-button should contain contextual documentation for type "unknown" 1`] = `
+Object {
+  "description": "Prefer to use \`<button>\` instead of \`\\"<input type=\\"unknown\\">\`.",
+  "url": "https://html-validate.org/rules/prefer-button.html",
+}
+`;
+
+exports[`rule prefer-button should contain documentation 1`] = `
+Object {
+  "description": "Prefer to use the generic \`<button>\` element instead of \`<input>\`.",
+  "url": "https://html-validate.org/rules/prefer-button.html",
+}
 `;
