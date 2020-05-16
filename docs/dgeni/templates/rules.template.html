@@ -7,22 +7,22 @@
 		<col class="name">
 		<col class="summary">
 	</colgroup>
-	{% for rule in rules %}
 	<tbody>
+		{% for rule in rules %}
 		<tr>
 			<td>
-				{% if rule.recommended %}
+				{% if rule.presets.recommended %}
 				<span class="fa fa-check"></span>
 				{% endif %}
-				{% if rule.document %}
+				{% if rule.presets.document %}
 				<span class="fa fa-file-text-o"></span>
 				{% endif %}
 			</td>
 			<td><a href="/{{ rule.url }}">{{ rule.name }}</a></td>
 			<td>{{ rule.summary | escape }}</td>
 		</tr>
+		{% endfor %}
 	</tbody>
-	{% endfor %}
 </table>
 {% endmacro -%}
 

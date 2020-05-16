@@ -82,7 +82,7 @@ module.exports = new Package("html-validate-docs", [
 
 	.config(function (computePathsProcessor, computeIdsProcessor) {
 		computeIdsProcessor.idTemplates.push({
-			docTypes: ["content", "frontpage", "rule", "rules", "changelog", "error"],
+			docTypes: ["content", "frontpage", "rule", "rules", "presets", "error"],
 			getId: function (doc) {
 				const dir = path.dirname(doc.fileInfo.relativePath);
 				if (dir === ".") {
@@ -109,7 +109,7 @@ module.exports = new Package("html-validate-docs", [
 		});
 
 		computePathsProcessor.pathTemplates.push({
-			docTypes: ["content", "frontpage", "rule", "rules"],
+			docTypes: ["content", "frontpage", "rule", "rules", "presets"],
 			getPath: function (doc) {
 				const dirname = path.dirname(doc.fileInfo.relativePath);
 				const p = path.join(dirname, doc.fileInfo.baseName);
@@ -118,11 +118,25 @@ module.exports = new Package("html-validate-docs", [
 			outputPathTemplate: "${path}",
 		});
 
+		computeIdsProcessor.idTemplates.push({
+			docTypes: ["changelog"],
+			getId: function (doc) {
+				return doc.fileInfo.baseName.toLowerCase();
+			},
+			getAliases: function (doc) {
+				return [doc.id];
+			},
+		});
+
 		computePathsProcessor.pathTemplates.push({
 			docTypes: ["changelog"],
 			getPath: function (doc) {
 				const dirname = path.dirname(doc.fileInfo.relativePath);
-				return path.join(dirname, doc.fileInfo.baseName, "index.html");
+				return path.join(
+					dirname,
+					doc.fileInfo.baseName.toLowerCase(),
+					"index.html"
+				);
 			},
 			outputPathTemplate: "${path.toLowerCase()}",
 		});

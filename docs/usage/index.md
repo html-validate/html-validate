@@ -31,19 +31,31 @@ Run with:
 
 ### `extends`
 
-Configuration can be extended from sharable configuration.
+Configuration can be extended from bundled preset or sharable configurations.
 
-```js
+```json
 {
   "extends": [
+    /* bundled preset */
+    "html-validate:recommended",
+
+    /* npm package */
     "my-npm-package",
-	"./file"
-  ],
+
+    /* plugin with custom preset */
+    "my-plugin:custom",
+
+    /* local file */
+    "./file"
+  ]
 }
 ```
 
-Each package and file must export a valid configuration object. Plugins may also
-create [configuration presets](/dev/writing-plugins.html).
+A list of bundled presets is available at the {@link rules/presets preset list}.
+By default `html-validate:recommended` is used.
+
+When using NPM packages and files each must export a valid configuration object.
+Plugins may create [custom configuration presets](/dev/writing-plugins.html) by exposing one or more preset in the plugin declaration.
 
 ### `rules`
 

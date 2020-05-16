@@ -1,0 +1,42 @@
+{% extends "base.template.html" %}
+
+{%- macro ruleTable(rules) %}
+<table class="table table-striped preset-table">
+	<colgroup>
+		<col class="name">
+		{% for preset in presets %}
+		<col class="preset-name">
+		{% endfor %}
+	</colgroup>
+	<thead>
+		<tr>
+			<td>Rule</td>
+			{% for preset in presets %}
+			<td><code>{{ preset }}</code></td>
+			{% endfor %}
+		</tr>
+	</thead>
+	<tbody>
+		{% for rule in rules %}
+		<tr>
+			<td>{@link {{ rule.name }} {{ rule.name }}}</td>
+			{% for preset in presets %}
+			<td>
+				{% if rule.presets[preset] %}
+				<span class="fa fa-check"></span>
+				{% endif %}
+			</td>
+			{% endfor %}
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endmacro -%}
+
+{% block content %}
+
+{{ doc.description | marked }}
+
+{{ ruleTable(rules['all']) }}
+
+{% endblock %}

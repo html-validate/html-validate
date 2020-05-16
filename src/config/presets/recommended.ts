@@ -1,4 +1,6 @@
-module.exports = {
+import { ConfigData } from "../config-data";
+
+const config: ConfigData = {
 	rules: {
 		"attr-case": "error",
 		"attr-quotes": "error",
@@ -51,3 +53,5 @@ module.exports = {
 		"wcag/h71": "error",
 	},
 };
+
+export = config;
