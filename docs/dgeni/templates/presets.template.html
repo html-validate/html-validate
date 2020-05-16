@@ -19,7 +19,7 @@
 	<tbody>
 		{% for rule in rules %}
 		<tr>
-			<td><a href="/{{ rule.url }}">{{ rule.name }}</a></td>
+			<td>{@link {{ rule.name }} {{ rule.name }}}</td>
 			{% for preset in presets %}
 			<td>
 				{% if rule.presets[preset] %}
