@@ -13,6 +13,7 @@ import { ConfigData, TransformMap } from "./config-data";
 import defaultConfig from "./default";
 import { ConfigError } from "./error";
 import { parseSeverity, Severity } from "./severity";
+import Presets from "./presets";
 
 interface TransformerEntry {
 	pattern: RegExp;
@@ -27,9 +28,6 @@ interface LoadedPlugin extends Plugin {
 	name: string;
 	originalName: string;
 }
-
-const recommended = require("./recommended");
-const document = require("./document");
 
 let rootDirCache: string = null;
 
@@ -378,12 +376,9 @@ export class Config {
 		const configs: Map<string, ConfigData> = new Map();
 
 		/* builtin presets */
-		configs.set("html-validate:recommended", recommended);
-		configs.set("html-validate:document", document);
-
-		/* aliases for convenience */
-		configs.set("htmlvalidate:recommended", recommended);
-		configs.set("htmlvalidate:document", document);
+		for (const [name, config] of Object.entries(Presets)) {
+			configs.set(name, config);
+		}
 
 		/* presets from plugins */
 		for (const plugin of plugins) {

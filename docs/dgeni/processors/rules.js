@@ -1,6 +1,5 @@
-/** @todo this will break when typescript is actually used */
-const recommended = require("../../../src/config/recommended.ts");
-const document = require("../../../src/config/document.ts");
+const recommended = require("../../../build/config/presets/recommended");
+const document = require("../../../build/config/presets/document");
 
 function compareName(a, b) {
 	if (a.name < b.name) {

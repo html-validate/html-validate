@@ -1,4 +1,6 @@
-module.exports = {
+import { ConfigData } from "../config-data";
+
+const config: ConfigData = {
 	rules: {
 		"input-missing-label": "error",
 		"heading-level": "error",
@@ -7,3 +9,5 @@ module.exports = {
 		"require-sri": "error",
 	},
 };
+
+export = config;
