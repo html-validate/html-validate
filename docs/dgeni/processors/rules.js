@@ -1,5 +1,18 @@
-const recommended = require("../../../build/config/presets/recommended");
+const a17y = require("../../../build/config/presets/a17y");
 const document = require("../../../build/config/presets/document");
+const recommended = require("../../../build/config/presets/recommended");
+const standard = require("../../../build/config/presets/standard");
+
+/* sort order */
+const availablePresets = ["recommended", "standard", "a17y", "document"];
+
+/* preset configuration */
+const presets = {
+	a17y,
+	document,
+	recommended,
+	standard,
+};
 
 function compareName(a, b) {
 	if (a.name < b.name) {
@@ -47,13 +60,18 @@ module.exports = function rulesProcessor(renderDocsProcessor) {
 				url: doc.outputPath,
 				category: doc.category,
 				summary: doc.summary,
-				recommended: !!recommended.rules[doc.name],
-				document: !!document.rules[doc.name],
+				presets: availablePresets.reduce((result, presetName) => {
+					const config = presets[presetName];
+					if (config && config.rules) {
+						result[presetName] = Boolean(config.rules[doc.name]);
+					}
+					return result;
+				}, {}),
 			}))
 			.sort(compareName);
 
 		/* group rules into categories */
-		const categories = {};
+		const categories = { all: rules };
 		rules.forEach((rule) => {
 			const category = rule.category || "other";
 			if (!(category in categories)) {
@@ -63,5 +81,6 @@ module.exports = function rulesProcessor(renderDocsProcessor) {
 		});
 
 		renderDocsProcessor.extraData.rules = categories;
+		renderDocsProcessor.extraData.presets = availablePresets;
 	}
 };
