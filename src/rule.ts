@@ -27,6 +27,11 @@ export interface RuleDocumentation {
 
 export type RuleConstructor<T, U> = new (options?: any) => Rule<T, U>;
 
+export interface IncludeExcludeOptions {
+	include: string[] | null;
+	exclude: string[] | null;
+}
+
 export abstract class Rule<ContextType = void, OptionsType = void> {
 	private reporter: Reporter;
 	private parser: Parser;
@@ -80,6 +85,49 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 */
 	public isEnabled(): boolean {
 		return this.enabled && this.severity >= Severity.WARN;
+	}
+
+	/**
+	 * Check if keyword is being ignored by the current rule configuration.
+	 *
+	 * This method requires the [[RuleOption]] type to include two properties:
+	 *
+	 * - include: string[] | null
+	 * - exclude: string[] | null
+	 *
+	 * This methods checks if the given keyword is included by "include" but not
+	 * excluded by "exclude". If any property is unset it is skipped by the
+	 * condition. Usually the user would use either one but not both but there is
+	 * no limitation to use both but the keyword must satisfy both conditions. If
+	 * either condition fails `true` is returned.
+	 *
+	 * For instance, given `{ include: ["foo"] }` the keyword `"foo"` would match
+	 * but not `"bar"`.
+	 *
+	 * Similarly, given `{ exclude: ["foo"] }` the keyword `"bar"` would match but
+	 * not `"foo"`.
+	 *
+	 * @param keyword - Keyword to match against `include` and `exclude` options.
+	 * @returns `true` if keyword is not present in `include` or is present in
+	 * `exclude`.
+	 */
+	public isKeywordIgnored<T extends IncludeExcludeOptions>(
+		this: { options: T },
+		keyword: string
+	): boolean {
+		const { include, exclude } = this.options;
+
+		/* ignore keyword if not present in "include" */
+		if (include && !include.includes(keyword)) {
+			return true;
+		}
+
+		/* ignore keyword if present in "excludes" */
+		if (exclude && exclude.includes(keyword)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

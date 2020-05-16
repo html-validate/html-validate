@@ -10,7 +10,9 @@ Array [
     "messages": Array [
       Object {
         "column": 14,
-        "context": undefined,
+        "context": Object {
+          "type": "button",
+        },
         "line": 1,
         "message": "Prefer to use <button> instead of <input type=\\"button\\"> when adding buttons",
         "offset": 13,
