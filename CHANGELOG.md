@@ -1,5 +1,17 @@
 # html-validate changelog
 
+# [2.23.0](https://gitlab.com/html-validate/html-validate/compare/v2.22.0...v2.23.0) (2020-05-18)
+
+### Bug Fixes
+
+- **cli:** `expandFiles` path normalization for windows ([b902853](https://gitlab.com/html-validate/html-validate/commit/b902853e696a04202959ae6c4cf086bd48911e4d))
+
+### Features
+
+- **config:** add two new config presets `html-validate:standard` and `html-validate:a17y` ([36bf9ec](https://gitlab.com/html-validate/html-validate/commit/36bf9ec3be7356d534d352d00610d8253885de22)), closes [#90](https://gitlab.com/html-validate/html-validate/issues/90)
+- **rules:** add `include` and `exclude` options to `prefer-button` ([b046dc5](https://gitlab.com/html-validate/html-validate/commit/b046dc5943a4bd05dff9766ea6b9c9f522c09d1a)), closes [#90](https://gitlab.com/html-validate/html-validate/issues/90)
+- **rules:** add `isKeywordExtended` method for rule authors ([ca7e835](https://gitlab.com/html-validate/html-validate/commit/ca7e835d384c7ed43967bec14f56836353a0b1f6))
+
 # [2.22.0](https://gitlab.com/html-validate/html-validate/compare/v2.21.0...v2.22.0) (2020-05-15)
 
 ### Bug Fixes
