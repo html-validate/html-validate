@@ -1,3 +1,4 @@
+import path from "path";
 import minimatch from "minimatch";
 
 const glob: any = jest.requireActual("glob");
@@ -9,7 +10,7 @@ interface Options {
 let mockFiles: string[] = null;
 
 function setMockFiles(files: string[]): void {
-	mockFiles = files;
+	mockFiles = files.map((cur) => path.normalize(cur));
 }
 
 function resetMock(): void {
@@ -25,7 +26,10 @@ function syncMock(pattern: string, options: Options = {}): string[] {
 	/* slice the cwd away since it is prepended automatically and makes it harder
 	 * to test with */
 	const cwd = options.cwd || "";
-	const dir = cwd.replace(process.cwd(), "").replace(/^\/(.*)/, "$1/");
+	const dir = cwd
+		.replace(process.cwd(), "")
+		.replace("\\", "/")
+		.replace(/^\/(.*)/, `$1${path.sep}`);
 
 	let src = mockFiles;
 	if (dir) {

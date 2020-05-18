@@ -27,9 +27,9 @@ function directoryPattern(extensions: string[]): string {
 		case 0:
 			return "**";
 		case 1:
-			return `**/*.${extensions[0]}`;
+			return path.join("**", `*.${extensions[0]}`);
 		default:
-			return `**/*.{${extensions.join(",")}}`;
+			return path.join("**", `*.{${extensions.join(",")}}`);
 	}
 }
 
