@@ -104,7 +104,7 @@
     "@types/estree": "0.0.44",
     "@types/glob": "7.1.1",
     "@types/inquirer": "6.5.0",
-    "@types/jest": "25.2.2",
+    "@types/jest": "25.2.3",
     "@types/json-merge-patch": "0.0.5",
     "@types/minimist": "1.2.0",
     "@types/node": "11.15.12",
