@@ -162,4 +162,73 @@ describe("DOMNode", () => {
 			expect(node.generateSelector()).toBeNull();
 		});
 	});
+
+	describe("cache", () => {
+		it("cacheGet() should return undefined when no value is cached", () => {
+			expect.assertions(1);
+			const a = new DOMNode(NodeType.ELEMENT_NODE, "a");
+			expect(a.cacheGet("foo")).toBeUndefined();
+		});
+
+		it("cacheGet() should get value set with cacheSet()", () => {
+			expect.assertions(1);
+			const a = new DOMNode(NodeType.ELEMENT_NODE, "a");
+			a.cacheSet("foo", 1);
+			expect(a.cacheGet("foo")).toEqual(1);
+		});
+
+		it("cacheSet() should return value", () => {
+			expect.assertions(1);
+			const a = new DOMNode(NodeType.ELEMENT_NODE, "a");
+			expect(a.cacheSet("foo", 1)).toEqual(1);
+		});
+
+		it("cacheSet() should overwrite previous value", () => {
+			expect.assertions(1);
+			const a = new DOMNode(NodeType.ELEMENT_NODE, "a");
+			a.cacheSet("foo", 1);
+			a.cacheSet("foo", 2);
+			expect(a.cacheGet("foo")).toEqual(2);
+		});
+
+		it("should cache values per instance", () => {
+			expect.assertions(4);
+			const a = new DOMNode(NodeType.ELEMENT_NODE, "a");
+			const b = new DOMNode(NodeType.ELEMENT_NODE, "a");
+			expect(a.cacheGet("foo")).toBeUndefined();
+			expect(b.cacheGet("foo")).toBeUndefined();
+			a.cacheSet("foo", 1);
+			b.cacheSet("foo", 2);
+			expect(a.cacheGet("foo")).toEqual(1);
+			expect(b.cacheGet("foo")).toEqual(2);
+		});
+
+		it("cacheRemove() should remove value from cache", () => {
+			expect.assertions(4);
+			const a = new DOMNode(NodeType.ELEMENT_NODE, "a");
+			a.cacheSet("foo", 1);
+			expect(a.cacheExists("foo")).toBeTruthy();
+			expect(a.cacheGet("foo")).toEqual(1);
+			a.cacheRemove("foo");
+			expect(a.cacheExists("foo")).toBeFalsy();
+			expect(a.cacheGet("foo")).toBeUndefined();
+		});
+
+		it("cacheRemove() should return true if value existed", () => {
+			expect.assertions(3);
+			const a = new DOMNode(NodeType.ELEMENT_NODE, "a");
+			a.cacheSet("foo", 1);
+			expect(a.cacheRemove("foo")).toBeTruthy();
+			expect(a.cacheRemove("foo")).toBeFalsy();
+			expect(a.cacheRemove("bar")).toBeFalsy();
+		});
+
+		it("cacheExists() should return true if value is cached", () => {
+			expect.assertions(2);
+			const a = new DOMNode(NodeType.ELEMENT_NODE, "a");
+			a.cacheSet("foo", 1);
+			expect(a.cacheExists("foo")).toBeTruthy();
+			expect(a.cacheExists("bar")).toBeFalsy();
+		});
+	});
 });
