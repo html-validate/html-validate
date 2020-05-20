@@ -11,7 +11,7 @@ method:
 ```typescript
 import { Rule, RuleDocumentation } from "html-validate";
 
-class MyRule extends Rule {
+export default class MyRule extends Rule {
   documentation(): RuleDocumentation {
     return {
       description: "Lorem ipsum",
@@ -30,8 +30,6 @@ class MyRule extends Rule {
     });
   }
 }
-
-module.exports = MyRule;
 ```
 
 All (enabled) rules run the `setup()` callback before the source document is being parsed and is used to setup any event listeners relevant for this rule.
@@ -164,10 +162,11 @@ Options are accessed using `this.options`.
 When using typescript: pass the datatype as the second template argument when extending `Rule`.
 Default is `void` (i.e. no options)
 
-### `on(event: string, callback: (event: Event)): void`
+### `on(event: string, [filter: (event: Event) => boolean], callback: (event: Event) => void): void`
 
-Listen for events. See [events](/dev/events.html) for a full list of available
-events and data.
+Listen for events. See [events](/dev/events.html) for a full list of available events and data.
+
+If `filter` is passed the callback is only called if the filter function evaluates to true.
 
 ### `report(node: DOMNode, message: string, location?: Location, context?: RuleContext): void`
 
