@@ -127,7 +127,7 @@ export class Parser {
 			it = this.next(tokenStream);
 		}
 
-		/* resolve and dynamic meta element properties */
+		/* resolve any dynamic meta element properties */
 		this.dom.resolveMeta(this.metaTable);
 
 		/* trigger any rules waiting for DOM ready */
@@ -272,6 +272,9 @@ export class Parser {
 	}
 
 	private processElement(node: HtmlElement, source: Source): void {
+		/* enable cache on node now that it is fully constructed */
+		node.cacheEnable();
+
 		if (source.hooks && source.hooks.processElement) {
 			const processElement = source.hooks.processElement;
 			const metaTable = this.metaTable;
