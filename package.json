@@ -92,8 +92,8 @@
     "minimist": "^1.2.0"
   },
   "devDependencies": {
-    "@babel/core": "7.10.2",
-    "@babel/preset-env": "7.10.2",
+    "@babel/core": "7.10.3",
+    "@babel/preset-env": "7.10.3",
     "@commitlint/cli": "8.3.5",
     "@html-validate/commitlint-config": "1.0.3",
     "@html-validate/eslint-config": "1.5.3",
