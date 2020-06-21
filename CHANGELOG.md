@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [2.23.1](https://gitlab.com/html-validate/html-validate/compare/v2.23.0...v2.23.1) (2020-06-21)
+
+### Bug Fixes
+
+- **rules:** `no-trailing-whitespace` handles CRLF (windows) newlines ([2aaddc2](https://gitlab.com/html-validate/html-validate/commit/2aaddc2daaa219f16031cc105e0d396387eac07c)), closes [#93](https://gitlab.com/html-validate/html-validate/issues/93)
+
 # [2.23.0](https://gitlab.com/html-validate/html-validate/compare/v2.22.0...v2.23.0) (2020-05-18)
 
 ### Bug Fixes
