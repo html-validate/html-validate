@@ -5,8 +5,8 @@ import { RuleConstructor } from "../rule";
 import { Transformer } from "../transform";
 
 export interface SchemaValidationPatch {
-	properties?: object;
-	definitions?: object;
+	properties?: Record<string, unknown>;
+	definitions?: Record<string, unknown>;
 }
 
 export interface Plugin {

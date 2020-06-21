@@ -2,6 +2,7 @@ import { EventDump } from "../engine";
 
 const jsonFiltered = ["parent", "children", "meta"];
 
+/* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types */
 export function eventReplacer(key: string, value: any): string {
 	if (value && key === "location") {
 		return `${value.filename}:${value.line}:${value.column}`;

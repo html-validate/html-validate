@@ -210,6 +210,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		callback: (event: ConditionalEvent) => void
 	): void;
 	public on(event: "*", callback: (event: Event) => void): void;
+	/* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types */
 	public on(event: string, callback: any): void {
 		this.parser.on(event, (event: string, data: any) => {
 			if (this.isEnabled()) {

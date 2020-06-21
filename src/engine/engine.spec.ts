@@ -497,7 +497,7 @@ describe("Engine", () => {
 
 			it("should handle missing setup callback", () => {
 				expect.assertions(1);
-				// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 				// @ts-ignore: abstract method not implemented, but plugin might be vanilla js so want to handle the case
 				class MyRule extends Rule {}
 

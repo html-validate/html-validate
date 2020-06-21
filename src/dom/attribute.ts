@@ -68,7 +68,10 @@ export class Attribute {
 	 */
 	public valueMatches(pattern: RegExp, dynamicMatches?: boolean): boolean;
 	public valueMatches(pattern: string, dynamicMatches?: boolean): boolean;
-	public valueMatches(pattern: any, dynamicMatches: boolean = true): boolean {
+	public valueMatches(
+		pattern: RegExp | string,
+		dynamicMatches: boolean = true
+	): boolean {
 		/* dynamic values matches everything */
 		if (this.value instanceof DynamicValue) {
 			return dynamicMatches;

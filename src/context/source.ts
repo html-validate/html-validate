@@ -3,7 +3,7 @@ import { MetaElement } from "../meta";
 import { AttributeData } from "../parser";
 
 export type ProcessAttributeCallback = (
-	this: {},
+	this: unknown,
 	attr: AttributeData
 ) => Iterable<AttributeData>;
 

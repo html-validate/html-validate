@@ -167,7 +167,7 @@ export class Engine<T extends Parser = Parser> {
 	 */
 	public getRuleDocumentation(
 		ruleId: string,
-		context?: any
+		context?: any // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
 	): RuleDocumentation {
 		const rules = this.config.getRules();
 		if (rules.has(ruleId)) {
@@ -396,7 +396,7 @@ export class Engine<T extends Parser = Parser> {
 	protected loadRule(
 		ruleId: string,
 		severity: Severity,
-		options: any,
+		options: any, // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
 		parser: Parser,
 		report: Reporter
 	): Rule {

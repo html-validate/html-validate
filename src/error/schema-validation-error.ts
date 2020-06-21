@@ -19,8 +19,8 @@ export class SchemaValidationError extends UserError {
 	public constructor(
 		filename: string | null,
 		message: string,
-		obj: any,
-		schema: any,
+		obj: any, // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
+		schema: any, // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
 		errors: Ajv.ErrorObject[]
 	) {
 		const summary = getSummary(schema, obj, errors);

@@ -1,9 +1,8 @@
+import stripAnsi = require("strip-ansi");
 import { Severity } from "./config";
 import { Token, TokenType } from "./lexer";
 import "./matchers";
 import { Report, Reporter } from "./reporter";
-
-import stripAnsi = require("strip-ansi");
 
 let reportOk: Report;
 let reportError: Report;
@@ -255,7 +254,7 @@ describe("toHTMLValidate()", () => {
 	it("should support jsdom", () => {
 		expect.assertions(2);
 
-		/* eslint-disable-next-line @typescript-eslint/ban-ts-ignore */
+		/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
 		// @ts-ignore DOM library not available
 		const doc = document;
 

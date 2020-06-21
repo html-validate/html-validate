@@ -54,6 +54,7 @@ export class EventHandler {
 	 * @param event {string} - Event name.
 	 * @param [data] {any} - Event data.
 	 */
+	/* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types */
 	public trigger(event: string, data: any): void {
 		const callbacks = [].concat(
 			this.listeners[event] || [],
