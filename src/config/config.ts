@@ -316,7 +316,7 @@ export class Config {
 	public get(): ConfigData {
 		const config = Object.assign({}, this.config);
 		if (config.elements) {
-			config.elements = config.elements.map((cur: string | object) => {
+			config.elements = config.elements.map((cur: string | MetaDataTable) => {
 				if (typeof cur === "string") {
 					return cur.replace(this.rootDir, "<rootDir>");
 				} else {
@@ -408,7 +408,7 @@ export class Config {
 			}
 
 			for (const [key, schema] of Object.entries(properties)) {
-				if (schema.copyable && !MetaCopyableProperty.includes(key)) {
+				if ((schema as any).copyable && !MetaCopyableProperty.includes(key)) {
 					MetaCopyableProperty.push(key);
 				}
 			}

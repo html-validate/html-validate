@@ -3,8 +3,19 @@ import { Parser } from "../parser";
 import { reset as resetDOMCounter } from "./domnode";
 import { HtmlElement } from "./htmlelement";
 import { Selector } from "./selector";
+import { NodeType } from "./nodetype";
 
-function stripHtmlElement(node: HtmlElement): object {
+interface StrippedHtmlElement {
+	id: string;
+	class: string | null;
+	nodeName: string;
+	nodeType: NodeType;
+	tagName: string;
+	unique: number;
+	testId: string | null;
+}
+
+function stripHtmlElement(node: HtmlElement): StrippedHtmlElement {
 	return {
 		id: node.id,
 		class: node.hasAttribute("class") ? node.classList.join(" ") : null,
@@ -16,7 +27,7 @@ function stripHtmlElement(node: HtmlElement): object {
 	};
 }
 
-function fetch(it: IterableIterator<HtmlElement>): object[] {
+function fetch(it: IterableIterator<HtmlElement>): StrippedHtmlElement[] {
 	return Array.from(it, stripHtmlElement);
 }
 

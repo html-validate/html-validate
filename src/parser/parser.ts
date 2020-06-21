@@ -569,6 +569,7 @@ export class Parser {
 	public trigger(event: "whitespace", data: WhitespaceEvent): void;
 	public trigger(event: "conditional", data: ConditionalEvent): void;
 	public trigger(event: "directive", data: DirectiveEvent): void;
+	/* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types */
 	public trigger(event: any, data: any): void {
 		if (typeof data.location === "undefined") {
 			throw Error("Triggered event must contain location");

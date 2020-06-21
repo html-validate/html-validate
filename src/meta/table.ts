@@ -73,7 +73,10 @@ const ajvRegexpKeyword: Ajv.KeywordDefinition = {
 
 export class MetaTable {
 	public readonly elements: ElementTable;
-	private schema: object;
+
+	/* jsonMergePatch.apply returns Object */
+	/* eslint-disable-next-line @typescript-eslint/ban-types */
+	private schema: Object;
 
 	public constructor() {
 		this.elements = {};

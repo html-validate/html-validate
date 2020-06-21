@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-namespace, @typescript-eslint/ban-ts-ignore, prefer-template, sonarjs/no-duplicate-string */
+/* eslint-disable @typescript-eslint/no-namespace, @typescript-eslint/ban-ts-comment, prefer-template, sonarjs/no-duplicate-string */
 
 import diff from "jest-diff";
 import deepmerge from "deepmerge";
@@ -15,12 +15,15 @@ interface TokenMatcher {
 
 declare global {
 	namespace jest {
+		/* eslint-disable-next-line @typescript-eslint/ban-types */
 		interface Matchers<R, T = {}> {
 			toBeValid(): R;
 			toBeInvalid(): R;
 			toBeToken(expected: TokenMatcher): R;
 			toHaveError(ruleId: string, message: string, context?: any): R;
-			toHaveErrors(errors: Array<[string, string] | {}>): R;
+			toHaveErrors(
+				errors: Array<[string, string] | Record<string, unknown>>
+			): R;
 
 			/**
 			 * Validate string or HTMLElement.
@@ -114,7 +117,7 @@ function toHaveError(
 function toHaveErrors(
 	this: jest.MatcherUtils,
 	report: Report,
-	errors: Array<[string, string] | {}>
+	errors: Array<[string, string] | Record<string, unknown>>
 ): jest.CustomMatcherResult {
 	const actual = flattenMessages(report);
 	const matcher = errors.map((entry) => {
