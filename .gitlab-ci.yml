@@ -100,12 +100,6 @@ Docs:
     - npm run build
     - npm run compatibility
 
-Node 8.x (LTS):
-  <<: *compat
-  image: node:8.17
-  before_script:
-    - npm install
-
 Node 10.x (LTS):
   <<: *compat
   image: node:10
