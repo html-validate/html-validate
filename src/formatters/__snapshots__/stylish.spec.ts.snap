@@ -5,14 +5,14 @@ exports[`stylish formatter should empty messages 1`] = `""`;
 exports[`stylish formatter should empty result 1`] = `""`;
 
 exports[`stylish formatter should generate plaintext 1`] = `
-"
-regular.html
-  <dim>1:5</>  <red>error</>    An error   <dim>foo</>
-  <dim>2:4</>  <yellow>warning</>  A warning  <dim>bar</>
-
-edge-cases.html
-  <dim>3:3</>  <red>error</>  Another error  <dim>baz</>
-
-<red><bold>✖ 3 problems (2 errors, 1 warning)</></>
-<red><bold></></>"
+"</></>
+</>regular.html</>
+</>  <dim>1:5</>  <red>error</>    An error   <dim>foo</></>
+</>  <dim>2:4</>  <yellow>warning</>  A warning  <dim>bar</></>
+</></>
+</>edge-cases.html</>
+</>  <dim>3:3</>  <red>error</>  Another error  <dim>baz</></>
+</></>
+</><red><bold>✖ 3 problems (2 errors, 1 warning)</></></>
+</><red><bold></></></>"
 `;
