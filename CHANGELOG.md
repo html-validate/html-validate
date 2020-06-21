@@ -1,5 +1,21 @@
 # html-validate changelog
 
+# [3.0.0](https://gitlab.com/html-validate/html-validate/compare/v2.23.1...v3.0.0) (2020-06-21)
+
+### Bug Fixes
+
+- **deps:** update dependency chalk to v4 ([614da1b](https://gitlab.com/html-validate/html-validate/commit/614da1b060409cddca0bad8435fb2c2385415e5a))
+- **deps:** update dependency eslint to v7 ([186be9b](https://gitlab.com/html-validate/html-validate/commit/186be9baa65e61b51c4d76ef8fbfae9bb4be8c79))
+- **deps:** update dependency espree to v7 ([863cd0f](https://gitlab.com/html-validate/html-validate/commit/863cd0f595535721498848d9ce433cf8fedd4e3a))
+
+### chore
+
+- drop node 8 support ([b0a6731](https://gitlab.com/html-validate/html-validate/commit/b0a673101ca2c49877f71bfc0600cb651e7a505f))
+
+### BREAKING CHANGES
+
+- Node 8 support has been removed.
+
 ## [2.23.1](https://gitlab.com/html-validate/html-validate/compare/v2.23.0...v2.23.1) (2020-06-21)
 
 ### Bug Fixes
