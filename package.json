@@ -107,7 +107,7 @@
     "@types/jest": "26.0.7",
     "@types/json-merge-patch": "0.0.5",
     "@types/minimist": "1.2.0",
-    "@types/node": "11.15.18",
+    "@types/node": "11.15.20",
     "autoprefixer": "9.8.5",
     "babelify": "10.0.0",
     "bootstrap-sass": "3.4.1",
