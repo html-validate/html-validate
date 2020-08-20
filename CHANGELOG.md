@@ -1,5 +1,17 @@
 # html-validate changelog
 
+# [3.1.0](https://gitlab.com/html-validate/html-validate/compare/v3.0.0...v3.1.0) (2020-08-20)
+
+### Bug Fixes
+
+- **rules:** `no-redundant-for` should only target `<label>` ([a2395b6](https://gitlab.com/html-validate/html-validate/commit/a2395b6d75c6aefba9c44b38dcecb72cad4d0110))
+
+### Features
+
+- **meta:** new property `labelable` ([bf5cd6e](https://gitlab.com/html-validate/html-validate/commit/bf5cd6ef422036d9c0d4e6d8b677d218fb0f014d))
+- **rules:** new rule `multiple-labeled-controls` ([ee28774](https://gitlab.com/html-validate/html-validate/commit/ee287745fa75a2ab8cb6a4362c99e95bd59aaac6)), closes [#86](https://gitlab.com/html-validate/html-validate/issues/86)
+- **rules:** new rule `no-redundant-for` ([d4445bb](https://gitlab.com/html-validate/html-validate/commit/d4445bb1453408afddf10113acf1db89afd30f7b)), closes [#87](https://gitlab.com/html-validate/html-validate/issues/87)
+
 # [3.0.0](https://gitlab.com/html-validate/html-validate/compare/v2.23.1...v3.0.0) (2020-06-21)
 
 ### Bug Fixes
