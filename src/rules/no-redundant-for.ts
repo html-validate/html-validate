@@ -13,6 +13,11 @@ export default class NoRedundantFor extends Rule {
 		this.on("element:ready", (event: ElementReadyEvent) => {
 			const { target } = event;
 
+			/* only handle <label> */
+			if (target.tagName !== "label") {
+				return;
+			}
+
 			/* ignore label without for or dynamic value */
 			const attr = target.getAttribute("for");
 			if (!attr || attr.isDynamic) {
