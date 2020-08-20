@@ -189,7 +189,7 @@
 
 ### Bug Fixes
 
-- **rules:** dont report elements where the tag is already correct ([ee354a0](https://gitlab.com/html-validate/html-validate/commit/ee354a0070f4ac6657cf0a5ce84bddadb3d2dab7)), closes [#65](https://gitlab.com/html-validate/html-validate/issues/65)
+- **rules:** don't report elements where the tag is already correct ([ee354a0](https://gitlab.com/html-validate/html-validate/commit/ee354a0070f4ac6657cf0a5ce84bddadb3d2dab7)), closes [#65](https://gitlab.com/html-validate/html-validate/issues/65)
 
 ### Features
 

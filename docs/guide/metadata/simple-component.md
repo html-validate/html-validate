@@ -153,7 +153,7 @@ If we set the `phrasing` property as well the element will be allowed inside a `
 </validate>
 
 Some elements might want only one or the other and some want both.
-Most of the time a phrasing elements belongs to both the flow and phrasing categories but a the opposite is not true.
+Most of the time a phrasing elements belongs to both the flow and phrasing categories but the opposite is not true.
 
 <div class="alert alert-info">
 	<i class="fa fa-info-circle" aria-hidden="true"></i>

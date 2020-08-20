@@ -85,8 +85,8 @@ about to be closed.
 }
 ```
 
-Emitted when an element is fully constructed (including its children). `target`
-will be the the element.
+Emitted when an element is fully constructed (including its children).
+`target` will be the element.
 
 ## `attr`
 
