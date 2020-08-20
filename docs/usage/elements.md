@@ -38,6 +38,7 @@ export interface MetaElement {
   transparent?: boolean;
   scriptSupporting?: boolean;
   form?: boolean;
+  labelable?: boolean;
 
   /* attributes */
   deprecatedAttributes?: string[];
@@ -175,6 +176,13 @@ In HTML5 both the `<script>` and `<template>` tags are considered script-support
 
 Elements which are considered to be a form-element should set this flag to `true`.
 In plain HTML only the `<form>` element is considered a form but when using custom components the form element might be wrapped inside and to make rules related to forms pick up the custom element this flag should be set.
+
+### `labelable`
+
+[Labelable elements][whatwg-labelable] are elements which can have an associated `<label>` element.
+This is typically elements input elements such as `<input>`.
+
+[whatwg-labelable]: https://html.spec.whatwg.org/multipage/forms.html#category-label
 
 ## Permitted content
 
