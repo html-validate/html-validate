@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule no-redundant-for should contain documentation 1`] = `
+Object {
+  "description": "When the \`<label>\` element wraps the labelable control the \`for\` attribute is redundant and better left out.",
+  "url": "https://html-validate.org/rules/no-redundant-for.html",
+}
+`;
