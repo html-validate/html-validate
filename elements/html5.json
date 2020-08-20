@@ -188,6 +188,7 @@
     "flow": true,
     "phrasing": true,
     "interactive": true,
+    "labelable": true,
     "deprecatedAttributes": ["datasrc", "datafld", "dataformatas"],
     "requiredAttributes": ["type"],
     "attributes": {
@@ -533,6 +534,7 @@
     "phrasing": true,
     "interactive": ["matchAttribute", ["type", "!=", "hidden"]],
     "void": true,
+    "labelable": true,
     "deprecatedAttributes": [
       "datasrc",
       "datafld",
@@ -612,7 +614,8 @@
     "flow": true,
     "phrasing": true,
     "interactive": true,
-    "void": true
+    "void": true,
+    "labelable": true
   },
 
   "label": {
@@ -699,6 +702,7 @@
   "meter": {
     "flow": true,
     "phrasing": true,
+    "labelable": true,
     "permittedContent": ["@phrasing"],
     "permittedDescendants": [{ "exclude": "meter" }]
   },
@@ -812,6 +816,7 @@
   "output": {
     "flow": true,
     "phrasing": true,
+    "labelable": true,
     "permittedContent": ["@phrasing"]
   },
 
@@ -879,6 +884,7 @@
   "progress": {
     "flow": true,
     "phrasing": true,
+    "labelable": true,
     "permittedContent": ["@phrasing"],
     "permittedDescendants": [{ "exclude": "progress" }]
   },
@@ -953,6 +959,7 @@
     "flow": true,
     "phrasing": true,
     "interactive": true,
+    "labelable": true,
     "attributes": {
       "autofocus": [],
       "disabled": [],
@@ -1118,6 +1125,7 @@
     "flow": true,
     "phrasing": true,
     "interactive": true,
+    "labelable": true,
     "attributes": {
       "autocomplete": ["on", "off"],
       "autofocus": [],

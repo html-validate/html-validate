@@ -3454,7 +3454,7 @@ exports[`HTML elements <keygen> valid markup 1`] = `Array []`;
 exports[`HTML elements <label> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 2,
+    "errorCount": 10,
     "filePath": "test-files/elements/label-invalid.html",
     "messages": Array [
       Object {
@@ -3479,6 +3479,94 @@ Array [
         "severity": 2,
         "size": 5,
       },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 12,
+        "message": "<label> is associated with multiple controls",
+        "offset": 182,
+        "ruleId": "multiple-labeled-controls",
+        "selector": "label:nth-child(3)",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 16,
+        "message": "<label> is associated with multiple controls",
+        "offset": 265,
+        "ruleId": "multiple-labeled-controls",
+        "selector": "label:nth-child(4)",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 20,
+        "message": "<label> is associated with multiple controls",
+        "offset": 324,
+        "ruleId": "multiple-labeled-controls",
+        "selector": "label:nth-child(5)",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 24,
+        "message": "<label> is associated with multiple controls",
+        "offset": 361,
+        "ruleId": "multiple-labeled-controls",
+        "selector": "label:nth-child(6)",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 28,
+        "message": "<label> is associated with multiple controls",
+        "offset": 412,
+        "ruleId": "multiple-labeled-controls",
+        "selector": "label:nth-child(7)",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 32,
+        "message": "<label> is associated with multiple controls",
+        "offset": 467,
+        "ruleId": "multiple-labeled-controls",
+        "selector": "label:nth-child(8)",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 36,
+        "message": "<label> is associated with multiple controls",
+        "offset": 530,
+        "ruleId": "multiple-labeled-controls",
+        "selector": "label:nth-child(9)",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 40,
+        "message": "<label> is associated with multiple controls",
+        "offset": 585,
+        "ruleId": "multiple-labeled-controls",
+        "selector": "label:nth-child(10)",
+        "severity": 2,
+        "size": 5,
+      },
     ],
     "source": "<!-- should not allow flow -->
 <label>
@@ -3488,6 +3576,40 @@ Array [
 <!-- should not allow nesting -->
 <label>
 	<label>foo</label>
+</label>
+
+<!-- should not allow multiple controls -->
+<label>
+	<button type=\\"button\\"></button>
+	<button type=\\"button\\"></button>
+</label>
+<label>
+	<input type=\\"text\\">
+	<input type=\\"text\\">
+</label>
+<label>
+	<keygen>
+	<keygen>
+</label>
+<label>
+	<meter></meter>
+	<meter></meter>
+</label>
+<label>
+	<output></output>
+	<output></output>
+</label>
+<label>
+	<progress></progress>
+	<progress></progress>
+</label>
+<label>
+	<select></select>
+	<select></select>
+</label>
+<label>
+	<textarea></textarea>
+	<textarea></textarea>
 </label>
 ",
     "warningCount": 0,

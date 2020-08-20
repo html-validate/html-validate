@@ -41,6 +41,7 @@ export interface MetaData {
 	implicitClosed?: string[];
 	scriptSupporting?: boolean;
 	form?: boolean;
+	labelable?: boolean;
 
 	/* attribute */
 	deprecatedAttributes?: string[];
@@ -72,7 +73,8 @@ export type MetaLookupableProperty =
 	| "void"
 	| "transparent"
 	| "scriptSupporting"
-	| "form";
+	| "form"
+	| "labelable";
 
 /**
  * Properties listed here can be copied (loaded) onto another element using
@@ -88,6 +90,7 @@ export const MetaCopyableProperty = [
 	"interactive",
 	"transparent",
 	"form",
+	"labelable",
 	"requiredAttributes",
 	"attributes",
 	"permittedContent",

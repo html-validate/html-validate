@@ -24,6 +24,14 @@ describe("rule no-redundant-for", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error for other elements", () => {
+		expect.assertions(1);
+		const report = htmlvalidate.validateString(
+			'<custom-element for="foo"><input id="foo"></custom-element>'
+		);
+		expect(report).toBeValid();
+	});
+
 	it("should report error when <label> references wrapped element", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString(
@@ -35,9 +43,6 @@ describe("rule no-redundant-for", () => {
 
 	it("should contain documentation", () => {
 		expect.assertions(1);
-		htmlvalidate = new HtmlValidate({
-			rules: { "no-redundant-for": ["error", { style: "auto" }] },
-		});
 		expect(
 			htmlvalidate.getRuleDocumentation("no-redundant-for")
 		).toMatchSnapshot();
