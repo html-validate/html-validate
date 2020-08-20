@@ -14,6 +14,7 @@ const config: ConfigData = {
 		"element-permitted-order": "error",
 		"element-required-attributes": "error",
 		"element-required-content": "error",
+		"multiple-labeled-controls": "error",
 		"no-deprecated-attr": "error",
 		"no-dup-attr": "error",
 		"no-dup-id": "error",

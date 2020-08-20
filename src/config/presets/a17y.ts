@@ -6,6 +6,7 @@ const config: ConfigData = {
 		"empty-heading": "error",
 		"empty-title": "error",
 		"meta-refresh": "error",
+		"multiple-labeled-controls": "error",
 		"no-autoplay": ["error", { include: ["audio", "video"] }],
 		"no-dup-id": "error",
 		"no-redundant-for": "error",

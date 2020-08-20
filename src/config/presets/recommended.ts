@@ -23,6 +23,7 @@ const config: ConfigData = {
 		"empty-title": "error",
 		"long-title": "error",
 		"meta-refresh": "error",
+		"multiple-labeled-controls": "error",
 		"no-autoplay": ["error", { include: ["audio", "video"] }],
 		"no-conditional-comment": "error",
 		"no-deprecated-attr": "error",

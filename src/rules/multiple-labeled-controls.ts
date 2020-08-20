@@ -1,0 +1,68 @@
+import { ElementReadyEvent } from "../event";
+import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { HtmlElement } from "../dom";
+
+const labelable = [
+	"button",
+	"input",
+	"keygen",
+	"meter",
+	"output",
+	"progress",
+	"select",
+	"textarea",
+].join(",");
+
+export default class MultipleLabeledControls extends Rule {
+	public documentation(): RuleDocumentation {
+		return {
+			description: `A \`<label>\` element can only be associated with one control at a time.`,
+			url: ruleDocumentationUrl(__filename),
+		};
+	}
+
+	public setup(): void {
+		this.on("element:ready", (event: ElementReadyEvent) => {
+			const { target } = event;
+
+			/* only handle <label> */
+			if (target.tagName !== "label") {
+				return;
+			}
+
+			/* no error if it references 0 or 1 controls */
+			const numControls = this.getNumLabledControls(target);
+			if (numControls <= 1) {
+				return;
+			}
+
+			this.report(
+				target,
+				"<label> is associated with multiple controls",
+				target.location
+			);
+		});
+	}
+
+	private getNumLabledControls(src: HtmlElement): number {
+		/* get all controls wrapped by label element */
+		const controls = src.querySelectorAll(labelable).map((node) => node.id);
+
+		/* only count wrapped controls if the "for" attribute is missing or static,
+		 * for dynamic "for" attributes it is better to run in document mode later */
+		const attr = src.getAttribute("for");
+		if (!attr || attr.isDynamic) {
+			return controls.length;
+		}
+
+		/* if "for" attribute references a wrapped element it should not be counted
+		 * multiple times */
+		const redundant = controls.includes(attr.value.toString());
+		if (redundant) {
+			return controls.length;
+		}
+
+		/* has "for" attribute pointing to element outside wrapped controls */
+		return controls.length + 1;
+	}
+}

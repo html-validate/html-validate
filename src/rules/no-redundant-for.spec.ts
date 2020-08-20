@@ -43,9 +43,6 @@ describe("rule no-redundant-for", () => {
 
 	it("should contain documentation", () => {
 		expect.assertions(1);
-		htmlvalidate = new HtmlValidate({
-			rules: { "no-redundant-for": ["error", { style: "auto" }] },
-		});
 		expect(
 			htmlvalidate.getRuleDocumentation("no-redundant-for")
 		).toMatchSnapshot();
