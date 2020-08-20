@@ -35,6 +35,7 @@ import NoImplicitClose from "./no-implicit-close";
 import NoInlineStyle from "./no-inline-style";
 import NoMissingReferences from "./no-missing-references";
 import NoRawCharacters from "./no-raw-characters";
+import NoRedundantFor from "./no-redundant-for";
 import NoRedundantRole from "./no-redundant-role";
 import NoSelfClosing from "./no-self-closing";
 import NoStyleTag from "./no-style-tag";
@@ -90,6 +91,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"no-inline-style": NoInlineStyle,
 	"no-missing-references": NoMissingReferences,
 	"no-raw-characters": NoRawCharacters,
+	"no-redundant-for": NoRedundantFor,
 	"no-redundant-role": NoRedundantRole,
 	"no-self-closing": NoSelfClosing,
 	"no-style-tag": NoStyleTag,

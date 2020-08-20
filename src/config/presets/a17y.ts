@@ -8,6 +8,7 @@ const config: ConfigData = {
 		"meta-refresh": "error",
 		"no-autoplay": ["error", { include: ["audio", "video"] }],
 		"no-dup-id": "error",
+		"no-redundant-for": "error",
 		"no-redundant-role": "error",
 		"prefer-native-element": "error",
 		"svg-focusable": "error",

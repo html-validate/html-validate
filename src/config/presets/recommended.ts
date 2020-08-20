@@ -32,6 +32,7 @@ const config: ConfigData = {
 		"no-implicit-close": "error",
 		"no-inline-style": "error",
 		"no-raw-characters": "error",
+		"no-redundant-for": "error",
 		"no-redundant-role": "error",
 		"no-self-closing": "error",
 		"no-trailing-whitespace": "error",
