@@ -64,7 +64,7 @@ guidelines such as WCAG 2.1.
 
 Write your own element metadata, rules and/or business logic.
 
-Write your own sharable configurations or plugins.
+Write your own shareable configurations or plugins.
 
 **Learn more about [writing rules](dev/writing-rules.html) and [writing
 plugins](dev/writing-plugins.html).**

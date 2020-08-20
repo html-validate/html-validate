@@ -37,7 +37,7 @@ Enables rules related to accessibility.
 Most rules but not all enabled rules relates to WCAG compliance.
 On its own it will not validate if the document/template itself is valid but only if accessibility issues can be found.
 
-This preset should be used togeher with `html-validate:standard` to ensure the document structure is valid (a requirement of WCAG) and if possible `html-validate:document` (to ensure references are valid, etc).
+This preset should be used together with `html-validate:standard` to ensure the document structure is valid (a requirement of WCAG) and if possible `html-validate:document` (to ensure references are valid, etc).
 
 ### `html-validate:document`
 

@@ -2,7 +2,7 @@ import HtmlValidate from "../../../../src/htmlvalidate";
 
 const markup: { [key: string]: string } = {};
 markup["incorrect"] = `<img title="Lorem ipsum">`;
-markup["correct"] = `<!-- empty alt text and no title is interpretated as purely decorative -->
+markup["correct"] = `<!-- empty alt text and no title is interpreted as purely decorative -->
 <img alt="">
 
 <!-- alt text is used together with title, the image carries meaning and will not be ignored by AT -->

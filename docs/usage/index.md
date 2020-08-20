@@ -31,7 +31,7 @@ Run with:
 
 ### `extends`
 
-Configuration can be extended from bundled preset or sharable configurations.
+Configuration can be extended from bundled preset or shareable configurations.
 
 ```json
 {

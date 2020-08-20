@@ -248,7 +248,7 @@ module.exports = {
     },
 
     // definitions are added to shared types
-    defintions: {
+    definitions: {
       myReferenceType: {
         type: "number",
       },

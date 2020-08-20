@@ -16,7 +16,7 @@ The media might be too loud or the user might be in a location where audio is di
 Users with assistive technology might find it hard to pause as they must first navigate to the controls.
 Media can be distracting for users with cognitive or concentration issues and if the video contains flashing or blinking sequences it can cause epilepsy.
 
-There are also issues where some browsers use heurestics to prevent autoplaying so results may vary when used.
+There are also issues where some browsers use heuristics to prevent autoplaying so results may vary when used.
 
 ## Rule details
 

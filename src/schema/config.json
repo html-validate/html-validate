@@ -23,7 +23,7 @@
         "type": "string"
       },
       "title": "Configurations to extend",
-      "description": "Array of sharable or builtin configurations to extend."
+      "description": "Array of shareable or builtin configurations to extend."
     },
 
     "elements": {

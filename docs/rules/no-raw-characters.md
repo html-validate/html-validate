@@ -86,7 +86,7 @@ Examples of **correct** code with this option:
     <!-- Not ambiguous: = and " both stops the character reference -->
     <a href="?foo&bar=1&baz"></p>
 
-    <!-- Not ambiguous: even unquoted & is understod to be stopped by > -->
+    <!-- Not ambiguous: even unquoted & is understood to be stopped by > -->
     <a href=?foo&bar></p>
 
 </validate>

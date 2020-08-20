@@ -143,7 +143,7 @@ class MyRule extends Rule<void, RuleOptions> {
     /* actual setup code left out for brevity */
 
     /* disallow the node from containing the text provided in the option */
-    if (node.textContent.inclues(this.options.text)) {
+    if (node.textContent.includes(this.options.text)) {
       this.report(node, "Contains disallowed text");
     }
   }
