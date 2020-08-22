@@ -227,7 +227,7 @@
 
 ### Features
 
-- **rules:** make options typesafe ([c85342a](https://gitlab.com/html-validate/html-validate/commit/c85342a5426ddba081fed8becaf3d4d499f0b66e))
+- **rules:** make options type-safe ([c85342a](https://gitlab.com/html-validate/html-validate/commit/c85342a5426ddba081fed8becaf3d4d499f0b66e))
 - **rules:** new rule `prefer-native-element` ([06c44ce](https://gitlab.com/html-validate/html-validate/commit/06c44cec1c66b518c030a31517d8cfd454c0c2d2))
 
 # [2.9.0](https://gitlab.com/html-validate/html-validate/compare/v2.8.2...v2.9.0) (2020-01-17)
@@ -644,7 +644,7 @@
 - new rule `empty-title`.
 - add `UserError` exception which is to be used for any error which is not
   caused by an internal error, e.g. configuration errors or a plugin. The error
-  supresses the notice about internal error which should be reported as a bug.
+  suppresses the notice about internal error which should be reported as a bug.
 - reworked and extendable validation of elements metadata. Plugins may now add
   support for custom metadata.
 
@@ -1041,7 +1041,7 @@
 - easier API usage: `require('html-validate')` now returns class without using
   `require(html-validate/build/htmlvalidate').default`.
 - support `transform` in configuration to extract source html from other files.
-- attach `depth` and `unique` readonly properties to `DOMNode` corresponding to
+- attach `depth` and `unique` read-only properties to `DOMNode` corresponding to
   the nodes depth in the DOM tree and a sequential id (unique for the session).
 - new rule `no-conditional-comments` to disallow usage of conditional comments.
 - handle conditional comments.

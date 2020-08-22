@@ -199,8 +199,7 @@ i.e a previously disabled warning will remain a warning after enabling it again.
 
     <!-- [html-validate-disable deprecated] -->
 
-Disable a rule for the rest of the file or until reenabled using `enable`
-directive.
+Disable a rule for the rest of the file or until re-enabled using `enable` directive.
 
 ### `disable-block`
 

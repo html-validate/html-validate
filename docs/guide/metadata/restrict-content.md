@@ -1,6 +1,6 @@
 ---
 docType: content
-title: Writing custom element metadata - Resticting element content
+title: Writing custom element metadata - Restricting element content
 ---
 
 # Writing custom element metadata: Restricting element content

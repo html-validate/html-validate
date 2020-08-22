@@ -41,9 +41,7 @@ for mobile browsers).
 
 ### HTML5 content model
 
-Each element is matched against metadata for deeper logic and analyzation such
-as whenever an element is allowed in the current context or if a required
-element is missing.
+Each element is matched against metadata for deeper logic and analysis such as whenever an element is allowed in the current context or if a required element is missing.
 
 - permitted ancestors and descendants
 - permitted order and occurrences

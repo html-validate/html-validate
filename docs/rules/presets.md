@@ -47,4 +47,4 @@ Examples include missing doctype and invalid references.
 Use this preset together with other presets for full coverage.
 This preset is enabled by plugins such as {@link usage/cypress cypress-html-validate} and {@link usage/protractor protractor-html-validate}.
 
-## Comparision
+## Comparison
