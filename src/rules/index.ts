@@ -1,14 +1,14 @@
 import { RuleConstructor } from "../rule";
 import AttrCase from "./attr-case";
+import AttrQuotes from "./attr-quotes";
 import AttributeAllowedValues from "./attribute-allowed-values";
 import AttributeBooleanStyle from "./attribute-boolean-style";
 import AttributeEmptyStyle from "./attribute-empty-style";
-import AttrQuotes from "./attr-quotes";
 import ClassPattern from "./class-pattern";
 import CloseAttr from "./close-attr";
 import CloseOrder from "./close-order";
-import DeprecatedRule from "./deprecated-rule";
 import Deprecated from "./deprecated";
+import DeprecatedRule from "./deprecated-rule";
 import DoctypeHtml from "./doctype-html";
 import ElementCase from "./element-case";
 import ElementName from "./element-name";
@@ -50,22 +50,22 @@ import ScriptElement from "./script-element";
 import ScriptType from "./script-type";
 import SvgFocusable from "./svg-focusable";
 import UnrecognizedCharRef from "./unrecognized-char-ref";
+import Void from "./void";
 import VoidContent from "./void-content";
 import VoidStyle from "./void-style";
-import Void from "./void";
 import WCAG from "./wcag";
 
 const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"attr-case": AttrCase,
+	"attr-quotes": AttrQuotes,
 	"attribute-allowed-values": AttributeAllowedValues,
 	"attribute-boolean-style": AttributeBooleanStyle,
 	"attribute-empty-style": AttributeEmptyStyle,
-	"attr-quotes": AttrQuotes,
 	"class-pattern": ClassPattern,
 	"close-attr": CloseAttr,
 	"close-order": CloseOrder,
-	"deprecated-rule": DeprecatedRule,
 	deprecated: Deprecated,
+	"deprecated-rule": DeprecatedRule,
 	"doctype-html": DoctypeHtml,
 	"element-case": ElementCase,
 	"element-name": ElementName,
@@ -107,9 +107,9 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"script-type": ScriptType,
 	"svg-focusable": SvgFocusable,
 	"unrecognized-char-ref": UnrecognizedCharRef,
+	void: Void,
 	"void-content": VoidContent,
 	"void-style": VoidStyle,
-	void: Void,
 	...WCAG,
 };
 
