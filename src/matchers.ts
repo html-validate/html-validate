@@ -31,8 +31,10 @@ declare global {
 			 * Test passes if result is valid.
 			 *
 			 * @param config - Optional HTML-Validate configuration object.
+			 * @param filename - Optional filename used when matching transformer and
+			 * loading configuration.
 			 */
-			toHTMLValidate(config?: ConfigData): R;
+			toHTMLValidate(config?: ConfigData, filename?: string): R;
 		}
 	}
 }
