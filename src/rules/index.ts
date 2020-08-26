@@ -1,4 +1,5 @@
 import { RuleConstructor } from "../rule";
+import AllowedLinks from "./allowed-links";
 import AttrCase from "./attr-case";
 import AttrQuotes from "./attr-quotes";
 import AttributeAllowedValues from "./attribute-allowed-values";
@@ -56,6 +57,7 @@ import VoidStyle from "./void-style";
 import WCAG from "./wcag";
 
 const bundledRules: Record<string, RuleConstructor<any, any>> = {
+	"allowed-links": AllowedLinks,
 	"attr-case": AttrCase,
 	"attr-quotes": AttrQuotes,
 	"attribute-allowed-values": AttributeAllowedValues,

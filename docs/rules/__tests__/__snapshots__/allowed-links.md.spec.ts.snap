@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/allowed-links.md inline validation: absolute-invalid 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 10,
+        "context": "absolute",
+        "line": 1,
+        "message": "Link destination must not be absolute url",
+        "offset": 9,
+        "ruleId": "allowed-links",
+        "selector": "a",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<a href=\\"/foo\\">",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/allowed-links.md inline validation: absolute-valid 1`] = `Array []`;
+
+exports[`docs/rules/allowed-links.md inline validation: base-invalid 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 10,
+        "context": "relative-base",
+        "line": 1,
+        "message": "Relative links must be relative to current folder",
+        "offset": 9,
+        "ruleId": "allowed-links",
+        "selector": "a",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<a href=\\"foo\\">",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/allowed-links.md inline validation: base-valid 1`] = `Array []`;
+
+exports[`docs/rules/allowed-links.md inline validation: external-invalid 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 10,
+        "context": "external",
+        "line": 1,
+        "message": "Link destination must not be external url",
+        "offset": 9,
+        "ruleId": "allowed-links",
+        "selector": "a",
+        "severity": 2,
+        "size": 22,
+      },
+    ],
+    "source": "<a href=\\"http://example.net/foo\\">",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/allowed-links.md inline validation: external-valid 1`] = `Array []`;
+
+exports[`docs/rules/allowed-links.md inline validation: relative-invalid 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 10,
+        "context": "relative-path",
+        "line": 1,
+        "message": "Link destination must not be relative url",
+        "offset": 9,
+        "ruleId": "allowed-links",
+        "selector": "a",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<a href=\\"../foo\\">",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/allowed-links.md inline validation: relative-valid 1`] = `Array []`;
