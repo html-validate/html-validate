@@ -1,5 +1,11 @@
 # html-validate changelog
 
+# [3.2.0](https://gitlab.com/html-validate/html-validate/compare/v3.1.0...v3.2.0) (2020-08-26)
+
+### Features
+
+- **rules:** new rule allowed-links ([d876206](https://gitlab.com/html-validate/html-validate/commit/d8762060c6a8b5b2f6a67cbbffd229b8232a7dfa))
+
 # [3.1.0](https://gitlab.com/html-validate/html-validate/compare/v3.0.0...v3.1.0) (2020-08-20)
 
 ### Bug Fixes
