@@ -266,4 +266,53 @@ describe("toHTMLValidate()", () => {
 		const button = doc.createElement("button");
 		expect(button).not.toHTMLValidate();
 	});
+
+	it("should pass if markup has correct error", () => {
+		expect.assertions(1);
+		expect("<u></i>").not.toHTMLValidate({
+			ruleId: "close-order",
+			message: expect.stringContaining("Mismatched close-tag"),
+		});
+	});
+
+	it("should fail if markup has wrong error", async () => {
+		expect.assertions(3);
+		let error: Error;
+		try {
+			await expect("<u></i>").not.toHTMLValidate({
+				ruleId: "wrong-error",
+				message: expect.stringContaining("Some other error"),
+			});
+		} catch (e) {
+			error = e;
+		}
+		expect(error).toBeDefined();
+		expect(stripAnsi(error.message)).toMatchInlineSnapshot(`
+		"expect(received).not.toHTMLValidate(expected) // expected error
+
+		Expected error to be present:
+		{\\"message\\": StringContaining \\"Some other error\\", \\"ruleId\\": \\"wrong-error\\"}
+
+		- Expected error
+		+ Actual error
+
+		- ArrayContaining [
+		-   ObjectContaining {
+		-     \\"message\\": StringContaining \\"Some other error\\",
+		-     \\"ruleId\\": \\"wrong-error\\",
+		+ Array [
+		+   Object {
+		+     \\"column\\": 5,
+		+     \\"context\\": undefined,
+		+     \\"line\\": 1,
+		+     \\"message\\": \\"Mismatched close-tag, expected '</u>' but found '</i>'.\\",
+		+     \\"offset\\": 4,
+		+     \\"ruleId\\": \\"close-order\\",
+		+     \\"selector\\": null,
+		+     \\"severity\\": 2,
+		+     \\"size\\": 2,
+		    },
+		  ]"
+	`);
+	});
 });

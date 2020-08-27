@@ -17,7 +17,7 @@ This makes all the custom matchers available.
 
 ## API
 
-### `toHTMLValidate(config?: ConfigData, filename?: string)`
+### `toHTMLValidate([error?: Message], [config?: ConfigData], filename?: string)`
 
 Validates a string of HTML and passes the assertion if the markup is valid.
 
@@ -55,7 +55,7 @@ This means you can apply transformations using patterns such as `^.*\\.(spec|tes
 If you need to override the filename (perhaps because the test-case isn't in the same folder) you can pass in a custom filename as the third argument:
 
 ```js
-expect("<p></i>").toHTMLValidate(null, "path/to/my-file.html");
+expect("<p></i>").toHTMLValidate("path/to/my-file.html");
 ```
 
 Additionally, the `root` configuration property can be used to skip loading from `.htmlvalidate.json` but remember to actually include the rules you need:
@@ -64,6 +64,23 @@ Additionally, the `root` configuration property can be used to skip loading from
 expect("<p></i>").toHTMLValidate({
   extends: ["html-validate:recommended"],
   root: true,
+});
+```
+
+To test for presence of an error always use the negative form `expect(..).not.toHTMLValidate()`.
+If you pass in an expected error as the first argument it will be matched using `objectContaining` when an error is present.
+
+```js
+/* OK - error matches */
+expect("<p></i>").not.toHTMLValidate({
+  ruleId: "close-order",
+  message: expect.stringContaining("Mismatched close-tag"),
+});
+
+/* Fail - wrong error */
+expect("<p></i>").not.toHTMLValidate({
+  ruleId: "void-style",
+  message: expect.stringContaining("Expected omitted end tag"),
 });
 ```
 
