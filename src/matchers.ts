@@ -31,8 +31,21 @@ declare global {
 			 * Test passes if result is valid.
 			 *
 			 * @param config - Optional HTML-Validate configuration object.
+			 * @param filename - Optional filename used when matching transformer and
+			 * loading configuration.
 			 */
-			toHTMLValidate(config?: ConfigData): R;
+			toHTMLValidate(): R;
+			toHTMLValidate(filename: string): R;
+			toHTMLValidate(config: ConfigData): R;
+			toHTMLValidate(config: ConfigData, filename: string): R;
+			toHTMLValidate(error: Partial<Message>): R;
+			toHTMLValidate(error: Partial<Message>, filename: string): R;
+			toHTMLValidate(error: Partial<Message>, config: ConfigData): R;
+			toHTMLValidate(
+				error: Partial<Message>,
+				config: ConfigData,
+				filename: string
+			): R;
 		}
 	}
 }
@@ -144,10 +157,62 @@ function toHaveErrors(
 	return { pass, message: resultMessage };
 }
 
+function isMessage(arg: any): arg is Partial<Message> {
+	return (
+		arg &&
+		(arg.ruleId ||
+			arg.severity ||
+			arg.message ||
+			arg.offset ||
+			arg.line ||
+			arg.column ||
+			arg.size ||
+			arg.selector ||
+			arg.context)
+	);
+}
+
+function isConfig(arg: any): arg is ConfigData {
+	return (
+		arg &&
+		(arg.root ||
+			arg.extends ||
+			arg.elements ||
+			arg.plugin ||
+			arg.transform ||
+			arg.rules)
+	);
+}
+
+function isString(arg: any): arg is string {
+	return typeof arg === "string";
+}
+
 function toHTMLValidate(
 	this: jest.MatcherUtils,
 	// @ts-ignore DOM library not available
 	actual: string | HTMLElement,
+	arg0?: Partial<Message> | ConfigData | string,
+	arg1?: ConfigData | string,
+	arg2?: string
+): jest.CustomMatcherResult {
+	// @ts-ignore DOM library not available
+	if (actual instanceof HTMLElement) {
+		actual = actual.outerHTML;
+	}
+
+	const message = isMessage(arg0) ? arg0 : undefined;
+	const config = isConfig(arg0) ? arg0 : isConfig(arg1) ? arg1 : undefined;
+	const filename = isString(arg0) ? arg0 : isString(arg1) ? arg1 : arg2;
+
+	return toHTMLValidateImpl.call(this, actual, message, config, filename);
+}
+
+function toHTMLValidateImpl(
+	this: jest.MatcherUtils,
+	// @ts-ignore DOM library not available
+	actual: string | HTMLElement,
+	expectedError?: Partial<Message>,
 	userConfig?: ConfigData,
 	filename?: string
 ): jest.CustomMatcherResult {
@@ -172,6 +237,33 @@ function toHTMLValidate(
 	if (pass) {
 		return { pass, message: () => "HTML is valid when an error was expected" };
 	} else {
+		if (expectedError) {
+			const matcher = expect.arrayContaining([
+				expect.objectContaining(expectedError),
+			]);
+			const errorPass = this.equals(report.results[0].messages, matcher);
+			const diffString = diff(matcher, report.results[0].messages, {
+				expand: this.expand,
+				aAnnotation: "Expected error",
+				bAnnotation: "Actual error",
+			});
+			const hint = this.utils.matcherHint(
+				".not.toHTMLValidate",
+				undefined,
+				undefined,
+				{ comment: "expected error" }
+			);
+			const expectedErrorMessage = (): string =>
+				[
+					hint,
+					"",
+					"Expected error to be present:",
+					this.utils.printExpected(expectedError),
+					/* istanbul ignore next */ diffString ? `\n${diffString}` : "",
+				].join("\n");
+			return { pass: !errorPass, message: expectedErrorMessage };
+		}
+
 		const errors = report.results[0].messages.map(
 			(message) => `  ${message.message} [${message.ruleId}]`
 		);
