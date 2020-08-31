@@ -92,7 +92,10 @@ export class Validator {
 		let prev = null;
 		for (const node of children) {
 			const old = i;
-			while (rules[i] && !Validator.validatePermittedCategory(node, rules[i])) {
+			while (
+				rules[i] &&
+				!Validator.validatePermittedCategory(node, rules[i], true)
+			) {
 				i++;
 			}
 
@@ -103,7 +106,7 @@ export class Validator {
 				 * - elements where the order doesn't matter
 				 * In both of these cases no error should be reported. */
 				const orderSpecified = rules.find((cur: string) =>
-					Validator.validatePermittedCategory(node, cur)
+					Validator.validatePermittedCategory(node, cur, true)
 				);
 				if (orderSpecified) {
 					cb(node, prev);
@@ -211,23 +214,24 @@ export class Validator {
 
 	private static validatePermittedRule(
 		node: HtmlElement,
-		rule: PermittedEntry
+		rule: PermittedEntry,
+		isExclude: boolean = false
 	): boolean {
 		if (typeof rule === "string") {
-			return Validator.validatePermittedCategory(node, rule);
+			return Validator.validatePermittedCategory(node, rule, !isExclude);
 		} else if (Array.isArray(rule)) {
 			return rule.every((inner: PermittedEntry) => {
-				return Validator.validatePermittedRule(node, inner);
+				return Validator.validatePermittedRule(node, inner, isExclude);
 			});
 		} else {
 			validateKeys(rule);
 			if (rule.exclude) {
 				if (Array.isArray(rule.exclude)) {
 					return !rule.exclude.some((inner: PermittedEntry) => {
-						return Validator.validatePermittedRule(node, inner);
+						return Validator.validatePermittedRule(node, inner, true);
 					});
 				} else {
-					return !Validator.validatePermittedRule(node, rule.exclude);
+					return !Validator.validatePermittedRule(node, rule.exclude, true);
 				}
 			} else {
 				return true;
@@ -243,13 +247,15 @@ export class Validator {
 	 * parent it should also allow @flow parent since @phrasing is a subset of
 	 * @flow.
 	 *
-	 * @param {HtmlElement} node - The node to test against
-	 * @param {string} category - Name of category with '@' prefix or tag name.
+	 * @param node - The node to test against
+	 * @param category - Name of category with '@' prefix or tag name.
+	 * @param defaultMatch - The default return value when node categories is not known.
 	 */
 	// eslint-disable-next-line complexity
 	private static validatePermittedCategory(
 		node: HtmlElement,
-		category: string
+		category: string,
+		defaultMatch: boolean
 	): boolean {
 		/* match tagName when an explicit name is given */
 		if (category[0] !== "@") {
@@ -259,7 +265,7 @@ export class Validator {
 
 		/* if the meta entry is missing assume any content model would match */
 		if (!node.meta) {
-			return true;
+			return defaultMatch;
 		}
 
 		switch (category) {

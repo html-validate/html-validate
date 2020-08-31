@@ -323,6 +323,22 @@ describe("Meta validator", () => {
 			expect(Validator.validatePermitted(bar, rules)).toBeFalsy();
 		});
 
+		it("should default to pass when excluding category from element without meta", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			table.loadFromObject({});
+			const parser = new Parser(new ConfigMock(table));
+			const [foo] = parser.parseHtml("<foo/>").root.childElements;
+			const rules = [
+				[
+					{
+						exclude: "@interactive",
+					},
+				],
+			];
+			expect(Validator.validatePermitted(foo, rules)).toBeTruthy();
+		});
+
 		it("should handle empty object", () => {
 			expect.assertions(1);
 			const table = new MetaTable();
