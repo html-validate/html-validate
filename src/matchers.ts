@@ -210,17 +210,11 @@ function toHTMLValidate(
 
 function toHTMLValidateImpl(
 	this: jest.MatcherUtils,
-	// @ts-ignore DOM library not available
-	actual: string | HTMLElement,
+	actual: string,
 	expectedError?: Partial<Message>,
 	userConfig?: ConfigData,
 	filename?: string
 ): jest.CustomMatcherResult {
-	// @ts-ignore DOM library not available
-	if (actual instanceof HTMLElement) {
-		actual = actual.outerHTML;
-	}
-
 	const defaultConfig = {
 		rules: {
 			/* jsdom normalizes style so disabling rule when using this matcher or it
