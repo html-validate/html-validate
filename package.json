@@ -146,7 +146,7 @@
     "stringmap": "0.2.2",
     "strip-ansi": "6.0.0",
     "ts-jest": "26.3.0",
-    "typescript": "3.9.7"
+    "typescript": "4.0.2"
   },
   "jest": {
     "preset": "@html-validate/jest-config",
