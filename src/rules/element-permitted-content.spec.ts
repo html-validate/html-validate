@@ -20,10 +20,68 @@ describe("rule element-permitted-content", () => {
 		);
 	});
 
+	it("should report error when child is disallowed (referenced by tagname without meta)", () => {
+		expect.assertions(2);
+		const htmlvalidate = new HtmlValidate({
+			elements: [
+				"html5",
+				{
+					"custom-link": {
+						permittedContent: [{ exclude: "custom-element" }],
+					},
+				},
+			],
+			rules: { "element-permitted-content": "error" },
+		});
+		const report = htmlvalidate.validateString(
+			"<custom-link><custom-element></custom-element></custom-link>"
+		);
+		expect(report).toBeInvalid();
+		expect(report).toHaveError(
+			"element-permitted-content",
+			"Element <custom-element> is not permitted as content in <custom-link>"
+		);
+	});
+
 	it("should report error when descendant is disallowed", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString(
 			"<a><span><button></button></span></a>"
+		);
+		expect(report).toBeInvalid();
+		expect(report).toHaveError(
+			"element-permitted-content",
+			"Element <button> is not permitted as descendant of <a>"
+		);
+	});
+
+	it("should report error when descendant is disallowed (referenced by tagname without meta)", () => {
+		expect.assertions(2);
+		const htmlvalidate = new HtmlValidate({
+			elements: [
+				"html5",
+				{
+					"custom-link": {
+						permittedDescendants: [{ exclude: "custom-element" }],
+					},
+				},
+			],
+			rules: { "element-permitted-content": "error" },
+		});
+		const report = htmlvalidate.validateString(
+			"<custom-link><span><custom-element></custom-element></span></custom-link>"
+		);
+		expect(report).toBeInvalid();
+		expect(report).toHaveError(
+			"element-permitted-content",
+			"Element <custom-element> is not permitted as descendant of <custom-link>"
+		);
+	});
+
+	it("should report error when descendant is disallowed (intermediate element without meta)", () => {
+		expect.assertions(2);
+		const report = htmlvalidate.validateString(
+			"<a><custom-element><button></button></custom-element></a>"
 		);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(

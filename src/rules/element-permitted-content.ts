@@ -17,26 +17,19 @@ export default class ElementPermittedContent extends Rule {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;
 			doc.visitDepthFirst((node: HtmlElement) => {
-				/* dont verify root element, assume any element is allowed */
-				if (node.parent.isRootElement()) {
-					return;
-				}
-
-				/* if parent doesn't have metadata (unknown element) skip checking permitted
-				 * content */
-				if (!node.parent.meta) {
-					return;
-				}
-
 				const parent = node.parent;
-				const rules = parent.meta.permittedContent;
+
+				/* dont verify root element, assume any element is allowed */
+				if (parent.isRootElement()) {
+					return;
+				}
 
 				/* Run each validation step, stop as soon as any errors are
 				 * reported. This is to prevent multiple similar errors on the same
 				 * element, such as "<dd> is not permitted content under <span>" and
 				 * "<dd> has no permitted ancestors". */
 				[
-					() => this.validatePermittedContent(node, parent, rules),
+					() => this.validatePermittedContent(node, parent),
 					() => this.validatePermittedDescendant(node, parent),
 					() => this.validatePermittedAncestors(node),
 				].some((fn) => fn());
@@ -46,8 +39,22 @@ export default class ElementPermittedContent extends Rule {
 
 	private validatePermittedContent(
 		cur: HtmlElement,
+		parent: HtmlElement
+	): boolean {
+		/* if parent doesn't have metadata (unknown element) skip checking permitted
+		 * content */
+		if (!parent.meta) {
+			return false;
+		}
+
+		const rules = parent.meta.permittedContent ?? null;
+		return this.validatePermittedContentImpl(cur, parent, rules);
+	}
+
+	private validatePermittedContentImpl(
+		cur: HtmlElement,
 		parent: HtmlElement,
-		rules: Permitted
+		rules: Permitted | null
 	): boolean {
 		if (!Validator.validatePermitted(cur, rules)) {
 			this.report(
@@ -63,7 +70,7 @@ export default class ElementPermittedContent extends Rule {
 		if (cur.meta && cur.meta.transparent) {
 			return cur.childElements
 				.map((child: HtmlElement) => {
-					return this.validatePermittedContent(child, parent, rules);
+					return this.validatePermittedContentImpl(child, parent, rules);
 				})
 				.some(Boolean);
 		}
@@ -75,19 +82,23 @@ export default class ElementPermittedContent extends Rule {
 		node: HtmlElement,
 		parent: HtmlElement
 	): boolean {
-		while (!parent.isRootElement()) {
-			if (
-				parent.meta &&
-				node.meta &&
-				!Validator.validatePermitted(node, parent.meta.permittedDescendants)
-			) {
-				this.report(
-					node,
-					`Element <${node.tagName}> is not permitted as descendant of ${parent.annotatedName}`
-				);
-				return true;
+		for (let cur = parent; !cur.isRootElement(); cur = cur.parent) {
+			const meta = cur.meta;
+
+			/* ignore checking parent without meta */
+			if (!meta) {
+				continue;
 			}
-			parent = parent.parent;
+
+			if (Validator.validatePermitted(node, meta.permittedDescendants)) {
+				continue;
+			}
+
+			this.report(
+				node,
+				`Element <${node.tagName}> is not permitted as descendant of ${cur.annotatedName}`
+			);
+			return true;
 		}
 		return false;
 	}
