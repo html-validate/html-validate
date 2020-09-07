@@ -97,7 +97,7 @@
     "@commitlint/cli": "9.1.2",
     "@html-validate/commitlint-config": "1.0.3",
     "@html-validate/eslint-config": "1.5.17",
-    "@html-validate/jest-config": "1.0.23",
+    "@html-validate/jest-config": "1.0.24",
     "@html-validate/prettier-config": "1.0.1",
     "@html-validate/semantic-release-config": "1.0.35",
     "@types/babel__code-frame": "7.0.1",
