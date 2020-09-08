@@ -1,5 +1,17 @@
 # html-validate changelog
 
+# [3.3.0](https://gitlab.com/html-validate/html-validate/compare/v3.2.0...v3.3.0) (2020-09-08)
+
+### Bug Fixes
+
+- **jest:** add missing `filename` to typescript declaration ([4be48fa](https://gitlab.com/html-validate/html-validate/commit/4be48fa1323f28719bf3909643eec91c9ed455eb))
+- **meta:** default to pass when testing excluded category from unknown element ([07afa1a](https://gitlab.com/html-validate/html-validate/commit/07afa1aa7cb5f302b9caca74b923a5342c4a330c))
+- **rules:** handle unknown elements better in `element-permitted-content` ([58ba1aa](https://gitlab.com/html-validate/html-validate/commit/58ba1aa4a7fcbee7743db10c27b6429420c07f8e)), closes [#95](https://gitlab.com/html-validate/html-validate/issues/95)
+
+### Features
+
+- **jest:** `toHTMLValidate()` supports passing expected errors ([7b3c30e](https://gitlab.com/html-validate/html-validate/commit/7b3c30e622130e93c4bc03e6455f94d85e746b84))
+
 # [3.2.0](https://gitlab.com/html-validate/html-validate/compare/v3.1.0...v3.2.0) (2020-08-26)
 
 ### Features
