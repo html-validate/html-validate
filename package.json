@@ -94,7 +94,7 @@
   "devDependencies": {
     "@babel/core": "7.11.6",
     "@babel/preset-env": "7.11.5",
-    "@commitlint/cli": "9.1.2",
+    "@commitlint/cli": "11.0.0",
     "@html-validate/commitlint-config": "1.0.3",
     "@html-validate/eslint-config": "1.5.18",
     "@html-validate/jest-config": "1.0.25",
