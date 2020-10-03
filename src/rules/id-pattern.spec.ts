@@ -19,7 +19,7 @@ describe("rule id-pattern", () => {
 
 	it("should not report error when id is interpolated", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<p id="{{ interpolated }}"></p>', null, {
+		const report = htmlvalidate.validateString('<p id="{{ interpolated }}"></p>', {
 			processAttribute,
 		});
 		expect(report).toBeValid();

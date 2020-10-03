@@ -39,7 +39,7 @@ describe("rule allowed-links", () => {
 				"allowed-links": ["error", { allowRelative: false }],
 			},
 		});
-		const report = htmlvalidate.validateString('<a dynamic-src="{{ expr }}"></a>', null, {
+		const report = htmlvalidate.validateString('<a dynamic-src="{{ expr }}"></a>', {
 			processAttribute,
 		});
 		expect(report).toBeValid();

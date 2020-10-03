@@ -31,7 +31,7 @@ describe("rule script-type", () => {
 
 	it("should not report error for dynamic attributes", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<script dynamic-type="type">', null, {
+		const report = htmlvalidate.validateString('<script dynamic-type="type">', {
 			processAttribute,
 		});
 		expect(report).toBeValid();

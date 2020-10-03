@@ -28,7 +28,7 @@ describe("rule empty-heading", () => {
 		function processElement(node: HtmlElement): void {
 			node.appendText(new DynamicValue(""));
 		}
-		const report = htmlvalidate.validateString("<h1></h1>", null, {
+		const report = htmlvalidate.validateString("<h1></h1>", {
 			processElement,
 		});
 		expect(report).toBeValid();

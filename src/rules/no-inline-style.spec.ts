@@ -21,7 +21,7 @@ describe("rule no-inline-style", () => {
 
 		it("should report when dynamic style attribute is used", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<p dynamic-style=""></p>', null, {
+			const report = htmlvalidate.validateString('<p dynamic-style=""></p>', {
 				processAttribute,
 			});
 			expect(report).toBeInvalid();
@@ -45,7 +45,7 @@ describe("rule no-inline-style", () => {
 
 		it("should not report when dynamic style attribute is used", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<p dynamic-style=""></p>', null, {
+			const report = htmlvalidate.validateString('<p dynamic-style=""></p>', {
 				processAttribute,
 			});
 			expect(report).toBeValid();
@@ -67,7 +67,7 @@ describe("rule no-inline-style", () => {
 
 		it("should report when dynamic style attribute is used", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<p dynamic-style=""></p>', null, {
+			const report = htmlvalidate.validateString('<p dynamic-style=""></p>', {
 				processAttribute,
 			});
 			expect(report).toBeInvalid();
