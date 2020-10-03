@@ -25,7 +25,7 @@ describe("rule no-autoplay", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateString(
 				'<video dynamic-autoplay="enableAutoplay">',
-				null,
+
 				{
 					processAttribute,
 				}

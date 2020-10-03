@@ -31,7 +31,7 @@ describe("rule no-redundant-role", () => {
 
 	it("should not report error for dynamic attributes", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<input dynamic-role="main">', null, {
+		const report = htmlvalidate.validateString('<input dynamic-role="main">', {
 			processAttribute,
 		});
 		expect(report).toBeValid();

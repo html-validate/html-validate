@@ -27,7 +27,7 @@ describe("rule prefer-button", () => {
 
 		it("should not report error for dynamic attributes", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<input dynamic-type="inputType">', null, {
+			const report = htmlvalidate.validateString('<input dynamic-type="inputType">', {
 				processAttribute,
 			});
 			expect(report).toBeValid();

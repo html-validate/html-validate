@@ -8,7 +8,17 @@ import { Report, Reporter } from "./reporter";
 import { RuleDocumentation } from "./rule";
 
 function isSourceHooks(value: any): value is SourceHooks {
-	return Boolean(value && (value.processAttribute || value.processElement));
+	if (!value || typeof value === "string") {
+		return false;
+	}
+	return Boolean(value.processAttribute || value.processElement);
+}
+
+function isConfigData(value: any): value is ConfigData {
+	if (!value || typeof value === "string") {
+		return false;
+	}
+	return !(value.processAttribute || value.processElement);
 }
 
 /**
@@ -40,18 +50,30 @@ class HtmlValidate {
 	 * @param hooks - Optional hooks (see [[Source]]) for definition.
 	 * @returns Report output.
 	 */
+	public validateString(str: string): Report;
+	public validateString(str: string, filename: string): Report;
+	public validateString(str: string, hooks: SourceHooks): Report;
+	public validateString(str: string, options: ConfigData): Report;
+	public validateString(str: string, filename: string, hooks: SourceHooks): Report;
+	public validateString(str: string, filename: string, options: ConfigData): Report;
 	public validateString(
 		str: string,
-		filename?: string,
-		options?: SourceHooks | ConfigData,
-		hooks?: SourceHooks
+		filename: string,
+		options: ConfigData,
+		hooks: SourceHooks
+	): Report;
+	public validateString(
+		str: string,
+		arg1?: string | SourceHooks | ConfigData,
+		arg2?: SourceHooks | ConfigData,
+		arg3?: SourceHooks
 	): Report {
-		if (isSourceHooks(options)) {
-			return this.validateString(str, filename, null, options);
-		}
+		const filename = typeof arg1 === "string" ? arg1 : "inline";
+		const options = isConfigData(arg1) ? arg1 : isConfigData(arg2) ? arg2 : undefined;
+		const hooks = isSourceHooks(arg1) ? arg1 : isSourceHooks(arg2) ? arg2 : arg3;
 		const source = {
 			data: str,
-			filename: filename || "inline",
+			filename,
 			line: 1,
 			column: 1,
 			offset: 0,

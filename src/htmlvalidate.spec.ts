@@ -1,5 +1,5 @@
-import { Config, ConfigLoader, Severity } from "./config";
-import { Source } from "./context";
+import { Config, ConfigData, ConfigLoader, Severity } from "./config";
+import { Source, SourceHooks } from "./context";
 import HtmlValidate from "./htmlvalidate";
 import { Parser } from "./parser";
 import { Message } from "./reporter";
@@ -106,6 +106,136 @@ describe("HtmlValidate", () => {
 				rules: {
 					deprecated: "off",
 				},
+			});
+		});
+
+		describe("prototype", () => {
+			const report = "mock-report";
+			const markup = "<i></i>";
+			let htmlvalidate: HtmlValidate;
+
+			beforeEach(() => {
+				htmlvalidate = new HtmlValidate();
+				engine.lint.mockReturnValue(report);
+			});
+
+			it("str", () => {
+				expect.assertions(1);
+				htmlvalidate.validateString(markup);
+				expect(engine.lint).toHaveBeenCalledWith([
+					{
+						line: 1,
+						column: 1,
+						offset: 0,
+						data: markup,
+						filename: "inline",
+					},
+				]);
+			});
+
+			it("str, filename", () => {
+				expect.assertions(1);
+				htmlvalidate.validateString(markup, "my-file.html");
+				expect(engine.lint).toHaveBeenCalledWith([
+					{
+						line: 1,
+						column: 1,
+						offset: 0,
+						data: markup,
+						filename: "my-file.html",
+					},
+				]);
+			});
+
+			it("str, hooks", () => {
+				expect.assertions(1);
+				const hooks: SourceHooks = {
+					processElement: () => {
+						return null;
+					},
+				};
+				htmlvalidate.validateString(markup, hooks);
+				expect(engine.lint).toHaveBeenCalledWith([
+					{
+						line: 1,
+						column: 1,
+						offset: 0,
+						data: markup,
+						filename: "inline",
+						hooks,
+					},
+				]);
+			});
+
+			it("str, options", () => {
+				expect.assertions(1);
+				const options: ConfigData = {};
+				htmlvalidate.validateString(markup, options);
+				expect(engine.lint).toHaveBeenCalledWith([
+					{
+						line: 1,
+						column: 1,
+						offset: 0,
+						data: markup,
+						filename: "inline",
+					},
+				]);
+			});
+
+			it("str, filename, hooks", () => {
+				expect.assertions(1);
+				const hooks: SourceHooks = {
+					processAttribute: () => {
+						return null;
+					},
+				};
+				htmlvalidate.validateString(markup, "my-file.html", hooks);
+				expect(engine.lint).toHaveBeenCalledWith([
+					{
+						line: 1,
+						column: 1,
+						offset: 0,
+						data: markup,
+						filename: "my-file.html",
+						hooks,
+					},
+				]);
+			});
+
+			it("str, filename, options", () => {
+				expect.assertions(1);
+				const options: ConfigData = {};
+				htmlvalidate.validateString(markup, "my-file.html", options);
+				expect(engine.lint).toHaveBeenCalledWith([
+					{
+						line: 1,
+						column: 1,
+						offset: 0,
+						data: markup,
+						filename: "my-file.html",
+					},
+				]);
+			});
+
+			it("str, filename, options, hooks", () => {
+				expect.assertions(1);
+				const options: ConfigData = {};
+				const hooks: SourceHooks = {
+					processAttribute: () => {
+						return null;
+					},
+				};
+				htmlvalidate.validateString(markup, "my-file.html", options, hooks);
+				expect(engine.lint).toHaveBeenCalledWith([
+					{
+						line: 1,
+						column: 1,
+						offset: 0,
+						data: markup,
+						filename: "my-file.html",
+						hooks,
+					},
+				]);
 			});
 		});
 	});

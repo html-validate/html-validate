@@ -70,7 +70,7 @@ describe("rule attribute-allowed-values", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateString(
 			'<input type="{{ interpolated }}" required="{{ interpolated }}"><input dynamic-type="dynamic" dynamic-required="dynamic">',
-			null,
+
 			{
 				processAttribute,
 			}

@@ -57,7 +57,7 @@ describe("rule attribute-empty-style", () => {
 
 		it("should not report error when attribute is interpolated", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<a download="{{ dynamic }}">', null, {
+			const report = htmlvalidate.validateString('<a download="{{ dynamic }}">', {
 				processAttribute,
 			});
 			expect(report).toBeValid();
@@ -65,7 +65,7 @@ describe("rule attribute-empty-style", () => {
 
 		it("should not report error when attribute is dynamic", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<input dynamic-required="dynamic">', null, {
+			const report = htmlvalidate.validateString('<input dynamic-required="dynamic">', {
 				processAttribute,
 			});
 			expect(report).toBeValid();
@@ -109,7 +109,7 @@ describe("rule attribute-empty-style", () => {
 
 		it("should not report error when attribute is interpolated", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<a download="{{ dynamic }}">', null, {
+			const report = htmlvalidate.validateString('<a download="{{ dynamic }}">', {
 				processAttribute,
 			});
 			expect(report).toBeValid();
@@ -117,7 +117,7 @@ describe("rule attribute-empty-style", () => {
 
 		it("should not report error when attribute is dynamic", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<input dynamic-required="dynamic">', null, {
+			const report = htmlvalidate.validateString('<input dynamic-required="dynamic">', {
 				processAttribute,
 			});
 			expect(report).toBeValid();
