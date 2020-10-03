@@ -120,9 +120,7 @@ Hooks should only be added in the last transformer, if chaining is used the hook
 Transformers can add hooks for additional processing by setting `source.hooks`:
 
 ```typescript
-function processAttribute(
-  attr: AttributeData
-): IterableIterator<AttributeData> {
+function processAttribute(attr: AttributeData): IterableIterator<AttributeData> {
   /* handle attribute */
 }
 

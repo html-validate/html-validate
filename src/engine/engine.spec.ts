@@ -216,9 +216,7 @@ describe("Engine", () => {
 		it('"enable" set severity to error if off', () => {
 			expect.assertions(2);
 			const source: Source[] = [
-				inline(
-					"<blink></blink><!-- [html-validate-enable deprecated] --><blink></blink>"
-				),
+				inline("<blink></blink><!-- [html-validate-enable deprecated] --><blink></blink>"),
 			];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
@@ -227,9 +225,7 @@ describe("Engine", () => {
 
 		it('"disable" should only disable selected rule', () => {
 			expect.assertions(2);
-			const source: Source[] = [
-				inline("<!-- [html-validate-disable foobar] --><p></i><p></i>"),
-			];
+			const source: Source[] = [inline("<!-- [html-validate-disable foobar] --><p></i><p></i>")];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
 			expect(report).toHaveErrors([
@@ -272,9 +268,7 @@ describe("Engine", () => {
 		it('"disable-block" should handle empty block', () => {
 			expect.assertions(1);
 			const source: Source[] = [
-				inline(
-					"<div><!-- [html-validate-disable-block no-self-closing] --></div>"
-				),
+				inline("<div><!-- [html-validate-disable-block no-self-closing] --></div>"),
 			];
 			const report = engine.lint(source);
 			expect(report).toBeValid();
@@ -291,9 +285,7 @@ describe("Engine", () => {
 
 		it('"disable-block" should handle empty root element', () => {
 			expect.assertions(1);
-			const source: Source[] = [
-				inline("<!-- [html-validate-disable-block no-self-closing] -->"),
-			];
+			const source: Source[] = [inline("<!-- [html-validate-disable-block no-self-closing] -->")];
 			const report = engine.lint(source);
 			expect(report).toBeValid();
 		});
@@ -301,9 +293,7 @@ describe("Engine", () => {
 		it('"disable-next" should disable rule once', () => {
 			expect.assertions(2);
 			const source: Source[] = [
-				inline(
-					"<!-- [html-validate-disable-next close-order] --><p></i><p></i>"
-				),
+				inline("<!-- [html-validate-disable-next close-order] --><p></i><p></i>"),
 			];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
@@ -319,9 +309,7 @@ describe("Engine", () => {
 			];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
-			expect(report).toHaveErrors([
-				{ ruleId: "attribute-allowed-values", column: 94 },
-			]);
+			expect(report).toHaveErrors([{ ruleId: "attribute-allowed-values", column: 94 }]);
 		});
 
 		it("should report unknown directives", () => {
@@ -336,9 +324,7 @@ describe("Engine", () => {
 	describe("dumpEvents()", () => {
 		it("should dump parser events", () => {
 			expect.assertions(11);
-			const source: Source[] = [
-				inline('<div id="foo"><p class="bar">baz</p></div>'),
-			];
+			const source: Source[] = [inline('<div id="foo"><p class="bar">baz</p></div>')];
 			const lines = engine.dumpEvents(source);
 			expect(lines).toHaveLength(10);
 			expect(lines[0].event).toEqual("dom:load");
@@ -357,9 +343,7 @@ describe("Engine", () => {
 	describe("dumpTokens()", () => {
 		it("should dump lexer tokens", () => {
 			expect.assertions(1);
-			const source: Source[] = [
-				inline('<div id="foo"><p class="bar">baz</p></div>'),
-			];
+			const source: Source[] = [inline('<div id="foo"><p class="bar">baz</p></div>')];
 			const lines = engine.dumpTokens(source);
 			expect(lines).toEqual([
 				{ token: "TAG_OPEN", data: "<div", location: "inline:1:1" },
@@ -386,9 +370,7 @@ describe("Engine", () => {
 		it("should dump DOM tree", () => {
 			expect.assertions(1);
 			const source: Source[] = [
-				inline(
-					'<div id="foo"><p class="bar">baz</p><ul><li>fred</li><li>barney</li></ul></div>'
-				),
+				inline('<div id="foo"><p class="bar">baz</p><ul><li>fred</li><li>barney</li></ul></div>'),
 			];
 			const lines = engine.dumpTree(source);
 			expect(lines).toMatchSnapshot();
@@ -430,13 +412,7 @@ describe("Engine", () => {
 			it("should load and initialize rule", () => {
 				expect.assertions(4);
 				jest.spyOn(engine, "instantiateRule").mockReturnValueOnce(mockRule);
-				const rule = engine.loadRule(
-					"void",
-					Severity.ERROR,
-					{},
-					parser,
-					reporter
-				);
+				const rule = engine.loadRule("void", Severity.ERROR, {}, parser, reporter);
 				expect(rule).toBe(mockRule);
 				expect(rule.init).toHaveBeenCalledWith(
 					parser,
@@ -480,17 +456,8 @@ describe("Engine", () => {
 					},
 				];
 
-				const engine: ExposedEngine<Parser> = new ExposedEngine(
-					config,
-					MockParser
-				);
-				const rule = engine.loadRule(
-					"custom/my-rule",
-					Severity.ERROR,
-					{},
-					parser,
-					reporter
-				);
+				const engine: ExposedEngine<Parser> = new ExposedEngine(config, MockParser);
+				const rule = engine.loadRule("custom/my-rule", Severity.ERROR, {}, parser, reporter);
 				expect(rule).toBeInstanceOf(MyRule);
 				expect(rule.name).toEqual("custom/my-rule");
 			});
@@ -510,17 +477,8 @@ describe("Engine", () => {
 					},
 				];
 
-				const engine: ExposedEngine<Parser> = new ExposedEngine(
-					config,
-					MockParser
-				);
-				const rule = engine.loadRule(
-					"custom/my-rule",
-					Severity.ERROR,
-					{},
-					parser,
-					reporter
-				);
+				const engine: ExposedEngine<Parser> = new ExposedEngine(config, MockParser);
+				const rule = engine.loadRule("custom/my-rule", Severity.ERROR, {}, parser, reporter);
 				expect(rule).toBeInstanceOf(MyRule);
 			});
 

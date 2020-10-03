@@ -309,10 +309,7 @@ describe("Plugin", () => {
 			mockPlugin.setup = jest.fn();
 			const engine = new Engine(config, Parser);
 			engine.lint([source]);
-			expect(mockPlugin.setup).toHaveBeenCalledWith(
-				source,
-				expect.any(EventHandler)
-			);
+			expect(mockPlugin.setup).toHaveBeenCalledWith(source, expect.any(EventHandler));
 		});
 
 		it("Parser events should trigger plugin eventhandler", () => {
@@ -351,9 +348,7 @@ describe("Plugin", () => {
 			};
 			const setup = jest.spyOn(mockRule, "setup");
 			const engine = new Engine(config, Parser);
-			jest
-				.spyOn(engine as any, "instantiateRule")
-				.mockImplementation(() => mockRule);
+			jest.spyOn(engine as any, "instantiateRule").mockImplementation(() => mockRule);
 			engine.lint([source]);
 			expect(setup).toHaveBeenCalledWith();
 		});

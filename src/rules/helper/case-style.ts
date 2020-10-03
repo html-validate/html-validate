@@ -1,10 +1,6 @@
 import { ConfigError } from "../../config/error";
 
-export type CaseStyleName =
-	| "lowercase"
-	| "uppercase"
-	| "pascalcase"
-	| "camelcase";
+export type CaseStyleName = "lowercase" | "uppercase" | "pascalcase" | "camelcase";
 
 interface Style {
 	pattern: RegExp;
@@ -65,9 +61,7 @@ export class CaseStyle {
 					case "camelcase":
 						return { pattern: /^[a-z][A-Za-z]*$/, name: "camelCase" };
 					default:
-						throw new ConfigError(
-							`Invalid style "${style}" for ${ruleId} rule`
-						);
+						throw new ConfigError(`Invalid style "${style}" for ${ruleId} rule`);
 				}
 			}
 		);

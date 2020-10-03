@@ -7,11 +7,7 @@ module.exports = new Package("schema", [])
 	.processor(require("./processors/copy-schema-processor"))
 	.factory(require("./services/copy-schema"))
 
-	.config(function (
-		computeIdsProcessor,
-		computePathsProcessor,
-		templateFinder
-	) {
+	.config(function (computeIdsProcessor, computePathsProcessor, templateFinder) {
 		templateFinder.templateFolders.push(path.resolve(packagePath, "templates"));
 		computeIdsProcessor.idTemplates.push({
 			docTypes: ["schema"],

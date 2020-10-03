@@ -19,28 +19,22 @@ describe("rule no-dup-attr", () => {
 
 	it("should not report error when attribute is dynamic", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			'<input class="foo" dynamic-class="bar">',
-			null,
-			{ processAttribute }
-		);
+		const report = htmlvalidate.validateString('<input class="foo" dynamic-class="bar">', null, {
+			processAttribute,
+		});
 		expect(report).toBeValid();
 	});
 
 	it("should report when attribute is duplicated", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString(
-			'<p foo="bar" foo="baz"></p></p>'
-		);
+		const report = htmlvalidate.validateString('<p foo="bar" foo="baz"></p></p>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("no-dup-attr", 'Attribute "foo" duplicated');
 	});
 
 	it("should report when attribute is duplicated case insensitive", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString(
-			'<p foo="bar" FOO="baz"></p></p>'
-		);
+		const report = htmlvalidate.validateString('<p foo="bar" FOO="baz"></p></p>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("no-dup-attr", 'Attribute "foo" duplicated');
 	});
@@ -53,17 +47,12 @@ describe("rule no-dup-attr", () => {
 			{ processAttribute }
 		);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"no-dup-attr",
-			'Attribute "dynamic-class" duplicated'
-		);
+		expect(report).toHaveError("no-dup-attr", 'Attribute "dynamic-class" duplicated');
 	});
 
 	it("smoketest", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile(
-			"test-files/rules/no-dup-attr.html"
-		);
+		const report = htmlvalidate.validateFile("test-files/rules/no-dup-attr.html");
 		expect(report.results).toMatchSnapshot();
 	});
 

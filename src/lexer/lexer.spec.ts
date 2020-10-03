@@ -144,27 +144,19 @@ describe("lexer", () => {
 	it("should throw error when source cannot be tokenized", () => {
 		expect.assertions(2);
 		const shortSource = inlineSource("<p\n<p></p></p>");
-		const longSource = inlineSource(
-			"<p\n<p>lorem ipsum dolor sit amet</p></p>"
-		);
+		const longSource = inlineSource("<p\n<p>lorem ipsum dolor sit amet</p></p>");
 		expect(() => {
 			Array.from(lexer.tokenize(shortSource));
-		}).toThrow(
-			'failed to tokenize "<p></p></p>", expected attribute, ">" or "/>"'
-		);
+		}).toThrow('failed to tokenize "<p></p></p>", expected attribute, ">" or "/>"');
 		expect(() => {
 			Array.from(lexer.tokenize(longSource));
-		}).toThrow(
-			'failed to tokenize "<p>lorem i...", expected attribute, ">" or "/>"'
-		);
+		}).toThrow('failed to tokenize "<p>lorem i...", expected attribute, ">" or "/>"');
 	});
 
 	describe("should tokenize", () => {
 		it("xml declaration", () => {
 			expect.assertions(2);
-			const token = lexer.tokenize(
-				inlineSource('<?xml version="1.0" encoding="utf-8"?>\n')
-			);
+			const token = lexer.tokenize(inlineSource('<?xml version="1.0" encoding="utf-8"?>\n'));
 			expect(token.next()).toBeToken({ type: TokenType.EOF });
 			expect(token.next().done).toBeTruthy();
 		});
@@ -580,9 +572,7 @@ describe("lexer", () => {
 
 		it("CDATA", () => {
 			expect.assertions(2);
-			const token = lexer.tokenize(
-				inlineSource("<![CDATA[ <p>lorem</div> ipsum ]]>")
-			);
+			const token = lexer.tokenize(inlineSource("<![CDATA[ <p>lorem</div> ipsum ]]>"));
 			expect(token.next()).toBeToken({ type: TokenType.EOF });
 			expect(token.next().done).toBeTruthy();
 		});
@@ -604,9 +594,7 @@ describe("lexer", () => {
 		it("script tag with type", () => {
 			expect.assertions(10);
 			const token = lexer.tokenize(
-				inlineSource(
-					'<script type="text/javascript">document.write("<p>lorem</p>");</script>'
-				)
+				inlineSource('<script type="text/javascript">document.write("<p>lorem</p>");</script>')
 			);
 			expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
 			expect(token.next()).toBeToken({ type: TokenType.WHITESPACE });
@@ -623,9 +611,7 @@ describe("lexer", () => {
 		it("self-closed script tag", () => {
 			expect.assertions(11);
 			/* not legal but lexer shouldn't choke on it */
-			const token = lexer.tokenize(
-				inlineSource('<head><script src="foo.js"/></head>')
-			);
+			const token = lexer.tokenize(inlineSource('<head><script src="foo.js"/></head>'));
 			expect(token.next()).toBeToken({
 				type: TokenType.TAG_OPEN,
 				data: ["<head", "", "head"],
@@ -650,9 +636,7 @@ describe("lexer", () => {
 
 		it("multiple script tags", () => {
 			expect.assertions(13);
-			const token = lexer.tokenize(
-				inlineSource("<script>foo</script>bar<script>baz</script>")
-			);
+			const token = lexer.tokenize(inlineSource("<script>foo</script>bar<script>baz</script>"));
 			/* first script tag */
 			expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
 			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
@@ -689,10 +673,7 @@ describe("lexer", () => {
 			);
 			expect(token.next()).toBeToken({
 				type: TokenType.DIRECTIVE,
-				data: [
-					"<!-- [html-validate-action options: comment] -->",
-					"action options: comment",
-				],
+				data: ["<!-- [html-validate-action options: comment] -->", "action options: comment"],
 			});
 			expect(token.next()).toBeToken({ type: TokenType.EOF });
 			expect(token.next().done).toBeTruthy();

@@ -28,10 +28,7 @@ export class CLI {
 		this.config = this.getConfig();
 	}
 
-	public expandFiles(
-		patterns: string[],
-		options: ExpandOptions = {}
-	): string[] {
+	public expandFiles(patterns: string[], options: ExpandOptions = {}): string[] {
 		return expandFiles(patterns, options);
 	}
 
@@ -77,9 +74,7 @@ export class CLI {
 				config.rules = rules;
 			} catch (e) {
 				// istanbul ignore next
-				throw new UserError(
-					`Error while parsing --rule option "{${raw}}": ${e.message}.\n`
-				);
+				throw new UserError(`Error while parsing --rule option "{${raw}}": ${e.message}.\n`);
 			}
 		}
 		return config;

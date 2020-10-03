@@ -28,27 +28,19 @@ describe("rule attr-case", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString('<div FOO="bar"></div>');
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attr-case",
-				'Attribute "FOO" should be lowercase'
-			);
+			expect(report).toHaveError("attr-case", 'Attribute "FOO" should be lowercase');
 		});
 
 		it("should report error when attributes is mixed", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString('<div clAss="bar"></div>');
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attr-case",
-				'Attribute "clAss" should be lowercase'
-			);
+			expect(report).toHaveError("attr-case", 'Attribute "clAss" should be lowercase');
 		});
 
 		it("smoketest", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"test-files/rules/attr-case.html"
-			);
+			const report = htmlvalidate.validateFile("test-files/rules/attr-case.html");
 			expect(report.results).toMatchSnapshot();
 		});
 	});
@@ -64,10 +56,7 @@ describe("rule attr-case", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString('<div foo="bar"></div>');
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attr-case",
-				'Attribute "foo" should be uppercase'
-			);
+			expect(report).toHaveError("attr-case", 'Attribute "foo" should be uppercase');
 		});
 
 		it("should not report error when attribute has special characters", () => {
@@ -86,17 +75,12 @@ describe("rule attr-case", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString('<div clAss="bar"></div>');
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attr-case",
-				'Attribute "clAss" should be uppercase'
-			);
+			expect(report).toHaveError("attr-case", 'Attribute "clAss" should be uppercase');
 		});
 
 		it("smoketest", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"test-files/rules/attr-case.html"
-			);
+			const report = htmlvalidate.validateFile("test-files/rules/attr-case.html");
 			expect(report.results).toMatchSnapshot();
 		});
 	});
@@ -124,27 +108,19 @@ describe("rule attr-case", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString('<div foobar="baz"></div>');
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attr-case",
-				'Attribute "foobar" should be PascalCase'
-			);
+			expect(report).toHaveError("attr-case", 'Attribute "foobar" should be PascalCase');
 		});
 
 		it("should report error when attributes is camelCase", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString('<div fooBar="baz"></div>');
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attr-case",
-				'Attribute "fooBar" should be PascalCase'
-			);
+			expect(report).toHaveError("attr-case", 'Attribute "fooBar" should be PascalCase');
 		});
 
 		it("smoketest", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"test-files/rules/attr-case.html"
-			);
+			const report = htmlvalidate.validateFile("test-files/rules/attr-case.html");
 			expect(report.results).toMatchSnapshot();
 		});
 	});
@@ -172,27 +148,19 @@ describe("rule attr-case", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString('<div FOOBAR="baz"></div>');
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attr-case",
-				'Attribute "FOOBAR" should be camelCase'
-			);
+			expect(report).toHaveError("attr-case", 'Attribute "FOOBAR" should be camelCase');
 		});
 
 		it("should report error when attributes is PascalCase", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString('<div FooBar="baz"></div>');
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attr-case",
-				'Attribute "FooBar" should be camelCase'
-			);
+			expect(report).toHaveError("attr-case", 'Attribute "FooBar" should be camelCase');
 		});
 
 		it("smoketest", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"test-files/rules/attr-case.html"
-			);
+			const report = htmlvalidate.validateFile("test-files/rules/attr-case.html");
 			expect(report.results).toMatchSnapshot();
 		});
 	});
@@ -222,10 +190,7 @@ describe("rule attr-case", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString('<svg viewBox=""/>');
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attr-case",
-				'Attribute "viewBox" should be lowercase'
-			);
+			expect(report).toHaveError("attr-case", 'Attribute "viewBox" should be lowercase');
 		});
 	});
 
@@ -249,13 +214,9 @@ describe("rule attr-case", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "attr-case": "error" },
 		});
-		const report = htmlvalidate.validateString(
-			'<input dynamic-fooBar="foo">',
-			null,
-			{
-				processAttribute,
-			}
-		);
+		const report = htmlvalidate.validateString('<input dynamic-fooBar="foo">', null, {
+			processAttribute,
+		});
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
 			{

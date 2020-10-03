@@ -39,16 +39,12 @@ function checkstyleFormatter(results: Result[]): string {
 		output += `<file name="${xmlescape(result.filePath)}">`;
 
 		messages.forEach((message) => {
-			const ruleId = message.ruleId
-				? xmlescape(`htmlvalidate.rules.${message.ruleId}`)
-				: "";
+			const ruleId = message.ruleId ? xmlescape(`htmlvalidate.rules.${message.ruleId}`) : "";
 			output += [
 				`<error line="${xmlescape(message.line)}"`,
 				`column="${xmlescape(message.column)}"`,
 				`severity="${xmlescape(getMessageType(message))}"`,
-				`message="${xmlescape(message.message)}${
-					message.ruleId ? ` (${message.ruleId})` : ""
-				}"`,
+				`message="${xmlescape(message.message)}${message.ruleId ? ` (${message.ruleId})` : ""}"`,
 				`source="${ruleId}" />`,
 			].join(" ");
 		});

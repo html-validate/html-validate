@@ -27,13 +27,9 @@ describe("rule prefer-button", () => {
 
 		it("should not report error for dynamic attributes", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
-				'<input dynamic-type="inputType">',
-				null,
-				{
-					processAttribute,
-				}
-			);
+			const report = htmlvalidate.validateString('<input dynamic-type="inputType">', null, {
+				processAttribute,
+			});
 			expect(report).toBeValid();
 		});
 
@@ -85,9 +81,7 @@ describe("rule prefer-button", () => {
 
 		it("smoketest", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"test-files/rules/prefer-button.html"
-			);
+			const report = htmlvalidate.validateFile("test-files/rules/prefer-button.html");
 			expect(report.results).toMatchSnapshot();
 		});
 	});
@@ -119,9 +113,7 @@ describe("rule prefer-button", () => {
 		const htmlvalidate = new HtmlValidate({
 			rules: { "prefer-button": "error" },
 		});
-		expect(
-			htmlvalidate.getRuleDocumentation("prefer-button")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("prefer-button")).toMatchSnapshot();
 	});
 
 	describe("should contain contextual documentation", () => {
@@ -130,9 +122,7 @@ describe("rule prefer-button", () => {
 			const htmlvalidate = new HtmlValidate({
 				rules: { "prefer-button": "error" },
 			});
-			expect(
-				htmlvalidate.getRuleDocumentation("prefer-button", null, { type })
-			).toMatchSnapshot();
+			expect(htmlvalidate.getRuleDocumentation("prefer-button", null, { type })).toMatchSnapshot();
 		});
 	});
 });

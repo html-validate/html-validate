@@ -20,9 +20,7 @@ describe("rule meta-refresh", () => {
 
 	it("should not report error for other http-equiv", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			'<meta http-equiv="foo" content="1">'
-		);
+		const report = htmlvalidate.validateString('<meta http-equiv="foo" content="1">');
 		expect(report).toBeValid();
 	});
 
@@ -34,17 +32,13 @@ describe("rule meta-refresh", () => {
 
 	it("should not report error when refresh has boolean content attribute", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			'<meta http-equiv="refresh" content>'
-		);
+		const report = htmlvalidate.validateString('<meta http-equiv="refresh" content>');
 		expect(report).toBeValid();
 	});
 
 	it("should not report error when refresh has empty content attribute", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			'<meta http-equiv="refresh" content="">'
-		);
+		const report = htmlvalidate.validateString('<meta http-equiv="refresh" content="">');
 		expect(report).toBeValid();
 	});
 
@@ -62,10 +56,7 @@ describe("rule meta-refresh", () => {
 			'<meta http-equiv="refresh" content="1;url=target.html">'
 		);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"meta-refresh",
-			"Meta refresh must use 0 second delay"
-		);
+		expect(report).toHaveError("meta-refresh", "Meta refresh must use 0 second delay");
 	});
 
 	it("should report error when refresh has non-zero delay (with whitespace)", () => {
@@ -74,46 +65,28 @@ describe("rule meta-refresh", () => {
 			'<meta http-equiv="refresh" content="1; url=target.html">'
 		);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"meta-refresh",
-			"Meta refresh must use 0 second delay"
-		);
+		expect(report).toHaveError("meta-refresh", "Meta refresh must use 0 second delay");
 	});
 
 	it("should report error when refresh is missing url", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString(
-			'<meta http-equiv="refresh" content="0">'
-		);
+		const report = htmlvalidate.validateString('<meta http-equiv="refresh" content="0">');
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"meta-refresh",
-			"Don't use meta refresh to reload the page"
-		);
+		expect(report).toHaveError("meta-refresh", "Don't use meta refresh to reload the page");
 	});
 
 	it("should report error when refresh has empty url", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString(
-			'<meta http-equiv="refresh" content="0;url=">'
-		);
+		const report = htmlvalidate.validateString('<meta http-equiv="refresh" content="0;url=">');
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"meta-refresh",
-			"Don't use meta refresh to reload the page"
-		);
+		expect(report).toHaveError("meta-refresh", "Don't use meta refresh to reload the page");
 	});
 
 	it("should report error when refresh is malformed", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString(
-			'<meta http-equiv="refresh" content="foobar">'
-		);
+		const report = htmlvalidate.validateString('<meta http-equiv="refresh" content="foobar">');
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"meta-refresh",
-			"Malformed meta refresh directive"
-		);
+		expect(report).toHaveError("meta-refresh", "Malformed meta refresh directive");
 	});
 
 	it("should contain documentation", () => {

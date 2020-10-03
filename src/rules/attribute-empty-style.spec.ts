@@ -10,9 +10,7 @@ describe("rule attribute-empty-style", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "attribute-empty-style": ["error", { style: "omit" }] },
 		});
-		const report = htmlvalidate.validateString(
-			'<custom-element foobar=""></custom-element>'
-		);
+		const report = htmlvalidate.validateString('<custom-element foobar=""></custom-element>');
 		expect(report).toBeValid();
 	});
 
@@ -36,10 +34,7 @@ describe("rule attribute-empty-style", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString('<a download=""></a>');
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attribute-empty-style",
-				'Attribute "download" should omit value'
-			);
+			expect(report).toHaveError("attribute-empty-style", 'Attribute "download" should omit value');
 		});
 
 		it("should not report error when value is omitted", () => {
@@ -62,21 +57,17 @@ describe("rule attribute-empty-style", () => {
 
 		it("should not report error when attribute is interpolated", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
-				'<a download="{{ dynamic }}">',
-				null,
-				{ processAttribute }
-			);
+			const report = htmlvalidate.validateString('<a download="{{ dynamic }}">', null, {
+				processAttribute,
+			});
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when attribute is dynamic", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
-				'<input dynamic-required="dynamic">',
-				null,
-				{ processAttribute }
-			);
+			const report = htmlvalidate.validateString('<input dynamic-required="dynamic">', null, {
+				processAttribute,
+			});
 			expect(report).toBeValid();
 		});
 	});
@@ -118,21 +109,17 @@ describe("rule attribute-empty-style", () => {
 
 		it("should not report error when attribute is interpolated", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
-				'<a download="{{ dynamic }}">',
-				null,
-				{ processAttribute }
-			);
+			const report = htmlvalidate.validateString('<a download="{{ dynamic }}">', null, {
+				processAttribute,
+			});
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when attribute is dynamic", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
-				'<input dynamic-required="dynamic">',
-				null,
-				{ processAttribute }
-			);
+			const report = htmlvalidate.validateString('<input dynamic-required="dynamic">', null, {
+				processAttribute,
+			});
 			expect(report).toBeValid();
 		});
 	});
@@ -152,8 +139,6 @@ describe("rule attribute-empty-style", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "attribute-empty-style": "error" },
 		});
-		expect(
-			htmlvalidate.getRuleDocumentation("attribute-empty-style")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("attribute-empty-style")).toMatchSnapshot();
 	});
 });

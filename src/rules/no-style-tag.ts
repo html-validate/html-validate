@@ -14,10 +14,7 @@ export default class NoStyleTag extends Rule {
 		this.on("tag:open", (event: TagOpenEvent) => {
 			const node = event.target;
 			if (node.tagName === "style") {
-				this.report(
-					node,
-					"Use external stylesheet with <link> instead of <style> tag"
-				);
+				this.report(node, "Use external stylesheet with <link> instead of <style> tag");
 			}
 		});
 	}

@@ -42,11 +42,7 @@ export default class ElementCase extends Rule<void, RuleOptions> {
 		const letters = target.tagName.replace(/[^a-z]+/gi, "");
 		if (!this.style.match(letters)) {
 			const location = sliceLocation(targetLocation, 1);
-			this.report(
-				target,
-				`Element "${target.tagName}" should be ${this.style.name}`,
-				location
-			);
+			this.report(target, `Element "${target.tagName}" should be ${this.style.name}`, location);
 		}
 	}
 
@@ -64,11 +60,7 @@ export default class ElementCase extends Rule<void, RuleOptions> {
 		}
 
 		if (start.tagName !== end.tagName) {
-			this.report(
-				start,
-				"Start and end tag must not differ in casing",
-				end.location
-			);
+			this.report(start, "Start and end tag must not differ in casing", end.location);
 		}
 	}
 }

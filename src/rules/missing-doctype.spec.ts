@@ -14,10 +14,7 @@ describe("rule missing-doctype", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString("<html></html>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"missing-doctype",
-			"Document is missing doctype"
-		);
+		expect(report).toHaveError("missing-doctype", "Document is missing doctype");
 	});
 
 	it("should not report error when document has doctype", () => {
@@ -28,16 +25,12 @@ describe("rule missing-doctype", () => {
 
 	it("smoketest", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile(
-			"test-files/rules/missing-doctype.html"
-		);
+		const report = htmlvalidate.validateFile("test-files/rules/missing-doctype.html");
 		expect(report.results).toMatchSnapshot();
 	});
 
 	it("should contain documentation", () => {
 		expect.assertions(1);
-		expect(
-			htmlvalidate.getRuleDocumentation("missing-doctype")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("missing-doctype")).toMatchSnapshot();
 	});
 });

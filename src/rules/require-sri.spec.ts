@@ -45,9 +45,7 @@ describe("rule require-sri", () => {
 
 		it("should not report error when integrity attribute is present on <script>", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
-				'<script integrity="..."></script>'
-			);
+			const report = htmlvalidate.validateString('<script integrity="..."></script>');
 			expect(report).toBeValid();
 		});
 	});
@@ -71,9 +69,7 @@ describe("rule require-sri", () => {
 
 		it("should report error when integrity attribute is missing on <script> with same origin", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString(
-				'<script src="./foo.js"></script>'
-			);
+			const report = htmlvalidate.validateString('<script src="./foo.js"></script>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"require-sri",
@@ -83,9 +79,7 @@ describe("rule require-sri", () => {
 
 		it("should report error when integrity attribute is missing on <link> with crossorigin", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString(
-				'<link href="https://example.net/foo.css">'
-			);
+			const report = htmlvalidate.validateString('<link href="https://example.net/foo.css">');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"require-sri",
@@ -95,9 +89,7 @@ describe("rule require-sri", () => {
 
 		it("should report error when integrity attribute is missing on <script> with crossorigin", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString(
-				'<script src="//example.net/foo.js"></script>'
-			);
+			const report = htmlvalidate.validateString('<script src="//example.net/foo.js"></script>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"require-sri",
@@ -121,17 +113,13 @@ describe("rule require-sri", () => {
 
 		it("should not report error when integrity attribute is missing on <script> with same origin", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
-				'<script src="./foo.js"></script>'
-			);
+			const report = htmlvalidate.validateString('<script src="./foo.js"></script>');
 			expect(report).toBeValid();
 		});
 
 		it("should report error when integrity attribute is missing on <link> with crossorigin", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString(
-				'<link href="https://example.net/foo.css">'
-			);
+			const report = htmlvalidate.validateString('<link href="https://example.net/foo.css">');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"require-sri",
@@ -141,9 +129,7 @@ describe("rule require-sri", () => {
 
 		it("should report error when integrity attribute is missing on <script> with crossorigin", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString(
-				'<script src="//example.net/foo.js"></script>'
-			);
+			const report = htmlvalidate.validateString('<script src="//example.net/foo.js"></script>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"require-sri",

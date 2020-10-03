@@ -12,9 +12,7 @@ describe("rule element-permitted-order", () => {
 
 	it("should report error when child is used in wrong order", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString(
-			"<table><thead></thead><caption></caption></table>"
-		);
+		const report = htmlvalidate.validateString("<table><thead></thead><caption></caption></table>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"element-permitted-order",
@@ -24,9 +22,7 @@ describe("rule element-permitted-order", () => {
 
 	it("should not report error when child is used in right order", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			"<table><caption></caption><thead></thead></table>"
-		);
+		const report = htmlvalidate.validateString("<table><caption></caption><thead></thead></table>");
 		expect(report).toBeValid();
 	});
 
@@ -46,8 +42,6 @@ describe("rule element-permitted-order", () => {
 
 	it("should contain documentation", () => {
 		expect.assertions(1);
-		expect(
-			htmlvalidate.getRuleDocumentation("element-permitted-order")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("element-permitted-order")).toMatchSnapshot();
 	});
 });

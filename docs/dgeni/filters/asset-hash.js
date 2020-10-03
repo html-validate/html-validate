@@ -10,9 +10,7 @@ module.exports = {
 			const hash = crypto.createHash("md5").update(data).digest("hex");
 			return `${asset}?${hash}`;
 		} else {
-			console.log(
-				`${filename} does not exist when trying to calculate asset hash.`
-			);
+			console.log(`${filename} does not exist when trying to calculate asset hash.`);
 			return asset;
 		}
 	},

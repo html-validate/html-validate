@@ -56,24 +56,14 @@ describe("Attribute", () => {
 
 		it("should match DynamicValue", () => {
 			expect.assertions(2);
-			const attr = new Attribute(
-				"foo",
-				new DynamicValue("bar"),
-				keyLocation,
-				valueLocation
-			);
+			const attr = new Attribute("foo", new DynamicValue("bar"), keyLocation, valueLocation);
 			expect(attr.valueMatches("foo")).toBeTruthy();
 			expect(attr.valueMatches(/foo/)).toBeTruthy();
 		});
 
 		it("should match ignore DynamicValue", () => {
 			expect.assertions(2);
-			const attr = new Attribute(
-				"foo",
-				new DynamicValue("bar"),
-				keyLocation,
-				null
-			);
+			const attr = new Attribute("foo", new DynamicValue("bar"), keyLocation, null);
 			expect(attr.valueMatches("bar", false)).toBeFalsy();
 			expect(attr.valueMatches(/bar/, false)).toBeFalsy();
 		});

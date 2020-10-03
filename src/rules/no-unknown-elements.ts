@@ -14,12 +14,7 @@ export default class NoUnknownElements extends Rule<string> {
 		this.on("tag:open", (event: TagOpenEvent) => {
 			const node = event.target;
 			if (!node.meta) {
-				this.report(
-					node,
-					`Unknown element <${node.tagName}>`,
-					null,
-					node.tagName
-				);
+				this.report(node, `Unknown element <${node.tagName}>`, null, node.tagName);
 			}
 		});
 	}

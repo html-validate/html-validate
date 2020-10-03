@@ -26,13 +26,9 @@ describe("rule prefer-native-element", () => {
 
 		it("should not report error for dynamic attributes", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
-				'<input dynamic-role="main">',
-				null,
-				{
-					processAttribute,
-				}
-			);
+			const report = htmlvalidate.validateString('<input dynamic-role="main">', null, {
+				processAttribute,
+			});
 			expect(report).toBeValid();
 		});
 
@@ -64,9 +60,7 @@ describe("rule prefer-native-element", () => {
 
 		it("smoketest", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"test-files/rules/prefer-native-element.html"
-			);
+			const report = htmlvalidate.validateFile("test-files/rules/prefer-native-element.html");
 			expect(report.results).toMatchSnapshot();
 		});
 	});
@@ -98,9 +92,7 @@ describe("rule prefer-native-element", () => {
 		const htmlvalidate = new HtmlValidate({
 			rules: { "prefer-native-element": "error" },
 		});
-		expect(
-			htmlvalidate.getRuleDocumentation("prefer-native-element")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("prefer-native-element")).toMatchSnapshot();
 	});
 
 	it("should contain contextual documentation", () => {

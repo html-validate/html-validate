@@ -11,8 +11,7 @@ interface Context extends DeprecatedElement {
 export default class Deprecated extends Rule<Context> {
 	public documentation(context?: Context): RuleDocumentation {
 		const doc: RuleDocumentation = {
-			description:
-				"This element is deprecated and should not be used in new code.",
+			description: "This element is deprecated and should not be used in new code.",
 			url: ruleDocumentationUrl(__filename),
 		};
 		if (context) {
@@ -28,9 +27,7 @@ export default class Deprecated extends Rule<Context> {
 			if (context.documentation) {
 				text.push(context.documentation);
 			}
-			doc.description = text
-				.map((cur) => cur.replace(/\$tagname/g, context.tagName))
-				.join("\n\n");
+			doc.description = text.map((cur) => cur.replace(/\$tagname/g, context.tagName)).join("\n\n");
 		}
 		return doc;
 	}
@@ -59,11 +56,7 @@ export default class Deprecated extends Rule<Context> {
 		});
 	}
 
-	private reportString(
-		deprecated: string,
-		node: HtmlElement,
-		location: Location
-	): void {
+	private reportString(deprecated: string, node: HtmlElement, location: Location): void {
 		const context: Context = { tagName: node.tagName };
 		const message = `<${node.tagName}> is deprecated: ${deprecated}`;
 		this.report(node, message, location, context);
@@ -75,11 +68,7 @@ export default class Deprecated extends Rule<Context> {
 		this.report(node, message, location, context);
 	}
 
-	private reportObject(
-		deprecated: DeprecatedElement,
-		node: HtmlElement,
-		location: Location
-	): void {
+	private reportObject(deprecated: DeprecatedElement, node: HtmlElement, location: Location): void {
 		const context: Context = { ...deprecated, tagName: node.tagName };
 		const message = `<${node.tagName}> is deprecated${
 			deprecated.message ? `: ${deprecated.message}` : ""

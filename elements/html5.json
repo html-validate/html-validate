@@ -314,9 +314,7 @@
   "dt": {
     "implicitClosed": ["dd", "dt"],
     "permittedContent": ["@flow"],
-    "permittedDescendants": [
-      { "exclude": ["header", "footer", "@sectioning", "@heading"] }
-    ],
+    "permittedDescendants": [{ "exclude": ["header", "footer", "@sectioning", "@heading"] }],
     "requiredAncestors": ["dl > dt", "dl > div > dt"]
   },
 
@@ -551,16 +549,7 @@
       "capture": [],
       "checked": [],
       "disabled": [],
-      "inputmode": [
-        "none",
-        "text",
-        "decimal",
-        "numeric",
-        "tel",
-        "search",
-        "email",
-        "url"
-      ],
+      "inputmode": ["none", "text", "decimal", "numeric", "tel", "search", "email", "url"],
       "multiple": [],
       "readonly": [],
       "required": [],
@@ -967,14 +956,7 @@
       "required": [],
       "size": ["/\\d+/"]
     },
-    "permittedContent": [
-      "@script",
-      "datasrc",
-      "datafld",
-      "dataformatas",
-      "option",
-      "optgroup"
-    ]
+    "permittedContent": ["@script", "datasrc", "datafld", "dataformatas", "option", "optgroup"]
   },
 
   "slot": {
@@ -1067,27 +1049,13 @@
       "rules",
       "width"
     ],
-    "permittedContent": [
-      "@script",
-      "caption?",
-      "colgroup",
-      "tbody",
-      "tfoot?",
-      "thead?",
-      "tr"
-    ],
+    "permittedContent": ["@script", "caption?", "colgroup", "tbody", "tfoot?", "thead?", "tr"],
     "permittedOrder": ["caption", "colgroup", "thead", "tbody", "tr", "tfoot"]
   },
 
   "tbody": {
     "implicitClosed": ["tbody", "tfoot"],
-    "deprecatedAttributes": [
-      "align",
-      "background",
-      "char",
-      "charoff",
-      "valign"
-    ],
+    "deprecatedAttributes": ["align", "background", "char", "charoff", "valign"],
     "permittedContent": ["@script", "tr"]
   },
 
@@ -1145,13 +1113,7 @@
 
   "tfoot": {
     "implicitClosed": ["tbody"],
-    "deprecatedAttributes": [
-      "align",
-      "background",
-      "char",
-      "charoff",
-      "valign"
-    ],
+    "deprecatedAttributes": ["align", "background", "char", "charoff", "valign"],
     "permittedContent": ["@script", "tr"]
   },
 
@@ -1177,20 +1139,12 @@
     ],
     "requiredAttributes": ["scope"],
     "permittedContent": ["@flow"],
-    "permittedDescendants": [
-      { "exclude": ["header", "footer", "@sectioning", "@heading"] }
-    ]
+    "permittedDescendants": [{ "exclude": ["header", "footer", "@sectioning", "@heading"] }]
   },
 
   "thead": {
     "implicitClosed": ["tbody", "tfoot"],
-    "deprecatedAttributes": [
-      "align",
-      "background",
-      "char",
-      "charoff",
-      "valign"
-    ],
+    "deprecatedAttributes": ["align", "background", "char", "charoff", "valign"],
     "permittedContent": ["@script", "tr"]
   },
 
@@ -1207,14 +1161,7 @@
 
   "tr": {
     "implicitClosed": ["tr"],
-    "deprecatedAttributes": [
-      "align",
-      "background",
-      "bgcolor",
-      "char",
-      "charoff",
-      "valign"
-    ],
+    "deprecatedAttributes": ["align", "background", "bgcolor", "char", "charoff", "valign"],
     "permittedContent": ["@script", "td", "th"]
   },
 

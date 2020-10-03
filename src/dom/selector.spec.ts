@@ -200,8 +200,6 @@ describe("Selector", () => {
 	it("should throw error for invalid pseudo-classes", () => {
 		expect.assertions(1);
 		const selector = new Selector("foo:missing");
-		expect(() => fetch(selector.match(doc))).toThrow(
-			'Pseudo-class "missing" is not implemented'
-		);
+		expect(() => fetch(selector.match(doc))).toThrow('Pseudo-class "missing" is not implemented');
 	});
 });

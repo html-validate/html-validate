@@ -30,11 +30,7 @@ function pluralize(word: string, count: number): string {
  * @param   {number} column   The column from the file to use for formatting.
  * @returns {string}          The formatted file path.
  */
-function formatFilePath(
-	filePath: string,
-	line: number,
-	column: number
-): string {
+function formatFilePath(filePath: string, line: number, column: number): string {
 	let relPath = path.relative(process.cwd(), filePath);
 
 	/* istanbul ignore next: safety check from original implementation */
@@ -73,15 +69,10 @@ function getEndLocation(message: Message, source: string): SourcePoint {
  * @returns {string}              The formatted output.
  */
 function formatMessage(message: Message, parentResult: Result): string {
-	const type =
-		message.severity === 2 ? chalk.red("error") : chalk.yellow("warning");
+	const type = message.severity === 2 ? chalk.red("error") : chalk.yellow("warning");
 	const msg = `${chalk.bold(message.message.replace(/([^ ])\.$/, "$1"))}`;
 	const ruleId = chalk.dim(`(${message.ruleId})`);
-	const filePath = formatFilePath(
-		parentResult.filePath,
-		message.line,
-		message.column
-	);
+	const filePath = formatFilePath(parentResult.filePath, message.line, message.column);
 	const sourceCode = parentResult.source;
 
 	/* istanbul ignore next: safety check from original implementation */
@@ -138,15 +129,11 @@ function codeframe(results: Result[]): string {
 	let errors = 0;
 	let warnings = 0;
 
-	const resultsWithMessages = results.filter(
-		(result) => result.messages.length > 0
-	);
+	const resultsWithMessages = results.filter((result) => result.messages.length > 0);
 
 	let output = resultsWithMessages
 		.reduce((resultsOutput, result) => {
-			const messages = result.messages.map(
-				(message) => `${formatMessage(message, result)}\n\n`
-			);
+			const messages = result.messages.map((message) => `${formatMessage(message, result)}\n\n`);
 
 			errors += result.errorCount;
 			warnings += result.warningCount;

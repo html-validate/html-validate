@@ -59,11 +59,9 @@ describe("ConfigLoader", () => {
 
 		it("should load configuration", () => {
 			expect.assertions(1);
-			jest
-				.spyOn(fs, "existsSync")
-				.mockImplementation((filename: fs.PathLike) => {
-					return filename === path.resolve("/path/to/.htmlvalidate.json");
-				});
+			jest.spyOn(fs, "existsSync").mockImplementation((filename: fs.PathLike) => {
+				return filename === path.resolve("/path/to/.htmlvalidate.json");
+			});
 			const config = loader.fromTarget("/path/to/target.html");
 			expect(config.get()).toEqual(
 				expect.objectContaining({
@@ -77,11 +75,9 @@ describe("ConfigLoader", () => {
 
 		it("should load configuration from parent directory", () => {
 			expect.assertions(1);
-			jest
-				.spyOn(fs, "existsSync")
-				.mockImplementation((filename: fs.PathLike) => {
-					return filename === path.resolve("/path/.htmlvalidate.json");
-				});
+			jest.spyOn(fs, "existsSync").mockImplementation((filename: fs.PathLike) => {
+				return filename === path.resolve("/path/.htmlvalidate.json");
+			});
 			const config = loader.fromTarget("/path/to/target.html");
 			expect(config.get()).toEqual(
 				expect.objectContaining({
@@ -211,11 +207,7 @@ describe("ConfigLoader", () => {
 		/* extract only relevant rules from configuration to avoid bloat when new
 		 * rules are added to recommended config */
 		function filter(src: Config): ConfigData {
-			const whitelisted = [
-				"no-self-closing",
-				"deprecated",
-				"element-permitted-content",
-			];
+			const whitelisted = ["no-self-closing", "deprecated", "element-permitted-content"];
 			const data = src.get();
 			data.rules = Object.keys(data.rules)
 				.filter((key) => whitelisted.includes(key))

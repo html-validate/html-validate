@@ -4,8 +4,7 @@ import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 export default class NoDupAttr extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
-			description:
-				"HTML disallows two or more attributes with the same (case-insensitive) name.",
+			description: "HTML disallows two or more attributes with the same (case-insensitive) name.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}

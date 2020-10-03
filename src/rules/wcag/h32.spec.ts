@@ -20,17 +20,13 @@ describe("wcag/h32", () => {
 
 	it("should not report when form has submit button", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			'<form><button type="submit"></button></form>'
-		);
+		const report = htmlvalidate.validateString('<form><button type="submit"></button></form>');
 		expect(report).toBeValid();
 	});
 
 	it("should not report when form has submit button (input)", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			'<form><input type="submit"></form>'
-		);
+		const report = htmlvalidate.validateString('<form><input type="submit"></form>');
 		expect(report).toBeValid();
 	});
 
@@ -38,32 +34,21 @@ describe("wcag/h32", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString("<form></form>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"wcag/h32",
-			"<form> element must have a submit button"
-		);
+		expect(report).toHaveError("wcag/h32", "<form> element must have a submit button");
 	});
 
 	it("should report error when form only has regular button", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString(
-			'<form><button type="button"></button></form>'
-		);
+		const report = htmlvalidate.validateString('<form><button type="button"></button></form>');
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"wcag/h32",
-			"<form> element must have a submit button"
-		);
+		expect(report).toHaveError("wcag/h32", "<form> element must have a submit button");
 	});
 
 	it("should support custom elements", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString("<my-form></my-form>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"wcag/h32",
-			"<my-form> element must have a submit button"
-		);
+		expect(report).toHaveError("wcag/h32", "<my-form> element must have a submit button");
 	});
 
 	it("smoketest", () => {

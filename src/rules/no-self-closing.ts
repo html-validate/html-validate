@@ -43,12 +43,7 @@ export default class NoSelfClosing extends Rule<string, RuleOptions> {
 			return;
 		}
 
-		this.report(
-			node,
-			`<${node.tagName}> must not be self-closed`,
-			null,
-			node.tagName
-		);
+		this.report(node, `<${node.tagName}> must not be self-closed`, null, node.tagName);
 	}
 }
 

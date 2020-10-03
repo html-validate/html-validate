@@ -215,10 +215,7 @@ describe("HtmlValidate", () => {
 					errorCount: 1,
 					warningCount: 0,
 				});
-			const report = htmlvalidate.validateMultipleFiles([
-				"foo.html",
-				"bar.html",
-			]);
+			const report = htmlvalidate.validateMultipleFiles(["foo.html", "bar.html"]);
 			expect(report).toMatchInlineSnapshot(`
 			Object {
 			  "errorCount": 1,
@@ -457,16 +454,14 @@ describe("HtmlValidate", () => {
 				},
 			});
 			/* .htmlvalidate.json */
-			jest
-				.spyOn((htmlvalidate as any).configLoader, "fromTarget")
-				.mockImplementation(() =>
-					Config.fromObject({
-						rules: {
-							a: "warn",
-							b: "warn",
-						},
-					})
-				);
+			jest.spyOn((htmlvalidate as any).configLoader, "fromTarget").mockImplementation(() =>
+				Config.fromObject({
+					rules: {
+						a: "warn",
+						b: "warn",
+					},
+				})
+			);
 			/* override */
 			const config = htmlvalidate.getConfigFor("my-file.html", {
 				rules: {
@@ -489,10 +484,7 @@ describe("HtmlValidate", () => {
 			const htmlvalidate = new HtmlValidate({
 				root: true,
 			});
-			const fromTarget = jest.spyOn(
-				(htmlvalidate as any).configLoader,
-				"fromTarget"
-			);
+			const fromTarget = jest.spyOn((htmlvalidate as any).configLoader, "fromTarget");
 			const config = htmlvalidate.getConfigFor("my-file.html");
 			expect(fromTarget).not.toHaveBeenCalled();
 			expect(config.get()).toEqual(
@@ -532,10 +524,7 @@ describe("HtmlValidate", () => {
 					a: "error",
 				},
 			});
-			const fromTarget = jest.spyOn(
-				(htmlvalidate as any).configLoader,
-				"fromTarget"
-			);
+			const fromTarget = jest.spyOn((htmlvalidate as any).configLoader, "fromTarget");
 			const config = htmlvalidate.getConfigFor("my-file.html", {
 				root: true,
 				rules: {
@@ -574,10 +563,7 @@ describe("HtmlValidate", () => {
 	it("flushConfigCache() should delegate to configLoader", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
-		const flush = jest.spyOn(
-			(htmlvalidate as any).configLoader as ConfigLoader,
-			"flush"
-		);
+		const flush = jest.spyOn((htmlvalidate as any).configLoader as ConfigLoader, "flush");
 		htmlvalidate.flushConfigCache("foo");
 		expect(flush).toHaveBeenCalledWith("foo");
 	});

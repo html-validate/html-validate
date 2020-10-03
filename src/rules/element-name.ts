@@ -82,12 +82,7 @@ export default class ElementName extends Rule<Context, RuleOptions> {
 
 			/* check if element is blacklisted */
 			if (this.options.blacklist.includes(tagName)) {
-				this.report(
-					target,
-					`<${tagName}> element is blacklisted`,
-					location,
-					context
-				);
+				this.report(target, `<${tagName}> element is blacklisted`, location, context);
 			}
 
 			/* assume that an element with meta has valid name as it is a builtin
@@ -108,12 +103,7 @@ export default class ElementName extends Rule<Context, RuleOptions> {
 			}
 
 			if (!tagName.match(this.pattern)) {
-				this.report(
-					target,
-					`<${tagName}> is not a valid element name`,
-					location,
-					context
-				);
+				this.report(target, `<${tagName}> is not a valid element name`, location, context);
 			}
 		});
 	}

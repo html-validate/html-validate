@@ -24,11 +24,7 @@ export default class CloseAttr extends Rule {
 			const node = event.target;
 			if (Object.keys(node.attributes).length > 0) {
 				const first = node.attributes[0];
-				this.report(
-					null,
-					"Close tags cannot have attributes",
-					first.keyLocation
-				);
+				this.report(null, "Close tags cannot have attributes", first.keyLocation);
 			}
 		});
 	}

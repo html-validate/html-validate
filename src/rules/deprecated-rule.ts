@@ -16,12 +16,7 @@ export default class DeprecatedRule extends Rule<string> {
 		this.on("config:ready", (event: ConfigReadyEvent) => {
 			for (const rule of this.getDeprecatedRules(event)) {
 				if (rule.getSeverity() > Severity.DISABLED) {
-					this.report(
-						null,
-						`Usage of deprecated rule "${rule.name}"`,
-						null,
-						rule.name
-					);
+					this.report(null, `Usage of deprecated rule "${rule.name}"`, null, rule.name);
 				}
 			}
 		});

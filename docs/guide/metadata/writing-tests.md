@@ -23,9 +23,7 @@ beforeEach(() => {
 });
 
 it("should give error when using <div> as content", () => {
-  const report = htmlvalidate.validateString(
-    "<my-component><div>lorem ipsum</div></my-component>"
-  );
+  const report = htmlvalidate.validateString("<my-component><div>lorem ipsum</div></my-component>");
   expect(report.valid).toBeFalsy();
   expect(report.errorCount).toEqual(1);
   expect(report.results[0].messages[0]).toMatchInlineSnapshot(`
@@ -49,9 +47,7 @@ When using Jest in particular there are helper functions to make it even easier:
 require("html-validate/build/matchers");
 
 it("should give error when using <div> as content", () => {
-  const report = htmlvalidate.validateString(
-    "<my-component><div>lorem ipsum</div></my-component>"
-  );
+  const report = htmlvalidate.validateString("<my-component><div>lorem ipsum</div></my-component>");
   expect(report).toBeInvalid();
   expect(report).toHaveError(
     "element-permitted-content",

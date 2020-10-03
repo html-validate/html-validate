@@ -23,11 +23,9 @@ export class EventHandler {
 		}
 		return () => {
 			for (const name of names) {
-				this.listeners[name] = this.listeners[name].filter(
-					(fn: EventCallback) => {
-						return fn !== callback;
-					}
-				);
+				this.listeners[name] = this.listeners[name].filter((fn: EventCallback) => {
+					return fn !== callback;
+				});
 			}
 		};
 	}
@@ -56,10 +54,7 @@ export class EventHandler {
 	 */
 	/* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types */
 	public trigger(event: string, data: any): void {
-		const callbacks = [].concat(
-			this.listeners[event] || [],
-			this.listeners["*"] || []
-		);
+		const callbacks = [].concat(this.listeners[event] || [], this.listeners["*"] || []);
 		callbacks.forEach((listener) => {
 			listener.call(null, event, data);
 		});

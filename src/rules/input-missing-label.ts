@@ -5,8 +5,7 @@ import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 export default class InputMissingLabel extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
-			description:
-				"Labels are associated with the input element and is required for a17y.",
+			description: "Labels are associated with the input element and is required for a17y.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}

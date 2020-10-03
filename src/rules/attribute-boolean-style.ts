@@ -51,11 +51,7 @@ export default class AttributeBooleanStyle extends Rule<void, Options> {
 					}
 
 					if (this.hasInvalidStyle(attr)) {
-						this.report(
-							node,
-							reportMessage(attr, this.options.style),
-							attr.keyLocation
-						);
+						this.report(node, reportMessage(attr, this.options.style), attr.keyLocation);
 					}
 				}
 			});
@@ -76,9 +72,7 @@ function parseStyle(style: string): checkFunction {
 		case "name":
 			return (attr: Attribute) => attr.value !== attr.key;
 		default:
-			throw new Error(
-				`Invalid style "${style}" for "attribute-boolean-style" rule`
-			);
+			throw new Error(`Invalid style "${style}" for "attribute-boolean-style" rule`);
 	}
 }
 

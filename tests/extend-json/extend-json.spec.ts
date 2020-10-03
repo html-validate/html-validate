@@ -5,9 +5,7 @@ import "../../src/matchers";
 it("should handle extending json file", () => {
 	expect.assertions(2);
 	const htmlvalidate = new HtmlValidate();
-	const report = htmlvalidate.validateFile(
-		path.join(__dirname, "my-file.html")
-	);
+	const report = htmlvalidate.validateFile(path.join(__dirname, "my-file.html"));
 	expect(report).toBeInvalid();
 	expect(report.results[0].messages).toMatchInlineSnapshot(`
 		Array [

@@ -17,20 +17,14 @@ describe("rule element-name", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString("<foobar></foobar>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"element-name",
-				"<foobar> is not a valid element name"
-			);
+			expect(report).toHaveError("element-name", "<foobar> is not a valid element name");
 		});
 
 		it("should report error when custom element name does not start with letter", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString("<1-foo></1-foo>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"element-name",
-				"<1-foo> is not a valid element name"
-			);
+			expect(report).toHaveError("element-name", "<1-foo> is not a valid element name");
 		});
 
 		it("should not report error when custom element name is valid", () => {
@@ -41,9 +35,7 @@ describe("rule element-name", () => {
 
 		it("should not report when using builtin elements", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
-				"<span><a><span></span></a></span>"
-			);
+			const report = htmlvalidate.validateString("<span><a><span></span></a></span>");
 			expect(report).toBeValid();
 		});
 
@@ -55,9 +47,7 @@ describe("rule element-name", () => {
 
 		it("smoketest", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"test-files/rules/element-name.html"
-			);
+			const report = htmlvalidate.validateFile("test-files/rules/element-name.html");
 			expect(report.results).toMatchSnapshot();
 		});
 	});
@@ -73,10 +63,7 @@ describe("rule element-name", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString("<spam-ham></spam-ham>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"element-name",
-				"<spam-ham> is not a valid element name"
-			);
+			expect(report).toHaveError("element-name", "<spam-ham> is not a valid element name");
 		});
 
 		it("should not report error when custom element name does match pattern", () => {
@@ -87,9 +74,7 @@ describe("rule element-name", () => {
 
 		it("should not report when using builtin elements", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
-				"<span><a><span></span></a></span>"
-			);
+			const report = htmlvalidate.validateString("<span><a><span></span></a></span>");
 			expect(report).toBeValid();
 		});
 
@@ -101,9 +86,7 @@ describe("rule element-name", () => {
 
 		it("smoketest", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"test-files/rules/element-name.html"
-			);
+			const report = htmlvalidate.validateFile("test-files/rules/element-name.html");
 			expect(report.results).toMatchSnapshot();
 		});
 	});
@@ -124,10 +107,7 @@ describe("rule element-name", () => {
 		});
 		const report = htmlvalidate.validateString("<foo-bar></foo-bar>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"element-name",
-			"<foo-bar> element is blacklisted"
-		);
+		expect(report).toHaveError("element-name", "<foo-bar> element is blacklisted");
 	});
 
 	it("should contain documentation", () => {
@@ -149,9 +129,7 @@ describe("rule element-name", () => {
 				pattern: DEFAULT_PATTERN,
 				blacklist: ["element-name"],
 			};
-			expect(
-				htmlvalidate.getRuleDocumentation("element-name", null, context)
-			).toMatchSnapshot();
+			expect(htmlvalidate.getRuleDocumentation("element-name", null, context)).toMatchSnapshot();
 		});
 
 		it("element not matching default pattern", () => {
@@ -164,9 +142,7 @@ describe("rule element-name", () => {
 				pattern: DEFAULT_PATTERN,
 				blacklist: [] as string[],
 			};
-			expect(
-				htmlvalidate.getRuleDocumentation("element-name", null, context)
-			).toMatchSnapshot();
+			expect(htmlvalidate.getRuleDocumentation("element-name", null, context)).toMatchSnapshot();
 		});
 
 		it("element not matching custom pattern", () => {
@@ -179,9 +155,7 @@ describe("rule element-name", () => {
 				pattern: "^foo-.+$",
 				blacklist: [] as string[],
 			};
-			expect(
-				htmlvalidate.getRuleDocumentation("element-name", null, context)
-			).toMatchSnapshot();
+			expect(htmlvalidate.getRuleDocumentation("element-name", null, context)).toMatchSnapshot();
 		});
 	});
 });

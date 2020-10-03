@@ -1,7 +1,4 @@
-module.exports = function inlineValidationInlineTagDef(
-	validateMap,
-	createDocMessage
-) {
+module.exports = function inlineValidationInlineTagDef(validateMap, createDocMessage) {
 	return {
 		name: "inlineValidation",
 		handler,
@@ -11,10 +8,7 @@ module.exports = function inlineValidationInlineTagDef(
 		const validation = validateMap.get(description);
 		if (!validation) {
 			throw new Error(
-				createDocMessage(
-					`No inline validation exists with id "${description}".`,
-					doc
-				)
+				createDocMessage(`No inline validation exists with id "${description}".`, doc)
 			);
 		}
 		if (!validation.inlineValidationDoc) {

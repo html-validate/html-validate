@@ -31,13 +31,9 @@ describe("rule no-redundant-role", () => {
 
 	it("should not report error for dynamic attributes", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			'<input dynamic-role="main">',
-			null,
-			{
-				processAttribute,
-			}
-		);
+		const report = htmlvalidate.validateString('<input dynamic-role="main">', null, {
+			processAttribute,
+		});
 		expect(report).toBeValid();
 	});
 
@@ -55,9 +51,7 @@ describe("rule no-redundant-role", () => {
 		const htmlvalidate = new HtmlValidate({
 			rules: { "no-redundant-role": "error" },
 		});
-		expect(
-			htmlvalidate.getRuleDocumentation("no-redundant-role")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("no-redundant-role")).toMatchSnapshot();
 	});
 
 	it("should contain contextual documentation", () => {
@@ -69,8 +63,6 @@ describe("rule no-redundant-role", () => {
 			role: "checkbox",
 			tagname: "input",
 		};
-		expect(
-			htmlvalidate.getRuleDocumentation("no-redundant-role", null, context)
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("no-redundant-role", null, context)).toMatchSnapshot();
 	});
 });

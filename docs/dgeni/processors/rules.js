@@ -41,9 +41,7 @@ module.exports = function rulesProcessor(renderDocsProcessor) {
 		/* compule rule source paths */
 		ruleDocs.forEach((doc) => {
 			const docPath = doc.fileInfo.projectRelativePath;
-			doc.ruleSourcePath = docPath
-				.replace("docs", "src")
-				.replace(/\.md$/, ".ts");
+			doc.ruleSourcePath = docPath.replace("docs", "src").replace(/\.md$/, ".ts");
 		});
 
 		/* generate title */

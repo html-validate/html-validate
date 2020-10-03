@@ -27,27 +27,19 @@ describe("rule element-case", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString("<FOO></FOO>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"element-case",
-				'Element "FOO" should be lowercase'
-			);
+			expect(report).toHaveError("element-case", 'Element "FOO" should be lowercase');
 		});
 
 		it("should report error when element is mixed", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString("<fOo></fOo>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"element-case",
-				'Element "fOo" should be lowercase'
-			);
+			expect(report).toHaveError("element-case", 'Element "fOo" should be lowercase');
 		});
 
 		it("smoketest", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"test-files/rules/element-case.html"
-			);
+			const report = htmlvalidate.validateFile("test-files/rules/element-case.html");
 			expect(report.results).toMatchSnapshot();
 		});
 	});
@@ -63,10 +55,7 @@ describe("rule element-case", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString("<foo></foo>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"element-case",
-				'Element "foo" should be uppercase'
-			);
+			expect(report).toHaveError("element-case", 'Element "foo" should be uppercase');
 		});
 
 		it("should not report error when element has special characters", () => {
@@ -85,17 +74,12 @@ describe("rule element-case", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString("<fOo></fOo>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"element-case",
-				'Element "fOo" should be uppercase'
-			);
+			expect(report).toHaveError("element-case", 'Element "fOo" should be uppercase');
 		});
 
 		it("smoketest", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"test-files/rules/element-case.html"
-			);
+			const report = htmlvalidate.validateFile("test-files/rules/element-case.html");
 			expect(report.results).toMatchSnapshot();
 		});
 	});
@@ -111,10 +95,7 @@ describe("rule element-case", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString("<foo-bar></foo-bar>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"element-case",
-				'Element "foo-bar" should be PascalCase'
-			);
+			expect(report).toHaveError("element-case", 'Element "foo-bar" should be PascalCase');
 		});
 
 		it("should not report error when element is pascalcase", () => {
@@ -135,10 +116,7 @@ describe("rule element-case", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString("<FooBar></FooBar>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"element-case",
-				'Element "FooBar" should be camelCase'
-			);
+			expect(report).toHaveError("element-case", 'Element "FooBar" should be camelCase');
 		});
 
 		it("should not report error when element is camelcase", () => {
@@ -180,10 +158,7 @@ describe("rule element-case", () => {
 		});
 		const report = htmlvalidate.validateString("<foo-Bar></foo-bar>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"element-case",
-			"Start and end tag must not differ in casing"
-		);
+		expect(report).toHaveError("element-case", "Start and end tag must not differ in casing");
 	});
 
 	it("should not report error when elements are closed out-of-order", () => {

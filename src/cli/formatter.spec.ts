@@ -109,8 +109,6 @@ describe("cli/formatters", () => {
 
 	it("should throw error when formatter is missing", () => {
 		expect.assertions(1);
-		expect(() => cli.getFormatter("missing")).toThrow(
-			'No formatter named "missing"'
-		);
+		expect(() => cli.getFormatter("missing")).toThrow('No formatter named "missing"');
 	});
 });

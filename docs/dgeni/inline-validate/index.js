@@ -32,8 +32,7 @@ module.exports = new Package("inline-validate", [])
 		computePathsProcessor.pathTemplates.push({
 			docTypes: ["validate-spec"],
 			getPath: function () {},
-			outputPathTemplate:
-				"../${fileInfo.path}/__tests__/${fileInfo.file}.spec.ts",
+			outputPathTemplate: "../${fileInfo.path}/__tests__/${fileInfo.file}.spec.ts",
 		});
 		computePathsProcessor.pathTemplates.push({
 			docTypes: ["inlineValidation"],
@@ -41,12 +40,7 @@ module.exports = new Package("inline-validate", [])
 			getOutputPath: function () {},
 		});
 		computeIdsProcessor.idTemplates.push({
-			docTypes: [
-				"validate-config",
-				"validate-markup",
-				"validate-spec",
-				"inlineValidation",
-			],
+			docTypes: ["validate-config", "validate-markup", "validate-spec", "inlineValidation"],
 			getAliases: function (doc) {
 				return [doc.id];
 			},

@@ -8,9 +8,7 @@ jest.mock("fs");
 it("transformFile() should read file and apply transformer", () => {
 	expect.assertions(2);
 	const transformer = jest.fn((source: Source) => [source]);
-	const readFileSync = jest
-		.spyOn(fs, "readFileSync")
-		.mockImplementation(() => "mocked file data");
+	const readFileSync = jest.spyOn(fs, "readFileSync").mockImplementation(() => "mocked file data");
 	const result = transformFile(transformer, "foo.html");
 	expect(readFileSync).toHaveBeenCalledWith("foo.html", "utf-8");
 	expect(result).toMatchInlineSnapshot(`
@@ -76,10 +74,7 @@ it("transformSource() should support chaining", () => {
 		offset: 3,
 		data: "source data",
 	};
-	const transformer = jest.fn(function (
-		this: TransformContext,
-		source: Source
-	) {
+	const transformer = jest.fn(function (this: TransformContext, source: Source) {
 		return this.chain(source, "chained.html");
 	});
 	const result = transformSource(transformer, source);
@@ -106,10 +101,7 @@ it("transformSource() should support custom chaining", () => {
 		data: "source data",
 	};
 	const chain = jest.fn((source: Source) => [source]);
-	const transformer = jest.fn(function (
-		this: TransformContext,
-		source: Source
-	) {
+	const transformer = jest.fn(function (this: TransformContext, source: Source) {
 		return this.chain(source, "chained.html");
 	});
 	const result = transformSource(transformer, source, chain);

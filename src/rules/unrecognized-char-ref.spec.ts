@@ -61,9 +61,7 @@ describe("rule unrecognized-char-ref", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "unrecognized-char-ref": "error" },
 		});
-		expect(
-			htmlvalidate.getRuleDocumentation("unrecognized-char-ref")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("unrecognized-char-ref")).toMatchSnapshot();
 		expect(
 			htmlvalidate.getRuleDocumentation("unrecognized-char-ref", null, "&spam;")
 		).toMatchSnapshot();

@@ -195,8 +195,7 @@ describe("HTML elements", () => {
 	});
 
 	for (const tagName of tagNames) {
-		const filename = (variant: string): string =>
-			`${fileDirectory}/${tagName}-${variant}.html`;
+		const filename = (variant: string): string => `${fileDirectory}/${tagName}-${variant}.html`;
 
 		describe(`<${tagName}>`, () => {
 			it("valid markup", () => {

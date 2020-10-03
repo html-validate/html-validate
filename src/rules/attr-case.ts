@@ -43,10 +43,7 @@ export default class AttrCase extends Rule<void, RuleOptions> {
 
 			const letters = event.key.replace(/[^a-z]+/gi, "");
 			if (!this.style.match(letters)) {
-				this.report(
-					event.target,
-					`Attribute "${event.key}" should be ${this.style.name}`
-				);
+				this.report(event.target, `Attribute "${event.key}" should be ${this.style.name}`);
 			}
 		});
 	}

@@ -45,9 +45,7 @@ describe("rule no-raw-characters", () => {
 				expect.assertions(2);
 				const report = htmlvalidate.validateString("<p><i>&</i></p> ");
 				expect(report).toBeInvalid();
-				expect(report).toHaveErrors([
-					["no-raw-characters", 'Raw "&" must be encoded as "&amp;"'],
-				]);
+				expect(report).toHaveErrors([["no-raw-characters", 'Raw "&" must be encoded as "&amp;"']]);
 			});
 		});
 
@@ -74,18 +72,14 @@ describe("rule no-raw-characters", () => {
 				expect.assertions(2);
 				const report = htmlvalidate.validateString('<p class=foo"s></p>');
 				expect(report).toBeInvalid();
-				expect(report).toHaveErrors([
-					["no-raw-characters", `Raw """ must be encoded as "&quot;"`],
-				]);
+				expect(report).toHaveErrors([["no-raw-characters", `Raw """ must be encoded as "&quot;"`]]);
 			});
 
 			it("should report error when ' are present", () => {
 				expect.assertions(2);
 				const report = htmlvalidate.validateString("<p class=foo's></p>");
 				expect(report).toBeInvalid();
-				expect(report).toHaveErrors([
-					["no-raw-characters", `Raw "'" must be encoded as "&apos;"`],
-				]);
+				expect(report).toHaveErrors([["no-raw-characters", `Raw "'" must be encoded as "&apos;"`]]);
 			});
 
 			it("should report error when = are present", () => {
@@ -143,18 +137,14 @@ describe("rule no-raw-characters", () => {
 				${"<$ ... $>"}
 			`("$input", ({ input }) => {
 				expect.assertions(1);
-				const report = htmlvalidate.validateString(
-					`<p>lorem ${input} ipsum</p>`
-				);
+				const report = htmlvalidate.validateString(`<p>lorem ${input} ipsum</p>`);
 				expect(report).toBeValid();
 			});
 		});
 
 		it("smoketest", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"test-files/rules/no-raw-characters.html"
-			);
+			const report = htmlvalidate.validateFile("test-files/rules/no-raw-characters.html");
 			expect(report.results).toMatchSnapshot();
 		});
 	});
@@ -168,25 +158,19 @@ describe("rule no-raw-characters", () => {
 
 		it("should not report error when ampersand in text isn't ambiguous", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
-				"<p>lorem & ipsum&dolor &amp; &sit;</p>"
-			);
+			const report = htmlvalidate.validateString("<p>lorem & ipsum&dolor &amp; &sit;</p>");
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when ampersand in attribute isn't ambiguous", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
-				'<a href="?foo=1&bar=2&baz&spam"></a>'
-			);
+			const report = htmlvalidate.validateString('<a href="?foo=1&bar=2&baz&spam"></a>');
 			expect(report).toBeValid();
 		});
 
 		it("smoketest", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"test-files/rules/no-raw-characters.html"
-			);
+			const report = htmlvalidate.validateFile("test-files/rules/no-raw-characters.html");
 			expect(report.results).toMatchSnapshot();
 		});
 	});
@@ -196,8 +180,6 @@ describe("rule no-raw-characters", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "no-raw-characters": "error" },
 		});
-		expect(
-			htmlvalidate.getRuleDocumentation("no-raw-characters")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("no-raw-characters")).toMatchSnapshot();
 	});
 });

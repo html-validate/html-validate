@@ -21,9 +21,7 @@ declare global {
 			toBeInvalid(): R;
 			toBeToken(expected: TokenMatcher): R;
 			toHaveError(ruleId: string, message: string, context?: any): R;
-			toHaveErrors(
-				errors: Array<[string, string] | Record<string, unknown>>
-			): R;
+			toHaveErrors(errors: Array<[string, string] | Record<string, unknown>>): R;
 
 			/**
 			 * Validate string or HTMLElement.
@@ -41,11 +39,7 @@ declare global {
 			toHTMLValidate(error: Partial<Message>): R;
 			toHTMLValidate(error: Partial<Message>, filename: string): R;
 			toHTMLValidate(error: Partial<Message>, config: ConfigData): R;
-			toHTMLValidate(
-				error: Partial<Message>,
-				config: ConfigData,
-				filename: string
-			): R;
+			toHTMLValidate(error: Partial<Message>, config: ConfigData, filename: string): R;
 		}
 	}
 }
@@ -59,30 +53,22 @@ function flattenMessages(report: Report): Message[] {
 	}, []);
 }
 
-function toBeValid(
-	this: jest.MatcherUtils,
-	report: Report
-): jest.CustomMatcherResult {
+function toBeValid(this: jest.MatcherUtils, report: Report): jest.CustomMatcherResult {
 	if (report.valid) {
 		return {
 			pass: true,
-			message: /* istanbul ignore next */ () =>
-				"Result should not contain error",
+			message: /* istanbul ignore next */ () => "Result should not contain error",
 		};
 	} else {
 		const firstError = report.results[0].messages[0];
 		return {
 			pass: false,
-			message: () =>
-				`Result should be successful but had error "${firstError.message}"`,
+			message: () => `Result should be successful but had error "${firstError.message}"`,
 		};
 	}
 }
 
-function toBeInvalid(
-	this: jest.MatcherUtils,
-	report: Report
-): jest.CustomMatcherResult {
+function toBeInvalid(this: jest.MatcherUtils, report: Report): jest.CustomMatcherResult {
 	if (report.valid) {
 		return {
 			pass: false,
@@ -91,8 +77,7 @@ function toBeInvalid(
 	} else {
 		return {
 			pass: true,
-			message: /* istanbul ignore next */ () =>
-				"Result should not contain error",
+			message: /* istanbul ignore next */ () => "Result should not contain error",
 		};
 	}
 }
@@ -120,9 +105,7 @@ function toHaveError(
 		`  ${this.utils.printExpected(matcher)}\n` +
 		"Received:\n" +
 		`  ${this.utils.printReceived(actual)}` +
-		/* istanbul ignore next */ (diffString
-			? `\n\nDifference:\n\n${diffString}`
-			: "");
+		/* istanbul ignore next */ (diffString ? `\n\nDifference:\n\n${diffString}` : "");
 
 	return { pass, message: resultMessage };
 }
@@ -150,9 +133,7 @@ function toHaveErrors(
 		`  ${this.utils.printExpected(matcher)}\n` +
 		"Received:\n" +
 		`  ${this.utils.printReceived(actual)}` +
-		/* istanbul ignore next */ (diffString
-			? `\n\nDifference:\n\n${diffString}`
-			: "");
+		/* istanbul ignore next */ (diffString ? `\n\nDifference:\n\n${diffString}` : "");
 
 	return { pass, message: resultMessage };
 }
@@ -174,13 +155,7 @@ function isMessage(arg: any): arg is Partial<Message> {
 
 function isConfig(arg: any): arg is ConfigData {
 	return (
-		arg &&
-		(arg.root ||
-			arg.extends ||
-			arg.elements ||
-			arg.plugin ||
-			arg.transform ||
-			arg.rules)
+		arg && (arg.root || arg.extends || arg.elements || arg.plugin || arg.transform || arg.rules)
 	);
 }
 
@@ -232,21 +207,16 @@ function toHTMLValidateImpl(
 		return { pass, message: () => "HTML is valid when an error was expected" };
 	} else {
 		if (expectedError) {
-			const matcher = expect.arrayContaining([
-				expect.objectContaining(expectedError),
-			]);
+			const matcher = expect.arrayContaining([expect.objectContaining(expectedError)]);
 			const errorPass = this.equals(report.results[0].messages, matcher);
 			const diffString = diff(matcher, report.results[0].messages, {
 				expand: this.expand,
 				aAnnotation: "Expected error",
 				bAnnotation: "Actual error",
 			});
-			const hint = this.utils.matcherHint(
-				".not.toHTMLValidate",
-				undefined,
-				undefined,
-				{ comment: "expected error" }
-			);
+			const hint = this.utils.matcherHint(".not.toHTMLValidate", undefined, undefined, {
+				comment: "expected error",
+			});
 			const expectedErrorMessage = (): string =>
 				[
 					hint,
@@ -264,18 +234,12 @@ function toHTMLValidateImpl(
 		return {
 			pass,
 			message: () =>
-				["Expected HTML to be valid but had the following errors:", ""]
-					.concat(errors)
-					.join("\n"),
+				["Expected HTML to be valid but had the following errors:", ""].concat(errors).join("\n"),
 		};
 	}
 }
 
-function toBeToken(
-	this: jest.MatcherUtils,
-	actual: any,
-	expected: any
-): jest.CustomMatcherResult {
+function toBeToken(this: jest.MatcherUtils, actual: any, expected: any): jest.CustomMatcherResult {
 	const token = actual.value;
 
 	// istanbul ignore next: TokenMatcher requires "type" property to be set, this is just a failsafe
@@ -298,9 +262,7 @@ function toBeToken(
 		`  ${this.utils.printExpected(matcher)}\n` +
 		"Received:\n" +
 		`  ${this.utils.printReceived(token)}` +
-		/* istanbul ignore next */ (diffString
-			? `\n\nDifference:\n\n${diffString}`
-			: "");
+		/* istanbul ignore next */ (diffString ? `\n\nDifference:\n\n${diffString}` : "");
 
 	return { pass, message };
 }

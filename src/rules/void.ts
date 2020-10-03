@@ -27,8 +27,7 @@ export default class Void extends Rule<void, RuleOptions> {
 
 	public documentation(): RuleDocumentation {
 		return {
-			description:
-				"HTML void elements cannot have any content and must not have an end tag.",
+			description: "HTML void elements cannot have any content and must not have an end tag.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
@@ -55,11 +54,7 @@ export default class Void extends Rule<void, RuleOptions> {
 
 	private validateCurrent(node: HtmlElement): void {
 		if (node.voidElement && node.closed === NodeClosed.EndTag) {
-			this.report(
-				null,
-				`End tag for <${node.tagName}> must be omitted`,
-				node.location
-			);
+			this.report(null, `End tag for <${node.tagName}> must be omitted`, node.location);
 		}
 	}
 
@@ -71,24 +66,17 @@ export default class Void extends Rule<void, RuleOptions> {
 		}
 
 		const selfOrOmitted =
-			node.closed === NodeClosed.VoidOmitted ||
-			node.closed === NodeClosed.VoidSelfClosed;
+			node.closed === NodeClosed.VoidOmitted || node.closed === NodeClosed.VoidSelfClosed;
 
 		if (node.voidElement) {
-			if (
-				this.style === Style.AlwaysOmit &&
-				node.closed === NodeClosed.VoidSelfClosed
-			) {
+			if (this.style === Style.AlwaysOmit && node.closed === NodeClosed.VoidSelfClosed) {
 				this.report(
 					node,
 					`Expected omitted end tag <${node.tagName}> instead of self-closing element <${node.tagName}/>`
 				);
 			}
 
-			if (
-				this.style === Style.AlwaysSelfclose &&
-				node.closed === NodeClosed.VoidOmitted
-			) {
+			if (this.style === Style.AlwaysSelfclose && node.closed === NodeClosed.VoidOmitted) {
 				this.report(
 					node,
 					`Expected self-closing element <${node.tagName}/> instead of omitted end-tag <${node.tagName}>`

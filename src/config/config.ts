@@ -69,10 +69,7 @@ function loadFromFile(filename: string): ConfigData {
 		/* load using require as it can process both js and json */
 		json = require(filename); // eslint-disable-line import/no-dynamic-require
 	} catch (err) {
-		throw new ConfigError(
-			`Failed to read configuration from "${filename}"`,
-			err
-		);
+		throw new ConfigError(`Failed to read configuration from "${filename}"`, err);
 	}
 
 	/* expand any relative paths */
@@ -116,10 +113,7 @@ export class Config {
 	/**
 	 * Create configuration from object.
 	 */
-	public static fromObject(
-		options: ConfigData,
-		filename: string | null = null
-	): Config {
+	public static fromObject(options: ConfigData, filename: string | null = null): Config {
 		Config.validate(options, filename);
 		return new Config(options);
 	}
@@ -204,9 +198,7 @@ export class Config {
 		}
 
 		/* precompile transform patterns */
-		this.transformers = this.precompileTransformers(
-			this.config.transform || {}
-		);
+		this.transformers = this.precompileTransformers(this.config.transform || {});
 
 		this.initialized = true;
 	}
@@ -287,10 +279,7 @@ export class Config {
 				// eslint-disable-next-line security/detect-non-literal-require, import/no-dynamic-require
 				metaTable.loadFromObject(require(entry));
 			} catch (err) {
-				throw new ConfigError(
-					`Failed to load elements from "${entry}": ${err.message}`,
-					err
-				);
+				throw new ConfigError(`Failed to load elements from "${entry}": ${err.message}`, err);
 			}
 		}
 
@@ -356,18 +345,12 @@ export class Config {
 		return plugins.map((moduleName: string) => {
 			try {
 				// eslint-disable-next-line security/detect-non-literal-require, import/no-dynamic-require
-				const plugin = require(moduleName.replace(
-					"<rootDir>",
-					this.rootDir
-				)) as LoadedPlugin;
+				const plugin = require(moduleName.replace("<rootDir>", this.rootDir)) as LoadedPlugin;
 				plugin.name = plugin.name || moduleName;
 				plugin.originalName = moduleName;
 				return plugin;
 			} catch (err) {
-				throw new ConfigError(
-					`Failed to load plugin "${moduleName}": ${err}`,
-					err
-				);
+				throw new ConfigError(`Failed to load plugin "${moduleName}": ${err}`, err);
 			}
 		});
 	}
@@ -437,21 +420,15 @@ export class Config {
 		};
 		if (transformer) {
 			try {
-				return Array.from(
-					transformer.fn.call(context, source),
-					(cur: Source) => {
-						/* keep track of which transformers that has been run on this source
-						 * by appending this entry to the transformedBy array */
-						cur.transformedBy = cur.transformedBy || [];
-						cur.transformedBy.push(transformer.name);
-						return cur;
-					}
-				);
+				return Array.from(transformer.fn.call(context, source), (cur: Source) => {
+					/* keep track of which transformers that has been run on this source
+					 * by appending this entry to the transformedBy array */
+					cur.transformedBy = cur.transformedBy || [];
+					cur.transformedBy.push(transformer.name);
+					return cur;
+				});
 			} catch (err) {
-				throw new NestedError(
-					`When transforming "${source.filename}": ${err.message}`,
-					err
-				);
+				throw new NestedError(`When transforming "${source.filename}": ${err.message}`, err);
 			}
 		} else {
 			return [source];
@@ -488,9 +465,7 @@ export class Config {
 	}
 
 	private findTransformer(filename: string): TransformerEntry | null {
-		return this.transformers.find((entry: TransformerEntry) =>
-			entry.pattern.test(filename)
-		);
+		return this.transformers.find((entry: TransformerEntry) => entry.pattern.test(filename));
 	}
 
 	private precompileTransformers(transform: TransformMap): TransformerEntry[] {
@@ -515,10 +490,7 @@ export class Config {
 				};
 			} catch (err) {
 				if (err instanceof ConfigError) {
-					throw new ConfigError(
-						`Failed to load transformer "${name}": ${err.message}`,
-						err
-					);
+					throw new ConfigError(`Failed to load transformer "${name}": ${err.message}`, err);
 				} else {
 					throw new ConfigError(`Failed to load transformer "${name}"`, err);
 				}
@@ -581,9 +553,7 @@ export class Config {
 		}
 
 		if (!plugin.transformer[key]) {
-			throw new ConfigError(
-				`Plugin "${pluginName}" does not expose a transformer named "${key}".`
-			);
+			throw new ConfigError(`Plugin "${pluginName}" does not expose a transformer named "${key}".`);
 		}
 
 		return plugin.transformer[key];
@@ -593,10 +563,7 @@ export class Config {
 	 * @param name - Original name from configuration
 	 * @param plugin - Plugin instance
 	 */
-	private getUnnamedTransformerFromPlugin(
-		name: string,
-		plugin: Plugin
-	): Transformer {
+	private getUnnamedTransformerFromPlugin(name: string, plugin: Plugin): Transformer {
 		if (!plugin.transformer) {
 			throw new ConfigError(`Plugin does not expose any transformer`);
 		}

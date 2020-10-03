@@ -69,9 +69,7 @@ export class DOMTokenList extends Array<string> {
 		if (this.locations) {
 			return this.locations[n];
 		} else {
-			throw new Error(
-				"Trying to access DOMTokenList location when base location isn't set"
-			);
+			throw new Error("Trying to access DOMTokenList location when base location isn't set");
 		}
 	}
 

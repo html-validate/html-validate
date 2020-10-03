@@ -40,17 +40,13 @@ describe("rule element-required-attributes", () => {
 
 	it("smoketest", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile(
-			"test-files/rules/element-required-attributes.html"
-		);
+		const report = htmlvalidate.validateFile("test-files/rules/element-required-attributes.html");
 		expect(report.results).toMatchSnapshot();
 	});
 
 	it("should contain documentation", () => {
 		expect.assertions(1);
-		expect(
-			htmlvalidate.getRuleDocumentation("element-required-attributes")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("element-required-attributes")).toMatchSnapshot();
 	});
 
 	it("should contain contextual documentation", () => {
@@ -60,11 +56,7 @@ describe("rule element-required-attributes", () => {
 			attribute: "foo",
 		};
 		expect(
-			htmlvalidate.getRuleDocumentation(
-				"element-required-attributes",
-				null,
-				context
-			)
+			htmlvalidate.getRuleDocumentation("element-required-attributes", null, context)
 		).toMatchSnapshot();
 	});
 });

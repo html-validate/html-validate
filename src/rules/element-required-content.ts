@@ -17,8 +17,7 @@ export default class ElementRequiredContent extends Rule<Context> {
 			};
 		} else {
 			return {
-				description:
-					"Some elements has requirements on content that must be present.",
+				description: "Some elements has requirements on content that must be present.",
 				url: ruleDocumentationUrl(__filename),
 			};
 		}

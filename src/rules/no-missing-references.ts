@@ -50,11 +50,7 @@ export default class NoMissingReferences extends Rule<Context> {
 		});
 	}
 
-	protected validateReference(
-		document: DOMTree,
-		node: HtmlElement,
-		attr: Attribute
-	): void {
+	protected validateReference(document: DOMTree, node: HtmlElement, attr: Attribute): void {
 		const id = attr.value;
 
 		if (id instanceof DynamicValue || id === null || id === "") {
@@ -64,12 +60,7 @@ export default class NoMissingReferences extends Rule<Context> {
 		const nodes = document.querySelectorAll(`[id="${id}"]`);
 		if (nodes.length === 0) {
 			const context: Context = { key: attr.key, value: id };
-			this.report(
-				node,
-				`Element references missing id "${id}"`,
-				attr.valueLocation,
-				context
-			);
+			this.report(node, `Element references missing id "${id}"`, attr.valueLocation, context);
 		}
 	}
 }

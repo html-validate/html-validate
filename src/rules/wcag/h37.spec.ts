@@ -35,17 +35,12 @@ describe("rule h37", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString("<img>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"wcag/h37",
-				'<img> is missing required "alt" attribute'
-			);
+			expect(report).toHaveError("wcag/h37", '<img> is missing required "alt" attribute');
 		});
 
 		it("smoketest", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"test-files/rules/wcag/h37.html"
-			);
+			const report = htmlvalidate.validateFile("test-files/rules/wcag/h37.html");
 			expect(report.results).toMatchSnapshot();
 		});
 	});
@@ -67,27 +62,19 @@ describe("rule h37", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString('<img alt="">');
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"wcag/h37",
-				'<img> is missing required "alt" attribute'
-			);
+			expect(report).toHaveError("wcag/h37", '<img> is missing required "alt" attribute');
 		});
 
 		it("should report error when img is missing alt attribute", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString("<img>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"wcag/h37",
-				'<img> is missing required "alt" attribute'
-			);
+			expect(report).toHaveError("wcag/h37", '<img> is missing required "alt" attribute');
 		});
 
 		it("smoketest", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"test-files/rules/wcag/h37.html"
-			);
+			const report = htmlvalidate.validateFile("test-files/rules/wcag/h37.html");
 			expect(report.results).toMatchSnapshot();
 		});
 	});
@@ -109,17 +96,12 @@ describe("rule h37", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString("<img>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"wcag/h37",
-				'<img> is missing required "alt" attribute'
-			);
+			expect(report).toHaveError("wcag/h37", '<img> is missing required "alt" attribute');
 		});
 
 		it("smoketest", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"test-files/rules/wcag/h37.html"
-			);
+			const report = htmlvalidate.validateFile("test-files/rules/wcag/h37.html");
 			expect(report.results).toMatchSnapshot();
 		});
 	});
@@ -139,9 +121,7 @@ describe("rule h37", () => {
 
 		it("smoketest", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"test-files/rules/wcag/h37.html"
-			);
+			const report = htmlvalidate.validateFile("test-files/rules/wcag/h37.html");
 			expect(report.results).toMatchSnapshot();
 		});
 	});

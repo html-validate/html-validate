@@ -66,25 +66,18 @@ describe("rule deprecated-rule", () => {
 		});
 		const report = htmlvalidate.validateString("<div></div>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"deprecated-rule",
-			'Usage of deprecated rule "custom/deprecated"'
-		);
+		expect(report).toHaveError("deprecated-rule", 'Usage of deprecated rule "custom/deprecated"');
 	});
 
 	it("should contain documentation", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
-		expect(
-			htmlvalidate.getRuleDocumentation("deprecated-rule")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("deprecated-rule")).toMatchSnapshot();
 	});
 
 	it("should contain contextual documentation", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
-		expect(
-			htmlvalidate.getRuleDocumentation("deprecated-rule", null, "my-rule")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("deprecated-rule", null, "my-rule")).toMatchSnapshot();
 	});
 });

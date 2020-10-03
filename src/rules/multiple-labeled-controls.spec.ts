@@ -24,17 +24,13 @@ describe("rule multiple-labeled-controls", () => {
 
 	it("should not report when <label> has one referenced control", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			'<label for="foo"></label><input id="foo">'
-		);
+		const report = htmlvalidate.validateString('<label for="foo"></label><input id="foo">');
 		expect(report).toBeValid();
 	});
 
 	it("should not report when <label> both references and wraps a single control", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			'<label for="foo"><input id="foo"></label>'
-		);
+		const report = htmlvalidate.validateString('<label for="foo"><input id="foo"></label>');
 		expect(report).toBeValid();
 	});
 
@@ -70,8 +66,6 @@ describe("rule multiple-labeled-controls", () => {
 
 	it("should contain documentation", () => {
 		expect.assertions(1);
-		expect(
-			htmlvalidate.getRuleDocumentation("multiple-labeled-controls")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("multiple-labeled-controls")).toMatchSnapshot();
 	});
 });

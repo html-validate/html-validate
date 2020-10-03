@@ -67,8 +67,7 @@ export async function init(cwd: string): Promise<InitResult> {
 			type: "confirm",
 			default: false,
 			when: exists,
-			message:
-				"A .htmlvalidate.json file already exists, do you want to overwrite it?",
+			message: "A .htmlvalidate.json file already exists, do you want to overwrite it?",
 		},
 		{
 			name: "frameworks",

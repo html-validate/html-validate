@@ -19,11 +19,9 @@ describe("rule id-pattern", () => {
 
 	it("should not report error when id is interpolated", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			'<p id="{{ interpolated }}"></p>',
-			null,
-			{ processAttribute }
-		);
+		const report = htmlvalidate.validateString('<p id="{{ interpolated }}"></p>', null, {
+			processAttribute,
+		});
 		expect(report).toBeValid();
 	});
 
@@ -45,9 +43,7 @@ describe("rule id-pattern", () => {
 
 	it("smoketest", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile(
-			"test-files/rules/id-pattern.html"
-		);
+		const report = htmlvalidate.validateFile("test-files/rules/id-pattern.html");
 		expect(report.results).toMatchSnapshot();
 	});
 

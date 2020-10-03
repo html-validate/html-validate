@@ -1076,10 +1076,7 @@ describe("parser", () => {
 
 			it("allow modifiy element metadata", () => {
 				expect.assertions(2);
-				function processElement(
-					this: ProcessElementContext,
-					node: HtmlElement
-				): void {
+				function processElement(this: ProcessElementContext, node: HtmlElement): void {
 					if (node.tagName === "i") {
 						node.loadMeta(this.getMetaFor("div"));
 					}
@@ -1114,25 +1111,19 @@ describe("parser", () => {
 
 		it("multiline", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"./test-files/parser/multiline.html"
-			);
+			const report = htmlvalidate.validateFile("./test-files/parser/multiline.html");
 			expect(report).toBeValid();
 		});
 
 		it("xi:include", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"./test-files/parser/xi-include.html"
-			);
+			const report = htmlvalidate.validateFile("./test-files/parser/xi-include.html");
 			expect(report).toBeValid();
 		});
 
 		it("cdata", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"./test-files/parser/cdata.html"
-			);
+			const report = htmlvalidate.validateFile("./test-files/parser/cdata.html");
 			expect(report).toBeValid();
 		});
 	});
@@ -1193,9 +1184,7 @@ describe("parser", () => {
 				offset: 0,
 				size: 1,
 			};
-			const result = Array.from(
-				parser.consumeUntil(src, TokenType.TAG_CLOSE, location)
-			);
+			const result = Array.from(parser.consumeUntil(src, TokenType.TAG_CLOSE, location));
 			expect(result).toEqual([
 				{
 					type: TokenType.TAG_OPEN,
@@ -1255,9 +1244,9 @@ describe("parser", () => {
 				offset: 0,
 				size: 1,
 			};
-			expect(() =>
-				Array.from(parser.consumeUntil(src, TokenType.TAG_CLOSE, location))
-			).toThrow("stream ended before TAG_CLOSE token was found");
+			expect(() => Array.from(parser.consumeUntil(src, TokenType.TAG_CLOSE, location))).toThrow(
+				"stream ended before TAG_CLOSE token was found"
+			);
 		});
 	});
 
@@ -1310,9 +1299,7 @@ describe("parser", () => {
 
 		it("should throw error if event is missing location", () => {
 			expect.assertions(1);
-			expect(() => parser.trigger("foo", {})).toThrow(
-				"Triggered event must contain location"
-			);
+			expect(() => parser.trigger("foo", {})).toThrow("Triggered event must contain location");
 		});
 	});
 });

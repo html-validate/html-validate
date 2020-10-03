@@ -57,17 +57,8 @@ export default class UnknownCharReference extends Rule<string> {
 					continue;
 				}
 
-				const entityLocation = sliceLocation(
-					location,
-					match.index,
-					match.index + entity.length
-				);
-				this.report(
-					null,
-					`Unrecognized character reference "${entity}"`,
-					entityLocation,
-					entity
-				);
+				const entityLocation = sliceLocation(location, match.index, match.index + entity.length);
+				this.report(null, `Unrecognized character reference "${entity}"`, entityLocation, entity);
 			}
 		} while (match);
 	}

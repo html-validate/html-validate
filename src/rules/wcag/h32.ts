@@ -5,8 +5,7 @@ import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../../rule";
 export default class H32 extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
-			description:
-				"WCAG 2.1 requires each `<form>` element to have at least one submit button.",
+			description: "WCAG 2.1 requires each `<form>` element to have at least one submit button.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
@@ -29,10 +28,7 @@ export default class H32 extends Rule {
 					}
 				}
 
-				this.report(
-					node,
-					`<${node.tagName}> element must have a submit button`
-				);
+				this.report(node, `<${node.tagName}> element must have a submit button`);
 			});
 		});
 	}

@@ -99,12 +99,7 @@ describe("HtmlElement", () => {
 			const [startToken2, endToken2] = createTokens("foo", false); // </foo>
 			const parent = new HtmlElement("parent");
 			const open = HtmlElement.fromTokens(startToken1, endToken1, parent, null);
-			const close = HtmlElement.fromTokens(
-				startToken2,
-				endToken2,
-				parent,
-				null
-			);
+			const close = HtmlElement.fromTokens(startToken2, endToken2, parent, null);
 			expect(open.parent).toBeDefined();
 			expect(close.parent).toBeUndefined();
 		});
@@ -202,10 +197,7 @@ describe("HtmlElement", () => {
 			const node = new HtmlElement("foo");
 			node.setAttribute("foo", "a", location, location);
 			node.setAttribute("bar", "b", location, location);
-			expect(node.attributes).toEqual([
-				expect.any(Attribute),
-				expect.any(Attribute),
-			]);
+			expect(node.attributes).toEqual([expect.any(Attribute), expect.any(Attribute)]);
 			expect(node.attributes).toEqual([
 				expect.objectContaining({ key: "foo", value: "a" }),
 				expect.objectContaining({ key: "bar", value: "b" }),
@@ -217,10 +209,7 @@ describe("HtmlElement", () => {
 			const node = new HtmlElement("foo");
 			node.setAttribute("foo", "a", location, location);
 			node.setAttribute("foo", "b", location, location);
-			expect(node.attributes).toEqual([
-				expect.any(Attribute),
-				expect.any(Attribute),
-			]);
+			expect(node.attributes).toEqual([expect.any(Attribute), expect.any(Attribute)]);
 			expect(node.attributes).toEqual([
 				expect.objectContaining({ key: "foo", value: "a" }),
 				expect.objectContaining({ key: "foo", value: "b" }),
@@ -540,9 +529,7 @@ describe("HtmlElement", () => {
 
 		it("should support universal selector", () => {
 			expect.assertions(2);
-			const tagNames = root
-				.getElementsByTagName("*")
-				.map((cur: HtmlElement) => cur.tagName);
+			const tagNames = root.getElementsByTagName("*").map((cur: HtmlElement) => cur.tagName);
 			expect(tagNames).toHaveLength(6);
 			expect(tagNames).toEqual(["div", "ul", "li", "li", "p", "span"]);
 		});
@@ -733,9 +720,7 @@ describe("HtmlElement", () => {
 			const b = new HtmlElement("b", root);
 			const c = new HtmlElement("c", b);
 			/* eslint-enable @typescript-eslint/no-unused-vars */
-			const result = root.someChildren(
-				(node: HtmlElement) => node.tagName === "c"
-			);
+			const result = root.someChildren((node: HtmlElement) => node.tagName === "c");
 			expect(result).toBeTruthy();
 		});
 
@@ -789,9 +774,7 @@ describe("HtmlElement", () => {
 			const b = new HtmlElement("b", root);
 			const c = new HtmlElement("c", b);
 			/* eslint-enable @typescript-eslint/no-unused-vars */
-			const result = root.everyChildren(
-				(node: HtmlElement) => node.tagName !== "b"
-			);
+			const result = root.everyChildren((node: HtmlElement) => node.tagName !== "b");
 			expect(result).toBeFalsy();
 		});
 	});

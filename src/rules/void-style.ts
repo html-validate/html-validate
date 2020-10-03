@@ -30,8 +30,7 @@ export default class VoidStyle extends Rule<RuleContext, RuleOptions> {
 
 	public documentation(context: RuleContext): RuleDocumentation {
 		const doc: RuleDocumentation = {
-			description:
-				"The current configuration requires a specific style for ending void elements.",
+			description: "The current configuration requires a specific style for ending void elements.",
 			url: ruleDocumentationUrl(__filename),
 		};
 
@@ -83,17 +82,11 @@ export default class VoidStyle extends Rule<RuleContext, RuleOptions> {
 	}
 
 	private shouldBeOmitted(node: HtmlElement): boolean {
-		return (
-			this.style === Style.AlwaysOmit &&
-			node.closed === NodeClosed.VoidSelfClosed
-		);
+		return this.style === Style.AlwaysOmit && node.closed === NodeClosed.VoidSelfClosed;
 	}
 
 	private shouldBeSelfClosed(node: HtmlElement): boolean {
-		return (
-			this.style === Style.AlwaysSelfclose &&
-			node.closed === NodeClosed.VoidOmitted
-		);
+		return this.style === Style.AlwaysSelfclose && node.closed === NodeClosed.VoidOmitted;
 	}
 }
 

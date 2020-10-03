@@ -82,9 +82,7 @@ function dump(files: string[], mode: Mode): string {
 			lines = files.map((filename: string) => htmlvalidate.dumpTree(filename));
 			break;
 		case Mode.DUMP_SOURCE:
-			lines = files.map((filename: string) =>
-				htmlvalidate.dumpSource(filename)
-			);
+			lines = files.map((filename: string) => htmlvalidate.dumpSource(filename));
 			break;
 		default:
 			throw new Error(`Unknown mode "${mode}"`);
@@ -94,9 +92,7 @@ function dump(files: string[], mode: Mode): string {
 }
 
 function renameStdin(report: Report, filename: string): void {
-	const stdin = report.results.find(
-		(cur: Result) => cur.filePath === "/dev/stdin"
-	);
+	const stdin = report.results.find((cur: Result) => cur.filePath === "/dev/stdin");
 	if (stdin) {
 		stdin.filePath = filename;
 	}
@@ -146,16 +142,7 @@ function handleUnknownError(err: Error): void {
 }
 
 const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
-	string: [
-		"c",
-		"config",
-		"ext",
-		"f",
-		"formatter",
-		"max-warnings",
-		"rule",
-		"stdin-filename",
-	],
+	string: ["c", "config", "ext", "f", "formatter", "max-warnings", "rule", "stdin-filename"],
 	boolean: [
 		"init",
 		"dump-events",
@@ -250,9 +237,7 @@ const htmlvalidate = cli.getValidator();
 
 /* sanity check: ensure maxWarnings has a valid value */
 if (isNaN(maxWarnings)) {
-	console.log(
-		`Invalid value "${argv["max-warnings"]}" given to --max-warnings`
-	);
+	console.log(`Invalid value "${argv["max-warnings"]}" given to --max-warnings`);
 	process.exit(1);
 }
 
@@ -279,9 +264,7 @@ try {
 		process.stdout.write(formatter(result));
 
 		if (maxWarnings >= 0 && result.warningCount > maxWarnings) {
-			console.log(
-				`\nhtml-validate found too many warnings (maxiumum: ${maxWarnings}).`
-			);
+			console.log(`\nhtml-validate found too many warnings (maxiumum: ${maxWarnings}).`);
 			result.valid = false;
 		}
 

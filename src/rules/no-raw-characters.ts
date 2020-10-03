@@ -88,12 +88,7 @@ export default class NoRawCharacters extends Rule<void, RuleOptions> {
 	 * @param regexp - Regexp pattern to match using.
 	 * @param ignore - List of characters to ignore for this text.
 	 */
-	private findRawChars(
-		node: DOMNode,
-		text: string,
-		location: Location,
-		regexp: RegExp
-	): void {
+	private findRawChars(node: DOMNode, text: string, location: Location, regexp: RegExp): void {
 		let match;
 		do {
 			match = regexp.exec(text);
@@ -109,18 +104,10 @@ export default class NoRawCharacters extends Rule<void, RuleOptions> {
 
 				/* determine replacement character and location */
 				const replacement = replacementTable.get(char);
-				const charLocation = sliceLocation(
-					location,
-					match.index,
-					match.index + 1
-				);
+				const charLocation = sliceLocation(location, match.index, match.index + 1);
 
 				/* report as error */
-				this.report(
-					node,
-					`Raw "${char}" must be encoded as "${replacement}"`,
-					charLocation
-				);
+				this.report(node, `Raw "${char}" must be encoded as "${replacement}"`, charLocation);
 			}
 		} while (match);
 	}

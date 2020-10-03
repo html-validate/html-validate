@@ -59,9 +59,7 @@ class AttrMatcher extends Matcher {
 				case "=":
 					return cur.value === this.value;
 				default:
-					throw new Error(
-						`Attribute selector operator ${this.op} is not implemented yet`
-					);
+					throw new Error(`Attribute selector operator ${this.op} is not implemented yet`);
 			}
 		});
 	}
@@ -101,10 +99,7 @@ class Pattern {
 	}
 
 	public match(node: HtmlElement): boolean {
-		return (
-			node.is(this.tagName) &&
-			this.pattern.every((cur: Matcher) => cur.match(node))
-		);
+		return node.is(this.tagName) && this.pattern.every((cur: Matcher) => cur.match(node));
 	}
 
 	private static createMatcher(pattern: string): Matcher {
@@ -145,10 +140,7 @@ export class Selector {
 		yield* this.matchInternal(root, 0);
 	}
 
-	private *matchInternal(
-		root: HtmlElement,
-		level: number
-	): IterableIterator<HtmlElement> {
+	private *matchInternal(root: HtmlElement, level: number): IterableIterator<HtmlElement> {
 		if (level >= this.pattern.length) {
 			yield root;
 			return;
@@ -175,10 +167,7 @@ export class Selector {
 		return pattern.map((part: string) => new Pattern(part));
 	}
 
-	private static findCandidates(
-		root: HtmlElement,
-		pattern: Pattern
-	): HtmlElement[] {
+	private static findCandidates(root: HtmlElement, pattern: Pattern): HtmlElement[] {
 		switch (pattern.combinator) {
 			case Combinator.DESCENDANT:
 				return root.getElementsByTagName(pattern.tagName);

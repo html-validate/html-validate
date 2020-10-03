@@ -63,11 +63,7 @@ export function computeOffset(position: Position, data: string): number {
 }
 
 function extractLiteral(
-	node:
-		| ESTree.Expression
-		| ESTree.Pattern
-		| ESTree.Literal
-		| ESTree.BlockStatement,
+	node: ESTree.Expression | ESTree.Pattern | ESTree.Literal | ESTree.BlockStatement,
 	filename: string,
 	data: string
 ): Source {
@@ -120,18 +116,12 @@ function extractLiteral(
 		default: {
 			const loc = node.loc.start;
 			const context = `${filename}:${loc.line}:${loc.column}`;
-			throw Error(
-				`Unhandled node type "${node.type}" at "${context}" in extractLiteral`
-			);
+			throw Error(`Unhandled node type "${node.type}" at "${context}" in extractLiteral`);
 		}
 	}
 }
 
-function compareKey(
-	node: ESTree.Expression,
-	key: string,
-	filename: string
-): boolean {
+function compareKey(node: ESTree.Expression, key: string, filename: string): boolean {
 	switch (node.type) {
 		case "Identifier":
 			return node.name === key;
@@ -143,9 +133,7 @@ function compareKey(
 		default: {
 			const loc = node.loc.start;
 			const context = `${filename}:${loc.line}:${loc.column}`;
-			throw Error(
-				`Unhandled node type "${node.type}" at "${context}" in compareKey`
-			);
+			throw Error(`Unhandled node type "${node.type}" at "${context}" in compareKey`);
 		}
 	}
 }
@@ -183,10 +171,7 @@ export class TemplateExtractor {
 	 * @param filename - Optional filename to set in the resulting
 	 * `Source`. Defauls to `"inline"`.
 	 */
-	public static fromString(
-		source: string,
-		filename?: string
-	): TemplateExtractor {
+	public static fromString(source: string, filename?: string): TemplateExtractor {
 		const ast = espree.parse(source, {
 			ecmaVersion: 2017,
 			sourceType: "module",

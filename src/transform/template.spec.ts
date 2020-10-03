@@ -18,9 +18,7 @@ describe("TemplateExtractor", () => {
 
 		it("should handle literal", () => {
 			expect.assertions(1);
-			const te = TemplateExtractor.fromString(
-				'foo({"template": "<b>foo</b>"})'
-			);
+			const te = TemplateExtractor.fromString('foo({"template": "<b>foo</b>"})');
 			expect(te.extractObjectProperty("template")).toEqual([
 				{
 					data: "<b>foo</b>",
@@ -81,9 +79,7 @@ describe("TemplateExtractor", () => {
 
 		it("should handle template literal", () => {
 			expect.assertions(1);
-			const te = TemplateExtractor.fromString(
-				"foo({template: `<b>${foo}</b>`})"
-			);
+			const te = TemplateExtractor.fromString("foo({template: `<b>${foo}</b>`})");
 			expect(te.extractObjectProperty("template")).toEqual([
 				{
 					data: "<b>      </b>",
@@ -97,9 +93,7 @@ describe("TemplateExtractor", () => {
 
 		it("should handle tagged template", () => {
 			expect.assertions(1);
-			const te = TemplateExtractor.fromString(
-				"foo({template: foo`<b>${foo}</b>`})"
-			);
+			const te = TemplateExtractor.fromString("foo({template: foo`<b>${foo}</b>`})");
 			expect(te.extractObjectProperty("template")).toEqual([
 				{
 					data: "<b>      </b>",
@@ -113,9 +107,7 @@ describe("TemplateExtractor", () => {
 
 		it("should extract templates from arrow function returning template", () => {
 			expect.assertions(1);
-			const te = TemplateExtractor.fromString(
-				"foo({template: (foo) => `<b>${foo}</b>`})"
-			);
+			const te = TemplateExtractor.fromString("foo({template: (foo) => `<b>${foo}</b>`})");
 			expect(te.extractObjectProperty("template")).toEqual([
 				{
 					data: "<b>      </b>",

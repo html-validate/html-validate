@@ -17,41 +17,30 @@ describe("rule element-permitted-occurrences", () => {
 		);
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
-			[
-				"element-permitted-occurrences",
-				"Element <caption> can only appear once under <table>",
-			],
+			["element-permitted-occurrences", "Element <caption> can only appear once under <table>"],
 		]);
 	});
 
 	it("should not report error when child has right number of occurrences", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			"<table><caption></caption></table>"
-		);
+		const report = htmlvalidate.validateString("<table><caption></caption></table>");
 		expect(report).toBeValid();
 	});
 
 	it("should not report error when child has unrestricted number of occurrences", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			"<div><p>1</p><p>2</p><p>3</p></div>"
-		);
+		const report = htmlvalidate.validateString("<div><p>1</p><p>2</p><p>3</p></div>");
 		expect(report).toBeValid();
 	});
 
 	it("smoketest", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile(
-			"test-files/rules/element-permitted-occurrences.html"
-		);
+		const report = htmlvalidate.validateFile("test-files/rules/element-permitted-occurrences.html");
 		expect(report.results).toMatchSnapshot();
 	});
 
 	it("should contain documentation", () => {
 		expect.assertions(1);
-		expect(
-			htmlvalidate.getRuleDocumentation("element-permitted-occurrences")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("element-permitted-occurrences")).toMatchSnapshot();
 	});
 });

@@ -65,10 +65,7 @@ describe("name", () => {
 
 	it("more than two names should be joined by comma followed by or", () => {
 		expect.assertions(1);
-		const cs = new CaseStyle(
-			["lowercase", "pascalcase", "camelcase"],
-			"test-case"
-		);
+		const cs = new CaseStyle(["lowercase", "pascalcase", "camelcase"], "test-case");
 		expect(cs.name).toEqual("lowercase, PascalCase or camelCase");
 	});
 });

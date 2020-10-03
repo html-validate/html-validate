@@ -11,10 +11,7 @@ export interface ProcessElementContext {
 	getMetaFor(tagName: string): MetaElement | null;
 }
 
-export type ProcessElementCallback = (
-	this: ProcessElementContext,
-	node: HtmlElement
-) => void;
+export type ProcessElementCallback = (this: ProcessElementContext, node: HtmlElement) => void;
 
 export interface SourceHooks {
 	/**

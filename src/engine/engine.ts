@@ -1,12 +1,7 @@
 import { Config, Severity } from "../config";
 import { Location, Source } from "../context";
 import { HtmlElement } from "../dom";
-import {
-	ConfigReadyEvent,
-	DirectiveEvent,
-	TagCloseEvent,
-	TagOpenEvent,
-} from "../event";
+import { ConfigReadyEvent, DirectiveEvent, TagCloseEvent, TagOpenEvent } from "../event";
 import { InvalidTokenError, Lexer, TokenType } from "../lexer";
 import { Parser, ParserError } from "../parser";
 import { Report, Reporter } from "../reporter";
@@ -139,11 +134,7 @@ export class Engine<T extends Parser = Parser> {
 			return output;
 		}
 
-		function writeNode(
-			node: HtmlElement,
-			level: number,
-			sibling: number
-		): void {
+		function writeNode(node: HtmlElement, level: number, sibling: number): void {
 			if (level > 0) {
 				const indent = "  ".repeat(level - 1);
 				const l = node.childElements.length > 0 ? "┬" : "─";
@@ -153,9 +144,7 @@ export class Engine<T extends Parser = Parser> {
 				lines.push("(root)");
 			}
 
-			node.childElements.forEach((child, index) =>
-				writeNode(child, level + 1, index)
-			);
+			node.childElements.forEach((child, index) => writeNode(child, level + 1, index));
 		}
 
 		writeNode(dom.root, 0, 0);
@@ -212,11 +201,7 @@ export class Engine<T extends Parser = Parser> {
 				this.processDisableNextDirective(rules, parser);
 				break;
 			default:
-				this.reportError(
-					"parser-error",
-					`Unknown directive "${event.action}"`,
-					event.location
-				);
+				this.reportError("parser-error", `Unknown directive "${event.action}"`, event.location);
 				break;
 		}
 	}
@@ -252,40 +237,34 @@ export class Engine<T extends Parser = Parser> {
 			rule.setEnabled(false);
 		}
 
-		const unregisterOpen = parser.on(
-			"tag:open",
-			(event: string, data: TagOpenEvent) => {
-				/* wait for a tag to open and find the current block by using its parent */
-				if (directiveBlock === null) {
-					directiveBlock = data.target.parent.unique;
-				}
-
-				/* disable rules directly on the node so it will be recorded for later,
-				 * more specifically when using the domtree to trigger errors */
-				data.target.disableRules(rules.map((rule) => rule.name));
+		const unregisterOpen = parser.on("tag:open", (event: string, data: TagOpenEvent) => {
+			/* wait for a tag to open and find the current block by using its parent */
+			if (directiveBlock === null) {
+				directiveBlock = data.target.parent.unique;
 			}
-		);
 
-		const unregisterClose = parser.on(
-			"tag:close",
-			(event: string, data: TagCloseEvent) => {
-				/* if the directive is the last thing in a block no id would be set */
-				const lastNode = directiveBlock === null;
+			/* disable rules directly on the node so it will be recorded for later,
+			 * more specifically when using the domtree to trigger errors */
+			data.target.disableRules(rules.map((rule) => rule.name));
+		});
 
-				/* test if the block is being closed by checking the parent of the block
-				 * element is being closed */
-				const parentClosed = directiveBlock === data.previous.unique;
+		const unregisterClose = parser.on("tag:close", (event: string, data: TagCloseEvent) => {
+			/* if the directive is the last thing in a block no id would be set */
+			const lastNode = directiveBlock === null;
 
-				/* remove listeners and restore state */
-				if (lastNode || parentClosed) {
-					unregisterClose();
-					unregisterOpen();
-					for (const rule of rules) {
-						rule.setEnabled(true);
-					}
+			/* test if the block is being closed by checking the parent of the block
+			 * element is being closed */
+			const parentClosed = directiveBlock === data.previous.unique;
+
+			/* remove listeners and restore state */
+			if (lastNode || parentClosed) {
+				unregisterClose();
+				unregisterOpen();
+				for (const rule of rules) {
+					rule.setEnabled(true);
 				}
 			}
-		);
+		});
 	}
 
 	private processDisableNextDirective(rules: Rule[], parser: Parser): void {
@@ -295,12 +274,9 @@ export class Engine<T extends Parser = Parser> {
 
 		/* disable rules directly on the node so it will be recorded for later,
 		 * more specifically when using the domtree to trigger errors */
-		const unregister = parser.on(
-			"tag:open",
-			(event: string, data: TagOpenEvent) => {
-				data.target.disableRules(rules.map((rule) => rule.name));
-			}
-		);
+		const unregister = parser.on("tag:open", (event: string, data: TagOpenEvent) => {
+			data.target.disableRules(rules.map((rule) => rule.name));
+		});
 
 		/* disable directive after next event occurs */
 		parser.once("tag:open, tag:close, attr", () => {
@@ -336,9 +312,7 @@ export class Engine<T extends Parser = Parser> {
 	 * Initializes all rules from plugins and returns an object with a mapping
 	 * between rule name and its constructor.
 	 */
-	protected initRules(
-		config: Config
-	): { [key: string]: RuleConstructor<any, any> } {
+	protected initRules(config: Config): { [key: string]: RuleConstructor<any, any> } {
 		const availableRules: { [key: string]: RuleConstructor<any, any> } = {};
 		for (const plugin of config.getPlugins()) {
 			for (const [name, rule] of Object.entries(plugin.rules || {})) {
@@ -373,19 +347,10 @@ export class Engine<T extends Parser = Parser> {
 	/**
 	 * Load and setup all rules for current configuration.
 	 */
-	protected setupRules(
-		config: Config,
-		parser: Parser
-	): { [key: string]: Rule } {
+	protected setupRules(config: Config, parser: Parser): { [key: string]: Rule } {
 		const rules: { [key: string]: Rule } = {};
 		for (const [ruleId, [severity, options]] of config.getRules().entries()) {
-			rules[ruleId] = this.loadRule(
-				ruleId,
-				severity,
-				options,
-				parser,
-				this.report
-			);
+			rules[ruleId] = this.loadRule(ruleId, severity, options, parser, this.report);
 		}
 		return rules;
 	}
@@ -432,11 +397,7 @@ export class Engine<T extends Parser = Parser> {
 		})();
 	}
 
-	private reportError(
-		ruleId: string,
-		message: string,
-		location: Location
-	): void {
+	private reportError(ruleId: string, message: string, location: Location): void {
 		this.report.addManual(location.filename, {
 			ruleId,
 			severity: Severity.ERROR,

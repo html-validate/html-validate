@@ -12,9 +12,7 @@ describe("rule no-dup-id", () => {
 
 	it("should not report when no id is duplicated", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			'<p id="foo"></p><p id="bar"></p>'
-		);
+		const report = htmlvalidate.validateString('<p id="foo"></p><p id="bar"></p>');
 		expect(report).toBeValid();
 	});
 
@@ -26,9 +24,7 @@ describe("rule no-dup-id", () => {
 
 	it("should report when id is duplicated", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString(
-			'<p id="foo"></p><p id="foo"></p>'
-		);
+		const report = htmlvalidate.validateString('<p id="foo"></p><p id="foo"></p>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("no-dup-id", 'Duplicate ID "foo"');
 	});

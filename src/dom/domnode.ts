@@ -35,11 +35,7 @@ export class DOMNode {
 	 * to the tagName but other node types have specific predefined values.
 	 * @param location - Source code location of this node.
 	 */
-	public constructor(
-		nodeType: NodeType,
-		nodeName: string,
-		location?: Location
-	) {
+	public constructor(nodeType: NodeType, nodeName: string, location?: Location) {
 		this.nodeType = nodeType;
 		this.nodeName = nodeName || DOCUMENT_NODE_NAME;
 		this.location = location;

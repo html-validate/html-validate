@@ -19,29 +19,21 @@ describe("rule script-type", () => {
 
 	it("should not report when script element has module type", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			'<script type="module"></script>'
-		);
+		const report = htmlvalidate.validateString('<script type="module"></script>');
 		expect(report).toBeValid();
 	});
 
 	it("should not report when script element has non-js type", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			'<script type="text/plain"></script>'
-		);
+		const report = htmlvalidate.validateString('<script type="text/plain"></script>');
 		expect(report).toBeValid();
 	});
 
 	it("should not report error for dynamic attributes", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			'<script dynamic-type="type">',
-			null,
-			{
-				processAttribute,
-			}
-		);
+		const report = htmlvalidate.validateString('<script dynamic-type="type">', null, {
+			processAttribute,
+		});
 		expect(report).toBeValid();
 	});
 
@@ -56,9 +48,7 @@ describe("rule script-type", () => {
 
 	it("should report when script element have javascript type", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			'<script type="text/javascript"></script>'
-		);
+		const report = htmlvalidate.validateString('<script type="text/javascript"></script>');
 		expect(report).toHaveError(
 			"script-type",
 			'"type" attribute is unnecessary for javascript resources'
@@ -67,9 +57,7 @@ describe("rule script-type", () => {
 
 	it("should report when script element have legacy javascript type", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			'<script type="text/javascript"></script>'
-		);
+		const report = htmlvalidate.validateString('<script type="text/javascript"></script>');
 		expect(report).toHaveError(
 			"script-type",
 			'"type" attribute is unnecessary for javascript resources'

@@ -27,10 +27,7 @@ describe("Reporter", () => {
 			const merged = Reporter.merge([
 				{
 					valid: false,
-					results: [
-						createResult("foo", ["fred", "barney"]),
-						createResult("bar", ["spam"]),
-					],
+					results: [createResult("foo", ["fred", "barney"]), createResult("bar", ["spam"])],
 					errorCount: 3,
 					warningCount: 0,
 				},
@@ -43,16 +40,10 @@ describe("Reporter", () => {
 			]);
 			expect(merged.results).toHaveLength(2);
 			expect(merged.results[0].filePath).toEqual("foo");
-			expect(merged.results[0].messages.map((x) => x.message)).toEqual([
-				"fred",
-				"barney",
-				"wilma",
-			]);
+			expect(merged.results[0].messages.map((x) => x.message)).toEqual(["fred", "barney", "wilma"]);
 			expect(merged.results[0].errorCount).toEqual(3);
 			expect(merged.results[1].filePath).toEqual("bar");
-			expect(merged.results[1].messages.map((x) => x.message)).toEqual([
-				"spam",
-			]);
+			expect(merged.results[1].messages.map((x) => x.message)).toEqual(["spam"]);
 			expect(merged.results[1].errorCount).toEqual(1);
 			expect(merged.errorCount).toEqual(4);
 			expect(merged.warningCount).toEqual(0);

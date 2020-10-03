@@ -1,10 +1,7 @@
 /**
  * Given an offset into a source, calculate the corresponding line and column.
  */
-export function offsetToLineColumn(
-	data: string,
-	offset: number
-): [number, number] {
+export function offsetToLineColumn(data: string, offset: number): [number, number] {
 	let line = 1;
 	let prev = 0;
 	let pos = data.indexOf("\n");

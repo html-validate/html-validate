@@ -1,9 +1,6 @@
 import { Config } from "../config";
 import { Location, sliceLocation, Source } from "../context";
-import {
-	ProcessAttributeCallback,
-	ProcessElementContext,
-} from "../context/source";
+import { ProcessAttributeCallback, ProcessElementContext } from "../context/source";
 import { DOMTree, HtmlElement, NodeClosed } from "../dom";
 import {
 	AttributeEvent,
@@ -181,25 +178,14 @@ export class Parser {
 	}
 
 	// eslint-disable-next-line complexity
-	protected consumeTag(
-		source: Source,
-		startToken: Token,
-		tokenStream: TokenStream
-	): void {
+	protected consumeTag(source: Source, startToken: Token, tokenStream: TokenStream): void {
 		const tokens = Array.from(
 			this.consumeUntil(tokenStream, TokenType.TAG_CLOSE, startToken.location)
 		);
 		const endToken = tokens.slice(-1)[0];
 		const closeOptional = this.closeOptional(startToken);
-		const parent = closeOptional
-			? this.dom.getActive().parent
-			: this.dom.getActive();
-		const node = HtmlElement.fromTokens(
-			startToken,
-			endToken,
-			parent,
-			this.metaTable
-		);
+		const parent = closeOptional ? this.dom.getActive().parent : this.dom.getActive();
+		const node = HtmlElement.fromTokens(startToken, endToken, parent, this.metaTable);
 		const open = !startToken.data[1];
 		const close = !open || node.closed !== NodeClosed.Open;
 		const foreign = node.meta && node.meta.foreign;
@@ -254,12 +240,7 @@ export class Parser {
 		} else if (foreign) {
 			/* consume the body of the foreign element so it won't be part of the
 			 * document (only the root foreign element is).  */
-			this.discardForeignBody(
-				source,
-				node.tagName,
-				tokenStream,
-				startToken.location
-			);
+			this.discardForeignBody(source, node.tagName, tokenStream, startToken.location);
 		}
 	}
 
@@ -317,9 +298,7 @@ export class Parser {
 		let endToken;
 		do {
 			/* search for tags */
-			const tokens = Array.from(
-				this.consumeUntil(tokenStream, TokenType.TAG_OPEN, errorLocation)
-			);
+			const tokens = Array.from(this.consumeUntil(tokenStream, TokenType.TAG_OPEN, errorLocation));
 			const [last] = tokens.slice(-1);
 			const [, tagClosed, tagName] = last.data;
 
@@ -346,23 +325,13 @@ export class Parser {
 		} while (nested > 0);
 
 		const active = this.dom.getActive();
-		const node = HtmlElement.fromTokens(
-			startToken,
-			endToken,
-			active,
-			this.metaTable
-		);
+		const node = HtmlElement.fromTokens(startToken, endToken, active, this.metaTable);
 
 		this.closeElement(source, node, active, endToken.location);
 		this.dom.popActive();
 	}
 
-	protected consumeAttribute(
-		source: Source,
-		node: HtmlElement,
-		token: Token,
-		next?: Token
-	): void {
+	protected consumeAttribute(source: Source, node: HtmlElement, token: Token, next?: Token): void {
 		const keyLocation = token.location;
 		const valueLocation = this.getAttributeValueLocation(next);
 		const haveValue = next && next.type === TokenType.ATTR_VALUE;
@@ -408,13 +377,7 @@ export class Parser {
 				valueLocation,
 			});
 
-			node.setAttribute(
-				attr.key,
-				attr.value,
-				keyLocation,
-				valueLocation,
-				attr.originalAttribute
-			);
+			node.setAttribute(attr.key, attr.value, keyLocation, valueLocation, attr.originalAttribute);
 		}
 	}
 
@@ -460,10 +423,7 @@ export class Parser {
 	 */
 	protected consumeComment(token: Token): void {
 		const comment = token.data[0];
-		for (const conditional of parseConditionalComment(
-			comment,
-			token.location
-		)) {
+		for (const conditional of parseConditionalComment(comment, token.location)) {
 			this.trigger("conditional", {
 				condition: conditional.expression,
 				location: conditional.location,
@@ -476,14 +436,9 @@ export class Parser {
 	 */
 	protected consumeDoctype(startToken: Token, tokenStream: TokenStream): void {
 		const tokens = Array.from(
-			this.consumeUntil(
-				tokenStream,
-				TokenType.DOCTYPE_CLOSE,
-				startToken.location
-			)
+			this.consumeUntil(tokenStream, TokenType.DOCTYPE_CLOSE, startToken.location)
 		);
-		const doctype =
-			tokens[0]; /* first token is the doctype, second is the closing ">" */
+		const doctype = tokens[0]; /* first token is the doctype, second is the closing ">" */
 		const value = doctype.data[0];
 		this.dom.doctype = value;
 		this.trigger("doctype", {

@@ -37,10 +37,7 @@ export default class ElementPermittedContent extends Rule {
 		});
 	}
 
-	private validatePermittedContent(
-		cur: HtmlElement,
-		parent: HtmlElement
-	): boolean {
+	private validatePermittedContent(cur: HtmlElement, parent: HtmlElement): boolean {
 		/* if parent doesn't have metadata (unknown element) skip checking permitted
 		 * content */
 		if (!parent.meta) {
@@ -78,10 +75,7 @@ export default class ElementPermittedContent extends Rule {
 		return false;
 	}
 
-	private validatePermittedDescendant(
-		node: HtmlElement,
-		parent: HtmlElement
-	): boolean {
+	private validatePermittedDescendant(node: HtmlElement, parent: HtmlElement): boolean {
 		for (let cur = parent; !cur.isRootElement(); cur = cur.parent) {
 			const meta = cur.meta;
 
@@ -109,10 +103,7 @@ export default class ElementPermittedContent extends Rule {
 		}
 		const rules = node.meta.requiredAncestors;
 		if (!Validator.validateAncestors(node, rules)) {
-			this.report(
-				node,
-				`Element <${node.tagName}> requires an "${rules[0]}" ancestor`
-			);
+			this.report(node, `Element <${node.tagName}> requires an "${rules[0]}" ancestor`);
 			return true;
 		}
 		return false;

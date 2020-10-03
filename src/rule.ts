@@ -150,23 +150,14 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * Rule must be enabled both globally and on the specific node for this to
 	 * have any effect.
 	 */
-	public report(
-		node: DOMNode,
-		message: string,
-		location?: Location,
-		context?: ContextType
-	): void {
+	public report(node: DOMNode, message: string, location?: Location, context?: ContextType): void {
 		if (this.isEnabled() && (!node || node.ruleEnabled(this.name))) {
 			const where = this.findLocation({ node, location, event: this.event });
 			this.reporter.add(this, message, this.severity, node, where, context);
 		}
 	}
 
-	private findLocation(src: {
-		node: DOMNode;
-		location: Location;
-		event: Event;
-	}): Location {
+	private findLocation(src: { node: DOMNode; location: Location; event: Event }): Location {
 		if (src.location) {
 			return src.location;
 		}
@@ -187,28 +178,16 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 *
 	 * @param event - Event name
 	 */
-	public on(
-		event: "config:ready",
-		callback: (event: ConfigReadyEvent) => void
-	): void;
+	public on(event: "config:ready", callback: (event: ConfigReadyEvent) => void): void;
 	public on(event: "tag:open", callback: (event: TagOpenEvent) => void): void;
 	public on(event: "tag:close", callback: (event: TagCloseEvent) => void): void;
-	public on(
-		event: "element:ready",
-		callback: (event: ElementReadyEvent) => void
-	): void;
+	public on(event: "element:ready", callback: (event: ElementReadyEvent) => void): void;
 	public on(event: "dom:load", callback: (event: Event) => void): void;
 	public on(event: "dom:ready", callback: (event: DOMReadyEvent) => void): void;
 	public on(event: "doctype", callback: (event: DoctypeEvent) => void): void;
 	public on(event: "attr", callback: (event: AttributeEvent) => void): void;
-	public on(
-		event: "whitespace",
-		callback: (event: WhitespaceEvent) => void
-	): void;
-	public on(
-		event: "conditional",
-		callback: (event: ConditionalEvent) => void
-	): void;
+	public on(event: "whitespace", callback: (event: WhitespaceEvent) => void): void;
+	public on(event: "conditional", callback: (event: ConditionalEvent) => void): void;
 	public on(event: "*", callback: (event: Event) => void): void;
 	/* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types */
 	public on(event: string, callback: any): void {
@@ -227,12 +206,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 *
 	 * @hidden
 	 */
-	public init(
-		parser: Parser,
-		reporter: Reporter,
-		severity: number,
-		meta: MetaTable
-	): void {
+	public init(parser: Parser, reporter: Reporter, severity: number, meta: MetaTable): void {
 		this.parser = parser;
 		this.reporter = reporter;
 		this.severity = severity;

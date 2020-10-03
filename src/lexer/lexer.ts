@@ -95,10 +95,7 @@ export class Lexer {
 			/* sanity check: state or string must change, if both are intact
 			 * we are stuck in an endless loop. */
 			/* istanbul ignore next: no easy way to test this as it is a condition which should never happen */
-			if (
-				context.state === previousState &&
-				context.string.length === previousLength
-			) {
+			if (context.state === previousState && context.string.length === previousLength) {
 				this.errorStuck(context);
 			}
 
@@ -122,9 +119,7 @@ export class Lexer {
 	/* istanbul ignore next: used to provide a better error when an unhandled state happens */
 	private unhandled(context: Context): void {
 		const truncated = JSON.stringify(
-			context.string.length > 13
-				? `${context.string.slice(0, 15)}...`
-				: context.string
+			context.string.length > 13 ? `${context.string.slice(0, 15)}...` : context.string
 		);
 		const state = State[context.state];
 		const message = `failed to tokenize ${truncated}, unhandled state ${state}.`;
@@ -138,10 +133,7 @@ export class Lexer {
 		throw new InvalidTokenError(context.getLocation(), message);
 	}
 
-	private evalNextState(
-		nextState: State | ((token: Token) => State),
-		token: Token
-	): State {
+	private evalNextState(nextState: State | ((token: Token) => State), token: Token): State {
 		if (typeof nextState === "function") {
 			return nextState(token);
 		} else {
@@ -149,11 +141,7 @@ export class Lexer {
 		}
 	}
 
-	private *match(
-		context: Context,
-		tests: LexerTest[],
-		error: string
-	): Iterable<Token> {
+	private *match(context: Context, tests: LexerTest[], error: string): Iterable<Token> {
 		let match;
 		const n = tests.length;
 		for (let i = 0; i < n; i++) {
@@ -229,9 +217,7 @@ export class Lexer {
 			/* istanbul ignore next: not covered by a test as there is currently no
 			 * way to trigger this unless new content models are added but this will
 			 * add a saner default if anyone ever does */
-			return context.contentModel !== ContentModel.SCRIPT
-				? State.TEXT
-				: State.SCRIPT;
+			return context.contentModel !== ContentModel.SCRIPT ? State.TEXT : State.SCRIPT;
 		}
 		yield* this.match(
 			context,
@@ -276,11 +262,7 @@ export class Lexer {
 	}
 
 	private *tokenizeCDATA(context: Context): Iterable<Token> {
-		yield* this.match(
-			context,
-			[[MATCH_CDATA_END, State.TEXT, false]],
-			"expected ]]>"
-		);
+		yield* this.match(context, [[MATCH_CDATA_END, State.TEXT, false]], "expected ]]>");
 	}
 
 	private *tokenizeScript(context: Context): Iterable<Token> {

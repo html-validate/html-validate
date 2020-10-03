@@ -6,8 +6,7 @@ import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 export default class CloseOrder extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
-			description:
-				"HTML requires elements to be closed in the same order as they were opened.",
+			description: "HTML requires elements to be closed in the same order as they were opened.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
@@ -50,11 +49,7 @@ export default class CloseOrder extends Rule {
 					offset: current.location.offset,
 					size: current.tagName.length + 1,
 				};
-				this.report(
-					null,
-					"Unexpected close-tag, expected opening tag.",
-					location
-				);
+				this.report(null, "Unexpected close-tag, expected opening tag.", location);
 				return;
 			}
 

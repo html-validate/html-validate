@@ -12,9 +12,7 @@ describe("rule input-missing-label", () => {
 
 	it("should not report when input id has matching label", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			'<label for="foo">foo</label><input id="foo"/>'
-		);
+		const report = htmlvalidate.validateString('<label for="foo">foo</label><input id="foo"/>');
 		expect(report).toBeValid();
 	});
 
@@ -44,16 +42,12 @@ describe("rule input-missing-label", () => {
 
 	it("smoketest", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile(
-			"test-files/rules/input-missing-label.html"
-		);
+		const report = htmlvalidate.validateFile("test-files/rules/input-missing-label.html");
 		expect(report.results).toMatchSnapshot();
 	});
 
 	it("should contain documentation", () => {
 		expect.assertions(1);
-		expect(
-			htmlvalidate.getRuleDocumentation("input-missing-label")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("input-missing-label")).toMatchSnapshot();
 	});
 });

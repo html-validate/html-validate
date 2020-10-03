@@ -20,27 +20,18 @@ describe("rule no-unknown-elements", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString("<my-element></my-element>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"no-unknown-elements",
-			"Unknown element <my-element>"
-		);
+		expect(report).toHaveError("no-unknown-elements", "Unknown element <my-element>");
 	});
 
 	it("should contain documentation", () => {
 		expect.assertions(1);
-		expect(
-			htmlvalidate.getRuleDocumentation("no-unknown-elements")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("no-unknown-elements")).toMatchSnapshot();
 	});
 
 	it("should contain contextual documentation", () => {
 		expect.assertions(1);
 		expect(
-			htmlvalidate.getRuleDocumentation(
-				"no-unknown-elements",
-				null,
-				"my-element"
-			)
+			htmlvalidate.getRuleDocumentation("no-unknown-elements", null, "my-element")
 		).toMatchSnapshot();
 	});
 });

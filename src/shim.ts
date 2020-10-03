@@ -3,13 +3,7 @@
 export { default as HtmlValidate } from "./htmlvalidate";
 export { AttributeData } from "./parser";
 export { CLI } from "./cli/cli";
-export {
-	Config,
-	ConfigData,
-	ConfigError,
-	ConfigLoader,
-	Severity,
-} from "./config";
+export { Config, ConfigData, ConfigError, ConfigLoader, Severity } from "./config";
 export { DynamicValue, HtmlElement, NodeClosed, TextNode } from "./dom";
 export { UserError } from "./error";
 export { Rule, RuleDocumentation } from "./rule";

@@ -21,10 +21,7 @@ export default class EmptyTitle extends Rule {
 					break;
 				case TextClassification.EMPTY_TEXT:
 					/* no content or whitespace only */
-					this.report(
-						node,
-						`<${node.tagName}> cannot be empty, must have text content`
-					);
+					this.report(node, `<${node.tagName}> cannot be empty, must have text content`);
 					break;
 			}
 		});

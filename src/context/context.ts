@@ -26,9 +26,7 @@ export class Context {
 	}
 
 	public getTruncatedLine(n: number = 13): string {
-		return JSON.stringify(
-			this.string.length > n ? `${this.string.slice(0, 10)}...` : this.string
-		);
+		return JSON.stringify(this.string.length > n ? `${this.string.slice(0, 10)}...` : this.string);
 	}
 
 	public consume(n: number | string[], state: number): void {

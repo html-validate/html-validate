@@ -6,8 +6,7 @@ import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 export default class ElementPermittedOccurrences extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
-			description:
-				"Some elements may only be used a fixed amount of times in given context.",
+			description: "Some elements may only be used a fixed amount of times in given context.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
@@ -23,9 +22,7 @@ export default class ElementPermittedOccurrences extends Rule {
 				}
 
 				const rules = parent.meta.permittedContent;
-				const siblings = parent.childElements.filter(
-					(cur) => cur.tagName === node.tagName
-				);
+				const siblings = parent.childElements.filter((cur) => cur.tagName === node.tagName);
 				const first = node.unique === siblings[0].unique;
 
 				/* the first occurrence should not trigger any errors, only the
@@ -34,10 +31,7 @@ export default class ElementPermittedOccurrences extends Rule {
 					return;
 				}
 
-				if (
-					parent.meta &&
-					!Validator.validateOccurrences(node, rules, siblings.length)
-				) {
+				if (parent.meta && !Validator.validateOccurrences(node, rules, siblings.length)) {
 					this.report(
 						node,
 						`Element <${node.tagName}> can only appear once under ${parent.annotatedName}`

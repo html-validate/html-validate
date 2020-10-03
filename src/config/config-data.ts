@@ -1,9 +1,6 @@
 type RuleSeverity = "off" | "warn" | "error" | number;
 
-export type RuleConfig = Record<
-	string,
-	RuleSeverity | [RuleSeverity] | [RuleSeverity, any]
->;
+export type RuleConfig = Record<string, RuleSeverity | [RuleSeverity] | [RuleSeverity, any]>;
 
 export interface TransformMap {
 	[key: string]: string;

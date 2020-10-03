@@ -112,10 +112,7 @@ Assert that a specific error is present in an HTML-Validate report.
 ```js
 const htmlvalidate = new HtmlValidate();
 const report = htmlvalidate.validateString("<p></i>");
-expect(report).toHaveError(
-  "close-order",
-  "Mismatched close-tag, expected '</p>' but found '</i>'"
-);
+expect(report).toHaveError("close-order", "Mismatched close-tag, expected '</p>' but found '</i>'");
 ```
 
 ### `toHaveErrors(errors: Array<[string, string] | object>)`

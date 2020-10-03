@@ -39,11 +39,7 @@ export default class HeadingLevel extends Rule {
 						location
 					);
 				} else {
-					this.report(
-						event.target,
-						`Initial heading level must be h${expected}`,
-						location
-					);
+					this.report(event.target, `Initial heading level must be h${expected}`, location);
 				}
 			}
 

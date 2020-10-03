@@ -17,9 +17,7 @@ describe("rule no-trailing-whitespace", () => {
 	`("$description", ({ newline }) => {
 		it("should not report when there is no trailing whitespace", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
-				`<div>${newline}  foo${newline}</div>`
-			);
+			const report = htmlvalidate.validateString(`<div>${newline}  foo${newline}</div>`);
 			expect(report).toBeValid();
 		});
 
@@ -27,20 +25,14 @@ describe("rule no-trailing-whitespace", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString(`<p>  ${newline}</p>`);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"no-trailing-whitespace",
-				"Trailing whitespace"
-			);
+			expect(report).toHaveError("no-trailing-whitespace", "Trailing whitespace");
 		});
 
 		it("should report error when empty line have trailing whitespace", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString(`<p>${newline}  \n</p>`);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"no-trailing-whitespace",
-				"Trailing whitespace"
-			);
+			expect(report).toHaveError("no-trailing-whitespace", "Trailing whitespace");
 		});
 
 		it("should report error for both tabs and spaces", () => {
@@ -56,16 +48,12 @@ describe("rule no-trailing-whitespace", () => {
 
 	it("smoketest", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile(
-			"test-files/rules/no-trailing-whitespace.html"
-		);
+		const report = htmlvalidate.validateFile("test-files/rules/no-trailing-whitespace.html");
 		expect(report.results).toMatchSnapshot();
 	});
 
 	it("should contain documentation", () => {
 		expect.assertions(1);
-		expect(
-			htmlvalidate.getRuleDocumentation("no-trailing-whitespace")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("no-trailing-whitespace")).toMatchSnapshot();
 	});
 });

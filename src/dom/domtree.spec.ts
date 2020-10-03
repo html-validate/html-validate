@@ -39,9 +39,7 @@ describe("DOMTree", () => {
 	it("getElementsByTagName() should delegate call to root element", () => {
 		expect.assertions(2);
 		const expected = [node];
-		const spy = jest
-			.spyOn(tree.root, "getElementsByTagName")
-			.mockReturnValue(expected);
+		const spy = jest.spyOn(tree.root, "getElementsByTagName").mockReturnValue(expected);
 		const tagName = "foo";
 		expect(tree.getElementsByTagName(tagName)).toBe(expected);
 		expect(spy).toHaveBeenCalledWith(tagName);
@@ -74,9 +72,7 @@ describe("DOMTree", () => {
 	it("querySelectorAll() should delegate call to root element", () => {
 		expect.assertions(2);
 		const expected = [node];
-		const spy = jest
-			.spyOn(tree.root, "querySelectorAll")
-			.mockReturnValue(expected);
+		const spy = jest.spyOn(tree.root, "querySelectorAll").mockReturnValue(expected);
 		const selector = "foo";
 		expect(tree.querySelectorAll(selector)).toBe(expected);
 		expect(spy).toHaveBeenCalledWith(selector);

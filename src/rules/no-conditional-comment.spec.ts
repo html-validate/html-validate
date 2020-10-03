@@ -38,16 +38,12 @@ describe("rule no-conditional-comment", () => {
 
 	it("smoketest", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile(
-			"test-files/rules/no-conditional-comment.html"
-		);
+		const report = htmlvalidate.validateFile("test-files/rules/no-conditional-comment.html");
 		expect(report.results).toMatchSnapshot();
 	});
 
 	it("should contain documentation", () => {
 		expect.assertions(1);
-		expect(
-			htmlvalidate.getRuleDocumentation("no-conditional-comment")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("no-conditional-comment")).toMatchSnapshot();
 	});
 });

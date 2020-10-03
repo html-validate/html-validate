@@ -18,9 +18,7 @@ describe("rule no-redundant-for", () => {
 
 	it("should not report when <label> references control elsewhere in tree", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			'<label for="foo"></label><input id="foo">'
-		);
+		const report = htmlvalidate.validateString('<label for="foo"></label><input id="foo">');
 		expect(report).toBeValid();
 	});
 
@@ -34,17 +32,13 @@ describe("rule no-redundant-for", () => {
 
 	it("should report error when <label> references wrapped element", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString(
-			'<label for="foo"><input id="foo"></label>'
-		);
+		const report = htmlvalidate.validateString('<label for="foo"><input id="foo"></label>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("no-redundant-for", 'Redundant "for" attribute');
 	});
 
 	it("should contain documentation", () => {
 		expect.assertions(1);
-		expect(
-			htmlvalidate.getRuleDocumentation("no-redundant-for")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("no-redundant-for")).toMatchSnapshot();
 	});
 });

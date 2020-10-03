@@ -28,9 +28,7 @@ class HtmlValidate {
 	 */
 	public constructor(config?: ConfigData) {
 		const defaults = Config.empty();
-		this.globalConfig = defaults.merge(
-			config ? Config.fromObject(config) : Config.defaultConfig()
-		);
+		this.globalConfig = defaults.merge(config ? Config.fromObject(config) : Config.defaultConfig());
 		this.configLoader = new ConfigLoader(Config);
 	}
 
@@ -96,9 +94,7 @@ class HtmlValidate {
 	 * @returns Report output.
 	 */
 	public validateMultipleFiles(filenames: string[]): Report {
-		return Reporter.merge(
-			filenames.map((filename) => this.validateFile(filename))
-		);
+		return Reporter.merge(filenames.map((filename) => this.validateFile(filename)));
 	}
 
 	/**
@@ -184,9 +180,7 @@ class HtmlValidate {
 			);
 			if (source.transformedBy) {
 				result.push("Transformed by:");
-				result = result.concat(
-					source.transformedBy.reverse().map((name) => ` - ${name}`)
-				);
+				result = result.concat(source.transformedBy.reverse().map((name) => ` - ${name}`));
 			}
 			if (source.hooks && Object.keys(source.hooks).length > 0) {
 				result.push("Hooks");

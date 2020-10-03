@@ -1,5 +1,1 @@
-module.exports = [
-	require("./block"),
-	require("./category"),
-	require("./summary"),
-];
+module.exports = [require("./block"), require("./category"), require("./summary")];

@@ -39,13 +39,9 @@ describe("rule allowed-links", () => {
 				"allowed-links": ["error", { allowRelative: false }],
 			},
 		});
-		const report = htmlvalidate.validateString(
-			'<a dynamic-src="{{ expr }}"></a>',
-			null,
-			{
-				processAttribute,
-			}
-		);
+		const report = htmlvalidate.validateString('<a dynamic-src="{{ expr }}"></a>', null, {
+			processAttribute,
+		});
 		expect(report).toBeValid();
 	});
 
@@ -58,26 +54,16 @@ describe("rule allowed-links", () => {
 
 		it("should report error when link is external using //", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString(
-				'<a href="//example.net/foo"></a>'
-			);
+			const report = htmlvalidate.validateString('<a href="//example.net/foo"></a>');
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"allowed-links",
-				"Link destination must not be external url"
-			);
+			expect(report).toHaveError("allowed-links", "Link destination must not be external url");
 		});
 
 		it("should report error when link is external using protocol://", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString(
-				'<a href="http://example.net/foo"></a>'
-			);
+			const report = htmlvalidate.validateString('<a href="http://example.net/foo"></a>');
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"allowed-links",
-				"Link destination must not be external url"
-			);
+			expect(report).toHaveError("allowed-links", "Link destination must not be external url");
 		});
 
 		it("should not report error link is absolute", () => {
@@ -108,17 +94,13 @@ describe("rule allowed-links", () => {
 
 		it("should not report error when link is external using //", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
-				'<a href="//example.net/foo"></a>'
-			);
+			const report = htmlvalidate.validateString('<a href="//example.net/foo"></a>');
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when link is external using protocol://", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
-				'<a href="http://example.net/foo"></a>'
-			);
+			const report = htmlvalidate.validateString('<a href="http://example.net/foo"></a>');
 			expect(report).toBeValid();
 		});
 
@@ -132,20 +114,14 @@ describe("rule allowed-links", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString('<a href="./foo"></a>');
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"allowed-links",
-				"Link destination must not be relative url"
-			);
+			expect(report).toHaveError("allowed-links", "Link destination must not be relative url");
 		});
 
 		it("should report error link is relative to base", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString('<a href="foo"></a>');
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"allowed-links",
-				"Link destination must not be relative url"
-			);
+			expect(report).toHaveError("allowed-links", "Link destination must not be relative url");
 		});
 	});
 
@@ -158,17 +134,13 @@ describe("rule allowed-links", () => {
 
 		it("should not report error when link is external using //", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
-				'<a href="//example.net/foo"></a>'
-			);
+			const report = htmlvalidate.validateString('<a href="//example.net/foo"></a>');
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when link is external using protocol://", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
-				'<a href="http://example.net/foo"></a>'
-			);
+			const report = htmlvalidate.validateString('<a href="http://example.net/foo"></a>');
 			expect(report).toBeValid();
 		});
 
@@ -204,17 +176,13 @@ describe("rule allowed-links", () => {
 
 		it("should not report error when link is external using //", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
-				'<a href="//example.net/foo"></a>'
-			);
+			const report = htmlvalidate.validateString('<a href="//example.net/foo"></a>');
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when link is external using protocol://", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
-				'<a href="http://example.net/foo"></a>'
-			);
+			const report = htmlvalidate.validateString('<a href="http://example.net/foo"></a>');
 			expect(report).toBeValid();
 		});
 
@@ -222,10 +190,7 @@ describe("rule allowed-links", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString('<a href="/foo"></a>');
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"allowed-links",
-				"Link destination must not be absolute url"
-			);
+			expect(report).toHaveError("allowed-links", "Link destination must not be absolute url");
 		});
 
 		it("should not report error link is relative to path", () => {
@@ -246,9 +211,7 @@ describe("rule allowed-links", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "allowed-links": "error" },
 		});
-		expect(
-			htmlvalidate.getRuleDocumentation("allowed-links")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("allowed-links")).toMatchSnapshot();
 	});
 
 	describe("should contain contextual documentation", () => {
@@ -263,9 +226,7 @@ describe("rule allowed-links", () => {
 			htmlvalidate = new HtmlValidate({
 				rules: { "allowed-links": "error" },
 			});
-			expect(
-				htmlvalidate.getRuleDocumentation("allowed-links", null, value)
-			).toMatchSnapshot();
+			expect(htmlvalidate.getRuleDocumentation("allowed-links", null, value)).toMatchSnapshot();
 		});
 	});
 });

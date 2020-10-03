@@ -42,9 +42,7 @@ describe("rule void-content", () => {
 
 	it("should not report when unknown element has end tag", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			"<custom-element></custom-element>"
-		);
+		const report = htmlvalidate.validateString("<custom-element></custom-element>");
 		expect(report).toBeValid();
 	});
 
@@ -57,11 +55,7 @@ describe("rule void-content", () => {
 	it("should report when void element has end tag", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateString("<input></input>");
-		expect(report).toHaveError(
-			"void-content",
-			"End tag for <input> must be omitted",
-			"input"
-		);
+		expect(report).toHaveError("void-content", "End tag for <input> must be omitted", "input");
 	});
 
 	it("should handle stray end tag", () => {
@@ -83,8 +77,6 @@ describe("rule void-content", () => {
 
 	it("should provide contextual documentation", () => {
 		expect.assertions(1);
-		expect(
-			htmlvalidate.getRuleDocumentation("void-content", null, "foo")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("void-content", null, "foo")).toMatchSnapshot();
 	});
 });

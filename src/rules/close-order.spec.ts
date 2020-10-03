@@ -70,17 +70,12 @@ describe("rule close-order", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString("</div>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"close-order",
-			"Unexpected close-tag, expected opening tag."
-		);
+		expect(report).toHaveError("close-order", "Unexpected close-tag, expected opening tag.");
 	});
 
 	it("smoketest", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile(
-			"test-files/rules/close-order.html"
-		);
+		const report = htmlvalidate.validateFile("test-files/rules/close-order.html");
 		expect(report.results).toMatchSnapshot();
 	});
 

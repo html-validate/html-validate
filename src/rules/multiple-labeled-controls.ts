@@ -29,19 +29,13 @@ export default class MultipleLabeledControls extends Rule {
 				return;
 			}
 
-			this.report(
-				target,
-				"<label> is associated with multiple controls",
-				target.location
-			);
+			this.report(target, "<label> is associated with multiple controls", target.location);
 		});
 	}
 
 	private getNumLabledControls(src: HtmlElement): number {
 		/* get all controls wrapped by label element */
-		const controls = src
-			.querySelectorAll(this.labelable)
-			.map((node) => node.id);
+		const controls = src.querySelectorAll(this.labelable).map((node) => node.id);
 
 		/* only count wrapped controls if the "for" attribute is missing or static,
 		 * for dynamic "for" attributes it is better to run in document mode later */

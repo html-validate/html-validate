@@ -37,11 +37,7 @@ export default class MetaRefresh extends Rule {
 
 			/* ensure a url is set */
 			if (!value.url) {
-				this.report(
-					target,
-					"Don't use meta refresh to reload the page",
-					location
-				);
+				this.report(target, "Don't use meta refresh to reload the page", location);
 			}
 
 			/* ensure delay is exactly 0 seconds */

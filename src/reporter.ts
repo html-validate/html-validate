@@ -81,10 +81,7 @@ export class Reporter {
 			report.results.forEach((result: Result) => {
 				const key = result.filePath;
 				if (key in merged) {
-					merged[key].messages = [].concat(
-						merged[key].messages,
-						result.messages
-					);
+					merged[key].messages = [].concat(merged[key].messages, result.messages);
 				} else {
 					merged[key] = Object.assign({}, result);
 				}

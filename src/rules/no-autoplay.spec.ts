@@ -33,16 +33,11 @@ describe("rule no-autoplay", () => {
 			expect(report).toBeValid();
 		});
 
-		it.each(["audio", "video"])(
-			"should report error when <%s> have autoplay",
-			(tagName) => {
-				expect.assertions(1);
-				const report = htmlvalidate.validateString(
-					`<${tagName} autoplay></${tagName}>`
-				);
-				expect(report).toBeInvalid();
-			}
-		);
+		it.each(["audio", "video"])("should report error when <%s> have autoplay", (tagName) => {
+			expect.assertions(1);
+			const report = htmlvalidate.validateString(`<${tagName} autoplay></${tagName}>`);
+			expect(report).toBeInvalid();
+		});
 	});
 
 	it("should not report error when role is excluded", () => {
@@ -83,8 +78,6 @@ describe("rule no-autoplay", () => {
 		const context = {
 			tagName: "video",
 		};
-		expect(
-			htmlvalidate.getRuleDocumentation("no-autoplay", null, context)
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("no-autoplay", null, context)).toMatchSnapshot();
 	});
 });

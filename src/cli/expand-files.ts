@@ -37,10 +37,7 @@ function directoryPattern(extensions: string[]): string {
  * Takes a number of file patterns (globs) and returns array of expanded
  * filenames.
  */
-export function expandFiles(
-	patterns: string[],
-	options: ExpandOptions
-): string[] {
+export function expandFiles(patterns: string[], options: ExpandOptions): string[] {
 	const cwd = options.cwd || process.cwd();
 	const extensions = options.extensions || DEFAULT_EXTENSIONS;
 

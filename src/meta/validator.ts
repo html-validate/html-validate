@@ -22,10 +22,7 @@ export class Validator {
 	 * @param rules - List of rules.
 	 * @returns `true` if element passes all tests.
 	 */
-	public static validatePermitted(
-		node: HtmlElement,
-		rules: Permitted | null
-	): boolean {
+	public static validatePermitted(node: HtmlElement, rules: Permitted | null): boolean {
 		if (!rules) {
 			return true;
 		}
@@ -92,10 +89,7 @@ export class Validator {
 		let prev = null;
 		for (const node of children) {
 			const old = i;
-			while (
-				rules[i] &&
-				!Validator.validatePermittedCategory(node, rules[i], true)
-			) {
+			while (rules[i] && !Validator.validatePermittedCategory(node, rules[i], true)) {
 				i++;
 			}
 
@@ -128,10 +122,7 @@ export class Validator {
 	 * Check if an element has the required set of elements. At least one of the
 	 * selectors must match.
 	 */
-	public static validateAncestors(
-		node: HtmlElement,
-		rules: RequiredAncestors | null
-	): boolean {
+	public static validateAncestors(node: HtmlElement, rules: RequiredAncestors | null): boolean {
 		if (!rules || rules.length === 0) {
 			return true;
 		}
@@ -156,9 +147,7 @@ export class Validator {
 		}
 
 		return rules.filter((tagName) => {
-			const haveMatchingChild = node.childElements.some((child) =>
-				child.is(tagName)
-			);
+			const haveMatchingChild = node.childElements.some((child) => child.is(tagName));
 			return !haveMatchingChild;
 		});
 	}
@@ -170,10 +159,7 @@ export class Validator {
 	 * @param rules - Element attribute metadta.
 	 * @returns `true` if attribute passes all tests.
 	 */
-	public static validateAttribute(
-		attr: Attribute,
-		rules: PermittedAttribute
-	): boolean {
+	public static validateAttribute(attr: Attribute, rules: PermittedAttribute): boolean {
 		const rule = rules[attr.key];
 		if (!rule) {
 			return true;
@@ -297,9 +283,7 @@ function validateKeys(rule: PermittedGroup): void {
 	for (const key of Object.keys(rule)) {
 		if (allowedKeys.indexOf(key) === -1) {
 			const str = JSON.stringify(rule);
-			throw new Error(
-				`Permitted rule "${str}" contains unknown property "${key}"`
-			);
+			throw new Error(`Permitted rule "${str}" contains unknown property "${key}"`);
 		}
 	}
 }

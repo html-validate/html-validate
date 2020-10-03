@@ -12,17 +12,13 @@ describe("rule no-deprecated-attr", () => {
 
 	it("should not report when regular element is used", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			'<body style="background: red;"></body>'
-		);
+		const report = htmlvalidate.validateString('<body style="background: red;"></body>');
 		expect(report).toBeValid();
 	});
 
 	it("should not report when regular element is missing meta", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			'<any style="background: red;"></any>'
-		);
+		const report = htmlvalidate.validateString('<any style="background: red;"></any>');
 		expect(report).toBeValid();
 	});
 
@@ -33,9 +29,7 @@ describe("rule no-deprecated-attr", () => {
 			elements: [{ abbr: {} }],
 			rules: { "no-deprecated-attr": "error" },
 		});
-		const report = htmlvalidate.validateString(
-			'<abbr style="background: red;"></abbr>'
-		);
+		const report = htmlvalidate.validateString('<abbr style="background: red;"></abbr>');
 		expect(report).toBeValid();
 	});
 
@@ -61,16 +55,12 @@ describe("rule no-deprecated-attr", () => {
 
 	it("smoketest", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile(
-			"test-files/rules/no-deprecated-attr.html"
-		);
+		const report = htmlvalidate.validateFile("test-files/rules/no-deprecated-attr.html");
 		expect(report.results).toMatchSnapshot();
 	});
 
 	it("should contain documentation", () => {
 		expect.assertions(1);
-		expect(
-			htmlvalidate.getRuleDocumentation("no-deprecated-attr")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("no-deprecated-attr")).toMatchSnapshot();
 	});
 });

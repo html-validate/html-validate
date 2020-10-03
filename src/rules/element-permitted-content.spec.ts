@@ -45,9 +45,7 @@ describe("rule element-permitted-content", () => {
 
 	it("should report error when descendant is disallowed", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString(
-			"<a><span><button></button></span></a>"
-		);
+		const report = htmlvalidate.validateString("<a><span><button></button></span></a>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"element-permitted-content",
@@ -92,17 +90,13 @@ describe("rule element-permitted-content", () => {
 
 	it("should not report error when phrasing a-element is child of @phrasing", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			"<span><a><span></span></a></span>"
-		);
+		const report = htmlvalidate.validateString("<span><a><span></span></a></span>");
 		expect(report).toBeValid();
 	});
 
 	it("should report error when non-phrasing a-element is child of @phrasing", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString(
-			"<span><a><div></div></a></span>"
-		);
+		const report = htmlvalidate.validateString("<span><a><div></div></a></span>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"element-permitted-content",
@@ -112,9 +106,7 @@ describe("rule element-permitted-content", () => {
 
 	it("should report error when label contains non-phrasing", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString(
-			"<label><div>foobar</div></label>"
-		);
+		const report = htmlvalidate.validateString("<label><div>foobar</div></label>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"element-permitted-content",
@@ -136,8 +128,6 @@ describe("rule element-permitted-content", () => {
 
 	it("should contain documentation", () => {
 		expect.assertions(1);
-		expect(
-			htmlvalidate.getRuleDocumentation("element-permitted-content")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("element-permitted-content")).toMatchSnapshot();
 	});
 });

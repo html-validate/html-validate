@@ -33,12 +33,7 @@
       },
       "title": "Element metadata to load",
       "description": "Array of modules, plugins or files to load element metadata from. Use <rootDir> to refer to the folder with the package.json file.",
-      "example": [
-        "html-validate:recommended",
-        "plugin:recommended",
-        "module",
-        "./local-file.json"
-      ]
+      "example": ["html-validate:recommended", "plugin:recommended", "module", "./local-file.json"]
     },
 
     "plugins": {

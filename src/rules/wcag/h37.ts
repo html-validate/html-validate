@@ -57,11 +57,7 @@ export default class H37 extends Rule<void, RuleOptions> {
 				}
 			}
 
-			this.report(
-				node,
-				'<img> is missing required "alt" attribute',
-				node.location
-			);
+			this.report(node, '<img> is missing required "alt" attribute', node.location);
 		});
 	}
 }

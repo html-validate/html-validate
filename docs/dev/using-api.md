@@ -168,10 +168,7 @@ test("should not frobnicate a flux", () => {
   const htmlvalidate = new HtmlValidate(config);
   const report = htmlvalidate.validateString("...");
   expect(report).toBeInvalid();
-  expect(report).toHaveError(
-    "my-rule",
-    "the tux should not be frobnicated by a flux"
-  );
+  expect(report).toHaveError("my-rule", "the tux should not be frobnicated by a flux");
 });
 ```
 

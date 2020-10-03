@@ -19,9 +19,7 @@ describe("rule heading-level", () => {
 
 	it("should not report error when <h1> is followed by <h2>", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			"<h1>heading 1</h1><h2>heading 2</h2>"
-		);
+		const report = htmlvalidate.validateString("<h1>heading 1</h1><h2>heading 2</h2>");
 		expect(report).toBeValid();
 	});
 
@@ -35,9 +33,7 @@ describe("rule heading-level", () => {
 
 	it("should report error when <h1> is followed by <h3>", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString(
-			"<h1>heading 1</h1><h3>heading 2</h3>"
-		);
+		const report = htmlvalidate.validateString("<h1>heading 1</h1><h3>heading 2</h3>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"heading-level",
@@ -49,32 +45,23 @@ describe("rule heading-level", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString("<h2>heading 2</h2>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"heading-level",
-			"Initial heading level must be h1"
-		);
+		expect(report).toHaveError("heading-level", "Initial heading level must be h1");
 	});
 
 	it("should handle custom elements marked as heading", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			"<custom-heading></custom-heading>"
-		);
+		const report = htmlvalidate.validateString("<custom-heading></custom-heading>");
 		expect(report).toBeValid();
 	});
 
 	it("smoketest", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile(
-			"test-files/rules/heading-level.html"
-		);
+		const report = htmlvalidate.validateFile("test-files/rules/heading-level.html");
 		expect(report.results).toMatchSnapshot();
 	});
 
 	it("should contain documentation", () => {
 		expect.assertions(1);
-		expect(
-			htmlvalidate.getRuleDocumentation("heading-level")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("heading-level")).toMatchSnapshot();
 	});
 });

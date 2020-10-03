@@ -14,9 +14,7 @@ describe("classifyNodeText()", () => {
 
 	it("should classify element with descendant text as STATIC_TEXT", () => {
 		expect.assertions(1);
-		const node = parser
-			.parseHtml("<p><b>lorem ipsum</b></p>")
-			.querySelector("p");
+		const node = parser.parseHtml("<p><b>lorem ipsum</b></p>").querySelector("p");
 		expect(classifyNodeText(node)).toEqual(TextClassification.STATIC_TEXT);
 	});
 

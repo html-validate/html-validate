@@ -19,9 +19,7 @@ describe("rule empty-title", () => {
 
 	it("should not report when title has children with text", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			"<title><span>lorem ipsum</span></title>"
-		);
+		const report = htmlvalidate.validateString("<title><span>lorem ipsum</span></title>");
 		expect(report).toBeValid();
 	});
 
@@ -40,49 +38,33 @@ describe("rule empty-title", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString("<title></title>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"empty-title",
-			"<title> cannot be empty, must have text content"
-		);
+		expect(report).toHaveError("empty-title", "<title> cannot be empty, must have text content");
 	});
 
 	it("should report error when title has no children with content", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString("<title><span></span></title>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"empty-title",
-			"<title> cannot be empty, must have text content"
-		);
+		expect(report).toHaveError("empty-title", "<title> cannot be empty, must have text content");
 	});
 
 	it("should report error when title only has whitespace content", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString("<title> </title>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"empty-title",
-			"<title> cannot be empty, must have text content"
-		);
+		expect(report).toHaveError("empty-title", "<title> cannot be empty, must have text content");
 	});
 
 	it("should report error when title only has comment", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString(
-			"<title>\n<!-- foo -->\n</title>"
-		);
+		const report = htmlvalidate.validateString("<title>\n<!-- foo -->\n</title>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"empty-title",
-			"<title> cannot be empty, must have text content"
-		);
+		expect(report).toHaveError("empty-title", "<title> cannot be empty, must have text content");
 	});
 
 	it("smoketest", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile(
-			"test-files/rules/empty-title.html"
-		);
+		const report = htmlvalidate.validateFile("test-files/rules/empty-title.html");
 		expect(report.results).toMatchSnapshot();
 	});
 

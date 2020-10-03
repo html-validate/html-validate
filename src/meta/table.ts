@@ -45,10 +45,7 @@ function overwriteMerge<T>(a: T[], b: T[]): T[] {
  * Injects errors with the "type" keyword to give the same output.
  */
 /* istanbul ignore next: manual testing */
-const ajvRegexpValidate: Ajv.ValidateFunction = function (
-	data: any,
-	dataPath: string
-): boolean {
+const ajvRegexpValidate: Ajv.ValidateFunction = function (data: any, dataPath: string): boolean {
 	const valid = data instanceof RegExp;
 	if (!valid) {
 		ajvRegexpValidate.errors = [
@@ -113,10 +110,7 @@ export class MetaTable {
 	 * @param obj - Object with metadata to load
 	 * @param filename - Optional filename used when presenting validation error
 	 */
-	public loadFromObject(
-		obj: MetaDataTable,
-		filename: string | null = null
-	): void {
+	public loadFromObject(obj: MetaDataTable, filename: string | null = null): void {
 		const ajv = new Ajv({ jsonPointers: true });
 		ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-06.json"));
 		ajv.addKeyword("regexp", ajvRegexpKeyword);
@@ -157,10 +151,7 @@ export class MetaTable {
 			if (err instanceof SchemaValidationError) {
 				throw err;
 			}
-			throw new UserError(
-				`Failed to load element metadata from "${filename}"`,
-				err
-			);
+			throw new UserError(`Failed to load element metadata from "${filename}"`, err);
 		}
 	}
 
@@ -171,9 +162,7 @@ export class MetaTable {
 	 */
 	public getMetaFor(tagName: string): MetaElement | null {
 		tagName = tagName.toLowerCase();
-		return this.elements[tagName]
-			? Object.assign({}, this.elements[tagName])
-			: null;
+		return this.elements[tagName] ? Object.assign({}, this.elements[tagName]) : null;
 	}
 
 	/**
@@ -202,9 +191,7 @@ export class MetaTable {
 			const name = entry.inherit;
 			parent = this.elements[name];
 			if (!parent) {
-				throw new UserError(
-					`Element <${tagName}> cannot inherit from <${name}>: no such element`
-				);
+				throw new UserError(`Element <${tagName}> cannot inherit from <${name}>: no such element`);
 			}
 		}
 
@@ -294,10 +281,7 @@ function expandRegex(entry: MetaElement): void {
 	}
 }
 
-function evaluateProperty(
-	node: HtmlElement,
-	expr: PropertyExpression
-): boolean {
+function evaluateProperty(node: HtmlElement, expr: PropertyExpression): boolean {
 	const [func, options] = parseExpression(expr);
 	return func(node, options);
 }
@@ -309,9 +293,7 @@ function parseExpression(expr: PropertyExpression): [PropertyEvaluator, any] {
 		const [funcName, options] = expr;
 		const func = functionTable[funcName];
 		if (!func) {
-			throw new Error(
-				`Failed to find function "${funcName}" when evaluating property expression`
-			);
+			throw new Error(`Failed to find function "${funcName}" when evaluating property expression`);
 		}
 		return [func, options];
 	}

@@ -49,18 +49,12 @@ export default class AttrQuotes extends Rule<void, Options> {
 
 			if (typeof event.quote === "undefined") {
 				if (this.options.unquoted === false) {
-					this.report(
-						event.target,
-						`Attribute "${event.key}" using unquoted value`
-					);
+					this.report(event.target, `Attribute "${event.key}" using unquoted value`);
 				}
 				return;
 			}
 
-			const expected = this.resolveQuotemark(
-				event.value.toString(),
-				this.style
-			);
+			const expected = this.resolveQuotemark(event.value.toString(), this.style);
 
 			if (event.quote !== expected) {
 				this.report(

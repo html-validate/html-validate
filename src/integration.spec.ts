@@ -61,9 +61,7 @@ it("should compute correct line, column and offset when using transformed source
 	});
 
 	/* ensure line, column and offsets are correct */
-	const report = htmlvalidate.validateString(
-		"<p>line 1</p>\n<p>line 2</p>\n<p>line 3</p>\n"
-	);
+	const report = htmlvalidate.validateString("<p>line 1</p>\n<p>line 2</p>\n<p>line 3</p>\n");
 	expect(report).toBeInvalid();
 	expect(report.results[0]).toMatchInlineSnapshot(`
 		Object {

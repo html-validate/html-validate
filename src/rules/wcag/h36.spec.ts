@@ -12,9 +12,7 @@ describe("wcag/h36", () => {
 
 	it("should not report when image has alt text", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			'<input type="image" alt="submit">'
-		);
+		const report = htmlvalidate.validateString('<input type="image" alt="submit">');
 		expect(report).toBeValid();
 	});
 
@@ -34,20 +32,14 @@ describe("wcag/h36", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString('<input type="image">');
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"wcag/h36",
-			"image used as submit button must have alt text"
-		);
+		expect(report).toHaveError("wcag/h36", "image used as submit button must have alt text");
 	});
 
 	it("should report error when image has empty alt text", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString('<input type="image" alt="">');
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"wcag/h36",
-			"image used as submit button must have alt text"
-		);
+		expect(report).toHaveError("wcag/h36", "image used as submit button must have alt text");
 	});
 
 	it("should contain documentation", () => {

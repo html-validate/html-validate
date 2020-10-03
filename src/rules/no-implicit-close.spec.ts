@@ -30,10 +30,7 @@ describe("rule no-implicit-close", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString("<li>foo<li>bar");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"no-implicit-close",
-			"Element <li> is implicitly closed by sibling"
-		);
+		expect(report).toHaveError("no-implicit-close", "Element <li> is implicitly closed by sibling");
 	});
 
 	it("should report error when element is implicitly closed by adjacent block element", () => {
@@ -48,16 +45,12 @@ describe("rule no-implicit-close", () => {
 
 	it("smoketest", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile(
-			"test-files/rules/no-implicit-close.html"
-		);
+		const report = htmlvalidate.validateFile("test-files/rules/no-implicit-close.html");
 		expect(report.results).toMatchSnapshot();
 	});
 
 	it("should contain documentation", () => {
 		expect.assertions(1);
-		expect(
-			htmlvalidate.getRuleDocumentation("no-implicit-close")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("no-implicit-close")).toMatchSnapshot();
 	});
 });

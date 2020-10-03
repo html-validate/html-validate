@@ -66,56 +66,35 @@ describe("rule no-missing-references", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString('<label for="missing"></label>');
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"no-missing-references",
-			'Element references missing id "missing"'
-		);
+		expect(report).toHaveError("no-missing-references", 'Element references missing id "missing"');
 	});
 
 	it('should report error when <input list=".."> is referencing missing element', () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString('<input list="missing">');
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"no-missing-references",
-			'Element references missing id "missing"'
-		);
+		expect(report).toHaveError("no-missing-references", 'Element references missing id "missing"');
 	});
 
 	it('should report error when <ANY aria-labelledby=".."> is referencing missing element', () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString(
-			'<div aria-labelledby="missing"></div>'
-		);
+		const report = htmlvalidate.validateString('<div aria-labelledby="missing"></div>');
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"no-missing-references",
-			'Element references missing id "missing"'
-		);
+		expect(report).toHaveError("no-missing-references", 'Element references missing id "missing"');
 	});
 
 	it('should report error when <ANY aria-describedby=".."> is referencing missing element', () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString(
-			'<div aria-describedby="missing"></div>'
-		);
+		const report = htmlvalidate.validateString('<div aria-describedby="missing"></div>');
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"no-missing-references",
-			'Element references missing id "missing"'
-		);
+		expect(report).toHaveError("no-missing-references", 'Element references missing id "missing"');
 	});
 
 	it('should report error when <ANY aria-controls=".."> is referencing missing element', () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString(
-			'<div aria-controls="missing"></div>'
-		);
+		const report = htmlvalidate.validateString('<div aria-controls="missing"></div>');
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"no-missing-references",
-			'Element references missing id "missing"'
-		);
+		expect(report).toHaveError("no-missing-references", 'Element references missing id "missing"');
 	});
 
 	it("should contain documentation", () => {
@@ -123,9 +102,7 @@ describe("rule no-missing-references", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "no-missing-references": "error" },
 		});
-		expect(
-			htmlvalidate.getRuleDocumentation("no-missing-references")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("no-missing-references")).toMatchSnapshot();
 	});
 
 	it("should contain contextual documentation", () => {

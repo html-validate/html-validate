@@ -10,12 +10,7 @@ module.exports = function renderMarkdown(trimIndentation) {
 	// markdown code render function
 	renderer.code = function (code, string, language) {
 		const trimmedCode = trimIndentation(code);
-		let renderedCode = marked.Renderer.prototype.code.call(
-			this,
-			trimmedCode,
-			string,
-			language
-		);
+		let renderedCode = marked.Renderer.prototype.code.call(this, trimmedCode, string, language);
 
 		// Bug in marked - forgets to add a final newline sometimes
 		if (!/\n$/.test(renderedCode)) {
@@ -23,16 +18,13 @@ module.exports = function renderMarkdown(trimIndentation) {
 		}
 
 		// Add hljs class
-		renderedCode = renderedCode.replace(
-			/<code(?: class="(.*?)")?>/,
-			(_, classes) => {
-				if (classes) {
-					return `<code class="hljs ${classes}">`;
-				} else {
-					return `<code class="hljs">`;
-				}
+		renderedCode = renderedCode.replace(/<code(?: class="(.*?)")?>/, (_, classes) => {
+			if (classes) {
+				return `<code class="hljs ${classes}">`;
+			} else {
+				return `<code class="hljs">`;
 			}
-		);
+		});
 
 		return renderedCode;
 	};

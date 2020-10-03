@@ -22,27 +22,19 @@ describe("wcag/h71", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString("<fieldset></fieldset>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"wcag/h71",
-			"<fieldset> must have a <legend> as the first child"
-		);
+		expect(report).toHaveError("wcag/h71", "<fieldset> must have a <legend> as the first child");
 	});
 
 	it("should report error when custom element inherits from <fieldset>", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString("<custom></custom>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"wcag/h71",
-			"<custom> must have a <legend> as the first child"
-		);
+		expect(report).toHaveError("wcag/h71", "<custom> must have a <legend> as the first child");
 	});
 
 	it("should not report when <fieldset> have <legend>", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			"<fieldset><legend>foo</legend></fieldset>"
-		);
+		const report = htmlvalidate.validateString("<fieldset><legend>foo</legend></fieldset>");
 		expect(report).toBeValid();
 	});
 

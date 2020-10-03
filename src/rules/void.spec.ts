@@ -49,10 +49,7 @@ describe("rule void", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString("<div/>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"void",
-				"End tag for <div> must not be omitted"
-			);
+			expect(report).toHaveError("void", "End tag for <div> must not be omitted");
 		});
 
 		it("smoketest", () => {

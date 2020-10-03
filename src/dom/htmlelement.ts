@@ -59,13 +59,7 @@ export class HtmlElement extends DOMNode {
 	}
 
 	public static rootNode(location: Location): HtmlElement {
-		return new HtmlElement(
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			location
-		);
+		return new HtmlElement(undefined, undefined, undefined, undefined, location);
 	}
 
 	public static fromTokens(
@@ -86,13 +80,7 @@ export class HtmlElement extends DOMNode {
 		/* location contains position of '<' so strip it out */
 		const location = sliceLocation(startToken.location, 1);
 
-		return new HtmlElement(
-			tagName,
-			open ? parent : undefined,
-			closed,
-			meta,
-			location
-		);
+		return new HtmlElement(tagName, open ? parent : undefined, closed, meta, location);
 	}
 
 	/**
@@ -189,9 +177,7 @@ export class HtmlElement extends DOMNode {
 		if (!this.tagName) {
 			return false;
 		}
-		return (
-			tagName === "*" || this.tagName.toLowerCase() === tagName.toLowerCase()
-		);
+		return tagName === "*" || this.tagName.toLowerCase() === tagName.toLowerCase();
 	}
 
 	/**
@@ -296,9 +282,7 @@ export class HtmlElement extends DOMNode {
 			this.attr[key] = [];
 		}
 
-		this.attr[key].push(
-			new Attribute(key, value, keyLocation, valueLocation, originalAttribute)
-		);
+		this.attr[key].push(new Attribute(key, value, keyLocation, valueLocation, originalAttribute));
 	}
 
 	/**
@@ -333,10 +317,7 @@ export class HtmlElement extends DOMNode {
 	 */
 	public getAttribute(key: string): Attribute;
 	public getAttribute(key: string, all: true): Attribute[];
-	public getAttribute(
-		key: string,
-		all: boolean = false
-	): Attribute | Attribute[] {
+	public getAttribute(key: string, all: boolean = false): Attribute | Attribute[] {
 		key = key.toLowerCase();
 		if (key in this.attr) {
 			const matches = this.attr[key];
@@ -415,10 +396,7 @@ export class HtmlElement extends DOMNode {
 
 	public getElementsByTagName(tagName: string): HtmlElement[] {
 		return this.childElements.reduce((matches, node) => {
-			return matches.concat(
-				node.is(tagName) ? [node] : [],
-				node.getElementsByTagName(tagName)
-			);
+			return matches.concat(node.is(tagName) ? [node] : [], node.getElementsByTagName(tagName));
 		}, []);
 	}
 
@@ -433,9 +411,7 @@ export class HtmlElement extends DOMNode {
 		return Array.from(unique.values());
 	}
 
-	private *querySelectorImpl(
-		selectorList: string
-	): IterableIterator<HtmlElement> {
+	private *querySelectorImpl(selectorList: string): IterableIterator<HtmlElement> {
 		if (!selectorList) {
 			return;
 		}

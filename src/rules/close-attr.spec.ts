@@ -48,9 +48,7 @@ describe("rule close-attr", () => {
 
 	it("smoketest", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile(
-			"test-files/rules/close-attr.html"
-		);
+		const report = htmlvalidate.validateFile("test-files/rules/close-attr.html");
 		expect(report.results).toMatchSnapshot();
 	});
 

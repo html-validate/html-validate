@@ -57,11 +57,7 @@ export default class AttributeEmptyStyle extends Rule<void, Options> {
 					}
 
 					/* report error */
-					this.report(
-						node,
-						reportMessage(attr, this.options.style),
-						attr.keyLocation
-					);
+					this.report(node, reportMessage(attr, this.options.style), attr.keyLocation);
 				}
 			});
 		});
@@ -88,9 +84,7 @@ function parseStyle(style: string): checkFunction {
 		case "empty":
 			return (attr: Attribute) => attr.value !== "";
 		default:
-			throw new Error(
-				`Invalid style "${style}" for "attribute-empty-style" rule`
-			);
+			throw new Error(`Invalid style "${style}" for "attribute-empty-style" rule`);
 	}
 }
 

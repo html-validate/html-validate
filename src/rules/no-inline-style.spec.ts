@@ -16,24 +16,16 @@ describe("rule no-inline-style", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString('<p style=""></p>');
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"no-inline-style",
-				"Inline style is not allowed"
-			);
+			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
 		});
 
 		it("should report when dynamic style attribute is used", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString(
-				'<p dynamic-style=""></p>',
-				null,
-				{ processAttribute }
-			);
+			const report = htmlvalidate.validateString('<p dynamic-style=""></p>', null, {
+				processAttribute,
+			});
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"no-inline-style",
-				"Inline style is not allowed"
-			);
+			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
 		});
 	});
 
@@ -48,19 +40,14 @@ describe("rule no-inline-style", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString('<p style=""></p>');
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"no-inline-style",
-				"Inline style is not allowed"
-			);
+			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
 		});
 
 		it("should not report when dynamic style attribute is used", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
-				'<p dynamic-style=""></p>',
-				null,
-				{ processAttribute }
-			);
+			const report = htmlvalidate.validateString('<p dynamic-style=""></p>', null, {
+				processAttribute,
+			});
 			expect(report).toBeValid();
 		});
 	});
@@ -80,16 +67,11 @@ describe("rule no-inline-style", () => {
 
 		it("should report when dynamic style attribute is used", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString(
-				'<p dynamic-style=""></p>',
-				null,
-				{ processAttribute }
-			);
+			const report = htmlvalidate.validateString('<p dynamic-style=""></p>', null, {
+				processAttribute,
+			});
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"no-inline-style",
-				"Inline style is not allowed"
-			);
+			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
 		});
 	});
 
@@ -98,9 +80,7 @@ describe("rule no-inline-style", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "no-inline-style": "error" },
 		});
-		const report = htmlvalidate.validateFile(
-			"test-files/rules/no-inline-style.html"
-		);
+		const report = htmlvalidate.validateFile("test-files/rules/no-inline-style.html");
 		expect(report.results).toMatchSnapshot();
 	});
 
@@ -109,8 +89,6 @@ describe("rule no-inline-style", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "no-inline-style": "error" },
 		});
-		expect(
-			htmlvalidate.getRuleDocumentation("no-inline-style")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("no-inline-style")).toMatchSnapshot();
 	});
 });

@@ -125,11 +125,7 @@ describe("rule void-style", () => {
 			style: 2,
 			tagName: "bar",
 		};
-		expect(
-			htmlvalidate.getRuleDocumentation("void-style", null, context1)
-		).toMatchSnapshot();
-		expect(
-			htmlvalidate.getRuleDocumentation("void-style", null, context2)
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("void-style", null, context1)).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("void-style", null, context2)).toMatchSnapshot();
 	});
 });

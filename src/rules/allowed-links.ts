@@ -33,10 +33,8 @@ const mapping: Record<string, string> = {
 
 const description: Record<Style, string> = {
 	[Style.EXTERNAL]: "External links are not allowed by current configuration.",
-	[Style.RELATIVE_BASE]:
-		"Links relative to <base> are not allowed by current configuration.",
-	[Style.RELATIVE_PATH]:
-		"Relative links are not allowed by current configuration.",
+	[Style.RELATIVE_BASE]: "Links relative to <base> are not allowed by current configuration.",
+	[Style.RELATIVE_PATH]: "Relative links are not allowed by current configuration.",
 	[Style.ABSOLUTE]: "Absolute links are not allowed by current configuration.",
 	[Style.ANCHOR]: undefined,
 };
@@ -48,8 +46,7 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 
 	public documentation(context: Style): RuleDocumentation {
 		const message =
-			description[context] ||
-			"This link type is not allowed by current configuration";
+			description[context] || "This link type is not allowed by current configuration";
 		return {
 			description: message,
 			url: ruleDocumentationUrl(__filename),

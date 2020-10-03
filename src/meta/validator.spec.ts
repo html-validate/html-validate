@@ -87,9 +87,7 @@ describe("Meta validator", () => {
 				sectioning: mockEntry({ sectioning: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [sectioning, nil] = parser.parseHtml(
-				"<sectioning/><nil/>"
-			).root.childElements;
+			const [sectioning, nil] = parser.parseHtml("<sectioning/><nil/>").root.childElements;
 			const rules = ["@sectioning"];
 			expect(Validator.validatePermitted(sectioning, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -103,9 +101,7 @@ describe("Meta validator", () => {
 				heading: mockEntry({ heading: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [heading, nil] = parser.parseHtml(
-				"<heading/><nil/>"
-			).root.childElements;
+			const [heading, nil] = parser.parseHtml("<heading/><nil/>").root.childElements;
 			const rules = ["@heading"];
 			expect(Validator.validatePermitted(heading, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -119,9 +115,7 @@ describe("Meta validator", () => {
 				phrasing: mockEntry({ phrasing: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [phrasing, nil] = parser.parseHtml(
-				"<phrasing/><nil/>"
-			).root.childElements;
+			const [phrasing, nil] = parser.parseHtml("<phrasing/><nil/>").root.childElements;
 			const rules = ["@phrasing"];
 			expect(Validator.validatePermitted(phrasing, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -135,9 +129,7 @@ describe("Meta validator", () => {
 				embedded: mockEntry({ embedded: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [embedded, nil] = parser.parseHtml(
-				"<embedded/><nil/>"
-			).root.childElements;
+			const [embedded, nil] = parser.parseHtml("<embedded/><nil/>").root.childElements;
 			const rules = ["@embedded"];
 			expect(Validator.validatePermitted(embedded, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -154,9 +146,7 @@ describe("Meta validator", () => {
 				}),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [interactive, nil] = parser.parseHtml(
-				"<interactive/><nil/>"
-			).root.childElements;
+			const [interactive, nil] = parser.parseHtml("<interactive/><nil/>").root.childElements;
 			const rules = ["@interactive"];
 			expect(Validator.validatePermitted(interactive, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -173,9 +163,7 @@ describe("Meta validator", () => {
 				}),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [script, nil] = parser.parseHtml(
-				"<scripting/><nil/>"
-			).root.childElements;
+			const [script, nil] = parser.parseHtml("<scripting/><nil/>").root.childElements;
 			const rules = ["@script"];
 			expect(Validator.validatePermitted(script, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -207,9 +195,7 @@ describe("Meta validator", () => {
 				phrasing: mockEntry({ phrasing: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [flow, phrasing, nil] = parser.parseHtml(
-				"<flow/><phrasing/><nil/>"
-			).root.childElements;
+			const [flow, phrasing, nil] = parser.parseHtml("<flow/><phrasing/><nil/>").root.childElements;
 			const rules = ["@flow", "@phrasing"];
 			expect(Validator.validatePermitted(flow, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(phrasing, rules)).toBeTruthy();
@@ -229,9 +215,7 @@ describe("Meta validator", () => {
 				}),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [foo, flow, phrasing] = parser.parseHtml(
-				"<foo/><flow/><phrasing/>"
-			).root.childElements;
+			const [foo, flow, phrasing] = parser.parseHtml("<foo/><flow/><phrasing/>").root.childElements;
 			const rules = [["@flow", "@phrasing"]];
 			expect(Validator.validatePermitted(foo, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(flow, rules)).toBeFalsy();
@@ -246,9 +230,7 @@ describe("Meta validator", () => {
 				bar: mockEntry({ flow: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [foo, bar] = parser.parseHtml(
-				"<foo/><bar/><nil/>"
-			).root.childElements;
+			const [foo, bar] = parser.parseHtml("<foo/><bar/><nil/>").root.childElements;
 			const rules = [
 				[
 					"@flow",
@@ -269,9 +251,7 @@ describe("Meta validator", () => {
 				bar: mockEntry({ flow: true, interactive: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [foo, bar] = parser.parseHtml(
-				"<foo/><bar/><nil/>"
-			).root.childElements;
+			const [foo, bar] = parser.parseHtml("<foo/><bar/><nil/>").root.childElements;
 			const rules = [
 				[
 					"@flow",
@@ -292,9 +272,7 @@ describe("Meta validator", () => {
 				bar: mockEntry({ flow: true, interactive: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [foo, bar] = parser.parseHtml(
-				"<foo/><bar/><nil/>"
-			).root.childElements;
+			const [foo, bar] = parser.parseHtml("<foo/><bar/><nil/>").root.childElements;
 			const rules = [{ exclude: ["bar", "baz"] }];
 			expect(Validator.validatePermitted(foo, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(bar, rules)).toBeFalsy();
@@ -308,9 +286,7 @@ describe("Meta validator", () => {
 				bar: mockEntry({ flow: true, interactive: true, void: true }),
 			});
 			const parser = new Parser(new ConfigMock(table));
-			const [foo, bar] = parser.parseHtml(
-				"<foo/><bar/><nil/>"
-			).root.childElements;
+			const [foo, bar] = parser.parseHtml("<foo/><bar/><nil/>").root.childElements;
 			const rules = [
 				[
 					"@flow",
@@ -383,9 +359,7 @@ describe("Meta validator", () => {
 			];
 			expect(() => {
 				Validator.validatePermitted(foo, rules);
-			}).toThrow(
-				'Permitted rule "{"spam":"ham"}" contains unknown property "spam"'
-			);
+			}).toThrow('Permitted rule "{"spam":"ham"}" contains unknown property "spam"');
 		});
 	});
 
@@ -482,8 +456,7 @@ describe("Meta validator", () => {
 
 		it("should handle elements with unspecified order", () => {
 			expect.assertions(2);
-			const children = parser.parseHtml("<foo/><bar/><foo/>").root
-				.childElements;
+			const children = parser.parseHtml("<foo/><bar/><foo/>").root.childElements;
 			const rules = ["foo"];
 			expect(Validator.validateOrder(children, rules, cb)).toBeTruthy();
 			expect(cb).not.toHaveBeenCalled();
@@ -563,12 +536,11 @@ describe("Meta validator", () => {
 
 		it("should return missing content", () => {
 			expect.assertions(1);
-			const node = parser
-				.parseHtml("<div><foo></foo></div>")
-				.querySelector("div");
-			expect(
-				Validator.validateRequiredContent(node, ["foo", "bar", "baz"])
-			).toEqual(["bar", "baz"]);
+			const node = parser.parseHtml("<div><foo></foo></div>").querySelector("div");
+			expect(Validator.validateRequiredContent(node, ["foo", "bar", "baz"])).toEqual([
+				"bar",
+				"baz",
+			]);
 		});
 	});
 
@@ -576,9 +548,7 @@ describe("Meta validator", () => {
 		it("should match if no rule is present", () => {
 			expect.assertions(1);
 			const rules = {};
-			expect(
-				Validator.validateAttribute(new Attribute("foo", "bar"), rules)
-			).toBeTruthy();
+			expect(Validator.validateAttribute(new Attribute("foo", "bar"), rules)).toBeTruthy();
 		});
 
 		it.each`
@@ -610,12 +580,8 @@ describe("Meta validator", () => {
 			const rules = {
 				foo: ["bar"],
 			};
-			expect(
-				Validator.validateAttribute(new Attribute("foo", "bar"), rules)
-			).toBeTruthy();
-			expect(
-				Validator.validateAttribute(new Attribute("foo", "car"), rules)
-			).toBeFalsy();
+			expect(Validator.validateAttribute(new Attribute("foo", "bar"), rules)).toBeTruthy();
+			expect(Validator.validateAttribute(new Attribute("foo", "car"), rules)).toBeFalsy();
 		});
 
 		it("should match dynamic value", () => {
@@ -625,12 +591,8 @@ describe("Meta validator", () => {
 				bar: [] as string[],
 			};
 			const dynamic = new DynamicValue("any");
-			expect(
-				Validator.validateAttribute(new Attribute("foo", dynamic), rules)
-			).toBeTruthy();
-			expect(
-				Validator.validateAttribute(new Attribute("bar", dynamic), rules)
-			).toBeTruthy();
+			expect(Validator.validateAttribute(new Attribute("foo", dynamic), rules)).toBeTruthy();
+			expect(Validator.validateAttribute(new Attribute("bar", dynamic), rules)).toBeTruthy();
 		});
 
 		it("should match if one of multiple allowed matches", () => {
@@ -638,12 +600,8 @@ describe("Meta validator", () => {
 			const rules = {
 				foo: ["fred", "barney", "wilma"],
 			};
-			expect(
-				Validator.validateAttribute(new Attribute("foo", "barney"), rules)
-			).toBeTruthy();
-			expect(
-				Validator.validateAttribute(new Attribute("foo", "pebble"), rules)
-			).toBeFalsy();
+			expect(Validator.validateAttribute(new Attribute("foo", "barney"), rules)).toBeTruthy();
+			expect(Validator.validateAttribute(new Attribute("foo", "pebble"), rules)).toBeFalsy();
 		});
 
 		it("should handle null", () => {
@@ -651,9 +609,7 @@ describe("Meta validator", () => {
 			const rules = {
 				foo: ["foo", "/bar/"],
 			};
-			expect(
-				Validator.validateAttribute(new Attribute("foo", null), rules)
-			).toBeFalsy();
+			expect(Validator.validateAttribute(new Attribute("foo", null), rules)).toBeFalsy();
 		});
 
 		it("should consider empty list as boolean attribute", () => {
@@ -661,9 +617,7 @@ describe("Meta validator", () => {
 			const rules = {
 				foo: [] as string[],
 			};
-			expect(
-				Validator.validateAttribute(new Attribute("foo", null), rules)
-			).toBeTruthy();
+			expect(Validator.validateAttribute(new Attribute("foo", null), rules)).toBeTruthy();
 		});
 
 		it("should consider empty value as either null or empty string", () => {
@@ -671,12 +625,8 @@ describe("Meta validator", () => {
 			const rules = {
 				foo: [""] as string[],
 			};
-			expect(
-				Validator.validateAttribute(new Attribute("foo", null), rules)
-			).toBeTruthy();
-			expect(
-				Validator.validateAttribute(new Attribute("foo", ""), rules)
-			).toBeTruthy();
+			expect(Validator.validateAttribute(new Attribute("foo", null), rules)).toBeTruthy();
+			expect(Validator.validateAttribute(new Attribute("foo", ""), rules)).toBeTruthy();
 		});
 
 		it("should normalize boolean attributes", () => {
@@ -684,18 +634,10 @@ describe("Meta validator", () => {
 			const rules = {
 				foo: [] as string[],
 			};
-			expect(
-				Validator.validateAttribute(new Attribute("foo", null), rules)
-			).toBeTruthy();
-			expect(
-				Validator.validateAttribute(new Attribute("foo", ""), rules)
-			).toBeTruthy();
-			expect(
-				Validator.validateAttribute(new Attribute("foo", "foo"), rules)
-			).toBeTruthy();
-			expect(
-				Validator.validateAttribute(new Attribute("foo", "bar"), rules)
-			).toBeFalsy();
+			expect(Validator.validateAttribute(new Attribute("foo", null), rules)).toBeTruthy();
+			expect(Validator.validateAttribute(new Attribute("foo", ""), rules)).toBeTruthy();
+			expect(Validator.validateAttribute(new Attribute("foo", "foo"), rules)).toBeTruthy();
+			expect(Validator.validateAttribute(new Attribute("foo", "bar"), rules)).toBeFalsy();
 		});
 	});
 });

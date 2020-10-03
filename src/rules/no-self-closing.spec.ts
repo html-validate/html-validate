@@ -45,19 +45,13 @@ describe("rule no-self-closing", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString("<div/>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"no-self-closing",
-				"<div> must not be self-closed"
-			);
+			expect(report).toHaveError("no-self-closing", "<div> must not be self-closed");
 		});
 
 		it("should report error for unknown elements", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateString("<custom-element/>");
-			expect(report).toHaveError(
-				"no-self-closing",
-				"<custom-element> must not be self-closed"
-			);
+			expect(report).toHaveError("no-self-closing", "<custom-element> must not be self-closed");
 		});
 	});
 
@@ -72,10 +66,7 @@ describe("rule no-self-closing", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString("<svg/>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"no-self-closing",
-				"<svg> must not be self-closed"
-			);
+			expect(report).toHaveError("no-self-closing", "<svg> must not be self-closed");
 		});
 	});
 
@@ -90,10 +81,7 @@ describe("rule no-self-closing", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString("<xi:include/>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"no-self-closing",
-				"<xi:include> must not be self-closed"
-			);
+			expect(report).toHaveError("no-self-closing", "<xi:include> must not be self-closed");
 		});
 	});
 
@@ -102,9 +90,7 @@ describe("rule no-self-closing", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "no-self-closing": "error" },
 		});
-		expect(
-			htmlvalidate.getRuleDocumentation("no-self-closing")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("no-self-closing")).toMatchSnapshot();
 	});
 
 	it("should contain contextual documentation", () => {
@@ -113,8 +99,6 @@ describe("rule no-self-closing", () => {
 			rules: { "no-self-closing": "error" },
 		});
 		const context = "div";
-		expect(
-			htmlvalidate.getRuleDocumentation("no-self-closing", null, context)
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("no-self-closing", null, context)).toMatchSnapshot();
 	});
 });

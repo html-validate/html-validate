@@ -27,10 +27,7 @@ describe("rule attr-quotes", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString("<div foo='bar'></div>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attr-quotes",
-				'Attribute "foo" used \' instead of expected "'
-			);
+			expect(report).toHaveError("attr-quotes", 'Attribute "foo" used \' instead of expected "');
 		});
 	});
 
@@ -45,10 +42,7 @@ describe("rule attr-quotes", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString('<div foo="bar"></div>');
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attr-quotes",
-				'Attribute "foo" used " instead of expected \''
-			);
+			expect(report).toHaveError("attr-quotes", 'Attribute "foo" used " instead of expected \'');
 		});
 
 		it("should not report when attributes use single quotes", () => {
@@ -81,10 +75,7 @@ describe("rule attr-quotes", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString("<div foo='bar'></div>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attr-quotes",
-				'Attribute "foo" used \' instead of expected "'
-			);
+			expect(report).toHaveError("attr-quotes", 'Attribute "foo" used \' instead of expected "');
 		});
 	});
 
@@ -129,10 +120,7 @@ describe("rule attr-quotes", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString("<div foo=5></div>");
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attr-quotes",
-				'Attribute "foo" using unquoted value'
-			);
+			expect(report).toHaveError("attr-quotes", 'Attribute "foo" using unquoted value');
 		});
 	});
 
@@ -143,10 +131,7 @@ describe("rule attr-quotes", () => {
 		});
 		const report = htmlvalidate.validateString("<div foo='bar'></div>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"attr-quotes",
-			`Attribute "foo" used ' instead of expected "`
-		);
+		expect(report).toHaveError("attr-quotes", `Attribute "foo" used ' instead of expected "`);
 	});
 
 	it("should contain documentation (auto)", () => {

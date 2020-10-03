@@ -12,9 +12,7 @@ export function parseSeverity(value: string | number): Severity {
 		/* istanbul ignore next: deprecated code which will be removed later */
 		case "disable":
 			// eslint-disable-next-line no-console
-			console.warn(
-				`Deprecated alias "disabled" will be removed, replace with severity "off"`
-			);
+			console.warn(`Deprecated alias "disabled" will be removed, replace with severity "off"`);
 			return Severity.DISABLED;
 		case 1:
 		case "warn":

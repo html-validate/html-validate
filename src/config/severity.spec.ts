@@ -48,8 +48,6 @@ describe("parseSeverity()", () => {
 
 	it("should throw error on undefined", () => {
 		expect.assertions(1);
-		expect(() => parseSeverity(undefined)).toThrow(
-			'Invalid severity "undefined"'
-		);
+		expect(() => parseSeverity(undefined)).toThrow('Invalid severity "undefined"');
 	});
 });

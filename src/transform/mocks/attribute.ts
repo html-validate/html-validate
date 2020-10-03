@@ -1,9 +1,7 @@
 import { DynamicValue } from "../../dom";
 import { AttributeData } from "../../parser";
 
-export function* processAttribute(
-	attr: AttributeData
-): Iterable<AttributeData> {
+export function* processAttribute(attr: AttributeData): Iterable<AttributeData> {
 	/* handle foo="{{ bar }}" as "foo" with a dynamic value (interpolated) */
 	if (typeof attr.value === "string" && attr.value.match(/{{.*}}/)) {
 		yield Object.assign({}, attr, {

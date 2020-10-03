@@ -128,9 +128,7 @@ describe("config", () => {
 			expect.assertions(2);
 			const config = Config.fromObject({ rules: { foo: "error" } });
 			expect(config.get().rules).toEqual({ foo: "error" });
-			expect(Array.from(config.getRules().entries())).toEqual([
-				["foo", [Severity.ERROR, {}]],
-			]);
+			expect(Array.from(config.getRules().entries())).toEqual([["foo", [Severity.ERROR, {}]]]);
 		});
 
 		it("should parse severity from string", () => {
@@ -316,9 +314,7 @@ describe("config", () => {
 	describe("expandRelative()", () => {
 		it("should expand ./foo", () => {
 			expect.assertions(1);
-			expect(Config.expandRelative("./foo", "/path")).toEqual(
-				path.join(path.sep, "path", "foo")
-			);
+			expect(Config.expandRelative("./foo", "/path")).toEqual(path.join(path.sep, "path", "foo"));
 		});
 
 		it("should expand ../foo", () => {
@@ -685,17 +681,14 @@ describe("config", () => {
 				},
 			});
 			config.init();
-			expect(() =>
-				config.transformSource(source)
-			).toThrowErrorMatchingSnapshot();
+			expect(() => config.transformSource(source)).toThrowErrorMatchingSnapshot();
 		});
 
 		it("should throw sane error when transformer fails to load", () => {
 			expect.assertions(1);
 			const config = Config.fromObject({
 				transform: {
-					"^.*\\.foo$":
-						"missing-transformer" /* mocked transformer, see top of file */,
+					"^.*\\.foo$": "missing-transformer" /* mocked transformer, see top of file */,
 				},
 			});
 			expect(() => config.init()).toThrowErrorMatchingSnapshot();
@@ -759,8 +752,7 @@ describe("config", () => {
 				},
 			});
 			config.init();
-			expect(config.transformFilename("test-files/parser/simple.html"))
-				.toMatchInlineSnapshot(`
+			expect(config.transformFilename("test-files/parser/simple.html")).toMatchInlineSnapshot(`
 					Array [
 					  Object {
 					    "column": 1,
@@ -804,9 +796,7 @@ describe("config", () => {
 		it("should handle being called multiple times", () => {
 			expect.assertions(1);
 			const config = Config.fromObject({});
-			const spy = jest
-				.spyOn(config as any, "precompileTransformers")
-				.mockReturnValue([]);
+			const spy = jest.spyOn(config as any, "precompileTransformers").mockReturnValue([]);
 			config.init();
 			config.init();
 			expect(spy).toHaveBeenCalledTimes(1);
@@ -829,9 +819,7 @@ describe("config", () => {
 				plugins: ["mock-plugin"],
 			});
 			config.init();
-			expect(config.getPlugins()).toEqual([
-				expect.objectContaining({ name: "mock-plugin" }),
-			]);
+			expect(config.getPlugins()).toEqual([expect.objectContaining({ name: "mock-plugin" })]);
 		});
 	});
 

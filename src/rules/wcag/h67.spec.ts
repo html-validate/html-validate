@@ -38,20 +38,14 @@ describe("wcag/h67", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString('<img title="bar">');
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"wcag/h67",
-			"<img> with empty alt text cannot have title attribute"
-		);
+		expect(report).toHaveError("wcag/h67", "<img> with empty alt text cannot have title attribute");
 	});
 
 	it("should report error when img has empty alt and title", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString('<img title="bar">');
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"wcag/h67",
-			"<img> with empty alt text cannot have title attribute"
-		);
+		expect(report).toHaveError("wcag/h67", "<img> with empty alt text cannot have title attribute");
 	});
 
 	it("smoketest", () => {

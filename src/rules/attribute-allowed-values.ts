@@ -22,12 +22,8 @@ export default class AttributeAllowedValues extends Rule<Context> {
 		}
 
 		if (context.allowed.length > 0) {
-			const allowed = context.allowed.map(
-				(val: string | RegExp) => `- \`${val}\``
-			);
-			docs.description = `Element <${
-				context.element
-			}> does not allow attribute \`${
+			const allowed = context.allowed.map((val: string | RegExp) => `- \`${val}\``);
+			docs.description = `Element <${context.element}> does not allow attribute \`${
 				context.attribute
 			}\` to have the value \`"${
 				context.value

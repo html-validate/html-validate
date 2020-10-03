@@ -35,10 +35,7 @@ describe("rule attribute-allowed-values", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString("<input type>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"attribute-allowed-values",
-			'Attribute "type" is missing value'
-		);
+		expect(report).toHaveError("attribute-allowed-values", 'Attribute "type" is missing value');
 	});
 
 	it("should report error when element attribute should be boolean", () => {
@@ -113,17 +110,13 @@ describe("rule attribute-allowed-values", () => {
 
 	it("smoketest", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile(
-			"test-files/rules/attribute-allowed-values.html"
-		);
+		const report = htmlvalidate.validateFile("test-files/rules/attribute-allowed-values.html");
 		expect(report.results).toMatchSnapshot();
 	});
 
 	it("should contain documentation", () => {
 		expect.assertions(1);
-		expect(
-			htmlvalidate.getRuleDocumentation("attribute-allowed-values")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("attribute-allowed-values")).toMatchSnapshot();
 	});
 
 	it("should contain contextual documentation", () => {
@@ -135,11 +128,7 @@ describe("rule attribute-allowed-values", () => {
 			allowed: ["spam", "ham", /\d+/],
 		};
 		expect(
-			htmlvalidate.getRuleDocumentation(
-				"attribute-allowed-values",
-				null,
-				context
-			)
+			htmlvalidate.getRuleDocumentation("attribute-allowed-values", null, context)
 		).toMatchSnapshot();
 	});
 
@@ -152,11 +141,7 @@ describe("rule attribute-allowed-values", () => {
 			allowed: [] as string[],
 		};
 		expect(
-			htmlvalidate.getRuleDocumentation(
-				"attribute-allowed-values",
-				null,
-				context
-			)
+			htmlvalidate.getRuleDocumentation("attribute-allowed-values", null, context)
 		).toMatchSnapshot();
 	});
 });

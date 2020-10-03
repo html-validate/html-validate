@@ -76,10 +76,7 @@ describe("MetaTable", () => {
 
 	it("should throw SchemaValidationError if file does not validate", () => {
 		expect.assertions(2);
-		const filename = path.resolve(
-			__dirname,
-			"../../test-files/meta/invalid-schema.json"
-		);
+		const filename = path.resolve(__dirname, "../../test-files/meta/invalid-schema.json");
 		const table = new MetaTable();
 		validate.errors = [
 			{

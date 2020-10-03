@@ -18,15 +18,11 @@ describe("rule class-pattern", () => {
 
 	it("should report error when class does not follow pattern", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString(
-			'<p class="foo-bar fooBar spam"></p>'
-		);
+		const report = htmlvalidate.validateString('<p class="foo-bar fooBar spam"></p>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"class-pattern",
-			expect.stringMatching(
-				/Class "fooBar" does not match required pattern ".*"/
-			)
+			expect.stringMatching(/Class "fooBar" does not match required pattern ".*"/)
 		);
 	});
 
@@ -38,16 +34,12 @@ describe("rule class-pattern", () => {
 
 	it("smoketest", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile(
-			"test-files/rules/class-pattern.html"
-		);
+		const report = htmlvalidate.validateFile("test-files/rules/class-pattern.html");
 		expect(report.results).toMatchSnapshot();
 	});
 
 	it("should contain documentation", () => {
 		expect.assertions(1);
-		expect(
-			htmlvalidate.getRuleDocumentation("class-pattern")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("class-pattern")).toMatchSnapshot();
 	});
 });

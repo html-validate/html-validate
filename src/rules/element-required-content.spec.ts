@@ -23,10 +23,7 @@ describe("rule element-required-content", () => {
 		const report = htmlvalidate.validateString("<html><body></body></html>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
-			[
-				"element-required-content",
-				"<html> element must have <head> as content",
-			],
+			["element-required-content", "<html> element must have <head> as content"],
 		]);
 	});
 
@@ -35,22 +32,14 @@ describe("rule element-required-content", () => {
 		const report = htmlvalidate.validateString("<html></html>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
-			[
-				"element-required-content",
-				"<html> element must have <head> as content",
-			],
-			[
-				"element-required-content",
-				"<html> element must have <body> as content",
-			],
+			["element-required-content", "<html> element must have <head> as content"],
+			["element-required-content", "<html> element must have <body> as content"],
 		]);
 	});
 
 	it("should contain documentation", () => {
 		expect.assertions(1);
-		expect(
-			htmlvalidate.getRuleDocumentation("element-required-content")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("element-required-content")).toMatchSnapshot();
 	});
 
 	it("should contain contextual documentation", () => {

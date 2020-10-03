@@ -64,11 +64,9 @@ describe("rule attribute-boolean-style", () => {
 
 		it("should report error when attribute is interpolated", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString(
-				'<input required="{{ dynamic }}">',
-				null,
-				{ processAttribute }
-			);
+			const report = htmlvalidate.validateString('<input required="{{ dynamic }}">', null, {
+				processAttribute,
+			});
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-boolean-style",
@@ -78,19 +76,15 @@ describe("rule attribute-boolean-style", () => {
 
 		it("should not report error when attribute is dynamic", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
-				'<input dynamic-required="dynamic">',
-				null,
-				{ processAttribute }
-			);
+			const report = htmlvalidate.validateString('<input dynamic-required="dynamic">', null, {
+				processAttribute,
+			});
 			expect(report).toBeValid();
 		});
 
 		it("smoketest", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"test-files/rules/attribute-boolean-style.html"
-			);
+			const report = htmlvalidate.validateFile("test-files/rules/attribute-boolean-style.html");
 			expect(report.results).toMatchSnapshot();
 		});
 	});
@@ -130,11 +124,9 @@ describe("rule attribute-boolean-style", () => {
 
 		it("should report error when attribute is dynamic", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString(
-				'<input required="{{ dynamic }}">',
-				null,
-				{ processAttribute }
-			);
+			const report = htmlvalidate.validateString('<input required="{{ dynamic }}">', null, {
+				processAttribute,
+			});
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-boolean-style",
@@ -144,9 +136,7 @@ describe("rule attribute-boolean-style", () => {
 
 		it("smoketest", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"test-files/rules/attribute-boolean-style.html"
-			);
+			const report = htmlvalidate.validateFile("test-files/rules/attribute-boolean-style.html");
 			expect(report.results).toMatchSnapshot();
 		});
 	});
@@ -186,11 +176,9 @@ describe("rule attribute-boolean-style", () => {
 
 		it("should report error when attribute is dynamic", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString(
-				'<input required="{{ dynamic }}">',
-				null,
-				{ processAttribute }
-			);
+			const report = htmlvalidate.validateString('<input required="{{ dynamic }}">', null, {
+				processAttribute,
+			});
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-boolean-style",
@@ -200,9 +188,7 @@ describe("rule attribute-boolean-style", () => {
 
 		it("smoketest", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile(
-				"test-files/rules/attribute-boolean-style.html"
-			);
+			const report = htmlvalidate.validateFile("test-files/rules/attribute-boolean-style.html");
 			expect(report.results).toMatchSnapshot();
 		});
 	});
@@ -222,8 +208,6 @@ describe("rule attribute-boolean-style", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "attribute-boolean-style": "error" },
 		});
-		expect(
-			htmlvalidate.getRuleDocumentation("attribute-boolean-style")
-		).toMatchSnapshot();
+		expect(htmlvalidate.getRuleDocumentation("attribute-boolean-style")).toMatchSnapshot();
 	});
 });
