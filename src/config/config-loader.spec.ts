@@ -219,15 +219,13 @@ describe("ConfigLoader", () => {
 		}
 
 		const files = glob.sync("test-files/config/**/*.html");
-		files.forEach((filename: string) => {
-			it(filename, () => {
-				expect.assertions(2);
-				const htmlvalidate = new HtmlValidate();
-				const config = htmlvalidate.getConfigFor(filename);
-				const report = htmlvalidate.validateFile(filename);
-				expect(filter(config)).toMatchSnapshot();
-				expect(report.results).toMatchSnapshot();
-			});
+		it.each(files)("%s", (filename: string) => {
+			expect.assertions(2);
+			const htmlvalidate = new HtmlValidate();
+			const config = htmlvalidate.getConfigFor(filename);
+			const report = htmlvalidate.validateFile(filename);
+			expect(filter(config)).toMatchSnapshot();
+			expect(report.results).toMatchSnapshot();
 		});
 	});
 });

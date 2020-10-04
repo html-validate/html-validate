@@ -15,7 +15,7 @@ interface TokenMatcher {
 
 declare global {
 	namespace jest {
-		/* eslint-disable-next-line @typescript-eslint/ban-types */
+		/* eslint-disable-next-line @typescript-eslint/ban-types, @typescript-eslint/no-unused-vars */
 		interface Matchers<R, T = {}> {
 			toBeValid(): R;
 			toBeInvalid(): R;
