@@ -150,6 +150,10 @@ class MyRule extends Rule<void, RuleOptions> {
 }
 ```
 
+## Cache
+
+Expensive operations on `DOMNode` can be cached using the {@link dev/cache cache API}.
+
 ## API
 
 ### `options: RuleOptions`
