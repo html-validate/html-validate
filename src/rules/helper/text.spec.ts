@@ -43,4 +43,12 @@ describe("classifyNodeText()", () => {
 		node.querySelector("b").appendText(new DynamicValue(""));
 		expect(classifyNodeText(node)).toEqual(TextClassification.DYNAMIC_TEXT);
 	});
+
+	it("should cache result", () => {
+		expect.assertions(2);
+		const node = parser.parseHtml("<p>foo</p>").querySelector("p");
+		expect(classifyNodeText(node)).toEqual(TextClassification.STATIC_TEXT);
+		node.childNodes.length = 0; /* hack to remove all text content */
+		expect(classifyNodeText(node)).toEqual(TextClassification.STATIC_TEXT);
+	});
 });

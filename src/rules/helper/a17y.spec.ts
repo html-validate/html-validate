@@ -73,5 +73,17 @@ describe("a17y helpers", () => {
 			const p = root.querySelector("p");
 			expect(inAccessibilityTree(p)).toBeFalsy();
 		});
+
+		it("should cache result", () => {
+			expect.assertions(4);
+			const root = parse("<p></p>");
+			const p = root.querySelector("p");
+			const spy = jest.spyOn(p, "getAttribute");
+			expect(inAccessibilityTree(p)).toBeTruthy();
+			expect(spy).toHaveBeenCalledTimes(2);
+			spy.mockClear();
+			expect(inAccessibilityTree(p)).toBeTruthy();
+			expect(spy).toHaveBeenCalledTimes(0);
+		});
 	});
 });

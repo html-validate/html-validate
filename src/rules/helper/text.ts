@@ -1,9 +1,17 @@
 import { HtmlElement, NodeType, TextNode } from "../../dom";
 
+const CACHE_KEY = Symbol(classifyNodeText.name);
+
 export enum TextClassification {
 	EMPTY_TEXT,
 	DYNAMIC_TEXT,
 	STATIC_TEXT,
+}
+
+declare module "../../dom/cache" {
+	export interface DOMNodeCache {
+		[CACHE_KEY]: TextClassification;
+	}
 }
 
 /**
@@ -15,20 +23,24 @@ export enum TextClassification {
  * If any text is dynamic `TextClassification.DYNAMIC_TEXT` is returned.
  */
 export function classifyNodeText(node: HtmlElement): TextClassification {
+	if (node.cacheExists(CACHE_KEY)) {
+		return node.cacheGet(CACHE_KEY);
+	}
+
 	const text = findTextNodes(node);
 
 	/* if any text is dynamic classify as dynamic */
 	if (text.some((cur) => cur.isDynamic)) {
-		return TextClassification.DYNAMIC_TEXT;
+		return node.cacheSet(CACHE_KEY, TextClassification.DYNAMIC_TEXT);
 	}
 
 	/* if any text has non-whitespace character classify as static */
 	if (text.some((cur) => cur.textContent.match(/\S/) !== null)) {
-		return TextClassification.STATIC_TEXT;
+		return node.cacheSet(CACHE_KEY, TextClassification.STATIC_TEXT);
 	}
 
 	/* default to empty */
-	return TextClassification.EMPTY_TEXT;
+	return node.cacheSet(CACHE_KEY, TextClassification.EMPTY_TEXT);
 }
 
 function findTextNodes(node: HtmlElement): TextNode[] {
