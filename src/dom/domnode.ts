@@ -1,9 +1,17 @@
 import { Location } from "../context";
 import { NodeType } from "./nodetype";
+import { DOMNodeCache } from "./cache";
 
 export type DOMInternalID = number;
 
 const DOCUMENT_NODE_NAME = "#document";
+const TEXT_CONTENT = Symbol("textContent");
+
+declare module "./cache" {
+	export interface DOMNodeCache {
+		[TEXT_CONTENT]: string;
+	}
+}
 
 let counter = 0;
 
@@ -19,6 +27,8 @@ export class DOMNode {
 
 	public readonly location: Location;
 	public readonly unique: DOMInternalID;
+
+	private readonly cache: Map<string | number | symbol, any>;
 
 	/**
 	 * Set of disabled rules for this node.
@@ -42,13 +52,61 @@ export class DOMNode {
 		this.disabledRules = new Set();
 		this.childNodes = [];
 		this.unique = counter++;
+		this.cache = new Map();
+	}
+
+	/**
+	 * Fetch cached value from this DOM node.
+	 *
+	 * @returns value or `undefined` if the value doesn't exist.
+	 */
+	public cacheGet<K extends keyof DOMNodeCache>(key: K): DOMNodeCache[K] | undefined;
+	public cacheGet(key: string | number | symbol): any | undefined;
+	public cacheGet(key: string | number | symbol): any | undefined {
+		return this.cache.get(key);
+	}
+
+	/**
+	 * Store a value in cache.
+	 *
+	 * @returns the value itself is returned.
+	 */
+	public cacheSet<K extends keyof DOMNodeCache>(key: K, value: DOMNodeCache[K]): DOMNodeCache[K];
+	public cacheSet<T>(key: string | number | symbol, value: T): T;
+	public cacheSet<T>(key: string | number | symbol, value: T): T {
+		this.cache.set(key, value);
+		return value;
+	}
+
+	/**
+	 * Remove a value by key from cache.
+	 */
+	public cacheRemove<K extends keyof DOMNodeCache>(key: K): boolean;
+	public cacheRemove(key: string | number | symbol): boolean;
+	public cacheRemove(key: string | number | symbol): boolean {
+		return this.cache.delete(key);
+	}
+
+	/**
+	 * Check if key exists in cache.
+	 */
+	public cacheExists<K extends keyof DOMNodeCache>(key: K): boolean;
+	public cacheExists(key: string | number | symbol): boolean;
+	public cacheExists(key: string | number | symbol): boolean {
+		return this.cache.has(key);
 	}
 
 	/**
 	 * Get the text (recursive) from all child nodes.
 	 */
 	public get textContent(): string {
-		return this.childNodes.map((node) => node.textContent).join("");
+		const cached = this.cacheGet(TEXT_CONTENT);
+		if (cached) {
+			return cached;
+		}
+		const text = this.childNodes.map((node) => node.textContent).join("");
+		this.cacheSet(TEXT_CONTENT, text);
+		return text;
 	}
 
 	public append(node: DOMNode): void {

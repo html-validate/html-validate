@@ -6,3 +6,4 @@ export { DOMTree } from "./domtree";
 export { DynamicValue } from "./dynamic-value";
 export { NodeType } from "./nodetype";
 export { TextNode } from "./text";
+export { DOMNodeCache } from "./cache";
