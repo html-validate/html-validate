@@ -31,17 +31,16 @@ jest.mock(
 );
 
 describe("regression tests", () => {
-	for (const filename of glob.sync("test-files/issues/**/*.html")) {
-		it(filename, () => {
-			expect.assertions(1);
-			const htmlvalidate = new HtmlValidate({
-				extends: ["html-validate:recommended"],
-				transform: {
-					".*": "mock-transformer",
-				},
-			});
-			const report = htmlvalidate.validateFile(filename);
-			expect(report.results).toMatchSnapshot();
+	const files = glob.sync("test-files/issues/**/*.html");
+	it.each(files)("%s", (filename: string) => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({
+			extends: ["html-validate:recommended"],
+			transform: {
+				".*": "mock-transformer",
+			},
 		});
-	}
+		const report = htmlvalidate.validateFile(filename);
+		expect(report.results).toMatchSnapshot();
+	});
 });
