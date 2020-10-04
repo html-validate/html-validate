@@ -111,10 +111,7 @@ export class MetaTable {
 	 * @param filename - Optional filename used when presenting validation error
 	 */
 	public loadFromObject(obj: MetaDataTable, filename: string | null = null): void {
-		const ajv = new Ajv({ jsonPointers: true });
-		ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-06.json"));
-		ajv.addKeyword("regexp", ajvRegexpKeyword);
-		const validator = ajv.compile(this.schema);
+		const validator = this.getSchemaValidator();
 		const valid = validator(obj);
 		if (!valid) {
 			throw new SchemaValidationError(
@@ -126,9 +123,9 @@ export class MetaTable {
 			);
 		}
 
-		for (const key of Object.keys(obj)) {
+		for (const [key, value] of Object.entries(obj)) {
 			if (key === "$schema") continue;
-			this.addEntry(key, obj[key]);
+			this.addEntry(key, value);
 		}
 	}
 
@@ -204,6 +201,16 @@ export class MetaTable {
 		expandRegex(expanded);
 
 		this.elements[tagName] = expanded;
+	}
+
+	/**
+	 * Construct a new AJV schema validator.
+	 */
+	private getSchemaValidator(): Ajv.ValidateFunction {
+		const ajv = new Ajv({ jsonPointers: true });
+		ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-06.json"));
+		ajv.addKeyword("regexp", ajvRegexpKeyword);
+		return ajv.compile(this.schema);
 	}
 
 	/**
