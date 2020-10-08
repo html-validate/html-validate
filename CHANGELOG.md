@@ -1,5 +1,18 @@
 # html-validate changelog
 
+# [3.4.0](https://gitlab.com/html-validate/html-validate/compare/v3.3.0...v3.4.0) (2020-10-08)
+
+### Bug Fixes
+
+- **deps:** update dependency acorn-walk to v8 ([5a41662](https://gitlab.com/html-validate/html-validate/commit/5a41662b6800a8400d493364d35db385300801a9))
+- **rules:** fix issue in `no-dup-id` where value is dynamic ([203debe](https://gitlab.com/html-validate/html-validate/commit/203debef4c942f2ef8ab98848453a7fc3c534066)), closes [#96](https://gitlab.com/html-validate/html-validate/issues/96)
+
+### Features
+
+- **api:** add additional prototypes to `validateString` ([69e8102](https://gitlab.com/html-validate/html-validate/commit/69e81024ed6a077e92d32f79791e6b47e0ad0364))
+- **dom:** new api for caching data on `DOMNode` ([13d99e4](https://gitlab.com/html-validate/html-validate/commit/13d99e4973a84109c9069fbe1718a33a302325d1))
+- **rules:** implement caching in some helper methods ([5746d6c](https://gitlab.com/html-validate/html-validate/commit/5746d6cf37c6ca82bb5d3543f67b33341db0fdc5))
+
 # [3.3.0](https://gitlab.com/html-validate/html-validate/compare/v3.2.0...v3.3.0) (2020-09-08)
 
 ### Bug Fixes
