@@ -1,3 +1,4 @@
+import { HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
@@ -11,27 +12,36 @@ export default class NoDupID extends Rule {
 
 	public setup(): void {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
-			const existing: { [key: string]: boolean } = {};
-			const elements = event.document.querySelectorAll("[id]");
-			for (const el of elements) {
+			const { document } = event;
+			const existing = new Set<string>();
+			const elements = document.querySelectorAll("[id]");
+			const relevant = elements.filter(isRelevant);
+			for (const el of relevant) {
 				const attr = el.getAttribute("id");
+				const id = attr.value.toString();
 
-				/* handle when the id attribute is set but omitted value: <p id></p> */
-				if (!attr.value) {
-					continue;
+				if (existing.has(id)) {
+					this.report(el, `Duplicate ID "${id}"`, attr.valueLocation);
 				}
 
-				/* ignore id where value is dynamic */
-				if (attr.isDynamic) {
-					continue;
-				}
-
-				if (el.id in existing) {
-					this.report(el, `Duplicate ID "${el.id}"`, attr.valueLocation);
-				}
-
-				existing[el.id] = true;
+				existing.add(id);
 			}
 		});
 	}
+}
+
+function isRelevant(element: HtmlElement): boolean {
+	const attr = element.getAttribute("id");
+
+	/* id without value is not relevant, e.g. <p id></p> */
+	if (!attr.value) {
+		return false;
+	}
+
+	/* dynamic id (interpolated or otherwise currently unknown value) is not relevant */
+	if (attr.isDynamic) {
+		return false;
+	}
+
+	return true;
 }
