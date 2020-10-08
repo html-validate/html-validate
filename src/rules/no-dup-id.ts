@@ -14,13 +14,19 @@ export default class NoDupID extends Rule {
 			const existing: { [key: string]: boolean } = {};
 			const elements = event.document.querySelectorAll("[id]");
 			for (const el of elements) {
+				const attr = el.getAttribute("id");
+
 				/* handle when the id attribute is set but omitted value: <p id></p> */
-				if (!el.id) {
+				if (!attr.value) {
+					continue;
+				}
+
+				/* ignore id where value is dynamic */
+				if (attr.isDynamic) {
 					continue;
 				}
 
 				if (el.id in existing) {
-					const attr = el.getAttribute("id");
 					this.report(el, `Duplicate ID "${el.id}"`, attr.valueLocation);
 				}
 

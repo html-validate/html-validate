@@ -1,4 +1,5 @@
 import HtmlValidate from "../htmlvalidate";
+import { processAttribute } from "../transform/mocks/attribute";
 import "../matchers";
 
 describe("rule no-dup-id", () => {
@@ -19,6 +20,24 @@ describe("rule no-dup-id", () => {
 	it("should not report when id is missing value", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateString("<hr id><hr id>");
+		expect(report).toBeValid();
+	});
+
+	it("should not report error for interpolated attributes", () => {
+		expect.assertions(1);
+		const markup = '<p id="{{ interpolated }}"></p><p id="{{ interpolated }}"></p>';
+		const report = htmlvalidate.validateString(markup, {
+			processAttribute,
+		});
+		expect(report).toBeValid();
+	});
+
+	it("should not report error for dynamic attributes", () => {
+		expect.assertions(1);
+		const markup = '<p dynamic-id="myVariable"></p><p dynamic-id="myVariable"></p>';
+		const report = htmlvalidate.validateString(markup, {
+			processAttribute,
+		});
 		expect(report).toBeValid();
 	});
 
