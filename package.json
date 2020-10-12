@@ -96,7 +96,7 @@
     "@babel/preset-env": "7.11.5",
     "@commitlint/cli": "11.0.0",
     "@html-validate/commitlint-config": "1.0.3",
-    "@html-validate/eslint-config": "1.5.21",
+    "@html-validate/eslint-config": "1.5.22",
     "@html-validate/jest-config": "1.0.28",
     "@html-validate/prettier-config": "1.1.0",
     "@html-validate/semantic-release-config": "1.0.40",
