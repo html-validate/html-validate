@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [3.4.1](https://gitlab.com/html-validate/html-validate/compare/v3.4.0...v3.4.1) (2020-10-13)
+
+### Bug Fixes
+
+- **rules:** ignore links hidden from accessibility tree - fixes [#97](https://gitlab.com/html-validate/html-validate/issues/97) ([064514b](https://gitlab.com/html-validate/html-validate/commit/064514b83efbbe1a42fdad719d57af7f1b8106ef))
+
 # [3.4.0](https://gitlab.com/html-validate/html-validate/compare/v3.3.0...v3.4.0) (2020-10-08)
 
 ### Bug Fixes
