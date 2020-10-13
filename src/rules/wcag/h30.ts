@@ -1,6 +1,7 @@
 import { DOMReadyEvent } from "../../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../../rule";
 import { hasAltText, hasAriaLabel } from "../helper";
+import { inAccessibilityTree } from "../helper/a17y";
 import { classifyNodeText, TextClassification } from "../helper/text";
 
 export default class H30 extends Rule {
@@ -16,6 +17,11 @@ export default class H30 extends Rule {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const links = event.document.getElementsByTagName("a");
 			for (const link of links) {
+				/* ignore links with aria-hidden="true" */
+				if (!inAccessibilityTree(link)) {
+					continue;
+				}
+
 				/* check if text content is present (or dynamic) */
 				const textClassification = classifyNodeText(link);
 				if (textClassification !== TextClassification.EMPTY_TEXT) {

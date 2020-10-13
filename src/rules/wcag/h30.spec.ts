@@ -34,6 +34,12 @@ describe("wcag/h30", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report when link is hidden from accessibility tree", () => {
+		expect.assertions(1);
+		const report = htmlvalidate.validateString('<a aria-hidden="true">');
+		expect(report).toBeValid();
+	});
+
 	it("should report error when link is missing text", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString("<a></a>");
