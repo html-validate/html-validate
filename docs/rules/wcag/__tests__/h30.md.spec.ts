@@ -4,7 +4,8 @@ const markup: { [key: string]: string } = {};
 markup["incorrect"] = `<a><img src="cat.gif"></a>`;
 markup["correct"] = `<a>lorem ipsum</a>
 <a><img src="cat.gif" alt="cat page"></a>
-<a aria-label="lorem ipsum"></a>`;
+<a aria-label="lorem ipsum"></a>
+<a aria-hidden="true"></a>`;
 
 describe("docs/rules/wcag/h30.md", () => {
 	it("inline validation: incorrect", () => {
