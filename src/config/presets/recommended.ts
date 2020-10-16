@@ -32,6 +32,7 @@ const config: ConfigData = {
 		"no-dup-id": "error",
 		"no-implicit-close": "error",
 		"no-inline-style": "error",
+		"no-multiple-main": "error",
 		"no-raw-characters": "error",
 		"no-redundant-for": "error",
 		"no-redundant-role": "error",

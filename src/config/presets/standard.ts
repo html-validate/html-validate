@@ -18,6 +18,7 @@ const config: ConfigData = {
 		"no-deprecated-attr": "error",
 		"no-dup-attr": "error",
 		"no-dup-id": "error",
+		"no-multiple-main": "error",
 		"no-raw-characters": ["error", { relaxed: true }],
 		"script-element": "error",
 		"unrecognized-char-ref": "error",

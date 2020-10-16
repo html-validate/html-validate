@@ -36,6 +36,7 @@ import NoDupId from "./no-dup-id";
 import NoImplicitClose from "./no-implicit-close";
 import NoInlineStyle from "./no-inline-style";
 import NoMissingReferences from "./no-missing-references";
+import NoMultipleMain from "./no-multiple-main";
 import NoRawCharacters from "./no-raw-characters";
 import NoRedundantFor from "./no-redundant-for";
 import NoRedundantRole from "./no-redundant-role";
@@ -94,6 +95,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"no-implicit-close": NoImplicitClose,
 	"no-inline-style": NoInlineStyle,
 	"no-missing-references": NoMissingReferences,
+	"no-multiple-main": NoMultipleMain,
 	"no-raw-characters": NoRawCharacters,
 	"no-redundant-for": NoRedundantFor,
 	"no-redundant-role": NoRedundantRole,
