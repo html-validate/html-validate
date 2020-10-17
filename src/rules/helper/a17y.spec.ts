@@ -2,7 +2,7 @@ import { Config } from "../../config";
 import { DOMTree } from "../../dom";
 import { Parser } from "../../parser";
 import { processAttribute } from "../../transform/mocks/attribute";
-import { inAccessibilityTree, isAriaHidden, isPresentation } from "./a17y";
+import { inAccessibilityTree, isAriaHidden, isHTMLHidden, isPresentation } from "./a17y";
 
 describe("a17y helpers", () => {
 	let parser: Parser;
@@ -113,6 +113,55 @@ describe("a17y helpers", () => {
 			expect(spy).toHaveBeenCalledTimes(1);
 			spy.mockClear();
 			expect(isAriaHidden(p)).toBeTruthy();
+			expect(spy).toHaveBeenCalledTimes(0);
+		});
+	});
+
+	describe("isHTMLHidden()", () => {
+		it("should return false if node is missing hidden", () => {
+			expect.assertions(1);
+			const root = parse("<p>Lorem ipsum</p>");
+			const p = root.querySelector("p");
+			expect(isHTMLHidden(p)).toBeFalsy();
+		});
+
+		it("should return false if ancestors are missing hidden", () => {
+			expect.assertions(1);
+			const root = parse("<div><p>Lorem ipsum</p></div>");
+			const p = root.querySelector("p");
+			expect(isHTMLHidden(p)).toBeFalsy();
+		});
+
+		it("should return false if node has dynamic hidden", () => {
+			expect.assertions(1);
+			const root = parse('<p dynamic-hidden="variable">Lorem ipsum</p>');
+			const p = root.querySelector("p");
+			expect(isHTMLHidden(p)).toBeFalsy();
+		});
+
+		it("should return true if node has hidden", () => {
+			expect.assertions(1);
+			const root = parse("<p hidden>Lorem ipsum</p>");
+			const p = root.querySelector("p");
+			expect(isHTMLHidden(p)).toBeTruthy();
+		});
+
+		it("should return true if ancestor has hidden", () => {
+			expect.assertions(1);
+			const root = parse("<div hidden><p>Lorem ipsum</p></div>");
+			const p = root.querySelector("p");
+			expect(isHTMLHidden(p)).toBeTruthy();
+		});
+
+		it("should cache result", () => {
+			expect.assertions(4);
+			const root = parse("<p hidden></p>");
+			const p = root.querySelector("p");
+			const spy = jest.spyOn(p, "getAttribute");
+			expect(isHTMLHidden(p)).toBeTruthy();
+			expect(spy).toHaveBeenCalledTimes(1);
+			spy.mockClear();
+			expect(isHTMLHidden(p)).toBeTruthy();
 			expect(spy).toHaveBeenCalledTimes(0);
 		});
 	});
