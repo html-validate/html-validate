@@ -1,5 +1,11 @@
 # html-validate changelog
 
+# [3.5.0](https://gitlab.com/html-validate/html-validate/compare/v3.4.1...v3.5.0) (2020-10-18)
+
+### Features
+
+- **rules:** new rule `no-multiple-main` ([fa3c065](https://gitlab.com/html-validate/html-validate/commit/fa3c065f2968829bafd0c20ae52158d725be27ca))
+
 ## [3.4.1](https://gitlab.com/html-validate/html-validate/compare/v3.4.0...v3.4.1) (2020-10-13)
 
 ### Bug Fixes
