@@ -134,7 +134,7 @@
     "jest": "26.5.3",
     "jest-diff": "26.5.2",
     "jquery": "3.5.1",
-    "lint-staged": "10.4.0",
+    "lint-staged": "10.4.2",
     "load-grunt-tasks": "5.1.0",
     "marked": "1.2.0",
     "minimatch": "3.0.4",
