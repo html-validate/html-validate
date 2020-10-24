@@ -281,7 +281,7 @@ export class Validator {
 
 function validateKeys(rule: PermittedGroup): void {
 	for (const key of Object.keys(rule)) {
-		if (allowedKeys.indexOf(key) === -1) {
+		if (!allowedKeys.includes(key)) {
 			const str = JSON.stringify(rule);
 			throw new Error(`Permitted rule "${str}" contains unknown property "${key}"`);
 		}

@@ -21,7 +21,7 @@ export default class NoDeprecatedAttr extends Rule {
 			}
 
 			const deprecated = meta.deprecatedAttributes || [];
-			if (deprecated.indexOf(attr) >= 0) {
+			if (deprecated.includes(attr)) {
 				this.report(node, `Attribute "${event.key}" is deprecated on <${node.tagName}> element`);
 			}
 		});
