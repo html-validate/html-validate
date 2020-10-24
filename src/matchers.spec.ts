@@ -237,6 +237,11 @@ describe("toHTMLValidate()", () => {
 		);
 	});
 
+	it("should support setting custom filename", () => {
+		expect.assertions(1);
+		expect("<p></p>").toHTMLValidate("my-custom-filename.html");
+	});
+
 	it("should support configuration object", () => {
 		expect.assertions(1);
 		expect("<p></i>").toHTMLValidate({
@@ -244,6 +249,47 @@ describe("toHTMLValidate()", () => {
 				"close-order": "off",
 			},
 		});
+	});
+
+	it("should support configuration object and message", () => {
+		expect.assertions(1);
+		expect("<p></i>").toHTMLValidate(
+			/* message */ {
+				ruleId: "close-order",
+			},
+			/* config */ {
+				rules: {
+					"close-order": "off",
+				},
+			}
+		);
+	});
+
+	it("should support configuration object and filename", () => {
+		expect.assertions(1);
+		expect("<p></i>").toHTMLValidate(
+			/* config */ {
+				rules: {
+					"close-order": "off",
+				},
+			},
+			"my-custom-filename.html"
+		);
+	});
+
+	it("should support configuration object, message and filename", () => {
+		expect.assertions(1);
+		expect("<p></i>").toHTMLValidate(
+			/* message */ {
+				ruleId: "close-order",
+			},
+			/* config */ {
+				rules: {
+					"close-order": "off",
+				},
+			},
+			"my-custom-filename.html"
+		);
 	});
 
 	it("should ignore void-style by default", () => {
