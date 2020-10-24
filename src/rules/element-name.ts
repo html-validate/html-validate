@@ -98,7 +98,7 @@ export default class ElementName extends Rule<Context, RuleOptions> {
 			}
 
 			/* check if element is whitelisted */
-			if (this.options.whitelist.indexOf(tagName) >= 0) {
+			if (this.options.whitelist.includes(tagName)) {
 				return;
 			}
 

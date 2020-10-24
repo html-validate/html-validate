@@ -164,7 +164,7 @@ export class Parser {
 		if (open) {
 			/* a new element is opened, check if the new element should close the
 			 * previous */
-			return meta.indexOf(tagName) >= 0;
+			return meta.includes(tagName);
 		} else {
 			/* if we are explicitly closing the active element, ignore implicit */
 			if (active.is(tagName)) {
@@ -173,7 +173,7 @@ export class Parser {
 
 			/* the parent element is closed, check if the active element would be
 			 * implicitly closed when parent is. */
-			return active.parent.is(tagName) && meta.indexOf(active.tagName) >= 0;
+			return active.parent.is(tagName) && meta.includes(active.tagName);
 		}
 	}
 

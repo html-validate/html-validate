@@ -11,7 +11,7 @@ function statSync(dir: string): any {
 	 * to test with */
 	const suffix = dir.replace(`${process.cwd()}${path.sep}`, "");
 
-	const found = mockDirectory.indexOf(suffix) >= 0;
+	const found = mockDirectory.includes(suffix);
 	return {
 		isDirectory() {
 			return found;

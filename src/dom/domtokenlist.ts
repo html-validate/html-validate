@@ -74,6 +74,6 @@ export class DOMTokenList extends Array<string> {
 	}
 
 	public contains(token: string): boolean {
-		return this.indexOf(token) >= 0;
+		return this.includes(token);
 	}
 }
