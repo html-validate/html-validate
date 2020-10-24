@@ -7,7 +7,7 @@ exports[`codeframe formatter should empty result 1`] = `""`;
 exports[`codeframe formatter should generate plaintext 1`] = `
 "<red>error</>: <bold>An error</> <dim>(foo)</> at <green>regular.html:1:6</>:
 > 1 | <div id=\\"foo\\"
-    |      ^^^^^^^
+    |      ^^^^^^^^
 > 2 |     class=\\"bar\\"
     | ^^^^^^^^^^^^^^^
   3 |     name=\\"baz\\">

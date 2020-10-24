@@ -32,7 +32,7 @@ export class SchemaValidationError extends UserError {
 		this.errors = errors;
 	}
 
-	public prettyError(): void | betterAjvErrors.IOutputError[] {
+	public prettyError(): string {
 		return betterAjvErrors(this.schema, this.obj, this.errors, {
 			format: "cli",
 			indent: 2,

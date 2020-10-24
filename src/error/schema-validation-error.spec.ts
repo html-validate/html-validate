@@ -14,7 +14,7 @@ it("SchemaValidationError should pretty-print validation errors", () => {
 		});
 	} catch (err) {
 		if (err instanceof SchemaValidationError) {
-			const output = (err.prettyError() as unknown) as string;
+			const output = err.prettyError();
 
 			/* cannot test prettyError() method with builtin helpers */
 			/* eslint-disable-next-line jest/no-try-expect, jest/no-conditional-expect */
