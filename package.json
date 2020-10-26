@@ -114,7 +114,7 @@
     "canonical-path": "1.0.0",
     "cssnano": "4.1.10",
     "dgeni": "0.4.12",
-    "dgeni-front-matter": "2.0.0",
+    "dgeni-front-matter": "2.0.1",
     "dgeni-packages": "0.28.4",
     "eslint-plugin-array-func": "3.1.7",
     "eslint-plugin-node": "11.1.0",
