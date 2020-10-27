@@ -1,6 +1,7 @@
 import { DOMTree, HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { isAriaHidden, isHTMLHidden } from "./helper/a17y";
 
 export default class InputMissingLabel extends Rule {
 	public documentation(): RuleDocumentation {
@@ -14,6 +15,10 @@ export default class InputMissingLabel extends Rule {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const root = event.document;
 			for (const elem of root.querySelectorAll("input, textarea, select")) {
+				if (isHTMLHidden(elem) || isAriaHidden(elem)) {
+					continue;
+				}
+
 				/* <input type="hidden"> should not have label */
 				if (elem.is("input")) {
 					const type = elem.getAttributeValue("type");

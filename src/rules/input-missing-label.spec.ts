@@ -28,6 +28,18 @@ describe("rule input-missing-label", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report when input is hidden", () => {
+		expect.assertions(1);
+		const report = htmlvalidate.validateString("<input hidden>");
+		expect(report).toBeValid();
+	});
+
+	it("should not report when input is aria-hidden", () => {
+		expect.assertions(1);
+		const report = htmlvalidate.validateString('<input aria-hidden="true">');
+		expect(report).toBeValid();
+	});
+
 	it.each(["input", "textarea", "select"])(
 		"should report when <%s> is missing label",
 		(tagName: string) => {
