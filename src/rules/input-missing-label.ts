@@ -15,31 +15,45 @@ export default class InputMissingLabel extends Rule {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const root = event.document;
 			for (const elem of root.querySelectorAll("input, textarea, select")) {
-				if (isHTMLHidden(elem) || isAriaHidden(elem)) {
-					continue;
-				}
-
-				/* <input type="hidden"> should not have label */
-				if (elem.is("input")) {
-					const type = elem.getAttributeValue("type");
-					if (type && type.toLowerCase() === "hidden") {
-						continue;
-					}
-				}
-
-				/* try to find label by id */
-				if (findLabelById(root, elem.id)) {
-					continue;
-				}
-
-				/* try to find parent label (input nested in label) */
-				if (findLabelByParent(elem)) {
-					continue;
-				}
-
-				this.report(elem, `<${elem.tagName}> element does not have a <label>`);
+				this.validateInput(root, elem);
 			}
 		});
+	}
+
+	private validateInput(root: DOMTree, elem: HtmlElement): void {
+		if (isHTMLHidden(elem) || isAriaHidden(elem)) {
+			return;
+		}
+
+		/* <input type="hidden"> should not have label */
+		if (elem.is("input")) {
+			const type = elem.getAttributeValue("type");
+			if (type && type.toLowerCase() === "hidden") {
+				return;
+			}
+		}
+
+		let label: HtmlElement;
+
+		/* try to find label by id */
+		if ((label = findLabelById(root, elem.id))) {
+			this.validateLabel(elem, label);
+			return;
+		}
+
+		/* try to find parent label (input nested in label) */
+		if ((label = findLabelByParent(elem))) {
+			this.validateLabel(elem, label);
+			return;
+		}
+
+		this.report(elem, `<${elem.tagName}> element does not have a <label>`);
+	}
+
+	private validateLabel(elem: HtmlElement, label: HtmlElement): void {
+		if (isHTMLHidden(label) || isAriaHidden(label)) {
+			this.report(elem, `<${elem.tagName}> element has label but <label> element is hidden`);
+		}
 	}
 }
 

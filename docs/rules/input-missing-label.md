@@ -58,3 +58,12 @@ Examples of **correct** code for this rule:
     </div>
 
 </validate>
+
+### Hidden labels
+
+This rule requires labels to be accessible, i.e. the label must not be `hidden` or `aria-hidden`.
+
+<validate name="hidden" rules="input-missing-label">
+	<label for="my-input" aria-hidden="true">My field</label>
+	<input id="my-input" type="text">
+</validate>

@@ -52,6 +52,26 @@ describe("rule input-missing-label", () => {
 		}
 	);
 
+	it("should report error when label is hidden", () => {
+		expect.assertions(2);
+		const report = htmlvalidate.validateString('<label for="foo" hidden></label><input id="foo">');
+		expect(report).toBeInvalid();
+		expect(report).toHaveError(
+			"input-missing-label",
+			`<input> element has label but <label> element is hidden`
+		);
+	});
+
+	it("should report error when label is aria-hidden", () => {
+		expect.assertions(2);
+		const report = htmlvalidate.validateString('<label for="foo" hidden></label><input id="foo">');
+		expect(report).toBeInvalid();
+		expect(report).toHaveError(
+			"input-missing-label",
+			`<input> element has label but <label> element is hidden`
+		);
+	});
+
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/input-missing-label.html");

@@ -26,6 +26,8 @@ markup["correct"] = `<!-- label with descendant -->
     <label for="my-field">My field</label>
     <input id="my-field" type="text">
 </div>`;
+markup["hidden"] = `<label for="my-input" aria-hidden="true">My field</label>
+<input id="my-input" type="text">`;
 
 describe("docs/rules/input-missing-label.md", () => {
 	it("inline validation: incorrect", () => {
@@ -38,6 +40,12 @@ describe("docs/rules/input-missing-label.md", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"input-missing-label":"error"}});
 		const report = htmlvalidate.validateString(markup["correct"]);
+		expect(report.results).toMatchSnapshot();
+	});
+	it("inline validation: hidden", () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({"rules":{"input-missing-label":"error"}});
+		const report = htmlvalidate.validateString(markup["hidden"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });
