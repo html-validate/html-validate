@@ -1,4 +1,5 @@
 import fs from "fs";
+import { ConfigData } from "../config";
 import HtmlValidate from "../htmlvalidate";
 import { CLI } from "./cli";
 
@@ -24,9 +25,14 @@ describe("CLI", () => {
 
 		it("should use configuration file", () => {
 			expect.assertions(3);
+			const customConfig: ConfigData = {
+				rules: {
+					foo: "error",
+				},
+			};
 			const readFileSync = jest
 				.spyOn(fs, "readFileSync")
-				.mockImplementation(() => '{"rules": {"foo": "error"}}');
+				.mockImplementation(() => JSON.stringify(customConfig));
 			const cli = new CLI({
 				configFile: "config.json",
 			});
