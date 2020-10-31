@@ -3,11 +3,13 @@ import { HtmlElement } from "../../dom";
 declare module "../../dom/cache" {
 	export interface DOMNodeCache {
 		[ARIA_HIDDEN_CACHE]: boolean;
+		[HTML_HIDDEN_CACHE]: boolean;
 		[ROLE_PRESENTATION_CACHE]: boolean;
 	}
 }
 
 const ARIA_HIDDEN_CACHE = Symbol(isAriaHidden.name);
+const HTML_HIDDEN_CACHE = Symbol(isHTMLHidden.name);
 const ROLE_PRESENTATION_CACHE = Symbol(isPresentation.name);
 
 /**
@@ -46,6 +48,33 @@ export function isAriaHidden(node: HtmlElement): boolean {
 	} while (!cur.isRootElement());
 
 	return node.cacheSet(ARIA_HIDDEN_CACHE, false);
+}
+
+/**
+ * Tests if this element or an ancestor have `hidden` attribute.
+ *
+ * Dynamic values yields `false` since the element will conditionally be in the
+ * DOM tree and must fulfill it's conditions.
+ */
+export function isHTMLHidden(node: HtmlElement): boolean {
+	if (node.cacheExists(HTML_HIDDEN_CACHE)) {
+		return node.cacheGet(HTML_HIDDEN_CACHE);
+	}
+
+	let cur: HtmlElement = node;
+	do {
+		const hidden = cur.getAttribute("hidden");
+
+		/* hidden present */
+		if (hidden !== null && hidden.isStatic) {
+			return cur.cacheSet(HTML_HIDDEN_CACHE, true);
+		}
+
+		/* check parents */
+		cur = cur.parent;
+	} while (!cur.isRootElement());
+
+	return node.cacheSet(HTML_HIDDEN_CACHE, false);
 }
 
 /**

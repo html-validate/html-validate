@@ -2,6 +2,31 @@
 
 exports[`docs/rules/input-missing-label.md inline validation: correct 1`] = `Array []`;
 
+exports[`docs/rules/input-missing-label.md inline validation: hidden 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "<input> element has label but <label> element is hidden",
+        "offset": 59,
+        "ruleId": "input-missing-label",
+        "selector": "#my-input",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<label for=\\"my-input\\" aria-hidden=\\"true\\">My field</label>
+<input id=\\"my-input\\" type=\\"text\\">",
+    "warningCount": 0,
+  },
+]
+`;
+
 exports[`docs/rules/input-missing-label.md inline validation: incorrect 1`] = `
 Array [
   Object {
