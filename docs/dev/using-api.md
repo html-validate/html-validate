@@ -23,8 +23,7 @@ if (!report.valid) {
 files, load plugins, runs any transformations etc and is very similar to using
 the CLI tool (in fact, the CLI tool uses this very API).
 
-A default configuration object may optionally be passed to the `HtmlValidate`
-constructor:
+A configuration object may optionally be passed to the `HtmlValidate` constructor:
 
 ```typescript
 const htmlvalidate = new HtmlValidate({
@@ -32,7 +31,8 @@ const htmlvalidate = new HtmlValidate({
 });
 ```
 
-If set, all configuration will inherit from this configuration.
+If set, it will be used as configuration unless a configuration could be read from `.htmlvalidate.json` files.
+Set `root: true` to prevent configuration files to be searched.
 
 ## Validating strings and other sources
 

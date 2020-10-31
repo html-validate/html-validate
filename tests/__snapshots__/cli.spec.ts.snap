@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cli-default-config/test.html 1`] = `
+Array [
+  Object {
+    "column": 8,
+    "context": undefined,
+    "line": 1,
+    "message": "Mismatched close-tag, expected '</p>' but found '</i>'.",
+    "offset": 7,
+    "ruleId": "close-order",
+    "selector": null,
+    "severity": 2,
+    "size": 2,
+  },
+]
+`;
+
+exports[`cli-explicit-extend/test.html 1`] = `
+Array [
+  Object {
+    "column": 8,
+    "context": undefined,
+    "line": 1,
+    "message": "Mismatched close-tag, expected '</p>' but found '</i>'.",
+    "offset": 7,
+    "ruleId": "close-order",
+    "selector": null,
+    "severity": 2,
+    "size": 2,
+  },
+]
+`;
+
+exports[`cli-no-extend/test.html 1`] = `Array []`;

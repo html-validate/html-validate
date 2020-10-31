@@ -1,3 +1,9 @@
+jest.mock("./config/default", () => {
+	return {
+		extends: ["html-validate:recommended"],
+	};
+});
+
 import stripAnsi = require("strip-ansi");
 import { Severity } from "./config";
 import { Token, TokenType } from "./lexer";
