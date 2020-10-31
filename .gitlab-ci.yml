@@ -108,13 +108,17 @@ Node 12.x (LTS):
   <<: *compat
   image: node:12
 
-Node 14.x (current):
+Node 14.x (LTS):
   <<: *compat
   image: node:14
 
+Node 15.x (current):
+  <<: *compat
+  image: node:15
+
 Release:
   stage: release
-  image: node:12
+  image: node:14
   only:
     - web
   variables:
