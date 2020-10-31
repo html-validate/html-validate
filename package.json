@@ -20,7 +20,7 @@
   },
   "main": "build/shim.js",
   "engines": {
-    "node": ">= 8.5"
+    "node": ">= 10.0"
   },
   "bin": {
     "html-validate": "bin/html-validate.js"
