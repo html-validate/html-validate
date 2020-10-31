@@ -1,12 +1,15 @@
 import { readFileSync } from "fs";
 import { ConfigData } from "../config";
-import defaultConfig from "../config/default";
 import { UserError } from "../error";
 import HtmlValidate from "../htmlvalidate";
 import { Report } from "../reporter";
 import { expandFiles, ExpandOptions } from "./expand-files";
 import { getFormatter } from "./formatter";
 import { init, InitResult } from "./init";
+
+const defaultConfig: ConfigData = {
+	extends: ["html-validate:recommended"],
+};
 
 export interface CLIOptions {
 	configFile?: string;
