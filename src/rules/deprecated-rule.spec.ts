@@ -71,13 +71,17 @@ describe("rule deprecated-rule", () => {
 
 	it("should contain documentation", () => {
 		expect.assertions(1);
-		const htmlvalidate = new HtmlValidate();
+		const htmlvalidate = new HtmlValidate({
+			rules: { "deprecated-rule": "error" },
+		});
 		expect(htmlvalidate.getRuleDocumentation("deprecated-rule")).toMatchSnapshot();
 	});
 
 	it("should contain contextual documentation", () => {
 		expect.assertions(1);
-		const htmlvalidate = new HtmlValidate();
+		const htmlvalidate = new HtmlValidate({
+			rules: { "deprecated-rule": "error" },
+		});
 		expect(htmlvalidate.getRuleDocumentation("deprecated-rule", null, "my-rule")).toMatchSnapshot();
 	});
 });
