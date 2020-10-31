@@ -40,6 +40,23 @@ describe("rule input-missing-label", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should handle multiple labels", () => {
+		expect.assertions(1);
+		const markup = '<label for="foo">foo</label><label for="foo">bar</label><input id="foo"/>';
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when at least one label is accessible", () => {
+		expect.assertions(1);
+		const markup = `
+			<label for="foo" aria-hidden="true">foo</label>
+			<label for="foo">bar</label>
+			<input id="foo"/>`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it.each(["input", "textarea", "select"])(
 		"should report when <%s> is missing label",
 		(tagName: string) => {

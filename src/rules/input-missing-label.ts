@@ -33,16 +33,16 @@ export default class InputMissingLabel extends Rule {
 			}
 		}
 
-		let label: HtmlElement;
+		let label: HtmlElement[] = [];
 
 		/* try to find label by id */
-		if ((label = findLabelById(root, elem.id))) {
+		if ((label = findLabelById(root, elem.id)).length > 0) {
 			this.validateLabel(elem, label);
 			return;
 		}
 
 		/* try to find parent label (input nested in label) */
-		if ((label = findLabelByParent(elem))) {
+		if ((label = findLabelByParent(elem)).length > 0) {
 			this.validateLabel(elem, label);
 			return;
 		}
@@ -50,25 +50,34 @@ export default class InputMissingLabel extends Rule {
 		this.report(elem, `<${elem.tagName}> element does not have a <label>`);
 	}
 
-	private validateLabel(elem: HtmlElement, label: HtmlElement): void {
-		if (isHTMLHidden(label) || isAriaHidden(label)) {
+	/**
+	 * Reports error if none of the labels are accessible.
+	 */
+	private validateLabel(elem: HtmlElement, labels: HtmlElement[]): void {
+		const visible = labels.filter(isVisible);
+		if (visible.length === 0) {
 			this.report(elem, `<${elem.tagName}> element has label but <label> element is hidden`);
 		}
 	}
 }
 
-function findLabelById(root: DOMTree, id: string): HtmlElement {
-	if (!id) return null;
-	return root.querySelector(`label[for="${id}"]`);
+function isVisible(elem: HtmlElement): boolean {
+	const hidden = isHTMLHidden(elem) || isAriaHidden(elem);
+	return !hidden;
 }
 
-function findLabelByParent(el: HtmlElement): HtmlElement {
+function findLabelById(root: DOMTree, id: string): HtmlElement[] {
+	if (!id) return [];
+	return root.querySelectorAll(`label[for="${id}"]`);
+}
+
+function findLabelByParent(el: HtmlElement): HtmlElement[] {
 	let cur = el.parent;
 	while (cur) {
 		if (cur.is("label")) {
-			return cur;
+			return [cur];
 		}
 		cur = cur.parent;
 	}
-	return null;
+	return [];
 }
