@@ -20,6 +20,27 @@ Adds a new CLI service command:
 Validates all `.html` and `.vue` files in the `src` folder. Patterns can be
 overwritten by passing them as positional arguments.
 
+## Using [`nuxt`](https://nuxtjs.org/)
+
+    yarn add --dev @nuxtjs/html-validator
+
+Then add the Nuxt module to your `nuxt.config.js`:
+
+```js
+export default {
+  buildModules: ["@nuxtjs/html-validator"],
+  htmlValidator: {
+    options: {
+      // you can pass options directly to `html-validate`
+    },
+  },
+};
+```
+
+You can find more details in [the documentation](https://html-validator.nuxtjs.org/).
+
+The module will then validate all server-rendered and server-generated HTML with `html-validate`.
+
 ## Manual configuration
 
     npm install html-validate-vue
