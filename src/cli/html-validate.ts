@@ -204,7 +204,7 @@ Multiple formatters can be specified with a comma-separated list,
 e.g. "json,checkstyle" to enable both.
 
 To capture output to a file use "formatter=/path/to/file",
-e.g. "checkstyle=build/html-validate.xml"
+e.g. "checkstyle=dist/html-validate.xml"
 `);
 }
 

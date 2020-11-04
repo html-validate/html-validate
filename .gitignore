@@ -2,7 +2,7 @@
 /*.tgz
 /.nyc_output/
 /.tscache/
-/build
+/dist
 /coverage
 /node_modules
 /public

@@ -27,7 +27,7 @@ Build:
   artifacts:
     name: ${CI_PROJECT_PATH_SLUG}-${CI_PIPELINE_ID}-build
     paths:
-      - build/
+      - dist/
   script:
     - npm run build
 

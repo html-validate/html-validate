@@ -99,7 +99,7 @@ formatted string:
 
 ```typescript
 import { HtmlValidate } from "html-validate";
-import text from "html-validate/build/formatters/text";
+import text from "html-validate/dist/formatters/text";
 
 const htmlvalidate = new HtmlValidate();
 const report = htmlvalidate.validateFile("myfile.html");
@@ -111,7 +111,7 @@ Using the CLI API there is a factory function to retrieve formatters (see
 `html-validate --help` for details about the format):
 
 ```typescript
-import { getFormatter } from "html-validate/build/cli/formatter";
+import { getFormatter } from "html-validate/dist/cli/formatter";
 
 const stylish = getFormatter("stylish");
 console.log(stylish(report));
@@ -150,7 +150,7 @@ tests:
 
 ```typescript
 import { HtmlValidate } from "html-validate";
-import "html-validate/build/matchers";
+import "html-validate/jest";
 
 const config = {
   rules: {

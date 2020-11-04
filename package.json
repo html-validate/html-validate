@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://gitlab.com/html-validate/html-validate/issues/new"
   },
-  "main": "build/shim.js",
+  "main": "dist/shim.js",
   "engines": {
     "node": ">= 10.0"
   },
@@ -27,7 +27,7 @@
   },
   "files": [
     "bin",
-    "build",
+    "dist",
     "elements",
     "jest.{js,d.ts}",
     "!*.snap",
@@ -35,7 +35,7 @@
     "!*.spec.js",
     "!*.spec.ts",
     "!__mocks__",
-    "!build/rules/**/*.d.ts"
+    "!dist/rules/**/*.d.ts"
   ],
   "scripts": {
     "build": "tsc",

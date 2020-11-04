@@ -44,7 +44,7 @@ it("should give error when using <div> as content", () => {
 When using Jest in particular there are helper functions to make it even easier:
 
 ```js
-require("html-validate/build/matchers");
+require("html-validate/jest");
 
 it("should give error when using <div> as content", () => {
   const report = htmlvalidate.validateString("<my-component><div>lorem ipsum</div></my-component>");

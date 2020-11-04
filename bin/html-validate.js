@@ -1,4 +1,4 @@
 #!/usr/bin/env node
 "use strict";
 
-require("../build/cli/html-validate");
+require("../dist/cli/html-validate");

@@ -3,7 +3,7 @@
 /package-lock.json
 
 # compiled files
-/build
+/dist
 /coverage
 /public/**/*.html
 /public/assets
