@@ -40,7 +40,7 @@ exports[`toHaveError() should fail if error has mismatched context 1`] = `
 "expect(received).toHaveError(expected)
 
 Expected token to equal:
-  [ObjectContaining {\\"context\\": ObjectContaining {\\"foo\\": \\"spam\\"}, \\"message\\": \\"mock message\\", \\"ruleId\\": \\"my-rule\\"}]
+  [ObjectContaining {\\"context\\": {\\"foo\\": \\"spam\\"}, \\"message\\": \\"mock message\\", \\"ruleId\\": \\"my-rule\\"}]
 Received:
   [{\\"column\\": 15, \\"context\\": {\\"foo\\": \\"bar\\"}, \\"line\\": 2, \\"message\\": \\"mock message\\", \\"offset\\": 43, \\"ruleId\\": \\"my-rule\\", \\"selector\\": null, \\"severity\\": 2, \\"size\\": 12}]
 
@@ -51,11 +51,10 @@ Difference:
 
   Array [
 -   ObjectContaining {
--     \\"context\\": ObjectContaining {
--       \\"foo\\": \\"spam\\",
 +   Object {
 +     \\"column\\": 15,
-+     \\"context\\": Object {
+      \\"context\\": Object {
+-       \\"foo\\": \\"spam\\",
 +       \\"foo\\": \\"bar\\",
       },
 +     \\"line\\": 2,
