@@ -7,6 +7,7 @@ export { Config, ConfigData, ConfigError, ConfigLoader, Severity } from "./confi
 export { DynamicValue, HtmlElement, NodeClosed, TextNode } from "./dom";
 export { UserError } from "./error";
 export * from "./event";
+export { MetaData, MetaElement, MetaTable } from "./meta";
 export { Rule, RuleDocumentation } from "./rule";
 export { Source, Location, ProcessElementContext } from "./context";
 export { Report, Reporter, Message, Result } from "./reporter";
