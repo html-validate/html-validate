@@ -6,6 +6,7 @@ export { CLI } from "./cli/cli";
 export { Config, ConfigData, ConfigError, ConfigLoader, Severity } from "./config";
 export { DynamicValue, HtmlElement, NodeClosed, TextNode } from "./dom";
 export { UserError } from "./error";
+export * from "./event";
 export { Rule, RuleDocumentation } from "./rule";
 export { Source, Location, ProcessElementContext } from "./context";
 export { Report, Reporter, Message, Result } from "./reporter";
