@@ -109,7 +109,7 @@
     "@types/json-merge-patch": "0.0.5",
     "@types/minimist": "1.2.0",
     "@types/node": "11.15.35",
-    "autoprefixer": "9.8.6",
+    "autoprefixer": "10.0.1",
     "babelify": "10.0.0",
     "bootstrap-sass": "3.4.1",
     "canonical-path": "1.0.0",
