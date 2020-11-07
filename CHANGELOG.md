@@ -1,5 +1,78 @@
 # html-validate changelog
 
+## [4.0.0](https://gitlab.com/html-validate/html-validate/compare/v3.5.0...v4.0.0) (2020-11-07)
+
+### ⚠ BREAKING CHANGES
+
+- **config:** With this release any custom configuration files will no longer
+  automatically extend `html-validate:recommended`.
+
+The previous behaviour was to to always merge with the default configuration
+containing `extends: ["html-validate:recommended"]`. This is counter-intuitive
+when adding a blank `{}` `.htmlvalidate.json` configuration file (or a file with
+`extends: []`). The new behaviour is to not apply default configuration if
+another configuration is found.
+
+To retain the previous behaviour you must ensure your configuration contains
+`extends: ["html-validate:recommended"]`. Users who have `root: true` are not
+affected. _If unsure: test your configuration by deliberatly introducing and
+error and verify it is detected_.
+
+For CLI users: ensure your `.htmlvalidate.json` configuration files are updated.
+
+For IDE integration users: ensure your `.htmlvalidate.json` configuration files
+are updated.
+
+For `CLI` API users: same as with CLI the configuration loading has changed and
+all users must update their `.htmlvalidate.json` accordingly.
+
+For `HtmlValidate` API users: you are most likely not affected, only if both of
+the following conditions are true you need to take care to ensure any
+`.htmlvalidate.json` is updated:
+
+1. you are using `validateFile` or supply filenames to other validation
+   functions.
+2. you allow user-supplied configurations (or use them yourself) via
+   `.htmlvalidate.json` (default unless `root: true` is set in the configuration
+   object passed to `new HtmlValidate(..)`)
+
+The `ConfigLoader` API has also been updated and `fromTarget` may now return
+`null` if no configuration file was found.
+
+- The `build` folder has been renamed to `dist`.
+
+This affects API users only and in general should not be an issue unless
+importing files via full path. In that case replace `import 'html-validate/build/...'` with `import 'html-validate/dist/...` but in general
+those imports are discouraged.
+
+Instead users should import only via `import { ... } from "html-validate"` and file an issue
+if an export is missing.
+
+This does not affect the `elements` imports which is considered a safe to import
+as-is.
+
+- Only node 10 or later is supported
+
+### Features
+
+- new utility function `ruleExists` to test presence of bundled rules ([09aad04](https://gitlab.com/html-validate/html-validate/commit/09aad040f201f91bdf47a4b0cf8e79ee05b9ff9c))
+- **rules:** new helper `isHTMLHidden` ([ae20335](https://gitlab.com/html-validate/html-validate/commit/ae20335fbe45f368ef29844ce23541d41387899f))
+- **shim:** add new export `html-validate/test-utils` exposing test-utils ([30f5d40](https://gitlab.com/html-validate/html-validate/commit/30f5d40379273c36871a487a55d83eb641fde037))
+- **shim:** expose all event structures in shim ([294bb0d](https://gitlab.com/html-validate/html-validate/commit/294bb0d9ac40034d9863195d15fbdf9afa1e4d20))
+- **shim:** expose metadata structures ([271e521](https://gitlab.com/html-validate/html-validate/commit/271e521795e47d539ac3cab73be7091269845cd6))
+
+### Bug Fixes
+
+- **config:** dont automatically apply `extends: ["html-validate:recommended"]` ([fcad0b2](https://gitlab.com/html-validate/html-validate/commit/fcad0b2a71bb007237058039eb907d8623e9188c)), closes [#98](https://gitlab.com/html-validate/html-validate/issues/98)
+- require node 10 ([d1a48b1](https://gitlab.com/html-validate/html-validate/commit/d1a48b18353d5888bc25a133377aef622f926282))
+- **rules:** `input-missing-label` handles multiple labels ([a6af2da](https://gitlab.com/html-validate/html-validate/commit/a6af2da352e1ed86e7f17c2018ddd2a925a49397))
+- **rules:** `input-missing-label` ignores hidden `<input>` ([41c39e9](https://gitlab.com/html-validate/html-validate/commit/41c39e916fdf3579ec31d6fc6f36d951e92fd497))
+- **rules:** `input-missing-label` requires label to be non-hidden ([ff5e855](https://gitlab.com/html-validate/html-validate/commit/ff5e8559c7ee3039d0ef515f5ed45bcd0c3b8724)), closes [#99](https://gitlab.com/html-validate/html-validate/issues/99)
+
+### Miscellaneous Chores
+
+- migrate to `dist` folder ([3c6787c](https://gitlab.com/html-validate/html-validate/commit/3c6787c27e0c4e68c8c33318df06065ce408aefa))
+
 # [3.5.0](https://gitlab.com/html-validate/html-validate/compare/v3.4.1...v3.5.0) (2020-10-18)
 
 ### Features
