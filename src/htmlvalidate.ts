@@ -269,6 +269,9 @@ class HtmlValidate {
 	 * 2. `.htmlvalidate.json` files found when traversing the directory structure.
 	 * 3. Override passed to this function.
 	 *
+	 * Global configuration is used when no `.htmlvalidate.json` is found. The
+	 * result is always merged with override if present.
+	 *
 	 * The `root` property set to `true` affects the configuration as following:
 	 *
 	 * 1. If set in override the override is returned as-is.
@@ -297,7 +300,7 @@ class HtmlValidate {
 		}
 
 		const config = this.configLoader.fromTarget(filename);
-		const merged = this.globalConfig.merge(config).merge(override);
+		const merged = config ? config.merge(override) : this.globalConfig.merge(override);
 		merged.init();
 		return merged;
 	}

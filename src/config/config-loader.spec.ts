@@ -120,10 +120,10 @@ describe("ConfigLoader", () => {
 			);
 		});
 
-		it("should load empty config for inline sources", () => {
+		it("should return null for inline sources", () => {
 			expect.assertions(1);
 			const config = loader.fromTarget("inline");
-			expect(config.get()).toEqual(Config.empty().get());
+			expect(config).toBeNull();
 		});
 
 		it("should cache results", () => {

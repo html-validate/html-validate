@@ -17,14 +17,14 @@ interface ConfigClass {
  * parent directories is searched as well and the result is merged together.
  */
 export class ConfigLoader {
-	protected cache: Map<string, Config>;
+	protected cache: Map<string, Config | null>;
 	protected configClass: ConfigClass;
 
 	/**
 	 * @param configClass - Override class to construct.
 	 */
 	public constructor(configClass: ConfigClass) {
-		this.cache = new Map<string, Config>();
+		this.cache = new Map<string, Config | null>();
 		this.configClass = configClass;
 	}
 
@@ -48,15 +48,16 @@ export class ConfigLoader {
 	 *
 	 * @param filename Filename to get configuration for.
 	 */
-	public fromTarget(filename: string): Config {
+	public fromTarget(filename: string): Config | null {
 		if (filename === "inline") {
-			return this.configClass.empty();
+			return null;
 		}
 
 		if (this.cache.has(filename)) {
 			return this.cache.get(filename);
 		}
 
+		let found = false;
 		let current = path.resolve(path.dirname(filename));
 		let config = this.configClass.empty();
 
@@ -66,6 +67,7 @@ export class ConfigLoader {
 
 			if (fs.existsSync(search)) {
 				const local = this.configClass.fromFile(search);
+				found = true;
 				config = local.merge(config);
 			}
 
@@ -82,6 +84,12 @@ export class ConfigLoader {
 			if (current === child) {
 				break;
 			}
+		}
+
+		/* no config was found by loader, return null and let caller decide what to do */
+		if (!found) {
+			this.cache.set(filename, null);
+			return null;
 		}
 
 		this.cache.set(filename, config);

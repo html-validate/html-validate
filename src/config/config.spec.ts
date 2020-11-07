@@ -71,8 +71,8 @@ describe("config", () => {
 		expect.assertions(1);
 		const config = Config.defaultConfig();
 		expect(config.get()).toEqual({
-			extends: ["html-validate:recommended"],
-			rules: expect.any(Object),
+			extends: [],
+			rules: {},
 			plugins: [],
 			transform: {},
 		});
