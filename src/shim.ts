@@ -14,6 +14,7 @@ export { Report, Reporter, Message, Result } from "./reporter";
 export { Transformer, TemplateExtractor } from "./transform";
 export { Plugin } from "./plugin";
 export { Parser } from "./parser";
+export { ruleExists } from "./utils";
 
 const pkg = require("../package.json");
 
