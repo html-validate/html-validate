@@ -12,6 +12,10 @@ markup["correct"] = `<form>
     </label>
     <button type="submit">Submit</button>
 </form>`;
+markup["associated"] = `<form id="my-form">
+    ...
+</form>
+<button form="my-form" type="submit">Submit</button>`;
 
 describe("docs/rules/wcag/h32.md", () => {
 	it("inline validation: incorrect", () => {
@@ -24,6 +28,12 @@ describe("docs/rules/wcag/h32.md", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h32":"error"}});
 		const report = htmlvalidate.validateString(markup["correct"]);
+		expect(report.results).toMatchSnapshot();
+	});
+	it("inline validation: associated", () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h32":"error"}});
+		const report = htmlvalidate.validateString(markup["associated"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });
