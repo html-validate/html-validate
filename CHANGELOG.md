@@ -1,5 +1,12 @@
 # html-validate changelog
 
+### [4.0.1](https://gitlab.com/html-validate/html-validate/compare/v4.0.0...v4.0.1) (2020-11-09)
+
+### Bug Fixes
+
+- **rules:** `wcag/h32` checks for `type="image"` ([4a43819](https://gitlab.com/html-validate/html-validate/commit/4a43819d90db59ae31846f766025d4ffce189391))
+- **rules:** `wcag/h32` handles submit buttons using `form` attribute to associate ([cb2e843](https://gitlab.com/html-validate/html-validate/commit/cb2e8437ae6ca4a14b0fb4585cdec3157c5cf2a0))
+
 ## [4.0.0](https://gitlab.com/html-validate/html-validate/compare/v3.5.0...v4.0.0) (2020-11-07)
 
 ### ⚠ BREAKING CHANGES
