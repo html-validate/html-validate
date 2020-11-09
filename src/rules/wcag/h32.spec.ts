@@ -32,6 +32,13 @@ describe("wcag/h32", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report when form has nested submit button (image)", () => {
+		expect.assertions(1);
+		const markup = '<form><input type="image"></form>';
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should not report when form has associated submit button", () => {
 		expect.assertions(1);
 		const markup = '<form id="foo"></form><button form="foo" type="submit"></button>';
