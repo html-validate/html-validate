@@ -1,4 +1,4 @@
-import { HtmlElement } from "../../dom";
+import { DOMTree, HtmlElement } from "../../dom";
 import { DOMReadyEvent } from "../../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../../rule";
 
@@ -18,18 +18,52 @@ export default class H32 extends Rule {
 		const formSelector = formTags.join(",");
 
 		this.on("dom:ready", (event: DOMReadyEvent) => {
-			const forms = event.document.querySelectorAll(formSelector);
-			forms.forEach((node: HtmlElement) => {
-				/* find submit buttons */
-				for (const button of node.querySelectorAll("button,input")) {
-					const type = button.getAttribute("type");
-					if (type && type.valueMatches("submit")) {
-						return;
-					}
+			const { document } = event;
+			const forms = document.querySelectorAll(formSelector);
+
+			for (const form of forms) {
+				/* find nested submit buttons */
+				if (hasNestedSubmit(form)) {
+					continue;
 				}
 
-				this.report(node, `<${node.tagName}> element must have a submit button`);
-			});
+				/* find explicitly associated submit buttons */
+				if (hasAssociatedSubmit(document, form)) {
+					continue;
+				}
+
+				this.report(form, `<${form.tagName}> element must have a submit button`);
+			}
 		});
 	}
+}
+
+function isSubmit(node: HtmlElement): boolean {
+	const type = node.getAttribute("type");
+	return type && type.valueMatches("submit");
+}
+
+function isAssociated(id: string, node: HtmlElement): boolean {
+	const form = node.getAttribute("form");
+	return form && form.valueMatches(id, true);
+}
+
+function hasNestedSubmit(form: HtmlElement): boolean {
+	const matches = form
+		.querySelectorAll("button,input")
+		.filter(isSubmit)
+		.filter((node) => !node.hasAttribute("form"));
+	return matches.length > 0;
+}
+
+function hasAssociatedSubmit(document: DOMTree, form: HtmlElement): boolean {
+	const { id } = form;
+	if (!id) {
+		return false;
+	}
+	const matches = document
+		.querySelectorAll("button[form],input[form]")
+		.filter(isSubmit)
+		.filter((node) => isAssociated(id, node));
+	return matches.length > 0;
 }

@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`docs/rules/wcag/h32.md inline validation: associated 1`] = `Array []`;
+
 exports[`docs/rules/wcag/h32.md inline validation: correct 1`] = `Array []`;
 
 exports[`docs/rules/wcag/h32.md inline validation: incorrect 1`] = `
