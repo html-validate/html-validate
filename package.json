@@ -140,7 +140,7 @@
     "load-grunt-tasks": "5.1.0",
     "marked": "1.2.3",
     "minimatch": "3.0.4",
-    "postcss": "8.1.6",
+    "postcss": "8.1.7",
     "prettier": "2.1.2",
     "pretty-format": "26.6.2",
     "sass": "1.29.0",
