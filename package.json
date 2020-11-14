@@ -31,11 +31,11 @@
     "elements",
     "jest.{js,d.ts}",
     "test-utils.{js,d.ts}",
-    "!*.snap",
-    "!*.spec.d.ts",
-    "!*.spec.js",
-    "!*.spec.ts",
-    "!__mocks__",
+    "!**/*.snap",
+    "!**/*.spec.d.ts",
+    "!**/*.spec.js",
+    "!**/*.spec.ts",
+    "!**/__mocks__",
     "!dist/rules/**/*.d.ts"
   ],
   "scripts": {
