@@ -30,6 +30,8 @@ Build:
       - dist/
   script:
     - npm run build
+    - npm pack
+    - npx npm-pkg-lint
 
 pages:
   stage: build
