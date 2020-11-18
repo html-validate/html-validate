@@ -17,9 +17,17 @@ export default class HeadingLevel extends Rule<void, Options> {
 	}
 
 	public documentation(): RuleDocumentation {
+		const text: string[] = [];
+		text.push("Headings must start at <h1> and can only increase one level at a time.");
+		text.push("The headings should form a table of contents and make sense on its own.");
+		if (!this.options.allowMultipleH1) {
+			text.push("");
+			text.push(
+				"Under the current configuration only a single <h1> can be present at a time in the document."
+			);
+		}
 		return {
-			description:
-				"Validates heading level increments and order. Headings must start at h1 and can only increase one level at a time.",
+			description: text.join("\n"),
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
@@ -39,7 +47,7 @@ export default class HeadingLevel extends Rule<void, Options> {
 			if (!this.options.allowMultipleH1 && level === 1) {
 				if (h1Count >= 1) {
 					const location = sliceLocation(event.location, 1);
-					this.report(event.target, `Multiple h1 are not allowed`, location);
+					this.report(event.target, `Multiple <h1> are not allowed`, location);
 					return;
 				}
 
@@ -57,13 +65,11 @@ export default class HeadingLevel extends Rule<void, Options> {
 			if (level !== expected) {
 				const location = sliceLocation(event.location, 1);
 				if (current > 0) {
-					this.report(
-						event.target,
-						`Heading level can only increase by one, expected h${expected}`,
-						location
-					);
+					const msg = `Heading level can only increase by one, expected <h${expected}> but got <h${level}>`;
+					this.report(event.target, msg, location);
 				} else {
-					this.report(event.target, `Initial heading level must be h${expected}`, location);
+					const msg = `Initial heading level must be <h${expected}> but got <h${level}>`;
+					this.report(event.target, msg, location);
 				}
 			}
 

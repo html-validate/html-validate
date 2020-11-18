@@ -37,7 +37,7 @@ describe("rule heading-level", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"heading-level",
-			"Heading level can only increase by one, expected h2"
+			"Heading level can only increase by one, expected <h2> but got <h3>"
 		);
 	});
 
@@ -45,21 +45,20 @@ describe("rule heading-level", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString("<h2>heading 2</h2>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("heading-level", "Initial heading level must be h1");
+		expect(report).toHaveError("heading-level", "Initial heading level must be <h1> but got <h2>");
 	});
 
 	it("should report error when multiple <h1> are used", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString("<h1>heading 1</h1><h1>heading 1</h1>");
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("heading-level", "Multiple h1 are not allowed");
+		expect(report).toHaveError("heading-level", "Multiple <h1> are not allowed");
 	});
 
 	it("should not report error when multiple <h1> are used but allowed via option", () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "heading-level": ["error", { allowMultipleH1: true }] },
-			elements: ["html5", { "custom-heading": { heading: true } }],
 		});
 		const report = htmlvalidate.validateString("<h1>heading 1</h1><h1>heading 1</h1>");
 		expect(report).toBeValid();
@@ -77,8 +76,19 @@ describe("rule heading-level", () => {
 		expect(report.results).toMatchSnapshot();
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation (without multiple h1)", () => {
 		expect.assertions(1);
+		htmlvalidate = new HtmlValidate({
+			rules: { "heading-level": ["error", { allowMultipleH1: false }] },
+		});
+		expect(htmlvalidate.getRuleDocumentation("heading-level")).toMatchSnapshot();
+	});
+
+	it("should contain documentation (with multiple h1)", () => {
+		expect.assertions(1);
+		htmlvalidate = new HtmlValidate({
+			rules: { "heading-level": ["error", { allowMultipleH1: true }] },
+		});
 		expect(htmlvalidate.getRuleDocumentation("heading-level")).toMatchSnapshot();
 	});
 });
