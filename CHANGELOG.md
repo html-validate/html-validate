@@ -1,5 +1,11 @@
 # html-validate changelog
 
+### [4.0.2](https://gitlab.com/html-validate/html-validate/compare/v4.0.1...v4.0.2) (2020-11-19)
+
+### Bug Fixes
+
+- **deps:** replace dependency on `eslint` with `@html-validate/stylish` ([2d1bc81](https://gitlab.com/html-validate/html-validate/commit/2d1bc819bd241294db55fc28dd7305ee46d9ad3f))
+
 ### [4.0.1](https://gitlab.com/html-validate/html-validate/compare/v4.0.0...v4.0.1) (2020-11-09)
 
 ### Bug Fixes
