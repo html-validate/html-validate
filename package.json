@@ -142,7 +142,7 @@
     "marked": "1.2.5",
     "minimatch": "3.0.4",
     "npm-pkg-lint": "1.2.0",
-    "postcss": "8.1.7",
+    "postcss": "8.1.8",
     "prettier": "2.1.2",
     "pretty-format": "26.6.2",
     "sass": "1.29.0",
