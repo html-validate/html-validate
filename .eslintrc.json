@@ -1,21 +1,9 @@
 {
-  "env": {
-    "node": true
-  },
-
-  "extends": [
-    "@html-validate",
-    "plugin:array-func/recommended",
-    "plugin:node/recommended-module",
-    "plugin:security/recommended",
-    "plugin:sonarjs/recommended"
-  ],
-
-  "plugins": ["array-func", "node", "security", "sonarjs"],
+  "extends": ["@html-validate", "plugin:security/recommended", "plugin:sonarjs/recommended"],
+  "plugins": ["security", "sonarjs"],
 
   "rules": {
     "import/named": "off",
-    "node/no-missing-import": "off",
     "node/no-unsupported-features/es-syntax": "off",
     "security/detect-non-literal-fs-filename": "off",
     "security/detect-non-literal-require": "off",
