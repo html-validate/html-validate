@@ -316,7 +316,7 @@ describe("HtmlElement", () => {
 		it("should return null for boolean attributes", () => {
 			expect.assertions(1);
 			const node = new HtmlElement("foo");
-			node.setAttribute("bar", undefined, location, null);
+			node.setAttribute("bar", null, location, null);
 			expect(node.getAttributeValue("bar")).toBeNull();
 		});
 	});
@@ -489,7 +489,7 @@ describe("HtmlElement", () => {
 		} as MetaElement;
 
 		beforeEach(() => {
-			node = new HtmlElement("my-element", null, null, original);
+			node = new HtmlElement("my-element", null, NodeClosed.EndTag, original);
 		});
 
 		it("should overwrite copyable properties", () => {

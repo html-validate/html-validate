@@ -19,28 +19,28 @@ export enum NodeClosed {
 
 export class HtmlElement extends DOMNode {
 	public readonly tagName: string;
-	public readonly parent: HtmlElement;
+	public readonly parent: HtmlElement | null;
 	public readonly voidElement: boolean;
 	public readonly depth: number;
 	public closed: NodeClosed;
 	protected readonly attr: { [key: string]: Attribute[] };
-	private metaElement: MetaElement;
+	private metaElement: MetaElement | null;
 	private annotation: string | null;
 
 	public constructor(
 		tagName: string,
-		parent?: HtmlElement,
+		parent: HtmlElement | null = null,
 		closed: NodeClosed = NodeClosed.EndTag,
-		meta?: MetaElement,
-		location?: Location
+		meta: MetaElement | null = null,
+		location: Location | null = null
 	) {
 		const nodeType = tagName ? NodeType.ELEMENT_NODE : NodeType.DOCUMENT_NODE;
 		super(nodeType, tagName, location);
 
 		this.tagName = tagName;
-		this.parent = parent;
+		this.parent = parent ?? null;
 		this.attr = {};
-		this.metaElement = meta;
+		this.metaElement = meta ?? null;
 		this.closed = closed;
 		this.voidElement = meta ? Boolean(meta.void) : false;
 		this.depth = 0;
@@ -58,15 +58,15 @@ export class HtmlElement extends DOMNode {
 		}
 	}
 
-	public static rootNode(location: Location): HtmlElement {
-		return new HtmlElement(undefined, undefined, undefined, undefined, location);
+	public static rootNode(location: Location | null): HtmlElement {
+		return new HtmlElement(undefined, null, null, null, location);
 	}
 
 	public static fromTokens(
 		startToken: Token,
 		endToken: Token,
-		parent: HtmlElement,
-		metaTable: MetaTable
+		parent: HtmlElement | null = null,
+		metaTable: MetaTable | null = null
 	): HtmlElement {
 		const tagName = startToken.data[2];
 		if (!tagName) {
@@ -80,7 +80,7 @@ export class HtmlElement extends DOMNode {
 		/* location contains position of '<' so strip it out */
 		const location = sliceLocation(startToken.location, 1);
 
-		return new HtmlElement(tagName, open ? parent : undefined, closed, meta, location);
+		return new HtmlElement(tagName, open ? parent : null, closed, meta, location);
 	}
 
 	/**

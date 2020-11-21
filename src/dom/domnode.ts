@@ -25,7 +25,7 @@ export class DOMNode {
 	public readonly nodeType: NodeType;
 	public readonly childNodes: DOMNode[];
 
-	public readonly location: Location;
+	public readonly location: Location | null;
 	public readonly unique: DOMInternalID;
 
 	private readonly cache: Map<string | number | symbol, any>;
@@ -45,7 +45,7 @@ export class DOMNode {
 	 * to the tagName but other node types have specific predefined values.
 	 * @param location - Source code location of this node.
 	 */
-	public constructor(nodeType: NodeType, nodeName: string, location?: Location) {
+	public constructor(nodeType: NodeType, nodeName: string, location: Location | null = null) {
 		this.nodeType = nodeType;
 		this.nodeName = nodeName || DOCUMENT_NODE_NAME;
 		this.location = location;
