@@ -48,7 +48,7 @@
     "eslint": "eslint --ext js,ts .",
     "eslint:fix": "eslint --ext js,ts . --fix",
     "htmlvalidate": "./bin/html-validate.js",
-    "prepare": "git config commit.template ./node_modules/@html-validate/commitlint-config/gitmessage",
+    "prepare": "scripts/prepare.sh",
     "prettier:check": "prettier . --check",
     "prettier:write": "prettier . --write",
     "semantic-release": "semantic-release",
