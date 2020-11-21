@@ -41,7 +41,7 @@
   "scripts": {
     "build": "tsc",
     "build:docs": "grunt docs",
-    "clean": "rm -rf build public",
+    "clean": "rm -rf dist public",
     "compatibility": "scripts/compatibility.sh",
     "commitlint": "commitlint",
     "debug": "node --inspect ./node_modules/.bin/jest --runInBand --watch --no-coverage",
