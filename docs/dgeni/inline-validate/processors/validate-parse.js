@@ -22,43 +22,41 @@ module.exports = function parseValidatesProcessor(
 					return;
 				}
 
-				doc.content = doc.content.replace(VALIDATE_REGEX, function processValidate(
-					match,
-					attributeText,
-					validateMarkup
-				) {
-					const attr = extractAttributes(attributeText);
-					if (!attr.name) {
-						throw new Error(createDocMessage("Inline validation is missing name", doc));
-					}
-
-					const name = attr.name;
-					const rules = attr.rules ? attr.rules.split(/ +/) : undefined;
-					const showResults = attr.results ? Boolean(attr.results) : "auto";
-					const elements = readElements(doc.fileInfo, attr.elements);
-					const id = uniqueName(validateMap, `markup-${attr.name}`);
-					const markup = trimIndentation(validateMarkup);
-					const config = generateConfig(rules, elements, attr);
-
-					const validate = {
-						config,
-						name,
-						markup,
-						showResults,
-						id,
-						doc,
-					};
-
-					// store the validate information for later
-					log.debug("Storing inline validation", id);
-					validateMap.set(id, validate);
-
-					return `{@inlineValidation ${id}}`;
-				});
+				doc.content = doc.content.replace(VALIDATE_REGEX, processValidate.bind(undefined, doc));
 			} catch (error) {
 				throw new Error(createDocMessage("Failed to parse inline validation", doc, error));
 			}
 		});
+	}
+
+	function processValidate(doc, match, attributeText, validateMarkup) {
+		const attr = extractAttributes(attributeText);
+		if (!attr.name) {
+			throw new Error(createDocMessage("Inline validation is missing name", doc));
+		}
+
+		const name = attr.name;
+		const rules = attr.rules ? attr.rules.split(/ +/) : undefined;
+		const showResults = attr.results ? Boolean(attr.results) : "auto";
+		const elements = readElements(doc.fileInfo, attr.elements);
+		const id = uniqueName(validateMap, `markup-${attr.name}`);
+		const markup = trimIndentation(validateMarkup);
+		const config = generateConfig(rules, elements, attr);
+
+		const validate = {
+			config,
+			name,
+			markup,
+			showResults,
+			id,
+			doc,
+		};
+
+		// store the validate information for later
+		log.debug("Storing inline validation", id);
+		validateMap.set(id, validate);
+
+		return `{@inlineValidation ${id}}`;
 	}
 
 	function readElements(fileInfo, filename) {
