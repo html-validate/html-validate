@@ -143,7 +143,7 @@
     "minimatch": "3.0.4",
     "npm-pkg-lint": "1.2.0",
     "postcss": "8.1.8",
-    "prettier": "2.1.2",
+    "prettier": "2.2.0",
     "pretty-format": "26.6.2",
     "sass": "1.29.0",
     "semantic-release": "17.2.4",
