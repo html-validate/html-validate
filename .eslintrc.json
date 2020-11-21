@@ -38,7 +38,8 @@
       "extends": ["@html-validate/eslint-config/jest"],
       "rules": {
         "sonarjs/no-duplicate-string": "off",
-        "sonarjs/no-identical-functions": "off"
+        "sonarjs/no-identical-functions": "off",
+        "@typescript-eslint/no-non-null-assertion": "off"
       }
     }
   ]

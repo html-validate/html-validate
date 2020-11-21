@@ -1078,7 +1078,8 @@ describe("parser", () => {
 				expect.assertions(2);
 				function processElement(this: ProcessElementContext, node: HtmlElement): void {
 					if (node.tagName === "i") {
-						node.loadMeta(this.getMetaFor("div"));
+						const meta = this.getMetaFor("div");
+						node.loadMeta(meta!);
 					}
 				}
 				const source: Source = {

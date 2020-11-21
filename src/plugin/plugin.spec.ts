@@ -273,7 +273,7 @@ describe("Plugin", () => {
 			const a = metaTable.getMetaFor("my-element");
 			const b = metaTable.getMetaFor("my-element:real");
 			const node = new HtmlElement("my-element", null, null, a);
-			node.loadMeta(b);
+			node.loadMeta(b!);
 			expect(node.meta).toEqual({
 				tagName: "my-element",
 				foo: "copied" /* foo is marked for copying */,
