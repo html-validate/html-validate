@@ -8,20 +8,17 @@
     "validator",
     "html-validate"
   ],
-  "author": "David Sveningsson <ext@sidvind.com>",
-  "license": "MIT",
   "homepage": "https://html-validate.org",
+  "bugs": {
+    "url": "https://gitlab.com/html-validate/html-validate/issues/new"
+  },
   "repository": {
     "type": "git",
     "url": "https://gitlab.com/html-validate/html-validate.git"
   },
-  "bugs": {
-    "url": "https://gitlab.com/html-validate/html-validate/issues/new"
-  },
+  "license": "MIT",
+  "author": "David Sveningsson <ext@sidvind.com>",
   "main": "dist/shim.js",
-  "engines": {
-    "node": ">= 10.0"
-  },
   "bin": {
     "html-validate": "bin/html-validate.js"
   },
@@ -42,8 +39,8 @@
     "build": "tsc",
     "build:docs": "grunt docs",
     "clean": "rm -rf dist public",
-    "compatibility": "scripts/compatibility.sh",
     "commitlint": "commitlint",
+    "compatibility": "scripts/compatibility.sh",
     "debug": "node --inspect ./node_modules/.bin/jest --runInBand --watch --no-coverage",
     "eslint": "eslint --ext js,ts .",
     "eslint:fix": "eslint --ext js,ts . --fix",
@@ -55,29 +52,40 @@
     "start": "grunt connect",
     "test": "jest --ci"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-push": "./scripts/pre-push"
+    }
+  },
   "commitlint": {
     "extends": [
       "@html-validate"
     ]
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged",
-      "pre-push": "./scripts/pre-push"
-    }
-  },
   "lint-staged": {
     "*.{ts,js,json,html,md,scss}": "prettier --write"
   },
   "prettier": "@html-validate/prettier-config",
-  "renovate": {
-    "extends": [
-      "@html-validate"
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!src/**/*.spec.ts",
+      "!src/**/index.ts",
+      "!src/shim.ts",
+      "!src/cli/html-validate.ts"
+    ],
+    "preset": "@html-validate/jest-config",
+    "roots": [
+      "<rootDir>/docs",
+      "<rootDir>/elements",
+      "<rootDir>/src",
+      "<rootDir>/tests"
+    ],
+    "snapshotSerializers": [
+      "pretty-format/build/plugins/ConvertAnsi"
     ]
-  },
-  "release": {
-    "extends": "@html-validate/semantic-release-config"
   },
   "dependencies": {
     "@babel/code-frame": "^7.10.4",
@@ -151,23 +159,15 @@
     "ts-jest": "26.4.4",
     "typescript": "4.1.2"
   },
-  "jest": {
-    "preset": "@html-validate/jest-config",
-    "collectCoverageFrom": [
-      "src/**/*.ts",
-      "!src/**/*.spec.ts",
-      "!src/**/index.ts",
-      "!src/shim.ts",
-      "!src/cli/html-validate.ts"
-    ],
-    "roots": [
-      "<rootDir>/docs",
-      "<rootDir>/elements",
-      "<rootDir>/src",
-      "<rootDir>/tests"
-    ],
-    "snapshotSerializers": [
-      "pretty-format/build/plugins/ConvertAnsi"
+  "engines": {
+    "node": ">= 10.0"
+  },
+  "release": {
+    "extends": "@html-validate/semantic-release-config"
+  },
+  "renovate": {
+    "extends": [
+      "@html-validate"
     ]
   }
 }
