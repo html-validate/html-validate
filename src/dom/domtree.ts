@@ -7,7 +7,7 @@ export class DOMTree {
 	private active: HtmlElement;
 	public doctype?: string;
 
-	public constructor(location: Location) {
+	public constructor(location: Location | null) {
 		this.root = HtmlElement.rootNode(location);
 		this.active = this.root;
 		this.doctype = null;

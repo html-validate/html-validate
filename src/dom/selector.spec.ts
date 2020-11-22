@@ -6,7 +6,7 @@ import { Selector } from "./selector";
 import { NodeType } from "./nodetype";
 
 interface StrippedHtmlElement {
-	id: string;
+	id: string | null;
 	class: string | null;
 	nodeName: string;
 	nodeType: NodeType;

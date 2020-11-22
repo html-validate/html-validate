@@ -101,7 +101,7 @@ describe("HtmlElement", () => {
 			const open = HtmlElement.fromTokens(startToken1, endToken1, parent, null);
 			const close = HtmlElement.fromTokens(startToken2, endToken2, parent, null);
 			expect(open.parent).toBeDefined();
-			expect(close.parent).toBeUndefined();
+			expect(close.parent).toBeNull();
 		});
 
 		it("should set metadata", () => {

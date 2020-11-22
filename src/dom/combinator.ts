@@ -5,7 +5,7 @@ export enum Combinator {
 	GENERAL_SIBLING,
 }
 
-export function parseCombinator(combinator: string): Combinator {
+export function parseCombinator(combinator: string | undefined | null): Combinator {
 	switch (combinator) {
 		case undefined:
 		case null:

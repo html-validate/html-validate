@@ -172,7 +172,7 @@ describe("MetaTable", () => {
 			expect.assertions(2);
 			const meta = table.getMetaFor("foo");
 			expect(meta).not.toBeUndefined();
-			expect(meta.tagName).toEqual("foo");
+			expect(meta?.tagName).toEqual("foo");
 		});
 
 		it("should be null for unknown elements", () => {
@@ -185,7 +185,7 @@ describe("MetaTable", () => {
 			expect.assertions(2);
 			const meta = table.getMetaFor("FOO");
 			expect(meta).not.toBeUndefined();
-			expect(meta.tagName).toEqual("foo");
+			expect(meta?.tagName).toEqual("foo");
 		});
 	});
 
@@ -408,7 +408,7 @@ describe("MetaTable", () => {
 			});
 			const meta = table.getMetaFor("foo");
 			expect(meta).not.toBeUndefined();
-			expect(meta.attributes).toEqual({
+			expect(meta?.attributes).toEqual({
 				attr: [/foo/],
 			});
 		});
@@ -425,7 +425,7 @@ describe("MetaTable", () => {
 			});
 			const meta = table.getMetaFor("foo");
 			expect(meta).not.toBeUndefined();
-			expect(meta.attributes).toEqual({
+			expect(meta?.attributes).toEqual({
 				attr: [/foo/i],
 			});
 		});
@@ -442,7 +442,7 @@ describe("MetaTable", () => {
 			});
 			const meta = table.getMetaFor("foo");
 			expect(meta).not.toBeUndefined();
-			expect(meta.attributes).toEqual({
+			expect(meta?.attributes).toEqual({
 				attr: [/foo/],
 			});
 		});

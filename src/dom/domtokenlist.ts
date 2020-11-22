@@ -45,7 +45,7 @@ export class DOMTokenList extends Array<string> {
 	public readonly value: string;
 	private readonly locations: Location[] | undefined;
 
-	public constructor(value: string | DynamicValue, location?: Location) {
+	public constructor(value: string | DynamicValue | null, location?: Location) {
 		if (value && typeof value === "string") {
 			const { tokens, locations } = parse(value, location);
 			super(...tokens);
@@ -57,7 +57,7 @@ export class DOMTokenList extends Array<string> {
 		if (value instanceof DynamicValue) {
 			this.value = value.expr;
 		} else {
-			this.value = value;
+			this.value = value || "";
 		}
 	}
 

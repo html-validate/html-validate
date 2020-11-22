@@ -56,14 +56,14 @@ describe("toBeValid()", () => {
 
 	it("should fail if report is invalid", async () => {
 		expect.assertions(3);
-		let error: Error;
+		let error: Error | undefined = undefined;
 		try {
 			await expect(reportError).toBeValid();
 		} catch (e) {
 			error = e;
 		}
 		expect(error).toBeDefined();
-		expect(error.message).toMatchSnapshot();
+		expect(error?.message).toMatchSnapshot();
 	});
 });
 
@@ -75,14 +75,14 @@ describe("toBeInvalid()", () => {
 
 	it("should fail if report is valid", async () => {
 		expect.assertions(3);
-		let error: Error;
+		let error: Error | undefined = undefined;
 		try {
 			await expect(reportOk).toBeInvalid();
 		} catch (e) {
 			error = e;
 		}
 		expect(error).toBeDefined();
-		expect(error.message).toMatchSnapshot();
+		expect(error?.message).toMatchSnapshot();
 	});
 });
 
@@ -101,19 +101,19 @@ describe("toHaveError()", () => {
 
 	it("should fail if error is missing", async () => {
 		expect.assertions(3);
-		let error: Error;
+		let error: Error | undefined = undefined;
 		try {
 			await expect(reportError).toHaveError("asdf", "asdf");
 		} catch (e) {
 			error = e;
 		}
 		expect(error).toBeDefined();
-		expect(stripAnsi(error.message)).toMatchSnapshot();
+		expect(stripAnsi(error?.message || "")).toMatchSnapshot();
 	});
 
 	it("should fail if error has mismatched context", async () => {
 		expect.assertions(3);
-		let error: Error;
+		let error: Error | undefined = undefined;
 		try {
 			await expect(reportError).toHaveError("my-rule", "mock message", {
 				foo: "spam",
@@ -122,7 +122,7 @@ describe("toHaveError()", () => {
 			error = e;
 		}
 		expect(error).toBeDefined();
-		expect(stripAnsi(error.message)).toMatchSnapshot();
+		expect(stripAnsi(error?.message || "")).toMatchSnapshot();
 	});
 });
 
@@ -149,7 +149,7 @@ describe("toHaveErrors()", () => {
 
 	it("should fail if error any missing", async () => {
 		expect.assertions(3);
-		let error: Error;
+		let error: Error | undefined = undefined;
 		try {
 			await expect(reportMultipleErrors).toHaveErrors([
 				["my-rule", "mock message"],
@@ -159,7 +159,7 @@ describe("toHaveErrors()", () => {
 			error = e;
 		}
 		expect(error).toBeDefined();
-		expect(stripAnsi(error.message)).toMatchSnapshot();
+		expect(stripAnsi(error?.message || "")).toMatchSnapshot();
 	});
 });
 
@@ -185,7 +185,7 @@ describe("toBeToken()", () => {
 
 	it("should fail if token doesn't match", async () => {
 		expect.assertions(3);
-		let error: Error;
+		let error: Error | undefined = undefined;
 		try {
 			await expect({ value: token }).toBeToken({
 				type: TokenType.TAG_CLOSE,
@@ -194,7 +194,7 @@ describe("toBeToken()", () => {
 			error = e;
 		}
 		expect(error).toBeDefined();
-		expect(stripAnsi(error.message)).toMatchSnapshot();
+		expect(stripAnsi(error?.message || "")).toMatchSnapshot();
 	});
 });
 
@@ -211,14 +211,14 @@ describe("toHTMLValidate()", () => {
 
 	it("should fail if markup is invalid", async () => {
 		expect.assertions(3);
-		let error: Error;
+		let error: Error | undefined = undefined;
 		try {
 			await expect("<a><button></i>").toHTMLValidate();
 		} catch (e) {
 			error = e;
 		}
 		expect(error).toBeDefined();
-		expect(stripAnsi(error.message)).toMatchInlineSnapshot(`
+		expect(stripAnsi(error?.message || "")).toMatchInlineSnapshot(`
 			"Expected HTML to be valid but had the following errors:
 
 			  Anchor link must have a text describing its purpose [wcag/h30]
@@ -231,14 +231,14 @@ describe("toHTMLValidate()", () => {
 
 	it("should fail if markup is valid but negated", async () => {
 		expect.assertions(3);
-		let error: Error;
+		let error: Error | undefined = undefined;
 		try {
 			await expect("<p></p>").not.toHTMLValidate();
 		} catch (e) {
 			error = e;
 		}
 		expect(error).toBeDefined();
-		expect(stripAnsi(error.message)).toMatchInlineSnapshot(
+		expect(stripAnsi(error?.message || "")).toMatchInlineSnapshot(
 			`"HTML is valid when an error was expected"`
 		);
 	});
@@ -329,7 +329,7 @@ describe("toHTMLValidate()", () => {
 
 	it("should fail if markup has wrong error", async () => {
 		expect.assertions(3);
-		let error: Error;
+		let error: Error | undefined = undefined;
 		try {
 			await expect("<u></i>").not.toHTMLValidate({
 				ruleId: "wrong-error",
@@ -339,7 +339,7 @@ describe("toHTMLValidate()", () => {
 			error = e;
 		}
 		expect(error).toBeDefined();
-		expect(stripAnsi(error.message)).toMatchInlineSnapshot(`
+		expect(stripAnsi(error?.message || "")).toMatchInlineSnapshot(`
 		"expect(received).not.toHTMLValidate(expected) // expected error
 
 		Expected error to be present:
