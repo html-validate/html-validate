@@ -29,7 +29,7 @@ Build:
     paths:
       - dist/
   script:
-    - npm run build
+    - npm run --if-present build
     - npm pack
     - npx npm-pkg-lint
 
@@ -42,7 +42,7 @@ pages:
     - tags
     - triggers
   script:
-    - npm run build
+    - npm run --if-present build
     - npm run build:docs
 
 Changelog:
@@ -99,7 +99,7 @@ Docs:
     - npm ci
   script:
     - npm test
-    - npm run build
+    - npm run --if-present build
     - npm run compatibility
 
 Node 10.x (LTS):
