@@ -49,8 +49,8 @@
     "eslint:fix": "eslint --ext js,ts . --fix",
     "htmlvalidate": "./bin/html-validate.js",
     "prepare": "scripts/prepare.sh",
-    "prettier:check": "prettier . --check",
-    "prettier:write": "prettier . --write",
+    "prettier:check": "prettier --check .",
+    "prettier:write": "prettier --write .",
     "semantic-release": "semantic-release",
     "start": "grunt connect",
     "test": "jest --ci"
