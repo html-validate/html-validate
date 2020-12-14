@@ -1,6 +1,6 @@
 import fs from "fs";
 import deepmerge from "deepmerge";
-import inquirer from "inquirer";
+import prompts from "prompts";
 import { ConfigData } from "../config";
 
 export interface InitResult {
@@ -58,33 +58,34 @@ export async function init(cwd: string): Promise<InitResult> {
 		elements: ["html5"],
 		extends: ["html-validate:recommended"],
 	};
-	const when = /* istanbul ignore next */ (answers: any): boolean => {
-		return !exists || answers.write;
-	};
-	const questions: inquirer.QuestionCollection = [
-		{
-			name: "write",
+
+	/* confirm overwrite */
+	if (exists) {
+		const result = await prompts({
+			name: "overwrite",
 			type: "confirm",
-			default: false,
-			when: exists,
 			message: "A .htmlvalidate.json file already exists, do you want to overwrite it?",
-		},
+		});
+		if (!result.overwrite) {
+			return Promise.reject();
+		}
+	}
+
+	const questions: prompts.PromptObject[] = [
 		{
 			name: "frameworks",
-			type: "checkbox",
-			choices: [Frameworks.angularjs, Frameworks.vuejs, Frameworks.markdown],
+			type: "multiselect",
+			choices: [
+				{ title: Frameworks.angularjs, value: Frameworks.angularjs },
+				{ title: Frameworks.vuejs, value: Frameworks.vuejs },
+				{ title: Frameworks.markdown, value: Frameworks.markdown },
+			],
 			message: "Support additional frameworks?",
-			when,
 		},
 	];
 
 	/* prompt user for questions */
-	const answers = await inquirer.prompt(questions);
-
-	/* dont overwrite configuration unless explicitly requested */
-	if (exists && !answers.write) {
-		return Promise.reject();
-	}
+	const answers = await prompts(questions);
 
 	/* write configuration to file */
 	let config = initialConfig;
