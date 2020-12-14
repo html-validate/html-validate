@@ -3,11 +3,9 @@ const fs = {
 	writeFile: jest.fn().mockImplementation((fn, data, cb) => cb()),
 };
 
-const inquirer = {
-	prompt: jest.fn(),
-};
+const prompts = jest.fn();
 
-jest.mock("inquirer", () => inquirer);
+jest.mock("prompts", () => prompts);
 jest.mock("fs", () => fs);
 
 import { CLI } from "./cli";
@@ -27,7 +25,7 @@ it.each([
 ])("should generate configuration for %s", async (name, frameworks) => {
 	expect.assertions(2);
 	fs.existsSync.mockReturnValue(false);
-	inquirer.prompt.mockResolvedValue({
+	prompts.mockResolvedValue({
 		write: true,
 		frameworks,
 	});
@@ -43,8 +41,8 @@ it.each([
 it("should not overwrite configuration unless requested", async () => {
 	expect.assertions(1);
 	fs.existsSync.mockReturnValue(true);
-	inquirer.prompt.mockResolvedValue({
-		write: false,
+	prompts.mockResolvedValue({
+		overwrite: false,
 	});
 	try {
 		await cli.init(".");
@@ -54,11 +52,21 @@ it("should not overwrite configuration unless requested", async () => {
 	expect(fs.writeFile).not.toHaveBeenCalled();
 });
 
+it("should overwrite configuration when requested", async () => {
+	expect.assertions(1);
+	fs.existsSync.mockReturnValue(true);
+	prompts.mockResolvedValue({
+		overwrite: true,
+		frameworks: [],
+	});
+	await cli.init(".");
+	expect(fs.writeFile).toHaveBeenCalled();
+});
+
 it("should always create configuration when config is missing", async () => {
 	expect.assertions(1);
 	fs.existsSync.mockReturnValue(false);
-	inquirer.prompt.mockResolvedValue({
-		write: undefined,
+	prompts.mockResolvedValue({
 		frameworks: [],
 	});
 	await cli.init(".");
@@ -73,8 +81,7 @@ it("should propagate errors from fs.writeFile", async () => {
 	expect.assertions(1);
 	fs.existsSync.mockReturnValue(false);
 	fs.writeFile.mockImplementationOnce((fn, data, cb) => cb("mock error"));
-	inquirer.prompt.mockResolvedValue({
-		write: true,
+	prompts.mockResolvedValue({
 		frameworks: [],
 	});
 	await expect(cli.init(".")).rejects.toEqual("mock error");
