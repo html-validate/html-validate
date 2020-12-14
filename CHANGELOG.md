@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [4.1.0](https://gitlab.com/html-validate/html-validate/compare/v4.0.2...v4.1.0) (2020-12-14)
+
+### Features
+
+- replace `inquirer` with `prompts` ([82d17eb](https://gitlab.com/html-validate/html-validate/commit/82d17ebce26d0e215fa689095fb2822ae541f2d8))
+
 ### [4.0.2](https://gitlab.com/html-validate/html-validate/compare/v4.0.1...v4.0.2) (2020-11-19)
 
 ### Bug Fixes
