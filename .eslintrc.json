@@ -13,8 +13,8 @@
 
   "overrides": [
     {
-      "files": "**/*.ts",
-      "extends": ["@html-validate/eslint-config/typescript"],
+      "files": "*.ts",
+      "extends": ["@html-validate/typescript"],
       "rules": {
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-use-before-define": "off",
@@ -23,7 +23,8 @@
     },
     {
       "files": "*.spec.[jt]s",
-      "extends": ["@html-validate/eslint-config/jest"],
+      "excludedFiles": "cypress/**",
+      "extends": ["@html-validate/jest"],
       "rules": {
         "sonarjs/no-duplicate-string": "off",
         "sonarjs/no-identical-functions": "off",
