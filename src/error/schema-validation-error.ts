@@ -1,8 +1,8 @@
 import betterAjvErrors from "@sidvind/better-ajv-errors";
-import Ajv from "ajv";
+import { ErrorObject } from "ajv";
 import { UserError } from "./user-error";
 
-function getSummary(schema: any, obj: any, errors: Ajv.ErrorObject[]): string {
+function getSummary(schema: any, obj: any, errors: ErrorObject[]): string {
 	const output = betterAjvErrors(schema, obj, errors, {
 		format: "js",
 	}) as any;
@@ -14,14 +14,14 @@ export class SchemaValidationError extends UserError {
 	public filename: string | null;
 	private obj: any;
 	private schema: any;
-	private errors: Ajv.ErrorObject[];
+	private errors: ErrorObject[];
 
 	public constructor(
 		filename: string | null,
 		message: string,
 		obj: any, // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
 		schema: any, // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
-		errors: Ajv.ErrorObject[]
+		errors: ErrorObject[]
 	) {
 		const summary = getSummary(schema, obj, errors);
 		super(`${message}: ${summary}`);

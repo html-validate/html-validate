@@ -1,4 +1,5 @@
-import Ajv from "ajv";
+import Ajv, { KeywordDefinition, ValidateFunction } from "ajv";
+import { DataValidateFunction, DataValidationCxt } from "ajv/dist/types";
 import deepmerge from "deepmerge";
 import jsonMergePatch from "json-merge-patch";
 import { HtmlElement } from "../dom";
@@ -45,12 +46,15 @@ function overwriteMerge<T>(a: T[], b: T[]): T[] {
  * Injects errors with the "type" keyword to give the same output.
  */
 /* istanbul ignore next: manual testing */
-const ajvRegexpValidate: Ajv.ValidateFunction = function (data: any, dataPath: string): boolean {
+const ajvRegexpValidate: DataValidateFunction = function (
+	data: any,
+	dataCxt: DataValidationCxt
+): boolean {
 	const valid = data instanceof RegExp;
 	if (!valid) {
 		ajvRegexpValidate.errors = [
 			{
-				dataPath,
+				dataPath: dataCxt.dataPath,
 				schemaPath: undefined,
 				keyword: "type",
 				message: "should be regexp",
@@ -62,7 +66,8 @@ const ajvRegexpValidate: Ajv.ValidateFunction = function (data: any, dataPath: s
 	}
 	return valid;
 };
-const ajvRegexpKeyword: Ajv.KeywordDefinition = {
+const ajvRegexpKeyword: KeywordDefinition = {
+	keyword: "regexp",
 	schema: false,
 	errors: true,
 	validate: ajvRegexpValidate,
@@ -91,7 +96,7 @@ export class MetaTable {
 		if (patch.properties) {
 			this.schema = jsonMergePatch.apply(this.schema, {
 				patternProperties: {
-					"^.*$": {
+					"^[^$].*$": {
 						properties: patch.properties,
 					},
 				},
@@ -110,16 +115,15 @@ export class MetaTable {
 	 * @param obj - Object with metadata to load
 	 * @param filename - Optional filename used when presenting validation error
 	 */
-	public loadFromObject(obj: MetaDataTable, filename: string | null = null): void {
-		const validator = this.getSchemaValidator();
-		const valid = validator(obj);
-		if (!valid) {
+	public loadFromObject(obj: unknown, filename: string | null = null): void {
+		const validate = this.getSchemaValidator();
+		if (!validate(obj)) {
 			throw new SchemaValidationError(
 				filename,
 				`Element metadata is not valid`,
 				obj,
 				this.schema,
-				validator.errors
+				validate.errors
 			);
 		}
 
@@ -206,11 +210,12 @@ export class MetaTable {
 	/**
 	 * Construct a new AJV schema validator.
 	 */
-	private getSchemaValidator(): Ajv.ValidateFunction {
-		const ajv = new Ajv({ jsonPointers: true });
+	private getSchemaValidator(): ValidateFunction<MetaDataTable> {
+		const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
 		ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-06.json"));
-		ajv.addKeyword("regexp", ajvRegexpKeyword);
-		return ajv.compile(this.schema);
+		ajv.addKeyword(ajvRegexpKeyword);
+		ajv.addKeyword({ keyword: "copyable" });
+		return ajv.compile<MetaDataTable>(this.schema);
 	}
 
 	/**
