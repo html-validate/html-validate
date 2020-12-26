@@ -1,7 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-06/schema#",
   "$id": "https://html-validate.org/schemas/elements.json",
-  "version": "1.0",
 
   "type": "object",
 
@@ -12,7 +11,7 @@
   },
 
   "patternProperties": {
-    "^.*$": {
+    "^[^$].*$": {
       "type": "object",
       "properties": {
         "inherit": {
@@ -155,6 +154,8 @@
 
     "expression": {
       "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
       "items": [
         {
           "type": "string",
@@ -168,6 +169,8 @@
 
     "operation": {
       "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
       "items": [
         {
           "type": "string"

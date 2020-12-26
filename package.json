@@ -92,7 +92,7 @@
     "@html-validate/stylish": "1.0.0",
     "@sidvind/better-ajv-errors": "^0.6.10",
     "acorn-walk": "^8.0.0",
-    "ajv": "^6.12.6",
+    "ajv": "^7.0.0",
     "chalk": "^4.0.0",
     "deepmerge": "^4.2.2",
     "espree": "^7.3.0",

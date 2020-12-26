@@ -32,7 +32,7 @@ interface LoadedPlugin extends Plugin {
 
 let rootDirCache: string = null;
 
-const ajv = new Ajv({ jsonPointers: true });
+const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
 ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-06.json"));
 
 const validator = ajv.compile(schema);
