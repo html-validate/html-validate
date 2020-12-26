@@ -400,8 +400,11 @@ export class Config {
 	}
 
 	public resolve(): ResolvedConfig {
-		const metaTable = this.getMetaTable();
-		return new ResolvedConfig(metaTable, this.getRules());
+		return new ResolvedConfig({
+			metaTable: this.getMetaTable(),
+			plugins: this.getPlugins(),
+			rules: this.getRules(),
+		});
 	}
 
 	/**

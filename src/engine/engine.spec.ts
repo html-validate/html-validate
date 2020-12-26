@@ -1,4 +1,4 @@
-import { Config, Severity } from "../config";
+import { Config, ResolvedConfig, RuleOptions, Severity } from "../config";
 import { Source } from "../context";
 import { DOMTree } from "../dom";
 import { InvalidTokenError } from "../lexer";
@@ -8,7 +8,7 @@ import { Parser, ParserError } from "../parser";
 import { Reporter } from "../reporter";
 import { Rule } from "../rule";
 import { ConfigReadyEvent } from "../event";
-import { Engine, RuleOptions } from "./engine";
+import { Engine } from "./engine";
 
 function inline(source: string): Source {
 	return {
@@ -58,12 +58,13 @@ class ExposedEngine<T extends Parser> extends Engine<T> {
 	/* exposed for testing */
 	public loadRule(
 		name: string,
+		resolvedConfig: ResolvedConfig,
 		severity: Severity,
 		options: any,
 		parser: Parser,
 		report: Reporter
 	): Rule {
-		return super.loadRule(name, severity, options, parser, report);
+		return super.loadRule(name, resolvedConfig, severity, options, parser, report);
 	}
 
 	/* exposed for testing */
@@ -412,7 +413,14 @@ describe("Engine", () => {
 			it("should load and initialize rule", () => {
 				expect.assertions(4);
 				jest.spyOn(engine, "instantiateRule").mockReturnValueOnce(mockRule);
-				const rule = engine.loadRule("void", Severity.ERROR, {}, parser, reporter);
+				const rule = engine.loadRule(
+					"void",
+					config.resolve(),
+					Severity.ERROR,
+					{},
+					parser,
+					reporter
+				);
 				expect(rule).toBe(mockRule);
 				expect(rule.init).toHaveBeenCalledWith(
 					parser,
@@ -426,7 +434,7 @@ describe("Engine", () => {
 
 			it("should add error if rule cannot be found", () => {
 				expect.assertions(1);
-				engine.loadRule("foobar", Severity.ERROR, {}, parser, reporter);
+				engine.loadRule("foobar", config.resolve(), Severity.ERROR, {}, parser, reporter);
 				const add = jest.spyOn(reporter, "add");
 				parser.trigger("dom:load", { location: null });
 				expect(add).toHaveBeenCalledWith(
@@ -457,7 +465,14 @@ describe("Engine", () => {
 				];
 
 				const engine: ExposedEngine<Parser> = new ExposedEngine(config, MockParser);
-				const rule = engine.loadRule("custom/my-rule", Severity.ERROR, {}, parser, reporter);
+				const rule = engine.loadRule(
+					"custom/my-rule",
+					config.resolve(),
+					Severity.ERROR,
+					{},
+					parser,
+					reporter
+				);
 				expect(rule).toBeInstanceOf(MyRule);
 				expect(rule.name).toEqual("custom/my-rule");
 			});
@@ -478,7 +493,14 @@ describe("Engine", () => {
 				];
 
 				const engine: ExposedEngine<Parser> = new ExposedEngine(config, MockParser);
-				const rule = engine.loadRule("custom/my-rule", Severity.ERROR, {}, parser, reporter);
+				const rule = engine.loadRule(
+					"custom/my-rule",
+					config.resolve(),
+					Severity.ERROR,
+					{},
+					parser,
+					reporter
+				);
 				expect(rule).toBeInstanceOf(MyRule);
 			});
 

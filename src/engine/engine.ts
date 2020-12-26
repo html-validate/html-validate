@@ -1,4 +1,4 @@
-import { Config, ResolvedConfig, Severity } from "../config";
+import { Config, ConfigData, ResolvedConfig, RuleOptions, Severity } from "../config";
 import { Location, Source } from "../context";
 import { HtmlElement } from "../dom";
 import { ConfigReadyEvent, DirectiveEvent, TagCloseEvent, TagOpenEvent } from "../event";
@@ -7,8 +7,6 @@ import { Parser, ParserError } from "../parser";
 import { Report, Reporter } from "../reporter";
 import { Rule, RuleConstructor, RuleDocumentation } from "../rule";
 import bundledRules from "../rules";
-
-export type RuleOptions = Record<string, any>;
 
 export interface EventDump {
 	event: string;
@@ -23,19 +21,19 @@ export interface TokenDump {
 
 export class Engine<T extends Parser = Parser> {
 	protected report: Reporter;
-	protected config: Config;
+	protected configData: ConfigData;
 	protected resolvedConfig: ResolvedConfig;
 	protected ParserClass: new (config: ResolvedConfig) => T;
-	protected availableRules: { [key: string]: RuleConstructor<any, any> };
+	protected availableRules: Record<string, RuleConstructor<any, any>>;
 
 	public constructor(config: Config, ParserClass: new (config: ResolvedConfig) => T) {
 		this.report = new Reporter();
-		this.config = config;
+		this.configData = config.get();
 		this.resolvedConfig = config.resolve();
 		this.ParserClass = ParserClass;
 
 		/* initialize plugins and rules */
-		const result = this.initPlugins(this.config);
+		const result = this.initPlugins(this.resolvedConfig);
 		this.availableRules = {
 			...bundledRules,
 			...result.availableRules,
@@ -56,7 +54,7 @@ export class Engine<T extends Parser = Parser> {
 			const parser = this.instantiateParser();
 
 			/* setup plugins and rules */
-			const { rules } = this.setupPlugins(source, this.config, this.resolvedConfig, parser);
+			const { rules } = this.setupPlugins(source, this.resolvedConfig, parser);
 
 			/* trigger configuration ready event */
 			const event: ConfigReadyEvent = {
@@ -67,7 +65,7 @@ export class Engine<T extends Parser = Parser> {
 					offset: 0,
 					size: 1,
 				},
-				config: this.config.get(),
+				config: this.configData,
 				rules,
 			};
 			parser.trigger("config:ready", event);
@@ -295,7 +293,7 @@ export class Engine<T extends Parser = Parser> {
 	 * Initialize all plugins. This should only be done once for all sessions.
 	 */
 	protected initPlugins(
-		config: Config
+		config: ResolvedConfig
 	): {
 		availableRules: { [key: string]: RuleConstructor<any, any> };
 	} {
@@ -314,7 +312,7 @@ export class Engine<T extends Parser = Parser> {
 	 * Initializes all rules from plugins and returns an object with a mapping
 	 * between rule name and its constructor.
 	 */
-	protected initRules(config: Config): { [key: string]: RuleConstructor<any, any> } {
+	protected initRules(config: ResolvedConfig): { [key: string]: RuleConstructor<any, any> } {
 		const availableRules: { [key: string]: RuleConstructor<any, any> } = {};
 		for (const plugin of config.getPlugins()) {
 			for (const [name, rule] of Object.entries(plugin.rules || {})) {
@@ -329,8 +327,7 @@ export class Engine<T extends Parser = Parser> {
 	 */
 	protected setupPlugins(
 		source: Source,
-		config: Config,
-		resolvedConfig: ResolvedConfig,
+		config: ResolvedConfig,
 		parser: Parser
 	): {
 		rules: { [key: string]: Rule };
@@ -343,17 +340,17 @@ export class Engine<T extends Parser = Parser> {
 		}
 
 		return {
-			rules: this.setupRules(resolvedConfig, parser),
+			rules: this.setupRules(config, parser),
 		};
 	}
 
 	/**
 	 * Load and setup all rules for current configuration.
 	 */
-	protected setupRules(resolvedConfig: ResolvedConfig, parser: Parser): { [key: string]: Rule } {
+	protected setupRules(config: ResolvedConfig, parser: Parser): { [key: string]: Rule } {
 		const rules: { [key: string]: Rule } = {};
-		for (const [ruleId, [severity, options]] of resolvedConfig.getRules().entries()) {
-			rules[ruleId] = this.loadRule(ruleId, severity, options, parser, this.report);
+		for (const [ruleId, [severity, options]] of config.getRules().entries()) {
+			rules[ruleId] = this.loadRule(ruleId, config, severity, options, parser, this.report);
 		}
 		return rules;
 	}
@@ -363,12 +360,13 @@ export class Engine<T extends Parser = Parser> {
 	 */
 	protected loadRule(
 		ruleId: string,
+		config: ResolvedConfig,
 		severity: Severity,
 		options: any, // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
 		parser: Parser,
 		report: Reporter
 	): Rule {
-		const meta = this.config.getMetaTable();
+		const meta = config.getMetaTable();
 		const rule = this.instantiateRule(ruleId, options);
 		rule.name = ruleId;
 		rule.init(parser, report, severity, meta);
