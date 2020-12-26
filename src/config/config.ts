@@ -9,7 +9,7 @@ import { MetaCopyableProperty, MetaDataTable } from "../meta/element";
 import { Plugin } from "../plugin";
 import schema from "../schema/config.json";
 import { TransformContext, Transformer, TRANSFORMER_API } from "../transform";
-import { ConfigData, TransformMap } from "./config-data";
+import { ConfigData, RuleOptions, TransformMap } from "./config-data";
 import defaultConfig from "./default";
 import { ConfigError } from "./error";
 import { parseSeverity, Severity } from "./severity";
@@ -320,8 +320,8 @@ export class Config {
 	/**
 	 * Get all configured rules, their severity and options.
 	 */
-	public getRules(): Map<string, [Severity, any]> {
-		const rules = new Map<string, [Severity, any]>();
+	public getRules(): Map<string, [Severity, RuleOptions]> {
+		const rules = new Map<string, [Severity, RuleOptions]>();
 		for (const [ruleId, data] of Object.entries(this.config.rules)) {
 			let options = data;
 			if (!Array.isArray(options)) {
@@ -401,7 +401,7 @@ export class Config {
 
 	public resolve(): ResolvedConfig {
 		const metaTable = this.getMetaTable();
-		return new ResolvedConfig(metaTable);
+		return new ResolvedConfig(metaTable, this.getRules());
 	}
 
 	/**

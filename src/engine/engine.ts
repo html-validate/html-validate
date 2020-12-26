@@ -24,12 +24,14 @@ export interface TokenDump {
 export class Engine<T extends Parser = Parser> {
 	protected report: Reporter;
 	protected config: Config;
+	protected resolvedConfig: ResolvedConfig;
 	protected ParserClass: new (config: ResolvedConfig) => T;
 	protected availableRules: { [key: string]: RuleConstructor<any, any> };
 
 	public constructor(config: Config, ParserClass: new (config: ResolvedConfig) => T) {
 		this.report = new Reporter();
 		this.config = config;
+		this.resolvedConfig = config.resolve();
 		this.ParserClass = ParserClass;
 
 		/* initialize plugins and rules */
@@ -54,7 +56,7 @@ export class Engine<T extends Parser = Parser> {
 			const parser = this.instantiateParser();
 
 			/* setup plugins and rules */
-			const { rules } = this.setupPlugins(source, this.config, parser);
+			const { rules } = this.setupPlugins(source, this.config, this.resolvedConfig, parser);
 
 			/* trigger configuration ready event */
 			const event: ConfigReadyEvent = {
@@ -158,7 +160,7 @@ export class Engine<T extends Parser = Parser> {
 		ruleId: string,
 		context?: any // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
 	): RuleDocumentation {
-		const rules = this.config.getRules();
+		const rules = this.resolvedConfig.getRules();
 		if (rules.has(ruleId)) {
 			const [, options] = rules.get(ruleId) as any;
 			const rule = this.instantiateRule(ruleId, options);
@@ -174,8 +176,7 @@ export class Engine<T extends Parser = Parser> {
 	 * @hidden
 	 */
 	public instantiateParser(): Parser {
-		const resolvedConfig = this.config.resolve();
-		return new this.ParserClass(resolvedConfig);
+		return new this.ParserClass(this.resolvedConfig);
 	}
 
 	private processDirective(
@@ -329,6 +330,7 @@ export class Engine<T extends Parser = Parser> {
 	protected setupPlugins(
 		source: Source,
 		config: Config,
+		resolvedConfig: ResolvedConfig,
 		parser: Parser
 	): {
 		rules: { [key: string]: Rule };
@@ -341,16 +343,16 @@ export class Engine<T extends Parser = Parser> {
 		}
 
 		return {
-			rules: this.setupRules(config, parser),
+			rules: this.setupRules(resolvedConfig, parser),
 		};
 	}
 
 	/**
 	 * Load and setup all rules for current configuration.
 	 */
-	protected setupRules(config: Config, parser: Parser): { [key: string]: Rule } {
+	protected setupRules(resolvedConfig: ResolvedConfig, parser: Parser): { [key: string]: Rule } {
 		const rules: { [key: string]: Rule } = {};
-		for (const [ruleId, [severity, options]] of config.getRules().entries()) {
+		for (const [ruleId, [severity, options]] of resolvedConfig.getRules().entries()) {
 			rules[ruleId] = this.loadRule(ruleId, severity, options, parser, this.report);
 		}
 		return rules;
