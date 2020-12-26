@@ -535,6 +535,13 @@ describe("HtmlValidate", () => {
 		`);
 	});
 
+	it("getConfiurationSchema() should get configuration schema", () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate();
+		const schema = htmlvalidate.getConfigurationSchema();
+		expect(schema).not.toBeUndefined();
+	});
+
 	it("getRuleDocumentation() should delegate call to engine", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
