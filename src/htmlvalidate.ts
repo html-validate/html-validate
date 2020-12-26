@@ -91,7 +91,7 @@ class HtmlValidate {
 	public validateSource(input: Source, configOverride?: ConfigData): Report {
 		const config = this.getConfigFor(input.filename, configOverride);
 		const source = config.transformSource(input);
-		const engine = new Engine(config, Parser);
+		const engine = new Engine(config.resolve(), config.get(), Parser);
 		return engine.lint(source);
 	}
 
@@ -104,7 +104,7 @@ class HtmlValidate {
 	public validateFile(filename: string): Report {
 		const config = this.getConfigFor(filename);
 		const source = config.transformFilename(filename);
-		const engine = new Engine(config, Parser);
+		const engine = new Engine(config.resolve(), config.get(), Parser);
 		return engine.lint(source);
 	}
 
@@ -151,7 +151,7 @@ class HtmlValidate {
 	public dumpTokens(filename: string): TokenDump[] {
 		const config = this.getConfigFor(filename);
 		const source = config.transformFilename(filename);
-		const engine = new Engine(config, Parser);
+		const engine = new Engine(config.resolve(), config.get(), Parser);
 		return engine.dumpTokens(source);
 	}
 
@@ -166,7 +166,7 @@ class HtmlValidate {
 	public dumpEvents(filename: string): EventDump[] {
 		const config = this.getConfigFor(filename);
 		const source = config.transformFilename(filename);
-		const engine = new Engine(config, Parser);
+		const engine = new Engine(config.resolve(), config.get(), Parser);
 		return engine.dumpEvents(source);
 	}
 
@@ -181,7 +181,7 @@ class HtmlValidate {
 	public dumpTree(filename: string): string[] {
 		const config = this.getConfigFor(filename);
 		const source = config.transformFilename(filename);
-		const engine = new Engine(config, Parser);
+		const engine = new Engine(config.resolve(), config.get(), Parser);
 		return engine.dumpTree(source);
 	}
 
@@ -246,7 +246,8 @@ class HtmlValidate {
 		config: Config | null = null,
 		context: any | null = null
 	): RuleDocumentation {
-		const engine = new Engine(config || this.getConfigFor("inline"), Parser);
+		const c = config || this.getConfigFor("inline");
+		const engine = new Engine(c.resolve(), c.get(), Parser);
 		return engine.getRuleDocumentation(ruleId, context);
 	}
 

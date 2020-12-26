@@ -1,4 +1,4 @@
-import { Config, ConfigData, ResolvedConfig, RuleOptions, Severity } from "../config";
+import { ConfigData, ResolvedConfig, RuleOptions, Severity } from "../config";
 import { Location, Source } from "../context";
 import { HtmlElement } from "../dom";
 import { ConfigReadyEvent, DirectiveEvent, TagCloseEvent, TagOpenEvent } from "../event";
@@ -22,18 +22,22 @@ export interface TokenDump {
 export class Engine<T extends Parser = Parser> {
 	protected report: Reporter;
 	protected configData: ConfigData;
-	protected resolvedConfig: ResolvedConfig;
+	protected config: ResolvedConfig;
 	protected ParserClass: new (config: ResolvedConfig) => T;
 	protected availableRules: Record<string, RuleConstructor<any, any>>;
 
-	public constructor(config: Config, ParserClass: new (config: ResolvedConfig) => T) {
+	public constructor(
+		config: ResolvedConfig,
+		configData: ConfigData,
+		ParserClass: new (config: ResolvedConfig) => T
+	) {
 		this.report = new Reporter();
-		this.configData = config.get();
-		this.resolvedConfig = config.resolve();
+		this.configData = configData;
+		this.config = config;
 		this.ParserClass = ParserClass;
 
 		/* initialize plugins and rules */
-		const result = this.initPlugins(this.resolvedConfig);
+		const result = this.initPlugins(this.config);
 		this.availableRules = {
 			...bundledRules,
 			...result.availableRules,
@@ -54,7 +58,7 @@ export class Engine<T extends Parser = Parser> {
 			const parser = this.instantiateParser();
 
 			/* setup plugins and rules */
-			const { rules } = this.setupPlugins(source, this.resolvedConfig, parser);
+			const { rules } = this.setupPlugins(source, this.config, parser);
 
 			/* trigger configuration ready event */
 			const event: ConfigReadyEvent = {
@@ -158,7 +162,7 @@ export class Engine<T extends Parser = Parser> {
 		ruleId: string,
 		context?: any // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
 	): RuleDocumentation {
-		const rules = this.resolvedConfig.getRules();
+		const rules = this.config.getRules();
 		if (rules.has(ruleId)) {
 			const [, options] = rules.get(ruleId) as any;
 			const rule = this.instantiateRule(ruleId, options);
@@ -174,7 +178,7 @@ export class Engine<T extends Parser = Parser> {
 	 * @hidden
 	 */
 	public instantiateParser(): Parser {
-		return new this.ParserClass(this.resolvedConfig);
+		return new this.ParserClass(this.config);
 	}
 
 	private processDirective(

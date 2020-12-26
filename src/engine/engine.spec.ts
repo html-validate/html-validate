@@ -85,7 +85,7 @@ describe("Engine", () => {
 			},
 		});
 		config.init();
-		engine = new ExposedEngine(config, MockParser);
+		engine = new ExposedEngine(config.resolve(), config.get(), MockParser);
 	});
 
 	describe("lint()", () => {
@@ -464,7 +464,11 @@ describe("Engine", () => {
 					},
 				];
 
-				const engine: ExposedEngine<Parser> = new ExposedEngine(config, MockParser);
+				const engine: ExposedEngine<Parser> = new ExposedEngine(
+					config.resolve(),
+					config.get(),
+					MockParser
+				);
 				const rule = engine.loadRule(
 					"custom/my-rule",
 					config.resolve(),
@@ -492,7 +496,11 @@ describe("Engine", () => {
 					},
 				];
 
-				const engine: ExposedEngine<Parser> = new ExposedEngine(config, MockParser);
+				const engine: ExposedEngine<Parser> = new ExposedEngine(
+					config.resolve(),
+					config.get(),
+					MockParser
+				);
 				const rule = engine.loadRule(
 					"custom/my-rule",
 					config.resolve(),
@@ -508,7 +516,7 @@ describe("Engine", () => {
 				expect.assertions(1);
 				/* mock loading of plugins */
 				(config as any).plugins = [{}];
-				expect(() => new ExposedEngine(config, MockParser)).not.toThrow();
+				expect(() => new ExposedEngine(config.resolve(), config.get(), MockParser)).not.toThrow();
 			});
 		});
 	});
