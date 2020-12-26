@@ -71,9 +71,10 @@ plugins](dev/writing-plugins.html).**
 
 First-class support for:
 
-- {@link frameworks/angularjs AngularJS}
-- {@link frameworks/vue Vue.js}
-- {@link usage/protractor Protractor}
+- JS: {@link frameworks/vue Vue.js} and {@link frameworks/angularjs AngularJS}
+- Testing: {@link frameworks/jest Jest}
+- IDE: {@link usage/vscode VS Code}
+- E2E: {@link usage/cypress Cypress} and {@link usage/protractor Protractor}
 
 @block Examples
 
