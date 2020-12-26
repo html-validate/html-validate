@@ -35,7 +35,7 @@ describe("Selector", () => {
 	let doc: HtmlElement;
 
 	beforeEach(() => {
-		const parser = new Parser(Config.empty());
+		const parser = new Parser(Config.empty().resolve());
 		doc = parser.parseHtml(`
 			<foo id="barney" test-id="foo-1">first foo</foo>
 			<foo CLASS="fred" test-id="foo-2">second foo</foo>

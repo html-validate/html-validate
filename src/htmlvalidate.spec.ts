@@ -744,9 +744,10 @@ describe("HtmlValidate", () => {
 			column: 1,
 			offset: 0,
 		};
+		const resolvedConfig = config.resolve();
 		const parser = htmlvalidate.getParserFor(source);
 		expect(parser).toBeInstanceOf(Parser);
-		expect(Parser).toHaveBeenCalledWith(config);
+		expect(Parser).toHaveBeenCalledWith(resolvedConfig);
 	});
 
 	it("flushConfigCache() should delegate to configLoader", () => {

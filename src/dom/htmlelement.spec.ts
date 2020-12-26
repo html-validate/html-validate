@@ -35,7 +35,7 @@ describe("HtmlElement", () => {
 			<p class="bar">spam</p>
 			<span class="baz">flux</span>
 		</div>`;
-		const parser = new Parser(Config.empty());
+		const parser = new Parser(Config.empty().resolve());
 		const source: Source = {
 			data: markup,
 			filename: "inline",
@@ -382,7 +382,7 @@ describe("HtmlElement", () => {
 		let node: HtmlElement;
 
 		beforeAll(() => {
-			const parser = new Parser(Config.empty());
+			const parser = new Parser(Config.empty().resolve());
 			root = parser.parseHtml(`
 				<div id="1" class="x">
 					<div id="2" class="x">
@@ -412,7 +412,7 @@ describe("HtmlElement", () => {
 		let parser: Parser;
 
 		beforeAll(() => {
-			parser = new Parser(Config.empty());
+			parser = new Parser(Config.empty().resolve());
 		});
 
 		it("should generate a unique selector", () => {

@@ -50,7 +50,7 @@ describe("parser", () => {
 
 	beforeEach(() => {
 		events = [];
-		parser = new ExposedParser(Config.empty());
+		parser = new ExposedParser(Config.empty().resolve());
 		parser.on("*", (event: string, data: any) => {
 			if (ignoredEvents.includes(event)) return;
 			events.push(mergeEvent(event, data));

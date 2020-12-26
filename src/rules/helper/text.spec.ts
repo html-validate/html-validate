@@ -3,7 +3,7 @@ import { DynamicValue } from "../../dom";
 import { Parser } from "../../parser";
 import { classifyNodeText, TextClassification } from "./text";
 
-const parser = new Parser(Config.empty());
+const parser = new Parser(Config.empty().resolve());
 
 describe("classifyNodeText()", () => {
 	it("should classify element with text as STATIC_TEXT", () => {

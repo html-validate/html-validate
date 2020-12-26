@@ -1,4 +1,4 @@
-import { Config, Severity } from "../config";
+import { Config, ResolvedConfig, Severity } from "../config";
 import { Location, Source } from "../context";
 import { HtmlElement } from "../dom";
 import { ConfigReadyEvent, DirectiveEvent, TagCloseEvent, TagOpenEvent } from "../event";
@@ -24,10 +24,10 @@ export interface TokenDump {
 export class Engine<T extends Parser = Parser> {
 	protected report: Reporter;
 	protected config: Config;
-	protected ParserClass: new (config: Config) => T;
+	protected ParserClass: new (config: ResolvedConfig) => T;
 	protected availableRules: { [key: string]: RuleConstructor<any, any> };
 
-	public constructor(config: Config, ParserClass: new (config: Config) => T) {
+	public constructor(config: Config, ParserClass: new (config: ResolvedConfig) => T) {
 		this.report = new Reporter();
 		this.config = config;
 		this.ParserClass = ParserClass;
@@ -92,7 +92,7 @@ export class Engine<T extends Parser = Parser> {
 	}
 
 	public dumpEvents(source: Source[]): EventDump[] {
-		const parser = new Parser(this.config);
+		const parser = this.instantiateParser();
 		const lines: EventDump[] = [];
 		parser.on("*", (event, data) => {
 			lines.push({ event, data });
@@ -119,7 +119,7 @@ export class Engine<T extends Parser = Parser> {
 
 	public dumpTree(source: Source[]): string[] {
 		/* @todo handle dumping each tree */
-		const parser = new Parser(this.config);
+		const parser = this.instantiateParser();
 		const dom = parser.parseHtml(source[0]);
 		const lines: string[] = [];
 
@@ -174,7 +174,8 @@ export class Engine<T extends Parser = Parser> {
 	 * @hidden
 	 */
 	public instantiateParser(): Parser {
-		return new this.ParserClass(this.config);
+		const resolvedConfig = this.config.resolve();
+		return new this.ParserClass(resolvedConfig);
 	}
 
 	private processDirective(

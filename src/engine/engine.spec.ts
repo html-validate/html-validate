@@ -169,7 +169,7 @@ describe("Engine", () => {
 		it("should generate config:ready event", () => {
 			expect.assertions(5);
 			const source: Source[] = [inline("<div></div>")];
-			const parser = new Parser(config);
+			const parser = new Parser(config.resolve());
 			const spy = jest.fn();
 			parser.on("config:ready", spy);
 			jest.spyOn(engine, "instantiateParser").mockReturnValue(parser);
@@ -401,7 +401,7 @@ describe("Engine", () => {
 			let mockRule: any;
 
 			beforeEach(() => {
-				parser = new MockParser(config);
+				parser = new MockParser(config.resolve());
 				reporter = new Reporter();
 				mockRule = {
 					init: jest.fn(),

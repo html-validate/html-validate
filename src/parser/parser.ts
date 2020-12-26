@@ -1,4 +1,4 @@
-import { Config } from "../config";
+import { ResolvedConfig } from "../config";
 import { Location, sliceLocation, Source } from "../context";
 import { ProcessAttributeCallback, ProcessElementContext } from "../context/source";
 import { DOMTree, HtmlElement, NodeClosed } from "../dom";
@@ -36,7 +36,7 @@ export class Parser {
 	 *
 	 * @param config - Configuration
 	 */
-	public constructor(config: Config) {
+	public constructor(config: ResolvedConfig) {
 		this.event = new EventHandler();
 		this.dom = undefined;
 		this.metaTable = config.getMetaTable();

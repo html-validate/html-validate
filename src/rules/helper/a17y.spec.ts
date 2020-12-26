@@ -8,7 +8,7 @@ describe("a17y helpers", () => {
 	let parser: Parser;
 
 	beforeEach(() => {
-		parser = new Parser(Config.defaultConfig());
+		parser = new Parser(Config.defaultConfig().resolve());
 	});
 
 	function parse(data: string): DOMTree {

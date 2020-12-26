@@ -14,6 +14,7 @@ import defaultConfig from "./default";
 import { ConfigError } from "./error";
 import { parseSeverity, Severity } from "./severity";
 import Presets from "./presets";
+import { ResolvedConfig } from "./resolved-config";
 
 interface TransformerEntry {
 	pattern: RegExp;
@@ -396,6 +397,11 @@ export class Config {
 				}
 			}
 		}
+	}
+
+	public resolve(): ResolvedConfig {
+		const metaTable = this.getMetaTable();
+		return new ResolvedConfig(metaTable);
 	}
 
 	/**

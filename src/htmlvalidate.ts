@@ -257,7 +257,7 @@ class HtmlValidate {
 	 */
 	public getParserFor(source: Source): Parser {
 		const config = this.getConfigFor(source.filename);
-		return new Parser(config);
+		return new Parser(config.resolve());
 	}
 
 	/**

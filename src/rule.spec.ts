@@ -27,7 +27,7 @@ describe("rule base class", () => {
 	let mockEvent: Event;
 
 	beforeEach(() => {
-		parser = new Parser(Config.empty());
+		parser = new Parser(Config.empty().resolve());
 		parser.on = jest.fn();
 		reporter = new Reporter();
 		reporter.add = jest.fn();

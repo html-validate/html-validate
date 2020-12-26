@@ -125,7 +125,7 @@ describe("DOMNode", () => {
 		it("smoketest", () => {
 			expect.assertions(1);
 			const markup = `lorem <i>ipsum</i> <b>dolor <u>sit amet</u></b>`;
-			const parser = new Parser(Config.empty());
+			const parser = new Parser(Config.empty().resolve());
 			const doc = parser.parseHtml(markup).root;
 			expect(doc.textContent).toEqual("lorem ipsum dolor sit amet");
 		});
