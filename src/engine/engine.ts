@@ -320,6 +320,7 @@ export class Engine<T extends Parser = Parser> {
 		const availableRules: { [key: string]: RuleConstructor<any, any> } = {};
 		for (const plugin of config.getPlugins()) {
 			for (const [name, rule] of Object.entries(plugin.rules || {})) {
+				if (!rule) continue;
 				availableRules[name] = rule;
 			}
 		}
@@ -392,8 +393,8 @@ export class Engine<T extends Parser = Parser> {
 		}
 	}
 
-	private missingRule(name: string): any {
-		return new (class extends Rule {
+	protected missingRule(name: string): Rule {
+		return new (class MissingRule extends Rule {
 			public setup(): void {
 				this.on("dom:load", () => {
 					this.report(null, `Definition for rule '${name}' was not found`);

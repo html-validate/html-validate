@@ -71,6 +71,11 @@ class ExposedEngine<T extends Parser> extends Engine<T> {
 	public instantiateRule(name: string, options: RuleOptions): Rule {
 		return super.instantiateRule(name, options);
 	}
+
+	/* exposed for testing */
+	public missingRule(name: string): Rule {
+		return super.missingRule(name);
+	}
 }
 
 describe("Engine", () => {
@@ -489,6 +494,28 @@ describe("Engine", () => {
 				);
 				expect(rule).toBeInstanceOf(MyRule);
 				expect(rule.name).toEqual("custom/my-rule");
+			});
+
+			it("should handle plugin setting rule to null", () => {
+				expect.assertions(1);
+
+				/* mock loading of plugins */
+				(config as any).plugins = [
+					{
+						rules: {
+							"custom/my-rule": null,
+						},
+					},
+				];
+
+				const engine: ExposedEngine<Parser> = new ExposedEngine(
+					config.resolve(),
+					config.get(),
+					MockParser
+				);
+				const missingRule = jest.spyOn(engine, "missingRule");
+				engine.loadRule("custom/my-rule", config.resolve(), Severity.ERROR, {}, parser, reporter);
+				expect(missingRule).toHaveBeenCalledWith("custom/my-rule");
 			});
 
 			it("should handle missing setup callback", () => {
