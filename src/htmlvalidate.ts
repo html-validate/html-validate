@@ -1,4 +1,5 @@
 import path from "path";
+import { SchemaObject } from "ajv";
 import { Config, ConfigData, ConfigLoader } from "./config";
 import { Source } from "./context";
 import { SourceHooks } from "./context/source";
@@ -6,6 +7,7 @@ import { Engine, EventDump, TokenDump } from "./engine";
 import { Parser } from "./parser";
 import { Report, Reporter } from "./reporter";
 import { RuleDocumentation } from "./rule";
+import configurationSchema from "./schema/config.json";
 
 function isSourceHooks(value: any): value is SourceHooks {
 	if (!value || typeof value === "string") {
@@ -217,6 +219,27 @@ class HtmlValidate {
 			result.push("---");
 			return result;
 		}, [] as string[]);
+	}
+
+	/**
+	 * Get effective configuration schema.
+	 */
+	public getConfigurationSchema(): SchemaObject {
+		return configurationSchema;
+	}
+
+	/**
+	 * Get effective metadata element schema.
+	 *
+	 * If a filename is given the configured plugins can extend the
+	 * schema. Filename must not be an existing file or a filetype normally
+	 * handled by html-validate but the path will be used when resolving
+	 * configuration. As a rule-of-thumb, set it to the elements json file.
+	 */
+	public getElementsSchema(filename?: string): SchemaObject {
+		const config = this.getConfigFor(filename ?? "inline");
+		const metaTable = config.getMetaTable();
+		return metaTable.getJSONSchema();
 	}
 
 	/**
