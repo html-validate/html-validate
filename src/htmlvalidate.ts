@@ -221,8 +221,25 @@ class HtmlValidate {
 		}, [] as string[]);
 	}
 
+	/**
+	 * Get effective configuration schema.
+	 */
 	public getConfigurationSchema(): SchemaObject {
 		return configurationSchema;
+	}
+
+	/**
+	 * Get effective metadata element schema.
+	 *
+	 * If a filename is given the configured plugins can extend the
+	 * schema. Filename must not be an existing file or a filetype normally
+	 * handled by html-validate but the path will be used when resolving
+	 * configuration. As a rule-of-thumb, set it to the elements json file.
+	 */
+	public getElementsSchema(filename?: string): SchemaObject {
+		const config = this.getConfigFor(filename ?? "inline");
+		const metaTable = config.getMetaTable();
+		return metaTable.getJSONSchema();
 	}
 
 	/**

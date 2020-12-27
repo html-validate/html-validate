@@ -535,10 +535,24 @@ describe("HtmlValidate", () => {
 		`);
 	});
 
-	it("getConfiurationSchema() should get configuration schema", () => {
+	it("getConfiurationSchema() should get effective configuration schema", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
 		const schema = htmlvalidate.getConfigurationSchema();
+		expect(schema).not.toBeUndefined();
+	});
+
+	it("getElementsSchema() should get effective elements schema", () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate();
+		const schema = htmlvalidate.getElementsSchema("./path/to/elements.json");
+		expect(schema).not.toBeUndefined();
+	});
+
+	it("getElementsSchema() should not require filename", () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate();
+		const schema = htmlvalidate.getElementsSchema();
 		expect(schema).not.toBeUndefined();
 	});
 

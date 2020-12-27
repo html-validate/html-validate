@@ -1,5 +1,5 @@
 import Ajv, { KeywordDefinition, ValidateFunction } from "ajv";
-import { DataValidateFunction, DataValidationCxt } from "ajv/dist/types";
+import { DataValidateFunction, DataValidationCxt, SchemaObject } from "ajv/dist/types";
 import deepmerge from "deepmerge";
 import jsonMergePatch from "json-merge-patch";
 import { HtmlElement } from "../dom";
@@ -76,9 +76,7 @@ const ajvRegexpKeyword: KeywordDefinition = {
 export class MetaTable {
 	public readonly elements: ElementTable;
 
-	/* jsonMergePatch.apply returns Object */
-	/* eslint-disable-next-line @typescript-eslint/ban-types */
-	private schema: Object;
+	private schema: SchemaObject;
 
 	public constructor() {
 		this.elements = {};
@@ -216,6 +214,10 @@ export class MetaTable {
 		ajv.addKeyword(ajvRegexpKeyword);
 		ajv.addKeyword({ keyword: "copyable" });
 		return ajv.compile<MetaDataTable>(this.schema);
+	}
+
+	public getJSONSchema(): SchemaObject {
+		return this.schema;
 	}
 
 	/**
