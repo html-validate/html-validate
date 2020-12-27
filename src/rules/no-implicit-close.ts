@@ -21,7 +21,8 @@ Omitted end tags can be ambigious for humans to read and many editors have troub
 				return;
 			}
 
-			const closedByParent = closed.parent.tagName === by.tagName; /* <ul><li></ul> */
+			const closedByParent =
+				closed.parent && closed.parent.tagName === by.tagName; /* <ul><li></ul> */
 			const sameTag = closed.tagName === by.tagName; /* <p>foo<p>bar */
 
 			if (closedByParent) {

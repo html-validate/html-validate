@@ -150,14 +150,23 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * Rule must be enabled both globally and on the specific node for this to
 	 * have any effect.
 	 */
-	public report(node: DOMNode, message: string, location?: Location, context?: ContextType): void {
+	public report(
+		node: DOMNode | null,
+		message: string,
+		location?: Location | null,
+		context?: ContextType
+	): void {
 		if (this.isEnabled() && (!node || node.ruleEnabled(this.name))) {
 			const where = this.findLocation({ node, location, event: this.event });
 			this.reporter.add(this, message, this.severity, node, where, context);
 		}
 	}
 
-	private findLocation(src: { node: DOMNode; location: Location; event: Event }): Location {
+	private findLocation(src: {
+		node: DOMNode | null;
+		location: Location | undefined;
+		event: Event | null;
+	}): Location {
 		if (src.location) {
 			return src.location;
 		}

@@ -31,12 +31,12 @@ const mapping: Record<string, string> = {
 	script: "src",
 };
 
-const description: Record<Style, string> = {
+const description: Record<Style, string | null> = {
 	[Style.EXTERNAL]: "External links are not allowed by current configuration.",
 	[Style.RELATIVE_BASE]: "Links relative to <base> are not allowed by current configuration.",
 	[Style.RELATIVE_PATH]: "Relative links are not allowed by current configuration.",
 	[Style.ABSOLUTE]: "Absolute links are not allowed by current configuration.",
-	[Style.ANCHOR]: undefined,
+	[Style.ANCHOR]: null,
 };
 
 export default class AllowedLinks extends Rule<Style, RuleOptions> {
@@ -95,7 +95,7 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 		}
 
 		const attr = mapping[target.tagName];
-		return attr && attr === key;
+		return Boolean(attr && attr === key);
 	}
 
 	protected getStyle(value: string): Style {

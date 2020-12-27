@@ -31,7 +31,7 @@ export function inAccessibilityTree(node: HtmlElement): boolean {
  */
 export function isAriaHidden(node: HtmlElement): boolean {
 	if (node.cacheExists(ARIA_HIDDEN_CACHE)) {
-		return node.cacheGet(ARIA_HIDDEN_CACHE);
+		return Boolean(node.cacheGet(ARIA_HIDDEN_CACHE));
 	}
 
 	let cur: HtmlElement = node;
@@ -41,6 +41,12 @@ export function isAriaHidden(node: HtmlElement): boolean {
 		/* aria-hidden="true" */
 		if (ariaHidden && ariaHidden.value === "true") {
 			return cur.cacheSet(ARIA_HIDDEN_CACHE, true);
+		}
+
+		/* sanity check: break if no parent is present, normally not an issue as the
+		 * root element should be found first */
+		if (!cur.parent) {
+			break;
 		}
 
 		/* check parents */
@@ -58,7 +64,7 @@ export function isAriaHidden(node: HtmlElement): boolean {
  */
 export function isHTMLHidden(node: HtmlElement): boolean {
 	if (node.cacheExists(HTML_HIDDEN_CACHE)) {
-		return node.cacheGet(HTML_HIDDEN_CACHE);
+		return Boolean(node.cacheGet(HTML_HIDDEN_CACHE));
 	}
 
 	let cur: HtmlElement = node;
@@ -68,6 +74,12 @@ export function isHTMLHidden(node: HtmlElement): boolean {
 		/* hidden present */
 		if (hidden !== null && hidden.isStatic) {
 			return cur.cacheSet(HTML_HIDDEN_CACHE, true);
+		}
+
+		/* sanity check: break if no parent is present, normally not an issue as the
+		 * root element should be found first */
+		if (!cur.parent) {
+			break;
 		}
 
 		/* check parents */
@@ -84,7 +96,7 @@ export function isHTMLHidden(node: HtmlElement): boolean {
  */
 export function isPresentation(node: HtmlElement): boolean {
 	if (node.cacheExists(ROLE_PRESENTATION_CACHE)) {
-		return node.cacheGet(ROLE_PRESENTATION_CACHE);
+		return Boolean(node.cacheGet(ROLE_PRESENTATION_CACHE));
 	}
 
 	let cur: HtmlElement = node;
@@ -94,6 +106,12 @@ export function isPresentation(node: HtmlElement): boolean {
 		/* role="presentation" */
 		if (role && role.value === "presentation") {
 			return cur.cacheSet(ROLE_PRESENTATION_CACHE, true);
+		}
+
+		/* sanity check: break if no parent is present, normally not an issue as the
+		 * root element should be found first */
+		if (!cur.parent) {
+			break;
 		}
 
 		/* check parents */

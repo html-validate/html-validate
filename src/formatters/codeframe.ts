@@ -139,7 +139,7 @@ function codeframe(results: Result[]): string {
 			warnings += result.warningCount;
 
 			return resultsOutput.concat(messages);
-		}, [])
+		}, [] as string[])
 		.join("\n");
 
 	output += "\n";

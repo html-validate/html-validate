@@ -20,6 +20,10 @@ export default class ElementPermittedOrder extends Rule {
 				}
 
 				const rules = node.meta.permittedOrder;
+				if (!rules) {
+					return;
+				}
+
 				Validator.validateOrder(
 					node.childElements,
 					rules,

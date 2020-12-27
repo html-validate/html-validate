@@ -66,7 +66,7 @@ function isVisible(elem: HtmlElement): boolean {
 	return !hidden;
 }
 
-function findLabelById(root: DOMTree, id: string): HtmlElement[] {
+function findLabelById(root: DOMTree, id: string | null): HtmlElement[] {
 	if (!id) return [];
 	return root.querySelectorAll(`label[for="${id}"]`);
 }

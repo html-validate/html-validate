@@ -4,7 +4,7 @@ import { PermittedAttribute } from "../meta/element";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 interface Options {
-	style?: string;
+	style: string;
 }
 
 const defaults: Options = {
@@ -16,8 +16,8 @@ type checkFunction = (attr: Attribute) => boolean;
 export default class AttributeBooleanStyle extends Rule<void, Options> {
 	private hasInvalidStyle: checkFunction;
 
-	public constructor(options: Options) {
-		super(Object.assign({}, defaults, options));
+	public constructor(options: Partial<Options>) {
+		super({ ...defaults, ...options });
 		this.hasInvalidStyle = parseStyle(this.options.style);
 	}
 

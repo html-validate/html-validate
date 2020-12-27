@@ -20,7 +20,7 @@ export default class ElementPermittedContent extends Rule {
 				const parent = node.parent;
 
 				/* dont verify root element, assume any element is allowed */
-				if (parent.isRootElement()) {
+				if (!parent || parent.isRootElement()) {
 					return;
 				}
 
@@ -84,7 +84,12 @@ export default class ElementPermittedContent extends Rule {
 				continue;
 			}
 
-			if (Validator.validatePermitted(node, meta.permittedDescendants)) {
+			const rules = meta.permittedDescendants;
+			if (!rules) {
+				continue;
+			}
+
+			if (Validator.validatePermitted(node, rules)) {
 				continue;
 			}
 
@@ -101,11 +106,17 @@ export default class ElementPermittedContent extends Rule {
 		if (!node.meta) {
 			return false;
 		}
+
 		const rules = node.meta.requiredAncestors;
+		if (!rules) {
+			return false;
+		}
+
 		if (!Validator.validateAncestors(node, rules)) {
 			this.report(node, `Element <${node.tagName}> requires an "${rules[0]}" ancestor`);
 			return true;
 		}
+
 		return false;
 	}
 }

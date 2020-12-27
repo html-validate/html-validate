@@ -3,7 +3,7 @@ import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 import { HtmlElement } from "../dom";
 
 export default class MultipleLabeledControls extends Rule {
-	private labelable: string;
+	private labelable: string = "";
 
 	public documentation(): RuleDocumentation {
 		return {

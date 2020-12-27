@@ -9,8 +9,8 @@ enum QuoteStyle {
 }
 
 interface Options {
-	style?: '"' | "'" | "auto";
-	unquoted?: boolean;
+	style: '"' | "'" | "auto";
+	unquoted: boolean;
 }
 
 const defaults: Options = {
@@ -35,8 +35,8 @@ export default class AttrQuotes extends Rule<void, Options> {
 		}
 	}
 
-	public constructor(options: Options) {
-		super(Object.assign({}, defaults, options));
+	public constructor(options: Partial<Options>) {
+		super({ ...defaults, ...options });
 		this.style = parseStyle(this.options.style);
 	}
 

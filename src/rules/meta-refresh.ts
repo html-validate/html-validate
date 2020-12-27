@@ -48,7 +48,7 @@ export default class MetaRefresh extends Rule {
 	}
 }
 
-function parseContent(text: string): { delay: number; url: string } {
+function parseContent(text: string): { delay: number; url: string } | null {
 	const match = text.match(/^(\d+)(?:\s*;\s*url=(.*))?/);
 	if (match) {
 		return {

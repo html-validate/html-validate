@@ -17,11 +17,15 @@ export default class ElementPermittedOccurrences extends Rule {
 			doc.visitDepthFirst((node: HtmlElement) => {
 				const parent = node.parent;
 
-				if (!parent.meta) {
+				if (!parent || !parent.meta) {
 					return;
 				}
 
 				const rules = parent.meta.permittedContent;
+				if (!rules) {
+					return;
+				}
+
 				const siblings = parent.childElements.filter((cur) => cur.tagName === node.tagName);
 				const first = node.unique === siblings[0].unique;
 

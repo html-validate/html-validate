@@ -51,7 +51,7 @@ export default class HeadingLevel extends Rule {
 		return node.meta && !!node.meta.heading;
 	}
 
-	private extractLevel(node: HtmlElement): number {
+	private extractLevel(node: HtmlElement): number | null {
 		const match = node.tagName.match(/^[hH](\d)$/);
 		return match ? parseInt(match[1], 10) : null;
 	}

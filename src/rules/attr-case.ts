@@ -16,8 +16,8 @@ const defaults: RuleOptions = {
 export default class AttrCase extends Rule<void, RuleOptions> {
 	private style: CaseStyle;
 
-	public constructor(options: RuleOptions) {
-		super(Object.assign({}, defaults, options));
+	public constructor(options: Partial<RuleOptions>) {
+		super({ ...defaults, ...options });
 		this.style = new CaseStyle(this.options.style, "attr-case");
 	}
 
@@ -50,7 +50,7 @@ export default class AttrCase extends Rule<void, RuleOptions> {
 
 	protected isIgnored(node: HtmlElement): boolean {
 		if (this.options.ignoreForeign) {
-			return node.meta && node.meta.foreign;
+			return Boolean(node.meta && node.meta.foreign);
 		} else {
 			return false;
 		}

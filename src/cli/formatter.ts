@@ -15,7 +15,7 @@ function wrap(formatter: Formatter, dst: string): (results: Result[]) => string 
 				fs.mkdirSync(dir, { recursive: true });
 			}
 			fs.writeFileSync(dst, output, "utf-8");
-			return null;
+			return "";
 		} else {
 			return output;
 		}

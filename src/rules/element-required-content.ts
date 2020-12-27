@@ -34,6 +34,10 @@ export default class ElementRequiredContent extends Rule<Context> {
 				}
 
 				const rules = node.meta.requiredContent;
+				if (!rules) {
+					return;
+				}
+
 				for (const missing of Validator.validateRequiredContent(node, rules)) {
 					const context: Context = {
 						node: node.tagName,
