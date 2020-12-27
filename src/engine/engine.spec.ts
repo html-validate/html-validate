@@ -7,7 +7,7 @@ import { MetaTable } from "../meta";
 import { Parser, ParserError } from "../parser";
 import { Reporter } from "../reporter";
 import { Rule } from "../rule";
-import { ConfigReadyEvent } from "../event";
+import { ConfigReadyEvent, Event } from "../event";
 import { Engine } from "./engine";
 
 function inline(source: string): Source {
@@ -22,7 +22,7 @@ function inline(source: string): Source {
 
 class MockParser extends Parser {
 	public parseHtml(source: string | Source): DOMTree {
-		if (typeof source === "string") return null;
+		if (typeof source === "string") return super.parseHtml(source);
 		switch (source.data) {
 			case "invalid-token-error":
 				throw new InvalidTokenError(
@@ -436,13 +436,23 @@ describe("Engine", () => {
 				expect.assertions(1);
 				engine.loadRule("foobar", config.resolve(), Severity.ERROR, {}, parser, reporter);
 				const add = jest.spyOn(reporter, "add");
-				parser.trigger("dom:load", { location: null });
+				const location = {
+					filename: "inline",
+					line: 1,
+					column: 1,
+					offset: 0,
+					size: 1,
+				};
+				const event: Event = {
+					location,
+				};
+				parser.trigger("dom:load", event);
 				expect(add).toHaveBeenCalledWith(
 					expect.any(Rule),
 					"Definition for rule 'foobar' was not found",
 					Severity.ERROR,
 					null,
-					{},
+					location,
 					undefined
 				);
 			});

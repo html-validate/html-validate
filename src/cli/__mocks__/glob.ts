@@ -7,7 +7,7 @@ interface Options {
 	cwd?: string;
 }
 
-let mockFiles: string[] = null;
+let mockFiles: string[] | null = null;
 
 function setMockFiles(files: string[]): void {
 	mockFiles = files.map((cur) => path.normalize(cur));

@@ -28,11 +28,11 @@ export class HtmlElement extends DOMNode {
 	private annotation: string | null;
 
 	public constructor(
-		tagName: string,
-		parent: HtmlElement | null = null,
+		tagName: string | undefined,
+		parent: HtmlElement | null,
 		closed: NodeClosed = NodeClosed.EndTag,
-		meta: MetaElement | null = null,
-		location: Location | null = null
+		meta: MetaElement | null,
+		location: Location
 	) {
 		const nodeType = tagName ? NodeType.ELEMENT_NODE : NodeType.DOCUMENT_NODE;
 		super(nodeType, tagName, location);
@@ -58,7 +58,7 @@ export class HtmlElement extends DOMNode {
 		}
 	}
 
-	public static rootNode(location: Location | null): HtmlElement {
+	public static rootNode(location: Location): HtmlElement {
 		return new HtmlElement(undefined, null, null, null, location);
 	}
 

@@ -1,7 +1,7 @@
 import path from "path";
 import { Config, Severity } from "./config";
 import { Location } from "./context";
-import { HtmlElement } from "./dom";
+import { HtmlElement, NodeClosed } from "./dom";
 import { Event } from "./event";
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";
@@ -17,6 +17,14 @@ class MockRule extends Rule<RuleContext> {
 		/* do nothing */
 	}
 }
+
+const location: Location = {
+	filename: "inline",
+	line: 1,
+	column: 1,
+	offset: 0,
+	size: 1,
+};
 
 describe("rule base class", () => {
 	let parser: Parser;
@@ -59,7 +67,7 @@ describe("rule base class", () => {
 
 		it('should add message with severity "warn"', () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo", null);
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			rule.setServerity(Severity.WARN);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(
@@ -76,7 +84,7 @@ describe("rule base class", () => {
 
 		it('should add message with severity "error"', () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo", null);
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(
 				rule,
@@ -99,7 +107,7 @@ describe("rule base class", () => {
 
 		it("should use explicit location if provided", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo", null);
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			rule.report(node, "foo", mockLocation);
 			expect(reporter.add).toHaveBeenCalledWith(
 				rule,
@@ -115,7 +123,7 @@ describe("rule base class", () => {
 
 		it("should use event location if no explicit location", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo", null);
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			rule.on("*", () => null);
 			const callback = (parser.on as any).mock.calls[0][1];
 			callback("event", mockEvent);
@@ -134,7 +142,7 @@ describe("rule base class", () => {
 
 		it("should use node location if no node location", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo", null, undefined, null, mockLocation);
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, mockLocation);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(
 				rule,
@@ -151,7 +159,7 @@ describe("rule base class", () => {
 		it("should set context if provided", () => {
 			expect.assertions(1);
 			const context = { foo: "bar" };
-			const node = new HtmlElement("foo", null);
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			rule.report(node, "foo", null, context);
 			expect(reporter.add).toHaveBeenCalledWith(
 				rule,
@@ -167,7 +175,7 @@ describe("rule base class", () => {
 
 		it("should not add message if node has disabled rule", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo", null);
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			node.disableRule("mock-rule");
 			rule.setServerity(Severity.ERROR);
 			rule.report(node, "foo");

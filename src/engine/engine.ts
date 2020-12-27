@@ -142,7 +142,7 @@ export class Engine<T extends Parser = Parser> {
 			if (level > 0) {
 				const indent = "  ".repeat(level - 1);
 				const l = node.childElements.length > 0 ? "┬" : "─";
-				const b = sibling < node.parent.childElements.length - 1 ? "├" : "└";
+				const b = sibling < (node.parent ? node.parent.childElements.length - 1 : 0) ? "├" : "└";
 				lines.push(`${indent}${b}─${l} ${node.tagName}${decoration(node)}`);
 			} else {
 				lines.push("(root)");
@@ -161,7 +161,7 @@ export class Engine<T extends Parser = Parser> {
 	public getRuleDocumentation(
 		ruleId: string,
 		context?: any // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
-	): RuleDocumentation {
+	): RuleDocumentation | null {
 		const rules = this.config.getRules();
 		if (rules.has(ruleId)) {
 			const [, options] = rules.get(ruleId) as any;

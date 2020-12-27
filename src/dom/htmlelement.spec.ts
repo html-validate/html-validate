@@ -97,7 +97,7 @@ describe("HtmlElement", () => {
 			expect.assertions(2);
 			const [startToken1, endToken1] = createTokens("foo", true); //  <foo>
 			const [startToken2, endToken2] = createTokens("foo", false); // </foo>
-			const parent = new HtmlElement("parent");
+			const parent = new HtmlElement("parent", null, NodeClosed.EndTag, null, location);
 			const open = HtmlElement.fromTokens(startToken1, endToken1, parent, null);
 			const close = HtmlElement.fromTokens(startToken2, endToken2, parent, null);
 			expect(open.parent).toBeDefined();
@@ -135,14 +135,14 @@ describe("HtmlElement", () => {
 	describe("annotatedName", () => {
 		it("should use annotation if set", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("my-element");
+			const node = new HtmlElement("my-element", null, NodeClosed.EndTag, null, location);
 			node.setAnnotation("my annotation");
 			expect(node.annotatedName).toEqual("my annotation");
 		});
 
 		it("should default to <tagName>", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("my-element");
+			const node = new HtmlElement("my-element", null, NodeClosed.EndTag, null, location);
 			expect(node.annotatedName).toEqual("<my-element>");
 		});
 	});
@@ -158,23 +158,23 @@ describe("HtmlElement", () => {
 
 	it("id property should return element id", () => {
 		expect.assertions(1);
-		const el = new HtmlElement("foo");
+		const el = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 		el.setAttribute("id", "bar", location, null);
 		expect(el.id).toEqual("bar");
 	});
 
 	it("id property should return null if no id attribute exists", () => {
 		expect.assertions(1);
-		const el = new HtmlElement("foo");
+		const el = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 		expect(el.id).toBeNull();
 	});
 
 	it("previousSibling should return node before this node", () => {
 		expect.assertions(3);
-		const root = new HtmlElement("root");
-		const a = new HtmlElement("a", root);
-		const b = new HtmlElement("b", root);
-		const c = new HtmlElement("c", root);
+		const root = new HtmlElement("root", null, NodeClosed.EndTag, null, location);
+		const a = new HtmlElement("a", root, NodeClosed.EndTag, null, location);
+		const b = new HtmlElement("b", root, NodeClosed.EndTag, null, location);
+		const c = new HtmlElement("c", root, NodeClosed.EndTag, null, location);
 		expect(c.previousSibling).toEqual(b);
 		expect(b.previousSibling).toEqual(a);
 		expect(a.previousSibling).toBeNull();
@@ -182,10 +182,10 @@ describe("HtmlElement", () => {
 
 	it("nextSibling should return node after this node", () => {
 		expect.assertions(3);
-		const root = new HtmlElement("root");
-		const a = new HtmlElement("a", root);
-		const b = new HtmlElement("b", root);
-		const c = new HtmlElement("c", root);
+		const root = new HtmlElement("root", null, NodeClosed.EndTag, null, location);
+		const a = new HtmlElement("a", root, NodeClosed.EndTag, null, location);
+		const b = new HtmlElement("b", root, NodeClosed.EndTag, null, location);
+		const c = new HtmlElement("c", root, NodeClosed.EndTag, null, location);
 		expect(a.nextSibling).toEqual(b);
 		expect(b.nextSibling).toEqual(c);
 		expect(c.nextSibling).toBeNull();
@@ -194,7 +194,7 @@ describe("HtmlElement", () => {
 	describe("attributes getter", () => {
 		it("should return list of all attributes", () => {
 			expect.assertions(2);
-			const node = new HtmlElement("foo");
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			node.setAttribute("foo", "a", location, location);
 			node.setAttribute("bar", "b", location, location);
 			expect(node.attributes).toEqual([expect.any(Attribute), expect.any(Attribute)]);
@@ -206,7 +206,7 @@ describe("HtmlElement", () => {
 
 		it("should handle duplicated or aliased attributes", () => {
 			expect.assertions(2);
-			const node = new HtmlElement("foo");
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			node.setAttribute("foo", "a", location, location);
 			node.setAttribute("foo", "b", location, location);
 			expect(node.attributes).toEqual([expect.any(Attribute), expect.any(Attribute)]);
@@ -219,7 +219,7 @@ describe("HtmlElement", () => {
 
 	it("hasAttribute()", () => {
 		expect.assertions(2);
-		const node = new HtmlElement("foo");
+		const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 		node.setAttribute("foo", "", location, null);
 		expect(node.hasAttribute("foo")).toBeTruthy();
 		expect(node.hasAttribute("bar")).toBeFalsy();
@@ -228,7 +228,7 @@ describe("HtmlElement", () => {
 	describe("getAttribute()", () => {
 		it("should get attribute", () => {
 			expect.assertions(3);
-			const node = new HtmlElement("foo");
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			const keyLocation = createLocation({ column: 1, size: 3 });
 			const valueLocation = createLocation({ column: 5, size: 5 });
 			node.setAttribute("foo", "value", keyLocation, valueLocation);
@@ -244,7 +244,7 @@ describe("HtmlElement", () => {
 
 		it("should return first instance if attribute is duplicated", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo");
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			const keyLocation = createLocation({ column: 1, size: 3 });
 			const valueLocation = createLocation({ column: 5, size: 5 });
 			node.setAttribute("foo", "a", keyLocation, valueLocation);
@@ -259,7 +259,7 @@ describe("HtmlElement", () => {
 
 		it("should get duplicated attributes if requested", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo");
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			const keyLocation = createLocation({ column: 1, size: 3 });
 			const valueLocation = createLocation({ column: 5, size: 5 });
 			node.setAttribute("foo", "a", keyLocation, valueLocation);
@@ -278,7 +278,7 @@ describe("HtmlElement", () => {
 
 		it("should ignore case", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo");
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			const keyLocation = createLocation({ column: 1, size: 3 });
 			const valueLocation = createLocation({ column: 5, size: 5 });
 			node.setAttribute("foo", "bar", keyLocation, valueLocation);
@@ -294,14 +294,14 @@ describe("HtmlElement", () => {
 	describe("getAttributeValue", () => {
 		it("should get attribute value", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo");
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			node.setAttribute("bar", "value", location, null);
 			expect(node.getAttributeValue("bar")).toEqual("value");
 		});
 
 		it("should get attribute expression for dynamic values", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo");
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			const dynamic = new DynamicValue("{{ interpolated }}");
 			node.setAttribute("bar", dynamic, location, null);
 			expect(node.getAttributeValue("bar")).toEqual("{{ interpolated }}");
@@ -309,13 +309,13 @@ describe("HtmlElement", () => {
 
 		it("should return null for missing attributes", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo");
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			expect(node.getAttributeValue("bar")).toBeNull();
 		});
 
 		it("should return null for boolean attributes", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo");
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			node.setAttribute("bar", null, location, null);
 			expect(node.getAttributeValue("bar")).toBeNull();
 		});
@@ -324,20 +324,20 @@ describe("HtmlElement", () => {
 	describe("classList", () => {
 		it("should return list of classes", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo");
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			node.setAttribute("class", "foo bar baz", location, null);
 			expect(Array.from(node.classList)).toEqual(["foo", "bar", "baz"]);
 		});
 
 		it("should return empty list when class is missing", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo");
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			expect(Array.from(node.classList)).toEqual([]);
 		});
 
 		it("should handle duplicate (or aliased) class attribute", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo");
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			node.setAttribute("class", "foo", location, null);
 			node.setAttribute("class", "bar", location, null);
 			expect(Array.from(node.classList)).toEqual(["foo", "bar"]);
@@ -345,7 +345,7 @@ describe("HtmlElement", () => {
 
 		it("should ignore dynamic values", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo");
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			node.setAttribute("class", new DynamicValue("dynamic"), location, null);
 			expect(Array.from(node.classList)).toEqual([]);
 		});
@@ -354,7 +354,7 @@ describe("HtmlElement", () => {
 	describe("appendText()", () => {
 		it("should add text to element", () => {
 			expect.assertions(2);
-			const node = new HtmlElement("foo");
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			node.appendText("foo");
 			node.appendText("bar");
 			expect(node.childNodes).toHaveLength(2);
@@ -365,7 +365,7 @@ describe("HtmlElement", () => {
 	describe("should calculate depth", () => {
 		it("for nodes without parent", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo");
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			expect(node.depth).toEqual(0);
 		});
 
@@ -459,15 +459,15 @@ describe("HtmlElement", () => {
 	describe("is()", () => {
 		it("should match tagname", () => {
 			expect.assertions(2);
-			const el = new HtmlElement("foo");
+			const el = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			expect(el.is("foo")).toBeTruthy();
 			expect(el.is("bar")).toBeFalsy();
 		});
 
 		it("should match case-insensitive", () => {
 			expect.assertions(4);
-			const a = new HtmlElement("foo");
-			const b = new HtmlElement("BAR");
+			const a = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+			const b = new HtmlElement("BAR", null, NodeClosed.EndTag, null, location);
 			expect(a.is("foo")).toBeTruthy();
 			expect(a.is("FOO")).toBeTruthy();
 			expect(b.is("bar")).toBeTruthy();
@@ -476,7 +476,7 @@ describe("HtmlElement", () => {
 
 		it("should match any tag when using asterisk", () => {
 			expect.assertions(1);
-			const el = new HtmlElement("foo");
+			const el = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			expect(el.is("*")).toBeTruthy();
 		});
 	});
@@ -489,7 +489,7 @@ describe("HtmlElement", () => {
 		} as MetaElement;
 
 		beforeEach(() => {
-			node = new HtmlElement("my-element", null, NodeClosed.EndTag, original);
+			node = new HtmlElement("my-element", null, NodeClosed.EndTag, original, location);
 		});
 
 		it("should overwrite copyable properties", () => {
@@ -512,7 +512,7 @@ describe("HtmlElement", () => {
 
 		it("should handle when original meta is null", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("my-element");
+			const node = new HtmlElement("my-element", null, NodeClosed.EndTag, null, location);
 			node.loadMeta({ flow: false } as MetaElement);
 			expect(node.meta.flow).toEqual(false);
 		});
@@ -701,9 +701,9 @@ describe("HtmlElement", () => {
 				size: 1,
 			});
 			/* eslint-disable @typescript-eslint/no-unused-vars */
-			const a = new HtmlElement("a", root);
-			const b = new HtmlElement("b", root);
-			const c = new HtmlElement("c", b);
+			const a = new HtmlElement("a", root, NodeClosed.EndTag, null, location);
+			const b = new HtmlElement("b", root, NodeClosed.EndTag, null, location);
+			const c = new HtmlElement("c", b, NodeClosed.EndTag, null, location);
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const order: string[] = [];
 			root.visitDepthFirst((node: HtmlElement) => order.push(node.tagName));
@@ -714,11 +714,11 @@ describe("HtmlElement", () => {
 	describe("someChildren()", () => {
 		it("should return true if any child node evaluates to true", () => {
 			expect.assertions(1);
-			const root = new HtmlElement("root");
+			const root = new HtmlElement("root", null, NodeClosed.EndTag, null, location);
 			/* eslint-disable @typescript-eslint/no-unused-vars */
-			const a = new HtmlElement("a", root);
-			const b = new HtmlElement("b", root);
-			const c = new HtmlElement("c", b);
+			const a = new HtmlElement("a", root, NodeClosed.EndTag, null, location);
+			const b = new HtmlElement("b", root, NodeClosed.EndTag, null, location);
+			const c = new HtmlElement("c", b, NodeClosed.EndTag, null, location);
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const result = root.someChildren((node: HtmlElement) => node.tagName === "c");
 			expect(result).toBeTruthy();
@@ -726,11 +726,11 @@ describe("HtmlElement", () => {
 
 		it("should return false if no child node evaluates to true", () => {
 			expect.assertions(1);
-			const root = new HtmlElement("root");
+			const root = new HtmlElement("root", null, NodeClosed.EndTag, null, location);
 			/* eslint-disable @typescript-eslint/no-unused-vars */
-			const a = new HtmlElement("a", root);
-			const b = new HtmlElement("b", root);
-			const c = new HtmlElement("c", b);
+			const a = new HtmlElement("a", root, NodeClosed.EndTag, null, location);
+			const b = new HtmlElement("b", root, NodeClosed.EndTag, null, location);
+			const c = new HtmlElement("c", b, NodeClosed.EndTag, null, location);
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const result = root.someChildren(() => false);
 			expect(result).toBeFalsy();
@@ -738,11 +738,11 @@ describe("HtmlElement", () => {
 
 		it("should short-circuit when first node evalutes to true", () => {
 			expect.assertions(1);
-			const root = new HtmlElement("root");
+			const root = new HtmlElement("root", null, NodeClosed.EndTag, null, location);
 			/* eslint-disable @typescript-eslint/no-unused-vars */
-			const a = new HtmlElement("a", root);
-			const b = new HtmlElement("b", root);
-			const c = new HtmlElement("c", b);
+			const a = new HtmlElement("a", root, NodeClosed.EndTag, null, location);
+			const b = new HtmlElement("b", root, NodeClosed.EndTag, null, location);
+			const c = new HtmlElement("c", b, NodeClosed.EndTag, null, location);
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const order: string[] = [];
 			root.someChildren((node: HtmlElement) => {
@@ -756,11 +756,11 @@ describe("HtmlElement", () => {
 	describe("everyChildren()", () => {
 		it("should return true if all nodes evaluates to true", () => {
 			expect.assertions(1);
-			const root = new HtmlElement("root");
+			const root = new HtmlElement("root", null, NodeClosed.EndTag, null, location);
 			/* eslint-disable @typescript-eslint/no-unused-vars */
-			const a = new HtmlElement("a", root);
-			const b = new HtmlElement("b", root);
-			const c = new HtmlElement("c", b);
+			const a = new HtmlElement("a", root, NodeClosed.EndTag, null, location);
+			const b = new HtmlElement("b", root, NodeClosed.EndTag, null, location);
+			const c = new HtmlElement("c", b, NodeClosed.EndTag, null, location);
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const result = root.everyChildren(() => true);
 			expect(result).toBeTruthy();
@@ -768,11 +768,11 @@ describe("HtmlElement", () => {
 
 		it("should return false if any nodes evaluates to false", () => {
 			expect.assertions(1);
-			const root = new HtmlElement("root");
+			const root = new HtmlElement("root", null, NodeClosed.EndTag, null, location);
 			/* eslint-disable @typescript-eslint/no-unused-vars */
-			const a = new HtmlElement("a", root);
-			const b = new HtmlElement("b", root);
-			const c = new HtmlElement("c", b);
+			const a = new HtmlElement("a", root, NodeClosed.EndTag, null, location);
+			const b = new HtmlElement("b", root, NodeClosed.EndTag, null, location);
+			const c = new HtmlElement("c", b, NodeClosed.EndTag, null, location);
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const result = root.everyChildren((node: HtmlElement) => node.tagName !== "b");
 			expect(result).toBeFalsy();
@@ -782,11 +782,11 @@ describe("HtmlElement", () => {
 	describe("find()", () => {
 		it("should visit all nodes until callback evaluates to true", () => {
 			expect.assertions(1);
-			const root = new HtmlElement("root");
+			const root = new HtmlElement("root", null, NodeClosed.EndTag, null, location);
 			/* eslint-disable @typescript-eslint/no-unused-vars */
-			const a = new HtmlElement("a", root);
-			const b = new HtmlElement("b", root);
-			const c = new HtmlElement("c", b);
+			const a = new HtmlElement("a", root, NodeClosed.EndTag, null, location);
+			const b = new HtmlElement("b", root, NodeClosed.EndTag, null, location);
+			const c = new HtmlElement("c", b, NodeClosed.EndTag, null, location);
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const result = root.find((node: HtmlElement) => node.tagName === "b");
 			expect(result.tagName).toEqual("b");

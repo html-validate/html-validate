@@ -268,7 +268,7 @@ class HtmlValidate {
 		ruleId: string,
 		config: Config | null = null,
 		context: any | null = null
-	): RuleDocumentation {
+	): RuleDocumentation | null {
 		const c = config || this.getConfigFor("inline");
 		const engine = new Engine(c.resolve(), c.get(), Parser);
 		return engine.getRuleDocumentation(ruleId, context);

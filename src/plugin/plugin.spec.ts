@@ -1,7 +1,7 @@
 import { Config } from "../config";
 import { ConfigError } from "../config/error";
-import { Source } from "../context";
-import { HtmlElement } from "../dom";
+import { Location, Source } from "../context";
+import { HtmlElement, NodeClosed } from "../dom";
 import { Engine } from "../engine";
 import { EventHandler } from "../event";
 import { Parser } from "../parser";
@@ -12,6 +12,14 @@ import { Plugin } from "./plugin";
 let mockPlugin: Plugin;
 let config: Config;
 let source: Source;
+
+const location: Location = {
+	filename: "inline",
+	line: 1,
+	column: 1,
+	offset: 0,
+	size: 1,
+};
 
 jest.mock("mock-plugin", () => ({}), { virtual: true });
 
@@ -272,7 +280,7 @@ describe("Plugin", () => {
 			const metaTable = config.getMetaTable();
 			const a = metaTable.getMetaFor("my-element");
 			const b = metaTable.getMetaFor("my-element:real");
-			const node = new HtmlElement("my-element", null, null, a);
+			const node = new HtmlElement("my-element", null, NodeClosed.EndTag, a, location);
 			node.loadMeta(b!);
 			expect(node.meta).toEqual({
 				tagName: "my-element",
