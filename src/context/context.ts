@@ -1,5 +1,6 @@
 import { Location } from "./location";
 import { Source } from "./source";
+import { State } from "./state";
 
 export enum ContentModel {
 	TEXT = 1,
@@ -8,7 +9,7 @@ export enum ContentModel {
 
 export class Context {
 	public contentModel: ContentModel;
-	public state: number;
+	public state: State;
 	public string: string;
 	private filename: string;
 	private offset: number;
@@ -16,7 +17,7 @@ export class Context {
 	private column: number;
 
 	public constructor(source: Source) {
-		this.state = undefined;
+		this.state = State.INITIAL;
 		this.string = source.data;
 		this.filename = source.filename ?? "";
 		this.offset = source.offset ?? 0;
@@ -29,7 +30,7 @@ export class Context {
 		return JSON.stringify(this.string.length > n ? `${this.string.slice(0, 10)}...` : this.string);
 	}
 
-	public consume(n: number | string[], state: number): void {
+	public consume(n: number | string[], state: State): void {
 		/* if "n" is an regex match the first value is the full matched
 		 * string so consume that many characters. */
 		if (typeof n !== "number") {

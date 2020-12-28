@@ -1,15 +1,5 @@
-import { ContentModel, Context, Location, Source } from "../context";
+import { ContentModel, Context, Location, Source, State } from "../context";
 import { Token, TokenType } from "./token";
-
-enum State {
-	INITIAL = 1,
-	DOCTYPE,
-	TEXT,
-	TAG,
-	ATTR,
-	CDATA,
-	SCRIPT,
-}
 
 type NextStateCallback = (token?: Token) => State;
 type LexerTest = [RegExp | false, State | NextStateCallback, TokenType | false];
@@ -51,7 +41,6 @@ export class Lexer {
 	// eslint-disable-next-line complexity
 	public *tokenize(source: Source): TokenStream {
 		const context = new Context(source);
-		context.state = State.INITIAL;
 
 		/* for sanity check */
 		let previousState: State = context.state;
