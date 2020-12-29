@@ -101,7 +101,7 @@ export class Lexer {
 		return {
 			type,
 			location,
-			data: data ? [].concat(data) : null,
+			data: data ? Array.from(data) : null,
 		};
 	}
 

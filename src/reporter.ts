@@ -81,7 +81,7 @@ export class Reporter {
 			report.results.forEach((result: Result) => {
 				const key = result.filePath;
 				if (key in merged) {
-					merged[key].messages = [].concat(merged[key].messages, result.messages);
+					merged[key].messages = [...merged[key].messages, ...result.messages];
 				} else {
 					merged[key] = Object.assign({}, result);
 				}
@@ -136,7 +136,7 @@ export class Reporter {
 		const report: Report = {
 			valid: this.isValid(),
 			results: Object.keys(this.result).map((filePath) => {
-				const messages = [].concat(this.result[filePath]).sort(messageSort);
+				const messages = Array.from(this.result[filePath]).sort(messageSort);
 				const source = (sources || []).find(
 					(source: Source) => filePath === (source.filename ?? "")
 				);
