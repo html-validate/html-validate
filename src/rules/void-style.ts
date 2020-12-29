@@ -24,7 +24,7 @@ export default class VoidStyle extends Rule<RuleContext, RuleOptions> {
 	private style: Style;
 
 	public constructor(options: RuleOptions) {
-		super(Object.assign({}, defaults, options));
+		super({ ...defaults, ...options });
 		this.style = parseStyle(this.options.style);
 	}
 

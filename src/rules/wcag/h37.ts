@@ -22,7 +22,7 @@ export default class H37 extends Rule<void, RuleOptions> {
 	}
 
 	public constructor(options: RuleOptions) {
-		super(Object.assign({}, defaults, options));
+		super({ ...defaults, ...options });
 
 		/* ensure alias is array */
 		if (!Array.isArray(this.options.alias)) {

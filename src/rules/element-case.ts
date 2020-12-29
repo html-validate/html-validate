@@ -16,7 +16,7 @@ export default class ElementCase extends Rule<void, RuleOptions> {
 	private style: CaseStyle;
 
 	public constructor(options: RuleOptions) {
-		super(Object.assign({}, defaults, options));
+		super({ ...defaults, ...options });
 		this.style = new CaseStyle(this.options.style, "element-case");
 	}
 

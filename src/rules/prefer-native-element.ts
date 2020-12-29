@@ -45,7 +45,7 @@ const defaults: RuleOptions = {
 
 export default class PreferNativeElement extends Rule<RuleContext, RuleOptions> {
 	public constructor(options: RuleOptions) {
-		super(Object.assign({}, defaults, options));
+		super({ ...defaults, ...options });
 	}
 
 	public documentation(context: RuleContext): RuleDocumentation {

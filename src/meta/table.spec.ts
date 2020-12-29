@@ -59,7 +59,7 @@ describe("MetaTable", () => {
 		const table = new MetaTable();
 		const fn = (): void =>
 			table.loadFromObject({
-				foo: mockEntry({ invalid: true }),
+				foo: mockEntry(({ invalid: true } as unknown) as Partial<MetaData>),
 			});
 		expect(fn).toThrow(SchemaValidationError);
 		expect(fn).toThrow(
@@ -189,7 +189,10 @@ describe("MetaTable", () => {
 			expect.assertions(1);
 			metaTable = new MetaTable();
 			metaTable.loadFromObject({
-				invalid: mockEntry({ interactive: ["invalid"], void: true }),
+				invalid: mockEntry(({
+					interactive: ["invalid"],
+					void: true,
+				} as unknown) as Partial<MetaData>),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			expect(() => parser.parseHtml("<invalid/>")).toThrow(
@@ -631,23 +634,21 @@ describe("MetaTable", () => {
 	});
 });
 
-function mockEntry(stub = {}): MetaData {
-	return Object.assign(
-		{
-			metadata: false,
-			flow: false,
-			foreign: false,
-			sectioning: false,
-			heading: false,
-			phrasing: false,
-			embedded: false,
-			interactive: false,
-			deprecated: false,
-			void: false,
-			transparent: false,
-			scriptSupporting: false,
-			form: false,
-		},
-		stub
-	);
+function mockEntry(stub: Partial<MetaData> = {}): MetaData {
+	return {
+		metadata: false,
+		flow: false,
+		foreign: false,
+		sectioning: false,
+		heading: false,
+		phrasing: false,
+		embedded: false,
+		interactive: false,
+		deprecated: false,
+		void: false,
+		transparent: false,
+		scriptSupporting: false,
+		form: false,
+		...stub,
+	};
 }

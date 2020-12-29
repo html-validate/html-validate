@@ -33,7 +33,7 @@ export default class Void extends Rule<void, RuleOptions> {
 	}
 
 	public constructor(options: RuleOptions) {
-		super(Object.assign({}, defaults, options));
+		super({ ...defaults, ...options });
 		this.style = parseStyle(this.options.style);
 	}
 

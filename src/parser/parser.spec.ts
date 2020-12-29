@@ -9,7 +9,7 @@ import { AttributeData } from "./attribute-data";
 import { Parser } from "./parser";
 
 function mergeEvent(event: string, data: any): any {
-	const merged = Object.assign({}, { event }, data);
+	const merged = { event, ...data };
 
 	/* not useful for these tests */
 	delete merged.location;

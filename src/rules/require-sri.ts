@@ -22,7 +22,7 @@ export default class RequireSri extends Rule<void, RuleOptions> {
 	private target: Target;
 
 	public constructor(options: RuleOptions) {
-		super(Object.assign({}, defaults, options));
+		super({ ...defaults, ...options });
 		this.target = this.options.target;
 	}
 

@@ -24,7 +24,7 @@ export default class ElementName extends Rule<Context, RuleOptions> {
 	private pattern: RegExp;
 
 	public constructor(options: RuleOptions) {
-		super(Object.assign({}, defaults, options));
+		super({ ...defaults, ...options });
 
 		// eslint-disable-next-line security/detect-non-literal-regexp
 		this.pattern = new RegExp(this.options.pattern);

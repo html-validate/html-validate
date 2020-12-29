@@ -86,7 +86,7 @@ module.exports = function parseValidatesProcessor(
 	}
 
 	function generateConfig(rules, elements, attr) {
-		attr = Object.assign({}, attr); /* copy before modification */
+		attr = { ...attr }; /* copy before modification */
 		delete attr.elements;
 		delete attr.name;
 		delete attr.rules;

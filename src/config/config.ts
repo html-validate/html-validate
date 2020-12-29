@@ -42,7 +42,7 @@ function overwriteMerge<T>(a: T[], b: T[]): T[] {
 }
 
 function mergeInternal(base: ConfigData, rhs: ConfigData): ConfigData {
-	const dst = deepmerge(base, Object.assign({}, rhs, { rules: {} }));
+	const dst = deepmerge(base, { ...rhs, rules: {} });
 
 	/* rules need some special care, should overwrite arrays instead of
 	 * concaternation, i.e. ["error", {...options}] should not be merged by
@@ -304,7 +304,7 @@ export class Config {
 	 * @hidden primary purpose is unittests
 	 */
 	public get(): ConfigData {
-		const config = Object.assign({}, this.config);
+		const config = { ...this.config };
 		if (config.elements) {
 			config.elements = config.elements.map((cur: string | MetaDataTable) => {
 				if (typeof cur === "string") {

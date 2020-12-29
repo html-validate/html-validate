@@ -136,7 +136,7 @@ const defaults: RuleOptions = {
 class MyRule extends Rule<void, RuleOptions> {
   constructor(options: RuleOptions) {
     /* assign default values if not provided by user */
-    super(Object.assign({}, defaults, options));
+    super({ ...defaults, ...options });
   }
 
   setup(): void {

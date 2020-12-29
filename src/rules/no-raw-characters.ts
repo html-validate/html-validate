@@ -29,7 +29,7 @@ export default class NoRawCharacters extends Rule<void, RuleOptions> {
 	private relaxed: boolean;
 
 	public constructor(options: RuleOptions) {
-		super(Object.assign({}, defaults, options));
+		super({ ...defaults, ...options });
 		this.relaxed = this.options.relaxed;
 	}
 

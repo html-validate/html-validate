@@ -15,7 +15,7 @@ const defaults: RuleOptions = {
 
 export default class NoSelfClosing extends Rule<string, RuleOptions> {
 	public constructor(options: RuleOptions) {
-		super(Object.assign({}, defaults, options));
+		super({ ...defaults, ...options });
 	}
 
 	public documentation(tagName: string): RuleDocumentation {

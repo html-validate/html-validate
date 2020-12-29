@@ -41,7 +41,7 @@ const description: Record<Style, string | null> = {
 
 export default class AllowedLinks extends Rule<Style, RuleOptions> {
 	public constructor(options: RuleOptions) {
-		super(Object.assign({}, defaults, options));
+		super({ ...defaults, ...options });
 	}
 
 	public documentation(context: Style): RuleDocumentation {

@@ -52,10 +52,7 @@ export function expandFiles(patterns: string[], options: ExpandOptions): string[
 			/* if file is a directory recursively expand files from it */
 			const fullpath = path.join(cwd, filename);
 			if (isDirectory(fullpath)) {
-				const dir = expandFiles(
-					[directoryPattern(extensions)],
-					Object.assign({}, options, { cwd: fullpath })
-				);
+				const dir = expandFiles([directoryPattern(extensions)], { ...options, cwd: fullpath });
 				result = result.concat(dir.map((cur) => path.join(filename, cur)));
 				continue;
 			}

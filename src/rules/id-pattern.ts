@@ -15,7 +15,7 @@ export default class IdPattern extends Rule<void, RuleOptions> {
 	private pattern: RegExp;
 
 	public constructor(options: RuleOptions) {
-		super(Object.assign({}, defaults, options));
+		super({ ...defaults, ...options });
 		this.pattern = parsePattern(this.options.pattern);
 	}
 

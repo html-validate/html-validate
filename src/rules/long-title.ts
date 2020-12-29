@@ -12,7 +12,7 @@ export default class LongTitle extends Rule<void, RuleOptions> {
 	private maxlength: number;
 
 	public constructor(options: RuleOptions) {
-		super(Object.assign({}, defaults, options));
+		super({ ...defaults, ...options });
 		this.maxlength = this.options.maxlength;
 	}
 

@@ -83,7 +83,7 @@ export class Reporter {
 				if (key in merged) {
 					merged[key].messages = [...merged[key].messages, ...result.messages];
 				} else {
-					merged[key] = Object.assign({}, result);
+					merged[key] = { ...result };
 				}
 			});
 		});

@@ -635,23 +635,21 @@ describe("Meta validator", () => {
 	});
 });
 
-function mockEntry(stub = {}): MetaData {
-	return Object.assign(
-		{
-			metadata: false,
-			flow: false,
-			foreign: false,
-			sectioning: false,
-			heading: false,
-			phrasing: false,
-			embedded: false,
-			interactive: false,
-			deprecated: false,
-			void: false,
-			transparent: false,
-			scriptSupporting: false,
-			form: false,
-		},
-		stub
-	);
+function mockEntry(stub: Partial<MetaData> = {}): MetaData {
+	return {
+		metadata: false,
+		flow: false,
+		foreign: false,
+		sectioning: false,
+		heading: false,
+		phrasing: false,
+		embedded: false,
+		interactive: false,
+		deprecated: false,
+		void: false,
+		transparent: false,
+		scriptSupporting: false,
+		form: false,
+		...stub,
+	};
 }

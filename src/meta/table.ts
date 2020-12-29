@@ -161,7 +161,7 @@ export class MetaTable {
 	 */
 	public getMetaFor(tagName: string): MetaElement | null {
 		tagName = tagName.toLowerCase();
-		return this.elements[tagName] ? Object.assign({}, this.elements[tagName]) : null;
+		return this.elements[tagName] ? { ...this.elements[tagName] } : null;
 	}
 
 	/**
