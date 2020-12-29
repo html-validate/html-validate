@@ -11,8 +11,7 @@
     "resolveJsonModule": true,
     "sourceMap": false,
     "target": "es2017",
-    "strict": true,
-    "strictNullChecks": false
+    "strict": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
