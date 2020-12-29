@@ -41,7 +41,7 @@ class MockConfig {
 	}
 }
 
-function getInteralCache(loader: ConfigLoader): Map<string, Config> {
+function getInteralCache(loader: ConfigLoader): Map<string, Config | null> {
 	return (loader as any).cache;
 }
 
@@ -63,7 +63,7 @@ describe("ConfigLoader", () => {
 				return filename === path.resolve("/path/to/.htmlvalidate.json");
 			});
 			const config = loader.fromTarget("/path/to/target.html");
-			expect(config.get()).toEqual(
+			expect(config?.get()).toEqual(
 				expect.objectContaining({
 					mockFilenames: [
 						/* ConfigMock adds all visited filenames to this array */
@@ -79,7 +79,7 @@ describe("ConfigLoader", () => {
 				return filename === path.resolve("/path/.htmlvalidate.json");
 			});
 			const config = loader.fromTarget("/path/to/target.html");
-			expect(config.get()).toEqual(
+			expect(config?.get()).toEqual(
 				expect.objectContaining({
 					mockFilenames: [
 						/* ConfigMock adds all visited filenames to this array */
@@ -93,7 +93,7 @@ describe("ConfigLoader", () => {
 			expect.assertions(1);
 			jest.spyOn(fs, "existsSync").mockImplementation(() => true);
 			const config = loader.fromTarget("/path/to/target.html");
-			expect(config.get()).toEqual(
+			expect(config?.get()).toEqual(
 				expect.objectContaining({
 					mockFilenames: [
 						/* ConfigMock adds all visited filenames to this array */
@@ -109,7 +109,7 @@ describe("ConfigLoader", () => {
 			expect.assertions(1);
 			jest.spyOn(fs, "existsSync").mockImplementation(() => true);
 			const config = loader.fromTarget("/project/root/src/target.html");
-			expect(config.get()).toEqual(
+			expect(config?.get()).toEqual(
 				expect.objectContaining({
 					mockFilenames: [
 						/* ConfigMock adds all visited filenames to this array */
@@ -133,7 +133,7 @@ describe("ConfigLoader", () => {
 			expect(cache.has("/path/to/target.html")).toBeFalsy();
 			loader.fromTarget("/path/to/target.html");
 			expect(cache.has("/path/to/target.html")).toBeTruthy();
-			expect(cache.get("/path/to/target.html").get()).toEqual(
+			expect(cache.get("/path/to/target.html")?.get()).toEqual(
 				expect.objectContaining({
 					mockFilenames: [
 						/* ConfigMock adds all visited filenames to this array */
@@ -155,7 +155,7 @@ describe("ConfigLoader", () => {
 				throw new Error("expected cache to be used");
 			});
 			const config = loader.fromTarget("/path/to/target.html");
-			expect(config.get()).toEqual(
+			expect(config?.get()).toEqual(
 				expect.objectContaining({
 					mockFilenames: [
 						/* ConfigMock adds all visited filenames to this array */
@@ -208,7 +208,7 @@ describe("ConfigLoader", () => {
 		 * rules are added to recommended config */
 		function filter(src: Config): ConfigData {
 			const whitelisted = ["no-self-closing", "deprecated", "element-permitted-content"];
-			const data = src.get();
+			const data = { rules: {}, ...src.get() };
 			data.rules = Object.keys(data.rules)
 				.filter((key) => whitelisted.includes(key))
 				.reduce((dst, key) => {

@@ -37,8 +37,9 @@ export interface TagCloseEvent extends Event {
 	/** Event location. */
 	location: Location;
 
-	/** Temporary node for the close tag. */
-	target: HtmlElement;
+	/** Temporary node for the close tag. Can be null for elements left unclosed
+	 * when document ends */
+	target: HtmlElement | null;
 
 	/** The node being closed. */
 	previous: HtmlElement;

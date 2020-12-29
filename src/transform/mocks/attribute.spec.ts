@@ -8,16 +8,19 @@ describe("mock attribute processor", () => {
 			processAttribute({
 				key: "dynamic-foo",
 				value: "bar",
+				quote: null,
 			})
 		);
 		expect(attr).toHaveLength(2);
 		expect(attr[0]).toEqual({
 			key: "dynamic-foo",
 			value: "bar",
+			quote: null,
 		});
 		expect(attr[1]).toEqual({
 			key: "foo",
 			value: expect.any(DynamicValue),
+			quote: null,
 			originalAttribute: "dynamic-foo",
 		});
 		expect(attr[1].value).toEqual({
@@ -31,12 +34,14 @@ describe("mock attribute processor", () => {
 			processAttribute({
 				key: "foo",
 				value: "{{ bar }}",
+				quote: null,
 			})
 		);
 		expect(attr).toHaveLength(1);
 		expect(attr[0]).toEqual({
 			key: "foo",
 			value: expect.any(DynamicValue),
+			quote: null,
 		});
 		expect(attr[0].value).toEqual({
 			expr: "{{ bar }}",
@@ -49,12 +54,14 @@ describe("mock attribute processor", () => {
 			processAttribute({
 				key: "foo",
 				value: "bar",
+				quote: null,
 			})
 		);
 		expect(attr).toHaveLength(1);
 		expect(attr[0]).toEqual({
 			key: "foo",
 			value: "bar",
+			quote: null,
 		});
 	});
 });

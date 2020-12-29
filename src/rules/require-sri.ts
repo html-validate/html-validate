@@ -66,7 +66,7 @@ export default class RequireSri extends Rule<void, RuleOptions> {
 		return crossorigin.test(url);
 	}
 
-	private elementSourceAttr(node: HtmlElement): Attribute {
+	private elementSourceAttr(node: HtmlElement): Attribute | null {
 		const key = supportSri[node.tagName];
 		return node.getAttribute(key);
 	}

@@ -55,6 +55,7 @@ const report: Report = {
 			filePath: "mock-file.html",
 			errorCount: 1,
 			warningCount: 0,
+			source: null,
 		},
 	],
 	errorCount: 1,

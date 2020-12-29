@@ -24,14 +24,14 @@ export interface SourceHooks {
 	 * @yields {AttributeData} Attribute data for an attribute to be added to the
 	 * element.
 	 */
-	processAttribute?: ProcessAttributeCallback;
+	processAttribute?: ProcessAttributeCallback | null;
 
 	/**
 	 * Called for every element after element is created but before any children.
 	 *
 	 * May modify the element.
 	 */
-	processElement?: ProcessElementCallback;
+	processElement?: ProcessElementCallback | null;
 }
 
 /**

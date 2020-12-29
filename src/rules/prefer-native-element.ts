@@ -109,9 +109,9 @@ export default class PreferNativeElement extends Rule<RuleContext, RuleOptions> 
 		return this.isKeywordIgnored(role);
 	}
 
-	private getLocation(event: AttributeEvent): Location {
+	private getLocation(event: AttributeEvent): Location | null {
 		const begin = event.location;
-		const end = event.valueLocation;
+		const end = event.valueLocation as Location;
 		const quote = event.quote ? 1 : 0;
 		const size = end.offset + end.size - begin.offset + quote;
 		return {

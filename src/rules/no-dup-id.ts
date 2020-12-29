@@ -18,6 +18,10 @@ export default class NoDupID extends Rule {
 			const relevant = elements.filter(isRelevant);
 			for (const el of relevant) {
 				const attr = el.getAttribute("id");
+				if (!attr || !attr.value) {
+					continue;
+				}
+
 				const id = attr.value.toString();
 
 				if (existing.has(id)) {
@@ -32,6 +36,9 @@ export default class NoDupID extends Rule {
 
 function isRelevant(element: HtmlElement): boolean {
 	const attr = element.getAttribute("id");
+	if (!attr) {
+		return false;
+	}
 
 	/* id without value is not relevant, e.g. <p id></p> */
 	if (!attr.value) {

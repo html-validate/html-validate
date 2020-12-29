@@ -1,7 +1,16 @@
 import { Config } from "../../config";
+import { Location } from "../../context";
 import { DynamicValue } from "../../dom";
 import { Parser } from "../../parser";
 import { classifyNodeText, TextClassification } from "./text";
+
+const location: Location = {
+	filename: "inline",
+	line: 1,
+	column: 1,
+	offset: 0,
+	size: 1,
+};
 
 const parser = new Parser(Config.empty().resolve());
 
@@ -33,14 +42,14 @@ describe("classifyNodeText()", () => {
 	it("should classify element with dynamic text as DYNAMIC_TEXT", () => {
 		expect.assertions(1);
 		const node = parser.parseHtml("<p></p>").querySelector("p");
-		node.appendText(new DynamicValue(""));
+		node.appendText(new DynamicValue(""), location);
 		expect(classifyNodeText(node)).toEqual(TextClassification.DYNAMIC_TEXT);
 	});
 
 	it("should classify element with descendant dynamic text as DYNAMIC_TEXT", () => {
 		expect.assertions(1);
 		const node = parser.parseHtml("<p>foo <b></b> bar</p>").querySelector("p");
-		node.querySelector("b").appendText(new DynamicValue(""));
+		node.querySelector("b").appendText(new DynamicValue(""), location);
 		expect(classifyNodeText(node)).toEqual(TextClassification.DYNAMIC_TEXT);
 	});
 

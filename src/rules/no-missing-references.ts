@@ -50,7 +50,11 @@ export default class NoMissingReferences extends Rule<Context> {
 		});
 	}
 
-	protected validateReference(document: DOMTree, node: HtmlElement, attr: Attribute): void {
+	protected validateReference(document: DOMTree, node: HtmlElement, attr: Attribute | null): void {
+		if (!attr) {
+			return;
+		}
+
 		const id = attr.value;
 
 		if (id instanceof DynamicValue || id === null || id === "") {

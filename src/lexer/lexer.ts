@@ -1,7 +1,7 @@
 import { ContentModel, Context, Location, Source, State } from "../context";
 import { Token, TokenType } from "./token";
 
-type NextStateCallback = (token?: Token) => State;
+type NextStateCallback = (token: Token | null) => State;
 type LexerTest = [RegExp | false, State | NextStateCallback, TokenType | false];
 export type TokenStream = IterableIterator<Token>;
 
@@ -95,8 +95,8 @@ export class Lexer {
 		yield this.token(context, TokenType.EOF);
 	}
 
-	private token(context: Context, type: TokenType, data?: string[]): Token {
-		const size = data ? data[0].length : undefined;
+	private token(context: Context, type: TokenType, data?: RegExpMatchArray | null): Token {
+		const size = data ? data[0].length : 0;
 		const location = context.getLocation(size);
 		return {
 			type,
@@ -112,17 +112,20 @@ export class Lexer {
 		);
 		const state = State[context.state];
 		const message = `failed to tokenize ${truncated}, unhandled state ${state}.`;
-		throw new InvalidTokenError(context.getLocation(), message);
+		throw new InvalidTokenError(context.getLocation(1), message);
 	}
 
 	/* istanbul ignore next: used to provide a better error when lexer is detected to be stuck, no known way to reproduce */
 	private errorStuck(context: Context): void {
 		const state = State[context.state];
 		const message = `failed to tokenize ${context.getTruncatedLine()}, state ${state} failed to consume data or change state.`;
-		throw new InvalidTokenError(context.getLocation(), message);
+		throw new InvalidTokenError(context.getLocation(1), message);
 	}
 
-	private evalNextState(nextState: State | ((token: Token) => State), token: Token): State {
+	private evalNextState(
+		nextState: State | ((token: Token | null) => State),
+		token: Token | null
+	): State {
 		if (typeof nextState === "function") {
 			return nextState(token);
 		} else {
@@ -131,13 +134,13 @@ export class Lexer {
 	}
 
 	private *match(context: Context, tests: LexerTest[], error: string): Iterable<Token> {
-		let match;
+		let match: RegExpMatchArray | null = null;
 		const n = tests.length;
 		for (let i = 0; i < n; i++) {
 			const [regex, nextState, tokenType] = tests[i];
 
 			if (regex === false || (match = context.string.match(regex))) {
-				let token: Token = null;
+				let token: Token | null = null;
 				if (tokenType !== false) {
 					yield (token = this.token(context, tokenType, match));
 				}
@@ -149,13 +152,13 @@ export class Lexer {
 		}
 
 		const message = `failed to tokenize ${context.getTruncatedLine()}, ${error}.`;
-		throw new InvalidTokenError(context.getLocation(), message);
+		throw new InvalidTokenError(context.getLocation(1), message);
 	}
 
 	/**
 	 * Called when entering a new state.
 	 */
-	private enter(context: Context, state: State, data: RegExpMatchArray): void {
+	private enter(context: Context, state: State, data: RegExpMatchArray | null): void {
 		/* script tags require a different content model */
 		if (state === State.TAG && data && data[0][0] === "<") {
 			if (data[0] === "<script") {
@@ -192,12 +195,12 @@ export class Lexer {
 	}
 
 	private *tokenizeTag(context: Context): Iterable<Token> {
-		function nextState(token: Token): State {
+		function nextState(token: Token | null): State {
 			switch (context.contentModel) {
 				case ContentModel.TEXT:
 					return State.TEXT;
 				case ContentModel.SCRIPT:
-					if (token.data[0][0] !== "/") {
+					if (token && token.data[0][0] !== "/") {
 						return State.SCRIPT;
 					} else {
 						return State.TEXT; /* <script/> (not legal but handle it anyway so the lexer doesn't choke on it) */

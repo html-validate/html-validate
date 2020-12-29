@@ -74,7 +74,7 @@ export default class AttributeAllowedValues extends Rule<Context> {
 		}
 	}
 
-	private getLocation(attr: Attribute): Location {
+	private getLocation(attr: Attribute): Location | null {
 		if (attr.value !== null) {
 			return attr.valueLocation;
 		} else {

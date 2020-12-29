@@ -40,7 +40,7 @@ export default class MultipleLabeledControls extends Rule {
 		/* only count wrapped controls if the "for" attribute is missing or static,
 		 * for dynamic "for" attributes it is better to run in document mode later */
 		const attr = src.getAttribute("for");
-		if (!attr || attr.isDynamic) {
+		if (!attr || attr.isDynamic || !attr.value) {
 			return controls.length;
 		}
 

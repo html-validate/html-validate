@@ -30,7 +30,7 @@ interface LoadedPlugin extends Plugin {
 	originalName: string;
 }
 
-let rootDirCache: string = null;
+let rootDirCache: string | null = null;
 
 const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
 ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-06.json"));
@@ -53,8 +53,9 @@ function mergeInternal(base: ConfigData, rhs: ConfigData): ConfigData {
 
 	/* root property is merged with boolean "or" since it should always be truthy
 	 * if any config has it set. */
-	if (base.root || rhs.root) {
-		dst.root = base.root || rhs.root;
+	const root = base.root || rhs.root;
+	if (root) {
+		dst.root = root;
 	}
 
 	return dst;
@@ -94,9 +95,9 @@ export class Config {
 	private configurations: Map<string, ConfigData>;
 	private initialized: boolean;
 
-	protected metaTable: MetaTable;
+	protected metaTable: MetaTable | null;
 	protected plugins: LoadedPlugin[];
-	protected transformers: TransformerEntry[];
+	protected transformers: TransformerEntry[] = [];
 	protected rootDir: string;
 
 	/**
@@ -138,7 +139,7 @@ export class Config {
 	 *
 	 * Throws SchemaValidationError if invalid.
 	 */
-	public static validate(options: ConfigData, filename?: string): void {
+	public static validate(options: ConfigData, filename: string | null = null): void {
 		const valid = validator(options);
 		if (!valid) {
 			throw new SchemaValidationError(
@@ -146,7 +147,7 @@ export class Config {
 				`Invalid configuration`,
 				options,
 				schema,
-				validator.errors
+				validator.errors ?? []
 			);
 		}
 	}
@@ -176,7 +177,7 @@ export class Config {
 		this.extendMeta(this.plugins);
 
 		/* process extended configs */
-		for (const extend of this.config.extends) {
+		for (const extend of this.config.extends ?? []) {
 			this.config = this.extendConfig(extend);
 		}
 
@@ -208,7 +209,7 @@ export class Config {
 	 * Returns true if this configuration is marked as "root".
 	 */
 	public isRootFound(): boolean {
-		return this.config.root;
+		return Boolean(this.config.root);
 	}
 
 	/**
@@ -224,7 +225,7 @@ export class Config {
 	private extendConfig(entry: string): ConfigData {
 		let base: ConfigData;
 		if (this.configurations.has(entry)) {
-			base = this.configurations.get(entry);
+			base = this.configurations.get(entry) as ConfigData;
 		} else {
 			base = Config.fromFile(entry).config;
 		}
@@ -306,7 +307,7 @@ export class Config {
 	public get(): ConfigData {
 		const config = { ...this.config };
 		if (config.elements) {
-			config.elements = config.elements.map((cur: string | MetaDataTable) => {
+			config.elements = config.elements.map((cur) => {
 				if (typeof cur === "string") {
 					return cur.replace(this.rootDir, "<rootDir>");
 				} else {
@@ -322,7 +323,7 @@ export class Config {
 	 */
 	public getRules(): Map<string, [Severity, RuleOptions]> {
 		const rules = new Map<string, [Severity, RuleOptions]>();
-		for (const [ruleId, data] of Object.entries(this.config.rules)) {
+		for (const [ruleId, data] of Object.entries(this.config.rules ?? {})) {
 			let options = data;
 			if (!Array.isArray(options)) {
 				options = [options, {}];
@@ -367,6 +368,8 @@ export class Config {
 		/* presets from plugins */
 		for (const plugin of plugins) {
 			for (const [name, config] of Object.entries(plugin.configs || {})) {
+				if (!config) continue;
+
 				/* add configuration with name provided by plugin */
 				configs.set(`${plugin.name}:${name}`, config);
 
@@ -474,7 +477,8 @@ export class Config {
 	}
 
 	private findTransformer(filename: string): TransformerEntry | null {
-		return this.transformers.find((entry: TransformerEntry) => entry.pattern.test(filename));
+		const match = this.transformers.find((entry: TransformerEntry) => entry.pattern.test(filename));
+		return match ?? null;
 	}
 
 	private precompileTransformers(transform: TransformMap): TransformerEntry[] {
@@ -561,11 +565,12 @@ export class Config {
 			);
 		}
 
-		if (!plugin.transformer[key]) {
+		const transformer = plugin.transformer[key];
+		if (!transformer) {
 			throw new ConfigError(`Plugin "${pluginName}" does not expose a transformer named "${key}".`);
 		}
 
-		return plugin.transformer[key];
+		return transformer;
 	}
 
 	/**

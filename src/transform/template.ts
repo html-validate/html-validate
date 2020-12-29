@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import fs from "fs";
 
 // imported only for type declarations via @types/estree
@@ -66,7 +68,7 @@ function extractLiteral(
 	node: ESTree.Expression | ESTree.Pattern | ESTree.Literal | ESTree.BlockStatement,
 	filename: string,
 	data: string
-): Source {
+): Source | null {
 	switch (node.type) {
 		/* ignored nodes */
 		case "FunctionExpression":
@@ -79,28 +81,28 @@ function extractLiteral(
 			}
 			return {
 				data: node.value.toString(),
-				filename: null,
-				line: node.loc.start.line,
-				column: node.loc.start.column + 1,
-				offset: computeOffset(node.loc.start, data) + 1,
+				filename,
+				line: node.loc!.start.line,
+				column: node.loc!.start.column + 1,
+				offset: computeOffset(node.loc!.start, data) + 1,
 			};
 
 		case "TemplateLiteral":
 			return {
 				data: joinTemplateLiteral(node.quasis),
-				filename: null,
-				line: node.loc.start.line,
-				column: node.loc.start.column + 1,
-				offset: computeOffset(node.loc.start, data) + 1,
+				filename,
+				line: node.loc!.start.line,
+				column: node.loc!.start.column + 1,
+				offset: computeOffset(node.loc!.start, data) + 1,
 			};
 
 		case "TaggedTemplateExpression":
 			return {
 				data: joinTemplateLiteral(node.quasi.quasis),
-				filename: null,
-				line: node.quasi.loc.start.line,
-				column: node.quasi.loc.start.column + 1,
-				offset: computeOffset(node.quasi.loc.start, data) + 1,
+				filename,
+				line: node.quasi.loc!.start.line,
+				column: node.quasi.loc!.start.column + 1,
+				offset: computeOffset(node.quasi.loc!.start, data) + 1,
 			};
 
 		case "ArrowFunctionExpression": {
@@ -114,7 +116,7 @@ function extractLiteral(
 
 		/* istanbul ignore next: this only provides a better error, all currently known nodes are tested */
 		default: {
-			const loc = node.loc.start;
+			const loc = node.loc!.start;
 			const context = `${filename}:${loc.line}:${loc.column}`;
 			throw Error(`Unhandled node type "${node.type}" at "${context}" in extractLiteral`);
 		}
@@ -131,7 +133,7 @@ function compareKey(node: ESTree.Expression, key: string, filename: string): boo
 
 		/* istanbul ignore next: this only provides a better error, all currently known nodes are tested */
 		default: {
-			const loc = node.loc.start;
+			const loc = node.loc!.start;
 			const context = `${filename}:${loc.line}:${loc.column}`;
 			throw Error(`Unhandled node type "${node.type}" at "${context}" in compareKey`);
 		}

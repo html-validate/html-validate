@@ -1,6 +1,15 @@
+import { Location } from "../context";
 import { DynamicValue, HtmlElement } from "../dom";
 import HtmlValidate from "../htmlvalidate";
 import "../matchers";
+
+const location: Location = {
+	filename: "inline",
+	line: 1,
+	column: 1,
+	offset: 0,
+	size: 1,
+};
 
 describe("rule empty-title", () => {
 	let htmlvalidate: HtmlValidate;
@@ -26,7 +35,7 @@ describe("rule empty-title", () => {
 	it("should not report when title has dynamic text", () => {
 		expect.assertions(1);
 		function processElement(node: HtmlElement): void {
-			node.appendText(new DynamicValue(""));
+			node.appendText(new DynamicValue(""), location);
 		}
 		const report = htmlvalidate.validateString("<title></title>", {
 			processElement,

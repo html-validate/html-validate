@@ -8,10 +8,10 @@ export interface AttributeData {
 	key: string;
 
 	/** Attribute value */
-	value?: string | DynamicValue;
+	value: string | DynamicValue | null;
 
 	/** Quotation mark (if present) */
-	quote?: '"' | "'";
+	quote: '"' | "'" | null;
 
 	/** Original attribute name (when a dynamic attribute is used), e.g
 	 * "ng-attr-foo" or "v-bind:foo" */

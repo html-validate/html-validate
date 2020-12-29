@@ -180,7 +180,7 @@ describe("parser", () => {
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "input",
-				previous: undefined,
+				previous: "#document",
 			});
 			expect(events.shift()).toBeUndefined();
 		});

@@ -55,7 +55,7 @@ export class Context {
 		this.state = state;
 	}
 
-	public getLocation(size?: number): Location {
+	public getLocation(size: number): Location {
 		return {
 			filename: this.filename,
 			offset: this.offset,

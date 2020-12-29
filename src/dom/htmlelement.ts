@@ -37,7 +37,7 @@ export class HtmlElement extends DOMNode {
 		const nodeType = tagName ? NodeType.ELEMENT_NODE : NodeType.DOCUMENT_NODE;
 		super(nodeType, tagName, location);
 
-		this.tagName = tagName;
+		this.tagName = tagName || "#document";
 		this.parent = parent ?? null;
 		this.attr = {};
 		this.metaElement = meta ?? null;
@@ -59,7 +59,7 @@ export class HtmlElement extends DOMNode {
 	}
 
 	public static rootNode(location: Location): HtmlElement {
-		return new HtmlElement(undefined, null, null, null, location);
+		return new HtmlElement(undefined, null, NodeClosed.EndTag, null, location);
 	}
 
 	public static fromTokens(
@@ -110,9 +110,9 @@ export class HtmlElement extends DOMNode {
 	 *
 	 * Implementation of DOM specification of Element.closest(selectors).
 	 */
-	public closest(selectors: string): HtmlElement {
+	public closest(selectors: string): HtmlElement | null {
 		/* eslint-disable-next-line @typescript-eslint/no-this-alias */
-		let node: HtmlElement = this;
+		let node: HtmlElement | null = this;
 		while (node) {
 			if (node.matches(selectors)) {
 				return node;
@@ -248,7 +248,7 @@ export class HtmlElement extends DOMNode {
 		return false;
 	}
 
-	public get meta(): MetaElement {
+	public get meta(): MetaElement | null {
 		return this.metaElement;
 	}
 
@@ -272,7 +272,7 @@ export class HtmlElement extends DOMNode {
 	public setAttribute(
 		key: string,
 		value: string | DynamicValue | null,
-		keyLocation: Location | null,
+		keyLocation: Location,
 		valueLocation: Location | null,
 		originalAttribute?: string
 	): void {
@@ -315,9 +315,9 @@ export class HtmlElement extends DOMNode {
 	 * @param {string} key - Attribute name
 	 * @param {boolean} [all=false] - Return single or all attributes.
 	 */
-	public getAttribute(key: string): Attribute;
+	public getAttribute(key: string): Attribute | null;
 	public getAttribute(key: string, all: true): Attribute[];
-	public getAttribute(key: string, all: boolean = false): Attribute | Attribute[] {
+	public getAttribute(key: string, all: boolean = false): Attribute | Attribute[] | null {
 		key = key.toLowerCase();
 		if (key in this.attr) {
 			const matches = this.attr[key];
@@ -354,7 +354,7 @@ export class HtmlElement extends DOMNode {
 	 * @param text - Text to add.
 	 * @param location - Source code location of this text.
 	 */
-	public appendText(text: string | DynamicValue, location?: Location): void {
+	public appendText(text: string | DynamicValue, location: Location): void {
 		this.childNodes.push(new TextNode(text, location));
 	}
 
@@ -364,13 +364,13 @@ export class HtmlElement extends DOMNode {
 	 */
 	public get classList(): DOMTokenList {
 		if (!this.hasAttribute("class")) {
-			return new DOMTokenList(null);
+			return new DOMTokenList(null, null);
 		}
 		const classes = this.getAttribute("class", true)
 			.filter((attr) => attr.isStatic)
 			.map((attr) => attr.value)
 			.join(" ");
-		return new DOMTokenList(classes);
+		return new DOMTokenList(classes, null);
 	}
 
 	/**
@@ -381,15 +381,15 @@ export class HtmlElement extends DOMNode {
 	}
 
 	public get siblings(): HtmlElement[] {
-		return this.parent.childElements;
+		return this.parent ? this.parent.childElements : [this];
 	}
 
-	public get previousSibling(): HtmlElement {
+	public get previousSibling(): HtmlElement | null {
 		const i = this.siblings.findIndex((node) => node.unique === this.unique);
 		return i >= 1 ? this.siblings[i - 1] : null;
 	}
 
-	public get nextSibling(): HtmlElement {
+	public get nextSibling(): HtmlElement | null {
 		const i = this.siblings.findIndex((node) => node.unique === this.unique);
 		return i <= this.siblings.length - 2 ? this.siblings[i + 1] : null;
 	}
@@ -397,7 +397,7 @@ export class HtmlElement extends DOMNode {
 	public getElementsByTagName(tagName: string): HtmlElement[] {
 		return this.childElements.reduce((matches, node) => {
 			return matches.concat(node.is(tagName) ? [node] : [], node.getElementsByTagName(tagName));
-		}, []);
+		}, [] as HtmlElement[]);
 	}
 
 	public querySelector(selector: string): HtmlElement {
@@ -469,8 +469,8 @@ export class HtmlElement extends DOMNode {
 	 *
 	 * The first node for which the callback evaluates to true is returned.
 	 */
-	public find(callback: (node: HtmlElement) => boolean): HtmlElement {
-		function visit(node: HtmlElement): HtmlElement {
+	public find(callback: (node: HtmlElement) => boolean): HtmlElement | null {
+		function visit(node: HtmlElement): HtmlElement | null {
 			if (callback(node)) {
 				return node;
 			}
@@ -487,7 +487,7 @@ export class HtmlElement extends DOMNode {
 	}
 }
 
-function isClosed(endToken: Token, meta: MetaElement): NodeClosed {
+function isClosed(endToken: Token, meta: MetaElement | null): NodeClosed {
 	let closed = NodeClosed.Open;
 
 	if (meta && meta.void) {

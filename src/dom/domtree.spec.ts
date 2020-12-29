@@ -16,7 +16,7 @@ describe("DOMTree", () => {
 	let node: HtmlElement;
 
 	beforeAll(() => {
-		tree = new DOMTree(null);
+		tree = new DOMTree(location);
 		node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 		tree.root.append(node);
 	});

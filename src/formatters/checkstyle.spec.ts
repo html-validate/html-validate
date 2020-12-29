@@ -9,6 +9,7 @@ describe("checkstyle formatter", () => {
 				filePath: "regular.html",
 				errorCount: 1,
 				warningCount: 0,
+				source: null,
 				messages: [
 					{
 						ruleId: "foo",
@@ -36,6 +37,7 @@ describe("checkstyle formatter", () => {
 				filePath: "edge-cases.html",
 				errorCount: 2,
 				warningCount: 0,
+				source: null,
 				messages: [
 					{
 						ruleId: "foo",
@@ -57,16 +59,6 @@ describe("checkstyle formatter", () => {
 						size: 1,
 						selector: null,
 					},
-					{
-						ruleId: undefined,
-						severity: 2,
-						message: "Missing fields",
-						offset: NaN,
-						line: undefined,
-						column: null,
-						size: undefined,
-						selector: null,
-					},
 				],
 			},
 		];
@@ -82,7 +74,7 @@ describe("checkstyle formatter", () => {
 	it("should empty messages", () => {
 		expect.assertions(1);
 		const results: Result[] = [
-			{ filePath: "empty.html", messages: [], errorCount: 0, warningCount: 0 },
+			{ filePath: "empty.html", messages: [], errorCount: 0, warningCount: 0, source: null },
 		];
 		expect(formatter(results)).toMatchSnapshot();
 	});

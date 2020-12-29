@@ -5,9 +5,9 @@ import { HtmlElement } from "./htmlelement";
 export class DOMTree {
 	public readonly root: HtmlElement;
 	private active: HtmlElement;
-	public doctype?: string;
+	public doctype: string | null;
 
-	public constructor(location: Location | null) {
+	public constructor(location: Location) {
 		this.root = HtmlElement.rootNode(location);
 		this.active = this.root;
 		this.doctype = null;
@@ -44,7 +44,7 @@ export class DOMTree {
 		this.root.visitDepthFirst(callback);
 	}
 
-	public find(callback: (node: HtmlElement) => boolean): HtmlElement {
+	public find(callback: (node: HtmlElement) => boolean): HtmlElement | null {
 		return this.root.find(callback);
 	}
 

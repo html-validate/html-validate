@@ -10,9 +10,9 @@ import { DynamicValue } from "./dynamic-value";
 export class Attribute {
 	/** Attribute name */
 	public readonly key: string;
-	public readonly value: string | DynamicValue;
+	public readonly value: string | DynamicValue | null;
 	public readonly keyLocation: Location;
-	public readonly valueLocation: Location;
+	public readonly valueLocation: Location | null;
 	public readonly originalAttribute?: string;
 
 	/**
@@ -26,9 +26,9 @@ export class Attribute {
 	 */
 	public constructor(
 		key: string,
-		value: null | string | DynamicValue,
-		keyLocation?: Location,
-		valueLocation?: Location,
+		value: null | string | DynamicValue | null,
+		keyLocation: Location,
+		valueLocation: Location | null,
 		originalAttribute?: string
 	) {
 		this.key = key;
@@ -69,6 +69,10 @@ export class Attribute {
 	public valueMatches(pattern: RegExp, dynamicMatches?: boolean): boolean;
 	public valueMatches(pattern: string, dynamicMatches?: boolean): boolean;
 	public valueMatches(pattern: RegExp | string, dynamicMatches: boolean = true): boolean {
+		if (this.value === null) {
+			return false;
+		}
+
 		/* dynamic values matches everything */
 		if (this.value instanceof DynamicValue) {
 			return dynamicMatches;

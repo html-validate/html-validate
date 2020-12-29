@@ -74,7 +74,7 @@ export default class NoRawCharacters extends Rule<void, RuleOptions> {
 			this.findRawChars(
 				event.target,
 				event.value.toString(),
-				event.valueLocation,
+				event.valueLocation as Location,
 				unquotedAttrRegexp
 			);
 		});

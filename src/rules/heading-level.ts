@@ -48,7 +48,7 @@ export default class HeadingLevel extends Rule {
 	}
 
 	private isHeading(node: HtmlElement): boolean {
-		return node.meta && !!node.meta.heading;
+		return Boolean(node.meta && !!node.meta.heading);
 	}
 
 	private extractLevel(node: HtmlElement): number | null {

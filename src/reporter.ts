@@ -44,7 +44,7 @@ export interface Result {
 	filePath: string;
 	errorCount: number;
 	warningCount: number;
-	source?: string;
+	source: string | null;
 }
 
 /**
@@ -105,7 +105,7 @@ export class Reporter {
 		rule: Rule<ContextType, OptionsType>,
 		message: string,
 		severity: number,
-		node: DOMNode,
+		node: DOMNode | null,
 		location: Location,
 		context?: ContextType
 	): void {

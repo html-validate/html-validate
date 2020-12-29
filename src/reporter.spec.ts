@@ -214,6 +214,7 @@ function createResult(filename: string, messages: string[]): Result {
 		messages: messages.map((cur) => createMessage(cur)),
 		errorCount: messages.length,
 		warningCount: 0,
+		source: null,
 	};
 }
 

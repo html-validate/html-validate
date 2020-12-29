@@ -52,7 +52,7 @@ Array [
         "ruleId": "parser-error",
         "selector": null,
         "severity": 2,
-        "size": 0,
+        "size": 1,
       },
     ],
     "source": "<p>Fred <3 Barney</p>",

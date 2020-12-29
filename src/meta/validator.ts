@@ -86,7 +86,7 @@ export class Validator {
 			return true;
 		}
 		let i = 0;
-		let prev = null;
+		let prev: HtmlElement | null = null;
 		for (const node of children) {
 			const old = i;
 			while (rules[i] && !Validator.validatePermittedCategory(node, rules[i], true)) {
@@ -103,7 +103,7 @@ export class Validator {
 					Validator.validatePermittedCategory(node, cur, true)
 				);
 				if (orderSpecified) {
-					cb(node, prev);
+					cb(node, prev as HtmlElement);
 					return false;
 				}
 
@@ -245,7 +245,7 @@ export class Validator {
 	): boolean {
 		/* match tagName when an explicit name is given */
 		if (category[0] !== "@") {
-			const [, tagName] = category.match(/^(.*?)[?*]?$/);
+			const [, tagName] = category.match(/^(.*?)[?*]?$/) as RegExpMatchArray;
 			return node.tagName === tagName;
 		}
 
@@ -270,9 +270,9 @@ export class Validator {
 			case "@interactive":
 				return node.meta.interactive as boolean;
 			case "@script":
-				return node.meta.scriptSupporting;
+				return node.meta.scriptSupporting as boolean;
 			case "@form":
-				return node.meta.form;
+				return node.meta.form as boolean;
 			default:
 				throw new Error(`Invalid content category "${category}"`);
 		}
@@ -288,14 +288,14 @@ function validateKeys(rule: PermittedGroup): void {
 	}
 }
 
-function parseAmountQualifier(category: string): number {
+function parseAmountQualifier(category: string): number | null {
 	if (!category) {
 		/* content not allowed, catched by another rule so just assume unlimited
 		 * usage for this purpose */
 		return null;
 	}
 
-	const [, qualifier] = category.match(/^.*?([?*]?)$/);
+	const [, qualifier] = category.match(/^.*?([?*]?)$/) as RegExpMatchArray;
 	switch (qualifier) {
 		case "?":
 			return 1;

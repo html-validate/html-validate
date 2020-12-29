@@ -24,7 +24,7 @@ declare module "../../dom/cache" {
  */
 export function classifyNodeText(node: HtmlElement): TextClassification {
 	if (node.cacheExists(CACHE_KEY)) {
-		return node.cacheGet(CACHE_KEY);
+		return node.cacheGet(CACHE_KEY) as TextClassification;
 	}
 
 	const text = findTextNodes(node);

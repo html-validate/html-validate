@@ -13,14 +13,14 @@ const location: Location = {
 it("should return true if image has alt text", () => {
 	expect.assertions(1);
 	const node = new HtmlElement("img", null, NodeClosed.EndTag, null, location);
-	node.setAttribute("alt", "foobar", null, null);
+	node.setAttribute("alt", "foobar", location, location);
 	expect(hasAltText(node)).toBeTruthy();
 });
 
 it("should return true if image has dynamic alt text", () => {
 	expect.assertions(1);
 	const node = new HtmlElement("img", null, NodeClosed.EndTag, null, location);
-	node.setAttribute("alt", new DynamicValue("expr"), null, null);
+	node.setAttribute("alt", new DynamicValue("expr"), location, location);
 	expect(hasAltText(node)).toBeTruthy();
 });
 
@@ -33,13 +33,13 @@ it("should return false if image is missing alt text", () => {
 it("should return false if image has empty alt text", () => {
 	expect.assertions(1);
 	const node = new HtmlElement("img", null, NodeClosed.EndTag, null, location);
-	node.setAttribute("alt", "", null, null);
+	node.setAttribute("alt", "", location, location);
 	expect(hasAltText(node)).toBeFalsy();
 });
 
 it("should return false if image has boolean alt attribute", () => {
 	expect.assertions(1);
 	const node = new HtmlElement("img", null, NodeClosed.EndTag, null, location);
-	node.setAttribute("alt", null, null, null);
+	node.setAttribute("alt", null, location, location);
 	expect(hasAltText(node)).toBeFalsy();
 });

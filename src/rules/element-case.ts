@@ -46,7 +46,7 @@ export default class ElementCase extends Rule<void, RuleOptions> {
 		}
 	}
 
-	private validateMatchingCase(start: HtmlElement, end: HtmlElement): void {
+	private validateMatchingCase(start: HtmlElement | null, end: HtmlElement | null): void {
 		/* handle when elements have have missing start or end tag */
 		if (!start || !end || !start.tagName || !end.tagName) {
 			return;

@@ -3,12 +3,12 @@ import { DynamicValue } from "./dynamic-value";
 
 interface Result {
 	tokens: string[];
-	locations: Location[];
+	locations: Location[] | null;
 }
 
-function parse(text: string, baseLocation: Location): Result {
+function parse(text: string, baseLocation: Location | null): Result {
 	const tokens: string[] = [];
-	const locations: Location[] | undefined = baseLocation ? [] : undefined;
+	const locations: Location[] | null = baseLocation ? [] : null;
 	for (let begin = 0; begin < text.length; ) {
 		let end = text.indexOf(" ", begin);
 
@@ -30,7 +30,7 @@ function parse(text: string, baseLocation: Location): Result {
 		tokens.push(token);
 
 		/* extract location */
-		if (baseLocation) {
+		if (locations && baseLocation) {
 			const location = sliceLocation(baseLocation, begin, end);
 			locations.push(location);
 		}
@@ -43,15 +43,16 @@ function parse(text: string, baseLocation: Location): Result {
 
 export class DOMTokenList extends Array<string> {
 	public readonly value: string;
-	private readonly locations: Location[] | undefined;
+	private readonly locations: Location[] | null;
 
-	public constructor(value: string | DynamicValue | null, location?: Location) {
+	public constructor(value: string | DynamicValue | null, location: Location | null) {
 		if (value && typeof value === "string") {
 			const { tokens, locations } = parse(value, location);
 			super(...tokens);
 			this.locations = locations;
 		} else {
 			super(0);
+			this.locations = null;
 		}
 
 		if (value instanceof DynamicValue) {

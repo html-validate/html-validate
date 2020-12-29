@@ -236,7 +236,7 @@ export class Engine<T extends Parser = Parser> {
 	}
 
 	private processDisableBlockDirective(rules: Rule[], parser: Parser): void {
-		let directiveBlock: number = null;
+		let directiveBlock: number | null = null;
 		for (const rule of rules) {
 			rule.setEnabled(false);
 		}
@@ -244,7 +244,7 @@ export class Engine<T extends Parser = Parser> {
 		const unregisterOpen = parser.on("tag:open", (event: string, data: TagOpenEvent) => {
 			/* wait for a tag to open and find the current block by using its parent */
 			if (directiveBlock === null) {
-				directiveBlock = data.target.parent.unique;
+				directiveBlock = data.target.parent?.unique ?? null;
 			}
 
 			/* disable rules directly on the node so it will be recorded for later,

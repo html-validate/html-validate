@@ -32,8 +32,8 @@ describe("Attribute", () => {
 		expect.assertions(3);
 		/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
 		/* @ts-ignore */
-		const a = new Attribute("foo", undefined, keyLocation);
-		const b = new Attribute("foo", null, keyLocation);
+		const a = new Attribute("foo", undefined, keyLocation, null);
+		const b = new Attribute("foo", null, keyLocation, null);
 		const c = new Attribute("foo", "", keyLocation, valueLocation);
 		expect(a.value).toBeNull();
 		expect(b.value).toBeNull();
@@ -65,7 +65,7 @@ describe("Attribute", () => {
 
 		it("should match ignore DynamicValue", () => {
 			expect.assertions(2);
-			const attr = new Attribute("foo", new DynamicValue("bar"), keyLocation);
+			const attr = new Attribute("foo", new DynamicValue("bar"), keyLocation, valueLocation);
 			expect(attr.valueMatches("bar", false)).toBeFalsy();
 			expect(attr.valueMatches(/bar/, false)).toBeFalsy();
 		});
@@ -77,8 +77,8 @@ describe("Attribute", () => {
 
 		beforeEach(() => {
 			const dynamic = new DynamicValue("dynamic");
-			staticAttr = new Attribute("foo", "static");
-			dynamicAttr = new Attribute("bar", dynamic);
+			staticAttr = new Attribute("foo", "static", keyLocation, valueLocation);
+			dynamicAttr = new Attribute("bar", dynamic, keyLocation, valueLocation);
 		});
 
 		it("isStatic should be true for static attributes", () => {

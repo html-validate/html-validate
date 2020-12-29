@@ -44,7 +44,7 @@ class AttrMatcher extends Matcher {
 
 	public constructor(attr: string) {
 		super();
-		const [, key, op, value] = attr.match(/^(.+?)(?:([~^$*|]?=)"([^"]+?)")?$/);
+		const [, key, op, value] = attr.match(/^(.+?)(?:([~^$*|]?=)"([^"]+?)")?$/) as RegExpMatchArray;
 		this.key = key;
 		this.op = op;
 		this.value = value;
@@ -71,7 +71,7 @@ class PseudoClassMatcher extends Matcher {
 
 	public constructor(pseudoclass: string) {
 		super();
-		const [, name, args] = pseudoclass.match(/^([^(]+)(?:\((.*)\))?$/);
+		const [, name, args] = pseudoclass.match(/^([^(]+)(?:\((.*)\))?$/) as RegExpMatchArray;
 		this.name = name;
 		this.args = args;
 	}
@@ -89,7 +89,7 @@ class Pattern {
 	private readonly pattern: Matcher[];
 
 	public constructor(pattern: string) {
-		const match = pattern.match(/^([~+\->]?)((?:[*]|[^.#[:]+)?)(.*)$/);
+		const match = pattern.match(/^([~+\->]?)((?:[*]|[^.#[:]+)?)(.*)$/) as RegExpMatchArray;
 		match.shift(); /* remove full matched string */
 		this.selector = pattern;
 		this.combinator = parseCombinator(match.shift());

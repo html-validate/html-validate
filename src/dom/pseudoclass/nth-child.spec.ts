@@ -22,7 +22,7 @@ it("should not count text nodes", () => {
 	expect.assertions(2);
 	const parent = new HtmlElement("parent", null, NodeClosed.EndTag, null, location);
 	const a = new HtmlElement("a", parent, NodeClosed.EndTag, null, location);
-	parent.appendText("text");
+	parent.appendText("text", location);
 	const b = new HtmlElement("b", parent, NodeClosed.EndTag, null, location);
 	expect(nthChild(a, "1")).toBeTruthy();
 	expect(nthChild(b, "2")).toBeTruthy();

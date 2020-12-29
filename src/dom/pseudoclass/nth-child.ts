@@ -19,7 +19,10 @@ function getNthChild(node: HtmlElement): number {
 	return cache[node.unique];
 }
 
-export function nthChild(node: HtmlElement, args: string): boolean {
+export function nthChild(node: HtmlElement, args?: string): boolean {
+	if (!args) {
+		throw new Error("Missing argument to nth-child");
+	}
 	const n = parseInt(args.trim(), 10);
 	const cur = getNthChild(node);
 	return cur === n;

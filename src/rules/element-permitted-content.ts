@@ -76,7 +76,11 @@ export default class ElementPermittedContent extends Rule {
 	}
 
 	private validatePermittedDescendant(node: HtmlElement, parent: HtmlElement): boolean {
-		for (let cur = parent; !cur.isRootElement(); cur = cur.parent) {
+		for (
+			let cur: HtmlElement | null = parent;
+			cur && !cur.isRootElement();
+			cur = cur?.parent ?? null
+		) {
 			const meta = cur.meta;
 
 			/* ignore checking parent without meta */

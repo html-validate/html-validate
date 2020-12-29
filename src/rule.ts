@@ -52,8 +52,15 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	public readonly options: OptionsType;
 
 	public constructor(options: OptionsType) {
+		/* faux initialization, properly initialized by init(). This is to keep TS happy without adding null-checks everywhere */
+		this.reporter = (null as unknown) as Reporter;
+		this.parser = (null as unknown) as Parser;
+		this.meta = (null as unknown) as MetaTable;
+
 		this.options = options;
 		this.enabled = true;
+		this.severity = 0;
+		this.name = "";
 	}
 
 	public getSeverity(): number {
@@ -164,7 +171,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 
 	private findLocation(src: {
 		node: DOMNode | null;
-		location: Location | undefined;
+		location?: Location | null;
 		event: Event | null;
 	}): Location {
 		if (src.location) {
@@ -240,7 +247,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * additional documentation is available.
 	 */
 	/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-	public documentation(context?: ContextType): RuleDocumentation {
+	public documentation(context?: ContextType): RuleDocumentation | null {
 		return null;
 	}
 }

@@ -63,17 +63,17 @@ function sliceSize(size: number, begin: number, end?: number): number {
  * before location end.
  */
 export function sliceLocation(
-	location: null | undefined,
-	begin: number,
-	end?: number,
-	wrap?: string
-): null;
-export function sliceLocation(
 	location: Location,
 	begin: number,
 	end?: number,
 	wrap?: string
 ): Location;
+export function sliceLocation(
+	location: Location | null | undefined,
+	begin: number,
+	end?: number,
+	wrap?: string
+): Location | null;
 export function sliceLocation(
 	location: Location | null | undefined,
 	begin: number,

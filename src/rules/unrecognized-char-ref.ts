@@ -40,7 +40,7 @@ export default class UnknownCharReference extends Rule<string> {
 		});
 	}
 
-	private findCharacterReferences(text: string, location: Location): void {
+	private findCharacterReferences(text: string, location: Location | null): void {
 		let match;
 		do {
 			match = regexp.exec(text);

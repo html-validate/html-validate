@@ -153,7 +153,7 @@ describe("HtmlElement", () => {
 		expect(node.isRootElement()).toBeTruthy();
 		expect(node.nodeType).toEqual(NodeType.DOCUMENT_NODE);
 		expect(node.nodeName).toEqual("#document");
-		expect(node.tagName).toBeUndefined();
+		expect(node.tagName).toEqual("#document");
 	});
 
 	it("id property should return element id", () => {
@@ -355,8 +355,8 @@ describe("HtmlElement", () => {
 		it("should add text to element", () => {
 			expect.assertions(2);
 			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
-			node.appendText("foo");
-			node.appendText("bar");
+			node.appendText("foo", location);
+			node.appendText("bar", location);
 			expect(node.childNodes).toHaveLength(2);
 			expect(node.textContent).toEqual("foobar");
 		});
@@ -394,12 +394,12 @@ describe("HtmlElement", () => {
 
 		it("should return first parent matching the selector", () => {
 			expect.assertions(1);
-			expect(node.closest("div").id).toEqual("2");
+			expect(node.closest("div")?.id).toEqual("2");
 		});
 
 		it("should return itself if matching the selector", () => {
 			expect.assertions(1);
-			expect(node.closest(".x").id).toEqual("3");
+			expect(node.closest(".x")?.id).toEqual("3");
 		});
 
 		it("should return null if no element matches the selector", () => {
@@ -451,7 +451,7 @@ describe("HtmlElement", () => {
 
 		it("root element should not receive selector", () => {
 			expect.assertions(1);
-			const el = HtmlElement.rootNode(null);
+			const el = HtmlElement.rootNode(location);
 			expect(el.generateSelector()).toBeNull();
 		});
 	});
@@ -495,26 +495,26 @@ describe("HtmlElement", () => {
 		it("should overwrite copyable properties", () => {
 			expect.assertions(1);
 			node.loadMeta({ flow: false } as MetaElement);
-			expect(node.meta.flow).toEqual(false);
+			expect(node.meta?.flow).toEqual(false);
 		});
 
 		it("should not overwrite non-copyable properties", () => {
 			expect.assertions(1);
 			node.loadMeta({ inherit: "bar" } as MetaElement);
-			expect(node.meta.inherit).toEqual("foo");
+			expect(node.meta?.inherit).toEqual("foo");
 		});
 
 		it("should remove missing properties", () => {
 			expect.assertions(1);
 			node.loadMeta({} as MetaElement);
-			expect(node.meta.flow).toBeUndefined();
+			expect(node.meta?.flow).toBeUndefined();
 		});
 
 		it("should handle when original meta is null", () => {
 			expect.assertions(1);
 			const node = new HtmlElement("my-element", null, NodeClosed.EndTag, null, location);
 			node.loadMeta({ flow: false } as MetaElement);
-			expect(node.meta.flow).toEqual(false);
+			expect(node.meta?.flow).toEqual(false);
 		});
 	});
 
@@ -789,7 +789,7 @@ describe("HtmlElement", () => {
 			const c = new HtmlElement("c", b, NodeClosed.EndTag, null, location);
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const result = root.find((node: HtmlElement) => node.tagName === "b");
-			expect(result.tagName).toEqual("b");
+			expect(result?.tagName).toEqual("b");
 		});
 	});
 });

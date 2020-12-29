@@ -11,7 +11,7 @@ export function* parseConditionalComment(
 	comment: string,
 	commentLocation: Location
 ): IterableIterator<ConditionalComment> {
-	let match: RegExpExecArray;
+	let match: RegExpExecArray | null;
 
 	while ((match = regexp.exec(comment)) !== null) {
 		const expression = match[1];

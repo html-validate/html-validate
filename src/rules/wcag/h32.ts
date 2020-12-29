@@ -40,12 +40,12 @@ export default class H32 extends Rule {
 
 function isSubmit(node: HtmlElement): boolean {
 	const type = node.getAttribute("type");
-	return type && type.valueMatches(/submit|image/);
+	return Boolean(type && type.valueMatches(/submit|image/));
 }
 
 function isAssociated(id: string, node: HtmlElement): boolean {
 	const form = node.getAttribute("form");
-	return form && form.valueMatches(id, true);
+	return Boolean(form && form.valueMatches(id, true));
 }
 
 function hasNestedSubmit(form: HtmlElement): boolean {

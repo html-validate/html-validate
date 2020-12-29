@@ -38,7 +38,7 @@ export class Parser {
 	 */
 	public constructor(config: ResolvedConfig) {
 		this.event = new EventHandler();
-		this.dom = undefined;
+		this.dom = (null as unknown) as DOMTree;
 		this.metaTable = config.getMetaTable();
 	}
 
@@ -173,7 +173,7 @@ export class Parser {
 
 			/* the parent element is closed, check if the active element would be
 			 * implicitly closed when parent is. */
-			return active.parent.is(tagName) && meta.includes(active.tagName);
+			return Boolean(active.parent && active.parent.is(tagName) && meta.includes(active.tagName));
 		}
 	}
 
@@ -246,7 +246,7 @@ export class Parser {
 
 	protected closeElement(
 		source: Source,
-		node: HtmlElement,
+		node: HtmlElement | null,
 		active: HtmlElement,
 		location: Location
 	): void {
@@ -254,11 +254,12 @@ export class Parser {
 		this.processElement(active, source);
 
 		/* trigger event for the closing of the element (the </> tag)*/
-		this.trigger("tag:close", {
+		const event: TagCloseEvent = {
 			target: node,
 			previous: active,
 			location,
-		});
+		};
+		this.trigger("tag:close", event);
 
 		/* trigger event for for an element being fully constructed. Special care
 		 * for void elements explicit closed <input></input> */
@@ -323,6 +324,10 @@ export class Parser {
 				nested++;
 			}
 		} while (nested > 0);
+
+		if (!startToken || !endToken) {
+			return;
+		}
 
 		const active = this.dom.getActive();
 		const node = HtmlElement.fromTokens(startToken, endToken, active, this.metaTable);
@@ -390,7 +395,7 @@ export class Parser {
 	 * foo="bar"    foo='bar'    foo=bar    foo      foo=""
 	 *      ^^^          ^^^         ^^^    (null)   (null)
 	 */
-	private getAttributeValueLocation(token: Token): Location {
+	private getAttributeValueLocation(token?: Token): Location | null {
 		if (!token || token.type !== TokenType.ATTR_VALUE || token.data[1] === "") {
 			return null;
 		}

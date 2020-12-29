@@ -101,8 +101,8 @@ describe("DOMNode", () => {
 			const root = new HtmlElement("root", null, NodeClosed.EndTag, null, location);
 			const a = new HtmlElement("a", root, NodeClosed.EndTag, null, location);
 			const b = new HtmlElement("b", root, NodeClosed.EndTag, null, location);
-			a.appendText("foo");
-			b.appendText("bar");
+			a.appendText("foo", location);
+			b.appendText("bar", location);
 			expect(root.textContent).toEqual("foobar");
 		});
 
@@ -112,8 +112,8 @@ describe("DOMNode", () => {
 			const a = new HtmlElement("a", root, NodeClosed.EndTag, null, location);
 			const b = new HtmlElement("b", root, NodeClosed.EndTag, null, location);
 			const c = new HtmlElement("b", b, NodeClosed.EndTag, null, location);
-			a.appendText("foo");
-			c.appendText("bar");
+			a.appendText("foo", location);
+			c.appendText("bar", location);
 			expect(root.textContent).toEqual("foobar");
 		});
 
@@ -123,8 +123,8 @@ describe("DOMNode", () => {
 			const a = new HtmlElement("a", null, NodeClosed.EndTag, null, location);
 			const b = new TextNode(" bar ", location);
 			const c = new HtmlElement("c", null, NodeClosed.EndTag, null, location);
-			a.appendText("foo");
-			c.appendText("baz");
+			a.appendText("foo", location);
+			c.appendText("baz", location);
 			root.append(a);
 			root.append(b);
 			root.append(c);

@@ -17,6 +17,12 @@ Omitted end tags can be ambigious for humans to read and many editors have troub
 			const closed = event.previous;
 			const by = event.target;
 
+			/* not set when unclosed elements are being closed by tree, this rule does
+			 * not consider such events (handled by close-order instead) */
+			if (!by) {
+				return;
+			}
+
 			if (closed.closed !== NodeClosed.ImplicitClosed) {
 				return;
 			}

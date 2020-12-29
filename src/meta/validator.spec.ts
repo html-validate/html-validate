@@ -1,7 +1,16 @@
 import { Config, ResolvedConfig } from "../config";
+import { Location } from "../context";
 import { Attribute, DynamicValue, HtmlElement } from "../dom";
 import { Parser } from "../parser";
 import { MetaData, MetaTable, Validator } from ".";
+
+const location: Location = {
+	filename: "inline",
+	line: 1,
+	column: 1,
+	offset: 0,
+	size: 1,
+};
 
 describe("Meta validator", () => {
 	describe("validatePermitted()", () => {
@@ -541,7 +550,8 @@ describe("Meta validator", () => {
 		it("should match if no rule is present", () => {
 			expect.assertions(1);
 			const rules = {};
-			expect(Validator.validateAttribute(new Attribute("foo", "bar"), rules)).toBeTruthy();
+			const attr = new Attribute("foo", "bar", location, location);
+			expect(Validator.validateAttribute(attr, rules)).toBeTruthy();
 		});
 
 		it.each`
@@ -552,7 +562,7 @@ describe("Meta validator", () => {
 		`("should match regexp $regex vs $value", ({ regex, value }) => {
 			expect.assertions(1);
 			const rules = { foo: [regex] };
-			const attr = new Attribute("foo", value);
+			const attr = new Attribute("foo", value, location, location);
 			expect(Validator.validateAttribute(attr, rules)).toBeTruthy();
 		});
 
@@ -564,7 +574,7 @@ describe("Meta validator", () => {
 		`("should not match regexp $regex vs $value", ({ regex, value }) => {
 			expect.assertions(1);
 			const rules = { foo: [regex] };
-			const attr = new Attribute("foo", value);
+			const attr = new Attribute("foo", value, location, location);
 			expect(Validator.validateAttribute(attr, rules)).toBeFalsy();
 		});
 
@@ -573,8 +583,10 @@ describe("Meta validator", () => {
 			const rules = {
 				foo: ["bar"],
 			};
-			expect(Validator.validateAttribute(new Attribute("foo", "bar"), rules)).toBeTruthy();
-			expect(Validator.validateAttribute(new Attribute("foo", "car"), rules)).toBeFalsy();
+			const bar = new Attribute("foo", "bar", location, location);
+			const car = new Attribute("foo", "car", location, location);
+			expect(Validator.validateAttribute(bar, rules)).toBeTruthy();
+			expect(Validator.validateAttribute(car, rules)).toBeFalsy();
 		});
 
 		it("should match dynamic value", () => {
@@ -584,8 +596,10 @@ describe("Meta validator", () => {
 				bar: [] as string[],
 			};
 			const dynamic = new DynamicValue("any");
-			expect(Validator.validateAttribute(new Attribute("foo", dynamic), rules)).toBeTruthy();
-			expect(Validator.validateAttribute(new Attribute("bar", dynamic), rules)).toBeTruthy();
+			const foo = new Attribute("foo", dynamic, location, location);
+			const bar = new Attribute("bar", dynamic, location, location);
+			expect(Validator.validateAttribute(foo, rules)).toBeTruthy();
+			expect(Validator.validateAttribute(bar, rules)).toBeTruthy();
 		});
 
 		it("should match if one of multiple allowed matches", () => {
@@ -593,8 +607,10 @@ describe("Meta validator", () => {
 			const rules = {
 				foo: ["fred", "barney", "wilma"],
 			};
-			expect(Validator.validateAttribute(new Attribute("foo", "barney"), rules)).toBeTruthy();
-			expect(Validator.validateAttribute(new Attribute("foo", "pebble"), rules)).toBeFalsy();
+			const barney = new Attribute("foo", "barney", location, location);
+			const pebble = new Attribute("foo", "pebble", location, location);
+			expect(Validator.validateAttribute(barney, rules)).toBeTruthy();
+			expect(Validator.validateAttribute(pebble, rules)).toBeFalsy();
 		});
 
 		it("should handle null", () => {
@@ -602,7 +618,8 @@ describe("Meta validator", () => {
 			const rules = {
 				foo: ["foo", "/bar/"],
 			};
-			expect(Validator.validateAttribute(new Attribute("foo", null), rules)).toBeFalsy();
+			const attr = new Attribute("foo", null, location, null);
+			expect(Validator.validateAttribute(attr, rules)).toBeFalsy();
 		});
 
 		it("should consider empty list as boolean attribute", () => {
@@ -610,7 +627,8 @@ describe("Meta validator", () => {
 			const rules = {
 				foo: [] as string[],
 			};
-			expect(Validator.validateAttribute(new Attribute("foo", null), rules)).toBeTruthy();
+			const attr = new Attribute("foo", null, location, null);
+			expect(Validator.validateAttribute(attr, rules)).toBeTruthy();
 		});
 
 		it("should consider empty value as either null or empty string", () => {
@@ -618,8 +636,10 @@ describe("Meta validator", () => {
 			const rules = {
 				foo: [""] as string[],
 			};
-			expect(Validator.validateAttribute(new Attribute("foo", null), rules)).toBeTruthy();
-			expect(Validator.validateAttribute(new Attribute("foo", ""), rules)).toBeTruthy();
+			const omitted = new Attribute("foo", null, location, null);
+			const empty = new Attribute("foo", "", location, null);
+			expect(Validator.validateAttribute(omitted, rules)).toBeTruthy();
+			expect(Validator.validateAttribute(empty, rules)).toBeTruthy();
 		});
 
 		it("should normalize boolean attributes", () => {
@@ -627,10 +647,14 @@ describe("Meta validator", () => {
 			const rules = {
 				foo: [] as string[],
 			};
-			expect(Validator.validateAttribute(new Attribute("foo", null), rules)).toBeTruthy();
-			expect(Validator.validateAttribute(new Attribute("foo", ""), rules)).toBeTruthy();
-			expect(Validator.validateAttribute(new Attribute("foo", "foo"), rules)).toBeTruthy();
-			expect(Validator.validateAttribute(new Attribute("foo", "bar"), rules)).toBeFalsy();
+			const omitted = new Attribute("foo", null, location, null);
+			const empty = new Attribute("foo", "", location, null);
+			const self = new Attribute("foo", "foo", location, location);
+			const other = new Attribute("foo", "bar", location, location);
+			expect(Validator.validateAttribute(omitted, rules)).toBeTruthy();
+			expect(Validator.validateAttribute(empty, rules)).toBeTruthy();
+			expect(Validator.validateAttribute(self, rules)).toBeTruthy();
+			expect(Validator.validateAttribute(other, rules)).toBeFalsy();
 		});
 	});
 });

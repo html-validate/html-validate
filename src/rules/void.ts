@@ -58,7 +58,12 @@ export default class Void extends Rule<void, RuleOptions> {
 		}
 	}
 
+	/* eslint-disable-next-line complexity */
 	private validateActive(node: HtmlElement): void {
+		if (!node.meta) {
+			return;
+		}
+
 		/* ignore foreign elements, they may or may not be self-closed and both are
 		 * valid */
 		if (node.meta.foreign) {

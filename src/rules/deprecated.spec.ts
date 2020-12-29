@@ -72,7 +72,7 @@ describe("rule deprecated", () => {
 			expect(report).toHaveError("deprecated", message);
 			const context = report.results[0].messages[0].context;
 			const doc = htmlvalidate.getRuleDocumentation("deprecated", null, context);
-			expect(doc.description).toEqual(documentation);
+			expect(doc?.description).toEqual(documentation);
 		});
 	});
 

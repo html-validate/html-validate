@@ -31,7 +31,7 @@ export default class ScriptType extends Rule {
 				return;
 			}
 
-			const value = attr.value.toString();
+			const value = attr.value ? attr.value.toString() : "";
 			if (!this.isJavascript(value)) {
 				return;
 			}

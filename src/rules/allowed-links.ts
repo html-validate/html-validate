@@ -55,7 +55,7 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 
 	public setup(): void {
 		this.on("attr", (event: AttributeEvent) => {
-			if (!this.isRelevant(event)) {
+			if (!event.value || !this.isRelevant(event)) {
 				return;
 			}
 

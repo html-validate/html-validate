@@ -48,13 +48,13 @@ function overwriteMerge<T>(a: T[], b: T[]): T[] {
 /* istanbul ignore next: manual testing */
 const ajvRegexpValidate: DataValidateFunction = function (
 	data: any,
-	dataCxt: DataValidationCxt
+	dataCxt?: DataValidationCxt
 ): boolean {
 	const valid = data instanceof RegExp;
 	if (!valid) {
 		ajvRegexpValidate.errors = [
 			{
-				dataPath: dataCxt.dataPath,
+				dataPath: dataCxt?.dataPath,
 				schemaPath: undefined,
 				keyword: "type",
 				message: "should be regexp",
@@ -121,7 +121,7 @@ export class MetaTable {
 				`Element metadata is not valid`,
 				obj,
 				this.schema,
-				validate.errors
+				validate.errors ?? []
 			);
 		}
 
@@ -230,7 +230,7 @@ export class MetaTable {
 
 		/* fetch and remove the global element, it should not be resolvable by
 		 * itself */
-		const global = this.elements["*"];
+		const global: Partial<MetaElement> = this.elements["*"];
 		delete this.elements["*"];
 
 		/* hack: unset default properties which global should not override */
@@ -243,7 +243,7 @@ export class MetaTable {
 		}
 	}
 
-	private mergeElement(a: MetaElement, b: MetaElement): MetaElement {
+	private mergeElement(a: MetaElement, b: Partial<MetaElement>): MetaElement {
 		return deepmerge(a, b);
 	}
 
@@ -319,8 +319,8 @@ function isDescendant(node: HtmlElement, tagName: any): boolean {
 			`Property expression "isDescendant" must take string argument when evaluating metadata for <${node.tagName}>`
 		);
 	}
-	let cur: HtmlElement = node.parent;
-	while (!cur.isRootElement()) {
+	let cur: HtmlElement | null = node.parent;
+	while (cur && !cur.isRootElement()) {
 		if (cur.is(tagName)) {
 			return true;
 		}

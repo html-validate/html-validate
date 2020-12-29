@@ -235,7 +235,7 @@ describe("MetaTable", () => {
 				const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 				const dom = parser.parseHtml("<foo><ham><dynamic/></ham></foo>").root;
 				const el = dom.getElementsByTagName("dynamic");
-				expect(el[0].meta.interactive).toBeTruthy();
+				expect(el[0].meta?.interactive).toBeTruthy();
 			});
 
 			it("should be false if child is not a descendant of given tagName", () => {
@@ -243,7 +243,7 @@ describe("MetaTable", () => {
 				const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 				const dom = parser.parseHtml("<foo><spam><dynamic/></spam></foo>").root;
 				const el = dom.getElementsByTagName("dynamic");
-				expect(el[0].meta.interactive).toBeFalsy();
+				expect(el[0].meta?.interactive).toBeFalsy();
 			});
 
 			it("should throw exception when invalid argument is used", () => {
@@ -275,7 +275,7 @@ describe("MetaTable", () => {
 				const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 				const dom = parser.parseHtml("<dynamic foo/>").root;
 				const el = dom.getElementsByTagName("dynamic");
-				expect(el[0].meta.interactive).toBeTruthy();
+				expect(el[0].meta?.interactive).toBeTruthy();
 			});
 
 			it("should be false if element does not have given attribute", () => {
@@ -283,7 +283,7 @@ describe("MetaTable", () => {
 				const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 				const dom = parser.parseHtml("<dynamic bar/>").root;
 				const el = dom.getElementsByTagName("dynamic");
-				expect(el[0].meta.interactive).toBeFalsy();
+				expect(el[0].meta?.interactive).toBeFalsy();
 			});
 
 			it("should throw exception when invalid argument is used", () => {
@@ -327,7 +327,7 @@ describe("MetaTable", () => {
 				const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 				const dom = parser.parseHtml('<foo type="hidden"/>').root;
 				const el = dom.getElementsByTagName("foo");
-				expect(el[0].meta.interactive).toBeTruthy();
+				expect(el[0].meta?.interactive).toBeTruthy();
 			});
 
 			it('should be false when "=" is used to match other value', () => {
@@ -335,7 +335,7 @@ describe("MetaTable", () => {
 				const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 				const dom = parser.parseHtml('<foo type="other"/>').root;
 				const el = dom.getElementsByTagName("foo");
-				expect(el[0].meta.interactive).toBeFalsy();
+				expect(el[0].meta?.interactive).toBeFalsy();
 			});
 
 			it('should be false when "=" is used to match missing value', () => {
@@ -343,7 +343,7 @@ describe("MetaTable", () => {
 				const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 				const dom = parser.parseHtml("<foo/>").root;
 				const el = dom.getElementsByTagName("foo");
-				expect(el[0].meta.interactive).toBeFalsy();
+				expect(el[0].meta?.interactive).toBeFalsy();
 			});
 
 			it('should be false when "!=" is used to match existing value', () => {
@@ -351,7 +351,7 @@ describe("MetaTable", () => {
 				const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 				const dom = parser.parseHtml('<bar type="hidden"/>').root;
 				const el = dom.getElementsByTagName("bar");
-				expect(el[0].meta.interactive).toBeFalsy();
+				expect(el[0].meta?.interactive).toBeFalsy();
 			});
 
 			it('should be true when "!=" is used to match other value', () => {
@@ -359,7 +359,7 @@ describe("MetaTable", () => {
 				const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 				const dom = parser.parseHtml('<bar type="other"/>').root;
 				const el = dom.getElementsByTagName("bar");
-				expect(el[0].meta.interactive).toBeTruthy();
+				expect(el[0].meta?.interactive).toBeTruthy();
 			});
 
 			it('should be false when "!=" is used to match missing value', () => {
@@ -367,7 +367,7 @@ describe("MetaTable", () => {
 				const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 				const dom = parser.parseHtml("<bar/>").root;
 				const el = dom.getElementsByTagName("bar");
-				expect(el[0].meta.interactive).toBeTruthy();
+				expect(el[0].meta?.interactive).toBeTruthy();
 			});
 
 			it("should throw exception when invalid operator is used", () => {

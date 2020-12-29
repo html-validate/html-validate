@@ -54,7 +54,7 @@ export class ConfigLoader {
 		}
 
 		if (this.cache.has(filename)) {
-			return this.cache.get(filename);
+			return this.cache.get(filename) ?? null;
 		}
 
 		let found = false;

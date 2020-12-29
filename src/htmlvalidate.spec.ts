@@ -190,7 +190,7 @@ describe("HtmlValidate", () => {
 				expect.assertions(1);
 				const hooks: SourceHooks = {
 					processAttribute: () => {
-						return null;
+						return [];
 					},
 				};
 				htmlvalidate.validateString(markup, "my-file.html", hooks);
@@ -226,7 +226,7 @@ describe("HtmlValidate", () => {
 				const options: ConfigData = {};
 				const hooks: SourceHooks = {
 					processAttribute: () => {
-						return null;
+						return [];
 					},
 				};
 				htmlvalidate.validateString(markup, "my-file.html", options, hooks);
@@ -331,6 +331,7 @@ describe("HtmlValidate", () => {
 							messages: [warning],
 							errorCount: 0,
 							warningCount: 1,
+							source: null,
 						},
 					],
 					errorCount: 0,
@@ -344,6 +345,7 @@ describe("HtmlValidate", () => {
 							messages: [error],
 							errorCount: 1,
 							warningCount: 0,
+							source: null,
 						},
 					],
 					errorCount: 1,
@@ -369,6 +371,7 @@ describe("HtmlValidate", () => {
 			          "size": 1,
 			        },
 			      ],
+			      "source": null,
 			      "warningCount": 1,
 			    },
 			    Object {
@@ -386,6 +389,7 @@ describe("HtmlValidate", () => {
 			          "size": 1,
 			        },
 			      ],
+			      "source": null,
 			      "warningCount": 0,
 			    },
 			  ],

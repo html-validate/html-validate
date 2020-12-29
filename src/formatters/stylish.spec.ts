@@ -17,6 +17,7 @@ describe("stylish formatter", () => {
 				filePath: "regular.html",
 				errorCount: 1,
 				warningCount: 1,
+				source: null,
 				messages: [
 					{
 						ruleId: "foo",
@@ -44,6 +45,7 @@ describe("stylish formatter", () => {
 				filePath: "edge-cases.html",
 				errorCount: 1,
 				warningCount: 0,
+				source: null,
 				messages: [
 					{
 						ruleId: "baz",
@@ -70,7 +72,7 @@ describe("stylish formatter", () => {
 	it("should empty messages", () => {
 		expect.assertions(1);
 		const results: Result[] = [
-			{ filePath: "empty.html", messages: [], errorCount: 0, warningCount: 0 },
+			{ filePath: "empty.html", messages: [], errorCount: 0, warningCount: 0, source: null },
 		];
 		expect(formatter(results)).toMatchSnapshot();
 	});
