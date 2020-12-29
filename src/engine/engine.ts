@@ -367,7 +367,7 @@ export class Engine<T extends Parser = Parser> {
 		ruleId: string,
 		config: ResolvedConfig,
 		severity: Severity,
-		options: any, // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
+		options: RuleOptions,
 		parser: Parser,
 		report: Reporter
 	): Rule {

@@ -25,7 +25,9 @@ export interface RuleDocumentation {
 	url?: string;
 }
 
-export type RuleConstructor<T, U> = new (options?: any) => Rule<T, U>;
+export interface RuleConstructor<T, U> {
+	new (options?: any): Rule<T, U>;
+}
 
 export interface IncludeExcludeOptions {
 	include: string[] | null;
