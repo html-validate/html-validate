@@ -337,11 +337,13 @@ export class Parser {
 		const haveValue = next && next.type === TokenType.ATTR_VALUE;
 		const attrData: AttributeData = {
 			key: token.data[1],
+			value: null,
+			quote: null,
 		};
 
-		if (haveValue) {
-			attrData.value = next.data[1];
-			attrData.quote = next.data[2];
+		if (next && haveValue) {
+			attrData.value = next.data[1] ?? null;
+			attrData.quote = next.data[2] ?? null;
 		}
 
 		/* get callback to process attributes, default is to just return attribute
@@ -367,7 +369,7 @@ export class Parser {
 
 		/* process attribute(s) */
 		for (const attr of iterator) {
-			this.trigger("attr", {
+			const event: AttributeEvent = {
 				target: node,
 				key: attr.key,
 				value: attr.value,
@@ -375,8 +377,8 @@ export class Parser {
 				originalAttribute: attr.originalAttribute,
 				location: keyLocation,
 				valueLocation,
-			});
-
+			};
+			this.trigger("attr", event);
 			node.setAttribute(attr.key, attr.value, keyLocation, valueLocation, attr.originalAttribute);
 		}
 	}

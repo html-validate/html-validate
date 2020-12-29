@@ -66,10 +66,10 @@ export interface AttributeEvent extends Event {
 	key: string;
 
 	/** Attribute value. */
-	value: string | DynamicValue;
+	value: string | DynamicValue | null;
 
 	/** Quotemark used. */
-	quote: '"' | "'" | undefined;
+	quote: '"' | "'" | null;
 
 	/** Set to original attribute when a transformer dynamically added this
 	 * attribute. */

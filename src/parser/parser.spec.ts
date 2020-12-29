@@ -332,7 +332,7 @@ describe("parser", () => {
 				event: "attr",
 				key: "foo",
 				value: "bar",
-				quote: undefined,
+				quote: null,
 				target: "div",
 				valueLocation: expect.objectContaining({
 					line: 1,
@@ -450,8 +450,8 @@ describe("parser", () => {
 			expect(events.shift()).toEqual({
 				event: "attr",
 				key: "foo",
-				value: undefined,
-				quote: undefined,
+				value: null,
+				quote: null,
 				target: "div",
 				valueLocation: null,
 			});
@@ -506,8 +506,8 @@ describe("parser", () => {
 			expect(events.shift()).toEqual({
 				event: "attr",
 				key: "foo-bar-baz",
-				value: undefined,
-				quote: undefined,
+				value: null,
+				quote: null,
 				target: "div",
 				valueLocation: null,
 			});

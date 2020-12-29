@@ -43,11 +43,11 @@ export default class AttrQuotes extends Rule<void, Options> {
 	public setup(): void {
 		this.on("attr", (event: AttributeEvent) => {
 			/* ignore attributes with no value */
-			if (typeof event.value === "undefined") {
+			if (event.value === null) {
 				return;
 			}
 
-			if (typeof event.quote === "undefined") {
+			if (!event.quote) {
 				if (this.options.unquoted === false) {
 					this.report(event.target, `Attribute "${event.key}" using unquoted value`);
 				}
