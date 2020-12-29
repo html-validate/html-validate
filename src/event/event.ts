@@ -8,7 +8,7 @@ import { Rule } from "../rule";
  */
 export interface Event {
 	/** Event location. */
-	location: Location;
+	location: Location | null;
 }
 
 /**
@@ -23,6 +23,9 @@ export interface ConfigReadyEvent extends Event {
  * Event emitted when opening tags are encountered.
  */
 export interface TagOpenEvent extends Event {
+	/** Event location. */
+	location: Location;
+
 	/** The node being opened. */
 	target: HtmlElement;
 }
@@ -31,6 +34,9 @@ export interface TagOpenEvent extends Event {
  * Event emitted when close tags `</..>` are encountered.
  */
 export interface TagCloseEvent extends Event {
+	/** Event location. */
+	location: Location;
+
 	/** Temporary node for the close tag. */
 	target: HtmlElement;
 
@@ -42,6 +48,9 @@ export interface TagCloseEvent extends Event {
  * Event emitted when an element is fully constructed (including its children).
  */
 export interface ElementReadyEvent extends Event {
+	/** Event location. */
+	location: Location;
+
 	/** HTML element */
 	target: HtmlElement;
 }
@@ -50,6 +59,9 @@ export interface ElementReadyEvent extends Event {
  * Event emitted when attributes are encountered.
  */
 export interface AttributeEvent extends Event {
+	/** Event location. */
+	location: Location;
+
 	/** Attribute name. */
 	key: string;
 
@@ -67,13 +79,16 @@ export interface AttributeEvent extends Event {
 	target: HtmlElement;
 
 	/** Location of the attribute value */
-	valueLocation: Location;
+	valueLocation: Location | null;
 }
 
 /**
  * Event emitted when whitespace content is parsed.
  */
 export interface WhitespaceEvent extends Event {
+	/** Event location. */
+	location: Location;
+
 	/** Text content. */
 	text: string;
 }
@@ -83,6 +98,9 @@ export interface WhitespaceEvent extends Event {
  * encountered.
  */
 export interface ConditionalEvent extends Event {
+	/** Event location. */
+	location: Location;
+
 	/** Condition including markers. */
 	condition: string;
 }
@@ -92,6 +110,9 @@ export interface ConditionalEvent extends Event {
  * are encountered.
  */
 export interface DirectiveEvent extends Event {
+	/** Event location. */
+	location: Location;
+
 	/** Directive action. */
 	action: string;
 
@@ -106,6 +127,9 @@ export interface DirectiveEvent extends Event {
  * Event emitted when doctypes `<!DOCTYPE ..>` are encountered.
  */
 export interface DoctypeEvent extends Event {
+	/** Event location. */
+	location: Location;
+
 	/** Selected doctype */
 	value: string;
 
