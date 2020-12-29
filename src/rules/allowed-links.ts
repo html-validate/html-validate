@@ -40,7 +40,7 @@ const description: Record<Style, string | null> = {
 };
 
 export default class AllowedLinks extends Rule<Style, RuleOptions> {
-	public constructor(options: RuleOptions) {
+	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 	}
 

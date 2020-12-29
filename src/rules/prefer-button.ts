@@ -25,7 +25,7 @@ const defaults: RuleOptions = {
 };
 
 export default class PreferButton extends Rule<RuleContext, RuleOptions> {
-	public constructor(options: RuleOptions) {
+	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 	}
 

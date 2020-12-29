@@ -14,7 +14,7 @@ const defaults: RuleOptions = {
 export default class ClassPattern extends Rule<void, RuleOptions> {
 	private pattern: RegExp;
 
-	public constructor(options: RuleOptions) {
+	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 		this.pattern = parsePattern(this.options.pattern);
 	}

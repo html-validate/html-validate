@@ -21,7 +21,7 @@ const supportSri: { [key: string]: string } = {
 export default class RequireSri extends Rule<void, RuleOptions> {
 	private target: Target;
 
-	public constructor(options: RuleOptions) {
+	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 		this.target = this.options.target;
 	}

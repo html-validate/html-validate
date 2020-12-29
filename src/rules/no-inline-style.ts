@@ -12,7 +12,7 @@ const defaults: RuleOptions = {
 };
 
 export default class NoInlineStyle extends Rule<void, RuleOptions> {
-	public constructor(options: RuleOptions) {
+	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 	}
 

@@ -23,7 +23,7 @@ const defaults: RuleOptions = {
 export default class ElementName extends Rule<Context, RuleOptions> {
 	private pattern: RegExp;
 
-	public constructor(options: RuleOptions) {
+	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 
 		// eslint-disable-next-line security/detect-non-literal-regexp

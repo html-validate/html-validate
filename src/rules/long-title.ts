@@ -11,7 +11,7 @@ const defaults: RuleOptions = {
 export default class LongTitle extends Rule<void, RuleOptions> {
 	private maxlength: number;
 
-	public constructor(options: RuleOptions) {
+	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 		this.maxlength = this.options.maxlength;
 	}

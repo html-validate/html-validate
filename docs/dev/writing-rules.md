@@ -134,7 +134,7 @@ const defaults: RuleOptions = {
 };
 
 class MyRule extends Rule<void, RuleOptions> {
-  constructor(options: RuleOptions) {
+  constructor(options: Partial<RuleOptions>) {
     /* assign default values if not provided by user */
     super({ ...defaults, ...options });
   }

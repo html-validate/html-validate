@@ -17,7 +17,7 @@ const defaults: RuleOptions = {
 };
 
 export default class NoAutoplay extends Rule<RuleContext, RuleOptions> {
-	public constructor(options: RuleOptions) {
+	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 	}
 

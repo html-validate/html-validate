@@ -21,7 +21,7 @@ export default class H37 extends Rule<void, RuleOptions> {
 		};
 	}
 
-	public constructor(options: RuleOptions) {
+	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 
 		/* ensure alias is array */
