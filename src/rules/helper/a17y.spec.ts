@@ -1,5 +1,5 @@
 import { Config } from "../../config";
-import { DOMTree } from "../../dom";
+import { DOMTree, HtmlElement, NodeClosed } from "../../dom";
 import { Parser } from "../../parser";
 import { processAttribute } from "../../transform/mocks/attribute";
 import { inAccessibilityTree, isAriaHidden, isHTMLHidden, isPresentation } from "./a17y";
@@ -59,6 +59,18 @@ describe("a17y helpers", () => {
 			const p = root.querySelector("p");
 			expect(inAccessibilityTree(p)).toBeTruthy();
 		});
+
+		it("should handle missing parent", () => {
+			expect.assertions(1);
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, {
+				filename: "inline",
+				line: 1,
+				column: 1,
+				offset: 0,
+				size: 1,
+			});
+			expect(inAccessibilityTree(node)).toBeTruthy();
+		});
 	});
 
 	describe("isAriaHidden()", () => {
@@ -115,6 +127,18 @@ describe("a17y helpers", () => {
 			expect(isAriaHidden(p)).toBeTruthy();
 			expect(spy).toHaveBeenCalledTimes(0);
 		});
+
+		it("should handle missing parent", () => {
+			expect.assertions(1);
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, {
+				filename: "inline",
+				line: 1,
+				column: 1,
+				offset: 0,
+				size: 1,
+			});
+			expect(isAriaHidden(node)).toBeFalsy();
+		});
 	});
 
 	describe("isHTMLHidden()", () => {
@@ -163,6 +187,18 @@ describe("a17y helpers", () => {
 			spy.mockClear();
 			expect(isHTMLHidden(p)).toBeTruthy();
 			expect(spy).toHaveBeenCalledTimes(0);
+		});
+
+		it("should handle missing parent", () => {
+			expect.assertions(1);
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, {
+				filename: "inline",
+				line: 1,
+				column: 1,
+				offset: 0,
+				size: 1,
+			});
+			expect(isHTMLHidden(node)).toBeFalsy();
 		});
 	});
 
@@ -226,6 +262,18 @@ describe("a17y helpers", () => {
 			spy.mockClear();
 			expect(isPresentation(p)).toBeTruthy();
 			expect(spy).toHaveBeenCalledTimes(0);
+		});
+
+		it("should handle missing parent", () => {
+			expect.assertions(1);
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, {
+				filename: "inline",
+				line: 1,
+				column: 1,
+				offset: 0,
+				size: 1,
+			});
+			expect(isPresentation(node)).toBeFalsy();
 		});
 	});
 });

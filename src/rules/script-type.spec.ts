@@ -37,6 +37,12 @@ describe("rule script-type", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report for other elements", () => {
+		expect.assertions(1);
+		const report = htmlvalidate.validateString('<p type="module"></p>');
+		expect(report).toBeValid();
+	});
+
 	it("should report when script element have empty type", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateString('<script type=""></script>');
@@ -49,6 +55,16 @@ describe("rule script-type", () => {
 	it("should report when script element have javascript type", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateString('<script type="text/javascript"></script>');
+		expect(report).toHaveError(
+			"script-type",
+			'"type" attribute is unnecessary for javascript resources'
+		);
+	});
+
+	it("should report when script element have javascript type with parameter", () => {
+		expect.assertions(1);
+		const markup = '<script type="text/javascript;charset=utf-8"></script>';
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toHaveError(
 			"script-type",
 			'"type" attribute is unnecessary for javascript resources'

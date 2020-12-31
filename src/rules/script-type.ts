@@ -45,7 +45,8 @@ export default class ScriptType extends Rule {
 	}
 
 	private isJavascript(mime: string): boolean {
-		const match = mime.match(/^(.*?)(?:\s*;.*)?$/);
-		return match ? javascript.includes(match[1]) : false;
+		/* remove mime parameters, e.g. ";charset=utf-8" */
+		const type = mime.replace(/;.*/, "");
+		return javascript.includes(type);
 	}
 }

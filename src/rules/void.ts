@@ -1,5 +1,6 @@
 import { HtmlElement, NodeClosed } from "../dom";
 import { TagEndEvent } from "../event";
+import { MetaElement } from "../meta";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 type StyleName = "any" | "omit" | "selfclose" | "selfclosing";
@@ -47,7 +48,7 @@ export default class Void extends Rule<void, RuleOptions> {
 			}
 
 			if (active && active.meta) {
-				this.validateActive(active);
+				this.validateActive(active, active.meta);
 			}
 		});
 	}
@@ -58,15 +59,10 @@ export default class Void extends Rule<void, RuleOptions> {
 		}
 	}
 
-	/* eslint-disable-next-line complexity */
-	private validateActive(node: HtmlElement): void {
-		if (!node.meta) {
-			return;
-		}
-
+	private validateActive(node: HtmlElement, meta: MetaElement): void {
 		/* ignore foreign elements, they may or may not be self-closed and both are
 		 * valid */
-		if (node.meta.foreign) {
+		if (meta.foreign) {
 			return;
 		}
 

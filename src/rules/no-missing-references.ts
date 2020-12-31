@@ -51,6 +51,8 @@ export default class NoMissingReferences extends Rule<Context> {
 	}
 
 	protected validateReference(document: DOMTree, node: HtmlElement, attr: Attribute | null): void {
+		/* sanity check: querySelector should never return elements without the attribute */
+		/* istanbul ignore next */
 		if (!attr) {
 			return;
 		}
