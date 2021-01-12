@@ -187,40 +187,72 @@ describe("rule base class", () => {
 		let delivered: boolean;
 		let callback: (event: string, data: Event) => void;
 
-		beforeEach(() => {
-			delivered = false;
-			rule.on("*", () => {
-				delivered = true;
+		describe("severity", () => {
+			beforeEach(() => {
+				delivered = false;
+				rule.on("*", () => {
+					delivered = true;
+				});
+				callback = (parser.on as any).mock.calls[0][1];
 			});
-			callback = (parser.on as any).mock.calls[0][1];
+
+			it('should not deliver events with severity "disabled"', () => {
+				expect.assertions(1);
+				rule.setServerity(Severity.DISABLED);
+				callback("event", mockEvent);
+				expect(delivered).toBeFalsy();
+			});
+
+			it('should deliver events with severity "warn"', () => {
+				expect.assertions(1);
+				rule.setServerity(Severity.WARN);
+				callback("event", mockEvent);
+				expect(delivered).toBeTruthy();
+			});
+
+			it('should deliver events with severity "error"', () => {
+				expect.assertions(1);
+				rule.setServerity(Severity.ERROR);
+				callback("event", mockEvent);
+				expect(delivered).toBeTruthy();
+			});
+
+			it("should not deliver events when disabled", () => {
+				expect.assertions(1);
+				rule.setEnabled(false);
+				callback("event", mockEvent);
+				expect(delivered).toBeFalsy();
+			});
 		});
 
-		it('should not deliver events with severity "disabled"', () => {
-			expect.assertions(1);
-			rule.setServerity(Severity.DISABLED);
-			callback("event", mockEvent);
-			expect(delivered).toBeFalsy();
-		});
+		describe("filter", () => {
+			let filterResult: boolean;
 
-		it('should deliver events with severity "warn"', () => {
-			expect.assertions(1);
-			rule.setServerity(Severity.WARN);
-			callback("event", mockEvent);
-			expect(delivered).toBeTruthy();
-		});
+			beforeEach(() => {
+				delivered = false;
+				rule.on(
+					"*",
+					() => filterResult,
+					() => {
+						delivered = true;
+					}
+				);
+				callback = (parser.on as any).mock.calls[0][1];
+			});
 
-		it('should deliver events with severity "error"', () => {
-			expect.assertions(1);
-			rule.setServerity(Severity.ERROR);
-			callback("event", mockEvent);
-			expect(delivered).toBeTruthy();
-		});
+			it("should deliver event when filter return true", () => {
+				expect.assertions(1);
+				filterResult = true;
+				callback("event", mockEvent);
+				expect(delivered).toBeTruthy();
+			});
 
-		it("should not deliver events when disabled", () => {
-			expect.assertions(1);
-			rule.setEnabled(false);
-			callback("event", mockEvent);
-			expect(delivered).toBeFalsy();
+			it("should not deliver event when filter return false", () => {
+				expect.assertions(1);
+				filterResult = false;
+				callback("event", mockEvent);
+				expect(delivered).toBeFalsy();
+			});
 		});
 	});
 

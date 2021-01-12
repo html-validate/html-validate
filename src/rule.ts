@@ -40,7 +40,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	private meta: MetaTable;
 	private enabled: boolean; // rule enabled/disabled, irregardless of severity
 	private severity: number; // rule severity, 0: off, 1: warning 2: error
-	private event: any;
+	private event: Event;
 
 	/**
 	 * Rule name. Defaults to filename without extension but can be overwritten by
@@ -58,6 +58,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		this.reporter = (null as unknown) as Reporter;
 		this.parser = (null as unknown) as Parser;
 		this.meta = (null as unknown) as MetaTable;
+		this.event = (null as unknown) as Event;
 
 		this.options = options;
 		this.enabled = true;
@@ -194,23 +195,45 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * Adding listeners can be done even if the rule is disabled but for the
 	 * events to be delivered the rule must be enabled.
 	 *
+	 * If the optional filter callback is used it must be a function taking an
+	 * event of the same type as the listener. The filter is called before the
+	 * listener and if the filter returns false the event is discarded.
+	 *
 	 * @param event - Event name
+	 * @param filter - Optional filter function. Callback is only called if filter functions return true.
+	 * @param callback - Callback to handle event.
 	 */
-	public on(event: "config:ready", callback: (event: ConfigReadyEvent) => void): void;
-	public on(event: "tag:open", callback: (event: TagOpenEvent) => void): void;
-	public on(event: "tag:close", callback: (event: TagCloseEvent) => void): void;
-	public on(event: "element:ready", callback: (event: ElementReadyEvent) => void): void;
-	public on(event: "dom:load", callback: (event: Event) => void): void;
-	public on(event: "dom:ready", callback: (event: DOMReadyEvent) => void): void;
-	public on(event: "doctype", callback: (event: DoctypeEvent) => void): void;
-	public on(event: "attr", callback: (event: AttributeEvent) => void): void;
-	public on(event: "whitespace", callback: (event: WhitespaceEvent) => void): void;
-	public on(event: "conditional", callback: (event: ConditionalEvent) => void): void;
-	public on(event: "*", callback: (event: Event) => void): void;
-	/* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types */
-	public on(event: string, callback: any): void {
-		this.parser.on(event, (event: string, data: any) => {
-			if (this.isEnabled()) {
+	/* prettier-ignore */ public on(event: "config:ready", callback: (event: ConfigReadyEvent) => void): void;
+	/* prettier-ignore */ public on(event: "config:ready", filter: (event: ConfigReadyEvent) => boolean, callback: (event: ConfigReadyEvent) => void): void;
+	/* prettier-ignore */ public on(event: "tag:open", callback: (event: TagOpenEvent) => void): void;
+	/* prettier-ignore */ public on(event: "tag:open", filter: (event: TagOpenEvent) => boolean, callback: (event: TagOpenEvent) => void): void;
+	/* prettier-ignore */ public on(event: "tag:close", callback: (event: TagCloseEvent) => void): void;
+	/* prettier-ignore */ public on(event: "tag:close", filter: (event: TagCloseEvent) => boolean, callback: (event: TagCloseEvent) => void): void;
+	/* prettier-ignore */ public on(event: "element:ready", callback: (event: ElementReadyEvent) => void): void;
+	/* prettier-ignore */ public on(event: "element:ready", filter: (event: ElementReadyEvent) => boolean, callback: (event: ElementReadyEvent) => void): void;
+	/* prettier-ignore */ public on(event: "dom:load", callback: (event: Event) => void): void;
+	/* prettier-ignore */ public on(event: "dom:load", filter: (event: Event) => boolean, callback: (event: Event) => void): void;
+	/* prettier-ignore */ public on(event: "dom:ready", callback: (event: DOMReadyEvent) => void): void;
+	/* prettier-ignore */ public on(event: "dom:ready", filter: (event: DOMReadyEvent) => boolean, callback: (event: DOMReadyEvent) => void): void;
+	/* prettier-ignore */ public on(event: "doctype", callback: (event: DoctypeEvent) => void): void;
+	/* prettier-ignore */ public on(event: "doctype", filter: (event: DoctypeEvent) => boolean, callback: (event: DoctypeEvent) => void): void;
+	/* prettier-ignore */ public on(event: "attr", callback: (event: AttributeEvent) => void): void;
+	/* prettier-ignore */ public on(event: "attr", filter: (event: AttributeEvent) => boolean, callback: (event: AttributeEvent) => void): void;
+	/* prettier-ignore */ public on(event: "whitespace", callback: (event: WhitespaceEvent) => void): void;
+	/* prettier-ignore */ public on(event: "whitespace", filter: (event: WhitespaceEvent) => boolean, callback: (event: WhitespaceEvent) => void): void;
+	/* prettier-ignore */ public on(event: "conditional", callback: (event: ConditionalEvent) => void): void;
+	/* prettier-ignore */ public on(event: "conditional", filter: (event: ConditionalEvent) => boolean, callback: (event: ConditionalEvent) => void): void;
+	/* prettier-ignore */ public on(event: "*", callback: (event: Event) => void): void;
+	/* prettier-ignore */ public on(event: "*", filter: (event: Event) => boolean, callback: (event: Event) => void): void;
+	public on<TEvent extends Event>(
+		event: string,
+		...args: [(event: TEvent) => void] | [(event: TEvent) => boolean, (event: TEvent) => void]
+	): void {
+		const callback = args.pop() as (event: TEvent) => void;
+		const filter = (args.pop() as (event: TEvent) => boolean) ?? (() => true);
+
+		this.parser.on(event, (_event: string, data: TEvent) => {
+			if (this.isEnabled() && filter(data)) {
 				this.event = data;
 				callback(data);
 			}
