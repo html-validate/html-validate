@@ -48,6 +48,23 @@ describe("rule heading-level", () => {
 		expect(report).toHaveError("heading-level", "Initial heading level must be h1");
 	});
 
+	it("should report error when multiple <h1> are used", () => {
+		expect.assertions(2);
+		const report = htmlvalidate.validateString("<h1>heading 1</h1><h1>heading 1</h1>");
+		expect(report).toBeInvalid();
+		expect(report).toHaveError("heading-level", "Multiple h1 are not allowed");
+	});
+
+	it("should not report error when multiple <h1> are used but allowed via option", () => {
+		expect.assertions(1);
+		htmlvalidate = new HtmlValidate({
+			rules: { "heading-level": ["error", { allowMultipleH1: true }] },
+			elements: ["html5", { "custom-heading": { heading: true } }],
+		});
+		const report = htmlvalidate.validateString("<h1>heading 1</h1><h1>heading 1</h1>");
+		expect(report).toBeValid();
+	});
+
 	it("should handle custom elements marked as heading", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateString("<custom-heading></custom-heading>");

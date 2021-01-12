@@ -25,3 +25,17 @@ Examples of **correct** code for this rule:
     <h1>Heading 1</h1>
     <h2>Subheading</h2>
 </validate>
+
+## Options
+
+This rule takes an optional object:
+
+```json
+{
+  "allowMultipleH1": false
+}
+```
+
+### AllowMultipleH1
+
+Set `allowMultipleH1` to `true` to allow multiple `<h1>` elements in a document.
