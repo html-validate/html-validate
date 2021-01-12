@@ -3,7 +3,19 @@ import { HtmlElement } from "../dom";
 import { TagOpenEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
-export default class HeadingLevel extends Rule {
+interface Options {
+	allowMultipleH1: boolean;
+}
+
+const defaults: Options = {
+	allowMultipleH1: false,
+};
+
+export default class HeadingLevel extends Rule<void, Options> {
+	public constructor(options: Partial<Options>) {
+		super({ ...defaults, ...options });
+	}
+
 	public documentation(): RuleDocumentation {
 		return {
 			description:
@@ -14,6 +26,7 @@ export default class HeadingLevel extends Rule {
 
 	public setup(): void {
 		let current = 0;
+		let h1Count = 0;
 		this.on("tag:open", (event: TagOpenEvent) => {
 			/* ensure it is a heading */
 			if (!this.isHeading(event.target)) return;
@@ -21,6 +34,17 @@ export default class HeadingLevel extends Rule {
 			/* extract heading level from tagName */
 			const level = this.extractLevel(event.target);
 			if (!level) return;
+
+			/* do not allow multiple h1 */
+			if (!this.options.allowMultipleH1 && level === 1) {
+				if (h1Count >= 1) {
+					const location = sliceLocation(event.location, 1);
+					this.report(event.target, `Multiple h1 are not allowed`, location);
+					return;
+				}
+
+				h1Count++;
+			}
 
 			/* allow same level or decreasing to any level (e.g. from h4 to h2) */
 			if (level <= current) {
