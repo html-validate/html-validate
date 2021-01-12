@@ -173,37 +173,50 @@ describe("DOMNode", () => {
 	});
 
 	describe("cache", () => {
+		it("should not cache until enabled", () => {
+			expect.assertions(1);
+			const node = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+			node.cacheSet("foo", 1);
+			expect(node.cacheGet("foo")).toBeUndefined();
+		});
+
 		it("cacheGet() should return undefined when no value is cached", () => {
 			expect.assertions(1);
-			const a = new DOMNode(NodeType.ELEMENT_NODE, "a", location);
-			expect(a.cacheGet("foo")).toBeUndefined();
+			const node = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+			node.cacheEnable();
+			expect(node.cacheGet("foo")).toBeUndefined();
 		});
 
 		it("cacheGet() should get value set with cacheSet()", () => {
 			expect.assertions(1);
-			const a = new DOMNode(NodeType.ELEMENT_NODE, "a", location);
-			a.cacheSet("foo", 1);
-			expect(a.cacheGet("foo")).toEqual(1);
+			const node = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+			node.cacheEnable();
+			node.cacheSet("foo", 1);
+			expect(node.cacheGet("foo")).toEqual(1);
 		});
 
 		it("cacheSet() should return value", () => {
 			expect.assertions(1);
-			const a = new DOMNode(NodeType.ELEMENT_NODE, "a", location);
-			expect(a.cacheSet("foo", 1)).toEqual(1);
+			const node = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+			node.cacheEnable();
+			expect(node.cacheSet("foo", 1)).toEqual(1);
 		});
 
 		it("cacheSet() should overwrite previous value", () => {
 			expect.assertions(1);
-			const a = new DOMNode(NodeType.ELEMENT_NODE, "a", location);
-			a.cacheSet("foo", 1);
-			a.cacheSet("foo", 2);
-			expect(a.cacheGet("foo")).toEqual(2);
+			const node = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+			node.cacheEnable();
+			node.cacheSet("foo", 1);
+			node.cacheSet("foo", 2);
+			expect(node.cacheGet("foo")).toEqual(2);
 		});
 
 		it("should cache values per instance", () => {
 			expect.assertions(4);
-			const a = new DOMNode(NodeType.ELEMENT_NODE, "a", location);
-			const b = new DOMNode(NodeType.ELEMENT_NODE, "a", location);
+			const a = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+			const b = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+			a.cacheEnable();
+			b.cacheEnable();
 			expect(a.cacheGet("foo")).toBeUndefined();
 			expect(b.cacheGet("foo")).toBeUndefined();
 			a.cacheSet("foo", 1);
@@ -214,30 +227,33 @@ describe("DOMNode", () => {
 
 		it("cacheRemove() should remove value from cache", () => {
 			expect.assertions(4);
-			const a = new DOMNode(NodeType.ELEMENT_NODE, "a", location);
-			a.cacheSet("foo", 1);
-			expect(a.cacheExists("foo")).toBeTruthy();
-			expect(a.cacheGet("foo")).toEqual(1);
-			a.cacheRemove("foo");
-			expect(a.cacheExists("foo")).toBeFalsy();
-			expect(a.cacheGet("foo")).toBeUndefined();
+			const node = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+			node.cacheEnable();
+			node.cacheSet("foo", 1);
+			expect(node.cacheExists("foo")).toBeTruthy();
+			expect(node.cacheGet("foo")).toEqual(1);
+			node.cacheRemove("foo");
+			expect(node.cacheExists("foo")).toBeFalsy();
+			expect(node.cacheGet("foo")).toBeUndefined();
 		});
 
 		it("cacheRemove() should return true if value existed", () => {
 			expect.assertions(3);
-			const a = new DOMNode(NodeType.ELEMENT_NODE, "a", location);
-			a.cacheSet("foo", 1);
-			expect(a.cacheRemove("foo")).toBeTruthy();
-			expect(a.cacheRemove("foo")).toBeFalsy();
-			expect(a.cacheRemove("bar")).toBeFalsy();
+			const node = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+			node.cacheEnable();
+			node.cacheSet("foo", 1);
+			expect(node.cacheRemove("foo")).toBeTruthy();
+			expect(node.cacheRemove("foo")).toBeFalsy();
+			expect(node.cacheRemove("bar")).toBeFalsy();
 		});
 
 		it("cacheExists() should return true if value is cached", () => {
 			expect.assertions(2);
-			const a = new DOMNode(NodeType.ELEMENT_NODE, "a", location);
-			a.cacheSet("foo", 1);
-			expect(a.cacheExists("foo")).toBeTruthy();
-			expect(a.cacheExists("bar")).toBeFalsy();
+			const node = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+			node.cacheEnable();
+			node.cacheSet("foo", 1);
+			expect(node.cacheExists("foo")).toBeTruthy();
+			expect(node.cacheExists("bar")).toBeFalsy();
 		});
 	});
 });

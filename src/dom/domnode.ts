@@ -28,7 +28,7 @@ export class DOMNode {
 	public readonly location: Location;
 	public readonly unique: DOMInternalID;
 
-	private readonly cache: Map<string | number | symbol, any>;
+	private cache: null | Map<string | number | symbol, any>;
 
 	/**
 	 * Set of disabled rules for this node.
@@ -52,18 +52,34 @@ export class DOMNode {
 		this.disabledRules = new Set();
 		this.childNodes = [];
 		this.unique = counter++;
+		this.cache = null;
+	}
+
+	/**
+	 * Enable cache for this node.
+	 *
+	 * Should not be called before the node and all children are fully constructed.
+	 */
+	public cacheEnable(): void {
 		this.cache = new Map();
 	}
 
 	/**
 	 * Fetch cached value from this DOM node.
 	 *
+	 * Cache is not enabled until `cacheEnable()` is called by [[Parser]] (when
+	 * the element is fully constructed).
+	 *
 	 * @returns value or `undefined` if the value doesn't exist.
 	 */
 	public cacheGet<K extends keyof DOMNodeCache>(key: K): DOMNodeCache[K] | undefined;
 	public cacheGet(key: string | number | symbol): any | undefined;
 	public cacheGet(key: string | number | symbol): any | undefined {
-		return this.cache.get(key);
+		if (this.cache) {
+			return this.cache.get(key);
+		} else {
+			return undefined;
+		}
 	}
 
 	/**
@@ -74,17 +90,25 @@ export class DOMNode {
 	public cacheSet<K extends keyof DOMNodeCache>(key: K, value: DOMNodeCache[K]): DOMNodeCache[K];
 	public cacheSet<T>(key: string | number | symbol, value: T): T;
 	public cacheSet<T>(key: string | number | symbol, value: T): T {
-		this.cache.set(key, value);
+		if (this.cache) {
+			this.cache.set(key, value);
+		}
 		return value;
 	}
 
 	/**
 	 * Remove a value by key from cache.
+	 *
+	 * @returns `true` if the entry existed and has been removed.
 	 */
 	public cacheRemove<K extends keyof DOMNodeCache>(key: K): boolean;
 	public cacheRemove(key: string | number | symbol): boolean;
 	public cacheRemove(key: string | number | symbol): boolean {
-		return this.cache.delete(key);
+		if (this.cache) {
+			return this.cache.delete(key);
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -93,7 +117,7 @@ export class DOMNode {
 	public cacheExists<K extends keyof DOMNodeCache>(key: K): boolean;
 	public cacheExists(key: string | number | symbol): boolean;
 	public cacheExists(key: string | number | symbol): boolean {
-		return this.cache.has(key);
+		return Boolean(this.cache && this.cache.has(key));
 	}
 
 	/**
@@ -104,6 +128,7 @@ export class DOMNode {
 		if (cached) {
 			return cached;
 		}
+
 		const text = this.childNodes.map((node) => node.textContent).join("");
 		this.cacheSet(TEXT_CONTENT, text);
 		return text;
