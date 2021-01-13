@@ -10,6 +10,20 @@ export type PermittedOrder = string[];
 export type RequiredAncestors = string[];
 export type RequiredContent = string[];
 
+export enum TextContent {
+	/* forbid node to have text content, inter-element whitespace is ignored */
+	NONE = "none",
+
+	/* node can have text but not required too */
+	DEFAULT = "default",
+
+	/* node requires text-nodes to be present (direct or by descendant) */
+	REQUIRED = "required",
+
+	/* node requires accessible text (hidden text is ignored, tries to get text from accessibility tree) */
+	ACCESSIBLE = "accessible",
+}
+
 export interface PermittedAttribute {
 	[key: string]: Array<string | RegExp>;
 }
@@ -54,6 +68,7 @@ export interface MetaData {
 	permittedOrder?: PermittedOrder;
 	requiredAncestors?: RequiredAncestors;
 	requiredContent?: RequiredContent;
+	textContent?: TextContent;
 }
 
 /**

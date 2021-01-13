@@ -141,6 +141,14 @@
         "requiredContent": {
           "title": "List of required content elements",
           "$ref": "#/definitions/RequiredContent"
+        },
+
+        "textContent": {
+          "title": "Allow, disallow or require textual content",
+          "description": "This property controls whenever an element allows, disallows or requires text. Text from any descendant counts, not only direct children",
+          "default": "default",
+          "type": "string",
+          "enum": ["none", "default", "required", "accessible"]
         }
       },
       "additionalProperties": true

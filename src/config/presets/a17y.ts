@@ -13,6 +13,7 @@ const config: ConfigData = {
 		"no-redundant-role": "error",
 		"prefer-native-element": "error",
 		"svg-focusable": "error",
+		"text-content": "error",
 		"wcag/h30": "error",
 		"wcag/h32": "error",
 		"wcag/h36": "error",

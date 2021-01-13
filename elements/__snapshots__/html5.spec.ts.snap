@@ -486,9 +486,9 @@ Array [
       Object {
         "column": 3,
         "context": undefined,
-        "line": 22,
+        "line": 23,
         "message": "Element <audio> is not permitted as descendant of <button>",
-        "offset": 456,
+        "offset": 464,
         "ruleId": "element-permitted-content",
         "selector": "button > audio",
         "severity": 2,
@@ -507,9 +507,9 @@ Array [
           "element": "audio",
           "value": "foobar",
         },
-        "line": 26,
+        "line": 27,
         "message": "Attribute \\"preload\\" has invalid value \\"foobar\\"",
-        "offset": 557,
+        "offset": 565,
         "ruleId": "attribute-allowed-values",
         "selector": "audio:nth-child(6)",
         "severity": 2,
@@ -537,6 +537,7 @@ Array [
 
 <!-- should be interactive if missing controls attribute (and thus not allowed as content in button) -->
 <button type=\\"button\\">
+	Audio:
 	<audio controls=\\"foo\\"></audio>
 </button>
 
@@ -898,7 +899,7 @@ exports[`HTML elements <br> valid markup 1`] = `Array []`;
 exports[`HTML elements <button> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 6,
+    "errorCount": 8,
     "filePath": "test-files/elements/button-invalid.html",
     "messages": Array [
       Object {
@@ -973,9 +974,37 @@ Array [
         },
         "line": 15,
         "message": "<button> is missing required \\"type\\" attribute",
-        "offset": 453,
+        "offset": 456,
         "ruleId": "element-required-attributes",
         "selector": "button:nth-child(6)",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "tagName": "button",
+          "textContent": "accessible",
+        },
+        "line": 18,
+        "message": "<button> must have accessible text",
+        "offset": 511,
+        "ruleId": "text-content",
+        "selector": "button:nth-child(7)",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "tagName": "button",
+          "textContent": "accessible",
+        },
+        "line": 19,
+        "message": "<button> must have accessible text",
+        "offset": 543,
+        "ruleId": "text-content",
+        "selector": "button:nth-child(8)",
         "severity": 2,
         "size": 6,
       },
@@ -991,10 +1020,14 @@ Array [
 <button type=\\"button\\"><span><button type=\\"button\\">foo</button></span></button>
 
 <!-- disallowed type variants -->
-<button type=\\"foobar\\"></button>
+<button type=\\"foobar\\">foo</button>
 
 <!-- missing type -->
-<button></button>
+<button>foo</button>
+
+<!-- missing accessible text -->
+<button type=\\"button\\"></button>
+<button type=\\"button\\"><span aria-hidden=\\"true\\">foo</span></button>
 ",
     "warningCount": 0,
   },
@@ -3043,7 +3076,7 @@ Array [
 
 <!-- should be interactive if usemap is set -->
 <button type=\\"button\\">
-	<img src=\\"foo.png\\" usemap>
+	<img src=\\"foo.png\\" usemap aria-label=\\"Picture of a foo\\">
 </button>
 ",
     "warningCount": 0,
@@ -3283,9 +3316,9 @@ Array [
       Object {
         "column": 3,
         "context": undefined,
-        "line": 21,
+        "line": 22,
         "message": "Element <input> is not permitted as descendant of <button>",
-        "offset": 594,
+        "offset": 599,
         "ruleId": "element-permitted-content",
         "selector": "button > input",
         "severity": 2,
@@ -3294,9 +3327,9 @@ Array [
       Object {
         "column": 20,
         "context": undefined,
-        "line": 25,
+        "line": 26,
         "message": "image used as submit button must have alt text",
-        "offset": 683,
+        "offset": 688,
         "ruleId": "wcag/h36",
         "selector": "input:nth-child(14)",
         "severity": 2,
@@ -3323,6 +3356,7 @@ Array [
 
 <!-- should be interactive when type isn't hidden -->
 <button type=\\"button\\">
+	foo
 	<input type=\\"text\\">
 </button>
 
@@ -3495,7 +3529,7 @@ Array [
         "context": undefined,
         "line": 16,
         "message": "<label> is associated with multiple controls",
-        "offset": 265,
+        "offset": 271,
         "ruleId": "multiple-labeled-controls",
         "selector": "label:nth-child(4)",
         "severity": 2,
@@ -3506,7 +3540,7 @@ Array [
         "context": undefined,
         "line": 20,
         "message": "<label> is associated with multiple controls",
-        "offset": 324,
+        "offset": 330,
         "ruleId": "multiple-labeled-controls",
         "selector": "label:nth-child(5)",
         "severity": 2,
@@ -3517,7 +3551,7 @@ Array [
         "context": undefined,
         "line": 24,
         "message": "<label> is associated with multiple controls",
-        "offset": 361,
+        "offset": 367,
         "ruleId": "multiple-labeled-controls",
         "selector": "label:nth-child(6)",
         "severity": 2,
@@ -3528,7 +3562,7 @@ Array [
         "context": undefined,
         "line": 28,
         "message": "<label> is associated with multiple controls",
-        "offset": 412,
+        "offset": 418,
         "ruleId": "multiple-labeled-controls",
         "selector": "label:nth-child(7)",
         "severity": 2,
@@ -3539,7 +3573,7 @@ Array [
         "context": undefined,
         "line": 32,
         "message": "<label> is associated with multiple controls",
-        "offset": 467,
+        "offset": 473,
         "ruleId": "multiple-labeled-controls",
         "selector": "label:nth-child(8)",
         "severity": 2,
@@ -3550,7 +3584,7 @@ Array [
         "context": undefined,
         "line": 36,
         "message": "<label> is associated with multiple controls",
-        "offset": 530,
+        "offset": 536,
         "ruleId": "multiple-labeled-controls",
         "selector": "label:nth-child(9)",
         "severity": 2,
@@ -3561,7 +3595,7 @@ Array [
         "context": undefined,
         "line": 40,
         "message": "<label> is associated with multiple controls",
-        "offset": 585,
+        "offset": 591,
         "ruleId": "multiple-labeled-controls",
         "selector": "label:nth-child(10)",
         "severity": 2,
@@ -3580,8 +3614,8 @@ Array [
 
 <!-- should not allow multiple controls -->
 <label>
-	<button type=\\"button\\"></button>
-	<button type=\\"button\\"></button>
+	<button type=\\"button\\">foo</button>
+	<button type=\\"button\\">bar</button>
 </label>
 <label>
 	<input type=\\"text\\">
@@ -4430,9 +4464,9 @@ Array [
       Object {
         "column": 3,
         "context": undefined,
-        "line": 19,
+        "line": 20,
         "message": "Element <object> is not permitted as descendant of <button>",
-        "offset": 305,
+        "offset": 310,
         "ruleId": "element-permitted-content",
         "selector": "button > object",
         "severity": 2,
@@ -4457,6 +4491,7 @@ Array [
 
 <!-- should be interactive if usemap is set -->
 <button type=\\"button\\">
+	foo
 	<object usemap></object>
 </button>
 ",
@@ -5308,9 +5343,9 @@ Array [
       Object {
         "column": 4,
         "context": undefined,
-        "line": 4,
+        "line": 5,
         "message": "Element <input> is not permitted as descendant of <button>",
-        "offset": 65,
+        "offset": 71,
         "ruleId": "element-permitted-content",
         "selector": "button > slot > input",
         "severity": 2,
@@ -5320,6 +5355,7 @@ Array [
     "source": "<!-- should be transparent -->
 <button type=\\"button\\">
 	<slot>
+		foo
 		<input type=\\"text\\">
 	</slot>
 </button>
@@ -6574,9 +6610,9 @@ Array [
       Object {
         "column": 3,
         "context": undefined,
-        "line": 22,
+        "line": 23,
         "message": "Element <video> is not permitted as descendant of <button>",
-        "offset": 456,
+        "offset": 464,
         "ruleId": "element-permitted-content",
         "selector": "button > video",
         "severity": 2,
@@ -6595,9 +6631,9 @@ Array [
           "element": "video",
           "value": "foobar",
         },
-        "line": 26,
+        "line": 27,
         "message": "Attribute \\"preload\\" has invalid value \\"foobar\\"",
-        "offset": 557,
+        "offset": 565,
         "ruleId": "attribute-allowed-values",
         "selector": "video:nth-child(6)",
         "severity": 2,
@@ -6625,6 +6661,7 @@ Array [
 
 <!-- should be interactive if missing controls attribute (and thus not allowed as content in button) -->
 <button type=\\"button\\">
+	Video:
 	<video controls=\\"foo\\"></video>
 </button>
 

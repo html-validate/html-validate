@@ -197,7 +197,8 @@
       "type": ["submit", "reset", "button"]
     },
     "permittedContent": ["@phrasing"],
-    "permittedDescendants": [{ "exclude": ["@interactive"] }]
+    "permittedDescendants": [{ "exclude": ["@interactive"] }],
+    "textContent": "accessible"
   },
 
   "canvas": {

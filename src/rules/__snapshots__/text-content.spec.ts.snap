@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule text-content should contain contextual documentation accessible 1`] = `
+Object {
+  "description": "The \`<my-element>\` element must have accessible text.",
+  "url": "https://html-validate.org/rules/text-content.html",
+}
+`;
+
+exports[`rule text-content should contain contextual documentation default 1`] = `
+Object {
+  "description": "The textual content for this element is not valid.",
+  "url": "https://html-validate.org/rules/text-content.html",
+}
+`;
+
+exports[`rule text-content should contain contextual documentation none 1`] = `
+Object {
+  "description": "The \`<my-element>\` element must not have textual content.",
+  "url": "https://html-validate.org/rules/text-content.html",
+}
+`;
+
+exports[`rule text-content should contain contextual documentation required 1`] = `
+Object {
+  "description": "The \`<my-element>\` element must have textual content.",
+  "url": "https://html-validate.org/rules/text-content.html",
+}
+`;
+
+exports[`rule text-content should contain documentation 1`] = `
+Object {
+  "description": "The textual content for this element is not valid.",
+  "url": "https://html-validate.org/rules/text-content.html",
+}
+`;

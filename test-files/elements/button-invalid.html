@@ -9,7 +9,11 @@
 <button type="button"><span><button type="button">foo</button></span></button>
 
 <!-- disallowed type variants -->
-<button type="foobar"></button>
+<button type="foobar">foo</button>
 
 <!-- missing type -->
-<button></button>
+<button>foo</button>
+
+<!-- missing accessible text -->
+<button type="button"></button>
+<button type="button"><span aria-hidden="true">foo</span></button>

@@ -1,11 +1,12 @@
 export { MetaTable } from "./table";
 export {
+	ElementTable,
+	MetaCopyableProperty,
 	MetaData,
 	MetaDataTable,
 	MetaElement,
-	ElementTable,
 	MetaLookupableProperty,
-	MetaCopyableProperty,
 	PropertyExpression,
+	TextContent,
 } from "./element";
 export { Validator } from "./validator";
