@@ -120,7 +120,7 @@
     "@types/jest": "26.0.20",
     "@types/json-merge-patch": "0.0.5",
     "@types/minimist": "1.2.1",
-    "@types/node": "11.15.43",
+    "@types/node": "11.15.44",
     "@types/prompts": "2.0.9",
     "autoprefixer": "10.2.1",
     "babelify": "10.0.0",
