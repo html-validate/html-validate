@@ -1,5 +1,26 @@
 # html-validate changelog
 
+## [4.2.0](https://gitlab.com/html-validate/html-validate/compare/v4.1.0...v4.2.0) (2021-01-15)
+
+### Features
+
+- **dom:** disable cache until node is fully constructed ([5e35c49](https://gitlab.com/html-validate/html-validate/commit/5e35c498f790be65928989a327c40772b3fb7184))
+- **htmlvalidate:** add `getConfigurationSchema()` to get effective configuration schema ([1dd81d9](https://gitlab.com/html-validate/html-validate/commit/1dd81d993508720b13b8c094867bd780da002b84))
+- **htmlvalidate:** add `getElementsSchema()` to get effective elements schema ([4baac36](https://gitlab.com/html-validate/html-validate/commit/4baac36ecb608dd2ef83bbf3c284d08ed05d1087)), closes [#78](https://gitlab.com/html-validate/html-validate/issues/78)
+- **rule:** support filter callback for rule events ([f3f949c](https://gitlab.com/html-validate/html-validate/commit/f3f949cd5f2cdef526bc1c60d9176f4ae57890ee))
+- **rules:** add `allowMultipleH1` option to `heading-level` ([a33071d](https://gitlab.com/html-validate/html-validate/commit/a33071d12807770a9484c5d713b7037c354d8fe1))
+
+### Bug Fixes
+
+- enable `strictNullCheck` ([64b5af2](https://gitlab.com/html-validate/html-validate/commit/64b5af25723e6441a133a0a561a941d3f8a2daa0)), closes [#76](https://gitlab.com/html-validate/html-validate/issues/76)
+- **event:** `location` property can be `null` for some events ([fbbc87c](https://gitlab.com/html-validate/html-validate/commit/fbbc87cf5d62d2a102d86cb8165e9d3dac630474))
+- **event:** pass `null` when attribute value is missing ([08c2876](https://gitlab.com/html-validate/html-validate/commit/08c2876dc8f4e01f4c4b0aa97de9672b43476ca3))
+- **rules:** rule options uses `Partial<T>` ([221113b](https://gitlab.com/html-validate/html-validate/commit/221113b41adcd9fd8ab5bc10aa9a8d6723b40db6))
+
+### Dependency upgrades
+
+- **deps:** update dependency ajv to v7 ([4c04388](https://gitlab.com/html-validate/html-validate/commit/4c043884a74083274f729ed0d3d40406f9163799))
+
 ## [4.1.0](https://gitlab.com/html-validate/html-validate/compare/v4.0.2...v4.1.0) (2020-12-14)
 
 ### Features
