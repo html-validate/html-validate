@@ -18,6 +18,7 @@
   },
   "license": "MIT",
   "author": "David Sveningsson <ext@sidvind.com>",
+  "sideEffects": false,
   "main": "dist/main.js",
   "browser": "dist/browser.js",
   "bin": {
