@@ -18,7 +18,9 @@
   },
   "license": "MIT",
   "author": "David Sveningsson <ext@sidvind.com>",
-  "main": "dist/shim.js",
+  "sideEffects": false,
+  "main": "dist/main.js",
+  "browser": "dist/browser.js",
   "bin": {
     "html-validate": "bin/html-validate.js"
   },
@@ -73,7 +75,8 @@
       "src/**/*.ts",
       "!src/**/*.spec.ts",
       "!src/**/index.ts",
-      "!src/shim.ts",
+      "!src/main.ts",
+      "!src/browser.ts",
       "!src/cli/html-validate.ts"
     ],
     "preset": "@html-validate/jest-config",
