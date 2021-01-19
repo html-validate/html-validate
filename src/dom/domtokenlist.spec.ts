@@ -23,6 +23,18 @@ describe("DOMTokenList", () => {
 		expect(Array.from(list)).toEqual(["foo", "bar", "baz"]);
 	});
 
+	it("should handle newlines", () => {
+		expect.assertions(1);
+		const list = new DOMTokenList("foo\nbar\r\nbaz", location);
+		expect(Array.from(list)).toEqual(["foo", "bar", "baz"]);
+	});
+
+	it("should handle tabs", () => {
+		expect.assertions(1);
+		const list = new DOMTokenList("foo\tbar", location);
+		expect(Array.from(list)).toEqual(["foo", "bar"]);
+	});
+
 	it("should handle leading and trailing spaces", () => {
 		expect.assertions(1);
 		const list = new DOMTokenList(" foo bar baz ", location);
