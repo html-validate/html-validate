@@ -1,5 +1,18 @@
 # html-validate changelog
 
+## [4.3.0](https://gitlab.com/html-validate/html-validate/compare/v4.2.0...v4.3.0) (2021-01-19)
+
+### Features
+
+- **rules:** new rule `text-content` ([2fef395](https://gitlab.com/html-validate/html-validate/commit/2fef3950e5c2e407ca206fbcf82d90793488c2da)), closes [#101](https://gitlab.com/html-validate/html-validate/issues/101)
+- **transform:** new helper `processElement` for writing tests ([3052f81](https://gitlab.com/html-validate/html-validate/commit/3052f81edcebca58551c77d378b2e5357db47f3a))
+- add `browser` entry point without cli classes ([7840ec2](https://gitlab.com/html-validate/html-validate/commit/7840ec2a7f823c57e7e4f50055f4bb873f961dc7))
+- set `sideEffects` to `false` ([41b47f8](https://gitlab.com/html-validate/html-validate/commit/41b47f8bc21501e4615cd8bc887a0ffaf2869454))
+
+### Bug Fixes
+
+- **dom:** `DOMTokenList` (such as `classlist`) handles newlines and tabs ([35e601e](https://gitlab.com/html-validate/html-validate/commit/35e601e22c6a04f93f252810caed6b8bbb182225))
+
 ## [4.2.0](https://gitlab.com/html-validate/html-validate/compare/v4.1.0...v4.2.0) (2021-01-15)
 
 ### Features
