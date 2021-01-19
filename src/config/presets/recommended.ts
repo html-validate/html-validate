@@ -44,6 +44,7 @@ const config: ConfigData = {
 		"script-element": "error",
 		"script-type": "error",
 		"svg-focusable": "error",
+		"text-content": "error",
 		"unrecognized-char-ref": "error",
 		void: "off",
 		"void-content": "error",

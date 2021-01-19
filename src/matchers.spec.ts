@@ -223,6 +223,7 @@ describe("toHTMLValidate()", () => {
 
 			  Anchor link must have a text describing its purpose [wcag/h30]
 			  <button> is missing required \\"type\\" attribute [element-required-attributes]
+			  <button> must have accessible text [text-content]
 			  Element <button> is not permitted as descendant of <a> [element-permitted-content]
 			  Mismatched close-tag, expected '</button>' but found '</i>'. [close-order]
 			  Missing close-tag, expected '</a>' but document ended before it was found. [close-order]"

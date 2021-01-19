@@ -51,6 +51,7 @@ export interface MetaElement {
   permittedOrder?: PermittedOrder;
   requiredAncestors?: string[];
   requiredContent?: string[];
+  textContent?: "none" | "default" | "required" | "accessible";
 
   /* inheritance */
   inherit?: string;
@@ -426,6 +427,20 @@ descendant of the element.
 
 This is used by [element-required-content](/rules/element-required-content.html)
 rule.
+
+### `textContent`
+
+Enforces presence or absence of text in an element.
+If unset it defaults to `default`.
+
+Must be set to one of the following values:
+
+- `none` - the element cannot contain text (whitespace ignored).
+- `default` - the element can optionally have text.
+- `required` - the element must have non-whitespace text present.
+- `accessible` - the element must have accessible text, either regular text or using aria attributes such as `aria-label`.
+
+This is used by [text-content](/rules/text-content.html) rule.
 
 ## Global element
 
