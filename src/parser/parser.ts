@@ -15,6 +15,7 @@ import {
 	EventHandler,
 	TagCloseEvent,
 	TagOpenEvent,
+	TagReadyEvent,
 	WhitespaceEvent,
 } from "../event";
 import { Lexer, Token, TokenStream, TokenType } from "../lexer";
@@ -177,7 +178,7 @@ export class Parser {
 		}
 	}
 
-	// eslint-disable-next-line complexity
+	/* eslint-disable-next-line complexity, sonarjs/cognitive-complexity */
 	protected consumeTag(source: Source, startToken: Token, tokenStream: TokenStream): void {
 		const tokens = Array.from(
 			this.consumeUntil(tokenStream, TokenType.TAG_CLOSE, startToken.location)
@@ -186,9 +187,9 @@ export class Parser {
 		const closeOptional = this.closeOptional(startToken);
 		const parent = closeOptional ? this.dom.getActive().parent : this.dom.getActive();
 		const node = HtmlElement.fromTokens(startToken, endToken, parent, this.metaTable);
-		const open = !startToken.data[1];
-		const close = !open || node.closed !== NodeClosed.Open;
-		const foreign = node.meta && node.meta.foreign;
+		const isStartTag = !startToken.data[1];
+		const isClosing = !isStartTag || node.closed !== NodeClosed.Open;
+		const isForeign = node.meta && node.meta.foreign;
 
 		/* if the previous tag to be implicitly closed by the current tag we close
 		 * it and pop it from the stack before continuing processing this tag */
@@ -199,7 +200,7 @@ export class Parser {
 			this.dom.popActive();
 		}
 
-		if (open) {
+		if (isStartTag) {
 			this.dom.pushActive(node);
 			this.trigger("tag:open", {
 				target: node,
@@ -218,12 +219,20 @@ export class Parser {
 			}
 		}
 
-		if (close) {
+		/* emit tag:ready unless this is a end tag */
+		if (isStartTag) {
+			this.trigger("tag:ready", {
+				target: node,
+				location: endToken.location,
+			});
+		}
+
+		if (isClosing) {
 			const active = this.dom.getActive();
 
 			/* if this is not an open tag it is a close tag and thus we force it to be
 			 * one, in case it is detected as void */
-			if (!open) {
+			if (!isStartTag) {
 				node.closed = NodeClosed.EndTag;
 			}
 
@@ -233,11 +242,11 @@ export class Parser {
 			 * closed again (it is already closed automatically since it is
 			 * void). Closing again will have side-effects as it will close the parent
 			 * and cause a mess later. */
-			const voidClosed = !open && node.voidElement;
+			const voidClosed = !isStartTag && node.voidElement;
 			if (!voidClosed) {
 				this.dom.popActive();
 			}
-		} else if (foreign) {
+		} else if (isForeign) {
 			/* consume the body of the foreign element so it won't be part of the
 			 * document (only the root foreign element is).  */
 			this.discardForeignBody(source, node.tagName, tokenStream, startToken.location);
@@ -526,6 +535,7 @@ export class Parser {
 	public trigger(event: "config:ready", data: ConfigReadyEvent): void;
 	public trigger(event: "tag:open", data: TagOpenEvent): void;
 	public trigger(event: "tag:close", data: TagCloseEvent): void;
+	public trigger(event: "tag:ready", data: TagReadyEvent): void;
 	public trigger(event: "element:ready", data: ElementReadyEvent): void;
 	public trigger(event: "dom:load", data: Event): void;
 	public trigger(event: "dom:ready", data: DOMReadyEvent): void;

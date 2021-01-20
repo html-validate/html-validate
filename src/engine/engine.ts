@@ -283,7 +283,7 @@ export class Engine<T extends Parser = Parser> {
 		});
 
 		/* disable directive after next event occurs */
-		parser.once("tag:open, tag:close, attr", () => {
+		parser.once("tag:ready, tag:close, attr", () => {
 			unregister();
 			parser.defer(() => {
 				for (const rule of rules) {

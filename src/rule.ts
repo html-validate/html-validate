@@ -11,6 +11,7 @@ import {
 	Event,
 	TagCloseEvent,
 	TagOpenEvent,
+	TagReadyEvent,
 	WhitespaceEvent,
 	ConfigReadyEvent,
 } from "./event";
@@ -209,6 +210,8 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	/* prettier-ignore */ public on(event: "tag:open", filter: (event: TagOpenEvent) => boolean, callback: (event: TagOpenEvent) => void): void;
 	/* prettier-ignore */ public on(event: "tag:close", callback: (event: TagCloseEvent) => void): void;
 	/* prettier-ignore */ public on(event: "tag:close", filter: (event: TagCloseEvent) => boolean, callback: (event: TagCloseEvent) => void): void;
+	/* prettier-ignore */ public on(event: "tag:ready", callback: (event: TagReadyEvent) => void): void;
+	/* prettier-ignore */ public on(event: "tag:ready", filter: (event: TagReadyEvent) => boolean, callback: (event: TagReadyEvent) => void): void;
 	/* prettier-ignore */ public on(event: "element:ready", callback: (event: ElementReadyEvent) => void): void;
 	/* prettier-ignore */ public on(event: "element:ready", filter: (event: ElementReadyEvent) => boolean, callback: (event: ElementReadyEvent) => void): void;
 	/* prettier-ignore */ public on(event: "dom:load", callback: (event: Event) => void): void;

@@ -5,7 +5,9 @@ title: Events
 
 # Events
 
-## `config:ready`
+## Engine
+
+### `config:ready`
 
 ```typescript
 {
@@ -16,7 +18,9 @@ title: Events
 
 Emitted after after configuration is ready but before DOM is initialized.
 
-## `dom:load`
+## Document
+
+### `dom:load`
 
 ```typescript
 {
@@ -26,7 +30,7 @@ Emitted after after configuration is ready but before DOM is initialized.
 Emitted after initialization but before tokenization and parsing occurs. Can be
 used to initialize state in rules.
 
-## `dom:ready`
+### `dom:ready`
 
 ```typescript
 {
@@ -36,7 +40,7 @@ used to initialize state in rules.
 
 Emitted after the parsing has finished loading the DOM tree.
 
-## `doctype`
+### `doctype`
 
 ```typescript
 {
@@ -52,7 +56,23 @@ Emitted when a doctype is encountered. `value` is the doctype (without
 `location` refers to the doctype opening tag and `valueLocation` to the value
 (as described above)
 
-## `tag:open`
+## DOM Nodes
+
+```plaintext
+                  attr                                     attr
+tag:open          |  tag:ready           tag:open          |  tag:ready
+   |              | /                       |              | /
+   v              vv                        v              vv
+<div class="foobar">                   <input class="foobar">
+  ..                                                        ^
+</div>                                                       \
+     ^                                                        element:ready
+     |\
+     | element:ready                   (tag:close not emitted)
+  tag:end
+```
+
+### `tag:open`
 
 ```typescript
 {
@@ -60,11 +80,13 @@ Emitted when a doctype is encountered. `value` is the doctype (without
 }
 ```
 
-Emitted when an opening element is parsed: `<div>`. `target` will be newly
-created Node. The element will not have its attribute nor children yet. Use
-`element:ready` to wait for the element to be complete.
+Emitted when a start tag is parsed: `<div>`.
 
-## `tag:close`
+`target` will be newly created element.
+The element will not have its attribute nor children yet.
+Use `tag:ready` (all attributes parsed) or `element:ready` (all children parsed) if you need to wait for element to be ready.
+
+### `tag:close`
 
 ```typescript
 {
@@ -73,11 +95,25 @@ created Node. The element will not have its attribute nor children yet. Use
 }
 ```
 
-Emitted when a closing element is parsed: `</div>`. `target` refers to
-the close-tag itself and `previous` is the current active element
-about to be closed.
+Emitted when an end tag is parsed: `</div>`.
+It is similar to `element:ready` but will not be emitted for `void` elements.
 
-## `element:ready`
+`target` refers to the close-tag itself and `previous` is the current active element about to be closed.
+
+### `tag:ready`
+
+```typescript
+{
+  target: Node,
+}
+```
+
+Emitted when a start tag is finished parsing (i.e. the node and all attributes are consumed by the parser).
+
+`target` will be the element.
+The children will not yet be parsed.
+
+### `element:ready`
 
 ```typescript
 {
@@ -86,9 +122,11 @@ about to be closed.
 ```
 
 Emitted when an element is fully constructed (including its children).
+It is similar to `tag:close` but will be emitted for `void` elements as well.
+
 `target` will be the element.
 
-## `attr`
+### `attr`
 
 ```typescript
 {
@@ -104,14 +142,13 @@ Emitted when an element is fully constructed (including its children).
 
 Emitted when an element attribute is parsed: `<div foo="bar">`.
 
-Target node will not have been updated with the new attribute yet
-(e.g. `node.getAttribute(...)` will return `undefined` or a previous
-value).
+Target node will not have been updated with the new attribute yet (e.g. `node.getAttribute(...)` will return `undefined` or a previous value).
 
-`originalAttribute` is set when a transformer has modified the attribute and
-contains the original attribute name, e.g. `ng-class` or `v-bind:class`.
+`originalAttribute` is set when a transformer has modified the attribute and contains the original attribute name, e.g. `ng-class` or `v-bind:class`.
 
-## `whitespace`
+## Misc
+
+### `whitespace`
 
 ```typescript
 {
@@ -121,7 +158,7 @@ contains the original attribute name, e.g. `ng-class` or `v-bind:class`.
 
 Emitted when inter-element, leading and trailing whitespace is parsed.
 
-## `conditional`
+### `conditional`
 
 ```typescript
 {

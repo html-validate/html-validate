@@ -46,6 +46,18 @@ export interface TagCloseEvent extends Event {
 }
 
 /**
+ * Event emitted when a tag is ready (i.e. all the attributes has been
+ * parsed). The children of the element will not yet be finished.
+ */
+export interface TagReadyEvent extends Event {
+	/** Event location. */
+	location: Location;
+
+	/** The node that is finished parsing. */
+	target: HtmlElement;
+}
+
+/**
  * Event emitted when an element is fully constructed (including its children).
  */
 export interface ElementReadyEvent extends Event {

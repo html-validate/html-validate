@@ -59,9 +59,10 @@ describe("parser", () => {
 
 	describe("should parse elements", () => {
 		it("simple element", () => {
-			expect.assertions(4);
+			expect.assertions(5);
 			parser.parseHtml("<div></div>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "div",
@@ -75,9 +76,10 @@ describe("parser", () => {
 		});
 
 		it("with numbers", () => {
-			expect.assertions(4);
+			expect.assertions(5);
 			parser.parseHtml("<h1></h1>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "h1" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "h1" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "h1",
@@ -91,9 +93,10 @@ describe("parser", () => {
 		});
 
 		it("with dashes", () => {
-			expect.assertions(4);
+			expect.assertions(5);
 			parser.parseHtml("<foo-bar></foo-bar>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "foo-bar" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "foo-bar" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "foo-bar",
@@ -107,10 +110,12 @@ describe("parser", () => {
 		});
 
 		it("elements closed on wrong order", () => {
-			expect.assertions(7);
+			expect.assertions(9);
 			parser.parseHtml("<div><label></div></label>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
 			expect(events.shift()).toEqual({ event: "tag:open", target: "label" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "label" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "div",
@@ -133,9 +138,10 @@ describe("parser", () => {
 		});
 
 		it("self-closing elements", () => {
-			expect.assertions(4);
+			expect.assertions(5);
 			parser.parseHtml("<input/>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "input" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "input" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "input",
@@ -149,9 +155,10 @@ describe("parser", () => {
 		});
 
 		it("void elements", () => {
-			expect.assertions(4);
+			expect.assertions(5);
 			parser.parseHtml("<input>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "input" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "input" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "input",
@@ -165,9 +172,10 @@ describe("parser", () => {
 		});
 
 		it("void elements with close tag", () => {
-			expect.assertions(5);
+			expect.assertions(6);
 			parser.parseHtml("<input></input>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "input" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "input" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "input",
@@ -218,7 +226,7 @@ describe("parser", () => {
 		});
 
 		it("with newlines", () => {
-			expect.assertions(5);
+			expect.assertions(6);
 			parser.parseHtml('<div\nfoo="bar"></div>');
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -232,6 +240,7 @@ describe("parser", () => {
 					column: 6,
 				}),
 			});
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "div",
@@ -245,7 +254,7 @@ describe("parser", () => {
 		});
 
 		it("with newline after attribute", () => {
-			expect.assertions(6);
+			expect.assertions(7);
 			parser.parseHtml('<div foo="bar"\nspam="ham"></div>');
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -270,6 +279,7 @@ describe("parser", () => {
 					column: 7,
 				}),
 			});
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "div",
@@ -283,9 +293,10 @@ describe("parser", () => {
 		});
 
 		it("with xml namespaces", () => {
-			expect.assertions(4);
+			expect.assertions(5);
 			parser.parseHtml("<foo:div></foo:div>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "foo:div" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "foo:div" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "foo:div",
@@ -325,7 +336,7 @@ describe("parser", () => {
 
 	describe("should parse attributes", () => {
 		it("without quotes", () => {
-			expect.assertions(5);
+			expect.assertions(6);
 			parser.parseHtml("<div foo=bar></div>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -339,6 +350,7 @@ describe("parser", () => {
 					column: 10,
 				}),
 			});
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "div",
@@ -352,7 +364,7 @@ describe("parser", () => {
 		});
 
 		it("with single quotes", () => {
-			expect.assertions(5);
+			expect.assertions(6);
 			parser.parseHtml("<div foo='bar'></div>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -366,6 +378,7 @@ describe("parser", () => {
 					column: 11,
 				}),
 			});
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "div",
@@ -379,7 +392,7 @@ describe("parser", () => {
 		});
 
 		it("with double quote", () => {
-			expect.assertions(5);
+			expect.assertions(6);
 			parser.parseHtml('<div foo="bar"></div>');
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -393,6 +406,7 @@ describe("parser", () => {
 					column: 11,
 				}),
 			});
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "div",
@@ -406,7 +420,7 @@ describe("parser", () => {
 		});
 
 		it("with nested quotes", () => {
-			expect.assertions(6);
+			expect.assertions(7);
 			parser.parseHtml("<div foo='\"foo\"' bar=\"'foo'\"></div>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -431,6 +445,7 @@ describe("parser", () => {
 					column: 23,
 				}),
 			});
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "div",
@@ -444,7 +459,7 @@ describe("parser", () => {
 		});
 
 		it("without value", () => {
-			expect.assertions(5);
+			expect.assertions(6);
 			parser.parseHtml("<div foo></div>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -455,6 +470,7 @@ describe("parser", () => {
 				target: "div",
 				valueLocation: null,
 			});
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "div",
@@ -468,7 +484,7 @@ describe("parser", () => {
 		});
 
 		it("with empty value", () => {
-			expect.assertions(6);
+			expect.assertions(7);
 			parser.parseHtml("<div foo=\"\" bar=''></div>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -487,6 +503,7 @@ describe("parser", () => {
 				target: "div",
 				valueLocation: null,
 			});
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "div",
@@ -500,7 +517,7 @@ describe("parser", () => {
 		});
 
 		it("with dashes", () => {
-			expect.assertions(5);
+			expect.assertions(6);
 			parser.parseHtml("<div foo-bar-baz></div>");
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -511,6 +528,7 @@ describe("parser", () => {
 				target: "div",
 				valueLocation: null,
 			});
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "div",
@@ -524,7 +542,7 @@ describe("parser", () => {
 		});
 
 		it("with spaces inside", () => {
-			expect.assertions(5);
+			expect.assertions(6);
 			parser.parseHtml('<div class="foo bar baz"></div>');
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -538,6 +556,7 @@ describe("parser", () => {
 					column: 13,
 				}),
 			});
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "div",
@@ -551,7 +570,7 @@ describe("parser", () => {
 		});
 
 		it("with uncommon characters", () => {
-			expect.assertions(5);
+			expect.assertions(6);
 			parser.parseHtml('<div a2?()!="foo"></div>');
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -565,6 +584,7 @@ describe("parser", () => {
 					column: 14,
 				}),
 			});
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "div",
@@ -578,7 +598,7 @@ describe("parser", () => {
 		});
 
 		it("with multiple attributes", () => {
-			expect.assertions(6);
+			expect.assertions(7);
 			parser.parseHtml('<div foo="bar" spam="ham"></div>');
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -603,6 +623,7 @@ describe("parser", () => {
 					column: 22,
 				}),
 			});
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "div",
@@ -616,7 +637,7 @@ describe("parser", () => {
 		});
 
 		it("on self-closing elements", () => {
-			expect.assertions(5);
+			expect.assertions(6);
 			parser.parseHtml('<input type="text"/>');
 			expect(events.shift()).toEqual({ event: "tag:open", target: "input" });
 			expect(events.shift()).toEqual({
@@ -630,6 +651,7 @@ describe("parser", () => {
 					column: 14,
 				}),
 			});
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "input" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "input",
@@ -643,7 +665,7 @@ describe("parser", () => {
 		});
 
 		it("with xml namespaces", () => {
-			expect.assertions(5);
+			expect.assertions(6);
 			parser.parseHtml('<div foo:bar="baz"></div>');
 			expect(events.shift()).toEqual({ event: "tag:open", target: "div" });
 			expect(events.shift()).toEqual({
@@ -657,6 +679,7 @@ describe("parser", () => {
 					column: 15,
 				}),
 			});
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "div",
@@ -739,7 +762,7 @@ describe("parser", () => {
 
 	describe("should handle optional end tags", () => {
 		it("<li>", () => {
-			expect.assertions(22);
+			expect.assertions(29);
 			parser.parseHtml(`
 				<ul>
 					<li>explicit</li>
@@ -748,7 +771,11 @@ describe("parser", () => {
 					<li><input>
 				</ul>`);
 			expect(events.shift()).toEqual({ event: "tag:open", target: "ul" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "ul" });
+
+			/* 1: explicitly closed <li> */
 			expect(events.shift()).toEqual({ event: "tag:open", target: "li" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "li" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "li",
@@ -758,7 +785,10 @@ describe("parser", () => {
 				event: "element:ready",
 				target: "li",
 			});
+
+			/* 2: implicitly closed <li> */
 			expect(events.shift()).toEqual({ event: "tag:open", target: "li" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "li" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "li",
@@ -768,8 +798,12 @@ describe("parser", () => {
 				event: "element:ready",
 				target: "li",
 			});
+
+			/* 3: implicit with children */
 			expect(events.shift()).toEqual({ event: "tag:open", target: "li" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "li" });
 			expect(events.shift()).toEqual({ event: "tag:open", target: "strong" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "strong" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "strong",
@@ -788,8 +822,12 @@ describe("parser", () => {
 				event: "element:ready",
 				target: "li",
 			});
+
+			/* 3: implicit with void */
 			expect(events.shift()).toEqual({ event: "tag:open", target: "li" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "li" });
 			expect(events.shift()).toEqual({ event: "tag:open", target: "input" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "input" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "input",
@@ -808,6 +846,8 @@ describe("parser", () => {
 				event: "element:ready",
 				target: "li",
 			});
+
+			/* finialize <ul> */
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "ul",
@@ -878,10 +918,14 @@ describe("parser", () => {
 		});
 
 		it("foreign elements", () => {
-			expect.assertions(4);
+			expect.assertions(5);
 			parser.parseHtml("<svg><g></g></svg>");
 			expect(events.shift()).toEqual({
 				event: "tag:open",
+				target: "svg",
+			});
+			expect(events.shift()).toEqual({
+				event: "tag:ready",
 				target: "svg",
 			});
 			expect(events.shift()).toEqual({
@@ -897,10 +941,14 @@ describe("parser", () => {
 		});
 
 		it("nested foreign elements", () => {
-			expect.assertions(4);
+			expect.assertions(5);
 			parser.parseHtml("<svg><svg></svg><svg/></svg>");
 			expect(events.shift()).toEqual({
 				event: "tag:open",
+				target: "svg",
+			});
+			expect(events.shift()).toEqual({
+				event: "tag:ready",
 				target: "svg",
 			});
 			expect(events.shift()).toEqual({
@@ -916,12 +964,13 @@ describe("parser", () => {
 		});
 
 		it("self-closed foreign elements", () => {
-			expect.assertions(4);
+			expect.assertions(5);
 			parser.parseHtml("<svg/>");
 			expect(events.shift()).toEqual({
 				event: "tag:open",
 				target: "svg",
 			});
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "svg" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				previous: "svg",
@@ -950,7 +999,7 @@ describe("parser", () => {
 
 	describe("should postprocess", () => {
 		it("attribute", () => {
-			expect.assertions(6);
+			expect.assertions(7);
 			const processAttribute = jest.fn((attr: AttributeData) => [
 				attr /* original attribute */,
 				{
@@ -996,6 +1045,7 @@ describe("parser", () => {
 					column: 12,
 				}),
 			});
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "input" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "input",
@@ -1009,7 +1059,7 @@ describe("parser", () => {
 		});
 
 		it("attribute (deprecated method)", () => {
-			expect.assertions(5);
+			expect.assertions(6);
 			const processAttribute = jest.fn((attr) => {
 				attr.key = "fred";
 				attr.value = "barney";
@@ -1038,6 +1088,7 @@ describe("parser", () => {
 					column: 12,
 				}),
 			});
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "input" });
 			expect(events.shift()).toEqual({
 				event: "tag:close",
 				target: "input",
