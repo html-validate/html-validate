@@ -125,7 +125,7 @@
     "@types/minimist": "1.2.1",
     "@types/node": "11.15.44",
     "@types/prompts": "2.0.9",
-    "autoprefixer": "10.2.1",
+    "autoprefixer": "10.2.3",
     "babelify": "10.0.0",
     "bootstrap-sass": "3.4.1",
     "canonical-path": "1.0.0",
