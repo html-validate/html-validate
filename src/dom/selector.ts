@@ -82,7 +82,7 @@ class PseudoClassMatcher extends Matcher {
 	}
 }
 
-class Pattern {
+export class Pattern {
 	public readonly combinator: Combinator;
 	public readonly tagName: string;
 	private readonly selector: string;

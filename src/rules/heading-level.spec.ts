@@ -11,7 +11,7 @@ describe("rule heading-level", () => {
 		});
 	});
 
-	it("should not report error for non-headings>", () => {
+	it("should not report error for non-headings", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateString("<p>lorem ipsum</p>");
 		expect(report).toBeValid();
@@ -25,9 +25,15 @@ describe("rule heading-level", () => {
 
 	it("should not report error when <h3> is followed by <h2>", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
-			"<h1>heading 1</h1><h2>heading 2</h2><h3>heading 3</h3><h2>heading 4</h2>"
-		);
+		const markup = "<h1>heading 1</h1><h2>heading 2</h2><h3>heading 3</h3><h2>heading 4</h2>";
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when root element is closed unexpectedly", () => {
+		expect.assertions(1);
+		const markup = "</div><h1>lorem ipsum</h1>";
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
@@ -57,7 +63,7 @@ describe("rule heading-level", () => {
 
 	it("should not report error when multiple <h1> are used but allowed via option", () => {
 		expect.assertions(1);
-		htmlvalidate = new HtmlValidate({
+		const htmlvalidate = new HtmlValidate({
 			rules: { "heading-level": ["error", { allowMultipleH1: true }] },
 		});
 		const report = htmlvalidate.validateString("<h1>heading 1</h1><h1>heading 1</h1>");
@@ -70,6 +76,40 @@ describe("rule heading-level", () => {
 		expect(report).toBeValid();
 	});
 
+	describe("sectioning roots", () => {
+		it("should allow restarting with <h1>", () => {
+			expect.assertions(1);
+			const markup = `
+			<h1>heading 1</h1>
+			<h2>heading 2</h2>
+			<h3>heading 2</h3>
+			<div role="dialog">
+				<!-- heading level is restarted at <h1> -->
+				<h1>modal header</h1>
+			</div>
+			<!-- this <h3> should valid because it is relative to the <h3> above the dialog -->
+			<h3>heading 2</h3>
+		`;
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should allow continuous headings", () => {
+			expect.assertions(1);
+			const markup = `
+			<h1>heading 1</h1>
+			<h2>heading 2</h2>
+			<h3>heading 2</h3>
+			<div role="dialog">
+				<h4>modal header</h4>
+			</div>
+			<h3>heading 2</h3>
+		`;
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+	});
+
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/heading-level.html");
@@ -78,7 +118,7 @@ describe("rule heading-level", () => {
 
 	it("should contain documentation (without multiple h1)", () => {
 		expect.assertions(1);
-		htmlvalidate = new HtmlValidate({
+		const htmlvalidate = new HtmlValidate({
 			rules: { "heading-level": ["error", { allowMultipleH1: false }] },
 		});
 		expect(htmlvalidate.getRuleDocumentation("heading-level")).toMatchSnapshot();
@@ -86,7 +126,7 @@ describe("rule heading-level", () => {
 
 	it("should contain documentation (with multiple h1)", () => {
 		expect.assertions(1);
-		htmlvalidate = new HtmlValidate({
+		const htmlvalidate = new HtmlValidate({
 			rules: { "heading-level": ["error", { allowMultipleH1: true }] },
 		});
 		expect(htmlvalidate.getRuleDocumentation("heading-level")).toMatchSnapshot();
