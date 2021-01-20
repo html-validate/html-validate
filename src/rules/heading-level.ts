@@ -11,6 +11,16 @@ const defaults: Options = {
 	allowMultipleH1: false,
 };
 
+function isRelevant(event: TagOpenEvent): boolean {
+	const node = event.target;
+	return Boolean(node.meta && !!node.meta.heading);
+}
+
+function extractLevel(node: HtmlElement): number | null {
+	const match = node.tagName.match(/^[hH](\d)$/);
+	return match ? parseInt(match[1], 10) : null;
+}
+
 export default class HeadingLevel extends Rule<void, Options> {
 	public constructor(options: Partial<Options>) {
 		super({ ...defaults, ...options });
@@ -35,12 +45,9 @@ export default class HeadingLevel extends Rule<void, Options> {
 	public setup(): void {
 		let current = 0;
 		let h1Count = 0;
-		this.on("tag:open", (event: TagOpenEvent) => {
-			/* ensure it is a heading */
-			if (!this.isHeading(event.target)) return;
-
+		this.on("tag:open", isRelevant, (event: TagOpenEvent) => {
 			/* extract heading level from tagName */
-			const level = this.extractLevel(event.target);
+			const level = extractLevel(event.target);
 			if (!level) return;
 
 			/* do not allow multiple h1 */
@@ -75,14 +82,5 @@ export default class HeadingLevel extends Rule<void, Options> {
 
 			current = level;
 		});
-	}
-
-	private isHeading(node: HtmlElement): boolean {
-		return Boolean(node.meta && !!node.meta.heading);
-	}
-
-	private extractLevel(node: HtmlElement): number | null {
-		const match = node.tagName.match(/^[hH](\d)$/);
-		return match ? parseInt(match[1], 10) : null;
 	}
 }
