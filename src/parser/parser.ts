@@ -4,19 +4,12 @@ import { ProcessAttributeCallback, ProcessElementContext } from "../context/sour
 import { DOMTree, HtmlElement, NodeClosed } from "../dom";
 import {
 	AttributeEvent,
-	ConditionalEvent,
-	ConfigReadyEvent,
-	DirectiveEvent,
-	DoctypeEvent,
-	DOMReadyEvent,
-	ElementReadyEvent,
 	Event,
 	EventCallback,
 	EventHandler,
+	ListenEventMap,
 	TagEndEvent,
-	TagStartEvent,
-	TagReadyEvent,
-	WhitespaceEvent,
+	TriggerEventMap,
 } from "../event";
 import { Lexer, Token, TokenStream, TokenType } from "../lexer";
 import { MetaTable, MetaElement } from "../meta";
@@ -501,6 +494,11 @@ export class Parser {
 	 * @param listener - Event callback.
 	 * @returns A function to unregister the listener.
 	 */
+	public on<K extends keyof ListenEventMap>(
+		event: K,
+		listener: (event: string, data: ListenEventMap[K]) => void
+	): () => void;
+	public on(event: string, listener: EventCallback): () => void;
 	public on(event: string, listener: EventCallback): () => void {
 		return this.event.on(event, listener);
 	}
@@ -513,6 +511,11 @@ export class Parser {
 	 * @param listener - Event callback.
 	 * @returns A function to unregister the listener.
 	 */
+	public once<K extends keyof ListenEventMap>(
+		event: K,
+		listener: (event: string, data: ListenEventMap[K]) => void
+	): () => void;
+	public once(event: string, listener: EventCallback): () => void;
 	public once(event: string, listener: EventCallback): () => void {
 		return this.event.once(event, listener);
 	}
@@ -529,23 +532,11 @@ export class Parser {
 	/**
 	 * Trigger event.
 	 *
-	 * @param {string} event - Event name
-	 * @param {Event} data - Event data
+	 * @param event - Event name
+	 * @param data - Event data
 	 */
-	public trigger(event: "config:ready", data: ConfigReadyEvent): void;
-	public trigger(event: "tag:start", data: TagStartEvent): void;
-	public trigger(event: "tag:end", data: TagEndEvent): void;
-	public trigger(event: "tag:ready", data: TagReadyEvent): void;
-	public trigger(event: "element:ready", data: ElementReadyEvent): void;
-	public trigger(event: "dom:load", data: Event): void;
-	public trigger(event: "dom:ready", data: DOMReadyEvent): void;
-	public trigger(event: "doctype", data: DoctypeEvent): void;
-	public trigger(event: "attr", data: AttributeEvent): void;
-	public trigger(event: "whitespace", data: WhitespaceEvent): void;
-	public trigger(event: "conditional", data: ConditionalEvent): void;
-	public trigger(event: "directive", data: DirectiveEvent): void;
-	/* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types */
-	public trigger(event: any, data: any): void {
+	public trigger<K extends keyof TriggerEventMap>(event: K, data: TriggerEventMap[K]): void;
+	public trigger(event: string, data: Event): void {
 		if (typeof data.location === "undefined") {
 			throw Error("Triggered event must contain location");
 		}

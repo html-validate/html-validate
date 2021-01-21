@@ -163,3 +163,36 @@ export interface DOMReadyEvent extends Event {
 	/** DOM Tree */
 	document: DOMTree;
 }
+
+export interface TriggerEventMap {
+	"config:ready": ConfigReadyEvent;
+	"tag:start": TagStartEvent;
+	"tag:end": TagEndEvent;
+	"tag:ready": TagReadyEvent;
+	"element:ready": ElementReadyEvent;
+	"dom:load": Event;
+	"dom:ready": DOMReadyEvent;
+	doctype: DoctypeEvent;
+	attr: AttributeEvent;
+	whitespace: WhitespaceEvent;
+	conditional: ConditionalEvent;
+	directive: DirectiveEvent;
+}
+
+export interface ListenEventMap {
+	"config:ready": ConfigReadyEvent;
+	"tag:open": TagOpenEvent;
+	"tag:start": TagStartEvent;
+	"tag:close": TagCloseEvent;
+	"tag:end": TagEndEvent;
+	"tag:ready": TagReadyEvent;
+	"element:ready": ElementReadyEvent;
+	"dom:load": Event;
+	"dom:ready": DOMReadyEvent;
+	doctype: DoctypeEvent;
+	attr: AttributeEvent;
+	whitespace: WhitespaceEvent;
+	conditional: ConditionalEvent;
+	directive: DirectiveEvent;
+	"*": Event;
+}
