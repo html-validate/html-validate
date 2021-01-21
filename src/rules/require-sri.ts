@@ -1,5 +1,5 @@
 import { Attribute, HtmlElement } from "../dom";
-import { TagCloseEvent } from "../event";
+import { TagEndEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 type Target = "all" | "crossorigin";
@@ -34,7 +34,7 @@ export default class RequireSri extends Rule<void, RuleOptions> {
 	}
 
 	public setup(): void {
-		this.on("tag:close", (event: TagCloseEvent) => {
+		this.on("tag:end", (event: TagEndEvent) => {
 			/* only handle thats supporting and requires sri */
 			const node = event.previous;
 			if (!(this.supportSri(node) && this.needSri(node))) return;

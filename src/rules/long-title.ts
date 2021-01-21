@@ -24,7 +24,7 @@ export default class LongTitle extends Rule<void, RuleOptions> {
 	}
 
 	public setup(): void {
-		this.on("tag:close", (event) => {
+		this.on("tag:end", (event) => {
 			const node = event.previous;
 			if (node.tagName !== "title") return;
 

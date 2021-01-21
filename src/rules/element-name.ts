@@ -1,5 +1,5 @@
 import { sliceLocation } from "../context";
-import { TagOpenEvent } from "../event";
+import { TagStartEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 interface Context {
@@ -70,7 +70,7 @@ export default class ElementName extends Rule<Context, RuleOptions> {
 
 	public setup(): void {
 		const xmlns = /^(.+):.+$/;
-		this.on("tag:open", (event: TagOpenEvent) => {
+		this.on("tag:start", (event: TagStartEvent) => {
 			const target = event.target;
 			const tagName = target.tagName;
 			const location = sliceLocation(event.location, 1);

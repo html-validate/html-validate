@@ -1,4 +1,4 @@
-import { TagCloseEvent } from "../event";
+import { TagEndEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 export default class CloseAttr extends Rule {
@@ -10,7 +10,7 @@ export default class CloseAttr extends Rule {
 	}
 
 	public setup(): void {
-		this.on("tag:close", (event: TagCloseEvent) => {
+		this.on("tag:end", (event: TagEndEvent) => {
 			/* handle unclosed tags */
 			if (!event.target) {
 				return;

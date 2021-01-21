@@ -296,14 +296,44 @@ describe("Engine", () => {
 			expect(report).toBeValid();
 		});
 
-		it('"disable-next" should disable rule once', () => {
-			expect.assertions(2);
-			const source: Source[] = [
-				inline("<!-- [html-validate-disable-next close-order] --><p></i><p></i>"),
-			];
-			const report = engine.lint(source);
-			expect(report).toBeInvalid();
-			expect(report).toHaveError("close-order", expect.any(String));
+		describe('"disable-next"', () => {
+			it("should disable next error on element", () => {
+				expect.assertions(1);
+				const markup = `
+					<!-- [html-validate-disable-next void-style] -->
+					<input type="hidden" />
+				`;
+				const source: Source[] = [inline(markup)];
+				const report = engine.lint(source);
+				expect(report).toBeValid();
+			});
+
+			it("should disable next error once", () => {
+				expect.assertions(2);
+				const markup = `
+					<!-- [html-validate-disable-next void-style] -->
+					<input type="hidden" />
+					<input type="hidden" />
+				`;
+				const source: Source[] = [inline(markup)];
+				const report = engine.lint(source);
+				expect(report).toBeInvalid();
+				expect(report).toHaveError("void-style", expect.any(String));
+			});
+
+			it("should be canceled by end tag", () => {
+				expect.assertions(2);
+				const markup = `
+					<div>
+						<!-- [html-validate-disable-next void-style] -->
+					</div>
+					<input type="hidden" />
+				`;
+				const source: Source[] = [inline(markup)];
+				const report = engine.lint(source);
+				expect(report).toBeInvalid();
+				expect(report).toHaveError("void-style", expect.any(String));
+			});
 		});
 
 		it('"disable-next" should disable rule on nodes', () => {
@@ -329,20 +359,22 @@ describe("Engine", () => {
 
 	describe("dumpEvents()", () => {
 		it("should dump parser events", () => {
-			expect.assertions(11);
+			expect.assertions(13);
 			const source: Source[] = [inline('<div id="foo"><p class="bar">baz</p></div>')];
 			const lines = engine.dumpEvents(source);
-			expect(lines).toHaveLength(10);
+			expect(lines).toHaveLength(12);
 			expect(lines[0].event).toEqual("dom:load");
-			expect(lines[1].event).toEqual("tag:open");
+			expect(lines[1].event).toEqual("tag:start");
 			expect(lines[2].event).toEqual("attr");
-			expect(lines[3].event).toEqual("tag:open");
-			expect(lines[4].event).toEqual("attr");
-			expect(lines[5].event).toEqual("tag:close");
-			expect(lines[6].event).toEqual("element:ready");
-			expect(lines[7].event).toEqual("tag:close");
+			expect(lines[3].event).toEqual("tag:ready");
+			expect(lines[4].event).toEqual("tag:start");
+			expect(lines[5].event).toEqual("attr");
+			expect(lines[6].event).toEqual("tag:ready");
+			expect(lines[7].event).toEqual("tag:end");
 			expect(lines[8].event).toEqual("element:ready");
-			expect(lines[9].event).toEqual("dom:ready");
+			expect(lines[9].event).toEqual("tag:end");
+			expect(lines[10].event).toEqual("element:ready");
+			expect(lines[11].event).toEqual("dom:ready");
 		});
 	});
 

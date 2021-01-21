@@ -11,7 +11,7 @@ export default class H36 extends Rule {
 	}
 
 	public setup(): void {
-		this.on("tag:close", (event) => {
+		this.on("tag:end", (event) => {
 			/* only handle input elements */
 			const node = event.previous;
 			if (node.tagName !== "input") return;

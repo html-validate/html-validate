@@ -1,6 +1,6 @@
 import { Location, sliceLocation } from "../context";
 import { HtmlElement } from "../dom";
-import { TagCloseEvent, TagOpenEvent } from "../event";
+import { TagEndEvent, TagStartEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 import { CaseStyle, CaseStyleName } from "./helper/case-style";
 
@@ -28,11 +28,11 @@ export default class ElementCase extends Rule<void, RuleOptions> {
 	}
 
 	public setup(): void {
-		this.on("tag:open", (event: TagOpenEvent) => {
+		this.on("tag:start", (event: TagStartEvent) => {
 			const { target, location } = event;
 			this.validateCase(target, location);
 		});
-		this.on("tag:close", (event: TagCloseEvent) => {
+		this.on("tag:end", (event: TagEndEvent) => {
 			const { target, previous } = event;
 			this.validateMatchingCase(previous, target);
 		});

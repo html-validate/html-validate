@@ -1,5 +1,5 @@
 import { NodeClosed } from "../dom";
-import { TagCloseEvent } from "../event";
+import { TagEndEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 export default class VoidContent extends Rule<string> {
@@ -16,7 +16,7 @@ export default class VoidContent extends Rule<string> {
 	}
 
 	public setup(): void {
-		this.on("tag:close", (event: TagCloseEvent) => {
+		this.on("tag:end", (event: TagEndEvent) => {
 			const node = event.target; // The current element being closed.
 
 			if (!node) {

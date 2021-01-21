@@ -20,29 +20,47 @@ export interface ConfigReadyEvent extends Event {
 }
 
 /**
- * Event emitted when opening tags are encountered.
+ * Event emitted when starting tags are encountered.
  */
-export interface TagOpenEvent extends Event {
+export interface TagStartEvent extends Event {
 	/** Event location. */
 	location: Location;
 
-	/** The node being opened. */
+	/** The node being started. */
 	target: HtmlElement;
 }
 
+/** Deprecated alias for TagStartEvent */
+export type TagOpenEvent = TagStartEvent;
+
 /**
- * Event emitted when close tags `</..>` are encountered.
+ * Event emitted when end tags `</..>` are encountered.
  */
-export interface TagCloseEvent extends Event {
+export interface TagEndEvent extends Event {
 	/** Event location. */
 	location: Location;
 
-	/** Temporary node for the close tag. Can be null for elements left unclosed
+	/** Temporary node for the end tag. Can be null for elements left unclosed
 	 * when document ends */
 	target: HtmlElement | null;
 
 	/** The node being closed. */
 	previous: HtmlElement;
+}
+
+/** Deprecated alias for TagEndEvent */
+export type TagCloseEvent = TagEndEvent;
+
+/**
+ * Event emitted when a tag is ready (i.e. all the attributes has been
+ * parsed). The children of the element will not yet be finished.
+ */
+export interface TagReadyEvent extends Event {
+	/** Event location. */
+	location: Location;
+
+	/** The node that is finished parsing. */
+	target: HtmlElement;
 }
 
 /**
@@ -144,4 +162,37 @@ export interface DoctypeEvent extends Event {
 export interface DOMReadyEvent extends Event {
 	/** DOM Tree */
 	document: DOMTree;
+}
+
+export interface TriggerEventMap {
+	"config:ready": ConfigReadyEvent;
+	"tag:start": TagStartEvent;
+	"tag:end": TagEndEvent;
+	"tag:ready": TagReadyEvent;
+	"element:ready": ElementReadyEvent;
+	"dom:load": Event;
+	"dom:ready": DOMReadyEvent;
+	doctype: DoctypeEvent;
+	attr: AttributeEvent;
+	whitespace: WhitespaceEvent;
+	conditional: ConditionalEvent;
+	directive: DirectiveEvent;
+}
+
+export interface ListenEventMap {
+	"config:ready": ConfigReadyEvent;
+	"tag:open": TagOpenEvent;
+	"tag:start": TagStartEvent;
+	"tag:close": TagCloseEvent;
+	"tag:end": TagEndEvent;
+	"tag:ready": TagReadyEvent;
+	"element:ready": ElementReadyEvent;
+	"dom:load": Event;
+	"dom:ready": DOMReadyEvent;
+	doctype: DoctypeEvent;
+	attr: AttributeEvent;
+	whitespace: WhitespaceEvent;
+	conditional: ConditionalEvent;
+	directive: DirectiveEvent;
+	"*": Event;
 }

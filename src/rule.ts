@@ -2,23 +2,17 @@ import path from "path";
 import { Severity } from "./config";
 import { Location } from "./context";
 import { DOMNode } from "./dom";
-import {
-	AttributeEvent,
-	ConditionalEvent,
-	DoctypeEvent,
-	DOMReadyEvent,
-	ElementReadyEvent,
-	Event,
-	TagCloseEvent,
-	TagOpenEvent,
-	WhitespaceEvent,
-	ConfigReadyEvent,
-} from "./event";
+import { Event, ListenEventMap } from "./event";
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";
 import { MetaTable, MetaLookupableProperty } from "./meta";
 
 const homepage = require("../package.json").homepage;
+
+const remapEvents: Record<string, string> = {
+	"tag:open": "tag:start",
+	"tag:close": "tag:end",
+};
 
 export interface RuleDocumentation {
 	description: string;
@@ -203,36 +197,29 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * @param filter - Optional filter function. Callback is only called if filter functions return true.
 	 * @param callback - Callback to handle event.
 	 */
-	/* prettier-ignore */ public on(event: "config:ready", callback: (event: ConfigReadyEvent) => void): void;
-	/* prettier-ignore */ public on(event: "config:ready", filter: (event: ConfigReadyEvent) => boolean, callback: (event: ConfigReadyEvent) => void): void;
-	/* prettier-ignore */ public on(event: "tag:open", callback: (event: TagOpenEvent) => void): void;
-	/* prettier-ignore */ public on(event: "tag:open", filter: (event: TagOpenEvent) => boolean, callback: (event: TagOpenEvent) => void): void;
-	/* prettier-ignore */ public on(event: "tag:close", callback: (event: TagCloseEvent) => void): void;
-	/* prettier-ignore */ public on(event: "tag:close", filter: (event: TagCloseEvent) => boolean, callback: (event: TagCloseEvent) => void): void;
-	/* prettier-ignore */ public on(event: "element:ready", callback: (event: ElementReadyEvent) => void): void;
-	/* prettier-ignore */ public on(event: "element:ready", filter: (event: ElementReadyEvent) => boolean, callback: (event: ElementReadyEvent) => void): void;
-	/* prettier-ignore */ public on(event: "dom:load", callback: (event: Event) => void): void;
-	/* prettier-ignore */ public on(event: "dom:load", filter: (event: Event) => boolean, callback: (event: Event) => void): void;
-	/* prettier-ignore */ public on(event: "dom:ready", callback: (event: DOMReadyEvent) => void): void;
-	/* prettier-ignore */ public on(event: "dom:ready", filter: (event: DOMReadyEvent) => boolean, callback: (event: DOMReadyEvent) => void): void;
-	/* prettier-ignore */ public on(event: "doctype", callback: (event: DoctypeEvent) => void): void;
-	/* prettier-ignore */ public on(event: "doctype", filter: (event: DoctypeEvent) => boolean, callback: (event: DoctypeEvent) => void): void;
-	/* prettier-ignore */ public on(event: "attr", callback: (event: AttributeEvent) => void): void;
-	/* prettier-ignore */ public on(event: "attr", filter: (event: AttributeEvent) => boolean, callback: (event: AttributeEvent) => void): void;
-	/* prettier-ignore */ public on(event: "whitespace", callback: (event: WhitespaceEvent) => void): void;
-	/* prettier-ignore */ public on(event: "whitespace", filter: (event: WhitespaceEvent) => boolean, callback: (event: WhitespaceEvent) => void): void;
-	/* prettier-ignore */ public on(event: "conditional", callback: (event: ConditionalEvent) => void): void;
-	/* prettier-ignore */ public on(event: "conditional", filter: (event: ConditionalEvent) => boolean, callback: (event: ConditionalEvent) => void): void;
-	/* prettier-ignore */ public on(event: "*", callback: (event: Event) => void): void;
-	/* prettier-ignore */ public on(event: "*", filter: (event: Event) => boolean, callback: (event: Event) => void): void;
-	public on<TEvent extends Event>(
+	public on<K extends keyof ListenEventMap>(
+		event: K,
+		callback: (event: ListenEventMap[K]) => void
+	): void;
+	public on<K extends keyof ListenEventMap>(
+		event: K,
+		filter: (event: ListenEventMap[K]) => boolean,
+		callback: (event: ListenEventMap[K]) => void
+	): void;
+	public on(
 		event: string,
-		...args: [(event: TEvent) => void] | [(event: TEvent) => boolean, (event: TEvent) => void]
+		...args: [(event: Event) => void] | [(event: Event) => boolean, (event: Event) => void]
 	): void {
-		const callback = args.pop() as (event: TEvent) => void;
-		const filter = (args.pop() as (event: TEvent) => boolean) ?? (() => true);
+		/* handle deprecated aliases */
+		const remap = remapEvents[event];
+		if (remap) {
+			event = remap;
+		}
 
-		this.parser.on(event, (_event: string, data: TEvent) => {
+		const callback = args.pop() as (event: Event) => void;
+		const filter = (args.pop() as (event: Event) => boolean) ?? (() => true);
+
+		this.parser.on(event, (_event: string, data: Event) => {
 			if (this.isEnabled() && filter(data)) {
 				this.event = data;
 				callback(data);

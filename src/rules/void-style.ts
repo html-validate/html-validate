@@ -1,5 +1,5 @@
 import { HtmlElement, NodeClosed } from "../dom";
-import { TagCloseEvent } from "../event";
+import { TagEndEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 const defaults = {
@@ -43,7 +43,7 @@ export default class VoidStyle extends Rule<RuleContext, RuleOptions> {
 	}
 
 	public setup(): void {
-		this.on("tag:close", (event: TagCloseEvent) => {
+		this.on("tag:end", (event: TagEndEvent) => {
 			const active = event.previous; // The current active element (that is, the current element on the stack)
 
 			if (active && active.meta) {

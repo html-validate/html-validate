@@ -1,4 +1,4 @@
-import { TagCloseEvent } from "../event";
+import { TagEndEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 const javascript = [
@@ -19,7 +19,7 @@ export default class ScriptType extends Rule {
 	}
 
 	public setup(): void {
-		this.on("tag:close", (event: TagCloseEvent) => {
+		this.on("tag:end", (event: TagEndEvent) => {
 			const node = event.previous;
 
 			if (!node || node.tagName !== "script") {

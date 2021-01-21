@@ -12,7 +12,7 @@ export default class NoDupAttr extends Rule {
 	public setup(): void {
 		let attr: { [key: string]: boolean } = {};
 
-		this.on("tag:open", () => {
+		this.on("tag:start", () => {
 			/* reset any time a new tag is opened */
 			attr = {};
 		});
