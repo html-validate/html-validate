@@ -1,5 +1,5 @@
 import { NodeClosed } from "../dom";
-import { TagCloseEvent } from "../event";
+import { TagEndEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 export default class ScriptElement extends Rule {
@@ -12,7 +12,7 @@ export default class ScriptElement extends Rule {
 	}
 
 	public setup(): void {
-		this.on("tag:close", (event: TagCloseEvent) => {
+		this.on("tag:end", (event: TagEndEvent) => {
 			const node = event.target; // The current element being closed.
 
 			if (!node || node.tagName !== "script") {

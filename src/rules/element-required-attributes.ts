@@ -1,4 +1,4 @@
-import { TagCloseEvent } from "../event";
+import { TagEndEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 interface Context {
@@ -21,7 +21,7 @@ export default class ElementRequiredAttributes extends Rule<Context> {
 	}
 
 	public setup(): void {
-		this.on("tag:close", (event: TagCloseEvent) => {
+		this.on("tag:end", (event: TagEndEvent) => {
 			const node = event.previous;
 			const meta = node.meta;
 			if (!meta || !meta.requiredAttributes) return;

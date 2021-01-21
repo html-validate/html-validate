@@ -1,4 +1,4 @@
-import { TagCloseEvent } from "../../event";
+import { TagEndEvent } from "../../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../../rule";
 
 export default class H67 extends Rule {
@@ -11,7 +11,7 @@ export default class H67 extends Rule {
 	}
 
 	public setup(): void {
-		this.on("tag:close", (event: TagCloseEvent) => {
+		this.on("tag:end", (event: TagEndEvent) => {
 			const node = event.target;
 
 			/* only validate images */

@@ -1,5 +1,5 @@
 import { NodeClosed } from "../dom";
-import { TagCloseEvent } from "../event";
+import { TagEndEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 export default class NoImplicitClose extends Rule {
@@ -13,7 +13,7 @@ Omitted end tags can be ambigious for humans to read and many editors have troub
 	}
 
 	public setup(): void {
-		this.on("tag:close", (event: TagCloseEvent) => {
+		this.on("tag:end", (event: TagEndEvent) => {
 			const closed = event.previous;
 			const by = event.target;
 

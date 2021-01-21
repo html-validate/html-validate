@@ -2,7 +2,7 @@ import path from "path";
 import { Config, Severity } from "./config";
 import { Location } from "./context";
 import { HtmlElement, NodeClosed } from "./dom";
-import { Event } from "./event";
+import { Event, EventCallback, TagEndEvent, TagStartEvent } from "./event";
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";
 import { Rule, ruleDocumentationUrl, IncludeExcludeOptions } from "./rule";
@@ -28,6 +28,7 @@ const location: Location = {
 
 describe("rule base class", () => {
 	let parser: Parser;
+	let parserOn: jest.SpyInstance<() => void, [event: string, listener: EventCallback]>;
 	let reporter: Reporter;
 	let meta: MetaTable;
 	let rule: MockRule;
@@ -36,7 +37,7 @@ describe("rule base class", () => {
 
 	beforeEach(() => {
 		parser = new Parser(Config.empty().resolve());
-		parser.on = jest.fn();
+		parserOn = jest.spyOn(parser, "on");
 		reporter = new Reporter();
 		reporter.add = jest.fn();
 		meta = new MetaTable();
@@ -125,7 +126,7 @@ describe("rule base class", () => {
 			expect.assertions(1);
 			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			rule.on("*", () => null);
-			const callback = (parser.on as any).mock.calls[0][1];
+			const callback = parserOn.mock.calls[0][1];
 			callback("event", mockEvent);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(
@@ -193,7 +194,7 @@ describe("rule base class", () => {
 				rule.on("*", () => {
 					delivered = true;
 				});
-				callback = (parser.on as any).mock.calls[0][1];
+				callback = parserOn.mock.calls[0][1];
 			});
 
 			it('should not deliver events with severity "disabled"', () => {
@@ -237,7 +238,7 @@ describe("rule base class", () => {
 						delivered = true;
 					}
 				);
-				callback = (parser.on as any).mock.calls[0][1];
+				callback = parserOn.mock.calls[0][1];
 			});
 
 			it("should deliver event when filter return true", () => {
@@ -253,6 +254,31 @@ describe("rule base class", () => {
 				callback("event", mockEvent);
 				expect(delivered).toBeFalsy();
 			});
+		});
+
+		it("should support tag:open as alias for tag:start", () => {
+			expect.assertions(1);
+			const spy = jest.fn();
+			const eventData: TagStartEvent = {
+				location,
+				target: (null as unknown) as HtmlElement,
+			};
+			rule.on("tag:open", spy);
+			parser.trigger("tag:start", eventData);
+			expect(spy).toHaveBeenCalledWith(eventData);
+		});
+
+		it("should support tag:close as alias for tag:end", () => {
+			expect.assertions(1);
+			const spy = jest.fn();
+			const eventData: TagEndEvent = {
+				location,
+				target: (null as unknown) as HtmlElement,
+				previous: (null as unknown) as HtmlElement,
+			};
+			rule.on("tag:close", spy);
+			parser.trigger("tag:end", eventData);
+			expect(spy).toHaveBeenCalledWith(eventData);
 		});
 	});
 

@@ -1,6 +1,6 @@
 import { Location } from "../context";
 import { NodeClosed } from "../dom";
-import { TagCloseEvent } from "../event";
+import { TagEndEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 export default class CloseOrder extends Rule {
@@ -12,7 +12,7 @@ export default class CloseOrder extends Rule {
 	}
 
 	public setup(): void {
-		this.on("tag:close", (event: TagCloseEvent) => {
+		this.on("tag:end", (event: TagEndEvent) => {
 			const current = event.target; // The current element being closed
 			const active = event.previous; // The current active element (that is, the current element on the stack)
 

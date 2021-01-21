@@ -1,4 +1,4 @@
-import { TagCloseEvent } from "../../event";
+import { TagEndEvent } from "../../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../../rule";
 import { inAccessibilityTree } from "../helper/a17y";
 
@@ -31,7 +31,7 @@ export default class H37 extends Rule<void, RuleOptions> {
 	}
 
 	public setup(): void {
-		this.on("tag:close", (event: TagCloseEvent) => {
+		this.on("tag:end", (event: TagEndEvent) => {
 			const node = event.previous;
 
 			/* only validate images */

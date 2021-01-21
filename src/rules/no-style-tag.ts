@@ -1,4 +1,4 @@
-import { TagOpenEvent } from "../event";
+import { TagStartEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 export default class NoStyleTag extends Rule {
@@ -11,7 +11,7 @@ export default class NoStyleTag extends Rule {
 	}
 
 	public setup(): void {
-		this.on("tag:open", (event: TagOpenEvent) => {
+		this.on("tag:start", (event: TagStartEvent) => {
 			const node = event.target;
 			if (node.tagName === "style") {
 				this.report(node, "Use external stylesheet with <link> instead of <style> tag");

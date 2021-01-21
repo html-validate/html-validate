@@ -1,6 +1,6 @@
 import { sliceLocation } from "../context";
 import { HtmlElement } from "../dom";
-import { TagOpenEvent } from "../event";
+import { TagStartEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 interface Options {
@@ -11,7 +11,7 @@ const defaults: Options = {
 	allowMultipleH1: false,
 };
 
-function isRelevant(event: TagOpenEvent): boolean {
+function isRelevant(event: TagStartEvent): boolean {
 	const node = event.target;
 	return Boolean(node.meta && !!node.meta.heading);
 }
@@ -45,7 +45,7 @@ export default class HeadingLevel extends Rule<void, Options> {
 	public setup(): void {
 		let current = 0;
 		let h1Count = 0;
-		this.on("tag:open", isRelevant, (event: TagOpenEvent) => {
+		this.on("tag:start", isRelevant, (event: TagStartEvent) => {
 			/* extract heading level from tagName */
 			const level = extractLevel(event.target);
 			if (!level) return;

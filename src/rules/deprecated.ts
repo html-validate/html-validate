@@ -1,6 +1,6 @@
 import { sliceLocation, Location } from "../context";
 import { HtmlElement } from "../dom";
-import { TagOpenEvent } from "../event";
+import { TagStartEvent } from "../event";
 import { DeprecatedElement } from "../meta/element";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
@@ -33,7 +33,7 @@ export default class Deprecated extends Rule<Context> {
 	}
 
 	public setup(): void {
-		this.on("tag:open", (event: TagOpenEvent) => {
+		this.on("tag:start", (event: TagStartEvent) => {
 			const node = event.target;
 
 			/* cannot validate if meta isn't known */

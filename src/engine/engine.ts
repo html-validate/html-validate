@@ -1,7 +1,7 @@
 import { ConfigData, ResolvedConfig, RuleOptions, Severity } from "../config";
 import { Location, Source } from "../context";
 import { HtmlElement } from "../dom";
-import { ConfigReadyEvent, DirectiveEvent, TagCloseEvent, TagOpenEvent } from "../event";
+import { ConfigReadyEvent, DirectiveEvent, TagEndEvent, TagStartEvent } from "../event";
 import { InvalidTokenError, Lexer, TokenType } from "../lexer";
 import { Parser, ParserError } from "../parser";
 import { Report, Reporter } from "../reporter";
@@ -219,7 +219,7 @@ export class Engine<T extends Parser = Parser> {
 		}
 
 		/* enable rules on node */
-		parser.on("tag:open", (event: string, data: TagOpenEvent) => {
+		parser.on("tag:start", (event: string, data: TagStartEvent) => {
 			data.target.enableRules(rules.map((rule) => rule.name));
 		});
 	}
@@ -230,7 +230,7 @@ export class Engine<T extends Parser = Parser> {
 		}
 
 		/* disable rules on node */
-		parser.on("tag:open", (event: string, data: TagOpenEvent) => {
+		parser.on("tag:start", (event: string, data: TagStartEvent) => {
 			data.target.disableRules(rules.map((rule) => rule.name));
 		});
 	}
@@ -241,7 +241,7 @@ export class Engine<T extends Parser = Parser> {
 			rule.setEnabled(false);
 		}
 
-		const unregisterOpen = parser.on("tag:open", (event: string, data: TagOpenEvent) => {
+		const unregisterOpen = parser.on("tag:start", (event: string, data: TagStartEvent) => {
 			/* wait for a tag to open and find the current block by using its parent */
 			if (directiveBlock === null) {
 				directiveBlock = data.target.parent?.unique ?? null;
@@ -252,7 +252,7 @@ export class Engine<T extends Parser = Parser> {
 			data.target.disableRules(rules.map((rule) => rule.name));
 		});
 
-		const unregisterClose = parser.on("tag:close", (event: string, data: TagCloseEvent) => {
+		const unregisterClose = parser.on("tag:end", (event: string, data: TagEndEvent) => {
 			/* if the directive is the last thing in a block no id would be set */
 			const lastNode = directiveBlock === null;
 
@@ -278,12 +278,12 @@ export class Engine<T extends Parser = Parser> {
 
 		/* disable rules directly on the node so it will be recorded for later,
 		 * more specifically when using the domtree to trigger errors */
-		const unregister = parser.on("tag:open", (event: string, data: TagOpenEvent) => {
+		const unregister = parser.on("tag:start", (event: string, data: TagStartEvent) => {
 			data.target.disableRules(rules.map((rule) => rule.name));
 		});
 
 		/* disable directive after next event occurs */
-		parser.once("tag:ready, tag:close, attr", () => {
+		parser.once("tag:ready, tag:end, attr", () => {
 			unregister();
 			parser.defer(() => {
 				for (const rule of rules) {

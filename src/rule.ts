@@ -5,21 +5,28 @@ import { DOMNode } from "./dom";
 import {
 	AttributeEvent,
 	ConditionalEvent,
-	DoctypeEvent,
+	ConfigReadyEvent,
 	DOMReadyEvent,
+	DoctypeEvent,
 	ElementReadyEvent,
 	Event,
 	TagCloseEvent,
+	TagEndEvent,
 	TagOpenEvent,
 	TagReadyEvent,
+	TagStartEvent,
 	WhitespaceEvent,
-	ConfigReadyEvent,
 } from "./event";
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";
 import { MetaTable, MetaLookupableProperty } from "./meta";
 
 const homepage = require("../package.json").homepage;
+
+const remapEvents: Record<string, string> = {
+	"tag:open": "tag:start",
+	"tag:close": "tag:end",
+};
 
 export interface RuleDocumentation {
 	description: string;
@@ -208,8 +215,12 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	/* prettier-ignore */ public on(event: "config:ready", filter: (event: ConfigReadyEvent) => boolean, callback: (event: ConfigReadyEvent) => void): void;
 	/* prettier-ignore */ public on(event: "tag:open", callback: (event: TagOpenEvent) => void): void;
 	/* prettier-ignore */ public on(event: "tag:open", filter: (event: TagOpenEvent) => boolean, callback: (event: TagOpenEvent) => void): void;
+	/* prettier-ignore */ public on(event: "tag:start", callback: (event: TagStartEvent) => void): void;
+	/* prettier-ignore */ public on(event: "tag:start", filter: (event: TagStartEvent) => boolean, callback: (event: TagStartEvent) => void): void;
 	/* prettier-ignore */ public on(event: "tag:close", callback: (event: TagCloseEvent) => void): void;
 	/* prettier-ignore */ public on(event: "tag:close", filter: (event: TagCloseEvent) => boolean, callback: (event: TagCloseEvent) => void): void;
+	/* prettier-ignore */ public on(event: "tag:end", callback: (event: TagEndEvent) => void): void;
+	/* prettier-ignore */ public on(event: "tag:end", filter: (event: TagEndEvent) => boolean, callback: (event: TagEndEvent) => void): void;
 	/* prettier-ignore */ public on(event: "tag:ready", callback: (event: TagReadyEvent) => void): void;
 	/* prettier-ignore */ public on(event: "tag:ready", filter: (event: TagReadyEvent) => boolean, callback: (event: TagReadyEvent) => void): void;
 	/* prettier-ignore */ public on(event: "element:ready", callback: (event: ElementReadyEvent) => void): void;
@@ -232,6 +243,12 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		event: string,
 		...args: [(event: TEvent) => void] | [(event: TEvent) => boolean, (event: TEvent) => void]
 	): void {
+		/* handle deprecated aliases */
+		const remap = remapEvents[event];
+		if (remap) {
+			event = remap;
+		}
+
 		const callback = args.pop() as (event: TEvent) => void;
 		const filter = (args.pop() as (event: TEvent) => boolean) ?? (() => true);
 

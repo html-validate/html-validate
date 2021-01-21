@@ -13,8 +13,8 @@ import {
 	Event,
 	EventCallback,
 	EventHandler,
-	TagCloseEvent,
-	TagOpenEvent,
+	TagEndEvent,
+	TagStartEvent,
 	TagReadyEvent,
 	WhitespaceEvent,
 } from "../event";
@@ -202,7 +202,7 @@ export class Parser {
 
 		if (isStartTag) {
 			this.dom.pushActive(node);
-			this.trigger("tag:open", {
+			this.trigger("tag:start", {
 				target: node,
 				location: startToken.location,
 			});
@@ -263,12 +263,12 @@ export class Parser {
 		this.processElement(active, source);
 
 		/* trigger event for the closing of the element (the </> tag)*/
-		const event: TagCloseEvent = {
+		const event: TagEndEvent = {
 			target: node,
 			previous: active,
 			location,
 		};
-		this.trigger("tag:close", event);
+		this.trigger("tag:end", event);
 
 		/* trigger event for for an element being fully constructed. Special care
 		 * for void elements explicit closed <input></input> */
@@ -533,8 +533,8 @@ export class Parser {
 	 * @param {Event} data - Event data
 	 */
 	public trigger(event: "config:ready", data: ConfigReadyEvent): void;
-	public trigger(event: "tag:open", data: TagOpenEvent): void;
-	public trigger(event: "tag:close", data: TagCloseEvent): void;
+	public trigger(event: "tag:start", data: TagStartEvent): void;
+	public trigger(event: "tag:end", data: TagEndEvent): void;
 	public trigger(event: "tag:ready", data: TagReadyEvent): void;
 	public trigger(event: "element:ready", data: ElementReadyEvent): void;
 	public trigger(event: "dom:load", data: Event): void;

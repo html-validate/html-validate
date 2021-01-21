@@ -1,4 +1,4 @@
-import { TagOpenEvent } from "../event";
+import { TagStartEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 export default class NoUnknownElements extends Rule<string> {
@@ -11,7 +11,7 @@ export default class NoUnknownElements extends Rule<string> {
 	}
 
 	public setup(): void {
-		this.on("tag:open", (event: TagOpenEvent) => {
+		this.on("tag:start", (event: TagStartEvent) => {
 			const node = event.target;
 			if (!node.meta) {
 				this.report(node, `Unknown element <${node.tagName}>`, null, node.tagName);

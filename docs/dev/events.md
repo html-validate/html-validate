@@ -60,7 +60,7 @@ Emitted when a doctype is encountered. `value` is the doctype (without
 
 ```plaintext
                   attr                                     attr
-tag:open          |  tag:ready           tag:open          |  tag:ready
+tag:start         |  tag:ready           tag:start         |  tag:ready
    |              | /                       |              | /
    v              vv                        v              vv
 <div class="foobar">                   <input class="foobar">
@@ -68,11 +68,13 @@ tag:open          |  tag:ready           tag:open          |  tag:ready
 </div>                                                       \
      ^                                                        element:ready
      |\
-     | element:ready                   (tag:close not emitted)
+     | element:ready                   (tag:end not emitted)
   tag:end
 ```
 
-### `tag:open`
+### `tag:start`
+
+- Deprecated alias: `tag:open`
 
 ```typescript
 {
@@ -86,7 +88,9 @@ Emitted when a start tag is parsed: `<div>`.
 The element will not have its attribute nor children yet.
 Use `tag:ready` (all attributes parsed) or `element:ready` (all children parsed) if you need to wait for element to be ready.
 
-### `tag:close`
+### `tag:end`
+
+- Deprecated alias: `tag:close`
 
 ```typescript
 {
@@ -122,7 +126,7 @@ The children will not yet be parsed.
 ```
 
 Emitted when an element is fully constructed (including its children).
-It is similar to `tag:close` but will be emitted for `void` elements as well.
+It is similar to `tag:end` but will be emitted for `void` elements as well.
 
 `target` will be the element.
 
