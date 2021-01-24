@@ -114,7 +114,7 @@
     "@html-validate/eslint-config-typescript": "3.0.0",
     "@html-validate/jest-config": "1.2.3",
     "@html-validate/prettier-config": "1.1.0",
-    "@html-validate/semantic-release-config": "1.2.4",
+    "@html-validate/semantic-release-config": "1.2.5",
     "@lodder/grunt-postcss": "3.0.0",
     "@types/babel__code-frame": "7.0.2",
     "@types/estree": "0.0.46",
