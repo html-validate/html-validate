@@ -1,5 +1,21 @@
 # html-validate changelog
 
+## [4.4.0](https://gitlab.com/html-validate/html-validate/compare/v4.3.0...v4.4.0) (2021-01-31)
+
+### Features
+
+- **events:** new event `tag:ready` emitted when start tag is parsed ([cfbf3dc](https://gitlab.com/html-validate/html-validate/commit/cfbf3dce948428dc3756ef60bba0a8968fbe089e))
+- **events:** rename `tag:open` and `tag:close` to `tag:start` and `tag:end` ([7a2150f](https://gitlab.com/html-validate/html-validate/commit/7a2150f1f0b51f29bddeb782af2306de786f9529))
+- **rules:** `heading-level` supports sectioning roots ([8149cc6](https://gitlab.com/html-validate/html-validate/commit/8149cc66e2e1fd66fc058157bda0157e271f8c96)), closes [#92](https://gitlab.com/html-validate/html-validate/issues/92)
+
+### Bug Fixes
+
+- **rules:** better error message for `heading-level` ([0871706](https://gitlab.com/html-validate/html-validate/commit/08717063a1b4b6f5eb88fb77cef5f5938c10e967))
+
+### Dependency upgrades
+
+- **deps:** update dependency @sidvind/better-ajv-errors to ^0.8.0 ([f317223](https://gitlab.com/html-validate/html-validate/commit/f31722364815f9001935330f6596df4bbb3a7204))
+
 ## [4.3.0](https://gitlab.com/html-validate/html-validate/compare/v4.2.0...v4.3.0) (2021-01-19)
 
 ### Features
