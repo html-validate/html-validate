@@ -10,6 +10,13 @@ describe("rule element-permitted-content", () => {
 		});
 	});
 
+	it("should not report error when elements are used correctly", () => {
+		expect.assertions(1);
+		const markup = "<div><p><span>foo</span></p></div>";
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should report error when @flow is child of @phrasing", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString("<span><div></div></span>");
@@ -112,6 +119,26 @@ describe("rule element-permitted-content", () => {
 			"element-permitted-content",
 			"Element <div> is not permitted as content in <label>"
 		);
+	});
+
+	describe("requiredAncestor", () => {
+		it("should report error for missing required ancestor", () => {
+			expect.assertions(2);
+			const markup = "<div><dt>foo</dt></div>";
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toHaveError(
+				"element-permitted-content",
+				'Element <dt> requires an "dl > dt" ancestor'
+			);
+		});
+
+		it("should not report error for proper required ancestor", () => {
+			expect.assertions(1);
+			const markup = "<dl><div><dt>foo</dt></div></dl>";
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
 	});
 
 	it("should handle missing meta entry (child)", () => {
