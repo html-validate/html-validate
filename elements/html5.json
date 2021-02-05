@@ -91,7 +91,7 @@
     "phrasing": true,
     "embedded": true,
     "interactive": ["hasAttribute", "controls"],
-    "transparent": true,
+    "transparent": ["@flow"],
     "attributes": {
       "preload": ["", "none", "metadata", "auto"]
     },
@@ -1200,7 +1200,7 @@
     "phrasing": true,
     "embedded": true,
     "interactive": ["hasAttribute", "controls"],
-    "transparent": true,
+    "transparent": ["@flow"],
     "attributes": {
       "preload": ["", "none", "metadata", "auto"]
     },
