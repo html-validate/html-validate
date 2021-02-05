@@ -238,7 +238,7 @@ export class Validator {
 	 * @param defaultMatch - The default return value when node categories is not known.
 	 */
 	// eslint-disable-next-line complexity
-	private static validatePermittedCategory(
+	public static validatePermittedCategory(
 		node: HtmlElement,
 		category: string,
 		defaultMatch: boolean

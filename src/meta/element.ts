@@ -51,7 +51,7 @@ export interface MetaData {
 	deprecated?: boolean | string | DeprecatedElement;
 	foreign?: boolean;
 	void?: boolean;
-	transparent?: boolean;
+	transparent?: boolean | string[];
 	implicitClosed?: string[];
 	scriptSupporting?: boolean;
 	form?: boolean;

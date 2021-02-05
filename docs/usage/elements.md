@@ -35,7 +35,7 @@ export interface MetaElement {
   deprecated?: boolean | string | DeprecatedElement;
   foreign?: boolean;
   void?: boolean;
-  transparent?: boolean;
+  transparent?: boolean | string[];
   scriptSupporting?: boolean;
   form?: boolean;
   labelable?: boolean;
@@ -163,6 +163,9 @@ as a child of a `<span>` element (phrasing) it only allows new phrasing content.
 
 For custom elements it can be useful to set this if the content category isn't
 flow.
+
+When set to `true` all children are checked.
+When set to array only the listed tagnames or content categories are checked.
 
 ### `scriptSupporting`
 

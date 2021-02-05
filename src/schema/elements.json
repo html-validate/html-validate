@@ -80,7 +80,7 @@
         "transparent": {
           "title": "Mark element as transparent",
           "description": "Transparent elements follows the same content model as its parent, i.e. the content must be allowed in the parent.",
-          "type": "boolean"
+          "anyOf": [{ "type": "boolean" }, { "type": "array", "items": { "type": "string" } }]
         },
 
         "implicitClosed": {

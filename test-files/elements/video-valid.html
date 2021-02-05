@@ -6,6 +6,14 @@
 <!-- should be transparent -->
 <span><video><span>foo</span></video></span>
 
+<!-- should allow <source> and <track> when used transparently -->
+<div>
+	<video>
+		<source>
+		<track>
+	</video>
+</div>
+
 <!-- should allow children in proper order -->
 <video>
 	<source>

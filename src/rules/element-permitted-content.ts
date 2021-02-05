@@ -4,6 +4,19 @@ import { Validator } from "../meta";
 import { Permitted } from "../meta/element";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
+function getTransparentChildren(node: HtmlElement, transparent: boolean | string[]): HtmlElement[] {
+	if (typeof transparent === "boolean") {
+		return node.childElements;
+	} else {
+		/* only return children which matches one of the given content categories */
+		return node.childElements.filter((it) => {
+			return transparent.some((category) => {
+				return Validator.validatePermittedCategory(it, category, false);
+			});
+		});
+	}
+}
+
 export default class ElementPermittedContent extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
@@ -61,11 +74,12 @@ export default class ElementPermittedContent extends Rule {
 			return true;
 		}
 
-		/* for transparent elements all of the children must be validated against
+		/* for transparent elements all/listed children must be validated against
 		 * the (this elements) parent, i.e. if this node was removed from the DOM it
 		 * should still be valid. */
 		if (cur.meta && cur.meta.transparent) {
-			return cur.childElements
+			const children = getTransparentChildren(cur, cur.meta.transparent);
+			return children
 				.map((child: HtmlElement) => {
 					return this.validatePermittedContentImpl(child, parent, rules);
 				})
