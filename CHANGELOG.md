@@ -1,5 +1,15 @@
 # html-validate changelog
 
+## [4.5.0](https://gitlab.com/html-validate/html-validate/compare/v4.4.0...v4.5.0) (2021-02-05)
+
+### Features
+
+- **meta:** `transparent` can be limited to specific elements ([bef8a16](https://gitlab.com/html-validate/html-validate/commit/bef8a1663b70539091c203d5a4167446513904b9))
+
+### Bug Fixes
+
+- **html5:** `<audio>` and `<video>` allows `<track>` and `<source>` transparently ([526006c](https://gitlab.com/html-validate/html-validate/commit/526006c6c95418ac7dac2d3ef9f7a9b4158b62d2)), closes [#104](https://gitlab.com/html-validate/html-validate/issues/104)
+
 ## [4.4.0](https://gitlab.com/html-validate/html-validate/compare/v4.3.0...v4.4.0) (2021-01-31)
 
 ### Features
