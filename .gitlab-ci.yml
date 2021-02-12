@@ -1,7 +1,8 @@
 image: node:latest
 
 include:
-  template: Security/License-Scanning.gitlab-ci.yml
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+  - template: Security/License-Scanning.gitlab-ci.yml
 
 stages:
   - prepare
@@ -17,10 +18,13 @@ NPM:
     name: ${CI_PROJECT_PATH_SLUG}-${CI_PIPELINE_ID}-npm
     paths:
       - node_modules/
+    reports:
+      dependency_scanning: gl-dependency-scanning.json
   script:
     - node --version
     - npm --version
     - npm ci
+    - npm audit --json --production | npx gitlab-npm-audit-parser -o gl-dependency-scanning.json || true
 
 Build:
   stage: build
