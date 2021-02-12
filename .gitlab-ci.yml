@@ -1,7 +1,7 @@
 image: node:latest
 
 include:
-  - template: License-Scanning.gitlab-ci.yml
+  template: Security/License-Scanning.gitlab-ci.yml
 
 stages:
   - prepare
