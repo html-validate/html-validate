@@ -2,3 +2,6 @@
 
 echo "Configure git commit.template"
 git config --local commit.template ./node_modules/@html-validate/commitlint-config/gitmessage
+
+echo "Installing husky"
+npx --no-install husky install "$(dirname "$0")"
