@@ -12,6 +12,7 @@ import CloseOrder from "./close-order";
 import Deprecated from "./deprecated";
 import DeprecatedRule from "./deprecated-rule";
 import DoctypeHtml from "./doctype-html";
+import DoctypeStyle from "./doctype-style";
 import ElementCase from "./element-case";
 import ElementName from "./element-name";
 import ElementPermittedContent from "./element-permitted-content";
@@ -73,6 +74,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	deprecated: Deprecated,
 	"deprecated-rule": DeprecatedRule,
 	"doctype-html": DoctypeHtml,
+	"doctype-style": DoctypeStyle,
 	"element-case": ElementCase,
 	"element-name": ElementName,
 	"element-permitted-content": ElementPermittedContent,
