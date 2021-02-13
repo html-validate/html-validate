@@ -1,5 +1,23 @@
 # html-validate changelog
 
+## [4.6.0](https://gitlab.com/html-validate/html-validate/compare/v4.5.0...v4.6.0) (2021-02-13)
+
+### Features
+
+- **parser:** add DOCTYPE tag to `DoctypeEvent` ([8c53d40](https://gitlab.com/html-validate/html-validate/commit/8c53d40b8ed3bbf8f5016cf58c63e75a09e4964e))
+- **parser:** new event `token` emitted for each lexer token ([f9d44d6](https://gitlab.com/html-validate/html-validate/commit/f9d44d665c0c5f5522f9220ac8940c1d285b339e))
+- **rules:** allow rules to unregister event listeners ([8b1a6bc](https://gitlab.com/html-validate/html-validate/commit/8b1a6bc3ce2c38d7ff6a68b8ea54a6b2784a6e45))
+- **rules:** new rule `attr-spacing` requiring attributes to be separated by whitespace ([7734dc6](https://gitlab.com/html-validate/html-validate/commit/7734dc6855bb1fccbb0e66ddc7684c6ba997912a)), closes [#105](https://gitlab.com/html-validate/html-validate/issues/105)
+- **rules:** new rule `doctype-style` requiring doctype to be specific case ([e94f819](https://gitlab.com/html-validate/html-validate/commit/e94f8191c6da0acf02b1322d140ff8afa3a8c33f))
+- **rules:** new rule `no-utf8-bom` disallowing usage of UTF-8 BOM ([7a2d264](https://gitlab.com/html-validate/html-validate/commit/7a2d264f6ff805740a2c1ed3988327cd96441682))
+
+### Bug Fixes
+
+- **lexer:** handle CRLF after xml declaration ([97fd77d](https://gitlab.com/html-validate/html-validate/commit/97fd77de1467a9e97cc80fd1a4643b88701cbdb0))
+- **lexer:** handle doctype with mixed case ([a40e28e](https://gitlab.com/html-validate/html-validate/commit/a40e28e2c115ae3382ef6b63827fdf1685134692))
+- **lexer:** handle html comment before doctype ([6c1b830](https://gitlab.com/html-validate/html-validate/commit/6c1b830898534cbfed2adb5cb6b06abfdeaede1b))
+- **lexer:** handle unicode bom ([97506b1](https://gitlab.com/html-validate/html-validate/commit/97506b1a8b143c9e686538fa02d349091b9076a3))
+
 ## [4.5.0](https://gitlab.com/html-validate/html-validate/compare/v4.4.0...v4.5.0) (2021-02-05)
 
 ### Features
