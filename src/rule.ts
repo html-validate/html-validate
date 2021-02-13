@@ -196,20 +196,21 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * @param event - Event name
 	 * @param filter - Optional filter function. Callback is only called if filter functions return true.
 	 * @param callback - Callback to handle event.
+	 * @returns A function to unregister the listener
 	 */
 	public on<K extends keyof ListenEventMap>(
 		event: K,
 		callback: (event: ListenEventMap[K]) => void
-	): void;
+	): () => void;
 	public on<K extends keyof ListenEventMap>(
 		event: K,
 		filter: (event: ListenEventMap[K]) => boolean,
 		callback: (event: ListenEventMap[K]) => void
-	): void;
+	): () => void;
 	public on(
 		event: string,
 		...args: [(event: Event) => void] | [(event: Event) => boolean, (event: Event) => void]
-	): void {
+	): () => void {
 		/* handle deprecated aliases */
 		const remap = remapEvents[event];
 		if (remap) {
@@ -219,7 +220,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		const callback = args.pop() as (event: Event) => void;
 		const filter = (args.pop() as (event: Event) => boolean) ?? (() => true);
 
-		this.parser.on(event, (_event: string, data: Event) => {
+		return this.parser.on(event, (_event: string, data: Event) => {
 			if (this.isEnabled() && filter(data)) {
 				this.event = data;
 				callback(data);
