@@ -18,6 +18,18 @@ title: Events
 
 Emitted after after configuration is ready but before DOM is initialized.
 
+### `token`
+
+```typescript
+interface TokenEvent {
+  location: Location;
+  type: TokenType;
+  data?: any;
+}
+```
+
+Emitted for each lexer token during parsing.
+
 ## Document
 
 ### `dom:load`

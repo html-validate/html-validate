@@ -95,10 +95,20 @@ export class Engine<T extends Parser = Parser> {
 		return this.report.save(sources);
 	}
 
+	/**
+	 * Returns a list of all events generated while parsing the source.
+	 *
+	 * For verbosity, token events are ignored (use [[dumpTokens]] to inspect
+	 * token stream).
+	 */
 	public dumpEvents(source: Source[]): EventDump[] {
 		const parser = this.instantiateParser();
 		const lines: EventDump[] = [];
 		parser.on("*", (event, data) => {
+			/* ignore token events as it becomes to verbose */
+			if (event === "token") {
+				return;
+			}
 			lines.push({ event, data });
 		});
 		source.forEach((src) => parser.parseHtml(src));
