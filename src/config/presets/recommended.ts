@@ -13,6 +13,7 @@ const config: ConfigData = {
 		deprecated: "error",
 		"deprecated-rule": "warn",
 		"doctype-html": "error",
+		"doctype-style": "error",
 		"element-case": "error",
 		"element-name": "error",
 		"element-permitted-content": "error",
