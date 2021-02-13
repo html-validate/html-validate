@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule attr-spacing should contain documentation 1`] = `
+Object {
+  "description": "No space between attributes. At least one whitespace character (commonly space) must be used to separate attributes.",
+  "url": "https://html-validate.org/rules/attr-spacing.html",
+}
+`;

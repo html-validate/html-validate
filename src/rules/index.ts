@@ -1,6 +1,7 @@
 import { RuleConstructor } from "../rule";
 import AllowedLinks from "./allowed-links";
 import AttrCase from "./attr-case";
+import AttrSpacing from "./attr-spacing";
 import AttrQuotes from "./attr-quotes";
 import AttributeAllowedValues from "./attribute-allowed-values";
 import AttributeBooleanStyle from "./attribute-boolean-style";
@@ -61,6 +62,7 @@ import WCAG from "./wcag";
 const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"allowed-links": AllowedLinks,
 	"attr-case": AttrCase,
+	"attr-spacing": AttrSpacing,
 	"attr-quotes": AttrQuotes,
 	"attribute-allowed-values": AttributeAllowedValues,
 	"attribute-boolean-style": AttributeBooleanStyle,

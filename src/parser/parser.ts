@@ -484,7 +484,16 @@ export class Parser {
 	}
 
 	private next(tokenStream: TokenStream): IteratorResult<Token> {
-		return tokenStream.next();
+		const it = tokenStream.next();
+		if (!it.done) {
+			const token = it.value;
+			this.trigger("token", {
+				location: token.location,
+				type: token.type,
+				data: token.data ? Array.from(token.data) : undefined,
+			});
+		}
+		return it;
 	}
 
 	/**

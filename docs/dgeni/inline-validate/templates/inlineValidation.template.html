@@ -3,6 +3,7 @@
 
 </p>
 <div class="inline-validation">
+	{# <!-- [html-validate-disable-next attr-spacing: endfor is not part of the next attribute ] -->  #}
 	<div class="markup"
 		{%- for attrName, attrValue in doc.validate.attributes %}{{ attrName }}="{{ attrValue }}"{% endfor %}>
 		<pre><code class="hljs lang-html">{{ doc.validate.markup | highlight('html') }}</code></pre>

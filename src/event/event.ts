@@ -1,6 +1,7 @@
 import { ConfigData } from "../config";
 import { Location } from "../context";
 import { DOMTree, DynamicValue, HtmlElement } from "../dom";
+import { TokenType } from "../lexer";
 import { Rule } from "../rule";
 
 /**
@@ -17,6 +18,14 @@ export interface Event {
 export interface ConfigReadyEvent extends Event {
 	config: ConfigData;
 	rules: { [ruleId: string]: Rule };
+}
+
+/**
+ * Token event.
+ */
+export interface TokenEvent extends Event {
+	type: TokenType;
+	data?: any;
 }
 
 /**
@@ -166,6 +175,7 @@ export interface DOMReadyEvent extends Event {
 
 export interface TriggerEventMap {
 	"config:ready": ConfigReadyEvent;
+	token: TokenEvent;
 	"tag:start": TagStartEvent;
 	"tag:end": TagEndEvent;
 	"tag:ready": TagReadyEvent;
@@ -181,6 +191,7 @@ export interface TriggerEventMap {
 
 export interface ListenEventMap {
 	"config:ready": ConfigReadyEvent;
+	token: TokenEvent;
 	"tag:open": TagOpenEvent;
 	"tag:start": TagStartEvent;
 	"tag:close": TagCloseEvent;
