@@ -178,6 +178,8 @@ export class Lexer {
 				[MATCH_XML_TAG, State.INITIAL, false],
 				[MATCH_DOCTYPE_OPEN, State.DOCTYPE, TokenType.DOCTYPE_OPEN],
 				[MATCH_WHITESPACE, State.INITIAL, TokenType.WHITESPACE],
+				[MATCH_DIRECTIVE, State.INITIAL, TokenType.DIRECTIVE],
+				[MATCH_COMMENT, State.INITIAL, TokenType.COMMENT],
 				[false, State.TEXT, false],
 			],
 			"expected doctype"

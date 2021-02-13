@@ -213,6 +213,18 @@ describe("lexer", () => {
 			expect(token.next().done).toBeTruthy();
 		});
 
+		it("comment before doctype", () => {
+			expect.assertions(7);
+			const token = lexer.tokenize(inlineSource("<!-- foo -->\n<!doctype html>"));
+			expect(token.next()).toBeToken({ type: TokenType.COMMENT });
+			expect(token.next()).toBeToken({ type: TokenType.WHITESPACE });
+			expect(token.next()).toBeToken({ type: TokenType.DOCTYPE_OPEN });
+			expect(token.next()).toBeToken({ type: TokenType.DOCTYPE_VALUE });
+			expect(token.next()).toBeToken({ type: TokenType.DOCTYPE_CLOSE });
+			expect(token.next()).toBeToken({ type: TokenType.EOF });
+			expect(token.next().done).toBeTruthy();
+		});
+
 		it("open/void tags", () => {
 			expect.assertions(4);
 			const token = lexer.tokenize(inlineSource("<foo>"));
