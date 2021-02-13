@@ -3,6 +3,7 @@ import { ConfigData } from "../config-data";
 const config: ConfigData = {
 	rules: {
 		"attr-case": "error",
+		"attr-spacing": "error",
 		"attr-quotes": "error",
 		"attribute-allowed-values": "error",
 		"attribute-boolean-style": "error",

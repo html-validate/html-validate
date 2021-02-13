@@ -2,6 +2,7 @@ import { ConfigData } from "../config-data";
 
 const config: ConfigData = {
 	rules: {
+		"attr-spacing": "error",
 		"attribute-allowed-values": "error",
 		"close-attr": "error",
 		"close-order": "error",
