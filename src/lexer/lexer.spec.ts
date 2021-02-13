@@ -172,6 +172,13 @@ describe("lexer", () => {
 			expect(token.next().done).toBeTruthy();
 		});
 
+		it("xml declaration trailing whitespace", () => {
+			expect.assertions(2);
+			const token = lexer.tokenize(inlineSource('<?xml version="1.0" encoding="utf-8"?> \r\n'));
+			expect(token.next()).toBeToken({ type: TokenType.EOF });
+			expect(token.next().done).toBeTruthy();
+		});
+
 		it("uppercase doctype", () => {
 			expect.assertions(5);
 			const token = lexer.tokenize(inlineSource("<!DOCTYPE html>"));
@@ -205,6 +212,18 @@ describe("lexer", () => {
 		it("whitespace before doctype", () => {
 			expect.assertions(6);
 			const token = lexer.tokenize(inlineSource(" <!doctype html>"));
+			expect(token.next()).toBeToken({ type: TokenType.WHITESPACE });
+			expect(token.next()).toBeToken({ type: TokenType.DOCTYPE_OPEN });
+			expect(token.next()).toBeToken({ type: TokenType.DOCTYPE_VALUE });
+			expect(token.next()).toBeToken({ type: TokenType.DOCTYPE_CLOSE });
+			expect(token.next()).toBeToken({ type: TokenType.EOF });
+			expect(token.next().done).toBeTruthy();
+		});
+
+		it("comment before doctype", () => {
+			expect.assertions(7);
+			const token = lexer.tokenize(inlineSource("<!-- foo -->\n<!doctype html>"));
+			expect(token.next()).toBeToken({ type: TokenType.COMMENT });
 			expect(token.next()).toBeToken({ type: TokenType.WHITESPACE });
 			expect(token.next()).toBeToken({ type: TokenType.DOCTYPE_OPEN });
 			expect(token.next()).toBeToken({ type: TokenType.DOCTYPE_VALUE });

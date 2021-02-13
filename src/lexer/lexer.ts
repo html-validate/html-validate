@@ -11,7 +11,7 @@ const MATCH_WHITESPACE = /^(?:\r\n|\r|\n|[ \t]+(?:\r\n|\r|\n)?)/;
 const MATCH_DOCTYPE_OPEN = /^<!(DOCTYPE)\s/i;
 const MATCH_DOCTYPE_VALUE = /^[^>]+/;
 const MATCH_DOCTYPE_CLOSE = /^>/;
-const MATCH_XML_TAG = /^<\?xml.*?\?>\n/;
+const MATCH_XML_TAG = /^<\?xml.*?\?>\s+/;
 const MATCH_TAG_OPEN = /^<(\/?)([a-zA-Z0-9\-:]+)/; // https://www.w3.org/TR/html/syntax.html#start-tags
 const MATCH_TAG_CLOSE = /^\/?>/;
 const MATCH_TEXT = /^[^]*?(?=(?:[ \t]*(?:\r\n|\r|\n)|<[^ ]|$))/;
@@ -178,6 +178,9 @@ export class Lexer {
 				[MATCH_XML_TAG, State.INITIAL, false],
 				[MATCH_DOCTYPE_OPEN, State.DOCTYPE, TokenType.DOCTYPE_OPEN],
 				[MATCH_WHITESPACE, State.INITIAL, TokenType.WHITESPACE],
+				[MATCH_DIRECTIVE, State.INITIAL, TokenType.DIRECTIVE],
+				[MATCH_CONDITIONAL, State.INITIAL, TokenType.CONDITIONAL],
+				[MATCH_COMMENT, State.INITIAL, TokenType.COMMENT],
 				[false, State.TEXT, false],
 			],
 			"expected doctype"
