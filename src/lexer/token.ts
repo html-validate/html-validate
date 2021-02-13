@@ -1,7 +1,8 @@
 import { Location } from "../context";
 
 export enum TokenType {
-	WHITESPACE = 1,
+	UNICODE_BOM = 1,
+	WHITESPACE,
 	NEWLINE,
 	DOCTYPE_OPEN,
 	DOCTYPE_VALUE,

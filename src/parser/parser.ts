@@ -77,6 +77,10 @@ export class Parser {
 			const token = it.value;
 
 			switch (token.type) {
+				case TokenType.UNICODE_BOM:
+					/* ignore */
+					break;
+
 				case TokenType.TAG_OPEN:
 					this.consumeTag(source, token, tokenStream);
 					break;
