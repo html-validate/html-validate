@@ -172,6 +172,13 @@ describe("lexer", () => {
 			expect(token.next().done).toBeTruthy();
 		});
 
+		it("xml declaration trailing whitespace", () => {
+			expect.assertions(2);
+			const token = lexer.tokenize(inlineSource('<?xml version="1.0" encoding="utf-8"?> \r\n'));
+			expect(token.next()).toBeToken({ type: TokenType.EOF });
+			expect(token.next().done).toBeTruthy();
+		});
+
 		it("uppercase doctype", () => {
 			expect.assertions(5);
 			const token = lexer.tokenize(inlineSource("<!DOCTYPE html>"));
