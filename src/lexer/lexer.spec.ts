@@ -181,6 +181,16 @@ describe("lexer", () => {
 			expect(token.next().done).toBeTruthy();
 		});
 
+		it("mixed case doctype", () => {
+			expect.assertions(5);
+			const token = lexer.tokenize(inlineSource("<!dOcTypE html>"));
+			expect(token.next()).toBeToken({ type: TokenType.DOCTYPE_OPEN });
+			expect(token.next()).toBeToken({ type: TokenType.DOCTYPE_VALUE });
+			expect(token.next()).toBeToken({ type: TokenType.DOCTYPE_CLOSE });
+			expect(token.next()).toBeToken({ type: TokenType.EOF });
+			expect(token.next().done).toBeTruthy();
+		});
+
 		it("whitespace before doctype", () => {
 			expect.assertions(6);
 			const token = lexer.tokenize(inlineSource(" <!doctype html>"));
