@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule no-utf8-bom should contain documentation 1`] = `
+Object {
+  "description": "This file is saved with the UTF-8 byte order mark (BOM) present. It is neither required or recommended to use.
+
+Instead the document should be served with the \`Content-Type: application/javascript; charset=utf-8\` header.",
+  "url": "https://html-validate.org/rules/no-utf8-bom.html",
+}
+`;
