@@ -892,6 +892,7 @@ describe("parser", () => {
 			const dom = parser.parseHtml("<!doctype foobar>");
 			expect(events.shift()).toEqual({
 				event: "doctype",
+				tag: "doctype",
 				value: "foobar",
 				valueLocation: expect.objectContaining({
 					line: 1,

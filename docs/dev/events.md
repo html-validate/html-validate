@@ -55,18 +55,18 @@ Emitted after the parsing has finished loading the DOM tree.
 ### `doctype`
 
 ```typescript
-{
-  location: Location,
-  value: string,
-  valueLocation: Location,
+interface DoctypeEvent {
+  location: Location;
+  tag: string;
+  value: string;
+  valueLocation: Location;
 }
 ```
 
-Emitted when a doctype is encountered. `value` is the doctype (without
-`<doctype` and `>`).
+Emitted when a DOCTYPE is encountered.
+`tag` is the tag used to open and `value` is the doctype value (without `<!doctype` and `>`).
 
-`location` refers to the doctype opening tag and `valueLocation` to the value
-(as described above)
+`location` refers to the doctype opening tag and `valueLocation` to the value (as described above)
 
 ## DOM Nodes
 

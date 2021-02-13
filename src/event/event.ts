@@ -158,6 +158,9 @@ export interface DoctypeEvent extends Event {
 	/** Event location. */
 	location: Location;
 
+	/** Tag */
+	tag: string;
+
 	/** Selected doctype */
 	value: string;
 
