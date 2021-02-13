@@ -18,6 +18,8 @@ export default class NoDupID extends Rule {
 			const relevant = elements.filter(isRelevant);
 			for (const el of relevant) {
 				const attr = el.getAttribute("id");
+
+				/* istanbul ignore next: this has already been tested in isRelevant once but for type-safety it is checked again */
 				if (!attr || !attr.value) {
 					continue;
 				}
@@ -36,6 +38,8 @@ export default class NoDupID extends Rule {
 
 function isRelevant(element: HtmlElement): boolean {
 	const attr = element.getAttribute("id");
+
+	/* istanbul ignore next: can not really happen as querySelector will only return elements with id present */
 	if (!attr) {
 		return false;
 	}

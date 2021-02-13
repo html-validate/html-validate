@@ -136,7 +136,7 @@ export default class TextContent extends Rule<RuleContext> {
 
 	public setup(): void {
 		this.on("element:ready", TextContent.filter, (event: ElementReadyEvent) => {
-			const { target } = event;
+			const target = event.target as HtmlElement & { meta: MetaElement };
 			const { textContent } = target.meta as MetaElement;
 			switch (textContent) {
 				case TextContentEnum.NONE:
@@ -155,28 +155,28 @@ export default class TextContent extends Rule<RuleContext> {
 	/**
 	 * Validate element has empty text (inter-element whitespace is not considered text)
 	 */
-	private validateNone(node: HtmlElement): void {
+	private validateNone(node: HtmlElement & { meta: MetaElement }): void {
 		if (classifyNodeText(node) === TextClassification.EMPTY_TEXT) {
 			return;
 		}
-		this.reportError(node, `${node.annotatedName} must not have text content`);
+		this.reportError(node, node.meta, `${node.annotatedName} must not have text content`);
 	}
 
 	/**
 	 * Validate element has any text (inter-element whitespace is not considered text)
 	 */
-	private validateRequired(node: HtmlElement): void {
+	private validateRequired(node: HtmlElement & { meta: MetaElement }): void {
 		if (classifyNodeText(node) !== TextClassification.EMPTY_TEXT) {
 			return;
 		}
-		this.reportError(node, `${node.annotatedName} must have text content`);
+		this.reportError(node, node.meta, `${node.annotatedName} must have text content`);
 	}
 
 	/**
 	 * Validate element has accessible text (either regular text or text only
 	 * exposed in accessibility tree via aria-label or similar)
 	 */
-	private validateAccessible(node: HtmlElement): void {
+	private validateAccessible(node: HtmlElement & { meta: MetaElement }): void {
 		/* skip this element if the element isn't present in accessibility tree */
 		if (!inAccessibilityTree(node)) {
 			return;
@@ -188,13 +188,13 @@ export default class TextContent extends Rule<RuleContext> {
 			return;
 		}
 
-		this.reportError(node, `${node.annotatedName} must have accessible text`);
+		this.reportError(node, node.meta, `${node.annotatedName} must have accessible text`);
 	}
 
-	private reportError(node: HtmlElement, message: string): void {
+	private reportError(node: HtmlElement, meta: MetaElement, message: string): void {
 		this.report(node, message, null, {
 			tagName: node.tagName,
-			textContent: node.meta?.textContent,
+			textContent: meta.textContent,
 		});
 	}
 }

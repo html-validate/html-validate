@@ -33,3 +33,9 @@ it("should handle missing parent", () => {
 	const el = new HtmlElement("a", null, NodeClosed.EndTag, null, location);
 	expect(nthChild(el, "1")).toBeFalsy();
 });
+
+it("should throw error when argument is missing", () => {
+	expect.assertions(1);
+	const el = new HtmlElement("a", null, NodeClosed.EndTag, null, location);
+	expect(() => nthChild(el)).toThrow("Missing argument to nth-child");
+});
