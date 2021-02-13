@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/no-utf8-bom.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/no-utf8-bom.md inline validation: incorrect 1`] = `Array []`;

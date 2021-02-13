@@ -154,6 +154,17 @@ describe("lexer", () => {
 	});
 
 	describe("should tokenize", () => {
+		it("unicode bom", () => {
+			expect.assertions(6);
+			const token = lexer.tokenize(inlineSource("\uFEFF<!DOCTYPE html>"));
+			expect(token.next()).toBeToken({ type: TokenType.UNICODE_BOM });
+			expect(token.next()).toBeToken({ type: TokenType.DOCTYPE_OPEN });
+			expect(token.next()).toBeToken({ type: TokenType.DOCTYPE_VALUE });
+			expect(token.next()).toBeToken({ type: TokenType.DOCTYPE_CLOSE });
+			expect(token.next()).toBeToken({ type: TokenType.EOF });
+			expect(token.next().done).toBeTruthy();
+		});
+
 		it("xml declaration", () => {
 			expect.assertions(2);
 			const token = lexer.tokenize(inlineSource('<?xml version="1.0" encoding="utf-8"?>\n'));

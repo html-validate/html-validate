@@ -6,6 +6,7 @@ type LexerTest = [RegExp | false, State | NextStateCallback, TokenType | false];
 export type TokenStream = IterableIterator<Token>;
 
 /* eslint-disable no-useless-escape */
+const MATCH_UNICODE_BOM = /^\uFEFF/;
 const MATCH_WHITESPACE = /^(?:\r\n|\r|\n|[ \t]+(?:\r\n|\r|\n)?)/;
 const MATCH_DOCTYPE_OPEN = /^<!(DOCTYPE)\s/i;
 const MATCH_DOCTYPE_VALUE = /^[^>]+/;
@@ -173,6 +174,7 @@ export class Lexer {
 		yield* this.match(
 			context,
 			[
+				[MATCH_UNICODE_BOM, State.INITIAL, TokenType.UNICODE_BOM],
 				[MATCH_XML_TAG, State.INITIAL, false],
 				[MATCH_DOCTYPE_OPEN, State.DOCTYPE, TokenType.DOCTYPE_OPEN],
 				[MATCH_WHITESPACE, State.INITIAL, TokenType.WHITESPACE],
