@@ -102,7 +102,7 @@
     "@babel/preset-env": "7.12.16",
     "@commitlint/cli": "11.0.0",
     "@html-validate/commitlint-config": "1.2.0",
-    "@html-validate/eslint-config": "3.1.0",
+    "@html-validate/eslint-config": "3.2.0",
     "@html-validate/eslint-config-jest": "3.0.0",
     "@html-validate/eslint-config-typescript": "3.0.0",
     "@html-validate/jest-config": "1.2.4",
