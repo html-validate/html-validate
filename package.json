@@ -105,7 +105,7 @@
     "@html-validate/eslint-config": "3.2.0",
     "@html-validate/eslint-config-jest": "3.0.0",
     "@html-validate/eslint-config-typescript": "3.0.0",
-    "@html-validate/jest-config": "1.2.4",
+    "@html-validate/jest-config": "1.2.5",
     "@html-validate/prettier-config": "1.1.0",
     "@html-validate/semantic-release-config": "1.2.6",
     "@lodder/grunt-postcss": "3.0.0",
