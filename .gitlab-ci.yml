@@ -124,7 +124,6 @@ Node 15.x (current):
 
 Release:
   stage: release
-  image: node:14
   only:
     - web
   variables:
@@ -133,7 +132,7 @@ Release:
     GIT_COMMITTER_NAME: ${HTML_VALIDATE_BOT_NAME}
     GIT_COMMITTER_EMAIL: ${HTML_VALIDATE_BOT_EMAIL}
   script:
-    - npm run semantic-release
+    - npm exec semantic-release
 
 .downstream: &downstream
   stage: postrelease

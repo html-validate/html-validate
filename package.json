@@ -41,7 +41,6 @@
     "build": "tsc",
     "build:docs": "grunt docs",
     "clean": "rm -rf dist public",
-    "commitlint": "commitlint",
     "compatibility": "scripts/compatibility.sh",
     "debug": "node --inspect ./node_modules/.bin/jest --runInBand --watch --no-coverage",
     "eslint": "eslint .",
@@ -50,7 +49,6 @@
     "prepare": "scripts/prepare",
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
-    "semantic-release": "semantic-release",
     "start": "grunt connect",
     "test": "jest --ci"
   },
