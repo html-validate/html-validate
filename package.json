@@ -46,7 +46,7 @@
     "eslint": "eslint .",
     "eslint:fix": "eslint --fix .",
     "htmlvalidate": "./bin/html-validate.js",
-    "prepare": "scripts/prepare",
+    "prepare": "husky install scripts",
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
     "start": "grunt connect",
