@@ -53,8 +53,6 @@ Changelog:
   stage: test
   needs: ["NPM"]
   dependencies: ["NPM"]
-  rules:
-    - if: '$CI_COMMIT_BRANCH != "master"'
   script:
     - npm exec commitlint -- --from=origin/master --to=${CI_COMMIT_SHA}
 
