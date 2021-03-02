@@ -69,9 +69,13 @@ class PseudoClassMatcher extends Matcher {
 	private readonly name: string;
 	private readonly args: string;
 
-	public constructor(pseudoclass: string) {
+	public constructor(pseudoclass: string, context: string) {
 		super();
-		const [, name, args] = pseudoclass.match(/^([^(]+)(?:\((.*)\))?$/) as RegExpMatchArray;
+		const match = pseudoclass.match(/^([^(]+)(?:\((.*)\))?$/);
+		if (!match) {
+			throw new Error(`Missing pseudo-class after colon in selector pattern "${context}"`);
+		}
+		const [, name, args] = match;
 		this.name = name;
 		this.args = args;
 	}
@@ -95,14 +99,14 @@ export class Pattern {
 		this.combinator = parseCombinator(match.shift());
 		this.tagName = match.shift() || "*";
 		const p = match[0] ? match[0].split(/(?=[.#[:])/) : [];
-		this.pattern = p.map((cur: string) => Pattern.createMatcher(cur));
+		this.pattern = p.map((cur: string) => this.createMatcher(cur));
 	}
 
 	public match(node: HtmlElement): boolean {
 		return node.is(this.tagName) && this.pattern.every((cur: Matcher) => cur.match(node));
 	}
 
-	private static createMatcher(pattern: string): Matcher {
+	private createMatcher(pattern: string): Matcher {
 		switch (pattern[0]) {
 			case ".":
 				return new ClassMatcher(pattern.slice(1));
@@ -111,7 +115,7 @@ export class Pattern {
 			case "[":
 				return new AttrMatcher(pattern.slice(1, -1));
 			case ":":
-				return new PseudoClassMatcher(pattern.slice(1));
+				return new PseudoClassMatcher(pattern.slice(1), this.selector);
 			default:
 				/* istanbul ignore next: fallback solution, the switch cases should cover
 				 * everything and there is no known way to trigger this fallback */

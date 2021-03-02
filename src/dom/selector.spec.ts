@@ -197,6 +197,13 @@ describe("Selector", () => {
 		]);
 	});
 
+	it("should throw error for missing pseudo-class", () => {
+		expect.assertions(1);
+		expect(() => new Selector("foo:")).toThrow(
+			'Missing pseudo-class after colon in selector pattern "foo:"'
+		);
+	});
+
 	it("should throw error for invalid pseudo-classes", () => {
 		expect.assertions(1);
 		const selector = new Selector("foo:missing");
