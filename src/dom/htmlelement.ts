@@ -143,9 +143,10 @@ export class HtmlElement extends DOMNode {
 		for (let cur: HtmlElement = this; cur.parent; cur = cur.parent) {
 			/* if a unique id is present, use it and short-circuit */
 			if (cur.id) {
-				const matches = root.querySelectorAll(`#${cur.id}`);
+				const escaped = cur.id.replace(/([:[\] ])/g, "\\$1");
+				const matches = root.querySelectorAll(`#${escaped}`);
 				if (matches.length === 1) {
-					parts.push(`#${cur.id}`);
+					parts.push(`#${escaped}`);
 					break;
 				}
 			}

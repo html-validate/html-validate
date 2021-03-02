@@ -3,6 +3,15 @@ import { Combinator, parseCombinator } from "./combinator";
 import { HtmlElement } from "./htmlelement";
 import { factory as pseudoClassFunction } from "./pseudoclass";
 
+/**
+ * Homage to PHP: unescapes slashes.
+ *
+ * E.g. "foo\:bar" becomes "foo:bar"
+ */
+function stripslashes(value: string): string {
+	return value.replace(/\\(.)/g, "$1");
+}
+
 class Matcher {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public match(node: HtmlElement): boolean {
@@ -29,7 +38,7 @@ class IdMatcher extends Matcher {
 
 	public constructor(id: string) {
 		super();
-		this.id = id;
+		this.id = stripslashes(id);
 	}
 
 	public match(node: HtmlElement): boolean {
@@ -69,9 +78,13 @@ class PseudoClassMatcher extends Matcher {
 	private readonly name: string;
 	private readonly args: string;
 
-	public constructor(pseudoclass: string) {
+	public constructor(pseudoclass: string, context: string) {
 		super();
-		const [, name, args] = pseudoclass.match(/^([^(]+)(?:\((.*)\))?$/) as RegExpMatchArray;
+		const match = pseudoclass.match(/^([^(]+)(?:\((.*)\))?$/);
+		if (!match) {
+			throw new Error(`Missing pseudo-class after colon in selector pattern "${context}"`);
+		}
+		const [, name, args] = match;
 		this.name = name;
 		this.args = args;
 	}
@@ -94,15 +107,15 @@ export class Pattern {
 		this.selector = pattern;
 		this.combinator = parseCombinator(match.shift());
 		this.tagName = match.shift() || "*";
-		const p = match[0] ? match[0].split(/(?=[.#[:])/) : [];
-		this.pattern = p.map((cur: string) => Pattern.createMatcher(cur));
+		const p = match[0] ? match[0].split(/(?=(?<!\\)[.#[:])/) : [];
+		this.pattern = p.map((cur: string) => this.createMatcher(cur));
 	}
 
 	public match(node: HtmlElement): boolean {
 		return node.is(this.tagName) && this.pattern.every((cur: Matcher) => cur.match(node));
 	}
 
-	private static createMatcher(pattern: string): Matcher {
+	private createMatcher(pattern: string): Matcher {
 		switch (pattern[0]) {
 			case ".":
 				return new ClassMatcher(pattern.slice(1));
@@ -111,7 +124,7 @@ export class Pattern {
 			case "[":
 				return new AttrMatcher(pattern.slice(1, -1));
 			case ":":
-				return new PseudoClassMatcher(pattern.slice(1));
+				return new PseudoClassMatcher(pattern.slice(1), this.selector);
 			default:
 				/* istanbul ignore next: fallback solution, the switch cases should cover
 				 * everything and there is no known way to trigger this fallback */
@@ -163,7 +176,7 @@ export class Selector {
 		 * easier parsing */
 		selector = selector.replace(/([+~>]) /g, "$1");
 
-		const pattern = selector.split(/ +/);
+		const pattern = selector.split(/(?:(?<!\\) )+/);
 		return pattern.map((part: string) => new Pattern(part));
 	}
 

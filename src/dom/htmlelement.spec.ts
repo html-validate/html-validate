@@ -442,6 +442,45 @@ describe("HtmlElement", () => {
 			expect(el.generateSelector()).toEqual("#foo > p");
 		});
 
+		it("should handle colon in id", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml(`
+				<div>
+					<div id="foo:">
+						<p></p>
+					</div>
+				</div>
+			`);
+			const el = document.querySelector("p");
+			expect(el.generateSelector()).toEqual("#foo\\: > p");
+		});
+
+		it("should handle space in id", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml(`
+				<div>
+					<div id="foo ">
+						<p></p>
+					</div>
+				</div>
+			`);
+			const el = document.querySelector("p");
+			expect(el.generateSelector()).toEqual("#foo\\  > p");
+		});
+
+		it("should handle bracket in id", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml(`
+				<div>
+					<div id="foo[bar]">
+						<p></p>
+					</div>
+				</div>
+			`);
+			const el = document.querySelector("p");
+			expect(el.generateSelector()).toEqual("#foo\\[bar\\] > p");
+		});
+
 		it("should normalize tagnames", () => {
 			expect.assertions(1);
 			const document = parser.parseHtml(`<dIV></DIv>`);

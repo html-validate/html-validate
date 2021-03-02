@@ -118,6 +118,30 @@ describe("Selector", () => {
 		]);
 	});
 
+	it("should match id with escaped colon", () => {
+		expect.assertions(1);
+		const parser = new Parser(Config.empty().resolve());
+		const doc = parser.parseHtml(`<div id="foo:"></div>`).root;
+		const selector = new Selector("#foo\\:");
+		expect(fetch(selector.match(doc))).toEqual([expect.objectContaining({ tagName: "div" })]);
+	});
+
+	it("should match id with escaped space", () => {
+		expect.assertions(1);
+		const parser = new Parser(Config.empty().resolve());
+		const doc = parser.parseHtml(`<div id="foo "></div>`).root;
+		const selector = new Selector("#foo\\ ");
+		expect(fetch(selector.match(doc))).toEqual([expect.objectContaining({ tagName: "div" })]);
+	});
+
+	it("should match id with escaped bracket", () => {
+		expect.assertions(1);
+		const parser = new Parser(Config.empty().resolve());
+		const doc = parser.parseHtml(`<div id="foo[bar]"></div>`).root;
+		const selector = new Selector("#foo\\[bar\\]");
+		expect(fetch(selector.match(doc))).toEqual([expect.objectContaining({ tagName: "div" })]);
+	});
+
 	it("should match having attribute ([wilma])", () => {
 		expect.assertions(1);
 		const selector = new Selector("[wilma]");
@@ -195,6 +219,13 @@ describe("Selector", () => {
 			expect.objectContaining({ tagName: "foo", testId: "foo-1" }),
 			expect.objectContaining({ tagName: "foo", testId: "foo-3" }),
 		]);
+	});
+
+	it("should throw error for missing pseudo-class", () => {
+		expect.assertions(1);
+		expect(() => new Selector("foo:")).toThrow(
+			'Missing pseudo-class after colon in selector pattern "foo:"'
+		);
 	});
 
 	it("should throw error for invalid pseudo-classes", () => {
