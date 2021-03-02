@@ -118,6 +118,30 @@ describe("Selector", () => {
 		]);
 	});
 
+	it("should match id with escaped colon", () => {
+		expect.assertions(1);
+		const parser = new Parser(Config.empty().resolve());
+		const doc = parser.parseHtml(`<div id="foo:"></div>`).root;
+		const selector = new Selector("#foo\\:");
+		expect(fetch(selector.match(doc))).toEqual([expect.objectContaining({ tagName: "div" })]);
+	});
+
+	it("should match id with escaped space", () => {
+		expect.assertions(1);
+		const parser = new Parser(Config.empty().resolve());
+		const doc = parser.parseHtml(`<div id="foo "></div>`).root;
+		const selector = new Selector("#foo\\ ");
+		expect(fetch(selector.match(doc))).toEqual([expect.objectContaining({ tagName: "div" })]);
+	});
+
+	it("should match id with escaped bracket", () => {
+		expect.assertions(1);
+		const parser = new Parser(Config.empty().resolve());
+		const doc = parser.parseHtml(`<div id="foo[bar]"></div>`).root;
+		const selector = new Selector("#foo\\[bar\\]");
+		expect(fetch(selector.match(doc))).toEqual([expect.objectContaining({ tagName: "div" })]);
+	});
+
 	it("should match having attribute ([wilma])", () => {
 		expect.assertions(1);
 		const selector = new Selector("[wilma]");

@@ -3,6 +3,15 @@ import { Combinator, parseCombinator } from "./combinator";
 import { HtmlElement } from "./htmlelement";
 import { factory as pseudoClassFunction } from "./pseudoclass";
 
+/**
+ * Homage to PHP: unescapes slashes.
+ *
+ * E.g. "foo\:bar" becomes "foo:bar"
+ */
+function stripslashes(value: string): string {
+	return value.replace(/\\(.)/g, "$1");
+}
+
 class Matcher {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public match(node: HtmlElement): boolean {
@@ -29,7 +38,7 @@ class IdMatcher extends Matcher {
 
 	public constructor(id: string) {
 		super();
-		this.id = id;
+		this.id = stripslashes(id);
 	}
 
 	public match(node: HtmlElement): boolean {
@@ -98,7 +107,7 @@ export class Pattern {
 		this.selector = pattern;
 		this.combinator = parseCombinator(match.shift());
 		this.tagName = match.shift() || "*";
-		const p = match[0] ? match[0].split(/(?=[.#[:])/) : [];
+		const p = match[0] ? match[0].split(/(?=(?<!\\)[.#[:])/) : [];
 		this.pattern = p.map((cur: string) => this.createMatcher(cur));
 	}
 
@@ -167,7 +176,7 @@ export class Selector {
 		 * easier parsing */
 		selector = selector.replace(/([+~>]) /g, "$1");
 
-		const pattern = selector.split(/ +/);
+		const pattern = selector.split(/(?:(?<!\\) )+/);
 		return pattern.map((part: string) => new Pattern(part));
 	}
 
