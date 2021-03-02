@@ -1,5 +1,13 @@
 # html-validate changelog
 
+### [4.6.1](https://gitlab.com/html-validate/html-validate/compare/v4.6.0...v4.6.1) (2021-03-02)
+
+### Bug Fixes
+
+- **dom:** `generateSelector()` escapes characters ([c2e316c](https://gitlab.com/html-validate/html-validate/commit/c2e316c6e980c7814d0a34102f8da529a111b5f6)), closes [#108](https://gitlab.com/html-validate/html-validate/issues/108)
+- **dom:** `querySelector` handles escaped characters ([30e7503](https://gitlab.com/html-validate/html-validate/commit/30e75036b71dbf7564021b89a02aab11342647b7))
+- **dom:** throw error when selector is missing pseudoclass name ([516ca06](https://gitlab.com/html-validate/html-validate/commit/516ca065dfcbc22d542f2336d91d0685f1870c64))
+
 ## [4.6.0](https://gitlab.com/html-validate/html-validate/compare/v4.5.0...v4.6.0) (2021-02-13)
 
 ### Features
