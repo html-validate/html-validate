@@ -1,3 +1,5 @@
+import { Source } from "../src/context";
+import { HtmlElement } from "../src/dom";
 import HtmlValidate from "../src/htmlvalidate";
 import "../src/matchers";
 
@@ -176,6 +178,37 @@ describe("HTML elements", () => {
 			"wcag/h37": "off",
 			"wcag/h67": "off",
 		},
+	});
+
+	function getElement(markup: string, selector: string): HtmlElement {
+		const source: Source = {
+			data: markup,
+			filename: "inline",
+			line: 1,
+			column: 1,
+			offset: 0,
+		};
+		const parser = htmlvalidate.getParserFor(source);
+		const doc = parser.parseHtml(source.data);
+		return doc.querySelector(selector);
+	}
+
+	describe("<input>", () => {
+		it("should be labelable unless hidden", () => {
+			expect.assertions(1);
+			const markup = '<input type="text">';
+			const input = getElement(markup, "input");
+			const meta = input.meta;
+			expect(meta?.labelable).toBeTruthy();
+		});
+
+		it("should not be labelable if hidden", () => {
+			expect.assertions(1);
+			const markup = '<input type="hidden">';
+			const input = getElement(markup, "input");
+			const meta = input.meta;
+			expect(meta?.labelable).toBeFalsy();
+		});
 	});
 
 	describe(`global attributes`, () => {

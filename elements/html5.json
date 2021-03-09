@@ -533,7 +533,7 @@
     "phrasing": true,
     "interactive": ["matchAttribute", ["type", "!=", "hidden"]],
     "void": true,
-    "labelable": true,
+    "labelable": ["matchAttribute", ["type", "!=", "hidden"]],
     "deprecatedAttributes": [
       "datasrc",
       "datafld",
