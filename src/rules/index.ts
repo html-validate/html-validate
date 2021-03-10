@@ -1,8 +1,9 @@
 import { RuleConstructor } from "../rule";
 import AllowedLinks from "./allowed-links";
+import AriaLabelMisuse from "./aria-label-misuse";
 import AttrCase from "./attr-case";
-import AttrSpacing from "./attr-spacing";
 import AttrQuotes from "./attr-quotes";
+import AttrSpacing from "./attr-spacing";
 import AttributeAllowedValues from "./attribute-allowed-values";
 import AttributeBooleanStyle from "./attribute-boolean-style";
 import AttributeEmptyStyle from "./attribute-empty-style";
@@ -63,9 +64,10 @@ import WCAG from "./wcag";
 
 const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"allowed-links": AllowedLinks,
+	"aria-label-misuse": AriaLabelMisuse,
 	"attr-case": AttrCase,
-	"attr-spacing": AttrSpacing,
 	"attr-quotes": AttrQuotes,
+	"attr-spacing": AttrSpacing,
 	"attribute-allowed-values": AttributeAllowedValues,
 	"attribute-boolean-style": AttributeBooleanStyle,
 	"attribute-empty-style": AttributeEmptyStyle,

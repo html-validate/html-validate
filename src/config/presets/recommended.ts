@@ -2,9 +2,10 @@ import { ConfigData } from "../config-data";
 
 const config: ConfigData = {
 	rules: {
+		"aria-label-misuse": "error",
 		"attr-case": "error",
-		"attr-spacing": "error",
 		"attr-quotes": "error",
+		"attr-spacing": "error",
 		"attribute-allowed-values": "error",
 		"attribute-boolean-style": "error",
 		"attribute-empty-style": "error",

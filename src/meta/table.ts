@@ -23,6 +23,7 @@ const dynamicKeys = [
 	"phrasing",
 	"embedded",
 	"interactive",
+	"labelable",
 ];
 
 type PropertyEvaluator = (node: HtmlElement, options: any) => boolean;

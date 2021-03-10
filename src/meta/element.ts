@@ -55,7 +55,7 @@ export interface MetaData {
 	implicitClosed?: string[];
 	scriptSupporting?: boolean;
 	form?: boolean;
-	labelable?: boolean;
+	labelable?: boolean | PropertyExpression;
 
 	/* attribute */
 	deprecatedAttributes?: string[];
