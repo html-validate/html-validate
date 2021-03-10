@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule aria-label-misuse should contain documentation 1`] = `
+Object {
+  "description": "\`aria-label\` can only be used on:
+
+- Interactive elements
+- Labelable elements
+- Landmark elements
+- Elements with roles inheriting from widget
+- \`<area>\`
+- \`<form>\` and \`<fieldset>\`
+- \`<iframe>\`
+- \`<img>\` and \`<figure>\`
+- \`<summary>\`
+- \`<table>\`, \`<td>\` and \`<th>\`
+",
+  "url": "https://html-validate.org/rules/aria-label-misuse.html",
+}
+`;
