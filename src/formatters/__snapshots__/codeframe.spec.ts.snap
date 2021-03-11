@@ -11,7 +11,7 @@ exports[`codeframe formatter should generate plaintext 1`] = `
 > 2 |     class=\\"bar\\"
     | ^^^^^^^^^^^^^^^
   3 |     name=\\"baz\\">
-  4 | 
+  4 |
 
 
 <yellow>warning</>: <bold>A warning</> <dim>(bar)</> at <green>regular.html:2:4</>:
@@ -19,7 +19,7 @@ exports[`codeframe formatter should generate plaintext 1`] = `
 > 2 |     class=\\"bar\\"
     |    ^
   3 |     name=\\"baz\\">
-  4 | 
+  4 |
 
 
 <red>error</>: <bold>Another error</> <dim>(baz)</> at <green>edge-cases.html:3:3</>:
@@ -27,7 +27,7 @@ exports[`codeframe formatter should generate plaintext 1`] = `
   2 |     class=\\"bar\\"
 > 3 |     name=\\"baz\\">
     |   ^
-  4 | 
+  4 |
 
 
 <red><bold>2 errors and 1 warning found.</></>
