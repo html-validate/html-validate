@@ -63,10 +63,16 @@ export class ConfigLoader {
 
 		// eslint-disable-next-line no-constant-condition
 		while (true) {
-			const search = path.join(current, ".htmlvalidate.json");
+			const jsonFile = path.join(current, ".htmlvalidate.json");
+			if (fs.existsSync(jsonFile)) {
+				const local = this.configClass.fromFile(jsonFile);
+				found = true;
+				config = local.merge(config);
+			}
 
-			if (fs.existsSync(search)) {
-				const local = this.configClass.fromFile(search);
+			const jsFile = path.join(current, ".htmlvalidate.js");
+			if (fs.existsSync(jsFile)) {
+				const local = this.configClass.fromFile(jsFile);
 				found = true;
 				config = local.merge(config);
 			}

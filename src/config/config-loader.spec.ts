@@ -97,8 +97,11 @@ describe("ConfigLoader", () => {
 				expect.objectContaining({
 					mockFilenames: [
 						/* ConfigMock adds all visited filenames to this array */
+						path.resolve("/.htmlvalidate.js"),
 						path.resolve("/.htmlvalidate.json"),
+						path.resolve("/path/.htmlvalidate.js"),
 						path.resolve("/path/.htmlvalidate.json"),
+						path.resolve("/path/to/.htmlvalidate.js"),
 						path.resolve("/path/to/.htmlvalidate.json"),
 					],
 				})
@@ -113,7 +116,9 @@ describe("ConfigLoader", () => {
 				expect.objectContaining({
 					mockFilenames: [
 						/* ConfigMock adds all visited filenames to this array */
+						path.resolve("/project/root/.htmlvalidate.js"),
 						path.resolve("/project/root/.htmlvalidate.json"),
+						path.resolve("/project/root/src/.htmlvalidate.js"),
 						path.resolve("/project/root/src/.htmlvalidate.json"),
 					],
 				})
@@ -137,8 +142,11 @@ describe("ConfigLoader", () => {
 				expect.objectContaining({
 					mockFilenames: [
 						/* ConfigMock adds all visited filenames to this array */
+						path.resolve("/.htmlvalidate.js"),
 						path.resolve("/.htmlvalidate.json"),
+						path.resolve("/path/.htmlvalidate.js"),
 						path.resolve("/path/.htmlvalidate.json"),
+						path.resolve("/path/to/.htmlvalidate.js"),
 						path.resolve("/path/to/.htmlvalidate.json"),
 					],
 				})
@@ -159,8 +167,11 @@ describe("ConfigLoader", () => {
 				expect.objectContaining({
 					mockFilenames: [
 						/* ConfigMock adds all visited filenames to this array */
+						path.resolve("/.htmlvalidate.js"),
 						path.resolve("/.htmlvalidate.json"),
+						path.resolve("/path/.htmlvalidate.js"),
 						path.resolve("/path/.htmlvalidate.json"),
+						path.resolve("/path/to/.htmlvalidate.js"),
 						path.resolve("/path/to/.htmlvalidate.json"),
 					],
 				})
@@ -207,7 +218,12 @@ describe("ConfigLoader", () => {
 		/* extract only relevant rules from configuration to avoid bloat when new
 		 * rules are added to recommended config */
 		function filter(src: Config): ConfigData {
-			const whitelisted = ["no-self-closing", "deprecated", "element-permitted-content"];
+			const whitelisted = [
+				"no-self-closing",
+				"deprecated",
+				"element-permitted-content",
+				"void-content",
+			];
 			const data = { rules: {}, ...src.get() };
 			data.rules = Object.keys(data.rules)
 				.filter((key) => whitelisted.includes(key))
