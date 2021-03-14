@@ -1,5 +1,16 @@
 # html-validate changelog
 
+## [4.7.0](https://gitlab.com/html-validate/html-validate/compare/v4.6.1...v4.7.0) (2021-03-14)
+
+### Features
+
+- new rule `aria-label-misuse` ([b8c6eb7](https://gitlab.com/html-validate/html-validate/commit/b8c6eb7a12849dd9ce08e8d64fbc3aaec5b6d278)), closes [#110](https://gitlab.com/html-validate/html-validate/issues/110)
+- support `.htmlvalidate.js` ([b694ddf](https://gitlab.com/html-validate/html-validate/commit/b694ddfa1afa05eb86689aa590a8d232d0d20f66)), closes [#111](https://gitlab.com/html-validate/html-validate/issues/111)
+
+### Bug Fixes
+
+- **dom:** `input[type="hidden"]` no longer labelable ([244d37d](https://gitlab.com/html-validate/html-validate/commit/244d37d3195afb50f75eed0b835f66c325d941e3))
+
 ### [4.6.1](https://gitlab.com/html-validate/html-validate/compare/v4.6.0...v4.6.1) (2021-03-02)
 
 ### Bug Fixes
