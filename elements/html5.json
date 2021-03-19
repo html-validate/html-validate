@@ -1,4 +1,6 @@
 {
+  "$schema": "https://html-validate.org/schemas/elements.json",
+
   "*": {
     "attributes": {
       "contenteditable": ["", "true", "false"],

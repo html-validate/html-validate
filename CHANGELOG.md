@@ -1,5 +1,11 @@
 # html-validate changelog
 
+### [4.1.1](https://gitlab.com/html-validate/html-validate/compare/v4.1.0...v4.1.1) (2021-03-19)
+
+### Bug Fixes
+
+- `$schema` keyword being invalid ([3b67062](https://gitlab.com/html-validate/html-validate/commit/3b67062260c9e85e5d6213b7d3f8e6009c823264))
+
 ## [4.7.0](https://gitlab.com/html-validate/html-validate/compare/v4.6.1...v4.7.0) (2021-03-14)
 
 ### Features
