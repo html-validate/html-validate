@@ -1,5 +1,11 @@
 # html-validate changelog
 
+### [4.7.1](https://gitlab.com/html-validate/html-validate/compare/v4.7.0...v4.7.1) (2021-03-19)
+
+### Bug Fixes
+
+- add `$schema` to `html5.json` ([9a89d30](https://gitlab.com/html-validate/html-validate/commit/9a89d30c7172d787cd365205345da9a4fc0ad2dd))
+
 ### [4.1.1](https://gitlab.com/html-validate/html-validate/compare/v4.1.0...v4.1.1) (2021-03-19)
 
 ### Bug Fixes
