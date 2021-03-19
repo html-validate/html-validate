@@ -91,7 +91,7 @@ export class MetaTable {
 		if (patch.properties) {
 			this.schema = jsonMergePatch.apply(this.schema, {
 				patternProperties: {
-					"^.*$": {
+					"^[^$].*$": {
 						properties: patch.properties,
 					},
 				},

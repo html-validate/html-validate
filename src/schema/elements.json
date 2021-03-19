@@ -12,7 +12,7 @@
   },
 
   "patternProperties": {
-    "^.*$": {
+    "^[^$].*$": {
       "type": "object",
       "properties": {
         "inherit": {
