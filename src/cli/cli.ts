@@ -5,6 +5,7 @@ import HtmlValidate from "../htmlvalidate";
 import { Report } from "../reporter";
 import { expandFiles, ExpandOptions } from "./expand-files";
 import { getFormatter } from "./formatter";
+import { IsIgnored } from "./is-ignored";
 import { init, InitResult } from "./init";
 
 const defaultConfig: ConfigData = {
@@ -19,6 +20,7 @@ export interface CLIOptions {
 export class CLI {
 	private options: CLIOptions;
 	private config: ConfigData;
+	private ignored: IsIgnored;
 
 	/**
 	 * Create new CLI helper.
@@ -29,10 +31,14 @@ export class CLI {
 	public constructor(options?: CLIOptions) {
 		this.options = options || {};
 		this.config = this.getConfig();
+		this.ignored = new IsIgnored();
 	}
 
+	/**
+	 * Returns list of files matching patterns and are not ignored.
+	 */
 	public expandFiles(patterns: string[], options: ExpandOptions = {}): string[] {
-		return expandFiles(patterns, options);
+		return expandFiles(patterns, options).filter((filename) => !this.isIgnored(filename));
 	}
 
 	public getFormatter(formatters: string): (report: Report) => string {
@@ -47,6 +53,24 @@ export class CLI {
 	 */
 	public init(cwd: string): Promise<InitResult> {
 		return init(cwd);
+	}
+
+	/**
+	 * Searches ".htmlvalidateignore" files from filesystem and returns `true` if
+	 * one of them contains a pattern matching given filename.
+	 */
+	public isIgnored(filename: string): boolean {
+		return this.ignored.isIgnored(filename);
+	}
+
+	/**
+	 * Clear cache.
+	 *
+	 * Previously fetched [[HtmlValidate]] instances must either be fetched again
+	 * or call [[HtmlValidate.flushConfigCache]].
+	 */
+	public clearCache(): void {
+		this.ignored.clearCache();
 	}
 
 	/**
