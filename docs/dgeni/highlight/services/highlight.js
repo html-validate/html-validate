@@ -7,7 +7,7 @@ module.exports = function highlight() {
 
 	function render(code, lang) {
 		if (lang) {
-			return hljs.highlight(lang, code).value;
+			return hljs.highlight(code, { language: lang }).value;
 		} else {
 			return hljs.highlightAuto(code).value;
 		}
