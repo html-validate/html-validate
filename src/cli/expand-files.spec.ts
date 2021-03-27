@@ -1,5 +1,6 @@
 jest.mock("fs");
 jest.mock("glob");
+jest.mock("./is-ignored");
 
 import fs from "fs";
 import path from "path";

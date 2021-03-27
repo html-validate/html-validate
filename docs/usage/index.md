@@ -239,3 +239,15 @@ Disables the rule for the next element.
 <blink>But this line will</blink>
 ```
 <!-- prettier-ignore-end -->
+
+## Ignoring files
+
+### `.htmlvalidateignore` file
+
+The `.htmlvalidateignore` file works similar to `.gitignore`, i.e. the file should contain a list of file patterns to ignore.
+
+- Lines beginning with `#` are treated as comments
+- Lines beginning with `!` are negated patterns that re-include a pattern that was ignored by an earlier pattern. It is not possible to re-include a file excluded from a parent directory.
+- Paths are relative to the `.htmlvalidateignore` file
+
+Similar to `.gitignore` if a line starts with `/` it matches from the current directory only, e.g `/foo.html` matches only `foo.html` in the current directory but not `src/foo.html`.

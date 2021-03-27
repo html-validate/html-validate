@@ -91,6 +91,7 @@
     "deepmerge": "^4.2.2",
     "espree": "^7.3.0",
     "glob": "^7.1.6",
+    "ignore": "^5.0.0",
     "json-merge-patch": "^1.0.1",
     "minimist": "^1.2.5",
     "prompts": "^2.0.0"
