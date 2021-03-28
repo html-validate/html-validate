@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [4.8.0](https://gitlab.com/html-validate/html-validate/compare/v4.7.1...v4.8.0) (2021-03-28)
+
+### Features
+
+- support ignoring files with `.htmlvalidateignore` ([77ec9a6](https://gitlab.com/html-validate/html-validate/commit/77ec9a623c5fabcbd743394d0bb58887d44d73c1)), closes [#109](https://gitlab.com/html-validate/html-validate/issues/109)
+
 ### [4.7.1](https://gitlab.com/html-validate/html-validate/compare/v4.7.0...v4.7.1) (2021-03-19)
 
 ### Bug Fixes
