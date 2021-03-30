@@ -5,6 +5,7 @@ import jsonMergePatch from "json-merge-patch";
 import { HtmlElement } from "../dom";
 import { SchemaValidationError, UserError } from "../error";
 import { SchemaValidationPatch } from "../plugin";
+import { requireUncached } from "../utils";
 import schema from "../schema/elements.json";
 import {
 	ElementTable,
@@ -139,13 +140,8 @@ export class MetaTable {
 	 */
 	public loadFromFile(filename: string): void {
 		try {
-			/* remove cached copy so we always load a fresh copy, important for
-			 * editors which keep a long-running instance of [[HtmlValidate]]
-			 * around. */
-			delete require.cache[require.resolve(filename)];
-
 			/* load using require as it can process both js and json */
-			const data = require(filename); // eslint-disable-line import/no-dynamic-require
+			const data = requireUncached(filename);
 			this.loadFromObject(data, filename);
 		} catch (err) {
 			if (err instanceof SchemaValidationError) {

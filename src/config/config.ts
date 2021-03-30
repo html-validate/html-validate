@@ -9,6 +9,7 @@ import { MetaCopyableProperty, MetaDataTable } from "../meta/element";
 import { Plugin } from "../plugin";
 import schema from "../schema/config.json";
 import { TransformContext, Transformer, TRANSFORMER_API } from "../transform";
+import { requireUncached } from "../utils";
 import { ConfigData, RuleOptions, TransformMap } from "./config-data";
 import defaultConfig from "./default";
 import { ConfigError } from "./error";
@@ -64,12 +65,8 @@ function mergeInternal(base: ConfigData, rhs: ConfigData): ConfigData {
 function loadFromFile(filename: string): ConfigData {
 	let json;
 	try {
-		/* remove cached copy so we always load a fresh copy, important for editors
-		 * which keep a long-running instance of [[HtmlValidate]] around. */
-		delete require.cache[require.resolve(filename)];
-
 		/* load using require as it can process both js and json */
-		json = require(filename); // eslint-disable-line import/no-dynamic-require
+		json = requireUncached(filename);
 	} catch (err) {
 		throw new ConfigError(`Failed to read configuration from "${filename}"`, err);
 	}
