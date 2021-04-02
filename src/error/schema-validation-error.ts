@@ -1,3 +1,4 @@
+import fs from "fs";
 import betterAjvErrors from "@sidvind/better-ajv-errors";
 import { ErrorObject, SchemaObject } from "ajv";
 import { UserError } from "./user-error";
@@ -33,9 +34,19 @@ export class SchemaValidationError extends UserError {
 	}
 
 	public prettyError(): string {
+		const json = this.getRawJSON();
 		return betterAjvErrors(this.schema, this.obj, this.errors, {
 			format: "cli",
 			indent: 2,
+			json,
 		});
+	}
+
+	private getRawJSON(): string | null {
+		if (this.filename && fs.existsSync(this.filename)) {
+			return fs.readFileSync(this.filename, "utf-8");
+		} else {
+			return null;
+		}
 	}
 }
