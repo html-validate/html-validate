@@ -1,0 +1,36 @@
+#!/bin/sh
+
+if ! type jq > /dev/null; then
+	echo "$0: jq not found" > /dev/stderr
+	echo > /dev/stderr
+	echo "This script requires \"jq\" to be installed, see installation instructions at" > /dev/stderr
+	echo > /dev/stderr
+	echo "  https://stedolan.github.io/jq/download/ " > /dev/stderr
+	exit 1
+fi
+
+if [ $# -lt 1 -o $# -gt 2 ]; then
+   echo "$0: usage: rule-options-schema FILENAME [INTERFACE]" > /dev/stderr
+   exit 1
+fi
+
+filename="$1"
+interface="${2-RuleOptions}"
+
+if [ ! -e "$filename" ]; then
+   echo "$0: ${filename}: file not found" > /dev/stderr
+   exit 1
+fi
+
+(
+	echo "class Schema {"
+	echo "public static schema(): SchemaObject {"
+	echo -n "\treturn ";
+	npx typescript-json-schema \
+		tsconfig.json "${interface}" \
+		--no-refs \
+		--include "${filename}" |
+		jq -M .properties
+	echo "}"
+	echo "}"
+) | npx prettier --parser typescript | head -n -1 | tail -n +2
