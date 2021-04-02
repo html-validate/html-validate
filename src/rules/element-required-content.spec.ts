@@ -18,6 +18,12 @@ describe("rule element-required-content", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should handle unknown elements", () => {
+		expect.assertions(1);
+		const report = htmlvalidate.validateString("<missing-meta></missing-meta>");
+		expect(report).toBeValid();
+	});
+
 	it("should report error when element is missing required content", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString("<html><body></body></html>");

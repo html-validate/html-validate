@@ -24,6 +24,13 @@ describe("rule deprecated", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report when unknown element is used", () => {
+		expect.assertions(1);
+		const markup = "<missing-meta></missing-meta>";
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should report error when deprecated element is used", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString("<marquee>foobar</marquee>");

@@ -4,6 +4,16 @@ import "../matchers";
 describe("rule void", () => {
 	let htmlvalidate: HtmlValidate;
 
+	it("should be deprecated", () => {
+		expect.assertions(2);
+		htmlvalidate = new HtmlValidate({
+			rules: { "deprecated-rule": "error", void: "error" },
+		});
+		const report = htmlvalidate.validateString("<div>lorem ipsum</div>");
+		expect(report).toBeInvalid();
+		expect(report).toHaveError("deprecated-rule", 'Usage of deprecated rule "void"');
+	});
+
 	describe("default", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({

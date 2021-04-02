@@ -93,7 +93,7 @@ export default class ElementPermittedContent extends Rule {
 		for (
 			let cur: HtmlElement | null = parent;
 			cur && !cur.isRootElement();
-			cur = cur?.parent ?? null
+			cur = /* istanbul ignore next */ cur?.parent ?? null
 		) {
 			const meta = cur.meta;
 

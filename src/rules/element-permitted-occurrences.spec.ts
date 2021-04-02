@@ -33,6 +33,13 @@ describe("rule element-permitted-occurrences", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error for elements without permittedContent", () => {
+		expect.assertions(1);
+		const markup = "<a><p></p></a>";
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/element-permitted-occurrences.html");

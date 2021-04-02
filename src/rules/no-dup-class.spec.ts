@@ -22,9 +22,15 @@ describe("rule no-dup-class", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report for other attributes", () => {
+		expect.assertions(1);
+		const report = htmlvalidate.validateString('<p attr="foo bar foo"></p>');
+		expect(report).toBeValid();
+	});
+
 	it("should report when when class has duplicates", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString('<p class="foo bar foo"></p></p>');
+		const report = htmlvalidate.validateString('<p class="foo bar foo"></p>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("no-dup-class", 'Class "foo" duplicated');
 	});

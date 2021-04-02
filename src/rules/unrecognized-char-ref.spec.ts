@@ -31,6 +31,12 @@ describe("rule unrecognized-char-ref", () => {
 				["unrecognized-char-ref", 'Unrecognized character reference "&spam;"'],
 			]);
 		});
+
+		it("should handle nested elements", () => {
+			expect.assertions(1);
+			const report = htmlvalidate.validateString("<div><p>&amp;</p></div>");
+			expect(report).toBeValid();
+		});
 	});
 
 	describe("attribute", () => {
@@ -53,6 +59,12 @@ describe("rule unrecognized-char-ref", () => {
 			expect(report).toHaveErrors([
 				["unrecognized-char-ref", 'Unrecognized character reference "&spam;"'],
 			]);
+		});
+
+		it("should handle boolean attributes", () => {
+			expect.assertions(1);
+			const report = htmlvalidate.validateString("<p id></p>");
+			expect(report).toBeValid();
 		});
 	});
 

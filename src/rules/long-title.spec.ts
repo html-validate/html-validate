@@ -25,6 +25,17 @@ describe("rule long-title", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report for other elements", () => {
+		expect.assertions(1);
+		htmlvalidate = new HtmlValidate({
+			rules: { "long-title": "error" },
+		});
+		const markup =
+			"<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>";
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should support setting custom max length", () => {
 		expect.assertions(2);
 		htmlvalidate = new HtmlValidate({

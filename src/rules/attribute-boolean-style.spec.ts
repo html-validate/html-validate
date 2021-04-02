@@ -23,6 +23,16 @@ describe("rule attribute-boolean-style", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report for unknown elements", () => {
+		expect.assertions(1);
+		htmlvalidate = new HtmlValidate({
+			rules: { "attribute-boolean-style": ["error", { style: "omit" }] },
+		});
+		const markup = "<missing-meta></missing-meta>";
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	describe('configured with "omit"', () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
