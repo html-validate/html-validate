@@ -343,6 +343,36 @@ describe("rule base class", () => {
 	});
 });
 
+describe("isEnabled()", () => {
+	it.each`
+		enabled | severity | result
+		${1}    | ${0}     | ${false}
+		${1}    | ${1}     | ${true}
+		${1}    | ${2}     | ${true}
+		${0}    | ${0}     | ${false}
+		${0}    | ${1}     | ${false}
+		${0}    | ${2}     | ${false}
+	`("enabled=$enabled, severity=$severity should be $result", ({ enabled, severity, result }) => {
+		expect.assertions(1);
+		const rule = new MockRule();
+		rule.setEnabled(Boolean(enabled));
+		rule.setServerity(severity);
+		expect(rule.isEnabled()).toEqual(result);
+	});
+});
+
+it("should not be deprecated by default", () => {
+	expect.assertions(1);
+	const rule = new MockRule();
+	expect(rule.deprecated).toBeFalsy();
+});
+
+it("should be off by default", () => {
+	expect.assertions(1);
+	const rule = new MockRule();
+	expect(rule.getSeverity()).toEqual(Severity.DISABLED);
+});
+
 it("ruleDocumentationUrl() should return URL to rule documentation", () => {
 	expect.assertions(1);
 	expect(ruleDocumentationUrl("src/rules/foo.ts")).toEqual(
