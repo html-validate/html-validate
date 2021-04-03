@@ -359,6 +359,7 @@ export class Config {
 
 		/* builtin presets */
 		for (const [name, config] of Object.entries(Presets)) {
+			Config.validate(config, name);
 			configs.set(name, config);
 		}
 
@@ -366,6 +367,8 @@ export class Config {
 		for (const plugin of plugins) {
 			for (const [name, config] of Object.entries(plugin.configs || {})) {
 				if (!config) continue;
+
+				Config.validate(config, name);
 
 				/* add configuration with name provided by plugin */
 				configs.set(`${plugin.name}:${name}`, config);
