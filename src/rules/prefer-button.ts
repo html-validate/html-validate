@@ -1,5 +1,5 @@
 import { AttributeEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 import { DynamicValue } from "../dom";
 
 interface RuleContext {
@@ -27,6 +27,37 @@ const defaults: RuleOptions = {
 export default class PreferButton extends Rule<RuleContext, RuleOptions> {
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
+	}
+
+	public static schema(): SchemaObject {
+		return {
+			exclude: {
+				anyOf: [
+					{
+						items: {
+							type: "string",
+						},
+						type: "array",
+					},
+					{
+						type: "null",
+					},
+				],
+			},
+			include: {
+				anyOf: [
+					{
+						items: {
+							type: "string",
+						},
+						type: "array",
+					},
+					{
+						type: "null",
+					},
+				],
+			},
+		};
 	}
 
 	public documentation(context: RuleContext): RuleDocumentation {

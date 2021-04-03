@@ -1,6 +1,6 @@
 import { sliceLocation } from "../context";
 import { TagStartEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 
 interface Context {
 	tagName: string;
@@ -28,6 +28,26 @@ export default class ElementName extends Rule<Context, RuleOptions> {
 
 		// eslint-disable-next-line security/detect-non-literal-regexp
 		this.pattern = new RegExp(this.options.pattern);
+	}
+
+	public static schema(): SchemaObject {
+		return {
+			blacklist: {
+				items: {
+					type: "string",
+				},
+				type: "array",
+			},
+			pattern: {
+				type: "string",
+			},
+			whitelist: {
+				items: {
+					type: "string",
+				},
+				type: "array",
+			},
+		};
 	}
 
 	public documentation(context: Context): RuleDocumentation {

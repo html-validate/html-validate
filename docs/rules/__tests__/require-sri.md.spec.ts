@@ -24,7 +24,7 @@ describe("docs/rules/require-sri.md", () => {
 	});
 	it("inline validation: crossorigin", () => {
 		expect.assertions(1);
-		const htmlvalidate = new HtmlValidate({"rules":{"require-sri":["error",{"target":"crossdomain"}]}});
+		const htmlvalidate = new HtmlValidate({"rules":{"require-sri":["error",{"target":"crossorigin"}]}});
 		const report = htmlvalidate.validateString(markup["crossorigin"]);
 		expect(report.results).toMatchSnapshot();
 	});

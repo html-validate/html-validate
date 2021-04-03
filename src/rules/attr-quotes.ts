@@ -1,5 +1,6 @@
+import { ConfigError } from "../config";
 import { AttributeEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 
 type QuoteMark = '"' | "'";
 enum QuoteStyle {
@@ -8,18 +9,30 @@ enum QuoteStyle {
 	AUTO_QUOTE = "auto",
 }
 
-interface Options {
-	style: '"' | "'" | "auto";
+interface RuleOptions {
+	style: "auto" | "single" | "double";
 	unquoted: boolean;
 }
 
-const defaults: Options = {
+const defaults: RuleOptions = {
 	style: "auto",
 	unquoted: false,
 };
 
-export default class AttrQuotes extends Rule<void, Options> {
+export default class AttrQuotes extends Rule<void, RuleOptions> {
 	private style: QuoteStyle;
+
+	public static schema(): SchemaObject {
+		return {
+			style: {
+				enum: ["auto", "double", "single"],
+				type: "string",
+			},
+			unquoted: {
+				type: "boolean",
+			},
+		};
+	}
 
 	public documentation(): RuleDocumentation {
 		if (this.options.style === "auto") {
@@ -35,7 +48,7 @@ export default class AttrQuotes extends Rule<void, Options> {
 		}
 	}
 
-	public constructor(options: Partial<Options>) {
+	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 		this.style = parseStyle(this.options.style);
 	}
@@ -82,7 +95,8 @@ function parseStyle(style: string): QuoteStyle {
 			return QuoteStyle.DOUBLE_QUOTE;
 		case "single":
 			return QuoteStyle.SINGLE_QUOTE;
+		/* istanbul ignore next: covered by schema validation */
 		default:
-			return QuoteStyle.DOUBLE_QUOTE;
+			throw new ConfigError(`Invalid style "${style}" for "attr-quotes" rule`);
 	}
 }

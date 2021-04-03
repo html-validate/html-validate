@@ -1,5 +1,5 @@
 import { DoctypeEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 
 interface RuleContext {
 	style: "uppercase" | "lowercase";
@@ -16,6 +16,15 @@ const defaults: RuleOptions = {
 export default class DoctypeStyle extends Rule<RuleContext, RuleOptions> {
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
+	}
+
+	public static schema(): SchemaObject {
+		return {
+			style: {
+				enum: ["lowercase", "uppercase"],
+				type: "string",
+			},
+		};
 	}
 
 	public documentation(context?: RuleContext): RuleDocumentation {

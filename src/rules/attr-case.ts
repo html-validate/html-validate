@@ -1,6 +1,6 @@
 import { HtmlElement } from "../dom";
 import { AttributeEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 import { CaseStyle, CaseStyleName } from "./helper/case-style";
 
 interface RuleOptions {
@@ -19,6 +19,30 @@ export default class AttrCase extends Rule<void, RuleOptions> {
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 		this.style = new CaseStyle(this.options.style, "attr-case");
+	}
+
+	public static schema(): SchemaObject {
+		const styleEnum = ["lowercase", "uppercase", "pascalcase", "camelcase"];
+		return {
+			ignoreForeign: {
+				type: "boolean",
+			},
+			style: {
+				anyOf: [
+					{
+						enum: styleEnum,
+						type: "string",
+					},
+					{
+						items: {
+							enum: styleEnum,
+							type: "string",
+						},
+						type: "array",
+					},
+				],
+			},
+		};
 	}
 
 	public documentation(): RuleDocumentation {

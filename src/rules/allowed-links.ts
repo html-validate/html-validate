@@ -1,6 +1,6 @@
 import { DynamicValue } from "../dom";
 import { AttributeEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 
 export const enum Style {
 	EXTERNAL = "external",
@@ -42,6 +42,23 @@ const description: Record<Style, string | null> = {
 export default class AllowedLinks extends Rule<Style, RuleOptions> {
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
+	}
+
+	public static schema(): SchemaObject {
+		return {
+			allowAbsolute: {
+				type: "boolean",
+			},
+			allowBase: {
+				type: "boolean",
+			},
+			allowExternal: {
+				type: "boolean",
+			},
+			allowRelative: {
+				type: "boolean",
+			},
+		};
 	}
 
 	public documentation(context: Style): RuleDocumentation {

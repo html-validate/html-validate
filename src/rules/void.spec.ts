@@ -157,11 +157,12 @@ describe("rule void", () => {
 
 	it("should throw error if configured with invalid value", () => {
 		expect.assertions(1);
-		htmlvalidate = new HtmlValidate({
-			rules: { void: ["error", { style: "foobar" }] },
-		});
-		expect(() => htmlvalidate.validateString("<input>")).toThrow(
-			`Invalid style "foobar" for "void" rule`
+		expect(() => {
+			return new HtmlValidate({
+				rules: { void: ["error", { style: "foobar" }] },
+			});
+		}).toThrowErrorMatchingInlineSnapshot(
+			`"Rule configuration error: /rules/void/1/style should be equal to one of the allowed values: any, omit, selfclose, selfclosing"`
 		);
 	});
 

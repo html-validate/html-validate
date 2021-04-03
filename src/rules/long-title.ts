@@ -1,4 +1,4 @@
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 
 interface RuleOptions {
 	maxlength: number;
@@ -14,6 +14,14 @@ export default class LongTitle extends Rule<void, RuleOptions> {
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 		this.maxlength = this.options.maxlength;
+	}
+
+	public static schema(): SchemaObject {
+		return {
+			maxlength: {
+				type: "number",
+			},
+		};
 	}
 
 	public documentation(): RuleDocumentation {

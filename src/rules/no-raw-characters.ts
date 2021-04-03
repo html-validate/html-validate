@@ -1,7 +1,7 @@
 import { Location, sliceLocation } from "../context";
 import { DOMNode, NodeType } from "../dom";
 import { AttributeEvent, ElementReadyEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 
 interface RuleOptions {
 	relaxed: boolean;
@@ -31,6 +31,14 @@ export default class NoRawCharacters extends Rule<void, RuleOptions> {
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 		this.relaxed = this.options.relaxed;
+	}
+
+	public static schema(): SchemaObject {
+		return {
+			relaxed: {
+				type: "boolean",
+			},
+		};
 	}
 
 	public documentation(): RuleDocumentation {

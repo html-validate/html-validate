@@ -1,7 +1,7 @@
 import { HtmlElement, NodeClosed } from "../dom";
 import { TagEndEvent } from "../event";
 import { MetaElement } from "../meta";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 
 type StyleName = "any" | "omit" | "selfclose" | "selfclosing";
 
@@ -24,6 +24,15 @@ export default class Void extends Rule<void, RuleOptions> {
 
 	public get deprecated(): boolean {
 		return true;
+	}
+
+	public static schema(): SchemaObject {
+		return {
+			style: {
+				enum: ["any", "omit", "selfclose", "selfclosing"],
+				type: "string",
+			},
+		};
 	}
 
 	public documentation(): RuleDocumentation {
@@ -100,6 +109,7 @@ function parseStyle(name: StyleName): Style {
 		case "selfclose":
 		case "selfclosing":
 			return Style.AlwaysSelfclose;
+		/* istanbul ignore next: covered by schema validation */
 		default:
 			throw new Error(`Invalid style "${name}" for "void" rule`);
 	}

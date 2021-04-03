@@ -124,14 +124,15 @@ describe("rule attr-quotes", () => {
 		});
 	});
 
-	it("should default to double quotes for invalid style", () => {
-		expect.assertions(2);
-		htmlvalidate = new HtmlValidate({
-			rules: { "attr-quotes": ["error", { style: "foobar" }] },
-		});
-		const report = htmlvalidate.validateString("<div foo='bar'></div>");
-		expect(report).toBeInvalid();
-		expect(report).toHaveError("attr-quotes", `Attribute "foo" used ' instead of expected "`);
+	it("should throw error if configured with invalid value", () => {
+		expect.assertions(1);
+		expect(() => {
+			return new HtmlValidate({
+				rules: { "attr-quotes": ["error", { style: "foobar" }] },
+			});
+		}).toThrowErrorMatchingInlineSnapshot(
+			`"Rule configuration error: /rules/attr-quotes/1/style should be equal to one of the allowed values: auto, double, single"`
+		);
 	});
 
 	it("should contain documentation (auto)", () => {

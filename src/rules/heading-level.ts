@@ -2,9 +2,9 @@ import { sliceLocation } from "../context";
 import { HtmlElement, Pattern } from "../dom";
 import { DOMInternalID } from "../dom/domnode";
 import { TagCloseEvent, TagReadyEvent, TagStartEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 
-interface Options {
+interface RuleOptions {
 	allowMultipleH1: boolean;
 	sectioningRoots: string[];
 }
@@ -15,7 +15,7 @@ interface SectioningRoot {
 	h1Count: number;
 }
 
-const defaults: Options = {
+const defaults: RuleOptions = {
 	allowMultipleH1: false,
 	sectioningRoots: ["dialog", '[role="dialog"]'],
 };
@@ -34,11 +34,11 @@ function extractLevel(node: HtmlElement): number | null {
 	}
 }
 
-export default class HeadingLevel extends Rule<void, Options> {
+export default class HeadingLevel extends Rule<void, RuleOptions> {
 	private sectionRoots: Pattern[];
 	private stack: SectioningRoot[] = [];
 
-	public constructor(options: Partial<Options>) {
+	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 		this.sectionRoots = this.options.sectioningRoots.map((it) => new Pattern(it));
 
@@ -48,6 +48,20 @@ export default class HeadingLevel extends Rule<void, Options> {
 			current: 0,
 			h1Count: 0,
 		});
+	}
+
+	public static schema(): SchemaObject {
+		return {
+			allowMultipleH1: {
+				type: "boolean",
+			},
+			sectioningRoots: {
+				items: {
+					type: "string",
+				},
+				type: "array",
+			},
+		};
 	}
 
 	public documentation(): RuleDocumentation {

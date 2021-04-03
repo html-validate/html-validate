@@ -1,6 +1,6 @@
 import { HtmlElement, NodeClosed } from "../dom";
 import { TagEndEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 
 interface RuleOptions {
 	ignoreForeign: boolean;
@@ -16,6 +16,17 @@ const defaults: RuleOptions = {
 export default class NoSelfClosing extends Rule<string, RuleOptions> {
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
+	}
+
+	public static schema(): SchemaObject {
+		return {
+			ignoreForeign: {
+				type: "boolean",
+			},
+			ignoreXML: {
+				type: "boolean",
+			},
+		};
 	}
 
 	public documentation(tagName: string): RuleDocumentation {
