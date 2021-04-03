@@ -1,11 +1,11 @@
 import path from "path";
-import { Config, Severity } from "./config";
+import { Config, ConfigData, Severity } from "./config";
 import { Location } from "./context";
 import { HtmlElement, NodeClosed } from "./dom";
 import { Event, EventCallback, TagEndEvent, TagStartEvent } from "./event";
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";
-import { Rule, ruleDocumentationUrl, IncludeExcludeOptions } from "./rule";
+import { Rule, ruleDocumentationUrl, IncludeExcludeOptions, SchemaObject } from "./rule";
 import { MetaTable } from "./meta";
 
 interface RuleContext {
@@ -371,6 +371,108 @@ it("should be off by default", () => {
 	expect.assertions(1);
 	const rule = new MockRule();
 	expect(rule.getSeverity()).toEqual(Severity.DISABLED);
+});
+
+describe("validateOptions()", () => {
+	class MockRuleSchema extends Rule {
+		public static schema(): SchemaObject {
+			return {
+				foo: {
+					type: "number",
+				},
+			};
+		}
+
+		public setup(): void {
+			/* do nothing */
+		}
+	}
+
+	it("should throw validation error if options does not match schema", () => {
+		expect.assertions(1);
+		const options = { foo: "bar" };
+		const config: ConfigData = {
+			rules: {
+				"mock-rule-invalid": ["error", options],
+			},
+		};
+		const jsonPath = "/rules/mock-rule-invalid/1";
+		expect(() => {
+			return Rule.validateOptions(
+				MockRuleSchema,
+				"mock-rule-invalid",
+				jsonPath,
+				options,
+				"inline",
+				config
+			);
+		}).toThrowErrorMatchingInlineSnapshot(
+			`"Rule configuration error: /rules/mock-rule-invalid/1/foo: type should be number"`
+		);
+	});
+
+	it("should not throw validation error if options matches schema", () => {
+		expect.assertions(1);
+		const options = { foo: 12 };
+		const config: ConfigData = {
+			rules: {
+				"mock-rule-valid": ["error", options],
+			},
+		};
+		const jsonPath = "/rules/mock-rule-valid/1";
+		expect(() => {
+			return Rule.validateOptions(
+				MockRuleSchema,
+				"mock-rule-valid",
+				jsonPath,
+				options,
+				"inline",
+				config
+			);
+		}).not.toThrow();
+	});
+
+	it("should handle rules without schema", () => {
+		expect.assertions(1);
+		const options = { foo: "spam" };
+		const config: ConfigData = {
+			rules: {
+				"mock-rule-no-schema": ["error", options],
+			},
+		};
+		const jsonPath = "/rules/mock-rule-no-schema/1";
+		expect(() => {
+			return Rule.validateOptions(
+				MockRule,
+				"mock-rule-no-schema",
+				jsonPath,
+				options,
+				"inline",
+				config
+			);
+		}).not.toThrow();
+	});
+
+	it("should handle missing class", () => {
+		expect.assertions(1);
+		const options = { foo: "spam" };
+		const config: ConfigData = {
+			rules: {
+				"mock-rule-undefined": ["error", options],
+			},
+		};
+		const jsonPath = "/rules/mock-rule-undefined/1";
+		expect(() => {
+			return Rule.validateOptions(
+				undefined,
+				"mock-rule-undefined",
+				jsonPath,
+				options,
+				"inline",
+				config
+			);
+		}).not.toThrow();
+	});
 });
 
 it("ruleDocumentationUrl() should return URL to rule documentation", () => {

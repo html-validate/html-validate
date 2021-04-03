@@ -16,6 +16,9 @@ jest.mock("ajv", () => {
 			/* always valid */
 			return () => true;
 		}
+		public getSchema(): undefined {
+			return undefined;
+		}
 		public addMetaSchema(): void {
 			/* do nothing */
 		}

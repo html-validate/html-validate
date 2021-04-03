@@ -1,11 +1,15 @@
 import path from "path";
-import { Severity } from "./config";
+import Ajv, { ErrorObject, SchemaObject, ValidateFunction } from "ajv";
+import { ConfigData, Severity } from "./config";
 import { Location } from "./context";
 import { DOMNode } from "./dom";
 import { Event, ListenEventMap } from "./event";
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";
 import { MetaTable, MetaLookupableProperty } from "./meta";
+import { SchemaValidationError } from "./error";
+
+export { SchemaObject } from "ajv";
 
 const homepage = require("../package.json").homepage;
 
@@ -14,6 +18,9 @@ const remapEvents: Record<string, string> = {
 	"tag:close": "tag:end",
 };
 
+const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
+ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-06.json"));
+
 export interface RuleDocumentation {
 	description: string;
 	url?: string;
@@ -21,11 +28,36 @@ export interface RuleDocumentation {
 
 export interface RuleConstructor<T, U> {
 	new (options?: any): Rule<T, U>;
+	schema(): SchemaObject | null | undefined;
 }
 
 export interface IncludeExcludeOptions {
 	include: string[] | null;
 	exclude: string[] | null;
+}
+
+/**
+ * Get (cached) schema validator for rule options.
+ *
+ * @param ruleId - Rule ID used as key for schema lookups.
+ * @param properties - Uncompiled schema.
+ */
+function getSchemaValidator(ruleId: string, properties: SchemaObject): ValidateFunction {
+	const $id = `rule/${ruleId}`;
+
+	const cached = ajv.getSchema($id);
+	if (cached) {
+		return cached;
+	}
+
+	const schema = {
+		$id,
+		type: "object",
+		additionalProperties: false,
+		properties,
+	};
+
+	return ajv.compile(schema);
 }
 
 export abstract class Rule<ContextType = void, OptionsType = void> {
@@ -149,6 +181,17 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	}
 
 	/**
+	 * JSON schema for rule options.
+	 *
+	 * Rules should override this to return an object with JSON schema to validate
+	 * rule options. If `null` or `undefined` is returned no validation is
+	 * performed.
+	 */
+	public static schema(): SchemaObject | null | undefined {
+		return null;
+	}
+
+	/**
 	 * Report a new error.
 	 *
 	 * Rule must be enabled both globally and on the specific node for this to
@@ -240,6 +283,52 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		this.reporter = reporter;
 		this.severity = severity;
 		this.meta = meta;
+	}
+
+	/**
+	 * Validate rule options against schema. Throws error if object does not validate.
+	 *
+	 * For rules without schema this function does nothing.
+	 *
+	 * @throws {@link SchemaValidationError}
+	 * Thrown when provided options does not validate against rule schema.
+	 *
+	 * @param cls - Rule class (constructor)
+	 * @param ruleId - Rule identifier
+	 * @param jsonPath - JSON path from which [[options]] can be found in [[config]]
+	 * @param options - User configured options to be validated
+	 * @param filename - Filename from which options originated
+	 * @param config - Configuration from which options originated
+	 *
+	 * @hidden
+	 */
+	public static validateOptions(
+		cls: RuleConstructor<unknown, unknown> | undefined,
+		ruleId: string,
+		jsonPath: string,
+		options: unknown,
+		filename: string | null,
+		config: ConfigData
+	): void {
+		if (!cls) {
+			return;
+		}
+
+		const schema = cls.schema();
+		if (!schema) {
+			return;
+		}
+
+		const isValid = getSchemaValidator(ruleId, schema);
+		if (!isValid(options)) {
+			/* istanbul ignore next: it is always set when validation fails */
+			const errors = isValid.errors ?? [];
+			const mapped = errors.map((error: ErrorObject) => {
+				error.dataPath = `${jsonPath}${error.dataPath}`;
+				return error;
+			});
+			throw new SchemaValidationError(filename, `Rule configuration error`, config, schema, mapped);
+		}
 	}
 
 	/**

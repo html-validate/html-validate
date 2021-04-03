@@ -10,7 +10,9 @@ import { Plugin } from "../plugin";
 import schema from "../schema/config.json";
 import { TransformContext, Transformer, TRANSFORMER_API } from "../transform";
 import { requireUncached } from "../utils";
-import { ConfigData, RuleOptions, TransformMap } from "./config-data";
+import bundledRules from "../rules";
+import { Rule } from "../rule";
+import { ConfigData, RuleConfig, RuleOptions, TransformMap } from "./config-data";
 import defaultConfig from "./default";
 import { ConfigError } from "./error";
 import { parseSeverity, Severity } from "./severity";
@@ -136,16 +138,25 @@ export class Config {
 	 *
 	 * Throws SchemaValidationError if invalid.
 	 */
-	public static validate(options: ConfigData, filename: string | null = null): void {
-		const valid = validator(options);
+	public static validate(configData: ConfigData, filename: string | null = null): void {
+		const valid = validator(configData);
 		if (!valid) {
 			throw new SchemaValidationError(
 				filename,
 				`Invalid configuration`,
-				options,
+				configData,
 				schema,
 				validator.errors ?? []
 			);
+		}
+
+		if (configData.rules) {
+			const normalizedRules = Config.getRulesObject(configData.rules);
+			for (const [ruleId, [, ruleOptions]] of normalizedRules.entries()) {
+				const cls = bundledRules[ruleId];
+				const path = `/rules/${ruleId}/1`;
+				Rule.validateOptions(cls, ruleId, path, ruleOptions, filename, configData);
+			}
 		}
 	}
 
@@ -319,8 +330,12 @@ export class Config {
 	 * Get all configured rules, their severity and options.
 	 */
 	public getRules(): Map<string, [Severity, RuleOptions]> {
+		return Config.getRulesObject(this.config.rules ?? {});
+	}
+
+	private static getRulesObject(src: RuleConfig): Map<string, [Severity, RuleOptions]> {
 		const rules = new Map<string, [Severity, RuleOptions]>();
-		for (const [ruleId, data] of Object.entries(this.config.rules ?? {})) {
+		for (const [ruleId, data] of Object.entries(src)) {
 			let options = data;
 			if (!Array.isArray(options)) {
 				options = [options, {}];
