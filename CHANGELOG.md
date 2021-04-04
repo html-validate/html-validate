@@ -1,5 +1,18 @@
 # html-validate changelog
 
+## [4.9.0](https://gitlab.com/html-validate/html-validate/compare/v4.8.0...v4.9.0) (2021-04-04)
+
+### Features
+
+- add rule option schemas ([f88f0da](https://gitlab.com/html-validate/html-validate/commit/f88f0da04fa674e494dd2d25e8b997c06161a73f))
+- **rules:** validate rule configuration ([5ab6a21](https://gitlab.com/html-validate/html-validate/commit/5ab6a21bc5cac30676ca9334bd3d68c1cad73f45))
+
+### Bug Fixes
+
+- **config:** validate preset configurations ([dca9fc3](https://gitlab.com/html-validate/html-validate/commit/dca9fc3fb60da5f88668a66584b9c5965e26d5c6))
+- **error:** present original json for configuration errors ([23a50f3](https://gitlab.com/html-validate/html-validate/commit/23a50f33ddbb40c430ccdfb73195a3b76b335766))
+- **meta:** memory leak when loading meta table ([940ca4e](https://gitlab.com/html-validate/html-validate/commit/940ca4e1759fd22c4e6b29267329c40cd3d7561e)), closes [#106](https://gitlab.com/html-validate/html-validate/issues/106)
+
 ## [4.8.0](https://gitlab.com/html-validate/html-validate/compare/v4.7.1...v4.8.0) (2021-03-28)
 
 ### Features
