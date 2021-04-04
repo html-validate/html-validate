@@ -1,6 +1,6 @@
 import { DynamicValue } from "../dom";
 import { AttributeEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 
 interface RuleContext {
 	tagName: string;
@@ -29,6 +29,37 @@ export default class NoAutoplay extends Rule<RuleContext, RuleOptions> {
 				"Prefer to let the user control playback.",
 			].join("\n"),
 			url: ruleDocumentationUrl(__filename),
+		};
+	}
+
+	public static schema(): SchemaObject {
+		return {
+			exclude: {
+				anyOf: [
+					{
+						items: {
+							type: "string",
+						},
+						type: "array",
+					},
+					{
+						type: "null",
+					},
+				],
+			},
+			include: {
+				anyOf: [
+					{
+						items: {
+							type: "string",
+						},
+						type: "array",
+					},
+					{
+						type: "null",
+					},
+				],
+			},
 		};
 	}
 

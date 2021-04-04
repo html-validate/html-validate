@@ -48,7 +48,7 @@ that the logic for determining crossdomain is a bit naïve, resources with a ful
 url (`protocol://`) or implicit protocol (`//`) counts as crossorigin even if it
 technically would point to the same origin.
 
-<validate name="crossorigin" rules="require-sri" require-sri='{"target": "crossdomain"}'>
+<validate name="crossorigin" rules="require-sri" require-sri='{"target": "crossorigin"}'>
     <!--- local resource -->
     <link href="local.css">
 

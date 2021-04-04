@@ -1,24 +1,33 @@
 import { Attribute, HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { PermittedAttribute } from "../meta/element";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 
-interface Options {
-	style: string;
+interface RuleOptions {
+	style: "omit" | "empty" | "name";
 }
 
-const defaults: Options = {
+const defaults: RuleOptions = {
 	style: "omit",
 };
 
 type checkFunction = (attr: Attribute) => boolean;
 
-export default class AttributeBooleanStyle extends Rule<void, Options> {
+export default class AttributeBooleanStyle extends Rule<void, RuleOptions> {
 	private hasInvalidStyle: checkFunction;
 
-	public constructor(options: Partial<Options>) {
+	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 		this.hasInvalidStyle = parseStyle(this.options.style);
+	}
+
+	public static schema(): SchemaObject {
+		return {
+			style: {
+				enum: ["empty", "name", "omit"],
+				type: "string",
+			},
+		};
 	}
 
 	public documentation(): RuleDocumentation {
@@ -71,6 +80,7 @@ function parseStyle(style: string): checkFunction {
 			return (attr: Attribute) => attr.value !== "";
 		case "name":
 			return (attr: Attribute) => attr.value !== attr.key;
+		/* istanbul ignore next: covered by schema validation */
 		default:
 			throw new Error(`Invalid style "${style}" for "attribute-boolean-style" rule`);
 	}

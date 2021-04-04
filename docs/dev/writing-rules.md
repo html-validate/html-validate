@@ -148,6 +148,50 @@ class MyRule extends Rule<void, RuleOptions> {
 }
 ```
 
+### Options validation
+
+If the optional `schema()` function is implemented is should return [JSON schema](https://json-schema.org/learn/getting-started-step-by-step.html) for the options interface.
+
+<div class="alert alert-info">
+	<i class="fa fa-info-circle" aria-hidden="true"></i>
+	<strong>Note</strong>
+	<p>Note the function must be <code>static</code> as it will be called before the instance is created, i.e. no unvalidated options will ever touch the rule implementation.</p>
+</div>
+
+The object is merged into the `properties` object of a boilerplate object schema.
+
+```typescript
+class MyRule extends Rule<void, RuleOptions> {
+  public static schema(): SchemaObject {
+    return {
+      text: {
+        type: "string",
+      },
+    };
+  }
+}
+```
+
+Given the above schema users will receive errors such as following:
+
+```plaintext
+A configuration error was found in ".htmlvalidate.json":
+  TYPE should be string
+
+    3 |   "elements": ["html5"],
+    4 |   "rules": {
+  > 5 |     "my-rule": ["error", {"text": 12 }]
+      |                                   ^^ 👈🏽  type should be string
+    6 |   }
+    7 | }
+    8 |
+```
+
+Schema validation will help both the user and the rule author:
+
+- The user will get a descriptive errors message including details of which configuration file and where the error occured.
+- The rule author will not have to worry about the data the `options` parameter, i.e. it can safely be assumed each property has the proper datatypes and other restrictions imposed by the schema.
+
 ## Cache
 
 Expensive operations on `DOMNode` can be cached using the {@link dev/cache cache API}.

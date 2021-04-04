@@ -1,10 +1,6 @@
 import { HtmlElement, NodeClosed } from "../dom";
 import { TagEndEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
-
-const defaults = {
-	style: "omit",
-};
+import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 
 enum Style {
 	AlwaysOmit = 1,
@@ -17,8 +13,12 @@ interface RuleContext {
 }
 
 interface RuleOptions {
-	style: string;
+	style: "omit" | "selfclose" | "selfclosing";
 }
+
+const defaults: RuleOptions = {
+	style: "omit",
+};
 
 export default class VoidStyle extends Rule<RuleContext, RuleOptions> {
 	private style: Style;
@@ -26,6 +26,15 @@ export default class VoidStyle extends Rule<RuleContext, RuleOptions> {
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 		this.style = parseStyle(this.options.style);
+	}
+
+	public static schema(): SchemaObject {
+		return {
+			style: {
+				enum: ["omit", "selfclose", "selfclosing"],
+				type: "string",
+			},
+		};
 	}
 
 	public documentation(context: RuleContext): RuleDocumentation {
@@ -97,6 +106,7 @@ function parseStyle(name: string): Style {
 		case "selfclose":
 		case "selfclosing":
 			return Style.AlwaysSelfclose;
+		/* istanbul ignore next: covered by schema validation */
 		default:
 			throw new Error(`Invalid style "${name}" for "void-style" rule`);
 	}

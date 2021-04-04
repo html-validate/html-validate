@@ -1,6 +1,6 @@
 import { Attribute, HtmlElement } from "../dom";
 import { TagEndEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 
 type Target = "all" | "crossorigin";
 
@@ -24,6 +24,15 @@ export default class RequireSri extends Rule<void, RuleOptions> {
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 		this.target = this.options.target;
+	}
+
+	public static schema(): SchemaObject {
+		return {
+			target: {
+				enum: ["all", "crossorigin"],
+				type: "string",
+			},
+		};
 	}
 
 	public documentation(): RuleDocumentation {

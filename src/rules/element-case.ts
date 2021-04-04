@@ -1,11 +1,11 @@
 import { Location, sliceLocation } from "../context";
 import { HtmlElement } from "../dom";
 import { TagEndEvent, TagStartEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 import { CaseStyle, CaseStyleName } from "./helper/case-style";
 
 interface RuleOptions {
-	style: CaseStyleName;
+	style: CaseStyleName | CaseStyleName[];
 }
 
 const defaults: RuleOptions = {
@@ -18,6 +18,27 @@ export default class ElementCase extends Rule<void, RuleOptions> {
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 		this.style = new CaseStyle(this.options.style, "element-case");
+	}
+
+	public static schema(): SchemaObject {
+		const styleEnum = ["lowercase", "uppercase", "pascalcase", "camelcase"];
+		return {
+			style: {
+				anyOf: [
+					{
+						enum: styleEnum,
+						type: "string",
+					},
+					{
+						items: {
+							enum: styleEnum,
+							type: "string",
+						},
+						type: "array",
+					},
+				],
+			},
+		};
 	}
 
 	public documentation(): RuleDocumentation {

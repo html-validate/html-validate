@@ -1,5 +1,5 @@
 import { TagEndEvent } from "../../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../../rule";
 import { inAccessibilityTree } from "../helper/a17y";
 
 interface RuleOptions {
@@ -13,14 +13,6 @@ const defaults: RuleOptions = {
 };
 
 export default class H37 extends Rule<void, RuleOptions> {
-	public documentation(): RuleDocumentation {
-		return {
-			description:
-				"Both HTML5 and WCAG 2.0 requires images to have a alternative text for each image.",
-			url: ruleDocumentationUrl(__filename),
-		};
-	}
-
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 
@@ -28,6 +20,35 @@ export default class H37 extends Rule<void, RuleOptions> {
 		if (!Array.isArray(this.options.alias)) {
 			this.options.alias = [this.options.alias];
 		}
+	}
+
+	public static schema(): SchemaObject {
+		return {
+			alias: {
+				anyOf: [
+					{
+						items: {
+							type: "string",
+						},
+						type: "array",
+					},
+					{
+						type: "string",
+					},
+				],
+			},
+			allowEmpty: {
+				type: "boolean",
+			},
+		};
+	}
+
+	public documentation(): RuleDocumentation {
+		return {
+			description:
+				"Both HTML5 and WCAG 2.0 requires images to have a alternative text for each image.",
+			url: ruleDocumentationUrl(__filename),
+		};
 	}
 
 	public setup(): void {

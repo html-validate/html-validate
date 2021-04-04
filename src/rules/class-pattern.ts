@@ -1,7 +1,7 @@
 import { DOMTokenList } from "../dom";
 import { AttributeEvent } from "../event";
 import { describePattern, parsePattern, PatternName } from "../pattern";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 
 interface RuleOptions {
 	pattern: PatternName;
@@ -17,6 +17,14 @@ export default class ClassPattern extends Rule<void, RuleOptions> {
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 		this.pattern = parsePattern(this.options.pattern);
+	}
+
+	public static schema(): SchemaObject {
+		return {
+			pattern: {
+				type: "string",
+			},
+		};
 	}
 
 	public documentation(): RuleDocumentation {

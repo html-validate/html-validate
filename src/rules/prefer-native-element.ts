@@ -1,7 +1,7 @@
 import { Location } from "../context";
 import { DynamicValue } from "../dom";
 import { AttributeEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 
 interface RuleContext {
 	role: string;
@@ -46,6 +46,40 @@ const defaults: RuleOptions = {
 export default class PreferNativeElement extends Rule<RuleContext, RuleOptions> {
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
+	}
+
+	public static schema(): SchemaObject {
+		return {
+			exclude: {
+				anyOf: [
+					{
+						items: {
+							type: "string",
+						},
+						type: "array",
+					},
+					{
+						type: "null",
+					},
+				],
+			},
+			include: {
+				anyOf: [
+					{
+						items: {
+							type: "string",
+						},
+						type: "array",
+					},
+					{
+						type: "null",
+					},
+				],
+			},
+			mapping: {
+				type: "object",
+			},
+		};
 	}
 
 	public documentation(context: RuleContext): RuleDocumentation {

@@ -126,11 +126,12 @@ describe("rule attribute-empty-style", () => {
 
 	it("should throw error if configured with invalid value", () => {
 		expect.assertions(1);
-		htmlvalidate = new HtmlValidate({
-			rules: { "attribute-empty-style": ["error", { style: "foobar" }] },
-		});
-		expect(() => htmlvalidate.validateString("<foo></foo>")).toThrow(
-			`Invalid style "foobar" for "attribute-empty-style" rule`
+		expect(() => {
+			return new HtmlValidate({
+				rules: { "attribute-empty-style": ["error", { style: "foobar" }] },
+			});
+		}).toThrowErrorMatchingInlineSnapshot(
+			`"Rule configuration error: /rules/attribute-empty-style/1/style should be equal to one of the allowed values: empty, omit"`
 		);
 	});
 
