@@ -29,7 +29,7 @@ Create `.htmlvalidate.json`:
   ],
 
   "rules": {
-    "close-order": "error"
+    "close-order": "error",
     "void": ["warn", {"style": "omit"}]
   }
 }
