@@ -123,7 +123,7 @@
     "babelify": "10.0.0",
     "bootstrap-sass": "3.4.1",
     "canonical-path": "1.0.0",
-    "cssnano": "4.1.11",
+    "cssnano": "5.0.1",
     "dgeni": "0.4.14",
     "dgeni-front-matter": "2.0.3",
     "dgeni-packages": "0.29.0",
