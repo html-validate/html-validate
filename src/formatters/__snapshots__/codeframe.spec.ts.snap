@@ -7,6 +7,7 @@ exports[`codeframe formatter should generate output 1`] = `
   2 |     class=\\"bar\\"
   3 |     name=\\"baz\\">
   4 |
+<bold>Details:</> https://example.net/rule/foo.html
 
 
 <yellow>warning</>: <bold>A warning</> <dim>(bar)</> at <green>first.html:2:5</>:
@@ -15,12 +16,14 @@ exports[`codeframe formatter should generate output 1`] = `
     |     ^^^^^
   3 |     name=\\"baz\\">
   4 |
+<bold>Details:</> https://example.net/rule/bar.html
 
 
 <red>error</>: <bold>Lorem ipsum is not allowed</> <dim>(no-lorem-ipsum)</> at <green>second.html:1:4</>:
 > 1 | <p>lorem ipsum</p>
     |    ^^^^^^^^^^^
   2 |
+<bold>Details:</> https://example.net/rule/no-lorem-ipsum.html
 
 
 <red><bold>2 errors and 1 warning found.</></>
@@ -48,11 +51,34 @@ exports[`codeframe formatter should handle empty messages 1`] = `""`;
 
 exports[`codeframe formatter should handle empty result 1`] = `""`;
 
+exports[`codeframe formatter should handle missing rule url 1`] = `
+"<red>error</>: <bold>An error</> <dim>(foo)</> at <green>missing-url.html:1:6</>:
+> 1 | <div id=\\"foo\\"
+    |      ^^
+  2 |     class=\\"bar\\"
+  3 |     name=\\"baz\\">
+  4 |
+
+
+<yellow>warning</>: <bold>A warning</> <dim>(bar)</> at <green>missing-url.html:2:5</>:
+  1 | <div id=\\"foo\\"
+> 2 |     class=\\"bar\\"
+    |     ^^^^^
+  3 |     name=\\"baz\\">
+  4 |
+
+
+<red><bold>2 errors found.</></>
+"
+`;
+
 exports[`codeframe formatter should handle missing source 1`] = `
 "<red>error</>: <bold>An error</> <dim>(foo)</> at <green>missing-source.html:1:6</>
+<bold>Details:</> https://example.net/rule/foo.html
 
 
 <yellow>warning</>: <bold>A warning</> <dim>(bar)</> at <green>missing-source.html:2:5</>
+<bold>Details:</> https://example.net/rule/bar.html
 
 
 <red><bold>2 errors found.</></>

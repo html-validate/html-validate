@@ -41,6 +41,17 @@ exports[`checkstyle formatter should handle empty result 1`] = `
 "
 `;
 
+exports[`checkstyle formatter should handle missing rule url 1`] = `
+"<?xml version=\\"1.0\\" encoding=\\"utf-8\\"?>
+<checkstyle version=\\"4.3\\">
+  <file name=\\"missing-url.html\\">
+    <error line=\\"1\\" column=\\"6\\" severity=\\"error\\" message=\\"An error (foo)\\" source=\\"htmlvalidate.rules.foo\\" />
+    <error line=\\"2\\" column=\\"5\\" severity=\\"warning\\" message=\\"A warning (bar)\\" source=\\"htmlvalidate.rules.bar\\" />
+  </file>
+</checkstyle>
+"
+`;
+
 exports[`checkstyle formatter should handle missing source 1`] = `
 "<?xml version=\\"1.0\\" encoding=\\"utf-8\\"?>
 <checkstyle version=\\"4.3\\">

@@ -17,6 +17,12 @@ exports[`text formatter should handle empty messages 1`] = `""`;
 
 exports[`text formatter should handle empty result 1`] = `""`;
 
+exports[`text formatter should handle missing rule url 1`] = `
+"missing-url.html:1:6: error [foo] An error
+missing-url.html:2:5: warning [bar] A warning
+"
+`;
+
 exports[`text formatter should handle missing source 1`] = `
 "missing-source.html:1:6: error [foo] An error
 missing-source.html:2:5: warning [bar] A warning

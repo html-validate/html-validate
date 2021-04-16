@@ -101,6 +101,10 @@ function formatMessage(message: Message, parentResult: Result): string {
 		);
 	}
 
+	if (message.ruleUrl) {
+		result.push(`${chalk.bold("Details:")} ${message.ruleUrl}`);
+	}
+
 	return result.join("\n");
 }
 
