@@ -356,5 +356,6 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 
 export function ruleDocumentationUrl(filename: string): string {
 	const p = path.parse(filename);
-	return `${homepage}/rules/${p.name}.html`;
+	const rel = path.relative(path.join(__dirname, "rules"), path.join(p.dir, p.name));
+	return `${homepage}/rules/${rel}.html`;
 }

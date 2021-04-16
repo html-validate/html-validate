@@ -3,7 +3,7 @@
 exports[`wcag/h67 should contain documentation 1`] = `
 Object {
   "description": "A decorative image cannot have a title attribute. Either remove \`title\` or add a descriptive \`alt\` text.",
-  "url": "https://html-validate.org/rules/h67.html",
+  "url": "https://html-validate.org/rules/wcag/h67.html",
 }
 `;
 
