@@ -15,6 +15,7 @@ Array [
         "message": "Attribute \\"class\\" duplicated",
         "offset": 17,
         "ruleId": "no-dup-attr",
+        "ruleUrl": "https://html-validate.org/rules/no-dup-attr.html",
         "selector": "div",
         "severity": 2,
         "size": 5,

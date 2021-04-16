@@ -16,6 +16,7 @@ it("should handle extending js file", () => {
 		    "message": "Mismatched close-tag, expected '</p>' but found '</i>'.",
 		    "offset": 15,
 		    "ruleId": "close-order",
+		    "ruleUrl": "https://html-validate.org/rules/close-order.html",
 		    "selector": null,
 		    "severity": 2,
 		    "size": 2,

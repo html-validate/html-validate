@@ -15,6 +15,7 @@ Array [
         "message": "Anchor link must have a text describing its purpose",
         "offset": 1,
         "ruleId": "wcag/h30",
+        "ruleUrl": "https://html-validate.org/rules/wcag/h30.html",
         "selector": "a",
         "severity": 2,
         "size": 1,

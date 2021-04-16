@@ -66,6 +66,7 @@ Array [
         "message": "Attribute \\"type\\" has invalid value \\"foobar\\"",
         "offset": 41,
         "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "input:nth-child(3)",
         "severity": 2,
         "size": 6,

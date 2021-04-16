@@ -17,6 +17,7 @@ Array [
         "message": "DOCTYPE should be uppercase",
         "offset": 0,
         "ruleId": "doctype-style",
+        "ruleUrl": "https://html-validate.org/rules/doctype-style.html",
         "selector": null,
         "severity": 2,
         "size": 10,

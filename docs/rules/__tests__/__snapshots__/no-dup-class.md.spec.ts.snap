@@ -15,6 +15,7 @@ Array [
         "message": "Class \\"foo\\" duplicated",
         "offset": 20,
         "ruleId": "no-dup-class",
+        "ruleUrl": "https://html-validate.org/rules/no-dup-class.html",
         "selector": "div",
         "severity": 2,
         "size": 3,

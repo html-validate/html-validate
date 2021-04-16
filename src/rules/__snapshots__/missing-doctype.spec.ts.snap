@@ -20,6 +20,7 @@ Array [
         "message": "Document is missing doctype",
         "offset": 0,
         "ruleId": "missing-doctype",
+        "ruleUrl": "https://html-validate.org/rules/missing-doctype.html",
         "selector": null,
         "severity": 2,
         "size": 0,

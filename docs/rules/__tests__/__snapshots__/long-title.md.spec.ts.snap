@@ -15,6 +15,7 @@ Array [
         "message": "title text cannot be longer than 70 characters",
         "offset": 148,
         "ruleId": "long-title",
+        "ruleUrl": "https://html-validate.org/rules/long-title.html",
         "selector": "head > title",
         "severity": 2,
         "size": 1,

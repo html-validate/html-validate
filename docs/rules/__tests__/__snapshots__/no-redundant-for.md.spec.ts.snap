@@ -15,6 +15,7 @@ Array [
         "message": "Redundant \\"for\\" attribute",
         "offset": 7,
         "ruleId": "no-redundant-for",
+        "ruleUrl": "https://html-validate.org/rules/no-redundant-for.html",
         "selector": "label",
         "severity": 2,
         "size": 3,

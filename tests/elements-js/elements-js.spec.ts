@@ -18,6 +18,7 @@ it("should handle elements js file", () => {
 		    "message": "<my-element> is deprecated",
 		    "offset": 1,
 		    "ruleId": "deprecated",
+		    "ruleUrl": "https://html-validate.org/rules/deprecated.html",
 		    "selector": "my-element",
 		    "severity": 2,
 		    "size": 10,

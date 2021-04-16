@@ -20,6 +20,7 @@ Array [
         "message": "Class \\"foo\\" duplicated",
         "offset": 74,
         "ruleId": "no-dup-class",
+        "ruleUrl": "https://html-validate.org/rules/no-dup-class.html",
         "selector": "div:nth-child(3)",
         "severity": 2,
         "size": 3,

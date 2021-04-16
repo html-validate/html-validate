@@ -15,6 +15,7 @@ Array [
         "message": "<img> with empty alt text cannot have title attribute",
         "offset": 5,
         "ruleId": "wcag/h67",
+        "ruleUrl": "https://html-validate.org/rules/wcag/h67.html",
         "selector": "img",
         "severity": 2,
         "size": 5,

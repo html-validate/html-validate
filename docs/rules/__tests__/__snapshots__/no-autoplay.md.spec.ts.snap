@@ -17,6 +17,7 @@ Array [
         "message": "The autoplay attribute is not allowed on <video>",
         "offset": 7,
         "ruleId": "no-autoplay",
+        "ruleUrl": "https://html-validate.org/rules/no-autoplay.html",
         "selector": "video",
         "severity": 2,
         "size": 8,

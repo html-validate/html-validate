@@ -15,6 +15,7 @@ Array [
         "message": "Attribute \\"bgcolor\\" is deprecated on <body> element",
         "offset": 6,
         "ruleId": "no-deprecated-attr",
+        "ruleUrl": "https://html-validate.org/rules/no-deprecated-attr.html",
         "selector": "body",
         "severity": 2,
         "size": 7,

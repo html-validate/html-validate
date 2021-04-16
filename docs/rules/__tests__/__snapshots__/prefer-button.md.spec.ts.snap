@@ -17,6 +17,7 @@ Array [
         "message": "Prefer to use <button> instead of <input type=\\"button\\"> when adding buttons",
         "offset": 13,
         "ruleId": "prefer-button",
+        "ruleUrl": "https://html-validate.org/rules/prefer-button.html",
         "selector": "input",
         "severity": 2,
         "size": 6,

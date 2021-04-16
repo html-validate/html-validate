@@ -54,6 +54,7 @@ Array [
         "message": "<marquee> is deprecated",
         "offset": 20,
         "ruleId": "deprecated",
+        "ruleUrl": "https://html-validate.org/rules/deprecated.html",
         "selector": "marquee",
         "severity": 2,
         "size": 7,

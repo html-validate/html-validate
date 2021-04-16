@@ -15,6 +15,7 @@ Array [
         "message": "No space between attributes",
         "offset": 20,
         "ruleId": "attr-spacing",
+        "ruleUrl": "https://html-validate.org/rules/attr-spacing.html",
         "selector": null,
         "severity": 2,
         "size": 5,

@@ -15,6 +15,7 @@ Array [
         "message": "Element <caption> must be used before <thead> in this context",
         "offset": 82,
         "ruleId": "element-permitted-order",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
         "selector": "table > caption",
         "severity": 2,
         "size": 7,
