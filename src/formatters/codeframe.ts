@@ -9,6 +9,14 @@ interface SourcePoint {
 	column: number;
 }
 
+export interface CodeframeOptions {
+	showLink: boolean;
+}
+
+const defaults: CodeframeOptions = {
+	showLink: true,
+};
+
 /**
  * Codeframe formatter based on ESLint codeframe.
  */
@@ -64,11 +72,11 @@ function getEndLocation(message: Message, source: string): SourcePoint {
 
 /**
  * Gets the formatted output for a given message.
- * @param   {Object} message      The object that represents this message.
- * @param   {Object} parentResult The result object that this message belongs to.
- * @returns {string}              The formatted output.
+ * @param   message      The object that represents this message.
+ * @param   parentResult The result object that this message belongs to.
+ * @returns The formatted output.
  */
-function formatMessage(message: Message, parentResult: Result): string {
+function formatMessage(message: Message, parentResult: Result, options: CodeframeOptions): string {
 	const type = message.severity === 2 ? chalk.red("error") : chalk.yellow("warning");
 	const msg = `${chalk.bold(message.message.replace(/([^ ])\.$/, "$1"))}`;
 	const ruleId = chalk.dim(`(${message.ruleId})`);
@@ -101,6 +109,10 @@ function formatMessage(message: Message, parentResult: Result): string {
 		);
 	}
 
+	if (options.showLink && message.ruleUrl) {
+		result.push(`${chalk.bold("Details:")} ${message.ruleUrl}`);
+	}
+
 	return result.join("\n");
 }
 
@@ -125,7 +137,9 @@ function formatSummary(errors: number, warnings: number): string {
 	return chalk[summaryColor].bold(`${summary.join(" and ")} found.`);
 }
 
-function codeframe(results: Result[]): string {
+export function codeframe(results: Result[], options?: Partial<CodeframeOptions>): string {
+	const merged: CodeframeOptions = { ...defaults, ...options };
+
 	let errors = 0;
 	let warnings = 0;
 
@@ -133,7 +147,9 @@ function codeframe(results: Result[]): string {
 
 	let output = resultsWithMessages
 		.reduce((resultsOutput, result) => {
-			const messages = result.messages.map((message) => `${formatMessage(message, result)}\n\n`);
+			const messages = result.messages.map((message) => {
+				return `${formatMessage(message, result, merged)}\n\n`;
+			});
 
 			errors += result.errorCount;
 			warnings += result.warningCount;

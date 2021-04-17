@@ -1,5 +1,5 @@
 import checkstyle from "./checkstyle";
-import codeframe from "./codeframe";
+import codeframe from "./codeframe"; // eslint-disable-line import/no-named-as-default
 import json from "./json";
 import stylish from "./stylish";
 import text from "./text";

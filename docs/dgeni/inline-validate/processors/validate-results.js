@@ -1,6 +1,10 @@
 const chalk = require("chalk");
 const HtmlValidate = require("../../../../dist/htmlvalidate").default;
-const codeframe = require("../../../../dist/formatters/codeframe").default;
+const codeframe = require("../../../../dist/formatters/codeframe").codeframe;
+
+const formatterOptions = {
+	showLink: false,
+};
 
 module.exports = function generateValidationResultsProcessor(log, validateMap) {
 	return {
@@ -16,7 +20,7 @@ module.exports = function generateValidationResultsProcessor(log, validateMap) {
 		validateMap.forEach((validation) => {
 			htmlvalidate = new HtmlValidate(validation.config);
 			validation.report = htmlvalidate.validateString(validation.markup);
-			validation.codeframe = codeframe(validation.report.results);
+			validation.codeframe = codeframe(validation.report.results, formatterOptions);
 
 			if (validation.showResults === "auto") {
 				validation.showResults = !validation.report.valid;

@@ -1,10 +1,22 @@
-import { edgeCases, emptyMessages, emptyResult, missingSource, regular } from "./__fixtures__";
+import {
+	edgeCases,
+	emptyMessages,
+	emptyResult,
+	missingSource,
+	missingUrl,
+	regular,
+} from "./__fixtures__";
 import formatter from "./json";
 
 describe("json formatter", () => {
 	it("should generate output", () => {
 		expect.assertions(1);
 		expect(formatter(regular)).toMatchSnapshot();
+	});
+
+	it("should handle missing rule url", () => {
+		expect.assertions(1);
+		expect(formatter(missingUrl)).toMatchSnapshot();
 	});
 
 	it("should handle missing source", () => {
