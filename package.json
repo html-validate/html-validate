@@ -56,7 +56,40 @@
   "commitlint": {
     "extends": [
       "@html-validate"
-    ]
+    ],
+    "rules": {
+      "scope-enum": [
+        2,
+        "always",
+        [
+          "cli",
+          "config",
+          "context",
+          "deps",
+          "dom",
+          "elements",
+          "engine",
+          "error",
+          "eslint",
+          "event",
+          "formatters",
+          "html5",
+          "htmlvalidate",
+          "jest",
+          "lexer",
+          "meta",
+          "parser",
+          "plugin",
+          "prettier",
+          "release",
+          "reporter",
+          "rules",
+          "schema",
+          "transform",
+          "utils"
+        ]
+      ]
+    }
   },
   "lint-staged": {
     "*.{ts,js,json,html,md,scss,yml}": "prettier --write"
