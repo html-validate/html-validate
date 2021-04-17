@@ -15,6 +15,7 @@ Array [
         "message": "Element <li> is not permitted as content in <div>",
         "offset": 69,
         "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "div > li",
         "severity": 2,
         "size": 2,

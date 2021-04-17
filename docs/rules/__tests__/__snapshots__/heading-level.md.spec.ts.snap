@@ -15,6 +15,7 @@ Array [
         "message": "Heading level can only increase by one, expected <h2> but got <h3>",
         "offset": 20,
         "ruleId": "heading-level",
+        "ruleUrl": "https://html-validate.org/rules/heading-level.html",
         "selector": "h3",
         "severity": 2,
         "size": 2,

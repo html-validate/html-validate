@@ -30,6 +30,7 @@ Array [
         "message": "<input> is missing required \\"type\\" attribute",
         "offset": 1,
         "ruleId": "element-required-attributes",
+        "ruleUrl": "https://html-validate.org/rules/element-required-attributes.html",
         "selector": "input",
         "severity": 2,
         "size": 5,

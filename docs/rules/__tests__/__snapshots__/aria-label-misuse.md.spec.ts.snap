@@ -15,6 +15,7 @@ Array [
         "message": "\\"aria-label\\" cannot be used on this element",
         "offset": 21,
         "ruleId": "aria-label-misuse",
+        "ruleUrl": "https://html-validate.org/rules/aria-label-misuse.html",
         "selector": "input",
         "severity": 2,
         "size": 10,

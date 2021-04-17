@@ -15,6 +15,7 @@ Array [
         "message": "End tag for <script> must not be omitted",
         "offset": 25,
         "ruleId": "script-element",
+        "ruleUrl": "https://html-validate.org/rules/script-element.html",
         "selector": "script",
         "severity": 2,
         "size": 2,

@@ -20,6 +20,7 @@ Array [
         "message": "<form> element must have a submit button",
         "offset": 110,
         "ruleId": "wcag/h32",
+        "ruleUrl": "https://html-validate.org/rules/wcag/h32.html",
         "selector": "form:nth-child(3)",
         "severity": 2,
         "size": 4,

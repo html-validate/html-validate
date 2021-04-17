@@ -19,6 +19,7 @@ Array [
         "message": "<foobar> is not a valid element name",
         "offset": 1,
         "ruleId": "element-name",
+        "ruleUrl": "https://html-validate.org/rules/element-name.html",
         "selector": "foobar",
         "severity": 2,
         "size": 6,

@@ -20,6 +20,7 @@ Array [
         "message": "Duplicate ID \\"foo\\"",
         "offset": 51,
         "ruleId": "no-dup-id",
+        "ruleUrl": "https://html-validate.org/rules/no-dup-id.html",
         "selector": "div:nth-child(3)",
         "severity": 2,
         "size": 3,

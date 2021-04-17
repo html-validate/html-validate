@@ -10,6 +10,9 @@ export interface Message {
 	/** Rule that triggered this message */
 	ruleId: string;
 
+	/** URL to description of error */
+	ruleUrl?: string;
+
 	/** Severity of the message */
 	severity: number;
 
@@ -114,6 +117,7 @@ export class Reporter {
 		}
 		this.result[location.filename].push({
 			ruleId: rule.name,
+			ruleUrl: rule.documentation(context)?.url,
 			severity,
 			message,
 			offset: location.offset,

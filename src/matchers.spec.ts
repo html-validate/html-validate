@@ -361,6 +361,7 @@ describe("toHTMLValidate()", () => {
 		+     \\"message\\": \\"Mismatched close-tag, expected '</u>' but found '</i>'.\\",
 		+     \\"offset\\": 4,
 		+     \\"ruleId\\": \\"close-order\\",
+		+     \\"ruleUrl\\": \\"https://html-validate.org/rules/close-order.html\\",
 		+     \\"selector\\": null,
 		+     \\"severity\\": 2,
 		+     \\"size\\": 2,

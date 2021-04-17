@@ -15,6 +15,7 @@ Array [
         "message": "Multiple <main> elements present in document",
         "offset": 18,
         "ruleId": "no-multiple-main",
+        "ruleUrl": "https://html-validate.org/rules/no-multiple-main.html",
         "selector": "main:nth-child(2)",
         "severity": 2,
         "size": 4,

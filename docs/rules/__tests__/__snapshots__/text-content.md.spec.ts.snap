@@ -18,6 +18,7 @@ Array [
         "message": "<button> must have accessible text",
         "offset": 1,
         "ruleId": "text-content",
+        "ruleUrl": "https://html-validate.org/rules/text-content.html",
         "selector": "button",
         "severity": 2,
         "size": 6,

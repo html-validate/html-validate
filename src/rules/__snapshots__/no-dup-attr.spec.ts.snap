@@ -20,6 +20,7 @@ Array [
         "message": "Attribute \\"id\\" duplicated",
         "offset": 31,
         "ruleId": "no-dup-attr",
+        "ruleUrl": "https://html-validate.org/rules/no-dup-attr.html",
         "selector": "#foo",
         "severity": 2,
         "size": 2,

@@ -18,6 +18,7 @@ Array [
         "message": "Expected omitted end tag <input> instead of self-closing element <input/>",
         "offset": 6,
         "ruleId": "void-style",
+        "ruleUrl": "https://html-validate.org/rules/void-style.html",
         "selector": "input",
         "severity": 2,
         "size": 2,

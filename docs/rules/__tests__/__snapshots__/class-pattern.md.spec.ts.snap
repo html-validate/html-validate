@@ -15,6 +15,7 @@ Array [
         "message": "Class \\"fooBar\\" does not match required pattern \\"/^[a-z0-9-]+$/\\"",
         "offset": 12,
         "ruleId": "class-pattern",
+        "ruleUrl": "https://html-validate.org/rules/class-pattern.html",
         "selector": "div",
         "severity": 2,
         "size": 6,
