@@ -1,5 +1,5 @@
 import { edgeCases, emptyMessages, emptyResult, missingSource, regular } from "./__fixtures__";
-import formatter from "./stylish";
+import formatter from "./json";
 
 describe("json formatter", () => {
 	it("should generate output", () => {

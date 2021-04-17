@@ -1,38 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`json formatter should generate output 1`] = `
-"</></>
-</>first.html</>
-</>  <dim>1:6</>  <red>error</>    An error   <dim>foo</></>
-</>  <dim>2:5</>  <yellow>warning</>  A warning  <dim>bar</></>
-</></>
-</>second.html</>
-</>  <dim>1:4</>  <red>error</>  Lorem ipsum is not allowed  <dim>no-lorem-ipsum</></>
-</></>
-</><red><bold>✖ 3 problems (2 errors, 1 warning)</></></>
-</><red><bold></></></>"
-`;
+exports[`json formatter should generate output 1`] = `"[{\\"filePath\\":\\"first.html\\",\\"errorCount\\":1,\\"warningCount\\":1,\\"source\\":\\"<div id=\\\\\\"foo\\\\\\"\\\\n    class=\\\\\\"bar\\\\\\"\\\\n    name=\\\\\\"baz\\\\\\">\\\\n\\",\\"messages\\":[{\\"ruleId\\":\\"foo\\",\\"ruleUrl\\":\\"https://example.net/rule/foo.html\\",\\"severity\\":2,\\"message\\":\\"An error\\",\\"offset\\":5,\\"line\\":1,\\"column\\":6,\\"size\\":2,\\"selector\\":\\"div\\"},{\\"ruleId\\":\\"bar\\",\\"ruleUrl\\":\\"https://example.net/rule/bar.html\\",\\"severity\\":1,\\"message\\":\\"A warning\\",\\"offset\\":18,\\"line\\":2,\\"column\\":5,\\"size\\":5,\\"selector\\":\\"div\\"}]},{\\"filePath\\":\\"second.html\\",\\"errorCount\\":1,\\"warningCount\\":0,\\"source\\":\\"<p>lorem ipsum</p>\\\\n\\",\\"messages\\":[{\\"ruleId\\":\\"no-lorem-ipsum\\",\\"ruleUrl\\":\\"https://example.net/rule/no-lorem-ipsum.html\\",\\"severity\\":2,\\"message\\":\\"Lorem ipsum is not allowed\\",\\"offset\\":3,\\"line\\":1,\\"column\\":4,\\"size\\":11,\\"selector\\":\\"p\\"}]}]"`;
 
-exports[`json formatter should handle edge cases 1`] = `
-"</></>
-</>edge-cases.html</>
-</>  <dim>1:1</>  <yellow>warning</>  Has invalid severity                                      <dim>invalid-severity</></>
-</>  <dim>2:2</>  <red>error</>    Escape <script language=\\"jabbascript\\"> & <span id='foo'>  <dim>special-characters</></>
-</></>
-</><red><bold>✖ 2 problems (1 error, 1 warning)</></></>
-</><red><bold></></></>"
-`;
+exports[`json formatter should handle edge cases 1`] = `"[{\\"filePath\\":\\"edge-cases.html\\",\\"errorCount\\":1,\\"warningCount\\":1,\\"source\\":\\"<p>lorem ipsum</p>\\\\n\\",\\"messages\\":[{\\"ruleId\\":\\"invalid-severity\\",\\"severity\\":3,\\"message\\":\\"Has invalid severity\\",\\"offset\\":0,\\"line\\":1,\\"column\\":1,\\"size\\":1,\\"selector\\":null},{\\"ruleId\\":\\"special-characters\\",\\"severity\\":2,\\"message\\":\\"Escape <script language=\\\\\\"jabbascript\\\\\\"> & <span id='foo'>\\",\\"offset\\":14,\\"line\\":2,\\"column\\":2,\\"size\\":1,\\"selector\\":null}]}]"`;
 
-exports[`json formatter should handle empty messages 1`] = `""`;
+exports[`json formatter should handle empty messages 1`] = `"[{\\"filePath\\":\\"empty.html\\",\\"errorCount\\":0,\\"warningCount\\":0,\\"source\\":null,\\"messages\\":[]}]"`;
 
-exports[`json formatter should handle empty result 1`] = `""`;
+exports[`json formatter should handle empty result 1`] = `"[]"`;
 
-exports[`json formatter should handle missing source 1`] = `
-"</></>
-</>missing-source.html</>
-</>  <dim>1:6</>  <red>error</>    An error   <dim>foo</></>
-</>  <dim>2:5</>  <yellow>warning</>  A warning  <dim>bar</></>
-</></>
-</><red><bold>✖ 2 problems (2 errors, 0 warnings)</></></>
-</><red><bold></></></>"
-`;
+exports[`json formatter should handle missing source 1`] = `"[{\\"filePath\\":\\"missing-source.html\\",\\"errorCount\\":2,\\"warningCount\\":0,\\"source\\":null,\\"messages\\":[{\\"ruleId\\":\\"foo\\",\\"ruleUrl\\":\\"https://example.net/rule/foo.html\\",\\"severity\\":2,\\"message\\":\\"An error\\",\\"offset\\":5,\\"line\\":1,\\"column\\":6,\\"size\\":2,\\"selector\\":\\"div\\"},{\\"ruleId\\":\\"bar\\",\\"ruleUrl\\":\\"https://example.net/rule/bar.html\\",\\"severity\\":1,\\"message\\":\\"A warning\\",\\"offset\\":18,\\"line\\":2,\\"column\\":5,\\"size\\":5,\\"selector\\":\\"div\\"}]}]"`;

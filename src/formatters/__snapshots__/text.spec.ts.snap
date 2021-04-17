@@ -1,26 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`text formatter should generate output 1`] = `
-"</></>
-</>first.html</>
-</>  <dim>1:6</>  <red>error</>    An error   <dim>foo</></>
-</>  <dim>2:5</>  <yellow>warning</>  A warning  <dim>bar</></>
-</></>
-</>second.html</>
-</>  <dim>1:4</>  <red>error</>  Lorem ipsum is not allowed  <dim>no-lorem-ipsum</></>
-</></>
-</><red><bold>✖ 3 problems (2 errors, 1 warning)</></></>
-</><red><bold></></></>"
+"first.html:1:6: error [foo] An error
+first.html:2:5: warning [bar] A warning
+second.html:1:4: error [no-lorem-ipsum] Lorem ipsum is not allowed
+"
 `;
 
 exports[`text formatter should handle edge cases 1`] = `
-"</></>
-</>edge-cases.html</>
-</>  <dim>1:1</>  <yellow>warning</>  Has invalid severity                                      <dim>invalid-severity</></>
-</>  <dim>2:2</>  <red>error</>    Escape <script language=\\"jabbascript\\"> & <span id='foo'>  <dim>special-characters</></>
-</></>
-</><red><bold>✖ 2 problems (1 error, 1 warning)</></></>
-</><red><bold></></></>"
+"edge-cases.html:1:1: warning [invalid-severity] Has invalid severity
+edge-cases.html:2:2: error [special-characters] Escape <script language=\\"jabbascript\\"> & <span id='foo'>
+"
 `;
 
 exports[`text formatter should handle empty messages 1`] = `""`;
@@ -28,11 +18,7 @@ exports[`text formatter should handle empty messages 1`] = `""`;
 exports[`text formatter should handle empty result 1`] = `""`;
 
 exports[`text formatter should handle missing source 1`] = `
-"</></>
-</>missing-source.html</>
-</>  <dim>1:6</>  <red>error</>    An error   <dim>foo</></>
-</>  <dim>2:5</>  <yellow>warning</>  A warning  <dim>bar</></>
-</></>
-</><red><bold>✖ 2 problems (2 errors, 0 warnings)</></></>
-</><red><bold></></></>"
+"missing-source.html:1:6: error [foo] An error
+missing-source.html:2:5: warning [bar] A warning
+"
 `;
