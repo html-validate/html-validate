@@ -3,7 +3,7 @@
 exports[`rule h37 should contain documentation 1`] = `
 Object {
   "description": "Both HTML5 and WCAG 2.0 requires images to have a alternative text for each image.",
-  "url": "https://html-validate.org/rules/h37.html",
+  "url": "https://html-validate.org/rules/wcag/h37.html",
 }
 `;
 

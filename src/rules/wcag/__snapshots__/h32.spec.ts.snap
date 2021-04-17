@@ -3,7 +3,7 @@
 exports[`wcag/h32 should contain documentation 1`] = `
 Object {
   "description": "WCAG 2.1 requires each \`<form>\` element to have at least one submit button.",
-  "url": "https://html-validate.org/rules/h32.html",
+  "url": "https://html-validate.org/rules/wcag/h32.html",
 }
 `;
 

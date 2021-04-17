@@ -475,9 +475,18 @@ describe("validateOptions()", () => {
 	});
 });
 
-it("ruleDocumentationUrl() should return URL to rule documentation", () => {
-	expect.assertions(1);
-	expect(ruleDocumentationUrl("src/rules/foo.ts")).toEqual(
-		"https://html-validate.org/rules/foo.html"
-	);
+describe("ruleDocumentationUrl()", () => {
+	it("should return URL to rule documentation", () => {
+		expect.assertions(1);
+		const filename = path.join(__dirname, "rules/foo.ts");
+		const url = ruleDocumentationUrl(filename);
+		expect(url).toEqual("https://html-validate.org/rules/foo.html");
+	});
+
+	it("should handle rules in subdirectories", () => {
+		expect.assertions(1);
+		const filename = path.join(__dirname, "rules/foo/bar.ts");
+		const url = ruleDocumentationUrl(filename);
+		expect(url).toEqual("https://html-validate.org/rules/foo/bar.html");
+	});
 });
