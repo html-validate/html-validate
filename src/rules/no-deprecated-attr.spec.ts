@@ -6,6 +6,7 @@ describe("rule no-deprecated-attr", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "no-deprecated-attr": "error" },
 		});
 	});

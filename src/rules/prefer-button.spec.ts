@@ -9,6 +9,7 @@ describe("rule prefer-button", () => {
 
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "prefer-button": "error" },
 			});
 		});
@@ -89,6 +90,7 @@ describe("rule prefer-button", () => {
 	it("should not report error when type is excluded", () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "prefer-button": ["error", { exclude: ["submit"] }] },
 		});
 		const valid = htmlvalidate.validateString('<input type="submit">');
@@ -100,6 +102,7 @@ describe("rule prefer-button", () => {
 	it("should report error only for included types", () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "prefer-button": ["error", { include: ["submit"] }] },
 		});
 		const valid = htmlvalidate.validateString('<input type="reset">');
@@ -111,6 +114,7 @@ describe("rule prefer-button", () => {
 	it("should contain documentation", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "prefer-button": "error" },
 		});
 		expect(htmlvalidate.getRuleDocumentation("prefer-button")).toMatchSnapshot();
@@ -120,6 +124,7 @@ describe("rule prefer-button", () => {
 		it.each([...types, "unknown"])('for type "%s"', (type) => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "prefer-button": "error" },
 			});
 			expect(htmlvalidate.getRuleDocumentation("prefer-button", null, { type })).toMatchSnapshot();

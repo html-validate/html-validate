@@ -16,6 +16,7 @@ describe("rule attribute-allowed-values", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			elements: ["html5", metadata],
 			rules: { "attribute-allowed-values": "error" },
 		});

@@ -6,6 +6,7 @@ describe("rule heading-level", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "heading-level": "error" },
 			elements: ["html5", { "custom-heading": { heading: true } }],
 		});

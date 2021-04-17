@@ -7,6 +7,7 @@ describe("rule id-pattern", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "id-pattern": "error" },
 		});
 	});

@@ -6,6 +6,7 @@ describe("rule no-conditional-comment", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "no-conditional-comment": "error" },
 		});
 	});

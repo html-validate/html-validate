@@ -6,6 +6,7 @@ describe("wcag/h32", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			elements: [
 				"html5",
 				{

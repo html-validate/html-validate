@@ -1158,6 +1158,7 @@ describe("parser", () => {
 
 		beforeEach(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				extends: ["html-validate:recommended"],
 			});
 		});

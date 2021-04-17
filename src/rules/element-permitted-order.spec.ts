@@ -6,6 +6,7 @@ describe("rule element-permitted-order", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "element-permitted-order": "error" },
 		});
 	});

@@ -16,6 +16,7 @@ describe("rule allowed-links", () => {
 		`("$description", ({ markup }) => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "allowed-links": ["error", { allowAbsolute: false }] },
 			});
 			const report = htmlvalidate.validateString(markup);
@@ -26,6 +27,7 @@ describe("rule allowed-links", () => {
 	it("should not report error for anchor links", () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "allowed-links": ["error", { allowAbsolute: false }] },
 		});
 		const report = htmlvalidate.validateString('<a href="#foo"></a>');
@@ -35,6 +37,7 @@ describe("rule allowed-links", () => {
 	it("should not report error for link is dynamic", () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: {
 				"allowed-links": ["error", { allowRelative: false }],
 			},
@@ -48,6 +51,7 @@ describe("rule allowed-links", () => {
 	describe("allowExternal: false", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "allowed-links": ["error", { allowExternal: false }] },
 			});
 		});
@@ -88,6 +92,7 @@ describe("rule allowed-links", () => {
 	describe("allowRelative: false", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "allowed-links": ["error", { allowRelative: false }] },
 			});
 		});
@@ -128,6 +133,7 @@ describe("rule allowed-links", () => {
 	describe("allowBase: false", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "allowed-links": ["error", { allowBase: false }] },
 			});
 		});
@@ -170,6 +176,7 @@ describe("rule allowed-links", () => {
 	describe("allowAbsolute: false", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "allowed-links": ["error", { allowAbsolute: false }] },
 			});
 		});
@@ -209,6 +216,7 @@ describe("rule allowed-links", () => {
 	it("should contain documentation", () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "allowed-links": "error" },
 		});
 		expect(htmlvalidate.getRuleDocumentation("allowed-links")).toMatchSnapshot();
@@ -224,6 +232,7 @@ describe("rule allowed-links", () => {
 		`("$style", ({ value }) => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "allowed-links": "error" },
 			});
 			expect(htmlvalidate.getRuleDocumentation("allowed-links", null, value)).toMatchSnapshot();

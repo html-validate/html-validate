@@ -6,6 +6,7 @@ describe("rule close-attr", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "close-attr": "error" },
 		});
 	});

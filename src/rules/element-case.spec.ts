@@ -7,6 +7,7 @@ describe("rule element-case", () => {
 	describe('configured with "lowercase"', () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "element-case": ["error", { style: "lowercase" }] },
 			});
 		});
@@ -47,6 +48,7 @@ describe("rule element-case", () => {
 	describe('configured with "uppercase"', () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "element-case": ["error", { style: "uppercase" }] },
 			});
 		});
@@ -87,6 +89,7 @@ describe("rule element-case", () => {
 	describe('configured with "pascalcase"', () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "element-case": ["error", { style: "pascalcase" }] },
 			});
 		});
@@ -108,6 +111,7 @@ describe("rule element-case", () => {
 	describe('configured with "camelcase"', () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "element-case": ["error", { style: "camelcase" }] },
 			});
 		});
@@ -129,6 +133,7 @@ describe("rule element-case", () => {
 	it("should handle multiple styles", () => {
 		expect.assertions(3);
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: {
 				"element-case": ["error", { style: ["lowercase", "pascalcase"] }],
 			},
@@ -145,6 +150,7 @@ describe("rule element-case", () => {
 		expect.assertions(1);
 		expect(() => {
 			return new HtmlValidate({
+				root: true,
 				rules: { "element-case": ["error", { style: "foobar" }] },
 			});
 		}).toThrowErrorMatchingInlineSnapshot(
@@ -155,6 +161,7 @@ describe("rule element-case", () => {
 	it("should report error if start and close tag have different case", () => {
 		expect.assertions(2);
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "element-case": ["error", { style: "camelcase" }] },
 		});
 		const report = htmlvalidate.validateString("<foo-Bar></foo-bar>");
@@ -173,6 +180,7 @@ describe("rule element-case", () => {
 	it("should contain documentation", () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "element-case": "error" },
 		});
 		expect(htmlvalidate.getRuleDocumentation("element-case")).toMatchSnapshot();

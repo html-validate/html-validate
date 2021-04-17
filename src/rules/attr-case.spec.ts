@@ -8,6 +8,7 @@ describe("rule attr-case", () => {
 	describe('configured with "lowercase"', () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "attr-case": ["error", { style: "lowercase" }] },
 			});
 		});
@@ -48,6 +49,7 @@ describe("rule attr-case", () => {
 	describe('configured with "uppercase"', () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "attr-case": ["error", { style: "uppercase" }] },
 			});
 		});
@@ -88,6 +90,7 @@ describe("rule attr-case", () => {
 	describe('configured with "pascalcase"', () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "attr-case": ["error", { style: "pascalcase" }] },
 			});
 		});
@@ -128,6 +131,7 @@ describe("rule attr-case", () => {
 	describe('configured with "camelcase"', () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "attr-case": ["error", { style: "camelcase" }] },
 			});
 		});
@@ -168,6 +172,7 @@ describe("rule attr-case", () => {
 	describe('configured with "ignoreForeign" true', () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "attr-case": ["error", { ignoreForeign: true }] },
 			});
 		});
@@ -182,6 +187,7 @@ describe("rule attr-case", () => {
 	describe('configured with "ignoreForeign" false', () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "attr-case": ["error", { ignoreForeign: false }] },
 			});
 		});
@@ -197,6 +203,7 @@ describe("rule attr-case", () => {
 	it("should handle multiple styles", () => {
 		expect.assertions(3);
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: {
 				"attr-case": ["error", { style: ["lowercase", "camelcase"] }],
 			},
@@ -212,6 +219,7 @@ describe("rule attr-case", () => {
 	it("should not report duplicate errors for dynamic attributes", () => {
 		expect.assertions(2);
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "attr-case": "error" },
 		});
 		const report = htmlvalidate.validateString('<input dynamic-fooBar="foo">', {
@@ -230,6 +238,7 @@ describe("rule attr-case", () => {
 		expect.assertions(1);
 		expect(() => {
 			return new HtmlValidate({
+				root: true,
 				rules: { "attr-case": ["error", { style: "foobar" }] },
 			});
 		}).toThrowErrorMatchingInlineSnapshot(
@@ -240,6 +249,7 @@ describe("rule attr-case", () => {
 	it("should contain documentation", () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "attr-case": "error" },
 		});
 		expect(htmlvalidate.getRuleDocumentation("attr-case")).toMatchSnapshot();

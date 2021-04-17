@@ -6,6 +6,7 @@ describe("rule no-trailing-whitespace", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "no-trailing-whitespace": "error" },
 		});
 	});

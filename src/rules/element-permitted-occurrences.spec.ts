@@ -6,6 +6,7 @@ describe("rule element-permitted-occurrences", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "element-permitted-occurrences": "error" },
 		});
 	});

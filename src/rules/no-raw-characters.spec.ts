@@ -7,6 +7,7 @@ describe("rule no-raw-characters", () => {
 	describe("default options", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "no-raw-characters": "error" },
 			});
 		});
@@ -152,6 +153,7 @@ describe("rule no-raw-characters", () => {
 	describe("relaxed", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "no-raw-characters": ["error", { relaxed: true }] },
 			});
 		});
@@ -178,6 +180,7 @@ describe("rule no-raw-characters", () => {
 	it("should contain documentation", () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "no-raw-characters": "error" },
 		});
 		expect(htmlvalidate.getRuleDocumentation("no-raw-characters")).toMatchSnapshot();

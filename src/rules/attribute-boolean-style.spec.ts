@@ -8,6 +8,7 @@ describe("rule attribute-boolean-style", () => {
 	it("should not report for non-boolean attributes", () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "attribute-boolean-style": ["error", { style: "omit" }] },
 		});
 		const report = htmlvalidate.validateString('<input type="foo">');
@@ -17,6 +18,7 @@ describe("rule attribute-boolean-style", () => {
 	it("should not report for empty attributes", () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "attribute-boolean-style": ["error", { style: "omit" }] },
 		});
 		const report = htmlvalidate.validateString('<a download=""></a>');
@@ -26,6 +28,7 @@ describe("rule attribute-boolean-style", () => {
 	it("should not report for unknown elements", () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "attribute-boolean-style": ["error", { style: "omit" }] },
 		});
 		const markup = "<missing-meta></missing-meta>";
@@ -36,6 +39,7 @@ describe("rule attribute-boolean-style", () => {
 	describe('configured with "omit"', () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "attribute-boolean-style": ["error", { style: "omit" }] },
 			});
 		});
@@ -102,6 +106,7 @@ describe("rule attribute-boolean-style", () => {
 	describe('configured with "empty"', () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "attribute-boolean-style": ["error", { style: "empty" }] },
 			});
 		});
@@ -154,6 +159,7 @@ describe("rule attribute-boolean-style", () => {
 	describe('configured with "name"', () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "attribute-boolean-style": ["error", { style: "name" }] },
 			});
 		});
@@ -207,6 +213,7 @@ describe("rule attribute-boolean-style", () => {
 		expect.assertions(1);
 		expect(() => {
 			return new HtmlValidate({
+				root: true,
 				rules: { "attribute-boolean-style": ["error", { style: "foobar" }] },
 			});
 		}).toThrowErrorMatchingInlineSnapshot(
@@ -217,6 +224,7 @@ describe("rule attribute-boolean-style", () => {
 	it("should contain documentation", () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "attribute-boolean-style": "error" },
 		});
 		expect(htmlvalidate.getRuleDocumentation("attribute-boolean-style")).toMatchSnapshot();

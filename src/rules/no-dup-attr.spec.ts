@@ -7,6 +7,7 @@ describe("rule no-dup-attr", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "no-dup-attr": "error" },
 		});
 	});

@@ -6,6 +6,7 @@ describe("rule close-order", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "close-order": "error" },
 		});
 	});

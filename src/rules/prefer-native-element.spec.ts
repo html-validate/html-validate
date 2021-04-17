@@ -8,6 +8,7 @@ describe("rule prefer-native-element", () => {
 
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "prefer-native-element": "error" },
 			});
 		});
@@ -68,6 +69,7 @@ describe("rule prefer-native-element", () => {
 	it("should not report error when role is excluded", () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "prefer-native-element": ["error", { exclude: ["main"] }] },
 		});
 		const valid = htmlvalidate.validateString('<div role="main"></div>');
@@ -79,6 +81,7 @@ describe("rule prefer-native-element", () => {
 	it("should report error only for included roles", () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "prefer-native-element": ["error", { include: ["main"] }] },
 		});
 		const valid = htmlvalidate.validateString('<div role="article"></div>');
@@ -90,6 +93,7 @@ describe("rule prefer-native-element", () => {
 	it("should contain documentation", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "prefer-native-element": "error" },
 		});
 		expect(htmlvalidate.getRuleDocumentation("prefer-native-element")).toMatchSnapshot();
@@ -98,6 +102,7 @@ describe("rule prefer-native-element", () => {
 	it("should contain contextual documentation", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "prefer-native-element": "error" },
 		});
 		const context = {

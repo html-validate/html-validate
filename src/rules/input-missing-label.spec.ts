@@ -6,6 +6,7 @@ describe("rule input-missing-label", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "input-missing-label": "error" },
 		});
 	});

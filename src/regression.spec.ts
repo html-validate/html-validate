@@ -35,6 +35,7 @@ describe("regression tests", () => {
 	it.each(files)("%s", (filename: string) => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
+			root: true,
 			extends: ["html-validate:recommended"],
 			transform: {
 				".*": "mock-transformer",

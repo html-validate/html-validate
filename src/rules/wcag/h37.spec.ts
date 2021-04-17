@@ -7,6 +7,7 @@ describe("rule h37", () => {
 	describe("with default options", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "wcag/h37": "error" },
 			});
 		});
@@ -48,6 +49,7 @@ describe("rule h37", () => {
 	describe("with allowEmpty false", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "wcag/h37": ["error", { allowEmpty: false }] },
 			});
 		});
@@ -82,6 +84,7 @@ describe("rule h37", () => {
 	describe("with alias", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "wcag/h37": ["error", { alias: "translate-attr" }] },
 			});
 		});
@@ -109,6 +112,7 @@ describe("rule h37", () => {
 	describe("with alias (array)", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "wcag/h37": ["error", { alias: ["translate-attr"] }] },
 			});
 		});
@@ -129,6 +133,7 @@ describe("rule h37", () => {
 	it("should contain documentation", () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "wcag/h37": "error" },
 		});
 		expect(htmlvalidate.getRuleDocumentation("wcag/h37")).toMatchSnapshot();

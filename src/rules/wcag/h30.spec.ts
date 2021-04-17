@@ -6,6 +6,7 @@ describe("wcag/h30", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "wcag/h30": "error" },
 		});
 	});

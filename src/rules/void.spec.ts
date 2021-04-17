@@ -7,6 +7,7 @@ describe("rule void", () => {
 	it("should be deprecated", () => {
 		expect.assertions(2);
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "deprecated-rule": "error", void: "error" },
 		});
 		const report = htmlvalidate.validateString("<div>lorem ipsum</div>");
@@ -17,6 +18,7 @@ describe("rule void", () => {
 	describe("default", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { void: "error" },
 			});
 		});
@@ -72,6 +74,7 @@ describe("rule void", () => {
 	describe('configured with style="omit"', () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { void: ["error", { style: "omit" }] },
 			});
 		});
@@ -102,6 +105,7 @@ describe("rule void", () => {
 	describe('configured with style="selfclose"', () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { void: ["error", { style: "selfclose" }] },
 			});
 		});
@@ -132,6 +136,7 @@ describe("rule void", () => {
 	describe('configured with style="any"', () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { void: ["error", { style: "any" }] },
 			});
 		});
@@ -159,6 +164,7 @@ describe("rule void", () => {
 		expect.assertions(1);
 		expect(() => {
 			return new HtmlValidate({
+				root: true,
 				rules: { void: ["error", { style: "foobar" }] },
 			});
 		}).toThrowErrorMatchingInlineSnapshot(
@@ -169,6 +175,7 @@ describe("rule void", () => {
 	it("should contain documentation", () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { void: "error" },
 		});
 		expect(htmlvalidate.getRuleDocumentation("void")).toMatchSnapshot();

@@ -8,6 +8,7 @@ describe("rule no-inline-style", () => {
 	describe("default configuration", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "no-inline-style": "error" },
 			});
 		});
@@ -32,6 +33,7 @@ describe("rule no-inline-style", () => {
 	describe("configured with include", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "no-inline-style": ["error", { include: ["style"] }] },
 			});
 		});
@@ -55,6 +57,7 @@ describe("rule no-inline-style", () => {
 	describe("configured with exclude", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "no-inline-style": ["error", { exclude: ["style"] }] },
 			});
 		});
@@ -78,6 +81,7 @@ describe("rule no-inline-style", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "no-inline-style": "error" },
 		});
 		const report = htmlvalidate.validateFile("test-files/rules/no-inline-style.html");
@@ -87,6 +91,7 @@ describe("rule no-inline-style", () => {
 	it("should contain documentation", () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "no-inline-style": "error" },
 		});
 		expect(htmlvalidate.getRuleDocumentation("no-inline-style")).toMatchSnapshot();

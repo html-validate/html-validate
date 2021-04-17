@@ -6,6 +6,7 @@ describe("rule missing-doctype", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "missing-doctype": "error" },
 		});
 	});

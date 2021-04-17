@@ -6,6 +6,7 @@ describe("rule element-required-attributes", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "element-required-attributes": "error" },
 		});
 	});

@@ -16,6 +16,7 @@ describe("rule empty-heading", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "empty-heading": "error" },
 		});
 	});

@@ -6,6 +6,7 @@ describe("rule deprecated", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { deprecated: "error" },
 			elements: [
 				"html5",

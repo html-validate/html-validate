@@ -6,6 +6,7 @@ describe("rule no-dup-class", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "no-dup-class": "error" },
 		});
 	});

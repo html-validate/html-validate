@@ -6,6 +6,7 @@ describe("rule no-implicit-close", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "no-implicit-close": "error" },
 		});
 	});

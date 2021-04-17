@@ -6,6 +6,7 @@ describe("rule element-permitted-content", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "element-permitted-content": "error" },
 		});
 	});

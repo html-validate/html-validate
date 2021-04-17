@@ -6,6 +6,7 @@ describe("rule class-pattern", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "class-pattern": "error" },
 		});
 	});

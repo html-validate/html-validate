@@ -9,6 +9,7 @@ describe("rule element-name", () => {
 	describe("configured with default pattern", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "element-name": "error" },
 			});
 		});
@@ -55,6 +56,7 @@ describe("rule element-name", () => {
 	describe("configured with custom pattern", () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "element-name": ["error", { pattern: "^foo-\\w+$" }] },
 			});
 		});
@@ -103,6 +105,7 @@ describe("rule element-name", () => {
 	it("should report error when using blacklisted element", () => {
 		expect.assertions(2);
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "element-name": ["error", { blacklist: ["foo-bar"] }] },
 		});
 		const report = htmlvalidate.validateString("<foo-bar></foo-bar>");
@@ -113,6 +116,7 @@ describe("rule element-name", () => {
 	it("should contain documentation", () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
+			root: true,
 			rules: { "element-name": "error" },
 		});
 		expect(htmlvalidate.getRuleDocumentation("element-name")).toMatchSnapshot();
@@ -122,6 +126,7 @@ describe("rule element-name", () => {
 		it("blacklisted element", () => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "element-name": "error" },
 			});
 			const context = {
@@ -135,6 +140,7 @@ describe("rule element-name", () => {
 		it("element not matching default pattern", () => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "element-name": "error" },
 			});
 			const context = {
@@ -148,6 +154,7 @@ describe("rule element-name", () => {
 		it("element not matching custom pattern", () => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
+				root: true,
 				rules: { "element-name": "error" },
 			});
 			const context = {
