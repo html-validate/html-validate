@@ -7,7 +7,8 @@ import { MetaTable } from "../meta";
 import { Parser, ParserError } from "../parser";
 import { Reporter } from "../reporter";
 import { Rule } from "../rule";
-import { ConfigReadyEvent, Event } from "../event";
+import { ConfigReadyEvent, Event, EventHandler } from "../event";
+import { Plugin } from "../plugin";
 import { Engine } from "./engine";
 
 function inline(source: string): Source {
@@ -429,6 +430,40 @@ describe("Engine", () => {
 			expect.assertions(1);
 			const docs = engine.getRuleDocumentation("missing-rule");
 			expect(docs).toBeNull();
+		});
+	});
+
+	describe("plugins", () => {
+		it("should call init callback if present", () => {
+			expect.assertions(1);
+
+			const plugin: Plugin = {
+				init: jest.fn(),
+			};
+
+			/* mock loading of plugins */
+			(config as any).plugins = [plugin];
+
+			const source = inline("");
+			const engine = new ExposedEngine(config.resolve(), config.get(), MockParser);
+			engine.lint([source]);
+			expect(plugin.init).toHaveBeenCalledWith();
+		});
+
+		it("should call setup callback if present", () => {
+			expect.assertions(1);
+
+			const plugin: Plugin = {
+				setup: jest.fn(),
+			};
+
+			/* mock loading of plugins */
+			(config as any).plugins = [plugin];
+
+			const source = inline("");
+			const engine = new ExposedEngine(config.resolve(), config.get(), MockParser);
+			engine.lint([source]);
+			expect(plugin.setup).toHaveBeenCalledWith(source, expect.any(EventHandler));
 		});
 	});
 

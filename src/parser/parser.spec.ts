@@ -887,6 +887,18 @@ describe("parser", () => {
 	});
 
 	describe("should parse", () => {
+		it("unicode bom", () => {
+			expect.assertions(3);
+			const dom = parser.parseHtml("\uFEFF<!DOCTYPE html>");
+			expect(events.shift()).toEqual(
+				expect.objectContaining({
+					event: "doctype",
+				})
+			);
+			expect(events.shift()).toBeUndefined();
+			expect(dom.doctype).toEqual("html");
+		});
+
 		it("doctype", () => {
 			expect.assertions(3);
 			const dom = parser.parseHtml("<!doctype foobar>");
@@ -904,18 +916,34 @@ describe("parser", () => {
 			expect(dom.doctype).toEqual("foobar");
 		});
 
-		it("conditional comment", () => {
-			expect.assertions(3);
-			parser.parseHtml("<!--[if IE 6]>foo<![endif]-->");
-			expect(events.shift()).toEqual({
-				event: "conditional",
-				condition: "if IE 6",
+		describe("conditional comment", () => {
+			it("downlevel hidden", () => {
+				expect.assertions(3);
+				parser.parseHtml("<!--[if IE 6]>foo<![endif]-->");
+				expect(events.shift()).toEqual({
+					event: "conditional",
+					condition: "if IE 6",
+				});
+				expect(events.shift()).toEqual({
+					event: "conditional",
+					condition: "endif",
+				});
+				expect(events.shift()).toBeUndefined();
 			});
-			expect(events.shift()).toEqual({
-				event: "conditional",
-				condition: "endif",
+
+			it("downlevel reveal", () => {
+				expect.assertions(3);
+				parser.parseHtml("<![if IE 6]>foo<![endif]>");
+				expect(events.shift()).toEqual({
+					event: "conditional",
+					condition: "if IE 6",
+				});
+				expect(events.shift()).toEqual({
+					event: "conditional",
+					condition: "endif",
+				});
+				expect(events.shift()).toBeUndefined();
 			});
-			expect(events.shift()).toBeUndefined();
 		});
 
 		it("foreign elements", () => {

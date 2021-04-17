@@ -123,6 +123,7 @@ export class MetaTable {
 				`Element metadata is not valid`,
 				obj,
 				this.schema,
+				/* istanbul ignore next: AJV sets .errors when validate returns false */
 				validate.errors ?? []
 			);
 		}

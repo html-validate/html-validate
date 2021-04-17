@@ -334,6 +334,8 @@ export class Parser {
 			}
 		} while (nested > 0);
 
+		/* istanbul ignore next: this should never happen because `consumeUntil`
+		 * would have thrown errors however typescript does not know that */
 		if (!startToken || !endToken) {
 			return;
 		}
