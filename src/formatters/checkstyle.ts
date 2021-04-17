@@ -9,8 +9,7 @@ const entities: { [key: string]: string } = {
 	"&": "&amp;",
 };
 
-function xmlescape(src: any): string {
-	if (src === null || src === undefined) return src;
+function xmlescape(src: string | number): string {
 	return src.toString().replace(/[><'"&]/g, (match: string) => {
 		return entities[match];
 	});
@@ -39,12 +38,12 @@ function checkstyleFormatter(results: Result[]): string {
 		output += `<file name="${xmlescape(result.filePath)}">`;
 
 		messages.forEach((message) => {
-			const ruleId = message.ruleId ? xmlescape(`htmlvalidate.rules.${message.ruleId}`) : "";
+			const ruleId = xmlescape(`htmlvalidate.rules.${message.ruleId}`);
 			output += [
 				`<error line="${xmlescape(message.line)}"`,
 				`column="${xmlescape(message.column)}"`,
 				`severity="${xmlescape(getMessageType(message))}"`,
-				`message="${xmlescape(message.message)}${message.ruleId ? ` (${message.ruleId})` : ""}"`,
+				`message="${xmlescape(message.message)} (${message.ruleId})"`,
 				`source="${ruleId}" />`,
 			].join(" ");
 		});
