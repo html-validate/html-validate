@@ -1,71 +1,29 @@
-import { Result } from "../reporter";
-import formatter from "./text";
+import { edgeCases, emptyMessages, emptyResult, missingSource, regular } from "./__fixtures__";
+import formatter from "./stylish";
 
 describe("text formatter", () => {
-	it("should generate plaintext", () => {
+	it("should generate output", () => {
 		expect.assertions(1);
-		const results: Result[] = [
-			{
-				filePath: "regular.html",
-				errorCount: 1,
-				warningCount: 1,
-				source: null,
-				messages: [
-					{
-						ruleId: "foo",
-						severity: 2,
-						message: "An error",
-						offset: 4,
-						line: 1,
-						column: 5,
-						size: 1,
-						selector: null,
-					},
-					{
-						ruleId: "bar",
-						severity: 1,
-						message: "A warning",
-						offset: 14,
-						line: 2,
-						column: 4,
-						size: 1,
-						selector: null,
-					},
-				],
-			},
-			{
-				filePath: "edge-cases.html",
-				errorCount: 1,
-				warningCount: 0,
-				source: null,
-				messages: [
-					{
-						ruleId: "baz",
-						severity: 2,
-						message: "Another error",
-						offset: 14,
-						line: 3,
-						column: 3,
-						size: 1,
-						selector: null,
-					},
-				],
-			},
-		];
-		expect(formatter(results)).toMatchSnapshot();
+		expect(formatter(regular)).toMatchSnapshot();
 	});
 
-	it("should empty result", () => {
+	it("should handle missing source", () => {
 		expect.assertions(1);
-		const results: Result[] = [];
-		expect(formatter(results)).toMatchSnapshot();
+		expect(formatter(missingSource)).toMatchSnapshot();
 	});
 
-	it("should empty messages", () => {
+	it("should handle edge cases", () => {
 		expect.assertions(1);
-		const results: Result[] = [
-			{ filePath: "empty.html", messages: [], errorCount: 0, warningCount: 0, source: null },
-		];
-		expect(formatter(results)).toMatchSnapshot();
+		expect(formatter(edgeCases)).toMatchSnapshot();
+	});
+
+	it("should handle empty result", () => {
+		expect.assertions(1);
+		expect(formatter(emptyResult)).toMatchSnapshot();
+	});
+
+	it("should handle empty messages", () => {
+		expect.assertions(1);
+		expect(formatter(emptyMessages)).toMatchSnapshot();
 	});
 });

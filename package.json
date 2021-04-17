@@ -34,6 +34,7 @@
     "!**/*.spec.d.ts",
     "!**/*.spec.js",
     "!**/*.spec.ts",
+    "!**/__fixtures__",
     "!**/__mocks__",
     "!dist/rules/**/*.d.ts"
   ],

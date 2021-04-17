@@ -1,4 +1,4 @@
-import { Result } from "../reporter";
+import { edgeCases, emptyMessages, emptyResult, missingSource, regular } from "./__fixtures__";
 
 /* force colors on when running stylish tests */
 const defaultColor = process.env.FORCE_COLOR;
@@ -9,76 +9,29 @@ import formatter from "./codeframe";
 /* restore color, need only to be set when importing library */
 process.env.FORCE_COLOR = defaultColor;
 
-const source = `<div id="foo"
-    class="bar"
-    name="baz">
-`;
-
 describe("codeframe formatter", () => {
-	it("should generate plaintext", () => {
+	it("should generate output", () => {
 		expect.assertions(1);
-		const results: Result[] = [
-			{
-				filePath: "regular.html",
-				errorCount: 1,
-				warningCount: 1,
-				messages: [
-					{
-						ruleId: "foo",
-						severity: 2,
-						message: "An error",
-						offset: 4,
-						line: 1,
-						column: 6,
-						size: 25,
-						selector: null,
-					},
-					{
-						ruleId: "bar",
-						severity: 1,
-						message: "A warning",
-						offset: 14,
-						line: 2,
-						column: 4,
-						size: 1,
-						selector: null,
-					},
-				],
-				source,
-			},
-			{
-				filePath: "edge-cases.html",
-				errorCount: 1,
-				warningCount: 0,
-				messages: [
-					{
-						ruleId: "baz",
-						severity: 2,
-						message: "Another error",
-						offset: 14,
-						line: 3,
-						column: 3,
-						size: 1,
-						selector: null,
-					},
-				],
-				source,
-			},
-		];
-		expect(formatter(results)).toMatchSnapshot();
+		expect(formatter(regular)).toMatchSnapshot();
 	});
 
-	it("should empty result", () => {
+	it("should handle missing source", () => {
 		expect.assertions(1);
-		const results: Result[] = [];
-		expect(formatter(results)).toMatchSnapshot();
+		expect(formatter(missingSource)).toMatchSnapshot();
 	});
 
-	it("should empty messages", () => {
+	it("should handle edge cases", () => {
 		expect.assertions(1);
-		const results: Result[] = [
-			{ filePath: "empty.html", messages: [], errorCount: 0, warningCount: 0, source: null },
-		];
-		expect(formatter(results)).toMatchSnapshot();
+		expect(formatter(edgeCases)).toMatchSnapshot();
+	});
+
+	it("should handle empty result", () => {
+		expect.assertions(1);
+		expect(formatter(emptyResult)).toMatchSnapshot();
+	});
+
+	it("should handle empty messages", () => {
+		expect.assertions(1);
+		expect(formatter(emptyMessages)).toMatchSnapshot();
 	});
 });

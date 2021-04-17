@@ -1,35 +1,60 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`codeframe formatter should empty messages 1`] = `""`;
-
-exports[`codeframe formatter should empty result 1`] = `""`;
-
-exports[`codeframe formatter should generate plaintext 1`] = `
-"<red>error</>: <bold>An error</> <dim>(foo)</> at <green>regular.html:1:6</>:
+exports[`codeframe formatter should generate output 1`] = `
+"<red>error</>: <bold>An error</> <dim>(foo)</> at <green>first.html:1:6</>:
 > 1 | <div id=\\"foo\\"
-    |      ^^^^^^^^
-> 2 |     class=\\"bar\\"
-    | ^^^^^^^^^^^^^^^
-  3 |     name=\\"baz\\">
-  4 |
-
-
-<yellow>warning</>: <bold>A warning</> <dim>(bar)</> at <green>regular.html:2:4</>:
-  1 | <div id=\\"foo\\"
-> 2 |     class=\\"bar\\"
-    |    ^
-  3 |     name=\\"baz\\">
-  4 |
-
-
-<red>error</>: <bold>Another error</> <dim>(baz)</> at <green>edge-cases.html:3:3</>:
-  1 | <div id=\\"foo\\"
+    |      ^^
   2 |     class=\\"bar\\"
-> 3 |     name=\\"baz\\">
-    |   ^
+  3 |     name=\\"baz\\">
   4 |
+
+
+<yellow>warning</>: <bold>A warning</> <dim>(bar)</> at <green>first.html:2:5</>:
+  1 | <div id=\\"foo\\"
+> 2 |     class=\\"bar\\"
+    |     ^^^^^
+  3 |     name=\\"baz\\">
+  4 |
+
+
+<red>error</>: <bold>Lorem ipsum is not allowed</> <dim>(no-lorem-ipsum)</> at <green>second.html:1:4</>:
+> 1 | <p>lorem ipsum</p>
+    |    ^^^^^^^^^^^
+  2 |
 
 
 <red><bold>2 errors and 1 warning found.</></>
+"
+`;
+
+exports[`codeframe formatter should handle edge cases 1`] = `
+"<yellow>warning</>: <bold>Has invalid severity</> <dim>(invalid-severity)</> at <green>edge-cases.html:1:1</>:
+> 1 | <p>lorem ipsum</p>
+    | ^
+  2 |
+
+
+<red>error</>: <bold>Escape <script language=\\"jabbascript\\"> & <span id='foo'></> <dim>(special-characters)</> at <green>edge-cases.html:2:2</>:
+  1 | <p>lorem ipsum</p>
+> 2 |
+    | ^
+
+
+<red><bold>1 error and 1 warning found.</></>
+"
+`;
+
+exports[`codeframe formatter should handle empty messages 1`] = `""`;
+
+exports[`codeframe formatter should handle empty result 1`] = `""`;
+
+exports[`codeframe formatter should handle missing source 1`] = `
+"<red>error</>: <bold>An error</> <dim>(foo)</> at <green>missing-source.html:1:6</>
+
+
+<yellow>warning</>: <bold>A warning</> <dim>(bar)</> at <green>missing-source.html:2:5</>
+
+
+<red><bold>2 errors found.</></>
 "
 `;
