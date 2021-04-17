@@ -29,16 +29,17 @@ function getMessageType(message: Message): "error" | "warning" {
 function checkstyleFormatter(results: Result[]): string {
 	let output = "";
 
-	output += `<?xml version="1.0" encoding="utf-8"?>`;
-	output += `<checkstyle version="4.3">`;
+	output += `<?xml version="1.0" encoding="utf-8"?>\n`;
+	output += `<checkstyle version="4.3">\n`;
 
 	results.forEach((result) => {
 		const messages = result.messages;
 
-		output += `<file name="${xmlescape(result.filePath)}">`;
+		output += `  <file name="${xmlescape(result.filePath)}">\n`;
 
 		messages.forEach((message) => {
 			const ruleId = xmlescape(`htmlvalidate.rules.${message.ruleId}`);
+			output += "    ";
 			output += [
 				`<error line="${xmlescape(message.line)}"`,
 				`column="${xmlescape(message.column)}"`,
@@ -46,12 +47,13 @@ function checkstyleFormatter(results: Result[]): string {
 				`message="${xmlescape(message.message)} (${message.ruleId})"`,
 				`source="${ruleId}" />`,
 			].join(" ");
+			output += "\n";
 		});
 
-		output += "</file>";
+		output += "  </file>\n";
 	});
 
-	output += "</checkstyle>";
+	output += "</checkstyle>\n";
 
 	return output;
 }
