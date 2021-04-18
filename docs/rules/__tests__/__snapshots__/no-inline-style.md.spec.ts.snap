@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`docs/rules/no-inline-style.md inline validation: allowed-properties 1`] = `Array []`;
+
 exports[`docs/rules/no-inline-style.md inline validation: correct 1`] = `Array []`;
 
 exports[`docs/rules/no-inline-style.md inline validation: incorrect 1`] = `
@@ -18,7 +20,7 @@ Array [
         "ruleUrl": "https://html-validate.org/rules/no-inline-style.html",
         "selector": "p",
         "severity": 2,
-        "size": 5,
+        "size": 18,
       },
     ],
     "source": "<p style=\\"color: red\\"></p>",

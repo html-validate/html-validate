@@ -87,7 +87,7 @@ export interface ElementReadyEvent extends Event {
  * Event emitted when attributes are encountered.
  */
 export interface AttributeEvent extends Event {
-	/** Event location. */
+	/** Location of the full attribute (key, quotes and value) */
 	location: Location;
 
 	/** Attribute name. */
@@ -105,6 +105,9 @@ export interface AttributeEvent extends Event {
 
 	/** HTML element this attribute belongs to. */
 	target: HtmlElement;
+
+	/** Location of the attribute key */
+	keyLocation: Location;
 
 	/** Location of the attribute value */
 	valueLocation: Location | null;

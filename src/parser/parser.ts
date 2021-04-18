@@ -348,8 +348,9 @@ export class Parser {
 	}
 
 	protected consumeAttribute(source: Source, node: HtmlElement, token: Token, next?: Token): void {
-		const keyLocation = token.location;
+		const keyLocation = this.getAttributeKeyLocation(token);
 		const valueLocation = this.getAttributeValueLocation(next);
+		const location = this.getAttributeLocation(token, next);
 		const haveValue = next && next.type === TokenType.ATTR_VALUE;
 		const attrData: AttributeData = {
 			key: token.data[1],
@@ -391,12 +392,20 @@ export class Parser {
 				value: attr.value,
 				quote: attr.quote,
 				originalAttribute: attr.originalAttribute,
-				location: keyLocation,
+				location,
+				keyLocation,
 				valueLocation,
 			};
 			this.trigger("attr", event);
 			node.setAttribute(attr.key, attr.value, keyLocation, valueLocation, attr.originalAttribute);
 		}
+	}
+
+	/**
+	 * Takes attribute key token an returns location.
+	 */
+	private getAttributeKeyLocation(token: Token): Location {
+		return token.location;
 	}
 
 	/**
@@ -416,6 +425,22 @@ export class Parser {
 		} else {
 			return sliceLocation(token.location, 1);
 		}
+	}
+
+	/**
+	 * Take attribute key and value token an returns a new location referring to
+	 * an aggregate location covering key, quotes if present and value.
+	 */
+	private getAttributeLocation(key: Token, value?: Token): Location {
+		const begin = key.location;
+		const end = value && value.type === TokenType.ATTR_VALUE ? value.location : undefined;
+		return {
+			filename: begin.filename,
+			line: begin.line,
+			column: begin.column,
+			size: begin.size + (end?.size ?? 0),
+			offset: begin.offset,
+		};
 	}
 
 	protected consumeDirective(token: Token): void {

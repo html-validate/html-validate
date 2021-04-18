@@ -11,8 +11,10 @@ import { Parser } from "./parser";
 function mergeEvent(event: string, data: any): any {
 	const merged = { event, ...data };
 
-	/* not useful for these tests */
-	delete merged.location;
+	/* legacy: not useful for these tests */
+	if (event !== "attr") {
+		delete merged.location;
+	}
 
 	/* change HtmlElement instances to just tagname for easier testing */
 	for (const key of ["target", "previous"]) {
@@ -235,9 +237,20 @@ describe("parser", () => {
 				value: "bar",
 				quote: '"',
 				target: "div",
+				location: expect.objectContaining({
+					line: 2,
+					column: 1,
+					size: 9,
+				}),
+				keyLocation: expect.objectContaining({
+					line: 2,
+					column: 1,
+					size: 3,
+				}),
 				valueLocation: expect.objectContaining({
 					line: 2,
 					column: 6,
+					size: 3,
 				}),
 			});
 			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
@@ -263,9 +276,20 @@ describe("parser", () => {
 				value: "bar",
 				quote: '"',
 				target: "div",
+				location: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 9,
+				}),
+				keyLocation: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 3,
+				}),
 				valueLocation: expect.objectContaining({
 					line: 1,
 					column: 11,
+					size: 3,
 				}),
 			});
 			expect(events.shift()).toEqual({
@@ -274,9 +298,20 @@ describe("parser", () => {
 				value: "ham",
 				quote: '"',
 				target: "div",
+				location: expect.objectContaining({
+					line: 2,
+					column: 1,
+					size: 10,
+				}),
+				keyLocation: expect.objectContaining({
+					line: 2,
+					column: 1,
+					size: 4,
+				}),
 				valueLocation: expect.objectContaining({
 					line: 2,
 					column: 7,
+					size: 3,
 				}),
 			});
 			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
@@ -345,9 +380,20 @@ describe("parser", () => {
 				value: "bar",
 				quote: null,
 				target: "div",
+				location: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 7,
+				}),
+				keyLocation: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 3,
+				}),
 				valueLocation: expect.objectContaining({
 					line: 1,
 					column: 10,
+					size: 3,
 				}),
 			});
 			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
@@ -373,9 +419,20 @@ describe("parser", () => {
 				value: "bar",
 				quote: "'",
 				target: "div",
+				location: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 9,
+				}),
+				keyLocation: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 3,
+				}),
 				valueLocation: expect.objectContaining({
 					line: 1,
 					column: 11,
+					size: 3,
 				}),
 			});
 			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
@@ -401,9 +458,20 @@ describe("parser", () => {
 				value: "bar",
 				quote: '"',
 				target: "div",
+				location: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 9,
+				}),
+				keyLocation: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 3,
+				}),
 				valueLocation: expect.objectContaining({
 					line: 1,
 					column: 11,
+					size: 3,
 				}),
 			});
 			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
@@ -421,7 +489,7 @@ describe("parser", () => {
 
 		it("with nested quotes", () => {
 			expect.assertions(7);
-			parser.parseHtml("<div foo='\"foo\"' bar=\"'foo'\"></div>");
+			parser.parseHtml(`<div foo='"foo"' bar="'foo'"></div>`);
 			expect(events.shift()).toEqual({ event: "tag:start", target: "div" });
 			expect(events.shift()).toEqual({
 				event: "attr",
@@ -429,9 +497,20 @@ describe("parser", () => {
 				value: '"foo"',
 				quote: "'",
 				target: "div",
+				location: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 11,
+				}),
+				keyLocation: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 3,
+				}),
 				valueLocation: expect.objectContaining({
 					line: 1,
 					column: 11,
+					size: 5,
 				}),
 			});
 			expect(events.shift()).toEqual({
@@ -440,9 +519,20 @@ describe("parser", () => {
 				value: "'foo'",
 				quote: '"',
 				target: "div",
+				location: expect.objectContaining({
+					line: 1,
+					column: 18,
+					size: 11,
+				}),
+				keyLocation: expect.objectContaining({
+					line: 1,
+					column: 18,
+					size: 3,
+				}),
 				valueLocation: expect.objectContaining({
 					line: 1,
 					column: 23,
+					size: 5,
 				}),
 			});
 			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
@@ -468,6 +558,16 @@ describe("parser", () => {
 				value: null,
 				quote: null,
 				target: "div",
+				location: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 3,
+				}),
+				keyLocation: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 3,
+				}),
 				valueLocation: null,
 			});
 			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
@@ -485,7 +585,7 @@ describe("parser", () => {
 
 		it("with empty value", () => {
 			expect.assertions(7);
-			parser.parseHtml("<div foo=\"\" bar=''></div>");
+			parser.parseHtml(`<div foo="" bar=''></div>`);
 			expect(events.shift()).toEqual({ event: "tag:start", target: "div" });
 			expect(events.shift()).toEqual({
 				event: "attr",
@@ -493,6 +593,16 @@ describe("parser", () => {
 				value: "",
 				quote: '"',
 				target: "div",
+				location: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 6,
+				}),
+				keyLocation: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 3,
+				}),
 				valueLocation: null,
 			});
 			expect(events.shift()).toEqual({
@@ -501,6 +611,16 @@ describe("parser", () => {
 				value: "",
 				quote: "'",
 				target: "div",
+				location: expect.objectContaining({
+					line: 1,
+					column: 13,
+					size: 6,
+				}),
+				keyLocation: expect.objectContaining({
+					line: 1,
+					column: 13,
+					size: 3,
+				}),
 				valueLocation: null,
 			});
 			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
@@ -526,6 +646,16 @@ describe("parser", () => {
 				value: null,
 				quote: null,
 				target: "div",
+				location: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 11,
+				}),
+				keyLocation: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 11,
+				}),
 				valueLocation: null,
 			});
 			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
@@ -551,9 +681,20 @@ describe("parser", () => {
 				value: "foo bar baz",
 				quote: '"',
 				target: "div",
+				location: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 19,
+				}),
+				keyLocation: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 5,
+				}),
 				valueLocation: expect.objectContaining({
 					line: 1,
 					column: 13,
+					size: 11,
 				}),
 			});
 			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
@@ -579,9 +720,20 @@ describe("parser", () => {
 				value: "foo",
 				quote: '"',
 				target: "div",
+				location: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 12,
+				}),
+				keyLocation: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 6,
+				}),
 				valueLocation: expect.objectContaining({
 					line: 1,
 					column: 14,
+					size: 3,
 				}),
 			});
 			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
@@ -607,9 +759,20 @@ describe("parser", () => {
 				value: "bar",
 				quote: '"',
 				target: "div",
+				location: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 9,
+				}),
+				keyLocation: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 3,
+				}),
 				valueLocation: expect.objectContaining({
 					line: 1,
 					column: 11,
+					size: 3,
 				}),
 			});
 			expect(events.shift()).toEqual({
@@ -618,9 +781,20 @@ describe("parser", () => {
 				value: "ham",
 				quote: '"',
 				target: "div",
+				location: expect.objectContaining({
+					line: 1,
+					column: 16,
+					size: 10,
+				}),
+				keyLocation: expect.objectContaining({
+					line: 1,
+					column: 16,
+					size: 4,
+				}),
 				valueLocation: expect.objectContaining({
 					line: 1,
 					column: 22,
+					size: 3,
 				}),
 			});
 			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
@@ -646,9 +820,20 @@ describe("parser", () => {
 				value: "text",
 				quote: '"',
 				target: "input",
+				location: expect.objectContaining({
+					line: 1,
+					column: 8,
+					size: 11,
+				}),
+				keyLocation: expect.objectContaining({
+					line: 1,
+					column: 8,
+					size: 4,
+				}),
 				valueLocation: expect.objectContaining({
 					line: 1,
 					column: 14,
+					size: 4,
 				}),
 			});
 			expect(events.shift()).toEqual({ event: "tag:ready", target: "input" });
@@ -674,9 +859,20 @@ describe("parser", () => {
 				value: "baz",
 				quote: '"',
 				target: "div",
+				location: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 13,
+				}),
+				keyLocation: expect.objectContaining({
+					line: 1,
+					column: 6,
+					size: 7,
+				}),
 				valueLocation: expect.objectContaining({
 					line: 1,
 					column: 15,
+					size: 3,
 				}),
 			});
 			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
@@ -1057,6 +1253,16 @@ describe("parser", () => {
 				value: "foo",
 				quote: '"',
 				target: "input",
+				location: expect.objectContaining({
+					line: 1,
+					column: 8,
+					size: 8,
+				}),
+				keyLocation: expect.objectContaining({
+					line: 1,
+					column: 8,
+					size: 2,
+				}),
 				valueLocation: expect.objectContaining({
 					line: 1,
 					column: 12,
@@ -1069,6 +1275,16 @@ describe("parser", () => {
 				quote: '"',
 				originalAttribute: "id",
 				target: "input",
+				location: expect.objectContaining({
+					line: 1,
+					column: 8,
+					size: 8,
+				}),
+				keyLocation: expect.objectContaining({
+					line: 1,
+					column: 8,
+					size: 2,
+				}),
 				valueLocation: expect.objectContaining({
 					line: 1,
 					column: 12,
@@ -1112,9 +1328,20 @@ describe("parser", () => {
 				value: "barney",
 				quote: '"',
 				target: "input",
+				location: expect.objectContaining({
+					line: 1,
+					column: 8,
+					size: 8,
+				}),
+				keyLocation: expect.objectContaining({
+					line: 1,
+					column: 8,
+					size: 2,
+				}),
 				valueLocation: expect.objectContaining({
 					line: 1,
 					column: 12,
+					size: 3,
 				}),
 			});
 			expect(events.shift()).toEqual({ event: "tag:ready", target: "input" });

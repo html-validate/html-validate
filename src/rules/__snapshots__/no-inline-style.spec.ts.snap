@@ -2,7 +2,13 @@
 
 exports[`rule no-inline-style should contain documentation 1`] = `
 Object {
-  "description": "Inline style is a sign of unstructured CSS. Use class or ID with a separate stylesheet.",
+  "description": "Inline style is not allowed.
+
+Inline style is a sign of unstructured CSS. Use class or ID with a separate stylesheet.
+
+Under the current configuration the following CSS properties are allowed:
+
+- \`display\`",
   "url": "https://html-validate.org/rules/no-inline-style.html",
 }
 `;
@@ -23,7 +29,7 @@ Array [
         "ruleUrl": "https://html-validate.org/rules/no-inline-style.html",
         "selector": "p",
         "severity": 2,
-        "size": 5,
+        "size": 18,
       },
     ],
     "source": "<p style=\\"color: red\\"></p>
