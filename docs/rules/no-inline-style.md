@@ -7,8 +7,8 @@ summary: Disallow inline style
 
 # Disallow inline style (`no-inline-style`)
 
-Inline style is a sign of unstructured CSS. Use class or ID with a separate
-stylesheet.
+Inline style is a sign of unstructured CSS.
+Use class or ID with a separate stylesheet.
 
 ## Rule details
 
@@ -28,10 +28,11 @@ Examples of **correct** code for this rule:
 
 This rule takes an optional object:
 
-```javascript
+```json
 {
-	"include": []
-	"exclude": []
+  "include": [],
+  "exclude": [],
+  "allowedProperties": ["display"]
 }
 ```
 
@@ -51,3 +52,14 @@ If set only attributes listed in this array generates errors.
 ### `exclude`
 
 If set attributes listed in this array is ignored.
+
+### `allowedProperties`
+
+List of CSS properties to ignore.
+If the `style` attribute contains only the properties listed no error will be yielded.
+
+By default `display` is allowed.
+
+<validate name="allowed-properties" rules="no-inline-style">
+    <p style="display: none"></p>
+</validate>

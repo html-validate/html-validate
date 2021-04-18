@@ -13,9 +13,15 @@ describe("rule no-inline-style", () => {
 			});
 		});
 
+		it("should not report when style attribute sets display property", () => {
+			expect.assertions(1);
+			const report = htmlvalidate.validateString('<p style="display: none"></p>');
+			expect(report).toBeValid();
+		});
+
 		it("should report when style attribute is used", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<p style=""></p>');
+			const report = htmlvalidate.validateString('<p style="color: red; background: green"></p>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
 		});
@@ -75,6 +81,83 @@ describe("rule no-inline-style", () => {
 			});
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+		});
+	});
+
+	describe("allowedProperties", () => {
+		it("should not report when style attribute contains only allowed properties", () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "no-inline-style": ["error", { allowedProperties: ["color", "background"] }] },
+			});
+			const report = htmlvalidate.validateString('<p style="color: red; background: green;"></p>');
+			expect(report).toBeValid();
+		});
+
+		it("should report when one or more properties are now allowed", () => {
+			expect.assertions(2);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "no-inline-style": ["error", { allowedProperties: ["color"] }] },
+			});
+			const report = htmlvalidate.validateString('<p style="color: red; background: green;"></p>');
+			expect(report).toBeInvalid();
+			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+		});
+
+		it("should handle when allowed properties is empty", () => {
+			expect.assertions(2);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "no-inline-style": ["error", { allowedProperties: [] }] },
+			});
+			const report = htmlvalidate.validateString('<p style="color: red; background: green;"></p>');
+			expect(report).toBeInvalid();
+			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+		});
+
+		it("should handle missing value", () => {
+			expect.assertions(2);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "no-inline-style": ["error", { allowedProperties: ["color"] }] },
+			});
+			const report = htmlvalidate.validateString("<p style></p>");
+			expect(report).toBeInvalid();
+			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+		});
+
+		it("should handle empty value", () => {
+			expect.assertions(2);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "no-inline-style": ["error", { allowedProperties: ["color"] }] },
+			});
+			const report = htmlvalidate.validateString('<p style=""></p>');
+			expect(report).toBeInvalid();
+			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+		});
+
+		it("should handle malformed declaration", () => {
+			expect.assertions(2);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "no-inline-style": ["error", { allowedProperties: [] }] },
+			});
+			const report = htmlvalidate.validateString('<p style="color"></p>');
+			expect(report).toBeInvalid();
+			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+		});
+
+		it("should handle trailing semicolon", () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "no-inline-style": ["error", { allowedProperties: ["color"] }] },
+			});
+			const report = htmlvalidate.validateString('<p style="color: red;"></p>');
+			expect(report).toBeValid();
 		});
 	});
 
