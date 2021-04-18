@@ -169,6 +169,40 @@ describe("HtmlElement", () => {
 		expect(el.id).toBeNull();
 	});
 
+	describe("{first,last}ChildElement", () => {
+		let root: HtmlElement;
+		let a: HtmlElement;
+		let b: HtmlElement;
+		let c: HtmlElement;
+
+		beforeAll(() => {
+			root = new HtmlElement("root", null, NodeClosed.EndTag, null, location);
+			a = new HtmlElement("a", root, NodeClosed.EndTag, null, location);
+			b = new HtmlElement("b", root, NodeClosed.EndTag, null, location);
+			c = new HtmlElement("c", root, NodeClosed.EndTag, null, location);
+		});
+
+		it("firstElementChild should return first child element", () => {
+			expect.assertions(1);
+			expect(root.firstElementChild).toEqual(a);
+		});
+
+		it("firstElementChild should return null if there are no child elements", () => {
+			expect.assertions(1);
+			expect(b.firstElementChild).toBeNull();
+		});
+
+		it("lastElementChild should return last child element", () => {
+			expect.assertions(1);
+			expect(root.lastElementChild).toEqual(c);
+		});
+
+		it("lastElementChild should return null if there are no child elements", () => {
+			expect.assertions(1);
+			expect(b.lastElementChild).toBeNull();
+		});
+	});
+
 	it("previousSibling should return node before this node", () => {
 		expect.assertions(3);
 		const root = new HtmlElement("root", null, NodeClosed.EndTag, null, location);

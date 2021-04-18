@@ -17,6 +17,10 @@ export enum NodeClosed {
 	ImplicitClosed = 4, //  element with optional end tag <li>foo<li>bar
 }
 
+function isElement(node: DOMNode): node is HtmlElement {
+	return node.nodeType === NodeType.ELEMENT_NODE;
+}
+
 export class HtmlElement extends DOMNode {
 	public readonly tagName: string;
 	public readonly parent: HtmlElement | null;
@@ -100,9 +104,7 @@ export class HtmlElement extends DOMNode {
 	 * Similar to childNodes but only elements.
 	 */
 	public get childElements(): HtmlElement[] {
-		return this.childNodes.filter(
-			(node) => node.nodeType === NodeType.ELEMENT_NODE
-		) as HtmlElement[];
+		return this.childNodes.filter(isElement);
 	}
 
 	/**
@@ -379,6 +381,22 @@ export class HtmlElement extends DOMNode {
 	 */
 	public get id(): string | null {
 		return this.getAttributeValue("id");
+	}
+
+	/**
+	 * Returns the first child element or null if there are no child elements.
+	 */
+	public get firstElementChild(): HtmlElement | null {
+		const children = this.childElements;
+		return children.length > 0 ? children[0] : null;
+	}
+
+	/**
+	 * Returns the last child element or null if there are no child elements.
+	 */
+	public get lastElementChild(): HtmlElement | null {
+		const children = this.childElements;
+		return children.length > 0 ? children[children.length - 1] : null;
 	}
 
 	public get siblings(): HtmlElement[] {
