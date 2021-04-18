@@ -381,6 +381,22 @@ export class HtmlElement extends DOMNode {
 		return this.getAttributeValue("id");
 	}
 
+	/**
+	 * Returns the first child element or null if there are no child elements.
+	 */
+	public get firstElementChild(): HtmlElement | null {
+		const children = this.childElements;
+		return children.length > 0 ? children[0] : null;
+	}
+
+	/**
+	 * Returns the last child element or null if there are no child elements.
+	 */
+	public get lastElementChild(): HtmlElement | null {
+		const children = this.childElements;
+		return children.length > 0 ? children[children.length - 1] : null;
+	}
+
 	public get siblings(): HtmlElement[] {
 		return this.parent ? this.parent.childElements : [this];
 	}
