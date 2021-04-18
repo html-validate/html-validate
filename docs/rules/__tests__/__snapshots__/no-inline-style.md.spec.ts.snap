@@ -20,7 +20,7 @@ Array [
         "ruleUrl": "https://html-validate.org/rules/no-inline-style.html",
         "selector": "p",
         "severity": 2,
-        "size": 5,
+        "size": 18,
       },
     ],
     "source": "<p style=\\"color: red\\"></p>",

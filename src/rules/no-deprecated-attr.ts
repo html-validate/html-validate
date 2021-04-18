@@ -22,7 +22,11 @@ export default class NoDeprecatedAttr extends Rule {
 
 			const deprecated = meta.deprecatedAttributes || [];
 			if (deprecated.includes(attr)) {
-				this.report(node, `Attribute "${event.key}" is deprecated on <${node.tagName}> element`);
+				this.report(
+					node,
+					`Attribute "${event.key}" is deprecated on <${node.tagName}> element`,
+					event.keyLocation
+				);
 			}
 		});
 	}

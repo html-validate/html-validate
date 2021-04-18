@@ -18,7 +18,7 @@ Array [
         "ruleUrl": "https://html-validate.org/rules/attr-quotes.html",
         "selector": "p",
         "severity": 2,
-        "size": 5,
+        "size": 11,
       },
     ],
     "source": "<p class='foo'></p>",
