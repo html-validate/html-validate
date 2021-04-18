@@ -4,7 +4,7 @@ name: no-conditional-comment
 summary: Disallow usage of conditional comments
 ---
 
-# disallow usage of conditional comments (`no-conditional-comment`)
+# Disallow usage of conditional comments (`no-conditional-comment`)
 
 Microsoft Internet Explorer previously supported using special HTML comments
 ([conditional comments][1]) for targeting specific versions of IE but since IE

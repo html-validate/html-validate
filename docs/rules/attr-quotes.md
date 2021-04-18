@@ -5,7 +5,7 @@ category: style
 summary: Require attribute quoting
 ---
 
-# requires a specific style of attribute quoting (`attr-quotes`)
+# Requires a specific style of attribute quoting (`attr-quotes`)
 
 HTML allows different styles for quoting attributes:
 

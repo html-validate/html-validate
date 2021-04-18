@@ -4,7 +4,7 @@ name: deprecated
 summary: Disallow usage of deprecated elements
 ---
 
-# disallows usage of deprecated elements (`deprecated`)
+# Disallows usage of deprecated elements (`deprecated`)
 
 HTML5 deprecated many old elements.
 

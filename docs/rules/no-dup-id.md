@@ -4,7 +4,7 @@ name: no-dup-id
 summary: Disallow duplicated IDs
 ---
 
-# disallows elements width duplicated ID (`no-dup-id`)
+# Disallows elements width duplicated ID (`no-dup-id`)
 
 The ID of an element [must be unique](https://www.w3.org/TR/html5/dom.html#the-id-attribute).
 

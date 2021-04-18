@@ -4,7 +4,7 @@ name: no-deprecated-attr
 summary: Disallow usage of deprecated attributes
 ---
 
-# disallows usage of deprecated attributes (`no-deprecated-attr`)
+# Disallows usage of deprecated attributes (`no-deprecated-attr`)
 
 HTML5 deprecated many old attributes.
 

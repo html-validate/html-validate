@@ -5,7 +5,7 @@ category: content-model
 summary: Validate permitted number of occurrences from content model
 ---
 
-# verify element content model (`element-permitted-occurrences`)
+# Validate element content model (`element-permitted-occurrences`)
 
 Some elements may only be used a fixed amount of times in given context.
 

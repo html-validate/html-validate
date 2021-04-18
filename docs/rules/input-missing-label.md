@@ -5,7 +5,7 @@ category: a17y
 summary: Require input to have label
 ---
 
-# require input elements to have a label (`input-missing-label`)
+# Require input elements to have a label (`input-missing-label`)
 
 All input elements must have an associated label.
 

@@ -5,7 +5,7 @@ category: a17y
 summary: Require title to have textual content
 ---
 
-# require title to have textual content (`empty-title`)
+# Require title to have textual content (`empty-title`)
 
 The `<title>` element is used to describe the document and is shown in the
 browser tab and titlebar. The content cannot be whitespace only.

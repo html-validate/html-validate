@@ -4,7 +4,7 @@ name: element-name
 summary: Disallow invalid element names
 ---
 
-# disallow invalid element names (`element-name`)
+# Disallow invalid element names (`element-name`)
 
 HTML defines what content is considered a valid (custom) [element
 name](https://www.w3.org/TR/custom-elements/#valid-custom-element-name), essentially:

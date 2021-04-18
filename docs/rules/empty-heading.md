@@ -5,7 +5,7 @@ category: a17y
 summary: Require headings to have textual content
 ---
 
-# require headings to have textual content (`empty-heading`)
+# Require headings to have textual content (`empty-heading`)
 
 Assistive technology such as screen readers require textual content in
 headings. The content cannot be whitespace only.

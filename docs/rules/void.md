@@ -5,7 +5,7 @@ category: style
 summary: Disallow void element with content
 ---
 
-# disallows void element with content (`void`)
+# Disallows void element with content (`void`)
 
 HTML [void elements](https://www.w3.org/TR/html5/syntax.html#void-elements)
 cannot have any content and must not have an end tag.

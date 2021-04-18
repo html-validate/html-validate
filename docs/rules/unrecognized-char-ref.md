@@ -4,7 +4,7 @@ name: unrecognized-char-ref
 summary: Disallow unrecognized character references
 ---
 
-# disallow unrecognized character references (`unrecognized-char-ref`)
+# Disallow unrecognized character references (`unrecognized-char-ref`)
 
 HTML defines a set of [named character references][charref] (sometimes called
 HTML entities) which can be used as `&name;` where `name` is the entity name,

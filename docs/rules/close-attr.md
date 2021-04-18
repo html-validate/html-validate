@@ -4,7 +4,7 @@ name: close-attr
 summary: Disallow end tags from having attributes
 ---
 
-# disallows end tags with attributes (`close-attr`)
+# Disallows end tags with attributes (`close-attr`)
 
 HTML disallows end tags to have attributes.
 

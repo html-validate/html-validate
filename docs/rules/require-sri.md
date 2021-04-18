@@ -4,7 +4,7 @@ name: require-sri
 summary: Require SRI for resources
 ---
 
-# require SRI for resources (`require-sri`)
+# Require SRI for resources (`require-sri`)
 
 Subresource Integrity (SRI) is a security feature that enables browsers to
 verify that resources they fetch are delivered without unexpected manipulation.

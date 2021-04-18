@@ -4,7 +4,7 @@ name: meta-refresh
 summary: Require meta refresh to have 0 second delay
 ---
 
-# require meta refresh to have 0 second delay (`meta-refresh`)
+# Require meta refresh to have 0 second delay (`meta-refresh`)
 
 The `<meta http-equiv="refresh" content="..">` directive can be used to refresh
 or redirect the page. For users with assistive technology a forced refresh or

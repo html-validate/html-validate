@@ -5,7 +5,7 @@ category: content-model
 summary: Validate required order from content model
 ---
 
-# verify element content model (`element-permitted-order`)
+# Validate element content model (`element-permitted-order`)
 
 Some elements has a specific order the children must use.
 

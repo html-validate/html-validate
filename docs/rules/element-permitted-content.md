@@ -5,7 +5,7 @@ category: content-model
 summary: Validate permitted content from content model
 ---
 
-# verify element content model (`element-permitted-content`)
+# Validate element content model (`element-permitted-content`)
 
 HTML defines what content is allowed under each type of element.
 

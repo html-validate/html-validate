@@ -75,11 +75,11 @@ Plugins may create [custom configuration presets](/dev/writing-plugins.html) by 
 }
 ```
 
-where severity can be one of:
+Severity can be one of:
 
-- `"error"` (or `2`) to give error.
-- `"warn"` (or `1`) to warn.
-- `"off"` (or `0`) to disable
+- `"error"` (or `2`) to report an error.
+- `"warn"` (or `1`) to report a warning.
+- `"off"` (or `0`) to disable the rule.
 
 Some options takes optional parameters when using the form `["severity", OPTIONS]`.
 
@@ -135,8 +135,8 @@ See [writing plugins](/dev/writing-plugins.html) for details about creating your
 
 ### `transform`
 
-Transform input files to extract HTML chunks, e.g. extract templates from
-javascript sources. See [transformers](/usage/transformers.html) for details.
+Transform input files to extract HTML chunks, e.g. extract templates from javascript sources.
+See [transformers](/usage/transformers.html) for details.
 
 ```js
 {
@@ -146,14 +146,12 @@ javascript sources. See [transformers](/usage/transformers.html) for details.
 }
 ```
 
-will transform `*.vue` with the `html-validate-vue` NPM package. Use a relative
-path to use a local script (use `<rootDir>` to refer to the path to
-`package.json`, e.g. `<rootDir>/my-transformer.js`).
+This will transform `*.vue` with the `html-validate-vue` NPM package.
+Use a relative path to use a local script (use `<rootDir>` to refer to the path to `package.json`, e.g. `<rootDir>/my-transformer.js`).
 
 ### `root`
 
-By default, configuration is search in the file structure until the root
-directory (typically `/`) is found:
+By default, configuration is search in the file structure until the root directory (typically `/`) is found:
 
 - `/home/user/project/src/.htmlvalidate.{js,json}`
 - `/home/user/project/.htmlvalidate.{js,json}`
@@ -173,7 +171,7 @@ For instance, if `/home/project/.htmlvalidate.json` contains:
 }
 ```
 
-only the following files would be searched:
+Only the following files would be searched:
 
 - `/home/user/project/src/.htmlvalidate.{js,json}`
 - `/home/user/project/.htmlvalidate.{js,json}`
@@ -188,8 +186,8 @@ Configuration can be changed inline using directive of the form:
 
     <!-- [html-validate-ACTION OPTIONS: COMMENT] -->
 
-where `ACTION` is an action such as `enable`, `disable` etc and `OPTIONS` is
-arguments to the action. Comment is optional but encouraged.
+`ACTION` is an action such as `enable`, `disable` etc and `OPTIONS` is arguments to the action.
+Comment is optional but encouraged.
 
 Multiple rules can be enabled/disabled at once by using a comma-separated list:
 

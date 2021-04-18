@@ -5,7 +5,7 @@ category: style
 summary: Require a specific case for attribute names
 ---
 
-# attribute name case (`attr-case`)
+# Attribute name case (`attr-case`)
 
 Requires a specific case for attribute names.
 
