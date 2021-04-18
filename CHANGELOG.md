@@ -1,5 +1,20 @@
 # html-validate changelog
 
+## [4.10.0](https://gitlab.com/html-validate/html-validate/compare/v4.9.0...v4.10.0) (2021-04-18)
+
+### Features
+
+- **dom:** implement {first,last}ElementChild accessors ([5e70aee](https://gitlab.com/html-validate/html-validate/commit/5e70aee128643dfcc01f1a8d1e894cc898ab0beb))
+- **formatters:** `stylish` and `codeframe` displays links to error descriptions ([86cf213](https://gitlab.com/html-validate/html-validate/commit/86cf2136d227fadb9aa3d5eeb2eebe222f7a150d)), closes [#113](https://gitlab.com/html-validate/html-validate/issues/113)
+- **formatters:** checkstyle output is indented ([e284fb7](https://gitlab.com/html-validate/html-validate/commit/e284fb72a551d99f92b3aaa3341a5749d9cfe2a5))
+- **parser:** add full location to `attr` event (key, quotes, value) ([931a39f](https://gitlab.com/html-validate/html-validate/commit/931a39f04b140f6d16b28fee03396c12ecd1b5a2))
+- **rules:** add rule url to `Message` ([6845fac](https://gitlab.com/html-validate/html-validate/commit/6845fac266c7748f679cbab94141db12319a822b))
+- **rules:** new option `allowedProperties` to `no-inline-style` (defaults to `display`) ([75aa5f0](https://gitlab.com/html-validate/html-validate/commit/75aa5f0f446b9a14711b1c8b8d44fd6fd7ff84a7))
+
+### Bug Fixes
+
+- **rules:** rule documentation url for rules in subdirectories ([c91c36d](https://gitlab.com/html-validate/html-validate/commit/c91c36d561a332f2389deb795f9248e5cc21bffd))
+
 ## [4.9.0](https://gitlab.com/html-validate/html-validate/compare/v4.8.0...v4.9.0) (2021-04-04)
 
 ### Features
