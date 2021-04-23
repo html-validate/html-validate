@@ -25,7 +25,7 @@ const MATCH_CDATA_BEGIN = /^<!\[CDATA\[/;
 const MATCH_CDATA_END = /^[^]*?]]>/;
 const MATCH_SCRIPT_DATA = /^[^]*?(?=<\/script)/;
 const MATCH_SCRIPT_END = /^<(\/)(script)/;
-const MATCH_DIRECTIVE = /^<!--\s\[html-validate-(.*?)]\s-->/;
+const MATCH_DIRECTIVE = /^<!--\s*\[html-validate-(.*?)]\s*-->/;
 const MATCH_COMMENT = /^<!--([^]*?)-->/;
 const MATCH_CONDITIONAL = /^<!\[([^\]]*?)\]>/;
 

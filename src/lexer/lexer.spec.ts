@@ -706,17 +706,59 @@ describe("lexer", () => {
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it("html-validate directive", () => {
-			expect.assertions(3);
-			const token = lexer.tokenize(
-				inlineSource("<!-- [html-validate-action options: comment] -->")
-			);
-			expect(token.next()).toBeToken({
-				type: TokenType.DIRECTIVE,
-				data: ["<!-- [html-validate-action options: comment] -->", "action options: comment"],
+		describe("html-validate directive", () => {
+			it("with comment", () => {
+				expect.assertions(3);
+				const token = lexer.tokenize(
+					inlineSource("<!-- [html-validate-action options: comment] -->")
+				);
+				expect(token.next()).toBeToken({
+					type: TokenType.DIRECTIVE,
+					data: ["<!-- [html-validate-action options: comment] -->", "action options: comment"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
 			});
-			expect(token.next()).toBeToken({ type: TokenType.EOF });
-			expect(token.next().done).toBeTruthy();
+
+			it("without comment", () => {
+				expect.assertions(3);
+				const token = lexer.tokenize(inlineSource("<!-- [html-validate-action options] -->"));
+				expect(token.next()).toBeToken({
+					type: TokenType.DIRECTIVE,
+					data: ["<!-- [html-validate-action options] -->", "action options"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
+			it("with excessive whitespace", () => {
+				expect.assertions(3);
+				const token = lexer.tokenize(
+					inlineSource("<!--   \t\n\t   [html-validate-action options: comment]   \t\n\t   -->")
+				);
+				expect(token.next()).toBeToken({
+					type: TokenType.DIRECTIVE,
+					data: [
+						"<!--   \t\n\t   [html-validate-action options: comment]   \t\n\t   -->",
+						"action options: comment",
+					],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
+			it("with no whitespace", () => {
+				expect.assertions(3);
+				const token = lexer.tokenize(
+					inlineSource("<!--[html-validate-action options: comment]-->")
+				);
+				expect(token.next()).toBeToken({
+					type: TokenType.DIRECTIVE,
+					data: ["<!--[html-validate-action options: comment]-->", "action options: comment"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
 		});
 
 		/* downlevel reveal is a non-standard "tag", handled separately */
