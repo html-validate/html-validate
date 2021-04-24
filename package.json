@@ -161,7 +161,7 @@
     "dgeni": "0.4.14",
     "dgeni-front-matter": "2.0.3",
     "dgeni-packages": "0.29.0",
-    "eslint": "7.24.0",
+    "eslint": "7.25.0",
     "eslint-plugin-security": "1.4.0",
     "eslint-plugin-sonarjs": "0.7.0",
     "font-awesome": "4.7.0",
