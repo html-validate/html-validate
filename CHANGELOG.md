@@ -1,5 +1,11 @@
 # html-validate changelog
 
+### [4.10.1](https://gitlab.com/html-validate/html-validate/compare/v4.10.0...v4.10.1) (2021-04-25)
+
+### Bug Fixes
+
+- handle directives with excessive whitespace ([0400563](https://gitlab.com/html-validate/html-validate/commit/040056356589b7caf6ae18ee59d11a2f25c9ea44))
+
 ## [4.10.0](https://gitlab.com/html-validate/html-validate/compare/v4.9.0...v4.10.0) (2021-04-18)
 
 ### Features
