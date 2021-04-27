@@ -1,10 +1,14 @@
 import fs from "fs";
 import path from "path";
 import Ajv, { SchemaObject } from "ajv";
-import stripAnsi from "strip-ansi";
 import { MetaElement } from "../meta/element";
 import { MetaTable } from "../meta/table";
 import { SchemaValidationError } from "./schema-validation-error";
+
+function stripAnsi(text: string): string {
+	/* eslint-disable-next-line no-control-regex */
+	return text.replace(/\u001B\[[0-9;]*m/g, "");
+}
 
 it("SchemaValidationError should pretty-print validation errors", () => {
 	expect.assertions(1);

@@ -4,7 +4,6 @@ jest.mock("./config/default", () => {
 	};
 });
 
-import stripAnsi = require("strip-ansi");
 import { Severity } from "./config";
 import { Token, TokenType } from "./lexer";
 import "./matchers";
@@ -13,6 +12,11 @@ import { Report, Reporter } from "./reporter";
 let reportOk: Report;
 let reportError: Report;
 let reportMultipleErrors: Report;
+
+function stripAnsi(text: string): string {
+	/* eslint-disable-next-line no-control-regex */
+	return text.replace(/\u001B\[[0-9;]*m/g, "");
+}
 
 beforeEach(() => {
 	const reporter = new Reporter();
