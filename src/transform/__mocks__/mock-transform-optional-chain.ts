@@ -3,7 +3,7 @@ import { Transformer, TransformContext, TRANSFORMER_API } from "..";
 
 /**
  * Mock transformer chaining to a new transformer by chopping of the current
- * extension. E.g. "my-file.bar.foo" -> "my-file.bar".
+ * extension. E.g. "my-file.bar.foo" to "my-file.bar".
  */
 function* mockTransformOptionalChain(this: TransformContext, source: Source): Iterable<Source> {
 	const next = source.filename.replace(/\.[^.]*$/, "");

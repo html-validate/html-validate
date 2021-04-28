@@ -47,10 +47,8 @@ export class Engine<T extends Parser = Parser> {
 	/**
 	 * Lint sources and return report
 	 *
-	 * @param src {object} - Parse source.
-	 * @param src.data {string} - Text HTML data.
-	 * @param src.filename {string} - Filename of source for presentation in report.
-	 * @return {object} - Report output.
+	 * @param src - Parsed source.
+	 * @returns Report output.
 	 */
 	public lint(sources: Source[]): Report {
 		for (const source of sources) {
@@ -185,7 +183,7 @@ export class Engine<T extends Parser = Parser> {
 	/**
 	 * Create a new parser instance with the current configuration.
 	 *
-	 * @hidden
+	 * @internal
 	 */
 	public instantiateParser(): Parser {
 		return new this.ParserClass(this.config);

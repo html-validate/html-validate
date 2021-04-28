@@ -224,7 +224,7 @@ export class Config {
 	 * Returns a new configuration as a merge of the two. Entries from the passed
 	 * object takes priority over this object.
 	 *
-	 * @param {Config} rhs - Configuration to merge with this one.
+	 * @param rhs - Configuration to merge with this one.
 	 */
 	public merge(rhs: Config): Config {
 		return new Config(mergeInternal(this.config, rhs.config));
@@ -298,7 +298,7 @@ export class Config {
 	}
 
 	/**
-	 * @hidden exposed for testing only
+	 * @internal exposed for testing only
 	 */
 	public static expandRelative(src: string, currentPath: string): string {
 		if (src[0] === ".") {
@@ -310,7 +310,7 @@ export class Config {
 	/**
 	 * Get a copy of internal configuration data.
 	 *
-	 * @hidden primary purpose is unittests
+	 * @internal primary purpose is unittests
 	 */
 	public get(): ConfigData {
 		const config = { ...this.config };
@@ -433,7 +433,7 @@ export class Config {
 	 * @param source - Current source to transform.
 	 * @param filename - If set it is the filename used to match
 	 * transformer. Default is to use filename from source.
-	 * @return A list of transformed sources ready for validation.
+	 * @returns A list of transformed sources ready for validation.
 	 */
 	public transformSource(source: Source, filename?: string): Source[] {
 		const transformer = this.findTransformer(filename || source.filename);
@@ -468,7 +468,7 @@ export class Config {
 	 *
 	 * @param source - Filename to transform (according to configured
 	 * transformations)
-	 * @return A list of transformed sources ready for validation.
+	 * @returns A list of transformed sources ready for validation.
 	 */
 	public transformFilename(filename: string): Source[] {
 		const data = fs.readFileSync(filename, { encoding: "utf8" });

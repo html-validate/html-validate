@@ -229,12 +229,12 @@ export class Validator {
 	 * Validate node against a content category.
 	 *
 	 * When matching parent nodes against permitted parents use the superset
-	 * parameter to also match for @flow. E.g. if a node expects a @phrasing
-	 * parent it should also allow @flow parent since @phrasing is a subset of
-	 * @flow.
+	 * parameter to also match for `@flow`. E.g. if a node expects a `@phrasing`
+	 * parent it should also allow `@flow` parent since `@phrasing` is a subset of
+	 * `@flow`.
 	 *
 	 * @param node - The node to test against
-	 * @param category - Name of category with '@' prefix or tag name.
+	 * @param category - Name of category with `@` prefix or tag name.
 	 * @param defaultMatch - The default return value when node categories is not known.
 	 */
 	// eslint-disable-next-line complexity

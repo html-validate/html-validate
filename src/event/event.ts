@@ -5,7 +5,7 @@ import { TokenType } from "../lexer";
 import { Rule } from "../rule";
 
 /**
- * @hidden
+ * @internal
  */
 export interface Event {
 	/** Event location. */

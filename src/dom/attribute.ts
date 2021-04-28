@@ -60,11 +60,10 @@ export class Attribute {
 	/**
 	 * Test attribute value.
 	 *
-	 * @param {RegExp|string} pattern - Pattern to match value against. RegExp or
-	 * a string (===)
-	 * @param {boolean} [dynamicMatches=true] - If true `DynamicValue` will always
-	 * match, if false it never matches.
-	 * @returns {boolean} `true` if attribute value matches pattern.
+	 * @param pattern - Pattern to match value against. RegExp or a string (===)
+	 * @param dynamicMatches - If true `DynamicValue` will always match, if false
+	 * it never matches.
+	 * @returns `true` if attribute value matches pattern.
 	 */
 	public valueMatches(pattern: RegExp, dynamicMatches?: boolean): boolean;
 	public valueMatches(pattern: string, dynamicMatches?: boolean): boolean;

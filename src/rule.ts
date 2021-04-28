@@ -276,7 +276,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 *
 	 * Do not override this, use the `setup` callback instead.
 	 *
-	 * @hidden
+	 * @internal
 	 */
 	public init(parser: Parser, reporter: Reporter, severity: number, meta: MetaTable): void {
 		this.parser = parser;
@@ -300,7 +300,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * @param filename - Filename from which options originated
 	 * @param config - Configuration from which options originated
 	 *
-	 * @hidden
+	 * @internal
 	 */
 	public static validateOptions(
 		cls: RuleConstructor<unknown, unknown> | undefined,

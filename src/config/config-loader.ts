@@ -3,7 +3,7 @@ import path from "path";
 import { Config } from "./config";
 
 /**
- * @hidden
+ * @internal
  */
 interface ConfigClass {
 	empty(): Config;
@@ -31,7 +31,7 @@ export class ConfigLoader {
 	/**
 	 * Flush configuration cache.
 	 *
-	 * @param filename If given only the cache for that file is flushed.
+	 * @param filename - If given only the cache for that file is flushed.
 	 */
 	public flush(filename?: string): void {
 		if (filename) {
@@ -46,7 +46,7 @@ export class ConfigLoader {
 	 *
 	 * Searches parent directories for configuration and merges the result.
 	 *
-	 * @param filename Filename to get configuration for.
+	 * @param filename - Filename to get configuration for.
 	 */
 	public fromTarget(filename: string): Config | null {
 		if (filename === "inline") {

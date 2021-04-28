@@ -36,8 +36,8 @@ export interface Plugin {
 	 *
 	 * Called once per source after engine is initialized.
 	 *
-	 * @param source The source about to be validated. Readonly.
-	 * @param eventhandler Eventhandler from parser. Can be used to listen for
+	 * @param source - The source about to be validated. Readonly.
+	 * @param eventhandler - Eventhandler from parser. Can be used to listen for
 	 * parser events.
 	 */
 	setup?: (source: Source, eventhandler: EventHandler) => void | null;
@@ -67,18 +67,22 @@ export interface Plugin {
 	 * Unnamed transformers use the plugin name similar to how a standalone
 	 * transformer would work:
 	 *
+	 * ```
 	 * "transform": {
 	 *   "^.*\\.foo$": "my-plugin"
 	 * }
+	 * ```
 	 *
 	 * For named transformers each key should be the unprefixed name which a
 	 * configuration later can access using `${plugin}:${key}`, e.g. if a plugin
 	 * named "my-plugin" exposes a transformer named "foobar" it can be accessed
 	 * using:
 	 *
+	 * ```
 	 * "transform": {
 	 *   "^.*\\.foo$": "my-plugin:foobar"
 	 * }
+	 * ```
 	 */
 	transformer?: Transformer | Record<string, Transformer | null> | null;
 

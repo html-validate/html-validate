@@ -23,9 +23,9 @@ const defaults: CodeframeOptions = {
 
 /**
  * Given a word and a count, append an s if count is not one.
- * @param   {string} word  A word in its singular form.
- * @param   {number} count A number controlling whether word should be pluralized.
- * @returns {string}       The original word with an s on the end if count is not one.
+ * @param word - A word in its singular form.
+ * @param count - A number controlling whether word should be pluralized.
+ * @returns The original word with an s on the end if count is not one.
  */
 function pluralize(word: string, count: number): string {
 	return count === 1 ? word : `${word}s`;
@@ -33,10 +33,10 @@ function pluralize(word: string, count: number): string {
 
 /**
  * Gets a formatted relative file path from an absolute path and a line/column in the file.
- * @param   {string} filePath The absolute file path to format.
- * @param   {number} line     The line from the file to use for formatting.
- * @param   {number} column   The column from the file to use for formatting.
- * @returns {string}          The formatted file path.
+ * @param filePath - The absolute file path to format.
+ * @param line - The line from the file to use for formatting.
+ * @param column -The column from the file to use for formatting.
+ * @returns The formatted file path.
  */
 function formatFilePath(filePath: string, line: number, column: number): string {
 	let relPath = path.relative(process.cwd(), filePath);
@@ -72,8 +72,8 @@ function getEndLocation(message: Message, source: string): SourcePoint {
 
 /**
  * Gets the formatted output for a given message.
- * @param   message      The object that represents this message.
- * @param   parentResult The result object that this message belongs to.
+ * @param message - The object that represents this message.
+ * @param parentResult - The result object that this message belongs to.
  * @returns The formatted output.
  */
 function formatMessage(message: Message, parentResult: Result, options: CodeframeOptions): string {
@@ -118,9 +118,9 @@ function formatMessage(message: Message, parentResult: Result, options: Codefram
 
 /**
  * Gets the formatted output summary for a given number of errors and warnings.
- * @param   {number} errors   The number of errors.
- * @param   {number} warnings The number of warnings.
- * @returns {string}          The formatted output summary.
+ * @param errors - The number of errors.
+ * @param warnings - The number of warnings.
+ * @returns The formatted output summary.
  */
 function formatSummary(errors: number, warnings: number): string {
 	const summaryColor = errors > 0 ? "red" : "yellow";

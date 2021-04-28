@@ -20,9 +20,7 @@ export interface SourceHooks {
 	 * The original attribute must be yielded as well or no attribute will be
 	 * added.
 	 *
-	 * @generator
-	 * @yields {AttributeData} Attribute data for an attribute to be added to the
-	 * element.
+	 * @returns Attribute data for an attribute to be added to the element.
 	 */
 	processAttribute?: ProcessAttributeCallback | null;
 
