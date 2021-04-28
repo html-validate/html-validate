@@ -146,7 +146,7 @@ export class Selector {
 	/**
 	 * Match this selector against a HtmlElement.
 	 *
-	 * @param root Element to match against.
+	 * @param root - Element to match against.
 	 * @returns Iterator with matched elements.
 	 */
 	public *match(root: HtmlElement): IterableIterator<HtmlElement> {

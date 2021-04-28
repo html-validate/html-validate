@@ -55,7 +55,7 @@ function sliceSize(size: number, begin: number, end?: number): number {
  * properly calculate line and column information. If not given the text is
  * assumed to contain no newlines.
  *
- * @param location Source location
+ * @param location - Source location
  * @param begin - Start location. Default is 0.
  * @param end - End location. Default is size of location. Negative values are
  * counted from end, e.g. `-2` means `size - 2`.

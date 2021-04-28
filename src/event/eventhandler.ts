@@ -1,4 +1,4 @@
-/** @hidden */
+/** @internal */
 export type EventCallback = (event: string, data: any) => void;
 
 export class EventHandler {
@@ -11,9 +11,9 @@ export class EventHandler {
 	/**
 	 * Add an event listener.
 	 *
-	 * @param event {string} - Event names (comma separated) or '*' for any event.
-	 * @param callback {function} - Called any time even triggers.
-	 * @return deregistration function.
+	 * @param event - Event names (comma separated) or '*' for any event.
+	 * @param callback - Called any time even triggers.
+	 * @returns Unregistration function.
 	 */
 	public on(event: string, callback: EventCallback): () => void {
 		const names = event.split(",").map((x: string) => x.trim());
@@ -34,9 +34,9 @@ export class EventHandler {
 	 * Add a onetime event listener. The listener will automatically be removed
 	 * after being triggered once.
 	 *
-	 * @param event {string} - Event names (comma separated) or '*' for any event.
-	 * @param callback {function} - Called any time even triggers.
-	 * @return deregistration function.
+	 * @param event - Event names (comma separated) or '*' for any event.
+	 * @param callback - Called any time even triggers.
+	 * @returns Unregistration function.
 	 */
 	public once(event: string, callback: EventCallback): () => void {
 		const deregister = this.on(event, (event: string, data: any) => {
@@ -49,8 +49,8 @@ export class EventHandler {
 	/**
 	 * Trigger event causing all listeners to be called.
 	 *
-	 * @param event {string} - Event name.
-	 * @param [data] {any} - Event data.
+	 * @param event - Event name.
+	 * @param data - Event data.
 	 */
 	/* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types */
 	public trigger(event: string, data: any): void {

@@ -315,8 +315,8 @@ export class HtmlElement extends DOMNode {
 	 *
 	 * <p class="foo" dynamic-class="bar">
 	 *
-	 * @param {string} key - Attribute name
-	 * @param {boolean} [all=false] - Return single or all attributes.
+	 * @param key - Attribute name
+	 * @param all - Return single or all attributes.
 	 */
 	public getAttribute(key: string): Attribute | null;
 	public getAttribute(key: string, all: true): Attribute[];
@@ -339,8 +339,8 @@ export class HtmlElement extends DOMNode {
 	 * - Boolean attributes return `null`.
 	 * - `DynamicValue` returns attribute expression.
 	 *
-	 * @param {string} key - Attribute name
-	 * @return Attribute value or null.
+	 * @param key - Attribute name
+	 * @returns Attribute value or null.
 	 */
 	public getAttributeValue(key: string): string | null {
 		const attr = this.getAttribute(key);

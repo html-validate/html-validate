@@ -585,7 +585,7 @@ export class Parser {
 	}
 
 	/**
-	 * @hidden
+	 * @internal
 	 */
 	public getEventHandler(): EventHandler {
 		return this.event;
