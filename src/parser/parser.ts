@@ -579,7 +579,7 @@ export class Parser {
 	public trigger<K extends keyof TriggerEventMap>(event: K, data: TriggerEventMap[K]): void;
 	public trigger(event: string, data: Event): void {
 		if (typeof data.location === "undefined") {
-			throw Error("Triggered event must contain location");
+			throw new Error("Triggered event must contain location");
 		}
 		this.event.trigger(event, data);
 	}

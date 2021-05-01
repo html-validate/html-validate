@@ -118,7 +118,7 @@ function extractLiteral(
 		default: {
 			const loc = node.loc!.start;
 			const context = `${filename}:${loc.line}:${loc.column}`;
-			throw Error(`Unhandled node type "${node.type}" at "${context}" in extractLiteral`);
+			throw new Error(`Unhandled node type "${node.type}" at "${context}" in extractLiteral`);
 		}
 	}
 }
@@ -135,7 +135,7 @@ function compareKey(node: ESTree.Expression, key: string, filename: string): boo
 		default: {
 			const loc = node.loc!.start;
 			const context = `${filename}:${loc.line}:${loc.column}`;
-			throw Error(`Unhandled node type "${node.type}" at "${context}" in compareKey`);
+			throw new Error(`Unhandled node type "${node.type}" at "${context}" in compareKey`);
 		}
 	}
 }
