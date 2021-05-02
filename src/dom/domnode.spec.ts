@@ -61,6 +61,21 @@ describe("DOMNode", () => {
 		});
 	});
 
+	describe("isSameNode()", () => {
+		const a = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+		const b = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+
+		it("should return true if the element references the same node", () => {
+			expect.assertions(1);
+			expect(a.isSameNode(a)).toBeTruthy();
+		});
+
+		it("should return false if the element is another node", () => {
+			expect.assertions(1);
+			expect(a.isSameNode(b)).toBeFalsy();
+		});
+	});
+
 	describe("firstChild", () => {
 		it("should return first child if present", () => {
 			expect.assertions(1);
