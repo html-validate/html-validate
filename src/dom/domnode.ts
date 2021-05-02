@@ -143,6 +143,13 @@ export class DOMNode {
 	}
 
 	/**
+	 * Tests if two nodes are the same (references the same object).
+	 */
+	public isSameNode(otherNode: DOMNode): boolean {
+		return this.unique === otherNode.unique;
+	}
+
+	/**
 	 * Returns a DOMNode representing the first direct child node or `null` if the
 	 * node has no children.
 	 */
