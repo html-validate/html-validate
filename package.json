@@ -51,7 +51,8 @@
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
     "start": "grunt connect",
-    "test": "jest --ci"
+    "test": "jest --ci",
+    "version": "scripts/version"
   },
   "commitlint": {
     "extends": [

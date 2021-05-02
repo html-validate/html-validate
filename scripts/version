@@ -1,0 +1,7 @@
+#!/bin/bash
+
+shopt -s globstar
+for file in docs/**/*.md; do
+	sed "s/%version%/${npm_new_version}/g" -i "${file}"
+	git add "${file}"
+done
