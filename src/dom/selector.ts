@@ -2,6 +2,7 @@ import { Attribute } from "./attribute";
 import { Combinator, parseCombinator } from "./combinator";
 import { HtmlElement } from "./htmlelement";
 import { factory as pseudoClassFunction } from "./pseudoclass";
+import { SelectorContext } from "./selector-context";
 
 /**
  * Homage to PHP: unescapes slashes.
@@ -16,7 +17,7 @@ abstract class Matcher {
 	/**
 	 * Returns `true` if given node matches.
 	 */
-	public abstract match(node: HtmlElement): boolean;
+	public abstract match(node: HtmlElement, context: SelectorContext): boolean;
 }
 
 class ClassMatcher extends Matcher {
@@ -88,8 +89,8 @@ class PseudoClassMatcher extends Matcher {
 		this.args = args;
 	}
 
-	public match(node: HtmlElement): boolean {
-		const fn = pseudoClassFunction(this.name);
+	public match(node: HtmlElement, context: SelectorContext): boolean {
+		const fn = pseudoClassFunction(this.name, context);
 		return fn(node, this.args);
 	}
 }
@@ -104,14 +105,14 @@ export class Pattern {
 		const match = pattern.match(/^([~+\->]?)((?:[*]|[^.#[:]+)?)(.*)$/) as RegExpMatchArray;
 		match.shift(); /* remove full matched string */
 		this.selector = pattern;
-		this.combinator = parseCombinator(match.shift());
+		this.combinator = parseCombinator(match.shift(), pattern);
 		this.tagName = match.shift() || "*";
 		const p = match[0] ? match[0].split(/(?=(?<!\\)[.#[:])/) : [];
 		this.pattern = p.map((cur: string) => this.createMatcher(cur));
 	}
 
-	public match(node: HtmlElement): boolean {
-		return node.is(this.tagName) && this.pattern.every((cur: Matcher) => cur.match(node));
+	public match(node: HtmlElement, context: SelectorContext): boolean {
+		return node.is(this.tagName) && this.pattern.every((cur: Matcher) => cur.match(node, context));
 	}
 
 	private createMatcher(pattern: string): Matcher {
@@ -149,10 +150,15 @@ export class Selector {
 	 * @returns Iterator with matched elements.
 	 */
 	public *match(root: HtmlElement): IterableIterator<HtmlElement> {
-		yield* this.matchInternal(root, 0);
+		const context: SelectorContext = { scope: root };
+		yield* this.matchInternal(root, 0, context);
 	}
 
-	private *matchInternal(root: HtmlElement, level: number): IterableIterator<HtmlElement> {
+	private *matchInternal(
+		root: HtmlElement,
+		level: number,
+		context: SelectorContext
+	): IterableIterator<HtmlElement> {
 		if (level >= this.pattern.length) {
 			yield root;
 			return;
@@ -162,11 +168,11 @@ export class Selector {
 		const matches = Selector.findCandidates(root, pattern);
 
 		for (const node of matches) {
-			if (!pattern.match(node)) {
+			if (!pattern.match(node, context)) {
 				continue;
 			}
 
-			yield* this.matchInternal(node, level + 1);
+			yield* this.matchInternal(node, level + 1, context);
 		}
 	}
 
@@ -189,6 +195,8 @@ export class Selector {
 				return Selector.findAdjacentSibling(root);
 			case Combinator.GENERAL_SIBLING:
 				return Selector.findGeneralSibling(root);
+			case Combinator.SCOPE:
+				return [root];
 		}
 		/* istanbul ignore next: fallback solution, the switch cases should cover
 		 * everything and there is no known way to trigger this fallback */

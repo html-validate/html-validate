@@ -1,6 +1,7 @@
 import { sliceLocation } from "../context";
 import { HtmlElement, Pattern } from "../dom";
 import { DOMInternalID } from "../dom/domnode";
+import { SelectorContext } from "../dom/selector-context";
 import { TagCloseEvent, TagReadyEvent, TagStartEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 
@@ -159,6 +160,9 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 	}
 
 	private isSectioningRoot(node: HtmlElement): boolean {
-		return this.sectionRoots.some((it) => it.match(node));
+		const context: SelectorContext = {
+			scope: node,
+		};
+		return this.sectionRoots.some((it) => it.match(node, context));
 	}
 }
