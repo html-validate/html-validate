@@ -40,3 +40,27 @@ The message will be shown alongside the regular message:
 <validate name="custom-message" rules="deprecated" elements="deprecated.json">
     <my-element>...</my-element>
 </validate>
+
+## Options
+
+This rule takes an optional object:
+
+```javascript
+{
+	"include": [],
+	"exclude": [],
+}
+```
+
+### `include`
+
+If set only elements listed in this array generates errors.
+
+### `exclude`
+
+If set elements listed in this array is ignored.
+
+## Version history
+
+- v%version% - `include` and `exclude` options added.
+- v1.13.0 - Rule added.
