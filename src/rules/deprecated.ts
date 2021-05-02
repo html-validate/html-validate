@@ -2,14 +2,59 @@ import { sliceLocation, Location } from "../context";
 import { HtmlElement } from "../dom";
 import { TagStartEvent } from "../event";
 import { DeprecatedElement } from "../meta/element";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 
-interface Context extends DeprecatedElement {
+interface RuleContext extends DeprecatedElement {
 	tagName: string;
 }
 
-export default class Deprecated extends Rule<Context> {
-	public documentation(context?: Context): RuleDocumentation {
+interface RuleOptions {
+	include: string[] | null;
+	exclude: string[] | null;
+}
+
+const defaults: RuleOptions = {
+	include: null,
+	exclude: null,
+};
+
+export default class Deprecated extends Rule<RuleContext, RuleOptions> {
+	public constructor(options: Partial<RuleOptions>) {
+		super({ ...defaults, ...options });
+	}
+
+	public static schema(): SchemaObject {
+		return {
+			exclude: {
+				anyOf: [
+					{
+						items: {
+							type: "string",
+						},
+						type: "array",
+					},
+					{
+						type: "null",
+					},
+				],
+			},
+			include: {
+				anyOf: [
+					{
+						items: {
+							type: "string",
+						},
+						type: "array",
+					},
+					{
+						type: "null",
+					},
+				],
+			},
+		};
+	}
+
+	public documentation(context?: RuleContext): RuleDocumentation {
 		const doc: RuleDocumentation = {
 			description: "This element is deprecated and should not be used in new code.",
 			url: ruleDocumentationUrl(__filename),
@@ -41,35 +86,43 @@ export default class Deprecated extends Rule<Context> {
 				return;
 			}
 
+			/* ignore if element is not deprecated */
 			const deprecated = node.meta.deprecated;
-			if (deprecated) {
-				const location = sliceLocation(event.location, 1);
+			if (!deprecated) {
+				return;
+			}
 
-				if (typeof deprecated === "string") {
-					this.reportString(deprecated, node, location);
-				} else if (typeof deprecated === "boolean") {
-					this.reportBoolean(node, location);
-				} else {
-					this.reportObject(deprecated, node, location);
-				}
+			/* ignore if element is ignored by used configuration */
+			if (this.isKeywordIgnored(node.tagName)) {
+				return;
+			}
+
+			const location = sliceLocation(event.location, 1);
+
+			if (typeof deprecated === "string") {
+				this.reportString(deprecated, node, location);
+			} else if (typeof deprecated === "boolean") {
+				this.reportBoolean(node, location);
+			} else {
+				this.reportObject(deprecated, node, location);
 			}
 		});
 	}
 
 	private reportString(deprecated: string, node: HtmlElement, location: Location): void {
-		const context: Context = { tagName: node.tagName };
+		const context: RuleContext = { tagName: node.tagName };
 		const message = `<${node.tagName}> is deprecated: ${deprecated}`;
 		this.report(node, message, location, context);
 	}
 
 	private reportBoolean(node: HtmlElement, location: Location): void {
-		const context: Context = { tagName: node.tagName };
+		const context: RuleContext = { tagName: node.tagName };
 		const message = `<${node.tagName}> is deprecated`;
 		this.report(node, message, location, context);
 	}
 
 	private reportObject(deprecated: DeprecatedElement, node: HtmlElement, location: Location): void {
-		const context: Context = { ...deprecated, tagName: node.tagName };
+		const context: RuleContext = { ...deprecated, tagName: node.tagName };
 		const message = `<${node.tagName}> is deprecated${
 			deprecated.message ? `: ${deprecated.message}` : ""
 		}`;

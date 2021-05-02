@@ -7,7 +7,7 @@ describe("rule deprecated", () => {
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
 			root: true,
-			rules: { deprecated: "error" },
+			rules: { deprecated: ["error", { exclude: ["applet"] }] },
 			elements: [
 				"html5",
 				{
@@ -32,9 +32,17 @@ describe("rule deprecated", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error for ignored deprecated elements", () => {
+		expect.assertions(1);
+		const markup = "<applet></applet>";
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should report error when deprecated element is used", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString("<marquee>foobar</marquee>");
+		const markup = "<marquee>foobar</marquee>";
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("deprecated", "<marquee> is deprecated");
 	});
