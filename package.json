@@ -152,7 +152,7 @@
     "@types/json-merge-patch": "0.0.5",
     "@types/minimist": "1.2.1",
     "@types/node": "11.15.53",
-    "@types/prompts": "2.0.10",
+    "@types/prompts": "2.0.11",
     "autoprefixer": "10.2.5",
     "babar": "0.2.0",
     "babelify": "10.0.0",
