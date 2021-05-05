@@ -65,6 +65,7 @@ export class Parser {
 
 		/* trigger any rules waiting for DOM load event */
 		this.trigger("dom:load", {
+			source,
 			location: null,
 		});
 
@@ -131,6 +132,7 @@ export class Parser {
 		/* trigger any rules waiting for DOM ready */
 		this.trigger("dom:ready", {
 			document: this.dom,
+			source,
 
 			/* disable location for this event so rules can use implicit node location
 			 * instead */

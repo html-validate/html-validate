@@ -50,17 +50,19 @@ Emitted for each lexer token during parsing.
 
 ```typescript
 {
+  source: Source;
 }
 ```
 
-Emitted after initialization but before tokenization and parsing occurs. Can be
-used to initialize state in rules.
+Emitted after initialization but before tokenization and parsing occurs.
+Can be used to initialize state in rules.
 
 ### `dom:ready`
 
 ```typescript
 {
   document: DOMTree,
+  source: Source;
 }
 ```
 

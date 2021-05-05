@@ -183,11 +183,20 @@ export interface DoctypeEvent extends Event {
 }
 
 /**
+ * Event emitted after initialization but before tokenization and parsing occurs.
+ * Can be used to initialize state in rules.
+ */
+export interface DOMLoadEvent extends Event {
+	source: Source;
+}
+
+/**
  * Event emitted when DOM tree is fully constructed.
  */
 export interface DOMReadyEvent extends Event {
 	/** DOM Tree */
 	document: DOMTree;
+	source: Source;
 }
 
 export interface TriggerEventMap {
@@ -198,7 +207,7 @@ export interface TriggerEventMap {
 	"tag:end": TagEndEvent;
 	"tag:ready": TagReadyEvent;
 	"element:ready": ElementReadyEvent;
-	"dom:load": Event;
+	"dom:load": DOMLoadEvent;
 	"dom:ready": DOMReadyEvent;
 	doctype: DoctypeEvent;
 	attr: AttributeEvent;
@@ -217,7 +226,7 @@ export interface ListenEventMap {
 	"tag:end": TagEndEvent;
 	"tag:ready": TagReadyEvent;
 	"element:ready": ElementReadyEvent;
-	"dom:load": Event;
+	"dom:load": DOMLoadEvent;
 	"dom:ready": DOMReadyEvent;
 	doctype: DoctypeEvent;
 	attr: AttributeEvent;

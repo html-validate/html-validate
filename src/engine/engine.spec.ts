@@ -7,7 +7,7 @@ import { MetaTable } from "../meta";
 import { Parser, ParserError } from "../parser";
 import { Reporter } from "../reporter";
 import { Rule } from "../rule";
-import { ConfigReadyEvent, Event, EventHandler } from "../event";
+import { ConfigReadyEvent, DOMLoadEvent, EventHandler } from "../event";
 import { Plugin } from "../plugin";
 import { Engine } from "./engine";
 
@@ -558,8 +558,9 @@ describe("Engine", () => {
 					offset: 0,
 					size: 1,
 				};
-				const event: Event = {
+				const event: DOMLoadEvent = {
 					location,
+					source: inline("<div></div>"),
 				};
 				parser.trigger("dom:load", event);
 				expect(add).toHaveBeenCalledWith(
