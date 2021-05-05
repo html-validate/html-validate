@@ -7,7 +7,7 @@ import { MetaTable } from "../meta";
 import { Parser, ParserError } from "../parser";
 import { Reporter } from "../reporter";
 import { Rule } from "../rule";
-import { ConfigReadyEvent, Event, EventHandler } from "../event";
+import { ConfigReadyEvent, DOMLoadEvent, EventHandler } from "../event";
 import { Plugin } from "../plugin";
 import { Engine } from "./engine";
 
@@ -195,6 +195,49 @@ describe("Engine", () => {
 			`);
 			expect(event.config).toEqual(config.get());
 			expect(event.rules).toBeDefined();
+		});
+
+		it("should generate source:ready event", () => {
+			expect.assertions(3);
+			const source: Source[] = [inline("<div></div>"), inline("<p></i>")];
+			const parser = new Parser(config.resolve());
+			const spy = jest.fn();
+			parser.on("source:ready", spy);
+			jest.spyOn(engine, "instantiateParser").mockReturnValue(parser);
+			engine.lint(source);
+			expect(spy).toHaveBeenCalledTimes(2);
+			expect(spy).toHaveBeenCalledWith("source:ready", {
+				location: {
+					filename: "inline",
+					line: 1,
+					column: 1,
+					offset: 0,
+					size: 1,
+				},
+				source: {
+					filename: "inline",
+					data: "<div></div>",
+					line: 1,
+					column: 1,
+					offset: 0,
+				},
+			});
+			expect(spy).toHaveBeenCalledWith("source:ready", {
+				location: {
+					filename: "inline",
+					line: 1,
+					column: 1,
+					offset: 0,
+					size: 1,
+				},
+				source: {
+					filename: "inline",
+					data: "<p></i>",
+					line: 1,
+					column: 1,
+					offset: 0,
+				},
+			});
 		});
 	});
 
@@ -515,8 +558,9 @@ describe("Engine", () => {
 					offset: 0,
 					size: 1,
 				};
-				const event: Event = {
+				const event: DOMLoadEvent = {
 					location,
+					source: inline("<div></div>"),
 				};
 				parser.trigger("dom:load", event);
 				expect(add).toHaveBeenCalledWith(

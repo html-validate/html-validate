@@ -1,5 +1,5 @@
 import { ConfigData } from "../config";
-import { Location } from "../context";
+import { Location, Source } from "../context";
 import { DOMTree, DynamicValue, HtmlElement } from "../dom";
 import { TokenType } from "../lexer";
 import { Rule } from "../rule";
@@ -18,6 +18,17 @@ export interface Event {
 export interface ConfigReadyEvent extends Event {
 	config: ConfigData;
 	rules: { [ruleId: string]: Rule };
+}
+
+/**
+ * Source ready event. Emitted after source has been transformed but before any
+ * markup is processed.
+ *
+ * The source object must not be modified (use a transformer if modifications
+ * are required)
+ */
+export interface SourceReadyEvent extends Event {
+	source: Source;
 }
 
 /**
@@ -172,21 +183,31 @@ export interface DoctypeEvent extends Event {
 }
 
 /**
+ * Event emitted after initialization but before tokenization and parsing occurs.
+ * Can be used to initialize state in rules.
+ */
+export interface DOMLoadEvent extends Event {
+	source: Source;
+}
+
+/**
  * Event emitted when DOM tree is fully constructed.
  */
 export interface DOMReadyEvent extends Event {
 	/** DOM Tree */
 	document: DOMTree;
+	source: Source;
 }
 
 export interface TriggerEventMap {
 	"config:ready": ConfigReadyEvent;
+	"source:ready": SourceReadyEvent;
 	token: TokenEvent;
 	"tag:start": TagStartEvent;
 	"tag:end": TagEndEvent;
 	"tag:ready": TagReadyEvent;
 	"element:ready": ElementReadyEvent;
-	"dom:load": Event;
+	"dom:load": DOMLoadEvent;
 	"dom:ready": DOMReadyEvent;
 	doctype: DoctypeEvent;
 	attr: AttributeEvent;
@@ -197,6 +218,7 @@ export interface TriggerEventMap {
 
 export interface ListenEventMap {
 	"config:ready": ConfigReadyEvent;
+	"source:ready": SourceReadyEvent;
 	token: TokenEvent;
 	"tag:open": TagOpenEvent;
 	"tag:start": TagStartEvent;
@@ -204,7 +226,7 @@ export interface ListenEventMap {
 	"tag:end": TagEndEvent;
 	"tag:ready": TagReadyEvent;
 	"element:ready": ElementReadyEvent;
-	"dom:load": Event;
+	"dom:load": DOMLoadEvent;
 	"dom:ready": DOMReadyEvent;
 	doctype: DoctypeEvent;
 	attr: AttributeEvent;

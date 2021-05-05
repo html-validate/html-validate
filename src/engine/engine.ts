@@ -1,7 +1,13 @@
 import { ConfigData, ResolvedConfig, RuleOptions, Severity } from "../config";
 import { Location, Source } from "../context";
 import { HtmlElement } from "../dom";
-import { ConfigReadyEvent, DirectiveEvent, TagEndEvent, TagStartEvent } from "../event";
+import {
+	ConfigReadyEvent,
+	DirectiveEvent,
+	SourceReadyEvent,
+	TagEndEvent,
+	TagStartEvent,
+} from "../event";
 import { InvalidTokenError, Lexer, TokenType } from "../lexer";
 import { Parser, ParserError } from "../parser";
 import { Report, Reporter } from "../reporter";
@@ -58,19 +64,31 @@ export class Engine<T extends Parser = Parser> {
 			/* setup plugins and rules */
 			const { rules } = this.setupPlugins(source, this.config, parser);
 
+			/* create a faux location at the start of the stream for the next events */
+			const location: Location = {
+				filename: source.filename,
+				line: 1,
+				column: 1,
+				offset: 0,
+				size: 1,
+			};
+
 			/* trigger configuration ready event */
-			const event: ConfigReadyEvent = {
-				location: {
-					filename: source.filename,
-					line: 1,
-					column: 1,
-					offset: 0,
-					size: 1,
-				},
+			const configEvent: ConfigReadyEvent = {
+				location,
 				config: this.configData,
 				rules,
 			};
-			parser.trigger("config:ready", event);
+			parser.trigger("config:ready", configEvent);
+
+			/* trigger source ready event */
+			/* eslint-disable-next-line @typescript-eslint/no-unused-vars -- object destructured on purpose to remove property */
+			const { hooks: _, ...sourceData } = source;
+			const sourceEvent: SourceReadyEvent = {
+				location,
+				source: sourceData,
+			};
+			parser.trigger("source:ready", sourceEvent);
 
 			/* setup directive handling */
 			parser.on("directive", (_: string, event: DirectiveEvent) => {
