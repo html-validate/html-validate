@@ -12,12 +12,11 @@ function stripslashes(value: string): string {
 	return value.replace(/\\(.)/g, "$1");
 }
 
-class Matcher {
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public match(node: HtmlElement): boolean {
-		/* istanbul ignore next: only used by fallback solution */
-		return false;
-	}
+abstract class Matcher {
+	/**
+	 * Returns `true` if given node matches.
+	 */
+	public abstract match(node: HtmlElement): boolean;
 }
 
 class ClassMatcher extends Matcher {
