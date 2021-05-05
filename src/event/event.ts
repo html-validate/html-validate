@@ -1,5 +1,5 @@
 import { ConfigData } from "../config";
-import { Location } from "../context";
+import { Location, Source } from "../context";
 import { DOMTree, DynamicValue, HtmlElement } from "../dom";
 import { TokenType } from "../lexer";
 import { Rule } from "../rule";
@@ -18,6 +18,17 @@ export interface Event {
 export interface ConfigReadyEvent extends Event {
 	config: ConfigData;
 	rules: { [ruleId: string]: Rule };
+}
+
+/**
+ * Source ready event. Emitted after source has been transformed but before any
+ * markup is processed.
+ *
+ * The source object must not be modified (use a transformer if modifications
+ * are required)
+ */
+export interface SourceReadyEvent extends Event {
+	source: Source;
 }
 
 /**
@@ -181,6 +192,7 @@ export interface DOMReadyEvent extends Event {
 
 export interface TriggerEventMap {
 	"config:ready": ConfigReadyEvent;
+	"source:ready": SourceReadyEvent;
 	token: TokenEvent;
 	"tag:start": TagStartEvent;
 	"tag:end": TagEndEvent;
@@ -197,6 +209,7 @@ export interface TriggerEventMap {
 
 export interface ListenEventMap {
 	"config:ready": ConfigReadyEvent;
+	"source:ready": SourceReadyEvent;
 	token: TokenEvent;
 	"tag:open": TagOpenEvent;
 	"tag:start": TagStartEvent;

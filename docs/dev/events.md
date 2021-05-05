@@ -18,6 +18,20 @@ title: Events
 
 Emitted after after configuration is ready but before DOM is initialized.
 
+### `source:ready`
+
+```typescript
+{
+  source: Source;
+}
+```
+
+Emitted after after source is transformed but before DOM is initialized.
+See {@link api:Source} for data structure.
+
+The source object must not be modified (use a transformer if modifications are required).
+The `hooks` property is always unset.
+
 ### `token`
 
 ```typescript
