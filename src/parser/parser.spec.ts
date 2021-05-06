@@ -1384,7 +1384,7 @@ describe("parser", () => {
 				});
 			});
 
-			it("allow modifiy element metadata", () => {
+			it("allow modify element metadata", () => {
 				expect.assertions(2);
 				function processElement(this: ProcessElementContext, node: HtmlElement): void {
 					if (node.tagName === "i") {

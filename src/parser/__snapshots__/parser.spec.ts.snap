@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`parser should postprocess elements allow modifiy element metadata 1`] = `
+exports[`parser should postprocess elements allow modify element metadata 1`] = `
 Object {
   "attributes": Object {
     "contenteditable": Array [
@@ -35,7 +35,7 @@ Object {
 }
 `;
 
-exports[`parser should postprocess elements allow modifiy element metadata 2`] = `
+exports[`parser should postprocess elements allow modify element metadata 2`] = `
 Object {
   "attributes": Object {
     "contenteditable": Array [
