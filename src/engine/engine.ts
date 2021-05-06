@@ -150,7 +150,7 @@ export class Engine<T extends Parser = Parser> {
 	public dumpTree(source: Source[]): string[] {
 		/* @todo handle dumping each tree */
 		const parser = this.instantiateParser();
-		const dom = parser.parseHtml(source[0]);
+		const document = parser.parseHtml(source[0]);
 		const lines: string[] = [];
 
 		function decoration(node: HtmlElement): string {
@@ -177,7 +177,7 @@ export class Engine<T extends Parser = Parser> {
 			node.childElements.forEach((child, index) => writeNode(child, level + 1, index));
 		}
 
-		writeNode(dom.root, 0, 0);
+		writeNode(document, 0, 0);
 		return lines;
 	}
 

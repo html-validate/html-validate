@@ -1084,20 +1084,24 @@ describe("parser", () => {
 
 	describe("should parse", () => {
 		it("unicode bom", () => {
-			expect.assertions(3);
-			const dom = parser.parseHtml("\uFEFF<!DOCTYPE html>");
-			expect(events.shift()).toEqual(
-				expect.objectContaining({
-					event: "doctype",
-				})
-			);
+			expect.assertions(2);
+			parser.parseHtml("\uFEFF<!DOCTYPE html>");
+			expect(events.shift()).toEqual({
+				event: "doctype",
+				tag: "DOCTYPE",
+				value: "html",
+				valueLocation: expect.objectContaining({
+					line: 1,
+					column: 12,
+					size: 4,
+				}),
+			});
 			expect(events.shift()).toBeUndefined();
-			expect(dom.doctype).toEqual("html");
 		});
 
 		it("doctype", () => {
-			expect.assertions(3);
-			const dom = parser.parseHtml("<!doctype foobar>");
+			expect.assertions(2);
+			parser.parseHtml("<!doctype foobar>");
 			expect(events.shift()).toEqual({
 				event: "doctype",
 				tag: "doctype",
@@ -1109,7 +1113,6 @@ describe("parser", () => {
 				}),
 			});
 			expect(events.shift()).toBeUndefined();
-			expect(dom.doctype).toEqual("foobar");
 		});
 
 		describe("conditional comment", () => {
@@ -1210,15 +1213,15 @@ describe("parser", () => {
 
 		it("should parse elements with text", () => {
 			expect.assertions(8);
-			const doc = parser.parseHtml("<b>foo</b> <u>bar</ul>").root;
-			expect(doc.childNodes).toHaveLength(3);
-			expect(doc.childNodes[0]).toBeInstanceOf(HtmlElement);
-			expect(doc.childNodes[0].textContent).toEqual("foo");
-			expect(doc.childNodes[1]).toBeInstanceOf(TextNode);
-			expect(doc.childNodes[1].textContent).toEqual(" ");
-			expect(doc.childNodes[2]).toBeInstanceOf(HtmlElement);
-			expect(doc.childNodes[2].textContent).toEqual("bar");
-			expect(doc.textContent).toEqual("foo bar");
+			const document = parser.parseHtml("<b>foo</b> <u>bar</ul>");
+			expect(document.childNodes).toHaveLength(3);
+			expect(document.childNodes[0]).toBeInstanceOf(HtmlElement);
+			expect(document.childNodes[0].textContent).toEqual("foo");
+			expect(document.childNodes[1]).toBeInstanceOf(TextNode);
+			expect(document.childNodes[1].textContent).toEqual(" ");
+			expect(document.childNodes[2]).toBeInstanceOf(HtmlElement);
+			expect(document.childNodes[2].textContent).toEqual("bar");
+			expect(document.textContent).toEqual("foo bar");
 		});
 	});
 

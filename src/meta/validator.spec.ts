@@ -21,7 +21,7 @@ describe("Meta validator", () => {
 				foo: mockEntry({ void: true }),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [foo] = parser.parseHtml("<foo/>").root.childElements;
+			const [foo] = parser.parseHtml("<foo/>").childElements;
 			expect(Validator.validatePermitted(foo, null)).toBeTruthy();
 		});
 
@@ -33,7 +33,7 @@ describe("Meta validator", () => {
 				nil: mockEntry({ void: true }),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [foo, nil] = parser.parseHtml("<foo/><nil/>").root.childElements;
+			const [foo, nil] = parser.parseHtml("<foo/><nil/>").childElements;
 			const rules = ["foo"];
 			expect(Validator.validatePermitted(foo, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -47,7 +47,7 @@ describe("Meta validator", () => {
 				nil: mockEntry({ void: true }),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [foo, nil] = parser.parseHtml("<foo/><nil/>").root.childElements;
+			const [foo, nil] = parser.parseHtml("<foo/><nil/>").childElements;
 			const rules = ["foo?"];
 			expect(Validator.validatePermitted(foo, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -61,7 +61,7 @@ describe("Meta validator", () => {
 				meta: mockEntry({ metadata: true, void: true }),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [meta, nil] = parser.parseHtml("<meta/><nil/>").root.childElements;
+			const [meta, nil] = parser.parseHtml("<meta/><nil/>").childElements;
 			const rules = ["@meta"];
 			expect(Validator.validatePermitted(meta, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -75,7 +75,7 @@ describe("Meta validator", () => {
 				flow: mockEntry({ flow: true, void: true }),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [flow, nil] = parser.parseHtml("<flow/><nil/>").root.childElements;
+			const [flow, nil] = parser.parseHtml("<flow/><nil/>").childElements;
 			const rules = ["@flow"];
 			expect(Validator.validatePermitted(flow, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -89,7 +89,7 @@ describe("Meta validator", () => {
 				sectioning: mockEntry({ sectioning: true, void: true }),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [sectioning, nil] = parser.parseHtml("<sectioning/><nil/>").root.childElements;
+			const [sectioning, nil] = parser.parseHtml("<sectioning/><nil/>").childElements;
 			const rules = ["@sectioning"];
 			expect(Validator.validatePermitted(sectioning, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -103,7 +103,7 @@ describe("Meta validator", () => {
 				heading: mockEntry({ heading: true, void: true }),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [heading, nil] = parser.parseHtml("<heading/><nil/>").root.childElements;
+			const [heading, nil] = parser.parseHtml("<heading/><nil/>").childElements;
 			const rules = ["@heading"];
 			expect(Validator.validatePermitted(heading, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -117,7 +117,7 @@ describe("Meta validator", () => {
 				phrasing: mockEntry({ phrasing: true, void: true }),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [phrasing, nil] = parser.parseHtml("<phrasing/><nil/>").root.childElements;
+			const [phrasing, nil] = parser.parseHtml("<phrasing/><nil/>").childElements;
 			const rules = ["@phrasing"];
 			expect(Validator.validatePermitted(phrasing, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -131,7 +131,7 @@ describe("Meta validator", () => {
 				embedded: mockEntry({ embedded: true, void: true }),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [embedded, nil] = parser.parseHtml("<embedded/><nil/>").root.childElements;
+			const [embedded, nil] = parser.parseHtml("<embedded/><nil/>").childElements;
 			const rules = ["@embedded"];
 			expect(Validator.validatePermitted(embedded, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -148,7 +148,7 @@ describe("Meta validator", () => {
 				}),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [interactive, nil] = parser.parseHtml("<interactive/><nil/>").root.childElements;
+			const [interactive, nil] = parser.parseHtml("<interactive/><nil/>").childElements;
 			const rules = ["@interactive"];
 			expect(Validator.validatePermitted(interactive, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -165,7 +165,7 @@ describe("Meta validator", () => {
 				}),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [script, nil] = parser.parseHtml("<scripting/><nil/>").root.childElements;
+			const [script, nil] = parser.parseHtml("<scripting/><nil/>").childElements;
 			const rules = ["@script"];
 			expect(Validator.validatePermitted(script, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -182,7 +182,7 @@ describe("Meta validator", () => {
 				}),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [form, nil] = parser.parseHtml("<form/><nil/>").root.childElements;
+			const [form, nil] = parser.parseHtml("<form/><nil/>").childElements;
 			const rules = ["@form"];
 			expect(Validator.validatePermitted(form, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
@@ -197,7 +197,7 @@ describe("Meta validator", () => {
 				phrasing: mockEntry({ phrasing: true, void: true }),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [flow, phrasing, nil] = parser.parseHtml("<flow/><phrasing/><nil/>").root.childElements;
+			const [flow, phrasing, nil] = parser.parseHtml("<flow/><phrasing/><nil/>").childElements;
 			const rules = ["@flow", "@phrasing"];
 			expect(Validator.validatePermitted(flow, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(phrasing, rules)).toBeTruthy();
@@ -217,7 +217,7 @@ describe("Meta validator", () => {
 				}),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [foo, flow, phrasing] = parser.parseHtml("<foo/><flow/><phrasing/>").root.childElements;
+			const [foo, flow, phrasing] = parser.parseHtml("<foo/><flow/><phrasing/>").childElements;
 			const rules = [["@flow", "@phrasing"]];
 			expect(Validator.validatePermitted(foo, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(flow, rules)).toBeFalsy();
@@ -232,7 +232,7 @@ describe("Meta validator", () => {
 				bar: mockEntry({ flow: true, void: true }),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [foo, bar] = parser.parseHtml("<foo/><bar/><nil/>").root.childElements;
+			const [foo, bar] = parser.parseHtml("<foo/><bar/><nil/>").childElements;
 			const rules = [
 				[
 					"@flow",
@@ -253,7 +253,7 @@ describe("Meta validator", () => {
 				bar: mockEntry({ flow: true, interactive: true, void: true }),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [foo, bar] = parser.parseHtml("<foo/><bar/><nil/>").root.childElements;
+			const [foo, bar] = parser.parseHtml("<foo/><bar/><nil/>").childElements;
 			const rules = [
 				[
 					"@flow",
@@ -274,7 +274,7 @@ describe("Meta validator", () => {
 				bar: mockEntry({ flow: true, interactive: true, void: true }),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [foo, bar] = parser.parseHtml("<foo/><bar/><nil/>").root.childElements;
+			const [foo, bar] = parser.parseHtml("<foo/><bar/><nil/>").childElements;
 			const rules = [{ exclude: ["bar", "baz"] }];
 			expect(Validator.validatePermitted(foo, rules)).toBeTruthy();
 			expect(Validator.validatePermitted(bar, rules)).toBeFalsy();
@@ -288,7 +288,7 @@ describe("Meta validator", () => {
 				bar: mockEntry({ flow: true, interactive: true, void: true }),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [foo, bar] = parser.parseHtml("<foo/><bar/><nil/>").root.childElements;
+			const [foo, bar] = parser.parseHtml("<foo/><bar/><nil/>").childElements;
 			const rules = [
 				[
 					"@flow",
@@ -306,7 +306,7 @@ describe("Meta validator", () => {
 			const metaTable = new MetaTable();
 			metaTable.loadFromObject({});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [foo] = parser.parseHtml("<foo/>").root.childElements;
+			const [foo] = parser.parseHtml("<foo/>").childElements;
 			const rules = [
 				[
 					{
@@ -324,7 +324,7 @@ describe("Meta validator", () => {
 				foo: mockEntry({ flow: true, void: true }),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [foo] = parser.parseHtml("<foo/>").root.childElements;
+			const [foo] = parser.parseHtml("<foo/>").childElements;
 			const rules = [["@flow", {}]];
 			expect(Validator.validatePermitted(foo, rules)).toBeTruthy();
 		});
@@ -336,7 +336,7 @@ describe("Meta validator", () => {
 				foo: mockEntry({ flow: true }),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [foo] = parser.parseHtml("<foo/>").root.childElements;
+			const [foo] = parser.parseHtml("<foo/>").childElements;
 			const rules = ["@invalid"];
 			expect(() => {
 				Validator.validatePermitted(foo, rules);
@@ -350,7 +350,7 @@ describe("Meta validator", () => {
 				foo: mockEntry({ flow: true }),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [foo] = parser.parseHtml("<foo/>").root.childElements;
+			const [foo] = parser.parseHtml("<foo/>").childElements;
 			const rules = [
 				[
 					"@flow",
@@ -373,7 +373,7 @@ describe("Meta validator", () => {
 				foo: mockEntry({ void: true }),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [foo] = parser.parseHtml("<foo/>").root.childElements;
+			const [foo] = parser.parseHtml("<foo/>").childElements;
 			expect(Validator.validateOccurrences(foo, null, 1)).toBeTruthy();
 		});
 
@@ -384,7 +384,7 @@ describe("Meta validator", () => {
 				foo: mockEntry({ void: true }),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [foo] = parser.parseHtml("<foo/>").root.childElements;
+			const [foo] = parser.parseHtml("<foo/>").childElements;
 			const rules = ["foo"];
 			expect(Validator.validateOccurrences(foo, rules, 0)).toBeTruthy();
 			expect(Validator.validateOccurrences(foo, rules, 9)).toBeTruthy();
@@ -397,7 +397,7 @@ describe("Meta validator", () => {
 				foo: mockEntry({ void: true }),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [foo] = parser.parseHtml("<foo/>").root.childElements;
+			const [foo] = parser.parseHtml("<foo/>").childElements;
 			const rules = ["foo?"];
 			expect(Validator.validateOccurrences(foo, rules, 0)).toBeTruthy();
 			expect(Validator.validateOccurrences(foo, rules, 1)).toBeTruthy();
@@ -411,7 +411,7 @@ describe("Meta validator", () => {
 				foo: mockEntry({ void: true }),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
-			const [foo] = parser.parseHtml("<foo/>").root.childElements;
+			const [foo] = parser.parseHtml("<foo/>").childElements;
 			const rules = ["foo*"];
 			expect(Validator.validateOccurrences(foo, rules, 0)).toBeTruthy();
 			expect(Validator.validateOccurrences(foo, rules, 9)).toBeTruthy();
@@ -435,14 +435,14 @@ describe("Meta validator", () => {
 
 		it("should handle null rules", () => {
 			expect.assertions(2);
-			const children = parser.parseHtml("<foo/>").root.childElements;
+			const children = parser.parseHtml("<foo/>").childElements;
 			expect(Validator.validateOrder(children, null, cb)).toBeTruthy();
 			expect(cb).not.toHaveBeenCalled();
 		});
 
 		it("should return error when elements are out of order", () => {
 			expect.assertions(2);
-			const children = parser.parseHtml("<bar/><foo/>").root.childElements;
+			const children = parser.parseHtml("<bar/><foo/>").childElements;
 			const rules = ["foo", "bar"];
 			expect(Validator.validateOrder(children, rules, cb)).toBeFalsy();
 			expect(cb).toHaveBeenCalledWith(children[1], children[0]);
@@ -450,7 +450,7 @@ describe("Meta validator", () => {
 
 		it("should not return error when elements are in order", () => {
 			expect.assertions(2);
-			const children = parser.parseHtml("<foo/><bar/>").root.childElements;
+			const children = parser.parseHtml("<foo/><bar/>").childElements;
 			const rules = ["foo", "bar"];
 			expect(Validator.validateOrder(children, rules, cb)).toBeTruthy();
 			expect(cb).not.toHaveBeenCalled();
@@ -458,7 +458,7 @@ describe("Meta validator", () => {
 
 		it("should handle elements with unspecified order", () => {
 			expect.assertions(2);
-			const children = parser.parseHtml("<foo/><bar/><foo/>").root.childElements;
+			const children = parser.parseHtml("<foo/><bar/><foo/>").childElements;
 			const rules = ["foo"];
 			expect(Validator.validateOrder(children, rules, cb)).toBeTruthy();
 			expect(cb).not.toHaveBeenCalled();
@@ -466,8 +466,8 @@ describe("Meta validator", () => {
 
 		it("should handle categories", () => {
 			expect.assertions(2);
-			const children1 = parser.parseHtml("<foo/><bar/>").root.childElements;
-			const children2 = parser.parseHtml("<bar/><foo/>").root.childElements;
+			const children1 = parser.parseHtml("<foo/><bar/>").childElements;
+			const children2 = parser.parseHtml("<bar/><foo/>").childElements;
 			const rules = ["foo", "@flow"];
 			expect(Validator.validateOrder(children1, rules, cb)).toBeTruthy();
 			expect(Validator.validateOrder(children2, rules, cb)).toBeFalsy();
@@ -483,7 +483,7 @@ describe("Meta validator", () => {
 				<dl id="variant-1">
 					<dt></dt>
 					<dd></dd>
-				</dl>`).root;
+				</dl>`);
 		});
 
 		it("should match if no rule is present", () => {

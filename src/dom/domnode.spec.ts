@@ -150,7 +150,7 @@ describe("DOMNode", () => {
 			expect.assertions(1);
 			const markup = `lorem <i>ipsum</i> <b>dolor <u>sit amet</u></b>`;
 			const parser = new Parser(Config.empty().resolve());
-			const doc = parser.parseHtml(markup).root;
+			const doc = parser.parseHtml(markup);
 			expect(doc.textContent).toEqual("lorem ipsum dolor sit amet");
 		});
 	});
