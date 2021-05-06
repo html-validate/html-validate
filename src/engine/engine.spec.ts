@@ -1,6 +1,6 @@
 import { Config, ResolvedConfig, RuleOptions, Severity } from "../config";
 import { Source } from "../context";
-import { DOMTree } from "../dom";
+import { HtmlElement } from "../dom";
 import { InvalidTokenError } from "../lexer";
 import "../matchers";
 import { MetaTable } from "../meta";
@@ -22,7 +22,7 @@ function inline(source: string): Source {
 }
 
 class MockParser extends Parser {
-	public parseHtml(source: string | Source): DOMTree {
+	public parseHtml(source: string | Source): HtmlElement {
 		if (typeof source === "string") return super.parseHtml(source);
 		switch (source.data) {
 			case "invalid-token-error":

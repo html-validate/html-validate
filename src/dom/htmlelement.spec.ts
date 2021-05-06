@@ -5,7 +5,7 @@ import { MetaData, MetaElement, MetaTable } from "../meta";
 import { Parser } from "../parser";
 import { processAttribute } from "../transform/mocks/attribute";
 import { DynamicValue } from "./dynamic-value";
-import { Attribute, DOMTree, HtmlElement, NodeClosed, NodeType } from ".";
+import { Attribute, HtmlElement, NodeClosed, NodeType } from ".";
 
 interface LocationSpec {
 	column: number;
@@ -23,7 +23,7 @@ function createLocation({ column, size }: LocationSpec): Location {
 }
 
 describe("HtmlElement", () => {
-	let root: DOMTree;
+	let document: HtmlElement;
 	const location = createLocation({ column: 1, size: 4 });
 
 	beforeEach(() => {
@@ -46,7 +46,7 @@ describe("HtmlElement", () => {
 				processAttribute,
 			},
 		};
-		root = parser.parseHtml(source);
+		document = parser.parseHtml(source);
 	});
 
 	describe("fromTokens()", () => {
@@ -405,10 +405,10 @@ describe("HtmlElement", () => {
 
 		it("for nodes in a tree", () => {
 			expect.assertions(4);
-			expect(root.querySelector("#parent").depth).toEqual(0);
-			expect(root.querySelector("ul").depth).toEqual(1);
-			expect(root.querySelector("li.foo").depth).toEqual(2);
-			expect(root.querySelector("li.bar").depth).toEqual(2);
+			expect(document.querySelector("#parent").depth).toEqual(0);
+			expect(document.querySelector("ul").depth).toEqual(1);
+			expect(document.querySelector("li.foo").depth).toEqual(2);
+			expect(document.querySelector("li.bar").depth).toEqual(2);
 		});
 	});
 
@@ -417,13 +417,13 @@ describe("HtmlElement", () => {
 
 		beforeAll(() => {
 			const parser = new Parser(Config.empty().resolve());
-			root = parser.parseHtml(`
+			document = parser.parseHtml(`
 				<div id="1" class="x">
 					<div id="2" class="x">
 						<p id="3" class="x"></p>
 					</div>
 				</div>`);
-			node = root.querySelector("p");
+			node = document.querySelector("p");
 		});
 
 		it("should return first parent matching the selector", () => {
@@ -594,7 +594,7 @@ describe("HtmlElement", () => {
 	describe("getElementsByTagName()", () => {
 		it("should find elements", () => {
 			expect.assertions(3);
-			const nodes = root.getElementsByTagName("li");
+			const nodes = document.getElementsByTagName("li");
 			expect(nodes).toHaveLength(2);
 			expect(nodes[0].getAttributeValue("class")).toEqual("foo");
 			expect(nodes[1].getAttributeValue("class")).toEqual("bar baz");
@@ -602,7 +602,7 @@ describe("HtmlElement", () => {
 
 		it("should support universal selector", () => {
 			expect.assertions(2);
-			const tagNames = root.getElementsByTagName("*").map((cur: HtmlElement) => cur.tagName);
+			const tagNames = document.getElementsByTagName("*").map((cur: HtmlElement) => cur.tagName);
 			expect(tagNames).toHaveLength(6);
 			expect(tagNames).toEqual(["div", "ul", "li", "li", "p", "span"]);
 		});
@@ -611,7 +611,7 @@ describe("HtmlElement", () => {
 	describe("matches()", () => {
 		it("should return true if element matches given selector", () => {
 			expect.assertions(3);
-			const node = root.querySelector("#spam");
+			const node = document.querySelector("#spam");
 			expect(node.matches("ul > li")).toBeTruthy();
 			expect(node.matches("li.baz")).toBeTruthy();
 			expect(node.matches("#parent li")).toBeTruthy();
@@ -619,7 +619,7 @@ describe("HtmlElement", () => {
 
 		it("should return false if element does not match given selector", () => {
 			expect.assertions(3);
-			const node = root.querySelector("#spam");
+			const node = document.querySelector("#spam");
 			expect(node.matches("div > li")).toBeFalsy();
 			expect(node.matches("li.foo")).toBeFalsy();
 			expect(node.matches("#ham li")).toBeFalsy();
@@ -629,14 +629,14 @@ describe("HtmlElement", () => {
 	describe("querySelector()", () => {
 		it("should find element by tagname", () => {
 			expect.assertions(2);
-			const el = root.querySelector("ul");
+			const el = document.querySelector("ul");
 			expect(el).toBeInstanceOf(HtmlElement);
 			expect(el.tagName).toEqual("ul");
 		});
 
 		it("should find element by #id", () => {
 			expect.assertions(3);
-			const el = root.querySelector("#parent");
+			const el = document.querySelector("#parent");
 			expect(el).toBeInstanceOf(HtmlElement);
 			expect(el.tagName).toEqual("div");
 			expect(el.getAttributeValue("id")).toEqual("parent");
@@ -644,7 +644,7 @@ describe("HtmlElement", () => {
 
 		it("should find element by .class", () => {
 			expect.assertions(3);
-			const el = root.querySelector(".foo");
+			const el = document.querySelector(".foo");
 			expect(el).toBeInstanceOf(HtmlElement);
 			expect(el.tagName).toEqual("li");
 			expect(el.getAttributeValue("class")).toEqual("foo");
@@ -652,7 +652,7 @@ describe("HtmlElement", () => {
 
 		it("should find element by [attr]", () => {
 			expect.assertions(3);
-			const el = root.querySelector("[title]");
+			const el = document.querySelector("[title]");
 			expect(el).toBeInstanceOf(HtmlElement);
 			expect(el.tagName).toEqual("li");
 			expect(el.getAttributeValue("class")).toEqual("bar baz");
@@ -660,7 +660,7 @@ describe("HtmlElement", () => {
 
 		it('should find element by [attr=".."]', () => {
 			expect.assertions(3);
-			const el = root.querySelector('[class="foo"]');
+			const el = document.querySelector('[class="foo"]');
 			expect(el).toBeInstanceOf(HtmlElement);
 			expect(el.tagName).toEqual("li");
 			expect(el.getAttributeValue("class")).toEqual("foo");
@@ -668,7 +668,7 @@ describe("HtmlElement", () => {
 
 		it("should find element with compound selector", () => {
 			expect.assertions(3);
-			const el = root.querySelector(".bar.baz#spam");
+			const el = document.querySelector(".bar.baz#spam");
 			expect(el).toBeInstanceOf(HtmlElement);
 			expect(el.tagName).toEqual("li");
 			expect(el.getAttributeValue("class")).toEqual("bar baz");
@@ -676,7 +676,7 @@ describe("HtmlElement", () => {
 
 		it("should find element with descendant combinator", () => {
 			expect.assertions(3);
-			const el = root.querySelector("ul .bar");
+			const el = document.querySelector("ul .bar");
 			expect(el).toBeInstanceOf(HtmlElement);
 			expect(el.tagName).toEqual("li");
 			expect(el.getAttributeValue("class")).toEqual("bar baz");
@@ -684,7 +684,7 @@ describe("HtmlElement", () => {
 
 		it("should find element with child combinator", () => {
 			expect.assertions(3);
-			const el = root.querySelector("div > .bar");
+			const el = document.querySelector("div > .bar");
 			expect(el).toBeInstanceOf(HtmlElement);
 			expect(el.tagName).toEqual("p");
 			expect(el.getAttributeValue("class")).toEqual("bar");
@@ -692,7 +692,7 @@ describe("HtmlElement", () => {
 
 		it("should find element with multiple child combinators", () => {
 			expect.assertions(3);
-			const el = root.querySelector("#parent > ul > li");
+			const el = document.querySelector("#parent > ul > li");
 			expect(el).toBeInstanceOf(HtmlElement);
 			expect(el.tagName).toEqual("li");
 			expect(el.getAttributeValue("class")).toEqual("foo");
@@ -700,7 +700,7 @@ describe("HtmlElement", () => {
 
 		it("should find element with adjacent sibling combinator", () => {
 			expect.assertions(3);
-			const el = root.querySelector("li + li");
+			const el = document.querySelector("li + li");
 			expect(el).toBeInstanceOf(HtmlElement);
 			expect(el.tagName).toEqual("li");
 			expect(el.getAttributeValue("class")).toEqual("bar baz");
@@ -708,7 +708,7 @@ describe("HtmlElement", () => {
 
 		it("should find element with general sibling combinator", () => {
 			expect.assertions(3);
-			const el = root.querySelector("ul ~ .baz");
+			const el = document.querySelector("ul ~ .baz");
 			expect(el).toBeInstanceOf(HtmlElement);
 			expect(el.tagName).toEqual("span");
 			expect(el.getAttributeValue("class")).toEqual("baz");
@@ -716,13 +716,13 @@ describe("HtmlElement", () => {
 
 		it("should return null if nothing matches", () => {
 			expect.assertions(1);
-			const el = root.querySelector("foobar");
+			const el = document.querySelector("foobar");
 			expect(el).toBeNull();
 		});
 
 		it("should return null if selector is empty", () => {
 			expect.assertions(1);
-			const el = root.querySelector("");
+			const el = document.querySelector("");
 			expect(el).toBeNull();
 		});
 	});
@@ -730,7 +730,7 @@ describe("HtmlElement", () => {
 	describe("querySelectorAll()", () => {
 		it("should find multiple elements", () => {
 			expect.assertions(5);
-			const el = root.querySelectorAll(".bar");
+			const el = document.querySelectorAll(".bar");
 			expect(el).toHaveLength(2);
 			expect(el[0]).toBeInstanceOf(HtmlElement);
 			expect(el[1]).toBeInstanceOf(HtmlElement);
@@ -740,7 +740,7 @@ describe("HtmlElement", () => {
 
 		it("should handle multiple selectors", () => {
 			expect.assertions(4);
-			const el = root.querySelectorAll(".bar, li");
+			const el = document.querySelectorAll(".bar, li");
 			el.sort(
 				(a: HtmlElement, b: HtmlElement) => a.unique - b.unique
 			); /* selector may give results in any order */
@@ -752,13 +752,13 @@ describe("HtmlElement", () => {
 
 		it("should return [] when nothing matches", () => {
 			expect.assertions(1);
-			const el = root.querySelectorAll("missing");
+			const el = document.querySelectorAll("missing");
 			expect(el).toEqual([]);
 		});
 
 		it("should return [] if selector is empty", () => {
 			expect.assertions(1);
-			const el = root.querySelectorAll("");
+			const el = document.querySelectorAll("");
 			expect(el).toEqual([]);
 		});
 	});

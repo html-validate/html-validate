@@ -50,7 +50,7 @@ describe("Selector", () => {
 				<spam wilma="rubble" boolean test-id="spam-1"></spam>
 				<baz test-id="baz-2"></baz>
 			</bar>
-		`).root;
+		`);
 	});
 
 	afterEach(() => {
@@ -121,25 +121,25 @@ describe("Selector", () => {
 	it("should match id with escaped colon", () => {
 		expect.assertions(1);
 		const parser = new Parser(Config.empty().resolve());
-		const doc = parser.parseHtml(`<div id="foo:"></div>`).root;
+		const document = parser.parseHtml(`<div id="foo:"></div>`);
 		const selector = new Selector("#foo\\:");
-		expect(fetch(selector.match(doc))).toEqual([expect.objectContaining({ tagName: "div" })]);
+		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
 	});
 
 	it("should match id with escaped space", () => {
 		expect.assertions(1);
 		const parser = new Parser(Config.empty().resolve());
-		const doc = parser.parseHtml(`<div id="foo "></div>`).root;
+		const document = parser.parseHtml(`<div id="foo "></div>`);
 		const selector = new Selector("#foo\\ ");
-		expect(fetch(selector.match(doc))).toEqual([expect.objectContaining({ tagName: "div" })]);
+		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
 	});
 
 	it("should match id with escaped bracket", () => {
 		expect.assertions(1);
 		const parser = new Parser(Config.empty().resolve());
-		const doc = parser.parseHtml(`<div id="foo[bar]"></div>`).root;
+		const document = parser.parseHtml(`<div id="foo[bar]"></div>`);
 		const selector = new Selector("#foo\\[bar\\]");
-		expect(fetch(selector.match(doc))).toEqual([expect.objectContaining({ tagName: "div" })]);
+		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
 	});
 
 	it("should match having attribute ([wilma])", () => {

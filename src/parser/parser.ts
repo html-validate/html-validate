@@ -43,7 +43,7 @@ export class Parser {
 	 * @returns DOM tree representing the HTML markup.
 	 */
 	// eslint-disable-next-line complexity
-	public parseHtml(source: string | Source): DOMTree {
+	public parseHtml(source: string | Source): HtmlElement {
 		if (typeof source === "string") {
 			source = {
 				data: source,
@@ -139,7 +139,7 @@ export class Parser {
 			location: null,
 		});
 
-		return this.dom;
+		return this.dom.root;
 	}
 
 	/**

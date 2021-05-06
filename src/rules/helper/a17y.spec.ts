@@ -1,5 +1,5 @@
 import { Config } from "../../config";
-import { DOMTree, HtmlElement, NodeClosed } from "../../dom";
+import { HtmlElement, NodeClosed } from "../../dom";
 import { Parser } from "../../parser";
 import { processAttribute } from "../../transform/mocks/attribute";
 import { inAccessibilityTree, isAriaHidden, isHTMLHidden, isPresentation } from "./a17y";
@@ -11,7 +11,7 @@ describe("a17y helpers", () => {
 		parser = new Parser(Config.defaultConfig().resolve());
 	});
 
-	function parse(data: string): DOMTree {
+	function parse(data: string): HtmlElement {
 		return parser.parseHtml({
 			data,
 			filename: "inline",
