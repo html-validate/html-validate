@@ -748,6 +748,23 @@ describe("HtmlElement", () => {
 			expect(el.getAttributeValue("class")).toEqual("baz");
 		});
 
+		it("should find element with :scope", () => {
+			expect.assertions(1);
+			const markup = `
+				<h1 id="first"></h1>
+				<section>
+					<div><h1 id="second"></h1></div>
+					<h1 id="third"></h1>
+					<div><h1 id="forth"></h1></div>
+				</section>
+				<h1 id="fifth"></h1>`;
+			const parser = new Parser(Config.empty().resolve());
+			const document = parser.parseHtml(markup);
+			const section = document.querySelector("section");
+			const el = section.querySelectorAll(":scope > h1");
+			expect(el.map((it) => it.id)).toEqual(["third"]);
+		});
+
 		it("should return null if nothing matches", () => {
 			expect.assertions(1);
 			const el = document.querySelector("foobar");

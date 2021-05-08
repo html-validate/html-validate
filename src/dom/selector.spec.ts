@@ -221,6 +221,15 @@ describe("Selector", () => {
 		]);
 	});
 
+	it("should match with :scope", () => {
+		expect.assertions(1);
+		const element = doc.querySelector("bar");
+		const selector = new Selector(":scope > foo");
+		expect(fetch(selector.match(element))).toEqual([
+			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),
+		]);
+	});
+
 	it("should throw error for missing pseudo-class", () => {
 		expect.assertions(1);
 		expect(() => new Selector("foo:")).toThrow(
