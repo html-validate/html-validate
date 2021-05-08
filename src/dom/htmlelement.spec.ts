@@ -865,6 +865,25 @@ describe("HtmlElement", () => {
 			expect(result?.tagName).toEqual("b");
 		});
 	});
+
+	it("should not throw error if tagName is undefined", () => {
+		expect.assertions(1);
+		expect(() => new HtmlElement(undefined, null, NodeClosed.EndTag, null, location)).not.toThrow();
+	});
+
+	it("should throw error if tagName is empty string", () => {
+		expect.assertions(1);
+		expect(() => new HtmlElement("", null, NodeClosed.EndTag, null, location)).toThrow(
+			"The tag name provided ('') is not a valid name"
+		);
+	});
+
+	it("should throw error if tagName is asterisk", () => {
+		expect.assertions(1);
+		expect(() => new HtmlElement("*", null, NodeClosed.EndTag, null, location)).toThrow(
+			"The tag name provided ('*') is not a valid name"
+		);
+	});
 });
 
 function mockEntry(stub: Partial<MetaData> = {}): MetaData {

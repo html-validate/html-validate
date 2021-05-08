@@ -21,6 +21,10 @@ function isElement(node: DOMNode): node is HtmlElement {
 	return node.nodeType === NodeType.ELEMENT_NODE;
 }
 
+function isValidTagName(tagName: string | undefined): boolean {
+	return Boolean(tagName !== "" && tagName !== "*");
+}
+
 export class HtmlElement extends DOMNode {
 	public readonly tagName: string;
 	public readonly parent: HtmlElement | null;
@@ -40,6 +44,10 @@ export class HtmlElement extends DOMNode {
 	) {
 		const nodeType = tagName ? NodeType.ELEMENT_NODE : NodeType.DOCUMENT_NODE;
 		super(nodeType, tagName, location);
+
+		if (!isValidTagName(tagName)) {
+			throw new Error(`The tag name provided ('${tagName || ""}') is not a valid name`);
+		}
 
 		this.tagName = tagName || "#document";
 		this.parent = parent ?? null;
@@ -177,9 +185,6 @@ export class HtmlElement extends DOMNode {
 	 * If passing "*" this test will pass if any tagname is set.
 	 */
 	public is(tagName: string): boolean {
-		if (!this.tagName) {
-			return false;
-		}
 		return tagName === "*" || this.tagName.toLowerCase() === tagName.toLowerCase();
 	}
 
