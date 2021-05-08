@@ -1,6 +1,6 @@
 import path from "path";
 import { codeFrameColumns } from "@babel/code-frame";
-import chalk = require("chalk");
+import kleur from "kleur";
 import { Message, Result } from "../reporter";
 import { Formatter } from "./formatter";
 
@@ -46,7 +46,7 @@ function formatFilePath(filePath: string, line: number, column: number): string 
 		relPath += `:${line}:${column}`;
 	}
 
-	return chalk.green(relPath);
+	return kleur.green(relPath);
 }
 
 function getStartLocation(message: Message): SourcePoint {
@@ -77,9 +77,9 @@ function getEndLocation(message: Message, source: string): SourcePoint {
  * @returns The formatted output.
  */
 function formatMessage(message: Message, parentResult: Result, options: CodeframeOptions): string {
-	const type = message.severity === 2 ? chalk.red("error") : chalk.yellow("warning");
-	const msg = `${chalk.bold(message.message.replace(/([^ ])\.$/, "$1"))}`;
-	const ruleId = chalk.dim(`(${message.ruleId})`);
+	const type = message.severity === 2 ? kleur.red("error") : kleur.yellow("warning");
+	const msg = `${kleur.bold(message.message.replace(/([^ ])\.$/, "$1"))}`;
+	const ruleId = kleur.dim(`(${message.ruleId})`);
 	const filePath = formatFilePath(parentResult.filePath, message.line, message.column);
 	const sourceCode = parentResult.source;
 
@@ -110,7 +110,7 @@ function formatMessage(message: Message, parentResult: Result, options: Codefram
 	}
 
 	if (options.showLink && message.ruleUrl) {
-		result.push(`${chalk.bold("Details:")} ${message.ruleUrl}`);
+		result.push(`${kleur.bold("Details:")} ${message.ruleUrl}`);
 	}
 
 	return result.join("\n");
@@ -134,7 +134,7 @@ function formatSummary(errors: number, warnings: number): string {
 		summary.push(`${warnings} ${pluralize("warning", warnings)}`);
 	}
 
-	return chalk[summaryColor].bold(`${summary.join(" and ")} found.`);
+	return kleur[summaryColor]().bold(`${summary.join(" and ")} found.`);
 }
 
 export function codeframe(results: Result[], options?: Partial<CodeframeOptions>): string {

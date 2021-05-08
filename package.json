@@ -122,12 +122,12 @@
     "@sidvind/better-ajv-errors": "^0.8.0",
     "acorn-walk": "^8.0.0",
     "ajv": "^7.0.0",
-    "chalk": "^4.0.0",
     "deepmerge": "^4.2.0",
     "espree": "^7.3.0",
     "glob": "^7.1.0",
     "ignore": "^5.0.0",
     "json-merge-patch": "^1.0.0",
+    "kleur": "^4.1.0",
     "minimist": "^1.2.0",
     "prompts": "^2.0.0"
   },

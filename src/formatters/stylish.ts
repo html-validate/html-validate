@@ -1,5 +1,5 @@
 import stylishImpl from "@html-validate/stylish";
-import chalk from "chalk";
+import kleur from "kleur";
 import { Result } from "../reporter";
 import { Formatter } from "./formatter";
 
@@ -17,7 +17,7 @@ function linkSummary(results: Result[]): string {
 	}
 
 	const lines = unique.map((url) => `  ${url}\n`);
-	return `\n${chalk.bold("More information")}:\n${lines.join("")}\n`;
+	return `\n${kleur.bold("More information")}:\n${lines.join("")}\n`;
 }
 
 function stylish(results: Result[]): string {
