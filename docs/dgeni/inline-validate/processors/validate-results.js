@@ -1,4 +1,4 @@
-const chalk = require("chalk");
+const kleur = require("kleur");
 const HtmlValidate = require("../../../../dist/htmlvalidate").default;
 const codeframe = require("../../../../dist/formatters/codeframe").codeframe;
 
@@ -15,8 +15,8 @@ module.exports = function generateValidationResultsProcessor(log, validateMap) {
 	};
 
 	function $process() {
-		const oldLevel = chalk.level;
-		chalk.level = 0;
+		const previousEnabled = kleur.enabled;
+		kleur.enabled = false;
 		validateMap.forEach((validation) => {
 			htmlvalidate = new HtmlValidate(validation.config);
 			validation.report = htmlvalidate.validateString(validation.markup);
@@ -26,6 +26,6 @@ module.exports = function generateValidationResultsProcessor(log, validateMap) {
 				validation.showResults = !validation.report.valid;
 			}
 		});
-		chalk.level = oldLevel;
+		kleur.enabled = previousEnabled;
 	}
 };

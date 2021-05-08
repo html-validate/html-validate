@@ -1,6 +1,6 @@
 /* eslint-disable no-console, no-process-exit, sonarjs/no-duplicate-string */
 import path from "path";
-import chalk from "chalk";
+import kleur from "kleur";
 import minimist from "minimist";
 import { TokenDump } from "../engine";
 import { SchemaValidationError } from "../error";
@@ -55,7 +55,7 @@ function lint(files: string[]): Report {
 		try {
 			return htmlvalidate.validateFile(filename);
 		} catch (err) {
-			console.error(chalk.red(`Validator crashed when parsing "${filename}"`));
+			console.error(kleur.red(`Validator crashed when parsing "${filename}"`));
 			throw err;
 		}
 	});
@@ -101,9 +101,9 @@ function renameStdin(report: Report, filename: string): void {
 function handleValidationError(err: SchemaValidationError): void {
 	if (err.filename) {
 		const filename = path.relative(process.cwd(), err.filename);
-		console.log(chalk.red(`A configuration error was found in "${filename}":`));
+		console.log(kleur.red(`A configuration error was found in "${filename}":`));
 	} else {
-		console.log(chalk.red(`A configuration error was found:`));
+		console.log(kleur.red(`A configuration error was found:`));
 	}
 	console.group();
 	{
@@ -113,7 +113,7 @@ function handleValidationError(err: SchemaValidationError): void {
 }
 
 function handleUserError(err: UserError): void {
-	console.error(chalk.red("Caught exception:"));
+	console.error(kleur.red("Caught exception:"));
 	console.group();
 	{
 		console.error(err);
@@ -122,16 +122,16 @@ function handleUserError(err: UserError): void {
 }
 
 function handleUnknownError(err: Error): void {
-	console.error(chalk.red("Caught exception:"));
+	console.error(kleur.red("Caught exception:"));
 	console.group();
 	{
 		console.error(err);
 	}
 	console.groupEnd();
 	const bugUrl = `${pkg.bugs.url}?issuable_template=Bug`;
-	console.error(chalk.red(`This is a bug in ${pkg.name}-${pkg.version}.`));
+	console.error(kleur.red(`This is a bug in ${pkg.name}-${pkg.version}.`));
 	console.error(
-		chalk.red(
+		kleur.red(
 			[
 				`Please file a bug at ${bugUrl}`,
 				`and include this message in full and if possible the content of the`,
