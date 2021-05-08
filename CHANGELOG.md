@@ -1,5 +1,19 @@
 # html-validate changelog
 
+## [4.11.0](https://gitlab.com/html-validate/html-validate/compare/v4.10.1...v4.11.0) (2021-05-08)
+
+### Features
+
+- `dom:ready` and `dom:load` contains `source` reference ([430ec7c](https://gitlab.com/html-validate/html-validate/commit/430ec7c611ce5f09dfaa7e1e08febe756ee87db1)), closes [#115](https://gitlab.com/html-validate/html-validate/issues/115)
+- add `:scope` pseudoselector ([6e3d837](https://gitlab.com/html-validate/html-validate/commit/6e3d83713ab74297a4b4af41f6b244c9e3d7822a)), closes [#114](https://gitlab.com/html-validate/html-validate/issues/114)
+- add `isSameNode()` ([7d99007](https://gitlab.com/html-validate/html-validate/commit/7d99007b9458d2ff1ca37aae756dd2806837ca68))
+- add new event `source:ready` ([4c1d115](https://gitlab.com/html-validate/html-validate/commit/4c1d115594f0eebdccfcbe6a6518a805b4a26929)), closes [#115](https://gitlab.com/html-validate/html-validate/issues/115)
+- **rules:** `deprecated` takes `include` and `exclude` options ([e00d7c1](https://gitlab.com/html-validate/html-validate/commit/e00d7c161bf7244931378f51b3c481016d49aad6))
+
+### Bug Fixes
+
+- **dom:** throw if `tagName` is invalid ([42d7100](https://gitlab.com/html-validate/html-validate/commit/42d710020eb3c0e4d2e528859ed23a56095feb87))
+
 ### [4.10.1](https://gitlab.com/html-validate/html-validate/compare/v4.10.0...v4.10.1) (2021-04-25)
 
 ### Bug Fixes

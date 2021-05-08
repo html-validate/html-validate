@@ -62,5 +62,5 @@ If set elements listed in this array is ignored.
 
 ## Version history
 
-- v%version% - `include` and `exclude` options added.
+- v4.11.0 - `include` and `exclude` options added.
 - v1.13.0 - Rule added.
