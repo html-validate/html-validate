@@ -262,6 +262,13 @@ describe("DOMNode", () => {
 			expect(node.cacheRemove("bar")).toBeFalsy();
 		});
 
+		it("cacheRemove() should return false if cache is disabled", () => {
+			expect.assertions(1);
+			const node = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+			node.cacheSet("foo", 1);
+			expect(node.cacheRemove("foo")).toBeFalsy();
+		});
+
 		it("cacheExists() should return true if value is cached", () => {
 			expect.assertions(2);
 			const node = new DOMNode(NodeType.ELEMENT_NODE, "div", location);

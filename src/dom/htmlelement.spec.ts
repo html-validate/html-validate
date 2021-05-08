@@ -225,6 +225,26 @@ describe("HtmlElement", () => {
 		expect(c.nextSibling).toBeNull();
 	});
 
+	describe("siblings", () => {
+		it("should return list of siblings", () => {
+			expect.assertions(1);
+			expect.assertions(3);
+			const root = new HtmlElement("root", null, NodeClosed.EndTag, null, location);
+			const a = new HtmlElement("a", root, NodeClosed.EndTag, null, location);
+			const b = new HtmlElement("b", root, NodeClosed.EndTag, null, location);
+			const c = new HtmlElement("c", root, NodeClosed.EndTag, null, location);
+			expect(a.siblings).toEqual([a, b, c]);
+			expect(b.siblings).toEqual([a, b, c]);
+			expect(c.siblings).toEqual([a, b, c]);
+		});
+
+		it("should handle detached elements", () => {
+			expect.assertions(1);
+			const element = new HtmlElement("span", null, NodeClosed.EndTag, null, location);
+			expect(element.siblings).toEqual([element]);
+		});
+	});
+
 	describe("attributes getter", () => {
 		it("should return list of all attributes", () => {
 			expect.assertions(2);
@@ -474,6 +494,20 @@ describe("HtmlElement", () => {
 			`);
 			const el = document.querySelector("p");
 			expect(el.generateSelector()).toEqual("#foo > p");
+		});
+
+		it("should not use id if id is not unique", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml(`
+				<div>
+					<div id="foo">
+						<p></p>
+					</div>
+					<div id="foo"></div>
+				</div>
+			`);
+			const el = document.querySelector("p");
+			expect(el.generateSelector()).toEqual("div > div:nth-child(1) > p");
 		});
 
 		it("should handle colon in id", () => {

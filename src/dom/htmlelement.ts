@@ -38,7 +38,7 @@ export class HtmlElement extends DOMNode {
 	public constructor(
 		tagName: string | undefined,
 		parent: HtmlElement | null,
-		closed: NodeClosed = NodeClosed.EndTag,
+		closed: NodeClosed,
 		meta: MetaElement | null,
 		location: Location
 	) {
@@ -77,8 +77,8 @@ export class HtmlElement extends DOMNode {
 	public static fromTokens(
 		startToken: Token,
 		endToken: Token,
-		parent: HtmlElement | null = null,
-		metaTable: MetaTable | null = null
+		parent: HtmlElement | null,
+		metaTable: MetaTable | null
 	): HtmlElement {
 		const tagName = startToken.data[2];
 		if (!tagName) {

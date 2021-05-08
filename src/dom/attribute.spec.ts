@@ -56,6 +56,13 @@ describe("Attribute", () => {
 			expect(attr.valueMatches(/foo/)).toBeFalsy();
 		});
 
+		it("should return false for boolean attributes", () => {
+			expect.assertions(2);
+			const attr = new Attribute("foo", null, keyLocation, valueLocation);
+			expect(attr.valueMatches("true")).toBeFalsy();
+			expect(attr.valueMatches(/any/)).toBeFalsy();
+		});
+
 		it("should match DynamicValue", () => {
 			expect.assertions(2);
 			const attr = new Attribute("foo", new DynamicValue("bar"), keyLocation, valueLocation);
