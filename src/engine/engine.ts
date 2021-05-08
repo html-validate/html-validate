@@ -1,6 +1,7 @@
 import { ConfigData, ResolvedConfig, RuleOptions, Severity } from "../config";
 import { Location, Source } from "../context";
 import { HtmlElement } from "../dom";
+import { DOMInternalID } from "../dom/domnode";
 import {
 	ConfigReadyEvent,
 	DirectiveEvent,
@@ -262,7 +263,7 @@ export class Engine<T extends Parser = Parser> {
 	}
 
 	private processDisableBlockDirective(rules: Rule[], parser: Parser): void {
-		let directiveBlock: number | null = null;
+		let directiveBlock: DOMInternalID | null = null;
 		for (const rule of rules) {
 			rule.setEnabled(false);
 		}
