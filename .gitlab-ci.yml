@@ -106,7 +106,7 @@ Docs:
     - npm run --if-present build
     - npm run compatibility
 
-Node 10.x (LTS):
+Node 10.x:
   <<: *compat
   image: node:10
 
@@ -118,9 +118,9 @@ Node 14.x (LTS):
   <<: *compat
   image: node:14
 
-Node 15.x (current):
+Node 16.x (current):
   <<: *compat
-  image: node:15
+  image: node:16
 
 Release:
   stage: release
