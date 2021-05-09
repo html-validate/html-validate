@@ -30,6 +30,7 @@
     "elements",
     "jest.{js,d.ts}",
     "test-utils.{js,d.ts}",
+    "!**/*.map",
     "!**/*.snap",
     "!**/*.spec.d.ts",
     "!**/*.spec.js",
