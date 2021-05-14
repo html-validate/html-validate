@@ -59,7 +59,7 @@ describe("MetaTable", () => {
 		const table = new MetaTable();
 		const fn = (): void =>
 			table.loadFromObject({
-				foo: mockEntry(({ invalid: true } as unknown) as Partial<MetaData>),
+				foo: mockEntry({ invalid: true } as unknown as Partial<MetaData>),
 			});
 		expect(fn).toThrow(SchemaValidationError);
 		expect(fn).toThrow(
@@ -98,12 +98,12 @@ describe("MetaTable", () => {
 	it("should ignore $schema property", () => {
 		expect.assertions(2);
 		const table = new MetaTable();
-		table.loadFromObject(({
+		table.loadFromObject({
 			$schema: "https://example.net/schema.json",
 			foo: {
 				flow: true,
 			},
-		} as unknown) as MetaDataTable);
+		} as unknown as MetaDataTable);
 		expect(table.getMetaFor("foo")).toBeDefined();
 		expect(table.getMetaFor("$schema")).toBeNull();
 	});
@@ -189,10 +189,10 @@ describe("MetaTable", () => {
 			expect.assertions(1);
 			metaTable = new MetaTable();
 			metaTable.loadFromObject({
-				invalid: mockEntry(({
+				invalid: mockEntry({
 					interactive: ["invalid"],
 					void: true,
-				} as unknown) as Partial<MetaData>),
+				} as unknown as Partial<MetaData>),
 			});
 			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			expect(() => parser.parseHtml("<invalid/>")).toThrow(

@@ -32,7 +32,7 @@ export class Parser {
 	 */
 	public constructor(config: ResolvedConfig) {
 		this.event = new EventHandler();
-		this.dom = (null as unknown) as DOMTree;
+		this.dom = null as unknown as DOMTree;
 		this.metaTable = config.getMetaTable();
 	}
 

@@ -323,9 +323,7 @@ export class Engine<T extends Parser = Parser> {
 	/*
 	 * Initialize all plugins. This should only be done once for all sessions.
 	 */
-	protected initPlugins(
-		config: ResolvedConfig
-	): {
+	protected initPlugins(config: ResolvedConfig): {
 		availableRules: { [key: string]: RuleConstructor<any, any> };
 	} {
 		for (const plugin of config.getPlugins()) {

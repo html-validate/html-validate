@@ -49,21 +49,19 @@ export class CaseStyle {
 	}
 
 	private parseStyle(style: CaseStyleName[], ruleId: string): Style[] {
-		return style.map(
-			(cur: string): Style => {
-				switch (cur.toLowerCase()) {
-					case "lowercase":
-						return { pattern: /^[a-z]*$/, name: "lowercase" };
-					case "uppercase":
-						return { pattern: /^[A-Z]*$/, name: "uppercase" };
-					case "pascalcase":
-						return { pattern: /^[A-Z][A-Za-z]*$/, name: "PascalCase" };
-					case "camelcase":
-						return { pattern: /^[a-z][A-Za-z]*$/, name: "camelCase" };
-					default:
-						throw new ConfigError(`Invalid style "${style}" for ${ruleId} rule`);
-				}
+		return style.map((cur: string): Style => {
+			switch (cur.toLowerCase()) {
+				case "lowercase":
+					return { pattern: /^[a-z]*$/, name: "lowercase" };
+				case "uppercase":
+					return { pattern: /^[A-Z]*$/, name: "uppercase" };
+				case "pascalcase":
+					return { pattern: /^[A-Z][A-Za-z]*$/, name: "PascalCase" };
+				case "camelcase":
+					return { pattern: /^[a-z][A-Za-z]*$/, name: "camelCase" };
+				default:
+					throw new ConfigError(`Invalid style "${style}" for ${ruleId} rule`);
 			}
-		);
+		});
 	}
 }
