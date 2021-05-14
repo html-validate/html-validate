@@ -22,20 +22,18 @@ it("should compute correct line, column and offset when using transformed source
 	/* create a mock transformer which will create a new source for each line */
 	function transformer(source: Source): Source[] {
 		const lines = source.data.split("\n");
-		return lines.filter(Boolean).map(
-			(line: string, index: number): Source => {
-				/* all lines have the same length */
-				const offset = (line.length + 1) * index;
-				return {
-					data: line,
-					filename: source.filename,
-					line: index + 1,
-					column: 1,
-					offset,
-					originalData: source.data,
-				};
-			}
-		);
+		return lines.filter(Boolean).map((line: string, index: number): Source => {
+			/* all lines have the same length */
+			const offset = (line.length + 1) * index;
+			return {
+				data: line,
+				filename: source.filename,
+				line: index + 1,
+				column: 1,
+				offset,
+				originalData: source.data,
+			};
+		});
 	}
 	transformer.api = TRANSFORMER_API.VERSION;
 

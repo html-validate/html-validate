@@ -23,12 +23,10 @@ function getCSSDeclarations(value: string): CSSDeclaration[] {
 	return value
 		.split(";")
 		.filter(Boolean)
-		.map(
-			(it): CSSDeclaration => {
-				const [property, value] = it.split(":", 2);
-				return { property: property.trim(), value: value.trim() };
-			}
-		);
+		.map((it): CSSDeclaration => {
+			const [property, value] = it.split(":", 2);
+			return { property: property.trim(), value: value.trim() };
+		});
 }
 
 export default class NoInlineStyle extends Rule<void, RuleOptions> {

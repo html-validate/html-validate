@@ -15,9 +15,9 @@ it("SchemaValidationError should pretty-print validation errors", () => {
 	const table = new MetaTable();
 	try {
 		table.loadFromObject({
-			foo: ({
+			foo: {
 				flow: "spam",
-			} as unknown) as MetaElement,
+			} as unknown as MetaElement,
 		});
 	} catch (err) {
 		if (err instanceof SchemaValidationError) {

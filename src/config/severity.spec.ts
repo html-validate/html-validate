@@ -43,12 +43,12 @@ describe("parseSeverity()", () => {
 
 	it("should throw error on null", () => {
 		expect.assertions(1);
-		expect(() => parseSeverity((null as unknown) as string)).toThrow('Invalid severity "null"');
+		expect(() => parseSeverity(null as unknown as string)).toThrow('Invalid severity "null"');
 	});
 
 	it("should throw error on undefined", () => {
 		expect.assertions(1);
-		expect(() => parseSeverity((undefined as unknown) as string)).toThrow(
+		expect(() => parseSeverity(undefined as unknown as string)).toThrow(
 			'Invalid severity "undefined"'
 		);
 	});

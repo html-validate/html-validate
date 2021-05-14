@@ -261,7 +261,7 @@ describe("rule base class", () => {
 			const spy = jest.fn();
 			const eventData: TagStartEvent = {
 				location,
-				target: (null as unknown) as HtmlElement,
+				target: null as unknown as HtmlElement,
 			};
 			rule.on("tag:open", spy);
 			parser.trigger("tag:start", eventData);
@@ -273,8 +273,8 @@ describe("rule base class", () => {
 			const spy = jest.fn();
 			const eventData: TagEndEvent = {
 				location,
-				target: (null as unknown) as HtmlElement,
-				previous: (null as unknown) as HtmlElement,
+				target: null as unknown as HtmlElement,
+				previous: null as unknown as HtmlElement,
 			};
 			rule.on("tag:close", spy);
 			parser.trigger("tag:end", eventData);
