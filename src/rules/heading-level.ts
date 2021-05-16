@@ -1,4 +1,4 @@
-import { sliceLocation } from "../context";
+import { Location, sliceLocation } from "../context";
 import { HtmlElement, Pattern } from "../dom";
 import { DOMInternalID } from "../dom/domnode";
 import { SelectorContext } from "../dom/selector-context";
@@ -111,20 +111,54 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 			return;
 		}
 
-		/* validate heading level was only incremented by one */
+		this.checkLevelIncrementation(root, event, level);
+
+		root.current = level;
+	}
+
+	/**
+	 * Validate heading level was only incremented by one.
+	 */
+	private checkLevelIncrementation(
+		root: SectioningRoot,
+		event: TagStartEvent,
+		level: number
+	): void {
 		const expected = root.current + 1;
 		if (level !== expected) {
 			const location = sliceLocation(event.location, 1);
 			if (root.current > 0) {
 				const msg = `Heading level can only increase by one, expected <h${expected}> but got <h${level}>`;
 				this.report(event.target, msg, location);
-			} else if (this.stack.length === 1) {
-				const msg = `Initial heading level must be <h${expected}> but got <h${level}>`;
-				this.report(event.target, msg, location);
+			} else {
+				this.checkInitialLevel(event, location, level, expected);
 			}
 		}
+	}
 
-		root.current = level;
+	private checkInitialLevel(
+		event: TagStartEvent,
+		location: Location,
+		level: number,
+		expected: number
+	): void {
+		if (this.stack.length === 1) {
+			const msg = `Initial heading level must be <h${expected}> but got <h${level}>`;
+			this.report(event.target, msg, location);
+		} else {
+			const prevRoot = this.getPrevRoot();
+			const prevRootExpected = prevRoot.current + 1;
+
+			if (level > prevRootExpected) {
+				if (expected === prevRootExpected) {
+					const msg = `Initial heading level for sectioning root must be <h${expected}> but got <h${level}>`;
+					this.report(event.target, msg, location);
+				} else {
+					const msg = `Initial heading level for sectioning root must be between <h${expected}> and <h${prevRootExpected}> but got <h${level}>`;
+					this.report(event.target, msg, location);
+				}
+			}
+		}
 	}
 
 	/**
@@ -153,6 +187,10 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 			return;
 		}
 		this.stack.pop();
+	}
+
+	private getPrevRoot(): SectioningRoot {
+		return this.stack[this.stack.length - 2];
 	}
 
 	private getCurrentRoot(): SectioningRoot {

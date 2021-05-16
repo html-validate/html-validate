@@ -109,6 +109,40 @@ describe("rule heading-level", () => {
 			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
+
+		it("should not allow skipping heading levels", () => {
+			expect.assertions(2);
+			const markup = `
+			<h1>heading 1</h1>
+			<h2>heading 2</h2>
+			<h3>heading 2</h3>
+			<div role="dialog">
+				<h5>modal header</h5>
+			</div>
+			<h3>heading 2</h3>
+		`;
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toHaveError(
+				"heading-level",
+				"Initial heading level for sectioning root must be between <h1> and <h4> but got <h5>"
+			);
+		});
+
+		it("should enforce h1 as initial heading level if sectioning root is the only content in document", () => {
+			expect.assertions(2);
+			const markup = `
+			<div role="dialog">
+				<h5>modal header</h5>
+			</div>
+		`;
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toHaveError(
+				"heading-level",
+				"Initial heading level for sectioning root must be <h1> but got <h5>"
+			);
+		});
 	});
 
 	it("smoketest", () => {
