@@ -47,7 +47,7 @@
     "debug": "node --inspect ./node_modules/.bin/jest --runInBand --watch --no-coverage",
     "eslint": "eslint .",
     "eslint:fix": "eslint --fix .",
-    "htmlvalidate": "./bin/html-validate.js",
+    "htmlvalidate": "node ./bin/html-validate.js",
     "prepare": "husky install scripts",
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
