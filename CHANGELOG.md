@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [4.12.0](https://gitlab.com/html-validate/html-validate/compare/v4.11.0...v4.12.0) (2021-05-17)
+
+### Features
+
+- **rules:** enforce initial heading-level in sectioning roots ([c4306ad](https://gitlab.com/html-validate/html-validate/commit/c4306ad6920005c760431c2681d37e2fc25949fd))
+
 ## [4.11.0](https://gitlab.com/html-validate/html-validate/compare/v4.10.1...v4.11.0) (2021-05-08)
 
 ### Features
