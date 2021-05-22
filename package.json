@@ -187,7 +187,7 @@
     "postcss": "8.2.15",
     "prettier": "2.3.0",
     "pretty-format": "26.6.2",
-    "sass": "1.32.13",
+    "sass": "1.33.0",
     "semantic-release": "17.4.3",
     "serve-static": "1.14.1",
     "stringmap": "0.2.2",
