@@ -120,7 +120,7 @@
   "dependencies": {
     "@babel/code-frame": "^7.10.0",
     "@html-validate/stylish": "^1.0.0",
-    "@sidvind/better-ajv-errors": "^0.8.0",
+    "@sidvind/better-ajv-errors": "^0.9.0",
     "acorn-walk": "^8.0.0",
     "ajv": "^7.0.0",
     "deepmerge": "^4.2.0",
