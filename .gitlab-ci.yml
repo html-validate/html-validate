@@ -102,7 +102,7 @@ Docs:
   before_script:
     - npm ci
   script:
-    - npm test
+    - npm test -- --no-coverage --testPathIgnorePatterns matchers tests/jest
     - npm run --if-present build
     - npm run compatibility
 
@@ -121,6 +121,19 @@ Node 14.x (LTS):
 Node 16.x (current):
   <<: *compat
   image: node:16
+
+Jest compat:
+  stage: compatibility
+  dependencies: []
+  needs: []
+  parallel:
+    matrix:
+      - VERSION: [24, 25, 26, 27]
+  before_script:
+    - npm ci
+    - npm install --force jest@${VERSION}.0.0 ts-jest@${VERSION}.0.0
+  script:
+    - npm exec jest -- --no-coverage matchers tests/jest
 
 Release:
   stage: release

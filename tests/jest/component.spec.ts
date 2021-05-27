@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import "../../src/matchers";
 
 it("should validate ok", () => {

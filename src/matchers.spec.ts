@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 jest.mock("./config/default", () => {
 	return {
 		extends: ["html-validate:recommended"],
