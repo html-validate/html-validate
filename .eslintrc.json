@@ -28,7 +28,8 @@
       "rules": {
         "sonarjs/no-duplicate-string": "off",
         "sonarjs/no-identical-functions": "off",
-        "@typescript-eslint/no-non-null-assertion": "off"
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "tsdoc/syntax": "off"
       }
     }
   ]
