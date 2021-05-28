@@ -1,5 +1,16 @@
 # html-validate changelog
 
+## [4.13.0](https://gitlab.com/html-validate/html-validate/compare/v4.12.0...v4.13.0) (2021-05-28)
+
+### Features
+
+- **jest:** better compatibility with jest in node environment ([79d14ca](https://gitlab.com/html-validate/html-validate/commit/79d14ca23bacf6848ce67b6f4ec853bbfee5f5a6))
+
+### Dependency upgrades
+
+- **deps:** support jest v27 ([863f73d](https://gitlab.com/html-validate/html-validate/commit/863f73dfec245a1a806bb7a6690fbc633887a334))
+- **deps:** update dependency @sidvind/better-ajv-errors to ^0.9.0 ([8f6d162](https://gitlab.com/html-validate/html-validate/commit/8f6d1628a9dcc8554b17a37a31e29cdb98f2dd01))
+
 ## [4.12.0](https://gitlab.com/html-validate/html-validate/compare/v4.11.0...v4.12.0) (2021-05-17)
 
 ### Features
