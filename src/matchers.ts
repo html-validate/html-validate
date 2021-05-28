@@ -13,6 +13,7 @@ interface TokenMatcher {
 	data?: any;
 }
 
+/* istanbul ignore next: covered by compatibility tests but not a single pass */
 const diff = jestDiff?.diff ?? jestDiff;
 
 declare global {
@@ -174,7 +175,7 @@ function toHTMLValidate(
 	arg2?: string
 ): jest.CustomMatcherResult {
 	// @ts-ignore DOM library not available
-	if (actual instanceof HTMLElement) {
+	if (typeof HTMLElement !== "undefined" && actual instanceof HTMLElement) {
 		actual = actual.outerHTML;
 	}
 
