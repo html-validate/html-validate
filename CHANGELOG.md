@@ -1,5 +1,11 @@
 # html-validate changelog
 
+### [4.13.1](https://gitlab.com/html-validate/html-validate/compare/v4.13.0...v4.13.1) (2021-05-28)
+
+### Bug Fixes
+
+- **jest:** fix `TypeError: diff is not a function` ([2afc2e8](https://gitlab.com/html-validate/html-validate/commit/2afc2e8796d9e2a8b9b79af91625f6d844860a53))
+
 ## [4.13.0](https://gitlab.com/html-validate/html-validate/compare/v4.12.0...v4.13.0) (2021-05-28)
 
 ### Features
