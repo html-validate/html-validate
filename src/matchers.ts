@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace, @typescript-eslint/ban-ts-comment, prefer-template, sonarjs/no-duplicate-string */
 
-import * as jestDiff from "jest-diff";
+import jestDiffDefault, * as jestDiff from "jest-diff";
 import deepmerge from "deepmerge";
 import { TokenType } from "./lexer";
 import { Message, Report, Result } from "./reporter";
@@ -14,7 +14,8 @@ interface TokenMatcher {
 }
 
 /* istanbul ignore next: covered by compatibility tests but not a single pass */
-const diff = jestDiff?.diff ?? jestDiff;
+/* @ts-ignore typing for compatibility so it will seem "impossible" but different version will yield different source */
+const diff: typeof jestDiff.diff = jestDiffDefault ?? jestDiff?.diff ?? jestDiff;
 
 declare global {
 	namespace jest {
