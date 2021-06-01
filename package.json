@@ -174,7 +174,7 @@
     "grunt-contrib-connect": "3.0.0",
     "grunt-contrib-copy": "1.0.0",
     "grunt-sass": "3.1.0",
-    "highlight.js": "10.7.2",
+    "highlight.js": "11.0.0",
     "husky": "6.0.0",
     "jest": "27.0.3",
     "jest-diff": "27.0.2",

@@ -5,7 +5,7 @@ $icon-font-path: "fonts/";
 
 @import "font-awesome";
 @import "bootstrap";
-@import "hljs-github";
+@import "github";
 
 @import "anchorlink";
 @import "frontpage";
@@ -115,4 +115,8 @@ table {
 	margin-right: 0.5em;
 	position: relative;
 	top: 1px;
+}
+
+.hljs {
+	background: none;
 }
