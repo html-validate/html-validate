@@ -142,7 +142,7 @@
     "@html-validate/eslint-config-typescript": "4.4.0",
     "@html-validate/jest-config": "1.2.10",
     "@html-validate/prettier-config": "1.1.0",
-    "@html-validate/semantic-release-config": "1.2.13",
+    "@html-validate/semantic-release-config": "1.2.14",
     "@lodder/grunt-postcss": "3.0.1",
     "@types/babar": "0.2.0",
     "@types/babel__code-frame": "7.0.2",
