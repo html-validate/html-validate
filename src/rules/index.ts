@@ -2,6 +2,7 @@ import { RuleConstructor } from "../rule";
 import AllowedLinks from "./allowed-links";
 import AriaLabelMisuse from "./aria-label-misuse";
 import AttrCase from "./attr-case";
+import AttrPattern from "./attr-pattern";
 import AttrQuotes from "./attr-quotes";
 import AttrSpacing from "./attr-spacing";
 import AttributeAllowedValues from "./attribute-allowed-values";
@@ -66,6 +67,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"allowed-links": AllowedLinks,
 	"aria-label-misuse": AriaLabelMisuse,
 	"attr-case": AttrCase,
+	"attr-pattern": AttrPattern,
 	"attr-quotes": AttrQuotes,
 	"attr-spacing": AttrSpacing,
 	"attribute-allowed-values": AttributeAllowedValues,
