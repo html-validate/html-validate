@@ -8,6 +8,7 @@ summary: Require a specific case for attribute names
 # Attribute name case (`attr-case`)
 
 Requires a specific case for attribute names.
+This rule matches case for letters only, for restricting allowed characters use {@link rules/attr-pattern}.
 
 ## Rule details
 
