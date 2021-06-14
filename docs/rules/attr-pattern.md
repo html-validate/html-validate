@@ -60,4 +60,4 @@ Disable this option if you want to validate attributes on foreign elements as we
 
 ## Version history
 
-- v%version% - Rule added.
+- v4.14.0 - Rule added.

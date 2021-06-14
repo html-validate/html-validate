@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## [4.14.0](https://gitlab.com/html-validate/html-validate/compare/v4.13.1...v4.14.0) (2021-06-14)
+
+### Features
+
+- new rule `attr-pattern` ([b813aeb](https://gitlab.com/html-validate/html-validate/commit/b813aeb7348d20b1cba2ea3df7c5bd7ac952e324)), closes [#118](https://gitlab.com/html-validate/html-validate/issues/118)
+- new rule `input-attributes` ([23ee19e](https://gitlab.com/html-validate/html-validate/commit/23ee19eab292a97427ddc15db1bb77346489c002)), closes [#119](https://gitlab.com/html-validate/html-validate/issues/119)
+
 ### [4.13.1](https://gitlab.com/html-validate/html-validate/compare/v4.13.0...v4.13.1) (2021-05-28)
 
 ### Bug Fixes
