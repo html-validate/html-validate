@@ -57,3 +57,7 @@ For instance, when configured with `{"pattern": ["[a-z0-9-]+", "myprefix-.+"]}` 
 By default attributes on foreign elements (such as `<svg>` and `<math>`) are ignored as they follow their own specifications.
 
 Disable this option if you want to validate attributes on foreign elements as well.
+
+## Version history
+
+- v%version% - Rule added.

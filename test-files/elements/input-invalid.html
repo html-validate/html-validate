@@ -3,10 +3,10 @@
 
 <!-- should not allow attributes -->
 <input type="text" autofocus="foobar">
-<input type="text" capture="foobar">
-<input type="text" checked="foobar">
+<input type="file" capture="foobar">
+<input type="checkbox" checked="foobar">
 <input type="text" disabled="foobar">
-<input type="text" multiple="foobar">
+<input type="file" multiple="foobar">
 <input type="text" readonly="foobar">
 <input type="text" required="foobar">
 <input type="text" inputmode="foobar">
@@ -24,3 +24,424 @@
 
 <!-- type="image" requires alt text -->
 <input type="image">
+
+<!-- attributes with restrictions based on type -->
+<div id="attribute-restriction">
+	<input type="hidden" accept="image/jpeg">
+	<input type="text" accept="image/jpeg">
+	<input type="search" accept="image/jpeg">
+	<input type="url" accept="image/jpeg">
+	<input type="tel" accept="image/jpeg">
+	<input type="email" accept="image/jpeg">
+	<input type="password" accept="image/jpeg">
+	<input type="date" accept="image/jpeg">
+	<input type="month" accept="image/jpeg">
+	<input type="week" accept="image/jpeg">
+	<input type="time" accept="image/jpeg">
+	<input type="datetime-local" accept="image/jpeg">
+	<input type="number" accept="image/jpeg">
+	<input type="range" accept="image/jpeg">
+	<input type="color" accept="image/jpeg">
+	<input type="checkbox" accept="image/jpeg">
+	<input type="radio" accept="image/jpeg">
+	<input type="submit" accept="image/jpeg">
+	<input type="image" accept="image/jpeg" alt="lorem ipsum">
+	<input type="reset" accept="image/jpeg">
+	<input type="hidden" alt="lorem ipsum">
+	<input type="text" alt="lorem ipsum">
+	<input type="search" alt="lorem ipsum">
+	<input type="url" alt="lorem ipsum">
+	<input type="tel" alt="lorem ipsum">
+	<input type="email" alt="lorem ipsum">
+	<input type="password" alt="lorem ipsum">
+	<input type="date" alt="lorem ipsum">
+	<input type="month" alt="lorem ipsum">
+	<input type="week" alt="lorem ipsum">
+	<input type="time" alt="lorem ipsum">
+	<input type="datetime-local" alt="lorem ipsum">
+	<input type="number" alt="lorem ipsum">
+	<input type="range" alt="lorem ipsum">
+	<input type="color" alt="lorem ipsum">
+	<input type="checkbox" alt="lorem ipsum">
+	<input type="radio" alt="lorem ipsum">
+	<input type="file" alt="lorem ipsum">
+	<input type="submit" alt="lorem ipsum">
+	<input type="reset" alt="lorem ipsum">
+	<input type="checkbox" autocomplete="on">
+	<input type="radio" autocomplete="on">
+	<input type="file" autocomplete="on">
+	<input type="submit" autocomplete="on">
+	<input type="image" autocomplete="on" alt="lorem ipsum">
+	<input type="reset" autocomplete="on">
+	<input type="hidden" capture>
+	<input type="text" capture>
+	<input type="search" capture>
+	<input type="url" capture>
+	<input type="tel" capture>
+	<input type="email" capture>
+	<input type="password" capture>
+	<input type="date" capture>
+	<input type="month" capture>
+	<input type="week" capture>
+	<input type="time" capture>
+	<input type="datetime-local" capture>
+	<input type="number" capture>
+	<input type="range" capture>
+	<input type="color" capture>
+	<input type="checkbox" capture>
+	<input type="radio" capture>
+	<input type="submit" capture>
+	<input type="image" capture alt="lorem ipsum">
+	<input type="reset" capture>
+	<input type="hidden" checked>
+	<input type="text" checked>
+	<input type="search" checked>
+	<input type="url" checked>
+	<input type="tel" checked>
+	<input type="email" checked>
+	<input type="password" checked>
+	<input type="date" checked>
+	<input type="month" checked>
+	<input type="week" checked>
+	<input type="time" checked>
+	<input type="datetime-local" checked>
+	<input type="number" checked>
+	<input type="range" checked>
+	<input type="color" checked>
+	<input type="file" checked>
+	<input type="submit" checked>
+	<input type="image" checked alt="lorem ipsum">
+	<input type="reset" checked>
+	<input type="hidden" dirname="myname">
+	<input type="url" dirname="myname">
+	<input type="tel" dirname="myname">
+	<input type="email" dirname="myname">
+	<input type="password" dirname="myname">
+	<input type="date" dirname="myname">
+	<input type="month" dirname="myname">
+	<input type="week" dirname="myname">
+	<input type="time" dirname="myname">
+	<input type="datetime-local" dirname="myname">
+	<input type="number" dirname="myname">
+	<input type="range" dirname="myname">
+	<input type="color" dirname="myname">
+	<input type="checkbox" dirname="myname">
+	<input type="radio" dirname="myname">
+	<input type="file" dirname="myname">
+	<input type="submit" dirname="myname">
+	<input type="image" dirname="myname" alt="lorem ipsum">
+	<input type="reset" dirname="myname">
+	<input type="hidden" formaction="/myaction">
+	<input type="text" formaction="/myaction">
+	<input type="search" formaction="/myaction">
+	<input type="url" formaction="/myaction">
+	<input type="tel" formaction="/myaction">
+	<input type="email" formaction="/myaction">
+	<input type="password" formaction="/myaction">
+	<input type="date" formaction="/myaction">
+	<input type="month" formaction="/myaction">
+	<input type="week" formaction="/myaction">
+	<input type="time" formaction="/myaction">
+	<input type="datetime-local" formaction="/myaction">
+	<input type="number" formaction="/myaction">
+	<input type="range" formaction="/myaction">
+	<input type="color" formaction="/myaction">
+	<input type="checkbox" formaction="/myaction">
+	<input type="radio" formaction="/myaction">
+	<input type="file" formaction="/myaction">
+	<input type="reset" formaction="/myaction">
+	<input type="hidden" formenctype>
+	<input type="text" formenctype>
+	<input type="search" formenctype>
+	<input type="url" formenctype>
+	<input type="tel" formenctype>
+	<input type="email" formenctype>
+	<input type="password" formenctype>
+	<input type="date" formenctype>
+	<input type="month" formenctype>
+	<input type="week" formenctype>
+	<input type="time" formenctype>
+	<input type="datetime-local" formenctype>
+	<input type="number" formenctype>
+	<input type="range" formenctype>
+	<input type="color" formenctype>
+	<input type="checkbox" formenctype>
+	<input type="radio" formenctype>
+	<input type="file" formenctype>
+	<input type="reset" formenctype>
+	<input type="hidden" formmethod="post">
+	<input type="text" formmethod="post">
+	<input type="search" formmethod="post">
+	<input type="url" formmethod="post">
+	<input type="tel" formmethod="post">
+	<input type="email" formmethod="post">
+	<input type="password" formmethod="post">
+	<input type="date" formmethod="post">
+	<input type="month" formmethod="post">
+	<input type="week" formmethod="post">
+	<input type="time" formmethod="post">
+	<input type="datetime-local" formmethod="post">
+	<input type="number" formmethod="post">
+	<input type="range" formmethod="post">
+	<input type="color" formmethod="post">
+	<input type="checkbox" formmethod="post">
+	<input type="radio" formmethod="post">
+	<input type="file" formmethod="post">
+	<input type="reset" formmethod="post">
+	<input type="hidden" formnovalidate>
+	<input type="text" formnovalidate>
+	<input type="search" formnovalidate>
+	<input type="url" formnovalidate>
+	<input type="tel" formnovalidate>
+	<input type="email" formnovalidate>
+	<input type="password" formnovalidate>
+	<input type="date" formnovalidate>
+	<input type="month" formnovalidate>
+	<input type="week" formnovalidate>
+	<input type="time" formnovalidate>
+	<input type="datetime-local" formnovalidate>
+	<input type="number" formnovalidate>
+	<input type="range" formnovalidate>
+	<input type="color" formnovalidate>
+	<input type="checkbox" formnovalidate>
+	<input type="radio" formnovalidate>
+	<input type="file" formnovalidate>
+	<input type="reset" formnovalidate>
+	<input type="hidden" formtarget="mytarget">
+	<input type="text" formtarget="mytarget">
+	<input type="search" formtarget="mytarget">
+	<input type="url" formtarget="mytarget">
+	<input type="tel" formtarget="mytarget">
+	<input type="email" formtarget="mytarget">
+	<input type="password" formtarget="mytarget">
+	<input type="date" formtarget="mytarget">
+	<input type="month" formtarget="mytarget">
+	<input type="week" formtarget="mytarget">
+	<input type="time" formtarget="mytarget">
+	<input type="datetime-local" formtarget="mytarget">
+	<input type="number" formtarget="mytarget">
+	<input type="range" formtarget="mytarget">
+	<input type="color" formtarget="mytarget">
+	<input type="checkbox" formtarget="mytarget">
+	<input type="radio" formtarget="mytarget">
+	<input type="file" formtarget="mytarget">
+	<input type="reset" formtarget="mytarget">
+	<input type="hidden" height="512">
+	<input type="text" height="512">
+	<input type="search" height="512">
+	<input type="url" height="512">
+	<input type="tel" height="512">
+	<input type="email" height="512">
+	<input type="password" height="512">
+	<input type="date" height="512">
+	<input type="month" height="512">
+	<input type="week" height="512">
+	<input type="time" height="512">
+	<input type="datetime-local" height="512">
+	<input type="number" height="512">
+	<input type="range" height="512">
+	<input type="color" height="512">
+	<input type="checkbox" height="512">
+	<input type="radio" height="512">
+	<input type="file" height="512">
+	<input type="submit" height="512">
+	<input type="reset" height="512">
+	<input type="hidden" list="mylist">
+	<input type="password" list="mylist">
+	<input type="checkbox" list="mylist">
+	<input type="radio" list="mylist">
+	<input type="file" list="mylist">
+	<input type="submit" list="mylist">
+	<input type="image" list="mylist" alt="lorem ipsum">
+	<input type="reset" list="mylist">
+	<input type="hidden" max="100">
+	<input type="text" max="100">
+	<input type="search" max="100">
+	<input type="url" max="100">
+	<input type="tel" max="100">
+	<input type="email" max="100">
+	<input type="password" max="100">
+	<input type="color" max="100">
+	<input type="checkbox" max="100">
+	<input type="radio" max="100">
+	<input type="file" max="100">
+	<input type="submit" max="100">
+	<input type="image" max="100" alt="lorem ipsum">
+	<input type="reset" max="100">
+	<input type="hidden" maxlength="10">
+	<input type="date" maxlength="10">
+	<input type="month" maxlength="10">
+	<input type="week" maxlength="10">
+	<input type="time" maxlength="10">
+	<input type="datetime-local" maxlength="10">
+	<input type="number" maxlength="10">
+	<input type="range" maxlength="10">
+	<input type="color" maxlength="10">
+	<input type="checkbox" maxlength="10">
+	<input type="radio" maxlength="10">
+	<input type="file" maxlength="10">
+	<input type="submit" maxlength="10">
+	<input type="image" maxlength="10" alt="lorem ipsum">
+	<input type="reset" maxlength="10">
+	<input type="hidden" min="0">
+	<input type="text" min="0">
+	<input type="search" min="0">
+	<input type="url" min="0">
+	<input type="tel" min="0">
+	<input type="email" min="0">
+	<input type="password" min="0">
+	<input type="color" min="0">
+	<input type="checkbox" min="0">
+	<input type="radio" min="0">
+	<input type="file" min="0">
+	<input type="submit" min="0">
+	<input type="image" min="0" alt="lorem ipsum">
+	<input type="reset" min="0">
+	<input type="hidden" minlength="3">
+	<input type="date" minlength="3">
+	<input type="month" minlength="3">
+	<input type="week" minlength="3">
+	<input type="time" minlength="3">
+	<input type="datetime-local" minlength="3">
+	<input type="number" minlength="3">
+	<input type="range" minlength="3">
+	<input type="color" minlength="3">
+	<input type="checkbox" minlength="3">
+	<input type="radio" minlength="3">
+	<input type="file" minlength="3">
+	<input type="submit" minlength="3">
+	<input type="image" minlength="3" alt="lorem ipsum">
+	<input type="reset" minlength="3">
+	<input type="hidden" multiple>
+	<input type="text" multiple>
+	<input type="search" multiple>
+	<input type="url" multiple>
+	<input type="tel" multiple>
+	<input type="password" multiple>
+	<input type="date" multiple>
+	<input type="month" multiple>
+	<input type="week" multiple>
+	<input type="time" multiple>
+	<input type="datetime-local" multiple>
+	<input type="number" multiple>
+	<input type="range" multiple>
+	<input type="color" multiple>
+	<input type="checkbox" multiple>
+	<input type="radio" multiple>
+	<input type="submit" multiple>
+	<input type="image" multiple alt="lorem ipsum">
+	<input type="reset" multiple>
+	<input type="hidden" pattern="foo">
+	<input type="date" pattern="foo">
+	<input type="month" pattern="foo">
+	<input type="week" pattern="foo">
+	<input type="time" pattern="foo">
+	<input type="datetime-local" pattern="foo">
+	<input type="number" pattern="foo">
+	<input type="range" pattern="foo">
+	<input type="color" pattern="foo">
+	<input type="checkbox" pattern="foo">
+	<input type="radio" pattern="foo">
+	<input type="file" pattern="foo">
+	<input type="submit" pattern="foo">
+	<input type="image" pattern="foo" alt="lorem ipsum">
+	<input type="reset" pattern="foo">
+	<input type="hidden" placeholder="foobar">
+	<input type="date" placeholder="foobar">
+	<input type="month" placeholder="foobar">
+	<input type="week" placeholder="foobar">
+	<input type="time" placeholder="foobar">
+	<input type="datetime-local" placeholder="foobar">
+	<input type="range" placeholder="foobar">
+	<input type="color" placeholder="foobar">
+	<input type="checkbox" placeholder="foobar">
+	<input type="radio" placeholder="foobar">
+	<input type="file" placeholder="foobar">
+	<input type="submit" placeholder="foobar">
+	<input type="image" placeholder="foobar" alt="lorem ipsum">
+	<input type="reset" placeholder="foobar">
+	<input type="hidden" readonly>
+	<input type="range" readonly>
+	<input type="color" readonly>
+	<input type="checkbox" readonly>
+	<input type="radio" readonly>
+	<input type="file" readonly>
+	<input type="submit" readonly>
+	<input type="image" readonly alt="lorem ipsum">
+	<input type="reset" readonly>
+	<input type="hidden" required>
+	<input type="range" required>
+	<input type="color" required>
+	<input type="submit" required>
+	<input type="image" required alt="lorem ipsum">
+	<input type="reset" required>
+	<input type="hidden" size="10">
+	<input type="date" size="10">
+	<input type="month" size="10">
+	<input type="week" size="10">
+	<input type="time" size="10">
+	<input type="datetime-local" size="10">
+	<input type="number" size="10">
+	<input type="range" size="10">
+	<input type="color" size="10">
+	<input type="checkbox" size="10">
+	<input type="radio" size="10">
+	<input type="file" size="10">
+	<input type="submit" size="10">
+	<input type="image" size="10" alt="lorem ipsum">
+	<input type="reset" size="10">
+	<input type="hidden" src="myimage.jpg">
+	<input type="text" src="myimage.jpg">
+	<input type="search" src="myimage.jpg">
+	<input type="url" src="myimage.jpg">
+	<input type="tel" src="myimage.jpg">
+	<input type="email" src="myimage.jpg">
+	<input type="password" src="myimage.jpg">
+	<input type="date" src="myimage.jpg">
+	<input type="month" src="myimage.jpg">
+	<input type="week" src="myimage.jpg">
+	<input type="time" src="myimage.jpg">
+	<input type="datetime-local" src="myimage.jpg">
+	<input type="number" src="myimage.jpg">
+	<input type="range" src="myimage.jpg">
+	<input type="color" src="myimage.jpg">
+	<input type="checkbox" src="myimage.jpg">
+	<input type="radio" src="myimage.jpg">
+	<input type="file" src="myimage.jpg">
+	<input type="submit" src="myimage.jpg">
+	<input type="reset" src="myimage.jpg">
+	<input type="hidden" step="5">
+	<input type="text" step="5">
+	<input type="search" step="5">
+	<input type="url" step="5">
+	<input type="tel" step="5">
+	<input type="email" step="5">
+	<input type="password" step="5">
+	<input type="color" step="5">
+	<input type="checkbox" step="5">
+	<input type="radio" step="5">
+	<input type="file" step="5">
+	<input type="submit" step="5">
+	<input type="image" step="5" alt="lorem ipsum">
+	<input type="reset" step="5">
+	<input type="hidden" width="512">
+	<input type="text" width="512">
+	<input type="search" width="512">
+	<input type="url" width="512">
+	<input type="tel" width="512">
+	<input type="email" width="512">
+	<input type="password" width="512">
+	<input type="date" width="512">
+	<input type="month" width="512">
+	<input type="week" width="512">
+	<input type="time" width="512">
+	<input type="datetime-local" width="512">
+	<input type="number" width="512">
+	<input type="range" width="512">
+	<input type="color" width="512">
+	<input type="checkbox" width="512">
+	<input type="radio" width="512">
+	<input type="file" width="512">
+	<input type="submit" width="512">
+	<input type="reset" width="512">
+</div>
