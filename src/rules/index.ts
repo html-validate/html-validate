@@ -26,6 +26,7 @@ import EmptyHeading from "./empty-heading";
 import EmptyTitle from "./empty-title";
 import HeadingLevel from "./heading-level";
 import IdPattern from "./id-pattern";
+import InputAttributes from "./input-attributes";
 import InputMissingLabel from "./input-missing-label";
 import LongTitle from "./long-title";
 import MetaRefresh from "./meta-refresh";
@@ -91,6 +92,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"empty-title": EmptyTitle,
 	"heading-level": HeadingLevel,
 	"id-pattern": IdPattern,
+	"input-attributes": InputAttributes,
 	"input-missing-label": InputMissingLabel,
 	"long-title": LongTitle,
 	"meta-refresh": MetaRefresh,

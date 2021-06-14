@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/input-attributes.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/input-attributes.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 20,
+        "context": Object {
+          "attribute": "step",
+          "type": "text",
+        },
+        "line": 1,
+        "message": "Attribute \\"step\\" is not allowed on <input type=\\"text\\">",
+        "offset": 19,
+        "ruleId": "input-attributes",
+        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "selector": "input",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<input type=\\"text\\" step=\\"5\\">",
+    "warningCount": 0,
+  },
+]
+`;

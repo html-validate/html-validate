@@ -24,6 +24,7 @@ const config: ConfigData = {
 		"element-required-content": "error",
 		"empty-heading": "error",
 		"empty-title": "error",
+		"input-attributes": "error",
 		"long-title": "error",
 		"meta-refresh": "error",
 		"multiple-labeled-controls": "error",
