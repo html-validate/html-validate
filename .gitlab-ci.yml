@@ -106,10 +106,6 @@ Docs:
     - npm run --if-present build
     - npm run compatibility
 
-Node 10.x:
-  <<: *compat
-  image: node:10
-
 Node 12.x (LTS):
   <<: *compat
   image: node:12
