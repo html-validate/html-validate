@@ -112,9 +112,6 @@
       "<rootDir>/elements",
       "<rootDir>/src",
       "<rootDir>/tests"
-    ],
-    "snapshotSerializers": [
-      "pretty-format/build/plugins/ConvertAnsi"
     ]
   },
   "dependencies": {
@@ -140,7 +137,7 @@
     "@html-validate/eslint-config": "4.4.1",
     "@html-validate/eslint-config-jest": "4.4.2",
     "@html-validate/eslint-config-typescript": "4.4.0",
-    "@html-validate/jest-config": "1.2.10",
+    "@html-validate/jest-config": "2.2.0",
     "@html-validate/prettier-config": "1.1.0",
     "@html-validate/semantic-release-config": "1.2.15",
     "@lodder/grunt-postcss": "3.0.1",
@@ -186,7 +183,6 @@
     "npm-pkg-lint": "1.4.0",
     "postcss": "8.3.4",
     "prettier": "2.3.1",
-    "pretty-format": "27.0.2",
     "sass": "1.34.1",
     "semantic-release": "17.4.3",
     "serve-static": "1.14.1",
