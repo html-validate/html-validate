@@ -1,11 +1,7 @@
 {
-  "extends": ["@html-validate", "plugin:security/recommended", "plugin:sonarjs/recommended"],
-  "plugins": ["security", "sonarjs"],
+  "extends": ["@html-validate"],
 
   "rules": {
-    "import/named": "off",
-    "node/no-unsupported-features/es-syntax": "off",
-    "security/detect-non-literal-fs-filename": "off",
     "security/detect-non-literal-require": "off",
     "security/detect-object-injection": "off",
     "security/detect-unsafe-regex": "off"
@@ -17,7 +13,6 @@
       "extends": ["@html-validate/typescript"],
       "rules": {
         "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-use-before-define": "off",
         "@typescript-eslint/no-var-requires": "off"
       }
     },
@@ -26,10 +21,8 @@
       "excludedFiles": "cypress/**",
       "extends": ["@html-validate/jest"],
       "rules": {
-        "sonarjs/no-duplicate-string": "off",
         "sonarjs/no-identical-functions": "off",
-        "@typescript-eslint/no-non-null-assertion": "off",
-        "tsdoc/syntax": "off"
+        "@typescript-eslint/no-non-null-assertion": "off"
       }
     }
   ]
