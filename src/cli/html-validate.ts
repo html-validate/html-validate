@@ -3,11 +3,9 @@ import path from "path";
 import kleur from "kleur";
 import minimist from "minimist";
 import { TokenDump, SchemaValidationError, UserError, Report, Reporter, Result } from "..";
+import * as pkg from "../package";
 import { eventFormatter } from "./json";
-
 import { CLI } from "./cli";
-
-const pkg = require("../../package.json");
 
 enum Mode {
 	LINT,
@@ -125,7 +123,7 @@ function handleUnknownError(err: Error): void {
 		console.error(err);
 	}
 	console.groupEnd();
-	const bugUrl = `${pkg.bugs.url}?issuable_template=Bug`;
+	const bugUrl = `${pkg.bugs}?issuable_template=Bug`;
 	console.error(kleur.red(`This is a bug in ${pkg.name}-${pkg.version}.`));
 	console.error(
 		kleur.red(

@@ -10,6 +10,7 @@ import { Plugin } from "../plugin";
 import schema from "../schema/config.json";
 import { TransformContext, Transformer, TRANSFORMER_API } from "../transform";
 import { requireUncached } from "../utils";
+import { projectRoot } from "../resolve";
 import bundledRules from "../rules";
 import { Rule } from "../rule";
 import { ConfigData, RuleConfig, RuleOptions, TransformMap } from "./config-data";
@@ -251,7 +252,6 @@ export class Config {
 
 		const metaTable = new MetaTable();
 		const source = this.config.elements || ["html5"];
-		const root = path.resolve(__dirname, "..", "..");
 
 		/* extend validation schema from plugins */
 		for (const plugin of this.getPlugins()) {
@@ -271,7 +271,7 @@ export class Config {
 			let filename: string;
 
 			/* try searching builtin metadata */
-			filename = path.join(root, "elements", `${entry}.json`);
+			filename = path.join(projectRoot, "elements", `${entry}.json`);
 			if (fs.existsSync(filename)) {
 				metaTable.loadFromFile(filename);
 				continue;

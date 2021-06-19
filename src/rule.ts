@@ -8,10 +8,10 @@ import { Parser } from "./parser";
 import { Reporter } from "./reporter";
 import { MetaTable, MetaLookupableProperty } from "./meta";
 import { SchemaValidationError } from "./error";
+import { distFolder } from "./resolve";
+import { homepage } from "./package";
 
 export { SchemaObject } from "ajv";
-
-const homepage = require("../package.json").homepage;
 
 const remapEvents: Record<string, string> = {
 	"tag:open": "tag:start",
@@ -355,7 +355,12 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 }
 
 export function ruleDocumentationUrl(filename: string): string {
+	/* during bundling all __filename's are converted to paths relative to the src
+	 * folder and with the @/ prefix, by replacing the @ with the dist folder we
+	 * can resolve the path properly */
+	filename = filename.replace("@", distFolder);
 	const p = path.parse(filename);
-	const rel = path.relative(path.join(__dirname, "rules"), path.join(p.dir, p.name));
+	const root = path.join(distFolder, "rules");
+	const rel = path.relative(root, path.join(p.dir, p.name));
 	return `${homepage}/rules/${rel}.html`;
 }

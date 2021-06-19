@@ -1,18 +1,7 @@
-const { default: a17y } = require("../../../dist/config/presets/a17y");
-const { default: document } = require("../../../dist/config/presets/document");
-const { default: recommended } = require("../../../dist/config/presets/recommended");
-const { default: standard } = require("../../../dist/config/presets/standard");
+const { configPresets } = require("../../../dist/cjs");
 
 /* sort order */
 const availablePresets = ["recommended", "standard", "a17y", "document"];
-
-/* preset configuration */
-const presets = {
-	a17y,
-	document,
-	recommended,
-	standard,
-};
 
 function compareName(a, b) {
 	if (a.name < b.name) {
@@ -59,7 +48,8 @@ module.exports = function rulesProcessor(renderDocsProcessor) {
 				category: doc.category,
 				summary: doc.summary,
 				presets: availablePresets.reduce((result, presetName) => {
-					const config = presets[presetName];
+					const key = `html-validate:${presetName}`;
+					const config = configPresets[key];
 					if (config && config.rules) {
 						result[presetName] = Boolean(config.rules[doc.name]);
 					}

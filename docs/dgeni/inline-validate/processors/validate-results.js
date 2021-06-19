@@ -1,6 +1,7 @@
 const kleur = require("kleur");
-const HtmlValidate = require("../../../../dist/htmlvalidate").default;
-const codeframe = require("../../../../dist/formatters/codeframe").codeframe;
+const { HtmlValidate, formatterFactory } = require("../../../../dist/cjs");
+
+const codeframe = formatterFactory("codeframe");
 
 const formatterOptions = {
 	showLink: false,

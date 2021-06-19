@@ -1,1 +1,1 @@
-module.exports = require("./dist/transform/test-utils");
+module.exports = require("./dist/cjs/test-utils");
