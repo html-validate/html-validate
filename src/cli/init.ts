@@ -1,7 +1,7 @@
 import fs from "fs";
 import deepmerge from "deepmerge";
 import prompts from "prompts";
-import { ConfigData } from "../config";
+import { ConfigData } from "../main";
 
 export interface InitResult {
 	filename: string;
