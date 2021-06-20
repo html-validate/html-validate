@@ -1,4 +1,4 @@
-import { EventDump } from "../engine";
+import { EventDump } from "../main";
 
 const jsonFiltered = ["parent", "children", "meta"];
 

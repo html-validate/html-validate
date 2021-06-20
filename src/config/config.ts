@@ -271,7 +271,7 @@ export class Config {
 			let filename: string;
 
 			/* try searching builtin metadata */
-			filename = `${root}/elements/${entry}.json`;
+			filename = path.join(root, "elements", `${entry}.json`);
 			if (fs.existsSync(filename)) {
 				metaTable.loadFromFile(filename);
 				continue;

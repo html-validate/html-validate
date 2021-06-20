@@ -1,7 +1,7 @@
 {
   "name": "html-validate",
   "version": "4.14.0",
-  "description": "html linter",
+  "description": "Offline html5 validator",
   "keywords": [
     "html",
     "lint",

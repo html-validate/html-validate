@@ -1,8 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { getFormatter as formatterFactory, Formatter } from "../formatters";
-import { Report, Result } from "../reporter";
-import { UserError } from "../error";
+import { Formatter, Report, Result, UserError, formatterFactory } from "../main";
 
 type WrappedFormatter = (results: Result[]) => string;
 

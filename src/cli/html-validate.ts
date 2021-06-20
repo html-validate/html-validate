@@ -2,10 +2,7 @@
 import path from "path";
 import kleur from "kleur";
 import minimist from "minimist";
-import { TokenDump } from "../engine";
-import { SchemaValidationError } from "../error";
-import { UserError } from "../error/user-error";
-import { Report, Reporter, Result } from "../reporter";
+import { TokenDump, SchemaValidationError, UserError, Report, Reporter, Result } from "../main";
 import { eventFormatter } from "./json";
 
 import { CLI } from "./cli";

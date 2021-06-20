@@ -27,4 +27,4 @@ const config: ConfigData = {
 	},
 };
 
-export = config;
+export default config;

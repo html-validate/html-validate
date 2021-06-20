@@ -1,8 +1,5 @@
 import { readFileSync } from "fs";
-import { ConfigData } from "../config";
-import { UserError } from "../error";
-import HtmlValidate from "../htmlvalidate";
-import { Report } from "../reporter";
+import { ConfigData, UserError, HtmlValidate, Report } from "../main";
 import { expandFiles, ExpandOptions } from "./expand-files";
 import { getFormatter } from "./formatter";
 import { IsIgnored } from "./is-ignored";

@@ -1,7 +1,7 @@
-const a17y = require("../../../dist/config/presets/a17y");
-const document = require("../../../dist/config/presets/document");
-const recommended = require("../../../dist/config/presets/recommended");
-const standard = require("../../../dist/config/presets/standard");
+const { default: a17y } = require("../../../dist/config/presets/a17y");
+const { default: document } = require("../../../dist/config/presets/document");
+const { default: recommended } = require("../../../dist/config/presets/recommended");
+const { default: standard } = require("../../../dist/config/presets/standard");
 
 /* sort order */
 const availablePresets = ["recommended", "standard", "a17y", "document"];

@@ -15,4 +15,4 @@ const presets: Record<string, ConfigData> = {
 	"htmlvalidate:document": document,
 };
 
-export = presets;
+export default presets;
