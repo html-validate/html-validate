@@ -19,7 +19,7 @@
   "license": "MIT",
   "author": "David Sveningsson <ext@sidvind.com>",
   "sideEffects": false,
-  "main": "dist/main.js",
+  "main": "dist/index.js",
   "browser": "dist/browser.js",
   "bin": {
     "html-validate": "bin/html-validate.js"
@@ -102,7 +102,7 @@
       "src/**/*.ts",
       "!src/**/*.spec.ts",
       "!src/**/index.ts",
-      "!src/main.ts",
+      "!src/index.ts",
       "!src/browser.ts",
       "!src/cli/html-validate.ts"
     ],
