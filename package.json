@@ -158,7 +158,7 @@
     "canonical-path": "1.0.0",
     "cssnano": "5.0.6",
     "dgeni": "0.4.14",
-    "dgeni-front-matter": "2.0.3",
+    "dgeni-front-matter": "3.0.0",
     "dgeni-packages": "0.29.1",
     "eslint": "7.29.0",
     "font-awesome": "4.7.0",
