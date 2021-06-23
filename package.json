@@ -171,7 +171,7 @@
     "grunt-sass": "3.1.0",
     "highlight.js": "11.0.1",
     "husky": "6.0.0",
-    "jest": "27.0.4",
+    "jest": "27.0.5",
     "jest-diff": "27.0.2",
     "jquery": "3.6.0",
     "lint-staged": "11.0.0",
