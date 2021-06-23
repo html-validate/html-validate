@@ -176,7 +176,7 @@
     "jquery": "3.6.0",
     "lint-staged": "11.0.0",
     "load-grunt-tasks": "5.1.0",
-    "marked": "2.1.1",
+    "marked": "2.1.2",
     "minimatch": "3.0.4",
     "npm-pkg-lint": "1.4.0",
     "postcss": "8.3.5",
