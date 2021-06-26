@@ -94,26 +94,24 @@ HTML-validate comes with a number of builtin formatters:
 - `stylish`
 - `text`
 
-Formatters work on the `results` property in a report and all returns a
-formatted string:
+Formatters work on the `results` property in a report and all returns a formatted string:
 
 ```typescript
-import { HtmlValidate } from "html-validate";
-import text from "html-validate/dist/formatters/text";
+import { HtmlValidate, formatterFactory } from "html-validate";
 
 const htmlvalidate = new HtmlValidate();
 const report = htmlvalidate.validateFile("myfile.html");
+const text = formatterFactory("text");
 
 console.log(text(report.results));
 ```
 
-Using the CLI API there is a factory function to retrieve formatters (see
-`html-validate --help` for details about the format):
+Using the CLI API there is a factory function to retrieve formatters (see `html-validate --help` for details about the format):
 
 ```typescript
-import { getFormatter } from "html-validate/dist/cli/formatter";
+import { formatterFactory } from "html-validate";
 
-const stylish = getFormatter("stylish");
+const stylish = formatterFactory("stylish");
 console.log(stylish(report));
 ```
 

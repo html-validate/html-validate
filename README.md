@@ -13,6 +13,22 @@ Offline HTML5 validator. Validates either a full document or a smaller
 - Strict and non-forgiving parsing. It will not try to correct any incorrect
   markup or guess what it should do.
 
+## Bundles
+
+The library comes in four flavours:
+
+- CommonJS full (`dist/cjs/main.js`)
+- CommonJS browser (`dist/cjs/browser.js`)
+- ESM full (`dist/es/main.js`)
+- ESM browser (`dist/es/browser.js`)
+
+The browser versions contains a slimmed version without CLI dependencies.
+Your tooling will probably use the correct version but if needed you can import the files directly.
+
+Do note that to run in a browser you still need to polyfill the `fs` nodejs library.
+
+Browsers and bundlers are currently not 100% supported but is possible with some tricks, see [running in browser](https://html-validate.org/dev/running-in-browser.html) for more details.
+
 ## Usage
 
     npm install -g html-validate

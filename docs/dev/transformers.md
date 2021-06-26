@@ -83,7 +83,7 @@ This is useful when the transformer needs to deal with multiple languages and th
 Extracts templates from javascript sources.
 
 ```typescript
-const TemplateExtractor = require("html-validate").TemplateExtractor;
+const { TemplateExtractor } = require("html-validate");
 const te = TemplateExtractor.fromFilename("my-file.js");
 
 /* finds any {template: '...'} */

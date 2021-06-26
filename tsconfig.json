@@ -1,18 +1,24 @@
 {
   "compilerOptions": {
-    "alwaysStrict": true,
     "rootDir": "./src",
-    "declaration": true,
-    "esModuleInterop": true,
-    "lib": ["es2017"],
-    "module": "commonjs",
-    "noImplicitAny": true,
     "outDir": "dist",
+
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "declarationDir": "dist/types",
+
+    "target": "es2017",
+    "lib": ["es2017"],
+    "module": "esnext",
+    "moduleResolution": "node",
+
+    "alwaysStrict": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
     "resolveJsonModule": true,
     "sourceMap": true,
-    "target": "es2017",
     "strict": true
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }
