@@ -45,67 +45,67 @@ describe("prettyError()", () => {
 		expect.assertions(1);
 		const error = new SchemaValidationError(filename, "Mock error", data, schema, errors);
 		expect(stripAnsi(error.prettyError())).toMatchInlineSnapshot(`
-		"TYPE should be string
+			"TYPE must be string
 
-		> 1 | {
-		    | ^
-		> 2 |   \\"foo\\": [1, 2, 3],
-		    | ^^^^^^^^^^^^^^^^^^^
-		> 3 |   \\"bar\\": \\"baz\\"
-		    | ^^^^^^^^^^^^^^^^^^^
-		> 4 | }
-		    | ^^ 👈🏽  type should be string
-		  5 |"
-	`);
+			> 1 | {
+			    | ^
+			> 2 |   \\"foo\\": [1, 2, 3],
+			    | ^^^^^^^^^^^^^^^^^^^
+			> 3 |   \\"bar\\": \\"baz\\"
+			    | ^^^^^^^^^^^^^^^^^^^
+			> 4 | }
+			    | ^^ 👈🏽  type must be string
+			  5 |"
+		`);
 	});
 
 	it("should handle invalid file", () => {
 		expect.assertions(1);
 		const error = new SchemaValidationError("invalid-file", "Mock error", data, schema, errors);
 		expect(stripAnsi(error.prettyError())).toMatchInlineSnapshot(`
-		"TYPE should be string
+			"TYPE must be string
 
-		> 1 | {
-		    | ^
-		> 2 |   \\"foo\\": [
-		    | ^^^^^^^^^^
-		> 3 |     1,
-		    | ^^^^^^^^^^
-		> 4 |     2,
-		    | ^^^^^^^^^^
-		> 5 |     3
-		    | ^^^^^^^^^^
-		> 6 |   ],
-		    | ^^^^^^^^^^
-		> 7 |   \\"bar\\": \\"baz\\"
-		    | ^^^^^^^^^^
-		> 8 | }
-		    | ^^ 👈🏽  type should be string"
-	`);
+			> 1 | {
+			    | ^
+			> 2 |   \\"foo\\": [
+			    | ^^^^^^^^^^
+			> 3 |     1,
+			    | ^^^^^^^^^^
+			> 4 |     2,
+			    | ^^^^^^^^^^
+			> 5 |     3
+			    | ^^^^^^^^^^
+			> 6 |   ],
+			    | ^^^^^^^^^^
+			> 7 |   \\"bar\\": \\"baz\\"
+			    | ^^^^^^^^^^
+			> 8 | }
+			    | ^^ 👈🏽  type must be string"
+		`);
 	});
 
 	it("should handle missing filename", () => {
 		expect.assertions(1);
 		const error = new SchemaValidationError(null, "Mock error", data, schema, errors);
 		expect(stripAnsi(error.prettyError())).toMatchInlineSnapshot(`
-		"TYPE should be string
+			"TYPE must be string
 
-		> 1 | {
-		    | ^
-		> 2 |   \\"foo\\": [
-		    | ^^^^^^^^^^
-		> 3 |     1,
-		    | ^^^^^^^^^^
-		> 4 |     2,
-		    | ^^^^^^^^^^
-		> 5 |     3
-		    | ^^^^^^^^^^
-		> 6 |   ],
-		    | ^^^^^^^^^^
-		> 7 |   \\"bar\\": \\"baz\\"
-		    | ^^^^^^^^^^
-		> 8 | }
-		    | ^^ 👈🏽  type should be string"
-	`);
+			> 1 | {
+			    | ^
+			> 2 |   \\"foo\\": [
+			    | ^^^^^^^^^^
+			> 3 |     1,
+			    | ^^^^^^^^^^
+			> 4 |     2,
+			    | ^^^^^^^^^^
+			> 5 |     3
+			    | ^^^^^^^^^^
+			> 6 |   ],
+			    | ^^^^^^^^^^
+			> 7 |   \\"bar\\": \\"baz\\"
+			    | ^^^^^^^^^^
+			> 8 | }
+			    | ^^ 👈🏽  type must be string"
+		`);
 	});
 });

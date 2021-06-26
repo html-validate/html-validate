@@ -182,7 +182,7 @@ describe("rule attr-pattern", () => {
 				rules: { "attr-pattern": ["error", { pattern: [] }] },
 			});
 		}).toThrowErrorMatchingInlineSnapshot(
-			`"Rule configuration error: /rules/attr-pattern/1/pattern: minItems should NOT have fewer than 1 items"`
+			`"Rule configuration error: /rules/attr-pattern/1/pattern: minItems must NOT have fewer than 1 items"`
 		);
 	});
 

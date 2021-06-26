@@ -407,7 +407,7 @@ describe("validateOptions()", () => {
 				config
 			);
 		}).toThrowErrorMatchingInlineSnapshot(
-			`"Rule configuration error: /rules/mock-rule-invalid/1/foo: type should be number"`
+			`"Rule configuration error: /rules/mock-rule-invalid/1/foo: type must be number"`
 		);
 	});
 

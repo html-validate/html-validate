@@ -101,7 +101,7 @@ describe("rule void-style", () => {
 				rules: { "void-style": ["error", { style: "foobar" }] },
 			});
 		}).toThrowErrorMatchingInlineSnapshot(
-			`"Rule configuration error: /rules/void-style/1/style should be equal to one of the allowed values: omit, selfclose, selfclosing"`
+			`"Rule configuration error: /rules/void-style/1/style must be equal to one of the allowed values: omit, selfclose, selfclosing"`
 		);
 	});
 
