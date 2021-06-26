@@ -324,7 +324,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 			/* istanbul ignore next: it is always set when validation fails */
 			const errors = isValid.errors ?? [];
 			const mapped = errors.map((error: ErrorObject) => {
-				error.dataPath = `${jsonPath}${error.dataPath}`;
+				error.instancePath = `${jsonPath}${error.instancePath}`;
 				return error;
 			});
 			throw new SchemaValidationError(filename, `Rule configuration error`, config, schema, mapped);

@@ -56,7 +56,7 @@ const ajvRegexpValidate: DataValidateFunction = function (
 	if (!valid) {
 		ajvRegexpValidate.errors = [
 			{
-				dataPath: dataCxt?.dataPath,
+				instancePath: dataCxt?.instancePath,
 				schemaPath: undefined,
 				keyword: "type",
 				message: "should be regexp",

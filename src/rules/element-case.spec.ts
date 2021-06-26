@@ -154,7 +154,7 @@ describe("rule element-case", () => {
 				rules: { "element-case": ["error", { style: "foobar" }] },
 			});
 		}).toThrowErrorMatchingInlineSnapshot(
-			`"Rule configuration error: /rules/element-case/1/style should be equal to one of the allowed values: lowercase, uppercase, pascalcase, camelcase"`
+			`"Rule configuration error: /rules/element-case/1/style must be equal to one of the allowed values: lowercase, uppercase, pascalcase, camelcase"`
 		);
 	});
 

@@ -92,7 +92,7 @@ describe("config", () => {
 			Config.fromObject({
 				rules: "spam",
 			} as any)
-		).toThrow("Invalid configuration: /rules: type should be object");
+		).toThrow("Invalid configuration: /rules: type must be object");
 		expect(() => Config.fromFile("invalid-file.json")).toThrow(
 			'Failed to read configuration from "invalid-file.json"'
 		);
