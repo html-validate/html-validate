@@ -1,5 +1,15 @@
 # html-validate changelog
 
+### [5.0.1](https://gitlab.com/html-validate/html-validate/compare/v5.0.0...v5.0.1) (2021-06-27)
+
+### Bug Fixes
+
+- custom log callback for `compatibilityCheck` ([cbd2226](https://gitlab.com/html-validate/html-validate/commit/cbd22269ce2a5debb87c785b9db8740d4874ab4e))
+
+### Dependency upgrades
+
+- **deps:** update dependency @html-validate/stylish to v2 ([ab0b1f9](https://gitlab.com/html-validate/html-validate/commit/ab0b1f9d394c7b97350e6c1826fc8ee94d065015))
+
 ## [5.0.0](https://gitlab.com/html-validate/html-validate/compare/v4.14.0...v5.0.0) (2021-06-27)
 
 ### ⚠ BREAKING CHANGES
