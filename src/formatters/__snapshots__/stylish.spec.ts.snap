@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`stylish formatter should generate output 1`] = `
-"</></>
-</>first.html</>
-</>  <dim>1:6</>  <red>error</>    An error   <dim>foo</></>
-</>  <dim>2:5</>  <yellow>warning</>  A warning  <dim>bar</></>
-</></>
-</>second.html</>
-</>  <dim>1:4</>  <red>error</>  Lorem ipsum is not allowed  <dim>no-lorem-ipsum</></>
-</></>
-</><red><bold>✖ 3 problems (2 errors, 1 warning)</></></>
-</><red><bold></></></>
+"</>
+first.html
+  <dim>1:6</>  <red>error</>    An error   <dim>foo</>
+  <dim>2:5</>  <yellow>warning</>  A warning  <dim>bar</>
+
+second.html
+  <dim>1:4</>  <red>error</>  Lorem ipsum is not allowed  <dim>no-lorem-ipsum</>
+
+<red><bold>✖ 3 problems (2 errors, 1 warning)
+</></></>
 <bold>More information</>:
   https://example.net/rule/foo.html
   https://example.net/rule/bar.html
@@ -20,13 +20,13 @@ exports[`stylish formatter should generate output 1`] = `
 `;
 
 exports[`stylish formatter should handle edge cases 1`] = `
-"</></>
-</>edge-cases.html</>
-</>  <dim>1:1</>  <yellow>warning</>  Has invalid severity                                      <dim>invalid-severity</></>
-</>  <dim>2:2</>  <red>error</>    Escape <script language=\\"jabbascript\\"> & <span id='foo'>  <dim>special-characters</></>
-</></>
-</><red><bold>✖ 2 problems (1 error, 1 warning)</></></>
-</><red><bold></></></>"
+"</>
+edge-cases.html
+  <dim>1:1</>  <yellow>warning</>  Has invalid severity                                      <dim>invalid-severity</>
+  <dim>2:2</>  <red>error</>    Escape <script language=\\"jabbascript\\"> & <span id='foo'>  <dim>special-characters</>
+
+<red><bold>✖ 2 problems (1 error, 1 warning)
+</></></>"
 `;
 
 exports[`stylish formatter should handle empty messages 1`] = `""`;
@@ -34,23 +34,23 @@ exports[`stylish formatter should handle empty messages 1`] = `""`;
 exports[`stylish formatter should handle empty result 1`] = `""`;
 
 exports[`stylish formatter should handle missing rule url 1`] = `
-"</></>
-</>missing-url.html</>
-</>  <dim>1:6</>  <red>error</>    An error   <dim>foo</></>
-</>  <dim>2:5</>  <yellow>warning</>  A warning  <dim>bar</></>
-</></>
-</><red><bold>✖ 2 problems (2 errors, 0 warnings)</></></>
-</><red><bold></></></>"
+"</>
+missing-url.html
+  <dim>1:6</>  <red>error</>    An error   <dim>foo</>
+  <dim>2:5</>  <yellow>warning</>  A warning  <dim>bar</>
+
+<red><bold>✖ 2 problems (2 errors, 0 warnings)
+</></></>"
 `;
 
 exports[`stylish formatter should handle missing source 1`] = `
-"</></>
-</>missing-source.html</>
-</>  <dim>1:6</>  <red>error</>    An error   <dim>foo</></>
-</>  <dim>2:5</>  <yellow>warning</>  A warning  <dim>bar</></>
-</></>
-</><red><bold>✖ 2 problems (2 errors, 0 warnings)</></></>
-</><red><bold></></></>
+"</>
+missing-source.html
+  <dim>1:6</>  <red>error</>    An error   <dim>foo</>
+  <dim>2:5</>  <yellow>warning</>  A warning  <dim>bar</>
+
+<red><bold>✖ 2 problems (2 errors, 0 warnings)
+</></></>
 <bold>More information</>:
   https://example.net/rule/foo.html
   https://example.net/rule/bar.html
