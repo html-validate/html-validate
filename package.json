@@ -139,7 +139,8 @@
     "json-merge-patch": "^1.0.0",
     "kleur": "^4.1.0",
     "minimist": "^1.2.0",
-    "prompts": "^2.0.0"
+    "prompts": "^2.0.0",
+    "semver": "^7.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.14.6",
@@ -167,6 +168,7 @@
     "@types/minimist": "1.2.1",
     "@types/node": "11.15.54",
     "@types/prompts": "2.0.13",
+    "@types/semver": "7.3.6",
     "autoprefixer": "10.2.6",
     "babar": "0.2.0",
     "babelify": "10.0.0",

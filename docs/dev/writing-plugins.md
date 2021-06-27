@@ -329,3 +329,29 @@ The resulting metadata will now be:
   "bar": "original"
 }
 ```
+
+### Version compatibility
+
+- Since: %version%
+
+Plugins can use the `compatibilityCheck` helper to verify the library version is compatible.
+
+```typescript
+import { compatibilityCheck } from "html-validate";
+
+const pkg = require("./package.json");
+const range = pkg.peerDependencies["html-validate"];
+
+compatibilityCheck(pkg.name, range);
+```
+
+The helper will write a friendly notice on console if the version is not supported.
+
+If you want the error to be fatal you it returns `false` if the version is not supported.
+Additionally you can pass the `silent` option if you want to disable output`
+
+```typescript
+if (!compatibilityCheck(pkg.name, range, { silent: true })) {
+  /* handle incompatible version */
+}
+```
