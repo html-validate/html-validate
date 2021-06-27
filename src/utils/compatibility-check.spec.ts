@@ -36,6 +36,14 @@ it("should not warn when using supported html-validate version", () => {
 	expect(log).not.toHaveBeenCalled();
 });
 
+it("should use custom callback", () => {
+	expect.assertions(2);
+	const spy = jest.fn();
+	compatibilityCheck("my-plugin", peerDependency, { version: "1.2.3", logger: spy });
+	expect(spy).toHaveBeenCalledWith(expect.stringContaining("my-plugin requires"));
+	expect(log).not.toHaveBeenCalled();
+});
+
 it("should return true if version is supported", () => {
 	expect.assertions(1);
 	const result = compatibilityCheck("my-plugin", peerDependency, {

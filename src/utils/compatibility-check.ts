@@ -8,11 +8,18 @@ export interface CompatibilityOptions {
 
 	/** Use this version number instead of running version. Default: running version */
 	version: string;
+
+	/** Use custom logging callback. Default: `console.error` */
+	logger(message: string): void;
 }
 
 const defaults: CompatibilityOptions = {
 	silent: false,
 	version,
+	logger(text: string): void {
+		/* eslint-disable-next-line no-console */
+		console.error(kleur.red(text));
+	},
 };
 
 /**
@@ -28,7 +35,7 @@ export function compatibilityCheck(
 	declared: string,
 	options?: Partial<CompatibilityOptions>
 ): boolean {
-	const { silent, version: current } = { ...defaults, ...options };
+	const { silent, version: current, logger } = { ...defaults, ...options };
 	const valid = satisfies(current, declared);
 	if (valid || silent) {
 		return valid;
@@ -41,8 +48,7 @@ export function compatibilityCheck(
 		"-----------------------------------------------------------------------------------------------------",
 	].join("\n");
 
-	/* eslint-disable-next-line no-console */
-	console.error(kleur.red(text));
+	logger(text);
 
 	return false;
 }
