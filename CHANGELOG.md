@@ -1,5 +1,52 @@
 # html-validate changelog
 
+## [5.0.0](https://gitlab.com/html-validate/html-validate/compare/v4.14.0...v5.0.0) (2021-06-27)
+
+### ⚠ BREAKING CHANGES
+
+- the library is now shipped as a hybrid CJS/ESM package. If you
+  are simply consuming the CLI tool or one of the existing integrations this will
+  not affect you.
+
+For plugin developers and if you consume the API in any way the biggest change
+is that the distributed source is now bundled and you can no longer access
+individual files.
+
+Typically something like:
+
+```diff
+-import foo from "html-validate/dist/foo";
++import { foo } from "html-validate"
+```
+
+Feel free to open an issue if some symbol you need isn't exported.
+
+If your usage includes checking presence of rules use the `ruleExists` helper:
+
+```diff
+-try {
+-  require("html-validate/dist/rules/attr-case");
+-} catch (err) {
+-  /* fallback */
+-}
++import { ruleExists } from "html-validate";
++if (!ruleExists("attr-case")) {
++  /* fallback */
++}
+```
+
+- drop support for NodeJS 10
+
+### Features
+
+- add `compatibilityCheck` helper for plugins ([4758595](https://gitlab.com/html-validate/html-validate/commit/47585951e7faf026bccc228d537f678d69da1c8a))
+- cjs/esm hybrid package ([39c960a](https://gitlab.com/html-validate/html-validate/commit/39c960a19f47cedcb55edf0865a3e6bd174a61f6)), closes [#112](https://gitlab.com/html-validate/html-validate/issues/112)
+- drop support for NodeJS 10 ([8f74291](https://gitlab.com/html-validate/html-validate/commit/8f74291919e1bcdab88ae6b74ba4199b16a4ef54))
+
+### Dependency upgrades
+
+- **deps:** update dependency ajv to v8 ([cccb73a](https://gitlab.com/html-validate/html-validate/commit/cccb73ad33db7f8032ecef469dc77a3df24eb29f))
+
 ## [4.14.0](https://gitlab.com/html-validate/html-validate/compare/v4.13.1...v4.14.0) (2021-06-14)
 
 ### Features

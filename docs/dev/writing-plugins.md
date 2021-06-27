@@ -332,7 +332,7 @@ The resulting metadata will now be:
 
 ### Version compatibility
 
-- Since: %version%
+- Since: 5.0.0
 
 Plugins can use the `compatibilityCheck` helper to verify the library version is compatible.
 
