@@ -1,5 +1,11 @@
 # html-validate changelog
 
+### [5.0.2](https://gitlab.com/html-validate/html-validate/compare/v5.0.1...v5.0.2) (2021-06-28)
+
+### Bug Fixes
+
+- handle leading and trailing whitespace in `style` attributes ([a71b947](https://gitlab.com/html-validate/html-validate/commit/a71b94747eda26e8e50ff28b1a0269646ee09818)), closes [#122](https://gitlab.com/html-validate/html-validate/issues/122)
+
 ### [5.0.1](https://gitlab.com/html-validate/html-validate/compare/v5.0.0...v5.0.1) (2021-06-27)
 
 ### Bug Fixes
