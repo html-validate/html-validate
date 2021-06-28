@@ -34,6 +34,27 @@ describe("rule no-inline-style", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
 		});
+
+		it("should handle leading whitespace", () => {
+			expect.assertions(2);
+			const report = htmlvalidate.validateString('<p style=" color: red"></p>');
+			expect(report).toBeInvalid();
+			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+		});
+
+		it("should handle trailing whitespace", () => {
+			expect.assertions(2);
+			const report = htmlvalidate.validateString('<p style="color: red; "></p>');
+			expect(report).toBeInvalid();
+			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+		});
+
+		it("should handle only whitespace", () => {
+			expect.assertions(2);
+			const report = htmlvalidate.validateString('<p style=" "></p>');
+			expect(report).toBeInvalid();
+			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+		});
 	});
 
 	describe("configured with include", () => {

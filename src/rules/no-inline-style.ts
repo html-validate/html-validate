@@ -21,6 +21,7 @@ const defaults: RuleOptions = {
 
 function getCSSDeclarations(value: string): CSSDeclaration[] {
 	return value
+		.trim()
 		.split(";")
 		.filter(Boolean)
 		.map((it): CSSDeclaration => {
