@@ -82,6 +82,11 @@ export default class PreferButton extends Rule<RuleContext, RuleOptions> {
 				return;
 			}
 
+			/* only handle type attribute */
+			if (event.key !== "type") {
+				return;
+			}
+
 			/* sanity check: handle missing, boolean and dynamic attributes */
 			if (!event.value || event.value instanceof DynamicValue) {
 				return;

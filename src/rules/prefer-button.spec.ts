@@ -80,6 +80,14 @@ describe("rule prefer-button", () => {
 			);
 		});
 
+		it("should not report error when using submit keyword in other attributes", () => {
+			expect.assertions(1);
+			const report = htmlvalidate.validateString(
+				'<input type="hidden" name="action" value="submit">'
+			);
+			expect(report).toBeValid();
+		});
+
 		it("smoketest", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateFile("test-files/rules/prefer-button.html");
