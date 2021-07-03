@@ -49,6 +49,9 @@
     "!**/*.snap",
     "!**/*.spec.{js,ts,d.ts}"
   ],
+  "workspaces": [
+    "tests/integration/*"
+  ],
   "scripts": {
     "prebuild": "tsc --build src",
     "build": "rollup --config rollup.config.js",
