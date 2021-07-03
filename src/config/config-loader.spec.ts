@@ -101,10 +101,13 @@ describe("ConfigLoader", () => {
 					mockFilenames: [
 						/* ConfigMock adds all visited filenames to this array */
 						path.resolve("/.htmlvalidate.js"),
+						path.resolve("/.htmlvalidate.cjs"),
 						path.resolve("/.htmlvalidate.json"),
 						path.resolve("/path/.htmlvalidate.js"),
+						path.resolve("/path/.htmlvalidate.cjs"),
 						path.resolve("/path/.htmlvalidate.json"),
 						path.resolve("/path/to/.htmlvalidate.js"),
+						path.resolve("/path/to/.htmlvalidate.cjs"),
 						path.resolve("/path/to/.htmlvalidate.json"),
 					],
 				})
@@ -120,8 +123,10 @@ describe("ConfigLoader", () => {
 					mockFilenames: [
 						/* ConfigMock adds all visited filenames to this array */
 						path.resolve("/project/root/.htmlvalidate.js"),
+						path.resolve("/project/root/.htmlvalidate.cjs"),
 						path.resolve("/project/root/.htmlvalidate.json"),
 						path.resolve("/project/root/src/.htmlvalidate.js"),
+						path.resolve("/project/root/src/.htmlvalidate.cjs"),
 						path.resolve("/project/root/src/.htmlvalidate.json"),
 					],
 				})
@@ -146,10 +151,13 @@ describe("ConfigLoader", () => {
 					mockFilenames: [
 						/* ConfigMock adds all visited filenames to this array */
 						path.resolve("/.htmlvalidate.js"),
+						path.resolve("/.htmlvalidate.cjs"),
 						path.resolve("/.htmlvalidate.json"),
 						path.resolve("/path/.htmlvalidate.js"),
+						path.resolve("/path/.htmlvalidate.cjs"),
 						path.resolve("/path/.htmlvalidate.json"),
 						path.resolve("/path/to/.htmlvalidate.js"),
+						path.resolve("/path/to/.htmlvalidate.cjs"),
 						path.resolve("/path/to/.htmlvalidate.json"),
 					],
 				})
@@ -171,10 +179,13 @@ describe("ConfigLoader", () => {
 					mockFilenames: [
 						/* ConfigMock adds all visited filenames to this array */
 						path.resolve("/.htmlvalidate.js"),
+						path.resolve("/.htmlvalidate.cjs"),
 						path.resolve("/.htmlvalidate.json"),
 						path.resolve("/path/.htmlvalidate.js"),
+						path.resolve("/path/.htmlvalidate.cjs"),
 						path.resolve("/path/.htmlvalidate.json"),
 						path.resolve("/path/to/.htmlvalidate.js"),
+						path.resolve("/path/to/.htmlvalidate.cjs"),
 						path.resolve("/path/to/.htmlvalidate.json"),
 					],
 				})

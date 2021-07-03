@@ -48,6 +48,7 @@ export class ConfigLoader {
 	 *
 	 * @param filename - Filename to get configuration for.
 	 */
+	// eslint-disable-next-line complexity, sonarjs/cognitive-complexity
 	public fromTarget(filename: string): Config | null {
 		if (filename === "inline") {
 			return null;
@@ -63,18 +64,13 @@ export class ConfigLoader {
 
 		// eslint-disable-next-line no-constant-condition
 		while (true) {
-			const jsonFile = path.join(current, ".htmlvalidate.json");
-			if (fs.existsSync(jsonFile)) {
-				const local = this.configClass.fromFile(jsonFile);
-				found = true;
-				config = local.merge(config);
-			}
-
-			const jsFile = path.join(current, ".htmlvalidate.js");
-			if (fs.existsSync(jsFile)) {
-				const local = this.configClass.fromFile(jsFile);
-				found = true;
-				config = local.merge(config);
+			for (const potentialExtension of ["json", "cjs", "js"]) {
+				const filePath = path.join(current, `.htmlvalidate.${potentialExtension}`);
+				if (fs.existsSync(filePath)) {
+					const local = this.configClass.fromFile(filePath);
+					found = true;
+					config = local.merge(config);
+				}
 			}
 
 			/* stop if a configuration with "root" is set to true */
