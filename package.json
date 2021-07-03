@@ -210,10 +210,14 @@
     "typescript": "4.3.5"
   },
   "peerDependencies": {
-    "jest": "^24 || ^25 || ^26 || ^27"
+    "jest": "^24 || ^25 || ^26 || ^27",
+    "jest-diff": "^24 || ^25 || ^26 || ^27"
   },
   "peerDependenciesMeta": {
     "jest": {
+      "optional": true
+    },
+    "jest-diff": {
       "optional": true
     }
   },

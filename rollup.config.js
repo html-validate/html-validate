@@ -1,11 +1,14 @@
 import fs from "fs";
 import path from "path";
+import { builtinModules } from "module";
 import json from "@rollup/plugin-json";
 import replace from "@rollup/plugin-replace";
 import virtual from "@rollup/plugin-virtual";
 import copy from "rollup-plugin-copy";
 import dts from "rollup-plugin-dts";
 import typescript from "@rollup/plugin-typescript";
+
+const packageJson = fs.readFileSync(path.join(__dirname, "package.json"), "utf-8");
 
 /**
  * @typedef {import('rollup').RollupOptions} RollupOptions
@@ -34,25 +37,12 @@ const inputs = [...entrypoints, ...types];
 /** @type {string[]} */
 const external = [
 	/* nodejs */
-	"fs",
-	"path",
+	...builtinModules,
 
-	/* dependencies */
-	"@babel/code-frame",
-	"@html-validate/stylish",
-	"@sidvind/better-ajv-errors",
-	"ajv",
-	"deepmerge",
-	"glob",
-	"ignore",
-	"jest-diff",
-	"json-merge-patch",
-	"kleur",
-	"minimist",
-	"prompts",
+	/* npm dependencies */
+	...Object.keys(JSON.parse(packageJson).dependencies),
+	...Object.keys(JSON.parse(packageJson).peerDependencies),
 ];
-
-const packageJson = fs.readFileSync(path.join(__dirname, "package.json"), "utf-8");
 
 /**
  * @param {string} id
