@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import Ajv from "ajv";
+import ajvSchemaDraft from "ajv/lib/refs/json-schema-draft-06.json";
 import deepmerge from "deepmerge";
 import { Source } from "../context";
 import { NestedError, SchemaValidationError } from "../error";
@@ -10,7 +11,7 @@ import { Plugin } from "../plugin";
 import schema from "../schema/config.json";
 import { TransformContext, Transformer, TRANSFORMER_API } from "../transform";
 import { requireUncached } from "../utils";
-import { projectRoot } from "../resolve";
+import { projectRoot, legacyRequire } from "../resolve";
 import bundledRules from "../rules";
 import { Rule } from "../rule";
 import { ConfigData, RuleConfig, RuleOptions, TransformMap } from "./config-data";
@@ -37,7 +38,7 @@ interface LoadedPlugin extends Plugin {
 let rootDirCache: string | null = null;
 
 const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
-ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-06.json"));
+ajv.addMetaSchema(ajvSchemaDraft);
 
 const validator = ajv.compile(schema);
 
@@ -286,8 +287,7 @@ export class Config {
 
 			/* assume it is loadable with require() */
 			try {
-				// eslint-disable-next-line security/detect-non-literal-require, import/no-dynamic-require
-				metaTable.loadFromObject(require(entry));
+				metaTable.loadFromObject(legacyRequire(entry));
 			} catch (err) {
 				throw new ConfigError(`Failed to load elements from "${entry}": ${err.message}`, err);
 			}
@@ -358,8 +358,7 @@ export class Config {
 	private loadPlugins(plugins: string[]): LoadedPlugin[] {
 		return plugins.map((moduleName: string) => {
 			try {
-				// eslint-disable-next-line security/detect-non-literal-require, import/no-dynamic-require
-				const plugin = require(moduleName.replace("<rootDir>", this.rootDir)) as LoadedPlugin;
+				const plugin = legacyRequire(moduleName.replace("<rootDir>", this.rootDir)) as LoadedPlugin;
 				plugin.name = plugin.name || moduleName;
 				plugin.originalName = moduleName;
 				return plugin;
@@ -613,8 +612,7 @@ export class Config {
 		/* expand <rootDir> */
 		const moduleName = name.replace("<rootDir>", this.rootDir);
 
-		// eslint-disable-next-line security/detect-non-literal-require, import/no-dynamic-require
-		const fn = require(moduleName);
+		const fn = legacyRequire(moduleName);
 
 		/* sanity check */
 		if (typeof fn !== "function") {

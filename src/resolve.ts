@@ -6,4 +6,5 @@
 import path from "path";
 
 export const projectRoot = path.resolve(__dirname, "..");
+export const legacyRequire = require;
 export const distFolder = path.join(projectRoot, "src");

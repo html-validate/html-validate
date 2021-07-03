@@ -1,11 +1,13 @@
+import { legacyRequire } from "../resolve";
+
 /**
  * Similar to `require(..)` but removes the cached copy first.
  */
 export function requireUncached(moduleId: string): any {
-	const filename = require.resolve(moduleId);
+	const filename = legacyRequire.resolve(moduleId);
 
 	/* remove references from the parent module to prevent memory leak */
-	const m = require.cache[filename];
+	const m = legacyRequire.cache[filename];
 	if (m && m.parent) {
 		const { parent } = m;
 		for (let i = parent.children.length - 1; i >= 0; i--) {
@@ -16,8 +18,7 @@ export function requireUncached(moduleId: string): any {
 	}
 
 	/* remove old module from cache */
-	delete require.cache[filename];
+	delete legacyRequire.cache[filename];
 
-	// eslint-disable-next-line import/no-dynamic-require
-	return require(filename);
+	return legacyRequire(filename);
 }

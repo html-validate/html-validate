@@ -6,11 +6,11 @@ import fs from "fs";
 // eslint-disable-next-line import/no-unresolved
 import ESTree from "estree";
 
+import { legacyRequire } from "../resolve";
 import { Source } from "../context";
 
-const espree = require("espree");
-const walk = require("acorn-walk");
-
+const espree = legacyRequire("espree");
+const walk = legacyRequire("acorn-walk");
 export interface Position {
 	line: number;
 	column: number;

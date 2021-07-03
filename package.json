@@ -50,10 +50,11 @@
     "!**/*.spec.{js,ts,d.ts}"
   ],
   "scripts": {
-    "prebuild": "tsc",
+    "prebuild": "tsc --build src",
     "build": "rollup --config rollup.config.js",
     "postbuild": "scripts/pkg",
     "build:docs": "grunt docs",
+    "prepack": "npm run build",
     "clean": "rm -rf dist public",
     "compatibility": "scripts/compatibility.sh",
     "debug": "node --inspect ./node_modules/.bin/jest --runInBand --watch --no-coverage",

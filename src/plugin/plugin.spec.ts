@@ -7,6 +7,7 @@ import { EventHandler } from "../event";
 import { Parser } from "../parser";
 import { Rule } from "../rule";
 import { Transformer, TRANSFORMER_API } from "../transform";
+import { legacyRequire } from "../resolve";
 import { Plugin } from "./plugin";
 
 let mockPlugin: Plugin;
@@ -36,7 +37,7 @@ describe("Plugin", () => {
 
 		/* reset mock */
 		jest.resetModules();
-		mockPlugin = require("mock-plugin");
+		mockPlugin = legacyRequire("mock-plugin");
 	});
 
 	it("should throw ConfigError when loading plugin fails", () => {

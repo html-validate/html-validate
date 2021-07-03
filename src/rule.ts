@@ -1,5 +1,7 @@
 import path from "path";
 import Ajv, { ErrorObject, SchemaObject, ValidateFunction } from "ajv";
+import ajvSchemaDraft from "ajv/lib/refs/json-schema-draft-06.json";
+import { homepage } from "../package.json";
 import { ConfigData, Severity } from "./config";
 import { Location } from "./context";
 import { DOMNode } from "./dom";
@@ -9,7 +11,6 @@ import { Reporter } from "./reporter";
 import { MetaTable, MetaLookupableProperty } from "./meta";
 import { SchemaValidationError } from "./error";
 import { distFolder } from "./resolve";
-import { homepage } from "./package";
 
 export { SchemaObject } from "ajv";
 
@@ -19,7 +20,7 @@ const remapEvents: Record<string, string> = {
 };
 
 const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
-ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-06.json"));
+ajv.addMetaSchema(ajvSchemaDraft);
 
 export interface RuleDocumentation {
 	description: string;
