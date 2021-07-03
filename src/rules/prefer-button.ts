@@ -78,12 +78,12 @@ export default class PreferButton extends Rule<RuleContext, RuleOptions> {
 			const node = event.target;
 
 			/* only handle input elements */
-			if (node.tagName !== "input") {
+			if (node.tagName.toLowerCase() !== "input") {
 				return;
 			}
 
 			/* only handle type attribute */
-			if (event.key !== "type") {
+			if (event.key.toLowerCase() !== "type") {
 				return;
 			}
 
@@ -93,17 +93,18 @@ export default class PreferButton extends Rule<RuleContext, RuleOptions> {
 			}
 
 			/* ignore types configured to be ignored */
-			if (this.isKeywordIgnored(event.value)) {
+			const type = event.value.toLowerCase();
+			if (this.isKeywordIgnored(type)) {
 				return;
 			}
 
 			/* only values matching known type triggers error */
-			if (!types.includes(event.value)) {
+			if (!types.includes(type)) {
 				return;
 			}
 
-			const context: RuleContext = { type: event.value };
-			const message = `Prefer to use <button> instead of <input type="${event.value}"> when adding buttons`;
+			const context: RuleContext = { type: type };
+			const message = `Prefer to use <button> instead of <input type="${type}"> when adding buttons`;
 			this.report(node, message, event.valueLocation, context);
 		});
 	}
