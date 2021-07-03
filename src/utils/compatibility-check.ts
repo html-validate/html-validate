@@ -1,4 +1,4 @@
-import satisfies from "semver/functions/satisfies";
+import semver from "semver";
 import kleur from "kleur";
 import { version } from "../package";
 
@@ -36,7 +36,7 @@ export function compatibilityCheck(
 	options?: Partial<CompatibilityOptions>
 ): boolean {
 	const { silent, version: current, logger } = { ...defaults, ...options };
-	const valid = satisfies(current, declared);
+	const valid = semver.satisfies(current, declared);
 	if (valid || silent) {
 		return valid;
 	}
