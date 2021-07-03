@@ -80,6 +80,24 @@ describe("rule prefer-button", () => {
 			);
 		});
 
+		it("should report error when using type submit in uppercase", () => {
+			expect.assertions(2);
+			const report = htmlvalidate.validateString('<INPUT TYPE="SUBMIT">');
+			expect(report).toBeInvalid();
+			expect(report).toHaveError(
+				"prefer-button",
+				'Prefer to use <button> instead of <input type="submit"> when adding buttons'
+			);
+		});
+
+		it("should not report error when using submit keyword in other attributes", () => {
+			expect.assertions(1);
+			const report = htmlvalidate.validateString(
+				'<input type="hidden" name="action" value="submit">'
+			);
+			expect(report).toBeValid();
+		});
+
 		it("smoketest", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateFile("test-files/rules/prefer-button.html");
