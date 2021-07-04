@@ -3,7 +3,7 @@ import path from "path";
 import kleur from "kleur";
 import minimist from "minimist";
 import { TokenDump, SchemaValidationError, UserError, Report, Reporter, Result } from "..";
-import * as pkg from "../package";
+import { name, version, bugs as pkgBugs } from "../../package.json";
 import { eventFormatter } from "./json";
 import { CLI } from "./cli";
 
@@ -123,8 +123,8 @@ function handleUnknownError(err: Error): void {
 		console.error(err);
 	}
 	console.groupEnd();
-	const bugUrl = `${pkg.bugs}?issuable_template=Bug`;
-	console.error(kleur.red(`This is a bug in ${pkg.name}-${pkg.version}.`));
+	const bugUrl = `${pkgBugs.url}?issuable_template=Bug`;
+	console.error(kleur.red(`This is a bug in ${name}-${version}.`));
 	console.error(
 		kleur.red(
 			[
@@ -168,7 +168,7 @@ const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
 });
 
 function showUsage(): void {
-	process.stdout.write(`${pkg.name}-${pkg.version}
+	process.stdout.write(`${name}-${version}
 Usage: html-validate [OPTIONS] [FILENAME..] [DIR..]
 
 Common options:
@@ -204,7 +204,7 @@ e.g. "checkstyle=dist/html-validate.xml"
 }
 
 function showVersion(): void {
-	process.stdout.write(`${pkg.name}-${pkg.version}\n`);
+	process.stdout.write(`${name}-${version}\n`);
 }
 
 if (argv.stdin) {

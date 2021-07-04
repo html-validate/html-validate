@@ -1,4 +1,5 @@
 import Ajv, { KeywordDefinition, ValidateFunction } from "ajv";
+import ajvSchemaDraft from "ajv/lib/refs/json-schema-draft-06.json";
 import { DataValidateFunction, DataValidationCxt, SchemaObject } from "ajv/dist/types";
 import deepmerge from "deepmerge";
 import jsonMergePatch from "json-merge-patch";
@@ -208,7 +209,7 @@ export class MetaTable {
 	 */
 	private getSchemaValidator(): ValidateFunction<MetaDataTable> {
 		const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
-		ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-06.json"));
+		ajv.addMetaSchema(ajvSchemaDraft);
 		ajv.addKeyword(ajvRegexpKeyword);
 		ajv.addKeyword({ keyword: "copyable" });
 		return ajv.compile<MetaDataTable>(this.schema);

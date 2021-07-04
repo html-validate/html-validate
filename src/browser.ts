@@ -15,4 +15,4 @@ export { TransformContext, Transformer, TemplateExtractor } from "./transform";
 export { Plugin } from "./plugin";
 export { Parser } from "./parser";
 export { ruleExists } from "./utils";
-export { version } from "./package";
+export { version } from "../package.json";

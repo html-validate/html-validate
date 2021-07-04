@@ -32,7 +32,10 @@ Run with:
 Configuration can be added to:
 
 - `.htmlvalidate.js`
+- `.htmlvalidate.cjs`
 - `.htmlvalidate.json`
+
+ESM configuration files are not currently supported.
 
 Configuration files will be searched from the target file and up until either no more parent folders exist or `"root": true` is found.
 
@@ -153,11 +156,11 @@ Use a relative path to use a local script (use `<rootDir>` to refer to the path 
 
 By default, configuration is search in the file structure until the root directory (typically `/`) is found:
 
-- `/home/user/project/src/.htmlvalidate.{js,json}`
-- `/home/user/project/.htmlvalidate.{js,json}`
-- `/home/user/.htmlvalidate.{js,json}`
-- `/home/.htmlvalidate.{js,json}`
-- `/.htmlvalidate.{js,json}`
+- `/home/user/project/src/.htmlvalidate.{js,cjs,json}`
+- `/home/user/project/.htmlvalidate.{js,cjs,json}`
+- `/home/user/.htmlvalidate.{js,cjs,json}`
+- `/home/.htmlvalidate.{js,cjs,json}`
+- `/.htmlvalidate.{js,cjs,json}`
 
 By setting the `root` property to `true` the search is stopped. This can be used
 to prevent searching from outside the project directory or to use a specific
@@ -173,8 +176,8 @@ For instance, if `/home/project/.htmlvalidate.json` contains:
 
 Only the following files would be searched:
 
-- `/home/user/project/src/.htmlvalidate.{js,json}`
-- `/home/user/project/.htmlvalidate.{js,json}`
+- `/home/user/project/src/.htmlvalidate.{js,cjs,json}`
+- `/home/user/project/.htmlvalidate.{js,cjs,json}`
 
 This also affects CLI `--config` and the API, e.g. when using `--config` with a
 configuration using `"root": true` will prevent any additional files to be

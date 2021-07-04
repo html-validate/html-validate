@@ -1,5 +1,6 @@
 # Remember to keep in sync with .npmignore
 *.tgz
+tsconfig.tsbuildinfo
 /.nyc_output/
 /.tscache/
 /dist

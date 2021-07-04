@@ -1,14 +1,14 @@
 import fs from "fs";
 import path from "path";
 import { builtinModules } from "module";
-import json from "@rollup/plugin-json";
+import json from "@rollup/plugin-json"; //native solution coming: https://nodejs.org/docs/latest/api/esm.html#esm_json_modules
 import replace from "@rollup/plugin-replace";
 import virtual from "@rollup/plugin-virtual";
 import copy from "rollup-plugin-copy";
 import dts from "rollup-plugin-dts";
 import typescript from "@rollup/plugin-typescript";
 
-const packageJson = fs.readFileSync(path.join(__dirname, "package.json"), "utf-8");
+const packageJson = JSON.parse(fs.readFileSync(path.join(__dirname, "package.json"), "utf-8"));
 
 /**
  * @typedef {import('rollup').RollupOptions} RollupOptions
@@ -38,11 +38,16 @@ const inputs = [...entrypoints, ...types];
 const external = [
 	/* nodejs */
 	...builtinModules,
+	...builtinModules.map((name) => `node:${name}`), //spec: https://nodejs.org/docs/latest/api/esm.html#esm_node_imports
 
 	/* npm dependencies */
-	...Object.keys(JSON.parse(packageJson).dependencies),
-	...Object.keys(JSON.parse(packageJson).peerDependencies),
+	...Object.keys(packageJson.dependencies),
+	...Object.keys(packageJson.peerDependencies),
 ];
+
+const jsonConfig = {
+	preferConst: true,
+};
 
 /**
  * @param {string} id
@@ -69,14 +74,33 @@ function manualChunks(id) {
 
 /**
  * @param {string} format
+ * @returns {string}
+ */
+function generateResolved(format) {
+	if (format === "es") {
+		return `
+			import path from "path";
+			import { fileURLToPath } from "node:url";
+			import { createRequire } from "module";
+			export const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../");
+			export const legacyRequire = createRequire(import.meta.url);
+			export const distFolder = path.resolve(projectRoot, "dist/${format}");
+		`;
+	} else {
+		return `
+			import path from "path";
+			export const projectRoot = path.resolve(__dirname, "../../");
+			export const legacyRequire = require;
+			export const distFolder = path.resolve(projectRoot, "dist/${format}");
+		`;
+	}
+}
+
+/**
+ * @param {string} format
  * @returns {RollupOptions[]}
  */
 function build(format) {
-	const resolved = `
-		import path from "path";
-		export const projectRoot = path.resolve(__dirname, "../../");
-		export const distFolder = path.resolve(projectRoot, "dist/${format}");
-	`;
 	return [
 		{
 			input: entrypoints,
@@ -90,23 +114,19 @@ function build(format) {
 			external,
 			plugins: [
 				virtual({
-					"package.json": packageJson,
-					"src/resolve": resolved,
+					"src/resolve": generateResolved(format),
 				}),
 				typescript({
+					tsconfig: "src/tsconfig.json",
 					outDir: `dist/${format}`,
 					declaration: false,
 					declarationDir: undefined,
 				}),
-				json(),
+				json(jsonConfig),
 				replace({
 					preventAssignment: true,
 					delimiters: ["", ""],
 					values: {
-						/**
-						 * Fix the path from src/package.ts
-						 */
-						'"../package.json"': '"../../package.json"',
 						/**
 						 * Replace __filename global with source filename relative to dist folder
 						 *
@@ -129,6 +149,17 @@ function build(format) {
 				chunkFileNames: "[name].d.ts",
 			},
 			plugins: [
+				replace({
+					preventAssignment: true,
+					delimiters: ["", ""],
+					values: {
+						/**
+						 * Fix the path from dist/types/browser.d.ts
+						 */
+						'"../package.json"': '"../../package.json"',
+					},
+				}),
+				json(jsonConfig),
 				dts(),
 				copy({
 					verbose: true,

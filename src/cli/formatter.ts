@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { Formatter, Report, Result, UserError, formatterFactory } from "..";
+import { legacyRequire } from "../resolve";
 
 type WrappedFormatter = (results: Result[]) => string;
 
@@ -27,8 +28,7 @@ function loadFormatter(name: string): Formatter {
 	}
 
 	try {
-		/* eslint-disable-next-line import/no-dynamic-require */
-		return require(name);
+		return legacyRequire(name);
 	} catch (error) {
 		throw new UserError(`No formatter named "${name}"`, error);
 	}

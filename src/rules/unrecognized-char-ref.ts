@@ -1,12 +1,8 @@
-import path from "path";
 import { Location, sliceLocation } from "../context";
 import { NodeType } from "../dom";
 import { AttributeEvent, ElementReadyEvent } from "../event";
-import { projectRoot } from "../resolve";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
-
-/* eslint-disable-next-line import/no-dynamic-require */
-const entities = require(path.join(projectRoot, "elements/entities.json"));
+import entities from "../../elements/entities.json";
 
 const regexp = /&([a-z0-9]+|#x?[0-9a-f]+);/gi;
 
