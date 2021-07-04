@@ -131,6 +131,18 @@ Jest compat:
   script:
     - npm exec jest -- --no-coverage matchers tests/jest
 
+Module:
+  stage: compatibility
+  dependencies: ["NPM", "Build"]
+  needs: ["NPM", "Build"]
+  parallel:
+    matrix:
+      - BUILD:
+          - "esm"
+          - "cjs"
+  script:
+    - node tests/integration/${BUILD}
+
 Release:
   stage: release
   only:
