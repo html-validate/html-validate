@@ -167,7 +167,7 @@
     "@types/estree": "0.0.47",
     "@types/glob": "7.1.4",
     "@types/inquirer": "7.3.3",
-    "@types/jest": "26.0.23",
+    "@types/jest": "26.0.24",
     "@types/json-merge-patch": "0.0.5",
     "@types/minimist": "1.2.1",
     "@types/node": "11.15.54",
