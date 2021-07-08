@@ -169,7 +169,7 @@
     "@types/inquirer": "7.3.3",
     "@types/jest": "26.0.24",
     "@types/json-merge-patch": "0.0.5",
-    "@types/minimist": "1.2.1",
+    "@types/minimist": "1.2.2",
     "@types/node": "11.15.54",
     "@types/prompts": "2.0.13",
     "@types/semver": "7.3.7",
