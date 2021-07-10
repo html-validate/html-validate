@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/attr-delimiter.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/attr-delimiter.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 12,
+        "context": undefined,
+        "line": 1,
+        "message": "Attribute value must not be delimited by whitespace",
+        "offset": 11,
+        "ruleId": "attr-delimiter",
+        "ruleUrl": "https://html-validate.org/rules/attr-delimiter.html",
+        "selector": null,
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 12,
+        "context": undefined,
+        "line": 2,
+        "message": "Attribute value must not be delimited by whitespace",
+        "offset": 36,
+        "ruleId": "attr-delimiter",
+        "ruleUrl": "https://html-validate.org/rules/attr-delimiter.html",
+        "selector": null,
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<input name= \\"my-field\\">
+<input name =\\"my-field\\">",
+    "warningCount": 0,
+  },
+]
+`;
