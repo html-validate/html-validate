@@ -361,8 +361,9 @@ export class Parser {
 		};
 
 		if (next && haveValue) {
-			attrData.value = next.data[1] ?? null;
-			attrData.quote = next.data[2] ?? null;
+			const [, , value, quote] = next.data;
+			attrData.value = value ?? null;
+			attrData.quote = quote ?? null;
 		}
 
 		/* get callback to process attributes, default is to just return attribute
@@ -418,10 +419,10 @@ export class Parser {
 	 *      ^^^          ^^^         ^^^    (null)   (null)
 	 */
 	private getAttributeValueLocation(token?: Token): Location | null {
-		if (!token || token.type !== TokenType.ATTR_VALUE || token.data[1] === "") {
+		if (!token || token.type !== TokenType.ATTR_VALUE || token.data[2] === "") {
 			return null;
 		}
-		const quote = token.data[2];
+		const quote = token.data[3];
 		if (quote) {
 			return sliceLocation(token.location, 2, -1);
 		} else {

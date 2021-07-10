@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule attr-delimiter should contain documentation 1`] = `
+Object {
+  "description": "Attribute value should be separated by ",
+  "url": "https://html-validate.org/rules/attr-delimiter.html",
+}
+`;

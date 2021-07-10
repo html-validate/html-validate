@@ -283,7 +283,10 @@ describe("lexer", () => {
 			expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
 			expect(token.next()).toBeToken({ type: TokenType.WHITESPACE });
 			expect(token.next()).toBeToken({ type: TokenType.ATTR_NAME });
-			expect(token.next()).toBeToken({ type: TokenType.ATTR_VALUE });
+			expect(token.next()).toBeToken({
+				type: TokenType.ATTR_VALUE,
+				data: ['="baz"', "=", "baz", '"'],
+			});
 			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
 			expect(token.next()).toBeToken({ type: TokenType.EOF });
 			expect(token.next().done).toBeTruthy();
@@ -297,7 +300,7 @@ describe("lexer", () => {
 			expect(token.next()).toBeToken({ type: TokenType.ATTR_NAME });
 			expect(token.next()).toBeToken({
 				type: TokenType.ATTR_VALUE,
-				data: [' = "baz"', "baz", '"'],
+				data: [' = "baz"', " = ", "baz", '"'],
 			});
 			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
 			expect(token.next()).toBeToken({ type: TokenType.EOF });
@@ -310,7 +313,10 @@ describe("lexer", () => {
 			expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
 			expect(token.next()).toBeToken({ type: TokenType.WHITESPACE });
 			expect(token.next()).toBeToken({ type: TokenType.ATTR_NAME });
-			expect(token.next()).toBeToken({ type: TokenType.ATTR_VALUE });
+			expect(token.next()).toBeToken({
+				type: TokenType.ATTR_VALUE,
+				data: ["='baz'", "=", "baz", "'"],
+			});
 			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
 			expect(token.next()).toBeToken({ type: TokenType.EOF });
 			expect(token.next().done).toBeTruthy();
@@ -324,7 +330,7 @@ describe("lexer", () => {
 			expect(token.next()).toBeToken({ type: TokenType.ATTR_NAME });
 			expect(token.next()).toBeToken({
 				type: TokenType.ATTR_VALUE,
-				data: [" = 'baz'", "baz", "'"],
+				data: [" = 'baz'", " = ", "baz", "'"],
 			});
 			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
 			expect(token.next()).toBeToken({ type: TokenType.EOF });
@@ -340,7 +346,7 @@ describe("lexer", () => {
 				expect(token.next()).toBeToken({ type: TokenType.ATTR_NAME });
 				expect(token.next()).toBeToken({
 					type: TokenType.ATTR_VALUE,
-					data: ["=baz", "baz"],
+					data: ["=baz", "=", "baz"],
 				});
 				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
 				expect(token.next()).toBeToken({ type: TokenType.EOF });
@@ -358,7 +364,7 @@ describe("lexer", () => {
 				});
 				expect(token.next()).toBeToken({
 					type: TokenType.ATTR_VALUE,
-					data: ["=5", "5"],
+					data: ["=5", "=", "5"],
 				});
 				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
 				expect(token.next()).toBeToken({ type: TokenType.EOF });
@@ -373,7 +379,7 @@ describe("lexer", () => {
 				expect(token.next()).toBeToken({ type: TokenType.ATTR_NAME });
 				expect(token.next()).toBeToken({
 					type: TokenType.ATTR_VALUE,
-					data: [" = baz", "baz"],
+					data: [" = baz", " = ", "baz"],
 				});
 				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
 				expect(token.next()).toBeToken({ type: TokenType.EOF });
@@ -394,7 +400,7 @@ describe("lexer", () => {
 				});
 				expect(token.next()).toBeToken({
 					type: TokenType.ATTR_VALUE,
-					data: [`=${char}`, char],
+					data: [`=${char}`, "=", char],
 				});
 				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
 				expect(token.next()).toBeToken({ type: TokenType.EOF });

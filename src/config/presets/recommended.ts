@@ -4,6 +4,7 @@ const config: ConfigData = {
 	rules: {
 		"aria-label-misuse": "error",
 		"attr-case": "error",
+		"attr-delimiter": "error",
 		"attr-quotes": "error",
 		"attr-spacing": "error",
 		"attribute-allowed-values": "error",
