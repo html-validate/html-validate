@@ -58,7 +58,7 @@ Changelog:
 
 ESLint:
   stage: test
-  needs: ["NPM"]
+  needs: ["NPM", "Build"]
   script:
     - npm run eslint -- --max-warnings 0
 
@@ -141,6 +141,7 @@ Module:
           - "esm"
           - "cjs"
   script:
+    - npm exec tsc -- --build tests/integration/${BUILD}
     - node tests/integration/${BUILD}
 
 Release:

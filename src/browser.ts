@@ -15,4 +15,6 @@ export { TransformContext, Transformer, TemplateExtractor } from "./transform";
 export { Plugin } from "./plugin";
 export { Parser } from "./parser";
 export { ruleExists } from "./utils";
+
+/* Bug #127: this line need special care, see rollup.config.js */
 export { version } from "../package.json";
