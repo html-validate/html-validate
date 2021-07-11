@@ -1,5 +1,21 @@
 # html-validate changelog
 
+## [5.1.0](https://gitlab.com/html-validate/html-validate/compare/v5.0.2...v5.1.0) (2021-07-11)
+
+### Features
+
+- **lexer:** add attribute key-value delimiter to attribute value token ([0979798](https://gitlab.com/html-validate/html-validate/commit/0979798ac191af4a26667a282e3e554fee4450ac))
+- **rules:** new rule `attr-delimiter` ([eb98461](https://gitlab.com/html-validate/html-validate/commit/eb9846155dbc42f860c31301373332624d35a3bd)), closes [#126](https://gitlab.com/html-validate/html-validate/issues/126)
+- support .cjs configuration files ([cd458e3](https://gitlab.com/html-validate/html-validate/commit/cd458e3e16826700b93860507222d5af792204ef))
+
+### Bug Fixes
+
+- automatically find external dependencies ([62af8c5](https://gitlab.com/html-validate/html-validate/commit/62af8c5c97bdce0303ea8c5e00050014a959b08a))
+- es build ([6b1cec5](https://gitlab.com/html-validate/html-validate/commit/6b1cec5b3321ddd8094483a50ce1cd686356142f))
+- import semver correctly ([4ed8eac](https://gitlab.com/html-validate/html-validate/commit/4ed8eac2609dfd5411180bb6166ab8a8783dc53b))
+- make prefer-button tag and attribute checks case-insensitive ([95e7748](https://gitlab.com/html-validate/html-validate/commit/95e774863a3df2197fb2cf7879e0e8cd83c3c4bd))
+- only check value of type attribute in prefer-button rule ([2e46586](https://gitlab.com/html-validate/html-validate/commit/2e46586b5d69be6847128e58271d382cb7f46e90))
+
 ### [5.0.2](https://gitlab.com/html-validate/html-validate/compare/v5.0.1...v5.0.2) (2021-06-28)
 
 ### Bug Fixes
