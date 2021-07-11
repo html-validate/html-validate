@@ -1,5 +1,11 @@
 # html-validate changelog
 
+### [5.1.1](https://gitlab.com/html-validate/html-validate/compare/v5.1.0...v5.1.1) (2021-07-11)
+
+### Bug Fixes
+
+- broken typescript declaration in previous release ([ad9cf68](https://gitlab.com/html-validate/html-validate/commit/ad9cf6832ac1b02bab282445d7e8b294c9ce524e)), closes [#127](https://gitlab.com/html-validate/html-validate/issues/127)
+
 ## [5.1.0](https://gitlab.com/html-validate/html-validate/compare/v5.0.2...v5.1.0) (2021-07-11)
 
 ### Features
