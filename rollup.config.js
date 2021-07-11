@@ -154,12 +154,13 @@ function build(format) {
 					delimiters: ["", ""],
 					values: {
 						/**
-						 * Fix the path from dist/types/browser.d.ts
+						 * Bug #127: workaround the issue that the exported version is
+						 * turned into a constant by the json plugin instead of the expected
+						 * "declare const version" required by typescript.
 						 */
-						'"../package.json"': '"../../package.json"',
+						'export { version } from "../package.json";': "export const version: string;",
 					},
 				}),
-				json(jsonConfig),
 				dts(),
 				copy({
 					verbose: true,
