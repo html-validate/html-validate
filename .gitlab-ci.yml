@@ -144,15 +144,26 @@ Module:
     - npm exec tsc -- --build tests/integration/${BUILD}
     - node tests/integration/${BUILD}
 
-Release:
+.release:
   stage: release
-  only:
-    - web
   variables:
     GIT_AUTHOR_NAME: ${GITLAB_USER_NAME}
     GIT_AUTHOR_EMAIL: ${GITLAB_USER_EMAIL}
     GIT_COMMITTER_NAME: ${HTML_VALIDATE_BOT_NAME}
     GIT_COMMITTER_EMAIL: ${HTML_VALIDATE_BOT_EMAIL}
+
+Dry run:
+  extends: .release
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "master"'
+  script:
+    - npm exec semantic-release -- --dry-run
+
+Release:
+  extends: .release
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "master" && $CI_PIPELINE_SOURCE == "web"'
+      when: manual
   script:
     - npm exec semantic-release
 
