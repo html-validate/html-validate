@@ -1,4 +1,4 @@
-import { ConfigData, ResolvedConfig, RuleOptions, Severity } from "../config";
+import { ResolvedConfig, RuleOptions, Severity } from "../config";
 import { Location, Source } from "../context";
 import { HtmlElement } from "../dom";
 import { DOMInternalID } from "../dom/domnode";
@@ -28,18 +28,12 @@ export interface TokenDump {
 
 export class Engine<T extends Parser = Parser> {
 	protected report: Reporter;
-	protected configData: ConfigData;
 	protected config: ResolvedConfig;
 	protected ParserClass: new (config: ResolvedConfig) => T;
 	protected availableRules: Record<string, RuleConstructor<any, any>>;
 
-	public constructor(
-		config: ResolvedConfig,
-		configData: ConfigData,
-		ParserClass: new (config: ResolvedConfig) => T
-	) {
+	public constructor(config: ResolvedConfig, ParserClass: new (config: ResolvedConfig) => T) {
 		this.report = new Reporter();
-		this.configData = configData;
 		this.config = config;
 		this.ParserClass = ParserClass;
 
@@ -77,7 +71,7 @@ export class Engine<T extends Parser = Parser> {
 			/* trigger configuration ready event */
 			const configEvent: ConfigReadyEvent = {
 				location,
-				config: this.configData,
+				config: this.config,
 				rules,
 			};
 			parser.trigger("config:ready", configEvent);
