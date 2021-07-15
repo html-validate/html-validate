@@ -13,26 +13,37 @@ const location: Location = {
 };
 
 describe("Meta validator", () => {
+	let metaTable: MetaTable;
+	let config: ResolvedConfig;
+	let parser: Parser;
+
+	beforeEach(() => {
+		metaTable = new MetaTable();
+		config = new ResolvedConfig({
+			metaTable,
+			plugins: [],
+			rules: new Map(),
+			transformers: [],
+		});
+		parser = new Parser(config);
+	});
+
 	describe("validatePermitted()", () => {
 		it("should handle null", () => {
 			expect.assertions(1);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				foo: mockEntry({ void: true }),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [foo] = parser.parseHtml("<foo/>").childElements;
 			expect(Validator.validatePermitted(foo, null)).toBeTruthy();
 		});
 
 		it("should validate tagName", () => {
 			expect.assertions(2);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				foo: mockEntry({ void: true }),
 				nil: mockEntry({ void: true }),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [foo, nil] = parser.parseHtml("<foo/><nil/>").childElements;
 			const rules = ["foo"];
 			expect(Validator.validatePermitted(foo, rules)).toBeTruthy();
@@ -41,12 +52,10 @@ describe("Meta validator", () => {
 
 		it("should validate tagName with qualifier", () => {
 			expect.assertions(2);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				foo: mockEntry({ void: true }),
 				nil: mockEntry({ void: true }),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [foo, nil] = parser.parseHtml("<foo/><nil/>").childElements;
 			const rules = ["foo?"];
 			expect(Validator.validatePermitted(foo, rules)).toBeTruthy();
@@ -55,12 +64,10 @@ describe("Meta validator", () => {
 
 		it("should validate @meta", () => {
 			expect.assertions(2);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				nil: mockEntry({ void: true }),
 				meta: mockEntry({ metadata: true, void: true }),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [meta, nil] = parser.parseHtml("<meta/><nil/>").childElements;
 			const rules = ["@meta"];
 			expect(Validator.validatePermitted(meta, rules)).toBeTruthy();
@@ -69,12 +76,10 @@ describe("Meta validator", () => {
 
 		it("should validate @flow", () => {
 			expect.assertions(2);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				nil: mockEntry({ void: true }),
 				flow: mockEntry({ flow: true, void: true }),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [flow, nil] = parser.parseHtml("<flow/><nil/>").childElements;
 			const rules = ["@flow"];
 			expect(Validator.validatePermitted(flow, rules)).toBeTruthy();
@@ -83,12 +88,10 @@ describe("Meta validator", () => {
 
 		it("should validate @sectioning", () => {
 			expect.assertions(2);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				nil: mockEntry({ void: true }),
 				sectioning: mockEntry({ sectioning: true, void: true }),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [sectioning, nil] = parser.parseHtml("<sectioning/><nil/>").childElements;
 			const rules = ["@sectioning"];
 			expect(Validator.validatePermitted(sectioning, rules)).toBeTruthy();
@@ -97,12 +100,10 @@ describe("Meta validator", () => {
 
 		it("should validate @heading", () => {
 			expect.assertions(2);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				nil: mockEntry({ void: true }),
 				heading: mockEntry({ heading: true, void: true }),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [heading, nil] = parser.parseHtml("<heading/><nil/>").childElements;
 			const rules = ["@heading"];
 			expect(Validator.validatePermitted(heading, rules)).toBeTruthy();
@@ -111,12 +112,10 @@ describe("Meta validator", () => {
 
 		it("should validate @phrasing", () => {
 			expect.assertions(2);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				nil: mockEntry({ void: true }),
 				phrasing: mockEntry({ phrasing: true, void: true }),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [phrasing, nil] = parser.parseHtml("<phrasing/><nil/>").childElements;
 			const rules = ["@phrasing"];
 			expect(Validator.validatePermitted(phrasing, rules)).toBeTruthy();
@@ -125,12 +124,10 @@ describe("Meta validator", () => {
 
 		it("should validate @embedded", () => {
 			expect.assertions(2);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				nil: mockEntry({ void: true }),
 				embedded: mockEntry({ embedded: true, void: true }),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [embedded, nil] = parser.parseHtml("<embedded/><nil/>").childElements;
 			const rules = ["@embedded"];
 			expect(Validator.validatePermitted(embedded, rules)).toBeTruthy();
@@ -139,7 +136,6 @@ describe("Meta validator", () => {
 
 		it("should validate @interactive", () => {
 			expect.assertions(2);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				nil: mockEntry({ void: true }),
 				interactive: mockEntry({
@@ -147,7 +143,6 @@ describe("Meta validator", () => {
 					void: true,
 				}),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [interactive, nil] = parser.parseHtml("<interactive/><nil/>").childElements;
 			const rules = ["@interactive"];
 			expect(Validator.validatePermitted(interactive, rules)).toBeTruthy();
@@ -156,7 +151,6 @@ describe("Meta validator", () => {
 
 		it("should validate @script", () => {
 			expect.assertions(2);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				nil: mockEntry({ void: true }),
 				scripting: mockEntry({
@@ -164,7 +158,6 @@ describe("Meta validator", () => {
 					void: true,
 				}),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [script, nil] = parser.parseHtml("<scripting/><nil/>").childElements;
 			const rules = ["@script"];
 			expect(Validator.validatePermitted(script, rules)).toBeTruthy();
@@ -173,7 +166,6 @@ describe("Meta validator", () => {
 
 		it("should validate @form", () => {
 			expect.assertions(2);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				nil: mockEntry({ void: true }),
 				form: mockEntry({
@@ -181,7 +173,6 @@ describe("Meta validator", () => {
 					void: true,
 				}),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [form, nil] = parser.parseHtml("<form/><nil/>").childElements;
 			const rules = ["@form"];
 			expect(Validator.validatePermitted(form, rules)).toBeTruthy();
@@ -190,13 +181,11 @@ describe("Meta validator", () => {
 
 		it("should validate multiple rules (OR)", () => {
 			expect.assertions(3);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				nil: mockEntry({ void: true }),
 				flow: mockEntry({ flow: true, void: true }),
 				phrasing: mockEntry({ phrasing: true, void: true }),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [flow, phrasing, nil] = parser.parseHtml("<flow/><phrasing/><nil/>").childElements;
 			const rules = ["@flow", "@phrasing"];
 			expect(Validator.validatePermitted(flow, rules)).toBeTruthy();
@@ -206,7 +195,6 @@ describe("Meta validator", () => {
 
 		it("should validate multiple rules (AND)", () => {
 			expect.assertions(3);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				foo: mockEntry({ flow: true, phrasing: true, void: true }),
 				flow: mockEntry({ flow: true, phrasing: false, void: true }),
@@ -216,7 +204,6 @@ describe("Meta validator", () => {
 					void: true,
 				}),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [foo, flow, phrasing] = parser.parseHtml("<foo/><flow/><phrasing/>").childElements;
 			const rules = [["@flow", "@phrasing"]];
 			expect(Validator.validatePermitted(foo, rules)).toBeTruthy();
@@ -226,12 +213,10 @@ describe("Meta validator", () => {
 
 		it("should support excluding tagname", () => {
 			expect.assertions(2);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				foo: mockEntry({ flow: true, void: true }),
 				bar: mockEntry({ flow: true, void: true }),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [foo, bar] = parser.parseHtml("<foo/><bar/><nil/>").childElements;
 			const rules = [
 				[
@@ -247,12 +232,10 @@ describe("Meta validator", () => {
 
 		it("should support excluding category", () => {
 			expect.assertions(2);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				foo: mockEntry({ flow: true, interactive: false, void: true }),
 				bar: mockEntry({ flow: true, interactive: true, void: true }),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [foo, bar] = parser.parseHtml("<foo/><bar/><nil/>").childElements;
 			const rules = [
 				[
@@ -268,12 +251,10 @@ describe("Meta validator", () => {
 
 		it("should support excluding multiple targets", () => {
 			expect.assertions(2);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				foo: mockEntry({ flow: true, interactive: false, void: true }),
 				bar: mockEntry({ flow: true, interactive: true, void: true }),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [foo, bar] = parser.parseHtml("<foo/><bar/><nil/>").childElements;
 			const rules = [{ exclude: ["bar", "baz"] }];
 			expect(Validator.validatePermitted(foo, rules)).toBeTruthy();
@@ -282,12 +263,10 @@ describe("Meta validator", () => {
 
 		it("should support excluding multiple targets together", () => {
 			expect.assertions(2);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				foo: mockEntry({ flow: true, interactive: false, void: true }),
 				bar: mockEntry({ flow: true, interactive: true, void: true }),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [foo, bar] = parser.parseHtml("<foo/><bar/><nil/>").childElements;
 			const rules = [
 				[
@@ -303,9 +282,7 @@ describe("Meta validator", () => {
 
 		it("should default to pass when excluding category from element without meta", () => {
 			expect.assertions(1);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [foo] = parser.parseHtml("<foo/>").childElements;
 			const rules = [
 				[
@@ -319,11 +296,9 @@ describe("Meta validator", () => {
 
 		it("should handle empty object", () => {
 			expect.assertions(1);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				foo: mockEntry({ flow: true, void: true }),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [foo] = parser.parseHtml("<foo/>").childElements;
 			const rules = [["@flow", {}]];
 			expect(Validator.validatePermitted(foo, rules)).toBeTruthy();
@@ -331,11 +306,9 @@ describe("Meta validator", () => {
 
 		it("should throw error on invalid category", () => {
 			expect.assertions(1);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				foo: mockEntry({ flow: true }),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [foo] = parser.parseHtml("<foo/>").childElements;
 			const rules = ["@invalid"];
 			expect(() => {
@@ -345,11 +318,9 @@ describe("Meta validator", () => {
 
 		it("should throw error on invalid permitted rule", () => {
 			expect.assertions(1);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				foo: mockEntry({ flow: true }),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [foo] = parser.parseHtml("<foo/>").childElements;
 			const rules = [
 				[
@@ -368,22 +339,18 @@ describe("Meta validator", () => {
 	describe("validateOccurrences()", () => {
 		it("should handle null", () => {
 			expect.assertions(1);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				foo: mockEntry({ void: true }),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [foo] = parser.parseHtml("<foo/>").childElements;
 			expect(Validator.validateOccurrences(foo, null, 1)).toBeTruthy();
 		});
 
 		it("should support missing qualifier", () => {
 			expect.assertions(2);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				foo: mockEntry({ void: true }),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [foo] = parser.parseHtml("<foo/>").childElements;
 			const rules = ["foo"];
 			expect(Validator.validateOccurrences(foo, rules, 0)).toBeTruthy();
@@ -392,11 +359,9 @@ describe("Meta validator", () => {
 
 		it("should support ? qualifier", () => {
 			expect.assertions(3);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				foo: mockEntry({ void: true }),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [foo] = parser.parseHtml("<foo/>").childElements;
 			const rules = ["foo?"];
 			expect(Validator.validateOccurrences(foo, rules, 0)).toBeTruthy();
@@ -406,11 +371,9 @@ describe("Meta validator", () => {
 
 		it("should support * qualifier", () => {
 			expect.assertions(2);
-			const metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				foo: mockEntry({ void: true }),
 			});
-			const parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
 			const [foo] = parser.parseHtml("<foo/>").childElements;
 			const rules = ["foo*"];
 			expect(Validator.validateOccurrences(foo, rules, 0)).toBeTruthy();
@@ -419,17 +382,15 @@ describe("Meta validator", () => {
 	});
 
 	describe("validateOrder()", () => {
-		let metaTable: MetaTable;
 		let parser: Parser;
 		let cb: (node: HtmlElement, prev: HtmlElement) => void;
 
 		beforeEach(() => {
-			metaTable = new MetaTable();
 			metaTable.loadFromObject({
 				foo: mockEntry({ void: true }),
 				bar: mockEntry({ void: true, flow: true }),
 			});
-			parser = new Parser(new ResolvedConfig({ metaTable, plugins: [], rules: new Map() }));
+			parser = new Parser(config);
 			cb = jest.fn();
 		});
 

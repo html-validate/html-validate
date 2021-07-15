@@ -92,8 +92,9 @@ class HtmlValidate {
 	 */
 	public validateSource(input: Source, configOverride?: ConfigData): Report {
 		const config = this.getConfigFor(input.filename, configOverride);
-		const source = config.transformSource(input);
-		const engine = new Engine(config.resolve(), config.get(), Parser);
+		const resolved = config.resolve();
+		const source = resolved.transformSource(input);
+		const engine = new Engine(resolved, config.get(), Parser);
 		return engine.lint(source);
 	}
 
@@ -105,8 +106,9 @@ class HtmlValidate {
 	 */
 	public validateFile(filename: string): Report {
 		const config = this.getConfigFor(filename);
-		const source = config.transformFilename(filename);
-		const engine = new Engine(config.resolve(), config.get(), Parser);
+		const resolved = config.resolve();
+		const source = resolved.transformFilename(filename);
+		const engine = new Engine(resolved, config.get(), Parser);
 		return engine.lint(source);
 	}
 
@@ -139,7 +141,8 @@ class HtmlValidate {
 
 		/* test if there is a matching transformer */
 		const config = this.getConfigFor(filename);
-		return config.canTransform(filename);
+		const resolved = config.resolve();
+		return resolved.canTransform(filename);
 	}
 
 	/**
@@ -152,8 +155,9 @@ class HtmlValidate {
 	 */
 	public dumpTokens(filename: string): TokenDump[] {
 		const config = this.getConfigFor(filename);
-		const source = config.transformFilename(filename);
-		const engine = new Engine(config.resolve(), config.get(), Parser);
+		const resolved = config.resolve();
+		const source = resolved.transformFilename(filename);
+		const engine = new Engine(resolved, config.get(), Parser);
 		return engine.dumpTokens(source);
 	}
 
@@ -167,8 +171,9 @@ class HtmlValidate {
 	 */
 	public dumpEvents(filename: string): EventDump[] {
 		const config = this.getConfigFor(filename);
-		const source = config.transformFilename(filename);
-		const engine = new Engine(config.resolve(), config.get(), Parser);
+		const resolved = config.resolve();
+		const source = resolved.transformFilename(filename);
+		const engine = new Engine(resolved, config.get(), Parser);
 		return engine.dumpEvents(source);
 	}
 
@@ -182,8 +187,9 @@ class HtmlValidate {
 	 */
 	public dumpTree(filename: string): string[] {
 		const config = this.getConfigFor(filename);
-		const source = config.transformFilename(filename);
-		const engine = new Engine(config.resolve(), config.get(), Parser);
+		const resolved = config.resolve();
+		const source = resolved.transformFilename(filename);
+		const engine = new Engine(resolved, config.get(), Parser);
 		return engine.dumpTree(source);
 	}
 
@@ -197,7 +203,8 @@ class HtmlValidate {
 	 */
 	public dumpSource(filename: string): string[] {
 		const config = this.getConfigFor(filename);
-		const sources = config.transformFilename(filename);
+		const resolved = config.resolve();
+		const sources = resolved.transformFilename(filename);
 		return sources.reduce((result: string[], source: Source) => {
 			result.push(
 				`Source ${source.filename}@${source.line}:${source.column} (offset: ${source.offset})`

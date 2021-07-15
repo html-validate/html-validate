@@ -387,7 +387,8 @@ describe("Plugin", () => {
 				},
 			});
 			config.init();
-			const sources = config.transformSource({
+			const resolvedConfig = config.resolve();
+			const sources = resolvedConfig.transformSource({
 				data: "original data",
 				filename: "/path/to/mock.filename",
 				line: 2,
@@ -436,7 +437,8 @@ describe("Plugin", () => {
 				},
 			});
 			config.init();
-			const sources = config.transformSource({
+			const resolvedConfig = config.resolve();
+			const sources = resolvedConfig.transformSource({
 				data: "original data",
 				filename: "/path/to/mock.filename",
 				line: 2,
