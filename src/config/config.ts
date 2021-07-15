@@ -3,13 +3,12 @@ import path from "path";
 import Ajv from "ajv";
 import ajvSchemaDraft from "ajv/lib/refs/json-schema-draft-06.json";
 import deepmerge from "deepmerge";
-import { Source } from "../context";
-import { NestedError, SchemaValidationError } from "../error";
+import { SchemaValidationError } from "../error";
 import { MetaTable } from "../meta";
 import { MetaCopyableProperty, MetaDataTable } from "../meta/element";
 import { Plugin } from "../plugin";
 import schema from "../schema/config.json";
-import { TransformContext, Transformer, TRANSFORMER_API } from "../transform";
+import { Transformer, TRANSFORMER_API } from "../transform";
 import { requireUncached } from "../utils";
 import { projectRoot, legacyRequire } from "../resolve";
 import bundledRules from "../rules";
@@ -19,13 +18,7 @@ import defaultConfig from "./default";
 import { ConfigError } from "./error";
 import { parseSeverity, Severity } from "./severity";
 import Presets from "./presets";
-import { ResolvedConfig } from "./resolved-config";
-
-interface TransformerEntry {
-	pattern: RegExp;
-	name: string;
-	fn: Transformer;
-}
+import { ResolvedConfig, ResolvedConfigData, TransformerEntry } from "./resolved-config";
 
 /**
  * Internal interface for a loaded plugin.
@@ -416,83 +409,29 @@ export class Config {
 		}
 	}
 
+	/**
+	 * Resolve all configuration and return a [[ResolvedConfig]] instance.
+	 *
+	 * A resolved configuration will merge all extended configs and load all
+	 * plugins and transformers, and normalize the rest of the configuration.
+	 */
 	public resolve(): ResolvedConfig {
-		return new ResolvedConfig({
+		return new ResolvedConfig(this.resolveData());
+	}
+
+	/**
+	 * Same as [[resolve]] but returns the raw configuration data instead of
+	 * [[ResolvedConfig]] instance. Mainly used for testing.
+	 *
+	 * @internal
+	 */
+	public resolveData(): ResolvedConfigData {
+		return {
 			metaTable: this.getMetaTable(),
 			plugins: this.getPlugins(),
 			rules: this.getRules(),
-		});
-	}
-
-	/**
-	 * Transform a source.
-	 *
-	 * When transforming zero or more new sources will be generated.
-	 *
-	 * @param source - Current source to transform.
-	 * @param filename - If set it is the filename used to match
-	 * transformer. Default is to use filename from source.
-	 * @returns A list of transformed sources ready for validation.
-	 */
-	public transformSource(source: Source, filename?: string): Source[] {
-		const transformer = this.findTransformer(filename || source.filename);
-		const context: TransformContext = {
-			hasChain: (filename: string): boolean => {
-				return !!this.findTransformer(filename);
-			},
-			chain: (source: Source, filename: string) => {
-				return this.transformSource(source, filename);
-			},
+			transformers: this.transformers,
 		};
-		if (transformer) {
-			try {
-				return Array.from(transformer.fn.call(context, source), (cur: Source) => {
-					/* keep track of which transformers that has been run on this source
-					 * by appending this entry to the transformedBy array */
-					cur.transformedBy = cur.transformedBy || [];
-					cur.transformedBy.push(transformer.name);
-					return cur;
-				});
-			} catch (err) {
-				throw new NestedError(`When transforming "${source.filename}": ${err.message}`, err);
-			}
-		} else {
-			return [source];
-		}
-	}
-
-	/**
-	 * Wrapper around [[transformSource]] which reads a file before passing it
-	 * as-is to transformSource.
-	 *
-	 * @param source - Filename to transform (according to configured
-	 * transformations)
-	 * @returns A list of transformed sources ready for validation.
-	 */
-	public transformFilename(filename: string): Source[] {
-		const data = fs.readFileSync(filename, { encoding: "utf8" });
-		const source: Source = {
-			data,
-			filename,
-			line: 1,
-			column: 1,
-			offset: 0,
-			originalData: data,
-		};
-		return this.transformSource(source);
-	}
-
-	/**
-	 * Returns true if a transformer matches given filename.
-	 */
-	public canTransform(filename: string): boolean {
-		const entry = this.findTransformer(filename);
-		return !!entry;
-	}
-
-	private findTransformer(filename: string): TransformerEntry | null {
-		const match = this.transformers.find((entry: TransformerEntry) => entry.pattern.test(filename));
-		return match ?? null;
 	}
 
 	private precompileTransformers(transform: TransformMap): TransformerEntry[] {

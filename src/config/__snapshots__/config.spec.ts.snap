@@ -1,13 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`config transformSource() should throw error when trying to load garbage as transformer 1`] = `"Failed to load transformer \\"mock-garbage\\": Module is not a valid transformer."`;
+exports[`config transformers should throw error when trying to load garbage as transformer 1`] = `"Failed to load transformer \\"mock-garbage\\": Module is not a valid transformer."`;
 
-exports[`config transformSource() should throw error when trying to load named transform from plugin without any 1`] = `"Failed to load transformer \\"mock-plugin-notransform:named\\": Plugin does not expose any transformer"`;
+exports[`config transformers should throw error when trying to load named transform from plugin without any 1`] = `"Failed to load transformer \\"mock-plugin-notransform:named\\": Plugin does not expose any transformer"`;
 
-exports[`config transformSource() should throw error when trying to load unnamed transform from plugin without any 1`] = `"Failed to load transformer \\"mock-plugin-notransform\\": Plugin does not expose any transformer"`;
+exports[`config transformers should throw error when trying to load unnamed transform from plugin without any 1`] = `"Failed to load transformer \\"mock-plugin-notransform\\": Plugin does not expose any transformer"`;
 
-exports[`config transformSource() should throw helpful error when trying to load unregistered plugin as transformer 1`] = `"Failed to load transformer \\"mock-plugin-unregistered\\": Module is not a valid transformer. This looks like a plugin, did you forget to load the plugin first?"`;
+exports[`config transformers should throw helpful error when trying to load unregistered plugin as transformer 1`] = `"Failed to load transformer \\"mock-plugin-unregistered\\": Module is not a valid transformer. This looks like a plugin, did you forget to load the plugin first?"`;
 
-exports[`config transformSource() should throw sane error when transformer fails 1`] = `"When transforming \\"/path/to/test.foo\\": Failed to frobnicate a baz"`;
-
-exports[`config transformSource() should throw sane error when transformer fails to load 1`] = `"Failed to load transformer \\"missing-transformer\\""`;
+exports[`config transformers should throw sane error when transformer fails to load 1`] = `"Failed to load transformer \\"missing-transformer\\""`;

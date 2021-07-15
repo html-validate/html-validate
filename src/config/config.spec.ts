@@ -3,7 +3,8 @@ import path from "path";
 import { Source } from "../context";
 import { SchemaValidationError } from "../error";
 import { UserError } from "../error/user-error";
-import { Transformer, TRANSFORMER_API } from "../transform";
+import { TRANSFORMER_API } from "../transform";
+import { Plugin } from "../plugin";
 import { Config } from "./config";
 import { ConfigError } from "./error";
 import { Severity } from "./severity";
@@ -388,160 +389,133 @@ describe("config", () => {
 		});
 	});
 
-	describe("transformSource()", () => {
-		let source: Source;
-
-		beforeEach(() => {
-			source = {
-				filename: "/path/to/test.foo",
-				data: "original data",
-				line: 2,
-				column: 3,
-				offset: 4,
-			};
-		});
-
-		it("should match filename against transformer", () => {
+	describe("transformers", () => {
+		it("should load transformer from package", () => {
 			expect.assertions(1);
 			const config = Config.fromObject({
 				transform: {
-					"^.*\\.foo$": "mock-transform",
+					"\\.foo$": "mock-transform",
 				},
 			});
 			config.init();
-			expect(config.transformSource(source)).toMatchInlineSnapshot(`
-				Array [
-				  Object {
-				    "column": 1,
-				    "data": "transformed source (was: original data)",
-				    "filename": "/path/to/test.foo",
-				    "line": 1,
-				    "offset": 0,
-				    "originalData": "original data",
-				    "transformedBy": Array [
-				      "mock-transform",
-				    ],
-				  },
-				]
-			`);
+			expect(config.resolveData().transformers).toEqual([
+				{ pattern: /\.foo$/, name: "mock-transform", fn: require("mock-transform") },
+			]);
 		});
 
-		describe("should handle transformers from plugins", () => {
-			let config: Config;
+		it("should load transformer from path with <rootDir>", () => {
+			expect.assertions(1);
+			const config = Config.fromObject({
+				transform: {
+					"\\.foo$": "<rootDir>/src/transform/__mocks__/mock-transform",
+				},
+			});
+			config.init();
+			expect(config.resolveData().transformers).toEqual([
+				{
+					pattern: /\.foo$/,
+					name: "<rootDir>/src/transform/__mocks__/mock-transform",
+					fn: require("mock-transform"),
+				},
+			]);
+		});
+
+		describe("should load transformers from plugins", () => {
+			function transform(): Source[] {
+				return [];
+			}
+			transform.api = TRANSFORMER_API.VERSION;
 
 			beforeEach(() => {
-				function transform(source: Source): Source[] {
-					return [
-						Object.assign(source, {
-							data: `transformed from ${source.filename}`,
-						}),
-					];
-				}
-				transform.api = TRANSFORMER_API.VERSION;
-				jest.mock(
-					"mock-plugin-unnamed",
-					() => ({
-						transformer: transform as Transformer,
-					}),
-					{ virtual: true }
-				);
-				jest.mock(
-					"mock-plugin-named",
-					() => ({
-						transformer: {
-							default: transform as Transformer,
-							foobar: transform as Transformer,
-						},
-					}),
-					{ virtual: true }
-				);
-				config = Config.fromObject({
-					plugins: ["mock-plugin-unnamed", "mock-plugin-named"],
-					transform: {
-						"\\.unnamed$": "mock-plugin-unnamed",
-						"\\.default$": "mock-plugin-named",
-						"\\.named$": "mock-plugin-named:foobar",
-						"\\.nonplugin$": "mock-transform",
+				const unnamedPlugin: Plugin = {
+					transformer: transform,
+				};
+				const namedPlugin: Plugin = {
+					transformer: {
+						default: transform,
+						foobar: transform,
 					},
-				});
-				config.init();
+				};
+				jest.mock("mock-plugin-unnamed", () => unnamedPlugin, { virtual: true });
+				jest.mock("mock-plugin-named", () => namedPlugin, { virtual: true });
 			});
 
 			it("unnamed", () => {
 				expect.assertions(1);
-				source.filename = "foo.unnamed";
-				expect(config.transformSource(source)).toMatchInlineSnapshot(`
-					Array [
-					  Object {
-					    "column": 3,
-					    "data": "transformed from foo.unnamed",
-					    "filename": "foo.unnamed",
-					    "line": 2,
-					    "offset": 4,
-					    "transformedBy": Array [
-					      "mock-plugin-unnamed",
-					    ],
-					  },
-					]
-				`);
+				const config = Config.fromObject({
+					plugins: ["mock-plugin-unnamed"],
+					transform: {
+						"\\.unnamed$": "mock-plugin-unnamed",
+					},
+				});
+				config.init();
+				expect(config.resolveData().transformers).toEqual([
+					{
+						pattern: /\.unnamed$/,
+						name: "mock-plugin-unnamed",
+						fn: transform,
+					},
+				]);
 			});
 
 			it("named", () => {
 				expect.assertions(1);
-				source.filename = "bar.named";
-				expect(config.transformSource(source)).toMatchInlineSnapshot(`
-					Array [
-					  Object {
-					    "column": 3,
-					    "data": "transformed from bar.named",
-					    "filename": "bar.named",
-					    "line": 2,
-					    "offset": 4,
-					    "transformedBy": Array [
-					      "mock-plugin-named:foobar",
-					    ],
-					  },
-					]
-				`);
+				const config = Config.fromObject({
+					plugins: ["mock-plugin-named"],
+					transform: {
+						"\\.named$": "mock-plugin-named:foobar",
+					},
+				});
+				config.init();
+				expect(config.resolveData().transformers).toEqual([
+					{
+						pattern: /\.named$/,
+						name: "mock-plugin-named:foobar",
+						fn: transform,
+					},
+				]);
 			});
 
-			it("unnamed default", () => {
+			it("named default", () => {
 				expect.assertions(1);
-				source.filename = "bar.default";
-				expect(config.transformSource(source)).toMatchInlineSnapshot(`
-					Array [
-					  Object {
-					    "column": 3,
-					    "data": "transformed from bar.default",
-					    "filename": "bar.default",
-					    "line": 2,
-					    "offset": 4,
-					    "transformedBy": Array [
-					      "mock-plugin-named",
-					    ],
-					  },
-					]
-				`);
+				const config = Config.fromObject({
+					plugins: ["mock-plugin-named"],
+					transform: {
+						"\\.default$": "mock-plugin-named",
+					},
+				});
+				config.init();
+				expect(config.resolveData().transformers).toEqual([
+					{
+						pattern: /\.default$/,
+						name: "mock-plugin-named",
+						fn: transform,
+					},
+				]);
 			});
 
 			it("non-plugin (regression test issue 54)", () => {
 				expect.assertions(1);
-				source.filename = "bar.nonplugin";
-				expect(config.transformSource(source)).toMatchInlineSnapshot(`
-					Array [
-					  Object {
-					    "column": 1,
-					    "data": "transformed source (was: original data)",
-					    "filename": "bar.nonplugin",
-					    "line": 1,
-					    "offset": 0,
-					    "originalData": "original data",
-					    "transformedBy": Array [
-					      "mock-transform",
-					    ],
-					  },
-					]
-				`);
+				const config = Config.fromObject({
+					plugins: ["mock-plugin-unnamed"],
+					transform: {
+						"\\.unnamed$": "mock-plugin-unnamed",
+						"\\.nonplugin$": "mock-transform",
+					},
+				});
+				config.init();
+				expect(config.resolveData().transformers).toEqual([
+					{
+						pattern: /\.unnamed$/,
+						name: "mock-plugin-unnamed",
+						fn: transform,
+					},
+					{
+						pattern: /\.nonplugin$/,
+						name: "mock-transform",
+						fn: require("mock-transform"),
+					},
+				]);
 			});
 		});
 
@@ -567,121 +541,6 @@ describe("config", () => {
 			expect(() => config.init()).toThrow(
 				'Failed to load transformer "missing-plugin:foo": No plugin named "missing-plugin" has been loaded'
 			);
-		});
-
-		it("should return original source if no transformer is found", () => {
-			expect.assertions(1);
-			const config = Config.fromObject({
-				transform: {
-					"^.*\\.bar$": "mock-transform",
-				},
-			});
-			config.init();
-			expect(config.transformSource(source)).toMatchInlineSnapshot(`
-				Array [
-				  Object {
-				    "column": 3,
-				    "data": "original data",
-				    "filename": "/path/to/test.foo",
-				    "line": 2,
-				    "offset": 4,
-				  },
-				]
-			`);
-		});
-
-		it("should support chaining transformer", () => {
-			expect.assertions(1);
-			const config = Config.fromObject({
-				transform: {
-					"^.*\\.bar$": "mock-transform-chain-foo",
-					"^.*\\.foo$": "mock-transform",
-				},
-			});
-			config.init();
-			source.filename = "/path/to/test.bar";
-			expect(config.transformSource(source)).toMatchInlineSnapshot(`
-				Array [
-				  Object {
-				    "column": 1,
-				    "data": "transformed source (was: data from mock-transform-chain-foo (was: original data))",
-				    "filename": "/path/to/test.bar",
-				    "line": 1,
-				    "offset": 0,
-				    "originalData": "original data",
-				    "transformedBy": Array [
-				      "mock-transform",
-				      "mock-transform-chain-foo",
-				    ],
-				  },
-				]
-			`);
-		});
-
-		it("should support testing if chain is present", () => {
-			expect.assertions(2);
-			const config = Config.fromObject({
-				transform: {
-					"^.*\\.foo$": "mock-transform-optional-chain",
-					"^.*\\.bar$": "mock-transform",
-				},
-			});
-			config.init();
-			source.filename = "/path/to/test.bar.foo";
-			expect(config.transformSource(source)).toMatchInlineSnapshot(`
-				Array [
-				  Object {
-				    "column": 1,
-				    "data": "transformed source (was: data from mock-transform-optional-chain (was: original data))",
-				    "filename": "/path/to/test.bar.foo",
-				    "line": 1,
-				    "offset": 0,
-				    "originalData": "original data",
-				    "transformedBy": Array [
-				      "mock-transform",
-				      "mock-transform-optional-chain",
-				    ],
-				  },
-				]
-			`);
-			source.filename = "/path/to/test.baz.foo";
-			expect(config.transformSource(source)).toEqual([]);
-		});
-
-		it("should replace <rootDir>", () => {
-			expect.assertions(1);
-			const config = Config.fromObject({
-				transform: {
-					"^.*\\.foo$": "<rootDir>/src/transform/__mocks__/mock-transform",
-				},
-			});
-			config.init();
-			expect(config.transformSource(source)).toMatchInlineSnapshot(`
-				Array [
-				  Object {
-				    "column": 1,
-				    "data": "transformed source (was: original data)",
-				    "filename": "/path/to/test.foo",
-				    "line": 1,
-				    "offset": 0,
-				    "originalData": "original data",
-				    "transformedBy": Array [
-				      "<rootDir>/src/transform/__mocks__/mock-transform",
-				    ],
-				  },
-				]
-			`);
-		});
-
-		it("should throw sane error when transformer fails", () => {
-			expect.assertions(1);
-			const config = Config.fromObject({
-				transform: {
-					"^.*\\.foo$": "mock-transform-error",
-				},
-			});
-			config.init();
-			expect(() => config.transformSource(source)).toThrowErrorMatchingSnapshot();
 		});
 
 		it("should throw sane error when transformer fails to load", () => {
@@ -740,55 +599,6 @@ describe("config", () => {
 				},
 			});
 			expect(() => config.init()).toThrowErrorMatchingSnapshot();
-		});
-	});
-
-	describe("transformFilename()", () => {
-		it("should default to reading full file", () => {
-			expect.assertions(1);
-			const config = Config.fromObject({
-				transform: {
-					"^.*\\.foo$": "mock-transform",
-				},
-			});
-			config.init();
-			expect(config.transformFilename("test-files/parser/simple.html")).toMatchInlineSnapshot(`
-					Array [
-					  Object {
-					    "column": 1,
-					    "data": "<p>Lorem ipsum</p>
-					",
-					    "filename": "test-files/parser/simple.html",
-					    "line": 1,
-					    "offset": 0,
-					    "originalData": "<p>Lorem ipsum</p>
-					",
-					  },
-					]
-				`);
-		});
-	});
-
-	describe("canTransform()", () => {
-		let config: Config;
-
-		beforeEach(() => {
-			config = Config.fromObject({
-				transform: {
-					"^.*\\.foo$": "mock-transform",
-				},
-			});
-			config.init();
-		});
-
-		it("should return true if a transformer can handle the file", () => {
-			expect.assertions(1);
-			expect(config.canTransform("my-file.foo")).toBeTruthy();
-		});
-
-		it("should return false if no transformer can handle the file", () => {
-			expect.assertions(1);
-			expect(config.canTransform("my-file.bar")).toBeFalsy();
 		});
 	});
 

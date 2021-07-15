@@ -21,16 +21,21 @@ jest.mock("./parser");
 
 function mockConfig(): Config {
 	const config = Config.empty();
+	const original = config.resolve;
 	config.init();
-	config.transformFilename = jest.fn((filename: string) => [
-		{
-			data: `source from ${filename}`,
-			filename,
-			line: 1,
-			column: 1,
-			offset: 0,
-		},
-	]);
+	jest.spyOn(config, "resolve").mockImplementation(() => {
+		const resolved = original.call(config);
+		resolved.transformFilename = jest.fn((filename: string): Source[] => [
+			{
+				data: `source from ${filename}`,
+				filename,
+				line: 1,
+				column: 1,
+				offset: 0,
+			},
+		]);
+		return resolved;
+	});
 	return config;
 }
 
@@ -484,36 +489,41 @@ describe("HtmlValidate", () => {
 		const htmlvalidate = new HtmlValidate();
 		const filename = "foo.html";
 		const config = Config.empty();
+		const original = config.resolve;
 		config.init();
-		config.transformFilename = jest.fn((filename: string): Source[] => [
-			{
-				data: `first markup`,
-				filename,
-				line: 1,
-				column: 1,
-				offset: 0,
-				transformedBy: ["bar", "foo"],
-			},
-			{
-				data: `second markup`,
-				filename,
-				line: 5,
-				column: 3,
-				offset: 29,
-				hooks: {
-					processElement: () => null,
-					processAttribute: null,
+		config.resolve = () => {
+			const resolved = original.call(config);
+			resolved.transformFilename = jest.fn((filename: string): Source[] => [
+				{
+					data: `first markup`,
+					filename,
+					line: 1,
+					column: 1,
+					offset: 0,
+					transformedBy: ["bar", "foo"],
 				},
-			},
-			{
-				data: `third markup`,
-				filename,
-				line: 12,
-				column: 1,
-				offset: 69,
-				hooks: {},
-			},
-		]);
+				{
+					data: `second markup`,
+					filename,
+					line: 5,
+					column: 3,
+					offset: 29,
+					hooks: {
+						processElement: () => null,
+						processAttribute: null,
+					},
+				},
+				{
+					data: `third markup`,
+					filename,
+					line: 12,
+					column: 1,
+					offset: 69,
+					hooks: {},
+				},
+			]);
+			return resolved;
+		};
 		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(() => config);
 		const output = htmlvalidate.dumpSource(filename);
 		expect(output).toMatchInlineSnapshot(`
