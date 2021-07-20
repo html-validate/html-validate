@@ -1,3 +1,4 @@
+import { glob } from "glob";
 import { Config, ConfigData, ConfigLoader, Severity } from "./config";
 import { Source, SourceHooks } from "./context";
 import HtmlValidate from "./htmlvalidate";
@@ -44,30 +45,6 @@ beforeEach(() => {
 });
 
 describe("HtmlValidate", () => {
-	it("should load default config if no configuration was passed", () => {
-		expect.assertions(1);
-		const htmlvalidate = new HtmlValidate();
-		expect((htmlvalidate as any).globalConfig.config).toEqual({
-			extends: [],
-			plugins: [],
-			rules: {},
-			transform: {},
-		});
-	});
-
-	it("should not load default config if configuration was passed", () => {
-		expect.assertions(1);
-		const htmlvalidate = new HtmlValidate({ rules: { foo: "error" } });
-		expect((htmlvalidate as any).globalConfig.config).toEqual({
-			extends: [],
-			plugins: [],
-			rules: {
-				foo: "error",
-			},
-			transform: {},
-		});
-	});
-
 	describe("validateString()", () => {
 		it("should validate given string", () => {
 			expect.assertions(2);
@@ -580,193 +557,6 @@ describe("HtmlValidate", () => {
 		});
 	});
 
-	describe("getConfigFor()", () => {
-		it("should query configuration loader with passed filename", () => {
-			expect.assertions(1);
-			const htmlvalidate = new HtmlValidate();
-			const fromTarget = jest
-				.spyOn((htmlvalidate as any).configLoader, "fromTarget")
-				.mockImplementation(() => null);
-			htmlvalidate.getConfigFor("my-file.html");
-			expect(fromTarget).toHaveBeenCalledWith("my-file.html");
-		});
-
-		it("should use global configuration by default", () => {
-			expect.assertions(1);
-			/* constructor global config */
-			const htmlvalidate = new HtmlValidate({
-				rules: {
-					a: "error",
-				},
-			});
-			/* .htmlvalidate.json */
-			jest.spyOn((htmlvalidate as any).configLoader, "fromTarget").mockImplementation(() => null);
-			const config = htmlvalidate.getConfigFor("my-file.html");
-			expect(config.get()).toEqual({
-				extends: [],
-				plugins: [],
-				rules: {
-					a: "error",
-				},
-				transform: {},
-			});
-		});
-
-		it("should merge global configuration with override if provided", () => {
-			expect.assertions(1);
-			/* constructor global config */
-			const htmlvalidate = new HtmlValidate({
-				rules: {
-					a: "error",
-					b: "error",
-				},
-			});
-			/* .htmlvalidate.json */
-			jest.spyOn((htmlvalidate as any).configLoader, "fromTarget").mockImplementation(() => null);
-			/* override */
-			const config = htmlvalidate.getConfigFor("my-file.html", {
-				rules: {
-					a: "warn",
-					c: "warn",
-				},
-			});
-			expect(config.get()).toEqual({
-				extends: [],
-				plugins: [],
-				rules: {
-					a: "warn",
-					b: "error",
-					c: "warn",
-				},
-				transform: {},
-			});
-		});
-
-		it("should use configuration provided by configuration loader if present", () => {
-			expect.assertions(1);
-			/* constructor global config */
-			const htmlvalidate = new HtmlValidate({
-				rules: {
-					a: "error",
-				},
-			});
-			/* .htmlvalidate.json */
-			jest.spyOn((htmlvalidate as any).configLoader, "fromTarget").mockImplementation(() =>
-				Config.fromObject({
-					rules: {
-						b: "error",
-					},
-				})
-			);
-			const config = htmlvalidate.getConfigFor("my-file.html");
-			expect(config.get()).toEqual({
-				extends: [],
-				plugins: [],
-				rules: {
-					b: "error",
-				},
-				transform: {},
-			});
-		});
-
-		it("should merge configuration provided by configuration loader with override if provided", () => {
-			expect.assertions(1);
-			/* constructor global config */
-			const htmlvalidate = new HtmlValidate({
-				rules: {
-					a: "error",
-				},
-			});
-			/* .htmlvalidate.json */
-			jest.spyOn((htmlvalidate as any).configLoader, "fromTarget").mockImplementation(() =>
-				Config.fromObject({
-					rules: {
-						b: "error",
-						c: "error",
-					},
-				})
-			);
-			/* override */
-			const config = htmlvalidate.getConfigFor("my-file.html", {
-				rules: {
-					b: "warn",
-				},
-			});
-			expect(config.get()).toEqual({
-				extends: [],
-				plugins: [],
-				rules: {
-					b: "warn",
-					c: "error",
-				},
-				transform: {},
-			});
-		});
-
-		it("should not load configuration files if global config is root", () => {
-			expect.assertions(2);
-			const htmlvalidate = new HtmlValidate({
-				root: true,
-			});
-			const fromTarget = jest.spyOn((htmlvalidate as any).configLoader, "fromTarget");
-			const config = htmlvalidate.getConfigFor("my-file.html");
-			expect(fromTarget).not.toHaveBeenCalled();
-			expect(config.get()).toEqual(
-				expect.objectContaining({
-					root: true,
-				})
-			);
-		});
-
-		it("should merge global with override when global is root", () => {
-			expect.assertions(1);
-			const htmlvalidate = new HtmlValidate({
-				root: true,
-				rules: {
-					a: "error",
-				},
-			});
-			const config = htmlvalidate.getConfigFor("my-file.html", {
-				rules: {
-					a: "off",
-				},
-			});
-			expect(config.get()).toEqual(
-				expect.objectContaining({
-					root: true,
-					rules: {
-						a: "off",
-					},
-				})
-			);
-		});
-
-		it("should not load global configuration files if override config is root", () => {
-			expect.assertions(2);
-			const htmlvalidate = new HtmlValidate({
-				rules: {
-					a: "error",
-				},
-			});
-			const fromTarget = jest.spyOn((htmlvalidate as any).configLoader, "fromTarget");
-			const config = htmlvalidate.getConfigFor("my-file.html", {
-				root: true,
-				rules: {
-					b: "error",
-				},
-			});
-			expect(fromTarget).not.toHaveBeenCalled();
-			expect(config.get()).toEqual(
-				expect.objectContaining({
-					root: true,
-					rules: {
-						b: "error",
-					},
-				})
-			);
-		});
-	});
-
 	it("getParserFor() should create a parser for given filename", () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate();
@@ -788,8 +578,18 @@ describe("HtmlValidate", () => {
 	it("flushConfigCache() should delegate to configLoader", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
-		const flush = jest.spyOn((htmlvalidate as any).configLoader as ConfigLoader, "flush");
+		const flushCache = jest.spyOn((htmlvalidate as any).configLoader as ConfigLoader, "flushCache");
 		htmlvalidate.flushConfigCache("foo");
-		expect(flush).toHaveBeenCalledWith("foo");
+		expect(flushCache).toHaveBeenCalledWith("foo");
+	});
+
+	describe("configuration smoketest", () => {
+		const files = glob.sync("test-files/config/**/*.html");
+		it.each(files)("%s", (filename: string) => {
+			expect.assertions(1);
+			const htmlvalidate = new HtmlValidate();
+			const report = htmlvalidate.validateFile(filename);
+			expect(report.results).toMatchSnapshot();
+		});
 	});
 });

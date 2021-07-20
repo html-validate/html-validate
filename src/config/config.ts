@@ -568,9 +568,23 @@ export class Config {
 		return fn;
 	}
 
+	/**
+	 * @internal
+	 */
+	protected get rootDirCache(): string | null {
+		/* return global instance */
+		return rootDirCache;
+	}
+
+	protected set rootDirCache(value: string | null) {
+		/* set global instance */
+		rootDirCache = value;
+	}
+
 	protected findRootDir(): string {
-		if (rootDirCache !== null) {
-			return rootDirCache;
+		const cache = this.rootDirCache;
+		if (cache !== null) {
+			return cache;
 		}
 
 		/* try to locate package.json */
@@ -579,7 +593,7 @@ export class Config {
 		while (true) {
 			const search = path.join(current, "package.json");
 			if (fs.existsSync(search)) {
-				return (rootDirCache = current);
+				return (this.rootDirCache = current);
 			}
 
 			/* get the parent directory */
@@ -593,6 +607,6 @@ export class Config {
 		}
 
 		/* default to working directory if no package.json is found */
-		return (rootDirCache = process.cwd());
+		return (this.rootDirCache = process.cwd());
 	}
 }

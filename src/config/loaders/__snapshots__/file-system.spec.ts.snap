@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FileSystemConfigLoader smoketest test-files/config/directive/disable.html 1`] = `
+Object {
+  "extends": Array [
+    "html-validate:recommended",
+  ],
+  "plugins": Array [],
+  "root": true,
+  "rules": Object {
+    "deprecated": "error",
+    "element-permitted-content": "off",
+    "no-self-closing": "error",
+    "void-content": "error",
+  },
+  "transform": Object {},
+}
+`;
+
+exports[`FileSystemConfigLoader smoketest test-files/config/directive/disable-block.html 1`] = `
+Object {
+  "extends": Array [
+    "html-validate:recommended",
+  ],
+  "plugins": Array [],
+  "root": true,
+  "rules": Object {
+    "deprecated": "error",
+    "element-permitted-content": "off",
+    "no-self-closing": "error",
+    "void-content": "error",
+  },
+  "transform": Object {},
+}
+`;
+
+exports[`FileSystemConfigLoader smoketest test-files/config/directive/disable-multiple.html 1`] = `
+Object {
+  "extends": Array [
+    "html-validate:recommended",
+  ],
+  "plugins": Array [],
+  "root": true,
+  "rules": Object {
+    "deprecated": "error",
+    "element-permitted-content": "off",
+    "no-self-closing": "error",
+    "void-content": "error",
+  },
+  "transform": Object {},
+}
+`;
+
+exports[`FileSystemConfigLoader smoketest test-files/config/directive/disable-next.html 1`] = `
+Object {
+  "extends": Array [
+    "html-validate:recommended",
+  ],
+  "plugins": Array [],
+  "root": true,
+  "rules": Object {
+    "deprecated": "error",
+    "element-permitted-content": "off",
+    "no-self-closing": "error",
+    "void-content": "error",
+  },
+  "transform": Object {},
+}
+`;
+
+exports[`FileSystemConfigLoader smoketest test-files/config/elements/file.html 1`] = `
+Object {
+  "elements": Array [
+    "html5",
+    "<rootDir>/test-files/config/elements/elements.json",
+  ],
+  "extends": Array [
+    "html-validate:recommended",
+  ],
+  "plugins": Array [],
+  "root": true,
+  "rules": Object {
+    "deprecated": "error",
+    "element-permitted-content": "error",
+    "no-self-closing": "error",
+    "void-content": "error",
+  },
+  "transform": Object {},
+}
+`;
+
+exports[`FileSystemConfigLoader smoketest test-files/config/file.html 1`] = `
+Object {
+  "extends": Array [
+    "html-validate:recommended",
+  ],
+  "plugins": Array [],
+  "root": true,
+  "rules": Object {
+    "deprecated": "error",
+    "element-permitted-content": "error",
+    "no-self-closing": "error",
+    "void-content": "error",
+  },
+  "transform": Object {},
+}
+`;
+
+exports[`FileSystemConfigLoader smoketest test-files/config/js-config/file.html 1`] = `
+Object {
+  "extends": Array [
+    "html-validate:recommended",
+  ],
+  "plugins": Array [],
+  "root": true,
+  "rules": Object {
+    "deprecated": "error",
+    "element-permitted-content": "error",
+    "no-self-closing": "error",
+    "void-content": "off",
+  },
+  "transform": Object {},
+}
+`;
+
+exports[`FileSystemConfigLoader smoketest test-files/config/off/error/file.html 1`] = `
+Object {
+  "extends": Array [
+    "html-validate:recommended",
+  ],
+  "plugins": Array [],
+  "root": true,
+  "rules": Object {
+    "deprecated": "error",
+    "element-permitted-content": "error",
+    "no-self-closing": "error",
+    "void-content": "error",
+  },
+  "transform": Object {},
+}
+`;
+
+exports[`FileSystemConfigLoader smoketest test-files/config/off/file.html 1`] = `
+Object {
+  "extends": Array [
+    "html-validate:recommended",
+  ],
+  "plugins": Array [],
+  "root": true,
+  "rules": Object {
+    "deprecated": "error",
+    "element-permitted-content": "error",
+    "no-self-closing": "error",
+    "void-content": "off",
+  },
+  "transform": Object {},
+}
+`;
+
+exports[`FileSystemConfigLoader smoketest test-files/config/warn/file.html 1`] = `
+Object {
+  "extends": Array [
+    "html-validate:recommended",
+  ],
+  "plugins": Array [],
+  "root": true,
+  "rules": Object {
+    "deprecated": "error",
+    "element-permitted-content": "error",
+    "no-self-closing": "error",
+    "void-content": "warn",
+  },
+  "transform": Object {},
+}
+`;
