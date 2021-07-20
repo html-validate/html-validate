@@ -633,18 +633,53 @@ describe("config", () => {
 		});
 	});
 
-	it("should find rootDir", () => {
-		expect.assertions(2);
-		const config = new (class extends Config {
+	describe("rootDir", () => {
+		class MockConfig extends Config {
+			private cache: string | null = null;
+
 			public findRootDir(): string {
 				return super.findRootDir();
 			}
-		})();
-		const root = path.resolve(path.join(__dirname, "../.."));
-		expect(config.findRootDir()).toEqual(root);
-		const spy = jest.spyOn(fs, "existsSync").mockImplementation(() => false);
-		expect(config.findRootDir()).toEqual(process.cwd());
-		spy.mockRestore();
+
+			public get rootDirCache(): string | null {
+				return this.cache;
+			}
+
+			public set rootDirCache(value: string | null) {
+				this.cache = value;
+			}
+		}
+
+		it("should find rootDir by locating package.json", () => {
+			expect.assertions(1);
+			const config = new MockConfig();
+			const root = path.resolve(path.join(__dirname, "../.."));
+			expect(config.findRootDir()).toEqual(root);
+		});
+
+		it("should default to current working directory if package.json doesn't exist", () => {
+			expect.assertions(1);
+			const spy = jest.spyOn(fs, "existsSync").mockImplementation(() => false);
+			const config = new MockConfig();
+			expect(config.findRootDir()).toEqual(process.cwd());
+			spy.mockRestore();
+		});
+
+		it("should cache result", () => {
+			expect.assertions(1);
+			const config = new MockConfig();
+			const root = path.resolve(path.join(__dirname, "../.."));
+			config.findRootDir(); /* force update cache */
+			expect(config.rootDirCache).toEqual(root);
+		});
+
+		it("should use cached value", () => {
+			expect.assertions(1);
+			const root = "/path/to/project/root";
+			const config = new MockConfig();
+			config.rootDirCache = root;
+			expect(config.findRootDir()).toEqual(root);
+		});
 	});
 
 	describe("schema validation", () => {
