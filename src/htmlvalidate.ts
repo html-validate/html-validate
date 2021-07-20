@@ -1,6 +1,6 @@
 import path from "path";
 import { SchemaObject } from "ajv";
-import { Config, ConfigData, ConfigLoader } from "./config";
+import { Config, ConfigData } from "./config";
 import { Source } from "./context";
 import { SourceHooks } from "./context/source";
 import { Engine, EventDump, TokenDump } from "./engine";
@@ -8,6 +8,7 @@ import { Parser } from "./parser";
 import { Report, Reporter } from "./reporter";
 import { RuleDocumentation } from "./rule";
 import configurationSchema from "./schema/config.json";
+import { FileSystemConfigLoader } from "./config/loaders/file-system";
 
 function isSourceHooks(value: any): value is SourceHooks {
 	if (!value || typeof value === "string") {
@@ -29,8 +30,7 @@ function isConfigData(value: any): value is ConfigData {
  * Provides high-level abstractions for common operations.
  */
 class HtmlValidate {
-	private globalConfig: Config;
-	protected configLoader: ConfigLoader;
+	protected configLoader: FileSystemConfigLoader;
 
 	/**
 	 * Create a new validator.
@@ -39,9 +39,7 @@ class HtmlValidate {
 	 * default `Config.defaultConfig()` is used.
 	 */
 	public constructor(config?: ConfigData) {
-		const defaults = Config.empty();
-		this.globalConfig = defaults.merge(config ? Config.fromObject(config) : Config.defaultConfig());
-		this.configLoader = new ConfigLoader(Config);
+		this.configLoader = new FileSystemConfigLoader(Config, config);
 	}
 
 	/**
@@ -294,55 +292,26 @@ class HtmlValidate {
 	/**
 	 * Get configuration for given filename.
 	 *
-	 * Configuration is read from three sources and in the following order:
+	 * See [[FileSystemConfigLoader]] for details.
 	 *
-	 * 1. Global configuration passed to constructor.
-	 * 2. `.htmlvalidate.json` files found when traversing the directory structure.
-	 * 3. Override passed to this function.
-	 *
-	 * Global configuration is used when no `.htmlvalidate.json` is found. The
-	 * result is always merged with override if present.
-	 *
-	 * The `root` property set to `true` affects the configuration as following:
-	 *
-	 * 1. If set in override the override is returned as-is.
-	 * 2. If set in the global config the override is merged into global and
-	 * returned. No `.htmlvalidate.json` files are searched.
-	 * 3. Setting `root` in `.htmlvalidate.json` only stops directory traversal.
-	 *
+	 * @public
 	 * @param filename - Filename to get configuration for.
 	 * @param configOverride - Configuration to apply last.
 	 */
 	public getConfigFor(filename: string, configOverride?: ConfigData): Config {
-		/* special case when the overridden configuration is marked as root, should
-		 * not try to load any more configuration files */
-		const override = Config.fromObject(configOverride || {});
-		if (override.isRootFound()) {
-			override.init();
-			return override;
-		}
-
-		/* special case when the global configuration is marked as root, should not
-		 * try to load and more configuration files */
-		if (this.globalConfig.isRootFound()) {
-			const merged = this.globalConfig.merge(override);
-			merged.init();
-			return merged;
-		}
-
-		const config = this.configLoader.fromTarget(filename);
-		const merged = config ? config.merge(override) : this.globalConfig.merge(override);
-		merged.init();
-		return merged;
+		return this.configLoader.getConfigFor(filename, configOverride);
 	}
 
 	/**
 	 * Flush configuration cache. Clears full cache unless a filename is given.
 	 *
+	 * See [[FileSystemConfigLoader]] for details.
+	 *
+	 * @public
 	 * @param filename - If set, only flush cache for given filename.
 	 */
 	public flushConfigCache(filename?: string): void {
-		this.configLoader.flush(filename);
+		this.configLoader.flushCache(filename);
 	}
 }
 

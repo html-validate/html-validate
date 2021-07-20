@@ -1,100 +1,34 @@
-import fs from "fs";
-import path from "path";
 import { Config } from "./config";
+import { ConfigData } from "./config-data";
 
 /**
- * @internal
- */
-interface ConfigClass {
-	empty(): Config;
-	fromFile(filename: string): Config;
-}
-
-/**
- * Configuration loader.
+ * Configuration loader interface.
  *
- * Handles configuration lookup and cache results. When performing lookups
- * parent directories is searched as well and the result is merged together.
+ * A configuration loader takes a handle (typically a filename) and returns a
+ * configuration for it.
+ *
+ * @public
  */
-export class ConfigLoader {
-	protected cache: Map<string, Config | null>;
-	protected configClass: ConfigClass;
-
+export abstract class ConfigLoader {
 	/**
-	 * @param configClass - Override class to construct.
+	 * Get configuration for given handle.
+	 *
+	 * Handle is typically a filename but it is up to the loader to interpret the
+	 * handle as something useful.
+	 *
+	 * If [[configOverride]] is set it is merged with the final result.
+	 *
+	 * @param handle - Unique handle to get configuration for.
+	 * @param configOverride - Optional configuration to merge final results with.
 	 */
-	public constructor(configClass: ConfigClass) {
-		this.cache = new Map<string, Config | null>();
-		this.configClass = configClass;
-	}
+	abstract getConfigFor(handle: string, configOverride?: ConfigData): Config;
 
 	/**
 	 * Flush configuration cache.
 	 *
-	 * @param filename - If given only the cache for that file is flushed.
-	 */
-	public flush(filename?: string): void {
-		if (filename) {
-			this.cache.delete(filename);
-		} else {
-			this.cache.clear();
-		}
-	}
-
-	/**
-	 * Get configuration for file.
+	 * Flushes all cached entries unless a specific handle is given.
 	 *
-	 * Searches parent directories for configuration and merges the result.
-	 *
-	 * @param filename - Filename to get configuration for.
+	 * @param handle - If given only the cache for given handle will be flushed.
 	 */
-	// eslint-disable-next-line complexity, sonarjs/cognitive-complexity
-	public fromTarget(filename: string): Config | null {
-		if (filename === "inline") {
-			return null;
-		}
-
-		if (this.cache.has(filename)) {
-			return this.cache.get(filename) ?? null;
-		}
-
-		let found = false;
-		let current = path.resolve(path.dirname(filename));
-		let config = this.configClass.empty();
-
-		// eslint-disable-next-line no-constant-condition
-		while (true) {
-			for (const potentialExtension of ["json", "cjs", "js"]) {
-				const filePath = path.join(current, `.htmlvalidate.${potentialExtension}`);
-				if (fs.existsSync(filePath)) {
-					const local = this.configClass.fromFile(filePath);
-					found = true;
-					config = local.merge(config);
-				}
-			}
-
-			/* stop if a configuration with "root" is set to true */
-			if (config.isRootFound()) {
-				break;
-			}
-
-			/* get the parent directory */
-			const child = current;
-			current = path.dirname(current);
-
-			/* stop if this is the root directory */
-			if (current === child) {
-				break;
-			}
-		}
-
-		/* no config was found by loader, return null and let caller decide what to do */
-		if (!found) {
-			this.cache.set(filename, null);
-			return null;
-		}
-
-		this.cache.set(filename, config);
-		return config;
-	}
+	abstract flushCache(handle?: string): void;
 }
