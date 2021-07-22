@@ -98,14 +98,6 @@ describe("FileSystemConfigLoader", () => {
 	});
 
 	describe("getConfigFor()", () => {
-		it("should query configuration loader with passed filename", () => {
-			expect.assertions(1);
-			const loader = new ExposedFileSystemConfigLoader();
-			const fromFilename = jest.spyOn(loader, "fromFilename").mockImplementation(() => null);
-			loader.getConfigFor("my-file.html");
-			expect(fromFilename).toHaveBeenCalledWith("my-file.html");
-		});
-
 		it("should use global configuration by default", () => {
 			expect.assertions(1);
 			/* constructor global config */
