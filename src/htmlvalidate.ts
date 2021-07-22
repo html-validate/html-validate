@@ -35,11 +35,15 @@ class HtmlValidate {
 	/**
 	 * Create a new validator.
 	 *
+	 * @param configLoader - Use a custom configuration loader.
 	 * @param config - If set it provides the global default configuration. By
 	 * default `Config.defaultConfig()` is used.
 	 */
-	public constructor(config?: ConfigData) {
-		this.configLoader = new FileSystemConfigLoader(config);
+	public constructor(config?: ConfigData);
+	public constructor(configLoader: ConfigLoader);
+	public constructor(arg?: ConfigLoader | ConfigData) {
+		const [loader, config] = arg instanceof ConfigLoader ? [arg, undefined] : [undefined, arg];
+		this.configLoader = loader ?? new FileSystemConfigLoader(config);
 	}
 
 	/**

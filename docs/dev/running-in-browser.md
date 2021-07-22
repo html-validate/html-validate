@@ -15,12 +15,33 @@ While primarly developed as a NodeJS CLI/backend tool it is possible to run `htm
 
 Improvements are welcome!
 
-## Example
+## Base implementation
 
-There is an example project [try-online-repo] running at [try-online-url] showing that it can be done and the workarounds required.
+This article assume you are trying to get something similar to this code to run in the browser.
+
+```ts
+import { HtmlValidate } from "html-validate";
+
+const htmlvalidate = new HtmlValidate();
+const report = htmlvalidate.validateString(markup, "my-file.html");
+```
+
+### Example
+
+There is an example project [try-online][try-online-repo] running at [online.html-validate.org][try-online-url] showing that it can be done and the workarounds required.
 
 [try-online-repo]: https://gitlab.com/html-validate/try-online
 [try-online-url]: https://online.html-validate.org/
+
+## Browser bundle
+
+The first step is to make sure the correct bundle is used.
+The library contains both a full build and a browser build, if your bundler fails to pick up the right one you need to be explicit:
+
+```diff
+-import { HtmlValidate } from "html-validate";
++import { HtmlValidate } from "html-validate/es/browser"; // replace es with cjs for commonjs
+```
 
 ## Configuration loading
 
@@ -33,37 +54,43 @@ This will manifest itself with errors such as:
 - `Cannot read property 'existsSync' of undefined`
 - `fs_1.default.existsSync is not a function`
 
-### Workaround 1: prevent loader from trying to access filesystem
+To get around this the [[StaticConfigLoader]] (or a custom loader) can be used:
 
-By far the easiest method is to pass a config to the [[HtmlValidate]] constructor with the `root` property to `true`:
+```diff
+-import { HtmlValidate } from "html-validate"
++import { StaticConfigLoader, HtmlValidate } from "html-validate/es/browser";
 
-```ts
-import { HtmlValidate } from "html-validate";
-
-const htmlvalidate = new HtmlValidate({
-  root: true,
-  extends: ["html-validate:recommended"],
-});
+-const htmlvalidate = new HtmlValidate();
++const loader = new StaticConfigLoader();
++const htmlvalidate = new HtmlValidate(loader);
+ const report = htmlvalidate.validateString(markup, "my-file.html");
 ```
 
-Do note that no default configuration will be loaded either so you must explicitly enable rules or extend a preset.
+The [[StaticConfigLoader]] will only load the configuration passed to the constructor or to `validateString(..)`.
+By default it uses the `html-validate:recommended` preset but can be overridden by passing a different to the constructor:
 
-### Workaround 2:
-
-If you are emulating or providing virtual access to a filesystem you can ensure the `fs` module is implemented.
-There is no exhaustive list of functions which must be added.
-
-If you are using webpack you can use `resolve.alias` to implement this:
-
-```js
-module.exports = {
-  resolve: {
-    alias: {
-      fs$: path.resolve(__dirname, "src/my-fs.js"),
-    },
-  },
-};
+```diff
+-const loader = new StaticConfigLoader();
++const loader = new StaticConfigLoader({
++  extends: ["html-validate:standard"],
++  elements: ["html5"],
++});
+ const htmlvalidate = new HtmlValidate(loader);
 ```
+
+### Previous workaround
+
+The previous workaround was to pass a configuration to the [[HtmlValidate]] constructor with the `root` property set to `true` but this is no longer recommended for this purpose:
+
+```diff
+-const htmlvalidate = new HtmlValidate();
++const htmlvalidate = new HtmlValidate({
++  root: true,
++  extends: ["html-validate:recommended"],
++});
+```
+
+Note that no default configuration will be loaded either so you must explicitly enable rules or extend a preset.
 
 ## Bundled files
 
@@ -80,17 +107,17 @@ This will manifest itself with errors such as:
 This is typically archived by passing an object instead of a string when configuring `html-validate`:
 
 ```diff
- import { HtmlValidate } from "html-validate";
+ import { StaticConfigLoader, HtmlValidate } from "html-validate/es/browser";
 
-+// check your loader! it must return a plain object (not `default: { ... }`, a path/url, etc)
++// check your webpack loader! it must return a plain object (not `default: { ... }`, a path/url, etc)
 +import html5 from "html-validate/elements/html5.json";
 
- const htmlvalidate = new HtmlValidate({
-   root: true,
+ const loader = new StaticConfigLoader({
    extends: ["html-validate:recommended"],
 -  elements: ["html5"],
-+  elements: [html5]
-});
++  elements: [html5],
+ });
+ const htmlvalidate = new HtmlValidate(loader);
 ```
 
 ## Webpack

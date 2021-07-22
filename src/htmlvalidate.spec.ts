@@ -45,6 +45,38 @@ beforeEach(() => {
 });
 
 describe("HtmlValidate", () => {
+	it("should support using a custom config loader", () => {
+		expect.assertions(2);
+		const loader = new (class extends ConfigLoader {
+			public getConfigFor(): Config {
+				return Config.fromObject({
+					rules: {
+						foobar: "error",
+					},
+				});
+			}
+			public flushCache(): void {
+				/* do nothing */
+			}
+			protected defaultConfig(): Config {
+				return Config.defaultConfig();
+			}
+		})();
+		const getConfigFor = jest.spyOn(loader, "getConfigFor");
+		const htmlvalidate = new HtmlValidate(loader);
+		const filename = "/path/to/my-file.html";
+		const config = htmlvalidate.getConfigFor(filename);
+		expect(getConfigFor).toHaveBeenCalledWith(filename, undefined);
+		expect(config.get()).toEqual({
+			extends: [],
+			plugins: [],
+			rules: {
+				foobar: "error",
+			},
+			transform: {},
+		});
+	});
+
 	describe("validateString()", () => {
 		it("should validate given string", () => {
 			expect.assertions(2);
