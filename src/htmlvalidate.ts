@@ -35,6 +35,7 @@ class HtmlValidate {
 	/**
 	 * Create a new validator.
 	 *
+	 * @public
 	 * @param configLoader - Use a custom configuration loader.
 	 * @param config - If set it provides the global default configuration. By
 	 * default `Config.defaultConfig()` is used.
@@ -49,6 +50,7 @@ class HtmlValidate {
 	/**
 	 * Parse and validate HTML from string.
 	 *
+	 * @public
 	 * @param str - Text to parse.
 	 * @param filename - If set configuration is loaded for given filename.
 	 * @param hooks - Optional hooks (see [[Source]]) for definition.
@@ -89,6 +91,7 @@ class HtmlValidate {
 	/**
 	 * Parse and validate HTML from [[Source]].
 	 *
+	 * @public
 	 * @param input - Source to parse.
 	 * @returns Report output.
 	 */
@@ -103,6 +106,7 @@ class HtmlValidate {
 	/**
 	 * Parse and validate HTML from file.
 	 *
+	 * @public
 	 * @param filename - Filename to read and parse.
 	 * @returns Report output.
 	 */
