@@ -3,6 +3,7 @@ import path from "path";
 import glob from "glob";
 import { Config } from "../config";
 import { ConfigData, RuleConfig } from "../config-data";
+import { ConfigFactory } from "../config-loader";
 import { FileSystemConfigLoader } from "./file-system";
 
 declare module "../config-data" {
@@ -30,17 +31,7 @@ jest.mock("ajv", () => {
 	return MockAjv;
 });
 
-class ExposedFileSystemConfigLoader extends FileSystemConfigLoader {
-	public mockGetGlobalConfig(): Config {
-		return this.globalConfig;
-	}
-
-	public mockGetInternalCache(): Map<string, Config | null> {
-		return this.cache;
-	}
-}
-
-class MockConfig {
+class MockConfigFactory {
 	public static defaultConfig(): Config {
 		return Config.defaultConfig();
 	}
@@ -63,6 +54,20 @@ class MockConfig {
 	}
 }
 
+class ExposedFileSystemConfigLoader extends FileSystemConfigLoader {
+	public constructor(config?: ConfigData, configFactory: ConfigFactory = MockConfigFactory) {
+		super(config, configFactory);
+	}
+
+	public mockGetGlobalConfig(): Config {
+		return this.globalConfig;
+	}
+
+	public mockGetInternalCache(): Map<string, Config | null> {
+		return this.cache;
+	}
+}
+
 describe("FileSystemConfigLoader", () => {
 	afterEach(() => {
 		jest.restoreAllMocks();
@@ -70,7 +75,7 @@ describe("FileSystemConfigLoader", () => {
 
 	it("should load default config if no configuration was passed", () => {
 		expect.assertions(1);
-		const loader = new ExposedFileSystemConfigLoader(MockConfig);
+		const loader = new ExposedFileSystemConfigLoader();
 		expect(loader.mockGetGlobalConfig().get()).toEqual({
 			extends: [],
 			plugins: [],
@@ -81,7 +86,7 @@ describe("FileSystemConfigLoader", () => {
 
 	it("should not load default config if configuration was passed", () => {
 		expect.assertions(1);
-		const loader = new ExposedFileSystemConfigLoader(MockConfig, { rules: { foo: "error" } });
+		const loader = new ExposedFileSystemConfigLoader({ rules: { foo: "error" } });
 		expect(loader.mockGetGlobalConfig().get()).toEqual({
 			extends: [],
 			plugins: [],
@@ -95,7 +100,7 @@ describe("FileSystemConfigLoader", () => {
 	describe("getConfigFor()", () => {
 		it("should query configuration loader with passed filename", () => {
 			expect.assertions(1);
-			const loader = new ExposedFileSystemConfigLoader(MockConfig);
+			const loader = new ExposedFileSystemConfigLoader();
 			const fromFilename = jest.spyOn(loader, "fromFilename").mockImplementation(() => null);
 			loader.getConfigFor("my-file.html");
 			expect(fromFilename).toHaveBeenCalledWith("my-file.html");
@@ -104,7 +109,7 @@ describe("FileSystemConfigLoader", () => {
 		it("should use global configuration by default", () => {
 			expect.assertions(1);
 			/* constructor global config */
-			const loader = new ExposedFileSystemConfigLoader(MockConfig, {
+			const loader = new ExposedFileSystemConfigLoader({
 				rules: {
 					a: "error",
 				},
@@ -125,7 +130,7 @@ describe("FileSystemConfigLoader", () => {
 		it("should merge global configuration with override if provided", () => {
 			expect.assertions(1);
 			/* constructor global config */
-			const loader = new ExposedFileSystemConfigLoader(MockConfig, {
+			const loader = new ExposedFileSystemConfigLoader({
 				rules: {
 					a: "error",
 					b: "error",
@@ -155,7 +160,7 @@ describe("FileSystemConfigLoader", () => {
 		it("should use configuration provided by configuration loader if present", () => {
 			expect.assertions(1);
 			/* constructor global config */
-			const loader = new ExposedFileSystemConfigLoader(MockConfig, {
+			const loader = new ExposedFileSystemConfigLoader({
 				rules: {
 					a: "error",
 				},
@@ -182,7 +187,7 @@ describe("FileSystemConfigLoader", () => {
 		it("should merge configuration provided by configuration loader with override if provided", () => {
 			expect.assertions(1);
 			/* constructor global config */
-			const loader = new ExposedFileSystemConfigLoader(MockConfig, {
+			const loader = new ExposedFileSystemConfigLoader({
 				rules: {
 					a: "error",
 				},
@@ -215,7 +220,7 @@ describe("FileSystemConfigLoader", () => {
 
 		it("should not load configuration files if global config is root", () => {
 			expect.assertions(2);
-			const loader = new ExposedFileSystemConfigLoader(MockConfig, {
+			const loader = new ExposedFileSystemConfigLoader({
 				root: true,
 			});
 			const fromFilename = jest.spyOn(loader, "fromFilename");
@@ -230,7 +235,7 @@ describe("FileSystemConfigLoader", () => {
 
 		it("should merge global with override when global is root", () => {
 			expect.assertions(1);
-			const loader = new ExposedFileSystemConfigLoader(MockConfig, {
+			const loader = new ExposedFileSystemConfigLoader({
 				root: true,
 				rules: {
 					a: "error",
@@ -253,7 +258,7 @@ describe("FileSystemConfigLoader", () => {
 
 		it("should not load global configuration files if override config is root", () => {
 			expect.assertions(2);
-			const loader = new ExposedFileSystemConfigLoader(MockConfig, {
+			const loader = new ExposedFileSystemConfigLoader({
 				rules: {
 					a: "error",
 				},
@@ -280,7 +285,7 @@ describe("FileSystemConfigLoader", () => {
 	describe("fromFilename()", () => {
 		let loader: ExposedFileSystemConfigLoader;
 		beforeEach(() => {
-			loader = new ExposedFileSystemConfigLoader(MockConfig);
+			loader = new ExposedFileSystemConfigLoader();
 		});
 
 		it("should load configuration", () => {
@@ -393,7 +398,7 @@ describe("FileSystemConfigLoader", () => {
 			const cache = loader.mockGetInternalCache();
 			loader.fromFilename("/path/to/target.html");
 			expect(cache.has("/path/to/target.html")).toBeTruthy();
-			jest.spyOn(MockConfig, "fromFile").mockImplementation(() => {
+			jest.spyOn(MockConfigFactory, "fromFile").mockImplementation(() => {
 				throw new Error("expected cache to be used");
 			});
 			const config = loader.fromFilename("/path/to/target.html");
@@ -419,7 +424,7 @@ describe("FileSystemConfigLoader", () => {
 	describe("flushCache()", () => {
 		let loader: ExposedFileSystemConfigLoader;
 		beforeEach(() => {
-			loader = new ExposedFileSystemConfigLoader(MockConfig);
+			loader = new ExposedFileSystemConfigLoader();
 		});
 
 		it("should clear cache", () => {
@@ -451,7 +456,7 @@ describe("FileSystemConfigLoader", () => {
 	describe("smoketest", () => {
 		let loader: ExposedFileSystemConfigLoader;
 		beforeAll(() => {
-			loader = new ExposedFileSystemConfigLoader(Config);
+			loader = new ExposedFileSystemConfigLoader(undefined, Config);
 		});
 
 		/* extract only relevant rules from configuration to avoid bloat when new

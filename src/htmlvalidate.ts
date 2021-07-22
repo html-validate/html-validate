@@ -1,6 +1,6 @@
 import path from "path";
 import { SchemaObject } from "ajv";
-import { Config, ConfigData } from "./config";
+import { Config, ConfigData, ConfigLoader } from "./config";
 import { Source } from "./context";
 import { SourceHooks } from "./context/source";
 import { Engine, EventDump, TokenDump } from "./engine";
@@ -30,7 +30,7 @@ function isConfigData(value: any): value is ConfigData {
  * Provides high-level abstractions for common operations.
  */
 class HtmlValidate {
-	protected configLoader: FileSystemConfigLoader;
+	protected configLoader: ConfigLoader;
 
 	/**
 	 * Create a new validator.
@@ -39,7 +39,7 @@ class HtmlValidate {
 	 * default `Config.defaultConfig()` is used.
 	 */
 	public constructor(config?: ConfigData) {
-		this.configLoader = new FileSystemConfigLoader(Config, config);
+		this.configLoader = new FileSystemConfigLoader(config);
 	}
 
 	/**
