@@ -6,7 +6,7 @@ import jsonMergePatch from "json-merge-patch";
 import { HtmlElement } from "../dom";
 import { SchemaValidationError, UserError } from "../error";
 import { SchemaValidationPatch } from "../plugin";
-import { requireUncached } from "../utils";
+import { requireUncached } from "../utils/require-uncached";
 import schema from "../schema/elements.json";
 import {
 	ElementTable,

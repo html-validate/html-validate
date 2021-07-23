@@ -1,4 +1,4 @@
-import { ConfigError } from "../config";
+import { ConfigError } from "../config/error";
 import { AttributeEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 

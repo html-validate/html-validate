@@ -9,7 +9,7 @@ import { MetaCopyableProperty, MetaDataTable } from "../meta/element";
 import { Plugin } from "../plugin";
 import schema from "../schema/config.json";
 import { Transformer, TRANSFORMER_API } from "../transform";
-import { requireUncached } from "../utils";
+import { requireUncached } from "../utils/require-uncached";
 import { projectRoot, legacyRequire } from "../resolve";
 import bundledRules from "../rules";
 import { Rule } from "../rule";
