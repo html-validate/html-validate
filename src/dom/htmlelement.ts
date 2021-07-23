@@ -6,7 +6,7 @@ import { DOMNode } from "./domnode";
 import { DOMTokenList } from "./domtokenlist";
 import { DynamicValue } from "./dynamic-value";
 import { NodeType } from "./nodetype";
-import { Selector } from "./selector";
+import { escapeSelectorComponent, Selector } from "./selector";
 import { TextNode } from "./text";
 
 export enum NodeClosed {
@@ -153,7 +153,7 @@ export class HtmlElement extends DOMNode {
 		for (let cur: HtmlElement = this; cur.parent; cur = cur.parent) {
 			/* if a unique id is present, use it and short-circuit */
 			if (cur.id) {
-				const escaped = cur.id.replace(/([:[\] ])/g, "\\$1");
+				const escaped = escapeSelectorComponent(cur.id);
 				const matches = root.querySelectorAll(`#${escaped}`);
 				if (matches.length === 1) {
 					parts.push(`#${escaped}`);

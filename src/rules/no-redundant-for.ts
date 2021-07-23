@@ -1,3 +1,4 @@
+import { escapeSelectorComponent } from "../dom/selector";
 import { ElementReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
@@ -24,9 +25,15 @@ export default class NoRedundantFor extends Rule {
 				return;
 			}
 
-			/* try to find labeled control */
+			/* ignore omitted/empty values */
 			const id = attr.value;
-			const control = target.querySelector(`[id="${id}"]`);
+			if (!id) {
+				return;
+			}
+
+			/* try to find labeled control */
+			const escaped = escapeSelectorComponent(id);
+			const control = target.querySelector(`[id="${escaped}"]`);
 			if (!control) {
 				return;
 			}

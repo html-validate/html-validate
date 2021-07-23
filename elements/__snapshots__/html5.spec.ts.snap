@@ -13712,7 +13712,7 @@ exports[`HTML elements <xmp> valid markup 1`] = `Array []`;
 exports[`HTML elements global attributes invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 9,
+    "errorCount": 11,
     "filePath": "test-files/elements/global-attributes-invalid.html",
     "messages": Array [
       Object {
@@ -13819,6 +13819,44 @@ Array [
         "size": 6,
       },
       Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\S\\+\\$/,
+          ],
+          "attribute": "id",
+          "element": "p",
+          "value": "",
+        },
+        "line": 8,
+        "message": "Attribute \\"id\\" has invalid value \\"\\"",
+        "offset": 154,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "p:nth-child(6)",
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 8,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\S\\+\\$/,
+          ],
+          "attribute": "id",
+          "element": "p",
+          "value": "foo bar",
+        },
+        "line": 11,
+        "message": "Attribute \\"id\\" has invalid value \\"foo bar\\"",
+        "offset": 213,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "#foo\\\\ bar",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
         "column": 12,
         "context": Object {
           "allowed": Array [],
@@ -13826,12 +13864,12 @@ Array [
           "element": "p",
           "value": "foobar",
         },
-        "line": 6,
+        "line": 13,
         "message": "Attribute \\"hidden\\" has invalid value \\"foobar\\"",
-        "offset": 128,
+        "offset": 239,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "p:nth-child(6)",
+        "selector": "p:nth-child(8)",
         "severity": 2,
         "size": 6,
       },
@@ -13845,12 +13883,12 @@ Array [
           "element": "p",
           "value": "",
         },
-        "line": 7,
+        "line": 14,
         "message": "Attribute \\"tabindex\\" has invalid value \\"\\"",
-        "offset": 142,
+        "offset": 253,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "p:nth-child(7)",
+        "selector": "p:nth-child(9)",
         "severity": 2,
         "size": 1,
       },
@@ -13864,24 +13902,24 @@ Array [
           "element": "p",
           "value": "foobar",
         },
-        "line": 8,
+        "line": 15,
         "message": "Attribute \\"tabindex\\" has invalid value \\"foobar\\"",
-        "offset": 174,
+        "offset": 285,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "p:nth-child(8)",
+        "selector": "p:nth-child(10)",
         "severity": 2,
         "size": 6,
       },
       Object {
         "column": 4,
         "context": undefined,
-        "line": 9,
+        "line": 16,
         "message": "Attribute \\"contextmenu\\" is deprecated on <p> element",
-        "offset": 190,
+        "offset": 301,
         "ruleId": "no-deprecated-attr",
         "ruleUrl": "https://html-validate.org/rules/no-deprecated-attr.html",
-        "selector": "p:nth-child(9)",
+        "selector": "p:nth-child(11)",
         "severity": 2,
         "size": 11,
       },
@@ -13891,6 +13929,13 @@ Array [
 <p dir=\\"foobar\\"></p>
 <p draggable=\\"\\"></p>
 <p draggable=\\"foobar\\"></p>
+
+<!-- id cannot be empty string -->
+<p id=\\"\\"></p>
+
+<!-- id cannot contain whitespace -->
+<p id=\\"foo bar\\"></p>
+
 <p hidden=\\"foobar\\"></p>
 <p tabindex=\\"\\"></p>
 <p tabindex=\\"foobar\\"></p>

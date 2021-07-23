@@ -126,3 +126,5 @@ Array [
   },
 ]
 `;
+
+exports[`regression tests test-files/issues/issue128-id-whitespace.html 1`] = `Array []`;

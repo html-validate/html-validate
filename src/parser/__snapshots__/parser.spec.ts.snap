@@ -18,6 +18,9 @@ Object {
       "false",
     ],
     "hidden": Array [],
+    "id": Array [
+      /\\^\\\\S\\+\\$/,
+    ],
     "tabindex": Array [
       /-\\?\\\\d\\+/,
     ],
@@ -53,6 +56,9 @@ Object {
       "false",
     ],
     "hidden": Array [],
+    "id": Array [
+      /\\^\\\\S\\+\\$/,
+    ],
     "tabindex": Array [
       /-\\?\\\\d\\+/,
     ],
