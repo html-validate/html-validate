@@ -4,10 +4,9 @@ import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 export default class DeprecatedRule extends Rule<string> {
 	public documentation(context: string): RuleDocumentation {
+		const preamble = context ? `The rule "${context}"` : "This rule";
 		return {
-			description: `${
-				context ? `The rule "${context}"` : "This rule"
-			} is deprecated and should not be used any longer, consult documentation for further information.`,
+			description: `${preamble} is deprecated and should not be used any longer, consult documentation for further information.`,
 			url: ruleDocumentationUrl(__filename),
 		};
 	}

@@ -31,7 +31,8 @@ function generateRegexp(pattern: string | string[]): RegExp {
 
 function generateMessage(name: string, pattern: string | string[]): string {
 	if (Array.isArray(pattern)) {
-		return `Attribute "${name}" should match one of [${pattern.map((it) => `/${it}/`).join(", ")}]`;
+		const patterns = pattern.map((it) => `/${it}/`).join(", ");
+		return `Attribute "${name}" should match one of [${patterns}]`;
 	} else {
 		return `Attribute "${name}" should match /${pattern}/`;
 	}
