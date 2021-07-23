@@ -1,6 +1,7 @@
 import { Location, sliceLocation } from "../context";
 import { Token } from "../lexer";
-import { MetaCopyableProperty, MetaElement, MetaTable } from "../meta";
+import { MetaCopyableProperty, MetaElement } from "../meta/element";
+import { MetaTable } from "../meta/table";
 import { Attribute } from "./attribute";
 import { DOMNode } from "./domnode";
 import { DOMTokenList } from "./domtokenlist";

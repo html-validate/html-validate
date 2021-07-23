@@ -1,4 +1,4 @@
-import { Severity } from "../config";
+import { Severity } from "../config/severity";
 import { ConfigReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
