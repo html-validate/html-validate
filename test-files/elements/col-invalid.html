@@ -9,3 +9,17 @@
 		<col></col>
 	</colgroup>
 </table>
+
+<table>
+	<colgroup>
+		<!-- should not allow negative span -->
+		<col span="-1">
+
+		<!-- should not allow omitted/empty -->
+		<col span>
+		<col span="">
+
+		<!-- should not allow text -->
+		<col span="foobar4u">
+	</colgroup>
+</table>

@@ -21,3 +21,20 @@
 	<thead></thead>
 	<colgroup></colgroup>
 </table>
+
+<table>
+	<!-- should not allow negative span -->
+	<colgroup span="-1"></colgroup>
+
+	<!-- should not allow omitted/empty -->
+	<colgroup span></colgroup>
+	<colgroup span=""></colgroup>
+
+	<!-- should not allow text -->
+	<colgroup span="foobar4u"></colgroup>
+
+	<!-- should not allow nested col when using span, but no rule currently covers this -->
+	<colgroup span="2">
+		<col>
+	</colgroup>
+</table>

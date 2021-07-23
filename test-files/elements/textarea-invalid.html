@@ -3,3 +3,13 @@
 	<span>foo</span>
 	<div>bar</div>
 </textarea>
+
+<!-- should not allow negative values -->
+<textarea cols="-1" maxlength="-1" minlength="-1" rows="-1"></textarea>
+
+<!-- should not allow omitted/empty values -->
+<textarea cols maxlength minlength rows></textarea>
+<textarea cols="" maxlength="" minlength="" rows=""></textarea>
+
+<!-- should not allow text values -->
+<textarea cols="foobar4u" maxlength="foobar4u" minlength="foobar4u" rows="foobar4u"></textarea>

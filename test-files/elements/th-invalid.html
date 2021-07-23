@@ -28,3 +28,19 @@
 		</tr>
 	</tbody>
 </table>
+
+<table>
+	<tbody>
+		<tr>
+			<!-- should not allow negative colspan/rowspan -->
+			<th scope="col" colspan="-1" rowspan="-1"></th>
+
+			<!-- should not allow omitted/empty colspan/rowspan -->
+			<th scope="col" colspan rowspan></th>
+			<th scope="col" colspan="" rowspan=""></th>
+
+			<!-- should not allow text colspan/rowspan -->
+			<th scope="col" colspan="foobar4u" rowspan="foobar4u"></th>
+		</tr>
+	</tbody>
+</table>

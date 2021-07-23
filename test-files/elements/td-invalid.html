@@ -2,3 +2,19 @@
 <div>
 	<td>foo</td>
 </div>
+
+<table>
+	<tbody>
+		<tr>
+			<!-- should not allow negative colspan/rowspan -->
+			<td colspan="-1" rowspan="-1"></td>
+
+			<!-- should not allow omitted/empty colspan/rowspan -->
+			<td colspan rowspan></td>
+			<td colspan="" rowspan=""></td>
+
+			<!-- should not allow text colspan/rowspan -->
+			<td colspan="foobar4u" rowspan="foobar4u"></td>
+		</tr>
+	</tbody>
+</table>
