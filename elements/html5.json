@@ -6,6 +6,7 @@
       "contenteditable": ["", "true", "false"],
       "dir": ["ltr", "rtl", "auto"],
       "draggable": ["true", "false"],
+      "id": ["/^\\S+$/"],
       "hidden": [],
       "tabindex": ["/-?\\d+/"]
     },
