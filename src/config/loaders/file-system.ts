@@ -2,17 +2,7 @@ import fs from "fs";
 import path from "path";
 import { Config } from "../config";
 import { ConfigData } from "../config-data";
-import { ConfigLoader } from "../config-loader";
-
-/**
- * @internal
- */
-interface ConfigClass {
-	defaultConfig(): Config;
-	empty(): Config;
-	fromObject(options: ConfigData, filename?: string | null): Config;
-	fromFile(filename: string): Config;
-}
+import { ConfigFactory, ConfigLoader } from "../config-loader";
 
 /**
  * @internal
@@ -50,17 +40,14 @@ function findConfigurationFiles(directory: string): string[] {
  */
 export class FileSystemConfigLoader extends ConfigLoader {
 	protected cache: Map<string, Config | null>;
-	protected globalConfig: Config;
-	protected configClass: ConfigClass;
 
-	public constructor(configClass: ConfigClass, config?: ConfigData) {
-		super();
-		const defaults = configClass.empty();
+	/**
+	 * @param config - Global configuration
+	 * @param configFactory - Optional configuration factory
+	 */
+	public constructor(config?: ConfigData, configFactory: ConfigFactory = Config) {
+		super(config, configFactory);
 		this.cache = new Map();
-		this.configClass = configClass;
-		this.globalConfig = defaults.merge(
-			config ? configClass.fromObject(config) : configClass.defaultConfig()
-		);
 	}
 
 	/**
@@ -69,10 +56,10 @@ export class FileSystemConfigLoader extends ConfigLoader {
 	 * @param filename - Filename to get configuration for.
 	 * @param configOverride - Configuration to merge final result with.
 	 */
-	public getConfigFor(filename: string, configOverride?: ConfigData): Config {
+	public override getConfigFor(filename: string, configOverride?: ConfigData): Config {
 		/* special case when the overridden configuration is marked as root, should
 		 * not try to load any more configuration files */
-		const override = Config.fromObject(configOverride || {});
+		const override = this.loadFromObject(configOverride || {});
 		if (override.isRootFound()) {
 			override.init();
 			return override;
@@ -97,7 +84,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
 	 *
 	 * @param filename - If given only the cache for that file is flushed.
 	 */
-	public flushCache(filename?: string): void {
+	public override flushCache(filename?: string): void {
 		if (filename) {
 			this.cache.delete(filename);
 		} else {
@@ -122,13 +109,13 @@ export class FileSystemConfigLoader extends ConfigLoader {
 
 		let found = false;
 		let current = path.resolve(path.dirname(filename));
-		let config = this.configClass.empty();
+		let config = this.empty();
 
 		// eslint-disable-next-line no-constant-condition
 		while (true) {
 			/* search configuration files in current directory */
 			for (const configFile of findConfigurationFiles(current)) {
-				const local = this.configClass.fromFile(configFile);
+				const local = this.loadFromFile(configFile);
 				found = true;
 				config = local.merge(config);
 			}
@@ -156,5 +143,9 @@ export class FileSystemConfigLoader extends ConfigLoader {
 
 		this.cache.set(filename, config);
 		return config;
+	}
+
+	protected defaultConfig(): Config {
+		return this.configFactory.defaultConfig();
 	}
 }

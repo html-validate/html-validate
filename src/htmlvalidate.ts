@@ -1,6 +1,6 @@
 import path from "path";
 import { SchemaObject } from "ajv";
-import { Config, ConfigData } from "./config";
+import { Config, ConfigData, ConfigLoader } from "./config";
 import { Source } from "./context";
 import { SourceHooks } from "./context/source";
 import { Engine, EventDump, TokenDump } from "./engine";
@@ -30,21 +30,27 @@ function isConfigData(value: any): value is ConfigData {
  * Provides high-level abstractions for common operations.
  */
 class HtmlValidate {
-	protected configLoader: FileSystemConfigLoader;
+	protected configLoader: ConfigLoader;
 
 	/**
 	 * Create a new validator.
 	 *
+	 * @public
+	 * @param configLoader - Use a custom configuration loader.
 	 * @param config - If set it provides the global default configuration. By
 	 * default `Config.defaultConfig()` is used.
 	 */
-	public constructor(config?: ConfigData) {
-		this.configLoader = new FileSystemConfigLoader(Config, config);
+	public constructor(config?: ConfigData);
+	public constructor(configLoader: ConfigLoader);
+	public constructor(arg?: ConfigLoader | ConfigData) {
+		const [loader, config] = arg instanceof ConfigLoader ? [arg, undefined] : [undefined, arg];
+		this.configLoader = loader ?? new FileSystemConfigLoader(config);
 	}
 
 	/**
 	 * Parse and validate HTML from string.
 	 *
+	 * @public
 	 * @param str - Text to parse.
 	 * @param filename - If set configuration is loaded for given filename.
 	 * @param hooks - Optional hooks (see [[Source]]) for definition.
@@ -85,6 +91,7 @@ class HtmlValidate {
 	/**
 	 * Parse and validate HTML from [[Source]].
 	 *
+	 * @public
 	 * @param input - Source to parse.
 	 * @returns Report output.
 	 */
@@ -99,6 +106,7 @@ class HtmlValidate {
 	/**
 	 * Parse and validate HTML from file.
 	 *
+	 * @public
 	 * @param filename - Filename to read and parse.
 	 * @returns Report output.
 	 */

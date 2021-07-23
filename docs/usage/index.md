@@ -25,7 +25,7 @@ Create `.htmlvalidate.json`:
 
 Run with:
 
-    node_modules/.bin/html-validate yourfile.html
+    npm exec html-validate yourfile.html
 
 ## Configuration
 
@@ -211,21 +211,20 @@ Disable a rule for the rest of the file or until re-enabled using `enable` direc
 
 ### `disable-block`
 
-    <!-- [html-validate-disable-block void] -->
+    <!-- [html-validate-disable-block attribute-allowed-values] -->
 
-Disables a rule for a block of elements. All siblings and descendants following
-the directive will not trigger any errors.
+Disables a rule for a block of elements.
+All siblings and descendants following the directive will not trigger any errors.
 
-```html
-<i />error
-<div>
-  <!-- [html-validate-disable-block void: will be disabled until the parent div is closed] -->
-  <i />no error
-  <p><i />no error</p>
-  <i />no error
-</div>
-<i />error
-```
+<validate name="disable-block-button-type">
+  <div>
+    <button type="foo">Invalid button</button>
+    <!-- [html-validate-disable-block attribute-allowed-values: will be disabled until the parent div is closed] -->
+    <button type="bar">Invalid but ignored</button>
+    <button type="baz">Still ignored</button>
+  </div>
+  <button type="spam">Another invalid</button>
+</validate>
 
 ### `disable-next`
 
@@ -233,13 +232,11 @@ the directive will not trigger any errors.
 
 Disables the rule for the next element.
 
-<!-- prettier-ignore-start -->
-```html
-<!-- [html-validate-disable-next deprecated: the next occurrence will not trigger an error] -->
-<blink>This will not trigger an error</blink>
-<blink>But this line will</blink>
-```
-<!-- prettier-ignore-end -->
+<validate name="disable-next-deprecated">
+  <!-- [html-validate-disable-next deprecated: the next occurrence will not trigger an error] -->
+  <blink>This will not trigger an error</blink>
+  <blink>But this line will</blink>
+</validate>
 
 ## Ignoring files
 

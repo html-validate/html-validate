@@ -3,6 +3,7 @@
 export { default as HtmlValidate } from "./htmlvalidate";
 export { AttributeData } from "./parser";
 export { Config, ConfigData, ConfigError, ConfigLoader, Severity, configPresets } from "./config";
+export { StaticConfigLoader } from "./config/loaders/static";
 export { DynamicValue, HtmlElement, NodeClosed, TextNode } from "./dom";
 export { EventDump, TokenDump } from "./engine";
 export { UserError, SchemaValidationError } from "./error";
