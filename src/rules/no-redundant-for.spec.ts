@@ -22,6 +22,24 @@ describe("rule no-redundant-for", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should handle omitted value", () => {
+		expect.assertions(1);
+		const report = htmlvalidate.validateString("<label for></label>");
+		expect(report).toBeValid();
+	});
+
+	it("should handle empty value", () => {
+		expect.assertions(1);
+		const report = htmlvalidate.validateString('<label for=""></label>');
+		expect(report).toBeValid();
+	});
+
+	it("should handle whitespace", () => {
+		expect.assertions(1);
+		const report = htmlvalidate.validateString('<label for="a b"></label><input id="a b">');
+		expect(report).toBeValid();
+	});
+
 	it("should not report error for other elements", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateString(

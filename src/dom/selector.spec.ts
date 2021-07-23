@@ -2,7 +2,7 @@ import { Config } from "../config";
 import { Parser } from "../parser";
 import { reset as resetDOMCounter } from "./domnode";
 import { HtmlElement } from "./htmlelement";
-import { Selector } from "./selector";
+import { escapeSelectorComponent, Selector } from "./selector";
 import { NodeType } from "./nodetype";
 
 interface StrippedHtmlElement {
@@ -30,6 +30,28 @@ function stripHtmlElement(node: HtmlElement): StrippedHtmlElement {
 function fetch(it: IterableIterator<HtmlElement>): StrippedHtmlElement[] {
 	return Array.from(it, stripHtmlElement);
 }
+
+describe("escapeSelectorComponent", () => {
+	it("should escape whitespace", () => {
+		expect.assertions(1);
+		expect(escapeSelectorComponent("foo bar")).toEqual("foo\\ bar");
+	});
+
+	it("should escape colon", () => {
+		expect.assertions(1);
+		expect(escapeSelectorComponent("foo:bar")).toEqual("foo\\:bar");
+	});
+
+	it("should escape square brackets", () => {
+		expect.assertions(1);
+		expect(escapeSelectorComponent("foo[bar]")).toEqual("foo\\[bar\\]");
+	});
+
+	it("should escape all occurrences", () => {
+		expect.assertions(1);
+		expect(escapeSelectorComponent("foo bar baz")).toEqual("foo\\ bar\\ baz");
+	});
+});
 
 describe("Selector", () => {
 	let doc: HtmlElement;

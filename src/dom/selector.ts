@@ -1,5 +1,6 @@
 import { Attribute } from "./attribute";
 import { Combinator, parseCombinator } from "./combinator";
+import { DynamicValue } from "./dynamic-value";
 import { HtmlElement } from "./htmlelement";
 import { factory as pseudoClassFunction } from "./pseudoclass";
 import { SelectorContext } from "./selector-context";
@@ -11,6 +12,10 @@ import { SelectorContext } from "./selector-context";
  */
 function stripslashes(value: string): string {
 	return value.replace(/\\(.)/g, "$1");
+}
+
+export function escapeSelectorComponent(text: string | DynamicValue): string {
+	return text.toString().replace(/([:[\] ])/g, "\\$1");
 }
 
 abstract class Matcher {
