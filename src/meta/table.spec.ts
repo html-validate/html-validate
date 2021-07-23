@@ -436,7 +436,7 @@ describe("MetaTable", () => {
 			const meta = table.getMetaFor("foo");
 			expect(meta).not.toBeUndefined();
 			expect(meta?.attributes).toEqual({
-				attr: [/foo/],
+				attr: [/^foo$/],
 			});
 		});
 
@@ -453,7 +453,24 @@ describe("MetaTable", () => {
 			const meta = table.getMetaFor("foo");
 			expect(meta).not.toBeUndefined();
 			expect(meta?.attributes).toEqual({
-				attr: [/foo/i],
+				attr: [/^foo$/i],
+			});
+		});
+
+		it("should handle explicit anchors", () => {
+			expect.assertions(2);
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry({
+					attributes: {
+						attr: ["/^foo/", "/bar$/", "/^baz$/"],
+					},
+				}),
+			});
+			const meta = table.getMetaFor("foo");
+			expect(meta).not.toBeUndefined();
+			expect(meta?.attributes).toEqual({
+				attr: [/^foo$/, /^bar$/, /^baz$/],
 			});
 		});
 

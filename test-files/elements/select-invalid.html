@@ -3,3 +3,13 @@
 	<span>foo</span>
 	<div>bar</div>
 </select>
+
+<!-- should not allow negative size -->
+<select size="-1"></select>
+
+<!-- should not allow omitted/empty size -->
+<select size></select>
+<select size=""></select>
+
+<!-- should not allow text size -->
+<select size="foobar4u"></select>

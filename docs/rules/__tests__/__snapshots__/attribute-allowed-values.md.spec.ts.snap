@@ -12,7 +12,7 @@ Array [
         "column": 4,
         "context": Object {
           "allowed": Array [
-            /\\.\\*/,
+            /\\^\\.\\*\\$/,
           ],
           "attribute": "href",
           "element": "a",

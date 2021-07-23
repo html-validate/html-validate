@@ -58,7 +58,7 @@ Array [
         "column": 4,
         "context": Object {
           "allowed": Array [
-            /\\.\\*/,
+            /\\^\\.\\*\\$/,
           ],
           "attribute": "href",
           "element": "a",
@@ -1256,7 +1256,7 @@ exports[`HTML elements <code> valid markup 1`] = `Array []`;
 exports[`HTML elements <col> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 2,
+    "errorCount": 6,
     "filePath": "test-files/elements/col-invalid.html",
     "messages": Array [
       Object {
@@ -1283,6 +1283,82 @@ Array [
         "severity": 2,
         "size": 4,
       },
+      Object {
+        "column": 14,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "span",
+          "element": "col",
+          "value": "-1",
+        },
+        "line": 16,
+        "message": "Attribute \\"span\\" has invalid value \\"-1\\"",
+        "offset": 238,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table:nth-child(3) > colgroup > col:nth-child(1)",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 8,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "span",
+          "element": "col",
+          "value": "",
+        },
+        "line": 19,
+        "message": "Attribute \\"span\\" is missing value",
+        "offset": 293,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table:nth-child(3) > colgroup > col:nth-child(2)",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 4,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "span",
+          "element": "col",
+          "value": "",
+        },
+        "line": 20,
+        "message": "Attribute \\"span\\" has invalid value \\"\\"",
+        "offset": 302,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table:nth-child(3) > colgroup > col:nth-child(3)",
+        "severity": 2,
+        "size": 3,
+      },
+      Object {
+        "column": 14,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "span",
+          "element": "col",
+          "value": "foobar4u",
+        },
+        "line": 23,
+        "message": "Attribute \\"span\\" has invalid value \\"foobar4u\\"",
+        "offset": 362,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table:nth-child(3) > colgroup > col:nth-child(4)",
+        "severity": 2,
+        "size": 8,
+      },
     ],
     "source": "<!-- should not be allowed under other content -->
 <div>
@@ -1293,6 +1369,20 @@ Array [
 <table>
 	<colgroup>
 		<col></col>
+	</colgroup>
+</table>
+
+<table>
+	<colgroup>
+		<!-- should not allow negative span -->
+		<col span=\\"-1\\">
+
+		<!-- should not allow omitted/empty -->
+		<col span>
+		<col span=\\"\\">
+
+		<!-- should not allow text -->
+		<col span=\\"foobar4u\\">
 	</colgroup>
 </table>
 ",
@@ -1306,7 +1396,7 @@ exports[`HTML elements <col> valid markup 1`] = `Array []`;
 exports[`HTML elements <colgroup> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 4,
+    "errorCount": 8,
     "filePath": "test-files/elements/colgroup-invalid.html",
     "messages": Array [
       Object {
@@ -1357,6 +1447,82 @@ Array [
         "severity": 2,
         "size": 8,
       },
+      Object {
+        "column": 18,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "span",
+          "element": "colgroup",
+          "value": "-1",
+        },
+        "line": 27,
+        "message": "Attribute \\"span\\" has invalid value \\"-1\\"",
+        "offset": 497,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table:nth-child(5) > colgroup:nth-child(1)",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 12,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "span",
+          "element": "colgroup",
+          "value": "",
+        },
+        "line": 30,
+        "message": "Attribute \\"span\\" is missing value",
+        "offset": 566,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table:nth-child(5) > colgroup:nth-child(2)",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 3,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "span",
+          "element": "colgroup",
+          "value": "",
+        },
+        "line": 31,
+        "message": "Attribute \\"span\\" has invalid value \\"\\"",
+        "offset": 585,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table:nth-child(5) > colgroup:nth-child(3)",
+        "severity": 2,
+        "size": 8,
+      },
+      Object {
+        "column": 18,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "span",
+          "element": "colgroup",
+          "value": "foobar4u",
+        },
+        "line": 34,
+        "message": "Attribute \\"span\\" has invalid value \\"foobar4u\\"",
+        "offset": 664,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table:nth-child(5) > colgroup:nth-child(4)",
+        "severity": 2,
+        "size": 8,
+      },
     ],
     "source": "<!-- should not allow <colgroup> under other elements -->
 <div>
@@ -1380,6 +1546,23 @@ Array [
 <table>
 	<thead></thead>
 	<colgroup></colgroup>
+</table>
+
+<table>
+	<!-- should not allow negative span -->
+	<colgroup span=\\"-1\\"></colgroup>
+
+	<!-- should not allow omitted/empty -->
+	<colgroup span></colgroup>
+	<colgroup span=\\"\\"></colgroup>
+
+	<!-- should not allow text -->
+	<colgroup span=\\"foobar4u\\"></colgroup>
+
+	<!-- should not allow nested col when using span, but no rule currently covers this -->
+	<colgroup span=\\"2\\">
+		<col>
+	</colgroup>
 </table>
 ",
     "warningCount": 0,
@@ -1916,7 +2099,7 @@ Array [
         "column": 2,
         "context": Object {
           "allowed": Array [
-            /\\.\\+/,
+            /\\^\\.\\+\\$/,
           ],
           "attribute": "src",
           "element": "embed",
@@ -3088,7 +3271,7 @@ Array [
         "column": 2,
         "context": Object {
           "allowed": Array [
-            /\\.\\+/,
+            /\\^\\.\\+\\$/,
           ],
           "attribute": "src",
           "element": "iframe",
@@ -3142,7 +3325,7 @@ Array [
         "column": 2,
         "context": Object {
           "allowed": Array [
-            /\\.\\+/,
+            /\\^\\.\\+\\$/,
           ],
           "attribute": "src",
           "element": "img",
@@ -3161,7 +3344,7 @@ Array [
         "column": 2,
         "context": Object {
           "allowed": Array [
-            /\\.\\+/,
+            /\\^\\.\\+\\$/,
           ],
           "attribute": "srcset",
           "element": "img",
@@ -10614,7 +10797,7 @@ Array [
         "column": 2,
         "context": Object {
           "allowed": Array [
-            /\\.\\+/,
+            /\\^\\.\\+\\$/,
           ],
           "attribute": "href",
           "element": "link",
@@ -10633,7 +10816,7 @@ Array [
         "column": 21,
         "context": Object {
           "allowed": Array [
-            /\\.\\+/,
+            /\\^\\.\\+\\$/,
           ],
           "attribute": "integrity",
           "element": "link",
@@ -10652,7 +10835,7 @@ Array [
         "column": 2,
         "context": Object {
           "allowed": Array [
-            /\\.\\+/,
+            /\\^\\.\\+\\$/,
           ],
           "attribute": "integrity",
           "element": "link",
@@ -11236,7 +11419,7 @@ Array [
         "column": 9,
         "context": Object {
           "allowed": Array [
-            /\\.\\+/,
+            /\\^\\.\\+\\$/,
           ],
           "attribute": "integrity",
           "element": "script",
@@ -11255,7 +11438,7 @@ Array [
         "column": 2,
         "context": Object {
           "allowed": Array [
-            /\\.\\+/,
+            /\\^\\.\\+\\$/,
           ],
           "attribute": "integrity",
           "element": "script",
@@ -11309,7 +11492,7 @@ Array [
         "column": 2,
         "context": Object {
           "allowed": Array [
-            /\\.\\+/,
+            /\\^\\.\\+\\$/,
           ],
           "attribute": "data",
           "element": "object",
@@ -12101,7 +12284,7 @@ Array [
         "column": 2,
         "context": Object {
           "allowed": Array [
-            /\\.\\+/,
+            /\\^\\.\\+\\$/,
           ],
           "attribute": "src",
           "element": "script",
@@ -12204,7 +12387,7 @@ exports[`HTML elements <section> valid markup 1`] = `Array []`;
 exports[`HTML elements <select> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 2,
+    "errorCount": 6,
     "filePath": "test-files/elements/select-invalid.html",
     "messages": Array [
       Object {
@@ -12215,7 +12398,7 @@ Array [
         "offset": 55,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
-        "selector": "select > span",
+        "selector": "select:nth-child(1) > span",
         "severity": 2,
         "size": 4,
       },
@@ -12227,9 +12410,85 @@ Array [
         "offset": 73,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
-        "selector": "select > div",
+        "selector": "select:nth-child(1) > div",
         "severity": 2,
         "size": 3,
+      },
+      Object {
+        "column": 15,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "size",
+          "element": "select",
+          "value": "-1",
+        },
+        "line": 8,
+        "message": "Attribute \\"size\\" has invalid value \\"-1\\"",
+        "offset": 152,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "select:nth-child(2)",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 9,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "size",
+          "element": "select",
+          "value": "",
+        },
+        "line": 11,
+        "message": "Attribute \\"size\\" is missing value",
+        "offset": 220,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "select:nth-child(3)",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "size",
+          "element": "select",
+          "value": "",
+        },
+        "line": 12,
+        "message": "Attribute \\"size\\" has invalid value \\"\\"",
+        "offset": 236,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "select:nth-child(4)",
+        "severity": 2,
+        "size": 6,
+      },
+      Object {
+        "column": 15,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "size",
+          "element": "select",
+          "value": "foobar4u",
+        },
+        "line": 15,
+        "message": "Attribute \\"size\\" has invalid value \\"foobar4u\\"",
+        "offset": 312,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "select:nth-child(5)",
+        "severity": 2,
+        "size": 8,
       },
     ],
     "source": "<!-- should not allow arbitrary content -->
@@ -12237,6 +12496,16 @@ Array [
 	<span>foo</span>
 	<div>bar</div>
 </select>
+
+<!-- should not allow negative size -->
+<select size=\\"-1\\"></select>
+
+<!-- should not allow omitted/empty size -->
+<select size></select>
+<select size=\\"\\"></select>
+
+<!-- should not allow text size -->
+<select size=\\"foobar4u\\"></select>
 ",
     "warningCount": 0,
   },
@@ -12847,14 +13116,197 @@ Array [
 
 exports[`HTML elements <tbody> valid markup 1`] = `Array []`;
 
-exports[`HTML elements <td> invalid markup 1`] = `Array []`;
+exports[`HTML elements <td> invalid markup 1`] = `
+Array [
+  Object {
+    "errorCount": 8,
+    "filePath": "test-files/elements/td-invalid.html",
+    "messages": Array [
+      Object {
+        "column": 17,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "colspan",
+          "element": "td",
+          "value": "-1",
+        },
+        "line": 10,
+        "message": "Attribute \\"colspan\\" has invalid value \\"-1\\"",
+        "offset": 166,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table > tbody > tr > td:nth-child(1)",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 30,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "rowspan",
+          "element": "td",
+          "value": "-1",
+        },
+        "line": 10,
+        "message": "Attribute \\"rowspan\\" has invalid value \\"-1\\"",
+        "offset": 179,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table > tbody > tr > td:nth-child(1)",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 8,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "colspan",
+          "element": "td",
+          "value": "",
+        },
+        "line": 13,
+        "message": "Attribute \\"colspan\\" is missing value",
+        "offset": 256,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table > tbody > tr > td:nth-child(2)",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 16,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "rowspan",
+          "element": "td",
+          "value": "",
+        },
+        "line": 13,
+        "message": "Attribute \\"rowspan\\" is missing value",
+        "offset": 264,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table > tbody > tr > td:nth-child(2)",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 5,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "colspan",
+          "element": "td",
+          "value": "",
+        },
+        "line": 14,
+        "message": "Attribute \\"colspan\\" has invalid value \\"\\"",
+        "offset": 282,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table > tbody > tr > td:nth-child(3)",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 5,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "rowspan",
+          "element": "td",
+          "value": "",
+        },
+        "line": 14,
+        "message": "Attribute \\"rowspan\\" has invalid value \\"\\"",
+        "offset": 282,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table > tbody > tr > td:nth-child(3)",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 17,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "colspan",
+          "element": "td",
+          "value": "foobar4u",
+        },
+        "line": 17,
+        "message": "Attribute \\"colspan\\" has invalid value \\"foobar4u\\"",
+        "offset": 380,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table > tbody > tr > td:nth-child(4)",
+        "severity": 2,
+        "size": 8,
+      },
+      Object {
+        "column": 36,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "rowspan",
+          "element": "td",
+          "value": "foobar4u",
+        },
+        "line": 17,
+        "message": "Attribute \\"rowspan\\" has invalid value \\"foobar4u\\"",
+        "offset": 399,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table > tbody > tr > td:nth-child(4)",
+        "severity": 2,
+        "size": 8,
+      },
+    ],
+    "source": "<!-- should not be allowed outside <tr> -->
+<div>
+	<td>foo</td>
+</div>
+
+<table>
+	<tbody>
+		<tr>
+			<!-- should not allow negative colspan/rowspan -->
+			<td colspan=\\"-1\\" rowspan=\\"-1\\"></td>
+
+			<!-- should not allow omitted/empty colspan/rowspan -->
+			<td colspan rowspan></td>
+			<td colspan=\\"\\" rowspan=\\"\\"></td>
+
+			<!-- should not allow text colspan/rowspan -->
+			<td colspan=\\"foobar4u\\" rowspan=\\"foobar4u\\"></td>
+		</tr>
+	</tbody>
+</table>
+",
+    "warningCount": 0,
+  },
+]
+`;
 
 exports[`HTML elements <td> valid markup 1`] = `Array []`;
 
 exports[`HTML elements <textarea> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 2,
+    "errorCount": 18,
     "filePath": "test-files/elements/textarea-invalid.html",
     "messages": Array [
       Object {
@@ -12865,7 +13317,7 @@ Array [
         "offset": 44,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
-        "selector": "textarea > span",
+        "selector": "textarea:nth-child(1) > span",
         "severity": 2,
         "size": 4,
       },
@@ -12877,9 +13329,313 @@ Array [
         "offset": 62,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
-        "selector": "textarea > div",
+        "selector": "textarea:nth-child(1) > div",
         "severity": 2,
         "size": 3,
+      },
+      Object {
+        "column": 17,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "cols",
+          "element": "textarea",
+          "value": "-1",
+        },
+        "line": 8,
+        "message": "Attribute \\"cols\\" has invalid value \\"-1\\"",
+        "offset": 147,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "textarea:nth-child(2)",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 32,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "maxlength",
+          "element": "textarea",
+          "value": "-1",
+        },
+        "line": 8,
+        "message": "Attribute \\"maxlength\\" has invalid value \\"-1\\"",
+        "offset": 162,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "textarea:nth-child(2)",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 47,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "minlength",
+          "element": "textarea",
+          "value": "-1",
+        },
+        "line": 8,
+        "message": "Attribute \\"minlength\\" has invalid value \\"-1\\"",
+        "offset": 177,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "textarea:nth-child(2)",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 57,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "rows",
+          "element": "textarea",
+          "value": "-1",
+        },
+        "line": 8,
+        "message": "Attribute \\"rows\\" has invalid value \\"-1\\"",
+        "offset": 187,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "textarea:nth-child(2)",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 11,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "cols",
+          "element": "textarea",
+          "value": "",
+        },
+        "line": 11,
+        "message": "Attribute \\"cols\\" is missing value",
+        "offset": 261,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "textarea:nth-child(3)",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 16,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "maxlength",
+          "element": "textarea",
+          "value": "",
+        },
+        "line": 11,
+        "message": "Attribute \\"maxlength\\" is missing value",
+        "offset": 266,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "textarea:nth-child(3)",
+        "severity": 2,
+        "size": 9,
+      },
+      Object {
+        "column": 26,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "minlength",
+          "element": "textarea",
+          "value": "",
+        },
+        "line": 11,
+        "message": "Attribute \\"minlength\\" is missing value",
+        "offset": 276,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "textarea:nth-child(3)",
+        "severity": 2,
+        "size": 9,
+      },
+      Object {
+        "column": 36,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "rows",
+          "element": "textarea",
+          "value": "",
+        },
+        "line": 11,
+        "message": "Attribute \\"rows\\" is missing value",
+        "offset": 286,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "textarea:nth-child(3)",
+        "severity": 2,
+        "size": 4,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "cols",
+          "element": "textarea",
+          "value": "",
+        },
+        "line": 12,
+        "message": "Attribute \\"cols\\" has invalid value \\"\\"",
+        "offset": 304,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "textarea:nth-child(4)",
+        "severity": 2,
+        "size": 8,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "maxlength",
+          "element": "textarea",
+          "value": "",
+        },
+        "line": 12,
+        "message": "Attribute \\"maxlength\\" has invalid value \\"\\"",
+        "offset": 304,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "textarea:nth-child(4)",
+        "severity": 2,
+        "size": 8,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "minlength",
+          "element": "textarea",
+          "value": "",
+        },
+        "line": 12,
+        "message": "Attribute \\"minlength\\" has invalid value \\"\\"",
+        "offset": 304,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "textarea:nth-child(4)",
+        "severity": 2,
+        "size": 8,
+      },
+      Object {
+        "column": 2,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "rows",
+          "element": "textarea",
+          "value": "",
+        },
+        "line": 12,
+        "message": "Attribute \\"rows\\" has invalid value \\"\\"",
+        "offset": 304,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "textarea:nth-child(4)",
+        "severity": 2,
+        "size": 8,
+      },
+      Object {
+        "column": 17,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "cols",
+          "element": "textarea",
+          "value": "foobar4u",
+        },
+        "line": 15,
+        "message": "Attribute \\"cols\\" has invalid value \\"foobar4u\\"",
+        "offset": 422,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "textarea:nth-child(5)",
+        "severity": 2,
+        "size": 8,
+      },
+      Object {
+        "column": 38,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "maxlength",
+          "element": "textarea",
+          "value": "foobar4u",
+        },
+        "line": 15,
+        "message": "Attribute \\"maxlength\\" has invalid value \\"foobar4u\\"",
+        "offset": 443,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "textarea:nth-child(5)",
+        "severity": 2,
+        "size": 8,
+      },
+      Object {
+        "column": 59,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "minlength",
+          "element": "textarea",
+          "value": "foobar4u",
+        },
+        "line": 15,
+        "message": "Attribute \\"minlength\\" has invalid value \\"foobar4u\\"",
+        "offset": 464,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "textarea:nth-child(5)",
+        "severity": 2,
+        "size": 8,
+      },
+      Object {
+        "column": 75,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "rows",
+          "element": "textarea",
+          "value": "foobar4u",
+        },
+        "line": 15,
+        "message": "Attribute \\"rows\\" has invalid value \\"foobar4u\\"",
+        "offset": 480,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "textarea:nth-child(5)",
+        "severity": 2,
+        "size": 8,
       },
     ],
     "source": "<!-- should not allow tags -->
@@ -12887,6 +13643,16 @@ Array [
 	<span>foo</span>
 	<div>bar</div>
 </textarea>
+
+<!-- should not allow negative values -->
+<textarea cols=\\"-1\\" maxlength=\\"-1\\" minlength=\\"-1\\" rows=\\"-1\\"></textarea>
+
+<!-- should not allow omitted/empty values -->
+<textarea cols maxlength minlength rows></textarea>
+<textarea cols=\\"\\" maxlength=\\"\\" minlength=\\"\\" rows=\\"\\"></textarea>
+
+<!-- should not allow text values -->
+<textarea cols=\\"foobar4u\\" maxlength=\\"foobar4u\\" minlength=\\"foobar4u\\" rows=\\"foobar4u\\"></textarea>
 ",
     "warningCount": 0,
   },
@@ -12961,7 +13727,7 @@ exports[`HTML elements <tfoot> valid markup 1`] = `Array []`;
 exports[`HTML elements <th> invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 6,
+    "errorCount": 14,
     "filePath": "test-files/elements/th-invalid.html",
     "messages": Array [
       Object {
@@ -13050,6 +13816,158 @@ Array [
         "severity": 2,
         "size": 6,
       },
+      Object {
+        "column": 29,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "colspan",
+          "element": "th",
+          "value": "-1",
+        },
+        "line": 36,
+        "message": "Attribute \\"colspan\\" has invalid value \\"-1\\"",
+        "offset": 614,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table:nth-child(4) > tbody > tr > th:nth-child(1)",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 42,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "rowspan",
+          "element": "th",
+          "value": "-1",
+        },
+        "line": 36,
+        "message": "Attribute \\"rowspan\\" has invalid value \\"-1\\"",
+        "offset": 627,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table:nth-child(4) > tbody > tr > th:nth-child(1)",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 20,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "colspan",
+          "element": "th",
+          "value": "",
+        },
+        "line": 39,
+        "message": "Attribute \\"colspan\\" is missing value",
+        "offset": 716,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table:nth-child(4) > tbody > tr > th:nth-child(2)",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 28,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "rowspan",
+          "element": "th",
+          "value": "",
+        },
+        "line": 39,
+        "message": "Attribute \\"rowspan\\" is missing value",
+        "offset": 724,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table:nth-child(4) > tbody > tr > th:nth-child(2)",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 5,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "colspan",
+          "element": "th",
+          "value": "",
+        },
+        "line": 40,
+        "message": "Attribute \\"colspan\\" has invalid value \\"\\"",
+        "offset": 742,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table:nth-child(4) > tbody > tr > th:nth-child(3)",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 5,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "rowspan",
+          "element": "th",
+          "value": "",
+        },
+        "line": 40,
+        "message": "Attribute \\"rowspan\\" has invalid value \\"\\"",
+        "offset": 742,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table:nth-child(4) > tbody > tr > th:nth-child(3)",
+        "severity": 2,
+        "size": 2,
+      },
+      Object {
+        "column": 29,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "colspan",
+          "element": "th",
+          "value": "foobar4u",
+        },
+        "line": 43,
+        "message": "Attribute \\"colspan\\" has invalid value \\"foobar4u\\"",
+        "offset": 864,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table:nth-child(4) > tbody > tr > th:nth-child(4)",
+        "severity": 2,
+        "size": 8,
+      },
+      Object {
+        "column": 48,
+        "context": Object {
+          "allowed": Array [
+            /\\^\\\\d\\+\\$/,
+          ],
+          "attribute": "rowspan",
+          "element": "th",
+          "value": "foobar4u",
+        },
+        "line": 43,
+        "message": "Attribute \\"rowspan\\" has invalid value \\"foobar4u\\"",
+        "offset": 883,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table:nth-child(4) > tbody > tr > th:nth-child(4)",
+        "severity": 2,
+        "size": 8,
+      },
     ],
     "source": "<!-- should not be allowed outside <tr> -->
 <div>
@@ -13078,6 +13996,22 @@ Array [
 
 			<!-- invalid scope attribute -->
 			<th scope=\\"foobar\\">bar</th>
+		</tr>
+	</tbody>
+</table>
+
+<table>
+	<tbody>
+		<tr>
+			<!-- should not allow negative colspan/rowspan -->
+			<th scope=\\"col\\" colspan=\\"-1\\" rowspan=\\"-1\\"></th>
+
+			<!-- should not allow omitted/empty colspan/rowspan -->
+			<th scope=\\"col\\" colspan rowspan></th>
+			<th scope=\\"col\\" colspan=\\"\\" rowspan=\\"\\"></th>
+
+			<!-- should not allow text colspan/rowspan -->
+			<th scope=\\"col\\" colspan=\\"foobar4u\\" rowspan=\\"foobar4u\\"></th>
 		</tr>
 	</tbody>
 </table>
@@ -13712,7 +14646,7 @@ exports[`HTML elements <xmp> valid markup 1`] = `Array []`;
 exports[`HTML elements global attributes invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 11,
+    "errorCount": 12,
     "filePath": "test-files/elements/global-attributes-invalid.html",
     "messages": Array [
       Object {
@@ -13877,15 +14811,15 @@ Array [
         "column": 2,
         "context": Object {
           "allowed": Array [
-            /-\\?\\\\d\\+/,
+            /\\^-\\?\\\\d\\+\\$/,
           ],
           "attribute": "tabindex",
           "element": "p",
           "value": "",
         },
-        "line": 14,
+        "line": 16,
         "message": "Attribute \\"tabindex\\" has invalid value \\"\\"",
-        "offset": 253,
+        "offset": 327,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "p:nth-child(9)",
@@ -13896,15 +14830,15 @@ Array [
         "column": 14,
         "context": Object {
           "allowed": Array [
-            /-\\?\\\\d\\+/,
+            /\\^-\\?\\\\d\\+\\$/,
           ],
           "attribute": "tabindex",
           "element": "p",
           "value": "foobar",
         },
-        "line": 15,
+        "line": 17,
         "message": "Attribute \\"tabindex\\" has invalid value \\"foobar\\"",
-        "offset": 285,
+        "offset": 359,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "p:nth-child(10)",
@@ -13912,14 +14846,33 @@ Array [
         "size": 6,
       },
       Object {
+        "column": 14,
+        "context": Object {
+          "allowed": Array [
+            /\\^-\\?\\\\d\\+\\$/,
+          ],
+          "attribute": "tabindex",
+          "element": "p",
+          "value": "foobar4u",
+        },
+        "line": 18,
+        "message": "Attribute \\"tabindex\\" has invalid value \\"foobar4u\\"",
+        "offset": 385,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "p:nth-child(11)",
+        "severity": 2,
+        "size": 8,
+      },
+      Object {
         "column": 4,
         "context": undefined,
-        "line": 16,
+        "line": 20,
         "message": "Attribute \\"contextmenu\\" is deprecated on <p> element",
-        "offset": 301,
+        "offset": 404,
         "ruleId": "no-deprecated-attr",
         "ruleUrl": "https://html-validate.org/rules/no-deprecated-attr.html",
-        "selector": "p:nth-child(11)",
+        "selector": "p:nth-child(12)",
         "severity": 2,
         "size": 11,
       },
@@ -13937,8 +14890,12 @@ Array [
 <p id=\\"foo bar\\"></p>
 
 <p hidden=\\"foobar\\"></p>
+
+<!-- tabindex cannot be empty or textual (even with a number inside) -->
 <p tabindex=\\"\\"></p>
 <p tabindex=\\"foobar\\"></p>
+<p tabindex=\\"foobar4u\\"></p>
+
 <p contextmenu=\\"foobar\\"></p>
 ",
     "warningCount": 0,

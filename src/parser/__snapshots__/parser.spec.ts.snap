@@ -22,7 +22,7 @@ Object {
       /\\^\\\\S\\+\\$/,
     ],
     "tabindex": Array [
-      /-\\?\\\\d\\+/,
+      /\\^-\\?\\\\d\\+\\$/,
     ],
   },
   "deprecatedAttributes": Array [
@@ -60,7 +60,7 @@ Object {
       /\\^\\\\S\\+\\$/,
     ],
     "tabindex": Array [
-      /-\\?\\\\d\\+/,
+      /\\^-\\?\\\\d\\+\\$/,
     ],
   },
   "deprecatedAttributes": Array [
