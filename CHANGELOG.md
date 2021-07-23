@@ -1,5 +1,18 @@
 # html-validate changelog
 
+## [5.2.0](https://gitlab.com/html-validate/html-validate/compare/v5.1.1...v5.2.0) (2021-07-23)
+
+### Features
+
+- support specifying a custom loader when using library ([0e509a3](https://gitlab.com/html-validate/html-validate/commit/0e509a3d7b8931acfc2bb2452ff81ecb0877aaa8))
+- **config:** add `StaticConfigData` for simple static config ([ae40706](https://gitlab.com/html-validate/html-validate/commit/ae40706f6ab545b23ae8ceb008122d23264423b9))
+
+### Bug Fixes
+
+- **elements:** disallow whitespace in `id` ([df2906b](https://gitlab.com/html-validate/html-validate/commit/df2906bd2a19fcc7c7a6c020af5b3550cbcc5158))
+- **meta:** regex matching attribute allowed values matches entire string ([ffa0d12](https://gitlab.com/html-validate/html-validate/commit/ffa0d122d9941128de4ebd433a1508854ac6b9b8))
+- **rules:** handle id with whitespace in `no-redundant-for` ([a79f266](https://gitlab.com/html-validate/html-validate/commit/a79f2669c88a135bab987ea5c64ddd6f47fd3736)), closes [#128](https://gitlab.com/html-validate/html-validate/issues/128)
+
 ### [5.1.1](https://gitlab.com/html-validate/html-validate/compare/v5.1.0...v5.1.1) (2021-07-11)
 
 ### Bug Fixes
