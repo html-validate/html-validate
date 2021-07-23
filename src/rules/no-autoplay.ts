@@ -22,9 +22,10 @@ export default class NoAutoplay extends Rule<RuleContext, RuleOptions> {
 	}
 
 	public documentation(context: RuleContext): RuleDocumentation {
+		const tagName = context ? ` on <${context.tagName}>` : "";
 		return {
 			description: [
-				`The autoplay attribute is not allowed${context ? ` on <${context.tagName}>` : ""}.`,
+				`The autoplay attribute is not allowed${tagName}.`,
 				"Autoplaying content can be disruptive for users and has accessibilty concerns.",
 				"Prefer to let the user control playback.",
 			].join("\n"),

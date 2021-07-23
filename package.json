@@ -151,7 +151,7 @@
     "@babel/preset-env": "7.14.8",
     "@commitlint/cli": "12.1.4",
     "@html-validate/commitlint-config": "2.0.0",
-    "@html-validate/eslint-config": "4.4.3",
+    "@html-validate/eslint-config": "4.4.4",
     "@html-validate/eslint-config-jest": "4.4.2",
     "@html-validate/eslint-config-typescript": "4.4.0",
     "@html-validate/jest-config": "2.2.0",

@@ -123,9 +123,8 @@ export default class Deprecated extends Rule<RuleContext, RuleOptions> {
 
 	private reportObject(deprecated: DeprecatedElement, node: HtmlElement, location: Location): void {
 		const context: RuleContext = { ...deprecated, tagName: node.tagName };
-		const message = `<${node.tagName}> is deprecated${
-			deprecated.message ? `: ${deprecated.message}` : ""
-		}`;
+		const notice = deprecated.message ? `: ${deprecated.message}` : "";
+		const message = `<${node.tagName}> is deprecated${notice}`;
 		this.report(node, message, location, context);
 	}
 }
@@ -133,8 +132,9 @@ export default class Deprecated extends Rule<RuleContext, RuleOptions> {
 function prettySource(source: string): string {
 	const match = source.match(/html(\d)(\d)?/);
 	if (match) {
-		const [, major, minor] = match;
-		return `in HTML ${major}${minor ? `.${minor}` : ""}`;
+		const [, ...parts] = match;
+		const version = parts.filter(Boolean).join(".");
+		return `in HTML ${version}`;
 	}
 
 	switch (source) {
