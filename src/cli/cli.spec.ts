@@ -1,80 +1,92 @@
 import fs from "fs";
-import { ConfigData } from "../config";
-import HtmlValidate from "../htmlvalidate";
 import { CLI } from "./cli";
 
-jest.disableAutomock();
+declare module "fs" {
+	function mockFile(filePath: string, content: string): void;
+	function mockReset(): void;
+}
+
 jest.mock("fs");
-jest.mock("../htmlvalidate");
 
 describe("CLI", () => {
 	beforeEach(() => {
-		(HtmlValidate as any).mockClear();
+		fs.mockReset();
+		fs.mockFile("package.json", "{}");
 	});
 
 	describe("getValidator()", () => {
 		it("should create new HtmlValidate instance", () => {
-			expect.assertions(2);
+			expect.assertions(1);
 			const cli = new CLI();
 			const htmlvalidate = cli.getValidator();
-			expect(HtmlValidate).toHaveBeenCalledWith({
-				extends: ["html-validate:recommended"],
-			});
 			expect(htmlvalidate).toBeDefined();
 		});
+	});
 
-		it("should use configuration file", () => {
-			expect.assertions(3);
-			const customConfig: ConfigData = {
-				rules: {
-					foo: "error",
-				},
-			};
-			const readFileSync = jest
-				.spyOn(fs, "readFileSync")
-				.mockImplementation(() => JSON.stringify(customConfig));
+	describe("getConfig()", () => {
+		it("should use default configuration", () => {
+			expect.assertions(1);
+			const cli = new CLI();
+			expect(cli.getConfig()).toMatchInlineSnapshot(`
+				Object {
+				  "extends": Array [
+				    "html-validate:recommended",
+				  ],
+				}
+			`);
+		});
+
+		it("should use custom configuration file", () => {
+			expect.assertions(1);
+			fs.mockFile(
+				"config.json",
+				JSON.stringify({
+					rules: {
+						foo: "error",
+					},
+				})
+			);
 			const cli = new CLI({
 				configFile: "config.json",
 			});
-			const htmlvalidate = cli.getValidator();
-			expect(HtmlValidate).toHaveBeenCalledWith({
-				rules: {
-					foo: "error",
-				},
-			});
-			expect(htmlvalidate).toBeDefined();
-			expect(readFileSync).toHaveBeenCalledWith("config.json", "utf-8");
+			expect(cli.getConfig()).toMatchInlineSnapshot(`
+				Object {
+				  "rules": Object {
+				    "foo": "error",
+				  },
+				}
+			`);
 		});
 
 		it("should configure single rule", () => {
-			expect.assertions(2);
+			expect.assertions(1);
 			const cli = new CLI({
 				rules: "foo:1",
 			});
-			const htmlvalidate = cli.getValidator();
-			expect(HtmlValidate).toHaveBeenCalledWith({
-				extends: [],
-				rules: {
-					foo: 1,
-				},
-			});
-			expect(htmlvalidate).toBeDefined();
+			expect(cli.getConfig()).toMatchInlineSnapshot(`
+				Object {
+				  "extends": Array [],
+				  "rules": Object {
+				    "foo": 1,
+				  },
+				}
+			`);
 		});
 
 		it("should configure multiple rule", () => {
-			expect.assertions(2);
+			expect.assertions(1);
 			const cli = new CLI({
 				rules: ["foo:1", "bar:0"],
 			});
-			const htmlvalidate = cli.getValidator();
-			expect(HtmlValidate).toHaveBeenCalledWith({
-				extends: [],
-				rules: {
-					foo: 1,
-					bar: 0,
-				},
-			});
-			expect(htmlvalidate).toBeDefined();
+			expect(cli.getConfig()).toMatchInlineSnapshot(`
+				Object {
+				  "extends": Array [],
+				  "rules": Object {
+				    "bar": 0,
+				    "foo": 1,
+				  },
+				}
+			`);
 		});
 	});
 });

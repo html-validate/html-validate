@@ -1,14 +1,13 @@
 jest.mock("fs");
-jest.mock("glob");
 jest.mock("./is-ignored");
 
 import fs from "fs";
 import path from "path";
-import glob from "glob";
 import { CLI } from "./cli";
 
 declare module "fs" {
-	function setMockDirectories(directories: string[]): void;
+	function mockFile(filePath: string, content: string): void;
+	function mockReset(): void;
 }
 
 declare module "glob" {
@@ -19,61 +18,50 @@ declare module "glob" {
 let cli: CLI;
 
 beforeEach(() => {
+	fs.mockReset();
+	fs.mockFile("package.json", "{}");
+	fs.mockFile("foo.html", "");
+	fs.mockFile("bar/fred.html", "");
+	fs.mockFile("bar/fred.json", "");
+	fs.mockFile("bar/barney.html", "");
+	fs.mockFile("bar/barney.js", "");
+	fs.mockFile("baz/spam.html", "");
 	cli = new CLI();
-	glob.setMockFiles([
-		"/dev/stdin",
-		"foo.html",
-		"bar",
-		"bar/fred.html",
-		"bar/fred.json",
-		"bar/barney.html",
-		"bar/barney.js",
-		"baz",
-		"baz/spam.html",
-	]);
-	fs.setMockDirectories(["bar"]);
-});
-
-afterAll(() => {
-	glob.resetMock();
 });
 
 describe("expandFiles()", () => {
 	it("should expand globs", () => {
-		expect.assertions(3);
-		const spy = jest.spyOn(glob, "sync");
+		expect.assertions(1);
 		expect(cli.expandFiles(["foo.html", "bar/**/*.html"])).toEqual([
 			path.normalize("foo.html"),
-			path.normalize("bar/fred.html"),
 			path.normalize("bar/barney.html"),
+			path.normalize("bar/fred.html"),
 		]);
-		expect(spy).toHaveBeenCalledWith("foo.html", expect.anything());
-		expect(spy).toHaveBeenCalledWith("bar/**/*.html", expect.anything());
 	});
 
 	it("should expand directories (default extensions)", () => {
 		expect.assertions(1);
 		expect(cli.expandFiles(["bar"])).toEqual([
-			path.normalize("bar/fred.html"),
 			path.normalize("bar/barney.html"),
+			path.normalize("bar/fred.html"),
 		]);
 	});
 
 	it("should expand directories (explicit extensions)", () => {
 		expect.assertions(1);
 		expect(cli.expandFiles(["bar"], { extensions: ["js", "json"] })).toEqual([
-			path.normalize("bar/fred.json"),
 			path.normalize("bar/barney.js"),
+			path.normalize("bar/fred.json"),
 		]);
 	});
 
 	it("should expand directories (no extensions => all files)", () => {
 		expect.assertions(1);
 		expect(cli.expandFiles(["bar"], { extensions: [] })).toEqual([
-			path.normalize("bar/fred.html"),
-			path.normalize("bar/fred.json"),
 			path.normalize("bar/barney.html"),
 			path.normalize("bar/barney.js"),
+			path.normalize("bar/fred.html"),
+			path.normalize("bar/fred.json"),
 		]);
 	});
 

@@ -78,7 +78,10 @@ export class CLI {
 		return new HtmlValidate(this.config);
 	}
 
-	private getConfig(): ConfigData {
+	/**
+	 * @internal
+	 */
+	public getConfig(): ConfigData {
 		const { options } = this;
 		const config: ConfigData = options.configFile
 			? JSON.parse(readFileSync(options.configFile, "utf-8"))
