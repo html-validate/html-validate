@@ -1,0 +1,410 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test-files/config/cjs-config/file.html 1`] = `
+Object {
+  "errorCount": 0,
+  "results": Array [],
+  "valid": true,
+  "warningCount": 0,
+}
+`;
+
+exports[`test-files/config/directive/disable.html 1`] = `
+Object {
+  "errorCount": 2,
+  "results": Array [
+    Object {
+      "errorCount": 2,
+      "filePath": "test-files/config/directive/disable.html",
+      "messages": Array [
+        Object {
+          "column": 3,
+          "context": "i",
+          "line": 1,
+          "message": "<i> must not be self-closed",
+          "offset": 2,
+          "ruleId": "no-self-closing",
+          "ruleUrl": "https://html-validate.org/rules/no-self-closing.html",
+          "selector": "i",
+          "severity": 2,
+          "size": 2,
+        },
+        Object {
+          "column": 3,
+          "context": "i",
+          "line": 8,
+          "message": "<i> must not be self-closed",
+          "offset": 212,
+          "ruleId": "no-self-closing",
+          "ruleUrl": "https://html-validate.org/rules/no-self-closing.html",
+          "selector": "i:nth-child(4)",
+          "severity": 2,
+          "size": 2,
+        },
+      ],
+      "source": "<i/>Before disable, should trigger
+
+<!-- [html-validate-disable no-self-closing] -->
+<i/>After disable, should not trigger
+<i/>After disable, should not trigger
+
+<!-- [html-validate-enable no-self-closing] -->
+<i/>Before after, should trigger
+",
+      "warningCount": 0,
+    },
+  ],
+  "valid": false,
+  "warningCount": 0,
+}
+`;
+
+exports[`test-files/config/directive/disable-block.html 1`] = `
+Object {
+  "errorCount": 4,
+  "results": Array [
+    Object {
+      "errorCount": 4,
+      "filePath": "test-files/config/directive/disable-block.html",
+      "messages": Array [
+        Object {
+          "column": 3,
+          "context": "i",
+          "line": 1,
+          "message": "<i> must not be self-closed",
+          "offset": 2,
+          "ruleId": "no-self-closing",
+          "ruleUrl": "https://html-validate.org/rules/no-self-closing.html",
+          "selector": "i",
+          "severity": 2,
+          "size": 2,
+        },
+        Object {
+          "column": 4,
+          "context": "i",
+          "line": 3,
+          "message": "<i> must not be self-closed",
+          "offset": 43,
+          "ruleId": "no-self-closing",
+          "ruleUrl": "https://html-validate.org/rules/no-self-closing.html",
+          "selector": "div > i",
+          "severity": 2,
+          "size": 2,
+        },
+        Object {
+          "column": 3,
+          "context": "i",
+          "line": 11,
+          "message": "<i> must not be self-closed",
+          "offset": 335,
+          "ruleId": "no-self-closing",
+          "ruleUrl": "https://html-validate.org/rules/no-self-closing.html",
+          "selector": "i:nth-child(3)",
+          "severity": 2,
+          "size": 2,
+        },
+        Object {
+          "column": 3,
+          "context": "i",
+          "line": 16,
+          "message": "<i> must not be self-closed",
+          "offset": 439,
+          "ruleId": "no-self-closing",
+          "ruleUrl": "https://html-validate.org/rules/no-self-closing.html",
+          "selector": "i:nth-child(5)",
+          "severity": 2,
+          "size": 2,
+        },
+      ],
+      "source": "<i/>Outside block, should trigger
+<div>
+	<i/>Inside block, before directive, should trigger
+	<!-- [html-validate-disable-block no-self-closing] -->
+	<i/>Inside block, after directive, shout not trigger
+	<div>
+		<i/>Inside block, after directive, shout not trigger
+	</div>
+	<i/>Inside block, after directive, shout not trigger
+</div>
+<i/>Outside block, should trigger
+
+<div>
+	<!-- [html-validate-disable-block no-self-closing] -->
+</div>
+<i/>Outside block, should trigger
+
+<!-- [html-validate-disable-block no-self-closing] -->
+Should handle when root element is parent but no children
+",
+      "warningCount": 0,
+    },
+  ],
+  "valid": false,
+  "warningCount": 0,
+}
+`;
+
+exports[`test-files/config/directive/disable-multiple.html 1`] = `
+Object {
+  "errorCount": 2,
+  "results": Array [
+    Object {
+      "errorCount": 2,
+      "filePath": "test-files/config/directive/disable-multiple.html",
+      "messages": Array [
+        Object {
+          "column": 2,
+          "context": Object {
+            "documentation": "\`<blink>\` has no direct replacement and blinking text is frowned upon by accessibility standards.",
+            "source": "non-standard",
+            "tagName": "blink",
+          },
+          "line": 1,
+          "message": "<blink> is deprecated",
+          "offset": 1,
+          "ruleId": "deprecated",
+          "ruleUrl": "https://html-validate.org/rules/deprecated.html",
+          "selector": "blink",
+          "severity": 2,
+          "size": 5,
+        },
+        Object {
+          "column": 7,
+          "context": "blink",
+          "line": 1,
+          "message": "<blink> must not be self-closed",
+          "offset": 6,
+          "ruleId": "no-self-closing",
+          "ruleUrl": "https://html-validate.org/rules/no-self-closing.html",
+          "selector": "blink",
+          "severity": 2,
+          "size": 2,
+        },
+      ],
+      "source": "<blink/> Outside block, should trigger
+
+<div>
+	<!-- [html-validate-disable-block no-self-closing, deprecated] -->
+	<blink/>Inside block, should not trigger
+</div>
+",
+      "warningCount": 0,
+    },
+  ],
+  "valid": false,
+  "warningCount": 0,
+}
+`;
+
+exports[`test-files/config/directive/disable-next.html 1`] = `
+Object {
+  "errorCount": 2,
+  "results": Array [
+    Object {
+      "errorCount": 2,
+      "filePath": "test-files/config/directive/disable-next.html",
+      "messages": Array [
+        Object {
+          "column": 3,
+          "context": "i",
+          "line": 1,
+          "message": "<i> must not be self-closed",
+          "offset": 2,
+          "ruleId": "no-self-closing",
+          "ruleUrl": "https://html-validate.org/rules/no-self-closing.html",
+          "selector": "i",
+          "severity": 2,
+          "size": 2,
+        },
+        Object {
+          "column": 3,
+          "context": "i",
+          "line": 5,
+          "message": "<i> must not be self-closed",
+          "offset": 136,
+          "ruleId": "no-self-closing",
+          "ruleUrl": "https://html-validate.org/rules/no-self-closing.html",
+          "selector": "i:nth-child(3)",
+          "severity": 2,
+          "size": 2,
+        },
+      ],
+      "source": "<i/>Before disable, should trigger
+
+<!-- [html-validate-disable-next no-self-closing] -->
+<i/>First after disable, should not trigger
+<i/>Second after disable, should trigger
+",
+      "warningCount": 0,
+    },
+  ],
+  "valid": false,
+  "warningCount": 0,
+}
+`;
+
+exports[`test-files/config/elements/file.html 1`] = `
+Object {
+  "errorCount": 2,
+  "results": Array [
+    Object {
+      "errorCount": 2,
+      "filePath": "test-files/config/elements/file.html",
+      "messages": Array [
+        Object {
+          "column": 3,
+          "context": Object {
+            "tagName": "deprecated",
+          },
+          "line": 2,
+          "message": "<deprecated> is deprecated",
+          "offset": 8,
+          "ruleId": "deprecated",
+          "ruleUrl": "https://html-validate.org/rules/deprecated.html",
+          "selector": "div > deprecated",
+          "severity": 2,
+          "size": 10,
+        },
+        Object {
+          "column": 4,
+          "context": undefined,
+          "line": 5,
+          "message": "Element <li> is not permitted as content in <ul>",
+          "offset": 67,
+          "ruleId": "element-permitted-content",
+          "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+          "selector": "div > ul > li",
+          "severity": 2,
+          "size": 2,
+        },
+      ],
+      "source": "<div>
+	<deprecated>new (deprecated) element</deprecated>
+
+	<ul>
+		<li>overridden so it is disallowed</li>
+		<p>overridden so it is allowed</p>
+	</ul>
+</div>
+",
+      "warningCount": 0,
+    },
+  ],
+  "valid": false,
+  "warningCount": 0,
+}
+`;
+
+exports[`test-files/config/file.html 1`] = `
+Object {
+  "errorCount": 1,
+  "results": Array [
+    Object {
+      "errorCount": 1,
+      "filePath": "test-files/config/file.html",
+      "messages": Array [
+        Object {
+          "column": 6,
+          "context": "br",
+          "line": 2,
+          "message": "End tag for <br> must be omitted",
+          "offset": 49,
+          "ruleId": "void-content",
+          "ruleUrl": "https://html-validate.org/rules/void-content.html",
+          "selector": null,
+          "severity": 2,
+          "size": 3,
+        },
+      ],
+      "source": "<!-- default configuration yields error -->
+<br></br>
+",
+      "warningCount": 0,
+    },
+  ],
+  "valid": false,
+  "warningCount": 0,
+}
+`;
+
+exports[`test-files/config/js-config/file.html 1`] = `
+Object {
+  "errorCount": 0,
+  "results": Array [],
+  "valid": true,
+  "warningCount": 0,
+}
+`;
+
+exports[`test-files/config/off/error/file.html 1`] = `
+Object {
+  "errorCount": 1,
+  "results": Array [
+    Object {
+      "errorCount": 1,
+      "filePath": "test-files/config/off/error/file.html",
+      "messages": Array [
+        Object {
+          "column": 6,
+          "context": "br",
+          "line": 2,
+          "message": "End tag for <br> must be omitted",
+          "offset": 42,
+          "ruleId": "void-content",
+          "ruleUrl": "https://html-validate.org/rules/void-content.html",
+          "selector": null,
+          "severity": 2,
+          "size": 3,
+        },
+      ],
+      "source": "<!-- reconfigured to yield error -->
+<br></br>
+",
+      "warningCount": 0,
+    },
+  ],
+  "valid": false,
+  "warningCount": 0,
+}
+`;
+
+exports[`test-files/config/off/file.html 1`] = `
+Object {
+  "errorCount": 0,
+  "results": Array [],
+  "valid": true,
+  "warningCount": 0,
+}
+`;
+
+exports[`test-files/config/warn/file.html 1`] = `
+Object {
+  "errorCount": 0,
+  "results": Array [
+    Object {
+      "errorCount": 0,
+      "filePath": "test-files/config/warn/file.html",
+      "messages": Array [
+        Object {
+          "column": 6,
+          "context": "br",
+          "line": 2,
+          "message": "End tag for <br> must be omitted",
+          "offset": 44,
+          "ruleId": "void-content",
+          "ruleUrl": "https://html-validate.org/rules/void-content.html",
+          "selector": null,
+          "severity": 1,
+          "size": 3,
+        },
+      ],
+      "source": "<!-- configured to yield a warning -->
+<br></br>
+",
+      "warningCount": 1,
+    },
+  ],
+  "valid": true,
+  "warningCount": 1,
+}
+`;

@@ -8,7 +8,7 @@ import { Parser } from "./parser";
 import { Report, Reporter } from "./reporter";
 import { RuleDocumentation } from "./rule";
 import configurationSchema from "./schema/config.json";
-import { FileSystemConfigLoader } from "./config/loaders/file-system";
+import { StaticConfigLoader } from "./config/loaders/static";
 
 function isSourceHooks(value: any): value is SourceHooks {
 	if (!value || typeof value === "string") {
@@ -44,7 +44,7 @@ class HtmlValidate {
 	public constructor(configLoader: ConfigLoader);
 	public constructor(arg?: ConfigLoader | ConfigData) {
 		const [loader, config] = arg instanceof ConfigLoader ? [arg, undefined] : [undefined, arg];
-		this.configLoader = loader ?? new FileSystemConfigLoader(config);
+		this.configLoader = loader ?? new StaticConfigLoader(config);
 	}
 
 	/**

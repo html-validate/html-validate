@@ -1,5 +1,12 @@
 import { readFileSync } from "fs";
-import { ConfigData, UserError, HtmlValidate, Report } from "..";
+import {
+	FileSystemConfigLoader,
+	ConfigData,
+	ConfigLoader,
+	UserError,
+	HtmlValidate,
+	Report,
+} from "..";
 import { expandFiles, ExpandOptions } from "./expand-files";
 import { getFormatter } from "./formatter";
 import { IsIgnored } from "./is-ignored";
@@ -17,6 +24,7 @@ export interface CLIOptions {
 export class CLI {
 	private options: CLIOptions;
 	private config: ConfigData;
+	private loader: ConfigLoader;
 	private ignored: IsIgnored;
 
 	/**
@@ -28,6 +36,7 @@ export class CLI {
 	public constructor(options?: CLIOptions) {
 		this.options = options || {};
 		this.config = this.getConfig();
+		this.loader = new FileSystemConfigLoader(this.config);
 		this.ignored = new IsIgnored();
 	}
 
@@ -70,15 +79,29 @@ export class CLI {
 	 * or call [[HtmlValidate.flushConfigCache]].
 	 */
 	public clearCache(): void {
+		this.loader.flushCache();
 		this.ignored.clearCache();
 	}
 
 	/**
 	 * Get HtmlValidate instance with configuration based on options passed to the
 	 * constructor.
+	 *
+	 * @internal
+	 */
+	public getLoader(): ConfigLoader {
+		return this.loader;
+	}
+
+	/**
+	 * Get HtmlValidate instance with configuration based on options passed to the
+	 * constructor.
+	 *
+	 * @public
 	 */
 	public getValidator(): HtmlValidate {
-		return new HtmlValidate(this.config);
+		const loader = this.getLoader();
+		return new HtmlValidate(loader);
 	}
 
 	/**

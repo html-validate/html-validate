@@ -167,13 +167,15 @@ console.log(stylish(report.results));
 
 ## Configuration loaders
 
-By default `HtmlValidate` traverses the file system looking for configuration files such as `.htmlvalidate.json`.
-If this behaviour is not desired a custom loader can be used instead:
+Since v6 the `HtmlValidate` API uses `StaticConfigLoader` by default which only loads static configuration (configuration passed to constructor or calls to validation functions).
+The CLI tool uses `FileSystemConfigLoader` instead which traversess the file system looking for configuration files such as `.htmlvalidate.json`.
+
+To specify a loader pass it as the first argument to constructor:
 
 ```ts
-import { StaticConfigLoader, HtmlValidate } from "html-validate";
+import { FileSystemConfigLoader, HtmlValidate } from "html-validate";
 
-const loader = new StaticConfigLoader();
+const loader = new FileSystemConfigLoader();
 const htmlvalidate = new HtmlValidate(loader);
 ```
 
@@ -206,7 +208,7 @@ class MyCustomLoader extends ConfigLoader {
 The custom loader is used the same as builtin loaders:
 
 ```diff
--const loader = new StaticConfigLoader();
+-const loader = new FileSystemConfigLoader();
 +const loader = new MyCustomLoader();
  const htmlvalidate = new HtmlValidate(loader);
 ```
@@ -221,15 +223,15 @@ htmlvalidate.validateString("..", "my-fancy-handle");
 This will generate calls to `getConfigFor("foo.html")` and `getConfigFor("my-fancy-handle")` respectively.
 While `validateFile` requires the file to be readable, the second argument to `validateString` can be any handle the API user wants as long as the loader can understand it.
 
-### `FileSystemConfigLoader([config: ConfigData])` (default)
+### `FileSystemConfigLoader([config: ConfigData])`
 
-Default loader which traverses filesystem looking for `.htmlvalidate.json` configuration files, starting at the directory of the target filename.
+Loader which traverses filesystem looking for `.htmlvalidate.json` configuration files, starting at the directory of the target filename.
 
 The result from the configuration files are merged both with a global configuration and optionally explicit overrides from the calls to `validateFile`, `validateString` and `validateSource`.
 
-### `StaticConfigLoader([config: ConfigData])`
+### `StaticConfigLoader([config: ConfigData])` (default)
 
-Loads configuration only from the configuration passed to the constructor or explicit overrides to `validateString(..)`.
+Default loader which loads configuration only from the configuration passed to the constructor or explicit overrides to `validateString(..)`.
 
 ```ts
 const loader = StaticConfigLoader({
