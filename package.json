@@ -203,7 +203,7 @@
     "npm-pkg-lint": "1.4.0",
     "postcss": "8.3.6",
     "prettier": "2.3.2",
-    "rollup": "2.53.3",
+    "rollup": "2.55.1",
     "rollup-plugin-copy": "3.4.0",
     "rollup-plugin-dts": "3.0.2",
     "sass": "1.37.0",
