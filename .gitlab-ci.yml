@@ -128,8 +128,12 @@ Jest compat:
   before_script:
     - npm ci
     - npm install --force jest@${VERSION}.0.0 ts-jest@${VERSION}.0.0
+    - npm install
+    # workaround issue where node_modules/.bin/jest does not exist
+    - npm install --force jest@${VERSION}.0.0 ts-jest@${VERSION}.0.0
+    - npm ls jest ts-jest
   script:
-    - npm exec jest -- --no-coverage matchers tests/jest
+    - npm exec jest -- --no-coverage --ci matchers tests/jest
 
 Module:
   stage: compatibility
