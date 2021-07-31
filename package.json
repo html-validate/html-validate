@@ -172,7 +172,7 @@
     "@types/minimist": "1.2.2",
     "@types/node": "11.15.54",
     "@types/prompts": "2.0.14",
-    "@types/semver": "7.3.7",
+    "@types/semver": "7.3.8",
     "autoprefixer": "10.3.1",
     "babar": "0.2.0",
     "babelify": "10.0.0",
