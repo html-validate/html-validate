@@ -3446,7 +3446,11 @@ Array [
       Object {
         "column": 29,
         "context": Object {
-          "allowed": Array [],
+          "allowed": Array [
+            "",
+            "environment",
+            "user",
+          ],
           "attribute": "capture",
           "element": "input",
           "value": "foobar",
