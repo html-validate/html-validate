@@ -1,5 +1,11 @@
 # html-validate changelog
 
+### [5.2.1](https://gitlab.com/html-validate/html-validate/compare/v5.2.0...v5.2.1) (2021-08-09)
+
+### Bug Fixes
+
+- **html5:** add `user` and `environment` to `capture` attribute ([d6b8f90](https://gitlab.com/html-validate/html-validate/commit/d6b8f9062d7ecbe8148c5ae2f801a09411b57213)), closes [#130](https://gitlab.com/html-validate/html-validate/issues/130)
+
 ## [5.2.0](https://gitlab.com/html-validate/html-validate/compare/v5.1.1...v5.2.0) (2021-07-23)
 
 ### Features
