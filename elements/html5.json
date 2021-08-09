@@ -550,7 +550,7 @@
     "requiredAttributes": ["type"],
     "attributes": {
       "autofocus": [],
-      "capture": [],
+      "capture": ["", "environment", "user"],
       "checked": [],
       "disabled": [],
       "inputmode": ["none", "text", "decimal", "numeric", "tel", "search", "email", "url"],
