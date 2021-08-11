@@ -62,11 +62,28 @@ describe("toBeValid()", () => {
 		await expect(reportOk).toBeValid();
 	});
 
+	it("should pass if async report is valid", async () => {
+		expect.assertions(1);
+		await expect(Promise.resolve(reportOk)).toBeValid();
+	});
+
 	it("should fail if report is invalid", async () => {
 		expect.assertions(3);
 		let error: Error | undefined = undefined;
 		try {
 			await expect(reportError).toBeValid();
+		} catch (e) {
+			error = e;
+		}
+		expect(error).toBeDefined();
+		expect(error?.message).toMatchSnapshot();
+	});
+
+	it("should fail if async report is invalid", async () => {
+		expect.assertions(3);
+		let error: Error | undefined = undefined;
+		try {
+			await expect(Promise.resolve(reportError)).toBeValid();
 		} catch (e) {
 			error = e;
 		}
@@ -81,11 +98,28 @@ describe("toBeInvalid()", () => {
 		await expect(reportError).toBeInvalid();
 	});
 
+	it("should pass if async report is invalid", async () => {
+		expect.assertions(1);
+		await expect(Promise.resolve(reportError)).toBeInvalid();
+	});
+
 	it("should fail if report is valid", async () => {
 		expect.assertions(3);
 		let error: Error | undefined = undefined;
 		try {
 			await expect(reportOk).toBeInvalid();
+		} catch (e) {
+			error = e;
+		}
+		expect(error).toBeDefined();
+		expect(error?.message).toMatchSnapshot();
+	});
+
+	it("should fail if async report is valid", async () => {
+		expect.assertions(3);
+		let error: Error | undefined = undefined;
+		try {
+			await expect(Promise.resolve(reportOk)).toBeInvalid();
 		} catch (e) {
 			error = e;
 		}
@@ -100,6 +134,11 @@ describe("toHaveError()", () => {
 		await expect(reportError).toHaveError("my-rule", "mock message");
 	});
 
+	it("should pass if async error is preset", async () => {
+		expect.assertions(1);
+		await expect(Promise.resolve(reportError)).toHaveError("my-rule", "mock message");
+	});
+
 	it("should pass if error have matching context", async () => {
 		expect.assertions(1);
 		await expect(reportError).toHaveError("my-rule", "mock message", {
@@ -107,7 +146,7 @@ describe("toHaveError()", () => {
 		});
 	});
 
-	it("should fail if error is missing", async () => {
+	it("should fail if expected error is missing", async () => {
 		expect.assertions(3);
 		let error: Error | undefined = undefined;
 		try {
@@ -132,12 +171,29 @@ describe("toHaveError()", () => {
 		expect(error).toBeDefined();
 		expect(stripAnsi(error?.message || "")).toMatchSnapshot();
 	});
+
+	it("should fail if expected async error is missing", async () => {
+		expect.assertions(3);
+		let error: Error | undefined = undefined;
+		try {
+			await expect(Promise.resolve(reportError)).toHaveError("asdf", "asdf");
+		} catch (e) {
+			error = e;
+		}
+		expect(error).toBeDefined();
+		expect(stripAnsi(error?.message || "")).toMatchSnapshot();
+	});
 });
 
 describe("toHaveErrors()", () => {
 	it("should pass if error is preset", async () => {
 		expect.assertions(1);
 		await expect(reportError).toHaveErrors([["my-rule", "mock message"]]);
+	});
+
+	it("should pass if async error is preset", async () => {
+		expect.assertions(1);
+		await expect(Promise.resolve(reportError)).toHaveErrors([["my-rule", "mock message"]]);
 	});
 
 	it("should pass if error have matching context", async () => {

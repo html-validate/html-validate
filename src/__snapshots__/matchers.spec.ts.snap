@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`toBeInvalid() should fail if async report is valid 1`] = `"Result should be invalid but had no errors"`;
+
 exports[`toBeInvalid() should fail if report is valid 1`] = `"Result should be invalid but had no errors"`;
 
 exports[`toBeToken() should fail if token doesn't match 1`] = `
@@ -34,12 +36,14 @@ Difference:
   }"
 `;
 
-exports[`toBeValid() should fail if report is invalid 1`] = `"Result should be successful but had error \\"mock message\\""`;
+exports[`toBeValid() should fail if async report is invalid 1`] = `"Result should be valid but had error \\"mock message\\""`;
+
+exports[`toBeValid() should fail if report is invalid 1`] = `"Result should be valid but had error \\"mock message\\""`;
 
 exports[`toHaveError() should fail if error has mismatched context 1`] = `
 "expect(received).toHaveError(expected)
 
-Expected token to equal:
+Expected error to equal:
   [ObjectContaining {\\"context\\": {\\"foo\\": \\"spam\\"}, \\"message\\": \\"mock message\\", \\"ruleId\\": \\"my-rule\\"}]
 Received:
   [{\\"column\\": 15, \\"context\\": {\\"foo\\": \\"bar\\"}, \\"line\\": 2, \\"message\\": \\"mock message\\", \\"offset\\": 43, \\"ruleId\\": \\"my-rule\\", \\"selector\\": null, \\"severity\\": 2, \\"size\\": 12}]
@@ -68,10 +72,43 @@ Difference:
   ]"
 `;
 
-exports[`toHaveError() should fail if error is missing 1`] = `
+exports[`toHaveError() should fail if expected async error is missing 1`] = `
 "expect(received).toHaveError(expected)
 
-Expected token to equal:
+Expected error to equal:
+  [ObjectContaining {\\"message\\": \\"asdf\\", \\"ruleId\\": \\"asdf\\"}]
+Received:
+  [{\\"column\\": 15, \\"context\\": {\\"foo\\": \\"bar\\"}, \\"line\\": 2, \\"message\\": \\"mock message\\", \\"offset\\": 43, \\"ruleId\\": \\"my-rule\\", \\"selector\\": null, \\"severity\\": 2, \\"size\\": 12}]
+
+Difference:
+
+- Expected
++ Received
+
+  Array [
+-   ObjectContaining {
+-     \\"message\\": \\"asdf\\",
+-     \\"ruleId\\": \\"asdf\\",
++   Object {
++     \\"column\\": 15,
++     \\"context\\": Object {
++       \\"foo\\": \\"bar\\",
++     },
++     \\"line\\": 2,
++     \\"message\\": \\"mock message\\",
++     \\"offset\\": 43,
++     \\"ruleId\\": \\"my-rule\\",
++     \\"selector\\": null,
++     \\"severity\\": 2,
++     \\"size\\": 12,
+    },
+  ]"
+`;
+
+exports[`toHaveError() should fail if expected error is missing 1`] = `
+"expect(received).toHaveError(expected)
+
+Expected error to equal:
   [ObjectContaining {\\"message\\": \\"asdf\\", \\"ruleId\\": \\"asdf\\"}]
 Received:
   [{\\"column\\": 15, \\"context\\": {\\"foo\\": \\"bar\\"}, \\"line\\": 2, \\"message\\": \\"mock message\\", \\"offset\\": 43, \\"ruleId\\": \\"my-rule\\", \\"selector\\": null, \\"severity\\": 2, \\"size\\": 12}]
@@ -104,7 +141,7 @@ Difference:
 exports[`toHaveErrors() should fail if error any missing 1`] = `
 "expect(received).toHaveErrors(expected)
 
-Expected token to equal:
+Expected error to equal:
   [ObjectContaining {\\"message\\": \\"mock message\\", \\"ruleId\\": \\"my-rule\\"}, ObjectContaining {\\"message\\": \\"spam\\", \\"ruleId\\": \\"spam\\"}]
 Received:
   [{\\"column\\": 15, \\"context\\": {\\"foo\\": \\"bar\\"}, \\"line\\": 2, \\"message\\": \\"mock message\\", \\"offset\\": 43, \\"ruleId\\": \\"my-rule\\", \\"selector\\": null, \\"severity\\": 2, \\"size\\": 12}, {\\"column\\": 15, \\"line\\": 2, \\"message\\": \\"another message\\", \\"offset\\": 43, \\"ruleId\\": \\"another-rule\\", \\"selector\\": null, \\"severity\\": 2, \\"size\\": 12}]

@@ -57,7 +57,11 @@ function flattenMessages(report: Report): Message[] {
 	}, []);
 }
 
-function toBeValid(this: jest.MatcherUtils, report: Report): jest.CustomMatcherResult {
+async function toBeValid(
+	this: jest.MatcherUtils,
+	actual: Report | Promise<Report>
+): Promise<jest.CustomMatcherResult> {
+	const report = await actual;
 	if (report.valid) {
 		return {
 			pass: true,
@@ -67,12 +71,16 @@ function toBeValid(this: jest.MatcherUtils, report: Report): jest.CustomMatcherR
 		const firstError = report.results[0].messages[0];
 		return {
 			pass: false,
-			message: () => `Result should be successful but had error "${firstError.message}"`,
+			message: () => `Result should be valid but had error "${firstError.message}"`,
 		};
 	}
 }
 
-function toBeInvalid(this: jest.MatcherUtils, report: Report): jest.CustomMatcherResult {
+async function toBeInvalid(
+	this: jest.MatcherUtils,
+	actual: Report | Promise<Report>
+): Promise<jest.CustomMatcherResult> {
+	const report = await actual;
 	if (report.valid) {
 		return {
 			pass: false,
@@ -86,40 +94,42 @@ function toBeInvalid(this: jest.MatcherUtils, report: Report): jest.CustomMatche
 	}
 }
 
-function toHaveError(
+async function toHaveError(
 	this: jest.MatcherUtils,
-	report: Report,
+	actual: Report | Promise<Report>,
 	ruleId: any,
 	message: any,
 	context?: any
-): jest.CustomMatcherResult {
-	const actual = flattenMessages(report);
+): Promise<jest.CustomMatcherResult> {
+	const report = await actual;
+	const flattened = flattenMessages(report);
 	const expected: any = { ruleId, message };
 	if (context) {
 		expected.context = context;
 	}
 
 	const matcher = [expect.objectContaining(expected)];
-	const pass = this.equals(actual, matcher);
-	const diffString = diff(matcher, actual, { expand: this.expand });
+	const pass = this.equals(flattened, matcher);
+	const diffString = diff(matcher, flattened, { expand: this.expand });
 	const resultMessage = (): string =>
 		this.utils.matcherHint(".toHaveError") +
 		"\n\n" +
-		"Expected token to equal:\n" +
+		"Expected error to equal:\n" +
 		`  ${this.utils.printExpected(matcher)}\n` +
 		"Received:\n" +
-		`  ${this.utils.printReceived(actual)}` +
+		`  ${this.utils.printReceived(flattened)}` +
 		/* istanbul ignore next */ (diffString ? `\n\nDifference:\n\n${diffString}` : "");
 
 	return { pass, message: resultMessage };
 }
 
-function toHaveErrors(
+async function toHaveErrors(
 	this: jest.MatcherUtils,
-	report: Report,
+	actual: Report | Promise<Report>,
 	errors: Array<[string, string] | Record<string, unknown>>
-): jest.CustomMatcherResult {
-	const actual = flattenMessages(report);
+): Promise<jest.CustomMatcherResult> {
+	const report = await actual;
+	const flattened = flattenMessages(report);
 	const matcher = errors.map((entry) => {
 		if (Array.isArray(entry)) {
 			const [ruleId, message] = entry;
@@ -128,15 +138,15 @@ function toHaveErrors(
 			return expect.objectContaining(entry);
 		}
 	});
-	const pass = this.equals(actual, matcher);
-	const diffString = diff(matcher, actual, { expand: this.expand });
+	const pass = this.equals(flattened, matcher);
+	const diffString = diff(matcher, flattened, { expand: this.expand });
 	const resultMessage = (): string =>
 		this.utils.matcherHint(".toHaveErrors") +
 		"\n\n" +
-		"Expected token to equal:\n" +
+		"Expected error to equal:\n" +
 		`  ${this.utils.printExpected(matcher)}\n` +
 		"Received:\n" +
-		`  ${this.utils.printReceived(actual)}` +
+		`  ${this.utils.printReceived(flattened)}` +
 		/* istanbul ignore next */ (diffString ? `\n\nDifference:\n\n${diffString}` : "");
 
 	return { pass, message: resultMessage };
