@@ -1,5 +1,15 @@
 # html-validate changelog
 
+## [5.3.0](https://gitlab.com/html-validate/html-validate/compare/v5.2.1...v5.3.0) (2021-08-23)
+
+### Features
+
+- jest matchers support async results ([ef7331f](https://gitlab.com/html-validate/html-validate/commit/ef7331f28c90fc7623b1124ed60e02e6c6018e28))
+
+### Bug Fixes
+
+- **jest:** handle when `jest-diff` default import is object ([7413db9](https://gitlab.com/html-validate/html-validate/commit/7413db9d2b02dde00ba1b32fb58ec6e47e7cc951))
+
 ### [5.2.1](https://gitlab.com/html-validate/html-validate/compare/v5.2.0...v5.2.1) (2021-08-09)
 
 ### Bug Fixes
