@@ -65,6 +65,16 @@ describe("expandFiles()", () => {
 		]);
 	});
 
+	it("should handle absolute paths", () => {
+		expect.assertions(1);
+		const patterns = [path.join(process.cwd(), "foo.html"), path.join(process.cwd(), "bar")];
+		expect(cli.expandFiles(patterns)).toEqual([
+			path.join(process.cwd(), path.normalize("foo.html")),
+			path.join(process.cwd(), path.normalize("bar/barney.html")),
+			path.join(process.cwd(), path.normalize("bar/fred.html")),
+		]);
+	});
+
 	it("should remove duplicates", () => {
 		expect.assertions(1);
 		expect(cli.expandFiles(["foo.html", "foo.html"])).toEqual(["foo.html"]);
