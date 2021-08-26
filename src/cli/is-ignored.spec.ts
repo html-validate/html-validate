@@ -60,12 +60,13 @@ describe("integration tests", () => {
 
 	it("expandFiles() should only return files not ignored", () => {
 		expect.assertions(1);
+		const cwd = path.join(__dirname, "../..");
 		const cli = new CLI();
-		const files = cli.expandFiles(["test-files/ignored"], { extensions: ["html", "vue"] });
+		const files = cli.expandFiles(["test-files/ignored"], { extensions: ["html", "vue"], cwd });
 		expect(files).toEqual([
-			"test-files/ignored/bar.html",
-			"test-files/ignored/included/file.html",
-			"test-files/ignored/subdir/foo.vue",
+			path.join(cwd, "test-files/ignored/bar.html"),
+			path.join(cwd, "test-files/ignored/included/file.html"),
+			path.join(cwd, "test-files/ignored/subdir/foo.vue"),
 		]);
 	});
 
