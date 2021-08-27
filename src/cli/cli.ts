@@ -32,7 +32,10 @@ export class CLI {
 	}
 
 	/**
-	 * Returns list of files matching patterns and are not ignored.
+	 * Returns list of files matching patterns and are not ignored. Filenames will
+	 * have absolute paths.
+	 *
+	 * @public
 	 */
 	public expandFiles(patterns: string[], options: ExpandOptions = {}): string[] {
 		return expandFiles(patterns, options).filter((filename) => !this.isIgnored(filename));

@@ -22,6 +22,14 @@ function isDirectory(filename: string): boolean {
 	return st.isDirectory();
 }
 
+function join(stem: string, filename: string): string {
+	if (path.isAbsolute(filename)) {
+		return path.normalize(filename);
+	} else {
+		return path.normalize(path.join(stem, filename));
+	}
+}
+
 function directoryPattern(extensions: string[]): string {
 	switch (extensions.length) {
 		case 0:
@@ -50,14 +58,14 @@ export function expandFiles(patterns: string[], options: ExpandOptions): string[
 
 		for (const filename of glob.sync(pattern, { cwd })) {
 			/* if file is a directory recursively expand files from it */
-			const fullpath = path.join(cwd, filename);
+			const fullpath = join(cwd, filename);
 			if (isDirectory(fullpath)) {
 				const dir = expandFiles([directoryPattern(extensions)], { ...options, cwd: fullpath });
-				result = result.concat(dir.map((cur) => path.join(filename, cur)));
+				result = result.concat(dir.map((cur) => join(filename, cur)));
 				continue;
 			}
 
-			result.push(filename);
+			result.push(fullpath);
 		}
 
 		return result;
