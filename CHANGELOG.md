@@ -1,5 +1,15 @@
 # html-validate changelog
 
+## [5.4.0](https://gitlab.com/html-validate/html-validate/compare/v5.3.0...v5.4.0) (2021-08-27)
+
+### Features
+
+- **cli:** expand relative paths to absolute paths ([bdc3019](https://gitlab.com/html-validate/html-validate/commit/bdc30197be25c031999e156fd7dcb4f456fc7f0e)), closes [#131](https://gitlab.com/html-validate/html-validate/issues/131)
+
+### Bug Fixes
+
+- **cli:** handle absolute paths as input filenames ([c860af6](https://gitlab.com/html-validate/html-validate/commit/c860af66d02bf46e24a11756d5611b4c9b449ccb)), closes [#131](https://gitlab.com/html-validate/html-validate/issues/131)
+
 ## [5.3.0](https://gitlab.com/html-validate/html-validate/compare/v5.2.1...v5.3.0) (2021-08-23)
 
 ### Features
