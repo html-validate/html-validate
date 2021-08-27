@@ -57,13 +57,13 @@
     "build": "rollup --config rollup.config.js",
     "postbuild": "scripts/pkg",
     "build:docs": "grunt docs",
-    "prepack": "npm run build",
     "clean": "rm -rf dist public",
     "compatibility": "scripts/compatibility.sh",
     "debug": "node --inspect ./node_modules/.bin/jest --runInBand --watch --no-coverage",
     "eslint": "eslint .",
     "eslint:fix": "eslint --fix .",
     "htmlvalidate": "node ./bin/html-validate.js",
+    "prepack": "npm run build",
     "prepare": "husky install scripts",
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
@@ -233,7 +233,7 @@
   },
   "renovate": {
     "extends": [
-      "@html-validate"
+      "gitlab>html-validate/renovate-config"
     ]
   }
 }
