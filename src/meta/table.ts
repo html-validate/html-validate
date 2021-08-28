@@ -238,12 +238,12 @@ export class MetaTable {
 
 		/* merge elements */
 		for (const [tagName, entry] of Object.entries(this.elements)) {
-			this.elements[tagName] = this.mergeElement(entry, global);
+			this.elements[tagName] = this.mergeElement(global, entry);
 		}
 	}
 
-	private mergeElement(a: MetaElement, b: Partial<MetaElement>): MetaElement {
-		return deepmerge(a, b);
+	private mergeElement(a: Partial<MetaElement>, b: MetaElement): MetaElement {
+		return deepmerge(a, b, { arrayMerge: overwriteMerge });
 	}
 
 	public resolve(node: HtmlElement): void {

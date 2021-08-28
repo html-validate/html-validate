@@ -20,6 +20,7 @@
     "transparent": true,
     "deprecatedAttributes": [
       "charset",
+      "contextmenu",
       "coords",
       "datasrc",
       "datafld",
@@ -61,14 +62,14 @@
     "deprecated": {
       "source": "html5"
     },
-    "deprecatedAttributes": ["datasrc", "datafld"]
+    "deprecatedAttributes": ["contextmenu", "datasrc", "datafld"]
   },
 
   "area": {
     "flow": ["isDescendant", "map"],
     "phrasing": ["isDescendant", "map"],
     "void": true,
-    "deprecatedAttributes": ["nohref"],
+    "deprecatedAttributes": ["contextmenu", "nohref"],
     "attributes": {
       "shape": ["rect", "circle", "poly", "default"]
     },
@@ -168,6 +169,7 @@
       "alink",
       "background",
       "bgcolor",
+      "contextmenu",
       "link",
       "marginbottom",
       "marginheight",
@@ -184,7 +186,7 @@
     "flow": true,
     "phrasing": true,
     "void": true,
-    "deprecatedAttributes": ["clear"]
+    "deprecatedAttributes": ["contextmenu", "clear"]
   },
 
   "button": {
@@ -192,7 +194,7 @@
     "phrasing": true,
     "interactive": true,
     "labelable": true,
-    "deprecatedAttributes": ["datasrc", "datafld", "dataformatas"],
+    "deprecatedAttributes": ["contextmenu", "datasrc", "datafld", "dataformatas"],
     "requiredAttributes": ["type"],
     "attributes": {
       "autofocus": [],
@@ -212,7 +214,7 @@
   },
 
   "caption": {
-    "deprecatedAttributes": ["align"],
+    "deprecatedAttributes": ["contextmenu", "align"],
     "permittedContent": ["@flow"],
     "permittedDescendants": [{ "exclude": ["table"] }]
   },
@@ -241,7 +243,7 @@
     "attributes": {
       "span": ["/\\d+/"]
     },
-    "deprecatedAttributes": ["align", "char", "charoff", "valign", "width"],
+    "deprecatedAttributes": ["align", "char", "charoff", "contextmenu", "valign", "width"],
     "void": true
   },
 
@@ -305,13 +307,13 @@
 
   "div": {
     "flow": true,
-    "deprecatedAttributes": ["align", "datasrc", "datafld", "dataformatas"],
+    "deprecatedAttributes": ["align", "contextmenu", "datasrc", "datafld", "dataformatas"],
     "permittedContent": ["@flow", "dt", "dd"]
   },
 
   "dl": {
     "flow": true,
-    "deprecatedAttributes": ["compact"],
+    "deprecatedAttributes": ["compact", "contextmenu"],
     "permittedContent": ["@script", "dt", "dd", "div"]
   },
 
@@ -345,7 +347,7 @@
     "attributes": {
       "disabled": []
     },
-    "deprecatedAttributes": ["datafld"],
+    "deprecatedAttributes": ["contextmenu", "datafld"],
     "permittedContent": ["@flow", "legend?"],
     "permittedOrder": ["legend", "@flow"]
   },
@@ -382,7 +384,7 @@
       "method": ["get", "post"],
       "novalidate": []
     },
-    "deprecatedAttributes": ["accept"],
+    "deprecatedAttributes": ["accept", "contextmenu"],
     "permittedContent": ["@flow"],
     "permittedDescendants": [{ "exclude": ["@form"] }]
   },
@@ -392,7 +394,7 @@
       "documentation": "The `<frame>` element can be replaced with the `<iframe>` element but a better solution is to remove usage of frames entirely.",
       "source": "html5"
     },
-    "deprecatedAttributes": ["datasrc", "datafld"],
+    "deprecatedAttributes": ["contextmenu", "datasrc", "datafld"],
     "requiredAttributes": ["title"]
   },
 
@@ -406,47 +408,47 @@
   "h1": {
     "flow": true,
     "heading": true,
-    "deprecatedAttributes": ["align"],
+    "deprecatedAttributes": ["align", "contextmenu"],
     "permittedContent": ["@phrasing"]
   },
 
   "h2": {
     "flow": true,
     "heading": true,
-    "deprecatedAttributes": ["align"],
+    "deprecatedAttributes": ["align", "contextmenu"],
     "permittedContent": ["@phrasing"]
   },
 
   "h3": {
     "flow": true,
     "heading": true,
-    "deprecatedAttributes": ["align"],
+    "deprecatedAttributes": ["align", "contextmenu"],
     "permittedContent": ["@phrasing"]
   },
 
   "h4": {
     "flow": true,
     "heading": true,
-    "deprecatedAttributes": ["align"],
+    "deprecatedAttributes": ["align", "contextmenu"],
     "permittedContent": ["@phrasing"]
   },
 
   "h5": {
     "flow": true,
     "heading": true,
-    "deprecatedAttributes": ["align"],
+    "deprecatedAttributes": ["align", "contextmenu"],
     "permittedContent": ["@phrasing"]
   },
 
   "h6": {
     "flow": true,
     "heading": true,
-    "deprecatedAttributes": ["align"],
+    "deprecatedAttributes": ["align", "contextmenu"],
     "permittedContent": ["@phrasing"]
   },
 
   "head": {
-    "deprecatedAttributes": ["profile"],
+    "deprecatedAttributes": ["profile", "contextmenu"],
     "permittedContent": ["base?", "title?", "@meta"],
     "requiredContent": ["title"]
   },
@@ -464,11 +466,11 @@
   "hr": {
     "flow": true,
     "void": true,
-    "deprecatedAttributes": ["align", "color", "noshade", "size", "width"]
+    "deprecatedAttributes": ["align", "contextmenu", "color", "noshade", "size", "width"]
   },
 
   "html": {
-    "deprecatedAttributes": ["version"],
+    "deprecatedAttributes": ["contextmenu", "version"],
     "permittedContent": ["head?", "body?"],
     "permittedOrder": ["head", "body"],
     "requiredAttributes": ["lang"],
@@ -492,6 +494,7 @@
     "deprecatedAttributes": [
       "align",
       "allowtransparency",
+      "contextmenu",
       "datasrc",
       "datafld",
       "frameborder",
@@ -519,6 +522,7 @@
       "srcset": ["/.+/"]
     },
     "deprecatedAttributes": [
+      "contextmenu",
       "datasrc",
       "datafld",
       "name",
@@ -538,6 +542,7 @@
     "void": true,
     "labelable": ["matchAttribute", ["type", "!=", "hidden"]],
     "deprecatedAttributes": [
+      "contextmenu",
       "datasrc",
       "datafld",
       "dataformatas",
@@ -615,19 +620,19 @@
     "flow": true,
     "phrasing": true,
     "interactive": true,
-    "deprecatedAttributes": ["datasrc", "datafld", "dataformatas"],
+    "deprecatedAttributes": ["contextmenu", "datasrc", "datafld", "dataformatas"],
     "permittedContent": ["@phrasing"],
     "permittedDescendants": [{ "exclude": ["label"] }]
   },
 
   "legend": {
-    "deprecatedAttributes": ["align", "datasrc", "datafld", "dataformatas"],
+    "deprecatedAttributes": ["align", "contextmenu", "datasrc", "datafld", "dataformatas"],
     "permittedContent": ["@phrasing", "@heading"]
   },
 
   "li": {
     "implicitClosed": ["li"],
-    "deprecatedAttributes": ["type"],
+    "deprecatedAttributes": ["contextmenu", "type"],
     "permittedContent": ["@flow"]
   },
 
@@ -640,7 +645,7 @@
       "href": ["/.+/"]
     },
     "requiredAttributes": ["href"],
-    "deprecatedAttributes": ["charset", "methods", "urn", "target"]
+    "deprecatedAttributes": ["charset", "contextmenu", "methods", "urn", "target"]
   },
 
   "listing": {
@@ -670,7 +675,7 @@
       "documentation": "Marked as obsolete by both W3C and WHATWG standards but still implemented in most browsers. Animated text should be avoided for accessibility reasons as well.",
       "source": "html5"
     },
-    "deprecatedAttributes": ["datasrc", "datafld", "dataformatas"]
+    "deprecatedAttributes": ["contextmenu", "datasrc", "datafld", "dataformatas"]
   },
 
   "math": {
@@ -678,7 +683,7 @@
     "foreign": true,
     "phrasing": true,
     "embedded": true,
-    "deprecatedAttributes": ["name", "align", "hspace", "vspace"],
+    "deprecatedAttributes": ["contextmenu", "name", "align", "hspace", "vspace"],
     "attributes": {
       "dir": ["ltr", "rtl"],
       "display": ["block", "inline"],
@@ -689,7 +694,7 @@
   "meta": {
     "metadata": true,
     "void": true,
-    "deprecatedAttributes": ["scheme"]
+    "deprecatedAttributes": ["contextmenu", "scheme"]
   },
 
   "meter": {
@@ -762,6 +767,7 @@
       "align",
       "archive",
       "border",
+      "contextmenu",
       "classid",
       "code",
       "codebase",
@@ -784,7 +790,7 @@
       "reversed": [],
       "type": ["a", "A", "i", "I", "1"]
     },
-    "deprecatedAttributes": ["compact"],
+    "deprecatedAttributes": ["compact", "contextmenu"],
     "permittedContent": ["@script", "li"]
   },
 
@@ -802,7 +808,7 @@
       "disabled": [],
       "selected": []
     },
-    "deprecatedAttributes": ["datasrc", "dataformatas", "name"],
+    "deprecatedAttributes": ["contextmenu", "datasrc", "dataformatas", "name"],
     "permittedContent": []
   },
 
@@ -843,13 +849,13 @@
       "table",
       "ul"
     ],
-    "deprecatedAttributes": ["align"],
+    "deprecatedAttributes": ["contextmenu", "align"],
     "permittedContent": ["@phrasing"]
   },
 
   "param": {
     "void": true,
-    "deprecatedAttributes": ["datafld", "type", "valuetype"]
+    "deprecatedAttributes": ["contextmenu", "datafld", "type", "valuetype"]
   },
 
   "picture": {
@@ -870,7 +876,7 @@
 
   "pre": {
     "flow": true,
-    "deprecatedAttributes": ["width"],
+    "deprecatedAttributes": ["contextmenu", "width"],
     "permittedContent": ["@phrasing"]
   },
 
@@ -939,7 +945,7 @@
       "nomodule": [],
       "src": ["/.+/"]
     },
-    "deprecatedAttributes": ["language", "event", "for"]
+    "deprecatedAttributes": ["contextmenu", "language", "event", "for"]
   },
 
   "section": {
@@ -990,7 +996,7 @@
   "span": {
     "flow": true,
     "phrasing": true,
-    "deprecatedAttributes": ["datasrc", "datafld", "dataformatas"],
+    "deprecatedAttributes": ["contextmenu", "datasrc", "datafld", "dataformatas"],
     "permittedContent": ["@phrasing"]
   },
 
@@ -1040,6 +1046,7 @@
     "flow": true,
     "deprecatedAttributes": [
       "background",
+      "contextmenu",
       "datasrc",
       "dataformatas",
       "datapagesize",
@@ -1059,7 +1066,7 @@
 
   "tbody": {
     "implicitClosed": ["tbody", "tfoot"],
-    "deprecatedAttributes": ["align", "background", "char", "charoff", "valign"],
+    "deprecatedAttributes": ["align", "background", "char", "charoff", "contextmenu", "valign"],
     "permittedContent": ["@script", "tr"]
   },
 
@@ -1077,6 +1084,7 @@
       "bgcolor",
       "char",
       "charoff",
+      "contextmenu",
       "height",
       "nowrap",
       "scope",
@@ -1111,13 +1119,13 @@
       "spellcheck": ["true", "default", "false"],
       "wrap": ["hard", "soft"]
     },
-    "deprecatedAttributes": ["datasrc", "datafld"],
+    "deprecatedAttributes": ["contextmenu", "datasrc", "datafld"],
     "permittedContent": []
   },
 
   "tfoot": {
     "implicitClosed": ["tbody"],
-    "deprecatedAttributes": ["align", "background", "char", "charoff", "valign"],
+    "deprecatedAttributes": ["align", "background", "char", "charoff", "contextmenu", "valign"],
     "permittedContent": ["@script", "tr"]
   },
 
@@ -1136,6 +1144,7 @@
       "bgcolor",
       "char",
       "charoff",
+      "contextmenu",
       "height",
       "nowrap",
       "valign",
@@ -1148,7 +1157,7 @@
 
   "thead": {
     "implicitClosed": ["tbody", "tfoot"],
-    "deprecatedAttributes": ["align", "background", "char", "charoff", "valign"],
+    "deprecatedAttributes": ["align", "background", "char", "charoff", "contextmenu", "valign"],
     "permittedContent": ["@script", "tr"]
   },
 
@@ -1165,7 +1174,15 @@
 
   "tr": {
     "implicitClosed": ["tr"],
-    "deprecatedAttributes": ["align", "background", "bgcolor", "char", "charoff", "valign"],
+    "deprecatedAttributes": [
+      "align",
+      "background",
+      "bgcolor",
+      "char",
+      "charoff",
+      "contextmenu",
+      "valign"
+    ],
     "permittedContent": ["@script", "td", "th"]
   },
 
@@ -1188,7 +1205,7 @@
 
   "ul": {
     "flow": true,
-    "deprecatedAttributes": ["compact", "type"],
+    "deprecatedAttributes": ["compact", "contextmenu", "type"],
     "permittedContent": ["@script", "li"]
   },
 
