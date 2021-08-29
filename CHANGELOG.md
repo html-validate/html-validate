@@ -1,5 +1,11 @@
 # html-validate changelog
 
+### [5.4.1](https://gitlab.com/html-validate/html-validate/compare/v5.4.0...v5.4.1) (2021-08-29)
+
+### Bug Fixes
+
+- **meta:** use global meta as base when merging ([9fe3793](https://gitlab.com/html-validate/html-validate/commit/9fe3793b17bd6deb894e5d479ab11a51935829a1)), closes [#60](https://gitlab.com/html-validate/html-validate/issues/60)
+
 ## [5.4.0](https://gitlab.com/html-validate/html-validate/compare/v5.3.0...v5.4.0) (2021-08-27)
 
 ### Features
