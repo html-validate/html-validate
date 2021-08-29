@@ -10987,9 +10987,6 @@ Array [
           "allowed": Array [
             "ltr",
             "rtl",
-            "ltr",
-            "rtl",
-            "auto",
           ],
           "attribute": "dir",
           "element": "math",
@@ -11010,9 +11007,6 @@ Array [
           "allowed": Array [
             "ltr",
             "rtl",
-            "ltr",
-            "rtl",
-            "auto",
           ],
           "attribute": "dir",
           "element": "math",

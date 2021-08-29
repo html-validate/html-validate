@@ -492,6 +492,60 @@ describe("MetaTable", () => {
 		});
 	});
 
+	describe("global", () => {
+		it("should be merged with element", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			table.loadFromObject({
+				"*": mockEntry({
+					attributes: {
+						a: ["1"],
+					},
+				}),
+				foo: mockEntry(),
+			});
+			table.init();
+			const bar = table.getMetaFor("foo");
+			expect(bar).toEqual(
+				expect.objectContaining({
+					attributes: {
+						a: ["1"],
+					},
+				})
+			);
+		});
+
+		it("should have lower priority than merged element", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			table.loadFromObject({
+				"*": mockEntry({
+					attributes: {
+						a: ["1"],
+						b: ["2"],
+					},
+				}),
+				foo: mockEntry({
+					attributes: {
+						b: ["3"],
+						c: ["4"],
+					},
+				}),
+			});
+			table.init();
+			const bar = table.getMetaFor("foo");
+			expect(bar).toEqual(
+				expect.objectContaining({
+					attributes: {
+						a: ["1"],
+						b: ["3"],
+						c: ["4"],
+					},
+				})
+			);
+		});
+	});
+
 	describe("inheritance", () => {
 		it("should be supported", () => {
 			expect.assertions(1);
