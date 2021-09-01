@@ -2,12 +2,12 @@ import { ConfigData } from "../../config";
 import { Location } from "../../context";
 import { Message } from "../../reporter";
 import { TokenType } from "../../lexer";
-import { toBeValid } from "./to-be-valid";
-import { toBeInvalid } from "./to-be-invalid";
-import { toBeToken } from "./to-be-token";
-import { toHTMLValidate } from "./to-htmlvalidate";
-import { toHaveError } from "./to-have-error";
-import { toHaveErrors } from "./to-have-errors";
+import toBeValid from "./to-be-valid";
+import toBeInvalid from "./to-be-invalid";
+import toBeToken from "./to-be-token";
+import toHTMLValidate from "./to-htmlvalidate";
+import toHaveError from "./to-have-error";
+import toHaveErrors from "./to-have-errors";
 
 interface TokenMatcher {
 	type: TokenType;

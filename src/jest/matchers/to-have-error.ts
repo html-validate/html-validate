@@ -1,18 +1,17 @@
 /* eslint-disable prefer-template */
 
 import { Report } from "../../reporter";
-import { diff } from "../utils/diff";
+import { diff, diverge } from "../utils";
 import { flattenMessages } from "../utils/flatten-messages";
 
-export async function toHaveError(
+function toHaveError(
 	this: jest.MatcherUtils,
-	actual: Report | Promise<Report>,
+	actual: Report,
 	ruleId: string,
 	message: string,
 	context?: any // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
-): Promise<jest.CustomMatcherResult> {
-	const report = await actual;
-	const flattened = flattenMessages(report);
+): jest.CustomMatcherResult {
+	const flattened = flattenMessages(actual);
 	const expected: any = { ruleId, message };
 	if (context) {
 		expected.context = context;
@@ -32,3 +31,5 @@ export async function toHaveError(
 
 	return { pass, message: resultMessage };
 }
+
+export default diverge(toHaveError);

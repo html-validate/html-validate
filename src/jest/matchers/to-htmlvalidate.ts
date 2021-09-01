@@ -4,7 +4,7 @@ import deepmerge from "deepmerge";
 import { ConfigData } from "../../config";
 import HtmlValidate from "../../htmlvalidate";
 import { Message } from "../../reporter";
-import { diff } from "../utils";
+import { diff, diverge } from "../utils";
 
 function isMessage(arg: any): arg is Partial<Message> {
 	return (
@@ -44,7 +44,7 @@ function getMarkup(src: unknown): string {
 	}
 }
 
-export function toHTMLValidate(
+function toHTMLValidate(
 	this: jest.MatcherUtils,
 	actual: unknown,
 	arg0?: Partial<Message> | ConfigData | string,
@@ -113,3 +113,5 @@ function toHTMLValidateImpl(
 		};
 	}
 }
+
+export default diverge(toHTMLValidate);

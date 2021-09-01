@@ -1,10 +1,7 @@
 import { Report } from "../../reporter";
+import { diverge } from "../utils";
 
-export async function toBeInvalid(
-	this: jest.MatcherUtils,
-	actual: Report | Promise<Report>
-): Promise<jest.CustomMatcherResult> {
-	const report = await actual;
+function toBeInvalid(report: Report): jest.CustomMatcherResult {
 	if (report.valid) {
 		return {
 			pass: false,
@@ -17,3 +14,5 @@ export async function toBeInvalid(
 		};
 	}
 }
+
+export default diverge(toBeInvalid);

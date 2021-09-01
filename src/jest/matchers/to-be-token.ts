@@ -1,13 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types, prefer-template */
 
 import { TokenType } from "../../lexer";
-import { diff } from "../utils";
+import { diff, diverge } from "../utils";
 
-export function toBeToken(
-	this: jest.MatcherUtils,
-	actual: any,
-	expected: any
-): jest.CustomMatcherResult {
+function toBeToken(this: jest.MatcherUtils, actual: any, expected: any): jest.CustomMatcherResult {
 	const token = actual.value;
 
 	// istanbul ignore next: TokenMatcher requires "type" property to be set, this is just a failsafe
@@ -34,3 +30,5 @@ export function toBeToken(
 
 	return { pass, message };
 }
+
+export default diverge(toBeToken);

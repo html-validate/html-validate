@@ -57,9 +57,9 @@ beforeEach(() => {
 });
 
 describe("toBeValid()", () => {
-	it("should pass if report is valid", async () => {
+	it("should pass if report is valid", () => {
 		expect.assertions(1);
-		await expect(reportOk).toBeValid();
+		expect(reportOk).toBeValid();
 	});
 
 	it("should pass if async report is valid", async () => {
@@ -67,11 +67,11 @@ describe("toBeValid()", () => {
 		await expect(Promise.resolve(reportOk)).toBeValid();
 	});
 
-	it("should fail if report is invalid", async () => {
+	it("should fail if report is invalid", () => {
 		expect.assertions(3);
 		let error: Error | undefined = undefined;
 		try {
-			await expect(reportError).toBeValid();
+			expect(reportError).toBeValid();
 		} catch (e) {
 			error = e;
 		}
@@ -93,9 +93,9 @@ describe("toBeValid()", () => {
 });
 
 describe("toBeInvalid()", () => {
-	it("should pass if report is invalid", async () => {
+	it("should pass if report is invalid", () => {
 		expect.assertions(1);
-		await expect(reportError).toBeInvalid();
+		expect(reportError).toBeInvalid();
 	});
 
 	it("should pass if async report is invalid", async () => {
@@ -103,11 +103,11 @@ describe("toBeInvalid()", () => {
 		await expect(Promise.resolve(reportError)).toBeInvalid();
 	});
 
-	it("should fail if report is valid", async () => {
+	it("should fail if report is valid", () => {
 		expect.assertions(3);
 		let error: Error | undefined = undefined;
 		try {
-			await expect(reportOk).toBeInvalid();
+			expect(reportOk).toBeInvalid();
 		} catch (e) {
 			error = e;
 		}
@@ -129,9 +129,9 @@ describe("toBeInvalid()", () => {
 });
 
 describe("toHaveError()", () => {
-	it("should pass if error is preset", async () => {
+	it("should pass if error is preset", () => {
 		expect.assertions(1);
-		await expect(reportError).toHaveError("my-rule", "mock message");
+		expect(reportError).toHaveError("my-rule", "mock message");
 	});
 
 	it("should pass if async error is preset", async () => {
@@ -139,18 +139,18 @@ describe("toHaveError()", () => {
 		await expect(Promise.resolve(reportError)).toHaveError("my-rule", "mock message");
 	});
 
-	it("should pass if error have matching context", async () => {
+	it("should pass if error have matching context", () => {
 		expect.assertions(1);
-		await expect(reportError).toHaveError("my-rule", "mock message", {
+		expect(reportError).toHaveError("my-rule", "mock message", {
 			foo: "bar",
 		});
 	});
 
-	it("should fail if expected error is missing", async () => {
+	it("should fail if expected error is missing", () => {
 		expect.assertions(3);
 		let error: Error | undefined = undefined;
 		try {
-			await expect(reportError).toHaveError("asdf", "asdf");
+			expect(reportError).toHaveError("asdf", "asdf");
 		} catch (e) {
 			error = e;
 		}
@@ -186,9 +186,9 @@ describe("toHaveError()", () => {
 });
 
 describe("toHaveErrors()", () => {
-	it("should pass if error is preset", async () => {
+	it("should pass if error is preset", () => {
 		expect.assertions(1);
-		await expect(reportError).toHaveErrors([["my-rule", "mock message"]]);
+		expect(reportError).toHaveErrors([["my-rule", "mock message"]]);
 	});
 
 	it("should pass if async error is preset", async () => {
@@ -196,26 +196,26 @@ describe("toHaveErrors()", () => {
 		await expect(Promise.resolve(reportError)).toHaveErrors([["my-rule", "mock message"]]);
 	});
 
-	it("should pass if error have matching context", async () => {
+	it("should pass if error have matching context", () => {
 		expect.assertions(1);
-		await expect(reportError).toHaveErrors([
+		expect(reportError).toHaveErrors([
 			{ ruleId: "my-rule", message: "mock message", context: { foo: "bar" } },
 		]);
 	});
 
-	it("should pass if all errors are preset", async () => {
+	it("should pass if all errors are preset", () => {
 		expect.assertions(1);
-		await expect(reportMultipleErrors).toHaveErrors([
+		expect(reportMultipleErrors).toHaveErrors([
 			["my-rule", "mock message"],
 			["another-rule", "another message"],
 		]);
 	});
 
-	it("should fail if error any missing", async () => {
+	it("should fail if error any missing", () => {
 		expect.assertions(3);
 		let error: Error | undefined = undefined;
 		try {
-			await expect(reportMultipleErrors).toHaveErrors([
+			expect(reportMultipleErrors).toHaveErrors([
 				["my-rule", "mock message"],
 				["spam", "spam"],
 			]);
@@ -240,18 +240,18 @@ describe("toBeToken()", () => {
 		},
 	};
 
-	it("should pass if token matches", async () => {
+	it("should pass if token matches", () => {
 		expect.assertions(1);
-		await expect({ value: token }).toBeToken({
+		expect({ value: token }).toBeToken({
 			type: TokenType.TAG_OPEN,
 		});
 	});
 
-	it("should fail if token doesn't match", async () => {
+	it("should fail if token doesn't match", () => {
 		expect.assertions(3);
 		let error: Error | undefined = undefined;
 		try {
-			await expect({ value: token }).toBeToken({
+			expect({ value: token }).toBeToken({
 				type: TokenType.TAG_CLOSE,
 			});
 		} catch (e) {
@@ -273,11 +273,11 @@ describe("toHTMLValidate()", () => {
 		expect("<p></i>").not.toHTMLValidate();
 	});
 
-	it("should fail if markup is invalid", async () => {
+	it("should fail if markup is invalid", () => {
 		expect.assertions(3);
 		let error: Error | undefined = undefined;
 		try {
-			await expect("<a><button></i>").toHTMLValidate();
+			expect("<a><button></i>").toHTMLValidate();
 		} catch (e) {
 			error = e;
 		}
@@ -294,11 +294,11 @@ describe("toHTMLValidate()", () => {
 		`);
 	});
 
-	it("should fail if markup is valid but negated", async () => {
+	it("should fail if markup is valid but negated", () => {
 		expect.assertions(3);
 		let error: Error | undefined = undefined;
 		try {
-			await expect("<p></p>").not.toHTMLValidate();
+			expect("<p></p>").not.toHTMLValidate();
 		} catch (e) {
 			error = e;
 		}
@@ -392,11 +392,11 @@ describe("toHTMLValidate()", () => {
 		});
 	});
 
-	it("should fail if markup has wrong error", async () => {
+	it("should fail if markup has wrong error", () => {
 		expect.assertions(3);
 		let error: Error | undefined = undefined;
 		try {
-			await expect("<u></i>").not.toHTMLValidate({
+			expect("<u></i>").not.toHTMLValidate({
 				ruleId: "wrong-error",
 				message: expect.stringContaining("Some other error"),
 			});

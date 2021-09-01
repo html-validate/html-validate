@@ -1,14 +1,13 @@
 /* eslint-disable prefer-template */
 
 import { Report } from "../../reporter";
-import { diff, flattenMessages } from "../utils";
+import { diff, diverge, flattenMessages } from "../utils";
 
-export async function toHaveErrors(
+function toHaveErrors(
 	this: jest.MatcherUtils,
-	actual: Report | Promise<Report>,
+	report: Report,
 	errors: Array<[string, string] | Record<string, unknown>>
-): Promise<jest.CustomMatcherResult> {
-	const report = await actual;
+): jest.CustomMatcherResult {
 	const flattened = flattenMessages(report);
 	const matcher = errors.map((entry) => {
 		if (Array.isArray(entry)) {
@@ -31,3 +30,5 @@ export async function toHaveErrors(
 
 	return { pass, message: resultMessage };
 }
+
+export default diverge(toHaveErrors);
