@@ -120,8 +120,8 @@ Node 16.x (current):
 
 Jest compat:
   stage: compatibility
-  dependencies: []
-  needs: []
+  dependencies: ["Build"]
+  needs: ["Build"]
   parallel:
     matrix:
       - VERSION: [24, 25, 26, 27]
@@ -133,7 +133,8 @@ Jest compat:
     - npm install --force jest@${VERSION}.0.0 ts-jest@${VERSION}.0.0
     - npm ls jest ts-jest
   script:
-    - npm exec jest -- --no-coverage --ci matchers tests/jest
+    - for spec in tests/jest/*.spec.ts; do sed 's#../../src/jest#../../jest#g' -i "${spec}"; done
+    - npm exec jest -- --no-coverage --ci src/jest tests/jest
 
 Module:
   stage: compatibility

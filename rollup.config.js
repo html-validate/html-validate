@@ -19,7 +19,7 @@ const entrypoints = [
 	"src/index.ts",
 	"src/browser.ts",
 	"src/cli/html-validate.ts",
-	"src/matchers.ts",
+	"src/jest/jest.ts",
 	"src/transform/test-utils.ts",
 ];
 
@@ -27,7 +27,7 @@ const entrypoints = [
 const types = [
 	"dist/types/index.d.ts",
 	"dist/types/browser.d.ts",
-	"dist/types/matchers.d.ts",
+	"dist/types/jest/jest.d.ts",
 	"dist/types/transform/test-utils.d.ts",
 ];
 
@@ -67,6 +67,10 @@ function manualChunks(id) {
 
 	if (rel.startsWith("cli/")) {
 		return "cli";
+	}
+
+	if (rel.startsWith("jest/")) {
+		return "jest-lib";
 	}
 
 	return "core";

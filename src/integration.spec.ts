@@ -2,7 +2,7 @@ import HtmlValidate from "./htmlvalidate";
 import { Source } from "./context";
 import { TRANSFORMER_API } from "./transform";
 import { Plugin } from "./plugin";
-import "./matchers";
+import "./jest";
 import { Rule } from "./rule";
 import { DOMReadyEvent } from "./event";
 

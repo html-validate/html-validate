@@ -2,7 +2,7 @@ import { Config, ResolvedConfig, RuleOptions, Severity } from "../config";
 import { Source } from "../context";
 import { HtmlElement } from "../dom";
 import { InvalidTokenError } from "../lexer";
-import "../matchers";
+import "../jest";
 import { MetaTable } from "../meta";
 import { Parser, ParserError } from "../parser";
 import { Reporter } from "../reporter";

@@ -18,7 +18,7 @@
   },
   "license": "MIT",
   "author": "David Sveningsson <ext@sidvind.com>",
-  "sideEffects": false,
+  "sideEffects": ["./dist/*/jest.js"],
   "type": "commonjs",
   "exports": {
     ".": {
@@ -120,7 +120,8 @@
       "!src/**/index.ts",
       "!src/index.ts",
       "!src/browser.ts",
-      "!src/cli/html-validate.ts"
+      "!src/cli/html-validate.ts",
+      "!src/jest/jest.ts"
     ],
     "preset": "@html-validate/jest-config",
     "roots": [

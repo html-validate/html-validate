@@ -1,6 +1,6 @@
 import HtmlValidate from "../htmlvalidate";
 import { processAttribute } from "../transform/mocks/attribute";
-import "../matchers";
+import "../jest";
 
 describe("rule no-multiple-main", () => {
 	let htmlvalidate: HtmlValidate;

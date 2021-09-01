@@ -1,5 +1,5 @@
 import HtmlValidate from "../htmlvalidate";
-import "../matchers";
+import "../jest";
 import { Rule } from "../rule";
 
 class RuleRegular extends Rule {

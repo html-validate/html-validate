@@ -1,7 +1,7 @@
 import { Location } from "../context";
 import { DynamicValue, HtmlElement } from "../dom";
 import HtmlValidate from "../htmlvalidate";
-import "../matchers";
+import "../jest";
 
 const location: Location = {
 	filename: "inline",

@@ -1,5 +1,5 @@
 import HtmlValidate from "../htmlvalidate";
-import "../matchers";
+import "../jest";
 
 describe("missing rule", () => {
 	let htmlvalidate: HtmlValidate;

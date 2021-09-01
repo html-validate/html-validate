@@ -1,2 +1,2 @@
 /* eslint-disable-next-line import/export, import/no-unresolved */
-export * from "./dist/cjs/matchers";
+export * from "./dist/cjs/jest";

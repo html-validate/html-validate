@@ -1,5 +1,5 @@
 import HtmlValidate from "../htmlvalidate";
-import "../matchers";
+import "../jest";
 import { MetaDataTable } from "../meta";
 import { processAttribute } from "../transform/mocks/attribute";
 

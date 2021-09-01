@@ -1,1 +1,1 @@
-module.exports = require("./dist/cjs/matchers");
+module.exports = require("./dist/cjs/jest");

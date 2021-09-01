@@ -1,7 +1,7 @@
 import { Source } from "../src/context";
 import { HtmlElement } from "../src/dom";
 import HtmlValidate from "../src/htmlvalidate";
-import "../src/matchers";
+import "../src/jest";
 
 const fileDirectory = "test-files/elements";
 const tagNames = [

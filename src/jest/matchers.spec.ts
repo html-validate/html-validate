@@ -2,16 +2,16 @@
  * @jest-environment jsdom
  */
 
-jest.mock("./config/default", () => {
+jest.mock("../config/default", () => {
 	return {
 		extends: ["html-validate:recommended"],
 	};
 });
 
-import { Severity } from "./config";
-import { Token, TokenType } from "./lexer";
-import "./matchers";
-import { Report, Reporter } from "./reporter";
+import { Severity } from "../config";
+import { Token, TokenType } from "../lexer";
+import { Report, Reporter } from "../reporter";
+import "./index";
 
 let reportOk: Report;
 let reportError: Report;

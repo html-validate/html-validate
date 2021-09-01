@@ -1,6 +1,6 @@
 import { DynamicValue, HtmlElement } from "../dom";
 import HtmlValidate from "../htmlvalidate";
-import "../matchers";
+import "../jest";
 import { TextContent } from "../meta";
 
 function processElement(node: HtmlElement): void {
