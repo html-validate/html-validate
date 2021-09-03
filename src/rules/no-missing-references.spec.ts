@@ -76,6 +76,16 @@ describe("rule no-missing-references", () => {
 		expect(report).toHaveError("no-missing-references", 'Element references missing id "missing"');
 	});
 
+	it('should report error when <ANY aria-activedescendant=".."> is referencing missing element', () => {
+		expect.assertions(2);
+		const markup = '<div aria-activedescendant="missing id"></div>';
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toHaveErrors([
+			{ ruleId: "no-missing-references", message: 'Element references missing id "missing id"' },
+		]);
+	});
+
 	it('should report error when <ANY aria-labelledby=".."> is referencing missing element', () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString('<div aria-labelledby="missing id"></div>');
@@ -103,6 +113,48 @@ describe("rule no-missing-references", () => {
 		expect(report).toHaveErrors([
 			{ ruleId: "no-missing-references", message: 'Element references missing id "missing"' },
 			{ ruleId: "no-missing-references", message: 'Element references missing id "id"' },
+		]);
+	});
+
+	it('should report error when <ANY aria-details=".."> is referencing missing element', () => {
+		expect.assertions(2);
+		const markup = '<div aria-details="missing id"></div>';
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toHaveErrors([
+			{ ruleId: "no-missing-references", message: 'Element references missing id "missing id"' },
+		]);
+	});
+
+	it('should report error when <ANY aria-errormessage=".."> is referencing missing element', () => {
+		expect.assertions(2);
+		const markup = '<div aria-errormessage="missing id"></div>';
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toHaveErrors([
+			{ ruleId: "no-missing-references", message: 'Element references missing id "missing id"' },
+		]);
+	});
+
+	it('should report error when <ANY aria-flowto=".."> is referencing missing element', () => {
+		expect.assertions(2);
+		const markup = '<div aria-flowto="foo bar baz"></div><span id="bar"></span>';
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toHaveErrors([
+			{ ruleId: "no-missing-references", message: 'Element references missing id "foo"' },
+			{ ruleId: "no-missing-references", message: 'Element references missing id "baz"' },
+		]);
+	});
+
+	it('should report error when <ANY aria-owns=".."> is referencing missing element', () => {
+		expect.assertions(2);
+		const markup = '<div aria-owns="foo bar baz"></div><span id="bar"></span>';
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toHaveErrors([
+			{ ruleId: "no-missing-references", message: 'Element references missing id "foo"' },
+			{ ruleId: "no-missing-references", message: 'Element references missing id "baz"' },
 		]);
 	});
 

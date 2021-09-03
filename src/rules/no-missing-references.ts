@@ -13,9 +13,14 @@ interface AriaAttribute {
 }
 
 const ARIA: AriaAttribute[] = [
+	{ property: "aria-activedescendant", isList: false },
 	{ property: "aria-controls", isList: true },
 	{ property: "aria-describedby", isList: true },
+	{ property: "aria-details", isList: false },
+	{ property: "aria-errormessage", isList: false },
+	{ property: "aria-flowto", isList: true },
 	{ property: "aria-labelledby", isList: true },
+	{ property: "aria-owns", isList: true },
 ];
 
 function idMissing(document: DOMTree, id: string): boolean {

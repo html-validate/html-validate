@@ -14,9 +14,14 @@ Checked attributes:
 
 - `label[for]`
 - `input[list]`
+- `*[aria-activedescendant]`
 - `*[aria-controls]`
 - `*[aria-describedby]`
+- `*[aria-details]`
+- `*[aria-errormessage]`
+- `*[aria-flowto]`
 - `*[aria-labelledby]`
+- `*[aria-owns]`
 
 ## Rule details
 
