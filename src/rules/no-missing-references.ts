@@ -1,4 +1,4 @@
-import { Attribute, DOMTree, DynamicValue, HtmlElement } from "../dom";
+import { Attribute, DOMTokenList, DOMTree, DynamicValue, HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
@@ -7,7 +7,26 @@ interface Context {
 	value: string;
 }
 
-const ARIA = ["aria-controls", "aria-describedby", "aria-labelledby"];
+interface AriaAttribute {
+	property: string;
+	isList: boolean;
+}
+
+const ARIA: AriaAttribute[] = [
+	{ property: "aria-activedescendant", isList: false },
+	{ property: "aria-controls", isList: true },
+	{ property: "aria-describedby", isList: true },
+	{ property: "aria-details", isList: false },
+	{ property: "aria-errormessage", isList: false },
+	{ property: "aria-flowto", isList: true },
+	{ property: "aria-labelledby", isList: true },
+	{ property: "aria-owns", isList: true },
+];
+
+function idMissing(document: DOMTree, id: string): boolean {
+	const nodes = document.querySelectorAll(`[id="${id}"]`);
+	return nodes.length === 0;
+}
 
 export default class NoMissingReferences extends Rule<Context> {
 	public documentation(context: Context): RuleDocumentation {
@@ -31,42 +50,75 @@ export default class NoMissingReferences extends Rule<Context> {
 			/* verify <label for=".."> */
 			for (const node of document.querySelectorAll("label[for]")) {
 				const attr = node.getAttribute("for");
-				this.validateReference(document, node, attr);
+				this.validateReference(document, node, attr, false);
 			}
 
 			/* verify <input list=".."> */
 			for (const node of document.querySelectorAll("input[list]")) {
 				const attr = node.getAttribute("list");
-				this.validateReference(document, node, attr);
+				this.validateReference(document, node, attr, false);
 			}
 
 			/* verify WAI-ARIA properties */
-			for (const property of ARIA) {
+			for (const { property, isList } of ARIA) {
 				for (const node of document.querySelectorAll(`[${property}]`)) {
 					const attr = node.getAttribute(property);
-					this.validateReference(document, node, attr);
+					this.validateReference(document, node, attr, isList);
 				}
 			}
 		});
 	}
 
-	protected validateReference(document: DOMTree, node: HtmlElement, attr: Attribute | null): void {
+	protected validateReference(
+		document: DOMTree,
+		node: HtmlElement,
+		attr: Attribute | null,
+		isList: boolean
+	): void {
 		/* sanity check: querySelector should never return elements without the attribute */
 		/* istanbul ignore next */
 		if (!attr) {
 			return;
 		}
 
-		const id = attr.value;
-
-		if (id instanceof DynamicValue || id === null || id === "") {
+		/* skip dynamic and empty values */
+		const value = attr.value;
+		if (value instanceof DynamicValue || value === null || value === "") {
 			return;
 		}
 
-		const nodes = document.querySelectorAll(`[id="${id}"]`);
-		if (nodes.length === 0) {
+		if (isList) {
+			this.validateList(document, node, attr, value);
+		} else {
+			this.validateSingle(document, node, attr, value);
+		}
+	}
+
+	protected validateSingle(
+		document: DOMTree,
+		node: HtmlElement,
+		attr: Attribute,
+		id: string
+	): void {
+		if (idMissing(document, id)) {
 			const context: Context = { key: attr.key, value: id };
 			this.report(node, `Element references missing id "${id}"`, attr.valueLocation, context);
+		}
+	}
+
+	protected validateList(
+		document: DOMTree,
+		node: HtmlElement,
+		attr: Attribute,
+		values: string
+	): void {
+		const parsed = new DOMTokenList(values, attr.valueLocation);
+		for (const entry of parsed.iterator()) {
+			const id = entry.item;
+			if (idMissing(document, id)) {
+				const context: Context = { key: attr.key, value: id };
+				this.report(node, `Element references missing id "${id}"`, entry.location, context);
+			}
 		}
 	}
 }

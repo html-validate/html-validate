@@ -79,4 +79,14 @@ export class DOMTokenList extends Array<string> {
 	public contains(token: string): boolean {
 		return this.includes(token);
 	}
+
+	public *iterator(): Generator<{ index: number; item: string; location: Location }> {
+		for (let index = 0; index < this.length; index++) {
+			/* eslint-disable @typescript-eslint/no-non-null-assertion */
+			const item = this.item(index)!;
+			const location = this.location(index)!;
+			/* eslint-enable @typescript-eslint/no-non-null-assertion */
+			yield { index, item, location };
+		}
+	}
 }

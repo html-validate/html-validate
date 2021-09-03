@@ -14,9 +14,14 @@ Checked attributes:
 
 - `label[for]`
 - `input[list]`
+- `*[aria-activedescendant]`
 - `*[aria-controls]`
 - `*[aria-describedby]`
+- `*[aria-details]`
+- `*[aria-errormessage]`
+- `*[aria-flowto]`
 - `*[aria-labelledby]`
+- `*[aria-owns]`
 
 ## Rule details
 
@@ -25,7 +30,7 @@ Examples of **incorrect** code for this rule:
 <validate name="incorrect" rules="no-missing-references">
     <label for="missing-input"></label>
     <div aria-labelledby="missing-text"></div>
-    <div aria-describedby="missing-text"></div>
+    <div aria-describedby="missing-text another-missing"></div>
 </validate>
 
 Examples of **correct** code for this rule:
@@ -33,7 +38,8 @@ Examples of **correct** code for this rule:
 <validate name="correct" rules="no-missing-references">
     <label for="my-input"></label>
     <div id="verbose-text"></div>
+    <div id="another-text"></div>
     <div aria-labelledby="verbose-text"></div>
-    <div aria-describedby="verbose-text"></div>
+    <div aria-describedby="verbose-text another-text"></div>
     <input id="my-input">
 </validate>
