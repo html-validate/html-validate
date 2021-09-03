@@ -142,4 +142,29 @@ describe("DOMTokenList", () => {
 			expect(list.contains("spam")).toBeFalsy();
 		});
 	});
+
+	describe("iterator()", () => {
+		it("should loop over all items and locations", () => {
+			expect.assertions(1);
+			const list = new DOMTokenList("foo bar baz", location);
+			const result = Array.from(list.iterator());
+			expect(result).toEqual([
+				{
+					index: 0,
+					item: "foo",
+					location: expect.objectContaining({ line: 1, column: 1, size: 3 }),
+				},
+				{
+					index: 1,
+					item: "bar",
+					location: expect.objectContaining({ line: 1, column: 5, size: 3 }),
+				},
+				{
+					index: 2,
+					item: "baz",
+					location: expect.objectContaining({ line: 1, column: 9, size: 3 }),
+				},
+			]);
+		});
+	});
 });
