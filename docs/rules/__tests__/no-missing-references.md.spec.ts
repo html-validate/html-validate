@@ -3,11 +3,12 @@ import HtmlValidate from "../../../src/htmlvalidate";
 const markup: { [key: string]: string } = {};
 markup["incorrect"] = `<label for="missing-input"></label>
 <div aria-labelledby="missing-text"></div>
-<div aria-describedby="missing-text"></div>`;
+<div aria-describedby="missing-text another-missing"></div>`;
 markup["correct"] = `<label for="my-input"></label>
 <div id="verbose-text"></div>
+<div id="another-text"></div>
 <div aria-labelledby="verbose-text"></div>
-<div aria-describedby="verbose-text"></div>
+<div aria-describedby="verbose-text another-text"></div>
 <input id="my-input">`;
 
 describe("docs/rules/no-missing-references.md", () => {

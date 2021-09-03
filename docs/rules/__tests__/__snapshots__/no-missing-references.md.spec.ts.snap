@@ -5,7 +5,7 @@ exports[`docs/rules/no-missing-references.md inline validation: correct 1`] = `A
 exports[`docs/rules/no-missing-references.md inline validation: incorrect 1`] = `
 Array [
   Object {
-    "errorCount": 3,
+    "errorCount": 4,
     "filePath": "inline",
     "messages": Array [
       Object {
@@ -53,10 +53,25 @@ Array [
         "severity": 2,
         "size": 12,
       },
+      Object {
+        "column": 37,
+        "context": Object {
+          "key": "aria-describedby",
+          "value": "another-missing",
+        },
+        "line": 3,
+        "message": "Element references missing id \\"another-missing\\"",
+        "offset": 115,
+        "ruleId": "no-missing-references",
+        "ruleUrl": "https://html-validate.org/rules/no-missing-references.html",
+        "selector": "div:nth-child(3)",
+        "severity": 2,
+        "size": 15,
+      },
     ],
     "source": "<label for=\\"missing-input\\"></label>
 <div aria-labelledby=\\"missing-text\\"></div>
-<div aria-describedby=\\"missing-text\\"></div>",
+<div aria-describedby=\\"missing-text another-missing\\"></div>",
     "warningCount": 0,
   },
 ]

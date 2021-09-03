@@ -78,23 +78,32 @@ describe("rule no-missing-references", () => {
 
 	it('should report error when <ANY aria-labelledby=".."> is referencing missing element', () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString('<div aria-labelledby="missing"></div>');
+		const report = htmlvalidate.validateString('<div aria-labelledby="missing id"></div>');
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("no-missing-references", 'Element references missing id "missing"');
+		expect(report).toHaveErrors([
+			{ ruleId: "no-missing-references", message: 'Element references missing id "missing"' },
+			{ ruleId: "no-missing-references", message: 'Element references missing id "id"' },
+		]);
 	});
 
 	it('should report error when <ANY aria-describedby=".."> is referencing missing element', () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString('<div aria-describedby="missing"></div>');
+		const report = htmlvalidate.validateString('<div aria-describedby="missing id"></div>');
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("no-missing-references", 'Element references missing id "missing"');
+		expect(report).toHaveErrors([
+			{ ruleId: "no-missing-references", message: 'Element references missing id "missing"' },
+			{ ruleId: "no-missing-references", message: 'Element references missing id "id"' },
+		]);
 	});
 
 	it('should report error when <ANY aria-controls=".."> is referencing missing element', () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString('<div aria-controls="missing"></div>');
+		const report = htmlvalidate.validateString('<div aria-controls="missing id"></div>');
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("no-missing-references", 'Element references missing id "missing"');
+		expect(report).toHaveErrors([
+			{ ruleId: "no-missing-references", message: 'Element references missing id "missing"' },
+			{ ruleId: "no-missing-references", message: 'Element references missing id "id"' },
+		]);
 	});
 
 	it("should contain documentation", () => {
