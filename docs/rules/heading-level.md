@@ -87,4 +87,4 @@ With this option the following is considered valid:
 
 ## Version history
 
-- %version% - `minInitialRank` option added.
+- 5.5.0 - `minInitialRank` option added.

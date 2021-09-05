@@ -1,5 +1,18 @@
 # html-validate changelog
 
+## [5.5.0](https://gitlab.com/html-validate/html-validate/compare/v5.4.1...v5.5.0) (2021-09-05)
+
+### Features
+
+- **dom:** add iterator to `DOMTokenList` ([7bef736](https://gitlab.com/html-validate/html-validate/commit/7bef736bd9902388299e550618192d8465e5f3cc))
+- **rules:** `no-missing-references` handles more aria attributes ([2843680](https://gitlab.com/html-validate/html-validate/commit/2843680da32fbe7c95f91c72d2d7607a381d5992))
+- **rules:** add `minInitialRank` option to `heading-level` ([7f58572](https://gitlab.com/html-validate/html-validate/commit/7f585721fcb8e744863584cbe6e21130ade198eb)), closes [#132](https://gitlab.com/html-validate/html-validate/issues/132)
+
+### Bug Fixes
+
+- **jest:** synchronous matchers as long as the passed value is synchronous ([0ede9f7](https://gitlab.com/html-validate/html-validate/commit/0ede9f74f073b3d01fafff455cc3674fa1898b40))
+- **rules:** `no-missing-references` handles attributes with reference lists ([2afcd86](https://gitlab.com/html-validate/html-validate/commit/2afcd86c1ead8eec42819310bae9990e45122b0e)), closes [#133](https://gitlab.com/html-validate/html-validate/issues/133)
+
 ### [5.4.1](https://gitlab.com/html-validate/html-validate/compare/v5.4.0...v5.4.1) (2021-08-29)
 
 ### Bug Fixes
