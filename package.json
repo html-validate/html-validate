@@ -18,7 +18,9 @@
   },
   "license": "MIT",
   "author": "David Sveningsson <ext@sidvind.com>",
-  "sideEffects": ["./dist/*/jest.js"],
+  "sideEffects": [
+    "./dist/*/jest.js"
+  ],
   "type": "commonjs",
   "exports": {
     ".": {
@@ -174,7 +176,7 @@
     "@types/node": "11.15.54",
     "@types/prompts": "2.0.14",
     "@types/semver": "7.3.8",
-    "autoprefixer": "10.3.3",
+    "autoprefixer": "10.3.4",
     "babar": "0.2.0",
     "babelify": "10.0.0",
     "bootstrap-sass": "3.4.1",
