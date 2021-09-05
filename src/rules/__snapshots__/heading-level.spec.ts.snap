@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule heading-level should contain documentation (with minInitialRank) 1`] = `
+Object {
+  "description": "Headings should start at <h1> and can only increase one level at a time.
+The headings should form a table of contents and make sense on its own.
+
+Under the current configuration only a single <h1> can be present at a time in the document.",
+  "url": "https://html-validate.org/rules/heading-level.html",
+}
+`;
+
 exports[`rule heading-level should contain documentation (with multiple h1) 1`] = `
 Object {
   "description": "Headings must start at <h1> and can only increase one level at a time.
