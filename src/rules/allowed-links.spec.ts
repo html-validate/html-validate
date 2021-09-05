@@ -1,5 +1,5 @@
 import HtmlValidate from "../htmlvalidate";
-import "../matchers";
+import "../jest";
 import { processAttribute } from "../transform/mocks/attribute";
 import { Style } from "./allowed-links";
 

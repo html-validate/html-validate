@@ -1,5 +1,5 @@
 import HtmlValidate from "../../htmlvalidate";
-import "../../matchers";
+import "../../jest";
 
 describe("wcag/h32", () => {
 	let htmlvalidate: HtmlValidate;

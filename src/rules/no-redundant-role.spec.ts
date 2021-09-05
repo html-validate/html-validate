@@ -1,5 +1,5 @@
 import HtmlValidate from "../htmlvalidate";
-import "../matchers";
+import "../jest";
 import { processAttribute } from "../transform/mocks/attribute";
 
 describe("rule no-redundant-role", () => {

@@ -1,5 +1,5 @@
 import HtmlValidate from "../htmlvalidate";
-import "../matchers";
+import "../jest";
 
 describe("rule attr-spacing", () => {
 	let htmlvalidate: HtmlValidate;

@@ -4,7 +4,7 @@ import { DOMTree, HtmlElement, TextNode } from "../dom";
 import { EventCallback } from "../event";
 import HtmlValidate from "../htmlvalidate";
 import { InvalidTokenError, Token, TokenStream, TokenType } from "../lexer";
-import "../matchers";
+import "../jest";
 import { AttributeData } from "./attribute-data";
 import { Parser } from "./parser";
 

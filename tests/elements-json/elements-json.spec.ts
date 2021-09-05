@@ -1,6 +1,6 @@
 import path from "path";
 import HtmlValidate from "../../src/htmlvalidate";
-import "../../src/matchers";
+import "../../src/jest";
 
 it("should handle elements json file", () => {
 	expect.assertions(2);

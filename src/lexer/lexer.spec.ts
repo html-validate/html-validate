@@ -1,5 +1,5 @@
 import { Source } from "../context";
-import "../matchers";
+import "../jest";
 import { Lexer } from "./lexer";
 import { TokenType } from "./token";
 

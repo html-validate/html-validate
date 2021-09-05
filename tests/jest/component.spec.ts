@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import "../../src/matchers";
+import "../../src/jest";
 
 it("should validate ok", () => {
 	expect.assertions(1);

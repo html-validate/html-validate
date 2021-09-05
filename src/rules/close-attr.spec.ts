@@ -1,5 +1,5 @@
 import HtmlValidate from "../htmlvalidate";
-import "../matchers";
+import "../jest";
 
 describe("rule close-attr", () => {
 	let htmlvalidate: HtmlValidate;
