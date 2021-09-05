@@ -43,3 +43,7 @@ Examples of **correct** code for this rule:
     <div aria-describedby="verbose-text another-text"></div>
     <input id="my-input">
 </validate>
+
+## Version history
+
+- %version - Extended list of checked aria attributes.
