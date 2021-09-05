@@ -28,4 +28,6 @@ Array [
 ]
 `;
 
+exports[`docs/rules/heading-level.md inline validation: min-initial-rank 1`] = `Array []`;
+
 exports[`docs/rules/heading-level.md inline validation: sectioning-root 1`] = `Array []`;

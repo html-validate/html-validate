@@ -33,6 +33,7 @@ This rule takes an optional object:
 ```json
 {
   "allowMultipleH1": false,
+  "minInitialRank": "h1",
   "sectioningRoots": ["dialog", "[role=\"dialog\"]"]
 }
 ```
@@ -40,6 +41,26 @@ This rule takes an optional object:
 ### `allowMultipleH1`
 
 Set `allowMultipleH1` to `true` to allow multiple `<h1>` elements in a document.
+
+### `minInitialRank`
+
+- type: `"h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "any" | false`
+- default: `"h1"`
+
+Sets the allowed initial heading levels (inclusive).
+By setting this to `h2` the document may start at `<h2>` and later being followed by `<h1>`:
+
+<validate name="min-initial-rank" rules="heading-level" heading-level='{"minInitialRank": "h2"}'>
+    <nav>
+        <h2>Navigation</h2>
+    </nav>
+    <h1>Heading 1</h1>
+</validate>
+
+Setting this to `"any"` or `false` is equivalent to `"h6"`, i.e. effectively disabling the check for the initial heading level as all possible levels are now allowed.
+
+Note: this does not affect sectioning roots.
+Each sectioning root can either continue of the current level or restart at `<h1>`.
 
 ### `sectioningRoots`
 
@@ -63,3 +84,7 @@ With this option the following is considered valid:
 </validate>
 
 [html5-sectioning-root]: https://html.spec.whatwg.org/multipage/sections.html#sectioning-root
+
+## Version history
+
+- %version% - `minInitialRank` option added.

@@ -50,7 +50,8 @@ describe("rule heading-level", () => {
 
 	it("should report error when initial heading isn't <h1>", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString("<h2>heading 2</h2>");
+		const markup = "<h2>heading 2</h2>";
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("heading-level", "Initial heading level must be <h1> but got <h2>");
 	});
@@ -81,16 +82,16 @@ describe("rule heading-level", () => {
 		it("should allow restarting with <h1>", () => {
 			expect.assertions(1);
 			const markup = `
-			<h1>heading 1</h1>
-			<h2>heading 2</h2>
-			<h3>heading 2</h3>
-			<div role="dialog">
-				<!-- heading level is restarted at <h1> -->
-				<h1>modal header</h1>
-			</div>
-			<!-- this <h3> should valid because it is relative to the <h3> above the dialog -->
-			<h3>heading 2</h3>
-		`;
+				<h1>heading 1</h1>
+				<h2>heading 2</h2>
+				<h3>heading 2</h3>
+				<div role="dialog">
+					<!-- heading level is restarted at <h1> -->
+					<h1>modal header</h1>
+				</div>
+				<!-- this <h3> should valid because it is relative to the <h3> above the dialog -->
+				<h3>heading 2</h3>
+			`;
 			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
@@ -98,14 +99,14 @@ describe("rule heading-level", () => {
 		it("should allow continuous headings", () => {
 			expect.assertions(1);
 			const markup = `
-			<h1>heading 1</h1>
-			<h2>heading 2</h2>
-			<h3>heading 2</h3>
-			<div role="dialog">
-				<h4>modal header</h4>
-			</div>
-			<h3>heading 2</h3>
-		`;
+				<h1>heading 1</h1>
+				<h2>heading 2</h2>
+				<h3>heading 2</h3>
+				<div role="dialog">
+					<h4>modal header</h4>
+				</div>
+				<h3>heading 2</h3>
+			`;
 			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
@@ -113,14 +114,14 @@ describe("rule heading-level", () => {
 		it("should not allow skipping heading levels", () => {
 			expect.assertions(2);
 			const markup = `
-			<h1>heading 1</h1>
-			<h2>heading 2</h2>
-			<h3>heading 2</h3>
-			<div role="dialog">
-				<h5>modal header</h5>
-			</div>
-			<h3>heading 2</h3>
-		`;
+				<h1>heading 1</h1>
+				<h2>heading 2</h2>
+				<h3>heading 2</h3>
+				<div role="dialog">
+					<h5>modal header</h5>
+				</div>
+				<h3>heading 2</h3>
+			`;
 			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
@@ -132,16 +133,99 @@ describe("rule heading-level", () => {
 		it("should enforce h1 as initial heading level if sectioning root is the only content in document", () => {
 			expect.assertions(2);
 			const markup = `
-			<div role="dialog">
-				<h5>modal header</h5>
-			</div>
-		`;
+				<div role="dialog">
+					<h5>modal header</h5>
+				</div>
+			`;
 			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"heading-level",
 				"Initial heading level for sectioning root must be <h1> but got <h5>"
 			);
+		});
+	});
+
+	describe("minInitialRank", () => {
+		it("configured with h2 should allow initial h2", () => {
+			expect.assertions(1);
+			const htmlvalidate = new HtmlValidate({
+				rules: { "heading-level": ["error", { minInitialRank: "h2" }] },
+			});
+			const markup = `
+				<h2>heading 2</h2>
+				<h3>heading 2</h3>
+				<h1>heading 2</h1>
+			`;
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("configured with h2 should not allow initial h3", () => {
+			expect.assertions(2);
+			const htmlvalidate = new HtmlValidate({
+				rules: { "heading-level": ["error", { minInitialRank: "h2" }] },
+			});
+			const markup = `
+				<h3>heading 3</h3>
+				<h1>heading 3</h1>
+			`;
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toHaveError(
+				"heading-level",
+				"Initial heading level must be <h2> or higher rank but got <h3>"
+			);
+		});
+
+		it("should allow continuous sectioning root", () => {
+			expect.assertions(1);
+			const htmlvalidate = new HtmlValidate({
+				rules: { "heading-level": ["error", { minInitialRank: "h2" }] },
+			});
+			const markup = `
+				<h2>heading 2</h2>
+				<div role="dialog">
+					<h3>modal header</h3>
+				</div>
+			`;
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should allow sectioning root with initial heading level", () => {
+			expect.assertions(1);
+			const htmlvalidate = new HtmlValidate({
+				rules: { "heading-level": ["error", { minInitialRank: "h2" }] },
+			});
+			const markup = `
+				<h2>heading 2</h2>
+				<div role="dialog">
+					<h1>modal header</h1>
+				</div>
+			`;
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it('"any" should be equivalent to "h6"', () => {
+			expect.assertions(1);
+			const htmlvalidate = new HtmlValidate({
+				rules: { "heading-level": ["error", { minInitialRank: "any" }] },
+			});
+			const markup = "<h6></h6>";
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it('false should be equivalent to "h6"', () => {
+			expect.assertions(1);
+			const htmlvalidate = new HtmlValidate({
+				rules: { "heading-level": ["error", { minInitialRank: false }] },
+			});
+			const markup = "<h6></h6>";
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
 		});
 	});
 
@@ -163,6 +247,14 @@ describe("rule heading-level", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
 			rules: { "heading-level": ["error", { allowMultipleH1: true }] },
+		});
+		expect(htmlvalidate.getRuleDocumentation("heading-level")).toMatchSnapshot();
+	});
+
+	it("should contain documentation (with minInitialRank)", () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({
+			rules: { "heading-level": ["error", { minInitialRank: "h2" }] },
 		});
 		expect(htmlvalidate.getRuleDocumentation("heading-level")).toMatchSnapshot();
 	});

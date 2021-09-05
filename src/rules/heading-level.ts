@@ -7,6 +7,7 @@ import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../
 
 interface RuleOptions {
 	allowMultipleH1: boolean;
+	minInitialRank: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "any" | false;
 	sectioningRoots: string[];
 }
 
@@ -18,6 +19,7 @@ interface SectioningRoot {
 
 const defaults: RuleOptions = {
 	allowMultipleH1: false,
+	minInitialRank: "h1",
 	sectioningRoots: ["dialog", '[role="dialog"]'],
 };
 
@@ -35,12 +37,26 @@ function extractLevel(node: HtmlElement): number | null {
 	}
 }
 
+function parseMaxInitial(value: string | false): number {
+	if (value === false || value === "any") {
+		return 6;
+	}
+	const match = value.match(/^h(\d)$/);
+	/* istanbul ignore next: should never happen, schema validation should catch invalid values */
+	if (!match) {
+		return 1;
+	}
+	return parseInt(match[1], 10);
+}
+
 export default class HeadingLevel extends Rule<void, RuleOptions> {
+	private minInitialRank: number;
 	private sectionRoots: Pattern[];
 	private stack: SectioningRoot[] = [];
 
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
+		this.minInitialRank = parseMaxInitial(this.options.minInitialRank);
 		this.sectionRoots = this.options.sectioningRoots.map((it) => new Pattern(it));
 
 		/* add a global sectioning root used by default */
@@ -56,6 +72,9 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 			allowMultipleH1: {
 				type: "boolean",
 			},
+			minInitialRank: {
+				enum: ["h1", "h2", "h3", "h4", "h5", "h6", "any", false],
+			},
 			sectioningRoots: {
 				items: {
 					type: "string",
@@ -67,7 +86,8 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 
 	public documentation(): RuleDocumentation {
 		const text: string[] = [];
-		text.push("Headings must start at <h1> and can only increase one level at a time.");
+		const modality = this.minInitialRank > 1 ? "should" : "must";
+		text.push(`Headings ${modality} start at <h1> and can only increase one level at a time.`);
 		text.push("The headings should form a table of contents and make sense on its own.");
 		if (!this.options.allowMultipleH1) {
 			text.push("");
@@ -125,14 +145,27 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 		level: number
 	): void {
 		const expected = root.current + 1;
-		if (level !== expected) {
-			const location = sliceLocation(event.location, 1);
-			if (root.current > 0) {
-				const msg = `Heading level can only increase by one, expected <h${expected}> but got <h${level}>`;
-				this.report(event.target, msg, location);
-			} else {
-				this.checkInitialLevel(event, location, level, expected);
-			}
+
+		/* check if the new level is the expected one (headings with higher ranks
+		 * are skipped already) */
+		if (level === expected) {
+			return;
+		}
+
+		/* if this is the initial heading of the document it is compared to the
+		 * minimal allowed (default h1) */
+		const isInitial = this.stack.length === 1 && expected === 1;
+		if (isInitial && level <= this.minInitialRank) {
+			return;
+		}
+
+		/* if we reach this far the heading level is not accepted */
+		const location = sliceLocation(event.location, 1);
+		if (root.current > 0) {
+			const msg = `Heading level can only increase by one, expected <h${expected}> but got <h${level}>`;
+			this.report(event.target, msg, location);
+		} else {
+			this.checkInitialLevel(event, location, level, expected);
 		}
 	}
 
@@ -143,7 +176,10 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 		expected: number
 	): void {
 		if (this.stack.length === 1) {
-			const msg = `Initial heading level must be <h${expected}> but got <h${level}>`;
+			const msg =
+				this.minInitialRank > 1
+					? `Initial heading level must be <h${this.minInitialRank}> or higher rank but got <h${level}>`
+					: `Initial heading level must be <h${expected}> but got <h${level}>`;
 			this.report(event.target, msg, location);
 		} else {
 			const prevRoot = this.getPrevRoot();
