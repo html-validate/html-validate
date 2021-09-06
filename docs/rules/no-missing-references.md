@@ -46,4 +46,4 @@ Examples of **correct** code for this rule:
 
 ## Version history
 
-- %version - Extended list of checked aria attributes.
+- 5.5.0 - Extended list of checked aria attributes.
