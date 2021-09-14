@@ -169,7 +169,6 @@
     "@types/babel__code-frame": "7.0.3",
     "@types/estree": "0.0.47",
     "@types/glob": "7.1.4",
-    "@types/inquirer": "7.3.3",
     "@types/jest": "27.0.1",
     "@types/json-merge-patch": "0.0.5",
     "@types/minimist": "1.2.2",
