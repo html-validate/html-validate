@@ -64,7 +64,7 @@ function loadFromFile(filename: string): ConfigData {
 	try {
 		/* load using require as it can process both js and json */
 		json = requireUncached(filename);
-	} catch (err) {
+	} catch (err: any) {
 		throw new ConfigError(`Failed to read configuration from "${filename}"`, err);
 	}
 
@@ -281,7 +281,7 @@ export class Config {
 			/* assume it is loadable with require() */
 			try {
 				metaTable.loadFromObject(legacyRequire(entry));
-			} catch (err) {
+			} catch (err: any) {
 				throw new ConfigError(`Failed to load elements from "${entry}": ${err.message}`, err);
 			}
 		}
@@ -355,7 +355,7 @@ export class Config {
 				plugin.name = plugin.name || moduleName;
 				plugin.originalName = moduleName;
 				return plugin;
-			} catch (err) {
+			} catch (err: any) {
 				throw new ConfigError(`Failed to load plugin "${moduleName}": ${err}`, err);
 			}
 		});
@@ -454,7 +454,7 @@ export class Config {
 					name,
 					fn,
 				};
-			} catch (err) {
+			} catch (err: any) {
 				if (err instanceof ConfigError) {
 					throw new ConfigError(`Failed to load transformer "${name}": ${err.message}`, err);
 				} else {

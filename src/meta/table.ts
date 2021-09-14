@@ -145,7 +145,7 @@ export class MetaTable {
 			/* load using require as it can process both js and json */
 			const data = requireUncached(filename);
 			this.loadFromObject(data, filename);
-		} catch (err) {
+		} catch (err: any) {
 			if (err instanceof SchemaValidationError) {
 				throw err;
 			}

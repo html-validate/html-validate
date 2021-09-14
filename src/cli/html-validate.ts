@@ -116,7 +116,7 @@ function handleUserError(err: UserError): void {
 	console.groupEnd();
 }
 
-function handleUnknownError(err: Error): void {
+function handleUnknownError(err: unknown): void {
 	console.error(kleur.red("Caught exception:"));
 	console.group();
 	{
