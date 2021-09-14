@@ -78,7 +78,7 @@ export class ResolvedConfig {
 					cur.transformedBy.push(transformer.name);
 					return cur;
 				});
-			} catch (err) {
+			} catch (err: any) {
 				throw new NestedError(`When transforming "${source.filename}": ${err.message}`, err);
 			}
 		} else {
