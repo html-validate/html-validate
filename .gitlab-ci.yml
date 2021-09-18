@@ -42,9 +42,8 @@ pages:
   artifacts:
     paths:
       - public
-  only:
-    - tags
-    - triggers
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "master" && $CI_COMMIT_MESSAGE =~ /^chore\(release\):/'
   script:
     - npm run --if-present build
     - npm run build:docs
@@ -161,6 +160,7 @@ Dry run:
   extends: .release
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master"'
+    - if: '$CI_COMMIT_REF_NAME =~ /^\d+\.x$/'
   script:
     - npm exec semantic-release -- --dry-run
 
@@ -168,6 +168,8 @@ Release:
   extends: .release
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master" && $CI_PIPELINE_SOURCE == "web"'
+      when: manual
+    - if: '$CI_COMMIT_REF_NAME =~ /^\d+\.x$/ && $CI_PIPELINE_SOURCE == "web"'
       when: manual
   script:
     - npm exec semantic-release
