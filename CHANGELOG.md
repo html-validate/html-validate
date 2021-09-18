@@ -1,5 +1,11 @@
 # html-validate changelog
 
+### [4.14.1](https://gitlab.com/html-validate/html-validate/compare/v4.14.0...v4.14.1) (2021-09-18)
+
+### Bug Fixes
+
+- **jest:** handle when `jest-diff` default import is object ([74f9b84](https://gitlab.com/html-validate/html-validate/commit/74f9b8424e0bf5071823e82bfc79d8904025808a))
+
 ## [4.14.0](https://gitlab.com/html-validate/html-validate/compare/v4.13.1...v4.14.0) (2021-06-14)
 
 ### Features
