@@ -160,7 +160,7 @@ Dry run:
   extends: .release
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master"'
-    - if: '$CI_COMMIT_REF_NAME =~ /^\d+\.x$/'
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\//'
   script:
     - npm exec semantic-release -- --dry-run
 
@@ -169,7 +169,7 @@ Release:
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master" && $CI_PIPELINE_SOURCE == "web"'
       when: manual
-    - if: '$CI_COMMIT_REF_NAME =~ /^\d+\.x$/ && $CI_PIPELINE_SOURCE == "web"'
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\// && $CI_PIPELINE_SOURCE == "web"'
       when: manual
   script:
     - npm exec semantic-release
