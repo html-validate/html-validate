@@ -1,6 +1,6 @@
 import { Location, sliceLocation } from "../context";
 import { Token } from "../lexer";
-import { MetaCopyableProperty, MetaElement } from "../meta/element";
+import { MetaCopyableProperty, MetaElement, setMetaProperty } from "../meta/element";
 import { MetaTable } from "../meta/table";
 import { Attribute } from "./attribute";
 import { DOMNode } from "./domnode";
@@ -222,8 +222,9 @@ export class HtmlElement extends DOMNode {
 			this.metaElement = {} as MetaElement;
 		}
 		for (const key of MetaCopyableProperty) {
-			if (typeof meta[key] !== "undefined") {
-				this.metaElement[key] = meta[key];
+			const value = meta[key];
+			if (typeof value !== "undefined") {
+				setMetaProperty(this.metaElement, key, value);
 			} else {
 				delete this.metaElement[key];
 			}

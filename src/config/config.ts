@@ -5,7 +5,7 @@ import ajvSchemaDraft from "ajv/lib/refs/json-schema-draft-06.json";
 import deepmerge from "deepmerge";
 import { SchemaValidationError } from "../error";
 import { MetaTable } from "../meta";
-import { MetaCopyableProperty, MetaDataTable } from "../meta/element";
+import { MetaCopyableProperty, MetaDataTable, MetaElement } from "../meta/element";
 import { Plugin } from "../plugin";
 import schema from "../schema/config.json";
 import { Transformer, TRANSFORMER_API } from "../transform";
@@ -401,7 +401,11 @@ export class Config {
 				continue;
 			}
 
-			for (const [key, schema] of Object.entries(properties)) {
+			for (const [raw, schema] of Object.entries(properties)) {
+				/* at compile time this is a fixed list but the point of this method is
+				 * to augment the runtime with additional keys so it is a bit of lying
+				 * to typescript */
+				const key = raw as keyof MetaElement;
 				if ((schema as any).copyable && !MetaCopyableProperty.includes(key)) {
 					MetaCopyableProperty.push(key);
 				}

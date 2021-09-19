@@ -95,7 +95,7 @@ export type MetaLookupableProperty =
  * Properties listed here can be copied (loaded) onto another element using
  * [[HtmlElement.loadMeta]].
  */
-export const MetaCopyableProperty = [
+export const MetaCopyableProperty: Array<keyof MetaElement> = [
 	"metadata",
 	"flow",
 	"sectioning",
@@ -118,16 +118,6 @@ export const MetaCopyableProperty = [
 export interface MetaElement extends MetaData {
 	/* filled internally for reverse lookup */
 	tagName: string;
-
-	[key: string]:
-		| undefined
-		| boolean
-		| DeprecatedElement
-		| PropertyExpression
-		| Permitted
-		| PermittedOrder
-		| PermittedAttribute
-		| RequiredAncestors;
 }
 
 export interface MetaDataTable {
@@ -136,4 +126,15 @@ export interface MetaDataTable {
 
 export interface ElementTable {
 	[tagName: string]: MetaElement;
+}
+
+/**
+ * @internal
+ */
+export function setMetaProperty<T extends keyof MetaElement>(
+	dst: MetaElement,
+	key: T,
+	value: MetaElement[T]
+): void {
+	dst[key] = value;
 }

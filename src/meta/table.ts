@@ -15,9 +15,10 @@ import {
 	MetaElement,
 	MetaLookupableProperty,
 	PropertyExpression,
+	setMetaProperty,
 } from "./element";
 
-const dynamicKeys = [
+const dynamicKeys: Array<keyof MetaElement> = [
 	"metadata",
 	"flow",
 	"sectioning",
@@ -257,7 +258,7 @@ function expandProperties(node: HtmlElement, entry: MetaElement): void {
 	for (const key of dynamicKeys) {
 		const property = entry[key];
 		if (property && typeof property !== "boolean") {
-			entry[key] = evaluateProperty(node, property as PropertyExpression);
+			setMetaProperty(entry, key, evaluateProperty(node, property as PropertyExpression));
 		}
 	}
 }
