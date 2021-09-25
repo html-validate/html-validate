@@ -9,11 +9,14 @@ Array [
       Object {
         "column": 17,
         "context": Object {
-          "allowed": Array [
-            "submit",
-            "reset",
-            "button",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "submit",
+              "reset",
+              "button",
+            ],
+            "required": true,
+          },
           "attribute": "type",
           "element": "button",
           "value": "foo",
@@ -30,11 +33,14 @@ Array [
       Object {
         "column": 15,
         "context": Object {
-          "allowed": Array [
-            "submit",
-            "reset",
-            "button",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "submit",
+              "reset",
+              "button",
+            ],
+            "required": true,
+          },
           "attribute": "type",
           "element": "button",
           "value": "spam",

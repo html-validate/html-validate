@@ -3,7 +3,8 @@
     "flow": true,
     "attributes": {
       "quacks": {
-        "boolean": true
+        "omit": true,
+        "enum": ["duck", "dog"]
       }
     }
   }

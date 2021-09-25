@@ -45,6 +45,32 @@ describe("MetaTable", () => {
 		validate.errors = [];
 	});
 
+	describe("should migrate old formats", () => {
+		it("attributes string to object", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: {
+					attributes: {
+						"my-attr": ["a"],
+					},
+				},
+			});
+			expect(table.getMetaFor("foo")).toMatchInlineSnapshot(`
+				Object {
+				  "attributes": Object {
+				    "my-attr": Object {
+				      "enum": Array [
+				        "a",
+				      ],
+				    },
+				  },
+				  "tagName": "foo",
+				}
+			`);
+		});
+	});
+
 	it("should throw SchemaValidationError if object does not validate", () => {
 		expect.assertions(2);
 		validate.errors = [
@@ -118,6 +144,7 @@ describe("MetaTable", () => {
 			table.loadFromFile(filename);
 			expect(table.getMetaFor("foo")).toMatchInlineSnapshot(`
 				Object {
+				  "attributes": Object {},
 				  "flow": true,
 				  "tagName": "foo",
 				}
@@ -131,6 +158,7 @@ describe("MetaTable", () => {
 			table.loadFromFile(filename);
 			expect(table.getMetaFor("foo")).toMatchInlineSnapshot(`
 				Object {
+				  "attributes": Object {},
 				  "flow": true,
 				  "tagName": "foo",
 				}
@@ -144,6 +172,7 @@ describe("MetaTable", () => {
 			table.loadFromFile(filename);
 			expect(table.getMetaFor("foo")).toMatchInlineSnapshot(`
 				Object {
+				  "attributes": Object {},
 				  "flow": true,
 				  "tagName": "foo",
 				}
@@ -429,14 +458,14 @@ describe("MetaTable", () => {
 			table.loadFromObject({
 				foo: mockEntry({
 					attributes: {
-						attr: ["/foo/"],
+						attr: { enum: ["/foo/"] },
 					},
 				}),
 			});
 			const meta = table.getMetaFor("foo");
 			expect(meta).not.toBeUndefined();
 			expect(meta?.attributes).toEqual({
-				attr: [/^foo$/],
+				attr: { enum: [/^foo$/] },
 			});
 		});
 
@@ -446,14 +475,14 @@ describe("MetaTable", () => {
 			table.loadFromObject({
 				foo: mockEntry({
 					attributes: {
-						attr: ["/foo/i"],
+						attr: { enum: ["/foo/i"] },
 					},
 				}),
 			});
 			const meta = table.getMetaFor("foo");
 			expect(meta).not.toBeUndefined();
 			expect(meta?.attributes).toEqual({
-				attr: [/^foo$/i],
+				attr: { enum: [/^foo$/i] },
 			});
 		});
 
@@ -463,14 +492,14 @@ describe("MetaTable", () => {
 			table.loadFromObject({
 				foo: mockEntry({
 					attributes: {
-						attr: ["/^foo/", "/bar$/", "/^baz$/"],
+						attr: { enum: ["/^foo/", "/bar$/", "/^baz$/"] },
 					},
 				}),
 			});
 			const meta = table.getMetaFor("foo");
 			expect(meta).not.toBeUndefined();
 			expect(meta?.attributes).toEqual({
-				attr: [/^foo$/, /^bar$/, /^baz$/],
+				attr: { enum: [/^foo$/, /^bar$/, /^baz$/] },
 			});
 		});
 
@@ -480,14 +509,14 @@ describe("MetaTable", () => {
 			table.loadFromObject({
 				foo: mockEntry({
 					attributes: {
-						attr: [/foo/],
+						attr: { enum: [/foo/] },
 					},
 				}),
 			});
 			const meta = table.getMetaFor("foo");
 			expect(meta).not.toBeUndefined();
 			expect(meta?.attributes).toEqual({
-				attr: [/foo/],
+				attr: { enum: [/foo/] },
 			});
 		});
 	});
@@ -499,7 +528,7 @@ describe("MetaTable", () => {
 			table.loadFromObject({
 				"*": mockEntry({
 					attributes: {
-						a: ["1"],
+						a: { enum: ["1"] },
 					},
 				}),
 				foo: mockEntry(),
@@ -509,7 +538,7 @@ describe("MetaTable", () => {
 			expect(meta).toEqual(
 				expect.objectContaining({
 					attributes: {
-						a: ["1"],
+						a: { enum: ["1"] },
 					},
 				})
 			);
@@ -521,14 +550,14 @@ describe("MetaTable", () => {
 			table.loadFromObject({
 				"*": mockEntry({
 					attributes: {
-						a: ["1"],
-						b: ["2"],
+						a: { enum: ["1"] },
+						b: { enum: ["2"] },
 					},
 				}),
 				foo: mockEntry({
 					attributes: {
-						b: ["3"],
-						c: ["4"],
+						b: { enum: ["3"] },
+						c: { enum: ["4"] },
 					},
 				}),
 			});
@@ -537,9 +566,9 @@ describe("MetaTable", () => {
 			expect(meta).toEqual(
 				expect.objectContaining({
 					attributes: {
-						a: ["1"],
-						b: ["3"],
-						c: ["4"],
+						a: { enum: ["1"] },
+						b: { enum: ["3"] },
+						c: { enum: ["4"] },
 					},
 				})
 			);
@@ -620,15 +649,15 @@ describe("MetaTable", () => {
 			table.loadFromObject({
 				foo: {
 					attributes: {
-						a: ["1"],
-						b: ["1"],
-						c: ["1"],
+						a: { enum: ["1"] },
+						b: { enum: ["1"] },
+						c: { enum: ["1"] },
 					},
 				},
 				bar: {
 					inherit: "foo",
 					attributes: {
-						b: ["2"],
+						b: { enum: ["2"] },
 						c: null,
 					},
 				},
@@ -636,7 +665,7 @@ describe("MetaTable", () => {
 			table.loadFromObject({
 				foo: {
 					attributes: {
-						a: ["2"],
+						a: { enum: ["2"] },
 						b: null,
 					},
 				},
@@ -646,12 +675,16 @@ describe("MetaTable", () => {
 			expect(foo).toMatchInlineSnapshot(`
 				Object {
 				  "attributes": Object {
-				    "a": Array [
-				      "2",
-				    ],
-				    "c": Array [
-				      "1",
-				    ],
+				    "a": Object {
+				      "enum": Array [
+				        "2",
+				      ],
+				    },
+				    "c": Object {
+				      "enum": Array [
+				        "1",
+				      ],
+				    },
 				  },
 				  "tagName": "foo",
 				}
@@ -659,12 +692,16 @@ describe("MetaTable", () => {
 			expect(bar).toMatchInlineSnapshot(`
 				Object {
 				  "attributes": Object {
-				    "a": Array [
-				      "1",
-				    ],
-				    "b": Array [
-				      "2",
-				    ],
+				    "a": Object {
+				      "enum": Array [
+				        "1",
+				      ],
+				    },
+				    "b": Object {
+				      "enum": Array [
+				        "2",
+				      ],
+				    },
 				  },
 				  "inherit": "foo",
 				  "tagName": "bar",

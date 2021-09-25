@@ -1,6 +1,7 @@
 export { MetaTable } from "./table";
 export {
 	ElementTable,
+	MetaAttribute,
 	MetaCopyableProperty,
 	MetaData,
 	MetaDataTable,

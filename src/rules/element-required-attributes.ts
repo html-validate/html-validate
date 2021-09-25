@@ -24,9 +24,17 @@ export default class ElementRequiredAttributes extends Rule<Context> {
 		this.on("tag:end", (event: TagEndEvent) => {
 			const node = event.previous;
 			const meta = node.meta;
-			if (!meta || !meta.requiredAttributes) return;
 
-			for (const key of meta.requiredAttributes) {
+			/* handle missing metadata and missing attributes */
+			if (!meta || !meta.attributes) {
+				return;
+			}
+
+			for (const [key, attr] of Object.entries(meta.attributes)) {
+				if (!attr.required) {
+					continue;
+				}
+
 				if (node.hasAttribute(key)) continue;
 
 				const context: Context = {

@@ -24,9 +24,38 @@ export enum TextContent {
 	ACCESSIBLE = "accessible",
 }
 
-export interface PermittedAttribute {
-	[key: string]: Array<string | RegExp>;
+/**
+ * @public
+ */
+export interface MetaAttribute {
+	/* if true this attribute can only take boolean values: my-attr, my-attr="" or my-attr="my-attr" */
+	boolean?: boolean;
+
+	/* if set this attribute is considered deprecated, set to true or a message */
+	deprecated?: boolean | string;
+
+	/* if set it is an exhaustive list of all possible values (as string or regex)
+	 * this attribute can have (each token if list is set) */
+	enum?: Array<string | RegExp>;
+
+	/* if true this attribute can omit the value */
+	omit?: boolean;
+
+	/* if set this attribute is required to be set */
+	required?: boolean;
 }
+
+/**
+ * Internal flags used during configuration loading.
+ *
+ * @internal
+ */
+export interface InternalAttributeFlags {
+	/* set to true if attribute is marked for deletion */
+	delete?: true;
+}
+
+export type PermittedAttribute = Record<string, MetaAttribute | Array<string | RegExp> | null>;
 
 export interface DeprecatedElement {
 	message?: string;
@@ -106,7 +135,6 @@ export const MetaCopyableProperty: Array<keyof MetaElement> = [
 	"transparent",
 	"form",
 	"labelable",
-	"requiredAttributes",
 	"attributes",
 	"permittedContent",
 	"permittedDescendants",
@@ -115,9 +143,11 @@ export const MetaCopyableProperty: Array<keyof MetaElement> = [
 	"requiredContent",
 ];
 
-export interface MetaElement extends MetaData {
+export interface MetaElement extends Omit<MetaData, "deprecatedAttributes" | "requiredAttributes"> {
 	/* filled internally for reverse lookup */
 	tagName: string;
+
+	attributes: Record<string, MetaAttribute>;
 }
 
 export interface MetaDataTable {

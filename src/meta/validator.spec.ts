@@ -2,6 +2,7 @@ import { Config, ResolvedConfig } from "../config";
 import { Location } from "../context";
 import { Attribute, DynamicValue, HtmlElement } from "../dom";
 import { Parser } from "../parser";
+import { MetaAttribute } from "./element";
 import { MetaData, MetaTable, Validator } from ".";
 
 const location: Location = {
@@ -510,7 +511,7 @@ describe("Meta validator", () => {
 	describe("validateAttribute()", () => {
 		it("should match if no rule is present", () => {
 			expect.assertions(1);
-			const rules = {};
+			const rules: Record<string, MetaAttribute> = {};
 			const attr = new Attribute("foo", "bar", location, location);
 			expect(Validator.validateAttribute(attr, rules)).toBeTruthy();
 		});
@@ -522,7 +523,7 @@ describe("Meta validator", () => {
 			${/.*/}   | ${""}
 		`("should match regexp $regex vs $value", ({ regex, value }) => {
 			expect.assertions(1);
-			const rules = { foo: [regex] };
+			const rules: Record<string, MetaAttribute> = { foo: { enum: [regex] } };
 			const attr = new Attribute("foo", value, location, location);
 			expect(Validator.validateAttribute(attr, rules)).toBeTruthy();
 		});
@@ -534,15 +535,15 @@ describe("Meta validator", () => {
 			${/.*/}   | ${null}  | ${false}
 		`("should not match regexp $regex vs $value", ({ regex, value }) => {
 			expect.assertions(1);
-			const rules = { foo: [regex] };
+			const rules: Record<string, MetaAttribute> = { foo: { enum: [regex] } };
 			const attr = new Attribute("foo", value, location, location);
 			expect(Validator.validateAttribute(attr, rules)).toBeFalsy();
 		});
 
 		it("should match string value", () => {
 			expect.assertions(2);
-			const rules = {
-				foo: ["bar"],
+			const rules: Record<string, MetaAttribute> = {
+				foo: { enum: ["bar"] },
 			};
 			const bar = new Attribute("foo", "bar", location, location);
 			const car = new Attribute("foo", "car", location, location);
@@ -552,9 +553,9 @@ describe("Meta validator", () => {
 
 		it("should match dynamic value", () => {
 			expect.assertions(2);
-			const rules = {
-				foo: ["bar"],
-				bar: [] as string[],
+			const rules: Record<string, MetaAttribute> = {
+				foo: { enum: ["bar"] },
+				bar: { boolean: true },
 			};
 			const dynamic = new DynamicValue("any");
 			const foo = new Attribute("foo", dynamic, location, location);
@@ -565,8 +566,8 @@ describe("Meta validator", () => {
 
 		it("should match if one of multiple allowed matches", () => {
 			expect.assertions(2);
-			const rules = {
-				foo: ["fred", "barney", "wilma"],
+			const rules: Record<string, MetaAttribute> = {
+				foo: { enum: ["fred", "barney", "wilma"] },
 			};
 			const barney = new Attribute("foo", "barney", location, location);
 			const pebble = new Attribute("foo", "pebble", location, location);
@@ -574,28 +575,60 @@ describe("Meta validator", () => {
 			expect(Validator.validateAttribute(pebble, rules)).toBeFalsy();
 		});
 
+		it("should handle empty enumeration", () => {
+			expect.assertions(3);
+			const rules: Record<string, MetaAttribute> = {
+				foo: { enum: [] },
+			};
+			const a = new Attribute("foo", "barney", location, location);
+			const b = new Attribute("foo", "pebble", location, location);
+			const c = new Attribute("foo", "barney", location, location);
+			expect(Validator.validateAttribute(a, rules)).toBeFalsy();
+			expect(Validator.validateAttribute(b, rules)).toBeFalsy();
+			expect(Validator.validateAttribute(c, rules)).toBeFalsy();
+		});
+
+		it("should handle missing enumeration", () => {
+			expect.assertions(3);
+			const rules: Record<string, MetaAttribute> = {
+				foo: {},
+			};
+			const omitted = new Attribute("foo", null, location, null);
+			const empty = new Attribute("foo", "", location, null);
+			const value = new Attribute("foo", "foo", location, location);
+			expect(Validator.validateAttribute(omitted, rules)).toBeTruthy();
+			expect(Validator.validateAttribute(empty, rules)).toBeTruthy();
+			expect(Validator.validateAttribute(value, rules)).toBeTruthy();
+		});
+
 		it("should handle null", () => {
 			expect.assertions(1);
-			const rules = {
-				foo: ["foo", "/bar/"],
+			const rules: Record<string, MetaAttribute> = {
+				foo: { enum: ["foo", "/bar/"] },
 			};
 			const attr = new Attribute("foo", null, location, null);
 			expect(Validator.validateAttribute(attr, rules)).toBeFalsy();
 		});
 
-		it("should consider empty list as boolean attribute", () => {
-			expect.assertions(1);
-			const rules = {
-				foo: [] as string[],
+		it("should consider boolean property as boolean attribute", () => {
+			expect.assertions(4);
+			const rules: Record<string, MetaAttribute> = {
+				foo: { boolean: true },
 			};
-			const attr = new Attribute("foo", null, location, null);
-			expect(Validator.validateAttribute(attr, rules)).toBeTruthy();
+			const omitted = new Attribute("foo", null, location, null);
+			const empty = new Attribute("foo", "", location, null);
+			const self = new Attribute("foo", "foo", location, location);
+			const other = new Attribute("foo", "other", location, location);
+			expect(Validator.validateAttribute(omitted, rules)).toBeTruthy();
+			expect(Validator.validateAttribute(empty, rules)).toBeTruthy();
+			expect(Validator.validateAttribute(self, rules)).toBeTruthy();
+			expect(Validator.validateAttribute(other, rules)).toBeFalsy();
 		});
 
-		it("should consider empty value as either null or empty string", () => {
+		it("should consider omit property as either null or empty string", () => {
 			expect.assertions(2);
-			const rules = {
-				foo: [""] as string[],
+			const rules: Record<string, MetaAttribute> = {
+				foo: { omit: true },
 			};
 			const omitted = new Attribute("foo", null, location, null);
 			const empty = new Attribute("foo", "", location, null);
@@ -603,10 +636,45 @@ describe("Meta validator", () => {
 			expect(Validator.validateAttribute(empty, rules)).toBeTruthy();
 		});
 
+		it("should consider empty string as empty string", () => {
+			expect.assertions(3);
+			const rules: Record<string, MetaAttribute> = {
+				foo: { enum: [""] },
+			};
+			const omitted = new Attribute("foo", null, location, null);
+			const empty = new Attribute("foo", "", location, null);
+			const value = new Attribute("foo", "foo", location, location);
+			expect(Validator.validateAttribute(omitted, rules)).toBeFalsy();
+			expect(Validator.validateAttribute(empty, rules)).toBeTruthy();
+			expect(Validator.validateAttribute(value, rules)).toBeFalsy();
+		});
+
+		describe("should handle omit and enum combined", () => {
+			it.each`
+				omit     | enum    | value   | expected
+				${false} | ${[]}   | ${null} | ${false}
+				${false} | ${[]}   | ${""}   | ${false}
+				${false} | ${[""]} | ${null} | ${false}
+				${false} | ${[""]} | ${""}   | ${true}
+				${true}  | ${[]}   | ${null} | ${true}
+				${true}  | ${[]}   | ${""}   | ${true}
+				${true}  | ${[""]} | ${null} | ${true}
+				${true}  | ${[""]} | ${""}   | ${true}
+			`("omit: $omit enum: $enum value: ${$value}", (options) => {
+				const { expected, value } = options;
+				expect.assertions(1);
+				const rules: Record<string, MetaAttribute> = {
+					foo: options,
+				};
+				const attr = new Attribute("foo", value, location, location);
+				expect(Validator.validateAttribute(attr, rules)).toEqual(expected);
+			});
+		});
+
 		it("should normalize boolean attributes", () => {
 			expect.assertions(4);
-			const rules = {
-				foo: [] as string[],
+			const rules: Record<string, MetaAttribute> = {
+				foo: { boolean: true },
 			};
 			const omitted = new Attribute("foo", null, location, null);
 			const empty = new Attribute("foo", "", location, null);

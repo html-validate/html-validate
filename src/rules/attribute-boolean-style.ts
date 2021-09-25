@@ -1,6 +1,6 @@
 import { Attribute, HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
-import { PermittedAttribute } from "../meta/element";
+import { MetaAttribute } from "../meta/element";
 import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 
 interface RuleOptions {
@@ -67,8 +67,8 @@ export default class AttributeBooleanStyle extends Rule<void, RuleOptions> {
 		});
 	}
 
-	public isBoolean(attr: Attribute, rules: PermittedAttribute): boolean {
-		return rules[attr.key] && rules[attr.key].length === 0;
+	public isBoolean(attr: Attribute, rules: Record<string, MetaAttribute>): boolean {
+		return Boolean(rules[attr.key]?.boolean);
 	}
 }
 

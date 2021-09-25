@@ -10,13 +10,15 @@ import { requireUncached } from "../utils/require-uncached";
 import schema from "../schema/elements.json";
 import {
 	ElementTable,
-	MetaData,
+	InternalAttributeFlags,
+	MetaAttribute,
 	MetaDataTable,
 	MetaElement,
 	MetaLookupableProperty,
 	PropertyExpression,
 	setMetaProperty,
 } from "./element";
+import { migrateElement } from "./migrate";
 
 const dynamicKeys: Array<keyof MetaElement> = [
 	"metadata",
@@ -132,7 +134,7 @@ export class MetaTable {
 
 		for (const [key, value] of Object.entries(obj)) {
 			if (key === "$schema") continue;
-			this.addEntry(key, value);
+			this.addEntry(key, migrateElement(value));
 		}
 	}
 
@@ -182,7 +184,7 @@ export class MetaTable {
 			.map(([tagName]) => tagName);
 	}
 
-	private addEntry(tagName: string, entry: MetaData): void {
+	private addEntry(tagName: string, entry: Omit<MetaElement, "tagName">): void {
 		let parent = this.elements[tagName] || {};
 
 		/* handle inheritance */
@@ -195,11 +197,7 @@ export class MetaTable {
 		}
 
 		/* merge all sources together */
-		const expanded: MetaElement = deepmerge(
-			parent,
-			{ ...entry, tagName },
-			{ arrayMerge: overwriteMerge }
-		);
+		const expanded = this.mergeElement(parent, { ...entry, tagName });
 		expandRegex(expanded);
 
 		this.elements[tagName] = expanded;
@@ -244,7 +242,20 @@ export class MetaTable {
 	}
 
 	private mergeElement(a: Partial<MetaElement>, b: MetaElement): MetaElement {
-		return deepmerge(a, b, { arrayMerge: overwriteMerge });
+		const merged = deepmerge(a, b, { arrayMerge: overwriteMerge });
+
+		/* special handling when removing attributes by setting them to null
+		 * resulting in the deletion flag being set */
+		const filteredAttrs = Object.entries(
+			merged.attributes as Record<string, MetaAttribute & InternalAttributeFlags>
+		).filter(([, attr]) => {
+			const val = !attr.delete;
+			delete attr.delete;
+			return val;
+		});
+		merged.attributes = Object.fromEntries(filteredAttrs);
+
+		return merged;
 	}
 
 	public resolve(node: HtmlElement): void {
@@ -285,12 +296,9 @@ function expandRegexValue(value: string | RegExp): string | RegExp {
  * Expand all regular expressions in strings ("/../"). This mutates the object.
  */
 function expandRegex(entry: MetaElement): void {
-	if (!entry.attributes) return;
 	for (const [name, values] of Object.entries(entry.attributes)) {
-		if (values) {
-			entry.attributes[name] = values.map(expandRegexValue);
-		} else {
-			delete entry.attributes[name];
+		if (values.enum) {
+			entry.attributes[name].enum = values.enum.map(expandRegexValue);
 		}
 	}
 }

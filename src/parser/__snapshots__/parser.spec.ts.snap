@@ -3,31 +3,55 @@
 exports[`parser should postprocess elements allow modify element metadata 1`] = `
 Object {
   "attributes": Object {
-    "contenteditable": Array [
-      "",
-      "true",
-      "false",
-    ],
-    "dir": Array [
-      "ltr",
-      "rtl",
-      "auto",
-    ],
-    "draggable": Array [
-      "true",
-      "false",
-    ],
-    "hidden": Array [],
-    "id": Array [
-      /\\^\\\\S\\+\\$/,
-    ],
-    "tabindex": Array [
-      /\\^-\\?\\\\d\\+\\$/,
-    ],
+    "align": Object {
+      "deprecated": true,
+    },
+    "contenteditable": Object {
+      "enum": Array [
+        "true",
+        "false",
+      ],
+      "omit": true,
+    },
+    "contextmenu": Object {
+      "deprecated": true,
+    },
+    "datafld": Object {
+      "deprecated": true,
+    },
+    "dataformatas": Object {
+      "deprecated": true,
+    },
+    "datasrc": Object {
+      "deprecated": true,
+    },
+    "dir": Object {
+      "enum": Array [
+        "ltr",
+        "rtl",
+        "auto",
+      ],
+    },
+    "draggable": Object {
+      "enum": Array [
+        "true",
+        "false",
+      ],
+    },
+    "hidden": Object {
+      "boolean": true,
+    },
+    "id": Object {
+      "enum": Array [
+        /\\^\\\\S\\+\\$/,
+      ],
+    },
+    "tabindex": Object {
+      "enum": Array [
+        /\\^-\\?\\\\d\\+\\$/,
+      ],
+    },
   },
-  "deprecatedAttributes": Array [
-    "contextmenu",
-  ],
   "flow": true,
   "permittedContent": Array [
     "@flow",
@@ -41,31 +65,43 @@ Object {
 exports[`parser should postprocess elements allow modify element metadata 2`] = `
 Object {
   "attributes": Object {
-    "contenteditable": Array [
-      "",
-      "true",
-      "false",
-    ],
-    "dir": Array [
-      "ltr",
-      "rtl",
-      "auto",
-    ],
-    "draggable": Array [
-      "true",
-      "false",
-    ],
-    "hidden": Array [],
-    "id": Array [
-      /\\^\\\\S\\+\\$/,
-    ],
-    "tabindex": Array [
-      /\\^-\\?\\\\d\\+\\$/,
-    ],
+    "contenteditable": Object {
+      "enum": Array [
+        "true",
+        "false",
+      ],
+      "omit": true,
+    },
+    "contextmenu": Object {
+      "deprecated": true,
+    },
+    "dir": Object {
+      "enum": Array [
+        "ltr",
+        "rtl",
+        "auto",
+      ],
+    },
+    "draggable": Object {
+      "enum": Array [
+        "true",
+        "false",
+      ],
+    },
+    "hidden": Object {
+      "boolean": true,
+    },
+    "id": Object {
+      "enum": Array [
+        /\\^\\\\S\\+\\$/,
+      ],
+    },
+    "tabindex": Object {
+      "enum": Array [
+        /\\^-\\?\\\\d\\+\\$/,
+      ],
+    },
   },
-  "deprecatedAttributes": Array [
-    "contextmenu",
-  ],
   "flow": true,
   "permittedContent": Array [
     "@phrasing",

@@ -6,7 +6,9 @@ import { processAttribute } from "../transform/mocks/attribute";
 const metadata: MetaDataTable = {
 	"mock-element": {
 		attributes: {
-			"case-insensitive": ["/foo/i"],
+			"case-insensitive": {
+				enum: ["/foo/i"],
+			},
 		},
 	},
 };
@@ -126,7 +128,9 @@ describe("rule attribute-allowed-values", () => {
 			element: "any",
 			attribute: "foo",
 			value: "bar",
-			allowed: ["spam", "ham", /\d+/],
+			allowed: {
+				enum: ["spam", "ham", /\d+/],
+			},
 		};
 		expect(
 			htmlvalidate.getRuleDocumentation("attribute-allowed-values", null, context)
@@ -139,7 +143,24 @@ describe("rule attribute-allowed-values", () => {
 			element: "any",
 			attribute: "foo",
 			value: "bar",
-			allowed: [] as string[],
+			allowed: {
+				boolean: true,
+			},
+		};
+		expect(
+			htmlvalidate.getRuleDocumentation("attribute-allowed-values", null, context)
+		).toMatchSnapshot();
+	});
+
+	it("contain contextual documentation when attribute is omitted", () => {
+		expect.assertions(1);
+		const context = {
+			element: "any",
+			attribute: "foo",
+			value: "bar",
+			allowed: {
+				omit: true,
+			},
 		};
 		expect(
 			htmlvalidate.getRuleDocumentation("attribute-allowed-values", null, context)
