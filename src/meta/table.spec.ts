@@ -492,7 +492,7 @@ describe("MetaTable", () => {
 		});
 	});
 
-	describe("global", () => {
+	describe("global element", () => {
 		it("should be merged with element", () => {
 			expect.assertions(1);
 			const table = new MetaTable();
@@ -505,8 +505,8 @@ describe("MetaTable", () => {
 				foo: mockEntry(),
 			});
 			table.init();
-			const bar = table.getMetaFor("foo");
-			expect(bar).toEqual(
+			const meta = table.getMetaFor("foo");
+			expect(meta).toEqual(
 				expect.objectContaining({
 					attributes: {
 						a: ["1"],
@@ -533,8 +533,8 @@ describe("MetaTable", () => {
 				}),
 			});
 			table.init();
-			const bar = table.getMetaFor("foo");
-			expect(bar).toEqual(
+			const meta = table.getMetaFor("foo");
+			expect(meta).toEqual(
 				expect.objectContaining({
 					attributes: {
 						a: ["1"],
