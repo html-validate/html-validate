@@ -1,4 +1,4 @@
-import { Attribute, DynamicValue, HtmlElement } from "../dom";
+import { Attribute, DynamicValue, HtmlElement, DOMTokenList } from "../dom";
 import {
 	MetaAttribute,
 	Permitted,
@@ -188,6 +188,18 @@ export class Validator {
 			return true;
 		}
 
+		/* validate each token when using list, all tokens must be valid */
+		if (rule.list) {
+			const tokens = new DOMTokenList(value, attr.valueLocation);
+			return tokens.every((token) => {
+				return this.validateAttributeValue(token, rule);
+			});
+		}
+
+		return this.validateAttributeValue(value, rule);
+	}
+
+	private static validateAttributeValue(value: string | null, rule: MetaAttribute): boolean {
 		/* skip attribute if it not have enumerated list */
 		if (!rule.enum) {
 			return true;

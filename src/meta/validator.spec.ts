@@ -685,6 +685,24 @@ describe("Meta validator", () => {
 			expect(Validator.validateAttribute(self, rules)).toBeTruthy();
 			expect(Validator.validateAttribute(other, rules)).toBeFalsy();
 		});
+
+		it.each`
+			value           | expected
+			${"foo"}        | ${true}
+			${"bar"}        | ${true}
+			${"baz"}        | ${false}
+			${"foo bar"}    | ${true}
+			${"foo baz"}    | ${false}
+			${"foo    bar"} | ${true}
+			${"foo    baz"} | ${false}
+		`('should validate each token when using list: "$value"', ({ value, expected }) => {
+			expect.assertions(1);
+			const rules: Record<string, MetaAttribute> = {
+				foo: { list: true, enum: ["foo", "bar"] },
+			};
+			const attr = new Attribute("foo", value, location, location);
+			expect(Validator.validateAttribute(attr, rules)).toBe(expected);
+		});
 	});
 });
 

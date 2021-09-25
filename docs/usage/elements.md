@@ -197,6 +197,7 @@ export interface MetaAttribute {
   boolean?: boolean;
   deprecated?: boolean | string;
   enum?: Array<string | RegExp>;
+  list?: boolean;
   required?: boolean;
   omit?: boolean;
 }
@@ -220,6 +221,8 @@ With this metadata the attribute `"foo"` may only have the values `"bar"` or`"fo
 The value cannot be omitted or be used as a boolean property.
 
 This is used by the {@link attribute-allowed-values} rule.
+
+An empty object may be set as well to mark the attribute as a known attribute but without any validation.
 
 #### `attribute.enum`
 
@@ -255,6 +258,27 @@ This is used by the [no-deprecated-attr](/rules/no-deprecated-attr.html) rule.
 If set to `true` this attribute is required to be present on the element.
 
 This is used by the [element-required-attributes](/rules/element-required-attributes.html) rule.
+
+#### `attribute.list`
+
+If set to `true` the attribute value is parsed as a space-separated list (`DOMTokenList`) where each token is validated separately and each token must be valid for the attribute value to be consideted valid.
+
+```json
+{
+  "custom-element": {
+    "attributes": {
+      "foo": {
+        "list": true,
+        "enum": ["a", "b"]
+      }
+    }
+  }
+}
+```
+
+Given the metadata above both `foo="a"` and `foo="b"` is valid.
+When the attribute is `foo="a b"` each token (`a` and `b`) is validated separately and both must be valid.
+Thus `foo="a b"` is valid but `foo="a c"` is not.
 
 #### Deprecated method
 
