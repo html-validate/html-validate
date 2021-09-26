@@ -25,12 +25,12 @@ declare module "estree" {
 }
 
 function joinTemplateLiteral(nodes: ESTree.TemplateElement[]): string {
-	let offset = nodes[0].start;
+	let offset = nodes[0].start + 1;
 	let output = "";
 	for (const node of nodes) {
-		output += " ".repeat(node.start - offset);
+		output += " ".repeat(node.start + 1 - offset);
 		output += node.value.raw;
-		offset = node.end;
+		offset = node.end - 2;
 	}
 	return output;
 }

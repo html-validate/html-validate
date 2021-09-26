@@ -140,7 +140,7 @@
     "acorn-walk": "^8.0.0",
     "ajv": "^8.0.0",
     "deepmerge": "^4.2.0",
-    "espree": "^7.3.0",
+    "espree": "^9.0.0",
     "glob": "^7.1.0",
     "ignore": "^5.0.0",
     "json-merge-patch": "^1.0.0",
