@@ -5,6 +5,10 @@ module.exports = function highlight() {
 		hljs.configure(options);
 	}
 
+	function registerAliases(alias, options) {
+		hljs.registerAliases(alias, options);
+	}
+
 	function render(code, lang) {
 		if (lang) {
 			return hljs.highlight(code, { language: lang }).value;
@@ -14,6 +18,7 @@ module.exports = function highlight() {
 	}
 
 	render.configure = configure;
+	render.registerAliases = registerAliases;
 
 	return render;
 };

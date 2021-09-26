@@ -24,6 +24,7 @@ module.exports = new Package("html-validate-docs", [
 		highlight.configure({
 			languages: ["js", "json", "typescript", "html", "shell"],
 		});
+		highlight.registerAliases("jsonc", { languageName: "json" });
 	})
 
 	.factory(require("./changelog"))
