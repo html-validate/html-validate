@@ -27,9 +27,11 @@ module.exports = new Package("html-validate-docs", [
 	})
 
 	.factory(require("./changelog"))
+	.factory(require("./migration"))
 
-	.config(function (readFilesProcessor, changelogFileReader) {
+	.config(function (readFilesProcessor, changelogFileReader, migrationFileReader) {
 		readFilesProcessor.fileReaders.push(changelogFileReader);
+		readFilesProcessor.fileReaders.push(migrationFileReader);
 	})
 
 	.config(function (getLinkInfo) {
@@ -51,6 +53,11 @@ module.exports = new Package("html-validate-docs", [
 				include: "CHANGELOG.md",
 				basePath: ".",
 				fileReader: "changelogFileReader",
+			},
+			{
+				include: "MIGRATION.md",
+				basePath: ".",
+				fileReader: "migrationFileReader",
 			},
 		];
 
@@ -116,7 +123,7 @@ module.exports = new Package("html-validate-docs", [
 		});
 
 		computeIdsProcessor.idTemplates.push({
-			docTypes: ["changelog"],
+			docTypes: ["changelog", "migration"],
 			getId: function (doc) {
 				return doc.fileInfo.baseName.toLowerCase();
 			},
@@ -126,7 +133,7 @@ module.exports = new Package("html-validate-docs", [
 		});
 
 		computePathsProcessor.pathTemplates.push({
-			docTypes: ["changelog"],
+			docTypes: ["changelog", "migration"],
 			getPath: function (doc) {
 				const dirname = path.dirname(doc.fileInfo.relativePath);
 				return path.join(dirname, doc.fileInfo.baseName.toLowerCase(), "index.html");
