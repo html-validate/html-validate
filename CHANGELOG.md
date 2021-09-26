@@ -1,5 +1,41 @@
 # html-validate changelog
 
+## [6.0.0](https://gitlab.com/html-validate/html-validate/compare/v5.5.0...v6.0.0) (2021-09-26)
+
+### ⚠ BREAKING CHANGES
+
+- **htmlvalidate:** This change only affects API users, the CLI tool continues to
+  work as before.
+
+The default configuration loader has changed from `FileSystemConfigLoader` to
+`StaticConfigLoader`, i.e. the directory traversal looking for
+`.htmlvalidate.json` configuration files must now be explicitly enabled.
+
+See (MIGRATION.md)[https://html-validate.org/migration/index.html] for details.
+
+- **event:** `ConfigReadyEvent` passes `ResolvedConfig` instance instead of `ConfigData`
+- **meta:** `MetaElement.attribute` has changed from `string[]` to
+  `MetaAttribute[]` and both `requiredAttributes` and `deprecatedAttributes` has
+  been merged into object. This only affects API usage, primarily custom rules
+  accessing attribute metadata.See `MIGRATION.md` for details.
+
+The old format is deprecated but is internally converted as to not break user
+configuration. For compatibility it will probably be around for quite a while
+but users should try to migrate as soon as possible.
+
+### Features
+
+- bump required node version to 12.22 ([80f3399](https://gitlab.com/html-validate/html-validate/commit/80f3399a3f863a81fcb505a4d0763bb8cffbbdeb))
+- **elements:** migrate bundled html5 element metadata to new attribute syntax ([6132b82](https://gitlab.com/html-validate/html-validate/commit/6132b829e085689bd4d07aaf072e100609a950bd))
+- **event:** `ConfigReadyEvent` passes `ResolvedConfig` instance instead of `ConfigData` ([5808a6b](https://gitlab.com/html-validate/html-validate/commit/5808a6b5ad3473f39b850778c1ae46d147abf1f6))
+- **htmlvalidate:** use `StaticConfigLoader` by default ([bb94341](https://gitlab.com/html-validate/html-validate/commit/bb94341e411a40745d36362be37e0984420c6771))
+- **meta:** add new list property to `MetaAttribute` ([4c1e3c9](https://gitlab.com/html-validate/html-validate/commit/4c1e3c97e741710e30765f9b3519b586462a2b87))
+- **meta:** extend element attribute metadata ([6506aa6](https://gitlab.com/html-validate/html-validate/commit/6506aa6f109a5cb614d6e2817e4d26322758096b)), closes [#71](https://gitlab.com/html-validate/html-validate/issues/71)
+
+### Dependency upgrades
+
+- **deps:** update dependency espree to v9 ([3e0ea96](https://gitlab.com/html-validate/html-validate/commit/3e0ea96a4f8fd76db7a1113ff6ca8ea29edd62d9))
+
 ### [4.14.1](https://gitlab.com/html-validate/html-validate/compare/v4.14.0...v4.14.1) (2021-09-18)
 
 ### Bug Fixes
