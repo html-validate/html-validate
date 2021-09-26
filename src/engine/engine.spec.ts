@@ -91,7 +91,7 @@ describe("Engine", () => {
 			},
 		});
 		config.init();
-		engine = new ExposedEngine(config.resolve(), config.get(), MockParser);
+		engine = new ExposedEngine(config.resolve(), MockParser);
 	});
 
 	describe("lint()", () => {
@@ -176,7 +176,8 @@ describe("Engine", () => {
 		it("should generate config:ready event", () => {
 			expect.assertions(5);
 			const source: Source[] = [inline("<div></div>")];
-			const parser = new Parser(config.resolve());
+			const resolved = config.resolve();
+			const parser = new Parser(resolved);
 			const spy = jest.fn();
 			parser.on("config:ready", spy);
 			jest.spyOn(engine, "instantiateParser").mockReturnValue(parser);
@@ -193,7 +194,7 @@ describe("Engine", () => {
 				  "size": 1,
 				}
 			`);
-			expect(event.config).toEqual(config.get());
+			expect(event.config).toEqual(resolved);
 			expect(event.rules).toBeDefined();
 		});
 
@@ -488,7 +489,7 @@ describe("Engine", () => {
 			(config as any).plugins = [plugin];
 
 			const source = inline("");
-			const engine = new ExposedEngine(config.resolve(), config.get(), MockParser);
+			const engine = new ExposedEngine(config.resolve(), MockParser);
 			engine.lint([source]);
 			expect(plugin.init).toHaveBeenCalledWith();
 		});
@@ -504,7 +505,7 @@ describe("Engine", () => {
 			(config as any).plugins = [plugin];
 
 			const source = inline("");
-			const engine = new ExposedEngine(config.resolve(), config.get(), MockParser);
+			const engine = new ExposedEngine(config.resolve(), MockParser);
 			engine.lint([source]);
 			expect(plugin.setup).toHaveBeenCalledWith(source, expect.any(EventHandler));
 		});
@@ -590,11 +591,7 @@ describe("Engine", () => {
 					},
 				];
 
-				const engine: ExposedEngine<Parser> = new ExposedEngine(
-					config.resolve(),
-					config.get(),
-					MockParser
-				);
+				const engine: ExposedEngine<Parser> = new ExposedEngine(config.resolve(), MockParser);
 				const rule = engine.loadRule(
 					"custom/my-rule",
 					config.resolve(),
@@ -619,11 +616,7 @@ describe("Engine", () => {
 					},
 				];
 
-				const engine: ExposedEngine<Parser> = new ExposedEngine(
-					config.resolve(),
-					config.get(),
-					MockParser
-				);
+				const engine: ExposedEngine<Parser> = new ExposedEngine(config.resolve(), MockParser);
 				const missingRule = jest.spyOn(engine, "missingRule");
 				engine.loadRule("custom/my-rule", config.resolve(), Severity.ERROR, {}, parser, reporter);
 				expect(missingRule).toHaveBeenCalledWith("custom/my-rule");
@@ -644,11 +637,7 @@ describe("Engine", () => {
 					},
 				];
 
-				const engine: ExposedEngine<Parser> = new ExposedEngine(
-					config.resolve(),
-					config.get(),
-					MockParser
-				);
+				const engine: ExposedEngine<Parser> = new ExposedEngine(config.resolve(), MockParser);
 				const rule = engine.loadRule(
 					"custom/my-rule",
 					config.resolve(),
@@ -664,7 +653,7 @@ describe("Engine", () => {
 				expect.assertions(1);
 				/* mock loading of plugins */
 				(config as any).plugins = [{}];
-				expect(() => new ExposedEngine(config.resolve(), config.get(), MockParser)).not.toThrow();
+				expect(() => new ExposedEngine(config.resolve(), MockParser)).not.toThrow();
 			});
 		});
 	});

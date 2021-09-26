@@ -305,13 +305,13 @@ describe("Plugin", () => {
 
 		it("Engine should handle missing plugin callbacks", () => {
 			expect.assertions(1);
-			expect(() => new Engine(config.resolve(), config.get(), Parser)).not.toThrow();
+			expect(() => new Engine(config.resolve(), Parser)).not.toThrow();
 		});
 
 		it("Engine should call plugin init callback", () => {
 			expect.assertions(1);
 			mockPlugin.init = jest.fn();
-			const engine = new Engine(config.resolve(), config.get(), Parser);
+			const engine = new Engine(config.resolve(), Parser);
 			engine.lint([source]);
 			expect(mockPlugin.init).toHaveBeenCalledWith();
 		});
@@ -319,7 +319,7 @@ describe("Plugin", () => {
 		it("Engine should call plugin setup callback", () => {
 			expect.assertions(1);
 			mockPlugin.setup = jest.fn();
-			const engine = new Engine(config.resolve(), config.get(), Parser);
+			const engine = new Engine(config.resolve(), Parser);
 			engine.lint([source]);
 			expect(mockPlugin.setup).toHaveBeenCalledWith(source, expect.any(EventHandler));
 		});
@@ -330,7 +330,7 @@ describe("Plugin", () => {
 			mockPlugin.setup = (source: Source, eventhandler: EventHandler) => {
 				eventhandler.on("dom:ready", handler);
 			};
-			const engine = new Engine(config.resolve(), config.get(), Parser);
+			const engine = new Engine(config.resolve(), Parser);
 			engine.lint([source]);
 			expect(handler).toHaveBeenCalledWith("dom:ready", expect.anything());
 		});
@@ -359,7 +359,7 @@ describe("Plugin", () => {
 				"mock-rule": null /* instantiateRule is mocked, this can be anything */,
 			};
 			const setup = jest.spyOn(mockRule, "setup");
-			const engine = new Engine(config.resolve(), config.get(), Parser);
+			const engine = new Engine(config.resolve(), Parser);
 			jest.spyOn(engine as any, "instantiateRule").mockImplementation(() => mockRule);
 			engine.lint([source]);
 			expect(setup).toHaveBeenCalledWith();

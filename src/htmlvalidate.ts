@@ -99,7 +99,7 @@ class HtmlValidate {
 		const config = this.getConfigFor(input.filename, configOverride);
 		const resolved = config.resolve();
 		const source = resolved.transformSource(input);
-		const engine = new Engine(resolved, config.get(), Parser);
+		const engine = new Engine(resolved, Parser);
 		return engine.lint(source);
 	}
 
@@ -114,7 +114,7 @@ class HtmlValidate {
 		const config = this.getConfigFor(filename);
 		const resolved = config.resolve();
 		const source = resolved.transformFilename(filename);
-		const engine = new Engine(resolved, config.get(), Parser);
+		const engine = new Engine(resolved, Parser);
 		return engine.lint(source);
 	}
 
@@ -163,7 +163,7 @@ class HtmlValidate {
 		const config = this.getConfigFor(filename);
 		const resolved = config.resolve();
 		const source = resolved.transformFilename(filename);
-		const engine = new Engine(resolved, config.get(), Parser);
+		const engine = new Engine(resolved, Parser);
 		return engine.dumpTokens(source);
 	}
 
@@ -179,7 +179,7 @@ class HtmlValidate {
 		const config = this.getConfigFor(filename);
 		const resolved = config.resolve();
 		const source = resolved.transformFilename(filename);
-		const engine = new Engine(resolved, config.get(), Parser);
+		const engine = new Engine(resolved, Parser);
 		return engine.dumpEvents(source);
 	}
 
@@ -195,7 +195,7 @@ class HtmlValidate {
 		const config = this.getConfigFor(filename);
 		const resolved = config.resolve();
 		const source = resolved.transformFilename(filename);
-		const engine = new Engine(resolved, config.get(), Parser);
+		const engine = new Engine(resolved, Parser);
 		return engine.dumpTree(source);
 	}
 
@@ -283,7 +283,7 @@ class HtmlValidate {
 		context: any | null = null
 	): RuleDocumentation | null {
 		const c = config || this.getConfigFor("inline");
-		const engine = new Engine(c.resolve(), c.get(), Parser);
+		const engine = new Engine(c.resolve(), Parser);
 		return engine.getRuleDocumentation(ruleId, context);
 	}
 

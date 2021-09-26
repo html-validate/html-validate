@@ -2,6 +2,9 @@
 
 ## Upgrading to `%version%`
 
+- CLI users: No required changes but if custom element metadata is present it can benefit from upgrading format.
+- API users: Breaking changes!
+
 ### Configuration changes
 
 The format for specifying attribute metadata has changed.
@@ -163,3 +166,9 @@ If you used `requiredAttributes` or `deprecatedAttributes` these have now been i
 -const isDeprecated = meta.deprecatedAttributes.includes(attr.key);
 +const isDeprecated = meta.attribute[attr.key]?.deprecated;
 ```
+
+### `ConfigReadyEvent`
+
+If you have a rule or plugin listening to the `ConfigReadyEvent` event the datatype of the `config` property has changed from `ConfigData` to `ResolvedConfig`.
+For most part it contains the same information but is normalized, for instance rules are now always passed as `Record<RuleID, [Severity, Options]>`.
+Configured transformers, plugins etc are resolved instances and fields suchs as `root` and `extends` will never be present.

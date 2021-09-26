@@ -1,4 +1,4 @@
-import { ConfigData } from "../config";
+import { ResolvedConfig } from "../config";
 import { Location, Source } from "../context";
 import { DOMTree, DynamicValue, HtmlElement } from "../dom";
 import { TokenType } from "../lexer";
@@ -16,7 +16,7 @@ export interface Event {
  * Configuration ready event.
  */
 export interface ConfigReadyEvent extends Event {
-	config: ConfigData;
+	config: ResolvedConfig;
 	rules: { [ruleId: string]: Rule };
 }
 
