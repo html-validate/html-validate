@@ -1,6 +1,6 @@
 import { Attribute, HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
-import { PermittedAttribute } from "../meta/element";
+import { MetaAttribute } from "../meta/element";
 import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 
 interface RuleOptions {
@@ -73,8 +73,8 @@ export default class AttributeEmptyStyle extends Rule<void, RuleOptions> {
 	}
 }
 
-function allowsEmpty(attr: Attribute, rules: PermittedAttribute): boolean {
-	return rules[attr.key] && rules[attr.key].includes("");
+function allowsEmpty(attr: Attribute, rules: Record<string, MetaAttribute>): boolean {
+	return Boolean(rules[attr.key]?.omit);
 }
 
 function isEmptyValue(attr: Attribute): boolean {

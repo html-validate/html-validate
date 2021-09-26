@@ -200,6 +200,7 @@ describe("Plugin", () => {
 			const meta = metaTable.getMetaFor("my-element");
 			expect(meta).toEqual({
 				tagName: "my-element",
+				attributes: {},
 				myMeta: 5,
 			});
 		});
@@ -232,6 +233,7 @@ describe("Plugin", () => {
 			const meta = metaTable.getMetaFor("my-element");
 			expect(meta).toEqual({
 				tagName: "my-element",
+				attributes: {},
 				myMeta: 5,
 			});
 		});
@@ -285,6 +287,7 @@ describe("Plugin", () => {
 			node.loadMeta(b!);
 			expect(node.meta).toEqual({
 				tagName: "my-element",
+				attributes: {},
 				foo: "copied" /* foo is marked for copying */,
 				bar: "original" /* bar is not marked for copying */,
 			});

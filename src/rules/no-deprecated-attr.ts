@@ -20,8 +20,13 @@ export default class NoDeprecatedAttr extends Rule {
 				return;
 			}
 
-			const deprecated = meta.deprecatedAttributes || [];
-			if (deprecated.includes(attr)) {
+			const metaAttribute = meta.attributes && meta.attributes[attr];
+			if (!metaAttribute) {
+				return;
+			}
+
+			const deprecated = metaAttribute.deprecated;
+			if (deprecated) {
 				this.report(
 					node,
 					`Attribute "${event.key}" is deprecated on <${node.tagName}> element`,

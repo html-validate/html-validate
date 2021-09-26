@@ -244,11 +244,49 @@
       "type": "object",
       "patternProperties": {
         "^.*$": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": {
-            "anyOf": [{ "type": "string" }, { "regexp": true }]
-          }
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "boolean": {
+                  "type": "boolean",
+                  "title": "Set to true if this is a boolean attribute"
+                },
+                "deprecated": {
+                  "title": "Set to true or string if this attribute is deprecated",
+                  "oneOf": [{ "type": "boolean" }, { "type": "string" }]
+                },
+                "list": {
+                  "type": "boolean",
+                  "title": "Set to true if this attribute is a list of space-separated tokens, each which must be valid by itself"
+                },
+                "enum": {
+                  "type": "array",
+                  "title": "Exhaustive list of values (string or regex) this attribute accepts",
+                  "uniqueItems": true,
+                  "items": {
+                    "anyOf": [{ "type": "string" }, { "regexp": true }]
+                  }
+                },
+                "omit": {
+                  "type": "boolean",
+                  "title": "Set to true if this attribute can optionally omit its value"
+                },
+                "required": {
+                  "type": "boolean",
+                  "title": "Set to true if this attribute is required"
+                }
+              }
+            },
+            {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
         }
       }
     },

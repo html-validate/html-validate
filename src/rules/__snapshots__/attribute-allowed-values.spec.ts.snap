@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`rule attribute-allowed-values contain contextual documentation when attribute is omitted 1`] = `
+Object {
+  "description": "Attribute has invalid value.",
+  "url": "https://html-validate.org/rules/attribute-allowed-values.html",
+}
+`;
+
 exports[`rule attribute-allowed-values should contain contextual documentation 1`] = `
 Object {
   "description": "Element <any> does not allow attribute \`foo\` to have the value \`\\"bar\\"\`, it must match one of the following:
@@ -34,30 +41,33 @@ Array [
       Object {
         "column": 14,
         "context": Object {
-          "allowed": Array [
-            "button",
-            "checkbox",
-            "color",
-            "date",
-            "datetime-local",
-            "email",
-            "file",
-            "hidden",
-            "image",
-            "month",
-            "number",
-            "password",
-            "radio",
-            "range",
-            "reset",
-            "search",
-            "submit",
-            "tel",
-            "text",
-            "time",
-            "url",
-            "week",
-          ],
+          "allowed": Object {
+            "enum": Array [
+              "button",
+              "checkbox",
+              "color",
+              "date",
+              "datetime-local",
+              "email",
+              "file",
+              "hidden",
+              "image",
+              "month",
+              "number",
+              "password",
+              "radio",
+              "range",
+              "reset",
+              "search",
+              "submit",
+              "tel",
+              "text",
+              "time",
+              "url",
+              "week",
+            ],
+            "required": true,
+          },
           "attribute": "type",
           "element": "input",
           "value": "foobar",

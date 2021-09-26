@@ -1,6 +1,10 @@
 {
   "my-component": {
     "flow": true,
-    "deprecatedAttributes": ["duck"]
+    "attributes": {
+      "duck": {
+        "deprecated": true
+      }
+    }
   }
 }

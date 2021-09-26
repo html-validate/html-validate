@@ -1,14 +1,14 @@
 import { Location } from "../context";
 import { HtmlElement, Attribute } from "../dom";
 import { DOMReadyEvent } from "../event";
-import { Validator } from "../meta";
+import { MetaAttribute, Validator } from "../meta";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 interface Context {
 	element: string;
 	attribute: string;
 	value: string;
-	allowed: Array<string | RegExp>;
+	allowed: MetaAttribute;
 }
 
 export default class AttributeAllowedValues extends Rule<Context> {
@@ -21,14 +21,14 @@ export default class AttributeAllowedValues extends Rule<Context> {
 			return docs;
 		}
 
-		if (context.allowed.length > 0) {
-			const allowed = context.allowed.map((val: string | RegExp) => `- \`${val}\``);
+		if (context.allowed.enum) {
+			const allowed = context.allowed.enum.map((val: string | RegExp) => `- \`${val}\``);
 			docs.description = `Element <${context.element}> does not allow attribute \`${
 				context.attribute
 			}\` to have the value \`"${
 				context.value
 			}"\`, it must match one of the following:\n\n${allowed.join("\n")}`;
-		} else {
+		} else if (context.allowed.boolean) {
 			docs.description = `Element <${context.element}> attribute \`${context.attribute}\` must be a boolean attribute, e.g. \`<${context.element} ${context.attribute}>\``;
 		}
 

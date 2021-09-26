@@ -1,6 +1,10 @@
 {
   "my-component": {
     "flow": true,
-    "requiredAttributes": ["duck"]
+    "attributes": {
+      "duck": {
+        "required": true
+      }
+    }
   }
 }

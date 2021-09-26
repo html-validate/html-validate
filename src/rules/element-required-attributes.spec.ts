@@ -8,6 +8,14 @@ describe("rule element-required-attributes", () => {
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "element-required-attributes": "error" },
+			elements: [
+				"html5",
+				{
+					"missing-attr-meta": {
+						attributes: undefined,
+					},
+				},
+			],
 		});
 	});
 
@@ -36,6 +44,13 @@ describe("rule element-required-attributes", () => {
 	it("should not report error when element is missing meta", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateString('<foo-bar type="text">');
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when element is missing meta attributes", () => {
+		expect.assertions(1);
+		const markup = '<missing-attr-meta type="text"></missing-attr-meta>';
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
