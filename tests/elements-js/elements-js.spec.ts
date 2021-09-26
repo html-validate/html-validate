@@ -1,10 +1,11 @@
 import path from "path";
-import HtmlValidate from "../../src/htmlvalidate";
+import { HtmlValidate, FileSystemConfigLoader } from "../../src/index";
 import "../../src/jest";
 
 it("should handle elements js file", () => {
 	expect.assertions(2);
-	const htmlvalidate = new HtmlValidate();
+	const loader = new FileSystemConfigLoader();
+	const htmlvalidate = new HtmlValidate(loader);
 	const report = htmlvalidate.validateFile(path.join(__dirname, "my-file.html"));
 	expect(report).toBeInvalid();
 	expect(report.results[0].messages).toMatchInlineSnapshot(`

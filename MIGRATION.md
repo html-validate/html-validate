@@ -169,6 +169,54 @@ If you used `requiredAttributes` or `deprecatedAttributes` these have now been i
 
 ### `ConfigReadyEvent`
 
+**Only affects API users.**
+
 If you have a rule or plugin listening to the `ConfigReadyEvent` event the datatype of the `config` property has changed from `ConfigData` to `ResolvedConfig`.
 For most part it contains the same information but is normalized, for instance rules are now always passed as `Record<RuleID, [Severity, Options]>`.
 Configured transformers, plugins etc are resolved instances and fields suchs as `root` and `extends` will never be present.
+
+### `StaticConfigLoader`
+
+**Only affects API users.**
+
+The default configuration loader has changed from {@link dev/using-api#filesystemconfigloader `FileSystemConfigLoader`} to {@link dev/using-api#staticconfigloader- `StaticConfigLoader`}, i.e. the directory traversal looking for `.htmlvalidate.json` configuration files must now be explicitly enabled.
+
+This will reduce the dependency on the NodeJS `fs` module and make it easier to use the library in browsers.
+
+To restore the previous behaviour you must now enable `FileSystemConfigLoader`:
+
+```diff
+ import { HtmlValidate, FileSystemConfigLoader } from "html-validate";
+
+-const htmlvalidate = new HtmlValidate();
++const loader = new FileSystemConfigLoader();
++const htmlvalidate = new HtmlValidate(loader);
+```
+
+If you pass configuration to the constructor you now pass it to the loader instead:
+
+```diff
+ import { HtmlValidate, FileSystemConfigLoader } from "html-validate";
+
+-const htmlvalidate = new HtmlValidate({ ... });
++const loader = new FileSystemConfigLoader({ ... });
++const htmlvalidate = new HtmlValidate(loader);
+```
+
+If you use the `root` property as a workaround for the directory traversal you can now drop the workaround and rely on `StaticConfigLoader`:
+
+```diff
+ import { HtmlValidate } from "html-validate";
+
+-const htmlvalidate = new HtmlValidate({
+-  root: true,
+-});
++const htmlvalidate = new HtmlValidate();
+```
+
+The CLI class is not affected as it will enable `FileSystemConfigLoader` automatically, so the following code will continue to work as expected:
+
+```ts
+const cli = new CLI();
+const htmlvalidate = cli.getValidator();
+```

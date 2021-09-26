@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`HtmlValidate configuration smoketest test-files/config/cjs-config/file.html 1`] = `undefined`;
+
 exports[`HtmlValidate configuration smoketest test-files/config/directive/disable.html 1`] = `undefined`;
 
 exports[`HtmlValidate configuration smoketest test-files/config/directive/disable-block.html 1`] = `undefined`;
