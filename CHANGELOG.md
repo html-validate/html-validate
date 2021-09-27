@@ -1,5 +1,11 @@
 # html-validate changelog
 
+### [6.0.1](https://gitlab.com/html-validate/html-validate/compare/v6.0.0...v6.0.1) (2021-09-27)
+
+### Bug Fixes
+
+- docs ([4973ee4](https://gitlab.com/html-validate/html-validate/commit/4973ee4f9e2e5270654a5295f5e252121358e289))
+
 ## [6.0.0](https://gitlab.com/html-validate/html-validate/compare/v5.5.0...v6.0.0) (2021-09-26)
 
 ### ⚠ BREAKING CHANGES
