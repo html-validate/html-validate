@@ -2,6 +2,7 @@
 
 import deepmerge from "deepmerge";
 import { ConfigData } from "../../config";
+import { FileSystemConfigLoader } from "../../config/loaders/file-system";
 import HtmlValidate from "../../htmlvalidate";
 import { Message } from "../../reporter";
 import { diff, diverge } from "../utils";
@@ -75,7 +76,8 @@ function toHTMLValidateImpl(
 	const config = deepmerge(defaultConfig, userConfig || {});
 
 	const actualFilename = filename || this.testPath;
-	const htmlvalidate = new HtmlValidate();
+	const loader = new FileSystemConfigLoader();
+	const htmlvalidate = new HtmlValidate(loader);
 	const report = htmlvalidate.validateString(actual, actualFilename, config);
 	const pass = report.valid;
 	if (pass) {
