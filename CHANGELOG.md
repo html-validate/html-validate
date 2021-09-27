@@ -11,7 +11,7 @@ The default configuration loader has changed from `FileSystemConfigLoader` to
 `StaticConfigLoader`, i.e. the directory traversal looking for
 `.htmlvalidate.json` configuration files must now be explicitly enabled.
 
-See (MIGRATION.md)[https://html-validate.org/migration/index.html] for details.
+See [MIGRATION.md](https://html-validate.org/migration/index.html) for details.
 
 - **event:** `ConfigReadyEvent` passes `ResolvedConfig` instance instead of `ConfigData`
 - **meta:** `MetaElement.attribute` has changed from `string[]` to

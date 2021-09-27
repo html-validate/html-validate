@@ -1,6 +1,6 @@
 # Migration guide
 
-## Upgrading to `%version%`
+## Upgrading to v6
 
 - CLI users: No required changes but if custom element metadata is present it can benefit from upgrading format.
 - API users: Breaking changes!
