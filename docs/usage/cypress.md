@@ -42,6 +42,8 @@ it("should be valid", () => {
 
 ## Configuration
 
+### Global configuration (accross all specs)
+
 `html-validate` configuration can be passed in `cypress/plugins/index.js`:
 
 ```js
@@ -49,5 +51,38 @@ htmlvalidate.install(on, {
   rules: {
     foo: "error",
   },
+});
+```
+
+### Local configuration (for one spec)
+
+`html-validate` configuration can be passed in the function call within a spec:
+
+```js
+cy.htmlvalidate({
+  rules: {
+    "prefer-native-element": [
+      "error",
+      {
+        exclude: ["button"],
+      },
+    ],
+  },
+});
+```
+
+It is also possible to add both configuration & options in the function call:
+
+```js
+cy.htmlvalidate({
+  "rules": {
+      "prefer-native-element": [
+        "error", {
+              "exclude": [ "button" ],
+      }],
+  },
+  {
+    exclude: ["form"],
+  }
 });
 ```
