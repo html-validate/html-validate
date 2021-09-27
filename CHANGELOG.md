@@ -1,5 +1,11 @@
 # html-validate changelog
 
+### [6.0.2](https://gitlab.com/html-validate/html-validate/compare/v6.0.1...v6.0.2) (2021-09-27)
+
+### Bug Fixes
+
+- **jest:** jest matcher should use FileSystemConfigLoader ([4d04bdc](https://gitlab.com/html-validate/html-validate/commit/4d04bdcdec2380cf6bc54bba8efd6f92d3c8d7bc))
+
 ### [6.0.1](https://gitlab.com/html-validate/html-validate/compare/v6.0.0...v6.0.1) (2021-09-27)
 
 ### Bug Fixes
