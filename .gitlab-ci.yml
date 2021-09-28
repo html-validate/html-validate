@@ -7,7 +7,7 @@ include:
 variables:
   FORCE_DEPLOY_DOCS:
     value: "false"
-    description: 'Set to "true" to force docs to be redeployed. Ensure no commits references documentation about non-released features'
+    description: 'Set to "true" to force docs to be redeployed. Ensure no commits references documentation about non-released features. Only relevant on "master"'
 
 stages:
   - prepare
