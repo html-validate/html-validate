@@ -4,6 +4,11 @@ include:
   - template: Security/Dependency-Scanning.gitlab-ci.yml
   - template: Security/License-Scanning.gitlab-ci.yml
 
+variables:
+  FORCE_DEPLOY_DOCS:
+    value: "false"
+    description: 'Set to "true" to force docs to be redeployed. Ensure no commits references documentation about non-released features'
+
 stages:
   - prepare
   - build
@@ -44,6 +49,7 @@ pages:
       - public
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master" && $CI_COMMIT_MESSAGE =~ /^chore\(release\):/'
+    - if: '$CI_COMMIT_REF_NAME == "master" && $FORCE_DEPLOY_DOCS == "true"'
   script:
     - npm run --if-present build
     - npm run build:docs
