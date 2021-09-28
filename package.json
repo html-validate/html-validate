@@ -175,7 +175,7 @@
     "@types/node": "12.20.27",
     "@types/prompts": "2.0.14",
     "@types/semver": "7.3.8",
-    "autoprefixer": "10.3.5",
+    "autoprefixer": "10.3.6",
     "babar": "0.2.0",
     "babelify": "10.0.0",
     "bootstrap-sass": "3.4.1",
