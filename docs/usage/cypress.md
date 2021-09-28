@@ -74,15 +74,19 @@ cy.htmlvalidate({
 It is also possible to add both configuration & options in the function call:
 
 ```js
-cy.htmlvalidate({
-  "rules": {
+cy.htmlvalidate(
+  {
+    rules: {
       "prefer-native-element": [
-        "error", {
-              "exclude": [ "button" ],
-      }],
+        "error",
+        {
+          exclude: ["button"],
+        },
+      ],
+    },
   },
   {
     exclude: ["form"],
   }
-});
+);
 ```
