@@ -13,7 +13,7 @@ const defaults: RuleOptions = {
 
 const textRegexp = /([<>]|&(?![a-zA-Z0-9#]+;))/g;
 const unquotedAttrRegexp = /([<>"'=`]|&(?![a-zA-Z0-9#]+;))/g;
-const matchTemplate = /^(<%.*?%>|<\?.*?\?>|<\$.*?\$>)$/;
+const matchTemplate = /^(<%.*?%>|<\?.*?\?>|<\$.*?\$>)$/s;
 
 const replacementTable: Map<string, string> = new Map([
 	['"', "&quot;"],

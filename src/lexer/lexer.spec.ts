@@ -786,11 +786,14 @@ describe("lexer", () => {
 
 	describe("should not choke on templating", () => {
 		it.each`
-			input
-			${"<% ... %>"}
-			${"<? ... ?>"}
-			${"<$ ... $>"}
-		`("$input", ({ input }) => {
+			input            | description
+			${"<% ... %>"}   | ${"<% ... %>"}
+			${"<%\n...\n%>"} | ${"<% ... %> (with newlines)"}
+			${"<? ... ?>"}   | ${"<? ... ?>"}
+			${"<?\n...\n?>"} | ${"<? ... ?> (with newlines)"}
+			${"<$ ... $>"}   | ${"<$ ... $>"}
+			${"<$\n...\n$>"} | ${"<$ ... $> (with newlines)"}
+		`("$description", ({ input }) => {
 			const token = lexer.tokenize(inlineSource(input));
 			expect(token.next()).toBeToken({
 				type: TokenType.TEMPLATING,

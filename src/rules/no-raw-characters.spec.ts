@@ -132,11 +132,14 @@ describe("rule no-raw-characters", () => {
 
 		describe("should not report templating", () => {
 			it.each`
-				input
-				${"<% ... %>"}
-				${"<? ... ?>"}
-				${"<$ ... $>"}
-			`("$input", ({ input }) => {
+				input          | description
+				${"<% & %>"}   | ${"<% & %>"}
+				${"<%\n&\n%>"} | ${"<% & %> (with newlines)"}
+				${"<? & ?>"}   | ${"<? & ?>"}
+				${"<?\n&\n?>"} | ${"<? & ?> (with newlines)"}
+				${"<$ & $>"}   | ${"<$ & $>"}
+				${"<$\n&\n$>"} | ${"<$ & $> (with newlines)"}
+			`("$description", ({ input }) => {
 				expect.assertions(1);
 				const report = htmlvalidate.validateString(`<p>lorem ${input} ipsum</p>`);
 				expect(report).toBeValid();

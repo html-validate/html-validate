@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`regression tests test-files/issues/issue-134-multiline-template.html 1`] = `Array []`;
+
 exports[`regression tests test-files/issues/issue27-disable-block.html 1`] = `Array []`;
 
 exports[`regression tests test-files/issues/issue35-dynamic-values.html 1`] = `Array []`;
