@@ -54,6 +54,35 @@ Array [
 
 exports[`docs/rules/allowed-links.md inline validation: base-valid 1`] = `Array []`;
 
+exports[`docs/rules/allowed-links.md inline validation: external-include 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 10,
+        "context": "external",
+        "line": 5,
+        "message": "External link to this destination is not allowed by current configuration",
+        "offset": 77,
+        "ruleId": "allowed-links",
+        "ruleUrl": "https://html-validate.org/rules/allowed-links.html",
+        "selector": "a > a",
+        "severity": 2,
+        "size": 17,
+      },
+    ],
+    "source": "<!-- allowed -->
+<a href=\\"//foo.example.net\\">
+
+<!-- not allowed -->
+<a href=\\"//bar.example.net\\">",
+    "warningCount": 0,
+  },
+]
+`;
+
 exports[`docs/rules/allowed-links.md inline validation: external-invalid 1`] = `
 Array [
   Object {

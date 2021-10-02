@@ -10,10 +10,18 @@ export const enum Style {
 	ANCHOR = "anchor",
 }
 
+/**
+ * @internal
+ */
+export interface AllowList<T> {
+	include: T[] | null;
+	exclude: T[] | null;
+}
+
 interface RuleOptions {
-	allowExternal: boolean;
-	allowRelative: boolean;
-	allowAbsolute: boolean;
+	allowExternal: boolean | AllowList<string>;
+	allowRelative: boolean | AllowList<string>;
+	allowAbsolute: boolean | AllowList<string>;
 	allowBase: boolean;
 }
 
@@ -39,25 +47,67 @@ const description: Record<Style, string | null> = {
 	[Style.ANCHOR]: null,
 };
 
+function parseAllow(value: boolean | AllowList<string>): boolean | AllowList<RegExp> {
+	if (typeof value === "boolean") {
+		return value;
+	}
+	return {
+		/* eslint-disable security/detect-non-literal-regexp */
+		include: value.include ? value.include.map((it) => new RegExp(it)) : null,
+		exclude: value.exclude ? value.exclude.map((it) => new RegExp(it)) : null,
+		/* eslint-enable security/detect-non-literal-regexp */
+	};
+}
+
+/**
+ * @internal
+ */
+export function matchList(value: string, list: AllowList<RegExp>): boolean {
+	if (list.include && !list.include.some((it) => it.test(value))) {
+		return false;
+	}
+	if (list.exclude && list.exclude.some((it) => it.test(value))) {
+		return false;
+	}
+	return true;
+}
+
 export default class AllowedLinks extends Rule<Style, RuleOptions> {
+	protected allowExternal: boolean | AllowList<RegExp>;
+	protected allowRelative: boolean | AllowList<RegExp>;
+	protected allowAbsolute: boolean | AllowList<RegExp>;
+
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
+		this.allowExternal = parseAllow(this.options.allowExternal);
+		this.allowRelative = parseAllow(this.options.allowRelative);
+		this.allowAbsolute = parseAllow(this.options.allowAbsolute);
 	}
 
 	public static schema(): SchemaObject {
+		const booleanOrObject = {
+			anyOf: [
+				{ type: "boolean" },
+				{
+					type: "object",
+					properties: {
+						include: {
+							type: "array",
+							items: { type: "string" },
+						},
+						exclude: {
+							type: "array",
+							items: { type: "string" },
+						},
+					},
+				},
+			],
+		};
 		return {
-			allowAbsolute: {
-				type: "boolean",
-			},
-			allowBase: {
-				type: "boolean",
-			},
-			allowExternal: {
-				type: "boolean",
-			},
-			allowRelative: {
-				type: "boolean",
-			},
+			allowExternal: { ...booleanOrObject },
+			allowRelative: { ...booleanOrObject },
+			allowAbsolute: { ...booleanOrObject },
+			allowBase: { type: "boolean" },
 		};
 	}
 
@@ -85,19 +135,19 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 					break;
 
 				case Style.ABSOLUTE:
-					this.handleAbsolute(event, style);
+					this.handleAbsolute(link, event, style);
 					break;
 
 				case Style.EXTERNAL:
-					this.handleExternal(event, style);
+					this.handleExternal(link, event, style);
 					break;
 
 				case Style.RELATIVE_BASE:
-					this.handleRelativeBase(event, style);
+					this.handleRelativeBase(link, event, style);
 					break;
 
 				case Style.RELATIVE_PATH:
-					this.handleRelativePath(event, style);
+					this.handleRelativePath(link, event, style);
 					break;
 			}
 		});
@@ -136,51 +186,76 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 		}
 	}
 
-	protected handleAbsolute(event: AttributeEvent, style: Style): void {
-		const { allowAbsolute } = this.options;
-		if (!allowAbsolute) {
+	protected handleAbsolute(target: string, event: AttributeEvent, style: Style): void {
+		const { allowAbsolute } = this;
+		if (allowAbsolute === true) {
+			return;
+		} else if (allowAbsolute === false) {
 			this.report(
 				event.target,
 				"Link destination must not be absolute url",
 				event.valueLocation,
 				style
 			);
+		} else if (!matchList(target, allowAbsolute)) {
+			this.report(
+				event.target,
+				"Absolute link to this destination is not allowed by current configuration",
+				event.valueLocation,
+				style
+			);
 		}
 	}
 
-	private handleExternal(event: AttributeEvent, style: Style): void {
-		const { allowExternal } = this.options;
-		if (!allowExternal) {
+	protected handleExternal(target: string, event: AttributeEvent, style: Style): void {
+		const { allowExternal } = this;
+		if (allowExternal === true) {
+			return;
+		} else if (allowExternal === false) {
 			this.report(
 				event.target,
 				"Link destination must not be external url",
 				event.valueLocation,
 				style
 			);
-		}
-	}
-
-	private handleRelativePath(event: AttributeEvent, style: Style): void {
-		const { allowRelative } = this.options;
-		if (!allowRelative) {
+		} else if (!matchList(target, allowExternal)) {
 			this.report(
 				event.target,
-				"Link destination must not be relative url",
+				"External link to this destination is not allowed by current configuration",
 				event.valueLocation,
 				style
 			);
 		}
 	}
 
-	private handleRelativeBase(event: AttributeEvent, style: Style): void {
-		const { allowRelative, allowBase } = this.options;
-		if (!allowRelative) {
+	protected handleRelativePath(target: string, event: AttributeEvent, style: Style): boolean {
+		const { allowRelative } = this;
+		if (allowRelative === true) {
+			return false;
+		} else if (allowRelative === false) {
 			this.report(
 				event.target,
 				"Link destination must not be relative url",
 				event.valueLocation,
 				style
 			);
+			return true;
+		} else if (!matchList(target, allowRelative)) {
+			this.report(
+				event.target,
+				"Relative link to this destination is not allowed by current configuration",
+				event.valueLocation,
+				style
+			);
+			return true;
+		}
+		return false;
+	}
+
+	private handleRelativeBase(target: string, event: AttributeEvent, style: Style): void {
+		const { allowBase } = this.options;
+		if (this.handleRelativePath(target, event, style)) {
+			return;
 		} else if (!allowBase) {
 			this.report(
 				event.target,
