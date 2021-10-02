@@ -1,5 +1,15 @@
 # html-validate changelog
 
+## [6.1.0](https://gitlab.com/html-validate/html-validate/compare/v6.0.2...v6.1.0) (2021-10-02)
+
+### Features
+
+- **rules:** `allowed-links` support `include` and `exclude` ([a3f7b6a](https://gitlab.com/html-validate/html-validate/commit/a3f7b6aa2414ab41239ec1aed6d463502575bb13))
+
+### Bug Fixes
+
+- handle multiline templating strings ([cddf7d5](https://gitlab.com/html-validate/html-validate/commit/cddf7d5e66ad3ce3f49b32b5dea873b04f9b6f7d)), closes [#134](https://gitlab.com/html-validate/html-validate/issues/134)
+
 ### [6.0.2](https://gitlab.com/html-validate/html-validate/compare/v6.0.1...v6.0.2) (2021-09-27)
 
 ### Bug Fixes

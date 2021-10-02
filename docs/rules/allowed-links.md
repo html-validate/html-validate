@@ -124,4 +124,4 @@ In this case external links to `foo.example.net` is valid but any other would yi
 
 ## Version history
 
-- %version% - Added support for `include` and `exclude`.
+- 6.1.0 - Added support for `include` and `exclude`.
