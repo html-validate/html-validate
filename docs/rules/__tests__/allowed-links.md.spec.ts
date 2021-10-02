@@ -9,6 +9,11 @@ markup["absolute-invalid"] = `<a href="/foo">`;
 markup["absolute-valid"] = `<a href="../foo">`;
 markup["base-invalid"] = `<a href="foo">`;
 markup["base-valid"] = `<a href="./foo">`;
+markup["external-include"] = `<!-- allowed -->
+<a href="//foo.example.net">
+
+<!-- not allowed -->
+<a href="//bar.example.net">`;
 
 describe("docs/rules/allowed-links.md", () => {
 	it("inline validation: external-invalid", () => {
@@ -57,6 +62,12 @@ describe("docs/rules/allowed-links.md", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"allowed-links":["error",{"allowBase":false}]}});
 		const report = htmlvalidate.validateString(markup["base-valid"]);
+		expect(report.results).toMatchSnapshot();
+	});
+	it("inline validation: external-include", () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({"rules":{"allowed-links":["error",{"allowExternal":{"include":["^//foo.example.net"]}}]}});
+		const report = htmlvalidate.validateString(markup["external-include"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });
