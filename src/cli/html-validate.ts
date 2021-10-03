@@ -3,7 +3,7 @@ import path from "path";
 import kleur from "kleur";
 import minimist from "minimist";
 import { TokenDump, SchemaValidationError, UserError, Report, Reporter, Result } from "..";
-import { name, version, bugs as pkgBugs } from "../../package.json";
+import { name, version, bugs as pkgBugs } from "../generated/package";
 import { eventFormatter } from "./json";
 import { CLI } from "./cli";
 
@@ -123,7 +123,7 @@ function handleUnknownError(err: unknown): void {
 		console.error(err);
 	}
 	console.groupEnd();
-	const bugUrl = `${pkgBugs.url}?issuable_template=Bug`;
+	const bugUrl = `${pkgBugs}?issuable_template=Bug`;
 	console.error(kleur.red(`This is a bug in ${name}-${version}.`));
 	console.error(
 		kleur.red(

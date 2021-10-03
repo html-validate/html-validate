@@ -1,6 +1,6 @@
 import semver from "semver";
 import kleur from "kleur";
-import { version } from "../../package.json";
+import { version } from "../generated/package";
 
 export interface CompatibilityOptions {
 	/** If `true` nothing no output will be generated on console. Default: `false` */
