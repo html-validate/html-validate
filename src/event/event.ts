@@ -14,6 +14,8 @@ export interface Event {
 
 /**
  * Configuration ready event.
+ *
+ * @public
  */
 export interface ConfigReadyEvent extends Event {
 	config: ResolvedConfig;
@@ -26,6 +28,8 @@ export interface ConfigReadyEvent extends Event {
  *
  * The source object must not be modified (use a transformer if modifications
  * are required)
+ *
+ * @public
  */
 export interface SourceReadyEvent extends Event {
 	source: Source;
@@ -33,6 +37,8 @@ export interface SourceReadyEvent extends Event {
 
 /**
  * Token event.
+ *
+ * @public
  */
 export interface TokenEvent extends Event {
 	type: TokenType;
@@ -41,6 +47,8 @@ export interface TokenEvent extends Event {
 
 /**
  * Event emitted when starting tags are encountered.
+ *
+ * @public
  */
 export interface TagStartEvent extends Event {
 	/** Event location. */
@@ -50,11 +58,18 @@ export interface TagStartEvent extends Event {
 	target: HtmlElement;
 }
 
-/** Deprecated alias for TagStartEvent */
+/**
+ * Deprecated alias for TagStartEvent
+ *
+ * @public
+ * @deprecated Use TagStartEvent instead
+ */
 export type TagOpenEvent = TagStartEvent;
 
 /**
  * Event emitted when end tags `</..>` are encountered.
+ *
+ * @public
  */
 export interface TagEndEvent extends Event {
 	/** Event location. */
@@ -68,12 +83,19 @@ export interface TagEndEvent extends Event {
 	previous: HtmlElement;
 }
 
-/** Deprecated alias for TagEndEvent */
+/**
+ * Deprecated alias for TagEndEvent
+ *
+ * @public
+ * @deprecated Use TagEndEvent instead
+ */
 export type TagCloseEvent = TagEndEvent;
 
 /**
  * Event emitted when a tag is ready (i.e. all the attributes has been
  * parsed). The children of the element will not yet be finished.
+ *
+ * @public
  */
 export interface TagReadyEvent extends Event {
 	/** Event location. */
@@ -85,6 +107,8 @@ export interface TagReadyEvent extends Event {
 
 /**
  * Event emitted when an element is fully constructed (including its children).
+ *
+ * @public
  */
 export interface ElementReadyEvent extends Event {
 	/** Event location. */
@@ -96,6 +120,8 @@ export interface ElementReadyEvent extends Event {
 
 /**
  * Event emitted when attributes are encountered.
+ *
+ * @public
  */
 export interface AttributeEvent extends Event {
 	/** Location of the full attribute (key, quotes and value) */
@@ -126,6 +152,8 @@ export interface AttributeEvent extends Event {
 
 /**
  * Event emitted when whitespace content is parsed.
+ *
+ * @public
  */
 export interface WhitespaceEvent extends Event {
 	/** Event location. */
@@ -138,6 +166,8 @@ export interface WhitespaceEvent extends Event {
 /**
  * Event emitted when Internet Explorer conditionals `<![if ...]>` are
  * encountered.
+ *
+ * @public
  */
 export interface ConditionalEvent extends Event {
 	/** Event location. */
@@ -150,6 +180,8 @@ export interface ConditionalEvent extends Event {
 /**
  * Event emitted when html-validate directives `<!-- [html-validate-...] -->`
  * are encountered.
+ *
+ * @public
  */
 export interface DirectiveEvent extends Event {
 	/** Event location. */
@@ -167,6 +199,8 @@ export interface DirectiveEvent extends Event {
 
 /**
  * Event emitted when doctypes `<!DOCTYPE ..>` are encountered.
+ *
+ * @public
  */
 export interface DoctypeEvent extends Event {
 	/** Event location. */
@@ -185,6 +219,8 @@ export interface DoctypeEvent extends Event {
 /**
  * Event emitted after initialization but before tokenization and parsing occurs.
  * Can be used to initialize state in rules.
+ *
+ * @public
  */
 export interface DOMLoadEvent extends Event {
 	source: Source;
@@ -192,6 +228,8 @@ export interface DOMLoadEvent extends Event {
 
 /**
  * Event emitted when DOM tree is fully constructed.
+ *
+ * @public
  */
 export interface DOMReadyEvent extends Event {
 	/** DOM Tree */
@@ -199,6 +237,9 @@ export interface DOMReadyEvent extends Event {
 	source: Source;
 }
 
+/**
+ * @public
+ */
 export interface TriggerEventMap {
 	"config:ready": ConfigReadyEvent;
 	"source:ready": SourceReadyEvent;
@@ -216,6 +257,9 @@ export interface TriggerEventMap {
 	directive: DirectiveEvent;
 }
 
+/**
+ * @public
+ */
 export interface ListenEventMap {
 	"config:ready": ConfigReadyEvent;
 	"source:ready": SourceReadyEvent;

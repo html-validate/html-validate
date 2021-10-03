@@ -28,6 +28,8 @@ function isConfigData(value: any): value is ConfigData {
  * Primary API for using HTML-validate.
  *
  * Provides high-level abstractions for common operations.
+ *
+ * @public
  */
 class HtmlValidate {
 	protected configLoader: ConfigLoader;
@@ -290,6 +292,7 @@ class HtmlValidate {
 	/**
 	 * Create a parser configured for given filename.
 	 *
+	 * @internal
 	 * @param source - Source to use.
 	 */
 	public getParserFor(source: Source): Parser {

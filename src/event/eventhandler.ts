@@ -1,6 +1,9 @@
 /** @internal */
 export type EventCallback = (event: string, data: any) => void;
 
+/**
+ * @internal
+ */
 export class EventHandler {
 	public listeners: { [event: string]: EventCallback[] };
 

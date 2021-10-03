@@ -4,6 +4,9 @@ import document from "./document";
 import recommended from "./recommended";
 import standard from "./standard";
 
+/**
+ * @internal
+ */
 const presets: Record<string, ConfigData> = {
 	"html-validate:a17y": a17y,
 	"html-validate:document": document,

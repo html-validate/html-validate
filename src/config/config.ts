@@ -83,6 +83,8 @@ function loadFromFile(filename: string): ConfigData {
  * Configuration holder.
  *
  * Each file being validated will have a unique instance of this class.
+ *
+ * @public
  */
 export class Config {
 	private config: ConfigData;
@@ -132,6 +134,8 @@ export class Config {
 	 * Validate configuration data.
 	 *
 	 * Throws SchemaValidationError if invalid.
+	 *
+	 * @internal
 	 */
 	public static validate(configData: ConfigData, filename: string | null = null): void {
 		const valid = validator(configData);
@@ -162,6 +166,9 @@ export class Config {
 		return new Config(defaultConfig);
 	}
 
+	/**
+	 * @internal
+	 */
 	public constructor(options?: ConfigData) {
 		const initial: ConfigData = {
 			extends: [],
@@ -196,6 +203,8 @@ export class Config {
 	 *
 	 * Must be called before trying to use config. Can safely be called multiple
 	 * times.
+	 *
+	 * @internal
 	 */
 	public init(): void {
 		if (this.initialized) {
@@ -219,6 +228,7 @@ export class Config {
 	 * Returns a new configuration as a merge of the two. Entries from the passed
 	 * object takes priority over this object.
 	 *
+	 * @internal
 	 * @param rhs - Configuration to merge with this one.
 	 */
 	public merge(rhs: Config): Config {
@@ -321,6 +331,8 @@ export class Config {
 
 	/**
 	 * Get all configured rules, their severity and options.
+	 *
+	 * @internal
 	 */
 	public getRules(): Map<string, [Severity, RuleOptions]> {
 		return Config.getRulesObject(this.config.rules ?? {});
@@ -343,6 +355,8 @@ export class Config {
 
 	/**
 	 * Get all configured plugins.
+	 *
+	 * @internal
 	 */
 	public getPlugins(): Plugin[] {
 		return this.plugins;
@@ -418,6 +432,8 @@ export class Config {
 	 *
 	 * A resolved configuration will merge all extended configs and load all
 	 * plugins and transformers, and normalize the rest of the configuration.
+	 *
+	 * @internal
 	 */
 	public resolve(): ResolvedConfig {
 		return new ResolvedConfig(this.resolveData());

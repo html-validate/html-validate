@@ -11,6 +11,9 @@ export interface TransformMap {
 	[key: string]: string;
 }
 
+/**
+ * @public
+ */
 export interface ConfigData {
 	/**
 	 * If set to true no new configurations will be searched.

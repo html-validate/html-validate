@@ -79,22 +79,33 @@ const ajvRegexpKeyword: KeywordDefinition = {
 	validate: ajvRegexpValidate,
 };
 
+/**
+ * @public
+ */
 export class MetaTable {
 	public readonly elements: ElementTable;
 
 	private schema: SchemaObject;
 
+	/**
+	 * @internal
+	 */
 	public constructor() {
 		this.elements = {};
 		this.schema = clone(schema);
 	}
 
+	/**
+	 * @internal
+	 */
 	public init(): void {
 		this.resolveGlobal();
 	}
 
 	/**
 	 * Extend validation schema.
+	 *
+	 * @internal
 	 */
 	public extendValidationSchema(patch: SchemaValidationPatch): void {
 		if (patch.properties) {
@@ -116,6 +127,7 @@ export class MetaTable {
 	/**
 	 * Load metadata table from object.
 	 *
+	 * @internal
 	 * @param obj - Object with metadata to load
 	 * @param filename - Optional filename used when presenting validation error
 	 */
@@ -141,6 +153,7 @@ export class MetaTable {
 	/**
 	 * Load metadata table from filename
 	 *
+	 * @internal
 	 * @param filename - Filename to load
 	 */
 	public loadFromFile(filename: string): void {
@@ -159,6 +172,7 @@ export class MetaTable {
 	/**
 	 * Get [[MetaElement]] for the given tag or null if the element doesn't exist.
 	 *
+	 * @public
 	 * @returns A shallow copy of metadata.
 	 */
 	public getMetaFor(tagName: string): MetaElement | null {
@@ -168,6 +182,8 @@ export class MetaTable {
 
 	/**
 	 * Find all tags which has enabled given property.
+	 *
+	 * @public
 	 */
 	public getTagsWithProperty(propName: MetaLookupableProperty): string[] {
 		return Object.entries(this.elements)
@@ -177,6 +193,8 @@ export class MetaTable {
 
 	/**
 	 * Find tag matching tagName or inheriting from it.
+	 *
+	 * @public
 	 */
 	public getTagsDerivedFrom(tagName: string): string[] {
 		return Object.entries(this.elements)
@@ -214,6 +232,9 @@ export class MetaTable {
 		return ajv.compile<MetaDataTable>(this.schema);
 	}
 
+	/**
+	 * @public
+	 */
 	public getJSONSchema(): SchemaObject {
 		return this.schema;
 	}
@@ -258,6 +279,9 @@ export class MetaTable {
 		return merged;
 	}
 
+	/**
+	 * @internal
+	 */
 	public resolve(node: HtmlElement): void {
 		if (node.meta) {
 			expandProperties(node, node.meta);

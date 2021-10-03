@@ -8,6 +8,8 @@ import { ConfigLoader } from "../config-loader";
  *
  * In practice this means no configuration is fetch by traversing the
  * filesystem.
+ *
+ * @public
  */
 export class StaticConfigLoader extends ConfigLoader {
 	public override getConfigFor(handle: string, configOverride?: ConfigData): Config {

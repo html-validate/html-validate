@@ -11,6 +11,9 @@ function getSummary(schema: any, obj: any, errors: ErrorObject[]): string {
 	return output.length > 0 ? output[0].error : "unknown validation error";
 }
 
+/**
+ * @public
+ */
 export class SchemaValidationError extends UserError {
 	public filename: string | null;
 	private obj: unknown;

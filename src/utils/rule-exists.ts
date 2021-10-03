@@ -9,6 +9,7 @@ const ruleIds = new Set<string>(Object.keys(rules));
  * Can be used to create forward/backward compatibility by checking if a rule
  * exists to enable/disable it.
  *
+ * @public
  * @param ruleId - Rule id to check
  * @returns `true` if rule exists
  */

@@ -10,6 +10,8 @@ const TEXT_NODE_NAME = "#text";
  *
  * Text nodes are appended as children of `HtmlElement` and cannot have childen
  * of its own.
+ *
+ * @public
  */
 export class TextNode extends DOMNode {
 	private readonly text: string | DynamicValue;

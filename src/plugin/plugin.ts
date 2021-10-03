@@ -9,6 +9,9 @@ export interface SchemaValidationPatch {
 	definitions?: Record<string, unknown>;
 }
 
+/**
+ * @public
+ */
 export interface Plugin {
 	/**
 	 * Name of the plugin.

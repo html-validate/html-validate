@@ -15,17 +15,26 @@ import { Report, Reporter } from "../reporter";
 import { Rule, RuleConstructor, RuleDocumentation } from "../rule";
 import bundledRules from "../rules";
 
+/**
+ * @internal
+ */
 export interface EventDump {
 	event: string;
 	data: any;
 }
 
+/**
+ * @internal
+ */
 export interface TokenDump {
 	token: string;
 	data: string;
 	location: string;
 }
 
+/**
+ * @internal
+ */
 export class Engine<T extends Parser = Parser> {
 	protected report: Reporter;
 	protected config: ResolvedConfig;

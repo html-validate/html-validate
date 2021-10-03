@@ -1,9 +1,15 @@
+/**
+ * @public
+ */
 export enum Severity {
 	DISABLED = 0,
 	WARN = 1,
 	ERROR = 2,
 }
 
+/**
+ * @internal
+ */
 export function parseSeverity(value: string | number): Severity {
 	switch (value) {
 		case 0:

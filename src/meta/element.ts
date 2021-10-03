@@ -67,6 +67,9 @@ export interface DeprecatedElement {
 	source?: string;
 }
 
+/**
+ * @public
+ */
 export interface MetaData {
 	/* special keyword to extend metadata from another entry */
 	inherit?: string;
@@ -127,6 +130,8 @@ export type MetaLookupableProperty =
 /**
  * Properties listed here can be copied (loaded) onto another element using
  * [[HtmlElement.loadMeta]].
+ *
+ * @public
  */
 export const MetaCopyableProperty: Array<keyof MetaElement> = [
 	"metadata",
@@ -147,6 +152,9 @@ export const MetaCopyableProperty: Array<keyof MetaElement> = [
 	"requiredContent",
 ];
 
+/**
+ * @public
+ */
 export interface MetaElement extends Omit<MetaData, "deprecatedAttributes" | "requiredAttributes"> {
 	/* filled internally for reverse lookup */
 	tagName: string;

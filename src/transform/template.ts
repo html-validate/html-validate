@@ -144,6 +144,9 @@ function compareKey(
 	}
 }
 
+/**
+ * @public
+ */
 export class TemplateExtractor {
 	private ast: ESTree.Program;
 

@@ -1,3 +1,6 @@
+/**
+ * @public
+ */
 export class DynamicValue {
 	public readonly expr: string;
 

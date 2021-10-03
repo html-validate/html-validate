@@ -10,6 +10,9 @@ import { NodeType } from "./nodetype";
 import { escapeSelectorComponent, Selector } from "./selector";
 import { TextNode } from "./text";
 
+/**
+ * @public
+ */
 export enum NodeClosed {
 	Open = 0, //            element wasn't closed
 	EndTag = 1, //          element closed with end tag <p>...</p>
@@ -26,6 +29,9 @@ function isValidTagName(tagName: string | undefined): boolean {
 	return Boolean(tagName !== "" && tagName !== "*");
 }
 
+/**
+ * @public
+ */
 export class HtmlElement extends DOMNode {
 	public readonly tagName: string;
 	public readonly parent: HtmlElement | null;
@@ -71,10 +77,16 @@ export class HtmlElement extends DOMNode {
 		}
 	}
 
+	/**
+	 * @internal
+	 */
 	public static rootNode(location: Location): HtmlElement {
 		return new HtmlElement(undefined, null, NodeClosed.EndTag, null, location);
 	}
 
+	/**
+	 * @internal
+	 */
 	public static fromTokens(
 		startToken: Token,
 		endToken: Token,
@@ -449,6 +461,8 @@ export class HtmlElement extends DOMNode {
 
 	/**
 	 * Visit all nodes from this node and down. Depth first.
+	 *
+	 * @internal
 	 */
 	public visitDepthFirst(callback: (node: HtmlElement) => void): void {
 		function visit(node: HtmlElement): void {
@@ -463,6 +477,8 @@ export class HtmlElement extends DOMNode {
 
 	/**
 	 * Evaluates callbackk on all descendants, returning true if any are true.
+	 *
+	 * @internal
 	 */
 	public someChildren(callback: (node: HtmlElement) => boolean): boolean {
 		return this.childElements.some(visit);
@@ -478,6 +494,8 @@ export class HtmlElement extends DOMNode {
 
 	/**
 	 * Evaluates callbackk on all descendants, returning true if all are true.
+	 *
+	 * @internal
 	 */
 	public everyChildren(callback: (node: HtmlElement) => boolean): boolean {
 		return this.childElements.every(visit);
@@ -494,6 +512,8 @@ export class HtmlElement extends DOMNode {
 	 * Visit all nodes from this node and down. Breadth first.
 	 *
 	 * The first node for which the callback evaluates to true is returned.
+	 *
+	 * @internal
 	 */
 	public find(callback: (node: HtmlElement) => boolean): HtmlElement | null {
 		function visit(node: HtmlElement): HtmlElement | null {

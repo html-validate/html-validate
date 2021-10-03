@@ -2,6 +2,9 @@ import semver from "semver";
 import kleur from "kleur";
 import { version } from "../generated/package";
 
+/**
+ * @public
+ */
 export interface CompatibilityOptions {
 	/** If `true` nothing no output will be generated on console. Default: `false` */
 	silent: boolean;
@@ -26,6 +29,7 @@ const defaults: CompatibilityOptions = {
  * Tests if plugin is compatible with html-validate library. Unless the `silent`
  * option is used a warning is displayed on the console.
  *
+ * @public
  * @param name - Name of plugin
  * @param declared - What library versions the plugin support (e.g. declared peerDependencies)
  * @returns - `true` if version is compatible

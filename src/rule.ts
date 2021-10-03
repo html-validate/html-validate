@@ -23,6 +23,9 @@ const remapEvents: Record<string, string> = {
 const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
 ajv.addMetaSchema(ajvSchemaDraft);
 
+/**
+ * @public
+ */
 export interface RuleDocumentation {
 	description: string;
 	url?: string;
@@ -62,6 +65,9 @@ function getSchemaValidator(ruleId: string, properties: SchemaObject): ValidateF
 	return ajv.compile(schema);
 }
 
+/**
+ * @public
+ */
 export abstract class Rule<ContextType = void, OptionsType = void> {
 	private reporter: Reporter;
 	private parser: Parser;
@@ -356,6 +362,9 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	}
 }
 
+/**
+ * @internal
+ */
 export function ruleDocumentationUrl(filename: string): string {
 	/* during bundling all __filename's are converted to paths relative to the src
 	 * folder and with the @/ prefix, by replacing the @ with the dist folder we

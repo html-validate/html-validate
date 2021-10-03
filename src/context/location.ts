@@ -1,3 +1,6 @@
+/**
+ * @public
+ */
 export interface Location {
 	/**
 	 * The filemane this location refers to.
@@ -55,6 +58,7 @@ function sliceSize(size: number, begin: number, end?: number): number {
  * properly calculate line and column information. If not given the text is
  * assumed to contain no newlines.
  *
+ * @public
  * @param location - Source location
  * @param begin - Start location. Default is 0.
  * @param end - End location. Default is size of location. Negative values are

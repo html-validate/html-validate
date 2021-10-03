@@ -1,5 +1,8 @@
 import { Source } from "../context";
 
+/**
+ * @public
+ */
 export interface TransformContext {
 	/**
 	 * Test if an additional chainable transformer is present.

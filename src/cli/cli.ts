@@ -21,6 +21,9 @@ export interface CLIOptions {
 	rules?: string | string[];
 }
 
+/**
+ * @public
+ */
 export class CLI {
 	private options: CLIOptions;
 	private config: ConfigData;

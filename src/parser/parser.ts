@@ -19,6 +19,8 @@ import { ParserError } from "./parser-error";
 
 /**
  * Parse HTML document into a DOM tree.
+ *
+ * @internal
  */
 export class Parser {
 	private readonly event: EventHandler;

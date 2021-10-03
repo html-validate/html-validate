@@ -18,6 +18,7 @@ const availableFormatters: Record<string, Formatter> = {
 /**
  * Get formatter function by name.
  *
+ * @internal
  * @param name - Name of formatter.
  * @returns Formatter function or null if it doesn't exist.
  */

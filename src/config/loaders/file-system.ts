@@ -37,6 +37,8 @@ function findConfigurationFiles(directory: string): string[] {
  * 2. If set in the global config the override is merged into global and
  * returned. No configuration files are searched.
  * 3. Setting `root` in configuration file only stops directory traversal.
+ *
+ * @public
  */
 export class FileSystemConfigLoader extends ConfigLoader {
 	protected cache: Map<string, Config | null>;

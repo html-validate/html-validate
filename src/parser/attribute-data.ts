@@ -2,6 +2,8 @@ import { DynamicValue } from "../dom";
 
 /**
  * Raw attribute data.
+ *
+ * @public
  */
 export interface AttributeData {
 	/** Attribute name */

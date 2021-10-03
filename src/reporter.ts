@@ -5,6 +5,8 @@ import { DOMNode } from "./dom";
 
 /**
  * Reported error message.
+ *
+ * @public
  */
 export interface Message {
 	/** Rule that triggered this message */
@@ -42,6 +44,9 @@ export interface Message {
 	context?: any;
 }
 
+/**
+ * @public
+ */
 export interface Result {
 	messages: Message[];
 	filePath: string;
@@ -52,6 +57,8 @@ export interface Result {
 
 /**
  * Report object returned by [[HtmlValidate]].
+ *
+ * @public
  */
 export interface Report {
 	/** `true` if validation was successful */
@@ -67,6 +74,9 @@ export interface Report {
 	warningCount: number;
 }
 
+/**
+ * @internal
+ */
 export class Reporter {
 	protected result: { [filename: string]: Message[] };
 

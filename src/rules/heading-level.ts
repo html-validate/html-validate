@@ -2,7 +2,7 @@ import { Location, sliceLocation } from "../context";
 import { HtmlElement, Pattern } from "../dom";
 import { DOMInternalID } from "../dom/domnode";
 import { SelectorContext } from "../dom/selector-context";
-import { TagCloseEvent, TagReadyEvent, TagStartEvent } from "../event";
+import { TagEndEvent, TagReadyEvent, TagStartEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
 
 interface RuleOptions {
@@ -104,7 +104,7 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 	public setup(): void {
 		this.on("tag:start", isRelevant, (event: TagStartEvent) => this.onTagStart(event));
 		this.on("tag:ready", (event: TagReadyEvent) => this.onTagReady(event));
-		this.on("tag:close", (event: TagCloseEvent) => this.onTagClose(event));
+		this.on("tag:close", (event: TagEndEvent) => this.onTagClose(event));
 	}
 
 	private onTagStart(event: TagStartEvent): void {
@@ -216,7 +216,7 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 	 * Check if the current element being closed is the element which opened the
 	 * current sectioning root, in which case the entry is popped from the stack.
 	 */
-	private onTagClose(event: TagCloseEvent): void {
+	private onTagClose(event: TagEndEvent): void {
 		const { previous: target } = event;
 		const root = this.getCurrentRoot();
 		if (target.unique !== root.node) {

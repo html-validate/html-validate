@@ -2,17 +2,29 @@ import { HtmlElement } from "../dom";
 import { MetaElement } from "../meta";
 import { AttributeData } from "../parser";
 
+/**
+ * @public
+ */
 export type ProcessAttributeCallback = (
 	this: unknown,
 	attr: AttributeData
 ) => Iterable<AttributeData>;
 
+/**
+ * @public
+ */
 export interface ProcessElementContext {
 	getMetaFor(tagName: string): MetaElement | null;
 }
 
+/**
+ * @public
+ */
 export type ProcessElementCallback = (this: ProcessElementContext, node: HtmlElement) => void;
 
+/**
+ * @public
+ */
 export interface SourceHooks {
 	/**
 	 * Called for every attribute.
@@ -39,6 +51,8 @@ export interface SourceHooks {
  *
  * Optional hooks can be attached. This is usually added by transformers to
  * postprocess.
+ *
+ * @public
  */
 export interface Source {
 	data: string;
