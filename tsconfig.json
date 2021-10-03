@@ -20,5 +20,5 @@
     "strict": true,
     "composite": true
   },
-  "files": ["package.json", "elements/entities.json"]
+  "files": ["elements/entities.json"]
 }

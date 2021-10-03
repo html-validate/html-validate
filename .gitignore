@@ -7,4 +7,5 @@ tsconfig.tsbuildinfo
 /coverage
 /node_modules
 /public
+/src/generated/
 /temp

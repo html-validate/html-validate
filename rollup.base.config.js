@@ -162,18 +162,6 @@ export function bundleDts(...formats) {
 				chunkFileNames: "[name].d.ts",
 			},
 			plugins: [
-				replace({
-					preventAssignment: true,
-					delimiters: ["", ""],
-					values: {
-						/**
-						 * Bug #127: workaround the issue that the exported version is
-						 * turned into a constant by the json plugin instead of the expected
-						 * "declare const version" required by typescript.
-						 */
-						'export { version } from "../package.json";': "export const version: string;",
-					},
-				}),
 				dts(),
 				copy({
 					verbose: true,

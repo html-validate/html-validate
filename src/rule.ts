@@ -1,7 +1,7 @@
 import path from "path";
 import Ajv, { ErrorObject, SchemaObject, ValidateFunction } from "ajv";
 import ajvSchemaDraft from "ajv/lib/refs/json-schema-draft-06.json";
-import { homepage } from "../package.json";
+import { homepage } from "./generated/package";
 import { ConfigData } from "./config/config-data";
 import { Severity } from "./config/severity";
 import { Location } from "./context";
