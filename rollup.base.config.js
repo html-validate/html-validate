@@ -104,7 +104,7 @@ function generateResolved(format) {
  * @param {string} format
  * @returns {RollupOptions[]}
  */
-function build(format) {
+export function build(format) {
 	return [
 		{
 			input: entrypoints,
@@ -144,7 +144,16 @@ function build(format) {
 				}),
 			],
 		},
-		{
+	];
+}
+
+/**
+ * @param {string[]} formats
+ * @returns {RollupOptions[]}
+ */
+export function bundleDts(...formats) {
+	return formats.map((format) => {
+		return {
 			input: types,
 			output: {
 				dir: `dist/${format}`,
@@ -171,9 +180,6 @@ function build(format) {
 					targets: [{ src: "src/schema/*.json", dest: "dist/schema" }],
 				}),
 			],
-		},
-	];
+		};
+	});
 }
-
-/** @type {RollupOptions[]} */
-export default [...build("cjs"), ...build("es")];
