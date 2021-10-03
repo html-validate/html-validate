@@ -52,7 +52,7 @@ pages:
     - if: '$CI_COMMIT_REF_NAME == "master" && $FORCE_DEPLOY_DOCS == "true"'
   script:
     - npm run --if-present build
-    - npm run build:docs
+    - npm run docs
 
 Changelog:
   stage: test
@@ -93,7 +93,7 @@ Docs:
     reports:
       junit: temp/jest.xml
   script:
-    - npm run build:docs
+    - npm run docs
     - npm run htmlvalidate -- --config docs/htmlvalidate-templates.json 'docs/**/*.html'
     - npm run htmlvalidate -- --config docs/htmlvalidate-public.json 'public/**/*.html'
     - npm test -- docs
