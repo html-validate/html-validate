@@ -54,7 +54,7 @@ This will manifest itself with errors such as:
 - `Cannot read property 'existsSync' of undefined`
 - `fs_1.default.existsSync is not a function`
 
-To get around this the [[StaticConfigLoader]] (or a custom loader) can be used:
+To get around this the {@link dev/using-api#staticconfigloader- `StaticConfigLoader`} (or a custom loader) can be used:
 
 ```diff
 -import { HtmlValidate } from "html-validate"
@@ -66,7 +66,7 @@ To get around this the [[StaticConfigLoader]] (or a custom loader) can be used:
  const report = htmlvalidate.validateString(markup, "my-file.html");
 ```
 
-The [[StaticConfigLoader]] will only load the configuration passed to the constructor or to `validateString(..)`.
+The {@link dev/using-api#staticconfigloader- `StaticConfigLoader`} will only load the configuration passed to the constructor or to `validateString(..)`.
 By default it uses the `html-validate:recommended` preset but can be overridden by passing a different to the constructor:
 
 ```diff
@@ -80,7 +80,7 @@ By default it uses the `html-validate:recommended` preset but can be overridden 
 
 ### Previous workaround
 
-The previous workaround was to pass a configuration to the [[HtmlValidate]] constructor with the `root` property set to `true` but this is no longer recommended for this purpose:
+The previous workaround was to pass a configuration to the {@link dev/using-api `HtmlValidate`} constructor with the `root` property set to `true` but this is no longer recommended for this purpose:
 
 ```diff
 -const htmlvalidate = new HtmlValidate();
