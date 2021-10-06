@@ -148,7 +148,7 @@ Users may then extend the preset using `plugin:name`, e.g.:
 
 See [writing rules](/dev/writing-rules.html) for details on how to write a rules.
 
-To expose rules in the plugin use the `plugin` field. Each plugin should use a
+To expose rules in the plugin use the `rules` field. Each plugin should use a
 unique prefix for each rule.
 
 ```js
