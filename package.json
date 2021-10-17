@@ -58,12 +58,12 @@
     "prebuild": "run-s codegen prebuild:*",
     "prebuild:tsc": "tsc --build src",
     "build": "run-s build:*",
-    "build:esm": "rollup --config rollup.esm.config.js",
     "build:cjs": "rollup --config rollup.cjs.config.js",
     "build:dts": "rollup --config rollup.dts.config.js",
+    "build:esm": "rollup --config rollup.esm.config.js",
     "postbuild": "scripts/pkg",
-    "codegen": "node scripts/codegen",
     "clean": "rm -rf dist public",
+    "codegen": "node scripts/codegen",
     "compatibility": "scripts/compatibility.sh",
     "debug": "node --inspect ./node_modules/.bin/jest --runInBand --watch --no-coverage",
     "docs": "grunt docs",
@@ -71,7 +71,7 @@
     "eslint:fix": "eslint --fix .",
     "htmlvalidate": "node ./bin/html-validate.js",
     "prepack": "npm run build",
-    "prepare": "husky install scripts && npm run codegen",
+    "prepare": "husky install && npm run codegen",
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
     "start": "grunt connect",
@@ -79,9 +79,7 @@
     "version": "scripts/version"
   },
   "commitlint": {
-    "extends": [
-      "@html-validate"
-    ],
+    "extends": "@html-validate",
     "rules": {
       "scope-enum": [
         2,
@@ -157,8 +155,7 @@
   "devDependencies": {
     "@babel/core": "7.15.8",
     "@babel/preset-env": "7.15.8",
-    "@commitlint/cli": "13.2.1",
-    "@html-validate/commitlint-config": "2.0.0",
+    "@html-validate/commitlint-config": "2.1.1",
     "@html-validate/eslint-config": "4.4.8",
     "@html-validate/eslint-config-jest": "4.4.9",
     "@html-validate/eslint-config-typescript": "4.4.9",
