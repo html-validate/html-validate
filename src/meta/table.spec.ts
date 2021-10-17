@@ -193,8 +193,8 @@ describe("MetaTable", () => {
 		it("should be populated for known elements", () => {
 			expect.assertions(2);
 			const meta = table.getMetaFor("foo");
-			expect(meta).not.toBeUndefined();
-			expect(meta?.tagName).toEqual("foo");
+			expect(meta).toBeDefined();
+			expect(meta?.tagName).toBe("foo");
 		});
 
 		it("should be null for unknown elements", () => {
@@ -206,8 +206,8 @@ describe("MetaTable", () => {
 		it("should be case insensitive", () => {
 			expect.assertions(2);
 			const meta = table.getMetaFor("FOO");
-			expect(meta).not.toBeUndefined();
-			expect(meta?.tagName).toEqual("foo");
+			expect(meta).toBeDefined();
+			expect(meta?.tagName).toBe("foo");
 		});
 	});
 
@@ -463,7 +463,7 @@ describe("MetaTable", () => {
 				}),
 			});
 			const meta = table.getMetaFor("foo");
-			expect(meta).not.toBeUndefined();
+			expect(meta).toBeDefined();
 			expect(meta?.attributes).toEqual({
 				attr: { enum: [/^foo$/] },
 			});
@@ -480,7 +480,7 @@ describe("MetaTable", () => {
 				}),
 			});
 			const meta = table.getMetaFor("foo");
-			expect(meta).not.toBeUndefined();
+			expect(meta).toBeDefined();
 			expect(meta?.attributes).toEqual({
 				attr: { enum: [/^foo$/i] },
 			});
@@ -497,7 +497,7 @@ describe("MetaTable", () => {
 				}),
 			});
 			const meta = table.getMetaFor("foo");
-			expect(meta).not.toBeUndefined();
+			expect(meta).toBeDefined();
 			expect(meta?.attributes).toEqual({
 				attr: { enum: [/^foo$/, /^bar$/, /^baz$/] },
 			});
@@ -514,7 +514,7 @@ describe("MetaTable", () => {
 				}),
 			});
 			const meta = table.getMetaFor("foo");
-			expect(meta).not.toBeUndefined();
+			expect(meta).toBeDefined();
 			expect(meta?.attributes).toEqual({
 				attr: { enum: [/foo/] },
 			});

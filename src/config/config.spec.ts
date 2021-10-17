@@ -327,12 +327,12 @@ describe("config", () => {
 
 		it("should not expand /foo", () => {
 			expect.assertions(1);
-			expect(Config.expandRelative("/foo", "/path")).toEqual("/foo");
+			expect(Config.expandRelative("/foo", "/path")).toBe("/foo");
 		});
 
 		it("should not expand foo", () => {
 			expect.assertions(1);
-			expect(Config.expandRelative("foo", "/path")).toEqual("foo");
+			expect(Config.expandRelative("foo", "/path")).toBe("foo");
 		});
 	});
 
@@ -702,6 +702,7 @@ describe("config", () => {
 				["rules with missing options", { rules: { foo: ["error"] } }],
 				["rules with options", { rules: { foo: ["error", { spam: "ham" }] } }],
 			] as Array<[string, any]>)("%s", (_, config: any) => {
+				expect.assertions(1);
 				expect(() => Config.validate(config)).not.toThrow();
 			});
 		});
@@ -721,6 +722,7 @@ describe("config", () => {
 				["rules with invalid severity", { rules: { foo: "spam" } }],
 				["additional property", { foo: "bar" }],
 			] as Array<[string, any]>)("%s", (_, config: any) => {
+				expect.assertions(1);
 				expect(() => Config.validate(config)).toThrow(SchemaValidationError);
 			});
 		});

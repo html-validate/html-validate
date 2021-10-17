@@ -73,8 +73,8 @@ describe("HtmlElement", () => {
 			expect.assertions(4);
 			const [startToken, endToken] = createTokens("foo"); // <foo>
 			const node = HtmlElement.fromTokens(startToken, endToken, null, null);
-			expect(node.nodeName).toEqual("foo");
-			expect(node.tagName).toEqual("foo");
+			expect(node.nodeName).toBe("foo");
+			expect(node.tagName).toBe("foo");
 			expect(node.location).toEqual({
 				filename: "filename",
 				offset: 1,
@@ -137,13 +137,13 @@ describe("HtmlElement", () => {
 			expect.assertions(1);
 			const node = new HtmlElement("my-element", null, NodeClosed.EndTag, null, location);
 			node.setAnnotation("my annotation");
-			expect(node.annotatedName).toEqual("my annotation");
+			expect(node.annotatedName).toBe("my annotation");
 		});
 
 		it("should default to <tagName>", () => {
 			expect.assertions(1);
 			const node = new HtmlElement("my-element", null, NodeClosed.EndTag, null, location);
-			expect(node.annotatedName).toEqual("<my-element>");
+			expect(node.annotatedName).toBe("<my-element>");
 		});
 	});
 
@@ -152,15 +152,15 @@ describe("HtmlElement", () => {
 		const node = HtmlElement.rootNode(location);
 		expect(node.isRootElement()).toBeTruthy();
 		expect(node.nodeType).toEqual(NodeType.DOCUMENT_NODE);
-		expect(node.nodeName).toEqual("#document");
-		expect(node.tagName).toEqual("#document");
+		expect(node.nodeName).toBe("#document");
+		expect(node.tagName).toBe("#document");
 	});
 
 	it("id property should return element id", () => {
 		expect.assertions(1);
 		const el = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 		el.setAttribute("id", "bar", location, null);
-		expect(el.id).toEqual("bar");
+		expect(el.id).toBe("bar");
 	});
 
 	it("id property should return null if no id attribute exists", () => {
@@ -350,7 +350,7 @@ describe("HtmlElement", () => {
 			expect.assertions(1);
 			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			node.setAttribute("bar", "value", location, null);
-			expect(node.getAttributeValue("bar")).toEqual("value");
+			expect(node.getAttributeValue("bar")).toBe("value");
 		});
 
 		it("should get attribute expression for dynamic values", () => {
@@ -358,7 +358,7 @@ describe("HtmlElement", () => {
 			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
 			const dynamic = new DynamicValue("{{ interpolated }}");
 			node.setAttribute("bar", dynamic, location, null);
-			expect(node.getAttributeValue("bar")).toEqual("{{ interpolated }}");
+			expect(node.getAttributeValue("bar")).toBe("{{ interpolated }}");
 		});
 
 		it("should return null for missing attributes", () => {
@@ -412,7 +412,7 @@ describe("HtmlElement", () => {
 			node.appendText("foo", location);
 			node.appendText("bar", location);
 			expect(node.childNodes).toHaveLength(2);
-			expect(node.textContent).toEqual("foobar");
+			expect(node.textContent).toBe("foobar");
 		});
 	});
 
@@ -420,15 +420,15 @@ describe("HtmlElement", () => {
 		it("for nodes without parent", () => {
 			expect.assertions(1);
 			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
-			expect(node.depth).toEqual(0);
+			expect(node.depth).toBe(0);
 		});
 
 		it("for nodes in a tree", () => {
 			expect.assertions(4);
-			expect(document.querySelector("#parent").depth).toEqual(0);
-			expect(document.querySelector("ul").depth).toEqual(1);
-			expect(document.querySelector("li.foo").depth).toEqual(2);
-			expect(document.querySelector("li.bar").depth).toEqual(2);
+			expect(document.querySelector("#parent").depth).toBe(0);
+			expect(document.querySelector("ul").depth).toBe(1);
+			expect(document.querySelector("li.foo").depth).toBe(2);
+			expect(document.querySelector("li.bar").depth).toBe(2);
 		});
 	});
 
@@ -448,12 +448,12 @@ describe("HtmlElement", () => {
 
 		it("should return first parent matching the selector", () => {
 			expect.assertions(1);
-			expect(node.closest("div")?.id).toEqual("2");
+			expect(node.closest("div")?.id).toBe("2");
 		});
 
 		it("should return itself if matching the selector", () => {
 			expect.assertions(1);
-			expect(node.closest(".x")?.id).toEqual("3");
+			expect(node.closest(".x")?.id).toBe("3");
 		});
 
 		it("should return null if no element matches the selector", () => {
@@ -480,7 +480,7 @@ describe("HtmlElement", () => {
 				</div>
 			`);
 			const el = document.querySelector("div").childElements[3];
-			expect(el.generateSelector()).toEqual("div > p:nth-child(4)");
+			expect(el.generateSelector()).toBe("div > p:nth-child(4)");
 		});
 
 		it("should use id if a unique id is present", () => {
@@ -493,7 +493,7 @@ describe("HtmlElement", () => {
 				</div>
 			`);
 			const el = document.querySelector("p");
-			expect(el.generateSelector()).toEqual("#foo > p");
+			expect(el.generateSelector()).toBe("#foo > p");
 		});
 
 		it("should not use id if id is not unique", () => {
@@ -507,7 +507,7 @@ describe("HtmlElement", () => {
 				</div>
 			`);
 			const el = document.querySelector("p");
-			expect(el.generateSelector()).toEqual("div > div:nth-child(1) > p");
+			expect(el.generateSelector()).toBe("div > div:nth-child(1) > p");
 		});
 
 		it("should handle colon in id", () => {
@@ -520,7 +520,7 @@ describe("HtmlElement", () => {
 				</div>
 			`);
 			const el = document.querySelector("p");
-			expect(el.generateSelector()).toEqual("#foo\\: > p");
+			expect(el.generateSelector()).toBe("#foo\\: > p");
 		});
 
 		it("should handle space in id", () => {
@@ -533,7 +533,7 @@ describe("HtmlElement", () => {
 				</div>
 			`);
 			const el = document.querySelector("p");
-			expect(el.generateSelector()).toEqual("#foo\\  > p");
+			expect(el.generateSelector()).toBe("#foo\\  > p");
 		});
 
 		it("should handle bracket in id", () => {
@@ -546,14 +546,14 @@ describe("HtmlElement", () => {
 				</div>
 			`);
 			const el = document.querySelector("p");
-			expect(el.generateSelector()).toEqual("#foo\\[bar\\] > p");
+			expect(el.generateSelector()).toBe("#foo\\[bar\\] > p");
 		});
 
 		it("should normalize tagnames", () => {
 			expect.assertions(1);
 			const document = parser.parseHtml(`<dIV></DIv>`);
 			const el = document.querySelector("div");
-			expect(el.generateSelector()).toEqual("div");
+			expect(el.generateSelector()).toBe("div");
 		});
 
 		it("root element should not receive selector", () => {
@@ -602,13 +602,13 @@ describe("HtmlElement", () => {
 		it("should overwrite copyable properties", () => {
 			expect.assertions(1);
 			node.loadMeta({ flow: false } as MetaElement);
-			expect(node.meta?.flow).toEqual(false);
+			expect(node.meta?.flow).toBe(false);
 		});
 
 		it("should not overwrite non-copyable properties", () => {
 			expect.assertions(1);
 			node.loadMeta({ inherit: "bar" } as MetaElement);
-			expect(node.meta?.inherit).toEqual("foo");
+			expect(node.meta?.inherit).toBe("foo");
 		});
 
 		it("should remove missing properties", () => {
@@ -621,7 +621,7 @@ describe("HtmlElement", () => {
 			expect.assertions(1);
 			const node = new HtmlElement("my-element", null, NodeClosed.EndTag, null, location);
 			node.loadMeta({ flow: false } as MetaElement);
-			expect(node.meta?.flow).toEqual(false);
+			expect(node.meta?.flow).toBe(false);
 		});
 	});
 
@@ -630,8 +630,8 @@ describe("HtmlElement", () => {
 			expect.assertions(3);
 			const nodes = document.getElementsByTagName("li");
 			expect(nodes).toHaveLength(2);
-			expect(nodes[0].getAttributeValue("class")).toEqual("foo");
-			expect(nodes[1].getAttributeValue("class")).toEqual("bar baz");
+			expect(nodes[0].getAttributeValue("class")).toBe("foo");
+			expect(nodes[1].getAttributeValue("class")).toBe("bar baz");
 		});
 
 		it("should support universal selector", () => {
@@ -665,87 +665,87 @@ describe("HtmlElement", () => {
 			expect.assertions(2);
 			const el = document.querySelector("ul");
 			expect(el).toBeInstanceOf(HtmlElement);
-			expect(el.tagName).toEqual("ul");
+			expect(el.tagName).toBe("ul");
 		});
 
 		it("should find element by #id", () => {
 			expect.assertions(3);
 			const el = document.querySelector("#parent");
 			expect(el).toBeInstanceOf(HtmlElement);
-			expect(el.tagName).toEqual("div");
-			expect(el.getAttributeValue("id")).toEqual("parent");
+			expect(el.tagName).toBe("div");
+			expect(el.getAttributeValue("id")).toBe("parent");
 		});
 
 		it("should find element by .class", () => {
 			expect.assertions(3);
 			const el = document.querySelector(".foo");
 			expect(el).toBeInstanceOf(HtmlElement);
-			expect(el.tagName).toEqual("li");
-			expect(el.getAttributeValue("class")).toEqual("foo");
+			expect(el.tagName).toBe("li");
+			expect(el.getAttributeValue("class")).toBe("foo");
 		});
 
 		it("should find element by [attr]", () => {
 			expect.assertions(3);
 			const el = document.querySelector("[title]");
 			expect(el).toBeInstanceOf(HtmlElement);
-			expect(el.tagName).toEqual("li");
-			expect(el.getAttributeValue("class")).toEqual("bar baz");
+			expect(el.tagName).toBe("li");
+			expect(el.getAttributeValue("class")).toBe("bar baz");
 		});
 
 		it('should find element by [attr=".."]', () => {
 			expect.assertions(3);
 			const el = document.querySelector('[class="foo"]');
 			expect(el).toBeInstanceOf(HtmlElement);
-			expect(el.tagName).toEqual("li");
-			expect(el.getAttributeValue("class")).toEqual("foo");
+			expect(el.tagName).toBe("li");
+			expect(el.getAttributeValue("class")).toBe("foo");
 		});
 
 		it("should find element with compound selector", () => {
 			expect.assertions(3);
 			const el = document.querySelector(".bar.baz#spam");
 			expect(el).toBeInstanceOf(HtmlElement);
-			expect(el.tagName).toEqual("li");
-			expect(el.getAttributeValue("class")).toEqual("bar baz");
+			expect(el.tagName).toBe("li");
+			expect(el.getAttributeValue("class")).toBe("bar baz");
 		});
 
 		it("should find element with descendant combinator", () => {
 			expect.assertions(3);
 			const el = document.querySelector("ul .bar");
 			expect(el).toBeInstanceOf(HtmlElement);
-			expect(el.tagName).toEqual("li");
-			expect(el.getAttributeValue("class")).toEqual("bar baz");
+			expect(el.tagName).toBe("li");
+			expect(el.getAttributeValue("class")).toBe("bar baz");
 		});
 
 		it("should find element with child combinator", () => {
 			expect.assertions(3);
 			const el = document.querySelector("div > .bar");
 			expect(el).toBeInstanceOf(HtmlElement);
-			expect(el.tagName).toEqual("p");
-			expect(el.getAttributeValue("class")).toEqual("bar");
+			expect(el.tagName).toBe("p");
+			expect(el.getAttributeValue("class")).toBe("bar");
 		});
 
 		it("should find element with multiple child combinators", () => {
 			expect.assertions(3);
 			const el = document.querySelector("#parent > ul > li");
 			expect(el).toBeInstanceOf(HtmlElement);
-			expect(el.tagName).toEqual("li");
-			expect(el.getAttributeValue("class")).toEqual("foo");
+			expect(el.tagName).toBe("li");
+			expect(el.getAttributeValue("class")).toBe("foo");
 		});
 
 		it("should find element with adjacent sibling combinator", () => {
 			expect.assertions(3);
 			const el = document.querySelector("li + li");
 			expect(el).toBeInstanceOf(HtmlElement);
-			expect(el.tagName).toEqual("li");
-			expect(el.getAttributeValue("class")).toEqual("bar baz");
+			expect(el.tagName).toBe("li");
+			expect(el.getAttributeValue("class")).toBe("bar baz");
 		});
 
 		it("should find element with general sibling combinator", () => {
 			expect.assertions(3);
 			const el = document.querySelector("ul ~ .baz");
 			expect(el).toBeInstanceOf(HtmlElement);
-			expect(el.tagName).toEqual("span");
-			expect(el.getAttributeValue("class")).toEqual("baz");
+			expect(el.tagName).toBe("span");
+			expect(el.getAttributeValue("class")).toBe("baz");
 		});
 
 		it("should find element with :scope", () => {
@@ -785,8 +785,8 @@ describe("HtmlElement", () => {
 			expect(el).toHaveLength(2);
 			expect(el[0]).toBeInstanceOf(HtmlElement);
 			expect(el[1]).toBeInstanceOf(HtmlElement);
-			expect(el[0].tagName).toEqual("li");
-			expect(el[1].tagName).toEqual("p");
+			expect(el[0].tagName).toBe("li");
+			expect(el[1].tagName).toBe("p");
 		});
 
 		it("should handle multiple selectors", () => {
@@ -796,9 +796,9 @@ describe("HtmlElement", () => {
 				(a: HtmlElement, b: HtmlElement) => a.unique - b.unique
 			); /* selector may give results in any order */
 			expect(el).toHaveLength(3);
-			expect(el[0].tagName).toEqual("li");
-			expect(el[1].tagName).toEqual("li");
-			expect(el[2].tagName).toEqual("p");
+			expect(el[0].tagName).toBe("li");
+			expect(el[1].tagName).toBe("li");
+			expect(el[2].tagName).toBe("p");
 		});
 
 		it("should return [] when nothing matches", () => {
@@ -913,7 +913,7 @@ describe("HtmlElement", () => {
 			const c = new HtmlElement("c", b, NodeClosed.EndTag, null, location);
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const result = root.find((node: HtmlElement) => node.tagName === "b");
-			expect(result?.tagName).toEqual("b");
+			expect(result?.tagName).toBe("b");
 		});
 	});
 

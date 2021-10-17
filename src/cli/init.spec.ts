@@ -84,5 +84,5 @@ it("should propagate errors from fs.writeFile", async () => {
 	prompts.mockResolvedValue({
 		frameworks: [],
 	});
-	await expect(cli.init(".")).rejects.toEqual("mock error");
+	await expect(cli.init(".")).rejects.toBe("mock error");
 });

@@ -480,13 +480,13 @@ describe("ruleDocumentationUrl()", () => {
 		expect.assertions(1);
 		const filename = path.join(__dirname, "rules/foo.ts");
 		const url = ruleDocumentationUrl(filename);
-		expect(url).toEqual("https://html-validate.org/rules/foo.html");
+		expect(url).toBe("https://html-validate.org/rules/foo.html");
 	});
 
 	it("should handle rules in subdirectories", () => {
 		expect.assertions(1);
 		const filename = path.join(__dirname, "rules/foo/bar.ts");
 		const url = ruleDocumentationUrl(filename);
-		expect(url).toEqual("https://html-validate.org/rules/foo/bar.html");
+		expect(url).toBe("https://html-validate.org/rules/foo/bar.html");
 	});
 });

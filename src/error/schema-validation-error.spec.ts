@@ -24,7 +24,7 @@ it("SchemaValidationError should pretty-print validation errors", () => {
 			const output = err.prettyError();
 
 			/* cannot test prettyError() method with builtin helpers */
-			/* eslint-disable-next-line jest/no-try-expect, jest/no-conditional-expect */
+			/* eslint-disable-next-line jest/no-conditional-expect */
 			expect(stripAnsi(output)).toMatchSnapshot();
 		}
 	}
