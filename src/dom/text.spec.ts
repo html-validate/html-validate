@@ -16,20 +16,20 @@ describe("TextNode", () => {
 		expect.assertions(3);
 		const node = new TextNode("lorem ipsum", location);
 		expect(node.nodeType).toEqual(NodeType.TEXT_NODE);
-		expect(node.nodeName).toEqual("#text");
+		expect(node.nodeName).toBe("#text");
 		expect(node.isRootElement()).toBeFalsy();
 	});
 
 	it("textContent should return text", () => {
 		expect.assertions(1);
 		const node = new TextNode("lorem ipsum", location);
-		expect(node.textContent).toEqual("lorem ipsum");
+		expect(node.textContent).toBe("lorem ipsum");
 	});
 
 	it("textContent should return expression from dynamic values", () => {
 		expect.assertions(1);
 		const node = new TextNode(new DynamicValue("{{ foo }}"), location);
-		expect(node.textContent).toEqual("{{ foo }}");
+		expect(node.textContent).toBe("{{ foo }}");
 	});
 
 	it("isStatic should return true for static text", () => {

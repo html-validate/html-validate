@@ -1216,12 +1216,12 @@ describe("parser", () => {
 			const document = parser.parseHtml("<b>foo</b> <u>bar</ul>");
 			expect(document.childNodes).toHaveLength(3);
 			expect(document.childNodes[0]).toBeInstanceOf(HtmlElement);
-			expect(document.childNodes[0].textContent).toEqual("foo");
+			expect(document.childNodes[0].textContent).toBe("foo");
 			expect(document.childNodes[1]).toBeInstanceOf(TextNode);
-			expect(document.childNodes[1].textContent).toEqual(" ");
+			expect(document.childNodes[1].textContent).toBe(" ");
 			expect(document.childNodes[2]).toBeInstanceOf(HtmlElement);
-			expect(document.childNodes[2].textContent).toEqual("bar");
-			expect(document.textContent).toEqual("foo bar");
+			expect(document.childNodes[2].textContent).toBe("bar");
+			expect(document.textContent).toBe("foo bar");
 		});
 	});
 

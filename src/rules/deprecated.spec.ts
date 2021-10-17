@@ -73,6 +73,7 @@ describe("rule deprecated", () => {
 			${"source non-standard"} | ${{ source: "non-standard" }}        | ${"<my-element> is deprecated"}              | ${"The `<my-element>` element is deprecated and non-standard and should not be used in new code."}
 			${"source lib"}          | ${{ source: "my-lib" }}              | ${"<my-element> is deprecated"}              | ${"The `<my-element>` element is deprecated by my-lib and should not be used in new code."}
 		`("$description", ({ deprecated, message, documentation }) => {
+			expect.assertions(2);
 			const htmlvalidate = new HtmlValidate({
 				rules: { deprecated: "error" },
 				elements: [

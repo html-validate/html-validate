@@ -408,18 +408,18 @@ describe("Engine", () => {
 			const source: Source[] = [inline('<div id="foo"><p class="bar">baz</p></div>')];
 			const lines = engine.dumpEvents(source);
 			expect(lines).toHaveLength(12);
-			expect(lines[0].event).toEqual("dom:load");
-			expect(lines[1].event).toEqual("tag:start");
-			expect(lines[2].event).toEqual("attr");
-			expect(lines[3].event).toEqual("tag:ready");
-			expect(lines[4].event).toEqual("tag:start");
-			expect(lines[5].event).toEqual("attr");
-			expect(lines[6].event).toEqual("tag:ready");
-			expect(lines[7].event).toEqual("tag:end");
-			expect(lines[8].event).toEqual("element:ready");
-			expect(lines[9].event).toEqual("tag:end");
-			expect(lines[10].event).toEqual("element:ready");
-			expect(lines[11].event).toEqual("dom:ready");
+			expect(lines[0].event).toBe("dom:load");
+			expect(lines[1].event).toBe("tag:start");
+			expect(lines[2].event).toBe("attr");
+			expect(lines[3].event).toBe("tag:ready");
+			expect(lines[4].event).toBe("tag:start");
+			expect(lines[5].event).toBe("attr");
+			expect(lines[6].event).toBe("tag:ready");
+			expect(lines[7].event).toBe("tag:end");
+			expect(lines[8].event).toBe("element:ready");
+			expect(lines[9].event).toBe("tag:end");
+			expect(lines[10].event).toBe("element:ready");
+			expect(lines[11].event).toBe("dom:ready");
 		});
 	});
 
@@ -545,7 +545,7 @@ describe("Engine", () => {
 					expect.any(MetaTable)
 				);
 				expect(rule.setup).toHaveBeenCalledWith();
-				expect(rule.name).toEqual("void");
+				expect(rule.name).toBe("void");
 			});
 
 			it("should add error if rule cannot be found", () => {
@@ -601,7 +601,7 @@ describe("Engine", () => {
 					reporter
 				);
 				expect(rule).toBeInstanceOf(MyRule);
-				expect(rule.name).toEqual("custom/my-rule");
+				expect(rule.name).toBe("custom/my-rule");
 			});
 
 			it("should handle plugin setting rule to null", () => {

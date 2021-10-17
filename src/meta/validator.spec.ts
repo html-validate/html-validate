@@ -661,6 +661,7 @@ describe("Meta validator", () => {
 				${true}  | ${[""]} | ${null} | ${true}
 				${true}  | ${[""]} | ${""}   | ${true}
 			`("omit: $omit enum: $enum value: ${$value}", (options) => {
+				expect.assertions(1);
 				const { expected, value } = options;
 				expect.assertions(1);
 				const rules: Record<string, MetaAttribute> = {

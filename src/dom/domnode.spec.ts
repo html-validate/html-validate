@@ -18,7 +18,7 @@ describe("DOMNode", () => {
 	it("should set nodeName and nodeType", () => {
 		expect.assertions(2);
 		const node = new DOMNode(NodeType.ELEMENT_NODE, "foo", location);
-		expect(node.nodeName).toEqual("foo");
+		expect(node.nodeName).toBe("foo");
 		expect(node.nodeType).toEqual(NodeType.ELEMENT_NODE);
 	});
 
@@ -34,7 +34,7 @@ describe("DOMNode", () => {
 	it("root element", () => {
 		expect.assertions(2);
 		const node = new DOMNode(NodeType.DOCUMENT_NODE, "#document", location);
-		expect(node.nodeName).toEqual("#document");
+		expect(node.nodeName).toBe("#document");
 		expect(node.nodeType).toEqual(NodeType.DOCUMENT_NODE);
 	});
 
@@ -118,7 +118,7 @@ describe("DOMNode", () => {
 			const b = new HtmlElement("b", root, NodeClosed.EndTag, null, location);
 			a.appendText("foo", location);
 			b.appendText("bar", location);
-			expect(root.textContent).toEqual("foobar");
+			expect(root.textContent).toBe("foobar");
 		});
 
 		it("should get text from children (recursive)", () => {
@@ -129,7 +129,7 @@ describe("DOMNode", () => {
 			const c = new HtmlElement("b", b, NodeClosed.EndTag, null, location);
 			a.appendText("foo", location);
 			c.appendText("bar", location);
-			expect(root.textContent).toEqual("foobar");
+			expect(root.textContent).toBe("foobar");
 		});
 
 		it("should get text from children intermixed with text", () => {
@@ -143,7 +143,7 @@ describe("DOMNode", () => {
 			root.append(a);
 			root.append(b);
 			root.append(c);
-			expect(root.textContent).toEqual("foo bar baz");
+			expect(root.textContent).toBe("foo bar baz");
 		});
 
 		it("smoketest", () => {
@@ -151,7 +151,7 @@ describe("DOMNode", () => {
 			const markup = `lorem <i>ipsum</i> <b>dolor <u>sit amet</u></b>`;
 			const parser = new Parser(Config.empty().resolve());
 			const doc = parser.parseHtml(markup);
-			expect(doc.textContent).toEqual("lorem ipsum dolor sit amet");
+			expect(doc.textContent).toBe("lorem ipsum dolor sit amet");
 		});
 	});
 
@@ -207,14 +207,14 @@ describe("DOMNode", () => {
 			const node = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
 			node.cacheEnable();
 			node.cacheSet("foo", 1);
-			expect(node.cacheGet("foo")).toEqual(1);
+			expect(node.cacheGet("foo")).toBe(1);
 		});
 
 		it("cacheSet() should return value", () => {
 			expect.assertions(1);
 			const node = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
 			node.cacheEnable();
-			expect(node.cacheSet("foo", 1)).toEqual(1);
+			expect(node.cacheSet("foo", 1)).toBe(1);
 		});
 
 		it("cacheSet() should overwrite previous value", () => {
@@ -223,7 +223,7 @@ describe("DOMNode", () => {
 			node.cacheEnable();
 			node.cacheSet("foo", 1);
 			node.cacheSet("foo", 2);
-			expect(node.cacheGet("foo")).toEqual(2);
+			expect(node.cacheGet("foo")).toBe(2);
 		});
 
 		it("should cache values per instance", () => {
@@ -236,8 +236,8 @@ describe("DOMNode", () => {
 			expect(b.cacheGet("foo")).toBeUndefined();
 			a.cacheSet("foo", 1);
 			b.cacheSet("foo", 2);
-			expect(a.cacheGet("foo")).toEqual(1);
-			expect(b.cacheGet("foo")).toEqual(2);
+			expect(a.cacheGet("foo")).toBe(1);
+			expect(b.cacheGet("foo")).toBe(2);
 		});
 
 		it("cacheRemove() should remove value from cache", () => {
@@ -246,7 +246,7 @@ describe("DOMNode", () => {
 			node.cacheEnable();
 			node.cacheSet("foo", 1);
 			expect(node.cacheExists("foo")).toBeTruthy();
-			expect(node.cacheGet("foo")).toEqual(1);
+			expect(node.cacheGet("foo")).toBe(1);
 			node.cacheRemove("foo");
 			expect(node.cacheExists("foo")).toBeFalsy();
 			expect(node.cacheGet("foo")).toBeUndefined();

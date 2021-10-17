@@ -63,21 +63,21 @@ describe("DOMTokenList", () => {
 	it(".value should return original value", () => {
 		expect.assertions(1);
 		const list = new DOMTokenList("foo bar baz", location);
-		expect(list.value).toEqual("foo bar baz");
+		expect(list.value).toBe("foo bar baz");
 	});
 
 	it(".value should return expression", () => {
 		expect.assertions(1);
 		const dynamic = new DynamicValue("foo");
 		const list = new DOMTokenList(dynamic, location);
-		expect(list.value).toEqual("foo");
+		expect(list.value).toBe("foo");
 	});
 
 	describe("item()", () => {
 		it("should return item by index", () => {
 			expect.assertions(1);
 			const list = new DOMTokenList("foo bar baz", location);
-			expect(list.item(1)).toEqual("bar");
+			expect(list.item(1)).toBe("bar");
 		});
 
 		it("should return undefined if out of range", () => {

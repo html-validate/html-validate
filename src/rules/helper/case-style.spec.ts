@@ -54,18 +54,18 @@ describe("name", () => {
 	it("single name should be presented as-is", () => {
 		expect.assertions(1);
 		const cs = new CaseStyle("uppercase", "test-case");
-		expect(cs.name).toEqual("uppercase");
+		expect(cs.name).toBe("uppercase");
 	});
 
 	it('two names should be joined by "or"', () => {
 		expect.assertions(1);
 		const cs = new CaseStyle(["uppercase", "lowercase"], "test-case");
-		expect(cs.name).toEqual("uppercase or lowercase");
+		expect(cs.name).toBe("uppercase or lowercase");
 	});
 
 	it("more than two names should be joined by comma followed by or", () => {
 		expect.assertions(1);
 		const cs = new CaseStyle(["lowercase", "pascalcase", "camelcase"], "test-case");
-		expect(cs.name).toEqual("lowercase, PascalCase or camelCase");
+		expect(cs.name).toBe("lowercase, PascalCase or camelCase");
 	});
 });

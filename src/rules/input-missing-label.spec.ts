@@ -61,6 +61,7 @@ describe("rule input-missing-label", () => {
 	it.each(["input", "textarea", "select"])(
 		"should report when <%s> is missing label",
 		(tagName: string) => {
+			expect.assertions(2);
 			const report = htmlvalidate.validateString(`<${tagName}/>`);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(

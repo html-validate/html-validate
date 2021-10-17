@@ -22,8 +22,8 @@ describe("Attribute", () => {
 	it("should set fields", () => {
 		expect.assertions(4);
 		const attr = new Attribute("foo", "bar", keyLocation, valueLocation);
-		expect(attr.key).toEqual("foo");
-		expect(attr.value).toEqual("bar");
+		expect(attr.key).toBe("foo");
+		expect(attr.value).toBe("bar");
 		expect(attr.keyLocation).toEqual(keyLocation);
 		expect(attr.valueLocation).toEqual(valueLocation);
 	});
@@ -37,7 +37,7 @@ describe("Attribute", () => {
 		const c = new Attribute("foo", "", keyLocation, valueLocation);
 		expect(a.value).toBeNull();
 		expect(b.value).toBeNull();
-		expect(c.value).toEqual("");
+		expect(c.value).toBe("");
 	});
 
 	describe("valueMatches()", () => {

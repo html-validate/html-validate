@@ -562,21 +562,21 @@ describe("HtmlValidate", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
 		const schema = htmlvalidate.getConfigurationSchema();
-		expect(schema).not.toBeUndefined();
+		expect(schema).toBeDefined();
 	});
 
 	it("getElementsSchema() should get effective elements schema", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
 		const schema = htmlvalidate.getElementsSchema("./path/to/elements.json");
-		expect(schema).not.toBeUndefined();
+		expect(schema).toBeDefined();
 	});
 
 	it("getElementsSchema() should not require filename", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
 		const schema = htmlvalidate.getElementsSchema();
-		expect(schema).not.toBeUndefined();
+		expect(schema).toBeDefined();
 	});
 
 	it("getRuleDocumentation() should delegate call to engine", () => {

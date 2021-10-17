@@ -39,6 +39,7 @@ describe("TemplateExtractor", () => {
 			${"regexp"}     | ${/foo/}
 			${"identifier"} | ${"foo"}
 		`("should ignore $type value", ({ value }) => {
+			expect.assertions(1);
 			const te = TemplateExtractor.fromString(`foo({"template": ${value}})`);
 			expect(te.extractObjectProperty("template")).toEqual([]);
 		});

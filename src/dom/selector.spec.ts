@@ -34,22 +34,22 @@ function fetch(it: IterableIterator<HtmlElement>): StrippedHtmlElement[] {
 describe("escapeSelectorComponent", () => {
 	it("should escape whitespace", () => {
 		expect.assertions(1);
-		expect(escapeSelectorComponent("foo bar")).toEqual("foo\\ bar");
+		expect(escapeSelectorComponent("foo bar")).toBe("foo\\ bar");
 	});
 
 	it("should escape colon", () => {
 		expect.assertions(1);
-		expect(escapeSelectorComponent("foo:bar")).toEqual("foo\\:bar");
+		expect(escapeSelectorComponent("foo:bar")).toBe("foo\\:bar");
 	});
 
 	it("should escape square brackets", () => {
 		expect.assertions(1);
-		expect(escapeSelectorComponent("foo[bar]")).toEqual("foo\\[bar\\]");
+		expect(escapeSelectorComponent("foo[bar]")).toBe("foo\\[bar\\]");
 	});
 
 	it("should escape all occurrences", () => {
 		expect.assertions(1);
-		expect(escapeSelectorComponent("foo bar baz")).toEqual("foo\\ bar\\ baz");
+		expect(escapeSelectorComponent("foo bar baz")).toBe("foo\\ bar\\ baz");
 	});
 });
 

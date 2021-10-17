@@ -39,14 +39,14 @@ describe("Reporter", () => {
 				},
 			]);
 			expect(merged.results).toHaveLength(2);
-			expect(merged.results[0].filePath).toEqual("foo");
+			expect(merged.results[0].filePath).toBe("foo");
 			expect(merged.results[0].messages.map((x) => x.message)).toEqual(["fred", "barney", "wilma"]);
-			expect(merged.results[0].errorCount).toEqual(3);
-			expect(merged.results[1].filePath).toEqual("bar");
+			expect(merged.results[0].errorCount).toBe(3);
+			expect(merged.results[1].filePath).toBe("bar");
 			expect(merged.results[1].messages.map((x) => x.message)).toEqual(["spam"]);
-			expect(merged.results[1].errorCount).toEqual(1);
-			expect(merged.errorCount).toEqual(4);
-			expect(merged.warningCount).toEqual(0);
+			expect(merged.results[1].errorCount).toBe(1);
+			expect(merged.errorCount).toBe(4);
+			expect(merged.warningCount).toBe(0);
 		});
 	});
 

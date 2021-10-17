@@ -425,9 +425,9 @@ describe("FileSystemConfigLoader", () => {
 			cache.set("foo", null);
 			cache.set("bar", null);
 			cache.set("baz", null);
-			expect(cache.size).toEqual(3);
+			expect(cache.size).toBe(3);
 			loader.flushCache();
-			expect(cache.size).toEqual(0);
+			expect(cache.size).toBe(0);
 		});
 
 		it("should clear single filename", () => {
@@ -436,9 +436,9 @@ describe("FileSystemConfigLoader", () => {
 			cache.set("foo", null);
 			cache.set("bar", null);
 			cache.set("baz", null);
-			expect(cache.size).toEqual(3);
+			expect(cache.size).toBe(3);
 			loader.flushCache("foo");
-			expect(cache.size).toEqual(2);
+			expect(cache.size).toBe(2);
 			expect(cache.has("foo")).toBeFalsy();
 			expect(cache.has("bar")).toBeTruthy();
 			expect(cache.has("baz")).toBeTruthy();
