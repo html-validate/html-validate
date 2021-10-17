@@ -79,6 +79,7 @@ Jest:
     paths:
       - coverage
     reports:
+      cobertura: coverage/cobertura-coverage.xml
       junit: temp/jest.xml
   script:
     - npm run codegen
