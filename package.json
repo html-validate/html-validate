@@ -174,7 +174,7 @@
     "@types/jest": "27.0.2",
     "@types/json-merge-patch": "0.0.5",
     "@types/minimist": "1.2.2",
-    "@types/node": "12.20.33",
+    "@types/node": "12.20.34",
     "@types/prompts": "2.0.14",
     "@types/semver": "7.3.9",
     "autoprefixer": "10.3.7",
