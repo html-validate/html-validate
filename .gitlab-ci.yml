@@ -125,9 +125,13 @@ Node 14.x (LTS):
   <<: *compat
   image: node:14
 
-Node 16.x (current):
+Node 16.x (LTS):
   <<: *compat
   image: node:16
+
+Node 17.x (current):
+  <<: *compat
+  image: node:17
 
 Jest compat:
   stage: compatibility
