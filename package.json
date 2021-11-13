@@ -161,7 +161,7 @@
     "@html-validate/eslint-config-typescript": "5.0.0",
     "@html-validate/jest-config": "3.0.1",
     "@html-validate/prettier-config": "2.0.0",
-    "@html-validate/semantic-release-config": "3.0.1",
+    "@html-validate/semantic-release-config": "3.0.2",
     "@lodder/grunt-postcss": "3.1.1",
     "@rollup/plugin-json": "4.1.0",
     "@rollup/plugin-replace": "3.0.0",
