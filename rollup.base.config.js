@@ -154,7 +154,7 @@ export function build(format) {
 export function bundleDts(...formats) {
 	return formats.map((format) => {
 		return {
-			input: types,
+			input: types.map((it) => path.join(__dirname, it)),
 			output: {
 				dir: `dist/${format}`,
 				format,
