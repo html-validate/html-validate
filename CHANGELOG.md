@@ -1,5 +1,11 @@
 # html-validate changelog
 
+### [6.1.2](https://gitlab.com/html-validate/html-validate/compare/v6.1.1...v6.1.2) (2021-11-13)
+
+### Bug Fixes
+
+- fix .d.ts paths in package ([f24c2f4](https://gitlab.com/html-validate/html-validate/commit/f24c2f4752680edc6624d173599032cc5ed9830b))
+
 ### [6.1.1](https://gitlab.com/html-validate/html-validate/compare/v6.1.0...v6.1.1) (2021-11-10)
 
 ### Dependency upgrades
