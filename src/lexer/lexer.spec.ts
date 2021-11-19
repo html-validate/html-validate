@@ -623,82 +623,175 @@ describe("lexer", () => {
 			expect(token.next().done).toBeTruthy();
 		});
 
-		it("script tag", () => {
-			expect.assertions(7);
-			const token = lexer.tokenize(
-				inlineSource('<script>document.write("<p>lorem</p>");</script>')
-			);
-			expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
-			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
-			expect(token.next()).toBeToken({ type: TokenType.SCRIPT });
-			expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
-			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
-			expect(token.next()).toBeToken({ type: TokenType.EOF });
-			expect(token.next().done).toBeTruthy();
+		describe("script tag", () => {
+			it("with nested html-markup in string", () => {
+				expect.assertions(7);
+				const token = lexer.tokenize(
+					inlineSource('<script>document.write("<p>lorem</p>");</script>')
+				);
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.SCRIPT });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
+			it("with type attribute", () => {
+				expect.assertions(10);
+				const token = lexer.tokenize(
+					inlineSource('<script type="text/javascript">document.write("<p>lorem</p>");</script>')
+				);
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.WHITESPACE });
+				expect(token.next()).toBeToken({ type: TokenType.ATTR_NAME });
+				expect(token.next()).toBeToken({ type: TokenType.ATTR_VALUE });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.SCRIPT });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
+			it("self-closed", () => {
+				expect.assertions(11);
+				/* not legal but lexer shouldn't choke on it */
+				const token = lexer.tokenize(inlineSource('<head><script src="foo.js"/></head>'));
+				expect(token.next()).toBeToken({
+					type: TokenType.TAG_OPEN,
+					data: ["<head", "", "head"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({
+					type: TokenType.TAG_OPEN,
+					data: ["<script", "", "script"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.WHITESPACE });
+				expect(token.next()).toBeToken({ type: TokenType.ATTR_NAME });
+				expect(token.next()).toBeToken({ type: TokenType.ATTR_VALUE });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({
+					type: TokenType.TAG_OPEN,
+					data: ["</head", "/", "head"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
+			it("multiple script tags", () => {
+				expect.assertions(13);
+				const token = lexer.tokenize(inlineSource("<script>foo</script>bar<script>baz</script>"));
+				/* first script tag */
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.SCRIPT, data: ["foo"] });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				/* text inbetween */
+				expect(token.next()).toBeToken({ type: TokenType.TEXT, data: ["bar"] });
+				/* second script tag */
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.SCRIPT, data: ["baz"] });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
 		});
 
-		it("script tag with type", () => {
-			expect.assertions(10);
-			const token = lexer.tokenize(
-				inlineSource('<script type="text/javascript">document.write("<p>lorem</p>");</script>')
-			);
-			expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
-			expect(token.next()).toBeToken({ type: TokenType.WHITESPACE });
-			expect(token.next()).toBeToken({ type: TokenType.ATTR_NAME });
-			expect(token.next()).toBeToken({ type: TokenType.ATTR_VALUE });
-			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
-			expect(token.next()).toBeToken({ type: TokenType.SCRIPT });
-			expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
-			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
-			expect(token.next()).toBeToken({ type: TokenType.EOF });
-			expect(token.next().done).toBeTruthy();
-		});
+		describe("style tag", () => {
+			it("with regular content", () => {
+				expect.assertions(7);
+				const token = lexer.tokenize(inlineSource("<style>:root { color: red; }</style>"));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.STYLE, data: [":root { color: red; }"] });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
 
-		it("self-closed script tag", () => {
-			expect.assertions(11);
-			/* not legal but lexer shouldn't choke on it */
-			const token = lexer.tokenize(inlineSource('<head><script src="foo.js"/></head>'));
-			expect(token.next()).toBeToken({
-				type: TokenType.TAG_OPEN,
-				data: ["<head", "", "head"],
+			it("with tag-like content", () => {
+				expect.assertions(7);
+				const token = lexer.tokenize(inlineSource("<style>.\\<foo {}</style>"));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.STYLE, data: [".\\<foo {}"] });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
 			});
-			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
-			expect(token.next()).toBeToken({
-				type: TokenType.TAG_OPEN,
-				data: ["<script", "", "script"],
-			});
-			expect(token.next()).toBeToken({ type: TokenType.WHITESPACE });
-			expect(token.next()).toBeToken({ type: TokenType.ATTR_NAME });
-			expect(token.next()).toBeToken({ type: TokenType.ATTR_VALUE });
-			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
-			expect(token.next()).toBeToken({
-				type: TokenType.TAG_OPEN,
-				data: ["</head", "/", "head"],
-			});
-			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
-			expect(token.next()).toBeToken({ type: TokenType.EOF });
-			expect(token.next().done).toBeTruthy();
-		});
 
-		it("multiple script tags", () => {
-			expect.assertions(13);
-			const token = lexer.tokenize(inlineSource("<script>foo</script>bar<script>baz</script>"));
-			/* first script tag */
-			expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
-			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
-			expect(token.next()).toBeToken({ type: TokenType.SCRIPT, data: ["foo"] });
-			expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
-			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
-			/* text inbetween */
-			expect(token.next()).toBeToken({ type: TokenType.TEXT, data: ["bar"] });
-			/* second script tag */
-			expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
-			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
-			expect(token.next()).toBeToken({ type: TokenType.SCRIPT, data: ["baz"] });
-			expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
-			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
-			expect(token.next()).toBeToken({ type: TokenType.EOF });
-			expect(token.next().done).toBeTruthy();
+			it("with type", () => {
+				expect.assertions(10);
+				const token = lexer.tokenize(inlineSource('<style type="text/css">*{}</style>'));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.WHITESPACE });
+				expect(token.next()).toBeToken({ type: TokenType.ATTR_NAME });
+				expect(token.next()).toBeToken({ type: TokenType.ATTR_VALUE });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.STYLE, data: ["*{}"] });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
+			it("without content", () => {
+				expect.assertions(6);
+				const token = lexer.tokenize(inlineSource("<style></style>"));
+				expect(token.next()).toBeToken({
+					type: TokenType.TAG_OPEN,
+					data: ["<style", "", "style"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({
+					type: TokenType.TAG_OPEN,
+					data: ["</style", "/", "style"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
+			it("self-closed style tag", () => {
+				expect.assertions(4);
+				const token = lexer.tokenize(inlineSource("<style/>"));
+				expect(token.next()).toBeToken({
+					type: TokenType.TAG_OPEN,
+					data: ["<style", "", "style"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
+			it("multiple style tags", () => {
+				expect.assertions(13);
+				const token = lexer.tokenize(inlineSource("<style>foo</style>bar<style>baz</style>"));
+				/* first style tag */
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.STYLE, data: ["foo"] });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				/* text inbetween */
+				expect(token.next()).toBeToken({ type: TokenType.TEXT, data: ["bar"] });
+				/* second style tag */
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.STYLE, data: ["baz"] });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
 		});
 
 		it("comment", () => {

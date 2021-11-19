@@ -5,6 +5,7 @@ import { State } from "./state";
 export enum ContentModel {
 	TEXT = 1,
 	SCRIPT,
+	STYLE,
 }
 
 export class Context {

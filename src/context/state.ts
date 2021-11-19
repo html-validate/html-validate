@@ -6,4 +6,5 @@ export enum State {
 	ATTR,
 	CDATA,
 	SCRIPT,
+	STYLE,
 }
