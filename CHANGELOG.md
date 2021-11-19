@@ -1,5 +1,12 @@
 # html-validate changelog
 
+### [6.1.3](https://gitlab.com/html-validate/html-validate/compare/v6.1.2...v6.1.3) (2021-11-19)
+
+### Bug Fixes
+
+- parse `<style>` content as text instead of markup ([0ab61e6](https://gitlab.com/html-validate/html-validate/commit/0ab61e6f9c875f76d0b7725f615808eedf1531fd)), closes [#137](https://gitlab.com/html-validate/html-validate/issues/137)
+- **rules:** handle malformed `style` attribute in `no-inline-style` rule ([7e12d50](https://gitlab.com/html-validate/html-validate/commit/7e12d507785eaf4fbbacf9b6ad53c31d5c6aece0))
+
 ### [6.1.2](https://gitlab.com/html-validate/html-validate/compare/v6.1.1...v6.1.2) (2021-11-13)
 
 ### Bug Fixes
