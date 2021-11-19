@@ -164,7 +164,7 @@ describe("rule no-inline-style", () => {
 			expect.assertions(2);
 			htmlvalidate = new HtmlValidate({
 				root: true,
-				rules: { "no-inline-style": ["error", { allowedProperties: [] }] },
+				rules: { "no-inline-style": ["error", { allowedProperties: ["background"] }] },
 			});
 			const report = htmlvalidate.validateString('<p style="color"></p>');
 			expect(report).toBeInvalid();

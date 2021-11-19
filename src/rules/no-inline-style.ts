@@ -4,7 +4,7 @@ import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../
 
 interface CSSDeclaration {
 	property: string;
-	value: string;
+	value?: string;
 }
 
 export interface RuleOptions {
@@ -26,7 +26,7 @@ function getCSSDeclarations(value: string): CSSDeclaration[] {
 		.filter(Boolean)
 		.map((it): CSSDeclaration => {
 			const [property, value] = it.split(":", 2);
-			return { property: property.trim(), value: value.trim() };
+			return { property: property.trim(), value: value ? value.trim() : undefined };
 		});
 }
 
