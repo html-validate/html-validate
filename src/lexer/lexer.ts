@@ -25,6 +25,8 @@ const MATCH_CDATA_BEGIN = /^<!\[CDATA\[/;
 const MATCH_CDATA_END = /^[^]*?]]>/;
 const MATCH_SCRIPT_DATA = /^[^]*?(?=<\/script)/;
 const MATCH_SCRIPT_END = /^<(\/)(script)/;
+const MATCH_STYLE_DATA = /^[^]*?(?=<\/style)/;
+const MATCH_STYLE_END = /^<(\/)(style)/;
 const MATCH_DIRECTIVE = /^<!--\s*\[html-validate-(.*?)]\s*-->/;
 const MATCH_COMMENT = /^<!--([^]*?)-->/;
 const MATCH_CONDITIONAL = /^<!\[([^\]]*?)\]>/;
@@ -75,6 +77,10 @@ export class Lexer {
 
 				case State.SCRIPT:
 					yield* this.tokenizeScript(context);
+					break;
+
+				case State.STYLE:
+					yield* this.tokenizeStyle(context);
 					break;
 
 				/* istanbul ignore next: sanity check: should not happen unless adding new states */
@@ -160,10 +166,12 @@ export class Lexer {
 	 * Called when entering a new state.
 	 */
 	private enter(context: Context, state: State, data: RegExpMatchArray | null): void {
-		/* script tags require a different content model */
+		/* script/style tags require a different content model */
 		if (state === State.TAG && data && data[0][0] === "<") {
 			if (data[0] === "<script") {
 				context.contentModel = ContentModel.SCRIPT;
+			} else if (data[0] === "<style") {
+				context.contentModel = ContentModel.STYLE;
 			} else {
 				context.contentModel = ContentModel.TEXT;
 			}
@@ -200,6 +208,7 @@ export class Lexer {
 	}
 
 	private *tokenizeTag(context: Context): Iterable<Token> {
+		/* eslint-disable-next-line consistent-return -- exhaustive switch handled by typescript */
 		function nextState(token: Token | null): State {
 			switch (context.contentModel) {
 				case ContentModel.TEXT:
@@ -210,11 +219,13 @@ export class Lexer {
 					} else {
 						return State.TEXT; /* <script/> (not legal but handle it anyway so the lexer doesn't choke on it) */
 					}
+				case ContentModel.STYLE:
+					if (token && token.data[0][0] !== "/") {
+						return State.STYLE;
+					} else {
+						return State.TEXT; /* <style/> */
+					}
 			}
-			/* istanbul ignore next: not covered by a test as there is currently no
-			 * way to trigger this unless new content models are added but this will
-			 * add a saner default if anyone ever does */
-			return context.contentModel !== ContentModel.SCRIPT ? State.TEXT : State.SCRIPT;
 		}
 		yield* this.match(
 			context,
@@ -270,6 +281,17 @@ export class Lexer {
 				[MATCH_SCRIPT_DATA, State.SCRIPT, TokenType.SCRIPT],
 			],
 			"expected </script>"
+		);
+	}
+
+	private *tokenizeStyle(context: Context): Iterable<Token> {
+		yield* this.match(
+			context,
+			[
+				[MATCH_STYLE_END, State.TAG, TokenType.TAG_OPEN],
+				[MATCH_STYLE_DATA, State.STYLE, TokenType.STYLE],
+			],
+			"expected </style>"
 		);
 	}
 }

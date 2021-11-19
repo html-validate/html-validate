@@ -358,6 +358,40 @@ describe("parser", () => {
 				expect(element.textContent).toEqual(text);
 			});
 		});
+
+		it("script tag", () => {
+			expect.assertions(5);
+			parser.parseHtml('<script>document.write("</p>");</script>');
+			expect(events.shift()).toEqual({ event: "tag:start", target: "script" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "script" });
+			expect(events.shift()).toEqual({
+				event: "tag:end",
+				target: "script",
+				previous: "script",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "script",
+			});
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it("style tag tag", () => {
+			expect.assertions(5);
+			parser.parseHtml("<style>body { background: hotpink; }</style>");
+			expect(events.shift()).toEqual({ event: "tag:start", target: "style" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "style" });
+			expect(events.shift()).toEqual({
+				event: "tag:end",
+				target: "style",
+				previous: "style",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "style",
+			});
+			expect(events.shift()).toBeUndefined();
+		});
 	});
 
 	describe("should fail on", () => {

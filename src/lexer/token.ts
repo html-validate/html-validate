@@ -14,6 +14,7 @@ export enum TokenType {
 	TEXT,
 	TEMPLATING,
 	SCRIPT,
+	STYLE,
 	COMMENT,
 	CONDITIONAL,
 	DIRECTIVE,
