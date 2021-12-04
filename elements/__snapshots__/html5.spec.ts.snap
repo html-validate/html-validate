@@ -3382,7 +3382,7 @@ Array [
         "context": Object {
           "allowed": Object {
             "enum": Array [
-              /\\^\\.\\+\\$/,
+              /\\^\\[\\^\\]\\+\\$/,
             ],
           },
           "attribute": "srcset",
