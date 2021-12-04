@@ -1,5 +1,11 @@
 # html-validate changelog
 
+### [6.1.4](https://gitlab.com/html-validate/html-validate/compare/v6.1.3...v6.1.4) (2021-12-04)
+
+### Bug Fixes
+
+- handle multiline `srcset` attribute ([0bb92a7](https://gitlab.com/html-validate/html-validate/commit/0bb92a7c649d44281f530ea105aba55c9f3191ff)), closes [#138](https://gitlab.com/html-validate/html-validate/issues/138)
+
 ### [6.1.3](https://gitlab.com/html-validate/html-validate/compare/v6.1.2...v6.1.3) (2021-11-19)
 
 ### Bug Fixes
