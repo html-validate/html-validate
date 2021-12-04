@@ -777,7 +777,7 @@
         "enum": ["/.+/"]
       },
       "srcset": {
-        "enum": ["/.+/"]
+        "enum": ["/[^]+/"]
       },
       "vspace": {
         "deprecated": true

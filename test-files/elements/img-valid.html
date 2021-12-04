@@ -8,3 +8,14 @@
 
 <!-- should allow non-empty srcset -->
 <img src="foo-large.png" srcset="foo-small.png 400w, foo-large 800w">
+
+<!-- should allow srcset without descriptor -->
+<img src="foo-large.png" srcset="foo-small.png, foo-large 2x">
+
+<!-- should allow multiline srcset -->
+<img
+	src="foo-large.png"
+	srcset="
+		foo-small.png,
+		foo-large 2x
+	">
