@@ -210,7 +210,7 @@
     "rollup": "2.61.0",
     "rollup-plugin-copy": "3.4.0",
     "rollup-plugin-dts": "4.0.1",
-    "sass": "1.44.0",
+    "sass": "1.45.0",
     "semantic-release": "18.0.1",
     "serve-static": "1.14.1",
     "stringmap": "0.2.2",
