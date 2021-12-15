@@ -153,8 +153,8 @@
     "semver": "^7.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.16.0",
-    "@babel/preset-env": "7.16.4",
+    "@babel/core": "7.16.5",
+    "@babel/preset-env": "7.16.5",
     "@html-validate/commitlint-config": "2.1.4",
     "@html-validate/eslint-config": "5.2.1",
     "@html-validate/eslint-config-jest": "5.2.0",
