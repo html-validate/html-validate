@@ -61,7 +61,6 @@ describe("config", () => {
 		expect.assertions(1);
 		const config = Config.empty();
 		expect(config.get()).toEqual({
-			extends: [],
 			rules: {},
 			plugins: [],
 			transform: {},
@@ -72,7 +71,6 @@ describe("config", () => {
 		expect.assertions(1);
 		const config = Config.defaultConfig();
 		expect(config.get()).toEqual({
-			extends: [],
 			rules: {},
 			plugins: [],
 			transform: {},
@@ -106,7 +104,6 @@ describe("config", () => {
 			const b = Config.fromObject({ rules: { bar: 1 } });
 			const merged = a.merge(b);
 			expect(merged.get()).toEqual({
-				extends: [],
 				rules: {
 					foo: 1,
 					bar: 1,

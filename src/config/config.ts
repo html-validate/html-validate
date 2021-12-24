@@ -191,6 +191,11 @@ export class Config {
 			this.config = this.extendConfig(extend);
 		}
 
+		/* reset extends as we already processed them, this prevents the next config
+		 * from reapplying config from extended config as well as duplicate entries
+		 * when merging arrays */
+		this.config.extends = [];
+
 		/* rules explicitly set by passed options should have precedence over any
 		 * extended rules, not the other way around. */
 		if (options && options.rules) {
@@ -326,6 +331,7 @@ export class Config {
 				}
 			});
 		}
+		delete config.extends;
 		return config;
 	}
 

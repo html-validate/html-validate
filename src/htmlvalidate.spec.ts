@@ -68,7 +68,6 @@ describe("HtmlValidate", () => {
 		const config = htmlvalidate.getConfigFor(filename);
 		expect(getConfigFor).toHaveBeenCalledWith(filename, undefined);
 		expect(config.get()).toEqual({
-			extends: [],
 			plugins: [],
 			rules: {
 				foobar: "error",

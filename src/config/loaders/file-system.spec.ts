@@ -77,7 +77,6 @@ describe("FileSystemConfigLoader", () => {
 		expect.assertions(1);
 		const loader = new ExposedFileSystemConfigLoader();
 		expect(loader.mockGetGlobalConfig().get()).toEqual({
-			extends: [],
 			plugins: [],
 			rules: {},
 			transform: {},
@@ -88,7 +87,6 @@ describe("FileSystemConfigLoader", () => {
 		expect.assertions(1);
 		const loader = new ExposedFileSystemConfigLoader({ rules: { foo: "error" } });
 		expect(loader.mockGetGlobalConfig().get()).toEqual({
-			extends: [],
 			plugins: [],
 			rules: {
 				foo: "error",
@@ -110,7 +108,6 @@ describe("FileSystemConfigLoader", () => {
 			jest.spyOn(loader, "fromFilename").mockImplementation(() => null);
 			const config = loader.getConfigFor("my-file.html");
 			expect(config.get()).toEqual({
-				extends: [],
 				plugins: [],
 				rules: {
 					a: "error",
@@ -138,7 +135,6 @@ describe("FileSystemConfigLoader", () => {
 				},
 			});
 			expect(config.get()).toEqual({
-				extends: [],
 				plugins: [],
 				rules: {
 					a: "warn",
@@ -167,7 +163,6 @@ describe("FileSystemConfigLoader", () => {
 			);
 			const config = loader.getConfigFor("my-file.html");
 			expect(config.get()).toEqual({
-				extends: [],
 				plugins: [],
 				rules: {
 					b: "error",
@@ -200,7 +195,6 @@ describe("FileSystemConfigLoader", () => {
 				},
 			});
 			expect(config.get()).toEqual({
-				extends: [],
 				plugins: [],
 				rules: {
 					b: "warn",
