@@ -187,9 +187,7 @@ export class Config {
 		this.extendMeta(this.plugins);
 
 		/* process extended configs */
-		for (const extend of this.config.extends ?? []) {
-			this.config = this.extendConfig(extend);
-		}
+		this.config = this.extendConfig(this.config.extends ?? []);
 
 		/* reset extends as we already processed them, this prevents the next config
 		 * from reapplying config from extended config as well as duplicate entries
@@ -240,14 +238,23 @@ export class Config {
 		return new Config(mergeInternal(this.config, rhs.config));
 	}
 
-	private extendConfig(entry: string): ConfigData {
-		let base: ConfigData;
-		if (this.configurations.has(entry)) {
-			base = this.configurations.get(entry) as ConfigData;
-		} else {
-			base = Config.fromFile(entry).config;
+	private extendConfig(entries: string[]): ConfigData {
+		if (entries.length === 0) {
+			return this.config;
 		}
-		return mergeInternal(this.config, base);
+
+		let base: ConfigData = {};
+		for (let i = 0; i < entries.length; i++) {
+			const entry = entries[i];
+			let extended: ConfigData;
+			if (this.configurations.has(entry)) {
+				extended = this.configurations.get(entry) as ConfigData;
+			} else {
+				extended = Config.fromFile(entry).config;
+			}
+			base = mergeInternal(base, extended);
+		}
+		return mergeInternal(base, this.config);
 	}
 
 	/**

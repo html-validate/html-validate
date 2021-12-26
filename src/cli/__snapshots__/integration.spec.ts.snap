@@ -295,6 +295,97 @@ Object {
 }
 `;
 
+exports[`test-files/config/extend-order/foo.html 1`] = `
+Object {
+  "errorCount": 1,
+  "results": Array [
+    Object {
+      "errorCount": 1,
+      "filePath": "test-files/config/extend-order/foo.html",
+      "messages": Array [
+        Object {
+          "column": 3,
+          "context": undefined,
+          "line": 3,
+          "message": "Element <a> is not permitted as content in <div>",
+          "offset": 94,
+          "ruleId": "element-permitted-content",
+          "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+          "selector": "div:nth-child(1) > a",
+          "severity": 2,
+          "size": 1,
+        },
+      ],
+      "source": "<div>
+	<!-- should yield error: allowed in default.json but disallowed by override.json -->
+	<a>..</a>
+</div>
+
+<div>
+	<!-- should not yield error -->
+	<b>..</b>
+</div>
+",
+      "warningCount": 0,
+    },
+  ],
+  "valid": false,
+  "warningCount": 0,
+}
+`;
+
+exports[`test-files/config/extend-order/nested/foo.html 1`] = `
+Object {
+  "errorCount": 2,
+  "results": Array [
+    Object {
+      "errorCount": 2,
+      "filePath": "test-files/config/extend-order/nested/foo.html",
+      "messages": Array [
+        Object {
+          "column": 3,
+          "context": undefined,
+          "line": 3,
+          "message": "Element <a> is not permitted as content in <div>",
+          "offset": 70,
+          "ruleId": "element-permitted-content",
+          "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+          "selector": "div:nth-child(1) > a",
+          "severity": 2,
+          "size": 1,
+        },
+        Object {
+          "column": 3,
+          "context": undefined,
+          "line": 4,
+          "message": "Element <b> is not permitted as content in <div>",
+          "offset": 81,
+          "ruleId": "element-permitted-content",
+          "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+          "selector": "div:nth-child(1) > b",
+          "severity": 2,
+          "size": 1,
+        },
+      ],
+      "source": "<div>
+	<!-- should both yield errors: disallowed by nested.json -->
+	<a>..</a>
+	<b>..</b>
+</div>
+
+<div>
+	<!-- should not yield error -->
+	<c>..</d>
+</div>
+",
+      "warningCount": 0,
+    },
+  ],
+  "valid": false,
+  "warningCount": 0,
+}
+`;
+
 exports[`test-files/config/file.html 1`] = `
 Object {
   "errorCount": 1,

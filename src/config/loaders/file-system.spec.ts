@@ -441,6 +441,7 @@ describe("FileSystemConfigLoader", () => {
 
 	describe("smoketest", () => {
 		let loader: ExposedFileSystemConfigLoader;
+
 		beforeAll(() => {
 			loader = new ExposedFileSystemConfigLoader(undefined, Config);
 		});

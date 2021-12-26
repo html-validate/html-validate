@@ -88,6 +88,37 @@ Object {
 }
 `;
 
+exports[`FileSystemConfigLoader smoketest test-files/config/extend-order/foo.html 1`] = `
+Object {
+  "elements": Array [
+    "<rootDir>/test-files/config/extend-order/first.json",
+    "<rootDir>/test-files/config/extend-order/override.json",
+  ],
+  "plugins": Array [],
+  "root": true,
+  "rules": Object {
+    "element-permitted-content": "error",
+  },
+  "transform": Object {},
+}
+`;
+
+exports[`FileSystemConfigLoader smoketest test-files/config/extend-order/nested/foo.html 1`] = `
+Object {
+  "elements": Array [
+    "<rootDir>/test-files/config/extend-order/first.json",
+    "<rootDir>/test-files/config/extend-order/override.json",
+    "<rootDir>/test-files/config/extend-order/nested/nested.json",
+  ],
+  "plugins": Array [],
+  "root": true,
+  "rules": Object {
+    "element-permitted-content": "error",
+  },
+  "transform": Object {},
+}
+`;
+
 exports[`FileSystemConfigLoader smoketest test-files/config/file.html 1`] = `
 Object {
   "plugins": Array [],

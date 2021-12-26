@@ -1,0 +1,8 @@
+{
+  "root": true,
+  "extends": ["./base.json"],
+  "elements": ["./override.json"],
+  "rules": {
+    "element-permitted-content": "error"
+  }
+}
