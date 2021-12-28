@@ -1,5 +1,12 @@
 # html-validate changelog
 
+### [6.1.5](https://gitlab.com/html-validate/html-validate/compare/v6.1.4...v6.1.5) (2021-12-28)
+
+### Bug Fixes
+
+- **config:** dont process extends multiple times ([f014311](https://gitlab.com/html-validate/html-validate/commit/f01431147a74272142dd6ddcfe5d53bf68c80aa9))
+- **config:** elements from extended configs should be loaded first not last ([d19519e](https://gitlab.com/html-validate/html-validate/commit/d19519e5ee97e7b5c375bca80f01dcbaa5eb0373))
+
 ### [6.1.4](https://gitlab.com/html-validate/html-validate/compare/v6.1.3...v6.1.4) (2021-12-04)
 
 ### Bug Fixes
