@@ -65,7 +65,6 @@ describe("Plugin", () => {
 				plugins: ["mock-plugin"],
 			});
 			expect(config.get()).toEqual({
-				extends: ["my-plugin:foo"],
 				plugins: ["mock-plugin"],
 				rules: {
 					"my-rule": "error",
@@ -89,7 +88,6 @@ describe("Plugin", () => {
 				plugins: ["mock-plugin"],
 			});
 			expect(config.get()).toEqual({
-				extends: ["mock-plugin:foo"],
 				plugins: ["mock-plugin"],
 				rules: {
 					"my-rule": "error",
@@ -113,7 +111,6 @@ describe("Plugin", () => {
 				plugins: ["mock-plugin"],
 			});
 			expect(config.get()).toEqual({
-				extends: ["mock-plugin:foo"],
 				plugins: ["mock-plugin"],
 				rules: {
 					"my-rule": "error",
@@ -138,7 +135,6 @@ describe("Plugin", () => {
 				plugins: ["mock-plugin"],
 			});
 			expect(config.get()).toEqual({
-				extends: ["mock-plugin:foo"],
 				plugins: ["mock-plugin"],
 				rules: {
 					"my-rule": "error",

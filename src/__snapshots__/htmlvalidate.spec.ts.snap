@@ -12,6 +12,10 @@ exports[`HtmlValidate configuration smoketest test-files/config/directive/disabl
 
 exports[`HtmlValidate configuration smoketest test-files/config/elements/file.html 1`] = `undefined`;
 
+exports[`HtmlValidate configuration smoketest test-files/config/extend-order/foo.html 1`] = `undefined`;
+
+exports[`HtmlValidate configuration smoketest test-files/config/extend-order/nested/foo.html 1`] = `undefined`;
+
 exports[`HtmlValidate configuration smoketest test-files/config/file.html 1`] = `undefined`;
 
 exports[`HtmlValidate configuration smoketest test-files/config/js-config/file.html 1`] = `undefined`;

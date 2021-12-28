@@ -1,0 +1,14 @@
+{
+  "a": {
+    "flow": true
+  },
+  "b": {
+    "flow": true
+  },
+  "c": {
+    "flow": true
+  },
+  "div": {
+    "permittedContent": ["a"]
+  }
+}

@@ -39,6 +39,12 @@ jest.mock(
 					foo: "off",
 				},
 			},
+			"order-a": {
+				elements: ["order-a"],
+			},
+			"order-b": {
+				elements: ["order-b"],
+			},
 		},
 	}),
 	{ virtual: true }
@@ -61,7 +67,6 @@ describe("config", () => {
 		expect.assertions(1);
 		const config = Config.empty();
 		expect(config.get()).toEqual({
-			extends: [],
 			rules: {},
 			plugins: [],
 			transform: {},
@@ -72,7 +77,6 @@ describe("config", () => {
 		expect.assertions(1);
 		const config = Config.defaultConfig();
 		expect(config.get()).toEqual({
-			extends: [],
 			rules: {},
 			plugins: [],
 			transform: {},
@@ -106,7 +110,6 @@ describe("config", () => {
 			const b = Config.fromObject({ rules: { bar: 1 } });
 			const merged = a.merge(b);
 			expect(merged.get()).toEqual({
-				extends: [],
 				rules: {
 					foo: 1,
 					bar: 1,
@@ -309,6 +312,54 @@ describe("config", () => {
 					["baz", [Severity.DISABLED, {}]],
 				])
 			);
+		});
+
+		it("should resolve elements in correct order", () => {
+			expect.assertions(3);
+			jest.mock(
+				"order-a",
+				() => ({
+					foo: {
+						permittedContent: ["bar"],
+					},
+				}),
+				{ virtual: true }
+			);
+			jest.mock(
+				"order-b",
+				() => ({
+					bar: {
+						permittedContent: ["baz"],
+					},
+				}),
+				{ virtual: true }
+			);
+			jest.mock(
+				"order-c",
+				() => ({
+					foo: {
+						permittedContent: ["baz"],
+					},
+				}),
+				{ virtual: true }
+			);
+			const config = Config.fromObject({
+				extends: ["mock-plugin-presets:order-a", "mock-plugin-presets:order-b"],
+				plugins: ["mock-plugin-presets"],
+				elements: ["order-c"],
+			});
+			const elements = config.get().elements;
+			expect(elements).toEqual(["order-a", "order-b", "order-c"]);
+			expect(config.getMetaTable().getMetaFor("foo")).toEqual({
+				tagName: "foo",
+				attributes: {},
+				permittedContent: ["baz"],
+			});
+			expect(config.getMetaTable().getMetaFor("bar")).toEqual({
+				tagName: "bar",
+				attributes: {},
+				permittedContent: ["baz"],
+			});
 		});
 	});
 

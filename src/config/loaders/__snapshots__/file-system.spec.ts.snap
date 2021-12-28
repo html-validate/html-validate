@@ -2,9 +2,6 @@
 
 exports[`FileSystemConfigLoader smoketest test-files/config/cjs-config/file.html 1`] = `
 Object {
-  "extends": Array [
-    "html-validate:recommended",
-  ],
   "plugins": Array [],
   "root": true,
   "rules": Object {
@@ -19,9 +16,6 @@ Object {
 
 exports[`FileSystemConfigLoader smoketest test-files/config/directive/disable.html 1`] = `
 Object {
-  "extends": Array [
-    "html-validate:recommended",
-  ],
   "plugins": Array [],
   "root": true,
   "rules": Object {
@@ -36,9 +30,6 @@ Object {
 
 exports[`FileSystemConfigLoader smoketest test-files/config/directive/disable-block.html 1`] = `
 Object {
-  "extends": Array [
-    "html-validate:recommended",
-  ],
   "plugins": Array [],
   "root": true,
   "rules": Object {
@@ -53,9 +44,6 @@ Object {
 
 exports[`FileSystemConfigLoader smoketest test-files/config/directive/disable-multiple.html 1`] = `
 Object {
-  "extends": Array [
-    "html-validate:recommended",
-  ],
   "plugins": Array [],
   "root": true,
   "rules": Object {
@@ -70,9 +58,6 @@ Object {
 
 exports[`FileSystemConfigLoader smoketest test-files/config/directive/disable-next.html 1`] = `
 Object {
-  "extends": Array [
-    "html-validate:recommended",
-  ],
   "plugins": Array [],
   "root": true,
   "rules": Object {
@@ -91,9 +76,6 @@ Object {
     "html5",
     "<rootDir>/test-files/config/elements/elements.json",
   ],
-  "extends": Array [
-    "html-validate:recommended",
-  ],
   "plugins": Array [],
   "root": true,
   "rules": Object {
@@ -106,11 +88,39 @@ Object {
 }
 `;
 
+exports[`FileSystemConfigLoader smoketest test-files/config/extend-order/foo.html 1`] = `
+Object {
+  "elements": Array [
+    "<rootDir>/test-files/config/extend-order/first.json",
+    "<rootDir>/test-files/config/extend-order/override.json",
+  ],
+  "plugins": Array [],
+  "root": true,
+  "rules": Object {
+    "element-permitted-content": "error",
+  },
+  "transform": Object {},
+}
+`;
+
+exports[`FileSystemConfigLoader smoketest test-files/config/extend-order/nested/foo.html 1`] = `
+Object {
+  "elements": Array [
+    "<rootDir>/test-files/config/extend-order/first.json",
+    "<rootDir>/test-files/config/extend-order/override.json",
+    "<rootDir>/test-files/config/extend-order/nested/nested.json",
+  ],
+  "plugins": Array [],
+  "root": true,
+  "rules": Object {
+    "element-permitted-content": "error",
+  },
+  "transform": Object {},
+}
+`;
+
 exports[`FileSystemConfigLoader smoketest test-files/config/file.html 1`] = `
 Object {
-  "extends": Array [
-    "html-validate:recommended",
-  ],
   "plugins": Array [],
   "root": true,
   "rules": Object {
@@ -125,9 +135,6 @@ Object {
 
 exports[`FileSystemConfigLoader smoketest test-files/config/js-config/file.html 1`] = `
 Object {
-  "extends": Array [
-    "html-validate:recommended",
-  ],
   "plugins": Array [],
   "root": true,
   "rules": Object {
@@ -142,9 +149,6 @@ Object {
 
 exports[`FileSystemConfigLoader smoketest test-files/config/off/error/file.html 1`] = `
 Object {
-  "extends": Array [
-    "html-validate:recommended",
-  ],
   "plugins": Array [],
   "root": true,
   "rules": Object {
@@ -159,9 +163,6 @@ Object {
 
 exports[`FileSystemConfigLoader smoketest test-files/config/off/file.html 1`] = `
 Object {
-  "extends": Array [
-    "html-validate:recommended",
-  ],
   "plugins": Array [],
   "root": true,
   "rules": Object {
@@ -176,9 +177,6 @@ Object {
 
 exports[`FileSystemConfigLoader smoketest test-files/config/warn/file.html 1`] = `
 Object {
-  "extends": Array [
-    "html-validate:recommended",
-  ],
   "plugins": Array [],
   "root": true,
   "rules": Object {

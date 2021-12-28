@@ -1,3 +1,4 @@
+import recommended from "../presets/recommended";
 import { StaticConfigLoader } from "./static";
 
 describe("StaticConfigLoader", () => {
@@ -7,10 +8,9 @@ describe("StaticConfigLoader", () => {
 			const loader = new StaticConfigLoader();
 			const config = loader.getConfigFor("my-file.html");
 			expect(config.get()).toEqual({
-				extends: ["html-validate:recommended"],
 				elements: ["html5"],
 				plugins: [],
-				rules: expect.anything(),
+				rules: recommended.rules,
 				transform: {},
 			});
 		});
@@ -24,7 +24,6 @@ describe("StaticConfigLoader", () => {
 			});
 			const config = loader.getConfigFor("my-file.html");
 			expect(config.get()).toEqual({
-				extends: [],
 				plugins: [],
 				rules: {
 					a: "error",
@@ -48,7 +47,6 @@ describe("StaticConfigLoader", () => {
 				},
 			});
 			expect(config.get()).toEqual({
-				extends: [],
 				plugins: [],
 				rules: {
 					a: "warn",
@@ -74,7 +72,6 @@ describe("StaticConfigLoader", () => {
 			});
 			expect(config.get()).toEqual({
 				root: true,
-				extends: [],
 				plugins: [],
 				rules: {
 					b: "error",
