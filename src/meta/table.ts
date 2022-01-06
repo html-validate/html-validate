@@ -2,7 +2,6 @@ import Ajv, { KeywordDefinition, ValidateFunction } from "ajv";
 import ajvSchemaDraft from "ajv/lib/refs/json-schema-draft-06.json";
 import { DataValidateFunction, DataValidationCxt, SchemaObject } from "ajv/dist/types";
 import deepmerge from "deepmerge";
-import jsonMergePatch from "json-merge-patch";
 import { HtmlElement } from "../dom";
 import { SchemaValidationError, UserError } from "../error";
 import { SchemaValidationPatch } from "../plugin";
@@ -109,7 +108,7 @@ export class MetaTable {
 	 */
 	public extendValidationSchema(patch: SchemaValidationPatch): void {
 		if (patch.properties) {
-			this.schema = jsonMergePatch.apply(this.schema, {
+			this.schema = deepmerge(this.schema, {
 				patternProperties: {
 					"^[^$].*$": {
 						properties: patch.properties,
@@ -118,7 +117,7 @@ export class MetaTable {
 			});
 		}
 		if (patch.definitions) {
-			this.schema = jsonMergePatch.apply(this.schema, {
+			this.schema = deepmerge(this.schema, {
 				definitions: patch.definitions,
 			});
 		}
