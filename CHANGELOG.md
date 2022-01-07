@@ -1,5 +1,15 @@
 # html-validate changelog
 
+### [6.1.6](https://gitlab.com/html-validate/html-validate/compare/v6.1.5...v6.1.6) (2022-01-07)
+
+### Bug Fixes
+
+- **meta:** disallow unknown element properties ([aca70fc](https://gitlab.com/html-validate/html-validate/commit/aca70fcff5848d91ab4c0c3194bcc44ffc0d2b5d))
+
+### Dependency upgrades
+
+- **deps:** drop json-merge-patch dependency ([5306b2d](https://gitlab.com/html-validate/html-validate/commit/5306b2d6314669e353f0500f3a5b6e6f395ca3cf))
+
 ### [6.1.5](https://gitlab.com/html-validate/html-validate/compare/v6.1.4...v6.1.5) (2021-12-28)
 
 ### Bug Fixes
