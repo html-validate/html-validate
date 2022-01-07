@@ -101,6 +101,12 @@
           "type": "boolean"
         },
 
+        "labelable": {
+          "title": "Mark this element as labelable",
+          "description": "This element may contain an associated label element.",
+          "anyOf": [{ "type": "boolean" }, { "$ref": "#/definitions/expression" }]
+        },
+
         "deprecatedAttributes": {
           "title": "List of deprecated attributes",
           "type": "array",
@@ -151,7 +157,7 @@
           "enum": ["none", "default", "required", "accessible"]
         }
       },
-      "additionalProperties": true
+      "additionalProperties": false
     }
   },
 

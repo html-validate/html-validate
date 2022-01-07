@@ -168,8 +168,8 @@ describe("Plugin", () => {
 					},
 				],
 			});
-			expect(() => config.getMetaTable()).not.toThrow(
-				"Element metadata is not valid: /my-element Propert myMeta is not expected to be here"
+			expect(() => config.getMetaTable()).toThrow(
+				"Element metadata is not valid: /my-element Property myMeta is not expected to be here"
 			);
 		});
 

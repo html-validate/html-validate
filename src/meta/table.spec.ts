@@ -522,6 +522,15 @@ describe("MetaTable", () => {
 	});
 
 	describe("global element", () => {
+		it("should handle when global element is missing", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry(),
+			});
+			expect(() => table.init()).not.toThrow();
+		});
+
 		it("should be merged with element", () => {
 			expect.assertions(1);
 			const table = new MetaTable();
@@ -769,6 +778,50 @@ describe("MetaTable", () => {
 			expect.assertions(1);
 			const table = new MetaTable();
 			expect(table.getTagsDerivedFrom("missing")).toEqual([]);
+		});
+	});
+
+	describe("extendValidationSchema()", () => {
+		it("should add element properties", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			table.extendValidationSchema({
+				properties: {
+					foo: {
+						type: "boolean",
+					},
+				},
+			});
+			const schema = table.getJSONSchema();
+			const properties = schema.patternProperties["^[^$].*$"].properties;
+			expect(properties).toEqual(
+				expect.objectContaining({
+					foo: {
+						type: "boolean",
+					},
+				})
+			);
+		});
+
+		it("should add definitions", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			table.extendValidationSchema({
+				definitions: {
+					foo: {
+						type: "boolean",
+					},
+				},
+			});
+			const schema = table.getJSONSchema();
+			const definitions = schema.definitions;
+			expect(definitions).toEqual(
+				expect.objectContaining({
+					foo: {
+						type: "boolean",
+					},
+				})
+			);
 		});
 	});
 });
