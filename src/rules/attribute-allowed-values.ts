@@ -21,15 +21,24 @@ export default class AttributeAllowedValues extends Rule<Context> {
 			return docs;
 		}
 
-		if (context.allowed.enum) {
-			const allowed = context.allowed.enum.map((val: string | RegExp) => `- \`${val}\``);
-			docs.description = `Element <${context.element}> does not allow attribute \`${
-				context.attribute
-			}\` to have the value \`"${
-				context.value
-			}"\`, it must match one of the following:\n\n${allowed.join("\n")}`;
-		} else if (context.allowed.boolean) {
-			docs.description = `Element <${context.element}> attribute \`${context.attribute}\` must be a boolean attribute, e.g. \`<${context.element} ${context.attribute}>\``;
+		const { allowed, attribute, element, value } = context;
+		if (allowed.enum) {
+			const allowedList = allowed.enum.map((value: string | RegExp) => {
+				if (typeof value === "string") {
+					return `- \`"${value}"\``;
+				} else {
+					return `- \`${value.toString()}\``;
+				}
+			});
+			docs.description = [
+				`The \`<${element}>\` element does not allow the attribute \`${attribute}\` to have the value \`"${value}"\`.`,
+				"",
+				"It must match one of the following:",
+				"",
+				...allowedList,
+			].join("\n");
+		} else if (allowed.boolean) {
+			docs.description = `The \`<${context.element}>\` attribute \`${context.attribute}\` must be a boolean attribute, e.g. \`<${context.element} ${context.attribute}>\``;
 		}
 
 		return docs;
