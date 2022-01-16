@@ -6,6 +6,15 @@ import { NodeType } from "./nodetype";
 const TEXT_NODE_NAME = "#text";
 
 /**
+ * Returns true if the node is a text node.
+ *
+ * @public
+ */
+export function isTextNode(node: DOMNode | null | undefined): node is TextNode {
+	return Boolean(node && node.nodeType === NodeType.TEXT_NODE);
+}
+
+/**
  * Represents a text in the HTML document.
  *
  * Text nodes are appended as children of `HtmlElement` and cannot have childen

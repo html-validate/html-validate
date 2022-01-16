@@ -1,7 +1,8 @@
 import { Location } from "../context";
+import { DOMNode } from "./domnode";
 import { DynamicValue } from "./dynamic-value";
 import { NodeType } from "./nodetype";
-import { TextNode } from "./text";
+import { isTextNode, TextNode } from "./text";
 
 const location: Location = {
 	filename: "inline",
@@ -46,5 +47,26 @@ describe("TextNode", () => {
 		const b = new TextNode(new DynamicValue("{{ foo }}"), location);
 		expect(a.isDynamic).toBeFalsy();
 		expect(b.isDynamic).toBeTruthy();
+	});
+});
+
+describe("isTextNode()", () => {
+	it("should return true if node is a text node", () => {
+		expect.assertions(1);
+		const node = new TextNode("foobar", location);
+		expect(isTextNode(node)).toBeTruthy();
+	});
+	it("should return false for other nodes", () => {
+		expect.assertions(1);
+		const node = new DOMNode(NodeType.DOCUMENT_NODE, "#document", location);
+		expect(isTextNode(node)).toBeFalsy();
+	});
+	it("should handle null", () => {
+		expect.assertions(1);
+		expect(isTextNode(null)).toBeFalsy();
+	});
+	it("should handle undefined", () => {
+		expect.assertions(1);
+		expect(isTextNode(undefined)).toBeFalsy();
 	});
 });

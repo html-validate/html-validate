@@ -1,4 +1,4 @@
-import { DOMNode, HtmlElement, NodeType, TextNode } from "../dom";
+import { DOMNode, HtmlElement, isTextNode } from "../dom";
 import { ElementReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 import { MetaElement, TextContent as TextContentEnum } from "../meta";
@@ -38,10 +38,6 @@ function hasDefaultText(node: HtmlElement): boolean {
 	/* default text is only present when type is submit or reset */
 	const type = node.getAttribute("type");
 	return Boolean(type && type.valueMatches(/submit|reset/, false));
-}
-
-function isTextNode(node: DOMNode): node is TextNode {
-	return node.nodeType === NodeType.TEXT_NODE;
 }
 
 function isNonEmptyText(node: DOMNode): boolean {
