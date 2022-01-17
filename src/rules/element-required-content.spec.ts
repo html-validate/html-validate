@@ -55,8 +55,8 @@ describe("rule element-required-content", () => {
 		});
 		expect(
 			htmlvalidate.getRuleDocumentation("element-required-content", null, {
-				node: "my-element",
-				missing: "my-other-element",
+				element: "<my-element>",
+				missing: "<my-other-element>",
 			})
 		).toMatchSnapshot();
 	});

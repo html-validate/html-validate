@@ -1759,8 +1759,8 @@ Array [
       Object {
         "column": 2,
         "context": Object {
-          "missing": "summary",
-          "node": "details",
+          "element": "<details>",
+          "missing": "<summary>",
         },
         "line": 8,
         "message": "<details> element must have <summary> as content",
@@ -2871,8 +2871,8 @@ Array [
       Object {
         "column": 3,
         "context": Object {
-          "missing": "title",
-          "node": "head",
+          "element": "<head>",
+          "missing": "<title>",
         },
         "line": 10,
         "message": "<head> element must have <title> as content",
@@ -3138,8 +3138,8 @@ Array [
       Object {
         "column": 2,
         "context": Object {
-          "missing": "head",
-          "node": "html",
+          "element": "<html>",
+          "missing": "<head>",
         },
         "line": 10,
         "message": "<html> element must have <head> as content",
@@ -3153,8 +3153,8 @@ Array [
       Object {
         "column": 2,
         "context": Object {
-          "missing": "body",
-          "node": "html",
+          "element": "<html>",
+          "missing": "<body>",
         },
         "line": 10,
         "message": "<html> element must have <body> as content",

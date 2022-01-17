@@ -2,7 +2,7 @@
 
 exports[`rule element-required-content should contain contextual documentation 1`] = `
 Object {
-  "description": "The <my-element element requires a <my-other-element> to be present as content.",
+  "description": "The \`<my-element>\` element requires a \`<my-other-element>\` to be present as content.",
   "url": "https://html-validate.org/rules/element-required-content.html",
 }
 `;

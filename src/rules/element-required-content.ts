@@ -4,15 +4,16 @@ import { Validator } from "../meta";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 interface Context {
-	node: string;
+	element: string;
 	missing: string;
 }
 
 export default class ElementRequiredContent extends Rule<Context> {
 	public documentation(context: Context): RuleDocumentation {
 		if (context) {
+			const { element, missing } = context;
 			return {
-				description: `The <${context.node} element requires a <${context.missing}> to be present as content.`,
+				description: `The \`${element}\` element requires a \`${missing}\` to be present as content.`,
 				url: ruleDocumentationUrl(__filename),
 			};
 		} else {
@@ -40,15 +41,11 @@ export default class ElementRequiredContent extends Rule<Context> {
 
 				for (const missing of Validator.validateRequiredContent(node, rules)) {
 					const context: Context = {
-						node: node.tagName,
-						missing,
+						element: node.annotatedName,
+						missing: `<${missing}>`,
 					};
-					this.report(
-						node,
-						`${node.annotatedName} element must have <${missing}> as content`,
-						null,
-						context
-					);
+					const message = `${node.annotatedName} element must have <${missing}> as content`;
+					this.report(node, message, null, context);
 				}
 			});
 		});
