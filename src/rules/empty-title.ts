@@ -4,7 +4,14 @@ import { classifyNodeText, TextClassification } from "./helper/text";
 export default class EmptyTitle extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
-			description: `The <title> element is used to describe the document and is shown in the browser tab and titlebar. WCAG and SEO requires a descriptive title and preferably unique within the site. Whitespace only is considered empty.`,
+			description: [
+				"The `<title>` element cannot be empty, it must have textual content.",
+				"",
+				"It is used to describe the document and is shown in the browser tab and titlebar.",
+				"WCAG and SEO requires a descriptive title and preferably unique within the site.",
+				"",
+				"Whitespace is ignored.",
+			].join("\n"),
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
@@ -21,7 +28,10 @@ export default class EmptyTitle extends Rule {
 					break;
 				case TextClassification.EMPTY_TEXT:
 					/* no content or whitespace only */
-					this.report(node, `<${node.tagName}> cannot be empty, must have text content`);
+					{
+						const message = `<${node.tagName}> cannot be empty, must have text content`;
+						this.report(node, message, node.location);
+					}
 					break;
 			}
 		});

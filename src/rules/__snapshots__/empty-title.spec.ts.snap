@@ -2,7 +2,12 @@
 
 exports[`rule empty-title should contain documentation 1`] = `
 Object {
-  "description": "The <title> element is used to describe the document and is shown in the browser tab and titlebar. WCAG and SEO requires a descriptive title and preferably unique within the site. Whitespace only is considered empty.",
+  "description": "The \`<title>\` element cannot be empty, it must have textual content.
+
+It is used to describe the document and is shown in the browser tab and titlebar.
+WCAG and SEO requires a descriptive title and preferably unique within the site.
+
+Whitespace is ignored.",
   "url": "https://html-validate.org/rules/empty-title.html",
 }
 `;
@@ -14,28 +19,28 @@ Array [
     "filePath": "test-files/rules/empty-title.html",
     "messages": Array [
       Object {
-        "column": 15,
+        "column": 2,
         "context": undefined,
         "line": 2,
         "message": "<title> cannot be empty, must have text content",
-        "offset": 41,
+        "offset": 28,
         "ruleId": "empty-title",
         "ruleUrl": "https://html-validate.org/rules/empty-title.html",
         "selector": "title:nth-child(2)",
         "severity": 2,
-        "size": 1,
+        "size": 5,
       },
       Object {
-        "column": 16,
+        "column": 2,
         "context": undefined,
         "line": 3,
         "message": "<title> cannot be empty, must have text content",
-        "offset": 58,
+        "offset": 44,
         "ruleId": "empty-title",
         "ruleUrl": "https://html-validate.org/rules/empty-title.html",
         "selector": "title:nth-child(3)",
         "severity": 2,
-        "size": 1,
+        "size": 5,
       },
     ],
     "source": "<title>Lorem ipsum</title>
