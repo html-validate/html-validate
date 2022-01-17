@@ -9,16 +9,16 @@ Array [
     "filePath": "inline",
     "messages": Array [
       Object {
-        "column": 19,
+        "column": 6,
         "context": undefined,
         "line": 2,
         "message": "<title> cannot be empty, must have text content",
-        "offset": 25,
+        "offset": 12,
         "ruleId": "empty-title",
         "ruleUrl": "https://html-validate.org/rules/empty-title.html",
         "selector": "head > title",
         "severity": 2,
-        "size": 1,
+        "size": 5,
       },
     ],
     "source": "<head>
@@ -36,16 +36,16 @@ Array [
     "filePath": "inline",
     "messages": Array [
       Object {
-        "column": 20,
+        "column": 6,
         "context": undefined,
         "line": 2,
         "message": "<title> cannot be empty, must have text content",
-        "offset": 26,
+        "offset": 12,
         "ruleId": "empty-title",
         "ruleUrl": "https://html-validate.org/rules/empty-title.html",
         "selector": "head > title",
         "severity": 2,
-        "size": 1,
+        "size": 5,
       },
     ],
     "source": "<head>
