@@ -1,5 +1,15 @@
 # html-validate changelog
 
+## [6.2.0](https://gitlab.com/html-validate/html-validate/compare/v6.1.6...v6.2.0) (2022-01-17)
+
+### Features
+
+- expose `isTextNode()` ([502ef09](https://gitlab.com/html-validate/html-validate/commit/502ef09a820550ef66d12c2a3ccb1044ccc6c0b9))
+
+### Bug Fixes
+
+- **rules:** improve error message for `attribute-allowed-values` ([b3d4d11](https://gitlab.com/html-validate/html-validate/commit/b3d4d119614c6804a782242fd6dd5717306cd0a3))
+
 ### [6.1.6](https://gitlab.com/html-validate/html-validate/compare/v6.1.5...v6.1.6) (2022-01-07)
 
 ### Bug Fixes
