@@ -2,6 +2,7 @@ import { ConfigData } from "../config-data";
 
 const config: ConfigData = {
 	rules: {
+		"aria-hidden-body": "error",
 		"aria-label-misuse": "error",
 		"deprecated-rule": "warn",
 		"empty-heading": "error",

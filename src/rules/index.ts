@@ -1,5 +1,6 @@
 import { RuleConstructor } from "../rule";
 import AllowedLinks from "./allowed-links";
+import AriaHiddenBody from "./aria-hidden-body";
 import AriaLabelMisuse from "./aria-label-misuse";
 import AttrCase from "./attr-case";
 import AttrDelimiter from "./attr-delimiter";
@@ -67,6 +68,7 @@ import WCAG from "./wcag";
 
 const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"allowed-links": AllowedLinks,
+	"aria-hidden-body": AriaHiddenBody,
 	"aria-label-misuse": AriaLabelMisuse,
 	"attr-case": AttrCase,
 	"attr-delimiter": AttrDelimiter,

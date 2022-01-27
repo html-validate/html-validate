@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/aria-hidden-body.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/aria-hidden-body.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 7,
+        "context": undefined,
+        "line": 1,
+        "message": "aria-hidden must not be used on <body>",
+        "offset": 6,
+        "ruleId": "aria-hidden-body",
+        "ruleUrl": "https://html-validate.org/rules/aria-hidden-body.html",
+        "selector": "body",
+        "severity": 2,
+        "size": 11,
+      },
+    ],
+    "source": "<body aria-hidden=\\"true\\"></body>",
+    "warningCount": 0,
+  },
+]
+`;
