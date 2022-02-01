@@ -1,5 +1,5 @@
 import { Location } from "../context";
-import { Attribute } from "./attribute";
+import { Attribute, isDynamicAttribute, isStaticAttribute } from "./attribute";
 import { DynamicValue } from "./dynamic-value";
 
 const keyLocation: Location = {
@@ -17,6 +17,17 @@ const valueLocation: Location = {
 	column: 7,
 	size: 3,
 };
+
+let staticAttr: Attribute;
+let dynamicAttr: Attribute;
+let nullAttr: Attribute;
+
+beforeEach(() => {
+	const dynamic = new DynamicValue("dynamic");
+	staticAttr = new Attribute("foo", "static", keyLocation, valueLocation);
+	dynamicAttr = new Attribute("bar", dynamic, keyLocation, valueLocation);
+	nullAttr = new Attribute("foo", null, keyLocation, valueLocation);
+});
 
 describe("Attribute", () => {
 	it("should set fields", () => {
@@ -79,25 +90,62 @@ describe("Attribute", () => {
 	});
 
 	describe("flags", () => {
-		let staticAttr: Attribute;
-		let dynamicAttr: Attribute;
-
-		beforeEach(() => {
-			const dynamic = new DynamicValue("dynamic");
-			staticAttr = new Attribute("foo", "static", keyLocation, valueLocation);
-			dynamicAttr = new Attribute("bar", dynamic, keyLocation, valueLocation);
-		});
-
 		it("isStatic should be true for static attributes", () => {
-			expect.assertions(2);
+			expect.assertions(3);
 			expect(staticAttr.isStatic).toBeTruthy();
 			expect(dynamicAttr.isStatic).toBeFalsy();
+			expect(nullAttr.isStatic).toBeTruthy();
 		});
 
 		it("isDynamic should be true for dynamic attributes", () => {
-			expect.assertions(2);
+			expect.assertions(3);
 			expect(staticAttr.isDynamic).toBeFalsy();
 			expect(dynamicAttr.isDynamic).toBeTruthy();
+			expect(nullAttr.isDynamic).toBeFalsy();
 		});
+	});
+});
+
+describe("isStaticAttribute()", () => {
+	it("should return true for static attribute", () => {
+		expect.assertions(1);
+		expect(isStaticAttribute(staticAttr)).toBeTruthy();
+	});
+
+	it("should return false for dynamic value", () => {
+		expect.assertions(1);
+		expect(isStaticAttribute(dynamicAttr)).toBeFalsy();
+	});
+
+	it("should return true for attribute without value", () => {
+		expect.assertions(1);
+		expect(isStaticAttribute(nullAttr)).toBeTruthy();
+	});
+
+	it("should handle null", () => {
+		expect.assertions(1);
+		expect(isStaticAttribute(null)).toBeFalsy();
+	});
+});
+
+describe("isDynamicAttribute()", () => {
+	it("should return false for static attribute", () => {
+		expect.assertions(1);
+		expect(isDynamicAttribute(staticAttr)).toBeFalsy();
+	});
+
+	it("should return true for dynamic value", () => {
+		expect.assertions(1);
+		expect(isDynamicAttribute(dynamicAttr)).toBeTruthy();
+	});
+
+	it("should return false for attribute without value", () => {
+		expect.assertions(1);
+		expect(isDynamicAttribute(nullAttr)).toBeFalsy();
+	});
+
+	it("should handle null", () => {
+		expect.assertions(1);
+		expect(isDynamicAttribute(null)).toBeFalsy();
 	});
 });

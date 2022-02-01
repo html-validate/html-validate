@@ -1,6 +1,33 @@
 import { Location } from "../context";
 import { DynamicValue } from "./dynamic-value";
 
+interface StaticAttribute {
+	readonly value: string | null;
+}
+
+interface DynamicAttribute {
+	readonly value: DynamicValue;
+}
+
+/**
+ * Type guard for [[Attribute]] testing if the value is static (missing value is
+ * considered static as it is a fixed known value).
+ *
+ * @public
+ */
+export function isStaticAttribute(attr: Attribute | null): attr is Attribute & StaticAttribute {
+	return Boolean(attr && attr.isStatic);
+}
+
+/**
+ * Type guard for [[Attribute]] testing if the value is dynamic.
+ *
+ * @public
+ */
+export function isDynamicAttribute(attr: Attribute | null): attr is Attribute & DynamicAttribute {
+	return Boolean(attr && attr.isDynamic);
+}
+
 /**
  * DOM Attribute.
  *
