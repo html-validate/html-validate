@@ -185,26 +185,40 @@ describe("MetaTable", () => {
 
 		beforeEach(() => {
 			table = new MetaTable();
-			table.loadFromObject({
-				foo: mockEntry({ phrasing: true }),
-			});
 		});
 
 		it("should be populated for known elements", () => {
 			expect.assertions(2);
+			table.loadFromObject({
+				foo: mockEntry({ phrasing: true }),
+			});
 			const meta = table.getMetaFor("foo");
 			expect(meta).toBeDefined();
 			expect(meta?.tagName).toBe("foo");
 		});
 
+		it("should be global element for unknown elements", () => {
+			expect.assertions(2);
+			table.loadFromObject({
+				"*": mockEntry({ phrasing: true }),
+			});
+			const meta = table.getMetaFor("foo");
+			expect(meta).toBeDefined();
+			expect(meta?.tagName).toBe("*");
+		});
+
 		it("should be null for unknown elements", () => {
 			expect.assertions(1);
-			const meta = table.getMetaFor("bar");
+			table.loadFromObject({});
+			const meta = table.getMetaFor("foo");
 			expect(meta).toBeNull();
 		});
 
 		it("should be case insensitive", () => {
 			expect.assertions(2);
+			table.loadFromObject({
+				foo: mockEntry({ phrasing: true }),
+			});
 			const meta = table.getMetaFor("FOO");
 			expect(meta).toBeDefined();
 			expect(meta?.tagName).toBe("foo");

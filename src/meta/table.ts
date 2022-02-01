@@ -169,14 +169,23 @@ export class MetaTable {
 	}
 
 	/**
-	 * Get [[MetaElement]] for the given tag or null if the element doesn't exist.
+	 * Get [[MetaElement]] for the given tag. If no specific metadata is present
+	 * the global metadata is returned or null if no global is present.
 	 *
 	 * @public
 	 * @returns A shallow copy of metadata.
 	 */
 	public getMetaFor(tagName: string): MetaElement | null {
+		/* try to locate by tagname */
 		tagName = tagName.toLowerCase();
-		return this.elements[tagName] ? { ...this.elements[tagName] } : null;
+		if (this.elements[tagName]) {
+			return { ...this.elements[tagName] };
+		}
+		/* try to locate global element */
+		if (this.elements["*"]) {
+			return { ...this.elements["*"] };
+		}
+		return null;
 	}
 
 	/**
