@@ -80,7 +80,7 @@ The first step is creating a new JSON-file, e.g. `elements.json` and configure t
 ```json
 {
   "extends": ["html-validate:recommended"],
-  "elements: ["html5", "./elements.json"]
+  "elements": ["html5", "./elements.json"]
 }
 ```
 
