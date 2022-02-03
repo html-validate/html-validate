@@ -1,5 +1,11 @@
 # html-validate changelog
 
+### [6.3.1](https://gitlab.com/html-validate/html-validate/compare/v6.3.0...v6.3.1) (2022-02-03)
+
+### Dependency upgrades
+
+- **deps:** update dependency @sidvind/better-ajv-error to v1.1.1 ([8aa3438](https://gitlab.com/html-validate/html-validate/commit/8aa34383640b838ffad2824c71beb2d077b1abbc))
+
 ## [6.3.0](https://gitlab.com/html-validate/html-validate/compare/v6.2.0...v6.3.0) (2022-02-03)
 
 ### Features
