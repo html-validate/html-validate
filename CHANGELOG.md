@@ -1,5 +1,21 @@
 # html-validate changelog
 
+## [6.3.0](https://gitlab.com/html-validate/html-validate/compare/v6.2.0...v6.3.0) (2022-02-03)
+
+### Features
+
+- new rule `aria-hidden-body` ([4f3b04f](https://gitlab.com/html-validate/html-validate/commit/4f3b04f83d9c85874b0e6931d0e8d0a736ff501d))
+
+### Bug Fixes
+
+- global element metadata is returned for unknown elements ([831f227](https://gitlab.com/html-validate/html-validate/commit/831f227aff2e277f7be27a6ced205ad3cae5c7ce))
+- **rules:** improve error message for `element-required-content` ([b29d908](https://gitlab.com/html-validate/html-validate/commit/b29d9089d7b15ab6a0f81f92eb0f1b471c6b59f9))
+- **rules:** improve error message for `empty-title` ([0a62b1a](https://gitlab.com/html-validate/html-validate/commit/0a62b1aad058f169539a4bb7828be8af203eea8e))
+
+### Dependency upgrades
+
+- **deps:** update dependency @sidvind/better-ajv-error to v1.1.0 ([f785448](https://gitlab.com/html-validate/html-validate/commit/f785448f05d3ec9d5dec8d1bd3c8c3be1902f528))
+
 ## [6.2.0](https://gitlab.com/html-validate/html-validate/compare/v6.1.6...v6.2.0) (2022-01-17)
 
 ### Features

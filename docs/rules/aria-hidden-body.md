@@ -29,4 +29,4 @@ This rule takes no options.
 
 ## Version history
 
--- %version% - Rule added.
+-- 6.3.0 - Rule added.
