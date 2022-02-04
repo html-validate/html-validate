@@ -15,11 +15,9 @@ Install using `npm`:
 
 Create `.htmlvalidate.json`:
 
-```js
+```json
 {
-  "extends": [
-    "html-validate:recommended"
-  ],
+  "extends": ["html-validate:recommended"]
 }
 ```
 
@@ -69,12 +67,12 @@ Plugins may create [custom configuration presets](/dev/writing-plugins.html) by 
 
 ### `rules`
 
-```js
+```json
 {
   "rules": {
     "some-rules": "severity",
-	"other-rule": ["severity", {"option": true}]
-  },
+    "other-rule": ["severity", { "option": true }]
+  }
 }
 ```
 
@@ -95,14 +93,16 @@ which context it can be used, allowed/disallowed attributes, etc. If `elements`
 is not specified it defaults to `["html5"]` which is a bundled collection for
 all HTML5 elements.
 
-```js
+```json
 {
   "elements": [
     "html5",
-	"my-npm-package",
-	"./file",
-	{ ... }
-  ],
+    "my-npm-package",
+    "./file",
+    {
+      /* inline metadata */
+    }
+  ]
 }
 ```
 
@@ -127,12 +127,9 @@ Plugins can contain additional rules.
 
 See [writing plugins](/dev/writing-plugins.html) for details about creating your own plugins.
 
-```js
+```json
 {
-  "plugins": [
-    "my-fancy-plugin",
-    "./local-plugin"
-  ]
+  "plugins": ["my-fancy-plugin", "./local-plugin"]
 }
 ```
 
@@ -141,7 +138,7 @@ See [writing plugins](/dev/writing-plugins.html) for details about creating your
 Transform input files to extract HTML chunks, e.g. extract templates from javascript sources.
 See [transformers](/usage/transformers.html) for details.
 
-```js
+```json
 {
   "transform": {
     "^.*\\.vue$": "html-validate-vue"
@@ -168,7 +165,7 @@ configuration for a specific directory without loading project configuration.
 
 For instance, if `/home/project/.htmlvalidate.json` contains:
 
-```js
+```json
 {
   "root": true
 }
