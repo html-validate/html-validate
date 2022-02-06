@@ -28,8 +28,8 @@ NPM:
   script:
     - node --version
     - npm --version
-    - npm ci
-    - npm audit --json --production | npx gitlab-npm-audit-parser -o gl-dependency-scanning.json || true
+    - npm ci --no-fund --no-audit --no-update-notifier
+    - npm audit --json --production | npx --yes gitlab-npm-audit-parser -o gl-dependency-scanning.json || true
 
 Build:
   stage: build
@@ -115,9 +115,9 @@ Docs:
 .compat: &compat
   stage: compatibility
   dependencies: []
-  needs: ["Build"]
+  needs: []
   before_script:
-    - npm ci
+    - npm ci --no-fund --no-audit --no-update-notifier
   script:
     - npm run codegen
     - npm test -- --no-coverage --testPathIgnorePatterns matchers tests/jest
@@ -148,7 +148,7 @@ Jest compat:
     matrix:
       - VERSION: [24, 25, 26, 27]
   before_script:
-    - npm ci
+    - npm ci --no-fund --no-audit --no-update-notifier
     - npm install --force jest@${VERSION}.0.0 ts-jest@${VERSION}.0.0
     - npm install
     # workaround issue where node_modules/.bin/jest does not exist
@@ -179,9 +179,13 @@ Module:
     GIT_AUTHOR_EMAIL: ${GITLAB_USER_EMAIL}
     GIT_COMMITTER_NAME: ${HTML_VALIDATE_BOT_NAME}
     GIT_COMMITTER_EMAIL: ${HTML_VALIDATE_BOT_EMAIL}
+  before_script:
+    - npm install -g $(node -p 'require("./package.json").release.extends')
 
 Dry run:
   extends: .release
+  needs: []
+  dependencies: []
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master"'
     - if: '$CI_COMMIT_REF_NAME =~ /^release\//'
