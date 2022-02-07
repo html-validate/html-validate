@@ -155,7 +155,7 @@
     "@babel/core": "7.17.0",
     "@babel/preset-env": "7.16.11",
     "@html-validate/commitlint-config": "2.1.7",
-    "@html-validate/eslint-config": "5.3.2",
+    "@html-validate/eslint-config": "5.3.3",
     "@html-validate/eslint-config-jest": "5.3.2",
     "@html-validate/eslint-config-typescript": "5.3.2",
     "@html-validate/jest-config": "3.0.1",
