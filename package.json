@@ -162,7 +162,7 @@
     "@html-validate/prettier-config": "2.0.0",
     "@lodder/grunt-postcss": "3.1.1",
     "@rollup/plugin-json": "4.1.0",
-    "@rollup/plugin-replace": "3.0.1",
+    "@rollup/plugin-replace": "3.1.0",
     "@rollup/plugin-typescript": "8.3.0",
     "@rollup/plugin-virtual": "2.0.3",
     "@types/babar": "0.2.1",
