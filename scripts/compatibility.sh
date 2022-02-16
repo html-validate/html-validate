@@ -38,3 +38,10 @@ if [[ "$(cat temp/compatibility/report.json)" != "[]" ]]; then
 	echo "Compatibility test failed, expected command to write report to file"
 	exit 1
 fi
+
+echo "Testing if html-validate can successfully validate stdin"
+cat test-files/elements/table-valid.html | ./bin/html-validate.js --stdin
+if [[ $? != 0 ]]; then
+	echo "Compatibility test failed, expected command to exit with zero status"
+	exit 1
+fi
