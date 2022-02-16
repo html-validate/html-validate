@@ -1,8 +1,9 @@
+import fs from "fs";
 import { Source } from "../context";
 import { MetaTable } from "../meta";
 import { ResolvedConfig, ResolvedConfigData } from "./resolved-config";
 
-function createMockConfig(config: Partial<ResolvedConfigData>): ResolvedConfig {
+function createMockConfig(config: Partial<ResolvedConfigData> = {}): ResolvedConfig {
 	const metaTable = new MetaTable();
 	const defaults: ResolvedConfigData = {
 		metaTable,
@@ -12,6 +13,10 @@ function createMockConfig(config: Partial<ResolvedConfigData>): ResolvedConfig {
 	};
 	return new ResolvedConfig({ ...defaults, ...config });
 }
+
+beforeEach(() => {
+	jest.restoreAllMocks();
+});
 
 describe("transformSource()", () => {
 	let source: Source;
@@ -181,11 +186,7 @@ describe("transformSource()", () => {
 describe("transformFilename()", () => {
 	it("should default to reading full file", () => {
 		expect.assertions(1);
-		const config = createMockConfig({
-			transformers: [
-				{ pattern: /^.*\.foo$/, name: "mock-transform", fn: require("mock-transform") },
-			],
-		});
+		const config = createMockConfig();
 		expect(config.transformFilename("test-files/parser/simple.html")).toMatchInlineSnapshot(`
 			Array [
 			  Object {
@@ -200,6 +201,27 @@ describe("transformFilename()", () => {
 			  },
 			]
 		`);
+	});
+
+	it("should handle stdin", () => {
+		expect.assertions(2);
+		const spy = jest.spyOn(fs, "readFileSync").mockReturnValue("<div></div>");
+		const config = createMockConfig();
+		const source = config.transformFilename("/dev/stdin");
+		const stdin = 0;
+		expect(spy).toHaveBeenCalledWith(stdin, expect.anything());
+		expect(source).toMatchInlineSnapshot(`
+		Array [
+		  Object {
+		    "column": 1,
+		    "data": "<div></div>",
+		    "filename": "/dev/stdin",
+		    "line": 1,
+		    "offset": 0,
+		    "originalData": "<div></div>",
+		  },
+		]
+	`);
 	});
 });
 

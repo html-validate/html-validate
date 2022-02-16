@@ -95,7 +95,9 @@ export class ResolvedConfig {
 	 * @returns A list of transformed sources ready for validation.
 	 */
 	public transformFilename(filename: string): Source[] {
-		const data = fs.readFileSync(filename, { encoding: "utf8" });
+		const stdin = 0;
+		const src = filename !== "/dev/stdin" ? filename : stdin;
+		const data = fs.readFileSync(src, { encoding: "utf8" });
 		const source: Source = {
 			data,
 			filename,
