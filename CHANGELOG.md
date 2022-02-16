@@ -1,5 +1,12 @@
 # html-validate changelog
 
+### [6.3.2](https://gitlab.com/html-validate/html-validate/compare/v6.3.1...v6.3.2) (2022-02-16)
+
+### Bug Fixes
+
+- handle reading stdin (`/dev/stdin`) on Windows ([dcf65d1](https://gitlab.com/html-validate/html-validate/commit/dcf65d167ebd44fcfdfee59fe0b9d2461eea1b4c)), closes [#141](https://gitlab.com/html-validate/html-validate/issues/141)
+- replace `\\` in urls generated on Windows ([950b3cf](https://gitlab.com/html-validate/html-validate/commit/950b3cfc53a01906ba9bd437072e17eb44da3af5)), closes [#140](https://gitlab.com/html-validate/html-validate/issues/140)
+
 ### [6.3.1](https://gitlab.com/html-validate/html-validate/compare/v6.3.0...v6.3.1) (2022-02-03)
 
 ### Dependency upgrades
