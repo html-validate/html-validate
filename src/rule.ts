@@ -373,5 +373,6 @@ export function ruleDocumentationUrl(filename: string): string {
 	const p = path.parse(filename);
 	const root = path.join(distFolder, "rules");
 	const rel = path.relative(root, path.join(p.dir, p.name));
-	return `${homepage}/rules/${rel}.html`;
+	const normalized = rel.replace(/\\/g, "/");
+	return `${homepage}/rules/${normalized}.html`;
 }
