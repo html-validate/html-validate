@@ -467,9 +467,11 @@ export class Parser {
 	 * See also the related [[consumeCommend]] method.
 	 */
 	protected consumeConditional(token: Token): void {
+		const element = this.dom.getActive();
 		this.trigger("conditional", {
 			condition: token.data[1],
 			location: token.location,
+			parent: element,
 		});
 	}
 
@@ -481,10 +483,12 @@ export class Parser {
 	 */
 	protected consumeComment(token: Token): void {
 		const comment = token.data[0];
+		const element = this.dom.getActive();
 		for (const conditional of parseConditionalComment(comment, token.location)) {
 			this.trigger("conditional", {
 				condition: conditional.expression,
 				location: conditional.location,
+				parent: element,
 			});
 		}
 	}
