@@ -101,10 +101,7 @@ export class Parser {
 					break;
 
 				case TokenType.CONDITIONAL:
-					this.trigger("conditional", {
-						condition: token.data[1],
-						location: token.location,
-					});
+					this.consumeConditional(token);
 					break;
 
 				case TokenType.COMMENT:
@@ -465,9 +462,22 @@ export class Parser {
 	}
 
 	/**
+	 * Consumes conditional comment in tag form.
+	 *
+	 * See also the related [[consumeCommend]] method.
+	 */
+	protected consumeConditional(token: Token): void {
+		this.trigger("conditional", {
+			condition: token.data[1],
+			location: token.location,
+		});
+	}
+
+	/**
 	 * Consumes comment token.
 	 *
-	 * Tries to find IE conditional comments and emits conditional token if found.
+	 * Tries to find IE conditional comments and emits conditional token if
+	 * found. See also the related [[consumeConditional]] method.
 	 */
 	protected consumeComment(token: Token): void {
 		const comment = token.data[0];
