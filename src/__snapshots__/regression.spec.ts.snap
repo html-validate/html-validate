@@ -106,7 +106,7 @@ Array [
         "offset": 290,
         "ruleId": "no-conditional-comment",
         "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": null,
+        "selector": "html",
         "severity": 2,
         "size": 12,
       },
