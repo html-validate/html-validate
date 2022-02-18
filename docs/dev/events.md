@@ -195,9 +195,9 @@ Emitted when inter-element, leading and trailing whitespace is parsed.
 ```typescript
 {
   condition: string;
+  parent: HTMLElement | null;
 }
 ```
 
-Emitted when a conditional comment `<![conditional]>` is parsed. The parser
-ignores and condition and run all possible branches but raises the event for any
-rules that wishes to do anything with it.
+Emitted when a conditional comment `<![conditional]>` is parsed.
+The parser ignores and condition and run all possible branches but raises the event for any rules that wishes to do anything with it.

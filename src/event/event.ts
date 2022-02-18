@@ -175,6 +175,9 @@ export interface ConditionalEvent extends Event {
 
 	/** Condition including markers. */
 	condition: string;
+
+	/** The element containing the conditional, if any. */
+	parent: HtmlElement | null;
 }
 
 /**

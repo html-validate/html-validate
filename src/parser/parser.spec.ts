@@ -1156,10 +1156,16 @@ describe("parser", () => {
 				expect(events.shift()).toEqual({
 					event: "conditional",
 					condition: "if IE 6",
+					parent: expect.objectContaining({
+						nodeName: "#document",
+					}),
 				});
 				expect(events.shift()).toEqual({
 					event: "conditional",
 					condition: "endif",
+					parent: expect.objectContaining({
+						nodeName: "#document",
+					}),
 				});
 				expect(events.shift()).toBeUndefined();
 			});
@@ -1170,10 +1176,16 @@ describe("parser", () => {
 				expect(events.shift()).toEqual({
 					event: "conditional",
 					condition: "if IE 6",
+					parent: expect.objectContaining({
+						nodeName: "#document",
+					}),
 				});
 				expect(events.shift()).toEqual({
 					event: "conditional",
 					condition: "endif",
+					parent: expect.objectContaining({
+						nodeName: "#document",
+					}),
 				});
 				expect(events.shift()).toBeUndefined();
 			});
