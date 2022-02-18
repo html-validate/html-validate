@@ -1,5 +1,16 @@
 # html-validate changelog
 
+## [6.4.0](https://gitlab.com/html-validate/html-validate/compare/v6.3.2...v6.4.0) (2022-02-18)
+
+### Features
+
+- **dom:** add typeguards to attribute API ([f831223](https://gitlab.com/html-validate/html-validate/commit/f831223cbc169919f717ad94ce81c17b430c0208))
+- **event:** add parent element to `conditional` event ([b248e3b](https://gitlab.com/html-validate/html-validate/commit/b248e3b6f791ddee47661c2f57fa0fabb85027c2))
+
+### Bug Fixes
+
+- **rules:** add selector to `no-conditional-comment` ([6391ebf](https://gitlab.com/html-validate/html-validate/commit/6391ebf9b4692b70da81760e0231d45c7da6c7e1)), closes [#142](https://gitlab.com/html-validate/html-validate/issues/142)
+
 ### [6.3.2](https://gitlab.com/html-validate/html-validate/compare/v6.3.1...v6.3.2) (2022-02-16)
 
 ### Bug Fixes
