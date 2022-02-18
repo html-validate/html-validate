@@ -5,13 +5,14 @@ title: Cypress plugin
 
 # Cypress plugin
 
-To validate browser source from cypress:
+It automatically fetches the active source markup from the browser and validates, failing the test if any validation errors is encountered.
 
-    npm install --save-dev cypress-html-validate
+## Installation
 
-See [cypress-html-validate][npm] for details.
+    npm install --save-dev html-validate cypress-html-validate
 
-[npm]: https://www.npmjs.com/package/cypress-html-validate
+Make sure you install both `html-validate` and the plugin `cypress-html-validate`.
+With NPM 7 or later it will be satisfied by the peer dependency but for a more consistent and deterministic experience it is suggested to include both as dependencies for your project.
 
 ## Usage
 
@@ -25,7 +26,7 @@ module.exports = (on) => {
 };
 ```
 
-`cypress/support/index.js`:
+In `cypress/support/index.js`:
 
 ```js
 import "cypress-html-validate/dist/commands";
@@ -40,38 +41,56 @@ it("should be valid", () => {
 });
 ```
 
-## Configuration
-
-### Global configuration (accross all specs)
-
-`html-validate` configuration can be passed in `cypress/plugins/index.js`:
+To automatically run after each test you can use `afterEach` either in the spec file or in `cypress/support/index.js`:
 
 ```js
-htmlvalidate.install(on, {
+afterEach(() => {
+  cy.htmlvalidate();
+});
+```
+
+## Configuration
+
+### Global configuration (across all specs)
+
+`html-validate` and the plugin can configured globally in `cypress/plugins/index.js`:
+
+```js
+/* html-validate configuration */
+const config = {
   rules: {
     foo: "error",
   },
-});
+};
+/* plugin options */
+const options = {
+  exclude: [],
+  include: [],
+  formatter(messages) {
+    console.log(messages);
+  },
+};
+htmlvalidate.install(on, config, options);
 ```
 
-### Local configuration (for one spec)
-
-`html-validate` configuration can be passed in the function call within a spec:
+The default configuration extends `html-validate:recommended` and `html-validate:document` (see {@link rules/presets presets}).
+This can be overridden by explictly specifying `extends: []`:
 
 ```js
-cy.htmlvalidate({
-  rules: {
-    "prefer-native-element": [
-      "error",
-      {
-        exclude: ["button"],
-      },
-    ],
-  },
+htmlvalidate.install(on, {
+  extends: [],
 });
 ```
 
-It is also possible to add both configuration & options in the function call:
+See {@link usage#configuration full list of configuration options}.
+
+### Local configuration (for one occurrence)
+
+If you want to override per call you can pass configuration and/or options directly to the function:
+
+```js
+cy.htmlvalidate([config], [options]);
+```
 
 ```js
 cy.htmlvalidate(
@@ -90,3 +109,53 @@ cy.htmlvalidate(
   }
 );
 ```
+
+### Element metadata
+
+Element metadata can be overriden the same way as with the CLI tool by adding a custom inline config or using a separate file.
+
+For instance, to disable the requirement of `scope` being required on `th` elements:
+
+```js
+const config = {
+  elements: [
+    "html5",
+    {
+      th: {
+        attributes: {
+          scope: {
+            required: false,
+          },
+        },
+      },
+    },
+  ],
+};
+htmlvalidate.install(on, config);
+```
+
+## Options
+
+### `exclude`
+
+- type: `string[] | null`
+- default: `[]`
+
+A list of selectors to ignore errors from.
+Any errors from the elements or any descendant will be ignored.
+
+### `include`
+
+- type: `string[] | null`
+- default: `[]`
+
+A list of selectors to include errors from.
+If this is set to non-empty array only errors from elements or any descendants will be included.
+
+### `formatter`
+
+- type: `(messages: ElementMessage[]): void`
+
+Custom formatter/reporter for detected errors.
+Default uses `console.table(..)` to log to console.
+Set to `null` to disable.
