@@ -182,6 +182,23 @@ describe("rule base class", () => {
 			rule.report(node, "foo");
 			expect(reporter.add).not.toHaveBeenCalled();
 		});
+
+		it("should interpolate string", () => {
+			expect.assertions(1);
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+			const context: RuleContext = { foo: "bar" };
+			rule.report(node, "foo {{ foo }}", mockLocation, context);
+			expect(reporter.add).toHaveBeenCalledWith(
+				rule,
+				"foo bar",
+				Severity.ERROR,
+				expect.objectContaining({
+					unique: node.unique,
+				}),
+				mockLocation,
+				context
+			);
+		});
 	});
 
 	describe("on()", () => {
