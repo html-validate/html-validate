@@ -116,6 +116,24 @@ class MyRule extends Rule<RuleContext> {
 	<p>Even if your rule reports contextual data the API user might not pass it back to the <code>documentation()</code> call so you must always test if the context object was actually passed or not.</p>
 </div>
 
+## Message interpolation
+
+The error message may contain placeholders using `{{ ... }}`.
+When a placeholder is found it is replaced with a matching key from the context object.
+
+```ts
+const context = {
+  value: "my value",
+};
+this.report(element, 'This element cannot have the value "{{ value }}"');
+```
+
+The reported message will be:
+
+> This element cannot have the value "my value"
+
+This can be used as an alternative to using template literals, for instance if the string is reused multiple times.
+
 ## Options
 
 If the rule has options create an interface and pass as the second template argument.

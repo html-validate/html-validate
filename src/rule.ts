@@ -12,6 +12,7 @@ import { Reporter } from "./reporter";
 import { MetaTable, MetaLookupableProperty } from "./meta";
 import { SchemaValidationError } from "./error";
 import { distFolder } from "./resolve";
+import { interpolate } from "./utils/interpolate";
 
 export { SchemaObject } from "ajv";
 
@@ -213,7 +214,8 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	): void {
 		if (this.isEnabled() && (!node || node.ruleEnabled(this.name))) {
 			const where = this.findLocation({ node, location, event: this.event });
-			this.reporter.add(this, message, this.severity, node, where, context);
+			const interpolated = interpolate(message, context ?? {});
+			this.reporter.add(this, interpolated, this.severity, node, where, context);
 		}
 	}
 
