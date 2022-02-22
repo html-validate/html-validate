@@ -48,8 +48,8 @@ export class DOMTokenList extends Array<string> {
 	public constructor(value: string | DynamicValue | null, location: Location | null) {
 		if (value && typeof value === "string") {
 			/* replace all whitespace with a single space for easier parsing */
-			const condensed = value.replace(/[\t\r\n ]+/g, " ");
-			const { tokens, locations } = parse(condensed, location);
+			const normalized = value.replace(/[\t\r\n]/g, " ");
+			const { tokens, locations } = parse(normalized, location);
 			super(...tokens);
 			this.locations = locations;
 		} else {

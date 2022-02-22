@@ -91,7 +91,7 @@ describe("DOMTokenList", () => {
 	describe("location()", () => {
 		it("should return location by index", () => {
 			expect.assertions(3);
-			const list = new DOMTokenList("foo bar baz", location);
+			const list = new DOMTokenList("foo bar  baz", location);
 			expect(list.location(0)).toEqual({
 				filename: "mock",
 				line: 1,
@@ -109,8 +109,8 @@ describe("DOMTokenList", () => {
 			expect(list.location(2)).toEqual({
 				filename: "mock",
 				line: 1,
-				column: 9,
-				offset: 8,
+				column: 10,
+				offset: 9,
 				size: 3,
 			});
 		});
