@@ -140,7 +140,7 @@ export class Engine<T extends Parser = Parser> {
 		const lines: TokenDump[] = [];
 		for (const src of source) {
 			for (const token of lexer.tokenize(src)) {
-				const data = token.data ? token.data[0] : null;
+				const data = token.data[0] ?? "";
 				lines.push({
 					token: TokenType[token.type],
 					data,

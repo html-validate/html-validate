@@ -11,11 +11,29 @@ import {
 	TagEndEvent,
 	TriggerEventMap,
 } from "../event";
-import { type DirectiveToken, Lexer, type Token, type TokenStream, TokenType } from "../lexer";
+import {
+	type Token,
+	type TokenStream,
+	type DirectiveToken,
+	type TagOpenToken,
+	type TagCloseToken,
+	type CommentToken,
+	type AttrNameToken,
+	type AttrValueToken,
+	type ConditionalToken,
+	type DoctypeOpenToken,
+	type DoctypeValueToken,
+	Lexer,
+	TokenType,
+} from "../lexer";
 import { MetaTable, MetaElement } from "../meta";
 import { AttributeData } from "./attribute-data";
 import { parseConditionalComment } from "./conditional-comment";
 import { ParserError } from "./parser-error";
+
+function isAttrValueToken(token?: Token): token is AttrValueToken {
+	return Boolean(token && token.type === TokenType.ATTR_VALUE);
+}
 
 /**
  * Parse HTML document into a DOM tree.
@@ -97,7 +115,7 @@ export class Parser {
 					break;
 
 				case TokenType.DIRECTIVE:
-					this.consumeDirective(token as DirectiveToken);
+					this.consumeDirective(token);
 					break;
 
 				case TokenType.CONDITIONAL:
@@ -114,7 +132,7 @@ export class Parser {
 
 				case TokenType.TEXT:
 				case TokenType.TEMPLATING:
-					this.appendText(token.data, token.location);
+					this.appendText(token.data[0], token.location);
 					break;
 
 				case TokenType.EOF:
@@ -148,7 +166,7 @@ export class Parser {
 	 * valid). The parser handles this by checking if the element on top of the
 	 * stack when is allowed to omit.
 	 */
-	private closeOptional(token: Token): boolean {
+	private closeOptional(token: TagOpenToken): boolean {
 		/* if the element doesn't have metadata it cannot have optional end
 		 * tags. Period. */
 		const active = this.dom.getActive();
@@ -177,11 +195,11 @@ export class Parser {
 	}
 
 	/* eslint-disable-next-line complexity, sonarjs/cognitive-complexity */
-	protected consumeTag(source: Source, startToken: Token, tokenStream: TokenStream): void {
+	protected consumeTag(source: Source, startToken: TagOpenToken, tokenStream: TokenStream): void {
 		const tokens = Array.from(
 			this.consumeUntil(tokenStream, TokenType.TAG_CLOSE, startToken.location)
 		);
-		const endToken = tokens.slice(-1)[0];
+		const endToken = tokens.slice(-1)[0] as TagCloseToken;
 		const closeOptional = this.closeOptional(startToken);
 		const parent = closeOptional ? this.dom.getActive().parent : this.dom.getActive();
 		const node = HtmlElement.fromTokens(startToken, endToken, parent, this.metaTable);
@@ -305,12 +323,12 @@ export class Parser {
 	): void {
 		/* consume elements until the end tag for this foreign element is found */
 		let nested = 1;
-		let startToken;
-		let endToken;
+		let startToken: TagOpenToken | undefined;
+		let endToken: TagCloseToken | undefined;
 		do {
 			/* search for tags */
 			const tokens = Array.from(this.consumeUntil(tokenStream, TokenType.TAG_OPEN, errorLocation));
-			const [last] = tokens.slice(-1);
+			const [last] = tokens.slice(-1) as [TagOpenToken];
 			const [, tagClosed, tagName] = last.data;
 
 			/* keep going unless the new tag matches the foreign root element */
@@ -322,13 +340,13 @@ export class Parser {
 			const endTokens = Array.from(
 				this.consumeUntil(tokenStream, TokenType.TAG_CLOSE, last.location)
 			);
-			endToken = endTokens.slice(-1)[0];
+			endToken = endTokens.slice(-1)[0] as TagCloseToken;
 			const selfClosed = endToken.data[0] === "/>";
 
 			/* since foreign element may be nested keep a count for the number of
 			 * opened/closed elements */
 			if (tagClosed) {
-				startToken = last;
+				startToken = last as TagOpenToken;
 				nested--;
 			} else if (!selfClosed) {
 				nested++;
@@ -348,20 +366,25 @@ export class Parser {
 		this.dom.popActive();
 	}
 
-	protected consumeAttribute(source: Source, node: HtmlElement, token: Token, next?: Token): void {
+	protected consumeAttribute(
+		source: Source,
+		node: HtmlElement,
+		token: AttrNameToken,
+		next?: Token
+	): void {
 		const keyLocation = this.getAttributeKeyLocation(token);
 		const valueLocation = this.getAttributeValueLocation(next);
 		const location = this.getAttributeLocation(token, next);
-		const haveValue = next && next.type === TokenType.ATTR_VALUE;
+		const haveValue = isAttrValueToken(next);
 		const attrData: AttributeData = {
 			key: token.data[1],
 			value: null,
 			quote: null,
 		};
 
-		if (next && haveValue) {
+		if (haveValue) {
 			const [, , value, quote] = next.data;
-			attrData.value = value ?? null;
+			attrData.value = value;
 			attrData.quote = quote ?? null;
 		}
 
@@ -406,7 +429,7 @@ export class Parser {
 	/**
 	 * Takes attribute key token an returns location.
 	 */
-	private getAttributeKeyLocation(token: Token): Location {
+	private getAttributeKeyLocation(token: AttrNameToken): Location {
 		return token.location;
 	}
 
@@ -433,7 +456,7 @@ export class Parser {
 	 * Take attribute key and value token an returns a new location referring to
 	 * an aggregate location covering key, quotes if present and value.
 	 */
-	private getAttributeLocation(key: Token, value?: Token): Location {
+	private getAttributeLocation(key: AttrNameToken, value?: Token): Location {
 		const begin = key.location;
 		const end = value && value.type === TokenType.ATTR_VALUE ? value.location : undefined;
 		return {
@@ -471,7 +494,7 @@ export class Parser {
 	 *
 	 * See also the related [[consumeCommend]] method.
 	 */
-	protected consumeConditional(token: Token): void {
+	protected consumeConditional(token: ConditionalToken): void {
 		const element = this.dom.getActive();
 		this.trigger("conditional", {
 			condition: token.data[1],
@@ -486,7 +509,7 @@ export class Parser {
 	 * Tries to find IE conditional comments and emits conditional token if
 	 * found. See also the related [[consumeConditional]] method.
 	 */
-	protected consumeComment(token: Token): void {
+	protected consumeComment(token: CommentToken): void {
 		const comment = token.data[0];
 		const element = this.dom.getActive();
 		for (const conditional of parseConditionalComment(comment, token.location)) {
@@ -501,11 +524,12 @@ export class Parser {
 	/**
 	 * Consumes doctype tokens. Emits doctype event.
 	 */
-	protected consumeDoctype(startToken: Token, tokenStream: TokenStream): void {
+	protected consumeDoctype(startToken: DoctypeOpenToken, tokenStream: TokenStream): void {
 		const tokens = Array.from(
 			this.consumeUntil(tokenStream, TokenType.DOCTYPE_CLOSE, startToken.location)
 		);
-		const doctype = tokens[0]; /* first token is the doctype, second is the closing ">" */
+		/* first token is the doctype, second is the closing ">" */
+		const doctype: DoctypeValueToken = tokens[0] as DoctypeValueToken;
 		const value = doctype.data[0];
 		this.dom.doctype = value;
 		this.trigger("doctype", {
@@ -546,7 +570,7 @@ export class Parser {
 			this.trigger("token", {
 				location: token.location,
 				type: token.type,
-				data: token.data ? Array.from(token.data) : undefined,
+				data: Array.from(token.data),
 			});
 		}
 		return it;

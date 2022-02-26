@@ -1,6 +1,6 @@
 import { Config } from "../config";
 import { Location, Source } from "../context";
-import { Token, TokenType } from "../lexer";
+import { type TagCloseToken, type TagOpenToken, type Token, TokenType } from "../lexer";
 import { MetaData, MetaElement, MetaTable } from "../meta";
 import { Parser } from "../parser";
 import { processAttribute } from "../transform/mocks/attribute";
@@ -54,7 +54,7 @@ describe("HtmlElement", () => {
 			tagName: string,
 			open: boolean = true,
 			selfClose: boolean = false
-		): [Token, Token] {
+		): [TagOpenToken, TagCloseToken] {
 			const slash = open ? "" : "/";
 			const startToken: Token = {
 				type: TokenType.TAG_OPEN,
