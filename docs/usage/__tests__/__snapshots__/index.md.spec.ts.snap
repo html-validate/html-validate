@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`docs/usage/index.md inline validation: directive-commend 1`] = `Array []`;
+
 exports[`docs/usage/index.md inline validation: disable-block-button-type 1`] = `
 Array [
   Object {
@@ -47,7 +49,7 @@ Array [
         },
         "line": 7,
         "message": "Attribute \\"type\\" has invalid value \\"spam\\"",
-        "offset": 281,
+        "offset": 283,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "button",
@@ -57,7 +59,7 @@ Array [
     ],
     "source": "<div>
   <button type=\\"foo\\">Invalid button</button>
-  <!-- [html-validate-disable-block attribute-allowed-values: will be disabled until the parent div is closed] -->
+  <!-- [html-validate-disable-block attribute-allowed-values -- will be disabled until the parent div is closed] -->
   <button type=\\"bar\\">Invalid but ignored</button>
   <button type=\\"baz\\">Still ignored</button>
 </div>
@@ -82,7 +84,7 @@ Array [
         },
         "line": 3,
         "message": "<blink> is deprecated",
-        "offset": 143,
+        "offset": 145,
         "ruleId": "deprecated",
         "ruleUrl": "https://html-validate.org/rules/deprecated.html",
         "selector": "blink:nth-child(2)",
@@ -90,7 +92,7 @@ Array [
         "size": 5,
       },
     ],
-    "source": "<!-- [html-validate-disable-next deprecated: the next occurrence will not trigger an error] -->
+    "source": "<!-- [html-validate-disable-next deprecated -- the next occurrence will not trigger an error] -->
 <blink>This will not trigger an error</blink>
 <blink>But this line will</blink>",
     "warningCount": 0,

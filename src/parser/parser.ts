@@ -447,7 +447,7 @@ export class Parser {
 
 	protected consumeDirective(token: Token): void {
 		const directive = token.data[1];
-		const match = directive.match(/^([a-zA-Z0-9-]+)\s*(.*?)(?:\s*:\s*(.*))?$/);
+		const match = directive.match(/^([a-zA-Z0-9-]+)\s*(.*?)(?:\s*(?:--|:)\s*(.*))?$/);
 		if (!match) {
 			throw new Error(`Failed to parse directive "${directive}"`);
 		}

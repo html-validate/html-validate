@@ -948,7 +948,7 @@ describe("parser", () => {
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it("with comment", () => {
+		it("with colon comment", () => {
 			expect.assertions(2);
 			parser.parseHtml("<!-- [html-validate-enable: lorem ipsum] -->");
 			expect(events.shift()).toEqual({
@@ -960,9 +960,33 @@ describe("parser", () => {
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it("with options and comment", () => {
+		it("with dashdash comment", () => {
+			expect.assertions(2);
+			parser.parseHtml("<!-- [html-validate-enable -- lorem ipsum] -->");
+			expect(events.shift()).toEqual({
+				event: "directive",
+				action: "enable",
+				data: "",
+				comment: "lorem ipsum",
+			});
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it("with options and colon comment", () => {
 			expect.assertions(2);
 			parser.parseHtml("<!-- [html-validate-enable foo bar: baz] -->");
+			expect(events.shift()).toEqual({
+				event: "directive",
+				action: "enable",
+				data: "foo bar",
+				comment: "baz",
+			});
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it("with options and dashdash comment", () => {
+			expect.assertions(2);
+			parser.parseHtml("<!-- [html-validate-enable foo bar -- baz] -->");
 			expect(events.shift()).toEqual({
 				event: "directive",
 				action: "enable",

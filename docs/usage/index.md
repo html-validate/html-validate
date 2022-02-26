@@ -184,14 +184,23 @@ loaded.
 
 Configuration can be changed inline using directive of the form:
 
-    <!-- [html-validate-ACTION OPTIONS: COMMENT] -->
+    <!-- [html-validate-ACTION OPTIONS -- COMMENT] -->
 
 `ACTION` is an action such as `enable`, `disable` etc and `OPTIONS` is arguments to the action.
 Comment is optional but encouraged.
 
 Multiple rules can be enabled/disabled at once by using a comma-separated list:
 
-    <!-- [html-validate-disable-next void, deprecated: disable both rules] -->
+    <!-- [html-validate-disable-next void-style, deprecated -- disable both rules] -->
+
+Comments can be entered using both `--` and `:` as delimiter:
+
+<validate name="directive-commend">
+	<!-- [html-validate-disable-next deprecated -- justification for disabling] -->
+	<blink>Blinking text</blink>
+	<!-- [html-validate-disable-next deprecated: justification for disabling] -->
+	<blink>Blinking text</blink>
+</validate>
 
 ### `enable`
 
@@ -216,7 +225,7 @@ All siblings and descendants following the directive will not trigger any errors
 <validate name="disable-block-button-type">
   <div>
     <button type="foo">Invalid button</button>
-    <!-- [html-validate-disable-block attribute-allowed-values: will be disabled until the parent div is closed] -->
+    <!-- [html-validate-disable-block attribute-allowed-values -- will be disabled until the parent div is closed] -->
     <button type="bar">Invalid but ignored</button>
     <button type="baz">Still ignored</button>
   </div>
@@ -230,7 +239,7 @@ All siblings and descendants following the directive will not trigger any errors
 Disables the rule for the next element.
 
 <validate name="disable-next-deprecated">
-  <!-- [html-validate-disable-next deprecated: the next occurrence will not trigger an error] -->
+  <!-- [html-validate-disable-next deprecated -- the next occurrence will not trigger an error] -->
   <blink>This will not trigger an error</blink>
   <blink>But this line will</blink>
 </validate>
