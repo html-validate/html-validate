@@ -3,7 +3,7 @@ import { Location, ProcessElementContext, Source } from "../context";
 import { DOMTree, HtmlElement, TextNode } from "../dom";
 import { EventCallback } from "../event";
 import HtmlValidate from "../htmlvalidate";
-import { InvalidTokenError, Token, TokenStream, TokenType } from "../lexer";
+import { DirectiveToken, InvalidTokenError, Token, TokenStream, TokenType } from "../lexer";
 import "../jest";
 import { AttributeData } from "./attribute-data";
 import { Parser } from "./parser";
@@ -27,7 +27,7 @@ function mergeEvent(event: string, data: any): any {
 }
 
 class ExposedParser extends Parser {
-	public consumeDirective(token: Token): void {
+	public consumeDirective(token: DirectiveToken): void {
 		super.consumeDirective(token);
 	}
 
@@ -948,7 +948,7 @@ describe("parser", () => {
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it("with comment", () => {
+		it("with colon comment", () => {
 			expect.assertions(2);
 			parser.parseHtml("<!-- [html-validate-enable: lorem ipsum] -->");
 			expect(events.shift()).toEqual({
@@ -960,7 +960,19 @@ describe("parser", () => {
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it("with options and comment", () => {
+		it("with dashdash comment", () => {
+			expect.assertions(2);
+			parser.parseHtml("<!-- [html-validate-enable -- lorem ipsum] -->");
+			expect(events.shift()).toEqual({
+				event: "directive",
+				action: "enable",
+				data: "",
+				comment: "lorem ipsum",
+			});
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it("with options and colon comment", () => {
 			expect.assertions(2);
 			parser.parseHtml("<!-- [html-validate-enable foo bar: baz] -->");
 			expect(events.shift()).toEqual({
@@ -972,21 +984,25 @@ describe("parser", () => {
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it("throw on invalid directive", () => {
+		it("with options and dashdash comment", () => {
+			expect.assertions(2);
+			parser.parseHtml("<!-- [html-validate-enable foo bar -- baz] -->");
+			expect(events.shift()).toEqual({
+				event: "directive",
+				action: "enable",
+				data: "foo bar",
+				comment: "baz",
+			});
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it("throw when missing end bracket ]", () => {
 			expect.assertions(1);
 			expect(() => {
-				parser.consumeDirective({
-					type: TokenType.DIRECTIVE,
-					location: {
-						filename: "inline",
-						offset: 0,
-						line: 1,
-						column: 1,
-						size: 1,
-					},
-					data: ["", "!"],
-				});
-			}).toThrow('Failed to parse directive "!"');
+				parser.parseHtml("<!-- [html-validate-disable-next foo -- bar -->");
+			}).toThrow(
+				'Missing end bracket "]" on directive "<!-- [html-validate-disable-next foo -- bar -->"'
+			);
 		});
 	});
 

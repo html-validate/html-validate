@@ -11,7 +11,7 @@ import {
 	TagEndEvent,
 	TriggerEventMap,
 } from "../event";
-import { Lexer, Token, TokenStream, TokenType } from "../lexer";
+import { type DirectiveToken, Lexer, type Token, type TokenStream, TokenType } from "../lexer";
 import { MetaTable, MetaElement } from "../meta";
 import { AttributeData } from "./attribute-data";
 import { parseConditionalComment } from "./conditional-comment";
@@ -97,7 +97,7 @@ export class Parser {
 					break;
 
 				case TokenType.DIRECTIVE:
-					this.consumeDirective(token);
+					this.consumeDirective(token as DirectiveToken);
 					break;
 
 				case TokenType.CONDITIONAL:
@@ -445,14 +445,19 @@ export class Parser {
 		};
 	}
 
-	protected consumeDirective(token: Token): void {
-		const directive = token.data[1];
-		const match = directive.match(/^([a-zA-Z0-9-]+)\s*(.*?)(?:\s*:\s*(.*))?$/);
+	protected consumeDirective(token: DirectiveToken): void {
+		const [text, , action, directive, end] = token.data;
+		if (end === "") {
+			throw new Error(`Missing end bracket "]" on directive "${text}"`);
+		}
+		const match = directive.match(/^(.*?)(?:\s*(?:--|:)\s*(.*))?$/);
+
+		/* istanbul ignore next: should not be possible, would be emitted as comment token */
 		if (!match) {
-			throw new Error(`Failed to parse directive "${directive}"`);
+			throw new Error(`Failed to parse directive "${text}"`);
 		}
 
-		const [, action, data, comment] = match;
+		const [, data, comment] = match;
 		this.trigger("directive", {
 			action,
 			data,

@@ -26,3 +26,8 @@ export interface Token {
 	location: Location;
 	data?: any;
 }
+
+export interface DirectiveToken extends Token {
+	type: TokenType.DIRECTIVE;
+	data: [text: string, begin: "[", action: string, rest: string, end: "]" | ""];
+}
