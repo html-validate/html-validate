@@ -871,6 +871,19 @@ describe("lexer", () => {
 				expect(token.next()).toBeToken({ type: TokenType.EOF });
 				expect(token.next().done).toBeTruthy();
 			});
+
+			it("missing end bracket ]", () => {
+				expect.assertions(3);
+				const token = lexer.tokenize(
+					inlineSource("<!-- [html-validate-action options: comment -->")
+				);
+				expect(token.next()).toBeToken({
+					type: TokenType.DIRECTIVE,
+					data: ["<!-- [html-validate-action options: comment -->", "action options: comment"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
 		});
 
 		/* downlevel reveal is a non-standard "tag", handled separately */

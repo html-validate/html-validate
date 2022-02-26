@@ -996,6 +996,12 @@ describe("parser", () => {
 			expect(events.shift()).toBeUndefined();
 		});
 
+		it("throw when missing end bracket ]", () => {
+			expect.assertions(1);
+			expect(() => {
+				parser.parseHtml("<!-- [html-validate-disable-next foo -- bar -->");
+			}).toThrow("Missing end bracket `]` on directive");
+		});
 		it("throw on invalid directive", () => {
 			expect.assertions(1);
 			expect(() => {
@@ -1008,7 +1014,7 @@ describe("parser", () => {
 						column: 1,
 						size: 1,
 					},
-					data: ["", "!"],
+					data: ["] -->", "!"],
 				});
 			}).toThrow('Failed to parse directive "!"');
 		});

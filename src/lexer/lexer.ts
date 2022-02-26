@@ -27,7 +27,7 @@ const MATCH_SCRIPT_DATA = /^[^]*?(?=<\/script)/;
 const MATCH_SCRIPT_END = /^<(\/)(script)/;
 const MATCH_STYLE_DATA = /^[^]*?(?=<\/style)/;
 const MATCH_STYLE_END = /^<(\/)(style)/;
-const MATCH_DIRECTIVE = /^<!--\s*\[html-validate-(.*?)]\s*-->/;
+const MATCH_DIRECTIVE = /^<!--\s*\[html-validate-(.*?)]?\s*-->/;
 const MATCH_COMMENT = /^<!--([^]*?)-->/;
 const MATCH_CONDITIONAL = /^<!\[([^\]]*?)\]>/;
 
