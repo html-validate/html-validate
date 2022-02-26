@@ -3,7 +3,7 @@ import { Location, ProcessElementContext, Source } from "../context";
 import { DOMTree, HtmlElement, TextNode } from "../dom";
 import { EventCallback } from "../event";
 import HtmlValidate from "../htmlvalidate";
-import { InvalidTokenError, Token, TokenStream, TokenType } from "../lexer";
+import { DirectiveToken, InvalidTokenError, Token, TokenStream, TokenType } from "../lexer";
 import "../jest";
 import { AttributeData } from "./attribute-data";
 import { Parser } from "./parser";
@@ -27,7 +27,7 @@ function mergeEvent(event: string, data: any): any {
 }
 
 class ExposedParser extends Parser {
-	public consumeDirective(token: Token): void {
+	public consumeDirective(token: DirectiveToken): void {
 		super.consumeDirective(token);
 	}
 
@@ -1000,23 +1000,9 @@ describe("parser", () => {
 			expect.assertions(1);
 			expect(() => {
 				parser.parseHtml("<!-- [html-validate-disable-next foo -- bar -->");
-			}).toThrow("Missing end bracket `]` on directive");
-		});
-		it("throw on invalid directive", () => {
-			expect.assertions(1);
-			expect(() => {
-				parser.consumeDirective({
-					type: TokenType.DIRECTIVE,
-					location: {
-						filename: "inline",
-						offset: 0,
-						line: 1,
-						column: 1,
-						size: 1,
-					},
-					data: ["] -->", "!"],
-				});
-			}).toThrow('Failed to parse directive "!"');
+			}).toThrow(
+				'Missing end bracket "]" on directive "<!-- [html-validate-disable-next foo -- bar -->"'
+			);
 		});
 	});
 

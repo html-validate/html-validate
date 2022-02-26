@@ -1,2 +1,3 @@
 export { Lexer, TokenStream, InvalidTokenError } from "./lexer";
-export { Token, TokenType } from "./token";
+export { TokenType } from "./token";
+export type { Token, DirectiveToken } from "./token";

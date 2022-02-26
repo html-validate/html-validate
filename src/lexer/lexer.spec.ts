@@ -806,6 +806,30 @@ describe("lexer", () => {
 		});
 
 		describe("html-validate directive", () => {
+			it("with only action", () => {
+				expect.assertions(3);
+				const markup = "<!-- [html-validate-disable] -->";
+				const token = lexer.tokenize(inlineSource(markup));
+				expect(token.next()).toBeToken({
+					type: TokenType.DIRECTIVE,
+					data: ["<!-- [html-validate-disable] -->", "[", "disable", "", "]"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
+			it("with obscure action", () => {
+				expect.assertions(3);
+				const markup = "<!-- [html-validate-foo-123-bar] -->";
+				const token = lexer.tokenize(inlineSource(markup));
+				expect(token.next()).toBeToken({
+					type: TokenType.DIRECTIVE,
+					data: ["<!-- [html-validate-foo-123-bar] -->", "[", "foo-123-bar", "", "]"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
 			it("with colon comment", () => {
 				expect.assertions(3);
 				const token = lexer.tokenize(
@@ -813,7 +837,13 @@ describe("lexer", () => {
 				);
 				expect(token.next()).toBeToken({
 					type: TokenType.DIRECTIVE,
-					data: ["<!-- [html-validate-action options: comment] -->", "action options: comment"],
+					data: [
+						"<!-- [html-validate-action options: comment] -->",
+						"[",
+						"action",
+						"options: comment",
+						"]",
+					],
 				});
 				expect(token.next()).toBeToken({ type: TokenType.EOF });
 				expect(token.next().done).toBeTruthy();
@@ -826,7 +856,13 @@ describe("lexer", () => {
 				);
 				expect(token.next()).toBeToken({
 					type: TokenType.DIRECTIVE,
-					data: ["<!-- [html-validate-action options -- comment] -->", "action options -- comment"],
+					data: [
+						"<!-- [html-validate-action options -- comment] -->",
+						"[",
+						"action",
+						"options -- comment",
+						"]",
+					],
 				});
 				expect(token.next()).toBeToken({ type: TokenType.EOF });
 				expect(token.next().done).toBeTruthy();
@@ -837,7 +873,7 @@ describe("lexer", () => {
 				const token = lexer.tokenize(inlineSource("<!-- [html-validate-action options] -->"));
 				expect(token.next()).toBeToken({
 					type: TokenType.DIRECTIVE,
-					data: ["<!-- [html-validate-action options] -->", "action options"],
+					data: ["<!-- [html-validate-action options] -->", "[", "action", "options", "]"],
 				});
 				expect(token.next()).toBeToken({ type: TokenType.EOF });
 				expect(token.next().done).toBeTruthy();
@@ -852,7 +888,10 @@ describe("lexer", () => {
 					type: TokenType.DIRECTIVE,
 					data: [
 						"<!--   \t\n\t   [html-validate-action options: comment]   \t\n\t   -->",
-						"action options: comment",
+						"[",
+						"action",
+						"options: comment",
+						"]",
 					],
 				});
 				expect(token.next()).toBeToken({ type: TokenType.EOF });
@@ -866,7 +905,13 @@ describe("lexer", () => {
 				);
 				expect(token.next()).toBeToken({
 					type: TokenType.DIRECTIVE,
-					data: ["<!--[html-validate-action options: comment]-->", "action options: comment"],
+					data: [
+						"<!--[html-validate-action options: comment]-->",
+						"[",
+						"action",
+						"options: comment",
+						"]",
+					],
 				});
 				expect(token.next()).toBeToken({ type: TokenType.EOF });
 				expect(token.next().done).toBeTruthy();
@@ -879,7 +924,13 @@ describe("lexer", () => {
 				);
 				expect(token.next()).toBeToken({
 					type: TokenType.DIRECTIVE,
-					data: ["<!-- [html-validate-action options: comment -->", "action options: comment"],
+					data: [
+						"<!-- [html-validate-action options: comment -->",
+						"[",
+						"action",
+						"options: comment",
+						"",
+					],
 				});
 				expect(token.next()).toBeToken({ type: TokenType.EOF });
 				expect(token.next().done).toBeTruthy();
