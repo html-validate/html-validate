@@ -1,5 +1,17 @@
 # html-validate changelog
 
+## [6.5.0](https://gitlab.com/html-validate/html-validate/compare/v6.4.0...v6.5.0) (2022-02-27)
+
+### Features
+
+- **rules:** support message interpolation ([9356809](https://gitlab.com/html-validate/html-validate/commit/935680968bd855f3e11a35b5785bf4dcd58289f7))
+- support `--` as delimiter for comments ([7c90250](https://gitlab.com/html-validate/html-validate/commit/7c90250c0dfd6f88780401d399fb375ff349022a)), closes [#143](https://gitlab.com/html-validate/html-validate/issues/143)
+- throw error when directive is missing end bracket ([4cba14b](https://gitlab.com/html-validate/html-validate/commit/4cba14b098bcf5ce719107cce0973855414413ad))
+
+### Bug Fixes
+
+- **dom:** proper location when using `DOMTokenList` with multiple whitespace ([7b2d62c](https://gitlab.com/html-validate/html-validate/commit/7b2d62c097c80eb6519a0989355a140d59f9aec5))
+
 ## [6.4.0](https://gitlab.com/html-validate/html-validate/compare/v6.3.2...v6.4.0) (2022-02-18)
 
 ### Features
