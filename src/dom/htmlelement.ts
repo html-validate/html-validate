@@ -1,5 +1,5 @@
 import { Location, sliceLocation } from "../context";
-import { Token } from "../lexer";
+import { type TagCloseToken, type TagOpenToken } from "../lexer";
 import { MetaCopyableProperty, MetaElement, setMetaProperty } from "../meta/element";
 import { MetaTable } from "../meta/table";
 import { Attribute } from "./attribute";
@@ -88,8 +88,8 @@ export class HtmlElement extends DOMNode {
 	 * @internal
 	 */
 	public static fromTokens(
-		startToken: Token,
-		endToken: Token,
+		startToken: TagOpenToken,
+		endToken: TagCloseToken,
 		parent: HtmlElement | null,
 		metaTable: MetaTable | null
 	): HtmlElement {
@@ -533,7 +533,7 @@ export class HtmlElement extends DOMNode {
 	}
 }
 
-function isClosed(endToken: Token, meta: MetaElement | null): NodeClosed {
+function isClosed(endToken: TagCloseToken, meta: MetaElement | null): NodeClosed {
 	let closed = NodeClosed.Open;
 
 	if (meta && meta.void) {

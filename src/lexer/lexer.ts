@@ -1,5 +1,5 @@
 import { ContentModel, Context, Location, Source, State } from "../context";
-import { Token, TokenType } from "./token";
+import { type TagCloseToken, type Token, TokenType } from "./token";
 
 type NextStateCallback = (token: Token | null) => State;
 type LexerTest = [RegExp | false, State | NextStateCallback, TokenType | false];
@@ -99,17 +99,17 @@ export class Lexer {
 			previousLength = context.string.length;
 		}
 
-		yield this.token(context, TokenType.EOF);
+		yield this.token(context, TokenType.EOF, []);
 	}
 
-	private token(context: Context, type: TokenType, data?: RegExpMatchArray | null): Token {
-		const size = data ? data[0].length : 0;
+	private token(context: Context, type: TokenType, data: RegExpMatchArray): Token {
+		const size = data.length > 0 ? data[0].length : 0;
 		const location = context.getLocation(size);
 		return {
 			type,
 			location,
-			data: data ? Array.from(data) : null,
-		};
+			data: Array.from(data),
+		} as Token;
 	}
 
 	/* istanbul ignore next: used to provide a better error when an unhandled state happens */
@@ -141,18 +141,19 @@ export class Lexer {
 	}
 
 	private *match(context: Context, tests: LexerTest[], error: string): Iterable<Token> {
-		let match: RegExpMatchArray | null = null;
 		const n = tests.length;
 		for (let i = 0; i < n; i++) {
 			const [regex, nextState, tokenType] = tests[i];
 
-			if (regex === false || (match = context.string.match(regex))) {
+			const match = regex ? context.string.match(regex) : [""];
+			if (match) {
 				let token: Token | null = null;
 				if (tokenType !== false) {
-					yield (token = this.token(context, tokenType, match));
+					token = this.token(context, tokenType, match);
+					yield token;
 				}
 				const state = this.evalNextState(nextState, token);
-				context.consume(match || 0, state);
+				context.consume(match, state);
 				this.enter(context, state, match);
 				return;
 			}
@@ -210,17 +211,18 @@ export class Lexer {
 	private *tokenizeTag(context: Context): Iterable<Token> {
 		/* eslint-disable-next-line consistent-return -- exhaustive switch handled by typescript */
 		function nextState(token: Token | null): State {
+			const tagCloseToken = token as TagCloseToken;
 			switch (context.contentModel) {
 				case ContentModel.TEXT:
 					return State.TEXT;
 				case ContentModel.SCRIPT:
-					if (token && token.data[0][0] !== "/") {
+					if (tagCloseToken && tagCloseToken.data[0][0] !== "/") {
 						return State.SCRIPT;
 					} else {
 						return State.TEXT; /* <script/> (not legal but handle it anyway so the lexer doesn't choke on it) */
 					}
 				case ContentModel.STYLE:
-					if (token && token.data[0][0] !== "/") {
+					if (tagCloseToken && tagCloseToken.data[0][0] !== "/") {
 						return State.STYLE;
 					} else {
 						return State.TEXT; /* <style/> */

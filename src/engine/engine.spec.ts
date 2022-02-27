@@ -444,7 +444,7 @@ describe("Engine", () => {
 				{ token: "TAG_CLOSE", data: ">", location: "inline:1:36" },
 				{ token: "TAG_OPEN", data: "</div", location: "inline:1:37" },
 				{ token: "TAG_CLOSE", data: ">", location: "inline:1:42" },
-				{ token: "EOF", data: null, location: "inline:1:43" },
+				{ token: "EOF", data: "", location: "inline:1:43" },
 			]);
 		});
 	});

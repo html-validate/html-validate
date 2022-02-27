@@ -3,7 +3,17 @@ import { Location, ProcessElementContext, Source } from "../context";
 import { DOMTree, HtmlElement, TextNode } from "../dom";
 import { EventCallback } from "../event";
 import HtmlValidate from "../htmlvalidate";
-import { DirectiveToken, InvalidTokenError, Token, TokenStream, TokenType } from "../lexer";
+import {
+	type AttrNameToken,
+	type CommentToken,
+	type DirectiveToken,
+	type TagCloseToken,
+	type TagOpenToken,
+	type Token,
+	type TokenStream,
+	InvalidTokenError,
+	TokenType,
+} from "../lexer";
 import "../jest";
 import { AttributeData } from "./attribute-data";
 import { Parser } from "./parser";
@@ -1515,8 +1525,8 @@ describe("parser", () => {
 						column: 1,
 						size: 1,
 					},
-					data: null,
-				},
+					data: ["<div", "", "div"],
+				} as TagOpenToken,
 				{
 					type: TokenType.ATTR_NAME,
 					location: {
@@ -1526,8 +1536,8 @@ describe("parser", () => {
 						column: 2,
 						size: 1,
 					},
-					data: null,
-				},
+					data: ["contenteditable", "contenteditable"],
+				} as AttrNameToken,
 				{
 					type: TokenType.TAG_CLOSE,
 					location: {
@@ -1537,8 +1547,8 @@ describe("parser", () => {
 						column: 4,
 						size: 1,
 					},
-					data: null,
-				},
+					data: [">"],
+				} as TagCloseToken,
 				{
 					type: TokenType.COMMENT,
 					location: {
@@ -1548,8 +1558,8 @@ describe("parser", () => {
 						column: 5,
 						size: 1,
 					},
-					data: null,
-				},
+					data: ["<-- foo -->", " foo "],
+				} as CommentToken,
 			][Symbol.iterator]();
 			const location: Location = {
 				filename: "inline",
@@ -1569,7 +1579,7 @@ describe("parser", () => {
 						column: 1,
 						size: 1,
 					},
-					data: null,
+					data: ["<div", "", "div"],
 				},
 				{
 					type: TokenType.ATTR_NAME,
@@ -1580,7 +1590,7 @@ describe("parser", () => {
 						column: 2,
 						size: 1,
 					},
-					data: null,
+					data: ["contenteditable", "contenteditable"],
 				},
 				{
 					type: TokenType.TAG_CLOSE,
@@ -1591,7 +1601,7 @@ describe("parser", () => {
 						column: 4,
 						size: 1,
 					},
-					data: null,
+					data: [">"],
 				},
 			]);
 		});
@@ -1608,8 +1618,8 @@ describe("parser", () => {
 						column: 5,
 						size: 1,
 					},
-					data: null,
-				},
+					data: ["<!-- foo -->", " foo "],
+				} as CommentToken,
 			][Symbol.iterator]();
 			const location: Location = {
 				filename: "inline",
