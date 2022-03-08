@@ -138,7 +138,8 @@ export function build(format) {
 						 */
 						__filename: (filename) => {
 							const relative = path.relative(path.join(__dirname, "src"), filename);
-							return `"@/${relative}"`;
+							const normalized = relative.replace(/\\/g, "/");
+							return `"@/${normalized}"`;
 						},
 					},
 				}),
