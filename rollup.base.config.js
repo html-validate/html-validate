@@ -115,6 +115,7 @@ export function build(format) {
 				manualChunks,
 				chunkFileNames: "[name].js",
 			},
+			preserveEntrySignatures: "strict",
 			external,
 			plugins: [
 				virtual({
@@ -162,6 +163,7 @@ export function bundleDts(...formats) {
 				manualChunks,
 				chunkFileNames: "[name].d.ts",
 			},
+			preserveEntrySignatures: "strict",
 			plugins: [
 				dts(),
 				copy({
