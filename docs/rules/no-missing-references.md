@@ -47,5 +47,5 @@ Examples of **correct** code for this rule:
 
 ## Version history
 
-- %version% - Handle SVG `<title>` and `<desc>`
+- 6.6.0 - Handle SVG `<title>` and `<desc>`
 - 5.5.0 - Extended list of checked aria attributes.

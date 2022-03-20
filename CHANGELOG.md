@@ -1,5 +1,16 @@
 # html-validate changelog
 
+## [6.6.0](https://gitlab.com/html-validate/html-validate/compare/v6.5.0...v6.6.0) (2022-03-20)
+
+### Features
+
+- **parser:** parse SVG `<title>` and `<desc>` elements ([51025e1](https://gitlab.com/html-validate/html-validate/commit/51025e1d7a0256d150f7b38e99b8c3954df1df4e)), closes [#43](https://gitlab.com/html-validate/html-validate/issues/43) [#146](https://gitlab.com/html-validate/html-validate/issues/146)
+
+### Bug Fixes
+
+- **cli:** report error when mode flags are missing filename ([7e87cd4](https://gitlab.com/html-validate/html-validate/commit/7e87cd4e432df1f98459a8cd356b9790048afb0a)), closes [#144](https://gitlab.com/html-validate/html-validate/issues/144)
+- disable `svg-focusable` by default ([d15a503](https://gitlab.com/html-validate/html-validate/commit/d15a50356df8c8250e2ebeda48a816fe5cda99d0))
+
 ## [6.5.0](https://gitlab.com/html-validate/html-validate/compare/v6.4.0...v6.5.0) (2022-02-27)
 
 ### Features
