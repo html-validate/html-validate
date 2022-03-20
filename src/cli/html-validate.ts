@@ -45,6 +45,40 @@ function getMode(argv: { [key: string]: any }): Mode {
 	return Mode.LINT;
 }
 
+function modeToFlag(mode: Mode): string | null {
+	switch (mode) {
+		case Mode.LINT:
+			return null;
+		case Mode.INIT:
+			return "--init";
+		case Mode.DUMP_EVENTS:
+			return "--dump-events";
+		case Mode.DUMP_TOKENS:
+			return "--dump-tokens";
+		case Mode.DUMP_TREE:
+			return "--dump-tokens";
+		case Mode.DUMP_SOURCE:
+			return "--dump-source";
+		case Mode.PRINT_CONFIG:
+			return "--print-config";
+	}
+}
+
+function requiresFilename(mode: Mode): boolean {
+	switch (mode) {
+		case Mode.LINT:
+			return true;
+		case Mode.INIT:
+			return false;
+		case Mode.DUMP_EVENTS:
+		case Mode.DUMP_TOKENS:
+		case Mode.DUMP_TREE:
+		case Mode.DUMP_SOURCE:
+		case Mode.PRINT_CONFIG:
+			return true;
+	}
+}
+
 function lint(files: string[]): Report {
 	const reports = files.map((filename: string) => {
 		try {
@@ -216,9 +250,20 @@ if (argv.version) {
 	process.exit();
 }
 
-if (argv.help || (argv._.length === 0 && !argv.init)) {
+if (argv.help) {
 	showUsage();
 	process.exit();
+}
+
+if (argv._.length === 0) {
+	const mode = getMode(argv);
+	if (mode === Mode.LINT) {
+		showUsage();
+		process.exit(0);
+	} else if (requiresFilename(mode)) {
+		console.error(`\`${modeToFlag(mode)}\` requires a filename.`);
+		process.exit(1);
+	}
 }
 
 const cli = new CLI({
@@ -277,6 +322,10 @@ try {
 				process.exit(1);
 			});
 	} else if (mode === Mode.PRINT_CONFIG) {
+		if (files.length > 0) {
+			console.error(`\`${modeToFlag(mode)}\` expected a single filename but got multiple:`, files);
+			process.exit(1);
+		}
 		const config = htmlvalidate.getConfigFor(files[0]);
 		const json = JSON.stringify(config.get(), null, 2);
 		console.log(json);
