@@ -25,6 +25,28 @@ describe("wcag/h30", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report when link has svg with <title>", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<a>
+				<svg><title>lorem ipsum</title></svg>
+			</a>
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report when link has svg with <desc>", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<a>
+				<svg><desc>lorem ipsum</desc></svg>
+			</a>
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should not report when link has aria-label", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<a aria-label="lorem ipsum"></a>`;

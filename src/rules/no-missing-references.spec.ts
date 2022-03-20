@@ -62,6 +62,30 @@ describe("rule no-missing-references", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error when reference is <title> element in <svg>", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<div aria-labelledby="existing"></div>
+			<svg>
+				<title id="existing">lorem ipsum</title>
+			</svg>
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when reference is <desc> element in <svg>", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<div aria-labelledby="existing"></div>
+			<svg>
+				<desc id="existing">lorem ipsum</desc>
+			</svg>
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it('should report error when <label for=".."> is referencing missing element', () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString('<label for="missing"></label>');
