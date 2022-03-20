@@ -62,7 +62,6 @@ export class Parser {
 	 * @param source - HTML markup.
 	 * @returns DOM tree representing the HTML markup.
 	 */
-	// eslint-disable-next-line complexity
 	public parseHtml(source: string | Source): HtmlElement {
 		if (typeof source === "string") {
 			source = {
@@ -96,50 +95,7 @@ export class Parser {
 		let it = this.next(tokenStream);
 		while (!it.done) {
 			const token = it.value;
-
-			switch (token.type) {
-				case TokenType.UNICODE_BOM:
-					/* ignore */
-					break;
-
-				case TokenType.TAG_OPEN:
-					this.consumeTag(source, token, tokenStream);
-					break;
-
-				case TokenType.WHITESPACE:
-					this.trigger("whitespace", {
-						text: token.data[0],
-						location: token.location,
-					});
-					this.appendText(token.data[0], token.location);
-					break;
-
-				case TokenType.DIRECTIVE:
-					this.consumeDirective(token);
-					break;
-
-				case TokenType.CONDITIONAL:
-					this.consumeConditional(token);
-					break;
-
-				case TokenType.COMMENT:
-					this.consumeComment(token);
-					break;
-
-				case TokenType.DOCTYPE_OPEN:
-					this.consumeDoctype(token, tokenStream);
-					break;
-
-				case TokenType.TEXT:
-				case TokenType.TEMPLATING:
-					this.appendText(token.data[0], token.location);
-					break;
-
-				case TokenType.EOF:
-					this.closeTree(source, token.location);
-					break;
-			}
-
+			this.consume(source, token, tokenStream);
 			it = this.next(tokenStream);
 		}
 
@@ -191,6 +147,52 @@ export class Parser {
 			/* the parent element is closed, check if the active element would be
 			 * implicitly closed when parent is. */
 			return Boolean(active.parent && active.parent.is(tagName) && meta.includes(active.tagName));
+		}
+	}
+
+	/* eslint-disable-next-line complexity */
+	protected consume(source: Source, token: Token, tokenStream: TokenStream): void {
+		switch (token.type) {
+			case TokenType.UNICODE_BOM:
+				/* ignore */
+				break;
+
+			case TokenType.TAG_OPEN:
+				this.consumeTag(source, token, tokenStream);
+				break;
+
+			case TokenType.WHITESPACE:
+				this.trigger("whitespace", {
+					text: token.data[0],
+					location: token.location,
+				});
+				this.appendText(token.data[0], token.location);
+				break;
+
+			case TokenType.DIRECTIVE:
+				this.consumeDirective(token);
+				break;
+
+			case TokenType.CONDITIONAL:
+				this.consumeConditional(token);
+				break;
+
+			case TokenType.COMMENT:
+				this.consumeComment(token);
+				break;
+
+			case TokenType.DOCTYPE_OPEN:
+				this.consumeDoctype(token, tokenStream);
+				break;
+
+			case TokenType.TEXT:
+			case TokenType.TEMPLATING:
+				this.appendText(token.data[0], token.location);
+				break;
+
+			case TokenType.EOF:
+				this.closeTree(source, token.location);
+				break;
 		}
 	}
 
