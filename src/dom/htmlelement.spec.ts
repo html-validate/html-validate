@@ -130,6 +130,23 @@ describe("HtmlElement", () => {
 			const node = HtmlElement.fromTokens(startToken, endToken, null, null);
 			expect(node.closed).toEqual(NodeClosed.VoidSelfClosed);
 		});
+
+		it("should append namespace if given", () => {
+			expect.assertions(3);
+			const [startToken, endToken] = createTokens("title"); // <title>
+			const title: MetaData = mockEntry();
+			const svgTitle: MetaData = mockEntry();
+			const table = new MetaTable();
+			table.loadFromObject({ title, "svg:title": svgTitle });
+			const node = HtmlElement.fromTokens(startToken, endToken, null, table, "svg");
+			expect(node.nodeName).toBe("svg:title");
+			expect(node.tagName).toBe("svg:title");
+			expect(node.meta).toEqual(
+				expect.objectContaining({
+					tagName: "svg:title",
+				})
+			);
+		});
 	});
 
 	describe("annotatedName", () => {
