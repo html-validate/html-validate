@@ -50,7 +50,7 @@ const config: ConfigData = {
 		"prefer-tbody": "error",
 		"script-element": "error",
 		"script-type": "error",
-		"svg-focusable": "error",
+		"svg-focusable": "off",
 		"text-content": "error",
 		"unrecognized-char-ref": "error",
 		void: "off",

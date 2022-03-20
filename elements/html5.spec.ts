@@ -170,6 +170,9 @@ describe("HTML elements", () => {
 			 * yield any errors */
 			"prefer-button": "off",
 
+			/* disabled by default, should be included in these tests */
+			"svg-focusable": "error",
+
 			/* void is being deprecated */
 			void: "off",
 
