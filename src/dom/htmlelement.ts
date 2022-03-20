@@ -86,15 +86,19 @@ export class HtmlElement extends DOMNode {
 
 	/**
 	 * @internal
+	 *
+	 * @param namespace - If given it is appended to the tagName.
 	 */
 	public static fromTokens(
 		startToken: TagOpenToken,
 		endToken: TagCloseToken,
 		parent: HtmlElement | null,
-		metaTable: MetaTable | null
+		metaTable: MetaTable | null,
+		namespace: string = ""
 	): HtmlElement {
-		const tagName = startToken.data[2];
-		if (!tagName) {
+		const name = startToken.data[2];
+		const tagName = namespace ? `${namespace}:${name}` : name;
+		if (!name) {
 			throw new Error("tagName cannot be empty");
 		}
 
