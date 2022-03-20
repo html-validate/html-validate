@@ -1283,6 +1283,103 @@ describe("parser", () => {
 			expect(events.shift()).toBeUndefined();
 		});
 
+		it("svg with title", () => {
+			expect.assertions(9);
+			parser.parseHtml("<svg><title></title></svg>");
+			expect(events.shift()).toEqual({
+				event: "tag:start",
+				target: "svg",
+			});
+			expect(events.shift()).toEqual({
+				event: "tag:ready",
+				target: "svg",
+			});
+			expect(events.shift()).toEqual({
+				event: "tag:start",
+				target: "svg:title",
+			});
+			expect(events.shift()).toEqual({
+				event: "tag:ready",
+				target: "svg:title",
+			});
+			expect(events.shift()).toEqual({
+				event: "tag:end",
+				previous: "svg:title",
+				target: "svg:title",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "svg:title",
+			});
+			expect(events.shift()).toEqual({
+				event: "tag:end",
+				previous: "svg",
+				target: "svg",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "svg",
+			});
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it("svg with nested title", () => {
+			expect.assertions(13);
+			parser.parseHtml("<svg><title><title></title></title></svg>");
+			expect(events.shift()).toEqual({
+				event: "tag:start",
+				target: "svg",
+			});
+			expect(events.shift()).toEqual({
+				event: "tag:ready",
+				target: "svg",
+			});
+			expect(events.shift()).toEqual({
+				event: "tag:start",
+				target: "svg:title",
+			});
+			expect(events.shift()).toEqual({
+				event: "tag:ready",
+				target: "svg:title",
+			});
+			expect(events.shift()).toEqual({
+				event: "tag:start",
+				target: "svg:title",
+			});
+			expect(events.shift()).toEqual({
+				event: "tag:ready",
+				target: "svg:title",
+			});
+			expect(events.shift()).toEqual({
+				event: "tag:end",
+				previous: "svg:title",
+				target: "svg:title",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "svg:title",
+			});
+			expect(events.shift()).toEqual({
+				event: "tag:end",
+				previous: "svg:title",
+				target: "svg:title",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "svg:title",
+			});
+			expect(events.shift()).toEqual({
+				event: "tag:end",
+				previous: "svg",
+				target: "svg",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "svg",
+			});
+			expect(events.shift()).toBeUndefined();
+		});
+
 		it("should parse elements with text", () => {
 			expect.assertions(8);
 			const document = parser.parseHtml("<b>foo</b> <u>bar</ul>");

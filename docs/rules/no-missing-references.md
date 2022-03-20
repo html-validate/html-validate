@@ -7,8 +7,7 @@ summary: Require all element references to exist
 
 # No missing references (`no-missing-references`)
 
-Require all elements referenced by attributes such as `for` to exist in the
-current document.
+Require all elements referenced by attributes such as `for` to exist in the current document.
 
 Checked attributes:
 
@@ -22,6 +21,8 @@ Checked attributes:
 - `*[aria-flowto]`
 - `*[aria-labelledby]`
 - `*[aria-owns]`
+
+A current limitation is that only the `<title>` and `<desc>` elements from an SVG can be referenced.
 
 ## Rule details
 
@@ -46,4 +47,5 @@ Examples of **correct** code for this rule:
 
 ## Version history
 
+- %version% - Handle SVG `<title>` and `<desc>`
 - 5.5.0 - Extended list of checked aria attributes.

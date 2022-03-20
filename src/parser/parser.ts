@@ -35,6 +35,10 @@ function isAttrValueToken(token?: Token): token is AttrValueToken {
 	return Boolean(token && token.type === TokenType.ATTR_VALUE);
 }
 
+function svgShouldRetainTag(foreignTagName: string, tagName: string): boolean {
+	return foreignTagName === "svg" && ["title", "desc"].includes(tagName);
+}
+
 /**
  * Parse HTML document into a DOM tree.
  *
@@ -43,6 +47,7 @@ function isAttrValueToken(token?: Token): token is AttrValueToken {
 export class Parser {
 	private readonly event: EventHandler;
 	private readonly metaTable: MetaTable;
+	private currentNamespace: string = "";
 	private dom: DOMTree;
 
 	/**
@@ -204,7 +209,13 @@ export class Parser {
 		const endToken = tokens.slice(-1)[0] as TagCloseToken;
 		const closeOptional = this.closeOptional(startToken);
 		const parent = closeOptional ? this.dom.getActive().parent : this.dom.getActive();
-		const node = HtmlElement.fromTokens(startToken, endToken, parent, this.metaTable);
+		const node = HtmlElement.fromTokens(
+			startToken,
+			endToken,
+			parent,
+			this.metaTable,
+			this.currentNamespace
+		);
 		const isStartTag = !startToken.data[1];
 		const isClosing = !isStartTag || node.closed !== NodeClosed.Open;
 		const isForeign = node.meta && node.meta.foreign;
@@ -332,6 +343,16 @@ export class Parser {
 			const tokens = Array.from(this.consumeUntil(tokenStream, TokenType.TAG_OPEN, errorLocation));
 			const [last] = tokens.slice(-1) as [TagOpenToken];
 			const [, tagClosed, tagName] = last.data;
+
+			/* special case: svg <title> and <desc> should be intact as it affects accessibility */
+			if (!tagClosed && svgShouldRetainTag(foreignTagName, tagName)) {
+				const oldNamespace = this.currentNamespace;
+				this.currentNamespace = "svg";
+				this.consumeTag(source, last, tokenStream);
+				this.consumeUntilMatchingTag(source, tokenStream, tagName);
+				this.currentNamespace = oldNamespace;
+				continue;
+			}
 
 			/* keep going unless the new tag matches the foreign root element */
 			if (tagName !== foreignTagName) {
@@ -563,6 +584,39 @@ export class Parser {
 			errorLocation,
 			`stream ended before ${TokenType[search]} token was found`
 		);
+	}
+
+	/**
+	 * Consumes tokens until a matching close-tag is found. Tags are appended to
+	 * the document.
+	 *
+	 * @internal
+	 */
+	protected consumeUntilMatchingTag(
+		source: Source,
+		tokenStream: TokenStream,
+		searchTag: string
+	): void {
+		let numOpen = 1;
+		let it = this.next(tokenStream);
+		while (!it.done) {
+			const token = it.value;
+			this.consume(source, token, tokenStream);
+			if (token.type === TokenType.TAG_OPEN) {
+				const [, close, tagName] = token.data;
+				if (tagName === searchTag) {
+					if (close) {
+						numOpen--;
+					} else {
+						numOpen++;
+					}
+					if (numOpen === 0) {
+						return;
+					}
+				}
+			}
+			it = this.next(tokenStream);
+		}
 	}
 
 	private next(tokenStream: TokenStream): IteratorResult<Token> {
