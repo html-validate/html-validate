@@ -154,7 +154,7 @@
   "devDependencies": {
     "@babel/core": "7.17.8",
     "@babel/preset-env": "7.16.11",
-    "@html-validate/commitlint-config": "2.1.8",
+    "@html-validate/commitlint-config": "2.1.9",
     "@html-validate/eslint-config": "5.3.12",
     "@html-validate/eslint-config-jest": "5.3.6",
     "@html-validate/eslint-config-typescript": "5.3.12",
