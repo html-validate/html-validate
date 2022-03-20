@@ -131,7 +131,10 @@ The new configuration will be written to the current directory (in
 
 ### `--print-config`
 
-Instead of validating file print the configuration generated.
+Instead of validating a file, print the effective configuration that would be used.
+Requires a single filename.
+
+    html-validate --print-config file.html
 
 ### `-h`, `--help`
 
