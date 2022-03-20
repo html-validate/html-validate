@@ -13,51 +13,59 @@ describe("wcag/h30", () => {
 
 	it("should not report when link has text", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<a>lorem ipsum</a>");
+		const markup = /* HTML */ `<a>lorem ipsum</a>`;
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report when link has image with alt-text", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<a><img alt="lorem ipsum"></a>');
+		const markup = /* HTML */ `<a><img alt="lorem ipsum" /></a>`;
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report when link has aria-label", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<a aria-label="lorem ipsum"></a>');
+		const markup = /* HTML */ `<a aria-label="lorem ipsum"></a>`;
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report when descendant has aria-label", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<a><span aria-label="lorem ipsum"></span></a>');
+		const markup = /* HTML */ `<a><span aria-label="lorem ipsum"></span></a>`;
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report when link is hidden from accessibility tree", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<a aria-hidden="true">');
+		const markup = /* HTML */ `<a aria-hidden="true"></a>`;
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should report error when link is missing text", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString("<a></a>");
+		const markup = /* HTML */ `<a></a>`;
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("wcag/h30", "Anchor link must have a text describing its purpose");
 	});
 
 	it("should report error when link is missing text and image alt", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString("<a><img></a>");
+		const markup = /* HTML */ `<a><img /></a>`;
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("wcag/h30", "Anchor link must have a text describing its purpose");
 	});
 
 	it("should report error when link is missing text and image has empty alt", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString('<a><img alt=""></a>');
+		const markup = /* HTML */ `<a><img alt="" /></a>`;
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("wcag/h30", "Anchor link must have a text describing its purpose");
 	});
