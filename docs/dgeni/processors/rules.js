@@ -17,6 +17,22 @@ function isRuleDocument(doc) {
 	return doc.docType === "rule";
 }
 
+/**
+ * @returns {boolean}
+ */
+function isEnabled(value) {
+	if (!value || value === "off") {
+		return false;
+	}
+	if (value === "warn" || value === "error") {
+		return true;
+	}
+	if (Array.isArray(value)) {
+		return isEnabled(value[0]);
+	}
+	throw new Error(`Don't know how to process "${value}"`);
+}
+
 module.exports = function rulesProcessor(renderDocsProcessor) {
 	return {
 		$runAfter: ["paths-computed"],
@@ -51,7 +67,7 @@ module.exports = function rulesProcessor(renderDocsProcessor) {
 					const key = `html-validate:${presetName}`;
 					const config = configPresets[key];
 					if (config && config.rules) {
-						result[presetName] = Boolean(config.rules[doc.name]);
+						result[presetName] = isEnabled(config.rules[doc.name]);
 					}
 					return result;
 				}, {}),
