@@ -9,6 +9,7 @@ import { CLI } from "./cli";
 import { Mode, modeToFlag } from "./mode";
 import { lint } from "./actions/lint";
 import { init } from "./actions/init";
+import { printConfig } from "./actions/print-config";
 
 interface ParsedArgs {
 	config?: string;
@@ -215,6 +216,17 @@ function showVersion(): void {
 	process.stdout.write(`${name}-${version}\n`);
 }
 
+function handleResult(success: boolean): never {
+	process.exit(success ? 0 : 1);
+}
+
+function handleError(err: unknown): never {
+	if (err) {
+		console.error(err);
+	}
+	process.exit(1);
+}
+
 if (argv.stdin) {
 	argv._.push("-");
 }
@@ -273,33 +285,11 @@ try {
 			formatter,
 			maxWarnings,
 			stdinFilename: argv["stdin-filename"] ?? false,
-		})
-			.then((success) => {
-				process.exit(success ? 0 : 1);
-			})
-			.catch((err) => {
-				console.error(err);
-				process.exit(1);
-			});
+		}).then(handleResult, handleError);
 	} else if (mode === Mode.INIT) {
-		init(cli, process.stdout, { cwd: process.cwd() })
-			.then((success) => {
-				process.exit(success ? 0 : 1);
-			})
-			.catch((err) => {
-				if (err) {
-					console.error(err);
-				}
-				process.exit(1);
-			});
+		init(cli, process.stdout, { cwd: process.cwd() }).then(handleResult, handleError);
 	} else if (mode === Mode.PRINT_CONFIG) {
-		if (files.length > 1) {
-			console.error(`\`${modeToFlag(mode)}\` expected a single filename but got multiple:`, files);
-			process.exit(1);
-		}
-		const config = htmlvalidate.getConfigFor(files[0]);
-		const json = JSON.stringify(config.get(), null, 2);
-		console.log(json);
+		printConfig(htmlvalidate, process.stdout, files).then(handleResult, handleError);
 	} else {
 		const output = dump(files, mode);
 		console.log(output);
