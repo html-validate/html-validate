@@ -2,11 +2,12 @@
 import path from "path";
 import kleur from "kleur";
 import minimist from "minimist";
-import { TokenDump, SchemaValidationError, UserError, Report, Reporter, Result } from "..";
+import { TokenDump, SchemaValidationError, UserError } from "..";
 import { name, version, bugs as pkgBugs } from "../generated/package";
 import { eventFormatter } from "./json";
 import { CLI } from "./cli";
 import { Mode, modeToFlag } from "./mode";
+import { lint } from "./actions/lint";
 
 interface ParsedArgs {
 	config?: string;
@@ -69,18 +70,6 @@ function requiresFilename(mode: Mode): boolean {
 	}
 }
 
-function lint(files: string[]): Report {
-	const reports = files.map((filename: string) => {
-		try {
-			return htmlvalidate.validateFile(filename);
-		} catch (err) {
-			console.error(kleur.red(`Validator crashed when parsing "${filename}"`));
-			throw err;
-		}
-	});
-	return Reporter.merge(reports);
-}
-
 function dump(files: string[], mode: Mode): string {
 	let lines: string[][] = [];
 	switch (mode) {
@@ -108,13 +97,6 @@ function dump(files: string[], mode: Mode): string {
 	}
 	const flat = lines.reduce((s: string[], c: string[]) => s.concat(c), []);
 	return flat.join("\n");
-}
-
-function renameStdin(report: Report, filename: string): void {
-	const stdin = report.results.find((cur: Result) => cur.filePath === "/dev/stdin");
-	if (stdin) {
-		stdin.filePath = filename;
-	}
 }
 
 function handleValidationError(err: SchemaValidationError): void {
@@ -286,22 +268,18 @@ if (files.length === 0 && mode !== Mode.INIT) {
 
 try {
 	if (mode === Mode.LINT) {
-		const result = lint(files);
-
-		/* rename stdin if an explicit filename was passed */
-		const stdinFilename = argv["stdin-filename"];
-		if (stdinFilename) {
-			renameStdin(result, stdinFilename);
-		}
-
-		process.stdout.write(formatter(result));
-
-		if (maxWarnings >= 0 && result.warningCount > maxWarnings) {
-			console.log(`\nhtml-validate found too many warnings (maxiumum: ${maxWarnings}).`);
-			result.valid = false;
-		}
-
-		process.exit(result.valid ? 0 : 1);
+		lint(htmlvalidate, process.stdout, files, {
+			formatter,
+			maxWarnings,
+			stdinFilename: argv["stdin-filename"] ?? false,
+		})
+			.then((success) => {
+				process.exit(success ? 0 : 1);
+			})
+			.catch((err) => {
+				console.error(err);
+				process.exit(1);
+			});
 	} else if (mode === Mode.INIT) {
 		cli
 			.init(process.cwd())
