@@ -2,14 +2,14 @@
 import path from "path";
 import kleur from "kleur";
 import minimist from "minimist";
-import { TokenDump, SchemaValidationError, UserError } from "..";
+import { SchemaValidationError, UserError } from "..";
 import { name, version, bugs as pkgBugs } from "../generated/package";
-import { eventFormatter } from "./json";
 import { CLI } from "./cli";
 import { Mode, modeToFlag } from "./mode";
 import { lint } from "./actions/lint";
 import { init } from "./actions/init";
 import { printConfig } from "./actions/print-config";
+import { dump } from "./actions/dump";
 
 interface ParsedArgs {
 	config?: string;
@@ -70,35 +70,6 @@ function requiresFilename(mode: Mode): boolean {
 		case Mode.PRINT_CONFIG:
 			return true;
 	}
-}
-
-function dump(files: string[], mode: Mode): string {
-	let lines: string[][] = [];
-	switch (mode) {
-		case Mode.DUMP_EVENTS:
-			lines = files.map((filename: string) =>
-				htmlvalidate.dumpEvents(filename).map(eventFormatter)
-			);
-			break;
-		case Mode.DUMP_TOKENS:
-			lines = files.map((filename: string) =>
-				htmlvalidate.dumpTokens(filename).map((entry: TokenDump) => {
-					const data = JSON.stringify(entry.data);
-					return `TOKEN: ${entry.token}\n  Data: ${data}\n  Location: ${entry.location}`;
-				})
-			);
-			break;
-		case Mode.DUMP_TREE:
-			lines = files.map((filename: string) => htmlvalidate.dumpTree(filename));
-			break;
-		case Mode.DUMP_SOURCE:
-			lines = files.map((filename: string) => htmlvalidate.dumpSource(filename));
-			break;
-		default:
-			throw new Error(`Unknown mode "${mode}"`);
-	}
-	const flat = lines.reduce((s: string[], c: string[]) => s.concat(c), []);
-	return flat.join("\n");
 }
 
 function handleValidationError(err: SchemaValidationError): void {
@@ -291,9 +262,7 @@ try {
 	} else if (mode === Mode.PRINT_CONFIG) {
 		printConfig(htmlvalidate, process.stdout, files).then(handleResult, handleError);
 	} else {
-		const output = dump(files, mode);
-		console.log(output);
-		process.exit(0);
+		dump(htmlvalidate, process.stdout, files, mode).then(handleResult, handleError);
 	}
 } catch (err) {
 	if (err instanceof SchemaValidationError) {
