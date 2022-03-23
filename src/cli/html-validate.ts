@@ -187,17 +187,6 @@ function showVersion(): void {
 	process.stdout.write(`${name}-${version}\n`);
 }
 
-function handleResult(success: boolean): never {
-	process.exit(success ? 0 : 1);
-}
-
-function handleError(err: unknown): never {
-	if (err) {
-		console.error(err);
-	}
-	process.exit(1);
-}
-
 if (argv.stdin) {
 	argv._.push("-");
 }
@@ -250,27 +239,36 @@ if (files.length === 0 && mode !== Mode.INIT) {
 	process.exit(1);
 }
 
-try {
-	if (mode === Mode.LINT) {
-		lint(htmlvalidate, process.stdout, files, {
-			formatter,
-			maxWarnings,
-			stdinFilename: argv["stdin-filename"] ?? false,
-		}).then(handleResult, handleError);
-	} else if (mode === Mode.INIT) {
-		init(cli, process.stdout, { cwd: process.cwd() }).then(handleResult, handleError);
-	} else if (mode === Mode.PRINT_CONFIG) {
-		printConfig(htmlvalidate, process.stdout, files).then(handleResult, handleError);
-	} else {
-		dump(htmlvalidate, process.stdout, files, mode).then(handleResult, handleError);
+async function run(): Promise<void> {
+	try {
+		let success: boolean;
+		if (mode === Mode.LINT) {
+			success = await lint(htmlvalidate, process.stdout, files, {
+				formatter,
+				maxWarnings,
+				stdinFilename: argv["stdin-filename"] ?? false,
+			});
+		} else if (mode === Mode.INIT) {
+			success = await init(cli, process.stdout, { cwd: process.cwd() });
+		} else if (mode === Mode.PRINT_CONFIG) {
+			success = await printConfig(htmlvalidate, process.stdout, files);
+		} else {
+			success = await dump(htmlvalidate, process.stdout, files, mode);
+		}
+		process.exit(success ? 0 : 1);
+	} catch (err) {
+		if (err instanceof SchemaValidationError) {
+			handleValidationError(err);
+		} else if (err instanceof UserError) {
+			handleUserError(err);
+		} else {
+			handleUnknownError(err);
+		}
+		process.exit(1);
 	}
-} catch (err) {
-	if (err instanceof SchemaValidationError) {
-		handleValidationError(err);
-	} else if (err instanceof UserError) {
-		handleUserError(err);
-	} else {
-		handleUnknownError(err);
-	}
-	process.exit(1);
 }
+
+run().catch((err) => {
+	console.error(err);
+	process.exit(1);
+});
