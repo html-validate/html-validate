@@ -8,6 +8,7 @@ import { eventFormatter } from "./json";
 import { CLI } from "./cli";
 import { Mode, modeToFlag } from "./mode";
 import { lint } from "./actions/lint";
+import { init } from "./actions/init";
 
 interface ParsedArgs {
 	config?: string;
@@ -281,10 +282,9 @@ try {
 				process.exit(1);
 			});
 	} else if (mode === Mode.INIT) {
-		cli
-			.init(process.cwd())
-			.then((result) => {
-				console.log(`Configuration written to "${result.filename}"`);
+		init(cli, process.stdout, { cwd: process.cwd() })
+			.then((success) => {
+				process.exit(success ? 0 : 1);
 			})
 			.catch((err) => {
 				if (err) {
