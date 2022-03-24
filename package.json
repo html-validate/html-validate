@@ -156,7 +156,7 @@
     "@babel/preset-env": "7.16.11",
     "@html-validate/commitlint-config": "2.1.9",
     "@html-validate/eslint-config": "5.4.0",
-    "@html-validate/eslint-config-jest": "5.4.0",
+    "@html-validate/eslint-config-jest": "5.4.1",
     "@html-validate/eslint-config-typescript": "5.4.0",
     "@html-validate/jest-config": "3.0.1",
     "@html-validate/prettier-config": "2.0.0",
