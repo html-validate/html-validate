@@ -19,8 +19,8 @@ stages:
   - postrelease
 
 secret_detection:
-  needs: []
-  dependencies: []
+  needs: ["Build"]
+  dependencies: ["Build"]
   variables:
     SECRET_DETECTION_EXCLUDED_PATHS: "node_modules"
 
