@@ -317,7 +317,7 @@ export class Parser {
 			const processElement = source.hooks.processElement;
 			const metaTable = this.metaTable;
 			const context: ProcessElementContext = {
-				getMetaFor(tagName: string): MetaElement | null {
+				getMetaFor(this: void, tagName: string): MetaElement | null {
 					return metaTable.getMetaFor(tagName);
 				},
 			};
