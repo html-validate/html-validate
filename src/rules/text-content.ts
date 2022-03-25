@@ -113,7 +113,7 @@ export default class TextContent extends Rule<RuleContext> {
 		return doc;
 	}
 
-	private static filter(event: ElementReadyEvent): boolean {
+	private static filter(this: void, event: ElementReadyEvent): boolean {
 		const { target } = event;
 
 		/* skip elements without metadata */

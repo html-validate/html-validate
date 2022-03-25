@@ -23,7 +23,7 @@ export default class AriaHiddenBody extends Rule {
 		});
 	}
 
-	protected isRelevant(event: TagReadyEvent): boolean {
+	protected isRelevant(this: void, event: TagReadyEvent): boolean {
 		return event.target.is("body");
 	}
 }
