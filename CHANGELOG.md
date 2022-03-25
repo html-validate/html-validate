@@ -1,5 +1,11 @@
 # html-validate changelog
 
+### [6.6.1](https://gitlab.com/html-validate/html-validate/compare/v6.6.0...v6.6.1) (2022-03-25)
+
+### Bug Fixes
+
+- **api:** typescript declaration for `ProcessElementContext` updated ([e843b8c](https://gitlab.com/html-validate/html-validate/commit/e843b8cecd836d2584f4c2853b44a83c631d9eae))
+
 ## [6.6.0](https://gitlab.com/html-validate/html-validate/compare/v6.5.0...v6.6.0) (2022-03-20)
 
 ### Features
