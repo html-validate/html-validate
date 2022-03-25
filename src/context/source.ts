@@ -14,7 +14,7 @@ export type ProcessAttributeCallback = (
  * @public
  */
 export interface ProcessElementContext {
-	getMetaFor(tagName: string): MetaElement | null;
+	getMetaFor(this: void, tagName: string): MetaElement | null;
 }
 
 /**

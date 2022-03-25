@@ -85,6 +85,7 @@
         2,
         "always",
         [
+          "api",
           "cli",
           "config",
           "context",
