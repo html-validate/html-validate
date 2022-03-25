@@ -159,6 +159,7 @@
     "@html-validate/eslint-config": "5.4.3",
     "@html-validate/eslint-config-jest": "5.4.3",
     "@html-validate/eslint-config-typescript": "5.4.0",
+    "@html-validate/eslint-config-typescript-typeinfo": "5.4.1",
     "@html-validate/jest-config": "3.0.1",
     "@html-validate/prettier-config": "2.0.0",
     "@lodder/grunt-postcss": "3.1.1",

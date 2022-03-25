@@ -1,6 +1,9 @@
+const path = require("path");
+
 require("@html-validate/eslint-config/patch/modern-module-resolution");
 
 module.exports = {
+	root: true,
 	extends: ["@html-validate"],
 
 	rules: {
@@ -19,8 +22,28 @@ module.exports = {
 			},
 		},
 		{
+			files: ["src/**/*.ts"],
+			excludedFiles: ["src/**/*.spec.ts"],
+			parserOptions: {
+				tsconfigRootDir: path.join(__dirname, "src"),
+				project: ["./tsconfig.json"],
+			},
+			extends: ["@html-validate/typescript-typeinfo"],
+			rules: {
+				"@typescript-eslint/consistent-type-exports": "off",
+				"@typescript-eslint/consistent-type-imports": "off",
+				"@typescript-eslint/no-unnecessary-type-assertion": "off",
+				"@typescript-eslint/no-unsafe-argument": "off",
+				"@typescript-eslint/no-unsafe-assignment": "off",
+				"@typescript-eslint/no-unsafe-call": "off",
+				"@typescript-eslint/no-unsafe-return": "off",
+				"@typescript-eslint/restrict-template-expressions": "off",
+				"@typescript-eslint/unbound-method": "off",
+			},
+		},
+		{
 			files: "*.spec.[jt]s",
-			excludedFiles: "cypress/**",
+			excludedFiles: ["cypress/**", "tests/e2e/**"],
 			extends: ["@html-validate/jest"],
 			rules: {
 				"sonarjs/no-identical-functions": "off",
