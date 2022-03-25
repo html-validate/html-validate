@@ -9,6 +9,7 @@ variables:
   FORCE_DEPLOY_DOCS:
     value: "false"
     description: 'Set to "true" to force docs to be redeployed. Ensure no commits references documentation about non-released features. Only relevant on "master"'
+  SECRET_DETECTION_EXCLUDED_PATHS: "node_modules"
 
 stages:
   - prepare
