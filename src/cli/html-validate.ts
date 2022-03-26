@@ -325,7 +325,7 @@ try {
 				process.exit(1);
 			});
 	} else if (mode === Mode.PRINT_CONFIG) {
-		if (files.length > 0) {
+		if (files.length > 1) {
 			console.error(`\`${modeToFlag(mode)}\` expected a single filename but got multiple:`, files);
 			process.exit(1);
 		}
