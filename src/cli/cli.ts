@@ -128,9 +128,9 @@ export class CLI {
 				const rules = JSON.parse(`{${raw}}`);
 				config.extends = [];
 				config.rules = rules;
-			} catch (err: any) {
-				// istanbul ignore next
-				throw new UserError(`Error while parsing --rule option "{${raw}}": ${err.message}.\n`);
+			} catch (err: any) /* istanbul ignore next */ {
+				const message = err instanceof Error ? err.message : String(err);
+				throw new UserError(`Error while parsing --rule option "{${raw}}": ${message}.\n`);
 			}
 		}
 		return config;

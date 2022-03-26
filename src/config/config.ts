@@ -260,6 +260,7 @@ export class Config {
 	/**
 	 * Get element metadata.
 	 */
+	/* eslint-disable-next-line complexity, sonarjs/cognitive-complexity */
 	public getMetaTable(): MetaTable {
 		/* use cached table if it exists */
 		if (this.metaTable) {
@@ -304,7 +305,8 @@ export class Config {
 			try {
 				metaTable.loadFromObject(legacyRequire(entry));
 			} catch (err: any) {
-				throw new ConfigError(`Failed to load elements from "${entry}": ${err.message}`, err);
+				const message = err instanceof Error ? err.message : String(err);
+				throw new ConfigError(`Failed to load elements from "${entry}": ${message}`, err);
 			}
 		}
 
@@ -383,7 +385,8 @@ export class Config {
 				plugin.originalName = moduleName;
 				return plugin;
 			} catch (err: any) {
-				throw new ConfigError(`Failed to load plugin "${moduleName}": ${err}`, err);
+				const message = err instanceof Error ? err.message : String(err);
+				throw new ConfigError(`Failed to load plugin "${moduleName}": ${message}`, err);
 			}
 		});
 	}
@@ -471,7 +474,7 @@ export class Config {
 		return Object.entries(transform).map(([pattern, name]) => {
 			try {
 				const fn = this.getTransformFunction(name);
-				const version = (fn as any).api || 0;
+				const version: number = (fn as any).api || 0;
 
 				/* check if transformer version is supported */
 				if (version !== TRANSFORMER_API.VERSION) {

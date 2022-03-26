@@ -36,6 +36,26 @@ describe("rule id-pattern", () => {
 		);
 	});
 
+	it("should report error when id is empty string", () => {
+		expect.assertions(2);
+		const report = htmlvalidate.validateString('<p id=""></p>');
+		expect(report).toBeInvalid();
+		expect(report).toHaveError(
+			"id-pattern",
+			expect.stringMatching(/ID "" does not match required pattern ".*"/)
+		);
+	});
+
+	it("should report error when id is omitted", () => {
+		expect.assertions(2);
+		const report = htmlvalidate.validateString("<p id></p>");
+		expect(report).toBeInvalid();
+		expect(report).toHaveError(
+			"id-pattern",
+			expect.stringMatching(/ID "" does not match required pattern ".*"/)
+		);
+	});
+
 	it("should ignore other attributes", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateString('<p spam="fooBar"></p>');

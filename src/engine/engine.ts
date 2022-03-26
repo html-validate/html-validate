@@ -159,7 +159,7 @@ export class Engine<T extends Parser = Parser> {
 
 		function decoration(node: HtmlElement): string {
 			let output = "";
-			if (node.hasAttribute("id")) {
+			if (node.id) {
 				output += `#${node.id}`;
 			}
 			if (node.hasAttribute("class")) {

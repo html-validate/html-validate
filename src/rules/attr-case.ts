@@ -46,8 +46,11 @@ export default class AttrCase extends Rule<void, RuleOptions> {
 	}
 
 	public documentation(): RuleDocumentation {
+		const { style } = this.options;
 		return {
-			description: `Attribute name must be ${this.options.style}.`,
+			description: Array.isArray(style)
+				? [`Attribute name must be in one of:`, "", ...style.map((it) => `- ${it}`)].join("\n")
+				: `Attribute name must be in ${style}.`,
 			url: ruleDocumentationUrl(__filename),
 		};
 	}

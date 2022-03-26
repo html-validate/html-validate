@@ -109,8 +109,5 @@ function parseStyle(name: StyleName): Style {
 		case "selfclose":
 		case "selfclosing":
 			return Style.AlwaysSelfclose;
-		/* istanbul ignore next: covered by schema validation */
-		default:
-			throw new Error(`Invalid style "${name}" for "void" rule`);
 	}
 }

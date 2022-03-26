@@ -43,7 +43,7 @@ export class CaseStyle {
 			default: {
 				const last = names.slice(-1);
 				const rest = names.slice(0, -1);
-				return `${rest.join(", ")} or ${last}`;
+				return `${rest.join(", ")} or ${last[0]}`;
 			}
 		}
 	}
@@ -60,7 +60,7 @@ export class CaseStyle {
 				case "camelcase":
 					return { pattern: /^[a-z][A-Za-z]*$/, name: "camelCase" };
 				default:
-					throw new ConfigError(`Invalid style "${style}" for ${ruleId} rule`);
+					throw new ConfigError(`Invalid style "${cur}" for ${ruleId} rule`);
 			}
 		});
 	}

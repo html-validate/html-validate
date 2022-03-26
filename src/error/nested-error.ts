@@ -3,7 +3,7 @@ export class NestedError extends Error {
 		super(message);
 		Error.captureStackTrace(this, NestedError);
 
-		if (nested) {
+		if (nested && nested.stack) {
 			this.stack += `\nCaused by: ${nested.stack}`;
 		}
 	}

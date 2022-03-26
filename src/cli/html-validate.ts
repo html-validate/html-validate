@@ -45,6 +45,8 @@ function getMode(argv: { [key: string]: any }): Mode {
 	return Mode.LINT;
 }
 
+function modeToFlag(mode: Mode.LINT): null;
+function modeToFlag(mode: Exclude<Mode, Mode.LINT>): string;
 function modeToFlag(mode: Mode): string | null {
 	switch (mode) {
 		case Mode.LINT:
@@ -261,7 +263,8 @@ if (argv._.length === 0) {
 		showUsage();
 		process.exit(0);
 	} else if (requiresFilename(mode)) {
-		console.error(`\`${modeToFlag(mode)}\` requires a filename.`);
+		const flag = modeToFlag(mode);
+		console.error(`\`${flag}\` requires a filename.`);
 		process.exit(1);
 	}
 }
@@ -277,7 +280,7 @@ const htmlvalidate = cli.getValidator();
 
 /* sanity check: ensure maxWarnings has a valid value */
 if (isNaN(maxWarnings)) {
-	console.log(`Invalid value "${argv["max-warnings"]}" given to --max-warnings`);
+	console.log(`Invalid value "${String(argv["max-warnings"])}" given to --max-warnings`);
 	process.exit(1);
 }
 

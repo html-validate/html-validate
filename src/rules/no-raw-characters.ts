@@ -11,19 +11,21 @@ const defaults: RuleOptions = {
 	relaxed: false,
 };
 
+type RawCharacters = '"' | "&" | "'" | "<" | "=" | ">" | "`";
+
 const textRegexp = /([<>]|&(?![a-zA-Z0-9#]+;))/g;
 const unquotedAttrRegexp = /([<>"'=`]|&(?![a-zA-Z0-9#]+;))/g;
 const matchTemplate = /^(<%.*?%>|<\?.*?\?>|<\$.*?\$>)$/s;
 
-const replacementTable: Map<string, string> = new Map([
-	['"', "&quot;"],
-	["&", "&amp;"],
-	["'", "&apos;"],
-	["<", "&lt;"],
-	["=", "&equals;"],
-	[">", "&gt;"],
-	["`", "&grave;"],
-]);
+const replacementTable: Record<RawCharacters, string> = {
+	'"': "&quot;",
+	"&": "&amp;",
+	"'": "&apos;",
+	"<": "&lt;",
+	"=": "&equals;",
+	">": "&gt;",
+	"`": "&grave;",
+};
 
 export default class NoRawCharacters extends Rule<void, RuleOptions> {
 	private relaxed: boolean;
@@ -94,14 +96,13 @@ export default class NoRawCharacters extends Rule<void, RuleOptions> {
 	 * @param text - The full text to find unescaped raw characters in.
 	 * @param location - Location of text.
 	 * @param regexp - Regexp pattern to match using.
-	 * @param ignore - List of characters to ignore for this text.
 	 */
 	private findRawChars(node: DOMNode, text: string, location: Location, regexp: RegExp): void {
 		let match;
 		do {
 			match = regexp.exec(text);
 			if (match) {
-				const char = match[0];
+				const char = match[0] as RawCharacters;
 				/* In relaxed mode & only needs to be encoded if it is ambiguous,
 				 * however this rule will only match either non-ambiguous ampersands or
 				 * ampersands part of a character reference. Whenever it is a valid
@@ -111,7 +112,7 @@ export default class NoRawCharacters extends Rule<void, RuleOptions> {
 				}
 
 				/* determine replacement character and location */
-				const replacement = replacementTable.get(char);
+				const replacement = replacementTable[char];
 				const charLocation = sliceLocation(location, match.index, match.index + 1);
 
 				/* report as error */

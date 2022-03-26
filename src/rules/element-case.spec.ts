@@ -185,4 +185,13 @@ describe("rule element-case", () => {
 		});
 		expect(htmlvalidate.getRuleDocumentation("element-case")).toMatchSnapshot();
 	});
+
+	it("should contain documentation with multiple styles", () => {
+		expect.assertions(1);
+		htmlvalidate = new HtmlValidate({
+			root: true,
+			rules: { "element-case": ["error", { style: ["lowercase", "pascalcase"] }] },
+		});
+		expect(htmlvalidate.getRuleDocumentation("element-case")).toMatchSnapshot();
+	});
 });

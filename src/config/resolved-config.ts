@@ -79,7 +79,8 @@ export class ResolvedConfig {
 					return cur;
 				});
 			} catch (err: any) {
-				throw new NestedError(`When transforming "${source.filename}": ${err.message}`, err);
+				const message = err instanceof Error ? err.message : String(err);
+				throw new NestedError(`When transforming "${source.filename}": ${message}`, err);
 			}
 		} else {
 			return [source];

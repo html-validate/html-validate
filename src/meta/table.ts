@@ -30,7 +30,7 @@ const dynamicKeys: Array<keyof MetaElement> = [
 	"labelable",
 ];
 
-type PropertyEvaluator = (node: HtmlElement, options: any) => boolean;
+type PropertyEvaluator = (node: HtmlElement, options: string | [string, string, string]) => boolean;
 
 const functionTable: { [key: string]: PropertyEvaluator } = {
 	isDescendant,
@@ -378,7 +378,7 @@ function hasAttribute(node: HtmlElement, attr: any): boolean {
 	return node.hasAttribute(attr);
 }
 
-function matchAttribute(node: HtmlElement, match: any): boolean {
+function matchAttribute(node: HtmlElement, match: string | [string, string, string]): boolean {
 	if (!Array.isArray(match) || match.length !== 3) {
 		throw new Error(
 			`Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <${node.tagName}>`

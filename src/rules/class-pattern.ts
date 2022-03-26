@@ -45,11 +45,9 @@ export default class ClassPattern extends Rule<void, RuleOptions> {
 			classes.forEach((cur: string, index: number) => {
 				if (!cur.match(this.pattern)) {
 					const location = classes.location(index);
-					this.report(
-						event.target,
-						`Class "${cur}" does not match required pattern "${this.pattern}"`,
-						location
-					);
+					const pattern = this.pattern.toString();
+					const message = `Class "${cur}" does not match required pattern "${pattern}"`;
+					this.report(event.target, message, location);
 				}
 			});
 		});

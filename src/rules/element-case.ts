@@ -42,8 +42,11 @@ export default class ElementCase extends Rule<void, RuleOptions> {
 	}
 
 	public documentation(): RuleDocumentation {
+		const { style } = this.options;
 		return {
-			description: `Element tagname must be ${this.options.style}.`,
+			description: Array.isArray(style)
+				? [`Element tagname must be in one of:`, "", ...style.map((it) => `- ${it}`)].join("\n")
+				: `Element tagname must be in ${style}.`,
 			url: ruleDocumentationUrl(__filename),
 		};
 	}

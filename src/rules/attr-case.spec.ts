@@ -254,4 +254,13 @@ describe("rule attr-case", () => {
 		});
 		expect(htmlvalidate.getRuleDocumentation("attr-case")).toMatchSnapshot();
 	});
+
+	it("should contain documentation with multiple styles", () => {
+		expect.assertions(1);
+		htmlvalidate = new HtmlValidate({
+			root: true,
+			rules: { "attr-case": ["error", { style: ["lowercase", "camelcase"] }] },
+		});
+		expect(htmlvalidate.getRuleDocumentation("attr-case")).toMatchSnapshot();
+	});
 });

@@ -47,11 +47,10 @@ export default class IdPattern extends Rule<void, RuleOptions> {
 			}
 
 			if (!event.value || !event.value.match(this.pattern)) {
-				this.report(
-					event.target,
-					`ID "${event.value}" does not match required pattern "${this.pattern}"`,
-					event.valueLocation
-				);
+				const value = event.value ?? "";
+				const pattern = this.pattern.toString();
+				const message = `ID "${value}" does not match required pattern "${pattern}"`;
+				this.report(event.target, message, event.valueLocation);
 			}
 		});
 	}
