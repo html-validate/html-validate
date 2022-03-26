@@ -7,6 +7,24 @@ import { name, version, bugs as pkgBugs } from "../generated/package";
 import { eventFormatter } from "./json";
 import { CLI } from "./cli";
 
+interface ParsedArgs {
+	config?: string;
+	"dump-events": boolean;
+	"dump-source": boolean;
+	"dump-tokens": boolean;
+	"dump-tree": boolean;
+	ext: string;
+	formatter: string;
+	help: boolean;
+	init: boolean;
+	"max-warnings"?: string;
+	"print-config": boolean;
+	rule?: string;
+	stdin: boolean;
+	"stdin-filename"?: string;
+	version: boolean;
+}
+
 enum Mode {
 	LINT,
 	INIT,
@@ -172,7 +190,7 @@ function handleUnknownError(err: unknown): void {
 	);
 }
 
-const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
+const argv = minimist<ParsedArgs>(process.argv.slice(2), {
 	string: ["c", "config", "ext", "f", "formatter", "max-warnings", "rule", "stdin-filename"],
 	boolean: [
 		"init",
@@ -192,6 +210,7 @@ const argv: minimist.ParsedArgs = minimist(process.argv.slice(2), {
 		h: "help",
 	},
 	default: {
+		ext: "html",
 		formatter: "stylish",
 	},
 	unknown: (opt: string) => {
@@ -285,7 +304,7 @@ if (isNaN(maxWarnings)) {
 }
 
 /* parse extensions (used when expanding directories) */
-const extensions = (argv.ext || "html").split(",").map((cur: string) => {
+const extensions = argv.ext.split(",").map((cur: string) => {
 	return cur[0] === "." ? cur.slice(1) : cur;
 });
 
@@ -300,8 +319,9 @@ try {
 		const result = lint(files);
 
 		/* rename stdin if an explicit filename was passed */
-		if (argv["stdin-filename"]) {
-			renameStdin(result, argv["stdin-filename"]);
+		const stdinFilename = argv["stdin-filename"];
+		if (stdinFilename) {
+			renameStdin(result, stdinFilename);
 		}
 
 		process.stdout.write(formatter(result));
