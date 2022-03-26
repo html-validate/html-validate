@@ -8,9 +8,11 @@ import { Message } from "../../reporter";
 import { diff, diverge } from "../utils";
 
 function isMessage(arg: any): arg is Partial<Message> {
-	return (
-		arg &&
-		(arg.ruleId ||
+	if (!arg) {
+		return false;
+	}
+	return Boolean(
+		arg.ruleId ||
 			arg.severity ||
 			arg.message ||
 			arg.offset ||
@@ -18,13 +20,16 @@ function isMessage(arg: any): arg is Partial<Message> {
 			arg.column ||
 			arg.size ||
 			arg.selector ||
-			arg.context)
+			arg.context
 	);
 }
 
 function isConfig(arg: any): arg is ConfigData {
-	return (
-		arg && (arg.root || arg.extends || arg.elements || arg.plugin || arg.transform || arg.rules)
+	if (!arg) {
+		return false;
+	}
+	return Boolean(
+		arg.root || arg.extends || arg.elements || arg.plugin || arg.transform || arg.rules
 	);
 }
 
@@ -35,6 +40,7 @@ function isString(arg: any): arg is string {
 function getMarkup(src: unknown): string {
 	// @ts-ignore DOM library not available
 	if (typeof HTMLElement !== "undefined" && src instanceof HTMLElement) {
+		/* eslint-disable-next-line @typescript-eslint/no-unsafe-return */
 		return (src as any).outerHTML;
 	}
 	/* istanbul ignore else: prototype only allows string or HTMLElement */

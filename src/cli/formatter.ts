@@ -28,7 +28,7 @@ function loadFormatter(name: string): Formatter {
 	}
 
 	try {
-		return legacyRequire(name);
+		return legacyRequire(name) as Formatter;
 	} catch (error: any) {
 		throw new UserError(`No formatter named "${name}"`, error);
 	}

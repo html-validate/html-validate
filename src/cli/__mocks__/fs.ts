@@ -189,7 +189,7 @@ const fs = {
 };
 
 module.exports = new Proxy(fs, {
-	get(target, prop, receiver) {
+	get(target, prop, receiver): any {
 		if (Reflect.has(target, prop)) {
 			return Reflect.get(target, prop, receiver);
 		} else {

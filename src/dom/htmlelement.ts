@@ -444,7 +444,7 @@ export class HtmlElement extends DOMNode {
 
 	public querySelector(selector: string): HtmlElement {
 		const it = this.querySelectorImpl(selector);
-		return it.next().value || null;
+		return it.next().value ?? null; // eslint-disable-line @typescript-eslint/no-unsafe-return
 	}
 
 	public querySelectorAll(selector: string): HtmlElement[] {

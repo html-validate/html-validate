@@ -19,7 +19,7 @@ export interface Event {
  */
 export interface ConfigReadyEvent extends Event {
 	config: ResolvedConfig;
-	rules: { [ruleId: string]: Rule };
+	rules: Record<string, Rule<unknown, unknown>>;
 }
 
 /**

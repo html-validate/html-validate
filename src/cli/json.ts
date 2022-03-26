@@ -7,11 +7,12 @@ function isLocation(key: string, value: unknown): value is Location {
 }
 
 /* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types */
-export function eventReplacer(this: void, key: string, value: any): string {
+export function eventReplacer(this: void, key: string, value: any): any {
 	if (isLocation(key, value)) {
 		return `${value.filename}:${value.line}:${value.column}`;
 	}
-	return jsonFiltered.includes(key) ? "[truncated]" : value;
+	const isFiltered = jsonFiltered.includes(key);
+	return isFiltered ? "[truncated]" : value;
 }
 
 export function eventFormatter(entry: EventDump): string {

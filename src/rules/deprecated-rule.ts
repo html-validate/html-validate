@@ -21,7 +21,7 @@ export default class DeprecatedRule extends Rule<string> {
 		});
 	}
 
-	private getDeprecatedRules(event: ConfigReadyEvent): Rule[] {
+	private getDeprecatedRules(event: ConfigReadyEvent): Rule<unknown, unknown>[] {
 		const rules = Object.values(event.rules);
 		return rules.filter((rule) => rule.deprecated);
 	}

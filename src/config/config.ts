@@ -76,7 +76,7 @@ function loadFromFile(filename: string): ConfigData {
 		});
 	}
 
-	return json;
+	return json as ConfigData;
 }
 
 /**
@@ -601,7 +601,7 @@ export class Config {
 			throw new ConfigError(`Module is not a valid transformer.`);
 		}
 
-		return fn;
+		return fn as Transformer;
 	}
 
 	/**

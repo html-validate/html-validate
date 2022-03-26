@@ -39,7 +39,7 @@ export class Engine<T extends Parser = Parser> {
 	protected report: Reporter;
 	protected config: ResolvedConfig;
 	protected ParserClass: new (config: ResolvedConfig) => T;
-	protected availableRules: Record<string, RuleConstructor<any, any>>;
+	protected availableRules: Record<string, RuleConstructor<unknown, unknown>>;
 
 	public constructor(config: ResolvedConfig, ParserClass: new (config: ResolvedConfig) => T) {
 		this.report = new Reporter();
@@ -57,7 +57,7 @@ export class Engine<T extends Parser = Parser> {
 	/**
 	 * Lint sources and return report
 	 *
-	 * @param src - Parsed source.
+	 * @param sources - Sources to lint.
 	 * @returns Report output.
 	 */
 	public lint(sources: Source[]): Report {
@@ -214,7 +214,7 @@ export class Engine<T extends Parser = Parser> {
 	private processDirective(
 		event: DirectiveEvent,
 		parser: Parser,
-		allRules: { [key: string]: Rule }
+		allRules: Record<string, Rule<unknown, unknown>>
 	): void {
 		const rules = event.data
 			.split(",")
@@ -240,7 +240,7 @@ export class Engine<T extends Parser = Parser> {
 		}
 	}
 
-	private processEnableDirective(rules: Rule[], parser: Parser): void {
+	private processEnableDirective(rules: Rule<unknown, unknown>[], parser: Parser): void {
 		for (const rule of rules) {
 			rule.setEnabled(true);
 			if (rule.getSeverity() === Severity.DISABLED) {
@@ -254,7 +254,7 @@ export class Engine<T extends Parser = Parser> {
 		});
 	}
 
-	private processDisableDirective(rules: Rule[], parser: Parser): void {
+	private processDisableDirective(rules: Rule<unknown, unknown>[], parser: Parser): void {
 		for (const rule of rules) {
 			rule.setEnabled(false);
 		}
@@ -265,7 +265,7 @@ export class Engine<T extends Parser = Parser> {
 		});
 	}
 
-	private processDisableBlockDirective(rules: Rule[], parser: Parser): void {
+	private processDisableBlockDirective(rules: Rule<unknown, unknown>[], parser: Parser): void {
 		let directiveBlock: DOMInternalID | null = null;
 		for (const rule of rules) {
 			rule.setEnabled(false);
@@ -301,7 +301,7 @@ export class Engine<T extends Parser = Parser> {
 		});
 	}
 
-	private processDisableNextDirective(rules: Rule[], parser: Parser): void {
+	private processDisableNextDirective(rules: Rule<unknown, unknown>[], parser: Parser): void {
 		for (const rule of rules) {
 			rule.setEnabled(false);
 		}
@@ -363,7 +363,7 @@ export class Engine<T extends Parser = Parser> {
 		config: ResolvedConfig,
 		parser: Parser
 	): {
-		rules: { [key: string]: Rule };
+		rules: Record<string, Rule<unknown, unknown>>;
 	} {
 		const eventHandler = parser.getEventHandler();
 		for (const plugin of config.getPlugins()) {
@@ -380,8 +380,11 @@ export class Engine<T extends Parser = Parser> {
 	/**
 	 * Load and setup all rules for current configuration.
 	 */
-	protected setupRules(config: ResolvedConfig, parser: Parser): { [key: string]: Rule } {
-		const rules: { [key: string]: Rule } = {};
+	protected setupRules(
+		config: ResolvedConfig,
+		parser: Parser
+	): Record<string, Rule<unknown, unknown>> {
+		const rules: Record<string, Rule<unknown, unknown>> = {};
 		for (const [ruleId, [severity, options]] of config.getRules().entries()) {
 			rules[ruleId] = this.loadRule(ruleId, config, severity, options, parser, this.report);
 		}
@@ -398,7 +401,7 @@ export class Engine<T extends Parser = Parser> {
 		options: RuleOptions,
 		parser: Parser,
 		report: Reporter
-	): Rule {
+	): Rule<unknown, unknown> {
 		const meta = config.getMetaTable();
 		const rule = this.instantiateRule(ruleId, options);
 		rule.name = ruleId;
@@ -412,7 +415,7 @@ export class Engine<T extends Parser = Parser> {
 		return rule;
 	}
 
-	protected instantiateRule(name: string, options: RuleOptions): Rule {
+	protected instantiateRule(name: string, options: RuleOptions): Rule<unknown, unknown> {
 		if (this.availableRules[name]) {
 			const RuleConstructor = this.availableRules[name];
 			return new RuleConstructor(options);

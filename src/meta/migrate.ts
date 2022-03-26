@@ -59,7 +59,7 @@ function migrateAttributes(src: MetaData): Record<string, MetaAttribute & Intern
 		...(src.deprecatedAttributes ?? []),
 	].sort();
 
-	const entries = keys.map((key) => {
+	const entries: Array<[string, MetaAttribute & InternalAttributeFlags]> = keys.map((key) => {
 		return [key, migrateSingleAttribute(src, key)];
 	});
 

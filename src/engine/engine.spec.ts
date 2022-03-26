@@ -64,12 +64,12 @@ class ExposedEngine<T extends Parser> extends Engine<T> {
 		options: any,
 		parser: Parser,
 		report: Reporter
-	): Rule {
+	): Rule<unknown, unknown> {
 		return super.loadRule(name, resolvedConfig, severity, options, parser, report);
 	}
 
 	/* exposed for testing */
-	public instantiateRule(name: string, options: RuleOptions): Rule {
+	public instantiateRule(name: string, options: RuleOptions): Rule<unknown, unknown> {
 		return super.instantiateRule(name, options);
 	}
 

@@ -12,8 +12,10 @@ function toHaveErrors(
 	const matcher = errors.map((entry) => {
 		if (Array.isArray(entry)) {
 			const [ruleId, message] = entry;
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-return */
 			return expect.objectContaining({ ruleId, message });
 		} else {
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-return */
 			return expect.objectContaining(entry);
 		}
 	});
