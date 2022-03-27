@@ -1,16 +1,13 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 import fs from "fs";
-
-// imported only for type declarations via @types/estree
-// eslint-disable-next-line import/no-unresolved
-import ESTree from "estree";
+import * as espree from "espree";
 
 import { legacyRequire } from "../resolve";
 import { Source } from "../context";
 
-const espree = legacyRequire("espree");
 const walk = legacyRequire("acorn-walk");
+
 export interface Position {
 	line: number;
 	column: number;
@@ -24,7 +21,7 @@ declare module "estree" {
 	}
 }
 
-function joinTemplateLiteral(nodes: ESTree.TemplateElement[]): string {
+function joinTemplateLiteral(nodes: espree.TemplateElement[]): string {
 	let offset = nodes[0].start + 1;
 	let output = "";
 	for (const node of nodes) {
@@ -65,7 +62,7 @@ export function computeOffset(position: Position, data: string): number {
 }
 
 function extractLiteral(
-	node: ESTree.Expression | ESTree.Pattern | ESTree.Literal | ESTree.BlockStatement,
+	node: espree.Expression | espree.Pattern | espree.Literal | espree.BlockStatement,
 	filename: string,
 	data: string
 ): Source | null {
@@ -124,7 +121,7 @@ function extractLiteral(
 }
 
 function compareKey(
-	node: ESTree.Expression | ESTree.PrivateIdentifier,
+	node: espree.Expression | espree.PrivateIdentifier,
 	key: string,
 	filename: string
 ): boolean {
@@ -148,12 +145,12 @@ function compareKey(
  * @public
  */
 export class TemplateExtractor {
-	private ast: ESTree.Program;
+	private ast: espree.Program;
 
 	private filename: string;
 	private data: string;
 
-	private constructor(ast: ESTree.Program, filename: string, data: string) {
+	private constructor(ast: espree.Program, filename: string, data: string) {
 		this.ast = ast;
 		this.filename = filename;
 		this.data = data;
@@ -230,7 +227,7 @@ export class TemplateExtractor {
 		const result: Source[] = [];
 		const { filename, data } = this;
 		walk.simple(this.ast, {
-			Property(node: ESTree.Property) {
+			Property(node: espree.Property) {
 				if (compareKey(node.key, key, filename)) {
 					const source = extractLiteral(node.value, filename, data);
 					if (source) {

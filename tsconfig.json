@@ -12,6 +12,8 @@
     "module": "esnext",
     "moduleResolution": "node",
 
+    "typeRoots": ["./node_modules/@types", "./types"],
+
     "alwaysStrict": true,
     "esModuleInterop": true,
     "noImplicitAny": true,
