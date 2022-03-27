@@ -2,7 +2,7 @@
 
 exports[`rule attr-delimiter should contain documentation 1`] = `
 Object {
-  "description": "Attribute value should be separated by ",
+  "description": "Attribute value must not be separated by whitespace.",
   "url": "https://html-validate.org/rules/attr-delimiter.html",
 }
 `;

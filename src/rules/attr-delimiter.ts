@@ -12,7 +12,7 @@ function isRelevant(event: TokenEvent): boolean {
 export default class AttrDelimiter extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
-			description: `Attribute value should be separated by `,
+			description: `Attribute value must not be separated by whitespace.`,
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
