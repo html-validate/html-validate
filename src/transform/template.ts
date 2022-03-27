@@ -2,11 +2,12 @@
 
 import fs from "fs";
 import * as espree from "espree";
+import * as walk from "acorn-walk";
 
-import { legacyRequire } from "../resolve";
+/* eslint-disable-next-line node/no-extraneous-import */
+import type { Node } from "acorn";
+
 import { Source } from "../context";
-
-const walk = legacyRequire("acorn-walk");
 
 export interface Position {
 	line: number;
@@ -226,7 +227,8 @@ export class TemplateExtractor {
 	public extractObjectProperty(key: string): Source[] {
 		const result: Source[] = [];
 		const { filename, data } = this;
-		walk.simple(this.ast, {
+		const node: Node = this.ast as unknown as Node;
+		walk.simple(node, {
 			Property(node: espree.Property) {
 				if (compareKey(node.key, key, filename)) {
 					const source = extractLiteral(node.value, filename, data);
@@ -236,7 +238,7 @@ export class TemplateExtractor {
 					}
 				}
 			},
-		});
+		} as unknown as walk.SimpleVisitors<unknown>);
 		return result;
 	}
 }
