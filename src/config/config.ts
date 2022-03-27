@@ -70,8 +70,9 @@ function loadFromFile(filename: string): ConfigData {
 
 	/* expand any relative paths */
 	for (const key of ["extends", "elements", "plugins"]) {
-		if (!json[key]) continue;
-		json[key] = json[key].map((ref: string) => {
+		const value: undefined | string[] = json[key];
+		if (!value) continue;
+		json[key] = value.map((ref: string) => {
 			return Config.expandRelative(ref, path.dirname(filename));
 		});
 	}
