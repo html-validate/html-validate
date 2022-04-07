@@ -183,6 +183,22 @@ describe("toHaveError()", () => {
 		expect(error).toBeDefined();
 		expect(stripAnsi(error?.message || "")).toMatchSnapshot();
 	});
+
+	it("should handle passing object as expected error", () => {
+		expect.assertions(3);
+		let error: any;
+		try {
+			expect(reportError).toHaveError({
+				ruleId: "asdf",
+				line: 3,
+				size: 12,
+			});
+		} catch (e: any) {
+			error = e;
+		}
+		expect(error).toBeDefined();
+		expect(stripAnsi(error?.message || "")).toMatchSnapshot();
+	});
 });
 
 describe("toHaveErrors()", () => {
