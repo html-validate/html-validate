@@ -55,15 +55,15 @@ const jsonConfig = {
  */
 function manualChunks(id) {
 	/** @type {string} */
-	const base = path.relative(__dirname, id);
+	const base = path.relative(__dirname, id).replace(/\\/g, "/");
 	if (inputs.includes(base)) {
 		return undefined;
 	}
 
 	/** @type {string} */
 	const rel = base.startsWith("src/")
-		? path.relative(path.join(__dirname, "src"), id)
-		: path.relative(path.join(__dirname, "dist/types"), id);
+		? path.relative(path.join(__dirname, "src"), id).replace(/\\/g, "/")
+		: path.relative(path.join(__dirname, "dist/types"), id).replace(/\\/g, "/");
 
 	if (rel.startsWith("cli/")) {
 		return "cli";
