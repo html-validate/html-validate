@@ -1,6 +1,7 @@
 import HtmlValidate from "../htmlvalidate";
 import "../jest";
 import { processAttribute } from "../transform/mocks/attribute";
+import { codeframe } from "../formatters/codeframe";
 
 describe("rule attr-case", () => {
 	let htmlvalidate: HtmlValidate;
@@ -15,26 +16,30 @@ describe("rule attr-case", () => {
 
 		it("should not report error when attributes is lowercase", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<div foo="bar"></div>');
+			const markup = /* HTML */ `<div foo="bar"></div>`;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when attribute has special characters", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<div foo-bar-9="bar"></div>');
+			const markup = /* HTML */ `<div foo-bar-9="bar"></div>`;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when attributes is uppercase", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<div FOO="bar"></div>');
+			const markup = /* HTML */ `<div FOO="bar"></div>`;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("attr-case", 'Attribute "FOO" should be lowercase');
 		});
 
 		it("should report error when attributes is mixed", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<div clAss="bar"></div>');
+			const markup = `<div clAss="bar"></div>`;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("attr-case", 'Attribute "clAss" should be lowercase');
 		});
@@ -56,26 +61,30 @@ describe("rule attr-case", () => {
 
 		it("should report error when attributes is lowercase", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<div foo="bar"></div>');
+			const markup = /* HTML */ `<div foo="bar"></div>`;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("attr-case", 'Attribute "foo" should be uppercase');
 		});
 
 		it("should not report error when attribute has special characters", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<div FOO-BAR-9="bar"></div>');
+			const markup = /* HTML */ `<div FOO-BAR-9="bar"></div>`;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when attributes is uppercase", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<div FOO="bar"></div>');
+			const markup = /* HTML */ `<div FOO="bar"></div>`;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when attributes is mixed", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<div clAss="bar"></div>');
+			const markup = `<div clAss="bar"></div>`;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("attr-case", 'Attribute "clAss" should be uppercase');
 		});
@@ -97,26 +106,30 @@ describe("rule attr-case", () => {
 
 		it("should not report error when attributes is PascalCase", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<div FooBar="baz"></div>');
+			const markup = /* HTML */ `<div FooBar="baz"></div>`;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when attributes is UPPERCASE", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<div FOOBAR="baz"></div>');
+			const markup = /* HTML */ `<div FOOBAR="baz"></div>`;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when attributes is lowercase", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<div foobar="baz"></div>');
+			const markup = /* HTML */ `<div foobar="baz"></div>`;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("attr-case", 'Attribute "foobar" should be PascalCase');
 		});
 
 		it("should report error when attributes is camelCase", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<div fooBar="baz"></div>');
+			const markup = /* HTML */ `<div fooBar="baz"></div>`;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("attr-case", 'Attribute "fooBar" should be PascalCase');
 		});
@@ -138,26 +151,30 @@ describe("rule attr-case", () => {
 
 		it("should not report error when attributes is camelCase", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<div fooBar="baz"></div>');
+			const markup = /* HTML */ `<div fooBar="baz"></div>`;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when attributes is lowercase", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<div foobar="baz"></div>');
+			const markup = /* HTML */ `<div foobar="baz"></div>`;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when attributes is UPPERCASE", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<div FOOBAR="baz"></div>');
+			const markup = /* HTML */ `<div FOOBAR="baz"></div>`;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("attr-case", 'Attribute "FOOBAR" should be camelCase');
 		});
 
 		it("should report error when attributes is PascalCase", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<div FooBar="baz"></div>');
+			const markup = /* HTML */ `<div FooBar="baz"></div>`;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("attr-case", 'Attribute "FooBar" should be camelCase');
 		});
@@ -179,7 +196,8 @@ describe("rule attr-case", () => {
 
 		it("should not report error on foreign elements", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<svg viewBox=""/>');
+			const markup = /* HTML */ `<svg viewBox="" />`;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 	});
@@ -194,7 +212,8 @@ describe("rule attr-case", () => {
 
 		it("should report error on foreign elements", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<svg viewBox=""/>');
+			const markup = /* HTML */ `<svg viewBox="" />`;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("attr-case", 'Attribute "viewBox" should be lowercase');
 		});
@@ -222,7 +241,8 @@ describe("rule attr-case", () => {
 			root: true,
 			rules: { "attr-case": "error" },
 		});
-		const report = htmlvalidate.validateString('<input dynamic-fooBar="foo">', {
+		const markup = /* HTML */ `<input dynamic-fooBar="foo" />`;
+		const report = htmlvalidate.validateString(markup, {
 			processAttribute,
 		});
 		expect(report).toBeInvalid();
@@ -232,6 +252,27 @@ describe("rule attr-case", () => {
 				message: 'Attribute "dynamic-fooBar" should be lowercase',
 			},
 		]);
+	});
+
+	it("should report proper location and selector", () => {
+		expect.assertions(3);
+		htmlvalidate = new HtmlValidate({
+			root: true,
+			rules: { "attr-case": "error" },
+		});
+		const markup = /* HTML */ `
+			<body>
+				<header>
+					<div FOO="bar"></div>
+				</header>
+			</body>
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toHaveError({
+			selector: "body > header > div",
+		});
+		expect(codeframe(report.results, { showLink: false, showSummary: false })).toMatchSnapshot();
 	});
 
 	it("should throw error if configured with invalid value", () => {

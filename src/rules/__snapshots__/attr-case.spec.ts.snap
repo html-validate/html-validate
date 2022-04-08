@@ -164,3 +164,16 @@ Object {
   "url": "https://html-validate.org/rules/attr-case.html",
 }
 `;
+
+exports[`rule attr-case should report proper location and selector 1`] = `
+"<red>error</>: <bold>Attribute \\"FOO\\" should be lowercase</> <dim>(attr-case)</> at <green>inline:4:11</>:
+  2 | 			<body>
+  3 | 				<header>
+> 4 | 					<div FOO=\\"bar\\"></div>
+    | 					     ^^^
+  5 | 				</header>
+  6 | 			</body>
+  7 | 		
+
+"
+`;
