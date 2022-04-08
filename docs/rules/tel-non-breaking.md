@@ -68,4 +68,4 @@ For instance, when configured with `["nobreak"]` the following is valid:
 
 ## Version history
 
-- %version% - Rule added
+- 6.7.0 - Rule added

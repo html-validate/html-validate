@@ -1,5 +1,18 @@
 # html-validate changelog
 
+## [6.7.0](https://gitlab.com/html-validate/html-validate/compare/v6.6.1...v6.7.0) (2022-04-08)
+
+### Features
+
+- **jest:** allow passing object to `toHaveError(..)` ([bc098f5](https://gitlab.com/html-validate/html-validate/commit/bc098f517cc0f6e2849e8e1b71f1b5361aea8d71))
+- **rules:** new rule `tel-non-breaking` ([32a6fe2](https://gitlab.com/html-validate/html-validate/commit/32a6fe264ca31cbf67dc2277d63f5012fd95b4e8))
+
+### Bug Fixes
+
+- **cli:** proper argument count to `--print-config` ([91c1a45](https://gitlab.com/html-validate/html-validate/commit/91c1a455a150f61e5e061109332f6c171bad942e))
+- remove unnecessary fields from published package.json ([06528c7](https://gitlab.com/html-validate/html-validate/commit/06528c743cfada2f8fcd0eb593485e9302f88690))
+- **rules:** better error message for `attr-delimiter` ([acf4249](https://gitlab.com/html-validate/html-validate/commit/acf424908d0e556e75a2cab49b1dee18549a81e1))
+
 ### [6.6.1](https://gitlab.com/html-validate/html-validate/compare/v6.6.0...v6.6.1) (2022-03-25)
 
 ### Bug Fixes
