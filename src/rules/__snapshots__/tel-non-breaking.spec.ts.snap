@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule tel-non-breaking should contain contextual documentation 1`] = `
+Object {
+  "description": "The \` \` character should be replaced with \`&nbsp;\` character (non-breaking space) when used in a telephone number.
+
+Unless non-breaking characters is used there could be a line break inserted at that character.
+Line breaks make is harder to read and understand the telephone number.
+
+The following characters should be avoided:
+
+  - \` \` - replace with \`&nbsp;\` (non-breaking space).
+  - \`-\` - replace with \`&#8209;\` (non-breaking hyphen).",
+  "url": "https://html-validate.org/rules/tel-non-breaking.html",
+}
+`;
+
+exports[`rule tel-non-breaking should contain documentation 1`] = `
+Object {
+  "description": "Replace this character with a non-breaking version.
+
+Unless non-breaking characters is used there could be a line break inserted at that character.
+Line breaks make is harder to read and understand the telephone number.
+
+The following characters should be avoided:
+
+  - \` \` - replace with \`&nbsp;\` (non-breaking space).
+  - \`-\` - replace with \`&#8209;\` (non-breaking hyphen).",
+  "url": "https://html-validate.org/rules/tel-non-breaking.html",
+}
+`;

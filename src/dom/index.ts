@@ -1,5 +1,5 @@
 export { Attribute, isDynamicAttribute, isStaticAttribute } from "./attribute";
-export { HtmlElement, NodeClosed } from "./htmlelement";
+export { HtmlElement, NodeClosed, isElementNode } from "./htmlelement";
 export { DOMNode } from "./domnode";
 export { DOMTokenList } from "./domtokenlist";
 export { DOMTree } from "./domtree";

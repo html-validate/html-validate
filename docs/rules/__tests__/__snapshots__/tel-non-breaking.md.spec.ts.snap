@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/tel-non-breaking.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/tel-non-breaking.md inline validation: ignored 1`] = `Array []`;
+
+exports[`docs/rules/tel-non-breaking.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 2,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 14,
+        "context": Object {
+          "description": "non-breaking hyphen",
+          "pattern": "-",
+          "replacement": "&#8209;",
+        },
+        "line": 2,
+        "message": "\\"-\\" should be replaced with \\"&#8209;\\" in telephone number",
+        "offset": 38,
+        "ruleId": "tel-non-breaking",
+        "ruleUrl": "https://html-validate.org/rules/tel-non-breaking.html",
+        "selector": null,
+        "severity": 2,
+        "size": 1,
+      },
+      Object {
+        "column": 18,
+        "context": Object {
+          "description": "non-breaking space",
+          "pattern": " ",
+          "replacement": "&nbsp;",
+        },
+        "line": 2,
+        "message": "\\" \\" should be replaced with \\"&nbsp;\\" in telephone number",
+        "offset": 42,
+        "ruleId": "tel-non-breaking",
+        "ruleUrl": "https://html-validate.org/rules/tel-non-breaking.html",
+        "selector": null,
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<a href=\\"tel:555123456\\">
+    <span>555-123 456</span>
+</a>",
+    "warningCount": 0,
+  },
+]
+`;

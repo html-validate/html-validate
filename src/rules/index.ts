@@ -59,6 +59,7 @@ import RequireSri from "./require-sri";
 import ScriptElement from "./script-element";
 import ScriptType from "./script-type";
 import SvgFocusable from "./svg-focusable";
+import TelNonBreaking from "./tel-non-breaking";
 import TextContent from "./text-content";
 import UnrecognizedCharRef from "./unrecognized-char-ref";
 import Void from "./void";
@@ -127,6 +128,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"script-element": ScriptElement,
 	"script-type": ScriptType,
 	"svg-focusable": SvgFocusable,
+	"tel-non-breaking": TelNonBreaking,
 	"text-content": TextContent,
 	"unrecognized-char-ref": UnrecognizedCharRef,
 	void: Void,

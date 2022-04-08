@@ -51,6 +51,7 @@ const config: ConfigData = {
 		"script-element": "error",
 		"script-type": "error",
 		"svg-focusable": "off",
+		"tel-non-breaking": "error",
 		"text-content": "error",
 		"unrecognized-char-ref": "error",
 		void: "off",
