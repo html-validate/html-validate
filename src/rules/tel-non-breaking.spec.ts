@@ -1,4 +1,6 @@
 import HtmlValidate from "../htmlvalidate";
+import { codeframe } from "../formatters/codeframe";
+import { type RuleContext } from "./tel-non-breaking";
 import "../jest";
 
 describe("rule tel-non-breaking", () => {
@@ -90,21 +92,23 @@ describe("rule tel-non-breaking", () => {
 		expect(report).toBeValid();
 	});
 
-	it("should report error withe correct location", () => {
-		expect.assertions(2);
+	it("should report proper location and selector", () => {
+		expect.assertions(3);
 		const markup = /* HTML */ `
-			<a href="tel:">
-				<span> foo-bar </span>
-			</a>
+			<body>
+				<header>
+					<a href="tel:">
+						<span> foo-bar </span>
+					</a>
+				</header>
+			</body>
 		`;
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError({
-			ruleId: "tel-non-breaking",
-			line: 3,
-			column: 15,
-			size: 1,
+			selector: "body > header > a",
 		});
+		expect(codeframe(report.results, { showLink: false, showSummary: false })).toMatchSnapshot();
 	});
 
 	it("should contain documentation", () => {
@@ -122,7 +126,7 @@ describe("rule tel-non-breaking", () => {
 			root: true,
 			rules: { "tel-non-breaking": "error" },
 		});
-		const context = {
+		const context: RuleContext = {
 			pattern: " ",
 			replacement: "&nbsp;",
 			description: "non-breaking space",

@@ -29,3 +29,16 @@ The following characters should be avoided:
   "url": "https://html-validate.org/rules/tel-non-breaking.html",
 }
 `;
+
+exports[`rule tel-non-breaking should report proper location and selector 1`] = `
+"<red>error</>: <bold>\\"-\\" should be replaced with \\"&#8209;\\" in telephone number</> <dim>(tel-non-breaking)</> at <green>inline:5:17</>:
+  3 | 				<header>
+  4 | 					<a href=\\"tel:\\">
+> 5 | 						<span> foo-bar </span>
+    | 						          ^
+  6 | 					</a>
+  7 | 				</header>
+  8 | 			</body>
+
+"
+`;

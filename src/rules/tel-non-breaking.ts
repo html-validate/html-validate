@@ -9,7 +9,7 @@ interface Character {
 	description: string;
 }
 
-interface RuleContext {
+export interface RuleContext {
 	pattern: string;
 	replacement: string;
 	description: string;
@@ -134,7 +134,7 @@ export default class TelNonBreaking extends Rule<RuleContext, RuleOptions> {
 				return;
 			}
 
-			this.walk(target);
+			this.walk(target, target);
 		});
 	}
 
@@ -155,17 +155,17 @@ export default class TelNonBreaking extends Rule<RuleContext, RuleOptions> {
 		return true;
 	}
 
-	private walk(node: HtmlElement): void {
+	private walk(anchor: HtmlElement, node: HtmlElement): void {
 		for (const child of node.childNodes) {
 			if (isTextNode(child)) {
-				this.detectDisallowed(child);
+				this.detectDisallowed(anchor, child);
 			} else if (isElementNode(child)) {
-				this.walk(child);
+				this.walk(anchor, child);
 			}
 		}
 	}
 
-	private detectDisallowed(node: TextNode): void {
+	private detectDisallowed(anchor: HtmlElement, node: TextNode): void {
 		const [offset, text] = getText(node);
 		const matches = matchAll(text, this.regex);
 		for (const match of matches) {
@@ -180,7 +180,7 @@ export default class TelNonBreaking extends Rule<RuleContext, RuleOptions> {
 			const end = begin + detected.length;
 			const location = sliceLocation(node.location, begin, end);
 			const context: RuleContext = entry;
-			this.report(node, message, location, context);
+			this.report(anchor, message, location, context);
 		}
 	}
 }

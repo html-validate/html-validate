@@ -1,7 +1,7 @@
 import HtmlValidate from "../htmlvalidate";
-import "../jest";
 import { processAttribute } from "../transform/mocks/attribute";
 import { codeframe } from "../formatters/codeframe";
+import "../jest";
 
 describe("rule attr-case", () => {
 	let htmlvalidate: HtmlValidate;
