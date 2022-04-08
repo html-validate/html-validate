@@ -1,7 +1,10 @@
+import kleur from "kleur";
 import HtmlValidate from "../htmlvalidate";
 import { codeframe } from "../formatters/codeframe";
 import { type RuleContext } from "./tel-non-breaking";
 import "../jest";
+
+kleur.enabled = false;
 
 describe("rule tel-non-breaking", () => {
 	let htmlvalidate: HtmlValidate;
@@ -55,7 +58,7 @@ describe("rule tel-non-breaking", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"tel-non-breaking",
-			'" " should be replaced with "&nbsp;" in telephone number'
+			'" " should be replaced with "&nbsp;" (non-breaking space) in telephone number'
 		);
 	});
 
@@ -66,7 +69,7 @@ describe("rule tel-non-breaking", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"tel-non-breaking",
-			'"-" should be replaced with "&#8209;" in telephone number'
+			'"-" should be replaced with "&#8209;" (non-breaking hyphen) in telephone number'
 		);
 	});
 
@@ -77,7 +80,7 @@ describe("rule tel-non-breaking", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"tel-non-breaking",
-			'" " should be replaced with "&nbsp;" in telephone number'
+			'" " should be replaced with "&nbsp;" (non-breaking space) in telephone number'
 		);
 	});
 

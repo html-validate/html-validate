@@ -175,7 +175,7 @@ export default class TelNonBreaking extends Rule<RuleContext, RuleOptions> {
 			if (!entry) {
 				throw new Error(`Failed to find entry for "${detected}" when searching text "${text}"`);
 			}
-			const message = `"${detected}" should be replaced with "${entry.replacement}" in telephone number`;
+			const message = `"${detected}" should be replaced with "${entry.replacement}" (${entry.description}) in telephone number`;
 			const begin = offset + match.index;
 			const end = begin + detected.length;
 			const location = sliceLocation(node.location, begin, end);

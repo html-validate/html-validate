@@ -1,7 +1,10 @@
+import kleur from "kleur";
 import HtmlValidate from "../htmlvalidate";
 import { processAttribute } from "../transform/mocks/attribute";
 import { codeframe } from "../formatters/codeframe";
 import "../jest";
+
+kleur.enabled = false;
 
 describe("rule attr-case", () => {
 	let htmlvalidate: HtmlValidate;

@@ -31,7 +31,7 @@ The following characters should be avoided:
 `;
 
 exports[`rule tel-non-breaking should report proper location and selector 1`] = `
-"<red>error</>: <bold>\\"-\\" should be replaced with \\"&#8209;\\" in telephone number</> <dim>(tel-non-breaking)</> at <green>inline:5:17</>:
+"error: \\"-\\" should be replaced with \\"&#8209;\\" (non-breaking hyphen) in telephone number (tel-non-breaking) at inline:5:17:
   3 | 				<header>
   4 | 					<a href=\\"tel:\\">
 > 5 | 						<span> foo-bar </span>

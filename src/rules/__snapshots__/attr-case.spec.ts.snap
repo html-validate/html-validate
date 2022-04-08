@@ -166,7 +166,7 @@ Object {
 `;
 
 exports[`rule attr-case should report proper location and selector 1`] = `
-"<red>error</>: <bold>Attribute \\"FOO\\" should be lowercase</> <dim>(attr-case)</> at <green>inline:4:11</>:
+"error: Attribute \\"FOO\\" should be lowercase (attr-case) at inline:4:11:
   2 | 			<body>
   3 | 				<header>
 > 4 | 					<div FOO=\\"bar\\"></div>
