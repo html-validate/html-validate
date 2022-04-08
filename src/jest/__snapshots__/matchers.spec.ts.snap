@@ -138,6 +138,39 @@ Difference:
   ]"
 `;
 
+exports[`toHaveError() should handle passing object as expected error 1`] = `
+"expect(received).toHaveError(expected)
+
+Expected error to equal:
+  [ObjectContaining {\\"line\\": 3, \\"ruleId\\": \\"asdf\\", \\"size\\": 12}]
+Received:
+  [{\\"column\\": 15, \\"context\\": {\\"foo\\": \\"bar\\"}, \\"line\\": 2, \\"message\\": \\"mock message\\", \\"offset\\": 43, \\"ruleId\\": \\"my-rule\\", \\"selector\\": null, \\"severity\\": 2, \\"size\\": 12}]
+
+Difference:
+
+- Expected
++ Received
+
+  Array [
+-   ObjectContaining {
+-     \\"line\\": 3,
+-     \\"ruleId\\": \\"asdf\\",
++   Object {
++     \\"column\\": 15,
++     \\"context\\": Object {
++       \\"foo\\": \\"bar\\",
++     },
++     \\"line\\": 2,
++     \\"message\\": \\"mock message\\",
++     \\"offset\\": 43,
++     \\"ruleId\\": \\"my-rule\\",
++     \\"selector\\": null,
++     \\"severity\\": 2,
+      \\"size\\": 12,
+    },
+  ]"
+`;
+
 exports[`toHaveErrors() should fail if error any missing 1`] = `
 "expect(received).toHaveErrors(expected)
 

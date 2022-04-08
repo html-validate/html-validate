@@ -23,6 +23,7 @@ declare global {
 			toBeValid(): R;
 			toBeInvalid(): R;
 			toBeToken(expected: TokenMatcher): R;
+			toHaveError(error: Partial<Message>): R;
 			toHaveError(ruleId: string, message: string, context?: any): R;
 			toHaveErrors(errors: Array<[string, string] | Record<string, unknown>>): R;
 

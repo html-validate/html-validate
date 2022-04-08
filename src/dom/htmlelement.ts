@@ -21,8 +21,13 @@ export enum NodeClosed {
 	ImplicitClosed = 4, //  element with optional end tag <li>foo<li>bar
 }
 
-function isElement(node: DOMNode): node is HtmlElement {
-	return node.nodeType === NodeType.ELEMENT_NODE;
+/**
+ * Returns true if the node is an element node.
+ *
+ * @public
+ */
+export function isElementNode(node: DOMNode | null | undefined): node is HtmlElement {
+	return Boolean(node && node.nodeType === NodeType.ELEMENT_NODE);
 }
 
 function isValidTagName(tagName: string | undefined): boolean {
@@ -129,7 +134,7 @@ export class HtmlElement extends DOMNode {
 	 * Similar to childNodes but only elements.
 	 */
 	public get childElements(): HtmlElement[] {
-		return this.childNodes.filter(isElement);
+		return this.childNodes.filter(isElementNode);
 	}
 
 	/**
