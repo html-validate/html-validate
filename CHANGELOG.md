@@ -1,5 +1,12 @@
 # html-validate changelog
 
+### [6.7.1](https://gitlab.com/html-validate/html-validate/compare/v6.7.0...v6.7.1) (2022-04-08)
+
+### Bug Fixes
+
+- **rules:** fix reported selector for `tel-non-breaking` errors ([0909ce4](https://gitlab.com/html-validate/html-validate/commit/0909ce440f6c84108babe7fd80b43695d47d36f2))
+- **rules:** show character description in `tel-non-breaking` ([894d456](https://gitlab.com/html-validate/html-validate/commit/894d456fda5c5e04075da16813c2f88f3d6149f4))
+
 ## [6.7.0](https://gitlab.com/html-validate/html-validate/compare/v6.6.1...v6.7.0) (2022-04-08)
 
 ### Features
