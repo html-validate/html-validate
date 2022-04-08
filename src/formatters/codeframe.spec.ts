@@ -4,6 +4,7 @@ import {
 	emptyResult,
 	missingSource,
 	missingUrl,
+	multiline,
 	regular,
 } from "./__fixtures__";
 
@@ -22,10 +23,23 @@ describe("codeframe formatter", () => {
 		expect(formatter(regular)).toMatchSnapshot();
 	});
 
+	it("should handle multiline error", () => {
+		expect.assertions(1);
+		expect(formatter(multiline)).toMatchSnapshot();
+	});
+
 	it("should support disabling links", () => {
 		expect.assertions(1);
-		const options: CodeframeOptions = {
+		const options: Partial<CodeframeOptions> = {
 			showLink: false,
+		};
+		expect(codeframe(regular, options)).toMatchSnapshot();
+	});
+
+	it("should support disabling summary", () => {
+		expect.assertions(1);
+		const options: Partial<CodeframeOptions> = {
+			showSummary: false,
 		};
 		expect(codeframe(regular, options)).toMatchSnapshot();
 	});

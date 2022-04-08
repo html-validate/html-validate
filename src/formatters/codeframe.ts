@@ -11,10 +11,12 @@ interface SourcePoint {
 
 export interface CodeframeOptions {
 	showLink: boolean;
+	showSummary: boolean;
 }
 
 const defaults: CodeframeOptions = {
 	showLink: true,
+	showSummary: true,
 };
 
 /**
@@ -158,9 +160,11 @@ export function codeframe(results: Result[], options?: Partial<CodeframeOptions>
 		}, [] as string[])
 		.join("\n");
 
-	output += "\n";
-	output += formatSummary(errors, warnings);
-	output += "\n";
+	if (merged.showSummary) {
+		output += "\n";
+		output += formatSummary(errors, warnings);
+		output += "\n";
+	}
 
 	return errors + warnings > 0 ? output : "";
 }

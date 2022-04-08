@@ -85,6 +85,20 @@ exports[`codeframe formatter should handle missing source 1`] = `
 "
 `;
 
+exports[`codeframe formatter should handle multiline error 1`] = `
+"<red>error</>: <bold>An error</> <dim>(foo)</> at <green>multiline.html:1:4</>:
+> 1 | <p>lorem
+    |    ^^^^^
+> 2 | ipsum</p>
+    | ^^^^^
+  3 |
+<bold>Details:</> https://example.net/rule/foo.html
+
+
+<red><bold>1 error and 1 warning found.</></>
+"
+`;
+
 exports[`codeframe formatter should support disabling links 1`] = `
 "<red>error</>: <bold>An error</> <dim>(foo)</> at <green>first.html:1:6</>:
 > 1 | <div id=\\"foo\\"
@@ -109,5 +123,33 @@ exports[`codeframe formatter should support disabling links 1`] = `
 
 
 <red><bold>2 errors and 1 warning found.</></>
+"
+`;
+
+exports[`codeframe formatter should support disabling summary 1`] = `
+"<red>error</>: <bold>An error</> <dim>(foo)</> at <green>first.html:1:6</>:
+> 1 | <div id=\\"foo\\"
+    |      ^^
+  2 |     class=\\"bar\\"
+  3 |     name=\\"baz\\">
+  4 |
+<bold>Details:</> https://example.net/rule/foo.html
+
+
+<yellow>warning</>: <bold>A warning</> <dim>(bar)</> at <green>first.html:2:5</>:
+  1 | <div id=\\"foo\\"
+> 2 |     class=\\"bar\\"
+    |     ^^^^^
+  3 |     name=\\"baz\\">
+  4 |
+<bold>Details:</> https://example.net/rule/bar.html
+
+
+<red>error</>: <bold>Lorem ipsum is not allowed</> <dim>(no-lorem-ipsum)</> at <green>second.html:1:4</>:
+> 1 | <p>lorem ipsum</p>
+    |    ^^^^^^^^^^^
+  2 |
+<bold>Details:</> https://example.net/rule/no-lorem-ipsum.html
+
 "
 `;
