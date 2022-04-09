@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`toBeInvalid() should fail if async report is valid 1`] = `"Result should be invalid but had no errors"`;
+
+exports[`toBeInvalid() should fail if report is valid 1`] = `"Result should be invalid but had no errors"`;
