@@ -1,6 +1,13 @@
 import { ConfigData } from "../config";
 import { Message } from "../reporter";
-import { toBeValid, toBeInvalid, toHTMLValidate, toHaveError, toHaveErrors } from "./matchers";
+import {
+	toBeValid,
+	toBeInvalid,
+	toHTMLValidate,
+	toHaveError,
+	toHaveErrors,
+	toMatchInlineCodeframe,
+} from "./matchers";
 
 declare global {
 	/* eslint-disable-next-line @typescript-eslint/no-namespace */
@@ -30,6 +37,12 @@ declare global {
 			toHTMLValidate(error: Partial<Message>, filename: string): R;
 			toHTMLValidate(error: Partial<Message>, config: ConfigData): R;
 			toHTMLValidate(error: Partial<Message>, config: ConfigData, filename: string): R;
+
+			/**
+			 * Writes out the given [[Report]] using codeframe formatter and compares
+			 * with inline snapshot.
+			 */
+			toMatchInlineCodeframe(snapshot?: string): R;
 		}
 	}
 }
@@ -40,4 +53,5 @@ expect.extend({
 	toHaveError,
 	toHaveErrors,
 	toHTMLValidate,
+	toMatchInlineCodeframe,
 });

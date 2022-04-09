@@ -1,10 +1,6 @@
-import kleur from "kleur";
 import HtmlValidate from "../htmlvalidate";
-import { codeframe } from "../formatters/codeframe";
 import { type RuleContext } from "./tel-non-breaking";
 import "../jest";
-
-kleur.enabled = false;
 
 describe("rule tel-non-breaking", () => {
 	let htmlvalidate: HtmlValidate;
@@ -56,10 +52,12 @@ describe("rule tel-non-breaking", () => {
 		const markup = /* HTML */ `<a href="tel:">foo bar</a>`;
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"tel-non-breaking",
-			'" " should be replaced with "&nbsp;" (non-breaking space) in telephone number'
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: \\" \\" should be replaced with \\"&nbsp;\\" (non-breaking space) in telephone number (tel-non-breaking) at inline:1:19:
+			> 1 | <a href=\\"tel:\\">foo bar</a>
+			    |                   ^
+			Selector: a"
+		`);
 	});
 
 	it("should report error when tel anchor have breaking hyphen", () => {
@@ -67,10 +65,12 @@ describe("rule tel-non-breaking", () => {
 		const markup = /* HTML */ `<a href="tel:">foo-bar</a>`;
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"tel-non-breaking",
-			'"-" should be replaced with "&#8209;" (non-breaking hyphen) in telephone number'
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: \\"-\\" should be replaced with \\"&#8209;\\" (non-breaking hyphen) in telephone number (tel-non-breaking) at inline:1:19:
+			> 1 | <a href=\\"tel:\\">foo-bar</a>
+			    |                   ^
+			Selector: a"
+		`);
 	});
 
 	it("should report error in nested elements", () => {
@@ -78,10 +78,12 @@ describe("rule tel-non-breaking", () => {
 		const markup = /* HTML */ `<a href="tel:"><span>foo bar</span></a>`;
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"tel-non-breaking",
-			'" " should be replaced with "&nbsp;" (non-breaking space) in telephone number'
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: \\" \\" should be replaced with \\"&nbsp;\\" (non-breaking space) in telephone number (tel-non-breaking) at inline:1:25:
+			> 1 | <a href=\\"tel:\\"><span>foo bar</span></a>
+			    |                         ^
+			Selector: a"
+		`);
 	});
 
 	it("should ignore interelement whitespace", () => {
@@ -95,32 +97,27 @@ describe("rule tel-non-breaking", () => {
 		expect(report).toBeValid();
 	});
 
-	it("should report proper location and selector", () => {
-		expect.assertions(3);
-		const markup = /* HTML */ `
-			<body>
-				<header>
-					<a href="tel:">
-						<span> foo-bar </span>
-					</a>
-				</header>
-			</body>
-		`;
-		const report = htmlvalidate.validateString(markup);
-		expect(report).toBeInvalid();
-		expect(report).toHaveError({
-			selector: "body > header > a",
-		});
-		expect(codeframe(report.results, { showLink: false, showSummary: false })).toMatchSnapshot();
-	});
-
 	it("should contain documentation", () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "tel-non-breaking": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("tel-non-breaking")).toMatchSnapshot();
+		const docs = htmlvalidate.getRuleDocumentation("tel-non-breaking");
+		expect(docs).toMatchInlineSnapshot(`
+			Object {
+			  "description": "Replace this character with a non-breaking version.
+
+			Unless non-breaking characters is used there could be a line break inserted at that character.
+			Line breaks make is harder to read and understand the telephone number.
+
+			The following characters should be avoided:
+
+			  - \` \` - replace with \`&nbsp;\` (non-breaking space).
+			  - \`-\` - replace with \`&#8209;\` (non-breaking hyphen).",
+			  "url": "https://html-validate.org/rules/tel-non-breaking.html",
+			}
+		`);
 	});
 
 	it("should contain contextual documentation", () => {
@@ -134,6 +131,20 @@ describe("rule tel-non-breaking", () => {
 			replacement: "&nbsp;",
 			description: "non-breaking space",
 		};
-		expect(htmlvalidate.getRuleDocumentation("tel-non-breaking", null, context)).toMatchSnapshot();
+		const docs = htmlvalidate.getRuleDocumentation("tel-non-breaking", null, context);
+		expect(docs).toMatchInlineSnapshot(`
+			Object {
+			  "description": "The \` \` character should be replaced with \`&nbsp;\` character (non-breaking space) when used in a telephone number.
+
+			Unless non-breaking characters is used there could be a line break inserted at that character.
+			Line breaks make is harder to read and understand the telephone number.
+
+			The following characters should be avoided:
+
+			  - \` \` - replace with \`&nbsp;\` (non-breaking space).
+			  - \`-\` - replace with \`&#8209;\` (non-breaking hyphen).",
+			  "url": "https://html-validate.org/rules/tel-non-breaking.html",
+			}
+		`);
 	});
 });
