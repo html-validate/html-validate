@@ -209,7 +209,7 @@
     "prettier": "2.6.2",
     "rollup": "2.70.1",
     "rollup-plugin-copy": "3.4.0",
-    "rollup-plugin-dts": "4.2.0",
+    "rollup-plugin-dts": "4.2.1",
     "sass": "1.50.0",
     "serve-static": "1.15.0",
     "stringmap": "0.2.2",
