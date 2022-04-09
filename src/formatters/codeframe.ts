@@ -12,11 +12,13 @@ interface SourcePoint {
 export interface CodeframeOptions {
 	showLink: boolean;
 	showSummary: boolean;
+	showSelector: boolean;
 }
 
 const defaults: CodeframeOptions = {
 	showLink: true,
 	showSummary: true,
+	showSelector: false,
 };
 
 /**
@@ -109,6 +111,10 @@ function formatMessage(message: Message, parentResult: Result, options: Codefram
 				{ highlightCode: false }
 			)
 		);
+	}
+
+	if (options.showSelector) {
+		result.push(`${kleur.bold("Selector:")} ${message.selector ?? "-"}`);
 	}
 
 	if (options.showLink && message.ruleUrl) {
