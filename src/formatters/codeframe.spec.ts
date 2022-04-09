@@ -2,6 +2,7 @@ import {
 	edgeCases,
 	emptyMessages,
 	emptyResult,
+	missingSelector,
 	missingSource,
 	missingUrl,
 	multiline,
@@ -42,6 +43,22 @@ describe("codeframe formatter", () => {
 			showSummary: false,
 		};
 		expect(codeframe(regular, options)).toMatchSnapshot();
+	});
+
+	it("should support enabling selector", () => {
+		expect.assertions(1);
+		const options: Partial<CodeframeOptions> = {
+			showSelector: true,
+		};
+		expect(codeframe(regular, options)).toMatchSnapshot();
+	});
+
+	it("should handle missing selector", () => {
+		expect.assertions(1);
+		const options: Partial<CodeframeOptions> = {
+			showSelector: true,
+		};
+		expect(codeframe(missingSelector, options)).toMatchSnapshot();
 	});
 
 	it("should handle missing rule url", () => {

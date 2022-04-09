@@ -72,6 +72,21 @@ exports[`codeframe formatter should handle missing rule url 1`] = `
 "
 `;
 
+exports[`codeframe formatter should handle missing selector 1`] = `
+"<red>error</>: <bold>An error</> <dim>(foo)</> at <green>first.html:1:6</>:
+> 1 | <div id=\\"foo\\"
+    |      ^^
+  2 |     class=\\"bar\\"
+  3 |     name=\\"baz\\">
+  4 |
+<bold>Selector:</> -
+<bold>Details:</> https://example.net/rule/foo.html
+
+
+<red><bold>1 error and 1 warning found.</></>
+"
+`;
+
 exports[`codeframe formatter should handle missing source 1`] = `
 "<red>error</>: <bold>An error</> <dim>(foo)</> at <green>missing-source.html:1:6</>
 <bold>Details:</> https://example.net/rule/foo.html
@@ -151,5 +166,38 @@ exports[`codeframe formatter should support disabling summary 1`] = `
   2 |
 <bold>Details:</> https://example.net/rule/no-lorem-ipsum.html
 
+"
+`;
+
+exports[`codeframe formatter should support enabling selector 1`] = `
+"<red>error</>: <bold>An error</> <dim>(foo)</> at <green>first.html:1:6</>:
+> 1 | <div id=\\"foo\\"
+    |      ^^
+  2 |     class=\\"bar\\"
+  3 |     name=\\"baz\\">
+  4 |
+<bold>Selector:</> div
+<bold>Details:</> https://example.net/rule/foo.html
+
+
+<yellow>warning</>: <bold>A warning</> <dim>(bar)</> at <green>first.html:2:5</>:
+  1 | <div id=\\"foo\\"
+> 2 |     class=\\"bar\\"
+    |     ^^^^^
+  3 |     name=\\"baz\\">
+  4 |
+<bold>Selector:</> div
+<bold>Details:</> https://example.net/rule/bar.html
+
+
+<red>error</>: <bold>Lorem ipsum is not allowed</> <dim>(no-lorem-ipsum)</> at <green>second.html:1:4</>:
+> 1 | <p>lorem ipsum</p>
+    |    ^^^^^^^^^^^
+  2 |
+<bold>Selector:</> p
+<bold>Details:</> https://example.net/rule/no-lorem-ipsum.html
+
+
+<red><bold>2 errors and 1 warning found.</></>
 "
 `;
