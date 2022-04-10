@@ -153,17 +153,35 @@ Jest compat:
   needs: []
   parallel:
     matrix:
-      - VERSION: [25, 26, 27]
+      - MATRIX: [25, 26, 27]
   before_script:
     - npm ci --no-fund --no-audit --no-update-notifier
     - npm run build
-    - npm install --force jest@${VERSION}.0.0 ts-jest@${VERSION}.0.0
-    - npm install
-    # workaround issue where node_modules/.bin/jest does not exist
-    - npm install --force jest@${VERSION}.0.0 ts-jest@${VERSION}.0.0
-    - npm ls jest ts-jest
+    - export TYPES_VERSION="${MATRIX}"
+    - export JEST_VERSION=$(node scripts/get-min-version.js "${MATRIX}" "jest")
+    - export TS_VERSION=$(node scripts/get-min-version.js "${MATRIX}" "typescript")
+    - |
+      echo "Jest version: ${JEST_VERSION}"
+      echo "Typescript version: ${TS_VERSION}"
+      echo "@types version: ${TYPES_VERSION}"
+    - >
+      npm rm rollup-plugin-dts
+    - >
+      npm install
+      jest@${JEST_VERSION}
+      jest-diff@${JEST_VERSION}
+      ts-jest@${JEST_VERSION}
+      typescript@${TS_VERSION}
+      @types/jest@${TYPES_VERSION}
+    - >
+      npm ls
+      jest
+      jest-diff
+      ts-jest
+      typescript
+      @types/jest
   script:
-    - for spec in tests/jest/*.spec.ts; do sed 's#../../src/#../../dist/cjs/#g' -i "${spec}"; done
+    - for spec in tests/jest/*.spec.ts; do sed 's#../../src#../../dist/cjs#g' -i "${spec}"; done
     - npm exec jest -- --no-coverage --ci -- tests/jest
 
 Module:
