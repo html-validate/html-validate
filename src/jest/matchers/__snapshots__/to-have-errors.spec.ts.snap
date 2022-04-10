@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`toHaveErrors() should fail if error any missing 1`] = `
+"expect(received).toHaveErrors(expected)
+
+Expected error to equal:
+  [ObjectContaining {\\"message\\": \\"mock message\\", \\"ruleId\\": \\"my-rule\\"}, ObjectContaining {\\"message\\": \\"spam\\", \\"ruleId\\": \\"spam\\"}]
+Received:
+  [{\\"column\\": 15, \\"context\\": {\\"foo\\": \\"bar\\"}, \\"line\\": 2, \\"message\\": \\"mock message\\", \\"offset\\": 43, \\"ruleId\\": \\"my-rule\\", \\"selector\\": null, \\"severity\\": 2, \\"size\\": 12}, {\\"column\\": 15, \\"line\\": 2, \\"message\\": \\"another message\\", \\"offset\\": 43, \\"ruleId\\": \\"another-rule\\", \\"selector\\": null, \\"severity\\": 2, \\"size\\": 12}]
+
+Difference:
+
+- Expected
++ Received
+
+  Array [
+-   ObjectContaining {
++   Object {
++     \\"column\\": 15,
++     \\"context\\": Object {
++       \\"foo\\": \\"bar\\",
++     },
++     \\"line\\": 2,
+      \\"message\\": \\"mock message\\",
++     \\"offset\\": 43,
+      \\"ruleId\\": \\"my-rule\\",
++     \\"selector\\": null,
++     \\"severity\\": 2,
++     \\"size\\": 12,
+    },
+-   ObjectContaining {
+-     \\"message\\": \\"spam\\",
+-     \\"ruleId\\": \\"spam\\",
++   Object {
++     \\"column\\": 15,
++     \\"line\\": 2,
++     \\"message\\": \\"another message\\",
++     \\"offset\\": 43,
++     \\"ruleId\\": \\"another-rule\\",
++     \\"selector\\": null,
++     \\"severity\\": 2,
++     \\"size\\": 12,
+    },
+  ]"
+`;

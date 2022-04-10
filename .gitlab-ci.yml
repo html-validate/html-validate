@@ -164,7 +164,7 @@ Jest compat:
   script:
     - for spec in tests/jest/*.spec.ts; do sed 's#../../src/jest#../../jest#g' -i "${spec}"; done
     - npm run codegen
-    - npm exec jest -- --no-coverage --ci src/jest tests/jest
+    - npm exec jest -- --no-coverage --ci src/jest/matchers tests/jest
 
 Module:
   stage: compatibility

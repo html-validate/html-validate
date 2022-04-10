@@ -128,7 +128,8 @@
       "!src/index.ts",
       "!src/browser.ts",
       "!src/cli/html-validate.ts",
-      "!src/jest/jest.ts"
+      "!src/jest/jest.ts",
+      "!**/__fixtures__/**"
     ],
     "preset": "@html-validate/jest-config",
     "roots": [
