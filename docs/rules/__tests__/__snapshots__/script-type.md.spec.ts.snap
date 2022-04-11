@@ -16,7 +16,7 @@ Array [
         "offset": 8,
         "ruleId": "script-type",
         "ruleUrl": "https://html-validate.org/rules/script-type.html",
-        "selector": "script",
+        "selector": "script:nth-child(1)",
         "severity": 2,
         "size": 4,
       },

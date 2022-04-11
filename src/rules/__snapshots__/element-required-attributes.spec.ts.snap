@@ -31,7 +31,7 @@ Array [
         "offset": 1,
         "ruleId": "element-required-attributes",
         "ruleUrl": "https://html-validate.org/rules/element-required-attributes.html",
-        "selector": "input",
+        "selector": "input:nth-child(1)",
         "severity": 2,
         "size": 5,
       },

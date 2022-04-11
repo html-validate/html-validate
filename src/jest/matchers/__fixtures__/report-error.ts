@@ -11,7 +11,7 @@ export function reportError(): Report {
 		column: 15,
 		offset: 43,
 		size: 12,
-		selector: null,
+		selector: () => null,
 		context: {
 			foo: "bar",
 		},

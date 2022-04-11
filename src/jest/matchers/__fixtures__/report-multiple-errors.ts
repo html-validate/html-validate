@@ -11,7 +11,7 @@ export function reportMultipleErrors(): Report {
 		column: 15,
 		offset: 43,
 		size: 12,
-		selector: null,
+		selector: () => null,
 		context: {
 			foo: "bar",
 		},
@@ -24,7 +24,7 @@ export function reportMultipleErrors(): Report {
 		column: 15,
 		offset: 43,
 		size: 12,
-		selector: null,
+		selector: () => null,
 	});
 	return reporter.save();
 }

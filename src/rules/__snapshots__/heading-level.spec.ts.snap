@@ -42,7 +42,7 @@ Array [
         "offset": 1,
         "ruleId": "heading-level",
         "ruleUrl": "https://html-validate.org/rules/heading-level.html",
-        "selector": "h2",
+        "selector": "h2:nth-child(1)",
         "severity": 2,
         "size": 2,
       },

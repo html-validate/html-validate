@@ -16,7 +16,7 @@ Array [
         "offset": 9,
         "ruleId": "id-pattern",
         "ruleUrl": "https://html-validate.org/rules/id-pattern.html",
-        "selector": "div",
+        "selector": "#fooBar",
         "severity": 2,
         "size": 6,
       },

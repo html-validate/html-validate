@@ -27,7 +27,7 @@ Array [
         "offset": 3,
         "ruleId": "no-inline-style",
         "ruleUrl": "https://html-validate.org/rules/no-inline-style.html",
-        "selector": "p",
+        "selector": "p:nth-child(1)",
         "severity": 2,
         "size": 18,
       },

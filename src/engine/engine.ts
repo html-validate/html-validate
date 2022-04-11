@@ -443,7 +443,7 @@ export class Engine<T extends Parser = Parser> {
 			line: location.line,
 			column: location.column,
 			size: location.size || 0,
-			selector: null,
+			selector: () => null,
 		});
 	}
 }

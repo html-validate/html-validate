@@ -59,7 +59,7 @@ Array [
         "offset": 14,
         "ruleId": "no-deprecated-attr",
         "ruleUrl": "https://html-validate.org/rules/no-deprecated-attr.html",
-        "selector": "my-component",
+        "selector": "my-component:nth-child(1)",
         "severity": 2,
         "size": 4,
       },
