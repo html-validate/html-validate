@@ -139,3 +139,16 @@ expect(report).toHaveErrors([
   },
 ]);
 ```
+
+### `toMatchInlineCodeframe(snapshot?: string)`
+
+Writes out the given `Report` using codeframe formatter and compares with inline snapshot.
+
+```js
+expect(report).toMatchInlineCodeframe(`
+  "error: Attribute \\"FOO\\" should be lowercase (attr-case) at inline:1:6:
+  > 1 | <div FOO=\\"bar\\"></div>
+      |      ^^^
+  Selector: div"
+`);
+```

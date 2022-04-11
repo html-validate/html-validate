@@ -27,7 +27,7 @@ beforeAll(() => {
 });
 
 it("should validate ok", () => {
-	expect.assertions(4);
+	expect.assertions(5);
 	const markup = /* HTML */ `<div></div>`;
 	const report = htmlvalidate.validateString(markup);
 	expect(markup).toHTMLValidate();
@@ -54,10 +54,11 @@ Difference:
 - ]
 + Array []
 `);
+	expect(report).toMatchInlineCodeframe(``);
 });
 
 it("should not validate", () => {
-	expect.assertions(6);
+	expect.assertions(7);
 	const markup = /* HTML */ `<div style="color: hotpink;"></div>`;
 	const report = htmlvalidate.validateString(markup);
 	expect(markup).not.toHTMLValidate();
@@ -69,6 +70,12 @@ it("should not validate", () => {
 	expect(() => expect(report).toBeValid()).toThrowErrorMatchingInlineSnapshot(
 		`Result should be valid but had error "Inline style is not allowed"`
 	);
+	expect(report).toMatchInlineCodeframe(`
+		error: Inline style is not allowed (no-inline-style) at inline:1:6:
+		> 1 | <div style="color: hotpink;"></div>
+		    |      ^^^^^^^^^^^^^^^^^^^^^^^
+		Selector: div
+	`);
 });
 
 it("should validate jsdom HTMLElement", () => {
