@@ -1,5 +1,5 @@
 import { Source } from "./context";
-import { Message, Reporter, Result } from "./reporter";
+import { type DeferredMessage, Reporter, Result } from "./reporter";
 
 describe("Reporter", () => {
 	describe("merge()", () => {
@@ -138,7 +138,7 @@ describe("Reporter", () => {
 				line: 2,
 				column: 1,
 				size: 1,
-				selector: null,
+				selector: () => null,
 			});
 			report.addManual("foo.html", {
 				ruleId: "mock",
@@ -148,7 +148,7 @@ describe("Reporter", () => {
 				line: 1,
 				column: 2,
 				size: 1,
-				selector: null,
+				selector: () => null,
 			});
 			report.addManual("foo.html", {
 				ruleId: "mock",
@@ -158,7 +158,7 @@ describe("Reporter", () => {
 				line: 1,
 				column: 1,
 				size: 1,
-				selector: null,
+				selector: () => null,
 			});
 			expect(report.save().results).toEqual([
 				expect.objectContaining({
@@ -211,14 +211,20 @@ describe("Reporter", () => {
 function createResult(filename: string, messages: string[]): Result {
 	return {
 		filePath: filename,
-		messages: messages.map((cur) => createMessage(cur)),
+		messages: messages.map((cur) => {
+			const msg = createMessage(cur);
+			return {
+				...msg,
+				selector: msg.selector(),
+			};
+		}),
 		errorCount: messages.length,
 		warningCount: 0,
 		source: null,
 	};
 }
 
-function createMessage(message: string, severity: number = 2): Message {
+function createMessage(message: string, severity: number = 2): DeferredMessage {
 	return {
 		ruleId: "mock",
 		severity,
@@ -227,6 +233,6 @@ function createMessage(message: string, severity: number = 2): Message {
 		line: 1,
 		column: 1,
 		size: 1,
-		selector: null,
+		selector: () => null,
 	};
 }

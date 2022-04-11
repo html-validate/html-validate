@@ -12,7 +12,7 @@ export { version } from "./generated/package";
 export { MetaData, MetaElement, MetaTable, MetaCopyableProperty } from "./meta";
 export { Rule, RuleDocumentation } from "./rule";
 export { Source, Location, ProcessElementContext } from "./context";
-export { Report, Reporter, Message, Result } from "./reporter";
+export { Report, Reporter, Message, Result, type DeferredMessage } from "./reporter";
 export { TransformContext, Transformer, TemplateExtractor } from "./transform";
 export { Plugin } from "./plugin";
 export { Parser } from "./parser";

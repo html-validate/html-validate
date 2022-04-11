@@ -16,7 +16,7 @@ Array [
         "offset": 8,
         "ruleId": "no-raw-characters",
         "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
-        "selector": "p",
+        "selector": "p:nth-child(1)",
         "severity": 2,
         "size": 1,
       },

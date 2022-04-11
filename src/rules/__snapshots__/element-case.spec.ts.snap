@@ -54,7 +54,7 @@ Array [
         "offset": 1,
         "ruleId": "element-case",
         "ruleUrl": "https://html-validate.org/rules/element-case.html",
-        "selector": "div",
+        "selector": "div:nth-child(1)",
         "severity": 2,
         "size": 3,
       },

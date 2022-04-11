@@ -16,7 +16,7 @@ Array [
         "offset": 3,
         "ruleId": "attr-case",
         "ruleUrl": "https://html-validate.org/rules/attr-case.html",
-        "selector": "p",
+        "selector": "#foo",
         "severity": 2,
         "size": 2,
       },

@@ -119,7 +119,7 @@ Array [
         "offset": 209,
         "ruleId": "no-implicit-close",
         "ruleUrl": "https://html-validate.org/rules/no-implicit-close.html",
-        "selector": "dl > dt",
+        "selector": "dl > dt:nth-child(1)",
         "severity": 2,
         "size": 2,
       },

@@ -45,6 +45,20 @@ export interface Message {
 }
 
 /**
+ * @internal
+ */
+export interface DeferredMessage extends Omit<Message, "selector"> {
+	selector: () => string | null;
+}
+
+function freeze(src: DeferredMessage): Message {
+	return {
+		...src,
+		selector: src.selector(),
+	};
+}
+
+/**
  * @public
  */
 export interface Result {
@@ -78,7 +92,7 @@ export interface Report {
  * @internal
  */
 export class Reporter {
-	protected result: { [filename: string]: Message[] };
+	protected result: Record<string, DeferredMessage[]>;
 
 	public constructor() {
 		this.result = {};
@@ -134,12 +148,14 @@ export class Reporter {
 			line: location.line,
 			column: location.column,
 			size: location.size || 0,
-			selector: node ? node.generateSelector() : null,
+			selector() {
+				return node ? node.generateSelector() : null;
+			},
 			context,
 		});
 	}
 
-	public addManual(filename: string, message: Message): void {
+	public addManual(filename: string, message: DeferredMessage): void {
 		if (!(filename in this.result)) {
 			this.result[filename] = [];
 		}
@@ -150,7 +166,7 @@ export class Reporter {
 		const report: Report = {
 			valid: this.isValid(),
 			results: Object.keys(this.result).map((filePath) => {
-				const messages = Array.from(this.result[filePath]).sort(messageSort);
+				const messages = Array.from(this.result[filePath], freeze).sort(messageSort);
 				const source = (sources || []).find(
 					(source: Source) => filePath === (source.filename ?? "")
 				);
@@ -178,11 +194,11 @@ export class Reporter {
 	}
 }
 
-function countErrors(messages: Message[]): number {
+function countErrors(messages: Array<Message | DeferredMessage>): number {
 	return messages.filter((m) => m.severity === Severity.ERROR).length;
 }
 
-function countWarnings(messages: Message[]): number {
+function countWarnings(messages: Array<Message | DeferredMessage>): number {
 	return messages.filter((m) => m.severity === Severity.WARN).length;
 }
 
