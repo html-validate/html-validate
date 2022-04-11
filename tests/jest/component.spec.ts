@@ -14,7 +14,7 @@ function stripAnsi(text: string): string {
 
 expect.addSnapshotSerializer({
 	serialize(val: string): string {
-		return stripAnsi(val).replace(/^\s+/gm, "");
+		return stripAnsi(val);
 	},
 	test(): boolean {
 		return true;
@@ -35,13 +35,17 @@ it("should validate ok", () => {
 	expect(() => expect(report).toHaveError("no-inline-style", "Inline style is not allowed"))
 		.toThrowErrorMatchingInlineSnapshot(`
 expect(received).toHaveError(expected)
+
 Expected error to equal:
-[ObjectContaining {"message": "Inline style is not allowed", "ruleId": "no-inline-style"}]
+  [ObjectContaining {"message": "Inline style is not allowed", "ruleId": "no-inline-style"}]
 Received:
-[]
+  []
+
 Difference:
+
 - Expected
 + Received
+
 - Array [
 -   ObjectContaining {
 -     "message": "Inline style is not allowed",
