@@ -149,22 +149,22 @@ Node 17.x (current):
 
 Jest compat:
   stage: compatibility
-  dependencies: ["Build"]
-  needs: ["Build"]
+  dependencies: []
+  needs: []
   parallel:
     matrix:
       - VERSION: [24, 25, 26, 27]
   before_script:
     - npm ci --no-fund --no-audit --no-update-notifier
+    - npm run build
     - npm install --force jest@${VERSION}.0.0 ts-jest@${VERSION}.0.0
     - npm install
     # workaround issue where node_modules/.bin/jest does not exist
     - npm install --force jest@${VERSION}.0.0 ts-jest@${VERSION}.0.0
     - npm ls jest ts-jest
   script:
-    - for spec in tests/jest/*.spec.ts; do sed 's#../../src/jest#../../jest#g' -i "${spec}"; done
-    - npm run codegen
-    - npm exec jest -- --no-coverage --ci src/jest/matchers tests/jest
+    - for spec in tests/jest/*.spec.ts; do sed 's#../../src/#../../dist/cjs/#g' -i "${spec}"; done
+    - npm exec jest -- --no-coverage --ci -- tests/jest
 
 Module:
   stage: compatibility
