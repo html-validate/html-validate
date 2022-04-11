@@ -153,7 +153,7 @@ Jest compat:
   needs: []
   parallel:
     matrix:
-      - VERSION: [24, 25, 26, 27]
+      - VERSION: [25, 26, 27]
   before_script:
     - npm ci --no-fund --no-audit --no-update-notifier
     - npm run build
