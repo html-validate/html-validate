@@ -47,6 +47,20 @@ describe("rule tel-non-breaking", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error when anchor has white-space: nowrap", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `<a href="tel:" style="white-space: nowrap">foo bar-baz</a>`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when anchor has white-space: pre", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `<a href="tel:" style="white-space: pre">foo bar-baz</a>`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should report error when tel anchor have breaking space", () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `<a href="tel:">foo bar</a>`;
@@ -69,6 +83,56 @@ describe("rule tel-non-breaking", () => {
 			"error: \\"-\\" should be replaced with \\"&#8209;\\" (non-breaking hyphen) in telephone number (tel-non-breaking) at inline:1:19:
 			> 1 | <a href=\\"tel:\\">foo-bar</a>
 			    |                   ^
+			Selector: a"
+		`);
+	});
+
+	it("should report error when anchor has white-space set to other values", () => {
+		expect.assertions(2);
+		const markup = /* HTML */ `<a href="tel:" style="white-space: normal">foo ba</a>`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: \\" \\" should be replaced with \\"&nbsp;\\" (non-breaking space) in telephone number (tel-non-breaking) at inline:1:47:
+			> 1 | <a href=\\"tel:\\" style=\\"white-space: normal\\">foo ba</a>
+			    |                                               ^
+			Selector: a"
+		`);
+	});
+
+	it("should report error when ignoreStyle is disabled", () => {
+		expect.assertions(2);
+		const htmlvalidate = new HtmlValidate({
+			root: true,
+			rules: {
+				"tel-non-breaking": [
+					"error",
+					{
+						ignoreStyle: false,
+					},
+				],
+			},
+		});
+		const markup = /* HTML */ `<a href="tel:" style="white-space: nowrap">foo bar</a>`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+		"error: \\" \\" should be replaced with \\"&nbsp;\\" (non-breaking space) in telephone number (tel-non-breaking) at inline:1:47:
+		> 1 | <a href=\\"tel:\\" style=\\"white-space: nowrap\\">foo bar</a>
+		    |                                               ^
+		Selector: a"
+	`);
+	});
+
+	it("should report error when anchor has unrelated styling", () => {
+		expect.assertions(2);
+		const markup = /* HTML */ `<a href="tel:" style="background: red">foo ba</a>`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: \\" \\" should be replaced with \\"&nbsp;\\" (non-breaking space) in telephone number (tel-non-breaking) at inline:1:43:
+			> 1 | <a href=\\"tel:\\" style=\\"background: red\\">foo ba</a>
+			    |                                           ^
 			Selector: a"
 		`);
 	});

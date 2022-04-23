@@ -1,11 +1,6 @@
-import { DynamicValue } from "../dom";
+import { DynamicValue, parseCssDeclaration } from "../dom";
 import { AttributeEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
-
-interface CSSDeclaration {
-	property: string;
-	value?: string;
-}
 
 export interface RuleOptions {
 	include: string[] | null;
@@ -18,17 +13,6 @@ const defaults: RuleOptions = {
 	exclude: null,
 	allowedProperties: ["display"],
 };
-
-function getCSSDeclarations(value: string): CSSDeclaration[] {
-	return value
-		.trim()
-		.split(";")
-		.filter(Boolean)
-		.map((it): CSSDeclaration => {
-			const [property, value] = it.split(":", 2);
-			return { property: property.trim(), value: value ? value.trim() : undefined };
-		});
-}
 
 export default class NoInlineStyle extends Rule<void, RuleOptions> {
 	public constructor(options: Partial<RuleOptions>) {
@@ -125,10 +109,6 @@ export default class NoInlineStyle extends Rule<void, RuleOptions> {
 	}
 
 	private allPropertiesAllowed(value: string | DynamicValue | null): boolean {
-		if (typeof value !== "string") {
-			return false;
-		}
-
 		const allowProperties = this.options.allowedProperties;
 
 		/* quick path: no properties are allowed, no need to check each one individually */
@@ -136,11 +116,11 @@ export default class NoInlineStyle extends Rule<void, RuleOptions> {
 			return false;
 		}
 
-		const declarations = getCSSDeclarations(value);
+		const declarations = Object.keys(parseCssDeclaration(value));
 		return (
 			declarations.length > 0 &&
 			declarations.every((it) => {
-				return allowProperties.includes(it.property);
+				return allowProperties.includes(it);
 			})
 		);
 	}

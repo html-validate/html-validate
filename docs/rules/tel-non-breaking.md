@@ -45,7 +45,8 @@ This rule takes an optional object:
     { "pattern": " ", "replacement": "&nbsp;", "description": "non-breaking space" },
     { "pattern": "-", "replacement": "&#8209;", "description": "non-breaking hyphen" }
   ],
-  "ignoreClasses": []
+  "ignoreClasses": [],
+  "ignoreStyle": true
 }
 ```
 
@@ -66,6 +67,24 @@ For instance, when configured with `["nobreak"]` the following is valid:
     </a>
 </validate>
 
+### `ignoreStyle`
+
+When set to `true` the `<a>` element is checked for inline styling forcing it to preserve whitespace and prevent line breaks.
+
+Currently the following styles is checked:
+
+- `white-space: nowrap`
+- `white-space: pre`
+
+With this option the following is valid:
+
+<validate name="ignore-style" rules="tel-non-breaking">
+    <a style="white-space: nowrap" href="tel:555123456">
+        555-123 456
+    </a>
+</validate>
+
 ## Version history
 
+- %version% - `ignoreStyle` added
 - 6.7.0 - Rule added

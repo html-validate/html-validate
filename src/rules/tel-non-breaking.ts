@@ -18,6 +18,7 @@ export interface RuleContext {
 interface RuleOptions {
 	characters: Character[];
 	ignoreClasses: string[];
+	ignoreStyle: boolean;
 }
 
 const defaults: RuleOptions = {
@@ -26,6 +27,7 @@ const defaults: RuleOptions = {
 		{ pattern: "-", replacement: "&#8209;", description: "non-breaking hyphen" },
 	],
 	ignoreClasses: [],
+	ignoreStyle: true,
 };
 
 export function constructRegex(characters: Character[]): RegExp {
@@ -98,6 +100,9 @@ export default class TelNonBreaking extends Rule<RuleContext, RuleOptions> {
 					type: "string",
 				},
 			},
+			ignoreStyle: {
+				type: "boolean",
+			},
 		};
 	}
 
@@ -126,11 +131,8 @@ export default class TelNonBreaking extends Rule<RuleContext, RuleOptions> {
 	public setup(): void {
 		this.on("element:ready", this.isRelevant, (event: ElementReadyEvent) => {
 			const { target } = event;
-			const { ignoreClasses } = this.options;
 
-			/* skip if element has a class in the ignore list */
-			const isIgnored = ignoreClasses.some((it) => target.classList.contains(it));
-			if (isIgnored) {
+			if (this.isIgnored(target)) {
 				return;
 			}
 
@@ -153,6 +155,28 @@ export default class TelNonBreaking extends Rule<RuleContext, RuleOptions> {
 		}
 
 		return true;
+	}
+
+	private isIgnoredClass(node: HtmlElement): boolean {
+		const { ignoreClasses } = this.options;
+		const { classList } = node;
+		return ignoreClasses.some((it) => classList.contains(it));
+	}
+
+	private isIgnoredStyle(node: HtmlElement): boolean {
+		const { ignoreStyle } = this.options;
+		const { style } = node;
+		if (!ignoreStyle) {
+			return false;
+		}
+		if (style["white-space"] === "nowrap" || style["white-space"] === "pre") {
+			return true;
+		}
+		return false;
+	}
+
+	private isIgnored(node: HtmlElement): boolean {
+		return this.isIgnoredClass(node) || this.isIgnoredStyle(node);
 	}
 
 	private walk(anchor: HtmlElement, node: HtmlElement): void {

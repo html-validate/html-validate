@@ -3,6 +3,7 @@ import { type TagCloseToken, type TagOpenToken } from "../lexer";
 import { MetaCopyableProperty, MetaElement, setMetaProperty } from "../meta/element";
 import { MetaTable } from "../meta/table";
 import { Attribute } from "./attribute";
+import { type CSSStyleDeclaration, parseCssDeclaration } from "./css";
 import { DOMNode } from "./domnode";
 import { DOMTokenList } from "./domtokenlist";
 import { DynamicValue } from "./dynamic-value";
@@ -409,6 +410,11 @@ export class HtmlElement extends DOMNode {
 	 */
 	public get id(): string | null {
 		return this.getAttributeValue("id");
+	}
+
+	public get style(): CSSStyleDeclaration {
+		const attr = this.getAttribute("style");
+		return parseCssDeclaration(attr?.value);
 	}
 
 	/**

@@ -2,6 +2,8 @@
 
 exports[`docs/rules/tel-non-breaking.md inline validation: correct 1`] = `Array []`;
 
+exports[`docs/rules/tel-non-breaking.md inline validation: ignore-style 1`] = `Array []`;
+
 exports[`docs/rules/tel-non-breaking.md inline validation: ignored 1`] = `Array []`;
 
 exports[`docs/rules/tel-non-breaking.md inline validation: incorrect 1`] = `
