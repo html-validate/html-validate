@@ -56,12 +56,12 @@
   ],
   "scripts": {
     "prebuild": "run-s codegen prebuild:*",
-    "prebuild:tsc": "tsc --build src",
     "build": "run-s build:*",
+    "postbuild": "bash scripts/pkg",
+    "prebuild:tsc": "tsc --build src",
     "build:cjs": "rollup --config rollup.cjs.config.js",
     "build:dts": "rollup --config rollup.dts.config.js",
     "build:esm": "rollup --config rollup.esm.config.js",
-    "postbuild": "bash scripts/pkg",
     "clean": "rm -rf dist public",
     "codegen": "node scripts/codegen",
     "compatibility": "scripts/compatibility.sh",
@@ -120,6 +120,9 @@
     "*.{ts,js,json,html,md,scss,yml}": "prettier --write"
   },
   "prettier": "@html-validate/prettier-config",
+  "release": {
+    "extends": "@html-validate/semantic-release-config"
+  },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.ts",
@@ -236,9 +239,6 @@
   },
   "engines": {
     "node": ">= 12.22"
-  },
-  "release": {
-    "extends": "@html-validate/semantic-release-config"
   },
   "renovate": {
     "extends": [

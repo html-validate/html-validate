@@ -37,6 +37,7 @@ NPM:
     - npm --version
     - npm ci --no-fund --no-audit --no-update-notifier
     - npm audit --json --production | npx --yes gitlab-npm-audit-parser -o gl-dependency-scanning.json || true
+    - npx sort-package-json --check
 
 Build:
   stage: build
