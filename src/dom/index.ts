@@ -1,4 +1,5 @@
 export { Attribute, isDynamicAttribute, isStaticAttribute } from "./attribute";
+export { parseCssDeclaration, type CSSStyleDeclaration } from "./css";
 export { HtmlElement, NodeClosed, isElementNode } from "./htmlelement";
 export { DOMNode } from "./domnode";
 export { DOMTokenList } from "./domtokenlist";
