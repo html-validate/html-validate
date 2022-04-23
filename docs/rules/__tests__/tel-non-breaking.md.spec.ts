@@ -10,6 +10,9 @@ markup["correct"] = `<a href="tel:555123456">
 markup["ignored"] = `<a class="nobreak" href="tel:555123456">
     <span>555-123 456</span>
 </a>`;
+markup["ignore-style"] = `<a style="white-space: nowrap" href="tel:555123456">
+    555-123 456
+</a>`;
 
 describe("docs/rules/tel-non-breaking.md", () => {
 	it("inline validation: incorrect", () => {
@@ -28,6 +31,12 @@ describe("docs/rules/tel-non-breaking.md", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"tel-non-breaking":["error",{"ignoreClasses":["nobreak"]}]}});
 		const report = htmlvalidate.validateString(markup["ignored"]);
+		expect(report.results).toMatchSnapshot();
+	});
+	it("inline validation: ignore-style", () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({"rules":{"tel-non-breaking":"error"}});
+		const report = htmlvalidate.validateString(markup["ignore-style"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });
