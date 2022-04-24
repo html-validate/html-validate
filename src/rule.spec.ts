@@ -41,7 +41,7 @@ describe("rule base class", () => {
 		reporter = new Reporter();
 		reporter.add = jest.fn();
 		meta = new MetaTable();
-		meta.loadFromFile(path.join(__dirname, "../elements/html5.json"));
+		meta.loadFromFile(path.join(__dirname, "../elements/html5.js"));
 
 		rule = new MockRule();
 		rule.name = "mock-rule";
