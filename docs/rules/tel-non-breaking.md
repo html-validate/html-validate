@@ -86,5 +86,5 @@ With this option the following is valid:
 
 ## Version history
 
-- %version% - `ignoreStyle` added
+- 6.8.0 - `ignoreStyle` added
 - 6.7.0 - Rule added

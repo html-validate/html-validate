@@ -1,5 +1,21 @@
 # html-validate changelog
 
+## [6.8.0](https://gitlab.com/html-validate/html-validate/compare/v6.7.1...v6.8.0) (2022-04-24)
+
+### Features
+
+- `tel-non-breaking` checks for presence of `white-space: nowrap` ([6d1b968](https://gitlab.com/html-validate/html-validate/commit/6d1b96807590c98d980a695d7025b251f5765373))
+- deferred generation of selectors for error messages for more accurate results ([ac98c6e](https://gitlab.com/html-validate/html-validate/commit/ac98c6e690d101ca1960006ec90547dbe6d8eee7))
+- implement `style` property on `HtmlElement` ([f6f8ad2](https://gitlab.com/html-validate/html-validate/commit/f6f8ad25cdd3950695f702f0982992d5b67a1212))
+- **jest:** add new `toMatchInlineCodeframe` matcher ([dc0eab4](https://gitlab.com/html-validate/html-validate/commit/dc0eab42b5aa12cfe7658d80238d0ab8c78faad3))
+- **jest:** remove internal `toBeToken` matcher from public consumption ([15f7e1c](https://gitlab.com/html-validate/html-validate/commit/15f7e1c227ebc02ed0ca1728339dd27ee64d8735))
+- migrate `html5.json` to `html5.js` ([6316b98](https://gitlab.com/html-validate/html-validate/commit/6316b98394a094940d77e33c251b64d3d0c50ef5))
+- require jest 25.1 or later ([f4fad37](https://gitlab.com/html-validate/html-validate/commit/f4fad3798976b15d762a548ee4e5c8cd6082fd26))
+
+### Dependency upgrades
+
+- **deps:** update dependency glob to v8 ([ccb6dd4](https://gitlab.com/html-validate/html-validate/commit/ccb6dd4af97489fffe19c64ffa8c1f900687e649))
+
 ### [6.7.1](https://gitlab.com/html-validate/html-validate/compare/v6.7.0...v6.7.1) (2022-04-08)
 
 ### Bug Fixes
