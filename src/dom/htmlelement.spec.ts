@@ -566,6 +566,19 @@ describe("HtmlElement", () => {
 			expect(el.generateSelector()).toBe("#foo\\[bar\\] > p");
 		});
 
+		it("should handle leading digits in id by replacing with [id=...]", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml(`
+				<div>
+					<div id="123">
+						<p></p>
+					</div>
+				</div>
+			`);
+			const el = document.querySelector("p");
+			expect(el.generateSelector()).toBe('[id="123"] > p');
+		});
+
 		it("should normalize tagnames", () => {
 			expect.assertions(1);
 			const document = parser.parseHtml(`<dIV></DIv>`);

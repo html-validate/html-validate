@@ -177,9 +177,10 @@ export class HtmlElement extends DOMNode {
 			/* if a unique id is present, use it and short-circuit */
 			if (cur.id) {
 				const escaped = escapeSelectorComponent(cur.id);
-				const matches = root.querySelectorAll(`#${escaped}`);
+				const selector = escaped.match(/^\d/) ? `[id="${escaped}"]` : `#${escaped}`;
+				const matches = root.querySelectorAll(selector);
 				if (matches.length === 1) {
-					parts.push(`#${escaped}`);
+					parts.push(selector);
 					break;
 				}
 			}
