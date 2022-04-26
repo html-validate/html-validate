@@ -54,6 +54,7 @@ const config: ConfigData = {
 		"tel-non-breaking": "error",
 		"text-content": "error",
 		"unrecognized-char-ref": "error",
+		"valid-id": ["error", { relaxed: false }],
 		void: "off",
 		"void-content": "error",
 		"void-style": "error",
