@@ -1,6 +1,32 @@
 const marked = require("marked");
 
 /**
+ * @param {string} value
+ * @returns {boolean}
+ */
+function isVersionNumber(value) {
+	return Boolean(value.match(/^\d+\.\d+\.\d+ \(\d+-\d+-\d+\)$/));
+}
+
+/**
+ * @param {string} value
+ * @returns {string}
+ */
+function generateId(value) {
+	const slug = value
+		.toLowerCase()
+		.replace(/\(.*?\)/g, "")
+		.replace(/[^\w]+/g, "-")
+		.replace(/(^-|-$)/g, "");
+
+	if (isVersionNumber(value)) {
+		return `v${slug}`;
+	}
+
+	return slug;
+}
+
+/**
  * Customized version of dgeni nunjucks renderer with highlighting support
  */
 module.exports = function renderMarkdown(trimIndentation) {
@@ -31,11 +57,7 @@ module.exports = function renderMarkdown(trimIndentation) {
 
 	// Add § link to all headings
 	renderer.heading = function (text, level, raw) {
-		const slug = raw
-			.toLowerCase()
-			.replace(/\(.*?\)/g, "")
-			.replace(/[^\w]+/g, "-");
-		const id = `${this.options.headerPrefix}${slug}`;
+		const id = `${this.options.headerPrefix}${generateId(raw)}`;
 		const anchor =
 			level > 1
 				? ` <!-- [html-validate-disable-next wcag/h30] --><a class="anchorlink" href="#${id}" aria-hidden="true"></a>`

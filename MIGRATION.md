@@ -179,7 +179,7 @@ Configured transformers, plugins etc are resolved instances and fields suchs as 
 
 **Only affects API users.**
 
-The default configuration loader has changed from {@link dev/using-api#filesystemconfigloader `FileSystemConfigLoader`} to {@link dev/using-api#staticconfigloader- `StaticConfigLoader`}, i.e. the directory traversal looking for `.htmlvalidate.json` configuration files must now be explicitly enabled.
+The default configuration loader has changed from {@link dev/using-api#filesystemconfigloader `FileSystemConfigLoader`} to {@link dev/using-api#staticconfigloader `StaticConfigLoader`}, i.e. the directory traversal looking for `.htmlvalidate.json` configuration files must now be explicitly enabled.
 
 This will reduce the dependency on the NodeJS `fs` module and make it easier to use the library in browsers.
 
