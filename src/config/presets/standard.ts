@@ -23,6 +23,7 @@ const config: ConfigData = {
 		"no-raw-characters": ["error", { relaxed: true }],
 		"script-element": "error",
 		"unrecognized-char-ref": "error",
+		"valid-id": ["error", { relaxed: true }],
 		"void-content": "error",
 	},
 };

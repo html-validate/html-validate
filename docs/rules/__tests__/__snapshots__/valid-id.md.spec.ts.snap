@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/valid-id.md inline validation: correct 1`] = `Array []`;
+
+exports[`docs/rules/valid-id.md inline validation: incorrect 1`] = `
+Array [
+  Object {
+    "errorCount": 3,
+    "filePath": "inline",
+    "messages": Array [
+      Object {
+        "column": 4,
+        "context": 1,
+        "line": 1,
+        "message": "element id must not be empty",
+        "offset": 3,
+        "ruleId": "valid-id",
+        "ruleUrl": "https://html-validate.org/rules/valid-id.html",
+        "selector": "p:nth-child(1)",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 8,
+        "context": 2,
+        "line": 2,
+        "message": "element id must not contain whitespace",
+        "offset": 21,
+        "ruleId": "valid-id",
+        "ruleUrl": "https://html-validate.org/rules/valid-id.html",
+        "selector": "#foo\\\\ bar",
+        "severity": 2,
+        "size": 7,
+      },
+      Object {
+        "column": 8,
+        "context": 3,
+        "line": 3,
+        "message": "element id must begin with a letter",
+        "offset": 42,
+        "ruleId": "valid-id",
+        "ruleUrl": "https://html-validate.org/rules/valid-id.html",
+        "selector": "[id=\\"123\\"]",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<p id=\\"\\"></p>
+<p id=\\"foo bar\\"></p>
+<p id=\\"123\\"></p>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/valid-id.md inline validation: relaxed 1`] = `Array []`;

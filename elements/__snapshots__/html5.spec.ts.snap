@@ -14808,7 +14808,7 @@ exports[`HTML elements <xmp> valid markup 1`] = `Array []`;
 exports[`HTML elements global attributes invalid markup 1`] = `
 Array [
   Object {
-    "errorCount": 12,
+    "errorCount": 14,
     "filePath": "test-files/elements/global-attributes-invalid.html",
     "messages": Array [
       Object {
@@ -14944,6 +14944,30 @@ Array [
         "selector": "p:nth-child(6)",
         "severity": 2,
         "size": 1,
+      },
+      Object {
+        "column": 4,
+        "context": 1,
+        "line": 8,
+        "message": "element id must not be empty",
+        "offset": 156,
+        "ruleId": "valid-id",
+        "ruleUrl": "https://html-validate.org/rules/valid-id.html",
+        "selector": "p:nth-child(6)",
+        "severity": 2,
+        "size": 5,
+      },
+      Object {
+        "column": 8,
+        "context": 2,
+        "line": 11,
+        "message": "element id must not contain whitespace",
+        "offset": 213,
+        "ruleId": "valid-id",
+        "ruleUrl": "https://html-validate.org/rules/valid-id.html",
+        "selector": "#foo\\\\ bar",
+        "severity": 2,
+        "size": 7,
       },
       Object {
         "column": 8,
