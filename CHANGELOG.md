@@ -1,5 +1,15 @@
 # html-validate changelog
 
+## [6.9.0](https://gitlab.com/html-validate/html-validate/compare/v6.8.0...v6.9.0) (2022-04-27)
+
+### Features
+
+- new rule `valid-id` ([706000b](https://gitlab.com/html-validate/html-validate/commit/706000ba664cf71d291742fc95cd401206465370))
+
+### Bug Fixes
+
+- generate valid selector when `id` is numeric ([4d6711e](https://gitlab.com/html-validate/html-validate/commit/4d6711e22d9549066fb9d15a8bc8b100e58c7267)), closes [#149](https://gitlab.com/html-validate/html-validate/issues/149)
+
 ## [6.8.0](https://gitlab.com/html-validate/html-validate/compare/v6.7.1...v6.8.0) (2022-04-24)
 
 ### Features
