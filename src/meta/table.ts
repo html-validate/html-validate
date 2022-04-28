@@ -3,7 +3,7 @@ import ajvSchemaDraft from "ajv/lib/refs/json-schema-draft-06.json";
 import { DataValidateFunction, DataValidationCxt, SchemaObject } from "ajv/dist/types";
 import deepmerge from "deepmerge";
 import { HtmlElement } from "../dom";
-import { SchemaValidationError, UserError } from "../error";
+import { ensureError, SchemaValidationError, UserError } from "../error";
 import { SchemaValidationPatch } from "../plugin";
 import { requireUncached } from "../utils/require-uncached";
 import schema from "../schema/elements.json";
@@ -160,11 +160,11 @@ export class MetaTable {
 			/* load using require as it can process both js and json */
 			const data = requireUncached(filename);
 			this.loadFromObject(data, filename);
-		} catch (err: any) {
+		} catch (err: unknown) {
 			if (err instanceof SchemaValidationError) {
 				throw err;
 			}
-			throw new UserError(`Failed to load element metadata from "${filename}"`, err);
+			throw new UserError(`Failed to load element metadata from "${filename}"`, ensureError(err));
 		}
 	}
 

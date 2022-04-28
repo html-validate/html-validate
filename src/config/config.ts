@@ -3,7 +3,7 @@ import path from "path";
 import Ajv from "ajv";
 import ajvSchemaDraft from "ajv/lib/refs/json-schema-draft-06.json";
 import deepmerge from "deepmerge";
-import { SchemaValidationError } from "../error";
+import { ensureError, SchemaValidationError } from "../error";
 import { MetaTable } from "../meta";
 import { MetaCopyableProperty, MetaDataTable, MetaElement } from "../meta/element";
 import { Plugin } from "../plugin";
@@ -64,8 +64,8 @@ function loadFromFile(filename: string): ConfigData {
 	try {
 		/* load using require as it can process both js and json */
 		json = requireUncached(filename);
-	} catch (err: any) {
-		throw new ConfigError(`Failed to read configuration from "${filename}"`, err);
+	} catch (err: unknown) {
+		throw new ConfigError(`Failed to read configuration from "${filename}"`, ensureError(err));
 	}
 
 	/* expand any relative paths */
@@ -305,9 +305,12 @@ export class Config {
 			/* assume it is loadable with require() */
 			try {
 				metaTable.loadFromObject(legacyRequire(entry));
-			} catch (err: any) {
+			} catch (err: unknown) {
 				const message = err instanceof Error ? err.message : String(err);
-				throw new ConfigError(`Failed to load elements from "${entry}": ${message}`, err);
+				throw new ConfigError(
+					`Failed to load elements from "${entry}": ${message}`,
+					ensureError(err)
+				);
 			}
 		}
 
@@ -385,9 +388,12 @@ export class Config {
 				plugin.name = plugin.name || moduleName;
 				plugin.originalName = moduleName;
 				return plugin;
-			} catch (err: any) {
+			} catch (err: unknown) {
 				const message = err instanceof Error ? err.message : String(err);
-				throw new ConfigError(`Failed to load plugin "${moduleName}": ${message}`, err);
+				throw new ConfigError(
+					`Failed to load plugin "${moduleName}": ${message}`,
+					ensureError(err)
+				);
 			}
 		});
 	}
@@ -491,11 +497,11 @@ export class Config {
 					name,
 					fn,
 				};
-			} catch (err: any) {
+			} catch (err: unknown) {
 				if (err instanceof ConfigError) {
 					throw new ConfigError(`Failed to load transformer "${name}": ${err.message}`, err);
 				} else {
-					throw new ConfigError(`Failed to load transformer "${name}"`, err);
+					throw new ConfigError(`Failed to load transformer "${name}"`, ensureError(err));
 				}
 			}
 		});

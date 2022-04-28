@@ -6,7 +6,7 @@ export { Config, ConfigData, ConfigError, ConfigLoader, Severity, configPresets 
 export { StaticConfigLoader } from "./config/loaders/static";
 export { DynamicValue, HtmlElement, NodeClosed, TextNode, type CSSStyleDeclaration } from "./dom";
 export { EventDump, TokenDump } from "./engine";
-export { UserError, SchemaValidationError } from "./error";
+export { UserError, SchemaValidationError, NestedError, WrappedError } from "./error";
 export * from "./event";
 export { version } from "./generated/package";
 export { MetaData, MetaElement, MetaTable, MetaCopyableProperty } from "./meta";

@@ -1,6 +1,6 @@
 import fs from "fs";
 import { Source } from "../context";
-import { NestedError } from "../error";
+import { ensureError, NestedError } from "../error";
 import { MetaTable } from "../meta";
 import { Plugin } from "../plugin";
 import { TransformContext, Transformer } from "../transform";
@@ -78,9 +78,12 @@ export class ResolvedConfig {
 					cur.transformedBy.push(transformer.name);
 					return cur;
 				});
-			} catch (err: any) {
+			} catch (err: unknown) {
 				const message = err instanceof Error ? err.message : String(err);
-				throw new NestedError(`When transforming "${source.filename}": ${message}`, err);
+				throw new NestedError(
+					`When transforming "${source.filename}": ${message}`,
+					ensureError(err)
+				);
 			}
 		} else {
 			return [source];
