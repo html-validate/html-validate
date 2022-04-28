@@ -13412,6 +13412,10 @@ Array [
 
 exports[`HTML elements <td> valid markup 1`] = `Array []`;
 
+exports[`HTML elements <template> invalid markup 1`] = `Array []`;
+
+exports[`HTML elements <template> valid markup 1`] = `Array []`;
+
 exports[`HTML elements <textarea> invalid markup 1`] = `
 Array [
   Object {
