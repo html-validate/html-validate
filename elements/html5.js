@@ -1051,6 +1051,11 @@ module.exports = {
 		},
 	},
 
+	menu: {
+		flow: true,
+		permittedContent: ["@script", "li"],
+	},
+
 	meta: {
 		metadata: true,
 		void: true,
