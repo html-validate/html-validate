@@ -627,6 +627,7 @@ export class Parser {
 				location: token.location,
 				type: token.type,
 				data: Array.from(token.data),
+				token,
 			});
 		}
 		return it;

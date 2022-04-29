@@ -37,8 +37,7 @@ The `hooks` property is always unset.
 ```typescript
 interface TokenEvent {
   location: Location;
-  type: TokenType;
-  data?: any;
+  token: Token;
 }
 ```
 
