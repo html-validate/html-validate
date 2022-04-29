@@ -1,5 +1,11 @@
 # html-validate changelog
 
+### [6.9.1](https://gitlab.com/html-validate/html-validate/compare/v6.9.0...v6.9.1) (2022-04-29)
+
+### Bug Fixes
+
+- include `<menu>` in builtin HTML5 elements ([28d7a2b](https://gitlab.com/html-validate/html-validate/commit/28d7a2b10369ac814d17cb5ed3d3731799792f92)), closes [#151](https://gitlab.com/html-validate/html-validate/issues/151)
+
 ## [6.9.0](https://gitlab.com/html-validate/html-validate/compare/v6.8.0...v6.9.0) (2022-04-27)
 
 ### Features
