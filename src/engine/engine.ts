@@ -193,8 +193,9 @@ export class Engine<T extends Parser = Parser> {
 		context?: any // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
 	): RuleDocumentation | null {
 		const rules = this.config.getRules();
-		if (rules.has(ruleId)) {
-			const [, options] = rules.get(ruleId) as any;
+		const ruleData = rules.get(ruleId);
+		if (ruleData) {
+			const [, options] = ruleData;
 			const rule = this.instantiateRule(ruleId, options);
 			return rule.documentation(context);
 		} else {

@@ -1,7 +1,7 @@
 import { ResolvedConfig } from "../config";
 import { Location, Source } from "../context";
 import { DOMTree, DynamicValue, HtmlElement } from "../dom";
-import { TokenType } from "../lexer";
+import { Token, TokenType } from "../lexer";
 import { Rule } from "../rule";
 
 /**
@@ -41,8 +41,13 @@ export interface SourceReadyEvent extends Event {
  * @public
  */
 export interface TokenEvent extends Event {
+	/** @deprecated use token property which is typesafe */
 	type: TokenType;
+
+	/** @deprecated use token property which is typesafe */
 	data?: any;
+
+	token: Token;
 }
 
 /**

@@ -5,10 +5,6 @@ import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 const whitespace = /(\s+)/;
 
-function isRelevant(event: TokenEvent): boolean {
-	return event.type === TokenType.ATTR_VALUE;
-}
-
 export default class AttrDelimiter extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
@@ -18,8 +14,12 @@ export default class AttrDelimiter extends Rule {
 	}
 
 	public setup(): void {
-		this.on("token", isRelevant, (event: TokenEvent) => {
-			const delimiter = event.data[1];
+		this.on("token", (event: TokenEvent) => {
+			const { token } = event;
+			if (token.type !== TokenType.ATTR_VALUE) {
+				return;
+			}
+			const delimiter = token.data[1];
 			const match = whitespace.exec(delimiter);
 			if (match) {
 				const location = sliceLocation(event.location, 0, delimiter.length);

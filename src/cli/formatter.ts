@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { Formatter, Report, Result, UserError, formatterFactory } from "..";
+import { ensureError } from "../error";
 import { legacyRequire } from "../resolve";
 
 type WrappedFormatter = (results: Result[]) => string;
@@ -29,8 +30,8 @@ function loadFormatter(name: string): Formatter {
 
 	try {
 		return legacyRequire(name) as Formatter;
-	} catch (error: any) {
-		throw new UserError(`No formatter named "${name}"`, error);
+	} catch (error: unknown) {
+		throw new UserError(`No formatter named "${name}"`, ensureError(error));
 	}
 }
 
