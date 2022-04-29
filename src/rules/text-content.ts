@@ -133,7 +133,7 @@ export default class TextContent extends Rule<RuleContext> {
 	public setup(): void {
 		this.on("element:ready", TextContent.filter, (event: ElementReadyEvent) => {
 			const target = event.target as HtmlElement & { meta: MetaElement };
-			const { textContent } = target.meta as MetaElement;
+			const { textContent } = target.meta;
 			switch (textContent) {
 				case TextContentEnum.NONE:
 					this.validateNone(target);

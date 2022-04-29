@@ -369,7 +369,7 @@ export class Parser {
 			/* since foreign element may be nested keep a count for the number of
 			 * opened/closed elements */
 			if (tagClosed) {
-				startToken = last as TagOpenToken;
+				startToken = last;
 				nested--;
 			} else if (!selfClosed) {
 				nested++;
@@ -429,7 +429,7 @@ export class Parser {
 			iterator = [attrData];
 		} else {
 			/* Iterable<AttributeData> */
-			iterator = legacy as Iterable<AttributeData>;
+			iterator = legacy;
 		}
 
 		/* process attribute(s) */

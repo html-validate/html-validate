@@ -32,7 +32,6 @@ module.exports = {
 			rules: {
 				"@typescript-eslint/consistent-type-exports": "off",
 				"@typescript-eslint/consistent-type-imports": "off",
-				"@typescript-eslint/no-unnecessary-type-assertion": "off",
 				"@typescript-eslint/no-unsafe-assignment": "off",
 			},
 		},
