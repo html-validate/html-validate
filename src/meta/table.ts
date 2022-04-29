@@ -340,7 +340,9 @@ function evaluateProperty(node: HtmlElement, expr: PropertyExpression): boolean 
 	return func(node, options);
 }
 
-function parseExpression(expr: PropertyExpression): [PropertyEvaluator, any] {
+function parseExpression(
+	expr: PropertyExpression
+): [PropertyEvaluator, string | [string, string, string]] {
 	if (typeof expr === "string") {
 		return parseExpression([expr, {}]);
 	} else {
@@ -349,7 +351,7 @@ function parseExpression(expr: PropertyExpression): [PropertyEvaluator, any] {
 		if (!func) {
 			throw new Error(`Failed to find function "${funcName}" when evaluating property expression`);
 		}
-		return [func, options];
+		return [func, options as string | [string, string, string]];
 	}
 }
 
