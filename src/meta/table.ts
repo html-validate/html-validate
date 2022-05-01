@@ -18,6 +18,7 @@ import {
 	setMetaProperty,
 } from "./element";
 import { migrateElement } from "./migrate";
+import { hasAttribute, isDescendant, matchAttribute } from "./evaluator";
 
 const dynamicKeys: Array<keyof MetaElement> = [
 	"metadata",
@@ -33,9 +34,9 @@ const dynamicKeys: Array<keyof MetaElement> = [
 type PropertyEvaluator = (node: HtmlElement, options: string | [string, string, string]) => boolean;
 
 const functionTable: { [key: string]: PropertyEvaluator } = {
-	isDescendant,
-	hasAttribute,
-	matchAttribute,
+	isDescendant: isDescendantFacade,
+	hasAttribute: hasAttributeFacade,
+	matchAttribute: matchAttributeFacade,
 };
 
 function clone(src: any): any {
@@ -355,44 +356,38 @@ function parseExpression(
 	}
 }
 
-function isDescendant(node: HtmlElement, tagName: any): boolean {
+function isDescendantFacade(node: HtmlElement, tagName: any): boolean {
 	if (typeof tagName !== "string") {
 		throw new Error(
 			`Property expression "isDescendant" must take string argument when evaluating metadata for <${node.tagName}>`
 		);
 	}
-	let cur: HtmlElement | null = node.parent;
-	while (cur && !cur.isRootElement()) {
-		if (cur.is(tagName)) {
-			return true;
-		}
-		cur = cur.parent;
-	}
-	return false;
+	return isDescendant(node, tagName);
 }
 
-function hasAttribute(node: HtmlElement, attr: any): boolean {
+function hasAttributeFacade(node: HtmlElement, attr: any): boolean {
 	if (typeof attr !== "string") {
 		throw new Error(
 			`Property expression "hasAttribute" must take string argument when evaluating metadata for <${node.tagName}>`
 		);
 	}
-	return node.hasAttribute(attr);
+	return hasAttribute(node, attr);
 }
 
-function matchAttribute(node: HtmlElement, match: string | [string, string, string]): boolean {
+function matchAttributeFacade(
+	node: HtmlElement,
+	match: string | [string, string, string]
+): boolean {
 	if (!Array.isArray(match) || match.length !== 3) {
 		throw new Error(
 			`Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <${node.tagName}>`
 		);
 	}
 	const [key, op, value] = match.map((x) => x.toLowerCase());
-	const nodeValue = (node.getAttributeValue(key) || "").toLowerCase();
 	switch (op) {
 		case "!=":
-			return nodeValue !== value;
 		case "=":
-			return nodeValue === value;
+			return matchAttribute(node, key, op, value);
 		default:
 			throw new Error(
 				`Property expression "matchAttribute" has invalid operator "${op}" when evaluating metadata for <${node.tagName}>`
