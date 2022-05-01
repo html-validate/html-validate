@@ -1,12 +1,12 @@
-import Ajv, { KeywordDefinition, ValidateFunction } from "ajv";
+import Ajv, { ValidateFunction, SchemaObject } from "ajv";
 import ajvSchemaDraft from "ajv/lib/refs/json-schema-draft-06.json";
-import { DataValidateFunction, DataValidationCxt, SchemaObject } from "ajv/dist/types";
 import deepmerge from "deepmerge";
 import { HtmlElement } from "../dom";
 import { ensureError, SchemaValidationError, UserError } from "../error";
 import { SchemaValidationPatch } from "../plugin";
 import { requireUncached } from "../utils/require-uncached";
 import schema from "../schema/elements.json";
+import { ajvRegexpKeyword } from "../schema/keywords";
 import {
 	ElementTable,
 	InternalAttributeFlags,
@@ -46,38 +46,6 @@ function clone(src: any): any {
 function overwriteMerge<T>(a: T[], b: T[]): T[] {
 	return b;
 }
-
-/**
- * AJV keyword "regexp" to validate the type to be a regular expression.
- * Injects errors with the "type" keyword to give the same output.
- */
-/* istanbul ignore next: manual testing */
-const ajvRegexpValidate: DataValidateFunction = function (
-	data: any,
-	dataCxt?: DataValidationCxt
-): boolean {
-	const valid = data instanceof RegExp;
-	if (!valid) {
-		ajvRegexpValidate.errors = [
-			{
-				instancePath: dataCxt?.instancePath,
-				schemaPath: undefined,
-				keyword: "type",
-				message: "should be regexp",
-				params: {
-					keyword: "type",
-				},
-			},
-		];
-	}
-	return valid;
-};
-const ajvRegexpKeyword: KeywordDefinition = {
-	keyword: "regexp",
-	schema: false,
-	errors: true,
-	validate: ajvRegexpValidate,
-};
 
 /**
  * @public
