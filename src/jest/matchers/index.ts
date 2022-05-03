@@ -3,4 +3,5 @@ export { default as toBeInvalid } from "./to-be-invalid";
 export { default as toHTMLValidate } from "./to-htmlvalidate";
 export { default as toHaveError } from "./to-have-error";
 export { default as toHaveErrors } from "./to-have-errors";
+export { default as toMatchCodeframe } from "./to-match-codeframe";
 export { default as toMatchInlineCodeframe } from "./to-match-inline-codeframe";

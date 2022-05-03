@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`toMatchCodeframe() should match invalid report 1`] = `
+"error: mock message (my-rule) at inline:4:8:
+  2 | 		<header id=\\"foo\\">
+  3 | 			<div>
+> 4 | 				<p>lorem ipsum</p>
+    | 				   ^^^^^^^^^^^
+  5 | 			</div>
+  6 | 		</header>
+  7 |
+Selector: #foo > div"
+`;
+
+exports[`toMatchCodeframe() should match valid report 1`] = `""`;
