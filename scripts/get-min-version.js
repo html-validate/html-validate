@@ -18,7 +18,7 @@ if (!found) {
 }
 
 if (!typescript[constraint]) {
-	process.stderr.write(`Failed to find a typescript version that matches jest ${constraint}\n`);
+	process.stderr.write(`Failed to find a typescript version that matches jest \"${constraint}\"\n`);
 	process.exit(1); // eslint-disable-line no-process-exit
 }
 
