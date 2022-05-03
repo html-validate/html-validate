@@ -7,6 +7,11 @@ describe("toMatchInlineCodeframe()", () => {
 		expect(reportOk()).toMatchInlineCodeframe(`""`);
 	});
 
+	it("should match valid string", () => {
+		expect.assertions(1);
+		expect("<p></p>").toMatchInlineCodeframe(`""`);
+	});
+
 	it("should match invalid report", () => {
 		expect.assertions(1);
 		expect(reportError()).toMatchInlineCodeframe(`
@@ -19,6 +24,16 @@ describe("toMatchInlineCodeframe()", () => {
 			  6 | 		</header>
 			  7 |
 			Selector: #foo > div"
+		`);
+	});
+
+	it("should match invalid string", () => {
+		expect.assertions(1);
+		expect("<p></i>").toMatchInlineCodeframe(`
+			"error: Mismatched close-tag, expected '</p>' but found '</i>' (close-order) at inline:1:5:
+			> 1 | <p></i>
+			    |     ^^
+			Selector: -"
 		`);
 	});
 });

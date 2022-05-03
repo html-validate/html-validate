@@ -12,4 +12,11 @@ exports[`toMatchCodeframe() should match invalid report 1`] = `
 Selector: #foo > div"
 `;
 
+exports[`toMatchCodeframe() should match invalid string 1`] = `
+"error: Mismatched close-tag, expected '</p>' but found '</i>' (close-order) at inline:1:5:
+> 1 | <p></i>
+    |     ^^
+Selector: -"
+`;
+
 exports[`toMatchCodeframe() should match valid report 1`] = `""`;
