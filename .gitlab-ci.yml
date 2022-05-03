@@ -162,6 +162,7 @@ Jest compat:
   before_script:
     - npm ci --no-fund --no-audit --no-update-notifier
     - npm run build
+    - node scripts/get-min-version.js "${MATRIX}"
     - export TYPES_VERSION="${MATRIX}"
     - export JEST_VERSION=$(node scripts/get-min-version.js "${MATRIX}" "jest")
     - export TS_VERSION=$(node scripts/get-min-version.js "${MATRIX}" "typescript")

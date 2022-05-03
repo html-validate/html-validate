@@ -2,7 +2,7 @@ const { minVersion, minSatisfying } = require("semver");
 const { jest } = require("../package.json").peerDependencies;
 
 const constraint = process.argv[2];
-const pkgname = process.argv[3];
+const pkgname = process.argv[3] || "";
 const minRequired = jest.split("||").map((it) => minVersion(it.trim()));
 const found = minSatisfying(minRequired, constraint);
 const typescript = {
@@ -23,6 +23,8 @@ if (!typescript[constraint]) {
 }
 
 switch (pkgname) {
+	case "":
+		break;
 	case "jest":
 		process.stdout.write(`${found.version}\n`);
 		break;
