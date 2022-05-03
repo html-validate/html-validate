@@ -80,9 +80,10 @@ function toHTMLValidateImpl(
 		},
 	};
 	const config = deepmerge(defaultConfig, userConfig || {});
-
 	const actualFilename = filename || this.testPath;
-	const loader = new FileSystemConfigLoader();
+	const loader = new FileSystemConfigLoader({
+		extends: ["html-validate:recommended"],
+	});
 	const htmlvalidate = new HtmlValidate(loader);
 	const report = htmlvalidate.validateString(actual, actualFilename, config);
 	const pass = report.valid;

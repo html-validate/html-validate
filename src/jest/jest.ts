@@ -6,6 +6,7 @@ import {
 	toHTMLValidate,
 	toHaveError,
 	toHaveErrors,
+	toMatchCodeframe,
 	toMatchInlineCodeframe,
 } from "./matchers";
 
@@ -40,6 +41,12 @@ declare global {
 
 			/**
 			 * Writes out the given [[Report]] using codeframe formatter and compares
+			 * with snapshot.
+			 */
+			toMatchCodeframe(snapshot?: string): R;
+
+			/**
+			 * Writes out the given [[Report]] using codeframe formatter and compares
 			 * with inline snapshot.
 			 */
 			toMatchInlineCodeframe(snapshot?: string): R;
@@ -53,5 +60,6 @@ expect.extend({
 	toHaveError,
 	toHaveErrors,
 	toHTMLValidate,
+	toMatchCodeframe,
 	toMatchInlineCodeframe,
 });

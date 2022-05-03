@@ -140,12 +140,39 @@ expect(report).toHaveErrors([
 ]);
 ```
 
-### `toMatchInlineCodeframe(snapshot?: string)`
+### `toMatchCodeframe(snapshot?: string)`
 
-Writes out the given `Report` using codeframe formatter and compares with inline snapshot.
+Writes out the given `Report` or `string` using codeframe formatter and compares with snapshot.
 
 ```js
+const report = htmlvalidate.validateString("...");
+expect(report).toMatchCodeframe();
+```
+
+or
+
+```js
+expect("...").toMatchCodeframe();
+```
+
+### `toMatchInlineCodeframe(snapshot?: string)`
+
+Writes out the given `Report` or `string` using codeframe formatter and compares with inline snapshot.
+
+```js
+const report = htmlvalidate.validateString("...");
 expect(report).toMatchInlineCodeframe(`
+  "error: Attribute \\"FOO\\" should be lowercase (attr-case) at inline:1:6:
+  > 1 | <div FOO=\\"bar\\"></div>
+      |      ^^^
+  Selector: div"
+`);
+```
+
+or
+
+```js
+expect("...").toMatchInlineCodeframe(`
   "error: Attribute \\"FOO\\" should be lowercase (attr-case) at inline:1:6:
   > 1 | <div FOO=\\"bar\\"></div>
       |      ^^^
