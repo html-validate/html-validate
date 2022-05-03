@@ -4,6 +4,7 @@ import deepmerge from "deepmerge";
 import { HtmlElement } from "../dom";
 import { ensureError, SchemaValidationError, UserError } from "../error";
 import { SchemaValidationPatch } from "../plugin";
+import { computeHash } from "../utils/compute-hash";
 import { requireUncached } from "../utils/require-uncached";
 import schema from "../schema/elements.json";
 import { ajvRegexpKeyword } from "../schema/keywords";
@@ -38,6 +39,8 @@ const functionTable: { [key: string]: PropertyEvaluator } = {
 	hasAttribute: hasAttributeFacade,
 	matchAttribute: matchAttributeFacade,
 };
+
+const schemaCache: Map<number, ValidateFunction<MetaDataTable>> = new Map();
 
 function clone(src: any): any {
 	return JSON.parse(JSON.stringify(src));
@@ -202,11 +205,19 @@ export class MetaTable {
 	 * Construct a new AJV schema validator.
 	 */
 	private getSchemaValidator(): ValidateFunction<MetaDataTable> {
-		const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
-		ajv.addMetaSchema(ajvSchemaDraft);
-		ajv.addKeyword(ajvRegexpKeyword);
-		ajv.addKeyword({ keyword: "copyable" });
-		return ajv.compile<MetaDataTable>(this.schema);
+		const hash = computeHash(JSON.stringify(this.schema));
+		const cached = schemaCache.get(hash);
+		if (cached) {
+			return cached;
+		} else {
+			const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
+			ajv.addMetaSchema(ajvSchemaDraft);
+			ajv.addKeyword(ajvRegexpKeyword);
+			ajv.addKeyword({ keyword: "copyable" });
+			const validate = ajv.compile<MetaDataTable>(this.schema);
+			schemaCache.set(hash, validate);
+			return validate;
+		}
 	}
 
 	/**
