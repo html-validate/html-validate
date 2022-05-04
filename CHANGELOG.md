@@ -1,5 +1,20 @@
 # html-validate changelog
 
+## [6.10.0](https://gitlab.com/html-validate/html-validate/compare/v6.9.1...v6.10.0) (2022-05-04)
+
+### Features
+
+- **jest:** add `.toMatchCodeframe()` as complement to `.toMatchInlineCodeframe()` ([23473e4](https://gitlab.com/html-validate/html-validate/commit/23473e42a20fb28de7032a944b5bf4b6bf65948f))
+- **jest:** support passing string to `toMatch{,Inline}Codeframe()` ([1864e43](https://gitlab.com/html-validate/html-validate/commit/1864e4330f0284371b9b80ad58f37830b9f718df))
+
+### Bug Fixes
+
+- **jest:** extend recommended config when using `toHTMLValidate()` ([5c890ea](https://gitlab.com/html-validate/html-validate/commit/5c890eab57041a93ee6b407e1ab3d58762b02f4b))
+
+### Performance Improvements
+
+- improve performance by caching json schema ([6be5c3a](https://gitlab.com/html-validate/html-validate/commit/6be5c3a40e68f6a92fad9927973b2dffdb28ec20))
+
 ### [6.9.1](https://gitlab.com/html-validate/html-validate/compare/v6.9.0...v6.9.1) (2022-04-29)
 
 ### Bug Fixes
