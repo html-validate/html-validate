@@ -1,6 +1,5 @@
 import kleur from "kleur";
 import { toMatchInlineSnapshot } from "jest-snapshot";
-import { Context } from "jest-snapshot/build/types";
 import { codeframe, type CodeframeOptions } from "../../formatters/codeframe";
 import { type Report } from "../../reporter";
 import { getResults } from "./get-results";
@@ -22,7 +21,9 @@ function toMatchInlineCodeframe(
 	kleur.enabled = false;
 	const snapshot = codeframe(results, options).replace(/\s+$/gm, "");
 	kleur.enabled = enabled;
-	return toMatchInlineSnapshot.call(this as Context, snapshot, ...rest);
+
+	/* eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call */
+	return (toMatchInlineSnapshot as any).call(this, snapshot, ...rest);
 }
 
 export default toMatchInlineCodeframe;
