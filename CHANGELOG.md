@@ -1,5 +1,15 @@
 # html-validate changelog
 
+## [6.11.0](https://gitlab.com/html-validate/html-validate/compare/v6.10.0...v6.11.0) (2022-05-05)
+
+### Features
+
+- **deps:** support jest 28 ([458e460](https://gitlab.com/html-validate/html-validate/commit/458e4608b76c20a9dc5315be84f294735bd19fca))
+
+### Bug Fixes
+
+- handle windows `\\` when expanding directories ([dfe3dbf](https://gitlab.com/html-validate/html-validate/commit/dfe3dbfa0080eba2ae111ba43a763d2de657d398))
+
 ## [6.10.0](https://gitlab.com/html-validate/html-validate/compare/v6.9.1...v6.10.0) (2022-05-04)
 
 ### Features
