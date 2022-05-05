@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule no-conditional-comment should contain documentation 1`] = `
-Object {
+{
   "description": "Microsoft Internet Explorer previously supported using special HTML comments (conditional comments) for targeting specific versions of IE but since IE 10 it is deprecated and not supported in standards mode.",
   "url": "https://html-validate.org/rules/no-conditional-comment.html",
 }
 `;
 
 exports[`rule no-conditional-comment smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 24,
     "filePath": "test-files/rules/no-conditional-comment.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
         "context": undefined,
         "line": 4,
@@ -25,7 +25,7 @@ Array [
         "severity": 2,
         "size": 12,
       },
-      Object {
+      {
         "column": 53,
         "context": undefined,
         "line": 4,
@@ -37,7 +37,7 @@ Array [
         "severity": 2,
         "size": 12,
       },
-      Object {
+      {
         "column": 2,
         "context": undefined,
         "line": 5,
@@ -49,7 +49,7 @@ Array [
         "severity": 2,
         "size": 11,
       },
-      Object {
+      {
         "column": 56,
         "context": undefined,
         "line": 5,
@@ -61,7 +61,7 @@ Array [
         "severity": 2,
         "size": 10,
       },
-      Object {
+      {
         "column": 2,
         "context": undefined,
         "line": 7,
@@ -73,7 +73,7 @@ Array [
         "severity": 2,
         "size": 14,
       },
-      Object {
+      {
         "column": 54,
         "context": undefined,
         "line": 7,
@@ -85,7 +85,7 @@ Array [
         "severity": 2,
         "size": 12,
       },
-      Object {
+      {
         "column": 2,
         "context": undefined,
         "line": 8,
@@ -97,7 +97,7 @@ Array [
         "severity": 2,
         "size": 17,
       },
-      Object {
+      {
         "column": 54,
         "context": undefined,
         "line": 8,
@@ -109,7 +109,7 @@ Array [
         "severity": 2,
         "size": 12,
       },
-      Object {
+      {
         "column": 2,
         "context": undefined,
         "line": 10,
@@ -121,7 +121,7 @@ Array [
         "severity": 2,
         "size": 18,
       },
-      Object {
+      {
         "column": 57,
         "context": undefined,
         "line": 10,
@@ -133,7 +133,7 @@ Array [
         "severity": 2,
         "size": 12,
       },
-      Object {
+      {
         "column": 2,
         "context": undefined,
         "line": 11,
@@ -145,7 +145,7 @@ Array [
         "severity": 2,
         "size": 16,
       },
-      Object {
+      {
         "column": 58,
         "context": undefined,
         "line": 11,
@@ -157,7 +157,7 @@ Array [
         "severity": 2,
         "size": 12,
       },
-      Object {
+      {
         "column": 2,
         "context": undefined,
         "line": 12,
@@ -169,7 +169,7 @@ Array [
         "severity": 2,
         "size": 32,
       },
-      Object {
+      {
         "column": 70,
         "context": undefined,
         "line": 12,
@@ -181,7 +181,7 @@ Array [
         "severity": 2,
         "size": 12,
       },
-      Object {
+      {
         "column": 2,
         "context": undefined,
         "line": 13,
@@ -193,7 +193,7 @@ Array [
         "severity": 2,
         "size": 19,
       },
-      Object {
+      {
         "column": 77,
         "context": undefined,
         "line": 13,
@@ -205,7 +205,7 @@ Array [
         "severity": 2,
         "size": 12,
       },
-      Object {
+      {
         "column": 2,
         "context": undefined,
         "line": 15,
@@ -217,7 +217,7 @@ Array [
         "severity": 2,
         "size": 14,
       },
-      Object {
+      {
         "column": 58,
         "context": undefined,
         "line": 15,
@@ -229,7 +229,7 @@ Array [
         "severity": 2,
         "size": 12,
       },
-      Object {
+      {
         "column": 2,
         "context": undefined,
         "line": 16,
@@ -241,7 +241,7 @@ Array [
         "severity": 2,
         "size": 13,
       },
-      Object {
+      {
         "column": 58,
         "context": undefined,
         "line": 16,
@@ -253,7 +253,7 @@ Array [
         "severity": 2,
         "size": 10,
       },
-      Object {
+      {
         "column": 2,
         "context": undefined,
         "line": 18,
@@ -265,7 +265,7 @@ Array [
         "severity": 2,
         "size": 14,
       },
-      Object {
+      {
         "column": 16,
         "context": undefined,
         "line": 18,
@@ -277,7 +277,7 @@ Array [
         "severity": 2,
         "size": 12,
       },
-      Object {
+      {
         "column": 76,
         "context": undefined,
         "line": 18,
@@ -289,7 +289,7 @@ Array [
         "severity": 2,
         "size": 10,
       },
-      Object {
+      {
         "column": 86,
         "context": undefined,
         "line": 18,

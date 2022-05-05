@@ -4,9 +4,9 @@ exports[`toHaveError() should fail if error has mismatched context 1`] = `
 "expect(received).toHaveError(expected)
 
 Expected error to equal:
-  [ObjectContaining {\\"context\\": {\\"foo\\": \\"spam\\"}, \\"message\\": \\"mock message\\", \\"ruleId\\": \\"my-rule\\"}]
+  [ObjectContaining {"context": {"foo": "spam"}, "message": "mock message", "ruleId": "my-rule"}]
 Received:
-  [{\\"column\\": 8, \\"context\\": {\\"foo\\": \\"bar\\"}, \\"line\\": 4, \\"message\\": \\"mock message\\", \\"offset\\": 37, \\"ruleId\\": \\"my-rule\\", \\"selector\\": \\"#foo > div\\", \\"severity\\": 2, \\"size\\": 11}]
+  [{"column": 8, "context": {"foo": "bar"}, "line": 4, "message": "mock message", "offset": 37, "ruleId": "my-rule", "selector": "#foo > div", "severity": 2, "size": 11}]
 
 Difference:
 
@@ -16,18 +16,18 @@ Difference:
   Array [
 -   ObjectContaining {
 +   Object {
-+     \\"column\\": 8,
-      \\"context\\": Object {
--       \\"foo\\": \\"spam\\",
-+       \\"foo\\": \\"bar\\",
++     "column": 8,
+      "context": Object {
+-       "foo": "spam",
++       "foo": "bar",
       },
-+     \\"line\\": 4,
-      \\"message\\": \\"mock message\\",
-+     \\"offset\\": 37,
-      \\"ruleId\\": \\"my-rule\\",
-+     \\"selector\\": \\"#foo > div\\",
-+     \\"severity\\": 2,
-+     \\"size\\": 11,
++     "line": 4,
+      "message": "mock message",
++     "offset": 37,
+      "ruleId": "my-rule",
++     "selector": "#foo > div",
++     "severity": 2,
++     "size": 11,
     },
   ]"
 `;
@@ -36,9 +36,9 @@ exports[`toHaveError() should fail if expected async error is missing 1`] = `
 "expect(received).toHaveError(expected)
 
 Expected error to equal:
-  [ObjectContaining {\\"message\\": \\"asdf\\", \\"ruleId\\": \\"asdf\\"}]
+  [ObjectContaining {"message": "asdf", "ruleId": "asdf"}]
 Received:
-  [{\\"column\\": 8, \\"context\\": {\\"foo\\": \\"bar\\"}, \\"line\\": 4, \\"message\\": \\"mock message\\", \\"offset\\": 37, \\"ruleId\\": \\"my-rule\\", \\"selector\\": \\"#foo > div\\", \\"severity\\": 2, \\"size\\": 11}]
+  [{"column": 8, "context": {"foo": "bar"}, "line": 4, "message": "mock message", "offset": 37, "ruleId": "my-rule", "selector": "#foo > div", "severity": 2, "size": 11}]
 
 Difference:
 
@@ -47,20 +47,20 @@ Difference:
 
   Array [
 -   ObjectContaining {
--     \\"message\\": \\"asdf\\",
--     \\"ruleId\\": \\"asdf\\",
+-     "message": "asdf",
+-     "ruleId": "asdf",
 +   Object {
-+     \\"column\\": 8,
-+     \\"context\\": Object {
-+       \\"foo\\": \\"bar\\",
++     "column": 8,
++     "context": Object {
++       "foo": "bar",
 +     },
-+     \\"line\\": 4,
-+     \\"message\\": \\"mock message\\",
-+     \\"offset\\": 37,
-+     \\"ruleId\\": \\"my-rule\\",
-+     \\"selector\\": \\"#foo > div\\",
-+     \\"severity\\": 2,
-+     \\"size\\": 11,
++     "line": 4,
++     "message": "mock message",
++     "offset": 37,
++     "ruleId": "my-rule",
++     "selector": "#foo > div",
++     "severity": 2,
++     "size": 11,
     },
   ]"
 `;
@@ -69,9 +69,9 @@ exports[`toHaveError() should fail if expected error is missing 1`] = `
 "expect(received).toHaveError(expected)
 
 Expected error to equal:
-  [ObjectContaining {\\"message\\": \\"asdf\\", \\"ruleId\\": \\"asdf\\"}]
+  [ObjectContaining {"message": "asdf", "ruleId": "asdf"}]
 Received:
-  [{\\"column\\": 8, \\"context\\": {\\"foo\\": \\"bar\\"}, \\"line\\": 4, \\"message\\": \\"mock message\\", \\"offset\\": 37, \\"ruleId\\": \\"my-rule\\", \\"selector\\": \\"#foo > div\\", \\"severity\\": 2, \\"size\\": 11}]
+  [{"column": 8, "context": {"foo": "bar"}, "line": 4, "message": "mock message", "offset": 37, "ruleId": "my-rule", "selector": "#foo > div", "severity": 2, "size": 11}]
 
 Difference:
 
@@ -80,20 +80,20 @@ Difference:
 
   Array [
 -   ObjectContaining {
--     \\"message\\": \\"asdf\\",
--     \\"ruleId\\": \\"asdf\\",
+-     "message": "asdf",
+-     "ruleId": "asdf",
 +   Object {
-+     \\"column\\": 8,
-+     \\"context\\": Object {
-+       \\"foo\\": \\"bar\\",
++     "column": 8,
++     "context": Object {
++       "foo": "bar",
 +     },
-+     \\"line\\": 4,
-+     \\"message\\": \\"mock message\\",
-+     \\"offset\\": 37,
-+     \\"ruleId\\": \\"my-rule\\",
-+     \\"selector\\": \\"#foo > div\\",
-+     \\"severity\\": 2,
-+     \\"size\\": 11,
++     "line": 4,
++     "message": "mock message",
++     "offset": 37,
++     "ruleId": "my-rule",
++     "selector": "#foo > div",
++     "severity": 2,
++     "size": 11,
     },
   ]"
 `;
@@ -102,9 +102,9 @@ exports[`toHaveError() should handle passing object as expected error 1`] = `
 "expect(received).toHaveError(expected)
 
 Expected error to equal:
-  [ObjectContaining {\\"line\\": 3, \\"ruleId\\": \\"asdf\\", \\"size\\": 12}]
+  [ObjectContaining {"line": 3, "ruleId": "asdf", "size": 12}]
 Received:
-  [{\\"column\\": 8, \\"context\\": {\\"foo\\": \\"bar\\"}, \\"line\\": 4, \\"message\\": \\"mock message\\", \\"offset\\": 37, \\"ruleId\\": \\"my-rule\\", \\"selector\\": \\"#foo > div\\", \\"severity\\": 2, \\"size\\": 11}]
+  [{"column": 8, "context": {"foo": "bar"}, "line": 4, "message": "mock message", "offset": 37, "ruleId": "my-rule", "selector": "#foo > div", "severity": 2, "size": 11}]
 
 Difference:
 
@@ -113,21 +113,21 @@ Difference:
 
   Array [
 -   ObjectContaining {
--     \\"line\\": 3,
--     \\"ruleId\\": \\"asdf\\",
--     \\"size\\": 12,
+-     "line": 3,
+-     "ruleId": "asdf",
+-     "size": 12,
 +   Object {
-+     \\"column\\": 8,
-+     \\"context\\": Object {
-+       \\"foo\\": \\"bar\\",
++     "column": 8,
++     "context": Object {
++       "foo": "bar",
 +     },
-+     \\"line\\": 4,
-+     \\"message\\": \\"mock message\\",
-+     \\"offset\\": 37,
-+     \\"ruleId\\": \\"my-rule\\",
-+     \\"selector\\": \\"#foo > div\\",
-+     \\"severity\\": 2,
-+     \\"size\\": 11,
++     "line": 4,
++     "message": "mock message",
++     "offset": 37,
++     "ruleId": "my-rule",
++     "selector": "#foo > div",
++     "severity": 2,
++     "size": 11,
     },
   ]"
 `;

@@ -1,59 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`parser should postprocess elements allow modify element metadata 1`] = `
-Object {
-  "attributes": Object {
-    "align": Object {
+{
+  "attributes": {
+    "align": {
       "deprecated": true,
     },
-    "contenteditable": Object {
-      "enum": Array [
+    "contenteditable": {
+      "enum": [
         "true",
         "false",
       ],
       "omit": true,
     },
-    "contextmenu": Object {
+    "contextmenu": {
       "deprecated": true,
     },
-    "datafld": Object {
+    "datafld": {
       "deprecated": true,
     },
-    "dataformatas": Object {
+    "dataformatas": {
       "deprecated": true,
     },
-    "datasrc": Object {
+    "datasrc": {
       "deprecated": true,
     },
-    "dir": Object {
-      "enum": Array [
+    "dir": {
+      "enum": [
         "ltr",
         "rtl",
         "auto",
       ],
     },
-    "draggable": Object {
-      "enum": Array [
+    "draggable": {
+      "enum": [
         "true",
         "false",
       ],
     },
-    "hidden": Object {
+    "hidden": {
       "boolean": true,
     },
-    "id": Object {
-      "enum": Array [
+    "id": {
+      "enum": [
         /\\^\\\\S\\+\\$/,
       ],
     },
-    "tabindex": Object {
-      "enum": Array [
+    "tabindex": {
+      "enum": [
         /\\^-\\?\\\\d\\+\\$/,
       ],
     },
   },
   "flow": true,
-  "permittedContent": Array [
+  "permittedContent": [
     "@flow",
     "dt",
     "dd",
@@ -63,47 +63,47 @@ Object {
 `;
 
 exports[`parser should postprocess elements allow modify element metadata 2`] = `
-Object {
-  "attributes": Object {
-    "contenteditable": Object {
-      "enum": Array [
+{
+  "attributes": {
+    "contenteditable": {
+      "enum": [
         "true",
         "false",
       ],
       "omit": true,
     },
-    "contextmenu": Object {
+    "contextmenu": {
       "deprecated": true,
     },
-    "dir": Object {
-      "enum": Array [
+    "dir": {
+      "enum": [
         "ltr",
         "rtl",
         "auto",
       ],
     },
-    "draggable": Object {
-      "enum": Array [
+    "draggable": {
+      "enum": [
         "true",
         "false",
       ],
     },
-    "hidden": Object {
+    "hidden": {
       "boolean": true,
     },
-    "id": Object {
-      "enum": Array [
+    "id": {
+      "enum": [
         /\\^\\\\S\\+\\$/,
       ],
     },
-    "tabindex": Object {
-      "enum": Array [
+    "tabindex": {
+      "enum": [
         /\\^-\\?\\\\d\\+\\$/,
       ],
     },
   },
   "flow": true,
-  "permittedContent": Array [
+  "permittedContent": [
     "@phrasing",
   ],
   "phrasing": true,

@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule void configured with style="any" smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 2,
     "filePath": "test-files/rules/void.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 10,
         "context": undefined,
         "line": 10,
@@ -18,7 +18,7 @@ Array [
         "severity": 2,
         "size": 6,
       },
-      Object {
+      {
         "column": 6,
         "context": undefined,
         "line": 13,
@@ -52,12 +52,12 @@ Array [
 `;
 
 exports[`rule void configured with style="omit" smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 3,
     "filePath": "test-files/rules/void.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 9,
         "context": undefined,
         "line": 2,
@@ -69,7 +69,7 @@ Array [
         "severity": 2,
         "size": 2,
       },
-      Object {
+      {
         "column": 10,
         "context": undefined,
         "line": 10,
@@ -81,7 +81,7 @@ Array [
         "severity": 2,
         "size": 6,
       },
-      Object {
+      {
         "column": 6,
         "context": undefined,
         "line": 13,
@@ -115,12 +115,12 @@ Array [
 `;
 
 exports[`rule void configured with style="selfclose" smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 4,
     "filePath": "test-files/rules/void.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 8,
         "context": undefined,
         "line": 6,
@@ -132,7 +132,7 @@ Array [
         "severity": 2,
         "size": 1,
       },
-      Object {
+      {
         "column": 8,
         "context": undefined,
         "line": 10,
@@ -144,7 +144,7 @@ Array [
         "severity": 2,
         "size": 1,
       },
-      Object {
+      {
         "column": 10,
         "context": undefined,
         "line": 10,
@@ -156,7 +156,7 @@ Array [
         "severity": 2,
         "size": 6,
       },
-      Object {
+      {
         "column": 6,
         "context": undefined,
         "line": 13,
@@ -190,12 +190,12 @@ Array [
 `;
 
 exports[`rule void default smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 3,
     "filePath": "test-files/rules/void.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 9,
         "context": undefined,
         "line": 2,
@@ -207,7 +207,7 @@ Array [
         "severity": 2,
         "size": 2,
       },
-      Object {
+      {
         "column": 10,
         "context": undefined,
         "line": 10,
@@ -219,7 +219,7 @@ Array [
         "severity": 2,
         "size": 6,
       },
-      Object {
+      {
         "column": 6,
         "context": undefined,
         "line": 13,
@@ -253,7 +253,7 @@ Array [
 `;
 
 exports[`rule void should contain documentation 1`] = `
-Object {
+{
   "description": "HTML void elements cannot have any content and must not have an end tag.",
   "url": "https://html-validate.org/rules/void.html",
 }

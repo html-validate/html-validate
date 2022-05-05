@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule attribute-boolean-style configured with "empty" smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 3,
     "filePath": "test-files/rules/attribute-boolean-style.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 8,
         "context": undefined,
         "line": 1,
-        "message": "Attribute \\"disabled\\" value should be empty string",
+        "message": "Attribute "disabled" value should be empty string",
         "offset": 7,
         "ruleId": "attribute-boolean-style",
         "ruleUrl": "https://html-validate.org/rules/attribute-boolean-style.html",
@@ -18,11 +18,11 @@ Array [
         "severity": 2,
         "size": 8,
       },
-      Object {
+      {
         "column": 8,
         "context": undefined,
         "line": 3,
-        "message": "Attribute \\"disabled\\" value should be empty string",
+        "message": "Attribute "disabled" value should be empty string",
         "offset": 44,
         "ruleId": "attribute-boolean-style",
         "ruleUrl": "https://html-validate.org/rules/attribute-boolean-style.html",
@@ -30,11 +30,11 @@ Array [
         "severity": 2,
         "size": 8,
       },
-      Object {
+      {
         "column": 8,
         "context": undefined,
         "line": 4,
-        "message": "Attribute \\"disabled\\" value should be empty string",
+        "message": "Attribute "disabled" value should be empty string",
         "offset": 72,
         "ruleId": "attribute-boolean-style",
         "ruleUrl": "https://html-validate.org/rules/attribute-boolean-style.html",
@@ -44,9 +44,9 @@ Array [
       },
     ],
     "source": "<input disabled>
-<input disabled=\\"\\">
-<input disabled=\\"required\\">
-<input disabled=\\"foobar\\">
+<input disabled="">
+<input disabled="required">
+<input disabled="foobar">
 ",
     "warningCount": 0,
   },
@@ -54,16 +54,16 @@ Array [
 `;
 
 exports[`rule attribute-boolean-style configured with "name" smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 4,
     "filePath": "test-files/rules/attribute-boolean-style.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 8,
         "context": undefined,
         "line": 1,
-        "message": "Attribute \\"disabled\\" should be set to disabled=\\"disabled\\"",
+        "message": "Attribute "disabled" should be set to disabled="disabled"",
         "offset": 7,
         "ruleId": "attribute-boolean-style",
         "ruleUrl": "https://html-validate.org/rules/attribute-boolean-style.html",
@@ -71,11 +71,11 @@ Array [
         "severity": 2,
         "size": 8,
       },
-      Object {
+      {
         "column": 8,
         "context": undefined,
         "line": 2,
-        "message": "Attribute \\"disabled\\" should be set to disabled=\\"disabled\\"",
+        "message": "Attribute "disabled" should be set to disabled="disabled"",
         "offset": 24,
         "ruleId": "attribute-boolean-style",
         "ruleUrl": "https://html-validate.org/rules/attribute-boolean-style.html",
@@ -83,11 +83,11 @@ Array [
         "severity": 2,
         "size": 8,
       },
-      Object {
+      {
         "column": 8,
         "context": undefined,
         "line": 3,
-        "message": "Attribute \\"disabled\\" should be set to disabled=\\"disabled\\"",
+        "message": "Attribute "disabled" should be set to disabled="disabled"",
         "offset": 44,
         "ruleId": "attribute-boolean-style",
         "ruleUrl": "https://html-validate.org/rules/attribute-boolean-style.html",
@@ -95,11 +95,11 @@ Array [
         "severity": 2,
         "size": 8,
       },
-      Object {
+      {
         "column": 8,
         "context": undefined,
         "line": 4,
-        "message": "Attribute \\"disabled\\" should be set to disabled=\\"disabled\\"",
+        "message": "Attribute "disabled" should be set to disabled="disabled"",
         "offset": 72,
         "ruleId": "attribute-boolean-style",
         "ruleUrl": "https://html-validate.org/rules/attribute-boolean-style.html",
@@ -109,9 +109,9 @@ Array [
       },
     ],
     "source": "<input disabled>
-<input disabled=\\"\\">
-<input disabled=\\"required\\">
-<input disabled=\\"foobar\\">
+<input disabled="">
+<input disabled="required">
+<input disabled="foobar">
 ",
     "warningCount": 0,
   },
@@ -119,16 +119,16 @@ Array [
 `;
 
 exports[`rule attribute-boolean-style configured with "omit" smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 3,
     "filePath": "test-files/rules/attribute-boolean-style.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 8,
         "context": undefined,
         "line": 2,
-        "message": "Attribute \\"disabled\\" should omit value",
+        "message": "Attribute "disabled" should omit value",
         "offset": 24,
         "ruleId": "attribute-boolean-style",
         "ruleUrl": "https://html-validate.org/rules/attribute-boolean-style.html",
@@ -136,11 +136,11 @@ Array [
         "severity": 2,
         "size": 8,
       },
-      Object {
+      {
         "column": 8,
         "context": undefined,
         "line": 3,
-        "message": "Attribute \\"disabled\\" should omit value",
+        "message": "Attribute "disabled" should omit value",
         "offset": 44,
         "ruleId": "attribute-boolean-style",
         "ruleUrl": "https://html-validate.org/rules/attribute-boolean-style.html",
@@ -148,11 +148,11 @@ Array [
         "severity": 2,
         "size": 8,
       },
-      Object {
+      {
         "column": 8,
         "context": undefined,
         "line": 4,
-        "message": "Attribute \\"disabled\\" should omit value",
+        "message": "Attribute "disabled" should omit value",
         "offset": 72,
         "ruleId": "attribute-boolean-style",
         "ruleUrl": "https://html-validate.org/rules/attribute-boolean-style.html",
@@ -162,9 +162,9 @@ Array [
       },
     ],
     "source": "<input disabled>
-<input disabled=\\"\\">
-<input disabled=\\"required\\">
-<input disabled=\\"foobar\\">
+<input disabled="">
+<input disabled="required">
+<input disabled="foobar">
 ",
     "warningCount": 0,
   },
@@ -172,7 +172,7 @@ Array [
 `;
 
 exports[`rule attribute-boolean-style should contain documentation 1`] = `
-Object {
+{
   "description": "Require a specific style when writing boolean attributes.",
   "url": "https://html-validate.org/rules/attribute-boolean-style.html",
 }

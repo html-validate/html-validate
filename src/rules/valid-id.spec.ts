@@ -35,7 +35,7 @@ describe("rule valid-id", () => {
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: element id must not be empty (valid-id) at inline:1:6:
-				> 1 | <div id=\\"\\"></div>
+				> 1 | <div id=""></div>
 				    |      ^^^^^
 				Selector: div"
 			`);
@@ -48,9 +48,9 @@ describe("rule valid-id", () => {
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: element id must not contain whitespace (valid-id) at inline:1:10:
-				> 1 | <div id=\\" foobar\\"></div>
+				> 1 | <div id=" foobar"></div>
 				    |          ^^^^^^^
-				Selector: #\\\\ foobar"
+				Selector: #\\ foobar"
 			`);
 		});
 
@@ -61,9 +61,9 @@ describe("rule valid-id", () => {
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: element id must not contain whitespace (valid-id) at inline:1:10:
-				> 1 | <div id=\\"foobar \\"></div>
+				> 1 | <div id="foobar "></div>
 				    |          ^^^^^^^
-				Selector: #foobar\\\\"
+				Selector: #foobar\\"
 			`);
 		});
 
@@ -74,9 +74,9 @@ describe("rule valid-id", () => {
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: element id must not contain whitespace (valid-id) at inline:1:10:
-				> 1 | <div id=\\"foo bar\\"></div>
+				> 1 | <div id="foo bar"></div>
 				    |          ^^^^^^^
-				Selector: #foo\\\\ bar"
+				Selector: #foo\\ bar"
 			`);
 		});
 
@@ -87,9 +87,9 @@ describe("rule valid-id", () => {
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: element id must begin with a letter (valid-id) at inline:1:10:
-				> 1 | <div id=\\"123\\"></div>
+				> 1 | <div id="123"></div>
 				    |          ^^^
-				Selector: [id=\\"123\\"]"
+				Selector: [id="123"]"
 			`);
 		});
 
@@ -100,9 +100,9 @@ describe("rule valid-id", () => {
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: element id must begin with a letter (valid-id) at inline:1:10:
-				> 1 | <div id=\\"123foo\\"></div>
+				> 1 | <div id="123foo"></div>
 				    |          ^^^^^^
-				Selector: [id=\\"123foo\\"]"
+				Selector: [id="123foo"]"
 			`);
 		});
 
@@ -113,7 +113,7 @@ describe("rule valid-id", () => {
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: element id must begin with a letter (valid-id) at inline:1:10:
-				> 1 | <div id=\\"-foo\\"></div>
+				> 1 | <div id="-foo"></div>
 				    |          ^^^^
 				Selector: #-foo"
 			`);
@@ -126,7 +126,7 @@ describe("rule valid-id", () => {
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: element id must begin with a letter (valid-id) at inline:1:10:
-				> 1 | <div id=\\"_foo\\"></div>
+				> 1 | <div id="_foo"></div>
 				    |          ^^^^
 				Selector: #_foo"
 			`);
@@ -139,7 +139,7 @@ describe("rule valid-id", () => {
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: element id must only contain alphanumerical, dash and underscore characters (valid-id) at inline:1:10:
-				> 1 | <div id=\\"foo!bar\\"></div>
+				> 1 | <div id="foo!bar"></div>
 				    |          ^^^^^^^
 				Selector: #foo!bar"
 			`);
@@ -152,7 +152,7 @@ describe("rule valid-id", () => {
 				htmlvalidate.getConfigFor("inline")
 			);
 			expect(docs).toMatchInlineSnapshot(`
-				Object {
+				{
 				  "description": "Element ID is not valid.
 
 				Under the current configuration the following rules are applied:
@@ -175,7 +175,7 @@ describe("rule valid-id", () => {
 				context
 			);
 			expect(docs).toMatchInlineSnapshot(`
-				Object {
+				{
 				  "description": "Element ID must begin with a letter.
 
 				Under the current configuration the following rules are applied:
@@ -219,9 +219,9 @@ describe("rule valid-id", () => {
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: element id must not contain whitespace (valid-id) at inline:1:10:
-				> 1 | <div id=\\"foo bar\\"></div>
+				> 1 | <div id="foo bar"></div>
 				    |          ^^^^^^^
-				Selector: #foo\\\\ bar"
+				Selector: #foo\\ bar"
 			`);
 		});
 
@@ -232,7 +232,7 @@ describe("rule valid-id", () => {
 				htmlvalidate.getConfigFor("inline")
 			);
 			expect(docs).toMatchInlineSnapshot(`
-				Object {
+				{
 				  "description": "Element ID is not valid.
 
 				Under the current configuration the following rules are applied:
@@ -253,7 +253,7 @@ describe("rule valid-id", () => {
 				context
 			);
 			expect(docs).toMatchInlineSnapshot(`
-				Object {
+				{
 				  "description": "Element ID must not be empty.
 
 				Under the current configuration the following rules are applied:

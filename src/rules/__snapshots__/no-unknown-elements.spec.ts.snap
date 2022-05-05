@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule no-unknown-elements should contain contextual documentation 1`] = `
-Object {
+{
   "description": "An unknown element <my-element> was used. If this is a Custom Element you need to supply element metadata for it.",
   "url": "https://html-validate.org/rules/no-unknown-elements.html",
 }
 `;
 
 exports[`rule no-unknown-elements should contain documentation 1`] = `
-Object {
+{
   "description": "An unknown element was used. If this is a Custom Element you need to supply element metadata for it.",
   "url": "https://html-validate.org/rules/no-unknown-elements.html",
 }

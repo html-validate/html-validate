@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/rules/attr-quotes.md inline validation: correct 1`] = `Array []`;
+exports[`docs/rules/attr-quotes.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/attr-quotes.md inline validation: incorrect 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 4,
         "context": undefined,
         "line": 1,
-        "message": "Attribute \\"class\\" used ' instead of expected \\"",
+        "message": "Attribute "class" used ' instead of expected "",
         "offset": 3,
         "ruleId": "attr-quotes",
         "ruleUrl": "https://html-validate.org/rules/attr-quotes.html",

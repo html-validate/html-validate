@@ -2,79 +2,79 @@
 
 exports[`should generate configuration for angularjs 1`] = `
 "{
-  \\"elements\\": [
-    \\"html5\\"
+  "elements": [
+    "html5"
   ],
-  \\"extends\\": [
-    \\"html-validate:recommended\\"
+  "extends": [
+    "html-validate:recommended"
   ],
-  \\"transform\\": {
-    \\"^.*\\\\\\\\.js$\\": \\"html-validate-angular/js\\",
-    \\"^.*\\\\\\\\.html$\\": \\"html-validate-angular/html\\"
+  "transform": {
+    "^.*\\\\.js$": "html-validate-angular/js",
+    "^.*\\\\.html$": "html-validate-angular/html"
   }
 }"
 `;
 
 exports[`should generate configuration for combined 1`] = `
 "{
-  \\"elements\\": [
-    \\"html5\\"
+  "elements": [
+    "html5"
   ],
-  \\"extends\\": [
-    \\"html-validate:recommended\\",
-    \\"html-validate-vue:recommended\\"
+  "extends": [
+    "html-validate:recommended",
+    "html-validate-vue:recommended"
   ],
-  \\"transform\\": {
-    \\"^.*\\\\\\\\.js$\\": \\"html-validate-angular/js\\",
-    \\"^.*\\\\\\\\.html$\\": \\"html-validate-angular/html\\",
-    \\"^.*\\\\\\\\.vue$\\": \\"html-validate-vue\\",
-    \\"^.*\\\\\\\\.md$\\": \\"html-validate-markdown\\"
+  "transform": {
+    "^.*\\\\.js$": "html-validate-angular/js",
+    "^.*\\\\.html$": "html-validate-angular/html",
+    "^.*\\\\.vue$": "html-validate-vue",
+    "^.*\\\\.md$": "html-validate-markdown"
   },
-  \\"plugins\\": [
-    \\"html-validate-vue\\"
+  "plugins": [
+    "html-validate-vue"
   ]
 }"
 `;
 
 exports[`should generate configuration for default 1`] = `
 "{
-  \\"elements\\": [
-    \\"html5\\"
+  "elements": [
+    "html5"
   ],
-  \\"extends\\": [
-    \\"html-validate:recommended\\"
+  "extends": [
+    "html-validate:recommended"
   ]
 }"
 `;
 
 exports[`should generate configuration for markdown 1`] = `
 "{
-  \\"elements\\": [
-    \\"html5\\"
+  "elements": [
+    "html5"
   ],
-  \\"extends\\": [
-    \\"html-validate:recommended\\"
+  "extends": [
+    "html-validate:recommended"
   ],
-  \\"transform\\": {
-    \\"^.*\\\\\\\\.md$\\": \\"html-validate-markdown\\"
+  "transform": {
+    "^.*\\\\.md$": "html-validate-markdown"
   }
 }"
 `;
 
 exports[`should generate configuration for vuejs 1`] = `
 "{
-  \\"elements\\": [
-    \\"html5\\"
+  "elements": [
+    "html5"
   ],
-  \\"extends\\": [
-    \\"html-validate:recommended\\",
-    \\"html-validate-vue:recommended\\"
+  "extends": [
+    "html-validate:recommended",
+    "html-validate-vue:recommended"
   ],
-  \\"plugins\\": [
-    \\"html-validate-vue\\"
+  "plugins": [
+    "html-validate-vue"
   ],
-  \\"transform\\": {
-    \\"^.*\\\\\\\\.vue$\\": \\"html-validate-vue\\"
+  "transform": {
+    "^.*\\\\.vue$": "html-validate-vue"
   }
 }"
 `;

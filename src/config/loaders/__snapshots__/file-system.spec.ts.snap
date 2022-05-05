@@ -1,190 +1,190 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FileSystemConfigLoader smoketest test-files/config/cjs-config/file.html 1`] = `
-Object {
-  "plugins": Array [],
+{
+  "plugins": [],
   "root": true,
-  "rules": Object {
+  "rules": {
     "deprecated": "error",
     "element-permitted-content": "error",
     "no-self-closing": "error",
     "void-content": "off",
   },
-  "transform": Object {},
+  "transform": {},
 }
 `;
 
 exports[`FileSystemConfigLoader smoketest test-files/config/directive/disable.html 1`] = `
-Object {
-  "plugins": Array [],
+{
+  "plugins": [],
   "root": true,
-  "rules": Object {
+  "rules": {
     "deprecated": "error",
     "element-permitted-content": "off",
     "no-self-closing": "error",
     "void-content": "error",
   },
-  "transform": Object {},
+  "transform": {},
 }
 `;
 
 exports[`FileSystemConfigLoader smoketest test-files/config/directive/disable-block.html 1`] = `
-Object {
-  "plugins": Array [],
+{
+  "plugins": [],
   "root": true,
-  "rules": Object {
+  "rules": {
     "deprecated": "error",
     "element-permitted-content": "off",
     "no-self-closing": "error",
     "void-content": "error",
   },
-  "transform": Object {},
+  "transform": {},
 }
 `;
 
 exports[`FileSystemConfigLoader smoketest test-files/config/directive/disable-multiple.html 1`] = `
-Object {
-  "plugins": Array [],
+{
+  "plugins": [],
   "root": true,
-  "rules": Object {
+  "rules": {
     "deprecated": "error",
     "element-permitted-content": "off",
     "no-self-closing": "error",
     "void-content": "error",
   },
-  "transform": Object {},
+  "transform": {},
 }
 `;
 
 exports[`FileSystemConfigLoader smoketest test-files/config/directive/disable-next.html 1`] = `
-Object {
-  "plugins": Array [],
+{
+  "plugins": [],
   "root": true,
-  "rules": Object {
+  "rules": {
     "deprecated": "error",
     "element-permitted-content": "off",
     "no-self-closing": "error",
     "void-content": "error",
   },
-  "transform": Object {},
+  "transform": {},
 }
 `;
 
 exports[`FileSystemConfigLoader smoketest test-files/config/elements/file.html 1`] = `
-Object {
-  "elements": Array [
+{
+  "elements": [
     "html5",
     "<rootDir>/test-files/config/elements/elements.json",
   ],
-  "plugins": Array [],
+  "plugins": [],
   "root": true,
-  "rules": Object {
+  "rules": {
     "deprecated": "error",
     "element-permitted-content": "error",
     "no-self-closing": "error",
     "void-content": "error",
   },
-  "transform": Object {},
+  "transform": {},
 }
 `;
 
 exports[`FileSystemConfigLoader smoketest test-files/config/extend-order/foo.html 1`] = `
-Object {
-  "elements": Array [
+{
+  "elements": [
     "<rootDir>/test-files/config/extend-order/first.json",
     "<rootDir>/test-files/config/extend-order/override.json",
   ],
-  "plugins": Array [],
+  "plugins": [],
   "root": true,
-  "rules": Object {
+  "rules": {
     "element-permitted-content": "error",
   },
-  "transform": Object {},
+  "transform": {},
 }
 `;
 
 exports[`FileSystemConfigLoader smoketest test-files/config/extend-order/nested/foo.html 1`] = `
-Object {
-  "elements": Array [
+{
+  "elements": [
     "<rootDir>/test-files/config/extend-order/first.json",
     "<rootDir>/test-files/config/extend-order/override.json",
     "<rootDir>/test-files/config/extend-order/nested/nested.json",
   ],
-  "plugins": Array [],
+  "plugins": [],
   "root": true,
-  "rules": Object {
+  "rules": {
     "element-permitted-content": "error",
   },
-  "transform": Object {},
+  "transform": {},
 }
 `;
 
 exports[`FileSystemConfigLoader smoketest test-files/config/file.html 1`] = `
-Object {
-  "plugins": Array [],
+{
+  "plugins": [],
   "root": true,
-  "rules": Object {
+  "rules": {
     "deprecated": "error",
     "element-permitted-content": "error",
     "no-self-closing": "error",
     "void-content": "error",
   },
-  "transform": Object {},
+  "transform": {},
 }
 `;
 
 exports[`FileSystemConfigLoader smoketest test-files/config/js-config/file.html 1`] = `
-Object {
-  "plugins": Array [],
+{
+  "plugins": [],
   "root": true,
-  "rules": Object {
+  "rules": {
     "deprecated": "error",
     "element-permitted-content": "error",
     "no-self-closing": "error",
     "void-content": "off",
   },
-  "transform": Object {},
+  "transform": {},
 }
 `;
 
 exports[`FileSystemConfigLoader smoketest test-files/config/off/error/file.html 1`] = `
-Object {
-  "plugins": Array [],
+{
+  "plugins": [],
   "root": true,
-  "rules": Object {
+  "rules": {
     "deprecated": "error",
     "element-permitted-content": "error",
     "no-self-closing": "error",
     "void-content": "error",
   },
-  "transform": Object {},
+  "transform": {},
 }
 `;
 
 exports[`FileSystemConfigLoader smoketest test-files/config/off/file.html 1`] = `
-Object {
-  "plugins": Array [],
+{
+  "plugins": [],
   "root": true,
-  "rules": Object {
+  "rules": {
     "deprecated": "error",
     "element-permitted-content": "error",
     "no-self-closing": "error",
     "void-content": "off",
   },
-  "transform": Object {},
+  "transform": {},
 }
 `;
 
 exports[`FileSystemConfigLoader smoketest test-files/config/warn/file.html 1`] = `
-Object {
-  "plugins": Array [],
+{
+  "plugins": [],
   "root": true,
-  "rules": Object {
+  "rules": {
     "deprecated": "error",
     "element-permitted-content": "error",
     "no-self-closing": "error",
     "void-content": "warn",
   },
-  "transform": Object {},
+  "transform": {},
 }
 `;

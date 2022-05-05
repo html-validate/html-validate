@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/rules/meta-refresh.md inline validation: correct 1`] = `Array []`;
+exports[`docs/rules/meta-refresh.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/meta-refresh.md inline validation: incorrect-delay 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 37,
         "context": undefined,
         "line": 1,
@@ -21,19 +21,19 @@ Array [
         "size": 17,
       },
     ],
-    "source": "<meta http-equiv=\\"refresh\\" content=\\"5;url=target.html\\">",
+    "source": "<meta http-equiv="refresh" content="5;url=target.html">",
     "warningCount": 0,
   },
 ]
 `;
 
 exports[`docs/rules/meta-refresh.md inline validation: incorrect-url 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 37,
         "context": undefined,
         "line": 1,
@@ -46,7 +46,7 @@ Array [
         "size": 1,
       },
     ],
-    "source": "<meta http-equiv=\\"refresh\\" content=\\"0\\">",
+    "source": "<meta http-equiv="refresh" content="0">",
     "warningCount": 0,
   },
 ]

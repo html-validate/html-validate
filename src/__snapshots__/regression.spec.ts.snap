@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`regression tests test-files/issues/issue-134-multiline-template.html 1`] = `Array []`;
+exports[`regression tests test-files/issues/issue-134-multiline-template.html 1`] = `[]`;
 
-exports[`regression tests test-files/issues/issue-138-srcset-line-wrapping.html 1`] = `Array []`;
+exports[`regression tests test-files/issues/issue-138-srcset-line-wrapping.html 1`] = `[]`;
 
-exports[`regression tests test-files/issues/issue27-disable-block.html 1`] = `Array []`;
+exports[`regression tests test-files/issues/issue27-disable-block.html 1`] = `[]`;
 
-exports[`regression tests test-files/issues/issue35-dynamic-values.html 1`] = `Array []`;
+exports[`regression tests test-files/issues/issue35-dynamic-values.html 1`] = `[]`;
 
 exports[`regression tests test-files/issues/issue51-cond-comment.html 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 8,
     "filePath": "test-files/issues/issue51-cond-comment.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 1,
         "context": undefined,
         "line": 2,
@@ -26,7 +26,7 @@ Array [
         "severity": 2,
         "size": 17,
       },
-      Object {
+      {
         "column": 60,
         "context": undefined,
         "line": 2,
@@ -38,7 +38,7 @@ Array [
         "severity": 2,
         "size": 12,
       },
-      Object {
+      {
         "column": 1,
         "context": undefined,
         "line": 3,
@@ -50,7 +50,7 @@ Array [
         "severity": 2,
         "size": 14,
       },
-      Object {
+      {
         "column": 60,
         "context": undefined,
         "line": 3,
@@ -62,7 +62,7 @@ Array [
         "severity": 2,
         "size": 12,
       },
-      Object {
+      {
         "column": 1,
         "context": undefined,
         "line": 4,
@@ -74,7 +74,7 @@ Array [
         "severity": 2,
         "size": 14,
       },
-      Object {
+      {
         "column": 60,
         "context": undefined,
         "line": 4,
@@ -86,7 +86,7 @@ Array [
         "severity": 2,
         "size": 12,
       },
-      Object {
+      {
         "column": 1,
         "context": undefined,
         "line": 5,
@@ -98,7 +98,7 @@ Array [
         "severity": 2,
         "size": 17,
       },
-      Object {
+      {
         "column": 5,
         "context": undefined,
         "line": 7,
@@ -112,11 +112,11 @@ Array [
       },
     ],
     "source": "<!DOCTYPE html>
-<!--[if lt IE 7]> <html class=\\"no-js ie6 oldie\\" lang=\\"en\\"> <![endif]-->
-<!--[if IE 7]>    <html class=\\"no-js ie7 oldie\\" lang=\\"en\\"> <![endif]-->
-<!--[if IE 8]>    <html class=\\"no-js ie8 oldie\\" lang=\\"en\\"> <![endif]-->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class=\\"no-js\\" lang=\\"en\\">
+<html class="no-js" lang="en">
 <!--<![endif]-->
 <head>
 <title>whatever</title>
@@ -131,4 +131,4 @@ Array [
 ]
 `;
 
-exports[`regression tests test-files/issues/issue128-id-whitespace.html 1`] = `Array []`;
+exports[`regression tests test-files/issues/issue128-id-whitespace.html 1`] = `[]`;

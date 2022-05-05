@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/rules/attr-case.md inline validation: correct 1`] = `Array []`;
+exports[`docs/rules/attr-case.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/attr-case.md inline validation: incorrect 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 4,
         "context": undefined,
         "line": 1,
-        "message": "Attribute \\"ID\\" should be lowercase",
+        "message": "Attribute "ID" should be lowercase",
         "offset": 3,
         "ruleId": "attr-case",
         "ruleUrl": "https://html-validate.org/rules/attr-case.html",
@@ -21,23 +21,23 @@ Array [
         "size": 2,
       },
     ],
-    "source": "<p ID=\\"foo\\"></p>",
+    "source": "<p ID="foo"></p>",
     "warningCount": 0,
   },
 ]
 `;
 
 exports[`docs/rules/attr-case.md inline validation: multiple 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 4,
         "context": undefined,
         "line": 3,
-        "message": "Attribute \\"fooBar\\" should be lowercase or uppercase",
+        "message": "Attribute "fooBar" should be lowercase or uppercase",
         "offset": 33,
         "ruleId": "attr-case",
         "ruleUrl": "https://html-validate.org/rules/attr-case.html",
@@ -54,4 +54,4 @@ Array [
 ]
 `;
 
-exports[`docs/rules/attr-case.md inline validation: svg-viewbox 1`] = `Array []`;
+exports[`docs/rules/attr-case.md inline validation: svg-viewbox 1`] = `[]`;

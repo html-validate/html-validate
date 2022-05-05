@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/usage/index.md inline validation: directive-commend 1`] = `Array []`;
+exports[`docs/usage/index.md inline validation: directive-commend 1`] = `[]`;
 
 exports[`docs/usage/index.md inline validation: disable-block-button-type 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 2,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 17,
-        "context": Object {
-          "allowed": Object {
-            "enum": Array [
+        "context": {
+          "allowed": {
+            "enum": [
               "submit",
               "reset",
               "button",
@@ -24,7 +24,7 @@ Array [
           "value": "foo",
         },
         "line": 2,
-        "message": "Attribute \\"type\\" has invalid value \\"foo\\"",
+        "message": "Attribute "type" has invalid value "foo"",
         "offset": 22,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
@@ -32,11 +32,11 @@ Array [
         "severity": 2,
         "size": 3,
       },
-      Object {
+      {
         "column": 15,
-        "context": Object {
-          "allowed": Object {
-            "enum": Array [
+        "context": {
+          "allowed": {
+            "enum": [
               "submit",
               "reset",
               "button",
@@ -48,7 +48,7 @@ Array [
           "value": "spam",
         },
         "line": 7,
-        "message": "Attribute \\"type\\" has invalid value \\"spam\\"",
+        "message": "Attribute "type" has invalid value "spam"",
         "offset": 283,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
@@ -58,26 +58,26 @@ Array [
       },
     ],
     "source": "<div>
-  <button type=\\"foo\\">Invalid button</button>
+  <button type="foo">Invalid button</button>
   <!-- [html-validate-disable-block attribute-allowed-values -- will be disabled until the parent div is closed] -->
-  <button type=\\"bar\\">Invalid but ignored</button>
-  <button type=\\"baz\\">Still ignored</button>
+  <button type="bar">Invalid but ignored</button>
+  <button type="baz">Still ignored</button>
 </div>
-<button type=\\"spam\\">Another invalid</button>",
+<button type="spam">Another invalid</button>",
     "warningCount": 0,
   },
 ]
 `;
 
 exports[`docs/usage/index.md inline validation: disable-next-deprecated 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
-        "context": Object {
+        "context": {
           "documentation": "\`<blink>\` has no direct replacement and blinking text is frowned upon by accessibility standards.",
           "source": "non-standard",
           "tagName": "blink",

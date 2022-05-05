@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule close-order should contain documentation 1`] = `
-Object {
+{
   "description": "HTML requires elements to be closed in the same order as they were opened.",
   "url": "https://html-validate.org/rules/close-order.html",
 }
 `;
 
 exports[`rule close-order smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 2,
     "filePath": "test-files/rules/close-order.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 16,
         "context": undefined,
         "line": 6,
@@ -25,7 +25,7 @@ Array [
         "severity": 2,
         "size": 4,
       },
-      Object {
+      {
         "column": 2,
         "context": undefined,
         "line": 12,

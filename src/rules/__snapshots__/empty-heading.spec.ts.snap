@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule empty-heading should contain documentation 1`] = `
-Object {
+{
   "description": "Assistive technology such as screen readers require textual content in headings. Whitespace only is considered empty.",
   "url": "https://html-validate.org/rules/empty-heading.html",
 }
 `;
 
 exports[`rule empty-heading smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 2,
     "filePath": "test-files/rules/empty-heading.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
         "context": undefined,
         "line": 2,
@@ -25,7 +25,7 @@ Array [
         "severity": 2,
         "size": 2,
       },
-      Object {
+      {
         "column": 2,
         "context": undefined,
         "line": 3,

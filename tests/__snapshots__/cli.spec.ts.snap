@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`cli-default-config/test.html 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 8,
     "context": undefined,
     "line": 1,
@@ -18,8 +18,8 @@ Array [
 `;
 
 exports[`cli-explicit-extend/test.html 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 8,
     "context": undefined,
     "line": 1,
@@ -34,4 +34,4 @@ Array [
 ]
 `;
 
-exports[`cli-no-extend/test.html 1`] = `Array []`;
+exports[`cli-no-extend/test.html 1`] = `[]`;

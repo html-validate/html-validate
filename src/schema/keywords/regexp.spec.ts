@@ -22,12 +22,12 @@ it("should fail if value it not regex", () => {
 	const data = "foo";
 	expect(validate(data)).toBeFalsy();
 	expect(validate.errors).toMatchInlineSnapshot(`
-		Array [
-		  Object {
+		[
+		  {
 		    "instancePath": "",
 		    "keyword": "type",
 		    "message": "should be a regular expression",
-		    "params": Object {
+		    "params": {
 		      "keyword": "type",
 		    },
 		    "schemaPath": "#/regexp",
@@ -52,7 +52,7 @@ it("should be supported by SchemaValidationError", () => {
 	expect(stripAnsi(error.prettyError())).toMatchInlineSnapshot(`
 		"TYPE should be a regular expression
 
-		> 1 | \\"foo\\"
+		> 1 | "foo"
 		    | ^^^^^ 👈🏽  type should be a regular expression"
 	`);
 });

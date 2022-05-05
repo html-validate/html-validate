@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/rules/multiple-labeled-controls.md inline validation: correct 1`] = `Array []`;
+exports[`docs/rules/multiple-labeled-controls.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/multiple-labeled-controls.md inline validation: incorrect-both 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
         "context": undefined,
         "line": 1,
@@ -21,22 +21,22 @@ Array [
         "size": 5,
       },
     ],
-    "source": "<label for=\\"bar\\">
-  <input type=\\"text\\" id=\\"foo\\">
+    "source": "<label for="bar">
+  <input type="text" id="foo">
 </label>
-<input type=\\"text\\" id=\\"bar\\">",
+<input type="text" id="bar">",
     "warningCount": 0,
   },
 ]
 `;
 
 exports[`docs/rules/multiple-labeled-controls.md inline validation: incorrect-multiple 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
         "context": undefined,
         "line": 1,
@@ -50,8 +50,8 @@ Array [
       },
     ],
     "source": "<label>
-  <input type=\\"text\\">
-  <input type=\\"text\\">
+  <input type="text">
+  <input type="text">
 </label>",
     "warningCount": 0,
   },

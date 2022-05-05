@@ -35,7 +35,7 @@ describe("toHTMLValidate()", () => {
 			"Expected HTML to be valid but had the following errors:
 
 			  Anchor link must have a text describing its purpose [wcag/h30]
-			  <button> is missing required \\"type\\" attribute [element-required-attributes]
+			  <button> is missing required "type" attribute [element-required-attributes]
 			  <button> must have accessible text [text-content]
 			  Element <button> is not permitted as descendant of <a> [element-permitted-content]
 			  Mismatched close-tag, expected '</button>' but found '</i>'. [close-order]
@@ -157,27 +157,27 @@ describe("toHTMLValidate()", () => {
 			"expect(received).not.toHTMLValidate(expected) // expected error
 
 			Expected error to be present:
-			{\\"message\\": StringContaining \\"Some other error\\", \\"ruleId\\": \\"wrong-error\\"}
+			{"message": StringContaining "Some other error", "ruleId": "wrong-error"}
 
 			- Expected error
 			+ Actual error
 
 			- ArrayContaining [
 			-   ObjectContaining {
-			-     \\"message\\": StringContaining \\"Some other error\\",
-			-     \\"ruleId\\": \\"wrong-error\\",
+			-     "message": StringContaining "Some other error",
+			-     "ruleId": "wrong-error",
 			+ Array [
 			+   Object {
-			+     \\"column\\": 5,
-			+     \\"context\\": undefined,
-			+     \\"line\\": 1,
-			+     \\"message\\": \\"Mismatched close-tag, expected '</u>' but found '</i>'.\\",
-			+     \\"offset\\": 4,
-			+     \\"ruleId\\": \\"close-order\\",
-			+     \\"ruleUrl\\": \\"https://html-validate.org/rules/close-order.html\\",
-			+     \\"selector\\": null,
-			+     \\"severity\\": 2,
-			+     \\"size\\": 2,
+			+     "column": 5,
+			+     "context": undefined,
+			+     "line": 1,
+			+     "message": "Mismatched close-tag, expected '</u>' but found '</i>'.",
+			+     "offset": 4,
+			+     "ruleId": "close-order",
+			+     "ruleUrl": "https://html-validate.org/rules/close-order.html",
+			+     "selector": null,
+			+     "severity": 2,
+			+     "size": 2,
 			    },
 			  ]"
 		`);

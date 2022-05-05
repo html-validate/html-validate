@@ -2,19 +2,19 @@
 
 exports[`codeframe formatter should generate output 1`] = `
 "<red>error</>: <bold>An error</> <dim>(foo)</> at <green>first.html:1:6</>:
-> 1 | <div id=\\"foo\\"
+> 1 | <div id="foo"
     |      ^^
-  2 |     class=\\"bar\\"
-  3 |     name=\\"baz\\">
+  2 |     class="bar"
+  3 |     name="baz">
   4 |
 <bold>Details:</> https://example.net/rule/foo.html
 
 
 <yellow>warning</>: <bold>A warning</> <dim>(bar)</> at <green>first.html:2:5</>:
-  1 | <div id=\\"foo\\"
-> 2 |     class=\\"bar\\"
+  1 | <div id="foo"
+> 2 |     class="bar"
     |     ^^^^^
-  3 |     name=\\"baz\\">
+  3 |     name="baz">
   4 |
 <bold>Details:</> https://example.net/rule/bar.html
 
@@ -37,7 +37,7 @@ exports[`codeframe formatter should handle edge cases 1`] = `
   2 |
 
 
-<red>error</>: <bold>Escape <script language=\\"jabbascript\\"> & <span id='foo'></> <dim>(special-characters)</> at <green>edge-cases.html:2:2</>:
+<red>error</>: <bold>Escape <script language="jabbascript"> & <span id='foo'></> <dim>(special-characters)</> at <green>edge-cases.html:2:2</>:
   1 | <p>lorem ipsum</p>
 > 2 |
     | ^
@@ -53,18 +53,18 @@ exports[`codeframe formatter should handle empty result 1`] = `""`;
 
 exports[`codeframe formatter should handle missing rule url 1`] = `
 "<red>error</>: <bold>An error</> <dim>(foo)</> at <green>missing-url.html:1:6</>:
-> 1 | <div id=\\"foo\\"
+> 1 | <div id="foo"
     |      ^^
-  2 |     class=\\"bar\\"
-  3 |     name=\\"baz\\">
+  2 |     class="bar"
+  3 |     name="baz">
   4 |
 
 
 <yellow>warning</>: <bold>A warning</> <dim>(bar)</> at <green>missing-url.html:2:5</>:
-  1 | <div id=\\"foo\\"
-> 2 |     class=\\"bar\\"
+  1 | <div id="foo"
+> 2 |     class="bar"
     |     ^^^^^
-  3 |     name=\\"baz\\">
+  3 |     name="baz">
   4 |
 
 
@@ -74,10 +74,10 @@ exports[`codeframe formatter should handle missing rule url 1`] = `
 
 exports[`codeframe formatter should handle missing selector 1`] = `
 "<red>error</>: <bold>An error</> <dim>(foo)</> at <green>first.html:1:6</>:
-> 1 | <div id=\\"foo\\"
+> 1 | <div id="foo"
     |      ^^
-  2 |     class=\\"bar\\"
-  3 |     name=\\"baz\\">
+  2 |     class="bar"
+  3 |     name="baz">
   4 |
 <bold>Selector:</> -
 <bold>Details:</> https://example.net/rule/foo.html
@@ -116,18 +116,18 @@ exports[`codeframe formatter should handle multiline error 1`] = `
 
 exports[`codeframe formatter should support disabling links 1`] = `
 "<red>error</>: <bold>An error</> <dim>(foo)</> at <green>first.html:1:6</>:
-> 1 | <div id=\\"foo\\"
+> 1 | <div id="foo"
     |      ^^
-  2 |     class=\\"bar\\"
-  3 |     name=\\"baz\\">
+  2 |     class="bar"
+  3 |     name="baz">
   4 |
 
 
 <yellow>warning</>: <bold>A warning</> <dim>(bar)</> at <green>first.html:2:5</>:
-  1 | <div id=\\"foo\\"
-> 2 |     class=\\"bar\\"
+  1 | <div id="foo"
+> 2 |     class="bar"
     |     ^^^^^
-  3 |     name=\\"baz\\">
+  3 |     name="baz">
   4 |
 
 
@@ -143,19 +143,19 @@ exports[`codeframe formatter should support disabling links 1`] = `
 
 exports[`codeframe formatter should support disabling summary 1`] = `
 "<red>error</>: <bold>An error</> <dim>(foo)</> at <green>first.html:1:6</>:
-> 1 | <div id=\\"foo\\"
+> 1 | <div id="foo"
     |      ^^
-  2 |     class=\\"bar\\"
-  3 |     name=\\"baz\\">
+  2 |     class="bar"
+  3 |     name="baz">
   4 |
 <bold>Details:</> https://example.net/rule/foo.html
 
 
 <yellow>warning</>: <bold>A warning</> <dim>(bar)</> at <green>first.html:2:5</>:
-  1 | <div id=\\"foo\\"
-> 2 |     class=\\"bar\\"
+  1 | <div id="foo"
+> 2 |     class="bar"
     |     ^^^^^
-  3 |     name=\\"baz\\">
+  3 |     name="baz">
   4 |
 <bold>Details:</> https://example.net/rule/bar.html
 
@@ -171,20 +171,20 @@ exports[`codeframe formatter should support disabling summary 1`] = `
 
 exports[`codeframe formatter should support enabling selector 1`] = `
 "<red>error</>: <bold>An error</> <dim>(foo)</> at <green>first.html:1:6</>:
-> 1 | <div id=\\"foo\\"
+> 1 | <div id="foo"
     |      ^^
-  2 |     class=\\"bar\\"
-  3 |     name=\\"baz\\">
+  2 |     class="bar"
+  3 |     name="baz">
   4 |
 <bold>Selector:</> div
 <bold>Details:</> https://example.net/rule/foo.html
 
 
 <yellow>warning</>: <bold>A warning</> <dim>(bar)</> at <green>first.html:2:5</>:
-  1 | <div id=\\"foo\\"
-> 2 |     class=\\"bar\\"
+  1 | <div id="foo"
+> 2 |     class="bar"
     |     ^^^^^
-  3 |     name=\\"baz\\">
+  3 |     name="baz">
   4 |
 <bold>Selector:</> div
 <bold>Details:</> https://example.net/rule/bar.html

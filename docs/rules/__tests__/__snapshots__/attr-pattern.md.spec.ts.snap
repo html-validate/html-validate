@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/rules/attr-pattern.md inline validation: correct 1`] = `Array []`;
+exports[`docs/rules/attr-pattern.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/attr-pattern.md inline validation: incorrect 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 4,
         "context": undefined,
         "line": 1,
-        "message": "Attribute \\"foo_bar\\" should match /[a-z0-9-:]+/",
+        "message": "Attribute "foo_bar" should match /[a-z0-9-:]+/",
         "offset": 3,
         "ruleId": "attr-pattern",
         "ruleUrl": "https://html-validate.org/rules/attr-pattern.html",
@@ -21,10 +21,10 @@ Array [
         "size": 7,
       },
     ],
-    "source": "<p foo_bar=\\"baz\\"></p>",
+    "source": "<p foo_bar="baz"></p>",
     "warningCount": 0,
   },
 ]
 `;
 
-exports[`docs/rules/attr-pattern.md inline validation: multiple 1`] = `Array []`;
+exports[`docs/rules/attr-pattern.md inline validation: multiple 1`] = `[]`;

@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/rules/element-required-content.md inline validation: correct 1`] = `Array []`;
+exports[`docs/rules/element-required-content.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/element-required-content.md inline validation: incorrect 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 2,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
-        "context": Object {
+        "context": {
           "element": "<html>",
           "missing": "<body>",
         },
@@ -23,9 +23,9 @@ Array [
         "severity": 2,
         "size": 4,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "element": "<head>",
           "missing": "<title>",
         },

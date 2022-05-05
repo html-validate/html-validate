@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/rules/prefer-button.md inline validation: correct 1`] = `Array []`;
+exports[`docs/rules/prefer-button.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/prefer-button.md inline validation: incorrect 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 14,
-        "context": Object {
+        "context": {
           "type": "button",
         },
         "line": 1,
-        "message": "Prefer to use <button> instead of <input type=\\"button\\"> when adding buttons",
+        "message": "Prefer to use <button> instead of <input type="button"> when adding buttons",
         "offset": 13,
         "ruleId": "prefer-button",
         "ruleUrl": "https://html-validate.org/rules/prefer-button.html",
@@ -23,7 +23,7 @@ Array [
         "size": 6,
       },
     ],
-    "source": "<input type=\\"button\\">",
+    "source": "<input type="button">",
     "warningCount": 0,
   },
 ]

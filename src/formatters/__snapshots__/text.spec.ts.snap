@@ -9,7 +9,7 @@ second.html:1:4: error [no-lorem-ipsum] Lorem ipsum is not allowed
 
 exports[`text formatter should handle edge cases 1`] = `
 "edge-cases.html:1:1: warning [invalid-severity] Has invalid severity
-edge-cases.html:2:2: error [special-characters] Escape <script language=\\"jabbascript\\"> & <span id='foo'>
+edge-cases.html:2:2: error [special-characters] Escape <script language="jabbascript"> & <span id='foo'>
 "
 `;
 

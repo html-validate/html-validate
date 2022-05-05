@@ -1,23 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule h37 should contain documentation 1`] = `
-Object {
+{
   "description": "Both HTML5 and WCAG 2.0 requires images to have a alternative text for each image.",
   "url": "https://html-validate.org/rules/wcag/h37.html",
 }
 `;
 
 exports[`rule h37 with alias (array) smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "test-files/rules/wcag/h37.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
         "context": undefined,
         "line": 4,
-        "message": "<img> is missing required \\"alt\\" attribute",
+        "message": "<img> is missing required "alt" attribute",
         "offset": 55,
         "ruleId": "wcag/h37",
         "ruleUrl": "https://html-validate.org/rules/wcag/h37.html",
@@ -26,9 +26,9 @@ Array [
         "size": 3,
       },
     ],
-    "source": "<img alt=\\"..\\">
-<img alt=\\"\\">
-<img translate-attr=\\"..\\">
+    "source": "<img alt="..">
+<img alt="">
+<img translate-attr="..">
 <img>
 
 <!-- regression #33 (https://gitlab.com/html-validate/html-validate/issues/33) -->
@@ -42,16 +42,16 @@ Array [
 `;
 
 exports[`rule h37 with alias smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "test-files/rules/wcag/h37.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
         "context": undefined,
         "line": 4,
-        "message": "<img> is missing required \\"alt\\" attribute",
+        "message": "<img> is missing required "alt" attribute",
         "offset": 55,
         "ruleId": "wcag/h37",
         "ruleUrl": "https://html-validate.org/rules/wcag/h37.html",
@@ -60,9 +60,9 @@ Array [
         "size": 3,
       },
     ],
-    "source": "<img alt=\\"..\\">
-<img alt=\\"\\">
-<img translate-attr=\\"..\\">
+    "source": "<img alt="..">
+<img alt="">
+<img translate-attr="..">
 <img>
 
 <!-- regression #33 (https://gitlab.com/html-validate/html-validate/issues/33) -->
@@ -76,16 +76,16 @@ Array [
 `;
 
 exports[`rule h37 with allowEmpty false smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 3,
     "filePath": "test-files/rules/wcag/h37.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
         "context": undefined,
         "line": 2,
-        "message": "<img> is missing required \\"alt\\" attribute",
+        "message": "<img> is missing required "alt" attribute",
         "offset": 16,
         "ruleId": "wcag/h37",
         "ruleUrl": "https://html-validate.org/rules/wcag/h37.html",
@@ -93,11 +93,11 @@ Array [
         "severity": 2,
         "size": 3,
       },
-      Object {
+      {
         "column": 2,
         "context": undefined,
         "line": 3,
-        "message": "<img> is missing required \\"alt\\" attribute",
+        "message": "<img> is missing required "alt" attribute",
         "offset": 29,
         "ruleId": "wcag/h37",
         "ruleUrl": "https://html-validate.org/rules/wcag/h37.html",
@@ -105,11 +105,11 @@ Array [
         "severity": 2,
         "size": 3,
       },
-      Object {
+      {
         "column": 2,
         "context": undefined,
         "line": 4,
-        "message": "<img> is missing required \\"alt\\" attribute",
+        "message": "<img> is missing required "alt" attribute",
         "offset": 55,
         "ruleId": "wcag/h37",
         "ruleUrl": "https://html-validate.org/rules/wcag/h37.html",
@@ -118,9 +118,9 @@ Array [
         "size": 3,
       },
     ],
-    "source": "<img alt=\\"..\\">
-<img alt=\\"\\">
-<img translate-attr=\\"..\\">
+    "source": "<img alt="..">
+<img alt="">
+<img translate-attr="..">
 <img>
 
 <!-- regression #33 (https://gitlab.com/html-validate/html-validate/issues/33) -->
@@ -134,16 +134,16 @@ Array [
 `;
 
 exports[`rule h37 with default options smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 2,
     "filePath": "test-files/rules/wcag/h37.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
         "context": undefined,
         "line": 3,
-        "message": "<img> is missing required \\"alt\\" attribute",
+        "message": "<img> is missing required "alt" attribute",
         "offset": 29,
         "ruleId": "wcag/h37",
         "ruleUrl": "https://html-validate.org/rules/wcag/h37.html",
@@ -151,11 +151,11 @@ Array [
         "severity": 2,
         "size": 3,
       },
-      Object {
+      {
         "column": 2,
         "context": undefined,
         "line": 4,
-        "message": "<img> is missing required \\"alt\\" attribute",
+        "message": "<img> is missing required "alt" attribute",
         "offset": 55,
         "ruleId": "wcag/h37",
         "ruleUrl": "https://html-validate.org/rules/wcag/h37.html",
@@ -164,9 +164,9 @@ Array [
         "size": 3,
       },
     ],
-    "source": "<img alt=\\"..\\">
-<img alt=\\"\\">
-<img translate-attr=\\"..\\">
+    "source": "<img alt="..">
+<img alt="">
+<img translate-attr="..">
 <img>
 
 <!-- regression #33 (https://gitlab.com/html-validate/html-validate/issues/33) -->

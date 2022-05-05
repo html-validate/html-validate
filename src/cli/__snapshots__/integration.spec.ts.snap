@@ -1,23 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test-files/config/cjs-config/file.html 1`] = `
-Object {
+{
   "errorCount": 0,
-  "results": Array [],
+  "results": [],
   "valid": true,
   "warningCount": 0,
 }
 `;
 
 exports[`test-files/config/directive/disable.html 1`] = `
-Object {
+{
   "errorCount": 2,
-  "results": Array [
-    Object {
+  "results": [
+    {
       "errorCount": 2,
       "filePath": "test-files/config/directive/disable.html",
-      "messages": Array [
-        Object {
+      "messages": [
+        {
           "column": 3,
           "context": "i",
           "line": 1,
@@ -29,7 +29,7 @@ Object {
           "severity": 2,
           "size": 2,
         },
-        Object {
+        {
           "column": 3,
           "context": "i",
           "line": 8,
@@ -60,14 +60,14 @@ Object {
 `;
 
 exports[`test-files/config/directive/disable-block.html 1`] = `
-Object {
+{
   "errorCount": 4,
-  "results": Array [
-    Object {
+  "results": [
+    {
       "errorCount": 4,
       "filePath": "test-files/config/directive/disable-block.html",
-      "messages": Array [
-        Object {
+      "messages": [
+        {
           "column": 3,
           "context": "i",
           "line": 1,
@@ -79,7 +79,7 @@ Object {
           "severity": 2,
           "size": 2,
         },
-        Object {
+        {
           "column": 4,
           "context": "i",
           "line": 3,
@@ -91,7 +91,7 @@ Object {
           "severity": 2,
           "size": 2,
         },
-        Object {
+        {
           "column": 3,
           "context": "i",
           "line": 11,
@@ -103,7 +103,7 @@ Object {
           "severity": 2,
           "size": 2,
         },
-        Object {
+        {
           "column": 3,
           "context": "i",
           "line": 16,
@@ -145,16 +145,16 @@ Should handle when root element is parent but no children
 `;
 
 exports[`test-files/config/directive/disable-multiple.html 1`] = `
-Object {
+{
   "errorCount": 2,
-  "results": Array [
-    Object {
+  "results": [
+    {
       "errorCount": 2,
       "filePath": "test-files/config/directive/disable-multiple.html",
-      "messages": Array [
-        Object {
+      "messages": [
+        {
           "column": 2,
-          "context": Object {
+          "context": {
             "documentation": "\`<blink>\` has no direct replacement and blinking text is frowned upon by accessibility standards.",
             "source": "non-standard",
             "tagName": "blink",
@@ -168,7 +168,7 @@ Object {
           "severity": 2,
           "size": 5,
         },
-        Object {
+        {
           "column": 7,
           "context": "blink",
           "line": 1,
@@ -197,14 +197,14 @@ Object {
 `;
 
 exports[`test-files/config/directive/disable-next.html 1`] = `
-Object {
+{
   "errorCount": 2,
-  "results": Array [
-    Object {
+  "results": [
+    {
       "errorCount": 2,
       "filePath": "test-files/config/directive/disable-next.html",
-      "messages": Array [
-        Object {
+      "messages": [
+        {
           "column": 3,
           "context": "i",
           "line": 1,
@@ -216,7 +216,7 @@ Object {
           "severity": 2,
           "size": 2,
         },
-        Object {
+        {
           "column": 3,
           "context": "i",
           "line": 5,
@@ -244,16 +244,16 @@ Object {
 `;
 
 exports[`test-files/config/elements/file.html 1`] = `
-Object {
+{
   "errorCount": 2,
-  "results": Array [
-    Object {
+  "results": [
+    {
       "errorCount": 2,
       "filePath": "test-files/config/elements/file.html",
-      "messages": Array [
-        Object {
+      "messages": [
+        {
           "column": 3,
-          "context": Object {
+          "context": {
             "tagName": "deprecated",
           },
           "line": 2,
@@ -265,7 +265,7 @@ Object {
           "severity": 2,
           "size": 10,
         },
-        Object {
+        {
           "column": 4,
           "context": undefined,
           "line": 5,
@@ -296,14 +296,14 @@ Object {
 `;
 
 exports[`test-files/config/extend-order/foo.html 1`] = `
-Object {
+{
   "errorCount": 1,
-  "results": Array [
-    Object {
+  "results": [
+    {
       "errorCount": 1,
       "filePath": "test-files/config/extend-order/foo.html",
-      "messages": Array [
-        Object {
+      "messages": [
+        {
           "column": 3,
           "context": undefined,
           "line": 3,
@@ -335,14 +335,14 @@ Object {
 `;
 
 exports[`test-files/config/extend-order/nested/foo.html 1`] = `
-Object {
+{
   "errorCount": 2,
-  "results": Array [
-    Object {
+  "results": [
+    {
       "errorCount": 2,
       "filePath": "test-files/config/extend-order/nested/foo.html",
-      "messages": Array [
-        Object {
+      "messages": [
+        {
           "column": 3,
           "context": undefined,
           "line": 3,
@@ -354,7 +354,7 @@ Object {
           "severity": 2,
           "size": 1,
         },
-        Object {
+        {
           "column": 3,
           "context": undefined,
           "line": 4,
@@ -387,14 +387,14 @@ Object {
 `;
 
 exports[`test-files/config/file.html 1`] = `
-Object {
+{
   "errorCount": 1,
-  "results": Array [
-    Object {
+  "results": [
+    {
       "errorCount": 1,
       "filePath": "test-files/config/file.html",
-      "messages": Array [
-        Object {
+      "messages": [
+        {
           "column": 6,
           "context": "br",
           "line": 2,
@@ -419,23 +419,23 @@ Object {
 `;
 
 exports[`test-files/config/js-config/file.html 1`] = `
-Object {
+{
   "errorCount": 0,
-  "results": Array [],
+  "results": [],
   "valid": true,
   "warningCount": 0,
 }
 `;
 
 exports[`test-files/config/off/error/file.html 1`] = `
-Object {
+{
   "errorCount": 1,
-  "results": Array [
-    Object {
+  "results": [
+    {
       "errorCount": 1,
       "filePath": "test-files/config/off/error/file.html",
-      "messages": Array [
-        Object {
+      "messages": [
+        {
           "column": 6,
           "context": "br",
           "line": 2,
@@ -460,23 +460,23 @@ Object {
 `;
 
 exports[`test-files/config/off/file.html 1`] = `
-Object {
+{
   "errorCount": 0,
-  "results": Array [],
+  "results": [],
   "valid": true,
   "warningCount": 0,
 }
 `;
 
 exports[`test-files/config/warn/file.html 1`] = `
-Object {
+{
   "errorCount": 0,
-  "results": Array [
-    Object {
+  "results": [
+    {
       "errorCount": 0,
       "filePath": "test-files/config/warn/file.html",
-      "messages": Array [
-        Object {
+      "messages": [
+        {
           "column": 6,
           "context": "br",
           "line": 2,

@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`docs/rules/no-conditional-comment.md inline validation: incorrect 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 4,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 1,
         "context": undefined,
         "line": 1,
@@ -18,7 +18,7 @@ Array [
         "severity": 2,
         "size": 12,
       },
-      Object {
+      {
         "column": 1,
         "context": undefined,
         "line": 3,
@@ -30,7 +30,7 @@ Array [
         "severity": 2,
         "size": 12,
       },
-      Object {
+      {
         "column": 1,
         "context": undefined,
         "line": 5,
@@ -42,7 +42,7 @@ Array [
         "severity": 2,
         "size": 11,
       },
-      Object {
+      {
         "column": 1,
         "context": undefined,
         "line": 7,

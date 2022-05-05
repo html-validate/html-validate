@@ -23,7 +23,7 @@ exports[`stylish formatter should handle edge cases 1`] = `
 "</>
 edge-cases.html
   <dim>1:1</>  <yellow>warning</>  Has invalid severity                                      <dim>invalid-severity</>
-  <dim>2:2</>  <red>error</>    Escape <script language=\\"jabbascript\\"> & <span id='foo'>  <dim>special-characters</>
+  <dim>2:2</>  <red>error</>    Escape <script language="jabbascript"> & <span id='foo'>  <dim>special-characters</>
 
 <red><bold>✖ 2 problems (1 error, 1 warning)
 </></></>"

@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/rules/no-missing-references.md inline validation: correct 1`] = `Array []`;
+exports[`docs/rules/no-missing-references.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/no-missing-references.md inline validation: incorrect 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 4,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 13,
-        "context": Object {
+        "context": {
           "key": "for",
           "value": "missing-input",
         },
         "line": 1,
-        "message": "Element references missing id \\"missing-input\\"",
+        "message": "Element references missing id "missing-input"",
         "offset": 12,
         "ruleId": "no-missing-references",
         "ruleUrl": "https://html-validate.org/rules/no-missing-references.html",
@@ -23,14 +23,14 @@ Array [
         "severity": 2,
         "size": 13,
       },
-      Object {
+      {
         "column": 23,
-        "context": Object {
+        "context": {
           "key": "aria-labelledby",
           "value": "missing-text",
         },
         "line": 2,
-        "message": "Element references missing id \\"missing-text\\"",
+        "message": "Element references missing id "missing-text"",
         "offset": 58,
         "ruleId": "no-missing-references",
         "ruleUrl": "https://html-validate.org/rules/no-missing-references.html",
@@ -38,14 +38,14 @@ Array [
         "severity": 2,
         "size": 12,
       },
-      Object {
+      {
         "column": 24,
-        "context": Object {
+        "context": {
           "key": "aria-describedby",
           "value": "missing-text",
         },
         "line": 3,
-        "message": "Element references missing id \\"missing-text\\"",
+        "message": "Element references missing id "missing-text"",
         "offset": 102,
         "ruleId": "no-missing-references",
         "ruleUrl": "https://html-validate.org/rules/no-missing-references.html",
@@ -53,14 +53,14 @@ Array [
         "severity": 2,
         "size": 12,
       },
-      Object {
+      {
         "column": 37,
-        "context": Object {
+        "context": {
           "key": "aria-describedby",
           "value": "another-missing",
         },
         "line": 3,
-        "message": "Element references missing id \\"another-missing\\"",
+        "message": "Element references missing id "another-missing"",
         "offset": 115,
         "ruleId": "no-missing-references",
         "ruleUrl": "https://html-validate.org/rules/no-missing-references.html",
@@ -69,9 +69,9 @@ Array [
         "size": 15,
       },
     ],
-    "source": "<label for=\\"missing-input\\"></label>
-<div aria-labelledby=\\"missing-text\\"></div>
-<div aria-describedby=\\"missing-text another-missing\\"></div>",
+    "source": "<label for="missing-input"></label>
+<div aria-labelledby="missing-text"></div>
+<div aria-describedby="missing-text another-missing"></div>",
     "warningCount": 0,
   },
 ]

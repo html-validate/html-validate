@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`docs/index.md inline validation: frontpage-a17y 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 3,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
         "context": undefined,
         "line": 1,
-        "message": "<img> is missing required \\"alt\\" attribute",
+        "message": "<img> is missing required "alt" attribute",
         "offset": 1,
         "ruleId": "wcag/h37",
         "ruleUrl": "https://html-validate.org/rules/wcag/h37.html",
@@ -18,14 +18,14 @@ Array [
         "severity": 2,
         "size": 3,
       },
-      Object {
+      {
         "column": 2,
-        "context": Object {
+        "context": {
           "attribute": "type",
           "element": "button",
         },
         "line": 2,
-        "message": "<button> is missing required \\"type\\" attribute",
+        "message": "<button> is missing required "type" attribute",
         "offset": 22,
         "ruleId": "element-required-attributes",
         "ruleUrl": "https://html-validate.org/rules/element-required-attributes.html",
@@ -33,7 +33,7 @@ Array [
         "severity": 2,
         "size": 6,
       },
-      Object {
+      {
         "column": 4,
         "context": undefined,
         "line": 6,
@@ -46,12 +46,12 @@ Array [
         "size": 5,
       },
     ],
-    "source": "<img src=\\"logo.png\\">
-<button onclick=\\"myFunction();\\">Click me!</button>
+    "source": "<img src="logo.png">
+<button onclick="myFunction();">Click me!</button>
 
-<div class=\\"field-wrapper\\">
+<div class="field-wrapper">
   <strong>Name: </strong>
-  <input type=\\"text\\" name=\\"name\\">
+  <input type="text" name="name">
 </div>",
     "warningCount": 0,
   },
@@ -59,12 +59,12 @@ Array [
 `;
 
 exports[`docs/index.md inline validation: frontpage-components 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 2,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 4,
         "context": undefined,
         "line": 2,
@@ -76,9 +76,9 @@ Array [
         "severity": 2,
         "size": 8,
       },
-      Object {
+      {
         "column": 4,
-        "context": Object {
+        "context": {
           "tagName": "my-deprecated",
         },
         "line": 3,
@@ -101,12 +101,12 @@ Array [
 `;
 
 exports[`docs/index.md inline validation: frontpage-contentmodel 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 3,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 6,
         "context": undefined,
         "line": 4,
@@ -118,7 +118,7 @@ Array [
         "severity": 2,
         "size": 6,
       },
-      Object {
+      {
         "column": 4,
         "context": undefined,
         "line": 7,
@@ -130,9 +130,9 @@ Array [
         "severity": 2,
         "size": 4,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "documentation": "\`<blink>\` has no direct replacement and blinking text is frowned upon by accessibility standards.",
           "source": "non-standard",
           "tagName": "blink",

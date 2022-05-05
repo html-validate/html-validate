@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/rules/unrecognized-char-ref.md inline validation: correct 1`] = `Array []`;
+exports[`docs/rules/unrecognized-char-ref.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/unrecognized-char-ref.md inline validation: incorrect 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 4,
         "context": "&foobar;",
         "line": 1,
-        "message": "Unrecognized character reference \\"&foobar;\\"",
+        "message": "Unrecognized character reference "&foobar;"",
         "offset": 3,
         "ruleId": "unrecognized-char-ref",
         "ruleUrl": "https://html-validate.org/rules/unrecognized-char-ref.html",

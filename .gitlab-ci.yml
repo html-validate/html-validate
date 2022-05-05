@@ -120,7 +120,7 @@ Docs:
     - git status
     - test -z "$(git status --porcelain)" || (echo 'working copy dirty, need to commit updated specs'; exit 1)
 
-.compat: &compat
+.compat:
   stage: compatibility
   dependencies: []
   needs: []
@@ -176,6 +176,7 @@ Jest compat:
       npm install
       jest@${JEST_VERSION}
       jest-diff@${JEST_VERSION}
+      jest-environment-jsdom@${JEST_VERSION}
       ts-jest@${JEST_VERSION}
       typescript@${TS_VERSION}
       @types/jest@${TYPES_VERSION}
@@ -183,6 +184,7 @@ Jest compat:
       npm ls
       jest
       jest-diff
+      jest-environment-jsdom
       ts-jest
       typescript
       @types/jest

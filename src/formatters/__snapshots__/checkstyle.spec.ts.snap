@@ -1,63 +1,63 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`checkstyle formatter should generate checkstyle xml 1`] = `
-"<?xml version=\\"1.0\\" encoding=\\"utf-8\\"?>
-<checkstyle version=\\"4.3\\">
-  <file name=\\"first.html\\">
-    <error line=\\"1\\" column=\\"6\\" severity=\\"error\\" message=\\"An error (foo)\\" source=\\"htmlvalidate.rules.foo\\" />
-    <error line=\\"2\\" column=\\"5\\" severity=\\"warning\\" message=\\"A warning (bar)\\" source=\\"htmlvalidate.rules.bar\\" />
+"<?xml version="1.0" encoding="utf-8"?>
+<checkstyle version="4.3">
+  <file name="first.html">
+    <error line="1" column="6" severity="error" message="An error (foo)" source="htmlvalidate.rules.foo" />
+    <error line="2" column="5" severity="warning" message="A warning (bar)" source="htmlvalidate.rules.bar" />
   </file>
-  <file name=\\"second.html\\">
-    <error line=\\"1\\" column=\\"4\\" severity=\\"error\\" message=\\"Lorem ipsum is not allowed (no-lorem-ipsum)\\" source=\\"htmlvalidate.rules.no-lorem-ipsum\\" />
+  <file name="second.html">
+    <error line="1" column="4" severity="error" message="Lorem ipsum is not allowed (no-lorem-ipsum)" source="htmlvalidate.rules.no-lorem-ipsum" />
   </file>
 </checkstyle>
 "
 `;
 
 exports[`checkstyle formatter should handle edge cases 1`] = `
-"<?xml version=\\"1.0\\" encoding=\\"utf-8\\"?>
-<checkstyle version=\\"4.3\\">
-  <file name=\\"edge-cases.html\\">
-    <error line=\\"1\\" column=\\"1\\" severity=\\"error\\" message=\\"Has invalid severity (invalid-severity)\\" source=\\"htmlvalidate.rules.invalid-severity\\" />
-    <error line=\\"2\\" column=\\"2\\" severity=\\"error\\" message=\\"Escape &lt;script language=&quot;jabbascript&quot;&gt; &amp; &lt;span id=&apos;foo&apos;&gt; (special-characters)\\" source=\\"htmlvalidate.rules.special-characters\\" />
+"<?xml version="1.0" encoding="utf-8"?>
+<checkstyle version="4.3">
+  <file name="edge-cases.html">
+    <error line="1" column="1" severity="error" message="Has invalid severity (invalid-severity)" source="htmlvalidate.rules.invalid-severity" />
+    <error line="2" column="2" severity="error" message="Escape &lt;script language=&quot;jabbascript&quot;&gt; &amp; &lt;span id=&apos;foo&apos;&gt; (special-characters)" source="htmlvalidate.rules.special-characters" />
   </file>
 </checkstyle>
 "
 `;
 
 exports[`checkstyle formatter should handle empty messages 1`] = `
-"<?xml version=\\"1.0\\" encoding=\\"utf-8\\"?>
-<checkstyle version=\\"4.3\\">
-  <file name=\\"empty.html\\">
+"<?xml version="1.0" encoding="utf-8"?>
+<checkstyle version="4.3">
+  <file name="empty.html">
   </file>
 </checkstyle>
 "
 `;
 
 exports[`checkstyle formatter should handle empty result 1`] = `
-"<?xml version=\\"1.0\\" encoding=\\"utf-8\\"?>
-<checkstyle version=\\"4.3\\">
+"<?xml version="1.0" encoding="utf-8"?>
+<checkstyle version="4.3">
 </checkstyle>
 "
 `;
 
 exports[`checkstyle formatter should handle missing rule url 1`] = `
-"<?xml version=\\"1.0\\" encoding=\\"utf-8\\"?>
-<checkstyle version=\\"4.3\\">
-  <file name=\\"missing-url.html\\">
-    <error line=\\"1\\" column=\\"6\\" severity=\\"error\\" message=\\"An error (foo)\\" source=\\"htmlvalidate.rules.foo\\" />
-    <error line=\\"2\\" column=\\"5\\" severity=\\"warning\\" message=\\"A warning (bar)\\" source=\\"htmlvalidate.rules.bar\\" />
+"<?xml version="1.0" encoding="utf-8"?>
+<checkstyle version="4.3">
+  <file name="missing-url.html">
+    <error line="1" column="6" severity="error" message="An error (foo)" source="htmlvalidate.rules.foo" />
+    <error line="2" column="5" severity="warning" message="A warning (bar)" source="htmlvalidate.rules.bar" />
   </file>
 </checkstyle>
 "
 `;
 
 exports[`checkstyle formatter should handle missing source 1`] = `
-"<?xml version=\\"1.0\\" encoding=\\"utf-8\\"?>
-<checkstyle version=\\"4.3\\">
-  <file name=\\"missing-source.html\\">
-    <error line=\\"1\\" column=\\"6\\" severity=\\"error\\" message=\\"An error (foo)\\" source=\\"htmlvalidate.rules.foo\\" />
-    <error line=\\"2\\" column=\\"5\\" severity=\\"warning\\" message=\\"A warning (bar)\\" source=\\"htmlvalidate.rules.bar\\" />
+"<?xml version="1.0" encoding="utf-8"?>
+<checkstyle version="4.3">
+  <file name="missing-source.html">
+    <error line="1" column="6" severity="error" message="An error (foo)" source="htmlvalidate.rules.foo" />
+    <error line="2" column="5" severity="warning" message="A warning (bar)" source="htmlvalidate.rules.bar" />
   </file>
 </checkstyle>
 "

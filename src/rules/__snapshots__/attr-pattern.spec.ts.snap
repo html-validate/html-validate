@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule attr-pattern should contain contextual documentation (multiple patterns) 1`] = `
-Object {
-  "description": "Attribute \\"foobar\\" should match one of the configured regular expressions:
+{
+  "description": "Attribute "foobar" should match one of the configured regular expressions:
 
 - \`/[a-z]+/\`
 - \`/[0-9]+/\`",
@@ -11,14 +11,14 @@ Object {
 `;
 
 exports[`rule attr-pattern should contain contextual documentation (single pattern) 1`] = `
-Object {
-  "description": "Attribute \\"foobar\\" should match the regular expression \`/[a-z]+/\`",
+{
+  "description": "Attribute "foobar" should match the regular expression \`/[a-z]+/\`",
   "url": "https://html-validate.org/rules/attr-pattern.html",
 }
 `;
 
 exports[`rule attr-pattern should contain documentation 1`] = `
-Object {
+{
   "description": "Attribute should match configured pattern",
   "url": "https://html-validate.org/rules/attr-pattern.html",
 }

@@ -9,10 +9,10 @@ it("should handle elements js file", () => {
 	const report = htmlvalidate.validateFile(path.join(__dirname, "my-file.html"));
 	expect(report).toBeInvalid();
 	expect(report.results[0].messages).toMatchInlineSnapshot(`
-		Array [
-		  Object {
+		[
+		  {
 		    "column": 2,
-		    "context": Object {
+		    "context": {
 		      "tagName": "my-element",
 		    },
 		    "line": 1,

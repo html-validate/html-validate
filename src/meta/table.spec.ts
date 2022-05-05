@@ -57,10 +57,10 @@ describe("MetaTable", () => {
 				},
 			});
 			expect(table.getMetaFor("foo")).toMatchInlineSnapshot(`
-				Object {
-				  "attributes": Object {
-				    "my-attr": Object {
-				      "enum": Array [
+				{
+				  "attributes": {
+				    "my-attr": {
+				      "enum": [
 				        "a",
 				      ],
 				    },
@@ -143,8 +143,8 @@ describe("MetaTable", () => {
 			const filename = path.join(fileDir, "elements-json.json");
 			table.loadFromFile(filename);
 			expect(table.getMetaFor("foo")).toMatchInlineSnapshot(`
-				Object {
-				  "attributes": Object {},
+				{
+				  "attributes": {},
 				  "flow": true,
 				  "tagName": "foo",
 				}
@@ -157,8 +157,8 @@ describe("MetaTable", () => {
 			const filename = path.join(fileDir, "elements-js.js");
 			table.loadFromFile(filename);
 			expect(table.getMetaFor("foo")).toMatchInlineSnapshot(`
-				Object {
-				  "attributes": Object {},
+				{
+				  "attributes": {},
 				  "flow": true,
 				  "tagName": "foo",
 				}
@@ -171,8 +171,8 @@ describe("MetaTable", () => {
 			const filename = path.join(fileDir, "elements-js");
 			table.loadFromFile(filename);
 			expect(table.getMetaFor("foo")).toMatchInlineSnapshot(`
-				Object {
-				  "attributes": Object {},
+				{
+				  "attributes": {},
 				  "flow": true,
 				  "tagName": "foo",
 				}
@@ -696,15 +696,15 @@ describe("MetaTable", () => {
 			const foo = table.getMetaFor("foo");
 			const bar = table.getMetaFor("bar");
 			expect(foo).toMatchInlineSnapshot(`
-				Object {
-				  "attributes": Object {
-				    "a": Object {
-				      "enum": Array [
+				{
+				  "attributes": {
+				    "a": {
+				      "enum": [
 				        "2",
 				      ],
 				    },
-				    "c": Object {
-				      "enum": Array [
+				    "c": {
+				      "enum": [
 				        "1",
 				      ],
 				    },
@@ -713,15 +713,15 @@ describe("MetaTable", () => {
 				}
 			`);
 			expect(bar).toMatchInlineSnapshot(`
-				Object {
-				  "attributes": Object {
-				    "a": Object {
-				      "enum": Array [
+				{
+				  "attributes": {
+				    "a": {
+				      "enum": [
 				        "1",
 				      ],
 				    },
-				    "b": Object {
-				      "enum": Array [
+				    "b": {
+				      "enum": [
 				        "2",
 				      ],
 				    },

@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/rules/script-type.md inline validation: correct 1`] = `Array []`;
+exports[`docs/rules/script-type.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/script-type.md inline validation: incorrect 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 3,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 9,
         "context": undefined,
         "line": 1,
-        "message": "\\"type\\" attribute is unnecessary for javascript resources",
+        "message": ""type" attribute is unnecessary for javascript resources",
         "offset": 8,
         "ruleId": "script-type",
         "ruleUrl": "https://html-validate.org/rules/script-type.html",
@@ -20,11 +20,11 @@ Array [
         "severity": 2,
         "size": 4,
       },
-      Object {
+      {
         "column": 9,
         "context": undefined,
         "line": 2,
-        "message": "\\"type\\" attribute is unnecessary for javascript resources",
+        "message": ""type" attribute is unnecessary for javascript resources",
         "offset": 34,
         "ruleId": "script-type",
         "ruleUrl": "https://html-validate.org/rules/script-type.html",
@@ -32,11 +32,11 @@ Array [
         "severity": 2,
         "size": 4,
       },
-      Object {
+      {
         "column": 9,
         "context": undefined,
         "line": 3,
-        "message": "\\"type\\" attribute is unnecessary for javascript resources",
+        "message": ""type" attribute is unnecessary for javascript resources",
         "offset": 75,
         "ruleId": "script-type",
         "ruleUrl": "https://html-validate.org/rules/script-type.html",
@@ -45,9 +45,9 @@ Array [
         "size": 4,
       },
     ],
-    "source": "<script type=\\"\\"></script>
-<script type=\\"text/javascript\\"></script>
-<script type=\\"application/javascript\\"></script>",
+    "source": "<script type=""></script>
+<script type="text/javascript"></script>
+<script type="application/javascript"></script>",
     "warningCount": 0,
   },
 ]

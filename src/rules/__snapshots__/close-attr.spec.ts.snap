@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule close-attr should contain documentation 1`] = `
-Object {
+{
   "description": "HTML disallows end tags to have attributes.",
   "url": "https://html-validate.org/rules/close-attr.html",
 }
 `;
 
 exports[`rule close-attr smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "test-files/rules/close-attr.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 12,
         "context": undefined,
         "line": 3,

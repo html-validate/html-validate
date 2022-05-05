@@ -12,8 +12,8 @@ it("transformFile() should read file and apply transformer", () => {
 	const result = transformFile(transformer, "foo.html");
 	expect(readFileSync).toHaveBeenCalledWith("foo.html", "utf-8");
 	expect(result).toMatchInlineSnapshot(`
-		Array [
-		  Object {
+		[
+		  {
 		    "column": 1,
 		    "data": "mocked file data",
 		    "filename": "foo.html",
@@ -29,8 +29,8 @@ it("transformString() should apply transformer", () => {
 	const transformer = jest.fn((source: Source) => [source]);
 	const result = transformString(transformer, "inline data");
 	expect(result).toMatchInlineSnapshot(`
-		Array [
-		  Object {
+		[
+		  {
 		    "column": 1,
 		    "data": "inline data",
 		    "filename": "inline",
@@ -53,8 +53,8 @@ it("transformSource() should apply transformer", () => {
 	const transformer = jest.fn((source: Source) => [source]);
 	const result = transformSource(transformer, source);
 	expect(result).toMatchInlineSnapshot(`
-		Array [
-		  Object {
+		[
+		  {
 		    "column": 2,
 		    "data": "source data",
 		    "filename": "bar.html",
@@ -79,8 +79,8 @@ it("transformSource() should support chaining", () => {
 	});
 	const result = transformSource(transformer, source);
 	expect(result).toMatchInlineSnapshot(`
-		Array [
-		  Object {
+		[
+		  {
 		    "column": 2,
 		    "data": "source data",
 		    "filename": "bar.html",
@@ -107,8 +107,8 @@ it("transformSource() should support custom chaining", () => {
 	const result = transformSource(transformer, source, chain);
 	expect(chain).toHaveBeenCalledWith(source, "chained.html");
 	expect(result).toMatchInlineSnapshot(`
-		Array [
-		  Object {
+		[
+		  {
 		    "column": 2,
 		    "data": "source data",
 		    "filename": "bar.html",

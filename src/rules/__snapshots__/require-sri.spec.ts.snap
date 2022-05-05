@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule require-sri should contain documentation 1`] = `
-Object {
+{
   "description": "Subresource Integrity (SRI) \`integrity\` attribute is required to prevent manipulation from Content Delivery Networks or other third-party hosting.",
   "url": "https://html-validate.org/rules/require-sri.html",
 }

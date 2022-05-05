@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`docs/guide/metadata/restrict-content.md inline validation: descendants 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 2,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 6,
         "context": undefined,
         "line": 4,
@@ -18,7 +18,7 @@ Array [
         "severity": 2,
         "size": 6,
       },
-      Object {
+      {
         "column": 6,
         "context": undefined,
         "line": 7,
@@ -50,12 +50,12 @@ Array [
 `;
 
 exports[`docs/guide/metadata/restrict-content.md inline validation: exclude 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 4,
         "context": undefined,
         "line": 4,
@@ -79,12 +79,12 @@ Array [
 `;
 
 exports[`docs/guide/metadata/restrict-content.md inline validation: tags 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 4,
         "context": undefined,
         "line": 2,
@@ -98,7 +98,7 @@ Array [
       },
     ],
     "source": "<my-component>
-  <button type=\\"button\\">click me!</button>
+  <button type="button">click me!</button>
 </my-component>",
     "warningCount": 0,
   },

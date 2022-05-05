@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/rules/attribute-allowed-values.md inline validation: correct 1`] = `Array []`;
+exports[`docs/rules/attribute-allowed-values.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/attribute-allowed-values.md inline validation: incorrect 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 2,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 4,
-        "context": Object {
-          "allowed": Object {
-            "enum": Array [
+        "context": {
+          "allowed": {
+            "enum": [
               /\\^\\.\\*\\$/,
             ],
           },
@@ -21,7 +21,7 @@ Array [
           "value": "",
         },
         "line": 1,
-        "message": "Attribute \\"href\\" is missing value",
+        "message": "Attribute "href" is missing value",
         "offset": 3,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
@@ -29,11 +29,11 @@ Array [
         "severity": 2,
         "size": 4,
       },
-      Object {
+      {
         "column": 14,
-        "context": Object {
-          "allowed": Object {
-            "enum": Array [
+        "context": {
+          "allowed": {
+            "enum": [
               "button",
               "checkbox",
               "color",
@@ -64,7 +64,7 @@ Array [
           "value": "foobar",
         },
         "line": 2,
-        "message": "Attribute \\"type\\" has invalid value \\"foobar\\"",
+        "message": "Attribute "type" has invalid value "foobar"",
         "offset": 29,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
@@ -74,7 +74,7 @@ Array [
       },
     ],
     "source": "<a href>...</a>
-<input type=\\"foobar\\">",
+<input type="foobar">",
     "warningCount": 0,
   },
 ]
