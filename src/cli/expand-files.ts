@@ -35,9 +35,9 @@ function directoryPattern(extensions: string[]): string {
 		case 0:
 			return "**";
 		case 1:
-			return path.join("**", `*.${extensions[0]}`);
+			return `**/*.${extensions[0]}`;
 		default:
-			return path.join("**", `*.{${extensions.join(",")}}`);
+			return `**/*.{${extensions.join(",")}}`;
 	}
 }
 
