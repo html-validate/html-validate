@@ -62,11 +62,11 @@ it("should compute correct line, column and offset when using transformed source
 	const report = htmlvalidate.validateString("<p>line 1</p>\n<p>line 2</p>\n<p>line 3</p>\n");
 	expect(report).toBeInvalid();
 	expect(report.results[0]).toMatchInlineSnapshot(`
-		Object {
+		{
 		  "errorCount": 3,
 		  "filePath": "inline",
-		  "messages": Array [
-		    Object {
+		  "messages": [
+		    {
 		      "column": 1,
 		      "context": undefined,
 		      "line": 1,
@@ -78,7 +78,7 @@ it("should compute correct line, column and offset when using transformed source
 		      "severity": 2,
 		      "size": 0,
 		    },
-		    Object {
+		    {
 		      "column": 1,
 		      "context": undefined,
 		      "line": 2,
@@ -90,7 +90,7 @@ it("should compute correct line, column and offset when using transformed source
 		      "severity": 2,
 		      "size": 0,
 		    },
-		    Object {
+		    {
 		      "column": 1,
 		      "context": undefined,
 		      "line": 3,
@@ -124,11 +124,11 @@ it("should handle source missing properties", () => {
 	const report = htmlvalidate.validateSource(source as Source);
 	expect(report).toBeInvalid();
 	expect(report.results[0]).toMatchInlineSnapshot(`
-		Object {
+		{
 		  "errorCount": 1,
 		  "filePath": "",
-		  "messages": Array [
-		    Object {
+		  "messages": [
+		    {
 		      "column": 16,
 		      "context": undefined,
 		      "line": 1,
@@ -155,11 +155,11 @@ it("should report parser-error when last tag is left unopened", () => {
 	const report = htmlvalidate.validateString("<div");
 	expect(report).toBeInvalid();
 	expect(report.results[0]).toMatchInlineSnapshot(`
-		Object {
+		{
 		  "errorCount": 1,
 		  "filePath": "inline",
-		  "messages": Array [
-		    Object {
+		  "messages": [
+		    {
 		      "column": 1,
 		      "line": 1,
 		      "message": "stream ended before TAG_CLOSE token was found",

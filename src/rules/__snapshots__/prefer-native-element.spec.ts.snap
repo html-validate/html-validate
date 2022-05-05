@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule prefer-native-element default config smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 22,
     "filePath": "test-files/rules/prefer-native-element.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "article",
           "role": "article",
         },
@@ -21,9 +21,9 @@ Array [
         "severity": 2,
         "size": 14,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "header",
           "role": "banner",
         },
@@ -36,9 +36,9 @@ Array [
         "severity": 2,
         "size": 13,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "button",
           "role": "button",
         },
@@ -51,9 +51,9 @@ Array [
         "severity": 2,
         "size": 13,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "td",
           "role": "cell",
         },
@@ -66,9 +66,9 @@ Array [
         "severity": 2,
         "size": 11,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "input",
           "role": "checkbox",
         },
@@ -81,9 +81,9 @@ Array [
         "severity": 2,
         "size": 15,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "aside",
           "role": "complementary",
         },
@@ -96,9 +96,9 @@ Array [
         "severity": 2,
         "size": 20,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "footer",
           "role": "contentinfo",
         },
@@ -111,9 +111,9 @@ Array [
         "severity": 2,
         "size": 18,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "figure",
           "role": "figure",
         },
@@ -126,9 +126,9 @@ Array [
         "severity": 2,
         "size": 13,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "form",
           "role": "form",
         },
@@ -141,9 +141,9 @@ Array [
         "severity": 2,
         "size": 11,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "hN",
           "role": "heading",
         },
@@ -156,9 +156,9 @@ Array [
         "severity": 2,
         "size": 14,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "input",
           "role": "input",
         },
@@ -171,9 +171,9 @@ Array [
         "severity": 2,
         "size": 12,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "a",
           "role": "link",
         },
@@ -186,9 +186,9 @@ Array [
         "severity": 2,
         "size": 11,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "ul",
           "role": "list",
         },
@@ -201,9 +201,9 @@ Array [
         "severity": 2,
         "size": 11,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "select",
           "role": "listbox",
         },
@@ -216,9 +216,9 @@ Array [
         "severity": 2,
         "size": 14,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "li",
           "role": "listitem",
         },
@@ -231,9 +231,9 @@ Array [
         "severity": 2,
         "size": 15,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "main",
           "role": "main",
         },
@@ -246,9 +246,9 @@ Array [
         "severity": 2,
         "size": 11,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "nav",
           "role": "navigation",
         },
@@ -261,9 +261,9 @@ Array [
         "severity": 2,
         "size": 17,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "progress",
           "role": "progressbar",
         },
@@ -276,9 +276,9 @@ Array [
         "severity": 2,
         "size": 18,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "input",
           "role": "radio",
         },
@@ -291,9 +291,9 @@ Array [
         "severity": 2,
         "size": 12,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "section",
           "role": "region",
         },
@@ -306,9 +306,9 @@ Array [
         "severity": 2,
         "size": 13,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "table",
           "role": "table",
         },
@@ -321,9 +321,9 @@ Array [
         "severity": 2,
         "size": 12,
       },
-      Object {
+      {
         "column": 6,
-        "context": Object {
+        "context": {
           "replacement": "textarea",
           "role": "textbox",
         },
@@ -337,30 +337,30 @@ Array [
         "size": 14,
       },
     ],
-    "source": "<div role=\\"unknown\\"></div>
+    "source": "<div role="unknown"></div>
 
-<div role=\\"article\\"></div>
-<div role=\\"banner\\"></div>
-<div role=\\"button\\"></div>
-<div role=\\"cell\\"></div>
-<div role=\\"checkbox\\"></div>
-<div role=\\"complementary\\"></div>
-<div role=\\"contentinfo\\"></div>
-<div role=\\"figure\\"></div>
-<div role=\\"form\\"></div>
-<div role=\\"heading\\"></div>
-<div role=\\"input\\"></div>
-<div role=\\"link\\"></div>
-<div role=\\"list\\"></div>
-<div role=\\"listbox\\"></div>
-<div role=\\"listitem\\"></div>
-<div role=\\"main\\"></div>
-<div role=\\"navigation\\"></div>
-<div role=\\"progressbar\\"></div>
-<div role=\\"radio\\"></div>
-<div role=\\"region\\"></div>
-<div role=\\"table\\"></div>
-<div role=\\"textbox\\"></div>
+<div role="article"></div>
+<div role="banner"></div>
+<div role="button"></div>
+<div role="cell"></div>
+<div role="checkbox"></div>
+<div role="complementary"></div>
+<div role="contentinfo"></div>
+<div role="figure"></div>
+<div role="form"></div>
+<div role="heading"></div>
+<div role="input"></div>
+<div role="link"></div>
+<div role="list"></div>
+<div role="listbox"></div>
+<div role="listitem"></div>
+<div role="main"></div>
+<div role="navigation"></div>
+<div role="progressbar"></div>
+<div role="radio"></div>
+<div role="region"></div>
+<div role="table"></div>
+<div role="textbox"></div>
 ",
     "warningCount": 0,
   },
@@ -368,14 +368,14 @@ Array [
 `;
 
 exports[`rule prefer-native-element should contain contextual documentation 1`] = `
-Object {
-  "description": "Instead of using the WAI-ARIA role \\"the-role\\" prefer to use the native <the-replacement> element.",
+{
+  "description": "Instead of using the WAI-ARIA role "the-role" prefer to use the native <the-replacement> element.",
   "url": "https://html-validate.org/rules/prefer-native-element.html",
 }
 `;
 
 exports[`rule prefer-native-element should contain documentation 1`] = `
-Object {
+{
   "description": "Instead of using WAI-ARIA roles prefer to use the native HTML elements.",
   "url": "https://html-validate.org/rules/prefer-native-element.html",
 }

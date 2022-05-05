@@ -39,15 +39,15 @@ describe("transformSource()", () => {
 			],
 		});
 		expect(config.transformSource(source)).toMatchInlineSnapshot(`
-			Array [
-			  Object {
+			[
+			  {
 			    "column": 1,
 			    "data": "transformed source (was: original data)",
 			    "filename": "/path/to/test.foo",
 			    "line": 1,
 			    "offset": 0,
 			    "originalData": "original data",
-			    "transformedBy": Array [
+			    "transformedBy": [
 			      "mock-transform",
 			    ],
 			  },
@@ -64,15 +64,15 @@ describe("transformSource()", () => {
 			],
 		});
 		expect(config.transformSource(source, "/path/to/test.bar")).toMatchInlineSnapshot(`
-			Array [
-			  Object {
+			[
+			  {
 			    "column": 1,
 			    "data": "transformed source (was: original data)",
 			    "filename": "/path/to/test.foo",
 			    "line": 1,
 			    "offset": 0,
 			    "originalData": "original data",
-			    "transformedBy": Array [
+			    "transformedBy": [
 			      "mock-transform-bar",
 			    ],
 			  },
@@ -86,8 +86,8 @@ describe("transformSource()", () => {
 			transformers: [],
 		});
 		expect(config.transformSource(source)).toMatchInlineSnapshot(`
-			Array [
-			  Object {
+			[
+			  {
 			    "column": 3,
 			    "data": "original data",
 			    "filename": "/path/to/test.foo",
@@ -116,15 +116,15 @@ describe("transformSource()", () => {
 		});
 		source.filename = "/path/to/test.bar";
 		expect(config.transformSource(source)).toMatchInlineSnapshot(`
-			Array [
-			  Object {
+			[
+			  {
 			    "column": 1,
 			    "data": "transformed source (was: data from mock-transform-chain-foo (was: original data))",
 			    "filename": "/path/to/test.bar",
 			    "line": 1,
 			    "offset": 0,
 			    "originalData": "original data",
-			    "transformedBy": Array [
+			    "transformedBy": [
 			      "mock-transform",
 			      "mock-transform-chain-foo",
 			    ],
@@ -151,15 +151,15 @@ describe("transformSource()", () => {
 		});
 		source.filename = "/path/to/test.bar.foo";
 		expect(config.transformSource(source)).toMatchInlineSnapshot(`
-			Array [
-			  Object {
+			[
+			  {
 			    "column": 1,
 			    "data": "transformed source (was: data from mock-transform-optional-chain (was: original data))",
 			    "filename": "/path/to/test.bar.foo",
 			    "line": 1,
 			    "offset": 0,
 			    "originalData": "original data",
-			    "transformedBy": Array [
+			    "transformedBy": [
 			      "mock-transform",
 			      "mock-transform-optional-chain",
 			    ],
@@ -178,7 +178,7 @@ describe("transformSource()", () => {
 			],
 		});
 		expect(() => config.transformSource(source)).toThrowErrorMatchingInlineSnapshot(
-			`"When transforming \\"/path/to/test.foo\\": Failed to frobnicate a baz"`
+			`"When transforming "/path/to/test.foo": Failed to frobnicate a baz"`
 		);
 	});
 });
@@ -188,8 +188,8 @@ describe("transformFilename()", () => {
 		expect.assertions(1);
 		const config = createMockConfig();
 		expect(config.transformFilename("test-files/parser/simple.html")).toMatchInlineSnapshot(`
-			Array [
-			  Object {
+			[
+			  {
 			    "column": 1,
 			    "data": "<p>Lorem ipsum</p>
 			",
@@ -211,17 +211,17 @@ describe("transformFilename()", () => {
 		const stdin = 0;
 		expect(spy).toHaveBeenCalledWith(stdin, expect.anything());
 		expect(source).toMatchInlineSnapshot(`
-		Array [
-		  Object {
-		    "column": 1,
-		    "data": "<div></div>",
-		    "filename": "/dev/stdin",
-		    "line": 1,
-		    "offset": 0,
-		    "originalData": "<div></div>",
-		  },
-		]
-	`);
+			[
+			  {
+			    "column": 1,
+			    "data": "<div></div>",
+			    "filename": "/dev/stdin",
+			    "line": 1,
+			    "offset": 0,
+			    "originalData": "<div></div>",
+			  },
+			]
+		`);
 	});
 });
 

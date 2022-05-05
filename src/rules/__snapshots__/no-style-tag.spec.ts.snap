@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule no-style-tag should contain documentation 1`] = `
-Object {
+{
   "description": "Prefer to use external stylesheets with the \`<link>\` tag instead of inlining the styling.",
   "url": "https://html-validate.org/rules/no-style-tag.html",
 }

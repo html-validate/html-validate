@@ -4,9 +4,9 @@ exports[`toBeToken() should fail if token doesn't match 1`] = `
 "expect(received).toBeToken(expected)
 
 Expected token to equal:
-  ObjectContaining {\\"type\\": \\"TAG_CLOSE\\"}
+  ObjectContaining {"type": "TAG_CLOSE"}
 Received:
-  {\\"data\\": [\\"<foo\\", \\"\\", \\"foo\\"], \\"location\\": {\\"column\\": 2, \\"filename\\": \\"inline\\", \\"line\\": 1, \\"offset\\": 1, \\"size\\": 1}, \\"type\\": 6}
+  {"data": ["<foo", "", "foo"], "location": {"column": 2, "filename": "inline", "line": 1, "offset": 1, "size": 1}, "type": 6}
 
 Difference:
 
@@ -14,20 +14,20 @@ Difference:
 + Received
 
 - ObjectContaining {
--   \\"type\\": \\"TAG_CLOSE\\",
+-   "type": "TAG_CLOSE",
 + Object {
-+   \\"data\\": Array [
-+     \\"<foo\\",
-+     \\"\\",
-+     \\"foo\\",
++   "data": Array [
++     "<foo",
++     "",
++     "foo",
 +   ],
-+   \\"location\\": Object {
-+     \\"column\\": 2,
-+     \\"filename\\": \\"inline\\",
-+     \\"line\\": 1,
-+     \\"offset\\": 1,
-+     \\"size\\": 1,
++   "location": Object {
++     "column": 2,
++     "filename": "inline",
++     "line": 1,
++     "offset": 1,
++     "size": 1,
 +   },
-+   \\"type\\": 6,
++   "type": 6,
   }"
 `;

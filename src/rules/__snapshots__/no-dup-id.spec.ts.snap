@@ -1,23 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule no-dup-id should contain documentation 1`] = `
-Object {
+{
   "description": "The ID of an element must be unique.",
   "url": "https://html-validate.org/rules/no-dup-id.html",
 }
 `;
 
 exports[`rule no-dup-id smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "test-files/rules/no-dup-id.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 10,
         "context": undefined,
         "line": 3,
-        "message": "Duplicate ID \\"foo\\"",
+        "message": "Duplicate ID "foo"",
         "offset": 51,
         "ruleId": "no-dup-id",
         "ruleUrl": "https://html-validate.org/rules/no-dup-id.html",
@@ -26,9 +26,9 @@ Array [
         "size": 3,
       },
     ],
-    "source": "<div id=\\"foo\\"></div>
-<div id=\\"bar\\"></div>
-<div id=\\"foo\\"></div>
+    "source": "<div id="foo"></div>
+<div id="bar"></div>
+<div id="foo"></div>
 ",
     "warningCount": 0,
   },

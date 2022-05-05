@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule multiple-labeled-controls should contain documentation 1`] = `
-Object {
+{
   "description": "A \`<label>\` element can only be associated with one control at a time.",
   "url": "https://html-validate.org/rules/multiple-labeled-controls.html",
 }

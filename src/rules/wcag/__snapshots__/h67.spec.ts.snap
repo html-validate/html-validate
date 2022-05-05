@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`wcag/h67 should contain documentation 1`] = `
-Object {
+{
   "description": "A decorative image cannot have a title attribute. Either remove \`title\` or add a descriptive \`alt\` text.",
   "url": "https://html-validate.org/rules/wcag/h67.html",
 }
 `;
 
 exports[`wcag/h67 smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 2,
     "filePath": "test-files/rules/wcag/h67.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 6,
         "context": undefined,
         "line": 5,
@@ -25,7 +25,7 @@ Array [
         "severity": 2,
         "size": 5,
       },
-      Object {
+      {
         "column": 13,
         "context": undefined,
         "line": 6,
@@ -39,11 +39,11 @@ Array [
       },
     ],
     "source": "<img>
-<img alt=\\"foo\\">
-<img alt=\\"foo\\" title=\\"bar\\">
-<img title=\\"\\">
-<img title=\\"bar\\">
-<img alt=\\"\\" title=\\"bar\\">
+<img alt="foo">
+<img alt="foo" title="bar">
+<img title="">
+<img title="bar">
+<img alt="" title="bar">
 
 <!-- regression #33 (https://gitlab.com/html-validate/html-validate/issues/33) -->
 <div>

@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/rules/doctype-style.md inline validation: correct 1`] = `Array []`;
+exports[`docs/rules/doctype-style.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/doctype-style.md inline validation: incorrect 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 1,
-        "context": Object {
+        "context": {
           "style": "uppercase",
         },
         "line": 1,

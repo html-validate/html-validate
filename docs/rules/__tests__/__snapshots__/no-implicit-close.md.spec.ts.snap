@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`docs/rules/no-implicit-close.md inline validation: adjacent 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
         "context": undefined,
         "line": 1,
@@ -27,17 +27,17 @@ Array [
 ]
 `;
 
-exports[`docs/rules/no-implicit-close.md inline validation: correct-list 1`] = `Array []`;
+exports[`docs/rules/no-implicit-close.md inline validation: correct-list 1`] = `[]`;
 
-exports[`docs/rules/no-implicit-close.md inline validation: correct-paragraph 1`] = `Array []`;
+exports[`docs/rules/no-implicit-close.md inline validation: correct-paragraph 1`] = `[]`;
 
 exports[`docs/rules/no-implicit-close.md inline validation: parent 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 3,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 6,
         "context": undefined,
         "line": 2,
@@ -49,7 +49,7 @@ Array [
         "severity": 2,
         "size": 2,
       },
-      Object {
+      {
         "column": 6,
         "context": undefined,
         "line": 3,
@@ -61,7 +61,7 @@ Array [
         "severity": 2,
         "size": 2,
       },
-      Object {
+      {
         "column": 6,
         "context": undefined,
         "line": 4,
@@ -85,12 +85,12 @@ Array [
 `;
 
 exports[`docs/rules/no-implicit-close.md inline validation: siblings 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
         "context": undefined,
         "line": 1,

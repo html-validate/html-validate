@@ -28,8 +28,8 @@ describe("CLI", () => {
 			expect.assertions(1);
 			const cli = new CLI();
 			expect(cli.getConfig()).toMatchInlineSnapshot(`
-				Object {
-				  "extends": Array [
+				{
+				  "extends": [
 				    "html-validate:recommended",
 				  ],
 				}
@@ -50,8 +50,8 @@ describe("CLI", () => {
 				configFile: "config.json",
 			});
 			expect(cli.getConfig()).toMatchInlineSnapshot(`
-				Object {
-				  "rules": Object {
+				{
+				  "rules": {
 				    "foo": "error",
 				  },
 				}
@@ -64,9 +64,9 @@ describe("CLI", () => {
 				rules: "foo:1",
 			});
 			expect(cli.getConfig()).toMatchInlineSnapshot(`
-				Object {
-				  "extends": Array [],
-				  "rules": Object {
+				{
+				  "extends": [],
+				  "rules": {
 				    "foo": 1,
 				  },
 				}
@@ -79,9 +79,9 @@ describe("CLI", () => {
 				rules: ["foo:1", "bar:0"],
 			});
 			expect(cli.getConfig()).toMatchInlineSnapshot(`
-				Object {
-				  "extends": Array [],
-				  "rules": Object {
+				{
+				  "extends": [],
+				  "rules": {
 				    "bar": 0,
 				    "foo": 1,
 				  },

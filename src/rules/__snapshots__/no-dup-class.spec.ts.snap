@@ -1,23 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule no-dup-class should contain documentation 1`] = `
-Object {
+{
   "description": "Prevents unnecessary duplication of class names.",
   "url": "https://html-validate.org/rules/no-dup-class.html",
 }
 `;
 
 exports[`rule no-dup-class smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "test-files/rules/no-dup-class.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 21,
         "context": undefined,
         "line": 5,
-        "message": "Class \\"foo\\" duplicated",
+        "message": "Class "foo" duplicated",
         "offset": 74,
         "ruleId": "no-dup-class",
         "ruleUrl": "https://html-validate.org/rules/no-dup-class.html",
@@ -26,11 +26,11 @@ Array [
         "size": 3,
       },
     ],
-    "source": "<div class=\\"foo\\"></div>
+    "source": "<div class="foo"></div>
 
-<div class=\\"foo bar\\"></div>
+<div class="foo bar"></div>
 
-<div class=\\"foo bar foo\\"></div>
+<div class="foo bar foo"></div>
 ",
     "warningCount": 0,
   },

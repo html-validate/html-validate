@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule long-title should contain documentation 1`] = `
-Object {
+{
   "description": "Search engines truncates titles with long text, possibly down-ranking the page in the process.",
   "url": "https://html-validate.org/rules/long-title.html",
 }

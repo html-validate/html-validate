@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`wcag/h30 should contain documentation 1`] = `
-Object {
+{
   "description": "WCAG 2.1 requires each \`<a>\` anchor link to have a text describing the purpose of the link using either plain text or an \`<img>\` with the \`alt\` attribute set.",
   "url": "https://html-validate.org/rules/wcag/h30.html",
 }
 `;
 
 exports[`wcag/h30 smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 4,
     "filePath": "test-files/rules/wcag/h30.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
         "context": undefined,
         "line": 7,
@@ -25,7 +25,7 @@ Array [
         "severity": 2,
         "size": 1,
       },
-      Object {
+      {
         "column": 2,
         "context": undefined,
         "line": 8,
@@ -37,7 +37,7 @@ Array [
         "severity": 2,
         "size": 1,
       },
-      Object {
+      {
         "column": 2,
         "context": undefined,
         "line": 9,
@@ -49,7 +49,7 @@ Array [
         "severity": 2,
         "size": 1,
       },
-      Object {
+      {
         "column": 2,
         "context": undefined,
         "line": 10,
@@ -65,13 +65,13 @@ Array [
     "source": "<!-- valid cases -->
 <a>lorem ipsum</a>
 <a><span>lorem ipsum</span></a>
-<a><img alt=\\"lorem ipsum\\"></a>
+<a><img alt="lorem ipsum"></a>
 
 <!-- invalid cases -->
 <a></a>
 <a><img></a>
 <a><img alt></a>
-<a><img alt=\\"\\"></a>
+<a><img alt=""></a>
 ",
     "warningCount": 0,
   },

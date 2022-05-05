@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`wcag/h32 should contain documentation 1`] = `
-Object {
+{
   "description": "WCAG 2.1 requires each \`<form>\` element to have at least one submit button.",
   "url": "https://html-validate.org/rules/wcag/h32.html",
 }
 `;
 
 exports[`wcag/h32 smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "test-files/rules/wcag/h32.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
         "context": undefined,
         "line": 9,
@@ -27,17 +27,17 @@ Array [
       },
     ],
     "source": "<form>
-	<button type=\\"submit\\">Submit</button>
+	<button type="submit">Submit</button>
 </form>
 
 <form>
-	<input type=\\"submit\\" value=\\"Submit\\">
+	<input type="submit" value="Submit">
 </form>
 
 <form>
-	<input type=\\"text\\">
+	<input type="text">
 	<button>Foo</button>
-	<button type=\\"button\\">Bar</button>
+	<button type="button">Bar</button>
 </form>
 ",
     "warningCount": 0,

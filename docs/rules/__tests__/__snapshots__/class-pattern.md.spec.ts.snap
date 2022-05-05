@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/rules/class-pattern.md inline validation: correct 1`] = `Array []`;
+exports[`docs/rules/class-pattern.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/class-pattern.md inline validation: incorrect 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 13,
         "context": undefined,
         "line": 1,
-        "message": "Class \\"fooBar\\" does not match required pattern \\"/^[a-z0-9-]+$/\\"",
+        "message": "Class "fooBar" does not match required pattern "/^[a-z0-9-]+$/"",
         "offset": 12,
         "ruleId": "class-pattern",
         "ruleUrl": "https://html-validate.org/rules/class-pattern.html",
@@ -21,7 +21,7 @@ Array [
         "size": 6,
       },
     ],
-    "source": "<div class=\\"fooBar\\"></foobar>",
+    "source": "<div class="fooBar"></foobar>",
     "warningCount": 0,
   },
 ]

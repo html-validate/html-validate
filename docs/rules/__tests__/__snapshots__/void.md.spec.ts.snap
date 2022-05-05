@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/rules/void.md inline validation: correct 1`] = `Array []`;
+exports[`docs/rules/void.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/void.md inline validation: incorrect 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 2,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 11,
         "context": undefined,
         "line": 2,
@@ -20,7 +20,7 @@ Array [
         "severity": 2,
         "size": 2,
       },
-      Object {
+      {
         "column": 7,
         "context": undefined,
         "line": 5,

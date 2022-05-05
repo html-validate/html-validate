@@ -1,23 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule id-pattern should contain documentation 1`] = `
-Object {
+{
   "description": "For consistency all IDs are required to match the pattern /^[a-z0-9-]+$/ (kebabcase).",
   "url": "https://html-validate.org/rules/id-pattern.html",
 }
 `;
 
 exports[`rule id-pattern smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 2,
     "filePath": "test-files/rules/id-pattern.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 10,
         "context": undefined,
         "line": 3,
-        "message": "ID \\"foo_bar\\" does not match required pattern \\"/^[a-z0-9-]+$/\\"",
+        "message": "ID "foo_bar" does not match required pattern "/^[a-z0-9-]+$/"",
         "offset": 35,
         "ruleId": "id-pattern",
         "ruleUrl": "https://html-validate.org/rules/id-pattern.html",
@@ -25,11 +25,11 @@ Array [
         "severity": 2,
         "size": 7,
       },
-      Object {
+      {
         "column": 10,
         "context": undefined,
         "line": 5,
-        "message": "ID \\"fooBar\\" does not match required pattern \\"/^[a-z0-9-]+$/\\"",
+        "message": "ID "fooBar" does not match required pattern "/^[a-z0-9-]+$/"",
         "offset": 61,
         "ruleId": "id-pattern",
         "ruleUrl": "https://html-validate.org/rules/id-pattern.html",
@@ -38,11 +38,11 @@ Array [
         "size": 6,
       },
     ],
-    "source": "<div id=\\"foo-bar\\"></div>
+    "source": "<div id="foo-bar"></div>
 
-<div id=\\"foo_bar\\"></div>
+<div id="foo_bar"></div>
 
-<div id=\\"fooBar\\"></div>
+<div id="fooBar"></div>
 ",
     "warningCount": 0,
   },

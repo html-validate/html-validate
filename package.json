@@ -165,7 +165,7 @@
     "@html-validate/eslint-config-jest": "5.4.4",
     "@html-validate/eslint-config-typescript": "5.4.0",
     "@html-validate/eslint-config-typescript-typeinfo": "5.4.1",
-    "@html-validate/jest-config": "3.0.2",
+    "@html-validate/jest-config": "3.3.1",
     "@html-validate/prettier-config": "2.1.0",
     "@html-validate/release-scripts": "3.4.1",
     "@lodder/grunt-postcss": "3.1.1",
@@ -203,6 +203,7 @@
     "husky": "7.0.4",
     "jest": "27.5.1",
     "jest-diff": "27.5.1",
+    "jest-environment-jsdom": "27.5.1",
     "jest-snapshot": "27.5.1",
     "jquery": "3.6.0",
     "lint-staged": "12.4.1",
@@ -222,9 +223,9 @@
     "typescript": "4.6.4"
   },
   "peerDependencies": {
-    "jest": "^25.1 || ^26 || ^27",
-    "jest-diff": "^25.1 || ^26 || ^27",
-    "jest-snapshot": "^25.1 || ^26 || ^27"
+    "jest": "^25.1 || ^26 || ^27.1",
+    "jest-diff": "^25.1 || ^26 || ^27.1",
+    "jest-snapshot": "^25.1 || ^26 || ^27.1"
   },
   "peerDependenciesMeta": {
     "jest": {

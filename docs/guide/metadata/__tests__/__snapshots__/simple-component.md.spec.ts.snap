@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`docs/guide/metadata/simple-component.md inline validation: basic-metadata 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 4,
         "context": undefined,
         "line": 2,
@@ -28,12 +28,12 @@ Array [
 `;
 
 exports[`docs/guide/metadata/simple-component.md inline validation: flow--metadata-2 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 4,
         "context": undefined,
         "line": 2,
@@ -54,12 +54,12 @@ Array [
 ]
 `;
 
-exports[`docs/guide/metadata/simple-component.md inline validation: flow-metadata-1 1`] = `Array []`;
+exports[`docs/guide/metadata/simple-component.md inline validation: flow-metadata-1 1`] = `[]`;
 
-exports[`docs/guide/metadata/simple-component.md inline validation: no-metadata-1 1`] = `Array []`;
+exports[`docs/guide/metadata/simple-component.md inline validation: no-metadata-1 1`] = `[]`;
 
-exports[`docs/guide/metadata/simple-component.md inline validation: no-metadata-2 1`] = `Array []`;
+exports[`docs/guide/metadata/simple-component.md inline validation: no-metadata-2 1`] = `[]`;
 
-exports[`docs/guide/metadata/simple-component.md inline validation: no-metadata-3 1`] = `Array []`;
+exports[`docs/guide/metadata/simple-component.md inline validation: no-metadata-3 1`] = `[]`;
 
-exports[`docs/guide/metadata/simple-component.md inline validation: phrasing-metadata 1`] = `Array []`;
+exports[`docs/guide/metadata/simple-component.md inline validation: phrasing-metadata 1`] = `[]`;

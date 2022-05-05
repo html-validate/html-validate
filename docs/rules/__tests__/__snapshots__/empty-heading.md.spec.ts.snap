@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/rules/empty-heading.md inline validation: correct 1`] = `Array []`;
+exports[`docs/rules/empty-heading.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/empty-heading.md inline validation: incorrect 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 2,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
         "context": undefined,
         "line": 1,
@@ -20,7 +20,7 @@ Array [
         "severity": 2,
         "size": 2,
       },
-      Object {
+      {
         "column": 2,
         "context": undefined,
         "line": 2,
@@ -41,12 +41,12 @@ Array [
 `;
 
 exports[`docs/rules/empty-heading.md inline validation: whitespace 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
         "context": undefined,
         "line": 1,

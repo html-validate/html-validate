@@ -4,8 +4,8 @@ exports[`SchemaValidationError should pretty-print validation errors 1`] = `
 "TYPE must be boolean
 
   1 | {
-  2 |   \\"foo\\": {
-> 3 |     \\"flow\\": \\"spam\\"
+  2 |   "foo": {
+> 3 |     "flow": "spam"
     |             ^^^^^^ 👈🏽  type must be boolean
   4 |   }
   5 | }
@@ -13,8 +13,8 @@ exports[`SchemaValidationError should pretty-print validation errors 1`] = `
 TYPE must be array
 
   1 | {
-  2 |   \\"foo\\": {
-> 3 |     \\"flow\\": \\"spam\\"
+  2 |   "foo": {
+> 3 |     "flow": "spam"
     |             ^^^^^^ 👈🏽  type must be array
   4 |   }
   5 | }
@@ -22,8 +22,8 @@ TYPE must be array
 ANYOF must match a schema in anyOf
 
   1 | {
-  2 |   \\"foo\\": {
-> 3 |     \\"flow\\": \\"spam\\"
+  2 |   "foo": {
+> 3 |     "flow": "spam"
     |             ^^^^^^ 👈🏽  anyOf must match a schema in anyOf
   4 |   }
   5 | }"

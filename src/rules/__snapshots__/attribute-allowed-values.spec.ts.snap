@@ -1,50 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule attribute-allowed-values contain contextual documentation when attribute is omitted 1`] = `
-Object {
+{
   "description": "Attribute has invalid value.",
   "url": "https://html-validate.org/rules/attribute-allowed-values.html",
 }
 `;
 
 exports[`rule attribute-allowed-values should contain contextual documentation 1`] = `
-Object {
-  "description": "The \`<any>\` element does not allow the attribute \`foo\` to have the value \`\\"bar\\"\`.
+{
+  "description": "The \`<any>\` element does not allow the attribute \`foo\` to have the value \`"bar"\`.
 
 It must match one of the following:
 
-- \`\\"spam\\"\`
-- \`\\"ham\\"\`
-- \`/\\\\d+/\`",
+- \`"spam"\`
+- \`"ham"\`
+- \`/\\d+/\`",
   "url": "https://html-validate.org/rules/attribute-allowed-values.html",
 }
 `;
 
 exports[`rule attribute-allowed-values should contain contextual documentation when attribute should be boolean 1`] = `
-Object {
+{
   "description": "The \`<any>\` attribute \`foo\` must be a boolean attribute, e.g. \`<any foo>\`",
   "url": "https://html-validate.org/rules/attribute-allowed-values.html",
 }
 `;
 
 exports[`rule attribute-allowed-values should contain documentation 1`] = `
-Object {
+{
   "description": "Attribute has invalid value.",
   "url": "https://html-validate.org/rules/attribute-allowed-values.html",
 }
 `;
 
 exports[`rule attribute-allowed-values smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "test-files/rules/attribute-allowed-values.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 14,
-        "context": Object {
-          "allowed": Object {
-            "enum": Array [
+        "context": {
+          "allowed": {
+            "enum": [
               "button",
               "checkbox",
               "color",
@@ -75,7 +75,7 @@ Array [
           "value": "foobar",
         },
         "line": 3,
-        "message": "Attribute \\"type\\" has invalid value \\"foobar\\"",
+        "message": "Attribute "type" has invalid value "foobar"",
         "offset": 41,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
@@ -85,13 +85,13 @@ Array [
       },
     ],
     "source": "<input>
-<input type=\\"text\\">
-<input type=\\"foobar\\">
+<input type="text">
+<input type="foobar">
 
 <!-- rule should normalize boolean attributes -->
 <input required>
-<input required=\\"\\">
-<input required=\\"required\\">
+<input required="">
+<input required="required">
 ",
     "warningCount": 0,
   },

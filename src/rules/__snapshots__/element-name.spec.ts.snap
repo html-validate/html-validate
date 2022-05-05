@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule element-name configured with custom pattern smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 3,
     "filePath": "test-files/rules/element-name.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
-        "context": Object {
-          "blacklist": Array [],
-          "pattern": "^foo-\\\\w+$",
+        "context": {
+          "blacklist": [],
+          "pattern": "^foo-\\w+$",
           "tagName": "spam-ham",
         },
         "line": 27,
@@ -22,11 +22,11 @@ Array [
         "severity": 2,
         "size": 8,
       },
-      Object {
+      {
         "column": 2,
-        "context": Object {
-          "blacklist": Array [],
-          "pattern": "^foo-\\\\w+$",
+        "context": {
+          "blacklist": [],
+          "pattern": "^foo-\\w+$",
           "tagName": "foo",
         },
         "line": 30,
@@ -38,11 +38,11 @@ Array [
         "severity": 2,
         "size": 3,
       },
-      Object {
+      {
         "column": 2,
-        "context": Object {
-          "blacklist": Array [],
-          "pattern": "^foo-\\\\w+$",
+        "context": {
+          "blacklist": [],
+          "pattern": "^foo-\\w+$",
           "tagName": "1-bar",
         },
         "line": 31,
@@ -93,16 +93,16 @@ Array [
 `;
 
 exports[`rule element-name configured with default pattern smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 2,
     "filePath": "test-files/rules/element-name.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
-        "context": Object {
-          "blacklist": Array [],
-          "pattern": "^[a-z][a-z0-9\\\\-._]*-[a-z0-9\\\\-._]*$",
+        "context": {
+          "blacklist": [],
+          "pattern": "^[a-z][a-z0-9\\-._]*-[a-z0-9\\-._]*$",
           "tagName": "foo",
         },
         "line": 30,
@@ -114,11 +114,11 @@ Array [
         "severity": 2,
         "size": 3,
       },
-      Object {
+      {
         "column": 2,
-        "context": Object {
-          "blacklist": Array [],
-          "pattern": "^[a-z][a-z0-9\\\\-._]*-[a-z0-9\\\\-._]*$",
+        "context": {
+          "blacklist": [],
+          "pattern": "^[a-z][a-z0-9\\-._]*-[a-z0-9\\-._]*$",
           "tagName": "1-bar",
         },
         "line": 31,
@@ -169,7 +169,7 @@ Array [
 `;
 
 exports[`rule element-name should contain contextual documentation for blacklisted element 1`] = `
-Object {
+{
   "description": "<element-name> is blacklisted by the project configuration.
 
 The following names are blacklisted:
@@ -179,7 +179,7 @@ The following names are blacklisted:
 `;
 
 exports[`rule element-name should contain contextual documentation for element not matching custom pattern 1`] = `
-Object {
+{
   "description": "<element-name> is not a valid element name. This project is configured to only allow names matching the following regular expression:
 
 - \`^foo-.+$\`",
@@ -188,7 +188,7 @@ Object {
 `;
 
 exports[`rule element-name should contain contextual documentation for element not matching default pattern 1`] = `
-Object {
+{
   "description": "<element-name> is not a valid element name. If this is a custom element HTML requires the name to follow these rules:
 
 - The name must begin with \`a-z\`
@@ -199,7 +199,7 @@ Object {
 `;
 
 exports[`rule element-name should contain documentation 1`] = `
-Object {
+{
   "description": "This is not a valid element name.",
   "url": "https://html-validate.org/rules/element-name.html",
 }

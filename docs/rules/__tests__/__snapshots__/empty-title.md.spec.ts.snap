@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/rules/empty-title.md inline validation: correct 1`] = `Array []`;
+exports[`docs/rules/empty-title.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/empty-title.md inline validation: incorrect 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 6,
         "context": undefined,
         "line": 2,
@@ -30,12 +30,12 @@ Array [
 `;
 
 exports[`docs/rules/empty-title.md inline validation: whitespace 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 6,
         "context": undefined,
         "line": 2,

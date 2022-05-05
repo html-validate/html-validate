@@ -110,11 +110,11 @@ describe("Engine", () => {
 			expect(report.valid).toBeFalsy();
 			expect(report.results).toHaveLength(1);
 			expect(report.results[0]).toMatchInlineSnapshot(`
-				Object {
+				{
 				  "errorCount": 1,
 				  "filePath": "inline",
-				  "messages": Array [
-				    Object {
+				  "messages": [
+				    {
 				      "column": 1,
 				      "line": 1,
 				      "message": "invalid token error",
@@ -138,11 +138,11 @@ describe("Engine", () => {
 			expect(report.valid).toBeFalsy();
 			expect(report.results).toHaveLength(1);
 			expect(report.results[0]).toMatchInlineSnapshot(`
-				Object {
+				{
 				  "errorCount": 1,
 				  "filePath": "inline",
-				  "messages": Array [
-				    Object {
+				  "messages": [
+				    {
 				      "column": 1,
 				      "line": 1,
 				      "message": "parser error",
@@ -186,7 +186,7 @@ describe("Engine", () => {
 			expect(spy).toHaveBeenCalledWith("config:ready", expect.anything());
 			const event = spy.mock.calls[0][1] as ConfigReadyEvent;
 			expect(event.location).toMatchInlineSnapshot(`
-				Object {
+				{
 				  "column": 1,
 				  "filename": "inline",
 				  "line": 1,

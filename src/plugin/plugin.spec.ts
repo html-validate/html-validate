@@ -395,15 +395,15 @@ describe("Plugin", () => {
 				offset: 4,
 			});
 			expect(sources).toMatchInlineSnapshot(`
-				Array [
-				  Object {
+				[
+				  {
 				    "column": 3,
 				    "data": "transformed from unnamed transformer",
 				    "filename": "/path/to/mock.filename",
 				    "line": 2,
 				    "offset": 4,
 				    "originalData": "original data",
-				    "transformedBy": Array [
+				    "transformedBy": [
 				      "mock-plugin",
 				    ],
 				  },
@@ -445,15 +445,15 @@ describe("Plugin", () => {
 				offset: 4,
 			});
 			expect(sources).toMatchInlineSnapshot(`
-				Array [
-				  Object {
+				[
+				  {
 				    "column": 3,
 				    "data": "transformed from named transformer",
 				    "filename": "/path/to/mock.filename",
 				    "line": 2,
 				    "offset": 4,
 				    "originalData": "original data",
-				    "transformedBy": Array [
+				    "transformedBy": [
 				      "mock-plugin:foobar",
 				    ],
 				  },

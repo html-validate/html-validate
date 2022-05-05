@@ -366,14 +366,14 @@ describe("HtmlValidate", () => {
 				});
 			const report = htmlvalidate.validateMultipleFiles(["foo.html", "bar.html"]);
 			expect(report).toMatchInlineSnapshot(`
-			Object {
+			{
 			  "errorCount": 1,
-			  "results": Array [
-			    Object {
+			  "results": [
+			    {
 			      "errorCount": 0,
 			      "filePath": "foo.html",
-			      "messages": Array [
-			        Object {
+			      "messages": [
+			        {
 			          "column": 1,
 			          "line": 1,
 			          "message": "mock warning message",
@@ -387,11 +387,11 @@ describe("HtmlValidate", () => {
 			      "source": null,
 			      "warningCount": 1,
 			    },
-			    Object {
+			    {
 			      "errorCount": 1,
 			      "filePath": "bar.html",
-			      "messages": Array [
-			        Object {
+			      "messages": [
+			        {
 			          "column": 1,
 			          "line": 1,
 			          "message": "mock error message",
@@ -535,7 +535,7 @@ describe("HtmlValidate", () => {
 		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(() => config);
 		const output = htmlvalidate.dumpSource(filename);
 		expect(output).toMatchInlineSnapshot(`
-			Array [
+			[
 			  "Source foo.html@1:1 (offset: 0)",
 			  "Transformed by:",
 			  " - foo",

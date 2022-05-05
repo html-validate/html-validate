@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`docs/rules/allowed-links.md inline validation: absolute-invalid 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 10,
         "context": "absolute",
         "line": 1,
@@ -19,21 +19,21 @@ Array [
         "size": 4,
       },
     ],
-    "source": "<a href=\\"/foo\\">",
+    "source": "<a href="/foo">",
     "warningCount": 0,
   },
 ]
 `;
 
-exports[`docs/rules/allowed-links.md inline validation: absolute-valid 1`] = `Array []`;
+exports[`docs/rules/allowed-links.md inline validation: absolute-valid 1`] = `[]`;
 
 exports[`docs/rules/allowed-links.md inline validation: base-invalid 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 10,
         "context": "relative-base",
         "line": 1,
@@ -46,21 +46,21 @@ Array [
         "size": 3,
       },
     ],
-    "source": "<a href=\\"foo\\">",
+    "source": "<a href="foo">",
     "warningCount": 0,
   },
 ]
 `;
 
-exports[`docs/rules/allowed-links.md inline validation: base-valid 1`] = `Array []`;
+exports[`docs/rules/allowed-links.md inline validation: base-valid 1`] = `[]`;
 
 exports[`docs/rules/allowed-links.md inline validation: external-include 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 10,
         "context": "external",
         "line": 5,
@@ -74,22 +74,22 @@ Array [
       },
     ],
     "source": "<!-- allowed -->
-<a href=\\"//foo.example.net\\">
+<a href="//foo.example.net">
 
 <!-- not allowed -->
-<a href=\\"//bar.example.net\\">",
+<a href="//bar.example.net">",
     "warningCount": 0,
   },
 ]
 `;
 
 exports[`docs/rules/allowed-links.md inline validation: external-invalid 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 10,
         "context": "external",
         "line": 1,
@@ -102,21 +102,21 @@ Array [
         "size": 22,
       },
     ],
-    "source": "<a href=\\"http://example.net/foo\\">",
+    "source": "<a href="http://example.net/foo">",
     "warningCount": 0,
   },
 ]
 `;
 
-exports[`docs/rules/allowed-links.md inline validation: external-valid 1`] = `Array []`;
+exports[`docs/rules/allowed-links.md inline validation: external-valid 1`] = `[]`;
 
 exports[`docs/rules/allowed-links.md inline validation: relative-invalid 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 10,
         "context": "relative-path",
         "line": 1,
@@ -129,10 +129,10 @@ Array [
         "size": 6,
       },
     ],
-    "source": "<a href=\\"../foo\\">",
+    "source": "<a href="../foo">",
     "warningCount": 0,
   },
 ]
 `;
 
-exports[`docs/rules/allowed-links.md inline validation: relative-valid 1`] = `Array []`;
+exports[`docs/rules/allowed-links.md inline validation: relative-valid 1`] = `[]`;

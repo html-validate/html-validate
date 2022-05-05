@@ -1,35 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule allowed-links should contain contextual documentation absolute 1`] = `
-Object {
+{
   "description": "Absolute links are not allowed by current configuration.",
   "url": "https://html-validate.org/rules/allowed-links.html",
 }
 `;
 
 exports[`rule allowed-links should contain contextual documentation external 1`] = `
-Object {
+{
   "description": "External links are not allowed by current configuration.",
   "url": "https://html-validate.org/rules/allowed-links.html",
 }
 `;
 
 exports[`rule allowed-links should contain contextual documentation relative to base 1`] = `
-Object {
+{
   "description": "Links relative to <base> are not allowed by current configuration.",
   "url": "https://html-validate.org/rules/allowed-links.html",
 }
 `;
 
 exports[`rule allowed-links should contain contextual documentation relative to path 1`] = `
-Object {
+{
   "description": "Relative links are not allowed by current configuration.",
   "url": "https://html-validate.org/rules/allowed-links.html",
 }
 `;
 
 exports[`rule allowed-links should contain documentation 1`] = `
-Object {
+{
   "description": "This link type is not allowed by current configuration",
   "url": "https://html-validate.org/rules/allowed-links.html",
 }

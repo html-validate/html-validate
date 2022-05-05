@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule element-case configured with "lowercase" smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 2,
     "filePath": "test-files/rules/element-case.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
         "context": undefined,
         "line": 2,
-        "message": "Element \\"DIV\\" should be lowercase",
+        "message": "Element "DIV" should be lowercase",
         "offset": 13,
         "ruleId": "element-case",
         "ruleUrl": "https://html-validate.org/rules/element-case.html",
@@ -18,11 +18,11 @@ Array [
         "severity": 2,
         "size": 3,
       },
-      Object {
+      {
         "column": 2,
         "context": undefined,
         "line": 3,
-        "message": "Element \\"dIV\\" should be lowercase",
+        "message": "Element "dIV" should be lowercase",
         "offset": 25,
         "ruleId": "element-case",
         "ruleUrl": "https://html-validate.org/rules/element-case.html",
@@ -41,16 +41,16 @@ Array [
 `;
 
 exports[`rule element-case configured with "uppercase" smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 2,
     "filePath": "test-files/rules/element-case.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
         "context": undefined,
         "line": 1,
-        "message": "Element \\"div\\" should be uppercase",
+        "message": "Element "div" should be uppercase",
         "offset": 1,
         "ruleId": "element-case",
         "ruleUrl": "https://html-validate.org/rules/element-case.html",
@@ -58,11 +58,11 @@ Array [
         "severity": 2,
         "size": 3,
       },
-      Object {
+      {
         "column": 2,
         "context": undefined,
         "line": 3,
-        "message": "Element \\"dIV\\" should be uppercase",
+        "message": "Element "dIV" should be uppercase",
         "offset": 25,
         "ruleId": "element-case",
         "ruleUrl": "https://html-validate.org/rules/element-case.html",
@@ -81,14 +81,14 @@ Array [
 `;
 
 exports[`rule element-case should contain documentation 1`] = `
-Object {
+{
   "description": "Element tagname must be in lowercase.",
   "url": "https://html-validate.org/rules/element-case.html",
 }
 `;
 
 exports[`rule element-case should contain documentation with multiple styles 1`] = `
-Object {
+{
   "description": "Element tagname must be in one of:
 
 - lowercase

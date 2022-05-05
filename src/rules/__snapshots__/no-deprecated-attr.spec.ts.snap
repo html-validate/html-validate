@@ -1,23 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule no-deprecated-attr should contain documentation 1`] = `
-Object {
+{
   "description": "HTML5 deprecated many old attributes.",
   "url": "https://html-validate.org/rules/no-deprecated-attr.html",
 }
 `;
 
 exports[`rule no-deprecated-attr smoketest 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 5,
     "filePath": "test-files/rules/no-deprecated-attr.html",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 7,
         "context": undefined,
         "line": 2,
-        "message": "Attribute \\"bgcolor\\" is deprecated on <body> element",
+        "message": "Attribute "bgcolor" is deprecated on <body> element",
         "offset": 20,
         "ruleId": "no-deprecated-attr",
         "ruleUrl": "https://html-validate.org/rules/no-deprecated-attr.html",
@@ -25,11 +25,11 @@ Array [
         "severity": 2,
         "size": 7,
       },
-      Object {
+      {
         "column": 7,
         "context": undefined,
         "line": 3,
-        "message": "Attribute \\"BGCOLOR\\" is deprecated on <body> element",
+        "message": "Attribute "BGCOLOR" is deprecated on <body> element",
         "offset": 48,
         "ruleId": "no-deprecated-attr",
         "ruleUrl": "https://html-validate.org/rules/no-deprecated-attr.html",
@@ -37,11 +37,11 @@ Array [
         "severity": 2,
         "size": 7,
       },
-      Object {
+      {
         "column": 7,
         "context": undefined,
         "line": 4,
-        "message": "Attribute \\"bgColor\\" is deprecated on <body> element",
+        "message": "Attribute "bgColor" is deprecated on <body> element",
         "offset": 76,
         "ruleId": "no-deprecated-attr",
         "ruleUrl": "https://html-validate.org/rules/no-deprecated-attr.html",
@@ -49,11 +49,11 @@ Array [
         "severity": 2,
         "size": 7,
       },
-      Object {
+      {
         "column": 6,
         "context": undefined,
         "line": 7,
-        "message": "Attribute \\"background\\" is deprecated on <tr> element",
+        "message": "Attribute "background" is deprecated on <tr> element",
         "offset": 125,
         "ruleId": "no-deprecated-attr",
         "ruleUrl": "https://html-validate.org/rules/no-deprecated-attr.html",
@@ -61,11 +61,11 @@ Array [
         "severity": 2,
         "size": 10,
       },
-      Object {
+      {
         "column": 7,
         "context": undefined,
         "line": 8,
-        "message": "Attribute \\"align\\" is deprecated on <td> element",
+        "message": "Attribute "align" is deprecated on <td> element",
         "offset": 150,
         "ruleId": "no-deprecated-attr",
         "ruleUrl": "https://html-validate.org/rules/no-deprecated-attr.html",
@@ -75,13 +75,13 @@ Array [
       },
     ],
     "source": "<body></body>
-<body bgcolor=\\"red\\"></body>
-<body BGCOLOR=\\"red\\"></body>
-<body bgColor=\\"red\\"></body>
+<body bgcolor="red"></body>
+<body BGCOLOR="red"></body>
+<body bgColor="red"></body>
 
-<table valign=\\"top\\">
-	<tr background=\\"blue\\">
-		<td align=\\"right\\">foo</td>
+<table valign="top">
+	<tr background="blue">
+		<td align="right">foo</td>
 	</tr>
 </table>
 ",

@@ -2,7 +2,7 @@
 
 exports[`toMatchCodeframe() should match invalid report 1`] = `
 "error: mock message (my-rule) at inline:4:8:
-  2 | 		<header id=\\"foo\\">
+  2 | 		<header id="foo">
   3 | 			<div>
 > 4 | 				<p>lorem ipsum</p>
     | 				   ^^^^^^^^^^^

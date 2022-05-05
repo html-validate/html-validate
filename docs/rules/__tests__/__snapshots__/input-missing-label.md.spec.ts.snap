@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/rules/input-missing-label.md inline validation: correct 1`] = `Array []`;
+exports[`docs/rules/input-missing-label.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/input-missing-label.md inline validation: hidden 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 2,
         "context": undefined,
         "line": 2,
@@ -21,20 +21,20 @@ Array [
         "size": 5,
       },
     ],
-    "source": "<label for=\\"my-input\\" aria-hidden=\\"true\\">My field</label>
-<input id=\\"my-input\\" type=\\"text\\">",
+    "source": "<label for="my-input" aria-hidden="true">My field</label>
+<input id="my-input" type="text">",
     "warningCount": 0,
   },
 ]
 `;
 
 exports[`docs/rules/input-missing-label.md inline validation: incorrect 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 4,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 6,
         "context": undefined,
         "line": 4,
@@ -46,7 +46,7 @@ Array [
         "severity": 2,
         "size": 5,
       },
-      Object {
+      {
         "column": 6,
         "context": undefined,
         "line": 5,
@@ -58,7 +58,7 @@ Array [
         "severity": 2,
         "size": 8,
       },
-      Object {
+      {
         "column": 6,
         "context": undefined,
         "line": 6,
@@ -70,7 +70,7 @@ Array [
         "severity": 2,
         "size": 6,
       },
-      Object {
+      {
         "column": 6,
         "context": undefined,
         "line": 14,
@@ -86,7 +86,7 @@ Array [
     "source": "<!-- no label element at all -->
 <div>
     <strong>My field</strong>
-    <input type=\\"text\\">
+    <input type="text">
     <textarea></textarea>
     <select>
         <option>Option</option>
@@ -96,7 +96,7 @@ Array [
 <!-- unassociated label -->
 <div>
     <label>My field</label>
-    <input type=\\"text\\">
+    <input type="text">
 </div>",
     "warningCount": 0,
   },

@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/rules/attribute-boolean-style.md inline validation: correct 1`] = `Array []`;
+exports[`docs/rules/attribute-boolean-style.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/attribute-boolean-style.md inline validation: incorrect 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 2,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 8,
         "context": undefined,
         "line": 1,
-        "message": "Attribute \\"required\\" should omit value",
+        "message": "Attribute "required" should omit value",
         "offset": 7,
         "ruleId": "attribute-boolean-style",
         "ruleUrl": "https://html-validate.org/rules/attribute-boolean-style.html",
@@ -20,11 +20,11 @@ Array [
         "severity": 2,
         "size": 8,
       },
-      Object {
+      {
         "column": 8,
         "context": undefined,
         "line": 2,
-        "message": "Attribute \\"required\\" should omit value",
+        "message": "Attribute "required" should omit value",
         "offset": 27,
         "ruleId": "attribute-boolean-style",
         "ruleUrl": "https://html-validate.org/rules/attribute-boolean-style.html",
@@ -33,8 +33,8 @@ Array [
         "size": 8,
       },
     ],
-    "source": "<input required=\\"\\">
-<input required=\\"required\\">",
+    "source": "<input required="">
+<input required="required">",
     "warningCount": 0,
   },
 ]

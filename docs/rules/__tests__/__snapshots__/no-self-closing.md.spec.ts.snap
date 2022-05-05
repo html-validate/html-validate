@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/rules/no-self-closing.md inline validation: correct 1`] = `Array []`;
+exports[`docs/rules/no-self-closing.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/no-self-closing.md inline validation: foreign 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 5,
         "context": "svg",
         "line": 1,
@@ -28,12 +28,12 @@ Array [
 `;
 
 exports[`docs/rules/no-self-closing.md inline validation: incorrect 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 5,
         "context": "div",
         "line": 1,
@@ -53,12 +53,12 @@ Array [
 `;
 
 exports[`docs/rules/no-self-closing.md inline validation: xml 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 12,
         "context": "xi:include",
         "line": 1,

@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`docs/rules/no-raw-characters.md inline validation: correct 1`] = `Array []`;
+exports[`docs/rules/no-raw-characters.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/no-raw-characters.md inline validation: incorrect 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 2,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 9,
         "context": undefined,
         "line": 1,
-        "message": "Raw \\"&\\" must be encoded as \\"&amp;\\"",
+        "message": "Raw "&" must be encoded as "&amp;"",
         "offset": 8,
         "ruleId": "no-raw-characters",
         "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
@@ -20,11 +20,11 @@ Array [
         "severity": 2,
         "size": 1,
       },
-      Object {
+      {
         "column": 13,
         "context": undefined,
         "line": 2,
-        "message": "Raw \\"'\\" must be encoded as \\"&apos;\\"",
+        "message": "Raw "'" must be encoded as "&apos;"",
         "offset": 33,
         "ruleId": "no-raw-characters",
         "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
@@ -41,15 +41,15 @@ Array [
 `;
 
 exports[`docs/rules/no-raw-characters.md inline validation: malformed 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "inline",
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 18,
         "line": 1,
-        "message": "failed to tokenize \\"</p>\\", expected attribute, \\">\\" or \\"/>\\".",
+        "message": "failed to tokenize "</p>", expected attribute, ">" or "/>".",
         "offset": 17,
         "ruleId": "parser-error",
         "selector": null,
@@ -63,4 +63,4 @@ Array [
 ]
 `;
 
-exports[`docs/rules/no-raw-characters.md inline validation: relaxed 1`] = `Array []`;
+exports[`docs/rules/no-raw-characters.md inline validation: relaxed 1`] = `[]`;
