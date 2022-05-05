@@ -30,6 +30,7 @@ NPM:
     name: ${CI_PROJECT_PATH_SLUG}-${CI_PIPELINE_ID}-npm
     paths:
       - node_modules/
+      - tests/integration/*/node_modules/
     reports:
       dependency_scanning: gl-dependency-scanning.json
   script:
@@ -158,17 +159,17 @@ Jest compat:
   needs: []
   parallel:
     matrix:
-      - MATRIX: [25, 26, 27]
+      - MATRIX: [25, 26, 27, 28]
   before_script:
     - npm ci --no-fund --no-audit --no-update-notifier
     - npm run build
     - node scripts/get-min-version.js "${MATRIX}"
-    - export TYPES_VERSION="${MATRIX}"
+    - export TYPES_VERSION=$(node scripts/get-min-version.js "${MATRIX}" "@types/jest")
     - export JEST_VERSION=$(node scripts/get-min-version.js "${MATRIX}" "jest")
     - export TS_VERSION=$(node scripts/get-min-version.js "${MATRIX}" "typescript")
     - |
-      echo "Jest version: ${JEST_VERSION}"
-      echo "Typescript version: ${TS_VERSION}"
+      echo "jest version: ${JEST_VERSION}"
+      echo "typescript version: ${TS_VERSION}"
       echo "@types version: ${TYPES_VERSION}"
     - >
       npm rm rollup-plugin-dts

@@ -1,11 +1,13 @@
 # Remember to keep in sync with .npmignore
 *.tgz
 tsconfig.tsbuildinfo
+
+node_modules/
+
 /.nyc_output/
 /.tscache/
 /dist
 /coverage
-/node_modules
 /public
 /src/generated/
 /temp
