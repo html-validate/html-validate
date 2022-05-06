@@ -1,5 +1,13 @@
 # html-validate changelog
 
+### [6.11.1](https://gitlab.com/html-validate/html-validate/compare/v6.11.0...v6.11.1) (2022-05-06)
+
+### Bug Fixes
+
+- add type declaration for `html5.js` ([4647dee](https://gitlab.com/html-validate/html-validate/commit/4647dee3dbac0ddedb80747047b0b033ce61513a))
+- expose `MetaDataTable` type ([79f30d0](https://gitlab.com/html-validate/html-validate/commit/79f30d00aa73139fbca0e44160197c5b6db6e95f))
+- fix loading `jest.js` and `test-utils.js` ([84877df](https://gitlab.com/html-validate/html-validate/commit/84877dfb8db2b7cb8143640df8dba7f4d71cd6c3))
+
 ## [6.11.0](https://gitlab.com/html-validate/html-validate/compare/v6.10.0...v6.11.0) (2022-05-05)
 
 ### Features
