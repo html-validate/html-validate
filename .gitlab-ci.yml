@@ -139,7 +139,7 @@ Node:
   extends: .compat
   parallel:
     matrix:
-      VERSION: [14, 16, 17, 18]
+      - VERSION: [14, 16, 17, 18]
   image: node:${VERSION}
 
 Jest compat:
