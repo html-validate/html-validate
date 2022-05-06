@@ -135,25 +135,12 @@ Docs:
     - npm run --if-present build
     - npm run compatibility
 
-Node 12.x (LTS):
+Node:
   extends: .compat
-  image: node:12
-
-Node 14.x (LTS):
-  extends: .compat
-  image: node:14
-
-Node 16.x (LTS):
-  extends: .compat
-  image: node:16
-
-Node 17.x (current):
-  extends: .compat
-  image: node:17
-
-Node 18.x (current):
-  extends: .compat
-  image: node:18
+  parallel:
+    matrix:
+      VERSION: [14, 16, 17, 18]
+  image: node:${VERSION}
 
 Jest compat:
   stage: compatibility
