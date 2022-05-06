@@ -9,7 +9,7 @@ export { EventDump, TokenDump } from "./engine";
 export { UserError, SchemaValidationError, NestedError, WrappedError } from "./error";
 export * from "./event";
 export { version } from "./generated/package";
-export { MetaData, MetaElement, MetaTable, MetaCopyableProperty } from "./meta";
+export { MetaData, MetaDataTable, MetaElement, MetaTable, MetaCopyableProperty } from "./meta";
 export { Rule, RuleDocumentation } from "./rule";
 export { Source, Location, ProcessElementContext } from "./context";
 export { Report, Reporter, Message, Result, type DeferredMessage } from "./reporter";
