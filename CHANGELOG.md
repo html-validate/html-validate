@@ -1,5 +1,15 @@
 # html-validate changelog
 
+## [7.0.0](https://gitlab.com/html-validate/html-validate/compare/v6.11.1...v7.0.0) (2022-05-06)
+
+### ⚠ BREAKING CHANGES
+
+- require node 14
+
+### Features
+
+- require node 14 ([e294b5e](https://gitlab.com/html-validate/html-validate/commit/e294b5e7e64ecf00bfe007635dd06cd4a100fff7))
+
 ### [6.11.1](https://gitlab.com/html-validate/html-validate/compare/v6.11.0...v6.11.1) (2022-05-06)
 
 ### Bug Fixes
