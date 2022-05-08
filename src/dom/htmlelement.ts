@@ -168,6 +168,7 @@ export class HtmlElement extends DOMNode {
 		const parts = [];
 
 		let root: HtmlElement;
+		/* eslint-disable-next-line @typescript-eslint/no-this-alias */
 		for (root = this; root.parent; root = root.parent) {
 			/* .. */
 		}

@@ -1534,7 +1534,7 @@ describe("parser", () => {
 				expect.assertions(2);
 				let context: any;
 				const processElement = jest.fn(function (this: any) {
-					context = this;
+					context = this; // eslint-disable-line @typescript-eslint/no-this-alias
 				});
 				const source: Source = {
 					data: "<input>",
