@@ -1,13 +1,21 @@
 import HtmlValidate from "../../../src/htmlvalidate";
 
 const markup: { [key: string]: string } = {};
-markup["incorrect"] = `<script href="//cdn.example.net/jquery.min.js"></script>`;
-markup["correct"] = `<script href="//cdn.example.net/jquery.min.js" integrity="sha384-..."></script>`;
+markup["incorrect"] = `<script src="//cdn.example.net/jquery.min.js"></script>`;
+markup["correct"] = `<script src="//cdn.example.net/jquery.min.js" integrity="sha384-..."></script>`;
 markup["crossorigin"] = `<!--- local resource -->
 <link href="local.css">
 
 <!-- resource loaded over CDN -->
 <link href="//cdn.example.net/remote.css">`;
+markup["include-option"] = `<!-- matches included pattern, yields error -->
+<link href="//cdn.example.net/remote.css" />
+<!-- doesn't match, no error -->
+<link href="//static-assets.example.org/remote.css" />`;
+markup["exclude-option"] = `<!-- doesn't match excluded pattern, yields error -->
+<link href="//cdn.example.net/remote.css">
+<!-- matches excluded pattern, no error -->
+<link href="//static-assets.example.org/remote.css">`;
 
 describe("docs/rules/require-sri.md", () => {
 	it("inline validation: incorrect", () => {
@@ -26,6 +34,18 @@ describe("docs/rules/require-sri.md", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"require-sri":["error",{"target":"crossorigin"}]}});
 		const report = htmlvalidate.validateString(markup["crossorigin"]);
+		expect(report.results).toMatchSnapshot();
+	});
+	it("inline validation: include-option", () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({"rules":{"require-sri":["error",{"include":["//cdn.example.net/"]}]}});
+		const report = htmlvalidate.validateString(markup["include-option"]);
+		expect(report.results).toMatchSnapshot();
+	});
+	it("inline validation: exclude-option", () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({"rules":{"require-sri":["error",{"exclude":["//cdn.example.net/"]}]}});
+		const report = htmlvalidate.validateString(markup["exclude-option"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

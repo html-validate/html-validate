@@ -31,6 +31,62 @@ exports[`docs/rules/require-sri.md inline validation: crossorigin 1`] = `
 ]
 `;
 
+exports[`docs/rules/require-sri.md inline validation: exclude-option 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 2,
+        "context": undefined,
+        "line": 4,
+        "message": "SRI "integrity" attribute is required on <link> element",
+        "offset": 142,
+        "ruleId": "require-sri",
+        "ruleUrl": "https://html-validate.org/rules/require-sri.html",
+        "selector": "link:nth-child(2)",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<!-- doesn't match excluded pattern, yields error -->
+<link href="//cdn.example.net/remote.css">
+<!-- matches excluded pattern, no error -->
+<link href="//static-assets.example.org/remote.css">",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/require-sri.md inline validation: include-option 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 2,
+        "context": undefined,
+        "line": 2,
+        "message": "SRI "integrity" attribute is required on <link> element",
+        "offset": 49,
+        "ruleId": "require-sri",
+        "ruleUrl": "https://html-validate.org/rules/require-sri.html",
+        "selector": "link:nth-child(1)",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<!-- matches included pattern, yields error -->
+<link href="//cdn.example.net/remote.css" />
+<!-- doesn't match, no error -->
+<link href="//static-assets.example.org/remote.css" />",
+    "warningCount": 0,
+  },
+]
+`;
+
 exports[`docs/rules/require-sri.md inline validation: incorrect 1`] = `
 [
   {
@@ -50,7 +106,7 @@ exports[`docs/rules/require-sri.md inline validation: incorrect 1`] = `
         "size": 6,
       },
     ],
-    "source": "<script href="//cdn.example.net/jquery.min.js"></script>",
+    "source": "<script src="//cdn.example.net/jquery.min.js"></script>",
     "warningCount": 0,
   },
 ]
