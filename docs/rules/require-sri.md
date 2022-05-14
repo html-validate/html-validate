@@ -19,22 +19,24 @@ cryptographic hash for SRI to function.
 Examples of **incorrect** code for this rule:
 
 <validate name="incorrect" rules="require-sri">
-    <script href="//cdn.example.net/jquery.min.js"></script>
+    <script src="//cdn.example.net/jquery.min.js"></script>
 </validate>
 
 Examples of **correct** code for this rule:
 
 <validate name="correct" rules="require-sri">
-    <script href="//cdn.example.net/jquery.min.js" integrity="sha384-..."></script>
+    <script src="//cdn.example.net/jquery.min.js" integrity="sha384-..."></script>
 </validate>
 
 ## Options
 
 This rule takes an optional object:
 
-```javascript
+```json
 {
-	"target": "all",
+  "target": "all",
+  "include": null,
+  "exclude": null
 }
 ```
 
@@ -55,4 +57,48 @@ technically would point to the same origin.
     <!-- resource loaded over CDN -->
     <link href="//cdn.example.net/remote.css">
 
+</validate>
+
+### `include`
+
+- type: `string[] | null`
+
+If set only URLs matching one or more patterns in this array yields errors.
+Patterns are matched as substrings.
+
+For instance, with the following configuration only the first URL yields an error:
+
+```json
+{
+  "include": ["//cdn.example.net/"]
+}
+```
+
+<validate name="include-option" rules="require-sri" require-sri='{"include": ["//cdn.example.net/"]}'>
+    <!-- matches included pattern, yields error -->
+    <link href="//cdn.example.net/remote.css" />
+    <!-- doesn't match, no error -->
+    <link href="//static-assets.example.org/remote.css" />
+</validate>
+
+### `exclude`
+
+- type: `string[] | null`
+
+If set URLs matching one or more pattern in this array is ignored.
+Patterns are matched as substrings.
+
+For instance, with the following configuration only the second URL yields an error:
+
+```json
+{
+  "exclude": ["//cdn.example.net/"]
+}
+```
+
+<validate name="exclude-option" rules="require-sri" require-sri='{"exclude": ["//cdn.example.net/"]}'>
+    <!-- doesn't match excluded pattern, yields error -->
+    <link href="//cdn.example.net/remote.css">
+    <!-- matches excluded pattern, no error -->
+    <link href="//static-assets.example.org/remote.css">
 </validate>

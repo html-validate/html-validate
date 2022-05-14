@@ -6,10 +6,14 @@ type Target = "all" | "crossorigin";
 
 interface RuleOptions {
 	target: Target;
+	include: string[] | null;
+	exclude: string[] | null;
 }
 
 const defaults: RuleOptions = {
 	target: "all",
+	include: null,
+	exclude: null,
 };
 
 const crossorigin = new RegExp("^(\\w+://|//)"); /* e.g. https:// or // */
@@ -32,6 +36,32 @@ export default class RequireSri extends Rule<void, RuleOptions> {
 				enum: ["all", "crossorigin"],
 				type: "string",
 			},
+			include: {
+				anyOf: [
+					{
+						items: {
+							type: "string",
+						},
+						type: "array",
+					},
+					{
+						type: "null",
+					},
+				],
+			},
+			exclude: {
+				anyOf: [
+					{
+						items: {
+							type: "string",
+						},
+						type: "array",
+					},
+					{
+						type: "null",
+					},
+				],
+			},
 		};
 	}
 
@@ -46,10 +76,14 @@ export default class RequireSri extends Rule<void, RuleOptions> {
 		this.on("tag:end", (event: TagEndEvent) => {
 			/* only handle thats supporting and requires sri */
 			const node = event.previous;
-			if (!(this.supportSri(node) && this.needSri(node))) return;
+			if (!(this.supportSri(node) && this.needSri(node))) {
+				return;
+			}
 
 			/* check if sri attribute is present */
-			if (node.hasAttribute("integrity")) return;
+			if (node.hasAttribute("integrity")) {
+				return;
+			}
 
 			this.report(
 				node,
@@ -64,19 +98,27 @@ export default class RequireSri extends Rule<void, RuleOptions> {
 	}
 
 	private needSri(node: HtmlElement): boolean {
-		if (this.target === "all") return true;
-
 		const attr = this.elementSourceAttr(node);
-		if (!attr || attr.value === null || attr.isDynamic) {
+		if (!attr || attr.value === null || attr.value === "" || attr.isDynamic) {
 			return false;
 		}
 
 		const url = attr.value.toString();
-		return crossorigin.test(url);
+		if (this.target === "all" || crossorigin.test(url)) {
+			return !this.isIgnored(url);
+		}
+
+		return false;
 	}
 
 	private elementSourceAttr(node: HtmlElement): Attribute | null {
 		const key = supportSri[node.tagName];
 		return node.getAttribute(key);
+	}
+
+	private isIgnored(url: string): boolean {
+		return this.isKeywordIgnored(url, (list, it) => {
+			return list.some((pattern) => it.includes(pattern));
+		});
 	}
 }
