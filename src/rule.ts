@@ -153,22 +153,24 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * not `"foo"`.
 	 *
 	 * @param keyword - Keyword to match against `include` and `exclude` options.
+	 * @param matcher - Optional function to compare items with.
 	 * @returns `true` if keyword is not present in `include` or is present in
 	 * `exclude`.
 	 */
 	public isKeywordIgnored<T extends IncludeExcludeOptions>(
 		this: { options: T },
-		keyword: string
+		keyword: string,
+		matcher: (list: string[], it: string) => boolean = (list, it) => list.includes(it)
 	): boolean {
 		const { include, exclude } = this.options;
 
 		/* ignore keyword if not present in "include" */
-		if (include && !include.includes(keyword)) {
+		if (include && !matcher(include, keyword)) {
 			return true;
 		}
 
 		/* ignore keyword if present in "excludes" */
-		if (exclude && exclude.includes(keyword)) {
+		if (exclude && matcher(exclude, keyword)) {
 			return true;
 		}
 
