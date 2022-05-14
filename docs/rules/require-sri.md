@@ -102,3 +102,7 @@ For instance, with the following configuration only the second URL yields an err
     <!-- matches excluded pattern, no error -->
     <link href="//static-assets.example.org/remote.css">
 </validate>
+
+## Version history
+
+- %version% - `include` and `exclude` options added

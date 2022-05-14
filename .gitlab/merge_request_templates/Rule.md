@@ -3,7 +3,7 @@
 - [ ] Documentation updated
 - [ ] Rule added to recommended list
 - [ ] Change covered by a testcase
-- [ ] Smoketest added/updated
+- [ ] Version history added to rule documentation
 - [ ] Commit history cleaned (no WIP, fixups, etc)
 
 /label ~Rule

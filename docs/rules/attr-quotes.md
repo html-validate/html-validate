@@ -53,3 +53,7 @@ This rule takes an optional object:
 ### Unquoted
 
 If `false` unquoted attributes is disallowed (default).
+
+## Version history
+
+- %version% - `any` added to `style` option
