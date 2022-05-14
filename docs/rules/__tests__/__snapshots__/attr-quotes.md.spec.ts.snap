@@ -10,7 +10,12 @@ exports[`docs/rules/attr-quotes.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 4,
-        "context": undefined,
+        "context": {
+          "actual": "'",
+          "attr": "class",
+          "error": "style",
+          "expected": """,
+        },
         "line": 1,
         "message": "Attribute "class" used ' instead of expected "",
         "offset": 3,

@@ -13,7 +13,7 @@ HTML allows different styles for quoting attributes:
   `<div id='foo'>`
 - Double-quote `"`:  
   `<div id="foo">`
-- Unquoted `'`:  
+- Unquoted:  
   `<div id=foo>` (with limitations on allowed content)
 
 This rule unifies which styles are allowed.
@@ -45,9 +45,10 @@ This rule takes an optional object:
 
 ### Style
 
-- `auto` requires usage of `"` unless the attribute value contains `"` (default).
-- `single` requires usage of `'` for all attributes.
-- `double` requires usage of `"` for all attributes.
+- `auto` requires usage of double quotes `"` unless the attribute value contains `"` (default).
+- `single` requires usage of single quotes `'` for all attributes.
+- `double` requires usage of double quotes `"` for all attributes.
+- `any` requires usage of either single quotes `'` or double quotes `"` for all attributes.
 
 ### Unquoted
 
