@@ -8,6 +8,8 @@ summary: Disallow usage of redundant roles
 
 Some HTML5 elements have implied [WAI-ARIA roles][wai-aria-roles] and this rule disallows setting the implied roles on those elements.
 
+[wai-aria-roles]: https://www.w3.org/TR/wai-aria-1.1/#role_definitions
+
 ## Rule details
 
 Examples of **incorrect** code for this rule:
