@@ -2,6 +2,7 @@
 docType: rule
 name: require-sri
 summary: Require SRI for resources
+category: security
 ---
 
 # Require SRI for resources (`require-sri`)

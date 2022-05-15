@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/require-csp-nonce.md inline validation: correct 1`] = `[]`;
+
+exports[`docs/rules/require-csp-nonce.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 2,
+        "context": undefined,
+        "line": 1,
+        "message": "required CSP nonce is missing",
+        "offset": 1,
+        "ruleId": "require-csp-nonce",
+        "ruleUrl": "https://html-validate.org/rules/require-csp-nonce.html",
+        "selector": "script",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<script>
+	doFancyStuff();
+</script>",
+    "warningCount": 0,
+  },
+]
+`;
