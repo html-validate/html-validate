@@ -1,5 +1,17 @@
 # html-validate changelog
 
+## [7.1.0](https://gitlab.com/html-validate/html-validate/compare/v7.0.0...v7.1.0) (2022-05-15)
+
+### Features
+
+- **rules:** add `any` option to `attr-quotes` ([cedf9d5](https://gitlab.com/html-validate/html-validate/commit/cedf9d523ab100fb6312559da3defd8114cdff3d)), closes [#152](https://gitlab.com/html-validate/html-validate/issues/152)
+- **rules:** add `include`/`exclude` options to `require-sri` rule ([93931c5](https://gitlab.com/html-validate/html-validate/commit/93931c5223dee30c4058fb023847692dbda2f291)), closes [#153](https://gitlab.com/html-validate/html-validate/issues/153)
+- **rules:** new rule `require-csp-nonce` ([d534a32](https://gitlab.com/html-validate/html-validate/commit/d534a327fd40013800225aba5400b477b2e443e5))
+
+### Dependency upgrades
+
+- **deps:** update dependency @sidvind/better-ajv-errors to v2 ([bd27e3c](https://gitlab.com/html-validate/html-validate/commit/bd27e3c270519e36e21c64cce52bfe58dab2bea3))
+
 ## [7.0.0](https://gitlab.com/html-validate/html-validate/compare/v6.11.1...v7.0.0) (2022-05-06)
 
 ### ⚠ BREAKING CHANGES

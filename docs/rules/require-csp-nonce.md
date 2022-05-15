@@ -64,4 +64,4 @@ Limited to:
 
 ## Version history
 
-- %version% - rule added
+- 7.1.0 - rule added

@@ -56,4 +56,4 @@ If `false` unquoted attributes is disallowed (default).
 
 ## Version history
 
-- %version% - `any` added to `style` option
+- 7.1.0 - `any` added to `style` option

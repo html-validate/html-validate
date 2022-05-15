@@ -106,4 +106,4 @@ For instance, with the following configuration only the second URL yields an err
 
 ## Version history
 
-- %version% - `include` and `exclude` options added
+- 7.1.0 - `include` and `exclude` options added
