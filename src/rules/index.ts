@@ -55,6 +55,7 @@ import NoUtf8Bom from "./no-utf8-bom";
 import PreferButton from "./prefer-button";
 import PreferNativeElement from "./prefer-native-element";
 import PreferTbody from "./prefer-tbody";
+import RequireCSPNonce from "./require-csp-nonce";
 import RequireSri from "./require-sri";
 import ScriptElement from "./script-element";
 import ScriptType from "./script-type";
@@ -125,6 +126,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"prefer-button": PreferButton,
 	"prefer-native-element": PreferNativeElement,
 	"prefer-tbody": PreferTbody,
+	"require-csp-nonce": RequireCSPNonce,
 	"require-sri": RequireSri,
 	"script-element": ScriptElement,
 	"script-type": ScriptType,
