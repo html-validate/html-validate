@@ -209,11 +209,15 @@ export class Validator {
 			return false;
 		}
 
+		const caseInsensitiveValue = value.toLowerCase();
+
 		return rule.enum.some((entry: string | RegExp) => {
 			if (entry instanceof RegExp) {
+				/* regular expressions are matched case-sensitive */
 				return !!value.match(entry);
 			} else {
-				return value === entry;
+				/* strings matched case-insensitive */
+				return caseInsensitiveValue === entry;
 			}
 		});
 	}
