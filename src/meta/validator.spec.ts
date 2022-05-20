@@ -551,6 +551,17 @@ describe("Meta validator", () => {
 			expect(Validator.validateAttribute(car, rules)).toBeFalsy();
 		});
 
+		it("should match enum case-insensitive", () => {
+			expect.assertions(2);
+			const rules: Record<string, MetaAttribute> = {
+				foo: { enum: ["bar"] },
+			};
+			const bar = new Attribute("foo", "bar", location, location);
+			const car = new Attribute("foo", "BAR", location, location);
+			expect(Validator.validateAttribute(bar, rules)).toBeTruthy();
+			expect(Validator.validateAttribute(car, rules)).toBeTruthy();
+		});
+
 		it("should match dynamic value", () => {
 			expect.assertions(2);
 			const rules: Record<string, MetaAttribute> = {

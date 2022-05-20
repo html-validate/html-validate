@@ -7,17 +7,20 @@ summary: Validate permitted attribute values
 
 # Allowed attribute values (`attribute-allowed-values`)
 
-Validates attributes for allowed values. Use
-[element-required-attributes](/rules/element-required-attributes.html) tog
-validate presence of attributes.
+Validates attributes for allowed values.
+Enumerated string values are matched case insensitive while regular expressions are matched case sensitive unless `/i` is used.
+
+Use [element-required-attributes](/rules/element-required-attributes.html) to validate presence of attributes.
 
 The requirements comes from the [element metadata](/usage/elements.html):
 
-```js
+```json
 {
   "input": {
     "attributes": {
-      "type": ["text", "email", "..."]
+      "type": {
+        "enum": ["text", "email", "..."]
+      }
     }
   }
 }

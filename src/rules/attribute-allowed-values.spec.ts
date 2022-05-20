@@ -69,6 +69,12 @@ describe("rule attribute-allowed-values", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error when attribute value is uppercase", () => {
+		expect.assertions(1);
+		const report = htmlvalidate.validateString('<input type="TEXT">');
+		expect(report).toBeValid();
+	});
+
 	it("should not report error when attribute is dynamic", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateString(
