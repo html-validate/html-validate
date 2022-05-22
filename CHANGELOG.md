@@ -1,5 +1,15 @@
 # html-validate changelog
 
+### [7.1.1](https://gitlab.com/html-validate/html-validate/compare/v7.1.0...v7.1.1) (2022-05-22)
+
+### Bug Fixes
+
+- **rules:** match attribute enum values case insensitive ([36a8ed9](https://gitlab.com/html-validate/html-validate/commit/36a8ed91ccc0767facdb3ec6492e29892688f0ca)), closes [#154](https://gitlab.com/html-validate/html-validate/issues/154)
+
+### Dependency upgrades
+
+- **deps:** update dependency @html-validate/stylish to v3 ([23549e3](https://gitlab.com/html-validate/html-validate/commit/23549e3ee744c869f02a2101ac00b114f2495ff3))
+
 ## [7.1.0](https://gitlab.com/html-validate/html-validate/compare/v7.0.0...v7.1.0) (2022-05-15)
 
 ### Features
