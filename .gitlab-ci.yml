@@ -89,7 +89,7 @@ Jest:
   stage: test
   dependencies: ["NPM"]
   needs: ["NPM"]
-  coverage: /Branches\s+:\s(\d+([\d\.]+%)/
+  coverage: /Branches\s+:\s+([\d\.]+%)/
   artifacts:
     name: ${CI_PROJECT_PATH_SLUG}-${CI_PIPELINE_ID}-coverage
     paths:
