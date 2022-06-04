@@ -220,7 +220,7 @@
     "serve-static": "1.15.0",
     "stringmap": "0.2.2",
     "ts-jest": "28.0.4",
-    "typescript": "4.7.2"
+    "typescript": "4.7.3"
   },
   "peerDependencies": {
     "jest": "^25.1 || ^26 || ^27.1 || ^28",
