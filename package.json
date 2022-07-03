@@ -166,7 +166,7 @@
     "@html-validate/eslint-config-typescript": "5.4.14",
     "@html-validate/eslint-config-typescript-typeinfo": "5.4.1",
     "@html-validate/jest-config": "3.3.3",
-    "@html-validate/prettier-config": "2.2.1",
+    "@html-validate/prettier-config": "2.3.0",
     "@html-validate/release-scripts": "3.5.1",
     "@lodder/grunt-postcss": "3.1.1",
     "@rollup/plugin-json": "4.1.0",
