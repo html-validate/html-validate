@@ -19,10 +19,12 @@ stages:
   - postrelease
 
 secret_detection:
-  needs: ["Build"]
-  dependencies: ["Build"]
+  needs:
+    - Build
+  dependencies:
+    - Build
   variables:
-    SECRET_DETECTION_EXCLUDED_PATHS: "node_modules"
+    SECRET_DETECTION_EXCLUDED_PATHS: node_modules
 
 NPM:
   stage: prepare
@@ -73,22 +75,28 @@ pages:
 
 Changelog:
   stage: test
-  needs: ["NPM"]
-  dependencies: ["NPM"]
+  needs:
+    - NPM
+  dependencies:
+    - NPM
   script:
     - npm exec commitlint -- --from=origin/master --to=${CI_COMMIT_SHA}
 
 ESLint:
   stage: test
-  needs: ["NPM", "Build"]
+  needs:
+    - NPM
+    - Build
   script:
     - npm run codegen
     - npm run eslint -- --max-warnings 0
 
 Jest:
   stage: test
-  dependencies: ["NPM"]
-  needs: ["NPM"]
+  dependencies:
+    - NPM
+  needs:
+    - NPM
   coverage: /Branches\s+:\s+([\d\.]+%)/
   artifacts:
     name: ${CI_PROJECT_PATH_SLUG}-${CI_PIPELINE_ID}-coverage
@@ -105,7 +113,10 @@ Jest:
 
 Prettier:
   stage: test
-  dependencies: ["NPM"]
+  needs:
+    - NPM
+  dependencies:
+    - NPM
   script:
     - npm run prettier:check
 
@@ -139,7 +150,11 @@ Node:
   extends: .compat
   parallel:
     matrix:
-      - VERSION: [14, 16, 17, 18]
+      - VERSION:
+          - 14
+          - 16
+          - 17
+          - 18
   image: node:${VERSION}
 
 Jest compat:
@@ -148,7 +163,11 @@ Jest compat:
   needs: []
   parallel:
     matrix:
-      - MATRIX: [25, 26, 27, 28]
+      - MATRIX:
+          - 25
+          - 26
+          - 27
+          - 28
   before_script:
     - npm ci --no-fund --no-audit --no-update-notifier
     - npm run build
@@ -184,13 +203,17 @@ Jest compat:
 
 Module:
   stage: compatibility
-  dependencies: ["NPM", "Build"]
-  needs: ["NPM", "Build"]
+  dependencies:
+    - NPM
+    - Build
+  needs:
+    - NPM
+    - Build
   parallel:
     matrix:
       - BUILD:
-          - "esm"
-          - "cjs"
+          - esm
+          - cjs
   script:
     - npm exec tsc -- --build tests/integration/${BUILD}
     - node tests/integration/${BUILD}
