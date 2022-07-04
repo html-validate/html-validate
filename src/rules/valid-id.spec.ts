@@ -141,7 +141,7 @@ describe("rule valid-id", () => {
 				"error: element id must only contain alphanumerical, dash and underscore characters (valid-id) at inline:1:10:
 				> 1 | <div id="foo!bar"></div>
 				    |          ^^^^^^^
-				Selector: #foo!bar"
+				Selector: #foo\\!bar"
 			`);
 		});
 
