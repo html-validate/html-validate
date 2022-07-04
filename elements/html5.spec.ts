@@ -44,6 +44,10 @@ describe("HTML elements", () => {
 			"wcag/h32": "off",
 			"wcag/h37": "off",
 			"wcag/h67": "off",
+
+			/* svg elements uses a remapping of tagnames (added namespace), this
+			 * ensures this mapping works as inteded */
+			"no-unknown-elements": "error",
 		},
 	});
 
@@ -95,7 +99,8 @@ describe("HTML elements", () => {
 	});
 
 	for (const tagName of tagNames) {
-		const filename = (variant: string): string => `${fileDirectory}/${tagName}-${variant}.html`;
+		const slug = tagName.replace(":", "_");
+		const filename = (variant: string): string => `${fileDirectory}/${slug}-${variant}.html`;
 
 		describe(`<${tagName}>`, () => {
 			it("valid markup", () => {
