@@ -12987,6 +12987,14 @@ exports[`HTML elements <sup> invalid markup 1`] = `
 
 exports[`HTML elements <sup> valid markup 1`] = `[]`;
 
+exports[`HTML elements <svg:desc> invalid markup 1`] = `[]`;
+
+exports[`HTML elements <svg:desc> valid markup 1`] = `[]`;
+
+exports[`HTML elements <svg:title> invalid markup 1`] = `[]`;
+
+exports[`HTML elements <svg:title> valid markup 1`] = `[]`;
+
 exports[`HTML elements <svg> invalid markup 1`] = `
 [
   {

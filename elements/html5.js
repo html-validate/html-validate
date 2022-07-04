@@ -1516,6 +1516,12 @@ module.exports = {
 		embedded: true,
 	},
 
+	/* while not part of HTML 5 specification these two elements are handled as
+	 * special cases to allow them as accessible text and to avoid issues with
+	 * "no-unknown-elements" they are added here */
+	"svg:desc": {},
+	"svg:title": {},
+
 	table: {
 		flow: true,
 		permittedContent: ["@script", "caption?", "colgroup", "tbody", "tfoot?", "thead?", "tr"],
