@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## [7.1.2](https://gitlab.com/html-validate/html-validate/compare/v7.1.1...v7.1.2) (2022-07-05)
+
+### Bug Fixes
+
+- add missing metadata for SVG `<title>` and `<desc>` elements ([78ec55f](https://gitlab.com/html-validate/html-validate/commit/78ec55f454b863715383df4042a08dbd5aafce66)), closes [#157](https://gitlab.com/html-validate/html-validate/issues/157)
+- escape additional characters in CSS selectors ([774ba95](https://gitlab.com/html-validate/html-validate/commit/774ba95cafd8e2df471fd15e78ddb7487bf497f1)), closes [#158](https://gitlab.com/html-validate/html-validate/issues/158)
+
 ### [7.1.1](https://gitlab.com/html-validate/html-validate/compare/v7.1.0...v7.1.1) (2022-05-22)
 
 ### Bug Fixes
