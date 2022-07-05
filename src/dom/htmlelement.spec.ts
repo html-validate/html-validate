@@ -579,6 +579,19 @@ describe("HtmlElement", () => {
 			expect(el.generateSelector()).toBe('[id="123"] > p');
 		});
 
+		it("should escape special characters", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml(`
+				<div>
+					<div id="foo+b[a]r/baz">
+						<p></p>
+					</div>
+				</div>
+			`);
+			const el = document.querySelector("p");
+			expect(el.generateSelector()).toBe("#foo\\+b\\[a\\]r\\/baz > p");
+		});
+
 		it("should normalize tagnames", () => {
 			expect.assertions(1);
 			const document = parser.parseHtml(`<dIV></DIv>`);

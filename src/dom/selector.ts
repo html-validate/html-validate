@@ -15,7 +15,7 @@ function stripslashes(value: string): string {
 }
 
 export function escapeSelectorComponent(text: string | DynamicValue): string {
-	return text.toString().replace(/([:[\] ])/g, "\\$1");
+	return text.toString().replace(/([^a-z0-9_-])/gi, "\\$1");
 }
 
 abstract class Matcher {
