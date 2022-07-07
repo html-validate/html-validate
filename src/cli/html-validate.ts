@@ -6,6 +6,7 @@ import { TokenDump, SchemaValidationError, UserError, Report, Reporter, Result }
 import { name, version, bugs as pkgBugs } from "../generated/package";
 import { eventFormatter } from "./json";
 import { CLI } from "./cli";
+import { Mode, modeToFlag } from "./mode";
 
 interface ParsedArgs {
 	config?: string;
@@ -23,16 +24,6 @@ interface ParsedArgs {
 	stdin: boolean;
 	"stdin-filename"?: string;
 	version: boolean;
-}
-
-enum Mode {
-	LINT,
-	INIT,
-	DUMP_EVENTS,
-	DUMP_TOKENS,
-	DUMP_TREE,
-	DUMP_SOURCE,
-	PRINT_CONFIG,
 }
 
 function getMode(argv: { [key: string]: any }): Mode {
@@ -61,27 +52,6 @@ function getMode(argv: { [key: string]: any }): Mode {
 	}
 
 	return Mode.LINT;
-}
-
-function modeToFlag(mode: Mode.LINT): null;
-function modeToFlag(mode: Exclude<Mode, Mode.LINT>): string;
-function modeToFlag(mode: Mode): string | null {
-	switch (mode) {
-		case Mode.LINT:
-			return null;
-		case Mode.INIT:
-			return "--init";
-		case Mode.DUMP_EVENTS:
-			return "--dump-events";
-		case Mode.DUMP_TOKENS:
-			return "--dump-tokens";
-		case Mode.DUMP_TREE:
-			return "--dump-tokens";
-		case Mode.DUMP_SOURCE:
-			return "--dump-source";
-		case Mode.PRINT_CONFIG:
-			return "--print-config";
-	}
 }
 
 function requiresFilename(mode: Mode): boolean {
