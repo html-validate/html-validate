@@ -17,6 +17,7 @@ HTML-validate was created by David Sveningsson in early 2016 with a few goals in
 ## Talks
 
 - [HTML5 validation with HTML-validate](https://video.fosdem.org/2021/D.javascript/html5_validation.webm) at FOSDEM 2021
+- [Accessibility testing with HTML-Validate](https://fosdem.org/2022/schedule/event/accessibility_testing_with_html_validate/) at FOSDEM 2022
 
 ## Contact
 
