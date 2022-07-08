@@ -1,3 +1,6 @@
+/**
+ * @param {Map<string, unknown>} validateMap
+ */
 module.exports = function generateInlineValidationsProcessor(log, validateMap) {
 	return {
 		$runAfter: ["generateValidationResultsProcessor"],

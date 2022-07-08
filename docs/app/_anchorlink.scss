@@ -1,12 +1,12 @@
 .anchorlink {
-	@extend .fa;
-	@extend .fa-link;
+	@include fa-icon-solid($fa-var-link);
 
 	display: none;
 	font-size: 0.9em;
 
 	&:hover {
 		color: $link-color;
+		display: inline-block;
 		text-decoration: none;
 	}
 }

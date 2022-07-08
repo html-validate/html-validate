@@ -1,9 +1,12 @@
-$fa-font-path: "fonts";
 $icon-font-path: "fonts/";
 
 @use "sass:math";
 
-@import "font-awesome";
+// Font Awesome
+$fa-font-path: "fonts";
+@import "fontawesome";
+@import "solid";
+
 @import "bootstrap";
 @import "github";
 

@@ -7,6 +7,9 @@ const formatterOptions = {
 	showLink: false,
 };
 
+/**
+ * @param {Map<string, unknown>} validateMap
+ */
 module.exports = function generateValidationResultsProcessor(log, validateMap) {
 	return {
 		name: "generateValidationResultsProcessor",
