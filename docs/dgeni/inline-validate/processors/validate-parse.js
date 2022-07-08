@@ -3,6 +3,9 @@ const path = require("path");
 const VALIDATE_REGEX = /<validate([^>]*)>([\S\s]+?)<\/validate>/g;
 const ATTRIBUTE_REGEX = /\s*([^=]+)\s*=\s*(?:(?:"([^"]+)")|(?:'([^']+)'))/g;
 
+/**
+ * @param {Map<string, unknown>} validateMap
+ */
 module.exports = function parseValidatesProcessor(
 	log,
 	validateMap,
@@ -74,6 +77,9 @@ module.exports = function parseValidatesProcessor(
 		return attributes;
 	}
 
+	/**
+	 * @param {Map<string, unknown>} containerMap
+	 */
 	function uniqueName(containerMap, name) {
 		if (containerMap.has(name)) {
 			let index = 1;

@@ -29,8 +29,7 @@
     "marked": "4.0.17",
     "postcss": "8.4.14",
     "sass": "1.53.0",
-    "serve-static": "1.15.0",
-    "stringmap": "0.2.2"
+    "serve-static": "1.15.0"
   },
   "engines": {
     "node": ">= 14.0"

@@ -1,5 +1,8 @@
 const path = require("path");
 
+/**
+ * @param {Map<string, unknown>} validateMap
+ */
 module.exports = function generateValidationsSpecProcessor(log, validateMap) {
 	return {
 		$runAfter: ["generateValidationResultsProcessor"],

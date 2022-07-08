@@ -1,3 +1,6 @@
+/**
+ * @param {Map<string, unknown>} validateMap
+ */
 module.exports = function inlineValidationInlineTagDef(validateMap, createDocMessage) {
 	return {
 		name: "inlineValidation",
