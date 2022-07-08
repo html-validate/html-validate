@@ -1,2 +1,2 @@
-export { EventHandler, EventCallback } from "./eventhandler";
+export { EventHandler, type EventCallback } from "./eventhandler";
 export * from "./event";

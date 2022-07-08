@@ -14,7 +14,7 @@ import { SchemaValidationError } from "./error";
 import { distFolder } from "./resolve";
 import { interpolate } from "./utils/interpolate";
 
-export { SchemaObject } from "ajv";
+export { type SchemaObject } from "ajv";
 
 const remapEvents: Record<string, string> = {
 	"tag:open": "tag:start",

@@ -1,1 +1,1 @@
-export { Plugin, SchemaValidationPatch } from "./plugin";
+export { type Plugin, type SchemaValidationPatch } from "./plugin";

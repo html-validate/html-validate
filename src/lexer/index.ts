@@ -1,4 +1,4 @@
-export { Lexer, TokenStream, InvalidTokenError } from "./lexer";
+export { Lexer, type TokenStream, InvalidTokenError } from "./lexer";
 export { TokenType } from "./token";
 export type {
 	Token,

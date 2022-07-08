@@ -30,7 +30,6 @@ module.exports = {
 			},
 			extends: ["@html-validate/typescript-typeinfo"],
 			rules: {
-				"@typescript-eslint/consistent-type-exports": "off",
 				"@typescript-eslint/consistent-type-imports": "off",
 				"@typescript-eslint/no-unsafe-assignment": "off",
 			},

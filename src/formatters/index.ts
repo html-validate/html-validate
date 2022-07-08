@@ -5,7 +5,7 @@ import stylish from "./stylish";
 import text from "./text";
 import { Formatter } from "./formatter";
 
-export { Formatter } from "./formatter";
+export { type Formatter } from "./formatter";
 
 const availableFormatters: Record<string, Formatter> = {
 	checkstyle,
