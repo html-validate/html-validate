@@ -32,6 +32,7 @@ NPM:
     name: ${CI_PROJECT_PATH_SLUG}-${CI_PIPELINE_ID}-npm
     paths:
       - node_modules/
+      - docs/node_modules/
       - tests/integration/*/node_modules/
     reports:
       dependency_scanning: gl-dependency-scanning.json
@@ -139,6 +140,7 @@ Docs:
   dependencies: []
   needs: []
   before_script:
+    - npm install -g npm@latest
     - npm ci --no-fund --no-audit --no-update-notifier
   script:
     - npm run codegen
