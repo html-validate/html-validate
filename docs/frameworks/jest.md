@@ -34,7 +34,7 @@ expect(elem).toHTMLValidate();
 ```
 
 <div class="alert alert-info">
-	<i class="fa fa-info-circle" aria-hidden="true"></i>
+	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
 	<strong>Note</strong>
 	<p>The {@link void-style} rule is disabled by default since jsdom normalizes the style. It can be enabled by passing a custom configuration reenabling it.</p>
 </div>

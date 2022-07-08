@@ -38,6 +38,6 @@ Examples of **correct** code for this rule:
 
   <!-- text from aria-label -->
   <button type="button" aria-label="Add item">
-    <i class="fa fa-plus" aria-hidden="true"></i>
+    <i class="fa-solid fa-plus" aria-hidden="true"></i>
   </button>
 </validate>

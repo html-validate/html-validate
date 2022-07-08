@@ -51,11 +51,11 @@ We can also specify regular expressions by surrounding the string with `/` (reme
 </validate>
 
 <div class="alert alert-info">
-	<i class="fa fa-info-circle" aria-hidden="true"></i>
+	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
 	<strong>Tips</strong>
-	<ul>
-		<li>Regular expressions and enumeration can be used at the same time.</li>
-	</ul>
+	<p>
+		Regular expressions and enumeration can be used at the same time.
+	</p>
 </div>
 
 To force a boolean value similar to `disabled`, `selected` etc instead set the `boolean` property to `true`.

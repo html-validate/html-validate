@@ -8,7 +8,7 @@ title: Running in a browser
 While primarly developed as a NodeJS CLI/backend tool it is possible to run `html-validate` in a browser as well.
 
 <div class="alert alert-info">
-	<i class="fa fa-info-circle" aria-hidden="true"></i>
+	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
 	<strong>Note</strong>
 	<p>While it is possible to get <code>html-validate</code> running in a browser it is currently not supported and requires a few workarounds.</p>
 </div>

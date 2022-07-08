@@ -96,7 +96,7 @@ This happens because we have not yet told the validator what kind of element it 
 Most properties default to `false` or `[]`.
 
 <div class="alert alert-info">
-	<i class="fa fa-info-circle" aria-hidden="true"></i>
+	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
 	<strong>Tips</strong>
 	<p>Use {@link rules/no-unknown-elements <code>no-unknown-elements</code>} rule to find elements you have not yet provided metadata for.</p>
 </div>
@@ -156,7 +156,7 @@ Some elements might want only one or the other and some want both.
 Most of the time a phrasing elements belongs to both the flow and phrasing categories but the opposite is not true.
 
 <div class="alert alert-info">
-	<i class="fa fa-info-circle" aria-hidden="true"></i>
+	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
 	<strong>Rule of thumb</strong>
 	<ul>
 		<li>If the component is meant to be used where a <code>&lt;span&gt;</code> would go set both <code>flow</code> and <code>phrasing</code> to <code>true</code>.</li>

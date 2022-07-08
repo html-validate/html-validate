@@ -55,7 +55,7 @@ The list can also be turned to a blacklist by using the `exclude` keyword:
 </validate>
 
 <div class="alert alert-info">
-	<i class="fa fa-info-circle" aria-hidden="true"></i>
+	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
 	<strong>Tips</strong>
 	<p><code>exclude</code> is also useful to prevent interactive elements from disallowing other interactive elements by excluding <code>@interactive</code></p>
 </div>
@@ -94,7 +94,7 @@ The most common case is to prevent nesting of the component or limit usage of ce
 </validate>
 
 <div class="alert alert-info">
-	<i class="fa fa-info-circle" aria-hidden="true"></i>
+	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
 	<strong>Rule of thumb</strong>
 	<ul>
 		<li>Use <code>permittedContent</code> to limit the elements you want to allow as content.</li>

@@ -32,7 +32,7 @@ Thus by inheriting from `<label>` we automatically get the same rules.
 When inheriting you can still override any properties from the inherited element.
 
 <div class="alert alert-info">
-	<i class="fa fa-info-circle" aria-hidden="true"></i>
+	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
 	<strong>Note</strong>
 	<p>
 		Some elements has properties not suitable for inheriting.

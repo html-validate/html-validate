@@ -1,5 +1,14 @@
+const path = require("path");
 const sass = require("sass");
 const serveStatic = require("serve-static");
+
+/**
+ * @param {string} pkgName
+ * @returns {string}
+ */
+function pkgRootDir(pkgName) {
+	return path.dirname(require.resolve(`${pkgName}/package.json`));
+}
 
 module.exports = function (grunt) {
 	require("load-grunt-tasks")(grunt, {
@@ -41,7 +50,7 @@ module.exports = function (grunt) {
 			options: {
 				implementation: sass,
 				includePaths: [
-					"node_modules/font-awesome/scss/",
+					path.join(pkgRootDir("@fortawesome/fontawesome-free"), "scss"),
 					"node_modules/bootstrap-sass/assets/stylesheets/",
 					"node_modules/highlight.js/scss/",
 				],
@@ -65,7 +74,7 @@ module.exports = function (grunt) {
 		copy: {
 			fontawesome: {
 				expand: true,
-				cwd: "node_modules/font-awesome/fonts",
+				cwd: path.join(pkgRootDir("@fortawesome/fontawesome-free"), "webfonts"),
 				src: "*",
 				dest: "public/assets/fonts/",
 			},

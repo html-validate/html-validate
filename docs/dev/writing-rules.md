@@ -111,7 +111,7 @@ class MyRule extends Rule<RuleContext> {
 ```
 
 <div class="alert alert-info">
-	<i class="fa fa-info-circle" aria-hidden="true"></i>
+	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
 	<strong>Note</strong>
 	<p>Even if your rule reports contextual data the API user might not pass it back to the <code>documentation()</code> call so you must always test if the context object was actually passed or not.</p>
 </div>
@@ -171,7 +171,7 @@ class MyRule extends Rule<void, RuleOptions> {
 If the optional `schema()` function is implemented is should return [JSON schema](https://json-schema.org/learn/getting-started-step-by-step.html) for the options interface.
 
 <div class="alert alert-info">
-	<i class="fa fa-info-circle" aria-hidden="true"></i>
+	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
 	<strong>Note</strong>
 	<p>Note the function must be <code>static</code> as it will be called before the instance is created, i.e. no unvalidated options will ever touch the rule implementation.</p>
 </div>
