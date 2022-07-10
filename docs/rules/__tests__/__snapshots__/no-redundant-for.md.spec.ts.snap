@@ -10,7 +10,6 @@ exports[`docs/rules/no-redundant-for.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 8,
-        "context": undefined,
         "line": 1,
         "message": "Redundant "for" attribute",
         "offset": 7,

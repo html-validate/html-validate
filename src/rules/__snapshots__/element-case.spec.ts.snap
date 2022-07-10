@@ -8,7 +8,6 @@ exports[`rule element-case configured with "lowercase" smoketest 1`] = `
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 2,
         "message": "Element "DIV" should be lowercase",
         "offset": 13,
@@ -20,7 +19,6 @@ exports[`rule element-case configured with "lowercase" smoketest 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 3,
         "message": "Element "dIV" should be lowercase",
         "offset": 25,
@@ -48,7 +46,6 @@ exports[`rule element-case configured with "uppercase" smoketest 1`] = `
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 1,
         "message": "Element "div" should be uppercase",
         "offset": 1,
@@ -60,7 +57,6 @@ exports[`rule element-case configured with "uppercase" smoketest 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 3,
         "message": "Element "dIV" should be uppercase",
         "offset": 25,

@@ -15,7 +15,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 4,
         "message": "Use of conditional comments are deprecated",
         "offset": 52,
@@ -27,7 +26,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 53,
-        "context": undefined,
         "line": 4,
         "message": "Use of conditional comments are deprecated",
         "offset": 103,
@@ -39,7 +37,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 5,
         "message": "Use of conditional comments are deprecated",
         "offset": 117,
@@ -51,7 +48,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 56,
-        "context": undefined,
         "line": 5,
         "message": "Use of conditional comments are deprecated",
         "offset": 171,
@@ -63,7 +59,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 7,
         "message": "Use of conditional comments are deprecated",
         "offset": 184,
@@ -75,7 +70,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 54,
-        "context": undefined,
         "line": 7,
         "message": "Use of conditional comments are deprecated",
         "offset": 236,
@@ -87,7 +81,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 8,
         "message": "Use of conditional comments are deprecated",
         "offset": 250,
@@ -99,7 +92,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 54,
-        "context": undefined,
         "line": 8,
         "message": "Use of conditional comments are deprecated",
         "offset": 302,
@@ -111,7 +103,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 10,
         "message": "Use of conditional comments are deprecated",
         "offset": 317,
@@ -123,7 +114,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 57,
-        "context": undefined,
         "line": 10,
         "message": "Use of conditional comments are deprecated",
         "offset": 372,
@@ -135,7 +125,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 11,
         "message": "Use of conditional comments are deprecated",
         "offset": 386,
@@ -147,7 +136,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 58,
-        "context": undefined,
         "line": 11,
         "message": "Use of conditional comments are deprecated",
         "offset": 442,
@@ -159,7 +147,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 12,
         "message": "Use of conditional comments are deprecated",
         "offset": 456,
@@ -171,7 +158,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 70,
-        "context": undefined,
         "line": 12,
         "message": "Use of conditional comments are deprecated",
         "offset": 524,
@@ -183,7 +169,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 13,
         "message": "Use of conditional comments are deprecated",
         "offset": 538,
@@ -195,7 +180,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 77,
-        "context": undefined,
         "line": 13,
         "message": "Use of conditional comments are deprecated",
         "offset": 613,
@@ -207,7 +191,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 15,
         "message": "Use of conditional comments are deprecated",
         "offset": 628,
@@ -219,7 +202,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 58,
-        "context": undefined,
         "line": 15,
         "message": "Use of conditional comments are deprecated",
         "offset": 684,
@@ -231,7 +213,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 16,
         "message": "Use of conditional comments are deprecated",
         "offset": 698,
@@ -243,7 +224,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 58,
-        "context": undefined,
         "line": 16,
         "message": "Use of conditional comments are deprecated",
         "offset": 754,
@@ -255,7 +235,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 18,
         "message": "Use of conditional comments are deprecated",
         "offset": 767,
@@ -267,7 +246,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 16,
-        "context": undefined,
         "line": 18,
         "message": "Use of conditional comments are deprecated",
         "offset": 781,
@@ -279,7 +257,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 76,
-        "context": undefined,
         "line": 18,
         "message": "Use of conditional comments are deprecated",
         "offset": 841,
@@ -291,7 +268,6 @@ exports[`rule no-conditional-comment smoketest 1`] = `
       },
       {
         "column": 86,
-        "context": undefined,
         "line": 18,
         "message": "Use of conditional comments are deprecated",
         "offset": 851,

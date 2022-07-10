@@ -10,7 +10,6 @@ exports[`docs/rules/no-dup-attr.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 18,
-        "context": undefined,
         "line": 1,
         "message": "Attribute "class" duplicated",
         "offset": 17,

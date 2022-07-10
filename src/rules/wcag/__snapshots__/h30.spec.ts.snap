@@ -15,7 +15,6 @@ exports[`wcag/h30 smoketest 1`] = `
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 7,
         "message": "Anchor link must have a text describing its purpose",
         "offset": 128,
@@ -27,7 +26,6 @@ exports[`wcag/h30 smoketest 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 8,
         "message": "Anchor link must have a text describing its purpose",
         "offset": 136,
@@ -39,7 +37,6 @@ exports[`wcag/h30 smoketest 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 9,
         "message": "Anchor link must have a text describing its purpose",
         "offset": 149,
@@ -51,7 +48,6 @@ exports[`wcag/h30 smoketest 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 10,
         "message": "Anchor link must have a text describing its purpose",
         "offset": 166,

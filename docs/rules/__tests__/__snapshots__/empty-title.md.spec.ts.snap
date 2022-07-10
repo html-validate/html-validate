@@ -10,7 +10,6 @@ exports[`docs/rules/empty-title.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 6,
-        "context": undefined,
         "line": 2,
         "message": "<title> cannot be empty, must have text content",
         "offset": 12,
@@ -37,7 +36,6 @@ exports[`docs/rules/empty-title.md inline validation: whitespace 1`] = `
     "messages": [
       {
         "column": 6,
-        "context": undefined,
         "line": 2,
         "message": "<title> cannot be empty, must have text content",
         "offset": 12,

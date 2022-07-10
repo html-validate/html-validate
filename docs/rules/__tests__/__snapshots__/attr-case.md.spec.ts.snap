@@ -10,7 +10,6 @@ exports[`docs/rules/attr-case.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 4,
-        "context": undefined,
         "line": 1,
         "message": "Attribute "ID" should be lowercase",
         "offset": 3,
@@ -35,7 +34,6 @@ exports[`docs/rules/attr-case.md inline validation: multiple 1`] = `
     "messages": [
       {
         "column": 4,
-        "context": undefined,
         "line": 3,
         "message": "Attribute "fooBar" should be lowercase or uppercase",
         "offset": 33,

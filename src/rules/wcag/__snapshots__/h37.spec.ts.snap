@@ -15,7 +15,6 @@ exports[`rule h37 with alias (array) smoketest 1`] = `
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 4,
         "message": "<img> is missing required "alt" attribute",
         "offset": 55,
@@ -49,7 +48,6 @@ exports[`rule h37 with alias smoketest 1`] = `
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 4,
         "message": "<img> is missing required "alt" attribute",
         "offset": 55,
@@ -83,7 +81,6 @@ exports[`rule h37 with allowEmpty false smoketest 1`] = `
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 2,
         "message": "<img> is missing required "alt" attribute",
         "offset": 16,
@@ -95,7 +92,6 @@ exports[`rule h37 with allowEmpty false smoketest 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 3,
         "message": "<img> is missing required "alt" attribute",
         "offset": 29,
@@ -107,7 +103,6 @@ exports[`rule h37 with allowEmpty false smoketest 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 4,
         "message": "<img> is missing required "alt" attribute",
         "offset": 55,
@@ -141,7 +136,6 @@ exports[`rule h37 with default options smoketest 1`] = `
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 3,
         "message": "<img> is missing required "alt" attribute",
         "offset": 29,
@@ -153,7 +147,6 @@ exports[`rule h37 with default options smoketest 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 4,
         "message": "<img> is missing required "alt" attribute",
         "offset": 55,

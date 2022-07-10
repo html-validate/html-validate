@@ -15,7 +15,6 @@ exports[`rule no-deprecated-attr smoketest 1`] = `
     "messages": [
       {
         "column": 7,
-        "context": undefined,
         "line": 2,
         "message": "Attribute "bgcolor" is deprecated on <body> element",
         "offset": 20,
@@ -27,7 +26,6 @@ exports[`rule no-deprecated-attr smoketest 1`] = `
       },
       {
         "column": 7,
-        "context": undefined,
         "line": 3,
         "message": "Attribute "BGCOLOR" is deprecated on <body> element",
         "offset": 48,
@@ -39,7 +37,6 @@ exports[`rule no-deprecated-attr smoketest 1`] = `
       },
       {
         "column": 7,
-        "context": undefined,
         "line": 4,
         "message": "Attribute "bgColor" is deprecated on <body> element",
         "offset": 76,
@@ -51,7 +48,6 @@ exports[`rule no-deprecated-attr smoketest 1`] = `
       },
       {
         "column": 6,
-        "context": undefined,
         "line": 7,
         "message": "Attribute "background" is deprecated on <tr> element",
         "offset": 125,
@@ -63,7 +59,6 @@ exports[`rule no-deprecated-attr smoketest 1`] = `
       },
       {
         "column": 7,
-        "context": undefined,
         "line": 8,
         "message": "Attribute "align" is deprecated on <td> element",
         "offset": 150,

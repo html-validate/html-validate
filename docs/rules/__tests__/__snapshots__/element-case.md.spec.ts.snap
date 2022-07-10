@@ -10,7 +10,6 @@ exports[`docs/rules/element-case.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 1,
         "message": "Element "DIV" should be lowercase",
         "offset": 1,
@@ -35,7 +34,6 @@ exports[`docs/rules/element-case.md inline validation: matching 1`] = `
     "messages": [
       {
         "column": 13,
-        "context": undefined,
         "line": 1,
         "message": "Start and end tag must not differ in casing",
         "offset": 12,
@@ -60,7 +58,6 @@ exports[`docs/rules/element-case.md inline validation: multiple 1`] = `
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 3,
         "message": "Element "fooBar" should be lowercase or PascalCase",
         "offset": 39,

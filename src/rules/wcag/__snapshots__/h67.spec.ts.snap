@@ -15,7 +15,6 @@ exports[`wcag/h67 smoketest 1`] = `
     "messages": [
       {
         "column": 6,
-        "context": undefined,
         "line": 5,
         "message": "<img> with empty alt text cannot have title attribute",
         "offset": 70,
@@ -27,7 +26,6 @@ exports[`wcag/h67 smoketest 1`] = `
       },
       {
         "column": 13,
-        "context": undefined,
         "line": 6,
         "message": "<img> with empty alt text cannot have title attribute",
         "offset": 95,

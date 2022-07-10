@@ -8,7 +8,6 @@ exports[`docs/guide/metadata/restrict-content.md inline validation: descendants 
     "messages": [
       {
         "column": 6,
-        "context": undefined,
         "line": 4,
         "message": "Element <footer> is not permitted as descendant of <my-component>",
         "offset": 63,
@@ -20,7 +19,6 @@ exports[`docs/guide/metadata/restrict-content.md inline validation: descendants 
       },
       {
         "column": 6,
-        "context": undefined,
         "line": 7,
         "message": "Element <my-component> is not permitted as descendant of <my-component>",
         "offset": 137,
@@ -57,7 +55,6 @@ exports[`docs/guide/metadata/restrict-content.md inline validation: exclude 1`] 
     "messages": [
       {
         "column": 4,
-        "context": undefined,
         "line": 4,
         "message": "Element <h1> is not permitted as content in <my-component>",
         "offset": 67,
@@ -86,7 +83,6 @@ exports[`docs/guide/metadata/restrict-content.md inline validation: tags 1`] = `
     "messages": [
       {
         "column": 4,
-        "context": undefined,
         "line": 2,
         "message": "Element <button> is not permitted as content in <my-component>",
         "offset": 18,

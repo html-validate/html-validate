@@ -11,7 +11,6 @@ it("should handle extending js file", () => {
 		[
 		  {
 		    "column": 16,
-		    "context": undefined,
 		    "line": 1,
 		    "message": "Mismatched close-tag, expected '</p>' but found '</i>'.",
 		    "offset": 15,

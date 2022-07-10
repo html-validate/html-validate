@@ -169,7 +169,6 @@ describe("toHTMLValidate()", () => {
 			+ Array [
 			+   Object {
 			+     "column": 5,
-			+     "context": undefined,
 			+     "line": 1,
 			+     "message": "Mismatched close-tag, expected '</u>' but found '</i>'.",
 			+     "offset": 4,

@@ -10,7 +10,6 @@ exports[`docs/rules/multiple-labeled-controls.md inline validation: incorrect-bo
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 1,
         "message": "<label> is associated with multiple controls",
         "offset": 1,
@@ -38,7 +37,6 @@ exports[`docs/rules/multiple-labeled-controls.md inline validation: incorrect-mu
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 1,
         "message": "<label> is associated with multiple controls",
         "offset": 1,

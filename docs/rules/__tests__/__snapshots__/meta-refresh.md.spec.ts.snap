@@ -10,7 +10,6 @@ exports[`docs/rules/meta-refresh.md inline validation: incorrect-delay 1`] = `
     "messages": [
       {
         "column": 37,
-        "context": undefined,
         "line": 1,
         "message": "Meta refresh must use 0 second delay",
         "offset": 36,
@@ -35,7 +34,6 @@ exports[`docs/rules/meta-refresh.md inline validation: incorrect-url 1`] = `
     "messages": [
       {
         "column": 37,
-        "context": undefined,
         "line": 1,
         "message": "Don't use meta refresh to reload the page",
         "offset": 36,

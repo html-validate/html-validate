@@ -139,9 +139,9 @@ export class Reporter {
 		if (!(location.filename in this.result)) {
 			this.result[location.filename] = [];
 		}
-		this.result[location.filename].push({
+		const ruleUrl = rule.documentation(context)?.url;
+		const entry: DeferredMessage = {
 			ruleId: rule.name,
-			ruleUrl: rule.documentation(context)?.url,
 			severity,
 			message,
 			offset: location.offset,
@@ -151,8 +151,14 @@ export class Reporter {
 			selector() {
 				return node ? node.generateSelector() : null;
 			},
-			context,
-		});
+		};
+		if (ruleUrl) {
+			entry.ruleUrl = ruleUrl;
+		}
+		if (context) {
+			entry.context = context;
+		}
+		this.result[location.filename].push(entry);
 	}
 
 	public addManual(filename: string, message: DeferredMessage): void {

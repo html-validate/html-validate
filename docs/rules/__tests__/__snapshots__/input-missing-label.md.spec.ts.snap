@@ -10,7 +10,6 @@ exports[`docs/rules/input-missing-label.md inline validation: hidden 1`] = `
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 2,
         "message": "<input> element has label but <label> element is hidden",
         "offset": 59,
@@ -36,7 +35,6 @@ exports[`docs/rules/input-missing-label.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 6,
-        "context": undefined,
         "line": 4,
         "message": "<input> element does not have a <label>",
         "offset": 74,
@@ -48,7 +46,6 @@ exports[`docs/rules/input-missing-label.md inline validation: incorrect 1`] = `
       },
       {
         "column": 6,
-        "context": undefined,
         "line": 5,
         "message": "<textarea> element does not have a <label>",
         "offset": 98,
@@ -60,7 +57,6 @@ exports[`docs/rules/input-missing-label.md inline validation: incorrect 1`] = `
       },
       {
         "column": 6,
-        "context": undefined,
         "line": 6,
         "message": "<select> element does not have a <label>",
         "offset": 124,
@@ -72,7 +68,6 @@ exports[`docs/rules/input-missing-label.md inline validation: incorrect 1`] = `
       },
       {
         "column": 6,
-        "context": undefined,
         "line": 14,
         "message": "<input> element does not have a <label>",
         "offset": 253,

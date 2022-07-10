@@ -10,7 +10,6 @@ exports[`docs/rules/aria-hidden-body.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 7,
-        "context": undefined,
         "line": 1,
         "message": "aria-hidden must not be used on <body>",
         "offset": 6,

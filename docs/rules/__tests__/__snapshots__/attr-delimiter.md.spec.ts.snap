@@ -10,7 +10,6 @@ exports[`docs/rules/attr-delimiter.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 12,
-        "context": undefined,
         "line": 1,
         "message": "Attribute value must not be delimited by whitespace",
         "offset": 11,
@@ -22,7 +21,6 @@ exports[`docs/rules/attr-delimiter.md inline validation: incorrect 1`] = `
       },
       {
         "column": 12,
-        "context": undefined,
         "line": 2,
         "message": "Attribute value must not be delimited by whitespace",
         "offset": 36,

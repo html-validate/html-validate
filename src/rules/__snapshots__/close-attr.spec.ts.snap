@@ -15,7 +15,6 @@ exports[`rule close-attr smoketest 1`] = `
     "messages": [
       {
         "column": 12,
-        "context": undefined,
         "line": 3,
         "message": "Close tags cannot have attributes",
         "offset": 33,

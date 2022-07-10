@@ -8,7 +8,6 @@ exports[`docs/guide/metadata/inheritance.md inline validation: inheritance 1`] =
     "messages": [
       {
         "column": 4,
-        "context": undefined,
         "line": 5,
         "message": "Element <div> is not permitted as content in <my-component>",
         "offset": 76,

@@ -15,7 +15,6 @@ exports[`rule no-dup-id smoketest 1`] = `
     "messages": [
       {
         "column": 10,
-        "context": undefined,
         "line": 3,
         "message": "Duplicate ID "foo"",
         "offset": 51,

@@ -15,7 +15,6 @@ exports[`rule no-trailing-whitespace smoketest 1`] = `
     "messages": [
       {
         "column": 6,
-        "context": undefined,
         "line": 5,
         "message": "Trailing whitespace",
         "offset": 25,
@@ -27,7 +26,6 @@ exports[`rule no-trailing-whitespace smoketest 1`] = `
       },
       {
         "column": 6,
-        "context": undefined,
         "line": 6,
         "message": "Trailing whitespace",
         "offset": 32,
@@ -39,7 +37,6 @@ exports[`rule no-trailing-whitespace smoketest 1`] = `
       },
       {
         "column": 1,
-        "context": undefined,
         "line": 7,
         "message": "Trailing whitespace",
         "offset": 35,
@@ -51,7 +48,6 @@ exports[`rule no-trailing-whitespace smoketest 1`] = `
       },
       {
         "column": 6,
-        "context": undefined,
         "line": 8,
         "message": "Trailing whitespace",
         "offset": 43,
@@ -63,7 +59,6 @@ exports[`rule no-trailing-whitespace smoketest 1`] = `
       },
       {
         "column": 7,
-        "context": undefined,
         "line": 12,
         "message": "Trailing whitespace",
         "offset": 66,
@@ -75,7 +70,6 @@ exports[`rule no-trailing-whitespace smoketest 1`] = `
       },
       {
         "column": 1,
-        "context": undefined,
         "line": 15,
         "message": "Trailing whitespace",
         "offset": 76,

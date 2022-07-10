@@ -8,7 +8,6 @@ exports[`docs/guide/metadata/restrict-attributes.md inline validation: boolean 1
     "messages": [
       {
         "column": 15,
-        "context": undefined,
         "line": 2,
         "message": "Attribute "quacks" should omit value",
         "offset": 54,
@@ -53,7 +52,6 @@ exports[`docs/guide/metadata/restrict-attributes.md inline validation: deprecate
     "messages": [
       {
         "column": 15,
-        "context": undefined,
         "line": 1,
         "message": "Attribute "duck" is deprecated on <my-component> element",
         "offset": 14,

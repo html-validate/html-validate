@@ -8,7 +8,6 @@ exports[`docs/index.md inline validation: frontpage-a17y 1`] = `
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 1,
         "message": "<img> is missing required "alt" attribute",
         "offset": 1,
@@ -35,7 +34,6 @@ exports[`docs/index.md inline validation: frontpage-a17y 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 6,
         "message": "<input> element does not have a <label>",
         "offset": 130,
@@ -66,7 +64,6 @@ exports[`docs/index.md inline validation: frontpage-components 1`] = `
     "messages": [
       {
         "column": 4,
-        "context": undefined,
         "line": 2,
         "message": "Element <my-block> is not permitted as content in <my-inline>",
         "offset": 15,
@@ -108,7 +105,6 @@ exports[`docs/index.md inline validation: frontpage-contentmodel 1`] = `
     "messages": [
       {
         "column": 6,
-        "context": undefined,
         "line": 4,
         "message": "Element <legend> must be used before <p> in this context",
         "offset": 65,
@@ -120,7 +116,6 @@ exports[`docs/index.md inline validation: frontpage-contentmodel 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 7,
         "message": "Element <main> is not permitted as descendant of <footer>",
         "offset": 127,

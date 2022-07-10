@@ -14,7 +14,6 @@ exports[`docs/rules/wcag/h37.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 1,
         "message": "<img> is missing required "alt" attribute",
         "offset": 1,

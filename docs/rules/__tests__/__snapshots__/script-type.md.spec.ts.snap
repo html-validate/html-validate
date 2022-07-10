@@ -10,7 +10,6 @@ exports[`docs/rules/script-type.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 9,
-        "context": undefined,
         "line": 1,
         "message": ""type" attribute is unnecessary for javascript resources",
         "offset": 8,
@@ -22,7 +21,6 @@ exports[`docs/rules/script-type.md inline validation: incorrect 1`] = `
       },
       {
         "column": 9,
-        "context": undefined,
         "line": 2,
         "message": ""type" attribute is unnecessary for javascript resources",
         "offset": 34,
@@ -34,7 +32,6 @@ exports[`docs/rules/script-type.md inline validation: incorrect 1`] = `
       },
       {
         "column": 9,
-        "context": undefined,
         "line": 3,
         "message": ""type" attribute is unnecessary for javascript resources",
         "offset": 75,

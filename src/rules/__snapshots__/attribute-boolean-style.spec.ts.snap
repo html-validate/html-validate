@@ -8,7 +8,6 @@ exports[`rule attribute-boolean-style configured with "empty" smoketest 1`] = `
     "messages": [
       {
         "column": 8,
-        "context": undefined,
         "line": 1,
         "message": "Attribute "disabled" value should be empty string",
         "offset": 7,
@@ -20,7 +19,6 @@ exports[`rule attribute-boolean-style configured with "empty" smoketest 1`] = `
       },
       {
         "column": 8,
-        "context": undefined,
         "line": 3,
         "message": "Attribute "disabled" value should be empty string",
         "offset": 44,
@@ -32,7 +30,6 @@ exports[`rule attribute-boolean-style configured with "empty" smoketest 1`] = `
       },
       {
         "column": 8,
-        "context": undefined,
         "line": 4,
         "message": "Attribute "disabled" value should be empty string",
         "offset": 72,
@@ -61,7 +58,6 @@ exports[`rule attribute-boolean-style configured with "name" smoketest 1`] = `
     "messages": [
       {
         "column": 8,
-        "context": undefined,
         "line": 1,
         "message": "Attribute "disabled" should be set to disabled="disabled"",
         "offset": 7,
@@ -73,7 +69,6 @@ exports[`rule attribute-boolean-style configured with "name" smoketest 1`] = `
       },
       {
         "column": 8,
-        "context": undefined,
         "line": 2,
         "message": "Attribute "disabled" should be set to disabled="disabled"",
         "offset": 24,
@@ -85,7 +80,6 @@ exports[`rule attribute-boolean-style configured with "name" smoketest 1`] = `
       },
       {
         "column": 8,
-        "context": undefined,
         "line": 3,
         "message": "Attribute "disabled" should be set to disabled="disabled"",
         "offset": 44,
@@ -97,7 +91,6 @@ exports[`rule attribute-boolean-style configured with "name" smoketest 1`] = `
       },
       {
         "column": 8,
-        "context": undefined,
         "line": 4,
         "message": "Attribute "disabled" should be set to disabled="disabled"",
         "offset": 72,
@@ -126,7 +119,6 @@ exports[`rule attribute-boolean-style configured with "omit" smoketest 1`] = `
     "messages": [
       {
         "column": 8,
-        "context": undefined,
         "line": 2,
         "message": "Attribute "disabled" should omit value",
         "offset": 24,
@@ -138,7 +130,6 @@ exports[`rule attribute-boolean-style configured with "omit" smoketest 1`] = `
       },
       {
         "column": 8,
-        "context": undefined,
         "line": 3,
         "message": "Attribute "disabled" should omit value",
         "offset": 44,
@@ -150,7 +141,6 @@ exports[`rule attribute-boolean-style configured with "omit" smoketest 1`] = `
       },
       {
         "column": 8,
-        "context": undefined,
         "line": 4,
         "message": "Attribute "disabled" should omit value",
         "offset": 72,

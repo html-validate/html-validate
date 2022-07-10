@@ -10,7 +10,6 @@ exports[`docs/rules/script-element.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 26,
-        "context": undefined,
         "line": 1,
         "message": "End tag for <script> must not be omitted",
         "offset": 25,

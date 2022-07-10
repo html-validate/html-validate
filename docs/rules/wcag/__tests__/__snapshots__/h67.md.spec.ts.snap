@@ -10,7 +10,6 @@ exports[`docs/rules/wcag/h67.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 6,
-        "context": undefined,
         "line": 1,
         "message": "<img> with empty alt text cannot have title attribute",
         "offset": 5,

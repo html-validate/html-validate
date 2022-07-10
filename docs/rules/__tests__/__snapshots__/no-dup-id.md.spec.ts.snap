@@ -10,7 +10,6 @@ exports[`docs/rules/no-dup-id.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 10,
-        "context": undefined,
         "line": 2,
         "message": "Duplicate ID "foo"",
         "offset": 30,

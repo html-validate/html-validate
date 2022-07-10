@@ -10,7 +10,6 @@ exports[`docs/rules/require-sri.md inline validation: crossorigin 1`] = `
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 5,
         "message": "SRI "integrity" attribute is required on <link> element",
         "offset": 85,
@@ -39,7 +38,6 @@ exports[`docs/rules/require-sri.md inline validation: exclude-option 1`] = `
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 4,
         "message": "SRI "integrity" attribute is required on <link> element",
         "offset": 142,
@@ -67,7 +65,6 @@ exports[`docs/rules/require-sri.md inline validation: include-option 1`] = `
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 2,
         "message": "SRI "integrity" attribute is required on <link> element",
         "offset": 49,
@@ -95,7 +92,6 @@ exports[`docs/rules/require-sri.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 1,
         "message": "SRI "integrity" attribute is required on <script> element",
         "offset": 1,

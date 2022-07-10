@@ -15,7 +15,6 @@ exports[`rule empty-heading smoketest 1`] = `
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 2,
         "message": "<h2> cannot be empty, must have text content",
         "offset": 22,
@@ -27,7 +26,6 @@ exports[`rule empty-heading smoketest 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 3,
         "message": "<h3> cannot be empty, must have text content",
         "offset": 32,

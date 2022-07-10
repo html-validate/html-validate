@@ -10,7 +10,6 @@ exports[`docs/rules/prefer-tbody.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 2,
         "message": "Prefer to wrap <tr> elements in <tbody>",
         "offset": 10,

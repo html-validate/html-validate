@@ -15,7 +15,6 @@ exports[`rule input-missing-label smoketest 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 16,
         "message": "<input> element does not have a <label>",
         "offset": 258,
@@ -27,7 +26,6 @@ exports[`rule input-missing-label smoketest 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 17,
         "message": "<select> element does not have a <label>",
         "offset": 268,
@@ -39,7 +37,6 @@ exports[`rule input-missing-label smoketest 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 18,
         "message": "<textarea> element does not have a <label>",
         "offset": 279,

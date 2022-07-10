@@ -267,7 +267,6 @@ exports[`test-files/config/elements/file.html 1`] = `
         },
         {
           "column": 4,
-          "context": undefined,
           "line": 5,
           "message": "Element <li> is not permitted as content in <ul>",
           "offset": 67,
@@ -305,7 +304,6 @@ exports[`test-files/config/extend-order/foo.html 1`] = `
       "messages": [
         {
           "column": 3,
-          "context": undefined,
           "line": 3,
           "message": "Element <a> is not permitted as content in <div>",
           "offset": 94,
@@ -344,7 +342,6 @@ exports[`test-files/config/extend-order/nested/foo.html 1`] = `
       "messages": [
         {
           "column": 3,
-          "context": undefined,
           "line": 3,
           "message": "Element <a> is not permitted as content in <div>",
           "offset": 70,
@@ -356,7 +353,6 @@ exports[`test-files/config/extend-order/nested/foo.html 1`] = `
         },
         {
           "column": 3,
-          "context": undefined,
           "line": 4,
           "message": "Element <b> is not permitted as content in <div>",
           "offset": 81,

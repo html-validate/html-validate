@@ -15,7 +15,6 @@ exports[`wcag/h32 smoketest 1`] = `
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 9,
         "message": "<form> element must have a submit button",
         "offset": 110,

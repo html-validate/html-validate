@@ -4,7 +4,6 @@ exports[`cli-default-config/test.html 1`] = `
 [
   {
     "column": 8,
-    "context": undefined,
     "line": 1,
     "message": "Mismatched close-tag, expected '</p>' but found '</i>'.",
     "offset": 7,
@@ -21,7 +20,6 @@ exports[`cli-explicit-extend/test.html 1`] = `
 [
   {
     "column": 8,
-    "context": undefined,
     "line": 1,
     "message": "Mismatched close-tag, expected '</p>' but found '</i>'.",
     "offset": 7,

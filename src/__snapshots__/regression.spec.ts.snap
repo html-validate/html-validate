@@ -18,7 +18,6 @@ exports[`regression tests test-files/issues/issue51-cond-comment.html 1`] = `
     "messages": [
       {
         "column": 1,
-        "context": undefined,
         "line": 2,
         "message": "Use of conditional comments are deprecated",
         "offset": 16,
@@ -30,7 +29,6 @@ exports[`regression tests test-files/issues/issue51-cond-comment.html 1`] = `
       },
       {
         "column": 60,
-        "context": undefined,
         "line": 2,
         "message": "Use of conditional comments are deprecated",
         "offset": 75,
@@ -42,7 +40,6 @@ exports[`regression tests test-files/issues/issue51-cond-comment.html 1`] = `
       },
       {
         "column": 1,
-        "context": undefined,
         "line": 3,
         "message": "Use of conditional comments are deprecated",
         "offset": 88,
@@ -54,7 +51,6 @@ exports[`regression tests test-files/issues/issue51-cond-comment.html 1`] = `
       },
       {
         "column": 60,
-        "context": undefined,
         "line": 3,
         "message": "Use of conditional comments are deprecated",
         "offset": 147,
@@ -66,7 +62,6 @@ exports[`regression tests test-files/issues/issue51-cond-comment.html 1`] = `
       },
       {
         "column": 1,
-        "context": undefined,
         "line": 4,
         "message": "Use of conditional comments are deprecated",
         "offset": 160,
@@ -78,7 +73,6 @@ exports[`regression tests test-files/issues/issue51-cond-comment.html 1`] = `
       },
       {
         "column": 60,
-        "context": undefined,
         "line": 4,
         "message": "Use of conditional comments are deprecated",
         "offset": 219,
@@ -90,7 +84,6 @@ exports[`regression tests test-files/issues/issue51-cond-comment.html 1`] = `
       },
       {
         "column": 1,
-        "context": undefined,
         "line": 5,
         "message": "Use of conditional comments are deprecated",
         "offset": 232,
@@ -102,7 +95,6 @@ exports[`regression tests test-files/issues/issue51-cond-comment.html 1`] = `
       },
       {
         "column": 5,
-        "context": undefined,
         "line": 7,
         "message": "Use of conditional comments are deprecated",
         "offset": 290,

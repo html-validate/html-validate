@@ -8,7 +8,6 @@ exports[`rule no-raw-characters default options smoketest 1`] = `
     "messages": [
       {
         "column": 9,
-        "context": undefined,
         "line": 2,
         "message": "Raw "&" must be encoded as "&amp;"",
         "offset": 39,
@@ -20,7 +19,6 @@ exports[`rule no-raw-characters default options smoketest 1`] = `
       },
       {
         "column": 9,
-        "context": undefined,
         "line": 3,
         "message": "Raw ">" must be encoded as "&gt;"",
         "offset": 60,
@@ -32,7 +30,6 @@ exports[`rule no-raw-characters default options smoketest 1`] = `
       },
       {
         "column": 9,
-        "context": undefined,
         "line": 4,
         "message": "Raw "<" must be encoded as "&lt;"",
         "offset": 81,
@@ -44,7 +41,6 @@ exports[`rule no-raw-characters default options smoketest 1`] = `
       },
       {
         "column": 13,
-        "context": undefined,
         "line": 5,
         "message": "Raw "'" must be encoded as "&apos;"",
         "offset": 106,
@@ -56,7 +52,6 @@ exports[`rule no-raw-characters default options smoketest 1`] = `
       },
       {
         "column": 13,
-        "context": undefined,
         "line": 6,
         "message": "Raw """ must be encoded as "&quot;"",
         "offset": 126,
@@ -68,7 +63,6 @@ exports[`rule no-raw-characters default options smoketest 1`] = `
       },
       {
         "column": 13,
-        "context": undefined,
         "line": 7,
         "message": "Raw "\`" must be encoded as "&grave;"",
         "offset": 146,
@@ -80,7 +74,6 @@ exports[`rule no-raw-characters default options smoketest 1`] = `
       },
       {
         "column": 13,
-        "context": undefined,
         "line": 8,
         "message": "Raw "&" must be encoded as "&amp;"",
         "offset": 166,
@@ -92,7 +85,6 @@ exports[`rule no-raw-characters default options smoketest 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 19,
         "message": "Raw "&" must be encoded as "&amp;"",
         "offset": 368,
@@ -104,7 +96,6 @@ exports[`rule no-raw-characters default options smoketest 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 20,
         "message": "Raw "&" must be encoded as "&amp;"",
         "offset": 371,
@@ -116,7 +107,6 @@ exports[`rule no-raw-characters default options smoketest 1`] = `
       },
       {
         "column": 10,
-        "context": undefined,
         "line": 23,
         "message": "Raw "&" must be encoded as "&amp;"",
         "offset": 397,
@@ -128,7 +118,6 @@ exports[`rule no-raw-characters default options smoketest 1`] = `
       },
       {
         "column": 10,
-        "context": undefined,
         "line": 24,
         "message": "Raw "&" must be encoded as "&amp;"",
         "offset": 416,
@@ -179,7 +168,6 @@ exports[`rule no-raw-characters relaxed smoketest 1`] = `
     "messages": [
       {
         "column": 9,
-        "context": undefined,
         "line": 3,
         "message": "Raw ">" must be encoded as "&gt;"",
         "offset": 60,
@@ -191,7 +179,6 @@ exports[`rule no-raw-characters relaxed smoketest 1`] = `
       },
       {
         "column": 9,
-        "context": undefined,
         "line": 4,
         "message": "Raw "<" must be encoded as "&lt;"",
         "offset": 81,
@@ -203,7 +190,6 @@ exports[`rule no-raw-characters relaxed smoketest 1`] = `
       },
       {
         "column": 13,
-        "context": undefined,
         "line": 5,
         "message": "Raw "'" must be encoded as "&apos;"",
         "offset": 106,
@@ -215,7 +201,6 @@ exports[`rule no-raw-characters relaxed smoketest 1`] = `
       },
       {
         "column": 13,
-        "context": undefined,
         "line": 6,
         "message": "Raw """ must be encoded as "&quot;"",
         "offset": 126,
@@ -227,7 +212,6 @@ exports[`rule no-raw-characters relaxed smoketest 1`] = `
       },
       {
         "column": 13,
-        "context": undefined,
         "line": 7,
         "message": "Raw "\`" must be encoded as "&grave;"",
         "offset": 146,

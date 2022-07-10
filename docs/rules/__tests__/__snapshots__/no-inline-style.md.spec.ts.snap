@@ -12,7 +12,6 @@ exports[`docs/rules/no-inline-style.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 4,
-        "context": undefined,
         "line": 1,
         "message": "Inline style is not allowed",
         "offset": 3,

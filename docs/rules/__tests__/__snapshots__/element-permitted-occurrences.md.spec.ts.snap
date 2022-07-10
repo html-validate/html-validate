@@ -10,7 +10,6 @@ exports[`docs/rules/element-permitted-occurrences.md inline validation: incorrec
     "messages": [
       {
         "column": 6,
-        "context": undefined,
         "line": 4,
         "message": "Element <tfoot> can only appear once under <table>",
         "offset": 77,

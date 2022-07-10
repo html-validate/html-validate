@@ -8,7 +8,6 @@ exports[`HTML elements <a> invalid markup 1`] = `
     "messages": [
       {
         "column": 11,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <span>",
         "offset": 41,
@@ -20,7 +19,6 @@ exports[`HTML elements <a> invalid markup 1`] = `
       },
       {
         "column": 5,
-        "context": undefined,
         "line": 5,
         "message": "Element <button> is not permitted as descendant of <a>",
         "offset": 133,
@@ -32,7 +30,6 @@ exports[`HTML elements <a> invalid markup 1`] = `
       },
       {
         "column": 11,
-        "context": undefined,
         "line": 6,
         "message": "Element <button> is not permitted as descendant of <a>",
         "offset": 181,
@@ -44,7 +41,6 @@ exports[`HTML elements <a> invalid markup 1`] = `
       },
       {
         "column": 11,
-        "context": undefined,
         "line": 9,
         "message": "Element <a> is not permitted as descendant of <a>",
         "offset": 271,
@@ -104,7 +100,6 @@ exports[`HTML elements <abbr> invalid markup 1`] = `
     "messages": [
       {
         "column": 8,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <abbr>",
         "offset": 46,
@@ -167,7 +162,6 @@ exports[`HTML elements <address> invalid markup 1`] = `
     "messages": [
       {
         "column": 11,
-        "context": undefined,
         "line": 2,
         "message": "Element <h1> is not permitted as descendant of <address>",
         "offset": 55,
@@ -179,7 +173,6 @@ exports[`HTML elements <address> invalid markup 1`] = `
       },
       {
         "column": 16,
-        "context": undefined,
         "line": 5,
         "message": "Element <article> is not permitted as descendant of <address>",
         "offset": 146,
@@ -191,7 +184,6 @@ exports[`HTML elements <address> invalid markup 1`] = `
       },
       {
         "column": 16,
-        "context": undefined,
         "line": 8,
         "message": "Element <header> is not permitted as descendant of <address>",
         "offset": 259,
@@ -203,7 +195,6 @@ exports[`HTML elements <address> invalid markup 1`] = `
       },
       {
         "column": 16,
-        "context": undefined,
         "line": 9,
         "message": "Element <footer> is not permitted as descendant of <address>",
         "offset": 310,
@@ -215,7 +206,6 @@ exports[`HTML elements <address> invalid markup 1`] = `
       },
       {
         "column": 16,
-        "context": undefined,
         "line": 12,
         "message": "Element <address> is not permitted as descendant of <address>",
         "offset": 396,
@@ -389,7 +379,6 @@ exports[`HTML elements <article> invalid markup 1`] = `
     "messages": [
       {
         "column": 4,
-        "context": undefined,
         "line": 4,
         "message": "Element <main> is not permitted as descendant of <article>",
         "offset": 77,
@@ -422,7 +411,6 @@ exports[`HTML elements <aside> invalid markup 1`] = `
     "messages": [
       {
         "column": 4,
-        "context": undefined,
         "line": 4,
         "message": "Element <main> is not permitted as descendant of <aside>",
         "offset": 75,
@@ -455,7 +443,6 @@ exports[`HTML elements <audio> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <audio> is not permitted as descendant of <audio>",
         "offset": 66,
@@ -467,7 +454,6 @@ exports[`HTML elements <audio> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 4,
         "message": "Element <video> is not permitted as descendant of <audio>",
         "offset": 83,
@@ -479,7 +465,6 @@ exports[`HTML elements <audio> invalid markup 1`] = `
       },
       {
         "column": 15,
-        "context": undefined,
         "line": 8,
         "message": "Element <div> is not permitted as content in <span>",
         "offset": 153,
@@ -491,7 +476,6 @@ exports[`HTML elements <audio> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 13,
         "message": "Element <source> must be used before <div> in this context",
         "offset": 259,
@@ -503,7 +487,6 @@ exports[`HTML elements <audio> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 17,
         "message": "Element <track> must be used before <div> in this context",
         "offset": 309,
@@ -515,7 +498,6 @@ exports[`HTML elements <audio> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 23,
         "message": "Element <audio> is not permitted as descendant of <button>",
         "offset": 464,
@@ -593,7 +575,6 @@ exports[`HTML elements <b> invalid markup 1`] = `
     "messages": [
       {
         "column": 5,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <b>",
         "offset": 43,
@@ -622,7 +603,6 @@ exports[`HTML elements <base> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <base> is not permitted as content in <div>",
         "offset": 54,
@@ -702,7 +682,6 @@ exports[`HTML elements <bdi> invalid markup 1`] = `
     "messages": [
       {
         "column": 7,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <bdi>",
         "offset": 45,
@@ -731,7 +710,6 @@ exports[`HTML elements <bdo> invalid markup 1`] = `
     "messages": [
       {
         "column": 7,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <bdo>",
         "offset": 45,
@@ -861,7 +839,6 @@ exports[`HTML elements <blockquote> invalid markup 1`] = `
     "messages": [
       {
         "column": 8,
-        "context": undefined,
         "line": 2,
         "message": "Element <blockquote> is not permitted as content in <span>",
         "offset": 49,
@@ -890,7 +867,6 @@ exports[`HTML elements <body> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <body> is not permitted as content in <div>",
         "offset": 60,
@@ -950,7 +926,6 @@ exports[`HTML elements <button> invalid markup 1`] = `
     "messages": [
       {
         "column": 24,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <button>",
         "offset": 65,
@@ -962,7 +937,6 @@ exports[`HTML elements <button> invalid markup 1`] = `
       },
       {
         "column": 24,
-        "context": undefined,
         "line": 5,
         "message": "Element <a> is not permitted as descendant of <button>",
         "offset": 174,
@@ -974,7 +948,6 @@ exports[`HTML elements <button> invalid markup 1`] = `
       },
       {
         "column": 30,
-        "context": undefined,
         "line": 6,
         "message": "Element <a> is not permitted as descendant of <button>",
         "offset": 222,
@@ -986,7 +959,6 @@ exports[`HTML elements <button> invalid markup 1`] = `
       },
       {
         "column": 30,
-        "context": undefined,
         "line": 9,
         "message": "Element <button> is not permitted as descendant of <button>",
         "offset": 312,
@@ -1101,7 +1073,6 @@ exports[`HTML elements <canvas> invalid markup 1`] = `
     "messages": [
       {
         "column": 16,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <span>",
         "offset": 46,
@@ -1130,7 +1101,6 @@ exports[`HTML elements <caption> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <caption> is not permitted as content in <div>",
         "offset": 50,
@@ -1142,7 +1112,6 @@ exports[`HTML elements <caption> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 9,
         "message": "Element <table> is not permitted as descendant of <caption>",
         "offset": 141,
@@ -1214,7 +1183,6 @@ exports[`HTML elements <cite> invalid markup 1`] = `
     "messages": [
       {
         "column": 8,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <cite>",
         "offset": 46,
@@ -1243,7 +1211,6 @@ exports[`HTML elements <code> invalid markup 1`] = `
     "messages": [
       {
         "column": 8,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <code>",
         "offset": 46,
@@ -1272,7 +1239,6 @@ exports[`HTML elements <col> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <col> is not permitted as content in <div>",
         "offset": 59,
@@ -1420,7 +1386,6 @@ exports[`HTML elements <colgroup> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <colgroup> is not permitted as content in <div>",
         "offset": 66,
@@ -1432,7 +1397,6 @@ exports[`HTML elements <colgroup> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 9,
         "message": "Element <span> is not permitted as content in <colgroup>",
         "offset": 164,
@@ -1444,7 +1408,6 @@ exports[`HTML elements <colgroup> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 16,
         "message": "Element <caption> must be used before <colgroup> in this context",
         "offset": 290,
@@ -1456,7 +1419,6 @@ exports[`HTML elements <colgroup> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 22,
         "message": "Element <colgroup> must be used before <thead> in this context",
         "offset": 400,
@@ -1607,7 +1569,6 @@ exports[`HTML elements <data> invalid markup 1`] = `
     "messages": [
       {
         "column": 8,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <data>",
         "offset": 46,
@@ -1636,7 +1597,6 @@ exports[`HTML elements <datalist> invalid markup 1`] = `
     "messages": [
       {
         "column": 12,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <datalist>",
         "offset": 50,
@@ -1665,7 +1625,6 @@ exports[`HTML elements <dd> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <dd> is not permitted as content in <span>",
         "offset": 58,
@@ -1677,7 +1636,6 @@ exports[`HTML elements <dd> invalid markup 1`] = `
       },
       {
         "column": 5,
-        "context": undefined,
         "line": 10,
         "message": "Element <dd> requires an "dl > dd" ancestor",
         "offset": 180,
@@ -1717,7 +1675,6 @@ exports[`HTML elements <del> invalid markup 1`] = `
     "messages": [
       {
         "column": 13,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <span>",
         "offset": 43,
@@ -1746,7 +1703,6 @@ exports[`HTML elements <details> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 4,
         "message": "Element <summary> must be used before <div> in this context",
         "offset": 62,
@@ -1820,7 +1776,6 @@ exports[`HTML elements <dfn> invalid markup 1`] = `
     "messages": [
       {
         "column": 7,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <dfn>",
         "offset": 45,
@@ -1832,7 +1787,6 @@ exports[`HTML elements <dfn> invalid markup 1`] = `
       },
       {
         "column": 10,
-        "context": undefined,
         "line": 5,
         "message": "Element <dfn> is not permitted as descendant of <dfn>",
         "offset": 109,
@@ -1901,7 +1855,6 @@ exports[`HTML elements <dl> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <main> is not permitted as content in <dl>",
         "offset": 51,
@@ -1913,7 +1866,6 @@ exports[`HTML elements <dl> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 4,
         "message": "Element <span> is not permitted as content in <dl>",
         "offset": 66,
@@ -1945,7 +1897,6 @@ exports[`HTML elements <dt> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <dt> is not permitted as content in <span>",
         "offset": 53,
@@ -1957,7 +1908,6 @@ exports[`HTML elements <dt> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 9,
         "message": "Element <header> is not permitted as descendant of <dt>",
         "offset": 148,
@@ -1969,7 +1919,6 @@ exports[`HTML elements <dt> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 10,
         "message": "Element <footer> is not permitted as descendant of <dt>",
         "offset": 168,
@@ -1981,7 +1930,6 @@ exports[`HTML elements <dt> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 11,
         "message": "Element <article> is not permitted as descendant of <dt>",
         "offset": 188,
@@ -1993,7 +1941,6 @@ exports[`HTML elements <dt> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 12,
         "message": "Element <h1> is not permitted as descendant of <dt>",
         "offset": 210,
@@ -2005,7 +1952,6 @@ exports[`HTML elements <dt> invalid markup 1`] = `
       },
       {
         "column": 5,
-        "context": undefined,
         "line": 20,
         "message": "Element <dt> requires an "dl > dt" ancestor",
         "offset": 345,
@@ -2055,7 +2001,6 @@ exports[`HTML elements <em> invalid markup 1`] = `
     "messages": [
       {
         "column": 6,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <em>",
         "offset": 44,
@@ -2169,7 +2114,6 @@ exports[`HTML elements <fieldset> invalid markup 1`] = `
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 2,
         "message": "<fieldset> must have a <legend> as the first child",
         "offset": 29,
@@ -2181,7 +2125,6 @@ exports[`HTML elements <fieldset> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 8,
         "message": "Element <legend> must be used before <div> in this context",
         "offset": 144,
@@ -2217,7 +2160,6 @@ exports[`HTML elements <figcaption> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <figcaption> is not permitted as content in <div>",
         "offset": 56,
@@ -2248,7 +2190,6 @@ exports[`HTML elements <figure> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 4,
         "message": "Element <figcaption> can only appear once under <figure>",
         "offset": 84,
@@ -2314,7 +2255,6 @@ exports[`HTML elements <footer> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <header> is not permitted as descendant of <footer>",
         "offset": 80,
@@ -2326,7 +2266,6 @@ exports[`HTML elements <footer> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 4,
         "message": "Element <main> is not permitted as descendant of <footer>",
         "offset": 102,
@@ -2338,7 +2277,6 @@ exports[`HTML elements <footer> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 5,
         "message": "Element <footer> is not permitted as descendant of <footer>",
         "offset": 120,
@@ -2371,7 +2309,6 @@ exports[`HTML elements <form> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <form> is not permitted as descendant of <form>",
         "offset": 43,
@@ -2383,7 +2320,6 @@ exports[`HTML elements <form> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 8,
         "message": "Element <custom-form> is not permitted as descendant of <form>",
         "offset": 129,
@@ -2504,7 +2440,6 @@ exports[`HTML elements <h1> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <div> is not permitted as content in <h1>",
         "offset": 46,
@@ -2516,7 +2451,6 @@ exports[`HTML elements <h1> invalid markup 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 7,
         "message": "<h1> cannot be empty, must have text content",
         "offset": 122,
@@ -2528,7 +2462,6 @@ exports[`HTML elements <h1> invalid markup 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 8,
         "message": "<h1> cannot be empty, must have text content",
         "offset": 132,
@@ -2563,7 +2496,6 @@ exports[`HTML elements <h2> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <div> is not permitted as content in <h2>",
         "offset": 46,
@@ -2575,7 +2507,6 @@ exports[`HTML elements <h2> invalid markup 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 7,
         "message": "<h2> cannot be empty, must have text content",
         "offset": 122,
@@ -2587,7 +2518,6 @@ exports[`HTML elements <h2> invalid markup 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 8,
         "message": "<h2> cannot be empty, must have text content",
         "offset": 132,
@@ -2622,7 +2552,6 @@ exports[`HTML elements <h3> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <div> is not permitted as content in <h3>",
         "offset": 46,
@@ -2634,7 +2563,6 @@ exports[`HTML elements <h3> invalid markup 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 7,
         "message": "<h3> cannot be empty, must have text content",
         "offset": 122,
@@ -2646,7 +2574,6 @@ exports[`HTML elements <h3> invalid markup 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 8,
         "message": "<h3> cannot be empty, must have text content",
         "offset": 132,
@@ -2681,7 +2608,6 @@ exports[`HTML elements <h4> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <div> is not permitted as content in <h4>",
         "offset": 46,
@@ -2693,7 +2619,6 @@ exports[`HTML elements <h4> invalid markup 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 7,
         "message": "<h4> cannot be empty, must have text content",
         "offset": 122,
@@ -2705,7 +2630,6 @@ exports[`HTML elements <h4> invalid markup 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 8,
         "message": "<h4> cannot be empty, must have text content",
         "offset": 132,
@@ -2740,7 +2664,6 @@ exports[`HTML elements <h5> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <div> is not permitted as content in <h5>",
         "offset": 46,
@@ -2752,7 +2675,6 @@ exports[`HTML elements <h5> invalid markup 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 7,
         "message": "<h5> cannot be empty, must have text content",
         "offset": 122,
@@ -2764,7 +2686,6 @@ exports[`HTML elements <h5> invalid markup 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 8,
         "message": "<h5> cannot be empty, must have text content",
         "offset": 132,
@@ -2799,7 +2720,6 @@ exports[`HTML elements <h6> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <div> is not permitted as content in <h6>",
         "offset": 46,
@@ -2811,7 +2731,6 @@ exports[`HTML elements <h6> invalid markup 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 7,
         "message": "<h6> cannot be empty, must have text content",
         "offset": 122,
@@ -2823,7 +2742,6 @@ exports[`HTML elements <h6> invalid markup 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 8,
         "message": "<h6> cannot be empty, must have text content",
         "offset": 132,
@@ -2858,7 +2776,6 @@ exports[`HTML elements <head> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <head> is not permitted as content in <div>",
         "offset": 54,
@@ -2885,7 +2802,6 @@ exports[`HTML elements <head> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 19,
         "message": "Element <div> is not permitted as content in <head>",
         "offset": 278,
@@ -2897,7 +2813,6 @@ exports[`HTML elements <head> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 20,
         "message": "Element <span> is not permitted as content in <head>",
         "offset": 292,
@@ -2909,7 +2824,6 @@ exports[`HTML elements <head> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 30,
         "message": "Element <base> can only appear once under <head>",
         "offset": 435,
@@ -2921,7 +2835,6 @@ exports[`HTML elements <head> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 39,
         "message": "Element <title> can only appear once under <head>",
         "offset": 571,
@@ -2990,7 +2903,6 @@ exports[`HTML elements <header> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <header> is not permitted as descendant of <header>",
         "offset": 80,
@@ -3002,7 +2914,6 @@ exports[`HTML elements <header> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 4,
         "message": "Element <main> is not permitted as descendant of <header>",
         "offset": 102,
@@ -3014,7 +2925,6 @@ exports[`HTML elements <header> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 5,
         "message": "Element <footer> is not permitted as descendant of <header>",
         "offset": 120,
@@ -3090,7 +3000,6 @@ exports[`HTML elements <hr> invalid markup 1`] = `
       },
       {
         "column": 8,
-        "context": undefined,
         "line": 5,
         "message": "Element <hr> is not permitted as content in <span>",
         "offset": 98,
@@ -3167,7 +3076,6 @@ exports[`HTML elements <html> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 18,
         "message": "Element <head> can only appear once under <html>",
         "offset": 263,
@@ -3179,7 +3087,6 @@ exports[`HTML elements <html> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 30,
         "message": "Element <body> can only appear once under <html>",
         "offset": 435,
@@ -3191,7 +3098,6 @@ exports[`HTML elements <html> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 36,
         "message": "Element <head> must be used before <body> in this context",
         "offset": 534,
@@ -3257,7 +3163,6 @@ exports[`HTML elements <i> invalid markup 1`] = `
     "messages": [
       {
         "column": 5,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <i>",
         "offset": 43,
@@ -3412,7 +3317,6 @@ exports[`HTML elements <img> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 15,
         "message": "Element <img> is not permitted as descendant of <button>",
         "offset": 284,
@@ -3713,7 +3617,6 @@ exports[`HTML elements <input> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 22,
         "message": "Element <input> is not permitted as descendant of <button>",
         "offset": 603,
@@ -3725,7 +3628,6 @@ exports[`HTML elements <input> invalid markup 1`] = `
       },
       {
         "column": 20,
-        "context": undefined,
         "line": 26,
         "message": "image used as submit button must have alt text",
         "offset": 692,
@@ -10454,7 +10356,6 @@ exports[`HTML elements <ins> invalid markup 1`] = `
     "messages": [
       {
         "column": 13,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <span>",
         "offset": 43,
@@ -10515,7 +10416,6 @@ exports[`HTML elements <kbd> invalid markup 1`] = `
     "messages": [
       {
         "column": 7,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <kbd>",
         "offset": 45,
@@ -10573,7 +10473,6 @@ exports[`HTML elements <label> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <div> is not permitted as content in <label>",
         "offset": 41,
@@ -10585,7 +10484,6 @@ exports[`HTML elements <label> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 8,
         "message": "Element <label> is not permitted as descendant of <label>",
         "offset": 109,
@@ -10597,7 +10495,6 @@ exports[`HTML elements <label> invalid markup 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 12,
         "message": "<label> is associated with multiple controls",
         "offset": 182,
@@ -10609,7 +10506,6 @@ exports[`HTML elements <label> invalid markup 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 16,
         "message": "<label> is associated with multiple controls",
         "offset": 271,
@@ -10621,7 +10517,6 @@ exports[`HTML elements <label> invalid markup 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 20,
         "message": "<label> is associated with multiple controls",
         "offset": 330,
@@ -10633,7 +10528,6 @@ exports[`HTML elements <label> invalid markup 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 24,
         "message": "<label> is associated with multiple controls",
         "offset": 367,
@@ -10645,7 +10539,6 @@ exports[`HTML elements <label> invalid markup 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 28,
         "message": "<label> is associated with multiple controls",
         "offset": 418,
@@ -10657,7 +10550,6 @@ exports[`HTML elements <label> invalid markup 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 32,
         "message": "<label> is associated with multiple controls",
         "offset": 473,
@@ -10669,7 +10561,6 @@ exports[`HTML elements <label> invalid markup 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 36,
         "message": "<label> is associated with multiple controls",
         "offset": 536,
@@ -10681,7 +10572,6 @@ exports[`HTML elements <label> invalid markup 1`] = `
       },
       {
         "column": 2,
-        "context": undefined,
         "line": 40,
         "message": "<label> is associated with multiple controls",
         "offset": 591,
@@ -10751,7 +10641,6 @@ exports[`HTML elements <legend> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <legend> is not permitted as content in <div>",
         "offset": 55,
@@ -10763,7 +10652,6 @@ exports[`HTML elements <legend> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 9,
         "message": "Element <div> is not permitted as content in <legend>",
         "offset": 138,
@@ -10801,7 +10689,6 @@ exports[`HTML elements <li> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <li> is not permitted as content in <div>",
         "offset": 55,
@@ -10988,7 +10875,6 @@ exports[`HTML elements <mark> invalid markup 1`] = `
     "messages": [
       {
         "column": 8,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <mark>",
         "offset": 46,
@@ -11210,7 +11096,6 @@ exports[`HTML elements <menu> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <div> is not permitted as content in <menu>",
         "offset": 49,
@@ -11270,7 +11155,6 @@ exports[`HTML elements <meter> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <div> is not permitted as content in <meter>",
         "offset": 41,
@@ -11282,7 +11166,6 @@ exports[`HTML elements <meter> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 8,
         "message": "Element <meter> is not permitted as descendant of <meter>",
         "offset": 109,
@@ -11352,7 +11235,6 @@ exports[`HTML elements <nav> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <main> is not permitted as descendant of <nav>",
         "offset": 66,
@@ -11513,7 +11395,6 @@ exports[`HTML elements <noscript> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <noscript> is not permitted as descendant of <noscript>",
         "offset": 47,
@@ -11590,7 +11471,6 @@ exports[`HTML elements <object> invalid markup 1`] = `
     "messages": [
       {
         "column": 4,
-        "context": undefined,
         "line": 4,
         "message": "Element <div> is not permitted as content in <span>",
         "offset": 51,
@@ -11623,7 +11503,6 @@ exports[`HTML elements <object> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 14,
         "message": "Element <param> must be used before <div> in this context",
         "offset": 214,
@@ -11635,7 +11514,6 @@ exports[`HTML elements <object> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 20,
         "message": "Element <object> is not permitted as descendant of <button>",
         "offset": 310,
@@ -11683,7 +11561,6 @@ exports[`HTML elements <ol> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <div> is not permitted as content in <ol>",
         "offset": 47,
@@ -11714,7 +11591,6 @@ exports[`HTML elements <optgroup> invalid markup 1`] = `
     "messages": [
       {
         "column": 4,
-        "context": undefined,
         "line": 4,
         "message": "Element <div> is not permitted as content in <optgroup>",
         "offset": 64,
@@ -11747,7 +11623,6 @@ exports[`HTML elements <option> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <option> is not permitted as content in <div>",
         "offset": 59,
@@ -11759,7 +11634,6 @@ exports[`HTML elements <option> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 9,
         "message": "Element <span> is not permitted as content in <option>",
         "offset": 152,
@@ -11771,7 +11645,6 @@ exports[`HTML elements <option> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 10,
         "message": "Element <div> is not permitted as content in <option>",
         "offset": 171,
@@ -11810,7 +11683,6 @@ exports[`HTML elements <output> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <div> is not permitted as content in <output>",
         "offset": 42,
@@ -11841,7 +11713,6 @@ exports[`HTML elements <p> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <figure> is not permitted as content in <p>",
         "offset": 45,
@@ -11884,7 +11755,6 @@ exports[`HTML elements <param> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 6,
         "message": "Element <param> is not permitted as content in <div>",
         "offset": 106,
@@ -11918,7 +11788,6 @@ exports[`HTML elements <picture> invalid markup 1`] = `
     "messages": [
       {
         "column": 4,
-        "context": undefined,
         "line": 4,
         "message": "Element <source> must be used before <img> in this context",
         "offset": 78,
@@ -11930,7 +11799,6 @@ exports[`HTML elements <picture> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 9,
         "message": "Element <div> is not permitted as content in <picture>",
         "offset": 185,
@@ -12001,7 +11869,6 @@ exports[`HTML elements <pre> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <div> is not permitted as content in <pre>",
         "offset": 47,
@@ -12032,7 +11899,6 @@ exports[`HTML elements <progress> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <div> is not permitted as content in <progress>",
         "offset": 52,
@@ -12044,7 +11910,6 @@ exports[`HTML elements <progress> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 8,
         "message": "Element <progress> is not permitted as descendant of <progress>",
         "offset": 126,
@@ -12080,7 +11945,6 @@ exports[`HTML elements <q> invalid markup 1`] = `
     "messages": [
       {
         "column": 5,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <q>",
         "offset": 43,
@@ -12109,7 +11973,6 @@ exports[`HTML elements <rb> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <rb> is not permitted as content in <div>",
         "offset": 59,
@@ -12121,7 +11984,6 @@ exports[`HTML elements <rb> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 9,
         "message": "Element <div> is not permitted as content in <rb>",
         "offset": 131,
@@ -12159,7 +12021,6 @@ exports[`HTML elements <rp> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <rp> is not permitted as content in <div>",
         "offset": 59,
@@ -12171,7 +12032,6 @@ exports[`HTML elements <rp> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 9,
         "message": "Element <div> is not permitted as content in <rp>",
         "offset": 131,
@@ -12209,7 +12069,6 @@ exports[`HTML elements <rt> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <rt> is not permitted as content in <div>",
         "offset": 59,
@@ -12221,7 +12080,6 @@ exports[`HTML elements <rt> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 9,
         "message": "Element <div> is not permitted as content in <rt>",
         "offset": 131,
@@ -12259,7 +12117,6 @@ exports[`HTML elements <rtc> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <rtc> is not permitted as content in <div>",
         "offset": 59,
@@ -12271,7 +12128,6 @@ exports[`HTML elements <rtc> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 9,
         "message": "Element <div> is not permitted as content in <rtc>",
         "offset": 134,
@@ -12309,7 +12165,6 @@ exports[`HTML elements <ruby> invalid markup 1`] = `
     "messages": [
       {
         "column": 8,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <ruby>",
         "offset": 46,
@@ -12338,7 +12193,6 @@ exports[`HTML elements <s> invalid markup 1`] = `
     "messages": [
       {
         "column": 5,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <s>",
         "offset": 43,
@@ -12367,7 +12221,6 @@ exports[`HTML elements <samp> invalid markup 1`] = `
     "messages": [
       {
         "column": 8,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <samp>",
         "offset": 46,
@@ -12417,7 +12270,6 @@ exports[`HTML elements <script> invalid markup 1`] = `
       },
       {
         "column": 9,
-        "context": undefined,
         "line": 5,
         "message": ""type" attribute is unnecessary for javascript resources",
         "offset": 132,
@@ -12429,7 +12281,6 @@ exports[`HTML elements <script> invalid markup 1`] = `
       },
       {
         "column": 9,
-        "context": undefined,
         "line": 6,
         "message": ""type" attribute is unnecessary for javascript resources",
         "offset": 158,
@@ -12441,7 +12292,6 @@ exports[`HTML elements <script> invalid markup 1`] = `
       },
       {
         "column": 9,
-        "context": undefined,
         "line": 9,
         "message": "Attribute "language" is deprecated on <script> element",
         "offset": 230,
@@ -12465,7 +12315,6 @@ exports[`HTML elements <script> invalid markup 1`] = `
       },
       {
         "column": 8,
-        "context": undefined,
         "line": 12,
         "message": "End tag for <script> must not be omitted",
         "offset": 457,
@@ -12508,7 +12357,6 @@ exports[`HTML elements <select> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <span> is not permitted as content in <select>",
         "offset": 55,
@@ -12520,7 +12368,6 @@ exports[`HTML elements <select> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 4,
         "message": "Element <div> is not permitted as content in <select>",
         "offset": 73,
@@ -12646,7 +12493,6 @@ exports[`HTML elements <slot> invalid markup 1`] = `
     "messages": [
       {
         "column": 4,
-        "context": undefined,
         "line": 5,
         "message": "Element <input> is not permitted as descendant of <button>",
         "offset": 71,
@@ -12680,7 +12526,6 @@ exports[`HTML elements <small> invalid markup 1`] = `
     "messages": [
       {
         "column": 9,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <small>",
         "offset": 47,
@@ -12721,7 +12566,6 @@ exports[`HTML elements <source> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 8,
         "message": "Element <source> is not permitted as content in <div>",
         "offset": 125,
@@ -12791,7 +12635,6 @@ exports[`HTML elements <span> invalid markup 1`] = `
     "messages": [
       {
         "column": 8,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <span>",
         "offset": 46,
@@ -12854,7 +12697,6 @@ exports[`HTML elements <strong> invalid markup 1`] = `
     "messages": [
       {
         "column": 10,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <strong>",
         "offset": 48,
@@ -12887,7 +12729,6 @@ exports[`HTML elements <sub> invalid markup 1`] = `
     "messages": [
       {
         "column": 7,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <sub>",
         "offset": 45,
@@ -12916,7 +12757,6 @@ exports[`HTML elements <summary> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <summary> is not permitted as content in <div>",
         "offset": 58,
@@ -12928,7 +12768,6 @@ exports[`HTML elements <summary> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 9,
         "message": "Element <p> is not permitted as content in <summary>",
         "offset": 159,
@@ -12966,7 +12805,6 @@ exports[`HTML elements <sup> invalid markup 1`] = `
     "messages": [
       {
         "column": 7,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <sup>",
         "offset": 45,
@@ -13003,7 +12841,6 @@ exports[`HTML elements <svg> invalid markup 1`] = `
     "messages": [
       {
         "column": 2,
-        "context": undefined,
         "line": 2,
         "message": "<svg> is missing required "focusable" attribute",
         "offset": 39,
@@ -13032,7 +12869,6 @@ exports[`HTML elements <table> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <span> is not permitted as content in <table>",
         "offset": 50,
@@ -13044,7 +12880,6 @@ exports[`HTML elements <table> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 4,
         "message": "Element <div> is not permitted as content in <table>",
         "offset": 68,
@@ -13056,7 +12891,6 @@ exports[`HTML elements <table> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 10,
         "message": "Element <caption> can only appear once under <table>",
         "offset": 161,
@@ -13068,7 +12902,6 @@ exports[`HTML elements <table> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 14,
         "message": "Element <thead> can only appear once under <table>",
         "offset": 219,
@@ -13080,7 +12913,6 @@ exports[`HTML elements <table> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 18,
         "message": "Element <tfoot> can only appear once under <table>",
         "offset": 270,
@@ -13092,7 +12924,6 @@ exports[`HTML elements <table> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 24,
         "message": "Element <caption> must be used before <thead> in this context",
         "offset": 370,
@@ -13104,7 +12935,6 @@ exports[`HTML elements <table> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 28,
         "message": "Element <thead> must be used before <tbody> in this context",
         "offset": 428,
@@ -13116,7 +12946,6 @@ exports[`HTML elements <table> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 32,
         "message": "Element <tbody> must be used before <tfoot> in this context",
         "offset": 479,
@@ -13128,7 +12957,6 @@ exports[`HTML elements <table> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 37,
         "message": "Prefer to wrap <tr> elements in <tbody>",
         "offset": 561,
@@ -13193,7 +13021,6 @@ exports[`HTML elements <tbody> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <tbody> is not permitted as content in <div>",
         "offset": 52,
@@ -13205,7 +13032,6 @@ exports[`HTML elements <tbody> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 9,
         "message": "Element <span> is not permitted as content in <tbody>",
         "offset": 135,
@@ -13217,7 +13043,6 @@ exports[`HTML elements <tbody> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 10,
         "message": "Element <div> is not permitted as content in <tbody>",
         "offset": 154,
@@ -13463,7 +13288,6 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <span> is not permitted as content in <textarea>",
         "offset": 44,
@@ -13475,7 +13299,6 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 4,
         "message": "Element <div> is not permitted as content in <textarea>",
         "offset": 62,
@@ -13853,7 +13676,6 @@ exports[`HTML elements <tfoot> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <tfoot> is not permitted as content in <div>",
         "offset": 52,
@@ -13865,7 +13687,6 @@ exports[`HTML elements <tfoot> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 9,
         "message": "Element <span> is not permitted as content in <tfoot>",
         "offset": 135,
@@ -13877,7 +13698,6 @@ exports[`HTML elements <tfoot> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 10,
         "message": "Element <div> is not permitted as content in <tfoot>",
         "offset": 154,
@@ -13916,7 +13736,6 @@ exports[`HTML elements <th> invalid markup 1`] = `
     "messages": [
       {
         "column": 6,
-        "context": undefined,
         "line": 11,
         "message": "Element <header> is not permitted as descendant of <th>",
         "offset": 204,
@@ -13928,7 +13747,6 @@ exports[`HTML elements <th> invalid markup 1`] = `
       },
       {
         "column": 6,
-        "context": undefined,
         "line": 12,
         "message": "Element <footer> is not permitted as descendant of <th>",
         "offset": 226,
@@ -13940,7 +13758,6 @@ exports[`HTML elements <th> invalid markup 1`] = `
       },
       {
         "column": 6,
-        "context": undefined,
         "line": 13,
         "message": "Element <article> is not permitted as descendant of <th>",
         "offset": 248,
@@ -13952,7 +13769,6 @@ exports[`HTML elements <th> invalid markup 1`] = `
       },
       {
         "column": 6,
-        "context": undefined,
         "line": 14,
         "message": "Element <h1> is not permitted as descendant of <th>",
         "offset": 272,
@@ -14234,7 +14050,6 @@ exports[`HTML elements <thead> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <thead> is not permitted as content in <div>",
         "offset": 52,
@@ -14246,7 +14061,6 @@ exports[`HTML elements <thead> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 9,
         "message": "Element <span> is not permitted as content in <thead>",
         "offset": 135,
@@ -14258,7 +14072,6 @@ exports[`HTML elements <thead> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 10,
         "message": "Element <div> is not permitted as content in <thead>",
         "offset": 154,
@@ -14297,7 +14110,6 @@ exports[`HTML elements <time> invalid markup 1`] = `
     "messages": [
       {
         "column": 8,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <time>",
         "offset": 46,
@@ -14326,7 +14138,6 @@ exports[`HTML elements <title> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "<title> cannot be empty, must have text content",
         "offset": 59,
@@ -14338,7 +14149,6 @@ exports[`HTML elements <title> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 6,
         "message": "<title> cannot be empty, must have text content",
         "offset": 91,
@@ -14350,7 +14160,6 @@ exports[`HTML elements <title> invalid markup 1`] = `
       },
       {
         "column": 139,
-        "context": undefined,
         "line": 11,
         "message": "title text cannot be longer than 70 characters",
         "offset": 295,
@@ -14362,7 +14171,6 @@ exports[`HTML elements <title> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 16,
         "message": "Element <title> is not permitted as content in <div>",
         "offset": 360,
@@ -14374,7 +14182,6 @@ exports[`HTML elements <title> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 22,
         "message": "Element <span> is not permitted as content in <title>",
         "offset": 449,
@@ -14386,7 +14193,6 @@ exports[`HTML elements <title> invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 23,
         "message": "Element <div> is not permitted as content in <title>",
         "offset": 468,
@@ -14438,7 +14244,6 @@ exports[`HTML elements <tr> invalid markup 1`] = `
     "messages": [
       {
         "column": 5,
-        "context": undefined,
         "line": 5,
         "message": "Element <span> is not permitted as content in <tr>",
         "offset": 72,
@@ -14450,7 +14255,6 @@ exports[`HTML elements <tr> invalid markup 1`] = `
       },
       {
         "column": 5,
-        "context": undefined,
         "line": 6,
         "message": "Element <div> is not permitted as content in <tr>",
         "offset": 92,
@@ -14462,7 +14266,6 @@ exports[`HTML elements <tr> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 13,
         "message": "Prefer to wrap <tr> elements in <tbody>",
         "offset": 184,
@@ -14567,7 +14370,6 @@ exports[`HTML elements <u> invalid markup 1`] = `
     "messages": [
       {
         "column": 5,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <u>",
         "offset": 43,
@@ -14596,7 +14398,6 @@ exports[`HTML elements <ul> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <div> is not permitted as content in <ul>",
         "offset": 47,
@@ -14627,7 +14428,6 @@ exports[`HTML elements <var> invalid markup 1`] = `
     "messages": [
       {
         "column": 7,
-        "context": undefined,
         "line": 2,
         "message": "Element <div> is not permitted as content in <var>",
         "offset": 45,
@@ -14656,7 +14456,6 @@ exports[`HTML elements <video> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
-        "context": undefined,
         "line": 3,
         "message": "Element <audio> is not permitted as descendant of <video>",
         "offset": 66,
@@ -14668,7 +14467,6 @@ exports[`HTML elements <video> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 4,
         "message": "Element <video> is not permitted as descendant of <video>",
         "offset": 83,
@@ -14680,7 +14478,6 @@ exports[`HTML elements <video> invalid markup 1`] = `
       },
       {
         "column": 15,
-        "context": undefined,
         "line": 8,
         "message": "Element <div> is not permitted as content in <span>",
         "offset": 153,
@@ -14692,7 +14489,6 @@ exports[`HTML elements <video> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 13,
         "message": "Element <source> must be used before <div> in this context",
         "offset": 259,
@@ -14704,7 +14500,6 @@ exports[`HTML elements <video> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 17,
         "message": "Element <track> must be used before <div> in this context",
         "offset": 309,
@@ -14716,7 +14511,6 @@ exports[`HTML elements <video> invalid markup 1`] = `
       },
       {
         "column": 3,
-        "context": undefined,
         "line": 23,
         "message": "Element <video> is not permitted as descendant of <button>",
         "offset": 464,
@@ -15117,7 +14911,6 @@ exports[`HTML elements global attributes invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": undefined,
         "line": 20,
         "message": "Attribute "contextmenu" is deprecated on <p> element",
         "offset": 404,

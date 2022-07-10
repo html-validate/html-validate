@@ -10,7 +10,6 @@ exports[`docs/rules/long-title.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 142,
-        "context": undefined,
         "line": 2,
         "message": "title text cannot be longer than 70 characters",
         "offset": 148,

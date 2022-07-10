@@ -15,7 +15,6 @@ exports[`rule no-dup-class smoketest 1`] = `
     "messages": [
       {
         "column": 21,
-        "context": undefined,
         "line": 5,
         "message": "Class "foo" duplicated",
         "offset": 74,

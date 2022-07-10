@@ -10,7 +10,6 @@ exports[`docs/rules/void.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 11,
-        "context": undefined,
         "line": 2,
         "message": "Expected omitted end tag <input> instead of self-closing element <input/>",
         "offset": 21,
@@ -22,7 +21,6 @@ exports[`docs/rules/void.md inline validation: incorrect 1`] = `
       },
       {
         "column": 7,
-        "context": undefined,
         "line": 5,
         "message": "End tag for <img> must be omitted",
         "offset": 43,

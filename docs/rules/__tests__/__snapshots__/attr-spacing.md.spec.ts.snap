@@ -10,7 +10,6 @@ exports[`docs/rules/attr-spacing.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 21,
-        "context": undefined,
         "line": 1,
         "message": "No space between attributes",
         "offset": 20,
