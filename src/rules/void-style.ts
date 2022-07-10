@@ -68,21 +68,21 @@ export default class VoidStyle extends Rule<RuleContext, RuleOptions> {
 		}
 
 		if (this.shouldBeOmitted(node)) {
-			this.report(
+			this.reportError(
 				node,
 				`Expected omitted end tag <${node.tagName}> instead of self-closing element <${node.tagName}/>`
 			);
 		}
 
 		if (this.shouldBeSelfClosed(node)) {
-			this.report(
+			this.reportError(
 				node,
 				`Expected self-closing element <${node.tagName}/> instead of omitted end-tag <${node.tagName}>`
 			);
 		}
 	}
 
-	public report(node: HtmlElement, message: string): void {
+	public reportError(node: HtmlElement, message: string): void {
 		const context: RuleContext = {
 			style: this.style,
 			tagName: node.tagName,

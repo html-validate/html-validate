@@ -24,6 +24,13 @@ const remapEvents: Record<string, string> = {
 const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
 ajv.addMetaSchema(ajvSchemaDraft);
 
+interface ErrorDescriptor<ContextType> {
+	node: DOMNode | null;
+	message: string;
+	location?: Location | null | undefined;
+	context?: ContextType;
+}
+
 /**
  * @public
  */
@@ -64,6 +71,31 @@ function getSchemaValidator(ruleId: string, properties: SchemaObject): ValidateF
 	};
 
 	return ajv.compile(schema);
+}
+
+function isErrorDescriptor<T>(
+	value:
+		| [ErrorDescriptor<T>]
+		| [DOMNode | null, string]
+		| [DOMNode | null, string, Location | null | undefined]
+		| [DOMNode | null, string, Location | null | undefined, T]
+): value is [ErrorDescriptor<T>] {
+	return Boolean(value[0] && (value[0] as unknown as Record<string, unknown>).message);
+}
+
+function unpackErrorDescriptor<T>(
+	value:
+		| [ErrorDescriptor<T>]
+		| [DOMNode | null, string]
+		| [DOMNode | null, string, Location | null | undefined]
+		| [DOMNode | null, string, Location | null | undefined, T]
+): ErrorDescriptor<T> {
+	if (isErrorDescriptor(value)) {
+		return value[0];
+	} else {
+		const [node, message, location, context] = value;
+		return { node, message, location, context };
+	}
 }
 
 /**
@@ -208,12 +240,23 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * Rule must be enabled both globally and on the specific node for this to
 	 * have any effect.
 	 */
+	public report(error: ErrorDescriptor<ContextType>): void;
+	public report(node: DOMNode | null, message: string): void;
+	public report(node: DOMNode | null, message: string, location: Location | null | undefined): void;
 	public report(
 		node: DOMNode | null,
 		message: string,
-		location?: Location | null,
-		context?: ContextType
+		location: Location | null | undefined,
+		context: ContextType
+	): void;
+	public report(
+		...args:
+			| [ErrorDescriptor<ContextType>]
+			| [DOMNode | null, string]
+			| [DOMNode | null, string, Location | null | undefined]
+			| [DOMNode | null, string, Location | null | undefined, ContextType]
 	): void {
+		const { node, message, location, context } = unpackErrorDescriptor(args);
 		if (this.isEnabled() && (!node || node.ruleEnabled(this.name))) {
 			const where = this.findLocation({ node, location, event: this.event });
 			const interpolated = interpolate(message, context ?? {});
