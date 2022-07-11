@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`modeToFlag() should convert to CLI flag name DUMP_EVENTS 1`] = `
+[
+  "DUMP_EVENTS",
+  "--dump-events",
+]
+`;
+
+exports[`modeToFlag() should convert to CLI flag name DUMP_SOURCE 1`] = `
+[
+  "DUMP_SOURCE",
+  "--dump-source",
+]
+`;
+
+exports[`modeToFlag() should convert to CLI flag name DUMP_TOKENS 1`] = `
+[
+  "DUMP_TOKENS",
+  "--dump-tokens",
+]
+`;
+
+exports[`modeToFlag() should convert to CLI flag name DUMP_TREE 1`] = `
+[
+  "DUMP_TREE",
+  "--dump-tree",
+]
+`;
+
+exports[`modeToFlag() should convert to CLI flag name INIT 1`] = `
+[
+  "INIT",
+  "--init",
+]
+`;
+
+exports[`modeToFlag() should convert to CLI flag name LINT 1`] = `
+[
+  "LINT",
+  null,
+]
+`;
+
+exports[`modeToFlag() should convert to CLI flag name PRINT_CONFIG 1`] = `
+[
+  "PRINT_CONFIG",
+  "--print-config",
+]
+`;

@@ -27,7 +27,7 @@ export function modeToFlag(mode: Mode): string | null {
 		case Mode.DUMP_TOKENS:
 			return "--dump-tokens";
 		case Mode.DUMP_TREE:
-			return "--dump-tokens";
+			return "--dump-tree";
 		case Mode.DUMP_SOURCE:
 			return "--dump-source";
 		case Mode.PRINT_CONFIG:
