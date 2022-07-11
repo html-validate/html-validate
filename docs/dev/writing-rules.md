@@ -26,7 +26,10 @@ export default class MyRule extends Rule {
       const buttons = event.document.getElementsByTagName("button");
 
       /* report a new error */
-      this.report(buttons[0], "Button are not allowed");
+      this.report({
+        node: buttons[0],
+        message: "Button are not allowed",
+      });
     });
   }
 }
@@ -59,7 +62,11 @@ const location = {
   size: 5,
 };
 
-this.on(node, "asdf", location);
+this.report({
+  node,
+  message: "asdf",
+  location,
+});
 ```
 
 ## Error context
@@ -105,7 +112,11 @@ class MyRule extends Rule<RuleContext> {
     };
 
     /* pass the context when reporting an error */
-    this.report(node, "This element cannot be used here", null, context);
+    this.report({
+      node,
+      message: "This element cannot be used here",
+      context,
+    });
   }
 }
 ```
@@ -125,7 +136,11 @@ When a placeholder is found it is replaced with a matching key from the context 
 const context = {
   value: "my value",
 };
-this.report(element, 'This element cannot have the value "{{ value }}"');
+this.report({
+  node: element,
+  message: 'This element cannot have the value "{{ value }}"',
+  context,
+});
 ```
 
 The reported message will be:
@@ -160,7 +175,10 @@ class MyRule extends Rule<void, RuleOptions> {
 
     /* disallow the node from containing the text provided in the option */
     if (node.textContent.includes(this.options.text)) {
-      this.report(node, "Contains disallowed text");
+      this.report({
+        node,
+        message: "Contains disallowed text",
+      });
     }
   }
 }
@@ -230,7 +248,7 @@ Listen for events. See [events](/dev/events.html) for a full list of available e
 
 If `filter` is passed the callback is only called if the filter function evaluates to true.
 
-### `report(node: DOMNode, message: string, location?: Location, context?: RuleContext): void`
+### `report({ node: DOMNode, message: string, location?: Location, context?: RuleContext }): void`
 
 Report a new error.
 

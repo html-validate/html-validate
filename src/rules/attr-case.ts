@@ -69,13 +69,15 @@ export default class AttrCase extends Rule<void, RuleOptions> {
 			}
 
 			const letters = event.key.replace(/[^a-z]+/gi, "");
-			if (!this.style.match(letters)) {
-				this.report(
-					event.target,
-					`Attribute "${event.key}" should be ${this.style.name}`,
-					event.keyLocation
-				);
+			if (this.style.match(letters)) {
+				return;
 			}
+
+			this.report({
+				node: event.target,
+				message: `Attribute "${event.key}" should be ${this.style.name}`,
+				location: event.keyLocation,
+			});
 		});
 	}
 
