@@ -1,16 +1,21 @@
 import { EventDump, type Location } from "..";
 
-const jsonFiltered = ["parent", "children", "meta"];
+const jsonIgnored = ["unique", "cache", "disabledRules"];
+const jsonFiltered = ["parent", "childNodes", "children", "meta", "data", "originalData"];
 
 function isLocation(key: string, value: unknown): value is Location {
 	return Boolean(value && key === "location");
 }
 
-/* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types */
-export function eventReplacer(this: void, key: string, value: any): any {
+export function eventReplacer<T>(this: void, key: string, value: T): T | string | undefined {
 	if (isLocation(key, value)) {
 		return `${value.filename}:${value.line}:${value.column}`;
 	}
+	const isIgnored = jsonIgnored.includes(key);
+	if (isIgnored) {
+		return undefined;
+	}
+
 	const isFiltered = jsonFiltered.includes(key);
 	return isFiltered ? "[truncated]" : value;
 }

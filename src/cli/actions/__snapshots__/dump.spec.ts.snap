@@ -3,12 +3,12 @@
 exports[`should dump events for given filename 1`] = `
 "dom:load: {
   "source": {
-    "data": "<p>Lorem ipsum</p>\\n",
+    "data": "[truncated]",
     "filename": "<rootDir>/test-files/parser/simple.html",
     "line": 1,
     "column": 1,
     "offset": 0,
-    "originalData": "<p>Lorem ipsum</p>\\n"
+    "originalData": "[truncated]"
   },
   "location": null
 }
@@ -17,21 +17,7 @@ tag:start: {
     "nodeType": 1,
     "nodeName": "p",
     "location": "<rootDir>/test-files/parser/simple.html:1:2",
-    "disabledRules": {},
-    "childNodes": [
-      {
-        "nodeType": 3,
-        "nodeName": "#text",
-        "location": "<rootDir>/test-files/parser/simple.html:1:4",
-        "disabledRules": {},
-        "childNodes": [],
-        "unique": 2,
-        "cache": null,
-        "text": "Lorem ipsum"
-      }
-    ],
-    "unique": 1,
-    "cache": {},
+    "childNodes": "[truncated]",
     "tagName": "p",
     "parent": "[truncated]",
     "attr": {},
@@ -123,21 +109,7 @@ tag:ready: {
     "nodeType": 1,
     "nodeName": "p",
     "location": "<rootDir>/test-files/parser/simple.html:1:2",
-    "disabledRules": {},
-    "childNodes": [
-      {
-        "nodeType": 3,
-        "nodeName": "#text",
-        "location": "<rootDir>/test-files/parser/simple.html:1:4",
-        "disabledRules": {},
-        "childNodes": [],
-        "unique": 2,
-        "cache": null,
-        "text": "Lorem ipsum"
-      }
-    ],
-    "unique": 1,
-    "cache": {},
+    "childNodes": "[truncated]",
     "tagName": "p",
     "parent": "[truncated]",
     "attr": {},
@@ -229,10 +201,7 @@ tag:end: {
     "nodeType": 1,
     "nodeName": "p",
     "location": "<rootDir>/test-files/parser/simple.html:1:16",
-    "disabledRules": {},
-    "childNodes": [],
-    "unique": 3,
-    "cache": null,
+    "childNodes": "[truncated]",
     "tagName": "p",
     "parent": "[truncated]",
     "attr": {},
@@ -321,21 +290,7 @@ tag:end: {
     "nodeType": 1,
     "nodeName": "p",
     "location": "<rootDir>/test-files/parser/simple.html:1:2",
-    "disabledRules": {},
-    "childNodes": [
-      {
-        "nodeType": 3,
-        "nodeName": "#text",
-        "location": "<rootDir>/test-files/parser/simple.html:1:4",
-        "disabledRules": {},
-        "childNodes": [],
-        "unique": 2,
-        "cache": null,
-        "text": "Lorem ipsum"
-      }
-    ],
-    "unique": 1,
-    "cache": {},
+    "childNodes": "[truncated]",
     "tagName": "p",
     "parent": "[truncated]",
     "attr": {},
@@ -427,21 +382,7 @@ element:ready: {
     "nodeType": 1,
     "nodeName": "p",
     "location": "<rootDir>/test-files/parser/simple.html:1:2",
-    "disabledRules": {},
-    "childNodes": [
-      {
-        "nodeType": 3,
-        "nodeName": "#text",
-        "location": "<rootDir>/test-files/parser/simple.html:1:4",
-        "disabledRules": {},
-        "childNodes": [],
-        "unique": 2,
-        "cache": null,
-        "text": "Lorem ipsum"
-      }
-    ],
-    "unique": 1,
-    "cache": {},
+    "childNodes": "[truncated]",
     "tagName": "p",
     "parent": "[truncated]",
     "attr": {},
@@ -538,124 +479,7 @@ dom:ready: {
       "nodeType": 9,
       "nodeName": "#document",
       "location": "<rootDir>/test-files/parser/simple.html:1:1",
-      "disabledRules": {},
-      "childNodes": [
-        {
-          "nodeType": 1,
-          "nodeName": "p",
-          "location": "<rootDir>/test-files/parser/simple.html:1:2",
-          "disabledRules": {},
-          "childNodes": [
-            {
-              "nodeType": 3,
-              "nodeName": "#text",
-              "location": "<rootDir>/test-files/parser/simple.html:1:4",
-              "disabledRules": {},
-              "childNodes": [],
-              "unique": 2,
-              "cache": null,
-              "text": "Lorem ipsum"
-            }
-          ],
-          "unique": 1,
-          "cache": {},
-          "tagName": "p",
-          "parent": "[truncated]",
-          "attr": {},
-          "metaElement": {
-            "attributes": {
-              "contenteditable": {
-                "omit": true,
-                "enum": [
-                  "true",
-                  "false"
-                ]
-              },
-              "contextmenu": {
-                "deprecated": true
-              },
-              "dir": {
-                "enum": [
-                  "ltr",
-                  "rtl",
-                  "auto"
-                ]
-              },
-              "draggable": {
-                "enum": [
-                  "true",
-                  "false"
-                ]
-              },
-              "hidden": {
-                "boolean": true
-              },
-              "id": {
-                "enum": [
-                  {}
-                ]
-              },
-              "tabindex": {
-                "enum": [
-                  {}
-                ]
-              },
-              "align": {
-                "deprecated": true
-              }
-            },
-            "flow": true,
-            "implicitClosed": [
-              "address",
-              "article",
-              "aside",
-              "blockquote",
-              "div",
-              "dl",
-              "fieldset",
-              "footer",
-              "form",
-              "h1",
-              "h2",
-              "h3",
-              "h4",
-              "h5",
-              "h6",
-              "header",
-              "hgroup",
-              "hr",
-              "main",
-              "nav",
-              "ol",
-              "p",
-              "pre",
-              "section",
-              "table",
-              "ul"
-            ],
-            "permittedContent": [
-              "@phrasing"
-            ],
-            "tagName": "p"
-          },
-          "closed": 0,
-          "voidElement": false,
-          "depth": 0,
-          "annotation": null
-        },
-        {
-          "nodeType": 3,
-          "nodeName": "#text",
-          "location": "<rootDir>/test-files/parser/simple.html:1:19",
-          "disabledRules": {},
-          "childNodes": [],
-          "unique": 4,
-          "cache": null,
-          "text": "\\n"
-        }
-      ],
-      "unique": 0,
-      "cache": null,
+      "childNodes": "[truncated]",
       "tagName": "#document",
       "parent": "[truncated]",
       "attr": {},
@@ -669,124 +493,7 @@ dom:ready: {
       "nodeType": 9,
       "nodeName": "#document",
       "location": "<rootDir>/test-files/parser/simple.html:1:1",
-      "disabledRules": {},
-      "childNodes": [
-        {
-          "nodeType": 1,
-          "nodeName": "p",
-          "location": "<rootDir>/test-files/parser/simple.html:1:2",
-          "disabledRules": {},
-          "childNodes": [
-            {
-              "nodeType": 3,
-              "nodeName": "#text",
-              "location": "<rootDir>/test-files/parser/simple.html:1:4",
-              "disabledRules": {},
-              "childNodes": [],
-              "unique": 2,
-              "cache": null,
-              "text": "Lorem ipsum"
-            }
-          ],
-          "unique": 1,
-          "cache": {},
-          "tagName": "p",
-          "parent": "[truncated]",
-          "attr": {},
-          "metaElement": {
-            "attributes": {
-              "contenteditable": {
-                "omit": true,
-                "enum": [
-                  "true",
-                  "false"
-                ]
-              },
-              "contextmenu": {
-                "deprecated": true
-              },
-              "dir": {
-                "enum": [
-                  "ltr",
-                  "rtl",
-                  "auto"
-                ]
-              },
-              "draggable": {
-                "enum": [
-                  "true",
-                  "false"
-                ]
-              },
-              "hidden": {
-                "boolean": true
-              },
-              "id": {
-                "enum": [
-                  {}
-                ]
-              },
-              "tabindex": {
-                "enum": [
-                  {}
-                ]
-              },
-              "align": {
-                "deprecated": true
-              }
-            },
-            "flow": true,
-            "implicitClosed": [
-              "address",
-              "article",
-              "aside",
-              "blockquote",
-              "div",
-              "dl",
-              "fieldset",
-              "footer",
-              "form",
-              "h1",
-              "h2",
-              "h3",
-              "h4",
-              "h5",
-              "h6",
-              "header",
-              "hgroup",
-              "hr",
-              "main",
-              "nav",
-              "ol",
-              "p",
-              "pre",
-              "section",
-              "table",
-              "ul"
-            ],
-            "permittedContent": [
-              "@phrasing"
-            ],
-            "tagName": "p"
-          },
-          "closed": 0,
-          "voidElement": false,
-          "depth": 0,
-          "annotation": null
-        },
-        {
-          "nodeType": 3,
-          "nodeName": "#text",
-          "location": "<rootDir>/test-files/parser/simple.html:1:19",
-          "disabledRules": {},
-          "childNodes": [],
-          "unique": 4,
-          "cache": null,
-          "text": "\\n"
-        }
-      ],
-      "unique": 0,
-      "cache": null,
+      "childNodes": "[truncated]",
       "tagName": "#document",
       "parent": "[truncated]",
       "attr": {},
@@ -799,12 +506,12 @@ dom:ready: {
     "doctype": null
   },
   "source": {
-    "data": "<p>Lorem ipsum</p>\\n",
+    "data": "[truncated]",
     "filename": "<rootDir>/test-files/parser/simple.html",
     "line": 1,
     "column": 1,
     "offset": 0,
-    "originalData": "<p>Lorem ipsum</p>\\n"
+    "originalData": "[truncated]"
   },
   "location": null
 }
