@@ -2,11 +2,14 @@
 import path from "path";
 import kleur from "kleur";
 import minimist from "minimist";
-import { TokenDump, SchemaValidationError, UserError, Report, Reporter, Result } from "..";
+import { SchemaValidationError, UserError } from "..";
 import { name, version, bugs as pkgBugs } from "../generated/package";
-import { eventFormatter } from "./json";
 import { CLI } from "./cli";
 import { Mode, modeToFlag } from "./mode";
+import { lint } from "./actions/lint";
+import { init } from "./actions/init";
+import { printConfig } from "./actions/print-config";
+import { dump } from "./actions/dump";
 
 interface ParsedArgs {
 	config?: string;
@@ -66,54 +69,6 @@ function requiresFilename(mode: Mode): boolean {
 		case Mode.DUMP_SOURCE:
 		case Mode.PRINT_CONFIG:
 			return true;
-	}
-}
-
-function lint(files: string[]): Report {
-	const reports = files.map((filename: string) => {
-		try {
-			return htmlvalidate.validateFile(filename);
-		} catch (err) {
-			console.error(kleur.red(`Validator crashed when parsing "${filename}"`));
-			throw err;
-		}
-	});
-	return Reporter.merge(reports);
-}
-
-function dump(files: string[], mode: Mode): string {
-	let lines: string[][] = [];
-	switch (mode) {
-		case Mode.DUMP_EVENTS:
-			lines = files.map((filename: string) =>
-				htmlvalidate.dumpEvents(filename).map(eventFormatter)
-			);
-			break;
-		case Mode.DUMP_TOKENS:
-			lines = files.map((filename: string) =>
-				htmlvalidate.dumpTokens(filename).map((entry: TokenDump) => {
-					const data = JSON.stringify(entry.data);
-					return `TOKEN: ${entry.token}\n  Data: ${data}\n  Location: ${entry.location}`;
-				})
-			);
-			break;
-		case Mode.DUMP_TREE:
-			lines = files.map((filename: string) => htmlvalidate.dumpTree(filename));
-			break;
-		case Mode.DUMP_SOURCE:
-			lines = files.map((filename: string) => htmlvalidate.dumpSource(filename));
-			break;
-		default:
-			throw new Error(`Unknown mode "${mode}"`);
-	}
-	const flat = lines.reduce((s: string[], c: string[]) => s.concat(c), []);
-	return flat.join("\n");
-}
-
-function renameStdin(report: Report, filename: string): void {
-	const stdin = report.results.find((cur: Result) => cur.filePath === "/dev/stdin");
-	if (stdin) {
-		stdin.filePath = filename;
 	}
 }
 
@@ -284,56 +239,36 @@ if (files.length === 0 && mode !== Mode.INIT) {
 	process.exit(1);
 }
 
-try {
-	if (mode === Mode.LINT) {
-		const result = lint(files);
-
-		/* rename stdin if an explicit filename was passed */
-		const stdinFilename = argv["stdin-filename"];
-		if (stdinFilename) {
-			renameStdin(result, stdinFilename);
-		}
-
-		process.stdout.write(formatter(result));
-
-		if (maxWarnings >= 0 && result.warningCount > maxWarnings) {
-			console.log(`\nhtml-validate found too many warnings (maxiumum: ${maxWarnings}).`);
-			result.valid = false;
-		}
-
-		process.exit(result.valid ? 0 : 1);
-	} else if (mode === Mode.INIT) {
-		cli
-			.init(process.cwd())
-			.then((result) => {
-				console.log(`Configuration written to "${result.filename}"`);
-			})
-			.catch((err) => {
-				if (err) {
-					console.error(err);
-				}
-				process.exit(1);
+async function run(): Promise<void> {
+	try {
+		let success: boolean;
+		if (mode === Mode.LINT) {
+			success = await lint(htmlvalidate, process.stdout, files, {
+				formatter,
+				maxWarnings,
+				stdinFilename: argv["stdin-filename"] ?? false,
 			});
-	} else if (mode === Mode.PRINT_CONFIG) {
-		if (files.length > 1) {
-			console.error(`\`${modeToFlag(mode)}\` expected a single filename but got multiple:`, files);
-			process.exit(1);
+		} else if (mode === Mode.INIT) {
+			success = await init(cli, process.stdout, { cwd: process.cwd() });
+		} else if (mode === Mode.PRINT_CONFIG) {
+			success = await printConfig(htmlvalidate, process.stdout, files);
+		} else {
+			success = await dump(htmlvalidate, process.stdout, files, mode);
 		}
-		const config = htmlvalidate.getConfigFor(files[0]);
-		const json = JSON.stringify(config.get(), null, 2);
-		console.log(json);
-	} else {
-		const output = dump(files, mode);
-		console.log(output);
-		process.exit(0);
+		process.exit(success ? 0 : 1);
+	} catch (err) {
+		if (err instanceof SchemaValidationError) {
+			handleValidationError(err);
+		} else if (err instanceof UserError) {
+			handleUserError(err);
+		} else {
+			handleUnknownError(err);
+		}
+		process.exit(1);
 	}
-} catch (err) {
-	if (err instanceof SchemaValidationError) {
-		handleValidationError(err);
-	} else if (err instanceof UserError) {
-		handleUserError(err);
-	} else {
-		handleUnknownError(err);
-	}
-	process.exit(1);
 }
+
+run().catch((err) => {
+	console.error(err);
+	process.exit(1);
+});
