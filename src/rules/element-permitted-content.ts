@@ -67,10 +67,8 @@ export default class ElementPermittedContent extends Rule {
 		rules: Permitted | null
 	): boolean {
 		if (!Validator.validatePermitted(cur, rules)) {
-			this.report(
-				cur,
-				`Element <${cur.tagName}> is not permitted as content in ${parent.annotatedName}`
-			);
+			const message = `Element <${cur.tagName}> is not permitted as content in ${parent.annotatedName}`;
+			this.report(cur, message);
 			return true;
 		}
 
