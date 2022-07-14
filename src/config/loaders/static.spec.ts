@@ -23,13 +23,13 @@ describe("StaticConfigLoader", () => {
 				},
 			});
 			const config = loader.getConfigFor("my-file.html");
-			expect(config.get()).toEqual({
-				plugins: [],
-				rules: {
-					a: "error",
-				},
-				transform: {},
-			});
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					rules: {
+						a: "error",
+					},
+				})
+			);
 		});
 
 		it("should merge global configuration with override if provided", () => {
@@ -46,15 +46,15 @@ describe("StaticConfigLoader", () => {
 					c: "warn",
 				},
 			});
-			expect(config.get()).toEqual({
-				plugins: [],
-				rules: {
-					a: "warn",
-					b: "error",
-					c: "warn",
-				},
-				transform: {},
-			});
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					rules: {
+						a: "warn",
+						b: "error",
+						c: "warn",
+					},
+				})
+			);
 		});
 
 		it("should not use global configuration if override config is root", () => {
@@ -70,14 +70,14 @@ describe("StaticConfigLoader", () => {
 					b: "error",
 				},
 			});
-			expect(config.get()).toEqual({
-				root: true,
-				plugins: [],
-				rules: {
-					b: "error",
-				},
-				transform: {},
-			});
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					root: true,
+					rules: {
+						b: "error",
+					},
+				})
+			);
 		});
 	});
 

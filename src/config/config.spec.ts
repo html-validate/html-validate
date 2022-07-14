@@ -109,14 +109,14 @@ describe("config", () => {
 			const a = Config.fromObject({ rules: { foo: 1 } });
 			const b = Config.fromObject({ rules: { bar: 1 } });
 			const merged = a.merge(b);
-			expect(merged.get()).toEqual({
-				rules: {
-					foo: 1,
-					bar: 1,
-				},
-				plugins: [],
-				transform: {},
-			});
+			expect(merged.get()).toEqual(
+				expect.objectContaining({
+					rules: {
+						foo: 1,
+						bar: 1,
+					},
+				})
+			);
 		});
 	});
 

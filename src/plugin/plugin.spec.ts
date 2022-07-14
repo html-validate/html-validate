@@ -64,13 +64,14 @@ describe("Plugin", () => {
 				extends: ["my-plugin:foo"],
 				plugins: ["mock-plugin"],
 			});
-			expect(config.get()).toEqual({
-				plugins: ["mock-plugin"],
-				rules: {
-					"my-rule": "error",
-				},
-				transform: {},
-			});
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					plugins: ["mock-plugin"],
+					rules: {
+						"my-rule": "error",
+					},
+				})
+			);
 		});
 
 		it("should default to package name", () => {
@@ -87,13 +88,14 @@ describe("Plugin", () => {
 				extends: ["mock-plugin:foo"],
 				plugins: ["mock-plugin"],
 			});
-			expect(config.get()).toEqual({
-				plugins: ["mock-plugin"],
-				rules: {
-					"my-rule": "error",
-				},
-				transform: {},
-			});
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					plugins: ["mock-plugin"],
+					rules: {
+						"my-rule": "error",
+					},
+				})
+			);
 		});
 
 		it("should retain original name", () => {
@@ -110,13 +112,14 @@ describe("Plugin", () => {
 				extends: ["mock-plugin:foo"],
 				plugins: ["mock-plugin"],
 			});
-			expect(config.get()).toEqual({
-				plugins: ["mock-plugin"],
-				rules: {
-					"my-rule": "error",
-				},
-				transform: {},
-			});
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					plugins: ["mock-plugin"],
+					rules: {
+						"my-rule": "error",
+					},
+				})
+			);
 		});
 	});
 
@@ -134,13 +137,14 @@ describe("Plugin", () => {
 				extends: ["mock-plugin:foo"],
 				plugins: ["mock-plugin"],
 			});
-			expect(config.get()).toEqual({
-				plugins: ["mock-plugin"],
-				rules: {
-					"my-rule": "error",
-				},
-				transform: {},
-			});
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					plugins: ["mock-plugin"],
+					rules: {
+						"my-rule": "error",
+					},
+				})
+			);
 		});
 	});
 

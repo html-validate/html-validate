@@ -107,13 +107,13 @@ describe("FileSystemConfigLoader", () => {
 			/* .htmlvalidate.json */
 			jest.spyOn(loader, "fromFilename").mockImplementation(() => null);
 			const config = loader.getConfigFor("my-file.html");
-			expect(config.get()).toEqual({
-				plugins: [],
-				rules: {
-					a: "error",
-				},
-				transform: {},
-			});
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					rules: {
+						a: "error",
+					},
+				})
+			);
 		});
 
 		it("should merge global configuration with override if provided", () => {
@@ -134,15 +134,15 @@ describe("FileSystemConfigLoader", () => {
 					c: "warn",
 				},
 			});
-			expect(config.get()).toEqual({
-				plugins: [],
-				rules: {
-					a: "warn",
-					b: "error",
-					c: "warn",
-				},
-				transform: {},
-			});
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					rules: {
+						a: "warn",
+						b: "error",
+						c: "warn",
+					},
+				})
+			);
 		});
 
 		it("should use configuration provided by configuration loader if present", () => {
@@ -162,13 +162,13 @@ describe("FileSystemConfigLoader", () => {
 				})
 			);
 			const config = loader.getConfigFor("my-file.html");
-			expect(config.get()).toEqual({
-				plugins: [],
-				rules: {
-					b: "error",
-				},
-				transform: {},
-			});
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					rules: {
+						b: "error",
+					},
+				})
+			);
 		});
 
 		it("should merge configuration provided by configuration loader with override if provided", () => {
@@ -194,14 +194,14 @@ describe("FileSystemConfigLoader", () => {
 					b: "warn",
 				},
 			});
-			expect(config.get()).toEqual({
-				plugins: [],
-				rules: {
-					b: "warn",
-					c: "error",
-				},
-				transform: {},
-			});
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					rules: {
+						b: "warn",
+						c: "error",
+					},
+				})
+			);
 		});
 
 		it("should not load configuration files if global config is root", () => {
