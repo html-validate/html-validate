@@ -1637,7 +1637,7 @@ exports[`HTML elements <dd> invalid markup 1`] = `
       {
         "column": 5,
         "line": 10,
-        "message": "Element <dd> requires an "dl > dd" ancestor",
+        "message": "Element <dd> requires a "dl > dd" or "dl > div > dd" ancestor",
         "offset": 180,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1953,7 +1953,7 @@ exports[`HTML elements <dt> invalid markup 1`] = `
       {
         "column": 5,
         "line": 20,
-        "message": "Element <dt> requires an "dl > dt" ancestor",
+        "message": "Element <dt> requires a "dl > dt" or "dl > div > dt" ancestor",
         "offset": 345,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",

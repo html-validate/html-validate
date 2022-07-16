@@ -3,6 +3,7 @@ import { DOMReadyEvent } from "../event";
 import { Validator } from "../meta";
 import { Permitted } from "../meta/element";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { naturalJoin } from "./helper";
 
 function getTransparentChildren(node: HtmlElement, transparent: boolean | string[]): HtmlElement[] {
 	if (typeof transparent === "boolean") {
@@ -15,6 +16,10 @@ function getTransparentChildren(node: HtmlElement, transparent: boolean | string
 			});
 		});
 	}
+}
+
+function isTagnameOnly(value: string): boolean {
+	return Boolean(value.match(/^[a-zA-Z0-9-]+$/));
 }
 
 export default class ElementPermittedContent extends Rule {
@@ -129,7 +134,8 @@ export default class ElementPermittedContent extends Rule {
 		}
 
 		if (!Validator.validateAncestors(node, rules)) {
-			this.report(node, `Element <${node.tagName}> requires an "${rules[0]}" ancestor`);
+			const tags = naturalJoin(rules.map((it) => (isTagnameOnly(it) ? `<${it}>` : `"${it}"`)));
+			this.report(node, `Element <${node.tagName}> requires a ${tags} ancestor`);
 			return true;
 		}
 

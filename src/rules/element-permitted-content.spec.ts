@@ -187,14 +187,75 @@ describe("rule element-permitted-content", () => {
 	});
 
 	describe("requiredAncestor", () => {
-		it("should report error for missing required ancestor", () => {
+		it("should report error for missing required ancestor (tagname)", () => {
 			expect.assertions(2);
-			const markup = "<div><dt>foo</dt></div>";
+			const htmlvalidate = new HtmlValidate({
+				root: true,
+				elements: [
+					"html5",
+					{
+						"custom-element": {
+							flow: true,
+							requiredAncestors: ["main"],
+						},
+					},
+				],
+				rules: { "element-permitted-content": "error" },
+			});
+			const markup = "<div><custom-element></custom-element></div>";
 			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"element-permitted-content",
-				'Element <dt> requires an "dl > dt" ancestor'
+				"Element <custom-element> requires a <main> ancestor"
+			);
+		});
+
+		it("should report error for missing required ancestor (selector)", () => {
+			expect.assertions(2);
+			const htmlvalidate = new HtmlValidate({
+				root: true,
+				elements: [
+					"html5",
+					{
+						"custom-element": {
+							flow: true,
+							requiredAncestors: ["main > div"],
+						},
+					},
+				],
+				rules: { "element-permitted-content": "error" },
+			});
+			const markup = "<div><custom-element></custom-element></div>";
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toHaveError(
+				"element-permitted-content",
+				'Element <custom-element> requires a "main > div" ancestor'
+			);
+		});
+
+		it("should join multiple selectors together", () => {
+			expect.assertions(2);
+			const htmlvalidate = new HtmlValidate({
+				root: true,
+				elements: [
+					"html5",
+					{
+						"custom-element": {
+							flow: true,
+							requiredAncestors: ["main", "main > div"],
+						},
+					},
+				],
+				rules: { "element-permitted-content": "error" },
+			});
+			const markup = "<div><custom-element></custom-element></div>";
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toHaveError(
+				"element-permitted-content",
+				'Element <custom-element> requires a <main> or "main > div" ancestor'
 			);
 		});
 
