@@ -37,8 +37,9 @@ export default class ElementPermittedContent extends Rule {
 			doc.visitDepthFirst((node: HtmlElement) => {
 				const parent = node.parent;
 
-				/* dont verify root element, assume any element is allowed */
-				if (!parent || parent.isRootElement()) {
+				/* istanbul ignore next: satisfy typescript but will visitDepthFirst()
+				 * will not yield nodes without a parent */
+				if (!parent) {
 					return;
 				}
 
