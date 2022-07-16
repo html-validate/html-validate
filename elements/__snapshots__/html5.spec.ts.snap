@@ -10695,14 +10695,25 @@ exports[`HTML elements <legend> valid markup 1`] = `[]`;
 exports[`HTML elements <li> invalid markup 1`] = `
 [
   {
-    "errorCount": 1,
+    "errorCount": 2,
     "filePath": "test-files/elements/li-invalid.html",
     "messages": [
       {
+        "column": 2,
+        "line": 2,
+        "message": "Element <li> requires a <ul>, <ol> or <menu> ancestor",
+        "offset": 46,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "li",
+        "severity": 2,
+        "size": 2,
+      },
+      {
         "column": 3,
-        "line": 3,
+        "line": 6,
         "message": "Element <li> is not permitted as content in <div>",
-        "offset": 55,
+        "offset": 122,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "div > li",
@@ -10710,7 +10721,10 @@ exports[`HTML elements <li> invalid markup 1`] = `
         "size": 2,
       },
     ],
-    "source": "<!-- should not allow under other elements -->
+    "source": "<!-- should require <ul>, <ol> or <menu> -->
+<li>lorem ipsum</li>
+
+<!-- should not allow under other elements -->
 <div>
 	<li>foo</li>
 </div>
