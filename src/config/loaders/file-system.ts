@@ -105,8 +105,9 @@ export class FileSystemConfigLoader extends ConfigLoader {
 			return null;
 		}
 
-		if (this.cache.has(filename)) {
-			return this.cache.get(filename) ?? null;
+		const cache = this.cache.get(filename);
+		if (cache) {
+			return cache;
 		}
 
 		let found = false;

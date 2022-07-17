@@ -79,6 +79,7 @@ export class ResolvedConfig {
 					return cur;
 				});
 			} catch (err: unknown) {
+				/* istanbul ignore next: only used as a fallback */
 				const message = err instanceof Error ? err.message : String(err);
 				throw new NestedError(
 					`When transforming "${source.filename}": ${message}`,

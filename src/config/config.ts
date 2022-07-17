@@ -146,6 +146,7 @@ export class Config {
 				`Invalid configuration`,
 				configData,
 				schema,
+				/* istanbul ignore next: will be set when a validation error has occurred */
 				validator.errors ?? []
 			);
 		}
@@ -306,6 +307,7 @@ export class Config {
 			try {
 				metaTable.loadFromObject(legacyRequire(entry));
 			} catch (err: unknown) {
+				/* istanbul ignore next: only used as a fallback */
 				const message = err instanceof Error ? err.message : String(err);
 				throw new ConfigError(
 					`Failed to load elements from "${entry}": ${message}`,
@@ -333,6 +335,7 @@ export class Config {
 	 *
 	 * @internal primary purpose is unittests
 	 */
+	/* istanbul ignore next: used for testing only */
 	public get(): ConfigData {
 		const config = { ...this.config };
 		if (config.elements) {
@@ -354,6 +357,7 @@ export class Config {
 	 * @internal
 	 */
 	public getRules(): Map<string, [Severity, RuleOptions]> {
+		/* istanbul ignore next: only used as a fallback */
 		return Config.getRulesObject(this.config.rules ?? {});
 	}
 
@@ -389,6 +393,7 @@ export class Config {
 				plugin.originalName = moduleName;
 				return plugin;
 			} catch (err: unknown) {
+				/* istanbul ignore next: only used as a fallback */
 				const message = err instanceof Error ? err.message : String(err);
 				throw new ConfigError(
 					`Failed to load plugin "${moduleName}": ${message}`,
