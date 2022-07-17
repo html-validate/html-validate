@@ -146,6 +146,21 @@ describe("Plugin", () => {
 				})
 			);
 		});
+
+		it("should handle config being set to null", () => {
+			expect.assertions(1);
+			mockPlugin.configs = {
+				foo: null,
+			};
+			config = Config.fromObject({
+				plugins: ["mock-plugin"],
+			});
+			expect(config.get()).toEqual(
+				expect.objectContaining({
+					plugins: ["mock-plugin"],
+				})
+			);
+		});
 	});
 
 	describe("extedMeta", () => {

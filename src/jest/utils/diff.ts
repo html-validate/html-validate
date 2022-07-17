@@ -11,6 +11,7 @@ interface DiffOptions {
 type DiffFunction = (a: any, b: any, options?: DiffOptions) => string | null;
 
 /* ignore typing for compatibility so it will seem "impossible" but different version will yield different source */
+/* istanbul ignore next: this is covered by integration tests */
 const diffCandidates: Array<DiffFunction | undefined> = [
 	// @ts-ignore
 	jestDiffDefault?.diff,

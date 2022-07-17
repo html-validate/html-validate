@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/element-required-ancestor.md inline validation: correct 1`] = `[]`;
+
+exports[`docs/rules/element-required-ancestor.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 2,
+        "context": {
+          "ancestor": [
+            "<map>",
+          ],
+          "child": "<area>",
+        },
+        "line": 1,
+        "message": "<area> element requires a <map> ancestor",
+        "offset": 1,
+        "ruleId": "element-required-ancestor",
+        "ruleUrl": "https://html-validate.org/rules/element-required-ancestor.html",
+        "selector": "area",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<area>",
+    "warningCount": 0,
+  },
+]
+`;

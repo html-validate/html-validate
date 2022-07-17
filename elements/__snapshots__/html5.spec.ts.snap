@@ -8,8 +8,13 @@ exports[`HTML elements <a> invalid markup 1`] = `
     "messages": [
       {
         "column": 11,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<span>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <span>",
+        "message": "<div> element is not permitted as content under <span>",
         "offset": 41,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -19,8 +24,13 @@ exports[`HTML elements <a> invalid markup 1`] = `
       },
       {
         "column": 5,
+        "context": {
+          "ancestor": "<a>",
+          "child": "<button>",
+          "kind": "descendant",
+        },
         "line": 5,
-        "message": "Element <button> is not permitted as descendant of <a>",
+        "message": "<button> element is not permitted as a descendant of <a>",
         "offset": 133,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -30,8 +40,13 @@ exports[`HTML elements <a> invalid markup 1`] = `
       },
       {
         "column": 11,
+        "context": {
+          "ancestor": "<a>",
+          "child": "<button>",
+          "kind": "descendant",
+        },
         "line": 6,
-        "message": "Element <button> is not permitted as descendant of <a>",
+        "message": "<button> element is not permitted as a descendant of <a>",
         "offset": 181,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -41,8 +56,13 @@ exports[`HTML elements <a> invalid markup 1`] = `
       },
       {
         "column": 11,
+        "context": {
+          "ancestor": "<a>",
+          "child": "<a>",
+          "kind": "descendant",
+        },
         "line": 9,
-        "message": "Element <a> is not permitted as descendant of <a>",
+        "message": "<a> element is not permitted as a descendant of <a>",
         "offset": 271,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -100,8 +120,13 @@ exports[`HTML elements <abbr> invalid markup 1`] = `
     "messages": [
       {
         "column": 8,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<abbr>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <abbr>",
+        "message": "<div> element is not permitted as content under <abbr>",
         "offset": 46,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -162,8 +187,13 @@ exports[`HTML elements <address> invalid markup 1`] = `
     "messages": [
       {
         "column": 11,
+        "context": {
+          "ancestor": "<address>",
+          "child": "<h1>",
+          "kind": "descendant",
+        },
         "line": 2,
-        "message": "Element <h1> is not permitted as descendant of <address>",
+        "message": "<h1> element is not permitted as a descendant of <address>",
         "offset": 55,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -173,8 +203,13 @@ exports[`HTML elements <address> invalid markup 1`] = `
       },
       {
         "column": 16,
+        "context": {
+          "ancestor": "<address>",
+          "child": "<article>",
+          "kind": "descendant",
+        },
         "line": 5,
-        "message": "Element <article> is not permitted as descendant of <address>",
+        "message": "<article> element is not permitted as a descendant of <address>",
         "offset": 146,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -184,8 +219,13 @@ exports[`HTML elements <address> invalid markup 1`] = `
       },
       {
         "column": 16,
+        "context": {
+          "ancestor": "<address>",
+          "child": "<header>",
+          "kind": "descendant",
+        },
         "line": 8,
-        "message": "Element <header> is not permitted as descendant of <address>",
+        "message": "<header> element is not permitted as a descendant of <address>",
         "offset": 259,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -195,8 +235,13 @@ exports[`HTML elements <address> invalid markup 1`] = `
       },
       {
         "column": 16,
+        "context": {
+          "ancestor": "<address>",
+          "child": "<footer>",
+          "kind": "descendant",
+        },
         "line": 9,
-        "message": "Element <footer> is not permitted as descendant of <address>",
+        "message": "<footer> element is not permitted as a descendant of <address>",
         "offset": 310,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -206,8 +251,13 @@ exports[`HTML elements <address> invalid markup 1`] = `
       },
       {
         "column": 16,
+        "context": {
+          "ancestor": "<address>",
+          "child": "<address>",
+          "kind": "descendant",
+        },
         "line": 12,
-        "message": "Element <address> is not permitted as descendant of <address>",
+        "message": "<address> element is not permitted as a descendant of <address>",
         "offset": 396,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -271,9 +321,26 @@ exports[`HTML elements <applet> valid markup 1`] = `[]`;
 exports[`HTML elements <area> invalid markup 1`] = `
 [
   {
-    "errorCount": 4,
+    "errorCount": 5,
     "filePath": "test-files/elements/area-invalid.html",
     "messages": [
+      {
+        "column": 2,
+        "context": {
+          "ancestor": [
+            "<map>",
+          ],
+          "child": "<area>",
+        },
+        "line": 2,
+        "message": "<area> element requires a <map> ancestor",
+        "offset": 40,
+        "ruleId": "element-required-ancestor",
+        "ruleUrl": "https://html-validate.org/rules/element-required-ancestor.html",
+        "selector": "area",
+        "severity": 2,
+        "size": 4,
+      },
       {
         "column": 9,
         "context": "area",
@@ -379,8 +446,13 @@ exports[`HTML elements <article> invalid markup 1`] = `
     "messages": [
       {
         "column": 4,
+        "context": {
+          "ancestor": "<article>",
+          "child": "<main>",
+          "kind": "descendant",
+        },
         "line": 4,
-        "message": "Element <main> is not permitted as descendant of <article>",
+        "message": "<main> element is not permitted as a descendant of <article>",
         "offset": 77,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -411,8 +483,13 @@ exports[`HTML elements <aside> invalid markup 1`] = `
     "messages": [
       {
         "column": 4,
+        "context": {
+          "ancestor": "<aside>",
+          "child": "<main>",
+          "kind": "descendant",
+        },
         "line": 4,
-        "message": "Element <main> is not permitted as descendant of <aside>",
+        "message": "<main> element is not permitted as a descendant of <aside>",
         "offset": 75,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -443,8 +520,13 @@ exports[`HTML elements <audio> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "ancestor": "<audio>",
+          "child": "<audio>",
+          "kind": "descendant",
+        },
         "line": 3,
-        "message": "Element <audio> is not permitted as descendant of <audio>",
+        "message": "<audio> element is not permitted as a descendant of <audio>",
         "offset": 66,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -454,8 +536,13 @@ exports[`HTML elements <audio> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "ancestor": "<audio>",
+          "child": "<video>",
+          "kind": "descendant",
+        },
         "line": 4,
-        "message": "Element <video> is not permitted as descendant of <audio>",
+        "message": "<video> element is not permitted as a descendant of <audio>",
         "offset": 83,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -465,8 +552,13 @@ exports[`HTML elements <audio> invalid markup 1`] = `
       },
       {
         "column": 15,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<span>",
+        },
         "line": 8,
-        "message": "Element <div> is not permitted as content in <span>",
+        "message": "<div> element is not permitted as content under <span>",
         "offset": 153,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -498,8 +590,13 @@ exports[`HTML elements <audio> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "ancestor": "<button>",
+          "child": "<audio>",
+          "kind": "descendant",
+        },
         "line": 23,
-        "message": "Element <audio> is not permitted as descendant of <button>",
+        "message": "<audio> element is not permitted as a descendant of <button>",
         "offset": 464,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -575,8 +672,13 @@ exports[`HTML elements <b> invalid markup 1`] = `
     "messages": [
       {
         "column": 5,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<b>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <b>",
+        "message": "<div> element is not permitted as content under <b>",
         "offset": 43,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -603,8 +705,13 @@ exports[`HTML elements <base> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<base>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 3,
-        "message": "Element <base> is not permitted as content in <div>",
+        "message": "<base> element is not permitted as content under <div>",
         "offset": 54,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -682,8 +789,13 @@ exports[`HTML elements <bdi> invalid markup 1`] = `
     "messages": [
       {
         "column": 7,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<bdi>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <bdi>",
+        "message": "<div> element is not permitted as content under <bdi>",
         "offset": 45,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -710,8 +822,13 @@ exports[`HTML elements <bdo> invalid markup 1`] = `
     "messages": [
       {
         "column": 7,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<bdo>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <bdo>",
+        "message": "<div> element is not permitted as content under <bdo>",
         "offset": 45,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -839,8 +956,13 @@ exports[`HTML elements <blockquote> invalid markup 1`] = `
     "messages": [
       {
         "column": 8,
+        "context": {
+          "child": "<blockquote>",
+          "kind": "content",
+          "parent": "<span>",
+        },
         "line": 2,
-        "message": "Element <blockquote> is not permitted as content in <span>",
+        "message": "<blockquote> element is not permitted as content under <span>",
         "offset": 49,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -867,8 +989,13 @@ exports[`HTML elements <body> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<body>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 3,
-        "message": "Element <body> is not permitted as content in <div>",
+        "message": "<body> element is not permitted as content under <div>",
         "offset": 60,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -926,8 +1053,13 @@ exports[`HTML elements <button> invalid markup 1`] = `
     "messages": [
       {
         "column": 24,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<button>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <button>",
+        "message": "<div> element is not permitted as content under <button>",
         "offset": 65,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -937,8 +1069,13 @@ exports[`HTML elements <button> invalid markup 1`] = `
       },
       {
         "column": 24,
+        "context": {
+          "ancestor": "<button>",
+          "child": "<a>",
+          "kind": "descendant",
+        },
         "line": 5,
-        "message": "Element <a> is not permitted as descendant of <button>",
+        "message": "<a> element is not permitted as a descendant of <button>",
         "offset": 174,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -948,8 +1085,13 @@ exports[`HTML elements <button> invalid markup 1`] = `
       },
       {
         "column": 30,
+        "context": {
+          "ancestor": "<button>",
+          "child": "<a>",
+          "kind": "descendant",
+        },
         "line": 6,
-        "message": "Element <a> is not permitted as descendant of <button>",
+        "message": "<a> element is not permitted as a descendant of <button>",
         "offset": 222,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -959,8 +1101,13 @@ exports[`HTML elements <button> invalid markup 1`] = `
       },
       {
         "column": 30,
+        "context": {
+          "ancestor": "<button>",
+          "child": "<button>",
+          "kind": "descendant",
+        },
         "line": 9,
-        "message": "Element <button> is not permitted as descendant of <button>",
+        "message": "<button> element is not permitted as a descendant of <button>",
         "offset": 312,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1073,8 +1220,13 @@ exports[`HTML elements <canvas> invalid markup 1`] = `
     "messages": [
       {
         "column": 16,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<span>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <span>",
+        "message": "<div> element is not permitted as content under <span>",
         "offset": 46,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1101,8 +1253,13 @@ exports[`HTML elements <caption> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<caption>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 3,
-        "message": "Element <caption> is not permitted as content in <div>",
+        "message": "<caption> element is not permitted as content under <div>",
         "offset": 50,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1112,8 +1269,13 @@ exports[`HTML elements <caption> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "ancestor": "<caption>",
+          "child": "<table>",
+          "kind": "descendant",
+        },
         "line": 9,
-        "message": "Element <table> is not permitted as descendant of <caption>",
+        "message": "<table> element is not permitted as a descendant of <caption>",
         "offset": 141,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1183,8 +1345,13 @@ exports[`HTML elements <cite> invalid markup 1`] = `
     "messages": [
       {
         "column": 8,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<cite>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <cite>",
+        "message": "<div> element is not permitted as content under <cite>",
         "offset": 46,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1211,8 +1378,13 @@ exports[`HTML elements <code> invalid markup 1`] = `
     "messages": [
       {
         "column": 8,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<code>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <code>",
+        "message": "<div> element is not permitted as content under <code>",
         "offset": 46,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1239,8 +1411,13 @@ exports[`HTML elements <col> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<col>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 3,
-        "message": "Element <col> is not permitted as content in <div>",
+        "message": "<col> element is not permitted as content under <div>",
         "offset": 59,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1386,8 +1563,13 @@ exports[`HTML elements <colgroup> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<colgroup>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 3,
-        "message": "Element <colgroup> is not permitted as content in <div>",
+        "message": "<colgroup> element is not permitted as content under <div>",
         "offset": 66,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1397,8 +1579,13 @@ exports[`HTML elements <colgroup> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "child": "<span>",
+          "kind": "content",
+          "parent": "<colgroup>",
+        },
         "line": 9,
-        "message": "Element <span> is not permitted as content in <colgroup>",
+        "message": "<span> element is not permitted as content under <colgroup>",
         "offset": 164,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1569,8 +1756,13 @@ exports[`HTML elements <data> invalid markup 1`] = `
     "messages": [
       {
         "column": 8,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<data>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <data>",
+        "message": "<div> element is not permitted as content under <data>",
         "offset": 46,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1597,8 +1789,13 @@ exports[`HTML elements <datalist> invalid markup 1`] = `
     "messages": [
       {
         "column": 12,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<datalist>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <datalist>",
+        "message": "<div> element is not permitted as content under <datalist>",
         "offset": 50,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1620,13 +1817,18 @@ exports[`HTML elements <datalist> valid markup 1`] = `[]`;
 exports[`HTML elements <dd> invalid markup 1`] = `
 [
   {
-    "errorCount": 2,
+    "errorCount": 3,
     "filePath": "test-files/elements/dd-invalid.html",
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<dd>",
+          "kind": "content",
+          "parent": "<span>",
+        },
         "line": 3,
-        "message": "Element <dd> is not permitted as content in <span>",
+        "message": "<dd> element is not permitted as content under <span>",
         "offset": 58,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1635,12 +1837,37 @@ exports[`HTML elements <dd> invalid markup 1`] = `
         "size": 2,
       },
       {
+        "column": 3,
+        "context": {
+          "ancestor": [
+            ""dl > dd"",
+            ""dl > div > dd"",
+          ],
+          "child": "<dd>",
+        },
+        "line": 3,
+        "message": "<dd> element requires a "dl > dd" or "dl > div > dd" ancestor",
+        "offset": 58,
+        "ruleId": "element-required-ancestor",
+        "ruleUrl": "https://html-validate.org/rules/element-required-ancestor.html",
+        "selector": "span > dd",
+        "severity": 2,
+        "size": 2,
+      },
+      {
         "column": 5,
+        "context": {
+          "ancestor": [
+            ""dl > dd"",
+            ""dl > div > dd"",
+          ],
+          "child": "<dd>",
+        },
         "line": 10,
-        "message": "Element <dd> requires an "dl > dd" ancestor",
+        "message": "<dd> element requires a "dl > dd" or "dl > div > dd" ancestor",
         "offset": 180,
-        "ruleId": "element-permitted-content",
-        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "ruleId": "element-required-ancestor",
+        "ruleUrl": "https://html-validate.org/rules/element-required-ancestor.html",
         "selector": "dl > div > div > dd",
         "severity": 2,
         "size": 2,
@@ -1675,8 +1902,13 @@ exports[`HTML elements <del> invalid markup 1`] = `
     "messages": [
       {
         "column": 13,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<span>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <span>",
+        "message": "<div> element is not permitted as content under <span>",
         "offset": 43,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1776,8 +2008,13 @@ exports[`HTML elements <dfn> invalid markup 1`] = `
     "messages": [
       {
         "column": 7,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<dfn>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <dfn>",
+        "message": "<div> element is not permitted as content under <dfn>",
         "offset": 45,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1787,8 +2024,13 @@ exports[`HTML elements <dfn> invalid markup 1`] = `
       },
       {
         "column": 10,
+        "context": {
+          "ancestor": "<dfn>",
+          "child": "<dfn>",
+          "kind": "descendant",
+        },
         "line": 5,
-        "message": "Element <dfn> is not permitted as descendant of <dfn>",
+        "message": "<dfn> element is not permitted as a descendant of <dfn>",
         "offset": 109,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1855,8 +2097,13 @@ exports[`HTML elements <dl> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<main>",
+          "kind": "content",
+          "parent": "<dl>",
+        },
         "line": 3,
-        "message": "Element <main> is not permitted as content in <dl>",
+        "message": "<main> element is not permitted as content under <dl>",
         "offset": 51,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1866,8 +2113,13 @@ exports[`HTML elements <dl> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "child": "<span>",
+          "kind": "content",
+          "parent": "<dl>",
+        },
         "line": 4,
-        "message": "Element <span> is not permitted as content in <dl>",
+        "message": "<span> element is not permitted as content under <dl>",
         "offset": 66,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1892,13 +2144,18 @@ exports[`HTML elements <dl> valid markup 1`] = `[]`;
 exports[`HTML elements <dt> invalid markup 1`] = `
 [
   {
-    "errorCount": 6,
+    "errorCount": 7,
     "filePath": "test-files/elements/dt-invalid.html",
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<dt>",
+          "kind": "content",
+          "parent": "<span>",
+        },
         "line": 3,
-        "message": "Element <dt> is not permitted as content in <span>",
+        "message": "<dt> element is not permitted as content under <span>",
         "offset": 53,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1907,9 +2164,32 @@ exports[`HTML elements <dt> invalid markup 1`] = `
         "size": 2,
       },
       {
+        "column": 3,
+        "context": {
+          "ancestor": [
+            ""dl > dt"",
+            ""dl > div > dt"",
+          ],
+          "child": "<dt>",
+        },
+        "line": 3,
+        "message": "<dt> element requires a "dl > dt" or "dl > div > dt" ancestor",
+        "offset": 53,
+        "ruleId": "element-required-ancestor",
+        "ruleUrl": "https://html-validate.org/rules/element-required-ancestor.html",
+        "selector": "span > dt",
+        "severity": 2,
+        "size": 2,
+      },
+      {
         "column": 4,
+        "context": {
+          "ancestor": "<dt>",
+          "child": "<header>",
+          "kind": "descendant",
+        },
         "line": 9,
-        "message": "Element <header> is not permitted as descendant of <dt>",
+        "message": "<header> element is not permitted as a descendant of <dt>",
         "offset": 148,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1919,8 +2199,13 @@ exports[`HTML elements <dt> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "ancestor": "<dt>",
+          "child": "<footer>",
+          "kind": "descendant",
+        },
         "line": 10,
-        "message": "Element <footer> is not permitted as descendant of <dt>",
+        "message": "<footer> element is not permitted as a descendant of <dt>",
         "offset": 168,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1930,8 +2215,13 @@ exports[`HTML elements <dt> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "ancestor": "<dt>",
+          "child": "<article>",
+          "kind": "descendant",
+        },
         "line": 11,
-        "message": "Element <article> is not permitted as descendant of <dt>",
+        "message": "<article> element is not permitted as a descendant of <dt>",
         "offset": 188,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1941,8 +2231,13 @@ exports[`HTML elements <dt> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "ancestor": "<dt>",
+          "child": "<h1>",
+          "kind": "descendant",
+        },
         "line": 12,
-        "message": "Element <h1> is not permitted as descendant of <dt>",
+        "message": "<h1> element is not permitted as a descendant of <dt>",
         "offset": 210,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -1952,11 +2247,18 @@ exports[`HTML elements <dt> invalid markup 1`] = `
       },
       {
         "column": 5,
+        "context": {
+          "ancestor": [
+            ""dl > dt"",
+            ""dl > div > dt"",
+          ],
+          "child": "<dt>",
+        },
         "line": 20,
-        "message": "Element <dt> requires an "dl > dt" ancestor",
+        "message": "<dt> element requires a "dl > dt" or "dl > div > dt" ancestor",
         "offset": 345,
-        "ruleId": "element-permitted-content",
-        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "ruleId": "element-required-ancestor",
+        "ruleUrl": "https://html-validate.org/rules/element-required-ancestor.html",
         "selector": "dl:nth-child(3) > div > div > dt",
         "severity": 2,
         "size": 2,
@@ -2001,8 +2303,13 @@ exports[`HTML elements <em> invalid markup 1`] = `
     "messages": [
       {
         "column": 6,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<em>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <em>",
+        "message": "<div> element is not permitted as content under <em>",
         "offset": 44,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -2160,8 +2467,13 @@ exports[`HTML elements <figcaption> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<figcaption>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 3,
-        "message": "Element <figcaption> is not permitted as content in <div>",
+        "message": "<figcaption> element is not permitted as content under <div>",
         "offset": 56,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -2255,8 +2567,13 @@ exports[`HTML elements <footer> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "ancestor": "<footer>",
+          "child": "<header>",
+          "kind": "descendant",
+        },
         "line": 3,
-        "message": "Element <header> is not permitted as descendant of <footer>",
+        "message": "<header> element is not permitted as a descendant of <footer>",
         "offset": 80,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -2266,8 +2583,13 @@ exports[`HTML elements <footer> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "ancestor": "<footer>",
+          "child": "<main>",
+          "kind": "descendant",
+        },
         "line": 4,
-        "message": "Element <main> is not permitted as descendant of <footer>",
+        "message": "<main> element is not permitted as a descendant of <footer>",
         "offset": 102,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -2277,8 +2599,13 @@ exports[`HTML elements <footer> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "ancestor": "<footer>",
+          "child": "<footer>",
+          "kind": "descendant",
+        },
         "line": 5,
-        "message": "Element <footer> is not permitted as descendant of <footer>",
+        "message": "<footer> element is not permitted as a descendant of <footer>",
         "offset": 120,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -2309,8 +2636,13 @@ exports[`HTML elements <form> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "ancestor": "<form>",
+          "child": "<form>",
+          "kind": "descendant",
+        },
         "line": 3,
-        "message": "Element <form> is not permitted as descendant of <form>",
+        "message": "<form> element is not permitted as a descendant of <form>",
         "offset": 43,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -2320,8 +2652,13 @@ exports[`HTML elements <form> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "ancestor": "<form>",
+          "child": "<custom-form>",
+          "kind": "descendant",
+        },
         "line": 8,
-        "message": "Element <custom-form> is not permitted as descendant of <form>",
+        "message": "<custom-form> element is not permitted as a descendant of <form>",
         "offset": 129,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -2440,8 +2777,13 @@ exports[`HTML elements <h1> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<h1>",
+        },
         "line": 3,
-        "message": "Element <div> is not permitted as content in <h1>",
+        "message": "<div> element is not permitted as content under <h1>",
         "offset": 46,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -2496,8 +2838,13 @@ exports[`HTML elements <h2> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<h2>",
+        },
         "line": 3,
-        "message": "Element <div> is not permitted as content in <h2>",
+        "message": "<div> element is not permitted as content under <h2>",
         "offset": 46,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -2552,8 +2899,13 @@ exports[`HTML elements <h3> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<h3>",
+        },
         "line": 3,
-        "message": "Element <div> is not permitted as content in <h3>",
+        "message": "<div> element is not permitted as content under <h3>",
         "offset": 46,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -2608,8 +2960,13 @@ exports[`HTML elements <h4> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<h4>",
+        },
         "line": 3,
-        "message": "Element <div> is not permitted as content in <h4>",
+        "message": "<div> element is not permitted as content under <h4>",
         "offset": 46,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -2664,8 +3021,13 @@ exports[`HTML elements <h5> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<h5>",
+        },
         "line": 3,
-        "message": "Element <div> is not permitted as content in <h5>",
+        "message": "<div> element is not permitted as content under <h5>",
         "offset": 46,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -2720,8 +3082,13 @@ exports[`HTML elements <h6> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<h6>",
+        },
         "line": 3,
-        "message": "Element <div> is not permitted as content in <h6>",
+        "message": "<div> element is not permitted as content under <h6>",
         "offset": 46,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -2776,8 +3143,13 @@ exports[`HTML elements <head> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<head>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 3,
-        "message": "Element <head> is not permitted as content in <div>",
+        "message": "<head> element is not permitted as content under <div>",
         "offset": 54,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -2802,8 +3174,13 @@ exports[`HTML elements <head> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<head>",
+        },
         "line": 19,
-        "message": "Element <div> is not permitted as content in <head>",
+        "message": "<div> element is not permitted as content under <head>",
         "offset": 278,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -2813,8 +3190,13 @@ exports[`HTML elements <head> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "child": "<span>",
+          "kind": "content",
+          "parent": "<head>",
+        },
         "line": 20,
-        "message": "Element <span> is not permitted as content in <head>",
+        "message": "<span> element is not permitted as content under <head>",
         "offset": 292,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -2903,8 +3285,13 @@ exports[`HTML elements <header> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "ancestor": "<header>",
+          "child": "<header>",
+          "kind": "descendant",
+        },
         "line": 3,
-        "message": "Element <header> is not permitted as descendant of <header>",
+        "message": "<header> element is not permitted as a descendant of <header>",
         "offset": 80,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -2914,8 +3301,13 @@ exports[`HTML elements <header> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "ancestor": "<header>",
+          "child": "<main>",
+          "kind": "descendant",
+        },
         "line": 4,
-        "message": "Element <main> is not permitted as descendant of <header>",
+        "message": "<main> element is not permitted as a descendant of <header>",
         "offset": 102,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -2925,8 +3317,13 @@ exports[`HTML elements <header> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "ancestor": "<header>",
+          "child": "<footer>",
+          "kind": "descendant",
+        },
         "line": 5,
-        "message": "Element <footer> is not permitted as descendant of <header>",
+        "message": "<footer> element is not permitted as a descendant of <header>",
         "offset": 120,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -3000,8 +3397,13 @@ exports[`HTML elements <hr> invalid markup 1`] = `
       },
       {
         "column": 8,
+        "context": {
+          "child": "<hr>",
+          "kind": "content",
+          "parent": "<span>",
+        },
         "line": 5,
-        "message": "Element <hr> is not permitted as content in <span>",
+        "message": "<hr> element is not permitted as content under <span>",
         "offset": 98,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -3163,8 +3565,13 @@ exports[`HTML elements <i> invalid markup 1`] = `
     "messages": [
       {
         "column": 5,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<i>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <i>",
+        "message": "<div> element is not permitted as content under <i>",
         "offset": 43,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -3317,8 +3724,13 @@ exports[`HTML elements <img> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "ancestor": "<button>",
+          "child": "<img>",
+          "kind": "descendant",
+        },
         "line": 15,
-        "message": "Element <img> is not permitted as descendant of <button>",
+        "message": "<img> element is not permitted as a descendant of <button>",
         "offset": 284,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -3617,8 +4029,13 @@ exports[`HTML elements <input> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "ancestor": "<button>",
+          "child": "<input>",
+          "kind": "descendant",
+        },
         "line": 22,
-        "message": "Element <input> is not permitted as descendant of <button>",
+        "message": "<input> element is not permitted as a descendant of <button>",
         "offset": 603,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -10356,8 +10773,13 @@ exports[`HTML elements <ins> invalid markup 1`] = `
     "messages": [
       {
         "column": 13,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<span>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <span>",
+        "message": "<div> element is not permitted as content under <span>",
         "offset": 43,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -10416,8 +10838,13 @@ exports[`HTML elements <kbd> invalid markup 1`] = `
     "messages": [
       {
         "column": 7,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<kbd>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <kbd>",
+        "message": "<div> element is not permitted as content under <kbd>",
         "offset": 45,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -10473,8 +10900,13 @@ exports[`HTML elements <label> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<label>",
+        },
         "line": 3,
-        "message": "Element <div> is not permitted as content in <label>",
+        "message": "<div> element is not permitted as content under <label>",
         "offset": 41,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -10484,8 +10916,13 @@ exports[`HTML elements <label> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "ancestor": "<label>",
+          "child": "<label>",
+          "kind": "descendant",
+        },
         "line": 8,
-        "message": "Element <label> is not permitted as descendant of <label>",
+        "message": "<label> element is not permitted as a descendant of <label>",
         "offset": 109,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -10641,8 +11078,13 @@ exports[`HTML elements <legend> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<legend>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 3,
-        "message": "Element <legend> is not permitted as content in <div>",
+        "message": "<legend> element is not permitted as content under <div>",
         "offset": 55,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -10652,8 +11094,13 @@ exports[`HTML elements <legend> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<legend>",
+        },
         "line": 9,
-        "message": "Element <div> is not permitted as content in <legend>",
+        "message": "<div> element is not permitted as content under <legend>",
         "offset": 138,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -10684,22 +11131,68 @@ exports[`HTML elements <legend> valid markup 1`] = `[]`;
 exports[`HTML elements <li> invalid markup 1`] = `
 [
   {
-    "errorCount": 1,
+    "errorCount": 3,
     "filePath": "test-files/elements/li-invalid.html",
     "messages": [
       {
+        "column": 2,
+        "context": {
+          "ancestor": [
+            "<ul>",
+            "<ol>",
+            "<menu>",
+          ],
+          "child": "<li>",
+        },
+        "line": 2,
+        "message": "<li> element requires a <ul>, <ol> or <menu> ancestor",
+        "offset": 46,
+        "ruleId": "element-required-ancestor",
+        "ruleUrl": "https://html-validate.org/rules/element-required-ancestor.html",
+        "selector": "li",
+        "severity": 2,
+        "size": 2,
+      },
+      {
         "column": 3,
-        "line": 3,
-        "message": "Element <li> is not permitted as content in <div>",
-        "offset": 55,
+        "context": {
+          "child": "<li>",
+          "kind": "content",
+          "parent": "<div>",
+        },
+        "line": 6,
+        "message": "<li> element is not permitted as content under <div>",
+        "offset": 122,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "div > li",
         "severity": 2,
         "size": 2,
       },
+      {
+        "column": 3,
+        "context": {
+          "ancestor": [
+            "<ul>",
+            "<ol>",
+            "<menu>",
+          ],
+          "child": "<li>",
+        },
+        "line": 6,
+        "message": "<li> element requires a <ul>, <ol> or <menu> ancestor",
+        "offset": 122,
+        "ruleId": "element-required-ancestor",
+        "ruleUrl": "https://html-validate.org/rules/element-required-ancestor.html",
+        "selector": "div > li",
+        "severity": 2,
+        "size": 2,
+      },
     ],
-    "source": "<!-- should not allow under other elements -->
+    "source": "<!-- should require <ul>, <ol> or <menu> -->
+<li>lorem ipsum</li>
+
+<!-- should not allow under other elements -->
 <div>
 	<li>foo</li>
 </div>
@@ -10875,8 +11368,13 @@ exports[`HTML elements <mark> invalid markup 1`] = `
     "messages": [
       {
         "column": 8,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<mark>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <mark>",
+        "message": "<div> element is not permitted as content under <mark>",
         "offset": 46,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11096,8 +11594,13 @@ exports[`HTML elements <menu> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<menu>",
+        },
         "line": 3,
-        "message": "Element <div> is not permitted as content in <menu>",
+        "message": "<div> element is not permitted as content under <menu>",
         "offset": 49,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11155,8 +11658,13 @@ exports[`HTML elements <meter> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<meter>",
+        },
         "line": 3,
-        "message": "Element <div> is not permitted as content in <meter>",
+        "message": "<div> element is not permitted as content under <meter>",
         "offset": 41,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11166,8 +11674,13 @@ exports[`HTML elements <meter> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "ancestor": "<meter>",
+          "child": "<meter>",
+          "kind": "descendant",
+        },
         "line": 8,
-        "message": "Element <meter> is not permitted as descendant of <meter>",
+        "message": "<meter> element is not permitted as a descendant of <meter>",
         "offset": 109,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11235,8 +11748,13 @@ exports[`HTML elements <nav> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "ancestor": "<nav>",
+          "child": "<main>",
+          "kind": "descendant",
+        },
         "line": 3,
-        "message": "Element <main> is not permitted as descendant of <nav>",
+        "message": "<main> element is not permitted as a descendant of <nav>",
         "offset": 66,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11395,8 +11913,13 @@ exports[`HTML elements <noscript> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "ancestor": "<noscript>",
+          "child": "<noscript>",
+          "kind": "descendant",
+        },
         "line": 3,
-        "message": "Element <noscript> is not permitted as descendant of <noscript>",
+        "message": "<noscript> element is not permitted as a descendant of <noscript>",
         "offset": 47,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11471,8 +11994,13 @@ exports[`HTML elements <object> invalid markup 1`] = `
     "messages": [
       {
         "column": 4,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<span>",
+        },
         "line": 4,
-        "message": "Element <div> is not permitted as content in <span>",
+        "message": "<div> element is not permitted as content under <span>",
         "offset": 51,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11514,8 +12042,13 @@ exports[`HTML elements <object> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "ancestor": "<button>",
+          "child": "<object>",
+          "kind": "descendant",
+        },
         "line": 20,
-        "message": "Element <object> is not permitted as descendant of <button>",
+        "message": "<object> element is not permitted as a descendant of <button>",
         "offset": 310,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11561,8 +12094,13 @@ exports[`HTML elements <ol> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<ol>",
+        },
         "line": 3,
-        "message": "Element <div> is not permitted as content in <ol>",
+        "message": "<div> element is not permitted as content under <ol>",
         "offset": 47,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11591,8 +12129,13 @@ exports[`HTML elements <optgroup> invalid markup 1`] = `
     "messages": [
       {
         "column": 4,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<optgroup>",
+        },
         "line": 4,
-        "message": "Element <div> is not permitted as content in <optgroup>",
+        "message": "<div> element is not permitted as content under <optgroup>",
         "offset": 64,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11623,8 +12166,13 @@ exports[`HTML elements <option> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<option>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 3,
-        "message": "Element <option> is not permitted as content in <div>",
+        "message": "<option> element is not permitted as content under <div>",
         "offset": 59,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11634,8 +12182,13 @@ exports[`HTML elements <option> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "child": "<span>",
+          "kind": "content",
+          "parent": "<option>",
+        },
         "line": 9,
-        "message": "Element <span> is not permitted as content in <option>",
+        "message": "<span> element is not permitted as content under <option>",
         "offset": 152,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11645,8 +12198,13 @@ exports[`HTML elements <option> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<option>",
+        },
         "line": 10,
-        "message": "Element <div> is not permitted as content in <option>",
+        "message": "<div> element is not permitted as content under <option>",
         "offset": 171,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11683,8 +12241,13 @@ exports[`HTML elements <output> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<output>",
+        },
         "line": 3,
-        "message": "Element <div> is not permitted as content in <output>",
+        "message": "<div> element is not permitted as content under <output>",
         "offset": 42,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11713,8 +12276,13 @@ exports[`HTML elements <p> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<figure>",
+          "kind": "content",
+          "parent": "<p>",
+        },
         "line": 3,
-        "message": "Element <figure> is not permitted as content in <p>",
+        "message": "<figure> element is not permitted as content under <p>",
         "offset": 45,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11755,8 +12323,13 @@ exports[`HTML elements <param> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "child": "<param>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 6,
-        "message": "Element <param> is not permitted as content in <div>",
+        "message": "<param> element is not permitted as content under <div>",
         "offset": 106,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11799,8 +12372,13 @@ exports[`HTML elements <picture> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<picture>",
+        },
         "line": 9,
-        "message": "Element <div> is not permitted as content in <picture>",
+        "message": "<div> element is not permitted as content under <picture>",
         "offset": 185,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11869,8 +12447,13 @@ exports[`HTML elements <pre> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<pre>",
+        },
         "line": 3,
-        "message": "Element <div> is not permitted as content in <pre>",
+        "message": "<div> element is not permitted as content under <pre>",
         "offset": 47,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11899,8 +12482,13 @@ exports[`HTML elements <progress> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<progress>",
+        },
         "line": 3,
-        "message": "Element <div> is not permitted as content in <progress>",
+        "message": "<div> element is not permitted as content under <progress>",
         "offset": 52,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11910,8 +12498,13 @@ exports[`HTML elements <progress> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "ancestor": "<progress>",
+          "child": "<progress>",
+          "kind": "descendant",
+        },
         "line": 8,
-        "message": "Element <progress> is not permitted as descendant of <progress>",
+        "message": "<progress> element is not permitted as a descendant of <progress>",
         "offset": 126,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11945,8 +12538,13 @@ exports[`HTML elements <q> invalid markup 1`] = `
     "messages": [
       {
         "column": 5,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<q>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <q>",
+        "message": "<div> element is not permitted as content under <q>",
         "offset": 43,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11973,8 +12571,13 @@ exports[`HTML elements <rb> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<rb>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 3,
-        "message": "Element <rb> is not permitted as content in <div>",
+        "message": "<rb> element is not permitted as content under <div>",
         "offset": 59,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -11984,8 +12587,13 @@ exports[`HTML elements <rb> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<rb>",
+        },
         "line": 9,
-        "message": "Element <div> is not permitted as content in <rb>",
+        "message": "<div> element is not permitted as content under <rb>",
         "offset": 131,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12021,8 +12629,13 @@ exports[`HTML elements <rp> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<rp>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 3,
-        "message": "Element <rp> is not permitted as content in <div>",
+        "message": "<rp> element is not permitted as content under <div>",
         "offset": 59,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12032,8 +12645,13 @@ exports[`HTML elements <rp> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<rp>",
+        },
         "line": 9,
-        "message": "Element <div> is not permitted as content in <rp>",
+        "message": "<div> element is not permitted as content under <rp>",
         "offset": 131,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12069,8 +12687,13 @@ exports[`HTML elements <rt> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<rt>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 3,
-        "message": "Element <rt> is not permitted as content in <div>",
+        "message": "<rt> element is not permitted as content under <div>",
         "offset": 59,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12080,8 +12703,13 @@ exports[`HTML elements <rt> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<rt>",
+        },
         "line": 9,
-        "message": "Element <div> is not permitted as content in <rt>",
+        "message": "<div> element is not permitted as content under <rt>",
         "offset": 131,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12117,8 +12745,13 @@ exports[`HTML elements <rtc> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<rtc>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 3,
-        "message": "Element <rtc> is not permitted as content in <div>",
+        "message": "<rtc> element is not permitted as content under <div>",
         "offset": 59,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12128,8 +12761,13 @@ exports[`HTML elements <rtc> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<rtc>",
+        },
         "line": 9,
-        "message": "Element <div> is not permitted as content in <rtc>",
+        "message": "<div> element is not permitted as content under <rtc>",
         "offset": 134,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12165,8 +12803,13 @@ exports[`HTML elements <ruby> invalid markup 1`] = `
     "messages": [
       {
         "column": 8,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<ruby>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <ruby>",
+        "message": "<div> element is not permitted as content under <ruby>",
         "offset": 46,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12193,8 +12836,13 @@ exports[`HTML elements <s> invalid markup 1`] = `
     "messages": [
       {
         "column": 5,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<s>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <s>",
+        "message": "<div> element is not permitted as content under <s>",
         "offset": 43,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12221,8 +12869,13 @@ exports[`HTML elements <samp> invalid markup 1`] = `
     "messages": [
       {
         "column": 8,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<samp>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <samp>",
+        "message": "<div> element is not permitted as content under <samp>",
         "offset": 46,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12357,8 +13010,13 @@ exports[`HTML elements <select> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<span>",
+          "kind": "content",
+          "parent": "<select>",
+        },
         "line": 3,
-        "message": "Element <span> is not permitted as content in <select>",
+        "message": "<span> element is not permitted as content under <select>",
         "offset": 55,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12368,8 +13026,13 @@ exports[`HTML elements <select> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<select>",
+        },
         "line": 4,
-        "message": "Element <div> is not permitted as content in <select>",
+        "message": "<div> element is not permitted as content under <select>",
         "offset": 73,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12493,8 +13156,13 @@ exports[`HTML elements <slot> invalid markup 1`] = `
     "messages": [
       {
         "column": 4,
+        "context": {
+          "ancestor": "<button>",
+          "child": "<input>",
+          "kind": "descendant",
+        },
         "line": 5,
-        "message": "Element <input> is not permitted as descendant of <button>",
+        "message": "<input> element is not permitted as a descendant of <button>",
         "offset": 71,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12526,8 +13194,13 @@ exports[`HTML elements <small> invalid markup 1`] = `
     "messages": [
       {
         "column": 9,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<small>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <small>",
+        "message": "<div> element is not permitted as content under <small>",
         "offset": 47,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12566,8 +13239,13 @@ exports[`HTML elements <source> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "child": "<source>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 8,
-        "message": "Element <source> is not permitted as content in <div>",
+        "message": "<source> element is not permitted as content under <div>",
         "offset": 125,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12635,8 +13313,13 @@ exports[`HTML elements <span> invalid markup 1`] = `
     "messages": [
       {
         "column": 8,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<span>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <span>",
+        "message": "<div> element is not permitted as content under <span>",
         "offset": 46,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12697,8 +13380,13 @@ exports[`HTML elements <strong> invalid markup 1`] = `
     "messages": [
       {
         "column": 10,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<strong>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <strong>",
+        "message": "<div> element is not permitted as content under <strong>",
         "offset": 48,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12729,8 +13417,13 @@ exports[`HTML elements <sub> invalid markup 1`] = `
     "messages": [
       {
         "column": 7,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<sub>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <sub>",
+        "message": "<div> element is not permitted as content under <sub>",
         "offset": 45,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12757,8 +13450,13 @@ exports[`HTML elements <summary> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<summary>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 3,
-        "message": "Element <summary> is not permitted as content in <div>",
+        "message": "<summary> element is not permitted as content under <div>",
         "offset": 58,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12768,8 +13466,13 @@ exports[`HTML elements <summary> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "child": "<p>",
+          "kind": "content",
+          "parent": "<summary>",
+        },
         "line": 9,
-        "message": "Element <p> is not permitted as content in <summary>",
+        "message": "<p> element is not permitted as content under <summary>",
         "offset": 159,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12805,8 +13508,13 @@ exports[`HTML elements <sup> invalid markup 1`] = `
     "messages": [
       {
         "column": 7,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<sup>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <sup>",
+        "message": "<div> element is not permitted as content under <sup>",
         "offset": 45,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12869,8 +13577,13 @@ exports[`HTML elements <table> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<span>",
+          "kind": "content",
+          "parent": "<table>",
+        },
         "line": 3,
-        "message": "Element <span> is not permitted as content in <table>",
+        "message": "<span> element is not permitted as content under <table>",
         "offset": 50,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -12880,8 +13593,13 @@ exports[`HTML elements <table> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<table>",
+        },
         "line": 4,
-        "message": "Element <div> is not permitted as content in <table>",
+        "message": "<div> element is not permitted as content under <table>",
         "offset": 68,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -13021,8 +13739,13 @@ exports[`HTML elements <tbody> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<tbody>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 3,
-        "message": "Element <tbody> is not permitted as content in <div>",
+        "message": "<tbody> element is not permitted as content under <div>",
         "offset": 52,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -13032,8 +13755,13 @@ exports[`HTML elements <tbody> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "child": "<span>",
+          "kind": "content",
+          "parent": "<tbody>",
+        },
         "line": 9,
-        "message": "Element <span> is not permitted as content in <tbody>",
+        "message": "<span> element is not permitted as content under <tbody>",
         "offset": 135,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -13043,8 +13771,13 @@ exports[`HTML elements <tbody> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<tbody>",
+        },
         "line": 10,
-        "message": "Element <div> is not permitted as content in <tbody>",
+        "message": "<div> element is not permitted as content under <tbody>",
         "offset": 154,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -13288,8 +14021,13 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<span>",
+          "kind": "content",
+          "parent": "<textarea>",
+        },
         "line": 3,
-        "message": "Element <span> is not permitted as content in <textarea>",
+        "message": "<span> element is not permitted as content under <textarea>",
         "offset": 44,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -13299,8 +14037,13 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<textarea>",
+        },
         "line": 4,
-        "message": "Element <div> is not permitted as content in <textarea>",
+        "message": "<div> element is not permitted as content under <textarea>",
         "offset": 62,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -13676,8 +14419,13 @@ exports[`HTML elements <tfoot> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<tfoot>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 3,
-        "message": "Element <tfoot> is not permitted as content in <div>",
+        "message": "<tfoot> element is not permitted as content under <div>",
         "offset": 52,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -13687,8 +14435,13 @@ exports[`HTML elements <tfoot> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "child": "<span>",
+          "kind": "content",
+          "parent": "<tfoot>",
+        },
         "line": 9,
-        "message": "Element <span> is not permitted as content in <tfoot>",
+        "message": "<span> element is not permitted as content under <tfoot>",
         "offset": 135,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -13698,8 +14451,13 @@ exports[`HTML elements <tfoot> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<tfoot>",
+        },
         "line": 10,
-        "message": "Element <div> is not permitted as content in <tfoot>",
+        "message": "<div> element is not permitted as content under <tfoot>",
         "offset": 154,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -13736,8 +14494,13 @@ exports[`HTML elements <th> invalid markup 1`] = `
     "messages": [
       {
         "column": 6,
+        "context": {
+          "ancestor": "<th>",
+          "child": "<header>",
+          "kind": "descendant",
+        },
         "line": 11,
-        "message": "Element <header> is not permitted as descendant of <th>",
+        "message": "<header> element is not permitted as a descendant of <th>",
         "offset": 204,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -13747,8 +14510,13 @@ exports[`HTML elements <th> invalid markup 1`] = `
       },
       {
         "column": 6,
+        "context": {
+          "ancestor": "<th>",
+          "child": "<footer>",
+          "kind": "descendant",
+        },
         "line": 12,
-        "message": "Element <footer> is not permitted as descendant of <th>",
+        "message": "<footer> element is not permitted as a descendant of <th>",
         "offset": 226,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -13758,8 +14526,13 @@ exports[`HTML elements <th> invalid markup 1`] = `
       },
       {
         "column": 6,
+        "context": {
+          "ancestor": "<th>",
+          "child": "<article>",
+          "kind": "descendant",
+        },
         "line": 13,
-        "message": "Element <article> is not permitted as descendant of <th>",
+        "message": "<article> element is not permitted as a descendant of <th>",
         "offset": 248,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -13769,8 +14542,13 @@ exports[`HTML elements <th> invalid markup 1`] = `
       },
       {
         "column": 6,
+        "context": {
+          "ancestor": "<th>",
+          "child": "<h1>",
+          "kind": "descendant",
+        },
         "line": 14,
-        "message": "Element <h1> is not permitted as descendant of <th>",
+        "message": "<h1> element is not permitted as a descendant of <th>",
         "offset": 272,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -14050,8 +14828,13 @@ exports[`HTML elements <thead> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<thead>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 3,
-        "message": "Element <thead> is not permitted as content in <div>",
+        "message": "<thead> element is not permitted as content under <div>",
         "offset": 52,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -14061,8 +14844,13 @@ exports[`HTML elements <thead> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "child": "<span>",
+          "kind": "content",
+          "parent": "<thead>",
+        },
         "line": 9,
-        "message": "Element <span> is not permitted as content in <thead>",
+        "message": "<span> element is not permitted as content under <thead>",
         "offset": 135,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -14072,8 +14860,13 @@ exports[`HTML elements <thead> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<thead>",
+        },
         "line": 10,
-        "message": "Element <div> is not permitted as content in <thead>",
+        "message": "<div> element is not permitted as content under <thead>",
         "offset": 154,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -14110,8 +14903,13 @@ exports[`HTML elements <time> invalid markup 1`] = `
     "messages": [
       {
         "column": 8,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<time>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <time>",
+        "message": "<div> element is not permitted as content under <time>",
         "offset": 46,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -14171,8 +14969,13 @@ exports[`HTML elements <title> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "child": "<title>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 16,
-        "message": "Element <title> is not permitted as content in <div>",
+        "message": "<title> element is not permitted as content under <div>",
         "offset": 360,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -14182,8 +14985,13 @@ exports[`HTML elements <title> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "child": "<span>",
+          "kind": "content",
+          "parent": "<title>",
+        },
         "line": 22,
-        "message": "Element <span> is not permitted as content in <title>",
+        "message": "<span> element is not permitted as content under <title>",
         "offset": 449,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -14193,8 +15001,13 @@ exports[`HTML elements <title> invalid markup 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<title>",
+        },
         "line": 23,
-        "message": "Element <div> is not permitted as content in <title>",
+        "message": "<div> element is not permitted as content under <title>",
         "offset": 468,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -14244,8 +15057,13 @@ exports[`HTML elements <tr> invalid markup 1`] = `
     "messages": [
       {
         "column": 5,
+        "context": {
+          "child": "<span>",
+          "kind": "content",
+          "parent": "<tr>",
+        },
         "line": 5,
-        "message": "Element <span> is not permitted as content in <tr>",
+        "message": "<span> element is not permitted as content under <tr>",
         "offset": 72,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -14255,8 +15073,13 @@ exports[`HTML elements <tr> invalid markup 1`] = `
       },
       {
         "column": 5,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<tr>",
+        },
         "line": 6,
-        "message": "Element <div> is not permitted as content in <tr>",
+        "message": "<div> element is not permitted as content under <tr>",
         "offset": 92,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -14370,8 +15193,13 @@ exports[`HTML elements <u> invalid markup 1`] = `
     "messages": [
       {
         "column": 5,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<u>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <u>",
+        "message": "<div> element is not permitted as content under <u>",
         "offset": 43,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -14398,8 +15226,13 @@ exports[`HTML elements <ul> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<ul>",
+        },
         "line": 3,
-        "message": "Element <div> is not permitted as content in <ul>",
+        "message": "<div> element is not permitted as content under <ul>",
         "offset": 47,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -14428,8 +15261,13 @@ exports[`HTML elements <var> invalid markup 1`] = `
     "messages": [
       {
         "column": 7,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<var>",
+        },
         "line": 2,
-        "message": "Element <div> is not permitted as content in <var>",
+        "message": "<div> element is not permitted as content under <var>",
         "offset": 45,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -14456,8 +15294,13 @@ exports[`HTML elements <video> invalid markup 1`] = `
     "messages": [
       {
         "column": 3,
+        "context": {
+          "ancestor": "<video>",
+          "child": "<audio>",
+          "kind": "descendant",
+        },
         "line": 3,
-        "message": "Element <audio> is not permitted as descendant of <video>",
+        "message": "<audio> element is not permitted as a descendant of <video>",
         "offset": 66,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -14467,8 +15310,13 @@ exports[`HTML elements <video> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "ancestor": "<video>",
+          "child": "<video>",
+          "kind": "descendant",
+        },
         "line": 4,
-        "message": "Element <video> is not permitted as descendant of <video>",
+        "message": "<video> element is not permitted as a descendant of <video>",
         "offset": 83,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -14478,8 +15326,13 @@ exports[`HTML elements <video> invalid markup 1`] = `
       },
       {
         "column": 15,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<span>",
+        },
         "line": 8,
-        "message": "Element <div> is not permitted as content in <span>",
+        "message": "<div> element is not permitted as content under <span>",
         "offset": 153,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -14511,8 +15364,13 @@ exports[`HTML elements <video> invalid markup 1`] = `
       },
       {
         "column": 3,
+        "context": {
+          "ancestor": "<button>",
+          "child": "<video>",
+          "kind": "descendant",
+        },
         "line": 23,
-        "message": "Element <video> is not permitted as descendant of <button>",
+        "message": "<video> element is not permitted as a descendant of <button>",
         "offset": 464,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",

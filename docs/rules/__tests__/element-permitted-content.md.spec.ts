@@ -4,10 +4,19 @@ const markup: { [key: string]: string } = {};
 markup["incorrect"] = `<!-- <li> is only allowed with <ul> or <ol> as parent -->
 <div>
     <li>foo</li>
-</div>`;
+</div>
+
+<!-- interactive elements cannot be nested -->
+<button>
+    <a href="#">Lorem ipsum</a>
+</button>`;
 markup["correct"] = `<ul>
     <li>foo</li>
-</ul>`;
+</ul>
+
+<button>
+    Lorem ipsum
+</button>`;
 
 describe("docs/rules/element-permitted-content.md", () => {
 	it("inline validation: incorrect", () => {

@@ -4,6 +4,25 @@ import { Validator } from "../meta";
 import { Permitted } from "../meta/element";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
+export enum ErrorKind {
+	CONTENT = "content",
+	DESCENDANT = "descendant",
+}
+
+export interface ContentContext {
+	kind: ErrorKind.CONTENT;
+	parent: string;
+	child: string;
+}
+
+export interface DescendantContext {
+	kind: ErrorKind.DESCENDANT;
+	ancestor: string;
+	child: string;
+}
+
+type RuleContext = ContentContext | DescendantContext;
+
 function getTransparentChildren(node: HtmlElement, transparent: boolean | string[]): HtmlElement[] {
 	if (typeof transparent === "boolean") {
 		return node.childElements;
@@ -17,11 +36,29 @@ function getTransparentChildren(node: HtmlElement, transparent: boolean | string
 	}
 }
 
-export default class ElementPermittedContent extends Rule {
-	public documentation(): RuleDocumentation {
+function getRuleDescription(context?: RuleContext): string[] {
+	if (!context) {
+		return [
+			"Some elements has restrictions on what content is allowed.",
+			"This can include both direct children or descendant elements.",
+		];
+	}
+	switch (context.kind) {
+		case ErrorKind.CONTENT:
+			return [
+				`The \`${context.child}\` element is not permitted as content under the parent \`${context.parent}\` element.`,
+			];
+		case ErrorKind.DESCENDANT:
+			return [
+				`The \`${context.child}\` element is not permitted as a descendant of the \`${context.ancestor}\` element.`,
+			];
+	}
+}
+
+export default class ElementPermittedContent extends Rule<RuleContext> {
+	public documentation(context?: RuleContext): RuleDocumentation {
 		return {
-			description:
-				"Some elements has restrictions on what content is allowed. This can include both direct children or descendant elements.",
+			description: getRuleDescription(context).join("\n"),
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
@@ -32,8 +69,9 @@ export default class ElementPermittedContent extends Rule {
 			doc.visitDepthFirst((node: HtmlElement) => {
 				const parent = node.parent;
 
-				/* dont verify root element, assume any element is allowed */
-				if (!parent || parent.isRootElement()) {
+				/* istanbul ignore next: satisfy typescript but will visitDepthFirst()
+				 * will not yield nodes without a parent */
+				if (!parent) {
 					return;
 				}
 
@@ -44,7 +82,6 @@ export default class ElementPermittedContent extends Rule {
 				[
 					() => this.validatePermittedContent(node, parent),
 					() => this.validatePermittedDescendant(node, parent),
-					() => this.validatePermittedAncestors(node),
 				].some((fn) => fn());
 			});
 		});
@@ -67,8 +104,14 @@ export default class ElementPermittedContent extends Rule {
 		rules: Permitted | null
 	): boolean {
 		if (!Validator.validatePermitted(cur, rules)) {
-			const message = `Element <${cur.tagName}> is not permitted as content in ${parent.annotatedName}`;
-			this.report(cur, message);
+			const child = `<${cur.tagName}>`;
+			const message = `${child} element is not permitted as content under ${parent.annotatedName}`;
+			const context: ContentContext = {
+				kind: ErrorKind.CONTENT,
+				parent: parent.annotatedName,
+				child,
+			};
+			this.report(cur, message, null, context);
 			return true;
 		}
 
@@ -109,30 +152,17 @@ export default class ElementPermittedContent extends Rule {
 				continue;
 			}
 
-			this.report(
-				node,
-				`Element <${node.tagName}> is not permitted as descendant of ${cur.annotatedName}`
-			);
+			const child = `<${node.tagName}>`;
+			const ancestor = cur.annotatedName;
+			const message = `${child} element is not permitted as a descendant of ${ancestor}`;
+			const context: DescendantContext = {
+				kind: ErrorKind.DESCENDANT,
+				ancestor,
+				child,
+			};
+			this.report(node, message, null, context);
 			return true;
 		}
-		return false;
-	}
-
-	private validatePermittedAncestors(node: HtmlElement): boolean {
-		if (!node.meta) {
-			return false;
-		}
-
-		const rules = node.meta.requiredAncestors;
-		if (!rules) {
-			return false;
-		}
-
-		if (!Validator.validateAncestors(node, rules)) {
-			this.report(node, `Element <${node.tagName}> requires an "${rules[0]}" ancestor`);
-			return true;
-		}
-
 		return false;
 	}
 }

@@ -361,6 +361,15 @@ describe("config", () => {
 				permittedContent: ["baz"],
 			});
 		});
+
+		it("should handle extends being explicitly set to undefined", () => {
+			expect.assertions(1);
+			const config = Config.fromObject({
+				extends: undefined,
+				rules: undefined,
+			});
+			expect(Array.from(config.getRules().entries())).toEqual([]);
+		});
 	});
 
 	describe("expandRelative()", () => {

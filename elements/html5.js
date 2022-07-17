@@ -948,6 +948,7 @@ module.exports = {
 				deprecated: true,
 			},
 		},
+		requiredAncestors: ["ul", "ol", "menu"],
 	},
 
 	link: {

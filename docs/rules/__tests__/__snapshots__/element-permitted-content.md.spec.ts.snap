@@ -5,13 +5,18 @@ exports[`docs/rules/element-permitted-content.md inline validation: correct 1`] 
 exports[`docs/rules/element-permitted-content.md inline validation: incorrect 1`] = `
 [
   {
-    "errorCount": 1,
+    "errorCount": 2,
     "filePath": "inline",
     "messages": [
       {
         "column": 6,
+        "context": {
+          "child": "<li>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 3,
-        "message": "Element <li> is not permitted as content in <div>",
+        "message": "<li> element is not permitted as content under <div>",
         "offset": 69,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -19,11 +24,32 @@ exports[`docs/rules/element-permitted-content.md inline validation: incorrect 1`
         "severity": 2,
         "size": 2,
       },
+      {
+        "column": 6,
+        "context": {
+          "ancestor": "<button>",
+          "child": "<a>",
+          "kind": "descendant",
+        },
+        "line": 8,
+        "message": "<a> element is not permitted as a descendant of <button>",
+        "offset": 150,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "button > a",
+        "severity": 2,
+        "size": 1,
+      },
     ],
     "source": "<!-- <li> is only allowed with <ul> or <ol> as parent -->
 <div>
     <li>foo</li>
-</div>",
+</div>
+
+<!-- interactive elements cannot be nested -->
+<button>
+    <a href="#">Lorem ipsum</a>
+</button>",
     "warningCount": 0,
   },
 ]

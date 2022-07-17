@@ -79,6 +79,7 @@ export class ResolvedConfig {
 					return cur;
 				});
 			} catch (err: unknown) {
+				/* istanbul ignore next: only used as a fallback */
 				const message = err instanceof Error ? err.message : String(err);
 				throw new NestedError(
 					`When transforming "${source.filename}": ${message}`,
@@ -94,7 +95,7 @@ export class ResolvedConfig {
 	 * Wrapper around [[transformSource]] which reads a file before passing it
 	 * as-is to transformSource.
 	 *
-	 * @param source - Filename to transform (according to configured
+	 * @param filename - Filename to transform (according to configured
 	 * transformations)
 	 * @returns A list of transformed sources ready for validation.
 	 */

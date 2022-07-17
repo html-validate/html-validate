@@ -8,8 +8,13 @@ exports[`docs/guide/metadata/restrict-content.md inline validation: descendants 
     "messages": [
       {
         "column": 6,
+        "context": {
+          "ancestor": "<my-component>",
+          "child": "<footer>",
+          "kind": "descendant",
+        },
         "line": 4,
-        "message": "Element <footer> is not permitted as descendant of <my-component>",
+        "message": "<footer> element is not permitted as a descendant of <my-component>",
         "offset": 63,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -19,8 +24,13 @@ exports[`docs/guide/metadata/restrict-content.md inline validation: descendants 
       },
       {
         "column": 6,
+        "context": {
+          "ancestor": "<my-component>",
+          "child": "<my-component>",
+          "kind": "descendant",
+        },
         "line": 7,
-        "message": "Element <my-component> is not permitted as descendant of <my-component>",
+        "message": "<my-component> element is not permitted as a descendant of <my-component>",
         "offset": 137,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -55,8 +65,13 @@ exports[`docs/guide/metadata/restrict-content.md inline validation: exclude 1`] 
     "messages": [
       {
         "column": 4,
+        "context": {
+          "child": "<h1>",
+          "kind": "content",
+          "parent": "<my-component>",
+        },
         "line": 4,
-        "message": "Element <h1> is not permitted as content in <my-component>",
+        "message": "<h1> element is not permitted as content under <my-component>",
         "offset": 67,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -83,8 +98,13 @@ exports[`docs/guide/metadata/restrict-content.md inline validation: tags 1`] = `
     "messages": [
       {
         "column": 4,
+        "context": {
+          "child": "<button>",
+          "kind": "content",
+          "parent": "<my-component>",
+        },
         "line": 2,
-        "message": "Element <button> is not permitted as content in <my-component>",
+        "message": "<button> element is not permitted as content under <my-component>",
         "offset": 18,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",

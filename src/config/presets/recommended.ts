@@ -22,6 +22,7 @@ const config: ConfigData = {
 		"element-permitted-content": "error",
 		"element-permitted-occurrences": "error",
 		"element-permitted-order": "error",
+		"element-required-ancestor": "error",
 		"element-required-attributes": "error",
 		"element-required-content": "error",
 		"empty-heading": "error",

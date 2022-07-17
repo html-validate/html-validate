@@ -8,8 +8,13 @@ exports[`docs/guide/metadata/simple-component.md inline validation: basic-metada
     "messages": [
       {
         "column": 4,
+        "context": {
+          "child": "<my-component>",
+          "kind": "content",
+          "parent": "<div>",
+        },
         "line": 2,
-        "message": "Element <my-component> is not permitted as content in <div>",
+        "message": "<my-component> element is not permitted as content under <div>",
         "offset": 9,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -34,8 +39,13 @@ exports[`docs/guide/metadata/simple-component.md inline validation: flow--metada
     "messages": [
       {
         "column": 4,
+        "context": {
+          "child": "<my-component>",
+          "kind": "content",
+          "parent": "<span>",
+        },
         "line": 2,
-        "message": "Element <my-component> is not permitted as content in <span>",
+        "message": "<my-component> element is not permitted as content under <span>",
         "offset": 10,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
