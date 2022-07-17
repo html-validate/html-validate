@@ -9,21 +9,14 @@ markup["incorrect"] = `<!-- <li> is only allowed with <ul> or <ol> as parent -->
 <!-- interactive elements cannot be nested -->
 <button>
     <a href="#">Lorem ipsum</a>
-</button>
-
-<!-- required ancestors -->
-<area>`;
+</button>`;
 markup["correct"] = `<ul>
     <li>foo</li>
 </ul>
 
 <button>
     Lorem ipsum
-</button>
-
-<map>
-    <area>
-</map>`;
+</button>`;
 
 describe("docs/rules/element-permitted-content.md", () => {
 	it("inline validation: incorrect", () => {

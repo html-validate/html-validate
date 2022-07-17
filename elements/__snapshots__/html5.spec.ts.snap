@@ -331,13 +331,12 @@ exports[`HTML elements <area> invalid markup 1`] = `
             "<map>",
           ],
           "child": "<area>",
-          "kind": "ancestor",
         },
         "line": 2,
         "message": "<area> element requires a <map> ancestor",
         "offset": 40,
-        "ruleId": "element-permitted-content",
-        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "ruleId": "element-required-ancestor",
+        "ruleUrl": "https://html-validate.org/rules/element-required-ancestor.html",
         "selector": "area",
         "severity": 2,
         "size": 4,
@@ -1818,7 +1817,7 @@ exports[`HTML elements <datalist> valid markup 1`] = `[]`;
 exports[`HTML elements <dd> invalid markup 1`] = `
 [
   {
-    "errorCount": 2,
+    "errorCount": 3,
     "filePath": "test-files/elements/dd-invalid.html",
     "messages": [
       {
@@ -1838,6 +1837,24 @@ exports[`HTML elements <dd> invalid markup 1`] = `
         "size": 2,
       },
       {
+        "column": 3,
+        "context": {
+          "ancestor": [
+            ""dl > dd"",
+            ""dl > div > dd"",
+          ],
+          "child": "<dd>",
+        },
+        "line": 3,
+        "message": "<dd> element requires a "dl > dd" or "dl > div > dd" ancestor",
+        "offset": 58,
+        "ruleId": "element-required-ancestor",
+        "ruleUrl": "https://html-validate.org/rules/element-required-ancestor.html",
+        "selector": "span > dd",
+        "severity": 2,
+        "size": 2,
+      },
+      {
         "column": 5,
         "context": {
           "ancestor": [
@@ -1845,13 +1862,12 @@ exports[`HTML elements <dd> invalid markup 1`] = `
             ""dl > div > dd"",
           ],
           "child": "<dd>",
-          "kind": "ancestor",
         },
         "line": 10,
         "message": "<dd> element requires a "dl > dd" or "dl > div > dd" ancestor",
         "offset": 180,
-        "ruleId": "element-permitted-content",
-        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "ruleId": "element-required-ancestor",
+        "ruleUrl": "https://html-validate.org/rules/element-required-ancestor.html",
         "selector": "dl > div > div > dd",
         "severity": 2,
         "size": 2,
@@ -2128,7 +2144,7 @@ exports[`HTML elements <dl> valid markup 1`] = `[]`;
 exports[`HTML elements <dt> invalid markup 1`] = `
 [
   {
-    "errorCount": 6,
+    "errorCount": 7,
     "filePath": "test-files/elements/dt-invalid.html",
     "messages": [
       {
@@ -2143,6 +2159,24 @@ exports[`HTML elements <dt> invalid markup 1`] = `
         "offset": 53,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "span > dt",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 3,
+        "context": {
+          "ancestor": [
+            ""dl > dt"",
+            ""dl > div > dt"",
+          ],
+          "child": "<dt>",
+        },
+        "line": 3,
+        "message": "<dt> element requires a "dl > dt" or "dl > div > dt" ancestor",
+        "offset": 53,
+        "ruleId": "element-required-ancestor",
+        "ruleUrl": "https://html-validate.org/rules/element-required-ancestor.html",
         "selector": "span > dt",
         "severity": 2,
         "size": 2,
@@ -2219,13 +2253,12 @@ exports[`HTML elements <dt> invalid markup 1`] = `
             ""dl > div > dt"",
           ],
           "child": "<dt>",
-          "kind": "ancestor",
         },
         "line": 20,
         "message": "<dt> element requires a "dl > dt" or "dl > div > dt" ancestor",
         "offset": 345,
-        "ruleId": "element-permitted-content",
-        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "ruleId": "element-required-ancestor",
+        "ruleUrl": "https://html-validate.org/rules/element-required-ancestor.html",
         "selector": "dl:nth-child(3) > div > div > dt",
         "severity": 2,
         "size": 2,
@@ -11098,7 +11131,7 @@ exports[`HTML elements <legend> valid markup 1`] = `[]`;
 exports[`HTML elements <li> invalid markup 1`] = `
 [
   {
-    "errorCount": 2,
+    "errorCount": 3,
     "filePath": "test-files/elements/li-invalid.html",
     "messages": [
       {
@@ -11110,13 +11143,12 @@ exports[`HTML elements <li> invalid markup 1`] = `
             "<menu>",
           ],
           "child": "<li>",
-          "kind": "ancestor",
         },
         "line": 2,
         "message": "<li> element requires a <ul>, <ol> or <menu> ancestor",
         "offset": 46,
-        "ruleId": "element-permitted-content",
-        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "ruleId": "element-required-ancestor",
+        "ruleUrl": "https://html-validate.org/rules/element-required-ancestor.html",
         "selector": "li",
         "severity": 2,
         "size": 2,
@@ -11133,6 +11165,25 @@ exports[`HTML elements <li> invalid markup 1`] = `
         "offset": 122,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "div > li",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 3,
+        "context": {
+          "ancestor": [
+            "<ul>",
+            "<ol>",
+            "<menu>",
+          ],
+          "child": "<li>",
+        },
+        "line": 6,
+        "message": "<li> element requires a <ul>, <ol> or <menu> ancestor",
+        "offset": 122,
+        "ruleId": "element-required-ancestor",
+        "ruleUrl": "https://html-validate.org/rules/element-required-ancestor.html",
         "selector": "div > li",
         "severity": 2,
         "size": 2,

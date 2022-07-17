@@ -3,12 +3,10 @@ import { DOMReadyEvent } from "../event";
 import { Validator } from "../meta";
 import { Permitted } from "../meta/element";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
-import { naturalJoin } from "./helper";
 
 export enum ErrorKind {
 	CONTENT = "content",
 	DESCENDANT = "descendant",
-	ANCESTOR = "ancestor",
 }
 
 export interface ContentContext {
@@ -23,13 +21,7 @@ export interface DescendantContext {
 	child: string;
 }
 
-export interface AncestorContext {
-	kind: ErrorKind.ANCESTOR;
-	ancestor: string[];
-	child: string;
-}
-
-type RuleContext = ContentContext | DescendantContext | AncestorContext;
+type RuleContext = ContentContext | DescendantContext;
 
 function getTransparentChildren(node: HtmlElement, transparent: boolean | string[]): HtmlElement[] {
 	if (typeof transparent === "boolean") {
@@ -42,10 +34,6 @@ function getTransparentChildren(node: HtmlElement, transparent: boolean | string
 			});
 		});
 	}
-}
-
-function isTagnameOnly(value: string): boolean {
-	return Boolean(value.match(/^[a-zA-Z0-9-]+$/));
 }
 
 function getRuleDescription(context?: RuleContext): string[] {
@@ -64,10 +52,6 @@ function getRuleDescription(context?: RuleContext): string[] {
 			return [
 				`The \`${context.child}\` element is not permitted as a descendant of the \`${context.ancestor}\` element.`,
 			];
-		case ErrorKind.ANCESTOR: {
-			const escaped = context.ancestor.map((it) => `\`${it}\``);
-			return [`The \`${context.child}\` element requires a ${naturalJoin(escaped)} ancestor.`];
-		}
 	}
 }
 
@@ -98,7 +82,6 @@ export default class ElementPermittedContent extends Rule<RuleContext> {
 				[
 					() => this.validatePermittedContent(node, parent),
 					() => this.validatePermittedDescendant(node, parent),
-					() => this.validateRequiredAncestors(node),
 				].some((fn) => fn());
 			});
 		});
@@ -180,32 +163,6 @@ export default class ElementPermittedContent extends Rule<RuleContext> {
 			this.report(node, message, null, context);
 			return true;
 		}
-		return false;
-	}
-
-	private validateRequiredAncestors(node: HtmlElement): boolean {
-		if (!node.meta) {
-			return false;
-		}
-
-		const rules = node.meta.requiredAncestors;
-		if (!rules) {
-			return false;
-		}
-
-		if (!Validator.validateAncestors(node, rules)) {
-			const ancestor = rules.map((it) => (isTagnameOnly(it) ? `<${it}>` : `"${it}"`));
-			const child = `<${node.tagName}>`;
-			const message = `<${node.tagName}> element requires a ${naturalJoin(ancestor)} ancestor`;
-			const context: AncestorContext = {
-				kind: ErrorKind.ANCESTOR,
-				ancestor,
-				child,
-			};
-			this.report(node, message, null, context);
-			return true;
-		}
-
 		return false;
 	}
 }

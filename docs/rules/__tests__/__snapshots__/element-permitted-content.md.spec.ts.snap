@@ -5,7 +5,7 @@ exports[`docs/rules/element-permitted-content.md inline validation: correct 1`] 
 exports[`docs/rules/element-permitted-content.md inline validation: incorrect 1`] = `
 [
   {
-    "errorCount": 3,
+    "errorCount": 2,
     "filePath": "inline",
     "messages": [
       {
@@ -40,24 +40,6 @@ exports[`docs/rules/element-permitted-content.md inline validation: incorrect 1`
         "severity": 2,
         "size": 1,
       },
-      {
-        "column": 2,
-        "context": {
-          "ancestor": [
-            "<map>",
-          ],
-          "child": "<area>",
-          "kind": "ancestor",
-        },
-        "line": 12,
-        "message": "<area> element requires a <map> ancestor",
-        "offset": 217,
-        "ruleId": "element-permitted-content",
-        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
-        "selector": "area",
-        "severity": 2,
-        "size": 4,
-      },
     ],
     "source": "<!-- <li> is only allowed with <ul> or <ol> as parent -->
 <div>
@@ -67,10 +49,7 @@ exports[`docs/rules/element-permitted-content.md inline validation: incorrect 1`
 <!-- interactive elements cannot be nested -->
 <button>
     <a href="#">Lorem ipsum</a>
-</button>
-
-<!-- required ancestors -->
-<area>",
+</button>",
     "warningCount": 0,
   },
 ]

@@ -1,7 +1,6 @@
 import HtmlValidate from "../htmlvalidate";
 import "../jest";
 import {
-	type AncestorContext,
 	type ContentContext,
 	type DescendantContext,
 	ErrorKind,
@@ -285,121 +284,6 @@ describe("rule element-permitted-content", () => {
 		`);
 	});
 
-	describe("requiredAncestor", () => {
-		it("should report error for missing required ancestor (tagname)", () => {
-			expect.assertions(2);
-			const htmlvalidate = new HtmlValidate({
-				root: true,
-				elements: [
-					"html5",
-					{
-						"custom-element": {
-							flow: true,
-							requiredAncestors: ["main"],
-						},
-					},
-				],
-				rules: { "element-permitted-content": "error" },
-			});
-			const markup = /* HTML */ `
-				<div>
-					<custom-element></custom-element>
-				</div>
-			`;
-			const report = htmlvalidate.validateString(markup);
-			expect(report).toBeInvalid();
-			expect(report).toMatchInlineCodeframe(`
-				"error: <custom-element> element requires a <main> ancestor (element-permitted-content) at inline:3:7:
-				  1 |
-				  2 | 				<div>
-				> 3 | 					<custom-element></custom-element>
-				    | 					 ^^^^^^^^^^^^^^
-				  4 | 				</div>
-				  5 |
-				Selector: div > custom-element"
-			`);
-		});
-
-		it("should report error for missing required ancestor (selector)", () => {
-			expect.assertions(2);
-			const htmlvalidate = new HtmlValidate({
-				root: true,
-				elements: [
-					"html5",
-					{
-						"custom-element": {
-							flow: true,
-							requiredAncestors: ["main > div"],
-						},
-					},
-				],
-				rules: { "element-permitted-content": "error" },
-			});
-			const markup = /* HTML */ `
-				<div>
-					<custom-element></custom-element>
-				</div>
-			`;
-			const report = htmlvalidate.validateString(markup);
-			expect(report).toBeInvalid();
-			expect(report).toMatchInlineCodeframe(`
-				"error: <custom-element> element requires a "main > div" ancestor (element-permitted-content) at inline:3:7:
-				  1 |
-				  2 | 				<div>
-				> 3 | 					<custom-element></custom-element>
-				    | 					 ^^^^^^^^^^^^^^
-				  4 | 				</div>
-				  5 |
-				Selector: div > custom-element"
-			`);
-		});
-
-		it("should join multiple selectors together", () => {
-			expect.assertions(2);
-			const htmlvalidate = new HtmlValidate({
-				root: true,
-				elements: [
-					"html5",
-					{
-						"custom-element": {
-							flow: true,
-							requiredAncestors: ["main", "main > div"],
-						},
-					},
-				],
-				rules: { "element-permitted-content": "error" },
-			});
-			const markup = /* HTML */ `
-				<div>
-					<custom-element></custom-element>
-				</div>
-			`;
-			const report = htmlvalidate.validateString(markup);
-			expect(report).toBeInvalid();
-			expect(report).toMatchInlineCodeframe(`
-				"error: <custom-element> element requires a <main> or "main > div" ancestor (element-permitted-content) at inline:3:7:
-				  1 |
-				  2 | 				<div>
-				> 3 | 					<custom-element></custom-element>
-				    | 					 ^^^^^^^^^^^^^^
-				  4 | 				</div>
-				  5 |
-				Selector: div > custom-element"
-			`);
-		});
-
-		it("should not report error for proper required ancestor", () => {
-			expect.assertions(1);
-			const markup = /* HTML */ `
-				<dl>
-					<div><dt>foo</dt></div>
-				</dl>
-			`;
-			const report = htmlvalidate.validateString(markup);
-			expect(report).toBeValid();
-		});
-	});
-
 	it("should handle missing meta entry (child)", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <p><foo>foo</foo></p> `;
@@ -437,17 +321,6 @@ describe("rule element-permitted-content", () => {
 				kind: ErrorKind.DESCENDANT,
 				child: "<div>",
 				ancestor: "<span>",
-			};
-			const doc = htmlvalidate.getRuleDocumentation("element-permitted-content", null, context);
-			expect(doc).toMatchSnapshot();
-		});
-
-		it("ancestor error", () => {
-			expect.assertions(1);
-			const context: AncestorContext = {
-				kind: ErrorKind.ANCESTOR,
-				child: "<li>",
-				ancestor: ["<ul>", "<ol>", "<menu>"],
 			};
 			const doc = htmlvalidate.getRuleDocumentation("element-permitted-content", null, context);
 			expect(doc).toMatchSnapshot();

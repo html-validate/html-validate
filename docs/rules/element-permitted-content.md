@@ -24,9 +24,6 @@ Examples of **incorrect** code for this rule:
         <a href="#">Lorem ipsum</a>
     </button>
 
-    <!-- required ancestors -->
-    <area>
-
 </validate>
 
 Examples of **correct** code for this rule:
@@ -40,8 +37,8 @@ Examples of **correct** code for this rule:
         Lorem ipsum
     </button>
 
-    <map>
-        <area>
-    </map>
-
 </validate>
+
+## Version history
+
+- %version% - Required ancestors moved to new rule {@link element-required-ancestor}.
