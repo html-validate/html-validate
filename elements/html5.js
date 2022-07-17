@@ -212,6 +212,7 @@ module.exports = {
 	},
 
 	body: {
+		permittedContent: ["@flow"],
 		attributes: {
 			alink: {
 				deprecated: true,

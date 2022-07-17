@@ -2,3 +2,22 @@
 <div>
 	<body></body>
 </div>
+
+<!-- should not allow non-flow content -->
+<body>
+	<head>
+		<title>lorem ipsum</title>
+	</head>
+
+	<html lang="en">
+		<head>
+			<title>lorem ipsum</title>
+		</head>
+		<body></body>
+	</html>
+</body>
+
+<!-- should not allow nesting -->
+<body>
+	<body></body>
+</body>

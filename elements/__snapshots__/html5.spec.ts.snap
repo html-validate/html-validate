@@ -984,7 +984,7 @@ exports[`HTML elements <blockquote> valid markup 1`] = `[]`;
 exports[`HTML elements <body> invalid markup 1`] = `
 [
   {
-    "errorCount": 1,
+    "errorCount": 4,
     "filePath": "test-files/elements/body-invalid.html",
     "messages": [
       {
@@ -1003,11 +1003,78 @@ exports[`HTML elements <body> invalid markup 1`] = `
         "severity": 2,
         "size": 4,
       },
+      {
+        "column": 3,
+        "context": {
+          "child": "<head>",
+          "kind": "content",
+          "parent": "<body>",
+        },
+        "line": 8,
+        "message": "<head> element is not permitted as content under <body>",
+        "offset": 133,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "body:nth-child(2) > head",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 3,
+        "context": {
+          "child": "<html>",
+          "kind": "content",
+          "parent": "<body>",
+        },
+        "line": 12,
+        "message": "<html> element is not permitted as content under <body>",
+        "offset": 180,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "body:nth-child(2) > html",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 3,
+        "context": {
+          "child": "<body>",
+          "kind": "content",
+          "parent": "<body>",
+        },
+        "line": 22,
+        "message": "<body> element is not permitted as content under <body>",
+        "offset": 322,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "body:nth-child(3) > body",
+        "severity": 2,
+        "size": 4,
+      },
     ],
     "source": "<!-- should not be allowed under other elements -->
 <div>
 	<body></body>
 </div>
+
+<!-- should not allow non-flow content -->
+<body>
+	<head>
+		<title>lorem ipsum</title>
+	</head>
+
+	<html lang="en">
+		<head>
+			<title>lorem ipsum</title>
+		</head>
+		<body></body>
+	</html>
+</body>
+
+<!-- should not allow nesting -->
+<body>
+	<body></body>
+</body>
 ",
     "warningCount": 0,
   },
