@@ -18,6 +18,15 @@ Examples of **incorrect** code for this rule:
     <div>
         <li>foo</li>
     </div>
+
+    <!-- interactive elements cannot be nested -->
+    <button>
+        <a href="#">Lorem ipsum</a>
+    </button>
+
+    <!-- required ancestors -->
+    <area>
+
 </validate>
 
 Examples of **correct** code for this rule:
@@ -26,4 +35,13 @@ Examples of **correct** code for this rule:
     <ul>
         <li>foo</li>
     </ul>
+
+    <button>
+        Lorem ipsum
+    </button>
+
+    <map>
+        <area>
+    </map>
+
 </validate>

@@ -64,8 +64,13 @@ exports[`docs/index.md inline validation: frontpage-components 1`] = `
     "messages": [
       {
         "column": 4,
+        "context": {
+          "child": "<my-block>",
+          "kind": "content",
+          "parent": "<my-inline>",
+        },
         "line": 2,
-        "message": "Element <my-block> is not permitted as content in <my-inline>",
+        "message": "<my-block> element is not permitted as content under <my-inline>",
         "offset": 15,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
@@ -116,8 +121,13 @@ exports[`docs/index.md inline validation: frontpage-contentmodel 1`] = `
       },
       {
         "column": 4,
+        "context": {
+          "ancestor": "<footer>",
+          "child": "<main>",
+          "kind": "descendant",
+        },
         "line": 7,
-        "message": "Element <main> is not permitted as descendant of <footer>",
+        "message": "<main> element is not permitted as a descendant of <footer>",
         "offset": 127,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
