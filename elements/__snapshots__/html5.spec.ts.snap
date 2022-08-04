@@ -2119,6 +2119,44 @@ exports[`HTML elements <dfn> invalid markup 1`] = `
 
 exports[`HTML elements <dfn> valid markup 1`] = `[]`;
 
+exports[`HTML elements <dialog> invalid markup 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "test-files/elements/dialog-invalid.html",
+    "messages": [
+      {
+        "column": 3,
+        "context": {
+          "child": "<dialog>",
+          "kind": "content",
+          "parent": "<span>",
+        },
+        "line": 3,
+        "message": "<dialog> element is not permitted as content under <span>",
+        "offset": 53,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "span > dialog",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- should not be allowed under <span> -->
+<span>
+	<dialog></dialog>
+</span>
+
+<!-- should not allow tabindex (not implemented) -->
+<dialog tabindex="0"></dialog>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <dialog> valid markup 1`] = `[]`;
+
 exports[`HTML elements <dir> invalid markup 1`] = `
 [
   {
