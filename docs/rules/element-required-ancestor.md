@@ -27,4 +27,4 @@ Examples of **correct** code for this rule:
 
 ## Version history
 
-- %version% - Rule added.
+- 7.2.0 - Rule added.

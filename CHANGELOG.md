@@ -1,5 +1,22 @@
 # html-validate changelog
 
+## [7.2.0](https://gitlab.com/html-validate/html-validate/compare/v7.1.2...v7.2.0) (2022-08-04)
+
+### Features
+
+- **html5:** add `<dialog>` element ([243bf56](https://gitlab.com/html-validate/html-validate/commit/243bf5676a04aa2eedc8166e7b384c3c92fd79b6)), closes [#160](https://gitlab.com/html-validate/html-validate/issues/160)
+- **rules:** `element-permitted-content` lists all required ancestors ([be34e01](https://gitlab.com/html-validate/html-validate/commit/be34e01db158c9cb534bda6b63b3c68c88b8fab8))
+- **rules:** `element-permitted-content` verifies root element ([6eb721f](https://gitlab.com/html-validate/html-validate/commit/6eb721f749d5095971f19986fd8a6e2427d4ae3f))
+- **rules:** split ancestor validation from `element-permitted-content` to new rule `element-required-ancestors` ([dcb2096](https://gitlab.com/html-validate/html-validate/commit/dcb2096ca4ceca914eebe5d63f6f02500a8b39d0))
+
+### Bug Fixes
+
+- **api:** allow passing object when reporting errors ([f8500be](https://gitlab.com/html-validate/html-validate/commit/f8500beb7fdbb9c2e1065cb06f59d60aec18fa0a))
+- **api:** hide internal properties when using `--dump-events` ([206294f](https://gitlab.com/html-validate/html-validate/commit/206294fb4d4694ca69021b87abf1ff63651c54c1))
+- **html5:** `<body>` should only accept flow content ([1b08c66](https://gitlab.com/html-validate/html-validate/commit/1b08c668aa8756e95753d3dd18c67929e239078f))
+- **html5:** `<li>` requires `<ul>`, `<ol>` or `<menu>` parent ([b88384e](https://gitlab.com/html-validate/html-validate/commit/b88384e940fdf1b75a11bb2c4b77619659a2a907))
+- **rules:** `element-permitted-content` documentation fixes ([613dd48](https://gitlab.com/html-validate/html-validate/commit/613dd48882160f7c65628e91fc547dd1fbe72c2c))
+
 ## [7.1.2](https://gitlab.com/html-validate/html-validate/compare/v7.1.1...v7.1.2) (2022-07-05)
 
 ### Bug Fixes

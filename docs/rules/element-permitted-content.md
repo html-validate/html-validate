@@ -41,4 +41,4 @@ Examples of **correct** code for this rule:
 
 ## Version history
 
-- %version% - Required ancestors moved to new rule {@link element-required-ancestor}.
+- 7.2.0 - Required ancestors moved to new rule {@link element-required-ancestor}.
