@@ -1,0 +1,13 @@
+<!-- should allow flow content -->
+<dialog>
+	<h1>lorem ipsum</h1>
+	<div>dolor sit amet</div>
+</dialog>
+
+<!-- should be allowed under <div> -->
+<div>
+	<dialog></dialog>
+</div>
+
+<!-- should allow the open boolean attribute -->
+<dialog open></dialog>

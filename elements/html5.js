@@ -411,6 +411,16 @@ module.exports = {
 		permittedDescendants: [{ exclude: ["dfn"] }],
 	},
 
+	dialog: {
+		flow: true,
+		permittedContent: ["@flow"],
+		attributes: {
+			open: {
+				boolean: true,
+			},
+		},
+	},
+
 	dir: {
 		deprecated: {
 			documentation:
