@@ -537,7 +537,7 @@ module.exports = {
 				enum: ["on", "off"],
 			},
 			method: {
-				enum: ["get", "post"],
+				enum: ["get", "post", "dialog"],
 			},
 			novalidate: {
 				boolean: true,

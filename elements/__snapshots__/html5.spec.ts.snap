@@ -2736,7 +2736,7 @@ exports[`HTML elements <footer> valid markup 1`] = `[]`;
 exports[`HTML elements <form> invalid markup 1`] = `
 [
   {
-    "errorCount": 2,
+    "errorCount": 3,
     "filePath": "test-files/elements/form-invalid.html",
     "messages": [
       {
@@ -2771,6 +2771,29 @@ exports[`HTML elements <form> invalid markup 1`] = `
         "severity": 2,
         "size": 11,
       },
+      {
+        "column": 15,
+        "context": {
+          "allowed": {
+            "enum": [
+              "get",
+              "post",
+              "dialog",
+            ],
+          },
+          "attribute": "method",
+          "element": "form",
+          "value": "foobar",
+        },
+        "line": 12,
+        "message": "Attribute "method" has invalid value "foobar"",
+        "offset": 228,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "form:nth-child(3)",
+        "severity": 2,
+        "size": 6,
+      },
     ],
     "source": "<!-- should not allow nesting -->
 <form>
@@ -2780,6 +2803,11 @@ exports[`HTML elements <form> invalid markup 1`] = `
 <!-- should not allow nesting with custom elements -->
 <form>
 	<custom-form></custom-form>
+</form>
+
+<!-- should not allow arbitrary form methods -->
+<form method="foobar">
+	<button type="submit">submit</button>
 </form>
 ",
     "warningCount": 0,
