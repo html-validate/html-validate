@@ -20,5 +20,4 @@ assert.deepEqual(report.results[0].messages[0], {
 	column: 16,
 	size: 2,
 	selector: null,
-	context: undefined,
 });
