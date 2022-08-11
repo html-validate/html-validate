@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [7.3.0](https://gitlab.com/html-validate/html-validate/compare/v7.2.0...v7.3.0) (2022-08-11)
+
+### Features
+
+- allow `method="dialog"` on `<form>` element ([997f999](https://gitlab.com/html-validate/html-validate/commit/997f999a9a0bf45bbc3c264dd3523ef245772998)), closes [#161](https://gitlab.com/html-validate/html-validate/issues/161)
+
 ## [7.2.0](https://gitlab.com/html-validate/html-validate/compare/v7.1.2...v7.2.0) (2022-08-04)
 
 ### Features
