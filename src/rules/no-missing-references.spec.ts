@@ -182,6 +182,16 @@ describe("rule no-missing-references", () => {
 		]);
 	});
 
+	it("should handle colon in id", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<label for=":r1:">lorem ipsum</label>
+			<input id=":r1:" />
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should contain documentation", () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
