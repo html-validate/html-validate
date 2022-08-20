@@ -48,6 +48,16 @@ describe("rule input-missing-label", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should handle colon in id", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<label for=":r1:">lorem ipsum</label>
+			<input id=":r1:" />
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should not report error when at least one label is accessible", () => {
 		expect.assertions(1);
 		const markup = `
