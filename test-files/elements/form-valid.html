@@ -13,3 +13,12 @@
 <form method="dialog">
 	<button type="submit">submit</button>
 </form>
+
+<!-- should allow action attribute -->
+<form action="/target"></form>
+
+<!-- should allow action surrounded by whitespace -->
+<form action=" /target "></form>
+
+<!-- should allow only ? (to discard query parameters) -->
+<form action="?"></form>

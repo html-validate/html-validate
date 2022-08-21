@@ -12,3 +12,11 @@
 <form method="foobar">
 	<button type="submit">submit</button>
 </form>
+
+<!-- should not allow empty action attribute -->
+<form action></form>
+<form action=""></form>
+<form action=" "></form>
+
+<!-- should not allow multiple urls -->
+<form action="/foo /bar"></form>

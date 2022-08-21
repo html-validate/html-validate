@@ -530,6 +530,9 @@ module.exports = {
 		flow: true,
 		form: true,
 		attributes: {
+			action: {
+				enum: ["\\s*\\S+\\s*"],
+			},
 			accept: {
 				deprecated: true,
 			},
