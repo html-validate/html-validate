@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## [7.3.1](https://gitlab.com/html-validate/html-validate/compare/v7.3.0...v7.3.1) (2022-08-21)
+
+### Bug Fixes
+
+- handle quoted `.`, `#`, `:` and`[` in attribute selectors ([7282625](https://gitlab.com/html-validate/html-validate/commit/7282625e2b663afdb671c38bcaccd0bdc7d74b9e)), closes [#162](https://gitlab.com/html-validate/html-validate/issues/162) [#147](https://gitlab.com/html-validate/html-validate/issues/147)
+- **html5:** disallow empty `action` attribute on `<form>` ([0cdb7b2](https://gitlab.com/html-validate/html-validate/commit/0cdb7b27c89d259e7c4ad0c39208588d221533e2)), closes [#165](https://gitlab.com/html-validate/html-validate/issues/165)
+
 ## [7.3.0](https://gitlab.com/html-validate/html-validate/compare/v7.2.0...v7.3.0) (2022-08-11)
 
 ### Features
