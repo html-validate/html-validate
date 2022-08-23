@@ -17,6 +17,7 @@ import {
 import "../jest";
 import { AttributeData } from "./attribute-data";
 import { Parser } from "./parser";
+import { ParserError } from "./parser-error";
 
 function mergeEvent(event: string, data: any): any {
 	const merged = { event, ...data };
@@ -1007,10 +1008,11 @@ describe("parser", () => {
 		});
 
 		it("throw when missing end bracket ]", () => {
-			expect.assertions(1);
-			expect(() => {
-				parser.parseHtml("<!-- [html-validate-disable-next foo -- bar -->");
-			}).toThrow(
+			expect.assertions(2);
+			const markup = /* HTML */ ` <!-- [html-validate-disable-next foo -- bar --> `;
+			const fn = (): HtmlElement => parser.parseHtml(markup);
+			expect(fn).toThrow(ParserError);
+			expect(fn).toThrow(
 				'Missing end bracket "]" on directive "<!-- [html-validate-disable-next foo -- bar -->"'
 			);
 		});
