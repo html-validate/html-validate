@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [7.3.2](https://gitlab.com/html-validate/html-validate/compare/v7.3.1...v7.3.2) (2022-08-24)
+
+### Bug Fixes
+
+- better error message when failing to parse html-validate directive ([0e9d98e](https://gitlab.com/html-validate/html-validate/commit/0e9d98e4e0835bf0bd568dbbf306084fae800328)), closes [#166](https://gitlab.com/html-validate/html-validate/issues/166)
+
 ## [7.3.1](https://gitlab.com/html-validate/html-validate/compare/v7.3.0...v7.3.1) (2022-08-21)
 
 ### Bug Fixes
