@@ -80,7 +80,7 @@ function toHTMLValidateImpl(
 		},
 	};
 	const config = deepmerge(defaultConfig, userConfig || {});
-	const actualFilename = filename || this.testPath;
+	const actualFilename = filename ?? this.testPath ?? "inline";
 	const loader = new FileSystemConfigLoader({
 		extends: ["html-validate:recommended"],
 	});

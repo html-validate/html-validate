@@ -15,7 +15,7 @@ function toMatchInlineCodeframe(
 	actual: Report | string,
 	...rest: Array<string | object>
 ): jest.CustomMatcherResult {
-	const filename = this.testPath;
+	const filename = this.testPath ?? "inline";
 	const results = getResults(filename, actual);
 	const enabled = kleur.enabled;
 	kleur.enabled = false;
