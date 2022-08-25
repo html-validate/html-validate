@@ -531,7 +531,7 @@ module.exports = {
 		form: true,
 		attributes: {
 			action: {
-				enum: ["\\s*\\S+\\s*"],
+				enum: [/^\s*\S+\s*$/],
 			},
 			accept: {
 				deprecated: true,
