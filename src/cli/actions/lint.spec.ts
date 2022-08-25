@@ -139,7 +139,7 @@ it("should return failure if there are too many warnings", async () => {
 		"foo.html:1:1: warning [mock-rule] lorem ipsum
 		bar.html:1:1: warning [mock-rule] lorem ipsum
 
-		html-validate found too many warnings (maxiumum: 1).
+		html-validate found too many warnings (maximum: 1).
 		"
 	`);
 });

@@ -41,7 +41,7 @@ export function lint(
 	output.write(options.formatter(merged));
 
 	if (options.maxWarnings >= 0 && merged.warningCount > options.maxWarnings) {
-		output.write(`\nhtml-validate found too many warnings (maxiumum: ${options.maxWarnings}).\n`);
+		output.write(`\nhtml-validate found too many warnings (maximum: ${options.maxWarnings}).\n`);
 		return Promise.resolve(false);
 	}
 
