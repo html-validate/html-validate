@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## [7.3.3](https://gitlab.com/html-validate/html-validate/compare/v7.3.2...v7.3.3) (2022-08-25)
+
+### Bug Fixes
+
+- `<form>` action attribute false positives ([f93a8fc](https://gitlab.com/html-validate/html-validate/commit/f93a8fc3a5a8423d15f14a1a5c8c839aab6fe726)), closes [#167](https://gitlab.com/html-validate/html-validate/issues/167)
+- **cli:** fix typo in maximum warnings message ([8971323](https://gitlab.com/html-validate/html-validate/commit/8971323e23a6107e08729ba40e22b6a58ef1a1c8))
+
 ## [7.3.2](https://gitlab.com/html-validate/html-validate/compare/v7.3.1...v7.3.2) (2022-08-24)
 
 ### Bug Fixes
