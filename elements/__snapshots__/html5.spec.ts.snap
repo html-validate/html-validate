@@ -2799,7 +2799,7 @@ exports[`HTML elements <form> invalid markup 1`] = `
         "context": {
           "allowed": {
             "enum": [
-              "\\s*\\S+\\s*",
+              /\\^\\\\s\\*\\\\S\\+\\\\s\\*\\$/,
             ],
           },
           "attribute": "action",
@@ -2820,7 +2820,7 @@ exports[`HTML elements <form> invalid markup 1`] = `
         "context": {
           "allowed": {
             "enum": [
-              "\\s*\\S+\\s*",
+              /\\^\\\\s\\*\\\\S\\+\\\\s\\*\\$/,
             ],
           },
           "attribute": "action",
@@ -2841,7 +2841,7 @@ exports[`HTML elements <form> invalid markup 1`] = `
         "context": {
           "allowed": {
             "enum": [
-              "\\s*\\S+\\s*",
+              /\\^\\\\s\\*\\\\S\\+\\\\s\\*\\$/,
             ],
           },
           "attribute": "action",
@@ -2862,7 +2862,7 @@ exports[`HTML elements <form> invalid markup 1`] = `
         "context": {
           "allowed": {
             "enum": [
-              "\\s*\\S+\\s*",
+              /\\^\\\\s\\*\\\\S\\+\\\\s\\*\\$/,
             ],
           },
           "attribute": "action",
@@ -2907,105 +2907,7 @@ exports[`HTML elements <form> invalid markup 1`] = `
 ]
 `;
 
-exports[`HTML elements <form> valid markup 1`] = `
-[
-  {
-    "errorCount": 3,
-    "filePath": "test-files/elements/form-valid.html",
-    "messages": [
-      {
-        "column": 15,
-        "context": {
-          "allowed": {
-            "enum": [
-              "\\s*\\S+\\s*",
-            ],
-          },
-          "attribute": "action",
-          "element": "form",
-          "value": "/target",
-        },
-        "line": 18,
-        "message": "Attribute "action" has invalid value "/target"",
-        "offset": 368,
-        "ruleId": "attribute-allowed-values",
-        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "form:nth-child(5)",
-        "severity": 2,
-        "size": 7,
-      },
-      {
-        "column": 15,
-        "context": {
-          "allowed": {
-            "enum": [
-              "\\s*\\S+\\s*",
-            ],
-          },
-          "attribute": "action",
-          "element": "form",
-          "value": " /target ",
-        },
-        "line": 21,
-        "message": "Attribute "action" has invalid value " /target "",
-        "offset": 454,
-        "ruleId": "attribute-allowed-values",
-        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "form:nth-child(6)",
-        "severity": 2,
-        "size": 9,
-      },
-      {
-        "column": 15,
-        "context": {
-          "allowed": {
-            "enum": [
-              "\\s*\\S+\\s*",
-            ],
-          },
-          "attribute": "action",
-          "element": "form",
-          "value": "?",
-        },
-        "line": 24,
-        "message": "Attribute "action" has invalid value "?"",
-        "offset": 547,
-        "ruleId": "attribute-allowed-values",
-        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "form:nth-child(7)",
-        "severity": 2,
-        "size": 1,
-      },
-    ],
-    "source": "<!-- should allow flow content -->
-<form>
-	<div></div>
-</form>
-
-<!-- should allow method get/post/dialog -->
-<form method="get">
-	<button type="submit">submit</button>
-</form>
-<form method="post">
-	<button type="submit">submit</button>
-</form>
-<form method="dialog">
-	<button type="submit">submit</button>
-</form>
-
-<!-- should allow action attribute -->
-<form action="/target"></form>
-
-<!-- should allow action surrounded by whitespace -->
-<form action=" /target "></form>
-
-<!-- should allow only ? (to discard query parameters) -->
-<form action="?"></form>
-",
-    "warningCount": 0,
-  },
-]
-`;
+exports[`HTML elements <form> valid markup 1`] = `[]`;
 
 exports[`HTML elements <frame> invalid markup 1`] = `
 [
