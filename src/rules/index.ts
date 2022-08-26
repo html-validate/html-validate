@@ -22,6 +22,7 @@ import ElementName from "./element-name";
 import ElementPermittedContent from "./element-permitted-content";
 import ElementPermittedOccurrences from "./element-permitted-occurrences";
 import ElementPermittedOrder from "./element-permitted-order";
+import ElementPermittedParent from "./element-permitted-parent";
 import ElementRequiredAncestor from "./element-required-ancestor";
 import ElementRequiredAttributes from "./element-required-attributes";
 import ElementRequiredContent from "./element-required-content";
@@ -94,6 +95,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"element-permitted-content": ElementPermittedContent,
 	"element-permitted-occurrences": ElementPermittedOccurrences,
 	"element-permitted-order": ElementPermittedOrder,
+	"element-permitted-parent": ElementPermittedParent,
 	"element-required-ancestor": ElementRequiredAncestor,
 	"element-required-attributes": ElementRequiredAttributes,
 	"element-required-content": ElementRequiredContent,

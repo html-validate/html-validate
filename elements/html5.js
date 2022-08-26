@@ -158,6 +158,7 @@ module.exports = {
 	base: {
 		metadata: true,
 		void: true,
+		permittedParent: ["head"],
 	},
 
 	basefont: {
@@ -213,6 +214,7 @@ module.exports = {
 
 	body: {
 		permittedContent: ["@flow"],
+		permittedParent: ["html"],
 		attributes: {
 			alink: {
 				deprecated: true,
@@ -645,6 +647,7 @@ module.exports = {
 
 	head: {
 		permittedContent: ["base?", "title?", "@meta"],
+		permittedParent: ["html"],
 		requiredContent: ["title"],
 		attributes: {
 			profile: {
@@ -1813,6 +1816,7 @@ module.exports = {
 	title: {
 		metadata: true,
 		permittedContent: [],
+		permittedParent: ["head"],
 	},
 
 	tr: {

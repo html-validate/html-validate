@@ -487,7 +487,7 @@ dom:ready: {
       "closed": 1,
       "voidElement": false,
       "depth": 0,
-      "annotation": null
+      "annotation": "#document"
     },
     "active": {
       "nodeType": 9,
@@ -501,7 +501,7 @@ dom:ready: {
       "closed": 1,
       "voidElement": false,
       "depth": 0,
-      "annotation": null
+      "annotation": "#document"
     },
     "doctype": null
   },

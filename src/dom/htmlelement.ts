@@ -87,7 +87,9 @@ export class HtmlElement extends DOMNode {
 	 * @internal
 	 */
 	public static rootNode(location: Location): HtmlElement {
-		return new HtmlElement(undefined, null, NodeClosed.EndTag, null, location);
+		const root = new HtmlElement(undefined, null, NodeClosed.EndTag, null, location);
+		root.setAnnotation("#document");
+		return root;
 	}
 
 	/**

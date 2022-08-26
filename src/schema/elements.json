@@ -139,6 +139,11 @@
           "$ref": "#/definitions/PermittedOrder"
         },
 
+        "permittedParent": {
+          "title": "List of elements or categories allowed as parent to this element",
+          "$ref": "#/definitions/Permitted"
+        },
+
         "requiredAncestors": {
           "title": "List of required ancestor elements",
           "$ref": "#/definitions/RequiredAncestors"

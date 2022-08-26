@@ -102,6 +102,7 @@ export interface MetaData {
 	permittedContent?: Permitted;
 	permittedDescendants?: Permitted;
 	permittedOrder?: PermittedOrder;
+	permittedParent?: Permitted;
 	requiredAncestors?: RequiredAncestors;
 	requiredContent?: RequiredContent;
 	textContent?: TextContent;
@@ -148,6 +149,7 @@ export const MetaCopyableProperty: Array<keyof MetaElement> = [
 	"permittedContent",
 	"permittedDescendants",
 	"permittedOrder",
+	"permittedParent",
 	"requiredAncestors",
 	"requiredContent",
 ];
