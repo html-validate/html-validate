@@ -1072,6 +1072,8 @@ module.exports = {
 	},
 
 	meta: {
+		flow: ["hasAttribute", "itemprop"],
+		phrasing: ["hasAttribute", "itemprop"],
 		metadata: true,
 		void: true,
 		attributes: {

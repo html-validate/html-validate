@@ -1,2 +1,18 @@
 <!-- should omit end tag -->
 <meta></meta>
+
+<!-- should not be allowed where flow content is expected unless itemprop is set -->
+<div>
+	<meta>
+	<video>
+		<meta>
+	</video>
+</div>
+
+<!-- should not be allowed where phrasing content is expected unless itemprop is set -->
+<span>
+	<meta>
+	<audio>
+		<meta>
+	</audio>
+</span>
