@@ -11849,7 +11849,7 @@ exports[`HTML elements <menu> valid markup 1`] = `[]`;
 exports[`HTML elements <meta> invalid markup 1`] = `
 [
   {
-    "errorCount": 1,
+    "errorCount": 5,
     "filePath": "test-files/elements/meta-invalid.html",
     "messages": [
       {
@@ -11864,9 +11864,89 @@ exports[`HTML elements <meta> invalid markup 1`] = `
         "severity": 2,
         "size": 5,
       },
+      {
+        "column": 3,
+        "context": {
+          "child": "<meta>",
+          "kind": "content",
+          "parent": "<div>",
+        },
+        "line": 6,
+        "message": "<meta> element is not permitted as content under <div>",
+        "offset": 137,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "div > meta",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 4,
+        "context": {
+          "child": "<meta>",
+          "kind": "content",
+          "parent": "<video>",
+        },
+        "line": 8,
+        "message": "<meta> element is not permitted as content under <video>",
+        "offset": 155,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "div > video > meta",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 3,
+        "context": {
+          "child": "<meta>",
+          "kind": "content",
+          "parent": "<span>",
+        },
+        "line": 14,
+        "message": "<meta> element is not permitted as content under <span>",
+        "offset": 277,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "span > meta",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 4,
+        "context": {
+          "child": "<meta>",
+          "kind": "content",
+          "parent": "<audio>",
+        },
+        "line": 16,
+        "message": "<meta> element is not permitted as content under <audio>",
+        "offset": 295,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "span > audio > meta",
+        "severity": 2,
+        "size": 4,
+      },
     ],
     "source": "<!-- should omit end tag -->
 <meta></meta>
+
+<!-- should not be allowed where flow content is expected unless itemprop is set -->
+<div>
+	<meta>
+	<video>
+		<meta>
+	</video>
+</div>
+
+<!-- should not be allowed where phrasing content is expected unless itemprop is set -->
+<span>
+	<meta>
+	<audio>
+		<meta>
+	</audio>
+</span>
 ",
     "warningCount": 0,
   },
