@@ -80,6 +80,7 @@ function toHTMLValidateImpl(
 		},
 	};
 	const config = deepmerge(defaultConfig, userConfig || {});
+	/* istanbul ignore next: cant figure out when this would be unset */
 	const actualFilename = filename ?? this.testPath ?? "inline";
 	const loader = new FileSystemConfigLoader({
 		extends: ["html-validate:recommended"],
