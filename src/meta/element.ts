@@ -2,8 +2,9 @@ export interface PermittedGroup {
 	exclude?: string | string[];
 }
 
+export type TagName = string;
 export type PropertyExpression = string | [string, any];
-export type PermittedEntry = string | any[] | PermittedGroup;
+export type PermittedEntry = TagName | PermittedGroup | Array<TagName | PermittedGroup>;
 export type Permitted = PermittedEntry[];
 
 export type PermittedOrder = string[];

@@ -2,7 +2,7 @@ import { Config, ResolvedConfig } from "../config";
 import { Location } from "../context";
 import { Attribute, DynamicValue, HtmlElement } from "../dom";
 import { Parser } from "../parser";
-import { MetaAttribute } from "./element";
+import { MetaAttribute, PermittedEntry } from "./element";
 import { MetaData, MetaTable, Validator } from ".";
 
 const location: Location = {
@@ -329,7 +329,7 @@ describe("Meta validator", () => {
 					{
 						spam: "ham",
 					},
-				],
+				] as PermittedEntry,
 			];
 			expect(() => {
 				Validator.validatePermitted(foo, rules);
