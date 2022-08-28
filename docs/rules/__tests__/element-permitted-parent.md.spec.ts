@@ -1,8 +1,7 @@
 import HtmlValidate from "../../../src/htmlvalidate";
 
 const markup: { [key: string]: string } = {};
-markup["incorrect"] = `<!-- <title> must have <head> as parent -->
-<div>
+markup["incorrect"] = `<div>
     <title>Lorem ipsum</title>
 </div>`;
 markup["correct"] = `<head>

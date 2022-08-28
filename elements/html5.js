@@ -960,12 +960,12 @@ module.exports = {
 	li: {
 		implicitClosed: ["li"],
 		permittedContent: ["@flow"],
+		permittedParent: ["ul", "ol", "menu"],
 		attributes: {
 			type: {
 				deprecated: true,
 			},
 		},
-		requiredAncestors: ["ul", "ol", "menu"],
 	},
 
 	link: {

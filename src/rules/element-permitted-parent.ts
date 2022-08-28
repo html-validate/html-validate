@@ -1,23 +1,60 @@
 import { HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
-import { Validator } from "../meta";
+import { CategoryOrTag, Validator } from "../meta";
+import { Permitted, PermittedEntry } from "../meta/element";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { naturalJoin } from "./helper";
 
 export interface RuleContext {
 	parent: string;
 	child: string;
+	rules: Permitted;
+}
+
+function isCategoryOrTag(value: PermittedEntry): value is CategoryOrTag {
+	return typeof value === "string";
+}
+
+function isCategory(value: CategoryOrTag): boolean {
+	return value[0] === "@";
+}
+
+function formatCategoryOrTag(value: CategoryOrTag): string {
+	return isCategory(value) ? value.slice(1) : `<${value}>`;
+}
+
+function isFormattable(rules: Permitted): rules is CategoryOrTag[] {
+	return rules.length > 0 && rules.every(isCategoryOrTag);
 }
 
 function getRuleDescription(context?: RuleContext): string[] {
 	if (!context) {
-		return [
-			"Some elements has restrictions on what content is allowed.",
-			"This can include both direct children or descendant elements.",
-		];
+		return ["Some elements has restrictions on what parents are allowed."];
 	}
-	return [
-		`The \`${context.child}\` element is not permitted as content under the parent \`${context.parent}\` element.`,
-	];
+	const { child, parent, rules } = context;
+	const preamble = `The \`${child}\` element cannot have a \`${parent}\` element as parent.`;
+	if (isFormattable(rules)) {
+		const allowed = rules.filter(isCategoryOrTag).map((it) => {
+			if (isCategory(it)) {
+				return `- any ${it.slice(1)} element`;
+			} else {
+				return `- \`<${it}>\``;
+			}
+		});
+		return [preamble, "", "Allowed parents one of:", "", ...allowed];
+	} else {
+		return [preamble];
+	}
+}
+
+function formatMessage(node: HtmlElement, parent: HtmlElement, rules: Permitted): string {
+	const nodeName = node.annotatedName;
+	const parentName = parent.annotatedName;
+	if (!isFormattable(rules)) {
+		return `${nodeName} element cannot have ${parentName} element as parent`;
+	}
+	const allowed = naturalJoin(rules.filter(isCategoryOrTag).map(formatCategoryOrTag));
+	return `${nodeName} element requires a ${allowed} element as parent`;
 }
 
 export default class ElementPermittedParent extends Rule<RuleContext> {
@@ -64,12 +101,13 @@ export default class ElementPermittedParent extends Rule<RuleContext> {
 					return;
 				}
 
-				const message = `${parent.annotatedName} element is not permitted as parent of ${node.annotatedName}`;
+				const message = formatMessage(node, parent, rules);
 				const context: RuleContext = {
 					parent: parent.annotatedName,
 					child: node.annotatedName,
+					rules,
 				};
-				this.report(parent, message, null, context);
+				this.report(node, message, null, context);
 			});
 		});
 	}

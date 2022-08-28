@@ -1,5 +1,6 @@
 export { MetaTable } from "./table";
 export {
+	type CategoryOrTag,
 	type ElementTable,
 	type MetaAttribute,
 	MetaCopyableProperty,
@@ -7,6 +8,7 @@ export {
 	type MetaDataTable,
 	type MetaElement,
 	type MetaLookupableProperty,
+	type PermittedGroup,
 	type PropertyExpression,
 	TextContent,
 } from "./element";

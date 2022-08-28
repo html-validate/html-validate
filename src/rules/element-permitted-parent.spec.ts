@@ -50,18 +50,18 @@ describe("rule element-permitted-parent", () => {
 		`;
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: <div> element is not permitted as parent of <base> (element-permitted-parent) at inline:2:5:
+			"error: <base> element requires a <head> element as parent (element-permitted-parent) at inline:3:6:
 			  1 |
-			> 2 | 			<div>
-			    | 			 ^^^
-			  3 | 				<base />
+			  2 | 			<div>
+			> 3 | 				<base />
+			    | 				 ^^^^
 			  4 | 			</div>
 			  5 |
-			Selector: div"
+			Selector: div > base"
 		`);
 	});
 
-	it("should report error when parent is not permitted (referenced by tagname without meta)", () => {
+	it("should report error when parent is excluded", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
 			elements: [
@@ -81,14 +81,65 @@ describe("rule element-permitted-parent", () => {
 		`;
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: <custom-parent> element is not permitted as parent of <custom-element> (element-permitted-parent) at inline:2:5:
+			"error: <custom-element> element cannot have <custom-parent> element as parent (element-permitted-parent) at inline:3:6:
 			  1 |
-			> 2 | 			<custom-parent>
-			    | 			 ^^^^^^^^^^^^^
-			  3 | 				<custom-element></custom-element>
+			  2 | 			<custom-parent>
+			> 3 | 				<custom-element></custom-element>
+			    | 				 ^^^^^^^^^^^^^^
 			  4 | 			</custom-parent>
 			  5 |
-			Selector: custom-parent"
+			Selector: custom-parent > custom-element"
+		`);
+	});
+
+	it("should list permitted elements in error message", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<div>
+				<li>lorem ipsum</li>
+			</div>
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toMatchInlineCodeframe(`
+			"error: <li> element requires a <ul>, <ol> or <menu> element as parent (element-permitted-parent) at inline:3:6:
+			  1 |
+			  2 | 			<div>
+			> 3 | 				<li>lorem ipsum</li>
+			    | 				 ^^
+			  4 | 			</div>
+			  5 |
+			Selector: div > li"
+		`);
+	});
+
+	it("should list permitted content categories in error message", () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({
+			elements: [
+				"html5",
+				{
+					"custom-element": {
+						permittedParent: ["@phrasing", "@interactive"],
+					},
+				},
+			],
+			rules: { "element-permitted-parent": "error" },
+		});
+		const markup = /* HTML */ `
+			<div>
+				<custom-element></custom-element>
+			</div>
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toMatchInlineCodeframe(`
+			"error: <custom-element> element requires a phrasing or interactive element as parent (element-permitted-parent) at inline:3:6:
+			  1 |
+			  2 | 			<div>
+			> 3 | 				<custom-element></custom-element>
+			    | 				 ^^^^^^^^^^^^^^
+			  4 | 			</div>
+			  5 |
+			Selector: div > custom-element"
 		`);
 	});
 
@@ -114,8 +165,9 @@ describe("rule element-permitted-parent", () => {
 	it("should contain contextual documentation", () => {
 		expect.assertions(1);
 		const context: RuleContext = {
-			child: "<div>",
-			parent: "<span>",
+			child: "<li>",
+			parent: "<div>",
+			rules: ["foo", "bar", "@phrasing"],
 		};
 		const doc = htmlvalidate.getRuleDocumentation("element-permitted-parent", null, context);
 		expect(doc).toMatchSnapshot();

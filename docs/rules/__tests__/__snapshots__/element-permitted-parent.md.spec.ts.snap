@@ -9,23 +9,25 @@ exports[`docs/rules/element-permitted-parent.md inline validation: incorrect 1`]
     "filePath": "inline",
     "messages": [
       {
-        "column": 2,
+        "column": 6,
         "context": {
           "child": "<title>",
           "parent": "<div>",
+          "rules": [
+            "head",
+          ],
         },
         "line": 2,
-        "message": "<div> element is not permitted as parent of <title>",
-        "offset": 45,
+        "message": "<title> element requires a <head> element as parent",
+        "offset": 11,
         "ruleId": "element-permitted-parent",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-parent.html",
-        "selector": "div",
+        "selector": "div > title",
         "severity": 2,
-        "size": 3,
+        "size": 5,
       },
     ],
-    "source": "<!-- <title> must have <head> as parent -->
-<div>
+    "source": "<div>
     <title>Lorem ipsum</title>
 </div>",
     "warningCount": 0,

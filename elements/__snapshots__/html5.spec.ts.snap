@@ -704,21 +704,6 @@ exports[`HTML elements <base> invalid markup 1`] = `
     "filePath": "test-files/elements/base-invalid.html",
     "messages": [
       {
-        "column": 2,
-        "context": {
-          "child": "<base>",
-          "parent": "<div>",
-        },
-        "line": 2,
-        "message": "<div> element is not permitted as parent of <base>",
-        "offset": 47,
-        "ruleId": "element-permitted-parent",
-        "ruleUrl": "https://html-validate.org/rules/element-permitted-parent.html",
-        "selector": "div",
-        "severity": 2,
-        "size": 3,
-      },
-      {
         "column": 3,
         "context": {
           "child": "<base>",
@@ -730,6 +715,24 @@ exports[`HTML elements <base> invalid markup 1`] = `
         "offset": 54,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "div > base",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 3,
+        "context": {
+          "child": "<base>",
+          "parent": "<div>",
+          "rules": [
+            "head",
+          ],
+        },
+        "line": 3,
+        "message": "<base> element requires a <head> element as parent",
+        "offset": 54,
+        "ruleId": "element-permitted-parent",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-parent.html",
         "selector": "div > base",
         "severity": 2,
         "size": 4,
@@ -1003,21 +1006,6 @@ exports[`HTML elements <body> invalid markup 1`] = `
     "filePath": "test-files/elements/body-invalid.html",
     "messages": [
       {
-        "column": 2,
-        "context": {
-          "child": "<body>",
-          "parent": "<div>",
-        },
-        "line": 2,
-        "message": "<div> element is not permitted as parent of <body>",
-        "offset": 53,
-        "ruleId": "element-permitted-parent",
-        "ruleUrl": "https://html-validate.org/rules/element-permitted-parent.html",
-        "selector": "div",
-        "severity": 2,
-        "size": 3,
-      },
-      {
         "column": 3,
         "context": {
           "child": "<body>",
@@ -1034,17 +1022,20 @@ exports[`HTML elements <body> invalid markup 1`] = `
         "size": 4,
       },
       {
-        "column": 2,
+        "column": 3,
         "context": {
-          "child": "<head>",
-          "parent": "<body>",
+          "child": "<body>",
+          "parent": "<div>",
+          "rules": [
+            "html",
+          ],
         },
-        "line": 7,
-        "message": "<body> element is not permitted as parent of <head>",
-        "offset": 125,
+        "line": 3,
+        "message": "<body> element requires a <html> element as parent",
+        "offset": 60,
         "ruleId": "element-permitted-parent",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-parent.html",
-        "selector": "body:nth-child(2)",
+        "selector": "div > body",
         "severity": 2,
         "size": 4,
       },
@@ -1060,6 +1051,24 @@ exports[`HTML elements <body> invalid markup 1`] = `
         "offset": 133,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "body:nth-child(2) > head",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 3,
+        "context": {
+          "child": "<head>",
+          "parent": "<body>",
+          "rules": [
+            "html",
+          ],
+        },
+        "line": 8,
+        "message": "<head> element requires a <html> element as parent",
+        "offset": 133,
+        "ruleId": "element-permitted-parent",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-parent.html",
         "selector": "body:nth-child(2) > head",
         "severity": 2,
         "size": 4,
@@ -3412,21 +3421,6 @@ exports[`HTML elements <head> invalid markup 1`] = `
     "filePath": "test-files/elements/head-invalid.html",
     "messages": [
       {
-        "column": 2,
-        "context": {
-          "child": "<head>",
-          "parent": "<div>",
-        },
-        "line": 2,
-        "message": "<div> element is not permitted as parent of <head>",
-        "offset": 47,
-        "ruleId": "element-permitted-parent",
-        "ruleUrl": "https://html-validate.org/rules/element-permitted-parent.html",
-        "selector": "div",
-        "severity": 2,
-        "size": 3,
-      },
-      {
         "column": 3,
         "context": {
           "child": "<head>",
@@ -3438,6 +3432,24 @@ exports[`HTML elements <head> invalid markup 1`] = `
         "offset": 54,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "div > head",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 3,
+        "context": {
+          "child": "<head>",
+          "parent": "<div>",
+          "rules": [
+            "html",
+          ],
+        },
+        "line": 3,
+        "message": "<head> element requires a <html> element as parent",
+        "offset": 54,
+        "ruleId": "element-permitted-parent",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-parent.html",
         "selector": "div > head",
         "severity": 2,
         "size": 4,
@@ -11416,28 +11428,9 @@ exports[`HTML elements <legend> valid markup 1`] = `[]`;
 exports[`HTML elements <li> invalid markup 1`] = `
 [
   {
-    "errorCount": 3,
+    "errorCount": 2,
     "filePath": "test-files/elements/li-invalid.html",
     "messages": [
-      {
-        "column": 2,
-        "context": {
-          "ancestor": [
-            "<ul>",
-            "<ol>",
-            "<menu>",
-          ],
-          "child": "<li>",
-        },
-        "line": 2,
-        "message": "<li> element requires a <ul>, <ol> or <menu> ancestor",
-        "offset": 46,
-        "ruleId": "element-required-ancestor",
-        "ruleUrl": "https://html-validate.org/rules/element-required-ancestor.html",
-        "selector": "li",
-        "severity": 2,
-        "size": 2,
-      },
       {
         "column": 3,
         "context": {
@@ -11445,9 +11438,9 @@ exports[`HTML elements <li> invalid markup 1`] = `
           "kind": "content",
           "parent": "<div>",
         },
-        "line": 6,
+        "line": 3,
         "message": "<li> element is not permitted as content under <div>",
-        "offset": 122,
+        "offset": 53,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "div > li",
@@ -11457,27 +11450,25 @@ exports[`HTML elements <li> invalid markup 1`] = `
       {
         "column": 3,
         "context": {
-          "ancestor": [
-            "<ul>",
-            "<ol>",
-            "<menu>",
-          ],
           "child": "<li>",
+          "parent": "<div>",
+          "rules": [
+            "ul",
+            "ol",
+            "menu",
+          ],
         },
-        "line": 6,
-        "message": "<li> element requires a <ul>, <ol> or <menu> ancestor",
-        "offset": 122,
-        "ruleId": "element-required-ancestor",
-        "ruleUrl": "https://html-validate.org/rules/element-required-ancestor.html",
+        "line": 3,
+        "message": "<li> element requires a <ul>, <ol> or <menu> element as parent",
+        "offset": 53,
+        "ruleId": "element-permitted-parent",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-parent.html",
         "selector": "div > li",
         "severity": 2,
         "size": 2,
       },
     ],
     "source": "<!-- should require <ul>, <ol> or <menu> -->
-<li>lorem ipsum</li>
-
-<!-- should not allow under other elements -->
 <div>
 	<li>foo</li>
 </div>
@@ -15333,21 +15324,6 @@ exports[`HTML elements <title> invalid markup 1`] = `
         "size": 1,
       },
       {
-        "column": 2,
-        "context": {
-          "child": "<title>",
-          "parent": "<div>",
-        },
-        "line": 15,
-        "message": "<div> element is not permitted as parent of <title>",
-        "offset": 353,
-        "ruleId": "element-permitted-parent",
-        "ruleUrl": "https://html-validate.org/rules/element-permitted-parent.html",
-        "selector": "div",
-        "severity": 2,
-        "size": 3,
-      },
-      {
         "column": 3,
         "context": {
           "child": "<title>",
@@ -15359,6 +15335,24 @@ exports[`HTML elements <title> invalid markup 1`] = `
         "offset": 360,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "div > title",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 3,
+        "context": {
+          "child": "<title>",
+          "parent": "<div>",
+          "rules": [
+            "head",
+          ],
+        },
+        "line": 16,
+        "message": "<title> element requires a <head> element as parent",
+        "offset": 360,
+        "ruleId": "element-permitted-parent",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-parent.html",
         "selector": "div > title",
         "severity": 2,
         "size": 5,

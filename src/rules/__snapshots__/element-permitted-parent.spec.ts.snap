@@ -2,15 +2,20 @@
 
 exports[`rule element-permitted-parent should contain contextual documentation 1`] = `
 {
-  "description": "The \`<div>\` element is not permitted as content under the parent \`<span>\` element.",
+  "description": "The \`<li>\` element cannot have a \`<div>\` element as parent.
+
+Allowed parents one of:
+
+- \`<foo>\`
+- \`<bar>\`
+- any phrasing element",
   "url": "https://html-validate.org/rules/element-permitted-parent.html",
 }
 `;
 
 exports[`rule element-permitted-parent should contain documentation 1`] = `
 {
-  "description": "Some elements has restrictions on what content is allowed.
-This can include both direct children or descendant elements.",
+  "description": "Some elements has restrictions on what parents are allowed.",
   "url": "https://html-validate.org/rules/element-permitted-parent.html",
 }
 `;
