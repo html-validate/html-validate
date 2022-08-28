@@ -39,6 +39,13 @@ function svgShouldRetainTag(foreignTagName: string, tagName: string): boolean {
 	return foreignTagName === "svg" && ["title", "desc"].includes(tagName);
 }
 
+function isValidDirective(
+	action: string
+): action is "enable" | "disable" | "disable-block" | "disable-next" {
+	const validActions = ["enable", "disable", "disable-block", "disable-next"];
+	return validActions.includes(action);
+}
+
 /**
  * Parse HTML document into a DOM tree.
  *
@@ -501,6 +508,10 @@ export class Parser {
 		/* istanbul ignore next: should not be possible, would be emitted as comment token */
 		if (!match) {
 			throw new Error(`Failed to parse directive "${text}"`);
+		}
+
+		if (!isValidDirective(action)) {
+			throw new ParserError(token.location, `Unknown directive "${action}"`);
 		}
 
 		const [, data, comment] = match;

@@ -235,9 +235,6 @@ export class Engine<T extends Parser = Parser> {
 			case "disable-next":
 				this.processDisableNextDirective(rules, parser);
 				break;
-			default:
-				this.reportError("parser-error", `Unknown directive "${event.action}"`, event.location);
-				break;
 		}
 	}
 

@@ -196,7 +196,7 @@ export interface DirectiveEvent extends Event {
 	location: Location;
 
 	/** Directive action. */
-	action: string;
+	action: "enable" | "disable" | "disable-block" | "disable-next";
 
 	/** Directive options. */
 	data: string;

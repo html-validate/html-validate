@@ -937,10 +937,10 @@ describe("parser", () => {
 	describe("should parse directive", () => {
 		it("with action", () => {
 			expect.assertions(2);
-			parser.parseHtml("<!-- [html-validate-foo-bar] -->");
+			parser.parseHtml("<!-- [html-validate-enable] -->");
 			expect(events.shift()).toEqual({
 				event: "directive",
-				action: "foo-bar",
+				action: "enable",
 				data: "",
 				comment: "",
 			});
@@ -957,6 +957,15 @@ describe("parser", () => {
 				comment: "",
 			});
 			expect(events.shift()).toBeUndefined();
+		});
+
+		it("should report unknown directives", () => {
+			expect.assertions(2);
+			const parse = (): void => {
+				parser.parseHtml("<!-- [html-validate-arbitrary-action foo bar] -->");
+			};
+			expect(parse).toThrow(ParserError);
+			expect(parse).toThrow('Unknown directive "arbitrary-action"');
 		});
 
 		it("with colon comment", () => {
