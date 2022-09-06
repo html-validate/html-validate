@@ -25,10 +25,11 @@ export default class InputMissingLabel extends Rule {
 			return;
 		}
 
-		/* <input type="hidden"> should not have label */
+		/* hidden, submit or button should not have label */
 		if (elem.is("input")) {
-			const type = elem.getAttributeValue("type");
-			if (type && type.toLowerCase() === "hidden") {
+			const type = elem.getAttributeValue("type")?.toLowerCase();
+			const ignored = ["hidden", "submit", "button"];
+			if (type && ignored.includes(type)) {
 				return;
 			}
 		}
