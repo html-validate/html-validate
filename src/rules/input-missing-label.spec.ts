@@ -28,6 +28,18 @@ describe("rule input-missing-label", () => {
 		expect(report).toBeValid();
 	});
 
+	it('should not report when input type="submit" is missing label', () => {
+		expect.assertions(1);
+		const report = htmlvalidate.validateString('<input type="submit" />');
+		expect(report).toBeValid();
+	});
+
+	it('should not report when input type="button" is missing label', () => {
+		expect.assertions(1);
+		const report = htmlvalidate.validateString('<input type="button" />');
+		expect(report).toBeValid();
+	});
+
 	it("should not report when input is nested inside label", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `

@@ -16,6 +16,12 @@ For browsers it helps the user when clicking on the label to focus the field, es
 The label may either be explicitly associated using the `for` attribute or by nesting the `<input>` element inside the `<label>`.
 For regular input fields the former is recommended and for checkboxes and radiobuttons the latter is recommended.
 
+This rule ignores:
+
+- `<input type="hidden">`
+- `<input type="submit">` - but you should ensure `value` contains non-empty text.
+- `<input type="button">` - but you should ensure `value` contains non-empty text.
+
 ## Rule details
 
 Examples of **incorrect** code for this rule:
