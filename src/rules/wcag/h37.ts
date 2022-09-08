@@ -1,3 +1,4 @@
+import { HtmlElement } from "../../dom";
 import { TagEndEvent } from "../../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../../rule";
 import { inAccessibilityTree } from "../helper/a17y";
@@ -11,6 +12,24 @@ const defaults: RuleOptions = {
 	allowEmpty: true,
 	alias: [],
 };
+
+function needsAlt(node: HtmlElement): boolean {
+	if (node.is("img")) {
+		return true;
+	}
+
+	if (node.is("input") && node.getAttributeValue("type") === "image") {
+		return true;
+	}
+
+	return false;
+}
+
+function getTag(node: HtmlElement): string {
+	return node.is("input")
+		? `<input type="${/* istanbul ignore next */ node.getAttributeValue("type") ?? ""}">`
+		: `<${node.tagName}>`;
+}
 
 export default class H37 extends Rule<void, RuleOptions> {
 	public constructor(options: Partial<RuleOptions>) {
@@ -56,7 +75,7 @@ export default class H37 extends Rule<void, RuleOptions> {
 			const node = event.previous;
 
 			/* only validate images */
-			if (!node || node.tagName !== "img") {
+			if (!node || !needsAlt(node)) {
 				return;
 			}
 
@@ -78,7 +97,13 @@ export default class H37 extends Rule<void, RuleOptions> {
 				}
 			}
 
-			this.report(node, '<img> is missing required "alt" attribute', node.location);
+			if (alt === "") {
+				const attr = node.getAttribute("alt");
+				/* istanbul ignore next */
+				this.report(node, `${getTag(node)} cannot have empty "alt" attribute`, attr?.keyLocation);
+			} else {
+				this.report(node, `${getTag(node)} is missing required "alt" attribute`, node.location);
+			}
 		});
 	}
 }

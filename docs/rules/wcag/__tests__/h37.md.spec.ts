@@ -1,8 +1,10 @@
 import HtmlValidate from "../../../../src/htmlvalidate";
 
 const markup: { [key: string]: string } = {};
-markup["incorrect"] = `<img>`;
-markup["correct"] = `<img alt="...">`;
+markup["incorrect"] = `<img>
+<input type="image">`;
+markup["correct"] = `<img alt="...">
+<input type="image" alt="..">`;
 markup["allow-empty"] = `<span>The task was successfully completed! <img src="thumbsup.png" alt=""></span>`;
 markup["alias"] = `<img data-alt="...">`;
 

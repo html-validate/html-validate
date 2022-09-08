@@ -80,10 +80,10 @@ exports[`rule h37 with allowEmpty false smoketest 1`] = `
     "filePath": "test-files/rules/wcag/h37.html",
     "messages": [
       {
-        "column": 2,
+        "column": 6,
         "line": 2,
-        "message": "<img> is missing required "alt" attribute",
-        "offset": 16,
+        "message": "<img> cannot have empty "alt" attribute",
+        "offset": 20,
         "ruleId": "wcag/h37",
         "ruleUrl": "https://html-validate.org/rules/wcag/h37.html",
         "selector": "img:nth-child(2)",
