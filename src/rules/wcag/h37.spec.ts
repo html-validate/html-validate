@@ -107,9 +107,9 @@ describe("rule h37", () => {
 			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <img> is missing required "alt" attribute (wcag/h37) at inline:1:3:
+				"error: <img> cannot have empty "alt" attribute (wcag/h37) at inline:1:7:
 				> 1 |  <img alt="" />
-				    |   ^^^
+				    |       ^^^
 				Selector: img"
 			`);
 		});
@@ -119,9 +119,9 @@ describe("rule h37", () => {
 			const report = htmlvalidate.validateString('<input type="image" alt="">');
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <input type="image"> is missing required "alt" attribute (wcag/h37) at inline:1:2:
+				"error: <input type="image"> cannot have empty "alt" attribute (wcag/h37) at inline:1:21:
 				> 1 | <input type="image" alt="">
-				    |  ^^^^^
+				    |                     ^^^
 				Selector: input"
 			`);
 		});

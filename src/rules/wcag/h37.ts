@@ -97,7 +97,13 @@ export default class H37 extends Rule<void, RuleOptions> {
 				}
 			}
 
-			this.report(node, `${getTag(node)} is missing required "alt" attribute`, node.location);
+			if (alt === "") {
+				const attr = node.getAttribute("alt");
+				/* istanbul ignore next */
+				this.report(node, `${getTag(node)} cannot have empty "alt" attribute`, attr?.keyLocation);
+			} else {
+				this.report(node, `${getTag(node)} is missing required "alt" attribute`, node.location);
+			}
 		});
 	}
 }
