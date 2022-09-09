@@ -222,10 +222,13 @@
           "jest"
         ],
         "matchUpdateTypes": "major",
+        "semanticCommits": "disabled",
         "semanticCommitType": "feat",
-        "commitMessageAction": "support",
-        "commitMessageTopic": "jest",
-        "commitMessageExtra": "{{prettyNewMajor}}"
+        "commitMessageAction": "action",
+        "commitMessagePrefix": "prefix",
+        "commitMessageSuffix": "suffix",
+        "commitMessageTopic": "topic",
+        "commitMessageExtra": "extra"
       }
     ]
   }
