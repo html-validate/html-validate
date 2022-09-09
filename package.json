@@ -215,6 +215,18 @@
   "renovate": {
     "extends": [
       "gitlab>html-validate/renovate-config"
+    ],
+    "packageRules": [
+      {
+        "matchPackageNames": [
+          "jest"
+        ],
+        "matchUpdateTypes": "major",
+        "semanticCommitType": "feat",
+        "commitMessageAction": "support",
+        "commitMessageTopic": "jest",
+        "commitMessageExtra": "{{prettyNewMajor}}"
+      }
     ]
   }
 }
