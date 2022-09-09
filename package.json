@@ -221,7 +221,7 @@
         "matchPackageNames": [
           "jest"
         ],
-        "matchUpdateTypes": "major",
+        "matchUpdateTypes": ["major"],
         "groupName": "jest monorepo",
         "semanticCommits": "disabled",
         "semanticCommitType": "feat",
