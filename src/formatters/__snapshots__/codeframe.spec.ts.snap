@@ -1,49 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`codeframe formatter should generate output 1`] = `
-"<red>error</>: <bold>An error</> <dim>(foo)</> at <green>first.html:1:6</>:
+"<red>error</color>: <bold>An error</intensity> <dim>(foo)</intensity> at <green>first.html:1:6</color>:
 > 1 | <div id="foo"
     |      ^^
   2 |     class="bar"
   3 |     name="baz">
   4 |
-<bold>Details:</> https://example.net/rule/foo.html
+<bold>Details:</intensity> https://example.net/rule/foo.html
 
 
-<yellow>warning</>: <bold>A warning</> <dim>(bar)</> at <green>first.html:2:5</>:
+<yellow>warning</color>: <bold>A warning</intensity> <dim>(bar)</intensity> at <green>first.html:2:5</color>:
   1 | <div id="foo"
 > 2 |     class="bar"
     |     ^^^^^
   3 |     name="baz">
   4 |
-<bold>Details:</> https://example.net/rule/bar.html
+<bold>Details:</intensity> https://example.net/rule/bar.html
 
 
-<red>error</>: <bold>Lorem ipsum is not allowed</> <dim>(no-lorem-ipsum)</> at <green>second.html:1:4</>:
+<red>error</color>: <bold>Lorem ipsum is not allowed</intensity> <dim>(no-lorem-ipsum)</intensity> at <green>second.html:1:4</color>:
 > 1 | <p>lorem ipsum</p>
     |    ^^^^^^^^^^^
   2 |
-<bold>Details:</> https://example.net/rule/no-lorem-ipsum.html
+<bold>Details:</intensity> https://example.net/rule/no-lorem-ipsum.html
 
 
-<red><bold>2 errors and 1 warning found.</></>
+<red><bold>2 errors and 1 warning found.</color></intensity>
 "
 `;
 
 exports[`codeframe formatter should handle edge cases 1`] = `
-"<yellow>warning</>: <bold>Has invalid severity</> <dim>(invalid-severity)</> at <green>edge-cases.html:1:1</>:
+"<yellow>warning</color>: <bold>Has invalid severity</intensity> <dim>(invalid-severity)</intensity> at <green>edge-cases.html:1:1</color>:
 > 1 | <p>lorem ipsum</p>
     | ^
   2 |
 
 
-<red>error</>: <bold>Escape <script language="jabbascript"> & <span id='foo'></> <dim>(special-characters)</> at <green>edge-cases.html:2:2</>:
+<red>error</color>: <bold>Escape <script language="jabbascript"> & <span id='foo'></intensity> <dim>(special-characters)</intensity> at <green>edge-cases.html:2:2</color>:
   1 | <p>lorem ipsum</p>
 > 2 |
     | ^
 
 
-<red><bold>1 error and 1 warning found.</></>
+<red><bold>1 error and 1 warning found.</color></intensity>
 "
 `;
 
@@ -52,7 +52,7 @@ exports[`codeframe formatter should handle empty messages 1`] = `""`;
 exports[`codeframe formatter should handle empty result 1`] = `""`;
 
 exports[`codeframe formatter should handle missing rule url 1`] = `
-"<red>error</>: <bold>An error</> <dim>(foo)</> at <green>missing-url.html:1:6</>:
+"<red>error</color>: <bold>An error</intensity> <dim>(foo)</intensity> at <green>missing-url.html:1:6</color>:
 > 1 | <div id="foo"
     |      ^^
   2 |     class="bar"
@@ -60,7 +60,7 @@ exports[`codeframe formatter should handle missing rule url 1`] = `
   4 |
 
 
-<yellow>warning</>: <bold>A warning</> <dim>(bar)</> at <green>missing-url.html:2:5</>:
+<yellow>warning</color>: <bold>A warning</intensity> <dim>(bar)</intensity> at <green>missing-url.html:2:5</color>:
   1 | <div id="foo"
 > 2 |     class="bar"
     |     ^^^^^
@@ -68,54 +68,54 @@ exports[`codeframe formatter should handle missing rule url 1`] = `
   4 |
 
 
-<red><bold>2 errors found.</></>
+<red><bold>2 errors found.</color></intensity>
 "
 `;
 
 exports[`codeframe formatter should handle missing selector 1`] = `
-"<red>error</>: <bold>An error</> <dim>(foo)</> at <green>first.html:1:6</>:
+"<red>error</color>: <bold>An error</intensity> <dim>(foo)</intensity> at <green>first.html:1:6</color>:
 > 1 | <div id="foo"
     |      ^^
   2 |     class="bar"
   3 |     name="baz">
   4 |
-<bold>Selector:</> -
-<bold>Details:</> https://example.net/rule/foo.html
+<bold>Selector:</intensity> -
+<bold>Details:</intensity> https://example.net/rule/foo.html
 
 
-<red><bold>1 error and 1 warning found.</></>
+<red><bold>1 error and 1 warning found.</color></intensity>
 "
 `;
 
 exports[`codeframe formatter should handle missing source 1`] = `
-"<red>error</>: <bold>An error</> <dim>(foo)</> at <green>missing-source.html:1:6</>
-<bold>Details:</> https://example.net/rule/foo.html
+"<red>error</color>: <bold>An error</intensity> <dim>(foo)</intensity> at <green>missing-source.html:1:6</color>
+<bold>Details:</intensity> https://example.net/rule/foo.html
 
 
-<yellow>warning</>: <bold>A warning</> <dim>(bar)</> at <green>missing-source.html:2:5</>
-<bold>Details:</> https://example.net/rule/bar.html
+<yellow>warning</color>: <bold>A warning</intensity> <dim>(bar)</intensity> at <green>missing-source.html:2:5</color>
+<bold>Details:</intensity> https://example.net/rule/bar.html
 
 
-<red><bold>2 errors found.</></>
+<red><bold>2 errors found.</color></intensity>
 "
 `;
 
 exports[`codeframe formatter should handle multiline error 1`] = `
-"<red>error</>: <bold>An error</> <dim>(foo)</> at <green>multiline.html:1:4</>:
+"<red>error</color>: <bold>An error</intensity> <dim>(foo)</intensity> at <green>multiline.html:1:4</color>:
 > 1 | <p>lorem
     |    ^^^^^
 > 2 | ipsum</p>
     | ^^^^^
   3 |
-<bold>Details:</> https://example.net/rule/foo.html
+<bold>Details:</intensity> https://example.net/rule/foo.html
 
 
-<red><bold>1 error and 1 warning found.</></>
+<red><bold>1 error and 1 warning found.</color></intensity>
 "
 `;
 
 exports[`codeframe formatter should support disabling links 1`] = `
-"<red>error</>: <bold>An error</> <dim>(foo)</> at <green>first.html:1:6</>:
+"<red>error</color>: <bold>An error</intensity> <dim>(foo)</intensity> at <green>first.html:1:6</color>:
 > 1 | <div id="foo"
     |      ^^
   2 |     class="bar"
@@ -123,7 +123,7 @@ exports[`codeframe formatter should support disabling links 1`] = `
   4 |
 
 
-<yellow>warning</>: <bold>A warning</> <dim>(bar)</> at <green>first.html:2:5</>:
+<yellow>warning</color>: <bold>A warning</intensity> <dim>(bar)</intensity> at <green>first.html:2:5</color>:
   1 | <div id="foo"
 > 2 |     class="bar"
     |     ^^^^^
@@ -131,73 +131,73 @@ exports[`codeframe formatter should support disabling links 1`] = `
   4 |
 
 
-<red>error</>: <bold>Lorem ipsum is not allowed</> <dim>(no-lorem-ipsum)</> at <green>second.html:1:4</>:
+<red>error</color>: <bold>Lorem ipsum is not allowed</intensity> <dim>(no-lorem-ipsum)</intensity> at <green>second.html:1:4</color>:
 > 1 | <p>lorem ipsum</p>
     |    ^^^^^^^^^^^
   2 |
 
 
-<red><bold>2 errors and 1 warning found.</></>
+<red><bold>2 errors and 1 warning found.</color></intensity>
 "
 `;
 
 exports[`codeframe formatter should support disabling summary 1`] = `
-"<red>error</>: <bold>An error</> <dim>(foo)</> at <green>first.html:1:6</>:
+"<red>error</color>: <bold>An error</intensity> <dim>(foo)</intensity> at <green>first.html:1:6</color>:
 > 1 | <div id="foo"
     |      ^^
   2 |     class="bar"
   3 |     name="baz">
   4 |
-<bold>Details:</> https://example.net/rule/foo.html
+<bold>Details:</intensity> https://example.net/rule/foo.html
 
 
-<yellow>warning</>: <bold>A warning</> <dim>(bar)</> at <green>first.html:2:5</>:
+<yellow>warning</color>: <bold>A warning</intensity> <dim>(bar)</intensity> at <green>first.html:2:5</color>:
   1 | <div id="foo"
 > 2 |     class="bar"
     |     ^^^^^
   3 |     name="baz">
   4 |
-<bold>Details:</> https://example.net/rule/bar.html
+<bold>Details:</intensity> https://example.net/rule/bar.html
 
 
-<red>error</>: <bold>Lorem ipsum is not allowed</> <dim>(no-lorem-ipsum)</> at <green>second.html:1:4</>:
+<red>error</color>: <bold>Lorem ipsum is not allowed</intensity> <dim>(no-lorem-ipsum)</intensity> at <green>second.html:1:4</color>:
 > 1 | <p>lorem ipsum</p>
     |    ^^^^^^^^^^^
   2 |
-<bold>Details:</> https://example.net/rule/no-lorem-ipsum.html
+<bold>Details:</intensity> https://example.net/rule/no-lorem-ipsum.html
 
 "
 `;
 
 exports[`codeframe formatter should support enabling selector 1`] = `
-"<red>error</>: <bold>An error</> <dim>(foo)</> at <green>first.html:1:6</>:
+"<red>error</color>: <bold>An error</intensity> <dim>(foo)</intensity> at <green>first.html:1:6</color>:
 > 1 | <div id="foo"
     |      ^^
   2 |     class="bar"
   3 |     name="baz">
   4 |
-<bold>Selector:</> div
-<bold>Details:</> https://example.net/rule/foo.html
+<bold>Selector:</intensity> div
+<bold>Details:</intensity> https://example.net/rule/foo.html
 
 
-<yellow>warning</>: <bold>A warning</> <dim>(bar)</> at <green>first.html:2:5</>:
+<yellow>warning</color>: <bold>A warning</intensity> <dim>(bar)</intensity> at <green>first.html:2:5</color>:
   1 | <div id="foo"
 > 2 |     class="bar"
     |     ^^^^^
   3 |     name="baz">
   4 |
-<bold>Selector:</> div
-<bold>Details:</> https://example.net/rule/bar.html
+<bold>Selector:</intensity> div
+<bold>Details:</intensity> https://example.net/rule/bar.html
 
 
-<red>error</>: <bold>Lorem ipsum is not allowed</> <dim>(no-lorem-ipsum)</> at <green>second.html:1:4</>:
+<red>error</color>: <bold>Lorem ipsum is not allowed</intensity> <dim>(no-lorem-ipsum)</intensity> at <green>second.html:1:4</color>:
 > 1 | <p>lorem ipsum</p>
     |    ^^^^^^^^^^^
   2 |
-<bold>Selector:</> p
-<bold>Details:</> https://example.net/rule/no-lorem-ipsum.html
+<bold>Selector:</intensity> p
+<bold>Details:</intensity> https://example.net/rule/no-lorem-ipsum.html
 
 
-<red><bold>2 errors and 1 warning found.</></>
+<red><bold>2 errors and 1 warning found.</color></intensity>
 "
 `;
