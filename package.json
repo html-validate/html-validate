@@ -218,13 +218,10 @@
     ],
     "packageRules": [
       {
-        "matchSourceUrlPrefixes": [
-          "https://github.com/facebook/jest"
-        ],
+        "extends": "monorepo:jest",
         "matchUpdateTypes": [
           "major"
         ],
-        "groupName": "jest monorepo",
         "semanticCommits": "disabled",
         "semanticCommitType": "feat",
         "commitMessage": "commit message",
