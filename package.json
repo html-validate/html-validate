@@ -218,7 +218,9 @@
     ],
     "packageRules": [
       {
-        "extends": "monorepo:jest",
+        "matchPackageNames": [
+          "jest"
+        ],
         "matchUpdateTypes": [
           "major"
         ],
