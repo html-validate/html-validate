@@ -211,7 +211,7 @@ it("should write current filename to output stream when an exception is cast", a
 		/* do nothing */
 	}
 	expect(stdout.getContentsAsString("utf-8")).toMatchInlineSnapshot(`
-		"<red>Validator crashed when parsing "foo.html"</>
+		"<red>Validator crashed when parsing "foo.html"</color>
 		"
 	`);
 });
