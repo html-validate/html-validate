@@ -215,25 +215,6 @@
   "renovate": {
     "extends": [
       "gitlab>html-validate/renovate-config"
-    ],
-    "packageRules": [
-      {
-        "matchPackageNames": [
-          "jest"
-        ],
-        "matchUpdateTypes": [
-          "major"
-        ],
-        "groupName": "jest monorepo",
-        "semanticCommits": "disabled",
-        "semanticCommitType": "feat",
-        "commitMessage": "commit message",
-        "commitMessageAction": "action",
-        "commitMessagePrefix": "prefix",
-        "commitMessageSuffix": "suffix",
-        "commitMessageTopic": "topic",
-        "commitMessageExtra": "extra"
-      }
     ]
   }
 }
