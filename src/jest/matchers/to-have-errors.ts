@@ -4,7 +4,7 @@ import { Report } from "../../reporter";
 import { diff, diverge, flattenMessages } from "../utils";
 
 function toHaveErrors(
-	this: jest.MatcherUtils,
+	this: jest.MatcherContext,
 	report: Report,
 	errors: Array<[string, string] | Record<string, unknown>>
 ): jest.CustomMatcherResult {

@@ -52,7 +52,7 @@ function getMarkup(src: unknown): string {
 }
 
 function toHTMLValidate(
-	this: jest.MatcherUtils,
+	this: jest.MatcherContext,
 	actual: unknown,
 	arg0?: Partial<Message> | ConfigData | string,
 	arg1?: ConfigData | string,
@@ -66,7 +66,7 @@ function toHTMLValidate(
 }
 
 function toHTMLValidateImpl(
-	this: jest.MatcherUtils,
+	this: jest.MatcherContext,
 	actual: string,
 	expectedError?: Partial<Message>,
 	userConfig?: ConfigData,

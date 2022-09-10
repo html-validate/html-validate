@@ -3,7 +3,11 @@
 import { TokenType } from "../../lexer";
 import { diff, diverge } from "../utils";
 
-function toBeToken(this: jest.MatcherUtils, actual: any, expected: any): jest.CustomMatcherResult {
+function toBeToken(
+	this: jest.MatcherContext,
+	actual: any,
+	expected: any
+): jest.CustomMatcherResult {
 	const token = actual.value;
 
 	// istanbul ignore next: TokenMatcher requires "type" property to be set, this is just a failsafe
