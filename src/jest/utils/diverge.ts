@@ -1,6 +1,6 @@
 import { isThenable } from "./is-thenable";
 
-type Utils = jest.MatcherUtils;
+type Utils = jest.MatcherContext;
 type Result = jest.CustomMatcherResult;
 
 type SyncCallback<T, TArgs extends any[]> = (this: Utils, actual: T, ...args: TArgs) => Result;

@@ -3,7 +3,7 @@ import { diff, diverge } from "../utils";
 import { flattenMessages } from "../utils/flatten-messages";
 
 function toHaveErrorImpl(
-	jest: jest.MatcherUtils,
+	jest: jest.MatcherContext,
 	actual: Report,
 	expected: Partial<Message>
 ): jest.CustomMatcherResult {
@@ -29,19 +29,19 @@ function toHaveErrorImpl(
 }
 
 function toHaveError(
-	this: jest.MatcherUtils,
+	this: jest.MatcherContext,
 	actual: Report,
 	error: Partial<Message>
 ): jest.CustomMatcherResult;
 function toHaveError(
-	this: jest.MatcherUtils,
+	this: jest.MatcherContext,
 	actual: Report,
 	ruleId: string,
 	message: string,
 	context?: any // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
 ): jest.CustomMatcherResult;
 function toHaveError(
-	this: jest.MatcherUtils,
+	this: jest.MatcherContext,
 	actual: Report,
 	arg1: string | Partial<Message>,
 	arg2?: string,
