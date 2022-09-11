@@ -52,8 +52,7 @@
     "!**/*.spec.{js,ts,d.ts}"
   ],
   "workspaces": [
-    "docs",
-    "tests/integration/*"
+    "docs"
   ],
   "scripts": {
     "prebuild": "run-s codegen prebuild:*",
