@@ -11,6 +11,15 @@ const types = {
 	26: "26",
 	27: "27",
 	28: "27",
+	29: "29",
+};
+
+const tsjest = {
+	25: "25.1",
+	26: "26",
+	27: "27.1",
+	28: "28",
+	29: "29",
 };
 
 const typescript = {
@@ -18,6 +27,7 @@ const typescript = {
 	26: "3.9",
 	27: "4.6",
 	28: "4.8",
+	29: "4.8",
 };
 
 if (!foundJest) {
@@ -36,6 +46,9 @@ switch (pkgname) {
 		break;
 	case "jest":
 		process.stdout.write(`${foundJest.version}\n`);
+		break;
+	case "ts-jest":
+		process.stdout.write(`${tsjest[constraint]}\n`);
 		break;
 	case "typescript":
 		process.stdout.write(`${typescript[constraint]}\n`);
