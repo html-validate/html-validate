@@ -34,6 +34,12 @@ describe("rule input-missing-label", () => {
 		expect(report).toBeValid();
 	});
 
+	it('should not report when input type="reset" is missing label', () => {
+		expect.assertions(1);
+		const report = htmlvalidate.validateString('<input type="reset" />');
+		expect(report).toBeValid();
+	});
+
 	it('should not report when input type="button" is missing label', () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateString('<input type="button" />');

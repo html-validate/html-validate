@@ -20,6 +20,7 @@ This rule ignores:
 
 - `<input type="hidden">`
 - `<input type="submit">` - but you should ensure `value` contains non-empty text.
+- `<input type="reset">` - but you should ensure `value` contains non-empty text.
 - `<input type="button">` - but you should ensure `value` contains non-empty text.
 
 ## Rule details
