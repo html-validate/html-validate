@@ -195,7 +195,9 @@ Jest compat:
       npm ls
       jest
       jest-diff
+      jest-snapshot
       jest-environment-jsdom
+      pretty-format
       ts-jest
       typescript
       @types/jest
