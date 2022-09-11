@@ -2,6 +2,6 @@
   "type": "commonjs",
   "private": true,
   "dependencies": {
-    "html-validate": "*"
+    "html-validate": "file:../../../"
   }
 }

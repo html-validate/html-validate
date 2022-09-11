@@ -40,6 +40,8 @@ NPM:
     - node --version
     - npm --version
     - npm ci --no-fund --no-audit --no-update-notifier
+    - (cd tests/integration/cjs && npm install)
+    - (cd tests/integration/esm && npm install)
     - npm audit --json --production | npx --yes gitlab-npm-audit-parser -o gl-dependency-scanning.json || true
     - npx sort-package-json --check
 
