@@ -1,5 +1,20 @@
 # html-validate changelog
 
+## [7.4.0](https://gitlab.com/html-validate/html-validate/compare/v7.3.3...v7.4.0) (2022-09-11)
+
+### Features
+
+- **deps:** support jest v29 ([0f266ca](https://gitlab.com/html-validate/html-validate/commit/0f266ca2489fcaa79516984ae451608f5cfb7ccd))
+- **rules:** new rule `element-permitted-parent` ([cdcc117](https://gitlab.com/html-validate/html-validate/commit/cdcc117b4c8a730be160d68880e64983494edc7a))
+
+### Bug Fixes
+
+- **html5:** `<meta itemprop>` can be used where flow or phrasing is expected ([0c6c74c](https://gitlab.com/html-validate/html-validate/commit/0c6c74cd82840c1ca8983bdb01685262460b7632)), closes [#168](https://gitlab.com/html-validate/html-validate/issues/168)
+- rename preset `html-validate:a17y` to `html-validate:a11y` (typo fix) ([0440fcd](https://gitlab.com/html-validate/html-validate/commit/0440fcdde3146d41f5b847c0b6b489c549d0ee7e)), closes [#171](https://gitlab.com/html-validate/html-validate/issues/171)
+- **rules:** `input-missing-label` now ignores input type `submit` and `button` ([39317da](https://gitlab.com/html-validate/html-validate/commit/39317daec0b1ef1b8f8102d62852fc4deedfe1f2)), closes [#170](https://gitlab.com/html-validate/html-validate/issues/170)
+- **rules:** improve error message when alt is empty ([8f50e8f](https://gitlab.com/html-validate/html-validate/commit/8f50e8f1bf498b339276e687f6d29fdd078a51d5))
+- **rules:** verify presence of alt attribute on `<input type="image">` ([feeb56e](https://gitlab.com/html-validate/html-validate/commit/feeb56ea0443f9349f7f83427373ded2825e7811))
+
 ## [7.3.3](https://gitlab.com/html-validate/html-validate/compare/v7.3.2...v7.3.3) (2022-08-25)
 
 ### Bug Fixes
