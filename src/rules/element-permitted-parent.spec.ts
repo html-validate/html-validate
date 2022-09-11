@@ -101,7 +101,7 @@ describe("rule element-permitted-parent", () => {
 		`;
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: <li> element requires a <ul>, <ol> or <menu> element as parent (element-permitted-parent) at inline:3:6:
+			"error: <li> element requires a <ul>, <ol>, <menu> or <template> element as parent (element-permitted-parent) at inline:3:6:
 			  1 |
 			  2 | 			<div>
 			> 3 | 				<li>lorem ipsum</li>

@@ -960,7 +960,7 @@ module.exports = {
 	li: {
 		implicitClosed: ["li"],
 		permittedContent: ["@flow"],
-		permittedParent: ["ul", "ol", "menu"],
+		permittedParent: ["ul", "ol", "menu", "template"],
 		attributes: {
 			type: {
 				deprecated: true,
