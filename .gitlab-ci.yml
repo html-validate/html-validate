@@ -173,7 +173,7 @@ Jest compat:
   before_script:
     - npm ci --no-fund --no-audit --no-update-notifier
     - npm run build
-    - node scripts/get-min-version.js "${MATRIX}"
+    - npm pkg delete workspaces
     - export TYPES_VERSION=$(node scripts/get-min-version.js "${MATRIX}" "@types/jest")
     - export JEST_VERSION=$(node scripts/get-min-version.js "${MATRIX}" "jest")
     - export TS_VERSION=$(node scripts/get-min-version.js "${MATRIX}" "typescript")
@@ -195,8 +195,8 @@ Jest compat:
       npm ls
       jest
       jest-diff
-      jest-snapshot
       jest-environment-jsdom
+      jest-snapshot
       pretty-format
       ts-jest
       typescript
