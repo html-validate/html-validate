@@ -1,7 +1,7 @@
 ---
 docType: rule
 name: empty-heading
-category: a17y
+category: a11y
 summary: Require headings to have textual content
 ---
 

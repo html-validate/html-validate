@@ -1,7 +1,7 @@
 ---
 docType: rule
 name: input-missing-label
-category: a17y
+category: a11y
 summary: Require input to have label
 ---
 

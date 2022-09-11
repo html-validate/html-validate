@@ -1,7 +1,7 @@
 ---
 docType: rule
 name: prefer-native-element
-category: a17y
+category: a11y
 summary: Prefer to use native HTML element over roles
 ---
 

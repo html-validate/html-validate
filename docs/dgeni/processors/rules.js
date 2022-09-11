@@ -1,7 +1,7 @@
 const { configPresets } = require("../../../dist/cjs");
 
 /* sort order */
-const availablePresets = ["recommended", "standard", "a17y", "document"];
+const availablePresets = ["recommended", "standard", "a11y", "document"];
 
 function compareName(a, b) {
 	if (a.name < b.name) {

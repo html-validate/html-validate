@@ -1,7 +1,7 @@
 ---
 docType: rule
 name: empty-title
-category: a17y
+category: a11y
 summary: Require title to have textual content
 ---
 

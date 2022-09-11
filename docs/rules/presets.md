@@ -31,7 +31,7 @@ Enables rules related to validating according to the WHATWG HTML standard (Livin
 
 Use this preset if you want validation similar to the Nu Html Checker and similar tools.
 
-### `html-validate:a17y`
+### `html-validate:a11y`
 
 Enables rules related to accessibility.
 Most rules but not all enabled rules relates to WCAG compliance.

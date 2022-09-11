@@ -256,7 +256,7 @@ describe("config", () => {
 			expect(config.getRules()).toBeDefined();
 		});
 
-		it("should support htmlvalidate:recommended", () => {
+		it("should support htmlvalidate:recommended (deprecated alias)", () => {
 			expect.assertions(1);
 			const config = Config.fromObject({
 				extends: ["htmlvalidate:recommended"],
@@ -272,10 +272,26 @@ describe("config", () => {
 			expect(config.getRules()).toBeDefined();
 		});
 
-		it("should support htmlvalidate:document", () => {
+		it("should support htmlvalidate:document (deprecated alias)", () => {
 			expect.assertions(1);
 			const config = Config.fromObject({
 				extends: ["htmlvalidate:document"],
+			});
+			expect(config.getRules()).toBeDefined();
+		});
+
+		it("should support htmlvalidate:a11y", () => {
+			expect.assertions(1);
+			const config = Config.fromObject({
+				extends: ["html-validate:a11y"],
+			});
+			expect(config.getRules()).toBeDefined();
+		});
+
+		it("should support htmlvalidate:a17y (deprecated alias)", () => {
+			expect.assertions(1);
+			const config = Config.fromObject({
+				extends: ["html-validate:a17y"],
 			});
 			expect(config.getRules()).toBeDefined();
 		});
