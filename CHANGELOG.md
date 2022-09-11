@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## [7.4.1](https://gitlab.com/html-validate/html-validate/compare/v7.4.0...v7.4.1) (2022-09-11)
+
+### Bug Fixes
+
+- `input-missing-label` should ignore `<input type="reset">` too ([280bb5c](https://gitlab.com/html-validate/html-validate/commit/280bb5c30ec0722de9c73e58937da12f7419a62b))
+- allow `<template>` as parent to `<li>` ([aa0aadc](https://gitlab.com/html-validate/html-validate/commit/aa0aadc100eae3deb7f2cf23852b6f873cce9aef))
+
 ## [7.4.0](https://gitlab.com/html-validate/html-validate/compare/v7.3.3...v7.4.0) (2022-09-11)
 
 ### Features
