@@ -4,7 +4,7 @@ import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 import { MetaElement, TextContent as TextContentEnum } from "../meta";
 import { classifyNodeText } from "./helper";
 import { TextClassification } from "./helper/text";
-import { inAccessibilityTree } from "./helper/a17y";
+import { inAccessibilityTree } from "./helper/a11y";
 
 interface RuleContext {
 	tagName: string;

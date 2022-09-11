@@ -1,7 +1,7 @@
 ---
 docType: rule
 name: no-autoplay
-category: a17y
+category: a11y
 summary: Disallow autoplaying media elements
 ---
 

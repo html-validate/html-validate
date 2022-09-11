@@ -1,5 +1,5 @@
 import { ConfigData } from "../config-data";
-import a17y from "./a17y";
+import a11y from "./a11y";
 import document from "./document";
 import recommended from "./recommended";
 import standard from "./standard";
@@ -8,7 +8,8 @@ import standard from "./standard";
  * @internal
  */
 const presets: Record<string, ConfigData> = {
-	"html-validate:a17y": a17y,
+	"html-validate:a11y": a11y,
+
 	"html-validate:document": document,
 	"html-validate:recommended": recommended,
 	"html-validate:standard": standard,
@@ -16,6 +17,7 @@ const presets: Record<string, ConfigData> = {
 	/* @deprecated aliases */
 	"htmlvalidate:recommended": recommended,
 	"htmlvalidate:document": document,
+	"html-validate:a17y": a11y,
 };
 
 export default presets;

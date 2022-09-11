@@ -2,9 +2,9 @@ import { Config } from "../../config";
 import { HtmlElement, NodeClosed } from "../../dom";
 import { Parser } from "../../parser";
 import { processAttribute } from "../../transform/mocks/attribute";
-import { inAccessibilityTree, isAriaHidden, isHTMLHidden, isPresentation } from "./a17y";
+import { inAccessibilityTree, isAriaHidden, isHTMLHidden, isPresentation } from "./a11y";
 
-describe("a17y helpers", () => {
+describe("a11y helpers", () => {
 	let parser: Parser;
 
 	beforeEach(() => {

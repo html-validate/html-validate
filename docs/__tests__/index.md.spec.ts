@@ -12,7 +12,7 @@ markup["frontpage-contentmodel"] = `<footer>
   </main>
 
 </footer>`;
-markup["frontpage-a17y"] = `<img src="logo.png">
+markup["frontpage-a11y"] = `<img src="logo.png">
 <button onclick="myFunction();">Click me!</button>
 
 <div class="field-wrapper">
@@ -31,10 +31,10 @@ describe("docs/index.md", () => {
 		const report = htmlvalidate.validateString(markup["frontpage-contentmodel"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: frontpage-a17y", () => {
+	it("inline validation: frontpage-a11y", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h37":"error","element-required-attributes":"error","input-missing-label":"error"}});
-		const report = htmlvalidate.validateString(markup["frontpage-a17y"]);
+		const report = htmlvalidate.validateString(markup["frontpage-a11y"]);
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: frontpage-components", () => {

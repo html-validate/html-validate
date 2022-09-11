@@ -1,7 +1,7 @@
 ---
 docType: rule
 name: multiple-labeled-controls
-category: a17y
+category: a11y
 summary: Disallow labels associated with multiple controls
 ---
 

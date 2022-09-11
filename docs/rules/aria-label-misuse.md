@@ -1,7 +1,7 @@
 ---
 docType: rule
 name: aria-label-misuse
-category: a17y
+category: a11y
 summary: Disallow `aria-label` misuse
 ---
 

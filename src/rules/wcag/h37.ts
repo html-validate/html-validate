@@ -1,7 +1,7 @@
 import { HtmlElement } from "../../dom";
 import { TagEndEvent } from "../../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../../rule";
-import { inAccessibilityTree } from "../helper/a17y";
+import { inAccessibilityTree } from "../helper/a11y";
 
 interface RuleOptions {
 	allowEmpty: boolean;

@@ -1,7 +1,7 @@
 ---
 docType: rule
 name: aria-hidden-body
-category: a17y
+category: a11y
 summary: requires `aria-hidden` not to be used on `<body>`
 ---
 

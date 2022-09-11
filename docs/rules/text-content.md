@@ -1,7 +1,7 @@
 ---
 docType: rule
 name: text-content
-category: a17y
+category: a11y
 summary: Require elements to have valid text content
 ---
 

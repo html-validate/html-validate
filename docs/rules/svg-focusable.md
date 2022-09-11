@@ -1,7 +1,7 @@
 ---
 docType: rule
 name: svg-focusable
-category: a17y
+category: a11y
 summary: Require <svg> to have focusable attribute
 ---
 

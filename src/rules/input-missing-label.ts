@@ -1,12 +1,12 @@
 import { DOMTree, HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
-import { isAriaHidden, isHTMLHidden } from "./helper/a17y";
+import { isAriaHidden, isHTMLHidden } from "./helper/a11y";
 
 export default class InputMissingLabel extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
-			description: "Labels are associated with the input element and is required for a17y.",
+			description: "Labels are associated with the input element and is required for a11y.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
