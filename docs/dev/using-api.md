@@ -95,9 +95,11 @@ console.log(report.results);
 
 Validates the given markup.
 
-- `filename` - If a filename is passed it is used to load configuration and is used as the `filePath` property when generating the report.
+- `filename` - If a filename is given it is passed to the configuration loader and is used as the `filePath` property when generating the report.
 - `config` - If configuration is passed it is merged with global config and config loaded from the filename.
 - `hooks` - Normally reserved for transforms hooks can be used to alter DOM tree during parsing.
+
+The filename can for instance be used by {@link #filesystemconfigloader FileSystemConfigLoader} to load configuration files from the file system.
 
 ### `validateSource(source: Source, [config: ConfigData])`
 
@@ -228,6 +230,18 @@ While `validateFile` requires the file to be readable, the second argument to `v
 Loader which traverses filesystem looking for `.htmlvalidate.json` configuration files, starting at the directory of the target filename.
 
 The result from the configuration files are merged both with a global configuration and optionally explicit overrides from the calls to `validateFile`, `validateString` and `validateSource`.
+
+```ts
+import { FileSystemConfigLoader, HtmlValidate } from "html-validate";
+
+const loader = new FileSystemConfigLoader();
+const htmlvalidate = new HtmlValidate(loader);
+
+/* given filenames will be passed to the loader which will traverse the
+ * filesystem for configurations */
+htmlvalidate.validateFile("/path/to/my-file.html");
+htmlvalidate.validateString("..", "/path/to/my-file.html");
+```
 
 ### `StaticConfigLoader([config: ConfigData])` (default)
 
