@@ -14,7 +14,7 @@
     "cssnano": "5.1.13",
     "dgeni": "0.4.14",
     "dgeni-front-matter": "4.0.0",
-    "dgeni-packages": "0.29.5",
+    "dgeni-packages": "0.30.0",
     "front-matter": "4.0.2",
     "grunt": "1.5.3",
     "grunt-browserify": "6.0.0",
