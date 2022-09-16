@@ -1,4 +1,4 @@
-export { Config } from "./config";
+export { Config, configDataFromFile } from "./config";
 export { type ConfigData, type RuleConfig, type RuleOptions } from "./config-data";
 export { ConfigLoader, type ConfigFactory } from "./config-loader";
 export { ConfigError } from "./error";
