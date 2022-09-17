@@ -1,4 +1,4 @@
-import { readFileSync } from "fs";
+import path from "path";
 import {
 	FileSystemConfigLoader,
 	ConfigData,
@@ -7,6 +7,7 @@ import {
 	HtmlValidate,
 	Report,
 } from "..";
+import { configDataFromFile } from "../config";
 import { expandFiles, ExpandOptions } from "./expand-files";
 import { getFormatter } from "./formatter";
 import { IsIgnored } from "./is-ignored";
@@ -113,7 +114,7 @@ export class CLI {
 	public getConfig(): ConfigData {
 		const { options } = this;
 		const config: ConfigData = options.configFile
-			? JSON.parse(readFileSync(options.configFile, "utf-8"))
+			? configDataFromFile(path.resolve(options.configFile))
 			: defaultConfig;
 		let rules = options.rules;
 		if (rules) {

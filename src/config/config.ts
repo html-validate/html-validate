@@ -59,7 +59,10 @@ function mergeInternal(base: ConfigData, rhs: ConfigData): ConfigData {
 	return dst;
 }
 
-function loadFromFile(filename: string): ConfigData {
+/**
+ * @internal
+ */
+export function configDataFromFile(filename: string): ConfigData {
 	let json;
 	try {
 		/* load using require as it can process both js and json */
@@ -127,7 +130,7 @@ export class Config {
 	 * `html-validate:recommended`.
 	 */
 	public static fromFile(filename: string): Config {
-		const configdata = loadFromFile(filename);
+		const configdata = configDataFromFile(filename);
 		return Config.fromObject(configdata, filename);
 	}
 

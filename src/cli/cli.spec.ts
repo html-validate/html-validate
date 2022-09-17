@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 import { CLI } from "./cli";
 
 declare module "fs" {
@@ -36,26 +37,28 @@ describe("CLI", () => {
 			`);
 		});
 
-		it("should use custom configuration file", () => {
+		it("should use custom json configuration file", () => {
 			expect.assertions(1);
-			fs.mockFile(
-				"config.json",
-				JSON.stringify({
-					rules: {
-						foo: "error",
-					},
-				})
-			);
 			const cli = new CLI({
-				configFile: "config.json",
+				configFile: path.join(__dirname, "__fixtures__/config.json"),
 			});
-			expect(cli.getConfig()).toMatchInlineSnapshot(`
-				{
-				  "rules": {
-				    "foo": "error",
-				  },
-				}
-			`);
+			expect(cli.getConfig()).toEqual({
+				rules: {
+					foo: "error",
+				},
+			});
+		});
+
+		it("should use custom js configuration file", () => {
+			expect.assertions(1);
+			const cli = new CLI({
+				configFile: path.join(__dirname, "__fixtures__/config.js"),
+			});
+			expect(cli.getConfig()).toEqual({
+				rules: {
+					foo: "error",
+				},
+			});
 		});
 
 		it("should configure single rule", () => {
