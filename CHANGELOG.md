@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [7.5.0](https://gitlab.com/html-validate/html-validate/compare/v7.4.1...v7.5.0) (2022-09-19)
+
+### Features
+
+- support js config files when using `--config` ([929f2c8](https://gitlab.com/html-validate/html-validate/commit/929f2c8ba404d188bc183e2efe1fed06a985b344)), closes [#175](https://gitlab.com/html-validate/html-validate/issues/175)
+
 ## [7.4.1](https://gitlab.com/html-validate/html-validate/compare/v7.4.0...v7.4.1) (2022-09-11)
 
 ### Bug Fixes
