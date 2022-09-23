@@ -14,7 +14,7 @@ describe("rule input-missing-label", () => {
 	it("should not report when input id has matching label", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
-			<label for="foo"> foo </label>
+			<label for="foo"> lorem ipsum </label>
 			<input id="foo" />
 		`;
 		const report = htmlvalidate.validateString(markup);
@@ -51,6 +51,29 @@ describe("rule input-missing-label", () => {
 		const markup = /* HTML */ `
 			<label>
 				foo
+				<input />
+			</label>
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report when input is nested inside label with aria-label", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<label aria-label="lorem ipsum">
+				<input />
+			</label>
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report when input is nested inside label with aria-labelledby", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<p id="foo">lorem ipsum</p>
+			<label aria-labelledby="foo">
 				<input />
 			</label>
 		`;
@@ -117,29 +140,132 @@ describe("rule input-missing-label", () => {
 		`);
 	});
 
-	it("should report when <textarea> is missing label", () => {
+	it("should report when <input> have empty label", () => {
 		expect.assertions(2);
-		const markup = /* HTML */ ` <textarea></textarea> `;
+		const markup = /* HTML */ `
+			<label for="foo"></label>
+			<input id="foo" />
+		`;
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <textarea> element does not have a <label> (input-missing-label) at inline:1:3:
-			> 1 |  <textarea></textarea>
-			    |   ^^^^^^^^
-			Selector: textarea"
+			"error: <input> element has <label> but <label> has no text (input-missing-label) at inline:3:5:
+			  1 |
+			  2 | 			<label for="foo"></label>
+			> 3 | 			<input id="foo" />
+			    | 			 ^^^^^
+			  4 |
+			Selector: #foo"
+		`);
+	});
+
+	it("should report when <input> have empty aria-label", () => {
+		expect.assertions(2);
+		const markup = /* HTML */ ` <input aria-label="" /> `;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+		"error: <input> element has aria-label but label has no text (input-missing-label) at inline:1:3:
+		> 1 |  <input aria-label="" />
+		    |   ^^^^^
+		Selector: input"
+	`);
+	});
+
+	it("should report when <input> has reference to empty element", () => {
+		expect.assertions(2);
+		const markup = /* HTML */ `
+			<p id="foo"></p>
+			<input aria-labelledby="foo" />
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+		"error: <input> element has aria-labelledby but referenced element has no text (input-missing-label) at inline:3:5:
+		  1 |
+		  2 | 			<p id="foo"></p>
+		> 3 | 			<input aria-labelledby="foo" />
+		    | 			 ^^^^^
+		  4 |
+		Selector: input"
+	`);
+	});
+
+	it("should report when input is nested inside label with empty aria-label", () => {
+		expect.assertions(2);
+		const markup = /* HTML */ `
+			<label aria-label="">
+				<input />
+			</label>
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: <input> element has <label> but <label> has no text (input-missing-label) at inline:3:6:
+			  1 |
+			  2 | 			<label aria-label="">
+			> 3 | 				<input />
+			    | 				 ^^^^^
+			  4 | 			</label>
+			  5 |
+			Selector: label > input"
+		`);
+	});
+
+	it("should report when input is nested inside label referencing empty element", () => {
+		expect.assertions(2);
+		const markup = /* HTML */ `
+			<p id="foo"></p>
+			<label aria-labelledby="foo">
+				<input />
+			</label>
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: <input> element has <label> but <label> has no text (input-missing-label) at inline:4:6:
+			  2 | 			<p id="foo"></p>
+			  3 | 			<label aria-labelledby="foo">
+			> 4 | 				<input />
+			    | 				 ^^^^^
+			  5 | 			</label>
+			  6 |
+			Selector: label > input"
 		`);
 	});
 
 	it("should report when <select> is missing label", () => {
 		expect.assertions(2);
-		const markup = /* HTML */ ` <select></select> `;
+		const markup = /* HTML */ `
+			<select>
+				<option>foo</option>
+				<option>bar</option>
+			</select>
+		`;
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <select> element does not have a <label> (input-missing-label) at inline:1:3:
-			> 1 |  <select></select>
-			    |   ^^^^^^
+			"error: <select> element does not have a <label> (input-missing-label) at inline:2:5:
+			  1 |
+			> 2 | 			<select>
+			    | 			 ^^^^^^
+			  3 | 				<option>foo</option>
+			  4 | 				<option>bar</option>
+			  5 | 			</select>
 			Selector: select"
+		`);
+	});
+
+	it("should report when <textarea> is missing label", () => {
+		expect.assertions(2);
+		const markup = /* HTML */ ` <textarea>lorem ipsum</textarea> `;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: <textarea> element does not have a <label> (input-missing-label) at inline:1:3:
+			> 1 |  <textarea>lorem ipsum</textarea>
+			    |   ^^^^^^^^
+			Selector: textarea"
 		`);
 	});
 
@@ -152,7 +278,7 @@ describe("rule input-missing-label", () => {
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <input> element has label but <label> element is hidden (input-missing-label) at inline:3:5:
+			"error: <input> element has <label> but <label> element is hidden (input-missing-label) at inline:3:5:
 			  1 |
 			  2 | 			<label for="foo" hidden></label>
 			> 3 | 			<input id="foo" />
@@ -171,7 +297,7 @@ describe("rule input-missing-label", () => {
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <input> element has label but <label> element is hidden (input-missing-label) at inline:3:5:
+			"error: <input> element has <label> but <label> element is hidden (input-missing-label) at inline:3:5:
 			  1 |
 			  2 | 			<label for="foo" aria-hidden="true"></label>
 			> 3 | 			<input id="foo" />
@@ -184,7 +310,34 @@ describe("rule input-missing-label", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/input-missing-label.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchInlineCodeframe(`
+			"error: <input> element does not have a <label> (input-missing-label) at test-files/rules/input-missing-label.html:17:3:
+			  15 | <!-- missing labels -->
+			  16 | <div class="form-group">
+			> 17 | 	<input />
+			     | 	 ^^^^^
+			  18 |
+			  19 | 	<select>
+			  20 | 		<option>lorem ipsum</option>
+			Selector: div:nth-child(3) > input
+			error: <select> element does not have a <label> (input-missing-label) at test-files/rules/input-missing-label.html:19:3:
+			  17 | 	<input />
+			  18 |
+			> 19 | 	<select>
+			     | 	 ^^^^^^
+			  20 | 		<option>lorem ipsum</option>
+			  21 | 	</select>
+			  22 |
+			Selector: div:nth-child(3) > select
+			error: <textarea> element does not have a <label> (input-missing-label) at test-files/rules/input-missing-label.html:23:3:
+			  21 | 	</select>
+			  22 |
+			> 23 | 	<textarea>foobar</textarea>
+			     | 	 ^^^^^^^^
+			  24 | </div>
+			  25 |
+			Selector: div:nth-child(3) > textarea"
+		`);
 	});
 
 	it("should contain documentation", () => {
