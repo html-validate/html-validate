@@ -134,6 +134,26 @@ export class HtmlElement extends DOMNode {
 	}
 
 	/**
+	 * Get list of IDs referenced by `aria-labelledby`.
+	 *
+	 * If the attribute is unset or empty this getter returns null.
+	 * If the attribute is dynamic the original {@link DynamicValue} is returned.
+	 *
+	 * @public
+	 */
+	public get ariaLabelledby(): string[] | DynamicValue | null {
+		const attr = this.getAttribute("aria-labelledby");
+		if (!attr || !attr.value) {
+			return null;
+		}
+		if (attr.value instanceof DynamicValue) {
+			return attr.value;
+		}
+		const list = new DOMTokenList(attr.value, attr.valueLocation);
+		return list.length ? Array.from(list) : null;
+	}
+
+	/**
 	 * Similar to childNodes but only elements.
 	 */
 	public get childElements(): HtmlElement[] {

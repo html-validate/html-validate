@@ -164,6 +164,50 @@ describe("HtmlElement", () => {
 		});
 	});
 
+	describe("ariaLabelledby", () => {
+		it("should return list of id's", () => {
+			expect.assertions(1);
+			const node = new HtmlElement("div", null, NodeClosed.EndTag, null, location);
+			node.setAttribute("aria-labelledby", "foo bar baz", location, location);
+			expect(node.ariaLabelledby).toEqual(["foo", "bar", "baz"]);
+		});
+
+		it("should trim whitespace", () => {
+			expect.assertions(1);
+			const node = new HtmlElement("div", null, NodeClosed.EndTag, null, location);
+			node.setAttribute("aria-labelledby", " foo bar ", location, location);
+			expect(node.ariaLabelledby).toEqual(["foo", "bar"]);
+		});
+
+		it("should return dynamic attribute as is", () => {
+			expect.assertions(1);
+			const node = new HtmlElement("div", null, NodeClosed.EndTag, null, location);
+			const attr = new DynamicValue("expr");
+			node.setAttribute("aria-labelledby", attr, location, location);
+			expect(node.ariaLabelledby).toBe(attr);
+		});
+
+		it("should return null if attribute is unset", () => {
+			expect.assertions(1);
+			const node = new HtmlElement("div", null, NodeClosed.EndTag, null, location);
+			expect(node.ariaLabelledby).toBeNull();
+		});
+
+		it("should return null if attribute is empty", () => {
+			expect.assertions(1);
+			const node = new HtmlElement("div", null, NodeClosed.EndTag, null, location);
+			node.setAttribute("aria-labelledby", "", location, location);
+			expect(node.ariaLabelledby).toBeNull();
+		});
+
+		it("should return null if attribute is whitespace only", () => {
+			expect.assertions(1);
+			const node = new HtmlElement("div", null, NodeClosed.EndTag, null, location);
+			node.setAttribute("aria-labelledby", " ", location, location);
+			expect(node.ariaLabelledby).toBeNull();
+		});
+	});
+
 	it("rootNode()", () => {
 		expect.assertions(4);
 		const node = HtmlElement.rootNode(location);
