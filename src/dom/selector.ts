@@ -14,8 +14,19 @@ function stripslashes(value: string): string {
 	return value.replace(/\\(.)/g, "$1");
 }
 
+/**
+ * @internal
+ */
 export function escapeSelectorComponent(text: string | DynamicValue): string {
 	return text.toString().replace(/([^a-z0-9_-])/gi, "\\$1");
+}
+
+/**
+ * @internal
+ */
+export function generateIdSelector(id: string): string {
+	const escaped = escapeSelectorComponent(id);
+	return escaped.match(/^\d/) ? `[id="${escaped}"]` : `#${escaped}`;
 }
 
 /**

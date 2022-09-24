@@ -2,7 +2,7 @@ import { Config } from "../config";
 import { Parser } from "../parser";
 import { reset as resetDOMCounter } from "./domnode";
 import { HtmlElement } from "./htmlelement";
-import { escapeSelectorComponent, Selector, splitPattern } from "./selector";
+import { escapeSelectorComponent, generateIdSelector, Selector, splitPattern } from "./selector";
 import { NodeType } from "./nodetype";
 
 interface StrippedHtmlElement {
@@ -150,6 +150,20 @@ describe("escapeSelectorComponent", () => {
 	it("should escape all occurrences", () => {
 		expect.assertions(1);
 		expect(escapeSelectorComponent("foo bar baz")).toBe("foo\\ bar\\ baz");
+	});
+});
+
+describe("generateIdSelector()", () => {
+	it("should escape characters", () => {
+		expect.assertions(1);
+		const id = "foo:bar[baz]";
+		expect(generateIdSelector(id)).toBe("#foo\\:bar\\[baz\\]");
+	});
+
+	it("should handle leading digits", () => {
+		expect.assertions(1);
+		const id = "123foo";
+		expect(generateIdSelector(id)).toBe('[id="123foo"]');
 	});
 });
 

@@ -1,4 +1,4 @@
-import { escapeSelectorComponent } from "../dom/selector";
+import { escapeSelectorComponent } from "../dom";
 import { ElementReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 

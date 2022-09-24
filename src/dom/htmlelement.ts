@@ -8,7 +8,7 @@ import { DOMNode } from "./domnode";
 import { DOMTokenList } from "./domtokenlist";
 import { DynamicValue } from "./dynamic-value";
 import { NodeType } from "./nodetype";
-import { escapeSelectorComponent, Selector } from "./selector";
+import { generateIdSelector, Selector } from "./selector";
 import { TextNode } from "./text";
 
 /**
@@ -199,8 +199,7 @@ export class HtmlElement extends DOMNode {
 		for (let cur: HtmlElement = this; cur.parent; cur = cur.parent) {
 			/* if a unique id is present, use it and short-circuit */
 			if (cur.id) {
-				const escaped = escapeSelectorComponent(cur.id);
-				const selector = escaped.match(/^\d/) ? `[id="${escaped}"]` : `#${escaped}`;
+				const selector = generateIdSelector(cur.id);
 				const matches = root.querySelectorAll(selector);
 				if (matches.length === 1) {
 					parts.push(selector);
