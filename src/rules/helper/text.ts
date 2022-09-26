@@ -1,8 +1,17 @@
 import { HtmlElement, isElementNode, isTextNode, TextNode } from "../../dom";
 import { isAriaHidden, isHTMLHidden } from "./a11y";
 
-const HTML_CACHE_KEY = Symbol(`${classifyNodeText.name}|html`);
-const A11Y_CACHE_KEY = Symbol(`${classifyNodeText.name}|a11y`);
+const cachePrefix = classifyNodeText.name;
+const HTML_CACHE_KEY = Symbol(`${cachePrefix}|html`);
+const A11Y_CACHE_KEY = Symbol(`${cachePrefix}|a11y`);
+const IGNORE_HIDDEN_ROOT_HTML_CACHE_KEY = Symbol(`${cachePrefix}|html|ignore-hidden-root`);
+const IGNORE_HIDDEN_ROOT_A11Y_CACHE_KEY = Symbol(`${cachePrefix}|a11y|ignore-hidden-root`);
+
+type CACHE_KEY =
+	| typeof HTML_CACHE_KEY
+	| typeof A11Y_CACHE_KEY
+	| typeof IGNORE_HIDDEN_ROOT_HTML_CACHE_KEY
+	| typeof IGNORE_HIDDEN_ROOT_A11Y_CACHE_KEY;
 
 export enum TextClassification {
 	EMPTY_TEXT,
@@ -13,12 +22,31 @@ export enum TextClassification {
 export interface TextClassificationOptions {
 	/** If `true` only accessible text is considered (default false) */
 	accessible?: boolean;
+
+	/** If `true` the `hidden` and `aria-hidden` attribute is ignored on the root
+	 * (and parents) elements (default false) */
+	ignoreHiddenRoot?: boolean;
 }
 
 declare module "../../dom/cache" {
 	export interface DOMNodeCache {
 		[HTML_CACHE_KEY]: TextClassification;
 		[A11Y_CACHE_KEY]: TextClassification;
+		[IGNORE_HIDDEN_ROOT_HTML_CACHE_KEY]: TextClassification;
+		[IGNORE_HIDDEN_ROOT_A11Y_CACHE_KEY]: TextClassification;
+	}
+}
+
+export function getCachekey(options: TextClassificationOptions = {}): CACHE_KEY {
+	const { accessible = false, ignoreHiddenRoot = false } = options;
+	if (accessible && ignoreHiddenRoot) {
+		return IGNORE_HIDDEN_ROOT_A11Y_CACHE_KEY;
+	} else if (ignoreHiddenRoot) {
+		return IGNORE_HIDDEN_ROOT_HTML_CACHE_KEY;
+	} else if (accessible) {
+		return A11Y_CACHE_KEY;
+	} else {
+		return HTML_CACHE_KEY;
 	}
 }
 
@@ -46,18 +74,18 @@ export function classifyNodeText(
 	node: HtmlElement,
 	options: TextClassificationOptions = {}
 ): TextClassification {
-	const { accessible = false } = options;
-	const cacheKey = accessible ? A11Y_CACHE_KEY : HTML_CACHE_KEY;
+	const { accessible = false, ignoreHiddenRoot = false } = options;
+	const cacheKey = getCachekey(options);
 
 	if (node.cacheExists(cacheKey)) {
 		return node.cacheGet(cacheKey) as TextClassification;
 	}
 
-	if (isHTMLHidden(node)) {
+	if (!ignoreHiddenRoot && isHTMLHidden(node)) {
 		return node.cacheSet(cacheKey, TextClassification.EMPTY_TEXT);
 	}
 
-	if (accessible && isAriaHidden(node)) {
+	if (!ignoreHiddenRoot && accessible && isAriaHidden(node)) {
 		return node.cacheSet(cacheKey, TextClassification.EMPTY_TEXT);
 	}
 
@@ -65,7 +93,10 @@ export function classifyNodeText(
 		return node.cacheSet(cacheKey, TextClassification.EMPTY_TEXT);
 	}
 
-	const text = findTextNodes(node, options);
+	const text = findTextNodes(node, {
+		...options,
+		ignoreHiddenRoot: false,
+	});
 
 	/* if any text is dynamic classify as dynamic */
 	if (text.some((cur) => cur.isDynamic)) {
@@ -88,10 +119,10 @@ function findTextNodes(node: HtmlElement, options: TextClassificationOptions): T
 		if (isTextNode(child)) {
 			text.push(child);
 		} else if (isElementNode(child)) {
-			if (isHTMLHidden(child)) {
+			if (isHTMLHidden(child, true).bySelf) {
 				continue;
 			}
-			if (accessible && isAriaHidden(child)) {
+			if (accessible && isAriaHidden(child, true).bySelf) {
 				continue;
 			}
 			text = text.concat(findTextNodes(child, options));

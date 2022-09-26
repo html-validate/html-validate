@@ -2,7 +2,7 @@ import { Config } from "../../config";
 import { Location } from "../../context";
 import { DynamicValue } from "../../dom";
 import { Parser } from "../../parser";
-import { classifyNodeText, TextClassification } from "./text";
+import { classifyNodeText, getCachekey, TextClassification } from "./text";
 
 const location: Location = {
 	filename: "inline",
@@ -134,11 +134,79 @@ describe("classifyNodeText()", () => {
 		});
 	});
 
-	it("should cache result", () => {
-		expect.assertions(2);
-		const node = parser.parseHtml("<p>foo</p>").querySelector("p");
-		expect(classifyNodeText(node)).toEqual(TextClassification.STATIC_TEXT);
-		node.childNodes.length = 0; /* hack to remove all text content */
-		expect(classifyNodeText(node)).toEqual(TextClassification.STATIC_TEXT);
+	describe("ignoreHiddenRoot", () => {
+		it("should not classify hidden element as EMPTY TEXT", () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <p hidden>lorem ipsum</p> `;
+			const node = parser.parseHtml(markup).querySelector("p");
+			expect(classifyNodeText(node, { ignoreHiddenRoot: true })).toEqual(
+				TextClassification.STATIC_TEXT
+			);
+		});
+
+		it("should classify nested hidden element as EMPTY TEXT", () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<p>
+					<em hidden> lorem ipsum </em>
+				</p>
+			`;
+			const node = parser.parseHtml(markup).querySelector("p");
+			expect(classifyNodeText(node, { ignoreHiddenRoot: true })).toEqual(
+				TextClassification.EMPTY_TEXT
+			);
+		});
+
+		it("should classify parent hidden element as STATIC_TEXT", () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<div hidden>
+					<p>lorem ipsum</p>
+				</div>
+			`;
+			const node = parser.parseHtml(markup).querySelector("p");
+			expect(classifyNodeText(node, { ignoreHiddenRoot: true })).toEqual(
+				TextClassification.STATIC_TEXT
+			);
+		});
+
+		it("should classify parent hidden element with nested children as STATIC_TEXT", () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<div hidden>
+					<p>
+						<em>lorem ipsum</em>
+					</p>
+				</div>
+			`;
+			const node = parser.parseHtml(markup).querySelector("p");
+			expect(classifyNodeText(node, { ignoreHiddenRoot: true })).toEqual(
+				TextClassification.STATIC_TEXT
+			);
+		});
+	});
+
+	describe("cache", () => {
+		it("use use different cache keys per options", () => {
+			expect.assertions(4);
+			const a = getCachekey({ accessible: false, ignoreHiddenRoot: false }).description;
+			const b = getCachekey({ accessible: false, ignoreHiddenRoot: true }).description;
+			const c = getCachekey({ accessible: true, ignoreHiddenRoot: false }).description;
+			const d = getCachekey({ accessible: true, ignoreHiddenRoot: true }).description;
+			const all = [a, b, c, d];
+			const count = (value: string | undefined): number => all.filter((it) => it === value).length;
+			expect(count(a)).toBe(1);
+			expect(count(b)).toBe(1);
+			expect(count(c)).toBe(1);
+			expect(count(d)).toBe(1);
+		});
+
+		it("should cache result", () => {
+			expect.assertions(2);
+			const node = parser.parseHtml("<p>foo</p>").querySelector("p");
+			expect(classifyNodeText(node)).toEqual(TextClassification.STATIC_TEXT);
+			node.childNodes.length = 0; /* hack to remove all text content */
+			expect(classifyNodeText(node)).toEqual(TextClassification.STATIC_TEXT);
+		});
 	});
 });
