@@ -1,6 +1,8 @@
-import { HtmlElement, NodeType, TextNode } from "../../dom";
+import { HtmlElement, isElementNode, isTextNode, TextNode } from "../../dom";
+import { isAriaHidden, isHTMLHidden } from "./a11y";
 
-const CACHE_KEY = Symbol(classifyNodeText.name);
+const HTML_CACHE_KEY = Symbol(`${classifyNodeText.name}|html`);
+const A11Y_CACHE_KEY = Symbol(`${classifyNodeText.name}|a11y`);
 
 export enum TextClassification {
 	EMPTY_TEXT,
@@ -8,9 +10,15 @@ export enum TextClassification {
 	STATIC_TEXT,
 }
 
+export interface TextClassificationOptions {
+	/** If `true` only accessible text is considered (default false) */
+	accessible?: boolean;
+}
+
 declare module "../../dom/cache" {
 	export interface DOMNodeCache {
-		[CACHE_KEY]: TextClassification;
+		[HTML_CACHE_KEY]: TextClassification;
+		[A11Y_CACHE_KEY]: TextClassification;
 	}
 }
 
@@ -34,44 +42,59 @@ function isSpecialEmpty(node: HtmlElement): boolean {
  *
  * If any text is dynamic `TextClassification.DYNAMIC_TEXT` is returned.
  */
-export function classifyNodeText(node: HtmlElement): TextClassification {
-	if (node.cacheExists(CACHE_KEY)) {
-		return node.cacheGet(CACHE_KEY) as TextClassification;
+export function classifyNodeText(
+	node: HtmlElement,
+	options: TextClassificationOptions = {}
+): TextClassification {
+	const { accessible = false } = options;
+	const cacheKey = accessible ? A11Y_CACHE_KEY : HTML_CACHE_KEY;
+
+	if (node.cacheExists(cacheKey)) {
+		return node.cacheGet(cacheKey) as TextClassification;
+	}
+
+	if (isHTMLHidden(node)) {
+		return node.cacheSet(cacheKey, TextClassification.EMPTY_TEXT);
+	}
+
+	if (accessible && isAriaHidden(node)) {
+		return node.cacheSet(cacheKey, TextClassification.EMPTY_TEXT);
 	}
 
 	if (isSpecialEmpty(node)) {
-		return node.cacheSet(CACHE_KEY, TextClassification.EMPTY_TEXT);
+		return node.cacheSet(cacheKey, TextClassification.EMPTY_TEXT);
 	}
 
-	const text = findTextNodes(node);
+	const text = findTextNodes(node, options);
 
 	/* if any text is dynamic classify as dynamic */
 	if (text.some((cur) => cur.isDynamic)) {
-		return node.cacheSet(CACHE_KEY, TextClassification.DYNAMIC_TEXT);
+		return node.cacheSet(cacheKey, TextClassification.DYNAMIC_TEXT);
 	}
 
 	/* if any text has non-whitespace character classify as static */
 	if (text.some((cur) => cur.textContent.match(/\S/) !== null)) {
-		return node.cacheSet(CACHE_KEY, TextClassification.STATIC_TEXT);
+		return node.cacheSet(cacheKey, TextClassification.STATIC_TEXT);
 	}
 
 	/* default to empty */
-	return node.cacheSet(CACHE_KEY, TextClassification.EMPTY_TEXT);
+	return node.cacheSet(cacheKey, TextClassification.EMPTY_TEXT);
 }
 
-function findTextNodes(node: HtmlElement): TextNode[] {
+function findTextNodes(node: HtmlElement, options: TextClassificationOptions): TextNode[] {
+	const { accessible = false } = options;
 	let text: TextNode[] = [];
 	for (const child of node.childNodes) {
-		switch (child.nodeType) {
-			case NodeType.TEXT_NODE:
-				text.push(child as TextNode);
-				break;
-			case NodeType.ELEMENT_NODE:
-				text = text.concat(findTextNodes(child as HtmlElement));
-				break;
-			/* istanbul ignore next: provides a sane default, nothing to test */
-			default:
-				break;
+		if (isTextNode(child)) {
+			text.push(child);
+		} else if (isElementNode(child)) {
+			if (isHTMLHidden(child)) {
+				continue;
+			}
+			if (accessible && isAriaHidden(child)) {
+				continue;
+			}
+			text = text.concat(findTextNodes(child, options));
 		}
 	}
 	return text;

@@ -53,6 +53,35 @@ describe("classifyNodeText()", () => {
 		expect(classifyNodeText(node)).toEqual(TextClassification.DYNAMIC_TEXT);
 	});
 
+	it("should classify hidden element as EMPTY TEXT", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <p hidden>lorem ipsum</p> `;
+		const node = parser.parseHtml(markup).querySelector("p");
+		expect(classifyNodeText(node)).toEqual(TextClassification.EMPTY_TEXT);
+	});
+
+	it("should classify nested hidden element as EMPTY TEXT", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<p>
+				<em hidden> lorem ipsum </em>
+			</p>
+		`;
+		const node = parser.parseHtml(markup).querySelector("p");
+		expect(classifyNodeText(node)).toEqual(TextClassification.EMPTY_TEXT);
+	});
+
+	it("should classify parent hidden element as EMPTY TEXT", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<div hidden>
+				<p>lorem ipsum</p>
+			</div>
+		`;
+		const node = parser.parseHtml(markup).querySelector("p");
+		expect(classifyNodeText(node)).toEqual(TextClassification.EMPTY_TEXT);
+	});
+
 	it("should classify <select> as EMPTY_TEXT", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
@@ -69,6 +98,40 @@ describe("classifyNodeText()", () => {
 		const markup = /* HTML */ ` <textarea>lorem ipsum</textarea> `;
 		const node = parser.parseHtml(markup).querySelector("textarea");
 		expect(classifyNodeText(node)).toEqual(TextClassification.EMPTY_TEXT);
+	});
+
+	describe("accessible", () => {
+		it("should classify aria-hidden element as EMPTY TEXT", () => {
+			expect.assertions(2);
+			const markup = /* HTML */ ` <p aria-hidden="true">lorem ipsum</p> `;
+			const node = parser.parseHtml(markup).querySelector("p");
+			expect(classifyNodeText(node)).toEqual(TextClassification.STATIC_TEXT);
+			expect(classifyNodeText(node, { accessible: true })).toEqual(TextClassification.EMPTY_TEXT);
+		});
+
+		it("should classify nested aria-hidden element as EMPTY TEXT", () => {
+			expect.assertions(2);
+			const markup = /* HTML */ `
+				<p>
+					<em aria-hidden="true"> lorem ipsum </em>
+				</p>
+			`;
+			const node = parser.parseHtml(markup).querySelector("p");
+			expect(classifyNodeText(node)).toEqual(TextClassification.STATIC_TEXT);
+			expect(classifyNodeText(node, { accessible: true })).toEqual(TextClassification.EMPTY_TEXT);
+		});
+
+		it("should classify parent aria-hidden element as EMPTY TEXT", () => {
+			expect.assertions(2);
+			const markup = /* HTML */ `
+				<div aria-hidden="true">
+					<p>lorem ipsum</p>
+				</div>
+			`;
+			const node = parser.parseHtml(markup).querySelector("p");
+			expect(classifyNodeText(node)).toEqual(TextClassification.STATIC_TEXT);
+			expect(classifyNodeText(node, { accessible: true })).toEqual(TextClassification.EMPTY_TEXT);
+		});
 	});
 
 	it("should cache result", () => {
