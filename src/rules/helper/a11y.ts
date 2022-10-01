@@ -1,9 +1,14 @@
 import { HtmlElement } from "../../dom";
 
+export interface IsHiddenResult {
+	byParent: boolean;
+	bySelf: boolean;
+}
+
 declare module "../../dom/cache" {
 	export interface DOMNodeCache {
-		[ARIA_HIDDEN_CACHE]: boolean;
-		[HTML_HIDDEN_CACHE]: boolean;
+		[ARIA_HIDDEN_CACHE]: IsHiddenResult;
+		[HTML_HIDDEN_CACHE]: IsHiddenResult;
 		[ROLE_PRESENTATION_CACHE]: boolean;
 	}
 }
@@ -23,37 +28,43 @@ export function inAccessibilityTree(node: HtmlElement): boolean {
 	return !isAriaHidden(node) && !isPresentation(node);
 }
 
+function isAriaHiddenImpl(node: HtmlElement): IsHiddenResult {
+	const isHidden = (node: HtmlElement): boolean => {
+		const ariaHidden = node.getAttribute("aria-hidden");
+		return Boolean(ariaHidden && ariaHidden.value === "true");
+	};
+	return {
+		byParent: node.parent ? isAriaHidden(node.parent) : false,
+		bySelf: isHidden(node),
+	};
+}
+
 /**
  * Tests if this element or an ancestor have `aria-hidden="true"`.
  *
  * Dynamic values yields `false` since the element will conditionally be in the
  * accessibility tree and must fulfill it's conditions.
  */
-export function isAriaHidden(node: HtmlElement): boolean {
-	if (node.cacheExists(ARIA_HIDDEN_CACHE)) {
-		return Boolean(node.cacheGet(ARIA_HIDDEN_CACHE));
+export function isAriaHidden(node: HtmlElement): boolean;
+export function isAriaHidden(node: HtmlElement, details: true): IsHiddenResult;
+export function isAriaHidden(node: HtmlElement, details?: true): boolean | IsHiddenResult {
+	const cached = node.cacheGet(ARIA_HIDDEN_CACHE);
+	if (cached) {
+		return details ? cached : cached.byParent || cached.bySelf;
 	}
+	const result = node.cacheSet(ARIA_HIDDEN_CACHE, isAriaHiddenImpl(node));
+	return details ? result : result.byParent || result.bySelf;
+}
 
-	let cur: HtmlElement = node;
-	do {
-		const ariaHidden = cur.getAttribute("aria-hidden");
-
-		/* aria-hidden="true" */
-		if (ariaHidden && ariaHidden.value === "true") {
-			return cur.cacheSet(ARIA_HIDDEN_CACHE, true);
-		}
-
-		/* sanity check: break if no parent is present, normally not an issue as the
-		 * root element should be found first */
-		if (!cur.parent) {
-			break;
-		}
-
-		/* check parents */
-		cur = cur.parent;
-	} while (!cur.isRootElement());
-
-	return node.cacheSet(ARIA_HIDDEN_CACHE, false);
+function isHTMLHiddenImpl(node: HtmlElement): IsHiddenResult {
+	const isHidden = (node: HtmlElement): boolean => {
+		const hidden = node.getAttribute("hidden");
+		return hidden !== null && hidden.isStatic;
+	};
+	return {
+		byParent: node.parent ? isHTMLHidden(node.parent) : false,
+		bySelf: isHidden(node),
+	};
 }
 
 /**
@@ -62,31 +73,15 @@ export function isAriaHidden(node: HtmlElement): boolean {
  * Dynamic values yields `false` since the element will conditionally be in the
  * DOM tree and must fulfill it's conditions.
  */
-export function isHTMLHidden(node: HtmlElement): boolean {
-	if (node.cacheExists(HTML_HIDDEN_CACHE)) {
-		return Boolean(node.cacheGet(HTML_HIDDEN_CACHE));
+export function isHTMLHidden(node: HtmlElement): boolean;
+export function isHTMLHidden(node: HtmlElement, details: true): IsHiddenResult;
+export function isHTMLHidden(node: HtmlElement, details?: true): boolean | IsHiddenResult {
+	const cached = node.cacheGet(HTML_HIDDEN_CACHE);
+	if (cached) {
+		return details ? cached : cached.byParent || cached.bySelf;
 	}
-
-	let cur: HtmlElement = node;
-	do {
-		const hidden = cur.getAttribute("hidden");
-
-		/* hidden present */
-		if (hidden !== null && hidden.isStatic) {
-			return cur.cacheSet(HTML_HIDDEN_CACHE, true);
-		}
-
-		/* sanity check: break if no parent is present, normally not an issue as the
-		 * root element should be found first */
-		if (!cur.parent) {
-			break;
-		}
-
-		/* check parents */
-		cur = cur.parent;
-	} while (!cur.isRootElement());
-
-	return node.cacheSet(HTML_HIDDEN_CACHE, false);
+	const result = node.cacheSet(HTML_HIDDEN_CACHE, isHTMLHiddenImpl(node));
+	return details ? result : result.byParent || result.bySelf;
 }
 
 /**

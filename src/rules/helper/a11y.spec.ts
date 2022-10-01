@@ -139,6 +139,28 @@ describe("a11y helpers", () => {
 			});
 			expect(isAriaHidden(node)).toBeFalsy();
 		});
+
+		describe("details", () => {
+			it("should return detailed results", () => {
+				expect.assertions(4);
+				const markup = /* HTML */ `
+					<div id="by-self" aria-hidden="true">
+						<p id="by-parent"></p>
+						<p id="by-both" aria-hidden="true"></p>
+					</div>
+					<p id="by-none"></p>
+				`;
+				const root = parse(markup);
+				const a = root.querySelector("#by-parent");
+				const b = root.querySelector("#by-self");
+				const c = root.querySelector("#by-both");
+				const d = root.querySelector("#by-none");
+				expect(isAriaHidden(a, true)).toEqual({ byParent: true, bySelf: false });
+				expect(isAriaHidden(b, true)).toEqual({ byParent: false, bySelf: true });
+				expect(isAriaHidden(c, true)).toEqual({ byParent: true, bySelf: true });
+				expect(isAriaHidden(d, true)).toEqual({ byParent: false, bySelf: false });
+			});
+		});
 	});
 
 	describe("isHTMLHidden()", () => {
@@ -199,6 +221,28 @@ describe("a11y helpers", () => {
 				size: 1,
 			});
 			expect(isHTMLHidden(node)).toBeFalsy();
+		});
+
+		describe("details", () => {
+			it("should return detailed result", () => {
+				expect.assertions(4);
+				const markup = /* HTML */ `
+					<div id="by-self" hidden>
+						<p id="by-parent"></p>
+						<p id="by-both" hidden></p>
+					</div>
+					<p id="by-none"></p>
+				`;
+				const root = parse(markup);
+				const a = root.querySelector("#by-parent");
+				const b = root.querySelector("#by-self");
+				const c = root.querySelector("#by-both");
+				const d = root.querySelector("#by-none");
+				expect(isHTMLHidden(a, true)).toEqual({ byParent: true, bySelf: false });
+				expect(isHTMLHidden(b, true)).toEqual({ byParent: false, bySelf: true });
+				expect(isHTMLHidden(c, true)).toEqual({ byParent: true, bySelf: true });
+				expect(isHTMLHidden(d, true)).toEqual({ byParent: false, bySelf: false });
+			});
 		});
 	});
 
