@@ -53,6 +53,17 @@ describe("classifyNodeText()", () => {
 		expect(classifyNodeText(node)).toEqual(TextClassification.DYNAMIC_TEXT);
 	});
 
+	it("should classify <select> as EMPTY_TEXT", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<select>
+				<option>foobar</option>
+			</select>
+		`;
+		const node = parser.parseHtml(markup).querySelector("select");
+		expect(classifyNodeText(node)).toEqual(TextClassification.EMPTY_TEXT);
+	});
+
 	it("should cache result", () => {
 		expect.assertions(2);
 		const node = parser.parseHtml("<p>foo</p>").querySelector("p");

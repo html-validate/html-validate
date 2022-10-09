@@ -27,6 +27,18 @@ export function classifyNodeText(node: HtmlElement): TextClassification {
 		return node.cacheGet(CACHE_KEY) as TextClassification;
 	}
 
+	/* While I cannot find a reference about this in the standard the <select>
+	 * element kinda acts as if there is no text content, most particularly it
+	 * doesn't receive and accessible name. The `.textContent` property does
+	 * however include the <option> childrens text. But for the sake of the
+	 * validator it is probably best if the classification acts as if there is no
+	 * text as I think that is what is expected of the return values. Might have
+	 * to revisit this at some point or if someone could clarify what section of
+	 * the standard deals with this. */
+	if (node.is("select")) {
+		return node.cacheSet(CACHE_KEY, TextClassification.EMPTY_TEXT);
+	}
+
 	const text = findTextNodes(node);
 
 	/* if any text is dynamic classify as dynamic */
