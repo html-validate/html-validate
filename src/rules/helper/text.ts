@@ -13,12 +13,18 @@ type CACHE_KEY =
 	| typeof IGNORE_HIDDEN_ROOT_HTML_CACHE_KEY
 	| typeof IGNORE_HIDDEN_ROOT_A11Y_CACHE_KEY;
 
+/**
+ * @public
+ */
 export enum TextClassification {
 	EMPTY_TEXT,
 	DYNAMIC_TEXT,
 	STATIC_TEXT,
 }
 
+/**
+ * @public
+ */
 export interface TextClassificationOptions {
 	/** If `true` only accessible text is considered (default false) */
 	accessible?: boolean;
@@ -69,6 +75,8 @@ function isSpecialEmpty(node: HtmlElement): boolean {
  * ignored.
  *
  * If any text is dynamic `TextClassification.DYNAMIC_TEXT` is returned.
+ *
+ * @public
  */
 export function classifyNodeText(
 	node: HtmlElement,
