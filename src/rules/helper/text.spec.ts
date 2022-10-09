@@ -64,6 +64,13 @@ describe("classifyNodeText()", () => {
 		expect(classifyNodeText(node)).toEqual(TextClassification.EMPTY_TEXT);
 	});
 
+	it("should classify <textarea> as EMPTY_TEXT", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <textarea>lorem ipsum</textarea> `;
+		const node = parser.parseHtml(markup).querySelector("textarea");
+		expect(classifyNodeText(node)).toEqual(TextClassification.EMPTY_TEXT);
+	});
+
 	it("should cache result", () => {
 		expect.assertions(2);
 		const node = parser.parseHtml("<p>foo</p>").querySelector("p");
