@@ -3,9 +3,11 @@ import HtmlValidate from "../../../src/htmlvalidate";
 const markup: { [key: string]: string } = {};
 markup["incorrect"] = `<!-- no label element at all -->
 <div>
-    <strong>My field</strong>
+    <strong>My input field</strong>
     <input type="text">
+
     <textarea></textarea>
+
     <select>
         <option>Option</option>
     </select>
@@ -13,7 +15,7 @@ markup["incorrect"] = `<!-- no label element at all -->
 
 <!-- unassociated label -->
 <div>
-    <label>My field</label>
+    <label>My input field</label>
     <input type="text">
 </div>`;
 markup["correct"] = `<!-- label with descendant -->
@@ -28,6 +30,12 @@ markup["correct"] = `<!-- label with descendant -->
 </div>`;
 markup["hidden"] = `<label for="my-input" aria-hidden="true">My field</label>
 <input id="my-input" type="text">`;
+markup["aria-label"] = `<div>
+    <input id="my-input" type="text" aria-label="My field">
+    <svg><use xlink:href="#search-icon"></svg>
+</div>`;
+markup["aria-labelledby"] = `<h2 id="my-heading">Enter your name</h2>
+<input type="text" aria-labelledby="my-heading">`;
 
 describe("docs/rules/input-missing-label.md", () => {
 	it("inline validation: incorrect", () => {
@@ -46,6 +54,18 @@ describe("docs/rules/input-missing-label.md", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"input-missing-label":"error"}});
 		const report = htmlvalidate.validateString(markup["hidden"]);
+		expect(report.results).toMatchSnapshot();
+	});
+	it("inline validation: aria-label", () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({"rules":{"input-missing-label":"error"}});
+		const report = htmlvalidate.validateString(markup["aria-label"]);
+		expect(report.results).toMatchSnapshot();
+	});
+	it("inline validation: aria-labelledby", () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({"rules":{"input-missing-label":"error"}});
+		const report = htmlvalidate.validateString(markup["aria-labelledby"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

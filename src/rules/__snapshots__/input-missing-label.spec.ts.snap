@@ -2,72 +2,14 @@
 
 exports[`rule input-missing-label should contain documentation 1`] = `
 {
-  "description": "Labels are associated with the input element and is required for a11y.",
+  "description": "Each form element must have an a label or accessible name.
+Typically this is implemented using a \`<label for="..">\` element describing the purpose of the form element.
+
+This can be resolved in one of the following ways:
+
+  - Use an associated \`<label for="..">\` element.
+  - Use a nested \`<label>\` as parent element.
+  - Use \`aria-label\` or \`aria-labelledby\` attributes.",
   "url": "https://html-validate.org/rules/input-missing-label.html",
 }
-`;
-
-exports[`rule input-missing-label smoketest 1`] = `
-[
-  {
-    "errorCount": 3,
-    "filePath": "test-files/rules/input-missing-label.html",
-    "messages": [
-      {
-        "column": 3,
-        "line": 16,
-        "message": "<input> element does not have a <label>",
-        "offset": 258,
-        "ruleId": "input-missing-label",
-        "ruleUrl": "https://html-validate.org/rules/input-missing-label.html",
-        "selector": "div:nth-child(3) > input",
-        "severity": 2,
-        "size": 5,
-      },
-      {
-        "column": 3,
-        "line": 17,
-        "message": "<select> element does not have a <label>",
-        "offset": 268,
-        "ruleId": "input-missing-label",
-        "ruleUrl": "https://html-validate.org/rules/input-missing-label.html",
-        "selector": "div:nth-child(3) > select",
-        "severity": 2,
-        "size": 6,
-      },
-      {
-        "column": 3,
-        "line": 18,
-        "message": "<textarea> element does not have a <label>",
-        "offset": 279,
-        "ruleId": "input-missing-label",
-        "ruleUrl": "https://html-validate.org/rules/input-missing-label.html",
-        "selector": "div:nth-child(3) > textarea",
-        "severity": 2,
-        "size": 8,
-      },
-    ],
-    "source": "<!-- have explicit for -->
-<div class="form-group">
-	<label for="foo">Foo</label>
-	<input id="foo"/>
-</div>
-
-<!-- have nested input element -->
-<div class="form-group">
-	<label>
-		<input/>
-	</label>
-</div>
-
-<!-- missing labels -->
-<div class="form-group">
-	<input/>
-	<select/>
-	<textarea>
-</div>
-",
-    "warningCount": 0,
-  },
-]
 `;

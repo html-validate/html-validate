@@ -2,6 +2,7 @@ import { DOMTree, HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 import { isAriaHidden, isHTMLHidden } from "./helper/a11y";
+import { hasAccessibleName } from "./helper/has-accessible-name";
 
 function isIgnored(node: HtmlElement): boolean {
 	if (node.is("input")) {
@@ -15,7 +16,16 @@ function isIgnored(node: HtmlElement): boolean {
 export default class InputMissingLabel extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
-			description: "Labels are associated with the input element and is required for a11y.",
+			description: [
+				"Each form element must have an a label or accessible name.",
+				'Typically this is implemented using a `<label for="..">` element describing the purpose of the form element.',
+				"",
+				"This can be resolved in one of the following ways:",
+				"",
+				'  - Use an associated `<label for="..">` element.',
+				"  - Use a nested `<label>` as parent element.",
+				"  - Use `aria-label` or `aria-labelledby` attributes.",
+			].join("\n"),
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
@@ -39,30 +49,47 @@ export default class InputMissingLabel extends Rule {
 			return;
 		}
 
+		if (hasAccessibleName(root, elem)) {
+			return;
+		}
+
 		let label: HtmlElement[] = [];
 
 		/* try to find label by id */
 		if ((label = findLabelById(root, elem.id)).length > 0) {
-			this.validateLabel(elem, label);
+			this.validateLabel(root, elem, label);
 			return;
 		}
 
 		/* try to find parent label (input nested in label) */
 		if ((label = findLabelByParent(elem)).length > 0) {
-			this.validateLabel(elem, label);
+			this.validateLabel(root, elem, label);
 			return;
 		}
 
-		this.report(elem, `<${elem.tagName}> element does not have a <label>`);
+		if (elem.hasAttribute("aria-label")) {
+			this.report(elem, `<${elem.tagName}> element has aria-label but label has no text`);
+		} else if (elem.hasAttribute("aria-labelledby")) {
+			this.report(
+				elem,
+				`<${elem.tagName}> element has aria-labelledby but referenced element has no text`
+			);
+		} else {
+			this.report(elem, `<${elem.tagName}> element does not have a <label>`);
+		}
 	}
 
 	/**
 	 * Reports error if none of the labels are accessible.
 	 */
-	private validateLabel(elem: HtmlElement, labels: HtmlElement[]): void {
+	private validateLabel(root: DOMTree, elem: HtmlElement, labels: HtmlElement[]): void {
 		const visible = labels.filter(isVisible);
 		if (visible.length === 0) {
-			this.report(elem, `<${elem.tagName}> element has label but <label> element is hidden`);
+			this.report(elem, `<${elem.tagName}> element has <label> but <label> element is hidden`);
+			return;
+		}
+		if (!labels.some((label) => hasAccessibleName(root, label))) {
+			this.report(elem, `<${elem.tagName}> element has <label> but <label> has no text`);
 		}
 	}
 }
