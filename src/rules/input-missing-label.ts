@@ -3,6 +3,15 @@ import { DOMReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 import { isAriaHidden, isHTMLHidden } from "./helper/a11y";
 
+function isIgnored(node: HtmlElement): boolean {
+	if (node.is("input")) {
+		const type = node.getAttributeValue("type")?.toLowerCase();
+		const ignored = ["hidden", "submit", "reset", "button"];
+		return Boolean(type && ignored.includes(type));
+	}
+	return false;
+}
+
 export default class InputMissingLabel extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
@@ -26,12 +35,8 @@ export default class InputMissingLabel extends Rule {
 		}
 
 		/* hidden, submit, reset or button should not have label */
-		if (elem.is("input")) {
-			const type = elem.getAttributeValue("type")?.toLowerCase();
-			const ignored = ["hidden", "submit", "reset", "button"];
-			if (type && ignored.includes(type)) {
-				return;
-			}
+		if (isIgnored(elem)) {
+			return;
 		}
 
 		let label: HtmlElement[] = [];
