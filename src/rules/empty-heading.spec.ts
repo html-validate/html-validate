@@ -33,6 +33,26 @@ describe("rule empty-heading", () => {
 		expect(report).toBeValid();
 	});
 
+	it('should not report when heading has <img alt="..">', () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <h1><img alt="lorem ipsum" /></h1> `;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report when heading has <svg> with <title>", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<h1>
+				<svg>
+					<title>lorem ipsum</title>
+				</svg>
+			</h1>
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should not report when heading has dynamic text", () => {
 		expect.assertions(1);
 		function processElement(node: HtmlElement): void {
