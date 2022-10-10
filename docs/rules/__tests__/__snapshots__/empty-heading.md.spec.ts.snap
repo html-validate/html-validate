@@ -2,6 +2,8 @@
 
 exports[`docs/rules/empty-heading.md inline validation: correct 1`] = `[]`;
 
+exports[`docs/rules/empty-heading.md inline validation: img-alt 1`] = `[]`;
+
 exports[`docs/rules/empty-heading.md inline validation: incorrect 1`] = `
 [
   {

@@ -29,8 +29,7 @@ function hasImgAltText(node: HtmlElement, context: Context): boolean {
 	if (node.is("img")) {
 		return hasAltText(node);
 	} else if (node.is("svg")) {
-		const title = node.querySelector("title");
-		return title.textContent.trim() !== "";
+		return node.textContent.trim() !== "";
 	} else {
 		for (const img of node.querySelectorAll("img, svg")) {
 			const hasName = hasAccessibleNameImpl(img, context);

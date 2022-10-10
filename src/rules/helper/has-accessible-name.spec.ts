@@ -131,6 +131,27 @@ describe("self", () => {
 		const { root, element } = parse(markup, "img");
 		expect(hasAccessibleName(root, element)).toBeFalsy();
 	});
+
+	it("should return true if <svg> has non-empty <title>", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <svg><title>lorem ipsum</title></svg> `;
+		const { root, element } = parse(markup, "svg");
+		expect(hasAccessibleName(root, element)).toBeTruthy();
+	});
+
+	it("should return false if <svg> has empty <title>", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <svg><title></title></svg> `;
+		const { root, element } = parse(markup, "svg");
+		expect(hasAccessibleName(root, element)).toBeFalsy();
+	});
+
+	it("should return false if <svg> is missing <title>", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <svg></svg> `;
+		const { root, element } = parse(markup, "svg");
+		expect(hasAccessibleName(root, element)).toBeFalsy();
+	});
 });
 
 describe("aria-labelledby", () => {
