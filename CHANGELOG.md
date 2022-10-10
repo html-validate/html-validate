@@ -1,5 +1,23 @@
 # html-validate changelog
 
+## [7.6.0](https://gitlab.com/html-validate/html-validate/compare/v7.5.0...v7.6.0) (2022-10-10)
+
+### Features
+
+- `input-missing-label` checks for presence of text ([4aa7d77](https://gitlab.com/html-validate/html-validate/commit/4aa7d77e21e21a21735c973c4aa5b94835b4e7d3)), closes [#170](https://gitlab.com/html-validate/html-validate/issues/170)
+- **api:** add `HtmlElement.ariaLabelledby` ([8463d43](https://gitlab.com/html-validate/html-validate/commit/8463d43f58df27a53ce21e964fd36d9f4618a0ef))
+- **api:** expose `classifyNodeText` helper ([97621fd](https://gitlab.com/html-validate/html-validate/commit/97621fd2dc30a72efe410df6b4b489c50718fed3))
+- **api:** new rule helper `hasAccessibleText` ([b8f8330](https://gitlab.com/html-validate/html-validate/commit/b8f8330b79679a5605cc1aa02c1ada6b53f42b08))
+- **rules:** `classifyNodeText` helper respects `hidden` and `aria-hidden` attributes ([8ba2c5a](https://gitlab.com/html-validate/html-validate/commit/8ba2c5af8790e33931efb477b49dfb93862e32ab))
+- **rules:** `classifyNodeText` option to ignore hidden attribute on element ([41ba7f9](https://gitlab.com/html-validate/html-validate/commit/41ba7f9c4bb25bc543d66010331a0577d4c8f534))
+- **rules:** `isHTMLHidden` and `isAriaHidden` can return detailed results ([fb28c2e](https://gitlab.com/html-validate/html-validate/commit/fb28c2e97248cb45b676908aa2e702c11c23a690))
+
+### Bug Fixes
+
+- `<select>` does no longer classify as having text content ([3fb1d15](https://gitlab.com/html-validate/html-validate/commit/3fb1d15f9dc8b39fdc8722a03b5a7454b88e0c34))
+- `<textarea>` does no longer classify as having text content ([04517cf](https://gitlab.com/html-validate/html-validate/commit/04517cf65ba12b69e0bb69538fa21fe91fcbc8a3))
+- **rules:** `empty-heading` satisfied by images with alt text ([ff68fbb](https://gitlab.com/html-validate/html-validate/commit/ff68fbb7fb209ccd668928e128ab3cde3f4447f7)), closes [#176](https://gitlab.com/html-validate/html-validate/issues/176)
+
 ## [7.5.0](https://gitlab.com/html-validate/html-validate/compare/v7.4.1...v7.5.0) (2022-09-19)
 
 ### Features

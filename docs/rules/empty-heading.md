@@ -53,4 +53,4 @@ Images can be used if they have alternative text:
 
 ## Version history
 
-- %version% - Handles `<img alt="..">` and `<svg>` with title.
+- 7.6.0 - Handles `<img alt="..">` and `<svg>` with title.

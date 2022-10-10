@@ -99,4 +99,4 @@ If the label is provided by another element elsewhere `aria-labelledby` can be u
 
 ## Version history
 
-- %version% - Checks for presence of non-empty accessible text not just presence of `<label>` element.
+- 7.6.0 - Checks for presence of non-empty accessible text not just presence of `<label>` element.
