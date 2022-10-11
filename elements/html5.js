@@ -1012,6 +1012,12 @@ module.exports = {
 		flow: true,
 		phrasing: true,
 		transparent: true,
+		attributes: {
+			name: {
+				required: true,
+				enum: ["/\\S+/"],
+			},
+		},
 	},
 
 	mark: {

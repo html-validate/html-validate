@@ -346,7 +346,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         "context": "area",
         "line": 6,
         "message": "End tag for <area> must be omitted",
-        "offset": 96,
+        "offset": 107,
         "ruleId": "void-content",
         "ruleUrl": "https://html-validate.org/rules/void-content.html",
         "selector": null,
@@ -358,7 +358,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         "context": "area",
         "line": 11,
         "message": "End tag for <area> must be omitted",
-        "offset": 168,
+        "offset": 179,
         "ruleId": "void-content",
         "ruleUrl": "https://html-validate.org/rules/void-content.html",
         "selector": null,
@@ -382,7 +382,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 14,
         "message": "Attribute "shape" has invalid value """,
-        "offset": 221,
+        "offset": 232,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "map > area:nth-child(4)",
@@ -406,7 +406,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 15,
         "message": "Attribute "shape" has invalid value "foobar"",
-        "offset": 250,
+        "offset": 261,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "map > area:nth-child(5)",
@@ -417,7 +417,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
     "source": "<!-- should require <map> ancestor -->
 <area>
 
-<map>
+<map name="foo">
 	<!-- should not allow end tag -->
 	<area></area>
 
@@ -11633,7 +11633,83 @@ exports[`HTML elements <main> invalid markup 1`] = `[]`;
 
 exports[`HTML elements <main> valid markup 1`] = `[]`;
 
-exports[`HTML elements <map> invalid markup 1`] = `[]`;
+exports[`HTML elements <map> invalid markup 1`] = `
+[
+  {
+    "errorCount": 3,
+    "filePath": "test-files/elements/map-invalid.html",
+    "messages": [
+      {
+        "column": 2,
+        "context": {
+          "attribute": "name",
+          "element": "map",
+        },
+        "line": 2,
+        "message": "<map> is missing required "name" attribute",
+        "offset": 23,
+        "ruleId": "element-required-attributes",
+        "ruleUrl": "https://html-validate.org/rules/element-required-attributes.html",
+        "selector": "map:nth-child(1)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 2,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\S\\+\\$/,
+            ],
+            "required": true,
+          },
+          "attribute": "name",
+          "element": "map",
+          "value": "",
+        },
+        "line": 3,
+        "message": "Attribute "name" has invalid value """,
+        "offset": 35,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "map:nth-child(2)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 12,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\S\\+\\$/,
+            ],
+            "required": true,
+          },
+          "attribute": "name",
+          "element": "map",
+          "value": "foo bar",
+        },
+        "line": 6,
+        "message": "Attribute "name" has invalid value "foo bar"",
+        "offset": 106,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "map:nth-child(3)",
+        "severity": 2,
+        "size": 7,
+      },
+    ],
+    "source": "<!-- missing name -->
+<map></map>
+<map name=""></map>
+
+<!-- name cannot contain whitespace -->
+<map name="foo bar"></map>
+",
+    "warningCount": 0,
+  },
+]
+`;
 
 exports[`HTML elements <map> valid markup 1`] = `[]`;
 
