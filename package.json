@@ -163,7 +163,7 @@
     "@html-validate/jest-config": "3.5.1",
     "@html-validate/prettier-config": "2.3.0",
     "@html-validate/release-scripts": "3.5.9",
-    "@rollup/plugin-json": "4.1.0",
+    "@rollup/plugin-json": "5.0.0",
     "@rollup/plugin-replace": "4.0.0",
     "@rollup/plugin-typescript": "8.5.0",
     "@rollup/plugin-virtual": "3.0.0",
