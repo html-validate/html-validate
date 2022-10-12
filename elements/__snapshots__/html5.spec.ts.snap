@@ -321,7 +321,7 @@ exports[`HTML elements <applet> valid markup 1`] = `[]`;
 exports[`HTML elements <area> invalid markup 1`] = `
 [
   {
-    "errorCount": 5,
+    "errorCount": 9,
     "filePath": "test-files/elements/area-invalid.html",
     "messages": [
       {
@@ -380,12 +380,12 @@ exports[`HTML elements <area> invalid markup 1`] = `
           "element": "area",
           "value": "",
         },
-        "line": 14,
+        "line": 16,
         "message": "Attribute "shape" has invalid value """,
-        "offset": 232,
+        "offset": 282,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "map > area:nth-child(4)",
+        "selector": "#invalid-shape > area:nth-child(1)",
         "severity": 2,
         "size": 4,
       },
@@ -404,14 +404,62 @@ exports[`HTML elements <area> invalid markup 1`] = `
           "element": "area",
           "value": "foobar",
         },
-        "line": 15,
+        "line": 17,
         "message": "Attribute "shape" has invalid value "foobar"",
-        "offset": 261,
+        "offset": 311,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "map > area:nth-child(5)",
+        "selector": "#invalid-shape > area:nth-child(2)",
         "severity": 2,
         "size": 6,
+      },
+      {
+        "column": 8,
+        "context": "missing-alt",
+        "line": 22,
+        "message": ""alt" attribute must be set and non-empty when the "href" attribute is present",
+        "offset": 404,
+        "ruleId": "area-alt",
+        "ruleUrl": "https://html-validate.org/rules/area-alt.html",
+        "selector": "#missing-alt > area",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 22,
+        "context": "missing-alt",
+        "line": 27,
+        "message": ""alt" attribute must be set and non-empty when the "href" attribute is present",
+        "offset": 513,
+        "ruleId": "area-alt",
+        "ruleUrl": "https://html-validate.org/rules/area-alt.html",
+        "selector": "#empty-alt > area",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 8,
+        "context": "missing-href",
+        "line": 32,
+        "message": ""alt" attribute cannot be used unless the "href" attribute is present",
+        "offset": 620,
+        "ruleId": "area-alt",
+        "ruleUrl": "https://html-validate.org/rules/area-alt.html",
+        "selector": "#omit-alt > area:nth-child(1)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 8,
+        "context": "missing-href",
+        "line": 33,
+        "message": ""alt" attribute cannot be used unless the "href" attribute is present",
+        "offset": 635,
+        "ruleId": "area-alt",
+        "ruleUrl": "https://html-validate.org/rules/area-alt.html",
+        "selector": "#omit-alt > area:nth-child(2)",
+        "severity": 2,
+        "size": 3,
       },
     ],
     "source": "<!-- should require <map> ancestor -->
@@ -425,10 +473,28 @@ exports[`HTML elements <area> invalid markup 1`] = `
 	<area>
 		<span>foo</span>
 	</area>
+</map>
 
-	<!-- should not allow shape attribute -->
+<!-- should not allow invalid shape attribute -->
+<map id="invalid-shape" name="foo">
 	<area shape="">
 	<area shape="foobar">
+</map>
+
+<!-- missing alt when required -->
+<map id="missing-alt" name="foo">
+	<area href="target">
+</map>
+
+<!-- empty alt when required -->
+<map id="empty-alt" name="foo">
+	<area href="target" alt="">
+</map>
+
+<!-- alt must be mitted when href is not present -->
+<map id="omit-alt" name="foo">
+	<area alt="">
+	<area alt="lorem ipsum">
 </map>
 ",
     "warningCount": 0,

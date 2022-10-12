@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule area-alt should contain contextual documentation missing-alt 1`] = `
+{
+  "description": "The \`alt\` attribute must be set (and not empty) when the \`href\` attribute is present on an \`<area>\` element.
+
+The attribute is used to provide an alternative text description for the area of the image map.
+The text should describe the purpose of area and the resource referenced by the \`href\` attribute.
+
+Either add the \`alt\` attribute or remove the \`href\` attribute.",
+  "url": "https://html-validate.org/rules/area-alt.html",
+}
+`;
+
+exports[`rule area-alt should contain contextual documentation missing-href 1`] = `
+{
+  "description": "The \`alt\` attribute must not be set when the \`href\` attribute is missing on an \`<area>\` element.
+
+Either add the \`href\` attribute or remove the \`alt\` attribute.",
+  "url": "https://html-validate.org/rules/area-alt.html",
+}
+`;
+
+exports[`rule area-alt should contain documentation 1`] = `
+{
+  "description": "The \`alt\` attribute must only be used together with the \`href\` attribute.
+It must be set if \`href\` is present and must be omitted if \`href\` is missing
+
+The attribute is used to provide an alternative text description for the area of the image map.
+The text should describe the purpose of area and the resource referenced by the \`href\` attribute.",
+  "url": "https://html-validate.org/rules/area-alt.html",
+}
+`;

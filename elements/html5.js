@@ -108,6 +108,7 @@ module.exports = {
 		phrasing: ["isDescendant", "map"],
 		void: true,
 		attributes: {
+			alt: {},
 			nohref: {
 				deprecated: true,
 			},
