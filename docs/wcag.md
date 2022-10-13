@@ -32,8 +32,11 @@ textual description of the content. E.g. it cannot suggest to use `<abbr>` or
 		</tr>
 		<tr>
 			<td class="table-right">H24</td>
-			<td>Providing text alternatives for the area elements of image maps</td>
-			<td class="support-planned">Planned</td>
+			<td>
+				Providing text alternatives for the area elements of image maps.
+				<em> Use {@link rule:area-alt} to validate. Only checks for presence of text. </em>
+			</td>
+			<td class="support-yes">Yes</td>
 		</tr>
 		<tr>
 			<td class="table-right">H25</td>

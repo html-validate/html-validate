@@ -108,6 +108,7 @@ module.exports = {
 		phrasing: ["isDescendant", "map"],
 		void: true,
 		attributes: {
+			alt: {},
 			nohref: {
 				deprecated: true,
 			},
@@ -1012,6 +1013,12 @@ module.exports = {
 		flow: true,
 		phrasing: true,
 		transparent: true,
+		attributes: {
+			name: {
+				required: true,
+				enum: ["/\\S+/"],
+			},
+		},
 	},
 
 	mark: {

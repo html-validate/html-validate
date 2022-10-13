@@ -2,6 +2,7 @@ import { ConfigData } from "../config-data";
 
 const config: ConfigData = {
 	rules: {
+		"area-alt": ["error", { accessible: false }],
 		"attr-spacing": "error",
 		"attribute-allowed-values": "error",
 		"close-attr": "error",

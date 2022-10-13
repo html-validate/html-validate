@@ -1,7 +1,7 @@
 <!-- should require <map> ancestor -->
 <area>
 
-<map>
+<map name="foo">
 	<!-- should not allow end tag -->
 	<area></area>
 
@@ -9,8 +9,26 @@
 	<area>
 		<span>foo</span>
 	</area>
+</map>
 
-	<!-- should not allow shape attribute -->
+<!-- should not allow invalid shape attribute -->
+<map id="invalid-shape" name="foo">
 	<area shape="">
 	<area shape="foobar">
+</map>
+
+<!-- missing alt when required -->
+<map id="missing-alt" name="foo">
+	<area href="target">
+</map>
+
+<!-- empty alt when required -->
+<map id="empty-alt" name="foo">
+	<area href="target" alt="">
+</map>
+
+<!-- alt must be mitted when href is not present -->
+<map id="omit-alt" name="foo">
+	<area alt="">
+	<area alt="lorem ipsum">
 </map>

@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/area-alt.md inline validation: correct 1`] = `[]`;
+
+exports[`docs/rules/area-alt.md inline validation: disabled-a11y 1`] = `[]`;
+
+exports[`docs/rules/area-alt.md inline validation: enabled-a11y 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 27,
+        "context": "missing-alt",
+        "line": 3,
+        "message": ""alt" attribute must be set and non-empty when the "href" attribute is present",
+        "offset": 112,
+        "ruleId": "area-alt",
+        "ruleUrl": "https://html-validate.org/rules/area-alt.html",
+        "selector": "map > area:nth-child(1)",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<img src="image.png" usemap="#imagemap" alt="An awesome image">
+<map name="imagemap">
+	<area href="target.html" alt="">
+	<area href="target.html" alt="Link purpose">
+</map>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/area-alt.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 2,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 8,
+        "context": "missing-alt",
+        "line": 3,
+        "message": ""alt" attribute must be set and non-empty when the "href" attribute is present",
+        "offset": 93,
+        "ruleId": "area-alt",
+        "ruleUrl": "https://html-validate.org/rules/area-alt.html",
+        "selector": "map > area:nth-child(1)",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 8,
+        "context": "missing-href",
+        "line": 4,
+        "message": ""alt" attribute cannot be used unless the "href" attribute is present",
+        "offset": 121,
+        "ruleId": "area-alt",
+        "ruleUrl": "https://html-validate.org/rules/area-alt.html",
+        "selector": "map > area:nth-child(2)",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<img src="image.png" usemap="#imagemap" alt="An awesome image">
+<map name="imagemap">
+	<area href="target1.html">
+	<area alt="Link purpose">
+</map>",
+    "warningCount": 0,
+  },
+]
+`;
