@@ -6,6 +6,8 @@ import replace from "@rollup/plugin-replace";
 import virtual from "@rollup/plugin-virtual";
 import copy from "rollup-plugin-copy";
 import dts from "rollup-plugin-dts";
+
+/* eslint-disable-next-line -- eslint-plugin-import seems to choke on import.meta.* */
 import typescript from "@rollup/plugin-typescript";
 
 const packageJson = JSON.parse(fs.readFileSync(path.join(__dirname, "package.json"), "utf-8"));
