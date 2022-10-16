@@ -13,43 +13,74 @@ describe("rule close-order", () => {
 
 	it("should not report when elements are correct in wrong order", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<div></div>");
+		const markup = /* HTML */ ` <div></div> `;
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report for self-closing element", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<div><input/></div>");
+		const markup = /* HTML */ `
+			<div>
+				<input />
+			</div>
+		`;
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report for self-closing element with attribute", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<div><input required/></div>");
+		const markup = /* HTML */ `
+			<div>
+				<input required />
+			</div>
+		`;
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report for void element", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<div><input></div>");
+		const markup = /* HTML */ `
+			<div>
+				<!-- prettier-ignore -->
+				<input>
+			</div>
+		`;
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report for void element with attribute", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<div><input required></div>");
+		const markup = /* HTML */ `
+			<div>
+				<!-- prettier-ignore -->
+				<input required>
+			</div>
+		`;
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report for implicitly closed element", () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<ul><li></ul>");
+		const markup = `
+			<ul>
+				<li>
+			</ul>
+		`;
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should report error when elements are closed in wrong order", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString("<div></p>");
+		const markup = /* HTML */ `
+			<div></p>
+		`;
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"close-order",
@@ -59,7 +90,11 @@ describe("rule close-order", () => {
 
 	it("should report error when element is missing close tag", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString("<div>");
+		const markup = /* HTML */ `
+			<!-- prettier-ignore -->
+			<div>
+		`;
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"close-order",
@@ -69,7 +104,10 @@ describe("rule close-order", () => {
 
 	it("should report error when element is missing opening tag", () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString("</div>");
+		const markup = /* HTML */ `
+			</div>
+		`;
+		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("close-order", "Unexpected close-tag, expected opening tag.");
 	});
