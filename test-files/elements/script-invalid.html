@@ -10,3 +10,10 @@
 
 <!-- must not omit end tag in any way, because the way the scripttag is tokenized both according to spec and this tool it must explicitly be ended with </>. Dragons ahead if not obeyed -->
 <script/>
+
+<!-- integrity attribute should not be empty -->
+<script src="script.js" integrity></script>
+<script src="script.js" integrity=""></script>
+
+<!-- integrity attribute must not be specified without src -->
+<script integrity="sha384-..."></script>

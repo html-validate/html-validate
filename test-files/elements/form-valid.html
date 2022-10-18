@@ -22,3 +22,10 @@
 
 <!-- should allow only ? (to discard query parameters) -->
 <form action="?"></form>
+
+<!-- should allow target keywords and custom name (must not start with _) -->
+<form target="_blank"></form>
+<form target="_parent"></form>
+<form target="_self"></form>
+<form target="_top"></form>
+<form target="foobar"></form>

@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/attribute-misuse.md inline validation: correct 1`] = `[]`;
+
+exports[`docs/rules/attribute-misuse.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 4,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 4,
+        "context": {
+          "attr": "target",
+          "details": "requires "href" attribute to be present",
+        },
+        "line": 1,
+        "message": ""target" attribute cannot be used in this context: requires "href" attribute to be present",
+        "offset": 3,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 23,
+        "context": {
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit"",
+        },
+        "line": 2,
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit"",
+        "offset": 42,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a > button",
+        "severity": 2,
+        "size": 10,
+      },
+      {
+        "column": 7,
+        "context": {
+          "attr": "name",
+          "details": "cannot be used at the same time as "http-equiv"",
+        },
+        "line": 3,
+        "message": ""name" attribute cannot be used in this context: cannot be used at the same time as "http-equiv"",
+        "offset": 67,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a > button > meta",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 17,
+        "context": {
+          "attr": "http-equiv",
+          "details": "cannot be used at the same time as "name"",
+        },
+        "line": 3,
+        "message": ""http-equiv" attribute cannot be used in this context: cannot be used at the same time as "name"",
+        "offset": 77,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a > button > meta",
+        "severity": 2,
+        "size": 10,
+      },
+    ],
+    "source": "<a target="_blank">
+<button type="button" formaction="post">
+<meta name=".." http-equiv="..">",
+    "warningCount": 0,
+  },
+]
+`;

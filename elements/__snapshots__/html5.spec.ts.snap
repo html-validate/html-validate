@@ -3,7 +3,7 @@
 exports[`HTML elements <a> invalid markup 1`] = `
 [
   {
-    "errorCount": 6,
+    "errorCount": 14,
     "filePath": "test-files/elements/a-invalid.html",
     "messages": [
       {
@@ -95,6 +95,7 @@ exports[`HTML elements <a> invalid markup 1`] = `
         "column": 26,
         "context": {
           "allowed": {
+            "allowed": [Function],
             "enum": [
               /\\^\\[\\^_\\]\\.\\*\\$/,
               "_blank",
@@ -116,6 +117,126 @@ exports[`HTML elements <a> invalid markup 1`] = `
         "severity": 2,
         "size": 8,
       },
+      {
+        "column": 4,
+        "context": {
+          "attr": "target",
+          "details": "requires "href" attribute to be present",
+        },
+        "line": 18,
+        "message": ""target" attribute cannot be used in this context: requires "href" attribute to be present",
+        "offset": 502,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a:nth-child(7)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 20,
+        "context": {
+          "attr": "download",
+          "details": "requires "href" attribute to be present",
+        },
+        "line": 18,
+        "message": ""download" attribute cannot be used in this context: requires "href" attribute to be present",
+        "offset": 518,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a:nth-child(7)",
+        "severity": 2,
+        "size": 8,
+      },
+      {
+        "column": 29,
+        "context": {
+          "attr": "ping",
+          "details": "requires "href" attribute to be present",
+        },
+        "line": 18,
+        "message": ""ping" attribute cannot be used in this context: requires "href" attribute to be present",
+        "offset": 527,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a:nth-child(7)",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 34,
+        "context": {
+          "attr": "rel",
+          "details": "requires "href" attribute to be present",
+        },
+        "line": 18,
+        "message": ""rel" attribute cannot be used in this context: requires "href" attribute to be present",
+        "offset": 532,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a:nth-child(7)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 38,
+        "context": {
+          "attr": "hreflang",
+          "details": "requires "href" attribute to be present",
+        },
+        "line": 18,
+        "message": ""hreflang" attribute cannot be used in this context: requires "href" attribute to be present",
+        "offset": 536,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a:nth-child(7)",
+        "severity": 2,
+        "size": 8,
+      },
+      {
+        "column": 47,
+        "context": {
+          "attr": "type",
+          "details": "requires "href" attribute to be present",
+        },
+        "line": 18,
+        "message": ""type" attribute cannot be used in this context: requires "href" attribute to be present",
+        "offset": 545,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a:nth-child(7)",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 52,
+        "context": {
+          "attr": "referrerpolicy",
+          "details": "requires "href" attribute to be present",
+        },
+        "line": 18,
+        "message": ""referrerpolicy" attribute cannot be used in this context: requires "href" attribute to be present",
+        "offset": 550,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a:nth-child(7)",
+        "severity": 2,
+        "size": 14,
+      },
+      {
+        "column": 67,
+        "context": {
+          "attr": "itemprop",
+          "details": "requires "href" attribute to be present",
+        },
+        "line": 18,
+        "message": ""itemprop" attribute cannot be used in this context: requires "href" attribute to be present",
+        "offset": 565,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a:nth-child(7)",
+        "severity": 2,
+        "size": 8,
+      },
     ],
     "source": "<!-- should be transparent -->
 <span><a><div>foo</div></a></span>
@@ -132,6 +253,9 @@ exports[`HTML elements <a> invalid markup 1`] = `
 
 <!-- should not allow invalid type keywords -->
 <a href="target" target="_invalid"> foo </a>
+
+<!-- should not be allowed if href is omitted -->
+<a target="_blank" download ping rel hreflang type referrerpolicy itemprop> foo </a>
 ",
     "warningCount": 0,
   },
@@ -349,7 +473,7 @@ exports[`HTML elements <applet> valid markup 1`] = `[]`;
 exports[`HTML elements <area> invalid markup 1`] = `
 [
   {
-    "errorCount": 10,
+    "errorCount": 17,
     "filePath": "test-files/elements/area-invalid.html",
     "messages": [
       {
@@ -493,6 +617,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         "column": 30,
         "context": {
           "allowed": {
+            "allowed": [Function],
             "enum": [
               /\\^\\[\\^_\\]\\.\\*\\$/,
               "_blank",
@@ -511,6 +636,111 @@ exports[`HTML elements <area> invalid markup 1`] = `
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "#invalid-target > area",
+        "severity": 2,
+        "size": 8,
+      },
+      {
+        "column": 8,
+        "context": {
+          "attr": "target",
+          "details": "requires "href" attribute to be present",
+        },
+        "line": 43,
+        "message": ""target" attribute cannot be used in this context: requires "href" attribute to be present",
+        "offset": 933,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#target-missing-href > area",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 8,
+        "context": {
+          "attr": "target",
+          "details": "requires "href" attribute to be present",
+        },
+        "line": 48,
+        "message": ""target" attribute cannot be used in this context: requires "href" attribute to be present",
+        "offset": 1075,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#invalid-without-href > area",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 24,
+        "context": {
+          "attr": "download",
+          "details": "requires "href" attribute to be present",
+        },
+        "line": 48,
+        "message": ""download" attribute cannot be used in this context: requires "href" attribute to be present",
+        "offset": 1091,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#invalid-without-href > area",
+        "severity": 2,
+        "size": 8,
+      },
+      {
+        "column": 33,
+        "context": {
+          "attr": "ping",
+          "details": "requires "href" attribute to be present",
+        },
+        "line": 48,
+        "message": ""ping" attribute cannot be used in this context: requires "href" attribute to be present",
+        "offset": 1100,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#invalid-without-href > area",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 38,
+        "context": {
+          "attr": "rel",
+          "details": "requires "href" attribute to be present",
+        },
+        "line": 48,
+        "message": ""rel" attribute cannot be used in this context: requires "href" attribute to be present",
+        "offset": 1105,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#invalid-without-href > area",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 42,
+        "context": {
+          "attr": "referrerpolicy",
+          "details": "requires "href" attribute to be present",
+        },
+        "line": 48,
+        "message": ""referrerpolicy" attribute cannot be used in this context: requires "href" attribute to be present",
+        "offset": 1109,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#invalid-without-href > area",
+        "severity": 2,
+        "size": 14,
+      },
+      {
+        "column": 57,
+        "context": {
+          "attr": "itemprop",
+          "details": "requires "href" attribute to be present",
+        },
+        "line": 48,
+        "message": ""itemprop" attribute cannot be used in this context: requires "href" attribute to be present",
+        "offset": 1124,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#invalid-without-href > area",
         "severity": 2,
         "size": 8,
       },
@@ -553,6 +783,16 @@ exports[`HTML elements <area> invalid markup 1`] = `
 <!-- should not allow invalid type keywords -->
 <map id="invalid-target" name="invalid-target">
 	<area href="target" target="_invalid" alt="lorem ipsum">
+</map>
+
+<!-- target cannot be used without href -->
+<map id="target-missing-href" name="target-missing-href">
+	<area target="_blank">
+</map>
+
+<!-- should not be allowed if href is omitted -->
+<map id="invalid-without-href" name="invalid-without-href">
+	<area target="_blank" download ping rel referrerpolicy itemprop>
 </map>
 ",
     "warningCount": 0,
@@ -639,7 +879,7 @@ exports[`HTML elements <aside> valid markup 1`] = `[]`;
 exports[`HTML elements <audio> invalid markup 1`] = `
 [
   {
-    "errorCount": 7,
+    "errorCount": 8,
     "filePath": "test-files/elements/audio-invalid.html",
     "messages": [
       {
@@ -752,6 +992,21 @@ exports[`HTML elements <audio> invalid markup 1`] = `
         "severity": 2,
         "size": 6,
       },
+      {
+        "column": 8,
+        "context": {
+          "attr": "itemprop",
+          "details": "requires "src" attribute to be present",
+        },
+        "line": 30,
+        "message": ""itemprop" attribute cannot be used in this context: requires "src" attribute to be present",
+        "offset": 639,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "audio:nth-child(7)",
+        "severity": 2,
+        "size": 8,
+      },
     ],
     "source": "<!-- should not allow <audio> or <video> descendant -->
 <audio>
@@ -780,6 +1035,9 @@ exports[`HTML elements <audio> invalid markup 1`] = `
 
 <!-- should not allow preload attribute -->
 <audio preload="foobar"></audio>
+
+<!-- should not be allowed if src is omitted -->
+<audio itemprop></audio>
 ",
     "warningCount": 0,
   },
@@ -1293,7 +1551,7 @@ exports[`HTML elements <br> valid markup 1`] = `[]`;
 exports[`HTML elements <button> invalid markup 1`] = `
 [
   {
-    "errorCount": 8,
+    "errorCount": 16,
     "filePath": "test-files/elements/button-invalid.html",
     "messages": [
       {
@@ -1329,15 +1587,15 @@ exports[`HTML elements <button> invalid markup 1`] = `
         "size": 1,
       },
       {
-        "column": 30,
+        "column": 9,
         "context": {
           "ancestor": "<button>",
           "child": "<a>",
           "kind": "descendant",
         },
-        "line": 6,
+        "line": 7,
         "message": "<a> element is not permitted as a descendant of <button>",
-        "offset": 222,
+        "offset": 224,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "button:nth-child(3) > span > a",
@@ -1345,15 +1603,15 @@ exports[`HTML elements <button> invalid markup 1`] = `
         "size": 1,
       },
       {
-        "column": 30,
+        "column": 9,
         "context": {
           "ancestor": "<button>",
           "child": "<button>",
           "kind": "descendant",
         },
-        "line": 9,
+        "line": 12,
         "message": "<button> element is not permitted as a descendant of <button>",
-        "offset": 312,
+        "offset": 317,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "button:nth-child(4) > span > button",
@@ -1375,9 +1633,9 @@ exports[`HTML elements <button> invalid markup 1`] = `
           "element": "button",
           "value": "foobar",
         },
-        "line": 12,
+        "line": 16,
         "message": "Attribute "type" has invalid value "foobar"",
-        "offset": 411,
+        "offset": 417,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "button:nth-child(5)",
@@ -1385,17 +1643,87 @@ exports[`HTML elements <button> invalid markup 1`] = `
         "size": 6,
       },
       {
+        "column": 35,
+        "context": {
+          "allowed": {
+            "allowed": [Function],
+            "enum": [
+              "get",
+              "post",
+              "dialog",
+            ],
+          },
+          "attribute": "formmethod",
+          "element": "button",
+          "value": "invalid",
+        },
+        "line": 19,
+        "message": "Attribute "formmethod" has invalid value "invalid"",
+        "offset": 511,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "button:nth-child(6)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 39,
+        "context": {
+          "allowed": {
+            "allowed": [Function],
+            "boolean": true,
+          },
+          "attribute": "formnovalidate",
+          "element": "button",
+          "value": "invalid",
+        },
+        "line": 22,
+        "message": "Attribute "formnovalidate" has invalid value "invalid"",
+        "offset": 621,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "button:nth-child(7)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 35,
+        "context": {
+          "allowed": {
+            "allowed": [Function],
+            "enum": [
+              /\\^\\[\\^_\\]\\.\\*\\$/,
+              "_blank",
+              "_self",
+              "_parent",
+              "_top",
+            ],
+          },
+          "attribute": "formtarget",
+          "element": "button",
+          "value": "_invalid",
+        },
+        "line": 25,
+        "message": "Attribute "formtarget" has invalid value "_invalid"",
+        "offset": 736,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "button:nth-child(8)",
+        "severity": 2,
+        "size": 8,
+      },
+      {
         "column": 2,
         "context": {
           "attribute": "type",
           "element": "button",
         },
-        "line": 15,
+        "line": 28,
         "message": "<button> is missing required "type" attribute",
-        "offset": 456,
+        "offset": 793,
         "ruleId": "element-required-attributes",
         "ruleUrl": "https://html-validate.org/rules/element-required-attributes.html",
-        "selector": "button:nth-child(6)",
+        "selector": "button:nth-child(9)",
         "severity": 2,
         "size": 6,
       },
@@ -1405,12 +1733,12 @@ exports[`HTML elements <button> invalid markup 1`] = `
           "tagName": "button",
           "textContent": "accessible",
         },
-        "line": 18,
+        "line": 31,
         "message": "<button> must have accessible text",
-        "offset": 511,
+        "offset": 848,
         "ruleId": "text-content",
         "ruleUrl": "https://html-validate.org/rules/text-content.html",
-        "selector": "button:nth-child(7)",
+        "selector": "button:nth-child(10)",
         "severity": 2,
         "size": 6,
       },
@@ -1420,14 +1748,89 @@ exports[`HTML elements <button> invalid markup 1`] = `
           "tagName": "button",
           "textContent": "accessible",
         },
-        "line": 19,
+        "line": 32,
         "message": "<button> must have accessible text",
-        "offset": 543,
+        "offset": 880,
         "ruleId": "text-content",
         "ruleUrl": "https://html-validate.org/rules/text-content.html",
-        "selector": "button:nth-child(8)",
+        "selector": "button:nth-child(11)",
         "severity": 2,
         "size": 6,
+      },
+      {
+        "column": 24,
+        "context": {
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit"",
+        },
+        "line": 36,
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit"",
+        "offset": 1056,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#invalid-form-overrides > button",
+        "severity": 2,
+        "size": 10,
+      },
+      {
+        "column": 35,
+        "context": {
+          "attr": "formenctype",
+          "details": ""type" attribute must be "submit"",
+        },
+        "line": 36,
+        "message": ""formenctype" attribute cannot be used in this context: "type" attribute must be "submit"",
+        "offset": 1067,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#invalid-form-overrides > button",
+        "severity": 2,
+        "size": 11,
+      },
+      {
+        "column": 47,
+        "context": {
+          "attr": "formmethod",
+          "details": ""type" attribute must be "submit"",
+        },
+        "line": 36,
+        "message": ""formmethod" attribute cannot be used in this context: "type" attribute must be "submit"",
+        "offset": 1079,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#invalid-form-overrides > button",
+        "severity": 2,
+        "size": 10,
+      },
+      {
+        "column": 65,
+        "context": {
+          "attr": "formnovalidate",
+          "details": ""type" attribute must be "submit"",
+        },
+        "line": 36,
+        "message": ""formnovalidate" attribute cannot be used in this context: "type" attribute must be "submit"",
+        "offset": 1097,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#invalid-form-overrides > button",
+        "severity": 2,
+        "size": 14,
+      },
+      {
+        "column": 80,
+        "context": {
+          "attr": "formtarget",
+          "details": ""type" attribute must be "submit"",
+        },
+        "line": 36,
+        "message": ""formtarget" attribute cannot be used in this context: "type" attribute must be "submit"",
+        "offset": 1112,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#invalid-form-overrides > button",
+        "severity": 2,
+        "size": 10,
       },
     ],
     "source": "<!-- should not allow flow as content -->
@@ -1435,13 +1838,26 @@ exports[`HTML elements <button> invalid markup 1`] = `
 
 <!-- should not allow interactive as content or descendant-->
 <button type="button"><a>foo</a></button>
-<button type="button"><span><a>foo</a></span></button>
+<button type="button">
+	<span><a>foo</a></span>
+</button>
 
 <!-- should not allow nesting -->
-<button type="button"><span><button type="button">foo</button></span></button>
+<button type="button">
+	<span><button type="button">foo</button></span>
+</button>
 
 <!-- disallowed type variants -->
 <button type="foobar">foo</button>
+
+<!-- disallow invalid formmethods -->
+<button type="submit" formmethod="invalid">lorem ipsum</button>
+
+<!-- disallow invalid formnovalidate -->
+<button type="submit" formnovalidate="invalid">lorem ipsum</button>
+
+<!-- should not allow invalid target keywords -->
+<button type="submit" formtarget="_invalid"> lorem ipsum </button>
 
 <!-- missing type -->
 <button>foo</button>
@@ -1449,6 +1865,13 @@ exports[`HTML elements <button> invalid markup 1`] = `
 <!-- missing accessible text -->
 <button type="button"></button>
 <button type="button"><span aria-hidden="true">foo</span></button>
+
+<!-- should not be allowed if type isn't submit -->
+<div id="invalid-form-overrides">
+	<button type="button" formaction formenctype formmethod="post" formnovalidate formtarget="_blank">
+		lorem ipsum
+	</button>
+</div>
 ",
     "warningCount": 0,
   },
@@ -2914,7 +3337,7 @@ exports[`HTML elements <footer> valid markup 1`] = `[]`;
 exports[`HTML elements <form> invalid markup 1`] = `
 [
   {
-    "errorCount": 7,
+    "errorCount": 8,
     "filePath": "test-files/elements/form-invalid.html",
     "messages": [
       {
@@ -3056,6 +3479,31 @@ exports[`HTML elements <form> invalid markup 1`] = `
         "severity": 2,
         "size": 9,
       },
+      {
+        "column": 15,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\[\\^_\\]\\.\\*\\$/,
+              "_blank",
+              "_self",
+              "_parent",
+              "_top",
+            ],
+          },
+          "attribute": "target",
+          "element": "form",
+          "value": "_invalid",
+        },
+        "line": 25,
+        "message": "Attribute "target" has invalid value "_invalid"",
+        "offset": 543,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "form:nth-child(8)",
+        "severity": 2,
+        "size": 8,
+      },
     ],
     "source": "<!-- should not allow nesting -->
 <form>
@@ -3079,6 +3527,9 @@ exports[`HTML elements <form> invalid markup 1`] = `
 
 <!-- should not allow multiple urls -->
 <form action="/foo /bar"></form>
+
+<!-- should not allow invalid target keywords -->
+<form target="_invalid"></form>
 ",
     "warningCount": 0,
   },
@@ -4187,7 +4638,7 @@ exports[`HTML elements <img> valid markup 1`] = `[]`;
 exports[`HTML elements <input> invalid markup 1`] = `
 [
   {
-    "errorCount": 431,
+    "errorCount": 436,
     "filePath": "test-files/elements/input-invalid.html",
     "messages": [
       {
@@ -6038,14 +6489,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 23,
         "context": {
-          "attribute": "formaction",
-          "type": "hidden",
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 134,
-        "message": "Attribute "formaction" is not allowed on <input type="hidden">",
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 4735,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(105)",
         "severity": 2,
         "size": 10,
@@ -6053,14 +6504,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formaction",
-          "type": "text",
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 135,
-        "message": "Attribute "formaction" is not allowed on <input type="text">",
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 4779,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(106)",
         "severity": 2,
         "size": 10,
@@ -6068,14 +6519,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 23,
         "context": {
-          "attribute": "formaction",
-          "type": "search",
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 136,
-        "message": "Attribute "formaction" is not allowed on <input type="search">",
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 4825,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(107)",
         "severity": 2,
         "size": 10,
@@ -6083,14 +6534,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 20,
         "context": {
-          "attribute": "formaction",
-          "type": "url",
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 137,
-        "message": "Attribute "formaction" is not allowed on <input type="url">",
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 4868,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(108)",
         "severity": 2,
         "size": 10,
@@ -6098,14 +6549,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 20,
         "context": {
-          "attribute": "formaction",
-          "type": "tel",
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 138,
-        "message": "Attribute "formaction" is not allowed on <input type="tel">",
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 4911,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(109)",
         "severity": 2,
         "size": 10,
@@ -6113,14 +6564,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formaction",
-          "type": "email",
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 139,
-        "message": "Attribute "formaction" is not allowed on <input type="email">",
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 4956,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(110)",
         "severity": 2,
         "size": 10,
@@ -6128,14 +6579,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 25,
         "context": {
-          "attribute": "formaction",
-          "type": "password",
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 140,
-        "message": "Attribute "formaction" is not allowed on <input type="password">",
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5004,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(111)",
         "severity": 2,
         "size": 10,
@@ -6143,14 +6594,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formaction",
-          "type": "date",
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 141,
-        "message": "Attribute "formaction" is not allowed on <input type="date">",
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5048,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(112)",
         "severity": 2,
         "size": 10,
@@ -6158,14 +6609,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formaction",
-          "type": "month",
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 142,
-        "message": "Attribute "formaction" is not allowed on <input type="month">",
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5093,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(113)",
         "severity": 2,
         "size": 10,
@@ -6173,14 +6624,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formaction",
-          "type": "week",
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 143,
-        "message": "Attribute "formaction" is not allowed on <input type="week">",
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5137,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(114)",
         "severity": 2,
         "size": 10,
@@ -6188,14 +6639,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formaction",
-          "type": "time",
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 144,
-        "message": "Attribute "formaction" is not allowed on <input type="time">",
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5181,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(115)",
         "severity": 2,
         "size": 10,
@@ -6203,14 +6654,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 31,
         "context": {
-          "attribute": "formaction",
-          "type": "datetime-local",
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 145,
-        "message": "Attribute "formaction" is not allowed on <input type="datetime-local">",
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5235,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(116)",
         "severity": 2,
         "size": 10,
@@ -6218,14 +6669,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 23,
         "context": {
-          "attribute": "formaction",
-          "type": "number",
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 146,
-        "message": "Attribute "formaction" is not allowed on <input type="number">",
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5281,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(117)",
         "severity": 2,
         "size": 10,
@@ -6233,14 +6684,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formaction",
-          "type": "range",
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 147,
-        "message": "Attribute "formaction" is not allowed on <input type="range">",
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5326,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(118)",
         "severity": 2,
         "size": 10,
@@ -6248,14 +6699,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formaction",
-          "type": "color",
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 148,
-        "message": "Attribute "formaction" is not allowed on <input type="color">",
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5371,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(119)",
         "severity": 2,
         "size": 10,
@@ -6263,14 +6714,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 25,
         "context": {
-          "attribute": "formaction",
-          "type": "checkbox",
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 149,
-        "message": "Attribute "formaction" is not allowed on <input type="checkbox">",
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5419,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(120)",
         "severity": 2,
         "size": 10,
@@ -6278,14 +6729,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formaction",
-          "type": "radio",
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 150,
-        "message": "Attribute "formaction" is not allowed on <input type="radio">",
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5464,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(121)",
         "severity": 2,
         "size": 10,
@@ -6293,14 +6744,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formaction",
-          "type": "file",
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 151,
-        "message": "Attribute "formaction" is not allowed on <input type="file">",
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5508,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(122)",
         "severity": 2,
         "size": 10,
@@ -6308,14 +6759,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formaction",
-          "type": "reset",
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 152,
-        "message": "Attribute "formaction" is not allowed on <input type="reset">",
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5553,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(123)",
         "severity": 2,
         "size": 10,
@@ -6323,14 +6774,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 23,
         "context": {
-          "attribute": "formenctype",
-          "type": "hidden",
+          "attr": "formenctype",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 153,
-        "message": "Attribute "formenctype" is not allowed on <input type="hidden">",
+        "message": ""formenctype" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5599,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(124)",
         "severity": 2,
         "size": 11,
@@ -6338,14 +6789,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formenctype",
-          "type": "text",
+          "attr": "formenctype",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 154,
-        "message": "Attribute "formenctype" is not allowed on <input type="text">",
+        "message": ""formenctype" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5632,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(125)",
         "severity": 2,
         "size": 11,
@@ -6353,14 +6804,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 23,
         "context": {
-          "attribute": "formenctype",
-          "type": "search",
+          "attr": "formenctype",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 155,
-        "message": "Attribute "formenctype" is not allowed on <input type="search">",
+        "message": ""formenctype" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5667,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(126)",
         "severity": 2,
         "size": 11,
@@ -6368,14 +6819,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 20,
         "context": {
-          "attribute": "formenctype",
-          "type": "url",
+          "attr": "formenctype",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 156,
-        "message": "Attribute "formenctype" is not allowed on <input type="url">",
+        "message": ""formenctype" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5699,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(127)",
         "severity": 2,
         "size": 11,
@@ -6383,14 +6834,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 20,
         "context": {
-          "attribute": "formenctype",
-          "type": "tel",
+          "attr": "formenctype",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 157,
-        "message": "Attribute "formenctype" is not allowed on <input type="tel">",
+        "message": ""formenctype" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5731,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(128)",
         "severity": 2,
         "size": 11,
@@ -6398,14 +6849,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formenctype",
-          "type": "email",
+          "attr": "formenctype",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 158,
-        "message": "Attribute "formenctype" is not allowed on <input type="email">",
+        "message": ""formenctype" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5765,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(129)",
         "severity": 2,
         "size": 11,
@@ -6413,14 +6864,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 25,
         "context": {
-          "attribute": "formenctype",
-          "type": "password",
+          "attr": "formenctype",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 159,
-        "message": "Attribute "formenctype" is not allowed on <input type="password">",
+        "message": ""formenctype" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5802,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(130)",
         "severity": 2,
         "size": 11,
@@ -6428,14 +6879,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formenctype",
-          "type": "date",
+          "attr": "formenctype",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 160,
-        "message": "Attribute "formenctype" is not allowed on <input type="date">",
+        "message": ""formenctype" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5835,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(131)",
         "severity": 2,
         "size": 11,
@@ -6443,14 +6894,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formenctype",
-          "type": "month",
+          "attr": "formenctype",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 161,
-        "message": "Attribute "formenctype" is not allowed on <input type="month">",
+        "message": ""formenctype" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5869,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(132)",
         "severity": 2,
         "size": 11,
@@ -6458,14 +6909,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formenctype",
-          "type": "week",
+          "attr": "formenctype",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 162,
-        "message": "Attribute "formenctype" is not allowed on <input type="week">",
+        "message": ""formenctype" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5902,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(133)",
         "severity": 2,
         "size": 11,
@@ -6473,14 +6924,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formenctype",
-          "type": "time",
+          "attr": "formenctype",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 163,
-        "message": "Attribute "formenctype" is not allowed on <input type="time">",
+        "message": ""formenctype" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5935,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(134)",
         "severity": 2,
         "size": 11,
@@ -6488,14 +6939,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 31,
         "context": {
-          "attribute": "formenctype",
-          "type": "datetime-local",
+          "attr": "formenctype",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 164,
-        "message": "Attribute "formenctype" is not allowed on <input type="datetime-local">",
+        "message": ""formenctype" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 5978,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(135)",
         "severity": 2,
         "size": 11,
@@ -6503,14 +6954,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 23,
         "context": {
-          "attribute": "formenctype",
-          "type": "number",
+          "attr": "formenctype",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 165,
-        "message": "Attribute "formenctype" is not allowed on <input type="number">",
+        "message": ""formenctype" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6013,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(136)",
         "severity": 2,
         "size": 11,
@@ -6518,14 +6969,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formenctype",
-          "type": "range",
+          "attr": "formenctype",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 166,
-        "message": "Attribute "formenctype" is not allowed on <input type="range">",
+        "message": ""formenctype" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6047,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(137)",
         "severity": 2,
         "size": 11,
@@ -6533,14 +6984,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formenctype",
-          "type": "color",
+          "attr": "formenctype",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 167,
-        "message": "Attribute "formenctype" is not allowed on <input type="color">",
+        "message": ""formenctype" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6081,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(138)",
         "severity": 2,
         "size": 11,
@@ -6548,14 +6999,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 25,
         "context": {
-          "attribute": "formenctype",
-          "type": "checkbox",
+          "attr": "formenctype",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 168,
-        "message": "Attribute "formenctype" is not allowed on <input type="checkbox">",
+        "message": ""formenctype" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6118,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(139)",
         "severity": 2,
         "size": 11,
@@ -6563,14 +7014,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formenctype",
-          "type": "radio",
+          "attr": "formenctype",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 169,
-        "message": "Attribute "formenctype" is not allowed on <input type="radio">",
+        "message": ""formenctype" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6152,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(140)",
         "severity": 2,
         "size": 11,
@@ -6578,14 +7029,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formenctype",
-          "type": "file",
+          "attr": "formenctype",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 170,
-        "message": "Attribute "formenctype" is not allowed on <input type="file">",
+        "message": ""formenctype" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6185,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(141)",
         "severity": 2,
         "size": 11,
@@ -6593,14 +7044,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formenctype",
-          "type": "reset",
+          "attr": "formenctype",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 171,
-        "message": "Attribute "formenctype" is not allowed on <input type="reset">",
+        "message": ""formenctype" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6219,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(142)",
         "severity": 2,
         "size": 11,
@@ -6608,14 +7059,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 23,
         "context": {
-          "attribute": "formmethod",
-          "type": "hidden",
+          "attr": "formmethod",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 172,
-        "message": "Attribute "formmethod" is not allowed on <input type="hidden">",
+        "message": ""formmethod" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6254,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(143)",
         "severity": 2,
         "size": 10,
@@ -6623,14 +7074,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formmethod",
-          "type": "text",
+          "attr": "formmethod",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 173,
-        "message": "Attribute "formmethod" is not allowed on <input type="text">",
+        "message": ""formmethod" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6293,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(144)",
         "severity": 2,
         "size": 10,
@@ -6638,14 +7089,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 23,
         "context": {
-          "attribute": "formmethod",
-          "type": "search",
+          "attr": "formmethod",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 174,
-        "message": "Attribute "formmethod" is not allowed on <input type="search">",
+        "message": ""formmethod" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6334,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(145)",
         "severity": 2,
         "size": 10,
@@ -6653,14 +7104,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 20,
         "context": {
-          "attribute": "formmethod",
-          "type": "url",
+          "attr": "formmethod",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 175,
-        "message": "Attribute "formmethod" is not allowed on <input type="url">",
+        "message": ""formmethod" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6372,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(146)",
         "severity": 2,
         "size": 10,
@@ -6668,14 +7119,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 20,
         "context": {
-          "attribute": "formmethod",
-          "type": "tel",
+          "attr": "formmethod",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 176,
-        "message": "Attribute "formmethod" is not allowed on <input type="tel">",
+        "message": ""formmethod" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6410,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(147)",
         "severity": 2,
         "size": 10,
@@ -6683,14 +7134,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formmethod",
-          "type": "email",
+          "attr": "formmethod",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 177,
-        "message": "Attribute "formmethod" is not allowed on <input type="email">",
+        "message": ""formmethod" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6450,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(148)",
         "severity": 2,
         "size": 10,
@@ -6698,14 +7149,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 25,
         "context": {
-          "attribute": "formmethod",
-          "type": "password",
+          "attr": "formmethod",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 178,
-        "message": "Attribute "formmethod" is not allowed on <input type="password">",
+        "message": ""formmethod" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6493,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(149)",
         "severity": 2,
         "size": 10,
@@ -6713,14 +7164,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formmethod",
-          "type": "date",
+          "attr": "formmethod",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 179,
-        "message": "Attribute "formmethod" is not allowed on <input type="date">",
+        "message": ""formmethod" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6532,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(150)",
         "severity": 2,
         "size": 10,
@@ -6728,14 +7179,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formmethod",
-          "type": "month",
+          "attr": "formmethod",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 180,
-        "message": "Attribute "formmethod" is not allowed on <input type="month">",
+        "message": ""formmethod" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6572,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(151)",
         "severity": 2,
         "size": 10,
@@ -6743,14 +7194,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formmethod",
-          "type": "week",
+          "attr": "formmethod",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 181,
-        "message": "Attribute "formmethod" is not allowed on <input type="week">",
+        "message": ""formmethod" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6611,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(152)",
         "severity": 2,
         "size": 10,
@@ -6758,14 +7209,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formmethod",
-          "type": "time",
+          "attr": "formmethod",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 182,
-        "message": "Attribute "formmethod" is not allowed on <input type="time">",
+        "message": ""formmethod" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6650,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(153)",
         "severity": 2,
         "size": 10,
@@ -6773,14 +7224,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 31,
         "context": {
-          "attribute": "formmethod",
-          "type": "datetime-local",
+          "attr": "formmethod",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 183,
-        "message": "Attribute "formmethod" is not allowed on <input type="datetime-local">",
+        "message": ""formmethod" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6699,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(154)",
         "severity": 2,
         "size": 10,
@@ -6788,14 +7239,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 23,
         "context": {
-          "attribute": "formmethod",
-          "type": "number",
+          "attr": "formmethod",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 184,
-        "message": "Attribute "formmethod" is not allowed on <input type="number">",
+        "message": ""formmethod" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6740,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(155)",
         "severity": 2,
         "size": 10,
@@ -6803,14 +7254,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formmethod",
-          "type": "range",
+          "attr": "formmethod",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 185,
-        "message": "Attribute "formmethod" is not allowed on <input type="range">",
+        "message": ""formmethod" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6780,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(156)",
         "severity": 2,
         "size": 10,
@@ -6818,14 +7269,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formmethod",
-          "type": "color",
+          "attr": "formmethod",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 186,
-        "message": "Attribute "formmethod" is not allowed on <input type="color">",
+        "message": ""formmethod" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6820,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(157)",
         "severity": 2,
         "size": 10,
@@ -6833,14 +7284,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 25,
         "context": {
-          "attribute": "formmethod",
-          "type": "checkbox",
+          "attr": "formmethod",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 187,
-        "message": "Attribute "formmethod" is not allowed on <input type="checkbox">",
+        "message": ""formmethod" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6863,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(158)",
         "severity": 2,
         "size": 10,
@@ -6848,14 +7299,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formmethod",
-          "type": "radio",
+          "attr": "formmethod",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 188,
-        "message": "Attribute "formmethod" is not allowed on <input type="radio">",
+        "message": ""formmethod" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6903,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(159)",
         "severity": 2,
         "size": 10,
@@ -6863,14 +7314,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formmethod",
-          "type": "file",
+          "attr": "formmethod",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 189,
-        "message": "Attribute "formmethod" is not allowed on <input type="file">",
+        "message": ""formmethod" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6942,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(160)",
         "severity": 2,
         "size": 10,
@@ -6878,14 +7329,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formmethod",
-          "type": "reset",
+          "attr": "formmethod",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 190,
-        "message": "Attribute "formmethod" is not allowed on <input type="reset">",
+        "message": ""formmethod" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 6982,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(161)",
         "severity": 2,
         "size": 10,
@@ -6893,14 +7344,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 23,
         "context": {
-          "attribute": "formnovalidate",
-          "type": "hidden",
+          "attr": "formnovalidate",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 191,
-        "message": "Attribute "formnovalidate" is not allowed on <input type="hidden">",
+        "message": ""formnovalidate" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7023,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(162)",
         "severity": 2,
         "size": 14,
@@ -6908,14 +7359,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formnovalidate",
-          "type": "text",
+          "attr": "formnovalidate",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 192,
-        "message": "Attribute "formnovalidate" is not allowed on <input type="text">",
+        "message": ""formnovalidate" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7059,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(163)",
         "severity": 2,
         "size": 14,
@@ -6923,14 +7374,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 23,
         "context": {
-          "attribute": "formnovalidate",
-          "type": "search",
+          "attr": "formnovalidate",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 193,
-        "message": "Attribute "formnovalidate" is not allowed on <input type="search">",
+        "message": ""formnovalidate" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7097,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(164)",
         "severity": 2,
         "size": 14,
@@ -6938,14 +7389,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 20,
         "context": {
-          "attribute": "formnovalidate",
-          "type": "url",
+          "attr": "formnovalidate",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 194,
-        "message": "Attribute "formnovalidate" is not allowed on <input type="url">",
+        "message": ""formnovalidate" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7132,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(165)",
         "severity": 2,
         "size": 14,
@@ -6953,14 +7404,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 20,
         "context": {
-          "attribute": "formnovalidate",
-          "type": "tel",
+          "attr": "formnovalidate",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 195,
-        "message": "Attribute "formnovalidate" is not allowed on <input type="tel">",
+        "message": ""formnovalidate" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7167,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(166)",
         "severity": 2,
         "size": 14,
@@ -6968,14 +7419,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formnovalidate",
-          "type": "email",
+          "attr": "formnovalidate",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 196,
-        "message": "Attribute "formnovalidate" is not allowed on <input type="email">",
+        "message": ""formnovalidate" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7204,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(167)",
         "severity": 2,
         "size": 14,
@@ -6983,14 +7434,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 25,
         "context": {
-          "attribute": "formnovalidate",
-          "type": "password",
+          "attr": "formnovalidate",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 197,
-        "message": "Attribute "formnovalidate" is not allowed on <input type="password">",
+        "message": ""formnovalidate" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7244,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(168)",
         "severity": 2,
         "size": 14,
@@ -6998,14 +7449,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formnovalidate",
-          "type": "date",
+          "attr": "formnovalidate",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 198,
-        "message": "Attribute "formnovalidate" is not allowed on <input type="date">",
+        "message": ""formnovalidate" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7280,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(169)",
         "severity": 2,
         "size": 14,
@@ -7013,14 +7464,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formnovalidate",
-          "type": "month",
+          "attr": "formnovalidate",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 199,
-        "message": "Attribute "formnovalidate" is not allowed on <input type="month">",
+        "message": ""formnovalidate" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7317,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(170)",
         "severity": 2,
         "size": 14,
@@ -7028,14 +7479,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formnovalidate",
-          "type": "week",
+          "attr": "formnovalidate",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 200,
-        "message": "Attribute "formnovalidate" is not allowed on <input type="week">",
+        "message": ""formnovalidate" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7353,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(171)",
         "severity": 2,
         "size": 14,
@@ -7043,14 +7494,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formnovalidate",
-          "type": "time",
+          "attr": "formnovalidate",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 201,
-        "message": "Attribute "formnovalidate" is not allowed on <input type="time">",
+        "message": ""formnovalidate" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7389,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(172)",
         "severity": 2,
         "size": 14,
@@ -7058,14 +7509,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 31,
         "context": {
-          "attribute": "formnovalidate",
-          "type": "datetime-local",
+          "attr": "formnovalidate",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 202,
-        "message": "Attribute "formnovalidate" is not allowed on <input type="datetime-local">",
+        "message": ""formnovalidate" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7435,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(173)",
         "severity": 2,
         "size": 14,
@@ -7073,14 +7524,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 23,
         "context": {
-          "attribute": "formnovalidate",
-          "type": "number",
+          "attr": "formnovalidate",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 203,
-        "message": "Attribute "formnovalidate" is not allowed on <input type="number">",
+        "message": ""formnovalidate" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7473,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(174)",
         "severity": 2,
         "size": 14,
@@ -7088,14 +7539,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formnovalidate",
-          "type": "range",
+          "attr": "formnovalidate",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 204,
-        "message": "Attribute "formnovalidate" is not allowed on <input type="range">",
+        "message": ""formnovalidate" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7510,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(175)",
         "severity": 2,
         "size": 14,
@@ -7103,14 +7554,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formnovalidate",
-          "type": "color",
+          "attr": "formnovalidate",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 205,
-        "message": "Attribute "formnovalidate" is not allowed on <input type="color">",
+        "message": ""formnovalidate" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7547,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(176)",
         "severity": 2,
         "size": 14,
@@ -7118,14 +7569,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 25,
         "context": {
-          "attribute": "formnovalidate",
-          "type": "checkbox",
+          "attr": "formnovalidate",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 206,
-        "message": "Attribute "formnovalidate" is not allowed on <input type="checkbox">",
+        "message": ""formnovalidate" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7587,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(177)",
         "severity": 2,
         "size": 14,
@@ -7133,14 +7584,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formnovalidate",
-          "type": "radio",
+          "attr": "formnovalidate",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 207,
-        "message": "Attribute "formnovalidate" is not allowed on <input type="radio">",
+        "message": ""formnovalidate" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7624,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(178)",
         "severity": 2,
         "size": 14,
@@ -7148,14 +7599,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formnovalidate",
-          "type": "file",
+          "attr": "formnovalidate",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 208,
-        "message": "Attribute "formnovalidate" is not allowed on <input type="file">",
+        "message": ""formnovalidate" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7660,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(179)",
         "severity": 2,
         "size": 14,
@@ -7163,14 +7614,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formnovalidate",
-          "type": "reset",
+          "attr": "formnovalidate",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 209,
-        "message": "Attribute "formnovalidate" is not allowed on <input type="reset">",
+        "message": ""formnovalidate" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7697,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(180)",
         "severity": 2,
         "size": 14,
@@ -7178,14 +7629,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 23,
         "context": {
-          "attribute": "formtarget",
-          "type": "hidden",
+          "attr": "formtarget",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 210,
-        "message": "Attribute "formtarget" is not allowed on <input type="hidden">",
+        "message": ""formtarget" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7735,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(181)",
         "severity": 2,
         "size": 10,
@@ -7193,14 +7644,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formtarget",
-          "type": "text",
+          "attr": "formtarget",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 211,
-        "message": "Attribute "formtarget" is not allowed on <input type="text">",
+        "message": ""formtarget" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7778,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(182)",
         "severity": 2,
         "size": 10,
@@ -7208,14 +7659,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 23,
         "context": {
-          "attribute": "formtarget",
-          "type": "search",
+          "attr": "formtarget",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 212,
-        "message": "Attribute "formtarget" is not allowed on <input type="search">",
+        "message": ""formtarget" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7823,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(183)",
         "severity": 2,
         "size": 10,
@@ -7223,14 +7674,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 20,
         "context": {
-          "attribute": "formtarget",
-          "type": "url",
+          "attr": "formtarget",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 213,
-        "message": "Attribute "formtarget" is not allowed on <input type="url">",
+        "message": ""formtarget" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7865,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(184)",
         "severity": 2,
         "size": 10,
@@ -7238,14 +7689,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 20,
         "context": {
-          "attribute": "formtarget",
-          "type": "tel",
+          "attr": "formtarget",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 214,
-        "message": "Attribute "formtarget" is not allowed on <input type="tel">",
+        "message": ""formtarget" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7907,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(185)",
         "severity": 2,
         "size": 10,
@@ -7253,14 +7704,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formtarget",
-          "type": "email",
+          "attr": "formtarget",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 215,
-        "message": "Attribute "formtarget" is not allowed on <input type="email">",
+        "message": ""formtarget" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7951,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(186)",
         "severity": 2,
         "size": 10,
@@ -7268,14 +7719,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 25,
         "context": {
-          "attribute": "formtarget",
-          "type": "password",
+          "attr": "formtarget",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 216,
-        "message": "Attribute "formtarget" is not allowed on <input type="password">",
+        "message": ""formtarget" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 7998,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(187)",
         "severity": 2,
         "size": 10,
@@ -7283,14 +7734,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formtarget",
-          "type": "date",
+          "attr": "formtarget",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 217,
-        "message": "Attribute "formtarget" is not allowed on <input type="date">",
+        "message": ""formtarget" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 8041,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(188)",
         "severity": 2,
         "size": 10,
@@ -7298,14 +7749,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formtarget",
-          "type": "month",
+          "attr": "formtarget",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 218,
-        "message": "Attribute "formtarget" is not allowed on <input type="month">",
+        "message": ""formtarget" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 8085,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(189)",
         "severity": 2,
         "size": 10,
@@ -7313,14 +7764,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formtarget",
-          "type": "week",
+          "attr": "formtarget",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 219,
-        "message": "Attribute "formtarget" is not allowed on <input type="week">",
+        "message": ""formtarget" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 8128,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(190)",
         "severity": 2,
         "size": 10,
@@ -7328,14 +7779,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formtarget",
-          "type": "time",
+          "attr": "formtarget",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 220,
-        "message": "Attribute "formtarget" is not allowed on <input type="time">",
+        "message": ""formtarget" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 8171,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(191)",
         "severity": 2,
         "size": 10,
@@ -7343,14 +7794,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 31,
         "context": {
-          "attribute": "formtarget",
-          "type": "datetime-local",
+          "attr": "formtarget",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 221,
-        "message": "Attribute "formtarget" is not allowed on <input type="datetime-local">",
+        "message": ""formtarget" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 8224,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(192)",
         "severity": 2,
         "size": 10,
@@ -7358,14 +7809,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 23,
         "context": {
-          "attribute": "formtarget",
-          "type": "number",
+          "attr": "formtarget",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 222,
-        "message": "Attribute "formtarget" is not allowed on <input type="number">",
+        "message": ""formtarget" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 8269,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(193)",
         "severity": 2,
         "size": 10,
@@ -7373,14 +7824,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formtarget",
-          "type": "range",
+          "attr": "formtarget",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 223,
-        "message": "Attribute "formtarget" is not allowed on <input type="range">",
+        "message": ""formtarget" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 8313,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(194)",
         "severity": 2,
         "size": 10,
@@ -7388,14 +7839,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formtarget",
-          "type": "color",
+          "attr": "formtarget",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 224,
-        "message": "Attribute "formtarget" is not allowed on <input type="color">",
+        "message": ""formtarget" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 8357,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(195)",
         "severity": 2,
         "size": 10,
@@ -7403,14 +7854,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 25,
         "context": {
-          "attribute": "formtarget",
-          "type": "checkbox",
+          "attr": "formtarget",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 225,
-        "message": "Attribute "formtarget" is not allowed on <input type="checkbox">",
+        "message": ""formtarget" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 8404,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(196)",
         "severity": 2,
         "size": 10,
@@ -7418,14 +7869,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formtarget",
-          "type": "radio",
+          "attr": "formtarget",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 226,
-        "message": "Attribute "formtarget" is not allowed on <input type="radio">",
+        "message": ""formtarget" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 8448,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(197)",
         "severity": 2,
         "size": 10,
@@ -7433,14 +7884,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 21,
         "context": {
-          "attribute": "formtarget",
-          "type": "file",
+          "attr": "formtarget",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 227,
-        "message": "Attribute "formtarget" is not allowed on <input type="file">",
+        "message": ""formtarget" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 8491,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(198)",
         "severity": 2,
         "size": 10,
@@ -7448,14 +7899,14 @@ exports[`HTML elements <input> invalid markup 1`] = `
       {
         "column": 22,
         "context": {
-          "attribute": "formtarget",
-          "type": "reset",
+          "attr": "formtarget",
+          "details": ""type" attribute must be "submit" or "image"",
         },
         "line": 228,
-        "message": "Attribute "formtarget" is not allowed on <input type="reset">",
+        "message": ""formtarget" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
         "offset": 8535,
-        "ruleId": "input-attributes",
-        "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#attribute-restriction > input:nth-child(199)",
         "severity": 2,
         "size": 10,
@@ -10730,6 +11181,81 @@ exports[`HTML elements <input> invalid markup 1`] = `
         "severity": 2,
         "size": 5,
       },
+      {
+        "column": 21,
+        "context": {
+          "attr": "formaction",
+          "details": ""type" attribute must be "submit" or "image"",
+        },
+        "line": 451,
+        "message": ""formaction" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
+        "offset": 16555,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#invalid-form-overrides > input",
+        "severity": 2,
+        "size": 10,
+      },
+      {
+        "column": 32,
+        "context": {
+          "attr": "formenctype",
+          "details": ""type" attribute must be "submit" or "image"",
+        },
+        "line": 451,
+        "message": ""formenctype" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
+        "offset": 16566,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#invalid-form-overrides > input",
+        "severity": 2,
+        "size": 11,
+      },
+      {
+        "column": 44,
+        "context": {
+          "attr": "formmethod",
+          "details": ""type" attribute must be "submit" or "image"",
+        },
+        "line": 451,
+        "message": ""formmethod" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
+        "offset": 16578,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#invalid-form-overrides > input",
+        "severity": 2,
+        "size": 10,
+      },
+      {
+        "column": 62,
+        "context": {
+          "attr": "formnovalidate",
+          "details": ""type" attribute must be "submit" or "image"",
+        },
+        "line": 451,
+        "message": ""formnovalidate" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
+        "offset": 16596,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#invalid-form-overrides > input",
+        "severity": 2,
+        "size": 14,
+      },
+      {
+        "column": 77,
+        "context": {
+          "attr": "formtarget",
+          "details": ""type" attribute must be "submit" or "image"",
+        },
+        "line": 451,
+        "message": ""formtarget" attribute cannot be used in this context: "type" attribute must be "submit" or "image"",
+        "offset": 16611,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#invalid-form-overrides > input",
+        "severity": 2,
+        "size": 10,
+      },
     ],
     "source": "<!-- should not allow end tag -->
 <input type="text"></input>
@@ -11178,6 +11704,11 @@ exports[`HTML elements <input> invalid markup 1`] = `
 	<input type="submit" width="512">
 	<input type="reset" width="512">
 </div>
+
+<!-- should not be allowed if type isn't submit or image -->
+<div id="invalid-form-overrides">
+	<input type="text" formaction formenctype formmethod="post" formnovalidate formtarget="_blank">
+</div>
 ",
     "warningCount": 0,
   },
@@ -11607,7 +12138,7 @@ exports[`HTML elements <li> valid markup 1`] = `[]`;
 exports[`HTML elements <link> invalid markup 1`] = `
 [
   {
-    "errorCount": 5,
+    "errorCount": 12,
     "filePath": "test-files/elements/link-invalid.html",
     "messages": [
       {
@@ -11660,9 +12191,68 @@ exports[`HTML elements <link> invalid markup 1`] = `
         "size": 4,
       },
       {
-        "column": 21,
+        "column": 34,
+        "context": {
+          "attr": "as",
+          "details": ""rel" attribute must be "preload" or "modulepreload"",
+        },
+        "line": 9,
+        "message": ""as" attribute cannot be used in this context: "rel" attribute must be "preload" or "modulepreload"",
+        "offset": 258,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "link:nth-child(4)",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 39,
         "context": {
           "allowed": {
+            "allowed": [Function],
+            "enum": [
+              "audio",
+              "audioworklet",
+              "document",
+              "embed",
+              "fetch",
+              "font",
+              "frame",
+              "iframe",
+              "image",
+              "manifest",
+              "object",
+              "paintworklet",
+              "report",
+              "script",
+              "serviceworker",
+              "sharedworker",
+              "style",
+              "track",
+              "video",
+              "webidentity",
+              "worker",
+              "xslt",
+            ],
+          },
+          "attribute": "as",
+          "element": "link",
+          "value": "foobar",
+        },
+        "line": 12,
+        "message": "Attribute "as" has invalid value "foobar"",
+        "offset": 362,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "link:nth-child(5)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 38,
+        "context": {
+          "allowed": {
+            "allowed": [Function],
             "enum": [
               /\\^\\.\\+\\$/,
             ],
@@ -11671,12 +12261,12 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "element": "link",
           "value": "",
         },
-        "line": 9,
+        "line": 15,
         "message": "Attribute "integrity" is missing value",
-        "offset": 201,
+        "offset": 460,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "link:nth-child(4)",
+        "selector": "link:nth-child(6)",
         "severity": 2,
         "size": 9,
       },
@@ -11684,6 +12274,7 @@ exports[`HTML elements <link> invalid markup 1`] = `
         "column": 2,
         "context": {
           "allowed": {
+            "allowed": [Function],
             "enum": [
               /\\^\\.\\+\\$/,
             ],
@@ -11692,14 +12283,102 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "element": "link",
           "value": "",
         },
-        "line": 10,
+        "line": 16,
         "message": "Attribute "integrity" has invalid value """,
-        "offset": 213,
+        "offset": 472,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "link:nth-child(5)",
+        "selector": "link:nth-child(7)",
         "severity": 2,
         "size": 4,
+      },
+      {
+        "column": 34,
+        "context": {
+          "attr": "integrity",
+          "details": ""rel" attribute must be "stylesheet", "preload" or "modulepreload"",
+        },
+        "line": 19,
+        "message": ""integrity" attribute cannot be used in this context: "rel" attribute must be "stylesheet", "preload" or "modulepreload"",
+        "offset": 670,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "link:nth-child(8)",
+        "severity": 2,
+        "size": 9,
+      },
+      {
+        "column": 48,
+        "context": {
+          "allowed": {
+            "allowed": [Function],
+            "enum": [
+              "render",
+            ],
+            "list": true,
+          },
+          "attribute": "blocking",
+          "element": "link",
+          "value": "foobar",
+        },
+        "line": 22,
+        "message": "Attribute "blocking" has invalid value "foobar"",
+        "offset": 798,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "link:nth-child(9)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 34,
+        "context": {
+          "attr": "blocking",
+          "details": ""rel" attribute must be "stylesheet", "preload" or "modulepreload"",
+        },
+        "line": 25,
+        "message": ""blocking" attribute cannot be used in this context: "rel" attribute must be "stylesheet", "preload" or "modulepreload"",
+        "offset": 954,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "link:nth-child(10)",
+        "severity": 2,
+        "size": 8,
+      },
+      {
+        "column": 48,
+        "context": {
+          "allowed": {
+            "allowed": [Function],
+            "boolean": true,
+          },
+          "attribute": "disabled",
+          "element": "link",
+          "value": "foobar",
+        },
+        "line": 28,
+        "message": "Attribute "disabled" has invalid value "foobar"",
+        "offset": 1077,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "link:nth-child(11)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 34,
+        "context": {
+          "attr": "disabled",
+          "details": ""rel" attribute must be "stylesheet"",
+        },
+        "line": 31,
+        "message": ""disabled" attribute cannot be used in this context: "rel" attribute must be "stylesheet"",
+        "offset": 1202,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "link:nth-child(12)",
+        "severity": 2,
+        "size": 8,
       },
     ],
     "source": "<!-- should not allow end tag -->
@@ -11709,9 +12388,30 @@ exports[`HTML elements <link> invalid markup 1`] = `
 <link>
 <link href="">
 
-<!-- integrity attribute should not be empty -->
-<link href="my-url" integrity>
-<link href="my-url" integrity="">
+<!-- should not allow "as" if "rel" is something other than "preload" or "modulepreload" -->
+<link href="my-url" rel="foobar" as="script">
+
+<!-- should now allow "as" with invalid values  -->
+<link href="my-url" rel="preload" as="foobar">
+
+<!-- "integrity" attribute should not be empty -->
+<link href="my-url" rel="stylesheet" integrity>
+<link href="my-url" rel="stylesheet" integrity="">
+
+<!-- should not allow "integrity" if "rel" is something other than "stylesheet", "preload" or "modulepreload" -->
+<link href="my-url" rel="foobar" integrity="sha384-...">
+
+<!-- should not allow "blocking" with invalid value -->
+<link href="my-url" rel="stylesheet" blocking="foobar">
+
+<!-- should not allow "blocking" if "rel" is something other than "stylesheet", "preload" or "modulepreload" -->
+<link href="my-url" rel="foobar" blocking="render">
+
+<!-- should not allow "disabled" with invalid value -->
+<link href="my-url" rel="stylesheet" disabled="foobar">
+
+<!-- should not allow "disable" if "rel" is something other than "stylesheet" -->
+<link href="my-url" rel="script" disabled>
 ",
     "warningCount": 0,
   },
@@ -12100,7 +12800,7 @@ exports[`HTML elements <menu> valid markup 1`] = `[]`;
 exports[`HTML elements <meta> invalid markup 1`] = `
 [
   {
-    "errorCount": 5,
+    "errorCount": 9,
     "filePath": "test-files/elements/meta-invalid.html",
     "messages": [
       {
@@ -12179,6 +12879,66 @@ exports[`HTML elements <meta> invalid markup 1`] = `
         "severity": 2,
         "size": 4,
       },
+      {
+        "column": 7,
+        "context": {
+          "attr": "content",
+          "details": "requires "name", "http-equiv" or "itemprop" attribute to be present",
+        },
+        "line": 21,
+        "message": ""content" attribute cannot be used in this context: requires "name", "http-equiv" or "itemprop" attribute to be present",
+        "offset": 422,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "meta:nth-child(4)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 21,
+        "context": {
+          "attr": "name",
+          "details": "cannot be used at the same time as "http-equiv" or "itemprop"",
+        },
+        "line": 24,
+        "message": ""name" attribute cannot be used in this context: cannot be used at the same time as "http-equiv" or "itemprop"",
+        "offset": 522,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "meta:nth-child(5)",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 26,
+        "context": {
+          "attr": "http-equiv",
+          "details": "cannot be used at the same time as "name" or "itemprop"",
+        },
+        "line": 24,
+        "message": ""http-equiv" attribute cannot be used in this context: cannot be used at the same time as "name" or "itemprop"",
+        "offset": 527,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "meta:nth-child(5)",
+        "severity": 2,
+        "size": 10,
+      },
+      {
+        "column": 37,
+        "context": {
+          "attr": "itemprop",
+          "details": "cannot be used at the same time as "http-equiv" or "name"",
+        },
+        "line": 24,
+        "message": ""itemprop" attribute cannot be used in this context: cannot be used at the same time as "http-equiv" or "name"",
+        "offset": 538,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "meta:nth-child(5)",
+        "severity": 2,
+        "size": 8,
+      },
     ],
     "source": "<!-- should omit end tag -->
 <meta></meta>
@@ -12198,6 +12958,12 @@ exports[`HTML elements <meta> invalid markup 1`] = `
 		<meta>
 	</audio>
 </span>
+
+<!-- should not allow "content" if neither of "name", "http-equiv" or "itemprop" is present -->
+<meta content="...">
+
+<!-- should not combine "name", "http-equiv" and "itemprop" -->
+<meta content="..." name http-equiv itemprop>
 ",
     "warningCount": 0,
   },
@@ -12464,7 +13230,7 @@ exports[`HTML elements <noframes> valid markup 1`] = `[]`;
 exports[`HTML elements <noscript> invalid markup 1`] = `
 [
   {
-    "errorCount": 3,
+    "errorCount": 1,
     "filePath": "test-files/elements/noscript-invalid.html",
     "messages": [
       {
@@ -12483,57 +13249,11 @@ exports[`HTML elements <noscript> invalid markup 1`] = `
         "severity": 2,
         "size": 8,
       },
-      {
-        "column": 9,
-        "context": {
-          "allowed": {
-            "enum": [
-              /\\^\\.\\+\\$/,
-            ],
-          },
-          "attribute": "integrity",
-          "element": "script",
-          "value": "",
-        },
-        "line": 7,
-        "message": "Attribute "integrity" is missing value",
-        "offset": 138,
-        "ruleId": "attribute-allowed-values",
-        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "script:nth-child(2)",
-        "severity": 2,
-        "size": 9,
-      },
-      {
-        "column": 2,
-        "context": {
-          "allowed": {
-            "enum": [
-              /\\^\\.\\+\\$/,
-            ],
-          },
-          "attribute": "integrity",
-          "element": "script",
-          "value": "",
-        },
-        "line": 8,
-        "message": "Attribute "integrity" has invalid value """,
-        "offset": 159,
-        "ruleId": "attribute-allowed-values",
-        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "script:nth-child(3)",
-        "severity": 2,
-        "size": 6,
-      },
     ],
     "source": "<!-- should not allow nesting -->
 <noscript>
 	<noscript></noscript>
 </noscript>
-
-<!-- integrity attribute should not be empty -->
-<script integrity></script>
-<script integrity=""></script>
 ",
     "warningCount": 0,
   },
@@ -12545,7 +13265,7 @@ exports[`HTML elements <noscript> valid markup 1`] = `[]`;
 exports[`HTML elements <object> invalid markup 1`] = `
 [
   {
-    "errorCount": 4,
+    "errorCount": 5,
     "filePath": "test-files/elements/object-invalid.html",
     "messages": [
       {
@@ -12557,7 +13277,7 @@ exports[`HTML elements <object> invalid markup 1`] = `
         },
         "line": 4,
         "message": "<div> element is not permitted as content under <span>",
-        "offset": 51,
+        "offset": 67,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "span > object > div",
@@ -12567,32 +13287,48 @@ exports[`HTML elements <object> invalid markup 1`] = `
       {
         "column": 2,
         "context": {
-          "allowed": {
-            "enum": [
-              /\\^\\.\\+\\$/,
-            ],
-          },
           "attribute": "data",
           "element": "object",
-          "value": "",
         },
         "line": 9,
-        "message": "Attribute "data" has invalid value """,
-        "offset": 118,
-        "ruleId": "attribute-allowed-values",
-        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "message": "<object> is missing required "data" attribute",
+        "offset": 134,
+        "ruleId": "element-required-attributes",
+        "ruleUrl": "https://html-validate.org/rules/element-required-attributes.html",
         "selector": "object:nth-child(2)",
         "severity": 2,
         "size": 6,
       },
       {
+        "column": 2,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\.\\+\\$/,
+            ],
+            "required": true,
+          },
+          "attribute": "data",
+          "element": "object",
+          "value": "",
+        },
+        "line": 10,
+        "message": "Attribute "data" has invalid value """,
+        "offset": 152,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "object:nth-child(3)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
         "column": 3,
-        "line": 14,
+        "line": 15,
         "message": "Element <param> must be used before <div> in this context",
-        "offset": 214,
+        "offset": 264,
         "ruleId": "element-permitted-order",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
-        "selector": "object:nth-child(3) > param",
+        "selector": "object:nth-child(4) > param",
         "severity": 2,
         "size": 5,
       },
@@ -12603,9 +13339,9 @@ exports[`HTML elements <object> invalid markup 1`] = `
           "child": "<object>",
           "kind": "descendant",
         },
-        "line": 20,
+        "line": 21,
         "message": "<object> element is not permitted as a descendant of <button>",
-        "offset": 310,
+        "offset": 360,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "button > object",
@@ -12615,16 +13351,17 @@ exports[`HTML elements <object> invalid markup 1`] = `
     ],
     "source": "<!-- should be transparent -->
 <span>
-	<object>
+	<object data="resource">
 		<div>foo</div>
 	</object>
 </span>
 
 <!-- invalid data attribute -->
+<object></object>
 <object data=""></object>
 
 <!-- should not allow flow before <param> -->
-<object>
+<object data="resource">
 	<div></div>
 	<param>
 </object>
@@ -12632,7 +13369,7 @@ exports[`HTML elements <object> invalid markup 1`] = `
 <!-- should be interactive if usemap is set -->
 <button type="button">
 	foo
-	<object usemap></object>
+	<object data="resource" usemap></object>
 </button>
 ",
     "warningCount": 0,
@@ -13453,7 +14190,7 @@ exports[`HTML elements <samp> valid markup 1`] = `[]`;
 exports[`HTML elements <script> invalid markup 1`] = `
 [
   {
-    "errorCount": 6,
+    "errorCount": 9,
     "filePath": "test-files/elements/script-invalid.html",
     "messages": [
       {
@@ -13533,6 +14270,65 @@ exports[`HTML elements <script> invalid markup 1`] = `
         "severity": 2,
         "size": 2,
       },
+      {
+        "column": 25,
+        "context": {
+          "allowed": {
+            "allowed": [Function],
+            "enum": [
+              /\\^\\.\\+\\$/,
+            ],
+          },
+          "attribute": "integrity",
+          "element": "script",
+          "value": "",
+        },
+        "line": 15,
+        "message": "Attribute "integrity" is missing value",
+        "offset": 534,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "script:nth-child(6)",
+        "severity": 2,
+        "size": 9,
+      },
+      {
+        "column": 2,
+        "context": {
+          "allowed": {
+            "allowed": [Function],
+            "enum": [
+              /\\^\\.\\+\\$/,
+            ],
+          },
+          "attribute": "integrity",
+          "element": "script",
+          "value": "",
+        },
+        "line": 16,
+        "message": "Attribute "integrity" has invalid value """,
+        "offset": 555,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "script:nth-child(7)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 9,
+        "context": {
+          "attr": "integrity",
+          "details": "requires "src" attribute to be present",
+        },
+        "line": 19,
+        "message": ""integrity" attribute cannot be used in this context: requires "src" attribute to be present",
+        "offset": 673,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "script:nth-child(8)",
+        "severity": 2,
+        "size": 9,
+      },
     ],
     "source": "<!-- src attribute cannot be empty -->
 <script src=""></script>
@@ -13546,6 +14342,13 @@ exports[`HTML elements <script> invalid markup 1`] = `
 
 <!-- must not omit end tag in any way, because the way the scripttag is tokenized both according to spec and this tool it must explicitly be ended with </>. Dragons ahead if not obeyed -->
 <script/>
+
+<!-- integrity attribute should not be empty -->
+<script src="script.js" integrity></script>
+<script src="script.js" integrity=""></script>
+
+<!-- integrity attribute must not be specified without src -->
+<script integrity="sha384-..."></script>
 ",
     "warningCount": 0,
   },
@@ -15863,7 +16666,7 @@ exports[`HTML elements <var> valid markup 1`] = `[]`;
 exports[`HTML elements <video> invalid markup 1`] = `
 [
   {
-    "errorCount": 7,
+    "errorCount": 8,
     "filePath": "test-files/elements/video-invalid.html",
     "messages": [
       {
@@ -15976,6 +16779,21 @@ exports[`HTML elements <video> invalid markup 1`] = `
         "severity": 2,
         "size": 6,
       },
+      {
+        "column": 8,
+        "context": {
+          "attr": "itemprop",
+          "details": "requires "src" attribute to be present",
+        },
+        "line": 30,
+        "message": ""itemprop" attribute cannot be used in this context: requires "src" attribute to be present",
+        "offset": 639,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "video:nth-child(7)",
+        "severity": 2,
+        "size": 8,
+      },
     ],
     "source": "<!-- should not allow <audio> or <video> descendant -->
 <video>
@@ -16004,6 +16822,9 @@ exports[`HTML elements <video> invalid markup 1`] = `
 
 <!-- should not allow preload attribute -->
 <video preload="foobar"></video>
+
+<!-- should not be allowed if src is omitted -->
+<video itemprop></video>
 ",
     "warningCount": 0,
   },

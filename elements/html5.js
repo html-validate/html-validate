@@ -1,6 +1,9 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 
-const { defineMetadata } = require("html-validate");
+const { defineMetadata, metadataHelper } = require("html-validate");
+
+const { allowedIfAttributeIsPresent, allowedIfAttributeIsAbsent, allowedIfAttributeHasValue } =
+	metadataHelper;
 
 module.exports = defineMetadata({
 	"*": {
@@ -49,11 +52,18 @@ module.exports = defineMetadata({
 				deprecated: true,
 			},
 			download: {
+				allowed: allowedIfAttributeIsPresent("href"),
 				omit: true,
 				enum: ["/.+/"],
 			},
 			href: {
 				enum: ["/.*/"],
+			},
+			hreflang: {
+				allowed: allowedIfAttributeIsPresent("href"),
+			},
+			itemprop: {
+				allowed: allowedIfAttributeIsPresent("href"),
 			},
 			methods: {
 				deprecated: true,
@@ -61,11 +71,24 @@ module.exports = defineMetadata({
 			name: {
 				deprecated: true,
 			},
+			ping: {
+				allowed: allowedIfAttributeIsPresent("href"),
+			},
+			referrerpolicy: {
+				allowed: allowedIfAttributeIsPresent("href"),
+			},
+			rel: {
+				allowed: allowedIfAttributeIsPresent("href"),
+			},
 			shape: {
 				deprecated: true,
 			},
 			target: {
+				allowed: allowedIfAttributeIsPresent("href"),
 				enum: ["/[^_].*/", "_blank", "_self", "_parent", "_top"],
+			},
+			type: {
+				allowed: allowedIfAttributeIsPresent("href"),
 			},
 			urn: {
 				deprecated: true,
@@ -114,13 +137,29 @@ module.exports = defineMetadata({
 		void: true,
 		attributes: {
 			alt: {},
+			download: {
+				allowed: allowedIfAttributeIsPresent("href"),
+			},
 			nohref: {
 				deprecated: true,
+			},
+			itemprop: {
+				allowed: allowedIfAttributeIsPresent("href"),
+			},
+			ping: {
+				allowed: allowedIfAttributeIsPresent("href"),
+			},
+			referrerpolicy: {
+				allowed: allowedIfAttributeIsPresent("href"),
+			},
+			rel: {
+				allowed: allowedIfAttributeIsPresent("href"),
 			},
 			shape: {
 				enum: ["rect", "circle", "poly", "default"],
 			},
 			target: {
+				allowed: allowedIfAttributeIsPresent("href"),
 				enum: ["/[^_].*/", "_blank", "_self", "_parent", "_top"],
 			},
 		},
@@ -148,6 +187,13 @@ module.exports = defineMetadata({
 		interactive: ["hasAttribute", "controls"],
 		transparent: ["@flow"],
 		attributes: {
+			crossorigin: {
+				omit: true,
+				enum: ["anonymous", "use-credentials"],
+			},
+			itemprop: {
+				allowed: allowedIfAttributeIsPresent("src"),
+			},
 			preload: {
 				omit: true,
 				enum: ["none", "metadata", "auto"],
@@ -295,6 +341,24 @@ module.exports = defineMetadata({
 			},
 			disabled: {
 				boolean: true,
+			},
+			formaction: {
+				allowed: allowedIfAttributeHasValue("type", ["submit"], { defaultValue: "submit" }),
+			},
+			formenctype: {
+				allowed: allowedIfAttributeHasValue("type", ["submit"], { defaultValue: "submit" }),
+			},
+			formmethod: {
+				allowed: allowedIfAttributeHasValue("type", ["submit"], { defaultValue: "submit" }),
+				enum: ["get", "post", "dialog"],
+			},
+			formnovalidate: {
+				allowed: allowedIfAttributeHasValue("type", ["submit"], { defaultValue: "submit" }),
+				boolean: true,
+			},
+			formtarget: {
+				allowed: allowedIfAttributeHasValue("type", ["submit"], { defaultValue: "submit" }),
+				enum: ["/[^_].*/", "_blank", "_self", "_parent", "_top"],
 			},
 			type: {
 				required: true,
@@ -555,6 +619,9 @@ module.exports = defineMetadata({
 			},
 			novalidate: {
 				boolean: true,
+			},
+			target: {
+				enum: ["/[^_].*/", "_blank", "_self", "_parent", "_top"],
 			},
 		},
 		permittedContent: ["@flow"],
@@ -846,6 +913,34 @@ module.exports = defineMetadata({
 			disabled: {
 				boolean: true,
 			},
+			formaction: {
+				allowed: allowedIfAttributeHasValue("type", ["submit", "image"], {
+					defaultValue: "submit",
+				}),
+			},
+			formenctype: {
+				allowed: allowedIfAttributeHasValue("type", ["submit", "image"], {
+					defaultValue: "submit",
+				}),
+			},
+			formmethod: {
+				allowed: allowedIfAttributeHasValue("type", ["submit", "image"], {
+					defaultValue: "submit",
+				}),
+				enum: ["get", "post", "dialog"],
+			},
+			formnovalidate: {
+				allowed: allowedIfAttributeHasValue("type", ["submit", "image"], {
+					defaultValue: "submit",
+				}),
+				boolean: true,
+			},
+			formtarget: {
+				allowed: allowedIfAttributeHasValue("type", ["submit", "image"], {
+					defaultValue: "submit",
+				}),
+				enum: ["/[^_].*/", "_blank", "_self", "_parent", "_top"],
+			},
 			hspace: {
 				deprecated: true,
 			},
@@ -982,6 +1077,38 @@ module.exports = defineMetadata({
 		metadata: true,
 		void: true,
 		attributes: {
+			as: {
+				allowed: allowedIfAttributeHasValue("rel", ["preload", "modulepreload"]),
+				enum: [
+					"audio",
+					"audioworklet",
+					"document",
+					"embed",
+					"fetch",
+					"font",
+					"frame",
+					"iframe",
+					"image",
+					"manifest",
+					"object",
+					"paintworklet",
+					"report",
+					"script",
+					"serviceworker",
+					"sharedworker",
+					"style",
+					"track",
+					"video",
+					"webidentity",
+					"worker",
+					"xslt",
+				],
+			},
+			blocking: {
+				allowed: allowedIfAttributeHasValue("rel", ["stylesheet", "preload", "modulepreload"]),
+				list: true,
+				enum: ["render"],
+			},
 			charset: {
 				deprecated: true,
 			},
@@ -989,11 +1116,16 @@ module.exports = defineMetadata({
 				omit: true,
 				enum: ["anonymous", "use-credentials"],
 			},
+			disabled: {
+				allowed: allowedIfAttributeHasValue("rel", ["stylesheet"]),
+				boolean: true,
+			},
 			href: {
 				required: true,
 				enum: ["/.+/"],
 			},
 			integrity: {
+				allowed: allowedIfAttributeHasValue("rel", ["stylesheet", "preload", "modulepreload"]),
 				enum: ["/.+/"],
 			},
 			methods: {
@@ -1096,6 +1228,18 @@ module.exports = defineMetadata({
 		metadata: true,
 		void: true,
 		attributes: {
+			content: {
+				allowed: allowedIfAttributeIsPresent("name", "http-equiv", "itemprop"),
+			},
+			itemprop: {
+				allowed: allowedIfAttributeIsAbsent("http-equiv", "name"),
+			},
+			name: {
+				allowed: allowedIfAttributeIsAbsent("http-equiv", "itemprop"),
+			},
+			"http-equiv": {
+				allowed: allowedIfAttributeIsAbsent("name", "itemprop"),
+			},
 			scheme: {
 				deprecated: true,
 			},
@@ -1172,6 +1316,10 @@ module.exports = defineMetadata({
 			archive: {
 				deprecated: true,
 			},
+			blocking: {
+				list: true,
+				enum: ["render"],
+			},
 			border: {
 				deprecated: true,
 			},
@@ -1189,6 +1337,7 @@ module.exports = defineMetadata({
 			},
 			data: {
 				enum: ["/.+/"],
+				required: true,
 			},
 			datafld: {
 				deprecated: true,
@@ -1204,6 +1353,9 @@ module.exports = defineMetadata({
 			},
 			hspace: {
 				deprecated: true,
+			},
+			name: {
+				enum: ["/[^_].*/"],
 			},
 			standby: {
 				deprecated: true,
@@ -1425,6 +1577,7 @@ module.exports = defineMetadata({
 				deprecated: true,
 			},
 			integrity: {
+				allowed: allowedIfAttributeIsPresent("src"),
 				enum: ["/.+/"],
 			},
 			language: {
@@ -1904,6 +2057,13 @@ module.exports = defineMetadata({
 		interactive: ["hasAttribute", "controls"],
 		transparent: ["@flow"],
 		attributes: {
+			crossorigin: {
+				omit: true,
+				enum: ["anonymous", "use-credentials"],
+			},
+			itemprop: {
+				allowed: allowedIfAttributeIsPresent("src"),
+			},
 			preload: {
 				omit: true,
 				enum: ["none", "metadata", "auto"],

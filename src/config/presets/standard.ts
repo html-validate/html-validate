@@ -5,6 +5,7 @@ const config: ConfigData = {
 		"area-alt": ["error", { accessible: false }],
 		"attr-spacing": "error",
 		"attribute-allowed-values": "error",
+		"attribute-misuse": "error",
 		"close-attr": "error",
 		"close-order": "error",
 		deprecated: "error",

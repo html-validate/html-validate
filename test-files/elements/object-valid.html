@@ -1,27 +1,27 @@
 <!-- should allow flow content -->
-<object>
+<object data="resource">
 	<div>foo</div>
 </object>
 
 <!-- should allow <param> -->
-<object>
+<object data="resource">
 	<param>
 </object>
 
 <!-- should be transparent -->
 <span>
-	<object>
+	<object data="resource">
 		<span>foo</span>
 	</object>
 </span>
 <div>
-	<object>
+	<object data="resource">
 		<div>foo</div>
 	</object>
 </div>
 
 <!-- should allow <param> before flow -->
-<object>
+<object data="resource">
 	<param>
 	<div></div>
 </object>
@@ -29,5 +29,5 @@
 <!-- should not be interactive unless usemap is set -->
 <button type="button">
 	foo
-	<object></object>
+	<object data="resource"></object>
 </button>

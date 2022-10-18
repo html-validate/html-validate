@@ -37,3 +37,13 @@
 <map id="invalid-target" name="invalid-target">
 	<area href="target" target="_invalid" alt="lorem ipsum">
 </map>
+
+<!-- target cannot be used without href -->
+<map id="target-missing-href" name="target-missing-href">
+	<area target="_blank">
+</map>
+
+<!-- should not be allowed if href is omitted -->
+<map id="invalid-without-href" name="invalid-without-href">
+	<area target="_blank" download ping rel referrerpolicy itemprop>
+</map>

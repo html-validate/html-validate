@@ -7,7 +7,7 @@ import { SchemaValidationPatch } from "../plugin";
 import { computeHash } from "../utils/compute-hash";
 import { requireUncached } from "../utils/require-uncached";
 import schema from "../schema/elements.json";
-import { ajvRegexpKeyword } from "../schema/keywords";
+import { ajvFunctionKeyword, ajvRegexpKeyword } from "../schema/keywords";
 import {
 	ElementTable,
 	InternalAttributeFlags,
@@ -212,6 +212,7 @@ export class MetaTable {
 		} else {
 			const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
 			ajv.addMetaSchema(ajvSchemaDraft);
+			ajv.addKeyword(ajvFunctionKeyword);
 			ajv.addKeyword(ajvRegexpKeyword);
 			ajv.addKeyword({ keyword: "copyable" });
 			const validate = ajv.compile<MetaDataTable>(this.schema);

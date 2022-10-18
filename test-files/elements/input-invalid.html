@@ -445,3 +445,8 @@
 	<input type="submit" width="512">
 	<input type="reset" width="512">
 </div>
+
+<!-- should not be allowed if type isn't submit or image -->
+<div id="invalid-form-overrides">
+	<input type="text" formaction formenctype formmethod="post" formnovalidate formtarget="_blank">
+</div>

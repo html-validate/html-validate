@@ -34,11 +34,6 @@ const restricted: Map<string, string[]> = new Map([
 	["capture", ["file"]],
 	["checked", ["checkbox", "radio"]],
 	["dirname", ["text", "search"]],
-	["formaction", ["submit", "image"]],
-	["formenctype", ["submit", "image"]],
-	["formmethod", ["submit", "image"]],
-	["formnovalidate", ["submit", "image"]],
-	["formtarget", ["submit", "image"]],
 	["height", ["image"]],
 	[
 		"list",

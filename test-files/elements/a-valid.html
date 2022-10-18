@@ -7,13 +7,17 @@
 <td><a>foo</a></td>
 
 <!-- should be transparent -->
-<div><a><div>foo</div></a></div>
-<span><a><span>foo</span></a></span>
+<div>
+	<a><div>foo</div></a>
+</div>
+<span
+	><a><span>foo</span></a></span
+>
 
 <!-- should allow download attribute with or without value -->
-<a download>foo</a>
-<a download="">foo</a>
-<a download="foo.txtr">foo</a>
+<a href="target" download>foo</a>
+<a href="target" download="">foo</a>
+<a href="target" download="foo.txtr">foo</a>
 
 <!-- should allow type keywords and custom name (must not start with _) -->
 <a href="target" target="_blank"> foo </a>
@@ -25,3 +29,6 @@
 <!-- should allow empty or non-empty string as href (but not omitted) -->
 <a href="">foo</a>
 <a href="foo.html">foo</a>
+
+<!-- should be allowed if href is present -->
+<a href="target" target="_blank" download ping rel hreflang type referrerpolicy itemprop> foo </a>
