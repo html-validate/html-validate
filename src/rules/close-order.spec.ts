@@ -82,10 +82,14 @@ describe("rule close-order", () => {
 		`;
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"close-order",
-			"Mismatched close-tag, expected '</div>' but found '</p>'."
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Mismatched close-tag, expected '</div>' but found '</p>' (close-order) at inline:2:10:
+			  1 |
+			> 2 | 			<div></p>
+			    | 			      ^^
+			  3 |
+			Selector: -"
+		`);
 	});
 
 	it("should report error when element is missing close tag", () => {
@@ -96,10 +100,14 @@ describe("rule close-order", () => {
 		`;
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"close-order",
-			"Missing close-tag, expected '</div>' but document ended before it was found."
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Missing close-tag, expected '</div>' but document ended before it was found (close-order) at inline:4:3:
+			  2 | 			<!-- prettier-ignore -->
+			  3 | 			<div>
+			> 4 |
+			    | 		^
+			Selector: -"
+		`);
 	});
 
 	it("should report error when element is missing opening tag", () => {
@@ -109,7 +117,14 @@ describe("rule close-order", () => {
 		`;
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("close-order", "Unexpected close-tag, expected opening tag.");
+		expect(report).toMatchInlineCodeframe(`
+			"error: Unexpected close-tag, expected opening tag (close-order) at inline:2:5:
+			  1 |
+			> 2 | 			</div>
+			    | 			 ^^^^
+			  3 |
+			Selector: -"
+		`);
 	});
 
 	it("smoketest", () => {
