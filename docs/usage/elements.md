@@ -5,18 +5,23 @@ title: Elements metadata
 
 # Elements metadata
 
-For proper validation each element must have a corresponding metadata entry. If
-no metadata is present many rules will just ignore the element entirely. To
-configure metadata sources use `elements: [...]`, see
-[configuring](/usage).
+For proper validation each element must have a corresponding metadata entry.
+If no metadata is present many rules will just ignore the element entirely.
+To configure metadata sources use `elements: [...]`, see [configuring](/usage).
 
 A typical custom element may look like:
 
 ```js
-"custom-element": {
-  "flow": true
-}
+const { defineMetadata } = require("html-validate");
+
+module.exports = defineMetadata({
+  "custom-element": {
+    flow: true,
+  },
+});
 ```
+
+The `defineMetadata` helper is optional but helps the IDE with completion and type-checking.
 
 Each entry can contain the following properties:
 

@@ -22,6 +22,7 @@ export {
 	type MetaElement,
 	MetaTable,
 	MetaCopyableProperty,
+	defineMetadata,
 } from "./meta";
 export { Rule, type RuleDocumentation } from "./rule";
 export { classifyNodeText, TextClassification } from "./rules/helper";

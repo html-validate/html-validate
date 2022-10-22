@@ -12,17 +12,19 @@ To define what values attribute accept the `attributes` property is used, to def
 
 Assuming our `<my-component>` element has a `duck` attribute which can take the value `huey`, `dewey` or `louie` we can use the `attributes` property to define an enumerated list of allowed values:
 
-```json
-{
+```js
+const { defineMetadata } = require("html-validate");
+
+module.exports = defineMetadata({
   "my-component": {
-    "flow": true,
-    "attributes": {
-      "duck": {
-        "enum": ["huey", "dewey", "louie"]
-      }
-    }
-  }
-}
+    flow: true,
+    attributes: {
+      duck: {
+        enum: ["huey", "dewey", "louie"],
+      },
+    },
+  },
+});
 ```
 
 <validate name="enum" elements="restrict-attributes-enum.json">
@@ -32,17 +34,20 @@ Assuming our `<my-component>` element has a `duck` attribute which can take the 
 
 We can also specify regular expressions by surrounding the string with `/` (remember to escape special characters properly):
 
-```json
-{
-  "my-component": {
-    "flow": true,
-    "attributes": {
-      "ducks": {
-        "enum": ["/\\d+/"]
-      }
-    }
-  }
-}
+```diff
+ const { defineMetadata } = require("html-validate");
+
+ module.exports = defineMetadata({
+   "my-component": {
+     flow: true,
+     attributes: {
+       duck: {
+-        enum: ["huey", "dewey", "louie"],
++        enum: ["/\\d+/"],
+       },
+     },
+   },
+ });
 ```
 
 <validate name="regexp" elements="restrict-attributes-regexp.json">
@@ -60,17 +65,19 @@ We can also specify regular expressions by surrounding the string with `/` (reme
 
 To force a boolean value similar to `disabled`, `selected` etc instead set the `boolean` property to `true`.
 
-```json
-{
+```js
+const { defineMetadata } = require("html-validate");
+
+module.exports = defineMetadata({
   "my-component": {
-    "flow": true,
-    "attributes": {
-      "quacks": {
-        "boolean": true
-      }
-    }
-  }
-}
+    flow: true,
+    attributes: {
+      quacks: {
+        boolean: true,
+      },
+    },
+  },
+});
 ```
 
 <validate name="boolean" elements="restrict-attributes-boolean.json">
@@ -83,18 +90,20 @@ This is often combined with `enum` but it should have a default value.
 
 For instance, to allow the `quacks` attribute to be set to either `duck` or `dog` but at the same time not require a value to be set at all `omit` can be used.
 
-```json
-{
+```js
+const { defineMetadata } = require("html-validate");
+
+module.exports = defineMetadata({
   "my-component": {
-    "flow": true,
-    "attributes": {
-      "quacks": {
-        "omit": true,
-        "enum": ["duck", "dog"]
-      }
-    }
-  }
-}
+    flow: true,
+    attributes: {
+      quacks: {
+        omit: true,
+        enum: ["duck", "dog"],
+      },
+    },
+  },
+});
 ```
 
 <validate name="omit" elements="restrict-attributes-omit.json">
@@ -106,17 +115,19 @@ For instance, to allow the `quacks` attribute to be set to either `duck` or `dog
 
 Required attributes (attributes that must be set on an element) can be specified by setting `required` to `true`:
 
-```json
-{
+```js
+const { defineMetadata } = require("html-validate");
+
+module.exports = defineMetadata({
   "my-component": {
-    "flow": true,
-    "attributes": {
-      "duck": {
-        "required": true
-      }
-    }
-  }
-}
+    flow: true,
+    attributes: {
+      duck: {
+        required: true,
+      },
+    },
+  },
+});
 ```
 
 <validate name="required" elements="restrict-attributes-required.json">
@@ -128,17 +139,19 @@ Required attributes (attributes that must be set on an element) can be specified
 
 Similar to required attribute we can set `deprecated` to true or a message to mark an attribute as deprecated:
 
-```json
-{
+```js
+const { defineMetadata } = require("html-validate");
+
+module.exports = defineMetadata({
   "my-component": {
-    "flow": true,
-    "attributes": {
-      "duck": {
-        "deprecated": true
-      }
-    }
-  }
-}
+    flow: true,
+    attributes: {
+      duck: {
+        deprecated: true,
+      },
+    },
+  },
+});
 ```
 
 <validate name="deprecated" elements="restrict-attributes-deprecated.json">

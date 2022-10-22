@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "emitDeclarationOnly": false,
+    "allowJs": true,
+    "checkJs": true,
+    "composite": false,
+    "paths": {
+      "html-validate": ["../src"]
+    }
+  },
+  "include": ["./**/*.js"],
+  "references": [{ "path": "../" }]
+}

@@ -1,4 +1,10 @@
-import { InternalAttributeFlags, MetaAttribute, MetaData, MetaElement } from "./element";
+import {
+	type InternalAttributeFlags,
+	type MetaAttribute,
+	type MetaData,
+	type MetaElement,
+	TextContent,
+} from "./element";
 
 function isSet(value?: unknown): boolean {
 	return typeof value !== "undefined";
@@ -70,11 +76,17 @@ export function migrateElement(src: MetaData): Omit<MetaElement, "tagName"> {
 	const result = {
 		...src,
 		attributes: migrateAttributes(src),
+		textContent: src.textContent as TextContent | undefined,
 	};
 
 	/* removed properties */
 	delete result.deprecatedAttributes;
 	delete result.requiredAttributes;
+
+	/* strip out undefined */
+	if (!result.textContent) {
+		delete result.textContent;
+	}
 
 	return result;
 }

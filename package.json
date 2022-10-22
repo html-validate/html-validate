@@ -48,6 +48,7 @@
     "jest.{js,d.ts}",
     "test-utils.{js,d.ts}",
     "!dist/types/**",
+    "!tsconfig.json",
     "!**/*.snap",
     "!**/*.spec.{js,ts,d.ts}"
   ],
@@ -58,7 +59,7 @@
     "prebuild": "run-s codegen prebuild:*",
     "build": "run-s build:*",
     "postbuild": "bash scripts/pkg",
-    "prebuild:tsc": "tsc --build src",
+    "prebuild:tsc": "tsc --build src elements",
     "build:cjs": "rollup --config rollup.cjs.config.js",
     "build:dts": "rollup --config rollup.dts.config.js",
     "build:esm": "rollup --config rollup.esm.config.js",
