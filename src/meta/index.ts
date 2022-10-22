@@ -1,3 +1,4 @@
+export { defineMetadata } from "./define-metadata";
 export { MetaTable } from "./table";
 export {
 	type CategoryOrTag,
