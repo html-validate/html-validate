@@ -65,14 +65,16 @@ Most of the time it would make little sense to nest components but sometimes it 
 Perhaps the nesting isn't direct but happens way down in the DOM tree.
 
 All of above considered valid unless the metadata gives instructions how the element should be used.
-The first step is creating a new JSON-file, e.g. `elements.json` and configure the validator to read it.
+The first step is creating a new file, e.g. `elements.js` and configure the validator to read it.
 
-`elements.json`:
+`elements.js`:
 
-```json
-{
-  "my-component": {}
-}
+```js
+const { defineMetadata } = require("html-validate");
+
+module.exports = defineMetadata({
+  "my-component": {},
+});
 ```
 
 `.htmlvalidate.json`:
@@ -80,7 +82,7 @@ The first step is creating a new JSON-file, e.g. `elements.json` and configure t
 ```json
 {
   "extends": ["html-validate:recommended"],
-  "elements": ["html5", "./elements.json"]
+  "elements": ["html5", "./elements.js"]
 }
 ```
 
@@ -111,12 +113,14 @@ A bit simplified but flow elements can be thought as block-level `<div>` and phr
 
 For instance, if our `<my-component>` element were to work similar to a `<div>` we can set the `flow` property to `true`.
 
-```json
-{
-  "my-component": {
-    "flow": true
-  }
-}
+```diff
+ const { defineMetadata } = require("html-validate");
+
+ module.exports = defineMetadata({
+   "my-component": {
++    flow: true,
+   },
+ });
 ```
 
 The element will now be accepted inside another `<div>` as flow elements can be nested inside each other.
@@ -137,13 +141,15 @@ It can not be nested inside a `<span>` as a `<span>` does not accept flow conten
 
 If we set the `phrasing` property as well the element will be allowed inside a `<span>` too:
 
-```json
-{
-  "my-component": {
-    "flow": true,
-    "phrasing": true
-  }
-}
+```diff
+ const { defineMetadata } = require("html-validate");
+
+ module.exports = defineMetadata({
+   "my-component": {
+     flow: true,
++    phrasing: true,
+   },
+ });
 ```
 
 <validate name="phrasing-metadata" elements="simple-component-phrasing.json" results="true">
@@ -169,13 +175,15 @@ There are other content categories as well, check the [element metadata referenc
 
 ## Case study: `<div>`
 
-```json
-{
-  "div": {
-    "flow": true,
-    "permittedContent": ["@flow"]
-  }
-}
+```js
+const { defineMetadata } = require("html-validate");
+
+module.exports = defineMetadata({
+  div: {
+    flow: true,
+    permittedContent: ["@flow"],
+  },
+});
 ```
 
 As a generic flow content container the `<div>` element simply sets the `flow` property and uses the `permittedContent` property to restrict its content to only allow other flow content (in practice this means almost all other elements).

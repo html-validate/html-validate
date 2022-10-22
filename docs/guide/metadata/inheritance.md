@@ -12,12 +12,14 @@ A better method is to use inheritance.
 Lets assume our `<my-component>` is actually a wrapper for an input field with a label and the content is what is used as `<label>`.
 Thus by inheriting from `<label>` we automatically get the same rules.
 
-```json
-{
+```js
+const { defineMetadata } = require("html-validate");
+
+module.exports = defineMetadata({
   "my-component": {
-    "inherit": "label"
-  }
-}
+    inherit: "label",
+  },
+});
 ```
 
 <validate name="inheritance" elements="inheritance.json">
