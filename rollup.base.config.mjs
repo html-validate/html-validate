@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "node:url";
 import { builtinModules } from "module";
 import json from "@rollup/plugin-json"; //native solution coming: https://nodejs.org/docs/latest/api/esm.html#esm_json_modules
 import replace from "@rollup/plugin-replace";
@@ -10,7 +11,8 @@ import dts from "rollup-plugin-dts";
 /* eslint-disable-next-line -- eslint-plugin-import seems to choke on import.meta.* */
 import typescript from "@rollup/plugin-typescript";
 
-const packageJson = JSON.parse(fs.readFileSync(path.join(__dirname, "package.json"), "utf-8"));
+const rootDir = fileURLToPath(new URL(".", import.meta.url));
+const packageJson = JSON.parse(fs.readFileSync(path.join(rootDir, "package.json"), "utf-8"));
 
 /**
  * @typedef {import('rollup').RollupOptions} RollupOptions
@@ -57,15 +59,15 @@ const jsonConfig = {
  */
 function manualChunks(id) {
 	/** @type {string} */
-	const base = path.relative(__dirname, id).replace(/\\/g, "/");
+	const base = path.relative(rootDir, id).replace(/\\/g, "/");
 	if (inputs.includes(base)) {
 		return undefined;
 	}
 
 	/** @type {string} */
 	const rel = base.startsWith("src/")
-		? path.relative(path.join(__dirname, "src"), id).replace(/\\/g, "/")
-		: path.relative(path.join(__dirname, "dist/types"), id).replace(/\\/g, "/");
+		? path.relative(path.join(rootDir, "src"), id).replace(/\\/g, "/")
+		: path.relative(path.join(rootDir, "dist/types"), id).replace(/\\/g, "/");
 
 	if (rel.startsWith("cli/")) {
 		return "cli";
@@ -116,6 +118,7 @@ export function build(format) {
 				sourcemap: true,
 				manualChunks,
 				chunkFileNames: "[name].js",
+				interop: "auto",
 			},
 			preserveEntrySignatures: "strict",
 			external,
@@ -140,7 +143,7 @@ export function build(format) {
 						 * @param {string} filename
 						 */
 						__filename: (filename) => {
-							const relative = path.relative(path.join(__dirname, "src"), filename);
+							const relative = path.relative(path.join(rootDir, "src"), filename);
 							const normalized = relative.replace(/\\/g, "/");
 							return `"@/${normalized}"`;
 						},
@@ -158,7 +161,7 @@ export function build(format) {
 export function bundleDts(...formats) {
 	return formats.map((format) => {
 		return {
-			input: types.map((it) => path.join(__dirname, it)),
+			input: types.map((it) => path.join(rootDir, it)),
 			output: {
 				dir: `dist/${format}`,
 				format,
