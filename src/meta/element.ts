@@ -106,7 +106,7 @@ export interface MetaData {
 	permittedParent?: Permitted;
 	requiredAncestors?: RequiredAncestors;
 	requiredContent?: RequiredContent;
-	textContent?: TextContent;
+	textContent?: TextContent | `${TextContent}`;
 }
 
 /**
@@ -163,6 +163,7 @@ export interface MetaElement extends Omit<MetaData, "deprecatedAttributes" | "re
 	tagName: string;
 
 	attributes: Record<string, MetaAttribute>;
+	textContent?: TextContent;
 }
 
 export interface MetaDataTable {

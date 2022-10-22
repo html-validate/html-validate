@@ -1,6 +1,22 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 
-module.exports = {
+/**
+ * @typedef {import("html-validate").MetaDataTable} MetaDataTable
+ */
+
+/**
+ * While html-validate comes with a bundled `defineMetadata` function we
+ * redefine the function locally so we don't require the library to be compiled
+ * to source this file.
+ *
+ * @param {MetaDataTable} metatable
+ * @returns {MetaDataTable}
+ */
+function defineMetadata(metatable) {
+	return metatable;
+}
+
+module.exports = defineMetadata({
 	"*": {
 		attributes: {
 			contenteditable: {
@@ -1917,4 +1933,4 @@ module.exports = {
 			source: "html32",
 		},
 	},
-};
+});
