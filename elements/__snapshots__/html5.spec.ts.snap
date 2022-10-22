@@ -3,7 +3,7 @@
 exports[`HTML elements <a> invalid markup 1`] = `
 [
   {
-    "errorCount": 5,
+    "errorCount": 6,
     "filePath": "test-files/elements/a-invalid.html",
     "messages": [
       {
@@ -91,6 +91,31 @@ exports[`HTML elements <a> invalid markup 1`] = `
         "severity": 2,
         "size": 4,
       },
+      {
+        "column": 26,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\[\\^_\\]\\.\\*\\$/,
+              "_blank",
+              "_self",
+              "_parent",
+              "_top",
+            ],
+          },
+          "attribute": "target",
+          "element": "a",
+          "value": "_invalid",
+        },
+        "line": 15,
+        "message": "Attribute "target" has invalid value "_invalid"",
+        "offset": 428,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "a:nth-child(6)",
+        "severity": 2,
+        "size": 8,
+      },
     ],
     "source": "<!-- should be transparent -->
 <span><a><div>foo</div></a></span>
@@ -104,6 +129,9 @@ exports[`HTML elements <a> invalid markup 1`] = `
 
 <!-- should not allow omitted href value -->
 <a href>foo</a>
+
+<!-- should not allow invalid type keywords -->
+<a href="target" target="_invalid"> foo </a>
 ",
     "warningCount": 0,
   },
@@ -321,7 +349,7 @@ exports[`HTML elements <applet> valid markup 1`] = `[]`;
 exports[`HTML elements <area> invalid markup 1`] = `
 [
   {
-    "errorCount": 9,
+    "errorCount": 10,
     "filePath": "test-files/elements/area-invalid.html",
     "messages": [
       {
@@ -461,6 +489,31 @@ exports[`HTML elements <area> invalid markup 1`] = `
         "severity": 2,
         "size": 3,
       },
+      {
+        "column": 30,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\[\\^_\\]\\.\\*\\$/,
+              "_blank",
+              "_self",
+              "_parent",
+              "_top",
+            ],
+          },
+          "attribute": "target",
+          "element": "area",
+          "value": "_invalid",
+        },
+        "line": 38,
+        "message": "Attribute "target" has invalid value "_invalid"",
+        "offset": 787,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "#invalid-target > area",
+        "severity": 2,
+        "size": 8,
+      },
     ],
     "source": "<!-- should require <map> ancestor -->
 <area>
@@ -495,6 +548,11 @@ exports[`HTML elements <area> invalid markup 1`] = `
 <map id="omit-alt" name="foo">
 	<area alt="">
 	<area alt="lorem ipsum">
+</map>
+
+<!-- should not allow invalid type keywords -->
+<map id="invalid-target" name="invalid-target">
+	<area href="target" target="_invalid" alt="lorem ipsum">
 </map>
 ",
     "warningCount": 0,

@@ -78,6 +78,9 @@ module.exports = defineMetadata({
 			shape: {
 				deprecated: true,
 			},
+			target: {
+				enum: ["/[^_].*/", "_blank", "_self", "_parent", "_top"],
+			},
 			urn: {
 				deprecated: true,
 			},
@@ -130,6 +133,9 @@ module.exports = defineMetadata({
 			},
 			shape: {
 				enum: ["rect", "circle", "poly", "default"],
+			},
+			target: {
+				enum: ["/[^_].*/", "_blank", "_self", "_parent", "_top"],
 			},
 		},
 		requiredAncestors: ["map"],
