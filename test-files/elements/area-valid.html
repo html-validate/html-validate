@@ -18,3 +18,12 @@
 <map name="bar">
 	<area href="target" alt="lorem ipsum">
 </map>
+
+<!-- should allow type keywords and custom name (must not start with _) -->
+<map name="valid-target">
+	<area href="target" target="_blank" alt="lorem ipsum">
+	<area href="target" target="_parent" alt="lorem ipsum">
+	<area href="target" target="_self" alt="lorem ipsum">
+	<area href="target" target="_top" alt="lorem ipsum">
+	<area href="target" target="foobar" alt="lorem ipsum">
+</map>

@@ -15,6 +15,13 @@
 <a download="">foo</a>
 <a download="foo.txtr">foo</a>
 
+<!-- should allow type keywords and custom name (must not start with _) -->
+<a href="target" target="_blank"> foo </a>
+<a href="target" target="_parent"> foo </a>
+<a href="target" target="_self"> foo </a>
+<a href="target" target="_top"> foo </a>
+<a href="target" target="foobar"> foo </a>
+
 <!-- should allow empty or non-empty string as href (but not omitted) -->
 <a href="">foo</a>
 <a href="foo.html">foo</a>
