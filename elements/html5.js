@@ -941,6 +941,7 @@ module.exports = defineMetadata({
 		interactive: true,
 		void: true,
 		labelable: true,
+		deprecated: true,
 	},
 
 	label: {
