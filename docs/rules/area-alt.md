@@ -75,4 +75,4 @@ With this option **disabled** the following is **correct**:
 
 ## Version history
 
-- %version% - Rule added.
+- 7.7.0 - Rule added.

@@ -1,5 +1,22 @@
 # html-validate changelog
 
+## [7.7.0](https://gitlab.com/html-validate/html-validate/compare/v7.6.0...v7.7.0) (2022-10-23)
+
+### Features
+
+- **html5:** validates `<a target>` and `<area target>` for valid keywords ([6fa0bd9](https://gitlab.com/html-validate/html-validate/commit/6fa0bd9b823b746eeeab1d644c8748f288ea2730))
+- new `defineMetadata` helper for writing custom element metadata ([6a06811](https://gitlab.com/html-validate/html-validate/commit/6a06811bb9d527648bc738ee464cfb5834fb038f)), closes [#186](https://gitlab.com/html-validate/html-validate/issues/186)
+- **rules:** new rule `area-alt` ([3c1f0b3](https://gitlab.com/html-validate/html-validate/commit/3c1f0b3a6c2b24532d8c90894e54366bc79870e3)), closes [#178](https://gitlab.com/html-validate/html-validate/issues/178)
+- **rules:** new rule `attribute-misuse` ([07a0bbe](https://gitlab.com/html-validate/html-validate/commit/07a0bbe15149d588c4c03956fdb410bc1dab236a)), closes [#181](https://gitlab.com/html-validate/html-validate/issues/181)
+
+### Bug Fixes
+
+- **html5:** `<map>` requires `name` attribute ([6104eb3](https://gitlab.com/html-validate/html-validate/commit/6104eb3e4874bcd1c97574994728dc1b2d489a42))
+- **html5:** `<meta charset>` should only allow `utf-8` ([aaa15fe](https://gitlab.com/html-validate/html-validate/commit/aaa15fefdde59e0b8285c39ffa349f35d96cdb03))
+- **html5:** disallow `<area coords>` when `shape` is `default` ([76115f2](https://gitlab.com/html-validate/html-validate/commit/76115f2388d61239f7f236877f38010daeb8444d)), closes [#183](https://gitlab.com/html-validate/html-validate/issues/183)
+- **html5:** mark `<keygen>` as deprecated ([859402d](https://gitlab.com/html-validate/html-validate/commit/859402d11543052180829f1b0b8b7b2914dc3917))
+- **html5:** require `<area coords>` when `shape` is requires is ([ed750c1](https://gitlab.com/html-validate/html-validate/commit/ed750c1a8f8b38469cc474a8ebb046470cd2f15a)), closes [#182](https://gitlab.com/html-validate/html-validate/issues/182)
+
 ## [7.6.0](https://gitlab.com/html-validate/html-validate/compare/v7.5.0...v7.6.0) (2022-10-10)
 
 ### Features
