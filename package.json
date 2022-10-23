@@ -132,6 +132,9 @@
       "!src/jest/jest.ts",
       "!**/__fixtures__/**"
     ],
+    "moduleNameMapper": {
+      "^html-validate$": "<rootDir>/src/index.ts"
+    },
     "preset": "@html-validate/jest-config",
     "roots": [
       "<rootDir>/docs",
