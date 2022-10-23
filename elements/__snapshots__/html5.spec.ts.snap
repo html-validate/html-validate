@@ -95,7 +95,6 @@ exports[`HTML elements <a> invalid markup 1`] = `
         "column": 26,
         "context": {
           "allowed": {
-            "allowed": [Function],
             "enum": [
               /\\^\\[\\^_\\]\\.\\*\\$/,
               "_blank",
@@ -617,7 +616,6 @@ exports[`HTML elements <area> invalid markup 1`] = `
         "column": 30,
         "context": {
           "allowed": {
-            "allowed": [Function],
             "enum": [
               /\\^\\[\\^_\\]\\.\\*\\$/,
               "_blank",
@@ -977,7 +975,6 @@ exports[`HTML elements <audio> invalid markup 1`] = `
               "metadata",
               "auto",
             ],
-            "omit": true,
           },
           "attribute": "preload",
           "element": "audio",
@@ -1627,7 +1624,6 @@ exports[`HTML elements <button> invalid markup 1`] = `
               "reset",
               "button",
             ],
-            "required": true,
           },
           "attribute": "type",
           "element": "button",
@@ -1646,7 +1642,6 @@ exports[`HTML elements <button> invalid markup 1`] = `
         "column": 35,
         "context": {
           "allowed": {
-            "allowed": [Function],
             "enum": [
               "get",
               "post",
@@ -1670,7 +1665,6 @@ exports[`HTML elements <button> invalid markup 1`] = `
         "column": 39,
         "context": {
           "allowed": {
-            "allowed": [Function],
             "boolean": true,
           },
           "attribute": "formnovalidate",
@@ -1690,7 +1684,6 @@ exports[`HTML elements <button> invalid markup 1`] = `
         "column": 35,
         "context": {
           "allowed": {
-            "allowed": [Function],
             "enum": [
               /\\^\\[\\^_\\]\\.\\*\\$/,
               "_blank",
@@ -3089,7 +3082,6 @@ exports[`HTML elements <embed> invalid markup 1`] = `
             "enum": [
               /\\^\\.\\+\\$/,
             ],
-            "required": true,
           },
           "attribute": "src",
           "element": "embed",
@@ -4546,7 +4538,6 @@ exports[`HTML elements <img> invalid markup 1`] = `
             "enum": [
               /\\^\\.\\+\\$/,
             ],
-            "required": true,
           },
           "attribute": "src",
           "element": "img",
@@ -4680,7 +4671,6 @@ exports[`HTML elements <input> invalid markup 1`] = `
               "environment",
               "user",
             ],
-            "omit": true,
           },
           "attribute": "capture",
           "element": "input",
@@ -4846,7 +4836,6 @@ exports[`HTML elements <input> invalid markup 1`] = `
               "url",
               "week",
             ],
-            "required": true,
           },
           "attribute": "type",
           "element": "input",
@@ -12175,7 +12164,6 @@ exports[`HTML elements <link> invalid markup 1`] = `
             "enum": [
               /\\^\\.\\+\\$/,
             ],
-            "required": true,
           },
           "attribute": "href",
           "element": "link",
@@ -12209,7 +12197,6 @@ exports[`HTML elements <link> invalid markup 1`] = `
         "column": 39,
         "context": {
           "allowed": {
-            "allowed": [Function],
             "enum": [
               "audio",
               "audioworklet",
@@ -12252,7 +12239,6 @@ exports[`HTML elements <link> invalid markup 1`] = `
         "column": 38,
         "context": {
           "allowed": {
-            "allowed": [Function],
             "enum": [
               /\\^\\.\\+\\$/,
             ],
@@ -12274,7 +12260,6 @@ exports[`HTML elements <link> invalid markup 1`] = `
         "column": 2,
         "context": {
           "allowed": {
-            "allowed": [Function],
             "enum": [
               /\\^\\.\\+\\$/,
             ],
@@ -12311,11 +12296,9 @@ exports[`HTML elements <link> invalid markup 1`] = `
         "column": 48,
         "context": {
           "allowed": {
-            "allowed": [Function],
             "enum": [
               "render",
             ],
-            "list": true,
           },
           "attribute": "blocking",
           "element": "link",
@@ -12349,7 +12332,6 @@ exports[`HTML elements <link> invalid markup 1`] = `
         "column": 48,
         "context": {
           "allowed": {
-            "allowed": [Function],
             "boolean": true,
           },
           "attribute": "disabled",
@@ -12484,7 +12466,6 @@ exports[`HTML elements <map> invalid markup 1`] = `
             "enum": [
               /\\^\\\\S\\+\\$/,
             ],
-            "required": true,
           },
           "attribute": "name",
           "element": "map",
@@ -12506,7 +12487,6 @@ exports[`HTML elements <map> invalid markup 1`] = `
             "enum": [
               /\\^\\\\S\\+\\$/,
             ],
-            "required": true,
           },
           "attribute": "name",
           "element": "map",
@@ -13330,7 +13310,6 @@ exports[`HTML elements <object> invalid markup 1`] = `
             "enum": [
               /\\^\\.\\+\\$/,
             ],
-            "required": true,
           },
           "attribute": "data",
           "element": "object",
@@ -14298,7 +14277,6 @@ exports[`HTML elements <script> invalid markup 1`] = `
         "column": 25,
         "context": {
           "allowed": {
-            "allowed": [Function],
             "enum": [
               /\\^\\.\\+\\$/,
             ],
@@ -14320,7 +14298,6 @@ exports[`HTML elements <script> invalid markup 1`] = `
         "column": 2,
         "context": {
           "allowed": {
-            "allowed": [Function],
             "enum": [
               /\\^\\.\\+\\$/,
             ],
@@ -15965,7 +15942,6 @@ exports[`HTML elements <th> invalid markup 1`] = `
               "colgroup",
               "auto",
             ],
-            "required": true,
           },
           "attribute": "scope",
           "element": "th",
@@ -16788,7 +16764,6 @@ exports[`HTML elements <video> invalid markup 1`] = `
               "metadata",
               "auto",
             ],
-            "omit": true,
           },
           "attribute": "preload",
           "element": "video",
@@ -16933,7 +16908,6 @@ exports[`HTML elements global attributes invalid markup 1`] = `
               "true",
               "false",
             ],
-            "omit": true,
           },
           "attribute": "contenteditable",
           "element": "p",

@@ -8,7 +8,18 @@ interface Context {
 	element: string;
 	attribute: string;
 	value: string;
-	allowed: MetaAttribute;
+	allowed: Pick<MetaAttribute, "enum" | "boolean">;
+}
+
+function pick(attr: MetaAttribute): Pick<MetaAttribute, "enum" | "boolean"> {
+	const result: Pick<MetaAttribute, "enum" | "boolean"> = {};
+	if (typeof attr.enum !== "undefined") {
+		result.enum = attr.enum;
+	}
+	if (typeof attr.boolean !== "undefined") {
+		result.boolean = attr.boolean;
+	}
+	return result;
 }
 
 export default class AttributeAllowedValues extends Rule<Context> {
@@ -64,7 +75,7 @@ export default class AttributeAllowedValues extends Rule<Context> {
 						element: node.tagName,
 						attribute: attr.key,
 						value,
-						allowed: meta.attributes[attr.key],
+						allowed: pick(meta.attributes[attr.key]),
 					};
 					const message = this.getMessage(attr);
 					const location = this.getLocation(attr);
