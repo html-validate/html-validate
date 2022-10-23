@@ -12800,7 +12800,7 @@ exports[`HTML elements <menu> valid markup 1`] = `[]`;
 exports[`HTML elements <meta> invalid markup 1`] = `
 [
   {
-    "errorCount": 9,
+    "errorCount": 10,
     "filePath": "test-files/elements/meta-invalid.html",
     "messages": [
       {
@@ -12939,6 +12939,27 @@ exports[`HTML elements <meta> invalid markup 1`] = `
         "severity": 2,
         "size": 8,
       },
+      {
+        "column": 16,
+        "context": {
+          "allowed": {
+            "enum": [
+              "utf-8",
+            ],
+          },
+          "attribute": "charset",
+          "element": "meta",
+          "value": "iso-8859-1",
+        },
+        "line": 27,
+        "message": "Attribute "charset" has invalid value "iso-8859-1"",
+        "offset": 607,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "meta:nth-child(6)",
+        "severity": 2,
+        "size": 10,
+      },
     ],
     "source": "<!-- should omit end tag -->
 <meta></meta>
@@ -12964,6 +12985,9 @@ exports[`HTML elements <meta> invalid markup 1`] = `
 
 <!-- should not combine "name", "http-equiv" and "itemprop" -->
 <meta content="..." name http-equiv itemprop>
+
+<!-- should not allow other than utf-8 -->
+<meta charset="iso-8859-1">
 ",
     "warningCount": 0,
   },

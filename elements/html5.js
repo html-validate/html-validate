@@ -1228,6 +1228,9 @@ module.exports = defineMetadata({
 		metadata: true,
 		void: true,
 		attributes: {
+			charset: {
+				enum: ["utf-8"],
+			},
 			content: {
 				allowed: allowedIfAttributeIsPresent("name", "http-equiv", "itemprop"),
 			},
