@@ -137,6 +137,16 @@ module.exports = defineMetadata({
 		void: true,
 		attributes: {
 			alt: {},
+			coords: {
+				allowed(node) {
+					const attr = node.getAttribute("shape");
+					if (attr && attr.valueMatches("default", false)) {
+						return `cannot be used when "shape" attribute is "default"`;
+					} else {
+						return null;
+					}
+				},
+			},
 			download: {
 				allowed: allowedIfAttributeIsPresent("href"),
 			},

@@ -472,7 +472,7 @@ exports[`HTML elements <applet> valid markup 1`] = `[]`;
 exports[`HTML elements <area> invalid markup 1`] = `
 [
   {
-    "errorCount": 17,
+    "errorCount": 18,
     "filePath": "test-files/elements/area-invalid.html",
     "messages": [
       {
@@ -742,6 +742,21 @@ exports[`HTML elements <area> invalid markup 1`] = `
         "severity": 2,
         "size": 8,
       },
+      {
+        "column": 24,
+        "context": {
+          "attr": "coords",
+          "details": "cannot be used when "shape" attribute is "default"",
+        },
+        "line": 53,
+        "message": ""coords" attribute cannot be used in this context: cannot be used when "shape" attribute is "default"",
+        "offset": 1267,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "map:nth-child(10) > area",
+        "severity": 2,
+        "size": 6,
+      },
     ],
     "source": "<!-- should require <map> ancestor -->
 <area>
@@ -791,6 +806,11 @@ exports[`HTML elements <area> invalid markup 1`] = `
 <!-- should not be allowed if href is omitted -->
 <map id="invalid-without-href" name="invalid-without-href">
 	<area target="_blank" download ping rel referrerpolicy itemprop>
+</map>
+
+<!-- should not allow "coords" attribute when shape is "default" -->
+<map name="invalid-with-coords">
+	<area shape="default" coords="..">
 </map>
 ",
     "warningCount": 0,
