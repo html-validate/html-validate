@@ -1,3 +1,5 @@
+import { HtmlElement } from "../dom";
+
 export interface PermittedGroup {
 	exclude?: string | string[];
 }
@@ -26,9 +28,22 @@ export enum TextContent {
 }
 
 /**
+ * Callback for the `allowed` property of `MetaAttribute`. It takes a node and
+ * should return `null` if there is no errors and a string with an error
+ * description if there is an error.
+ *
+ * @public
+ */
+export type MetaAttributeAllowedCallback = (node: HtmlElement) => string | null | undefined;
+
+/**
  * @public
  */
 export interface MetaAttribute {
+	/* If set it should be a function evaluating to an error message or null if
+	 * the attribute is allowed */
+	allowed?: MetaAttributeAllowedCallback;
+
 	/* if true this attribute can only take boolean values: my-attr, my-attr="" or my-attr="my-attr" */
 	boolean?: boolean;
 

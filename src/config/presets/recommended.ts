@@ -12,6 +12,7 @@ const config: ConfigData = {
 		"attribute-allowed-values": "error",
 		"attribute-boolean-style": "error",
 		"attribute-empty-style": "error",
+		"attribute-misuse": "error",
 		"close-attr": "error",
 		"close-order": "error",
 		deprecated: "error",

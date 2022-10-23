@@ -260,6 +260,10 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
+                "allowed": {
+                  "function": true,
+                  "title": "Set to a function to evaluate if this attribute is allowed in this context"
+                },
                 "boolean": {
                   "type": "boolean",
                   "title": "Set to true if this is a boolean attribute"

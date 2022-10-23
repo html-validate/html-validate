@@ -13,8 +13,8 @@
 
 <!-- should not allow invalid shape attribute -->
 <map id="invalid-shape" name="foo">
-	<area shape="">
-	<area shape="foobar">
+	<area shape="" coords>
+	<area shape="foobar" coords>
 </map>
 
 <!-- missing alt when required -->
@@ -36,4 +36,27 @@
 <!-- should not allow invalid type keywords -->
 <map id="invalid-target" name="invalid-target">
 	<area href="target" target="_invalid" alt="lorem ipsum">
+</map>
+
+<!-- target cannot be used without href -->
+<map id="target-missing-href" name="target-missing-href">
+	<area target="_blank">
+</map>
+
+<!-- should not be allowed if href is omitted -->
+<map id="invalid-without-href" name="invalid-without-href">
+	<area target="_blank" download ping rel referrerpolicy itemprop>
+</map>
+
+<!-- should not allow "coords" attribute when shape is "default" -->
+<map name="invalid-with-coords">
+	<area shape="default" coords="..">
+</map>
+
+<!-- should require "coords" -->
+<map name="missing-coords">
+	<area shape>
+	<area shape="circle">
+	<area shape="poly">
+	<area shape="rect">
 </map>

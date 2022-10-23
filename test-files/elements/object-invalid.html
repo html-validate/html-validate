@@ -1,15 +1,16 @@
 <!-- should be transparent -->
 <span>
-	<object>
+	<object data="resource">
 		<div>foo</div>
 	</object>
 </span>
 
 <!-- invalid data attribute -->
+<object></object>
 <object data=""></object>
 
 <!-- should not allow flow before <param> -->
-<object>
+<object data="resource">
 	<div></div>
 	<param>
 </object>
@@ -17,5 +18,5 @@
 <!-- should be interactive if usemap is set -->
 <button type="button">
 	foo
-	<object usemap></object>
+	<object data="resource" usemap></object>
 </button>

@@ -5,6 +5,27 @@
 <link>
 <link href="">
 
-<!-- integrity attribute should not be empty -->
-<link href="my-url" integrity>
-<link href="my-url" integrity="">
+<!-- should not allow "as" if "rel" is something other than "preload" or "modulepreload" -->
+<link href="my-url" rel="foobar" as="script">
+
+<!-- should now allow "as" with invalid values  -->
+<link href="my-url" rel="preload" as="foobar">
+
+<!-- "integrity" attribute should not be empty -->
+<link href="my-url" rel="stylesheet" integrity>
+<link href="my-url" rel="stylesheet" integrity="">
+
+<!-- should not allow "integrity" if "rel" is something other than "stylesheet", "preload" or "modulepreload" -->
+<link href="my-url" rel="foobar" integrity="sha384-...">
+
+<!-- should not allow "blocking" with invalid value -->
+<link href="my-url" rel="stylesheet" blocking="foobar">
+
+<!-- should not allow "blocking" if "rel" is something other than "stylesheet", "preload" or "modulepreload" -->
+<link href="my-url" rel="foobar" blocking="render">
+
+<!-- should not allow "disabled" with invalid value -->
+<link href="my-url" rel="stylesheet" disabled="foobar">
+
+<!-- should not allow "disable" if "rel" is something other than "stylesheet" -->
+<link href="my-url" rel="script" disabled>

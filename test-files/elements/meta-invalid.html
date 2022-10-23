@@ -16,3 +16,12 @@
 		<meta>
 	</audio>
 </span>
+
+<!-- should not allow "content" if neither of "name", "http-equiv" or "itemprop" is present -->
+<meta content="...">
+
+<!-- should not combine "name", "http-equiv" and "itemprop" -->
+<meta content="..." name http-equiv itemprop>
+
+<!-- should not allow other than utf-8 -->
+<meta charset="iso-8859-1">

@@ -183,3 +183,24 @@
 	<input type="range" step="5">
 	<input type="image" width="512" alt="lorem ipsum">
 </div>
+
+<!-- should be allowed if type="submit" or type="image" -->
+<div id="valid-form-overrides">
+	<input
+		type="submit"
+		formaction
+		formenctype
+		formmethod="post"
+		formnovalidate
+		formtarget="_blank"
+	>
+	<input
+		type="image"
+		formaction
+		formenctype
+		formmethod="post"
+		formnovalidate
+		formtarget="_blank"
+		alt="lorem ipsum"
+	>
+</div>

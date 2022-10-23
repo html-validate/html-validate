@@ -20,9 +20,12 @@ export {
 	type MetaData,
 	type MetaDataTable,
 	type MetaElement,
+	type MetaAttribute,
+	type MetaAttributeAllowedCallback,
 	MetaTable,
 	MetaCopyableProperty,
 	defineMetadata,
+	metadataHelper,
 } from "./meta";
 export { Rule, type RuleDocumentation } from "./rule";
 export { classifyNodeText, TextClassification } from "./rules/helper";

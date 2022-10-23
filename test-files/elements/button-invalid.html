@@ -3,13 +3,26 @@
 
 <!-- should not allow interactive as content or descendant-->
 <button type="button"><a>foo</a></button>
-<button type="button"><span><a>foo</a></span></button>
+<button type="button">
+	<span><a>foo</a></span>
+</button>
 
 <!-- should not allow nesting -->
-<button type="button"><span><button type="button">foo</button></span></button>
+<button type="button">
+	<span><button type="button">foo</button></span>
+</button>
 
 <!-- disallowed type variants -->
 <button type="foobar">foo</button>
+
+<!-- disallow invalid formmethods -->
+<button type="submit" formmethod="invalid">lorem ipsum</button>
+
+<!-- disallow invalid formnovalidate -->
+<button type="submit" formnovalidate="invalid">lorem ipsum</button>
+
+<!-- should not allow invalid target keywords -->
+<button type="submit" formtarget="_invalid"> lorem ipsum </button>
 
 <!-- missing type -->
 <button>foo</button>
@@ -17,3 +30,10 @@
 <!-- missing accessible text -->
 <button type="button"></button>
 <button type="button"><span aria-hidden="true">foo</span></button>
+
+<!-- should not be allowed if type isn't submit -->
+<div id="invalid-form-overrides">
+	<button type="button" formaction formenctype formmethod="post" formnovalidate formtarget="_blank">
+		lorem ipsum
+	</button>
+</div>

@@ -15,7 +15,33 @@
 <button type="submit">foo</button>
 <button type="reset">foo</button>
 
+<!-- allow valid formmethods -->
+<button type="submit" formmethod="get">lorem ipsum</button>
+<button type="submit" formmethod="post">lorem ipsum</button>
+<button type="submit" formmethod="dialog">lorem ipsum</button>
+
+<!-- allow boolean formnovalidate -->
+<button type="submit" formnovalidate>lorem ipsum</button>
+<button type="submit" formnovalidate="">lorem ipsum</button>
+<button type="submit" formnovalidate="formnovalidate" >lorem ipsum</button>
+
+<!-- should allow target keywords and custom name (must not start with _) -->
+<button type="submit" formtarget="_blank"> lorem ipsum </button>
+<button type="submit" formtarget="_parent"> lorem ipsum </button>
+<button type="submit" formtarget="_self"> lorem ipsum </button>
+<button type="submit" formtarget="_top"> lorem ipsum </button>
+<button type="submit" formtarget="foobar"> lorem ipsum </button>
+
 <!-- should allow aria-label -->
 <button type="button" aria-label="foobar">
 	<i class="icon icon-foo"></i>
 </button>
+
+<!-- should be allowed if type="submit" or omitted -->
+<div id="valid-form-overrides">
+	<button type="submit" formaction formenctype formmethod="post" formnovalidate formtarget="_blank">
+		lorem ipsum
+	</button>
+	<!-- [html-validate-disable-next element-required-attributes] -->
+	<button formaction formenctype formmethod="post" formnovalidate formtarget="_blank">lorem ipsum</button>
+</div>

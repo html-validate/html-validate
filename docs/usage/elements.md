@@ -199,6 +199,7 @@ An object with allowed attribute values.
 
 ```typescript
 export interface MetaAttribute {
+  allowed?: (node: HtmlElement) => string | null;
   boolean?: boolean;
   deprecated?: boolean | string;
   enum?: Array<string | RegExp>;
@@ -208,18 +209,20 @@ export interface MetaAttribute {
 }
 ```
 
-```json
-{
+```js
+const { defineMetadata } = require("html-validate");
+
+module.exports = defineMetadata({
   "custom-element": {
-    "attributes": {
-      "foo": {
-        "boolean": false,
-        "omit": false,
-        "enum": ["bar", "baz"]
-      }
-    }
-  }
-}
+    attributes: {
+      foo: {
+        boolean: false,
+        omit: false,
+        enum: ["bar", "baz"],
+      },
+    },
+  },
+});
 ```
 
 With this metadata the attribute `"foo"` may only have the values `"bar"` or`"foo"`.
@@ -228,6 +231,35 @@ The value cannot be omitted or be used as a boolean property.
 This is used by the {@link attribute-allowed-values} rule.
 
 An empty object may be set as well to mark the attribute as a known attribute but without any validation.
+
+#### `attribute.allowed`
+
+The `allowed` property can be set to a callback taking a single element.
+If the callback returns an error string the attribute cannot be used in the given context.
+
+```js
+const { defineMetadata } = require("html-validate");
+
+module.exports = defineMetadata({
+  "custom-element": {
+    attributes: {
+      foo: {
+        allowed(node) {
+          if (!node.hasAttribute("bar")) {
+            return "needs a bar attribute";
+          } else {
+            return null;
+          }
+        },
+      },
+    },
+  },
+});
+```
+
+Helper functions for writing callbacks are available in {@link api:MetadataHelper}.
+
+This is used by the {@link attribute-misuse} rule to check if an attribute is allowed or not in the context.
 
 #### `attribute.enum`
 

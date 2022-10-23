@@ -68,7 +68,6 @@ exports[`rule attribute-allowed-values smoketest 1`] = `
               "url",
               "week",
             ],
-            "required": true,
           },
           "attribute": "type",
           "element": "input",
