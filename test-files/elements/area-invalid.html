@@ -13,8 +13,8 @@
 
 <!-- should not allow invalid shape attribute -->
 <map id="invalid-shape" name="foo">
-	<area shape="">
-	<area shape="foobar">
+	<area shape="" coords>
+	<area shape="foobar" coords>
 </map>
 
 <!-- missing alt when required -->
@@ -51,4 +51,12 @@
 <!-- should not allow "coords" attribute when shape is "default" -->
 <map name="invalid-with-coords">
 	<area shape="default" coords="..">
+</map>
+
+<!-- should require "coords" -->
+<map name="missing-coords">
+	<area shape>
+	<area shape="circle">
+	<area shape="poly">
+	<area shape="rect">
 </map>

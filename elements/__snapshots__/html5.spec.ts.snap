@@ -472,7 +472,7 @@ exports[`HTML elements <applet> valid markup 1`] = `[]`;
 exports[`HTML elements <area> invalid markup 1`] = `
 [
   {
-    "errorCount": 18,
+    "errorCount": 23,
     "filePath": "test-files/elements/area-invalid.html",
     "messages": [
       {
@@ -557,7 +557,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 17,
         "message": "Attribute "shape" has invalid value "foobar"",
-        "offset": 311,
+        "offset": 318,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "#invalid-shape > area:nth-child(2)",
@@ -569,7 +569,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         "context": "missing-alt",
         "line": 22,
         "message": ""alt" attribute must be set and non-empty when the "href" attribute is present",
-        "offset": 404,
+        "offset": 418,
         "ruleId": "area-alt",
         "ruleUrl": "https://html-validate.org/rules/area-alt.html",
         "selector": "#missing-alt > area",
@@ -581,7 +581,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         "context": "missing-alt",
         "line": 27,
         "message": ""alt" attribute must be set and non-empty when the "href" attribute is present",
-        "offset": 513,
+        "offset": 527,
         "ruleId": "area-alt",
         "ruleUrl": "https://html-validate.org/rules/area-alt.html",
         "selector": "#empty-alt > area",
@@ -593,7 +593,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         "context": "missing-href",
         "line": 32,
         "message": ""alt" attribute cannot be used unless the "href" attribute is present",
-        "offset": 620,
+        "offset": 634,
         "ruleId": "area-alt",
         "ruleUrl": "https://html-validate.org/rules/area-alt.html",
         "selector": "#omit-alt > area:nth-child(1)",
@@ -605,7 +605,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         "context": "missing-href",
         "line": 33,
         "message": ""alt" attribute cannot be used unless the "href" attribute is present",
-        "offset": 635,
+        "offset": 649,
         "ruleId": "area-alt",
         "ruleUrl": "https://html-validate.org/rules/area-alt.html",
         "selector": "#omit-alt > area:nth-child(2)",
@@ -630,7 +630,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 38,
         "message": "Attribute "target" has invalid value "_invalid"",
-        "offset": 787,
+        "offset": 801,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "#invalid-target > area",
@@ -645,7 +645,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 43,
         "message": ""target" attribute cannot be used in this context: requires "href" attribute to be present",
-        "offset": 933,
+        "offset": 947,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#target-missing-href > area",
@@ -660,7 +660,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 48,
         "message": ""target" attribute cannot be used in this context: requires "href" attribute to be present",
-        "offset": 1075,
+        "offset": 1089,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#invalid-without-href > area",
@@ -675,7 +675,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 48,
         "message": ""download" attribute cannot be used in this context: requires "href" attribute to be present",
-        "offset": 1091,
+        "offset": 1105,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#invalid-without-href > area",
@@ -690,7 +690,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 48,
         "message": ""ping" attribute cannot be used in this context: requires "href" attribute to be present",
-        "offset": 1100,
+        "offset": 1114,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#invalid-without-href > area",
@@ -705,7 +705,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 48,
         "message": ""rel" attribute cannot be used in this context: requires "href" attribute to be present",
-        "offset": 1105,
+        "offset": 1119,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#invalid-without-href > area",
@@ -720,7 +720,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 48,
         "message": ""referrerpolicy" attribute cannot be used in this context: requires "href" attribute to be present",
-        "offset": 1109,
+        "offset": 1123,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#invalid-without-href > area",
@@ -735,7 +735,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 48,
         "message": ""itemprop" attribute cannot be used in this context: requires "href" attribute to be present",
-        "offset": 1124,
+        "offset": 1138,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#invalid-without-href > area",
@@ -750,12 +750,96 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 53,
         "message": ""coords" attribute cannot be used in this context: cannot be used when "shape" attribute is "default"",
-        "offset": 1267,
+        "offset": 1281,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "map:nth-child(10) > area",
         "severity": 2,
         "size": 6,
+      },
+      {
+        "column": 8,
+        "context": {
+          "attr": "shape",
+          "details": "requires "coords" attribute to be present",
+        },
+        "line": 58,
+        "message": ""shape" attribute cannot be used in this context: requires "coords" attribute to be present",
+        "offset": 1370,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "map:nth-child(11) > area:nth-child(1)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 8,
+        "context": {
+          "allowed": {
+            "enum": [
+              "rect",
+              "circle",
+              "poly",
+              "default",
+            ],
+          },
+          "attribute": "shape",
+          "element": "area",
+          "value": "",
+        },
+        "line": 58,
+        "message": "Attribute "shape" is missing value",
+        "offset": 1370,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "map:nth-child(11) > area:nth-child(1)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 8,
+        "context": {
+          "attr": "shape",
+          "details": "requires "coords" attribute to be present",
+        },
+        "line": 59,
+        "message": ""shape" attribute cannot be used in this context: requires "coords" attribute to be present",
+        "offset": 1384,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "map:nth-child(11) > area:nth-child(2)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 8,
+        "context": {
+          "attr": "shape",
+          "details": "requires "coords" attribute to be present",
+        },
+        "line": 60,
+        "message": ""shape" attribute cannot be used in this context: requires "coords" attribute to be present",
+        "offset": 1407,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "map:nth-child(11) > area:nth-child(3)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 8,
+        "context": {
+          "attr": "shape",
+          "details": "requires "coords" attribute to be present",
+        },
+        "line": 61,
+        "message": ""shape" attribute cannot be used in this context: requires "coords" attribute to be present",
+        "offset": 1428,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "map:nth-child(11) > area:nth-child(4)",
+        "severity": 2,
+        "size": 5,
       },
     ],
     "source": "<!-- should require <map> ancestor -->
@@ -773,8 +857,8 @@ exports[`HTML elements <area> invalid markup 1`] = `
 
 <!-- should not allow invalid shape attribute -->
 <map id="invalid-shape" name="foo">
-	<area shape="">
-	<area shape="foobar">
+	<area shape="" coords>
+	<area shape="foobar" coords>
 </map>
 
 <!-- missing alt when required -->
@@ -811,6 +895,14 @@ exports[`HTML elements <area> invalid markup 1`] = `
 <!-- should not allow "coords" attribute when shape is "default" -->
 <map name="invalid-with-coords">
 	<area shape="default" coords="..">
+</map>
+
+<!-- should require "coords" -->
+<map name="missing-coords">
+	<area shape>
+	<area shape="circle">
+	<area shape="poly">
+	<area shape="rect">
 </map>
 ",
     "warningCount": 0,

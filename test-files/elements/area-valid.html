@@ -8,9 +8,9 @@
 	</span>
 
 	<!-- should allow shape attribute -->
-	<area shape="rect">
-	<area shape="circle">
-	<area shape="poly">
+	<area shape="rect" coords>
+	<area shape="circle" coords>
+	<area shape="poly" coords>
 	<area shape="default">
 </map>
 
@@ -39,4 +39,9 @@
 	<area shape="circle" coords="..">
 	<area shape="poly" coords="..">
 	<area shape="rect" coords="..">
+</map>
+
+<!-- should not require "coords" when shape is "default"-->
+<map name="valid-with-coords">
+	<area shape="default">
 </map>

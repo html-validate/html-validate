@@ -1,6 +1,6 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 
-const { defineMetadata, metadataHelper } = require("html-validate");
+const { defineMetadata, metadataHelper, DynamicValue } = require("html-validate");
 
 const { allowedIfAttributeIsPresent, allowedIfAttributeIsAbsent, allowedIfAttributeHasValue } =
 	metadataHelper;
@@ -166,6 +166,23 @@ module.exports = defineMetadata({
 				allowed: allowedIfAttributeIsPresent("href"),
 			},
 			shape: {
+				allowed(node) {
+					const attr = node.getAttribute("shape");
+					if (!attr || attr.value instanceof DynamicValue) {
+						return null;
+					}
+					const shape = attr.value || "rect";
+					switch (shape) {
+						case "circ":
+						case "circle":
+						case "poly":
+						case "polygon":
+						case "rect":
+						case "rectangle":
+							return allowedIfAttributeIsPresent("coords")(node);
+					}
+					return null;
+				},
 				enum: ["rect", "circle", "poly", "default"],
 			},
 			target: {
