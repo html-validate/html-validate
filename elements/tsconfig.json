@@ -7,7 +7,7 @@
     "checkJs": true,
     "composite": false,
     "paths": {
-      "html-validate": ["../src"]
+      "html-validate/browser": ["../src/browser.ts"]
     }
   },
   "include": ["./**/*.js"],

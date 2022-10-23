@@ -1,6 +1,6 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 
-const { defineMetadata, metadataHelper, DynamicValue } = require("html-validate");
+const { defineMetadata, metadataHelper, DynamicValue } = require("html-validate/browser");
 
 const { allowedIfAttributeIsPresent, allowedIfAttributeIsAbsent, allowedIfAttributeHasValue } =
 	metadataHelper;
