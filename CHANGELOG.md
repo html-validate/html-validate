@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## [7.7.1](https://gitlab.com/html-validate/html-validate/compare/v7.7.0...v7.7.1) (2022-10-24)
+
+### Bug Fixes
+
+- **api:** export browser bundle as `html-validate/browser` ([dc1c322](https://gitlab.com/html-validate/html-validate/commit/dc1c3228149c3026ec8680587c101c7ff73fefcc))
+- **html5:** handle `<meta property>` (RDFa such as OG) ([63e8814](https://gitlab.com/html-validate/html-validate/commit/63e881478048ef97996959e518d41003fa8f7b52)), closes [#187](https://gitlab.com/html-validate/html-validate/issues/187)
+
 ## [7.7.0](https://gitlab.com/html-validate/html-validate/compare/v7.6.0...v7.7.0) (2022-10-23)
 
 ### Features
