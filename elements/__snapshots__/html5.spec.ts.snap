@@ -12975,10 +12975,10 @@ exports[`HTML elements <meta> invalid markup 1`] = `
         "column": 7,
         "context": {
           "attr": "content",
-          "details": "requires "name", "http-equiv" or "itemprop" attribute to be present",
+          "details": "requires "name", "http-equiv", "itemprop" or "property" attribute to be present",
         },
         "line": 21,
-        "message": ""content" attribute cannot be used in this context: requires "name", "http-equiv" or "itemprop" attribute to be present",
+        "message": ""content" attribute cannot be used in this context: requires "name", "http-equiv", "itemprop" or "property" attribute to be present",
         "offset": 422,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
