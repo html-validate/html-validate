@@ -12,7 +12,7 @@ Some attributes have usage requirements, for instance:
 - `<a target>` requires the `href` attribute.
 - `<button formaction>` requires `type="submit"`.
 - `<meta content>` requires one of the `name`, `http-equiv` or `itemprop` attributes.
-- `<meta>` can only contain of of the `name`, `http-equiv` or `itemprop` attributes.
+- `<meta>` can only contain one of the `name`, `http-equiv` or `itemprop` attributes.
 - `<meta name>` requires the `content` attribute.
 
 ## Rule details
