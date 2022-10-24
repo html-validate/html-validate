@@ -40,7 +40,7 @@ The library contains both a full build and a browser build, if your bundler fail
 
 ```diff
 -import { HtmlValidate } from "html-validate";
-+import { HtmlValidate } from "html-validate/es/browser"; // replace es with cjs for commonjs
++import { HtmlValidate } from "html-validate/browser";
 ```
 
 ## Configuration loading
@@ -58,7 +58,7 @@ To get around this the {@link dev/using-api#staticconfigloader `StaticConfigLoad
 
 ```diff
 -import { HtmlValidate } from "html-validate"
-+import { StaticConfigLoader, HtmlValidate } from "html-validate/es/browser";
++import { StaticConfigLoader, HtmlValidate } from "html-validate/browser";
 
 -const htmlvalidate = new HtmlValidate();
 +const loader = new StaticConfigLoader();
@@ -107,7 +107,7 @@ This will manifest itself with errors such as:
 This is typically archived by passing an object instead of a string when configuring `html-validate`:
 
 ```diff
- import { StaticConfigLoader, HtmlValidate } from "html-validate/es/browser";
+ import { StaticConfigLoader, HtmlValidate } from "html-validate/browser";
 
 +// check your webpack loader! it must return a plain object (not `default: { ... }`, a path/url, etc)
 +import html5 from "html-validate/elements/html5.json";
