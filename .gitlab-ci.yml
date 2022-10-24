@@ -278,6 +278,10 @@ cypress-html-validate:
   <<: *downstream
   trigger: html-validate/cypress-html-validate
 
+demo:
+  <<: *downstream
+  trigger: html-validate/demo
+
 example-plugin:
   <<: *downstream
   trigger: html-validate/example-plugin
@@ -305,6 +309,10 @@ html-validate-vue-webpack-plugin:
 protractor-html-validate:
   <<: *downstream
   trigger: html-validate/protractor-html-validate
+
+try-online:
+  <<: *downstream
+  trigger: html-validate/try-online
 
 vue-cli-plugin-html-validate:
   <<: *downstream
