@@ -1259,7 +1259,7 @@ module.exports = defineMetadata({
 				enum: ["utf-8"],
 			},
 			content: {
-				allowed: allowedIfAttributeIsPresent("name", "http-equiv", "itemprop"),
+				allowed: allowedIfAttributeIsPresent("name", "http-equiv", "itemprop", "property"),
 			},
 			itemprop: {
 				allowed: allowedIfAttributeIsAbsent("http-equiv", "name"),
