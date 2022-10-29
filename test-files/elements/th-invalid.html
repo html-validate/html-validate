@@ -1,13 +1,13 @@
 <!-- should not be allowed outside <tr> -->
 <div>
-	<th scope="auto">foo</th>
+	<th>foo</th>
 </div>
 
 <!-- should not allow <header>, <footer>, sectioning or headings -->
 <table>
 	<tbody>
 		<tr>
-			<th scope="auto">
+			<th>
 				<header></header>
 				<footer></footer>
 				<article></article>
@@ -22,6 +22,9 @@
 		<tr>
 			<!-- should require scope attribute -->
 			<th>foo</th>
+
+			<!-- should not allow auto as a keyword -->
+			<th scope="auto">bar</th>
 
 			<!-- invalid scope attribute -->
 			<th scope="foobar">bar</th>

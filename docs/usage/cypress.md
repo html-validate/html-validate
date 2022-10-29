@@ -138,7 +138,7 @@ cy.htmlvalidate(
 
 Element metadata can be overriden the same way as with the CLI tool by adding a custom inline config or using a separate file.
 
-For instance, to disable the requirement of `scope` being required on `th` elements:
+For instance, to enforce the attribute of `srcset` being required on `img` elements:
 
 ```ts
 import { defineConfig } from "cypress";
@@ -149,10 +149,10 @@ const config: ConfigData = {
   elements: [
     "html5",
     {
-      th: {
+      img: {
         attributes: {
-          scope: {
-            required: false,
+          srcset: {
+            required: true,
           },
         },
       },

@@ -212,12 +212,8 @@ textual description of the content. E.g. it cannot suggest to use `<abbr>` or
 			<td class="table-right">H63</td>
 			<td>
 				Using the scope attribute to associate header cells and data cells in data tables.
-				<em>
-					Use {@link rule:element-required-attributes} to validate. <code>scope</code> is a required
-					attribute on <code>&lt;th&gt;</code> elements.
-				</em>
 			</td>
-			<td class="support-yes">Yes</td>
+			<td class="support-no">No</td>
 		</tr>
 		<tr>
 			<td class="table-right">H64</td>

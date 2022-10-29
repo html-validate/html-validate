@@ -1972,8 +1972,7 @@ export default defineMetadata({
 				enum: ["/\\d+/"],
 			},
 			scope: {
-				required: true,
-				enum: ["row", "col", "rowgroup", "colgroup", "auto"],
+				enum: ["row", "col", "rowgroup", "colgroup"],
 			},
 			valign: {
 				deprecated: true,
