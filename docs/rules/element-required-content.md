@@ -11,7 +11,7 @@ Some elements has requirements where certain child elements has to be present.
 
 The requirements comes from the [element metadata](/usage/elements.html):
 
-```js
+```json
 {
   "my-element": {
     "requiredContent": ["my-other-element"]

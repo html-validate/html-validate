@@ -25,7 +25,7 @@ The `defineMetadata` helper is optional but helps the IDE with completion and ty
 
 Each entry can contain the following properties:
 
-```typescript
+```ts nocompile
 export interface MetaElement {
   /* content categories */
   metadata?: boolean | PropertyExpression;
@@ -86,9 +86,11 @@ argument.
 Some elements depend on the context in which they are used. For instance the audio element
 is interactive content if it has the `controls` attribute:
 
-```js
-"audio": {
-  "interactive": ["hasAttribute", "controls"]
+```json
+{
+  "audio": {
+    "interactive": ["hasAttribute", "controls"]
+  }
 }
 ```
 
@@ -112,7 +114,7 @@ when used.
 Can be set to `true`, a string or an object.
 
 ```typescript
-interface DeprecatedElement {
+export interface DeprecatedElement {
   message?: string;
   documentation?: string;
   source?: string;
@@ -197,7 +199,11 @@ This is typically elements input elements such as `<input>`.
 
 An object with allowed attribute values.
 
-```typescript
+```ts
+import { HtmlElement } from "html-validate";
+
+/* --- */
+
 export interface MetaAttribute {
   allowed?: (node: HtmlElement) => string | null;
   boolean?: boolean;
@@ -209,8 +215,8 @@ export interface MetaAttribute {
 }
 ```
 
-```js
-const { defineMetadata } = require("html-validate");
+```ts
+import { defineMetadata } from "html-validate";
 
 module.exports = defineMetadata({
   "custom-element": {
@@ -321,13 +327,12 @@ Thus `foo="a b"` is valid but `foo="a c"` is not.
 
 The previous (now deprecated) method was to assign an enumerated list of valid values:
 
-```js
-"custom-element": {
-  "attributes": {
-    "foo": [
-      "bar",
-      "baz"
-    ]
+```json
+{
+  "custom-element": {
+    "attributes": {
+      "foo": ["bar", "baz"]
+    }
   }
 }
 ```
@@ -366,12 +371,11 @@ allowed. Can be either a tagname or a content category:
 - `"@embedded"`
 - `"@interactive"`
 
-```js
-"custom-elements": {
-  "permittedContent": [
-    "transclude-slot-1",
-    "transclude-slot-2"
-  ]
+```json
+{
+  "custom-elements": {
+    "permittedContent": ["transclude-slot-1", "transclude-slot-2"]
+  }
 }
 ```
 
@@ -383,11 +387,11 @@ This is used by
 This is normally a whitelist of elements but can be switched to a blacklist by
 using `exclude`:
 
-```js
-"custom-elements": {
-  "permittedContent": [
-    {"exclude": "@interactive"}
-  ]
+```json
+{
+  "custom-elements": {
+    "permittedContent": [{ "exclude": "@interactive" }]
+  }
 }
 ```
 
@@ -396,11 +400,11 @@ using `exclude`:
 Permitted content matches if the element matches any of the entries.
 Entires can also be combined so multiple entries must all match by wrapping entires in an array:
 
-```js
-"custom-elements": {
-  "permittedContent": [
-    ["@flow", {"exclude": "div"}]
-  ]
+```json
+{
+  "custom-elements": {
+    "permittedContent": [["@flow", { "exclude": "div" }]]
+  }
 }
 ```
 
@@ -408,12 +412,11 @@ This will allow any flow content except `<div>`.
 
 Be careful when using multiple combined entries as each group will still match if any matches:
 
-```js
-"custom-elements": {
-  "permittedContent": [
-	"@flow",
-    ["@phrasing", {"exclude": "em"}]
-  ]
+```json
+{
+  "custom-elements": {
+    "permittedContent": ["@flow", ["@phrasing", { "exclude": "em" }]]
+  }
 }
 ```
 
@@ -424,11 +427,11 @@ Since `<em>` will match `@flow` it will be allowed even if excluded by the next 
 If a child is only allowed once it can be suffixed with `?` to limit to 0 or 1
 number of occurrences.
 
-```js
-"table": {
-  "permittedContent": [
-    "caption?"
-  ]
+```json
+{
+  "table": {
+    "permittedContent": ["caption?"]
+  }
 }
 ```
 
@@ -442,14 +445,12 @@ This is used by
 Same as `permittedContent` but checks all descendants and not just intermediate
 children. Both can be used together, e.g `<article>` is defined as:
 
-```js
-"article": {
-  "permittedContent": [
-    "@flow"
-  ],
-  "permittedDescendants": [
-    {"exclude": ["main"]}
-  ]
+```json
+{
+  "article": {
+    "permittedContent": ["@flow"],
+    "permittedDescendants": [{ "exclude": ["main"] }]
+  }
 }
 ```
 
@@ -465,13 +466,11 @@ Requires children to be used in a specific order.
 Elements listed has to occur in the same order as specified, elements which is
 not specified can appear anywhere.
 
-```js
-"table": {
-  "permittedOrder": [
-    "thead",
-    "tbody",
-    "tfoot",
-  ]
+```json
+{
+  "table": {
+    "permittedOrder": ["thead", "tbody", "tfoot"]
+  }
 }
 ```
 
@@ -493,12 +492,11 @@ a direct parent.
 for the ancestors. The selector may include the element being checked as the
 final part of the selector.
 
-```js
-"dt": {
-  "requiredAncestors": [
-    "dl > dt",
-    "dl > div > dt"
-  ]
+```json
+{
+  "dt": {
+    "requiredAncestors": ["dl > dt", "dl > div > dt"]
+  }
 }
 ```
 
@@ -519,11 +517,11 @@ the `<head>` element requires a `<title>` element.
 `requiredContent` is a list of tagnames which must be present as a direct
 descendant of the element.
 
-```js
-"head": {
-  "requiredContent": [
-    "title"
-  ]
+```json
+{
+  "head": {
+    "requiredContent": ["title"]
+  }
 }
 ```
 
@@ -549,11 +547,13 @@ This is used by [text-content](/rules/text-content.html) rule.
 The special `*` element can be used to assign global metadata applying to all
 elements, e.g. global attributes.
 
-```js
-"*": {
-  "attributes": {
-    "tabindex": ["/-?\\d+/"]
-  ]
+```json
+{
+  "*": {
+    "attributes": {
+      "tabindex": ["/-?\\d+/"]
+    }
+  }
 }
 ```
 
@@ -565,23 +565,31 @@ Any new property set on the element will override the parent element.
 
 Given the following metadata:
 
-```js
-"foo": {
-  "flow": true,
-  "transparent": true
-},
-"bar": {
-  "inherit": "foo",
-  "transparent": false
+```json
+{
+  "foo": {
+    "flow": true,
+    "transparent": true
+  },
+  "bar": {
+    "inherit": "foo",
+    "transparent": false
+  }
 }
 ```
 
 The final `<bar>` metadata will be merged to:
 
-```js
-"bar": {
-  "flow": true,
-  "transparent": false
+```json
+{
+  "foo": {
+    "flow": true,
+    "transparent": true
+  },
+  "bar": {
+    "flow": true,
+    "transparent": false
+  }
 }
 ```
 

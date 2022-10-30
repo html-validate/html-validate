@@ -9,10 +9,11 @@ title: Events
 
 ### `config:ready`
 
-```typescript
-{
-  config: ConfigData;
-  rules: { [ruleId: string]: Rule };
+```typescript nocompile
+export interface ConfigReadyEvent {
+  location: Location | null;
+  config: ResolvedConfig;
+  rules: Record<string, Rule<unknown, unknown>>;
 }
 ```
 
@@ -20,8 +21,9 @@ Emitted after after configuration is ready but before DOM is initialized.
 
 ### `source:ready`
 
-```typescript
-{
+```typescript nocompile
+export interface SourceReadyEvent {
+  location: Location | null;
   source: Source;
 }
 ```
@@ -34,9 +36,9 @@ The `hooks` property is always unset.
 
 ### `token`
 
-```typescript
-interface TokenEvent {
-  location: Location;
+```typescript nocompile
+export interface TokenEvent {
+  location: Location | null;
   token: Token;
 }
 ```
@@ -47,8 +49,9 @@ Emitted for each lexer token during parsing.
 
 ### `dom:load`
 
-```typescript
-{
+```typescript nocompile
+export interface DOMLoadEvent {
+  location: Location | null;
   source: Source;
 }
 ```
@@ -58,9 +61,10 @@ Can be used to initialize state in rules.
 
 ### `dom:ready`
 
-```typescript
-{
-  document: DOMTree,
+```typescript nocompile
+export interface DOMReadyEvent {
+  location: Location | null;
+  document: DOMTree;
   source: Source;
 }
 ```
@@ -69,8 +73,8 @@ Emitted after the parsing has finished loading the DOM tree.
 
 ### `doctype`
 
-```typescript
-interface DoctypeEvent {
+```typescript nocompile
+export interface DoctypeEvent {
   location: Location;
   tag: string;
   value: string;
@@ -103,9 +107,10 @@ tag:start         |  tag:ready           tag:start         |  tag:ready
 
 - Deprecated alias: `tag:open`
 
-```typescript
-{
-  target: Node,
+```typescript nocompile
+export interface TagStartEvent {
+  location: Location;
+  target: HtmlElement;
 }
 ```
 
@@ -119,10 +124,11 @@ Use `tag:ready` (all attributes parsed) or `element:ready` (all children parsed)
 
 - Deprecated alias: `tag:close`
 
-```typescript
-{
-  target: Node,
-  previous: Node,
+```typescript nocompile
+export interface TagEndEvent {
+  location: Location;
+  target: HtmlElement | null;
+  previous: HtmlElement;
 }
 ```
 
@@ -133,9 +139,10 @@ It is similar to `element:ready` but will not be emitted for `void` elements.
 
 ### `tag:ready`
 
-```typescript
-{
-  target: Node,
+```typescript nocompile
+export interface TagReadyEvent {
+  location: Location;
+  target: HtmlElement;
 }
 ```
 
@@ -146,9 +153,10 @@ The children will not yet be parsed.
 
 ### `element:ready`
 
-```typescript
-{
-  target: Node,
+```typescript nocompile
+export interface ElementReadyEvent {
+  location: Location;
+  target: HtmlElement;
 }
 ```
 
@@ -159,15 +167,16 @@ It is similar to `tag:end` but will be emitted for `void` elements as well.
 
 ### `attr`
 
-```typescript
-{
-  target: Node,
-  location: Location,
-  valueLocation: Location,
-  key: String,
-  value: String|undefined,
-  quote: 'single'|'double'|undefined,
-  originalAttribute: string;
+```typescript nocompile
+export interface AttributeEvent {
+  location: Location;
+  key: string;
+  value: string | DynamicValue | null;
+  quote: '"' | "'" | null;
+  originalAttribute?: string;
+  target: HtmlElement;
+  keyLocation: Location;
+  valueLocation: Location | null;
 }
 ```
 
@@ -181,8 +190,9 @@ Target node will not have been updated with the new attribute yet (e.g. `node.ge
 
 ### `whitespace`
 
-```typescript
-{
+```typescript nocompile
+export interface WhitespaceEvent {
+  location: Location;
   text: string;
 }
 ```
@@ -191,10 +201,11 @@ Emitted when inter-element, leading and trailing whitespace is parsed.
 
 ### `conditional`
 
-```typescript
-{
+```typescript nocompile
+export interface ConditionalEvent {
+  location: Location;
   condition: string;
-  parent: HTMLElement | null;
+  parent: HtmlElement | null;
 }
 ```
 

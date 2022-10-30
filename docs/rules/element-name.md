@@ -33,11 +33,11 @@ Examples of **correct** code for this rule:
 
 This rule takes and optional object:
 
-```javascript
+```json
 {
-    "pattern": "[a-z][a-z0-9\\-._]*-[a-z0-9\\-._]*$",
-    "whitelist": [],
-    "blacklist": []
+  "pattern": "[a-z][a-z0-9\\-._]*-[a-z0-9\\-._]*$",
+  "whitelist": [],
+  "blacklist": []
 }
 ```
 

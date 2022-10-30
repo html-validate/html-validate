@@ -27,12 +27,14 @@ Examples of **correct** code for this rule:
 
 When using custom elements metadata you can optionally specify a message:
 
-```js
-{
-    "my-element": {
-        "deprecated": "replaced with <other-element>"
-    }
-}
+```ts
+import { defineMetadata } from "html-validate";
+
+export default defineMetadata({
+  "my-element": {
+    deprecated: "replaced with <other-element>",
+  },
+});
 ```
 
 The message will be shown alongside the regular message:
@@ -45,10 +47,10 @@ The message will be shown alongside the regular message:
 
 This rule takes an optional object:
 
-```javascript
+```json
 {
-	"include": [],
-	"exclude": [],
+  "include": [],
+  "exclude": []
 }
 ```
 

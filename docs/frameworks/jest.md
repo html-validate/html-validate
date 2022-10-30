@@ -9,7 +9,7 @@ title: Usage with Jest
 
 In you test import `html-validate/jest`:
 
-```js
+```ts
 import "html-validate/jest";
 ```
 
@@ -21,14 +21,22 @@ This makes all the custom matchers available.
 
 Validates a string of HTML and passes the assertion if the markup is valid.
 
-```js
+```ts
+import "html-validate/jest";
+
+/* --- */
+
 expect("<p></p>").toHTMLValidate();
 expect("<p></i>").not.toHTMLValidate();
 ```
 
 You can also pass jsdom elements:
 
-```js
+```ts
+import "html-validate/jest";
+
+/* --- */
+
 const elem = document.createElement("div");
 expect(elem).toHTMLValidate();
 ```
@@ -41,7 +49,11 @@ expect(elem).toHTMLValidate();
 
 If needed a custom configuration can be passed:
 
-```js
+```ts
+import "html-validate/jest";
+
+/* --- */
+
 expect("<p></i>").toHTMLValidate({
   rules: {
     "close-order": "off",
@@ -54,13 +66,21 @@ This means you can apply transformations using patterns such as `^.*\\.(spec|tes
 
 If you need to override the filename (perhaps because the test-case isn't in the same folder) you can pass in a custom filename as the third argument:
 
-```js
+```ts
+import "html-validate/jest";
+
+/* --- */
+
 expect("<p></i>").toHTMLValidate("path/to/my-file.html");
 ```
 
 Additionally, the `root` configuration property can be used to skip loading from `.htmlvalidate.json` but remember to actually include the rules you need:
 
-```js
+```ts
+import "html-validate/jest";
+
+/* --- */
+
 expect("<p></i>").toHTMLValidate({
   extends: ["html-validate:recommended"],
   root: true,
@@ -70,7 +90,11 @@ expect("<p></i>").toHTMLValidate({
 To test for presence of an error always use the negative form `expect(..).not.toHTMLValidate()`.
 If you pass in an expected error as the first argument it will be matched using `objectContaining` when an error is present.
 
-```js
+```ts
+import "html-validate/jest";
+
+/* --- */
+
 /* OK - error matches */
 expect("<p></i>").not.toHTMLValidate({
   ruleId: "close-order",
@@ -88,7 +112,12 @@ expect("<p></i>").not.toHTMLValidate({
 
 Assert that a HTML-Validate report is valid.
 
-```js
+```ts
+import { HtmlValidate } from "html-validate";
+import "html-validate/jest";
+
+/* --- */
+
 const htmlvalidate = new HtmlValidate();
 const report = htmlvalidate.validateString("<p></p>");
 expect(report).toBeValid();
@@ -99,7 +128,12 @@ expect(report).toBeValid();
 Assert that a HTML-Validate report is invalid.
 Inverse of `toBeValid()`.
 
-```js
+```ts
+import { HtmlValidate } from "html-validate";
+import "html-validate/jest";
+
+/* --- */
+
 const htmlvalidate = new HtmlValidate();
 const report = htmlvalidate.validateString("<p></i>");
 expect(report).toBeInvalid();
@@ -109,7 +143,11 @@ expect(report).toBeInvalid();
 
 Assert that a specific error is present in an HTML-Validate report.
 
-```js
+```ts
+import { HtmlValidate } from "html-validate";
+
+/* --- */
+
 const htmlvalidate = new HtmlValidate();
 const report = htmlvalidate.validateString("<p></i>");
 expect(report).toHaveError("close-order", "Mismatched close-tag, expected '</p>' but found '</i>'");
@@ -121,7 +159,11 @@ Similar to `toHaveError` but but asserts multiple errors.
 The passed list must have the same length as the report.
 Each error must either be `[ruleId, message]` or an object passed to `expect.objectContaining`.
 
-```js
+```ts
+import { HtmlValidate } from "html-validate";
+
+/* --- */
+
 const htmlvalidate = new HtmlValidate();
 const report = htmlvalidate.validateString("<p></i>");
 expect(report).toHaveErrors([
@@ -131,7 +173,14 @@ expect(report).toHaveErrors([
 
 or with object syntax:
 
-```js
+```ts
+import { HtmlValidate } from "html-validate";
+
+const htmlvalidate = new HtmlValidate();
+const report = htmlvalidate.validateString("<p></i>");
+
+/* --- */
+
 expect(report).toHaveErrors([
   {
     ruleId: "close-order",
@@ -144,14 +193,20 @@ expect(report).toHaveErrors([
 
 Writes out the given `Report` or `string` using codeframe formatter and compares with snapshot.
 
-```js
+```ts
+import { HtmlValidate } from "html-validate";
+
+const htmlvalidate = new HtmlValidate();
+
+/* --- */
+
 const report = htmlvalidate.validateString("...");
 expect(report).toMatchCodeframe();
 ```
 
 or
 
-```js
+```ts
 expect("...").toMatchCodeframe();
 ```
 
@@ -159,7 +214,13 @@ expect("...").toMatchCodeframe();
 
 Writes out the given `Report` or `string` using codeframe formatter and compares with inline snapshot.
 
-```js
+```ts
+import { HtmlValidate } from "html-validate";
+
+const htmlvalidate = new HtmlValidate();
+
+/* --- */
+
 const report = htmlvalidate.validateString("...");
 expect(report).toMatchInlineCodeframe(`
   "error: Attribute \\"FOO\\" should be lowercase (attr-case) at inline:1:6:
@@ -171,7 +232,7 @@ expect(report).toMatchInlineCodeframe(`
 
 or
 
-```js
+```ts
 expect("...").toMatchInlineCodeframe(`
   "error: Attribute \\"FOO\\" should be lowercase (attr-case) at inline:1:6:
   > 1 | <div FOO=\\"bar\\"></div>

@@ -8,6 +8,8 @@ name: MetadataHelper
 # `MetadataHelper`
 
 ```ts
+import { MetaAttributeAllowedCallback } from "html-validate";
+
 export interface MetadataHelper {
   allowedIfAttributeIsPresent(...attr: string[]): MetaAttributeAllowedCallback;
   allowedIfAttributeIsAbsent(...attr: string[]): MetaAttributeAllowedCallback;
@@ -23,6 +25,8 @@ These functions are exported as `metadataHelper` and can be used when writing el
 
 ```js
 const { metadataHelper } = require("html-validate");
+
+/* eslint-disable-next-line no-unused-vars */
 const { allowedIfAttributeIsPresent } = metadataHelper;
 ```
 
@@ -32,6 +36,7 @@ Returns an error if another attribute is omitted, i.e. it requires another attri
 
 ```js
 const { defineMetadata, metadataHelper } = require("html-validate");
+
 const { allowedIfAttributeIsPresent } = metadataHelper;
 
 module.exports = defineMetadata({
@@ -52,7 +57,8 @@ Returns an error if another attribute is present, i.e. it requires another attri
 
 ```js
 const { defineMetadata, metadataHelper } = require("html-validate");
-const { allowedIfAttributeIsPresent } = metadataHelper;
+
+const { allowedIfAttributeIsAbsent } = metadataHelper;
 
 module.exports = defineMetadata({
   "custom-element": {
@@ -72,7 +78,8 @@ Returns an error if another attribute does not have one of the listed values.
 
 ```js
 const { defineMetadata, metadataHelper } = require("html-validate");
-const { allowedIfAttributeIsPresent } = metadataHelper;
+
+const { allowedIfAttributeHasValue } = metadataHelper;
 
 module.exports = defineMetadata({
   "custom-element": {

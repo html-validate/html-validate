@@ -8,6 +8,16 @@ title: Writing plugins
 A plugin must expose a single object implementing the following interface:
 
 ```typescript
+import {
+  ConfigData,
+  EventHandler,
+  RuleConstructor,
+  SchemaValidationPatch,
+  Source,
+} from "html-validate";
+
+/* --- */
+
 export interface Plugin {
   /**
    * Name of the plugin.
@@ -21,25 +31,25 @@ export interface Plugin {
    *
    * Hint: import and use the name from `package.json`.
    */
-  name?: string;
+  name?: string | null;
 
   /**
    * Initialization callback.
    *
    * Called once per plugin during initialization.
    */
-  init?: () => void;
+  init?: () => void | null;
 
   /**
    * Setup callback.
    *
    * Called once per source after engine is initialized.
    *
-   * @param source The source about to be validated. Readonly.
-   * @param eventhandler Eventhandler from parser. Can be used to listen for
+   * @param source - The source about to be validated. Readonly.
+   * @param eventhandler - Eventhandler from parser. Can be used to listen for
    * parser events.
    */
-  setup?: (source: Source, eventhandler: EventHandler) => void;
+  setup?: (source: Source, eventhandler: EventHandler) => void | null;
 
   /**
    * Configuration presets.
@@ -50,12 +60,12 @@ export interface Plugin {
    *
    * "extends": ["my-plugin:foobar"]
    */
-  configs?: { [key: string]: ConfigData };
+  configs?: Record<string, ConfigData | null> | null;
 
   /**
    * List of new rules present.
    */
-  rules?: { [key: string]: RuleConstructor };
+  rules?: Record<string, RuleConstructor<any, any> | null> | null;
 
   /**
    * Transformer available in this plugin.
@@ -79,23 +89,28 @@ export interface Plugin {
    *   "^.*\\.foo$": "my-plugin:foobar"
    * }
    */
-  transformer?: Transformer | Record<string, Transformer>;
+  transformer?: Transformer | Record<string, Transformer | null> | null;
 
   /**
    * Extend metadata validation schema.
    */
-  elementSchema?: SchemaValidationPatch;
+  elementSchema?: SchemaValidationPatch | null;
 }
 ```
 
 E.g. a simple plugin with additional rules might look like:
 
-```js
-module.exports = {
+```ts nocompile
+import { Plugin } from "html-validate";
+import MyRule from "./rules/my-rule";
+
+const plugin: Plugin = {
   rules: {
-    "custom/my-rule": require("./rules/my-rule"),
+    "custom/my-rule": MyRule,
   },
 };
+
+module.exports = plugin;
 ```
 
 ## Callbacks
@@ -136,11 +151,9 @@ module.exports = {
 
 Users may then extend the preset using `plugin:name`, e.g.:
 
-```js
+```json
 {
-  "extends": [
-    "my-plugin:recommended"
-  ]
+  "extends": ["my-plugin:recommended"]
 }
 ```
 
@@ -151,7 +164,7 @@ See [writing rules](/dev/writing-rules.html) for details on how to write a rules
 To expose rules in the plugin use the `rules` field. Each plugin should use a
 unique prefix for each rule.
 
-```js
+```ts fake-require
 const MyRule = require("./rules/my-rule.js");
 const AnotherRule = require("./rules/another-rule.js");
 
@@ -166,14 +179,12 @@ module.exports = {
 This makes the rules accessible as usual when configuring in
 `.htmlvalidate.json`:
 
-```js
+```json
 {
-  "plugins": [
-    "my-fancy-plugin",
-  ],
+  "plugins": ["my-fancy-plugin"],
   "rules": {
     "my-prefix/my-rule": "error"
-  },
+  }
 }
 ```
 
@@ -183,8 +194,8 @@ Similar to standalone transformers plugins may also expose them. This can be
 useful to combine transformations, rules and a default set of configuration
 suitable for the filetype/framework.
 
-```js
-const MyTransformer = require("./transformers/my-transformer.js");
+```js fake-require
+const MyTransformer = require("./transformers/my-transformer");
 
 module.exports = {
   transformer: MyTransformer,
@@ -193,7 +204,7 @@ module.exports = {
 
 Users may then extend the preset using the plugin name, e.g.:
 
-```js
+```json
 {
   "transform": {
     "^.*\\.foo$": "my-plugin"
@@ -203,8 +214,8 @@ Users may then extend the preset using the plugin name, e.g.:
 
 If you need multiple transformers export an object with named transformers instead:
 
-```js
-const MyTransformer = require("./transformers/my-transformer.js");
+```js fake-require
+const MyTransformer = require("./transformers/my-transformer");
 
 module.exports = {
   transformer: {
@@ -215,7 +226,7 @@ module.exports = {
 
 Users may then extend the preset using `plugin:name`, e.g.:
 
-```js
+```json
 {
   "transform": {
     "^.*\\.foo$": "my-plugin:my-transformer"
@@ -271,7 +282,7 @@ module.exports = {
 
 Rules may then access `myProperty` using `node.meta.myProperty`:
 
-```typescript
+```ts nocompile
 const meta = event.target.meta;
 switch (meta.myProperty) {
   case "foo": /* ... */
@@ -301,23 +312,27 @@ module.exports = {
 
 Given these two properties only `foo` will be copied (loaded) onto the element when using `loadMeta`:
 
-```js
-module.exports = {
+```json
+{
   "my-element": {
-    foo: "original",
-    bar: "original",
+    "foo": "original",
+    "bar": "original"
   },
   "my-element:slot": {
-    foo: "overwritten",
-    bar: "overwritten",
-  },
-};
+    "foo": "overwritten",
+    "bar": "overwritten"
+  }
+}
 ```
 
-```js
-function processElement(node) {
+```ts
+import { HtmlElement, ProcessElementContext } from "html-validate";
+
+export function processElement(this: ProcessElementContext, node: HtmlElement): void {
   const meta = this.getMetaFor("my-element:slot");
-  node.loadMeta(meta);
+  if (meta) {
+    node.loadMeta(meta);
+  }
 }
 ```
 
@@ -340,6 +355,7 @@ Plugins can use the `compatibilityCheck` helper to verify the library version is
 import { compatibilityCheck } from "html-validate";
 
 const pkg = require("./package.json");
+
 const range = pkg.peerDependencies["html-validate"];
 
 compatibilityCheck(pkg.name, range);
@@ -350,7 +366,14 @@ The helper will write a friendly notice on console if the version is not support
 If you want the error to be fatal you it returns `false` if the version is not supported.
 Additionally you can pass the `silent` option if you want to disable output`
 
-```typescript
+```ts
+import { compatibilityCheck } from "html-validate";
+
+const pkg = { name: "mock-name" };
+const range = "^1";
+
+/* --- */
+
 if (!compatibilityCheck(pkg.name, range, { silent: true })) {
   /* handle incompatible version */
 }

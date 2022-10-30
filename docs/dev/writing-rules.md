@@ -8,18 +8,18 @@ title: Writing rules
 Rules are created by extending the `Rule` class and implementing the `setup`
 method:
 
-```typescript
-import { Rule, RuleDocumentation } from "html-validate";
+```ts
+import { DOMReadyEvent, Rule, RuleDocumentation } from "html-validate";
 
 export default class MyRule extends Rule {
-  documentation(): RuleDocumentation {
+  public documentation(): RuleDocumentation {
     return {
       description: "Lorem ipsum",
       url: "https://example.net/best-practice/my-rule.html",
     };
   }
 
-  setup(): void {
+  public setup(): void {
     /* listen on dom ready event */
     this.on("dom:ready", (event: DOMReadyEvent) => {
       /* do something with the DOM tree */
@@ -49,24 +49,36 @@ This documentation might include contextual information (see below).
 
 By default the error is reported at the same location as the DOM node but if a better location can be provided it should be added as the third argument, typically by using the provided `sliceLocation` helper:
 
-```typescript
+```ts
+import { HtmlElement } from "html-validate";
+
+const node: HtmlElement = {} as unknown as HtmlElement;
+
+/* --- */
+
+import { sliceLocation } from "html-validate";
+
 /* recommended: move start location by 5 characters */
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 const location = sliceLocation(node.location, 5);
+```
+
+```ts
+import { HtmlElement, Location } from "html-validate";
+
+const node: HtmlElement = {} as unknown as HtmlElement;
+
+/* --- */
 
 /* not recommended: construct location manually */
-const location = {
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+const location: Location = {
   filename: node.location.filename,
   line: 1,
   column: 2,
   offset: 1,
   size: 5,
 };
-
-this.report({
-  node,
-  message: "asdf",
-  location,
-});
 ```
 
 ## Error context
@@ -77,15 +89,23 @@ This is very useful for IDE support as the short regular message might not alway
 
 The most important difference is that the context object is passed to the `documentation` method and can be used to give a better description of the error.
 
-```typescript
+```ts
+import { HtmlElement } from "html-validate";
+
+const node: HtmlElement = {} as unknown as HtmlElement;
+
+/* --- */
+
+import { Rule, RuleDocumentation } from "html-validate";
+
 interface RuleContext {
   tagname: string;
   allowed: string[];
 }
 
-class MyRule extends Rule<RuleContext> {
+export class MyRule extends Rule<RuleContext> {
   /* documentation callback now accepts the optional context as first argument */
-  documentation(context?: RuleContext): RuleDocumentation {
+  public documentation(context?: RuleContext): RuleDocumentation {
     /* setup the default documentation object (used when no context is available) */
     const doc: RuleDocumentation = {
       description: "This element cannot be used here.",
@@ -102,7 +122,7 @@ class MyRule extends Rule<RuleContext> {
     return doc;
   }
 
-  setup(): void {
+  public setup(): void {
     /* actual setup code left out for brevity */
 
     /* create a context object for this error */
@@ -132,7 +152,7 @@ class MyRule extends Rule<RuleContext> {
 The error message may contain placeholders using `{{ ... }}`.
 When a placeholder is found it is replaced with a matching key from the context object.
 
-```ts
+```ts nocompile
 const context = {
   value: "my value",
 };
@@ -156,6 +176,14 @@ Options can either be accessed in the class constructor or on `this.options`.
 If any option is required be use to include defaults as the use must not be required to enter any options in their configuration.
 
 ```typescript
+import { HtmlElement } from "html-validate";
+
+const node: HtmlElement = {} as unknown as HtmlElement;
+
+/* --- */
+
+import { Rule } from "html-validate";
+
 interface RuleOptions {
   text: string;
 }
@@ -164,13 +192,13 @@ const defaults: RuleOptions = {
   text: "lorem ipsum",
 };
 
-class MyRule extends Rule<void, RuleOptions> {
-  constructor(options: Partial<RuleOptions>) {
+export class MyRule extends Rule<void, RuleOptions> {
+  public constructor(options: Partial<RuleOptions>) {
     /* assign default values if not provided by user */
     super({ ...defaults, ...options });
   }
 
-  setup(): void {
+  public setup(): void {
     /* actual setup code left out for brevity */
 
     /* disallow the node from containing the text provided in the option */
@@ -196,14 +224,24 @@ If the optional `schema()` function is implemented is should return [JSON schema
 
 The object is merged into the `properties` object of a boilerplate object schema.
 
-```typescript
-class MyRule extends Rule<void, RuleOptions> {
+```ts
+import { Rule, SchemaObject } from "html-validate";
+
+interface RuleOptions {
+  text: string;
+}
+
+export class MyRule extends Rule<void, RuleOptions> {
   public static schema(): SchemaObject {
     return {
       text: {
         type: "string",
       },
     };
+  }
+
+  public setup(): void {
+    /* ... */
   }
 }
 ```

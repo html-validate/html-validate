@@ -9,7 +9,7 @@ title: Grunt task
 
 ## Usage
 
-```js
+```js nocompile
 require("load-grunt-tasks")(grunt);
 
 grunt.initConfig({

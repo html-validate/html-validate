@@ -59,9 +59,9 @@ followed by a boolean attribute `Barney`.
 
 This rule takes an optional object:
 
-```javascript
+```json
 {
-    "relaxed": false
+  "relaxed": false
 }
 ```
 

@@ -28,10 +28,10 @@ Examples of **correct** code for this rule:
 
 This rule takes an optional object:
 
-```javascript
+```json
 {
-	"pattern": "[a-z0-9-:]+",
-	"ignoreForeign": true
+  "pattern": "[a-z0-9-:]+",
+  "ignoreForeign": true
 }
 ```
 

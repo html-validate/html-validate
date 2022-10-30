@@ -105,7 +105,7 @@ While the old format is supported in userland internally it is converted to the 
 
 For instance, given a rule such as:
 
-```ts
+```ts nocompile
 function myCustomRule(node: DOMNode, attr: Attribute, rule: string[]): void {
   /* ... */
 }
@@ -129,7 +129,7 @@ The signature of the function must be changed to:
 
 If you want backwards compatibility you must handle both `string[]` and `MetaAttribute`, `Array.isArray` can be used to distinguish between the two:
 
-```ts
+```ts nocompile
 function myCustomRule(node: DOMNode, attr: Attribute, rule: string[] | MetaAttribute): void {
   if (Array.isArray(rule)) {
     /* legacy code path */
@@ -216,7 +216,7 @@ If you use the `root` property as a workaround for the directory traversal you c
 
 The CLI class is not affected as it will enable `FileSystemConfigLoader` automatically, so the following code will continue to work as expected:
 
-```ts
+```ts nocompile
 const cli = new CLI();
 const htmlvalidate = cli.getValidator();
 ```

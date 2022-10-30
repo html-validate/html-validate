@@ -30,9 +30,9 @@ Examples of **correct** code for this rule:
 
 This rule takes an optional object:
 
-```javascript
+```json
 {
-	"style": "uppercase",
+  "style": "uppercase"
 }
 ```
 

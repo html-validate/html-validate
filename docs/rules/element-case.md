@@ -35,9 +35,9 @@ When using styles such as `pascalcase` the start and end tag must have matching 
 
 This rule takes an optional object:
 
-```javascript
+```json
 {
-	"style": "lowercase"
+  "style": "lowercase"
 }
 ```
 

@@ -8,18 +8,14 @@ title: Writing tests for custom elements
 Writing tests is as simple as using the HTML-Validate API configured with the metadata file.
 The following example is using Jest but would be similar in other testing frameworks.
 
-```js
-const { HtmlValidate } = require("html-validate");
-const path = require("path");
+```ts
+import * as path from "path";
+import { HtmlValidate } from "html-validate";
 
-let htmlvalidate;
-
-beforeEach(() => {
-  htmlvalidate = new HtmlValidate({
-    root: true,
-    elements: ["html5", path.join(__dirname, "elements.json")],
-    extends: ["html-validate:recommended"],
-  });
+const htmlvalidate = new HtmlValidate({
+  root: true,
+  elements: ["html5", path.join(__dirname, "elements.json")],
+  extends: ["html-validate:recommended"],
 });
 
 it("should give error when using <div> as content", () => {
@@ -43,8 +39,16 @@ it("should give error when using <div> as content", () => {
 
 When using Jest in particular there are helper functions to make it even easier:
 
-```js
-require("html-validate/jest");
+```ts
+import * as path from "path";
+import { HtmlValidate } from "html-validate";
+import "html-validate/jest";
+
+const htmlvalidate = new HtmlValidate({
+  root: true,
+  elements: ["html5", path.join(__dirname, "elements.json")],
+  extends: ["html-validate:recommended"],
+});
 
 it("should give error when using <div> as content", () => {
   const report = htmlvalidate.validateString("<my-component><div>lorem ipsum</div></my-component>");

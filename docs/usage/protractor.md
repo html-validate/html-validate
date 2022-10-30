@@ -11,18 +11,18 @@ To validate browser source from protractor:
 
 In `protractor.conf.js`:
 
-```js
-{
-    plugins: [
-        /* load plugin */
-        {package: 'protractor-html-validate'}
-    ],
+```js fake-require
+module.exports = {
+  plugins: [
+    /* load plugin */
+    { package: "protractor-html-validate" },
+  ],
 
-    onPrepare: () => {
-        /* load jasmine helper */
-        require('protractor-html-validate/jasmine');
-    }
-}
+  onPrepare: () => {
+    /* load jasmine helper */
+    require("protractor-html-validate/jasmine");
+  },
+};
 ```
 
 See [protractor-html-validate][npm] for details.

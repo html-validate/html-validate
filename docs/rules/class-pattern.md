@@ -27,9 +27,9 @@ Examples of **correct** code for this rule:
 
 This rule takes and optional object:
 
-```javascript
+```json
 {
-    "pattern": "kebabcase"
+  "pattern": "kebabcase"
 }
 ```
 

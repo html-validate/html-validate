@@ -22,7 +22,9 @@ This article assume you are trying to get something similar to this code to run 
 ```ts
 import { HtmlValidate } from "html-validate";
 
+const markup = "<button></button>";
 const htmlvalidate = new HtmlValidate();
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 const report = htmlvalidate.validateString(markup, "my-file.html");
 ```
 

@@ -15,7 +15,11 @@ Optional hooks can be attached.
 This is usually added by transformers to postprocess.
 
 ```ts
-interface Source {
+import { SourceHooks } from "html-validate";
+
+/* --- */
+
+export interface Source {
   data: string;
   filename: string;
 
@@ -67,23 +71,27 @@ interface Source {
 
 ## `SourceHooks`
 
-```
-interface SourceHooks {
-	/**
-	 * Called for every attribute.
-	 *
-	 * The original attribute must be yielded as well or no attribute will be
-	 * added.
-	 *
-	 * @returns Attribute data for an attribute to be added to the element.
-	 */
-	processAttribute?: ProcessAttributeCallback | null;
+```ts
+import { ProcessAttributeCallback, ProcessElementCallback } from "html-validate";
 
-	/**
-	 * Called for every element after element is created but before any children.
-	 *
-	 * May modify the element.
-	 */
-	processElement?: ProcessElementCallback | null;
+/* --- */
+
+export interface SourceHooks {
+  /**
+   * Called for every attribute.
+   *
+   * The original attribute must be yielded as well or no attribute will be
+   * added.
+   *
+   * @returns Attribute data for an attribute to be added to the element.
+   */
+  processAttribute?: ProcessAttributeCallback | null;
+
+  /**
+   * Called for every element after element is created but before any children.
+   *
+   * May modify the element.
+   */
+  processElement?: ProcessElementCallback | null;
 }
 ```

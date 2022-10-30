@@ -63,11 +63,13 @@ Examples of **correct** code for this rule:
 
 This rule takes an optional object:
 
-```javascript
+```jsonc
 {
-	"mapping": { .. },
-	"include": [],
-	"exclude": [],
+  "mapping": {
+    /* ... */
+  },
+  "include": [],
+  "exclude": []
 }
 ```
 

@@ -10,23 +10,29 @@ title: Transformers
 Each transformer must implement the following API:
 
 ```typescript
-import { Transformer, TransformContext } from "html-validate";
+import { Source, Transformer, TransformContext } from "html-validate";
 
 /* implementation */
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 function myTransform(this: TransformContext, source: Source): Iterable<Source> {
   /* ... */
+  return [];
 }
 
 /* api version declaration */
 myTransform.api = 1;
 
 /* export */
-module.exports = myTransform as Transfomer;
+module.exports = myTransform as Transformer;
 ```
 
 ### `TransformContext`
 
 ```typescript
+import { Source } from "html-validate";
+
+/* --- */
+
 export interface TransformContext {
   hasChain(filename: string): boolean;
   chain(source: Source, filename: string): Iterable<Source>;
@@ -38,9 +44,20 @@ export interface TransformContext {
 Chain transformations. Sometimes multiple transformers must be applied.
 For instance, a Markdown file with JSX in a code-block.
 
-```typescript
-for (const source of myTransformation()) {
-  yield * this.chain(source, `${originalFilename}.foo`);
+```ts
+import { Source, TransformContext } from "html-validate";
+
+function transformImplementation(_source: Source): Iterable<Source> {
+  return [];
+}
+
+/* --- */
+
+export function* myTransform(this: TransformContext, source: Source): Iterable<Source> {
+  for (const transformedSource of transformImplementation(source)) {
+    const next = `${source.filename}.foo`;
+    yield* this.chain(transformedSource, next);
+  }
 }
 ```
 
@@ -58,20 +75,28 @@ While it is always safe to call `chain(..)` as it will passthru sources without 
 
 Given a configuration such as:
 
-```js
-"transform": {
-  "^.*\\.foo$": "my-transformer"
-  "^.*:virtual$": "my-other-transformer"
+```json
+{
+  "transform": {
+    "^.*\\.foo$": "my-transformer",
+    "^.*:virtual$": "my-other-transformer"
+  }
 }
 ```
 
 `my-transformer` can then implement the following pattern:
 
-```typescript
-/* create a virtual filename */
-const next = `${source.filename}:virtual`;
-if (this.hasChain(next)) {
-  yield * this.chain(source, next);
+```ts
+import { Source, TransformContext } from "html-validate";
+
+/* --- */
+
+export function* myTransform(this: TransformContext, source: Source): Iterable<Source> {
+  /* create a virtual filename */
+  const next = `${source.filename}:virtual`;
+  if (this.hasChain(next)) {
+    yield* this.chain(source, next);
+  }
 }
 ```
 
@@ -82,11 +107,13 @@ This is useful when the transformer needs to deal with multiple languages and th
 
 Extracts templates from javascript sources.
 
-```typescript
-const { TemplateExtractor } = require("html-validate");
+```ts
+import { TemplateExtractor } from "html-validate";
+
 const te = TemplateExtractor.fromFilename("my-file.js");
 
 /* finds any {template: '...'} */
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 const source = te.extractObjectProperty("template");
 ```
 
@@ -96,6 +123,10 @@ The validator engine works on a `Source` object.
 A transformer take a source object as argument and returns zero or more new sources.
 
 ```typescript
+import { SourceHooks } from "html-validate";
+
+/* --- */
+
 export interface Source {
   data: string;
   filename: string;
@@ -119,9 +150,12 @@ Hooks should only be added in the last transformer, if chaining is used the hook
 
 Transformers can add hooks for additional processing by setting `source.hooks`:
 
-```typescript
+```ts nocompile
+import { AttributeData, HtmlElement } from "html-validate";
+
 function processAttribute(attr: AttributeData): IterableIterator<AttributeData> {
   /* handle attribute */
+  return [];
 }
 
 function processElement(node: HtmlElement): void {

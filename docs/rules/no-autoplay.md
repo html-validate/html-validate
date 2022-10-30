@@ -36,10 +36,10 @@ Examples of **correct** code for this rule:
 
 This rule takes an optional object:
 
-```javascript
+```json
 {
-	"include": ["audio", "video"],
-	"exclude": [],
+  "include": ["audio", "video"],
+  "exclude": []
 }
 ```
 

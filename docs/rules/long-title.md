@@ -39,9 +39,9 @@ Examples of **correct** code for this rule:
 
 This rule takes an optional object:
 
-```javascript
+```json
 {
-    "maxlength": 120
+  "maxlength": 120
 }
 ```
 

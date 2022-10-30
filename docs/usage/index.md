@@ -41,7 +41,7 @@ Configuration files will be searched from the target file and up until either no
 
 Configuration can be extended from bundled preset or shareable configurations.
 
-```json
+```jsonc
 {
   "extends": [
     /* bundled preset */
@@ -93,7 +93,7 @@ which context it can be used, allowed/disallowed attributes, etc. If `elements`
 is not specified it defaults to `["html5"]` which is a bundled collection for
 all HTML5 elements.
 
-```json
+```jsonc
 {
   "elements": [
     "html5",

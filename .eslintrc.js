@@ -20,6 +20,15 @@ module.exports = {
 			},
 		},
 		{
+			files: ["docs/examples/**/*.[jt]s"],
+			rules: {
+				"import/no-duplicates": "off",
+				"import/no-unresolved": "off",
+				"tsdoc/syntax": "off",
+				"no-console": "off",
+			},
+		},
+		{
 			files: ["src/**/*.ts"],
 			excludedFiles: ["src/**/*.spec.ts"],
 			parserOptions: {

@@ -13,7 +13,7 @@ certain values.
 
 The requirements comes from the [element metadata](/usage/elements.html):
 
-```js
+```json
 {
   "input": {
     "requiredAttributes": ["type"]

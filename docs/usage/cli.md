@@ -114,7 +114,7 @@ Note that specifying a separate configuration file changes the default
 configuration but `.htmlvalidate.json` files will still be searched from the
 filesystem. Set the `root` property to `true` to prevent this behavior:
 
-```js
+```json
 {
   "root": true
 }

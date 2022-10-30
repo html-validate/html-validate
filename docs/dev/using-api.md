@@ -20,7 +20,7 @@ The default full bundle includes everything (`CLI` classes etc) while the browse
 
 ## Validating files
 
-```typescript
+```ts
 import { HtmlValidate } from "html-validate";
 
 const htmlvalidate = new HtmlValidate();
@@ -70,12 +70,24 @@ In addition to `validateFile` there is also `validateString` and
 from the filesystem and the full configuration must be passed to the
 `HtmlValidate` constructor.
 
-```typescript
+```ts
+import { HtmlValidate } from "html-validate";
+
+const htmlvalidate = new HtmlValidate();
+
+/* --- */
+
 const report = htmlvalidate.validateString("<div>lorem ipsum</span>");
 console.log(report.results);
 ```
 
-```typescript
+```ts
+import { HtmlValidate } from "html-validate";
+
+const htmlvalidate = new HtmlValidate();
+
+/* --- */
+
 const report = htmlvalidate.validateSource({
   /* markup to validate */
   data: "<div>lorem ipsum</span>",
@@ -87,6 +99,7 @@ const report = htmlvalidate.validateSource({
    * in original file. */
   line: 12,
   column: 8,
+  offset: 59,
 });
 console.log(report.results);
 ```
@@ -113,7 +126,10 @@ To validate multiple files you need to call `validateFile` for each one,
 obtaining a report for each one. The reports can then be merged together,
 forming a new `Report` object.
 
-```typescript
+```ts
+import { HtmlValidate, Reporter } from "html-validate";
+
+const htmlvalidate = new HtmlValidate();
 const report1 = htmlvalidate.validateFile("myfile.html");
 const report2 = htmlvalidate.validateFile("anotherfile.html");
 
@@ -141,7 +157,7 @@ HTML-validate comes with a number of builtin formatters:
 
 Formatters work on the `results` property in a report and all returns a formatted string:
 
-```typescript
+```ts
 import { HtmlValidate, formatterFactory } from "html-validate";
 
 const htmlvalidate = new HtmlValidate();
@@ -153,17 +169,28 @@ console.log(text(report.results));
 
 Using the CLI API there is a factory function to retrieve formatters (see `html-validate --help` for details about the format):
 
-```typescript
-import { formatterFactory } from "html-validate";
+```ts
+import { CLI } from "html-validate";
 
-const stylish = formatterFactory("stylish");
-console.log(stylish(report));
+const cli = new CLI();
+const htmlvalidate = cli.getValidator();
+const formatter = cli.getFormatter("stylish,checkstyle=html-validate.xml");
+const report = htmlvalidate.validateFile("myfile.html");
+console.log(formatter(report));
 ```
 
 In addition, any ESLint compatible reporter will work:
 
-```typescript
+```ts
+import { HtmlValidate } from "html-validate";
+
+const htmlvalidate = new HtmlValidate();
+const report = htmlvalidate.validateFile("myfile.html");
+
+/* --- */
+
 const stylish = require("eslint/lib/formatters/stylish");
+
 console.log(stylish(report.results));
 ```
 
@@ -178,13 +205,16 @@ To specify a loader pass it as the first argument to constructor:
 import { FileSystemConfigLoader, HtmlValidate } from "html-validate";
 
 const loader = new FileSystemConfigLoader();
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 const htmlvalidate = new HtmlValidate(loader);
 ```
 
 A fully custom loader can be impemented by inheriting from `ConfigLoader`:
 
 ```ts
-class MyCustomLoader extends ConfigLoader {
+import { Config, ConfigData, ConfigLoader } from "html-validate";
+
+export class MyCustomLoader extends ConfigLoader {
   public override getConfigFor(handle: string, configOverride?: ConfigData): Config {
     /* return config for given handle (e.g. filename passed to validateFile) */
     const override = this.loadFromObject(configOverride || {});
@@ -193,6 +223,7 @@ class MyCustomLoader extends ConfigLoader {
     return merged;
   }
 
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   public override flushCache(handle?: string): void {
     /* do nothing for this example */
   }
@@ -218,6 +249,12 @@ The custom loader is used the same as builtin loaders:
 When markup is validated the library will call the loader to fetch configuration, e.g:
 
 ```ts
+import { HtmlValidate } from "html-validate";
+
+const htmlvalidate = new HtmlValidate();
+
+/* --- */
+
 htmlvalidate.validateFile("foo.html");
 htmlvalidate.validateString("..", "my-fancy-handle");
 ```
@@ -248,24 +285,47 @@ htmlvalidate.validateString("..", "/path/to/my-file.html");
 Default loader which loads configuration only from the configuration passed to the constructor or explicit overrides to `validateString(..)`.
 
 ```ts
-const loader = StaticConfigLoader({
-  /* global configuration */
+import { StaticConfigLoader, HtmlValidate } from "html-validate";
+
+const loader = new StaticConfigLoader({
+  /* your global configuration here */
 });
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+const htmlvalidate = new HtmlValidate(loader);
 ```
 
 The global configuration is used by default when using `validateFile`, `validateString` and `validateSource` without any arguments:
 
 ```ts
+import { StaticConfigLoader, HtmlValidate } from "html-validate";
+
+const loader = new StaticConfigLoader({
+  /* your global configuration here */
+});
+const htmlvalidate = new HtmlValidate(loader);
+
+/* --- */
+
 htmlvalidate.validateFile("myfile.html");
 htmlvalidate.validateString("..");
 htmlvalidate.validateSource({
   data: "..",
+  filename: "myfile.html",
+  line: 1,
+  column: 1,
+  offset: 0,
 });
 ```
 
 Each call may also pass a configuration override (merged with global):
 
 ```ts
+import { HtmlValidate } from "html-validate";
+
+const htmlvalidate = new HtmlValidate();
+
+/* --- */
+
 htmlvalidate.validateString("..", {
   /* config override */
 });
@@ -282,7 +342,13 @@ integrations with tools it might be desirable to keep a single instance of
 `HtmlValidate` around and in that case the cache needs to be flushed if
 configuration changes are detected.
 
-```typescript
+```ts
+import { HtmlValidate } from "html-validate";
+
+const htmlvalidate = new HtmlValidate();
+
+/* --- */
+
 /* flush everything */
 htmlvalidate.flushConfigCache();
 
@@ -295,11 +361,11 @@ htmlvalidate.flushConfigCache("myfile.html");
 If using jest to write tests there is a couple of helpers to assist writing
 tests:
 
-```typescript
-import { HtmlValidate } from "html-validate";
+```ts nocompile
+import { HtmlValidate, ConfigData } from "html-validate";
 import "html-validate/jest";
 
-const config = {
+const config: ConfigData = {
   rules: {
     "my-rule": "error",
   },
@@ -323,13 +389,22 @@ test("should not frobnicate a flux", () => {
 
 The CLI interface can be wrapped using the `CLI` class.
 
-```js
+```ts
+import { CLI } from "html-validate";
+
+/* replace with your favourite cli arg parser */
+const argv = {
+  configFile: "myconfig.json",
+  formatter: "stylish",
+};
+
 const cli = new CLI({
   configFile: argv.configFile,
-  rules: argv.rules,
 });
+
 const htmlvalidate = cli.getValidator();
 const formatter = cli.getFormatter(argv.formatter);
-const files = cli.expandFiles("**/*.html");
+const files = cli.expandFiles(["**/*.html"]);
 const report = htmlvalidate.validateMultipleFiles(files);
+console.log(formatter(report));
 ```

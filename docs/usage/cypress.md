@@ -1,6 +1,9 @@
 ---
 docType: content
 title: Cypress plugin
+# Note: this file relies heavily on the typescript declarations in
+# `docs/examples/types/cypress*`, if you find yourself getting compilation
+# errors it could be because the declarations are not complete.
 ---
 
 # Cypress plugin
@@ -16,25 +19,30 @@ With NPM 7 or later it will be satisfied by the peer dependency but for a more c
 
 ## Usage
 
-In `cypress/plugins/index.js`:
+In `cypress.config.[jt]s`:
 
-```js
-const htmlvalidate = require("cypress-html-validate/dist/plugin");
+```ts
+import { defineConfig } from "cypress";
+import htmlvalidate from "cypress-html-validate/plugin";
 
-module.exports = (on) => {
-  htmlvalidate.install(on);
-};
+export default defineConfig({
+  e2e: {
+    setupNodeEvents(on) {
+      htmlvalidate.install(on);
+    },
+  },
+});
 ```
 
-In `cypress/support/index.js`:
+In `cypress/support/e2e.[jt]s` and/or `cypress/support/component.[jt]s`:
 
-```js
-import "cypress-html-validate/dist/commands";
+```ts
+import "cypress-html-validate/commands";
 ```
 
 In specs:
 
-```js
+```ts nocompile
 it("should be valid", () => {
   cy.visit("/my-page.html");
   cy.htmlvalidate();
@@ -43,7 +51,7 @@ it("should be valid", () => {
 
 To automatically run after each test you can use `afterEach` either in the spec file or in `cypress/support/index.js`:
 
-```js
+```ts nocompile
 afterEach(() => {
   cy.htmlvalidate();
 });
@@ -55,28 +63,44 @@ afterEach(() => {
 
 `html-validate` and the plugin can configured globally in `cypress/plugins/index.js`:
 
-```js
+```ts
+import { defineConfig } from "cypress";
+import { ConfigData } from "html-validate";
+import htmlvalidate, { CypressHtmlValidateOptions } from "cypress-html-validate/plugin";
+
 /* html-validate configuration */
-const config = {
+const config: ConfigData = {
   rules: {
     foo: "error",
   },
 };
+
 /* plugin options */
-const options = {
+const options: Partial<CypressHtmlValidateOptions> = {
   exclude: [],
   include: [],
   formatter(messages) {
     console.log(messages);
   },
 };
-htmlvalidate.install(on, config, options);
+
+export default defineConfig({
+  e2e: {
+    setupNodeEvents(on) {
+      htmlvalidate.install(on, config, options);
+    },
+  },
+});
 ```
 
 The default configuration extends `html-validate:recommended` and `html-validate:document` (see {@link rules/presets presets}).
 This can be overridden by explictly specifying `extends: []`:
 
-```js
+```ts nocompile
+import htmlvalidate from "cypress-html-validate/plugin";
+
+/* --- */
+
 htmlvalidate.install(on, {
   extends: [],
 });
@@ -88,11 +112,11 @@ See {@link usage#configuration full list of configuration options}.
 
 If you want to override per call you can pass configuration and/or options directly to the function:
 
-```js
+```ts nocompile
 cy.htmlvalidate([config], [options]);
 ```
 
-```js
+```ts nocompile
 cy.htmlvalidate(
   {
     rules: {
@@ -116,8 +140,12 @@ Element metadata can be overriden the same way as with the CLI tool by adding a 
 
 For instance, to disable the requirement of `scope` being required on `th` elements:
 
-```js
-const config = {
+```ts
+import { defineConfig } from "cypress";
+import { ConfigData } from "html-validate";
+import htmlvalidate from "cypress-html-validate/plugin";
+
+const config: ConfigData = {
   elements: [
     "html5",
     {
@@ -131,7 +159,14 @@ const config = {
     },
   ],
 };
-htmlvalidate.install(on, config);
+
+export default defineConfig({
+  e2e: {
+    setupNodeEvents(on) {
+      htmlvalidate.install(on, config);
+    },
+  },
+});
 ```
 
 ## Options

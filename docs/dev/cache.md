@@ -16,7 +16,12 @@ The cache is stored per `DOMNode` so the key must only be unique per type of com
 The cache key is typically `Symbol` named after the function performing the calculation but any unique string can be used.
 
 ```ts
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 const CACHE_KEY = Symbol(myFunction.name);
+
+function myFunction(): void {
+  /* ... */
+}
 ```
 
 ## Type safety (typescript)
@@ -24,6 +29,11 @@ const CACHE_KEY = Symbol(myFunction.name);
 Type safety can be archived by augmenting the `DOMNodeCache` interface:
 
 ```ts
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+const CACHE_KEY = Symbol();
+
+/* --- */
+
 declare module "html-validate" {
   export interface DOMNodeCache {
     [CACHE_KEY]?: number;
@@ -39,6 +49,14 @@ Without type declaration the value is implied to be `any` and the user must manu
 ## Example
 
 ```ts
+import { HtmlElement } from "html-validate";
+
+function expensiveComputation(_node: HtmlElement): number {
+  return 0;
+}
+
+/* --- */
+
 const CACHE_KEY = Symbol(myFunction.name);
 
 declare module "html-validate" {
