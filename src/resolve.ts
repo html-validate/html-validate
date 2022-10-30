@@ -3,8 +3,4 @@
  * any changes to this file is present in the virtual module.
  */
 
-import path from "path";
-
-export const projectRoot = path.resolve(__dirname, "..");
 export const legacyRequire = require;
-export const distFolder = path.join(projectRoot, "src");

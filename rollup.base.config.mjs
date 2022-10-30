@@ -5,11 +5,10 @@ import { builtinModules } from "module";
 import json from "@rollup/plugin-json"; //native solution coming: https://nodejs.org/docs/latest/api/esm.html#esm_json_modules
 import replace from "@rollup/plugin-replace";
 import virtual from "@rollup/plugin-virtual";
+import typescript from "@rollup/plugin-typescript";
 import copy from "rollup-plugin-copy";
 import dts from "rollup-plugin-dts";
-
-/* eslint-disable-next-line -- eslint-plugin-import seems to choke on import.meta.* */
-import typescript from "@rollup/plugin-typescript";
+import getRuleUrl from "./src/utils/get-rule-url.js";
 
 const rootDir = fileURLToPath(new URL(".", import.meta.url));
 const packageJson = JSON.parse(fs.readFileSync(path.join(rootDir, "package.json"), "utf-8"));
@@ -99,19 +98,12 @@ function manualChunks(id) {
 function generateResolved(format) {
 	if (format === "es") {
 		return `
-			import path from "path";
-			import { fileURLToPath } from "node:url";
 			import { createRequire } from "module";
-			export const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../");
 			export const legacyRequire = createRequire(import.meta.url);
-			export const distFolder = path.resolve(projectRoot, "dist/${format}");
 		`;
 	} else {
 		return `
-			import path from "path";
-			export const projectRoot = path.resolve(__dirname, "../../");
 			export const legacyRequire = require;
-			export const distFolder = path.resolve(projectRoot, "dist/${format}");
 		`;
 	}
 }
@@ -154,10 +146,8 @@ export function build(format) {
 						 *
 						 * @param {string} filename
 						 */
-						__filename: (filename) => {
-							const relative = path.relative(path.join(rootDir, "src"), filename);
-							const normalized = relative.replace(/\\/g, "/");
-							return `"@/${normalized}"`;
+						"ruleDocumentationUrl(__filename)"(filename) {
+							return JSON.stringify(getRuleUrl(filename, packageJson.homepage));
 						},
 					},
 				}),
