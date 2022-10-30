@@ -3,6 +3,7 @@ import path from "path";
 import Ajv from "ajv";
 import ajvSchemaDraft from "ajv/lib/refs/json-schema-draft-06.json";
 import deepmerge from "deepmerge";
+import { bundledElements } from "../elements";
 import { ensureError, SchemaValidationError } from "../error";
 import { MetaTable } from "../meta";
 import { MetaCopyableProperty, MetaDataTable, MetaElement } from "../meta/element";
@@ -10,7 +11,7 @@ import { Plugin } from "../plugin";
 import schema from "../schema/config.json";
 import { Transformer, TRANSFORMER_API } from "../transform";
 import { requireUncached } from "../utils/require-uncached";
-import { projectRoot, legacyRequire } from "../resolve";
+import { legacyRequire } from "../resolve";
 import bundledRules from "../rules";
 import { Rule } from "../rule";
 import { ConfigData, RuleConfig, RuleOptions, TransformMap } from "./config-data";
@@ -290,17 +291,15 @@ export class Config {
 				continue;
 			}
 
-			let filename: string;
-
 			/* try searching builtin metadata */
-			filename = path.join(projectRoot, "elements", `${entry}.js`);
-			if (fs.existsSync(filename)) {
-				metaTable.loadFromFile(filename);
+			const bundled = bundledElements[entry];
+			if (bundled) {
+				metaTable.loadFromObject(bundled);
 				continue;
 			}
 
 			/* try as regular file */
-			filename = entry.replace("<rootDir>", this.rootDir);
+			const filename = entry.replace("<rootDir>", this.rootDir);
 			if (fs.existsSync(filename)) {
 				metaTable.loadFromFile(filename);
 				continue;

@@ -64,7 +64,7 @@
     "prebuild": "run-s codegen prebuild:*",
     "build": "run-s build:*",
     "postbuild": "bash scripts/pkg",
-    "prebuild:tsc": "tsc --build src elements",
+    "prebuild:tsc": "tsc",
     "build:cjs": "rollup --config rollup.cjs.config.mjs",
     "build:dts": "rollup --config rollup.dts.config.mjs",
     "build:esm": "rollup --config rollup.esm.config.mjs",

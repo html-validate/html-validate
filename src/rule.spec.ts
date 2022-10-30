@@ -7,6 +7,7 @@ import { Parser } from "./parser";
 import { Reporter } from "./reporter";
 import { Rule, ruleDocumentationUrl, IncludeExcludeOptions, SchemaObject } from "./rule";
 import { MetaTable } from "./meta";
+import { bundledElements } from "./elements";
 
 interface RuleContext {
 	foo: string;
@@ -41,7 +42,7 @@ describe("rule base class", () => {
 		reporter = new Reporter();
 		reporter.add = jest.fn();
 		meta = new MetaTable();
-		meta.loadFromFile(path.join(__dirname, "../elements/html5.js"));
+		meta.loadFromObject(bundledElements.html5);
 
 		rule = new MockRule();
 		rule.name = "mock-rule";

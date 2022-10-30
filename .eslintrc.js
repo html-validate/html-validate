@@ -1,5 +1,3 @@
-const path = require("path");
-
 require("@html-validate/eslint-config/patch/modern-module-resolution");
 
 module.exports = {
@@ -25,7 +23,7 @@ module.exports = {
 			files: ["src/**/*.ts"],
 			excludedFiles: ["src/**/*.spec.ts"],
 			parserOptions: {
-				tsconfigRootDir: path.join(__dirname, "src"),
+				tsconfigRootDir: __dirname,
 				project: ["./tsconfig.json"],
 			},
 			extends: ["@html-validate/typescript-typeinfo"],
