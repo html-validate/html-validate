@@ -55,12 +55,17 @@ Merge requests with a failing pipeline will **not** be merged.
 
 As for the code itself:
 
-- The code is autoformatted using [Prettier](https://prettier.io/)
-- Make sure to add tests covering your changes
-- Update `CHANGELOG.md` and if needed the documentation.
-- Keep the merge history cleaned, it is ok for a WIP MR to have temporary
+- The code is autoformatted using [Prettier][prettier].
+- Commits uses [conventional commits][conventional-commits] and is used to generate changeslog.
+- Releases uses [semantic-release][semantic-release] to automate releases.
+- Make sure to add tests covering your changes.
+- Keep the merge history cleaned, it is ok for a WIP MR to have temporary.
   commits but clean it using rebase before dropping the WIP flag.
 - Branches must apply cleanly over the `master` branch.
+
+[prettier]: https://prettier.io/
+[semantic-release]: https://semantic-release.gitbook.io/semantic-release/
+[conventional-commits]: https://www.conventionalcommits.org/en/v1.0.0/
 
 ## Do you want to contribute to the documentation?
 
