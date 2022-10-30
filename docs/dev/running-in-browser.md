@@ -96,28 +96,20 @@ Note that no default configuration will be loaded either so you must explicitly 
 
 ## Bundled files
 
-The `html-validate` NPM package contains a few data files such as `elements/html.json`.
-These files are dynamically imported and will most likely not be picked up by your bundler.
-Either you need to ensure the bundler picks up the files or the configuration loader does not need to import thme.
+Since v7.8.0 all files previously stored in `elements/*.{js,json,d.ts}` are now bundled in the same build and it is no longer needed to manually configure your loaded to include these files.
 
-- `elements/*.json`
-
-This will manifest itself with errors such as:
-
-- `Error: Failed to load elements from "html5": Cannot find module 'html5'`
-
-This is typically archived by passing an object instead of a string when configuring `html-validate`:
+If you had this configured before you can now remove it:
 
 ```diff
  import { StaticConfigLoader, HtmlValidate } from "html-validate/browser";
 
-+// check your webpack loader! it must return a plain object (not `default: { ... }`, a path/url, etc)
-+import html5 from "html-validate/elements/html5.json";
+-// check your webpack loader! it must return a plain object (not `default: { ... }`, a path/url, etc)
+-import html5 from "html-validate/elements/html5.json";
 
  const loader = new StaticConfigLoader({
    extends: ["html-validate:recommended"],
--  elements: ["html5"],
-+  elements: [html5],
+-  elements: [html5],
++  elements: ["html5"],
  });
  const htmlvalidate = new HtmlValidate(loader);
 ```
