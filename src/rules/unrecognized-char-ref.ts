@@ -2,7 +2,7 @@ import { Location, sliceLocation } from "../context";
 import { NodeType } from "../dom";
 import { AttributeEvent, ElementReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
-import entities from "../../elements/entities.json";
+import entities from "../elements/entities.json";
 
 const regexp = /&([a-z0-9]+|#x?[0-9a-f]+);/gi;
 

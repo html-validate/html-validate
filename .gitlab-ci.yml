@@ -112,7 +112,7 @@ Jest:
       junit: temp/jest.xml
   script:
     - npm run codegen
-    - npm test -- src/ elements/ tests/
+    - npm test -- src/ tests/
 
 Prettier:
   stage: test

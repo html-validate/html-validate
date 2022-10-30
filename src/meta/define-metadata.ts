@@ -1,4 +1,4 @@
-import { MetaDataTable } from "./element";
+import { type MetaDataTable } from "./element";
 
 /**
  * Helper function to assist IDE with completion and type-checking.

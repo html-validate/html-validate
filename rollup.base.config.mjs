@@ -73,6 +73,18 @@ function manualChunks(id) {
 		return "cli";
 	}
 
+	if (rel.startsWith("elements/")) {
+		return "elements";
+	}
+
+	if (rel.startsWith("meta/helper") || rel.startsWith("meta/define-metadata")) {
+		return "meta-helper";
+	}
+
+	if (rel.startsWith("rules/helper")) {
+		return "rules-helper";
+	}
+
 	if (rel.startsWith("jest/")) {
 		return "jest-lib";
 	}
@@ -127,7 +139,7 @@ export function build(format) {
 					"src/resolve": generateResolved(format),
 				}),
 				typescript({
-					tsconfig: "src/tsconfig.json",
+					tsconfig: "tsconfig.json",
 					outDir: `dist/${format}`,
 					declaration: false,
 					declarationDir: undefined,

@@ -1,9 +1,8 @@
-import { Source } from "../src/context";
-import { HtmlElement } from "../src/dom";
-import HtmlValidate from "../src/htmlvalidate";
-import "../src/jest";
-
-const metadata = require("./html5");
+import { Source } from "../context";
+import { HtmlElement } from "../dom";
+import HtmlValidate from "../htmlvalidate";
+import "../jest";
+import metadata from "./html5";
 
 const fileDirectory = "test-files/elements";
 const tagNames = Object.keys(metadata).filter((it) => it !== "*");

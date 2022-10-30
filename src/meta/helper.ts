@@ -1,6 +1,6 @@
-import { HtmlElement } from "../dom";
+import { type HtmlElement } from "../dom";
 import { naturalJoin } from "../rules/helper";
-import { MetaAttributeAllowedCallback } from "./element";
+import { type MetaAttributeAllowedCallback } from "./element";
 
 /**
  * Helpers when writing element metadata.
@@ -9,13 +9,14 @@ import { MetaAttributeAllowedCallback } from "./element";
  */
 export interface MetadataHelper {
 	/** Returns an error if another attribute is omitted, i.e. it requires another attribute to be present to pass. */
-	allowedIfAttributeIsPresent(...attr: string[]): MetaAttributeAllowedCallback;
+	allowedIfAttributeIsPresent(this: void, ...attr: string[]): MetaAttributeAllowedCallback;
 
 	/** Returns an error if another attribute is present, i.e. it requires another attribute to be omitted to pass. */
-	allowedIfAttributeIsAbsent(...attr: string[]): MetaAttributeAllowedCallback;
+	allowedIfAttributeIsAbsent(this: void, ...attr: string[]): MetaAttributeAllowedCallback;
 
 	/** Returns an error if another attribute does not have one of the listed values */
 	allowedIfAttributeHasValue(
+		this: void,
 		attr: string,
 		value: string[],
 		options?: { defaultValue?: string | null }
