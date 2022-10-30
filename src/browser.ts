@@ -27,11 +27,19 @@ export {
 	defineMetadata,
 	metadataHelper,
 } from "./meta";
-export { Rule, type RuleDocumentation } from "./rule";
+export { Rule, type RuleConstructor, type RuleDocumentation, type SchemaObject } from "./rule";
 export { classifyNodeText, TextClassification } from "./rules/helper";
-export { type Source, type Location, type ProcessElementContext } from "./context";
+export {
+	type Source,
+	type SourceHooks,
+	type Location,
+	type ProcessAttributeCallback,
+	type ProcessElementCallback,
+	type ProcessElementContext,
+	sliceLocation,
+} from "./context";
 export { type Report, Reporter, type Message, type Result, type DeferredMessage } from "./reporter";
 export { type TransformContext, type Transformer, TemplateExtractor } from "./transform";
-export { type Plugin } from "./plugin";
+export { type Plugin, type SchemaValidationPatch } from "./plugin";
 export { Parser } from "./parser";
 export { ruleExists } from "./utils";

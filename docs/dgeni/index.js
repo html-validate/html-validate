@@ -7,6 +7,7 @@ module.exports = new Package("html-validate-docs", [
 	require("dgeni-packages/links"),
 	require("dgeni-front-matter"),
 	require("./bootstrap"),
+	require("./example"),
 	require("./highlight"),
 	require("./inline-validate"),
 	require("./schema"),
@@ -25,6 +26,11 @@ module.exports = new Package("html-validate-docs", [
 			languages: ["js", "json", "typescript", "html", "shell"],
 		});
 		highlight.registerAliases("jsonc", { languageName: "json" });
+	})
+
+	/* configure examples output directory */
+	.config(function (generateExamplesCodeProcessor) {
+		generateExamplesCodeProcessor.outDir = path.join(__dirname, "../examples");
 	})
 
 	.factory(require("./changelog"))
@@ -46,7 +52,7 @@ module.exports = new Package("html-validate-docs", [
 		readFilesProcessor.sourceFiles = [
 			{
 				include: "docs/**/*.md",
-				exclude: "docs/dgeni/**/*.md",
+				exclude: ["docs/dgeni/**/*.md", "docs/examples/**.md"],
 				basePath: "docs",
 				fileReader: "frontMatterFileReader",
 			},

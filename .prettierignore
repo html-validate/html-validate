@@ -9,6 +9,7 @@ package-lock.json
 /public/assets
 /public/schemas
 /docs/**/__tests__/*.spec.ts
+docs/examples/src/
 
 # nunjucks templates
 /docs/**/*.html

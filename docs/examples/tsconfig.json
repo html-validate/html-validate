@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "noEmit": true,
+
+    "target": "es2019",
+    "lib": ["es2019"],
+    "module": "esnext",
+    "moduleResolution": "node",
+
+    "allowJs": true,
+    "checkJs": true,
+
+    "alwaysStrict": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "strict": true,
+
+    "paths": {
+      "html-validate/jest": ["../../../dist/es/jest.d.ts"],
+      "html-validate": ["../../../dist/es/index.d.ts"]
+    }
+  },
+  "include": ["**/*.js", "**/*.ts"]
+}

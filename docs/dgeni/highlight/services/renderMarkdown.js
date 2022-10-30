@@ -26,17 +26,36 @@ function generateId(value) {
 	return slug;
 }
 
+function removePreamble(code) {
+	return code.replace(/[^]*\/\* --- \*\/\n+/gm, "");
+}
+
+function stripEslintComments(code) {
+	return code.replace(/\/\* eslint-disable.*\n/g, "");
+}
+
 /**
  * Customized version of dgeni nunjucks renderer with highlighting support
+ *
+ * @param {import("../../example/services/example").Example} example
  */
-module.exports = function renderMarkdown(trimIndentation) {
-	const renderer = new marked.Renderer();
+module.exports = function renderMarkdown(example, trimIndentation) {
+	/**
+	 * @param {string} code
+	 * @param {string} infostring
+	 * @param {boolean} escaped
+	 * @returns {string}
+	 */
+	function code(code, infostring, escaped) {
+		example.compile(code, infostring);
 
-	// remove the leading whitespace from the code block before it gets to the
-	// markdown code render function
-	renderer.code = function (code, string, language) {
-		const trimmedCode = trimIndentation(code);
-		let renderedCode = marked.Renderer.prototype.code.call(this, trimmedCode, string, language);
+		const processedCode = stripEslintComments(removePreamble(trimIndentation(code)));
+		let renderedCode = marked.Renderer.prototype.code.call(
+			this,
+			processedCode,
+			infostring,
+			escaped
+		);
 
 		// Bug in marked - forgets to add a final newline sometimes
 		if (!/\n$/.test(renderedCode)) {
@@ -53,7 +72,11 @@ module.exports = function renderMarkdown(trimIndentation) {
 		});
 
 		return renderedCode;
-	};
+	}
+
+	const renderer = new marked.Renderer();
+
+	renderer.code = code;
 
 	// Add § link to all headings
 	renderer.heading = function (text, level, raw) {

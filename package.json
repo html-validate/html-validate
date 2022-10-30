@@ -73,6 +73,7 @@
     "compatibility": "scripts/compatibility.sh",
     "debug": "node --inspect ./node_modules/.bin/jest --runInBand --watch --no-coverage",
     "docs": "grunt docs",
+    "postdocs": "tsc -b docs/examples",
     "eslint": "eslint .",
     "eslint:fix": "eslint --fix .",
     "htmlvalidate": "node ./bin/html-validate.js",
