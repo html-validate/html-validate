@@ -214,7 +214,7 @@ textual description of the content. E.g. it cannot suggest to use `<abbr>` or
 				Using the scope attribute to associate header cells and data cells in data tables.
 				<em>
 					Use {@link rule:element-required-attributes} to validate. <code>scope</code> is a required
-					attribute on <code>&gt;th&lt;</code> elements.
+					attribute on <code>&lt;th&gt;</code> elements.
 				</em>
 			</td>
 			<td class="support-yes">Yes</td>
