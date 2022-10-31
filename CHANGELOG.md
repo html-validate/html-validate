@@ -1,5 +1,15 @@
 # html-validate changelog
 
+## [7.8.0](https://gitlab.com/html-validate/html-validate/compare/v7.7.1...v7.8.0) (2022-10-31)
+
+### Features
+
+- **html5:** bundle element metadata ([1e59f3e](https://gitlab.com/html-validate/html-validate/commit/1e59f3e2ee0703c6bc62ceede59104d15773f8ae))
+
+### Bug Fixes
+
+- **api:** `getFormatter` ts declaration guarantees a `Formatter` will be returned for known formatters ([14ce8b1](https://gitlab.com/html-validate/html-validate/commit/14ce8b1eae8497e6a2fcdca0ea6d1f2a36315a0d))
+
 ## [7.7.1](https://gitlab.com/html-validate/html-validate/compare/v7.7.0...v7.7.1) (2022-10-24)
 
 ### Bug Fixes
