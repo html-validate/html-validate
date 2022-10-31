@@ -1,7 +1,5 @@
-import path from "path";
 import Ajv, { ErrorObject, SchemaObject, ValidateFunction } from "ajv";
 import ajvSchemaDraft from "ajv/lib/refs/json-schema-draft-06.json";
-import { homepage } from "./generated/package";
 import { ConfigData } from "./config/config-data";
 import { Severity } from "./config/severity";
 import { Location } from "./context";
@@ -11,7 +9,6 @@ import { Parser } from "./parser";
 import { Reporter } from "./reporter";
 import { MetaTable, MetaLookupableProperty } from "./meta";
 import { SchemaValidationError } from "./error";
-import { distFolder } from "./resolve";
 import { interpolate } from "./utils/interpolate";
 
 export { type SchemaObject } from "ajv";
@@ -413,13 +410,6 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
  * @internal
  */
 export function ruleDocumentationUrl(filename: string): string {
-	/* during bundling all __filename's are converted to paths relative to the src
-	 * folder and with the @/ prefix, by replacing the @ with the dist folder we
-	 * can resolve the path properly */
-	filename = filename.replace("@", distFolder);
-	const p = path.parse(filename);
-	const root = path.join(distFolder, "rules");
-	const rel = path.relative(root, path.join(p.dir, p.name));
-	const normalized = rel.replace(/\\/g, "/");
-	return `${homepage}/rules/${normalized}.html`;
+	const getRuleUrl: (filename: string) => string = require("./utils/get-rule-url");
+	return getRuleUrl(filename);
 }
