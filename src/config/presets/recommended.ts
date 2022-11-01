@@ -32,6 +32,7 @@ const config: ConfigData = {
 		"empty-title": "error",
 		"input-attributes": "error",
 		"long-title": "error",
+		"map-dup-name": "error",
 		"meta-refresh": "error",
 		"multiple-labeled-controls": "error",
 		"no-autoplay": ["error", { include: ["audio", "video"] }],

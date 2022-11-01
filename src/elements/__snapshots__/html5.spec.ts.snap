@@ -533,7 +533,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 16,
         "message": "Attribute "shape" has invalid value """,
-        "offset": 282,
+        "offset": 292,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "#invalid-shape > area:nth-child(1)",
@@ -557,7 +557,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 17,
         "message": "Attribute "shape" has invalid value "foobar"",
-        "offset": 318,
+        "offset": 328,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "#invalid-shape > area:nth-child(2)",
@@ -569,7 +569,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         "context": "missing-alt",
         "line": 22,
         "message": ""alt" attribute must be set and non-empty when the "href" attribute is present",
-        "offset": 418,
+        "offset": 436,
         "ruleId": "area-alt",
         "ruleUrl": "https://html-validate.org/rules/area-alt.html",
         "selector": "#missing-alt > area",
@@ -581,7 +581,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         "context": "missing-alt",
         "line": 27,
         "message": ""alt" attribute must be set and non-empty when the "href" attribute is present",
-        "offset": 527,
+        "offset": 551,
         "ruleId": "area-alt",
         "ruleUrl": "https://html-validate.org/rules/area-alt.html",
         "selector": "#empty-alt > area",
@@ -593,7 +593,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         "context": "missing-href",
         "line": 32,
         "message": ""alt" attribute cannot be used unless the "href" attribute is present",
-        "offset": 634,
+        "offset": 663,
         "ruleId": "area-alt",
         "ruleUrl": "https://html-validate.org/rules/area-alt.html",
         "selector": "#omit-alt > area:nth-child(1)",
@@ -605,7 +605,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         "context": "missing-href",
         "line": 33,
         "message": ""alt" attribute cannot be used unless the "href" attribute is present",
-        "offset": 649,
+        "offset": 678,
         "ruleId": "area-alt",
         "ruleUrl": "https://html-validate.org/rules/area-alt.html",
         "selector": "#omit-alt > area:nth-child(2)",
@@ -630,7 +630,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 38,
         "message": "Attribute "target" has invalid value "_invalid"",
-        "offset": 801,
+        "offset": 830,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "#invalid-target > area",
@@ -645,7 +645,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 43,
         "message": ""target" attribute cannot be used in this context: requires "href" attribute to be present",
-        "offset": 947,
+        "offset": 976,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#target-missing-href > area",
@@ -660,7 +660,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 48,
         "message": ""target" attribute cannot be used in this context: requires "href" attribute to be present",
-        "offset": 1089,
+        "offset": 1118,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#invalid-without-href > area",
@@ -675,7 +675,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 48,
         "message": ""download" attribute cannot be used in this context: requires "href" attribute to be present",
-        "offset": 1105,
+        "offset": 1134,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#invalid-without-href > area",
@@ -690,7 +690,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 48,
         "message": ""ping" attribute cannot be used in this context: requires "href" attribute to be present",
-        "offset": 1114,
+        "offset": 1143,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#invalid-without-href > area",
@@ -705,7 +705,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 48,
         "message": ""rel" attribute cannot be used in this context: requires "href" attribute to be present",
-        "offset": 1119,
+        "offset": 1148,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#invalid-without-href > area",
@@ -720,7 +720,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 48,
         "message": ""referrerpolicy" attribute cannot be used in this context: requires "href" attribute to be present",
-        "offset": 1123,
+        "offset": 1152,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#invalid-without-href > area",
@@ -735,7 +735,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 48,
         "message": ""itemprop" attribute cannot be used in this context: requires "href" attribute to be present",
-        "offset": 1138,
+        "offset": 1167,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#invalid-without-href > area",
@@ -750,7 +750,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 53,
         "message": ""coords" attribute cannot be used in this context: cannot be used when "shape" attribute is "default"",
-        "offset": 1281,
+        "offset": 1310,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "map:nth-child(10) > area",
@@ -765,7 +765,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 58,
         "message": ""shape" attribute cannot be used in this context: requires "coords" attribute to be present",
-        "offset": 1370,
+        "offset": 1399,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "map:nth-child(11) > area:nth-child(1)",
@@ -789,7 +789,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 58,
         "message": "Attribute "shape" is missing value",
-        "offset": 1370,
+        "offset": 1399,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "map:nth-child(11) > area:nth-child(1)",
@@ -804,7 +804,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 59,
         "message": ""shape" attribute cannot be used in this context: requires "coords" attribute to be present",
-        "offset": 1384,
+        "offset": 1413,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "map:nth-child(11) > area:nth-child(2)",
@@ -819,7 +819,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 60,
         "message": ""shape" attribute cannot be used in this context: requires "coords" attribute to be present",
-        "offset": 1407,
+        "offset": 1436,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "map:nth-child(11) > area:nth-child(3)",
@@ -834,7 +834,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 61,
         "message": ""shape" attribute cannot be used in this context: requires "coords" attribute to be present",
-        "offset": 1428,
+        "offset": 1457,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "map:nth-child(11) > area:nth-child(4)",
@@ -856,23 +856,23 @@ exports[`HTML elements <area> invalid markup 1`] = `
 </map>
 
 <!-- should not allow invalid shape attribute -->
-<map id="invalid-shape" name="foo">
+<map id="invalid-shape" name="invalid-shape">
 	<area shape="" coords>
 	<area shape="foobar" coords>
 </map>
 
 <!-- missing alt when required -->
-<map id="missing-alt" name="foo">
+<map id="missing-alt" name="missing-alt">
 	<area href="target">
 </map>
 
 <!-- empty alt when required -->
-<map id="empty-alt" name="foo">
+<map id="empty-alt" name="empty-alt">
 	<area href="target" alt="">
 </map>
 
 <!-- alt must be mitted when href is not present -->
-<map id="omit-alt" name="foo">
+<map id="omit-alt" name="omit-alt">
 	<area alt="">
 	<area alt="lorem ipsum">
 </map>
@@ -12553,7 +12553,7 @@ exports[`HTML elements <main> valid markup 1`] = `[]`;
 exports[`HTML elements <map> invalid markup 1`] = `
 [
   {
-    "errorCount": 3,
+    "errorCount": 4,
     "filePath": "test-files/elements/map-invalid.html",
     "messages": [
       {
@@ -12613,6 +12613,17 @@ exports[`HTML elements <map> invalid markup 1`] = `
         "severity": 2,
         "size": 7,
       },
+      {
+        "column": 6,
+        "line": 10,
+        "message": "<map> name must be unique",
+        "offset": 175,
+        "ruleId": "map-dup-name",
+        "ruleUrl": "https://html-validate.org/rules/map-dup-name.html",
+        "selector": "map:nth-child(5)",
+        "severity": 2,
+        "size": 4,
+      },
     ],
     "source": "<!-- missing name -->
 <map></map>
@@ -12620,6 +12631,10 @@ exports[`HTML elements <map> invalid markup 1`] = `
 
 <!-- name cannot contain whitespace -->
 <map name="foo bar"></map>
+
+<!-- duplicate name -->
+<map name="foo"></map>
+<map name="foo"></map>
 ",
     "warningCount": 0,
   },
