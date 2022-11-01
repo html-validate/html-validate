@@ -100,17 +100,15 @@ export interface Plugin {
 
 E.g. a simple plugin with additional rules might look like:
 
-```ts nocompile
-import { Plugin } from "html-validate";
+```ts fake-require
+import { definePlugin } from "html-validate";
 import MyRule from "./rules/my-rule";
 
-const plugin: Plugin = {
+module.exports = definePlugin({
   rules: {
     "custom/my-rule": MyRule,
   },
-};
-
-module.exports = plugin;
+});
 ```
 
 ## Callbacks
@@ -139,14 +137,18 @@ The callback may not manipulate the source object.
 
 Plugins can create configuration presets similar to a shared configuration:
 
-```js
-module.exports = {
+```ts
+import { definePlugin } from "html-validate";
+
+module.exports = definePlugin({
   configs: {
     recommended: {
-      "my-rule": "error",
+      rules: {
+        "my-rule": "error",
+      },
     },
   },
-};
+});
 ```
 
 Users may then extend the preset using `plugin:name`, e.g.:
@@ -165,15 +167,17 @@ To expose rules in the plugin use the `rules` field. Each plugin should use a
 unique prefix for each rule.
 
 ```ts fake-require
+import { definePlugin } from "html-validate";
+
 const MyRule = require("./rules/my-rule.js");
 const AnotherRule = require("./rules/another-rule.js");
 
-module.exports = {
+module.exports = definePlugin({
   rules: {
     "my-prefix/my-rule": MyRule,
     "my-prefix/another-rule": AnotherRule,
   },
-};
+});
 ```
 
 This makes the rules accessible as usual when configuring in
@@ -194,12 +198,14 @@ Similar to standalone transformers plugins may also expose them. This can be
 useful to combine transformations, rules and a default set of configuration
 suitable for the filetype/framework.
 
-```js fake-require
+```ts fake-require
+import { definePlugin } from "html-validate";
+
 const MyTransformer = require("./transformers/my-transformer");
 
-module.exports = {
+module.exports = definePlugin({
   transformer: MyTransformer,
-};
+});
 ```
 
 Users may then extend the preset using the plugin name, e.g.:
@@ -214,14 +220,16 @@ Users may then extend the preset using the plugin name, e.g.:
 
 If you need multiple transformers export an object with named transformers instead:
 
-```js fake-require
+```ts fake-require
+import { definePlugin } from "html-validate";
+
 const MyTransformer = require("./transformers/my-transformer");
 
-module.exports = {
+module.exports = definePlugin({
   transformer: {
     "my-transformer": MyTransformer,
   },
-};
+});
 ```
 
 Users may then extend the preset using `plugin:name`, e.g.:
@@ -243,8 +251,10 @@ setting `elementSchema` with an additional [json
 schema](http://json-schema.org/). The schema is merged using [JSON Merge
 Patch](https://tools.ietf.org/html/rfc7396).
 
-```js
-module.exports = {
+```ts
+import { definePlugin } from "html-validate";
+
+module.exports = definePlugin({
   elementSchema: {
     // properties are added to elements metadata
     properties: {
@@ -265,7 +275,7 @@ module.exports = {
       },
     },
   },
-};
+});
 ```
 
 Extended metadata can be entered into metadata for any element and access by any
@@ -295,8 +305,10 @@ switch (meta.myProperty) {
 
 Plugins leveraging usage of `loadMeta` for advanced handling of metadata loading must explicitly mark the copyable properties as `copyable`:
 
-```js
-module.exports = {
+```ts
+import { definePlugin } from "html-validate";
+
+module.exports = definePlugin({
   elementSchema: {
     properties: {
       foo: {
@@ -307,7 +319,7 @@ module.exports = {
       },
     },
   },
-};
+});
 ```
 
 Given these two properties only `foo` will be copied (loaded) onto the element when using `loadMeta`:
