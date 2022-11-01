@@ -12,23 +12,23 @@
 </map>
 
 <!-- should not allow invalid shape attribute -->
-<map id="invalid-shape" name="foo">
+<map id="invalid-shape" name="invalid-shape">
 	<area shape="" coords>
 	<area shape="foobar" coords>
 </map>
 
 <!-- missing alt when required -->
-<map id="missing-alt" name="foo">
+<map id="missing-alt" name="missing-alt">
 	<area href="target">
 </map>
 
 <!-- empty alt when required -->
-<map id="empty-alt" name="foo">
+<map id="empty-alt" name="empty-alt">
 	<area href="target" alt="">
 </map>
 
 <!-- alt must be mitted when href is not present -->
-<map id="omit-alt" name="foo">
+<map id="omit-alt" name="omit-alt">
 	<area alt="">
 	<area alt="lorem ipsum">
 </map>

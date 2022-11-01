@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/map-dup-name.md inline validation: correct 1`] = `[]`;
+
+exports[`docs/rules/map-dup-name.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 6,
+        "line": 2,
+        "message": "<map> name must be unique",
+        "offset": 28,
+        "ruleId": "map-dup-name",
+        "ruleUrl": "https://html-validate.org/rules/map-dup-name.html",
+        "selector": "map:nth-child(2)",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<map name="foo"></map>
+<map name="foo"></map>",
+    "warningCount": 0,
+  },
+]
+`;
