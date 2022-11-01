@@ -16,7 +16,11 @@ const path = require("path");
  */
 function fakeRequire(value, definition) {
 	if (definition.fakeRequire) {
-		return value.replace(/(^|\s)require\("[^"]+"\)/g, `/** @type {any} */ ({})`);
+		return value
+			.replace(/(^|\s)require\("[^"]+"\)/g, `require("mock-any")`)
+			.replace(/\sfrom "([^"]+)"/g, (_, mod) => {
+				return mod !== "html-validate" ? ` from "mock-any"` : ` from "html-validate"`;
+			});
 	} else {
 		return value;
 	}
