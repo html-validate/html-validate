@@ -9,6 +9,8 @@ title: Release and support plan
 
 Older major versions is generally supported for two year after the succeeding version.
 
+<!-- [html-validate-disable-block wcag/h63: marked does not generate tables with scope attribute] -->
+
 | Major | Status      | Initial release | Support end |
 | ----- | ----------- | --------------- | ----------- |
 | 4.x   | End of Life | 2020-11-07      | 2022-06-31  |
@@ -29,6 +31,8 @@ Support for pending versions is limited but repoting bugs against pending versio
 
 HTML-Validate and all official plugins will generally support the last three major versions or at least each major for a year.
 Some exceptions occur, refer to the following table:
+
+<!-- [html-validate-disable-block wcag/h63: marked does not generate tables with scope attribute] -->
 
 | Libraries  | Current versions     | Description                                           |
 | ---------- | -------------------- | ----------------------------------------------------- |

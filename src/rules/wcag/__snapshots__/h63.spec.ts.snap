@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`wcag/h63 should contain documentation 1`] = `
+{
+  "description": "H63: Using the scope attribute to associate header cells and data cells in data tables",
+  "url": "https://html-validate.org/rules/wcag/h63.html",
+}
+`;
+
+exports[`wcag/h63 smoketest 1`] = `
+[
+  {
+    "errorCount": 2,
+    "filePath": "test-files/rules/wcag/h63.html",
+    "messages": [
+      {
+        "column": 2,
+        "line": 8,
+        "message": "<th> element must have a valid scope attribute: row, col, rowgroup, colgroup",
+        "offset": 144,
+        "ruleId": "wcag/h63",
+        "ruleUrl": "https://html-validate.org/rules/wcag/h63.html",
+        "selector": "th:nth-child(5)",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 2,
+        "line": 9,
+        "message": "<th> element must have a valid scope attribute: row, col, rowgroup, colgroup",
+        "offset": 154,
+        "ruleId": "wcag/h63",
+        "ruleUrl": "https://html-validate.org/rules/wcag/h63.html",
+        "selector": "th:nth-child(6)",
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<!-- valid cases -->
+<th scope="row"></th>
+<th scope="col"></th>
+<th scope="rowgroup"></th>
+<th scope="colgroup"></th>
+
+<!-- invalid cases -->
+<th></th>
+<th scope="auto"></th>
+",
+    "warningCount": 0,
+  },
+]
+`;

@@ -14,6 +14,8 @@ Support for roles is varying and since HTML5 has many native equivalent elements
 
 Table of equivalent elements:
 
+<!-- [html-validate-disable-block wcag/h63: marked does not generate tables with scope attribute] -->
+
 | Role          | Element                |
 | ------------- | ---------------------- |
 | article       | article                |
