@@ -1,5 +1,5 @@
 import { Location, sliceLocation } from "../context";
-import { NodeType } from "../dom";
+import { HtmlElement, NodeType } from "../dom";
 import { AttributeEvent, ElementReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 import entities from "../elements/entities.json";
@@ -28,7 +28,7 @@ export default class UnknownCharReference extends Rule<RuleContext> {
 				if (child.nodeType !== NodeType.TEXT_NODE) {
 					continue;
 				}
-				this.findCharacterReferences(child.textContent, child.location);
+				this.findCharacterReferences(node, child.textContent, child.location);
 			}
 		});
 
@@ -38,11 +38,15 @@ export default class UnknownCharReference extends Rule<RuleContext> {
 				return;
 			}
 
-			this.findCharacterReferences(event.value.toString(), event.valueLocation);
+			this.findCharacterReferences(event.target, event.value.toString(), event.valueLocation);
 		});
 	}
 
-	private findCharacterReferences(text: string, location: Location | null): void {
+	private findCharacterReferences(
+		node: HtmlElement,
+		text: string,
+		location: Location | null
+	): void {
 		let match;
 		do {
 			match = regexp.exec(text);
@@ -64,7 +68,7 @@ export default class UnknownCharReference extends Rule<RuleContext> {
 				const context: RuleContext = {
 					entity,
 				};
-				this.report(null, message, entityLocation, context);
+				this.report(node, message, entityLocation, context);
 			}
 		} while (match);
 	}

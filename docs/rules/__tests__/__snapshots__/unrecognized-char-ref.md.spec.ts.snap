@@ -18,7 +18,7 @@ exports[`docs/rules/unrecognized-char-ref.md inline validation: incorrect 1`] = 
         "offset": 3,
         "ruleId": "unrecognized-char-ref",
         "ruleUrl": "https://html-validate.org/rules/unrecognized-char-ref.html",
-        "selector": null,
+        "selector": "p",
         "severity": 2,
         "size": 8,
       },

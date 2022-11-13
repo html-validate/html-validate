@@ -39,7 +39,7 @@ describe("rule unrecognized-char-ref", () => {
 				> 2 | 				<p>&spam;</p>
 				    | 				   ^^^^^^
 				  3 |
-				Selector: -"
+				Selector: p"
 			`);
 		});
 
@@ -56,19 +56,19 @@ describe("rule unrecognized-char-ref", () => {
 				> 2 | 				<p>&foo; &bar; &baz;</p>
 				    | 				   ^^^^^
 				  3 |
-				Selector: -
+				Selector: p
 				error: Unrecognized character reference "&bar;" (unrecognized-char-ref) at inline:2:14:
 				  1 |
 				> 2 | 				<p>&foo; &bar; &baz;</p>
 				    | 				         ^^^^^
 				  3 |
-				Selector: -
+				Selector: p
 				error: Unrecognized character reference "&baz;" (unrecognized-char-ref) at inline:2:20:
 				  1 |
 				> 2 | 				<p>&foo; &bar; &baz;</p>
 				    | 				               ^^^^^
 				  3 |
-				Selector: -"
+				Selector: p"
 			`);
 		});
 
@@ -101,17 +101,17 @@ describe("rule unrecognized-char-ref", () => {
 		it("should report error when for invalid character reference", () => {
 			expect.assertions(2);
 			const markup = /* HTML */ `
-				<p id="&spam;"></p>
+				<p title="&spam;"></p>
 			`;
 			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Unrecognized character reference "&spam;" (unrecognized-char-ref) at inline:2:12:
+				"error: Unrecognized character reference "&spam;" (unrecognized-char-ref) at inline:2:15:
 				  1 |
-				> 2 | 				<p id="&spam;"></p>
-				    | 				       ^^^^^^
+				> 2 | 				<p title="&spam;"></p>
+				    | 				          ^^^^^^
 				  3 |
-				Selector: -"
+				Selector: p"
 			`);
 		});
 
