@@ -2,6 +2,35 @@
 
 exports[`docs/rules/unrecognized-char-ref.md inline validation: correct 1`] = `[]`;
 
+exports[`docs/rules/unrecognized-char-ref.md inline validation: disabled-ignore-case 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 4,
+        "context": {
+          "entity": "&Amp;",
+        },
+        "line": 1,
+        "message": "Unrecognized character reference "&Amp;"",
+        "offset": 3,
+        "ruleId": "unrecognized-char-ref",
+        "ruleUrl": "https://html-validate.org/rules/unrecognized-char-ref.html",
+        "selector": "p",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<p>&Amp;</p>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/unrecognized-char-ref.md inline validation: enabled-ignore-case 1`] = `[]`;
+
 exports[`docs/rules/unrecognized-char-ref.md inline validation: incorrect 1`] = `
 [
   {

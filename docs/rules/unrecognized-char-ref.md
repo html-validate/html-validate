@@ -28,7 +28,32 @@ Examples of **correct** code for this rule:
     <p>&amp;</p>
 </validate>
 
+## Options
+
+This rule takes an optional object:
+
+```json
+{
+  "ignoreCase": false
+}
+```
+
+### `ignoreCase`
+
+If set to `true` this rule ignores the casing of the entity.
+
+With this option **disabled** the following is **incorrect**:
+
+<validate name="disabled-ignore-case" rules="unrecognized-char-ref" unrecognized-char-ref='{ "ignoreCase": false }'>
+    <p>&Amp;</p>
+</validate>
+
+With this option **enabled** the following is **correct**:
+
+<validate name="enabled-ignore-case" rules="unrecognized-char-ref" unrecognized-char-ref='{ "ignoreCase": true }'>
+    <p>&Amp;</p>
+</validate>
 
 ## Version history
 
-- %version% - Rule is made case sensitive.
+- %version% - Rule was made case sensitive and the `ignoreCase` option was added.

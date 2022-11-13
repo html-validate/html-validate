@@ -123,6 +123,64 @@ describe("rule unrecognized-char-ref", () => {
 		});
 	});
 
+	describe("ignoreCase", () => {
+		const markup = /* HTML */ `
+			<p id="lowercase">&nbsp;</p>
+			<p id="uppercase">&NBSP;</p>
+			<p id="mixedcase">&nBSp;</p>
+			<p id="pascalcase">&ApplyFunction;</p>
+		`;
+
+		it("should be case sensitive by default", () => {
+			expect.assertions(1);
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Unrecognized character reference "&NBSP;" (unrecognized-char-ref) at inline:3:22:
+				  1 |
+				  2 | 			<p id="lowercase">&nbsp;</p>
+				> 3 | 			<p id="uppercase">&NBSP;</p>
+				    | 			                  ^^^^^^
+				  4 | 			<p id="mixedcase">&nBSp;</p>
+				  5 | 			<p id="pascalcase">&ApplyFunction;</p>
+				  6 |
+				Selector: #uppercase
+				error: Unrecognized character reference "&nBSp;" (unrecognized-char-ref) at inline:4:22:
+				  2 | 			<p id="lowercase">&nbsp;</p>
+				  3 | 			<p id="uppercase">&NBSP;</p>
+				> 4 | 			<p id="mixedcase">&nBSp;</p>
+				    | 			                  ^^^^^^
+				  5 | 			<p id="pascalcase">&ApplyFunction;</p>
+				  6 |
+				Selector: #mixedcase"
+			`);
+		});
+
+		it("should ignore case when option is enabled", () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				rules: { "unrecognized-char-ref": ["error", { ignoreCase: true }] },
+			});
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should retain capitalization in error message", () => {
+			expect.assertions(2);
+			const markup = /* HTML */ ` <p>&UnKnOwN;</p> `;
+			htmlvalidate = new HtmlValidate({
+				rules: { "unrecognized-char-ref": ["error", { ignoreCase: true }] },
+			});
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+				"error: Unrecognized character reference "&UnKnOwN;" (unrecognized-char-ref) at inline:1:5:
+				> 1 |  <p>&UnKnOwN;</p>
+				    |     ^^^^^^^^^
+				Selector: p"
+			`);
+		});
+	});
+
 	it("should contain documentation", () => {
 		expect.assertions(1);
 		expect(htmlvalidate.getRuleDocumentation("unrecognized-char-ref")).toMatchSnapshot();
