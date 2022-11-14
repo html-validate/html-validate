@@ -1,5 +1,6 @@
 import HtmlValidate from "../htmlvalidate";
 import "../jest";
+import { RuleContext } from "./unrecognized-char-ref";
 
 describe("rule unrecognized-char-ref", () => {
 	let htmlvalidate: HtmlValidate;
@@ -13,28 +14,68 @@ describe("rule unrecognized-char-ref", () => {
 	describe("text content", () => {
 		it("should not report error for valid character reference", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString("<p>&amp;</p>");
+			const markup = /* HTML */ ` <p>&amp;</p> `;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error for raw ampersand", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString("<p>&</p>");
+			const markup = /* HTML */ ` <p>&</p> `;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when for invalid character reference", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString(`<p>&spam;</p>`);
+			const markup = /* HTML */ `
+				<p>&spam;</p>
+			`;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveErrors([
-				["unrecognized-char-ref", 'Unrecognized character reference "&spam;"'],
-			]);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Unrecognized character reference "&spam;" (unrecognized-char-ref) at inline:2:8:
+				  1 |
+				> 2 | 				<p>&spam;</p>
+				    | 				   ^^^^^^
+				  3 |
+				Selector: -"
+			`);
+		});
+
+		it("should handle multiple entities", () => {
+			expect.assertions(2);
+			const markup = /* HTML */ `
+				<p>&foo; &bar; &baz;</p>
+			`;
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+				"error: Unrecognized character reference "&foo;" (unrecognized-char-ref) at inline:2:8:
+				  1 |
+				> 2 | 				<p>&foo; &bar; &baz;</p>
+				    | 				   ^^^^^
+				  3 |
+				Selector: -
+				error: Unrecognized character reference "&bar;" (unrecognized-char-ref) at inline:2:14:
+				  1 |
+				> 2 | 				<p>&foo; &bar; &baz;</p>
+				    | 				         ^^^^^
+				  3 |
+				Selector: -
+				error: Unrecognized character reference "&baz;" (unrecognized-char-ref) at inline:2:20:
+				  1 |
+				> 2 | 				<p>&foo; &bar; &baz;</p>
+				    | 				               ^^^^^
+				  3 |
+				Selector: -"
+			`);
 		});
 
 		it("should handle nested elements", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString("<div><p>&amp;</p></div>");
+			const markup = /* HTML */ ` <div><p>&amp;</p></div> `;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 	});
@@ -42,40 +83,58 @@ describe("rule unrecognized-char-ref", () => {
 	describe("attribute", () => {
 		it("should not report error for valid character reference", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<p id="&amp;&#123;"></p>');
+			const markup = /* HTML */ ` <p id="&amp;&#123;"></p> `;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error for raw ampersand", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<a href="?foo&bar"></p>');
+			const markup = /* HTML */ `
+				<a href="?foo&bar"></p>
+				<a href="foo?bar&baz"></p>
+			`;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when for invalid character reference", () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<p id="&spam;"></p>');
+			const markup = /* HTML */ `
+				<p id="&spam;"></p>
+			`;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveErrors([
-				["unrecognized-char-ref", 'Unrecognized character reference "&spam;"'],
-			]);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Unrecognized character reference "&spam;" (unrecognized-char-ref) at inline:2:12:
+				  1 |
+				> 2 | 				<p id="&spam;"></p>
+				    | 				       ^^^^^^
+				  3 |
+				Selector: -"
+			`);
 		});
 
 		it("should handle boolean attributes", () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString("<p id></p>");
+			const markup = /* HTML */ ` <p id></p> `;
+			const report = htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 	});
 
 	it("should contain documentation", () => {
-		expect.assertions(2);
-		htmlvalidate = new HtmlValidate({
-			rules: { "unrecognized-char-ref": "error" },
-		});
+		expect.assertions(1);
 		expect(htmlvalidate.getRuleDocumentation("unrecognized-char-ref")).toMatchSnapshot();
+	});
+
+	it("should contain contextual documentation", () => {
+		expect.assertions(1);
+		const context: RuleContext = {
+			entity: "&spam;",
+		};
 		expect(
-			htmlvalidate.getRuleDocumentation("unrecognized-char-ref", null, "&spam;")
+			htmlvalidate.getRuleDocumentation("unrecognized-char-ref", null, context)
 		).toMatchSnapshot();
 	});
 });

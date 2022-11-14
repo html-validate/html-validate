@@ -4,14 +4,17 @@ import { AttributeEvent, ElementReadyEvent } from "../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 import entities from "../elements/entities.json";
 
+export interface RuleContext {
+	entity: string;
+}
+
 const regexp = /&([a-z0-9]+|#x?[0-9a-f]+);/gi;
 
-export default class UnknownCharReference extends Rule<string> {
-	public documentation(context: string): RuleDocumentation {
+export default class UnknownCharReference extends Rule<RuleContext> {
+	public documentation(context?: RuleContext): RuleDocumentation {
+		const value = context ? context.entity : "this";
 		return {
-			description: `HTML defines a set of valid character references but ${
-				context || "this"
-			} is not a valid one.`,
+			description: `HTML defines a set of valid character references but ${value} is not a valid one.`,
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
@@ -57,7 +60,11 @@ export default class UnknownCharReference extends Rule<string> {
 				}
 
 				const entityLocation = sliceLocation(location, match.index, match.index + entity.length);
-				this.report(null, `Unrecognized character reference "${entity}"`, entityLocation, entity);
+				const message = `Unrecognized character reference "{{ entity }}"`;
+				const context: RuleContext = {
+					entity,
+				};
+				this.report(null, message, entityLocation, context);
 			}
 		} while (match);
 	}

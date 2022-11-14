@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`rule unrecognized-char-ref should contain documentation 1`] = `
+exports[`rule unrecognized-char-ref should contain contextual documentation 1`] = `
 {
-  "description": "HTML defines a set of valid character references but this is not a valid one.",
+  "description": "HTML defines a set of valid character references but &spam; is not a valid one.",
   "url": "https://html-validate.org/rules/unrecognized-char-ref.html",
 }
 `;
 
-exports[`rule unrecognized-char-ref should contain documentation 2`] = `
+exports[`rule unrecognized-char-ref should contain documentation 1`] = `
 {
-  "description": "HTML defines a set of valid character references but &spam; is not a valid one.",
+  "description": "HTML defines a set of valid character references but this is not a valid one.",
   "url": "https://html-validate.org/rules/unrecognized-char-ref.html",
 }
 `;
