@@ -5,7 +5,7 @@ import { RuleContext } from "./unrecognized-char-ref";
 describe("rule unrecognized-char-ref", () => {
 	let htmlvalidate: HtmlValidate;
 
-	beforeAll(() => {
+	beforeEach(() => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "unrecognized-char-ref": "error" },
 		});
@@ -181,15 +181,79 @@ describe("rule unrecognized-char-ref", () => {
 		});
 	});
 
+	describe("requireSemicolon", () => {
+		const markup = /* HTML */ `
+			<p id="with-semicolon">&copy; &COPY;</p>
+			<p id="without-semicolon">&copy &COPY</p>
+		`;
+
+		it("should require semicolon by default", () => {
+			expect.assertions(1);
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Character reference "&copy" must be terminated by a semicolon (unrecognized-char-ref) at inline:3:30:
+				  1 |
+				  2 | 			<p id="with-semicolon">&copy; &COPY;</p>
+				> 3 | 			<p id="without-semicolon">&copy &COPY</p>
+				    | 			                          ^^^^^
+				  4 |
+				Selector: #without-semicolon
+				error: Character reference "&COPY" must be terminated by a semicolon (unrecognized-char-ref) at inline:3:36:
+				  1 |
+				  2 | 			<p id="with-semicolon">&copy; &COPY;</p>
+				> 3 | 			<p id="without-semicolon">&copy &COPY</p>
+				    | 			                                ^^^^^
+				  4 |
+				Selector: #without-semicolon"
+			`);
+		});
+
+		it("should allow missing semicolon for entities with legacy compatibility when option is enabled", () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				rules: { "unrecognized-char-ref": ["error", { requireSemicolon: false }] },
+			});
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should always require semicolon for entities without legacy compatibility", () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				rules: { "unrecognized-char-ref": ["error", { requireSemicolon: false }] },
+			});
+			const markup = /* HTML */ ` <p>&star</p> `;
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Unrecognized character reference "&star" (unrecognized-char-ref) at inline:1:5:
+				> 1 |  <p>&star</p>
+				    |     ^^^^^
+				Selector: p"
+			`);
+		});
+	});
+
 	it("should contain documentation", () => {
 		expect.assertions(1);
 		expect(htmlvalidate.getRuleDocumentation("unrecognized-char-ref")).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation", () => {
+	it("should contain contextual documentation (terminated)", () => {
 		expect.assertions(1);
 		const context: RuleContext = {
 			entity: "&spam;",
+			terminated: true,
+		};
+		expect(
+			htmlvalidate.getRuleDocumentation("unrecognized-char-ref", null, context)
+		).toMatchSnapshot();
+	});
+
+	it("should contain contextual documentation (not terminated)", () => {
+		expect.assertions(1);
+		const context: RuleContext = {
+			entity: "&spam;",
+			terminated: false,
 		};
 		expect(
 			htmlvalidate.getRuleDocumentation("unrecognized-char-ref", null, context)

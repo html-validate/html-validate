@@ -12,7 +12,7 @@ Each entity is case sensitive but some entities is defined in multiple casing va
 
 This rule ignores numerical entities such as `&#8212;` or `&#x2014;`.
 
-[charref]: https://dev.w3.org/html5/html-author/charref
+[charref]: https://html.spec.whatwg.org/multipage/named-characters.html
 
 ## Rule details
 
@@ -34,7 +34,8 @@ This rule takes an optional object:
 
 ```json
 {
-  "ignoreCase": false
+  "ignoreCase": false,
+  "requireSemicolon": true
 }
 ```
 
@@ -54,6 +55,30 @@ With this option **enabled** the following is **correct**:
     <p>&Amp;</p>
 </validate>
 
+### `requireSemicolon`
+
+By default named character references are terminated by a semicolon (`;`) but for legacy compatibility some are listed without.
+
+If set to `false` legacy variants without semicolon are allowed.
+
+With this option **enabled** the following is **incorrect**:
+
+<validate name="enabled-require-semicolon" rules="unrecognized-char-ref" unrecognized-char-ref='{ "requireSemicolon": true }'>
+    <p>&copy</p>
+</validate>
+
+With this option **disabled** the following is **correct**:
+
+<validate name="disabled-require-semicolon" rules="unrecognized-char-ref" unrecognized-char-ref='{ "requireSemicolon": false }'>
+    <p>&copy</p>
+</validate>
+
+Attribute values with a `?` is treated as a querystring and unless terminated with a `;` is considered to be a parameter and not a character reference, e.g. the following is always valid even if `&bar` looks like a reference without semicolon to terminate it:
+
+<validate name="querystring" rules="unrecognized-char-ref">
+    <a href="foo.php?foo=1&bar=2">...</a>
+</validate>
+
 ## Version history
 
-- %version% - Rule was made case sensitive and the `ignoreCase` option was added.
+- %version% - Rule was made case sensitive and the `ignoreCase` and `requireSemicolon` options was added.
