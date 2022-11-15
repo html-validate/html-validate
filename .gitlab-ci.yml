@@ -158,8 +158,8 @@ Node:
       - VERSION:
           - 14
           - 16
-          - 17
           - 18
+          - 19
   image: node:${VERSION}
 
 Jest compat:
