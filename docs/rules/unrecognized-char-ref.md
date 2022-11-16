@@ -81,4 +81,4 @@ Attribute values with a `?` is treated as a querystring and unless terminated wi
 
 ## Version history
 
-- %version% - Rule was made case sensitive and the `ignoreCase` and `requireSemicolon` options was added.
+- 7.9.0 - Rule was made case sensitive and the `ignoreCase` and `requireSemicolon` options was added.

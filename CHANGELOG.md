@@ -1,5 +1,19 @@
 # html-validate changelog
 
+## [7.9.0](https://gitlab.com/html-validate/html-validate/compare/v7.8.0...v7.9.0) (2022-11-16)
+
+### Features
+
+- new `definePlugin` helper ([e28c275](https://gitlab.com/html-validate/html-validate/commit/e28c275c1d9c1d556c1080521864f6475bbbdd8f))
+- **rules:** new option `ignoreCase` added to `unrecognized-char-ref` ([4a1b9af](https://gitlab.com/html-validate/html-validate/commit/4a1b9af7bbdaf6fb490aa193455de4f7e1266c45))
+- **rules:** new option `requireSemicolon` added to `unrecognized-char-ref` ([b7a5067](https://gitlab.com/html-validate/html-validate/commit/b7a50675e92db1dcf1adb8f375eb72e84cf19674))
+- **rules:** new rule `map-dup-name` ([ad7bfff](https://gitlab.com/html-validate/html-validate/commit/ad7bfff58b3b53168e6b9507e277950242508b26)), closes [#180](https://gitlab.com/html-validate/html-validate/issues/180)
+
+### Bug Fixes
+
+- **rules:** add selector to `unrecognized-char-ref` errors ([73b29ef](https://gitlab.com/html-validate/html-validate/commit/73b29ef3746cca85105f050b581b24f6a37615ce))
+- **rules:** include different capitalization for named character references (html entities) ([83f205a](https://gitlab.com/html-validate/html-validate/commit/83f205a42f9935e887207c3d066293cbf5355bcb)), closes [#192](https://gitlab.com/html-validate/html-validate/issues/192)
+
 ## [7.8.0](https://gitlab.com/html-validate/html-validate/compare/v7.7.1...v7.8.0) (2022-10-31)
 
 ### Features
