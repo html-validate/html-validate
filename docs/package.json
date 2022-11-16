@@ -5,7 +5,7 @@
   "devDependencies": {
     "@babel/core": "7.20.2",
     "@babel/preset-env": "7.20.2",
-    "@fortawesome/fontawesome-free": "6.2.0",
+    "@fortawesome/fontawesome-free": "6.2.1",
     "@lodder/grunt-postcss": "3.1.1",
     "autoprefixer": "10.4.13",
     "babelify": "10.0.0",
