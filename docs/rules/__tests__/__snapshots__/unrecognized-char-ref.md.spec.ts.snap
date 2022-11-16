@@ -2,6 +2,66 @@
 
 exports[`docs/rules/unrecognized-char-ref.md inline validation: correct 1`] = `[]`;
 
+exports[`docs/rules/unrecognized-char-ref.md inline validation: disabled-ignore-case 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 4,
+        "context": {
+          "entity": "&Amp;",
+          "terminated": true,
+        },
+        "line": 1,
+        "message": "Unrecognized character reference "&Amp;"",
+        "offset": 3,
+        "ruleId": "unrecognized-char-ref",
+        "ruleUrl": "https://html-validate.org/rules/unrecognized-char-ref.html",
+        "selector": "p",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<p>&Amp;</p>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/unrecognized-char-ref.md inline validation: disabled-require-semicolon 1`] = `[]`;
+
+exports[`docs/rules/unrecognized-char-ref.md inline validation: enabled-ignore-case 1`] = `[]`;
+
+exports[`docs/rules/unrecognized-char-ref.md inline validation: enabled-require-semicolon 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 4,
+        "context": {
+          "entity": "&copy",
+          "terminated": false,
+        },
+        "line": 1,
+        "message": "Character reference "&copy" must be terminated by a semicolon",
+        "offset": 3,
+        "ruleId": "unrecognized-char-ref",
+        "ruleUrl": "https://html-validate.org/rules/unrecognized-char-ref.html",
+        "selector": "p",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<p>&copy</p>",
+    "warningCount": 0,
+  },
+]
+`;
+
 exports[`docs/rules/unrecognized-char-ref.md inline validation: incorrect 1`] = `
 [
   {
@@ -10,13 +70,16 @@ exports[`docs/rules/unrecognized-char-ref.md inline validation: incorrect 1`] = 
     "messages": [
       {
         "column": 4,
-        "context": "&foobar;",
+        "context": {
+          "entity": "&foobar;",
+          "terminated": true,
+        },
         "line": 1,
         "message": "Unrecognized character reference "&foobar;"",
         "offset": 3,
         "ruleId": "unrecognized-char-ref",
         "ruleUrl": "https://html-validate.org/rules/unrecognized-char-ref.html",
-        "selector": null,
+        "selector": "p",
         "severity": 2,
         "size": 8,
       },
@@ -26,3 +89,5 @@ exports[`docs/rules/unrecognized-char-ref.md inline validation: incorrect 1`] = 
   },
 ]
 `;
+
+exports[`docs/rules/unrecognized-char-ref.md inline validation: querystring 1`] = `[]`;

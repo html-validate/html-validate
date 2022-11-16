@@ -1,15 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`rule unrecognized-char-ref should contain documentation 1`] = `
+exports[`rule unrecognized-char-ref should contain contextual documentation (not terminated) 1`] = `
 {
-  "description": "HTML defines a set of valid character references but this is not a valid one.",
+  "description": "Character reference \`&spam;\` must be terminated by a semicolon.
+HTML5 defines a set of [valid character references](https://html.spec.whatwg.org/multipage/named-characters.html) but this is not a valid one.
+
+Ensure that:
+
+1. The character is one of the listed names.
+1. The case is correct (names are case sensitive).
+1. The name is terminated with a \`;\`.",
   "url": "https://html-validate.org/rules/unrecognized-char-ref.html",
 }
 `;
 
-exports[`rule unrecognized-char-ref should contain documentation 2`] = `
+exports[`rule unrecognized-char-ref should contain contextual documentation (terminated) 1`] = `
 {
-  "description": "HTML defines a set of valid character references but &spam; is not a valid one.",
+  "description": "Unrecognized character reference \`&spam;\`.
+HTML5 defines a set of [valid character references](https://html.spec.whatwg.org/multipage/named-characters.html) but this is not a valid one.
+
+Ensure that:
+
+1. The character is one of the listed names.
+1. The case is correct (names are case sensitive).
+1. The name is terminated with a \`;\`.",
+  "url": "https://html-validate.org/rules/unrecognized-char-ref.html",
+}
+`;
+
+exports[`rule unrecognized-char-ref should contain documentation 1`] = `
+{
+  "description": "Unrecognized character reference.
+HTML5 defines a set of [valid character references](https://html.spec.whatwg.org/multipage/named-characters.html) but this is not a valid one.
+
+Ensure that:
+
+1. The character is one of the listed names.
+1. The case is correct (names are case sensitive).
+1. The name is terminated with a \`;\`.",
   "url": "https://html-validate.org/rules/unrecognized-char-ref.html",
 }
 `;
