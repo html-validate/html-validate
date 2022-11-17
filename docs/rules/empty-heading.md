@@ -73,5 +73,5 @@ Non-empty headings are valid:
 
 ## Version history
 
-- %version% - Handles when heading (or a parent) is `hidden`.
+- 7.10.0 - Handles when heading (or a parent) is `hidden`.
 - 7.6.0 - Handles `<img alt="..">` and `<svg>` with title.

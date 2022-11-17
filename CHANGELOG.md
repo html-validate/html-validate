@@ -1,5 +1,17 @@
 # html-validate changelog
 
+## [7.10.0](https://gitlab.com/html-validate/html-validate/compare/v7.9.0...v7.10.0) (2022-11-17)
+
+### Features
+
+- **rules:** add `wcag/h63` for header cell scopes ([ee012c6](https://gitlab.com/html-validate/html-validate/commit/ee012c6a0c92add912cb1bc1629076cdf57bab97))
+
+### Bug Fixes
+
+- **html5:** `<th>` does not require `scope` attribute ([44bb935](https://gitlab.com/html-validate/html-validate/commit/44bb93565b975e1f1634dbeb18ee6abf409512ab)), closes [#189](https://gitlab.com/html-validate/html-validate/issues/189)
+- **rules:** `empty-heading` handles `hidden` attribute ([e33b55e](https://gitlab.com/html-validate/html-validate/commit/e33b55eaee724ebcbfa7f6d49d7de870301309c3)), closes [#193](https://gitlab.com/html-validate/html-validate/issues/193)
+- **rules:** `wcag/h30` handles `hidden` attribute ([c5ac930](https://gitlab.com/html-validate/html-validate/commit/c5ac93066beb4a65a7d99770cedf26da19294f75))
+
 ## [7.9.0](https://gitlab.com/html-validate/html-validate/compare/v7.8.0...v7.9.0) (2022-11-16)
 
 ### Features
