@@ -10,9 +10,11 @@ function hasImgAltText(node: HtmlElement): boolean {
 		return hasAltText(node);
 	} else if (node.is("svg")) {
 		return node.textContent.trim() !== "";
-	} else {
-		return false;
 	}
+
+	/* istanbul ignore next -- querySelector(..) is only going to return the two
+	 * above tags but this serves as a sane default if above assumption changes  */
+	return false;
 }
 
 export default class EmptyHeading extends Rule {
