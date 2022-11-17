@@ -55,6 +55,18 @@ describe("rule empty-heading", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error when hidden heading has text content", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<h1 hidden>lorem ipsum</h1>
+			<div hidden>
+				<h2>lorem ipsum</h2>
+			</div>
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should not report when heading has dynamic text", () => {
 		expect.assertions(1);
 		function processElement(node: HtmlElement): void {
@@ -124,6 +136,36 @@ describe("rule empty-heading", () => {
 			  4 | 			</h1>
 			  5 |
 			Selector: h1"
+		`);
+	});
+
+	it("should report error when hidden heading has no text content", () => {
+		expect.assertions(2);
+		const markup = /* HTML */ `
+			<h1 hidden></h1>
+			<div hidden>
+				<h2></h2>
+			</div>
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: <h1> cannot be empty, must have text content (empty-heading) at inline:2:5:
+			  1 |
+			> 2 | 			<h1 hidden></h1>
+			    | 			 ^^
+			  3 | 			<div hidden>
+			  4 | 				<h2></h2>
+			  5 | 			</div>
+			Selector: h1
+			error: <h2> cannot be empty, must have text content (empty-heading) at inline:4:6:
+			  2 | 			<h1 hidden></h1>
+			  3 | 			<div hidden>
+			> 4 | 				<h2></h2>
+			    | 				 ^^
+			  5 | 			</div>
+			  6 |
+			Selector: div > h2"
 		`);
 	});
 

@@ -42,7 +42,7 @@ export default class EmptyHeading extends Rule {
 			}
 		}
 
-		switch (classifyNodeText(heading)) {
+		switch (classifyNodeText(heading, { ignoreHiddenRoot: true })) {
 			case TextClassification.DYNAMIC_TEXT:
 			case TextClassification.STATIC_TEXT:
 				/* have some text content, consider ok */

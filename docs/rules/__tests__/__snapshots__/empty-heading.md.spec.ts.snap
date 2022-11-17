@@ -2,6 +2,46 @@
 
 exports[`docs/rules/empty-heading.md inline validation: correct 1`] = `[]`;
 
+exports[`docs/rules/empty-heading.md inline validation: hidden-invalid 1`] = `
+[
+  {
+    "errorCount": 2,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 2,
+        "line": 1,
+        "message": "<h1> cannot be empty, must have text content",
+        "offset": 1,
+        "ruleId": "empty-heading",
+        "ruleUrl": "https://html-validate.org/rules/empty-heading.html",
+        "selector": "h1",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 6,
+        "line": 3,
+        "message": "<h2> cannot be empty, must have text content",
+        "offset": 35,
+        "ruleId": "empty-heading",
+        "ruleUrl": "https://html-validate.org/rules/empty-heading.html",
+        "selector": "div > h2",
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<h1 hidden></h1>
+<div hidden>
+    <h2></h1>
+</div>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/empty-heading.md inline validation: hidden-valid 1`] = `[]`;
+
 exports[`docs/rules/empty-heading.md inline validation: img-alt 1`] = `[]`;
 
 exports[`docs/rules/empty-heading.md inline validation: incorrect 1`] = `
