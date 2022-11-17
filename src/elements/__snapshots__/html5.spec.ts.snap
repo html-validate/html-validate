@@ -15988,7 +15988,7 @@ exports[`HTML elements <th> invalid markup 1`] = `
         },
         "line": 11,
         "message": "<header> element is not permitted as a descendant of <th>",
-        "offset": 204,
+        "offset": 178,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "table:nth-child(2) > tbody > tr > th > header",
@@ -16004,7 +16004,7 @@ exports[`HTML elements <th> invalid markup 1`] = `
         },
         "line": 12,
         "message": "<footer> element is not permitted as a descendant of <th>",
-        "offset": 226,
+        "offset": 200,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "table:nth-child(2) > tbody > tr > th > footer",
@@ -16020,7 +16020,7 @@ exports[`HTML elements <th> invalid markup 1`] = `
         },
         "line": 13,
         "message": "<article> element is not permitted as a descendant of <th>",
-        "offset": 248,
+        "offset": 222,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "table:nth-child(2) > tbody > tr > th > article",
@@ -16036,25 +16036,10 @@ exports[`HTML elements <th> invalid markup 1`] = `
         },
         "line": 14,
         "message": "<h1> element is not permitted as a descendant of <th>",
-        "offset": 272,
+        "offset": 246,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "table:nth-child(2) > tbody > tr > th > h1",
-        "severity": 2,
-        "size": 2,
-      },
-      {
-        "column": 5,
-        "context": {
-          "attribute": "scope",
-          "element": "th",
-        },
-        "line": 24,
-        "message": "<th> is missing required "scope" attribute",
-        "offset": 400,
-        "ruleId": "element-required-attributes",
-        "ruleUrl": "https://html-validate.org/rules/element-required-attributes.html",
-        "selector": "table:nth-child(3) > tbody > tr > th:nth-child(1)",
         "severity": 2,
         "size": 2,
       },
@@ -16067,19 +16052,42 @@ exports[`HTML elements <th> invalid markup 1`] = `
               "col",
               "rowgroup",
               "colgroup",
-              "auto",
+            ],
+          },
+          "attribute": "scope",
+          "element": "th",
+          "value": "auto",
+        },
+        "line": 27,
+        "message": "Attribute "scope" has invalid value "auto"",
+        "offset": 448,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "table:nth-child(3) > tbody > tr > th:nth-child(2)",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 15,
+        "context": {
+          "allowed": {
+            "enum": [
+              "row",
+              "col",
+              "rowgroup",
+              "colgroup",
             ],
           },
           "attribute": "scope",
           "element": "th",
           "value": "foobar",
         },
-        "line": 27,
+        "line": 30,
         "message": "Attribute "scope" has invalid value "foobar"",
-        "offset": 463,
+        "offset": 514,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "table:nth-child(3) > tbody > tr > th:nth-child(2)",
+        "selector": "table:nth-child(3) > tbody > tr > th:nth-child(3)",
         "severity": 2,
         "size": 6,
       },
@@ -16095,9 +16103,9 @@ exports[`HTML elements <th> invalid markup 1`] = `
           "element": "th",
           "value": "-1",
         },
-        "line": 36,
+        "line": 39,
         "message": "Attribute "colspan" has invalid value "-1"",
-        "offset": 614,
+        "offset": 665,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "table:nth-child(4) > tbody > tr > th:nth-child(1)",
@@ -16116,9 +16124,9 @@ exports[`HTML elements <th> invalid markup 1`] = `
           "element": "th",
           "value": "-1",
         },
-        "line": 36,
+        "line": 39,
         "message": "Attribute "rowspan" has invalid value "-1"",
-        "offset": 627,
+        "offset": 678,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "table:nth-child(4) > tbody > tr > th:nth-child(1)",
@@ -16137,9 +16145,9 @@ exports[`HTML elements <th> invalid markup 1`] = `
           "element": "th",
           "value": "",
         },
-        "line": 39,
+        "line": 42,
         "message": "Attribute "colspan" is missing value",
-        "offset": 716,
+        "offset": 767,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "table:nth-child(4) > tbody > tr > th:nth-child(2)",
@@ -16158,9 +16166,9 @@ exports[`HTML elements <th> invalid markup 1`] = `
           "element": "th",
           "value": "",
         },
-        "line": 39,
+        "line": 42,
         "message": "Attribute "rowspan" is missing value",
-        "offset": 724,
+        "offset": 775,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "table:nth-child(4) > tbody > tr > th:nth-child(2)",
@@ -16179,9 +16187,9 @@ exports[`HTML elements <th> invalid markup 1`] = `
           "element": "th",
           "value": "",
         },
-        "line": 40,
+        "line": 43,
         "message": "Attribute "colspan" has invalid value """,
-        "offset": 742,
+        "offset": 793,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "table:nth-child(4) > tbody > tr > th:nth-child(3)",
@@ -16200,9 +16208,9 @@ exports[`HTML elements <th> invalid markup 1`] = `
           "element": "th",
           "value": "",
         },
-        "line": 40,
+        "line": 43,
         "message": "Attribute "rowspan" has invalid value """,
-        "offset": 742,
+        "offset": 793,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "table:nth-child(4) > tbody > tr > th:nth-child(3)",
@@ -16221,9 +16229,9 @@ exports[`HTML elements <th> invalid markup 1`] = `
           "element": "th",
           "value": "foobar4u",
         },
-        "line": 43,
+        "line": 46,
         "message": "Attribute "colspan" has invalid value "foobar4u"",
-        "offset": 864,
+        "offset": 915,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "table:nth-child(4) > tbody > tr > th:nth-child(4)",
@@ -16242,9 +16250,9 @@ exports[`HTML elements <th> invalid markup 1`] = `
           "element": "th",
           "value": "foobar4u",
         },
-        "line": 43,
+        "line": 46,
         "message": "Attribute "rowspan" has invalid value "foobar4u"",
-        "offset": 883,
+        "offset": 934,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "table:nth-child(4) > tbody > tr > th:nth-child(4)",
@@ -16254,14 +16262,14 @@ exports[`HTML elements <th> invalid markup 1`] = `
     ],
     "source": "<!-- should not be allowed outside <tr> -->
 <div>
-	<th scope="auto">foo</th>
+	<th>foo</th>
 </div>
 
 <!-- should not allow <header>, <footer>, sectioning or headings -->
 <table>
 	<tbody>
 		<tr>
-			<th scope="auto">
+			<th>
 				<header></header>
 				<footer></footer>
 				<article></article>
@@ -16276,6 +16284,9 @@ exports[`HTML elements <th> invalid markup 1`] = `
 		<tr>
 			<!-- should require scope attribute -->
 			<th>foo</th>
+
+			<!-- should not allow auto as a keyword -->
+			<th scope="auto">bar</th>
 
 			<!-- invalid scope attribute -->
 			<th scope="foobar">bar</th>

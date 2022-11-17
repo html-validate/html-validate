@@ -42,6 +42,7 @@ describe("HTML elements", () => {
 			 * separately and adds too much noise here */
 			"wcag/h32": "off",
 			"wcag/h37": "off",
+			"wcag/h63": "off",
 			"wcag/h67": "off",
 
 			/* svg elements uses a remapping of tagnames (added namespace), this

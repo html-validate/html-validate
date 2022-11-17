@@ -9,7 +9,7 @@ title: Release and support plan
 
 Older major versions is generally supported for two year after the succeeding version.
 
-<!-- [html-validate-disable-block element-required-attributes: marked does not generate tables with scope attribute] -->
+<!-- [html-validate-disable-block wcag/h63: marked does not generate tables with scope attribute] -->
 
 | Major | Status      | Initial release | Support end |
 | ----- | ----------- | --------------- | ----------- |
@@ -32,7 +32,7 @@ Support for pending versions is limited but repoting bugs against pending versio
 HTML-Validate and all official plugins will generally support the last three major versions or at least each major for a year.
 Some exceptions occur, refer to the following table:
 
-<!-- [html-validate-disable-block element-required-attributes: marked does not generate tables with scope attribute] -->
+<!-- [html-validate-disable-block wcag/h63: marked does not generate tables with scope attribute] -->
 
 | Libraries  | Current versions     | Description                                           |
 | ---------- | -------------------- | ----------------------------------------------------- |
