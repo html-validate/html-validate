@@ -51,6 +51,27 @@ Images can be used if they have alternative text:
     </h1>
 </validate>
 
+### Hidden
+
+Even if the heading or one of its parents are `hidden` this rule tests if the heading is empty.
+
+<validate name="hidden-invalid" rules="empty-heading">
+    <h1 hidden></h1>
+    <div hidden>
+        <h2></h1>
+    </div>
+</validate>
+
+Non-empty headings are valid:
+
+<validate name="hidden-valid" rules="empty-heading">
+    <h1 hidden>Lorem ipsum</h1>
+    <div hidden>
+        <h2>dolor sit amet</h2>
+    </div>
+</validate>
+
 ## Version history
 
+- %version% - Handles when heading (or a parent) is `hidden`.
 - 7.6.0 - Handles `<img alt="..">` and `<svg>` with title.
