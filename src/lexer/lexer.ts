@@ -102,7 +102,7 @@ export class Lexer {
 		yield this.token(context, TokenType.EOF, []);
 	}
 
-	private token(context: Context, type: TokenType, data: RegExpMatchArray): Token {
+	private token(context: Context, type: TokenType, data: string[]): Token {
 		const size = data.length > 0 ? data[0].length : 0;
 		const location = context.getLocation(size);
 		return {
@@ -145,7 +145,7 @@ export class Lexer {
 		for (let i = 0; i < n; i++) {
 			const [regex, nextState, tokenType] = tests[i];
 
-			const match = regex ? context.string.match(regex) : [""];
+			const match: string[] | null = regex ? context.string.match(regex) : [""];
 			if (match) {
 				let token: Token | null = null;
 				if (tokenType !== false) {
@@ -166,7 +166,7 @@ export class Lexer {
 	/**
 	 * Called when entering a new state.
 	 */
-	private enter(context: Context, state: State, data: RegExpMatchArray | null): void {
+	private enter(context: Context, state: State, data: string[] | null): void {
 		/* script/style tags require a different content model */
 		if (state === State.TAG && data && data[0][0] === "<") {
 			if (data[0] === "<script") {
