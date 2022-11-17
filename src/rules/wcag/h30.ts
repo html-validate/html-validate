@@ -23,7 +23,7 @@ export default class H30 extends Rule {
 				}
 
 				/* check if text content is present (or dynamic) */
-				const textClassification = classifyNodeText(link);
+				const textClassification = classifyNodeText(link, { ignoreHiddenRoot: true });
 				if (textClassification !== TextClassification.EMPTY_TEXT) {
 					continue;
 				}

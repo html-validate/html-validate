@@ -68,6 +68,18 @@ describe("wcag/h30", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error when hidden link has text", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<a hidden>lorem ipsum</a>
+			<div hidden>
+				<a>dolor sit amet</a>
+			</div>
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should report error when link is missing text", () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `<a></a>`;
@@ -90,6 +102,36 @@ describe("wcag/h30", () => {
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("wcag/h30", "Anchor link must have a text describing its purpose");
+	});
+
+	it("should report error when hidden link is missing text", () => {
+		expect.assertions(2);
+		const markup = /* HTML */ `
+			<a hidden></a>
+			<div hidden>
+				<a></a>
+			</div>
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Anchor link must have a text describing its purpose (wcag/h30) at inline:2:5:
+			  1 |
+			> 2 | 			<a hidden></a>
+			    | 			 ^
+			  3 | 			<div hidden>
+			  4 | 				<a></a>
+			  5 | 			</div>
+			Selector: a
+			error: Anchor link must have a text describing its purpose (wcag/h30) at inline:4:6:
+			  2 | 			<a hidden></a>
+			  3 | 			<div hidden>
+			> 4 | 				<a></a>
+			    | 				 ^
+			  5 | 			</div>
+			  6 |
+			Selector: div > a"
+		`);
 	});
 
 	it("smoketest", () => {
