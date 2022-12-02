@@ -1107,7 +1107,7 @@ export default defineMetadata({
 		void: true,
 		attributes: {
 			as: {
-				allowed: allowedIfAttributeHasValue("rel", ["preload", "modulepreload", "prefetch"]),
+				allowed: allowedIfAttributeHasValue("rel", ["prefetch", "preload", "modulepreload"]),
 				enum: [
 					"audio",
 					"audioworklet",
