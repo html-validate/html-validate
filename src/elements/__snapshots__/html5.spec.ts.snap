@@ -12294,10 +12294,10 @@ exports[`HTML elements <link> invalid markup 1`] = `
         "column": 34,
         "context": {
           "attr": "as",
-          "details": ""rel" attribute must be "preload" or "modulepreload"",
+          "details": ""rel" attribute must be "prefetch", "preload" or "modulepreload"",
         },
         "line": 9,
-        "message": ""as" attribute cannot be used in this context: "rel" attribute must be "preload" or "modulepreload"",
+        "message": ""as" attribute cannot be used in this context: "rel" attribute must be "prefetch", "preload" or "modulepreload"",
         "offset": 258,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
