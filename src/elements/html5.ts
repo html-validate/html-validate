@@ -1,11 +1,11 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 
-import { defineMetadata } from "../meta/define-metadata";
-import { metadataHelper } from "../meta/helper";
-import { DynamicValue } from "../dom";
+import { defineMetadata } from "../meta/define-metadata"
+import { metadataHelper } from "../meta/helper"
+import { DynamicValue } from "../dom"
 
 const { allowedIfAttributeIsPresent, allowedIfAttributeIsAbsent, allowedIfAttributeHasValue } =
-	metadataHelper;
+	metadataHelper
 
 export default defineMetadata({
 	"*": {
@@ -140,12 +140,12 @@ export default defineMetadata({
 		attributes: {
 			alt: {},
 			coords: {
-				allowed(node) {
-					const attr = node.getAttribute("shape");
+				allowed (node) {
+					const attr = node.getAttribute("shape")
 					if (attr && attr.valueMatches("default", false)) {
-						return `cannot be used when "shape" attribute is "default"`;
+						return `cannot be used when "shape" attribute is "default"`
 					} else {
-						return null;
+						return null
 					}
 				},
 			},
@@ -168,12 +168,12 @@ export default defineMetadata({
 				allowed: allowedIfAttributeIsPresent("href"),
 			},
 			shape: {
-				allowed(node) {
-					const attr = node.getAttribute("shape");
+				allowed (node) {
+					const attr = node.getAttribute("shape")
 					if (!attr || attr.value instanceof DynamicValue) {
-						return null;
+						return null
 					}
-					const shape = attr.value || "rect";
+					const shape = attr.value || "rect"
 					switch (shape) {
 						case "circ":
 						case "circle":
@@ -181,9 +181,9 @@ export default defineMetadata({
 						case "polygon":
 						case "rect":
 						case "rectangle":
-							return allowedIfAttributeIsPresent("coords")(node);
+							return allowedIfAttributeIsPresent("coords")(node)
 					}
-					return null;
+					return null
 				},
 				enum: ["rect", "circle", "poly", "default"],
 			},
@@ -1107,7 +1107,7 @@ export default defineMetadata({
 		void: true,
 		attributes: {
 			as: {
-				allowed: allowedIfAttributeHasValue("rel", ["preload", "modulepreload"]),
+				allowed: allowedIfAttributeHasValue("rel", ["preload", "modulepreload", "prefetch"]),
 				enum: [
 					"audio",
 					"audioworklet",
@@ -2117,4 +2117,4 @@ export default defineMetadata({
 			source: "html32",
 		},
 	},
-});
+})
