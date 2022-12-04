@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [7.10.1](https://gitlab.com/html-validate/html-validate/compare/v7.10.0...v7.10.1) (2022-12-04)
+
+### Bug Fixes
+
+- allow `as` with `prefetch` ([54ceeb1](https://gitlab.com/html-validate/html-validate/commit/54ceeb1f645cae053c493dced4cb983411a5a9e5))
+
 ## [7.10.0](https://gitlab.com/html-validate/html-validate/compare/v7.9.0...v7.10.0) (2022-11-17)
 
 ### Features
