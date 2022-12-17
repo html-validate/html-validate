@@ -768,7 +768,11 @@ export default defineMetadata({
 	},
 
 	hgroup: {
-		deprecated: true,
+		flow: true,
+		heading: true,
+		permittedContent: ["p", "@heading?"],
+		permittedDescendants: [{ exclude: ["hgroup"] }],
+		requiredContent: ["@heading"],
 	},
 
 	hr: {

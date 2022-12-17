@@ -4325,26 +4325,130 @@ exports[`HTML elements <header> valid markup 1`] = `[]`;
 exports[`HTML elements <hgroup> invalid markup 1`] = `
 [
   {
-    "errorCount": 1,
+    "errorCount": 7,
     "filePath": "test-files/elements/hgroup-invalid.html",
     "messages": [
       {
+        "column": 28,
+        "context": {
+          "child": "<hgroup>",
+          "kind": "content",
+          "parent": "<head>",
+        },
+        "line": 4,
+        "message": "<hgroup> element is not permitted as content under <head>",
+        "offset": 155,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "head > hgroup",
+        "severity": 2,
+        "size": 6,
+      },
+      {
         "column": 2,
         "context": {
-          "tagName": "hgroup",
+          "element": "<hgroup>",
+          "missing": "<@heading>",
         },
-        "line": 2,
-        "message": "<hgroup> is deprecated",
-        "offset": 32,
-        "ruleId": "deprecated",
-        "ruleUrl": "https://html-validate.org/rules/deprecated.html",
-        "selector": "hgroup",
+        "line": 7,
+        "message": "<hgroup> element must have <@heading> as content",
+        "offset": 226,
+        "ruleId": "element-required-content",
+        "ruleUrl": "https://html-validate.org/rules/element-required-content.html",
+        "selector": "hgroup:nth-child(2)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 26,
+        "line": 10,
+        "message": "Element <@heading> can only appear once under <hgroup>",
+        "offset": 319,
+        "ruleId": "element-permitted-occurrences",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-occurrences.html",
+        "selector": "hgroup:nth-child(3) > h2",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 26,
+        "line": 11,
+        "message": "Element <@heading> can only appear once under <hgroup>",
+        "offset": 372,
+        "ruleId": "element-permitted-occurrences",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-occurrences.html",
+        "selector": "hgroup:nth-child(4) > h1:nth-child(2)",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 10,
+        "context": {
+          "child": "<div>",
+          "kind": "content",
+          "parent": "<hgroup>",
+        },
+        "line": 14,
+        "message": "<div> element is not permitted as content under <hgroup>",
+        "offset": 447,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "hgroup:nth-child(5) > div",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 2,
+        "context": {
+          "element": "<hgroup>",
+          "missing": "<@heading>",
+        },
+        "line": 17,
+        "message": "<hgroup> element must have <@heading> as content",
+        "offset": 525,
+        "ruleId": "element-required-content",
+        "ruleUrl": "https://html-validate.org/rules/element-required-content.html",
+        "selector": "hgroup:nth-child(6)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 10,
+        "context": {
+          "ancestor": "<hgroup>",
+          "child": "<hgroup>",
+          "kind": "descendant",
+        },
+        "line": 20,
+        "message": "<hgroup> element is not permitted as a descendant of <hgroup>",
+        "offset": 596,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "hgroup:nth-child(7) > hgroup",
         "severity": 2,
         "size": 6,
       },
     ],
-    "source": "<!-- element is deprecated -->
+    "source": "<!-- content model as per https://html.spec.whatwg.org/#the-hgroup-element violated -->
+
+<!-- should not be allowed in head -->
+<head><title>title</title><hgroup><h1>section</h1></hgroup></head>
+
+<!-- should not be empty -->
 <hgroup></hgroup>
+
+<!-- should have exactly one h1 .. h6 element -->
+<hgroup><h1>section</h1><h2>subsection</h2></hgroup>
+<hgroup><h1>section</h1><h1>section</h1></hgroup>
+
+<!-- should only contain p*, h?, p* -->
+<hgroup><div>foo</div><h1>section</h1></hgroup>
+
+<!-- should not containt p alone -->
+<hgroup><p>topline</p></hgroup>
+
+<!-- should not be nested -->
+<hgroup><hgroup><h1>section</h1></hgroup></hgroup>
 ",
     "warningCount": 0,
   },
