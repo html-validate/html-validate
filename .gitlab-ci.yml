@@ -33,15 +33,12 @@ NPM:
     paths:
       - node_modules/
       - docs/node_modules/
-      - tests/integration/*/node_modules/
     reports:
       dependency_scanning: gl-dependency-scanning.json
   script:
     - node --version
     - npm --version
     - npm ci --no-fund --no-audit --no-update-notifier
-    - (cd tests/integration/cjs && npm install)
-    - (cd tests/integration/esm && npm install)
     - npm audit --json --production | npx --yes gitlab-npm-audit-parser -o gl-dependency-scanning.json || true
     - npx sort-package-json --check
 
@@ -234,6 +231,8 @@ Module:
       - BUILD:
           - esm
           - cjs
+  before_script:
+    - (cd tests/integration/${BUILD} && npm install)
   script:
     - npm exec tsc -- --build tests/integration/${BUILD}
     - node tests/integration/${BUILD}
