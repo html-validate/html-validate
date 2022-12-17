@@ -180,6 +180,20 @@ describe("Meta validator", () => {
 			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
 		});
 
+		it("should validate @heading with qualifier", () => {
+			expect.assertions(3);
+			metaTable.loadFromObject({
+				h1: mockEntry({ heading: true, void: true }),
+				h2: mockEntry({ heading: true, void: true }),
+				nil: mockEntry({ void: true }),
+			});
+			const [h1, nil, h2] = parser.parseHtml("<h1/><nil/><h2/>").childElements;
+			const rules = ["@heading?"];
+			expect(Validator.validatePermitted(h1, rules)).toBeTruthy();
+			expect(Validator.validatePermitted(nil, rules)).toBeFalsy();
+			expect(Validator.validatePermitted(h2, rules)).toBeTruthy();
+		});
+
 		it("should validate multiple rules (OR)", () => {
 			expect.assertions(3);
 			metaTable.loadFromObject({
@@ -338,13 +352,17 @@ describe("Meta validator", () => {
 	});
 
 	describe("validateOccurrences()", () => {
+		const cb = (_child: HtmlElement, _category: string): null => {
+			return null;
+		};
+
 		it("should handle null", () => {
 			expect.assertions(1);
 			metaTable.loadFromObject({
 				foo: mockEntry({ void: true }),
 			});
-			const [foo] = parser.parseHtml("<foo/>").childElements;
-			expect(Validator.validateOccurrences(foo, null, 1)).toBeTruthy();
+			const foo = parser.parseHtml("<foo/>").childElements;
+			expect(Validator.validateOccurrences(foo, null, cb)).toBeTruthy();
 		});
 
 		it("should support missing qualifier", () => {
@@ -352,10 +370,10 @@ describe("Meta validator", () => {
 			metaTable.loadFromObject({
 				foo: mockEntry({ void: true }),
 			});
-			const [foo] = parser.parseHtml("<foo/>").childElements;
+			const foo = parser.parseHtml("<foo/><foo/><foo/>").childElements;
 			const rules = ["foo"];
-			expect(Validator.validateOccurrences(foo, rules, 0)).toBeTruthy();
-			expect(Validator.validateOccurrences(foo, rules, 9)).toBeTruthy();
+			expect(Validator.validateOccurrences([], rules, cb)).toBeTruthy();
+			expect(Validator.validateOccurrences(foo, rules, cb)).toBeTruthy();
 		});
 
 		it("should support ? qualifier", () => {
@@ -363,11 +381,14 @@ describe("Meta validator", () => {
 			metaTable.loadFromObject({
 				foo: mockEntry({ void: true }),
 			});
-			const [foo] = parser.parseHtml("<foo/>").childElements;
 			const rules = ["foo?"];
-			expect(Validator.validateOccurrences(foo, rules, 0)).toBeTruthy();
-			expect(Validator.validateOccurrences(foo, rules, 1)).toBeTruthy();
-			expect(Validator.validateOccurrences(foo, rules, 2)).toBeFalsy();
+			expect(Validator.validateOccurrences([], rules, cb)).toBeTruthy();
+			expect(
+				Validator.validateOccurrences(parser.parseHtml("<foo/>").childElements, rules, cb)
+			).toBeTruthy();
+			expect(
+				Validator.validateOccurrences(parser.parseHtml("<foo/><foo/>").childElements, rules, cb)
+			).toBeFalsy();
 		});
 
 		it("should support * qualifier", () => {
@@ -375,10 +396,32 @@ describe("Meta validator", () => {
 			metaTable.loadFromObject({
 				foo: mockEntry({ void: true }),
 			});
-			const [foo] = parser.parseHtml("<foo/>").childElements;
+			const foo = parser.parseHtml("<foo/><foo/><foo/>").childElements;
 			const rules = ["foo*"];
-			expect(Validator.validateOccurrences(foo, rules, 0)).toBeTruthy();
-			expect(Validator.validateOccurrences(foo, rules, 9)).toBeTruthy();
+			expect(Validator.validateOccurrences([], rules, cb)).toBeTruthy();
+			expect(Validator.validateOccurrences(foo, rules, cb)).toBeTruthy();
+		});
+
+		it("should support categories with qualifier", () => {
+			expect.assertions(5);
+			metaTable.loadFromObject({
+				h1: mockEntry({ heading: true, void: true }),
+				h2: mockEntry({ heading: true, void: true }),
+			});
+			const rules = ["@heading?"];
+			expect(Validator.validateOccurrences([], rules, cb)).toBeTruthy();
+			expect(
+				Validator.validateOccurrences(parser.parseHtml("<h1/>").childElements, rules, cb)
+			).toBeTruthy();
+			expect(
+				Validator.validateOccurrences(parser.parseHtml("<h2/>").childElements, rules, cb)
+			).toBeTruthy();
+			expect(
+				Validator.validateOccurrences(parser.parseHtml("<h1/><h1/>").childElements, rules, cb)
+			).toBeFalsy();
+			expect(
+				Validator.validateOccurrences(parser.parseHtml("<h1/><h2/>").childElements, rules, cb)
+			).toBeFalsy();
 		});
 	});
 
