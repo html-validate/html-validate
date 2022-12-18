@@ -34,4 +34,50 @@ describe("rule no-unknown-elements", () => {
 			htmlvalidate.getRuleDocumentation("no-unknown-elements", null, "my-element")
 		).toMatchSnapshot();
 	});
+
+	it("should only report error for included elements", () => {
+		expect.assertions(2);
+		const htmlvalidate = new HtmlValidate({
+			rules: {
+				"no-unknown-elements": [
+					"error",
+					{
+						include: ["bar-*"],
+					},
+				],
+			},
+		});
+		const valid = htmlvalidate.validateString("<foo-element></foo-element>");
+		const invalid = htmlvalidate.validateString("<bar-element></bar-element>");
+		expect(valid).toMatchInlineCodeframe(`""`);
+		expect(invalid).toMatchInlineCodeframe(`
+			"error: Unknown element <bar-element> (no-unknown-elements) at inline:1:1:
+			> 1 | <bar-element></bar-element>
+			    | ^^^^^^^^^^^^
+			Selector: bar-element"
+		`);
+	});
+
+	it("should not report error for excluded elements", () => {
+		expect.assertions(2);
+		const htmlvalidate = new HtmlValidate({
+			rules: {
+				"no-unknown-elements": [
+					"error",
+					{
+						exclude: ["foo-*"],
+					},
+				],
+			},
+		});
+		const valid = htmlvalidate.validateString("<foo-element></foo-element>");
+		const invalid = htmlvalidate.validateString("<bar-element></bar-element>");
+		expect(valid).toMatchInlineCodeframe(`""`);
+		expect(invalid).toMatchInlineCodeframe(`
+			"error: Unknown element <bar-element> (no-unknown-elements) at inline:1:1:
+			> 1 | <bar-element></bar-element>
+			    | ^^^^^^^^^^^^
+			Selector: bar-element"
+		`);
+	});
 });
