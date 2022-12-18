@@ -1,5 +1,6 @@
 import { Attribute, DynamicValue, HtmlElement, DOMTokenList } from "../dom";
 import {
+	type CategoryOrTag,
 	MetaAttribute,
 	Permitted,
 	PermittedEntry,
@@ -151,12 +152,13 @@ export class Validator {
 	 * Check if an element has the required set of elements. At least one of the
 	 * selectors must match.
 	 *
-	 * Returns [] when valid or a list of tagNames missing as content.
+	 * Returns `[]` when valid or a list of required but missing tagnames or
+	 * categories.
 	 */
 	public static validateRequiredContent(
 		node: HtmlElement,
 		rules: RequiredContent | null
-	): string[] {
+	): CategoryOrTag[] {
 		if (!rules || rules.length === 0) {
 			return [];
 		}
