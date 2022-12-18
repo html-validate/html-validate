@@ -1,2 +1,20 @@
-<!-- element is deprecated -->
+<!-- content model as per https://html.spec.whatwg.org/#the-hgroup-element violated -->
+
+<!-- should not be allowed in head -->
+<head><title>title</title><hgroup><h1>section</h1></hgroup></head>
+
+<!-- should not be empty -->
 <hgroup></hgroup>
+
+<!-- should have exactly one h1 .. h6 element -->
+<hgroup><h1>section</h1><h2>subsection</h2></hgroup>
+<hgroup><h1>section</h1><h1>section</h1></hgroup>
+
+<!-- should only contain p*, h?, p* -->
+<hgroup><div>foo</div><h1>section</h1></hgroup>
+
+<!-- should not containt p alone -->
+<hgroup><p>topline</p></hgroup>
+
+<!-- should not be nested -->
+<hgroup><hgroup><h1>section</h1></hgroup></hgroup>

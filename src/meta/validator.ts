@@ -36,33 +36,48 @@ export class Validator {
 	 *
 	 * For instance, a `<table>` element can only contain a single `<tbody>`
 	 * child. If multiple `<tbody>` exists this test will fail both nodes.
+	 * Note that this is called on the parent but will fail the children violating
+	 * the rule.
 	 *
-	 * @param node - Element to test.
-	 * @param rules - List of rules.
-	 * @param numSiblings - How many siblings of the same type as the element
-	 * exists (including the element itself)
-	 * @returns `true` if the element passes the test.
+	 * @param children - Array of children to validate.
+	 * @param rules - List of rules of the parent element.
+	 * @returns `true` if the parent element of the children passes the test.
 	 */
 	public static validateOccurrences(
-		node: HtmlElement,
+		children: HtmlElement[],
 		rules: Permitted | null,
-		numSiblings: number
+		cb: (node: HtmlElement, category: string) => void
 	): boolean {
 		if (!rules) {
 			return true;
 		}
-		const category = rules.find((cur) => {
+		let valid: boolean = true;
+		for (const rule of rules) {
 			/** @todo handle complex rules and not just plain arrays (but as of now
 			 * there is no use-case for it) */
 			// istanbul ignore next
-			if (typeof cur !== "string") {
+			if (typeof rule !== "string") {
 				return false;
 			}
-			const match = cur.match(/^(.*?)[?*]?$/);
-			return match && match[1] === node.tagName;
-		});
-		const limit = parseAmountQualifier(category as string);
-		return limit === null || numSiblings <= limit;
+
+			// Check if the rule has a quantifier
+			const [, category, quantifier] = rule.match(/^(@?.*?)([?*]?)$/) as RegExpMatchArray;
+			const limit = category && quantifier && parseQuantifier(quantifier);
+
+			if (limit) {
+				const siblings = children.filter((cur) =>
+					Validator.validatePermittedCategory(cur, rule, true)
+				);
+				if (siblings.length > limit) {
+					// fail only the children above the limit (currently limit can only be 1)
+					for (const child of siblings.slice(limit)) {
+						cb(child, category);
+					}
+					valid = false;
+				}
+			}
+		}
+		return valid;
 	}
 
 	/**
@@ -147,7 +162,9 @@ export class Validator {
 		}
 
 		return rules.filter((tagName) => {
-			const haveMatchingChild = node.childElements.some((child) => child.is(tagName));
+			const haveMatchingChild = node.childElements.some((child) =>
+				Validator.validatePermittedCategory(child, tagName, false)
+			);
 			return !haveMatchingChild;
 		});
 	}
@@ -267,10 +284,11 @@ export class Validator {
 		category: string,
 		defaultMatch: boolean
 	): boolean {
+		const [, rawCategory] = category.match(/^(@?.*?)([?*]?)$/) as RegExpMatchArray;
+
 		/* match tagName when an explicit name is given */
-		if (category[0] !== "@") {
-			const [, tagName] = category.match(/^(.*?)[?*]?$/) as RegExpMatchArray;
-			return node.tagName === tagName;
+		if (rawCategory[0] !== "@") {
+			return node.tagName === rawCategory;
 		}
 
 		/* if the meta entry is missing assume any content model would match */
@@ -278,7 +296,7 @@ export class Validator {
 			return defaultMatch;
 		}
 
-		switch (category) {
+		switch (rawCategory) {
 			case "@meta":
 				return node.meta.metadata as boolean;
 			case "@flow":
@@ -312,23 +330,14 @@ function validateKeys(rule: PermittedGroup): void {
 	}
 }
 
-function parseAmountQualifier(category: string): number | null {
-	if (!category) {
-		/* content not allowed, catched by another rule so just assume unlimited
-		 * usage for this purpose */
-		return null;
-	}
-
-	const [, qualifier] = category.match(/^.*?([?*]?)$/) as RegExpMatchArray;
-	switch (qualifier) {
+function parseQuantifier(quantifier: string): number | null {
+	switch (quantifier) {
 		case "?":
 			return 1;
-		case "":
-			return null;
 		case "*":
 			return null;
-		/* istanbul ignore next */
+		// istanbul ignore next
 		default:
-			throw new Error(`Invalid amount qualifier "${qualifier}" used`);
+			throw new Error(`Invalid quantifier "${quantifier}" used`);
 	}
 }

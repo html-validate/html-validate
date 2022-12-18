@@ -1,0 +1,26 @@
+<!-- content model as per https://html.spec.whatwg.org/#the-hgroup-element -->
+
+<!-- should be allowed anywhere where heading content is expected -->
+<hgroup><h1>title</h1><p>tagline</p></hgroup>
+
+<!-- should have one h? element -->
+<hgroup><h1>title</h1></hgroup>
+<hgroup><h2>title</h2></hgroup>
+<hgroup><h3>title</h3></hgroup>
+<hgroup><h4>title</h4></hgroup>
+<hgroup><h5>title</h5></hgroup>
+<hgroup><h6>title</h6></hgroup>
+
+<!-- could start with zero or more p -->
+<hgroup><p>topline</p><h1>title</h1></hgroup>
+<hgroup><p>topline</p><p>topline</p><h1>title</h1></hgroup>
+
+<!-- could end with zero or more p -->
+<hgroup><h1>title</h1><p>tagline</p></hgroup>
+<hgroup><h1>title</h1><p>tagline</p><p>tagline</p></hgroup>
+
+<!-- could have both pre- and post h? content -->
+<hgroup><p>topline</p><h1>title</h1><p>tagline</p></hgroup>
+<hgroup><p>topline</p><p>topline</p><h1>title</h1><p>tagline</p><p>tagline</p></hgroup>
+<hgroup><p>topline</p><p>topline</p><h1>title</h1><p>tagline</p></hgroup>
+<hgroup><p>topline</p><h1>title</h1><p>tagline</p><p>tagline</p></hgroup>
