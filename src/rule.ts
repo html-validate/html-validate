@@ -10,6 +10,7 @@ import { Reporter } from "./reporter";
 import { MetaTable, MetaLookupableProperty } from "./meta";
 import { SchemaValidationError } from "./error";
 import { interpolate } from "./utils/interpolate";
+import { type IncludeExcludeOptions, isKeywordIgnored } from "./rules/helper";
 
 export { type SchemaObject } from "ajv";
 
@@ -39,11 +40,6 @@ export interface RuleDocumentation {
 export interface RuleConstructor<T, U> {
 	new (options?: any): Rule<T, U>;
 	schema(): SchemaObject | null | undefined;
-}
-
-export interface IncludeExcludeOptions {
-	include: string[] | null;
-	exclude: string[] | null;
 }
 
 /**
@@ -191,19 +187,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		keyword: string,
 		matcher: (list: string[], it: string) => boolean = (list, it) => list.includes(it)
 	): boolean {
-		const { include, exclude } = this.options;
-
-		/* ignore keyword if not present in "include" */
-		if (include && !matcher(include, keyword)) {
-			return true;
-		}
-
-		/* ignore keyword if present in "excludes" */
-		if (exclude && matcher(exclude, keyword)) {
-			return true;
-		}
-
-		return false;
+		return isKeywordIgnored(this.options, keyword, matcher);
 	}
 
 	/**
