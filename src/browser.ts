@@ -28,7 +28,12 @@ export {
 	metadataHelper,
 } from "./meta";
 export { Rule, type RuleConstructor, type RuleDocumentation, type SchemaObject } from "./rule";
-export { classifyNodeText, TextClassification } from "./rules/helper";
+export {
+	type IncludeExcludeOptions,
+	TextClassification,
+	classifyNodeText,
+	keywordPatternMatcher,
+} from "./rules/helper";
 export {
 	type Source,
 	type SourceHooks,

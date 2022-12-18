@@ -2,6 +2,14 @@ import { TagReadyEvent } from "../../event";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../../rule";
 import html5 from "../../elements/html5";
 import { MetaAttribute } from "../../meta";
+import { naturalJoin } from "../helper";
+import { DynamicValue } from "../../dom";
+
+/* istanbul ignore next: this will always be present for the <th>
+ * attribute (or the tests would fail) */
+const { enum: validScopes } = html5.th.attributes?.scope as MetaAttribute & { enum: string[] };
+
+const joinedScopes = naturalJoin(validScopes);
 
 export default class H63 extends Rule {
 	public documentation(): RuleDocumentation {
@@ -21,18 +29,22 @@ export default class H63 extends Rule {
 				return;
 			}
 
-			/* ignore elements with valid scope values */
-			const scope = node.getAttributeValue("scope");
-			const scopeMeta = html5?.th?.attributes?.scope as MetaAttribute;
-			if (scope && scopeMeta.enum?.includes(scope)) {
+			const scope = node.getAttribute("scope");
+			const value = scope?.value;
+
+			/* ignore dynamic scope */
+			if (value instanceof DynamicValue) {
 				return;
 			}
 
-			this.report(
-				node,
-				`<th> element must have a valid scope attribute: ${(scopeMeta.enum ?? []).join(", ")}`,
-				node.location
-			);
+			/* ignore elements with valid scope values */
+			if (value && validScopes.includes(value)) {
+				return;
+			}
+
+			const message = `<th> element must have a valid scope attribute: ${joinedScopes}`;
+			const location = scope?.valueLocation ?? scope?.keyLocation ?? node.location;
+			this.report(node, message, location);
 		});
 	}
 }

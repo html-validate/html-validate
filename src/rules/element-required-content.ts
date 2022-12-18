@@ -1,11 +1,15 @@
 import { HtmlElement } from "../dom";
 import { DOMReadyEvent } from "../event";
-import { Validator } from "../meta";
+import { type CategoryOrTag, Validator } from "../meta";
 import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
 
 interface Context {
 	element: string;
 	missing: string;
+}
+
+function isCategory(value: CategoryOrTag): boolean {
+	return value[0] === "@";
 }
 
 export default class ElementRequiredContent extends Rule<Context> {
@@ -44,7 +48,8 @@ export default class ElementRequiredContent extends Rule<Context> {
 						element: node.annotatedName,
 						missing: `<${missing}>`,
 					};
-					const message = `${node.annotatedName} element must have <${missing}> as content`;
+					const tag = isCategory(missing) ? `${missing.slice(1)} element` : `<${missing}>`;
+					const message = `${node.annotatedName} element must have ${tag} as content`;
 					this.report(node, message, null, context);
 				}
 			});

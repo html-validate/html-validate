@@ -29,3 +29,28 @@ Examples of **correct** code for this rule:
 <validate name="correct" rules="no-unknown-elements">
     <div></div>
 </validate>
+
+## Options
+
+This rule takes an optional object:
+
+```json
+{
+  "include": [],
+  "exclude": []
+}
+```
+
+### `include`
+
+If set only elements listed in this array generates errors.
+Supports wildcard with `*` (e.g. `custom-*`) and regexp with `/../` (e.g. `custom-(foo|bar)`).
+
+### `exclude`
+
+If set elements listed in this array is ignored.
+Supports wildcard with `*` (e.g. `custom-*`) and regexp with `/../` (e.g. `custom-(foo|bar)`).
+
+## Version history
+
+- %version% - Added support for `include` and `exclude`.

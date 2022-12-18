@@ -5,7 +5,7 @@ import { HtmlElement, NodeClosed } from "./dom";
 import { Event, EventCallback, TagEndEvent, TagStartEvent } from "./event";
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";
-import { Rule, ruleDocumentationUrl, IncludeExcludeOptions, SchemaObject } from "./rule";
+import { Rule, ruleDocumentationUrl, type SchemaObject } from "./rule";
 import { MetaTable } from "./meta";
 import { bundledElements } from "./elements";
 
@@ -303,47 +303,6 @@ describe("rule base class", () => {
 	it("documentation() should return null", () => {
 		expect.assertions(1);
 		expect(rule.documentation()).toBeNull();
-	});
-
-	describe("isKeywordIgnored()", () => {
-		class RuleWithOption extends Rule<void, IncludeExcludeOptions> {
-			public setup(): void {
-				/* do nothing */
-			}
-		}
-
-		let rule: RuleWithOption;
-		let options: IncludeExcludeOptions;
-
-		beforeEach(() => {
-			options = {
-				include: null,
-				exclude: null,
-			};
-			rule = new RuleWithOption(options);
-		});
-
-		it('should return true if keyword is not present in "include"', () => {
-			expect.assertions(2);
-			options.include = ["foo"];
-			expect(rule.isKeywordIgnored("foo")).toBeFalsy();
-			expect(rule.isKeywordIgnored("bar")).toBeTruthy();
-		});
-
-		it('should return true if keyword is present in "exclude"', () => {
-			expect.assertions(2);
-			options.exclude = ["foo"];
-			expect(rule.isKeywordIgnored("foo")).toBeTruthy();
-			expect(rule.isKeywordIgnored("bar")).toBeFalsy();
-		});
-
-		it('should return true if keyword satisfies both "include" and "exclude"', () => {
-			expect.assertions(2);
-			options.include = ["foo", "bar"];
-			options.exclude = ["bar"];
-			expect(rule.isKeywordIgnored("foo")).toBeFalsy();
-			expect(rule.isKeywordIgnored("bar")).toBeTruthy();
-		});
 	});
 
 	it("getTagsWithProperty() should lookup properties from metadata", () => {
