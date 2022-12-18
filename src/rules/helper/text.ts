@@ -43,7 +43,10 @@ declare module "../../dom/cache" {
 	}
 }
 
-export function getCachekey(options: TextClassificationOptions = {}): CACHE_KEY {
+/**
+ * @internal
+ */
+export function getCachekey(options: TextClassificationOptions): CACHE_KEY {
 	const { accessible = false, ignoreHiddenRoot = false } = options;
 	if (accessible && ignoreHiddenRoot) {
 		return IGNORE_HIDDEN_ROOT_A11Y_CACHE_KEY;
