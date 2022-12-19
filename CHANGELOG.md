@@ -1,5 +1,19 @@
 # html-validate changelog
 
+## [7.11.0](https://gitlab.com/html-validate/html-validate/compare/v7.10.1...v7.11.0) (2022-12-19)
+
+### Features
+
+- **api:** add `keywordPatternMatcher` for usage with `include`/`exclude` options ([6bd360f](https://gitlab.com/html-validate/html-validate/commit/6bd360f941ce8c408738e98655b050f2aed76595))
+- **rules:** add `include` and `exclude` support to `no-unknown-elements` ([cd7fb23](https://gitlab.com/html-validate/html-validate/commit/cd7fb238f2097dfaadfe66878eead21ac3937b75))
+- validateOccurrences and element-permitted-occurences support tag category ([b37d9ac](https://gitlab.com/html-validate/html-validate/commit/b37d9ac7b504a507427cd420ecc9791c308fc386))
+
+### Bug Fixes
+
+- hgroup is still valid, support the current content model ([4040db3](https://gitlab.com/html-validate/html-validate/commit/4040db366f89f8dca0eebd205ff98f1620433059)), closes [#198](https://gitlab.com/html-validate/html-validate/issues/198)
+- **rules:** improve error message for `wcag/h63` ([fa16f51](https://gitlab.com/html-validate/html-validate/commit/fa16f51e47b726938a12d1e59dc7ed1d8656e1c5))
+- **rules:** improved error message with `element-required-content` using categories ([a71a2d8](https://gitlab.com/html-validate/html-validate/commit/a71a2d803706a0b074807c9ae1c23fbaec8ae397))
+
 ## [7.10.1](https://gitlab.com/html-validate/html-validate/compare/v7.10.0...v7.10.1) (2022-12-04)
 
 ### Bug Fixes

@@ -53,4 +53,4 @@ Supports wildcard with `*` (e.g. `custom-*`) and regexp with `/../` (e.g. `custo
 
 ## Version history
 
-- %version% - Added support for `include` and `exclude`.
+- 7.11.0 - Added support for `include` and `exclude`.
