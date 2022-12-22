@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## [7.11.1](https://gitlab.com/html-validate/html-validate/compare/v7.11.0...v7.11.1) (2022-12-22)
+
+### Bug Fixes
+
+- allow setting metadata attribute to `null` to remove it ([7118d9b](https://gitlab.com/html-validate/html-validate/commit/7118d9b1349c44df155666c3d95b960fba8b96a7))
+- better error message when element inheritance fails ([717c186](https://gitlab.com/html-validate/html-validate/commit/717c186df5a6780ccdcfb39a6c52b10d378f2a28))
+
 ## [7.11.0](https://gitlab.com/html-validate/html-validate/compare/v7.10.1...v7.11.0) (2022-12-19)
 
 ### Features
