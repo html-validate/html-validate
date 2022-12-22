@@ -87,10 +87,17 @@ function handleValidationError(err: SchemaValidationError): void {
 }
 
 function handleUserError(err: UserError): void {
+	const formatted = err.prettyFormat();
+	if (formatted) {
+		console.error(); /* blank line */
+		console.error(formatted);
+		return;
+	}
+
 	console.error(kleur.red("Caught exception:"));
 	console.group();
 	{
-		console.error(err);
+		console.error(err.prettyFormat() ?? err);
 	}
 	console.groupEnd();
 }

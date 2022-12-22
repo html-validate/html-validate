@@ -35,7 +35,7 @@ jest.mock(
 );
 
 import { ResolvedConfig } from "../config";
-import { UserError, SchemaValidationError } from "../error";
+import { UserError, SchemaValidationError, InheritError } from "../error";
 import { Parser } from "../parser";
 import { MetaDataTable } from "./element";
 import { MetaData, MetaTable } from ".";
@@ -109,6 +109,16 @@ describe("MetaTable", () => {
 		expect(() => table.loadFromFile(filename)).toThrow(SchemaValidationError);
 		expect(() => table.loadFromFile(filename)).toThrow(
 			"Element metadata is not valid: /foo Property invalid is not expected to be here"
+		);
+	});
+
+	it("should throw InheritError if inheritance could not be resolved", () => {
+		expect.assertions(2);
+		const table = new MetaTable();
+		const meta: MetaDataTable = { foo: { inherit: "bar" } };
+		expect(() => table.loadFromObject(meta)).toThrow(InheritError);
+		expect(() => table.loadFromObject(meta)).toThrowErrorMatchingInlineSnapshot(
+			`"Element <foo> cannot inherit from <bar>: no such element"`
 		);
 	});
 

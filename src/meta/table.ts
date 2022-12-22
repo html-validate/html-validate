@@ -2,7 +2,7 @@ import Ajv, { ValidateFunction, SchemaObject } from "ajv";
 import ajvSchemaDraft from "ajv/lib/refs/json-schema-draft-06.json";
 import deepmerge from "deepmerge";
 import { HtmlElement } from "../dom";
-import { ensureError, SchemaValidationError, UserError } from "../error";
+import { ensureError, SchemaValidationError, UserError, InheritError } from "../error";
 import { SchemaValidationPatch } from "../plugin";
 import { computeHash } from "../utils/compute-hash";
 import { requireUncached } from "../utils/require-uncached";
@@ -133,6 +133,10 @@ export class MetaTable {
 			const data = requireUncached(filename);
 			this.loadFromObject(data, filename);
 		} catch (err: unknown) {
+			if (err instanceof InheritError) {
+				err.filename = filename;
+				throw err;
+			}
 			if (err instanceof SchemaValidationError) {
 				throw err;
 			}
@@ -190,7 +194,10 @@ export class MetaTable {
 			const name = entry.inherit;
 			parent = this.elements[name];
 			if (!parent) {
-				throw new UserError(`Element <${tagName}> cannot inherit from <${name}>: no such element`);
+				throw new InheritError({
+					tagName,
+					inherit: name,
+				});
 			}
 		}
 
