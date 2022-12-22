@@ -594,3 +594,64 @@ The final `<bar>` metadata will be merged to:
 ```
 
 Elements being inherited must be defined before the inheritor or an error will be thrown.
+
+### Attribute inheritance
+
+Attributes will be inherited but can be overwritten, given the following:
+
+```ts
+const { defineMetadata } = require("html-validate");
+
+module.exports = defineMetadata({
+  vehicle: {
+    attributes: {
+      tires: {
+        required: true,
+        enum: ["2", "4"],
+      },
+      color: {
+        required: true,
+        enum: ["red", "blue", "white"],
+      },
+    },
+  },
+  car: {
+    inherit: "vehicle",
+    attributes: {
+      tires: {
+        required: false,
+        enum: ["4"],
+      },
+    },
+  },
+});
+```
+
+The `<car>` element will still require the `color` attribute but not the `tires` attribute and only `"4"` will be allowed.
+
+The attribute could also be removed from the inheritor by setting it to `null`:
+
+```ts
+const { defineMetadata } = require("html-validate");
+
+module.exports = defineMetadata({
+  vehicle: {
+    attributes: {
+      tires: {
+        required: true,
+        enum: ["2", "4"],
+      },
+      color: {
+        required: true,
+        enum: ["red", "blue", "white"],
+      },
+    },
+  },
+  car: {
+    inherit: "vehicle",
+    attributes: {
+      tires: null,
+    },
+  },
+});
+```
