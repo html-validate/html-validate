@@ -350,6 +350,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		interactive: true,
+		formAssociated: {
+			listed: true,
+		},
 		labelable: true,
 		attributes: {
 			autofocus: {
@@ -590,6 +593,9 @@ export default defineMetadata({
 
 	fieldset: {
 		flow: true,
+		formAssociated: {
+			listed: true,
+		},
 		attributes: {
 			datafld: {
 				deprecated: true,
@@ -915,6 +921,9 @@ export default defineMetadata({
 		phrasing: true,
 		interactive: ["matchAttribute", ["type", "!=", "hidden"]],
 		void: true,
+		formAssociated: {
+			listed: true,
+		},
 		labelable: ["matchAttribute", ["type", "!=", "hidden"]],
 		attributes: {
 			align: {
@@ -1341,6 +1350,9 @@ export default defineMetadata({
 		embedded: true,
 		interactive: ["hasAttribute", "usemap"],
 		transparent: true,
+		formAssociated: {
+			listed: true,
+		},
 		attributes: {
 			align: {
 				deprecated: true,
@@ -1451,6 +1463,9 @@ export default defineMetadata({
 	output: {
 		flow: true,
 		phrasing: true,
+		formAssociated: {
+			listed: true,
+		},
 		labelable: true,
 		permittedContent: ["@phrasing"],
 	},
@@ -1634,6 +1649,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		interactive: true,
+		formAssociated: {
+			listed: true,
+		},
 		labelable: true,
 		attributes: {
 			autofocus: {
@@ -1870,6 +1888,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		interactive: true,
+		formAssociated: {
+			listed: true,
+		},
 		labelable: true,
 		attributes: {
 			autocomplete: {

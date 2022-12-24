@@ -43,6 +43,7 @@ export interface MetaElement {
   transparent?: boolean | string[];
   scriptSupporting?: boolean;
   form?: boolean;
+  formAssociated?: FormAssociated;
   labelable?: boolean;
 
   /* attributes */
@@ -185,6 +186,20 @@ In HTML5 both the `<script>` and `<template>` tags are considered script-support
 
 Elements which are considered to be a form-element should set this flag to `true`.
 In plain HTML only the `<form>` element is considered a form but when using custom components the form element might be wrapped inside and to make rules related to forms pick up the custom element this flag should be set.
+
+### `formAssociated`
+
+```ts
+export interface FormAssociated {
+  listed?: boolean;
+}
+```
+
+[Form associated][whatwg-form-associated] elements are elements which have a form owner.
+In particular `listed` form associated elements with a `name` attribute used with the `<form>` and `<fieldset>` `elements` property.
+If the element is also submittable the `name` attribute defines the name used when the form is submitted.
+
+[whatwg-form-associated]: https://html.spec.whatwg.org/multipage/forms.html#categories
 
 ### `labelable`
 

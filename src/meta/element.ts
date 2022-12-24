@@ -88,6 +88,11 @@ export interface DeprecatedElement {
 	source?: string;
 }
 
+export interface FormAssociated {
+	/** Listed elements have a name attribute and is listed in the form and fieldset elements property. */
+	listed?: boolean;
+}
+
 /**
  * @public
  */
@@ -112,6 +117,8 @@ export interface MetaData {
 	implicitClosed?: string[];
 	scriptSupporting?: boolean;
 	form?: boolean;
+	/** Mark element as a form-associated element */
+	formAssociated?: FormAssociated;
 	labelable?: boolean | PropertyExpression;
 
 	/* attribute */
@@ -147,6 +154,7 @@ export type MetaLookupableProperty =
 	| "transparent"
 	| "scriptSupporting"
 	| "form"
+	| "formAssociated"
 	| "labelable";
 
 /**
@@ -165,6 +173,7 @@ export const MetaCopyableProperty: Array<keyof MetaElement> = [
 	"interactive",
 	"transparent",
 	"form",
+	"formAssociated",
 	"labelable",
 	"attributes",
 	"permittedContent",
