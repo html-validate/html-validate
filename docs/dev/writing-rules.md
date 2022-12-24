@@ -297,6 +297,10 @@ Report a new error.
 - _`context`_ - If set it will be passed to `documentation()` later to allow
   retrieving contextual documentation.
 
+### `getMetaFor(tagName: string): MetaElement | null`
+
+Get (static) metadata for given tag.
+
 ### `getTagsWithProperty(propName: MetaLookupableProperty): string[]`
 
 Find all tags which has enabled given property.

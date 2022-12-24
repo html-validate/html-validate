@@ -7,7 +7,7 @@ import { DOMNode } from "./dom";
 import { Event, ListenEventMap } from "./event";
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";
-import { MetaTable, MetaLookupableProperty } from "./meta";
+import { MetaTable, MetaLookupableProperty, MetaElement } from "./meta";
 import { SchemaValidationError } from "./error";
 import { interpolate } from "./utils/interpolate";
 import { type IncludeExcludeOptions, isKeywordIgnored } from "./rules/helper";
@@ -188,6 +188,17 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		matcher: (list: string[], it: string) => boolean = (list, it) => list.includes(it)
 	): boolean {
 		return isKeywordIgnored(this.options, keyword, matcher);
+	}
+
+	/**
+	 * Get [[MetaElement]] for the given tag. If no specific metadata is present
+	 * the global metadata is returned or null if no global is present.
+	 *
+	 * @public
+	 * @returns A shallow copy of metadata.
+	 */
+	public getMetaFor(tagName: string): MetaElement | null {
+		return this.meta.getMetaFor(tagName);
 	}
 
 	/**

@@ -305,6 +305,17 @@ describe("rule base class", () => {
 		expect(rule.documentation()).toBeNull();
 	});
 
+	it("getMetaFor() should get MetaElement from table", () => {
+		expect.assertions(2);
+		const spy = jest.spyOn(meta, "getMetaFor");
+		expect(rule.getMetaFor("form")).toEqual(
+			expect.objectContaining({
+				tagName: "form",
+			})
+		);
+		expect(spy).toHaveBeenCalledWith("form");
+	});
+
 	it("getTagsWithProperty() should lookup properties from metadata", () => {
 		expect.assertions(2);
 		const spy = jest.spyOn(meta, "getTagsWithProperty");
