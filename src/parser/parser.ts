@@ -114,6 +114,9 @@ export class Parser {
 		/* resolve any dynamic meta element properties */
 		this.dom.resolveMeta(this.metaTable);
 
+		/* enable cache on root element, all children already have cached enabled */
+		this.dom.root.cacheEnable();
+
 		/* trigger any rules waiting for DOM ready */
 		this.trigger("dom:ready", {
 			document: this.dom,
