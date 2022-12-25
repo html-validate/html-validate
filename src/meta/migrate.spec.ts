@@ -20,7 +20,6 @@ it("should not migrate up-to-date data", () => {
 
 it("should handle missing attributes", () => {
 	expect.assertions(1);
-	expect.assertions(1);
 	const src: MetaData = {
 		deprecatedAttributes: ["foo"],
 	};
@@ -88,7 +87,6 @@ describe("should migrate attributes", () => {
 
 	it("null", () => {
 		expect.assertions(1);
-		expect.assertions(1);
 		const src: MetaData = {
 			attributes: {
 				"my-attr": null,
@@ -148,5 +146,25 @@ describe("should migrate attributes", () => {
 				enum: ["val"],
 			},
 		});
+	});
+});
+
+describe("formAssociated", () => {
+	it("should fill in missing formAssociated properties", () => {
+		expect.assertions(1);
+		const src: MetaData = {
+			formAssociated: {},
+		};
+		const result = migrateElement(src);
+		expect(result.formAssociated).toEqual({
+			listed: false,
+		});
+	});
+
+	it("should not add formAssoicated unless present", () => {
+		expect.assertions(1);
+		const src: MetaData = {};
+		const result = migrateElement(src);
+		expect(result.formAssociated).toBeUndefined();
 	});
 });

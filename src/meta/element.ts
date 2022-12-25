@@ -90,7 +90,7 @@ export interface DeprecatedElement {
 
 export interface FormAssociated {
 	/** Listed elements have a name attribute and is listed in the form and fieldset elements property. */
-	listed?: boolean;
+	listed: boolean;
 }
 
 /**
@@ -118,7 +118,7 @@ export interface MetaData {
 	scriptSupporting?: boolean;
 	form?: boolean;
 	/** Mark element as a form-associated element */
-	formAssociated?: FormAssociated;
+	formAssociated?: Partial<FormAssociated>;
 	labelable?: boolean | PropertyExpression;
 
 	/* attribute */
@@ -190,6 +190,8 @@ export const MetaCopyableProperty: Array<keyof MetaElement> = [
 export interface MetaElement extends Omit<MetaData, "deprecatedAttributes" | "requiredAttributes"> {
 	/* filled internally for reverse lookup */
 	tagName: string;
+
+	formAssociated?: FormAssociated;
 
 	attributes: Record<string, MetaAttribute>;
 	textContent?: TextContent;
