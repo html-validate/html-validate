@@ -87,14 +87,20 @@ export class Attribute {
 	/**
 	 * Test attribute value.
 	 *
-	 * @param pattern - Pattern to match value against. RegExp or a string (===)
+	 * @param pattern - Pattern to match value against. Can be a RegExp, literal
+	 * string or an array of strings (returns true if any value matches the
+	 * array).
 	 * @param dynamicMatches - If true `DynamicValue` will always match, if false
 	 * it never matches.
 	 * @returns `true` if attribute value matches pattern.
 	 */
 	public valueMatches(pattern: RegExp, dynamicMatches?: boolean): boolean;
 	public valueMatches(pattern: string, dynamicMatches?: boolean): boolean;
-	public valueMatches(pattern: RegExp | string, dynamicMatches: boolean = true): boolean {
+	public valueMatches(pattern: string[], dynamicMatches?: boolean): boolean;
+	public valueMatches(
+		pattern: RegExp | string | string[],
+		dynamicMatches: boolean = true
+	): boolean {
 		if (this.value === null) {
 			return false;
 		}
@@ -102,6 +108,11 @@ export class Attribute {
 		/* dynamic values matches everything */
 		if (this.value instanceof DynamicValue) {
 			return dynamicMatches;
+		}
+
+		/* test against an array of keywords */
+		if (Array.isArray(pattern)) {
+			return pattern.includes(this.value);
 		}
 
 		/* test value against pattern */

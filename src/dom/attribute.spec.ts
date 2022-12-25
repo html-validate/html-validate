@@ -59,6 +59,13 @@ describe("Attribute", () => {
 			expect(attr.valueMatches("ar")).toBeFalsy();
 		});
 
+		it("should match list of string", () => {
+			expect.assertions(2);
+			const attr = new Attribute("foo", "bar", keyLocation, valueLocation);
+			expect(attr.valueMatches(["aar", "bar", "car"])).toBeTruthy();
+			expect(attr.valueMatches(["ar", "br", "cr"])).toBeFalsy();
+		});
+
 		it("should match regexp", () => {
 			expect.assertions(3);
 			const attr = new Attribute("foo", "bar", keyLocation, valueLocation);
