@@ -272,6 +272,8 @@ export class Engine<T extends Parser = Parser> {
 		const unregisterOpen = parser.on("tag:start", (event: string, data: TagStartEvent) => {
 			/* wait for a tag to open and find the current block by using its parent */
 			if (directiveBlock === null) {
+				/* istanbul ignore next: there will always be a parent (root element if
+				 * nothing else) but typescript doesn't know that */
 				directiveBlock = data.target.parent?.unique ?? null;
 			}
 
