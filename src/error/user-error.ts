@@ -10,6 +10,10 @@ export class UserError extends NestedError {
 		this.name = UserError.name;
 	}
 
+	/**
+	 * @public
+	 */
+	/* istanbul ignore next: default implementation */
 	public prettyFormat(): string | undefined {
 		return undefined;
 	}
