@@ -37,8 +37,8 @@ jest.mock(
 import { ResolvedConfig } from "../config";
 import { UserError, SchemaValidationError, InheritError } from "../error";
 import { Parser } from "../parser";
-import { MetaDataTable } from "./element";
-import { MetaData, MetaTable } from ".";
+import { MetaData, MetaDataTable } from "./element";
+import { MetaTable } from "./table";
 
 describe("MetaTable", () => {
 	beforeEach(() => {
@@ -114,10 +114,10 @@ describe("MetaTable", () => {
 
 	it("should throw InheritError if inheritance could not be resolved", () => {
 		expect.assertions(2);
+		const filename = path.resolve(__dirname, "../../test-files/meta/invalid-inherit.json");
 		const table = new MetaTable();
-		const meta: MetaDataTable = { foo: { inherit: "bar" } };
-		expect(() => table.loadFromObject(meta)).toThrow(InheritError);
-		expect(() => table.loadFromObject(meta)).toThrowErrorMatchingInlineSnapshot(
+		expect(() => table.loadFromFile(filename)).toThrow(InheritError);
+		expect(() => table.loadFromFile(filename)).toThrowErrorMatchingInlineSnapshot(
 			`"Element <foo> cannot inherit from <bar>: no such element"`
 		);
 	});
