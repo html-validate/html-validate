@@ -1,7 +1,7 @@
-import { HtmlElement } from "../dom";
-import { AttributeEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
-import { CaseStyle, CaseStyleName } from "./helper/case-style";
+import { type HtmlElement } from "../dom";
+import { type AttributeEvent } from "../event";
+import { type SchemaObject, type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
+import { type CaseStyleName, CaseStyle } from "./helper/case-style";
 
 interface RuleOptions {
 	style: CaseStyleName | CaseStyleName[];
