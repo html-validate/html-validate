@@ -11,7 +11,14 @@ export {
 	configPresets,
 } from "./config";
 export { StaticConfigLoader } from "./config/loaders/static";
-export { DynamicValue, HtmlElement, NodeClosed, TextNode, type CSSStyleDeclaration } from "./dom";
+export {
+	Attribute,
+	DynamicValue,
+	HtmlElement,
+	NodeClosed,
+	TextNode,
+	type CSSStyleDeclaration,
+} from "./dom";
 export { type EventDump, type TokenDump } from "./engine";
 export { UserError, SchemaValidationError, NestedError, WrappedError } from "./error";
 export * from "./event";

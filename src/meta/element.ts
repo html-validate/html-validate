@@ -1,4 +1,4 @@
-import { HtmlElement } from "../dom";
+import { Attribute, HtmlElement } from "../dom";
 
 export interface PermittedGroup {
 	exclude?: string | string[];
@@ -33,8 +33,13 @@ export enum TextContent {
  * description if there is an error.
  *
  * @public
+ * @param node - The node the attribute belongs to.
+ * @param attr - The current attribute being validated.
  */
-export type MetaAttributeAllowedCallback = (node: HtmlElement) => string | null | undefined;
+export type MetaAttributeAllowedCallback = (
+	node: HtmlElement,
+	attr: Attribute
+) => string | null | undefined;
 
 /**
  * @public
