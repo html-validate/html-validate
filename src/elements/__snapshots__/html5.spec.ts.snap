@@ -472,7 +472,7 @@ exports[`HTML elements <applet> valid markup 1`] = `[]`;
 exports[`HTML elements <area> invalid markup 1`] = `
 [
   {
-    "errorCount": 23,
+    "errorCount": 28,
     "filePath": "test-files/elements/area-invalid.html",
     "messages": [
       {
@@ -758,22 +758,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         "size": 6,
       },
       {
-        "column": 8,
-        "context": {
-          "attr": "shape",
-          "details": "requires "coords" attribute to be present",
-        },
-        "line": 58,
-        "message": ""shape" attribute cannot be used in this context: requires "coords" attribute to be present",
-        "offset": 1399,
-        "ruleId": "attribute-misuse",
-        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
-        "selector": "map:nth-child(11) > area:nth-child(1)",
-        "severity": 2,
-        "size": 5,
-      },
-      {
-        "column": 8,
+        "column": 15,
         "context": {
           "allowed": {
             "enum": [
@@ -785,44 +770,77 @@ exports[`HTML elements <area> invalid markup 1`] = `
           },
           "attribute": "shape",
           "element": "area",
-          "value": "",
+          "value": "circ",
         },
         "line": 58,
-        "message": "Attribute "shape" is missing value",
-        "offset": 1399,
+        "message": "Attribute "shape" has invalid value "circ"",
+        "offset": 1458,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "map:nth-child(11) > area:nth-child(1)",
+        "selector": "#obsolete-shapes > area:nth-child(1)",
         "severity": 2,
-        "size": 5,
+        "size": 4,
       },
       {
-        "column": 8,
+        "column": 15,
         "context": {
-          "attr": "shape",
-          "details": "requires "coords" attribute to be present",
+          "allowed": {
+            "enum": [
+              "rect",
+              "circle",
+              "poly",
+              "default",
+            ],
+          },
+          "attribute": "shape",
+          "element": "area",
+          "value": "polygon",
         },
         "line": 59,
-        "message": ""shape" attribute cannot be used in this context: requires "coords" attribute to be present",
-        "offset": 1413,
-        "ruleId": "attribute-misuse",
-        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
-        "selector": "map:nth-child(11) > area:nth-child(2)",
+        "message": "Attribute "shape" has invalid value "polygon"",
+        "offset": 1486,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "#obsolete-shapes > area:nth-child(2)",
         "severity": 2,
-        "size": 5,
+        "size": 7,
       },
       {
-        "column": 8,
+        "column": 15,
         "context": {
-          "attr": "shape",
-          "details": "requires "coords" attribute to be present",
+          "allowed": {
+            "enum": [
+              "rect",
+              "circle",
+              "poly",
+              "default",
+            ],
+          },
+          "attribute": "shape",
+          "element": "area",
+          "value": "rectangle",
         },
         "line": 60,
+        "message": "Attribute "shape" has invalid value "rectangle"",
+        "offset": 1517,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "#obsolete-shapes > area:nth-child(3)",
+        "severity": 2,
+        "size": 9,
+      },
+      {
+        "column": 8,
+        "context": {
+          "attr": "shape",
+          "details": "requires "coords" attribute to be present",
+        },
+        "line": 66,
         "message": ""shape" attribute cannot be used in this context: requires "coords" attribute to be present",
-        "offset": 1436,
+        "offset": 1734,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
-        "selector": "map:nth-child(11) > area:nth-child(3)",
+        "selector": "#missing-coords > area:nth-child(1)",
         "severity": 2,
         "size": 5,
       },
@@ -832,12 +850,87 @@ exports[`HTML elements <area> invalid markup 1`] = `
           "attr": "shape",
           "details": "requires "coords" attribute to be present",
         },
-        "line": 61,
+        "line": 67,
         "message": ""shape" attribute cannot be used in this context: requires "coords" attribute to be present",
-        "offset": 1457,
+        "offset": 1748,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
-        "selector": "map:nth-child(11) > area:nth-child(4)",
+        "selector": "#missing-coords > area:nth-child(2)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 8,
+        "context": {
+          "attr": "shape",
+          "details": "requires "coords" attribute to be present",
+        },
+        "line": 68,
+        "message": ""shape" attribute cannot be used in this context: requires "coords" attribute to be present",
+        "offset": 1769,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#missing-coords > area:nth-child(3)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 8,
+        "context": {
+          "attr": "shape",
+          "details": "requires "coords" attribute to be present",
+        },
+        "line": 69,
+        "message": ""shape" attribute cannot be used in this context: requires "coords" attribute to be present",
+        "offset": 1792,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#missing-coords > area:nth-child(4)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 8,
+        "context": {
+          "attr": "shape",
+          "details": "requires "coords" attribute to be present",
+        },
+        "line": 70,
+        "message": ""shape" attribute cannot be used in this context: requires "coords" attribute to be present",
+        "offset": 1813,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#missing-coords > area:nth-child(5)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 8,
+        "context": {
+          "attr": "shape",
+          "details": "requires "coords" attribute to be present",
+        },
+        "line": 71,
+        "message": ""shape" attribute cannot be used in this context: requires "coords" attribute to be present",
+        "offset": 1837,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#missing-coords > area:nth-child(6)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 8,
+        "context": {
+          "attr": "shape",
+          "details": "requires "coords" attribute to be present",
+        },
+        "line": 72,
+        "message": ""shape" attribute cannot be used in this context: requires "coords" attribute to be present",
+        "offset": 1858,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#missing-coords > area:nth-child(7)",
         "severity": 2,
         "size": 5,
       },
@@ -897,12 +990,23 @@ exports[`HTML elements <area> invalid markup 1`] = `
 	<area shape="default" coords="..">
 </map>
 
+<!-- should not allow obsolete aliases for shape attribute -->
+<map id="obsolete-shapes" name="obsolete-shapes">
+	<area shape="circ" coords>
+	<area shape="polygon" coords>
+	<area shape="rectangle" coords>
+</map>
+
 <!-- should require "coords" -->
-<map name="missing-coords">
+<map id="missing-coords" name="missing-coords">
+	<!-- [html-validate-disable-block attribute-allowed-values -- obsolete aliases are tested above] -->
 	<area shape>
+	<area shape="circ">
 	<area shape="circle">
 	<area shape="poly">
+	<area shape="polygon">
 	<area shape="rect">
+	<area shape="rectangle">
 </map>
 ",
     "warningCount": 0,

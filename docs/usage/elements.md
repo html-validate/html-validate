@@ -200,12 +200,12 @@ This is typically elements input elements such as `<input>`.
 An object with allowed attribute values.
 
 ```ts
-import { HtmlElement } from "html-validate";
+import { type HtmlElement, type Attribute } from "html-validate";
 
 /* --- */
 
 export interface MetaAttribute {
-  allowed?: (node: HtmlElement) => string | null;
+  allowed?: (node: HtmlElement, attr: Attribute) => string | null;
   boolean?: boolean;
   deprecated?: boolean | string;
   enum?: Array<string | RegExp>;

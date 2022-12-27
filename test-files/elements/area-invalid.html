@@ -53,10 +53,21 @@
 	<area shape="default" coords="..">
 </map>
 
+<!-- should not allow obsolete aliases for shape attribute -->
+<map id="obsolete-shapes" name="obsolete-shapes">
+	<area shape="circ" coords>
+	<area shape="polygon" coords>
+	<area shape="rectangle" coords>
+</map>
+
 <!-- should require "coords" -->
-<map name="missing-coords">
+<map id="missing-coords" name="missing-coords">
+	<!-- [html-validate-disable-block attribute-allowed-values -- obsolete aliases are tested above] -->
 	<area shape>
+	<area shape="circ">
 	<area shape="circle">
 	<area shape="poly">
+	<area shape="polygon">
 	<area shape="rect">
+	<area shape="rectangle">
 </map>

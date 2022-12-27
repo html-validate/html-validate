@@ -2,7 +2,6 @@
 
 import { defineMetadata } from "../meta/define-metadata";
 import { metadataHelper } from "../meta/helper";
-import { DynamicValue } from "../dom";
 
 const { allowedIfAttributeIsPresent, allowedIfAttributeIsAbsent, allowedIfAttributeHasValue } =
 	metadataHelper;
@@ -168,11 +167,7 @@ export default defineMetadata({
 				allowed: allowedIfAttributeIsPresent("href"),
 			},
 			shape: {
-				allowed(node) {
-					const attr = node.getAttribute("shape");
-					if (!attr || attr.value instanceof DynamicValue) {
-						return null;
-					}
+				allowed(node, attr) {
 					const shape = attr.value || "rect";
 					switch (shape) {
 						case "circ":
@@ -181,9 +176,10 @@ export default defineMetadata({
 						case "polygon":
 						case "rect":
 						case "rectangle":
-							return allowedIfAttributeIsPresent("coords")(node);
+							return allowedIfAttributeIsPresent("coords")(node, attr);
+						default:
+							return null;
 					}
-					return null;
 				},
 				enum: ["rect", "circle", "poly", "default"],
 			},
