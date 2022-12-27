@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/map-id-name.md inline validation: correct 1`] = `[]`;
+
+exports[`docs/rules/map-id-name.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 21,
+        "line": 1,
+        "message": ""id" and "name" attribute must be the same on <map> elements",
+        "offset": 20,
+        "ruleId": "map-id-name",
+        "ruleUrl": "https://html-validate.org/rules/map-id-name.html",
+        "selector": "#bar",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<map name="foo" id="bar"></map>",
+    "warningCount": 0,
+  },
+]
+`;

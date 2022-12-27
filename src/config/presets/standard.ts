@@ -20,6 +20,7 @@ const config: ConfigData = {
 		"element-required-attributes": "error",
 		"element-required-content": "error",
 		"map-dup-name": "error",
+		"map-id-name": "error",
 		"multiple-labeled-controls": "error",
 		"no-deprecated-attr": "error",
 		"no-dup-attr": "error",

@@ -38,6 +38,7 @@ import InputMissingLabel from "./input-missing-label";
 import LongTitle from "./long-title";
 import MetaRefresh from "./meta-refresh";
 import MapDupName from "./map-dup-name";
+import MapIdName from "./map-id-name";
 import MissingDoctype from "./missing-doctype";
 import MultipleLabeledControls from "./multiple-labeled-controls";
 import NoAutoplay from "./no-autoplay";
@@ -114,6 +115,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"input-missing-label": InputMissingLabel,
 	"long-title": LongTitle,
 	"map-dup-name": MapDupName,
+	"map-id-name": MapIdName,
 	"meta-refresh": MetaRefresh,
 	"missing-doctype": MissingDoctype,
 	"multiple-labeled-controls": MultipleLabeledControls,
