@@ -30,6 +30,7 @@ const config: ConfigData = {
 		"element-required-content": "error",
 		"empty-heading": "error",
 		"empty-title": "error",
+		"form-dup-name": "error",
 		"input-attributes": "error",
 		"long-title": "error",
 		"map-dup-name": "error",

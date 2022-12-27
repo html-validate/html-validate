@@ -4,6 +4,7 @@ import {
 	type MetaData,
 	type MetaElement,
 	TextContent,
+	FormAssociated,
 } from "./element";
 
 function isSet(value?: unknown): boolean {
@@ -75,6 +76,9 @@ function migrateAttributes(src: MetaData): Record<string, MetaAttribute & Intern
 export function migrateElement(src: MetaData): Omit<MetaElement, "tagName"> {
 	const result = {
 		...src,
+		...{
+			formAssociated: undefined as FormAssociated | undefined,
+		},
 		attributes: migrateAttributes(src),
 		textContent: src.textContent as TextContent | undefined,
 	};
@@ -86,6 +90,14 @@ export function migrateElement(src: MetaData): Omit<MetaElement, "tagName"> {
 	/* strip out undefined */
 	if (!result.textContent) {
 		delete result.textContent;
+	}
+
+	if (src.formAssociated) {
+		result.formAssociated = {
+			listed: Boolean(src.formAssociated.listed),
+		};
+	} else {
+		delete result.formAssociated;
 	}
 
 	return result;

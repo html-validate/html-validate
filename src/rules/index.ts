@@ -30,6 +30,7 @@ import ElementRequiredAttributes from "./element-required-attributes";
 import ElementRequiredContent from "./element-required-content";
 import EmptyHeading from "./empty-heading";
 import EmptyTitle from "./empty-title";
+import FormDupName from "./form-dup-name";
 import HeadingLevel from "./heading-level";
 import IdPattern from "./id-pattern";
 import InputAttributes from "./input-attributes";
@@ -106,6 +107,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"element-required-content": ElementRequiredContent,
 	"empty-heading": EmptyHeading,
 	"empty-title": EmptyTitle,
+	"form-dup-name": FormDupName,
 	"heading-level": HeadingLevel,
 	"id-pattern": IdPattern,
 	"input-attributes": InputAttributes,
