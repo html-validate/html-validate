@@ -82,6 +82,7 @@ export class CLI {
 	 * Previously fetched [[HtmlValidate]] instances must either be fetched again
 	 * or call [[HtmlValidate.flushConfigCache]].
 	 */
+	/* istanbul ignore next: each method is tested separately */
 	public clearCache(): void {
 		this.loader.flushCache();
 		this.ignored.clearCache();
