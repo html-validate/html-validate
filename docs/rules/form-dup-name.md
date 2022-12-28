@@ -55,4 +55,4 @@ module.exports = defineMetadata({
 
 ## Version history
 
-- %version% - Rule added.
+- 7.12.0 - Rule added.

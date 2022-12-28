@@ -1,5 +1,20 @@
 # html-validate changelog
 
+## [7.12.0](https://gitlab.com/html-validate/html-validate/compare/v7.11.1...v7.12.0) (2022-12-28)
+
+### Features
+
+- **api:** `Attribute.valueMatches` can take array of keywords to match against ([0a5ff8e](https://gitlab.com/html-validate/html-validate/commit/0a5ff8eaf09b7ae13c9e46830e49c89d031b8f49))
+- **api:** add `Rule.getMetaFor(..)` ([5a76381](https://gitlab.com/html-validate/html-validate/commit/5a76381e7121efe65f2009c2f1171fa51d6c731d))
+- **api:** add new `formAssociated` property when defining metadata ([3d56c4a](https://gitlab.com/html-validate/html-validate/commit/3d56c4a5b76f909f41f67e3797bfa716e2ef20e8))
+- **meta:** `MetaAttributeAllowedCallback` takes the attribute as second argument ([7a4edeb](https://gitlab.com/html-validate/html-validate/commit/7a4edeb2b81d88663e353f7744e36e4deb379bb2))
+- **rules:** new rule `form-dup-name` ([74f8e2d](https://gitlab.com/html-validate/html-validate/commit/74f8e2dcfe76b2efc961779fb4c835cb54a29239)), closes [#197](https://gitlab.com/html-validate/html-validate/issues/197)
+- **rules:** new rule `map-id-name` ([abe5acb](https://gitlab.com/html-validate/html-validate/commit/abe5acb9ad28afaf583d34f0e2f58b2ea52cc3ae)), closes [#184](https://gitlab.com/html-validate/html-validate/issues/184)
+
+### Bug Fixes
+
+- **parser:** enable cache api on document root ([a1cfe64](https://gitlab.com/html-validate/html-validate/commit/a1cfe64525d8407730fca4ce5fae7d9c69393b58))
+
 ## [7.11.1](https://gitlab.com/html-validate/html-validate/compare/v7.11.0...v7.11.1) (2022-12-22)
 
 ### Bug Fixes
