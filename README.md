@@ -16,7 +16,7 @@ Offline HTML5 validator. Validates either a full document or a smaller
 ## Usage
 
     npm install -g html-validate
-    html-validate FILENAME..
+    html-validate [OPTIONS] [FILENAME..] [DIR..]
 
 ## Configuration
 
