@@ -25,7 +25,7 @@ It is strongly recommended to stay up-to-date with latest releases.
 ## NodeJS
 
 HTML-Validate and all official plugins supports all current, active and maintenance versions.
-Support for pending versions is limited but repoting bugs against pending versions are encountered.
+Support for pending versions is limited but reporting bugs against pending versions are encountered.
 
 ## Third party frameworks and tools
 

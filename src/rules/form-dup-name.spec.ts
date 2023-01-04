@@ -157,7 +157,7 @@ describe("rule form-dup-name", () => {
 		`);
 	});
 
-	describe("should repot for", () => {
+	describe("should report for", () => {
 		const elements = ["button", "fieldset", "input", "object", "output", "select", "textarea"];
 
 		it.each(elements)("%s", (tagName) => {
