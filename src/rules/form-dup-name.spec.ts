@@ -50,7 +50,7 @@ describe("rule form-dup-name", () => {
 		expect(report).toBeValid();
 	});
 
-	it('should not report for <input type="radio">', () => {
+	it('should not report when <input type="radio"> have same name', () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<form>
@@ -62,7 +62,7 @@ describe("rule form-dup-name", () => {
 		expect(report).toBeValid();
 	});
 
-	it('should not report for <input type="checkbox">', () => {
+	it('should not report when <input type="checkbox"> have same name', () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<form>
@@ -84,6 +84,8 @@ describe("rule form-dup-name", () => {
 				<input name />
 				<input name="" />
 				<input name="" />
+				<input type="radio" />
+				<input type="checkbox" />
 			</form>
 		`;
 		const report = htmlvalidate.validateString(markup);
@@ -154,6 +156,99 @@ describe("rule form-dup-name", () => {
 			    | 			             ^^^
 			  4 |
 			Selector: input:nth-child(2)"
+		`);
+	});
+
+	it("should report when radiobutton has same name as other control", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<form>
+				<input name="foo" />
+				<input name="foo" type="checkbox" />
+			</form>
+			<input name="bar" />
+			<input name="bar" type="checkbox" />
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Duplicate form control name "foo" (form-dup-name) at inline:4:18:
+			  2 | 			<form>
+			  3 | 				<input name="foo" />
+			> 4 | 				<input name="foo" type="checkbox" />
+			    | 				             ^^^
+			  5 | 			</form>
+			  6 | 			<input name="bar" />
+			  7 | 			<input name="bar" type="checkbox" />
+			Selector: form > input:nth-child(2)
+			error: Duplicate form control name "bar" (form-dup-name) at inline:7:17:
+			  5 | 			</form>
+			  6 | 			<input name="bar" />
+			> 7 | 			<input name="bar" type="checkbox" />
+			    | 			             ^^^
+			  8 |
+			Selector: input:nth-child(3)"
+		`);
+	});
+
+	it("should report when checkbox has same name as other control", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<form>
+				<input name="foo" />
+				<input name="foo" type="checkbox" />
+			</form>
+			<input name="bar" />
+			<input name="bar" type="checkbox" />
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Duplicate form control name "foo" (form-dup-name) at inline:4:18:
+			  2 | 			<form>
+			  3 | 				<input name="foo" />
+			> 4 | 				<input name="foo" type="checkbox" />
+			    | 				             ^^^
+			  5 | 			</form>
+			  6 | 			<input name="bar" />
+			  7 | 			<input name="bar" type="checkbox" />
+			Selector: form > input:nth-child(2)
+			error: Duplicate form control name "bar" (form-dup-name) at inline:7:17:
+			  5 | 			</form>
+			  6 | 			<input name="bar" />
+			> 7 | 			<input name="bar" type="checkbox" />
+			    | 			             ^^^
+			  8 |
+			Selector: input:nth-child(3)"
+		`);
+	});
+
+	it("should report when radiobutton and checkbox share the same name", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<form>
+				<input name="foo" type="checkbox" />
+				<input name="foo" type="radio" />
+			</form>
+			<input name="bar" type="checkbox" />
+			<input name="bar" type="radio" />
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Duplicate form control name "foo" (form-dup-name) at inline:4:18:
+			  2 | 			<form>
+			  3 | 				<input name="foo" type="checkbox" />
+			> 4 | 				<input name="foo" type="radio" />
+			    | 				             ^^^
+			  5 | 			</form>
+			  6 | 			<input name="bar" type="checkbox" />
+			  7 | 			<input name="bar" type="radio" />
+			Selector: form > input:nth-child(2)
+			error: Duplicate form control name "bar" (form-dup-name) at inline:7:17:
+			  5 | 			</form>
+			  6 | 			<input name="bar" type="checkbox" />
+			> 7 | 			<input name="bar" type="radio" />
+			    | 			             ^^^
+			  8 |
+			Selector: input:nth-child(3)"
 		`);
 	});
 

@@ -1,12 +1,15 @@
 import { type Attribute, type DynamicValue, type HtmlElement } from "../dom";
 import { type DOMReadyEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
+import { partition } from "./helper";
 
-const CACHE_KEY = Symbol("form-elements");
+const UNIQUE_CACHE_KEY = Symbol("form-elements-unique");
+const SHARED_CACHE_KEY = Symbol("form-elements-shared");
 
 declare module "../dom/cache" {
 	export interface DOMNodeCache {
-		[CACHE_KEY]: Set<string>;
+		[UNIQUE_CACHE_KEY]: Set<string>;
+		[SHARED_CACHE_KEY]: Map<string, string>;
 	}
 }
 
@@ -18,13 +21,9 @@ function haveName(name: string | DynamicValue | null | undefined): name is strin
 	return typeof name === "string" && name !== "";
 }
 
-function isRelevant(node: HtmlElement): boolean {
-	if (node.is("input")) {
-		/* ignore radiobuttons and checkboxes */
-		const type = node.getAttribute("type");
-		return !type || !type.valueMatches(["radio", "checkbox"], true);
-	}
-	return true;
+function allowSharedName(node: HtmlElement): boolean {
+	const type = node.getAttribute("type");
+	return Boolean(type && type.valueMatches(["radio", "checkbox"], false));
 }
 
 export default class FormDupName extends Rule<RuleContext> {
@@ -39,25 +38,44 @@ export default class FormDupName extends Rule<RuleContext> {
 		const selector = this.getSelector();
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const { document } = event;
-			const controls = document.querySelectorAll(selector).filter(isRelevant);
-			for (const control of controls) {
+			const controls = document.querySelectorAll(selector);
+			const [sharedControls, uniqueControls] = partition(controls, allowSharedName);
+
+			/* validate all form controls which require unique elements first so each
+			 * form has a populated list of unique names */
+			for (const control of uniqueControls) {
 				const attr = control.getAttribute("name");
 				const name = attr?.value;
-				if (attr && haveName(name)) {
-					const form = control.closest("form") ?? document.root;
-					this.validateName(control, form, attr, name);
+				if (!attr || !haveName(name)) {
+					continue;
 				}
+
+				const form = control.closest("form") ?? document.root;
+				this.validateUniqueName(control, form, attr, name);
+			}
+
+			/* validate all form controls which allows shared names to ensure there is
+			 * no collision with other form controls */
+			for (const control of sharedControls) {
+				const attr = control.getAttribute("name");
+				const name = attr?.value;
+				if (!attr || !haveName(name)) {
+					continue;
+				}
+
+				const form = control.closest("form") ?? document.root;
+				this.validateSharedName(control, form, attr, name);
 			}
 		});
 	}
 
-	private validateName(
+	private validateUniqueName(
 		control: HtmlElement,
 		form: HtmlElement,
 		attr: Attribute,
 		name: string
 	): void {
-		const elements = this.getElements(form);
+		const elements = this.getUniqueElements(form);
 		if (elements.has(name)) {
 			const context: RuleContext = {
 				name,
@@ -71,6 +89,33 @@ export default class FormDupName extends Rule<RuleContext> {
 		} else {
 			elements.add(name);
 		}
+	}
+
+	private validateSharedName(
+		control: HtmlElement,
+		form: HtmlElement,
+		attr: Attribute,
+		name: string
+	): void {
+		const uniqueElements = this.getUniqueElements(form);
+		const sharedElements = this.getSharedElements(form);
+		/* istanbul ignore next: type will always be set or shared name wouldn't be allowed */
+		const type = control.getAttributeValue("type") ?? "";
+		if (
+			uniqueElements.has(name) ||
+			(sharedElements.has(name) && sharedElements.get(name) !== type)
+		) {
+			const context: RuleContext = {
+				name,
+			};
+			this.report({
+				node: control,
+				location: attr.valueLocation,
+				message: 'Duplicate form control name "{{ name }}"',
+				context,
+			});
+		}
+		sharedElements.set(name, type);
 	}
 
 	private getSelector(): string {
@@ -90,13 +135,24 @@ export default class FormDupName extends Rule<RuleContext> {
 		return meta.formAssociated.listed;
 	}
 
-	private getElements(form: HtmlElement): Set<string> {
-		const existing = form.cacheGet(CACHE_KEY);
+	private getUniqueElements(form: HtmlElement): Set<string> {
+		const existing = form.cacheGet(UNIQUE_CACHE_KEY);
 		if (existing) {
 			return existing;
 		} else {
 			const elements = new Set<string>();
-			form.cacheSet(CACHE_KEY, elements);
+			form.cacheSet(UNIQUE_CACHE_KEY, elements);
+			return elements;
+		}
+	}
+
+	private getSharedElements(form: HtmlElement): Map<string, string> {
+		const existing = form.cacheGet(SHARED_CACHE_KEY);
+		if (existing) {
+			return existing;
+		} else {
+			const elements = new Map<string, string>();
+			form.cacheSet(SHARED_CACHE_KEY, elements);
 			return elements;
 		}
 	}
