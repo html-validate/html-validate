@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [7.12.1](https://gitlab.com/html-validate/html-validate/compare/v7.12.0...v7.12.1) (2023-01-05)
+
+### Bug Fixes
+
+- **rules:** `form-dup-name` reports when radio and non-radio uses same name ([6d9a282](https://gitlab.com/html-validate/html-validate/commit/6d9a282e5f8d1d02c1aff0b930afc992f769955b)), closes [#200](https://gitlab.com/html-validate/html-validate/issues/200)
+
 ## [7.12.0](https://gitlab.com/html-validate/html-validate/compare/v7.11.1...v7.12.0) (2022-12-28)
 
 ### Features
