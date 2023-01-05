@@ -2,6 +2,8 @@
 
 exports[`docs/rules/form-dup-name.md inline validation: correct 1`] = `[]`;
 
+exports[`docs/rules/form-dup-name.md inline validation: correct-radio-checkbox 1`] = `[]`;
+
 exports[`docs/rules/form-dup-name.md inline validation: incorrect 1`] = `
 [
   {
@@ -26,6 +28,66 @@ exports[`docs/rules/form-dup-name.md inline validation: incorrect 1`] = `
     "source": "<form>
     <input name="foo">
     <input name="foo">
+</form>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/form-dup-name.md inline validation: incorrect-radio 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 18,
+        "context": {
+          "name": "foo",
+        },
+        "line": 3,
+        "message": "Duplicate form control name "foo"",
+        "offset": 59,
+        "ruleId": "form-dup-name",
+        "ruleUrl": "https://html-validate.org/rules/form-dup-name.html",
+        "selector": "form > input:nth-child(2)",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<form>
+    <input name="foo" type="text">
+    <input name="foo" type="radio">
+</form>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/form-dup-name.md inline validation: incorrect-shared 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 18,
+        "context": {
+          "name": "foo",
+        },
+        "line": 3,
+        "message": "Duplicate form control name "foo"",
+        "offset": 63,
+        "ruleId": "form-dup-name",
+        "ruleUrl": "https://html-validate.org/rules/form-dup-name.html",
+        "selector": "form > input:nth-child(2)",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<form>
+    <input name="foo" type="checkbox">
+    <input name="foo" type="radio">
 </form>",
     "warningCount": 0,
   },
