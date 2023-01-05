@@ -68,6 +68,42 @@ The name cannot be shared between different types of groups:
     </form>
 </validate>
 
+## Options
+
+This rule takes an optional object:
+
+```json
+{
+  "allowArrayBrackets": true
+}
+```
+
+### `allowArrayBrackets`
+
+- type: `boolean`
+- default: `true`
+
+Form control names ending with `[]` is typically used to signify arrays.
+With this option names ending with `[]` may be shared between controls.
+
+With this option **disabled** the following is **incorrect**:
+
+<validate name="array-incorrect" rules="form-dup-name" form-dup-name='{"allowArrayBrackets": false}'>
+    <form>
+        <input name="foo[]">
+        <input name="foo[]">
+    </form>
+</validate>
+
+With this option **enabled** the following is **correct**:
+
+<validate name="array-correct" rules="form-dup-name">
+    <form>
+        <input name="foo[]">
+        <input name="foo[]">
+    </form>
+</validate>
+
 ## Metadata
 
 This rule check all elements marked as `formAssociated` with the `listed` property.
@@ -88,4 +124,5 @@ module.exports = defineMetadata({
 
 ## Version history
 
+- %version% - `allowArrayBrackets` option added.
 - 7.12.0 - Rule added.

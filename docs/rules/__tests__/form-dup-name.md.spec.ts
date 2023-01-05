@@ -24,6 +24,14 @@ markup["incorrect-shared"] = `<form>
     <input name="foo" type="checkbox">
     <input name="foo" type="radio">
 </form>`;
+markup["array-incorrect"] = `<form>
+    <input name="foo[]">
+    <input name="foo[]">
+</form>`;
+markup["array-correct"] = `<form>
+    <input name="foo[]">
+    <input name="foo[]">
+</form>`;
 
 describe("docs/rules/form-dup-name.md", () => {
 	it("inline validation: incorrect", () => {
@@ -54,6 +62,18 @@ describe("docs/rules/form-dup-name.md", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"form-dup-name":"error"}});
 		const report = htmlvalidate.validateString(markup["incorrect-shared"]);
+		expect(report.results).toMatchSnapshot();
+	});
+	it("inline validation: array-incorrect", () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({"rules":{"form-dup-name":["error",{"allowArrayBrackets":false}]}});
+		const report = htmlvalidate.validateString(markup["array-incorrect"]);
+		expect(report.results).toMatchSnapshot();
+	});
+	it("inline validation: array-correct", () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({"rules":{"form-dup-name":"error"}});
+		const report = htmlvalidate.validateString(markup["array-correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });
