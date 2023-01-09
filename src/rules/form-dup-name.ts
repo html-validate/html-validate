@@ -36,7 +36,7 @@ function haveName(name: string | DynamicValue | null | undefined): name is strin
 
 function allowSharedName(node: HtmlElement): boolean {
 	const type = node.getAttribute("type");
-	return Boolean(type && type.valueMatches(["radio", "checkbox"], false));
+	return Boolean(type && type.valueMatches(["radio"], false));
 }
 
 function getDocumentation(context?: RuleContext): string {

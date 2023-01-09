@@ -63,18 +63,6 @@ describe("rule form-dup-name", () => {
 		expect(report).toBeValid();
 	});
 
-	it('should not report when <input type="checkbox"> have same name', () => {
-		expect.assertions(1);
-		const markup = /* HTML */ `
-			<form>
-				<input type="checkbox" value="yes" name="foo" />
-				<input type="checkbox" value="nah" name="foo" />
-			</form>
-		`;
-		const report = htmlvalidate.validateString(markup);
-		expect(report).toBeValid();
-	});
-
 	it("should not report when name is missing or empty", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
