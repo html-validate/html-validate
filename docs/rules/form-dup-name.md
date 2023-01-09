@@ -11,7 +11,7 @@ Submitting form with duplicate names are converted to arrays and some javascript
 
 The form control name also plays a role in the autocomplete heurestics so using good names is important to get accurate results.
 
-Radiobuttons (`<input type="radio">`) and checkboxes (`<input type="checkbox">`) are generally ignored by this rule as they are typically using the same name on purpose but they cannot share the same name as other controls.
+By default, radiobuttons (`<input type="radio">`) is generally ignored by this rule as they are typically using the same name on purpose but they cannot share the same name as other controls.
 
 Each `<form>` tracks the names separately, i.e. you can have two forms with colliding names.
 
@@ -35,19 +35,15 @@ Examples of **correct** code for this rule:
     </form>
 </validate>
 
-## Radiobuttons and checkboxes
+## Radiobuttons
 
-Groups of radiobuttons or checkboxes may share the same name:
+By default, radiobuttons may share the same name:
 
 <validate name="correct-radio-checkbox" rules="form-dup-name">
     <form>
         <input name="foo" type="radio">
         <input name="foo" type="radio">
-
-        <input name="bar" type="checkbox">
-        <input name="bar" type="checkbox">
     </form>
-
 </validate>
 
 They cannot share the same name as other controls:
@@ -59,9 +55,78 @@ They cannot share the same name as other controls:
     </form>
 </validate>
 
-The name cannot be shared between different types of groups:
+See the [`shared`](#shared) option to add this behaviour for other controls.
 
-<validate name="incorrect-shared" rules="form-dup-name">
+## Options
+
+This rule takes an optional object:
+
+```json
+{
+  "allowArrayBrackets": true,
+  "shared": ["radio"]
+}
+```
+
+### `allowArrayBrackets`
+
+- type: `boolean`
+- default: `true`
+
+Form control names ending with `[]` is typically used to signify arrays.
+With this option names ending with `[]` may be shared between controls.
+
+With this option **disabled** the following is **incorrect**:
+
+<validate name="array-incorrect" rules="form-dup-name" form-dup-name='{"allowArrayBrackets": false}'>
+    <form>
+        <input name="foo[]">
+        <input name="foo[]">
+    </form>
+</validate>
+
+With this option **enabled** the following is **correct**:
+
+<validate name="array-correct" rules="form-dup-name">
+    <form>
+        <input name="foo[]">
+        <input name="foo[]">
+    </form>
+</validate>
+
+### `shared`
+
+- type: `Array<"radio" | "checkbox" | "submit">`
+- default: `["radio"]`
+
+By default only `<input type="radio">` can have a shared common name.
+This options lets you specify additional controls that may have a shared common name.
+
+- `"radio"` - applies to `<input type="radio">`.
+- `"checkbox"` - applies to `<input type="checkbox">`.
+- `"submit"` - applies to `<button type="submit">` and `<input type="submit">`.
+
+With this option set to the default (`["radio"]`) the following is **incorrect**:
+
+<validate name="shared-incorrect" rules="form-dup-name" form-dup-name='{"shared": ["radio"]}'>
+    <form>
+        <input name="foo" type="checkbox">
+        <input name="foo" type="checkbox">
+    </form>
+</validate>
+
+With this option set to `["radio", "checkbox"]` the following is **correct**:
+
+<validate name="shared-correct" rules="form-dup-name" form-dup-name='{"shared": ["radio", "checkbox"]}'>
+    <form>
+        <input name="foo" type="checkbox">
+        <input name="foo" type="checkbox">
+    </form>
+</validate>
+
+The name cannot be shared between different types of controls:
+
+<validate name="shared-mix" rules="form-dup-name" form-dup-name='{"shared": ["radio", "checkbox"]}'>
     <form>
         <input name="foo" type="checkbox">
         <input name="foo" type="radio">
@@ -88,4 +153,5 @@ module.exports = defineMetadata({
 
 ## Version history
 
+- %version% - `allowArrayBrackets` and `shared` options added.
 - 7.12.0 - Rule added.
