@@ -55,13 +55,16 @@ They cannot share the same name as other controls:
     </form>
 </validate>
 
+See the [`shared`](#shared) option to add this behaviour for other controls.
+
 ## Options
 
 This rule takes an optional object:
 
 ```json
 {
-  "allowArrayBrackets": true
+  "allowArrayBrackets": true,
+  "shared": ["radio"]
 }
 ```
 
@@ -91,6 +94,45 @@ With this option **enabled** the following is **correct**:
     </form>
 </validate>
 
+### `shared`
+
+- type: `Array<"radio" | "checkbox" | "submit">`
+- default: `["radio"]`
+
+By default only `<input type="radio">` can have a shared common name.
+This options lets you specify additional controls that may have a shared common name.
+
+- `"radio"` - applies to `<input type="radio">`.
+- `"checkbox"` - applies to `<input type="checkbox">`.
+- `"submit"` - applies to `<button type="submit">` and `<input type="submit">`.
+
+With this option set to the default (`["radio"]`) the following is **incorrect**:
+
+<validate name="shared-incorrect" rules="form-dup-name" form-dup-name='{"shared": ["radio"]}'>
+    <form>
+        <input name="foo" type="checkbox">
+        <input name="foo" type="checkbox">
+    </form>
+</validate>
+
+With this option set to `["radio", "checkbox"]` the following is **correct**:
+
+<validate name="shared-correct" rules="form-dup-name" form-dup-name='{"shared": ["radio", "checkbox"]}'>
+    <form>
+        <input name="foo" type="checkbox">
+        <input name="foo" type="checkbox">
+    </form>
+</validate>
+
+The name cannot be shared between different types of controls:
+
+<validate name="shared-mix" rules="form-dup-name" form-dup-name='{"shared": ["radio", "checkbox"]}'>
+    <form>
+        <input name="foo" type="checkbox">
+        <input name="foo" type="radio">
+    </form>
+</validate>
+
 ## Metadata
 
 This rule check all elements marked as `formAssociated` with the `listed` property.
@@ -111,5 +153,5 @@ module.exports = defineMetadata({
 
 ## Version history
 
-- %version% - `allowArrayBrackets` option added.
+- %version% - `allowArrayBrackets` and `shared` options added.
 - 7.12.0 - Rule added.

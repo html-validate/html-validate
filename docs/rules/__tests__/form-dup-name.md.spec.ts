@@ -25,6 +25,18 @@ markup["array-correct"] = `<form>
     <input name="foo[]">
     <input name="foo[]">
 </form>`;
+markup["shared-incorrect"] = `<form>
+    <input name="foo" type="checkbox">
+    <input name="foo" type="checkbox">
+</form>`;
+markup["shared-correct"] = `<form>
+    <input name="foo" type="checkbox">
+    <input name="foo" type="checkbox">
+</form>`;
+markup["shared-mix"] = `<form>
+    <input name="foo" type="checkbox">
+    <input name="foo" type="radio">
+</form>`;
 
 describe("docs/rules/form-dup-name.md", () => {
 	it("inline validation: incorrect", () => {
@@ -61,6 +73,24 @@ describe("docs/rules/form-dup-name.md", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"form-dup-name":"error"}});
 		const report = htmlvalidate.validateString(markup["array-correct"]);
+		expect(report.results).toMatchSnapshot();
+	});
+	it("inline validation: shared-incorrect", () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({"rules":{"form-dup-name":["error",{"shared":["radio"]}]}});
+		const report = htmlvalidate.validateString(markup["shared-incorrect"]);
+		expect(report.results).toMatchSnapshot();
+	});
+	it("inline validation: shared-correct", () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({"rules":{"form-dup-name":["error",{"shared":["radio","checkbox"]}]}});
+		const report = htmlvalidate.validateString(markup["shared-correct"]);
+		expect(report.results).toMatchSnapshot();
+	});
+	it("inline validation: shared-mix", () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({"rules":{"form-dup-name":["error",{"shared":["radio","checkbox"]}]}});
+		const report = htmlvalidate.validateString(markup["shared-mix"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

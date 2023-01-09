@@ -14,10 +14,12 @@ export interface RuleContext {
 
 interface RuleOptions {
 	allowArrayBrackets: boolean;
+	shared: Array<"radio" | "checkbox" | "submit">;
 }
 
 const defaults: RuleOptions = {
 	allowArrayBrackets: true,
+	shared: ["radio"],
 };
 
 const UNIQUE_CACHE_KEY = Symbol("form-elements-unique");
@@ -34,9 +36,9 @@ function haveName(name: string | DynamicValue | null | undefined): name is strin
 	return typeof name === "string" && name !== "";
 }
 
-function allowSharedName(node: HtmlElement): boolean {
+function allowSharedName(node: HtmlElement, shared: string[]): boolean {
 	const type = node.getAttribute("type");
-	return Boolean(type && type.valueMatches(["radio"], false));
+	return Boolean(type && type.valueMatches(shared, false));
 }
 
 function getDocumentation(context?: RuleContext): string {
@@ -67,6 +69,12 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 			allowArrayBrackets: {
 				type: "boolean",
 			},
+			shared: {
+				type: "array",
+				items: {
+					enum: ["radio", "checkbox", "submit"],
+				},
+			},
 		};
 	}
 
@@ -79,10 +87,13 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 
 	public setup(): void {
 		const selector = this.getSelector();
+		const { shared } = this.options;
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const { document } = event;
 			const controls = document.querySelectorAll(selector);
-			const [sharedControls, uniqueControls] = partition(controls, allowSharedName);
+			const [sharedControls, uniqueControls] = partition(controls, (it) => {
+				return allowSharedName(it, shared);
+			});
 
 			/* validate all form controls which require unique elements first so each
 			 * form has a populated list of unique names */
