@@ -1,5 +1,13 @@
 # html-validate changelog
 
+## [7.12.2](https://gitlab.com/html-validate/html-validate/compare/v7.12.1...v7.12.2) (2023-01-09)
+
+### Bug Fixes
+
+- `form-dup-name` validate checkboxes by default ([d5e7b7d](https://gitlab.com/html-validate/html-validate/commit/d5e7b7d1a2094a3cb16b85de44f8ad129bd84a87)), closes [#202](https://gitlab.com/html-validate/html-validate/issues/202)
+- add `allowArrayBrackets` option to `form-dup-name` rule ([a43ea0b](https://gitlab.com/html-validate/html-validate/commit/a43ea0b3de88dc0c54c8e0ef368e162c3d43f2ff)), closes [#203](https://gitlab.com/html-validate/html-validate/issues/203)
+- add `shared` option to `form-dup-name` to set which controls allow shared names ([7ddc02b](https://gitlab.com/html-validate/html-validate/commit/7ddc02b71e093923b7ae1e637b1c061cf73e308a)), closes [#201](https://gitlab.com/html-validate/html-validate/issues/201)
+
 ## [7.12.1](https://gitlab.com/html-validate/html-validate/compare/v7.12.0...v7.12.1) (2023-01-05)
 
 ### Bug Fixes

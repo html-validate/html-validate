@@ -153,5 +153,5 @@ module.exports = defineMetadata({
 
 ## Version history
 
-- %version% - `allowArrayBrackets` and `shared` options added.
+- 7.12.2 - `allowArrayBrackets` and `shared` options added.
 - 7.12.0 - Rule added.
