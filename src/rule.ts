@@ -249,8 +249,14 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 			| [DOMNode | null, string, Location | null | undefined, ContextType]
 	): void {
 		const { node, message, location, context } = unpackErrorDescriptor(args);
-		if (this.isEnabled() && (!node || node.ruleEnabled(this.name))) {
-			const where = this.findLocation({ node, location, event: this.event });
+		const enabled = this.isEnabled() && (!node || node.ruleEnabled(this.name));
+		const where = this.findLocation({ node, location, event: this.event });
+		this.parser.trigger("rule:error", {
+			location: where,
+			ruleId: this.name,
+			enabled,
+		});
+		if (enabled) {
 			const interpolated = interpolate(message, context ?? {});
 			this.reporter.add(this, interpolated, this.severity, node, where, context);
 		}

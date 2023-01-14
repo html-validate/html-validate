@@ -246,6 +246,18 @@ export interface DOMReadyEvent extends Event {
 }
 
 /**
+ * Event emitted when a rule triggers an error.
+ *
+ * @internal
+ */
+export interface RuleErrorEvent extends Event {
+	ruleId: string;
+
+	/** whenever the rule was enabled or not (i.e. if a user will see the error or not) */
+	enabled: boolean;
+}
+
+/**
  * @public
  */
 export interface TriggerEventMap {
@@ -263,6 +275,7 @@ export interface TriggerEventMap {
 	whitespace: WhitespaceEvent;
 	conditional: ConditionalEvent;
 	directive: DirectiveEvent;
+	"rule:error": RuleErrorEvent;
 }
 
 /**
@@ -285,5 +298,6 @@ export interface ListenEventMap {
 	whitespace: WhitespaceEvent;
 	conditional: ConditionalEvent;
 	directive: DirectiveEvent;
+	"rule:error": RuleErrorEvent;
 	"*": Event;
 }
