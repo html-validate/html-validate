@@ -1,7 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should dump events for given filename 1`] = `
-"dom:load: {
+"parse:begin: {
+  "location": null
+}
+dom:load: {
   "source": {
     "data": "[truncated]",
     "filename": "<rootDir>/test-files/parser/simple.html",
@@ -513,6 +516,9 @@ dom:ready: {
     "offset": 0,
     "originalData": "[truncated]"
   },
+  "location": null
+}
+parse:end: {
   "location": null
 }
 "

@@ -409,22 +409,24 @@ describe("Engine", () => {
 
 	describe("dumpEvents()", () => {
 		it("should dump parser events", () => {
-			expect.assertions(13);
+			expect.assertions(15);
 			const source: Source[] = [inline('<div id="foo"><p class="bar">baz</p></div>')];
 			const lines = engine.dumpEvents(source);
-			expect(lines).toHaveLength(12);
-			expect(lines[0].event).toBe("dom:load");
-			expect(lines[1].event).toBe("tag:start");
-			expect(lines[2].event).toBe("attr");
-			expect(lines[3].event).toBe("tag:ready");
-			expect(lines[4].event).toBe("tag:start");
-			expect(lines[5].event).toBe("attr");
-			expect(lines[6].event).toBe("tag:ready");
-			expect(lines[7].event).toBe("tag:end");
-			expect(lines[8].event).toBe("element:ready");
-			expect(lines[9].event).toBe("tag:end");
-			expect(lines[10].event).toBe("element:ready");
-			expect(lines[11].event).toBe("dom:ready");
+			expect(lines).toHaveLength(14);
+			expect(lines[0].event).toBe("parse:begin");
+			expect(lines[1].event).toBe("dom:load");
+			expect(lines[2].event).toBe("tag:start");
+			expect(lines[3].event).toBe("attr");
+			expect(lines[4].event).toBe("tag:ready");
+			expect(lines[5].event).toBe("tag:start");
+			expect(lines[6].event).toBe("attr");
+			expect(lines[7].event).toBe("tag:ready");
+			expect(lines[8].event).toBe("tag:end");
+			expect(lines[9].event).toBe("element:ready");
+			expect(lines[10].event).toBe("tag:end");
+			expect(lines[11].event).toBe("element:ready");
+			expect(lines[12].event).toBe("dom:ready");
+			expect(lines[13].event).toBe("parse:end");
 		});
 	});
 
