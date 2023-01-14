@@ -200,6 +200,18 @@ describe("rule base class", () => {
 				context
 			);
 		});
+
+		it("should trigger rule:error event", () => {
+			expect.assertions(1);
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+			const trigger = jest.spyOn(parser, "trigger");
+			rule.report(node, "foo");
+			expect(trigger).toHaveBeenCalledWith("rule:error", {
+				ruleId: "mock-rule",
+				enabled: true,
+				location,
+			});
+		});
 	});
 
 	describe("on()", () => {

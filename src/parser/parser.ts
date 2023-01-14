@@ -85,6 +85,11 @@ export class Parser {
 			};
 		}
 
+		/* trigger starting event */
+		this.trigger("parse:begin", {
+			location: null,
+		});
+
 		/* reset DOM in case there are multiple calls in the same session */
 		this.dom = new DOMTree({
 			filename: source.filename ?? "",
@@ -124,6 +129,11 @@ export class Parser {
 
 			/* disable location for this event so rules can use implicit node location
 			 * instead */
+			location: null,
+		});
+
+		/* trigger ending event */
+		this.trigger("parse:end", {
 			location: null,
 		});
 

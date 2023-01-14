@@ -56,7 +56,14 @@ class ExposedParser extends Parser {
 }
 
 describe("parser", () => {
-	const ignoredEvents = ["dom:load", "dom:ready", "token", "whitespace"];
+	const ignoredEvents = [
+		"dom:load",
+		"dom:ready",
+		"parse:begin",
+		"parse:end",
+		"token",
+		"whitespace",
+	];
 
 	let events: any[];
 	let parser: ExposedParser;
