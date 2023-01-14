@@ -2,6 +2,7 @@
   "rules": {
     "deprecated": "error",
     "element-permitted-content": "off",
-    "no-self-closing": "error"
+    "no-self-closing": "error",
+    "no-unused-disable": "off"
   }
 }

@@ -88,6 +88,7 @@ describe("Engine", () => {
 			extends: ["html-validate:recommended"],
 			rules: {
 				deprecated: "off",
+				"no-unused-disable": "off",
 			},
 		});
 		config.init();

@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/no-unused-disable.md inline validation: correct-error-present 1`] = `[]`;
+
+exports[`docs/rules/no-unused-disable.md inline validation: correct-removed 1`] = `[]`;
+
+exports[`docs/rules/no-unused-disable.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 34,
+        "context": {
+          "ruleId": "attribute-allowed-values",
+        },
+        "line": 1,
+        "message": ""attribute-allowed-values" rule is disabled but no error was reported",
+        "offset": 33,
+        "ruleId": "no-unused-disable",
+        "ruleUrl": "https://html-validate.org/rules/no-unused-disable.html",
+        "selector": null,
+        "severity": 2,
+        "size": 24,
+      },
+    ],
+    "source": "<!-- [html-validate-disable-next attribute-allowed-values -- no error, disable is invalid] -->
+<button type="submit"></button>",
+    "warningCount": 0,
+  },
+]
+`;

@@ -5,6 +5,7 @@ import { DOMInternalID } from "../dom/domnode";
 import {
 	ConfigReadyEvent,
 	DirectiveEvent,
+	RuleErrorEvent,
 	SourceReadyEvent,
 	TagEndEvent,
 	TagStartEvent,
@@ -13,7 +14,9 @@ import { InvalidTokenError, Lexer, TokenType } from "../lexer";
 import { Parser, ParserError } from "../parser";
 import { Report, Reporter } from "../reporter";
 import { type RuleConstructor, type RuleDocumentation, Rule } from "../rule";
+import NoUnusedDisable from "../rules/no-unused-disable";
 import bundledRules from "../rules";
+import { createBlocker } from "./rule-blocker";
 
 /**
  * @internal
@@ -30,6 +33,11 @@ export interface TokenDump {
 	token: string;
 	data: string;
 	location: string;
+}
+
+interface DirectiveContext {
+	readonly rules: Record<string, Rule<unknown, unknown>>;
+	reportUnused(unused: Set<string>, options: string, location: Location): void;
 }
 
 /**
@@ -67,6 +75,15 @@ export class Engine<T extends Parser = Parser> {
 
 			/* setup plugins and rules */
 			const { rules } = this.setupPlugins(source, this.config, parser);
+			const noUnusedDisable = rules["no-unused-disable"] as NoUnusedDisable;
+			const directiveContext: DirectiveContext = {
+				rules,
+				reportUnused(unused: Set<string>, options: string, location: Location): void {
+					if (noUnusedDisable) {
+						noUnusedDisable.reportUnused(unused, options, location);
+					}
+				},
+			};
 
 			/* create a faux location at the start of the stream for the next events */
 			const location: Location = {
@@ -96,7 +113,7 @@ export class Engine<T extends Parser = Parser> {
 
 			/* setup directive handling */
 			parser.on("directive", (_: string, event: DirectiveEvent) => {
-				this.processDirective(event, parser, rules);
+				this.processDirective(event, parser, directiveContext);
 			});
 
 			/* parse token stream */
@@ -212,16 +229,14 @@ export class Engine<T extends Parser = Parser> {
 		return new this.ParserClass(this.config);
 	}
 
-	private processDirective(
-		event: DirectiveEvent,
-		parser: Parser,
-		allRules: Record<string, Rule<unknown, unknown>>
-	): void {
+	private processDirective(event: DirectiveEvent, parser: Parser, context: DirectiveContext): void {
 		const rules = event.data
 			.split(",")
 			.map((name) => name.trim())
-			.map((name) => allRules[name])
+			.map((name) => context.rules[name])
 			.filter((rule) => rule); /* filter out missing rules */
+		/* istanbul ignore next: option must be present or there would be no rules to disable */
+		const location = event.optionsLocation ?? event.location;
 		switch (event.action) {
 			case "enable":
 				this.processEnableDirective(rules, parser);
@@ -230,10 +245,10 @@ export class Engine<T extends Parser = Parser> {
 				this.processDisableDirective(rules, parser);
 				break;
 			case "disable-block":
-				this.processDisableBlockDirective(rules, parser);
+				this.processDisableBlockDirective(context, rules, parser, event.data, location);
 				break;
 			case "disable-next":
-				this.processDisableNextDirective(rules, parser);
+				this.processDisableNextDirective(context, rules, parser, event.data, location);
 				break;
 		}
 	}
@@ -263,10 +278,20 @@ export class Engine<T extends Parser = Parser> {
 		});
 	}
 
-	private processDisableBlockDirective(rules: Rule<unknown, unknown>[], parser: Parser): void {
+	private processDisableBlockDirective(
+		context: DirectiveContext,
+		rules: Rule<unknown, unknown>[],
+		parser: Parser,
+		options: string,
+		location: Location
+	): void {
+		const ruleIds = rules.map((it) => it.name);
+		const blocker = createBlocker();
+		const unused = new Set<string>(ruleIds);
 		let directiveBlock: DOMInternalID | null = null;
+
 		for (const rule of rules) {
-			rule.setEnabled(false);
+			rule.block(blocker);
 		}
 
 		const unregisterOpen = parser.on("tag:start", (event: string, data: TagStartEvent) => {
@@ -279,7 +304,7 @@ export class Engine<T extends Parser = Parser> {
 
 			/* disable rules directly on the node so it will be recorded for later,
 			 * more specifically when using the domtree to trigger errors */
-			data.target.disableRules(rules.map((rule) => rule.name));
+			data.target.blockRules(ruleIds, blocker);
 		});
 
 		const unregisterClose = parser.on("tag:end", (event: string, data: TagEndEvent) => {
@@ -295,21 +320,51 @@ export class Engine<T extends Parser = Parser> {
 				unregisterClose();
 				unregisterOpen();
 				for (const rule of rules) {
-					rule.setEnabled(true);
+					rule.unblock(blocker);
 				}
 			}
 		});
+
+		parser.on("rule:error", (event: string, data: RuleErrorEvent) => {
+			if (data.blockers.includes(blocker)) {
+				unused.delete(data.ruleId);
+			}
+		});
+
+		parser.on("parse:end", () => {
+			context.reportUnused(unused, options, location);
+		});
 	}
 
-	private processDisableNextDirective(rules: Rule<unknown, unknown>[], parser: Parser): void {
+	private processDisableNextDirective(
+		context: DirectiveContext,
+		rules: Rule<unknown, unknown>[],
+		parser: Parser,
+		options: string,
+		location: Location
+	): void {
+		const ruleIds = rules.map((it) => it.name);
+		const blocker = createBlocker();
+		const unused = new Set<string>(ruleIds);
+
 		for (const rule of rules) {
-			rule.setEnabled(false);
+			rule.block(blocker);
 		}
 
-		/* disable rules directly on the node so it will be recorded for later,
+		/* block rules directly on the node so it will be recorded for later,
 		 * more specifically when using the domtree to trigger errors */
 		const unregister = parser.on("tag:start", (event: string, data: TagStartEvent) => {
-			data.target.disableRules(rules.map((rule) => rule.name));
+			data.target.blockRules(ruleIds, blocker);
+		});
+
+		parser.on("rule:error", (event: string, data: RuleErrorEvent) => {
+			if (data.blockers.includes(blocker)) {
+				unused.delete(data.ruleId);
+			}
+		});
+
+		parser.on("parse:end", () => {
+			context.reportUnused(unused, options, location);
 		});
 
 		/* disable directive after next event occurs */
@@ -317,7 +372,7 @@ export class Engine<T extends Parser = Parser> {
 			unregister();
 			parser.defer(() => {
 				for (const rule of rules) {
-					rule.setEnabled(true);
+					rule.unblock(blocker);
 				}
 			});
 		});

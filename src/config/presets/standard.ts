@@ -27,6 +27,7 @@ const config: ConfigData = {
 		"no-dup-id": "error",
 		"no-multiple-main": "error",
 		"no-raw-characters": ["error", { relaxed: true }],
+		"no-unused-disable": "error",
 		"script-element": "error",
 		"unrecognized-char-ref": "error",
 		"valid-id": ["error", { relaxed: true }],
