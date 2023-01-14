@@ -152,9 +152,11 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 *
 	 * To be considered enabled the enabled flag must be true and the severity at
 	 * least warning.
+	 *
+	 * @internal
 	 */
-	public isEnabled(): boolean {
-		return this.enabled && this.severity >= Severity.WARN;
+	public isEnabled(node?: DOMNode | null): boolean {
+		return this.enabled && this.severity >= Severity.WARN && (!node || node.ruleEnabled(this.name));
 	}
 
 	/**
@@ -249,7 +251,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 			| [DOMNode | null, string, Location | null | undefined, ContextType]
 	): void {
 		const { node, message, location, context } = unpackErrorDescriptor(args);
-		const enabled = this.isEnabled() && (!node || node.ruleEnabled(this.name));
+		const enabled = this.isEnabled(node);
 		const where = this.findLocation({ node, location, event: this.event });
 		this.parser.trigger("rule:error", {
 			location: where,
