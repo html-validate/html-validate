@@ -31,6 +31,7 @@ export {
 	type MetaAttributeAllowedCallback,
 	MetaTable,
 	MetaCopyableProperty,
+	Validator,
 	defineMetadata,
 	metadataHelper,
 } from "./meta";
