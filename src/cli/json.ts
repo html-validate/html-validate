@@ -1,6 +1,6 @@
 import { EventDump, type Location } from "..";
 
-const jsonIgnored = ["unique", "cache", "disabledRules"];
+const jsonIgnored = ["unique", "cache", "disabledRules", "blockedRules"];
 const jsonFiltered = ["parent", "childNodes", "children", "meta", "data", "originalData"];
 
 function isLocation(key: string, value: unknown): value is Location {

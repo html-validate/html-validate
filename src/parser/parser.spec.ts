@@ -1,3 +1,4 @@
+import { codeFrameColumns, SourceLocation } from "@babel/code-frame";
 import { Config } from "../config";
 import { Location, ProcessElementContext, Source } from "../context";
 import { DOMTree, HtmlElement, TextNode } from "../dom";
@@ -19,11 +20,46 @@ import { AttributeData } from "./attribute-data";
 import { Parser } from "./parser";
 import { ParserError } from "./parser-error";
 
+const codeframePrefix = "codeframe:";
+
+/* removes " around strings in snapshot */
+expect.addSnapshotSerializer({
+	test(val: unknown): boolean {
+		return typeof val === "string" && val.startsWith(codeframePrefix);
+	},
+	serialize(val: string): string {
+		return val
+			.slice(codeframePrefix.length)
+			.split("\n")
+			.map((it) => it.trimEnd())
+			.join("\n");
+	},
+});
+
+function codeframe(source: string, location: Location): string {
+	let line = location.line;
+	let column = location.column;
+	for (let i = 0; i < location.size; i++) {
+		if (source.charAt(location.offset + i) === "\n") {
+			line++;
+			column = 0;
+		} else {
+			column++;
+		}
+	}
+	const sourceLocation: SourceLocation = {
+		start: { line: location.line, column: location.column },
+		end: { line, column },
+	};
+	const codeframe = codeFrameColumns(source, sourceLocation, { highlightCode: false });
+	return `${codeframePrefix}${codeframe}`;
+}
+
 function mergeEvent(event: string, data: any): any {
 	const merged = { event, ...data };
 
 	/* legacy: not useful for these tests */
-	if (event !== "attr") {
+	if (event !== "attr" && event !== "directive") {
 		delete merged.location;
 	}
 
@@ -943,26 +979,220 @@ describe("parser", () => {
 
 	describe("should parse directive", () => {
 		it("with action", () => {
-			expect.assertions(2);
-			parser.parseHtml("<!-- [html-validate-enable] -->");
-			expect(events.shift()).toEqual({
+			expect.assertions(4);
+			const markup = /* HTML */ ` <!-- [html-validate-enable] --> `;
+			parser.parseHtml(markup);
+			const event = events.shift();
+			expect(event).toEqual({
 				event: "directive",
 				action: "enable",
 				data: "",
 				comment: "",
+				location: expect.anything(),
+				actionLocation: expect.anything(),
+				optionsLocation: undefined,
+				commentLocation: undefined,
 			});
+			expect(codeframe(markup, event.location)).toMatchInlineSnapshot(`
+				> 1 |  <!-- [html-validate-enable] -->
+				    |       ^^^^^^^^^^^^^^^^^^^^^^
+			`);
+			expect(codeframe(markup, event.actionLocation)).toMatchInlineSnapshot(`
+				> 1 |  <!-- [html-validate-enable] -->
+				    |                      ^^^^^^
+			`);
 			expect(events.shift()).toBeUndefined();
 		});
 
 		it("with options", () => {
-			expect.assertions(2);
-			parser.parseHtml("<!-- [html-validate-enable foo bar] -->");
-			expect(events.shift()).toEqual({
+			expect.assertions(5);
+			const markup = /* HTML */ ` <!-- [html-validate-enable foo bar] --> `;
+			parser.parseHtml(markup);
+			const event = events.shift();
+			expect(event).toEqual({
 				event: "directive",
 				action: "enable",
 				data: "foo bar",
 				comment: "",
+				location: expect.anything(),
+				actionLocation: expect.anything(),
+				optionsLocation: expect.anything(),
+				commentLocation: undefined,
 			});
+			expect(codeframe(markup, event.location)).toMatchInlineSnapshot(`
+				> 1 |  <!-- [html-validate-enable foo bar] -->
+				    |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+			`);
+			expect(codeframe(markup, event.actionLocation)).toMatchInlineSnapshot(`
+				> 1 |  <!-- [html-validate-enable foo bar] -->
+				    |                      ^^^^^^
+			`);
+			expect(codeframe(markup, event.optionsLocation)).toMatchInlineSnapshot(`
+				> 1 |  <!-- [html-validate-enable foo bar] -->
+				    |                             ^^^^^^^
+			`);
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it("with colon comment", () => {
+			expect.assertions(5);
+			const markup = /* HTML */ ` <!-- [html-validate-enable: lorem ipsum] --> `;
+			parser.parseHtml(markup);
+			const event = events.shift();
+			expect(event).toEqual({
+				event: "directive",
+				action: "enable",
+				data: "",
+				comment: "lorem ipsum",
+				location: expect.anything(),
+				actionLocation: expect.anything(),
+				optionsLocation: undefined,
+				commentLocation: expect.anything(),
+			});
+			expect(codeframe(markup, event.location)).toMatchInlineSnapshot(`
+				> 1 |  <!-- [html-validate-enable: lorem ipsum] -->
+				    |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+			`);
+			expect(codeframe(markup, event.actionLocation)).toMatchInlineSnapshot(`
+				> 1 |  <!-- [html-validate-enable: lorem ipsum] -->
+				    |                      ^^^^^^
+			`);
+			expect(codeframe(markup, event.commentLocation)).toMatchInlineSnapshot(`
+				> 1 |  <!-- [html-validate-enable: lorem ipsum] -->
+				    |                              ^^^^^^^^^^^
+			`);
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it("with dashdash comment", () => {
+			expect.assertions(5);
+			const markup = /* HTML */ ` <!-- [html-validate-enable -- lorem ipsum] --> `;
+			parser.parseHtml(markup);
+			const event = events.shift();
+			expect(event).toEqual({
+				event: "directive",
+				action: "enable",
+				data: "",
+				comment: "lorem ipsum",
+				location: expect.anything(),
+				actionLocation: expect.anything(),
+				optionsLocation: undefined,
+				commentLocation: expect.anything(),
+			});
+			expect(codeframe(markup, event.location)).toMatchInlineSnapshot(`
+				> 1 |  <!-- [html-validate-enable -- lorem ipsum] -->
+				    |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+			`);
+			expect(codeframe(markup, event.actionLocation)).toMatchInlineSnapshot(`
+				> 1 |  <!-- [html-validate-enable -- lorem ipsum] -->
+				    |                      ^^^^^^
+			`);
+			expect(codeframe(markup, event.commentLocation)).toMatchInlineSnapshot(`
+				> 1 |  <!-- [html-validate-enable -- lorem ipsum] -->
+				    |                                ^^^^^^^^^^^
+			`);
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it("with options and colon comment", () => {
+			expect.assertions(6);
+			const markup = /* HTML */ ` <!-- [html-validate-enable foo bar: baz] --> `;
+			parser.parseHtml(markup);
+			const event = events.shift();
+			expect(event).toEqual({
+				event: "directive",
+				action: "enable",
+				data: "foo bar",
+				comment: "baz",
+				location: expect.anything(),
+				actionLocation: expect.anything(),
+				optionsLocation: expect.anything(),
+				commentLocation: expect.anything(),
+			});
+			expect(codeframe(markup, event.location)).toMatchInlineSnapshot(`
+				> 1 |  <!-- [html-validate-enable foo bar: baz] -->
+				    |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+			`);
+			expect(codeframe(markup, event.actionLocation)).toMatchInlineSnapshot(`
+				> 1 |  <!-- [html-validate-enable foo bar: baz] -->
+				    |                      ^^^^^^
+			`);
+			expect(codeframe(markup, event.optionsLocation)).toMatchInlineSnapshot(`
+				> 1 |  <!-- [html-validate-enable foo bar: baz] -->
+				    |                             ^^^^^^^
+			`);
+			expect(codeframe(markup, event.commentLocation)).toMatchInlineSnapshot(`
+				> 1 |  <!-- [html-validate-enable foo bar: baz] -->
+				    |                                      ^^^
+			`);
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it("with options and dashdash comment", () => {
+			expect.assertions(6);
+			const markup = /* HTML */ ` <!-- [html-validate-enable foo bar -- baz] --> `;
+			parser.parseHtml(markup);
+			const event = events.shift();
+			expect(event).toEqual({
+				event: "directive",
+				action: "enable",
+				data: "foo bar",
+				comment: "baz",
+				location: expect.anything(),
+				actionLocation: expect.anything(),
+				optionsLocation: expect.anything(),
+				commentLocation: expect.anything(),
+			});
+			expect(codeframe(markup, event.location)).toMatchInlineSnapshot(`
+				> 1 |  <!-- [html-validate-enable foo bar -- baz] -->
+				    |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+			`);
+			expect(codeframe(markup, event.actionLocation)).toMatchInlineSnapshot(`
+				> 1 |  <!-- [html-validate-enable foo bar -- baz] -->
+				    |                      ^^^^^^
+			`);
+			expect(codeframe(markup, event.optionsLocation)).toMatchInlineSnapshot(`
+				> 1 |  <!-- [html-validate-enable foo bar -- baz] -->
+				    |                             ^^^^^^^
+			`);
+			expect(codeframe(markup, event.commentLocation)).toMatchInlineSnapshot(`
+				> 1 |  <!-- [html-validate-enable foo bar -- baz] -->
+				    |                                        ^^^
+			`);
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it("with obscure whitespace", () => {
+			expect.assertions(6);
+			const markup = /* HTML */ ` <!--[html-validate-enable 	 foo bar    --    baz]--> `;
+			parser.parseHtml(markup);
+			const event = events.shift();
+			expect(event).toEqual({
+				event: "directive",
+				action: "enable",
+				data: "foo bar",
+				comment: "baz",
+				location: expect.anything(),
+				actionLocation: expect.anything(),
+				optionsLocation: expect.anything(),
+				commentLocation: expect.anything(),
+			});
+			expect(codeframe(markup, event.location)).toMatchInlineSnapshot(`
+				> 1 |  <!--[html-validate-enable 	 foo bar    --    baz]-->
+				    |      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+			`);
+			expect(codeframe(markup, event.actionLocation)).toMatchInlineSnapshot(`
+				> 1 |  <!--[html-validate-enable 	 foo bar    --    baz]-->
+				    |                     ^^^^^^
+			`);
+			expect(codeframe(markup, event.optionsLocation)).toMatchInlineSnapshot(`
+				> 1 |  <!--[html-validate-enable 	 foo bar    --    baz]-->
+				    |                            	 ^^^^^^^
+			`);
+			expect(codeframe(markup, event.commentLocation)).toMatchInlineSnapshot(`
+				> 1 |  <!--[html-validate-enable 	 foo bar    --    baz]-->
+				    |                            	                  ^^^
+			`);
 			expect(events.shift()).toBeUndefined();
 		});
 
@@ -973,54 +1203,6 @@ describe("parser", () => {
 			};
 			expect(parse).toThrow(ParserError);
 			expect(parse).toThrow('Unknown directive "arbitrary-action"');
-		});
-
-		it("with colon comment", () => {
-			expect.assertions(2);
-			parser.parseHtml("<!-- [html-validate-enable: lorem ipsum] -->");
-			expect(events.shift()).toEqual({
-				event: "directive",
-				action: "enable",
-				data: "",
-				comment: "lorem ipsum",
-			});
-			expect(events.shift()).toBeUndefined();
-		});
-
-		it("with dashdash comment", () => {
-			expect.assertions(2);
-			parser.parseHtml("<!-- [html-validate-enable -- lorem ipsum] -->");
-			expect(events.shift()).toEqual({
-				event: "directive",
-				action: "enable",
-				data: "",
-				comment: "lorem ipsum",
-			});
-			expect(events.shift()).toBeUndefined();
-		});
-
-		it("with options and colon comment", () => {
-			expect.assertions(2);
-			parser.parseHtml("<!-- [html-validate-enable foo bar: baz] -->");
-			expect(events.shift()).toEqual({
-				event: "directive",
-				action: "enable",
-				data: "foo bar",
-				comment: "baz",
-			});
-			expect(events.shift()).toBeUndefined();
-		});
-
-		it("with options and dashdash comment", () => {
-			expect.assertions(2);
-			parser.parseHtml("<!-- [html-validate-enable foo bar -- baz] -->");
-			expect(events.shift()).toEqual({
-				event: "directive",
-				action: "enable",
-				data: "foo bar",
-				comment: "baz",
-			});
-			expect(events.shift()).toBeUndefined();
 		});
 
 		it("throw when missing end bracket ]", () => {

@@ -102,7 +102,7 @@ export interface ConditionalToken extends BaseToken {
 
 export interface DirectiveToken extends BaseToken {
 	type: TokenType.DIRECTIVE;
-	data: [text: string, begin: "[", action: string, rest: string, end: "]" | ""];
+	data: [text: string, begin: "[", action: string, delimiter: string, rest: string, end: "]" | ""];
 }
 
 export interface EOFToken extends BaseToken {

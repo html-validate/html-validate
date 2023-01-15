@@ -81,10 +81,7 @@ module.exports = function renderMarkdown(example, trimIndentation) {
 	// Add § link to all headings
 	renderer.heading = function (text, level, raw) {
 		const id = `${this.options.headerPrefix}${generateId(raw)}`;
-		const anchor =
-			level > 1
-				? ` <!-- [html-validate-disable-next wcag/h30] --><a class="anchorlink" href="#${id}" aria-hidden="true"></a>`
-				: "";
+		const anchor = level > 1 ? `<a class="anchorlink" href="#${id}" aria-hidden="true"></a>` : "";
 		return `<h${level} id="${id}">${text}${anchor}</h${level}>`;
 	};
 

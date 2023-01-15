@@ -2,6 +2,7 @@ import path from "path";
 import { Config, ConfigData, Severity } from "./config";
 import { Location } from "./context";
 import { HtmlElement, NodeClosed } from "./dom";
+import { createBlocker } from "./engine";
 import { Event, EventCallback, TagEndEvent, TagStartEvent } from "./event";
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";
@@ -107,6 +108,23 @@ describe("rule base class", () => {
 			expect(reporter.add).not.toHaveBeenCalled();
 		});
 
+		it("should not add message when blocked", () => {
+			expect.assertions(1);
+			const blocker = createBlocker();
+			rule.block(blocker);
+			rule.report(null, "foo");
+			expect(reporter.add).not.toHaveBeenCalled();
+		});
+
+		it("should add message after unblocking previously blocked rule", () => {
+			expect.assertions(1);
+			const blocker = createBlocker();
+			rule.block(blocker);
+			rule.unblock(blocker);
+			rule.report(null, "foo");
+			expect(reporter.add).toHaveBeenCalled();
+		});
+
 		it("should use explicit location if provided", () => {
 			expect.assertions(1);
 			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
@@ -209,8 +227,28 @@ describe("rule base class", () => {
 			expect(trigger).toHaveBeenCalledWith("rule:error", {
 				ruleId: "mock-rule",
 				enabled: true,
+				blockers: [],
 				location,
 			});
+		});
+
+		it("should add error from descriptor object", () => {
+			expect.assertions(1);
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+			rule.report({
+				node,
+				message: "foo",
+			});
+			expect(reporter.add).toHaveBeenCalledWith(
+				rule,
+				"foo",
+				Severity.ERROR,
+				expect.objectContaining({
+					unique: node.unique,
+				}),
+				expect.anything(),
+				undefined
+			);
 		});
 	});
 
@@ -358,6 +396,95 @@ describe("isEnabled()", () => {
 		rule.setEnabled(Boolean(enabled));
 		rule.setServerity(severity);
 		expect(rule.isEnabled()).toEqual(result);
+	});
+});
+
+describe("isBlocked()", () => {
+	it("should return false if rule or node isn't blocked", () => {
+		expect.assertions(1);
+		const rule = new MockRule();
+		const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+		expect(rule.isBlocked(node)).toBeFalsy();
+	});
+
+	it("should return false if rule or node no node is passed", () => {
+		expect.assertions(1);
+		const rule = new MockRule();
+		expect(rule.isBlocked()).toBeFalsy();
+	});
+
+	it("should return true if rule is blocked", () => {
+		expect.assertions(1);
+		const rule = new MockRule();
+		const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+		const blocker = createBlocker();
+		rule.block(blocker);
+		expect(rule.isBlocked(node)).toBeTruthy();
+	});
+
+	it("should return true if rule is blocked and no node is passed", () => {
+		expect.assertions(1);
+		const rule = new MockRule();
+		const blocker = createBlocker();
+		rule.block(blocker);
+		expect(rule.isBlocked()).toBeTruthy();
+	});
+
+	it("should return true if node is blocked", () => {
+		expect.assertions(1);
+		const rule = new MockRule();
+		const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+		const blocker = createBlocker();
+		node.blockRule(rule.name, blocker);
+		expect(rule.isBlocked(node)).toBeTruthy();
+	});
+});
+
+describe("getBlockers()", () => {
+	it("should return empty list if rule isn't blocked", () => {
+		expect.assertions(1);
+		const rule = new MockRule();
+		expect(rule.getBlockers()).toEqual([]);
+	});
+
+	it("should return empty list if rule and node isn't blocked", () => {
+		expect.assertions(1);
+		const rule = new MockRule();
+		const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+		expect(rule.getBlockers(node)).toEqual([]);
+	});
+
+	it("should return rule blocker if present", () => {
+		expect.assertions(1);
+		const rule = new MockRule();
+		const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+		const blocker = createBlocker();
+		rule.block(blocker);
+		expect(rule.getBlockers(node)).toEqual([blocker]);
+	});
+
+	it("should return node blocker if present", () => {
+		expect.assertions(1);
+		const rule = new MockRule();
+		const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+		const blocker = createBlocker();
+		node.blockRule(rule.name, blocker);
+		expect(rule.getBlockers(node)).toEqual([blocker]);
+	});
+
+	it("should return merged list if both rule and node is blocked", () => {
+		expect.assertions(1);
+		const rule = new MockRule();
+		const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+		const blocker1 = createBlocker();
+		const blocker2 = createBlocker();
+		const blocker3 = createBlocker();
+		const blocker4 = createBlocker();
+		rule.block(blocker1);
+		rule.block(blocker2);
+		node.blockRule(rule.name, blocker3);
+		node.blockRules([rule.name], blocker4);
+		expect(rule.getBlockers(node)).toEqual([blocker1, blocker2, blocker3, blocker4]);
 	});
 });
 

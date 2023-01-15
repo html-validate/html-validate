@@ -512,11 +512,11 @@ export class Parser {
 	}
 
 	protected consumeDirective(token: DirectiveToken): void {
-		const [text, , action, directive, end] = token.data;
-		if (end === "") {
+		const [text, preamble, action, separator1, directive, postamble] = token.data;
+		if (!postamble.startsWith("]")) {
 			throw new ParserError(token.location, `Missing end bracket "]" on directive "${text}"`);
 		}
-		const match = directive.match(/^(.*?)(?:\s*(?:--|:)\s*(.*))?$/);
+		const match = directive.match(/^(.*?)(?:(\s*(?:--|:)\s*)(.*))?$/);
 
 		/* istanbul ignore next: should not be possible, would be emitted as comment token */
 		if (!match) {
@@ -527,12 +527,43 @@ export class Parser {
 			throw new ParserError(token.location, `Unknown directive "${action}"`);
 		}
 
-		const [, data, comment] = match;
+		const [, data, separator2, comment] = match;
+		const prefix = "html-validate-";
+
+		/* <!-- [html-validate-action options -- comment] -->
+		 *                     ^      ^          ^--------------- comment offset
+		 *                     |      \-------------------------- options offset
+		 *                     \--------------------------------- action offset
+		 */
+		const actionOffset = preamble.length;
+		const optionsOffset = actionOffset + action.length + separator1.length;
+		const commentOffset = optionsOffset + data.length + (separator2 || "").length;
+
+		const location = sliceLocation(
+			token.location,
+			preamble.length - prefix.length - 1,
+			-postamble.length + 1
+		);
+		const actionLocation = sliceLocation(
+			token.location,
+			actionOffset,
+			actionOffset + action.length
+		);
+		const optionsLocation = data
+			? sliceLocation(token.location, optionsOffset, optionsOffset + data.length)
+			: undefined;
+		const commentLocation = comment
+			? sliceLocation(token.location, commentOffset, commentOffset + comment.length)
+			: undefined;
+
 		this.trigger("directive", {
 			action,
 			data,
 			comment: comment || "",
-			location: token.location,
+			location,
+			actionLocation,
+			optionsLocation,
+			commentLocation,
 		});
 	}
 

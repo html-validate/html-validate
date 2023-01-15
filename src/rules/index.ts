@@ -58,6 +58,7 @@ import NoSelfClosing from "./no-self-closing";
 import NoStyleTag from "./no-style-tag";
 import NoTrailingWhitespace from "./no-trailing-whitespace";
 import NoUnknownElements from "./no-unknown-elements";
+import NoUnusedDisable from "./no-unused-disable";
 import NoUtf8Bom from "./no-utf8-bom";
 import PreferButton from "./prefer-button";
 import PreferNativeElement from "./prefer-native-element";
@@ -136,6 +137,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"no-style-tag": NoStyleTag,
 	"no-trailing-whitespace": NoTrailingWhitespace,
 	"no-unknown-elements": NoUnknownElements,
+	"no-unused-disable": NoUnusedDisable,
 	"no-utf8-bom": NoUtf8Bom,
 	"prefer-button": PreferButton,
 	"prefer-native-element": PreferNativeElement,

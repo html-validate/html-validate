@@ -52,6 +52,7 @@ const config: ConfigData = {
 		"no-self-closing": "error",
 		"no-trailing-whitespace": "error",
 		"no-utf8-bom": "error",
+		"no-unused-disable": "error",
 		"prefer-button": "error",
 		"prefer-native-element": "error",
 		"prefer-tbody": "error",
