@@ -14,6 +14,8 @@ const allowedKeys = ["exclude"];
 
 /**
  * Helper class to validate elements against metadata rules.
+ *
+ * @public
  */
 export class Validator {
 	/**
