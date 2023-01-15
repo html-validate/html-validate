@@ -1,6 +1,7 @@
-import { Location } from "../context";
+import { type Location } from "../context";
+import { type RuleBlocker } from "../engine";
 import { NodeType } from "./nodetype";
-import { DOMNodeCache } from "./cache";
+import { type DOMNodeCache } from "./cache";
 
 export type DOMInternalID = number;
 
@@ -38,6 +39,13 @@ export class DOMNode {
 	private disabledRules: Set<string>;
 
 	/**
+	 * Set of blocked rules for this node.
+	 *
+	 * Rules blocked by using directives are added here.
+	 */
+	private blockedRules: Map<string, RuleBlocker[]>;
+
+	/**
 	 * Create a new DOMNode.
 	 *
 	 * @param nodeType - What node type to create.
@@ -50,6 +58,7 @@ export class DOMNode {
 		this.nodeName = nodeName ?? DOCUMENT_NODE_NAME;
 		this.location = location;
 		this.disabledRules = new Set();
+		this.blockedRules = new Map();
 		this.childNodes = [];
 		this.unique = counter++;
 		this.cache = null;
@@ -166,7 +175,34 @@ export class DOMNode {
 	}
 
 	/**
+	 * Block a rule for this node.
+	 *
+	 * @internal
+	 */
+	public blockRule(ruleId: string, blocker: RuleBlocker): void {
+		const current = this.blockedRules.get(ruleId);
+		if (current) {
+			current.push(blocker);
+		} else {
+			this.blockedRules.set(ruleId, [blocker]);
+		}
+	}
+
+	/**
+	 * Blocks multiple rules.
+	 *
+	 * @internal
+	 */
+	public blockRules(rules: string[], blocker: RuleBlocker): void {
+		for (const rule of rules) {
+			this.blockRule(rule, blocker);
+		}
+	}
+
+	/**
 	 * Disable a rule for this node.
+	 *
+	 * @internal
 	 */
 	public disableRule(ruleId: string): void {
 		this.disabledRules.add(ruleId);
@@ -174,6 +210,8 @@ export class DOMNode {
 
 	/**
 	 * Disables multiple rules.
+	 *
+	 * @internal
 	 */
 	public disableRules(rules: string[]): void {
 		for (const rule of rules) {
@@ -199,9 +237,20 @@ export class DOMNode {
 
 	/**
 	 * Test if a rule is enabled for this node.
+	 *
+	 * @internal
 	 */
 	public ruleEnabled(ruleId: string): boolean {
 		return !this.disabledRules.has(ruleId);
+	}
+
+	/**
+	 * Test if a rule is blocked for this node.
+	 *
+	 * @internal
+	 */
+	public ruleBlockers(ruleId: string): RuleBlocker[] {
+		return this.blockedRules.get(ruleId) ?? [];
 	}
 
 	public generateSelector(): string | null {

@@ -12,7 +12,7 @@ import {
 import { InvalidTokenError, Lexer, TokenType } from "../lexer";
 import { Parser, ParserError } from "../parser";
 import { Report, Reporter } from "../reporter";
-import { Rule, RuleConstructor, RuleDocumentation } from "../rule";
+import { type RuleConstructor, type RuleDocumentation, Rule } from "../rule";
 import bundledRules from "../rules";
 
 /**

@@ -1,6 +1,7 @@
 import { ResolvedConfig } from "../config";
 import { Location, Source } from "../context";
 import { DOMTree, DynamicValue, HtmlElement } from "../dom";
+import { type RuleBlocker } from "../engine/rule-blocker";
 import { Token, TokenType } from "../lexer";
 import { Rule } from "../rule";
 
@@ -264,6 +265,9 @@ export interface RuleErrorEvent extends Event {
 
 	/** whenever the rule was enabled or not (i.e. if a user will see the error or not) */
 	enabled: boolean;
+
+	/** list of rule blockers active when this rule triggered an event */
+	blockers: RuleBlocker[];
 }
 
 /**
