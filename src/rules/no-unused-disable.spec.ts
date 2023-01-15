@@ -69,6 +69,21 @@ describe("rule no-unused-disable", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error when no-unused-disable is disabled by itself", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<main>
+				<!-- [html-validate-disable-block direct, indirect, no-unused-disable] -->
+				<p></p>
+			</main>
+
+			<!-- [html-validate-disable-next direct, indirect, no-unused-disable] -->
+			<p></p>
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should report error when disable-block is used to disable unused error", () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `

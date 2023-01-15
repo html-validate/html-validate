@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`docs/rules/no-unused-disable.md inline validation: correct-disabled 1`] = `[]`;
+
 exports[`docs/rules/no-unused-disable.md inline validation: correct-error-present 1`] = `[]`;
 
 exports[`docs/rules/no-unused-disable.md inline validation: correct-removed 1`] = `[]`;
