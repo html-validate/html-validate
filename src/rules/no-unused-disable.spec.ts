@@ -43,6 +43,7 @@ describe("rule no-unused-disable", () => {
 			rules: {
 				direct: "error",
 				indirect: "error",
+				"element-case": "error",
 				"no-unused-disable": "error",
 			},
 		});
@@ -63,6 +64,21 @@ describe("rule no-unused-disable", () => {
 		const markup = /* HTML */ `
 			<!-- [html-validate-disable-next direct, indirect] -->
 			<div attr></div>
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when no-unused-disable is disabled by itself", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<main>
+				<!-- [html-validate-disable-block direct, indirect, no-unused-disable] -->
+				<p></p>
+			</main>
+
+			<!-- [html-validate-disable-next direct, indirect, no-unused-disable] -->
+			<p></p>
 		`;
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
@@ -158,6 +174,39 @@ describe("rule no-unused-disable", () => {
 			> 6 | 			<div attr></div>
 			    | 			     ^^^^
 			  7 |
+			Selector: -"
+		`);
+	});
+
+	it("should report correct location for multiple rules", () => {
+		expect.assertions(2);
+		const markup = /* HTML */ `
+			<!-- [html-validate-disable-next direct, indirect, element-case] -->
+			<p></p>
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: "direct" rule is disabled but no error was reported (no-unused-disable) at inline:2:37:
+			  1 |
+			> 2 | 			<!-- [html-validate-disable-next direct, indirect, element-case] -->
+			    | 			                                 ^^^^^^
+			  3 | 			<p></p>
+			  4 |
+			Selector: -
+			error: "indirect" rule is disabled but no error was reported (no-unused-disable) at inline:2:45:
+			  1 |
+			> 2 | 			<!-- [html-validate-disable-next direct, indirect, element-case] -->
+			    | 			                                         ^^^^^^^^
+			  3 | 			<p></p>
+			  4 |
+			Selector: -
+			error: "element-case" rule is disabled but no error was reported (no-unused-disable) at inline:2:55:
+			  1 |
+			> 2 | 			<!-- [html-validate-disable-next direct, indirect, element-case] -->
+			    | 			                                                   ^^^^^^^^^^^^
+			  3 | 			<p></p>
+			  4 |
 			Selector: -"
 		`);
 	});

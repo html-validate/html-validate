@@ -23,7 +23,7 @@ export default class NoUnusedDisable extends Rule<RuleContext> {
 	}
 
 	public reportUnused(unused: Set<string>, options: string, location: Location): void {
-		const tokens = new DOMTokenList(options.replace(",", " "), location);
+		const tokens = new DOMTokenList(options.replace(/,/g, " "), location);
 		for (const ruleId of unused) {
 			const index = tokens.indexOf(ruleId);
 			/* istanbul ignore next: the token should be present or it wouldn't be

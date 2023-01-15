@@ -37,7 +37,7 @@ export interface TokenDump {
 
 interface DirectiveContext {
 	readonly rules: Record<string, Rule<unknown, unknown>>;
-	reportUnused(unused: Set<string>, options: string, location: Location): void;
+	reportUnused(rules: Set<string>, unused: Set<string>, options: string, location: Location): void;
 }
 
 /**
@@ -78,8 +78,13 @@ export class Engine<T extends Parser = Parser> {
 			const noUnusedDisable = rules["no-unused-disable"] as NoUnusedDisable;
 			const directiveContext: DirectiveContext = {
 				rules,
-				reportUnused(unused: Set<string>, options: string, location: Location): void {
-					if (noUnusedDisable) {
+				reportUnused(
+					rules: Set<string>,
+					unused: Set<string>,
+					options: string,
+					location: Location
+				): void {
+					if (noUnusedDisable && !rules.has(noUnusedDisable.name)) {
 						noUnusedDisable.reportUnused(unused, options, location);
 					}
 				},
@@ -285,9 +290,9 @@ export class Engine<T extends Parser = Parser> {
 		options: string,
 		location: Location
 	): void {
-		const ruleIds = rules.map((it) => it.name);
+		const ruleIds = new Set(rules.map((it) => it.name));
+		const unused = new Set(ruleIds);
 		const blocker = createBlocker();
-		const unused = new Set<string>(ruleIds);
 		let directiveBlock: DOMInternalID | null = null;
 
 		for (const rule of rules) {
@@ -332,7 +337,7 @@ export class Engine<T extends Parser = Parser> {
 		});
 
 		parser.on("parse:end", () => {
-			context.reportUnused(unused, options, location);
+			context.reportUnused(ruleIds, unused, options, location);
 		});
 	}
 
@@ -343,9 +348,9 @@ export class Engine<T extends Parser = Parser> {
 		options: string,
 		location: Location
 	): void {
-		const ruleIds = rules.map((it) => it.name);
+		const ruleIds = new Set(rules.map((it) => it.name));
+		const unused = new Set(ruleIds);
 		const blocker = createBlocker();
-		const unused = new Set<string>(ruleIds);
 
 		for (const rule of rules) {
 			rule.block(blocker);
@@ -364,7 +369,7 @@ export class Engine<T extends Parser = Parser> {
 		});
 
 		parser.on("parse:end", () => {
-			context.reportUnused(unused, options, location);
+			context.reportUnused(ruleIds, unused, options, location);
 		});
 
 		/* disable directive after next event occurs */

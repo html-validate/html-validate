@@ -32,6 +32,14 @@ Examples of **correct** code for this rule:
 	<button type="foobar"></button>
 </validate>
 
+This rule can also disable itself:
+
+<validate name="correct-disabled" rules="no-unused-disable attribute-allowed-values">
+	<!-- [html-validate-disable-next attribute-allowed-values, no-unused-disable -- no error as no-unused-disable is also disabled] -->
+	<button type="submit"></button>
+</validate>
+
 ## Version history
 
+- %version% - Rule is allowed to disable itself with directive.
 - 7.13.0 - Rule added.

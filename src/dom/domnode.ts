@@ -193,7 +193,7 @@ export class DOMNode {
 	 *
 	 * @internal
 	 */
-	public blockRules(rules: string[], blocker: RuleBlocker): void {
+	public blockRules(rules: string[] | Set<string>, blocker: RuleBlocker): void {
 		for (const rule of rules) {
 			this.blockRule(rule, blocker);
 		}
@@ -213,7 +213,7 @@ export class DOMNode {
 	 *
 	 * @internal
 	 */
-	public disableRules(rules: string[]): void {
+	public disableRules(rules: string[] | Set<string>): void {
 		for (const rule of rules) {
 			this.disableRule(rule);
 		}
