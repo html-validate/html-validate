@@ -41,5 +41,5 @@ This rule can also disable itself:
 
 ## Version history
 
-- %version% - Rule is allowed to disable itself with directive.
+- 7.13.1 - Rule is allowed to disable itself with directive.
 - 7.13.0 - Rule added.

@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## [7.13.1](https://gitlab.com/html-validate/html-validate/compare/v7.13.0...v7.13.1) (2023-01-15)
+
+### Bug Fixes
+
+- `no-unused-disable` properly reports location when more than two rules are disabled ([26d1970](https://gitlab.com/html-validate/html-validate/commit/26d1970305991e8095d132a9c06c3db163daf2c4))
+- allow `no-unused-disable` to be disabled by directive ([b11166c](https://gitlab.com/html-validate/html-validate/commit/b11166c4b2e9ae7f5165c9f4a8cb93bd8baddb0a))
+
 ## [7.13.0](https://gitlab.com/html-validate/html-validate/compare/v7.12.2...v7.13.0) (2023-01-15)
 
 ### Features
