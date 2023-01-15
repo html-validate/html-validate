@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## [7.13.0](https://gitlab.com/html-validate/html-validate/compare/v7.12.2...v7.13.0) (2023-01-15)
+
+### Features
+
+- expose `Validator` helper ([6ef10dd](https://gitlab.com/html-validate/html-validate/commit/6ef10dd2f865b7cd45d56029e54f2eaece58d801)), closes [#204](https://gitlab.com/html-validate/html-validate/issues/204)
+- report unused disable directives ([5a2731f](https://gitlab.com/html-validate/html-validate/commit/5a2731f34e0e96260f6664ac5b5823f4a4b4716b)), closes [#196](https://gitlab.com/html-validate/html-validate/issues/196)
+
 ## [7.12.2](https://gitlab.com/html-validate/html-validate/compare/v7.12.1...v7.12.2) (2023-01-09)
 
 ### Bug Fixes
