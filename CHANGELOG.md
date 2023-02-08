@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [7.13.2](https://gitlab.com/html-validate/html-validate/compare/v7.13.1...v7.13.2) (2023-02-08)
+
+### Bug Fixes
+
+- add button and reset types to form-dup-name shared options ([d6ef9f8](https://gitlab.com/html-validate/html-validate/commit/d6ef9f879675891772f1ab932b7d64bc7cbd60de))
+
 ## [7.13.1](https://gitlab.com/html-validate/html-validate/compare/v7.13.0...v7.13.1) (2023-01-15)
 
 ### Bug Fixes
