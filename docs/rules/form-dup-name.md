@@ -96,8 +96,8 @@ With this option **enabled** the following is **correct**:
 
 ### `shared`
 
-- type: `Array<"radio" | "checkbox" | "submit">`
-- default: `["radio"]`
+- type: `Array<"radio" | "checkbox" | "submit" | "button" | "reset">`
+- default: `["radio", "button", "reset"]`
 
 By default only `<input type="radio">` can have a shared common name.
 This options lets you specify additional controls that may have a shared common name.
@@ -105,8 +105,10 @@ This options lets you specify additional controls that may have a shared common 
 - `"radio"` - applies to `<input type="radio">`.
 - `"checkbox"` - applies to `<input type="checkbox">`.
 - `"submit"` - applies to `<button type="submit">` and `<input type="submit">`.
+- `"button"` - applies to `<button type="button">` and `<input type="button">`.
+- `"reset"` - applies to `<button type="reset">` and `<input type="reset">`.
 
-With this option set to the default (`["radio"]`) the following is **incorrect**:
+With this option set to `["radio"]` the following is **incorrect**:
 
 <validate name="shared-incorrect" rules="form-dup-name" form-dup-name='{"shared": ["radio"]}'>
     <form>

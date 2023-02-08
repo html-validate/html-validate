@@ -14,12 +14,12 @@ export interface RuleContext {
 
 interface RuleOptions {
 	allowArrayBrackets: boolean;
-	shared: Array<"radio" | "checkbox" | "submit">;
+	shared: Array<"radio" | "checkbox" | "submit" | "button" | "reset">;
 }
 
 const defaults: RuleOptions = {
 	allowArrayBrackets: true,
-	shared: ["radio"],
+	shared: ["radio", "button", "reset"],
 };
 
 const UNIQUE_CACHE_KEY = Symbol("form-elements-unique");
@@ -72,7 +72,7 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 			shared: {
 				type: "array",
 				items: {
-					enum: ["radio", "checkbox", "submit"],
+					enum: ["radio", "checkbox", "submit", "button", "reset"],
 				},
 			},
 		};
