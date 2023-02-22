@@ -20,7 +20,7 @@ interface SectioningRoot {
 const defaults: RuleOptions = {
 	allowMultipleH1: false,
 	minInitialRank: "h1",
-	sectioningRoots: ["dialog", '[role="dialog"]'],
+	sectioningRoots: ["dialog", '[role="dialog"]', '[role="alertdialog"]'],
 };
 
 function isRelevant(event: TagStartEvent): boolean {

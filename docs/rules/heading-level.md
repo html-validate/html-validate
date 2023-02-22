@@ -34,7 +34,7 @@ This rule takes an optional object:
 {
   "allowMultipleH1": false,
   "minInitialRank": "h1",
-  "sectioningRoots": ["dialog", "[role=\"dialog\"]"]
+  "sectioningRoots": ["dialog", "[role=\"dialog\"]", "[role=\"alertdialog\"]"]
 }
 ```
 
@@ -87,4 +87,5 @@ With this option the following is considered valid:
 
 ## Version history
 
+- %version% - `[role="alertdialog"]` added as default sectioning root.
 - 5.5.0 - `minInitialRank` option added.
