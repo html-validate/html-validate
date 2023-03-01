@@ -38,9 +38,22 @@ describe("rule h37", () => {
 			expect(report).toBeValid();
 		});
 
+		it("should not report when img has null alt attribute", () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <img alt /> `;
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
 		it("should not report when input image has empty alt attribute", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateString('<input type="image" alt="">');
+			expect(report).toBeValid();
+		});
+
+		it("should not report when input image has null alt attribute", () => {
+			expect.assertions(1);
+			const report = htmlvalidate.validateString('<input type="image" alt>');
 			expect(report).toBeValid();
 		});
 
@@ -114,6 +127,19 @@ describe("rule h37", () => {
 			`);
 		});
 
+		it("should report when img has null alt attribute", () => {
+			expect.assertions(2);
+			const markup = /* HTML */ ` <img alt /> `;
+			const report = htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+				"error: <img> cannot have empty "alt" attribute (wcag/h37) at inline:1:7:
+				> 1 |  <img alt />
+				    |       ^^^
+				Selector: img"
+			`);
+		});
+
 		it("should report when input image has empty alt attribute", () => {
 			expect.assertions(2);
 			const report = htmlvalidate.validateString('<input type="image" alt="">');
@@ -121,6 +147,18 @@ describe("rule h37", () => {
 			expect(report).toMatchInlineCodeframe(`
 				"error: <input type="image"> cannot have empty "alt" attribute (wcag/h37) at inline:1:21:
 				> 1 | <input type="image" alt="">
+				    |                     ^^^
+				Selector: input"
+			`);
+		});
+
+		it("should report when input image has null alt attribute", () => {
+			expect.assertions(2);
+			const report = htmlvalidate.validateString('<input type="image" alt>');
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+				"error: <input type="image"> cannot have empty "alt" attribute (wcag/h37) at inline:1:21:
+				> 1 | <input type="image" alt>
 				    |                     ^^^
 				Selector: input"
 			`);

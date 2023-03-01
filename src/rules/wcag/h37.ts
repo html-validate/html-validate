@@ -85,8 +85,7 @@ export default class H37 extends Rule<void, RuleOptions> {
 			}
 
 			/* validate plain alt-attribute */
-			const alt = node.getAttributeValue("alt");
-			if (alt || (alt === "" && this.options.allowEmpty)) {
+			if (node.getAttributeValue("alt") || (node.hasAttribute("alt") && this.options.allowEmpty)) {
 				return;
 			}
 
@@ -97,7 +96,7 @@ export default class H37 extends Rule<void, RuleOptions> {
 				}
 			}
 
-			if (alt === "") {
+			if (node.hasAttribute("alt")) {
 				const attr = node.getAttribute("alt");
 				/* istanbul ignore next */
 				this.report(node, `${getTag(node)} cannot have empty "alt" attribute`, attr?.keyLocation);
