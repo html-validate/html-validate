@@ -166,9 +166,9 @@
   },
   "devDependencies": {
     "@html-validate/commitlint-config": "3.0.11",
-    "@html-validate/eslint-config": "5.5.23",
+    "@html-validate/eslint-config": "5.5.26",
     "@html-validate/eslint-config-jest": "5.5.18",
-    "@html-validate/eslint-config-typescript": "5.5.25",
+    "@html-validate/eslint-config-typescript": "5.5.26",
     "@html-validate/eslint-config-typescript-typeinfo": "5.5.0",
     "@html-validate/jest-config": "3.6.2",
     "@html-validate/prettier-config": "2.3.6",
