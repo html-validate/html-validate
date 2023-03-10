@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [7.13.3](https://gitlab.com/html-validate/html-validate/compare/v7.13.2...v7.13.3) (2023-03-10)
+
+### Bug Fixes
+
+- **rules:** check for empty alt tag in `wcag/h37` ([5f3b43f](https://gitlab.com/html-validate/html-validate/commit/5f3b43fb67539ee1945513137346335bc1f8ae91)), closes [#209](https://gitlab.com/html-validate/html-validate/issues/209)
+
 ## [7.13.2](https://gitlab.com/html-validate/html-validate/compare/v7.13.1...v7.13.2) (2023-02-08)
 
 ### Bug Fixes
