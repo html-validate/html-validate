@@ -9,14 +9,42 @@ title: Release and support plan
 
 Older major versions is generally supported for two year after the succeeding version.
 
-<!-- [html-validate-disable-block wcag/h63: marked does not generate tables with scope attribute] -->
-
-| Major | Status      | Initial release | Support end |
-| ----- | ----------- | --------------- | ----------- |
-| 4.x   | End of Life | 2020-11-07      | 2022-06-31  |
-| 5.x   | Maintenance | 2021-06-26      | 2023-09-31  |
-| 6.x   | Maintenance | 2021-09-26      | 2023-05-31  |
-| 7.x   | Active      | 2022-05-06      | -           |
+<table class="table release-table">
+  <thead>
+    <tr>
+      <th scope="col">Major</th>
+      <th scope="col">Status</th>
+      <th scope="col">Initial release</th>
+      <th scope="col">Support end</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="release-eol"">
+      <td>4.x</td>
+      <td>End of Life</td>
+      <td>2020-11-07</td>
+      <td>2022-06-31</td>
+    </tr>
+    <tr class="release-maintenance">
+      <td>5.x</td>
+      <td>Maintenance</td>
+      <td>2021-06-26</td>
+      <td>2023-09-31</td>
+    </tr>
+    <tr class="release-maintenance">
+      <td>6.x</td>
+      <td>Maintenance</td>
+      <td>2021-09-26</td>
+      <td>2024-05-31</td>
+    </tr>
+    <tr class="release-active">
+      <td>7.x</td>
+      <td>Active</td>
+      <td>2022-05-06</td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table>
 
 Maintenance versions will be supported by official plugins and will receive critical bugfixes.
 
@@ -32,15 +60,54 @@ Support for pending versions is limited but reporting bugs against pending versi
 HTML-Validate and all official plugins will generally support the last three major versions or at least each major for a year.
 Some exceptions occur, refer to the following table:
 
-<!-- [html-validate-disable-block wcag/h63: marked does not generate tables with scope attribute] -->
-
-| Libraries  | Current versions     | Description                                           |
-| ---------- | -------------------- | ----------------------------------------------------- |
-| Jest       | `27 \|\| 28 \|\| 29` | Last 3 majors                                         |
-| Cypress    | `8 \|\| 9 \|\| 10`   | Last 3 majors                                         |
-| Vue 2.x    | `2.x`                | Vue v2 will be supported until further notice         |
-| Vue 3.x    | `3.x`                | Vue v3 will be supported until further notice         |
-| VSCode     | -                    | -                                                     |
-| AngularJS  | `1.x`                | AngularJS v1.x will be supported until further notice |
-| Grunt      | `1.x`                | Grunt v1.x will be supported until further notice     |
-| Protractor | `5 \|\| 6 \|\| 7`    | Last 3 majors                                         |
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Libraries</th>
+      <th>Current versions</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Jest</td>
+      <td><code>27 || 28 || 29<code></td>
+      <td>Last 3 majors</td>
+    </tr>
+    <tr>
+      <td>Cypress</td>
+      <td><code>10 || 11 || 12<code></td>
+      <td>Last 3 majors</td>
+    </tr>
+    <tr>
+      <td>Vue 2.x</td>
+      <td><code>2.x<code></td>
+      <td>Vue v2 will be supported until further notice</td>
+    </tr>
+    <tr>
+      <td>Vue 3.x</td>
+      <td><code>3.x<code></td>
+      <td>Vue v3 will be supported until further notice</td>
+    </tr>
+    <tr>
+      <td>VSCode</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>AngularJS</td>
+      <td><code>1.x<code></td>
+      <td>AngularJS v1.x will be supported until further notice</td>
+    </tr>
+    <tr>
+      <td>Grunt</td>
+      <td><code>1.x<code></td>
+      <td>Grunt v1.x will be supported until further notice</td>
+    </tr>
+    <tr>
+      <td>Protractor</td>
+      <td><code>5 || 6 || 7<code></td>
+      <td>Last 3 majors</td>
+    </tr>
+  </tbody>
+</table>

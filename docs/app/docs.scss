@@ -109,6 +109,23 @@ pre code.hljs {
 	}
 }
 
+.release-table {
+	.release-eol {
+		background: $alert-danger-bg;
+		color: $alert-danger-text;
+	}
+
+	.release-maintenance {
+		background: $alert-warning-bg;
+		color: $alert-warning-text;
+	}
+
+	.release-active {
+		background: $alert-success-bg;
+		color: $alert-success-text;
+	}
+}
+
 .table-right {
 	text-align: right;
 }
