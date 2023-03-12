@@ -19,7 +19,7 @@ Older major versions is generally supported for two year after the succeeding ve
     </tr>
   </thead>
   <tbody>
-    <tr class="release-eol"">
+    <tr class="release-eol">
       <td>4.x</td>
       <td>End of Life</td>
       <td>2020-11-07</td>
@@ -64,29 +64,29 @@ Some exceptions occur, refer to the following table:
   <thead>
     <tr>
       <th scope="col">Libraries</th>
-      <th>Current versions</th>
-      <th>Description</th>
+      <th scope="col">Current versions</th>
+      <th scope="col">Description</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>Jest</td>
-      <td><code>27 || 28 || 29<code></td>
+      <td><code>27 || 28 || 29</code></td>
       <td>Last 3 majors</td>
     </tr>
     <tr>
       <td>Cypress</td>
-      <td><code>10 || 11 || 12<code></td>
+      <td><code>10 || 11 || 12</code></td>
       <td>Last 3 majors</td>
     </tr>
     <tr>
       <td>Vue 2.x</td>
-      <td><code>2.x<code></td>
+      <td><code>2.x</code></td>
       <td>Vue v2 will be supported until further notice</td>
     </tr>
     <tr>
       <td>Vue 3.x</td>
-      <td><code>3.x<code></td>
+      <td><code>3.x</code></td>
       <td>Vue v3 will be supported until further notice</td>
     </tr>
     <tr>
@@ -96,17 +96,17 @@ Some exceptions occur, refer to the following table:
     </tr>
     <tr>
       <td>AngularJS</td>
-      <td><code>1.x<code></td>
+      <td><code>1.x</code></td>
       <td>AngularJS v1.x will be supported until further notice</td>
     </tr>
     <tr>
       <td>Grunt</td>
-      <td><code>1.x<code></td>
+      <td><code>1.x</code></td>
       <td>Grunt v1.x will be supported until further notice</td>
     </tr>
     <tr>
       <td>Protractor</td>
-      <td><code>5 || 6 || 7<code></td>
+      <td><code>5 || 6 || 7</code></td>
       <td>Last 3 majors</td>
     </tr>
   </tbody>

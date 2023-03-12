@@ -16,5 +16,5 @@ npm run eslint -- --max-warnings 0
 npm run prettier:check
 
 echo Lint documentation
-npm run htmlvalidate -- --config docs/htmlvalidate-templates.json 'docs/**/*.html'
-npm run htmlvalidate -- --config docs/htmlvalidate-public.json 'public/**/*.html'
+npm run htmlvalidate -- --formatter codeframe --config docs/htmlvalidate-templates.json 'docs/**/*.html'
+npm run htmlvalidate -- --formatter codeframe --config docs/htmlvalidate-public.json 'public/**/*.html'
