@@ -6,15 +6,16 @@ summary: Disallow usage of unknown elements
 
 # Disallow usage of unknown elements (`no-unknown-elements`)
 
-This rule requires all elements to have a corresponding metadata element
-describing its content model.
+This rule requires all elements to have a corresponding metadata element describing its content model.
 
-All HTML5 elements are bundled and can be used with:
+All HTML5 elements are bundled and enabled by default.
+For custom elements (and framework components) you need supply your [own metadata](../usage/elements.html):
 
-    "extends": ["html5"]
-
-For custom elements (and framework components) you need supply your [own
-metadata](../usage/elements.html).
+```json
+{
+  "elements": ["html5", "./my-awesome-elements.js"]
+}
+```
 
 ## Rule details
 
