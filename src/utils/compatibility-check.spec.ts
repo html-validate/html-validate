@@ -3,11 +3,11 @@ import { compatibilityCheck } from "./compatibility-check";
 
 kleur.enabled = false;
 
-const log = jest.spyOn(console, "error");
+const log = jest.spyOn(console, "error").mockImplementation(() => undefined);
 const peerDependency = ">= 2.1 || ^3.0";
 
 beforeEach(() => {
-	log.mockReset();
+	log.mockClear();
 });
 
 it("should warn when using unsupported html-validate version", () => {
