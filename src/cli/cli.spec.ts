@@ -1,20 +1,20 @@
-import fs from "fs";
 import path from "path";
+import { vol } from "memfs";
 import { CLI } from "./cli";
 
-declare module "fs" {
-	function mockFile(filePath: string, content: string): void;
-	function mockReset(): void;
-}
-
 jest.mock("fs");
+jest.spyOn(process, "cwd").mockReturnValue("/folder");
+
+beforeEach(() => {
+	vol.fromJSON(
+		{
+			"package.json": "{}",
+		},
+		"/folder"
+	);
+});
 
 describe("CLI", () => {
-	beforeEach(() => {
-		fs.mockReset();
-		fs.mockFile("package.json", "{}");
-	});
-
 	describe("getValidator()", () => {
 		it("should create new HtmlValidate instance", () => {
 			expect.assertions(1);

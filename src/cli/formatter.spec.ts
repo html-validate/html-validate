@@ -1,40 +1,17 @@
+import fs from "fs";
+import { vol } from "memfs";
 import { Report } from "../reporter";
 import { CLI } from "./cli";
 
-/* all mocked formatters must return empty string */
-const textFormatter = jest.fn((report: Report) => ""); // eslint-disable-line @typescript-eslint/no-unused-vars
-const jsonFormatter = jest.fn((report: Report) => ""); // eslint-disable-line @typescript-eslint/no-unused-vars
-const customFormatter = jest.fn((report: Report) => ""); // eslint-disable-line @typescript-eslint/no-unused-vars
-
-jest.mock("../formatters/text", () => {
-	return (report: Report) => textFormatter(report);
-});
-
-jest.mock("../formatters/json", () => {
-	return (report: Report) => jsonFormatter(report);
-});
+jest.mock("fs");
 
 jest.mock(
 	"custom-formatter",
 	() => {
-		return (report: Report) => customFormatter(report);
+		return () => "custom formater";
 	},
 	{ virtual: true }
 );
-
-const fs = {
-	existsSync: jest.fn().mockReturnValue(true),
-	mkdirSync: jest.fn(),
-	writeFileSync: jest.fn(),
-};
-
-jest.mock("fs", () => {
-	return {
-		existsSync: (...args: any[]) => fs.existsSync(...args),
-		mkdirSync: (...args: any[]) => fs.mkdirSync(...args),
-		writeFileSync: (...args: any[]) => fs.writeFileSync(...args),
-	};
-});
 
 const report: Report = {
 	valid: false,
@@ -65,6 +42,9 @@ const report: Report = {
 let cli: CLI;
 
 beforeEach(() => {
+	vol.fromJSON({
+		"./package.json": "{}",
+	});
 	cli = new CLI();
 });
 
@@ -72,40 +52,50 @@ describe("cli/formatters", () => {
 	it("should call formatter", () => {
 		expect.assertions(1);
 		const wrapped = cli.getFormatter("text");
-		wrapped(report);
-		expect(textFormatter).toHaveBeenCalledWith(report.results);
+		const output = wrapped(report);
+		expect(output).toMatchInlineSnapshot(`
+			"mock-file.html:1:2: error [foo] lorem ipsum
+			"
+		`);
 	});
 
 	it("should call multiple formatters", () => {
-		expect.assertions(2);
+		expect.assertions(1);
 		const wrapped = cli.getFormatter("text,json");
-		wrapped(report);
-		expect(textFormatter).toHaveBeenCalledWith(report.results);
-		expect(jsonFormatter).toHaveBeenCalledWith(report.results);
+		const output = wrapped(report);
+		expect(output).toMatchInlineSnapshot(`
+			"mock-file.html:1:2: error [foo] lorem ipsum
+
+			[{"messages":[{"ruleId":"foo","severity":2,"message":"lorem ipsum","offset":1,"line":1,"column":2,"size":1,"selector":null}],"filePath":"mock-file.html","errorCount":1,"warningCount":0,"source":null}]"
+		`);
 	});
 
 	it("should call custom formatter", () => {
 		expect.assertions(1);
 		const wrapped = cli.getFormatter("custom-formatter");
-		wrapped(report);
-		expect(customFormatter).toHaveBeenCalledWith(report.results);
+		const output = wrapped(report);
+		expect(output).toMatchInlineSnapshot(`"custom formater"`);
 	});
 
 	it("should redirect output to file", () => {
 		expect.assertions(2);
 		const wrapped = cli.getFormatter("text=foo.txt");
-		wrapped(report);
-		expect(fs.mkdirSync).not.toHaveBeenCalled();
-		expect(fs.writeFileSync).toHaveBeenCalledWith("foo.txt", "", "utf-8");
+		const output = wrapped(report);
+		expect(output).toMatchInlineSnapshot(`""`);
+		expect(fs.readFileSync("foo.txt", "utf-8")).toMatchInlineSnapshot(`
+			"mock-file.html:1:2: error [foo] lorem ipsum
+			"
+		`);
 	});
 
 	it("should create directory if missing", () => {
-		expect.assertions(2);
-		fs.existsSync.mockReturnValue(false);
+		expect.assertions(1);
 		const wrapped = cli.getFormatter("text=mydir/foo.txt");
 		wrapped(report);
-		expect(fs.mkdirSync).toHaveBeenCalledWith("mydir", { recursive: true });
-		expect(fs.writeFileSync).toHaveBeenCalledWith("mydir/foo.txt", "", "utf-8");
+		expect(fs.readFileSync("mydir/foo.txt", "utf-8")).toMatchInlineSnapshot(`
+			"mock-file.html:1:2: error [foo] lorem ipsum
+			"
+		`);
 	});
 
 	it("should throw error when formatter is missing", () => {
