@@ -33,7 +33,7 @@ function join(stem: string, filename: string): string {
 function directoryPattern(extensions: string[]): string {
 	switch (extensions.length) {
 		case 0:
-			return "**";
+			return "**/*";
 		case 1:
 			return `**/*.${extensions[0]}`;
 		default:

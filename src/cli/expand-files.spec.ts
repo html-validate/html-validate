@@ -1,93 +1,102 @@
 jest.mock("fs");
 jest.mock("./is-ignored");
 
-import fs from "fs";
-import path from "path";
+import { vol } from "memfs";
 import { CLI } from "./cli";
 
-declare module "fs" {
-	function mockFile(filePath: string, content: string): void;
-	function mockReset(): void;
-}
-
-declare module "glob" {
-	function setMockFiles(files: string[]): void;
-	function resetMock(): void;
-}
-
-function resolve(cwd: string, filePath: string): string {
-	return path.normalize(path.join(cwd, filePath));
-}
-
 let cli: CLI;
-const cwd = path.join(__dirname, "../..");
+const cwd = "/folder";
 
 beforeEach(() => {
-	fs.mockReset();
-	fs.mockFile("package.json", "{}");
-	fs.mockFile("foo.html", "");
-	fs.mockFile("bar/fred.html", "");
-	fs.mockFile("bar/fred.json", "");
-	fs.mockFile("bar/barney.html", "");
-	fs.mockFile("bar/barney.js", "");
-	fs.mockFile("baz/spam.html", "");
+	jest.restoreAllMocks();
+	vol.fromJSON(
+		{
+			"package.json": "{}",
+			"foo.html": "",
+			"bar/fred.html": "",
+			"bar/fred.json": "",
+			"bar/barney.html": "",
+			"bar/barney.js": "",
+			"baz/spam.html": "",
+		},
+		"/folder"
+	);
 	cli = new CLI();
 });
 
 describe("expandFiles()", () => {
 	it("should expand globs", () => {
 		expect.assertions(1);
-		expect(cli.expandFiles(["foo.html", "bar/**/*.html"], { cwd })).toEqual([
-			resolve(cwd, "foo.html"),
-			resolve(cwd, "bar/barney.html"),
-			resolve(cwd, "bar/fred.html"),
-		]);
+		expect(cli.expandFiles(["foo.html", "bar/**/*.html"], { cwd })).toMatchInlineSnapshot(`
+			[
+			  "/folder/foo.html",
+			  "/folder/bar/barney.html",
+			  "/folder/bar/fred.html",
+			]
+		`);
 	});
 
 	it("should expand directories (default extensions)", () => {
 		expect.assertions(1);
-		expect(cli.expandFiles(["bar"], { cwd })).toEqual([
-			resolve(cwd, "bar/barney.html"),
-			resolve(cwd, "bar/fred.html"),
-		]);
+		expect(cli.expandFiles(["bar"], { cwd })).toMatchInlineSnapshot(`
+			[
+			  "/folder/bar/barney.html",
+			  "/folder/bar/fred.html",
+			]
+		`);
 	});
 
 	it("should expand directories (explicit extensions)", () => {
 		expect.assertions(1);
-		expect(cli.expandFiles(["bar"], { extensions: ["js", "json"] })).toEqual([
-			resolve(cwd, "bar/barney.js"),
-			resolve(cwd, "bar/fred.json"),
-		]);
+		expect(cli.expandFiles(["bar"], { extensions: ["js", "json"], cwd })).toMatchInlineSnapshot(`
+			[
+			  "/folder/bar/barney.js",
+			  "/folder/bar/fred.json",
+			]
+		`);
 	});
 
 	it("should expand directories (no extensions => all files)", () => {
 		expect.assertions(1);
-		expect(cli.expandFiles(["bar"], { extensions: [], cwd })).toEqual([
-			resolve(cwd, "bar/barney.html"),
-			resolve(cwd, "bar/barney.js"),
-			resolve(cwd, "bar/fred.html"),
-			resolve(cwd, "bar/fred.json"),
-		]);
+		expect(cli.expandFiles(["bar"], { extensions: [], cwd })).toMatchInlineSnapshot(`
+			[
+			  "/folder/bar/barney.html",
+			  "/folder/bar/barney.js",
+			  "/folder/bar/fred.html",
+			  "/folder/bar/fred.json",
+			]
+		`);
 	});
 
 	it("should handle absolute paths", () => {
 		expect.assertions(1);
-		const patterns = [path.join(cwd, "foo.html"), path.join(cwd, "bar")];
-		expect(cli.expandFiles(patterns, { cwd })).toEqual([
-			resolve(cwd, "foo.html"),
-			resolve(cwd, "bar/barney.html"),
-			resolve(cwd, "bar/fred.html"),
-		]);
+		const patterns = [`${cwd}/foo.html`, `${cwd}/bar`];
+		expect(cli.expandFiles(patterns, { cwd })).toMatchInlineSnapshot(`
+			[
+			  "/folder/foo.html",
+			  "/folder/bar/barney.html",
+			  "/folder/bar/fred.html",
+			]
+		`);
 	});
 
 	it("should remove duplicates", () => {
 		expect.assertions(1);
-		expect(cli.expandFiles(["foo.html", "foo.html"], { cwd })).toEqual([resolve(cwd, "foo.html")]);
+		expect(cli.expandFiles(["foo.html", "foo.html", "*.html"], { cwd })).toMatchInlineSnapshot(`
+			[
+			  "/folder/foo.html",
+			]
+		`);
 	});
 
 	it("should fallback on process.cwd()", () => {
 		expect.assertions(1);
-		expect(cli.expandFiles(["foo.html"])).toEqual([resolve(process.cwd(), "foo.html")]);
+		jest.spyOn(process, "cwd").mockReturnValueOnce(cwd);
+		expect(cli.expandFiles(["foo.html"])).toMatchInlineSnapshot(`
+			[
+			  "/folder/foo.html",
+			]
+		`);
 	});
 
 	it("should replace - placeholder", () => {
