@@ -106,8 +106,8 @@ Some exceptions occur, refer to the following table:
     </tr>
     <tr>
       <td>Protractor</td>
-      <td><code>5 || 6 || 7</code></td>
-      <td>Last 3 majors</td>
+      <td><code>7</code></td>
+      <td>Protractor v7.x will be supported until Protractor reaches EOL</td>
     </tr>
   </tbody>
 </table>
