@@ -170,7 +170,7 @@
     "@html-validate/eslint-config-jest": "5.5.18",
     "@html-validate/eslint-config-typescript": "5.5.27",
     "@html-validate/eslint-config-typescript-typeinfo": "5.5.0",
-    "@html-validate/jest-config": "3.6.2",
+    "@html-validate/jest-config": "3.6.3",
     "@html-validate/prettier-config": "2.3.6",
     "@html-validate/release-scripts": "4.0.0",
     "@rollup/plugin-json": "6.0.0",
