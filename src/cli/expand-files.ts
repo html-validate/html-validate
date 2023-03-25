@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import glob from "glob";
+import { globSync } from "glob";
 
 const DEFAULT_EXTENSIONS = ["html"];
 
@@ -56,7 +56,7 @@ export function expandFiles(patterns: string[], options: ExpandOptions): string[
 			return result;
 		}
 
-		for (const filename of glob.sync(pattern, { cwd })) {
+		for (const filename of globSync(pattern, { cwd })) {
 			/* if file is a directory recursively expand files from it */
 			const fullpath = join(cwd, filename);
 			if (isDirectory(fullpath)) {
@@ -68,7 +68,15 @@ export function expandFiles(patterns: string[], options: ExpandOptions): string[
 			result.push(fullpath);
 		}
 
-		return result;
+		return result.sort((a, b) => {
+			const pa = a.split("/").length;
+			const pb = b.split("/").length;
+			if (pa !== pb) {
+				return pa - pb;
+			} else {
+				return a > b ? 1 : -1;
+			}
+		});
 	}, []);
 
 	/* only return unique matches */

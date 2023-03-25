@@ -1,4 +1,4 @@
-import { glob } from "glob";
+import { globSync } from "glob";
 import { Config, ConfigData, ConfigLoader, Severity } from "./config";
 import { Source, SourceHooks } from "./context";
 import HtmlValidate from "./htmlvalidate";
@@ -615,7 +615,7 @@ describe("HtmlValidate", () => {
 	});
 
 	describe("configuration smoketest", () => {
-		const files = glob.sync("test-files/config/**/*.html");
+		const files = globSync("test-files/config/**/*.html");
 		it.each(files)("%s", (filename: string) => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate();

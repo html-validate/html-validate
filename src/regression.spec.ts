@@ -1,4 +1,4 @@
-import glob from "glob";
+import { globSync } from "glob";
 import { Source } from "./context";
 import { DynamicValue } from "./dom";
 import HtmlValidate from "./htmlvalidate";
@@ -31,7 +31,7 @@ jest.mock(
 );
 
 describe("regression tests", () => {
-	const files = glob.sync("test-files/issues/**/*.html");
+	const files = globSync("test-files/issues/**/*.html");
 	it.each(files)("%s", (filename: string) => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
