@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import glob from "glob";
+import { globSync } from "glob";
 import { Config } from "../config";
 import { ConfigData, RuleConfig } from "../config-data";
 import { ConfigFactory } from "../config-loader";
@@ -465,7 +465,7 @@ describe("FileSystemConfigLoader", () => {
 			return data;
 		}
 
-		const files = glob.sync("test-files/config/**/*.html");
+		const files = globSync("test-files/config/**/*.html");
 		it.each(files)("%s", (filename: string) => {
 			expect.assertions(1);
 			const config = loader.getConfigFor(filename);

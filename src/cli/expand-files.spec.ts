@@ -91,7 +91,7 @@ describe("expandFiles()", () => {
 
 	it("should fallback on process.cwd()", () => {
 		expect.assertions(1);
-		jest.spyOn(process, "cwd").mockReturnValueOnce(cwd);
+		jest.spyOn(process, "cwd").mockReturnValue(cwd);
 		expect(cli.expandFiles(["foo.html"])).toMatchInlineSnapshot(`
 			[
 			  "/folder/foo.html",

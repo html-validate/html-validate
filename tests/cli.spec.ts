@@ -1,10 +1,8 @@
-import path from "path";
-import glob from "glob";
+import * as path from "path";
+import { globSync } from "glob";
 import { CLI } from "../src/cli/cli";
 
-const fixtures = glob
-	.sync(path.join(__dirname, "cli-*/*.html"))
-	.map((filePath: string) => path.relative(__dirname, filePath));
+const fixtures = globSync("cli-*/*.html", { cwd: __dirname });
 
 it.each(fixtures)("%s", (filePath) => {
 	expect.assertions(1);
