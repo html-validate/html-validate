@@ -1,5 +1,19 @@
 # html-validate changelog
 
+## [7.14.0](https://gitlab.com/html-validate/html-validate/compare/v7.13.3...v7.14.0) (2023-03-26)
+
+### Features
+
+- **rules:** add `[role="alertdialog"]` as a default sectioning root for `heading-level` ([b87581a](https://gitlab.com/html-validate/html-validate/commit/b87581a15cee7eac56a1de7ee43e70edbc4f305a))
+
+### Bug Fixes
+
+- **cli:** fix glob pattern when file extension list is empty ([d95a418](https://gitlab.com/html-validate/html-validate/commit/d95a418ff5ecb0767ad74e39748df8e31abb2dce))
+
+### Dependency upgrades
+
+- **deps:** update dependency glob to v9 ([effd3bc](https://gitlab.com/html-validate/html-validate/commit/effd3bc3e20db9890491af80cd9ad333bc16a835))
+
 ## [7.13.3](https://gitlab.com/html-validate/html-validate/compare/v7.13.2...v7.13.3) (2023-03-10)
 
 ### Bug Fixes

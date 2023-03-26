@@ -87,5 +87,5 @@ With this option the following is considered valid:
 
 ## Version history
 
-- %version% - `[role="alertdialog"]` added as default sectioning root.
+- 7.14.0 - `[role="alertdialog"]` added as default sectioning root.
 - 5.5.0 - `minInitialRank` option added.
