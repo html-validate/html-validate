@@ -174,6 +174,3 @@ export function codeframe(results: Result[], options?: Partial<CodeframeOptions>
 
 	return errors + warnings > 0 ? output : "";
 }
-
-const formatter: Formatter = codeframe;
-export default formatter;
