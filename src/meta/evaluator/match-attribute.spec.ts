@@ -12,7 +12,7 @@ describe("operator =", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<foo bar="baz"></foo>`;
 		const dom = parser.parseHtml(markup);
-		const element = dom.querySelector("foo");
+		const element = dom.querySelector("foo")!;
 		expect(matchAttribute(element, "bar", "=", "baz")).toBeTruthy();
 	});
 
@@ -20,7 +20,7 @@ describe("operator =", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<foo bar="BAZ"></foo>`;
 		const dom = parser.parseHtml(markup);
-		const element = dom.querySelector("foo");
+		const element = dom.querySelector("foo")!;
 		expect(matchAttribute(element, "bar", "=", "baz")).toBeTruthy();
 	});
 
@@ -28,7 +28,7 @@ describe("operator =", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<foo bar="baz"></foo>`;
 		const dom = parser.parseHtml(markup);
-		const element = dom.querySelector("foo");
+		const element = dom.querySelector("foo")!;
 		expect(matchAttribute(element, "bar", "=", "spam")).toBeFalsy();
 	});
 
@@ -36,7 +36,7 @@ describe("operator =", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<foo bar></foo>`;
 		const dom = parser.parseHtml(markup);
-		const element = dom.querySelector("foo");
+		const element = dom.querySelector("foo")!;
 		expect(matchAttribute(element, "bar", "=", "")).toBeTruthy();
 	});
 });
@@ -46,7 +46,7 @@ describe("operator !=", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<foo bar="baz"></foo>`;
 		const dom = parser.parseHtml(markup);
-		const element = dom.querySelector("foo");
+		const element = dom.querySelector("foo")!;
 		expect(matchAttribute(element, "bar", "!=", "baz")).toBeFalsy();
 	});
 
@@ -54,7 +54,7 @@ describe("operator !=", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<foo bar="BAZ"></foo>`;
 		const dom = parser.parseHtml(markup);
-		const element = dom.querySelector("foo");
+		const element = dom.querySelector("foo")!;
 		expect(matchAttribute(element, "bar", "!=", "baz")).toBeFalsy();
 	});
 
@@ -62,7 +62,7 @@ describe("operator !=", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<foo bar="baz"></foo>`;
 		const dom = parser.parseHtml(markup);
-		const element = dom.querySelector("foo");
+		const element = dom.querySelector("foo")!;
 		expect(matchAttribute(element, "bar", "!=", "spam")).toBeTruthy();
 	});
 
@@ -70,7 +70,7 @@ describe("operator !=", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<foo bar></foo>`;
 		const dom = parser.parseHtml(markup);
-		const element = dom.querySelector("foo");
+		const element = dom.querySelector("foo")!;
 		expect(matchAttribute(element, "bar", "!=", "")).toBeFalsy();
 	});
 });

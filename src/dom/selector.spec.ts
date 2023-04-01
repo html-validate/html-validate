@@ -382,7 +382,7 @@ describe("Selector", () => {
 		expect.assertions(1);
 		const parser = new Parser(Config.empty().resolve());
 		doc = parser.parseHtml(/* HTML */ ` <label id="#r1:"> lorem ipsum </label> `);
-		const element = doc.querySelector("label");
+		const element = doc.querySelector("label")!;
 		const id = element.id;
 		const selector = new Selector('[id="#r1:"]');
 		expect(Array.from(selector.match(doc))).toEqual([
@@ -438,7 +438,7 @@ describe("Selector", () => {
 
 	it("should match with :scope", () => {
 		expect.assertions(1);
-		const element = doc.querySelector("bar");
+		const element = doc.querySelector("bar")!;
 		const selector = new Selector(":scope > foo");
 		expect(fetch(selector.match(element))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),

@@ -476,9 +476,14 @@ export class HtmlElement extends DOMNode {
 		}, [] as HtmlElement[]);
 	}
 
-	public querySelector(selector: string): HtmlElement {
+	public querySelector(selector: string): HtmlElement | null {
 		const it = this.querySelectorImpl(selector);
-		return it.next().value ?? null; // eslint-disable-line @typescript-eslint/no-unsafe-return
+		const next = it.next();
+		if (next.done) {
+			return null;
+		} else {
+			return next.value;
+		}
 	}
 
 	public querySelectorAll(selector: string): HtmlElement[] {

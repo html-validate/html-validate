@@ -408,7 +408,7 @@ describe("parser", () => {
 				expect.assertions(1);
 				const text = `lorem ${input} ipsum`;
 				const doc = parser.parseHtml(`<p>${text}</p>`);
-				const element = doc.querySelector("p");
+				const element = doc.querySelector("p")!;
 				expect(element.textContent).toEqual(text);
 			});
 		});
@@ -1772,8 +1772,8 @@ describe("parser", () => {
 					},
 				};
 				const doc = parser.parseHtml(source);
-				const i = doc.querySelector("i");
-				const u = doc.querySelector("u");
+				const i = doc.querySelector("i")!;
+				const u = doc.querySelector("u")!;
 				expect(i.meta).toMatchSnapshot();
 				expect(u.meta).toMatchSnapshot();
 			});
@@ -1934,7 +1934,7 @@ describe("parser", () => {
 	it("should recalculate location size", () => {
 		expect.assertions(1);
 		const dom = parser.parseHtml('<div class="foo">\n\tlorem ipsum\n</div>');
-		const div = dom.querySelector("div");
+		const div = dom.querySelector("div")!;
 		expect(div.location).toEqual({
 			filename: expect.any(String),
 			offset: 1,
