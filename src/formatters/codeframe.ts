@@ -2,7 +2,6 @@ import path from "path";
 import { codeFrameColumns } from "@babel/code-frame";
 import kleur from "kleur";
 import { Message, Result } from "../reporter";
-import { Formatter } from "./formatter";
 
 interface SourcePoint {
 	line: number;

@@ -23,7 +23,8 @@ function toMatchInlineCodeframe(
 	const snapshot = codeframe(results, options).replace(/\s+$/gm, "");
 	kleur.enabled = enabled;
 
-	/* eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call */
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call --
+	 * the implementation works but the declarations doesn't allow it */
 	return (toMatchInlineSnapshot as any).call(this, snapshot, ...rest);
 }
 

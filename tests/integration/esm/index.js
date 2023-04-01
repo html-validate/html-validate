@@ -1,5 +1,5 @@
 import assert from "assert";
-import { HtmlValidate } from "html-validate"; // eslint-disable-line import/no-unresolved, import/named
+import { HtmlValidate } from "html-validate";
 
 const htmlvalidate = new HtmlValidate({
 	root: true,

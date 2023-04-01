@@ -5,7 +5,7 @@ type NextStateCallback = (token: Token | null) => State;
 type LexerTest = [RegExp | false, State | NextStateCallback, TokenType | false];
 export type TokenStream = IterableIterator<Token>;
 
-/* eslint-disable no-useless-escape */
+/* eslint-disable no-useless-escape -- false positives */
 const MATCH_UNICODE_BOM = /^\uFEFF/;
 const MATCH_WHITESPACE = /^(?:\r\n|\r|\n|[ \t]+(?:\r\n|\r|\n)?)/;
 const MATCH_DOCTYPE_OPEN = /^<!(DOCTYPE)\s/i;
@@ -30,6 +30,7 @@ const MATCH_STYLE_END = /^<(\/)(style)/;
 const MATCH_DIRECTIVE = /^(<!--\s*\[html-validate-)([a-z0-9-]+)(\s*)(.*?)(]?\s*-->)/;
 const MATCH_COMMENT = /^<!--([^]*?)-->/;
 const MATCH_CONDITIONAL = /^<!\[([^\]]*?)\]>/;
+/* eslint-enable no-useless-escape */
 
 export class InvalidTokenError extends Error {
 	public location: Location;
@@ -41,7 +42,7 @@ export class InvalidTokenError extends Error {
 }
 
 export class Lexer {
-	// eslint-disable-next-line complexity
+	/* eslint-disable-next-line complexity -- there isn't really a good way to refactor this while keeping readability */
 	public *tokenize(source: Source): TokenStream {
 		const context = new Context(source);
 
@@ -209,7 +210,6 @@ export class Lexer {
 	}
 
 	private *tokenizeTag(context: Context): Iterable<Token> {
-		/* eslint-disable-next-line consistent-return -- exhaustive switch handled by typescript */
 		function nextState(token: Token | null): State {
 			const tagCloseToken = token as TagCloseToken;
 			switch (context.contentModel) {

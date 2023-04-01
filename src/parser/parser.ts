@@ -175,7 +175,7 @@ export class Parser {
 		}
 	}
 
-	/* eslint-disable-next-line complexity */
+	/* eslint-disable-next-line complexity -- there isn't really a good other way to structure this method (that is still readable) */
 	protected consume(source: Source, token: Token, tokenStream: TokenStream): void {
 		switch (token.type) {
 			case TokenType.UNICODE_BOM:
@@ -221,7 +221,7 @@ export class Parser {
 		}
 	}
 
-	/* eslint-disable-next-line complexity, sonarjs/cognitive-complexity */
+	/* eslint-disable-next-line complexity, sonarjs/cognitive-complexity -- technical debt, chould be refactored a bit */
 	protected consumeTag(source: Source, startToken: TagOpenToken, tokenStream: TokenStream): void {
 		const tokens = Array.from(
 			this.consumeUntil(tokenStream, TokenType.TAG_CLOSE, startToken.location)

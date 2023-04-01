@@ -17,7 +17,7 @@ export function parseSeverity(value: string | number): Severity {
 			return Severity.DISABLED;
 		/* istanbul ignore next: deprecated code which will be removed later */
 		case "disable":
-			// eslint-disable-next-line no-console
+			// eslint-disable-next-line no-console -- expected to log
 			console.warn(`Deprecated alias "disabled" will be removed, replace with severity "off"`);
 			return Severity.DISABLED;
 		case 1:

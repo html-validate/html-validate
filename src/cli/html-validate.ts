@@ -1,4 +1,4 @@
-/* eslint-disable no-console, no-process-exit, sonarjs/no-duplicate-string */
+/* eslint-disable no-console, no-process-exit, sonarjs/no-duplicate-string -- as expected from a cli app */
 import path from "path";
 import kleur from "kleur";
 import minimist from "minimist";

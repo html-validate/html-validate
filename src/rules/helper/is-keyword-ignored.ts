@@ -7,12 +7,12 @@ const patternCache: Map<string, RegExp> = new Map();
 
 function compileStringPattern(pattern: string): RegExp {
 	const regexp = pattern.replace(/[*]+/g, ".+");
-	/* eslint-disable-next-line security/detect-non-literal-regexp */
+	/* eslint-disable-next-line security/detect-non-literal-regexp -- technical debt, should do input sanitation and precompilation */
 	return new RegExp(`^${regexp}$`);
 }
 
 function compileRegExpPattern(pattern: string): RegExp {
-	/* eslint-disable-next-line security/detect-non-literal-regexp */
+	/* eslint-disable-next-line security/detect-non-literal-regexp -- technical debt, should do input sanitation and precompilation */
 	return new RegExp(`^${pattern}$`);
 }
 

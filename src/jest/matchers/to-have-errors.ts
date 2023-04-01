@@ -1,4 +1,4 @@
-/* eslint-disable prefer-template */
+/* eslint-disable prefer-template -- technical debt, should be refactored */
 
 import { Report } from "../../reporter";
 import { diff, diverge, flattenMessages } from "../utils";
@@ -12,10 +12,10 @@ function toHaveErrors(
 	const matcher = errors.map((entry) => {
 		if (Array.isArray(entry)) {
 			const [ruleId, message] = entry;
-			/* eslint-disable-next-line @typescript-eslint/no-unsafe-return */
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-return -- jest type is declared like this */
 			return expect.objectContaining({ ruleId, message });
 		} else {
-			/* eslint-disable-next-line @typescript-eslint/no-unsafe-return */
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-return -- jest type is declared like this  */
 			return expect.objectContaining(entry);
 		}
 	});

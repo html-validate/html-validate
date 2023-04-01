@@ -38,14 +38,14 @@ function toHaveError(
 	actual: Report,
 	ruleId: string,
 	message: string,
-	context?: any // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
+	context?: any
 ): jest.CustomMatcherResult;
 function toHaveError(
 	this: jest.MatcherContext,
 	actual: Report,
 	arg1: string | Partial<Message>,
 	arg2?: string,
-	arg3?: any // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
+	arg3?: any
 ): jest.CustomMatcherResult {
 	if (typeof arg1 === "string") {
 		const expected: Partial<Message> = {

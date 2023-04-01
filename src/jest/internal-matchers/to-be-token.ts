@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types, prefer-template */
+/* eslint-disable prefer-template -- technical debt, should be refactored*/
 
 import { TokenType } from "../../lexer";
 import { diff, diverge } from "../utils";

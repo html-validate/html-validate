@@ -266,7 +266,7 @@ export class Config {
 	/**
 	 * Get element metadata.
 	 */
-	/* eslint-disable-next-line complexity, sonarjs/cognitive-complexity */
+	/* eslint-disable-next-line complexity, sonarjs/cognitive-complexity -- technical debt, should be refactored */
 	public getMetaTable(): MetaTable {
 		/* use cached table if it exists */
 		if (this.metaTable) {
@@ -498,7 +498,7 @@ export class Config {
 				}
 
 				return {
-					// eslint-disable-next-line security/detect-non-literal-regexp
+					// eslint-disable-next-line security/detect-non-literal-regexp -- expected to be a regexp
 					pattern: new RegExp(pattern),
 
 					name,
@@ -639,7 +639,7 @@ export class Config {
 
 		/* try to locate package.json */
 		let current = process.cwd();
-		// eslint-disable-next-line no-constant-condition
+		// eslint-disable-next-line no-constant-condition -- break outs when filesystem is traversed
 		while (true) {
 			const search = path.join(current, "package.json");
 			if (fs.existsSync(search)) {

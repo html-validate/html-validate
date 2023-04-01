@@ -180,7 +180,6 @@ export class Validator {
 	 * @param rules - Element attribute metadta.
 	 * @returns `true` if attribute passes all tests.
 	 */
-	/* eslint-disable-next-line complexity */
 	public static validateAttribute(attr: Attribute, rules: Record<string, MetaAttribute>): boolean {
 		const rule = rules[attr.key];
 		if (!rule) {
@@ -282,7 +281,7 @@ export class Validator {
 	 * @param category - Name of category with `@` prefix or tag name.
 	 * @param defaultMatch - The default return value when node categories is not known.
 	 */
-	// eslint-disable-next-line complexity
+	/* eslint-disable-next-line complexity -- rule does not like switch */
 	public static validatePermittedCategory(
 		node: HtmlElement,
 		category: string,

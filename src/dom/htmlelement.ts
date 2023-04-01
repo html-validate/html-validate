@@ -166,7 +166,7 @@ export class HtmlElement extends DOMNode {
 	 * Implementation of DOM specification of Element.closest(selectors).
 	 */
 	public closest(selectors: string): HtmlElement | null {
-		/* eslint-disable-next-line @typescript-eslint/no-this-alias */
+		/* eslint-disable-next-line @typescript-eslint/no-this-alias -- false positive*/
 		let node: HtmlElement | null = this;
 		while (node) {
 			if (node.matches(selectors)) {
@@ -190,12 +190,12 @@ export class HtmlElement extends DOMNode {
 		const parts = [];
 
 		let root: HtmlElement;
-		/* eslint-disable-next-line @typescript-eslint/no-this-alias */
+		/* eslint-disable-next-line @typescript-eslint/no-this-alias -- false positive */
 		for (root = this; root.parent; root = root.parent) {
 			/* .. */
 		}
 
-		// eslint-disable-next-line @typescript-eslint/no-this-alias
+		// eslint-disable-next-line @typescript-eslint/no-this-alias -- false positive
 		for (let cur: HtmlElement = this; cur.parent; cur = cur.parent) {
 			/* if a unique id is present, use it and short-circuit */
 			if (cur.id) {
@@ -284,7 +284,7 @@ export class HtmlElement extends DOMNode {
 	 */
 	public matches(selector: string): boolean {
 		/* find root element */
-		/* eslint-disable-next-line @typescript-eslint/no-this-alias */
+		/* eslint-disable-next-line @typescript-eslint/no-this-alias -- false positive */
 		let root: HtmlElement = this;
 		while (root.parent) {
 			root = root.parent;
