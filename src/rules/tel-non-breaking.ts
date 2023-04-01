@@ -55,12 +55,8 @@ function matchAll(text: string, regexp: RegExp): RegExpExecArray[] {
 	/* eslint-disable-next-line security/detect-non-literal-regexp */
 	const copy = new RegExp(regexp);
 	const matches: RegExpExecArray[] = [];
-	/* eslint-disable-next-line no-constant-condition */
-	while (true) {
-		const match = copy.exec(text);
-		if (match === null) {
-			break;
-		}
+	let match: RegExpExecArray | null;
+	while ((match = copy.exec(text))) {
 		matches.push(match);
 	}
 	return matches;
