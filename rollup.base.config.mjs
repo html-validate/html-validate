@@ -135,6 +135,7 @@ export function build(format) {
 					tsconfig: "tsconfig.json",
 					outDir: `dist/${format}`,
 					declaration: false,
+					declarationMap: false,
 					declarationDir: undefined,
 				}),
 				json(jsonConfig),

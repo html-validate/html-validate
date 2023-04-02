@@ -5,7 +5,8 @@
 
     "emitDeclarationOnly": true,
     "declaration": true,
-    "declarationDir": "dist/types/",
+    "declarationMap": true,
+    "declarationDir": "temp/types/",
 
     "target": "es2019",
     "lib": ["es2019"],

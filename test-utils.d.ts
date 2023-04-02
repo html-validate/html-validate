@@ -1,1 +1,1 @@
-export * from "./dist/cjs/test-utils";
+export * from "./dist/types/test-utils";

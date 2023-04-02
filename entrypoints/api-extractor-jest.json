@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
+  "extends": "../api-extractor.json",
+  "mainEntryPointFilePath": "<projectFolder>/temp/types/jest/jest.d.ts",
+
+  "apiReport": {
+    "reportFileName": "jest.api.md"
+  },
+
+  "dtsRollup": {
+    "publicTrimmedFilePath": "<projectFolder>/dist/types/jest.d.ts"
+  }
+}

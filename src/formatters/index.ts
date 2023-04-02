@@ -10,7 +10,7 @@ export { type Formatter } from "./formatter";
 /**
  * @public
  */
-interface AvailableFormatters {
+export interface AvailableFormatters {
 	checkstyle: Formatter;
 	codeframe: Formatter;
 	json: Formatter;
