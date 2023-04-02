@@ -305,7 +305,7 @@ function expandRegexValue(value: string | RegExp): string | RegExp {
 	const match = value.match(/^\/\^?([^/$]*)\$?\/([i]*)$/);
 	if (match) {
 		const [, expr, flags] = match;
-		// eslint-disable-next-line security/detect-non-literal-regexp
+		// eslint-disable-next-line security/detect-non-literal-regexp -- expected to be regexp
 		return new RegExp(`^${expr}$`, flags);
 	} else {
 		return value;

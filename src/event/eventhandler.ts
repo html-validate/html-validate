@@ -55,7 +55,6 @@ export class EventHandler {
 	 * @param event - Event name.
 	 * @param data - Event data.
 	 */
-	/* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types */
 	public trigger(event: string, data: any): void {
 		const callbacks = [...(this.listeners[event] ?? []), ...(this.listeners["*"] ?? [])];
 		callbacks.forEach((listener) => {

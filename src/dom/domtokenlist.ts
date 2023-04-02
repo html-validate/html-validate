@@ -82,7 +82,7 @@ export class DOMTokenList extends Array<string> {
 
 	public *iterator(): Generator<{ index: number; item: string; location: Location }> {
 		for (let index = 0; index < this.length; index++) {
-			/* eslint-disable @typescript-eslint/no-non-null-assertion */
+			/* eslint-disable @typescript-eslint/no-non-null-assertion -- as we loop over length this should always be set */
 			const item = this.item(index)!;
 			const location = this.location(index)!;
 			/* eslint-enable @typescript-eslint/no-non-null-assertion */

@@ -52,7 +52,7 @@ function parseAllow(value: boolean | AllowList<string>): boolean | AllowList<Reg
 		return value;
 	}
 	return {
-		/* eslint-disable security/detect-non-literal-regexp */
+		/* eslint-disable security/detect-non-literal-regexp -- expected to be regexp  */
 		include: value.include ? value.include.map((it) => new RegExp(it)) : null,
 		exclude: value.exclude ? value.exclude.map((it) => new RegExp(it)) : null,
 		/* eslint-enable security/detect-non-literal-regexp */

@@ -2,7 +2,6 @@ import path from "path";
 import { codeFrameColumns } from "@babel/code-frame";
 import kleur from "kleur";
 import { Message, Result } from "../reporter";
-import { Formatter } from "./formatter";
 
 interface SourcePoint {
 	line: number;
@@ -174,6 +173,3 @@ export function codeframe(results: Result[], options?: Partial<CodeframeOptions>
 
 	return errors + warnings > 0 ? output : "";
 }
-
-const formatter: Formatter = codeframe;
-export default formatter;

@@ -36,7 +36,7 @@ function parse(
 		},
 	};
 	const root = parser.parseHtml(source);
-	const element = root.querySelector(selector);
+	const element = root.querySelector(selector)!;
 	return { root, element };
 }
 

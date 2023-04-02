@@ -48,7 +48,7 @@ export class DOMTree {
 		return this.root.find(callback);
 	}
 
-	public querySelector(selector: string): HtmlElement {
+	public querySelector(selector: string): HtmlElement | null {
 		return this.root.querySelector(selector);
 	}
 

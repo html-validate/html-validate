@@ -29,7 +29,7 @@ module.exports = function (grunt) {
 					grunt.fatal("Dgeni failed to generate docs");
 				});
 		} catch (err) {
-			/* eslint-disable-next-line no-console */
+			/* eslint-disable-next-line no-console -- expected to log */
 			console.error(err);
 			grunt.fatal("Dgeni failed to generate docs");
 		}

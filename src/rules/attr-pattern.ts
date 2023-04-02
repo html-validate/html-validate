@@ -21,10 +21,10 @@ const defaults: RuleOptions = {
 
 function generateRegexp(pattern: string | string[]): RegExp {
 	if (Array.isArray(pattern)) {
-		/* eslint-disable-next-line security/detect-non-literal-regexp */
+		/* eslint-disable-next-line security/detect-non-literal-regexp -- expected to be regexp */
 		return new RegExp(`^(${pattern.join("|")})$`, "i");
 	} else {
-		/* eslint-disable-next-line security/detect-non-literal-regexp */
+		/* eslint-disable-next-line security/detect-non-literal-regexp -- expected to be regexp  */
 		return new RegExp(`^${pattern}$`, "i");
 	}
 }

@@ -29,7 +29,6 @@ function myFunction(): void {
 Type safety can be archived by augmenting the `DOMNodeCache` interface:
 
 ```ts
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 const CACHE_KEY = Symbol();
 
 /* --- */

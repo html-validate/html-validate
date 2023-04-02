@@ -6,7 +6,7 @@ import { MetaTable } from "../meta/table";
 import { SchemaValidationError } from "./schema-validation-error";
 
 function stripAnsi(text: string): string {
-	/* eslint-disable-next-line no-control-regex */
+	/* eslint-disable-next-line no-control-regex -- technical debt, should use the one in jest/utils/strip-ansi */
 	return text.replace(/\u001B\[[0-9;]*m/g, "");
 }
 
@@ -24,7 +24,7 @@ it("SchemaValidationError should pretty-print validation errors", () => {
 			const output = err.prettyError();
 
 			/* cannot test prettyError() method with builtin helpers */
-			/* eslint-disable-next-line jest/no-conditional-expect */
+			/* eslint-disable-next-line jest/no-conditional-expect -- see above comment, protected by expect.assertions(..) */
 			expect(stripAnsi(output)).toMatchSnapshot();
 		}
 	}

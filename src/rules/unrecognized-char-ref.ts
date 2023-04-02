@@ -130,53 +130,63 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 		}
 	}
 
-	/* eslint-disable-next-line complexity */
 	private findCharacterReferences(
 		node: HtmlElement,
 		text: string,
 		location: Location | null,
 		{ isAttribute }: { isAttribute: boolean }
 	): void {
-		const { requireSemicolon } = this.options;
 		const isQuerystring = isAttribute && text.includes("?");
-		for (const { match, entity, raw, terminated } of this.getMatches(text)) {
-			/* assume numeric entities are valid for now */
-			if (isNumerical(entity)) {
-				continue;
-			}
+		for (const match of this.getMatches(text)) {
+			this.validateCharacterReference(node, location, match, { isQuerystring });
+		}
+	}
 
-			/* special case: when attributes use query parameters we skip checking
-			 * unterminated attributes */
-			if (isQuerystring && !terminated) {
-				continue;
-			}
+	private validateCharacterReference(
+		node: HtmlElement,
+		location: Location | null,
+		foobar: EntityMatch,
+		{ isQuerystring }: { isQuerystring: boolean }
+	): void {
+		const { requireSemicolon } = this.options;
+		const { match, entity, raw, terminated } = foobar;
 
-			const found = this.entities.includes(entity);
+		/* assume numeric entities are valid for now */
+		if (isNumerical(entity)) {
+			return;
+		}
 
-			/* ignore if this is a known character reference name */
-			if (found && (terminated || !requireSemicolon)) {
-				continue;
-			}
+		/* special case: when attributes use query parameters we skip checking
+		 * unterminated attributes */
+		if (isQuerystring && !terminated) {
+			return;
+		}
 
-			if (found && !terminated) {
-				const entityLocation = getLocation(location, entity, match);
-				const message = `Character reference "{{ entity }}" must be terminated by a semicolon`;
-				const context: RuleContext = {
-					entity: raw,
-					terminated: false,
-				};
-				this.report(node, message, entityLocation, context);
-				continue;
-			}
+		const found = this.entities.includes(entity);
 
+		/* ignore if this is a known character reference name */
+		if (found && (terminated || !requireSemicolon)) {
+			return;
+		}
+
+		if (found && !terminated) {
 			const entityLocation = getLocation(location, entity, match);
-			const message = `Unrecognized character reference "{{ entity }}"`;
+			const message = `Character reference "{{ entity }}" must be terminated by a semicolon`;
 			const context: RuleContext = {
 				entity: raw,
-				terminated: true,
+				terminated: false,
 			};
 			this.report(node, message, entityLocation, context);
+			return;
 		}
+
+		const entityLocation = getLocation(location, entity, match);
+		const message = `Unrecognized character reference "{{ entity }}"`;
+		const context: RuleContext = {
+			entity: raw,
+			terminated: true,
+		};
+		this.report(node, message, entityLocation, context);
 	}
 
 	private *getMatches(text: string): IterableIterator<EntityMatch> {

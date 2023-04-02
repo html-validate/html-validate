@@ -1,10 +1,11 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-non-null-assertion -- declarations say
+ * location fields are optional but they are always present when `{loc: true}` */
 
 import fs from "fs";
 import * as espree from "espree";
 import * as walk from "acorn-walk";
 
-/* eslint-disable-next-line node/no-extraneous-import */
+/* eslint-disable-next-line node/no-extraneous-import -- type is pulled via acorn-walk */
 import type { Node } from "acorn";
 
 import { Source } from "../context";

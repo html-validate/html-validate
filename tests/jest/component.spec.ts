@@ -8,7 +8,7 @@ import "../../src/jest";
 let htmlvalidate: HtmlValidate;
 
 function stripAnsi(text: string): string {
-	/* eslint-disable-next-line no-control-regex */
+	/* eslint-disable-next-line no-control-regex -- expected to match control characters */
 	return text.replace(/\u001B\[[0-9;]*m/g, "");
 }
 
@@ -80,7 +80,7 @@ it("should not validate", () => {
 
 it("should validate jsdom HTMLElement", () => {
 	expect.assertions(2);
-	/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+	/* eslint-disable-next-line @typescript-eslint/ban-ts-comment -- see comment below */
 	/* @ts-ignore DOM library not available */
 	const element = document.createElement("div");
 	element.style.color = "hotpink";

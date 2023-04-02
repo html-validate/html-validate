@@ -114,7 +114,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		let current = path.resolve(path.dirname(filename));
 		let config = this.empty();
 
-		// eslint-disable-next-line no-constant-condition
+		// eslint-disable-next-line no-constant-condition -- it will break out when filesystem is traversed
 		while (true) {
 			/* search configuration files in current directory */
 			for (const configFile of findConfigurationFiles(current)) {

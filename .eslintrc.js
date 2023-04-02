@@ -22,6 +22,7 @@ module.exports = {
 		{
 			files: ["docs/examples/**/*.[jt]s"],
 			rules: {
+				"eslint-comments/require-description": "off",
 				"import/no-duplicates": "off",
 				"import/no-unresolved": "off",
 				"tsdoc/syntax": "off",
@@ -48,6 +49,14 @@ module.exports = {
 			rules: {
 				"sonarjs/no-identical-functions": "off",
 				"@typescript-eslint/no-non-null-assertion": "off",
+			},
+		},
+
+		/* special case: disables rules which depends on whenever the project is built or not */
+		{
+			files: "jest.d.ts",
+			rules: {
+				"eslint-comments/no-unused-disable": "off",
 			},
 		},
 	],

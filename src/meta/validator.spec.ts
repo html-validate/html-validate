@@ -493,7 +493,7 @@ describe("Meta validator", () => {
 
 		it("should match if no rule is present", () => {
 			expect.assertions(2);
-			const node = root.querySelector("dd");
+			const node = root.querySelector("dd")!;
 			expect(Validator.validateAncestors(node, null)).toBeTruthy();
 			expect(Validator.validateAncestors(node, [])).toBeTruthy();
 		});
@@ -501,28 +501,28 @@ describe("Meta validator", () => {
 		it("should match ancestors", () => {
 			expect.assertions(1);
 			const rules: string[] = ["dl"];
-			const node = root.querySelector("dd");
+			const node = root.querySelector("dd")!;
 			expect(Validator.validateAncestors(node, rules)).toBeTruthy();
 		});
 
 		it("should match itself", () => {
 			expect.assertions(1);
 			const rules: string[] = ["dl > dd"];
-			const node = root.querySelector("dd");
+			const node = root.querySelector("dd")!;
 			expect(Validator.validateAncestors(node, rules)).toBeTruthy();
 		});
 
 		it("should match if one rule matches", () => {
 			expect.assertions(1);
 			const rules: string[] = ["spam", "dl"];
-			const node = root.querySelector("dd");
+			const node = root.querySelector("dd")!;
 			expect(Validator.validateAncestors(node, rules)).toBeTruthy();
 		});
 
 		it("should return false if no rule matches", () => {
 			expect.assertions(1);
 			const rules: string[] = ["spam"];
-			const node = root.querySelector("dd");
+			const node = root.querySelector("dd")!;
 			expect(Validator.validateAncestors(node, rules)).toBeFalsy();
 		});
 	});
@@ -536,14 +536,14 @@ describe("Meta validator", () => {
 
 		it("should match if no rule is present", () => {
 			expect.assertions(2);
-			const node = parser.parseHtml("<div></div>").querySelector("div");
+			const node = parser.parseHtml("<div></div>").querySelector("div")!;
 			expect(Validator.validateRequiredContent(node, null)).toEqual([]);
 			expect(Validator.validateRequiredContent(node, [])).toEqual([]);
 		});
 
 		it("should return missing content", () => {
 			expect.assertions(1);
-			const node = parser.parseHtml("<div><foo></foo></div>").querySelector("div");
+			const node = parser.parseHtml("<div><foo></foo></div>").querySelector("div")!;
 			expect(Validator.validateRequiredContent(node, ["foo", "bar", "baz"])).toEqual([
 				"bar",
 				"baz",

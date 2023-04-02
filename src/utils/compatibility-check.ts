@@ -20,7 +20,7 @@ const defaults: CompatibilityOptions = {
 	silent: false,
 	version,
 	logger(text: string): void {
-		/* eslint-disable-next-line no-console */
+		/* eslint-disable-next-line no-console -- expected to log */
 		console.error(kleur.red(text));
 	},
 };

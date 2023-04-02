@@ -33,12 +33,12 @@ const typescript = {
 if (!foundJest) {
 	process.stderr.write(`Failed to find a jest version that satisfies "${constraint}"\n`);
 	process.stderr.write(`The current peerDependency allows: "${jest}"\n`);
-	process.exit(1); // eslint-disable-line no-process-exit
+	process.exit(1); // eslint-disable-line no-process-exit -- want early exit
 }
 
 if (!typescript[constraint]) {
 	process.stderr.write(`Failed to find a typescript version that matches jest "${constraint}"\n`);
-	process.exit(1); // eslint-disable-line no-process-exit
+	process.exit(1); // eslint-disable-line no-process-exit -- want early exit
 }
 
 switch (pkgname) {
@@ -58,5 +58,5 @@ switch (pkgname) {
 		break;
 	default:
 		process.stderr.write(`Don't know how to handle package "${pkgname}"\n`);
-		process.exit(1); // eslint-disable-line no-process-exit
+		process.exit(1); // eslint-disable-line no-process-exit -- want early exit
 }

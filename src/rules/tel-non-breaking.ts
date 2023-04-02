@@ -37,12 +37,12 @@ export function constructRegex(characters: Character[]): RegExp {
 		})
 		.join("|");
 	const pattern = `(${disallowed})`;
-	/* eslint-disable-next-line security/detect-non-literal-regexp */
+	/* eslint-disable-next-line security/detect-non-literal-regexp -- technical debt, should do more input sanitation */
 	return new RegExp(pattern, "g");
 }
 
 function getText(node: TextNode): [offset: number, text: string] {
-	/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
+	/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- this will always match something, it cannot be null */
 	const match = node.textContent.match(/^(\s*)(.*)$/)!;
 	const [, leading, text] = match;
 	return [leading.length, text.trimEnd()];
@@ -52,15 +52,11 @@ function getText(node: TextNode): [offset: number, text: string] {
  * Node 12 does not support String.matchAll, this simulates it's behavior.
  */
 function matchAll(text: string, regexp: RegExp): RegExpExecArray[] {
-	/* eslint-disable-next-line security/detect-non-literal-regexp */
+	/* eslint-disable-next-line security/detect-non-literal-regexp -- makes copy of existing one only */
 	const copy = new RegExp(regexp);
 	const matches: RegExpExecArray[] = [];
-	/* eslint-disable-next-line no-constant-condition */
-	while (true) {
-		const match = copy.exec(text);
-		if (match === null) {
-			break;
-		}
+	let match: RegExpExecArray | null;
+	while ((match = copy.exec(text))) {
 		matches.push(match);
 	}
 	return matches;

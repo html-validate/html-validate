@@ -1,4 +1,4 @@
-/* eslint-disable sonarjs/no-duplicate-string */
+/* eslint-disable sonarjs/no-duplicate-string -- easier to read without constants */
 
 import { defineMetadata } from "../meta/define-metadata";
 import { metadataHelper } from "../meta/helper";

@@ -12,7 +12,7 @@ export function parsePattern(pattern: PatternName): RegExp {
 			return /^[a-z0-9_]+$/;
 
 		default:
-			// eslint-disable-next-line security/detect-non-literal-regexp
+			/* eslint-disable-next-line security/detect-non-literal-regexp -- expected to be regexp */
 			return new RegExp(pattern);
 	}
 }

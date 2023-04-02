@@ -108,7 +108,6 @@ export class Engine<T extends Parser = Parser> {
 			parser.trigger("config:ready", configEvent);
 
 			/* trigger source ready event */
-			/* eslint-disable-next-line @typescript-eslint/no-unused-vars -- object destructured on purpose to remove property */
 			const { hooks: _, ...sourceData } = source;
 			const sourceEvent: SourceReadyEvent = {
 				location,
@@ -210,10 +209,7 @@ export class Engine<T extends Parser = Parser> {
 	/**
 	 * Get rule documentation.
 	 */
-	public getRuleDocumentation(
-		ruleId: string,
-		context?: any // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
-	): RuleDocumentation | null {
+	public getRuleDocumentation(ruleId: string, context?: any): RuleDocumentation | null {
 		const rules = this.config.getRules();
 		const ruleData = rules.get(ruleId);
 		if (ruleData) {

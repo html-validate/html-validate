@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment, prefer-template */
-
 import deepmerge from "deepmerge";
 import { ConfigData } from "../../config";
 import { FileSystemConfigLoader } from "../../config/loaders/file-system";
@@ -38,10 +36,10 @@ function isString(arg: any): arg is string {
 }
 
 function getMarkup(src: unknown): string {
+	/* eslint-disable-next-line @typescript-eslint/ban-ts-comment -- see comment below */
 	// @ts-ignore DOM library not available
 	if (typeof HTMLElement !== "undefined" && src instanceof HTMLElement) {
-		/* eslint-disable-next-line @typescript-eslint/no-unsafe-return */
-		return (src as any).outerHTML;
+		return (src as { outerHTML: string }).outerHTML;
 	}
 	/* istanbul ignore else: prototype only allows string or HTMLElement */
 	if (typeof src === "string") {

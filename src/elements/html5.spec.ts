@@ -51,7 +51,7 @@ describe("HTML elements", () => {
 		},
 	});
 
-	function getElement(markup: string, selector: string): HtmlElement {
+	function getElement(markup: string, selector: string): HtmlElement | null {
 		const source: Source = {
 			data: markup,
 			filename: "inline",
@@ -68,7 +68,7 @@ describe("HTML elements", () => {
 		it("should be labelable unless hidden", () => {
 			expect.assertions(1);
 			const markup = '<input type="text">';
-			const input = getElement(markup, "input");
+			const input = getElement(markup, "input")!;
 			const meta = input.meta;
 			expect(meta?.labelable).toBeTruthy();
 		});
@@ -76,7 +76,7 @@ describe("HTML elements", () => {
 		it("should not be labelable if hidden", () => {
 			expect.assertions(1);
 			const markup = '<input type="hidden">';
-			const input = getElement(markup, "input");
+			const input = getElement(markup, "input")!;
 			const meta = input.meta;
 			expect(meta?.labelable).toBeFalsy();
 		});

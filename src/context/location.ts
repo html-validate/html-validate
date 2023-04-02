@@ -106,7 +106,7 @@ export function sliceLocation(
 			} else {
 				break;
 			}
-		} while (true); // eslint-disable-line no-constant-condition
+		} while (true); // eslint-disable-line no-constant-condition -- it will break out
 	}
 
 	return sliced;
