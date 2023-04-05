@@ -174,7 +174,7 @@
     "@html-validate/prettier-config": "2.3.8",
     "@html-validate/release-scripts": "4.0.6",
     "@rollup/plugin-json": "6.0.0",
-    "@rollup/plugin-node-resolve": "15.0.1",
+    "@rollup/plugin-node-resolve": "15.0.2",
     "@rollup/plugin-replace": "5.0.2",
     "@rollup/plugin-typescript": "11.0.0",
     "@rollup/plugin-virtual": "3.0.1",
