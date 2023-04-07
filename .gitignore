@@ -4,10 +4,11 @@ tsconfig.tsbuildinfo
 
 node_modules/
 
-/.nyc_output/
-/.tscache/
-/dist
-/coverage
-/public
-/src/generated/
-/temp
+.eslintcache
+.nyc_output/
+.tscache/
+dist/
+coverage/
+public/
+src/generated/
+temp/
