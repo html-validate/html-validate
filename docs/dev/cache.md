@@ -60,13 +60,14 @@ const CACHE_KEY = Symbol(myFunction.name);
 
 declare module "html-validate" {
   export interface DOMNodeCache {
-    [CACHE_KEY]?: number;
+    [CACHE_KEY]: number;
   }
 }
 
 export function myFunction(node: HtmlElement): number {
-  if (node.cacheExists(CACHE_KEY)) {
-    return node.cacheGet(CACHE_KEY);
+  const cached = node.cacheGet(CACHE_KEY);
+  if (typeof cached !== "undefined") {
+    return cached;
   }
   const value = expensiveComputation(node);
   return node.cacheSet(CACHE_KEY, value);
