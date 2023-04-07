@@ -1,6 +1,6 @@
-import { HtmlElement } from "../../dom";
-import { TagEndEvent } from "../../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../../rule";
+import { type HtmlElement } from "../../dom";
+import { type TagEndEvent } from "../../event";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../../rule";
 import { inAccessibilityTree } from "../helper/a11y";
 
 interface RuleOptions {

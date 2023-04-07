@@ -1,6 +1,6 @@
 import { sliceLocation } from "../context";
-import { TagStartEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
+import { type TagStartEvent } from "../event";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
 interface Context {
 	tagName: string;

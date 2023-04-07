@@ -1,5 +1,5 @@
 import { Config } from "./config";
-import { ConfigData } from "./config-data";
+import { type ConfigData } from "./config-data";
 
 /**
  * @internal

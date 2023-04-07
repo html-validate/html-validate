@@ -1,7 +1,7 @@
-import { HtmlElement } from "../dom";
-import { DOMReadyEvent } from "../event";
+import { type HtmlElement } from "../dom";
+import { type DOMReadyEvent } from "../event";
 import { type CategoryOrTag, Validator } from "../meta";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 interface Context {
 	element: string;

@@ -1,5 +1,5 @@
-import { KeywordDefinition } from "ajv";
-import { DataValidateFunction, DataValidationCxt } from "ajv/dist/types";
+import { type KeywordDefinition } from "ajv";
+import { type DataValidateFunction, type DataValidationCxt } from "ajv/dist/types";
 
 /**
  * AJV keyword "function" to validate the type to be a function. Injects errors

@@ -1,6 +1,6 @@
-import { HtmlElement } from "../dom";
-import { MetaElement } from "../meta";
-import { AttributeData } from "../parser";
+import { type HtmlElement } from "../dom";
+import { type MetaElement } from "../meta";
+import { type AttributeData } from "../parser";
 
 /**
  * @public

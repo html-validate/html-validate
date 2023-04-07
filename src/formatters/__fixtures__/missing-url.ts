@@ -1,4 +1,4 @@
-import { Result } from "../../reporter";
+import { type Result } from "../../reporter";
 
 const source = `<div id="foo"
     class="bar"

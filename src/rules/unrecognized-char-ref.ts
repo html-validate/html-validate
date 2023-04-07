@@ -1,7 +1,7 @@
-import { Location, sliceLocation } from "../context";
-import { HtmlElement, NodeType } from "../dom";
-import { AttributeEvent, ElementReadyEvent } from "../event";
-import { Rule, RuleDocumentation, SchemaObject, ruleDocumentationUrl } from "../rule";
+import { type Location, sliceLocation } from "../context";
+import { type HtmlElement, NodeType } from "../dom";
+import { type AttributeEvent, type ElementReadyEvent } from "../event";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 import entities from "../elements/entities.json";
 
 export interface RuleContext {

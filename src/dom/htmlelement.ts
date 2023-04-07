@@ -1,7 +1,7 @@
-import { Location, sliceLocation } from "../context";
+import { type Location, sliceLocation } from "../context";
 import { type TagCloseToken, type TagOpenToken } from "../lexer";
-import { MetaCopyableProperty, MetaElement, setMetaProperty } from "../meta/element";
-import { MetaTable } from "../meta/table";
+import { type MetaElement, MetaCopyableProperty, setMetaProperty } from "../meta/element";
+import { type MetaTable } from "../meta/table";
 import { Attribute } from "./attribute";
 import { type CSSStyleDeclaration, parseCssDeclaration } from "./css";
 import { DOMNode } from "./domnode";

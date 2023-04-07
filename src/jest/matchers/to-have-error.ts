@@ -1,4 +1,4 @@
-import { Message, Report } from "../../reporter";
+import { type Message, type Report } from "../../reporter";
 import { diff, diverge } from "../utils";
 import { flattenMessages } from "../utils/flatten-messages";
 

@@ -1,4 +1,4 @@
-import { HtmlElement } from "../../dom";
+import { type HtmlElement } from "../../dom";
 
 export function hasAriaLabel(node: HtmlElement): boolean {
 	const label = node.getAttribute("aria-label");

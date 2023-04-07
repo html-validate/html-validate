@@ -1,8 +1,8 @@
-import { HtmlElement } from "../dom";
-import { DOMReadyEvent } from "../event";
-import { CategoryOrTag, Validator } from "../meta";
-import { Permitted, PermittedEntry } from "../meta/element";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type HtmlElement } from "../dom";
+import { type DOMReadyEvent } from "../event";
+import { type CategoryOrTag, Validator } from "../meta";
+import { type Permitted, type PermittedEntry } from "../meta/element";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 import { naturalJoin } from "./helper";
 
 export interface RuleContext {

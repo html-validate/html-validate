@@ -1,5 +1,5 @@
-import { TagReadyEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type TagReadyEvent } from "../event";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class AriaHiddenBody extends Rule {
 	public documentation(): RuleDocumentation {

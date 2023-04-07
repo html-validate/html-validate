@@ -1,4 +1,4 @@
-import { Message, Report, Result } from "../../reporter";
+import { type Message, type Report, type Result } from "../../reporter";
 
 /**
  * Takes all messages from all files and flattens to a single array.

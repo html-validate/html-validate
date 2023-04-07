@@ -1,10 +1,10 @@
 import {
+	type FormAssociated,
 	type InternalAttributeFlags,
 	type MetaAttribute,
 	type MetaData,
 	type MetaElement,
-	TextContent,
-	FormAssociated,
+	type TextContent,
 } from "./element";
 
 function isSet(value?: unknown): boolean {

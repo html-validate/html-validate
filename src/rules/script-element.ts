@@ -1,6 +1,6 @@
 import { NodeClosed } from "../dom";
-import { TagEndEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type TagEndEvent } from "../event";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class ScriptElement extends Rule {
 	public documentation(): RuleDocumentation {

@@ -1,8 +1,8 @@
-import { Location, sliceLocation } from "../context";
-import { HtmlElement } from "../dom";
-import { TagEndEvent, TagStartEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
-import { CaseStyle, CaseStyleName } from "./helper/case-style";
+import { type Location, sliceLocation } from "../context";
+import { type HtmlElement } from "../dom";
+import { type TagEndEvent, type TagStartEvent } from "../event";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
+import { type CaseStyleName, CaseStyle } from "./helper/case-style";
 
 interface RuleOptions {
 	style: CaseStyleName | CaseStyleName[];

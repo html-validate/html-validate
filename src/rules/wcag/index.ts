@@ -1,4 +1,4 @@
-import { RuleConstructor } from "../../rule";
+import { type RuleConstructor } from "../../rule";
 
 import H30 from "./h30";
 import H32 from "./h32";

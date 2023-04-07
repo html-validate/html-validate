@@ -1,6 +1,6 @@
 import fs from "fs";
 import betterAjvErrors from "@sidvind/better-ajv-errors";
-import { ErrorObject, SchemaObject } from "ajv";
+import { type ErrorObject, type SchemaObject } from "ajv";
 import { UserError } from "./user-error";
 
 function getSummary(schema: any, obj: any, errors: ErrorObject[]): string {

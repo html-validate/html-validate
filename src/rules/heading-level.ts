@@ -1,9 +1,9 @@
-import { Location, sliceLocation } from "../context";
-import { HtmlElement, Pattern } from "../dom";
-import { DOMInternalID } from "../dom/domnode";
-import { SelectorContext } from "../dom/selector-context";
-import { TagEndEvent, TagReadyEvent, TagStartEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
+import { type Location, sliceLocation } from "../context";
+import { type HtmlElement, Pattern } from "../dom";
+import { type DOMInternalID } from "../dom/domnode";
+import { type SelectorContext } from "../dom/selector-context";
+import { type TagEndEvent, type TagReadyEvent, type TagStartEvent } from "../event";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
 interface RuleOptions {
 	allowMultipleH1: boolean;

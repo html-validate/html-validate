@@ -1,4 +1,4 @@
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../../rule";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../../rule";
 import { hasAltText } from "../helper";
 
 export default class H36 extends Rule {

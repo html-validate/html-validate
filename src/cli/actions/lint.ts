@@ -1,5 +1,5 @@
 import kleur from "kleur";
-import { HtmlValidate, type Report, Reporter, type Result } from "../..";
+import { type HtmlValidate, type Report, type Result, Reporter } from "../..";
 import { type WritableStreamLike } from "../writable-stream-like";
 
 export interface LintOptions {

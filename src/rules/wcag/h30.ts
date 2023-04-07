@@ -1,5 +1,5 @@
-import { DOMReadyEvent } from "../../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../../rule";
+import { type DOMReadyEvent } from "../../event";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../../rule";
 import { hasAltText, hasAriaLabel } from "../helper";
 import { inAccessibilityTree } from "../helper/a11y";
 import { classifyNodeText, TextClassification } from "../helper/text";

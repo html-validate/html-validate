@@ -1,8 +1,8 @@
-import { ConfigData } from "../config";
-import { Source } from "../context";
-import { EventHandler } from "../event";
-import { RuleConstructor } from "../rule";
-import { Transformer } from "../transform";
+import { type ConfigData } from "../config";
+import { type Source } from "../context";
+import { type EventHandler } from "../event";
+import { type RuleConstructor } from "../rule";
+import { type Transformer } from "../transform";
 
 export interface SchemaValidationPatch {
 	properties?: Record<string, unknown>;

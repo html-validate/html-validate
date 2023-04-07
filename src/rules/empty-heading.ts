@@ -1,5 +1,5 @@
-import { HtmlElement } from "../dom";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type HtmlElement } from "../dom";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 import { hasAltText } from "./helper";
 import { classifyNodeText, TextClassification } from "./helper/text";
 

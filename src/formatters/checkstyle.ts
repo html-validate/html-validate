@@ -1,5 +1,5 @@
-import { Message, Result } from "../reporter";
-import { Formatter } from "./formatter";
+import { type Message, type Result } from "../reporter";
+import { type Formatter } from "./formatter";
 
 const entities: { [key: string]: string } = {
 	">": "&gt;",

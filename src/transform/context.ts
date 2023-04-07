@@ -1,4 +1,4 @@
-import { Source } from "../context";
+import { type Source } from "../context";
 
 /**
  * @public

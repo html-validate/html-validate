@@ -1,13 +1,13 @@
-import { Attribute, DynamicValue, HtmlElement, DOMTokenList } from "../dom";
+import { type Attribute, type HtmlElement, DynamicValue, DOMTokenList } from "../dom";
 import {
+	type MetaAttribute,
+	type Permitted,
+	type PermittedEntry,
+	type PermittedGroup,
+	type PermittedOrder,
+	type RequiredAncestors,
+	type RequiredContent,
 	type CategoryOrTag,
-	MetaAttribute,
-	Permitted,
-	PermittedEntry,
-	PermittedGroup,
-	PermittedOrder,
-	RequiredAncestors,
-	RequiredContent,
 } from "./element";
 
 const allowedKeys = ["exclude"];

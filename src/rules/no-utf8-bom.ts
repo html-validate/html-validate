@@ -1,6 +1,6 @@
-import { TokenEvent } from "../event";
+import { type TokenEvent } from "../event";
 import { TokenType } from "../lexer";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class NoUtf8Bom extends Rule {
 	public documentation(): RuleDocumentation {

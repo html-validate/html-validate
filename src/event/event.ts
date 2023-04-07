@@ -1,9 +1,9 @@
-import { ResolvedConfig } from "../config";
-import { Location, Source } from "../context";
-import { DOMTree, DynamicValue, HtmlElement } from "../dom";
+import { type ResolvedConfig } from "../config";
+import { type Location, type Source } from "../context";
+import { type DOMTree, type DynamicValue, type HtmlElement } from "../dom";
 import { type RuleBlocker } from "../engine/rule-blocker";
-import { Token, TokenType } from "../lexer";
-import { Rule } from "../rule";
+import { type Token, type TokenType } from "../lexer";
+import { type Rule } from "../rule";
 
 /**
  * @internal

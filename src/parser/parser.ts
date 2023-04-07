@@ -1,15 +1,15 @@
-import { ResolvedConfig } from "../config";
-import { Location, sliceLocation, Source } from "../context";
-import { ProcessAttributeCallback, ProcessElementContext } from "../context/source";
+import { type ResolvedConfig } from "../config";
+import { type Location, type Source, sliceLocation } from "../context";
+import { type ProcessAttributeCallback, type ProcessElementContext } from "../context/source";
 import { DOMTree, HtmlElement, NodeClosed } from "../dom";
 import {
-	AttributeEvent,
-	Event,
-	EventCallback,
+	type AttributeEvent,
+	type Event,
+	type EventCallback,
+	type ListenEventMap,
+	type TagEndEvent,
+	type TriggerEventMap,
 	EventHandler,
-	ListenEventMap,
-	TagEndEvent,
-	TriggerEventMap,
 } from "../event";
 import {
 	type Token,
@@ -26,8 +26,8 @@ import {
 	Lexer,
 	TokenType,
 } from "../lexer";
-import { MetaTable, MetaElement } from "../meta";
-import { AttributeData } from "./attribute-data";
+import { type MetaTable, type MetaElement } from "../meta";
+import { type AttributeData } from "./attribute-data";
 import { parseConditionalComment } from "./conditional-comment";
 import { ParserError } from "./parser-error";
 

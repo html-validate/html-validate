@@ -1,11 +1,11 @@
 import fs from "fs";
-import { Source } from "../context";
+import { type Source } from "../context";
 import { ensureError, NestedError } from "../error";
-import { MetaTable } from "../meta";
-import { Plugin } from "../plugin";
-import { TransformContext, Transformer } from "../transform";
-import { RuleOptions } from "./config-data";
-import { Severity } from "./severity";
+import { type MetaTable } from "../meta";
+import { type Plugin } from "../plugin";
+import { type TransformContext, type Transformer } from "../transform";
+import { type RuleOptions } from "./config-data";
+import { type Severity } from "./severity";
 
 export interface TransformerEntry {
 	pattern: RegExp;

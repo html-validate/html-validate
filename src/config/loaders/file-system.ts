@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
 import { Config } from "../config";
-import { ConfigData } from "../config-data";
-import { ConfigFactory, ConfigLoader } from "../config-loader";
+import { type ConfigData } from "../config-data";
+import { type ConfigFactory, ConfigLoader } from "../config-loader";
 
 /**
  * @internal

@@ -1,4 +1,4 @@
-import { HtmlElement } from "../../dom";
+import { type HtmlElement } from "../../dom";
 
 /**
  * Matches attribute against value.

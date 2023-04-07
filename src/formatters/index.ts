@@ -3,7 +3,7 @@ import { codeframe } from "./codeframe";
 import json from "./json";
 import stylish from "./stylish";
 import text from "./text";
-import { Formatter } from "./formatter";
+import { type Formatter } from "./formatter";
 
 export { type Formatter } from "./formatter";
 

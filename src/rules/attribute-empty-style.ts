@@ -1,7 +1,7 @@
-import { Attribute, HtmlElement } from "../dom";
-import { DOMReadyEvent } from "../event";
-import { MetaAttribute } from "../meta/element";
-import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
+import { type Attribute, type HtmlElement } from "../dom";
+import { type DOMReadyEvent } from "../event";
+import { type MetaAttribute } from "../meta/element";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
 interface RuleOptions {
 	style: "omit" | "empty";

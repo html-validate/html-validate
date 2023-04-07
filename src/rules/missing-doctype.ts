@@ -1,5 +1,5 @@
-import { DOMReadyEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type DOMReadyEvent } from "../event";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class MissingDoctype extends Rule {
 	public documentation(): RuleDocumentation {

@@ -1,6 +1,6 @@
 import { DOMTokenList } from "../dom";
-import { AttributeEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type AttributeEvent } from "../event";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class NoDupClass extends Rule {
 	public documentation(): RuleDocumentation {

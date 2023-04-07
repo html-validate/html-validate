@@ -1,4 +1,4 @@
-import { TagStartEvent } from "../event";
+import { type TagStartEvent } from "../event";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 import { type IncludeExcludeOptions, keywordPatternMatcher } from "./helper";
 

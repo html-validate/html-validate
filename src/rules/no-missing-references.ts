@@ -1,6 +1,6 @@
-import { Attribute, DOMTokenList, DOMTree, DynamicValue, HtmlElement } from "../dom";
-import { DOMReadyEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type Attribute, type DOMTree, type HtmlElement, DOMTokenList, DynamicValue } from "../dom";
+import { type DOMReadyEvent } from "../event";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 interface Context {
 	key: string;

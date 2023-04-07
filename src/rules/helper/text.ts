@@ -1,4 +1,4 @@
-import { HtmlElement, isElementNode, isTextNode, TextNode } from "../../dom";
+import { type HtmlElement, type TextNode, isElementNode, isTextNode } from "../../dom";
 import { isAriaHidden, isHTMLHidden } from "./a11y";
 
 const cachePrefix = classifyNodeText.name;

@@ -1,4 +1,4 @@
-import { Report, Reporter } from "../../../reporter";
+import { type Report, Reporter } from "../../../reporter";
 
 export function reportOk(): Report {
 	const reporter = new Reporter();

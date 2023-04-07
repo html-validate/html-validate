@@ -1,5 +1,5 @@
-import { Source } from "../../context";
-import { Transformer } from "..";
+import { type Source } from "../../context";
+import { type Transformer } from "..";
 
 /**
  * Transformer returning a single mocked source.

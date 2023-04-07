@@ -1,5 +1,5 @@
-import { Config } from "../config";
-import { ConfigData } from "../config-data";
+import { type Config } from "../config";
+import { type ConfigData } from "../config-data";
 import { ConfigLoader } from "../config-loader";
 
 /**

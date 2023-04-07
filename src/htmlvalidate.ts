@@ -1,12 +1,12 @@
 import path from "path";
-import { SchemaObject } from "ajv";
-import { Config, ConfigData, ConfigLoader } from "./config";
-import { Source } from "./context";
-import { SourceHooks } from "./context/source";
-import { Engine, EventDump, TokenDump } from "./engine";
+import { type SchemaObject } from "ajv";
+import { type Config, type ConfigData, ConfigLoader } from "./config";
+import { type Source } from "./context";
+import { type SourceHooks } from "./context/source";
+import { type EventDump, type TokenDump, Engine } from "./engine";
 import { Parser } from "./parser";
-import { Report, Reporter } from "./reporter";
-import { RuleDocumentation } from "./rule";
+import { type Report, Reporter } from "./reporter";
+import { type RuleDocumentation } from "./rule";
 import configurationSchema from "./schema/config.json";
 import { StaticConfigLoader } from "./config/loaders/static";
 

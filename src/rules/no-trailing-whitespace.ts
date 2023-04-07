@@ -1,5 +1,5 @@
-import { WhitespaceEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type WhitespaceEvent } from "../event";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class NoTrailingWhitespace extends Rule {
 	public documentation(): RuleDocumentation {

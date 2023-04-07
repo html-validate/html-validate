@@ -14,5 +14,6 @@ export {
 	type PermittedGroup,
 	type PropertyExpression,
 	TextContent,
+	setMetaProperty,
 } from "./element";
 export { Validator } from "./validator";

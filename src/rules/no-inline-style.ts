@@ -1,6 +1,6 @@
-import { DynamicValue, parseCssDeclaration } from "../dom";
-import { AttributeEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
+import { type DynamicValue, parseCssDeclaration } from "../dom";
+import { type AttributeEvent } from "../event";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
 export interface RuleOptions {
 	include: string[] | null;

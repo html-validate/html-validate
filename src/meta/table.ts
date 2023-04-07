@@ -1,21 +1,21 @@
-import Ajv, { ValidateFunction, SchemaObject } from "ajv";
+import Ajv, { type ValidateFunction, type SchemaObject } from "ajv";
 import ajvSchemaDraft from "ajv/lib/refs/json-schema-draft-06.json";
 import deepmerge from "deepmerge";
-import { HtmlElement } from "../dom";
+import { type HtmlElement } from "../dom";
 import { ensureError, SchemaValidationError, UserError, InheritError } from "../error";
-import { SchemaValidationPatch } from "../plugin";
+import { type SchemaValidationPatch } from "../plugin";
 import { computeHash } from "../utils/compute-hash";
 import { requireUncached } from "../utils/require-uncached";
 import schema from "../schema/elements.json";
 import { ajvFunctionKeyword, ajvRegexpKeyword } from "../schema/keywords";
 import {
-	ElementTable,
-	InternalAttributeFlags,
-	MetaAttribute,
-	MetaDataTable,
-	MetaElement,
-	MetaLookupableProperty,
-	PropertyExpression,
+	type ElementTable,
+	type InternalAttributeFlags,
+	type MetaAttribute,
+	type MetaDataTable,
+	type MetaElement,
+	type MetaLookupableProperty,
+	type PropertyExpression,
 	setMetaProperty,
 } from "./element";
 import { migrateElement } from "./migrate";

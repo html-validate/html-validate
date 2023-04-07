@@ -1,5 +1,5 @@
-import { Location } from "../context";
-import { MetaTable } from "../meta";
+import { type Location } from "../context";
+import { type MetaTable } from "../meta";
 import { HtmlElement } from "./htmlelement";
 
 export class DOMTree {
