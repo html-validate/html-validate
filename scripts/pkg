@@ -11,3 +11,9 @@ cat > dist/es/package.json <<EOF
     "type": "module"
 }
 EOF
+
+for format in cjs es; do
+	for entrypoint in index browser jest test-utils; do
+		echo "export * from \"../types/${entrypoint}\";" > dist/${format}/${entrypoint}.d.ts
+	done
+done

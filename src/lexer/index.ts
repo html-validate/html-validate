@@ -1,6 +1,7 @@
 export { Lexer, type TokenStream, InvalidTokenError } from "./lexer";
 export { TokenType } from "./token";
 export type {
+	BaseToken,
 	Token,
 	UnicodeBOMToken,
 	WhitespaceToken,

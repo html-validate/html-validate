@@ -31,7 +31,7 @@ import { type ResolvedConfigData, type TransformerEntry, ResolvedConfig } from "
  *
  * @internal
  */
-interface LoadedPlugin extends Plugin {
+export interface LoadedPlugin extends Plugin {
 	name: string;
 	originalName: string;
 }
@@ -103,10 +103,10 @@ export class Config {
 	private configurations: Map<string, ConfigData>;
 	private initialized: boolean;
 
-	protected metaTable: MetaTable | null;
-	protected plugins: LoadedPlugin[];
-	protected transformers: TransformerEntry[] = [];
-	protected rootDir: string;
+	private metaTable: MetaTable | null;
+	private plugins: LoadedPlugin[];
+	private transformers: TransformerEntry[] = [];
+	private rootDir: string;
 
 	/**
 	 * Create a new blank configuration. See also `Config.defaultConfig()`.

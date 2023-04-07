@@ -26,7 +26,7 @@ export enum TokenType {
 /**
  * @internal
  */
-interface BaseToken {
+export interface BaseToken {
 	type: TokenType;
 	location: Location;
 }

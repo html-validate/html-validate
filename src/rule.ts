@@ -26,7 +26,7 @@ ajv.addMetaSchema(ajvSchemaDraft);
 /**
  * @public
  */
-interface ErrorDescriptor<ContextType> {
+export interface ErrorDescriptor<ContextType> {
 	node: DOMNode | null;
 	message: string;
 	location?: Location | null | undefined;

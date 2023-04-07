@@ -1,6 +1,55 @@
 import fs from "fs";
 import { type Source } from "../context";
-import { type TransformContext, type Transformer } from ".";
+import { type TransformContext } from "./context";
+import { type Transformer } from "./transformer";
+
+export type {
+	Location,
+	ProcessAttributeCallback,
+	ProcessElementCallback,
+	ProcessElementContext,
+	Source,
+	SourceHooks,
+} from "../context";
+export type {
+	Attribute,
+	CSSStyleDeclaration,
+	DOMInternalID,
+	DOMNode,
+	DOMNodeCache,
+	DOMTokenList,
+	DynamicValue,
+	HtmlElement,
+	NodeClosed,
+	NodeType,
+} from "../dom";
+export type { RuleBlocker } from "../engine";
+export type { BaseToken, TagCloseToken, TagOpenToken, TokenType } from "../lexer";
+export type {
+	CategoryOrTag,
+	DeprecatedElement,
+	ElementTable,
+	FormAssociated,
+	MetaAttribute,
+	MetaAttributeAllowedCallback,
+	MetaData,
+	MetaElement,
+	MetaLookupableProperty,
+	MetaTable,
+	Permitted,
+	PermittedAttribute,
+	PermittedEntry,
+	PermittedGroup,
+	PermittedOrder,
+	PropertyExpression,
+	RequiredAncestors,
+	RequiredContent,
+	TextContent,
+} from "../meta";
+export type { AttributeData } from "../parser";
+export type { SchemaValidationPatch } from "../plugin";
+export type { TransformContext } from "./context";
+export type { Transformer } from "./transformer";
 
 /**
  * Helper function to call a transformer function in test-cases.
