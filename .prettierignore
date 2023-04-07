@@ -3,11 +3,11 @@ package.json
 package-lock.json
 
 # compiled files
-dist
-coverage
+dist/
+coverage/
 public/**/*.html
-public/assets
-public/schemas
+public/assets/
+public/schemas/
 docs/**/__tests__/*.spec.ts
 docs/examples/src/
 temp/
