@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import ignore, { Ignore } from "ignore";
+import ignore, { type Ignore } from "ignore";
 
 export class IsIgnored {
 	/** Cache for parsed .htmlvalidateignore files */

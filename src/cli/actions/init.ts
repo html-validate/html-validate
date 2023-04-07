@@ -1,4 +1,4 @@
-import { CLI } from "../cli";
+import { type CLI } from "../cli";
 import { type WritableStreamLike } from "../writable-stream-like";
 
 export interface InitOptions {

@@ -5,10 +5,10 @@ import fs from "fs";
 import * as espree from "espree";
 import * as walk from "acorn-walk";
 
-/* eslint-disable-next-line node/no-extraneous-import -- type is pulled via acorn-walk */
-import type { Node } from "acorn";
+/* eslint-disable-next-line node/no-extraneous-import, import/no-extraneous-dependencies -- type is pulled via acorn-walk */
+import { type Node } from "acorn";
 
-import { Source } from "../context";
+import { type Source } from "../context";
 
 export interface Position {
 	line: number;

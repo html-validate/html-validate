@@ -1,4 +1,4 @@
-import { HtmlElement } from "../../dom";
+import { type HtmlElement } from "../../dom";
 
 export interface IsHiddenResult {
 	byParent: boolean;

@@ -1,5 +1,5 @@
-import { HtmlValidate } from "../..";
-import { WritableStreamLike } from "../writable-stream-like";
+import { type HtmlValidate } from "../..";
+import { type WritableStreamLike } from "../writable-stream-like";
 
 export function printConfig(
 	htmlvalidate: HtmlValidate,

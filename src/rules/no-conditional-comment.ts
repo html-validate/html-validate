@@ -1,5 +1,5 @@
-import { ConditionalEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type ConditionalEvent } from "../event";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class NoConditionalComment extends Rule {
 	public documentation(): RuleDocumentation {

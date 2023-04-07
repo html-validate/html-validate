@@ -1,7 +1,7 @@
-import { HtmlElement } from "../dom";
-import { DOMReadyEvent } from "../event";
+import { type HtmlElement } from "../dom";
+import { type DOMReadyEvent } from "../event";
 import { Validator } from "../meta";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class ElementPermittedOrder extends Rule {
 	public documentation(): RuleDocumentation {

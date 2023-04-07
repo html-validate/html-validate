@@ -1,4 +1,4 @@
-import { EventDump, type Location } from "..";
+import { type EventDump, type Location } from "..";
 
 const jsonIgnored = ["unique", "cache", "disabledRules", "blockedRules"];
 const jsonFiltered = ["parent", "childNodes", "children", "meta", "data", "originalData"];

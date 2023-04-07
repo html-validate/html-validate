@@ -1,17 +1,17 @@
 import path from "path";
 import {
+	type ConfigData,
+	type ConfigLoader,
+	type Report,
 	FileSystemConfigLoader,
-	ConfigData,
-	ConfigLoader,
 	UserError,
 	HtmlValidate,
-	Report,
 } from "..";
 import { configDataFromFile } from "../config";
-import { expandFiles, ExpandOptions } from "./expand-files";
+import { type ExpandOptions, expandFiles } from "./expand-files";
 import { getFormatter } from "./formatter";
 import { IsIgnored } from "./is-ignored";
-import { init, InitResult } from "./init";
+import { type InitResult, init } from "./init";
 
 const defaultConfig: ConfigData = {
 	extends: ["html-validate:recommended"],

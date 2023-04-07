@@ -1,4 +1,4 @@
-import { Result } from "../../reporter";
+import { type Result } from "../../reporter";
 
 const firstHtml = `<div id="foo"
     class="bar"

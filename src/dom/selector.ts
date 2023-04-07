@@ -1,9 +1,9 @@
-import { Attribute } from "./attribute";
+import { type Attribute } from "./attribute";
 import { Combinator, parseCombinator } from "./combinator";
-import { DynamicValue } from "./dynamic-value";
-import { HtmlElement } from "./htmlelement";
+import { type DynamicValue } from "./dynamic-value";
+import { type HtmlElement } from "./htmlelement";
 import { factory as pseudoClassFunction } from "./pseudoclass";
-import { SelectorContext } from "./selector-context";
+import { type SelectorContext } from "./selector-context";
 
 /**
  * Homage to PHP: unescapes slashes.

@@ -1,5 +1,5 @@
-import { Result } from "../reporter";
-import { Formatter } from "./formatter";
+import { type Result } from "../reporter";
+import { type Formatter } from "./formatter";
 
 function jsonFormatter(results: Result[]): string {
 	return JSON.stringify(results);

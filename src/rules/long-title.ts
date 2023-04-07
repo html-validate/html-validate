@@ -1,4 +1,4 @@
-import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
 interface RuleOptions {
 	maxlength: number;

@@ -1,5 +1,5 @@
-import { HtmlElement } from "../htmlelement";
-import { DOMInternalID } from "../domnode";
+import { type HtmlElement } from "../htmlelement";
+import { type DOMInternalID } from "../domnode";
 
 const cache: Record<DOMInternalID, number> = {};
 

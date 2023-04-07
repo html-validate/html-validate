@@ -1,6 +1,6 @@
 import { DynamicValue } from "../dom";
-import { AttributeEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type AttributeEvent } from "../event";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 interface RuleContext {
 	tagname: string;

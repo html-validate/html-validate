@@ -1,8 +1,8 @@
 import deepmerge from "deepmerge";
-import { ConfigData } from "../../config";
+import { type ConfigData } from "../../config";
 import { FileSystemConfigLoader } from "../../config/loaders/file-system";
 import HtmlValidate from "../../htmlvalidate";
-import { Message } from "../../reporter";
+import { type Message } from "../../reporter";
 import { diff, diverge } from "../utils";
 
 function isMessage(arg: any): arg is Partial<Message> {

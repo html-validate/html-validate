@@ -1,4 +1,4 @@
-import { ContentModel, Context, Location, Source, State } from "../context";
+import { type Location, type Source, ContentModel, Context, State } from "../context";
 import { type TagCloseToken, type Token, TokenType } from "./token";
 
 type NextStateCallback = (token: Token | null) => State;

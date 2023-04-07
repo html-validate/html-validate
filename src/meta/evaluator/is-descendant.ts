@@ -1,4 +1,4 @@
-import { HtmlElement } from "../../dom";
+import { type HtmlElement } from "../../dom";
 
 /**
  * Returns true if given element is a descendant of given tagname.

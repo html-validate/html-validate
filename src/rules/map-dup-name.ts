@@ -1,6 +1,6 @@
 import { type Attribute, DynamicValue } from "../dom";
-import { DOMReadyEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type DOMReadyEvent } from "../event";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 function getName(attr: Attribute): string | null {
 	const name = attr.value;

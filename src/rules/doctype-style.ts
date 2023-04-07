@@ -1,5 +1,5 @@
-import { DoctypeEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
+import { type DoctypeEvent } from "../event";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
 interface RuleContext {
 	style: "uppercase" | "lowercase";

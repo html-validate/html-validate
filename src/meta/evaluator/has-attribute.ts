@@ -1,4 +1,4 @@
-import { HtmlElement } from "../../dom";
+import { type HtmlElement } from "../../dom";
 
 /**
  * Returns true if given element has given attribute (no matter the value, null,

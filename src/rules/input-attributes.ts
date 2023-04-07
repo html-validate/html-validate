@@ -1,7 +1,7 @@
 /* eslint-disable sonarjs/no-duplicate-string -- wont be easier to read or manage with constants */
 
-import { TagReadyEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type TagReadyEvent } from "../event";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 interface RuleContext {
 	attribute: string;

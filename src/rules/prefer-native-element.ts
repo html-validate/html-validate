@@ -1,7 +1,7 @@
-import { Location } from "../context";
+import { type Location } from "../context";
 import { DynamicValue } from "../dom";
-import { AttributeEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
+import { type AttributeEvent } from "../event";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
 interface RuleContext {
 	role: string;

@@ -1,5 +1,5 @@
 import { DynamicValue } from "../dynamic-value";
-import { CSSStyleDeclaration } from "./css-style-declaration";
+import { type CSSStyleDeclaration } from "./css-style-declaration";
 
 type PropertyValuePair = [property: string, value: string];
 

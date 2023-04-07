@@ -1,7 +1,7 @@
-import { HtmlElement, NodeClosed } from "../dom";
-import { TagEndEvent } from "../event";
-import { MetaElement } from "../meta";
-import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
+import { type HtmlElement, NodeClosed } from "../dom";
+import { type TagEndEvent } from "../event";
+import { type MetaElement } from "../meta";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
 type StyleName = "any" | "omit" | "selfclose" | "selfclosing";
 

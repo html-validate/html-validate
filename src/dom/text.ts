@@ -1,4 +1,4 @@
-import { Location } from "../context";
+import { type Location } from "../context";
 import { DOMNode } from "./domnode";
 import { DynamicValue } from "./dynamic-value";
 import { NodeType } from "./nodetype";

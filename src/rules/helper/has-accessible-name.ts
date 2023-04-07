@@ -1,4 +1,4 @@
-import { DOMTree, DynamicValue, generateIdSelector, HtmlElement } from "../../dom";
+import { type DOMTree, type HtmlElement, DynamicValue, generateIdSelector } from "../../dom";
 import { inAccessibilityTree, isHTMLHidden } from "./a11y";
 import { hasAltText } from "./has-alt-text";
 import { classifyNodeText, TextClassification } from "./text";

@@ -1,4 +1,4 @@
-import { Attribute, HtmlElement } from "../dom";
+import { type Attribute, type HtmlElement } from "../dom";
 import { type ElementReadyEvent } from "../event";
 import { type MetaAttribute } from "../meta";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";

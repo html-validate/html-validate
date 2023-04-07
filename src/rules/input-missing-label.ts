@@ -1,6 +1,6 @@
-import { DOMTree, HtmlElement } from "../dom";
-import { DOMReadyEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type DOMTree, type HtmlElement } from "../dom";
+import { type DOMReadyEvent } from "../event";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 import { isAriaHidden, isHTMLHidden } from "./helper/a11y";
 import { hasAccessibleName } from "./helper/has-accessible-name";
 

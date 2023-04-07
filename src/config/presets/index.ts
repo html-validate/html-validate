@@ -1,4 +1,4 @@
-import { ConfigData } from "../config-data";
+import { type ConfigData } from "../config-data";
 import a11y from "./a11y";
 import document from "./document";
 import recommended from "./recommended";

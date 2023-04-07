@@ -1,4 +1,4 @@
-import { DynamicValue } from "../dom";
+import { type DynamicValue } from "../dom";
 
 /**
  * Raw attribute data.

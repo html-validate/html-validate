@@ -1,5 +1,5 @@
-import { ConfigData } from "../config";
-import { Message } from "../reporter";
+import { type ConfigData } from "../config";
+import { type Message } from "../reporter";
 import {
 	toBeValid,
 	toBeInvalid,

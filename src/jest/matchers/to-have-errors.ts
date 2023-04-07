@@ -1,6 +1,6 @@
 /* eslint-disable prefer-template -- technical debt, should be refactored */
 
-import { Report } from "../../reporter";
+import { type Report } from "../../reporter";
 import { diff, diverge, flattenMessages } from "../utils";
 
 function toHaveErrors(

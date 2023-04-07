@@ -1,7 +1,7 @@
 import { Severity } from "./config";
-import { Location, Source } from "./context";
-import { Rule } from "./rule";
-import { DOMNode } from "./dom";
+import { type Location, type Source } from "./context";
+import { type Rule } from "./rule";
+import { type DOMNode } from "./dom";
 
 /**
  * Reported error message.

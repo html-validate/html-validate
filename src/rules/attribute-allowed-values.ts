@@ -1,8 +1,8 @@
-import { Location } from "../context";
-import { HtmlElement, Attribute } from "../dom";
-import { DOMReadyEvent } from "../event";
-import { MetaAttribute, Validator } from "../meta";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type Location } from "../context";
+import { type HtmlElement, type Attribute } from "../dom";
+import { type DOMReadyEvent } from "../event";
+import { type MetaAttribute, Validator } from "../meta";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 interface Context {
 	element: string;

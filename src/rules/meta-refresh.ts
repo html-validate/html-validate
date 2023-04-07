@@ -1,4 +1,4 @@
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class MetaRefresh extends Rule {
 	public documentation(): RuleDocumentation {

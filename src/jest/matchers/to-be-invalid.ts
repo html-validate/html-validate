@@ -1,4 +1,4 @@
-import { Report } from "../../reporter";
+import { type Report } from "../../reporter";
 import { diverge } from "../utils";
 
 function toBeInvalid(report: Report): jest.CustomMatcherResult {

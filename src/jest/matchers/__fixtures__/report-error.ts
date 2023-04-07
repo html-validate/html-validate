@@ -1,6 +1,6 @@
 import { Severity } from "../../../config";
-import { Source } from "../../../context";
-import { Report, Reporter } from "../../../reporter";
+import { type Source } from "../../../context";
+import { type Report, Reporter } from "../../../reporter";
 
 export function reportError(): Report {
 	const reporter = new Reporter();

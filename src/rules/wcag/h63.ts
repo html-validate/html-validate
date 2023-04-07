@@ -1,7 +1,7 @@
-import { TagReadyEvent } from "../../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../../rule";
+import { type TagReadyEvent } from "../../event";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../../rule";
 import html5 from "../../elements/html5";
-import { MetaAttribute } from "../../meta";
+import { type MetaAttribute } from "../../meta";
 import { naturalJoin } from "../helper";
 import { DynamicValue } from "../../dom";
 

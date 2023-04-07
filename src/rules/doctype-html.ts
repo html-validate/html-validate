@@ -1,5 +1,5 @@
-import { DoctypeEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type DoctypeEvent } from "../event";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class NoStyleTag extends Rule {
 	public documentation(): RuleDocumentation {

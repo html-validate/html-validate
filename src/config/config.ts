@@ -6,20 +6,25 @@ import deepmerge from "deepmerge";
 import { bundledElements } from "../elements";
 import { ensureError, SchemaValidationError } from "../error";
 import { MetaTable } from "../meta";
-import { MetaCopyableProperty, MetaDataTable, MetaElement } from "../meta/element";
-import { Plugin } from "../plugin";
+import { type MetaDataTable, type MetaElement, MetaCopyableProperty } from "../meta/element";
+import { type Plugin } from "../plugin";
 import schema from "../schema/config.json";
-import { Transformer, TRANSFORMER_API } from "../transform";
+import { type Transformer, TRANSFORMER_API } from "../transform";
 import { requireUncached } from "../utils/require-uncached";
 import { legacyRequire } from "../resolve";
 import bundledRules from "../rules";
 import { Rule } from "../rule";
-import { ConfigData, RuleConfig, RuleOptions, TransformMap } from "./config-data";
+import {
+	type ConfigData,
+	type RuleConfig,
+	type RuleOptions,
+	type TransformMap,
+} from "./config-data";
 import defaultConfig from "./default";
 import { ConfigError } from "./error";
-import { parseSeverity, Severity } from "./severity";
+import { type Severity, parseSeverity } from "./severity";
 import Presets from "./presets";
-import { ResolvedConfig, ResolvedConfigData, TransformerEntry } from "./resolved-config";
+import { type ResolvedConfigData, type TransformerEntry, ResolvedConfig } from "./resolved-config";
 
 /**
  * Internal interface for a loaded plugin.

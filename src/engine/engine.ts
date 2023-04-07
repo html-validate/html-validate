@@ -1,20 +1,20 @@
-import { ResolvedConfig, RuleOptions, Severity } from "../config";
-import { Location, Source } from "../context";
-import { HtmlElement } from "../dom";
-import { DOMInternalID } from "../dom/domnode";
+import { type ResolvedConfig, type RuleOptions, Severity } from "../config";
+import { type Location, type Source } from "../context";
+import { type HtmlElement } from "../dom";
+import { type DOMInternalID } from "../dom/domnode";
 import {
-	ConfigReadyEvent,
-	DirectiveEvent,
-	RuleErrorEvent,
-	SourceReadyEvent,
-	TagEndEvent,
-	TagStartEvent,
+	type ConfigReadyEvent,
+	type DirectiveEvent,
+	type RuleErrorEvent,
+	type SourceReadyEvent,
+	type TagEndEvent,
+	type TagStartEvent,
 } from "../event";
 import { InvalidTokenError, Lexer, TokenType } from "../lexer";
-import { Parser, ParserError } from "../parser";
-import { Report, Reporter } from "../reporter";
+import { type Parser, ParserError } from "../parser";
+import { type Report, Reporter } from "../reporter";
 import { type RuleConstructor, type RuleDocumentation, Rule } from "../rule";
-import NoUnusedDisable from "../rules/no-unused-disable";
+import type NoUnusedDisable from "../rules/no-unused-disable";
 import bundledRules from "../rules";
 import { createBlocker } from "./rule-blocker";
 

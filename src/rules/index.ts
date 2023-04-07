@@ -1,4 +1,4 @@
-import { RuleConstructor } from "../rule";
+import { type RuleConstructor } from "../rule";
 import AllowedLinks from "./allowed-links";
 import AreaAlt from "./area-alt";
 import AriaHiddenBody from "./aria-hidden-body";

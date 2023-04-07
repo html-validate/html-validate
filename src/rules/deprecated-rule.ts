@@ -1,6 +1,6 @@
 import { Severity } from "../config/severity";
-import { ConfigReadyEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type ConfigReadyEvent } from "../event";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class DeprecatedRule extends Rule<string> {
 	public documentation(context: string): RuleDocumentation {

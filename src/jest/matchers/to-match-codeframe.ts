@@ -1,7 +1,7 @@
 import kleur from "kleur";
 import { toMatchSnapshot } from "jest-snapshot";
 import { codeframe, type CodeframeOptions } from "../../formatters/codeframe";
-import { Report } from "../../reporter";
+import { type Report } from "../../reporter";
 import { getResults } from "./get-results";
 
 const options: CodeframeOptions = {

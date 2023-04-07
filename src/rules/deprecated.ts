@@ -1,8 +1,8 @@
-import { sliceLocation, Location } from "../context";
-import { HtmlElement } from "../dom";
-import { TagStartEvent } from "../event";
-import { DeprecatedElement } from "../meta/element";
-import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
+import { type Location, sliceLocation } from "../context";
+import { type HtmlElement } from "../dom";
+import { type TagStartEvent } from "../event";
+import { type DeprecatedElement } from "../meta/element";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
 interface RuleContext extends DeprecatedElement {
 	tagName: string;

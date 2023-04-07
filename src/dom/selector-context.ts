@@ -1,4 +1,4 @@
-import { HtmlElement } from "./htmlelement";
+import { type HtmlElement } from "./htmlelement";
 
 export interface SelectorContext {
 	/** Scope element */

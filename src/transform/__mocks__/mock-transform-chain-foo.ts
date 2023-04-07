@@ -1,5 +1,5 @@
-import { Source } from "../../context";
-import { Transformer, TransformContext, TRANSFORMER_API } from "..";
+import { type Source } from "../../context";
+import { type Transformer, type TransformContext, TRANSFORMER_API } from "..";
 
 /**
  * Mock transformer chaining to a .foo file transformer.

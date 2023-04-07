@@ -1,7 +1,7 @@
 import { DOMTokenList } from "../dom";
-import { AttributeEvent } from "../event";
-import { describePattern, parsePattern, PatternName } from "../pattern";
-import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
+import { type AttributeEvent } from "../event";
+import { type PatternName, describePattern, parsePattern } from "../pattern";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
 interface RuleOptions {
 	pattern: PatternName;

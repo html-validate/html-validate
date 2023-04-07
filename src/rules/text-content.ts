@@ -1,7 +1,7 @@
-import { DOMNode, HtmlElement, isTextNode } from "../dom";
-import { ElementReadyEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
-import { MetaElement, TextContent as TextContentEnum } from "../meta";
+import { type DOMNode, type HtmlElement, isTextNode } from "../dom";
+import { type ElementReadyEvent } from "../event";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
+import { type MetaElement, TextContent as TextContentEnum } from "../meta";
 import { classifyNodeText } from "./helper";
 import { TextClassification } from "./helper/text";
 import { inAccessibilityTree } from "./helper/a11y";

@@ -1,4 +1,4 @@
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 import { classifyNodeText, TextClassification } from "./helper/text";
 
 export default class EmptyTitle extends Rule {

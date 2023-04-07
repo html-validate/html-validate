@@ -1,7 +1,7 @@
 import "./jest";
 
-import { Location } from "../context";
-import { TokenType } from "../lexer";
+import { type Location } from "../context";
+import { type TokenType } from "../lexer";
 import { toBeToken } from "./internal-matchers";
 
 interface TokenMatcher {

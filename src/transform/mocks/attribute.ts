@@ -1,5 +1,5 @@
 import { DynamicValue } from "../../dom";
-import { AttributeData } from "../../parser";
+import { type AttributeData } from "../../parser";
 
 export function* processAttribute(attr: AttributeData): Iterable<AttributeData> {
 	/* handle foo="{{ bar }}" as "foo" with a dynamic value (interpolated) */

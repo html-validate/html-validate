@@ -1,5 +1,5 @@
-import { Source } from "../context";
-import { TransformContext } from "./context";
+import { type Source } from "../context";
+import { type TransformContext } from "./context";
 
 export { type TransformContext } from "./context";
 export { TemplateExtractor } from "./template";

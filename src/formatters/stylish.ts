@@ -1,7 +1,7 @@
 import stylishImpl from "@html-validate/stylish";
 import kleur from "kleur";
-import { Result } from "../reporter";
-import { Formatter } from "./formatter";
+import { type Result } from "../reporter";
+import { type Formatter } from "./formatter";
 
 function linkSummary(results: Result[]): string {
 	const urls = results.reduce((result, it): string[] => {

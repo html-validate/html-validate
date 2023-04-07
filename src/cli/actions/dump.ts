@@ -1,4 +1,4 @@
-import { HtmlValidate, type TokenDump } from "../..";
+import { type HtmlValidate, type TokenDump } from "../..";
 import { eventFormatter } from "../json";
 import { Mode } from "../mode";
 import { type WritableStreamLike } from "../writable-stream-like";

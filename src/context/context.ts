@@ -1,5 +1,5 @@
-import { Location } from "./location";
-import { Source } from "./source";
+import { type Location } from "./location";
+import { type Source } from "./source";
 import { State } from "./state";
 
 export enum ContentModel {

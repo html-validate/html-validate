@@ -1,6 +1,6 @@
-import { HtmlElement, NodeClosed } from "../dom";
-import { TagEndEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
+import { type HtmlElement, NodeClosed } from "../dom";
+import { type TagEndEvent } from "../event";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
 interface RuleOptions {
 	ignoreForeign: boolean;

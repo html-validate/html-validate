@@ -1,6 +1,6 @@
-import { HtmlElement } from "../dom";
-import { ElementReadyEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
+import { type HtmlElement } from "../dom";
+import { type ElementReadyEvent } from "../event";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
 export enum RuleContext {
 	MISSING_ALT = "missing-alt",

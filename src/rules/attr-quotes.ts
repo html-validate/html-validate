@@ -1,6 +1,6 @@
 import { ConfigError } from "../config/error";
-import { AttributeEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl, SchemaObject } from "../rule";
+import { type AttributeEvent } from "../event";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
 type QuoteMark = '"' | "'";
 enum QuoteStyle {

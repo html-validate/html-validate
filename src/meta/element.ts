@@ -1,4 +1,4 @@
-import { Attribute, HtmlElement } from "../dom";
+import { type Attribute, type HtmlElement } from "../dom";
 
 export interface PermittedGroup {
 	exclude?: string | string[];

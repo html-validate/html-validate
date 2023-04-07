@@ -1,6 +1,6 @@
-import { HtmlElement } from "../dom";
-import { ElementReadyEvent } from "../event";
-import { Rule, RuleDocumentation, ruleDocumentationUrl } from "../rule";
+import { type HtmlElement } from "../dom";
+import { type ElementReadyEvent } from "../event";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class SvgFocusable extends Rule {
 	public documentation(): RuleDocumentation {

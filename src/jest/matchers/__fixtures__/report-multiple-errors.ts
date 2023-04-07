@@ -1,5 +1,5 @@
 import { Severity } from "../../../config";
-import { Report, Reporter } from "../../../reporter";
+import { type Report, Reporter } from "../../../reporter";
 
 export function reportMultipleErrors(): Report {
 	const reporter = new Reporter();
