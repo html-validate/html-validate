@@ -1,4 +1,4 @@
-import HtmlValidate from "../../../src/htmlvalidate";
+import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: { [key: string]: string } = {};
 markup["directive-commend"] = `<!-- [html-validate-disable-next deprecated -- justification for disabling] -->

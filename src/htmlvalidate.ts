@@ -31,7 +31,7 @@ function isConfigData(value: any): value is ConfigData {
  *
  * @public
  */
-class HtmlValidate {
+export class HtmlValidate {
 	protected configLoader: ConfigLoader;
 
 	/**
@@ -325,5 +325,3 @@ class HtmlValidate {
 		this.configLoader.flushCache(filename);
 	}
 }
-
-export default HtmlValidate;

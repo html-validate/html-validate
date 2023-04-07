@@ -1,5 +1,5 @@
 import path from "path";
-import HtmlValidate from "../../src/htmlvalidate";
+import { HtmlValidate } from "../../src/htmlvalidate";
 import "../../src/jest";
 
 it("should handle extending json file", () => {

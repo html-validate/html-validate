@@ -1,6 +1,6 @@
 import { Source } from "../context";
 import { HtmlElement } from "../dom";
-import HtmlValidate from "../htmlvalidate";
+import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
 import metadata from "./html5";
 

@@ -1,4 +1,4 @@
-import HtmlValidate from "../../../src/htmlvalidate";
+import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: { [key: string]: string } = {};
 markup["incorrect"] = `<!-- <li> is only allowed with <ul> or <ol> as parent -->

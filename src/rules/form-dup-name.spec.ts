@@ -1,4 +1,4 @@
-import HtmlValidate from "../htmlvalidate";
+import { HtmlValidate } from "../htmlvalidate";
 import { processAttribute } from "../transform/mocks/attribute";
 import "../jest";
 import { RuleContext } from "./form-dup-name";

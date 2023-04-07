@@ -1,5 +1,5 @@
 import "../jest";
-import HtmlValidate from "../htmlvalidate";
+import { HtmlValidate } from "../htmlvalidate";
 import { type Plugin } from "../plugin";
 import { Rule } from "../rule";
 import { type RuleContext } from "./no-unused-disable";

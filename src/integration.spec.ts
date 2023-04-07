@@ -1,4 +1,4 @@
-import HtmlValidate from "./htmlvalidate";
+import { HtmlValidate } from "./htmlvalidate";
 import { Source } from "./context";
 import { TRANSFORMER_API } from "./transform";
 import { Plugin } from "./plugin";

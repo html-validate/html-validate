@@ -1,4 +1,4 @@
-import HtmlValidate from "../htmlvalidate";
+import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
 import { processAttribute } from "../transform/mocks/attribute";
 import { Style, matchList, AllowList } from "./allowed-links";

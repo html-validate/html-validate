@@ -1,7 +1,7 @@
 import { globSync } from "glob";
 import { Source } from "./context";
 import { DynamicValue } from "./dom";
-import HtmlValidate from "./htmlvalidate";
+import { HtmlValidate } from "./htmlvalidate";
 import { AttributeData } from "./parser";
 import { Transformer, TRANSFORMER_API } from "./transform";
 

@@ -1,4 +1,4 @@
-import HtmlValidate from "../../../src/htmlvalidate";
+import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: { [key: string]: string } = {};
 markup["incorrect-delay"] = `<meta http-equiv="refresh" content="5;url=target.html">`;

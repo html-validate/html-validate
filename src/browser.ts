@@ -1,6 +1,6 @@
 /* used when calling require('htmlvalidate'); */
 
-export { default as HtmlValidate } from "./htmlvalidate";
+export { HtmlValidate } from "./htmlvalidate";
 export { type AttributeData } from "./parser";
 export {
 	Config,

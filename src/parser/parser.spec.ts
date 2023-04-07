@@ -3,7 +3,7 @@ import { Config } from "../config";
 import { Location, ProcessElementContext, Source } from "../context";
 import { DOMTree, HtmlElement, TextNode } from "../dom";
 import { EventCallback } from "../event";
-import HtmlValidate from "../htmlvalidate";
+import { HtmlValidate } from "../htmlvalidate";
 import {
 	type AttrNameToken,
 	type CommentToken,

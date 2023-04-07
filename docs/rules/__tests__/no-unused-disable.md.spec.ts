@@ -1,4 +1,4 @@
-import HtmlValidate from "../../../src/htmlvalidate";
+import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: { [key: string]: string } = {};
 markup["incorrect"] = `<!-- [html-validate-disable-next attribute-allowed-values -- no error, disable is invalid] -->

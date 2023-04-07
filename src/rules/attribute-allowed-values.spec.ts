@@ -1,4 +1,4 @@
-import HtmlValidate from "../htmlvalidate";
+import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
 import { MetaDataTable } from "../meta";
 import { processAttribute } from "../transform/mocks/attribute";

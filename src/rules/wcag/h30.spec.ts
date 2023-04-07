@@ -1,4 +1,4 @@
-import HtmlValidate from "../../htmlvalidate";
+import { HtmlValidate } from "../../htmlvalidate";
 import "../../jest";
 
 describe("wcag/h30", () => {

@@ -1,4 +1,4 @@
-import HtmlValidate from "../htmlvalidate";
+import { HtmlValidate } from "../htmlvalidate";
 import { type RuleContext } from "./tel-non-breaking";
 import "../jest";
 

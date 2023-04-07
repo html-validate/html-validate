@@ -1,6 +1,6 @@
 import { FileSystemConfigLoader } from "../../config/loaders/file-system";
 import { type Report, type Result } from "../../reporter";
-import HtmlValidate from "../../htmlvalidate";
+import { HtmlValidate } from "../../htmlvalidate";
 
 /**
  * @internal

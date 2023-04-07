@@ -1,4 +1,4 @@
-import HtmlValidate from "../htmlvalidate";
+import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
 import { type RuleContext } from "./element-permitted-parent";
 

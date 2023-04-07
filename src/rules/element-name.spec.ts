@@ -1,4 +1,4 @@
-import HtmlValidate from "../htmlvalidate";
+import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
 
 const DEFAULT_PATTERN = "^[a-z][a-z0-9\\-._]*-[a-z0-9\\-._]*$";

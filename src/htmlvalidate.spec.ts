@@ -1,7 +1,7 @@
 import { globSync } from "glob";
 import { Config, ConfigData, ConfigLoader, Severity } from "./config";
 import { Source, SourceHooks } from "./context";
-import HtmlValidate from "./htmlvalidate";
+import { HtmlValidate } from "./htmlvalidate";
 import { Parser } from "./parser";
 import { Message } from "./reporter";
 
