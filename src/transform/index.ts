@@ -1,14 +1,7 @@
-import { type Source } from "../context";
-import { type TransformContext } from "./context";
-
 export { type TransformContext } from "./context";
 export { TemplateExtractor } from "./template";
 export { offsetToLineColumn } from "./helpers";
-
-/**
- * @public
- */
-export type Transformer = (this: TransformContext, source: Source) => Iterable<Source>;
+export { type Transformer } from "./transformer";
 
 export enum TRANSFORMER_API {
 	VERSION = 1,
