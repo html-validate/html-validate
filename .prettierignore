@@ -3,23 +3,24 @@ package.json
 package-lock.json
 
 # compiled files
-/dist
-/coverage
-/public/**/*.html
-/public/assets
-/public/schemas
-/docs/**/__tests__/*.spec.ts
+dist
+coverage
+public/**/*.html
+public/assets
+public/schemas
+docs/**/__tests__/*.spec.ts
 docs/examples/src/
+temp/
 
 # nunjucks templates
-/docs/**/*.html
-/docs/dgeni/inline-validate/templates
-/docs/dgeni/schema/templates
+docs/**/*.html
+docs/dgeni/inline-validate/templates
+docs/dgeni/schema/templates
 
 # will contain errors
-/test-files/**/*.html
-/tests/**/*.html
+test-files/**/*.html
+tests/**/*.html
 
 # local test files
-/sites
-/test.html
+sites
+test.html
