@@ -53,9 +53,10 @@ module.exports = {
 
 		/* special case: disables rules which depends on whenever the project is built or not */
 		{
-			files: "jest.d.ts",
+			files: ["jest.d.ts", "test-utils.d.ts"],
 			rules: {
-				"eslint-comments/no-unused-disable": "off",
+				"import/export": "off",
+				"import/no-unresolved": "off",
 			},
 		},
 	],
