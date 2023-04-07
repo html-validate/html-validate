@@ -1,3 +1,6 @@
+/**
+ * @public
+ */
 export interface IncludeExcludeOptions {
 	include: string[] | null;
 	exclude: string[] | null;
@@ -28,7 +31,7 @@ function compilePattern(pattern: string): RegExp {
 }
 
 /**
- * @public
+ * @internal
  */
 export function keywordPatternMatcher(list: string[], keyword: string): boolean {
 	for (const pattern of list) {

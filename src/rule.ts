@@ -23,6 +23,9 @@ const remapEvents: Record<string, string> = {
 const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
 ajv.addMetaSchema(ajvSchemaDraft);
 
+/**
+ * @public
+ */
 interface ErrorDescriptor<ContextType> {
 	node: DOMNode | null;
 	message: string;
@@ -38,6 +41,9 @@ export interface RuleDocumentation {
 	url?: string;
 }
 
+/**
+ * @public
+ */
 export interface RuleConstructor<T, U> {
 	new (options?: any): Rule<T, U>;
 	schema(): SchemaObject | null | undefined;

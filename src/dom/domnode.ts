@@ -3,6 +3,9 @@ import { type RuleBlocker } from "../engine";
 import { NodeType } from "./nodetype";
 import { type DOMNodeCache } from "./cache";
 
+/**
+ * @public
+ */
 export type DOMInternalID = number;
 
 const DOCUMENT_NODE_NAME = "#document";
@@ -21,12 +24,19 @@ export function reset(): void {
 	counter = 0;
 }
 
+/**
+ * @public
+ */
 export class DOMNode {
 	public readonly nodeName: string;
 	public readonly nodeType: NodeType;
 	public readonly childNodes: DOMNode[];
 
 	public readonly location: Location;
+
+	/**
+	 * @internal
+	 */
 	public readonly unique: DOMInternalID;
 
 	private cache: null | Map<string | number | symbol, any>;
@@ -68,6 +78,8 @@ export class DOMNode {
 	 * Enable cache for this node.
 	 *
 	 * Should not be called before the node and all children are fully constructed.
+	 *
+	 * @internal
 	 */
 	public cacheEnable(): void {
 		this.cache = new Map();

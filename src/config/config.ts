@@ -28,6 +28,8 @@ import { type ResolvedConfigData, type TransformerEntry, ResolvedConfig } from "
 
 /**
  * Internal interface for a loaded plugin.
+ *
+ * @internal
  */
 interface LoadedPlugin extends Plugin {
 	name: string;
@@ -218,7 +220,7 @@ export class Config {
 	 * Must be called before trying to use config. Can safely be called multiple
 	 * times.
 	 *
-	 * @internal
+	 * @public
 	 */
 	public init(): void {
 		if (this.initialized) {
@@ -242,7 +244,7 @@ export class Config {
 	 * Returns a new configuration as a merge of the two. Entries from the passed
 	 * object takes priority over this object.
 	 *
-	 * @internal
+	 * @public
 	 * @param rhs - Configuration to merge with this one.
 	 */
 	public merge(rhs: Config): Config {
@@ -636,6 +638,9 @@ export class Config {
 		rootDirCache = value;
 	}
 
+	/**
+	 * @internal
+	 */
 	protected findRootDir(): string {
 		const cache = this.rootDirCache;
 		if (cache !== null) {

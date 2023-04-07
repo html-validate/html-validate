@@ -1,3 +1,6 @@
+/**
+ * @public
+ */
 export class NestedError extends Error {
 	public constructor(message: string, nested?: Error) {
 		super(message);

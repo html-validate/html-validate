@@ -1,12 +1,24 @@
+/**
+ * @public
+ */
 export type RuleSeverity = "off" | "warn" | "error" | number;
 
+/**
+ * @public
+ */
 export type RuleOptions = string | number | Record<string, any>;
 
+/**
+ * @public
+ */
 export type RuleConfig = Record<
 	string,
 	RuleSeverity | [RuleSeverity] | [RuleSeverity, RuleOptions]
 >;
 
+/**
+ * @public
+ */
 export interface TransformMap {
 	[key: string]: string;
 }

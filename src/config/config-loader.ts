@@ -2,7 +2,7 @@ import { Config } from "./config";
 import { type ConfigData } from "./config-data";
 
 /**
- * @internal
+ * @public
  */
 export interface ConfigFactory {
 	defaultConfig(): Config;

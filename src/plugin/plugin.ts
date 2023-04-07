@@ -4,6 +4,9 @@ import { type EventHandler } from "../event";
 import { type RuleConstructor } from "../rule";
 import { type Transformer } from "../transform";
 
+/**
+ * @public
+ */
 export interface SchemaValidationPatch {
 	properties?: Record<string, unknown>;
 	definitions?: Record<string, unknown>;

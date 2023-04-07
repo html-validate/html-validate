@@ -6,7 +6,7 @@ import { type Token, type TokenType } from "../lexer";
 import { type Rule } from "../rule";
 
 /**
- * @internal
+ * @public
  */
 export interface Event {
 	/** Event location. */
@@ -39,7 +39,7 @@ export interface SourceReadyEvent extends Event {
 /**
  * Token event.
  *
- * @public
+ * @internal
  */
 export interface TokenEvent extends Event {
 	/** @deprecated use token property which is typesafe */
@@ -294,7 +294,10 @@ export interface ParseEndEvent extends Event {
 export interface TriggerEventMap {
 	"config:ready": ConfigReadyEvent;
 	"source:ready": SourceReadyEvent;
+
+	/** @internal */
 	token: TokenEvent;
+
 	"tag:start": TagStartEvent;
 	"tag:end": TagEndEvent;
 	"tag:ready": TagReadyEvent;
@@ -306,8 +309,14 @@ export interface TriggerEventMap {
 	whitespace: WhitespaceEvent;
 	conditional: ConditionalEvent;
 	directive: DirectiveEvent;
+
+	/** @internal */
 	"rule:error": RuleErrorEvent;
+
+	/** @internal */
 	"parse:begin": ParseBeginEvent;
+
+	/** @internal */
 	"parse:end": ParseEndEvent;
 }
 
@@ -317,7 +326,10 @@ export interface TriggerEventMap {
 export interface ListenEventMap {
 	"config:ready": ConfigReadyEvent;
 	"source:ready": SourceReadyEvent;
+
+	/** @internal */
 	token: TokenEvent;
+
 	"tag:open": TagOpenEvent;
 	"tag:start": TagStartEvent;
 	"tag:close": TagCloseEvent;
@@ -331,8 +343,15 @@ export interface ListenEventMap {
 	whitespace: WhitespaceEvent;
 	conditional: ConditionalEvent;
 	directive: DirectiveEvent;
+
+	/** @internal */
 	"rule:error": RuleErrorEvent;
+
+	/** @internal */
 	"parse:begin": ParseBeginEvent;
+
+	/** @internal */
 	"parse:end": ParseEndEvent;
+
 	"*": Event;
 }

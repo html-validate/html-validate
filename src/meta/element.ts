@@ -1,18 +1,50 @@
 import { type Attribute, type HtmlElement } from "../dom";
 
+/**
+ * @public
+ */
 export interface PermittedGroup {
 	exclude?: string | string[];
 }
 
+/**
+ * @public
+ */
 export type CategoryOrTag = string;
+
+/**
+ * @public
+ */
 export type PropertyExpression = string | [string, any];
+
+/**
+ * @public
+ */
 export type PermittedEntry = CategoryOrTag | PermittedGroup | Array<CategoryOrTag | PermittedGroup>;
+
+/**
+ * @public
+ */
 export type Permitted = PermittedEntry[];
 
+/**
+ * @public
+ */
 export type PermittedOrder = string[];
+
+/**
+ * @public
+ */
 export type RequiredAncestors = string[];
+
+/**
+ * @public
+ */
 export type RequiredContent = string[];
 
+/**
+ * @public
+ */
 export enum TextContent {
 	/* forbid node to have text content, inter-element whitespace is ignored */
 	NONE = "none",
@@ -80,14 +112,23 @@ export interface InternalAttributeFlags {
 	delete?: true;
 }
 
+/**
+ * @public
+ */
 export type PermittedAttribute = Record<string, MetaAttribute | Array<string | RegExp> | null>;
 
+/**
+ * @public
+ */
 export interface DeprecatedElement {
 	message?: string;
 	documentation?: string;
 	source?: string;
 }
 
+/**
+ * @public
+ */
 export interface FormAssociated {
 	/** Listed elements have a name attribute and is listed in the form and fieldset elements property. */
 	listed: boolean;
@@ -139,6 +180,8 @@ export interface MetaData {
 /**
  * Properties listed here can be used to reverse search elements with the given
  * property enabled. See [[MetaTable.getTagsWithProperty]].
+ *
+ * @public
  */
 export type MetaLookupableProperty =
 	| "metadata"
@@ -197,10 +240,16 @@ export interface MetaElement extends Omit<MetaData, "deprecatedAttributes" | "re
 	textContent?: TextContent;
 }
 
+/**
+ * @public
+ */
 export interface MetaDataTable {
 	[tagName: string]: MetaData;
 }
 
+/**
+ * @public
+ */
 export interface ElementTable {
 	[tagName: string]: MetaElement;
 }

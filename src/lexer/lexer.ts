@@ -3,6 +3,10 @@ import { type TagCloseToken, type Token, TokenType } from "./token";
 
 type NextStateCallback = (token: Token | null) => State;
 type LexerTest = [RegExp | false, State | NextStateCallback, TokenType | false];
+
+/**
+ * @internal
+ */
 export type TokenStream = IterableIterator<Token>;
 
 /* eslint-disable no-useless-escape -- false positives */

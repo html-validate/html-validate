@@ -41,6 +41,9 @@ function parse(text: string, baseLocation: Location | null): Result {
 	return { tokens, locations };
 }
 
+/**
+ * @public
+ */
 export class DOMTokenList extends Array<string> {
 	public readonly value: string;
 	private readonly locations: Location[] | null;

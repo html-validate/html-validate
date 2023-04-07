@@ -45,7 +45,7 @@ export interface Message {
 }
 
 /**
- * @internal
+ * @public
  */
 export interface DeferredMessage extends Omit<Message, "selector"> {
 	selector: () => string | null;
@@ -89,7 +89,7 @@ export interface Report {
 }
 
 /**
- * @internal
+ * @public
  */
 export class Reporter {
 	protected result: Record<string, DeferredMessage[]>;

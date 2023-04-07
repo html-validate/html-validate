@@ -7,12 +7,18 @@ import { type TransformContext, type Transformer } from "../transform";
 import { type RuleOptions } from "./config-data";
 import { type Severity } from "./severity";
 
+/**
+ * @public
+ */
 export interface TransformerEntry {
 	pattern: RegExp;
 	name: string;
 	fn: Transformer;
 }
 
+/**
+ * @public
+ */
 export interface ResolvedConfigData {
 	metaTable: MetaTable;
 	plugins: Plugin[];
@@ -23,6 +29,8 @@ export interface ResolvedConfigData {
 /**
  * A resolved configuration is a normalized configuration with all extends,
  * plugins etc resolved.
+ *
+ * @public
  */
 export class ResolvedConfig {
 	private metaTable: MetaTable;

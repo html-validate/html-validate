@@ -7,6 +7,9 @@ import { type Formatter } from "./formatter";
 
 export { type Formatter } from "./formatter";
 
+/**
+ * @public
+ */
 interface AvailableFormatters {
 	checkstyle: Formatter;
 	codeframe: Formatter;
@@ -26,12 +29,17 @@ const availableFormatters: AvailableFormatters & Record<string, Formatter> = {
 /**
  * Get formatter function by name.
  *
- * @internal
+ * @public
  * @param name - Name of formatter.
  * @returns Formatter function or null if it doesn't exist.
  */
 export function getFormatter(name: keyof AvailableFormatters): Formatter;
+
+/**
+ * @public
+ */
 export function getFormatter(name: string): Formatter | null;
+
 export function getFormatter(name: string): Formatter | null {
 	return availableFormatters[name] ?? null;
 }

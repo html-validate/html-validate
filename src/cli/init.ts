@@ -3,6 +3,9 @@ import deepmerge from "deepmerge";
 import prompts from "prompts";
 import { type ConfigData } from "..";
 
+/**
+ * @public
+ */
 export interface InitResult {
 	filename: string;
 }

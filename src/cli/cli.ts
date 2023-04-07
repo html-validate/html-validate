@@ -17,6 +17,9 @@ const defaultConfig: ConfigData = {
 	extends: ["html-validate:recommended"],
 };
 
+/**
+ * @public
+ */
 export interface CLIOptions {
 	configFile?: string;
 	rules?: string | string[];

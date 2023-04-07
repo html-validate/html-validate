@@ -72,12 +72,17 @@ export function sliceLocation(
 	end?: number,
 	wrap?: string
 ): Location;
+
+/**
+ * @public
+ */
 export function sliceLocation(
 	location: Location | null | undefined,
 	begin: number,
 	end?: number,
 	wrap?: string
 ): Location | null;
+
 export function sliceLocation(
 	location: Location | null | undefined,
 	begin: number,

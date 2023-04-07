@@ -72,6 +72,9 @@ export function allowedIfAttributeHasValue(
 	};
 }
 
+/**
+ * @public
+ */
 export const metadataHelper: MetadataHelper = {
 	allowedIfAttributeIsPresent,
 	allowedIfAttributeIsAbsent,

@@ -2,6 +2,9 @@ import { type Location } from "../context";
 import { type MetaTable } from "../meta";
 import { HtmlElement } from "./htmlelement";
 
+/**
+ * @public
+ */
 export class DOMTree {
 	public readonly root: HtmlElement;
 	private active: HtmlElement;

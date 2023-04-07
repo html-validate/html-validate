@@ -4,6 +4,9 @@ import { globSync } from "glob";
 
 const DEFAULT_EXTENSIONS = ["html"];
 
+/**
+ * @public
+ */
 export interface ExpandOptions {
 	/**
 	 * Working directory. Defaults to `process.cwd()`.

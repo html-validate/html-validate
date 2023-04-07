@@ -5,6 +5,7 @@ import { type TransformContext, type Transformer } from ".";
 /**
  * Helper function to call a transformer function in test-cases.
  *
+ * @public
  * @param fn - Transformer function to call.
  * @param filename - Filename to read data from. Must be readable.
  * @param chain - If set this function is called when chaining transformers. Default is pass-thru.
@@ -28,6 +29,7 @@ export function transformFile(
 /**
  * Helper function to call a transformer function in test-cases.
  *
+ * @public
  * @param fn - Transformer function to call.
  * @param data - String to transform.
  * @param chain - If set this function is called when chaining transformers. Default is pass-thru.
@@ -50,6 +52,7 @@ export function transformString(
 /**
  * Helper function to call a transformer function in test-cases.
  *
+ * @public
  * @param fn - Transformer function to call.
  * @param data - Source to transform.
  * @param chain - If set this function is called when chaining transformers. Default is pass-thru.

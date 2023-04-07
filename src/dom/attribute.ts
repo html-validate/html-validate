@@ -33,6 +33,8 @@ export function isDynamicAttribute(attr: Attribute | null): attr is Attribute & 
  *
  * Represents a HTML attribute. Can contain either a fixed static value or a
  * placeholder for dynamic values (e.g. interpolated).
+ *
+ * @public
  */
 export class Attribute {
 	/** Attribute name */
