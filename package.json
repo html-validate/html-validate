@@ -61,11 +61,7 @@
     "elements",
     "browser.{js,d.ts}",
     "jest.{js,d.ts}",
-    "test-utils.{js,d.ts}",
-    "!dist/types/**",
-    "!tsconfig.json",
-    "!**/*.snap",
-    "!**/*.spec.{js,ts,d.ts}"
+    "test-utils.{js,d.ts}"
   ],
   "workspaces": [
     "docs"
