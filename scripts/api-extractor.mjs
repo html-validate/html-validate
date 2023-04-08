@@ -86,7 +86,7 @@ async function patchAugmentations(config) {
  * @param {string[]} patterns
  * @returns {Promise<void>}
  */
-async function run(patterns) {
+export async function apiExtractor(patterns) {
 	if (isCI) {
 		console.log("Running API Extractor in CI mode.");
 	} else {
@@ -128,9 +128,3 @@ async function run(patterns) {
 		await patchAugmentations(config);
 	}
 }
-
-const argv = process.argv.slice(2);
-run(argv).catch((err) => {
-	console.error(err);
-	process.exitCode = 1;
-});

@@ -7,8 +7,6 @@ import json from "@rollup/plugin-json"; //native solution coming: https://nodejs
 import replace from "@rollup/plugin-replace";
 import virtual from "@rollup/plugin-virtual";
 import typescript from "@rollup/plugin-typescript";
-import copy from "rollup-plugin-copy";
-import dts from "rollup-plugin-dts";
 import getRuleUrl from "./src/utils/get-rule-url.js";
 
 const rootDir = fileURLToPath(new URL(".", import.meta.url));
@@ -26,17 +24,6 @@ const entrypoints = [
 	"src/jest/jest.ts",
 	"src/transform/test-utils.ts",
 ];
-
-/** @type {string[]} */
-const types = [
-	"dist/types/index.d.ts",
-	"dist/types/browser.d.ts",
-	"dist/types/jest/jest.d.ts",
-	"dist/types/transform/test-utils.d.ts",
-];
-
-/** @type {string[]} */
-const inputs = [...entrypoints, ...types];
 
 /** @type {string[]} */
 const external = [
@@ -60,7 +47,7 @@ const jsonConfig = {
 function manualChunks(id) {
 	/** @type {string} */
 	const base = path.relative(rootDir, id).replace(/\\/g, "/");
-	if (inputs.includes(base)) {
+	if (entrypoints.includes(base)) {
 		return undefined;
 	}
 
@@ -157,30 +144,4 @@ export function build(format) {
 			],
 		},
 	];
-}
-
-/**
- * @param {string[]} formats
- * @returns {RollupOptions[]}
- */
-export function bundleDts(...formats) {
-	return formats.map((format) => {
-		return {
-			input: types.map((it) => path.join(rootDir, it)),
-			output: {
-				dir: `dist/${format}`,
-				format,
-				manualChunks,
-				chunkFileNames: "[name].d.ts",
-			},
-			preserveEntrySignatures: "strict",
-			plugins: [
-				dts(),
-				copy({
-					verbose: true,
-					targets: [{ src: "src/schema/*.json", dest: "dist/schema" }],
-				}),
-			],
-		};
-	});
 }
