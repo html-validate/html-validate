@@ -22,7 +22,11 @@
     "noImplicitAny": true,
     "resolveJsonModule": true,
     "sourceMap": true,
-    "strict": true
+    "strict": true,
+
+    "paths": {
+      "html-validate": ["./src"]
+    }
   },
   "include": ["./src/**/*.ts"]
 }
