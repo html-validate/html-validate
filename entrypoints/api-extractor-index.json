@@ -9,5 +9,10 @@
 
   "dtsRollup": {
     "publicTrimmedFilePath": "<projectFolder>/dist/types/index.d.ts"
+  },
+
+  "tsdocMetadata": {
+    "enabled": true,
+    "tsdocMetadataFilePath": "<projectFolder>/dist/tsdoc-metadata.json"
   }
 }
