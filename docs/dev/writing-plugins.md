@@ -1,5 +1,6 @@
 ---
 docType: content
+name: writing-plugins
 title: Writing plugins
 ---
 
@@ -98,18 +99,34 @@ export interface Plugin {
 }
 ```
 
-E.g. a simple plugin with additional rules might look like:
+A plugin with a custom rule (e.g. {@link writing-rules NoButtonsRule}) might look like:
 
 ```ts fake-require
 import { definePlugin } from "html-validate";
-import MyRule from "./rules/my-rule";
+import NoButtonsRule from "./rules/no-buttons";
 
 module.exports = definePlugin({
+  name: "my-plugin",
   rules: {
-    "custom/my-rule": MyRule,
+    "my-plugin/no-buttons": NoButtonsRule,
   },
 });
 ```
+
+To use this plugin add this configuration:
+
+```diff
+ {
+   "extends": ["html-validate:recommended"],
+   "elements": ["html5"],
++  "plugins": ["./my-plugin"],
++  "rules": {
++    "my-plugin/no-buttons": "error"
++  }
+ }
+```
+
+The [Example plugin](https://gitlab.com/html-validate/example-plugin) repository contains example boilerplate you can use as a base for your plugin.
 
 ## Callbacks
 
@@ -137,34 +154,45 @@ The callback may not manipulate the source object.
 
 Plugins can create configuration presets similar to a shared configuration:
 
-```ts
+```ts fake-require
 import { definePlugin } from "html-validate";
+import NoButtonsRule from "./rules/no-buttons";
 
 module.exports = definePlugin({
+  name: "my-plugin",
+  rules: {
+    "my-plugin/no-buttons": NoButtonsRule,
+  },
   configs: {
     recommended: {
       rules: {
-        "my-rule": "error",
+        "my-plugin/no-buttons": "error",
       },
     },
   },
 });
 ```
 
-Users may then extend the preset using `plugin:name`, e.g.:
+Users may then extend the preset using the plugin and preset name separated by a colon (`my-plugin:recommended` in this case):
 
-```json
-{
-  "extends": ["my-plugin:recommended"]
-}
+```diff
+ {
+-  "extends": ["html-validate:recommended"],
++  "extends": ["html-validate:recommended", "my-plugin:recommended],
+   "elements": ["html5"],
+   "plugins": ["./my-plugin"]
+-  "rules": {
+-    "my-plugin/no-buttons": "error"
+-  }
+ }
 ```
 
 ## Rules
 
 See [writing rules](/dev/writing-rules.html) for details on how to write a rules.
 
-To expose rules in the plugin use the `rules` field. Each plugin should use a
-unique prefix for each rule.
+To expose rules in the plugin use the `rules` field.
+Each plugin should use a unique prefix for each rule.
 
 ```ts fake-require
 import { definePlugin } from "html-validate";
