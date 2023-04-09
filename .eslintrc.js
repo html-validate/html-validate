@@ -24,6 +24,7 @@ module.exports = {
 			rules: {
 				"eslint-comments/require-description": "off",
 				"import/no-duplicates": "off",
+				"import/no-extraneous-dependencies": "off",
 				"import/no-unresolved": "off",
 				"tsdoc/syntax": "off",
 				"no-console": "off",
