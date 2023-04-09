@@ -9,5 +9,18 @@
 
   "dtsRollup": {
     "publicTrimmedFilePath": "<projectFolder>/dist/types/test-utils.d.ts"
+  },
+
+  "messages": {
+    "compilerMessageReporting": {
+      /**
+       * Workaround for:
+       *
+       * Warning: temp/types/transform/test-utils.d.ts:1:52 - (TS2307) Cannot find module 'html-validate' or its corresponding type declarations.
+       */
+      "TS2307": {
+        "logLevel": "none"
+      }
+    }
   }
 }
