@@ -1,5 +1,16 @@
 # html-validate changelog
 
+## [7.15.0](https://gitlab.com/html-validate/html-validate/compare/v7.14.0...v7.15.0) (2023-04-09)
+
+### Features
+
+- dts rollup ([9743e9c](https://gitlab.com/html-validate/html-validate/commit/9743e9ca6f15d2ed2b0c29225e6039edf56b7645))
+
+### Bug Fixes
+
+- **dom:** `querySelector` typescript declaration returns null to match implementation ([9c9befe](https://gitlab.com/html-validate/html-validate/commit/9c9befe6199918c8b1a0912a7d90190d87a4296b))
+- fix browser entrypoint for older bundlers ([c8320ba](https://gitlab.com/html-validate/html-validate/commit/c8320ba3e3561b44be94a3763cbdf07750c08b4c))
+
 ## [7.14.0](https://gitlab.com/html-validate/html-validate/compare/v7.13.3...v7.14.0) (2023-03-26)
 
 ### Features
