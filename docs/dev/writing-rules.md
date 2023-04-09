@@ -1,17 +1,17 @@
 ---
 docType: content
+name: writing-rules
 title: Writing rules
 ---
 
 # Writing rules
 
-Rules are created by extending the `Rule` class and implementing the `setup`
-method:
+Rules are created by extending the `Rule` class and implementing the `setup` method:
 
 ```ts
 import { DOMReadyEvent, Rule, RuleDocumentation } from "html-validate";
 
-export default class MyRule extends Rule {
+export default class NoButtonsRule extends Rule {
   public documentation(): RuleDocumentation {
     return {
       description: "Lorem ipsum",
@@ -23,13 +23,16 @@ export default class MyRule extends Rule {
     /* listen on dom ready event */
     this.on("dom:ready", (event: DOMReadyEvent) => {
       /* do something with the DOM tree */
-      const buttons = event.document.getElementsByTagName("button");
+      const { document } = event;
+      const buttons = document.getElementsByTagName("button");
 
-      /* report a new error */
-      this.report({
-        node: buttons[0],
-        message: "Button are not allowed",
-      });
+      /* report errors */
+      for (const button of buttons) {
+        this.report({
+          node: button,
+          message: "Button is not allowed",
+        });
+      }
     });
   }
 }

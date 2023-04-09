@@ -43,6 +43,7 @@ Configuration can be extended from bundled preset or shareable configurations.
 
 ```jsonc
 {
+  "plugins": ["my-plugin"],
   "extends": [
     /* bundled preset */
     "html-validate:recommended",
@@ -50,8 +51,8 @@ Configuration can be extended from bundled preset or shareable configurations.
     /* npm package */
     "my-npm-package",
 
-    /* plugin with custom preset */
-    "my-plugin:custom",
+    /* preset "recommended" from "my-plugin" */
+    "my-plugin:recommended",
 
     /* local file */
     "./file"
@@ -62,8 +63,8 @@ Configuration can be extended from bundled preset or shareable configurations.
 A list of bundled presets is available at the {@link rules/presets preset list}.
 By default `html-validate:recommended` is used.
 
-When using NPM packages and files each must export a valid configuration object.
-Plugins may create [custom configuration presets](/dev/writing-plugins.html) by exposing one or more preset in the plugin declaration.
+When using NPM packages or files each must be resolvable with `require(..)` and export a valid configuration object.
+Plugins may create {@link writing-plugins#configuration-presets configuration presets} by exposing one or more preset in the plugin declaration.
 
 ### `rules`
 
@@ -84,7 +85,7 @@ Severity can be one of:
 
 Some options takes optional parameters when using the form `["severity", OPTIONS]`.
 
-See [rules](/rules) for a list of all available rules and options.
+See {@link rules} for a list of all built-in rules and options.
 
 ### `elements`
 
@@ -98,7 +99,7 @@ all HTML5 elements.
   "elements": [
     "html5",
     "my-npm-package",
-    "./file",
+    "./file.json",
     {
       /* inline metadata */
     }
@@ -110,18 +111,23 @@ Each entry will try to load metadata from (search in following order):
 
 1. Named bundled metadata.
 2. NPM package with the same name.
-3. A local file, json or js. Path is relative to the configuration file.
+3. A local file, json or js, resolvable by `require(..)`. Path is relative to the configuration file.
 
-An object can also be passed with inline metadata but it is highly recommended
-to write it to a separate file.
+<div class="alert alert-info">
+	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
+	<strong>Note</strong>
+	<p>Loading native ESM is not supported yet (see <a href="https://gitlab.com/html-validate/html-validate/-/issues/125">issue #125</a>) and must be transpiled to commonjs before usage.</p>
+</div>
 
-See [elements metadata](/usage/elements.html) for details about writing your own
-metadata.
+An object can also be passed with inline metadata but it is highly recommended to write it to a separate file.
+
+See [elements metadata](/usage/elements.html) for details about writing your own metadata.
 
 ### `plugins`
 
-List of extra plugins to load. Can be either a NPM package or relative path to a
-local file, i.e. when writing custom rules inside the repository.
+List of extra plugins to load.
+Can be either a NPM package or relative path to a local file, i.e. when writing custom rules inside the repository.
+Must be resolvable by `require(..)`.
 
 Plugins can contain additional rules.
 
@@ -132,6 +138,12 @@ See [writing plugins](/dev/writing-plugins.html) for details about creating your
   "plugins": ["my-fancy-plugin", "./local-plugin"]
 }
 ```
+
+<div class="alert alert-info">
+	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
+	<strong>Note</strong>
+	<p>Loading native ESM is not supported yet (see <a href="https://gitlab.com/html-validate/html-validate/-/issues/125">issue #125</a>) and must be transpiled to commonjs before usage.</p>
+</div>
 
 ### `transform`
 
