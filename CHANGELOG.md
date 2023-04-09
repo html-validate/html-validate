@@ -1,5 +1,13 @@
 # html-validate changelog
 
+## [7.15.1](https://gitlab.com/html-validate/html-validate/compare/v7.15.0...v7.15.1) (2023-04-09)
+
+### Bug Fixes
+
+- add missing exports ([7fb141d](https://gitlab.com/html-validate/html-validate/commit/7fb141dd692384cc897c1b55e4352446ed7a30b3))
+- fix `html-validate/test-utils` entrypoint ([62fbee3](https://gitlab.com/html-validate/html-validate/commit/62fbee331ce2452988f4c5e3898ce68602e0aedf))
+- include tsdoc-metadata.json ([61dd7dd](https://gitlab.com/html-validate/html-validate/commit/61dd7dd4a15cb992deb1ced45787afd0ee9230a9))
+
 ## [7.15.0](https://gitlab.com/html-validate/html-validate/compare/v7.14.0...v7.15.0) (2023-04-09)
 
 ### Features
