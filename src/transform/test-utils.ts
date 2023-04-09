@@ -1,4 +1,4 @@
-import fs from "node:fs";
+import fs from "fs";
 import { type Source, type TransformContext } from "html-validate";
 
 /**
