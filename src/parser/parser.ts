@@ -49,7 +49,7 @@ function isValidDirective(
 /**
  * Parse HTML document into a DOM tree.
  *
- * @internal
+ * @public
  */
 export class Parser {
 	private readonly event: EventHandler;
@@ -60,6 +60,7 @@ export class Parser {
 	/**
 	 * Create a new parser instance.
 	 *
+	 * @public
 	 * @param config - Configuration
 	 */
 	public constructor(config: ResolvedConfig) {
@@ -71,6 +72,7 @@ export class Parser {
 	/**
 	 * Parse HTML markup.
 	 *
+	 * @public
 	 * @param source - HTML markup.
 	 * @returns DOM tree representing the HTML markup.
 	 */
@@ -175,8 +177,11 @@ export class Parser {
 		}
 	}
 
+	/**
+	 * @internal
+	 */
 	/* eslint-disable-next-line complexity -- there isn't really a good other way to structure this method (that is still readable) */
-	protected consume(source: Source, token: Token, tokenStream: TokenStream): void {
+	private consume(source: Source, token: Token, tokenStream: TokenStream): void {
 		switch (token.type) {
 			case TokenType.UNICODE_BOM:
 				/* ignore */
@@ -221,6 +226,9 @@ export class Parser {
 		}
 	}
 
+	/**
+	 * @internal
+	 */
 	/* eslint-disable-next-line complexity, sonarjs/cognitive-complexity -- technical debt, chould be refactored a bit */
 	protected consumeTag(source: Source, startToken: TagOpenToken, tokenStream: TokenStream): void {
 		const tokens = Array.from(
@@ -302,7 +310,10 @@ export class Parser {
 		}
 	}
 
-	protected closeElement(
+	/**
+	 * @internal
+	 */
+	private closeElement(
 		source: Source,
 		node: HtmlElement | null,
 		active: HtmlElement,
@@ -347,8 +358,10 @@ export class Parser {
 
 	/**
 	 * Discard tokens until the end tag for the foreign element is found.
+	 *
+	 * @internal
 	 */
-	protected discardForeignBody(
+	private discardForeignBody(
 		source: Source,
 		foreignTagName: string,
 		tokenStream: TokenStream,
@@ -409,7 +422,10 @@ export class Parser {
 		this.dom.popActive();
 	}
 
-	protected consumeAttribute(
+	/**
+	 * @internal
+	 */
+	private consumeAttribute(
 		source: Source,
 		node: HtmlElement,
 		token: AttrNameToken,
@@ -511,6 +527,9 @@ export class Parser {
 		};
 	}
 
+	/**
+	 * @internal
+	 */
 	protected consumeDirective(token: DirectiveToken): void {
 		const [text, preamble, action, separator1, directive, postamble] = token.data;
 		if (!postamble.startsWith("]")) {
@@ -571,8 +590,10 @@ export class Parser {
 	 * Consumes conditional comment in tag form.
 	 *
 	 * See also the related [[consumeCommend]] method.
+	 *
+	 * @internal
 	 */
-	protected consumeConditional(token: ConditionalToken): void {
+	private consumeConditional(token: ConditionalToken): void {
 		const element = this.dom.getActive();
 		this.trigger("conditional", {
 			condition: token.data[1],
@@ -586,8 +607,10 @@ export class Parser {
 	 *
 	 * Tries to find IE conditional comments and emits conditional token if
 	 * found. See also the related [[consumeConditional]] method.
+	 *
+	 * @internal
 	 */
-	protected consumeComment(token: CommentToken): void {
+	private consumeComment(token: CommentToken): void {
 		const comment = token.data[0];
 		const element = this.dom.getActive();
 		for (const conditional of parseConditionalComment(comment, token.location)) {
@@ -601,8 +624,10 @@ export class Parser {
 
 	/**
 	 * Consumes doctype tokens. Emits doctype event.
+	 *
+	 * @internal
 	 */
-	protected consumeDoctype(startToken: DoctypeOpenToken, tokenStream: TokenStream): void {
+	private consumeDoctype(startToken: DoctypeOpenToken, tokenStream: TokenStream): void {
 		const tokens = Array.from(
 			this.consumeUntil(tokenStream, TokenType.DOCTYPE_CLOSE, startToken.location)
 		);
@@ -621,6 +646,7 @@ export class Parser {
 	/**
 	 * Return a list of tokens found until the expected token was found.
 	 *
+	 * @internal
 	 * @param errorLocation - What location to use if an error occurs
 	 */
 	protected *consumeUntil(
@@ -647,7 +673,7 @@ export class Parser {
 	 *
 	 * @internal
 	 */
-	protected consumeUntilMatchingTag(
+	private consumeUntilMatchingTag(
 		source: Source,
 		tokenStream: TokenStream,
 		searchTag: string
@@ -691,6 +717,7 @@ export class Parser {
 	/**
 	 * Listen on events.
 	 *
+	 * @public
 	 * @param event - Event name.
 	 * @param listener - Event callback.
 	 * @returns A function to unregister the listener.
@@ -708,6 +735,7 @@ export class Parser {
 	 * Listen on single event. The listener is automatically unregistered once the
 	 * event has been received.
 	 *
+	 * @public
 	 * @param event - Event name.
 	 * @param listener - Event callback.
 	 * @returns A function to unregister the listener.
@@ -724,6 +752,7 @@ export class Parser {
 	/**
 	 * Defer execution. Will call function sometime later.
 	 *
+	 * @internal
 	 * @param cb - Callback to execute later.
 	 */
 	public defer(cb: () => void): void {
@@ -733,6 +762,7 @@ export class Parser {
 	/**
 	 * Trigger event.
 	 *
+	 * @internal
 	 * @param event - Event name
 	 * @param data - Event data
 	 */

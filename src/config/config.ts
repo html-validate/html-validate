@@ -470,7 +470,7 @@ export class Config {
 	 * A resolved configuration will merge all extended configs and load all
 	 * plugins and transformers, and normalize the rest of the configuration.
 	 *
-	 * @internal
+	 * @public
 	 */
 	public resolve(): ResolvedConfig {
 		return new ResolvedConfig(this.resolveData());

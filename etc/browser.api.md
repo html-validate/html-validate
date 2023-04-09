@@ -123,7 +123,6 @@ export class Config {
     init(): void;
     isRootFound(): boolean;
     merge(rhs: Config): Config;
-    // @internal
     resolve(): ResolvedConfig;
     // @internal
     resolveData(): ResolvedConfigData;
@@ -778,7 +777,6 @@ export class MetaTable {
     constructor();
     // (undocumented)
     readonly elements: ElementTable;
-    // @internal
     extendValidationSchema(patch: SchemaValidationPatch): void;
     // (undocumented)
     getJSONSchema(): SchemaObject;
@@ -787,9 +785,7 @@ export class MetaTable {
     getTagsWithProperty(propName: MetaLookupableProperty): string[];
     // @internal (undocumented)
     init(): void;
-    // @internal
     loadFromFile(filename: string): void;
-    // @internal
     loadFromObject(obj: unknown, filename?: string | null): void;
     // @internal (undocumented)
     resolve(node: HtmlElement): void;
@@ -836,27 +832,18 @@ export interface ParseEndEvent extends Event_2 {
     location: null;
 }
 
-// @internal
+// @public
 export class Parser {
     constructor(config: ResolvedConfig);
-    // (undocumented)
-    protected closeElement(source: Source, node: HtmlElement | null, active: HtmlElement, location: Location_2): void;
-    // (undocumented)
-    protected consume(source: Source, token: Token, tokenStream: TokenStream): void;
-    // (undocumented)
-    protected consumeAttribute(source: Source, node: HtmlElement, token: AttrNameToken, next?: Token): void;
-    protected consumeComment(token: CommentToken): void;
-    protected consumeConditional(token: ConditionalToken): void;
-    // (undocumented)
+    // @internal (undocumented)
     protected consumeDirective(token: DirectiveToken): void;
-    protected consumeDoctype(startToken: DoctypeOpenToken, tokenStream: TokenStream): void;
-    // (undocumented)
+    // @internal (undocumented)
     protected consumeTag(source: Source, startToken: TagOpenToken, tokenStream: TokenStream): void;
+    // @internal
     protected consumeUntil(tokenStream: TokenStream, search: TokenType, errorLocation: Location_2): IterableIterator<Token>;
-    protected consumeUntilMatchingTag(source: Source, tokenStream: TokenStream, searchTag: string): void;
+    // @internal
     defer(cb: () => void): void;
-    protected discardForeignBody(source: Source, foreignTagName: string, tokenStream: TokenStream, errorLocation: Location_2): void;
-    // (undocumented)
+    // @internal (undocumented)
     getEventHandler(): EventHandler;
     on<K extends keyof ListenEventMap>(event: K, listener: (event: string, data: ListenEventMap[K]) => void): () => void;
     // (undocumented)
@@ -865,6 +852,7 @@ export class Parser {
     // (undocumented)
     once(event: string, listener: EventCallback): () => void;
     parseHtml(source: string | Source): HtmlElement;
+    // @internal
     trigger<K extends keyof TriggerEventMap>(event: K, data: TriggerEventMap[K]): void;
 }
 

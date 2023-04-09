@@ -76,7 +76,7 @@ export class MetaTable {
 	/**
 	 * Extend validation schema.
 	 *
-	 * @internal
+	 * @public
 	 */
 	public extendValidationSchema(patch: SchemaValidationPatch): void {
 		if (patch.properties) {
@@ -98,7 +98,7 @@ export class MetaTable {
 	/**
 	 * Load metadata table from object.
 	 *
-	 * @internal
+	 * @public
 	 * @param obj - Object with metadata to load
 	 * @param filename - Optional filename used when presenting validation error
 	 */
@@ -124,7 +124,7 @@ export class MetaTable {
 	/**
 	 * Load metadata table from filename
 	 *
-	 * @internal
+	 * @public
 	 * @param filename - Filename to load
 	 */
 	public loadFromFile(filename: string): void {

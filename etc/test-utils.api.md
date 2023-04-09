@@ -341,7 +341,6 @@ export class MetaTable {
     constructor();
     // (undocumented)
     readonly elements: ElementTable;
-    // @internal
     extendValidationSchema(patch: SchemaValidationPatch): void;
     // (undocumented)
     getJSONSchema(): SchemaObject;
@@ -350,9 +349,7 @@ export class MetaTable {
     getTagsWithProperty(propName: MetaLookupableProperty): string[];
     // @internal (undocumented)
     init(): void;
-    // @internal
     loadFromFile(filename: string): void;
-    // @internal
     loadFromObject(obj: unknown, filename?: string | null): void;
     // @internal (undocumented)
     resolve(node: HtmlElement): void;
