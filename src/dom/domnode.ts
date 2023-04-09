@@ -165,6 +165,8 @@ export class DOMNode {
 
 	/**
 	 * Tests if two nodes are the same (references the same object).
+	 *
+	 * @since v4.11.0
 	 */
 	public isSameNode(otherNode: DOMNode): boolean {
 		return this.unique === otherNode.unique;

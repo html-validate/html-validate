@@ -4,6 +4,10 @@
     {
       "tagName": "@todo",
       "syntaxKind": "modifier"
+    },
+    {
+      "tagName": "@since",
+      "syntaxKind": "modifier"
     }
   ]
 }
