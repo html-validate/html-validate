@@ -19,7 +19,7 @@ interface RuleOptions {
 
 const defaults: RuleOptions = {
 	allowArrayBrackets: true,
-	shared: ["radio", "button", "reset"],
+	shared: ["radio", "button", "reset", "submit"],
 };
 
 const UNIQUE_CACHE_KEY = Symbol("form-elements-unique");

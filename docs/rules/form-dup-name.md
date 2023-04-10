@@ -97,7 +97,7 @@ With this option **enabled** the following is **correct**:
 ### `shared`
 
 - type: `Array<"radio" | "checkbox" | "submit" | "button" | "reset">`
-- default: `["radio", "button", "reset"]`
+- default: `["radio", "submit", "button", "reset"]`
 
 By default only `<input type="radio">` can have a shared common name.
 This options lets you specify additional controls that may have a shared common name.
@@ -155,5 +155,6 @@ module.exports = defineMetadata({
 
 ## Version history
 
+- %version% - `<button type="submit">` included as `shared` by default.
 - 7.12.2 - `allowArrayBrackets` and `shared` options added.
 - 7.12.0 - Rule added.
