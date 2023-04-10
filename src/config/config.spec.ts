@@ -417,11 +417,11 @@ describe("config", () => {
 			expect.assertions(1);
 			const config = Config.empty();
 			const metatable = config.getMetaTable();
-			expect(Object.keys(metatable.elements)).not.toHaveLength(0);
+			expect(metatable.getMetaFor("div")).toBeDefined();
 		});
 
 		it("should load inline metadata", () => {
-			expect.assertions(1);
+			expect.assertions(2);
 			const config = Config.fromObject({
 				elements: [
 					{
@@ -430,7 +430,8 @@ describe("config", () => {
 				],
 			});
 			const metatable = config.getMetaTable();
-			expect(Object.keys(metatable.elements)).toEqual(["foo"]);
+			expect(metatable.getMetaFor("div")).toBeNull();
+			expect(metatable.getMetaFor("foo")).not.toBeNull();
 		});
 
 		it("should cache table", () => {
@@ -442,7 +443,7 @@ describe("config", () => {
 		});
 
 		it("should load metadata from module", () => {
-			expect.assertions(1);
+			expect.assertions(2);
 			mockElements = {
 				foo: {},
 			};
@@ -450,7 +451,8 @@ describe("config", () => {
 				elements: ["mock-elements"],
 			});
 			const metatable = config.getMetaTable();
-			expect(Object.keys(metatable.elements)).not.toHaveLength(0);
+			expect(metatable.getMetaFor("div")).toBeNull();
+			expect(metatable.getMetaFor("foo")).not.toBeNull();
 		});
 
 		it("should throw ConfigError when module doesn't exist", () => {

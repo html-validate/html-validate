@@ -248,7 +248,7 @@ export interface MetaDataTable {
 }
 
 /**
- * @public
+ * @internal
  */
 export interface ElementTable {
 	[tagName: string]: MetaElement;

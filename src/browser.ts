@@ -74,7 +74,6 @@ export {
 	type RequiredAncestors,
 	type PermittedOrder,
 	type CategoryOrTag,
-	type ElementTable,
 	type MetaLookupableProperty,
 	type RequiredContent,
 	type PropertyExpression,

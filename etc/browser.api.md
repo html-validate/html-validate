@@ -405,12 +405,6 @@ export interface ElementReadyEvent extends Event_2 {
     target: HtmlElement;
 }
 
-// @public (undocumented)
-export interface ElementTable {
-    // (undocumented)
-    [tagName: string]: MetaElement;
-}
-
 // @internal (undocumented)
 export interface EOFToken extends BaseToken {
     // (undocumented)
@@ -775,8 +769,6 @@ export type MetaLookupableProperty = "metadata" | "flow" | "sectioning" | "headi
 export class MetaTable {
     // @internal
     constructor();
-    // (undocumented)
-    readonly elements: ElementTable;
     extendValidationSchema(patch: SchemaValidationPatch): void;
     // (undocumented)
     getJSONSchema(): SchemaObject;

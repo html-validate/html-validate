@@ -54,7 +54,7 @@ function overwriteMerge<T>(a: T[], b: T[]): T[] {
  * @public
  */
 export class MetaTable {
-	public readonly elements: ElementTable;
+	private readonly elements: ElementTable;
 
 	private schema: SchemaObject;
 
