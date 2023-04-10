@@ -63,12 +63,24 @@ describe("rule form-dup-name", () => {
 		expect(report).toBeValid();
 	});
 
+	it('should not report when <button type="submit"> have same name', () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<form>
+				<button type="submit" name="foo"></button>
+				<button type="submit" name="foo"></button>
+			</form>
+		`;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it('should not report when <button type="button"> have same name', () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<form>
-				<button type="button" name="foo">yrs</button>
-				<button type="button" name="foo">nah</button>
+				<button type="button" name="foo"></button>
+				<button type="button" name="foo"></button>
 			</form>
 		`;
 		const report = htmlvalidate.validateString(markup);
@@ -79,8 +91,8 @@ describe("rule form-dup-name", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<form>
-				<button type="reset" name="foo">yrs</button>
-				<button type="reset" name="foo">nah</button>
+				<button type="reset" name="foo"></button>
+				<button type="reset" name="foo"></button>
 			</form>
 		`;
 		const report = htmlvalidate.validateString(markup);
@@ -316,23 +328,23 @@ describe("rule form-dup-name", () => {
 			expect.assertions(1);
 			const markup = /* HTML */ `
 				<form>
-					<button name="foo" type="button" />
-					<button name="foo" type="submit" />
+					<input name="foo" type="text" />
+					<input name="foo" type="text" />
 				</form>
 				<input name="bar" type="checkbox" />
 				<input name="bar" type="checkbox" />
 			`;
 			const report = htmlvalidate.validateString(markup);
 			expect(report).toMatchInlineCodeframe(`
-				"error: Duplicate form control name "foo" (form-dup-name) at inline:3:20:
-				  1 |
+				"error: Duplicate form control name "foo" (form-dup-name) at inline:4:19:
 				  2 | 				<form>
-				> 3 | 					<button name="foo" type="button" />
-				    | 					              ^^^
-				  4 | 					<button name="foo" type="submit" />
+				  3 | 					<input name="foo" type="text" />
+				> 4 | 					<input name="foo" type="text" />
+				    | 					             ^^^
 				  5 | 				</form>
 				  6 | 				<input name="bar" type="checkbox" />
-				Selector: form > button:nth-child(1)
+				  7 | 				<input name="bar" type="checkbox" />
+				Selector: form > input:nth-child(2)
 				error: Duplicate form control name "bar" (form-dup-name) at inline:7:18:
 				  5 | 				</form>
 				  6 | 				<input name="bar" type="checkbox" />
@@ -347,12 +359,12 @@ describe("rule form-dup-name", () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate({
 				root: true,
-				rules: { "form-dup-name": ["error", { shared: ["radio", "checkbox", "submit"] }] },
+				rules: { "form-dup-name": ["error", { shared: ["checkbox"] }] },
 			});
 			const markup = /* HTML */ `
 				<form>
-					<button name="foo" type="submit" />
-					<button name="foo" type="submit" />
+					<input name="foo" type="checkbox" />
+					<input name="foo" type="checkbox" />
 				</form>
 				<input name="bar" type="checkbox" />
 				<input name="bar" type="checkbox" />
