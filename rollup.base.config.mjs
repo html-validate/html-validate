@@ -7,7 +7,7 @@ import json from "@rollup/plugin-json"; //native solution coming: https://nodejs
 import replace from "@rollup/plugin-replace";
 import virtual from "@rollup/plugin-virtual";
 import typescript from "@rollup/plugin-typescript";
-import getRuleUrl from "./src/utils/get-rule-url.js";
+import { getRuleUrl } from "./src/utils/get-rule-url.mjs"; // eslint-disable-line import/extensions -- needed for esm
 
 const rootDir = fileURLToPath(new URL(".", import.meta.url));
 const packageJson = JSON.parse(fs.readFileSync(path.join(rootDir, "package.json"), "utf-8"));

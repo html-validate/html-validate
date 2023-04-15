@@ -12,6 +12,7 @@ import { type MetaTable, type MetaLookupableProperty, type MetaElement } from ".
 import { SchemaValidationError } from "./error";
 import { interpolate } from "./utils/interpolate";
 import { type IncludeExcludeOptions, isKeywordIgnored } from "./rules/helper";
+import { getRuleUrl } from "./utils/get-rule-url.mjs"; // eslint-disable-line import/extensions -- needed for esm
 
 export { type SchemaObject } from "ajv";
 
@@ -473,6 +474,5 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
  * @internal
  */
 export function ruleDocumentationUrl(filename: string): string {
-	const getRuleUrl: (filename: string) => string = require("./utils/get-rule-url");
 	return getRuleUrl(filename);
 }
