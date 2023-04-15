@@ -75,7 +75,7 @@
     "build:esm": "rollup --config rollup.esm.config.mjs",
     "build:script": "node build.mjs",
     "clean": "rm -rf dist public",
-    "codegen": "node scripts/codegen",
+    "codegen": "node scripts/codegen.cjs",
     "compatibility": "scripts/compatibility.sh",
     "debug": "node --inspect ./node_modules/.bin/jest --runInBand --watch --no-coverage",
     "docs": "grunt docs",

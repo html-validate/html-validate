@@ -1,8 +1,3 @@
-#!/usr/bin/env node
-
-/* eslint-disable node/shebang -- it is needed both for prettier and for running script directly even if not exported as a binary */
-/* eslint-disable no-console -- CLI script, expected output */
-
 const fs = require("fs").promises;
 const path = require("path");
 const pkg = require("../package.json");
@@ -22,6 +17,7 @@ export const bugs: string = "${pkg.bugs.url}";
 `.trimStart();
 	await fs.mkdir(path.dirname(dst), { recursive: true });
 	await fs.writeFile(dst, content, "utf-8");
+	/* eslint-disable-next-line no-console -- CLI script, expected output */
 	console.log("Generating", dst);
 }
 
