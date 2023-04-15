@@ -12,7 +12,7 @@ echo Run unittests
 npm test
 
 echo Run linting
-npm run eslint -- --max-warnings 0
+npm exec eslint -- --max-warnings 0 .
 npm run prettier:check
 
 echo Lint documentation
