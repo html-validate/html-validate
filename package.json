@@ -176,7 +176,7 @@
     "@html-validate/eslint-config-jest": "5.9.0",
     "@html-validate/eslint-config-typescript": "5.9.0",
     "@html-validate/eslint-config-typescript-typeinfo": "5.9.0",
-    "@html-validate/jest-config": "3.7.0",
+    "@html-validate/jest-config": "3.7.2",
     "@html-validate/prettier-config": "2.3.9",
     "@html-validate/release-scripts": "4.0.6",
     "@microsoft/api-extractor": "7.34.4",
