@@ -7,7 +7,7 @@ import {
 	UserError,
 	HtmlValidate,
 } from "..";
-import { configDataFromFile } from "../config";
+import { type RuleConfig, configDataFromFile } from "../config";
 import { type ExpandOptions, expandFiles } from "./expand-files";
 import { getFormatter } from "./formatter";
 import { IsIgnored } from "./is-ignored";
@@ -130,7 +130,7 @@ export class CLI {
 				.map((x: string) => x.replace(/ *(.*):/, '"$1":'))
 				.join(",");
 			try {
-				const rules = JSON.parse(`{${raw}}`);
+				const rules = JSON.parse(`{${raw}}`) as RuleConfig;
 				config.extends = [];
 				config.rules = rules;
 			} catch (err: any) /* istanbul ignore next */ {

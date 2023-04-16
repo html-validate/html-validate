@@ -81,6 +81,7 @@ export function configDataFromFile(filename: string): ConfigData {
 
 	/* expand any relative paths */
 	for (const key of ["extends", "elements", "plugins"]) {
+		/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- technical debt, should be made more typesafe */
 		const value: undefined | string[] = json[key];
 		if (!value) continue;
 		json[key] = value.map((ref: string) => {
@@ -495,7 +496,7 @@ export class Config {
 		return Object.entries(transform).map(([pattern, name]) => {
 			try {
 				const fn = this.getTransformFunction(name);
-				const version: number = (fn as any).api || 0;
+				const version: number = (fn as { api?: number }).api || 0;
 
 				/* check if transformer version is supported */
 				if (version !== TRANSFORMER_API.VERSION) {
@@ -608,6 +609,7 @@ export class Config {
 		/* expand <rootDir> */
 		const moduleName = name.replace("<rootDir>", this.rootDir);
 
+		/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- technical debt, the code kinda does the right thing but it should be reflected in the typing too */
 		const fn = legacyRequire(moduleName);
 
 		/* sanity check */

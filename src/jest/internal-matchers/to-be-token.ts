@@ -8,6 +8,7 @@ function toBeToken(
 	actual: any,
 	expected: any
 ): jest.CustomMatcherResult {
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- technical debt, this should be refactored and made typesafe */
 	const token = actual.value;
 
 	// istanbul ignore next: TokenMatcher requires "type" property to be set, this is just a failsafe
@@ -20,6 +21,7 @@ function toBeToken(
 		expected.type = TokenType[expected.type];
 	}
 
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- outside our control, this is what jest gives us back and it gladly accepts it back */
 	const matcher = expect.objectContaining(expected);
 	const pass = this.equals(token, matcher);
 	const diffString = diff(matcher, token, { expand: this.expand });

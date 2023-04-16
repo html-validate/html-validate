@@ -42,8 +42,8 @@ const functionTable: { [key: string]: PropertyEvaluator } = {
 
 const schemaCache: Map<number, ValidateFunction<MetaDataTable>> = new Map();
 
-function clone(src: any): any {
-	return JSON.parse(JSON.stringify(src));
+function clone<T>(src: T): T {
+	return JSON.parse(JSON.stringify(src)) as T;
 }
 
 function overwriteMerge<T>(a: T[], b: T[]): T[] {
@@ -334,6 +334,7 @@ function parseExpression(
 	if (typeof expr === "string") {
 		return parseExpression([expr, {}]);
 	} else {
+		/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- old style expressions should be replaced with typesafe functions */
 		const [funcName, options] = expr;
 		const func = functionTable[funcName];
 		if (!func) {

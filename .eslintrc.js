@@ -5,8 +5,6 @@ module.exports = {
 	extends: ["@html-validate"],
 
 	rules: {
-		"security/detect-non-literal-require": "off",
-		"security/detect-object-injection": "off",
 		"security/detect-unsafe-regex": "off",
 	},
 
@@ -16,12 +14,12 @@ module.exports = {
 			extends: ["@html-validate/typescript"],
 			rules: {
 				"@typescript-eslint/no-explicit-any": "off",
-				"@typescript-eslint/no-var-requires": "off",
 			},
 		},
 		{
 			files: ["docs/examples/**/*.[jt]s"],
 			rules: {
+				"@typescript-eslint/no-var-requires": "off",
 				"eslint-comments/require-description": "off",
 				"import/no-duplicates": "off",
 				"import/no-extraneous-dependencies": "off",
@@ -38,18 +36,11 @@ module.exports = {
 				project: ["./tsconfig.json"],
 			},
 			extends: ["@html-validate/typescript-typeinfo"],
-			rules: {
-				"@typescript-eslint/no-unsafe-assignment": "off",
-			},
 		},
 		{
 			files: "*.spec.[jt]s",
 			excludedFiles: ["cypress/**", "tests/e2e/**"],
 			extends: ["@html-validate/jest"],
-			rules: {
-				"sonarjs/no-identical-functions": "off",
-				"@typescript-eslint/no-non-null-assertion": "off",
-			},
 		},
 
 		/* special case: disables rules which depends on whenever the project is built or not */

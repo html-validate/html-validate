@@ -90,6 +90,7 @@ function toHTMLValidateImpl(
 		return { pass, message: () => "HTML is valid when an error was expected" };
 	} else {
 		if (expectedError) {
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- outside our control, this is what jest gives us back and it gladly accepts it back */
 			const matcher = expect.arrayContaining([expect.objectContaining(expectedError)]);
 			const errorPass = this.equals(report.results[0].messages, matcher);
 			const diffString = diff(matcher, report.results[0].messages, {

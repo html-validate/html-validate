@@ -3,7 +3,7 @@ import { legacyRequire } from "../resolve";
 /**
  * Similar to `require(..)` but removes the cached copy first.
  */
-export function requireUncached(moduleId: string): any {
+export function requireUncached(moduleId: string): unknown {
 	const filename = legacyRequire.resolve(moduleId);
 
 	/* remove references from the parent module to prevent memory leak */

@@ -53,6 +53,7 @@ function toHaveError(
 			message: arg2,
 		};
 		if (arg3) {
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- this is supposed to accept anything */
 			expected.context = arg3;
 		}
 		return toHaveErrorImpl(this, actual, expected);
