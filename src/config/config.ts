@@ -74,14 +74,15 @@ export function configDataFromFile(filename: string): ConfigData {
 	let json;
 	try {
 		/* load using require as it can process both js and json */
-		json = requireUncached(filename);
+		/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- technical debt, should be refactored into something more typesafe */
+		json = requireUncached(filename) as any;
 	} catch (err: unknown) {
 		throw new ConfigError(`Failed to read configuration from "${filename}"`, ensureError(err));
 	}
 
 	/* expand any relative paths */
 	for (const key of ["extends", "elements", "plugins"]) {
-		/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- technical debt, should be made more typesafe */
+		/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- technical debt, should be refactored into something more typesafe */
 		const value: undefined | string[] = json[key];
 		if (!value) continue;
 		json[key] = value.map((ref: string) => {
