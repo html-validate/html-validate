@@ -5,10 +5,15 @@ module.exports = {
 	extends: ["@html-validate"],
 
 	rules: {
+		"import/extensions": "off",
 		"security/detect-unsafe-regex": "off",
 	},
 
 	overrides: [
+		{
+			/* ensure cjs and mjs files are linted too */
+			files: ["*.cjs", "*.mjs"],
+		},
 		{
 			files: "*.ts",
 			extends: ["@html-validate/typescript"],
@@ -42,12 +47,12 @@ module.exports = {
 			excludedFiles: ["cypress/**", "tests/e2e/**"],
 			extends: ["@html-validate/jest"],
 		},
-
-		/* special case: disables rules which depends on whenever the project is built or not */
 		{
-			files: ["jest.d.ts", "test-utils.d.ts"],
+			/* files which should lint even if project isn't build yet */
+			files: ["./*.d.ts", "bin/*.js"],
 			rules: {
 				"import/export": "off",
+				"import/extensions": "off",
 				"import/no-unresolved": "off",
 			},
 		},

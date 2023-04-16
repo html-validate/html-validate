@@ -12,7 +12,7 @@ import { type MetaTable, type MetaLookupableProperty, type MetaElement } from ".
 import { SchemaValidationError } from "./error";
 import { interpolate } from "./utils/interpolate";
 import { type IncludeExcludeOptions, isKeywordIgnored } from "./rules/helper";
-import { getRuleUrl } from "./utils/get-rule-url.mjs"; // eslint-disable-line import/extensions -- needed for esm
+import { getRuleUrl } from "./utils/get-rule-url.mjs";
 
 export { type SchemaObject } from "ajv";
 
