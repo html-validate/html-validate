@@ -1310,8 +1310,11 @@ export interface TransformContext {
     hasChain(filename: string): boolean;
 }
 
-// @public (undocumented)
-type Transformer_2 = (this: TransformContext, source: Source) => Iterable<Source>;
+// @public
+interface Transformer_2 {
+    (this: TransformContext, source: Source): Iterable<Source>;
+    api?: number;
+}
 export { Transformer_2 as Transformer }
 
 // @public (undocumented)

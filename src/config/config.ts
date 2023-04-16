@@ -497,7 +497,7 @@ export class Config {
 		return Object.entries(transform).map(([pattern, name]) => {
 			try {
 				const fn = this.getTransformFunction(name);
-				const version: number = (fn as { api?: number }).api || 0;
+				const version = fn.api ?? 0;
 
 				/* check if transformer version is supported */
 				if (version !== TRANSFORMER_API.VERSION) {
