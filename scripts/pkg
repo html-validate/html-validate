@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 cat > dist/cjs/package.json <<EOF
 {
@@ -12,8 +12,15 @@ cat > dist/es/package.json <<EOF
 }
 EOF
 
+# generate fallback in dist/*/*.d.ts re-exporting dist/types/*.d.ts
+# needed by ts-jest which does not respect the "exports" field
 for format in cjs es; do
 	for entrypoint in index browser jest test-utils; do
 		echo "export * from \"../types/${entrypoint}\";" > dist/${format}/${entrypoint}.d.ts
 	done
+done
+
+# generate stub file for dist/types/*.d.ts or typescript wont find the file
+for declaration in dist/types/*.d.ts; do
+	echo -n > ${declaration/.d.ts/.js}
 done
