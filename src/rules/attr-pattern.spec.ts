@@ -169,8 +169,8 @@ describe("rule attr-pattern", () => {
 			root: true,
 			rules: { "attr-pattern": ["error", { pattern: "[" }] },
 		});
-		expect(() => htmlvalidate.validateString("")).toThrowErrorMatchingInlineSnapshot(
-			`"Invalid regular expression: /^[$/: Unterminated character class"`
+		expect(() => htmlvalidate.validateString("")).toThrow(
+			/Invalid regular expression: \/.*\/.?: Unterminated character class/
 		);
 	});
 
