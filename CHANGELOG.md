@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [7.15.3](https://gitlab.com/html-validate/html-validate/compare/v7.15.2...v7.15.3) (2023-05-03)
+
+### Bug Fixes
+
+- **api:** remove unused `url` import ([a2017ff](https://gitlab.com/html-validate/html-validate/commit/a2017ff374c8b078426f7554478ec8c49766c235))
+
 ## [7.15.2](https://gitlab.com/html-validate/html-validate/compare/v7.15.1...v7.15.2) (2023-05-03)
 
 ### Bug Fixes
