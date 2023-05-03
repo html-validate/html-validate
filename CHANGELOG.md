@@ -1,5 +1,16 @@
 # html-validate changelog
 
+## [7.15.2](https://gitlab.com/html-validate/html-validate/compare/v7.15.1...v7.15.2) (2023-05-03)
+
+### Bug Fixes
+
+- **api:** fix typescript not finding type declarations ([0950bb9](https://gitlab.com/html-validate/html-validate/commit/0950bb979134c9e43e6f1988905d6542dac37757)), closes [#217](https://gitlab.com/html-validate/html-validate/issues/217)
+- **rules:** `form-dup-name` defaults to allow `<button type="submit">` to share name ([b39b9ad](https://gitlab.com/html-validate/html-validate/commit/b39b9adbc5129b2288b8dc65e99a2774a695d8b7)), closes [#212](https://gitlab.com/html-validate/html-validate/issues/212)
+
+### Dependency upgrades
+
+- **deps:** update dependency glob to v10 ([1855cf0](https://gitlab.com/html-validate/html-validate/commit/1855cf06853e1793f4a9567c82636fb057a45894))
+
 ## [7.15.1](https://gitlab.com/html-validate/html-validate/compare/v7.15.0...v7.15.1) (2023-04-09)
 
 ### Bug Fixes
