@@ -1,4 +1,6 @@
+import { StaticConfigLoader } from "./browser";
 import { Config, ConfigData, ConfigLoader, ResolvedConfig, Severity } from "./config";
+import { nodejsResolver } from "./config/resolver/nodejs";
 import { Source, SourceHooks } from "./context";
 import { HtmlValidate } from "./htmlvalidate";
 import { Parser } from "./parser";
@@ -11,6 +13,8 @@ const engine = {
 	dumpTokens: jest.fn(),
 	getRuleDocumentation: jest.fn(),
 };
+
+const resolver = nodejsResolver();
 
 jest.mock("./engine", () => {
 	return {
@@ -68,7 +72,7 @@ describe("HtmlValidate", () => {
 		expect.assertions(2);
 		const loader = new (class extends ConfigLoader {
 			public getConfigFor(): ResolvedConfig {
-				return Config.fromObject({
+				return Config.fromObject([], {
 					rules: {
 						foobar: "error",
 					},
@@ -80,7 +84,7 @@ describe("HtmlValidate", () => {
 			protected defaultConfig(): Config {
 				return Config.defaultConfig();
 			}
-		})();
+		})([]);
 		const getConfigFor = jest.spyOn(loader, "getConfigFor");
 		const htmlvalidate = new HtmlValidate(loader);
 		const filename = "/path/to/my-file.html";
@@ -782,13 +786,14 @@ describe("HtmlValidate", () => {
 	describe("canValidate()", () => {
 		let htmlvalidate: HtmlValidate;
 
-		beforeEach(() => {
-			htmlvalidate = new HtmlValidate({
+		beforeAll(() => {
+			const loader = new StaticConfigLoader([resolver], {
 				root: true,
 				transform: {
 					"^.*\\.foo$": "mock-transform",
 				},
 			});
+			htmlvalidate = new HtmlValidate(loader);
 		});
 
 		it("should return true if file extension is .html", async () => {
@@ -810,13 +815,14 @@ describe("HtmlValidate", () => {
 	describe("canValidateSync()", () => {
 		let htmlvalidate: HtmlValidate;
 
-		beforeEach(() => {
-			htmlvalidate = new HtmlValidate({
+		beforeAll(() => {
+			const loader = new StaticConfigLoader([resolver], {
 				root: true,
 				transform: {
 					"^.*\\.foo$": "mock-transform",
 				},
 			});
+			htmlvalidate = new HtmlValidate(loader);
 		});
 
 		it("should return true if file extension is .html", () => {

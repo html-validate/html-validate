@@ -6,8 +6,9 @@ import {
 	FileSystemConfigLoader,
 	UserError,
 	HtmlValidate,
+	nodejsResolver,
 } from "..";
-import { type RuleConfig, configDataFromFile } from "../config";
+import { type RuleConfig } from "../config";
 import { type ExpandOptions, expandFiles } from "./expand-files";
 import { getFormatter } from "./formatter";
 import { IsIgnored } from "./is-ignored";
@@ -23,6 +24,19 @@ const defaultConfig: ConfigData = {
 export interface CLIOptions {
 	configFile?: string;
 	rules?: string | string[];
+}
+
+function getBaseConfig(filename?: string): ConfigData {
+	if (filename) {
+		const resolver = nodejsResolver();
+		const configData = resolver.resolveConfig(path.resolve(filename), { cache: false });
+		if (!configData) {
+			throw new UserError(`Failed to read configuration from "${filename}"`);
+		}
+		return configData;
+	} else {
+		return defaultConfig;
+	}
 }
 
 /**
@@ -42,7 +56,7 @@ export class CLI {
 	 */
 	public constructor(options?: CLIOptions) {
 		this.options = options || {};
-		this.config = this.getConfig();
+		this.config = this.resolveConfig();
 		this.loader = new FileSystemConfigLoader(this.config);
 		this.ignored = new IsIgnored();
 	}
@@ -116,10 +130,12 @@ export class CLI {
 	 * @internal
 	 */
 	public getConfig(): ConfigData {
+		return this.config;
+	}
+
+	private resolveConfig(): ConfigData {
 		const { options } = this;
-		const config: ConfigData = options.configFile
-			? configDataFromFile(path.resolve(options.configFile))
-			: defaultConfig;
+		const config = getBaseConfig(options.configFile);
 		let rules = options.rules;
 		if (rules) {
 			if (Array.isArray(rules)) {

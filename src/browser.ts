@@ -10,7 +10,11 @@ export {
 	type RuleOptions,
 	type TransformerEntry,
 	type ResolvedConfigData,
+	type Resolver,
+	type ResolverOptions,
 	type RuleSeverity,
+	type StaticResolver,
+	type StaticResolverMap,
 	type ConfigFactory,
 	type LoadedPlugin,
 	ResolvedConfig,
@@ -18,6 +22,7 @@ export {
 	ConfigLoader,
 	Severity,
 	configPresets,
+	staticResolver,
 } from "./config";
 export { StaticConfigLoader } from "./config/loaders/static";
 export {

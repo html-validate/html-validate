@@ -218,7 +218,7 @@ export class MyCustomLoader extends ConfigLoader {
   public override getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig {
     /* return config for given handle (e.g. filename passed to validateFile) */
     const override = this.loadFromObject(configOverride || {});
-    const merged = this.globalConfig.merge(override);
+    const merged = this.globalConfig.merge(this.resolvers, override);
     merged.init();
     return merged.resolve();
   }

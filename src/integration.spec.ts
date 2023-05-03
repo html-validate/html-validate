@@ -1,6 +1,6 @@
 import { globSync } from "glob";
 import { HtmlValidate } from "./htmlvalidate";
-import { ConfigData, RuleConfig } from "./config";
+import { type ConfigData, type Resolver, type RuleConfig, staticResolver } from "./config";
 import { FileSystemConfigLoader } from "./config/loaders/file-system";
 import { Source } from "./context";
 import { TRANSFORMER_API } from "./transform";
@@ -8,6 +8,7 @@ import { Plugin } from "./plugin";
 import "./jest";
 import { Rule } from "./rule";
 import { DOMReadyEvent } from "./event";
+import { StaticConfigLoader } from "./browser";
 
 expect.addSnapshotSerializer({
 	serialize(value: string): string {
@@ -56,10 +57,13 @@ it("should compute correct line, column and offset when using transformed source
 		},
 		transformer,
 	};
-	jest.mock("plugin", () => plugin, { virtual: true });
 
-	/* create validator instance configured to use mock */
-	const htmlvalidate = new HtmlValidate({
+	const resolvers: Resolver[] = [
+		staticResolver({
+			plugins: { plugin },
+		}),
+	];
+	const loader = new StaticConfigLoader(resolvers, {
 		root: true,
 		plugins: ["plugin"],
 		transform: {
@@ -69,6 +73,9 @@ it("should compute correct line, column and offset when using transformed source
 			"mock-rule": "error",
 		},
 	});
+
+	/* create validator instance configured to use mock */
+	const htmlvalidate = new HtmlValidate(loader);
 
 	/* ensure line, column and offsets are correct */
 	const report = await htmlvalidate.validateString("<p>line 1</p>\n<p>line 2</p>\n<p>line 3</p>\n");

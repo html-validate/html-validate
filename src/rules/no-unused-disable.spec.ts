@@ -2,6 +2,8 @@ import "../jest";
 import { HtmlValidate } from "../htmlvalidate";
 import { type Plugin } from "../plugin";
 import { Rule } from "../rule";
+import { staticResolver } from "../config";
+import { StaticConfigLoader } from "../browser";
 import { type RuleContext } from "./no-unused-disable";
 
 class DirectRule extends Rule {
@@ -31,13 +33,17 @@ const plugin: Plugin = {
 	},
 };
 
-jest.mock("mock-plugin", () => plugin, { virtual: true });
+const resolver = staticResolver({
+	plugins: {
+		"mock-plugin": plugin,
+	},
+});
 
 describe("rule no-unused-disable", () => {
 	let htmlvalidate: HtmlValidate;
 
 	beforeAll(() => {
-		htmlvalidate = new HtmlValidate({
+		const loader = new StaticConfigLoader([resolver], {
 			root: true,
 			plugins: ["mock-plugin"],
 			rules: {
@@ -47,6 +53,7 @@ describe("rule no-unused-disable", () => {
 				"no-unused-disable": "error",
 			},
 		});
+		htmlvalidate = new HtmlValidate(loader);
 	});
 
 	it("should not report error when disable-block is used to disable reported error", () => {

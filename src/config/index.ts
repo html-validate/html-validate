@@ -1,4 +1,4 @@
-export { type LoadedPlugin, Config, configDataFromFile } from "./config";
+export { type LoadedPlugin, Config } from "./config";
 export {
 	type ConfigData,
 	type RuleConfig,
@@ -10,4 +10,11 @@ export { ConfigLoader, type ConfigFactory } from "./config-loader";
 export { ConfigError } from "./error";
 export { default as configPresets } from "./presets";
 export { type ResolvedConfigData, type TransformerEntry, ResolvedConfig } from "./resolved-config";
+export {
+	type Resolver,
+	type ResolverOptions,
+	type StaticResolver,
+	type StaticResolverMap,
+	staticResolver,
+} from "./resolver";
 export { Severity } from "./severity";

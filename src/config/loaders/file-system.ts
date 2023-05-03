@@ -1,9 +1,11 @@
-import fs from "fs";
-import path from "path";
-import { Config } from "../config";
+import fs from "node:fs";
+import path from "node:path";
+import { type Config } from "../config";
 import { type ConfigData } from "../config-data";
 import { type ConfigFactory, ConfigLoader } from "../config-loader";
 import { type ResolvedConfig } from "../resolved-config";
+import { type Resolver } from "../resolver";
+import { nodejsResolver } from "../resolver/nodejs";
 
 /**
  * @internal
@@ -12,6 +14,16 @@ function findConfigurationFiles(directory: string): string[] {
 	return ["json", "cjs", "js"]
 		.map((extension) => path.join(directory, `.htmlvalidate.${extension}`))
 		.filter((filePath) => fs.existsSync(filePath));
+}
+
+const defaultResolvers: Resolver[] = [nodejsResolver()];
+
+type ConstructorParametersDefault = [ConfigData?, ConfigFactory?];
+type ConstructorParametersResolver = [Resolver[], ConfigData?, ConfigFactory?];
+type ConstructorParameters = ConstructorParametersDefault | ConstructorParametersResolver;
+
+function hasResolver(value: ConstructorParameters): value is ConstructorParametersResolver {
+	return Array.isArray(value[0]);
 }
 
 /**
@@ -45,11 +57,30 @@ export class FileSystemConfigLoader extends ConfigLoader {
 	protected cache: Map<string, Config | null>;
 
 	/**
+	 * Create a filesystem configuration loader with default resolvers.
+	 *
 	 * @param config - Global configuration
 	 * @param configFactory - Optional configuration factory
 	 */
-	public constructor(config?: ConfigData, configFactory: ConfigFactory = Config) {
-		super(config, configFactory);
+	public constructor(config?: ConfigData, configFactory?: ConfigFactory);
+
+	/**
+	 * Create a filesystem configuration loader with custom resolvers.
+	 *
+	 * @param resolvers - Resolvers to use
+	 * @param config - Global configuration
+	 * @param configFactory - Optional configuration factory
+	 */
+	public constructor(resolvers: Resolver[], config?: ConfigData, configFactory?: ConfigFactory);
+
+	public constructor(...args: ConstructorParameters) {
+		if (hasResolver(args)) {
+			const [resolvers, config, configFactory] = args;
+			super(resolvers, config, configFactory);
+		} else {
+			const [config, configFactory] = args;
+			super(defaultResolvers, config, configFactory);
+		}
 		this.cache = new Map();
 	}
 
@@ -71,13 +102,15 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		/* special case when the global configuration is marked as root, should not
 		 * try to load and more configuration files */
 		if (this.globalConfig.isRootFound()) {
-			const merged = this.globalConfig.merge(override);
+			const merged = this.globalConfig.merge(this.resolvers, override);
 			merged.init();
 			return merged.resolve();
 		}
 
 		const config = this.fromFilename(filename);
-		const merged = config ? config.merge(override) : this.globalConfig.merge(override);
+		const merged = config
+			? config.merge(this.resolvers, override)
+			: this.globalConfig.merge(this.resolvers, override);
 		merged.init();
 		return merged.resolve();
 	}
@@ -121,7 +154,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
 			for (const configFile of findConfigurationFiles(current)) {
 				const local = this.loadFromFile(configFile);
 				found = true;
-				config = local.merge(config);
+				config = local.merge(this.resolvers, config);
 			}
 
 			/* stop if a configuration with "root" is set to true */

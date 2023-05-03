@@ -3,6 +3,7 @@ import path from "node:path";
 import { Config } from "../config";
 import { type ConfigData } from "../config-data";
 import { type ConfigFactory } from "../config-loader";
+import { type Resolver } from "../resolver";
 import { FileSystemConfigLoader } from "./file-system";
 
 declare module "../config-data" {
@@ -39,12 +40,16 @@ class MockConfigFactory {
 		return Config.empty();
 	}
 
-	public static fromObject(options: ConfigData, filename: string | null = null): Config {
-		return Config.fromObject(options, filename);
+	public static fromObject(
+		resolvers: Resolver[],
+		options: ConfigData,
+		filename: string | null = null
+	): Config {
+		return Config.fromObject(resolvers, options, filename);
 	}
 
-	public static fromFile(filename: string): Config {
-		return Config.fromObject({
+	public static fromFile(resolvers: Resolver[], filename: string): Config {
+		return Config.fromObject(resolvers, {
 			/* set root to true for if the last directory name is literal "root" */
 			root: path.basename(path.dirname(filename)) === "root",
 
@@ -94,6 +99,22 @@ describe("FileSystemConfigLoader", () => {
 			},
 			transform: {},
 		});
+	});
+
+	it("should use custom resolver", () => {
+		expect.assertions(1);
+		const mockResolver: Resolver = {
+			name: "mock-resolver",
+			resolveConfig() {
+				return {};
+			},
+		};
+		const resolveConfig = jest.spyOn(mockResolver, "resolveConfig");
+		const loader = new FileSystemConfigLoader([mockResolver], {
+			extends: ["foo"],
+		});
+		loader.getConfigFor("inline");
+		expect(resolveConfig).toHaveBeenCalledWith("foo", expect.anything());
 	});
 
 	describe("getConfigFor()", () => {
@@ -156,7 +177,7 @@ describe("FileSystemConfigLoader", () => {
 			});
 			/* .htmlvalidate.json */
 			jest.spyOn(loader, "fromFilename").mockImplementation(() =>
-				Config.fromObject({
+				Config.fromObject([], {
 					rules: {
 						b: "error",
 					},
@@ -182,7 +203,7 @@ describe("FileSystemConfigLoader", () => {
 			});
 			/* .htmlvalidate.json */
 			jest.spyOn(loader, "fromFilename").mockImplementation(() =>
-				Config.fromObject({
+				Config.fromObject([], {
 					rules: {
 						b: "error",
 						c: "error",

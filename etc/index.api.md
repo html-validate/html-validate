@@ -152,16 +152,12 @@ export interface ConditionalToken extends BaseToken {
 // @public
 export class Config {
     // @internal
-    constructor(options?: ConfigData);
+    constructor(resolvers: Resolver | Resolver[], options: ConfigData);
     static defaultConfig(): Config;
     static empty(): Config;
     // @internal
-    static expandRelative(src: string, currentPath: string): string;
-    // @internal (undocumented)
-    protected findRootDir(): string;
-    // @internal
-    static fromFile(filename: string): Config;
-    static fromObject(options: ConfigData, filename?: string | null): Config;
+    static fromFile(resolvers: Resolver | Resolver[], filename: string): Config;
+    static fromObject(resolvers: Resolver | Resolver[], options: ConfigData, filename?: string | null): Config;
     // @internal
     get(): ConfigData;
     // @internal
@@ -172,13 +168,10 @@ export class Config {
     getRules(): Map<string, [Severity, RuleOptions]>;
     init(): void;
     isRootFound(): boolean;
-    merge(rhs: Config): Config;
+    merge(resolvers: Resolver[], rhs: Config): Config;
     resolve(): ResolvedConfig;
     // @internal
     resolveData(): ResolvedConfigData;
-    // @internal (undocumented)
-    protected get rootDirCache(): string | null;
-    protected set rootDirCache(value: string | null);
     // @internal
     static validate(configData: ConfigData, filename?: string | null): void;
 }
@@ -207,14 +200,14 @@ export interface ConfigFactory {
     // (undocumented)
     empty(): Config;
     // (undocumented)
-    fromFile(filename: string): Config;
+    fromFile(resolvers: Resolver[], filename: string): Config;
     // (undocumented)
-    fromObject(options: ConfigData, filename?: string | null): Config;
+    fromObject(resolvers: Resolver[], options: ConfigData, filename?: string | null): Config;
 }
 
 // @public
 export abstract class ConfigLoader {
-    constructor(config?: ConfigData, configFactory?: ConfigFactory);
+    constructor(resolvers: Resolver[], config?: ConfigData, configFactory?: ConfigFactory);
     // (undocumented)
     protected readonly configFactory: ConfigFactory;
     protected abstract defaultConfig(): Config;
@@ -228,6 +221,8 @@ export abstract class ConfigLoader {
     protected loadFromFile(filename: string): Config;
     // (undocumented)
     protected loadFromObject(options: ConfigData, filename?: string | null): Config;
+    // (undocumented)
+    protected readonly resolvers: Resolver[];
 }
 
 // @internal (undocumented)
@@ -513,6 +508,7 @@ export interface ExpandOptions {
 // @public
 export class FileSystemConfigLoader extends ConfigLoader {
     constructor(config?: ConfigData, configFactory?: ConfigFactory);
+    constructor(resolvers: Resolver[], config?: ConfigData, configFactory?: ConfigFactory);
     // (undocumented)
     protected cache: Map<string, Config | null>;
     // (undocumented)
@@ -908,6 +904,14 @@ export enum NodeClosed {
     VoidSelfClosed = 3
 }
 
+// @public
+export type NodeJSResolver = Required<Resolver>;
+
+// @public
+export function nodejsResolver(options?: {
+    rootDir?: string;
+}): NodeJSResolver;
+
 // @public (undocumented)
 export enum NodeType {
     // (undocumented)
@@ -1055,6 +1059,21 @@ export interface ResolvedConfigData {
     rules: Map<string, [Severity, RuleOptions]>;
     // (undocumented)
     transformers: TransformerEntry[];
+}
+
+// @public (undocumented)
+export interface Resolver {
+    name: string;
+    resolveConfig?(id: string, options: ResolverOptions): ConfigData | null;
+    resolveElements?(id: string, options: ResolverOptions): unknown | null;
+    resolvePlugin?(id: string, options: ResolverOptions): Plugin_2 | null;
+    resolveTransformer?(id: string, options: ResolverOptions): Transformer_2 | null;
+}
+
+// @public (undocumented)
+export interface ResolverOptions {
+    // (undocumented)
+    cache: boolean;
 }
 
 // @public (undocumented)
@@ -1230,12 +1249,41 @@ export interface SourceReadyEvent extends Event_2 {
 
 // @public
 export class StaticConfigLoader extends ConfigLoader {
+    constructor(config?: ConfigData, configFactory?: ConfigFactory);
+    constructor(resolvers: Resolver[], config?: ConfigData, configFactory?: ConfigFactory);
     // (undocumented)
     protected defaultConfig(): Config;
     // (undocumented)
     flushCache(): void;
     // (undocumented)
     getConfigFor(_handle: string, configOverride?: ConfigData): ResolvedConfig;
+}
+
+// @public
+export interface StaticResolver extends Required<Resolver> {
+    // (undocumented)
+    addConfig(id: string, config: ConfigData): void;
+    // (undocumented)
+    addElements(id: string, elements: MetaDataTable): void;
+    // (undocumented)
+    addPlugin(id: string, plugin: Plugin_2): void;
+    // (undocumented)
+    addTransformer(id: string, transformer: Transformer_2): void;
+}
+
+// @public
+export function staticResolver(map?: StaticResolverMap): StaticResolver;
+
+// @public
+export interface StaticResolverMap {
+    // (undocumented)
+    configs?: Record<string, ConfigData>;
+    // (undocumented)
+    elements?: Record<string, MetaDataTable>;
+    // (undocumented)
+    plugins?: Record<string, Plugin_2>;
+    // (undocumented)
+    transformers?: Record<string, Transformer_2>;
 }
 
 // @internal (undocumented)
