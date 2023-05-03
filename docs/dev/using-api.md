@@ -212,15 +212,15 @@ const htmlvalidate = new HtmlValidate(loader);
 A fully custom loader can be impemented by inheriting from `ConfigLoader`:
 
 ```ts
-import { Config, ConfigData, ConfigLoader } from "html-validate";
+import { Config, ConfigData, ConfigLoader, ResolvedConfig } from "html-validate";
 
 export class MyCustomLoader extends ConfigLoader {
-  public override getConfigFor(handle: string, configOverride?: ConfigData): Config {
+  public override getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig {
     /* return config for given handle (e.g. filename passed to validateFile) */
     const override = this.loadFromObject(configOverride || {});
     const merged = this.globalConfig.merge(override);
     merged.init();
-    return merged;
+    return merged.resolve();
   }
 
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
@@ -237,6 +237,12 @@ export class MyCustomLoader extends ConfigLoader {
   }
 }
 ```
+
+<div class="alert alert-info">
+	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
+	<strong>Note</strong>
+	<p><code>getConfigFor(..)</code> can for backwards compatibility return a <code>Config</code> instance. This is deprecated and will be removed in the next major version.</p>
+</div>
 
 The custom loader is used the same as builtin loaders:
 

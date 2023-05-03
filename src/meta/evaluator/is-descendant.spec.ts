@@ -4,7 +4,10 @@ import { MetaTable } from "../table";
 import { isDescendant } from "./is-descendant";
 
 const metaTable = new MetaTable();
-const config = new ResolvedConfig({ metaTable, plugins: [], rules: new Map(), transformers: [] });
+const config = new ResolvedConfig(
+	{ metaTable, plugins: [], rules: new Map(), transformers: [] },
+	{}
+);
 const parser = new Parser(config);
 
 it("should be true if child is a descendant of given tagName", () => {

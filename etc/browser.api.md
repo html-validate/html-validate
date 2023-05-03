@@ -171,7 +171,7 @@ export abstract class ConfigLoader {
     // (undocumented)
     protected empty(): Config;
     abstract flushCache(handle?: string): void;
-    abstract getConfigFor(handle: string, configOverride?: ConfigData): Config;
+    abstract getConfigFor(handle: string, configOverride?: ConfigData): Config | ResolvedConfig;
     // (undocumented)
     protected readonly globalConfig: Config;
     // (undocumented)
@@ -540,12 +540,12 @@ export class HtmlValidate {
     dumpTokens(filename: string): TokenDump[];
     dumpTree(filename: string): string[];
     flushConfigCache(filename?: string): void;
-    getConfigFor(filename: string, configOverride?: ConfigData): Config;
+    getConfigFor(filename: string, configOverride?: ConfigData): ResolvedConfig;
     getConfigurationSchema(): SchemaObject;
     getElementsSchema(filename?: string): SchemaObject;
     // @internal
     getParserFor(source: Source): Parser;
-    getRuleDocumentation(ruleId: string, config?: Config | null, context?: any | null): RuleDocumentation | null;
+    getRuleDocumentation(ruleId: string, config?: ResolvedConfig | null, context?: any | null): RuleDocumentation | null;
     validateFile(filename: string): Report;
     validateMultipleFiles(filenames: string[]): Report;
     validateSource(input: Source, configOverride?: ConfigData): Report;
@@ -925,8 +925,10 @@ export type RequiredContent = string[];
 
 // @public
 export class ResolvedConfig {
-    constructor({ metaTable, plugins, rules, transformers }: ResolvedConfigData);
+    // @internal
+    constructor({ metaTable, plugins, rules, transformers }: ResolvedConfigData, original: ConfigData);
     canTransform(filename: string): boolean;
+    getConfigData(): ConfigData;
     // (undocumented)
     getMetaTable(): MetaTable;
     // (undocumented)
@@ -1127,7 +1129,7 @@ export class StaticConfigLoader extends ConfigLoader {
     // (undocumented)
     flushCache(): void;
     // (undocumented)
-    getConfigFor(handle: string, configOverride?: ConfigData): Config;
+    getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig;
 }
 
 // @internal (undocumented)

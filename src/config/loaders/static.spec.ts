@@ -7,7 +7,7 @@ describe("StaticConfigLoader", () => {
 			expect.assertions(1);
 			const loader = new StaticConfigLoader();
 			const config = loader.getConfigFor("my-file.html");
-			expect(config.get()).toEqual({
+			expect(config.getConfigData()).toEqual({
 				elements: ["html5"],
 				plugins: [],
 				rules: recommended.rules,
@@ -23,7 +23,7 @@ describe("StaticConfigLoader", () => {
 				},
 			});
 			const config = loader.getConfigFor("my-file.html");
-			expect(config.get()).toEqual(
+			expect(config.getConfigData()).toEqual(
 				expect.objectContaining({
 					rules: {
 						a: "error",
@@ -46,7 +46,7 @@ describe("StaticConfigLoader", () => {
 					c: "warn",
 				},
 			});
-			expect(config.get()).toEqual(
+			expect(config.getConfigData()).toEqual(
 				expect.objectContaining({
 					rules: {
 						a: "warn",
@@ -70,7 +70,7 @@ describe("StaticConfigLoader", () => {
 					b: "error",
 				},
 			});
-			expect(config.get()).toEqual(
+			expect(config.getConfigData()).toEqual(
 				expect.objectContaining({
 					root: true,
 					rules: {

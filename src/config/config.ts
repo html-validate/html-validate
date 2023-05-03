@@ -475,7 +475,7 @@ export class Config {
 	 * @public
 	 */
 	public resolve(): ResolvedConfig {
-		return new ResolvedConfig(this.resolveData());
+		return new ResolvedConfig(this.resolveData(), this.get());
 	}
 
 	/**

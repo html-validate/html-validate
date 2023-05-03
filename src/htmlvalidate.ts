@@ -1,6 +1,6 @@
 import path from "path";
 import { type SchemaObject } from "ajv";
-import { type Config, type ConfigData, ConfigLoader } from "./config";
+import { type ConfigData, type ResolvedConfig, Config, ConfigLoader } from "./config";
 import { type Source } from "./context";
 import { type SourceHooks } from "./context/source";
 import { type EventDump, type TokenDump, Engine } from "./engine";
@@ -99,9 +99,8 @@ export class HtmlValidate {
 	 */
 	public validateSource(input: Source, configOverride?: ConfigData): Report {
 		const config = this.getConfigFor(input.filename, configOverride);
-		const resolved = config.resolve();
-		const source = resolved.transformSource(input);
-		const engine = new Engine(resolved, Parser);
+		const source = config.transformSource(input);
+		const engine = new Engine(config, Parser);
 		return engine.lint(source);
 	}
 
@@ -114,9 +113,8 @@ export class HtmlValidate {
 	 */
 	public validateFile(filename: string): Report {
 		const config = this.getConfigFor(filename);
-		const resolved = config.resolve();
-		const source = resolved.transformFilename(filename);
-		const engine = new Engine(resolved, Parser);
+		const source = config.transformFilename(filename);
+		const engine = new Engine(config, Parser);
 		return engine.lint(source);
 	}
 
@@ -149,8 +147,7 @@ export class HtmlValidate {
 
 		/* test if there is a matching transformer */
 		const config = this.getConfigFor(filename);
-		const resolved = config.resolve();
-		return resolved.canTransform(filename);
+		return config.canTransform(filename);
 	}
 
 	/**
@@ -163,9 +160,8 @@ export class HtmlValidate {
 	 */
 	public dumpTokens(filename: string): TokenDump[] {
 		const config = this.getConfigFor(filename);
-		const resolved = config.resolve();
-		const source = resolved.transformFilename(filename);
-		const engine = new Engine(resolved, Parser);
+		const source = config.transformFilename(filename);
+		const engine = new Engine(config, Parser);
 		return engine.dumpTokens(source);
 	}
 
@@ -179,9 +175,8 @@ export class HtmlValidate {
 	 */
 	public dumpEvents(filename: string): EventDump[] {
 		const config = this.getConfigFor(filename);
-		const resolved = config.resolve();
-		const source = resolved.transformFilename(filename);
-		const engine = new Engine(resolved, Parser);
+		const source = config.transformFilename(filename);
+		const engine = new Engine(config, Parser);
 		return engine.dumpEvents(source);
 	}
 
@@ -195,9 +190,8 @@ export class HtmlValidate {
 	 */
 	public dumpTree(filename: string): string[] {
 		const config = this.getConfigFor(filename);
-		const resolved = config.resolve();
-		const source = resolved.transformFilename(filename);
-		const engine = new Engine(resolved, Parser);
+		const source = config.transformFilename(filename);
+		const engine = new Engine(config, Parser);
 		return engine.dumpTree(source);
 	}
 
@@ -211,8 +205,7 @@ export class HtmlValidate {
 	 */
 	public dumpSource(filename: string): string[] {
 		const config = this.getConfigFor(filename);
-		const resolved = config.resolve();
-		const sources = resolved.transformFilename(filename);
+		const sources = config.transformFilename(filename);
 		return sources.reduce((result: string[], source: Source) => {
 			result.push(
 				`Source ${source.filename}@${source.line}:${source.column} (offset: ${source.offset})`
@@ -281,11 +274,11 @@ export class HtmlValidate {
 	 */
 	public getRuleDocumentation(
 		ruleId: string,
-		config: Config | null = null,
+		config: ResolvedConfig | null = null,
 		context: any | null = null
 	): RuleDocumentation | null {
 		const c = config || this.getConfigFor("inline");
-		const engine = new Engine(c.resolve(), Parser);
+		const engine = new Engine(c, Parser);
 		return engine.getRuleDocumentation(ruleId, context);
 	}
 
@@ -297,7 +290,7 @@ export class HtmlValidate {
 	 */
 	public getParserFor(source: Source): Parser {
 		const config = this.getConfigFor(source.filename);
-		return new Parser(config.resolve());
+		return new Parser(config);
 	}
 
 	/**
@@ -309,8 +302,15 @@ export class HtmlValidate {
 	 * @param filename - Filename to get configuration for.
 	 * @param configOverride - Configuration to apply last.
 	 */
-	public getConfigFor(filename: string, configOverride?: ConfigData): Config {
-		return this.configLoader.getConfigFor(filename, configOverride);
+	public getConfigFor(filename: string, configOverride?: ConfigData): ResolvedConfig {
+		const config = this.configLoader.getConfigFor(filename, configOverride);
+
+		/* for backwards compatibility only */
+		if (config instanceof Config) {
+			return config.resolve();
+		}
+
+		return config;
 	}
 
 	/**

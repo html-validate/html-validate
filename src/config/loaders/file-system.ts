@@ -3,6 +3,7 @@ import path from "path";
 import { Config } from "../config";
 import { type ConfigData } from "../config-data";
 import { type ConfigFactory, ConfigLoader } from "../config-loader";
+import { type ResolvedConfig } from "../resolved-config";
 
 /**
  * @internal
@@ -58,13 +59,13 @@ export class FileSystemConfigLoader extends ConfigLoader {
 	 * @param filename - Filename to get configuration for.
 	 * @param configOverride - Configuration to merge final result with.
 	 */
-	public override getConfigFor(filename: string, configOverride?: ConfigData): Config {
+	public override getConfigFor(filename: string, configOverride?: ConfigData): ResolvedConfig {
 		/* special case when the overridden configuration is marked as root, should
 		 * not try to load any more configuration files */
 		const override = this.loadFromObject(configOverride || {});
 		if (override.isRootFound()) {
 			override.init();
-			return override;
+			return override.resolve();
 		}
 
 		/* special case when the global configuration is marked as root, should not
@@ -72,13 +73,13 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		if (this.globalConfig.isRootFound()) {
 			const merged = this.globalConfig.merge(override);
 			merged.init();
-			return merged;
+			return merged.resolve();
 		}
 
 		const config = this.fromFilename(filename);
 		const merged = config ? config.merge(override) : this.globalConfig.merge(override);
 		merged.init();
-		return merged;
+		return merged.resolve();
 	}
 
 	/**

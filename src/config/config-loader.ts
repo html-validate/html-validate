@@ -1,5 +1,6 @@
 import { Config } from "./config";
 import { type ConfigData } from "./config-data";
+import { type ResolvedConfig } from "./resolved-config";
 
 /**
  * @public
@@ -37,10 +38,16 @@ export abstract class ConfigLoader {
 	 *
 	 * If [[configOverride]] is set it is merged with the final result.
 	 *
+	 * Returning a [[Config]] instance is deprecated and support will be removed
+	 * in the next major release.
+	 *
 	 * @param handle - Unique handle to get configuration for.
 	 * @param configOverride - Optional configuration to merge final results with.
 	 */
-	public abstract getConfigFor(handle: string, configOverride?: ConfigData): Config;
+	public abstract getConfigFor(
+		handle: string,
+		configOverride?: ConfigData
+	): Config | ResolvedConfig;
 
 	/**
 	 * Flush configuration cache.

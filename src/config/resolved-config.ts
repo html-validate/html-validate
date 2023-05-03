@@ -4,7 +4,7 @@ import { ensureError, NestedError } from "../error";
 import { type MetaTable } from "../meta";
 import { type Plugin } from "../plugin";
 import { type TransformContext, type Transformer } from "../transform";
-import { type RuleOptions } from "./config-data";
+import { type ConfigData, type RuleOptions } from "./config-data";
 import { type Severity } from "./severity";
 
 /**
@@ -38,11 +38,29 @@ export class ResolvedConfig {
 	private rules: Map<string, [Severity, RuleOptions]>;
 	private transformers: TransformerEntry[];
 
-	public constructor({ metaTable, plugins, rules, transformers }: ResolvedConfigData) {
+	/** The original data this resolved configuration was created from */
+	private original: ConfigData;
+
+	/**
+	 * @internal
+	 */
+	public constructor(
+		{ metaTable, plugins, rules, transformers }: ResolvedConfigData,
+		original: ConfigData
+	) {
 		this.metaTable = metaTable;
 		this.plugins = plugins;
 		this.rules = rules;
 		this.transformers = transformers;
+		this.original = original;
+	}
+
+	/**
+	 * Returns the (merged) configuration data used to create this resolved
+	 * configuration.
+	 */
+	public getConfigData(): ConfigData {
+		return this.original;
 	}
 
 	public getMetaTable(): MetaTable {

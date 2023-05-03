@@ -15,7 +15,7 @@ export function printConfig(
 		return Promise.resolve(false);
 	}
 	const config = htmlvalidate.getConfigFor(files[0]);
-	const json = JSON.stringify(config.get(), null, 2);
+	const json = JSON.stringify(config.getConfigData(), null, 2);
 	output.write(`${json}\n`);
 	return Promise.resolve(true);
 }

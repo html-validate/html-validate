@@ -1,6 +1,7 @@
 import { type Config } from "../config";
 import { type ConfigData } from "../config-data";
 import { ConfigLoader } from "../config-loader";
+import { type ResolvedConfig } from "../resolved-config";
 
 /**
  * The static configuration loader does not do any per-handle lookup. Only the
@@ -12,16 +13,16 @@ import { ConfigLoader } from "../config-loader";
  * @public
  */
 export class StaticConfigLoader extends ConfigLoader {
-	public override getConfigFor(handle: string, configOverride?: ConfigData): Config {
+	public override getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig {
 		const override = this.loadFromObject(configOverride || {});
 		if (override.isRootFound()) {
 			override.init();
-			return override;
+			return override.resolve();
 		}
 
 		const merged = this.globalConfig.merge(override);
 		merged.init();
-		return merged;
+		return merged.resolve();
 	}
 
 	public override flushCache(): void {

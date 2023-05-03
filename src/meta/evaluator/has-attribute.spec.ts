@@ -4,7 +4,10 @@ import { MetaTable } from "../table";
 import { hasAttribute } from "./has-attribute";
 
 const metaTable = new MetaTable();
-const config = new ResolvedConfig({ metaTable, plugins: [], rules: new Map(), transformers: [] });
+const config = new ResolvedConfig(
+	{ metaTable, plugins: [], rules: new Map(), transformers: [] },
+	{}
+);
 const parser = new Parser(config);
 
 it("should be true if element has given attribute", () => {
