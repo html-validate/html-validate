@@ -1,5 +1,5 @@
 import { globSync } from "glob";
-import { Config, ConfigData, ConfigLoader, Severity } from "./config";
+import { Config, ConfigData, ConfigLoader, ResolvedConfig, Severity } from "./config";
 import { Source, SourceHooks } from "./context";
 import { HtmlValidate } from "./htmlvalidate";
 import { Parser } from "./parser";
@@ -20,7 +20,7 @@ jest.mock("./engine", () => {
 });
 jest.mock("./parser");
 
-function mockConfig(): Config {
+function mockConfig(): ResolvedConfig {
 	const config = Config.empty();
 	const original = config.resolve;
 	config.init();
@@ -37,7 +37,7 @@ function mockConfig(): Config {
 		]);
 		return resolved;
 	});
-	return config;
+	return config.resolve();
 }
 
 beforeEach(() => {
@@ -48,12 +48,12 @@ describe("HtmlValidate", () => {
 	it("should support using a custom config loader", () => {
 		expect.assertions(2);
 		const loader = new (class extends ConfigLoader {
-			public getConfigFor(): Config {
+			public getConfigFor(): ResolvedConfig {
 				return Config.fromObject({
 					rules: {
 						foobar: "error",
 					},
-				});
+				}).resolve();
 			}
 			public flushCache(): void {
 				/* do nothing */
@@ -67,7 +67,7 @@ describe("HtmlValidate", () => {
 		const filename = "/path/to/my-file.html";
 		const config = htmlvalidate.getConfigFor(filename);
 		expect(getConfigFor).toHaveBeenCalledWith(filename, undefined);
-		expect(config.get()).toEqual({
+		expect(config.getConfigData()).toEqual({
 			plugins: [],
 			rules: {
 				foobar: "error",
@@ -532,7 +532,7 @@ describe("HtmlValidate", () => {
 			]);
 			return resolved;
 		};
-		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(() => config);
+		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(() => config.resolve());
 		const output = htmlvalidate.dumpSource(filename);
 		expect(output).toMatchInlineSnapshot(`
 			[
@@ -581,7 +581,7 @@ describe("HtmlValidate", () => {
 	it("getRuleDocumentation() should delegate call to engine", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
-		const config = Config.empty();
+		const config = Config.empty().resolve();
 		htmlvalidate.getRuleDocumentation("foo", config, { bar: "baz" });
 		expect(engine.getRuleDocumentation).toHaveBeenCalledWith("foo", {
 			bar: "baz",
@@ -591,7 +591,7 @@ describe("HtmlValidate", () => {
 	it("getParserFor() should create a parser for given filename", () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate();
-		const config = Config.empty();
+		const config = Config.empty().resolve();
 		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(() => config);
 		const source: Source = {
 			data: "foo",
@@ -600,10 +600,9 @@ describe("HtmlValidate", () => {
 			column: 1,
 			offset: 0,
 		};
-		const resolvedConfig = config.resolve();
 		const parser = htmlvalidate.getParserFor(source);
 		expect(parser).toBeInstanceOf(Parser);
-		expect(Parser).toHaveBeenCalledWith(resolvedConfig);
+		expect(Parser).toHaveBeenCalledWith(config);
 	});
 
 	it("flushConfigCache() should delegate to configLoader", () => {

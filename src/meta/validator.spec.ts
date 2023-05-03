@@ -20,12 +20,15 @@ describe("Meta validator", () => {
 
 	beforeEach(() => {
 		metaTable = new MetaTable();
-		config = new ResolvedConfig({
-			metaTable,
-			plugins: [],
-			rules: new Map(),
-			transformers: [],
-		});
+		config = new ResolvedConfig(
+			{
+				metaTable,
+				plugins: [],
+				rules: new Map(),
+				transformers: [],
+			},
+			{}
+		);
 		parser = new Parser(config);
 	});
 

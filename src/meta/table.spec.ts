@@ -248,12 +248,15 @@ describe("MetaTable", () => {
 					void: true,
 				} as unknown as Partial<MetaData>),
 			});
-			config = new ResolvedConfig({
-				metaTable,
-				plugins: [],
-				rules: new Map(),
-				transformers: [],
-			});
+			config = new ResolvedConfig(
+				{
+					metaTable,
+					plugins: [],
+					rules: new Map(),
+					transformers: [],
+				},
+				{}
+			);
 			const parser = new Parser(config);
 			expect(() => parser.parseHtml("<invalid/>")).toThrow(
 				'Failed to find function "invalid" when evaluating property expression'
@@ -266,12 +269,15 @@ describe("MetaTable", () => {
 			metaTable.loadFromObject({
 				invalid: mockEntry({ interactive: "invalid", void: true }),
 			});
-			config = new ResolvedConfig({
-				metaTable,
-				plugins: [],
-				rules: new Map(),
-				transformers: [],
-			});
+			config = new ResolvedConfig(
+				{
+					metaTable,
+					plugins: [],
+					rules: new Map(),
+					transformers: [],
+				},
+				{}
+			);
 			const parser = new Parser(config);
 			expect(() => parser.parseHtml("<invalid/>")).toThrow(
 				'Failed to find function "invalid" when evaluating property expression'
@@ -294,12 +300,15 @@ describe("MetaTable", () => {
 						void: true,
 					}),
 				});
-				config = new ResolvedConfig({
-					metaTable,
-					plugins: [],
-					rules: new Map(),
-					transformers: [],
-				});
+				config = new ResolvedConfig(
+					{
+						metaTable,
+						plugins: [],
+						rules: new Map(),
+						transformers: [],
+					},
+					{}
+				);
 			});
 
 			it("should be true if child is a descendant of given tagName", () => {
@@ -340,12 +349,15 @@ describe("MetaTable", () => {
 						void: true,
 					}),
 				});
-				config = new ResolvedConfig({
-					metaTable,
-					plugins: [],
-					rules: new Map(),
-					transformers: [],
-				});
+				config = new ResolvedConfig(
+					{
+						metaTable,
+						plugins: [],
+						rules: new Map(),
+						transformers: [],
+					},
+					{}
+				);
 			});
 
 			it("should be true if element has given attribute", () => {
@@ -398,12 +410,15 @@ describe("MetaTable", () => {
 						void: true,
 					}),
 				});
-				config = new ResolvedConfig({
-					metaTable,
-					plugins: [],
-					rules: new Map(),
-					transformers: [],
-				});
+				config = new ResolvedConfig(
+					{
+						metaTable,
+						plugins: [],
+						rules: new Map(),
+						transformers: [],
+					},
+					{}
+				);
 			});
 
 			it('should be true when "=" is used to match existing value', () => {

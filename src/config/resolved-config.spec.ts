@@ -11,7 +11,7 @@ function createMockConfig(config: Partial<ResolvedConfigData> = {}): ResolvedCon
 		rules: new Map(),
 		transformers: [],
 	};
-	return new ResolvedConfig({ ...defaults, ...config });
+	return new ResolvedConfig({ ...defaults, ...config }, {});
 }
 
 beforeEach(() => {

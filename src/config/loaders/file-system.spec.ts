@@ -107,7 +107,7 @@ describe("FileSystemConfigLoader", () => {
 			/* .htmlvalidate.json */
 			jest.spyOn(loader, "fromFilename").mockImplementation(() => null);
 			const config = loader.getConfigFor("my-file.html");
-			expect(config.get()).toEqual(
+			expect(config.getConfigData()).toEqual(
 				expect.objectContaining({
 					rules: {
 						a: "error",
@@ -134,7 +134,7 @@ describe("FileSystemConfigLoader", () => {
 					c: "warn",
 				},
 			});
-			expect(config.get()).toEqual(
+			expect(config.getConfigData()).toEqual(
 				expect.objectContaining({
 					rules: {
 						a: "warn",
@@ -162,7 +162,7 @@ describe("FileSystemConfigLoader", () => {
 				})
 			);
 			const config = loader.getConfigFor("my-file.html");
-			expect(config.get()).toEqual(
+			expect(config.getConfigData()).toEqual(
 				expect.objectContaining({
 					rules: {
 						b: "error",
@@ -194,7 +194,7 @@ describe("FileSystemConfigLoader", () => {
 					b: "warn",
 				},
 			});
-			expect(config.get()).toEqual(
+			expect(config.getConfigData()).toEqual(
 				expect.objectContaining({
 					rules: {
 						b: "warn",
@@ -212,7 +212,7 @@ describe("FileSystemConfigLoader", () => {
 			const fromFilename = jest.spyOn(loader, "fromFilename");
 			const config = loader.getConfigFor("my-file.html");
 			expect(fromFilename).not.toHaveBeenCalled();
-			expect(config.get()).toEqual(
+			expect(config.getConfigData()).toEqual(
 				expect.objectContaining({
 					root: true,
 				})
@@ -232,7 +232,7 @@ describe("FileSystemConfigLoader", () => {
 					a: "off",
 				},
 			});
-			expect(config.get()).toEqual(
+			expect(config.getConfigData()).toEqual(
 				expect.objectContaining({
 					root: true,
 					rules: {
@@ -257,7 +257,7 @@ describe("FileSystemConfigLoader", () => {
 				},
 			});
 			expect(fromFilename).not.toHaveBeenCalled();
-			expect(config.get()).toEqual(
+			expect(config.getConfigData()).toEqual(
 				expect.objectContaining({
 					root: true,
 					rules: {
@@ -448,14 +448,14 @@ describe("FileSystemConfigLoader", () => {
 
 		/* extract only relevant rules from configuration to avoid bloat when new
 		 * rules are added to recommended config */
-		function filter(src: Config): ConfigData {
+		function filter(src: ConfigData): ConfigData {
 			const whitelisted = [
 				"no-self-closing",
 				"deprecated",
 				"element-permitted-content",
 				"void-content",
 			];
-			const data = { rules: {}, ...src.get() };
+			const data = { rules: {}, ...src };
 			data.rules = Object.keys(data.rules)
 				.filter((key) => whitelisted.includes(key))
 				.reduce((dst, key) => {
@@ -469,7 +469,7 @@ describe("FileSystemConfigLoader", () => {
 		it.each(files)("%s", (filename: string) => {
 			expect.assertions(1);
 			const config = loader.getConfigFor(filename);
-			expect(filter(config)).toMatchSnapshot();
+			expect(filter(config.getConfigData())).toMatchSnapshot();
 		});
 	});
 });
