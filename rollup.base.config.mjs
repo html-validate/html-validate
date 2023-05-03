@@ -112,6 +112,9 @@ export function build(format) {
 				chunkFileNames: "[name].js",
 				interop: "auto",
 			},
+			treeshake: {
+				preset: "smallest",
+			},
 			preserveEntrySignatures: "strict",
 			external,
 			plugins: [
