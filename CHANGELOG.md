@@ -1,5 +1,15 @@
 # html-validate changelog
 
+## [7.16.0](https://gitlab.com/html-validate/html-validate/compare/v7.15.3...v7.16.0) (2023-05-04)
+
+### Features
+
+- **api:** `ConfigLoader` returns a `ResolvedConfig` ([1fd8b73](https://gitlab.com/html-validate/html-validate/commit/1fd8b73f9ffd3640a3814931681627d662625f58))
+
+### Dependency upgrades
+
+- **deps:** update dependency @html-validate/stylish to v4 ([2a089ec](https://gitlab.com/html-validate/html-validate/commit/2a089ec03e7e49bb620fb61df8dde2928274d2fa))
+
 ## [7.15.3](https://gitlab.com/html-validate/html-validate/compare/v7.15.2...v7.15.3) (2023-05-03)
 
 ### Bug Fixes
