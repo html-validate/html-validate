@@ -1,4 +1,4 @@
-import stylishImpl from "@html-validate/stylish";
+import { stylish as stylishImpl } from "@html-validate/stylish";
 import kleur from "kleur";
 import { type Result } from "../reporter";
 import { type Formatter } from "./formatter";
