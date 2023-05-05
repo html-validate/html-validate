@@ -8,6 +8,7 @@ import { computeHash } from "../utils/compute-hash";
 import { requireUncached } from "../utils/require-uncached";
 import schema from "../schema/elements.json";
 import { ajvFunctionKeyword, ajvRegexpKeyword } from "../schema/keywords";
+import { legacyRequire } from "../resolve";
 import {
 	type ElementTable,
 	type InternalAttributeFlags,
@@ -130,7 +131,7 @@ export class MetaTable {
 	public loadFromFile(filename: string): void {
 		try {
 			/* load using require as it can process both js and json */
-			const data = requireUncached(filename);
+			const data = requireUncached(legacyRequire, filename);
 			this.loadFromObject(data, filename);
 		} catch (err: unknown) {
 			if (err instanceof InheritError) {
