@@ -75,7 +75,7 @@ export function configDataFromFile(filename: string): ConfigData {
 	try {
 		/* load using require as it can process both js and json */
 		/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- technical debt, should be refactored into something more typesafe */
-		json = requireUncached(filename) as any;
+		json = requireUncached(legacyRequire, filename) as any;
 	} catch (err: unknown) {
 		throw new ConfigError(`Failed to read configuration from "${filename}"`, ensureError(err));
 	}
