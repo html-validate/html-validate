@@ -138,7 +138,7 @@ export interface ConfigData {
     elements?: Array<string | Record<string, unknown>>;
     // (undocumented)
     extends?: string[];
-    plugins?: string[];
+    plugins?: Array<string | Plugin_2>;
     root?: boolean;
     // (undocumented)
     rules?: RuleConfig;

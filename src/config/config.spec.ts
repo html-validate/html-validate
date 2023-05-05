@@ -467,6 +467,28 @@ describe("config", () => {
 		});
 	});
 
+	it("should load plugin from name", () => {
+		expect.assertions(1);
+		const config = Config.fromObject({
+			plugins: ["mock-plugin"],
+		});
+		config.init();
+		expect(config.getPlugins()).toEqual([expect.objectContaining({ name: "mock-plugin" })]);
+	});
+
+	it("should load plugin inline", () => {
+		expect.assertions(1);
+		const config = Config.fromObject({
+			plugins: [
+				{
+					name: "inline-plugin",
+				},
+			],
+		});
+		config.init();
+		expect(config.getPlugins()).toEqual([expect.objectContaining({ name: "inline-plugin" })]);
+	});
+
 	describe("transformers", () => {
 		it("should load transformer from package", () => {
 			expect.assertions(1);

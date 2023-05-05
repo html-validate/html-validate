@@ -396,8 +396,15 @@ export class Config {
 		return this.plugins;
 	}
 
-	private loadPlugins(plugins: string[]): LoadedPlugin[] {
-		return plugins.map((moduleName: string) => {
+	private loadPlugins(plugins: Array<string | Plugin>): LoadedPlugin[] {
+		return plugins.map((moduleName: string | Plugin, index) => {
+			if (typeof moduleName !== "string") {
+				const plugin = moduleName as LoadedPlugin;
+				plugin.name = plugin.name || `:anonymous@${index}`;
+				plugin.originalName = `:anonymous@${index}`;
+				return plugin;
+			}
+
 			try {
 				const plugin = legacyRequire(moduleName.replace("<rootDir>", this.rootDir)) as LoadedPlugin;
 				plugin.name = plugin.name || moduleName;
