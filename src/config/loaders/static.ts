@@ -7,13 +7,13 @@ import { type ResolvedConfig } from "../resolved-config";
  * The static configuration loader does not do any per-handle lookup. Only the
  * global or per-call configuration is used.
  *
- * In practice this means no configuration is fetch by traversing the
+ * In practice this means no configuration is fetched by traversing the
  * filesystem.
  *
  * @public
  */
 export class StaticConfigLoader extends ConfigLoader {
-	public override getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig {
+	public override getConfigFor(_handle: string, configOverride?: ConfigData): ResolvedConfig {
 		const override = this.loadFromObject(configOverride || {});
 		if (override.isRootFound()) {
 			override.init();
