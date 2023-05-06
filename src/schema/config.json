@@ -40,7 +40,7 @@
     "plugins": {
       "type": "array",
       "items": {
-        "type": "string"
+        "anyOf": [{ "type": "string" }, { "type": "object" }]
       },
       "title": "Plugins to load",
       "description": "Array of plugins load. Use <rootDir> to refer to the folder with the package.json file.",

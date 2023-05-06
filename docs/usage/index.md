@@ -126,12 +126,12 @@ See [elements metadata](/usage/elements.html) for details about writing your own
 ### `plugins`
 
 List of extra plugins to load.
+Plugins can contain additional rules, predefined configurations and transformers.
+
 Can be either a NPM package or relative path to a local file, i.e. when writing custom rules inside the repository.
 Must be resolvable by `require(..)`.
 
-Plugins can contain additional rules.
-
-See [writing plugins](/dev/writing-plugins.html) for details about creating your own plugins.
+See {@link writing-plugins writing plugins} for details about creating your own plugins.
 
 ```json
 {
@@ -144,6 +144,19 @@ See [writing plugins](/dev/writing-plugins.html) for details about creating your
 	<strong>Note</strong>
 	<p>Loading native ESM is not supported yet (see <a href="https://gitlab.com/html-validate/html-validate/-/issues/125">issue #125</a>) and must be transpiled to commonjs before usage.</p>
 </div>
+
+Since version %version%, if you are using javascript configuration or API you can also define plugins inline:
+
+```js
+module.exports = {
+  plugins: [
+    {
+      name: "my-awesome-plugin",
+      /* ... */
+    },
+  ],
+};
+```
 
 ### `transform`
 

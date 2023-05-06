@@ -1,3 +1,5 @@
+import { type Plugin } from "../plugin";
+
 /**
  * @public
  */
@@ -53,7 +55,7 @@ export interface ConfigData {
 	 *
 	 * Each plugin must be resolvable be require and export the plugin interface.
 	 */
-	plugins?: string[];
+	plugins?: Array<string | Plugin>;
 
 	/**
 	 * List of source file transformations. A transformer takes a filename and
