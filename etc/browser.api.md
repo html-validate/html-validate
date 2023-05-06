@@ -1129,7 +1129,7 @@ export class StaticConfigLoader extends ConfigLoader {
     // (undocumented)
     flushCache(): void;
     // (undocumented)
-    getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig;
+    getConfigFor(_handle: string, configOverride?: ConfigData): ResolvedConfig;
 }
 
 // @internal (undocumented)
