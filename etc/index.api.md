@@ -858,7 +858,6 @@ export class MetaTable {
     getTagsWithProperty(propName: MetaLookupableProperty): string[];
     // @internal (undocumented)
     init(): void;
-    loadFromFile(filename: string): void;
     loadFromObject(obj: unknown, filename?: string | null): void;
     // @internal (undocumented)
     resolve(node: HtmlElement): void;

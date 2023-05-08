@@ -1,3 +1,5 @@
+/* eslint-disable import/no-dynamic-require, security/detect-non-literal-require, @typescript-eslint/no-var-requires -- needed to load fixtues */
+
 import path from "path";
 
 /* mock ajv for easier testing of errors and to allow invalid values though the
@@ -35,7 +37,7 @@ jest.mock(
 );
 
 import { ResolvedConfig } from "../config";
-import { UserError, SchemaValidationError, InheritError } from "../error";
+import { SchemaValidationError, InheritError } from "../error";
 import { Parser } from "../parser";
 import { MetaData, MetaDataTable } from "./element";
 import { MetaTable } from "./table";
@@ -97,6 +99,7 @@ describe("MetaTable", () => {
 		expect.assertions(2);
 		const filename = path.resolve(__dirname, "../../test-files/meta/invalid-schema.json");
 		const table = new MetaTable();
+		const data = require(filename);
 		validate.errors = [
 			{
 				keyword: "additionalProperties",
@@ -106,8 +109,8 @@ describe("MetaTable", () => {
 				message: "should NOT have additional properties",
 			},
 		];
-		expect(() => table.loadFromFile(filename)).toThrow(SchemaValidationError);
-		expect(() => table.loadFromFile(filename)).toThrow(
+		expect(() => table.loadFromObject(data, filename)).toThrow(SchemaValidationError);
+		expect(() => table.loadFromObject(data, filename)).toThrow(
 			"Element metadata is not valid: /foo Property invalid is not expected to be here"
 		);
 	});
@@ -116,19 +119,33 @@ describe("MetaTable", () => {
 		expect.assertions(2);
 		const filename = path.resolve(__dirname, "../../test-files/meta/invalid-inherit.json");
 		const table = new MetaTable();
-		expect(() => table.loadFromFile(filename)).toThrow(InheritError);
-		expect(() => table.loadFromFile(filename)).toThrowErrorMatchingInlineSnapshot(
+		const data = require(filename);
+		expect(() => table.loadFromObject(data, filename)).toThrow(InheritError);
+		expect(() => table.loadFromObject(data, filename)).toThrowErrorMatchingInlineSnapshot(
 			`"Element <foo> cannot inherit from <bar>: no such element"`
 		);
 	});
 
-	it("should throw UserError if file is not properly formatted json", () => {
-		expect.assertions(2);
+	it("should augment exception with filename if provided", () => {
+		expect.assertions(1);
 		const table = new MetaTable();
-		expect(() => table.loadFromFile("invalid-file.json")).toThrow(UserError);
-		expect(() => table.loadFromFile("invalid-file.json")).toThrow(
-			'Failed to load element metadata from "invalid-file.json"'
+		const data = { foo: {} };
+		jest.spyOn(table as unknown as any, "addEntry").mockImplementation(() => {
+			throw new Error("Mock error");
+		});
+		expect(() => table.loadFromObject(data, "my-file.json")).toThrowErrorMatchingInlineSnapshot(
+			`"Failed to load element metadata from "my-file.json""`
 		);
+	});
+
+	it("should throw original exception if no filename if provided", () => {
+		expect.assertions(1);
+		const table = new MetaTable();
+		const data = { foo: {} };
+		jest.spyOn(table as unknown as any, "addEntry").mockImplementation(() => {
+			throw new Error("Mock error");
+		});
+		expect(() => table.loadFromObject(data)).toThrowErrorMatchingInlineSnapshot(`"Mock error"`);
 	});
 
 	it("should ignore $schema property", () => {
@@ -142,52 +159,6 @@ describe("MetaTable", () => {
 		} as unknown as MetaDataTable);
 		expect(table.getMetaFor("foo")).toBeDefined();
 		expect(table.getMetaFor("$schema")).toBeNull();
-	});
-
-	describe("should load metadata from", () => {
-		const fileDir = path.resolve(__dirname, "../../test-files/meta");
-
-		it("json file", () => {
-			expect.assertions(1);
-			const table = new MetaTable();
-			const filename = path.join(fileDir, "elements-json.json");
-			table.loadFromFile(filename);
-			expect(table.getMetaFor("foo")).toMatchInlineSnapshot(`
-				{
-				  "attributes": {},
-				  "flow": true,
-				  "tagName": "foo",
-				}
-			`);
-		});
-
-		it("js file", () => {
-			expect.assertions(1);
-			const table = new MetaTable();
-			const filename = path.join(fileDir, "elements-js.js");
-			table.loadFromFile(filename);
-			expect(table.getMetaFor("foo")).toMatchInlineSnapshot(`
-				{
-				  "attributes": {},
-				  "flow": true,
-				  "tagName": "foo",
-				}
-			`);
-		});
-
-		it("js without extension", () => {
-			expect.assertions(1);
-			const table = new MetaTable();
-			const filename = path.join(fileDir, "elements-js");
-			table.loadFromFile(filename);
-			expect(table.getMetaFor("foo")).toMatchInlineSnapshot(`
-				{
-				  "attributes": {},
-				  "flow": true,
-				  "tagName": "foo",
-				}
-			`);
-		});
 	});
 
 	describe("getMetaFor", () => {
