@@ -51,6 +51,7 @@ export default class AriaLabelMisuse extends Rule {
 		});
 	}
 
+	/* eslint-disable-next-line complexity -- technical debt */
 	private validateElement(target: HtmlElement): void {
 		const attr = target.getAttribute("aria-label");
 		if (!attr || !attr.value || attr.valueMatches("", false)) {
@@ -60,6 +61,11 @@ export default class AriaLabelMisuse extends Rule {
 		/* ignore elements without meta */
 		const meta = target.meta;
 		if (!meta) {
+			return;
+		}
+
+		/* ignore elements with explicit aria-label attribute */
+		if (meta.attributes["aria-label"]) {
 			return;
 		}
 

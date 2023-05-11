@@ -7,6 +7,19 @@ describe("rule aria-label-misuse", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			elements: [
+				"html5",
+				{
+					"custom-allowed": {
+						attributes: {
+							"aria-label": {},
+						},
+					},
+					"custom-disallowed": {
+						attributes: {},
+					},
+				},
+			],
 			rules: { "aria-label-misuse": ["error"] },
 		});
 	});
@@ -71,6 +84,13 @@ describe("rule aria-label-misuse", () => {
 		});
 	});
 
+	it("should not report on custom element with explicit aria-label attribute", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <custom-allowed aria-label="foobar"></custom-allowed> `;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should report error when aria-label is used on invalid element", () => {
 		expect.assertions(2);
 		const markup = '<p aria-label="foobar"></p>';
@@ -85,6 +105,19 @@ describe("rule aria-label-misuse", () => {
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("aria-label-misuse", '"aria-label" cannot be used on this element');
+	});
+
+	it("should report error on custom element with without explicit aria-label attribute", () => {
+		expect.assertions(2);
+		const markup = /* HTML */ ` <custom-disallowed aria-label="foobar"></custom-disallowed> `;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:1:21:
+			> 1 |  <custom-disallowed aria-label="foobar"></custom-disallowed>
+			    |                     ^^^^^^^^^^
+			Selector: custom-disallowed"
+		`);
 	});
 
 	it("should handle dynamic attribute", () => {
