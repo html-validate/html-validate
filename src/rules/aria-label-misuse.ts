@@ -1,5 +1,6 @@
 import { type HtmlElement } from "../dom";
 import { type DOMReadyEvent } from "../event";
+import { type MetaElement } from "../meta";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 const whitelisted = [
@@ -20,6 +21,35 @@ const whitelisted = [
 	"summary",
 	"figure",
 ];
+
+function isValidUsage(target: HtmlElement, meta: MetaElement): boolean {
+	/* elements with explicit aria-label attribute are valid */
+	if (meta.attributes["aria-label"]) {
+		return true;
+	}
+
+	/* landmark and other whitelisted elements are valid */
+	if (whitelisted.includes(target.tagName)) {
+		return true;
+	}
+
+	/* elements with role are valid, @todo check if the role is widget or landmark */
+	if (target.hasAttribute("role")) {
+		return true;
+	}
+
+	/* elements with tabindex (implicit interactive) are valid */
+	if (target.hasAttribute("tabindex")) {
+		return true;
+	}
+
+	/* interactive and labelable elements are valid */
+	if (meta.interactive || meta.labelable) {
+		return true;
+	}
+
+	return false;
+}
 
 export default class AriaLabelMisuse extends Rule {
 	public documentation(): RuleDocumentation {
@@ -51,7 +81,6 @@ export default class AriaLabelMisuse extends Rule {
 		});
 	}
 
-	/* eslint-disable-next-line complexity -- technical debt */
 	private validateElement(target: HtmlElement): void {
 		const attr = target.getAttribute("aria-label");
 		if (!attr || !attr.value || attr.valueMatches("", false)) {
@@ -64,28 +93,8 @@ export default class AriaLabelMisuse extends Rule {
 			return;
 		}
 
-		/* ignore elements with explicit aria-label attribute */
-		if (meta.attributes["aria-label"]) {
-			return;
-		}
-
-		/* ignore landmark and other whitelisted elements */
-		if (whitelisted.includes(target.tagName)) {
-			return;
-		}
-
-		/* ignore elements with role, @todo check if the role is widget or landmark */
-		if (target.hasAttribute("role")) {
-			return;
-		}
-
-		/* ignore elements with tabindex (implicit interactive) */
-		if (target.hasAttribute("tabindex")) {
-			return;
-		}
-
-		/* ignore interactive and labelable elements */
-		if (meta.interactive || meta.labelable) {
+		/* ignore elements which is valid usage */
+		if (isValidUsage(target, meta)) {
 			return;
 		}
 
