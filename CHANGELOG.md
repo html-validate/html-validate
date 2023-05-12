@@ -1,5 +1,15 @@
 # html-validate changelog
 
+## [7.17.0](https://gitlab.com/html-validate/html-validate/compare/v7.16.0...v7.17.0) (2023-05-12)
+
+### Features
+
+- allow to specify plugins inline in configuration ([6ba1467](https://gitlab.com/html-validate/html-validate/commit/6ba1467dcbcfb48cae6931792178e8038cc26d38))
+
+### Bug Fixes
+
+- **rules:** allow custom elements to use `aria-label` ([513a813](https://gitlab.com/html-validate/html-validate/commit/513a81335ba08104940cdc5611f6c3e393d95dab))
+
 ## [7.16.0](https://gitlab.com/html-validate/html-validate/compare/v7.15.3...v7.16.0) (2023-05-04)
 
 ### Features

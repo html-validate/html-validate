@@ -145,7 +145,7 @@ See {@link writing-plugins writing plugins} for details about creating your own 
 	<p>Loading native ESM is not supported yet (see <a href="https://gitlab.com/html-validate/html-validate/-/issues/125">issue #125</a>) and must be transpiled to commonjs before usage.</p>
 </div>
 
-Since version %version%, if you are using javascript configuration or API you can also define plugins inline:
+Since version 7.17.0, if you are using javascript configuration or API you can also define plugins inline:
 
 ```js
 module.exports = {

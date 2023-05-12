@@ -58,4 +58,4 @@ The mere presence of `aria-label` declaration ensures this rule will allow `aria
 
 ## Version history
 
-- %version% - Allow usage on custom elements.
+- 7.17.0 - Allow usage on custom elements.
