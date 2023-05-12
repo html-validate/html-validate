@@ -7,41 +7,54 @@ describe("rule aria-label-misuse", () => {
 
 	beforeAll(() => {
 		htmlvalidate = new HtmlValidate({
+			elements: [
+				"html5",
+				{
+					"custom-allowed": {
+						attributes: {
+							"aria-label": {},
+						},
+					},
+					"custom-disallowed": {
+						attributes: {},
+					},
+				},
+			],
 			rules: { "aria-label-misuse": ["error"] },
 		});
 	});
 
 	it("should not report for element without aria-label", () => {
 		expect.assertions(1);
-		const markup = "<p></p>";
+		const markup = /* HTML */ ` <p></p> `;
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report for element with empty aria-label", () => {
 		expect.assertions(1);
-		const markup = '<p aria-label=""></p>';
+		const markup = /* HTML */ ` <p aria-label=""></p> `;
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report for element with boolean aria-label", () => {
 		expect.assertions(1);
-		const markup = "<p aria-label></p>";
+		const markup = /* HTML */ ` <p aria-label></p> `;
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report for element without meta", () => {
 		expect.assertions(1);
-		const markup = '<custom-element aria-label="foobar"></custom-element>';
+		const markup = /* HTML */ ` <custom-element aria-label="foobar"></custom-element> `;
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report for element with role", () => {
 		expect.assertions(1);
-		const markup = '<p aria-label="foobar" role="widget"></p>';
+		const markup = /* HTML */ ` <p aria-label="foobar" role="widget"></p> `;
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
@@ -71,36 +84,76 @@ describe("rule aria-label-misuse", () => {
 		});
 	});
 
+	it("should not report on custom element with explicit aria-label attribute", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <custom-allowed aria-label="foobar"></custom-allowed> `;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should report error when aria-label is used on invalid element", () => {
 		expect.assertions(2);
-		const markup = '<p aria-label="foobar"></p>';
+		const markup = /* HTML */ ` <p aria-label="foobar"></p> `;
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("aria-label-misuse", '"aria-label" cannot be used on this element');
+		expect(report).toMatchInlineCodeframe(`
+			"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:1:5:
+			> 1 |  <p aria-label="foobar"></p>
+			    |     ^^^^^^^^^^
+			Selector: p"
+		`);
 	});
 
 	it("should report error when aria-label is used on input hidden", () => {
 		expect.assertions(2);
-		const markup = '<input type="hidden" aria-label="foobar">';
+		const markup = /* HTML */ ` <input type="hidden" aria-label="foobar" /> `;
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("aria-label-misuse", '"aria-label" cannot be used on this element');
+		expect(report).toMatchInlineCodeframe(`
+			"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:1:23:
+			> 1 |  <input type="hidden" aria-label="foobar" />
+			    |                       ^^^^^^^^^^
+			Selector: input"
+		`);
+	});
+
+	it("should report error on custom element with without explicit aria-label attribute", () => {
+		expect.assertions(2);
+		const markup = /* HTML */ ` <custom-disallowed aria-label="foobar"></custom-disallowed> `;
+		const report = htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:1:21:
+			> 1 |  <custom-disallowed aria-label="foobar"></custom-disallowed>
+			    |                     ^^^^^^^^^^
+			Selector: custom-disallowed"
+		`);
 	});
 
 	it("should handle dynamic attribute", () => {
 		expect.assertions(2);
-		const markup = '<p dynamic-aria-label="foobar"></p>';
+		const markup = /* HTML */ ` <p dynamic-aria-label="foobar"></p> `;
 		const report = htmlvalidate.validateString(markup, { processAttribute });
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("aria-label-misuse", '"aria-label" cannot be used on this element');
+		expect(report).toMatchInlineCodeframe(`
+			"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:1:5:
+			> 1 |  <p dynamic-aria-label="foobar"></p>
+			    |     ^^^^^^^^^^^^^^^^^^
+			Selector: p"
+		`);
 	});
 
 	it("should handle interpolated attribute", () => {
 		expect.assertions(2);
-		const markup = '<p aria-label="{{ interpolated }}"></p>';
+		const markup = /* HTML */ ` <p aria-label="{{ interpolated }}"></p> `;
 		const report = htmlvalidate.validateString(markup, { processAttribute });
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("aria-label-misuse", '"aria-label" cannot be used on this element');
+		expect(report).toMatchInlineCodeframe(`
+			"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:1:5:
+			> 1 |  <p aria-label="{{ interpolated }}"></p>
+			    |     ^^^^^^^^^^
+			Selector: p"
+		`);
 	});
 
 	it("should contain documentation", () => {
