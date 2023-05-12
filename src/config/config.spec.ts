@@ -483,10 +483,16 @@ describe("config", () => {
 				{
 					name: "inline-plugin",
 				},
+				{
+					/* anonymous/unnamed plugin */
+				},
 			],
 		});
 		config.init();
-		expect(config.getPlugins()).toEqual([expect.objectContaining({ name: "inline-plugin" })]);
+		expect(config.getPlugins()).toEqual([
+			expect.objectContaining({ name: "inline-plugin" }),
+			expect.objectContaining({ name: ":unnamedPlugin@2" }),
+		]);
 	});
 
 	describe("transformers", () => {

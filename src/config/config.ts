@@ -391,8 +391,8 @@ export class Config {
 		return plugins.map((moduleName: string | Plugin, index) => {
 			if (typeof moduleName !== "string") {
 				const plugin = moduleName as LoadedPlugin;
-				plugin.name = plugin.name || `:anonymous@${index}`;
-				plugin.originalName = `:anonymous@${index}`;
+				plugin.name = plugin.name || `:unnamedPlugin@${index + 1}`;
+				plugin.originalName = `:unnamedPlugin@${index + 1}`;
 				return plugin;
 			}
 
@@ -495,6 +495,8 @@ export class Config {
 		return Object.entries(transform).map(([pattern, name]) => {
 			try {
 				const fn = this.getTransformFunction(name);
+
+				/* istanbul ignore next */
 				const version = fn.api ?? 0;
 
 				/* check if transformer version is supported */
