@@ -5,10 +5,8 @@ import { type HtmlElement } from "../dom";
 import { ensureError, SchemaValidationError, UserError, InheritError } from "../error";
 import { type SchemaValidationPatch } from "../plugin";
 import { computeHash } from "../utils/compute-hash";
-import { requireUncached } from "../utils/require-uncached";
 import schema from "../schema/elements.json";
 import { ajvFunctionKeyword, ajvRegexpKeyword } from "../schema/keywords";
-import { legacyRequire } from "../resolve";
 import {
 	type ElementTable,
 	type InternalAttributeFlags,
@@ -104,41 +102,32 @@ export class MetaTable {
 	 * @param filename - Optional filename used when presenting validation error
 	 */
 	public loadFromObject(obj: unknown, filename: string | null = null): void {
-		const validate = this.getSchemaValidator();
-		if (!validate(obj)) {
-			throw new SchemaValidationError(
-				filename,
-				`Element metadata is not valid`,
-				obj,
-				this.schema,
-				/* istanbul ignore next: AJV sets .errors when validate returns false */
-				validate.errors ?? []
-			);
-		}
-
-		for (const [key, value] of Object.entries(obj)) {
-			if (key === "$schema") continue;
-			this.addEntry(key, migrateElement(value));
-		}
-	}
-
-	/**
-	 * Load metadata table from filename
-	 *
-	 * @public
-	 * @param filename - Filename to load
-	 */
-	public loadFromFile(filename: string): void {
 		try {
-			/* load using require as it can process both js and json */
-			const data = requireUncached(legacyRequire, filename);
-			this.loadFromObject(data, filename);
-		} catch (err: unknown) {
+			const validate = this.getSchemaValidator();
+			if (!validate(obj)) {
+				throw new SchemaValidationError(
+					filename,
+					`Element metadata is not valid`,
+					obj,
+					this.schema,
+					/* istanbul ignore next: AJV sets .errors when validate returns false */
+					validate.errors ?? []
+				);
+			}
+
+			for (const [key, value] of Object.entries(obj)) {
+				if (key === "$schema") continue;
+				this.addEntry(key, migrateElement(value));
+			}
+		} catch (err) {
 			if (err instanceof InheritError) {
 				err.filename = filename;
 				throw err;
 			}
 			if (err instanceof SchemaValidationError) {
+				throw err;
+			}
+			if (!filename) {
 				throw err;
 			}
 			throw new UserError(`Failed to load element metadata from "${filename}"`, ensureError(err));

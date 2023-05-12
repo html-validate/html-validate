@@ -275,7 +275,6 @@ export class Config {
 	/**
 	 * Get element metadata.
 	 */
-	/* eslint-disable-next-line complexity, sonarjs/cognitive-complexity -- technical debt, should be refactored */
 	public getMetaTable(): MetaTable {
 		/* use cached table if it exists */
 		if (this.metaTable) {
@@ -307,23 +306,15 @@ export class Config {
 				continue;
 			}
 
-			/* try as regular file */
-			const filename = entry.replace("<rootDir>", this.rootDir);
-			if (fs.existsSync(filename)) {
-				metaTable.loadFromFile(filename);
-				continue;
-			}
-
 			/* assume it is loadable with require() */
+			const id = entry.replace("<rootDir>", this.rootDir);
 			try {
-				metaTable.loadFromObject(legacyRequire(entry));
+				const data = legacyRequire(id) as unknown;
+				metaTable.loadFromObject(data, id);
 			} catch (err: unknown) {
 				/* istanbul ignore next: only used as a fallback */
 				const message = err instanceof Error ? err.message : String(err);
-				throw new ConfigError(
-					`Failed to load elements from "${entry}": ${message}`,
-					ensureError(err)
-				);
+				throw new ConfigError(`Failed to load elements from "${id}": ${message}`, ensureError(err));
 			}
 		}
 
@@ -400,8 +391,8 @@ export class Config {
 		return plugins.map((moduleName: string | Plugin, index) => {
 			if (typeof moduleName !== "string") {
 				const plugin = moduleName as LoadedPlugin;
-				plugin.name = plugin.name || `:anonymous@${index}`;
-				plugin.originalName = `:anonymous@${index}`;
+				plugin.name = plugin.name || `:unnamedPlugin@${index + 1}`;
+				plugin.originalName = `:unnamedPlugin@${index + 1}`;
 				return plugin;
 			}
 
@@ -504,6 +495,8 @@ export class Config {
 		return Object.entries(transform).map(([pattern, name]) => {
 			try {
 				const fn = this.getTransformFunction(name);
+
+				/* istanbul ignore next */
 				const version = fn.api ?? 0;
 
 				/* check if transformer version is supported */
