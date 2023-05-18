@@ -39,60 +39,63 @@ function stripEslintComments(code) {
  *
  * @param {import("../../example/services/example").Example} example
  */
-module.exports = function renderMarkdown(example, trimIndentation) {
+module.exports = function renderMarkdown(example, trimIndentation, highlight) {
 	/**
 	 * @param {string} code
 	 * @param {string} infostring
-	 * @param {boolean} escaped
+	 * @param {boolean} _escaped
 	 * @returns {string}
 	 */
-	function code(code, infostring, escaped) {
+	function code(code, infostring, _escaped) {
 		example.compile(code, infostring);
 
+		const lang = (infostring || "").match(/\S*/)[0];
 		const processedCode = stripEslintComments(removePreamble(trimIndentation(code)));
-		let renderedCode = marked.Renderer.prototype.code.call(
-			this,
-			processedCode,
-			infostring,
-			escaped
-		);
+		let renderedCode = highlight(processedCode, lang);
 
 		// Bug in marked - forgets to add a final newline sometimes
 		if (!/\n$/.test(renderedCode)) {
 			renderedCode += "\n";
 		}
 
-		// Add hljs class
-		renderedCode = renderedCode.replace(/<code(?: class="(.*?)")?>/, (_, classes) => {
-			if (classes) {
-				return `<code class="hljs ${classes}">`;
-			} else {
-				return `<code class="hljs">`;
-			}
-		});
+		const classes = ["hljs"];
+		if (lang) {
+			classes.push(`language-${lang}`);
+		}
 
-		return renderedCode;
+		return `<pre><code class="${classes.join(" ")}">${renderedCode}</code></pre>`;
 	}
 
-	const renderer = new marked.Renderer();
-
-	renderer.code = code;
-
-	// Add § link to all headings
-	renderer.heading = function (text, level, raw) {
+	/**
+	 * Add § link to all headings.
+	 *
+	 * @param {string} text
+	 * @param {number} level
+	 * @param {string} rawId
+	 * @param {import("marked").Slugger}  _slugger
+	 */
+	function heading(text, level, raw, _slugger) {
 		const id = `${this.options.headerPrefix}${generateId(raw)}`;
 		const anchor = level > 1 ? `<a class="anchorlink" href="#${id}" aria-hidden="true"></a>` : "";
 		return `<h${level} id="${id}">${text}${anchor}</h${level}>`;
+	}
+
+	/* disable unused deprecated features */
+	marked.use({
+		mangle: false,
+		highlight: false,
+		headerIds: false,
+	});
+
+	/* enable custom render functions */
+	marked.use({
+		renderer: {
+			code,
+			heading,
+		},
+	});
+
+	return function render(content) {
+		return marked(content);
 	};
-
-	const render = function (content) {
-		return marked(content, {
-			highlight: render.highlight,
-			renderer,
-		});
-	};
-
-	render.highlight = null; /* default */
-
-	return render;
 };
