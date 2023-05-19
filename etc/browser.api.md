@@ -111,6 +111,7 @@ export class Config {
     static expandRelative(src: string, currentPath: string): string;
     // @internal (undocumented)
     protected findRootDir(): string;
+    // @internal
     static fromFile(filename: string): Config;
     static fromObject(options: ConfigData, filename?: string | null): Config;
     // @internal

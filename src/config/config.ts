@@ -136,8 +136,8 @@ export class Config {
 	 * Note: this reads configuration data from a file. If you intent to load
 	 * configuration for a file to validate use `ConfigLoader.fromTarget()`.
 	 *
-	 * @param filename - The file to read from or one of the presets such as
-	 * `html-validate:recommended`.
+	 * @internal
+	 * @param filename - The file to read from
 	 */
 	public static fromFile(filename: string): Config {
 		const configdata = configDataFromFile(filename);
