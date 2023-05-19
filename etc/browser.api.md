@@ -115,6 +115,7 @@ export class Config {
     static fromObject(options: ConfigData, filename?: string | null): Config;
     // @internal
     get(): ConfigData;
+    // @internal
     getMetaTable(): MetaTable;
     // @internal
     getPlugins(): Plugin_2[];

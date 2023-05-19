@@ -274,6 +274,8 @@ export class Config {
 
 	/**
 	 * Get element metadata.
+	 *
+	 * @internal
 	 */
 	public getMetaTable(): MetaTable {
 		/* use cached table if it exists */
