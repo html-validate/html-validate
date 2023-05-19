@@ -341,18 +341,7 @@ export class Config {
 	 */
 	/* istanbul ignore next: used for testing only */
 	public get(): ConfigData {
-		const config = { ...this.config };
-		if (config.elements) {
-			config.elements = config.elements.map((cur) => {
-				if (typeof cur === "string") {
-					return cur.replace(this.rootDir, "<rootDir>");
-				} else {
-					return cur;
-				}
-			});
-		}
-		delete config.extends;
-		return config;
+		return { ...this.config };
 	}
 
 	/**

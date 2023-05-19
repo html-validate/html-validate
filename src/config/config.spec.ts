@@ -67,6 +67,7 @@ describe("config", () => {
 		expect.assertions(1);
 		const config = Config.empty();
 		expect(config.get()).toEqual({
+			extends: [],
 			rules: {},
 			plugins: [],
 			transform: {},
@@ -77,6 +78,7 @@ describe("config", () => {
 		expect.assertions(1);
 		const config = Config.defaultConfig();
 		expect(config.get()).toEqual({
+			extends: [],
 			rules: {},
 			plugins: [],
 			transform: {},

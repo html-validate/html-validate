@@ -31,6 +31,15 @@ jest.mock("ajv", () => {
 	return MockAjv;
 });
 
+expect.addSnapshotSerializer({
+	serialize(value: string): string {
+		return JSON.stringify(value.replace(process.cwd(), "<rootDir>"));
+	},
+	test(value: unknown): boolean {
+		return typeof value === "string" && value.startsWith(process.cwd());
+	},
+});
+
 class MockConfigFactory {
 	public static defaultConfig(): Config {
 		return Config.defaultConfig();
@@ -77,6 +86,7 @@ describe("FileSystemConfigLoader", () => {
 		expect.assertions(1);
 		const loader = new ExposedFileSystemConfigLoader();
 		expect(loader.mockGetGlobalConfig().get()).toEqual({
+			extends: [],
 			plugins: [],
 			rules: {},
 			transform: {},
@@ -87,6 +97,7 @@ describe("FileSystemConfigLoader", () => {
 		expect.assertions(1);
 		const loader = new ExposedFileSystemConfigLoader({ rules: { foo: "error" } });
 		expect(loader.mockGetGlobalConfig().get()).toEqual({
+			extends: [],
 			plugins: [],
 			rules: {
 				foo: "error",

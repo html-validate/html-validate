@@ -18,6 +18,7 @@ it("should print config for given filename", async () => {
 	expect(getConfigFor).toHaveBeenCalledWith("/path/to/my/file.html");
 	expect(stdout.getContentsAsString("utf-8")).toMatchInlineSnapshot(`
 		"{
+		  "extends": [],
 		  "plugins": [],
 		  "rules": {},
 		  "transform": {}

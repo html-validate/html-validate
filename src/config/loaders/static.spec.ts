@@ -8,6 +8,7 @@ describe("StaticConfigLoader", () => {
 			const loader = new StaticConfigLoader();
 			const config = loader.getConfigFor("my-file.html");
 			expect(config.getConfigData()).toEqual({
+				extends: [],
 				elements: ["html5"],
 				plugins: [],
 				rules: recommended.rules,

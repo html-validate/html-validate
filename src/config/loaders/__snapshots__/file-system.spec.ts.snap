@@ -2,6 +2,7 @@
 
 exports[`FileSystemConfigLoader smoketest test-files/config/cjs-config/file.html 1`] = `
 {
+  "extends": [],
   "plugins": [],
   "root": true,
   "rules": {
@@ -16,6 +17,7 @@ exports[`FileSystemConfigLoader smoketest test-files/config/cjs-config/file.html
 
 exports[`FileSystemConfigLoader smoketest test-files/config/directive/disable.html 1`] = `
 {
+  "extends": [],
   "plugins": [],
   "root": true,
   "rules": {
@@ -30,6 +32,7 @@ exports[`FileSystemConfigLoader smoketest test-files/config/directive/disable.ht
 
 exports[`FileSystemConfigLoader smoketest test-files/config/directive/disable-block.html 1`] = `
 {
+  "extends": [],
   "plugins": [],
   "root": true,
   "rules": {
@@ -44,6 +47,7 @@ exports[`FileSystemConfigLoader smoketest test-files/config/directive/disable-bl
 
 exports[`FileSystemConfigLoader smoketest test-files/config/directive/disable-multiple.html 1`] = `
 {
+  "extends": [],
   "plugins": [],
   "root": true,
   "rules": {
@@ -58,6 +62,7 @@ exports[`FileSystemConfigLoader smoketest test-files/config/directive/disable-mu
 
 exports[`FileSystemConfigLoader smoketest test-files/config/directive/disable-next.html 1`] = `
 {
+  "extends": [],
   "plugins": [],
   "root": true,
   "rules": {
@@ -76,6 +81,7 @@ exports[`FileSystemConfigLoader smoketest test-files/config/elements/file.html 1
     "html5",
     "<rootDir>/test-files/config/elements/elements.json",
   ],
+  "extends": [],
   "plugins": [],
   "root": true,
   "rules": {
@@ -94,6 +100,7 @@ exports[`FileSystemConfigLoader smoketest test-files/config/extend-order/foo.htm
     "<rootDir>/test-files/config/extend-order/first.json",
     "<rootDir>/test-files/config/extend-order/override.json",
   ],
+  "extends": [],
   "plugins": [],
   "root": true,
   "rules": {
@@ -110,6 +117,7 @@ exports[`FileSystemConfigLoader smoketest test-files/config/extend-order/nested/
     "<rootDir>/test-files/config/extend-order/override.json",
     "<rootDir>/test-files/config/extend-order/nested/nested.json",
   ],
+  "extends": [],
   "plugins": [],
   "root": true,
   "rules": {
@@ -121,6 +129,7 @@ exports[`FileSystemConfigLoader smoketest test-files/config/extend-order/nested/
 
 exports[`FileSystemConfigLoader smoketest test-files/config/file.html 1`] = `
 {
+  "extends": [],
   "plugins": [],
   "root": true,
   "rules": {
@@ -135,6 +144,7 @@ exports[`FileSystemConfigLoader smoketest test-files/config/file.html 1`] = `
 
 exports[`FileSystemConfigLoader smoketest test-files/config/js-config/file.html 1`] = `
 {
+  "extends": [],
   "plugins": [],
   "root": true,
   "rules": {
@@ -149,6 +159,7 @@ exports[`FileSystemConfigLoader smoketest test-files/config/js-config/file.html 
 
 exports[`FileSystemConfigLoader smoketest test-files/config/off/error/file.html 1`] = `
 {
+  "extends": [],
   "plugins": [],
   "root": true,
   "rules": {
@@ -163,6 +174,7 @@ exports[`FileSystemConfigLoader smoketest test-files/config/off/error/file.html 
 
 exports[`FileSystemConfigLoader smoketest test-files/config/off/file.html 1`] = `
 {
+  "extends": [],
   "plugins": [],
   "root": true,
   "rules": {
@@ -177,6 +189,7 @@ exports[`FileSystemConfigLoader smoketest test-files/config/off/file.html 1`] = 
 
 exports[`FileSystemConfigLoader smoketest test-files/config/warn/file.html 1`] = `
 {
+  "extends": [],
   "plugins": [],
   "root": true,
   "rules": {
