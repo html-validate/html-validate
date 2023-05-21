@@ -156,6 +156,7 @@ export class HtmlValidate {
 	 * Using CLI this is enabled with `--dump-tokens`. Mostly useful for
 	 * debugging.
 	 *
+	 * @internal
 	 * @param filename - Filename to tokenize.
 	 */
 	public dumpTokens(filename: string): TokenDump[] {
@@ -171,6 +172,7 @@ export class HtmlValidate {
 	 * Using CLI this is enabled with `--dump-events`. Mostly useful for
 	 * debugging.
 	 *
+	 * @internal
 	 * @param filename - Filename to dump events from.
 	 */
 	public dumpEvents(filename: string): EventDump[] {
@@ -186,6 +188,7 @@ export class HtmlValidate {
 	 * Using CLI this is enabled with `--dump-tree`. Mostly useful for
 	 * debugging.
 	 *
+	 * @internal
 	 * @param filename - Filename to dump DOM tree from.
 	 */
 	public dumpTree(filename: string): string[] {
@@ -201,6 +204,7 @@ export class HtmlValidate {
 	 * Using CLI this is enabled with `--dump-source`. Mostly useful for
 	 * debugging.
 	 *
+	 * @internal
 	 * @param filename - Filename to dump source from.
 	 */
 	public dumpSource(filename: string): string[] {

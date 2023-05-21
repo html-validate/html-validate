@@ -436,7 +436,7 @@ export { Event_2 as Event }
 // @public (undocumented)
 export type EventCallback = (event: string, data: any) => void;
 
-// @public (undocumented)
+// @internal (undocumented)
 export interface EventDump {
     // (undocumented)
     data: any;
@@ -537,9 +537,13 @@ export class HtmlValidate {
     canValidate(filename: string): boolean;
     // (undocumented)
     protected configLoader: ConfigLoader;
+    // @internal
     dumpEvents(filename: string): EventDump[];
+    // @internal
     dumpSource(filename: string): string[];
+    // @internal
     dumpTokens(filename: string): TokenDump[];
+    // @internal
     dumpTree(filename: string): string[];
     flushConfigCache(filename?: string): void;
     getConfigFor(filename: string, configOverride?: ConfigData): ResolvedConfig;
@@ -1246,7 +1250,7 @@ export interface TextToken extends BaseToken {
 // @internal (undocumented)
 export type Token = UnicodeBOMToken | WhitespaceToken | DoctypeOpenToken | DoctypeValueToken | DoctypeCloseToken | TagOpenToken | TagCloseToken | AttrNameToken | AttrValueToken | TextToken | TemplatingToken | ScriptToken | StyleToken | CommentToken | ConditionalToken | DirectiveToken | EOFToken;
 
-// @public (undocumented)
+// @internal (undocumented)
 export interface TokenDump {
     // (undocumented)
     data: string;

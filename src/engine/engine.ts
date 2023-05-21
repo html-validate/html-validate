@@ -19,7 +19,7 @@ import bundledRules from "../rules";
 import { createBlocker } from "./rule-blocker";
 
 /**
- * @public
+ * @internal
  */
 export interface EventDump {
 	event: string;
@@ -27,7 +27,7 @@ export interface EventDump {
 }
 
 /**
- * @public
+ * @internal
  */
 export interface TokenDump {
 	token: string;
