@@ -38,16 +38,10 @@ export abstract class ConfigLoader {
 	 *
 	 * If [[configOverride]] is set it is merged with the final result.
 	 *
-	 * Returning a [[Config]] instance is deprecated and support will be removed
-	 * in the next major release.
-	 *
 	 * @param handle - Unique handle to get configuration for.
 	 * @param configOverride - Optional configuration to merge final results with.
 	 */
-	public abstract getConfigFor(
-		handle: string,
-		configOverride?: ConfigData
-	): Config | ResolvedConfig;
+	public abstract getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig;
 
 	/**
 	 * Flush configuration cache.

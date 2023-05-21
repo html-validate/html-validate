@@ -173,7 +173,7 @@ export abstract class ConfigLoader {
     // (undocumented)
     protected empty(): Config;
     abstract flushCache(handle?: string): void;
-    abstract getConfigFor(handle: string, configOverride?: ConfigData): Config | ResolvedConfig;
+    abstract getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig;
     // (undocumented)
     protected readonly globalConfig: Config;
     // (undocumented)

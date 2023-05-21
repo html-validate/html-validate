@@ -1,6 +1,6 @@
 import path from "path";
 import { type SchemaObject } from "ajv";
-import { type ConfigData, type ResolvedConfig, Config, ConfigLoader } from "./config";
+import { type ConfigData, type ResolvedConfig, ConfigLoader } from "./config";
 import { type Source } from "./context";
 import { type SourceHooks } from "./context/source";
 import { type EventDump, type TokenDump, Engine } from "./engine";
@@ -307,14 +307,7 @@ export class HtmlValidate {
 	 * @param configOverride - Configuration to apply last.
 	 */
 	public getConfigFor(filename: string, configOverride?: ConfigData): ResolvedConfig {
-		const config = this.configLoader.getConfigFor(filename, configOverride);
-
-		/* for backwards compatibility only */
-		if (config instanceof Config) {
-			return config.resolve();
-		}
-
-		return config;
+		return this.configLoader.getConfigFor(filename, configOverride);
 	}
 
 	/**
