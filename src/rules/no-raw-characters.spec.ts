@@ -180,12 +180,13 @@ describe("rule no-raw-characters", () => {
 		});
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "no-raw-characters": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("no-raw-characters")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-raw-characters");
+		expect(docs).toMatchSnapshot();
 	});
 });

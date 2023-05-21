@@ -201,27 +201,33 @@ describe("rule element-case", () => {
 
 	it("should not report error when elements are closed out-of-order", () => {
 		expect.assertions(4);
+		htmlvalidate = new HtmlValidate({
+			root: true,
+			rules: { "element-case": "error" },
+		});
 		expect(htmlvalidate.validateString("<p></i>")).toBeValid();
 		expect(htmlvalidate.validateString("<p>")).toBeValid();
 		expect(htmlvalidate.validateString("</i>")).toBeValid();
 		expect(htmlvalidate.validateString("<input></input>")).toBeValid();
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "element-case": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("element-case")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("element-case");
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain documentation with multiple styles", () => {
+	it("should contain documentation with multiple styles", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "element-case": ["error", { style: ["lowercase", "pascalcase"] }] },
 		});
-		expect(htmlvalidate.getRuleDocumentation("element-case")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("element-case");
+		expect(docs).toMatchSnapshot();
 	});
 });

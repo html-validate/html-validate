@@ -9,28 +9,28 @@ markup["allow-empty"] = `<span>The task was successfully completed! <img src="th
 markup["alias"] = `<img data-alt="...">`;
 
 describe("docs/rules/wcag/h37.md", () => {
-	it("inline validation: incorrect", () => {
+	it("inline validation: incorrect", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h37":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect"]);
+		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct", () => {
+	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h37":"error"}});
-		const report = htmlvalidate.validateString(markup["correct"]);
+		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: allow-empty", () => {
+	it("inline validation: allow-empty", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h37":["error",{"allowEmpty":true}]}});
-		const report = htmlvalidate.validateString(markup["allow-empty"]);
+		const report = await htmlvalidate.validateString(markup["allow-empty"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: alias", () => {
+	it("inline validation: alias", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h37":["error",{"alias":["data-alt"]}]}});
-		const report = htmlvalidate.validateString(markup["alias"]);
+		const report = await htmlvalidate.validateString(markup["alias"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

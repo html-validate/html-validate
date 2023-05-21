@@ -154,17 +154,18 @@ describe("rule element-name", () => {
 		expect(report).toHaveError("element-name", "<foo-bar> element is blacklisted");
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "element-name": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("element-name")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("element-name");
+		expect(docs).toMatchSnapshot();
 	});
 
 	describe("should contain contextual documentation for", () => {
-		it("blacklisted element", () => {
+		it("blacklisted element", async () => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
 				root: true,
@@ -175,10 +176,11 @@ describe("rule element-name", () => {
 				pattern: DEFAULT_PATTERN,
 				blacklist: ["element-name"],
 			};
-			expect(htmlvalidate.getRuleDocumentation("element-name", null, context)).toMatchSnapshot();
+			const docs = await htmlvalidate.getRuleDocumentation("element-name", null, context);
+			expect(docs).toMatchSnapshot();
 		});
 
-		it("element not matching default pattern", () => {
+		it("element not matching default pattern", async () => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
 				root: true,
@@ -189,10 +191,11 @@ describe("rule element-name", () => {
 				pattern: DEFAULT_PATTERN,
 				blacklist: [] as string[],
 			};
-			expect(htmlvalidate.getRuleDocumentation("element-name", null, context)).toMatchSnapshot();
+			const docs = await htmlvalidate.getRuleDocumentation("element-name", null, context);
+			expect(docs).toMatchSnapshot();
 		});
 
-		it("element not matching custom pattern", () => {
+		it("element not matching custom pattern", async () => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
 				root: true,
@@ -203,7 +206,8 @@ describe("rule element-name", () => {
 				pattern: "^foo-.+$",
 				blacklist: [] as string[],
 			};
-			expect(htmlvalidate.getRuleDocumentation("element-name", null, context)).toMatchSnapshot();
+			const docs = await htmlvalidate.getRuleDocumentation("element-name", null, context);
+			expect(docs).toMatchSnapshot();
 		});
 	});
 });

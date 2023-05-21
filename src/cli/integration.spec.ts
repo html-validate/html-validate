@@ -6,8 +6,8 @@ const cli = new CLI();
 const files = cli.expandFiles(["test-files/config"]).map((it) => path.relative(root, it));
 const htmlvalidate = cli.getValidator();
 
-it.each(files)("%s", (filename) => {
+it.each(files)("%s", async (filename) => {
 	expect.assertions(1);
-	const report = htmlvalidate.validateFile(filename);
+	const report = await htmlvalidate.validateFile(filename);
 	expect(report).toMatchSnapshot();
 });

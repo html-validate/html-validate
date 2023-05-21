@@ -80,8 +80,9 @@ describe("rule script-type", () => {
 		);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("script-type")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("script-type");
+		expect(docs).toMatchSnapshot();
 	});
 });

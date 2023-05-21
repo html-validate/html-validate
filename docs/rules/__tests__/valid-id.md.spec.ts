@@ -9,22 +9,22 @@ markup["relaxed"] = `<p id="123"></p>
 <p id="#foo[bar]"></p>`;
 
 describe("docs/rules/valid-id.md", () => {
-	it("inline validation: incorrect", () => {
+	it("inline validation: incorrect", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"valid-id":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect"]);
+		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct", () => {
+	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"valid-id":"error"}});
-		const report = htmlvalidate.validateString(markup["correct"]);
+		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: relaxed", () => {
+	it("inline validation: relaxed", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"valid-id":["error",{"relaxed":true}]}});
-		const report = htmlvalidate.validateString(markup["relaxed"]);
+		const report = await htmlvalidate.validateString(markup["relaxed"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

@@ -6,22 +6,22 @@ markup["incorrect-url"] = `<meta http-equiv="refresh" content="0">`;
 markup["correct"] = `<meta http-equiv="refresh" content="0;url=target.html">`;
 
 describe("docs/rules/meta-refresh.md", () => {
-	it("inline validation: incorrect-delay", () => {
+	it("inline validation: incorrect-delay", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"meta-refresh":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect-delay"]);
+		const report = await htmlvalidate.validateString(markup["incorrect-delay"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: incorrect-url", () => {
+	it("inline validation: incorrect-url", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"meta-refresh":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect-url"]);
+		const report = await htmlvalidate.validateString(markup["incorrect-url"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct", () => {
+	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"meta-refresh":"error"}});
-		const report = htmlvalidate.validateString(markup["correct"]);
+		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

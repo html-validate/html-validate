@@ -53,8 +53,9 @@ describe("rule no-trailing-whitespace", () => {
 		expect(report).toMatchCodeframe();
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("no-trailing-whitespace")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-trailing-whitespace");
+		expect(docs).toMatchSnapshot();
 	});
 });

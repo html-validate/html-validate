@@ -54,16 +54,17 @@ describe("rule input-attributes", () => {
 		expect(report).toBeValid();
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "input-attributes": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("input-attributes")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("input-attributes");
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation", () => {
+	it("should contain contextual documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
@@ -73,10 +74,11 @@ describe("rule input-attributes", () => {
 			attribute: "alt",
 			type: "text",
 		};
-		expect(htmlvalidate.getRuleDocumentation("input-attributes", null, context)).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("input-attributes", null, context);
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation (invalid)", () => {
+	it("should contain contextual documentation (invalid)", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
@@ -86,6 +88,7 @@ describe("rule input-attributes", () => {
 			attribute: "missing",
 			type: "text",
 		};
-		expect(htmlvalidate.getRuleDocumentation("input-attributes", null, context)).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("input-attributes", null, context);
+		expect(docs).toMatchSnapshot();
 	});
 });

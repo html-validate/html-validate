@@ -68,19 +68,23 @@ describe("rule element-required-attributes", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("element-required-attributes")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("element-required-attributes");
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation", () => {
+	it("should contain contextual documentation", async () => {
 		expect.assertions(1);
 		const context = {
 			element: "any",
 			attribute: "foo",
 		};
-		expect(
-			htmlvalidate.getRuleDocumentation("element-required-attributes", null, context)
-		).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation(
+			"element-required-attributes",
+			null,
+			context
+		);
+		expect(docs).toMatchSnapshot();
 	});
 });

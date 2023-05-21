@@ -11,28 +11,28 @@ markup["correct-disabled"] = `<!-- [html-validate-disable-next attribute-allowed
 <button type="submit"></button>`;
 
 describe("docs/rules/no-unused-disable.md", () => {
-	it("inline validation: incorrect", () => {
+	it("inline validation: incorrect", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-unused-disable":"error","attribute-allowed-values":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect"]);
+		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct-removed", () => {
+	it("inline validation: correct-removed", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-unused-disable":"error","attribute-allowed-values":"error"}});
-		const report = htmlvalidate.validateString(markup["correct-removed"]);
+		const report = await htmlvalidate.validateString(markup["correct-removed"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct-error-present", () => {
+	it("inline validation: correct-error-present", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-unused-disable":"error","attribute-allowed-values":"error"}});
-		const report = htmlvalidate.validateString(markup["correct-error-present"]);
+		const report = await htmlvalidate.validateString(markup["correct-error-present"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct-disabled", () => {
+	it("inline validation: correct-disabled", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-unused-disable":"error","attribute-allowed-values":"error"}});
-		const report = htmlvalidate.validateString(markup["correct-disabled"]);
+		const report = await htmlvalidate.validateString(markup["correct-disabled"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

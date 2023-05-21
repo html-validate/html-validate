@@ -105,15 +105,16 @@ describe("rule void-style", () => {
 		);
 	});
 
-	it("should have documentation", () => {
+	it("should have documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "void-style": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("void-style")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("void-style");
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should have contextual documentation", () => {
+	it("should have contextual documentation", async () => {
 		expect.assertions(2);
 		htmlvalidate = new HtmlValidate({
 			rules: { "void-style": "error" },
@@ -126,7 +127,7 @@ describe("rule void-style", () => {
 			style: 2,
 			tagName: "bar",
 		};
-		expect(htmlvalidate.getRuleDocumentation("void-style", null, context1)).toMatchSnapshot();
-		expect(htmlvalidate.getRuleDocumentation("void-style", null, context2)).toMatchSnapshot();
+		expect(await htmlvalidate.getRuleDocumentation("void-style", null, context1)).toMatchSnapshot();
+		expect(await htmlvalidate.getRuleDocumentation("void-style", null, context2)).toMatchSnapshot();
 	});
 });

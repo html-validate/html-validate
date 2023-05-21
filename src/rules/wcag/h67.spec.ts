@@ -74,11 +74,12 @@ describe("wcag/h67", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "wcag/h67": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("wcag/h67")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("wcag/h67");
+		expect(docs).toMatchSnapshot();
 	});
 });

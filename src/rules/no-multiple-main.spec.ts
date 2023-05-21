@@ -51,8 +51,9 @@ describe("rule no-multiple-main", () => {
 		expect(report).toHaveError("no-multiple-main", "Multiple <main> elements present in document");
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("no-multiple-main")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-multiple-main");
+		expect(docs).toMatchSnapshot();
 	});
 });

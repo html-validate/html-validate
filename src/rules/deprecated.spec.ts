@@ -79,7 +79,7 @@ describe("rule deprecated", () => {
 			${"source whatwg"}       | ${{ source: "whatwg" }}              | ${"<my-element> is deprecated"}              | ${"The `<my-element>` element is deprecated in HTML Living Standard and should not be used in new code."}
 			${"source non-standard"} | ${{ source: "non-standard" }}        | ${"<my-element> is deprecated"}              | ${"The `<my-element>` element is deprecated and non-standard and should not be used in new code."}
 			${"source lib"}          | ${{ source: "my-lib" }}              | ${"<my-element> is deprecated"}              | ${"The `<my-element>` element is deprecated by my-lib and should not be used in new code."}
-		`("$description", ({ deprecated, message, documentation }) => {
+		`("$description", async ({ deprecated, message, documentation }) => {
 			expect.assertions(2);
 			const htmlvalidate = new HtmlValidate({
 				rules: { deprecated: "error" },
@@ -92,40 +92,40 @@ describe("rule deprecated", () => {
 					},
 				],
 			});
-			const report = htmlvalidate.validateString("<my-element></my-element>");
+			const report = await htmlvalidate.validateString("<my-element></my-element>");
 			expect(report).toHaveError("deprecated", message);
 			const context = report.results[0].messages[0].context;
-			const doc = htmlvalidate.getRuleDocumentation("deprecated", null, context);
+			const doc = await htmlvalidate.getRuleDocumentation("deprecated", null, context);
 			expect(doc?.description).toEqual(documentation);
 		});
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("deprecated")).toMatchSnapshot();
+		expect(await htmlvalidate.getRuleDocumentation("deprecated")).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation", () => {
+	it("should contain contextual documentation", async () => {
 		expect.assertions(4);
 		expect(
-			htmlvalidate.getRuleDocumentation("deprecated", null, {
+			await htmlvalidate.getRuleDocumentation("deprecated", null, {
 				tagName: "center",
 			})
 		).toMatchSnapshot();
 		expect(
-			htmlvalidate.getRuleDocumentation("deprecated", null, {
+			await htmlvalidate.getRuleDocumentation("deprecated", null, {
 				tagName: "blink",
 				source: "html5",
 			})
 		).toMatchSnapshot();
 		expect(
-			htmlvalidate.getRuleDocumentation("deprecated", null, {
+			await htmlvalidate.getRuleDocumentation("deprecated", null, {
 				tagName: "blink",
 				source: "html41",
 			})
 		).toMatchSnapshot();
 		expect(
-			htmlvalidate.getRuleDocumentation("deprecated", null, {
+			await htmlvalidate.getRuleDocumentation("deprecated", null, {
 				tagName: "blink",
 				documentation: "extra documentation for <$tagname>",
 			})

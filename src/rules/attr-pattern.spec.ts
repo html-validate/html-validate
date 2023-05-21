@@ -169,7 +169,7 @@ describe("rule attr-pattern", () => {
 			root: true,
 			rules: { "attr-pattern": ["error", { pattern: "[" }] },
 		});
-		expect(() => htmlvalidate.validateString("")).toThrow(
+		expect(() => htmlvalidate.validateStringSync("")).toThrow(
 			/Invalid regular expression: \/.*\/.?: Unterminated character class/
 		);
 	});
@@ -186,16 +186,17 @@ describe("rule attr-pattern", () => {
 		);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "attr-pattern": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("attr-pattern")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("attr-pattern");
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation (single pattern)", () => {
+	it("should contain contextual documentation (single pattern)", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
@@ -205,10 +206,11 @@ describe("rule attr-pattern", () => {
 			attr: "foobar",
 			pattern: "[a-z]+",
 		};
-		expect(htmlvalidate.getRuleDocumentation("attr-pattern", null, context)).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("attr-pattern", null, context);
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation (multiple patterns)", () => {
+	it("should contain contextual documentation (multiple patterns)", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
@@ -218,6 +220,7 @@ describe("rule attr-pattern", () => {
 			attr: "foobar",
 			pattern: ["[a-z]+", "[0-9]+"],
 		};
-		expect(htmlvalidate.getRuleDocumentation("attr-pattern", null, context)).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("attr-pattern", null, context);
+		expect(docs).toMatchSnapshot();
 	});
 });

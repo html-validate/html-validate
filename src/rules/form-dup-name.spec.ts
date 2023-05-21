@@ -409,21 +409,21 @@ describe("rule form-dup-name", () => {
 		});
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(2);
-		const docs = htmlvalidate.getRuleDocumentation("form-dup-name");
+		const docs = await htmlvalidate.getRuleDocumentation("form-dup-name");
 		expect(docs?.url).toMatchInlineSnapshot(`"https://html-validate.org/rules/form-dup-name.html"`);
 		expect(docs?.description).toMatchInlineSnapshot(`"Each form control must have a unique name."`);
 	});
 
 	describe("should contain contextual documentation", () => {
-		it("for duplicate name", () => {
+		it("for duplicate name", async () => {
 			expect.assertions(2);
 			const context: RuleContext = {
 				name: "foo",
 				kind: "duplicate",
 			};
-			const docs = htmlvalidate.getRuleDocumentation("form-dup-name", null, context);
+			const docs = await htmlvalidate.getRuleDocumentation("form-dup-name", null, context);
 			expect(docs?.url).toMatchInlineSnapshot(
 				`"https://html-validate.org/rules/form-dup-name.html"`
 			);
@@ -433,13 +433,13 @@ describe("rule form-dup-name", () => {
 			`);
 		});
 
-		it("for mixing name and name[]", () => {
+		it("for mixing name and name[]", async () => {
 			expect.assertions(2);
 			const context: RuleContext = {
 				name: "foo",
 				kind: "mix",
 			};
-			const docs = htmlvalidate.getRuleDocumentation("form-dup-name", null, context);
+			const docs = await htmlvalidate.getRuleDocumentation("form-dup-name", null, context);
 			expect(docs?.url).toMatchInlineSnapshot(
 				`"https://html-validate.org/rules/form-dup-name.html"`
 			);

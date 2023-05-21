@@ -23,7 +23,7 @@ module.exports = function generateValidationResultsProcessor(log, validateMap) {
 		kleur.enabled = false;
 		validateMap.forEach((validation) => {
 			htmlvalidate = new HtmlValidate(validation.config);
-			validation.report = htmlvalidate.validateString(validation.markup);
+			validation.report = htmlvalidate.validateStringSync(validation.markup);
 			validation.codeframe = codeframe(validation.report.results, formatterOptions);
 
 			if (validation.showResults === "auto") {

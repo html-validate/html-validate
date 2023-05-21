@@ -157,19 +157,20 @@ describe("rule element-permitted-parent", () => {
 		expect(report).toBeValid();
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("element-permitted-parent")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("element-permitted-parent");
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation", () => {
+	it("should contain contextual documentation", async () => {
 		expect.assertions(1);
 		const context: RuleContext = {
 			child: "<li>",
 			parent: "<div>",
 			rules: ["foo", "bar", "@phrasing"],
 		};
-		const doc = htmlvalidate.getRuleDocumentation("element-permitted-parent", null, context);
-		expect(doc).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("element-permitted-parent", null, context);
+		expect(docs).toMatchSnapshot();
 	});
 });

@@ -6,22 +6,22 @@ markup["legacy"] = `<!DOCTYPE html SYSTEM "about:legacy-compat">`;
 markup["correct"] = `<!DOCTYPE html>`;
 
 describe("docs/rules/doctype-html.md", () => {
-	it("inline validation: incorrect", () => {
+	it("inline validation: incorrect", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"doctype-html":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect"]);
+		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: legacy", () => {
+	it("inline validation: legacy", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"doctype-html":"error"}});
-		const report = htmlvalidate.validateString(markup["legacy"]);
+		const report = await htmlvalidate.validateString(markup["legacy"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct", () => {
+	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"doctype-html":"error"}});
-		const report = htmlvalidate.validateString(markup["correct"]);
+		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

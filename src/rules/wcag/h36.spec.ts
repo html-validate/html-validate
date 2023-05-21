@@ -42,11 +42,12 @@ describe("wcag/h36", () => {
 		expect(report).toHaveError("wcag/h36", "image used as submit button must have alt text");
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "wcag/h36": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("wcag/h36")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("wcag/h36");
+		expect(docs).toMatchSnapshot();
 	});
 });

@@ -69,19 +69,21 @@ describe("rule deprecated-rule", () => {
 		expect(report).toHaveError("deprecated-rule", 'Usage of deprecated rule "custom/deprecated"');
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
 			rules: { "deprecated-rule": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("deprecated-rule")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("deprecated-rule");
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation", () => {
+	it("should contain contextual documentation", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
 			rules: { "deprecated-rule": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("deprecated-rule", null, "my-rule")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("deprecated-rule", null, "my-rule");
+		expect(docs).toMatchSnapshot();
 	});
 });

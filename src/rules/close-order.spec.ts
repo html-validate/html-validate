@@ -150,8 +150,9 @@ describe("rule close-order", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("close-order")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("close-order");
+		expect(docs).toMatchSnapshot();
 	});
 });

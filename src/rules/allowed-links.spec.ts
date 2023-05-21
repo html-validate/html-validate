@@ -443,13 +443,14 @@ describe("rule allowed-links", () => {
 		});
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "allowed-links": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("allowed-links")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("allowed-links");
+		expect(docs).toMatchSnapshot();
 	});
 
 	describe("should contain contextual documentation", () => {
@@ -459,13 +460,14 @@ describe("rule allowed-links", () => {
 			${"relative to base"} | ${Style.RELATIVE_BASE}
 			${"relative to path"} | ${Style.RELATIVE_PATH}
 			${"absolute"}         | ${Style.ABSOLUTE}
-		`("$style", ({ value }) => {
+		`("$style", async ({ value }) => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
 				root: true,
 				rules: { "allowed-links": "error" },
 			});
-			expect(htmlvalidate.getRuleDocumentation("allowed-links", null, value)).toMatchSnapshot();
+			const docs = await htmlvalidate.getRuleDocumentation("allowed-links", null, value);
+			expect(docs).toMatchSnapshot();
 		});
 	});
 });

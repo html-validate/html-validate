@@ -365,13 +365,13 @@ describe("rule attr-case", () => {
 		);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "attr-case": "error" },
 		});
-		const docs = htmlvalidate.getRuleDocumentation("attr-case");
+		const docs = await htmlvalidate.getRuleDocumentation("attr-case");
 		expect(docs).toMatchInlineSnapshot(`
 			{
 			  "description": "Attribute name must be in lowercase.",
@@ -380,13 +380,13 @@ describe("rule attr-case", () => {
 		`);
 	});
 
-	it("should contain documentation with multiple styles", () => {
+	it("should contain documentation with multiple styles", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "attr-case": ["error", { style: ["lowercase", "camelcase"] }] },
 		});
-		const docs = htmlvalidate.getRuleDocumentation("attr-case");
+		const docs = await htmlvalidate.getRuleDocumentation("attr-case");
 		expect(docs).toMatchInlineSnapshot(`
 			{
 			  "description": "Attribute name must be in one of:

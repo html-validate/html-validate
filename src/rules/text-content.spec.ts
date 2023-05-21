@@ -297,19 +297,21 @@ describe("rule text-content", () => {
 		});
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("text-content")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("text-content");
+		expect(docs).toMatchSnapshot();
 	});
 
 	describe("should contain contextual documentation", () => {
-		it.each(Object.values(TextContent))("%s", (textContent: string) => {
+		it.each(Object.values(TextContent))("%s", async (textContent: string) => {
 			expect.assertions(1);
 			const context = {
 				tagName: "my-element",
 				textContent,
 			};
-			expect(htmlvalidate.getRuleDocumentation("text-content", null, context)).toMatchSnapshot();
+			const docs = await htmlvalidate.getRuleDocumentation("text-content", null, context);
+			expect(docs).toMatchSnapshot();
 		});
 	});
 });

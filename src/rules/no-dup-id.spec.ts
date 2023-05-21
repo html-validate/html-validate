@@ -63,8 +63,9 @@ describe("rule no-dup-id", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("no-dup-id")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-dup-id");
+		expect(docs).toMatchSnapshot();
 	});
 });

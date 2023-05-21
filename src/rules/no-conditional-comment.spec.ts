@@ -43,8 +43,9 @@ describe("rule no-conditional-comment", () => {
 		expect(report).toMatchCodeframe();
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("no-conditional-comment")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-conditional-comment");
+		expect(docs).toMatchSnapshot();
 	});
 });

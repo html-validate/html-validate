@@ -10,40 +10,40 @@ markup["correct-rowgroup"] = `<th scope="rowgroup"></th>`;
 markup["correct-colgroup"] = `<th scope="colgroup"></th>`;
 
 describe("docs/rules/wcag/h63.md", () => {
-	it("inline validation: incorrect-missing", () => {
+	it("inline validation: incorrect-missing", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h63":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect-missing"]);
+		const report = await htmlvalidate.validateString(markup["incorrect-missing"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: incorrect-auto", () => {
+	it("inline validation: incorrect-auto", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h63":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect-auto"]);
+		const report = await htmlvalidate.validateString(markup["incorrect-auto"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct-row", () => {
+	it("inline validation: correct-row", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h63":"error"}});
-		const report = htmlvalidate.validateString(markup["correct-row"]);
+		const report = await htmlvalidate.validateString(markup["correct-row"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct-col", () => {
+	it("inline validation: correct-col", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h63":"error"}});
-		const report = htmlvalidate.validateString(markup["correct-col"]);
+		const report = await htmlvalidate.validateString(markup["correct-col"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct-rowgroup", () => {
+	it("inline validation: correct-rowgroup", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h63":"error"}});
-		const report = htmlvalidate.validateString(markup["correct-rowgroup"]);
+		const report = await htmlvalidate.validateString(markup["correct-rowgroup"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct-colgroup", () => {
+	it("inline validation: correct-colgroup", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h63":"error"}});
-		const report = htmlvalidate.validateString(markup["correct-colgroup"]);
+		const report = await htmlvalidate.validateString(markup["correct-colgroup"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

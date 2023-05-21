@@ -125,18 +125,23 @@ describe("rule element-required-ancestor", () => {
 		expect(report).toBeValid();
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("element-required-ancestor")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("element-required-ancestor");
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation", () => {
+	it("should contain contextual documentation", async () => {
 		expect.assertions(1);
 		const context: RuleContext = {
 			child: "<li>",
 			ancestor: ["<ul>", "<ol>", "<menu>"],
 		};
-		const doc = htmlvalidate.getRuleDocumentation("element-required-ancestor", null, context);
-		expect(doc).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation(
+			"element-required-ancestor",
+			null,
+			context
+		);
+		expect(docs).toMatchSnapshot();
 	});
 });

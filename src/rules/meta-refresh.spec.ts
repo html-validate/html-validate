@@ -89,8 +89,9 @@ describe("rule meta-refresh", () => {
 		expect(report).toHaveError("meta-refresh", "Malformed meta refresh directive");
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("meta-refresh")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("meta-refresh");
+		expect(docs).toMatchSnapshot();
 	});
 });

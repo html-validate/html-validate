@@ -50,7 +50,7 @@ const markup = /* HTML */ `
   <input type='text'></input>
 `;
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-const report = htmlvalidate.validateString(markup);
+const report = await htmlvalidate.validateString(markup);
 ```
 
 If we run this, `report` will contain an object like this:
@@ -101,7 +101,7 @@ It is therefor always safe to access `report.results[0]`, e.g.:
 import { HtmlValidate } from "html-validate";
 
 const htmlvalidate = new HtmlValidate();
-const report = htmlvalidate.validateString("");
+const report = await htmlvalidate.validateString("");
 
 /* --- */
 
@@ -170,7 +170,7 @@ console.log(report.results[0]);
 import { HtmlValidate } from "html-validate";
 
 const htmlvalidate = new HtmlValidate();
-const report = htmlvalidate.validateString("");
+const report = await htmlvalidate.validateString("");
 
 /* --- */
 
@@ -217,7 +217,7 @@ const markup = /* HTML */ `
   <h1>Hello & goodbye!</h1>
   <input type='text'></input>
 `;
-const report = htmlvalidate.validateString(markup);
+const report = await htmlvalidate.validateString(markup);
 
 const severity = ["", "Warning", "Error"];
 

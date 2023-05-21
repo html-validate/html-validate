@@ -25,7 +25,7 @@ import { HtmlValidate } from "html-validate";
 const markup = "<button></button>";
 const htmlvalidate = new HtmlValidate();
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-const report = htmlvalidate.validateString(markup, "my-file.html");
+const report = await htmlvalidate.validateString(markup, "my-file.html");
 ```
 
 ### Example
@@ -65,7 +65,7 @@ To get around this the {@link dev/using-api#staticconfigloader `StaticConfigLoad
 -const htmlvalidate = new HtmlValidate();
 +const loader = new StaticConfigLoader();
 +const htmlvalidate = new HtmlValidate(loader);
- const report = htmlvalidate.validateString(markup, "my-file.html");
+ const report = await htmlvalidate.validateString(markup, "my-file.html");
 ```
 
 The {@link dev/using-api#staticconfigloader `StaticConfigLoader`} will only load the configuration passed to the constructor or to `validateString(..)`.

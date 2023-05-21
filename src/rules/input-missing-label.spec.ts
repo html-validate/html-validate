@@ -340,8 +340,9 @@ describe("rule input-missing-label", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("input-missing-label")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("input-missing-label");
+		expect(docs).toMatchSnapshot();
 	});
 });

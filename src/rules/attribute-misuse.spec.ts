@@ -49,19 +49,19 @@ describe("rule attribute-misuse", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "attribute-misuse": "error" },
 		});
-		const docs = htmlvalidate.getRuleDocumentation("attribute-misuse");
+		const docs = await htmlvalidate.getRuleDocumentation("attribute-misuse");
 		expect(docs?.description).toMatchInlineSnapshot(
 			`"This attribute cannot be used in this context."`
 		);
 	});
 
-	it("should contain contextual documentation", () => {
+	it("should contain contextual documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
@@ -71,7 +71,7 @@ describe("rule attribute-misuse", () => {
 			attr: "foo",
 			details: "lorem ipsum",
 		};
-		const docs = htmlvalidate.getRuleDocumentation("attribute-misuse", null, context);
+		const docs = await htmlvalidate.getRuleDocumentation("attribute-misuse", null, context);
 		expect(docs?.description).toMatchInlineSnapshot(
 			`"The "foo" attribute cannot be used in this context: lorem ipsum"`
 		);

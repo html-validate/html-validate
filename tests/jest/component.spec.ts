@@ -26,10 +26,10 @@ beforeAll(() => {
 	htmlvalidate = cli.getValidator();
 });
 
-it("should validate ok", () => {
+it("should validate ok", async () => {
 	expect.assertions(5);
 	const markup = /* HTML */ `<div></div>`;
-	const report = htmlvalidate.validateString(markup);
+	const report = await htmlvalidate.validateString(markup);
 	expect(markup).toHTMLValidate();
 	expect(report).toBeValid();
 	expect(() => expect(report).toHaveError("no-inline-style", "Inline style is not allowed"))
@@ -57,10 +57,10 @@ Difference:
 	expect(report).toMatchInlineCodeframe(``);
 });
 
-it("should not validate", () => {
+it("should not validate", async () => {
 	expect.assertions(7);
 	const markup = /* HTML */ `<div style="color: hotpink;"></div>`;
-	const report = htmlvalidate.validateString(markup);
+	const report = await htmlvalidate.validateString(markup);
 	expect(markup).not.toHTMLValidate();
 	expect(markup).not.toHTMLValidate({
 		ruleId: "no-inline-style",

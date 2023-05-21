@@ -39,8 +39,9 @@ describe("rule attr-spacing", () => {
 		expect(report).toHaveError("attr-spacing", "No space between attributes");
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("attr-spacing")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("attr-spacing");
+		expect(docs).toMatchSnapshot();
 	});
 });

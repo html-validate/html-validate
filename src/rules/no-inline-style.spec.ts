@@ -199,12 +199,13 @@ describe("rule no-inline-style", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "no-inline-style": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("no-inline-style")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-inline-style");
+		expect(docs).toMatchSnapshot();
 	});
 });

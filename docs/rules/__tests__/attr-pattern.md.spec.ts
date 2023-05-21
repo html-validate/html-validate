@@ -7,22 +7,22 @@ markup["multiple"] = `<p foo-bar-123></p>
 <p myprefix-foo_123!></p>`;
 
 describe("docs/rules/attr-pattern.md", () => {
-	it("inline validation: incorrect", () => {
+	it("inline validation: incorrect", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"attr-pattern":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect"]);
+		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct", () => {
+	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"attr-pattern":"error"}});
-		const report = htmlvalidate.validateString(markup["correct"]);
+		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: multiple", () => {
+	it("inline validation: multiple", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"attr-pattern":["error",{"pattern":["[a-z0-9-]+","myprefix-.+"]}]}});
-		const report = htmlvalidate.validateString(markup["multiple"]);
+		const report = await htmlvalidate.validateString(markup["multiple"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

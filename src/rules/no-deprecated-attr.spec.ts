@@ -105,8 +105,9 @@ describe("rule no-deprecated-attr", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("no-deprecated-attr")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-deprecated-attr");
+		expect(docs).toMatchSnapshot();
 	});
 });

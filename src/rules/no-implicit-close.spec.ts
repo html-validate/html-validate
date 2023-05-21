@@ -50,8 +50,9 @@ describe("rule no-implicit-close", () => {
 		expect(report).toMatchCodeframe();
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("no-implicit-close")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-implicit-close");
+		expect(docs).toMatchSnapshot();
 	});
 });

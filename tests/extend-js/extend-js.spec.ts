@@ -2,10 +2,10 @@ import path from "path";
 import { HtmlValidate } from "../../src/htmlvalidate";
 import "../../src/jest";
 
-it("should handle extending js file", () => {
+it("should handle extending js file", async () => {
 	expect.assertions(2);
 	const htmlvalidate = new HtmlValidate();
-	const report = htmlvalidate.validateFile(path.join(__dirname, "my-file.html"));
+	const report = await htmlvalidate.validateFile(path.join(__dirname, "my-file.html"));
 	expect(report).toBeInvalid();
 	expect(report.results[0].messages).toMatchInlineSnapshot(`
 		[

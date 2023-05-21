@@ -75,8 +75,9 @@ describe("rule attr-delimiter", () => {
 		expect(report).toBeValid();
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("attr-delimiter")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("attr-delimiter");
+		expect(docs).toMatchSnapshot();
 	});
 });

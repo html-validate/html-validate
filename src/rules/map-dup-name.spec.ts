@@ -65,13 +65,13 @@ describe("rule map-dup-name", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "map-dup-name": "error" },
 		});
-		const docs = htmlvalidate.getRuleDocumentation("map-dup-name");
+		const docs = await htmlvalidate.getRuleDocumentation("map-dup-name");
 		expect(docs).toMatchInlineSnapshot(`
 			{
 			  "description": "\`<map>\` must have a unique name, it cannot be the same name as another \`<map>\` element",

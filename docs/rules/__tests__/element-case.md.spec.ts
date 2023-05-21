@@ -9,28 +9,28 @@ markup["multiple"] = `<foo-bar></foo-bar>
 <fooBar></fooBar>`;
 
 describe("docs/rules/element-case.md", () => {
-	it("inline validation: incorrect", () => {
+	it("inline validation: incorrect", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"element-case":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect"]);
+		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct", () => {
+	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"element-case":"error"}});
-		const report = htmlvalidate.validateString(markup["correct"]);
+		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: matching", () => {
+	it("inline validation: matching", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"element-case":["error",{"style":"pascalcase"}]}});
-		const report = htmlvalidate.validateString(markup["matching"]);
+		const report = await htmlvalidate.validateString(markup["matching"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: multiple", () => {
+	it("inline validation: multiple", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"element-case":["error",{"style":["lowercase","pascalcase"]}]}});
-		const report = htmlvalidate.validateString(markup["multiple"]);
+		const report = await htmlvalidate.validateString(markup["multiple"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

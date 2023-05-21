@@ -161,13 +161,13 @@ describe("rule tel-non-breaking", () => {
 		expect(report).toBeValid();
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "tel-non-breaking": "error" },
 		});
-		const docs = htmlvalidate.getRuleDocumentation("tel-non-breaking");
+		const docs = await htmlvalidate.getRuleDocumentation("tel-non-breaking");
 		expect(docs).toMatchInlineSnapshot(`
 			{
 			  "description": "Replace this character with a non-breaking version.
@@ -184,7 +184,7 @@ describe("rule tel-non-breaking", () => {
 		`);
 	});
 
-	it("should contain contextual documentation", () => {
+	it("should contain contextual documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
@@ -195,7 +195,7 @@ describe("rule tel-non-breaking", () => {
 			replacement: "&nbsp;",
 			description: "non-breaking space",
 		};
-		const docs = htmlvalidate.getRuleDocumentation("tel-non-breaking", null, context);
+		const docs = await htmlvalidate.getRuleDocumentation("tel-non-breaking", null, context);
 		expect(docs).toMatchInlineSnapshot(`
 			{
 			  "description": "The \` \` character should be replaced with \`&nbsp;\` character (non-breaking space) when used in a telephone number.

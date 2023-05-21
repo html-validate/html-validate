@@ -64,12 +64,12 @@ describe("rule require-csp-nonce", () => {
 		expect(report).toBeValid();
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(2);
 		htmlvalidate = new HtmlValidate({
 			rules: { "require-csp-nonce": "error" },
 		});
-		const docs = htmlvalidate.getRuleDocumentation("require-csp-nonce");
+		const docs = await htmlvalidate.getRuleDocumentation("require-csp-nonce");
 		expect(docs?.url).toMatchInlineSnapshot(
 			`"https://html-validate.org/rules/require-csp-nonce.html"`
 		);

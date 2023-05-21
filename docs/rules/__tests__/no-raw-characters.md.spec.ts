@@ -20,28 +20,28 @@ markup["relaxed"] = `<!-- Not ambiguous: & is followed by whitespace -->
 <a href=?foo&bar></p>`;
 
 describe("docs/rules/no-raw-characters.md", () => {
-	it("inline validation: incorrect", () => {
+	it("inline validation: incorrect", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-raw-characters":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect"]);
+		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct", () => {
+	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-raw-characters":"error"}});
-		const report = htmlvalidate.validateString(markup["correct"]);
+		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: malformed", () => {
+	it("inline validation: malformed", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-raw-characters":"error"}});
-		const report = htmlvalidate.validateString(markup["malformed"]);
+		const report = await htmlvalidate.validateString(markup["malformed"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: relaxed", () => {
+	it("inline validation: relaxed", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-raw-characters":["error",{"relaxed":true}]}});
-		const report = htmlvalidate.validateString(markup["relaxed"]);
+		const report = await htmlvalidate.validateString(markup["relaxed"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

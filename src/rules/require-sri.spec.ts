@@ -262,11 +262,12 @@ describe("rule require-sri", () => {
 		});
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "require-sri": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("require-sri")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("require-sri");
+		expect(docs).toMatchSnapshot();
 	});
 });

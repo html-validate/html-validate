@@ -24,7 +24,7 @@ The default full bundle includes everything (`CLI` classes etc) while the browse
 import { HtmlValidate } from "html-validate";
 
 const htmlvalidate = new HtmlValidate();
-const report = htmlvalidate.validateFile("myfile.html");
+const report = await htmlvalidate.validateFile("myfile.html");
 
 console.log("valid", report.valid);
 if (!report.valid) {
@@ -77,7 +77,7 @@ const htmlvalidate = new HtmlValidate();
 
 /* --- */
 
-const report = htmlvalidate.validateString("<div>lorem ipsum</span>");
+const report = await htmlvalidate.validateString("<div>lorem ipsum</span>");
 console.log(report.results);
 ```
 
@@ -88,7 +88,7 @@ const htmlvalidate = new HtmlValidate();
 
 /* --- */
 
-const report = htmlvalidate.validateSource({
+const report = await htmlvalidate.validateSource({
   /* markup to validate */
   data: "<div>lorem ipsum</span>",
 
@@ -130,8 +130,8 @@ forming a new `Report` object.
 import { HtmlValidate, Reporter } from "html-validate";
 
 const htmlvalidate = new HtmlValidate();
-const report1 = htmlvalidate.validateFile("myfile.html");
-const report2 = htmlvalidate.validateFile("anotherfile.html");
+const report1 = await htmlvalidate.validateFile("myfile.html");
+const report2 = await htmlvalidate.validateFile("anotherfile.html");
 
 /* merge reports together to a single report */
 const merged = Reporter.merge([report1, report2]);
@@ -161,7 +161,7 @@ Formatters work on the `results` property in a report and all returns a formatte
 import { HtmlValidate, formatterFactory } from "html-validate";
 
 const htmlvalidate = new HtmlValidate();
-const report = htmlvalidate.validateFile("myfile.html");
+const report = await htmlvalidate.validateFile("myfile.html");
 const text = formatterFactory("text");
 
 console.log(text(report.results));
@@ -175,7 +175,7 @@ import { CLI } from "html-validate";
 const cli = new CLI();
 const htmlvalidate = cli.getValidator();
 const formatter = cli.getFormatter("stylish,checkstyle=html-validate.xml");
-const report = htmlvalidate.validateFile("myfile.html");
+const report = await htmlvalidate.validateFile("myfile.html");
 console.log(formatter(report));
 ```
 
@@ -185,7 +185,7 @@ In addition, any ESLint compatible reporter will work:
 import { HtmlValidate } from "html-validate";
 
 const htmlvalidate = new HtmlValidate();
-const report = htmlvalidate.validateFile("myfile.html");
+const report = await htmlvalidate.validateFile("myfile.html");
 
 /* --- */
 
@@ -391,6 +391,8 @@ test("should not frobnicate a flux", () => {
 });
 ```
 
+See {@link jest Jest} for more details.
+
 ## CLI tools
 
 The CLI interface can be wrapped using the `CLI` class.
@@ -411,6 +413,6 @@ const cli = new CLI({
 const htmlvalidate = cli.getValidator();
 const formatter = cli.getFormatter(argv.formatter);
 const files = cli.expandFiles(["**/*.html"]);
-const report = htmlvalidate.validateMultipleFiles(files);
+const report = await htmlvalidate.validateMultipleFiles(files);
 console.log(formatter(report));
 ```

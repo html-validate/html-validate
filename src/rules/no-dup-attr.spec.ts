@@ -63,8 +63,9 @@ describe("rule no-dup-attr", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("no-dup-attr")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-dup-attr");
+		expect(docs).toMatchSnapshot();
 	});
 });

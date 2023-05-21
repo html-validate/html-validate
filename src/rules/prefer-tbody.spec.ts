@@ -29,8 +29,9 @@ describe("rule prefer-tbody", () => {
 		expect(report).toHaveError("prefer-tbody", "Prefer to wrap <tr> elements in <tbody>");
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("prefer-tbody")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("prefer-tbody");
+		expect(docs).toMatchSnapshot();
 	});
 });

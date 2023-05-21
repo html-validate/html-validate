@@ -609,7 +609,8 @@ export class HtmlElement extends DOMNode {
 export class HtmlValidate {
     constructor(config?: ConfigData);
     constructor(configLoader: ConfigLoader);
-    canValidate(filename: string): boolean;
+    canValidate(filename: string): Promise<boolean>;
+    canValidateSync(filename: string): boolean;
     // (undocumented)
     protected configLoader: ConfigLoader;
     // @internal
@@ -621,28 +622,47 @@ export class HtmlValidate {
     // @internal
     dumpTree(filename: string): string[];
     flushConfigCache(filename?: string): void;
-    getConfigFor(filename: string, configOverride?: ConfigData): ResolvedConfig;
+    getConfigFor(filename: string, configOverride?: ConfigData): Promise<ResolvedConfig>;
+    getConfigForSync(filename: string, configOverride?: ConfigData): ResolvedConfig;
     getConfigurationSchema(): SchemaObject;
-    getElementsSchema(filename?: string): SchemaObject;
+    getElementsSchema(filename?: string): Promise<SchemaObject>;
+    getElementsSchemaSync(filename?: string): SchemaObject;
     // @internal
-    getParserFor(source: Source): Parser;
-    getRuleDocumentation(ruleId: string, config?: ResolvedConfig | null, context?: any | null): RuleDocumentation | null;
-    validateFile(filename: string): Report;
-    validateMultipleFiles(filenames: string[]): Report;
-    validateSource(input: Source, configOverride?: ConfigData): Report;
-    validateString(str: string): Report;
+    getParserFor(source: Source): Promise<Parser>;
+    getRuleDocumentation(ruleId: string, config?: ResolvedConfig | null, context?: any | null): Promise<RuleDocumentation | null>;
+    getRuleDocumentationSync(ruleId: string, config?: ResolvedConfig | null, context?: any | null): RuleDocumentation | null;
+    validateFile(filename: string): Promise<Report>;
+    validateFileSync(filename: string): Report;
+    validateMultipleFiles(filenames: string[]): Promise<Report>;
+    validateMultipleFilesSync(filenames: string[]): Report;
+    validateSource(input: Source, configOverride?: ConfigData): Promise<Report>;
+    validateSourceSync(input: Source, configOverride?: ConfigData): Report;
+    validateString(str: string): Promise<Report>;
     // (undocumented)
-    validateString(str: string, filename: string): Report;
+    validateString(str: string, filename: string): Promise<Report>;
     // (undocumented)
-    validateString(str: string, hooks: SourceHooks): Report;
+    validateString(str: string, hooks: SourceHooks): Promise<Report>;
     // (undocumented)
-    validateString(str: string, options: ConfigData): Report;
+    validateString(str: string, options: ConfigData): Promise<Report>;
     // (undocumented)
-    validateString(str: string, filename: string, hooks: SourceHooks): Report;
+    validateString(str: string, filename: string, hooks: SourceHooks): Promise<Report>;
     // (undocumented)
-    validateString(str: string, filename: string, options: ConfigData): Report;
+    validateString(str: string, filename: string, options: ConfigData): Promise<Report>;
     // (undocumented)
-    validateString(str: string, filename: string, options: ConfigData, hooks: SourceHooks): Report;
+    validateString(str: string, filename: string, options: ConfigData, hooks: SourceHooks): Promise<Report>;
+    validateStringSync(str: string): Report;
+    // (undocumented)
+    validateStringSync(str: string, filename: string): Report;
+    // (undocumented)
+    validateStringSync(str: string, hooks: SourceHooks): Report;
+    // (undocumented)
+    validateStringSync(str: string, options: ConfigData): Report;
+    // (undocumented)
+    validateStringSync(str: string, filename: string, hooks: SourceHooks): Report;
+    // (undocumented)
+    validateStringSync(str: string, filename: string, options: ConfigData): Report;
+    // (undocumented)
+    validateStringSync(str: string, filename: string, options: ConfigData, hooks: SourceHooks): Report;
 }
 
 // @public (undocumented)

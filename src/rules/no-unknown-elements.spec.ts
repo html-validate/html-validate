@@ -23,16 +23,16 @@ describe("rule no-unknown-elements", () => {
 		expect(report).toHaveError("no-unknown-elements", "Unknown element <my-element>");
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("no-unknown-elements")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-unknown-elements");
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation", () => {
+	it("should contain contextual documentation", async () => {
 		expect.assertions(1);
-		expect(
-			htmlvalidate.getRuleDocumentation("no-unknown-elements", null, "my-element")
-		).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-unknown-elements", null, "my-element");
+		expect(docs).toMatchSnapshot();
 	});
 
 	it("should only report error for included elements", () => {

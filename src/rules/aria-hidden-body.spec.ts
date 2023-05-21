@@ -58,8 +58,9 @@ describe("rule attr-case", () => {
 		expect(report).toHaveError("aria-hidden-body", "aria-hidden must not be used on <body>");
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("aria-hidden-body")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("aria-hidden-body");
+		expect(docs).toMatchSnapshot();
 	});
 });

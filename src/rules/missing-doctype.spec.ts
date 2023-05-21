@@ -38,8 +38,9 @@ describe("rule missing-doctype", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("missing-doctype")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("missing-doctype");
+		expect(docs).toMatchSnapshot();
 	});
 });

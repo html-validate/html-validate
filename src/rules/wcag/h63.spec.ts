@@ -116,8 +116,9 @@ describe("wcag/h63", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("wcag/h63")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("wcag/h63");
+		expect(docs).toMatchSnapshot();
 	});
 });

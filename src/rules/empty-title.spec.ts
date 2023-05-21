@@ -93,8 +93,9 @@ describe("rule empty-title", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("empty-title")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("empty-title");
+		expect(docs).toMatchSnapshot();
 	});
 });

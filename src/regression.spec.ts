@@ -32,7 +32,7 @@ jest.mock(
 
 describe("regression tests", () => {
 	const files = globSync("test-files/issues/**/*.html");
-	it.each(files)("%s", (filename: string) => {
+	it.each(files)("%s", async (filename: string) => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
 			root: true,
@@ -41,7 +41,7 @@ describe("regression tests", () => {
 				".*": "mock-transformer",
 			},
 		});
-		const report = htmlvalidate.validateFile(filename);
+		const report = await htmlvalidate.validateFile(filename);
 		expect(report.results).toMatchSnapshot();
 	});
 });
