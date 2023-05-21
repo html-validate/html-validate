@@ -67,7 +67,33 @@ describe("rule void", () => {
 		it("smoketest", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateFile("test-files/rules/void.html");
-			expect(report.results).toMatchSnapshot();
+			expect(report).toMatchInlineCodeframe(`
+				"error: Expected omitted end tag <input> instead of self-closing element <input/> (void) at test-files/rules/void.html:2:9:
+				  1 | <div>
+				> 2 | 	<input />
+				    | 	       ^^
+				  3 | </div>
+				  4 |
+				  5 | <div>
+				Selector: div:nth-child(1) > input
+				error: End tag for <input> must be omitted (void) at test-files/rules/void.html:10:10:
+				   8 |
+				   9 | <div>
+				> 10 | 	<input></input>
+				     | 	        ^^^^^^
+				  11 | </div>
+				  12 |
+				  13 | <div />
+				Selector: -
+				error: End tag for <div> must not be omitted (void) at test-files/rules/void.html:13:6:
+				  11 | </div>
+				  12 |
+				> 13 | <div />
+				     |      ^^
+				  14 | <div></div>
+				  15 |
+				Selector: div:nth-child(4)"
+			`);
 		});
 	});
 
@@ -98,7 +124,33 @@ describe("rule void", () => {
 		it("smoketest", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateFile("test-files/rules/void.html");
-			expect(report.results).toMatchSnapshot();
+			expect(report).toMatchInlineCodeframe(`
+				"error: Expected omitted end tag <input> instead of self-closing element <input/> (void) at test-files/rules/void.html:2:9:
+				  1 | <div>
+				> 2 | 	<input />
+				    | 	       ^^
+				  3 | </div>
+				  4 |
+				  5 | <div>
+				Selector: div:nth-child(1) > input
+				error: End tag for <input> must be omitted (void) at test-files/rules/void.html:10:10:
+				   8 |
+				   9 | <div>
+				> 10 | 	<input></input>
+				     | 	        ^^^^^^
+				  11 | </div>
+				  12 |
+				  13 | <div />
+				Selector: -
+				error: End tag for <div> must not be omitted (void) at test-files/rules/void.html:13:6:
+				  11 | </div>
+				  12 |
+				> 13 | <div />
+				     |      ^^
+				  14 | <div></div>
+				  15 |
+				Selector: div:nth-child(4)"
+			`);
 		});
 	});
 
@@ -129,7 +181,43 @@ describe("rule void", () => {
 		it("smoketest", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateFile("test-files/rules/void.html");
-			expect(report.results).toMatchSnapshot();
+			expect(report).toMatchInlineCodeframe(`
+				"error: Expected self-closing element <input/> instead of omitted end-tag <input> (void) at test-files/rules/void.html:6:8:
+				  4 |
+				  5 | <div>
+				> 6 | 	<input>
+				    | 	      ^
+				  7 | </div>
+				  8 |
+				  9 | <div>
+				Selector: div:nth-child(2) > input
+				error: Expected self-closing element <input/> instead of omitted end-tag <input> (void) at test-files/rules/void.html:10:8:
+				   8 |
+				   9 | <div>
+				> 10 | 	<input></input>
+				     | 	      ^
+				  11 | </div>
+				  12 |
+				  13 | <div />
+				Selector: div:nth-child(3) > input
+				error: End tag for <input> must be omitted (void) at test-files/rules/void.html:10:10:
+				   8 |
+				   9 | <div>
+				> 10 | 	<input></input>
+				     | 	        ^^^^^^
+				  11 | </div>
+				  12 |
+				  13 | <div />
+				Selector: -
+				error: End tag for <div> must not be omitted (void) at test-files/rules/void.html:13:6:
+				  11 | </div>
+				  12 |
+				> 13 | <div />
+				     |      ^^
+				  14 | <div></div>
+				  15 |
+				Selector: div:nth-child(4)"
+			`);
 		});
 	});
 
@@ -156,7 +244,25 @@ describe("rule void", () => {
 		it("smoketest", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateFile("test-files/rules/void.html");
-			expect(report.results).toMatchSnapshot();
+			expect(report).toMatchInlineCodeframe(`
+				"error: End tag for <input> must be omitted (void) at test-files/rules/void.html:10:10:
+				   8 |
+				   9 | <div>
+				> 10 | 	<input></input>
+				     | 	        ^^^^^^
+				  11 | </div>
+				  12 |
+				  13 | <div />
+				Selector: -
+				error: End tag for <div> must not be omitted (void) at test-files/rules/void.html:13:6:
+				  11 | </div>
+				  12 |
+				> 13 | <div />
+				     |      ^^
+				  14 | <div></div>
+				  15 |
+				Selector: div:nth-child(4)"
+			`);
 		});
 	});
 

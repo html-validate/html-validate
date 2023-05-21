@@ -52,7 +52,26 @@ describe("wcag/h67", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/wcag/h67.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchInlineCodeframe(`
+			"error: <img> with empty alt text cannot have title attribute (wcag/h67) at test-files/rules/wcag/h67.html:5:6:
+			  3 | <img alt="foo" title="bar">
+			  4 | <img title="">
+			> 5 | <img title="bar">
+			    |      ^^^^^
+			  6 | <img alt="" title="bar">
+			  7 |
+			  8 | <!-- regression #33 (https://gitlab.com/html-validate/html-validate/issues/33) -->
+			Selector: img:nth-child(5)
+			error: <img> with empty alt text cannot have title attribute (wcag/h67) at test-files/rules/wcag/h67.html:6:13:
+			  4 | <img title="">
+			  5 | <img title="bar">
+			> 6 | <img alt="" title="bar">
+			    |             ^^^^^
+			  7 |
+			  8 | <!-- regression #33 (https://gitlab.com/html-validate/html-validate/issues/33) -->
+			  9 | <div>
+			Selector: img:nth-child(6)"
+		`);
 	});
 
 	it("should contain documentation", () => {

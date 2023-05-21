@@ -39,7 +39,15 @@ describe("rule no-dup-class", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/no-dup-class.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Class "foo" duplicated (no-dup-class) at test-files/rules/no-dup-class.html:5:21:
+			  3 | <div class="foo bar"></div>
+			  4 |
+			> 5 | <div class="foo bar foo"></div>
+			    |                     ^^^
+			  6 |
+			Selector: div:nth-child(3)"
+		`);
 	});
 
 	it("should contain documentation", () => {

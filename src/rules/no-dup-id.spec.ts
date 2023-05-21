@@ -52,7 +52,15 @@ describe("rule no-dup-id", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/no-dup-id.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Duplicate ID "foo" (no-dup-id) at test-files/rules/no-dup-id.html:3:10:
+			  1 | <div id="foo"></div>
+			  2 | <div id="bar"></div>
+			> 3 | <div id="foo"></div>
+			    |          ^^^
+			  4 |
+			Selector: div:nth-child(3)"
+		`);
 	});
 
 	it("should contain documentation", () => {

@@ -27,7 +27,15 @@ describe("rule missing-doctype", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/missing-doctype.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Document is missing doctype (missing-doctype) at test-files/rules/missing-doctype.html:1:1:
+			> 1 | <html>
+			    | ^
+			  2 | 	<head></head>
+			  3 | 	<body></body>
+			  4 | </html>
+			Selector: -"
+		`);
 	});
 
 	it("should contain documentation", () => {

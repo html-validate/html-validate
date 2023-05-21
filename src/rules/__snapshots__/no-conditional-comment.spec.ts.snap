@@ -8,297 +8,216 @@ exports[`rule no-conditional-comment should contain documentation 1`] = `
 `;
 
 exports[`rule no-conditional-comment smoketest 1`] = `
-[
-  {
-    "errorCount": 24,
-    "filePath": "test-files/rules/no-conditional-comment.html",
-    "messages": [
-      {
-        "column": 2,
-        "line": 4,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 52,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 12,
-      },
-      {
-        "column": 53,
-        "line": 4,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 103,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 12,
-      },
-      {
-        "column": 2,
-        "line": 5,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 117,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 11,
-      },
-      {
-        "column": 56,
-        "line": 5,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 171,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 10,
-      },
-      {
-        "column": 2,
-        "line": 7,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 184,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 14,
-      },
-      {
-        "column": 54,
-        "line": 7,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 236,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 12,
-      },
-      {
-        "column": 2,
-        "line": 8,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 250,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 17,
-      },
-      {
-        "column": 54,
-        "line": 8,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 302,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 12,
-      },
-      {
-        "column": 2,
-        "line": 10,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 317,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 18,
-      },
-      {
-        "column": 57,
-        "line": 10,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 372,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 12,
-      },
-      {
-        "column": 2,
-        "line": 11,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 386,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 16,
-      },
-      {
-        "column": 58,
-        "line": 11,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 442,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 12,
-      },
-      {
-        "column": 2,
-        "line": 12,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 456,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 32,
-      },
-      {
-        "column": 70,
-        "line": 12,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 524,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 12,
-      },
-      {
-        "column": 2,
-        "line": 13,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 538,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 19,
-      },
-      {
-        "column": 77,
-        "line": 13,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 613,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 12,
-      },
-      {
-        "column": 2,
-        "line": 15,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 628,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 14,
-      },
-      {
-        "column": 58,
-        "line": 15,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 684,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 12,
-      },
-      {
-        "column": 2,
-        "line": 16,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 698,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 13,
-      },
-      {
-        "column": 58,
-        "line": 16,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 754,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 10,
-      },
-      {
-        "column": 2,
-        "line": 18,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 767,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 14,
-      },
-      {
-        "column": 16,
-        "line": 18,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 781,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 12,
-      },
-      {
-        "column": 76,
-        "line": 18,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 841,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 10,
-      },
-      {
-        "column": 86,
-        "line": 18,
-        "message": "Use of conditional comments are deprecated",
-        "offset": 851,
-        "ruleId": "no-conditional-comment",
-        "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
-        "selector": "body",
-        "severity": 2,
-        "size": 12,
-      },
-    ],
-    "source": "<body>
-	<!-- examples from MSDN documentation -->
-
-	<!--[if IE]><p>You are using Internet Explorer.</p><![endif]-->
-	<![if !IE]><p>You are not using Internet Explorer.</p><![endif]>
-
-	<!--[if IE 7]><p>Welcome to Internet Explorer 7!</p><![endif]-->
-	<!--[if !(IE 7)]><p>You are not using version 7.</p><![endif]-->
-
-	<!--[if gte IE 7]><p>You are using IE 7 or greater.</p><![endif]-->
-	<!--[if (IE 5)]><p>You are using IE 5 (any version).</p><![endif]-->
-	<!--[if (gte IE 5.5)&(lt IE 7)]><p>You are using IE 5.5 or IE 6.</p><![endif]-->
-	<!--[if lt IE 5.5]><p>Please upgrade your version of Internet Explorer.</p><![endif]-->
-
-	<!--[if true]>You are using an <em>uplevel</em> browser.<![endif]-->
-	<![if false]>You are using a <em>downlevel</em> browser.<![endif]>
-
-	<!--[if true]><![if IE 7]><p>This nested comment is displayed in IE 7.</p><![endif]><![endif]-->
-</body>
-",
-    "warningCount": 0,
-  },
-]
+"error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:4:2:
+  2 | 	<!-- examples from MSDN documentation -->
+  3 |
+> 4 | 	<!--[if IE]><p>You are using Internet Explorer.</p><![endif]-->
+    | 	^^^^^^^^^^^^
+  5 | 	<![if !IE]><p>You are not using Internet Explorer.</p><![endif]>
+  6 |
+  7 | 	<!--[if IE 7]><p>Welcome to Internet Explorer 7!</p><![endif]-->
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:4:53:
+  2 | 	<!-- examples from MSDN documentation -->
+  3 |
+> 4 | 	<!--[if IE]><p>You are using Internet Explorer.</p><![endif]-->
+    | 	                                                   ^^^^^^^^^^^^
+  5 | 	<![if !IE]><p>You are not using Internet Explorer.</p><![endif]>
+  6 |
+  7 | 	<!--[if IE 7]><p>Welcome to Internet Explorer 7!</p><![endif]-->
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:5:2:
+  3 |
+  4 | 	<!--[if IE]><p>You are using Internet Explorer.</p><![endif]-->
+> 5 | 	<![if !IE]><p>You are not using Internet Explorer.</p><![endif]>
+    | 	^^^^^^^^^^^
+  6 |
+  7 | 	<!--[if IE 7]><p>Welcome to Internet Explorer 7!</p><![endif]-->
+  8 | 	<!--[if !(IE 7)]><p>You are not using version 7.</p><![endif]-->
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:5:56:
+  3 |
+  4 | 	<!--[if IE]><p>You are using Internet Explorer.</p><![endif]-->
+> 5 | 	<![if !IE]><p>You are not using Internet Explorer.</p><![endif]>
+    | 	                                                      ^^^^^^^^^^
+  6 |
+  7 | 	<!--[if IE 7]><p>Welcome to Internet Explorer 7!</p><![endif]-->
+  8 | 	<!--[if !(IE 7)]><p>You are not using version 7.</p><![endif]-->
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:7:2:
+   5 | 	<![if !IE]><p>You are not using Internet Explorer.</p><![endif]>
+   6 |
+>  7 | 	<!--[if IE 7]><p>Welcome to Internet Explorer 7!</p><![endif]-->
+     | 	^^^^^^^^^^^^^^
+   8 | 	<!--[if !(IE 7)]><p>You are not using version 7.</p><![endif]-->
+   9 |
+  10 | 	<!--[if gte IE 7]><p>You are using IE 7 or greater.</p><![endif]-->
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:7:54:
+   5 | 	<![if !IE]><p>You are not using Internet Explorer.</p><![endif]>
+   6 |
+>  7 | 	<!--[if IE 7]><p>Welcome to Internet Explorer 7!</p><![endif]-->
+     | 	                                                    ^^^^^^^^^^^^
+   8 | 	<!--[if !(IE 7)]><p>You are not using version 7.</p><![endif]-->
+   9 |
+  10 | 	<!--[if gte IE 7]><p>You are using IE 7 or greater.</p><![endif]-->
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:8:2:
+   6 |
+   7 | 	<!--[if IE 7]><p>Welcome to Internet Explorer 7!</p><![endif]-->
+>  8 | 	<!--[if !(IE 7)]><p>You are not using version 7.</p><![endif]-->
+     | 	^^^^^^^^^^^^^^^^^
+   9 |
+  10 | 	<!--[if gte IE 7]><p>You are using IE 7 or greater.</p><![endif]-->
+  11 | 	<!--[if (IE 5)]><p>You are using IE 5 (any version).</p><![endif]-->
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:8:54:
+   6 |
+   7 | 	<!--[if IE 7]><p>Welcome to Internet Explorer 7!</p><![endif]-->
+>  8 | 	<!--[if !(IE 7)]><p>You are not using version 7.</p><![endif]-->
+     | 	                                                    ^^^^^^^^^^^^
+   9 |
+  10 | 	<!--[if gte IE 7]><p>You are using IE 7 or greater.</p><![endif]-->
+  11 | 	<!--[if (IE 5)]><p>You are using IE 5 (any version).</p><![endif]-->
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:10:2:
+   8 | 	<!--[if !(IE 7)]><p>You are not using version 7.</p><![endif]-->
+   9 |
+> 10 | 	<!--[if gte IE 7]><p>You are using IE 7 or greater.</p><![endif]-->
+     | 	^^^^^^^^^^^^^^^^^^
+  11 | 	<!--[if (IE 5)]><p>You are using IE 5 (any version).</p><![endif]-->
+  12 | 	<!--[if (gte IE 5.5)&(lt IE 7)]><p>You are using IE 5.5 or IE 6.</p><![endif]-->
+  13 | 	<!--[if lt IE 5.5]><p>Please upgrade your version of Internet Explorer.</p><![endif]-->
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:10:57:
+   8 | 	<!--[if !(IE 7)]><p>You are not using version 7.</p><![endif]-->
+   9 |
+> 10 | 	<!--[if gte IE 7]><p>You are using IE 7 or greater.</p><![endif]-->
+     | 	                                                       ^^^^^^^^^^^^
+  11 | 	<!--[if (IE 5)]><p>You are using IE 5 (any version).</p><![endif]-->
+  12 | 	<!--[if (gte IE 5.5)&(lt IE 7)]><p>You are using IE 5.5 or IE 6.</p><![endif]-->
+  13 | 	<!--[if lt IE 5.5]><p>Please upgrade your version of Internet Explorer.</p><![endif]-->
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:11:2:
+   9 |
+  10 | 	<!--[if gte IE 7]><p>You are using IE 7 or greater.</p><![endif]-->
+> 11 | 	<!--[if (IE 5)]><p>You are using IE 5 (any version).</p><![endif]-->
+     | 	^^^^^^^^^^^^^^^^
+  12 | 	<!--[if (gte IE 5.5)&(lt IE 7)]><p>You are using IE 5.5 or IE 6.</p><![endif]-->
+  13 | 	<!--[if lt IE 5.5]><p>Please upgrade your version of Internet Explorer.</p><![endif]-->
+  14 |
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:11:58:
+   9 |
+  10 | 	<!--[if gte IE 7]><p>You are using IE 7 or greater.</p><![endif]-->
+> 11 | 	<!--[if (IE 5)]><p>You are using IE 5 (any version).</p><![endif]-->
+     | 	                                                        ^^^^^^^^^^^^
+  12 | 	<!--[if (gte IE 5.5)&(lt IE 7)]><p>You are using IE 5.5 or IE 6.</p><![endif]-->
+  13 | 	<!--[if lt IE 5.5]><p>Please upgrade your version of Internet Explorer.</p><![endif]-->
+  14 |
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:12:2:
+  10 | 	<!--[if gte IE 7]><p>You are using IE 7 or greater.</p><![endif]-->
+  11 | 	<!--[if (IE 5)]><p>You are using IE 5 (any version).</p><![endif]-->
+> 12 | 	<!--[if (gte IE 5.5)&(lt IE 7)]><p>You are using IE 5.5 or IE 6.</p><![endif]-->
+     | 	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 | 	<!--[if lt IE 5.5]><p>Please upgrade your version of Internet Explorer.</p><![endif]-->
+  14 |
+  15 | 	<!--[if true]>You are using an <em>uplevel</em> browser.<![endif]-->
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:12:70:
+  10 | 	<!--[if gte IE 7]><p>You are using IE 7 or greater.</p><![endif]-->
+  11 | 	<!--[if (IE 5)]><p>You are using IE 5 (any version).</p><![endif]-->
+> 12 | 	<!--[if (gte IE 5.5)&(lt IE 7)]><p>You are using IE 5.5 or IE 6.</p><![endif]-->
+     | 	                                                                    ^^^^^^^^^^^^
+  13 | 	<!--[if lt IE 5.5]><p>Please upgrade your version of Internet Explorer.</p><![endif]-->
+  14 |
+  15 | 	<!--[if true]>You are using an <em>uplevel</em> browser.<![endif]-->
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:13:2:
+  11 | 	<!--[if (IE 5)]><p>You are using IE 5 (any version).</p><![endif]-->
+  12 | 	<!--[if (gte IE 5.5)&(lt IE 7)]><p>You are using IE 5.5 or IE 6.</p><![endif]-->
+> 13 | 	<!--[if lt IE 5.5]><p>Please upgrade your version of Internet Explorer.</p><![endif]-->
+     | 	^^^^^^^^^^^^^^^^^^^
+  14 |
+  15 | 	<!--[if true]>You are using an <em>uplevel</em> browser.<![endif]-->
+  16 | 	<![if false]>You are using a <em>downlevel</em> browser.<![endif]>
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:13:77:
+  11 | 	<!--[if (IE 5)]><p>You are using IE 5 (any version).</p><![endif]-->
+  12 | 	<!--[if (gte IE 5.5)&(lt IE 7)]><p>You are using IE 5.5 or IE 6.</p><![endif]-->
+> 13 | 	<!--[if lt IE 5.5]><p>Please upgrade your version of Internet Explorer.</p><![endif]-->
+     | 	                                                                           ^^^^^^^^^^^^
+  14 |
+  15 | 	<!--[if true]>You are using an <em>uplevel</em> browser.<![endif]-->
+  16 | 	<![if false]>You are using a <em>downlevel</em> browser.<![endif]>
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:15:2:
+  13 | 	<!--[if lt IE 5.5]><p>Please upgrade your version of Internet Explorer.</p><![endif]-->
+  14 |
+> 15 | 	<!--[if true]>You are using an <em>uplevel</em> browser.<![endif]-->
+     | 	^^^^^^^^^^^^^^
+  16 | 	<![if false]>You are using a <em>downlevel</em> browser.<![endif]>
+  17 |
+  18 | 	<!--[if true]><![if IE 7]><p>This nested comment is displayed in IE 7.</p><![endif]><![endif]-->
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:15:58:
+  13 | 	<!--[if lt IE 5.5]><p>Please upgrade your version of Internet Explorer.</p><![endif]-->
+  14 |
+> 15 | 	<!--[if true]>You are using an <em>uplevel</em> browser.<![endif]-->
+     | 	                                                        ^^^^^^^^^^^^
+  16 | 	<![if false]>You are using a <em>downlevel</em> browser.<![endif]>
+  17 |
+  18 | 	<!--[if true]><![if IE 7]><p>This nested comment is displayed in IE 7.</p><![endif]><![endif]-->
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:16:2:
+  14 |
+  15 | 	<!--[if true]>You are using an <em>uplevel</em> browser.<![endif]-->
+> 16 | 	<![if false]>You are using a <em>downlevel</em> browser.<![endif]>
+     | 	^^^^^^^^^^^^^
+  17 |
+  18 | 	<!--[if true]><![if IE 7]><p>This nested comment is displayed in IE 7.</p><![endif]><![endif]-->
+  19 | </body>
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:16:58:
+  14 |
+  15 | 	<!--[if true]>You are using an <em>uplevel</em> browser.<![endif]-->
+> 16 | 	<![if false]>You are using a <em>downlevel</em> browser.<![endif]>
+     | 	                                                        ^^^^^^^^^^
+  17 |
+  18 | 	<!--[if true]><![if IE 7]><p>This nested comment is displayed in IE 7.</p><![endif]><![endif]-->
+  19 | </body>
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:18:2:
+  16 | 	<![if false]>You are using a <em>downlevel</em> browser.<![endif]>
+  17 |
+> 18 | 	<!--[if true]><![if IE 7]><p>This nested comment is displayed in IE 7.</p><![endif]><![endif]-->
+     | 	^^^^^^^^^^^^^^
+  19 | </body>
+  20 |
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:18:16:
+  16 | 	<![if false]>You are using a <em>downlevel</em> browser.<![endif]>
+  17 |
+> 18 | 	<!--[if true]><![if IE 7]><p>This nested comment is displayed in IE 7.</p><![endif]><![endif]-->
+     | 	              ^^^^^^^^^^^^
+  19 | </body>
+  20 |
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:18:76:
+  16 | 	<![if false]>You are using a <em>downlevel</em> browser.<![endif]>
+  17 |
+> 18 | 	<!--[if true]><![if IE 7]><p>This nested comment is displayed in IE 7.</p><![endif]><![endif]-->
+     | 	                                                                          ^^^^^^^^^^
+  19 | </body>
+  20 |
+Selector: body
+error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:18:86:
+  16 | 	<![if false]>You are using a <em>downlevel</em> browser.<![endif]>
+  17 |
+> 18 | 	<!--[if true]><![if IE 7]><p>This nested comment is displayed in IE 7.</p><![endif]><![endif]-->
+     | 	                                                                                    ^^^^^^^^^^^^
+  19 | </body>
+  20 |
+Selector: body"
 `;

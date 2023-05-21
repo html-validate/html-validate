@@ -232,7 +232,22 @@ describe("rule heading-level", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/heading-level.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Initial heading level must be <h1> but got <h2> (heading-level) at test-files/rules/heading-level.html:1:2:
+			> 1 | <h2>foo</h2>
+			    |  ^^
+			  2 | <h3>spam</h3>
+			  3 | <p>lorem ipsum</p>
+			  4 | <h3>ham</h3>
+			Selector: h2:nth-child(1)
+			error: Heading level can only increase by one, expected <h3> but got <h4> (heading-level) at test-files/rules/heading-level.html:6:2:
+			  4 | <h3>ham</h3>
+			  5 | <H2>bar</H2>
+			> 6 | <h4>baz</h4>
+			    |  ^^
+			  7 |
+			Selector: h4"
+		`);
 	});
 
 	it("should contain documentation (without multiple h1)", () => {

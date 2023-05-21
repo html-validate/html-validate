@@ -189,7 +189,14 @@ describe("rule no-inline-style", () => {
 			rules: { "no-inline-style": "error" },
 		});
 		const report = htmlvalidate.validateFile("test-files/rules/no-inline-style.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Inline style is not allowed (no-inline-style) at test-files/rules/no-inline-style.html:1:4:
+			> 1 | <p style="color: red"></p>
+			    |    ^^^^^^^^^^^^^^^^^^
+			  2 | <p></p>
+			  3 |
+			Selector: p:nth-child(1)"
+		`);
 	});
 
 	it("should contain documentation", () => {

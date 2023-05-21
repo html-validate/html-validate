@@ -13,36 +13,3 @@ exports[`rule element-required-attributes should contain documentation 1`] = `
   "url": "https://html-validate.org/rules/element-required-attributes.html",
 }
 `;
-
-exports[`rule element-required-attributes smoketest 1`] = `
-[
-  {
-    "errorCount": 1,
-    "filePath": "test-files/rules/element-required-attributes.html",
-    "messages": [
-      {
-        "column": 2,
-        "context": {
-          "attribute": "type",
-          "element": "input",
-        },
-        "line": 1,
-        "message": "<input> is missing required "type" attribute",
-        "offset": 1,
-        "ruleId": "element-required-attributes",
-        "ruleUrl": "https://html-validate.org/rules/element-required-attributes.html",
-        "selector": "input:nth-child(1)",
-        "severity": 2,
-        "size": 5,
-      },
-    ],
-    "source": "<input>
-<input type>
-<input type="">
-<input type="text">
-<input type="foobar">
-",
-    "warningCount": 0,
-  },
-]
-`;

@@ -57,7 +57,15 @@ describe("rule element-required-attributes", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/element-required-attributes.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchInlineCodeframe(`
+			"error: <input> is missing required "type" attribute (element-required-attributes) at test-files/rules/element-required-attributes.html:1:2:
+			> 1 | <input>
+			    |  ^^^^^
+			  2 | <input type>
+			  3 | <input type="">
+			  4 | <input type="text">
+			Selector: input:nth-child(1)"
+		`);
 	});
 
 	it("should contain documentation", () => {

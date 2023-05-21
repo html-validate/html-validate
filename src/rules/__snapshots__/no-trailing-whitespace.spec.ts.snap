@@ -8,96 +8,68 @@ exports[`rule no-trailing-whitespace should contain documentation 1`] = `
 `;
 
 exports[`rule no-trailing-whitespace smoketest 1`] = `
-[
-  {
-    "errorCount": 6,
-    "filePath": "test-files/rules/no-trailing-whitespace.html",
-    "messages": [
-      {
-        "column": 6,
-        "line": 5,
-        "message": "Trailing whitespace",
-        "offset": 25,
-        "ruleId": "no-trailing-whitespace",
-        "ruleUrl": "https://html-validate.org/rules/no-trailing-whitespace.html",
-        "selector": null,
-        "severity": 2,
-        "size": 2,
-      },
-      {
-        "column": 6,
-        "line": 6,
-        "message": "Trailing whitespace",
-        "offset": 32,
-        "ruleId": "no-trailing-whitespace",
-        "ruleUrl": "https://html-validate.org/rules/no-trailing-whitespace.html",
-        "selector": null,
-        "severity": 2,
-        "size": 3,
-      },
-      {
-        "column": 1,
-        "line": 7,
-        "message": "Trailing whitespace",
-        "offset": 35,
-        "ruleId": "no-trailing-whitespace",
-        "ruleUrl": "https://html-validate.org/rules/no-trailing-whitespace.html",
-        "selector": null,
-        "severity": 2,
-        "size": 3,
-      },
-      {
-        "column": 6,
-        "line": 8,
-        "message": "Trailing whitespace",
-        "offset": 43,
-        "ruleId": "no-trailing-whitespace",
-        "ruleUrl": "https://html-validate.org/rules/no-trailing-whitespace.html",
-        "selector": null,
-        "severity": 2,
-        "size": 3,
-      },
-      {
-        "column": 7,
-        "line": 12,
-        "message": "Trailing whitespace",
-        "offset": 66,
-        "ruleId": "no-trailing-whitespace",
-        "ruleUrl": "https://html-validate.org/rules/no-trailing-whitespace.html",
-        "selector": null,
-        "severity": 2,
-        "size": 3,
-      },
-      {
-        "column": 1,
-        "line": 15,
-        "message": "Trailing whitespace",
-        "offset": 76,
-        "ruleId": "no-trailing-whitespace",
-        "ruleUrl": "https://html-validate.org/rules/no-trailing-whitespace.html",
-        "selector": null,
-        "severity": 2,
-        "size": 3,
-      },
-    ],
-    "source": "<foo>
-  foo
-</foo>
-
-<bar>	
-  bar  
-  
-  baz  
-</bar>
-
-<baz>
-  spam  
-
-  ham
-  
-</baz>
-",
-    "warningCount": 0,
-  },
-]
+"error: Trailing whitespace (no-trailing-whitespace) at test-files/rules/no-trailing-whitespace.html:5:6:
+  3 | </foo>
+  4 |
+> 5 | <bar>
+    |      ^
+> 6 |   bar
+    | ^
+  7 |
+  8 |   baz
+  9 | </bar>
+Selector: -
+error: Trailing whitespace (no-trailing-whitespace) at test-files/rules/no-trailing-whitespace.html:6:6:
+   4 |
+   5 | <bar>
+>  6 |   bar
+     |      ^^
+>  7 |
+     | ^
+   8 |   baz
+   9 | </bar>
+  10 |
+Selector: -
+error: Trailing whitespace (no-trailing-whitespace) at test-files/rules/no-trailing-whitespace.html:7:1:
+   5 | <bar>
+   6 |   bar
+>  7 |
+     | ^^
+>  8 |   baz
+     | ^
+   9 | </bar>
+  10 |
+  11 | <baz>
+Selector: -
+error: Trailing whitespace (no-trailing-whitespace) at test-files/rules/no-trailing-whitespace.html:8:6:
+   6 |   bar
+   7 |
+>  8 |   baz
+     |      ^^
+>  9 | </bar>
+     | ^
+  10 |
+  11 | <baz>
+  12 |   spam
+Selector: -
+error: Trailing whitespace (no-trailing-whitespace) at test-files/rules/no-trailing-whitespace.html:12:7:
+  10 |
+  11 | <baz>
+> 12 |   spam
+     |       ^^
+> 13 |
+     | ^
+  14 |   ham
+  15 |
+  16 | </baz>
+Selector: -
+error: Trailing whitespace (no-trailing-whitespace) at test-files/rules/no-trailing-whitespace.html:15:1:
+  13 |
+  14 |   ham
+> 15 |
+     | ^^
+> 16 | </baz>
+     | ^
+  17 |
+Selector: -"
 `;

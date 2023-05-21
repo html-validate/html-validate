@@ -41,7 +41,22 @@ describe("rule element-case", () => {
 		it("smoketest", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateFile("test-files/rules/element-case.html");
-			expect(report.results).toMatchSnapshot();
+			expect(report).toMatchInlineCodeframe(`
+				"error: Element "DIV" should be lowercase (element-case) at test-files/rules/element-case.html:2:2:
+				  1 | <div></div>
+				> 2 | <DIV></DIV>
+				    |  ^^^
+				  3 | <dIV></dIV>
+				  4 |
+				Selector: div:nth-child(2)
+				error: Element "dIV" should be lowercase (element-case) at test-files/rules/element-case.html:3:2:
+				  1 | <div></div>
+				  2 | <DIV></DIV>
+				> 3 | <dIV></dIV>
+				    |  ^^^
+				  4 |
+				Selector: div:nth-child(3)"
+			`);
 		});
 	});
 
@@ -82,7 +97,22 @@ describe("rule element-case", () => {
 		it("smoketest", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateFile("test-files/rules/element-case.html");
-			expect(report.results).toMatchSnapshot();
+			expect(report).toMatchInlineCodeframe(`
+				"error: Element "div" should be uppercase (element-case) at test-files/rules/element-case.html:1:2:
+				> 1 | <div></div>
+				    |  ^^^
+				  2 | <DIV></DIV>
+				  3 | <dIV></dIV>
+				  4 |
+				Selector: div:nth-child(1)
+				error: Element "dIV" should be uppercase (element-case) at test-files/rules/element-case.html:3:2:
+				  1 | <div></div>
+				  2 | <DIV></DIV>
+				> 3 | <dIV></dIV>
+				    |  ^^^
+				  4 |
+				Selector: div:nth-child(3)"
+			`);
 		});
 	});
 

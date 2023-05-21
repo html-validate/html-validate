@@ -6,30 +6,3 @@ exports[`rule no-dup-id should contain documentation 1`] = `
   "url": "https://html-validate.org/rules/no-dup-id.html",
 }
 `;
-
-exports[`rule no-dup-id smoketest 1`] = `
-[
-  {
-    "errorCount": 1,
-    "filePath": "test-files/rules/no-dup-id.html",
-    "messages": [
-      {
-        "column": 10,
-        "line": 3,
-        "message": "Duplicate ID "foo"",
-        "offset": 51,
-        "ruleId": "no-dup-id",
-        "ruleUrl": "https://html-validate.org/rules/no-dup-id.html",
-        "selector": "div:nth-child(3)",
-        "severity": 2,
-        "size": 3,
-      },
-    ],
-    "source": "<div id="foo"></div>
-<div id="bar"></div>
-<div id="foo"></div>
-",
-    "warningCount": 0,
-  },
-]
-`;

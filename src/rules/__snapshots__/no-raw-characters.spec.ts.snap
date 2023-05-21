@@ -1,257 +1,152 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule no-raw-characters default options smoketest 1`] = `
-[
-  {
-    "errorCount": 11,
-    "filePath": "test-files/rules/no-raw-characters.html",
-    "messages": [
-      {
-        "column": 9,
-        "line": 2,
-        "message": "Raw "&" must be encoded as "&amp;"",
-        "offset": 39,
-        "ruleId": "no-raw-characters",
-        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
-        "selector": "p:nth-child(1)",
-        "severity": 2,
-        "size": 1,
-      },
-      {
-        "column": 9,
-        "line": 3,
-        "message": "Raw ">" must be encoded as "&gt;"",
-        "offset": 60,
-        "ruleId": "no-raw-characters",
-        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
-        "selector": "p:nth-child(2)",
-        "severity": 2,
-        "size": 1,
-      },
-      {
-        "column": 9,
-        "line": 4,
-        "message": "Raw "<" must be encoded as "&lt;"",
-        "offset": 81,
-        "ruleId": "no-raw-characters",
-        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
-        "selector": "p:nth-child(3)",
-        "severity": 2,
-        "size": 1,
-      },
-      {
-        "column": 13,
-        "line": 5,
-        "message": "Raw "'" must be encoded as "&apos;"",
-        "offset": 106,
-        "ruleId": "no-raw-characters",
-        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
-        "selector": "p:nth-child(4)",
-        "severity": 2,
-        "size": 1,
-      },
-      {
-        "column": 13,
-        "line": 6,
-        "message": "Raw """ must be encoded as "&quot;"",
-        "offset": 126,
-        "ruleId": "no-raw-characters",
-        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
-        "selector": "p:nth-child(5)",
-        "severity": 2,
-        "size": 1,
-      },
-      {
-        "column": 13,
-        "line": 7,
-        "message": "Raw "\`" must be encoded as "&grave;"",
-        "offset": 146,
-        "ruleId": "no-raw-characters",
-        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
-        "selector": "p:nth-child(6)",
-        "severity": 2,
-        "size": 1,
-      },
-      {
-        "column": 13,
-        "line": 8,
-        "message": "Raw "&" must be encoded as "&amp;"",
-        "offset": 166,
-        "ruleId": "no-raw-characters",
-        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
-        "selector": "p:nth-child(7)",
-        "severity": 2,
-        "size": 1,
-      },
-      {
-        "column": 2,
-        "line": 19,
-        "message": "Raw "&" must be encoded as "&amp;"",
-        "offset": 368,
-        "ruleId": "no-raw-characters",
-        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
-        "selector": "p:nth-child(13)",
-        "severity": 2,
-        "size": 1,
-      },
-      {
-        "column": 2,
-        "line": 20,
-        "message": "Raw "&" must be encoded as "&amp;"",
-        "offset": 371,
-        "ruleId": "no-raw-characters",
-        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
-        "selector": "p:nth-child(13)",
-        "severity": 2,
-        "size": 1,
-      },
-      {
-        "column": 10,
-        "line": 23,
-        "message": "Raw "&" must be encoded as "&amp;"",
-        "offset": 397,
-        "ruleId": "no-raw-characters",
-        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
-        "selector": "p:nth-child(14)",
-        "severity": 2,
-        "size": 1,
-      },
-      {
-        "column": 10,
-        "line": 24,
-        "message": "Raw "&" must be encoded as "&amp;"",
-        "offset": 416,
-        "ruleId": "no-raw-characters",
-        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
-        "selector": "p:nth-child(15)",
-        "severity": 2,
-        "size": 1,
-      },
-    ],
-    "source": "<!-- Should not be allowed -->
-<p>Fred & Barney</p>
-<p>Fred > Barney</p>
-<p>Fred < Barney</p>
-<p class=foo's></p>
-<p class=foo"s></p>
-<p class=foo\`s></p>
-<p class=foo&s></p>
-
-<!-- Should be allowed -->
-<p>Fred &amp; Barney</p>
-<p class=foo&apos;s></p>
-<p class="'foo'"></p>
-<p class='"foo"'></p>
-<p if='foo < 9 && bar > 1'></p>
-
-<!-- Non-ambiguous ampersands -->
-<p>
-	&
-	&foo
-	&amp;
-</p>
-<p id=foo&bar></p>
-<p id=foo&></p>
-<p id="foo&bar"></p>
-<p id="foo&"></p>
-",
-    "warningCount": 0,
-  },
-]
+"error: Raw "&" must be encoded as "&amp;" (no-raw-characters) at test-files/rules/no-raw-characters.html:2:9:
+  1 | <!-- Should not be allowed -->
+> 2 | <p>Fred & Barney</p>
+    |         ^
+  3 | <p>Fred > Barney</p>
+  4 | <p>Fred < Barney</p>
+  5 | <p class=foo's></p>
+Selector: p:nth-child(1)
+error: Raw ">" must be encoded as "&gt;" (no-raw-characters) at test-files/rules/no-raw-characters.html:3:9:
+  1 | <!-- Should not be allowed -->
+  2 | <p>Fred & Barney</p>
+> 3 | <p>Fred > Barney</p>
+    |         ^
+  4 | <p>Fred < Barney</p>
+  5 | <p class=foo's></p>
+  6 | <p class=foo"s></p>
+Selector: p:nth-child(2)
+error: Raw "<" must be encoded as "&lt;" (no-raw-characters) at test-files/rules/no-raw-characters.html:4:9:
+  2 | <p>Fred & Barney</p>
+  3 | <p>Fred > Barney</p>
+> 4 | <p>Fred < Barney</p>
+    |         ^
+  5 | <p class=foo's></p>
+  6 | <p class=foo"s></p>
+  7 | <p class=foo\`s></p>
+Selector: p:nth-child(3)
+error: Raw "'" must be encoded as "&apos;" (no-raw-characters) at test-files/rules/no-raw-characters.html:5:13:
+  3 | <p>Fred > Barney</p>
+  4 | <p>Fred < Barney</p>
+> 5 | <p class=foo's></p>
+    |             ^
+  6 | <p class=foo"s></p>
+  7 | <p class=foo\`s></p>
+  8 | <p class=foo&s></p>
+Selector: p:nth-child(4)
+error: Raw """ must be encoded as "&quot;" (no-raw-characters) at test-files/rules/no-raw-characters.html:6:13:
+  4 | <p>Fred < Barney</p>
+  5 | <p class=foo's></p>
+> 6 | <p class=foo"s></p>
+    |             ^
+  7 | <p class=foo\`s></p>
+  8 | <p class=foo&s></p>
+  9 |
+Selector: p:nth-child(5)
+error: Raw "\`" must be encoded as "&grave;" (no-raw-characters) at test-files/rules/no-raw-characters.html:7:13:
+   5 | <p class=foo's></p>
+   6 | <p class=foo"s></p>
+>  7 | <p class=foo\`s></p>
+     |             ^
+   8 | <p class=foo&s></p>
+   9 |
+  10 | <!-- Should be allowed -->
+Selector: p:nth-child(6)
+error: Raw "&" must be encoded as "&amp;" (no-raw-characters) at test-files/rules/no-raw-characters.html:8:13:
+   6 | <p class=foo"s></p>
+   7 | <p class=foo\`s></p>
+>  8 | <p class=foo&s></p>
+     |             ^
+   9 |
+  10 | <!-- Should be allowed -->
+  11 | <p>Fred &amp; Barney</p>
+Selector: p:nth-child(7)
+error: Raw "&" must be encoded as "&amp;" (no-raw-characters) at test-files/rules/no-raw-characters.html:19:2:
+  17 | <!-- Non-ambiguous ampersands -->
+  18 | <p>
+> 19 | 	&
+     | 	^
+  20 | 	&foo
+  21 | 	&amp;
+  22 | </p>
+Selector: p:nth-child(13)
+error: Raw "&" must be encoded as "&amp;" (no-raw-characters) at test-files/rules/no-raw-characters.html:20:2:
+  18 | <p>
+  19 | 	&
+> 20 | 	&foo
+     | 	^
+  21 | 	&amp;
+  22 | </p>
+  23 | <p id=foo&bar></p>
+Selector: p:nth-child(13)
+error: Raw "&" must be encoded as "&amp;" (no-raw-characters) at test-files/rules/no-raw-characters.html:23:10:
+  21 | 	&amp;
+  22 | </p>
+> 23 | <p id=foo&bar></p>
+     |          ^
+  24 | <p id=foo&></p>
+  25 | <p id="foo&bar"></p>
+  26 | <p id="foo&"></p>
+Selector: p:nth-child(14)
+error: Raw "&" must be encoded as "&amp;" (no-raw-characters) at test-files/rules/no-raw-characters.html:24:10:
+  22 | </p>
+  23 | <p id=foo&bar></p>
+> 24 | <p id=foo&></p>
+     |          ^
+  25 | <p id="foo&bar"></p>
+  26 | <p id="foo&"></p>
+  27 |
+Selector: p:nth-child(15)"
 `;
 
 exports[`rule no-raw-characters relaxed smoketest 1`] = `
-[
-  {
-    "errorCount": 5,
-    "filePath": "test-files/rules/no-raw-characters.html",
-    "messages": [
-      {
-        "column": 9,
-        "line": 3,
-        "message": "Raw ">" must be encoded as "&gt;"",
-        "offset": 60,
-        "ruleId": "no-raw-characters",
-        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
-        "selector": "p:nth-child(2)",
-        "severity": 2,
-        "size": 1,
-      },
-      {
-        "column": 9,
-        "line": 4,
-        "message": "Raw "<" must be encoded as "&lt;"",
-        "offset": 81,
-        "ruleId": "no-raw-characters",
-        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
-        "selector": "p:nth-child(3)",
-        "severity": 2,
-        "size": 1,
-      },
-      {
-        "column": 13,
-        "line": 5,
-        "message": "Raw "'" must be encoded as "&apos;"",
-        "offset": 106,
-        "ruleId": "no-raw-characters",
-        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
-        "selector": "p:nth-child(4)",
-        "severity": 2,
-        "size": 1,
-      },
-      {
-        "column": 13,
-        "line": 6,
-        "message": "Raw """ must be encoded as "&quot;"",
-        "offset": 126,
-        "ruleId": "no-raw-characters",
-        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
-        "selector": "p:nth-child(5)",
-        "severity": 2,
-        "size": 1,
-      },
-      {
-        "column": 13,
-        "line": 7,
-        "message": "Raw "\`" must be encoded as "&grave;"",
-        "offset": 146,
-        "ruleId": "no-raw-characters",
-        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
-        "selector": "p:nth-child(6)",
-        "severity": 2,
-        "size": 1,
-      },
-    ],
-    "source": "<!-- Should not be allowed -->
-<p>Fred & Barney</p>
-<p>Fred > Barney</p>
-<p>Fred < Barney</p>
-<p class=foo's></p>
-<p class=foo"s></p>
-<p class=foo\`s></p>
-<p class=foo&s></p>
-
-<!-- Should be allowed -->
-<p>Fred &amp; Barney</p>
-<p class=foo&apos;s></p>
-<p class="'foo'"></p>
-<p class='"foo"'></p>
-<p if='foo < 9 && bar > 1'></p>
-
-<!-- Non-ambiguous ampersands -->
-<p>
-	&
-	&foo
-	&amp;
-</p>
-<p id=foo&bar></p>
-<p id=foo&></p>
-<p id="foo&bar"></p>
-<p id="foo&"></p>
-",
-    "warningCount": 0,
-  },
-]
+"error: Raw ">" must be encoded as "&gt;" (no-raw-characters) at test-files/rules/no-raw-characters.html:3:9:
+  1 | <!-- Should not be allowed -->
+  2 | <p>Fred & Barney</p>
+> 3 | <p>Fred > Barney</p>
+    |         ^
+  4 | <p>Fred < Barney</p>
+  5 | <p class=foo's></p>
+  6 | <p class=foo"s></p>
+Selector: p:nth-child(2)
+error: Raw "<" must be encoded as "&lt;" (no-raw-characters) at test-files/rules/no-raw-characters.html:4:9:
+  2 | <p>Fred & Barney</p>
+  3 | <p>Fred > Barney</p>
+> 4 | <p>Fred < Barney</p>
+    |         ^
+  5 | <p class=foo's></p>
+  6 | <p class=foo"s></p>
+  7 | <p class=foo\`s></p>
+Selector: p:nth-child(3)
+error: Raw "'" must be encoded as "&apos;" (no-raw-characters) at test-files/rules/no-raw-characters.html:5:13:
+  3 | <p>Fred > Barney</p>
+  4 | <p>Fred < Barney</p>
+> 5 | <p class=foo's></p>
+    |             ^
+  6 | <p class=foo"s></p>
+  7 | <p class=foo\`s></p>
+  8 | <p class=foo&s></p>
+Selector: p:nth-child(4)
+error: Raw """ must be encoded as "&quot;" (no-raw-characters) at test-files/rules/no-raw-characters.html:6:13:
+  4 | <p>Fred < Barney</p>
+  5 | <p class=foo's></p>
+> 6 | <p class=foo"s></p>
+    |             ^
+  7 | <p class=foo\`s></p>
+  8 | <p class=foo&s></p>
+  9 |
+Selector: p:nth-child(5)
+error: Raw "\`" must be encoded as "&grave;" (no-raw-characters) at test-files/rules/no-raw-characters.html:7:13:
+   5 | <p class=foo's></p>
+   6 | <p class=foo"s></p>
+>  7 | <p class=foo\`s></p>
+     |             ^
+   8 | <p class=foo&s></p>
+   9 |
+  10 | <!-- Should be allowed -->
+Selector: p:nth-child(6)"
 `;
 
 exports[`rule no-raw-characters should contain documentation 1`] = `

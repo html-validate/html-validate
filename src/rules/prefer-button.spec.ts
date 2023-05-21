@@ -101,7 +101,43 @@ describe("rule prefer-button", () => {
 		it("smoketest", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateFile("test-files/rules/prefer-button.html");
-			expect(report.results).toMatchSnapshot();
+			expect(report).toMatchInlineCodeframe(`
+				"error: Prefer to use <button> instead of <input type="button"> when adding buttons (prefer-button) at test-files/rules/prefer-button.html:5:14:
+				  3 | <input type="hidden">
+				  4 |
+				> 5 | <input type="button">
+				    |              ^^^^^^
+				  6 | <button type="button"></button>
+				  7 |
+				  8 | <input type="submit">
+				Selector: input:nth-child(4)
+				error: Prefer to use <button> instead of <input type="submit"> when adding buttons (prefer-button) at test-files/rules/prefer-button.html:8:14:
+				   6 | <button type="button"></button>
+				   7 |
+				>  8 | <input type="submit">
+				     |              ^^^^^^
+				   9 | <button type="submit"></button>
+				  10 |
+				  11 | <input type="reset">
+				Selector: input:nth-child(6)
+				error: Prefer to use <button> instead of <input type="reset"> when adding buttons (prefer-button) at test-files/rules/prefer-button.html:11:14:
+				   9 | <button type="submit"></button>
+				  10 |
+				> 11 | <input type="reset">
+				     |              ^^^^^
+				  12 | <button type="reset"></button>
+				  13 |
+				  14 | <input type="image">
+				Selector: input:nth-child(8)
+				error: Prefer to use <button> instead of <input type="image"> when adding buttons (prefer-button) at test-files/rules/prefer-button.html:14:14:
+				  12 | <button type="reset"></button>
+				  13 |
+				> 14 | <input type="image">
+				     |              ^^^^^
+				  15 | <button type="submit"></button>
+				  16 |
+				Selector: input:nth-child(10)"
+			`);
 		});
 	});
 

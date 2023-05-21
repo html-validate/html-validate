@@ -36,34 +36,3 @@ exports[`rule deprecated should contain documentation 1`] = `
   "url": "https://html-validate.org/rules/deprecated.html",
 }
 `;
-
-exports[`rule deprecated smoketest 1`] = `
-[
-  {
-    "errorCount": 1,
-    "filePath": "test-files/rules/deprecated.html",
-    "messages": [
-      {
-        "column": 2,
-        "context": {
-          "documentation": "Marked as obsolete by both W3C and WHATWG standards but still implemented in most browsers. Animated text should be avoided for accessibility reasons as well.",
-          "source": "html5",
-          "tagName": "marquee",
-        },
-        "line": 2,
-        "message": "<marquee> is deprecated",
-        "offset": 20,
-        "ruleId": "deprecated",
-        "ruleUrl": "https://html-validate.org/rules/deprecated.html",
-        "selector": "marquee",
-        "severity": 2,
-        "size": 7,
-      },
-    ],
-    "source": "<p>lorem ipsum</p>
-<marquee>foobar</marquee>
-",
-    "warningCount": 0,
-  },
-]
-`;

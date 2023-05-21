@@ -36,7 +36,24 @@ describe("rule class-pattern", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/class-pattern.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Class "foo_bar" does not match required pattern "/^[a-z0-9-]+$/" (class-pattern) at test-files/rules/class-pattern.html:3:17:
+			  1 | <div class="foo foo-bar bar"></div>
+			  2 |
+			> 3 | <div class="foo foo_bar bar"></div>
+			    |                 ^^^^^^^
+			  4 |
+			  5 | <div class="foo fooBar bar"></div>
+			  6 |
+			Selector: div:nth-child(2)
+			error: Class "fooBar" does not match required pattern "/^[a-z0-9-]+$/" (class-pattern) at test-files/rules/class-pattern.html:5:17:
+			  3 | <div class="foo foo_bar bar"></div>
+			  4 |
+			> 5 | <div class="foo fooBar bar"></div>
+			    |                 ^^^^^^
+			  6 |
+			Selector: div:nth-child(3)"
+		`);
 	});
 
 	it("should contain documentation", () => {

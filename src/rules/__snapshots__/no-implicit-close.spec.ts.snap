@@ -10,201 +10,130 @@ Omitted end tags can be ambigious for humans to read and many editors have troub
 `;
 
 exports[`rule no-implicit-close smoketest 1`] = `
-[
-  {
-    "errorCount": 14,
-    "filePath": "test-files/rules/no-implicit-close.html",
-    "messages": [
-      {
-        "column": 3,
-        "line": 6,
-        "message": "Element <li> is implicitly closed by sibling",
-        "offset": 37,
-        "ruleId": "no-implicit-close",
-        "ruleUrl": "https://html-validate.org/rules/no-implicit-close.html",
-        "selector": "ul:nth-child(2) > li:nth-child(1)",
-        "severity": 2,
-        "size": 2,
-      },
-      {
-        "column": 3,
-        "line": 7,
-        "message": "Element <li> is implicitly closed by sibling",
-        "offset": 46,
-        "ruleId": "no-implicit-close",
-        "ruleUrl": "https://html-validate.org/rules/no-implicit-close.html",
-        "selector": "ul:nth-child(2) > li:nth-child(2)",
-        "severity": 2,
-        "size": 2,
-      },
-      {
-        "column": 3,
-        "line": 8,
-        "message": "Element <li> is implicitly closed by parent </ul>",
-        "offset": 55,
-        "ruleId": "no-implicit-close",
-        "ruleUrl": "https://html-validate.org/rules/no-implicit-close.html",
-        "selector": "ul:nth-child(2) > li:nth-child(3)",
-        "severity": 2,
-        "size": 2,
-      },
-      {
-        "column": 3,
-        "line": 12,
-        "message": "Element <li> is implicitly closed by sibling",
-        "offset": 76,
-        "ruleId": "no-implicit-close",
-        "ruleUrl": "https://html-validate.org/rules/no-implicit-close.html",
-        "selector": "ul:nth-child(3) > li:nth-child(1)",
-        "severity": 2,
-        "size": 2,
-      },
-      {
-        "column": 3,
-        "line": 13,
-        "message": "Element <li> is implicitly closed by sibling",
-        "offset": 97,
-        "ruleId": "no-implicit-close",
-        "ruleUrl": "https://html-validate.org/rules/no-implicit-close.html",
-        "selector": "ul:nth-child(3) > li:nth-child(2)",
-        "severity": 2,
-        "size": 2,
-      },
-      {
-        "column": 3,
-        "line": 14,
-        "message": "Element <li> is implicitly closed by parent </ul>",
-        "offset": 118,
-        "ruleId": "no-implicit-close",
-        "ruleUrl": "https://html-validate.org/rules/no-implicit-close.html",
-        "selector": "ul:nth-child(3) > li:nth-child(3)",
-        "severity": 2,
-        "size": 2,
-      },
-      {
-        "column": 3,
-        "line": 18,
-        "message": "Element <li> is implicitly closed by sibling",
-        "offset": 151,
-        "ruleId": "no-implicit-close",
-        "ruleUrl": "https://html-validate.org/rules/no-implicit-close.html",
-        "selector": "ul:nth-child(4) > li:nth-child(1)",
-        "severity": 2,
-        "size": 2,
-      },
-      {
-        "column": 3,
-        "line": 19,
-        "message": "Element <li> is implicitly closed by parent </ul>",
-        "offset": 180,
-        "ruleId": "no-implicit-close",
-        "ruleUrl": "https://html-validate.org/rules/no-implicit-close.html",
-        "selector": "ul:nth-child(4) > li:nth-child(2)",
-        "severity": 2,
-        "size": 2,
-      },
-      {
-        "column": 3,
-        "line": 23,
-        "message": "Element <dt> is implicitly closed by adjacent <dd>",
-        "offset": 209,
-        "ruleId": "no-implicit-close",
-        "ruleUrl": "https://html-validate.org/rules/no-implicit-close.html",
-        "selector": "dl > dt:nth-child(1)",
-        "severity": 2,
-        "size": 2,
-      },
-      {
-        "column": 3,
-        "line": 24,
-        "message": "Element <dd> is implicitly closed by sibling",
-        "offset": 220,
-        "ruleId": "no-implicit-close",
-        "ruleUrl": "https://html-validate.org/rules/no-implicit-close.html",
-        "selector": "dl > dd:nth-child(2)",
-        "severity": 2,
-        "size": 2,
-      },
-      {
-        "column": 3,
-        "line": 25,
-        "message": "Element <dd> is implicitly closed by adjacent <dt>",
-        "offset": 238,
-        "ruleId": "no-implicit-close",
-        "ruleUrl": "https://html-validate.org/rules/no-implicit-close.html",
-        "selector": "dl > dd:nth-child(3)",
-        "severity": 2,
-        "size": 2,
-      },
-      {
-        "column": 3,
-        "line": 26,
-        "message": "Element <dt> is implicitly closed by adjacent <dd>",
-        "offset": 256,
-        "ruleId": "no-implicit-close",
-        "ruleUrl": "https://html-validate.org/rules/no-implicit-close.html",
-        "selector": "dl > dt:nth-child(4)",
-        "severity": 2,
-        "size": 2,
-      },
-      {
-        "column": 3,
-        "line": 27,
-        "message": "Element <dd> is implicitly closed by parent </dl>",
-        "offset": 266,
-        "ruleId": "no-implicit-close",
-        "ruleUrl": "https://html-validate.org/rules/no-implicit-close.html",
-        "selector": "dl > dd:nth-child(5)",
-        "severity": 2,
-        "size": 2,
-      },
-      {
-        "column": 2,
-        "line": 30,
-        "message": "Element <p> is implicitly closed by adjacent <address>",
-        "offset": 288,
-        "ruleId": "no-implicit-close",
-        "ruleUrl": "https://html-validate.org/rules/no-implicit-close.html",
-        "selector": "p",
-        "severity": 2,
-        "size": 1,
-      },
-    ],
-    "source": "<ul>
-	<li>regular</li>
-</ul>
-
-<ul>
-	<li>foo
-	<li>bar
-	<li>baz
-</ul>
-
-<ul>
-	<li class="foo">foo
-	<li class="bar">bar
-	<li class="baz">baz
-</ul>
-
-<ul>
-	<li>foo<strong>bar</strong>
-	<li>foo <input>
-</ul>
-
-<dl>
-	<dt>title
-	<dd>definition 1
-	<dd>definition 2
-	<dt>fred
-	<dd>flintstone
-</dl>
-
-<p>
-	lorem ipsum
-	<address>spam</address>
-</p>
-",
-    "warningCount": 0,
-  },
-]
+"error: Element <li> is implicitly closed by sibling (no-implicit-close) at test-files/rules/no-implicit-close.html:6:3:
+  4 |
+  5 | <ul>
+> 6 | 	<li>foo
+    | 	 ^^
+  7 | 	<li>bar
+  8 | 	<li>baz
+  9 | </ul>
+Selector: ul:nth-child(2) > li:nth-child(1)
+error: Element <li> is implicitly closed by sibling (no-implicit-close) at test-files/rules/no-implicit-close.html:7:3:
+   5 | <ul>
+   6 | 	<li>foo
+>  7 | 	<li>bar
+     | 	 ^^
+   8 | 	<li>baz
+   9 | </ul>
+  10 |
+Selector: ul:nth-child(2) > li:nth-child(2)
+error: Element <li> is implicitly closed by parent </ul> (no-implicit-close) at test-files/rules/no-implicit-close.html:8:3:
+   6 | 	<li>foo
+   7 | 	<li>bar
+>  8 | 	<li>baz
+     | 	 ^^
+   9 | </ul>
+  10 |
+  11 | <ul>
+Selector: ul:nth-child(2) > li:nth-child(3)
+error: Element <li> is implicitly closed by sibling (no-implicit-close) at test-files/rules/no-implicit-close.html:12:3:
+  10 |
+  11 | <ul>
+> 12 | 	<li class="foo">foo
+     | 	 ^^
+  13 | 	<li class="bar">bar
+  14 | 	<li class="baz">baz
+  15 | </ul>
+Selector: ul:nth-child(3) > li:nth-child(1)
+error: Element <li> is implicitly closed by sibling (no-implicit-close) at test-files/rules/no-implicit-close.html:13:3:
+  11 | <ul>
+  12 | 	<li class="foo">foo
+> 13 | 	<li class="bar">bar
+     | 	 ^^
+  14 | 	<li class="baz">baz
+  15 | </ul>
+  16 |
+Selector: ul:nth-child(3) > li:nth-child(2)
+error: Element <li> is implicitly closed by parent </ul> (no-implicit-close) at test-files/rules/no-implicit-close.html:14:3:
+  12 | 	<li class="foo">foo
+  13 | 	<li class="bar">bar
+> 14 | 	<li class="baz">baz
+     | 	 ^^
+  15 | </ul>
+  16 |
+  17 | <ul>
+Selector: ul:nth-child(3) > li:nth-child(3)
+error: Element <li> is implicitly closed by sibling (no-implicit-close) at test-files/rules/no-implicit-close.html:18:3:
+  16 |
+  17 | <ul>
+> 18 | 	<li>foo<strong>bar</strong>
+     | 	 ^^
+  19 | 	<li>foo <input>
+  20 | </ul>
+  21 |
+Selector: ul:nth-child(4) > li:nth-child(1)
+error: Element <li> is implicitly closed by parent </ul> (no-implicit-close) at test-files/rules/no-implicit-close.html:19:3:
+  17 | <ul>
+  18 | 	<li>foo<strong>bar</strong>
+> 19 | 	<li>foo <input>
+     | 	 ^^
+  20 | </ul>
+  21 |
+  22 | <dl>
+Selector: ul:nth-child(4) > li:nth-child(2)
+error: Element <dt> is implicitly closed by adjacent <dd> (no-implicit-close) at test-files/rules/no-implicit-close.html:23:3:
+  21 |
+  22 | <dl>
+> 23 | 	<dt>title
+     | 	 ^^
+  24 | 	<dd>definition 1
+  25 | 	<dd>definition 2
+  26 | 	<dt>fred
+Selector: dl > dt:nth-child(1)
+error: Element <dd> is implicitly closed by sibling (no-implicit-close) at test-files/rules/no-implicit-close.html:24:3:
+  22 | <dl>
+  23 | 	<dt>title
+> 24 | 	<dd>definition 1
+     | 	 ^^
+  25 | 	<dd>definition 2
+  26 | 	<dt>fred
+  27 | 	<dd>flintstone
+Selector: dl > dd:nth-child(2)
+error: Element <dd> is implicitly closed by adjacent <dt> (no-implicit-close) at test-files/rules/no-implicit-close.html:25:3:
+  23 | 	<dt>title
+  24 | 	<dd>definition 1
+> 25 | 	<dd>definition 2
+     | 	 ^^
+  26 | 	<dt>fred
+  27 | 	<dd>flintstone
+  28 | </dl>
+Selector: dl > dd:nth-child(3)
+error: Element <dt> is implicitly closed by adjacent <dd> (no-implicit-close) at test-files/rules/no-implicit-close.html:26:3:
+  24 | 	<dd>definition 1
+  25 | 	<dd>definition 2
+> 26 | 	<dt>fred
+     | 	 ^^
+  27 | 	<dd>flintstone
+  28 | </dl>
+  29 |
+Selector: dl > dt:nth-child(4)
+error: Element <dd> is implicitly closed by parent </dl> (no-implicit-close) at test-files/rules/no-implicit-close.html:27:3:
+  25 | 	<dd>definition 2
+  26 | 	<dt>fred
+> 27 | 	<dd>flintstone
+     | 	 ^^
+  28 | </dl>
+  29 |
+  30 | <p>
+Selector: dl > dd:nth-child(5)
+error: Element <p> is implicitly closed by adjacent <address> (no-implicit-close) at test-files/rules/no-implicit-close.html:30:2:
+  28 | </dl>
+  29 |
+> 30 | <p>
+     |  ^
+  31 | 	lorem ipsum
+  32 | 	<address>spam</address>
+  33 | </p>
+Selector: p"
 `;

@@ -52,7 +52,15 @@ describe("rule no-dup-attr", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/no-dup-attr.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Attribute "id" duplicated (no-dup-attr) at test-files/rules/no-dup-attr.html:2:26:
+			  1 | <div>
+			> 2 | 	<p id="foo" class="bar" id="baz"></p>
+			    | 	                        ^^
+			  3 | </div>
+			  4 |
+			Selector: #foo"
+		`);
 	});
 
 	it("should contain documentation", () => {

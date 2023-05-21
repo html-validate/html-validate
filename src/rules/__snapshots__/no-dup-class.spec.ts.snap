@@ -6,32 +6,3 @@ exports[`rule no-dup-class should contain documentation 1`] = `
   "url": "https://html-validate.org/rules/no-dup-class.html",
 }
 `;
-
-exports[`rule no-dup-class smoketest 1`] = `
-[
-  {
-    "errorCount": 1,
-    "filePath": "test-files/rules/no-dup-class.html",
-    "messages": [
-      {
-        "column": 21,
-        "line": 5,
-        "message": "Class "foo" duplicated",
-        "offset": 74,
-        "ruleId": "no-dup-class",
-        "ruleUrl": "https://html-validate.org/rules/no-dup-class.html",
-        "selector": "div:nth-child(3)",
-        "severity": 2,
-        "size": 3,
-      },
-    ],
-    "source": "<div class="foo"></div>
-
-<div class="foo bar"></div>
-
-<div class="foo bar foo"></div>
-",
-    "warningCount": 0,
-  },
-]
-`;

@@ -57,7 +57,14 @@ describe("rule deprecated", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/deprecated.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchInlineCodeframe(`
+			"error: <marquee> is deprecated (deprecated) at test-files/rules/deprecated.html:2:2:
+			  1 | <p>lorem ipsum</p>
+			> 2 | <marquee>foobar</marquee>
+			    |  ^^^^^^^
+			  3 |
+			Selector: marquee"
+		`);
 	});
 
 	describe("metadata variants", () => {

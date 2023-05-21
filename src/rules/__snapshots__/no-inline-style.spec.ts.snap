@@ -12,29 +12,3 @@ Under the current configuration the following CSS properties are allowed:
   "url": "https://html-validate.org/rules/no-inline-style.html",
 }
 `;
-
-exports[`rule no-inline-style smoketest 1`] = `
-[
-  {
-    "errorCount": 1,
-    "filePath": "test-files/rules/no-inline-style.html",
-    "messages": [
-      {
-        "column": 4,
-        "line": 1,
-        "message": "Inline style is not allowed",
-        "offset": 3,
-        "ruleId": "no-inline-style",
-        "ruleUrl": "https://html-validate.org/rules/no-inline-style.html",
-        "selector": "p:nth-child(1)",
-        "severity": 2,
-        "size": 18,
-      },
-    ],
-    "source": "<p style="color: red"></p>
-<p></p>
-",
-    "warningCount": 0,
-  },
-]
-`;

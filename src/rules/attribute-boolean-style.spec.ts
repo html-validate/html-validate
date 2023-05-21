@@ -99,7 +99,31 @@ describe("rule attribute-boolean-style", () => {
 		it("smoketest", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateFile("test-files/rules/attribute-boolean-style.html");
-			expect(report.results).toMatchSnapshot();
+			expect(report).toMatchInlineCodeframe(`
+				"error: Attribute "disabled" should omit value (attribute-boolean-style) at test-files/rules/attribute-boolean-style.html:2:8:
+				  1 | <input disabled>
+				> 2 | <input disabled="">
+				    |        ^^^^^^^^
+				  3 | <input disabled="required">
+				  4 | <input disabled="foobar">
+				  5 |
+				Selector: input:nth-child(2)
+				error: Attribute "disabled" should omit value (attribute-boolean-style) at test-files/rules/attribute-boolean-style.html:3:8:
+				  1 | <input disabled>
+				  2 | <input disabled="">
+				> 3 | <input disabled="required">
+				    |        ^^^^^^^^
+				  4 | <input disabled="foobar">
+				  5 |
+				Selector: input:nth-child(3)
+				error: Attribute "disabled" should omit value (attribute-boolean-style) at test-files/rules/attribute-boolean-style.html:4:8:
+				  2 | <input disabled="">
+				  3 | <input disabled="required">
+				> 4 | <input disabled="foobar">
+				    |        ^^^^^^^^
+				  5 |
+				Selector: input:nth-child(4)"
+			`);
 		});
 	});
 
@@ -152,7 +176,30 @@ describe("rule attribute-boolean-style", () => {
 		it("smoketest", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateFile("test-files/rules/attribute-boolean-style.html");
-			expect(report.results).toMatchSnapshot();
+			expect(report).toMatchInlineCodeframe(`
+				"error: Attribute "disabled" value should be empty string (attribute-boolean-style) at test-files/rules/attribute-boolean-style.html:1:8:
+				> 1 | <input disabled>
+				    |        ^^^^^^^^
+				  2 | <input disabled="">
+				  3 | <input disabled="required">
+				  4 | <input disabled="foobar">
+				Selector: input:nth-child(1)
+				error: Attribute "disabled" value should be empty string (attribute-boolean-style) at test-files/rules/attribute-boolean-style.html:3:8:
+				  1 | <input disabled>
+				  2 | <input disabled="">
+				> 3 | <input disabled="required">
+				    |        ^^^^^^^^
+				  4 | <input disabled="foobar">
+				  5 |
+				Selector: input:nth-child(3)
+				error: Attribute "disabled" value should be empty string (attribute-boolean-style) at test-files/rules/attribute-boolean-style.html:4:8:
+				  2 | <input disabled="">
+				  3 | <input disabled="required">
+				> 4 | <input disabled="foobar">
+				    |        ^^^^^^^^
+				  5 |
+				Selector: input:nth-child(4)"
+			`);
 		});
 	});
 
@@ -205,7 +252,38 @@ describe("rule attribute-boolean-style", () => {
 		it("smoketest", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateFile("test-files/rules/attribute-boolean-style.html");
-			expect(report.results).toMatchSnapshot();
+			expect(report).toMatchInlineCodeframe(`
+				"error: Attribute "disabled" should be set to disabled="disabled" (attribute-boolean-style) at test-files/rules/attribute-boolean-style.html:1:8:
+				> 1 | <input disabled>
+				    |        ^^^^^^^^
+				  2 | <input disabled="">
+				  3 | <input disabled="required">
+				  4 | <input disabled="foobar">
+				Selector: input:nth-child(1)
+				error: Attribute "disabled" should be set to disabled="disabled" (attribute-boolean-style) at test-files/rules/attribute-boolean-style.html:2:8:
+				  1 | <input disabled>
+				> 2 | <input disabled="">
+				    |        ^^^^^^^^
+				  3 | <input disabled="required">
+				  4 | <input disabled="foobar">
+				  5 |
+				Selector: input:nth-child(2)
+				error: Attribute "disabled" should be set to disabled="disabled" (attribute-boolean-style) at test-files/rules/attribute-boolean-style.html:3:8:
+				  1 | <input disabled>
+				  2 | <input disabled="">
+				> 3 | <input disabled="required">
+				    |        ^^^^^^^^
+				  4 | <input disabled="foobar">
+				  5 |
+				Selector: input:nth-child(3)
+				error: Attribute "disabled" should be set to disabled="disabled" (attribute-boolean-style) at test-files/rules/attribute-boolean-style.html:4:8:
+				  2 | <input disabled="">
+				  3 | <input disabled="required">
+				> 4 | <input disabled="foobar">
+				    |        ^^^^^^^^
+				  5 |
+				Selector: input:nth-child(4)"
+			`);
 		});
 	});
 

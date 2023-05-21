@@ -62,7 +62,7 @@ describe("rule prefer-native-element", () => {
 		it("smoketest", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateFile("test-files/rules/prefer-native-element.html");
-			expect(report.results).toMatchSnapshot();
+			expect(report).toMatchCodeframe();
 		});
 	});
 

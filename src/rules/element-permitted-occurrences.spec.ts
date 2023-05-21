@@ -44,7 +44,16 @@ describe("rule element-permitted-occurrences", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/element-permitted-occurrences.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Element <caption> can only appear once under <table> (element-permitted-occurrences) at test-files/rules/element-permitted-occurrences.html:3:3:
+			  1 | <table>
+			  2 | 	<caption>1</caption>
+			> 3 | 	<caption>2</caption>
+			    | 	 ^^^^^^^
+			  4 | </table>
+			  5 |
+			Selector: table > caption:nth-child(2)"
+		`);
 	});
 
 	it("should contain documentation", () => {

@@ -50,7 +50,15 @@ describe("rule close-attr", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/close-attr.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Close tags cannot have attributes (close-attr) at test-files/rules/close-attr.html:3:12:
+			  1 | <input foo>
+			  2 | <hr bar/>
+			> 3 | <div></div baz>
+			    |            ^^^
+			  4 |
+			Selector: -"
+		`);
 	});
 
 	it("should contain documentation", () => {

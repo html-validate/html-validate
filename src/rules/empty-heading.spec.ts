@@ -182,7 +182,22 @@ describe("rule empty-heading", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/empty-heading.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchInlineCodeframe(`
+			"error: <h2> cannot be empty, must have text content (empty-heading) at test-files/rules/empty-heading.html:2:2:
+			  1 | <h1>Lorem ipsum</h1>
+			> 2 | <h2></h2>
+			    |  ^^
+			  3 | <h3> </h3>
+			  4 |
+			Selector: h2
+			error: <h3> cannot be empty, must have text content (empty-heading) at test-files/rules/empty-heading.html:3:2:
+			  1 | <h1>Lorem ipsum</h1>
+			  2 | <h2></h2>
+			> 3 | <h3> </h3>
+			    |  ^^
+			  4 |
+			Selector: h3"
+		`);
 	});
 
 	it("should contain documentation", () => {

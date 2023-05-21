@@ -149,7 +149,7 @@ describe("rule no-raw-characters", () => {
 		it("smoketest", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateFile("test-files/rules/no-raw-characters.html");
-			expect(report.results).toMatchSnapshot();
+			expect(report).toMatchCodeframe();
 		});
 	});
 
@@ -176,7 +176,7 @@ describe("rule no-raw-characters", () => {
 		it("smoketest", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateFile("test-files/rules/no-raw-characters.html");
-			expect(report.results).toMatchSnapshot();
+			expect(report).toMatchCodeframe();
 		});
 	});
 

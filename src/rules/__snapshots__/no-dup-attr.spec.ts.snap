@@ -6,30 +6,3 @@ exports[`rule no-dup-attr should contain documentation 1`] = `
   "url": "https://html-validate.org/rules/no-dup-attr.html",
 }
 `;
-
-exports[`rule no-dup-attr smoketest 1`] = `
-[
-  {
-    "errorCount": 1,
-    "filePath": "test-files/rules/no-dup-attr.html",
-    "messages": [
-      {
-        "column": 26,
-        "line": 2,
-        "message": "Attribute "id" duplicated",
-        "offset": 31,
-        "ruleId": "no-dup-attr",
-        "ruleUrl": "https://html-validate.org/rules/no-dup-attr.html",
-        "selector": "#foo",
-        "severity": 2,
-        "size": 2,
-      },
-    ],
-    "source": "<div>
-	<p id="foo" class="bar" id="baz"></p>
-</div>
-",
-    "warningCount": 0,
-  },
-]
-`;

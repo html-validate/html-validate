@@ -137,7 +137,41 @@ describe("wcag/h30", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/wcag/h30.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Anchor link must have a text describing its purpose (wcag/h30) at test-files/rules/wcag/h30.html:7:2:
+			   5 |
+			   6 | <!-- invalid cases -->
+			>  7 | <a></a>
+			     |  ^
+			   8 | <a><img></a>
+			   9 | <a><img alt></a>
+			  10 | <a><img alt=""></a>
+			Selector: a:nth-child(4)
+			error: Anchor link must have a text describing its purpose (wcag/h30) at test-files/rules/wcag/h30.html:8:2:
+			   6 | <!-- invalid cases -->
+			   7 | <a></a>
+			>  8 | <a><img></a>
+			     |  ^
+			   9 | <a><img alt></a>
+			  10 | <a><img alt=""></a>
+			  11 |
+			Selector: a:nth-child(5)
+			error: Anchor link must have a text describing its purpose (wcag/h30) at test-files/rules/wcag/h30.html:9:2:
+			   7 | <a></a>
+			   8 | <a><img></a>
+			>  9 | <a><img alt></a>
+			     |  ^
+			  10 | <a><img alt=""></a>
+			  11 |
+			Selector: a:nth-child(6)
+			error: Anchor link must have a text describing its purpose (wcag/h30) at test-files/rules/wcag/h30.html:10:2:
+			   8 | <a><img></a>
+			   9 | <a><img alt></a>
+			> 10 | <a><img alt=""></a>
+			     |  ^
+			  11 |
+			Selector: a:nth-child(7)"
+		`);
 	});
 
 	it("should contain documentation", () => {

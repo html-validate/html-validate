@@ -120,7 +120,17 @@ describe("rule attribute-allowed-values", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/attribute-allowed-values.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Attribute "type" has invalid value "foobar" (attribute-allowed-values) at test-files/rules/attribute-allowed-values.html:3:14:
+			  1 | <input>
+			  2 | <input type="text">
+			> 3 | <input type="foobar">
+			    |              ^^^^^^
+			  4 |
+			  5 | <!-- rule should normalize boolean attributes -->
+			  6 | <input required>
+			Selector: input:nth-child(3)"
+		`);
 	});
 
 	it("should contain documentation", () => {

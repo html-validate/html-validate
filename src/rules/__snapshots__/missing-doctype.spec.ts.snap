@@ -6,31 +6,3 @@ exports[`rule missing-doctype should contain documentation 1`] = `
   "url": "https://html-validate.org/rules/missing-doctype.html",
 }
 `;
-
-exports[`rule missing-doctype smoketest 1`] = `
-[
-  {
-    "errorCount": 1,
-    "filePath": "test-files/rules/missing-doctype.html",
-    "messages": [
-      {
-        "column": 1,
-        "line": 1,
-        "message": "Document is missing doctype",
-        "offset": 0,
-        "ruleId": "missing-doctype",
-        "ruleUrl": "https://html-validate.org/rules/missing-doctype.html",
-        "selector": null,
-        "severity": 2,
-        "size": 0,
-      },
-    ],
-    "source": "<html>
-	<head></head>
-	<body></body>
-</html>
-",
-    "warningCount": 0,
-  },
-]
-`;

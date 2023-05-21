@@ -95,7 +95,26 @@ describe("rule h37", () => {
 		it("smoketest", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateFile("test-files/rules/wcag/h37.html");
-			expect(report.results).toMatchSnapshot();
+			expect(report).toMatchInlineCodeframe(`
+				"error: <img> is missing required "alt" attribute (wcag/h37) at test-files/rules/wcag/h37.html:3:2:
+				  1 | <img alt="..">
+				  2 | <img alt="">
+				> 3 | <img translate-attr="..">
+				    |  ^^^
+				  4 | <img>
+				  5 |
+				  6 | <!-- regression #33 (https://gitlab.com/html-validate/html-validate/issues/33) -->
+				Selector: img:nth-child(3)
+				error: <img> is missing required "alt" attribute (wcag/h37) at test-files/rules/wcag/h37.html:4:2:
+				  2 | <img alt="">
+				  3 | <img translate-attr="..">
+				> 4 | <img>
+				    |  ^^^
+				  5 |
+				  6 | <!-- regression #33 (https://gitlab.com/html-validate/html-validate/issues/33) -->
+				  7 | <div>
+				Selector: img:nth-child(4)"
+			`);
 		});
 	});
 
@@ -180,7 +199,34 @@ describe("rule h37", () => {
 		it("smoketest", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateFile("test-files/rules/wcag/h37.html");
-			expect(report.results).toMatchSnapshot();
+			expect(report).toMatchInlineCodeframe(`
+				"error: <img> cannot have empty "alt" attribute (wcag/h37) at test-files/rules/wcag/h37.html:2:6:
+				  1 | <img alt="..">
+				> 2 | <img alt="">
+				    |      ^^^
+				  3 | <img translate-attr="..">
+				  4 | <img>
+				  5 |
+				Selector: img:nth-child(2)
+				error: <img> is missing required "alt" attribute (wcag/h37) at test-files/rules/wcag/h37.html:3:2:
+				  1 | <img alt="..">
+				  2 | <img alt="">
+				> 3 | <img translate-attr="..">
+				    |  ^^^
+				  4 | <img>
+				  5 |
+				  6 | <!-- regression #33 (https://gitlab.com/html-validate/html-validate/issues/33) -->
+				Selector: img:nth-child(3)
+				error: <img> is missing required "alt" attribute (wcag/h37) at test-files/rules/wcag/h37.html:4:2:
+				  2 | <img alt="">
+				  3 | <img translate-attr="..">
+				> 4 | <img>
+				    |  ^^^
+				  5 |
+				  6 | <!-- regression #33 (https://gitlab.com/html-validate/html-validate/issues/33) -->
+				  7 | <div>
+				Selector: img:nth-child(4)"
+			`);
 		});
 	});
 
@@ -215,7 +261,17 @@ describe("rule h37", () => {
 		it("smoketest", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateFile("test-files/rules/wcag/h37.html");
-			expect(report.results).toMatchSnapshot();
+			expect(report).toMatchInlineCodeframe(`
+				"error: <img> is missing required "alt" attribute (wcag/h37) at test-files/rules/wcag/h37.html:4:2:
+				  2 | <img alt="">
+				  3 | <img translate-attr="..">
+				> 4 | <img>
+				    |  ^^^
+				  5 |
+				  6 | <!-- regression #33 (https://gitlab.com/html-validate/html-validate/issues/33) -->
+				  7 | <div>
+				Selector: img:nth-child(4)"
+			`);
 		});
 	});
 
@@ -237,7 +293,17 @@ describe("rule h37", () => {
 		it("smoketest", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateFile("test-files/rules/wcag/h37.html");
-			expect(report.results).toMatchSnapshot();
+			expect(report).toMatchInlineCodeframe(`
+				"error: <img> is missing required "alt" attribute (wcag/h37) at test-files/rules/wcag/h37.html:4:2:
+				  2 | <img alt="">
+				  3 | <img translate-attr="..">
+				> 4 | <img>
+				    |  ^^^
+				  5 |
+				  6 | <!-- regression #33 (https://gitlab.com/html-validate/html-validate/issues/33) -->
+				  7 | <div>
+				Selector: img:nth-child(4)"
+			`);
 		});
 	});
 

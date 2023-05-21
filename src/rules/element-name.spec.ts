@@ -49,7 +49,23 @@ describe("rule element-name", () => {
 		it("smoketest", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateFile("test-files/rules/element-name.html");
-			expect(report.results).toMatchSnapshot();
+			expect(report).toMatchInlineCodeframe(`
+				"error: <foo> is not a valid element name (element-name) at test-files/rules/element-name.html:30:2:
+				  28 |
+				  29 | <!-- invalid custom names -->
+				> 30 | <foo></foo>
+				     |  ^^^
+				  31 | <1-bar></1-bar>
+				  32 |
+				Selector: foo
+				error: <1-bar> is not a valid element name (element-name) at test-files/rules/element-name.html:31:2:
+				  29 | <!-- invalid custom names -->
+				  30 | <foo></foo>
+				> 31 | <1-bar></1-bar>
+				     |  ^^^^^
+				  32 |
+				Selector: 1-bar"
+			`);
 		});
 	});
 
@@ -89,7 +105,32 @@ describe("rule element-name", () => {
 		it("smoketest", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateFile("test-files/rules/element-name.html");
-			expect(report.results).toMatchSnapshot();
+			expect(report).toMatchInlineCodeframe(`
+				"error: <spam-ham> is not a valid element name (element-name) at test-files/rules/element-name.html:27:2:
+				  25 | <!-- allowed custom names -->
+				  26 | <foo-bar></foo-bar>
+				> 27 | <spam-ham></spam-ham>
+				     |  ^^^^^^^^
+				  28 |
+				  29 | <!-- invalid custom names -->
+				  30 | <foo></foo>
+				Selector: spam-ham
+				error: <foo> is not a valid element name (element-name) at test-files/rules/element-name.html:30:2:
+				  28 |
+				  29 | <!-- invalid custom names -->
+				> 30 | <foo></foo>
+				     |  ^^^
+				  31 | <1-bar></1-bar>
+				  32 |
+				Selector: foo
+				error: <1-bar> is not a valid element name (element-name) at test-files/rules/element-name.html:31:2:
+				  29 | <!-- invalid custom names -->
+				  30 | <foo></foo>
+				> 31 | <1-bar></1-bar>
+				     |  ^^^^^
+				  32 |
+				Selector: 1-bar"
+			`);
 		});
 	});
 

@@ -6,31 +6,3 @@ exports[`rule element-permitted-occurrences should contain documentation 1`] = `
   "url": "https://html-validate.org/rules/element-permitted-occurrences.html",
 }
 `;
-
-exports[`rule element-permitted-occurrences smoketest 1`] = `
-[
-  {
-    "errorCount": 1,
-    "filePath": "test-files/rules/element-permitted-occurrences.html",
-    "messages": [
-      {
-        "column": 3,
-        "line": 3,
-        "message": "Element <caption> can only appear once under <table>",
-        "offset": 32,
-        "ruleId": "element-permitted-occurrences",
-        "ruleUrl": "https://html-validate.org/rules/element-permitted-occurrences.html",
-        "selector": "table > caption:nth-child(2)",
-        "severity": 2,
-        "size": 7,
-      },
-    ],
-    "source": "<table>
-	<caption>1</caption>
-	<caption>2</caption>
-</table>
-",
-    "warningCount": 0,
-  },
-]
-`;

@@ -50,7 +50,7 @@ describe("rule no-trailing-whitespace", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/no-trailing-whitespace.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchCodeframe();
 	});
 
 	it("should contain documentation", () => {

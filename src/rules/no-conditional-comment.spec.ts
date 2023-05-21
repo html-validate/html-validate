@@ -40,7 +40,7 @@ describe("rule no-conditional-comment", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/no-conditional-comment.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchCodeframe();
 	});
 
 	it("should contain documentation", () => {

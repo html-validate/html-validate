@@ -6,30 +6,3 @@ exports[`rule close-attr should contain documentation 1`] = `
   "url": "https://html-validate.org/rules/close-attr.html",
 }
 `;
-
-exports[`rule close-attr smoketest 1`] = `
-[
-  {
-    "errorCount": 1,
-    "filePath": "test-files/rules/close-attr.html",
-    "messages": [
-      {
-        "column": 12,
-        "line": 3,
-        "message": "Close tags cannot have attributes",
-        "offset": 33,
-        "ruleId": "close-attr",
-        "ruleUrl": "https://html-validate.org/rules/close-attr.html",
-        "selector": null,
-        "severity": 2,
-        "size": 3,
-      },
-    ],
-    "source": "<input foo>
-<hr bar/>
-<div></div baz>
-",
-    "warningCount": 0,
-  },
-]
-`;

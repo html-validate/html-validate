@@ -130,7 +130,24 @@ describe("rule close-order", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/close-order.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Mismatched close-tag, expected '</p>' but found '</div>' (close-order) at test-files/rules/close-order.html:6:16:
+			  4 | 	<input>
+			  5 | </div>
+			> 6 | <p>Lorem ipsum</div>
+			    |                ^^^^
+			  7 |
+			  8 | <ul>
+			  9 | 	<li>lorem ipsum
+			Selector: -
+			error: Unexpected close-tag, expected opening tag (close-order) at test-files/rules/close-order.html:12:2:
+			  10 | 	<li>dolor sit amet
+			  11 | </ul>
+			> 12 | </li>
+			     |  ^^^
+			  13 |
+			Selector: -"
+		`);
 	});
 
 	it("should contain documentation", () => {

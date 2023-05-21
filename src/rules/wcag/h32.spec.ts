@@ -97,7 +97,17 @@ describe("wcag/h32", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/wcag/h32.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchInlineCodeframe(`
+			"error: <form> element must have a submit button (wcag/h32) at test-files/rules/wcag/h32.html:9:2:
+			   7 | </form>
+			   8 |
+			>  9 | <form>
+			     |  ^^^^
+			  10 | 	<input type="text">
+			  11 | 	<button>Foo</button>
+			  12 | 	<button type="button">Bar</button>
+			Selector: form:nth-child(3)"
+		`);
 	});
 
 	it("should contain documentation", () => {

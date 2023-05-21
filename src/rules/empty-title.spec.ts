@@ -75,7 +75,22 @@ describe("rule empty-title", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/empty-title.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchInlineCodeframe(`
+			"error: <title> cannot be empty, must have text content (empty-title) at test-files/rules/empty-title.html:2:2:
+			  1 | <title>Lorem ipsum</title>
+			> 2 | <title></title>
+			    |  ^^^^^
+			  3 | <title> </title>
+			  4 |
+			Selector: title:nth-child(2)
+			error: <title> cannot be empty, must have text content (empty-title) at test-files/rules/empty-title.html:3:2:
+			  1 | <title>Lorem ipsum</title>
+			  2 | <title></title>
+			> 3 | <title> </title>
+			    |  ^^^^^
+			  4 |
+			Selector: title:nth-child(3)"
+		`);
 	});
 
 	it("should contain documentation", () => {

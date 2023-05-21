@@ -47,7 +47,7 @@ describe("rule no-implicit-close", () => {
 	it("smoketest", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateFile("test-files/rules/no-implicit-close.html");
-		expect(report.results).toMatchSnapshot();
+		expect(report).toMatchCodeframe();
 	});
 
 	it("should contain documentation", () => {
