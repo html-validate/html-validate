@@ -1186,15 +1186,6 @@ export interface TagStartEvent extends Event_2 {
     target: HtmlElement;
 }
 
-// @public (undocumented)
-export class TemplateExtractor {
-    static createSource(filename: string): Source[];
-    extractObjectProperty(key: string): Source[];
-    // (undocumented)
-    static fromFilename(filename: string): TemplateExtractor;
-    static fromString(source: string, filename?: string): TemplateExtractor;
-}
-
 // @internal (undocumented)
 export interface TemplatingToken extends BaseToken {
     // (undocumented)
