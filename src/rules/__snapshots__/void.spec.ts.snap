@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`rule void should contain documentation 1`] = `
-{
-  "description": "HTML void elements cannot have any content and must not have an end tag.",
-  "url": "https://html-validate.org/rules/void.html",
-}
-`;
