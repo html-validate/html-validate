@@ -44,10 +44,10 @@ interface DirectiveContext {
  * @internal
  */
 export class Engine<T extends Parser = Parser> {
-	protected report: Reporter;
-	protected config: ResolvedConfig;
-	protected ParserClass: new (config: ResolvedConfig) => T;
-	protected availableRules: Record<string, RuleConstructor<unknown, unknown>>;
+	private report: Reporter;
+	private config: ResolvedConfig;
+	private ParserClass: new (config: ResolvedConfig) => T;
+	private availableRules: Record<string, RuleConstructor<unknown, unknown>>;
 
 	public constructor(config: ResolvedConfig, ParserClass: new (config: ResolvedConfig) => T) {
 		this.report = new Reporter();
@@ -382,7 +382,7 @@ export class Engine<T extends Parser = Parser> {
 	/*
 	 * Initialize all plugins. This should only be done once for all sessions.
 	 */
-	protected initPlugins(config: ResolvedConfig): {
+	private initPlugins(config: ResolvedConfig): {
 		availableRules: { [key: string]: RuleConstructor<any, any> };
 	} {
 		for (const plugin of config.getPlugins()) {
@@ -400,7 +400,7 @@ export class Engine<T extends Parser = Parser> {
 	 * Initializes all rules from plugins and returns an object with a mapping
 	 * between rule name and its constructor.
 	 */
-	protected initRules(config: ResolvedConfig): { [key: string]: RuleConstructor<any, any> } {
+	private initRules(config: ResolvedConfig): { [key: string]: RuleConstructor<any, any> } {
 		const availableRules: { [key: string]: RuleConstructor<any, any> } = {};
 		for (const plugin of config.getPlugins()) {
 			for (const [name, rule] of Object.entries(plugin.rules || {})) {
@@ -414,7 +414,7 @@ export class Engine<T extends Parser = Parser> {
 	/**
 	 * Setup all plugins for this session.
 	 */
-	protected setupPlugins(
+	private setupPlugins(
 		source: Source,
 		config: ResolvedConfig,
 		parser: Parser
@@ -436,7 +436,7 @@ export class Engine<T extends Parser = Parser> {
 	/**
 	 * Load and setup all rules for current configuration.
 	 */
-	protected setupRules(
+	private setupRules(
 		config: ResolvedConfig,
 		parser: Parser
 	): Record<string, Rule<unknown, unknown>> {
