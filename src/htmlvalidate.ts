@@ -5,7 +5,7 @@ import { type Source } from "./context";
 import { type SourceHooks } from "./context/source";
 import { type EventDump, type TokenDump, Engine } from "./engine";
 import { Parser } from "./parser";
-import { type Report, Reporter } from "./reporter";
+import { type Report, type Message, Reporter } from "./reporter";
 import { type RuleDocumentation } from "./rule";
 import configurationSchema from "./schema/config.json";
 import { StaticConfigLoader } from "./config/loaders/static";
@@ -371,35 +371,185 @@ export class HtmlValidate {
 	}
 
 	/**
-	 * Get contextual documentation for the given rule.
+	 * Get contextual documentation for the given rule. The default configuration
+	 * will be used.
 	 *
-	 * Typical usage:
+	 * @example
 	 *
 	 * ```js
-	 * const report = htmlvalidate.validateFile("my-file.html");
+	 * const report = await htmlvalidate.validateFile("my-file.html");
 	 * for (const result of report.results){
-	 *   const config = htmlvalidate.getConfigFor(result.filePath);
 	 *   for (const message of result.messages){
-	 *     const documentation = htmlvalidate.getRuleDocumentation(message.ruleId, config, message.context);
+	 *     const documentation = await htmlvalidate.getRuleDocumentation(message, result.filePath);
 	 *     // do something with documentation
 	 *   }
 	 * }
 	 * ```
 	 *
-	 * @param ruleId - Rule to get documentation for.
-	 * @param config - If set it provides more accurate description by using the
-	 * correct configuration for the file.
-	 * @param context - If set to `Message.context` some rules can provide
-	 * contextual details and suggestions.
+	 * @public
+	 * @since %version%
+	 * @param message - Message reported during validation
+	 * @returns Contextual documentation or `null` if the rule does not exist.
 	 */
-	public async getRuleDocumentation(
-		ruleId: string,
-		config: ResolvedConfig | null = null,
-		context: any | null = null
+	public getContextualDocumentation(
+		message: Pick<Message, "ruleId" | "context">
+	): Promise<RuleDocumentation | null>;
+
+	/**
+	 * Get contextual documentation for the given rule. Configuration will be
+	 * resolved for given filename.
+	 *
+	 * @example
+	 *
+	 * ```js
+	 * const report = await htmlvalidate.validateFile("my-file.html");
+	 * for (const result of report.results){
+	 *   for (const message of result.messages){
+	 *     const documentation = await htmlvalidate.getRuleDocumentation(message, result.filePath);
+	 *     // do something with documentation
+	 *   }
+	 * }
+	 * ```
+	 *
+	 * @public
+	 * @since %version%
+	 * @param message - Message reported during validation
+	 * @param filename - Filename used to resolve configuration.
+	 * @returns Contextual documentation or `null` if the rule does not exist.
+	 */
+	public getContextualDocumentation(
+		message: Pick<Message, "ruleId" | "context">,
+		filename: string
+	): Promise<RuleDocumentation | null>;
+
+	/**
+	 * Get contextual documentation for the given rule using provided
+	 * configuration.
+	 *
+	 * @example
+	 *
+	 * ```js
+	 * const report = await htmlvalidate.validateFile("my-file.html");
+	 * for (const result of report.results){
+	 *   for (const message of result.messages){
+	 *     const documentation = await htmlvalidate.getRuleDocumentation(message, result.filePath);
+	 *     // do something with documentation
+	 *   }
+	 * }
+	 * ```
+	 *
+	 * @public
+	 * @since %version%
+	 * @param message - Message reported during validation
+	 * @param config - Configuration to use.
+	 * @returns Contextual documentation or `null` if the rule does not exist.
+	 */
+	public getContextualDocumentation(
+		message: Pick<Message, "ruleId" | "context">,
+		config: ResolvedConfig | Promise<ResolvedConfig>
+	): Promise<RuleDocumentation | null>;
+
+	public async getContextualDocumentation(
+		message: Pick<Message, "ruleId" | "context">,
+		filenameOrConfig: ResolvedConfig | Promise<ResolvedConfig> | string = "inline"
 	): Promise<RuleDocumentation | null> {
-		const c = config || (await this.getConfigFor("inline"));
-		const engine = new Engine(c, Parser);
-		return engine.getRuleDocumentation(ruleId, context);
+		const config =
+			typeof filenameOrConfig === "string"
+				? await this.getConfigFor(filenameOrConfig)
+				: await filenameOrConfig;
+		const engine = new Engine(config, Parser);
+		return engine.getRuleDocumentation(message);
+	}
+
+	/**
+	 * Get contextual documentation for the given rule. The default configuration
+	 * will be used.
+	 *
+	 * @example
+	 *
+	 * ```js
+	 * const report = htmlvalidate.validateFileSync("my-file.html");
+	 * for (const result of report.results){
+	 *   for (const message of result.messages){
+	 *     const documentation = htmlvalidate.getRuleDocumentationSync(message, result.filePath);
+	 *     // do something with documentation
+	 *   }
+	 * }
+	 * ```
+	 *
+	 * @public
+	 * @since %version%
+	 * @param message - Message reported during validation
+	 * @returns Contextual documentation or `null` if the rule does not exist.
+	 */
+	public getContextualDocumentationSync(
+		message: Pick<Message, "ruleId" | "context">
+	): RuleDocumentation | null;
+
+	/**
+	 * Get contextual documentation for the given rule. Configuration will be
+	 * resolved for given filename.
+	 *
+	 * @example
+	 *
+	 * ```js
+	 * const report = htmlvalidate.validateFileSync("my-file.html");
+	 * for (const result of report.results){
+	 *   for (const message of result.messages){
+	 *     const documentation = htmlvalidate.getRuleDocumentationSync(message, result.filePath);
+	 *     // do something with documentation
+	 *   }
+	 * }
+	 * ```
+	 *
+	 * @public
+	 * @since %version%
+	 * @param message - Message reported during validation
+	 * @param filename - Filename used to resolve configuration.
+	 * @returns Contextual documentation or `null` if the rule does not exist.
+	 */
+	public getContextualDocumentationSync(
+		message: Pick<Message, "ruleId" | "context">,
+		filename: string
+	): RuleDocumentation | null;
+
+	/**
+	 * Get contextual documentation for the given rule using provided
+	 * configuration.
+	 *
+	 * @example
+	 *
+	 * ```js
+	 * const report = htmlvalidate.validateFileSync("my-file.html");
+	 * for (const result of report.results){
+	 *   for (const message of result.messages){
+	 *     const documentation = htmlvalidate.getRuleDocumentationSync(message, result.filePath);
+	 *     // do something with documentation
+	 *   }
+	 * }
+	 * ```
+	 *
+	 * @public
+	 * @since %version%
+	 * @param message - Message reported during validation
+	 * @param config - Configuration to use.
+	 * @returns Contextual documentation or `null` if the rule does not exist.
+	 */
+	public getContextualDocumentationSync(
+		message: Pick<Message, "ruleId" | "context">,
+		config: ResolvedConfig
+	): RuleDocumentation | null;
+
+	public getContextualDocumentationSync(
+		message: Pick<Message, "ruleId" | "context">,
+		filenameOrConfig: ResolvedConfig | string = "inline"
+	): RuleDocumentation | null {
+		const config =
+			typeof filenameOrConfig === "string"
+				? this.getConfigForSync(filenameOrConfig)
+				: filenameOrConfig;
+		const engine = new Engine(config, Parser);
+		return engine.getRuleDocumentation(message);
 	}
 
 	/**
@@ -408,16 +558,52 @@ export class HtmlValidate {
 	 * Typical usage:
 	 *
 	 * ```js
-	 * const report = htmlvalidate.validateFile("my-file.html");
+	 * const report = await htmlvalidate.validateFile("my-file.html");
 	 * for (const result of report.results){
-	 *   const config = htmlvalidate.getConfigFor(result.filePath);
+	 *   const config = await htmlvalidate.getConfigFor(result.filePath);
 	 *   for (const message of result.messages){
-	 *     const documentation = htmlvalidate.getRuleDocumentation(message.ruleId, config, message.context);
+	 *     const documentation = await htmlvalidate.getRuleDocumentation(message.ruleId, config, message.context);
 	 *     // do something with documentation
 	 *   }
 	 * }
 	 * ```
 	 *
+	 * @public
+	 * @deprecated Deprecated since %version%, use [[getContextualDocumentation]] instead.
+	 * @param ruleId - Rule to get documentation for.
+	 * @param config - If set it provides more accurate description by using the
+	 * correct configuration for the file.
+	 * @param context - If set to `Message.context` some rules can provide
+	 * contextual details and suggestions.
+	 */
+	public async getRuleDocumentation(
+		ruleId: string,
+		config: ResolvedConfig | Promise<ResolvedConfig> | null = null,
+		context: unknown | null = null
+	): Promise<RuleDocumentation | null> {
+		const c = config || this.getConfigFor("inline");
+		const engine = new Engine(await c, Parser);
+		return engine.getRuleDocumentation({ ruleId, context });
+	}
+
+	/**
+	 * Get contextual documentation for the given rule.
+	 *
+	 * Typical usage:
+	 *
+	 * ```js
+	 * const report = htmlvalidate.validateFileSync("my-file.html");
+	 * for (const result of report.results){
+	 *   const config = htmlvalidate.getConfigForSync(result.filePath);
+	 *   for (const message of result.messages){
+	 *     const documentation = htmlvalidate.getRuleDocumentationSync(message.ruleId, config, message.context);
+	 *     // do something with documentation
+	 *   }
+	 * }
+	 * ```
+	 *
+	 * @public
+	 * @deprecated Deprecated since %version%, use [[getContextualDocumentationSync]] instead.
 	 * @param ruleId - Rule to get documentation for.
 	 * @param config - If set it provides more accurate description by using the
 	 * correct configuration for the file.
@@ -427,11 +613,11 @@ export class HtmlValidate {
 	public getRuleDocumentationSync(
 		ruleId: string,
 		config: ResolvedConfig | null = null,
-		context: any | null = null
+		context: unknown | null = null
 	): RuleDocumentation | null {
 		const c = config || this.getConfigForSync("inline");
 		const engine = new Engine(c, Parser);
-		return engine.getRuleDocumentation(ruleId, context);
+		return engine.getRuleDocumentation({ ruleId, context });
 	}
 
 	/**

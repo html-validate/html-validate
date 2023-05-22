@@ -992,15 +992,104 @@ describe("HtmlValidate", () => {
 		expect(schema).toBeDefined();
 	});
 
+	describe("getContextualDocumentation()", () => {
+		it("should get contextual documentation", async () => {
+			expect.assertions(2);
+			const htmlvalidate = new HtmlValidate();
+			await htmlvalidate.getContextualDocumentation({ ruleId: "foo" });
+			await htmlvalidate.getContextualDocumentation({ ruleId: "foo", context: { bar: "baz" } });
+			expect(engine.getRuleDocumentation).toHaveBeenCalledWith({ ruleId: "foo" });
+			expect(engine.getRuleDocumentation).toHaveBeenCalledWith({
+				ruleId: "foo",
+				context: {
+					bar: "baz",
+				},
+			});
+		});
+
+		it("should use inline config by default", async () => {
+			expect.assertions(2);
+			const htmlvalidate = new HtmlValidate();
+			const getConfigFor = jest.spyOn(htmlvalidate, "getConfigFor");
+			await htmlvalidate.getContextualDocumentation({ ruleId: "foo" });
+			expect(getConfigFor).toHaveBeenCalledTimes(1);
+			expect(getConfigFor).toHaveBeenCalledWith("inline");
+		});
+
+		it("should get config for given filename", async () => {
+			expect.assertions(2);
+			const htmlvalidate = new HtmlValidate();
+			const getConfigFor = jest.spyOn(htmlvalidate, "getConfigFor");
+			await htmlvalidate.getContextualDocumentation({ ruleId: "foo" }, "my-file.html");
+			expect(getConfigFor).toHaveBeenCalledTimes(1);
+			expect(getConfigFor).toHaveBeenCalledWith("my-file.html");
+		});
+
+		it("should use given configuration", async () => {
+			expect.assertions(1);
+			const htmlvalidate = new HtmlValidate();
+			const config = Config.empty().resolve();
+			const getConfigFor = jest.spyOn(htmlvalidate, "getConfigFor");
+			await htmlvalidate.getContextualDocumentation({ ruleId: "foo" }, config);
+			expect(getConfigFor).not.toHaveBeenCalled();
+		});
+	});
+
+	describe("getContextualDocumentationSync()", () => {
+		it("should get contextual documentation", () => {
+			expect.assertions(2);
+			const htmlvalidate = new HtmlValidate();
+			htmlvalidate.getContextualDocumentationSync({ ruleId: "foo" });
+			htmlvalidate.getContextualDocumentationSync({ ruleId: "foo", context: { bar: "baz" } });
+			expect(engine.getRuleDocumentation).toHaveBeenCalledWith({ ruleId: "foo" });
+			expect(engine.getRuleDocumentation).toHaveBeenCalledWith({
+				ruleId: "foo",
+				context: {
+					bar: "baz",
+				},
+			});
+		});
+
+		it("should use inline config by default", () => {
+			expect.assertions(2);
+			const htmlvalidate = new HtmlValidate();
+			const getConfigFor = jest.spyOn(htmlvalidate, "getConfigForSync");
+			htmlvalidate.getContextualDocumentationSync({ ruleId: "foo" });
+			expect(getConfigFor).toHaveBeenCalledTimes(1);
+			expect(getConfigFor).toHaveBeenCalledWith("inline");
+		});
+
+		it("should get config for given filename", () => {
+			expect.assertions(2);
+			const htmlvalidate = new HtmlValidate();
+			const getConfigFor = jest.spyOn(htmlvalidate, "getConfigForSync");
+			htmlvalidate.getContextualDocumentationSync({ ruleId: "foo" }, "my-file.html");
+			expect(getConfigFor).toHaveBeenCalledTimes(1);
+			expect(getConfigFor).toHaveBeenCalledWith("my-file.html");
+		});
+
+		it("should use given configuration", () => {
+			expect.assertions(1);
+			const htmlvalidate = new HtmlValidate();
+			const config = Config.empty().resolve();
+			const getConfigFor = jest.spyOn(htmlvalidate, "getConfigForSync");
+			htmlvalidate.getContextualDocumentationSync({ ruleId: "foo" }, config);
+			expect(getConfigFor).not.toHaveBeenCalled();
+		});
+	});
+
 	it("getRuleDocumentation() should delegate call to engine", async () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate();
 		const config = Config.empty().resolve();
 		await htmlvalidate.getRuleDocumentation("foo");
 		await htmlvalidate.getRuleDocumentation("foo", config, { bar: "baz" });
-		expect(engine.getRuleDocumentation).toHaveBeenCalledWith("foo", null);
-		expect(engine.getRuleDocumentation).toHaveBeenCalledWith("foo", {
-			bar: "baz",
+		expect(engine.getRuleDocumentation).toHaveBeenCalledWith({ ruleId: "foo", context: null });
+		expect(engine.getRuleDocumentation).toHaveBeenCalledWith({
+			ruleId: "foo",
+			context: {
+				bar: "baz",
+			},
 		});
 	});
 
@@ -1010,9 +1099,12 @@ describe("HtmlValidate", () => {
 		const config = Config.empty().resolve();
 		htmlvalidate.getRuleDocumentationSync("foo");
 		htmlvalidate.getRuleDocumentationSync("foo", config, { bar: "baz" });
-		expect(engine.getRuleDocumentation).toHaveBeenCalledWith("foo", null);
-		expect(engine.getRuleDocumentation).toHaveBeenCalledWith("foo", {
-			bar: "baz",
+		expect(engine.getRuleDocumentation).toHaveBeenCalledWith({ ruleId: "foo", context: null });
+		expect(engine.getRuleDocumentation).toHaveBeenCalledWith({
+			ruleId: "foo",
+			context: {
+				bar: "baz",
+			},
 		});
 	});
 

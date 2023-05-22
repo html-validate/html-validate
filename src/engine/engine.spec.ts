@@ -471,7 +471,7 @@ describe("Engine", () => {
 	describe("getRuleDocumentation()", () => {
 		it("should get rule documentation", () => {
 			expect.assertions(1);
-			const docs = engine.getRuleDocumentation("void-style");
+			const docs = engine.getRuleDocumentation({ ruleId: "void-style" });
 			expect(docs).toEqual({
 				description: expect.any(String),
 				url: expect.any(String),
@@ -480,7 +480,7 @@ describe("Engine", () => {
 
 		it("should return null if rule is unknown", () => {
 			expect.assertions(1);
-			const docs = engine.getRuleDocumentation("missing-rule");
+			const docs = engine.getRuleDocumentation({ ruleId: "missing-rule" });
 			expect(docs).toBeNull();
 		});
 	});

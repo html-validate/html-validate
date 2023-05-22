@@ -79,7 +79,7 @@ describe("wcag/h67", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "wcag/h67": "error" },
 		});
-		const docs = await htmlvalidate.getRuleDocumentation("wcag/h67");
+		const docs = await htmlvalidate.getContextualDocumentation({ ruleId: "wcag/h67" });
 		expect(docs).toMatchSnapshot();
 	});
 });

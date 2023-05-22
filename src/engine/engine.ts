@@ -12,7 +12,7 @@ import {
 } from "../event";
 import { InvalidTokenError, Lexer, TokenType } from "../lexer";
 import { type Parser, ParserError } from "../parser";
-import { type Report, Reporter } from "../reporter";
+import { type Report, type Message, Reporter } from "../reporter";
 import { type RuleConstructor, type RuleDocumentation, Rule } from "../rule";
 import type NoUnusedDisable from "../rules/no-unused-disable";
 import bundledRules from "../rules";
@@ -209,7 +209,10 @@ export class Engine<T extends Parser = Parser> {
 	/**
 	 * Get rule documentation.
 	 */
-	public getRuleDocumentation(ruleId: string, context?: any): RuleDocumentation | null {
+	public getRuleDocumentation({
+		ruleId,
+		context,
+	}: Pick<Message, "ruleId" | "context">): RuleDocumentation | null {
 		const rules = this.config.getRules();
 		const ruleData = rules.get(ruleId);
 		if (ruleData) {

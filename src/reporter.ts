@@ -134,7 +134,7 @@ export class Reporter {
 		severity: number,
 		node: DOMNode | null,
 		location: Location,
-		context?: ContextType
+		context: ContextType
 	): void {
 		if (!(location.filename in this.result)) {
 			this.result[location.filename] = [];

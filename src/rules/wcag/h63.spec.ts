@@ -118,7 +118,7 @@ describe("wcag/h63", () => {
 
 	it("should contain documentation", async () => {
 		expect.assertions(1);
-		const docs = await htmlvalidate.getRuleDocumentation("wcag/h63");
+		const docs = await htmlvalidate.getContextualDocumentation({ ruleId: "wcag/h63" });
 		expect(docs).toMatchSnapshot();
 	});
 });

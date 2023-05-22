@@ -545,12 +545,20 @@ export class HtmlValidate {
     getConfigFor(filename: string, configOverride?: ConfigData): Promise<ResolvedConfig>;
     getConfigForSync(filename: string, configOverride?: ConfigData): ResolvedConfig;
     getConfigurationSchema(): SchemaObject;
+    getContextualDocumentation(message: Pick<Message, "ruleId" | "context">): Promise<RuleDocumentation | null>;
+    getContextualDocumentation(message: Pick<Message, "ruleId" | "context">, filename: string): Promise<RuleDocumentation | null>;
+    getContextualDocumentation(message: Pick<Message, "ruleId" | "context">, config: ResolvedConfig | Promise<ResolvedConfig>): Promise<RuleDocumentation | null>;
+    getContextualDocumentationSync(message: Pick<Message, "ruleId" | "context">): RuleDocumentation | null;
+    getContextualDocumentationSync(message: Pick<Message, "ruleId" | "context">, filename: string): RuleDocumentation | null;
+    getContextualDocumentationSync(message: Pick<Message, "ruleId" | "context">, config: ResolvedConfig): RuleDocumentation | null;
     getElementsSchema(filename?: string): Promise<SchemaObject>;
     getElementsSchemaSync(filename?: string): SchemaObject;
     // @internal
     getParserFor(source: Source): Promise<Parser>;
-    getRuleDocumentation(ruleId: string, config?: ResolvedConfig | null, context?: any | null): Promise<RuleDocumentation | null>;
-    getRuleDocumentationSync(ruleId: string, config?: ResolvedConfig | null, context?: any | null): RuleDocumentation | null;
+    // @deprecated
+    getRuleDocumentation(ruleId: string, config?: ResolvedConfig | Promise<ResolvedConfig> | null, context?: unknown | null): Promise<RuleDocumentation | null>;
+    // @deprecated
+    getRuleDocumentationSync(ruleId: string, config?: ResolvedConfig | null, context?: unknown | null): RuleDocumentation | null;
     validateFile(filename: string): Promise<Report>;
     validateFileSync(filename: string): Report;
     validateMultipleFiles(filenames: string[]): Promise<Report>;
@@ -925,7 +933,7 @@ export interface Report {
 export class Reporter {
     constructor();
     // (undocumented)
-    add<ContextType, OptionsType>(rule: Rule<ContextType, OptionsType>, message: string, severity: number, node: DOMNode | null, location: Location_2, context?: ContextType): void;
+    add<ContextType, OptionsType>(rule: Rule<ContextType, OptionsType>, message: string, severity: number, node: DOMNode | null, location: Location_2, context: ContextType): void;
     // (undocumented)
     addManual(filename: string, message: DeferredMessage): void;
     // (undocumented)
@@ -1006,7 +1014,8 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
     // @internal
     block(id: RuleBlocker): void;
     get deprecated(): boolean;
-    documentation(context?: ContextType): RuleDocumentation | null;
+    // @virtual
+    documentation(context: ContextType): RuleDocumentation | null;
     // @internal
     getBlockers(node?: DOMNode | null): RuleBlocker[];
     getMetaFor(tagName: string): MetaElement | null;

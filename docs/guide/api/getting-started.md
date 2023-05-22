@@ -162,7 +162,7 @@ console.log(report.results[0]);
 - `size` is the number of characters this error refers to.
 - `selector` is a unique CSS selector this error refers to. If no selector is possible it is set to `null`.
 - `ruleUrl` is a URL to a page describing the error in detail.
-- `context` is a contextual data blob for use with `HtmlValidate.getRuleDocumentation(..)` to give a more accurate error description.
+- `context` is a contextual data blob for use with `HtmlValidate.getContextualDocumentation(..)` to give a more accurate error description.
 
 ## Displaying the results
 
