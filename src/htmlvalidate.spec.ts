@@ -1,4 +1,3 @@
-import { globSync } from "glob";
 import { Config, ConfigData, ConfigLoader, ResolvedConfig, Severity } from "./config";
 import { Source, SourceHooks } from "./context";
 import { HtmlValidate } from "./htmlvalidate";
@@ -612,15 +611,5 @@ describe("HtmlValidate", () => {
 		const flushCache = jest.spyOn((htmlvalidate as any).configLoader as ConfigLoader, "flushCache");
 		htmlvalidate.flushConfigCache("foo");
 		expect(flushCache).toHaveBeenCalledWith("foo");
-	});
-
-	describe("configuration smoketest", () => {
-		const files = globSync("test-files/config/**/*.html");
-		it.each(files)("%s", (filename: string) => {
-			expect.assertions(1);
-			const htmlvalidate = new HtmlValidate();
-			const report = htmlvalidate.validateFile(filename);
-			expect(report.results).toMatchSnapshot();
-		});
 	});
 });

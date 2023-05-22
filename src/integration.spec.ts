@@ -1,3 +1,4 @@
+import { globSync } from "glob";
 import { HtmlValidate } from "./htmlvalidate";
 import { Source } from "./context";
 import { TRANSFORMER_API } from "./transform";
@@ -198,4 +199,14 @@ it("should allow inline metadata", () => {
 		].join("\n")
 	);
 	expect(report).toBeValid();
+});
+
+describe("configuration smoketest", () => {
+	const files = globSync("test-files/config/**/*.html");
+	it.each(files)("%s", (filename: string) => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate();
+		const report = htmlvalidate.validateFile(filename);
+		expect(report.results).toMatchSnapshot();
+	});
 });
