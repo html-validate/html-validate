@@ -2,6 +2,7 @@ import kleur from "kleur";
 import { toMatchSnapshot } from "jest-snapshot";
 import { codeframe, type CodeframeOptions } from "../../formatters/codeframe";
 import { type Report } from "../../reporter";
+import { diverge } from "../utils";
 import { getResults } from "./get-results";
 
 const options: CodeframeOptions = {
@@ -28,4 +29,4 @@ function toMatchCodeframe(
 	return (toMatchSnapshot as any).call(this, snapshot, ...rest);
 }
 
-export default toMatchCodeframe;
+export default diverge(toMatchCodeframe);
