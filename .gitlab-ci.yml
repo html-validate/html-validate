@@ -166,8 +166,6 @@ Jest compat:
   parallel:
     matrix:
       - MATRIX:
-          - 25
-          - 26
           - 27
           - 28
           - 29
