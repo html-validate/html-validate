@@ -190,7 +190,7 @@
     "@types/estree": "1.0.1",
     "@types/jest": "29.5.2",
     "@types/minimist": "1.2.2",
-    "@types/node": "14.18.48",
+    "@types/node": "16.18.32",
     "@types/prompts": "2.4.4",
     "@types/semver": "7.5.0",
     "@types/stream-buffers": "3.0.4",
@@ -226,7 +226,7 @@
     }
   },
   "engines": {
-    "node": ">= 14.0"
+    "node": ">= 16.0"
   },
   "renovate": {
     "extends": [

@@ -153,10 +153,9 @@ Node:
   parallel:
     matrix:
       - VERSION:
-          - 14
           - 16
           - 18
-          - 19
+          - 20
   image: node:${VERSION}
 
 Jest compat:
