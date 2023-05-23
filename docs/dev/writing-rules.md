@@ -48,6 +48,16 @@ The message should be short and concise but still contain enough information to 
 For a more verbose error (typically shown in IDEs and GUIs) the `documentation()` method is used.
 This documentation might include contextual information (see below).
 
+## DOM library
+
+HTML-Validate implements a custom DOM library heavily modelled after [WHATWG DOM Standard][dom] but with some differences:
+
+- Exact source locations for every DOM node.
+- No error recovery or normalization, e.g. mismatched tags will not be corrected or `'` converted to `"`.
+- Access to raw undecoded values, e.g. `&quot;` or `%20` will be intact and not decoded into `"` or ` ` respectively.
+
+[dom]: https://dom.spec.whatwg.org/
+
 ## Error location
 
 By default the error is reported at the same location as the DOM node but if a better location can be provided it should be added as the third argument, typically by using the provided `sliceLocation` helper:
