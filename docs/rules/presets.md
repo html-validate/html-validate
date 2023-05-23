@@ -31,6 +31,16 @@ Enables rules related to validating according to the WHATWG HTML standard (Livin
 
 Use this preset if you want validation similar to the Nu Html Checker and similar tools.
 
+### `html-validate:prettier`
+
+- Since: v%version%
+
+If you are using [Prettier][prettier] to format your HTML markup you can use this preset to disable contradicting rules such as {@link rule:void-style}.
+
+This preset if meant to be used in combination with another preset such as `html-validate:recommended` as it only disables rules.
+
+[prettier]: https://prettier.io/
+
 ### `html-validate:a11y`
 
 Enables rules related to accessibility.
