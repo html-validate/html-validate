@@ -337,6 +337,36 @@ htmlvalidate.validateString("..", {
 });
 ```
 
+## Resolvers
+
+Since v8 the `HtmlValidate` API uses `StaticResolver` by default which only loads predefined elements, configurations, plugins and transformers.
+
+A `Resolver` implements the following interface:
+
+```ts
+import {
+  type ConfigData,
+  type Plugin,
+  type ResolverOptions,
+  type Transformer,
+} from "html-validate";
+
+/* --- */
+
+export interface Resolver {
+  name: string;
+  resolveElements?(id: string, options: ResolverOptions): unknown | null;
+  resolveConfig?(id: string, options: ResolverOptions): ConfigData | null;
+  resolvePlugin?(id: string, options: ResolverOptions): Plugin | null;
+  resolveTransformer?(id: string, options: ResolverOptions): Transformer | null;
+}
+```
+
+The library comes with two builtin resolvers:
+
+- `StaticResolver` - resolves only predefined items, use the `staticResolver` function to create one.
+- `NodeJSResolver` - resolves items using `require(..)`, use the `nodejsResolver` function to create one.
+
 ## Configuration cache
 
 `HtmlValidate` is mostly stateless, it only acts on the input source and its

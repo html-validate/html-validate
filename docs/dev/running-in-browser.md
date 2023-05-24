@@ -47,16 +47,7 @@ The library contains both a full build and a browser build, if your bundler fail
 
 ## Configuration loading
 
-By default `html-validate` will traverse the filesystem looking for configuration files (e.g. `.htmlvalidate.json`).
-This is true even when using `validateString(..)`.
-
-This will manifest itself with errors such as:
-
-- `Cannot find module 'fs'`
-- `Cannot read property 'existsSync' of undefined`
-- `fs_1.default.existsSync is not a function`
-
-To get around this the {@link dev/using-api#staticconfigloader `StaticConfigLoader`} (or a custom loader) can be used:
+Since v%version% {@link dev/using-api#staticconfigloader `StaticConfigLoader`} is used by default but you might want to explicitly enable it:
 
 ```diff
 -import { HtmlValidate } from "html-validate"
@@ -68,7 +59,7 @@ To get around this the {@link dev/using-api#staticconfigloader `StaticConfigLoad
  const report = await htmlvalidate.validateString(markup, "my-file.html");
 ```
 
-The {@link dev/using-api#staticconfigloader `StaticConfigLoader`} will only load the configuration passed to the constructor or to `validateString(..)`.
+The `StaticConfigLoader` will only load the configuration passed to the constructor or to `validateString(..)`.
 By default it uses the `html-validate:recommended` preset but can be overridden by passing a different to the constructor:
 
 ```diff
@@ -77,6 +68,29 @@ By default it uses the `html-validate:recommended` preset but can be overridden 
 +  extends: ["html-validate:standard"],
 +  elements: ["html5"],
 +});
+ const htmlvalidate = new HtmlValidate(loader);
+```
+
+Do note that no external configurations, elements plugins or transformers will be loaded, only the builtin configurations adn elements will be available.
+
+If you need addtional ones you must also use {@link dev/using-api#resolvers `StaticResolver`}:
+
+```diff
++import { MyAwesomePlugin } from "my-awesome-plugin";
++
++const resolver = staticResolver({
++  plugins: {
++  "my-awesome-plugin": MyAwesomePlugin,
++  },
++});
+
+-const loader = new StaticConfigLoader({
+-  extends: ["html-validate:standard"],
++const loader = new StaticConfigLoader([resolver], {
++  plugins: ["my-awesome-plugin"],
++  extends: ["html-validate:standard", "my-awesom-plugin:recommended"],
+   elements: ["html5"],
+ });
  const htmlvalidate = new HtmlValidate(loader);
 ```
 
