@@ -20,7 +20,7 @@ This guide shows how to use the API to validate markup and present the result.
 import { HtmlValidate } from "html-validate";
 
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-const validator = new HtmlValidate({
+const htmlvalidate = new HtmlValidate({
   extends: ["html-validate:recommended"],
   rules: {
     "doctype-style": "off",
@@ -41,7 +41,7 @@ To validate markup use one of the `validate*` functions, e.g. use `validateStrin
 ```ts
 import { HtmlValidate } from "html-validate";
 
-const validator = new HtmlValidate();
+const htmlvalidate = new HtmlValidate();
 
 /* --- */
 
@@ -50,7 +50,7 @@ const markup = /* HTML */ `
   <input type='text'></input>
 `;
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-const report = validator.validateString(markup);
+const report = htmlvalidate.validateString(markup);
 ```
 
 If we run this, `report` will contain an object like this:
@@ -100,8 +100,8 @@ It is therefor always safe to access `report.results[0]`, e.g.:
 ```ts
 import { HtmlValidate } from "html-validate";
 
-const validator = new HtmlValidate();
-const report = validator.validateString("");
+const htmlvalidate = new HtmlValidate();
+const report = htmlvalidate.validateString("");
 
 /* --- */
 
@@ -169,8 +169,8 @@ console.log(report.results[0]);
 ```ts
 import { HtmlValidate } from "html-validate";
 
-const validator = new HtmlValidate();
-const report = validator.validateString("");
+const htmlvalidate = new HtmlValidate();
+const report = htmlvalidate.validateString("");
 
 /* --- */
 
@@ -203,7 +203,7 @@ Here, we loop over each result and print the errors and warnings.
 ```ts
 import { HtmlValidate } from "html-validate";
 
-const validator = new HtmlValidate({
+const htmlvalidate = new HtmlValidate({
   extends: ["html-validate:recommended"],
   rules: {
     "doctype-style": "off",
@@ -217,7 +217,7 @@ const markup = /* HTML */ `
   <h1>Hello & goodbye!</h1>
   <input type='text'></input>
 `;
-const report = validator.validateString(markup);
+const report = htmlvalidate.validateString(markup);
 
 const severity = ["", "Warning", "Error"];
 
