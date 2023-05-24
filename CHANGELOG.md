@@ -1,5 +1,18 @@
 # html-validate changelog
 
+## [7.18.0](https://gitlab.com/html-validate/html-validate/compare/v7.17.0...v7.18.0) (2023-05-24)
+
+### Features
+
+- add new preset `html-validate:prettier` ([9491016](https://gitlab.com/html-validate/html-validate/commit/94910166b88b4221317222e8d99dfdc2ebbc91a4)), closes [#215](https://gitlab.com/html-validate/html-validate/issues/215)
+
+### Bug Fixes
+
+- **api:** mark `Config.fromFile()` as internal ([3e70028](https://gitlab.com/html-validate/html-validate/commit/3e700285aae95da02b13a76ac018151df607c464))
+- **api:** mark `Config.getMetaTable()` as internal ([8cb6dd0](https://gitlab.com/html-validate/html-validate/commit/8cb6dd080b32fb45d71d01a801777800b14316dd))
+- **api:** mark `dumpEvents`,`dumpSource`, `dumpTokens` and `dumpTree` as internal ([866f219](https://gitlab.com/html-validate/html-validate/commit/866f219c63e3b1f40f7f3c867915b8184d015bd1))
+- **jest:** `toMatchCodeframe` and `toMatchInlineCodeframe` handles async result ([584c67e](https://gitlab.com/html-validate/html-validate/commit/584c67ed443182afa1444123affb0ce7630e5efd))
+
 ## [7.17.0](https://gitlab.com/html-validate/html-validate/compare/v7.16.0...v7.17.0) (2023-05-12)
 
 ### Features

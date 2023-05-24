@@ -33,7 +33,7 @@ Use this preset if you want validation similar to the Nu Html Checker and simila
 
 ### `html-validate:prettier`
 
-- Since: v%version%
+- Since: v7.18.0
 
 If you are using [Prettier][prettier] to format your HTML markup you can use this preset to disable contradicting rules such as {@link rule:void-style}.
 
