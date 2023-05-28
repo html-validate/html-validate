@@ -1,33 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`configuration smoketest test-files/config/cjs-config/file.html 1`] = `
-[
-  {
-    "errorCount": 1,
-    "filePath": "test-files/config/cjs-config/file.html",
-    "messages": [
-      {
-        "column": 6,
-        "context": "br",
-        "line": 2,
-        "message": "End tag for <br> must be omitted",
-        "offset": 71,
-        "ruleId": "void-content",
-        "ruleUrl": "https://html-validate.org/rules/void-content.html",
-        "selector": null,
-        "severity": 2,
-        "size": 3,
-      },
-    ],
-    "source": "<!-- configuration to disable rule, should not yield anything -->
-<br></br>
-",
-    "warningCount": 0,
+exports[`configuration smoketest test-files/config/cjs-config/file.html: config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "deprecated": "error",
+    "element-permitted-content": "error",
+    "no-self-closing": "error",
+    "void-content": "off",
   },
-]
+  "transform": {},
+}
 `;
 
-exports[`configuration smoketest test-files/config/directive/disable.html 1`] = `
+exports[`configuration smoketest test-files/config/cjs-config/file.html: results 1`] = `[]`;
+
+exports[`configuration smoketest test-files/config/directive/disable.html: config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "deprecated": "error",
+    "element-permitted-content": "off",
+    "no-self-closing": "error",
+    "void-content": "error",
+  },
+  "transform": {},
+}
+`;
+
+exports[`configuration smoketest test-files/config/directive/disable.html: results 1`] = `
 [
   {
     "errorCount": 2,
@@ -72,10 +77,25 @@ exports[`configuration smoketest test-files/config/directive/disable.html 1`] = 
 ]
 `;
 
-exports[`configuration smoketest test-files/config/directive/disable-block.html 1`] = `
+exports[`configuration smoketest test-files/config/directive/disable-block.html: config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "deprecated": "error",
+    "element-permitted-content": "off",
+    "no-self-closing": "error",
+    "void-content": "error",
+  },
+  "transform": {},
+}
+`;
+
+exports[`configuration smoketest test-files/config/directive/disable-block.html: results 1`] = `
 [
   {
-    "errorCount": 6,
+    "errorCount": 4,
     "filePath": "test-files/config/directive/disable-block.html",
     "messages": [
       {
@@ -115,20 +135,6 @@ exports[`configuration smoketest test-files/config/directive/disable-block.html 
         "size": 2,
       },
       {
-        "column": 36,
-        "context": {
-          "ruleId": "no-self-closing",
-        },
-        "line": 14,
-        "message": ""no-self-closing" rule is disabled but no error was reported",
-        "offset": 409,
-        "ruleId": "no-unused-disable",
-        "ruleUrl": "https://html-validate.org/rules/no-unused-disable.html",
-        "selector": null,
-        "severity": 2,
-        "size": 15,
-      },
-      {
         "column": 3,
         "context": "i",
         "line": 16,
@@ -139,20 +145,6 @@ exports[`configuration smoketest test-files/config/directive/disable-block.html 
         "selector": "i:nth-child(5)",
         "severity": 2,
         "size": 2,
-      },
-      {
-        "column": 35,
-        "context": {
-          "ruleId": "no-self-closing",
-        },
-        "line": 18,
-        "message": ""no-self-closing" rule is disabled but no error was reported",
-        "offset": 506,
-        "ruleId": "no-unused-disable",
-        "ruleUrl": "https://html-validate.org/rules/no-unused-disable.html",
-        "selector": null,
-        "severity": 2,
-        "size": 15,
       },
     ],
     "source": "<i/>Outside block, should trigger
@@ -180,10 +172,25 @@ Should handle when root element is parent but no children
 ]
 `;
 
-exports[`configuration smoketest test-files/config/directive/disable-multiple.html 1`] = `
+exports[`configuration smoketest test-files/config/directive/disable-multiple.html: config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "deprecated": "error",
+    "element-permitted-content": "off",
+    "no-self-closing": "error",
+    "void-content": "error",
+  },
+  "transform": {},
+}
+`;
+
+exports[`configuration smoketest test-files/config/directive/disable-multiple.html: results 1`] = `
 [
   {
-    "errorCount": 3,
+    "errorCount": 2,
     "filePath": "test-files/config/directive/disable-multiple.html",
     "messages": [
       {
@@ -214,22 +221,6 @@ exports[`configuration smoketest test-files/config/directive/disable-multiple.ht
         "severity": 2,
         "size": 2,
       },
-      {
-        "column": 3,
-        "context": {
-          "child": "<blink>",
-          "kind": "content",
-          "parent": "<div>",
-        },
-        "line": 5,
-        "message": "<blink> element is not permitted as content under <div>",
-        "offset": 116,
-        "ruleId": "element-permitted-content",
-        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
-        "selector": "div > blink",
-        "severity": 2,
-        "size": 5,
-      },
     ],
     "source": "<blink/> Outside block, should trigger
 
@@ -243,7 +234,22 @@ exports[`configuration smoketest test-files/config/directive/disable-multiple.ht
 ]
 `;
 
-exports[`configuration smoketest test-files/config/directive/disable-next.html 1`] = `
+exports[`configuration smoketest test-files/config/directive/disable-next.html: config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "deprecated": "error",
+    "element-permitted-content": "off",
+    "no-self-closing": "error",
+    "void-content": "error",
+  },
+  "transform": {},
+}
+`;
+
+exports[`configuration smoketest test-files/config/directive/disable-next.html: results 1`] = `
 [
   {
     "errorCount": 2,
@@ -285,7 +291,26 @@ exports[`configuration smoketest test-files/config/directive/disable-next.html 1
 ]
 `;
 
-exports[`configuration smoketest test-files/config/elements/file.html 1`] = `
+exports[`configuration smoketest test-files/config/elements/file.html: config 1`] = `
+{
+  "elements": [
+    "html5",
+    "<rootDir>/test-files/config/elements/elements.json",
+  ],
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "deprecated": "error",
+    "element-permitted-content": "error",
+    "no-self-closing": "error",
+    "void-content": "error",
+  },
+  "transform": {},
+}
+`;
+
+exports[`configuration smoketest test-files/config/elements/file.html: results 1`] = `
 [
   {
     "errorCount": 2,
@@ -294,15 +319,13 @@ exports[`configuration smoketest test-files/config/elements/file.html 1`] = `
       {
         "column": 3,
         "context": {
-          "blacklist": [],
-          "pattern": "^[a-z][a-z0-9\\-._]*-[a-z0-9\\-._]*$",
           "tagName": "deprecated",
         },
         "line": 2,
-        "message": "<deprecated> is not a valid element name",
+        "message": "<deprecated> is deprecated",
         "offset": 8,
-        "ruleId": "element-name",
-        "ruleUrl": "https://html-validate.org/rules/element-name.html",
+        "ruleId": "deprecated",
+        "ruleUrl": "https://html-validate.org/rules/deprecated.html",
         "selector": "div > deprecated",
         "severity": 2,
         "size": 10,
@@ -310,18 +333,18 @@ exports[`configuration smoketest test-files/config/elements/file.html 1`] = `
       {
         "column": 4,
         "context": {
-          "child": "<p>",
+          "child": "<li>",
           "kind": "content",
           "parent": "<ul>",
         },
-        "line": 6,
-        "message": "<p> element is not permitted as content under <ul>",
-        "offset": 109,
+        "line": 5,
+        "message": "<li> element is not permitted as content under <ul>",
+        "offset": 67,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
-        "selector": "div > ul > p",
+        "selector": "div > ul > li",
         "severity": 2,
-        "size": 1,
+        "size": 2,
       },
     ],
     "source": "<div>
@@ -338,9 +361,78 @@ exports[`configuration smoketest test-files/config/elements/file.html 1`] = `
 ]
 `;
 
-exports[`configuration smoketest test-files/config/extend-order/foo.html 1`] = `[]`;
+exports[`configuration smoketest test-files/config/extend-order/foo.html: config 1`] = `
+{
+  "elements": [
+    "<rootDir>/test-files/config/extend-order/first.json",
+    "<rootDir>/test-files/config/extend-order/override.json",
+  ],
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "element-permitted-content": "error",
+  },
+  "transform": {},
+}
+`;
 
-exports[`configuration smoketest test-files/config/extend-order/nested/foo.html 1`] = `
+exports[`configuration smoketest test-files/config/extend-order/foo.html: results 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "test-files/config/extend-order/foo.html",
+    "messages": [
+      {
+        "column": 3,
+        "context": {
+          "child": "<a>",
+          "kind": "content",
+          "parent": "<div>",
+        },
+        "line": 3,
+        "message": "<a> element is not permitted as content under <div>",
+        "offset": 94,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "div:nth-child(1) > a",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<div>
+	<!-- should yield error: allowed in default.json but disallowed by override.json -->
+	<a>..</a>
+</div>
+
+<div>
+	<!-- should not yield error -->
+	<b>..</b>
+</div>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`configuration smoketest test-files/config/extend-order/nested/foo.html: config 1`] = `
+{
+  "elements": [
+    "<rootDir>/test-files/config/extend-order/first.json",
+    "<rootDir>/test-files/config/extend-order/override.json",
+    "<rootDir>/test-files/config/extend-order/nested/nested.json",
+  ],
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "element-permitted-content": "error",
+  },
+  "transform": {},
+}
+`;
+
+exports[`configuration smoketest test-files/config/extend-order/nested/foo.html: results 1`] = `
 [
   {
     "errorCount": 2,
@@ -349,29 +441,34 @@ exports[`configuration smoketest test-files/config/extend-order/nested/foo.html 
       {
         "column": 3,
         "context": {
-          "blacklist": [],
-          "pattern": "^[a-z][a-z0-9\\-._]*-[a-z0-9\\-._]*$",
-          "tagName": "c",
+          "child": "<a>",
+          "kind": "content",
+          "parent": "<div>",
         },
-        "line": 9,
-        "message": "<c> is not a valid element name",
-        "offset": 139,
-        "ruleId": "element-name",
-        "ruleUrl": "https://html-validate.org/rules/element-name.html",
-        "selector": "div:nth-child(2) > c",
+        "line": 3,
+        "message": "<a> element is not permitted as content under <div>",
+        "offset": 70,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "div:nth-child(1) > a",
         "severity": 2,
         "size": 1,
       },
       {
-        "column": 8,
-        "line": 9,
-        "message": "Mismatched close-tag, expected '</c>' but found '</d>'.",
-        "offset": 144,
-        "ruleId": "close-order",
-        "ruleUrl": "https://html-validate.org/rules/close-order.html",
-        "selector": null,
+        "column": 3,
+        "context": {
+          "child": "<b>",
+          "kind": "content",
+          "parent": "<div>",
+        },
+        "line": 4,
+        "message": "<b> element is not permitted as content under <div>",
+        "offset": 81,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "div:nth-child(1) > b",
         "severity": 2,
-        "size": 2,
+        "size": 1,
       },
     ],
     "source": "<div>
@@ -382,7 +479,7 @@ exports[`configuration smoketest test-files/config/extend-order/nested/foo.html 
 
 <div>
 	<!-- should not yield error -->
-	<c>..</d>
+	<c>..</c>
 </div>
 ",
     "warningCount": 0,
@@ -390,7 +487,22 @@ exports[`configuration smoketest test-files/config/extend-order/nested/foo.html 
 ]
 `;
 
-exports[`configuration smoketest test-files/config/file.html 1`] = `
+exports[`configuration smoketest test-files/config/file.html: config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "deprecated": "error",
+    "element-permitted-content": "error",
+    "no-self-closing": "error",
+    "void-content": "error",
+  },
+  "transform": {},
+}
+`;
+
+exports[`configuration smoketest test-files/config/file.html: results 1`] = `
 [
   {
     "errorCount": 1,
@@ -417,34 +529,39 @@ exports[`configuration smoketest test-files/config/file.html 1`] = `
 ]
 `;
 
-exports[`configuration smoketest test-files/config/js-config/file.html 1`] = `
-[
-  {
-    "errorCount": 1,
-    "filePath": "test-files/config/js-config/file.html",
-    "messages": [
-      {
-        "column": 6,
-        "context": "br",
-        "line": 2,
-        "message": "End tag for <br> must be omitted",
-        "offset": 71,
-        "ruleId": "void-content",
-        "ruleUrl": "https://html-validate.org/rules/void-content.html",
-        "selector": null,
-        "severity": 2,
-        "size": 3,
-      },
-    ],
-    "source": "<!-- configuration to disable rule, should not yield anything -->
-<br></br>
-",
-    "warningCount": 0,
+exports[`configuration smoketest test-files/config/js-config/file.html: config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "deprecated": "error",
+    "element-permitted-content": "error",
+    "no-self-closing": "error",
+    "void-content": "off",
   },
-]
+  "transform": {},
+}
 `;
 
-exports[`configuration smoketest test-files/config/off/error/file.html 1`] = `
+exports[`configuration smoketest test-files/config/js-config/file.html: results 1`] = `[]`;
+
+exports[`configuration smoketest test-files/config/off/error/file.html: config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "deprecated": "error",
+    "element-permitted-content": "error",
+    "no-self-closing": "error",
+    "void-content": "error",
+  },
+  "transform": {},
+}
+`;
+
+exports[`configuration smoketest test-files/config/off/error/file.html: results 1`] = `
 [
   {
     "errorCount": 1,
@@ -471,37 +588,42 @@ exports[`configuration smoketest test-files/config/off/error/file.html 1`] = `
 ]
 `;
 
-exports[`configuration smoketest test-files/config/off/file.html 1`] = `
-[
-  {
-    "errorCount": 1,
-    "filePath": "test-files/config/off/file.html",
-    "messages": [
-      {
-        "column": 6,
-        "context": "br",
-        "line": 2,
-        "message": "End tag for <br> must be omitted",
-        "offset": 71,
-        "ruleId": "void-content",
-        "ruleUrl": "https://html-validate.org/rules/void-content.html",
-        "selector": null,
-        "severity": 2,
-        "size": 3,
-      },
-    ],
-    "source": "<!-- configuration to disable rule, should not yield anything -->
-<br></br>
-",
-    "warningCount": 0,
+exports[`configuration smoketest test-files/config/off/file.html: config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "deprecated": "error",
+    "element-permitted-content": "error",
+    "no-self-closing": "error",
+    "void-content": "off",
   },
-]
+  "transform": {},
+}
 `;
 
-exports[`configuration smoketest test-files/config/warn/file.html 1`] = `
+exports[`configuration smoketest test-files/config/off/file.html: results 1`] = `[]`;
+
+exports[`configuration smoketest test-files/config/warn/file.html: config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "deprecated": "error",
+    "element-permitted-content": "error",
+    "no-self-closing": "error",
+    "void-content": "warn",
+  },
+  "transform": {},
+}
+`;
+
+exports[`configuration smoketest test-files/config/warn/file.html: results 1`] = `
 [
   {
-    "errorCount": 1,
+    "errorCount": 0,
     "filePath": "test-files/config/warn/file.html",
     "messages": [
       {
@@ -513,14 +635,14 @@ exports[`configuration smoketest test-files/config/warn/file.html 1`] = `
         "ruleId": "void-content",
         "ruleUrl": "https://html-validate.org/rules/void-content.html",
         "selector": null,
-        "severity": 2,
+        "severity": 1,
         "size": 3,
       },
     ],
     "source": "<!-- configured to yield a warning -->
 <br></br>
 ",
-    "warningCount": 0,
+    "warningCount": 1,
   },
 ]
 `;

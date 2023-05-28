@@ -1,9 +1,8 @@
-import fs from "fs";
-import path from "path";
-import { globSync } from "glob";
+import fs from "node:fs";
+import path from "node:path";
 import { Config } from "../config";
-import { ConfigData, RuleConfig } from "../config-data";
-import { ConfigFactory } from "../config-loader";
+import { type ConfigData } from "../config-data";
+import { type ConfigFactory } from "../config-loader";
 import { FileSystemConfigLoader } from "./file-system";
 
 declare module "../config-data" {
@@ -29,15 +28,6 @@ jest.mock("ajv", () => {
 		}
 	}
 	return MockAjv;
-});
-
-expect.addSnapshotSerializer({
-	serialize(value: string): string {
-		return JSON.stringify(value.replace(process.cwd(), "<rootDir>"));
-	},
-	test(value: unknown): boolean {
-		return typeof value === "string" && value.startsWith(process.cwd());
-	},
 });
 
 class MockConfigFactory {
@@ -447,40 +437,6 @@ describe("FileSystemConfigLoader", () => {
 			expect(cache.has("foo")).toBeFalsy();
 			expect(cache.has("bar")).toBeTruthy();
 			expect(cache.has("baz")).toBeTruthy();
-		});
-	});
-
-	describe("smoketest", () => {
-		let loader: ExposedFileSystemConfigLoader;
-
-		beforeAll(() => {
-			loader = new ExposedFileSystemConfigLoader(undefined, Config);
-		});
-
-		/* extract only relevant rules from configuration to avoid bloat when new
-		 * rules are added to recommended config */
-		function filter(src: ConfigData): ConfigData {
-			const whitelisted = [
-				"no-self-closing",
-				"deprecated",
-				"element-permitted-content",
-				"void-content",
-			];
-			const data = { rules: {}, ...src };
-			data.rules = Object.keys(data.rules)
-				.filter((key) => whitelisted.includes(key))
-				.reduce((dst, key) => {
-					dst[key] = data.rules[key];
-					return dst;
-				}, {} as RuleConfig);
-			return data;
-		}
-
-		const files = globSync("test-files/config/**/*.html");
-		it.each(files)("%s", (filename: string) => {
-			expect.assertions(1);
-			const config = loader.getConfigFor(filename);
-			expect(filter(config.getConfigData())).toMatchSnapshot();
 		});
 	});
 });

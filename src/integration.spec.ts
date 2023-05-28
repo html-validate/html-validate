@@ -1,11 +1,22 @@
 import { globSync } from "glob";
 import { HtmlValidate } from "./htmlvalidate";
+import { ConfigData, RuleConfig } from "./config";
+import { FileSystemConfigLoader } from "./config/loaders/file-system";
 import { Source } from "./context";
 import { TRANSFORMER_API } from "./transform";
 import { Plugin } from "./plugin";
 import "./jest";
 import { Rule } from "./rule";
 import { DOMReadyEvent } from "./event";
+
+expect.addSnapshotSerializer({
+	serialize(value: string): string {
+		return JSON.stringify(value.replace(process.cwd(), "<rootDir>"));
+	},
+	test(value: unknown): boolean {
+		return typeof value === "string" && value.startsWith(process.cwd());
+	},
+});
 
 it("should compute correct line, column and offset when using transformed sources", () => {
 	expect.assertions(2);
@@ -202,11 +213,33 @@ it("should allow inline metadata", () => {
 });
 
 describe("configuration smoketest", () => {
+	/* extract only relevant rules from configuration to avoid bloat when new
+	 * rules are added to recommended config */
+	function filter(src: ConfigData): ConfigData {
+		const whitelisted = [
+			"no-self-closing",
+			"deprecated",
+			"element-permitted-content",
+			"void-content",
+		];
+		const data = { rules: {}, ...src };
+		data.rules = Object.keys(data.rules)
+			.filter((key) => whitelisted.includes(key))
+			.reduce((dst, key) => {
+				dst[key] = data.rules[key];
+				return dst;
+			}, {} as RuleConfig);
+		return data;
+	}
+
 	const files = globSync("test-files/config/**/*.html");
-	it.each(files)("%s", (filename: string) => {
-		expect.assertions(1);
-		const htmlvalidate = new HtmlValidate();
+	it.each(files)("%s", async (filename: string) => {
+		expect.assertions(2);
+		const loader = new FileSystemConfigLoader();
+		const htmlvalidate = new HtmlValidate(loader);
+		const config = htmlvalidate.getConfigFor(filename);
 		const report = htmlvalidate.validateFile(filename);
-		expect(report.results).toMatchSnapshot();
+		expect(filter(config.getConfigData())).toMatchSnapshot("config");
+		expect(report.results).toMatchSnapshot("results");
 	});
 });

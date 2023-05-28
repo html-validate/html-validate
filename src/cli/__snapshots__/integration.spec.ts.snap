@@ -391,7 +391,7 @@ exports[`test-files/config/extend-order/nested/foo.html 1`] = `
 
 <div>
 	<!-- should not yield error -->
-	<c>..</d>
+	<c>..</c>
 </div>
 ",
       "warningCount": 0,
