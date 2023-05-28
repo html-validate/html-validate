@@ -215,6 +215,8 @@ export abstract class ConfigLoader {
     protected empty(): Config;
     abstract flushCache(handle?: string): void;
     abstract getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig;
+    // @internal
+    _getGlobalConfig(): ConfigData;
     // (undocumented)
     protected readonly globalConfig: Config;
     // (undocumented)
@@ -507,8 +509,8 @@ export interface ExpandOptions {
 
 // @public
 export class FileSystemConfigLoader extends ConfigLoader {
-    constructor(config?: ConfigData, configFactory?: ConfigFactory);
-    constructor(resolvers: Resolver[], config?: ConfigData, configFactory?: ConfigFactory);
+    constructor(config?: ConfigData, options?: Partial<FileSystemConfigLoaderOptions>);
+    constructor(resolvers: Resolver[], config?: ConfigData, options?: Partial<FileSystemConfigLoaderOptions>);
     // (undocumented)
     protected cache: Map<string, Config | null>;
     // (undocumented)
@@ -516,6 +518,14 @@ export class FileSystemConfigLoader extends ConfigLoader {
     flushCache(filename?: string): void;
     fromFilename(filename: string): Config | null;
     getConfigFor(filename: string, configOverride?: ConfigData): ResolvedConfig;
+    // @internal
+    _getInternalCache(): Map<string, Config | null>;
+}
+
+// @public
+export interface FileSystemConfigLoaderOptions {
+    configFactory: ConfigFactory;
+    fs: FSLike;
 }
 
 // @public (undocumented)
@@ -531,6 +541,12 @@ export function formatterFactory(name: keyof AvailableFormatters): Formatter;
 
 // @public (undocumented)
 export function formatterFactory(name: string): Formatter | null;
+
+// @public (undocumented)
+export interface FSLike {
+    // (undocumented)
+    existsSync(path: string): boolean;
+}
 
 // @public (undocumented)
 export class HtmlElement extends DOMNode {

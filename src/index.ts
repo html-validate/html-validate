@@ -2,8 +2,11 @@
 
 export * from "./browser";
 export { type CLIOptions, type ExpandOptions, type InitResult, CLI } from "./cli";
-export { FileSystemConfigLoader } from "./config/loaders/file-system";
-export { type NodeJSResolver, nodejsResolver } from "./config/resolver/nodejs";
+export {
+	type FileSystemConfigLoaderOptions,
+	FileSystemConfigLoader,
+} from "./config/loaders/file-system";
+export { type FSLike, type NodeJSResolver, nodejsResolver } from "./config/resolver/nodejs";
 export {
 	type AvailableFormatters,
 	type Formatter,

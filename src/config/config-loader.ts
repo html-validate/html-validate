@@ -63,6 +63,13 @@ export abstract class ConfigLoader {
 	public abstract flushCache(handle?: string): void;
 
 	/**
+	 * @internal For testing only
+	 */
+	public _getGlobalConfig(): ConfigData {
+		return this.globalConfig.get();
+	}
+
+	/**
 	 * Default configuration used when no explicit configuration is passed to constructor.
 	 */
 	protected abstract defaultConfig(): Config;

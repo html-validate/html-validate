@@ -1,4 +1,4 @@
-import path from "path";
+import * as path from "node:path";
 import { HtmlValidate, FileSystemConfigLoader } from "../../src/index";
 import "../../src/jest";
 

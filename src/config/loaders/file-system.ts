@@ -5,12 +5,24 @@ import { type ConfigData } from "../config-data";
 import { type ConfigFactory, ConfigLoader } from "../config-loader";
 import { type ResolvedConfig } from "../resolved-config";
 import { type Resolver } from "../resolver";
-import { nodejsResolver } from "../resolver/nodejs";
+import { type FSLike, nodejsResolver } from "../resolver/nodejs";
+
+/**
+ * Options for [[FileSystemConfigLoader]].
+ *
+ * @public
+ */
+export interface FileSystemConfigLoaderOptions {
+	/** An implementation of `fs` as needed by [[FileSystemConfigLoader]] */
+	fs: FSLike;
+	/** Custom class to implement */
+	configFactory: ConfigFactory;
+}
 
 /**
  * @internal
  */
-function findConfigurationFiles(directory: string): string[] {
+function findConfigurationFiles(fs: FSLike, directory: string): string[] {
 	return ["json", "cjs", "js"]
 		.map((extension) => path.join(directory, `.htmlvalidate.${extension}`))
 		.filter((filePath) => fs.existsSync(filePath));
@@ -18,8 +30,12 @@ function findConfigurationFiles(directory: string): string[] {
 
 const defaultResolvers: Resolver[] = [nodejsResolver()];
 
-type ConstructorParametersDefault = [ConfigData?, ConfigFactory?];
-type ConstructorParametersResolver = [Resolver[], ConfigData?, ConfigFactory?];
+type ConstructorParametersDefault = [ConfigData?, Partial<FileSystemConfigLoaderOptions>?];
+type ConstructorParametersResolver = [
+	Resolver[],
+	ConfigData?,
+	Partial<FileSystemConfigLoaderOptions>?
+];
 type ConstructorParameters = ConstructorParametersDefault | ConstructorParametersResolver;
 
 function hasResolver(value: ConstructorParameters): value is ConstructorParametersResolver {
@@ -55,31 +71,42 @@ function hasResolver(value: ConstructorParameters): value is ConstructorParamete
  */
 export class FileSystemConfigLoader extends ConfigLoader {
 	protected cache: Map<string, Config | null>;
+	private fs: FSLike;
 
 	/**
 	 * Create a filesystem configuration loader with default resolvers.
 	 *
-	 * @param config - Global configuration
-	 * @param configFactory - Optional configuration factory
+	 * @param fs - `fs` implementation,
+	 * @param config - Global configuration.
+	 * @param configFactory - Optional configuration factory.
 	 */
-	public constructor(config?: ConfigData, configFactory?: ConfigFactory);
+	public constructor(config?: ConfigData, options?: Partial<FileSystemConfigLoaderOptions>);
 
 	/**
 	 * Create a filesystem configuration loader with custom resolvers.
 	 *
-	 * @param resolvers - Resolvers to use
-	 * @param config - Global configuration
-	 * @param configFactory - Optional configuration factory
+	 * @param fs - `fs` implementation,
+	 * @param resolvers - Resolvers to use.
+	 * @param config - Global configuration.
+	 * @param configFactory - Optional configuration factory.
 	 */
-	public constructor(resolvers: Resolver[], config?: ConfigData, configFactory?: ConfigFactory);
+	public constructor(
+		resolvers: Resolver[],
+		config?: ConfigData,
+		options?: Partial<FileSystemConfigLoaderOptions>
+	);
 
 	public constructor(...args: ConstructorParameters) {
 		if (hasResolver(args)) {
-			const [resolvers, config, configFactory] = args;
-			super(resolvers, config, configFactory);
+			/* istanbul ignore next */
+			const [resolvers, config, options = {}] = args;
+			super(resolvers, config, options.configFactory);
+			this.fs = /* istanbul ignore next */ options.fs ?? fs;
 		} else {
-			const [config, configFactory] = args;
-			super(defaultResolvers, config, configFactory);
+			/* istanbul ignore next */
+			const [config, options = {}] = args;
+			super(defaultResolvers, config, options.configFactory);
+			this.fs = /* istanbul ignore next */ options.fs ?? fs;
 		}
 		this.cache = new Map();
 	}
@@ -151,7 +178,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		// eslint-disable-next-line no-constant-condition -- it will break out when filesystem is traversed
 		while (true) {
 			/* search configuration files in current directory */
-			for (const configFile of findConfigurationFiles(current)) {
+			for (const configFile of findConfigurationFiles(this.fs, current)) {
 				const local = this.loadFromFile(configFile);
 				found = true;
 				config = local.merge(this.resolvers, config);
@@ -180,6 +207,13 @@ export class FileSystemConfigLoader extends ConfigLoader {
 
 		this.cache.set(filename, config);
 		return config;
+	}
+
+	/**
+	 * @internal For testing only
+	 */
+	public _getInternalCache(): Map<string, Config | null> {
+		return this.cache;
 	}
 
 	protected defaultConfig(): Config {
