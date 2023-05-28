@@ -4,16 +4,6 @@ import { type ResolvedConfig } from "./resolved-config";
 import { type Resolver } from "./resolver";
 
 /**
- * @public
- */
-export interface ConfigFactory {
-	defaultConfig(): Config;
-	empty(): Config;
-	fromObject(resolvers: Resolver[], options: ConfigData, filename?: string | null): Config;
-	fromFile(resolvers: Resolver[], filename: string): Config;
-}
-
-/**
  * Configuration loader interface.
  *
  * A configuration loader takes a handle (typically a filename) and returns a
@@ -23,17 +13,11 @@ export interface ConfigFactory {
  */
 export abstract class ConfigLoader {
 	protected readonly resolvers: Resolver[];
-	protected readonly configFactory: ConfigFactory;
 	protected readonly globalConfig: Config;
 
-	public constructor(
-		resolvers: Resolver[],
-		config?: ConfigData,
-		configFactory: ConfigFactory = Config
-	) {
-		const defaults = configFactory.empty();
+	public constructor(resolvers: Resolver[], config?: ConfigData) {
+		const defaults = Config.empty();
 		this.resolvers = resolvers;
-		this.configFactory = configFactory;
 		this.globalConfig = defaults.merge(
 			this.resolvers,
 			config ? this.loadFromObject(config) : this.defaultConfig()
@@ -75,14 +59,14 @@ export abstract class ConfigLoader {
 	protected abstract defaultConfig(): Config;
 
 	protected empty(): Config {
-		return this.configFactory.empty();
+		return Config.empty();
 	}
 
 	protected loadFromObject(options: ConfigData, filename?: string | null): Config {
-		return this.configFactory.fromObject(this.resolvers, options, filename);
+		return Config.fromObject(this.resolvers, options, filename);
 	}
 
 	protected loadFromFile(filename: string): Config {
-		return this.configFactory.fromFile(this.resolvers, filename);
+		return Config.fromFile(this.resolvers, filename);
 	}
 }

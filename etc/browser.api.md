@@ -145,23 +145,9 @@ export class ConfigError extends UserError {
     constructor(message: string, nested?: Error);
 }
 
-// @public (undocumented)
-export interface ConfigFactory {
-    // (undocumented)
-    defaultConfig(): Config;
-    // (undocumented)
-    empty(): Config;
-    // (undocumented)
-    fromFile(resolvers: Resolver[], filename: string): Config;
-    // (undocumented)
-    fromObject(resolvers: Resolver[], options: ConfigData, filename?: string | null): Config;
-}
-
 // @public
 export abstract class ConfigLoader {
-    constructor(resolvers: Resolver[], config?: ConfigData, configFactory?: ConfigFactory);
-    // (undocumented)
-    protected readonly configFactory: ConfigFactory;
+    constructor(resolvers: Resolver[], config?: ConfigData);
     protected abstract defaultConfig(): Config;
     // (undocumented)
     protected empty(): Config;
@@ -1170,8 +1156,8 @@ export interface SourceReadyEvent extends Event_2 {
 
 // @public
 export class StaticConfigLoader extends ConfigLoader {
-    constructor(config?: ConfigData, configFactory?: ConfigFactory);
-    constructor(resolvers: Resolver[], config?: ConfigData, configFactory?: ConfigFactory);
+    constructor(config?: ConfigData);
+    constructor(resolvers: Resolver[], config?: ConfigData);
     // (undocumented)
     protected defaultConfig(): Config;
     // (undocumented)

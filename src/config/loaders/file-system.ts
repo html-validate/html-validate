@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
-import { type Config } from "../config";
+import { Config } from "../config";
 import { type ConfigData } from "../config-data";
-import { type ConfigFactory, ConfigLoader } from "../config-loader";
+import { ConfigLoader } from "../config-loader";
 import { type ResolvedConfig } from "../resolved-config";
 import { type Resolver } from "../resolver";
 import { type FSLike, nodejsResolver } from "../resolver/nodejs";
@@ -15,8 +15,6 @@ import { type FSLike, nodejsResolver } from "../resolver/nodejs";
 export interface FileSystemConfigLoaderOptions {
 	/** An implementation of `fs` as needed by [[FileSystemConfigLoader]] */
 	fs: FSLike;
-	/** Custom class to implement */
-	configFactory: ConfigFactory;
 }
 
 /**
@@ -100,12 +98,12 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		if (hasResolver(args)) {
 			/* istanbul ignore next */
 			const [resolvers, config, options = {}] = args;
-			super(resolvers, config, options.configFactory);
+			super(resolvers, config);
 			this.fs = /* istanbul ignore next */ options.fs ?? fs;
 		} else {
 			/* istanbul ignore next */
 			const [config, options = {}] = args;
-			super(defaultResolvers, config, options.configFactory);
+			super(defaultResolvers, config);
 			this.fs = /* istanbul ignore next */ options.fs ?? fs;
 		}
 		this.cache = new Map();
@@ -217,6 +215,6 @@ export class FileSystemConfigLoader extends ConfigLoader {
 	}
 
 	protected defaultConfig(): Config {
-		return this.configFactory.defaultConfig();
+		return Config.defaultConfig();
 	}
 }

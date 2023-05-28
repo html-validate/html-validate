@@ -1,13 +1,13 @@
 import { type Config } from "../config";
 import { type ConfigData } from "../config-data";
-import { type ConfigFactory, ConfigLoader } from "../config-loader";
+import { ConfigLoader } from "../config-loader";
 import { type ResolvedConfig } from "../resolved-config";
 import { type Resolver } from "../resolver";
 
 const defaultResolvers: Resolver[] = [];
 
-type ConstructorParametersDefault = [ConfigData?, ConfigFactory?];
-type ConstructorParametersResolver = [Resolver[], ConfigData?, ConfigFactory?];
+type ConstructorParametersDefault = [ConfigData?];
+type ConstructorParametersResolver = [Resolver[], ConfigData?];
 type ConstructorParameters = ConstructorParametersDefault | ConstructorParametersResolver;
 
 function hasResolver(value: ConstructorParameters): value is ConstructorParametersResolver {
@@ -30,7 +30,7 @@ export class StaticConfigLoader extends ConfigLoader {
 	 * @param config - Global configuration
 	 * @param configFactory - Optional configuration factory
 	 */
-	public constructor(config?: ConfigData, configFactory?: ConfigFactory);
+	public constructor(config?: ConfigData);
 
 	/**
 	 * Create a static configuration loader with custom resolvers.
@@ -39,15 +39,15 @@ export class StaticConfigLoader extends ConfigLoader {
 	 * @param config - Global configuration
 	 * @param configFactory - Optional configuration factory
 	 */
-	public constructor(resolvers: Resolver[], config?: ConfigData, configFactory?: ConfigFactory);
+	public constructor(resolvers: Resolver[], config?: ConfigData);
 
 	public constructor(...args: ConstructorParameters) {
 		if (hasResolver(args)) {
-			const [resolvers, config, configFactory] = args;
-			super(resolvers, config, configFactory);
+			const [resolvers, config] = args;
+			super(resolvers, config);
 		} else {
-			const [config, configFactory] = args;
-			super(defaultResolvers, config, configFactory);
+			const [config] = args;
+			super(defaultResolvers, config);
 		}
 	}
 

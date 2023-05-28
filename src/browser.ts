@@ -15,7 +15,6 @@ export {
 	type RuleSeverity,
 	type StaticResolver,
 	type StaticResolverMap,
-	type ConfigFactory,
 	type LoadedPlugin,
 	ResolvedConfig,
 	ConfigError,
