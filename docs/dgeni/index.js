@@ -10,6 +10,7 @@ module.exports = new Package("html-validate-docs", [
 	require("./example"),
 	require("./highlight"),
 	require("./inline-validate"),
+	require("./marked"),
 	require("./schema"),
 ])
 
