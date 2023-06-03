@@ -1,3 +1,4 @@
-const { plugin } = require("./heading");
+const { plugin: codePlugin } = require("./code");
+const { plugin: headingPlugin } = require("./heading");
 
-module.exports = { heading: plugin };
+module.exports = { code: codePlugin, heading: headingPlugin };
