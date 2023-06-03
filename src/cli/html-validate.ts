@@ -1,4 +1,5 @@
 /* eslint-disable no-console, no-process-exit, sonarjs/no-duplicate-string -- as expected from a cli app */
+import fs from "fs";
 import path from "path";
 import kleur from "kleur";
 import minimist from "minimist";
@@ -216,6 +217,16 @@ if (argv._.length === 0) {
 	} else if (requiresFilename(mode)) {
 		const flag = modeToFlag(mode);
 		console.error(`\`${flag}\` requires a filename.`);
+		process.exit(1);
+	}
+}
+
+/* check that supplied config file exists before creating CLI */
+if (typeof argv.config !== "undefined") {
+	const checkPath = path.resolve(argv.config);
+	if (!fs.existsSync(checkPath)) {
+		console.log(`The file "${String(argv.config)}" was not found.`);
+		console.log(`The location this file was checked for at was: "${String(checkPath)}"`);
 		process.exit(1);
 	}
 }
