@@ -1,30 +1,5 @@
 const { marked } = require("marked");
-
-/**
- * @param {string} value
- * @returns {boolean}
- */
-function isVersionNumber(value) {
-	return Boolean(value.match(/^\d+\.\d+\.\d+ \(\d+-\d+-\d+\)$/));
-}
-
-/**
- * @param {string} value
- * @returns {string}
- */
-function generateId(value) {
-	const slug = value
-		.toLowerCase()
-		.replace(/\(.*?\)/g, "")
-		.replace(/[^\w]+/g, "-")
-		.replace(/(^-|-$)/g, "");
-
-	if (isVersionNumber(value)) {
-		return `v${slug}`;
-	}
-
-	return slug;
-}
+const { heading } = require("../plugins");
 
 function removePreamble(code) {
 	return code.replace(/[^]*\/\* --- \*\/\n+/gm, "");
@@ -66,20 +41,6 @@ module.exports = function renderMarkdown(example, trimIndentation, highlight) {
 		return `<pre><code class="${classes.join(" ")}">${renderedCode}</code></pre>`;
 	}
 
-	/**
-	 * Add § link to all headings.
-	 *
-	 * @param {string} text
-	 * @param {number} level
-	 * @param {string} rawId
-	 * @param {import("marked").Slugger}  _slugger
-	 */
-	function heading(text, level, raw, _slugger) {
-		const id = `${this.options.headerPrefix}${generateId(raw)}`;
-		const anchor = level > 1 ? `<a class="anchorlink" href="#${id}" aria-hidden="true"></a>` : "";
-		return `<h${level} id="${id}">${text}${anchor}</h${level}>`;
-	}
-
 	/* disable unused deprecated features */
 	marked.use({
 		mangle: false,
@@ -88,10 +49,10 @@ module.exports = function renderMarkdown(example, trimIndentation, highlight) {
 	});
 
 	/* enable custom render functions */
+	marked.use(heading());
 	marked.use({
 		renderer: {
 			code,
-			heading,
 		},
 	});
 
