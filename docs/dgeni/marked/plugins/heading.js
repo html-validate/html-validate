@@ -25,6 +25,21 @@ function generateId(value) {
 }
 
 /**
+ * @param {string} text
+ * @param {string} rawId
+ * @returns {[text: string, id: string]}
+ */
+function getHeadingId(text, raw) {
+	const hasId = /(?: +|^)\{#([a-z][\w-]*)\}(?: +|$)/i;
+	const match = text.match(hasId);
+	if (match) {
+		return [text.replace(hasId, ""), match[1]];
+	} else {
+		return [text, generateId(raw)];
+	}
+}
+
+/**
  * Add § link to all headings.
  *
  * @param {string} text
@@ -34,11 +49,12 @@ function generateId(value) {
  * @returns {string | false}
  */
 function heading(text, level, raw, _slugger) {
-	const id = `${this.options.headerPrefix}${generateId(raw)}`;
+	const [value, id] = getHeadingId(text, raw);
 	const anchor = level > 1 ? `<a class="anchorlink" href="#${id}" aria-hidden="true"></a>` : "";
-	return `<h${level} id="${id}">${text}${anchor}</h${level}>`;
+	return `<h${level} id="${id}">${value}${anchor}</h${level}>`;
 }
 
+/* istanbul ignore next -- not to be tested */
 function plugin() {
 	return {
 		renderer: {
