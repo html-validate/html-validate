@@ -7,8 +7,11 @@ include:
 
 variables:
   FORCE_DEPLOY_DOCS:
-    value: "false"
-    description: 'Set to "true" to force docs to be redeployed. Ensure no commits references documentation about non-released features. Only relevant on "master"'
+    value: "no"
+    options:
+      - "yes"
+      - "no"
+    description: 'Force documentation to be redeployed. Ensure no commits references documentation about non-released features. Only relevant on "master"'
 
 stages:
   - prepare
@@ -68,7 +71,7 @@ pages:
       - public
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master" && $CI_COMMIT_MESSAGE =~ /^chore\(release\):/'
-    - if: '$CI_COMMIT_REF_NAME == "master" && $FORCE_DEPLOY_DOCS == "true"'
+    - if: '$CI_COMMIT_REF_NAME == "master" && $FORCE_DEPLOY_DOCS == "yes"'
   script:
     - npm run --if-present build
     - npm run docs
