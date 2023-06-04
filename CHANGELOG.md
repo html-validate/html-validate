@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [7.18.1](https://gitlab.com/html-validate/html-validate/compare/v7.18.0...v7.18.1) (2023-06-04)
+
+### Bug Fixes
+
+- **cli:** error message on missing --config file ([e948a18](https://gitlab.com/html-validate/html-validate/commit/e948a18d2ffaa76bf2d9b08a16447dcab01c3c1e))
+
 ## [7.18.0](https://gitlab.com/html-validate/html-validate/compare/v7.17.0...v7.18.0) (2023-05-24)
 
 ### Features
