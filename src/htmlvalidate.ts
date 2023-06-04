@@ -387,7 +387,7 @@ export class HtmlValidate {
 	 * ```
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 8.0.0
 	 * @param message - Message reported during validation
 	 * @returns Contextual documentation or `null` if the rule does not exist.
 	 */
@@ -412,7 +412,7 @@ export class HtmlValidate {
 	 * ```
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 8.0.0
 	 * @param message - Message reported during validation
 	 * @param filename - Filename used to resolve configuration.
 	 * @returns Contextual documentation or `null` if the rule does not exist.
@@ -439,7 +439,7 @@ export class HtmlValidate {
 	 * ```
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 8.0.0
 	 * @param message - Message reported during validation
 	 * @param config - Configuration to use.
 	 * @returns Contextual documentation or `null` if the rule does not exist.
@@ -478,7 +478,7 @@ export class HtmlValidate {
 	 * ```
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 8.0.0
 	 * @param message - Message reported during validation
 	 * @returns Contextual documentation or `null` if the rule does not exist.
 	 */
@@ -503,7 +503,7 @@ export class HtmlValidate {
 	 * ```
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 8.0.0
 	 * @param message - Message reported during validation
 	 * @param filename - Filename used to resolve configuration.
 	 * @returns Contextual documentation or `null` if the rule does not exist.
@@ -530,7 +530,7 @@ export class HtmlValidate {
 	 * ```
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 8.0.0
 	 * @param message - Message reported during validation
 	 * @param config - Configuration to use.
 	 * @returns Contextual documentation or `null` if the rule does not exist.
@@ -569,7 +569,7 @@ export class HtmlValidate {
 	 * ```
 	 *
 	 * @public
-	 * @deprecated Deprecated since %version%, use [[getContextualDocumentation]] instead.
+	 * @deprecated Deprecated since 8.0.0, use [[getContextualDocumentation]] instead.
 	 * @param ruleId - Rule to get documentation for.
 	 * @param config - If set it provides more accurate description by using the
 	 * correct configuration for the file.
@@ -603,7 +603,7 @@ export class HtmlValidate {
 	 * ```
 	 *
 	 * @public
-	 * @deprecated Deprecated since %version%, use [[getContextualDocumentationSync]] instead.
+	 * @deprecated Deprecated since 8.0.0, use [[getContextualDocumentationSync]] instead.
 	 * @param ruleId - Rule to get documentation for.
 	 * @param config - If set it provides more accurate description by using the
 	 * correct configuration for the file.

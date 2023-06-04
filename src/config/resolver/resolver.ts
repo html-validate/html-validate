@@ -4,7 +4,7 @@ import { type ConfigData } from "../config-data";
 
 /**
  * @public
- * @since %version%
+ * @since 8.0.0
  */
 export interface ResolverOptions {
 	cache: boolean;
@@ -12,7 +12,7 @@ export interface ResolverOptions {
 
 /**
  * @public
- * @since %version%
+ * @since 8.0.0
  */
 export interface Resolver {
 	/** Name of resolver, mostly for ease of debugging */

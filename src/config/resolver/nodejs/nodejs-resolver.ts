@@ -28,7 +28,7 @@ function isTransformer(value: Transformer | Plugin): value is Transformer {
  * NodeJS resolver.
  *
  * @public
- * @since %version%
+ * @since 8.0.0
  */
 export type NodeJSResolver = Required<Resolver>;
 
@@ -41,7 +41,7 @@ export type NodeJSResolver = Required<Resolver>;
  * file (starting at the current working directory).
  *
  * @public
- * @since %version%
+ * @since 8.0.0
  */
 export function nodejsResolver(options: { rootDir?: string } = {}): NodeJSResolver {
 	const rootDir = options.rootDir ?? determineRootDir();

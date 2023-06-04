@@ -47,7 +47,7 @@ The library contains both a full build and a browser build, if your bundler fail
 
 ## Configuration loading
 
-Since v%version% {@link dev/using-api#staticconfigloader `StaticConfigLoader`} is used by default but you might want to explicitly enable it:
+Since v8.0.0 {@link dev/using-api#staticconfigloader `StaticConfigLoader`} is used by default but you might want to explicitly enable it:
 
 ```diff
 -import { HtmlValidate } from "html-validate"

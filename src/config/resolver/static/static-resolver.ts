@@ -8,7 +8,7 @@ import { type Resolver } from "../resolver";
  * Entries for the static resolver.
  *
  * @public
- * @since %version%
+ * @since 8.0.0
  */
 export interface StaticResolverMap {
 	elements?: Record<string, MetaDataTable>;
@@ -21,7 +21,7 @@ export interface StaticResolverMap {
  * Static resolver.
  *
  * @public
- * @since %version%
+ * @since 8.0.0
  */
 export interface StaticResolver extends Required<Resolver> {
 	addElements(id: string, elements: MetaDataTable): void;
@@ -35,7 +35,7 @@ export interface StaticResolver extends Required<Resolver> {
  * at compile time.
  *
  * @public
- * @since %version%
+ * @since 8.0.0
  */
 export function staticResolver(map: StaticResolverMap = {}): StaticResolver {
 	const { elements = {}, configs = {}, plugins = {}, transformers = {} } = map;

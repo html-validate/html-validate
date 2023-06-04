@@ -1,5 +1,134 @@
 # html-validate changelog
 
+## [8.0.0](https://gitlab.com/html-validate/html-validate/compare/v7.18.1...v8.0.0) (2023-06-04)
+
+### ⚠ BREAKING CHANGES
+
+- **api:** The `ConfigFactory` parameter to `ConfigLoader` (and its child
+  classes `StaticConfigLoader` and `FileSystemConfigLoader`) has been removed. No
+  replacement.
+
+If you are using this you are probably better off implementing a fully custom
+loader later returning a `ResolvedConfig`.
+
+- **api:** A new `getContextualDocumentation` replaces the now deprecated
+  `getRuleDocumentation` method. The context parameter to `getRuleDocumentation`
+  is now required and must not be omitted.
+
+For rule authors this means you can now rely on the `context` parameter being
+set in the `documentation` callback.
+
+For IDE integration and toolchain authors this means you should migrate to use
+`getContextualDocumentation` as soon as possible or if you are continuing to use
+`getRuleDocumentation` you are now required to pass the `config` and `context`
+field from the reported message.
+
+- **api:** This change affect API users only, specifically API users
+  directly using the `Config` class. Additionally when using the
+  `StaticConfigLoader` no modules will be resolved using `require(..)` by default
+  any longer. Instructions for running in a browser is also updated, see below.
+
+To create a `Config` instance you must now pass in a `Resolver` (single or
+array):
+
+```diff
++const resolvers = [ /* ... */ ];
+-const config = new Config( /* ... */ );
++const config = new Config(resolvers, /* ... */ );
+```
+
+This applies to calls to `Config.fromObject(..)` as well.
+
+The default resolvers for `StaticConfigLoader` is `StaticResolver` and for
+`FileSystemConfigLoader` is `NodeJSResolver`. Both can optionally take a new set
+of resolvers (including custom ones).
+
+Each resolver will, in order, try to load things by name. For instance, when
+using the `NodeJSResolver` it uses `require(..)` to load new items.
+
+- `NodeJSResolver` - uses `require(..)`
+- `StaticResolver` - uses a predefined set of items.
+- **api:** The `HtmlValidate` class now has a `Promise` based API where most
+  methods return a promise. The old synchronous methods are renamed.
+
+Either adapt to the new asynchronous API:
+
+```diff
+-const result = htmlvalidate.validateFile("my-awesome-file.html");
++const result = await htmlvalidate.validateFile("my-awesome-file.html");
+```
+
+or migrate to the synchronous API:
+
+```diff
+-const result = htmlvalidate.validateFile("my-awesome-file.html");
++const result = htmlvalidate.validateFileSync("my-awesome-file.html");
+```
+
+For unittesting with Jest it is recommended to make the entire test-case async:
+
+```diff
+-it("my awesome test", () => {
++it("my awesome test", async () => {
+   const htmlvalidate = new HtmlValidate();
+-  const report = htmlvalidate.validateString("...");
++  const report = await htmlvalidate.validateString("...");
+   expect(report).toMatchCodeFrame();
+});
+```
+
+- **api:** `ConfigLoader` must return `ResolvedConfig`. This change
+  affects API users who implements custom configuration loaders.
+
+In the simplest case this only requires to call `Config.resolve()`:
+
+```diff
+-return config;
++return config.resolve();
+```
+
+A resolved configuration cannot further reference any new files to extend,
+plugins to load, etc.
+
+- **api:** The `TemplateExtractor` class has been moved to the
+  `@html-validate/plugin-utils` package. This change only affects API users who
+  use the `TemplateExtractor` class, typically this is only used when writing
+  plugins.
+- **config:** Deprecated severity alias `disabled` removed. If you use this in your
+  configuration you need to update it to `off`.
+
+```diff
+ {
+   "rules": {
+-    "my-awesome-rule": "disabled"
++    "my-awesome-rule": "off"
+   }
+ }
+```
+
+- **rules:** The `void` rule has been removed after being deprecated a long
+  time, it is replaced with the separate `void-content`, `void-style` and
+  `no-self-closing` rules.
+- **deps:** minimum required node version is v16
+- **deps:** minimum required jest version is v27
+
+### Features
+
+- **api:** `ConfigLoader` must return `ResolvedConfig` ([d685e6a](https://gitlab.com/html-validate/html-validate/commit/d685e6a2360a2bc26cd63b43125954224a4396ba))
+- **api:** `FileSystemConfigLoader` supports passing a custom `fs`-like object ([fac704e](https://gitlab.com/html-validate/html-validate/commit/fac704ec335c47cc3bb062ea9b505999c76aa201))
+- **api:** add `Promise` based API to `HtmlValidate` class ([adc7783](https://gitlab.com/html-validate/html-validate/commit/adc7783487541ad746039e921465959bd5443749))
+- **api:** add `Resolver` classes as a mean to separate `fs` from browser build ([3dc1724](https://gitlab.com/html-validate/html-validate/commit/3dc17240f62e449c1204f3feddc80f78ef65b3ed))
+- **api:** new `getContextualDocumentation` to replace `getRuleDocumentation` ([60c9a12](https://gitlab.com/html-validate/html-validate/commit/60c9a124c0a1414ff51ea310fc4e5ce042eea688))
+- **api:** remove `ConfigFactory` ([e309d89](https://gitlab.com/html-validate/html-validate/commit/e309d890473907d58fa099e14f365f56be76b819))
+- **api:** remove `TemplateExtractor` in favour of `@html-validate/plugin-utils` ([a0a512b](https://gitlab.com/html-validate/html-validate/commit/a0a512b945acb7596ee207f5022cfcdfae05c161))
+- **deps:** minimum required jest version is v27 ([dc79b6b](https://gitlab.com/html-validate/html-validate/commit/dc79b6b310347daa5b800f9b07ef26aec7cdf68d))
+- **deps:** minimum required node version is v16 ([f6ccdb0](https://gitlab.com/html-validate/html-validate/commit/f6ccdb0b20494e5f651b6f711f2a86daeb4f8168))
+- **rules:** remove deprecated `void` rule ([3e727d8](https://gitlab.com/html-validate/html-validate/commit/3e727d8878af8977689a6586d0456ad269cd09f4))
+
+### Bug Fixes
+
+- **config:** remove deprecated severity alias `disabled` ([6282293](https://gitlab.com/html-validate/html-validate/commit/628229386537accff7f7f2fdc4209e7473c4680f))
+
 ## [7.18.1](https://gitlab.com/html-validate/html-validate/compare/v7.18.0...v7.18.1) (2023-06-04)
 
 ### Bug Fixes
