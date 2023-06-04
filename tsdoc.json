@@ -3,11 +3,12 @@
   "tagDefinitions": [
     {
       "tagName": "@todo",
-      "syntaxKind": "modifier"
+      "syntaxKind": "block",
+      "allowMultiple": true
     },
     {
       "tagName": "@since",
-      "syntaxKind": "modifier"
+      "syntaxKind": "block"
     }
   ]
 }
