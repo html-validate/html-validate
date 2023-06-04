@@ -4,6 +4,8 @@
 
 ### ⚠ BREAKING CHANGES
 
+See {@link migration migration guide} for details.
+
 - **api:** The `ConfigFactory` parameter to `ConfigLoader` (and its child
   classes `StaticConfigLoader` and `FileSystemConfigLoader`) has been removed. No
   replacement.
@@ -482,6 +484,8 @@ plugins to load, etc.
 
 ### ⚠ BREAKING CHANGES
 
+See {@link migration migration guide} for details.
+
 - require node 14
 
 ### Features
@@ -720,14 +724,14 @@ plugins to load, etc.
 
 ### ⚠ BREAKING CHANGES
 
+See {@link migration migration guide} for details.
+
 - **htmlvalidate:** This change only affects API users, the CLI tool continues to
   work as before.
 
 The default configuration loader has changed from `FileSystemConfigLoader` to
 `StaticConfigLoader`, i.e. the directory traversal looking for
 `.htmlvalidate.json` configuration files must now be explicitly enabled.
-
-See [MIGRATION.md](https://html-validate.org/migration/index.html) for details.
 
 - **event:** `ConfigReadyEvent` passes `ResolvedConfig` instance instead of `ConfigData`
 - **meta:** `MetaElement.attribute` has changed from `string[]` to
