@@ -30,6 +30,7 @@ const defaults: CompatibilityOptions = {
  * option is used a warning is displayed on the console.
  *
  * @public
+ * @since v5.0.0
  * @param name - Name of plugin
  * @param declared - What library versions the plugin support (e.g. declared peerDependencies)
  * @returns - `true` if version is compatible
