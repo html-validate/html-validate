@@ -79,21 +79,21 @@ describe("rule element-required-content", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("element-required-content")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("element-required-content");
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation", () => {
+	it("should contain contextual documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "element-required-content": "error" },
 		});
-		expect(
-			htmlvalidate.getRuleDocumentation("element-required-content", null, {
-				element: "<my-element>",
-				missing: "<my-other-element>",
-			})
-		).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("element-required-content", null, {
+			element: "<my-element>",
+			missing: "<my-other-element>",
+		});
+		expect(docs).toMatchSnapshot();
 	});
 });

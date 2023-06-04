@@ -126,13 +126,13 @@ describe("rule map-id-name", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "map-id-name": "error" },
 		});
-		const docs = htmlvalidate.getRuleDocumentation("map-id-name");
+		const docs = await htmlvalidate.getRuleDocumentation("map-id-name");
 		expect(docs).toMatchInlineSnapshot(`
 			{
 			  "description": "When the \`id\` attribute is present on a \`<map>\` element it must be equal to the \`name\` attribute.",

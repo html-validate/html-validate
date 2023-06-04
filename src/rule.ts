@@ -460,12 +460,14 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * Called when requesting additional documentation for a rule. Some rules
 	 * provide additional context to provide context-aware suggestions.
 	 *
+	 * @public
+	 * @virtual
 	 * @param context - Error context given by a reported error.
 	 * @returns Rule documentation and url with additional details or `null` if no
 	 * additional documentation is available.
 	 */
 	/* eslint-disable-next-line @typescript-eslint/no-unused-vars -- technical debt, prototype should be moved to interface */
-	public documentation(context?: ContextType): RuleDocumentation | null {
+	public documentation(context: ContextType): RuleDocumentation | null {
 		return null;
 	}
 }

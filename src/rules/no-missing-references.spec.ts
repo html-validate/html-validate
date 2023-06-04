@@ -192,24 +192,24 @@ describe("rule no-missing-references", () => {
 		expect(report).toBeValid();
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "no-missing-references": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("no-missing-references")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-missing-references");
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation", () => {
+	it("should contain contextual documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "no-missing-references": "error" },
 		});
-		expect(
-			htmlvalidate.getRuleDocumentation("no-missing-references", null, {
-				key: "my-attribute",
-				value: "my-id",
-			})
-		).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-missing-references", null, {
+			key: "my-attribute",
+			value: "my-id",
+		});
+		expect(docs).toMatchSnapshot();
 	});
 });

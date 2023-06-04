@@ -41,46 +41,46 @@ markup["phrasing-metadata"] = `<span>
 </span>`;
 
 describe("docs/guide/metadata/simple-component.md", () => {
-	it("inline validation: no-metadata-1", () => {
+	it("inline validation: no-metadata-1", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"extends":["html-validate:recommended"]});
-		const report = htmlvalidate.validateString(markup["no-metadata-1"]);
+		const report = await htmlvalidate.validateString(markup["no-metadata-1"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: no-metadata-2", () => {
+	it("inline validation: no-metadata-2", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"extends":["html-validate:recommended"]});
-		const report = htmlvalidate.validateString(markup["no-metadata-2"]);
+		const report = await htmlvalidate.validateString(markup["no-metadata-2"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: no-metadata-3", () => {
+	it("inline validation: no-metadata-3", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"extends":["html-validate:recommended"]});
-		const report = htmlvalidate.validateString(markup["no-metadata-3"]);
+		const report = await htmlvalidate.validateString(markup["no-metadata-3"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: basic-metadata", () => {
+	it("inline validation: basic-metadata", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{}}],"extends":["html-validate:recommended"]});
-		const report = htmlvalidate.validateString(markup["basic-metadata"]);
+		const report = await htmlvalidate.validateString(markup["basic-metadata"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: flow-metadata-1", () => {
+	it("inline validation: flow-metadata-1", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"flow":true}}],"extends":["html-validate:recommended"]});
-		const report = htmlvalidate.validateString(markup["flow-metadata-1"]);
+		const report = await htmlvalidate.validateString(markup["flow-metadata-1"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: flow--metadata-2", () => {
+	it("inline validation: flow--metadata-2", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"flow":true}}],"extends":["html-validate:recommended"]});
-		const report = htmlvalidate.validateString(markup["flow--metadata-2"]);
+		const report = await htmlvalidate.validateString(markup["flow--metadata-2"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: phrasing-metadata", () => {
+	it("inline validation: phrasing-metadata", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"flow":true,"phrasing":true}}],"extends":["html-validate:recommended"]});
-		const report = htmlvalidate.validateString(markup["phrasing-metadata"]);
+		const report = await htmlvalidate.validateString(markup["phrasing-metadata"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

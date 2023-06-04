@@ -250,27 +250,30 @@ describe("rule heading-level", () => {
 		`);
 	});
 
-	it("should contain documentation (without multiple h1)", () => {
+	it("should contain documentation (without multiple h1)", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
 			rules: { "heading-level": ["error", { allowMultipleH1: false }] },
 		});
-		expect(htmlvalidate.getRuleDocumentation("heading-level")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("heading-level");
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain documentation (with multiple h1)", () => {
+	it("should contain documentation (with multiple h1)", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
 			rules: { "heading-level": ["error", { allowMultipleH1: true }] },
 		});
-		expect(htmlvalidate.getRuleDocumentation("heading-level")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("heading-level");
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain documentation (with minInitialRank)", () => {
+	it("should contain documentation (with minInitialRank)", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
 			rules: { "heading-level": ["error", { minInitialRank: "h2" }] },
 		});
-		expect(htmlvalidate.getRuleDocumentation("heading-level")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("heading-level");
+		expect(docs).toMatchSnapshot();
 	});
 });

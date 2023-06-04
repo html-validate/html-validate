@@ -49,7 +49,7 @@ beforeEach(() => {
 
 it("should return successful if there where no errors", async () => {
 	expect.assertions(2);
-	jest.spyOn(htmlvalidate, "validateFile").mockReturnValue({
+	jest.spyOn(htmlvalidate, "validateFileSync").mockReturnValue({
 		valid: true,
 		results: [],
 		errorCount: 0,
@@ -63,7 +63,7 @@ it("should return successful if there where no errors", async () => {
 
 it("should return success if there where only warnings", async () => {
 	expect.assertions(2);
-	jest.spyOn(htmlvalidate, "validateFile").mockImplementation((filePath: string) => ({
+	jest.spyOn(htmlvalidate, "validateFileSync").mockImplementation((filePath: string) => ({
 		valid: true,
 		results: [
 			{
@@ -89,7 +89,7 @@ it("should return success if there where only warnings", async () => {
 
 it("should return failure if there where any errors", async () => {
 	expect.assertions(2);
-	jest.spyOn(htmlvalidate, "validateFile").mockImplementation((filePath: string) => ({
+	jest.spyOn(htmlvalidate, "validateFileSync").mockImplementation((filePath: string) => ({
 		valid: false,
 		results: [
 			{
@@ -115,7 +115,7 @@ it("should return failure if there where any errors", async () => {
 
 it("should return failure if there are too many warnings", async () => {
 	expect.assertions(2);
-	jest.spyOn(htmlvalidate, "validateFile").mockImplementation((filePath: string) => ({
+	jest.spyOn(htmlvalidate, "validateFileSync").mockImplementation((filePath: string) => ({
 		valid: true,
 		results: [
 			{
@@ -146,7 +146,7 @@ it("should return failure if there are too many warnings", async () => {
 
 it("should retain /dev/stdin when stdinFilename is not given", async () => {
 	expect.assertions(2);
-	jest.spyOn(htmlvalidate, "validateFile").mockImplementation((filePath: string) => ({
+	jest.spyOn(htmlvalidate, "validateFileSync").mockImplementation((filePath: string) => ({
 		valid: false,
 		results: [
 			{
@@ -173,7 +173,7 @@ it("should retain /dev/stdin when stdinFilename is not given", async () => {
 
 it("should rename stdin if stdinFilename is given", async () => {
 	expect.assertions(2);
-	jest.spyOn(htmlvalidate, "validateFile").mockImplementation((filePath: string) => ({
+	jest.spyOn(htmlvalidate, "validateFileSync").mockImplementation((filePath: string) => ({
 		valid: false,
 		results: [
 			{

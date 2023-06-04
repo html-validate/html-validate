@@ -1,5 +1,3 @@
-import fs from "fs";
-import path from "path";
 import { Source } from "../context";
 import { SchemaValidationError } from "../error";
 import { UserError } from "../error/user-error";
@@ -7,11 +5,9 @@ import { TRANSFORMER_API } from "../transform";
 import { Plugin } from "../plugin";
 import { Config } from "./config";
 import { ConfigError } from "./error";
+import { staticResolver } from "./resolver";
 import { Severity } from "./severity";
-
-let mockElements: any;
-jest.mock("mock-elements", () => mockElements, { virtual: true });
-jest.mock("mock-plugin", () => ({}), { virtual: true });
+import { nodejsResolver } from "./resolver/nodejs";
 
 /* a mocked file which throws an exception when loaded */
 jest.mock(
@@ -22,33 +18,35 @@ jest.mock(
 	{ virtual: true }
 );
 
-/* mock plugin with config presets */
-jest.mock(
-	"mock-plugin-presets",
-	() => ({
-		configs: {
-			base: {
-				rules: {
-					foo: "error",
-					bar: "warn",
-					baz: "off",
+const resolvers = [
+	staticResolver({
+		plugins: {
+			"mock-plugin": {},
+			"mock-plugin-presets": {
+				configs: {
+					base: {
+						rules: {
+							foo: "error",
+							bar: "warn",
+							baz: "off",
+						},
+					},
+					"no-foo": {
+						rules: {
+							foo: "off",
+						},
+					},
+					"order-a": {
+						elements: ["order-a"],
+					},
+					"order-b": {
+						elements: ["order-b"],
+					},
 				},
-			},
-			"no-foo": {
-				rules: {
-					foo: "off",
-				},
-			},
-			"order-a": {
-				elements: ["order-a"],
-			},
-			"order-b": {
-				elements: ["order-b"],
 			},
 		},
 	}),
-	{ virtual: true }
-);
+];
 
 describe("config", () => {
 	it("should load defaults", () => {
@@ -87,30 +85,30 @@ describe("config", () => {
 
 	it("should throw user-error if file is not properly formatted json", () => {
 		expect.assertions(2);
-		expect(() => Config.fromFile("invalid-file.json")).toThrow(UserError);
-		expect(() => Config.fromFile("invalid-file.json")).toThrow(
-			'Failed to read configuration from "invalid-file.json"'
+		expect(() => Config.fromFile(resolvers, "invalid-file.json")).toThrow(UserError);
+		expect(() => Config.fromFile(resolvers, "invalid-file.json")).toThrow(
+			'Failed to load configuration from "invalid-file.json"'
 		);
 	});
 
 	it("should throw error if file is invalid", () => {
 		expect.assertions(2);
 		expect(() =>
-			Config.fromObject({
+			Config.fromObject(resolvers, {
 				rules: "spam",
 			} as any)
 		).toThrow("Invalid configuration: /rules: type must be object");
-		expect(() => Config.fromFile("invalid-file.json")).toThrow(
-			'Failed to read configuration from "invalid-file.json"'
+		expect(() => Config.fromFile(resolvers, "invalid-file.json")).toThrow(
+			'Failed to load configuration from "invalid-file.json"'
 		);
 	});
 
 	describe("merge()", () => {
 		it("should merge two configs", () => {
 			expect.assertions(1);
-			const a = Config.fromObject({ rules: { foo: 1 } });
-			const b = Config.fromObject({ rules: { bar: 1 } });
-			const merged = a.merge(b);
+			const a = Config.fromObject(resolvers, { rules: { foo: 1 } });
+			const b = Config.fromObject(resolvers, { rules: { bar: 1 } });
+			const merged = a.merge(resolvers, b);
 			expect(merged.get()).toEqual(
 				expect.objectContaining({
 					rules: {
@@ -125,21 +123,21 @@ describe("config", () => {
 	describe("getRules()", () => {
 		it("should handle when config is missing rules", () => {
 			expect.assertions(2);
-			const config = Config.fromObject({ rules: undefined });
+			const config = Config.fromObject(resolvers, { rules: undefined });
 			expect(config.get().rules).toEqual({});
 			expect(config.getRules()).toEqual(new Map());
 		});
 
 		it("should return parsed rules", () => {
 			expect.assertions(2);
-			const config = Config.fromObject({ rules: { foo: "error" } });
+			const config = Config.fromObject(resolvers, { rules: { foo: "error" } });
 			expect(config.get().rules).toEqual({ foo: "error" });
 			expect(Array.from(config.getRules().entries())).toEqual([["foo", [Severity.ERROR, {}]]]);
 		});
 
 		it("should parse severity from string", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
+			const config = Config.fromObject(resolvers, {
 				rules: {
 					foo: "error",
 					bar: "warn",
@@ -155,7 +153,7 @@ describe("config", () => {
 
 		it("should retain severity from integer", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
+			const config = Config.fromObject(resolvers, {
 				rules: {
 					foo: 2,
 					bar: 1,
@@ -171,7 +169,7 @@ describe("config", () => {
 
 		it("should retain options", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
+			const config = Config.fromObject(resolvers, {
 				rules: {
 					foo: [2, { foo: true }],
 					bar: ["error", { bar: false }],
@@ -187,11 +185,10 @@ describe("config", () => {
 	});
 
 	describe("fromFile()", () => {
-		const fileDir = path.resolve(__dirname, "../../test-files");
-
 		it("should support JSON file", () => {
 			expect.assertions(1);
-			const config = Config.fromFile(path.join(fileDir, "config.json"));
+			const resolver = nodejsResolver();
+			const config = Config.fromFile(resolver, "<rootDir>/test-files/config.json");
 			expect(Array.from(config.getRules().entries())).toEqual([
 				["foo", [Severity.ERROR, {}]],
 				["bar", [Severity.WARN, {}]],
@@ -201,7 +198,8 @@ describe("config", () => {
 
 		it("should support js file", () => {
 			expect.assertions(1);
-			const config = Config.fromFile(path.join(fileDir, "config.js"));
+			const resolver = nodejsResolver();
+			const config = Config.fromFile(resolver, "<rootDir>/test-files/config.js");
 			expect(Array.from(config.getRules().entries())).toEqual([
 				["foo", [Severity.ERROR, {}]],
 				["bar", [Severity.WARN, {}]],
@@ -211,7 +209,8 @@ describe("config", () => {
 
 		it("should support js file without extension", () => {
 			expect.assertions(1);
-			const config = Config.fromFile(path.join(fileDir, "config"));
+			const resolver = nodejsResolver();
+			const config = Config.fromFile(resolver, "<rootDir>/test-files/config");
 			expect(Array.from(config.getRules().entries())).toEqual([
 				["foo", [Severity.ERROR, {}]],
 				["bar", [Severity.WARN, {}]],
@@ -223,8 +222,9 @@ describe("config", () => {
 	describe("extend", () => {
 		it("should extend base configuration", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
-				extends: [`${process.cwd()}/test-files/config.json`],
+			const resolver = nodejsResolver();
+			const config = Config.fromObject(resolver, {
+				extends: ["<rootDir>/test-files/config.json"],
 				rules: {
 					foo: 1,
 				},
@@ -238,8 +238,9 @@ describe("config", () => {
 
 		it("should support deep extending", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
-				extends: [`${process.cwd()}/test-files/config-extending.json`],
+			const resolver = nodejsResolver();
+			const config = Config.fromObject(resolver, {
+				extends: ["<rootDir>/test-files/config-extending.json"],
 			});
 			expect(config.getRules()).toEqual(
 				new Map([
@@ -252,7 +253,7 @@ describe("config", () => {
 
 		it("should support html-validate:recommended", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
+			const config = Config.fromObject(resolvers, {
 				extends: ["html-validate:recommended"],
 			});
 			expect(config.getRules()).toBeDefined();
@@ -260,7 +261,7 @@ describe("config", () => {
 
 		it("should support htmlvalidate:recommended (deprecated alias)", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
+			const config = Config.fromObject(resolvers, {
 				extends: ["htmlvalidate:recommended"],
 			});
 			expect(config.getRules()).toBeDefined();
@@ -268,7 +269,7 @@ describe("config", () => {
 
 		it("should support html-validate:document", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
+			const config = Config.fromObject(resolvers, {
 				extends: ["html-validate:document"],
 			});
 			expect(config.getRules()).toBeDefined();
@@ -276,7 +277,7 @@ describe("config", () => {
 
 		it("should support htmlvalidate:document (deprecated alias)", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
+			const config = Config.fromObject(resolvers, {
 				extends: ["htmlvalidate:document"],
 			});
 			expect(config.getRules()).toBeDefined();
@@ -284,7 +285,7 @@ describe("config", () => {
 
 		it("should support htmlvalidate:a11y", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
+			const config = Config.fromObject(resolvers, {
 				extends: ["html-validate:a11y"],
 			});
 			expect(config.getRules()).toBeDefined();
@@ -292,7 +293,7 @@ describe("config", () => {
 
 		it("should support htmlvalidate:a17y (deprecated alias)", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
+			const config = Config.fromObject(resolvers, {
 				extends: ["html-validate:a17y"],
 			});
 			expect(config.getRules()).toBeDefined();
@@ -300,7 +301,7 @@ describe("config", () => {
 
 		it("passed config should have precedence over extended", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
+			const config = Config.fromObject(resolvers, {
 				extends: ["mock-plugin-presets:base"],
 				plugins: ["mock-plugin-presets"],
 				rules: {
@@ -319,7 +320,7 @@ describe("config", () => {
 
 		it("should be resolved in correct order", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
+			const config = Config.fromObject(resolvers, {
 				extends: ["mock-plugin-presets:base", "mock-plugin-presets:no-foo"],
 				plugins: ["mock-plugin-presets"],
 			});
@@ -334,36 +335,40 @@ describe("config", () => {
 
 		it("should resolve elements in correct order", () => {
 			expect.assertions(3);
-			jest.mock(
-				"order-a",
-				() => ({
-					foo: {
-						permittedContent: ["bar"],
+			const resolver = staticResolver({
+				elements: {
+					"order-a": {
+						foo: {
+							permittedContent: ["bar"],
+						},
 					},
-				}),
-				{ virtual: true }
-			);
-			jest.mock(
-				"order-b",
-				() => ({
-					bar: {
-						permittedContent: ["baz"],
+					"order-b": {
+						bar: {
+							permittedContent: ["baz"],
+						},
 					},
-				}),
-				{ virtual: true }
-			);
-			jest.mock(
-				"order-c",
-				() => ({
-					foo: {
-						permittedContent: ["baz"],
+					"order-c": {
+						foo: {
+							permittedContent: ["baz"],
+						},
 					},
-				}),
-				{ virtual: true }
-			);
-			const config = Config.fromObject({
-				extends: ["mock-plugin-presets:order-a", "mock-plugin-presets:order-b"],
-				plugins: ["mock-plugin-presets"],
+				},
+				plugins: {
+					"mock-plugin": {
+						configs: {
+							"order-a": {
+								elements: ["order-a"],
+							},
+							"order-b": {
+								elements: ["order-b"],
+							},
+						},
+					},
+				},
+			});
+			const config = Config.fromObject(resolver, {
+				extends: ["mock-plugin:order-a", "mock-plugin:order-b"],
+				plugins: ["mock-plugin"],
 				elements: ["order-c"],
 			});
 			const elements = config.get().elements;
@@ -382,35 +387,11 @@ describe("config", () => {
 
 		it("should handle extends being explicitly set to undefined", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
+			const config = Config.fromObject(resolvers, {
 				extends: undefined,
 				rules: undefined,
 			});
 			expect(Array.from(config.getRules().entries())).toEqual([]);
-		});
-	});
-
-	describe("expandRelative()", () => {
-		it("should expand ./foo", () => {
-			expect.assertions(1);
-			expect(Config.expandRelative("./foo", "/path")).toEqual(path.join(path.sep, "path", "foo"));
-		});
-
-		it("should expand ../foo", () => {
-			expect.assertions(1);
-			expect(Config.expandRelative("../foo", "/path/bar")).toEqual(
-				path.join(path.sep, "path", "foo")
-			);
-		});
-
-		it("should not expand /foo", () => {
-			expect.assertions(1);
-			expect(Config.expandRelative("/foo", "/path")).toBe("/foo");
-		});
-
-		it("should not expand foo", () => {
-			expect.assertions(1);
-			expect(Config.expandRelative("foo", "/path")).toBe("foo");
 		});
 	});
 
@@ -424,7 +405,7 @@ describe("config", () => {
 
 		it("should load inline metadata", () => {
 			expect.assertions(2);
-			const config = Config.fromObject({
+			const config = Config.fromObject(resolvers, {
 				elements: [
 					{
 						foo: {},
@@ -444,12 +425,16 @@ describe("config", () => {
 			expect(a).toBe(b);
 		});
 
-		it("should load metadata from module", () => {
+		it("should load metadata from resolver", () => {
 			expect.assertions(2);
-			mockElements = {
-				foo: {},
-			};
-			const config = Config.fromObject({
+			const resolver = staticResolver({
+				elements: {
+					"mock-elements": {
+						foo: {},
+					},
+				},
+			});
+			const config = Config.fromObject(resolver, {
 				elements: ["mock-elements"],
 			});
 			const metatable = config.getMetaTable();
@@ -459,7 +444,7 @@ describe("config", () => {
 
 		it("should throw ConfigError when module doesn't exist", () => {
 			expect.assertions(2);
-			const config = Config.fromObject({
+			const config = Config.fromObject(resolvers, {
 				elements: ["missing-module"],
 			});
 			expect(() => config.getMetaTable()).toThrow(ConfigError);
@@ -471,7 +456,7 @@ describe("config", () => {
 
 	it("should load plugin from name", () => {
 		expect.assertions(1);
-		const config = Config.fromObject({
+		const config = Config.fromObject(resolvers, {
 			plugins: ["mock-plugin"],
 		});
 		config.init();
@@ -480,7 +465,7 @@ describe("config", () => {
 
 	it("should load plugin inline", () => {
 		expect.assertions(1);
-		const config = Config.fromObject({
+		const config = Config.fromObject([], {
 			plugins: [
 				{
 					name: "inline-plugin",
@@ -500,7 +485,8 @@ describe("config", () => {
 	describe("transformers", () => {
 		it("should load transformer from package", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
+			const resolvers = [nodejsResolver()]; // uses jest automock from src/transform/__mocks__/
+			const config = Config.fromObject(resolvers, {
 				transform: {
 					"\\.foo$": "mock-transform",
 				},
@@ -513,7 +499,8 @@ describe("config", () => {
 
 		it("should load transformer from path with <rootDir>", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
+			const resolvers = [nodejsResolver()];
+			const config = Config.fromObject(resolvers, {
 				transform: {
 					"\\.foo$": "<rootDir>/src/transform/__mocks__/mock-transform",
 				},
@@ -534,23 +521,22 @@ describe("config", () => {
 			}
 			transform.api = TRANSFORMER_API.VERSION;
 
-			beforeEach(() => {
-				const unnamedPlugin: Plugin = {
+			const plugins: Record<string, Plugin> = {
+				"mock-plugin-unnamed": {
 					transformer: transform,
-				};
-				const namedPlugin: Plugin = {
+				},
+				"mock-plugin-named": {
 					transformer: {
 						default: transform,
 						foobar: transform,
 					},
-				};
-				jest.mock("mock-plugin-unnamed", () => unnamedPlugin, { virtual: true });
-				jest.mock("mock-plugin-named", () => namedPlugin, { virtual: true });
-			});
+				},
+			};
+			const resolvers = [staticResolver({ plugins })];
 
 			it("unnamed", () => {
 				expect.assertions(1);
-				const config = Config.fromObject({
+				const config = Config.fromObject(resolvers, {
 					plugins: ["mock-plugin-unnamed"],
 					transform: {
 						"\\.unnamed$": "mock-plugin-unnamed",
@@ -568,7 +554,7 @@ describe("config", () => {
 
 			it("named", () => {
 				expect.assertions(1);
-				const config = Config.fromObject({
+				const config = Config.fromObject(resolvers, {
 					plugins: ["mock-plugin-named"],
 					transform: {
 						"\\.named$": "mock-plugin-named:foobar",
@@ -586,7 +572,7 @@ describe("config", () => {
 
 			it("named default", () => {
 				expect.assertions(1);
-				const config = Config.fromObject({
+				const config = Config.fromObject(resolvers, {
 					plugins: ["mock-plugin-named"],
 					transform: {
 						"\\.default$": "mock-plugin-named",
@@ -604,7 +590,8 @@ describe("config", () => {
 
 			it("non-plugin (regression test issue 54)", () => {
 				expect.assertions(1);
-				const config = Config.fromObject({
+				const resolvers = [staticResolver({ plugins }), nodejsResolver()]; // uses jest automock from src/transform/__mocks__/
+				const config = Config.fromObject(resolvers, {
 					plugins: ["mock-plugin-unnamed"],
 					transform: {
 						"\\.unnamed$": "mock-plugin-unnamed",
@@ -629,7 +616,8 @@ describe("config", () => {
 
 		it("should throw error if transformer uses obsolete API", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
+			const resolvers = [nodejsResolver()]; // uses jest automock from src/transform/__mocks__/
+			const config = Config.fromObject(resolvers, {
 				transform: {
 					"^.*\\.foo$": "mock-transform-obsolete",
 				},
@@ -641,7 +629,8 @@ describe("config", () => {
 
 		it("should throw error if transformer refers to missing plugin", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
+			const resolvers = [staticResolver()];
+			const config = Config.fromObject(resolvers, {
 				transform: {
 					"^.*\\.foo$": "missing-plugin:foo",
 				},
@@ -653,7 +642,8 @@ describe("config", () => {
 
 		it("should throw sane error when transformer fails to load", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
+			const resolvers = [staticResolver()];
+			const config = Config.fromObject(resolvers, {
 				transform: {
 					"^.*\\.foo$": "missing-transformer" /* mocked transformer, see top of file */,
 				},
@@ -663,8 +653,14 @@ describe("config", () => {
 
 		it("should throw error when trying to load unnamed transform from plugin without any", () => {
 			expect.assertions(1);
-			jest.mock("mock-plugin-notransform", () => ({}), { virtual: true });
-			const config = Config.fromObject({
+			const resolvers = [
+				staticResolver({
+					plugins: {
+						"mock-plugin-notransform": {},
+					},
+				}),
+			];
+			const config = Config.fromObject(resolvers, {
 				plugins: ["mock-plugin-notransform"],
 				transform: {
 					"^.*\\.foo$": "mock-plugin-notransform",
@@ -675,35 +671,17 @@ describe("config", () => {
 
 		it("should throw error when trying to load named transform from plugin without any", () => {
 			expect.assertions(1);
-			jest.mock("mock-plugin-notransform", () => ({}), { virtual: true });
-			const config = Config.fromObject({
+			const resolvers = [
+				staticResolver({
+					plugins: {
+						"mock-plugin-notransform": {},
+					},
+				}),
+			];
+			const config = Config.fromObject(resolvers, {
 				plugins: ["mock-plugin-notransform"],
 				transform: {
 					"^.*\\.foo$": "mock-plugin-notransform:named",
-				},
-			});
-			expect(() => config.init()).toThrowErrorMatchingSnapshot();
-		});
-
-		it("should throw error when trying to load garbage as transformer", () => {
-			expect.assertions(1);
-			jest.mock("mock-garbage", () => "foobar", { virtual: true });
-			const config = Config.fromObject({
-				transform: {
-					"^.*\\.foo$": "mock-garbage",
-				},
-			});
-			expect(() => config.init()).toThrowErrorMatchingSnapshot();
-		});
-
-		it("should throw helpful error when trying to load unregistered plugin as transformer", () => {
-			expect.assertions(1);
-			jest.mock("mock-plugin-unregistered", () => ({ transformer: {} }), {
-				virtual: true,
-			});
-			const config = Config.fromObject({
-				transform: {
-					"^.*\\.foo$": "mock-plugin-unregistered",
 				},
 			});
 			expect(() => config.init()).toThrowErrorMatchingSnapshot();
@@ -713,7 +691,7 @@ describe("config", () => {
 	describe("init()", () => {
 		it("should handle being called multiple times", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({});
+			const config = Config.fromObject(resolvers, {});
 			const spy = jest.spyOn(config as any, "precompileTransformers").mockReturnValue([]);
 			config.init();
 			config.init();
@@ -722,7 +700,7 @@ describe("config", () => {
 
 		it("should handle unset fields", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
+			const config = Config.fromObject(resolvers, {
 				plugins: undefined,
 				transform: undefined,
 			});
@@ -733,60 +711,11 @@ describe("config", () => {
 
 		it("should load plugins", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
+			const config = Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 			});
 			config.init();
 			expect(config.getPlugins()).toEqual([expect.objectContaining({ name: "mock-plugin" })]);
-		});
-	});
-
-	describe("rootDir", () => {
-		class MockConfig extends Config {
-			private cache: string | null = null;
-
-			public findRootDir(): string {
-				return super.findRootDir();
-			}
-
-			public get rootDirCache(): string | null {
-				return this.cache;
-			}
-
-			public set rootDirCache(value: string | null) {
-				this.cache = value;
-			}
-		}
-
-		it("should find rootDir by locating package.json", () => {
-			expect.assertions(1);
-			const config = new MockConfig();
-			const root = path.resolve(path.join(__dirname, "../.."));
-			expect(config.findRootDir()).toEqual(root);
-		});
-
-		it("should default to current working directory if package.json doesn't exist", () => {
-			expect.assertions(1);
-			const spy = jest.spyOn(fs, "existsSync").mockImplementation(() => false);
-			const config = new MockConfig();
-			expect(config.findRootDir()).toEqual(process.cwd());
-			spy.mockRestore();
-		});
-
-		it("should cache result", () => {
-			expect.assertions(1);
-			const config = new MockConfig();
-			const root = path.resolve(path.join(__dirname, "../.."));
-			config.findRootDir(); /* force update cache */
-			expect(config.rootDirCache).toEqual(root);
-		});
-
-		it("should use cached value", () => {
-			expect.assertions(1);
-			const root = "/path/to/project/root";
-			const config = new MockConfig();
-			config.rootDirCache = root;
-			expect(config.findRootDir()).toEqual(root);
 		});
 	});
 

@@ -50,8 +50,9 @@ describe("rule no-dup-class", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("no-dup-class")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-dup-class");
+		expect(docs).toMatchSnapshot();
 	});
 });

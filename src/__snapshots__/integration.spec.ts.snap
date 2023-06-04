@@ -2,6 +2,7 @@
 
 exports[`configuration smoketest test-files/config/cjs-config/file.html: config 1`] = `
 {
+  "elements": undefined,
   "extends": [],
   "plugins": [],
   "root": true,
@@ -19,6 +20,7 @@ exports[`configuration smoketest test-files/config/cjs-config/file.html: results
 
 exports[`configuration smoketest test-files/config/directive/disable.html: config 1`] = `
 {
+  "elements": undefined,
   "extends": [],
   "plugins": [],
   "root": true,
@@ -79,6 +81,7 @@ exports[`configuration smoketest test-files/config/directive/disable.html: resul
 
 exports[`configuration smoketest test-files/config/directive/disable-block.html: config 1`] = `
 {
+  "elements": undefined,
   "extends": [],
   "plugins": [],
   "root": true,
@@ -174,6 +177,7 @@ Should handle when root element is parent but no children
 
 exports[`configuration smoketest test-files/config/directive/disable-multiple.html: config 1`] = `
 {
+  "elements": undefined,
   "extends": [],
   "plugins": [],
   "root": true,
@@ -236,6 +240,7 @@ exports[`configuration smoketest test-files/config/directive/disable-multiple.ht
 
 exports[`configuration smoketest test-files/config/directive/disable-next.html: config 1`] = `
 {
+  "elements": undefined,
   "extends": [],
   "plugins": [],
   "root": true,
@@ -489,6 +494,7 @@ exports[`configuration smoketest test-files/config/extend-order/nested/foo.html:
 
 exports[`configuration smoketest test-files/config/file.html: config 1`] = `
 {
+  "elements": undefined,
   "extends": [],
   "plugins": [],
   "root": true,
@@ -531,6 +537,7 @@ exports[`configuration smoketest test-files/config/file.html: results 1`] = `
 
 exports[`configuration smoketest test-files/config/js-config/file.html: config 1`] = `
 {
+  "elements": undefined,
   "extends": [],
   "plugins": [],
   "root": true,
@@ -548,6 +555,7 @@ exports[`configuration smoketest test-files/config/js-config/file.html: results 
 
 exports[`configuration smoketest test-files/config/off/error/file.html: config 1`] = `
 {
+  "elements": undefined,
   "extends": [],
   "plugins": [],
   "root": true,
@@ -590,6 +598,7 @@ exports[`configuration smoketest test-files/config/off/error/file.html: results 
 
 exports[`configuration smoketest test-files/config/off/file.html: config 1`] = `
 {
+  "elements": undefined,
   "extends": [],
   "plugins": [],
   "root": true,
@@ -607,6 +616,7 @@ exports[`configuration smoketest test-files/config/off/file.html: results 1`] = 
 
 exports[`configuration smoketest test-files/config/warn/file.html: config 1`] = `
 {
+  "elements": undefined,
   "extends": [],
   "plugins": [],
   "root": true,

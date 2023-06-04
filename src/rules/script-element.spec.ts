@@ -34,8 +34,9 @@ describe("rule script-element", () => {
 		expect(report).toBeValid();
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("script-element")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("script-element");
+		expect(docs).toMatchSnapshot();
 	});
 });

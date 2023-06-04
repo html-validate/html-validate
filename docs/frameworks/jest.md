@@ -1,6 +1,7 @@
 ---
 docType: content
 title: Usage with Jest
+name: jest
 ---
 
 # Usage with Jest

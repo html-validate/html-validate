@@ -145,11 +145,11 @@ describe("rule valid-id", () => {
 			`);
 		});
 
-		it("should contain documentation", () => {
+		it("should contain documentation", async () => {
 			expect.assertions(1);
-			const docs = htmlvalidate.getRuleDocumentation(
+			const docs = await htmlvalidate.getRuleDocumentation(
 				"valid-id",
-				htmlvalidate.getConfigFor("inline")
+				await htmlvalidate.getConfigFor("inline")
 			);
 			expect(docs).toMatchInlineSnapshot(`
 				{
@@ -166,12 +166,12 @@ describe("rule valid-id", () => {
 			`);
 		});
 
-		it("should contain contextual documentation", () => {
+		it("should contain contextual documentation", async () => {
 			expect.assertions(1);
 			const context = RuleContext.LEADING_CHARACTER;
-			const docs = htmlvalidate.getRuleDocumentation(
+			const docs = await htmlvalidate.getRuleDocumentation(
 				"valid-id",
-				htmlvalidate.getConfigFor("inline"),
+				await htmlvalidate.getConfigFor("inline"),
 				context
 			);
 			expect(docs).toMatchInlineSnapshot(`
@@ -225,11 +225,11 @@ describe("rule valid-id", () => {
 			`);
 		});
 
-		it("should contain documentation", () => {
+		it("should contain documentation", async () => {
 			expect.assertions(1);
-			const docs = htmlvalidate.getRuleDocumentation(
+			const docs = await htmlvalidate.getRuleDocumentation(
 				"valid-id",
-				htmlvalidate.getConfigFor("inline")
+				await htmlvalidate.getConfigFor("inline")
 			);
 			expect(docs).toMatchInlineSnapshot(`
 				{
@@ -244,12 +244,12 @@ describe("rule valid-id", () => {
 			`);
 		});
 
-		it("should contain contextual documentation", () => {
+		it("should contain contextual documentation", async () => {
 			expect.assertions(1);
 			const context = RuleContext.EMPTY;
-			const docs = htmlvalidate.getRuleDocumentation(
+			const docs = await htmlvalidate.getRuleDocumentation(
 				"valid-id",
-				htmlvalidate.getConfigFor("inline"),
+				await htmlvalidate.getConfigFor("inline"),
 				context
 			);
 			expect(docs).toMatchInlineSnapshot(`

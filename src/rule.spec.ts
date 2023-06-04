@@ -352,7 +352,10 @@ describe("rule base class", () => {
 
 	it("documentation() should return null", () => {
 		expect.assertions(1);
-		expect(rule.documentation()).toBeNull();
+		const context: RuleContext = {
+			foo: "bar",
+		};
+		expect(rule.documentation(context)).toBeNull();
 	});
 
 	it("getMetaFor() should get MetaElement from table", () => {

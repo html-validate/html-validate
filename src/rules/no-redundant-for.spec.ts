@@ -55,8 +55,9 @@ describe("rule no-redundant-for", () => {
 		expect(report).toHaveError("no-redundant-for", 'Redundant "for" attribute');
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("no-redundant-for")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-redundant-for");
+		expect(docs).toMatchSnapshot();
 	});
 });

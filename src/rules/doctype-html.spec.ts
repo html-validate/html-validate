@@ -39,8 +39,9 @@ describe("rule doctype-html", () => {
 		expect(report).toHaveError("doctype-html", 'doctype should be "html"');
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("doctype-html")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("doctype-html");
+		expect(docs).toMatchSnapshot();
 	});
 });

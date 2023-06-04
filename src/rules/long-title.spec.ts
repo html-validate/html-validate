@@ -46,8 +46,9 @@ describe("rule long-title", () => {
 		expect(report).toHaveError("long-title", "title text cannot be longer than 10 characters");
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("long-title")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("long-title");
+		expect(docs).toMatchSnapshot();
 	});
 });

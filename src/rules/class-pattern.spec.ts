@@ -56,8 +56,9 @@ describe("rule class-pattern", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("class-pattern")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("class-pattern");
+		expect(docs).toMatchSnapshot();
 	});
 });

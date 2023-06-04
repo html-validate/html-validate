@@ -1,6 +1,6 @@
 import { globSync } from "glob";
 import { HtmlValidate } from "./htmlvalidate";
-import { ConfigData, RuleConfig } from "./config";
+import { type ConfigData, type Resolver, type RuleConfig, staticResolver } from "./config";
 import { FileSystemConfigLoader } from "./config/loaders/file-system";
 import { Source } from "./context";
 import { TRANSFORMER_API } from "./transform";
@@ -8,6 +8,7 @@ import { Plugin } from "./plugin";
 import "./jest";
 import { Rule } from "./rule";
 import { DOMReadyEvent } from "./event";
+import { StaticConfigLoader } from "./browser";
 
 expect.addSnapshotSerializer({
 	serialize(value: string): string {
@@ -18,7 +19,7 @@ expect.addSnapshotSerializer({
 	},
 });
 
-it("should compute correct line, column and offset when using transformed sources", () => {
+it("should compute correct line, column and offset when using transformed sources", async () => {
 	expect.assertions(2);
 
 	/* create a mock rule which reports error on root element */
@@ -56,10 +57,13 @@ it("should compute correct line, column and offset when using transformed source
 		},
 		transformer,
 	};
-	jest.mock("plugin", () => plugin, { virtual: true });
 
-	/* create validator instance configured to use mock */
-	const htmlvalidate = new HtmlValidate({
+	const resolvers: Resolver[] = [
+		staticResolver({
+			plugins: { plugin },
+		}),
+	];
+	const loader = new StaticConfigLoader(resolvers, {
 		root: true,
 		plugins: ["plugin"],
 		transform: {
@@ -70,8 +74,11 @@ it("should compute correct line, column and offset when using transformed source
 		},
 	});
 
+	/* create validator instance configured to use mock */
+	const htmlvalidate = new HtmlValidate(loader);
+
 	/* ensure line, column and offsets are correct */
-	const report = htmlvalidate.validateString("<p>line 1</p>\n<p>line 2</p>\n<p>line 3</p>\n");
+	const report = await htmlvalidate.validateString("<p>line 1</p>\n<p>line 2</p>\n<p>line 3</p>\n");
 	expect(report).toBeInvalid();
 	expect(report.results[0]).toMatchInlineSnapshot(`
 		{
@@ -118,7 +125,7 @@ it("should compute correct line, column and offset when using transformed source
 	`);
 });
 
-it("should handle source missing properties", () => {
+it("should handle source missing properties", async () => {
 	expect.assertions(2);
 	const source = {
 		data: "<p>lorem ipsum</i>",
@@ -127,7 +134,7 @@ it("should handle source missing properties", () => {
 		root: true,
 		extends: ["html-validate:recommended"],
 	});
-	const report = htmlvalidate.validateSource(source as Source);
+	const report = await htmlvalidate.validateSource(source as Source);
 	expect(report).toBeInvalid();
 	expect(report.results[0]).toMatchInlineSnapshot(`
 		{
@@ -152,12 +159,12 @@ it("should handle source missing properties", () => {
 	`);
 });
 
-it("should report parser-error when last tag is left unopened", () => {
+it("should report parser-error when last tag is left unopened", async () => {
 	expect.assertions(2);
 	const htmlvalidate = new HtmlValidate({
 		root: true,
 	});
-	const report = htmlvalidate.validateString("<div");
+	const report = await htmlvalidate.validateString("<div");
 	expect(report).toBeInvalid();
 	expect(report.results[0]).toMatchInlineSnapshot(`
 		{
@@ -237,8 +244,8 @@ describe("configuration smoketest", () => {
 		expect.assertions(2);
 		const loader = new FileSystemConfigLoader();
 		const htmlvalidate = new HtmlValidate(loader);
-		const config = htmlvalidate.getConfigFor(filename);
-		const report = htmlvalidate.validateFile(filename);
+		const config = await htmlvalidate.getConfigFor(filename);
+		const report = await htmlvalidate.validateFile(filename);
 		expect(filter(config.getConfigData())).toMatchSnapshot("config");
 		expect(report.results).toMatchSnapshot("results");
 	});

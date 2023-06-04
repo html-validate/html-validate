@@ -233,30 +233,31 @@ describe("rule unrecognized-char-ref", () => {
 		});
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("unrecognized-char-ref")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("unrecognized-char-ref");
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation (terminated)", () => {
+	it("should contain contextual documentation (terminated)", async () => {
 		expect.assertions(1);
 		const context: RuleContext = {
 			entity: "&spam;",
 			terminated: true,
 		};
 		expect(
-			htmlvalidate.getRuleDocumentation("unrecognized-char-ref", null, context)
+			await htmlvalidate.getRuleDocumentation("unrecognized-char-ref", null, context)
 		).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation (not terminated)", () => {
+	it("should contain contextual documentation (not terminated)", async () => {
 		expect.assertions(1);
 		const context: RuleContext = {
 			entity: "&spam;",
 			terminated: false,
 		};
 		expect(
-			htmlvalidate.getRuleDocumentation("unrecognized-char-ref", null, context)
+			await htmlvalidate.getRuleDocumentation("unrecognized-char-ref", null, context)
 		).toMatchSnapshot();
 	});
 });

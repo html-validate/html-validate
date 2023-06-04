@@ -299,12 +299,13 @@ describe("rule attribute-boolean-style", () => {
 		);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "attribute-boolean-style": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("attribute-boolean-style")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("attribute-boolean-style");
+		expect(docs).toMatchSnapshot();
 	});
 });

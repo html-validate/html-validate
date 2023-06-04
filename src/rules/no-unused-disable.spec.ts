@@ -2,6 +2,8 @@ import "../jest";
 import { HtmlValidate } from "../htmlvalidate";
 import { type Plugin } from "../plugin";
 import { Rule } from "../rule";
+import { staticResolver } from "../config";
+import { StaticConfigLoader } from "../browser";
 import { type RuleContext } from "./no-unused-disable";
 
 class DirectRule extends Rule {
@@ -31,13 +33,17 @@ const plugin: Plugin = {
 	},
 };
 
-jest.mock("mock-plugin", () => plugin, { virtual: true });
+const resolver = staticResolver({
+	plugins: {
+		"mock-plugin": plugin,
+	},
+});
 
 describe("rule no-unused-disable", () => {
 	let htmlvalidate: HtmlValidate;
 
 	beforeAll(() => {
-		htmlvalidate = new HtmlValidate({
+		const loader = new StaticConfigLoader([resolver], {
 			root: true,
 			plugins: ["mock-plugin"],
 			rules: {
@@ -47,6 +53,7 @@ describe("rule no-unused-disable", () => {
 				"no-unused-disable": "error",
 			},
 		});
+		htmlvalidate = new HtmlValidate(loader);
 	});
 
 	it("should not report error when disable-block is used to disable reported error", () => {
@@ -211,13 +218,13 @@ describe("rule no-unused-disable", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(2);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "no-unused-disable": "error" },
 		});
-		const docs = htmlvalidate.getRuleDocumentation("no-unused-disable");
+		const docs = await htmlvalidate.getRuleDocumentation("no-unused-disable");
 		expect(docs?.description).toMatchInlineSnapshot(
 			`"Rule is disabled but no error was reported."`
 		);
@@ -226,7 +233,7 @@ describe("rule no-unused-disable", () => {
 		);
 	});
 
-	it("should contain contextual documentation", () => {
+	it("should contain contextual documentation", async () => {
 		expect.assertions(2);
 		htmlvalidate = new HtmlValidate({
 			root: true,
@@ -235,7 +242,7 @@ describe("rule no-unused-disable", () => {
 		const context: RuleContext = {
 			ruleId: "mock-rule",
 		};
-		const docs = htmlvalidate.getRuleDocumentation("no-unused-disable", null, context);
+		const docs = await htmlvalidate.getRuleDocumentation("no-unused-disable", null, context);
 		expect(docs?.description).toMatchInlineSnapshot(
 			`"\`mock-rule\` rule is disabled but no error was reported."`
 		);

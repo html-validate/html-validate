@@ -9,28 +9,28 @@ markup["multiple"] = `<p foobar></p>
 markup["svg-viewbox"] = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" />`;
 
 describe("docs/rules/attr-case.md", () => {
-	it("inline validation: incorrect", () => {
+	it("inline validation: incorrect", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"attr-case":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect"]);
+		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct", () => {
+	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"attr-case":"error"}});
-		const report = htmlvalidate.validateString(markup["correct"]);
+		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: multiple", () => {
+	it("inline validation: multiple", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"attr-case":["error",{"style":["lowercase","uppercase"]}]}});
-		const report = htmlvalidate.validateString(markup["multiple"]);
+		const report = await htmlvalidate.validateString(markup["multiple"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: svg-viewbox", () => {
+	it("inline validation: svg-viewbox", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"attr-case":"error"}});
-		const report = htmlvalidate.validateString(markup["svg-viewbox"]);
+		const report = await htmlvalidate.validateString(markup["svg-viewbox"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

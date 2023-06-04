@@ -85,20 +85,22 @@ describe("rule no-self-closing", () => {
 		});
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "no-self-closing": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("no-self-closing")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-self-closing");
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation", () => {
+	it("should contain contextual documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "no-self-closing": "error" },
 		});
 		const context = "div";
-		expect(htmlvalidate.getRuleDocumentation("no-self-closing", null, context)).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-self-closing", null, context);
+		expect(docs).toMatchSnapshot();
 	});
 });

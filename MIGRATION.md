@@ -1,5 +1,129 @@
 # Migration guide
 
+## Upgrading to v8
+
+### Dependency changes {#v8-dependency-changes}
+
+- Minimum required NodeJS version is v16.
+- Minimum required Jest version is v27.
+
+### All users {#v8-all-users}
+
+- The `void` rule has been removed after being deprecated a long time, it is replaced with the separate {@link rule:void-content}, {@link rule:void-style} and {@link rule:no-self-closing} rules.
+- Deprecated severity alias `disabled` removed. If you use this in your configuration you need to update it to `off`.
+
+```diff
+ {
+   "rules": {
+-    "my-awesome-rule": "disabled"
++    "my-awesome-rule": "off"
+   }
+ }
+```
+
+### API changes {#v8-api-changes}
+
+#### Promise-based API {#v8-promise-based-api}
+
+The `HtmlValidate` class now has a `Promise` based API where most methods return a `Promise`.
+The old synchronous methods has been renamed to `*Sync(..)`, .e.g `validateString(..)` is now `validateStringSync(..)`.
+
+To migrate either use the new asynchronous API with `await`:
+
+```diff
+-const result = htmlvalidate.validateFile("my-awesome-file.html");
++const result = await htmlvalidate.validateFile("my-awesome-file.html");
+```
+
+or use the synchronous API:
+
+```diff
+-const result = htmlvalidate.validateFile("my-awesome-file.html");
++const result = htmlvalidate.validateFileSync("my-awesome-file.html");
+```
+
+For unittesting with Jest it is recommended to make the entire test-case async (but the matchers will handle passing in a `Promise` as well):
+
+```diff
+-it("my awesome test", () => {
++it("my awesome test", async () => {
+   const htmlvalidate = new HtmlValidate();
+-  const report = htmlvalidate.validateString("...");
++  const report = await htmlvalidate.validateString("...");
+   expect(report).toMatchCodeFrame();
+});
+```
+
+### `@html-validate/plugin-utils`
+
+The `TemplateExtractor` class has been moved to the `@html-validate/plugin-utils` package.
+This change only affects API users who use the `TemplateExtractor` class, typically this is only used when writing plugins.
+
+The rationale for this is to cut down on the API surface and the number of required dependencies.
+
+### `getContextualDocumentation` replaces `getRuleDocumentation`
+
+A new `getContextualDocumentation` replaces the now deprecated `getRuleDocumentation` method.
+The context parameter to `getRuleDocumentation` is now required and must not be omitted.
+
+For rule authors this means you can now rely on the `context` parameter being set in the `documentation` callback.
+
+For IDE integration and toolchain authors this means you should migrate to use `getContextualDocumentation` as soon as possible or if you are continuing to use `getRuleDocumentation` you are now required to pass the `config` and `context` field from the reported message.
+
+### Configuration API changes {#v8-configuration-api-changes}
+
+Many breaking changes has been introduced to the configuration API.
+
+- `ConfigLoader` must return `ResolvedConfig`
+
+In the simplest case this only requires to call `Config.resolve()`:
+
+```diff
+-return config;
++return config.resolve();
+```
+
+A resolved configuration cannot further reference any new files to extend, plugins to load, etc.
+
+- Add `Resolver` classes as a mean to separate `fs` from browser build
+
+This change affect API users only, specifically API users directly using the `Config` class.
+Additionally when using the `StaticConfigLoader` no modules will be resolved using `require(..)` by default any longer.
+If you want to resolve modules using `require` you must use the {@link dev/using-api#resolvers `NodeJSResolver`}.
+
+Instructions for running in a browser is also updated.
+
+To create a `Config` instance you must now pass in a `Resolver` (single or array):
+
+```diff
++const resolvers = [ /* ... */ ];
+-const config = new Config( /* ... */ );
++const config = new Config(resolvers, /* ... */ );
+```
+
+This applies to calls to `Config.fromObject(..)` as well.
+
+The default resolvers for `StaticConfigLoader` is `StaticResolver` and for `FileSystemConfigLoader` is `NodeJSResolver`.
+Both can optionally take a new set of resolvers (including custom ones).
+
+Each resolver will, in order, try to load things by name.
+For instance, when using the `NodeJSResolver` it uses `require(..)` to load new items.
+
+- `StaticResolver` - uses a predefined set of items.
+- `NodeJSResolver` - uses `require(..)`
+
+* `ConfigFactory` removed
+
+The `ConfigFactory` parameter to `ConfigLoader` (and its child classes `StaticConfigLoader` and `FileSystemConfigLoader`) has been removed.
+No replacement.
+If you are using this you are probably better off implementing a fully custom loader later returning a `ResolvedConfig`.
+
+## Upgrading to v7
+
+### Dependency changes {#v7-dependency-changes}
+
+- Minimum required NodeJS version is v14.
+
 ## Upgrading to v6
 
 - CLI users: No required changes but if custom element metadata is present it can benefit from upgrading format.

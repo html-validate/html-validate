@@ -17,22 +17,22 @@ markup["disable-next-deprecated"] = `<!-- [html-validate-disable-next deprecated
 <blink>But this line will</blink>`;
 
 describe("docs/usage/index.md", () => {
-	it("inline validation: directive-commend", () => {
+	it("inline validation: directive-commend", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"extends":["html-validate:recommended"]});
-		const report = htmlvalidate.validateString(markup["directive-commend"]);
+		const report = await htmlvalidate.validateString(markup["directive-commend"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: disable-block-button-type", () => {
+	it("inline validation: disable-block-button-type", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"extends":["html-validate:recommended"]});
-		const report = htmlvalidate.validateString(markup["disable-block-button-type"]);
+		const report = await htmlvalidate.validateString(markup["disable-block-button-type"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: disable-next-deprecated", () => {
+	it("inline validation: disable-next-deprecated", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"extends":["html-validate:recommended"]});
-		const report = htmlvalidate.validateString(markup["disable-next-deprecated"]);
+		const report = await htmlvalidate.validateString(markup["disable-next-deprecated"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

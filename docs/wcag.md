@@ -273,7 +273,7 @@ textual description of the content. E.g. it cannot suggest to use `<abbr>` or
 			<td class="table-right">H74</td>
 			<td>
 				Ensuring that opening and closing tags are used according to specification.
-				<em> Use {@link rule:close-order} and {@link rule:void} to validate. </em>
+				<em> Use {@link rule:close-order} and {@link rule:void-content} to validate. </em>
 			</td>
 			<td class="support-yes">Yes</td>
 		</tr>

@@ -9,10 +9,10 @@ markup["inheritance"] = `<my-component>
 </my-component>`;
 
 describe("docs/guide/metadata/inheritance.md", () => {
-	it("inline validation: inheritance", () => {
+	it("inline validation: inheritance", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"inherit":"label"}}],"extends":["html-validate:recommended"]});
-		const report = htmlvalidate.validateString(markup["inheritance"]);
+		const report = await htmlvalidate.validateString(markup["inheritance"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

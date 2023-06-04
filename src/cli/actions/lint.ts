@@ -23,7 +23,7 @@ export function lint(
 ): Promise<boolean> {
 	const reports = files.map((filename: string) => {
 		try {
-			return htmlvalidate.validateFile(filename);
+			return htmlvalidate.validateFileSync(filename);
 		} catch (err) {
 			const message = kleur.red(`Validator crashed when parsing "${filename}"`);
 			output.write(`${message}\n`);

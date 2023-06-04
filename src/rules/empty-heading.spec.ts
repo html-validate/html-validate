@@ -200,8 +200,9 @@ describe("rule empty-heading", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("empty-heading")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("empty-heading");
+		expect(docs).toMatchSnapshot();
 	});
 });

@@ -156,8 +156,9 @@ describe("rule aria-label-misuse", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("aria-label-misuse")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("aria-label-misuse");
+		expect(docs).toMatchSnapshot();
 	});
 });

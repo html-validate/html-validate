@@ -70,13 +70,15 @@ describe("rule void-content", () => {
 		expect(report).toBeValid();
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("void-content")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("void-content");
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should provide contextual documentation", () => {
+	it("should provide contextual documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("void-content", null, "foo")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("void-content", null, "foo");
+		expect(docs).toMatchSnapshot();
 	});
 });

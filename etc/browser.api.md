@@ -104,16 +104,12 @@ export interface ConditionalToken extends BaseToken {
 // @public
 export class Config {
     // @internal
-    constructor(options?: ConfigData);
+    constructor(resolvers: Resolver | Resolver[], options: ConfigData);
     static defaultConfig(): Config;
     static empty(): Config;
     // @internal
-    static expandRelative(src: string, currentPath: string): string;
-    // @internal (undocumented)
-    protected findRootDir(): string;
-    // @internal
-    static fromFile(filename: string): Config;
-    static fromObject(options: ConfigData, filename?: string | null): Config;
+    static fromFile(resolvers: Resolver | Resolver[], filename: string): Config;
+    static fromObject(resolvers: Resolver | Resolver[], options: ConfigData, filename?: string | null): Config;
     // @internal
     get(): ConfigData;
     // @internal
@@ -124,13 +120,10 @@ export class Config {
     getRules(): Map<string, [Severity, RuleOptions]>;
     init(): void;
     isRootFound(): boolean;
-    merge(rhs: Config): Config;
+    merge(resolvers: Resolver[], rhs: Config): Config;
     resolve(): ResolvedConfig;
     // @internal
     resolveData(): ResolvedConfigData;
-    // @internal (undocumented)
-    protected get rootDirCache(): string | null;
-    protected set rootDirCache(value: string | null);
     // @internal
     static validate(configData: ConfigData, filename?: string | null): void;
 }
@@ -152,34 +145,24 @@ export class ConfigError extends UserError {
     constructor(message: string, nested?: Error);
 }
 
-// @public (undocumented)
-export interface ConfigFactory {
-    // (undocumented)
-    defaultConfig(): Config;
-    // (undocumented)
-    empty(): Config;
-    // (undocumented)
-    fromFile(filename: string): Config;
-    // (undocumented)
-    fromObject(options: ConfigData, filename?: string | null): Config;
-}
-
 // @public
 export abstract class ConfigLoader {
-    constructor(config?: ConfigData, configFactory?: ConfigFactory);
-    // (undocumented)
-    protected readonly configFactory: ConfigFactory;
+    constructor(resolvers: Resolver[], config?: ConfigData);
     protected abstract defaultConfig(): Config;
     // (undocumented)
     protected empty(): Config;
     abstract flushCache(handle?: string): void;
-    abstract getConfigFor(handle: string, configOverride?: ConfigData): Config | ResolvedConfig;
+    abstract getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig;
+    // @internal
+    _getGlobalConfig(): ConfigData;
     // (undocumented)
     protected readonly globalConfig: Config;
     // (undocumented)
     protected loadFromFile(filename: string): Config;
     // (undocumented)
     protected loadFromObject(options: ConfigData, filename?: string | null): Config;
+    // (undocumented)
+    protected readonly resolvers: Resolver[];
 }
 
 // @internal (undocumented)
@@ -534,7 +517,8 @@ export class HtmlElement extends DOMNode {
 export class HtmlValidate {
     constructor(config?: ConfigData);
     constructor(configLoader: ConfigLoader);
-    canValidate(filename: string): boolean;
+    canValidate(filename: string): Promise<boolean>;
+    canValidateSync(filename: string): boolean;
     // (undocumented)
     protected configLoader: ConfigLoader;
     // @internal
@@ -546,28 +530,55 @@ export class HtmlValidate {
     // @internal
     dumpTree(filename: string): string[];
     flushConfigCache(filename?: string): void;
-    getConfigFor(filename: string, configOverride?: ConfigData): ResolvedConfig;
+    getConfigFor(filename: string, configOverride?: ConfigData): Promise<ResolvedConfig>;
+    getConfigForSync(filename: string, configOverride?: ConfigData): ResolvedConfig;
     getConfigurationSchema(): SchemaObject;
-    getElementsSchema(filename?: string): SchemaObject;
+    getContextualDocumentation(message: Pick<Message, "ruleId" | "context">): Promise<RuleDocumentation | null>;
+    getContextualDocumentation(message: Pick<Message, "ruleId" | "context">, filename: string): Promise<RuleDocumentation | null>;
+    getContextualDocumentation(message: Pick<Message, "ruleId" | "context">, config: ResolvedConfig | Promise<ResolvedConfig>): Promise<RuleDocumentation | null>;
+    getContextualDocumentationSync(message: Pick<Message, "ruleId" | "context">): RuleDocumentation | null;
+    getContextualDocumentationSync(message: Pick<Message, "ruleId" | "context">, filename: string): RuleDocumentation | null;
+    getContextualDocumentationSync(message: Pick<Message, "ruleId" | "context">, config: ResolvedConfig): RuleDocumentation | null;
+    getElementsSchema(filename?: string): Promise<SchemaObject>;
+    getElementsSchemaSync(filename?: string): SchemaObject;
     // @internal
-    getParserFor(source: Source): Parser;
-    getRuleDocumentation(ruleId: string, config?: ResolvedConfig | null, context?: any | null): RuleDocumentation | null;
-    validateFile(filename: string): Report;
-    validateMultipleFiles(filenames: string[]): Report;
-    validateSource(input: Source, configOverride?: ConfigData): Report;
-    validateString(str: string): Report;
+    getParserFor(source: Source): Promise<Parser>;
+    // @deprecated
+    getRuleDocumentation(ruleId: string, config?: ResolvedConfig | Promise<ResolvedConfig> | null, context?: unknown | null): Promise<RuleDocumentation | null>;
+    // @deprecated
+    getRuleDocumentationSync(ruleId: string, config?: ResolvedConfig | null, context?: unknown | null): RuleDocumentation | null;
+    validateFile(filename: string): Promise<Report>;
+    validateFileSync(filename: string): Report;
+    validateMultipleFiles(filenames: string[]): Promise<Report>;
+    validateMultipleFilesSync(filenames: string[]): Report;
+    validateSource(input: Source, configOverride?: ConfigData): Promise<Report>;
+    validateSourceSync(input: Source, configOverride?: ConfigData): Report;
+    validateString(str: string): Promise<Report>;
     // (undocumented)
-    validateString(str: string, filename: string): Report;
+    validateString(str: string, filename: string): Promise<Report>;
     // (undocumented)
-    validateString(str: string, hooks: SourceHooks): Report;
+    validateString(str: string, hooks: SourceHooks): Promise<Report>;
     // (undocumented)
-    validateString(str: string, options: ConfigData): Report;
+    validateString(str: string, options: ConfigData): Promise<Report>;
     // (undocumented)
-    validateString(str: string, filename: string, hooks: SourceHooks): Report;
+    validateString(str: string, filename: string, hooks: SourceHooks): Promise<Report>;
     // (undocumented)
-    validateString(str: string, filename: string, options: ConfigData): Report;
+    validateString(str: string, filename: string, options: ConfigData): Promise<Report>;
     // (undocumented)
-    validateString(str: string, filename: string, options: ConfigData, hooks: SourceHooks): Report;
+    validateString(str: string, filename: string, options: ConfigData, hooks: SourceHooks): Promise<Report>;
+    validateStringSync(str: string): Report;
+    // (undocumented)
+    validateStringSync(str: string, filename: string): Report;
+    // (undocumented)
+    validateStringSync(str: string, hooks: SourceHooks): Report;
+    // (undocumented)
+    validateStringSync(str: string, options: ConfigData): Report;
+    // (undocumented)
+    validateStringSync(str: string, filename: string, hooks: SourceHooks): Report;
+    // (undocumented)
+    validateStringSync(str: string, filename: string, options: ConfigData): Report;
+    // (undocumented)
+    validateStringSync(str: string, filename: string, options: ConfigData, hooks: SourceHooks): Report;
 }
 
 // @public (undocumented)
@@ -910,7 +921,7 @@ export interface Report {
 export class Reporter {
     constructor();
     // (undocumented)
-    add<ContextType, OptionsType>(rule: Rule<ContextType, OptionsType>, message: string, severity: number, node: DOMNode | null, location: Location_2, context?: ContextType): void;
+    add<ContextType, OptionsType>(rule: Rule<ContextType, OptionsType>, message: string, severity: number, node: DOMNode | null, location: Location_2, context: ContextType): void;
     // (undocumented)
     addManual(filename: string, message: DeferredMessage): void;
     // (undocumented)
@@ -957,6 +968,21 @@ export interface ResolvedConfigData {
 }
 
 // @public (undocumented)
+export interface Resolver {
+    name: string;
+    resolveConfig?(id: string, options: ResolverOptions): ConfigData | null;
+    resolveElements?(id: string, options: ResolverOptions): unknown | null;
+    resolvePlugin?(id: string, options: ResolverOptions): Plugin_2 | null;
+    resolveTransformer?(id: string, options: ResolverOptions): Transformer_2 | null;
+}
+
+// @public (undocumented)
+export interface ResolverOptions {
+    // (undocumented)
+    cache: boolean;
+}
+
+// @public (undocumented)
 export interface Result {
     // (undocumented)
     errorCount: number;
@@ -976,7 +1002,8 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
     // @internal
     block(id: RuleBlocker): void;
     get deprecated(): boolean;
-    documentation(context?: ContextType): RuleDocumentation | null;
+    // @virtual
+    documentation(context: ContextType): RuleDocumentation | null;
     // @internal
     getBlockers(node?: DOMNode | null): RuleBlocker[];
     getMetaFor(tagName: string): MetaElement | null;
@@ -1129,12 +1156,41 @@ export interface SourceReadyEvent extends Event_2 {
 
 // @public
 export class StaticConfigLoader extends ConfigLoader {
+    constructor(config?: ConfigData);
+    constructor(resolvers: Resolver[], config?: ConfigData);
     // (undocumented)
     protected defaultConfig(): Config;
     // (undocumented)
     flushCache(): void;
     // (undocumented)
     getConfigFor(_handle: string, configOverride?: ConfigData): ResolvedConfig;
+}
+
+// @public
+export interface StaticResolver extends Required<Resolver> {
+    // (undocumented)
+    addConfig(id: string, config: ConfigData): void;
+    // (undocumented)
+    addElements(id: string, elements: MetaDataTable): void;
+    // (undocumented)
+    addPlugin(id: string, plugin: Plugin_2): void;
+    // (undocumented)
+    addTransformer(id: string, transformer: Transformer_2): void;
+}
+
+// @public
+export function staticResolver(map?: StaticResolverMap): StaticResolver;
+
+// @public
+export interface StaticResolverMap {
+    // (undocumented)
+    configs?: Record<string, ConfigData>;
+    // (undocumented)
+    elements?: Record<string, MetaDataTable>;
+    // (undocumented)
+    plugins?: Record<string, Plugin_2>;
+    // (undocumented)
+    transformers?: Record<string, Transformer_2>;
 }
 
 // @internal (undocumented)
@@ -1184,15 +1240,6 @@ export interface TagReadyEvent extends Event_2 {
 export interface TagStartEvent extends Event_2 {
     location: Location_2;
     target: HtmlElement;
-}
-
-// @public (undocumented)
-export class TemplateExtractor {
-    static createSource(filename: string): Source[];
-    extractObjectProperty(key: string): Source[];
-    // (undocumented)
-    static fromFilename(filename: string): TemplateExtractor;
-    static fromString(source: string, filename?: string): TemplateExtractor;
 }
 
 // @internal (undocumented)

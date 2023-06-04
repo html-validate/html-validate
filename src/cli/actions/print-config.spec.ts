@@ -12,7 +12,7 @@ it("should print config for given filename", async () => {
 	expect.assertions(3);
 	const htmlvalidate = new HtmlValidate();
 	const config = Config.defaultConfig().resolve();
-	const getConfigFor = jest.spyOn(htmlvalidate, "getConfigFor").mockReturnValue(config);
+	const getConfigFor = jest.spyOn(htmlvalidate, "getConfigFor").mockResolvedValue(config);
 	const success = await printConfig(htmlvalidate, stdout, ["/path/to/my/file.html"]);
 	expect(success).toBeTruthy();
 	expect(getConfigFor).toHaveBeenCalledWith("/path/to/my/file.html");

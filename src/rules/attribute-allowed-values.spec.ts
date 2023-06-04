@@ -133,12 +133,13 @@ describe("rule attribute-allowed-values", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("attribute-allowed-values")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("attribute-allowed-values");
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation", () => {
+	it("should contain contextual documentation", async () => {
 		expect.assertions(1);
 		const context = {
 			element: "any",
@@ -148,12 +149,11 @@ describe("rule attribute-allowed-values", () => {
 				enum: ["spam", "ham", /\d+/],
 			},
 		};
-		expect(
-			htmlvalidate.getRuleDocumentation("attribute-allowed-values", null, context)
-		).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("attribute-allowed-values", null, context);
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation when attribute should be boolean", () => {
+	it("should contain contextual documentation when attribute should be boolean", async () => {
 		expect.assertions(1);
 		const context = {
 			element: "any",
@@ -163,12 +163,11 @@ describe("rule attribute-allowed-values", () => {
 				boolean: true,
 			},
 		};
-		expect(
-			htmlvalidate.getRuleDocumentation("attribute-allowed-values", null, context)
-		).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("attribute-allowed-values", null, context);
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("contain contextual documentation when attribute is omitted", () => {
+	it("contain contextual documentation when attribute is omitted", async () => {
 		expect.assertions(1);
 		const context = {
 			element: "any",
@@ -178,8 +177,7 @@ describe("rule attribute-allowed-values", () => {
 				omit: true,
 			},
 		};
-		expect(
-			htmlvalidate.getRuleDocumentation("attribute-allowed-values", null, context)
-		).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("attribute-allowed-values", null, context);
+		expect(docs).toMatchSnapshot();
 	});
 });

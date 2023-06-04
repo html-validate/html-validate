@@ -1,5 +1,3 @@
-import fs from "fs";
-import path from "path";
 import Ajv from "ajv";
 import ajvSchemaDraft from "ajv/lib/refs/json-schema-draft-06.json";
 import deepmerge from "deepmerge";
@@ -10,8 +8,6 @@ import { type MetaDataTable, type MetaElement, MetaCopyableProperty } from "../m
 import { type Plugin } from "../plugin";
 import schema from "../schema/config.json";
 import { type Transformer, TRANSFORMER_API } from "../transform";
-import { requireUncached } from "../utils/require-uncached";
-import { legacyRequire } from "../resolve";
 import bundledRules from "../rules";
 import { Rule } from "../rule";
 import {
@@ -25,6 +21,13 @@ import { ConfigError } from "./error";
 import { type Severity, parseSeverity } from "./severity";
 import Presets from "./presets";
 import { type ResolvedConfigData, type TransformerEntry, ResolvedConfig } from "./resolved-config";
+import {
+	type Resolver,
+	resolvePlugin,
+	resolveTransformer,
+	resolveConfig,
+	resolveElements,
+} from "./resolver";
 
 /**
  * Internal interface for a loaded plugin.
@@ -35,8 +38,6 @@ export interface LoadedPlugin extends Plugin {
 	name: string;
 	originalName: string;
 }
-
-let rootDirCache: string | null = null;
 
 const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
 ajv.addMetaSchema(ajvSchemaDraft);
@@ -67,30 +68,12 @@ function mergeInternal(base: ConfigData, rhs: ConfigData): ConfigData {
 	return dst;
 }
 
-/**
- * @internal
- */
-export function configDataFromFile(filename: string): ConfigData {
-	let json;
-	try {
-		/* load using require as it can process both js and json */
-		/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- technical debt, should be refactored into something more typesafe */
-		json = requireUncached(legacyRequire, filename) as any;
-	} catch (err: unknown) {
-		throw new ConfigError(`Failed to read configuration from "${filename}"`, ensureError(err));
+function toArray<T>(value: T | T[]): T[] {
+	if (Array.isArray(value)) {
+		return value;
+	} else {
+		return [value];
 	}
-
-	/* expand any relative paths */
-	for (const key of ["extends", "elements", "plugins"]) {
-		/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- technical debt, should be refactored into something more typesafe */
-		const value: undefined | string[] = json[key];
-		if (!value) continue;
-		json[key] = value.map((ref: string) => {
-			return Config.expandRelative(ref, path.dirname(filename));
-		});
-	}
-
-	return json as ConfigData;
 }
 
 /**
@@ -105,16 +88,16 @@ export class Config {
 	private configurations: Map<string, ConfigData>;
 	private initialized: boolean;
 
+	private resolvers: Resolver[];
 	private metaTable: MetaTable | null;
 	private plugins: LoadedPlugin[];
 	private transformers: TransformerEntry[] = [];
-	private rootDir: string;
 
 	/**
 	 * Create a new blank configuration. See also `Config.defaultConfig()`.
 	 */
 	public static empty(): Config {
-		return new Config({
+		return new Config([], {
 			extends: [],
 			rules: {},
 			plugins: [],
@@ -125,9 +108,13 @@ export class Config {
 	/**
 	 * Create configuration from object.
 	 */
-	public static fromObject(options: ConfigData, filename: string | null = null): Config {
+	public static fromObject(
+		resolvers: Resolver | Resolver[],
+		options: ConfigData,
+		filename: string | null = null
+	): Config {
 		Config.validate(options, filename);
-		return new Config(options);
+		return new Config(resolvers, options);
 	}
 
 	/**
@@ -139,9 +126,9 @@ export class Config {
 	 * @internal
 	 * @param filename - The file to read from
 	 */
-	public static fromFile(filename: string): Config {
-		const configdata = configDataFromFile(filename);
-		return Config.fromObject(configdata, filename);
+	public static fromFile(resolvers: Resolver | Resolver[], filename: string): Config {
+		const configData = resolveConfig(toArray(resolvers), filename, { cache: false });
+		return Config.fromObject(resolvers, configData, filename);
 	}
 
 	/**
@@ -178,23 +165,24 @@ export class Config {
 	 * Load a default configuration object.
 	 */
 	public static defaultConfig(): Config {
-		return new Config(defaultConfig);
+		return new Config([], defaultConfig);
 	}
 
 	/**
 	 * @internal
 	 */
-	public constructor(options?: ConfigData) {
+	public constructor(resolvers: Resolver | Resolver[], options: ConfigData) {
 		const initial: ConfigData = {
 			extends: [],
 			plugins: [],
 			rules: {},
 			transform: {},
 		};
-		this.config = mergeInternal(initial, options || {});
+		this.config = mergeInternal(initial, options);
 		this.metaTable = null;
-		this.rootDir = this.findRootDir();
 		this.initialized = false;
+
+		this.resolvers = toArray(resolvers);
 
 		/* load plugins */
 		this.plugins = this.loadPlugins(this.config.plugins || []);
@@ -249,8 +237,8 @@ export class Config {
 	 * @public
 	 * @param rhs - Configuration to merge with this one.
 	 */
-	public merge(rhs: Config): Config {
-		return new Config(mergeInternal(this.config, rhs.config));
+	public merge(resolvers: Resolver[], rhs: Config): Config {
+		return new Config(resolvers, mergeInternal(this.config, rhs.config));
 	}
 
 	private extendConfig(entries: string[]): ConfigData {
@@ -265,7 +253,7 @@ export class Config {
 			if (this.configurations.has(entry)) {
 				extended = this.configurations.get(entry) as ConfigData;
 			} else {
-				extended = Config.fromFile(entry).config;
+				extended = Config.fromFile(this.resolvers, entry).config;
 			}
 			base = mergeInternal(base, extended);
 		}
@@ -308,30 +296,22 @@ export class Config {
 				continue;
 			}
 
-			/* assume it is loadable with require() */
-			const id = entry.replace("<rootDir>", this.rootDir);
+			/* load with resolver */
 			try {
-				const data = legacyRequire(id) as unknown;
-				metaTable.loadFromObject(data, id);
+				const data = resolveElements(this.resolvers, entry, { cache: false });
+				metaTable.loadFromObject(data, entry);
 			} catch (err: unknown) {
 				/* istanbul ignore next: only used as a fallback */
 				const message = err instanceof Error ? err.message : String(err);
-				throw new ConfigError(`Failed to load elements from "${id}": ${message}`, ensureError(err));
+				throw new ConfigError(
+					`Failed to load elements from "${entry}": ${message}`,
+					ensureError(err)
+				);
 			}
 		}
 
 		metaTable.init();
 		return (this.metaTable = metaTable);
-	}
-
-	/**
-	 * @internal exposed for testing only
-	 */
-	public static expandRelative(src: string, currentPath: string): string {
-		if (src[0] === ".") {
-			return path.normalize(`${currentPath}/${src}`);
-		}
-		return src;
 	}
 
 	/**
@@ -379,7 +359,7 @@ export class Config {
 	}
 
 	private loadPlugins(plugins: Array<string | Plugin>): LoadedPlugin[] {
-		return plugins.map((moduleName: string | Plugin, index) => {
+		return plugins.map((moduleName: string | Plugin, index: number) => {
 			if (typeof moduleName !== "string") {
 				const plugin = moduleName as LoadedPlugin;
 				plugin.name = plugin.name || `:unnamedPlugin@${index + 1}`;
@@ -388,7 +368,7 @@ export class Config {
 			}
 
 			try {
-				const plugin = legacyRequire(moduleName.replace("<rootDir>", this.rootDir)) as LoadedPlugin;
+				const plugin = resolvePlugin(this.resolvers, moduleName, { cache: true }) as LoadedPlugin;
 				plugin.name = plugin.name || moduleName;
 				plugin.originalName = moduleName;
 				return plugin;
@@ -598,69 +578,6 @@ export class Config {
 	}
 
 	private getTransformerFromModule(name: string): Transformer {
-		/* expand <rootDir> */
-		const moduleName = name.replace("<rootDir>", this.rootDir);
-
-		/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- technical debt, the code kinda does the right thing but it should be reflected in the typing too */
-		const fn = legacyRequire(moduleName);
-
-		/* sanity check */
-		if (typeof fn !== "function") {
-			/* this is not a proper transformer, is it a plugin exposing a transformer? */
-			if (fn.transformer) {
-				throw new ConfigError(
-					`Module is not a valid transformer. This looks like a plugin, did you forget to load the plugin first?`
-				);
-			}
-
-			throw new ConfigError(`Module is not a valid transformer.`);
-		}
-
-		return fn as Transformer;
-	}
-
-	/**
-	 * @internal
-	 */
-	protected get rootDirCache(): string | null {
-		/* return global instance */
-		return rootDirCache;
-	}
-
-	protected set rootDirCache(value: string | null) {
-		/* set global instance */
-		rootDirCache = value;
-	}
-
-	/**
-	 * @internal
-	 */
-	protected findRootDir(): string {
-		const cache = this.rootDirCache;
-		if (cache !== null) {
-			return cache;
-		}
-
-		/* try to locate package.json */
-		let current = process.cwd();
-		// eslint-disable-next-line no-constant-condition -- break outs when filesystem is traversed
-		while (true) {
-			const search = path.join(current, "package.json");
-			if (fs.existsSync(search)) {
-				return (this.rootDirCache = current);
-			}
-
-			/* get the parent directory */
-			const child = current;
-			current = path.dirname(current);
-
-			/* stop if this is the root directory */
-			if (current === child) {
-				break;
-			}
-		}
-
-		/* default to working directory if no package.json is found */
-		return (this.rootDirCache = process.cwd());
+		return resolveTransformer(this.resolvers, name, { cache: true });
 	}
 }

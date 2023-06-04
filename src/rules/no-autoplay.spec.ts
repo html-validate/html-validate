@@ -62,15 +62,16 @@ describe("rule no-autoplay", () => {
 		expect(invalid).toBeInvalid();
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
 			rules: { "no-autoplay": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("no-autoplay")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-autoplay");
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation", () => {
+	it("should contain contextual documentation", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
 			rules: { "no-autoplay": "error" },
@@ -78,6 +79,7 @@ describe("rule no-autoplay", () => {
 		const context = {
 			tagName: "video",
 		};
-		expect(htmlvalidate.getRuleDocumentation("no-autoplay", null, context)).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-autoplay", null, context);
+		expect(docs).toMatchSnapshot();
 	});
 });

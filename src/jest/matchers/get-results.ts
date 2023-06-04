@@ -11,7 +11,7 @@ export function getResults(filename: string, value: Report | string): Result[] {
 			extends: ["html-validate:recommended"],
 		});
 		const htmlvalidate = new HtmlValidate(loader);
-		const report = htmlvalidate.validateString(value, filename, {
+		const report = htmlvalidate.validateStringSync(value, filename, {
 			rules: {
 				"void-style": "off",
 			},

@@ -307,12 +307,13 @@ describe("rule h37", () => {
 		});
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "wcag/h37": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("wcag/h37")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("wcag/h37");
+		expect(docs).toMatchSnapshot();
 	});
 });

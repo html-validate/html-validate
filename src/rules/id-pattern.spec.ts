@@ -85,8 +85,9 @@ describe("rule id-pattern", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("id-pattern")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("id-pattern");
+		expect(docs).toMatchSnapshot();
 	});
 });

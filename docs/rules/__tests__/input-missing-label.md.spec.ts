@@ -38,34 +38,34 @@ markup["aria-labelledby"] = `<h2 id="my-heading">Enter your name</h2>
 <input type="text" aria-labelledby="my-heading">`;
 
 describe("docs/rules/input-missing-label.md", () => {
-	it("inline validation: incorrect", () => {
+	it("inline validation: incorrect", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"input-missing-label":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect"]);
+		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct", () => {
+	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"input-missing-label":"error"}});
-		const report = htmlvalidate.validateString(markup["correct"]);
+		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: hidden", () => {
+	it("inline validation: hidden", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"input-missing-label":"error"}});
-		const report = htmlvalidate.validateString(markup["hidden"]);
+		const report = await htmlvalidate.validateString(markup["hidden"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: aria-label", () => {
+	it("inline validation: aria-label", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"input-missing-label":"error"}});
-		const report = htmlvalidate.validateString(markup["aria-label"]);
+		const report = await htmlvalidate.validateString(markup["aria-label"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: aria-labelledby", () => {
+	it("inline validation: aria-labelledby", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"input-missing-label":"error"}});
-		const report = htmlvalidate.validateString(markup["aria-labelledby"]);
+		const report = await htmlvalidate.validateString(markup["aria-labelledby"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

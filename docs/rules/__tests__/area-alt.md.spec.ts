@@ -23,28 +23,28 @@ markup["disabled-a11y"] = `<img src="image.png" usemap="#imagemap" alt="An aweso
 </map>`;
 
 describe("docs/rules/area-alt.md", () => {
-	it("inline validation: incorrect", () => {
+	it("inline validation: incorrect", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"area-alt":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect"]);
+		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct", () => {
+	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"area-alt":"error"}});
-		const report = htmlvalidate.validateString(markup["correct"]);
+		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: enabled-a11y", () => {
+	it("inline validation: enabled-a11y", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"area-alt":["error",{"accessible":true}]}});
-		const report = htmlvalidate.validateString(markup["enabled-a11y"]);
+		const report = await htmlvalidate.validateString(markup["enabled-a11y"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: disabled-a11y", () => {
+	it("inline validation: disabled-a11y", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"area-alt":["error",{"accessible":false}]}});
-		const report = htmlvalidate.validateString(markup["disabled-a11y"]);
+		const report = await htmlvalidate.validateString(markup["disabled-a11y"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

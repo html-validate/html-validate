@@ -46,15 +46,16 @@ describe("rule no-redundant-role", () => {
 		expect(report).toBeInvalid();
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
 			rules: { "no-redundant-role": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("no-redundant-role")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-redundant-role");
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation", () => {
+	it("should contain contextual documentation", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
 			rules: { "no-redundant-role": "error" },
@@ -63,6 +64,7 @@ describe("rule no-redundant-role", () => {
 			role: "checkbox",
 			tagname: "input",
 		};
-		expect(htmlvalidate.getRuleDocumentation("no-redundant-role", null, context)).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-redundant-role", null, context);
+		expect(docs).toMatchSnapshot();
 	});
 });

@@ -11,34 +11,34 @@ markup["correct-1"] = `<p><strong></strong></p>`;
 markup["correct-2"] = `<div></div>`;
 
 describe("docs/rules/close-order.md", () => {
-	it("inline validation: incorrect-1", () => {
+	it("inline validation: incorrect-1", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"close-order":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect-1"]);
+		const report = await htmlvalidate.validateString(markup["incorrect-1"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: incorrect-2", () => {
+	it("inline validation: incorrect-2", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"close-order":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect-2"]);
+		const report = await htmlvalidate.validateString(markup["incorrect-2"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: incorrect-3", () => {
+	it("inline validation: incorrect-3", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"close-order":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect-3"]);
+		const report = await htmlvalidate.validateString(markup["incorrect-3"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct-1", () => {
+	it("inline validation: correct-1", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"close-order":"error"}});
-		const report = htmlvalidate.validateString(markup["correct-1"]);
+		const report = await htmlvalidate.validateString(markup["correct-1"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct-2", () => {
+	it("inline validation: correct-2", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"close-order":"error"}});
-		const report = htmlvalidate.validateString(markup["correct-2"]);
+		const report = await htmlvalidate.validateString(markup["correct-2"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

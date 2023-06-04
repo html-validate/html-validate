@@ -19,28 +19,28 @@ markup["sectioning-root"] = `<h1>Heading 1</h1>
 <h3>Subheading 3</h2>`;
 
 describe("docs/rules/heading-level.md", () => {
-	it("inline validation: incorrect", () => {
+	it("inline validation: incorrect", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"heading-level":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect"]);
+		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct", () => {
+	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"heading-level":"error"}});
-		const report = htmlvalidate.validateString(markup["correct"]);
+		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: min-initial-rank", () => {
+	it("inline validation: min-initial-rank", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"heading-level":["error",{"minInitialRank":"h2"}]}});
-		const report = htmlvalidate.validateString(markup["min-initial-rank"]);
+		const report = await htmlvalidate.validateString(markup["min-initial-rank"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: sectioning-root", () => {
+	it("inline validation: sectioning-root", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"heading-level":"error"}});
-		const report = htmlvalidate.validateString(markup["sectioning-root"]);
+		const report = await htmlvalidate.validateString(markup["sectioning-root"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

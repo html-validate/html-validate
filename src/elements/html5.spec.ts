@@ -35,9 +35,6 @@ describe("HTML elements", () => {
 			/* disabled by default, should be included in these tests */
 			"svg-focusable": "error",
 
-			/* void is being deprecated */
-			void: "off",
-
 			/* none of the WCAG rules should trigger in these tests, they are tested
 			 * separately and adds too much noise here */
 			"wcag/h32": "off",
@@ -51,7 +48,7 @@ describe("HTML elements", () => {
 		},
 	});
 
-	function getElement(markup: string, selector: string): HtmlElement | null {
+	async function getElement(markup: string, selector: string): Promise<HtmlElement | null> {
 		const source: Source = {
 			data: markup,
 			filename: "inline",
@@ -59,41 +56,41 @@ describe("HTML elements", () => {
 			column: 1,
 			offset: 0,
 		};
-		const parser = htmlvalidate.getParserFor(source);
+		const parser = await htmlvalidate.getParserFor(source);
 		const doc = parser.parseHtml(source.data);
 		return doc.querySelector(selector);
 	}
 
 	describe("<input>", () => {
-		it("should be labelable unless hidden", () => {
+		it("should be labelable unless hidden", async () => {
 			expect.assertions(1);
 			const markup = '<input type="text">';
-			const input = getElement(markup, "input")!;
-			const meta = input.meta;
+			const input = await getElement(markup, "input")!;
+			const meta = input?.meta;
 			expect(meta?.labelable).toBeTruthy();
 		});
 
-		it("should not be labelable if hidden", () => {
+		it("should not be labelable if hidden", async () => {
 			expect.assertions(1);
 			const markup = '<input type="hidden">';
-			const input = getElement(markup, "input")!;
-			const meta = input.meta;
+			const input = await getElement(markup, "input")!;
+			const meta = input?.meta;
 			expect(meta?.labelable).toBeFalsy();
 		});
 	});
 
 	describe(`global attributes`, () => {
-		it("valid markup", () => {
+		it("valid markup", async () => {
 			expect.assertions(1);
 			const filename = `${fileDirectory}/global-attributes-valid.html`;
-			const report = htmlvalidate.validateFile(filename);
+			const report = await htmlvalidate.validateFile(filename);
 			expect(report.results).toMatchSnapshot();
 		});
 
-		it("invalid markup", () => {
+		it("invalid markup", async () => {
 			expect.assertions(1);
 			const filename = `${fileDirectory}/global-attributes-invalid.html`;
-			const report = htmlvalidate.validateFile(filename);
+			const report = await htmlvalidate.validateFile(filename);
 			expect(report.results).toMatchSnapshot();
 		});
 	});
@@ -103,15 +100,15 @@ describe("HTML elements", () => {
 		const filename = (variant: string): string => `${fileDirectory}/${slug}-${variant}.html`;
 
 		describe(`<${tagName}>`, () => {
-			it("valid markup", () => {
+			it("valid markup", async () => {
 				expect.assertions(1);
-				const report = htmlvalidate.validateFile(filename("valid"));
+				const report = await htmlvalidate.validateFile(filename("valid"));
 				expect(report.results).toMatchSnapshot();
 			});
 
-			it("invalid markup", () => {
+			it("invalid markup", async () => {
 				expect.assertions(1);
-				const report = htmlvalidate.validateFile(filename("invalid"));
+				const report = await htmlvalidate.validateFile(filename("invalid"));
 				expect(report.results).toMatchSnapshot();
 			});
 		});

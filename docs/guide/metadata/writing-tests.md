@@ -18,8 +18,13 @@ const htmlvalidate = new HtmlValidate({
   extends: ["html-validate:recommended"],
 });
 
-it("should give error when using <div> as content", () => {
-  const report = htmlvalidate.validateString("<my-component><div>lorem ipsum</div></my-component>");
+it("should give error when using <div> as content", async () => {
+  const markup = /* HTML */ `
+    <my-component>
+      <div>lorem ipsum</div>
+    </my-component>
+  `;
+  const report = await htmlvalidate.validateString(markup);
   expect(report.valid).toBeFalsy();
   expect(report.errorCount).toEqual(1);
   expect(report.results[0].messages[0]).toMatchInlineSnapshot(`
@@ -51,7 +56,12 @@ const htmlvalidate = new HtmlValidate({
 });
 
 it("should give error when using <div> as content", () => {
-  const report = htmlvalidate.validateString("<my-component><div>lorem ipsum</div></my-component>");
+  const markup = /* HTML */ `
+    <my-component>
+      <div>lorem ipsum</div>
+    </my-component>
+  `;
+  const report = htmlvalidate.validateString(markup);
   expect(report).toBeInvalid();
   expect(report).toHaveError(
     "element-permitted-content",

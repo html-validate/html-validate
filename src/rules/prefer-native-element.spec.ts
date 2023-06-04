@@ -90,16 +90,17 @@ describe("rule prefer-native-element", () => {
 		expect(invalid).toBeInvalid();
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "prefer-native-element": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("prefer-native-element")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("prefer-native-element");
+		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation", () => {
+	it("should contain contextual documentation", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
 			root: true,
@@ -109,8 +110,7 @@ describe("rule prefer-native-element", () => {
 			role: "the-role",
 			replacement: "the-replacement",
 		};
-		expect(
-			htmlvalidate.getRuleDocumentation("prefer-native-element", null, context)
-		).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("prefer-native-element", null, context);
+		expect(docs).toMatchSnapshot();
 	});
 });

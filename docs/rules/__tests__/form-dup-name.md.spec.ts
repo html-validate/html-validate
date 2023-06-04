@@ -39,58 +39,58 @@ markup["shared-mix"] = `<form>
 </form>`;
 
 describe("docs/rules/form-dup-name.md", () => {
-	it("inline validation: incorrect", () => {
+	it("inline validation: incorrect", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"form-dup-name":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect"]);
+		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct", () => {
+	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"form-dup-name":"error"}});
-		const report = htmlvalidate.validateString(markup["correct"]);
+		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct-radio-checkbox", () => {
+	it("inline validation: correct-radio-checkbox", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"form-dup-name":"error"}});
-		const report = htmlvalidate.validateString(markup["correct-radio-checkbox"]);
+		const report = await htmlvalidate.validateString(markup["correct-radio-checkbox"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: incorrect-radio", () => {
+	it("inline validation: incorrect-radio", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"form-dup-name":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect-radio"]);
+		const report = await htmlvalidate.validateString(markup["incorrect-radio"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: array-incorrect", () => {
+	it("inline validation: array-incorrect", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"form-dup-name":["error",{"allowArrayBrackets":false}]}});
-		const report = htmlvalidate.validateString(markup["array-incorrect"]);
+		const report = await htmlvalidate.validateString(markup["array-incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: array-correct", () => {
+	it("inline validation: array-correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"form-dup-name":"error"}});
-		const report = htmlvalidate.validateString(markup["array-correct"]);
+		const report = await htmlvalidate.validateString(markup["array-correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: shared-incorrect", () => {
+	it("inline validation: shared-incorrect", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"form-dup-name":["error",{"shared":["radio"]}]}});
-		const report = htmlvalidate.validateString(markup["shared-incorrect"]);
+		const report = await htmlvalidate.validateString(markup["shared-incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: shared-correct", () => {
+	it("inline validation: shared-correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"form-dup-name":["error",{"shared":["radio","checkbox"]}]}});
-		const report = htmlvalidate.validateString(markup["shared-correct"]);
+		const report = await htmlvalidate.validateString(markup["shared-correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: shared-mix", () => {
+	it("inline validation: shared-mix", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"form-dup-name":["error",{"shared":["radio","checkbox"]}]}});
-		const report = htmlvalidate.validateString(markup["shared-mix"]);
+		const report = await htmlvalidate.validateString(markup["shared-mix"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

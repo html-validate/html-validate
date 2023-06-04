@@ -10,14 +10,18 @@ export {
 	type RuleOptions,
 	type TransformerEntry,
 	type ResolvedConfigData,
+	type Resolver,
+	type ResolverOptions,
 	type RuleSeverity,
-	type ConfigFactory,
+	type StaticResolver,
+	type StaticResolverMap,
 	type LoadedPlugin,
 	ResolvedConfig,
 	ConfigError,
 	ConfigLoader,
 	Severity,
 	configPresets,
+	staticResolver,
 } from "./config";
 export { StaticConfigLoader } from "./config/loaders/static";
 export {
@@ -111,7 +115,7 @@ export {
 	sliceLocation,
 } from "./context";
 export { type Report, Reporter, type Message, type Result, type DeferredMessage } from "./reporter";
-export { type TransformContext, type Transformer, TemplateExtractor } from "./transform";
+export { type TransformContext, type Transformer } from "./transform";
 export { type Plugin, type SchemaValidationPatch, definePlugin } from "./plugin";
 export { Parser } from "./parser";
 export { ruleExists } from "./utils";

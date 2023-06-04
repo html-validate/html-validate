@@ -64,8 +64,9 @@ describe("rule multiple-labeled-controls", () => {
 		);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("multiple-labeled-controls")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("multiple-labeled-controls");
+		expect(docs).toMatchSnapshot();
 	});
 });

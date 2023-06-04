@@ -37,8 +37,9 @@ describe("rule svg-focusable", () => {
 		expect(report).toHaveError("svg-focusable", '<svg> is missing required "focusable" attribute');
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("svg-focusable")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("svg-focusable");
+		expect(docs).toMatchSnapshot();
 	});
 });

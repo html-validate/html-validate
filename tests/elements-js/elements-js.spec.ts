@@ -1,12 +1,12 @@
-import path from "path";
+import * as path from "node:path";
 import { HtmlValidate, FileSystemConfigLoader } from "../../src/index";
 import "../../src/jest";
 
-it("should handle elements js file", () => {
+it("should handle elements js file", async () => {
 	expect.assertions(2);
 	const loader = new FileSystemConfigLoader();
 	const htmlvalidate = new HtmlValidate(loader);
-	const report = htmlvalidate.validateFile(path.join(__dirname, "my-file.html"));
+	const report = await htmlvalidate.validateFile(path.join(__dirname, "my-file.html"));
 	expect(report).toBeInvalid();
 	expect(report.results[0].messages).toMatchInlineSnapshot(`
 		[

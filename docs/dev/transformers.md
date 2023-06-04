@@ -5,6 +5,8 @@ title: Transformers
 
 # Transformers
 
+See also the {@link plugin-utils} package for utility functions.
+
 ## API
 
 Each transformer must implement the following API:
@@ -102,20 +104,6 @@ export function* myTransform(this: TransformContext, source: Source): Iterable<S
 
 By letting the user configure the `.*:virtual` pattern the user can control whenever `my-transformer` will yield a source for the match or not.
 This is useful when the transformer needs to deal with multiple languages and the user should ultimately be able to control whenever a language should be validated by HTML-validate or not.
-
-## `TemplateExtractor`
-
-Extracts templates from javascript sources.
-
-```ts
-import { TemplateExtractor } from "html-validate";
-
-const te = TemplateExtractor.fromFilename("my-file.js");
-
-/* finds any {template: '...'} */
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-const source = te.extractObjectProperty("template");
-```
 
 ## Source
 

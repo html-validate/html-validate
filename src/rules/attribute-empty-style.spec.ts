@@ -135,11 +135,12 @@ describe("rule attribute-empty-style", () => {
 		);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "attribute-empty-style": "error" },
 		});
-		expect(htmlvalidate.getRuleDocumentation("attribute-empty-style")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("attribute-empty-style");
+		expect(docs).toMatchSnapshot();
 	});
 });

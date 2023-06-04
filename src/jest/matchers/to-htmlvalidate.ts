@@ -84,7 +84,7 @@ function toHTMLValidateImpl(
 		extends: ["html-validate:recommended"],
 	});
 	const htmlvalidate = new HtmlValidate(loader);
-	const report = htmlvalidate.validateString(actual, actualFilename, config);
+	const report = htmlvalidate.validateStringSync(actual, actualFilename, config);
 	const pass = report.valid;
 	if (pass) {
 		return { pass, message: () => "HTML is valid when an error was expected" };

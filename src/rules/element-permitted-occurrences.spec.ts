@@ -56,8 +56,9 @@ describe("rule element-permitted-occurrences", () => {
 		`);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("element-permitted-occurrences")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("element-permitted-occurrences");
+		expect(docs).toMatchSnapshot();
 	});
 });

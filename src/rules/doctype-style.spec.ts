@@ -34,12 +34,13 @@ describe("rule doctype-style", () => {
 			expect(report).toHaveError("doctype-style", "DOCTYPE should be uppercase");
 		});
 
-		it("should contain contextual documentation", () => {
+		it("should contain contextual documentation", async () => {
 			expect.assertions(1);
 			const context = {
 				style: "uppercase",
 			};
-			expect(htmlvalidate.getRuleDocumentation("doctype-style", null, context)).toMatchSnapshot();
+			const docs = await htmlvalidate.getRuleDocumentation("doctype-style", null, context);
+			expect(docs).toMatchSnapshot();
 		});
 	});
 
@@ -73,20 +74,22 @@ describe("rule doctype-style", () => {
 			expect(report).toHaveError("doctype-style", "DOCTYPE should be lowercase");
 		});
 
-		it("should contain contextual documentation", () => {
+		it("should contain contextual documentation", async () => {
 			expect.assertions(1);
 			const context = {
 				style: "uppercase",
 			};
-			expect(htmlvalidate.getRuleDocumentation("doctype-style", null, context)).toMatchSnapshot();
+			const docs = await htmlvalidate.getRuleDocumentation("doctype-style", null, context);
+			expect(docs).toMatchSnapshot();
 		});
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "doctype-style": ["error"] },
 		});
-		expect(htmlvalidate.getRuleDocumentation("doctype-style")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("doctype-style");
+		expect(docs).toMatchSnapshot();
 	});
 });

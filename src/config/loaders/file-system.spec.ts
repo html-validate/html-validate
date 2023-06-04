@@ -1,8 +1,8 @@
-import fs from "node:fs";
-import path from "node:path";
+import { Volume } from "memfs/lib/volume";
+import * as utils from "../../utils";
 import { Config } from "../config";
 import { type ConfigData } from "../config-data";
-import { type ConfigFactory } from "../config-loader";
+import { type Resolver } from "../resolver";
 import { FileSystemConfigLoader } from "./file-system";
 
 declare module "../config-data" {
@@ -11,71 +11,31 @@ declare module "../config-data" {
 	}
 }
 
-jest.mock("ajv", () => {
-	class MockAjv {
-		public compile(): () => boolean {
-			/* always valid */
-			return () => true;
-		}
-		public getSchema(): undefined {
-			return undefined;
-		}
-		public addMetaSchema(): void {
-			/* do nothing */
-		}
-		public addKeyword(): void {
-			/* do nothing */
-		}
+jest.mock("../../utils");
+
+let volume: Volume | null;
+
+jest.spyOn(utils, "requireUncached").mockImplementation((_: unknown, moduleName: string) => {
+	if (!volume) {
+		throw new Error(`Failed to read mocked "${moduleName}", no fs mocked`);
 	}
-	return MockAjv;
+	if (moduleName.endsWith(".json")) {
+		return JSON.parse(volume.readFileSync(moduleName, "utf-8") as string);
+	} else {
+		throw new Error(`Failed to read mocked "${moduleName}", only json files are handled`);
+	}
 });
 
-class MockConfigFactory {
-	public static defaultConfig(): Config {
-		return Config.defaultConfig();
-	}
-
-	public static empty(): Config {
-		return Config.empty();
-	}
-
-	public static fromObject(options: ConfigData, filename: string | null = null): Config {
-		return Config.fromObject(options, filename);
-	}
-
-	public static fromFile(filename: string): Config {
-		return Config.fromObject({
-			/* set root to true for if the last directory name is literal "root" */
-			root: path.basename(path.dirname(filename)) === "root",
-
-			mockFilenames: [filename],
-		});
-	}
-}
-
-class ExposedFileSystemConfigLoader extends FileSystemConfigLoader {
-	public constructor(config?: ConfigData, configFactory: ConfigFactory = MockConfigFactory) {
-		super(config, configFactory);
-	}
-
-	public mockGetGlobalConfig(): Config {
-		return this.globalConfig;
-	}
-
-	public mockGetInternalCache(): Map<string, Config | null> {
-		return this.cache;
-	}
-}
+beforeEach(() => {
+	volume = null;
+});
 
 describe("FileSystemConfigLoader", () => {
-	afterEach(() => {
-		jest.restoreAllMocks();
-	});
-
 	it("should load default config if no configuration was passed", () => {
 		expect.assertions(1);
-		const loader = new ExposedFileSystemConfigLoader();
-		expect(loader.mockGetGlobalConfig().get()).toEqual({
+		volume = Volume.fromJSON({});
+		const loader = new FileSystemConfigLoader(undefined, { fs: volume });
+		expect(loader._getGlobalConfig()).toEqual({
 			extends: [],
 			plugins: [],
 			rules: {},
@@ -85,8 +45,9 @@ describe("FileSystemConfigLoader", () => {
 
 	it("should not load default config if configuration was passed", () => {
 		expect.assertions(1);
-		const loader = new ExposedFileSystemConfigLoader({ rules: { foo: "error" } });
-		expect(loader.mockGetGlobalConfig().get()).toEqual({
+		volume = Volume.fromJSON({});
+		const loader = new FileSystemConfigLoader({ rules: { foo: "error" } }, { fs: volume });
+		expect(loader._getGlobalConfig()).toEqual({
 			extends: [],
 			plugins: [],
 			rules: {
@@ -96,17 +57,40 @@ describe("FileSystemConfigLoader", () => {
 		});
 	});
 
+	it("should use custom resolver", () => {
+		expect.assertions(1);
+		volume = Volume.fromJSON({});
+		const mockResolver: Resolver = {
+			name: "mock-resolver",
+			resolveConfig() {
+				return {};
+			},
+		};
+		const resolveConfig = jest.spyOn(mockResolver, "resolveConfig");
+		const loader = new FileSystemConfigLoader(
+			[mockResolver],
+			{
+				extends: ["foo"],
+			},
+			{ fs: volume }
+		);
+		loader.getConfigFor("inline");
+		expect(resolveConfig).toHaveBeenCalledWith("foo", expect.anything());
+	});
+
 	describe("getConfigFor()", () => {
 		it("should use global configuration by default", () => {
 			expect.assertions(1);
+			volume = Volume.fromJSON({});
 			/* constructor global config */
-			const loader = new ExposedFileSystemConfigLoader({
-				rules: {
-					a: "error",
+			const loader = new FileSystemConfigLoader(
+				{
+					rules: {
+						a: "error",
+					},
 				},
-			});
-			/* .htmlvalidate.json */
-			jest.spyOn(loader, "fromFilename").mockImplementation(() => null);
+				{ fs: volume }
+			);
 			const config = loader.getConfigFor("my-file.html");
 			expect(config.getConfigData()).toEqual(
 				expect.objectContaining({
@@ -119,15 +103,16 @@ describe("FileSystemConfigLoader", () => {
 
 		it("should merge global configuration with override if provided", () => {
 			expect.assertions(1);
-			/* constructor global config */
-			const loader = new ExposedFileSystemConfigLoader({
-				rules: {
-					a: "error",
-					b: "error",
+			volume = Volume.fromJSON({});
+			const loader = new FileSystemConfigLoader(
+				{
+					rules: {
+						a: "error",
+						b: "error",
+					},
 				},
-			});
-			/* .htmlvalidate.json */
-			jest.spyOn(loader, "fromFilename").mockImplementation(() => null);
+				{ fs: volume }
+			);
 			/* override */
 			const config = loader.getConfigFor("my-file.html", {
 				rules: {
@@ -148,19 +133,20 @@ describe("FileSystemConfigLoader", () => {
 
 		it("should use configuration provided by configuration loader if present", () => {
 			expect.assertions(1);
-			/* constructor global config */
-			const loader = new ExposedFileSystemConfigLoader({
-				rules: {
-					a: "error",
-				},
-			});
-			/* .htmlvalidate.json */
-			jest.spyOn(loader, "fromFilename").mockImplementation(() =>
-				Config.fromObject({
+			volume = Volume.fromJSON({
+				".htmlvalidate.json": JSON.stringify({
 					rules: {
 						b: "error",
 					},
-				})
+				} satisfies ConfigData),
+			});
+			const loader = new FileSystemConfigLoader(
+				{
+					rules: {
+						a: "error",
+					},
+				},
+				{ fs: volume }
 			);
 			const config = loader.getConfigFor("my-file.html");
 			expect(config.getConfigData()).toEqual(
@@ -174,15 +160,19 @@ describe("FileSystemConfigLoader", () => {
 
 		it("should merge configuration provided by configuration loader with override if provided", () => {
 			expect.assertions(1);
+			volume = Volume.fromJSON({});
 			/* constructor global config */
-			const loader = new ExposedFileSystemConfigLoader({
-				rules: {
-					a: "error",
+			const loader = new FileSystemConfigLoader(
+				{
+					rules: {
+						a: "error",
+					},
 				},
-			});
+				{ fs: volume }
+			);
 			/* .htmlvalidate.json */
 			jest.spyOn(loader, "fromFilename").mockImplementation(() =>
-				Config.fromObject({
+				Config.fromObject([], {
 					rules: {
 						b: "error",
 						c: "error",
@@ -207,9 +197,13 @@ describe("FileSystemConfigLoader", () => {
 
 		it("should not load configuration files if global config is root", () => {
 			expect.assertions(2);
-			const loader = new ExposedFileSystemConfigLoader({
-				root: true,
-			});
+			volume = Volume.fromJSON({});
+			const loader = new FileSystemConfigLoader(
+				{
+					root: true,
+				},
+				{ fs: volume }
+			);
 			const fromFilename = jest.spyOn(loader, "fromFilename");
 			const config = loader.getConfigFor("my-file.html");
 			expect(fromFilename).not.toHaveBeenCalled();
@@ -222,12 +216,16 @@ describe("FileSystemConfigLoader", () => {
 
 		it("should merge global with override when global is root", () => {
 			expect.assertions(1);
-			const loader = new ExposedFileSystemConfigLoader({
-				root: true,
-				rules: {
-					a: "error",
+			volume = Volume.fromJSON({});
+			const loader = new FileSystemConfigLoader(
+				{
+					root: true,
+					rules: {
+						a: "error",
+					},
 				},
-			});
+				{ fs: volume }
+			);
 			const config = loader.getConfigFor("my-file.html", {
 				rules: {
 					a: "off",
@@ -245,11 +243,15 @@ describe("FileSystemConfigLoader", () => {
 
 		it("should not load global configuration files if override config is root", () => {
 			expect.assertions(2);
-			const loader = new ExposedFileSystemConfigLoader({
-				rules: {
-					a: "error",
+			volume = Volume.fromJSON({});
+			const loader = new FileSystemConfigLoader(
+				{
+					rules: {
+						a: "error",
+					},
 				},
-			});
+				{ fs: volume }
+			);
 			const fromFilename = jest.spyOn(loader, "fromFilename");
 			const config = loader.getConfigFor("my-file.html", {
 				root: true,
@@ -270,153 +272,196 @@ describe("FileSystemConfigLoader", () => {
 	});
 
 	describe("fromFilename()", () => {
-		let loader: ExposedFileSystemConfigLoader;
-		beforeEach(() => {
-			loader = new ExposedFileSystemConfigLoader();
-		});
-
 		it("should load configuration", () => {
 			expect.assertions(1);
-			jest.spyOn(fs, "existsSync").mockImplementation((filename: fs.PathLike) => {
-				return filename === path.resolve("/path/to/.htmlvalidate.json");
+			volume = Volume.fromJSON({
+				"/path/to/.htmlvalidate.json": JSON.stringify({
+					rules: {
+						foo: "error",
+					},
+				} satisfies ConfigData),
 			});
+			const loader = new FileSystemConfigLoader(undefined, { fs: volume });
 			const config = loader.fromFilename("/path/to/target.html");
-			expect(config?.get()).toEqual(
-				expect.objectContaining({
-					mockFilenames: [
-						/* ConfigMock adds all visited filenames to this array */
-						path.resolve("/path/to/.htmlvalidate.json"),
-					],
-				})
-			);
+			expect(config?.get()).toEqual({
+				elements: undefined,
+				extends: [],
+				plugins: [],
+				transform: {},
+				rules: {
+					foo: "error",
+				},
+			});
 		});
 
 		it("should load configuration from parent directory", () => {
 			expect.assertions(1);
-			jest.spyOn(fs, "existsSync").mockImplementation((filename: fs.PathLike) => {
-				return filename === path.resolve("/path/.htmlvalidate.json");
+			volume = Volume.fromJSON({
+				"/path/.htmlvalidate.json": JSON.stringify({
+					rules: {
+						foo: "error",
+					},
+				} satisfies ConfigData),
 			});
+			const loader = new FileSystemConfigLoader(undefined, { fs: volume });
 			const config = loader.fromFilename("/path/to/target.html");
-			expect(config?.get()).toEqual(
-				expect.objectContaining({
-					mockFilenames: [
-						/* ConfigMock adds all visited filenames to this array */
-						path.resolve("/path/.htmlvalidate.json"),
-					],
-				})
-			);
+			expect(config?.get()).toEqual({
+				elements: undefined,
+				extends: [],
+				plugins: [],
+				transform: {},
+				rules: {
+					foo: "error",
+				},
+			});
 		});
 
 		it("should load configuration from multiple files", () => {
 			expect.assertions(1);
-			jest.spyOn(fs, "existsSync").mockImplementation(() => true);
+			volume = Volume.fromJSON({
+				"/.htmlvalidate.json": JSON.stringify({
+					rules: {
+						a: "error",
+					},
+				} satisfies ConfigData),
+				"/path/.htmlvalidate.json": JSON.stringify({
+					rules: {
+						a: "warn",
+						b: "error",
+						c: "warn",
+					},
+				} satisfies ConfigData),
+				"/path/to/.htmlvalidate.json": JSON.stringify({
+					rules: {
+						c: "error",
+					},
+				} satisfies ConfigData),
+			});
+			const loader = new FileSystemConfigLoader(undefined, { fs: volume });
 			const config = loader.fromFilename("/path/to/target.html");
-			expect(config?.get()).toEqual(
-				expect.objectContaining({
-					mockFilenames: [
-						/* ConfigMock adds all visited filenames to this array */
-						path.resolve("/.htmlvalidate.js"),
-						path.resolve("/.htmlvalidate.cjs"),
-						path.resolve("/.htmlvalidate.json"),
-						path.resolve("/path/.htmlvalidate.js"),
-						path.resolve("/path/.htmlvalidate.cjs"),
-						path.resolve("/path/.htmlvalidate.json"),
-						path.resolve("/path/to/.htmlvalidate.js"),
-						path.resolve("/path/to/.htmlvalidate.cjs"),
-						path.resolve("/path/to/.htmlvalidate.json"),
-					],
-				})
-			);
+			expect(config?.get()).toEqual({
+				elements: undefined,
+				extends: [],
+				plugins: [],
+				transform: {},
+				rules: {
+					a: "warn" /* warn should have precedence over topmost directory */,
+					b: "error",
+					c: "error" /* error should have precedence over parent directory */,
+				},
+			});
 		});
 
 		it("should stop searching when root is found", () => {
 			expect.assertions(1);
-			jest.spyOn(fs, "existsSync").mockImplementation(() => true);
+			volume = Volume.fromJSON({
+				"/project/.htmlvalidate.json": JSON.stringify({
+					root: true,
+					rules: {
+						a: "error",
+					},
+				} satisfies ConfigData),
+				"/project/root/.htmlvalidate.json": JSON.stringify({
+					root: true,
+					rules: {
+						b: "error",
+					},
+				} satisfies ConfigData),
+				"/project/root/src/.htmlvalidate.json": JSON.stringify({
+					rules: {
+						c: "error",
+					},
+				} satisfies ConfigData),
+			});
+			const loader = new FileSystemConfigLoader(undefined, { fs: volume });
 			const config = loader.fromFilename("/project/root/src/target.html");
-			expect(config?.get()).toEqual(
-				expect.objectContaining({
-					mockFilenames: [
-						/* ConfigMock adds all visited filenames to this array */
-						path.resolve("/project/root/.htmlvalidate.js"),
-						path.resolve("/project/root/.htmlvalidate.cjs"),
-						path.resolve("/project/root/.htmlvalidate.json"),
-						path.resolve("/project/root/src/.htmlvalidate.js"),
-						path.resolve("/project/root/src/.htmlvalidate.cjs"),
-						path.resolve("/project/root/src/.htmlvalidate.json"),
-					],
-				})
-			);
+			expect(config?.get()).toEqual({
+				root: true,
+				elements: undefined,
+				extends: [],
+				plugins: [],
+				transform: {},
+				rules: {
+					/* a should not be present */
+					b: "error",
+					c: "error",
+				},
+			});
 		});
 
 		it("should return null for inline sources", () => {
 			expect.assertions(1);
+			volume = Volume.fromJSON({});
+			const loader = new FileSystemConfigLoader(undefined, { fs: volume });
 			const config = loader.fromFilename("inline");
 			expect(config).toBeNull();
 		});
 
 		it("should cache results", () => {
 			expect.assertions(3);
-			jest.spyOn(fs, "existsSync").mockImplementation(() => true);
-			const cache = loader.mockGetInternalCache();
+			volume = Volume.fromJSON({
+				"/path/.htmlvalidate.json": JSON.stringify({
+					rules: {
+						foo: "error",
+					},
+				} satisfies ConfigData),
+				"/path/to/.htmlvalidate.json": JSON.stringify({
+					rules: {
+						bar: "error",
+					},
+				} satisfies ConfigData),
+			});
+			const loader = new FileSystemConfigLoader(undefined, { fs: volume });
+			const cache = loader._getInternalCache();
 			expect(cache.has("/path/to/target.html")).toBeFalsy();
 			loader.fromFilename("/path/to/target.html");
 			expect(cache.has("/path/to/target.html")).toBeTruthy();
-			expect(cache.get("/path/to/target.html")?.get()).toEqual(
-				expect.objectContaining({
-					mockFilenames: [
-						/* ConfigMock adds all visited filenames to this array */
-						path.resolve("/.htmlvalidate.js"),
-						path.resolve("/.htmlvalidate.cjs"),
-						path.resolve("/.htmlvalidate.json"),
-						path.resolve("/path/.htmlvalidate.js"),
-						path.resolve("/path/.htmlvalidate.cjs"),
-						path.resolve("/path/.htmlvalidate.json"),
-						path.resolve("/path/to/.htmlvalidate.js"),
-						path.resolve("/path/to/.htmlvalidate.cjs"),
-						path.resolve("/path/to/.htmlvalidate.json"),
-					],
-				})
-			);
+			expect(cache.get("/path/to/target.html")?.get()).toEqual({
+				elements: undefined,
+				extends: [],
+				plugins: [],
+				transform: {},
+				rules: {
+					foo: "error",
+					bar: "error",
+				},
+			});
 		});
 
 		it("should load from cache if present", () => {
-			expect.assertions(2);
-			jest.spyOn(fs, "existsSync").mockImplementation(() => true);
-			const cache = loader.mockGetInternalCache();
-			loader.fromFilename("/path/to/target.html");
-			expect(cache.has("/path/to/target.html")).toBeTruthy();
-			jest.spyOn(MockConfigFactory, "fromFile").mockImplementation(() => {
-				throw new Error("expected cache to be used");
-			});
+			expect.assertions(1);
+			volume = Volume.fromJSON({});
+			const loader = new FileSystemConfigLoader(undefined, { fs: volume });
+			const cache = loader._getInternalCache();
+			const configData: ConfigData = {
+				rules: {
+					cached: "error",
+				},
+			};
+			cache.set("/path/to/target.html", Config.fromObject([], configData));
 			const config = loader.fromFilename("/path/to/target.html");
-			expect(config?.get()).toEqual(
-				expect.objectContaining({
-					mockFilenames: [
-						/* ConfigMock adds all visited filenames to this array */
-						path.resolve("/.htmlvalidate.js"),
-						path.resolve("/.htmlvalidate.cjs"),
-						path.resolve("/.htmlvalidate.json"),
-						path.resolve("/path/.htmlvalidate.js"),
-						path.resolve("/path/.htmlvalidate.cjs"),
-						path.resolve("/path/.htmlvalidate.json"),
-						path.resolve("/path/to/.htmlvalidate.js"),
-						path.resolve("/path/to/.htmlvalidate.cjs"),
-						path.resolve("/path/to/.htmlvalidate.json"),
-					],
-				})
-			);
+			expect(config?.get()).toEqual({
+				elements: undefined,
+				extends: [],
+				plugins: [],
+				transform: {},
+				rules: {
+					cached: "error",
+				},
+			});
 		});
 	});
 
 	describe("flushCache()", () => {
-		let loader: ExposedFileSystemConfigLoader;
+		let loader: FileSystemConfigLoader;
+
 		beforeEach(() => {
-			loader = new ExposedFileSystemConfigLoader();
+			loader = new FileSystemConfigLoader();
 		});
 
 		it("should clear cache", () => {
 			expect.assertions(2);
-			const cache = loader.mockGetInternalCache();
+			const cache = loader._getInternalCache();
 			cache.set("foo", null);
 			cache.set("bar", null);
 			cache.set("baz", null);
@@ -427,7 +472,7 @@ describe("FileSystemConfigLoader", () => {
 
 		it("should clear single filename", () => {
 			expect.assertions(5);
-			const cache = loader.mockGetInternalCache();
+			const cache = loader._getInternalCache();
 			cache.set("foo", null);
 			cache.set("bar", null);
 			cache.set("baz", null);

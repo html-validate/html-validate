@@ -1,16 +1,7 @@
 import { Config } from "./config";
 import { type ConfigData } from "./config-data";
 import { type ResolvedConfig } from "./resolved-config";
-
-/**
- * @public
- */
-export interface ConfigFactory {
-	defaultConfig(): Config;
-	empty(): Config;
-	fromObject(options: ConfigData, filename?: string | null): Config;
-	fromFile(filename: string): Config;
-}
+import { type Resolver } from "./resolver";
 
 /**
  * Configuration loader interface.
@@ -21,13 +12,16 @@ export interface ConfigFactory {
  * @public
  */
 export abstract class ConfigLoader {
-	protected readonly configFactory: ConfigFactory;
+	protected readonly resolvers: Resolver[];
 	protected readonly globalConfig: Config;
 
-	public constructor(config?: ConfigData, configFactory: ConfigFactory = Config) {
-		const defaults = configFactory.empty();
-		this.configFactory = configFactory;
-		this.globalConfig = defaults.merge(config ? this.loadFromObject(config) : this.defaultConfig());
+	public constructor(resolvers: Resolver[], config?: ConfigData) {
+		const defaults = Config.empty();
+		this.resolvers = resolvers;
+		this.globalConfig = defaults.merge(
+			this.resolvers,
+			config ? this.loadFromObject(config) : this.defaultConfig()
+		);
 	}
 
 	/**
@@ -38,16 +32,10 @@ export abstract class ConfigLoader {
 	 *
 	 * If [[configOverride]] is set it is merged with the final result.
 	 *
-	 * Returning a [[Config]] instance is deprecated and support will be removed
-	 * in the next major release.
-	 *
 	 * @param handle - Unique handle to get configuration for.
 	 * @param configOverride - Optional configuration to merge final results with.
 	 */
-	public abstract getConfigFor(
-		handle: string,
-		configOverride?: ConfigData
-	): Config | ResolvedConfig;
+	public abstract getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig;
 
 	/**
 	 * Flush configuration cache.
@@ -59,19 +47,26 @@ export abstract class ConfigLoader {
 	public abstract flushCache(handle?: string): void;
 
 	/**
+	 * @internal For testing only
+	 */
+	public _getGlobalConfig(): ConfigData {
+		return this.globalConfig.get();
+	}
+
+	/**
 	 * Default configuration used when no explicit configuration is passed to constructor.
 	 */
 	protected abstract defaultConfig(): Config;
 
 	protected empty(): Config {
-		return this.configFactory.empty();
+		return Config.empty();
 	}
 
 	protected loadFromObject(options: ConfigData, filename?: string | null): Config {
-		return this.configFactory.fromObject(options, filename);
+		return Config.fromObject(this.resolvers, options, filename);
 	}
 
 	protected loadFromFile(filename: string): Config {
-		return this.configFactory.fromFile(filename);
+		return Config.fromFile(this.resolvers, filename);
 	}
 }

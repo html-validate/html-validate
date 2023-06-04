@@ -163,25 +163,25 @@ describe("rule attr-quotes", () => {
 	});
 
 	describe("should contain documentation", () => {
-		it("url", () => {
+		it("url", async () => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
 				rules: { "attr-quotes": "error" },
 			});
-			const docs = htmlvalidate.getRuleDocumentation("attr-quotes");
+			const docs = await htmlvalidate.getRuleDocumentation("attr-quotes");
 			expect(docs?.url).toMatchInlineSnapshot(`"https://html-validate.org/rules/attr-quotes.html"`);
 		});
 
-		it("without context", () => {
+		it("without context", async () => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
 				rules: { "attr-quotes": "error" },
 			});
-			const docs = htmlvalidate.getRuleDocumentation("attr-quotes");
+			const docs = await htmlvalidate.getRuleDocumentation("attr-quotes");
 			expect(docs?.description).toMatchSnapshot();
 		});
 
-		it("with unquoted context", () => {
+		it("with unquoted context", async () => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
 				rules: { "attr-quotes": "error" },
@@ -190,11 +190,11 @@ describe("rule attr-quotes", () => {
 				error: "unquoted",
 				attr: "foo",
 			};
-			const docs = htmlvalidate.getRuleDocumentation("attr-quotes", null, context);
+			const docs = await htmlvalidate.getRuleDocumentation("attr-quotes", null, context);
 			expect(docs?.description).toMatchSnapshot();
 		});
 
-		it("with style context", () => {
+		it("with style context", async () => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
 				rules: { "attr-quotes": "error" },
@@ -205,7 +205,7 @@ describe("rule attr-quotes", () => {
 				actual: "'",
 				expected: '"',
 			};
-			const docs = htmlvalidate.getRuleDocumentation("attr-quotes", null, context);
+			const docs = await htmlvalidate.getRuleDocumentation("attr-quotes", null, context);
 			expect(docs?.description).toMatchSnapshot();
 		});
 
@@ -219,12 +219,12 @@ describe("rule attr-quotes", () => {
 			${"single"} | ${true}
 			${"double"} | ${false}
 			${"double"} | ${true}
-		`('style "$style" and unquoted "$unquoted"', ({ style, unquoted }) => {
+		`('style "$style" and unquoted "$unquoted"', async ({ style, unquoted }) => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
 				rules: { "attr-quotes": ["error", { style, unquoted }] },
 			});
-			const docs = htmlvalidate.getRuleDocumentation("attr-quotes");
+			const docs = await htmlvalidate.getRuleDocumentation("attr-quotes");
 			expect(docs?.description).toMatchSnapshot();
 		});
 	});

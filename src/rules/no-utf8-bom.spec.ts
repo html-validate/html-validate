@@ -32,8 +32,9 @@ describe("rule no-utf8-bom", () => {
 		expect(report).toHaveError("no-utf8-bom", "File should be saved without UTF-8 BOM");
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("no-utf8-bom")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-utf8-bom");
+		expect(docs).toMatchSnapshot();
 	});
 });

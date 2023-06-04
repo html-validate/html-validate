@@ -205,24 +205,24 @@ describe("rule area-alt", () => {
 		});
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "area-alt": "error" },
 		});
-		const docs = htmlvalidate.getRuleDocumentation("area-alt");
+		const docs = await htmlvalidate.getRuleDocumentation("area-alt");
 		expect(docs).toMatchSnapshot();
 	});
 
 	describe("should contain contextual documentation", () => {
-		it.each(Object.values(RuleContext))("%s", (context) => {
+		it.each(Object.values(RuleContext))("%s", async (context) => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
 				root: true,
 				rules: { "area-alt": "error" },
 			});
-			const docs = htmlvalidate.getRuleDocumentation("area-alt", null, context);
+			const docs = await htmlvalidate.getRuleDocumentation("area-alt", null, context);
 			expect(docs).toMatchSnapshot();
 		});
 	});

@@ -298,31 +298,40 @@ describe("rule element-permitted-content", () => {
 		expect(report).toBeValid();
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("element-permitted-content")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("element-permitted-content");
+		expect(docs).toMatchSnapshot();
 	});
 
 	describe("should contain contextual documentation", () => {
-		it("content error", () => {
+		it("content error", async () => {
 			expect.assertions(1);
 			const context: ContentContext = {
 				kind: ErrorKind.CONTENT,
 				child: "<div>",
 				parent: "<span>",
 			};
-			const doc = htmlvalidate.getRuleDocumentation("element-permitted-content", null, context);
+			const doc = await htmlvalidate.getRuleDocumentation(
+				"element-permitted-content",
+				null,
+				context
+			);
 			expect(doc).toMatchSnapshot();
 		});
 
-		it("descendant error", () => {
+		it("descendant error", async () => {
 			expect.assertions(1);
 			const context: DescendantContext = {
 				kind: ErrorKind.DESCENDANT,
 				child: "<div>",
 				ancestor: "<span>",
 			};
-			const doc = htmlvalidate.getRuleDocumentation("element-permitted-content", null, context);
+			const doc = await htmlvalidate.getRuleDocumentation(
+				"element-permitted-content",
+				null,
+				context
+			);
 			expect(doc).toMatchSnapshot();
 		});
 	});

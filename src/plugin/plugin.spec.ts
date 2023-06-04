@@ -1,4 +1,4 @@
-import { Config } from "../config";
+import { type Resolver, Config, staticResolver } from "../config";
 import { ConfigError } from "../config/error";
 import { Location, Source } from "../context";
 import { HtmlElement, NodeClosed } from "../dom";
@@ -7,12 +7,12 @@ import { EventHandler } from "../event";
 import { Parser } from "../parser";
 import { Rule } from "../rule";
 import { Transformer, TRANSFORMER_API } from "../transform";
-import { legacyRequire } from "../resolve";
 import { Plugin } from "./plugin";
 
 let mockPlugin: Plugin;
 let config: Config;
 let source: Source;
+let resolvers: Resolver[];
 
 const location: Location = {
 	filename: "inline",
@@ -21,8 +21,6 @@ const location: Location = {
 	offset: 0,
 	size: 1,
 };
-
-jest.mock("mock-plugin", () => ({}), { virtual: true });
 
 describe("Plugin", () => {
 	beforeEach(() => {
@@ -37,13 +35,21 @@ describe("Plugin", () => {
 
 		/* reset mock */
 		jest.resetModules();
-		mockPlugin = legacyRequire("mock-plugin");
+
+		mockPlugin = {};
+		resolvers = [
+			staticResolver({
+				plugins: {
+					"mock-plugin": mockPlugin,
+				},
+			}),
+		];
 	});
 
 	it("should throw ConfigError when loading plugin fails", () => {
 		expect.assertions(2);
 		const loadConfig = (): void => {
-			Config.fromObject({ plugins: ["missing-plugin"] });
+			Config.fromObject(resolvers, { plugins: ["missing-plugin"] });
 		};
 		expect(loadConfig).toThrow(ConfigError);
 		expect(loadConfig).toThrow(/Failed to load plugin "missing-plugin":/);
@@ -60,7 +66,7 @@ describe("Plugin", () => {
 					},
 				},
 			};
-			config = Config.fromObject({
+			config = Config.fromObject(resolvers, {
 				extends: ["my-plugin:foo"],
 				plugins: ["mock-plugin"],
 			});
@@ -84,7 +90,7 @@ describe("Plugin", () => {
 					},
 				},
 			};
-			config = Config.fromObject({
+			config = Config.fromObject(resolvers, {
 				extends: ["mock-plugin:foo"],
 				plugins: ["mock-plugin"],
 			});
@@ -108,7 +114,7 @@ describe("Plugin", () => {
 					},
 				},
 			};
-			config = Config.fromObject({
+			config = Config.fromObject(resolvers, {
 				extends: ["mock-plugin:foo"],
 				plugins: ["mock-plugin"],
 			});
@@ -133,7 +139,7 @@ describe("Plugin", () => {
 					},
 				},
 			};
-			config = Config.fromObject({
+			config = Config.fromObject(resolvers, {
 				extends: ["mock-plugin:foo"],
 				plugins: ["mock-plugin"],
 			});
@@ -152,7 +158,7 @@ describe("Plugin", () => {
 			mockPlugin.configs = {
 				foo: null,
 			};
-			config = Config.fromObject({
+			config = Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 			});
 			expect(config.get()).toEqual(
@@ -166,7 +172,7 @@ describe("Plugin", () => {
 	describe("extedMeta", () => {
 		it("should not throw error when schema isn't extended", () => {
 			expect.assertions(1);
-			config = Config.fromObject({
+			config = Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 			});
 			expect(() => {
@@ -177,7 +183,7 @@ describe("Plugin", () => {
 
 		it("should give validation errors when schema isn't extended", () => {
 			expect.assertions(1);
-			const config = Config.fromObject({
+			const config = Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 				elements: [
 					{
@@ -201,7 +207,7 @@ describe("Plugin", () => {
 					},
 				},
 			};
-			config = Config.fromObject({
+			config = Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 				elements: [
 					{
@@ -234,7 +240,7 @@ describe("Plugin", () => {
 					},
 				},
 			};
-			config = Config.fromObject({
+			config = Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 				elements: [
 					{
@@ -262,7 +268,7 @@ describe("Plugin", () => {
 					},
 				},
 			};
-			config = Config.fromObject({
+			config = Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 			});
 			expect(() => config.getMetaTable()).not.toThrow();
@@ -280,7 +286,7 @@ describe("Plugin", () => {
 					},
 				},
 			};
-			config = Config.fromObject({
+			config = Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 				elements: [
 					{
@@ -312,7 +318,7 @@ describe("Plugin", () => {
 	describe("callbacks", () => {
 		beforeEach(() => {
 			/* initialize config */
-			config = Config.fromObject({
+			config = Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 			});
 			config.init();
@@ -354,7 +360,7 @@ describe("Plugin", () => {
 	describe("rules", () => {
 		beforeEach(() => {
 			/* initialize config */
-			config = Config.fromObject({
+			config = Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 				rules: {
 					"mock-rule": ["error", "mock-options"],
@@ -398,7 +404,7 @@ describe("Plugin", () => {
 			}
 			transform.api = TRANSFORMER_API.VERSION;
 			mockPlugin.transformer = transform as Transformer;
-			config = Config.fromObject({
+			config = Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 				transform: {
 					".*": "mock-plugin",
@@ -448,7 +454,7 @@ describe("Plugin", () => {
 			mockPlugin.transformer = {
 				foobar: transform as Transformer,
 			};
-			config = Config.fromObject({
+			config = Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 				transform: {
 					".*": "mock-plugin:foobar",
@@ -483,7 +489,7 @@ describe("Plugin", () => {
 		it("should throw error when named transform is missing plugin", () => {
 			expect.assertions(1);
 			mockPlugin.transformer = {};
-			config = Config.fromObject({
+			config = Config.fromObject(resolvers, {
 				transform: {
 					".*": "missing-plugin:foobar",
 				},
@@ -496,7 +502,7 @@ describe("Plugin", () => {
 		it("should throw error when named transform is missing", () => {
 			expect.assertions(1);
 			mockPlugin.transformer = {};
-			config = Config.fromObject({
+			config = Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 				transform: {
 					".*": "mock-plugin:foobar",
@@ -512,7 +518,7 @@ describe("Plugin", () => {
 			mockPlugin.transformer = {
 				foobar: null,
 			};
-			config = Config.fromObject({
+			config = Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 				transform: {
 					".*": "mock-plugin",
@@ -528,7 +534,7 @@ describe("Plugin", () => {
 			mockPlugin.transformer = function transform(): Source[] {
 				return [];
 			};
-			config = Config.fromObject({
+			config = Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 				transform: {
 					".*": "mock-plugin:foobar",

@@ -1,7 +1,7 @@
 import { type HtmlValidate } from "../..";
 import { type WritableStreamLike } from "../writable-stream-like";
 
-export function printConfig(
+export async function printConfig(
 	htmlvalidate: HtmlValidate,
 	output: WritableStreamLike,
 	files: string[]
@@ -12,10 +12,10 @@ export function printConfig(
 			output.write(`  - ${filename}\n`);
 		}
 		output.write("\n");
-		return Promise.resolve(false);
+		return false;
 	}
-	const config = htmlvalidate.getConfigFor(files[0]);
+	const config = await htmlvalidate.getConfigFor(files[0]);
 	const json = JSON.stringify(config.getConfigData(), null, 2);
 	output.write(`${json}\n`);
-	return Promise.resolve(true);
+	return true;
 }

@@ -1,17 +1,43 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 import { Config } from "../config";
 import { type ConfigData } from "../config-data";
-import { type ConfigFactory, ConfigLoader } from "../config-loader";
+import { ConfigLoader } from "../config-loader";
 import { type ResolvedConfig } from "../resolved-config";
+import { type Resolver } from "../resolver";
+import { type FSLike, nodejsResolver } from "../resolver/nodejs";
+
+/**
+ * Options for [[FileSystemConfigLoader]].
+ *
+ * @public
+ */
+export interface FileSystemConfigLoaderOptions {
+	/** An implementation of `fs` as needed by [[FileSystemConfigLoader]] */
+	fs: FSLike;
+}
 
 /**
  * @internal
  */
-function findConfigurationFiles(directory: string): string[] {
+function findConfigurationFiles(fs: FSLike, directory: string): string[] {
 	return ["json", "cjs", "js"]
 		.map((extension) => path.join(directory, `.htmlvalidate.${extension}`))
 		.filter((filePath) => fs.existsSync(filePath));
+}
+
+const defaultResolvers: Resolver[] = [nodejsResolver()];
+
+type ConstructorParametersDefault = [ConfigData?, Partial<FileSystemConfigLoaderOptions>?];
+type ConstructorParametersResolver = [
+	Resolver[],
+	ConfigData?,
+	Partial<FileSystemConfigLoaderOptions>?
+];
+type ConstructorParameters = ConstructorParametersDefault | ConstructorParametersResolver;
+
+function hasResolver(value: ConstructorParameters): value is ConstructorParametersResolver {
+	return Array.isArray(value[0]);
 }
 
 /**
@@ -43,13 +69,43 @@ function findConfigurationFiles(directory: string): string[] {
  */
 export class FileSystemConfigLoader extends ConfigLoader {
 	protected cache: Map<string, Config | null>;
+	private fs: FSLike;
 
 	/**
-	 * @param config - Global configuration
-	 * @param configFactory - Optional configuration factory
+	 * Create a filesystem configuration loader with default resolvers.
+	 *
+	 * @param fs - `fs` implementation,
+	 * @param config - Global configuration.
+	 * @param configFactory - Optional configuration factory.
 	 */
-	public constructor(config?: ConfigData, configFactory: ConfigFactory = Config) {
-		super(config, configFactory);
+	public constructor(config?: ConfigData, options?: Partial<FileSystemConfigLoaderOptions>);
+
+	/**
+	 * Create a filesystem configuration loader with custom resolvers.
+	 *
+	 * @param fs - `fs` implementation,
+	 * @param resolvers - Resolvers to use.
+	 * @param config - Global configuration.
+	 * @param configFactory - Optional configuration factory.
+	 */
+	public constructor(
+		resolvers: Resolver[],
+		config?: ConfigData,
+		options?: Partial<FileSystemConfigLoaderOptions>
+	);
+
+	public constructor(...args: ConstructorParameters) {
+		if (hasResolver(args)) {
+			/* istanbul ignore next */
+			const [resolvers, config, options = {}] = args;
+			super(resolvers, config);
+			this.fs = /* istanbul ignore next */ options.fs ?? fs;
+		} else {
+			/* istanbul ignore next */
+			const [config, options = {}] = args;
+			super(defaultResolvers, config);
+			this.fs = /* istanbul ignore next */ options.fs ?? fs;
+		}
 		this.cache = new Map();
 	}
 
@@ -71,13 +127,15 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		/* special case when the global configuration is marked as root, should not
 		 * try to load and more configuration files */
 		if (this.globalConfig.isRootFound()) {
-			const merged = this.globalConfig.merge(override);
+			const merged = this.globalConfig.merge(this.resolvers, override);
 			merged.init();
 			return merged.resolve();
 		}
 
 		const config = this.fromFilename(filename);
-		const merged = config ? config.merge(override) : this.globalConfig.merge(override);
+		const merged = config
+			? config.merge(this.resolvers, override)
+			: this.globalConfig.merge(this.resolvers, override);
 		merged.init();
 		return merged.resolve();
 	}
@@ -118,10 +176,10 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		// eslint-disable-next-line no-constant-condition -- it will break out when filesystem is traversed
 		while (true) {
 			/* search configuration files in current directory */
-			for (const configFile of findConfigurationFiles(current)) {
+			for (const configFile of findConfigurationFiles(this.fs, current)) {
 				const local = this.loadFromFile(configFile);
 				found = true;
-				config = local.merge(config);
+				config = local.merge(this.resolvers, config);
 			}
 
 			/* stop if a configuration with "root" is set to true */
@@ -149,7 +207,14 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		return config;
 	}
 
+	/**
+	 * @internal For testing only
+	 */
+	public _getInternalCache(): Map<string, Config | null> {
+		return this.cache;
+	}
+
 	protected defaultConfig(): Config {
-		return this.configFactory.defaultConfig();
+		return Config.defaultConfig();
 	}
 }

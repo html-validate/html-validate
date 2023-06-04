@@ -41,8 +41,9 @@ describe("rule element-permitted-order", () => {
 		expect(report).toBeValid();
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("element-permitted-order")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("element-permitted-order");
+		expect(docs).toMatchSnapshot();
 	});
 });

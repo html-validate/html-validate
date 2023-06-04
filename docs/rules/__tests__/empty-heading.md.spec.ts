@@ -19,40 +19,40 @@ markup["hidden-valid"] = `<h1 hidden>Lorem ipsum</h1>
 </div>`;
 
 describe("docs/rules/empty-heading.md", () => {
-	it("inline validation: incorrect", () => {
+	it("inline validation: incorrect", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"empty-heading":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect"]);
+		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct", () => {
+	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"empty-heading":"error"}});
-		const report = htmlvalidate.validateString(markup["correct"]);
+		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: whitespace", () => {
+	it("inline validation: whitespace", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"empty-heading":"error"}});
-		const report = htmlvalidate.validateString(markup["whitespace"]);
+		const report = await htmlvalidate.validateString(markup["whitespace"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: img-alt", () => {
+	it("inline validation: img-alt", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"empty-heading":"error"}});
-		const report = htmlvalidate.validateString(markup["img-alt"]);
+		const report = await htmlvalidate.validateString(markup["img-alt"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: hidden-invalid", () => {
+	it("inline validation: hidden-invalid", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"empty-heading":"error"}});
-		const report = htmlvalidate.validateString(markup["hidden-invalid"]);
+		const report = await htmlvalidate.validateString(markup["hidden-invalid"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: hidden-valid", () => {
+	it("inline validation: hidden-valid", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"empty-heading":"error"}});
-		const report = htmlvalidate.validateString(markup["hidden-valid"]);
+		const report = await htmlvalidate.validateString(markup["hidden-valid"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });

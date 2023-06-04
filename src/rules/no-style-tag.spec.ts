@@ -27,8 +27,9 @@ describe("rule no-style-tag", () => {
 		);
 	});
 
-	it("should contain documentation", () => {
+	it("should contain documentation", async () => {
 		expect.assertions(1);
-		expect(htmlvalidate.getRuleDocumentation("no-style-tag")).toMatchSnapshot();
+		const docs = await htmlvalidate.getRuleDocumentation("no-style-tag");
+		expect(docs).toMatchSnapshot();
 	});
 });

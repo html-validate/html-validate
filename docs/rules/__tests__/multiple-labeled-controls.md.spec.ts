@@ -14,22 +14,22 @@ markup["correct"] = `<label>
 </label>`;
 
 describe("docs/rules/multiple-labeled-controls.md", () => {
-	it("inline validation: incorrect-multiple", () => {
+	it("inline validation: incorrect-multiple", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"multiple-labeled-controls":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect-multiple"]);
+		const report = await htmlvalidate.validateString(markup["incorrect-multiple"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: incorrect-both", () => {
+	it("inline validation: incorrect-both", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"multiple-labeled-controls":"error"}});
-		const report = htmlvalidate.validateString(markup["incorrect-both"]);
+		const report = await htmlvalidate.validateString(markup["incorrect-both"]);
 		expect(report.results).toMatchSnapshot();
 	});
-	it("inline validation: correct", () => {
+	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"multiple-labeled-controls":"error"}});
-		const report = htmlvalidate.validateString(markup["correct"]);
+		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
 });
