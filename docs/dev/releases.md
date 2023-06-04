@@ -37,10 +37,16 @@ Older major versions is generally supported for two year after the succeeding ve
       <td>2021-09-26</td>
       <td>2024-05-31</td>
     </tr>
-    <tr class="release-active">
+    <tr class="release-maintenance">
       <td>7.x</td>
-      <td>Active</td>
+      <td>Maintenance</td>
       <td>2022-05-06</td>
+      <td>2024-06-31</td>
+    </tr>
+    <tr class="release-active">
+      <td>8.x</td>
+      <td>Active</td>
+      <td>2023-06-04</td>
       <td>-</td>
     </tr>
   </tbody>
