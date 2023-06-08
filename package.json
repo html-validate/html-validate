@@ -177,7 +177,7 @@
     "@html-validate/jest-config": "3.7.5",
     "@html-validate/prettier-config": "2.3.10",
     "@html-validate/release-scripts": "4.1.0",
-    "@microsoft/api-extractor": "7.35.1",
+    "@microsoft/api-extractor": "7.35.2",
     "@rollup/plugin-json": "6.0.0",
     "@rollup/plugin-node-resolve": "15.1.0",
     "@rollup/plugin-replace": "5.0.2",
