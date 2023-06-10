@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [8.0.1](https://gitlab.com/html-validate/html-validate/compare/v8.0.0...v8.0.1) (2023-06-10)
+
+### Bug Fixes
+
+- fix nodejs code being included in browser bundle ([7c76a3b](https://gitlab.com/html-validate/html-validate/commit/7c76a3b52bfd1586bcc2cae59dce366d983363ca))
+
 ## [8.0.0](https://gitlab.com/html-validate/html-validate/compare/v7.18.1...v8.0.0) (2023-06-04)
 
 ### ⚠ BREAKING CHANGES
