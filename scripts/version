@@ -1,7 +1,6 @@
 #!/bin/bash
 
-shopt -s globstar
-for file in docs/**/*.md src/**/*.ts; do
+for file in $(git ls-files 'docs/**/*.md' 'src/**/*.ts'); do
 	sed "s/%version%/${npm_new_version}/g" -i "${file}"
 	git add "${file}"
 done
