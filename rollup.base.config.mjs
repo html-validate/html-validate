@@ -42,6 +42,19 @@ const jsonConfig = {
 
 /**
  * @param {string} id
+ * @returns {boolean}
+ */
+function isNodejsChunk(relativeId) {
+	const files = ["config/loaders/file-system.ts", "utils/require-uncached.ts"];
+	return (
+		files.includes(relativeId) ||
+		relativeId.startsWith("config/resolver/nodejs/") ||
+		relativeId.endsWith("src/resolve")
+	);
+}
+
+/**
+ * @param {string} id
  * @returns {string|undefined}
  */
 function manualChunks(id) {
@@ -74,6 +87,10 @@ function manualChunks(id) {
 
 	if (rel.startsWith("jest/")) {
 		return "jest-lib";
+	}
+
+	if (isNodejsChunk(rel)) {
+		return "nodejs";
 	}
 
 	return "core";
