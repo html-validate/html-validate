@@ -1,4 +1,3 @@
-import path from "path";
 import { codeFrameColumns } from "@babel/code-frame";
 import kleur from "kleur";
 import { type Message, type Result } from "../reporter";
@@ -42,14 +41,12 @@ function pluralize(word: string, count: number): string {
  * @returns The formatted file path.
  */
 function formatFilePath(filePath: string, line: number, column: number): string {
-	let relPath = path.relative(process.cwd(), filePath);
-
 	/* istanbul ignore next: safety check from original implementation */
 	if (line && column) {
-		relPath += `:${line}:${column}`;
+		filePath += `:${line}:${column}`;
 	}
 
-	return kleur.green(relPath);
+	return kleur.green(filePath);
 }
 
 function getStartLocation(message: Message): SourcePoint {

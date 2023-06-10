@@ -1,4 +1,3 @@
-import path from "path";
 import { type SchemaObject } from "ajv";
 import { type ConfigData, type ResolvedConfig, ConfigLoader } from "./config";
 import { type Source } from "./context";
@@ -221,8 +220,7 @@ export class HtmlValidate {
 	 */
 	public async canValidate(filename: string): Promise<boolean> {
 		/* .html is always supported */
-		const extension = path.extname(filename).toLowerCase();
-		if (extension === ".html") {
+		if (filename.toLowerCase().endsWith(".html")) {
 			return true;
 		}
 
@@ -242,8 +240,7 @@ export class HtmlValidate {
 	 */
 	public canValidateSync(filename: string): boolean {
 		/* .html is always supported */
-		const extension = path.extname(filename).toLowerCase();
-		if (extension === ".html") {
+		if (filename.toLowerCase().endsWith(".html")) {
 			return true;
 		}
 
