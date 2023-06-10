@@ -24,12 +24,13 @@
   "type": "commonjs",
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
       "browser": {
+        "types": "./dist/types/browser.d.ts",
         "require": "./dist/cjs/browser.js",
         "import": "./dist/es/browser.js"
       },
       "node": {
+        "types": "./dist/types/index.d.ts",
         "require": "./dist/cjs/index.js",
         "import": "./dist/es/index.js"
       }
