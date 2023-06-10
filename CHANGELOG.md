@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## [8.0.2](https://gitlab.com/html-validate/html-validate/compare/v8.0.1...v8.0.2) (2023-06-10)
+
+### Bug Fixes
+
+- add `browser` condition for main import ([d2f7a74](https://gitlab.com/html-validate/html-validate/commit/d2f7a74d455c0db0c07c2441a624f372c1bd30bb))
+- remove usage of `node:path` and `process` in browser build ([2580aeb](https://gitlab.com/html-validate/html-validate/commit/2580aeb032cccab3b32a066bb78dae00b268c899))
+
 ## [8.0.1](https://gitlab.com/html-validate/html-validate/compare/v8.0.0...v8.0.1) (2023-06-10)
 
 ### Bug Fixes
