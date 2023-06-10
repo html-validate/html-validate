@@ -25,8 +25,14 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "require": "./dist/cjs/index.js",
-      "import": "./dist/es/index.js"
+      "browser": {
+        "require": "./dist/cjs/browser.js",
+        "import": "./dist/es/browser.js"
+      },
+      "node": {
+        "require": "./dist/cjs/index.js",
+        "import": "./dist/es/index.js"
+      }
     },
     "./browser": {
       "types": "./dist/types/browser.d.ts",

@@ -37,13 +37,17 @@ There is an example project [try-online][try-online-repo] running at [online.htm
 
 ## Browser bundle
 
-The first step is to make sure the correct bundle is used.
-The library contains both a full build and a browser build, if your bundler fails to pick up the right one you need to be explicit:
+The library contains both a full build (requiring NodeJS to run) and a browser build.
+If your bundler sets the `browser` [subpackage condition](https://nodejs.org/api/packages.html#community-conditions-definitions) or respects the `browser` field it should pick up the correct bundle automatically.
+
+If your bundler fails to pick up the right one you need to be explicit:
 
 ```diff
 -import { HtmlValidate } from "html-validate";
 +import { HtmlValidate } from "html-validate/browser";
 ```
+
+The examples in this guide assumes the bundler picks up the correct one.
 
 ## Configuration loading
 
@@ -51,7 +55,7 @@ Since v8.0.0 {@link dev/using-api#staticconfigloader `StaticConfigLoader`} is us
 
 ```diff
 -import { HtmlValidate } from "html-validate"
-+import { StaticConfigLoader, HtmlValidate } from "html-validate/browser";
++import { StaticConfigLoader, HtmlValidate } from "html-validate";
 
 -const htmlvalidate = new HtmlValidate();
 +const loader = new StaticConfigLoader();
@@ -115,7 +119,7 @@ Since v7.8.0 all files previously stored in `elements/*.{js,json,d.ts}` are now 
 If you had this configured before you can now remove it:
 
 ```diff
- import { StaticConfigLoader, HtmlValidate } from "html-validate/browser";
+ import { StaticConfigLoader, HtmlValidate } from "html-validate";
 
 -// check your webpack loader! it must return a plain object (not `default: { ... }`, a path/url, etc)
 -import html5 from "html-validate/elements/html5.json";
