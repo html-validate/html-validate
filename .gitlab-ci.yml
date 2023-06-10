@@ -34,6 +34,7 @@ NPM:
   artifacts:
     name: ${CI_PROJECT_PATH_SLUG}-${CI_PIPELINE_ID}-npm
     paths:
+      - .husky/
       - node_modules/
       - docs/node_modules/
     reports:
