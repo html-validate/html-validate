@@ -797,8 +797,9 @@ describe("HtmlValidate", () => {
 		});
 
 		it("should return true if file extension is .html", async () => {
-			expect.assertions(1);
+			expect.assertions(2);
 			expect(await htmlvalidate.canValidate("my-file.html")).toBeTruthy();
+			expect(await htmlvalidate.canValidate("MY-FILE.HTML")).toBeTruthy();
 		});
 
 		it("should return true if a transformer can handle the file", async () => {
@@ -826,8 +827,9 @@ describe("HtmlValidate", () => {
 		});
 
 		it("should return true if file extension is .html", () => {
-			expect.assertions(1);
+			expect.assertions(2);
 			expect(htmlvalidate.canValidateSync("my-file.html")).toBeTruthy();
+			expect(htmlvalidate.canValidateSync("MY-FILE.HTML")).toBeTruthy();
 		});
 
 		it("should return true if a transformer can handle the file", () => {
