@@ -81,9 +81,18 @@ export function nodejsResolver(options: { rootDir?: string } = {}): NodeJSResolv
 			/* expand any relative paths */
 			const cwd = path.dirname(id);
 			const expand = <T>(value: string | T): string | T => expandRelativePath(value, { cwd });
-			configData.elements = configData.elements?.map(expand);
-			configData.extends = configData.extends?.map(expand);
-			configData.plugins = configData.plugins?.map(expand);
+
+			if (configData.elements) {
+				configData.elements = configData.elements.map(expand);
+			}
+
+			if (configData.extends) {
+				configData.extends = configData.extends.map(expand);
+			}
+
+			if (configData.plugins) {
+				configData.plugins = configData.plugins.map(expand);
+			}
 
 			return configData;
 		},

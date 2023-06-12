@@ -69,10 +69,7 @@ describe("resolveConfig()", () => {
 		expect.assertions(1);
 		createMockedModule("mock-config", { rules: { "my-rule": "error" } });
 		const result = resolver.resolveConfig("mock-config", { cache: true });
-		expect(result).toEqual({
-			elements: undefined,
-			extends: undefined,
-			plugins: undefined,
+		expect(result).toStrictEqual({
 			rules: { "my-rule": "error" },
 		});
 	});
@@ -85,7 +82,7 @@ describe("resolveConfig()", () => {
 			plugins: ["./my-plugin", "other-plugin"],
 		});
 		const result = resolver.resolveConfig("/home/foo/projects/bar/mock-config", { cache: true });
-		expect(result).toEqual({
+		expect(result).toStrictEqual({
 			elements: ["/home/foo/projects/bar/my-elements", "other-elements"],
 			extends: ["/home/foo/projects/bar/my-extend", "other-extend"],
 			plugins: ["/home/foo/projects/bar/my-plugin", "other-plugin"],
