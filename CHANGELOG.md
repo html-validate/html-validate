@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [8.0.4](https://gitlab.com/html-validate/html-validate/compare/v8.0.3...v8.0.4) (2023-06-12)
+
+### Bug Fixes
+
+- add explicit node import ([73f9a1f](https://gitlab.com/html-validate/html-validate/commit/73f9a1f2cc3f532c48e501df49ff1bc5465cc569))
+
 ## [8.0.3](https://gitlab.com/html-validate/html-validate/compare/v8.0.2...v8.0.3) (2023-06-12)
 
 ### Bug Fixes
