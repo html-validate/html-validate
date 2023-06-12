@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## [8.0.3](https://gitlab.com/html-validate/html-validate/compare/v8.0.2...v8.0.3) (2023-06-12)
+
+### Bug Fixes
+
+- fix regression bug when using `elements` in extended configuration files and plugins ([6892083](https://gitlab.com/html-validate/html-validate/commit/6892083c8017db0338196e9cafdf71a7a133fb05))
+- use correct dts when using custom conditions ([1b6971e](https://gitlab.com/html-validate/html-validate/commit/1b6971e0f7e76fbae600457bf37247549239e3f7))
+
 ## [8.0.2](https://gitlab.com/html-validate/html-validate/compare/v8.0.1...v8.0.2) (2023-06-10)
 
 ### Bug Fixes
