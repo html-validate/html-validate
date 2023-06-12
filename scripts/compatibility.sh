@@ -2,6 +2,16 @@
 
 cd $(dirname $0)/..
 
+echo "Testing if node bundle is importable"
+node node.js
+node --input-type commonjs -e 'require("./dist/cjs/index.js")'
+node --input-type module -e 'import("./dist/es/index.js")'
+
+echo "Testing if browser bundle is importable"
+node browser.js
+node --input-type commonjs -e 'require("./dist/cjs/browser.js")'
+node --input-type module -e 'import("./dist/es/browser.js")'
+
 echo "Testing if html-validate can successfully validate a file"
 ./bin/html-validate.js test-files/elements/table-valid.html
 if [[ $? != 0 ]]; then

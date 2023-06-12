@@ -40,6 +40,11 @@
       "require": "./dist/cjs/browser.js",
       "import": "./dist/es/browser.js"
     },
+    "./node": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/es/index.js"
+    },
     "./dist/cjs/*": "./dist/cjs/*",
     "./dist/es/*": "./dist/es/*",
     "./dist/schema/*": "./dist/schema/*",
@@ -67,6 +72,7 @@
     "dist",
     "elements",
     "browser.{js,d.ts}",
+    "node.{js,d.ts}",
     "jest.{js,d.ts}",
     "test-utils.{js,d.ts}"
   ],

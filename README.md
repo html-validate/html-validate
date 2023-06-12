@@ -56,17 +56,25 @@ Create `.htmlvalidate.json`:
 
 The library comes in four flavours:
 
-- CommonJS full (`dist/cjs/main.js`)
+- CommonJS full (`dist/cjs/index.js`)
 - CommonJS browser (`dist/cjs/browser.js`)
-- ESM full (`dist/es/main.js`)
+- ESM full (`dist/es/index.js`)
 - ESM browser (`dist/es/browser.js`)
 
-The browser versions contains a slimmed version without CLI dependencies.
-Your tooling will probably use the correct version but if needed you can import the files directly.
+The browser bundle contains a slimmed version without CLI and NodeJS dependencies.
 
-Do note that to run in a browser you still need to polyfill the `fs` nodejs library.
+```ts
+/* automatically determine build based on `browser` export condition */
+import { ... } from "html-validate";
 
-Browsers and bundlers are currently not 100% supported but is possible with some tricks, see [running in browser](https://html-validate.org/dev/running-in-browser.html) for more details.
+/* explicitly use nodejs bundle */
+import { ... } from "html-validate/node";
+
+/* explicitly use browser bundle */
+import { ... } from "html-validate/browser";
+```
+
+See [running in browser](https://html-validate.org/dev/running-in-browser.html) for details about getting HTML-Validate running in a browser environment.
 
 ## Developing
 
