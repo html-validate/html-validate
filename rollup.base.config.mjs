@@ -57,6 +57,7 @@ function isNodejsChunk(relativeId) {
  * @param {string} id
  * @returns {string|undefined}
  */
+/* eslint-disable-next-line complexity -- needed to be like this */
 function manualChunks(id) {
 	/** @type {string} */
 	const base = path.relative(rootDir, id).replace(/\\/g, "/");
@@ -81,8 +82,14 @@ function manualChunks(id) {
 		return "meta-helper";
 	}
 
-	if (rel.startsWith("rules/helper")) {
-		return "rules-helper";
+	if (rel.startsWith("utils")) {
+		const parsed = path.parse(rel);
+		const split = ["natural-join"];
+		if (split.includes(parsed.name)) {
+			return `utils/${parsed.name}`;
+		} else {
+			return "core";
+		}
 	}
 
 	if (rel.startsWith("jest/")) {

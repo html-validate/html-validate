@@ -3,7 +3,7 @@ import { type DOMReadyEvent } from "../event";
 import { type CategoryOrTag, Validator } from "../meta";
 import { type Permitted, type PermittedEntry } from "../meta/element";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
-import { naturalJoin } from "./helper";
+import { naturalJoin } from "../utils/natural-join";
 
 export interface RuleContext {
 	parent: string;
