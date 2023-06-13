@@ -12,6 +12,11 @@ node browser.js
 node --input-type commonjs -e 'require("./dist/cjs/browser.js")'
 node --input-type module -e 'import("./dist/es/browser.js")'
 
+echo "Testing if elements bundle is importable"
+node elements/html5.js
+node --input-type commonjs -e 'require("./dist/cjs/elements.js")'
+node --input-type module -e 'import("./dist/es/elements.js")'
+
 echo "Testing if html-validate can successfully validate a file"
 ./bin/html-validate.js test-files/elements/table-valid.html
 if [[ $? != 0 ]]; then

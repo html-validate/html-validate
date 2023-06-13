@@ -1,5 +1,5 @@
 import { type HtmlElement } from "../dom";
-import { naturalJoin } from "../rules/helper";
+import { naturalJoin } from "../utils/natural-join";
 import { type MetaAttributeAllowedCallback } from "./element";
 
 /**

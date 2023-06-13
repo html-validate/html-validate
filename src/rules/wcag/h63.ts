@@ -2,7 +2,7 @@ import { type TagReadyEvent } from "../../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../../rule";
 import html5 from "../../elements/html5";
 import { type MetaAttribute } from "../../meta";
-import { naturalJoin } from "../helper";
+import { naturalJoin } from "../../utils/natural-join";
 import { DynamicValue } from "../../dom";
 
 /* istanbul ignore next: this will always be present for the <th>
