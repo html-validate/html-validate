@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## [8.0.5](https://gitlab.com/html-validate/html-validate/compare/v8.0.4...v8.0.5) (2023-06-13)
+
+### Bug Fixes
+
+- fix import issue with `elements/html5.js` ([0604c21](https://gitlab.com/html-validate/html-validate/commit/0604c21e87a5b279c5aaf034640644daf39f48a2)), closes [#219](https://gitlab.com/html-validate/html-validate/issues/219)
+- make `elements/html5` work with esm ([d95de27](https://gitlab.com/html-validate/html-validate/commit/d95de2716829d6fca4c8c6e291746a41fa5eb7f5))
+
 ## [8.0.4](https://gitlab.com/html-validate/html-validate/compare/v8.0.3...v8.0.4) (2023-06-12)
 
 ### Bug Fixes
