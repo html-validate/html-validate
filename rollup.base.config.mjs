@@ -20,6 +20,7 @@ const packageJson = JSON.parse(fs.readFileSync(path.join(rootDir, "package.json"
 const entrypoints = [
 	"src/index.ts",
 	"src/browser.ts",
+	"src/html5.ts",
 	"src/cli/html-validate.ts",
 	"src/jest/jest.ts",
 	"src/transform/test-utils.ts",

@@ -48,7 +48,11 @@
     "./dist/cjs/*": "./dist/cjs/*",
     "./dist/es/*": "./dist/es/*",
     "./dist/schema/*": "./dist/schema/*",
-    "./elements/*": "./elements/*",
+    "./elements/html5": {
+      "types": "./elements/html5.d.ts",
+      "require": "./dist/cjs/html5.js",
+      "import": "./dist/es/html5.js"
+    },
     "./jest": {
       "types": "./dist/types/jest.d.ts",
       "require": "./dist/cjs/jest.js",
@@ -153,6 +157,7 @@
       "!src/**/index.ts",
       "!src/index.ts",
       "!src/browser.ts",
+      "!src/html5.ts",
       "!src/cli/html-validate.ts",
       "!src/jest/jest.ts",
       "!**/__fixtures__/**"
