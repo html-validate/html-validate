@@ -101,6 +101,10 @@ export default defineMetadata({
 			inert: {
 				boolean: true,
 			},
+			spellcheck: {
+				omit: true,
+				enum: ["true", "false"],
+			},
 			tabindex: {
 				enum: ["/-?\\d+/"],
 			},
@@ -1468,9 +1472,6 @@ export default defineMetadata({
 			required: {
 				boolean: true,
 			},
-			spellcheck: {
-				enum: ["default", "false", "true"],
-			},
 			type: {
 				enum: [
 					"button",
@@ -2717,9 +2718,6 @@ export default defineMetadata({
 			},
 			rows: {
 				enum: ["/\\d+/"],
-			},
-			spellcheck: {
-				enum: ["true", "default", "false"],
 			},
 			wrap: {
 				enum: ["hard", "soft"],

@@ -53,6 +53,13 @@ exports[`parser should postprocess elements allow modify element metadata 1`] = 
     "inert": {
       "boolean": true,
     },
+    "spellcheck": {
+      "enum": [
+        "true",
+        "false",
+      ],
+      "omit": true,
+    },
     "tabindex": {
       "enum": [
         /\\^-\\?\\\\d\\+\\$/,
@@ -111,6 +118,13 @@ exports[`parser should postprocess elements allow modify element metadata 2`] = 
     },
     "inert": {
       "boolean": true,
+    },
+    "spellcheck": {
+      "enum": [
+        "true",
+        "false",
+      ],
+      "omit": true,
     },
     "tabindex": {
       "enum": [

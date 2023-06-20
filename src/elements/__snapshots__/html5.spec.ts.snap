@@ -6212,9 +6212,8 @@ exports[`HTML elements <input> invalid markup 1`] = `
         "context": {
           "allowed": {
             "enum": [
-              "default",
-              "false",
               "true",
+              "false",
             ],
           },
           "attribute": "spellcheck",
@@ -17624,7 +17623,7 @@ exports[`HTML elements <template> valid markup 1`] = `[]`;
 exports[`HTML elements <textarea> invalid markup 1`] = `
 [
   {
-    "errorCount": 18,
+    "errorCount": 19,
     "filePath": "test-files/elements/textarea-invalid.html",
     "messages": [
       {
@@ -17995,6 +17994,28 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
         "severity": 2,
         "size": 8,
       },
+      {
+        "column": 23,
+        "context": {
+          "allowed": {
+            "enum": [
+              "true",
+              "false",
+            ],
+          },
+          "attribute": "spellcheck",
+          "element": "textarea",
+          "value": "foobar",
+        },
+        "line": 18,
+        "message": "Attribute "spellcheck" has invalid value "foobar"",
+        "offset": 580,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "textarea:nth-child(6)",
+        "severity": 2,
+        "size": 6,
+      },
     ],
     "source": "<!-- should not allow tags -->
 <textarea>
@@ -18011,6 +18032,9 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
 
 <!-- should not allow text values -->
 <textarea cols="foobar4u" maxlength="foobar4u" minlength="foobar4u" rows="foobar4u"></textarea>
+
+<!-- should not allow invalid spellcheck attribute -->
+<textarea spellcheck="foobar"></textarea>
 ",
     "warningCount": 0,
   },
@@ -19157,7 +19181,7 @@ exports[`HTML elements <xmp> valid markup 1`] = `[]`;
 exports[`HTML elements global attributes invalid markup 1`] = `
 [
   {
-    "errorCount": 15,
+    "errorCount": 16,
     "filePath": "test-files/elements/global-attributes-invalid.html",
     "messages": [
       {
@@ -19450,6 +19474,28 @@ exports[`HTML elements global attributes invalid markup 1`] = `
         "severity": 2,
         "size": 11,
       },
+      {
+        "column": 18,
+        "context": {
+          "allowed": {
+            "enum": [
+              "true",
+              "false",
+            ],
+          },
+          "attribute": "spellcheck",
+          "element": "div",
+          "value": "invalid",
+        },
+        "line": 26,
+        "message": "Attribute "spellcheck" has invalid value "invalid"",
+        "offset": 524,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "div",
+        "severity": 2,
+        "size": 7,
+      },
     ],
     "source": "<p contenteditable="foobar"></p>
 <p dir=""></p>
@@ -19474,6 +19520,9 @@ exports[`HTML elements global attributes invalid markup 1`] = `
 <p tabindex="foobar4u"></p>
 
 <p contextmenu="foobar"></p>
+
+<!-- invalid value -->
+<div spellcheck="invalid"></div>
 ",
     "warningCount": 0,
   },
