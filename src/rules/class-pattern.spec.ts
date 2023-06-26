@@ -11,31 +11,33 @@ describe("rule class-pattern", () => {
 		});
 	});
 
-	it("should not report error when class follows pattern", () => {
+	it("should not report error when class follows pattern", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<p class="foo-bar"></p>');
+		const report = await htmlvalidate.validateString('<p class="foo-bar"></p>');
 		expect(report).toBeValid();
 	});
 
-	it("should report error when class does not follow pattern", () => {
+	it("should report error when class does not follow pattern", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString('<p class="foo-bar fooBar spam"></p>');
+		const report = await htmlvalidate.validateString('<p class="foo-bar fooBar spam"></p>');
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"class-pattern",
-			expect.stringMatching(/Class "fooBar" does not match required pattern ".*"/)
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Class "fooBar" does not match required pattern "/^[a-z0-9-]+$/" (class-pattern) at inline:1:19:
+			> 1 | <p class="foo-bar fooBar spam"></p>
+			    |                   ^^^^^^
+			Selector: p"
+		`);
 	});
 
-	it("should ignore other attributes", () => {
+	it("should ignore other attributes", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<p spam="fooBar"></p>');
+		const report = await htmlvalidate.validateString('<p spam="fooBar"></p>');
 		expect(report).toBeValid();
 	});
 
-	it("smoketest", () => {
+	it("smoketest", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile("test-files/rules/class-pattern.html");
+		const report = await htmlvalidate.validateFile("test-files/rules/class-pattern.html");
 		expect(report).toMatchInlineCodeframe(`
 			"error: Class "foo_bar" does not match required pattern "/^[a-z0-9-]+$/" (class-pattern) at test-files/rules/class-pattern.html:3:17:
 			  1 | <div class="foo foo-bar bar"></div>
