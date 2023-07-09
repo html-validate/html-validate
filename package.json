@@ -190,7 +190,7 @@
     "@html-validate/commitlint-config": "3.0.17",
     "@html-validate/eslint-config": "5.9.12",
     "@html-validate/eslint-config-jest": "5.9.11",
-    "@html-validate/eslint-config-typescript": "5.9.12",
+    "@html-validate/eslint-config-typescript": "5.9.13",
     "@html-validate/eslint-config-typescript-typeinfo": "5.9.0",
     "@html-validate/jest-config": "3.7.6",
     "@html-validate/prettier-config": "2.3.11",
