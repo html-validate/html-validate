@@ -39,7 +39,7 @@ export interface Plugin {
    *
    * Called once per plugin during initialization.
    */
-  init?: () => void | null;
+  init?(): void;
 
   /**
    * Setup callback.
@@ -50,7 +50,7 @@ export interface Plugin {
    * @param eventhandler - Eventhandler from parser. Can be used to listen for
    * parser events.
    */
-  setup?: (source: Source, eventhandler: EventHandler) => void | null;
+  setup?(source: Source, eventhandler: EventHandler): void;
 
   /**
    * Configuration presets.

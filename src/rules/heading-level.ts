@@ -102,9 +102,15 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 	}
 
 	public setup(): void {
-		this.on("tag:start", isRelevant, (event: TagStartEvent) => this.onTagStart(event));
-		this.on("tag:ready", (event: TagReadyEvent) => this.onTagReady(event));
-		this.on("tag:close", (event: TagEndEvent) => this.onTagClose(event));
+		this.on("tag:start", isRelevant, (event: TagStartEvent) => {
+			this.onTagStart(event);
+		});
+		this.on("tag:ready", (event: TagReadyEvent) => {
+			this.onTagReady(event);
+		});
+		this.on("tag:close", (event: TagEndEvent) => {
+			this.onTagClose(event);
+		});
 	}
 
 	private onTagStart(event: TagStartEvent): void {

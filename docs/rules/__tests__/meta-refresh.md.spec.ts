@@ -1,6 +1,6 @@
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
-const markup: { [key: string]: string } = {};
+const markup: Record<string, string> = {};
 markup["incorrect-delay"] = `<meta http-equiv="refresh" content="5;url=target.html">`;
 markup["incorrect-url"] = `<meta http-equiv="refresh" content="0">`;
 markup["correct"] = `<meta http-equiv="refresh" content="0;url=target.html">`;

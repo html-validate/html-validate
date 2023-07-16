@@ -9,7 +9,7 @@ import { SchemaObject } from 'ajv';
 
 // @public
 export class Attribute {
-    constructor(key: string, value: null | string | DynamicValue | null, keyLocation: Location_2, valueLocation: Location_2 | null, originalAttribute?: string);
+    constructor(key: string, value: string | DynamicValue | null, keyLocation: Location_2, valueLocation: Location_2 | null, originalAttribute?: string);
     get isDynamic(): boolean;
     get isStatic(): boolean;
     readonly key: string;
@@ -177,10 +177,7 @@ export interface ConfigReadyEvent extends Event_2 {
 }
 
 // @public (undocumented)
-interface CSSStyleDeclaration_2 {
-    // (undocumented)
-    [key: string]: string;
-}
+type CSSStyleDeclaration_2 = Record<string, string>;
 export { CSSStyleDeclaration_2 as CSSStyleDeclaration }
 
 // @public (undocumented)
@@ -431,9 +428,7 @@ export interface EventDump {
 export class EventHandler {
     constructor();
     // (undocumented)
-    listeners: {
-        [event: string]: EventCallback[];
-    };
+    listeners: Record<string, EventCallback[]>;
     on(event: string, callback: EventCallback): () => void;
     once(event: string, callback: EventCallback): () => void;
     trigger(event: string, data: any): void;
@@ -451,9 +446,7 @@ export class HtmlElement extends DOMNode {
     appendText(text: string | DynamicValue, location: Location_2): void;
     get ariaLabelledby(): string[] | DynamicValue | null;
     // (undocumented)
-    protected readonly attr: {
-        [key: string]: Attribute[];
-    };
+    protected readonly attr: Record<string, Attribute[]>;
     get attributes(): Attribute[];
     get childElements(): HtmlElement[];
     get classList(): DOMTokenList_2;
@@ -762,10 +755,7 @@ export interface MetadataHelper {
 export const metadataHelper: MetadataHelper;
 
 // @public (undocumented)
-export interface MetaDataTable {
-    // (undocumented)
-    [tagName: string]: MetaData;
-}
+export type MetaDataTable = Record<string, MetaData>;
 
 // @public (undocumented)
 export interface MetaElement extends Omit<MetaData, "deprecatedAttributes" | "requiredAttributes"> {
@@ -886,10 +876,10 @@ export type PermittedOrder = string[];
 interface Plugin_2 {
     configs?: Record<string, ConfigData | null> | null;
     elementSchema?: SchemaValidationPatch | null;
-    init?: () => void | null;
+    init?(): void;
     name?: string | null;
     rules?: Record<string, RuleConstructor<any, any> | null> | null;
-    setup?: (source: Source, eventhandler: EventHandler) => void | null;
+    setup?(source: Source, eventhandler: EventHandler): void;
     transformer?: Transformer_2 | Record<string, Transformer_2 | null> | null;
 }
 export { Plugin_2 as Plugin }
@@ -1382,10 +1372,7 @@ export interface TransformerEntry {
 }
 
 // @public (undocumented)
-export interface TransformMap {
-    // (undocumented)
-    [key: string]: string;
-}
+export type TransformMap = Record<string, string>;
 
 // @public (undocumented)
 export interface TriggerEventMap {

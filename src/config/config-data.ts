@@ -21,9 +21,7 @@ export type RuleConfig = Record<
 /**
  * @public
  */
-export interface TransformMap {
-	[key: string]: string;
-}
+export type TransformMap = Record<string, string>;
 
 /**
  * @public

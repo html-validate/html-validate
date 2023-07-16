@@ -9,7 +9,7 @@ interface Context {
 }
 
 function isCategory(value: CategoryOrTag): boolean {
-	return value[0] === "@";
+	return value.startsWith("@");
 }
 
 export default class ElementRequiredContent extends Rule<Context> {

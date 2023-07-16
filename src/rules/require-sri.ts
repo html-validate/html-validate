@@ -17,7 +17,7 @@ const defaults: RuleOptions = {
 };
 
 const crossorigin = new RegExp("^(\\w+://|//)"); /* e.g. https:// or // */
-const supportSri: { [key: string]: string } = {
+const supportSri: Record<string, string> = {
 	link: "href",
 	script: "src",
 };

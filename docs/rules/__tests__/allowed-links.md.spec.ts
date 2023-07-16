@@ -1,6 +1,6 @@
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
-const markup: { [key: string]: string } = {};
+const markup: Record<string, string> = {};
 markup["external-invalid"] = `<a href="http://example.net/foo">`;
 markup["external-valid"] = `<a href="./foo">`;
 markup["relative-invalid"] = `<a href="../foo">`;

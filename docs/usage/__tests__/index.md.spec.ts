@@ -1,6 +1,6 @@
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
-const markup: { [key: string]: string } = {};
+const markup: Record<string, string> = {};
 markup["directive-commend"] = `<!-- [html-validate-disable-next deprecated -- justification for disabling] -->
 <blink>Blinking text</blink>
 <!-- [html-validate-disable-next deprecated: justification for disabling] -->

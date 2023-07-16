@@ -8,7 +8,7 @@ interface RuleContext {
 	type: string;
 }
 
-const restricted: Map<string, string[]> = new Map([
+const restricted = new Map<string, string[]>([
 	["accept", ["file"]],
 	["alt", ["image"]],
 	[

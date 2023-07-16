@@ -1,6 +1,6 @@
 import { HtmlValidate } from "../../../../src/htmlvalidate";
 
-const markup: { [key: string]: string } = {};
+const markup: Record<string, string> = {};
 markup["enum"] = `<my-component duck="dewey">...</my-component>
 <my-component duck="flintheart">...</my-component>`;
 markup["regexp"] = `<my-component ducks="3">...</my-component>

@@ -1,6 +1,6 @@
 import { HtmlValidate } from "../../../../src/htmlvalidate";
 
-const markup: { [key: string]: string } = {};
+const markup: Record<string, string> = {};
 markup["incorrect-missing"] = `<th></th>`;
 markup["incorrect-auto"] = `<!-- auto state cannot be set with a value -->
 <th scope="auto"></th>`;

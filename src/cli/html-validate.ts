@@ -30,7 +30,7 @@ interface ParsedArgs {
 	version: boolean;
 }
 
-function getMode(argv: { [key: string]: any }): Mode {
+function getMode(argv: Record<string, any>): Mode {
 	if (argv.init) {
 		return Mode.INIT;
 	}
@@ -147,7 +147,7 @@ const argv = minimist<ParsedArgs>(process.argv.slice(2), {
 		formatter: "stylish",
 	},
 	unknown: (opt: string) => {
-		if (opt[0] === "-") {
+		if (opt.startsWith("-")) {
 			process.stderr.write(`unknown option ${opt}\n`);
 			process.exit(1);
 		}
@@ -248,7 +248,7 @@ if (isNaN(maxWarnings)) {
 
 /* parse extensions (used when expanding directories) */
 const extensions = argv.ext.split(",").map((cur: string) => {
-	return cur[0] === "." ? cur.slice(1) : cur;
+	return cur.startsWith(".") ? cur.slice(1) : cur;
 });
 
 const files = cli.expandFiles(argv._, { extensions });

@@ -6,7 +6,7 @@ export interface IncludeExcludeOptions {
 	exclude: string[] | null;
 }
 
-const patternCache: Map<string, RegExp> = new Map();
+const patternCache = new Map<string, RegExp>();
 
 function compileStringPattern(pattern: string): RegExp {
 	const regexp = pattern.replace(/[*]+/g, ".+");

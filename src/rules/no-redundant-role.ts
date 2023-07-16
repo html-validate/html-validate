@@ -35,7 +35,7 @@ const mapping: Record<string, string[]> = {
 	textarea: ["textbox"],
 };
 
-export default class NoRedundantRole extends Rule<RuleContext, void> {
+export default class NoRedundantRole extends Rule<RuleContext> {
 	public documentation(context: RuleContext): RuleDocumentation {
 		const doc: RuleDocumentation = {
 			description: `Using this role is redundant as it is already implied by the element.`,

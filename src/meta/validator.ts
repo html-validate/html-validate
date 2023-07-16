@@ -290,7 +290,7 @@ export class Validator {
 		const [, rawCategory] = category.match(/^(@?.*?)([?*]?)$/) as RegExpMatchArray;
 
 		/* match tagName when an explicit name is given */
-		if (rawCategory[0] !== "@") {
+		if (!rawCategory.startsWith("@")) {
 			return node.tagName === rawCategory;
 		}
 

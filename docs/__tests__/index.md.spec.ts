@@ -1,6 +1,6 @@
 import { HtmlValidate } from "../../src/htmlvalidate";
 
-const markup: { [key: string]: string } = {};
+const markup: Record<string, string> = {};
 markup["frontpage-contentmodel"] = `<footer>
   <fieldset>
     <p>Lorem ipsum dolor sit amet</p>

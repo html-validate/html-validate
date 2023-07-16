@@ -1,6 +1,6 @@
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
-const markup: { [key: string]: string } = {};
+const markup: Record<string, string> = {};
 markup["incorrect"] = `<!-- [html-validate-disable-next attribute-allowed-values -- no error, disable is invalid] -->
 <button type="submit"></button>`;
 markup["correct-removed"] = `<!-- disable removed, no error -->

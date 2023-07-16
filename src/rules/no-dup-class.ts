@@ -17,7 +17,7 @@ export default class NoDupClass extends Rule {
 			}
 
 			const classes = new DOMTokenList(event.value, event.valueLocation);
-			const unique: Set<string> = new Set();
+			const unique = new Set<string>();
 			classes.forEach((cur: string, index: number) => {
 				if (unique.has(cur)) {
 					const location = classes.location(index);

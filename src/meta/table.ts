@@ -33,13 +33,13 @@ const dynamicKeys: Array<keyof MetaElement> = [
 
 type PropertyEvaluator = (node: HtmlElement, options: string | [string, string, string]) => boolean;
 
-const functionTable: { [key: string]: PropertyEvaluator } = {
+const functionTable: Record<string, PropertyEvaluator> = {
 	isDescendant: isDescendantFacade,
 	hasAttribute: hasAttributeFacade,
 	matchAttribute: matchAttributeFacade,
 };
 
-const schemaCache: Map<number, ValidateFunction<MetaDataTable>> = new Map();
+const schemaCache = new Map<number, ValidateFunction<MetaDataTable>>();
 
 function clone<T>(src: T): T {
 	return JSON.parse(JSON.stringify(src)) as T;

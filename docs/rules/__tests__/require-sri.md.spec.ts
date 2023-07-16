@@ -1,6 +1,6 @@
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
-const markup: { [key: string]: string } = {};
+const markup: Record<string, string> = {};
 markup["incorrect"] = `<script src="//cdn.example.net/jquery.min.js"></script>`;
 markup["correct"] = `<script src="//cdn.example.net/jquery.min.js" integrity="sha384-..."></script>`;
 markup["crossorigin"] = `<!--- local resource -->

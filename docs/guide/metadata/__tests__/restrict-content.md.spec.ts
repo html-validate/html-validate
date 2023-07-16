@@ -1,6 +1,6 @@
 import { HtmlValidate } from "../../../../src/htmlvalidate";
 
-const markup: { [key: string]: string } = {};
+const markup: Record<string, string> = {};
 markup["tags"] = `<my-component>
   <button type="button">click me!</button>
 </my-component>`;

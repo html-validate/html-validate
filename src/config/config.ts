@@ -247,8 +247,7 @@ export class Config {
 		}
 
 		let base: ConfigData = {};
-		for (let i = 0; i < entries.length; i++) {
-			const entry = entries[i];
+		for (const entry of entries) {
 			let extended: ConfigData;
 			if (this.configurations.has(entry)) {
 				extended = this.configurations.get(entry) as ConfigData;
@@ -384,7 +383,7 @@ export class Config {
 	}
 
 	private loadConfigurations(plugins: LoadedPlugin[]): Map<string, ConfigData> {
-		const configs: Map<string, ConfigData> = new Map();
+		const configs = new Map<string, ConfigData>();
 
 		/* builtin presets */
 		for (const [name, config] of Object.entries(Presets)) {

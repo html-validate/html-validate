@@ -4,12 +4,12 @@ import { type Result } from "../reporter";
 import { type Formatter } from "./formatter";
 
 function linkSummary(results: Result[]): string {
-	const urls = results.reduce((result, it): string[] => {
+	const urls = results.reduce<string[]>((result, it): string[] => {
 		const urls: string[] = it.messages
 			.map((error) => error.ruleUrl)
 			.filter((error): error is string => Boolean(error));
 		return [...result, ...urls];
-	}, [] as string[]);
+	}, []);
 
 	const unique = Array.from(new Set(urls));
 	if (unique.length === 0) {

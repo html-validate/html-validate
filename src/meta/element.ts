@@ -243,16 +243,12 @@ export interface MetaElement extends Omit<MetaData, "deprecatedAttributes" | "re
 /**
  * @public
  */
-export interface MetaDataTable {
-	[tagName: string]: MetaData;
-}
+export type MetaDataTable = Record<string, MetaData>;
 
 /**
  * @internal
  */
-export interface ElementTable {
-	[tagName: string]: MetaElement;
-}
+export type ElementTable = Record<string, MetaElement>;
 
 /**
  * @internal
