@@ -39,7 +39,7 @@ const functionTable: Record<string, PropertyEvaluator> = {
 	matchAttribute: matchAttributeFacade,
 };
 
-const schemaCache: Map<number, ValidateFunction<MetaDataTable>> = new Map();
+const schemaCache = new Map<number, ValidateFunction<MetaDataTable>>();
 
 function clone<T>(src: T): T {
 	return JSON.parse(JSON.stringify(src)) as T;

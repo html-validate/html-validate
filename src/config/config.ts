@@ -384,7 +384,7 @@ export class Config {
 	}
 
 	private loadConfigurations(plugins: LoadedPlugin[]): Map<string, ConfigData> {
-		const configs: Map<string, ConfigData> = new Map();
+		const configs = new Map<string, ConfigData>();
 
 		/* builtin presets */
 		for (const [name, config] of Object.entries(Presets)) {

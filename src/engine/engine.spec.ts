@@ -599,7 +599,7 @@ describe("Engine", () => {
 					},
 				];
 
-				const engine: ExposedEngine<Parser> = new ExposedEngine(config.resolve(), MockParser);
+				const engine = new ExposedEngine<Parser>(config.resolve(), MockParser);
 				const rule = engine.loadRule(
 					"custom/my-rule",
 					config.resolve(),
@@ -624,7 +624,7 @@ describe("Engine", () => {
 					},
 				];
 
-				const engine: ExposedEngine<Parser> = new ExposedEngine(config.resolve(), MockParser);
+				const engine = new ExposedEngine<Parser>(config.resolve(), MockParser);
 				const missingRule = jest.spyOn(engine, "missingRule");
 				engine.loadRule("custom/my-rule", config.resolve(), Severity.ERROR, {}, parser, reporter);
 				expect(missingRule).toHaveBeenCalledWith("custom/my-rule");
@@ -645,7 +645,7 @@ describe("Engine", () => {
 					},
 				];
 
-				const engine: ExposedEngine<Parser> = new ExposedEngine(config.resolve(), MockParser);
+				const engine = new ExposedEngine<Parser>(config.resolve(), MockParser);
 				const rule = engine.loadRule(
 					"custom/my-rule",
 					config.resolve(),
