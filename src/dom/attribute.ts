@@ -55,7 +55,7 @@ export class Attribute {
 	 */
 	public constructor(
 		key: string,
-		value: null | string | DynamicValue | null,
+		value: string | DynamicValue | null,
 		keyLocation: Location,
 		valueLocation: Location | null,
 		originalAttribute?: string
