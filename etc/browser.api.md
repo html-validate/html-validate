@@ -876,10 +876,10 @@ export type PermittedOrder = string[];
 interface Plugin_2 {
     configs?: Record<string, ConfigData | null> | null;
     elementSchema?: SchemaValidationPatch | null;
-    init?: () => void | null;
+    init?(): void;
     name?: string | null;
     rules?: Record<string, RuleConstructor<any, any> | null> | null;
-    setup?: (source: Source, eventhandler: EventHandler) => void | null;
+    setup?(source: Source, eventhandler: EventHandler): void;
     transformer?: Transformer_2 | Record<string, Transformer_2 | null> | null;
 }
 export { Plugin_2 as Plugin }
