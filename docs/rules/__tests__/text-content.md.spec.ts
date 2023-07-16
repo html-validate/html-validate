@@ -1,6 +1,6 @@
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
-const markup: { [key: string]: string } = {};
+const markup: Record<string, string> = {};
 markup["incorrect"] = `<button type="button"></button>`;
 markup["correct"] = `<!-- regular static text -->
 <button type="button">Add item</button>

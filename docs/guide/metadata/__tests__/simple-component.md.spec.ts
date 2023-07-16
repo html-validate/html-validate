@@ -1,6 +1,6 @@
 import { HtmlValidate } from "../../../../src/htmlvalidate";
 
-const markup: { [key: string]: string } = {};
+const markup: Record<string, string> = {};
 markup["no-metadata-1"] = `<!-- this is probably legal? -->
 <div>
   <my-component>lorem ipsum</my-component>

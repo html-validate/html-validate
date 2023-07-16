@@ -1,6 +1,6 @@
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
-const markup: { [key: string]: string } = {};
+const markup: Record<string, string> = {};
 markup["incorrect"] = `<label for="missing-input"></label>
 <div aria-labelledby="missing-text"></div>
 <div aria-describedby="missing-text another-missing"></div>`;

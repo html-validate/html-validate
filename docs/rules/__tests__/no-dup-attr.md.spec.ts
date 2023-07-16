@@ -1,6 +1,6 @@
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
-const markup: { [key: string]: string } = {};
+const markup: Record<string, string> = {};
 markup["incorrect"] = `<div class="foo" class="bar"></div>`;
 markup["correct"] = `<div class="foo bar"></div>`;
 

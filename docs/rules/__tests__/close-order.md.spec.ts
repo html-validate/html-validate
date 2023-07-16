@@ -1,6 +1,6 @@
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
-const markup: { [key: string]: string } = {};
+const markup: Record<string, string> = {};
 markup["incorrect-1"] = `<!-- closed in wrong order -->
 <p><strong></p></strong>`;
 markup["incorrect-2"] = `<!-- opened but not closed -->

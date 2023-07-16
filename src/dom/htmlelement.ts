@@ -44,7 +44,7 @@ export class HtmlElement extends DOMNode {
 	public readonly voidElement: boolean;
 	public readonly depth: number;
 	public closed: NodeClosed;
-	protected readonly attr: { [key: string]: Attribute[] };
+	protected readonly attr: Record<string, Attribute[]>;
 	private metaElement: MetaElement | null;
 	private annotation: string | null;
 

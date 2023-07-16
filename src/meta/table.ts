@@ -33,7 +33,7 @@ const dynamicKeys: Array<keyof MetaElement> = [
 
 type PropertyEvaluator = (node: HtmlElement, options: string | [string, string, string]) => boolean;
 
-const functionTable: { [key: string]: PropertyEvaluator } = {
+const functionTable: Record<string, PropertyEvaluator> = {
 	isDescendant: isDescendantFacade,
 	hasAttribute: hasAttributeFacade,
 	matchAttribute: matchAttributeFacade,

@@ -386,7 +386,7 @@ export class Engine<T extends Parser = Parser> {
 	 * Initialize all plugins. This should only be done once for all sessions.
 	 */
 	private initPlugins(config: ResolvedConfig): {
-		availableRules: { [key: string]: RuleConstructor<any, any> };
+		availableRules: Record<string, RuleConstructor<any, any>>;
 	} {
 		for (const plugin of config.getPlugins()) {
 			if (plugin.init) {
@@ -403,8 +403,8 @@ export class Engine<T extends Parser = Parser> {
 	 * Initializes all rules from plugins and returns an object with a mapping
 	 * between rule name and its constructor.
 	 */
-	private initRules(config: ResolvedConfig): { [key: string]: RuleConstructor<any, any> } {
-		const availableRules: { [key: string]: RuleConstructor<any, any> } = {};
+	private initRules(config: ResolvedConfig): Record<string, RuleConstructor<any, any>> {
+		const availableRules: Record<string, RuleConstructor<any, any>> = {};
 		for (const plugin of config.getPlugins()) {
 			for (const [name, rule] of Object.entries(plugin.rules || {})) {
 				if (!rule) continue;

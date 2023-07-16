@@ -1,6 +1,4 @@
 /**
  * @public
  */
-export interface CSSStyleDeclaration {
-	[key: string]: string;
-}
+export type CSSStyleDeclaration = Record<string, string>;

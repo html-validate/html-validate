@@ -103,7 +103,7 @@ export class Reporter {
 	 */
 	public static merge(reports: Report[]): Report {
 		const valid = reports.every((report) => report.valid);
-		const merged: { [key: string]: Result } = {};
+		const merged: Record<string, Result> = {};
 		reports.forEach((report: Report) => {
 			report.results.forEach((result: Result) => {
 				const key = result.filePath;

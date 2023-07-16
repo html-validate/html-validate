@@ -1,7 +1,7 @@
 import { type Message, type Result } from "../reporter";
 import { type Formatter } from "./formatter";
 
-const entities: { [key: string]: string } = {
+const entities: Record<string, string> = {
 	">": "&gt;",
 	"<": "&lt;",
 	"'": "&apos;",

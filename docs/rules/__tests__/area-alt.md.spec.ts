@@ -1,6 +1,6 @@
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
-const markup: { [key: string]: string } = {};
+const markup: Record<string, string> = {};
 markup["incorrect"] = `<img src="image.png" usemap="#imagemap" alt="An awesome image">
 <map name="imagemap">
 	<area href="target1.html">
