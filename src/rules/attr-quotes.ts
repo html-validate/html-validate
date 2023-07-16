@@ -116,7 +116,7 @@ export default class AttrQuotes extends Rule<RuleContext, RuleOptions> {
 			}
 
 			if (!event.quote) {
-				if (this.options.unquoted === false) {
+				if (!this.options.unquoted) {
 					const message = `Attribute "${event.key}" using unquoted value`;
 					const context: RuleUnquotedContext = {
 						error: "unquoted",
