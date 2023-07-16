@@ -150,7 +150,7 @@ export function codeframe(results: Result[], options?: Partial<CodeframeOptions>
 	const resultsWithMessages = results.filter((result) => result.messages.length > 0);
 
 	let output = resultsWithMessages
-		.reduce((resultsOutput, result) => {
+		.reduce<string[]>((resultsOutput, result) => {
 			const messages = result.messages.map((message) => {
 				return `${formatMessage(message, result, merged)}\n\n`;
 			});
@@ -159,7 +159,7 @@ export function codeframe(results: Result[], options?: Partial<CodeframeOptions>
 			warnings += result.warningCount;
 
 			return resultsOutput.concat(messages);
-		}, [] as string[])
+		}, [])
 		.join("\n");
 
 	if (merged.showSummary) {

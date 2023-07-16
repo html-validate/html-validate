@@ -471,9 +471,9 @@ export class HtmlElement extends DOMNode {
 	}
 
 	public getElementsByTagName(tagName: string): HtmlElement[] {
-		return this.childElements.reduce((matches, node) => {
+		return this.childElements.reduce<HtmlElement[]>((matches, node) => {
 			return matches.concat(node.is(tagName) ? [node] : [], node.getElementsByTagName(tagName));
-		}, [] as HtmlElement[]);
+		}, []);
 	}
 
 	public querySelector(selector: string): HtmlElement | null {
