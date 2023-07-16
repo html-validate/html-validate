@@ -199,7 +199,9 @@ export class Engine<T extends Parser = Parser> {
 				lines.push("(root)");
 			}
 
-			node.childElements.forEach((child, index) => writeNode(child, level + 1, index));
+			node.childElements.forEach((child, index) => {
+				writeNode(child, level + 1, index);
+			});
 		}
 
 		writeNode(document, 0, 0);

@@ -36,7 +36,9 @@ export class DOMTree {
 	 * Resolve dynamic meta expressions.
 	 */
 	public resolveMeta(table: MetaTable): void {
-		this.visitDepthFirst((node: HtmlElement) => table.resolve(node));
+		this.visitDepthFirst((node: HtmlElement) => {
+			table.resolve(node);
+		});
 	}
 
 	public getElementsByTagName(tagName: string): HtmlElement[] {
