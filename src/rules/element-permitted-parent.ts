@@ -16,7 +16,7 @@ function isCategoryOrTag(value: PermittedEntry): value is CategoryOrTag {
 }
 
 function isCategory(value: CategoryOrTag): boolean {
-	return value[0] === "@";
+	return value.startsWith("@");
 }
 
 function formatCategoryOrTag(value: CategoryOrTag): string {

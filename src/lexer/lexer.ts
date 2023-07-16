@@ -173,7 +173,7 @@ export class Lexer {
 	 */
 	private enter(context: Context, state: State, data: string[] | null): void {
 		/* script/style tags require a different content model */
-		if (state === State.TAG && data && data[0][0] === "<") {
+		if (state === State.TAG && data && data[0].startsWith("<")) {
 			if (data[0] === "<script") {
 				context.contentModel = ContentModel.SCRIPT;
 			} else if (data[0] === "<style") {
@@ -220,13 +220,13 @@ export class Lexer {
 				case ContentModel.TEXT:
 					return State.TEXT;
 				case ContentModel.SCRIPT:
-					if (tagCloseToken && tagCloseToken.data[0][0] !== "/") {
+					if (tagCloseToken && !tagCloseToken.data[0].startsWith("/")) {
 						return State.SCRIPT;
 					} else {
 						return State.TEXT; /* <script/> (not legal but handle it anyway so the lexer doesn't choke on it) */
 					}
 				case ContentModel.STYLE:
-					if (tagCloseToken && tagCloseToken.data[0][0] !== "/") {
+					if (tagCloseToken && !tagCloseToken.data[0].startsWith("/")) {
 						return State.STYLE;
 					} else {
 						return State.TEXT; /* <style/> */
