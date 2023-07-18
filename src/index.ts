@@ -1,6 +1,6 @@
-/* used when calling require('htmlvalidate'); */
+/* entrypoint for nodejs build */
 
-export * from "./browser";
+export * from "./common";
 export { type CLIOptions, type ExpandOptions, type InitResult, CLI } from "./cli";
 export {
 	type FileSystemConfigLoaderOptions,
