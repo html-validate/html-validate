@@ -127,10 +127,11 @@ export interface CommentToken extends BaseToken {
 // @public
 export function compatibilityCheck(name: string, declared: string, options?: Partial<CompatibilityOptions>): boolean;
 
-// @public (undocumented)
+// @public
 export interface CompatibilityOptions {
-    logger(message: string): void;
+    logger(this: void, message: string): void;
     silent: boolean;
+    // @internal
     version: string;
 }
 

@@ -12,4 +12,4 @@ export {
 	type Formatter,
 	getFormatter as formatterFactory,
 } from "./formatters";
-export { compatibilityCheck, type CompatibilityOptions } from "./utils";
+export { compatibilityCheck } from "./utils/compatibility-check.nodejs";

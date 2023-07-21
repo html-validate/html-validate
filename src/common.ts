@@ -118,4 +118,4 @@ export { type Report, Reporter, type Message, type Result, type DeferredMessage 
 export { type TransformContext, type Transformer } from "./transform";
 export { type Plugin, type SchemaValidationPatch, definePlugin } from "./plugin";
 export { Parser } from "./parser";
-export { ruleExists } from "./utils";
+export { type CompatibilityOptions, ruleExists } from "./utils";
