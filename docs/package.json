@@ -28,7 +28,7 @@
     "load-grunt-tasks": "5.1.0",
     "marked": "5.1.1",
     "postcss": "8.4.26",
-    "sass": "1.63.6",
+    "sass": "1.64.0",
     "serve-static": "1.15.0"
   },
   "engines": {
