@@ -1,4 +1,4 @@
-export { compatibilityCheck, type CompatibilityOptions } from "./compatibility-check";
+export { type CompatibilityOptions } from "./compatibility-check";
 export { computeHash } from "./compute-hash";
 export { interpolate } from "./interpolate";
 export { requireUncached } from "./require-uncached";

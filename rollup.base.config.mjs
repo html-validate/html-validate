@@ -50,8 +50,17 @@ function isNodejsChunk(relativeId) {
 	return (
 		files.includes(relativeId) ||
 		relativeId.startsWith("config/resolver/nodejs/") ||
-		relativeId.endsWith("src/resolve")
+		relativeId.endsWith("src/resolve") ||
+		relativeId.endsWith(".nodejs.ts")
 	);
+}
+
+/**
+ * @param {string} id
+ * @returns {boolean}
+ */
+function isBrowserChunk(relativeId) {
+	return relativeId.endsWith(".browser.ts");
 }
 
 /**
@@ -83,6 +92,14 @@ function manualChunks(id) {
 		return "meta-helper";
 	}
 
+	if (isNodejsChunk(rel)) {
+		return "core-nodejs";
+	}
+
+	if (isBrowserChunk(rel)) {
+		return "core-browser";
+	}
+
 	if (rel.startsWith("utils")) {
 		const parsed = path.parse(rel);
 		const split = ["natural-join"];
@@ -95,10 +112,6 @@ function manualChunks(id) {
 
 	if (rel.startsWith("jest/")) {
 		return "jest-lib";
-	}
-
-	if (isNodejsChunk(rel)) {
-		return "nodejs";
 	}
 
 	return "core";

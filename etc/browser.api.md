@@ -87,6 +87,17 @@ export interface CommentToken extends BaseToken {
 }
 
 // @public
+export function compatibilityCheck(name: string, declared: string, options?: Partial<CompatibilityOptions>): boolean;
+
+// @public
+export interface CompatibilityOptions {
+    logger(this: void, message: string): void;
+    silent: boolean;
+    // @internal
+    version: string;
+}
+
+// @public
 export interface ConditionalEvent extends Event_2 {
     condition: string;
     location: Location_2;

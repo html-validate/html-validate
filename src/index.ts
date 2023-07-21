@@ -1,6 +1,6 @@
-/* used when calling require('htmlvalidate'); */
+/* entrypoint for nodejs build */
 
-export * from "./browser";
+export * from "./common";
 export { type CLIOptions, type ExpandOptions, type InitResult, CLI } from "./cli";
 export {
 	type FileSystemConfigLoaderOptions,
@@ -12,4 +12,4 @@ export {
 	type Formatter,
 	getFormatter as formatterFactory,
 } from "./formatters";
-export { compatibilityCheck, type CompatibilityOptions } from "./utils";
+export { compatibilityCheck } from "./utils/compatibility-check.nodejs";
