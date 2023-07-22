@@ -7,6 +7,7 @@ import {
 	allowedIfAttributeHasValue,
 	allowedIfAttributeIsAbsent,
 	allowedIfAttributeIsPresent,
+	allowedIfParentIsPresent,
 } from "./helper";
 
 const config = Config.empty();
@@ -149,5 +150,40 @@ describe("allowedIfAttributeHasValue()", () => {
 		expect(
 			allowedIfAttributeHasValue("foo", ["bar", "baz", "ham"])(root, attr)
 		).toMatchInlineSnapshot(`""foo" attribute must be "bar", "baz" or "ham""`);
+	});
+});
+
+describe("allowedIfParentIsPresent()", () => {
+	it("should not return error if element has one of given parent elements", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<div>
+				<foo>
+					<bar attr></bar>
+				</foo>
+				<div></div>
+			</div>
+		`;
+		const root = parse(markup);
+		const node = root.querySelector("bar")!;
+		const attr = root.getAttribute("attr")!;
+		expect(allowedIfParentIsPresent("foo")(node, attr)).toMatchInlineSnapshot(`null`);
+	});
+
+	it("should return error if element doesn't have one of given parents and elements", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<div>
+				<foo>
+					<bar attr></bar>
+				</foo>
+			</div>
+		`;
+		const root = parse(markup);
+		const node = root.querySelector("bar")!;
+		const attr = root.getAttribute("attr")!;
+		expect(allowedIfParentIsPresent("spam", "ham")(node, attr)).toMatchInlineSnapshot(
+			`"requires <spam> or <ham> as parent"`
+		);
 	});
 });

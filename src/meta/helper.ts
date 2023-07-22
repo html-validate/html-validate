@@ -21,6 +21,13 @@ export interface MetadataHelper {
 		value: string[],
 		options?: { defaultValue?: string | null }
 	): MetaAttributeAllowedCallback;
+
+	/**
+	 * Returns an error if the node doesn't have any of the given elements as parent
+	 *
+	 * @since %version%
+	 **/
+	allowedIfParentIsPresent(this: void, ...tags: string[]): MetaAttributeAllowedCallback;
 }
 
 /**
@@ -73,10 +80,28 @@ export function allowedIfAttributeHasValue(
 }
 
 /**
+ * @internal
+ */
+export function allowedIfParentIsPresent(
+	this: void,
+	...tags: string[]
+): MetaAttributeAllowedCallback {
+	return (node: HtmlElement) => {
+		const match = tags.some((it) => node.closest(it));
+		if (match) {
+			return null;
+		}
+		const expected = naturalJoin(tags.map((it) => `<${it}>`));
+		return `requires ${expected} as parent`;
+	};
+}
+
+/**
  * @public
  */
 export const metadataHelper: MetadataHelper = {
 	allowedIfAttributeIsPresent,
 	allowedIfAttributeIsAbsent,
 	allowedIfAttributeHasValue,
+	allowedIfParentIsPresent,
 };
