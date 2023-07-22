@@ -52,6 +52,7 @@ import NoInlineStyle from "./no-inline-style";
 import NoMissingReferences from "./no-missing-references";
 import NoMultipleMain from "./no-multiple-main";
 import NoRawCharacters from "./no-raw-characters";
+import NoRedundantAriaLabel from "./no-redundant-aria-label";
 import NoRedundantFor from "./no-redundant-for";
 import NoRedundantRole from "./no-redundant-role";
 import NoSelfClosing from "./no-self-closing";
@@ -130,6 +131,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"no-missing-references": NoMissingReferences,
 	"no-multiple-main": NoMultipleMain,
 	"no-raw-characters": NoRawCharacters,
+	"no-redundant-aria-label": NoRedundantAriaLabel,
 	"no-redundant-for": NoRedundantFor,
 	"no-redundant-role": NoRedundantRole,
 	"no-self-closing": NoSelfClosing,

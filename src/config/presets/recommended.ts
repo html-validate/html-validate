@@ -47,6 +47,7 @@ const config: ConfigData = {
 		"no-inline-style": "error",
 		"no-multiple-main": "error",
 		"no-raw-characters": "error",
+		"no-redundant-aria-label": "error",
 		"no-redundant-for": "error",
 		"no-redundant-role": "error",
 		"no-self-closing": "error",

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/no-redundant-aria-label.md inline validation: correct 1`] = `[]`;
+
+exports[`docs/rules/no-redundant-aria-label.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 17,
+        "line": 2,
+        "message": "aria-label is redundant when label containing same text exists",
+        "offset": 55,
+        "ruleId": "no-redundant-aria-label",
+        "ruleUrl": "https://html-validate.org/rules/no-redundant-aria-label.html",
+        "selector": "#foo",
+        "severity": 2,
+        "size": 10,
+      },
+    ],
+    "source": "<label for="foo"> lorem ipsum </label>
+<input id="foo" aria-label="lorem ipsum" />",
+    "warningCount": 0,
+  },
+]
+`;
