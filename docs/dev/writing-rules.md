@@ -117,22 +117,13 @@ interface RuleContext {
 }
 
 export class MyRule extends Rule<RuleContext> {
-  /* documentation callback now accepts the optional context as first argument */
-  public documentation(context?: RuleContext): RuleDocumentation {
-    /* setup the default documentation object (used when no context is available) */
-    const doc: RuleDocumentation = {
-      description: "This element cannot be used here.",
+  public documentation(context: RuleContext): RuleDocumentation {
+    const tagname = context.tagname;
+    const allowed = context.allowed.join(", ");
+    return {
+      description: `The ${tagname} element cannot be used here, only one of ${allowed} is allowed.`,
       url: "https://example.net/my-rule",
     };
-
-    /* if a context was passed include a better description */
-    if (context) {
-      const tagname = context.tagname;
-      const allowed = context.allowed.join(", ");
-      doc.description = `The ${tagname} element cannot be used here, only one of ${allowed} is allowed.`;
-    }
-
-    return doc;
   }
 
   public setup(): void {
@@ -153,12 +144,6 @@ export class MyRule extends Rule<RuleContext> {
   }
 }
 ```
-
-<div class="alert alert-info">
-	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
-	<strong>Note</strong>
-	<p>Even if your rule reports contextual data the API user might not pass it back to the <code>documentation()</code> call so you must always test if the context object was actually passed or not.</p>
-</div>
 
 ## Message interpolation
 
