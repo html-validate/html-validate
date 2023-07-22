@@ -1,5 +1,16 @@
 # html-validate changelog
 
+## [8.1.0](https://gitlab.com/html-validate/html-validate/compare/v8.0.5...v8.1.0) (2023-07-22)
+
+### Features
+
+- **rules:** new rule `no-redundant-aria-label` ([59b5bab](https://gitlab.com/html-validate/html-validate/commit/59b5bab633239662115a20bfa8a717418668f7ec)), closes [#206](https://gitlab.com/html-validate/html-validate/issues/206)
+
+### Bug Fixes
+
+- add `compatibilityCheck` function to browser bundle ([b89dcc2](https://gitlab.com/html-validate/html-validate/commit/b89dcc2d06cba623ebd6c8ff5319b938fec59da4))
+- **api:** remove unintended `null` return value from plugins api ([0eb0ea8](https://gitlab.com/html-validate/html-validate/commit/0eb0ea802a1185fed658f0cccc1068a877ed9296))
+
 ## [8.0.5](https://gitlab.com/html-validate/html-validate/compare/v8.0.4...v8.0.5) (2023-06-13)
 
 ### Bug Fixes

@@ -33,4 +33,4 @@ Examples of **correct** code for this rule:
 
 ## Version history
 
-- %version% - Rule added.
+- 8.1.0 - Rule added.
