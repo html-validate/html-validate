@@ -102,16 +102,14 @@ export default class TelNonBreaking extends Rule<RuleContext, RuleOptions> {
 		};
 	}
 
-	public documentation(context?: RuleContext): RuleDocumentation {
+	public documentation(context: RuleContext): RuleDocumentation {
 		const { characters } = this.options;
 		const replacements = characters.map((it) => {
 			return `  - \`${it.pattern}\` - replace with \`${it.replacement}\` (${it.description}).`;
 		});
 		return {
 			description: [
-				context
-					? `The \`${context.pattern}\` character should be replaced with \`${context.replacement}\` character (${context.description}) when used in a telephone number.`
-					: `Replace this character with a non-breaking version.`,
+				`The \`${context.pattern}\` character should be replaced with \`${context.replacement}\` character (${context.description}) when used in a telephone number.`,
 				"",
 				"Unless non-breaking characters is used there could be a line break inserted at that character.",
 				"Line breaks make is harder to read and understand the telephone number.",

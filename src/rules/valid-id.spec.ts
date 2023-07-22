@@ -147,33 +147,11 @@ describe("rule valid-id", () => {
 
 		it("should contain documentation", async () => {
 			expect.assertions(1);
-			const docs = await htmlvalidate.getRuleDocumentation(
-				"valid-id",
-				await htmlvalidate.getConfigFor("inline")
-			);
-			expect(docs).toMatchInlineSnapshot(`
-				{
-				  "description": "Element ID is not valid.
-
-				Under the current configuration the following rules are applied:
-
-				  - ID must not be empty
-				  - ID must not contain any whitespace characters
-				  - ID must begin with a letter
-				  - ID must only contain alphanumerical characters, \`-\` and \`_\`",
-				  "url": "https://html-validate.org/rules/valid-id.html",
-				}
-			`);
-		});
-
-		it("should contain contextual documentation", async () => {
-			expect.assertions(1);
 			const context = RuleContext.LEADING_CHARACTER;
-			const docs = await htmlvalidate.getRuleDocumentation(
-				"valid-id",
-				await htmlvalidate.getConfigFor("inline"),
-				context
-			);
+			const docs = await htmlvalidate.getContextualDocumentation({
+				ruleId: "valid-id",
+				context,
+			});
 			expect(docs).toMatchInlineSnapshot(`
 				{
 				  "description": "Element ID must begin with a letter.
@@ -227,31 +205,11 @@ describe("rule valid-id", () => {
 
 		it("should contain documentation", async () => {
 			expect.assertions(1);
-			const docs = await htmlvalidate.getRuleDocumentation(
-				"valid-id",
-				await htmlvalidate.getConfigFor("inline")
-			);
-			expect(docs).toMatchInlineSnapshot(`
-				{
-				  "description": "Element ID is not valid.
-
-				Under the current configuration the following rules are applied:
-
-				  - ID must not be empty
-				  - ID must not contain any whitespace characters",
-				  "url": "https://html-validate.org/rules/valid-id.html",
-				}
-			`);
-		});
-
-		it("should contain contextual documentation", async () => {
-			expect.assertions(1);
 			const context = RuleContext.EMPTY;
-			const docs = await htmlvalidate.getRuleDocumentation(
-				"valid-id",
-				await htmlvalidate.getConfigFor("inline"),
-				context
-			);
+			const docs = await htmlvalidate.getContextualDocumentation({
+				ruleId: "valid-id",
+				context,
+			});
 			expect(docs).toMatchInlineSnapshot(`
 				{
 				  "description": "Element ID must not be empty.

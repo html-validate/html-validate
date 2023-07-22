@@ -23,7 +23,7 @@ function getAltText(node: HtmlElement): string | null {
 	return node.getAttributeValue("alt");
 }
 
-function getDescription(context?: RuleContext): string[] {
+function getDescription(context: RuleContext): string[] {
 	switch (context) {
 		case RuleContext.MISSING_ALT:
 			return [
@@ -39,14 +39,6 @@ function getDescription(context?: RuleContext): string[] {
 				"The `alt` attribute must not be set when the `href` attribute is missing on an `<area>` element.",
 				"",
 				"Either add the `href` attribute or remove the `alt` attribute.",
-			];
-		default:
-			return [
-				"The `alt` attribute must only be used together with the `href` attribute.",
-				"It must be set if `href` is present and must be omitted if `href` is missing",
-				"",
-				"The attribute is used to provide an alternative text description for the area of the image map.",
-				"The text should describe the purpose of area and the resource referenced by the `href` attribute.",
 			];
 	}
 }
@@ -64,7 +56,7 @@ export default class AreaAlt extends Rule<RuleContext, RuleOptions> {
 		};
 	}
 
-	public documentation(context?: RuleContext): RuleDocumentation {
+	public documentation(context: RuleContext): RuleDocumentation {
 		return {
 			description: getDescription(context).join("\n"),
 			url: ruleDocumentationUrl(__filename),

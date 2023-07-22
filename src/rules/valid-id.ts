@@ -30,11 +30,11 @@ export default class ValidID extends Rule<RuleContext, RuleOptions> {
 		};
 	}
 
-	public documentation(context?: RuleContext): RuleDocumentation {
+	public documentation(context: RuleContext): RuleDocumentation {
 		const { relaxed } = this.options;
-		const message = context
-			? this.messages[context].replace("id", "ID").replace(/^(.)/, (m) => m.toUpperCase())
-			: "Element ID is not valid";
+		const message = this.messages[context]
+			.replace("id", "ID")
+			.replace(/^(.)/, (m) => m.toUpperCase());
 		const relaxedDescription = relaxed
 			? []
 			: [

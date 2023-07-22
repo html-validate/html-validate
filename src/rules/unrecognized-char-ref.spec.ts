@@ -233,31 +233,53 @@ describe("rule unrecognized-char-ref", () => {
 		});
 	});
 
-	it("should contain documentation", async () => {
-		expect.assertions(1);
-		const docs = await htmlvalidate.getRuleDocumentation("unrecognized-char-ref");
-		expect(docs).toMatchSnapshot();
-	});
-
-	it("should contain contextual documentation (terminated)", async () => {
+	it("should contain documentation (terminated)", async () => {
 		expect.assertions(1);
 		const context: RuleContext = {
 			entity: "&spam;",
 			terminated: true,
 		};
-		expect(
-			await htmlvalidate.getRuleDocumentation("unrecognized-char-ref", null, context)
-		).toMatchSnapshot();
+		const docs = await htmlvalidate.getContextualDocumentation({
+			ruleId: "unrecognized-char-ref",
+			context,
+		});
+		expect(docs).toMatchInlineSnapshot(`
+			{
+			  "description": "Unrecognized character reference \`&spam;\`.
+			HTML5 defines a set of [valid character references](https://html.spec.whatwg.org/multipage/named-characters.html) but this is not a valid one.
+
+			Ensure that:
+
+			1. The character is one of the listed names.
+			1. The case is correct (names are case sensitive).
+			1. The name is terminated with a \`;\`.",
+			  "url": "https://html-validate.org/rules/unrecognized-char-ref.html",
+			}
+		`);
 	});
 
-	it("should contain contextual documentation (not terminated)", async () => {
+	it("should contain documentation (not terminated)", async () => {
 		expect.assertions(1);
 		const context: RuleContext = {
-			entity: "&spam;",
+			entity: "&spam",
 			terminated: false,
 		};
-		expect(
-			await htmlvalidate.getRuleDocumentation("unrecognized-char-ref", null, context)
-		).toMatchSnapshot();
+		const docs = await htmlvalidate.getContextualDocumentation({
+			ruleId: "unrecognized-char-ref",
+			context,
+		});
+		expect(docs).toMatchInlineSnapshot(`
+			{
+			  "description": "Character reference \`&spam\` must be terminated by a semicolon.
+			HTML5 defines a set of [valid character references](https://html.spec.whatwg.org/multipage/named-characters.html) but this is not a valid one.
+
+			Ensure that:
+
+			1. The character is one of the listed names.
+			1. The case is correct (names are case sensitive).
+			1. The name is terminated with a \`;\`.",
+			  "url": "https://html-validate.org/rules/unrecognized-char-ref.html",
+			}
+		`);
 	});
 });

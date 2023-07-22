@@ -224,25 +224,13 @@ describe("rule no-unused-disable", () => {
 			root: true,
 			rules: { "no-unused-disable": "error" },
 		});
-		const docs = await htmlvalidate.getRuleDocumentation("no-unused-disable");
-		expect(docs?.description).toMatchInlineSnapshot(
-			`"Rule is disabled but no error was reported."`
-		);
-		expect(docs?.url).toMatchInlineSnapshot(
-			`"https://html-validate.org/rules/no-unused-disable.html"`
-		);
-	});
-
-	it("should contain contextual documentation", async () => {
-		expect.assertions(2);
-		htmlvalidate = new HtmlValidate({
-			root: true,
-			rules: { "no-unused-disable": "error" },
-		});
 		const context: RuleContext = {
 			ruleId: "mock-rule",
 		};
-		const docs = await htmlvalidate.getRuleDocumentation("no-unused-disable", null, context);
+		const docs = await htmlvalidate.getContextualDocumentation({
+			ruleId: "no-unused-disable",
+			context,
+		});
 		expect(docs?.description).toMatchInlineSnapshot(
 			`"\`mock-rule\` rule is disabled but no error was reported."`
 		);

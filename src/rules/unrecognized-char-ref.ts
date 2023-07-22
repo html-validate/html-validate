@@ -47,17 +47,13 @@ function getLocation(
 	return sliceLocation(location, index, index + entity.length);
 }
 
-function getDescription(context: RuleContext | undefined, options: RuleOptions): string {
+function getDescription(context: RuleContext, options: RuleOptions): string {
 	const url = "https://html.spec.whatwg.org/multipage/named-characters.html";
 	let message: string;
-	if (context) {
-		if (context.terminated) {
-			message = `Unrecognized character reference \`${context.entity}\`.`;
-		} else {
-			message = `Character reference \`${context.entity}\` must be terminated by a semicolon.`;
-		}
+	if (context.terminated) {
+		message = `Unrecognized character reference \`${context.entity}\`.`;
 	} else {
-		message = `Unrecognized character reference.`;
+		message = `Character reference \`${context.entity}\` must be terminated by a semicolon.`;
 	}
 
 	return [
@@ -88,7 +84,7 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 		};
 	}
 
-	public documentation(context?: RuleContext): RuleDocumentation {
+	public documentation(context: RuleContext): RuleDocumentation {
 		return {
 			description: getDescription(context, this.options),
 			url: ruleDocumentationUrl(__filename),
