@@ -55,7 +55,7 @@ export class CLI {
 	 * script.
 	 */
 	public constructor(options?: CLIOptions) {
-		this.options = options || {};
+		this.options = options ?? {};
 		this.config = this.resolveConfig();
 		this.loader = new FileSystemConfigLoader(this.config);
 		this.ignored = new IsIgnored();

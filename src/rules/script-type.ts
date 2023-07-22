@@ -22,7 +22,7 @@ export default class ScriptType extends Rule {
 		this.on("tag:end", (event: TagEndEvent) => {
 			const node = event.previous;
 
-			if (!node || node.tagName !== "script") {
+			if (node.tagName !== "script") {
 				return;
 			}
 

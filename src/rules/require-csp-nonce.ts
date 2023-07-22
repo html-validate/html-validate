@@ -47,7 +47,7 @@ export default class RequireCSPNonce extends Rule<void, RuleOptions> {
 			const node = event.previous;
 
 			/* ignore other tags */
-			if (!node || !tags.includes(node.tagName)) {
+			if (!tags.includes(node.tagName)) {
 				return;
 			}
 

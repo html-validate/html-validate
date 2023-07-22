@@ -41,6 +41,9 @@ module.exports = {
 				project: ["./tsconfig.json"],
 			},
 			extends: ["@html-validate/typescript-typeinfo"],
+			rules: {
+				"@typescript-eslint/no-explicit-any": "off",
+			},
 		},
 		{
 			files: "*.spec.[jt]s",

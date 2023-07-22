@@ -99,7 +99,11 @@ export default class RequireSri extends Rule<void, RuleOptions> {
 
 	private needSri(node: HtmlElement): boolean {
 		const attr = this.elementSourceAttr(node);
-		if (!attr || attr.value === null || attr.value === "" || attr.isDynamic) {
+		if (!attr) {
+			return false;
+		}
+
+		if (attr.value === null || attr.value === "" || attr.isDynamic) {
 			return false;
 		}
 
