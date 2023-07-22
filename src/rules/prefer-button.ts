@@ -61,16 +61,12 @@ export default class PreferButton extends Rule<RuleContext, RuleOptions> {
 	}
 
 	public documentation(context: RuleContext): RuleDocumentation {
-		const doc: RuleDocumentation = {
-			description: `Prefer to use the generic \`<button>\` element instead of \`<input>\`.`,
+		const src = `<input type="${context.type}">`;
+		const dst = replacement[context.type] || `<button>`;
+		return {
+			description: `Prefer to use \`${dst}\` instead of \`"${src}\`.`,
 			url: ruleDocumentationUrl(__filename),
 		};
-		if (context) {
-			const src = `<input type="${context.type}">`;
-			const dst = replacement[context.type] || `<button>`;
-			doc.description = `Prefer to use \`${dst}\` instead of \`"${src}\`.`;
-		}
-		return doc;
 	}
 
 	public setup(): void {

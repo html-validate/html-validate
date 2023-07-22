@@ -38,17 +38,11 @@ export default class VoidStyle extends Rule<RuleContext, RuleOptions> {
 	}
 
 	public documentation(context: RuleContext): RuleDocumentation {
-		const doc: RuleDocumentation = {
-			description: "The current configuration requires a specific style for ending void elements.",
+		const [desc, end] = styleDescription(context.style);
+		return {
+			description: `The current configuration requires void elements to ${desc}, use <${context.tagName}${end}> instead.`,
 			url: ruleDocumentationUrl(__filename),
 		};
-
-		if (context) {
-			const [desc, end] = styleDescription(context.style);
-			doc.description = `The current configuration requires void elements to ${desc}, use <${context.tagName}${end}> instead.`;
-		}
-
-		return doc;
 	}
 
 	public setup(): void {

@@ -83,14 +83,10 @@ export default class PreferNativeElement extends Rule<RuleContext, RuleOptions> 
 	}
 
 	public documentation(context: RuleContext): RuleDocumentation {
-		const doc: RuleDocumentation = {
-			description: `Instead of using WAI-ARIA roles prefer to use the native HTML elements.`,
+		return {
+			description: `Instead of using the WAI-ARIA role "${context.role}" prefer to use the native <${context.replacement}> element.`,
 			url: ruleDocumentationUrl(__filename),
 		};
-		if (context) {
-			doc.description = `Instead of using the WAI-ARIA role "${context.role}" prefer to use the native <${context.replacement}> element.`;
-		}
-		return doc;
 	}
 
 	public setup(): void {

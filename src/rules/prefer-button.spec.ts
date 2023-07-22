@@ -165,24 +165,17 @@ describe("rule prefer-button", () => {
 		expect(invalid).toBeInvalid();
 	});
 
-	it("should contain documentation", async () => {
-		expect.assertions(1);
-		const htmlvalidate = new HtmlValidate({
-			root: true,
-			rules: { "prefer-button": "error" },
-		});
-		const docs = await htmlvalidate.getRuleDocumentation("prefer-button");
-		expect(docs).toMatchSnapshot();
-	});
-
-	describe("should contain contextual documentation", () => {
+	describe("should contain documentation", () => {
 		it.each([...types, "unknown"])('for type "%s"', async (type) => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate({
 				root: true,
 				rules: { "prefer-button": "error" },
 			});
-			const docs = await htmlvalidate.getRuleDocumentation("prefer-button", null, { type });
+			const docs = await htmlvalidate.getContextualDocumentation({
+				ruleId: "prefer-button",
+				context: { type },
+			});
 			expect(docs).toMatchSnapshot();
 		});
 	});

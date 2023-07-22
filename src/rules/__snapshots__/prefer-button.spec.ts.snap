@@ -1,43 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`rule prefer-button should contain contextual documentation for type "button" 1`] = `
+exports[`rule prefer-button should contain documentation for type "button" 1`] = `
 {
   "description": "Prefer to use \`<button type="button">\` instead of \`"<input type="button">\`.",
   "url": "https://html-validate.org/rules/prefer-button.html",
 }
 `;
 
-exports[`rule prefer-button should contain contextual documentation for type "image" 1`] = `
+exports[`rule prefer-button should contain documentation for type "image" 1`] = `
 {
   "description": "Prefer to use \`<button type="button">\` instead of \`"<input type="image">\`.",
   "url": "https://html-validate.org/rules/prefer-button.html",
 }
 `;
 
-exports[`rule prefer-button should contain contextual documentation for type "reset" 1`] = `
+exports[`rule prefer-button should contain documentation for type "reset" 1`] = `
 {
   "description": "Prefer to use \`<button type="reset">\` instead of \`"<input type="reset">\`.",
   "url": "https://html-validate.org/rules/prefer-button.html",
 }
 `;
 
-exports[`rule prefer-button should contain contextual documentation for type "submit" 1`] = `
+exports[`rule prefer-button should contain documentation for type "submit" 1`] = `
 {
   "description": "Prefer to use \`<button type="submit">\` instead of \`"<input type="submit">\`.",
   "url": "https://html-validate.org/rules/prefer-button.html",
 }
 `;
 
-exports[`rule prefer-button should contain contextual documentation for type "unknown" 1`] = `
+exports[`rule prefer-button should contain documentation for type "unknown" 1`] = `
 {
   "description": "Prefer to use \`<button>\` instead of \`"<input type="unknown">\`.",
-  "url": "https://html-validate.org/rules/prefer-button.html",
-}
-`;
-
-exports[`rule prefer-button should contain documentation 1`] = `
-{
-  "description": "Prefer to use the generic \`<button>\` element instead of \`<input>\`.",
   "url": "https://html-validate.org/rules/prefer-button.html",
 }
 `;

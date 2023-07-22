@@ -97,18 +97,16 @@ export default class TextContent extends Rule<RuleContext> {
 			description: `The textual content for this element is not valid.`,
 			url: ruleDocumentationUrl(__filename),
 		};
-		if (context?.textContent) {
-			switch (context.textContent) {
-				case TextContentEnum.NONE:
-					doc.description = `The \`<${context.tagName}>\` element must not have textual content.`;
-					break;
-				case TextContentEnum.REQUIRED:
-					doc.description = `The \`<${context.tagName}>\` element must have textual content.`;
-					break;
-				case TextContentEnum.ACCESSIBLE:
-					doc.description = `The \`<${context.tagName}>\` element must have accessible text.`;
-					break;
-			}
+		switch (context.textContent) {
+			case TextContentEnum.NONE:
+				doc.description = `The \`<${context.tagName}>\` element must not have textual content.`;
+				break;
+			case TextContentEnum.REQUIRED:
+				doc.description = `The \`<${context.tagName}>\` element must have textual content.`;
+				break;
+			case TextContentEnum.ACCESSIBLE:
+				doc.description = `The \`<${context.tagName}>\` element must have accessible text.`;
+				break;
 		}
 		return doc;
 	}

@@ -96,21 +96,19 @@ describe("rule prefer-native-element", () => {
 			root: true,
 			rules: { "prefer-native-element": "error" },
 		});
-		const docs = await htmlvalidate.getRuleDocumentation("prefer-native-element");
-		expect(docs).toMatchSnapshot();
-	});
-
-	it("should contain contextual documentation", async () => {
-		expect.assertions(1);
-		const htmlvalidate = new HtmlValidate({
-			root: true,
-			rules: { "prefer-native-element": "error" },
-		});
 		const context = {
 			role: "the-role",
 			replacement: "the-replacement",
 		};
-		const docs = await htmlvalidate.getRuleDocumentation("prefer-native-element", null, context);
-		expect(docs).toMatchSnapshot();
+		const docs = await htmlvalidate.getContextualDocumentation({
+			ruleId: "prefer-native-element",
+			context,
+		});
+		expect(docs).toMatchInlineSnapshot(`
+			{
+			  "description": "Instead of using the WAI-ARIA role "the-role" prefer to use the native <the-replacement> element.",
+			  "url": "https://html-validate.org/rules/prefer-native-element.html",
+			}
+		`);
 	});
 });

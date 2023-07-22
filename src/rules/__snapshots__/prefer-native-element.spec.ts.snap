@@ -197,17 +197,3 @@ error: Prefer to use the native <textarea> element (prefer-native-element) at te
   25 |
 Selector: div:nth-child(23)"
 `;
-
-exports[`rule prefer-native-element should contain contextual documentation 1`] = `
-{
-  "description": "Instead of using the WAI-ARIA role "the-role" prefer to use the native <the-replacement> element.",
-  "url": "https://html-validate.org/rules/prefer-native-element.html",
-}
-`;
-
-exports[`rule prefer-native-element should contain documentation 1`] = `
-{
-  "description": "Instead of using WAI-ARIA roles prefer to use the native HTML elements.",
-  "url": "https://html-validate.org/rules/prefer-native-element.html",
-}
-`;
