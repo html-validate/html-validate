@@ -7,16 +7,19 @@ summary: Ensure required attributes are set
 
 # Require attribute (`element-required-attributes`)
 
-Ensures required attributes are present but may be empty. Use
-[attribute-allowed-values](/rules/attribute-allowed-values.html) to disallow
-certain values.
+Ensures required attributes are present but may be empty.
+Use {@link rule:attribute-allowed-values} rule to disallow certain values.
 
-The requirements comes from the [element metadata](/usage/elements.html):
+The requirements comes from the {@link usage/elements element metadata}:
 
 ```json
 {
   "input": {
-    "requiredAttributes": ["type"]
+    "attributes": {
+      "type": {
+        "required": true
+      }
+    }
   }
 }
 ```
