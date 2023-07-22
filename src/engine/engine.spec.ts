@@ -471,7 +471,10 @@ describe("Engine", () => {
 	describe("getRuleDocumentation()", () => {
 		it("should get rule documentation", () => {
 			expect.assertions(1);
-			const docs = engine.getRuleDocumentation({ ruleId: "void-style" });
+			const docs = engine.getRuleDocumentation({
+				ruleId: "void-style",
+				context: { style: 1, tagName: "foo" },
+			});
 			expect(docs).toEqual({
 				description: expect.any(String),
 				url: expect.any(String),
