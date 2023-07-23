@@ -14917,7 +14917,7 @@ exports[`HTML elements <small> valid markup 1`] = `[]`;
 exports[`HTML elements <source> invalid markup 1`] = `
 [
   {
-    "errorCount": 2,
+    "errorCount": 19,
     "filePath": "test-files/elements/source-invalid.html",
     "messages": [
       {
@@ -14948,6 +14948,309 @@ exports[`HTML elements <source> invalid markup 1`] = `
         "severity": 2,
         "size": 6,
       },
+      {
+        "column": 10,
+        "context": {
+          "attr": "srcset",
+          "details": "requires <picture> as parent",
+        },
+        "line": 13,
+        "message": ""srcset" attribute cannot be used in this context: requires <picture> as parent",
+        "offset": 226,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "audio:nth-child(3) > source",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 22,
+        "context": {
+          "attr": "sizes",
+          "details": "requires <picture> as parent",
+        },
+        "line": 13,
+        "message": ""sizes" attribute cannot be used in this context: requires <picture> as parent",
+        "offset": 238,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "audio:nth-child(3) > source",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 33,
+        "context": {
+          "attr": "width",
+          "details": "requires <picture> as parent",
+        },
+        "line": 13,
+        "message": ""width" attribute cannot be used in this context: requires <picture> as parent",
+        "offset": 249,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "audio:nth-child(3) > source",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 45,
+        "context": {
+          "attr": "height",
+          "details": "requires <picture> as parent",
+        },
+        "line": 13,
+        "message": ""height" attribute cannot be used in this context: requires <picture> as parent",
+        "offset": 261,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "audio:nth-child(3) > source",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 10,
+        "context": {
+          "attr": "srcset",
+          "details": "requires <picture> as parent",
+        },
+        "line": 16,
+        "message": ""srcset" attribute cannot be used in this context: requires <picture> as parent",
+        "offset": 301,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "video > source",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 22,
+        "context": {
+          "attr": "sizes",
+          "details": "requires <picture> as parent",
+        },
+        "line": 16,
+        "message": ""sizes" attribute cannot be used in this context: requires <picture> as parent",
+        "offset": 313,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "video > source",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 33,
+        "context": {
+          "attr": "width",
+          "details": "requires <picture> as parent",
+        },
+        "line": 16,
+        "message": ""width" attribute cannot be used in this context: requires <picture> as parent",
+        "offset": 324,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "video > source",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 45,
+        "context": {
+          "attr": "height",
+          "details": "requires <picture> as parent",
+        },
+        "line": 16,
+        "message": ""height" attribute cannot be used in this context: requires <picture> as parent",
+        "offset": 336,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "video > source",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 10,
+        "context": {
+          "attr": "src",
+          "details": "requires <audio> or <video> as parent",
+        },
+        "line": 21,
+        "message": ""src" attribute cannot be used in this context: requires <audio> or <video> as parent",
+        "offset": 437,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "picture:nth-child(5) > source",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 3,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "source",
+          "value": "",
+        },
+        "line": 26,
+        "message": "Attribute "width" has invalid value """,
+        "offset": 530,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "picture:nth-child(6) > source:nth-child(1)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 3,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "source",
+          "value": "",
+        },
+        "line": 26,
+        "message": "Attribute "height" has invalid value """,
+        "offset": 530,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "picture:nth-child(6) > source:nth-child(1)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 17,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "source",
+          "value": "-123",
+        },
+        "line": 27,
+        "message": "Attribute "width" has invalid value "-123"",
+        "offset": 573,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "picture:nth-child(6) > source:nth-child(2)",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 31,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "source",
+          "value": "-123",
+        },
+        "line": 27,
+        "message": "Attribute "height" has invalid value "-123"",
+        "offset": 587,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "picture:nth-child(6) > source:nth-child(2)",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 17,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "source",
+          "value": "12.34",
+        },
+        "line": 28,
+        "message": "Attribute "width" has invalid value "12.34"",
+        "offset": 610,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "picture:nth-child(6) > source:nth-child(3)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 32,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "source",
+          "value": "12.34",
+        },
+        "line": 28,
+        "message": "Attribute "height" has invalid value "12.34"",
+        "offset": 625,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "picture:nth-child(6) > source:nth-child(3)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 17,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "source",
+          "value": "invalid",
+        },
+        "line": 29,
+        "message": "Attribute "width" has invalid value "invalid"",
+        "offset": 649,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "picture:nth-child(6) > source:nth-child(4)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 34,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "source",
+          "value": "invalid",
+        },
+        "line": 29,
+        "message": "Attribute "height" has invalid value "invalid"",
+        "offset": 666,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "picture:nth-child(6) > source:nth-child(4)",
+        "severity": 2,
+        "size": 7,
+      },
     ],
     "source": "<!-- should omit end tag -->
 <audio>
@@ -14958,6 +15261,27 @@ exports[`HTML elements <source> invalid markup 1`] = `
 <div>
 	<source>
 </div>
+
+<!-- attributes should not be allowed under <audio> and <video> -->
+<audio>
+	<source srcset=".." sizes=".." width="123" height="123">
+</audio>
+<video>
+	<source srcset=".." sizes=".." width="123" height="123">
+</video>
+
+<!-- attributes should not be allowed under <picture> -->
+<picture>
+	<source src="..">
+</picture>
+
+<!-- width/height should only be non-negative integers -->
+<picture>
+	<source width="" height="">
+	<source width="-123" height="-123">
+	<source width="12.34" height="12.34">
+	<source width="invalid" height="invalid">
+</picture>
 ",
     "warningCount": 0,
   },

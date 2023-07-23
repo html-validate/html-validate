@@ -3,8 +3,12 @@
 import { defineMetadata } from "../meta/define-metadata";
 import { metadataHelper } from "../meta/helper";
 
-const { allowedIfAttributeIsPresent, allowedIfAttributeIsAbsent, allowedIfAttributeHasValue } =
-	metadataHelper;
+const {
+	allowedIfAttributeIsPresent,
+	allowedIfAttributeIsAbsent,
+	allowedIfAttributeHasValue,
+	allowedIfParentIsPresent,
+} = metadataHelper;
 
 export default defineMetadata({
 	"*": {
@@ -1687,6 +1691,27 @@ export default defineMetadata({
 
 	source: {
 		void: true,
+		attributes: {
+			type: {},
+			media: {},
+			src: {
+				allowed: allowedIfParentIsPresent("audio", "video"),
+			},
+			srcset: {
+				allowed: allowedIfParentIsPresent("picture"),
+			},
+			sizes: {
+				allowed: allowedIfParentIsPresent("picture"),
+			},
+			width: {
+				allowed: allowedIfParentIsPresent("picture"),
+				enum: ["/\\d+/"],
+			},
+			height: {
+				allowed: allowedIfParentIsPresent("picture"),
+				enum: ["/\\d+/"],
+			},
+		},
 	},
 
 	spacer: {
