@@ -29,8 +29,8 @@ function isIgnored(key: string): boolean {
 	return Boolean(key.startsWith("_") || jsonIgnored.includes(key));
 }
 
-function isFiltered(key: string): boolean {
-	return jsonFiltered.includes(key);
+function isFiltered(key: string, value: unknown): boolean {
+	return Boolean(value && jsonFiltered.includes(key));
 }
 
 export function eventReplacer<T>(this: void, key: string, value: T): T | string | undefined {
@@ -40,7 +40,7 @@ export function eventReplacer<T>(this: void, key: string, value: T): T | string 
 	if (isIgnored(key)) {
 		return undefined;
 	}
-	if (isFiltered(key)) {
+	if (isFiltered(key, value)) {
 		return "[truncated]";
 	}
 	return value;

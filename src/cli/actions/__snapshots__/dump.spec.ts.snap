@@ -89,7 +89,7 @@ tag:end: {
     "location": "<rootDir>/test-files/parser/simple.html:1:25",
     "childNodes": "[truncated]",
     "tagName": "p",
-    "parent": "[truncated]",
+    "parent": null,
     "attr": {},
     "metaElement": "[truncated]"
   },
@@ -145,18 +145,18 @@ dom:ready: {
       "location": "<rootDir>/test-files/parser/simple.html:1:1",
       "childNodes": "[truncated]",
       "tagName": "#document",
-      "parent": "[truncated]",
+      "parent": null,
       "attr": {},
-      "metaElement": "[truncated]"
+      "metaElement": null
     },
     "active": {
       "nodeName": "#document",
       "location": "<rootDir>/test-files/parser/simple.html:1:1",
       "childNodes": "[truncated]",
       "tagName": "#document",
-      "parent": "[truncated]",
+      "parent": null,
       "attr": {},
-      "metaElement": "[truncated]"
+      "metaElement": null
     },
     "doctype": null
   },
