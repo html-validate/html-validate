@@ -18,7 +18,7 @@ function isLocation(key: string, value: unknown): value is Location {
 }
 
 function isIgnored(key: string): boolean {
-	return jsonIgnored.includes(key);
+	return Boolean(key.startsWith("_") || jsonIgnored.includes(key));
 }
 
 function isFiltered(key: string): boolean {

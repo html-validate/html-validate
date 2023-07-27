@@ -65,6 +65,22 @@ describe("eventFormatter", () => {
 		expect(eventFormatter(entry)).toMatchSnapshot();
 	});
 
+	it("should filter out any keys starting with underscore (internal properties)", () => {
+		expect.assertions(1);
+		const entry: EventDump = {
+			event: "mock-event",
+			data: {
+				foo: 1,
+				_bar: 2,
+			},
+		};
+		expect(eventFormatter(entry)).toMatchInlineSnapshot(`
+			"mock-event: {
+			  "foo": 1
+			}"
+		`);
+	});
+
 	it("should condense locations", () => {
 		expect.assertions(1);
 		const entry: EventDump = {
