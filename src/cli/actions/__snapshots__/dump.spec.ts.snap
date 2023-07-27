@@ -23,7 +23,28 @@ tag:start: {
     "childNodes": "[truncated]",
     "tagName": "p",
     "parent": "[truncated]",
-    "attr": {},
+    "attr": {
+      "id": [
+        {
+          "key": "id",
+          "value": "foo",
+          "keyLocation": {
+            "filename": "<rootDir>/test-files/parser/simple.html",
+            "offset": 3,
+            "line": 1,
+            "column": 4,
+            "size": 2
+          },
+          "valueLocation": {
+            "filename": "<rootDir>/test-files/parser/simple.html",
+            "offset": 7,
+            "line": 1,
+            "column": 8,
+            "size": 3
+          }
+        }
+      ]
+    },
     "metaElement": {
       "attributes": {
         "contenteditable": {
@@ -107,7 +128,7 @@ tag:start: {
   },
   "location": "<rootDir>/test-files/parser/simple.html:1:1"
 }
-tag:ready: {
+attr: {
   "target": {
     "nodeType": 1,
     "nodeName": "p",
@@ -115,7 +136,28 @@ tag:ready: {
     "childNodes": "[truncated]",
     "tagName": "p",
     "parent": "[truncated]",
-    "attr": {},
+    "attr": {
+      "id": [
+        {
+          "key": "id",
+          "value": "foo",
+          "keyLocation": {
+            "filename": "<rootDir>/test-files/parser/simple.html",
+            "offset": 3,
+            "line": 1,
+            "column": 4,
+            "size": 2
+          },
+          "valueLocation": {
+            "filename": "<rootDir>/test-files/parser/simple.html",
+            "offset": 7,
+            "line": 1,
+            "column": 8,
+            "size": 3
+          }
+        }
+      ]
+    },
     "metaElement": {
       "attributes": {
         "contenteditable": {
@@ -197,13 +239,143 @@ tag:ready: {
     "depth": 0,
     "annotation": null
   },
-  "location": "<rootDir>/test-files/parser/simple.html:1:3"
+  "key": "id",
+  "value": "foo",
+  "quote": "\\"",
+  "location": "<rootDir>/test-files/parser/simple.html:1:4",
+  "keyLocation": {
+    "filename": "<rootDir>/test-files/parser/simple.html",
+    "offset": 3,
+    "line": 1,
+    "column": 4,
+    "size": 2
+  },
+  "valueLocation": {
+    "filename": "<rootDir>/test-files/parser/simple.html",
+    "offset": 7,
+    "line": 1,
+    "column": 8,
+    "size": 3
+  }
+}
+tag:ready: {
+  "target": {
+    "nodeType": 1,
+    "nodeName": "p",
+    "location": "<rootDir>/test-files/parser/simple.html:1:2",
+    "childNodes": "[truncated]",
+    "tagName": "p",
+    "parent": "[truncated]",
+    "attr": {
+      "id": [
+        {
+          "key": "id",
+          "value": "foo",
+          "keyLocation": {
+            "filename": "<rootDir>/test-files/parser/simple.html",
+            "offset": 3,
+            "line": 1,
+            "column": 4,
+            "size": 2
+          },
+          "valueLocation": {
+            "filename": "<rootDir>/test-files/parser/simple.html",
+            "offset": 7,
+            "line": 1,
+            "column": 8,
+            "size": 3
+          }
+        }
+      ]
+    },
+    "metaElement": {
+      "attributes": {
+        "contenteditable": {
+          "omit": true,
+          "enum": [
+            "true",
+            "false"
+          ]
+        },
+        "contextmenu": {
+          "deprecated": true
+        },
+        "dir": {
+          "enum": [
+            "ltr",
+            "rtl",
+            "auto"
+          ]
+        },
+        "draggable": {
+          "enum": [
+            "true",
+            "false"
+          ]
+        },
+        "hidden": {
+          "boolean": true
+        },
+        "id": {
+          "enum": [
+            {}
+          ]
+        },
+        "tabindex": {
+          "enum": [
+            {}
+          ]
+        },
+        "align": {
+          "deprecated": true
+        }
+      },
+      "flow": true,
+      "implicitClosed": [
+        "address",
+        "article",
+        "aside",
+        "blockquote",
+        "div",
+        "dl",
+        "fieldset",
+        "footer",
+        "form",
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "header",
+        "hgroup",
+        "hr",
+        "main",
+        "nav",
+        "ol",
+        "p",
+        "pre",
+        "section",
+        "table",
+        "ul"
+      ],
+      "permittedContent": [
+        "@phrasing"
+      ],
+      "tagName": "p"
+    },
+    "closed": 0,
+    "voidElement": false,
+    "depth": 0,
+    "annotation": null
+  },
+  "location": "<rootDir>/test-files/parser/simple.html:1:12"
 }
 tag:end: {
   "target": {
     "nodeType": 1,
     "nodeName": "p",
-    "location": "<rootDir>/test-files/parser/simple.html:1:16",
+    "location": "<rootDir>/test-files/parser/simple.html:1:25",
     "childNodes": "[truncated]",
     "tagName": "p",
     "parent": "[truncated]",
@@ -296,7 +468,28 @@ tag:end: {
     "childNodes": "[truncated]",
     "tagName": "p",
     "parent": "[truncated]",
-    "attr": {},
+    "attr": {
+      "id": [
+        {
+          "key": "id",
+          "value": "foo",
+          "keyLocation": {
+            "filename": "<rootDir>/test-files/parser/simple.html",
+            "offset": 3,
+            "line": 1,
+            "column": 4,
+            "size": 2
+          },
+          "valueLocation": {
+            "filename": "<rootDir>/test-files/parser/simple.html",
+            "offset": 7,
+            "line": 1,
+            "column": 8,
+            "size": 3
+          }
+        }
+      ]
+    },
     "metaElement": {
       "attributes": {
         "contenteditable": {
@@ -378,7 +571,7 @@ tag:end: {
     "depth": 0,
     "annotation": null
   },
-  "location": "<rootDir>/test-files/parser/simple.html:1:18"
+  "location": "<rootDir>/test-files/parser/simple.html:1:27"
 }
 element:ready: {
   "target": {
@@ -388,7 +581,28 @@ element:ready: {
     "childNodes": "[truncated]",
     "tagName": "p",
     "parent": "[truncated]",
-    "attr": {},
+    "attr": {
+      "id": [
+        {
+          "key": "id",
+          "value": "foo",
+          "keyLocation": {
+            "filename": "<rootDir>/test-files/parser/simple.html",
+            "offset": 3,
+            "line": 1,
+            "column": 4,
+            "size": 2
+          },
+          "valueLocation": {
+            "filename": "<rootDir>/test-files/parser/simple.html",
+            "offset": 7,
+            "line": 1,
+            "column": 8,
+            "size": 3
+          }
+        }
+      ]
+    },
     "metaElement": {
       "attributes": {
         "contenteditable": {
@@ -474,7 +688,7 @@ element:ready: {
 }
 whitespace: {
   "text": "\\n",
-  "location": "<rootDir>/test-files/parser/simple.html:1:19"
+  "location": "<rootDir>/test-files/parser/simple.html:1:28"
 }
 dom:ready: {
   "document": {

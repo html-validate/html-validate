@@ -38,21 +38,30 @@ it("should dump tokens for given filename", async () => {
 		"TOKEN: TAG_OPEN
 		  Data: "<p"
 		  Location: <rootDir>/test-files/parser/simple.html:1:1
+		TOKEN: WHITESPACE
+		  Data: " "
+		  Location: <rootDir>/test-files/parser/simple.html:1:3
+		TOKEN: ATTR_NAME
+		  Data: "id"
+		  Location: <rootDir>/test-files/parser/simple.html:1:4
+		TOKEN: ATTR_VALUE
+		  Data: "=\\"foo\\""
+		  Location: <rootDir>/test-files/parser/simple.html:1:6
 		TOKEN: TAG_CLOSE
 		  Data: ">"
-		  Location: <rootDir>/test-files/parser/simple.html:1:3
+		  Location: <rootDir>/test-files/parser/simple.html:1:12
 		TOKEN: TEXT
 		  Data: "Lorem ipsum"
-		  Location: <rootDir>/test-files/parser/simple.html:1:4
+		  Location: <rootDir>/test-files/parser/simple.html:1:13
 		TOKEN: TAG_OPEN
 		  Data: "</p"
-		  Location: <rootDir>/test-files/parser/simple.html:1:15
+		  Location: <rootDir>/test-files/parser/simple.html:1:24
 		TOKEN: TAG_CLOSE
 		  Data: ">"
-		  Location: <rootDir>/test-files/parser/simple.html:1:18
+		  Location: <rootDir>/test-files/parser/simple.html:1:27
 		TOKEN: WHITESPACE
 		  Data: "\\n"
-		  Location: <rootDir>/test-files/parser/simple.html:1:19
+		  Location: <rootDir>/test-files/parser/simple.html:1:28
 		TOKEN: EOF
 		  Data: ""
 		  Location: <rootDir>/test-files/parser/simple.html:2:1
@@ -67,7 +76,7 @@ it("should dump tree for given filename", async () => {
 	expect(success).toBeTruthy();
 	expect(filterFilename(content)).toMatchInlineSnapshot(`
 		"(root)
-		└── p
+		└── p#foo
 		"
 	`);
 });
@@ -80,7 +89,7 @@ it("should dump source for given filename", async () => {
 	expect(filterFilename(content)).toMatchInlineSnapshot(`
 		"Source <rootDir>/test-files/parser/simple.html@1:1 (offset: 0)
 		---
-		<p>Lorem ipsum</p>
+		<p id="foo">Lorem ipsum</p>
 
 		---
 		"
@@ -94,7 +103,7 @@ it("should handle multiple files", async () => {
 	expect(success).toBeTruthy();
 	expect(filterFilename(content)).toMatchInlineSnapshot(`
 		"(root)
-		└── p
+		└── p#foo
 		(root)
 		└── p
 		"

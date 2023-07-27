@@ -191,12 +191,12 @@ describe("transformFilename()", () => {
 			[
 			  {
 			    "column": 1,
-			    "data": "<p>Lorem ipsum</p>
+			    "data": "<p id="foo">Lorem ipsum</p>
 			",
 			    "filename": "test-files/parser/simple.html",
 			    "line": 1,
 			    "offset": 0,
-			    "originalData": "<p>Lorem ipsum</p>
+			    "originalData": "<p id="foo">Lorem ipsum</p>
 			",
 			  },
 			]
