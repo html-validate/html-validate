@@ -11,7 +11,15 @@ const jsonIgnored = [
 	"unique",
 	"voidElement",
 ];
-const jsonFiltered = ["parent", "childNodes", "children", "meta", "data", "originalData"];
+const jsonFiltered = [
+	"childNodes",
+	"children",
+	"data",
+	"meta",
+	"metaElement",
+	"originalData",
+	"parent",
+];
 
 function isLocation(key: string, value: unknown): value is Location {
 	return Boolean(value && (key === "location" || key.endsWith("Location")));

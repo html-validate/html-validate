@@ -32,82 +32,7 @@ tag:start: {
         }
       ]
     },
-    "metaElement": {
-      "attributes": {
-        "contenteditable": {
-          "omit": true,
-          "enum": [
-            "true",
-            "false"
-          ]
-        },
-        "contextmenu": {
-          "deprecated": true
-        },
-        "dir": {
-          "enum": [
-            "ltr",
-            "rtl",
-            "auto"
-          ]
-        },
-        "draggable": {
-          "enum": [
-            "true",
-            "false"
-          ]
-        },
-        "hidden": {
-          "boolean": true
-        },
-        "id": {
-          "enum": [
-            {}
-          ]
-        },
-        "tabindex": {
-          "enum": [
-            {}
-          ]
-        },
-        "align": {
-          "deprecated": true
-        }
-      },
-      "flow": true,
-      "implicitClosed": [
-        "address",
-        "article",
-        "aside",
-        "blockquote",
-        "div",
-        "dl",
-        "fieldset",
-        "footer",
-        "form",
-        "h1",
-        "h2",
-        "h3",
-        "h4",
-        "h5",
-        "h6",
-        "header",
-        "hgroup",
-        "hr",
-        "main",
-        "nav",
-        "ol",
-        "p",
-        "pre",
-        "section",
-        "table",
-        "ul"
-      ],
-      "permittedContent": [
-        "@phrasing"
-      ],
-      "tagName": "p"
-    }
+    "metaElement": "[truncated]"
   },
   "location": "<rootDir>/test-files/parser/simple.html:1:1"
 }
@@ -128,82 +53,7 @@ attr: {
         }
       ]
     },
-    "metaElement": {
-      "attributes": {
-        "contenteditable": {
-          "omit": true,
-          "enum": [
-            "true",
-            "false"
-          ]
-        },
-        "contextmenu": {
-          "deprecated": true
-        },
-        "dir": {
-          "enum": [
-            "ltr",
-            "rtl",
-            "auto"
-          ]
-        },
-        "draggable": {
-          "enum": [
-            "true",
-            "false"
-          ]
-        },
-        "hidden": {
-          "boolean": true
-        },
-        "id": {
-          "enum": [
-            {}
-          ]
-        },
-        "tabindex": {
-          "enum": [
-            {}
-          ]
-        },
-        "align": {
-          "deprecated": true
-        }
-      },
-      "flow": true,
-      "implicitClosed": [
-        "address",
-        "article",
-        "aside",
-        "blockquote",
-        "div",
-        "dl",
-        "fieldset",
-        "footer",
-        "form",
-        "h1",
-        "h2",
-        "h3",
-        "h4",
-        "h5",
-        "h6",
-        "header",
-        "hgroup",
-        "hr",
-        "main",
-        "nav",
-        "ol",
-        "p",
-        "pre",
-        "section",
-        "table",
-        "ul"
-      ],
-      "permittedContent": [
-        "@phrasing"
-      ],
-      "tagName": "p"
-    }
+    "metaElement": "[truncated]"
   },
   "key": "id",
   "value": "foo",
@@ -229,82 +79,7 @@ tag:ready: {
         }
       ]
     },
-    "metaElement": {
-      "attributes": {
-        "contenteditable": {
-          "omit": true,
-          "enum": [
-            "true",
-            "false"
-          ]
-        },
-        "contextmenu": {
-          "deprecated": true
-        },
-        "dir": {
-          "enum": [
-            "ltr",
-            "rtl",
-            "auto"
-          ]
-        },
-        "draggable": {
-          "enum": [
-            "true",
-            "false"
-          ]
-        },
-        "hidden": {
-          "boolean": true
-        },
-        "id": {
-          "enum": [
-            {}
-          ]
-        },
-        "tabindex": {
-          "enum": [
-            {}
-          ]
-        },
-        "align": {
-          "deprecated": true
-        }
-      },
-      "flow": true,
-      "implicitClosed": [
-        "address",
-        "article",
-        "aside",
-        "blockquote",
-        "div",
-        "dl",
-        "fieldset",
-        "footer",
-        "form",
-        "h1",
-        "h2",
-        "h3",
-        "h4",
-        "h5",
-        "h6",
-        "header",
-        "hgroup",
-        "hr",
-        "main",
-        "nav",
-        "ol",
-        "p",
-        "pre",
-        "section",
-        "table",
-        "ul"
-      ],
-      "permittedContent": [
-        "@phrasing"
-      ],
-      "tagName": "p"
-    }
+    "metaElement": "[truncated]"
   },
   "location": "<rootDir>/test-files/parser/simple.html:1:12"
 }
@@ -316,82 +91,7 @@ tag:end: {
     "tagName": "p",
     "parent": "[truncated]",
     "attr": {},
-    "metaElement": {
-      "attributes": {
-        "contenteditable": {
-          "omit": true,
-          "enum": [
-            "true",
-            "false"
-          ]
-        },
-        "contextmenu": {
-          "deprecated": true
-        },
-        "dir": {
-          "enum": [
-            "ltr",
-            "rtl",
-            "auto"
-          ]
-        },
-        "draggable": {
-          "enum": [
-            "true",
-            "false"
-          ]
-        },
-        "hidden": {
-          "boolean": true
-        },
-        "id": {
-          "enum": [
-            {}
-          ]
-        },
-        "tabindex": {
-          "enum": [
-            {}
-          ]
-        },
-        "align": {
-          "deprecated": true
-        }
-      },
-      "flow": true,
-      "implicitClosed": [
-        "address",
-        "article",
-        "aside",
-        "blockquote",
-        "div",
-        "dl",
-        "fieldset",
-        "footer",
-        "form",
-        "h1",
-        "h2",
-        "h3",
-        "h4",
-        "h5",
-        "h6",
-        "header",
-        "hgroup",
-        "hr",
-        "main",
-        "nav",
-        "ol",
-        "p",
-        "pre",
-        "section",
-        "table",
-        "ul"
-      ],
-      "permittedContent": [
-        "@phrasing"
-      ],
-      "tagName": "p"
-    }
+    "metaElement": "[truncated]"
   },
   "previous": {
     "nodeName": "p",
@@ -409,82 +109,7 @@ tag:end: {
         }
       ]
     },
-    "metaElement": {
-      "attributes": {
-        "contenteditable": {
-          "omit": true,
-          "enum": [
-            "true",
-            "false"
-          ]
-        },
-        "contextmenu": {
-          "deprecated": true
-        },
-        "dir": {
-          "enum": [
-            "ltr",
-            "rtl",
-            "auto"
-          ]
-        },
-        "draggable": {
-          "enum": [
-            "true",
-            "false"
-          ]
-        },
-        "hidden": {
-          "boolean": true
-        },
-        "id": {
-          "enum": [
-            {}
-          ]
-        },
-        "tabindex": {
-          "enum": [
-            {}
-          ]
-        },
-        "align": {
-          "deprecated": true
-        }
-      },
-      "flow": true,
-      "implicitClosed": [
-        "address",
-        "article",
-        "aside",
-        "blockquote",
-        "div",
-        "dl",
-        "fieldset",
-        "footer",
-        "form",
-        "h1",
-        "h2",
-        "h3",
-        "h4",
-        "h5",
-        "h6",
-        "header",
-        "hgroup",
-        "hr",
-        "main",
-        "nav",
-        "ol",
-        "p",
-        "pre",
-        "section",
-        "table",
-        "ul"
-      ],
-      "permittedContent": [
-        "@phrasing"
-      ],
-      "tagName": "p"
-    }
+    "metaElement": "[truncated]"
   },
   "location": "<rootDir>/test-files/parser/simple.html:1:27"
 }
@@ -505,82 +130,7 @@ element:ready: {
         }
       ]
     },
-    "metaElement": {
-      "attributes": {
-        "contenteditable": {
-          "omit": true,
-          "enum": [
-            "true",
-            "false"
-          ]
-        },
-        "contextmenu": {
-          "deprecated": true
-        },
-        "dir": {
-          "enum": [
-            "ltr",
-            "rtl",
-            "auto"
-          ]
-        },
-        "draggable": {
-          "enum": [
-            "true",
-            "false"
-          ]
-        },
-        "hidden": {
-          "boolean": true
-        },
-        "id": {
-          "enum": [
-            {}
-          ]
-        },
-        "tabindex": {
-          "enum": [
-            {}
-          ]
-        },
-        "align": {
-          "deprecated": true
-        }
-      },
-      "flow": true,
-      "implicitClosed": [
-        "address",
-        "article",
-        "aside",
-        "blockquote",
-        "div",
-        "dl",
-        "fieldset",
-        "footer",
-        "form",
-        "h1",
-        "h2",
-        "h3",
-        "h4",
-        "h5",
-        "h6",
-        "header",
-        "hgroup",
-        "hr",
-        "main",
-        "nav",
-        "ol",
-        "p",
-        "pre",
-        "section",
-        "table",
-        "ul"
-      ],
-      "permittedContent": [
-        "@phrasing"
-      ],
-      "tagName": "p"
-    }
+    "metaElement": "[truncated]"
   },
   "location": "<rootDir>/test-files/parser/simple.html:1:2"
 }
@@ -597,7 +147,7 @@ dom:ready: {
       "tagName": "#document",
       "parent": "[truncated]",
       "attr": {},
-      "metaElement": null
+      "metaElement": "[truncated]"
     },
     "active": {
       "nodeName": "#document",
@@ -606,7 +156,7 @@ dom:ready: {
       "tagName": "#document",
       "parent": "[truncated]",
       "attr": {},
-      "metaElement": null
+      "metaElement": "[truncated]"
     },
     "doctype": null
   },
