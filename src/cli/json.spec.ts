@@ -1,5 +1,14 @@
+import { type Location } from "../context";
 import { EventDump } from "../engine";
 import { eventFormatter, eventReplacer } from "./json";
+
+const location: Location = {
+	filename: "mock-filename.html",
+	line: 1,
+	column: 1,
+	offset: 0,
+	size: 1,
+};
 
 describe("eventReplacer", () => {
 	it("should hide large and recursive properties", () => {
@@ -54,5 +63,22 @@ describe("eventFormatter", () => {
 			},
 		};
 		expect(eventFormatter(entry)).toMatchSnapshot();
+	});
+
+	it("should condense locations", () => {
+		expect.assertions(1);
+		const entry: EventDump = {
+			event: "mock-event",
+			data: {
+				location,
+				otherLocation: location,
+			},
+		};
+		expect(eventFormatter(entry)).toMatchInlineSnapshot(`
+			"mock-event: {
+			  "location": "mock-filename.html:1:1",
+			  "otherLocation": "mock-filename.html:1:1"
+			}"
+		`);
 	});
 });

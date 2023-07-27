@@ -14,7 +14,7 @@ const jsonIgnored = [
 const jsonFiltered = ["parent", "childNodes", "children", "meta", "data", "originalData"];
 
 function isLocation(key: string, value: unknown): value is Location {
-	return Boolean(value && key === "location");
+	return Boolean(value && (key === "location" || key.endsWith("Location")));
 }
 
 function isIgnored(key: string): boolean {

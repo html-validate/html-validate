@@ -27,20 +27,8 @@ tag:start: {
         {
           "key": "id",
           "value": "foo",
-          "keyLocation": {
-            "filename": "<rootDir>/test-files/parser/simple.html",
-            "offset": 3,
-            "line": 1,
-            "column": 4,
-            "size": 2
-          },
-          "valueLocation": {
-            "filename": "<rootDir>/test-files/parser/simple.html",
-            "offset": 7,
-            "line": 1,
-            "column": 8,
-            "size": 3
-          }
+          "keyLocation": "<rootDir>/test-files/parser/simple.html:1:4",
+          "valueLocation": "<rootDir>/test-files/parser/simple.html:1:8"
         }
       ]
     },
@@ -135,20 +123,8 @@ attr: {
         {
           "key": "id",
           "value": "foo",
-          "keyLocation": {
-            "filename": "<rootDir>/test-files/parser/simple.html",
-            "offset": 3,
-            "line": 1,
-            "column": 4,
-            "size": 2
-          },
-          "valueLocation": {
-            "filename": "<rootDir>/test-files/parser/simple.html",
-            "offset": 7,
-            "line": 1,
-            "column": 8,
-            "size": 3
-          }
+          "keyLocation": "<rootDir>/test-files/parser/simple.html:1:4",
+          "valueLocation": "<rootDir>/test-files/parser/simple.html:1:8"
         }
       ]
     },
@@ -233,20 +209,8 @@ attr: {
   "value": "foo",
   "quote": "\\"",
   "location": "<rootDir>/test-files/parser/simple.html:1:4",
-  "keyLocation": {
-    "filename": "<rootDir>/test-files/parser/simple.html",
-    "offset": 3,
-    "line": 1,
-    "column": 4,
-    "size": 2
-  },
-  "valueLocation": {
-    "filename": "<rootDir>/test-files/parser/simple.html",
-    "offset": 7,
-    "line": 1,
-    "column": 8,
-    "size": 3
-  }
+  "keyLocation": "<rootDir>/test-files/parser/simple.html:1:4",
+  "valueLocation": "<rootDir>/test-files/parser/simple.html:1:8"
 }
 tag:ready: {
   "target": {
@@ -260,20 +224,8 @@ tag:ready: {
         {
           "key": "id",
           "value": "foo",
-          "keyLocation": {
-            "filename": "<rootDir>/test-files/parser/simple.html",
-            "offset": 3,
-            "line": 1,
-            "column": 4,
-            "size": 2
-          },
-          "valueLocation": {
-            "filename": "<rootDir>/test-files/parser/simple.html",
-            "offset": 7,
-            "line": 1,
-            "column": 8,
-            "size": 3
-          }
+          "keyLocation": "<rootDir>/test-files/parser/simple.html:1:4",
+          "valueLocation": "<rootDir>/test-files/parser/simple.html:1:8"
         }
       ]
     },
@@ -452,20 +404,8 @@ tag:end: {
         {
           "key": "id",
           "value": "foo",
-          "keyLocation": {
-            "filename": "<rootDir>/test-files/parser/simple.html",
-            "offset": 3,
-            "line": 1,
-            "column": 4,
-            "size": 2
-          },
-          "valueLocation": {
-            "filename": "<rootDir>/test-files/parser/simple.html",
-            "offset": 7,
-            "line": 1,
-            "column": 8,
-            "size": 3
-          }
+          "keyLocation": "<rootDir>/test-files/parser/simple.html:1:4",
+          "valueLocation": "<rootDir>/test-files/parser/simple.html:1:8"
         }
       ]
     },
@@ -560,20 +500,8 @@ element:ready: {
         {
           "key": "id",
           "value": "foo",
-          "keyLocation": {
-            "filename": "<rootDir>/test-files/parser/simple.html",
-            "offset": 3,
-            "line": 1,
-            "column": 4,
-            "size": 2
-          },
-          "valueLocation": {
-            "filename": "<rootDir>/test-files/parser/simple.html",
-            "offset": 7,
-            "line": 1,
-            "column": 8,
-            "size": 3
-          }
+          "keyLocation": "<rootDir>/test-files/parser/simple.html:1:4",
+          "valueLocation": "<rootDir>/test-files/parser/simple.html:1:8"
         }
       ]
     },
