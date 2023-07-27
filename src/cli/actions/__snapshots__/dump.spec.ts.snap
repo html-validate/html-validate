@@ -17,7 +17,6 @@ dom:load: {
 }
 tag:start: {
   "target": {
-    "nodeType": 1,
     "nodeName": "p",
     "location": "<rootDir>/test-files/parser/simple.html:1:2",
     "childNodes": "[truncated]",
@@ -120,17 +119,12 @@ tag:start: {
         "@phrasing"
       ],
       "tagName": "p"
-    },
-    "closed": 0,
-    "voidElement": false,
-    "depth": 0,
-    "annotation": null
+    }
   },
   "location": "<rootDir>/test-files/parser/simple.html:1:1"
 }
 attr: {
   "target": {
-    "nodeType": 1,
     "nodeName": "p",
     "location": "<rootDir>/test-files/parser/simple.html:1:2",
     "childNodes": "[truncated]",
@@ -233,11 +227,7 @@ attr: {
         "@phrasing"
       ],
       "tagName": "p"
-    },
-    "closed": 0,
-    "voidElement": false,
-    "depth": 0,
-    "annotation": null
+    }
   },
   "key": "id",
   "value": "foo",
@@ -260,7 +250,6 @@ attr: {
 }
 tag:ready: {
   "target": {
-    "nodeType": 1,
     "nodeName": "p",
     "location": "<rootDir>/test-files/parser/simple.html:1:2",
     "childNodes": "[truncated]",
@@ -363,17 +352,12 @@ tag:ready: {
         "@phrasing"
       ],
       "tagName": "p"
-    },
-    "closed": 0,
-    "voidElement": false,
-    "depth": 0,
-    "annotation": null
+    }
   },
   "location": "<rootDir>/test-files/parser/simple.html:1:12"
 }
 tag:end: {
   "target": {
-    "nodeType": 1,
     "nodeName": "p",
     "location": "<rootDir>/test-files/parser/simple.html:1:25",
     "childNodes": "[truncated]",
@@ -455,14 +439,9 @@ tag:end: {
         "@phrasing"
       ],
       "tagName": "p"
-    },
-    "closed": 1,
-    "voidElement": false,
-    "depth": 0,
-    "annotation": null
+    }
   },
   "previous": {
-    "nodeType": 1,
     "nodeName": "p",
     "location": "<rootDir>/test-files/parser/simple.html:1:2",
     "childNodes": "[truncated]",
@@ -565,17 +544,12 @@ tag:end: {
         "@phrasing"
       ],
       "tagName": "p"
-    },
-    "closed": 0,
-    "voidElement": false,
-    "depth": 0,
-    "annotation": null
+    }
   },
   "location": "<rootDir>/test-files/parser/simple.html:1:27"
 }
 element:ready: {
   "target": {
-    "nodeType": 1,
     "nodeName": "p",
     "location": "<rootDir>/test-files/parser/simple.html:1:2",
     "childNodes": "[truncated]",
@@ -678,11 +652,7 @@ element:ready: {
         "@phrasing"
       ],
       "tagName": "p"
-    },
-    "closed": 0,
-    "voidElement": false,
-    "depth": 0,
-    "annotation": null
+    }
   },
   "location": "<rootDir>/test-files/parser/simple.html:1:2"
 }
@@ -693,32 +663,22 @@ whitespace: {
 dom:ready: {
   "document": {
     "root": {
-      "nodeType": 9,
       "nodeName": "#document",
       "location": "<rootDir>/test-files/parser/simple.html:1:1",
       "childNodes": "[truncated]",
       "tagName": "#document",
       "parent": "[truncated]",
       "attr": {},
-      "metaElement": null,
-      "closed": 1,
-      "voidElement": false,
-      "depth": 0,
-      "annotation": "#document"
+      "metaElement": null
     },
     "active": {
-      "nodeType": 9,
       "nodeName": "#document",
       "location": "<rootDir>/test-files/parser/simple.html:1:1",
       "childNodes": "[truncated]",
       "tagName": "#document",
       "parent": "[truncated]",
       "attr": {},
-      "metaElement": null,
-      "closed": 1,
-      "voidElement": false,
-      "depth": 0,
-      "annotation": "#document"
+      "metaElement": null
     },
     "doctype": null
   },
