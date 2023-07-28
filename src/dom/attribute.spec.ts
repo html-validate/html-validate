@@ -41,8 +41,7 @@ describe("Attribute", () => {
 
 	it("should force value to null if passing undefined", () => {
 		expect.assertions(3);
-		/* eslint-disable-next-line @typescript-eslint/ban-ts-comment -- should not occur but still test for it */
-		/* @ts-ignore */
+		/* @ts-expect-error -- should not occur but still test for it */
 		const a = new Attribute("foo", undefined, keyLocation, null);
 		const b = new Attribute("foo", null, keyLocation, null);
 		const c = new Attribute("foo", "", keyLocation, valueLocation);

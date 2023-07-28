@@ -120,11 +120,8 @@ describe("toHTMLValidate()", () => {
 	it("should support jsdom", () => {
 		expect.assertions(2);
 
-		/* eslint-disable-next-line @typescript-eslint/ban-ts-comment -- see comment below */
-		// @ts-ignore DOM library not available
-		const doc = document;
-
 		/* should pass */
+		const doc = document;
 		const p = doc.createElement("p");
 		expect(p).toHTMLValidate();
 
