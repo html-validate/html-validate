@@ -21,11 +21,7 @@ export class Attribute {
     readonly value: string | DynamicValue | null;
     // (undocumented)
     readonly valueLocation: Location_2 | null;
-    valueMatches(pattern: RegExp, dynamicMatches?: boolean): boolean;
-    // (undocumented)
-    valueMatches(pattern: string, dynamicMatches?: boolean): boolean;
-    // (undocumented)
-    valueMatches(pattern: string[], dynamicMatches?: boolean): boolean;
+    valueMatches(pattern: RegExp | string | string[], dynamicMatches?: boolean): boolean;
 }
 
 // @public
@@ -616,11 +612,9 @@ export class HtmlValidate {
     getConfigFor(filename: string, configOverride?: ConfigData): Promise<ResolvedConfig>;
     getConfigForSync(filename: string, configOverride?: ConfigData): ResolvedConfig;
     getConfigurationSchema(): SchemaObject;
-    getContextualDocumentation(message: Pick<Message, "ruleId" | "context">): Promise<RuleDocumentation | null>;
-    getContextualDocumentation(message: Pick<Message, "ruleId" | "context">, filename: string): Promise<RuleDocumentation | null>;
+    getContextualDocumentation(message: Pick<Message, "ruleId" | "context">, filename?: string): Promise<RuleDocumentation | null>;
     getContextualDocumentation(message: Pick<Message, "ruleId" | "context">, config: ResolvedConfig | Promise<ResolvedConfig>): Promise<RuleDocumentation | null>;
-    getContextualDocumentationSync(message: Pick<Message, "ruleId" | "context">): RuleDocumentation | null;
-    getContextualDocumentationSync(message: Pick<Message, "ruleId" | "context">, filename: string): RuleDocumentation | null;
+    getContextualDocumentationSync(message: Pick<Message, "ruleId" | "context">, filename?: string): RuleDocumentation | null;
     getContextualDocumentationSync(message: Pick<Message, "ruleId" | "context">, config: ResolvedConfig): RuleDocumentation | null;
     getElementsSchema(filename?: string): Promise<SchemaObject>;
     getElementsSchemaSync(filename?: string): SchemaObject;
@@ -1121,9 +1115,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
     readonly options: OptionsType;
     report(error: ErrorDescriptor<ContextType>): void;
     // (undocumented)
-    report(node: DOMNode | null, message: string): void;
-    // (undocumented)
-    report(node: DOMNode | null, message: string, location: Location_2 | null | undefined): void;
+    report(node: DOMNode | null, message: string, location?: Location_2 | null | undefined): void;
     // (undocumented)
     report(node: DOMNode | null, message: string, location: Location_2 | null | undefined, context: ContextType): void;
     static schema(): SchemaObject | null | undefined;

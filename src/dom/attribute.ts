@@ -96,9 +96,6 @@ export class Attribute {
 	 * it never matches.
 	 * @returns `true` if attribute value matches pattern.
 	 */
-	public valueMatches(pattern: RegExp, dynamicMatches?: boolean): boolean;
-	public valueMatches(pattern: string, dynamicMatches?: boolean): boolean;
-	public valueMatches(pattern: string[], dynamicMatches?: boolean): boolean;
 	public valueMatches(
 		pattern: RegExp | string | string[],
 		dynamicMatches: boolean = true

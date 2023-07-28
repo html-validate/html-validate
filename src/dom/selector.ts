@@ -207,7 +207,7 @@ export class Pattern {
 		match.shift(); /* remove full matched string */
 		this.selector = pattern;
 		this.combinator = parseCombinator(match.shift(), pattern);
-		this.tagName = match.shift() || "*";
+		this.tagName = match.shift() || "*"; // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing -- empty string */
 		this.pattern = Array.from(splitPattern(match[0]), (it) => this.createMatcher(it));
 	}
 
