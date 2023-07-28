@@ -250,7 +250,7 @@ export class Config {
 		for (const entry of entries) {
 			let extended: ConfigData;
 			if (this.configurations.has(entry)) {
-				extended = this.configurations.get(entry) as ConfigData;
+				extended = this.configurations.get(entry)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- map has/get combo
 			} else {
 				extended = Config.fromFile(this.resolvers, entry).config;
 			}

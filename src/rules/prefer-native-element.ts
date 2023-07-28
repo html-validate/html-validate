@@ -141,7 +141,7 @@ export default class PreferNativeElement extends Rule<RuleContext, RuleOptions> 
 
 	private getLocation(event: AttributeEvent): Location | null {
 		const begin = event.location;
-		const end = event.valueLocation as Location;
+		const end = event.valueLocation!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- technical debt, valueLocation will always be set when a value is provided
 		const quote = event.quote ? 1 : 0;
 		const size = end.offset + end.size - begin.offset + quote;
 		return {

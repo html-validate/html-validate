@@ -64,7 +64,7 @@ export class Validator {
 			}
 
 			// Check if the rule has a quantifier
-			const [, category, quantifier] = rule.match(/^(@?.*?)([?*]?)$/) as RegExpMatchArray;
+			const [, category, quantifier] = rule.match(/^(@?.*?)([?*]?)$/)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- will always match
 			const limit = category && quantifier && parseQuantifier(quantifier);
 
 			if (limit) {
@@ -121,7 +121,8 @@ export class Validator {
 					Validator.validatePermittedCategory(node, cur, true)
 				);
 				if (orderSpecified) {
-					cb(node, prev as HtmlElement);
+					/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- technical debt, should never happen */
+					cb(node, prev!);
 					return false;
 				}
 
@@ -287,7 +288,7 @@ export class Validator {
 		category: string,
 		defaultMatch: boolean
 	): boolean {
-		const [, rawCategory] = category.match(/^(@?.*?)([?*]?)$/) as RegExpMatchArray;
+		const [, rawCategory] = category.match(/^(@?.*?)([?*]?)$/)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- will always match
 
 		/* match tagName when an explicit name is given */
 		if (!rawCategory.startsWith("@")) {
@@ -315,9 +316,9 @@ export class Validator {
 			case "@interactive":
 				return node.meta.interactive as boolean;
 			case "@script":
-				return node.meta.scriptSupporting as boolean;
+				return Boolean(node.meta.scriptSupporting);
 			case "@form":
-				return node.meta.form as boolean;
+				return Boolean(node.meta.form);
 			default:
 				throw new Error(`Invalid content category "${category}"`);
 		}

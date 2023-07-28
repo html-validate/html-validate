@@ -154,7 +154,7 @@ class AttrMatcher extends Matcher {
 
 	public constructor(attr: string) {
 		super();
-		const [, key, op, value] = attr.match(/^(.+?)(?:([~^$*|]?=)"([^"]+?)")?$/) as RegExpMatchArray;
+		const [, key, op, value] = attr.match(/^(.+?)(?:([~^$*|]?=)"([^"]+?)")?$/)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- will always match
 		this.key = key;
 		this.op = op;
 		this.value = value;
@@ -203,7 +203,7 @@ export class Pattern {
 	private readonly pattern: Matcher[];
 
 	public constructor(pattern: string) {
-		const match = pattern.match(/^([~+\->]?)((?:[*]|[^.#[:]+)?)(.*)$/) as RegExpMatchArray;
+		const match = pattern.match(/^([~+\->]?)((?:[*]|[^.#[:]+)?)(.*)$/)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- will always match
 		match.shift(); /* remove full matched string */
 		this.selector = pattern;
 		this.combinator = parseCombinator(match.shift(), pattern);
