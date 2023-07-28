@@ -85,7 +85,10 @@ export default class H37 extends Rule<void, RuleOptions> {
 			}
 
 			/* validate plain alt-attribute */
-			if (node.getAttributeValue("alt") || (node.hasAttribute("alt") && this.options.allowEmpty)) {
+			if (
+				Boolean(node.getAttributeValue("alt")) ||
+				Boolean(node.hasAttribute("alt") && this.options.allowEmpty)
+			) {
 				return;
 			}
 

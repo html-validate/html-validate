@@ -9,7 +9,7 @@ export function matchAttribute(
 	op: "!=" | "=",
 	value: string
 ): boolean {
-	const nodeValue = (node.getAttributeValue(key) || "").toLowerCase();
+	const nodeValue = (node.getAttributeValue(key) ?? "").toLowerCase();
 	switch (op) {
 		case "!=":
 			return nodeValue !== value;

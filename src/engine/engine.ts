@@ -408,7 +408,7 @@ export class Engine<T extends Parser = Parser> {
 	private initRules(config: ResolvedConfig): Record<string, RuleConstructor<any, any>> {
 		const availableRules: Record<string, RuleConstructor<any, any>> = {};
 		for (const plugin of config.getPlugins()) {
-			for (const [name, rule] of Object.entries(plugin.rules || {})) {
+			for (const [name, rule] of Object.entries(plugin.rules ?? {})) {
 				if (!rule) continue;
 				availableRules[name] = rule;
 			}

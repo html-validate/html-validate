@@ -49,8 +49,8 @@ function directoryPattern(extensions: string[]): string {
  * filenames.
  */
 export function expandFiles(patterns: string[], options: ExpandOptions): string[] {
-	const cwd = options.cwd || process.cwd();
-	const extensions = options.extensions || DEFAULT_EXTENSIONS;
+	const cwd = options.cwd ?? process.cwd();
+	const extensions = options.extensions ?? DEFAULT_EXTENSIONS;
 
 	const files = patterns.reduce((result: string[], pattern: string) => {
 		/* process - as standard input */

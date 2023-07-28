@@ -12,7 +12,7 @@ function mockTransform(source: Source): Iterable<Source> {
 			line: 1,
 			column: 1,
 			offset: 0,
-			originalData: source.originalData || source.data,
+			originalData: source.originalData ?? source.data,
 		},
 	];
 }

@@ -118,7 +118,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
 	public override getConfigFor(filename: string, configOverride?: ConfigData): ResolvedConfig {
 		/* special case when the overridden configuration is marked as root, should
 		 * not try to load any more configuration files */
-		const override = this.loadFromObject(configOverride || {});
+		const override = this.loadFromObject(configOverride ?? {});
 		if (override.isRootFound()) {
 			override.init();
 			return override.resolve();

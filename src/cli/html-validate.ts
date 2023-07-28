@@ -237,7 +237,7 @@ const cli = new CLI({
 });
 const mode = getMode(argv);
 const formatter = cli.getFormatter(argv.formatter);
-const maxWarnings = parseInt(argv["max-warnings"] || "-1", 10);
+const maxWarnings = parseInt(argv["max-warnings"] ?? "-1", 10);
 const htmlvalidate = cli.getValidator();
 
 /* sanity check: ensure maxWarnings has a valid value */

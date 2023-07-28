@@ -44,7 +44,7 @@ function isValidUsage(target: HtmlElement, meta: MetaElement): boolean {
 	}
 
 	/* interactive and labelable elements are valid */
-	if (meta.interactive || meta.labelable) {
+	if (Boolean(meta.interactive) || Boolean(meta.labelable)) {
 		return true;
 	}
 

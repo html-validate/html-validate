@@ -578,7 +578,7 @@ export class HtmlValidate {
 		config: ResolvedConfig | Promise<ResolvedConfig> | null = null,
 		context: unknown | null = null
 	): Promise<RuleDocumentation | null> {
-		const c = config || this.getConfigFor("inline");
+		const c = config ?? this.getConfigFor("inline");
 		const engine = new Engine(await c, Parser);
 		return engine.getRuleDocumentation({ ruleId, context });
 	}
@@ -612,7 +612,7 @@ export class HtmlValidate {
 		config: ResolvedConfig | null = null,
 		context: unknown | null = null
 	): RuleDocumentation | null {
-		const c = config || this.getConfigForSync("inline");
+		const c = config ?? this.getConfigForSync("inline");
 		const engine = new Engine(c, Parser);
 		return engine.getRuleDocumentation({ ruleId, context });
 	}

@@ -59,10 +59,10 @@ export class HtmlElement extends DOMNode {
 		super(nodeType, tagName, location);
 
 		if (!isValidTagName(tagName)) {
-			throw new Error(`The tag name provided ('${tagName || ""}') is not a valid name`);
+			throw new Error(`The tag name provided ('${tagName ?? ""}') is not a valid name`);
 		}
 
-		this.tagName = tagName || "#document";
+		this.tagName = tagName ?? "#document";
 		this.parent = parent ?? null;
 		this.attr = {};
 		this.metaElement = meta ?? null;

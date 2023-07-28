@@ -60,7 +60,7 @@ function mergeInternal(base: ConfigData, rhs: ConfigData): ConfigData {
 
 	/* root property is merged with boolean "or" since it should always be truthy
 	 * if any config has it set. */
-	const root = base.root || rhs.root;
+	const root = Boolean(base.root) || Boolean(rhs.root);
 	if (root) {
 		dst.root = root;
 	}
@@ -185,7 +185,7 @@ export class Config {
 		this.resolvers = toArray(resolvers);
 
 		/* load plugins */
-		this.plugins = this.loadPlugins(this.config.plugins || []);
+		this.plugins = this.loadPlugins(this.config.plugins ?? []);
 		this.configurations = this.loadConfigurations(this.plugins);
 		this.extendMeta(this.plugins);
 
@@ -218,7 +218,7 @@ export class Config {
 		}
 
 		/* precompile transform patterns */
-		this.transformers = this.precompileTransformers(this.config.transform || {});
+		this.transformers = this.precompileTransformers(this.config.transform ?? {});
 
 		this.initialized = true;
 	}
@@ -271,7 +271,7 @@ export class Config {
 		}
 
 		const metaTable = new MetaTable();
-		const source = this.config.elements || ["html5"];
+		const source = this.config.elements ?? ["html5"];
 
 		/* extend validation schema from plugins */
 		for (const plugin of this.getPlugins()) {
@@ -393,7 +393,7 @@ export class Config {
 
 		/* presets from plugins */
 		for (const plugin of plugins) {
-			for (const [name, config] of Object.entries(plugin.configs || {})) {
+			for (const [name, config] of Object.entries(plugin.configs ?? {})) {
 				if (!config) continue;
 
 				Config.validate(config, name);

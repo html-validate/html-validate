@@ -113,7 +113,7 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 
 	public documentation(context: Style): RuleDocumentation {
 		const message =
-			description[context] || "This link type is not allowed by current configuration";
+			description[context] ?? "This link type is not allowed by current configuration";
 		return {
 			description: message,
 			url: ruleDocumentationUrl(__filename),
