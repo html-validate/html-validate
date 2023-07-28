@@ -201,11 +201,11 @@ export class Reporter {
 }
 
 function countErrors(messages: Array<Message | DeferredMessage>): number {
-	return messages.filter((m) => m.severity === Severity.ERROR).length;
+	return messages.filter((m) => m.severity === Number(Severity.ERROR)).length;
 }
 
 function countWarnings(messages: Array<Message | DeferredMessage>): number {
-	return messages.filter((m) => m.severity === Severity.WARN).length;
+	return messages.filter((m) => m.severity === Number(Severity.WARN)).length;
 }
 
 function sumErrors(results: Result[]): number {
