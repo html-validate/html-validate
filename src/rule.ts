@@ -77,8 +77,7 @@ function getSchemaValidator(ruleId: string, properties: SchemaObject): ValidateF
 function isErrorDescriptor<T>(
 	value:
 		| [ErrorDescriptor<T>]
-		| [DOMNode | null, string]
-		| [DOMNode | null, string, Location | null | undefined]
+		| [DOMNode | null, string, (Location | null | undefined)?]
 		| [DOMNode | null, string, Location | null | undefined, T]
 ): value is [ErrorDescriptor<T>] {
 	return Boolean(value[0] && (value[0] as unknown as Record<string, unknown>).message);
@@ -87,8 +86,7 @@ function isErrorDescriptor<T>(
 function unpackErrorDescriptor<T>(
 	value:
 		| [ErrorDescriptor<T>]
-		| [DOMNode | null, string]
-		| [DOMNode | null, string, Location | null | undefined]
+		| [DOMNode | null, string, (Location | null | undefined)?]
 		| [DOMNode | null, string, Location | null | undefined, T]
 ): ErrorDescriptor<T> {
 	if (isErrorDescriptor(value)) {
@@ -294,8 +292,11 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * have any effect.
 	 */
 	public report(error: ErrorDescriptor<ContextType>): void;
-	public report(node: DOMNode | null, message: string): void;
-	public report(node: DOMNode | null, message: string, location: Location | null | undefined): void;
+	public report(
+		node: DOMNode | null,
+		message: string,
+		location?: Location | null | undefined
+	): void;
 	public report(
 		node: DOMNode | null,
 		message: string,
@@ -306,7 +307,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		...args:
 			| [ErrorDescriptor<ContextType>]
 			| [DOMNode | null, string]
-			| [DOMNode | null, string, Location | null | undefined]
+			| [DOMNode | null, string, (Location | null | undefined)?]
 			| [DOMNode | null, string, Location | null | undefined, ContextType]
 	): void {
 		const { node, message, location, context } = unpackErrorDescriptor(args);

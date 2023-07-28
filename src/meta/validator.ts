@@ -17,6 +17,7 @@ const allowedKeys = ["exclude"];
  *
  * @public
  */
+/* eslint-disable-next-line @typescript-eslint/no-extraneous-class -- technical debt, should probably be plain functions maybe in an object */
 export class Validator {
 	/**
 	 * Test if element is used in a proper context.

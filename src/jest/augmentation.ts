@@ -22,14 +22,10 @@ declare global {
 			 * @param filename - Optional filename used when matching transformer and
 			 * loading configuration.
 			 */
-			toHTMLValidate(): R;
-			toHTMLValidate(filename: string): R;
-			toHTMLValidate(config: ConfigData): R;
-			toHTMLValidate(config: ConfigData, filename: string): R;
-			toHTMLValidate(error: Partial<Message>): R;
-			toHTMLValidate(error: Partial<Message>, filename: string): R;
-			toHTMLValidate(error: Partial<Message>, config: ConfigData): R;
-			toHTMLValidate(error: Partial<Message>, config: ConfigData, filename: string): R;
+			toHTMLValidate(filename?: string): R;
+			toHTMLValidate(config: ConfigData, filename?: string): R;
+			toHTMLValidate(error: Partial<Message>, filename?: string): R;
+			toHTMLValidate(error: Partial<Message>, config: ConfigData, filename?: string): R;
 
 			/**
 			 * Writes out the given [[Report]] using codeframe formatter and compares

@@ -57,6 +57,7 @@ export class HtmlValidate {
 	 * @param hooks - Optional hooks (see [[Source]]) for definition.
 	 * @returns Report output.
 	 */
+	/* eslint-disable @typescript-eslint/unified-signatures -- for easier readability */
 	public validateString(str: string): Promise<Report>;
 	public validateString(str: string, filename: string): Promise<Report>;
 	public validateString(str: string, hooks: SourceHooks): Promise<Report>;
@@ -69,6 +70,7 @@ export class HtmlValidate {
 		options: ConfigData,
 		hooks: SourceHooks
 	): Promise<Report>;
+	/* eslint-enable @typescript-eslint/unified-signatures */
 	public validateString(
 		str: string,
 		arg1?: string | SourceHooks | ConfigData,
@@ -98,6 +100,7 @@ export class HtmlValidate {
 	 * @param hooks - Optional hooks (see [[Source]]) for definition.
 	 * @returns Report output.
 	 */
+	/* eslint-disable @typescript-eslint/unified-signatures -- for easier readability */
 	public validateStringSync(str: string): Report;
 	public validateStringSync(str: string, filename: string): Report;
 	public validateStringSync(str: string, hooks: SourceHooks): Report;
@@ -110,6 +113,7 @@ export class HtmlValidate {
 		options: ConfigData,
 		hooks: SourceHooks
 	): Report;
+	/* eslint-enable @typescript-eslint/unified-signatures */
 	public validateStringSync(
 		str: string,
 		arg1?: string | SourceHooks | ConfigData,
@@ -368,31 +372,6 @@ export class HtmlValidate {
 	}
 
 	/**
-	 * Get contextual documentation for the given rule. The default configuration
-	 * will be used.
-	 *
-	 * @example
-	 *
-	 * ```js
-	 * const report = await htmlvalidate.validateFile("my-file.html");
-	 * for (const result of report.results){
-	 *   for (const message of result.messages){
-	 *     const documentation = await htmlvalidate.getRuleDocumentation(message, result.filePath);
-	 *     // do something with documentation
-	 *   }
-	 * }
-	 * ```
-	 *
-	 * @public
-	 * @since 8.0.0
-	 * @param message - Message reported during validation
-	 * @returns Contextual documentation or `null` if the rule does not exist.
-	 */
-	public getContextualDocumentation(
-		message: Pick<Message, "ruleId" | "context">
-	): Promise<RuleDocumentation | null>;
-
-	/**
 	 * Get contextual documentation for the given rule. Configuration will be
 	 * resolved for given filename.
 	 *
@@ -402,7 +381,7 @@ export class HtmlValidate {
 	 * const report = await htmlvalidate.validateFile("my-file.html");
 	 * for (const result of report.results){
 	 *   for (const message of result.messages){
-	 *     const documentation = await htmlvalidate.getRuleDocumentation(message, result.filePath);
+	 *     const documentation = await htmlvalidate.getContextualDocumentation(message, result.filePath);
 	 *     // do something with documentation
 	 *   }
 	 * }
@@ -416,7 +395,7 @@ export class HtmlValidate {
 	 */
 	public getContextualDocumentation(
 		message: Pick<Message, "ruleId" | "context">,
-		filename: string
+		filename?: string
 	): Promise<RuleDocumentation | null>;
 
 	/**
@@ -459,31 +438,6 @@ export class HtmlValidate {
 	}
 
 	/**
-	 * Get contextual documentation for the given rule. The default configuration
-	 * will be used.
-	 *
-	 * @example
-	 *
-	 * ```js
-	 * const report = htmlvalidate.validateFileSync("my-file.html");
-	 * for (const result of report.results){
-	 *   for (const message of result.messages){
-	 *     const documentation = htmlvalidate.getRuleDocumentationSync(message, result.filePath);
-	 *     // do something with documentation
-	 *   }
-	 * }
-	 * ```
-	 *
-	 * @public
-	 * @since 8.0.0
-	 * @param message - Message reported during validation
-	 * @returns Contextual documentation or `null` if the rule does not exist.
-	 */
-	public getContextualDocumentationSync(
-		message: Pick<Message, "ruleId" | "context">
-	): RuleDocumentation | null;
-
-	/**
 	 * Get contextual documentation for the given rule. Configuration will be
 	 * resolved for given filename.
 	 *
@@ -507,7 +461,7 @@ export class HtmlValidate {
 	 */
 	public getContextualDocumentationSync(
 		message: Pick<Message, "ruleId" | "context">,
-		filename: string
+		filename?: string
 	): RuleDocumentation | null;
 
 	/**

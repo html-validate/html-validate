@@ -271,6 +271,7 @@ export class HtmlElement extends DOMNode {
 			if (typeof value !== "undefined") {
 				setMetaProperty(this.metaElement, key, value);
 			} else {
+				/* eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- technical debt */
 				delete this.metaElement[key];
 			}
 		}
