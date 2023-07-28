@@ -46,7 +46,7 @@ export default class IdPattern extends Rule<void, RuleOptions> {
 				return;
 			}
 
-			if (!event.value || !event.value.match(this.pattern)) {
+			if (!event.value?.match(this.pattern)) {
 				const value = event.value ?? "";
 				const pattern = this.pattern.toString();
 				const message = `ID "${value}" does not match required pattern "${pattern}"`;

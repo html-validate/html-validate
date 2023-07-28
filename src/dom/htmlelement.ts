@@ -143,7 +143,7 @@ export class HtmlElement extends DOMNode {
 	 */
 	public get ariaLabelledby(): string[] | DynamicValue | null {
 		const attr = this.getAttribute("aria-labelledby");
-		if (!attr || !attr.value) {
+		if (!attr?.value) {
 			return null;
 		}
 		if (attr.value instanceof DynamicValue) {

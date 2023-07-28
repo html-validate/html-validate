@@ -23,7 +23,7 @@ export default class MetaRefresh extends Rule {
 
 			/* ensure content attribute is set */
 			const content = target.getAttribute("content");
-			if (!content || !content.value || content.isDynamic) {
+			if (!content?.value || content.isDynamic) {
 				return;
 			}
 

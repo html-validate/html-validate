@@ -20,7 +20,7 @@ export default class NoDupID extends Rule {
 				const attr = el.getAttribute("id");
 
 				/* istanbul ignore next: this has already been tested in isRelevant once but for type-safety it is checked again */
-				if (!attr || !attr.value) {
+				if (!attr?.value) {
 					continue;
 				}
 

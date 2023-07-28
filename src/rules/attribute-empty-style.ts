@@ -45,7 +45,7 @@ export default class AttributeEmptyStyle extends Rule<void, RuleOptions> {
 
 				/* ignore rule if element has no meta or meta does not specify attribute
 				 * allowed values */
-				if (!meta || !meta.attributes) return;
+				if (!meta?.attributes) return;
 
 				/* check all boolean attributes */
 				for (const attr of node.attributes) {

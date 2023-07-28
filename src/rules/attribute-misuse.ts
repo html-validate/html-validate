@@ -41,7 +41,7 @@ export default class AttributeMisuse extends Rule<RuleContext> {
 	}
 
 	private validateAttr(node: HtmlElement, attr: Attribute, meta: MetaAttribute | undefined): void {
-		if (!meta || !meta.allowed) {
+		if (!meta?.allowed) {
 			return;
 		}
 

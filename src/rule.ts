@@ -333,10 +333,10 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		if (src.location) {
 			return src.location;
 		}
-		if (src.event && src.event.location) {
+		if (src.event?.location) {
 			return src.event.location;
 		}
-		if (src.node && src.node.location) {
+		if (src.node?.location) {
 			return src.node.location;
 		}
 		return {} as Location;

@@ -3,8 +3,13 @@ import { type HtmlElement } from "../../dom";
 export function hasAriaLabel(node: HtmlElement): boolean {
 	const label = node.getAttribute("aria-label");
 
-	/* missing or boolean */
-	if (label === null || label.value === null) {
+	/* missing attribute */
+	if (!label) {
+		return false;
+	}
+
+	/* (incorrectly) set as boolean value */
+	if (label.value === null) {
 		return false;
 	}
 

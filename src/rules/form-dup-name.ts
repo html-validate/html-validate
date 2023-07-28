@@ -213,7 +213,7 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 		const meta = this.getMetaFor(tagName);
 		/* istanbul ignore if: the earlier check for getTagsWithProperty ensures
 		 * these will actually be set so this is just an untestable fallback */
-		if (!meta || !meta.formAssociated) {
+		if (!meta?.formAssociated) {
 			return false;
 		}
 		return meta.formAssociated.listed;
