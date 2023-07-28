@@ -108,7 +108,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	private meta: MetaTable;
 	private enabled: boolean; // rule enabled/disabled, irregardless of severity
 	private blockers: RuleBlocker[];
-	private severity: number; // rule severity, 0: off, 1: warning 2: error
+	private severity: Severity; // rule severity
 	private event: Event;
 
 	/**
@@ -132,15 +132,15 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		this.options = options;
 		this.enabled = true;
 		this.blockers = [];
-		this.severity = 0;
+		this.severity = Severity.DISABLED;
 		this.name = "";
 	}
 
-	public getSeverity(): number {
+	public getSeverity(): Severity {
 		return this.severity;
 	}
 
-	public setServerity(severity: number): void {
+	public setServerity(severity: Severity): void {
 		this.severity = severity;
 	}
 
