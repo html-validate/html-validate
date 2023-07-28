@@ -36,8 +36,6 @@ function isString(arg: any): arg is string {
 }
 
 function getMarkup(src: unknown): string {
-	/* eslint-disable-next-line @typescript-eslint/ban-ts-comment -- see comment below */
-	// @ts-ignore DOM library not available
 	if (typeof HTMLElement !== "undefined" && src instanceof HTMLElement) {
 		return (src as { outerHTML: string }).outerHTML;
 	}
@@ -77,7 +75,7 @@ function toHTMLValidateImpl(
 			"void-style": "off",
 		},
 	};
-	const config = deepmerge(defaultConfig, userConfig || {});
+	const config = deepmerge(defaultConfig, userConfig ?? {});
 	/* istanbul ignore next: cant figure out when this would be unset */
 	const actualFilename = filename ?? this.testPath ?? "inline";
 	const loader = new FileSystemConfigLoader({

@@ -49,7 +49,7 @@ export default class VoidStyle extends Rule<RuleContext, RuleOptions> {
 		this.on("tag:end", (event: TagEndEvent) => {
 			const active = event.previous; // The current active element (that is, the current element on the stack)
 
-			if (active && active.meta) {
+			if (active.meta) {
 				this.validateActive(active);
 			}
 		});

@@ -84,7 +84,7 @@ export default class NoRawCharacters extends Rule<void, RuleOptions> {
 			this.findRawChars(
 				event.target,
 				event.value.toString(),
-				event.valueLocation as Location,
+				event.valueLocation!, // eslint-disable-line @typescript-eslint/no-non-null-assertion -- technical debt, valueLocation is always set if a value is provided
 				unquotedAttrRegexp
 			);
 		});

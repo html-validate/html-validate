@@ -153,7 +153,7 @@ export class Parser {
 		/* if the element doesn't have metadata it cannot have optional end
 		 * tags. Period. */
 		const active = this.dom.getActive();
-		if (!(active.meta && active.meta.implicitClosed)) {
+		if (!active.meta?.implicitClosed) {
 			return false;
 		}
 
@@ -344,7 +344,7 @@ export class Parser {
 		/* enable cache on node now that it is fully constructed */
 		node.cacheEnable();
 
-		if (source.hooks && source.hooks.processElement) {
+		if (source.hooks?.processElement) {
 			const processElement = source.hooks.processElement;
 			const metaTable = this.metaTable;
 			const context: ProcessElementContext = {
@@ -453,7 +453,7 @@ export class Parser {
 		let processAttribute: ProcessAttributeCallback = (
 			attr: AttributeData
 		): Iterable<AttributeData> => [attr];
-		if (source.hooks && source.hooks.processAttribute) {
+		if (source.hooks?.processAttribute) {
 			processAttribute = source.hooks.processAttribute;
 		}
 

@@ -44,7 +44,7 @@ function isValidUsage(target: HtmlElement, meta: MetaElement): boolean {
 	}
 
 	/* interactive and labelable elements are valid */
-	if (meta.interactive || meta.labelable) {
+	if (Boolean(meta.interactive) || Boolean(meta.labelable)) {
 		return true;
 	}
 
@@ -83,7 +83,7 @@ export default class AriaLabelMisuse extends Rule {
 
 	private validateElement(target: HtmlElement): void {
 		const attr = target.getAttribute("aria-label");
-		if (!attr || !attr.value || attr.valueMatches("", false)) {
+		if (!attr?.value || attr.valueMatches("", false)) {
 			return;
 		}
 

@@ -1009,7 +1009,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
     getBlockers(node?: DOMNode | null): RuleBlocker[];
     getMetaFor(tagName: string): MetaElement | null;
     // (undocumented)
-    getSeverity(): number;
+    getSeverity(): Severity;
     getTagsDerivedFrom(tagName: string): string[];
     getTagsWithProperty(propName: MetaLookupableProperty): string[];
     // @internal
@@ -1037,7 +1037,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
     // (undocumented)
     setEnabled(enabled: boolean): void;
     // (undocumented)
-    setServerity(severity: number): void;
+    setServerity(severity: Severity): void;
     abstract setup(): void;
     // @internal
     unblock(id: RuleBlocker): void;

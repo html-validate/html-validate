@@ -52,7 +52,7 @@ export class StaticConfigLoader extends ConfigLoader {
 	}
 
 	public override getConfigFor(_handle: string, configOverride?: ConfigData): ResolvedConfig {
-		const override = this.loadFromObject(configOverride || {});
+		const override = this.loadFromObject(configOverride ?? {});
 		if (override.isRootFound()) {
 			override.init();
 			return override.resolve();

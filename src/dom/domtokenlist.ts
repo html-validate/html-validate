@@ -63,7 +63,7 @@ export class DOMTokenList extends Array<string> {
 		if (value instanceof DynamicValue) {
 			this.value = value.expr;
 		} else {
-			this.value = value || "";
+			this.value = value ?? "";
 		}
 	}
 

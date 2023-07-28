@@ -3,8 +3,13 @@ import { type HtmlElement } from "../../dom";
 export function hasAltText(image: HtmlElement): boolean {
 	const alt = image.getAttribute("alt");
 
-	/* missing or boolean */
-	if (alt === null || alt.value === null) {
+	/* missing attribute */
+	if (!alt) {
+		return false;
+	}
+
+	/* (incorrectly) set as boolean value */
+	if (alt.value === null) {
 		return false;
 	}
 

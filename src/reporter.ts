@@ -173,7 +173,7 @@ export class Reporter {
 			valid: this.isValid(),
 			results: Object.keys(this.result).map((filePath) => {
 				const messages = Array.from(this.result[filePath], freeze).sort(messageSort);
-				const source = (sources || []).find(
+				const source = (sources ?? []).find(
 					(source: Source) => filePath === (source.filename ?? "")
 				);
 				return {
@@ -181,7 +181,7 @@ export class Reporter {
 					messages,
 					errorCount: countErrors(messages),
 					warningCount: countWarnings(messages),
-					source: source ? source.originalData || source.data : null,
+					source: source ? source.originalData ?? source.data : null,
 				};
 			}),
 			errorCount: 0,
@@ -201,11 +201,11 @@ export class Reporter {
 }
 
 function countErrors(messages: Array<Message | DeferredMessage>): number {
-	return messages.filter((m) => m.severity === Severity.ERROR).length;
+	return messages.filter((m) => m.severity === Number(Severity.ERROR)).length;
 }
 
 function countWarnings(messages: Array<Message | DeferredMessage>): number {
-	return messages.filter((m) => m.severity === Severity.WARN).length;
+	return messages.filter((m) => m.severity === Number(Severity.WARN)).length;
 }
 
 function sumErrors(results: Result[]): number {

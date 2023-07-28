@@ -26,7 +26,7 @@ export default class ElementRequiredAttributes extends Rule<Context> {
 			const meta = node.meta;
 
 			/* handle missing metadata and missing attributes */
-			if (!meta || !meta.attributes) {
+			if (!meta?.attributes) {
 				return;
 			}
 

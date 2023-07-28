@@ -168,7 +168,7 @@ export default defineMetadata({
 			},
 			shape: {
 				allowed(node, attr) {
-					const shape = attr.value || "rect";
+					const shape = attr.value ? attr.value : "rect";
 					switch (shape) {
 						case "circ":
 						case "circle":

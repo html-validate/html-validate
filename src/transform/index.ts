@@ -1,6 +1,9 @@
 export { type TransformContext } from "./context";
 export { type Transformer } from "./transformer";
 
-export enum TRANSFORMER_API {
-	VERSION = 1,
-}
+/**
+ * @internal
+ */
+export const TRANSFORMER_API: { readonly VERSION: number } = {
+	VERSION: 1,
+};

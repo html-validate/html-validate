@@ -89,7 +89,7 @@ export function classifyNodeText(
 	const cacheKey = getCachekey(options);
 
 	if (node.cacheExists(cacheKey)) {
-		return node.cacheGet(cacheKey) as TextClassification;
+		return node.cacheGet(cacheKey)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- has/get combo
 	}
 
 	if (!ignoreHiddenRoot && isHTMLHidden(node)) {

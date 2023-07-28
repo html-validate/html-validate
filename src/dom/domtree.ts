@@ -25,7 +25,7 @@ export class DOMTree {
 			/* root element should never be popped, continue as if nothing happened */
 			return;
 		}
-		this.active = this.active.parent || this.root;
+		this.active = this.active.parent ?? this.root;
 	}
 
 	public getActive(): HtmlElement {

@@ -69,7 +69,7 @@ export function transformSource(
 	const defaultChain = (source: Source): Iterable<Source> => [source];
 	const context: TransformContext = {
 		hasChain: /* istanbul ignore next */ () => true,
-		chain: chain || defaultChain,
+		chain: chain ?? defaultChain,
 	};
 	return Array.from(fn.call(context, source));
 }

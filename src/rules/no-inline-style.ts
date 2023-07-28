@@ -93,7 +93,7 @@ export default class NoInlineStyle extends Rule<void, RuleOptions> {
 		}
 
 		const { include, exclude } = this.options;
-		const key = event.originalAttribute || event.key;
+		const key = event.originalAttribute ?? event.key;
 
 		/* ignore attributes not present in "include" */
 		if (include && !include.includes(key)) {

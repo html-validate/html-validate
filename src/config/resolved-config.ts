@@ -86,7 +86,7 @@ export class ResolvedConfig {
 	 * @returns A list of transformed sources ready for validation.
 	 */
 	public transformSource(source: Source, filename?: string): Source[] {
-		const transformer = this.findTransformer(filename || source.filename);
+		const transformer = this.findTransformer(filename ?? source.filename);
 		const context: TransformContext = {
 			hasChain: (filename: string): boolean => {
 				return !!this.findTransformer(filename);
@@ -100,7 +100,7 @@ export class ResolvedConfig {
 				return Array.from(transformer.fn.call(context, source), (cur: Source) => {
 					/* keep track of which transformers that has been run on this source
 					 * by appending this entry to the transformedBy array */
-					cur.transformedBy = cur.transformedBy || [];
+					cur.transformedBy ??= [];
 					cur.transformedBy.push(transformer.name);
 					return cur;
 				});

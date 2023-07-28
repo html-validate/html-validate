@@ -259,7 +259,7 @@ export class Engine<T extends Parser = Parser> {
 		}
 	}
 
-	private processEnableDirective(rules: Rule<unknown, unknown>[], parser: Parser): void {
+	private processEnableDirective(rules: Array<Rule<unknown, unknown>>, parser: Parser): void {
 		for (const rule of rules) {
 			rule.setEnabled(true);
 			if (rule.getSeverity() === Severity.DISABLED) {
@@ -273,7 +273,7 @@ export class Engine<T extends Parser = Parser> {
 		});
 	}
 
-	private processDisableDirective(rules: Rule<unknown, unknown>[], parser: Parser): void {
+	private processDisableDirective(rules: Array<Rule<unknown, unknown>>, parser: Parser): void {
 		for (const rule of rules) {
 			rule.setEnabled(false);
 		}
@@ -286,7 +286,7 @@ export class Engine<T extends Parser = Parser> {
 
 	private processDisableBlockDirective(
 		context: DirectiveContext,
-		rules: Rule<unknown, unknown>[],
+		rules: Array<Rule<unknown, unknown>>,
 		parser: Parser,
 		options: string,
 		location: Location
@@ -344,7 +344,7 @@ export class Engine<T extends Parser = Parser> {
 
 	private processDisableNextDirective(
 		context: DirectiveContext,
-		rules: Rule<unknown, unknown>[],
+		rules: Array<Rule<unknown, unknown>>,
 		parser: Parser,
 		options: string,
 		location: Location
@@ -408,7 +408,7 @@ export class Engine<T extends Parser = Parser> {
 	private initRules(config: ResolvedConfig): Record<string, RuleConstructor<any, any>> {
 		const availableRules: Record<string, RuleConstructor<any, any>> = {};
 		for (const plugin of config.getPlugins()) {
-			for (const [name, rule] of Object.entries(plugin.rules || {})) {
+			for (const [name, rule] of Object.entries(plugin.rules ?? {})) {
 				if (!rule) continue;
 				availableRules[name] = rule;
 			}

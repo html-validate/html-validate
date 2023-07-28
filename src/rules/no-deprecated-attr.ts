@@ -20,7 +20,7 @@ export default class NoDeprecatedAttr extends Rule {
 				return;
 			}
 
-			const metaAttribute = meta.attributes && meta.attributes[attr];
+			const metaAttribute = meta.attributes[attr];
 			if (!metaAttribute) {
 				return;
 			}

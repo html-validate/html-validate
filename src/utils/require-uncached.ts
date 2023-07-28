@@ -6,7 +6,7 @@ export function requireUncached(require: NodeJS.Require, moduleId: string): unkn
 
 	/* remove references from the parent module to prevent memory leak */
 	const m = require.cache[filename];
-	if (m && m.parent) {
+	if (m?.parent) {
 		const { parent } = m;
 		for (let i = parent.children.length - 1; i >= 0; i--) {
 			if (parent.children[i].id === filename) {
