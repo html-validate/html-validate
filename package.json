@@ -192,7 +192,7 @@
     "@html-validate/eslint-config-jest": "5.10.0",
     "@html-validate/eslint-config-typescript": "5.10.6",
     "@html-validate/eslint-config-typescript-typeinfo": "5.10.6",
-    "@html-validate/jest-config": "3.7.6",
+    "@html-validate/jest-config": "3.7.7",
     "@html-validate/prettier-config": "2.4.2",
     "@html-validate/release-scripts": "4.1.6",
     "@microsoft/api-extractor": "7.36.3",
