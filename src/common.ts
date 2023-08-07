@@ -69,6 +69,7 @@ export {
 	type CategoryOrTag,
 	type DeprecatedElement,
 	type FormAssociated,
+	type HtmlElementLike,
 	type MetaAttribute,
 	type MetaAttributeAllowedCallback,
 	type MetaData,

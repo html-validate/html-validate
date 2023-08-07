@@ -1,6 +1,6 @@
-import { type HtmlElement } from "../dom";
 import { naturalJoin } from "../utils/natural-join";
 import { type MetaAttributeAllowedCallback } from "./element";
+import { type HtmlElementLike } from "./html-element-like";
 
 /**
  * Helpers when writing element metadata.
@@ -34,7 +34,7 @@ export interface MetadataHelper {
  * @internal
  */
 export function allowedIfAttributeIsPresent(...attr: string[]) {
-	return (node: HtmlElement) => {
+	return (node: HtmlElementLike) => {
 		if (attr.some((it) => node.hasAttribute(it))) {
 			return null;
 		}
@@ -47,7 +47,7 @@ export function allowedIfAttributeIsPresent(...attr: string[]) {
  * @internal
  */
 export function allowedIfAttributeIsAbsent(...attr: string[]): MetaAttributeAllowedCallback {
-	return (node: HtmlElement) => {
+	return (node: HtmlElementLike) => {
 		const present = attr.filter((it) => node.hasAttribute(it));
 		if (present.length === 0) {
 			return null;
@@ -65,12 +65,12 @@ export function allowedIfAttributeHasValue(
 	expectedValue: string[],
 	{ defaultValue }: { defaultValue?: string | null } = {}
 ): MetaAttributeAllowedCallback {
-	return (node: HtmlElement) => {
+	return (node: HtmlElementLike) => {
 		const attr = node.getAttribute(key);
-		if (attr?.isDynamic) {
+		if (attr && typeof attr !== "string") {
 			return null;
 		}
-		const actualValue = attr?.value ? attr.value.toString() : defaultValue;
+		const actualValue = attr ? attr : defaultValue;
 		if (actualValue && expectedValue.includes(actualValue.toLocaleLowerCase())) {
 			return null;
 		}
@@ -86,7 +86,7 @@ export function allowedIfParentIsPresent(
 	this: void,
 	...tags: string[]
 ): MetaAttributeAllowedCallback {
-	return (node: HtmlElement) => {
+	return (node: HtmlElementLike) => {
 		const match = tags.some((it) => node.closest(it));
 		if (match) {
 			return null;

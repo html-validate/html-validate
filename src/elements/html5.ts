@@ -145,7 +145,7 @@ export default defineMetadata({
 			coords: {
 				allowed(node) {
 					const attr = node.getAttribute("shape");
-					if (attr && attr.valueMatches("default", false)) {
+					if (attr === "default") {
 						return `cannot be used when "shape" attribute is "default"`;
 					} else {
 						return null;
@@ -172,7 +172,7 @@ export default defineMetadata({
 			},
 			shape: {
 				allowed(node, attr) {
-					const shape = attr.value ? attr.value : "rect";
+					const shape = attr ?? "rect";
 					switch (shape) {
 						case "circ":
 						case "circle":

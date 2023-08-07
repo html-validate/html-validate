@@ -1,6 +1,7 @@
 import { type Location, sliceLocation } from "../context";
 import { type TagCloseToken, type TagOpenToken } from "../lexer";
 import { type MetaElement, MetaCopyableProperty, setMetaProperty } from "../meta/element";
+import { type HtmlElementLike } from "../meta/html-element-like";
 import { type MetaTable } from "../meta/table";
 import { Attribute } from "./attribute";
 import { type CSSStyleDeclaration, parseCssDeclaration } from "./css";
@@ -35,6 +36,20 @@ function isValidTagName(tagName: string | undefined): boolean {
 	return Boolean(tagName !== "" && tagName !== "*");
 }
 
+function createAdapter(node: HtmlElement): HtmlElementLike {
+	return {
+		closest(selectors) {
+			return node.closest(selectors)?._adapter;
+		},
+		getAttribute(name) {
+			return node.getAttribute(name)?.value;
+		},
+		hasAttribute(name) {
+			return node.hasAttribute(name);
+		},
+	};
+}
+
 /**
  * @public
  */
@@ -47,6 +62,9 @@ export class HtmlElement extends DOMNode {
 	protected readonly attr: Record<string, Attribute[]>;
 	private metaElement: MetaElement | null;
 	private annotation: string | null;
+
+	/** @internal */
+	public readonly _adapter: HtmlElementLike;
 
 	public constructor(
 		tagName: string | undefined,
@@ -70,6 +88,7 @@ export class HtmlElement extends DOMNode {
 		this.voidElement = meta ? Boolean(meta.void) : false;
 		this.depth = 0;
 		this.annotation = null;
+		this._adapter = createAdapter(this);
 
 		if (parent) {
 			parent.childNodes.push(this);
