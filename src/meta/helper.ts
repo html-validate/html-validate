@@ -25,7 +25,7 @@ export interface MetadataHelper {
 	/**
 	 * Returns an error if the node doesn't have any of the given elements as parent
 	 *
-	 * @since %version%
+	 * @since 8.2.0
 	 **/
 	allowedIfParentIsPresent(this: void, ...tags: string[]): MetaAttributeAllowedCallback;
 }

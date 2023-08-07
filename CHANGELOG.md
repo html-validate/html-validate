@@ -1,5 +1,17 @@
 # html-validate changelog
 
+## [8.2.0](https://gitlab.com/html-validate/html-validate/compare/v8.1.0...v8.2.0) (2023-08-07)
+
+### Features
+
+- add `allowedIfParentIsPresent` metadata helper ([2668899](https://gitlab.com/html-validate/html-validate/commit/26688993dbf76c6b02bc01cca44b07236d24b456))
+- **html5:** add `<source>` attributes metadata ([e3a3311](https://gitlab.com/html-validate/html-validate/commit/e3a3311d220074c988be85ce0f18c973380fddc7))
+- support passing native `HTMLElement` to metadata helpers ([8af6d01](https://gitlab.com/html-validate/html-validate/commit/8af6d01d3145edf4028195326b96858d2da33872)), closes [#207](https://gitlab.com/html-validate/html-validate/issues/207)
+
+### Bug Fixes
+
+- **api:** typing for `Rule.setSeverity()` changed to only accept `Severity` ([64f4210](https://gitlab.com/html-validate/html-validate/commit/64f42104bde8100e036e8c25232798c6741a193a))
+
 ## [8.1.0](https://gitlab.com/html-validate/html-validate/compare/v8.0.5...v8.1.0) (2023-07-22)
 
 ### Features

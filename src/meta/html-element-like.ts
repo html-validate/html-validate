@@ -9,7 +9,7 @@ import { type DynamicValue } from "../dom";
  * implementation and the element metadata should still work.
  *
  * @public
- * @since %version%
+ * @since 8.2.0
  */
 export interface HtmlElementLike {
 	closest(selectors: string): HtmlElementLike | null | undefined;
