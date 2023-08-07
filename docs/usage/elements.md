@@ -215,12 +215,15 @@ This is typically elements input elements such as `<input>`.
 An object with allowed attribute values.
 
 ```ts
-import { type HtmlElement, type Attribute } from "html-validate";
+import { type DynamicValue, type HtmlElementLike } from "html-validate";
 
 /* --- */
 
 export interface MetaAttribute {
-  allowed?: (node: HtmlElement, attr: Attribute) => string | null;
+  allowed?: (
+    node: HtmlElementLike,
+    attr: string | DynamicValue | null
+  ) => string | null | undefined;
   boolean?: boolean;
   deprecated?: boolean | string;
   enum?: Array<string | RegExp>;
@@ -258,6 +261,9 @@ An empty object may be set as well to mark the attribute as a known attribute bu
 The `allowed` property can be set to a callback taking a single element.
 If the callback returns an error string the attribute cannot be used in the given context.
 
+- The `node` parameter is the element the attribute belongs to.
+- The `attr` parameter is the value of the current attribute under consideration, e.g. the value of `foo ` in the next example.
+
 ```js
 const { defineMetadata } = require("html-validate");
 
@@ -281,6 +287,8 @@ module.exports = defineMetadata({
 Helper functions for writing callbacks are available in {@link api:MetadataHelper}.
 
 This is used by the {@link attribute-misuse} rule to check if an attribute is allowed or not in the context.
+
+Calling `allowed(..)` with a native `HTMLElement` (or JSDOM) works but is not officially supported and the API may change over time outside of major releases.
 
 #### `attribute.enum`
 

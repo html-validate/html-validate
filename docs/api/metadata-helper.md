@@ -18,6 +18,7 @@ export interface MetadataHelper {
     value: string[],
     options?: { defaultValue?: string | null }
   ): MetaAttributeAllowedCallback;
+  allowedIfParentIsPresent(...tags: string[]): MetaAttributeAllowedCallback;
 }
 ```
 
@@ -87,6 +88,27 @@ module.exports = defineMetadata({
       foo: {
         /* will be allowed only if "type" attribute is set to "foo" or "bar", with the default being "foo" */
         allowed: allowedIfAttributeHasValue("type", ["foo", "bar"], { defaultValue: "foo" }),
+      },
+    },
+  },
+});
+```
+
+## `allowedIfParentIsPresent`
+
+Returns an error if the node doesn't have any of the given elements as parent.
+
+```js
+const { defineMetadata, metadataHelper } = require("html-validate");
+
+const { allowedIfParentIsPresent } = metadataHelper;
+
+module.exports = defineMetadata({
+  "custom-element": {
+    attributes: {
+      foo: {
+        /* will be allowed only if <custom-element> has a <other-element> as ancestor  */
+        allowed: allowedIfParentIsPresent("other-element"),
       },
     },
   },

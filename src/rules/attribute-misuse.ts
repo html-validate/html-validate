@@ -45,7 +45,7 @@ export default class AttributeMisuse extends Rule<RuleContext> {
 			return;
 		}
 
-		const details = meta.allowed(node, attr);
+		const details = meta.allowed(node._adapter, attr.value);
 		if (details) {
 			this.report({
 				node,

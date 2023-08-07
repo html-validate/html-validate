@@ -1,4 +1,5 @@
-import { type Attribute, type HtmlElement } from "../dom";
+import { type DynamicValue } from "../dom";
+import { type HtmlElementLike } from "./html-element-like";
 
 /**
  * @public
@@ -66,11 +67,11 @@ export enum TextContent {
  *
  * @public
  * @param node - The node the attribute belongs to.
- * @param attr - The current attribute being validated.
+ * @param attr - The current attribute value being validated.
  */
 export type MetaAttributeAllowedCallback = (
-	node: HtmlElement,
-	attr: Attribute
+	node: HtmlElementLike,
+	attr: string | DynamicValue | null | undefined
 ) => string | null | undefined;
 
 /**

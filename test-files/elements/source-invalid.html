@@ -7,3 +7,24 @@
 <div>
 	<source>
 </div>
+
+<!-- attributes should not be allowed under <audio> and <video> -->
+<audio>
+	<source srcset=".." sizes=".." width="123" height="123">
+</audio>
+<video>
+	<source srcset=".." sizes=".." width="123" height="123">
+</video>
+
+<!-- attributes should not be allowed under <picture> -->
+<picture>
+	<source src="..">
+</picture>
+
+<!-- width/height should only be non-negative integers -->
+<picture>
+	<source width="" height="">
+	<source width="-123" height="-123">
+	<source width="12.34" height="12.34">
+	<source width="invalid" height="invalid">
+</picture>

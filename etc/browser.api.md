@@ -449,6 +449,8 @@ export interface FormAssociated {
 // @public (undocumented)
 export class HtmlElement extends DOMNode {
     constructor(tagName: string | undefined, parent: HtmlElement | null, closed: NodeClosed, meta: MetaElement | null, location: Location_2);
+    // @internal (undocumented)
+    readonly _adapter: HtmlElementLike;
     get annotatedName(): string;
     appendText(text: string | DynamicValue, location: Location_2): void;
     get ariaLabelledby(): string[] | DynamicValue | null;
@@ -511,6 +513,16 @@ export class HtmlElement extends DOMNode {
     visitDepthFirst(callback: (node: HtmlElement) => void): void;
     // (undocumented)
     readonly voidElement: boolean;
+}
+
+// @public
+export interface HtmlElementLike {
+    // (undocumented)
+    closest(selectors: string): HtmlElementLike | null | undefined;
+    // (undocumented)
+    getAttribute(name: string): string | DynamicValue | null | undefined;
+    // (undocumented)
+    hasAttribute(name: string): boolean;
 }
 
 // @public
@@ -685,7 +697,7 @@ export interface MetaAttribute {
 }
 
 // @public
-export type MetaAttributeAllowedCallback = (node: HtmlElement, attr: Attribute) => string | null | undefined;
+export type MetaAttributeAllowedCallback = (node: HtmlElementLike, attr: string | DynamicValue | null | undefined) => string | null | undefined;
 
 // @public
 export const MetaCopyableProperty: Array<keyof MetaElement>;
@@ -754,6 +766,7 @@ export interface MetadataHelper {
     }): MetaAttributeAllowedCallback;
     allowedIfAttributeIsAbsent(this: void, ...attr: string[]): MetaAttributeAllowedCallback;
     allowedIfAttributeIsPresent(this: void, ...attr: string[]): MetaAttributeAllowedCallback;
+    allowedIfParentIsPresent(this: void, ...tags: string[]): MetaAttributeAllowedCallback;
 }
 
 // @public (undocumented)

@@ -3,8 +3,12 @@
 import { defineMetadata } from "../meta/define-metadata";
 import { metadataHelper } from "../meta/helper";
 
-const { allowedIfAttributeIsPresent, allowedIfAttributeIsAbsent, allowedIfAttributeHasValue } =
-	metadataHelper;
+const {
+	allowedIfAttributeIsPresent,
+	allowedIfAttributeIsAbsent,
+	allowedIfAttributeHasValue,
+	allowedIfParentIsPresent,
+} = metadataHelper;
 
 export default defineMetadata({
 	"*": {
@@ -141,7 +145,7 @@ export default defineMetadata({
 			coords: {
 				allowed(node) {
 					const attr = node.getAttribute("shape");
-					if (attr && attr.valueMatches("default", false)) {
+					if (attr === "default") {
 						return `cannot be used when "shape" attribute is "default"`;
 					} else {
 						return null;
@@ -168,7 +172,7 @@ export default defineMetadata({
 			},
 			shape: {
 				allowed(node, attr) {
-					const shape = attr.value ? attr.value : "rect";
+					const shape = attr ?? "rect";
 					switch (shape) {
 						case "circ":
 						case "circle":
@@ -1687,6 +1691,27 @@ export default defineMetadata({
 
 	source: {
 		void: true,
+		attributes: {
+			type: {},
+			media: {},
+			src: {
+				allowed: allowedIfParentIsPresent("audio", "video"),
+			},
+			srcset: {
+				allowed: allowedIfParentIsPresent("picture"),
+			},
+			sizes: {
+				allowed: allowedIfParentIsPresent("picture"),
+			},
+			width: {
+				allowed: allowedIfParentIsPresent("picture"),
+				enum: ["/\\d+/"],
+			},
+			height: {
+				allowed: allowedIfParentIsPresent("picture"),
+				enum: ["/\\d+/"],
+			},
+		},
 	},
 
 	spacer: {

@@ -24,4 +24,5 @@ export {
 	TextContent,
 	setMetaProperty,
 } from "./element";
+export { type HtmlElementLike } from "./html-element-like";
 export { Validator } from "./validator";

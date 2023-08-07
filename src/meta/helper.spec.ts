@@ -7,6 +7,7 @@ import {
 	allowedIfAttributeHasValue,
 	allowedIfAttributeIsAbsent,
 	allowedIfAttributeIsPresent,
+	allowedIfParentIsPresent,
 } from "./helper";
 
 const config = Config.empty();
@@ -35,7 +36,7 @@ describe("allowedIfAttributeIsPresent()", () => {
 	it("should not return error if given attribute is present", () => {
 		expect.assertions(3);
 		const markup = /* HTML */ ` <div foo bar baz></div> `;
-		const root = parse(markup);
+		const root = parse(markup)._adapter;
 		expect(allowedIfAttributeIsPresent("foo")(root)).toMatchInlineSnapshot(`null`);
 		expect(allowedIfAttributeIsPresent("foo", "bar")(root)).toMatchInlineSnapshot(`null`);
 		expect(allowedIfAttributeIsPresent("foo", "bar", "baz")(root)).toMatchInlineSnapshot(`null`);
@@ -44,7 +45,7 @@ describe("allowedIfAttributeIsPresent()", () => {
 	it("should return error if given attribute is absent", () => {
 		expect.assertions(3);
 		const markup = /* HTML */ ` <div></div> `;
-		const root = parse(markup);
+		const root = parse(markup)._adapter;
 		expect(allowedIfAttributeIsPresent("foo")(root)).toMatchInlineSnapshot(
 			`"requires "foo" attribute to be present"`
 		);
@@ -61,7 +62,7 @@ describe("allowedIfAttributeIsAbsent()", () => {
 	it("should return error if given attribute is present", () => {
 		expect.assertions(3);
 		const markup = /* HTML */ ` <div ham foo bar baz></div> `;
-		const root = parse(markup);
+		const root = parse(markup)._adapter;
 		const attr = root.getAttribute("ham")!;
 		expect(allowedIfAttributeIsAbsent("foo")(root, attr)).toMatchInlineSnapshot(
 			`"cannot be used at the same time as "foo""`
@@ -77,7 +78,7 @@ describe("allowedIfAttributeIsAbsent()", () => {
 	it("should not return error if given attribute is absent", () => {
 		expect.assertions(3);
 		const markup = /* HTML */ ` <div ham></div> `;
-		const root = parse(markup);
+		const root = parse(markup)._adapter;
 		const attr = root.getAttribute("ham")!;
 		expect(allowedIfAttributeIsAbsent("foo")(root, attr)).toMatchInlineSnapshot(`null`);
 		expect(allowedIfAttributeIsAbsent("foo", "bar")(root, attr)).toMatchInlineSnapshot(`null`);
@@ -90,8 +91,8 @@ describe("allowedIfAttributeIsAbsent()", () => {
 		expect.assertions(2);
 		const markup1 = /* HTML */ ` <div ham foo></div> `;
 		const markup2 = /* HTML */ ` <div ham foo bar></div> `;
-		const root1 = parse(markup1);
-		const root2 = parse(markup2);
+		const root1 = parse(markup1)._adapter;
+		const root2 = parse(markup2)._adapter;
 		const attr1 = root1.getAttribute("ham")!;
 		const attr2 = root2.getAttribute("ham")!;
 		const fn = allowedIfAttributeIsAbsent("foo", "bar", "baz");
@@ -106,7 +107,7 @@ describe("allowedIfAttributeHasValue()", () => {
 	it("should not return error if attribute has one of given values", () => {
 		expect.assertions(3);
 		const markup = /* HTML */ ` <div ham foo="bar"></div> `;
-		const root = parse(markup);
+		const root = parse(markup)._adapter;
 		const attr = root.getAttribute("ham")!;
 		expect(allowedIfAttributeHasValue("foo", ["bar"])(root, attr)).toMatchInlineSnapshot(`null`);
 		expect(allowedIfAttributeHasValue("foo", ["bar", "baz"])(root, attr)).toMatchInlineSnapshot(
@@ -120,7 +121,7 @@ describe("allowedIfAttributeHasValue()", () => {
 	it("should not return error if attribute default value matches given value", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <div ham></div> `;
-		const root = parse(markup);
+		const root = parse(markup)._adapter;
 		const attr = root.getAttribute("ham")!;
 		const result = allowedIfAttributeHasValue("foo", ["bar"], { defaultValue: "bar" })(root, attr);
 		expect(result).toMatchInlineSnapshot(`null`);
@@ -129,7 +130,7 @@ describe("allowedIfAttributeHasValue()", () => {
 	it("should not return error if attribute is dynamic", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <div ham dynamic-foo="expr"></div> `;
-		const root = parse(markup);
+		const root = parse(markup)._adapter;
 		const attr = root.getAttribute("ham")!;
 		const result = allowedIfAttributeHasValue("foo", ["bar"])(root, attr);
 		expect(result).toMatchInlineSnapshot(`null`);
@@ -138,7 +139,7 @@ describe("allowedIfAttributeHasValue()", () => {
 	it("should return error if given attribute is absent", () => {
 		expect.assertions(3);
 		const markup = /* HTML */ ` <div ham></div> `;
-		const root = parse(markup);
+		const root = parse(markup)._adapter;
 		const attr = root.getAttribute("ham")!;
 		expect(allowedIfAttributeHasValue("foo", ["bar"])(root, attr)).toMatchInlineSnapshot(
 			`""foo" attribute must be "bar""`
@@ -149,5 +150,40 @@ describe("allowedIfAttributeHasValue()", () => {
 		expect(
 			allowedIfAttributeHasValue("foo", ["bar", "baz", "ham"])(root, attr)
 		).toMatchInlineSnapshot(`""foo" attribute must be "bar", "baz" or "ham""`);
+	});
+});
+
+describe("allowedIfParentIsPresent()", () => {
+	it("should not return error if element has one of given parent elements", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<div>
+				<foo>
+					<bar attr></bar>
+				</foo>
+				<div></div>
+			</div>
+		`;
+		const root = parse(markup);
+		const node = root.querySelector("bar")!._adapter;
+		const attr = node.getAttribute("attr");
+		expect(allowedIfParentIsPresent("foo")(node, attr)).toMatchInlineSnapshot(`null`);
+	});
+
+	it("should return error if element doesn't have one of given parents and elements", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<div>
+				<foo>
+					<bar attr></bar>
+				</foo>
+			</div>
+		`;
+		const root = parse(markup);
+		const node = root.querySelector("bar")!._adapter;
+		const attr = node.getAttribute("attr");
+		expect(allowedIfParentIsPresent("spam", "ham")(node, attr)).toMatchInlineSnapshot(
+			`"requires <spam> or <ham> as parent"`
+		);
 	});
 });
