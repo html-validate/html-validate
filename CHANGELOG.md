@@ -1,5 +1,16 @@
 # html-validate changelog
 
+## [8.3.0](https://gitlab.com/html-validate/html-validate/compare/v8.2.0...v8.3.0) (2023-08-20)
+
+### Features
+
+- **rules:** new rule `no-implicit-button-type` ([38efd72](https://gitlab.com/html-validate/html-validate/commit/38efd723e8621b660ded7cb151afc6619b1fc483)), closes [#221](https://gitlab.com/html-validate/html-validate/issues/221)
+
+### Bug Fixes
+
+- **html5:** `<label>` cannot have empty `for` ([3626e1a](https://gitlab.com/html-validate/html-validate/commit/3626e1a96abe2681bec03d6fe67171119e8d3628)), closes [#223](https://gitlab.com/html-validate/html-validate/issues/223)
+- **html5:** `element-required-attributes` allows `<button>` without `type` (use `no-implicit-button-type` instead) ([d32f492](https://gitlab.com/html-validate/html-validate/commit/d32f49260ae77d8a128acebaad7c55de0cfc945a)), closes [#221](https://gitlab.com/html-validate/html-validate/issues/221)
+
 ## [8.2.0](https://gitlab.com/html-validate/html-validate/compare/v8.1.0...v8.2.0) (2023-08-07)
 
 ### Features

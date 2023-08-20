@@ -32,4 +32,4 @@ Examples of **correct** code for this rule:
 
 ## Version history
 
-- %version% - Rule added.
+- 8.3.0 - Rule added.
