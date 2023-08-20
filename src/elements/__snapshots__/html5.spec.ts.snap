@@ -1764,7 +1764,7 @@ exports[`HTML elements <br> valid markup 1`] = `[]`;
 exports[`HTML elements <button> invalid markup 1`] = `
 [
   {
-    "errorCount": 17,
+    "errorCount": 16,
     "filePath": "test-files/elements/button-invalid.html",
     "messages": [
       {
@@ -1920,21 +1920,6 @@ exports[`HTML elements <button> invalid markup 1`] = `
         "selector": "button:nth-child(8)",
         "severity": 2,
         "size": 8,
-      },
-      {
-        "column": 2,
-        "context": {
-          "attribute": "type",
-          "element": "button",
-        },
-        "line": 28,
-        "message": "<button> is missing required "type" attribute",
-        "offset": 793,
-        "ruleId": "element-required-attributes",
-        "ruleUrl": "https://html-validate.org/rules/element-required-attributes.html",
-        "selector": "button:nth-child(9)",
-        "severity": 2,
-        "size": 6,
       },
       {
         "column": 2,

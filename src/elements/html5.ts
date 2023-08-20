@@ -395,7 +395,6 @@ export default defineMetadata({
 				enum: ["/[^_].*/", "_blank", "_self", "_parent", "_top"],
 			},
 			type: {
-				required: true,
 				enum: ["submit", "reset", "button"],
 			},
 		},
