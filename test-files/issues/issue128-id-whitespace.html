@@ -1,4 +1,7 @@
+<!-- In both of these cases errors will be yielded (as id cannot contain whitespace) but neither the parser or any rule should choke on it -->
+
+<!-- this will yield an expected attribute-allowed-values error as for cannot contain whitespace -->
 <label for="foo bar">lorem ipsum</label>
 
-<!-- [html-validate-disable-next attribute-allowed-values, valid-id: id cannot contain whitespace but it should not choke on it] -->
+<!-- this will yield both an expected attribute-allowed-values and valid-id -->
 <input type="text" id="foo bar">

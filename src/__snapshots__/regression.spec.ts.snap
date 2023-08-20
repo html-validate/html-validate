@@ -125,4 +125,76 @@ exports[`regression tests test-files/issues/issue51-cond-comment.html 1`] = `
 ]
 `;
 
-exports[`regression tests test-files/issues/issue128-id-whitespace.html 1`] = `[]`;
+exports[`regression tests test-files/issues/issue128-id-whitespace.html 1`] = `
+[
+  {
+    "errorCount": 3,
+    "filePath": "test-files/issues/issue128-id-whitespace.html",
+    "messages": [
+      {
+        "column": 13,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\S\\+\\$/,
+            ],
+          },
+          "attribute": "for",
+          "element": "label",
+          "value": "foo bar",
+        },
+        "line": 4,
+        "message": "Attribute "for" has invalid value "foo bar"",
+        "offset": 257,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "label",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 24,
+        "context": 2,
+        "line": 7,
+        "message": "element id must not contain whitespace",
+        "offset": 390,
+        "ruleId": "valid-id",
+        "ruleUrl": "https://html-validate.org/rules/valid-id.html",
+        "selector": "#foo\\ bar",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 24,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\S\\+\\$/,
+            ],
+          },
+          "attribute": "id",
+          "element": "input",
+          "value": "foo bar",
+        },
+        "line": 7,
+        "message": "Attribute "id" has invalid value "foo bar"",
+        "offset": 390,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "#foo\\ bar",
+        "severity": 2,
+        "size": 7,
+      },
+    ],
+    "source": "<!-- In both of these cases errors will be yielded (as id cannot contain whitespace) but neither the parser or any rule should choke on it -->
+
+<!-- this will yield an expected attribute-allowed-values error as for cannot contain whitespace -->
+<label for="foo bar">lorem ipsum</label>
+
+<!-- this will yield both an expected attribute-allowed-values and valid-id -->
+<input type="text" id="foo bar">
+",
+    "warningCount": 0,
+  },
+]
+`;

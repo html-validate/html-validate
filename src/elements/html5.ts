@@ -10,6 +10,8 @@ const {
 	allowedIfParentIsPresent,
 } = metadataHelper;
 
+const validId = "/\\S+/";
+
 export default defineMetadata({
 	"*": {
 		attributes: {
@@ -30,7 +32,7 @@ export default defineMetadata({
 				boolean: true,
 			},
 			id: {
-				enum: ["/\\S+/"],
+				enum: [validId],
 			},
 			tabindex: {
 				enum: ["/-?\\d+/"],
@@ -1082,6 +1084,9 @@ export default defineMetadata({
 			},
 			datasrc: {
 				deprecated: true,
+			},
+			for: {
+				enum: [validId],
 			},
 		},
 	},

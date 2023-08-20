@@ -12170,7 +12170,7 @@ exports[`HTML elements <keygen> valid markup 1`] = `[]`;
 exports[`HTML elements <label> invalid markup 1`] = `
 [
   {
-    "errorCount": 9,
+    "errorCount": 10,
     "filePath": "test-files/elements/label-invalid.html",
     "messages": [
       {
@@ -12282,6 +12282,27 @@ exports[`HTML elements <label> invalid markup 1`] = `
         "severity": 2,
         "size": 5,
       },
+      {
+        "column": 2,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\S\\+\\$/,
+            ],
+          },
+          "attribute": "for",
+          "element": "label",
+          "value": "",
+        },
+        "line": 42,
+        "message": "Attribute "for" has invalid value """,
+        "offset": 654,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "label:nth-child(10)",
+        "severity": 2,
+        "size": 5,
+      },
     ],
     "source": "<!-- should not allow flow -->
 <label>
@@ -12321,6 +12342,11 @@ exports[`HTML elements <label> invalid markup 1`] = `
 <label>
 	<textarea></textarea>
 	<textarea></textarea>
+</label>
+
+<!-- should not allow empty for -->
+<label for="">
+	lorem ipsum
 </label>
 ",
     "warningCount": 0,
