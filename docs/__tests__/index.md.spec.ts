@@ -33,7 +33,7 @@ describe("docs/index.md", () => {
 	});
 	it("inline validation: frontpage-a11y", async () => {
 		expect.assertions(1);
-		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h37":"error","element-required-attributes":"error","input-missing-label":"error"}});
+		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h37":"error","no-implicit-button-type":"error","input-missing-label":"error"}});
 		const report = await htmlvalidate.validateString(markup["frontpage-a11y"]);
 		expect(report.results).toMatchSnapshot();
 	});

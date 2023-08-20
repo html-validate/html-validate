@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/no-implicit-button-type.md inline validation: correct 1`] = `[]`;
+
+exports[`docs/rules/no-implicit-button-type.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 2,
+        "line": 1,
+        "message": "<button> is missing required "type" attribute",
+        "offset": 1,
+        "ruleId": "no-implicit-button-type",
+        "ruleUrl": "https://html-validate.org/rules/no-implicit-button-type.html",
+        "selector": "button",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<button>My Awesome Button</button>",
+    "warningCount": 0,
+  },
+]
+`;

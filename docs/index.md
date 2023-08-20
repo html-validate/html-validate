@@ -96,7 +96,7 @@ First-class support for:
 
 ### Accessibility
 
-<validate name="frontpage-a11y" rules="wcag/h37 element-required-attributes input-missing-label">
+<validate name="frontpage-a11y" rules="wcag/h37 no-implicit-button-type input-missing-label">
   <img src="logo.png">
   <button onclick="myFunction();">Click me!</button>
 
