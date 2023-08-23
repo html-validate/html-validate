@@ -76,3 +76,10 @@ it("should handle falsey values", () => {
 	const data = { empty: "", zero: 0, false: false, null: null };
 	expect(interpolate(message, data)).toBe('"" 0 false null');
 });
+
+it("should not allow { or } in keys", () => {
+	expect.assertions(3);
+	expect(interpolate("{{ { }}", {})).toBe("{{ { }}");
+	expect(interpolate("{{ } }}", {})).toBe("{{ } }}");
+	expect(interpolate("{{ {} }}", {})).toBe("{{ {} }}");
+});
