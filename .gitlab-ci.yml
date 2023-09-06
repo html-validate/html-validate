@@ -143,7 +143,6 @@ Docs:
   dependencies: []
   needs: []
   before_script:
-    - npm install -g npm@latest
     - npm ci --no-fund --no-audit --no-update-notifier
   script:
     - npm run codegen
