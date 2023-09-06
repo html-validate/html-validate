@@ -1,6 +1,7 @@
-import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
+import { HtmlValidate } from "../htmlvalidate";
 import { processAttribute } from "../transform/mocks/attribute";
+import { RuleContext } from "./no-redundant-role";
 
 describe("rule no-redundant-role", () => {
 	let htmlvalidate: HtmlValidate;
@@ -51,20 +52,14 @@ describe("rule no-redundant-role", () => {
 		const htmlvalidate = new HtmlValidate({
 			rules: { "no-redundant-role": "error" },
 		});
-		const docs = await htmlvalidate.getRuleDocumentation("no-redundant-role");
-		expect(docs).toMatchSnapshot();
-	});
-
-	it("should contain contextual documentation", async () => {
-		expect.assertions(1);
-		const htmlvalidate = new HtmlValidate({
-			rules: { "no-redundant-role": "error" },
-		});
-		const context = {
+		const context: RuleContext = {
 			role: "checkbox",
 			tagname: "input",
 		};
-		const docs = await htmlvalidate.getRuleDocumentation("no-redundant-role", null, context);
+		const docs = await htmlvalidate.getContextualDocumentation({
+			ruleId: "no-redundant-role",
+			context,
+		});
 		expect(docs).toMatchSnapshot();
 	});
 });

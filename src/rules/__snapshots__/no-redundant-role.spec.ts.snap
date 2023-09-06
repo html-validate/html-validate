@@ -1,15 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`rule no-redundant-role should contain contextual documentation 1`] = `
-{
-  "description": "Using the "checkbox" role is redundant as it is already implied by the <input> element.",
-  "url": "https://html-validate.org/rules/no-redundant-role.html",
-}
-`;
-
 exports[`rule no-redundant-role should contain documentation 1`] = `
 {
-  "description": "Using this role is redundant as it is already implied by the element.",
+  "description": "Using the "checkbox" role is redundant as it is already implied by the <input> element.",
   "url": "https://html-validate.org/rules/no-redundant-role.html",
 }
 `;

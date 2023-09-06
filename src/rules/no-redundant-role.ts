@@ -2,7 +2,7 @@ import { DynamicValue } from "../dom";
 import { type AttributeEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
-interface RuleContext {
+export interface RuleContext {
 	tagname: string;
 	role: string;
 }
