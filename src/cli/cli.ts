@@ -143,7 +143,7 @@ export class CLI {
 			}
 			const raw = rules
 				.split(",")
-				.map((x: string) => x.replace(/ *(.*):/, '"$1":'))
+				.map((it) => it.trim().replace(/([^:]*):/, '"$1":'))
 				.join(",");
 			try {
 				const rules = JSON.parse(`{${raw}}`) as RuleConfig;
