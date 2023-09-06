@@ -65,7 +65,7 @@ describe("rule no-redundant-role", () => {
 		});
 		const context: RuleContext = {
 			role: "checkbox",
-			tagname: "input",
+			tagName: "input",
 		};
 		const docs = await htmlvalidate.getContextualDocumentation({
 			ruleId: "no-redundant-role",

@@ -2,7 +2,7 @@
 
 exports[`rule no-redundant-role should contain documentation 1`] = `
 {
-  "description": "Using the "checkbox" role is redundant as it is already implied by the <input> element.",
+  "description": "Using the \`checkbox\` role is redundant as it is already implied by the \`<input>\` element.",
   "url": "https://html-validate.org/rules/no-redundant-role.html",
 }
 `;

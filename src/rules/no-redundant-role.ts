@@ -3,7 +3,7 @@ import { type AttributeEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export interface RuleContext {
-	tagname: string;
+	tagName: string;
 	role: string;
 }
 
@@ -37,14 +37,11 @@ const mapping: Record<string, string[]> = {
 
 export default class NoRedundantRole extends Rule<RuleContext> {
 	public documentation(context: RuleContext): RuleDocumentation {
-		const doc: RuleDocumentation = {
-			description: `Using this role is redundant as it is already implied by the element.`,
+		const { role, tagName } = context;
+		return {
+			description: `Using the \`${role}\` role is redundant as it is already implied by the \`<${tagName}>\` element.`,
 			url: ruleDocumentationUrl(__filename),
 		};
-		if (context) {
-			doc.description = `Using the "${context.role}" role is redundant as it is already implied by the <${context.tagname}> element.`;
-		}
-		return doc;
 	}
 
 	public setup(): void {
@@ -74,7 +71,7 @@ export default class NoRedundantRole extends Rule<RuleContext> {
 
 			/* report error */
 			const context: RuleContext = {
-				tagname: target.tagName,
+				tagName: target.tagName,
 				role: event.value,
 			};
 			this.report(
