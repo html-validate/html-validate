@@ -43,13 +43,19 @@ describe("rule no-redundant-role", () => {
 	});
 
 	it("should report error when element has redundant role", async () => {
-		expect.assertions(1);
+		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
 			rules: { "no-redundant-role": "error" },
 		});
 		const markup = /* HTML */ ` <li role="listitem"></li> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Redundant role "listitem" on <li> (no-redundant-role) at inline:1:12:
+			> 1 |  <li role="listitem"></li>
+			    |            ^^^^^^^^
+			Selector: li"
+		`);
 	});
 
 	it("should contain documentation", async () => {
