@@ -32,21 +32,21 @@ it("should interpolate object", () => {
 	expect.assertions(1);
 	const message = "value: {{ value }}";
 	const data = { value: { a: "foo", b: "bar" } };
-	expect(interpolate(message, data)).toBe("value: { a: 'foo', b: 'bar' }");
+	expect(interpolate(message, data)).toBe('value: { a: "foo", b: "bar" }');
 });
 
 it("should interpolate nested values", () => {
 	expect.assertions(1);
 	const message = "value: {{ value }}";
 	const data = { value: { foo: [1, { lorem: "ipsum" }, 3] } };
-	expect(interpolate(message, data)).toBe("value: { foo: [ 1, { lorem: 'ipsum' }, 3 ] }");
+	expect(interpolate(message, data)).toBe('value: { foo: [ 1, { lorem: "ipsum" }, 3 ] }');
 });
 
 it("should quote nested string", () => {
 	expect.assertions(1);
 	const message = "{{ array }} - {{ object }}";
-	const data = { array: ["a", "'b'"], object: { foo: "it's" } };
-	expect(interpolate(message, data)).toBe("[ 'a', '\\'b\\'' ] - { foo: 'it\\'s' }");
+	const data = { array: ["a", '"b"'], object: { foo: `it's a " quote` } };
+	expect(interpolate(message, data)).toBe(`[ "a", "\\"b\\"" ] - { foo: "it's a \\" quote" }`);
 });
 
 it("should return original placeholder when value is missing", () => {

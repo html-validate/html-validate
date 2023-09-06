@@ -1,5 +1,5 @@
 function escape(value: string): string {
-	return value.replace(/'/g, "\\'");
+	return JSON.stringify(value);
 }
 
 function format(value: unknown, quote: boolean = false): string {
@@ -12,7 +12,7 @@ function format(value: unknown, quote: boolean = false): string {
 	}
 
 	if (typeof value === "string") {
-		return quote ? `'${escape(value)}'` : value;
+		return quote ? escape(value) : value;
 	}
 
 	if (Array.isArray(value)) {
