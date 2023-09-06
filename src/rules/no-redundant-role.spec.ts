@@ -14,25 +14,29 @@ describe("rule no-redundant-role", () => {
 
 	it("should not report error when element has non-redundant role", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<li role="presentation"></li>');
+		const markup = /* HTML */ ` <li role="presentation"></li> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report error element has no known roles", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<span role="main"></span>');
+		const markup = /* HTML */ ` <span role="main"></span> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report error when role is boolean", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<div role></div>");
+		const markup = /* HTML */ ` <div role></div> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report error for dynamic attributes", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<input dynamic-role="main">', {
+		const markup = /* HTML */ ` <input dynamic-role="main" /> `;
+		const report = await htmlvalidate.validateString(markup, {
 			processAttribute,
 		});
 		expect(report).toBeValid();
@@ -43,7 +47,8 @@ describe("rule no-redundant-role", () => {
 		const htmlvalidate = new HtmlValidate({
 			rules: { "no-redundant-role": "error" },
 		});
-		const report = await htmlvalidate.validateString('<li role="listitem"></li>');
+		const markup = /* HTML */ ` <li role="listitem"></li> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 	});
 
