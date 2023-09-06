@@ -1,5 +1,5 @@
 import { DynamicValue } from "../dom";
-import { type AttributeEvent } from "../event";
+import { type TagReadyEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export interface RuleContext {
@@ -45,16 +45,12 @@ export default class NoRedundantRole extends Rule<RuleContext> {
 	}
 
 	public setup(): void {
-		this.on("attr", (event: AttributeEvent) => {
+		this.on("tag:ready", (event: TagReadyEvent) => {
 			const { target } = event;
-
-			/* ignore non-role attributes */
-			if (event.key.toLowerCase() !== "role") {
-				return;
-			}
+			const role = target.getAttribute("role");
 
 			/* ignore missing and dynamic values */
-			if (!event.value || event.value instanceof DynamicValue) {
+			if (!role?.value || role.value instanceof DynamicValue) {
 				return;
 			}
 
@@ -65,19 +61,19 @@ export default class NoRedundantRole extends Rule<RuleContext> {
 			}
 
 			/* ignore elements with non-redundant roles */
-			if (!redundant.includes(event.value)) {
+			if (!redundant.includes(role.value)) {
 				return;
 			}
 
 			/* report error */
 			const context: RuleContext = {
 				tagName: target.tagName,
-				role: event.value,
+				role: role.value,
 			};
 			this.report(
 				event.target,
-				`Redundant role "${event.value}" on <${target.tagName}>`,
-				event.valueLocation,
+				`Redundant role "${role.value}" on <${target.tagName}>`,
+				role.valueLocation,
 				context
 			);
 		});
