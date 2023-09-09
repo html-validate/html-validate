@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## [8.4.0](https://gitlab.com/html-validate/html-validate/compare/v8.3.0...v8.4.0) (2023-09-09)
+
+### Features
+
+- **html5:** support `<search>` element ([720bdd9](https://gitlab.com/html-validate/html-validate/commit/720bdd9cd37a47a3b1e1e5221d1330b29ec27b34))
+- new `implicitRole` metadata for better handling of implicit ARIA roles ([fe45ec4](https://gitlab.com/html-validate/html-validate/commit/fe45ec49775f277016b91e69aee135f6dba0ed14)), closes [#224](https://gitlab.com/html-validate/html-validate/issues/224)
+
 ## [8.3.0](https://gitlab.com/html-validate/html-validate/compare/v8.2.0...v8.3.0) (2023-08-20)
 
 ### Features

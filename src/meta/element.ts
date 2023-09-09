@@ -65,7 +65,7 @@ export enum TextContent {
  * returns the implicit ARIA role, if any.
  *
  * @public
- * @since %version%
+ * @since 8.4.0
  * @param node - The node to get the role from.
  * @returns Implicit ARIA role or null if there is no implicit role.
  */
