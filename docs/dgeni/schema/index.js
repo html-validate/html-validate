@@ -11,7 +11,7 @@ module.exports = new Package("schema", [])
 		templateFinder.templateFolders.push(path.resolve(packagePath, "templates"));
 		computeIdsProcessor.idTemplates.push({
 			docTypes: ["schema"],
-			getAliases: function (doc) {
+			getAliases(doc) {
 				return [doc.id, doc.name];
 			},
 		});

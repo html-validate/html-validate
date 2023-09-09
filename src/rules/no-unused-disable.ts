@@ -32,7 +32,7 @@ export default class NoUnusedDisable extends Rule<RuleContext> {
 				message: '"{{ ruleId }}" rule is disabled but no error was reported',
 				location: tokenLocation,
 				context: {
-					ruleId: ruleId,
+					ruleId,
 				},
 			});
 		}

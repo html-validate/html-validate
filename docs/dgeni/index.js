@@ -95,7 +95,7 @@ module.exports = new Package("html-validate-docs", [
 	.config(function (computePathsProcessor, computeIdsProcessor) {
 		computeIdsProcessor.idTemplates.push({
 			docTypes: ["content", "frontpage", "rule", "rules", "presets", "error"],
-			getId: function (doc) {
+			getId(doc) {
 				const dir = path.dirname(doc.fileInfo.relativePath);
 				if (dir === ".") {
 					/* documents not in a subdirectory gets basename as id */
@@ -110,7 +110,7 @@ module.exports = new Package("html-validate-docs", [
 					return dir;
 				}
 			},
-			getAliases: function (doc) {
+			getAliases(doc) {
 				const alias = [doc.id];
 				if (doc.name) {
 					alias.push(doc.name);
@@ -122,7 +122,7 @@ module.exports = new Package("html-validate-docs", [
 
 		computePathsProcessor.pathTemplates.push({
 			docTypes: ["content", "frontpage", "rule", "rules", "presets"],
-			getPath: function (doc) {
+			getPath(doc) {
 				const dirname = path.dirname(doc.fileInfo.relativePath);
 				const p = path.join(dirname, doc.fileInfo.baseName);
 				return `${p}.html`;
@@ -132,17 +132,17 @@ module.exports = new Package("html-validate-docs", [
 
 		computeIdsProcessor.idTemplates.push({
 			docTypes: ["changelog", "migration"],
-			getId: function (doc) {
+			getId(doc) {
 				return doc.fileInfo.baseName.toLowerCase();
 			},
-			getAliases: function (doc) {
+			getAliases(doc) {
 				return [doc.id];
 			},
 		});
 
 		computePathsProcessor.pathTemplates.push({
 			docTypes: ["changelog", "migration"],
-			getPath: function (doc) {
+			getPath(doc) {
 				const dirname = path.dirname(doc.fileInfo.relativePath);
 				return path.join(dirname, doc.fileInfo.baseName.toLowerCase(), "index.html");
 			},
@@ -151,7 +151,7 @@ module.exports = new Package("html-validate-docs", [
 
 		computePathsProcessor.pathTemplates.push({
 			docTypes: ["error"],
-			getPath: function (doc) {
+			getPath(doc) {
 				/* should go directly under output directory, no subdirectory */
 				return doc.fileInfo.baseName;
 			},

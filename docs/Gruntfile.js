@@ -115,7 +115,7 @@ module.exports = function (grunt) {
 				hostname: "localhost",
 				keepalive: true,
 				base: "public",
-				middleware: function () {
+				middleware() {
 					return [serveStatic("public")];
 				},
 			},
