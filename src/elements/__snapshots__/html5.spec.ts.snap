@@ -14715,6 +14715,40 @@ exports[`HTML elements <script> invalid markup 1`] = `
 
 exports[`HTML elements <script> valid markup 1`] = `[]`;
 
+exports[`HTML elements <search> invalid markup 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "test-files/elements/search-invalid.html",
+    "messages": [
+      {
+        "column": 3,
+        "context": {
+          "child": "<search>",
+          "kind": "content",
+          "parent": "<span>",
+        },
+        "line": 2,
+        "message": "<search> element is not permitted as content under <span>",
+        "offset": 9,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "span > search",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<span>
+	<search></search>
+</span>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <search> valid markup 1`] = `[]`;
+
 exports[`HTML elements <section> invalid markup 1`] = `[]`;
 
 exports[`HTML elements <section> valid markup 1`] = `[]`;

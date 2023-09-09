@@ -1647,6 +1647,10 @@ export default defineMetadata({
 		},
 	},
 
+	search: {
+		flow: true,
+	},
+
 	section: {
 		flow: true,
 		sectioning: true,
