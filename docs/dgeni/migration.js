@@ -1,7 +1,7 @@
 module.exports = function migrationFileReader() {
 	return {
 		name: "migrationFileReader",
-		getDocs: function (fileInfo) {
+		getDocs(fileInfo) {
 			return [
 				{
 					docType: "migration",

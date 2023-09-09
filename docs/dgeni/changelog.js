@@ -9,7 +9,7 @@ function prepare(src) {
 module.exports = function changelogFileReader() {
 	return {
 		name: "changelogFileReader",
-		getDocs: function (fileInfo) {
+		getDocs(fileInfo) {
 			return [
 				{
 					docType: "changelog",

@@ -12,7 +12,7 @@ const table: PseudoClassTable = {
 	"first-child": firstChild,
 	"last-child": lastChild,
 	"nth-child": nthChild,
-	scope: scope,
+	scope,
 };
 
 export function factory(

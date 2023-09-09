@@ -21,7 +21,7 @@ function parse(markup: string, selector: string = "div"): HtmlElement {
 		column: 1,
 		offset: 0,
 		hooks: {
-			processAttribute: processAttribute,
+			processAttribute,
 		},
 	};
 	const doc = parser.parseHtml(source);

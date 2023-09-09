@@ -386,7 +386,7 @@ describe("Selector", () => {
 		const id = element.id;
 		const selector = new Selector('[id="#r1:"]');
 		expect(Array.from(selector.match(doc))).toEqual([
-			expect.objectContaining({ tagName: "label", id: id }),
+			expect.objectContaining({ tagName: "label", id }),
 		]);
 	});
 
