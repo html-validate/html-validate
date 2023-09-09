@@ -12,7 +12,7 @@ exports[`docs/rules/no-redundant-role.md inline validation: incorrect 1`] = `
         "column": 13,
         "context": {
           "role": "main",
-          "tagname": "main",
+          "tagName": "main",
         },
         "line": 1,
         "message": "Redundant role "main" on <main>",
@@ -27,7 +27,7 @@ exports[`docs/rules/no-redundant-role.md inline validation: incorrect 1`] = `
         "column": 15,
         "context": {
           "role": "listitem",
-          "tagname": "li",
+          "tagName": "li",
         },
         "line": 3,
         "message": "Redundant role "listitem" on <li>",

@@ -376,11 +376,13 @@ describe("config", () => {
 			expect(config.getMetaTable().getMetaFor("foo")).toEqual({
 				tagName: "foo",
 				attributes: {},
+				implicitRole: expect.any(Function),
 				permittedContent: ["baz"],
 			});
 			expect(config.getMetaTable().getMetaFor("bar")).toEqual({
 				tagName: "bar",
 				attributes: {},
+				implicitRole: expect.any(Function),
 				permittedContent: ["baz"],
 			});
 		});

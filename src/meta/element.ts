@@ -61,6 +61,17 @@ export enum TextContent {
 }
 
 /**
+ * Callback for the `implicitRole` property of `MetaData`. It takes a node and
+ * returns the implicit ARIA role, if any.
+ *
+ * @public
+ * @since %version%
+ * @param node - The node to get the role from.
+ * @returns Implicit ARIA role or null if there is no implicit role.
+ */
+export type MetaImplicitRoleCallback = (node: HtmlElementLike) => string | null;
+
+/**
  * Callback for the `allowed` property of `MetaAttribute`. It takes a node and
  * should return `null` if there is no errors and a string with an error
  * description if there is an error.
@@ -162,6 +173,7 @@ export interface MetaData {
 	/** Mark element as a form-associated element */
 	formAssociated?: Partial<FormAssociated>;
 	labelable?: boolean | PropertyExpression;
+	implicitRole?: MetaImplicitRoleCallback;
 
 	/* attribute */
 	deprecatedAttributes?: string[];
@@ -236,6 +248,7 @@ export interface MetaElement extends Omit<MetaData, "deprecatedAttributes" | "re
 	tagName: string;
 
 	formAssociated?: FormAssociated;
+	implicitRole: MetaImplicitRoleCallback;
 
 	attributes: Record<string, MetaAttribute>;
 	textContent?: TextContent;
