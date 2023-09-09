@@ -102,6 +102,9 @@ export default defineMetadata({
 			},
 		},
 		permittedDescendants: [{ exclude: "@interactive" }],
+		implicitRole(node) {
+			return node.hasAttribute("href") ? "link" : null;
+		},
 	},
 
 	abbr: {
@@ -120,6 +123,9 @@ export default defineMetadata({
 
 	address: {
 		flow: true,
+		implicitRole() {
+			return "group";
+		},
 		permittedContent: ["@flow"],
 		permittedDescendants: [{ exclude: ["address", "header", "footer", "@heading", "@sectioning"] }],
 	},
@@ -194,6 +200,9 @@ export default defineMetadata({
 				enum: ["/[^_].*/", "_blank", "_self", "_parent", "_top"],
 			},
 		},
+		implicitRole(node) {
+			return node.hasAttribute("href") ? "link" : null;
+		},
 		requiredAncestors: ["map"],
 	},
 
@@ -202,6 +211,9 @@ export default defineMetadata({
 		sectioning: true,
 		permittedContent: ["@flow"],
 		permittedDescendants: [{ exclude: ["main"] }],
+		implicitRole() {
+			return "article";
+		},
 	},
 
 	aside: {
@@ -209,6 +221,9 @@ export default defineMetadata({
 		sectioning: true,
 		permittedContent: ["@flow"],
 		permittedDescendants: [{ exclude: ["main"] }],
+		implicitRole() {
+			return "complementary";
+		},
 	},
 
 	audio: {
@@ -295,6 +310,9 @@ export default defineMetadata({
 	blockquote: {
 		flow: true,
 		sectioning: true,
+		implicitRole() {
+			return "blockquote";
+		},
 		permittedContent: ["@flow"],
 	},
 
@@ -398,6 +416,9 @@ export default defineMetadata({
 				enum: ["submit", "reset", "button"],
 			},
 		},
+		implicitRole() {
+			return "button";
+		},
 		permittedContent: ["@phrasing"],
 		permittedDescendants: [{ exclude: ["@interactive"] }],
 		textContent: "accessible",
@@ -483,6 +504,9 @@ export default defineMetadata({
 	datalist: {
 		flow: true,
 		phrasing: true,
+		implicitRole() {
+			return "listbox";
+		},
 		permittedContent: ["@phrasing", "option"],
 	},
 
@@ -507,6 +531,9 @@ export default defineMetadata({
 				boolean: true,
 			},
 		},
+		implicitRole() {
+			return "group";
+		},
 		permittedContent: ["summary", "@flow"],
 		permittedOrder: ["summary", "@flow"],
 		requiredContent: ["summary"],
@@ -515,6 +542,9 @@ export default defineMetadata({
 	dfn: {
 		flow: true,
 		phrasing: true,
+		implicitRole() {
+			return "term";
+		},
 		permittedContent: ["@phrasing"],
 		permittedDescendants: [{ exclude: ["dfn"] }],
 	},
@@ -526,6 +556,9 @@ export default defineMetadata({
 			open: {
 				boolean: true,
 			},
+		},
+		implicitRole() {
+			return "dialog";
 		},
 	},
 
@@ -609,6 +642,9 @@ export default defineMetadata({
 				boolean: true,
 			},
 		},
+		implicitRole() {
+			return "group";
+		},
 		permittedContent: ["@flow", "legend?"],
 		permittedOrder: ["legend", "@flow"],
 	},
@@ -619,6 +655,9 @@ export default defineMetadata({
 
 	figure: {
 		flow: true,
+		implicitRole() {
+			return "figure";
+		},
 		permittedContent: ["@flow", "figcaption?"],
 		permittedOrder: ["figcaption", "@flow", "figcaption"],
 	},
@@ -633,6 +672,25 @@ export default defineMetadata({
 
 	footer: {
 		flow: true,
+		implicitRole(node) {
+			const selectors = [
+				"article",
+				"aside",
+				"main",
+				"nav",
+				"section",
+				'[role="article"]',
+				'[role="complementary"]',
+				'[role="main"]',
+				'[role="navigation"]',
+				'[role="region"]',
+			];
+			if (node.closest(selectors.join(","))) {
+				return null;
+			} else {
+				return "contentinfo";
+			}
+		},
 		permittedContent: ["@flow"],
 		permittedDescendants: [{ exclude: ["header", "footer", "main"] }],
 	},
@@ -659,6 +717,9 @@ export default defineMetadata({
 			target: {
 				enum: ["/[^_].*/", "_blank", "_self", "_parent", "_top"],
 			},
+		},
+		implicitRole() {
+			return "form";
 		},
 		permittedContent: ["@flow"],
 		permittedDescendants: [{ exclude: ["@form"] }],
@@ -700,6 +761,9 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
+		implicitRole() {
+			return "heading";
+		},
 	},
 
 	h2: {
@@ -710,6 +774,9 @@ export default defineMetadata({
 			align: {
 				deprecated: true,
 			},
+		},
+		implicitRole() {
+			return "heading";
 		},
 	},
 
@@ -722,6 +789,9 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
+		implicitRole() {
+			return "heading";
+		},
 	},
 
 	h4: {
@@ -732,6 +802,9 @@ export default defineMetadata({
 			align: {
 				deprecated: true,
 			},
+		},
+		implicitRole() {
+			return "heading";
 		},
 	},
 
@@ -744,6 +817,9 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
+		implicitRole() {
+			return "heading";
+		},
 	},
 
 	h6: {
@@ -754,6 +830,9 @@ export default defineMetadata({
 			align: {
 				deprecated: true,
 			},
+		},
+		implicitRole() {
+			return "heading";
 		},
 	},
 
@@ -770,6 +849,25 @@ export default defineMetadata({
 
 	header: {
 		flow: true,
+		implicitRole(node) {
+			const selectors = [
+				"article",
+				"aside",
+				"main",
+				"nav",
+				"section",
+				'[role="article"]',
+				'[role="complementary"]',
+				'[role="main"]',
+				'[role="navigation"]',
+				'[role="region"]',
+			];
+			if (node.closest(selectors.join(","))) {
+				return null;
+			} else {
+				return "banner";
+			}
+		},
 		permittedContent: ["@flow"],
 		permittedDescendants: [{ exclude: ["header", "footer", "main"] }],
 	},
@@ -802,6 +900,9 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
+		implicitRole() {
+			return "separator";
+		},
 	},
 
 	html: {
@@ -815,6 +916,9 @@ export default defineMetadata({
 			version: {
 				deprecated: true,
 			},
+		},
+		implicitRole() {
+			return "document";
 		},
 	},
 
@@ -918,6 +1022,14 @@ export default defineMetadata({
 			vspace: {
 				deprecated: true,
 			},
+		},
+		implicitRole(node) {
+			const alt = node.getAttribute("alt");
+			if (alt === "") {
+				return "presentation";
+			} else {
+				return "img";
+			}
 		},
 	},
 
@@ -1039,6 +1151,44 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
+		/* eslint-disable-next-line complexity -- the standard is complicated */
+		implicitRole(node) {
+			const list = node.hasAttribute("list");
+			if (list) {
+				return "combobox";
+			}
+			const type = node.getAttribute("type");
+			switch (type) {
+				case "button":
+					return "button";
+				case "checkbox":
+					return "checkbox";
+				case "email":
+					return "textbox";
+				case "image":
+					return "button";
+				case "number":
+					return "spinbutton";
+				case "radio":
+					return "radio";
+				case "range":
+					return "slider";
+				case "reset":
+					return "button";
+				case "search":
+					return "searchbox";
+				case "submit":
+					return "button";
+				case "tel":
+					return "textbox";
+				case "text":
+					return "textbox";
+				case "url":
+					return "textbox";
+				default:
+					return "textbox";
+			}
+		},
 	},
 
 	ins: {
@@ -1117,6 +1267,9 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
+		implicitRole(node) {
+			return node.closest("ul, ol, menu") ? "listitem" : null;
+		},
 	},
 
 	link: {
@@ -1194,6 +1347,9 @@ export default defineMetadata({
 
 	main: {
 		flow: true,
+		implicitRole() {
+			return "main";
+		},
 	},
 
 	map: {
@@ -1261,10 +1417,16 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
+		implicitRole() {
+			return "math";
+		},
 	},
 
 	menu: {
 		flow: true,
+		implicitRole() {
+			return "list";
+		},
 		permittedContent: ["@script", "li"],
 	},
 
@@ -1299,6 +1461,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		labelable: true,
+		implicitRole() {
+			return "meter";
+		},
 		permittedContent: ["@phrasing"],
 		permittedDescendants: [{ exclude: "meter" }],
 	},
@@ -1314,6 +1479,9 @@ export default defineMetadata({
 	nav: {
 		flow: true,
 		sectioning: true,
+		implicitRole() {
+			return "navigation";
+		},
 		permittedContent: ["@flow"],
 		permittedDescendants: [{ exclude: "main" }],
 	},
@@ -1433,6 +1601,9 @@ export default defineMetadata({
 				enum: ["a", "A", "i", "I", "1"],
 			},
 		},
+		implicitRole() {
+			return "list";
+		},
 		permittedContent: ["@script", "li"],
 	},
 
@@ -1442,6 +1613,9 @@ export default defineMetadata({
 			disabled: {
 				boolean: true,
 			},
+		},
+		implicitRole() {
+			return "group";
 		},
 		permittedContent: ["@script", "option"],
 	},
@@ -1465,6 +1639,9 @@ export default defineMetadata({
 				boolean: true,
 			},
 		},
+		implicitRole() {
+			return "option";
+		},
 		permittedContent: [],
 	},
 
@@ -1475,6 +1652,9 @@ export default defineMetadata({
 			listed: true,
 		},
 		labelable: true,
+		implicitRole() {
+			return "status";
+		},
 		permittedContent: ["@phrasing"],
 	},
 
@@ -1561,6 +1741,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		labelable: true,
+		implicitRole() {
+			return "progressbar";
+		},
 		permittedContent: ["@phrasing"],
 		permittedDescendants: [{ exclude: "progress" }],
 	},
@@ -1649,11 +1832,17 @@ export default defineMetadata({
 
 	search: {
 		flow: true,
+		implicitRole() {
+			return "search";
+		},
 	},
 
 	section: {
 		flow: true,
 		sectioning: true,
+		implicitRole() {
+			return "region";
+		},
 		permittedContent: ["@flow"],
 	},
 
@@ -1681,6 +1870,20 @@ export default defineMetadata({
 			size: {
 				enum: ["/\\d+/"],
 			},
+		},
+		implicitRole(node) {
+			const multiple = node.hasAttribute("multiple");
+			if (multiple) {
+				return "listbox";
+			}
+			const size = node.getAttribute("size");
+			if (typeof size === "string") {
+				const parsed = parseInt(size, 10);
+				if (parsed > 1) {
+					return "listbox";
+				}
+			}
+			return "combobox";
 		},
 		permittedContent: ["@script", "datasrc", "datafld", "dataformatas", "option", "optgroup"],
 	},
@@ -1839,6 +2042,9 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
+		implicitRole() {
+			return "table";
+		},
 	},
 
 	tbody: {
@@ -1860,6 +2066,9 @@ export default defineMetadata({
 			valign: {
 				deprecated: true,
 			},
+		},
+		implicitRole() {
+			return "rowgroup";
 		},
 	},
 
@@ -1906,6 +2115,15 @@ export default defineMetadata({
 			width: {
 				deprecated: true,
 			},
+		},
+		implicitRole(node) {
+			if (node.closest('table[role="grid"], table[role="treegrid"]')) {
+				return "gridcell";
+			} else if (node.closest("table")) {
+				return "cell";
+			} else {
+				return null;
+			}
 		},
 		permittedContent: ["@flow"],
 	},
@@ -1966,6 +2184,9 @@ export default defineMetadata({
 				enum: ["hard", "soft"],
 			},
 		},
+		implicitRole() {
+			return "textbox";
+		},
 		permittedContent: [],
 	},
 
@@ -1988,6 +2209,9 @@ export default defineMetadata({
 			valign: {
 				deprecated: true,
 			},
+		},
+		implicitRole() {
+			return "rowgroup";
 		},
 	},
 
@@ -2035,6 +2259,25 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
+		implicitRole(node) {
+			const table = node.closest("table");
+			if (!table) {
+				return null;
+			}
+			const tableRole = table.getAttribute("role") ?? "table";
+			if (typeof tableRole !== "string" || !["table", "grid", "treegrid"].includes(tableRole)) {
+				return null;
+			}
+			const scope = node.getAttribute("scope");
+			switch (scope) {
+				case "col":
+					return "columnheader";
+				case "row":
+					return "rowheader";
+				default:
+					return tableRole === "table" ? "cell" : "gridcell";
+			}
+		},
 		permittedContent: ["@flow"],
 		permittedDescendants: [{ exclude: ["header", "footer", "@sectioning", "@heading"] }],
 	},
@@ -2059,11 +2302,17 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
+		implicitRole() {
+			return "rowgroup";
+		},
 	},
 
 	time: {
 		flow: true,
 		phrasing: true,
+		implicitRole() {
+			return "time";
+		},
 		permittedContent: ["@phrasing"],
 	},
 
@@ -2096,6 +2345,9 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
+		implicitRole() {
+			return "row";
+		},
 	},
 
 	track: {
@@ -2126,6 +2378,9 @@ export default defineMetadata({
 			type: {
 				deprecated: true,
 			},
+		},
+		implicitRole() {
+			return "list";
 		},
 	},
 

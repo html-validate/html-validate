@@ -7,34 +7,6 @@ export interface RuleContext {
 	role: string;
 }
 
-const mapping: Record<string, string[]> = {
-	article: ["article"],
-	header: ["banner"],
-	button: ["button"],
-	td: ["cell"],
-	input: ["checkbox", "radio", "input"],
-	aside: ["complementary"],
-	footer: ["contentinfo"],
-	figure: ["figure"],
-	form: ["form"],
-	h1: ["heading"],
-	h2: ["heading"],
-	h3: ["heading"],
-	h4: ["heading"],
-	h5: ["heading"],
-	h6: ["heading"],
-	a: ["link"],
-	ul: ["list"],
-	select: ["listbox"],
-	li: ["listitem"],
-	main: ["main"],
-	nav: ["navigation"],
-	progress: ["progressbar"],
-	section: ["region"],
-	table: ["table"],
-	textarea: ["textbox"],
-};
-
 export default class NoRedundantRole extends Rule<RuleContext> {
 	public documentation(context: RuleContext): RuleDocumentation {
 		const { role, tagName } = context;
@@ -54,14 +26,20 @@ export default class NoRedundantRole extends Rule<RuleContext> {
 				return;
 			}
 
-			/* ignore elements without known redundant roles */
-			const redundant = mapping[target.tagName];
-			if (!redundant) {
+			/* ignore elements without metadata */
+			const { meta } = target;
+			if (!meta) {
+				return;
+			}
+
+			/* ignore elements without implicit role */
+			const implicitRole = meta.implicitRole(target._adapter);
+			if (!implicitRole) {
 				return;
 			}
 
 			/* ignore elements with non-redundant roles */
-			if (!redundant.includes(role.value)) {
+			if (role.value !== implicitRole) {
 				return;
 			}
 

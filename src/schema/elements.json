@@ -90,6 +90,12 @@
           "items": { "type": "string" }
         },
 
+        "implicitRole": {
+          "title": "Implicit ARIA role for this element",
+          "description": "Some elements have implicit ARIA roles.",
+          "function": true
+        },
+
         "scriptSupporting": {
           "title": "Mark element as script-supporting",
           "description": "Script-supporting elements are elements which can be inserted where othersise not permitted to assist in templating",

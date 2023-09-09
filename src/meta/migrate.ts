@@ -81,6 +81,7 @@ export function migrateElement(src: MetaData): Omit<MetaElement, "tagName"> {
 		},
 		attributes: migrateAttributes(src),
 		textContent: src.textContent as TextContent | undefined,
+		implicitRole: src.implicitRole ?? (() => null),
 	};
 
 	/* removed properties */

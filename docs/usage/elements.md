@@ -45,6 +45,7 @@ export interface MetaElement {
   form?: boolean;
   formAssociated?: FormAssociated;
   labelable?: boolean;
+  implicitRole?(node): string | null;
 
   /* attributes */
   attributes?: Record<string, MetaAttribute>;
@@ -208,6 +209,25 @@ This is typically elements input elements such as `<input>`.
 
 [whatwg-labelable]: https://html.spec.whatwg.org/multipage/forms.html#category-label
 
+### `implicitRole(node): string | null`
+
+Some elements have implicit ARIA roles.
+This callback is used to describe when and what role the element have.
+
+- The `node` parameter is the element the attribute belongs to.
+
+```js
+const { defineMetadata } = require("html-validate");
+
+module.exports = defineMetadata({
+  "custom-element": {
+    implicitRole() {
+      return "presentation";
+    },
+  },
+});
+```
+
 ## Permitted content
 
 ### `attributes`
@@ -262,7 +282,7 @@ The `allowed` property can be set to a callback taking a single element.
 If the callback returns an error string the attribute cannot be used in the given context.
 
 - The `node` parameter is the element the attribute belongs to.
-- The `attr` parameter is the value of the current attribute under consideration, e.g. the value of `foo ` in the next example.
+- The `attr` parameter is the value of the current attribute under consideration, e.g. the value of `foo` in the next example.
 
 ```js
 const { defineMetadata } = require("html-validate");

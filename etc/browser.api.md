@@ -724,6 +724,8 @@ export interface MetaData {
     // (undocumented)
     implicitClosed?: string[];
     // (undocumented)
+    implicitRole?: MetaImplicitRoleCallback;
+    // (undocumented)
     inherit?: string;
     // (undocumented)
     interactive?: boolean | PropertyExpression;
@@ -782,10 +784,15 @@ export interface MetaElement extends Omit<MetaData, "deprecatedAttributes" | "re
     // (undocumented)
     formAssociated?: FormAssociated;
     // (undocumented)
+    implicitRole: MetaImplicitRoleCallback;
+    // (undocumented)
     tagName: string;
     // (undocumented)
     textContent?: TextContent;
 }
+
+// @public
+export type MetaImplicitRoleCallback = (node: HtmlElementLike) => string | null;
 
 // @public
 export type MetaLookupableProperty = "metadata" | "flow" | "sectioning" | "heading" | "phrasing" | "embedded" | "interactive" | "deprecated" | "foreign" | "void" | "transparent" | "scriptSupporting" | "form" | "formAssociated" | "labelable";

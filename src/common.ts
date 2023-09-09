@@ -75,6 +75,7 @@ export {
 	type MetaData,
 	type MetaDataTable,
 	type MetaElement,
+	type MetaImplicitRoleCallback,
 	type MetaLookupableProperty,
 	type MetadataHelper,
 	type Permitted,
