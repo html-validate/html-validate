@@ -203,7 +203,7 @@
     "@rollup/plugin-virtual": "3.0.1",
     "@types/babar": "0.2.2",
     "@types/babel__code-frame": "7.0.4",
-    "@types/jest": "29.5.4",
+    "@types/jest": "29.5.5",
     "@types/minimist": "1.2.2",
     "@types/node": "16.18.51",
     "@types/prompts": "2.4.4",
