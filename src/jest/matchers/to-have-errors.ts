@@ -1,10 +1,10 @@
 /* eslint-disable prefer-template -- technical debt, should be refactored */
 
 import { type Report } from "../../reporter";
-import { type MatcherResult, diff, diverge, flattenMessages } from "../utils";
+import { type MatcherContext, type MatcherResult, diff, diverge, flattenMessages } from "../utils";
 
 function toHaveErrors(
-	this: jest.MatcherContext,
+	this: MatcherContext,
 	report: Report,
 	errors: Array<[string, string] | Record<string, unknown>>
 ): MatcherResult {

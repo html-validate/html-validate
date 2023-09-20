@@ -1,9 +1,9 @@
 import { type Message, type Report } from "../../reporter";
-import { type MatcherResult, diff, diverge } from "../utils";
+import { type MatcherContext, type MatcherResult, diff, diverge } from "../utils";
 import { flattenMessages } from "../utils/flatten-messages";
 
 function toHaveErrorImpl(
-	jest: jest.MatcherContext,
+	jest: MatcherContext,
 	actual: Report,
 	expected: Partial<Message>
 ): MatcherResult {
@@ -28,20 +28,16 @@ function toHaveErrorImpl(
 	return { pass, message: resultMessage };
 }
 
+function toHaveError(this: MatcherContext, actual: Report, error: Partial<Message>): MatcherResult;
 function toHaveError(
-	this: jest.MatcherContext,
-	actual: Report,
-	error: Partial<Message>
-): MatcherResult;
-function toHaveError(
-	this: jest.MatcherContext,
+	this: MatcherContext,
 	actual: Report,
 	ruleId: string,
 	message: string,
 	context?: any
 ): MatcherResult;
 function toHaveError(
-	this: jest.MatcherContext,
+	this: MatcherContext,
 	actual: Report,
 	arg1: string | Partial<Message>,
 	arg2?: string,

@@ -2,7 +2,7 @@ import kleur from "kleur";
 import { toMatchInlineSnapshot } from "jest-snapshot";
 import { codeframe, type CodeframeOptions } from "../../formatters/codeframe";
 import { type Report } from "../../reporter";
-import { type MatcherResult, isThenable } from "../utils";
+import { type MatcherContext, type MatcherResult, isThenable } from "../utils";
 import { getResults } from "./get-results";
 
 const options: CodeframeOptions = {
@@ -12,7 +12,7 @@ const options: CodeframeOptions = {
 };
 
 function toMatchInlineCodeframeImpl(
-	context: jest.MatcherContext,
+	context: MatcherContext,
 	actual: Report | string,
 	...rest: Array<string | object>
 ): MatcherResult {
@@ -30,17 +30,17 @@ function toMatchInlineCodeframeImpl(
 }
 
 function toMatchInlineCodeframe(
-	this: jest.MatcherContext,
+	this: MatcherContext,
 	actual: Report | string,
 	...rest: Array<string | object>
 ): MatcherResult;
 function toMatchInlineCodeframe(
-	this: jest.MatcherContext,
+	this: MatcherContext,
 	actual: Promise<Report>,
 	...rest: Array<string | object>
 ): Promise<MatcherResult>;
 function toMatchInlineCodeframe(
-	this: jest.MatcherContext,
+	this: MatcherContext,
 	actual: Report | Promise<Report> | string,
 	...rest: Array<string | object>
 ): MatcherResult | Promise<MatcherResult> {

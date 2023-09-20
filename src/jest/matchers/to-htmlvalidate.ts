@@ -3,7 +3,7 @@ import { type ConfigData } from "../../config";
 import { FileSystemConfigLoader } from "../../config/loaders/file-system";
 import { HtmlValidate } from "../../htmlvalidate";
 import { type Message } from "../../reporter";
-import { type MatcherResult, diff, diverge } from "../utils";
+import { type MatcherContext, type MatcherResult, diff, diverge } from "../utils";
 
 function isMessage(arg: any): arg is Partial<Message> {
 	if (!arg) {
@@ -48,7 +48,7 @@ function getMarkup(src: unknown): string {
 }
 
 function toHTMLValidate(
-	this: jest.MatcherContext,
+	this: MatcherContext,
 	actual: unknown,
 	arg0?: Partial<Message> | ConfigData | string,
 	arg1?: ConfigData | string,
@@ -62,7 +62,7 @@ function toHTMLValidate(
 }
 
 function toHTMLValidateImpl(
-	this: jest.MatcherContext,
+	this: MatcherContext,
 	actual: string,
 	expectedError?: Partial<Message>,
 	userConfig?: ConfigData,

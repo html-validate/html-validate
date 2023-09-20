@@ -1,17 +1,16 @@
 import { isThenable } from "./is-thenable";
+import { type MatcherContext } from "./matcher-context";
 import { type MatcherResult } from "./matcher-result";
 
-type Utils = jest.MatcherContext;
-
 type SyncCallback<T, TArgs extends any[]> = (
-	this: Utils,
+	this: MatcherContext,
 	actual: T,
 	...args: TArgs
 ) => MatcherResult;
 
 export interface MaybeAsyncCallback<T, TArgs extends any[]> {
-	(this: Utils, actual: T, ...args: TArgs): MatcherResult;
-	(this: Utils, actual: Promise<T>, ...args: TArgs): Promise<MatcherResult>;
+	(this: MatcherContext, actual: T, ...args: TArgs): MatcherResult;
+	(this: MatcherContext, actual: Promise<T>, ...args: TArgs): Promise<MatcherResult>;
 }
 
 /**
@@ -27,10 +26,14 @@ export interface MaybeAsyncCallback<T, TArgs extends any[]> {
 export function diverge<T, TArgs extends any[]>(
 	fn: SyncCallback<T, TArgs>
 ): MaybeAsyncCallback<T, TArgs> {
-	function diverged(this: Utils, actual: T, ...args: TArgs): MatcherResult;
-	function diverged(this: Utils, actual: Promise<T>, ...args: TArgs): Promise<MatcherResult>;
+	function diverged(this: MatcherContext, actual: T, ...args: TArgs): MatcherResult;
 	function diverged(
-		this: Utils,
+		this: MatcherContext,
+		actual: Promise<T>,
+		...args: TArgs
+	): Promise<MatcherResult>;
+	function diverged(
+		this: MatcherContext,
 		actual: T | Promise<T>,
 		...args: TArgs
 	): MatcherResult | Promise<MatcherResult> {
