@@ -1,13 +1,9 @@
 /* eslint-disable prefer-template -- technical debt, should be refactored*/
 
 import { TokenType } from "../../lexer";
-import { diff, diverge } from "../utils";
+import { type MatcherResult, diff, diverge } from "../utils";
 
-function toBeToken(
-	this: jest.MatcherContext,
-	actual: any,
-	expected: any
-): jest.CustomMatcherResult {
+function toBeToken(this: jest.MatcherContext, actual: any, expected: any): MatcherResult {
 	/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- technical debt, this should be refactored and made typesafe */
 	const token = actual.value;
 

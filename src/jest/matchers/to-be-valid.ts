@@ -1,7 +1,7 @@
 import { type Report } from "../../reporter";
-import { diverge } from "../utils";
+import { type MatcherResult, diverge } from "../utils";
 
-function toBeValid(report: Report): jest.CustomMatcherResult {
+function toBeValid(report: Report): MatcherResult {
 	if (report.valid) {
 		return {
 			pass: true,

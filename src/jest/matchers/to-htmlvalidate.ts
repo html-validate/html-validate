@@ -3,7 +3,7 @@ import { type ConfigData } from "../../config";
 import { FileSystemConfigLoader } from "../../config/loaders/file-system";
 import { HtmlValidate } from "../../htmlvalidate";
 import { type Message } from "../../reporter";
-import { diff, diverge } from "../utils";
+import { type MatcherResult, diff, diverge } from "../utils";
 
 function isMessage(arg: any): arg is Partial<Message> {
 	if (!arg) {
@@ -53,7 +53,7 @@ function toHTMLValidate(
 	arg0?: Partial<Message> | ConfigData | string,
 	arg1?: ConfigData | string,
 	arg2?: string
-): jest.CustomMatcherResult {
+): MatcherResult {
 	const markup = getMarkup(actual);
 	const message = isMessage(arg0) ? arg0 : undefined;
 	const config = isConfig(arg0) ? arg0 : isConfig(arg1) ? arg1 : undefined;
@@ -67,7 +67,7 @@ function toHTMLValidateImpl(
 	expectedError?: Partial<Message>,
 	userConfig?: ConfigData,
 	filename?: string
-): jest.CustomMatcherResult {
+): MatcherResult {
 	const defaultConfig = {
 		rules: {
 			/* jsdom normalizes style so disabling rule when using this matcher or it

@@ -1,13 +1,13 @@
 /* eslint-disable prefer-template -- technical debt, should be refactored */
 
 import { type Report } from "../../reporter";
-import { diff, diverge, flattenMessages } from "../utils";
+import { type MatcherResult, diff, diverge, flattenMessages } from "../utils";
 
 function toHaveErrors(
 	this: jest.MatcherContext,
 	report: Report,
 	errors: Array<[string, string] | Record<string, unknown>>
-): jest.CustomMatcherResult {
+): MatcherResult {
 	const flattened = flattenMessages(report);
 	const matcher = errors.map((entry) => {
 		if (Array.isArray(entry)) {

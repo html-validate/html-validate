@@ -1,12 +1,12 @@
 import { type Message, type Report } from "../../reporter";
-import { diff, diverge } from "../utils";
+import { type MatcherResult, diff, diverge } from "../utils";
 import { flattenMessages } from "../utils/flatten-messages";
 
 function toHaveErrorImpl(
 	jest: jest.MatcherContext,
 	actual: Report,
 	expected: Partial<Message>
-): jest.CustomMatcherResult {
+): MatcherResult {
 	const flattened = flattenMessages(actual);
 	const matcher = [expect.objectContaining(expected)];
 	const pass = jest.equals(flattened, matcher);
@@ -32,21 +32,21 @@ function toHaveError(
 	this: jest.MatcherContext,
 	actual: Report,
 	error: Partial<Message>
-): jest.CustomMatcherResult;
+): MatcherResult;
 function toHaveError(
 	this: jest.MatcherContext,
 	actual: Report,
 	ruleId: string,
 	message: string,
 	context?: any
-): jest.CustomMatcherResult;
+): MatcherResult;
 function toHaveError(
 	this: jest.MatcherContext,
 	actual: Report,
 	arg1: string | Partial<Message>,
 	arg2?: string,
 	arg3?: any
-): jest.CustomMatcherResult {
+): MatcherResult {
 	if (typeof arg1 === "string") {
 		const expected: Partial<Message> = {
 			ruleId: arg1,
