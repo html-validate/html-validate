@@ -259,6 +259,9 @@ Dry run:
 
 Release:
   extends: .release
+  id_tokens:
+    SIGSTORE_ID_TOKEN:
+      aud: sigstore
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master" && $CI_PIPELINE_SOURCE == "web"'
       when: manual
