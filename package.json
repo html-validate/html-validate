@@ -205,7 +205,7 @@
     "@types/babel__code-frame": "7.0.4",
     "@types/jest": "29.5.5",
     "@types/minimist": "1.2.2",
-    "@types/node": "16.18.52",
+    "@types/node": "16.18.53",
     "@types/prompts": "2.4.4",
     "@types/semver": "7.5.2",
     "@types/stream-buffers": "3.0.4",
