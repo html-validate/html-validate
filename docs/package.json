@@ -29,7 +29,7 @@
     "load-grunt-tasks": "5.1.0",
     "marked": "6.0.0",
     "postcss": "8.4.30",
-    "sass": "1.67.0",
+    "sass": "1.68.0",
     "serve-static": "1.15.0"
   },
   "engines": {
