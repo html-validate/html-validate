@@ -13,19 +13,13 @@ function isTagnameOnly(value: string): boolean {
 	return Boolean(value.match(/^[a-zA-Z0-9-]+$/));
 }
 
-function getRuleDescription(context?: RuleContext): string[] {
-	if (!context) {
-		return [
-			"Some elements has restrictions on what content is allowed.",
-			"This can include both direct children or descendant elements.",
-		];
-	}
+function getRuleDescription(context: RuleContext): string[] {
 	const escaped = context.ancestor.map((it) => `\`${it}\``);
 	return [`The \`${context.child}\` element requires a ${naturalJoin(escaped)} ancestor.`];
 }
 
 export default class ElementRequiredAncestor extends Rule<RuleContext> {
-	public documentation(context?: RuleContext): RuleDocumentation {
+	public documentation(context: RuleContext): RuleDocumentation {
 		return {
 			description: getRuleDescription(context).join("\n"),
 			url: ruleDocumentationUrl(__filename),

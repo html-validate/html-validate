@@ -81,12 +81,6 @@ describe("rule element-required-content", () => {
 
 	it("should contain documentation", async () => {
 		expect.assertions(1);
-		const docs = await htmlvalidate.getRuleDocumentation("element-required-content");
-		expect(docs).toMatchSnapshot();
-	});
-
-	it("should contain contextual documentation", async () => {
-		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "element-required-content": "error" },
 		});

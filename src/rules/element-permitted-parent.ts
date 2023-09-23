@@ -27,10 +27,7 @@ function isFormattable(rules: Permitted): rules is CategoryOrTag[] {
 	return rules.length > 0 && rules.every(isCategoryOrTag);
 }
 
-function getRuleDescription(context?: RuleContext): string[] {
-	if (!context) {
-		return ["Some elements has restrictions on what parents are allowed."];
-	}
+function getRuleDescription(context: RuleContext): string[] {
 	const { child, parent, rules } = context;
 	const preamble = `The \`${child}\` element cannot have a \`${parent}\` element as parent.`;
 	if (isFormattable(rules)) {
@@ -58,7 +55,7 @@ function formatMessage(node: HtmlElement, parent: HtmlElement, rules: Permitted)
 }
 
 export default class ElementPermittedParent extends Rule<RuleContext> {
-	public documentation(context?: RuleContext): RuleDocumentation {
+	public documentation(context: RuleContext): RuleDocumentation {
 		return {
 			description: getRuleDescription(context).join("\n"),
 			url: ruleDocumentationUrl(__filename),

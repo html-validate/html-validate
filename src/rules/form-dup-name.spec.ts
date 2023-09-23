@@ -409,14 +409,7 @@ describe("rule form-dup-name", () => {
 		});
 	});
 
-	it("should contain documentation", async () => {
-		expect.assertions(2);
-		const docs = await htmlvalidate.getRuleDocumentation("form-dup-name");
-		expect(docs?.url).toMatchInlineSnapshot(`"https://html-validate.org/rules/form-dup-name.html"`);
-		expect(docs?.description).toMatchInlineSnapshot(`"Each form control must have a unique name."`);
-	});
-
-	describe("should contain contextual documentation", () => {
+	describe("should contain documentation", () => {
 		it("for duplicate name", async () => {
 			expect.assertions(2);
 			const context: RuleContext = {

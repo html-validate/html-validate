@@ -186,17 +186,7 @@ describe("rule attr-pattern", () => {
 		);
 	});
 
-	it("should contain documentation", async () => {
-		expect.assertions(1);
-		htmlvalidate = new HtmlValidate({
-			root: true,
-			rules: { "attr-pattern": "error" },
-		});
-		const docs = await htmlvalidate.getRuleDocumentation("attr-pattern");
-		expect(docs).toMatchSnapshot();
-	});
-
-	it("should contain contextual documentation (single pattern)", async () => {
+	it("should contain documentation (single pattern)", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
@@ -210,7 +200,7 @@ describe("rule attr-pattern", () => {
 		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation (multiple patterns)", async () => {
+	it("should contain documentation (multiple patterns)", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,

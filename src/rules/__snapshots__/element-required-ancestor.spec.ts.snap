@@ -1,16 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`rule element-required-ancestor should contain contextual documentation 1`] = `
-{
-  "description": "The \`<li>\` element requires a \`<ul>\`, \`<ol>\` or \`<menu>\` ancestor.",
-  "url": "https://html-validate.org/rules/element-required-ancestor.html",
-}
-`;
-
 exports[`rule element-required-ancestor should contain documentation 1`] = `
 {
-  "description": "Some elements has restrictions on what content is allowed.
-This can include both direct children or descendant elements.",
+  "description": "The \`<li>\` element requires a \`<ul>\`, \`<ol>\` or \`<menu>\` ancestor.",
   "url": "https://html-validate.org/rules/element-required-ancestor.html",
 }
 `;

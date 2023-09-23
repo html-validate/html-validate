@@ -60,16 +60,6 @@ describe("rule input-attributes", () => {
 			root: true,
 			rules: { "input-attributes": "error" },
 		});
-		const docs = await htmlvalidate.getRuleDocumentation("input-attributes");
-		expect(docs).toMatchSnapshot();
-	});
-
-	it("should contain contextual documentation", async () => {
-		expect.assertions(1);
-		htmlvalidate = new HtmlValidate({
-			root: true,
-			rules: { "input-attributes": "error" },
-		});
 		const context = {
 			attribute: "alt",
 			type: "text",
@@ -78,7 +68,7 @@ describe("rule input-attributes", () => {
 		expect(docs).toMatchSnapshot();
 	});
 
-	it("should contain contextual documentation (invalid)", async () => {
+	it("should contain documentation (invalid)", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,

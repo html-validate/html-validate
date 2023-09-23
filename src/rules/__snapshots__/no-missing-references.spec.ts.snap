@@ -1,15 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`rule no-missing-references should contain contextual documentation 1`] = `
-{
-  "description": "The element ID "my-id" referenced by the my-attribute attribute must point to an existing element.",
-  "url": "https://html-validate.org/rules/no-missing-references.html",
-}
-`;
-
 exports[`rule no-missing-references should contain documentation 1`] = `
 {
-  "description": "The element ID referenced by the attribute must point to an existing element.",
+  "description": "The element ID "my-id" referenced by the my-attribute attribute must point to an existing element.",
   "url": "https://html-validate.org/rules/no-missing-references.html",
 }
 `;

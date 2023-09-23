@@ -34,7 +34,7 @@ describe("rule doctype-style", () => {
 			expect(report).toHaveError("doctype-style", "DOCTYPE should be uppercase");
 		});
 
-		it("should contain contextual documentation", async () => {
+		it("should contain documentation", async () => {
 			expect.assertions(1);
 			const context = {
 				style: "uppercase",
@@ -74,7 +74,7 @@ describe("rule doctype-style", () => {
 			expect(report).toHaveError("doctype-style", "DOCTYPE should be lowercase");
 		});
 
-		it("should contain contextual documentation", async () => {
+		it("should contain documentation", async () => {
 			expect.assertions(1);
 			const context = {
 				style: "uppercase",
@@ -82,14 +82,5 @@ describe("rule doctype-style", () => {
 			const docs = await htmlvalidate.getRuleDocumentation("doctype-style", null, context);
 			expect(docs).toMatchSnapshot();
 		});
-	});
-
-	it("should contain documentation", async () => {
-		expect.assertions(1);
-		htmlvalidate = new HtmlValidate({
-			rules: { "doctype-style": ["error"] },
-		});
-		const docs = await htmlvalidate.getRuleDocumentation("doctype-style");
-		expect(docs).toMatchSnapshot();
 	});
 });

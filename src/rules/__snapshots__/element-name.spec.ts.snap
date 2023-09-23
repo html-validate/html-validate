@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`rule element-name should contain contextual documentation for blacklisted element 1`] = `
+exports[`rule element-name should contain documentation for blacklisted element 1`] = `
 {
   "description": "<element-name> is blacklisted by the project configuration.
 
@@ -10,7 +10,7 @@ The following names are blacklisted:
 }
 `;
 
-exports[`rule element-name should contain contextual documentation for element not matching custom pattern 1`] = `
+exports[`rule element-name should contain documentation for element not matching custom pattern 1`] = `
 {
   "description": "<element-name> is not a valid element name. This project is configured to only allow names matching the following regular expression:
 
@@ -19,20 +19,13 @@ exports[`rule element-name should contain contextual documentation for element n
 }
 `;
 
-exports[`rule element-name should contain contextual documentation for element not matching default pattern 1`] = `
+exports[`rule element-name should contain documentation for element not matching default pattern 1`] = `
 {
   "description": "<element-name> is not a valid element name. If this is a custom element HTML requires the name to follow these rules:
 
 - The name must begin with \`a-z\`
 - The name must include a hyphen \`-\`
 - It may include alphanumerical characters \`a-z0-9\` or hyphens \`-\`, dots \`.\` or underscores \`_\`.",
-  "url": "https://html-validate.org/rules/element-name.html",
-}
-`;
-
-exports[`rule element-name should contain documentation 1`] = `
-{
-  "description": "This is not a valid element name.",
   "url": "https://html-validate.org/rules/element-name.html",
 }
 `;

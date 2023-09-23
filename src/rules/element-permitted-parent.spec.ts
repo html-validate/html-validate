@@ -159,12 +159,6 @@ describe("rule element-permitted-parent", () => {
 
 	it("should contain documentation", async () => {
 		expect.assertions(1);
-		const docs = await htmlvalidate.getRuleDocumentation("element-permitted-parent");
-		expect(docs).toMatchSnapshot();
-	});
-
-	it("should contain contextual documentation", async () => {
-		expect.assertions(1);
 		const context: RuleContext = {
 			child: "<li>",
 			parent: "<div>",

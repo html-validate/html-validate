@@ -67,15 +67,6 @@ describe("rule no-autoplay", () => {
 		const htmlvalidate = new HtmlValidate({
 			rules: { "no-autoplay": "error" },
 		});
-		const docs = await htmlvalidate.getRuleDocumentation("no-autoplay");
-		expect(docs).toMatchSnapshot();
-	});
-
-	it("should contain contextual documentation", async () => {
-		expect.assertions(1);
-		const htmlvalidate = new HtmlValidate({
-			rules: { "no-autoplay": "error" },
-		});
 		const context = {
 			tagName: "video",
 		};

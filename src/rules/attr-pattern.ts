@@ -69,15 +69,9 @@ export default class AttrPattern extends Rule<RuleContext, RuleOptions> {
 		};
 	}
 
-	public documentation(context?: RuleContext): RuleDocumentation {
-		let description: string;
-		if (context) {
-			description = generateDescription(context.attr, context.pattern);
-		} else {
-			description = `Attribute should match configured pattern`;
-		}
+	public documentation(context: RuleContext): RuleDocumentation {
 		return {
-			description,
+			description: generateDescription(context.attr, context.pattern),
 			url: ruleDocumentationUrl(__filename),
 		};
 	}

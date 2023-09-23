@@ -36,13 +36,7 @@ function getTransparentChildren(node: HtmlElement, transparent: boolean | string
 	}
 }
 
-function getRuleDescription(context?: RuleContext): string[] {
-	if (!context) {
-		return [
-			"Some elements has restrictions on what content is allowed.",
-			"This can include both direct children or descendant elements.",
-		];
-	}
+function getRuleDescription(context: RuleContext): string[] {
 	switch (context.kind) {
 		case ErrorKind.CONTENT:
 			return [
@@ -56,7 +50,7 @@ function getRuleDescription(context?: RuleContext): string[] {
 }
 
 export default class ElementPermittedContent extends Rule<RuleContext> {
-	public documentation(context?: RuleContext): RuleDocumentation {
+	public documentation(context: RuleContext): RuleDocumentation {
 		return {
 			description: getRuleDescription(context).join("\n"),
 			url: ruleDocumentationUrl(__filename),

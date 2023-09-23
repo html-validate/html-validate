@@ -54,26 +54,23 @@ export default class Deprecated extends Rule<RuleContext, RuleOptions> {
 		};
 	}
 
-	public documentation(context?: RuleContext): RuleDocumentation {
+	public documentation(context: RuleContext): RuleDocumentation {
+		const text: string[] = [];
+		if (context.source) {
+			const source = prettySource(context.source);
+			const message = `The \`<$tagname>\` element is deprecated ${source} and should not be used in new code.`;
+			text.push(message);
+		} else {
+			const message = `The \`<$tagname>\` element is deprecated and should not be used in new code.`;
+			text.push(message);
+		}
+		if (context.documentation) {
+			text.push(context.documentation);
+		}
 		const doc: RuleDocumentation = {
-			description: "This element is deprecated and should not be used in new code.",
+			description: text.map((cur) => cur.replace(/\$tagname/g, context.tagName)).join("\n\n"),
 			url: ruleDocumentationUrl(__filename),
 		};
-		if (context) {
-			const text: string[] = [];
-			if (context.source) {
-				const source = prettySource(context.source);
-				const message = `The \`<$tagname>\` element is deprecated ${source} and should not be used in new code.`;
-				text.push(message);
-			} else {
-				const message = `The \`<$tagname>\` element is deprecated and should not be used in new code.`;
-				text.push(message);
-			}
-			if (context.documentation) {
-				text.push(context.documentation);
-			}
-			doc.description = text.map((cur) => cur.replace(/\$tagname/g, context.tagName)).join("\n\n");
-		}
 		return doc;
 	}
 

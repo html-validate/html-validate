@@ -154,17 +154,7 @@ describe("rule element-name", () => {
 		expect(report).toHaveError("element-name", "<foo-bar> element is blacklisted");
 	});
 
-	it("should contain documentation", async () => {
-		expect.assertions(1);
-		htmlvalidate = new HtmlValidate({
-			root: true,
-			rules: { "element-name": "error" },
-		});
-		const docs = await htmlvalidate.getRuleDocumentation("element-name");
-		expect(docs).toMatchSnapshot();
-	});
-
-	describe("should contain contextual documentation for", () => {
+	describe("should contain documentation for", () => {
 		it("blacklisted element", async () => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({

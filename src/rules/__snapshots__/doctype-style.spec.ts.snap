@@ -1,22 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`rule doctype-style configured with lowercase should contain contextual documentation 1`] = `
+exports[`rule doctype-style configured with lowercase should contain documentation 1`] = `
 {
   "description": "While DOCTYPE is case-insensitive in the standard the current configuration requires it to be uppercase",
   "url": "https://html-validate.org/rules/doctype-style.html",
 }
 `;
 
-exports[`rule doctype-style configured with uppercase should contain contextual documentation 1`] = `
+exports[`rule doctype-style configured with uppercase should contain documentation 1`] = `
 {
   "description": "While DOCTYPE is case-insensitive in the standard the current configuration requires it to be uppercase",
-  "url": "https://html-validate.org/rules/doctype-style.html",
-}
-`;
-
-exports[`rule doctype-style should contain documentation 1`] = `
-{
-  "description": "While DOCTYPE is case-insensitive in the standard the current configuration requires a specific style.",
   "url": "https://html-validate.org/rules/doctype-style.html",
 }
 `;

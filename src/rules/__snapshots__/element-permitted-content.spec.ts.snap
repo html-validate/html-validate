@@ -1,23 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`rule element-permitted-content should contain contextual documentation content error 1`] = `
+exports[`rule element-permitted-content should contain documentation content error 1`] = `
 {
   "description": "The \`<div>\` element is not permitted as content under the parent \`<span>\` element.",
   "url": "https://html-validate.org/rules/element-permitted-content.html",
 }
 `;
 
-exports[`rule element-permitted-content should contain contextual documentation descendant error 1`] = `
+exports[`rule element-permitted-content should contain documentation descendant error 1`] = `
 {
   "description": "The \`<div>\` element is not permitted as a descendant of the \`<span>\` element.",
-  "url": "https://html-validate.org/rules/element-permitted-content.html",
-}
-`;
-
-exports[`rule element-permitted-content should contain documentation 1`] = `
-{
-  "description": "Some elements has restrictions on what content is allowed.
-This can include both direct children or descendant elements.",
   "url": "https://html-validate.org/rules/element-permitted-content.html",
 }
 `;

@@ -101,11 +101,6 @@ describe("rule deprecated", () => {
 	});
 
 	it("should contain documentation", async () => {
-		expect.assertions(1);
-		expect(await htmlvalidate.getRuleDocumentation("deprecated")).toMatchSnapshot();
-	});
-
-	it("should contain contextual documentation", async () => {
 		expect.assertions(4);
 		expect(
 			await htmlvalidate.getRuleDocumentation("deprecated", null, {

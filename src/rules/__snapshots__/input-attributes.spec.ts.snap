@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`rule input-attributes should contain contextual documentation (invalid) 1`] = `
+exports[`rule input-attributes should contain documentation (invalid) 1`] = `
 {
   "description": "Attribute \`missing\` is not allowed on \`<input type="text">\`
 
@@ -9,19 +9,12 @@ exports[`rule input-attributes should contain contextual documentation (invalid)
 }
 `;
 
-exports[`rule input-attributes should contain contextual documentation 1`] = `
+exports[`rule input-attributes should contain documentation 1`] = `
 {
   "description": "Attribute \`alt\` is not allowed on \`<input type="text">\`
 
 \`alt\` can only be used when \`type\` is:
 - \`image\`",
-  "url": "https://html-validate.org/rules/input-attributes.html",
-}
-`;
-
-exports[`rule input-attributes should contain documentation 1`] = `
-{
-  "description": "This attribute cannot be used with this input type.",
   "url": "https://html-validate.org/rules/input-attributes.html",
 }
 `;
