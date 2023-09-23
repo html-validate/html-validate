@@ -74,7 +74,8 @@ export default class AttributeEmptyStyle extends Rule<void, RuleOptions> {
 }
 
 function allowsEmpty(attr: Attribute, rules: Record<string, MetaAttribute>): boolean {
-	return Boolean(rules[attr.key]?.omit);
+	const meta = rules[attr.key] as MetaAttribute | undefined;
+	return Boolean(meta?.omit);
 }
 
 function isEmptyValue(attr: Attribute): boolean {

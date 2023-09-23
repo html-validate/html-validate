@@ -130,9 +130,9 @@ export default class ElementPermittedContent extends Rule<RuleContext> {
 		return false;
 	}
 
-	private validatePermittedDescendant(node: HtmlElement, parent: HtmlElement): boolean {
+	private validatePermittedDescendant(node: HtmlElement, parent: HtmlElement | null): boolean {
 		for (
-			let cur: HtmlElement | null = parent;
+			let cur = parent;
 			cur && !cur.isRootElement();
 			cur = /* istanbul ignore next */ cur?.parent ?? null
 		) {

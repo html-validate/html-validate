@@ -378,7 +378,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		}
 
 		const callback = args.pop() as (event: Event) => void;
-		const filter = (args.pop() as (event: Event) => boolean) ?? (() => true);
+		const filter = (args.pop() as ((event: Event) => boolean) | undefined) ?? (() => true);
 
 		return this.parser.on(event, (_event: string, data: Event) => {
 			if (this.isEnabled() && filter(data)) {

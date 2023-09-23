@@ -160,6 +160,8 @@
       "!src/html5.ts",
       "!src/cli/html-validate.ts",
       "!src/jest/jest.ts",
+      "!src/utils/compatibility-check.browser.ts",
+      "!src/utils/compatibility-check.nodejs.ts",
       "!**/__fixtures__/**"
     ],
     "moduleNameMapper": {
