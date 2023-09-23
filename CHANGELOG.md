@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [8.4.1](https://gitlab.com/html-validate/html-validate/compare/v8.4.0...v8.4.1) (2023-09-23)
+
+### Bug Fixes
+
+- **rules:** fix contextual documentation for `attr-pattern` rule ([0082aef](https://gitlab.com/html-validate/html-validate/commit/0082aefe4c527c0dfdbecf3393b3561d2d20240e))
+
 ## [8.4.0](https://gitlab.com/html-validate/html-validate/compare/v8.3.0...v8.4.0) (2023-09-09)
 
 ### Features
