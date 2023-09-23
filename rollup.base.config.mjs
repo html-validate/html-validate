@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "node:url";
-import { builtinModules } from "module";
+import { builtinModules } from "node:module";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import json from "@rollup/plugin-json"; //native solution coming: https://nodejs.org/docs/latest/api/esm.html#esm_json_modules
 import replace from "@rollup/plugin-replace";
@@ -124,7 +124,7 @@ function manualChunks(id) {
 function generateResolved(format) {
 	if (format === "es") {
 		return `
-			import { createRequire } from "module";
+			import { createRequire } from "node:module";
 			export const legacyRequire = createRequire(import.meta.url);
 		`;
 	} else {
