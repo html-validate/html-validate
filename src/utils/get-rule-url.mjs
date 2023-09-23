@@ -1,5 +1,5 @@
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 /**
  * Returns a URL to the public website based on the filename. Do not call this
