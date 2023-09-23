@@ -32,7 +32,7 @@ export function isElementNode(node: DOMNode | null | undefined): node is HtmlEle
 	return Boolean(node && node.nodeType === NodeType.ELEMENT_NODE);
 }
 
-function isValidTagName(tagName: string | undefined): boolean {
+function isValidTagName(tagName: string | undefined): tagName is string {
 	return Boolean(tagName !== "" && tagName !== "*");
 }
 
@@ -77,7 +77,7 @@ export class HtmlElement extends DOMNode {
 		super(nodeType, tagName, location);
 
 		if (!isValidTagName(tagName)) {
-			throw new Error(`The tag name provided ('${tagName ?? ""}') is not a valid name`);
+			throw new Error(`The tag name provided ('${tagName}') is not a valid name`);
 		}
 
 		this.tagName = tagName ?? "#document";

@@ -82,8 +82,10 @@ export default class AriaLabelMisuse extends Rule {
 	}
 
 	private validateElement(target: HtmlElement): void {
-		const attr = target.getAttribute("aria-label");
-		if (!attr?.value || attr.valueMatches("", false)) {
+		/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- the
+		 * earier [aria-label] selector ensures this is always present */
+		const attr = target.getAttribute("aria-label")!;
+		if (!attr.value || attr.valueMatches("", false)) {
 			return;
 		}
 

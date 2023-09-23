@@ -211,7 +211,7 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 
 	private isListedElement(tagName: string): boolean {
 		const meta = this.getMetaFor(tagName);
-		/* istanbul ignore if: the earlier check for getTagsWithProperty ensures
+		/* istanbul ignore next: the earlier check for getTagsWithProperty ensures
 		 * these will actually be set so this is just an untestable fallback */
 		if (!meta?.formAssociated) {
 			return false;
