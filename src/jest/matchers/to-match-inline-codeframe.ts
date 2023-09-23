@@ -2,7 +2,7 @@ import kleur from "kleur";
 import { toMatchInlineSnapshot } from "jest-snapshot";
 import { codeframe, type CodeframeOptions } from "../../formatters/codeframe";
 import { type Report } from "../../reporter";
-import { isThenable } from "../utils";
+import { type MatcherContext, type MatcherResult, isThenable } from "../utils";
 import { getResults } from "./get-results";
 
 const options: CodeframeOptions = {
@@ -12,10 +12,10 @@ const options: CodeframeOptions = {
 };
 
 function toMatchInlineCodeframeImpl(
-	context: jest.MatcherContext,
+	context: MatcherContext,
 	actual: Report | string,
 	...rest: Array<string | object>
-): jest.CustomMatcherResult {
+): MatcherResult {
 	/* istanbul ignore next: cant figure out when this would be unset */
 	const filename = context.testPath ?? "inline";
 	const results = getResults(filename, actual);
@@ -30,20 +30,20 @@ function toMatchInlineCodeframeImpl(
 }
 
 function toMatchInlineCodeframe(
-	this: jest.MatcherContext,
+	this: MatcherContext,
 	actual: Report | string,
 	...rest: Array<string | object>
-): jest.CustomMatcherResult;
+): MatcherResult;
 function toMatchInlineCodeframe(
-	this: jest.MatcherContext,
+	this: MatcherContext,
 	actual: Promise<Report>,
 	...rest: Array<string | object>
-): Promise<jest.CustomMatcherResult>;
+): Promise<MatcherResult>;
 function toMatchInlineCodeframe(
-	this: jest.MatcherContext,
+	this: MatcherContext,
 	actual: Report | Promise<Report> | string,
 	...rest: Array<string | object>
-): jest.CustomMatcherResult | Promise<jest.CustomMatcherResult> {
+): MatcherResult | Promise<MatcherResult> {
 	const context = {
 		...this,
 

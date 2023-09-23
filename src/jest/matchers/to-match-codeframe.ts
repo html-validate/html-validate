@@ -2,7 +2,7 @@ import kleur from "kleur";
 import { toMatchSnapshot } from "jest-snapshot";
 import { codeframe, type CodeframeOptions } from "../../formatters/codeframe";
 import { type Report } from "../../reporter";
-import { diverge } from "../utils";
+import { type MatcherContext, type MatcherResult, diverge } from "../utils";
 import { getResults } from "./get-results";
 
 const options: CodeframeOptions = {
@@ -12,10 +12,10 @@ const options: CodeframeOptions = {
 };
 
 function toMatchCodeframe(
-	this: jest.MatcherContext,
+	this: MatcherContext,
 	actual: Report | string,
 	...rest: Array<string | object>
-): jest.CustomMatcherResult {
+): MatcherResult {
 	/* istanbul ignore next: cant figure out when this would be unset */
 	const filename = this.testPath ?? "inline";
 	const results = getResults(filename, actual);
