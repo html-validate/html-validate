@@ -1,5 +1,5 @@
 import fs from "fs";
-import path from "path";
+import path from "node:path";
 import ignore, { type Ignore } from "ignore";
 
 export class IsIgnored {

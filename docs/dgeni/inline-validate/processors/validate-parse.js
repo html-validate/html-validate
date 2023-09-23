@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require("node:path");
 
 const VALIDATE_REGEX = /<validate([^>]*)>([\S\s]+?)<\/validate>/g;
 const ATTRIBUTE_REGEX = /\s*([^=]+)\s*=\s*(?:(?:"([^"]+)")|(?:'([^']+)'))/g;

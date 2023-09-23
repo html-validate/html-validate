@@ -1,5 +1,5 @@
 import fs from "fs";
-import path from "path";
+import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { builtinModules } from "node:module";
 import { nodeResolve } from "@rollup/plugin-node-resolve";

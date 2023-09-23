@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require("node:path");
 
 /**
  * @param {Map<string, unknown>} validateMap

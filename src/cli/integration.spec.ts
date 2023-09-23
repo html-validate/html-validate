@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import { CLI } from "./cli";
 
 const root = path.resolve(__dirname, "../../");

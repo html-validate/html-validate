@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import { WritableStreamBuffer } from "stream-buffers";
 import { HtmlValidate } from "../..";
 import { Mode } from "../mode";

@@ -1,6 +1,6 @@
 /* eslint-disable no-console, no-process-exit, sonarjs/no-duplicate-string -- as expected from a cli app */
 import fs from "fs";
-import path from "path";
+import path from "node:path";
 import kleur from "kleur";
 import minimist from "minimist";
 import { SchemaValidationError, UserError } from "..";

@@ -1,5 +1,5 @@
 import fs from "fs";
-import path from "path";
+import path from "node:path";
 import Ajv, { SchemaObject } from "ajv";
 import { MetaElement } from "../meta/element";
 import { MetaTable } from "../meta/table";
