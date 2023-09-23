@@ -14,41 +14,41 @@ describe("rule attr-pattern", () => {
 			});
 		});
 
-		it("should not report error when attribute has letters and characters only", () => {
+		it("should not report error when attribute has letters and characters only", async () => {
 			expect.assertions(1);
 			const markup = "<div foo></div>";
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should not report error when attribute has digits", () => {
+		it("should not report error when attribute has digits", async () => {
 			expect.assertions(1);
 			const markup = "<div foo></div>";
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should not report error when attribute has dashes", () => {
+		it("should not report error when attribute has dashes", async () => {
 			expect.assertions(1);
 			const markup = "<div foo></div>";
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should not report error when attribute has xml namespace", () => {
+		it("should not report error when attribute has xml namespace", async () => {
 			expect.assertions(1);
 			const markup = "<div xfoo:bar></div>";
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it.each`
 			attr         | description
 			${"foo_bar"} | ${"underscore"}
-		`("should report error when attribute has $description", ({ attr }) => {
+		`("should report error when attribute has $description", async ({ attr }) => {
 			expect.assertions(2);
 			const markup = `<div ${attr}></div>`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attr-pattern",
@@ -65,17 +65,17 @@ describe("rule attr-pattern", () => {
 			});
 		});
 
-		it("should not report error when attribute has allowed characters only", () => {
+		it("should not report error when attribute has allowed characters only", async () => {
 			expect.assertions(1);
 			const markup = "<div foo></div>";
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should report error when attribute has other characters", () => {
+		it("should report error when attribute has other characters", async () => {
 			expect.assertions(2);
 			const markup = "<div foo-2000></div>";
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("attr-pattern", 'Attribute "foo-2000" should match /[a-z]+/');
 		});
@@ -89,17 +89,17 @@ describe("rule attr-pattern", () => {
 			});
 		});
 
-		it("should not report error when attributes matches one of the allowed patterns", () => {
+		it("should not report error when attributes matches one of the allowed patterns", async () => {
 			expect.assertions(1);
 			const markup = "<div foo 123></div>";
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should report error when attribute doesn't match any pattern", () => {
+		it("should report error when attribute doesn't match any pattern", async () => {
 			expect.assertions(2);
 			const markup = "<div foo-123></div>";
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attr-pattern",
@@ -116,10 +116,10 @@ describe("rule attr-pattern", () => {
 			});
 		});
 
-		it("should not report error on foreign elements", () => {
+		it("should not report error on foreign elements", async () => {
 			expect.assertions(1);
 			const markup = "<svg foo_bar/>";
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 	});
@@ -132,10 +132,10 @@ describe("rule attr-pattern", () => {
 			});
 		});
 
-		it("should report error on foreign elements", () => {
+		it("should report error on foreign elements", async () => {
 			expect.assertions(2);
 			const markup = "<svg foo_bar/>";
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attr-pattern",
@@ -144,14 +144,14 @@ describe("rule attr-pattern", () => {
 		});
 	});
 
-	it("should not report duplicate errors for dynamic attributes", () => {
+	it("should not report duplicate errors for dynamic attributes", async () => {
 		expect.assertions(2);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "attr-pattern": "error" },
 		});
 		const markup = '<input dynamic-foo_bar="foo">';
-		const report = htmlvalidate.validateString(markup, {
+		const report = await htmlvalidate.validateString(markup, {
 			processAttribute,
 		});
 		expect(report).toBeInvalid();

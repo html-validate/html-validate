@@ -11,15 +11,15 @@ describe("rule void-style", () => {
 			});
 		});
 
-		it("should not report when void element omitted end tag", () => {
+		it("should not report when void element omitted end tag", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString("<input>");
+			const report = await htmlvalidate.validateString("<input>");
 			expect(report).toBeValid();
 		});
 
-		it("should report when void element is self-closed", () => {
+		it("should report when void element is self-closed", async () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString("<input/>");
+			const report = await htmlvalidate.validateString("<input/>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"void-style",
@@ -27,21 +27,21 @@ describe("rule void-style", () => {
 			);
 		});
 
-		it("should not report when non-void element has end tag", () => {
+		it("should not report when non-void element has end tag", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString("<div></div>");
+			const report = await htmlvalidate.validateString("<div></div>");
 			expect(report).toBeValid();
 		});
 
-		it("should not report when non-void element is self-closed", () => {
+		it("should not report when non-void element is self-closed", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString("<div/>");
+			const report = await htmlvalidate.validateString("<div/>");
 			expect(report).toBeValid();
 		});
 
-		it("should not report when xml namespaces is used", () => {
+		it("should not report when xml namespaces is used", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString("<xi:include/>");
+			const report = await htmlvalidate.validateString("<xi:include/>");
 			expect(report).toBeValid();
 		});
 	});
@@ -53,15 +53,15 @@ describe("rule void-style", () => {
 			});
 		});
 
-		it("should not report when void element omits end tag", () => {
+		it("should not report when void element omits end tag", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString("<input>");
+			const report = await htmlvalidate.validateString("<input>");
 			expect(report).toBeValid();
 		});
 
-		it("should report when void element is self-closed", () => {
+		it("should report when void element is self-closed", async () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString("<input/>");
+			const report = await htmlvalidate.validateString("<input/>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"void-style",
@@ -77,9 +77,9 @@ describe("rule void-style", () => {
 			});
 		});
 
-		it("should report when void element omits end tag", () => {
+		it("should report when void element omits end tag", async () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString("<input>");
+			const report = await htmlvalidate.validateString("<input>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"void-style",
@@ -87,9 +87,9 @@ describe("rule void-style", () => {
 			);
 		});
 
-		it("should not report when void element is self-closed", () => {
+		it("should not report when void element is self-closed", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString("<input/>");
+			const report = await htmlvalidate.validateString("<input/>");
 			expect(report).toBeValid();
 		});
 	});

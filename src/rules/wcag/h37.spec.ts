@@ -12,65 +12,65 @@ describe("rule h37", () => {
 			});
 		});
 
-		it("should not report when img has alt attribute", () => {
+		it("should not report when img has alt attribute", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ ` <img alt="foobar" /> `;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should not report when input image has alt attribute", () => {
+		it("should not report when input image has alt attribute", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<input type="image" alt="foobar">');
+			const report = await htmlvalidate.validateString('<input type="image" alt="foobar">');
 			expect(report).toBeValid();
 		});
 
-		it("should not report when other input types are missing alt attribute", () => {
+		it("should not report when other input types are missing alt attribute", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<input type="text">');
+			const report = await htmlvalidate.validateString('<input type="text">');
 			expect(report).toBeValid();
 		});
 
-		it("should not report when img has empty alt attribute", () => {
+		it("should not report when img has empty alt attribute", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ ` <img alt="" /> `;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should not report when img has null alt attribute", () => {
+		it("should not report when img has null alt attribute", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ ` <img alt /> `;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should not report when input image has empty alt attribute", () => {
+		it("should not report when input image has empty alt attribute", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<input type="image" alt="">');
+			const report = await htmlvalidate.validateString('<input type="image" alt="">');
 			expect(report).toBeValid();
 		});
 
-		it("should not report when input image has null alt attribute", () => {
+		it("should not report when input image has null alt attribute", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<input type="image" alt>');
+			const report = await htmlvalidate.validateString('<input type="image" alt>');
 			expect(report).toBeValid();
 		});
 
-		it("should not report when img is hidden from accessibility tree", () => {
+		it("should not report when img is hidden from accessibility tree", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ `
 				<img aria-hidden="true" />
 				<img role="presentation" />
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should report error when img is missing alt attribute", () => {
+		it("should report error when img is missing alt attribute", async () => {
 			expect.assertions(2);
 			const markup = /* HTML */ ` <img /> `;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: <img> is missing required "alt" attribute (wcag/h37) at inline:1:3:
@@ -80,9 +80,9 @@ describe("rule h37", () => {
 			`);
 		});
 
-		it("should report error when input image is missing alt attribute", () => {
+		it("should report error when input image is missing alt attribute", async () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<input type="image">');
+			const report = await htmlvalidate.validateString('<input type="image">');
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: <input type="image"> is missing required "alt" attribute (wcag/h37) at inline:1:2:
@@ -92,9 +92,9 @@ describe("rule h37", () => {
 			`);
 		});
 
-		it("smoketest", () => {
+		it("smoketest", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile("test-files/rules/wcag/h37.html");
+			const report = await htmlvalidate.validateFile("test-files/rules/wcag/h37.html");
 			expect(report).toMatchInlineCodeframe(`
 				"error: <img> is missing required "alt" attribute (wcag/h37) at test-files/rules/wcag/h37.html:3:2:
 				  1 | <img alt="..">
@@ -126,17 +126,17 @@ describe("rule h37", () => {
 			});
 		});
 
-		it("should not report when img has alt attribute", () => {
+		it("should not report when img has alt attribute", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ ` <img alt="foobar" /> `;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should report when img has empty alt attribute", () => {
+		it("should report when img has empty alt attribute", async () => {
 			expect.assertions(2);
 			const markup = /* HTML */ ` <img alt="" /> `;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: <img> cannot have empty "alt" attribute (wcag/h37) at inline:1:7:
@@ -146,10 +146,10 @@ describe("rule h37", () => {
 			`);
 		});
 
-		it("should report when img has null alt attribute", () => {
+		it("should report when img has null alt attribute", async () => {
 			expect.assertions(2);
 			const markup = /* HTML */ ` <img alt /> `;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: <img> cannot have empty "alt" attribute (wcag/h37) at inline:1:7:
@@ -159,9 +159,9 @@ describe("rule h37", () => {
 			`);
 		});
 
-		it("should report when input image has empty alt attribute", () => {
+		it("should report when input image has empty alt attribute", async () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<input type="image" alt="">');
+			const report = await htmlvalidate.validateString('<input type="image" alt="">');
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: <input type="image"> cannot have empty "alt" attribute (wcag/h37) at inline:1:21:
@@ -171,9 +171,9 @@ describe("rule h37", () => {
 			`);
 		});
 
-		it("should report when input image has null alt attribute", () => {
+		it("should report when input image has null alt attribute", async () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<input type="image" alt>');
+			const report = await htmlvalidate.validateString('<input type="image" alt>');
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: <input type="image"> cannot have empty "alt" attribute (wcag/h37) at inline:1:21:
@@ -183,10 +183,10 @@ describe("rule h37", () => {
 			`);
 		});
 
-		it("should report error when img is missing alt attribute", () => {
+		it("should report error when img is missing alt attribute", async () => {
 			expect.assertions(2);
 			const markup = /* HTML */ ` <img /> `;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: <img> is missing required "alt" attribute (wcag/h37) at inline:1:3:
@@ -196,9 +196,9 @@ describe("rule h37", () => {
 			`);
 		});
 
-		it("smoketest", () => {
+		it("smoketest", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile("test-files/rules/wcag/h37.html");
+			const report = await htmlvalidate.validateFile("test-files/rules/wcag/h37.html");
 			expect(report).toMatchInlineCodeframe(`
 				"error: <img> cannot have empty "alt" attribute (wcag/h37) at test-files/rules/wcag/h37.html:2:6:
 				  1 | <img alt="..">
@@ -238,17 +238,17 @@ describe("rule h37", () => {
 			});
 		});
 
-		it("should not report when img has alias attribute set", () => {
+		it("should not report when img has alias attribute set", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ ` <img translate-attr="..." /> `;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should report error when img is missing both alt and aliases", () => {
+		it("should report error when img is missing both alt and aliases", async () => {
 			expect.assertions(2);
 			const markup = /* HTML */ ` <img /> `;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: <img> is missing required "alt" attribute (wcag/h37) at inline:1:3:
@@ -258,9 +258,9 @@ describe("rule h37", () => {
 			`);
 		});
 
-		it("smoketest", () => {
+		it("smoketest", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile("test-files/rules/wcag/h37.html");
+			const report = await htmlvalidate.validateFile("test-files/rules/wcag/h37.html");
 			expect(report).toMatchInlineCodeframe(`
 				"error: <img> is missing required "alt" attribute (wcag/h37) at test-files/rules/wcag/h37.html:4:2:
 				  2 | <img alt="">
@@ -283,16 +283,16 @@ describe("rule h37", () => {
 			});
 		});
 
-		it("should not report when img has alias attribute set", () => {
+		it("should not report when img has alias attribute set", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ ` <img translate-attr="..." /> `;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("smoketest", () => {
+		it("smoketest", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile("test-files/rules/wcag/h37.html");
+			const report = await htmlvalidate.validateFile("test-files/rules/wcag/h37.html");
 			expect(report).toMatchInlineCodeframe(`
 				"error: <img> is missing required "alt" attribute (wcag/h37) at test-files/rules/wcag/h37.html:4:2:
 				  2 | <img alt="">
