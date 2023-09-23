@@ -68,7 +68,8 @@ export default class AttributeBooleanStyle extends Rule<void, RuleOptions> {
 	}
 
 	public isBoolean(attr: Attribute, rules: Record<string, MetaAttribute>): boolean {
-		return Boolean(rules[attr.key]?.boolean);
+		const meta = rules[attr.key] as MetaAttribute | undefined;
+		return Boolean(meta?.boolean);
 	}
 }
 

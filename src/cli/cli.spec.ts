@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import { vol } from "memfs";
 import { CLI } from "./cli";
 

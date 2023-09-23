@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`rule element-permitted-parent should contain contextual documentation 1`] = `
+exports[`rule element-permitted-parent should contain documentation 1`] = `
 {
   "description": "The \`<li>\` element cannot have a \`<div>\` element as parent.
 
@@ -9,13 +9,6 @@ Allowed parents one of:
 - \`<foo>\`
 - \`<bar>\`
 - any phrasing element",
-  "url": "https://html-validate.org/rules/element-permitted-parent.html",
-}
-`;
-
-exports[`rule element-permitted-parent should contain documentation 1`] = `
-{
-  "description": "Some elements has restrictions on what parents are allowed.",
   "url": "https://html-validate.org/rules/element-permitted-parent.html",
 }
 `;

@@ -34,16 +34,12 @@ const defaults: RuleOptions = {
 	unquoted: false,
 };
 
-function describeError(context?: RuleContext): string {
-	if (context) {
-		switch (context.error) {
-			case "style":
-				return `Attribute \`${context.attr}\` must use \`${context.expected}\` instead of \`${context.actual}\`.`;
-			case "unquoted":
-				return `Attribute \`${context.attr}\` must not be unquoted.`;
-		}
-	} else {
-		return "This attribute is not quoted properly.";
+function describeError(context: RuleContext): string {
+	switch (context.error) {
+		case "style":
+			return `Attribute \`${context.attr}\` must use \`${context.expected}\` instead of \`${context.actual}\`.`;
+		case "unquoted":
+			return `Attribute \`${context.attr}\` must not be unquoted.`;
 	}
 }
 
@@ -87,7 +83,7 @@ export default class AttrQuotes extends Rule<RuleContext, RuleOptions> {
 		};
 	}
 
-	public documentation(context?: RuleContext): RuleDocumentation {
+	public documentation(context: RuleContext): RuleDocumentation {
 		const { style } = this;
 		const { unquoted } = this.options;
 		const description = [

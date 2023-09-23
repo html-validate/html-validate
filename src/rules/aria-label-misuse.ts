@@ -1,6 +1,6 @@
 import { type HtmlElement } from "../dom";
 import { type DOMReadyEvent } from "../event";
-import { type MetaElement } from "../meta";
+import { type MetaAttribute, type MetaElement } from "../meta";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 const whitelisted = [
@@ -24,7 +24,8 @@ const whitelisted = [
 
 function isValidUsage(target: HtmlElement, meta: MetaElement): boolean {
 	/* elements with explicit aria-label attribute are valid */
-	if (meta.attributes["aria-label"]) {
+	const explicit = meta.attributes["aria-label"] as MetaAttribute | undefined;
+	if (explicit) {
 		return true;
 	}
 
@@ -82,8 +83,10 @@ export default class AriaLabelMisuse extends Rule {
 	}
 
 	private validateElement(target: HtmlElement): void {
-		const attr = target.getAttribute("aria-label");
-		if (!attr?.value || attr.valueMatches("", false)) {
+		/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- the
+		 * earier [aria-label] selector ensures this is always present */
+		const attr = target.getAttribute("aria-label")!;
+		if (!attr.value || attr.valueMatches("", false)) {
 			return;
 		}
 

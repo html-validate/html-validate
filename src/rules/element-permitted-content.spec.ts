@@ -298,13 +298,7 @@ describe("rule element-permitted-content", () => {
 		expect(report).toBeValid();
 	});
 
-	it("should contain documentation", async () => {
-		expect.assertions(1);
-		const docs = await htmlvalidate.getRuleDocumentation("element-permitted-content");
-		expect(docs).toMatchSnapshot();
-	});
-
-	describe("should contain contextual documentation", () => {
+	describe("should contain documentation", () => {
 		it("content error", async () => {
 			expect.assertions(1);
 			const context: ContentContext = {

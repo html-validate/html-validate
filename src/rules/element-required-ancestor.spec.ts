@@ -127,12 +127,6 @@ describe("rule element-required-ancestor", () => {
 
 	it("should contain documentation", async () => {
 		expect.assertions(1);
-		const docs = await htmlvalidate.getRuleDocumentation("element-required-ancestor");
-		expect(docs).toMatchSnapshot();
-	});
-
-	it("should contain contextual documentation", async () => {
-		expect.assertions(1);
 		const context: RuleContext = {
 			child: "<li>",
 			ancestor: ["<ul>", "<ol>", "<menu>"],

@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import { Config, ConfigData, Severity } from "./config";
 import { Location } from "./context";
 import { HtmlElement, NodeClosed } from "./dom";

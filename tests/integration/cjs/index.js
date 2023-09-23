@@ -1,4 +1,4 @@
-const assert = require("assert");
+const assert = require("node:assert");
 const { HtmlValidate } = require("html-validate");
 
 async function run() {

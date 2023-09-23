@@ -58,10 +58,6 @@ export default class ElementName extends Rule<Context, RuleOptions> {
 	}
 
 	private documentationMessages(context: Context): string[] {
-		if (!context) {
-			return ["This is not a valid element name."];
-		}
-
 		if (context.blacklist.includes(context.tagName)) {
 			return [
 				`<${context.tagName}> is blacklisted by the project configuration.`,

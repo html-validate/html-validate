@@ -1,5 +1,5 @@
 import fs from "fs";
-import path from "path";
+import path from "node:path";
 import { type Formatter, type Report, type Result, UserError, formatterFactory } from "..";
 import { ensureError } from "../error";
 import { legacyRequire } from "../resolve";

@@ -168,17 +168,12 @@ describe("rule attr-quotes", () => {
 			htmlvalidate = new HtmlValidate({
 				rules: { "attr-quotes": "error" },
 			});
-			const docs = await htmlvalidate.getRuleDocumentation("attr-quotes");
+			const context: RuleUnquotedContext = {
+				error: "unquoted",
+				attr: "foo",
+			};
+			const docs = await htmlvalidate.getRuleDocumentation("attr-quotes", null, context);
 			expect(docs?.url).toMatchInlineSnapshot(`"https://html-validate.org/rules/attr-quotes.html"`);
-		});
-
-		it("without context", async () => {
-			expect.assertions(1);
-			htmlvalidate = new HtmlValidate({
-				rules: { "attr-quotes": "error" },
-			});
-			const docs = await htmlvalidate.getRuleDocumentation("attr-quotes");
-			expect(docs?.description).toMatchSnapshot();
 		});
 
 		it("with unquoted context", async () => {
@@ -224,7 +219,11 @@ describe("rule attr-quotes", () => {
 			htmlvalidate = new HtmlValidate({
 				rules: { "attr-quotes": ["error", { style, unquoted }] },
 			});
-			const docs = await htmlvalidate.getRuleDocumentation("attr-quotes");
+			const context: RuleUnquotedContext = {
+				error: "unquoted",
+				attr: "foo",
+			};
+			const docs = await htmlvalidate.getRuleDocumentation("attr-quotes", null, context);
 			expect(docs?.description).toMatchSnapshot();
 		});
 	});

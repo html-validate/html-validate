@@ -41,21 +41,17 @@ function allowSharedName(node: HtmlElement, shared: string[]): boolean {
 	return Boolean(type && type.valueMatches(shared, false));
 }
 
-function getDocumentation(context?: RuleContext): string {
+function getDocumentation(context: RuleContext): string {
 	const trailer = "Each form control must have a unique name.";
-	if (!context) {
-		return trailer;
-	} else {
-		const { name } = context;
-		switch (context.kind) {
-			case "duplicate":
-				return [`Duplicate form control name "${name}"`, trailer].join("\n");
-			case "mix":
-				return [
-					`Form control name cannot mix regular name "{{ name }}" with array brackets "{{ name }}[]"`,
-					trailer,
-				].join("\n");
-		}
+	const { name } = context;
+	switch (context.kind) {
+		case "duplicate":
+			return [`Duplicate form control name "${name}"`, trailer].join("\n");
+		case "mix":
+			return [
+				`Form control name cannot mix regular name "{{ name }}" with array brackets "{{ name }}[]"`,
+				trailer,
+			].join("\n");
 	}
 }
 
@@ -78,7 +74,7 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 		};
 	}
 
-	public documentation(context?: RuleContext): RuleDocumentation {
+	public documentation(context: RuleContext): RuleDocumentation {
 		return {
 			description: getDocumentation(context),
 			url: ruleDocumentationUrl(__filename),
@@ -211,7 +207,7 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 
 	private isListedElement(tagName: string): boolean {
 		const meta = this.getMetaFor(tagName);
-		/* istanbul ignore if: the earlier check for getTagsWithProperty ensures
+		/* istanbul ignore next: the earlier check for getTagsWithProperty ensures
 		 * these will actually be set so this is just an untestable fallback */
 		if (!meta?.formAssociated) {
 			return false;

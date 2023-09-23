@@ -11,64 +11,64 @@ describe("wcag/h30", () => {
 		});
 	});
 
-	it("should not report when link has text", () => {
+	it("should not report when link has text", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<a>lorem ipsum</a>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report when link has image with alt-text", () => {
+	it("should not report when link has image with alt-text", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<a><img alt="lorem ipsum" /></a>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report when link has svg with <title>", () => {
+	it("should not report when link has svg with <title>", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<a>
 				<svg><title>lorem ipsum</title></svg>
 			</a>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report when link has svg with <desc>", () => {
+	it("should not report when link has svg with <desc>", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<a>
 				<svg><desc>lorem ipsum</desc></svg>
 			</a>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report when link has aria-label", () => {
+	it("should not report when link has aria-label", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<a aria-label="lorem ipsum"></a>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report when descendant has aria-label", () => {
+	it("should not report when descendant has aria-label", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<a><span aria-label="lorem ipsum"></span></a>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report when link is hidden from accessibility tree", () => {
+	it("should not report when link is hidden from accessibility tree", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<a aria-hidden="true"></a>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when hidden link has text", () => {
+	it("should not report error when hidden link has text", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<a hidden>lorem ipsum</a>
@@ -76,35 +76,35 @@ describe("wcag/h30", () => {
 				<a>dolor sit amet</a>
 			</div>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should report error when link is missing text", () => {
+	it("should report error when link is missing text", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `<a></a>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("wcag/h30", "Anchor link must have a text describing its purpose");
 	});
 
-	it("should report error when link is missing text and image alt", () => {
+	it("should report error when link is missing text and image alt", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `<a><img /></a>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("wcag/h30", "Anchor link must have a text describing its purpose");
 	});
 
-	it("should report error when link is missing text and image has empty alt", () => {
+	it("should report error when link is missing text and image has empty alt", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `<a><img alt="" /></a>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("wcag/h30", "Anchor link must have a text describing its purpose");
 	});
 
-	it("should report error when hidden link is missing text", () => {
+	it("should report error when hidden link is missing text", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<a hidden></a>
@@ -112,7 +112,7 @@ describe("wcag/h30", () => {
 				<a></a>
 			</div>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: Anchor link must have a text describing its purpose (wcag/h30) at inline:2:5:
@@ -134,9 +134,9 @@ describe("wcag/h30", () => {
 		`);
 	});
 
-	it("smoketest", () => {
+	it("smoketest", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile("test-files/rules/wcag/h30.html");
+		const report = await htmlvalidate.validateFile("test-files/rules/wcag/h30.html");
 		expect(report).toMatchInlineCodeframe(`
 			"error: Anchor link must have a text describing its purpose (wcag/h30) at test-files/rules/wcag/h30.html:7:2:
 			   5 |

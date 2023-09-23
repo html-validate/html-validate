@@ -197,15 +197,6 @@ describe("rule no-missing-references", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "no-missing-references": "error" },
 		});
-		const docs = await htmlvalidate.getRuleDocumentation("no-missing-references");
-		expect(docs).toMatchSnapshot();
-	});
-
-	it("should contain contextual documentation", async () => {
-		expect.assertions(1);
-		htmlvalidate = new HtmlValidate({
-			rules: { "no-missing-references": "error" },
-		});
 		const docs = await htmlvalidate.getRuleDocumentation("no-missing-references", null, {
 			key: "my-attribute",
 			value: "my-id",

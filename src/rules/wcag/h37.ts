@@ -75,7 +75,7 @@ export default class H37 extends Rule<void, RuleOptions> {
 			const node = event.previous;
 
 			/* only validate images */
-			if (!node || !needsAlt(node)) {
+			if (!needsAlt(node)) {
 				return;
 			}
 

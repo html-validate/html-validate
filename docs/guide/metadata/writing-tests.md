@@ -9,7 +9,7 @@ Writing tests is as simple as using the HTML-Validate API configured with the me
 The following example is using Jest but would be similar in other testing frameworks.
 
 ```ts
-import * as path from "path";
+import * as path from "node:path";
 import { HtmlValidate } from "html-validate";
 
 const htmlvalidate = new HtmlValidate({
@@ -45,7 +45,7 @@ it("should give error when using <div> as content", async () => {
 When using Jest in particular there are helper functions to make it even easier:
 
 ```ts
-import * as path from "path";
+import * as path from "node:path";
 import { HtmlValidate } from "html-validate";
 import "html-validate/jest";
 

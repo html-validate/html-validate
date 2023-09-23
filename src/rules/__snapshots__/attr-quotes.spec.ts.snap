@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rule attr-quotes should contain documentation style "any" and unquoted "false" 1`] = `
-"This attribute is not quoted properly.
+"Attribute \`foo\` must not be unquoted.
 
 Under the current configuration attributes must be:
 
@@ -11,7 +11,7 @@ Under the current configuration attributes must be:
 `;
 
 exports[`rule attr-quotes should contain documentation style "any" and unquoted "true" 1`] = `
-"This attribute is not quoted properly.
+"Attribute \`foo\` must not be unquoted.
 
 Under the current configuration attributes must be:
 
@@ -22,7 +22,7 @@ Under the current configuration attributes must be:
 `;
 
 exports[`rule attr-quotes should contain documentation style "auto" and unquoted "false" 1`] = `
-"This attribute is not quoted properly.
+"Attribute \`foo\` must not be unquoted.
 
 Under the current configuration attributes must be:
 
@@ -31,7 +31,7 @@ Under the current configuration attributes must be:
 `;
 
 exports[`rule attr-quotes should contain documentation style "auto" and unquoted "true" 1`] = `
-"This attribute is not quoted properly.
+"Attribute \`foo\` must not be unquoted.
 
 Under the current configuration attributes must be:
 
@@ -41,7 +41,7 @@ Under the current configuration attributes must be:
 `;
 
 exports[`rule attr-quotes should contain documentation style "double" and unquoted "false" 1`] = `
-"This attribute is not quoted properly.
+"Attribute \`foo\` must not be unquoted.
 
 Under the current configuration attributes must be:
 
@@ -50,7 +50,7 @@ Under the current configuration attributes must be:
 `;
 
 exports[`rule attr-quotes should contain documentation style "double" and unquoted "true" 1`] = `
-"This attribute is not quoted properly.
+"Attribute \`foo\` must not be unquoted.
 
 Under the current configuration attributes must be:
 
@@ -60,7 +60,7 @@ Under the current configuration attributes must be:
 `;
 
 exports[`rule attr-quotes should contain documentation style "single" and unquoted "false" 1`] = `
-"This attribute is not quoted properly.
+"Attribute \`foo\` must not be unquoted.
 
 Under the current configuration attributes must be:
 
@@ -69,7 +69,7 @@ Under the current configuration attributes must be:
 `;
 
 exports[`rule attr-quotes should contain documentation style "single" and unquoted "true" 1`] = `
-"This attribute is not quoted properly.
+"Attribute \`foo\` must not be unquoted.
 
 Under the current configuration attributes must be:
 
@@ -89,15 +89,6 @@ Under the current configuration attributes must be:
 
 exports[`rule attr-quotes should contain documentation with unquoted context 1`] = `
 "Attribute \`foo\` must not be unquoted.
-
-Under the current configuration attributes must be:
-
-- quoted with double quotes \`"\` unless the value contains double quotes in which case single quotes \`'\` should be used instead
-"
-`;
-
-exports[`rule attr-quotes should contain documentation without context 1`] = `
-"This attribute is not quoted properly.
 
 Under the current configuration attributes must be:
 

@@ -18,37 +18,37 @@ describe("wcag/h71", () => {
 		});
 	});
 
-	it("should report error when <fieldset> is missing <legend>", () => {
+	it("should report error when <fieldset> is missing <legend>", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString("<fieldset></fieldset>");
+		const report = await htmlvalidate.validateString("<fieldset></fieldset>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("wcag/h71", "<fieldset> must have a <legend> as the first child");
 	});
 
-	it("should report error when custom element inherits from <fieldset>", () => {
+	it("should report error when custom element inherits from <fieldset>", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString("<custom></custom>");
+		const report = await htmlvalidate.validateString("<custom></custom>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("wcag/h71", "<custom> must have a <legend> as the first child");
 	});
 
-	it("should not report when <fieldset> have <legend>", () => {
+	it("should not report when <fieldset> have <legend>", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<fieldset><legend>foo</legend></fieldset>");
+		const report = await htmlvalidate.validateString("<fieldset><legend>foo</legend></fieldset>");
 		expect(report).toBeValid();
 	});
 
-	it("should not report when <fieldset> have multiple <legend>", () => {
+	it("should not report when <fieldset> have multiple <legend>", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
+		const report = await htmlvalidate.validateString(
 			"<fieldset><legend>foo</legend><legend>bar</legend></fieldset>"
 		);
 		expect(report).toBeValid();
 	});
 
-	it("should not report when <fieldset> have out-of-order <legend>", () => {
+	it("should not report when <fieldset> have out-of-order <legend>", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
+		const report = await htmlvalidate.validateString(
 			"<fieldset><div>foo</div><legend>bar</legend></fieldset>"
 		);
 		expect(report).toBeValid();

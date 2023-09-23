@@ -14,18 +14,11 @@ function isCategory(value: CategoryOrTag): boolean {
 
 export default class ElementRequiredContent extends Rule<Context> {
 	public documentation(context: Context): RuleDocumentation {
-		if (context) {
-			const { element, missing } = context;
-			return {
-				description: `The \`${element}\` element requires a \`${missing}\` to be present as content.`,
-				url: ruleDocumentationUrl(__filename),
-			};
-		} else {
-			return {
-				description: "Some elements has requirements on content that must be present.",
-				url: ruleDocumentationUrl(__filename),
-			};
-		}
+		const { element, missing } = context;
+		return {
+			description: `The \`${element}\` element requires a \`${missing}\` to be present as content.`,
+			url: ruleDocumentationUrl(__filename),
+		};
 	}
 
 	public setup(): void {

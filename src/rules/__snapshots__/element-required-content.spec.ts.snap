@@ -1,15 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`rule element-required-content should contain contextual documentation 1`] = `
-{
-  "description": "The \`<my-element>\` element requires a \`<my-other-element>\` to be present as content.",
-  "url": "https://html-validate.org/rules/element-required-content.html",
-}
-`;
-
 exports[`rule element-required-content should contain documentation 1`] = `
 {
-  "description": "Some elements has requirements on content that must be present.",
+  "description": "The \`<my-element>\` element requires a \`<my-other-element>\` to be present as content.",
   "url": "https://html-validate.org/rules/element-required-content.html",
 }
 `;

@@ -109,22 +109,15 @@ function isInput(event: TagReadyEvent): boolean {
 }
 
 export default class InputAttributes extends Rule<RuleContext> {
-	public documentation(context?: RuleContext): RuleDocumentation {
-		if (context) {
-			const { attribute, type } = context;
-			const summary = `Attribute \`${attribute}\` is not allowed on \`<input type="${type}">\`\n`;
-			const details = `\`${attribute}\` can only be used when \`type\` is:`;
-			const list = restricted.get(attribute)?.map((it) => `- \`${it}\``) ?? [];
-			return {
-				description: [summary, details, ...list].join("\n"),
-				url: ruleDocumentationUrl(__filename),
-			};
-		} else {
-			return {
-				description: `This attribute cannot be used with this input type.`,
-				url: ruleDocumentationUrl(__filename),
-			};
-		}
+	public documentation(context: RuleContext): RuleDocumentation {
+		const { attribute, type } = context;
+		const summary = `Attribute \`${attribute}\` is not allowed on \`<input type="${type}">\`\n`;
+		const details = `\`${attribute}\` can only be used when \`type\` is:`;
+		const list = restricted.get(attribute)?.map((it) => `- \`${it}\``) ?? [];
+		return {
+			description: [summary, details, ...list].join("\n"),
+			url: ruleDocumentationUrl(__filename),
+		};
 	}
 
 	public setup(): void {

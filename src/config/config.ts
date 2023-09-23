@@ -199,7 +199,7 @@ export class Config {
 
 		/* rules explicitly set by passed options should have precedence over any
 		 * extended rules, not the other way around. */
-		if (options?.rules) {
+		if (options.rules) {
 			this.config = mergeInternal(this.config, { rules: options.rules });
 		}
 	}

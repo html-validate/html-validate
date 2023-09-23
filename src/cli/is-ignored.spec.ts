@@ -1,5 +1,5 @@
 import fs from "fs";
-import path from "path";
+import path from "node:path";
 import { CLI } from "./cli";
 import { IsIgnored } from "./is-ignored";
 import "../jest";

@@ -25,7 +25,7 @@ export default class H63 extends Rule {
 			const node = event.target;
 
 			/* only validate th */
-			if (!node || node.tagName !== "th") {
+			if (node.tagName !== "th") {
 				return;
 			}
 

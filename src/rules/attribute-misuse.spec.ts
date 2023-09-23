@@ -55,18 +55,6 @@ describe("rule attribute-misuse", () => {
 			root: true,
 			rules: { "attribute-misuse": "error" },
 		});
-		const docs = await htmlvalidate.getRuleDocumentation("attribute-misuse");
-		expect(docs?.description).toMatchInlineSnapshot(
-			`"This attribute cannot be used in this context."`
-		);
-	});
-
-	it("should contain contextual documentation", async () => {
-		expect.assertions(1);
-		htmlvalidate = new HtmlValidate({
-			root: true,
-			rules: { "attribute-misuse": "error" },
-		});
 		const context: RuleContext = {
 			attr: "foo",
 			details: "lorem ipsum",

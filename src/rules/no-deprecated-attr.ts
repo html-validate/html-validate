@@ -1,4 +1,5 @@
 import { type AttributeEvent } from "../event";
+import { type MetaAttribute } from "../meta";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class NoDeprecatedAttr extends Rule {
@@ -20,7 +21,7 @@ export default class NoDeprecatedAttr extends Rule {
 				return;
 			}
 
-			const metaAttribute = meta.attributes[attr];
+			const metaAttribute = meta.attributes[attr] as MetaAttribute | undefined;
 			if (!metaAttribute) {
 				return;
 			}

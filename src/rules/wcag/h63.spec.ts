@@ -12,31 +12,31 @@ describe("wcag/h63", () => {
 		});
 	});
 
-	it("should not report when th has scope attribute", () => {
+	it("should not report when th has scope attribute", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <th scope="col"></th> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report for other elements", () => {
+	it("should not report for other elements", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <div></div> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report when th has dynamic scope attribute", () => {
+	it("should not report when th has dynamic scope attribute", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <th dynamic-scope="expr"></th> `;
-		const report = htmlvalidate.validateString(markup, { processAttribute });
+		const report = await htmlvalidate.validateString(markup, { processAttribute });
 		expect(report).toBeValid();
 	});
 
-	it("should report error when th does not have scope", () => {
+	it("should report error when th does not have scope", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <th></th> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
 			"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:1:3:
 			> 1 |  <th></th>
@@ -45,13 +45,13 @@ describe("wcag/h63", () => {
 		`);
 	});
 
-	it("should report error when th has empty scope", () => {
+	it("should report error when th has empty scope", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<th scope></th>
 			<th scope=""></th>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
 			"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:2:8:
 			  1 |
@@ -70,10 +70,10 @@ describe("wcag/h63", () => {
 		`);
 	});
 
-	it("should report error when auto is used as keyword for th scope", () => {
+	it("should report error when auto is used as keyword for th scope", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <th scope="auto"></th> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
 			"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:1:13:
 			> 1 |  <th scope="auto"></th>
@@ -82,10 +82,10 @@ describe("wcag/h63", () => {
 		`);
 	});
 
-	it("should report error when th has invalid scope", () => {
+	it("should report error when th has invalid scope", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <th scope="foobar"></th> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
 			"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:1:13:
 			> 1 |  <th scope="foobar"></th>
@@ -94,9 +94,9 @@ describe("wcag/h63", () => {
 		`);
 	});
 
-	it("smoketest", () => {
+	it("smoketest", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile("test-files/rules/wcag/h63.html");
+		const report = await htmlvalidate.validateFile("test-files/rules/wcag/h63.html");
 		expect(report).toMatchInlineCodeframe(`
 			"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at test-files/rules/wcag/h63.html:8:2:
 			   6 |

@@ -1,6 +1,6 @@
 /* eslint-disable import/no-dynamic-require, security/detect-non-literal-require, @typescript-eslint/no-var-requires -- needed to load fixtues */
 
-import path from "path";
+import path from "node:path";
 
 /* mock ajv for easier testing of errors and to allow invalid values though the
  * validation to ensure the code works anyway */

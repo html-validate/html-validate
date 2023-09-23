@@ -27,15 +27,11 @@ export default class DoctypeStyle extends Rule<RuleContext, RuleOptions> {
 		};
 	}
 
-	public documentation(context?: RuleContext): RuleDocumentation {
-		const doc: RuleDocumentation = {
-			description: `While DOCTYPE is case-insensitive in the standard the current configuration requires a specific style.`,
+	public documentation(context: RuleContext): RuleDocumentation {
+		return {
+			description: `While DOCTYPE is case-insensitive in the standard the current configuration requires it to be ${context.style}`,
 			url: ruleDocumentationUrl(__filename),
 		};
-		if (context) {
-			doc.description = `While DOCTYPE is case-insensitive in the standard the current configuration requires it to be ${context.style}`;
-		}
-		return doc;
 	}
 
 	public setup(): void {

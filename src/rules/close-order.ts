@@ -41,7 +41,7 @@ export default class CloseOrder extends Rule {
 			}
 
 			/* handle unopened tags */
-			if (!active || active.isRootElement()) {
+			if (active.isRootElement()) {
 				const location: Location = {
 					filename: current.location.filename,
 					line: current.location.line,

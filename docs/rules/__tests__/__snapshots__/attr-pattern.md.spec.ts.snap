@@ -10,6 +10,10 @@ exports[`docs/rules/attr-pattern.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 4,
+        "context": {
+          "attr": "foo_bar",
+          "pattern": "[a-z0-9-:]+",
+        },
         "line": 1,
         "message": "Attribute "foo_bar" should match /[a-z0-9-:]+/",
         "offset": 3,

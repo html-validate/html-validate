@@ -8,17 +8,13 @@ export interface RuleContext {
 	details: string;
 }
 
-function ruleDescription(context?: RuleContext): string {
-	if (context) {
-		const { attr, details } = context;
-		return `The "${attr}" attribute cannot be used in this context: ${details}`;
-	} else {
-		return "This attribute cannot be used in this context.";
-	}
+function ruleDescription(context: RuleContext): string {
+	const { attr, details } = context;
+	return `The "${attr}" attribute cannot be used in this context: ${details}`;
 }
 
 export default class AttributeMisuse extends Rule<RuleContext> {
-	public documentation(context?: RuleContext): RuleDocumentation {
+	public documentation(context: RuleContext): RuleDocumentation {
 		return {
 			description: ruleDescription(context),
 			url: ruleDocumentationUrl(__filename),

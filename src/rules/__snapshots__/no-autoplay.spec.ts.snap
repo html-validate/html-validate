@@ -1,17 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`rule no-autoplay should contain contextual documentation 1`] = `
-{
-  "description": "The autoplay attribute is not allowed on <video>.
-Autoplaying content can be disruptive for users and has accessibilty concerns.
-Prefer to let the user control playback.",
-  "url": "https://html-validate.org/rules/no-autoplay.html",
-}
-`;
-
 exports[`rule no-autoplay should contain documentation 1`] = `
 {
-  "description": "The autoplay attribute is not allowed.
+  "description": "The autoplay attribute is not allowed on <video>.
 Autoplaying content can be disruptive for users and has accessibilty concerns.
 Prefer to let the user control playback.",
   "url": "https://html-validate.org/rules/no-autoplay.html",

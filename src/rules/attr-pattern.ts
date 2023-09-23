@@ -69,15 +69,9 @@ export default class AttrPattern extends Rule<RuleContext, RuleOptions> {
 		};
 	}
 
-	public documentation(context?: RuleContext): RuleDocumentation {
-		let description: string;
-		if (context) {
-			description = generateDescription(context.attr, context.pattern);
-		} else {
-			description = `Attribute should match configured pattern`;
-		}
+	public documentation(context: RuleContext): RuleDocumentation {
 		return {
-			description,
+			description: generateDescription(context.attr, context.pattern),
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
@@ -100,7 +94,11 @@ export default class AttrPattern extends Rule<RuleContext, RuleOptions> {
 			}
 
 			const message = generateMessage(event.key, this.options.pattern);
-			this.report(event.target, message, event.keyLocation);
+			const context: RuleContext = {
+				attr: event.key,
+				pattern: this.options.pattern,
+			};
+			this.report(event.target, message, event.keyLocation, context);
 		});
 	}
 
