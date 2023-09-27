@@ -209,7 +209,7 @@
     "@types/minimist": "1.2.2",
     "@types/node": "16.18.54",
     "@types/prompts": "2.4.5",
-    "@types/semver": "7.5.2",
+    "@types/semver": "7.5.3",
     "@types/stream-buffers": "3.0.4",
     "babar": "0.2.3",
     "husky": "8.0.3",
