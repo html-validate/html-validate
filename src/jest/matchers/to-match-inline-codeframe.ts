@@ -29,36 +29,36 @@ function toMatchInlineCodeframeImpl(
 	return (toMatchInlineSnapshot as any).call(context, snapshot, ...rest);
 }
 
-function toMatchInlineCodeframe(
-	this: MatcherContext,
-	actual: Report | string,
-	...rest: Array<string | object>
-): MatcherResult;
-function toMatchInlineCodeframe(
-	this: MatcherContext,
-	actual: Promise<Report>,
-	...rest: Array<string | object>
-): Promise<MatcherResult>;
-function toMatchInlineCodeframe(
+type ToMatchInlineCodeframeMatcher = (
 	this: MatcherContext,
 	actual: Report | Promise<Report> | string,
 	...rest: Array<string | object>
-): MatcherResult | Promise<MatcherResult> {
-	const context = {
-		...this,
+) => MatcherResult | Promise<MatcherResult>;
 
-		/* Capture the original stack frames as they are needed by "jest-snapshot"
-		 * to determine where to write the inline snapshots. When resolving the
-		 * promise the original stack frames are lost and the snapshot will be
-		 * written in this files instaed. */
-		error: new Error(),
-	};
+function createMatcher(): ToMatchInlineCodeframeMatcher {
+	function toMatchInlineCodeframe(
+		this: MatcherContext,
+		actual: Report | Promise<Report> | string,
+		...rest: Array<string | object>
+	): MatcherResult | Promise<MatcherResult> {
+		const context = {
+			...this,
 
-	if (isThenable(actual)) {
-		return actual.then((resolved) => toMatchInlineCodeframeImpl(context, resolved, ...rest));
-	} else {
-		return toMatchInlineCodeframeImpl(context, actual, ...rest);
+			/* Capture the original stack frames as they are needed by "jest-snapshot"
+			 * to determine where to write the inline snapshots. When resolving the
+			 * promise the original stack frames are lost and the snapshot will be
+			 * written in this files instaed. */
+			error: new Error(),
+		};
+
+		if (isThenable(actual)) {
+			return actual.then((resolved) => toMatchInlineCodeframeImpl(context, resolved, ...rest));
+		} else {
+			return toMatchInlineCodeframeImpl(context, actual, ...rest);
+		}
 	}
+
+	return toMatchInlineCodeframe;
 }
 
-export default toMatchInlineCodeframe;
+export { createMatcher as toMatchInlineCodeframe };

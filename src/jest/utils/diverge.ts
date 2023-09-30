@@ -8,9 +8,12 @@ type SyncCallback<T, TArgs extends any[]> = (
 	...args: TArgs
 ) => MatcherResult;
 
-export interface MaybeAsyncCallback<T, TArgs extends any[]> {
-	(this: MatcherContext, actual: T, ...args: TArgs): MatcherResult;
-	(this: MatcherContext, actual: Promise<T>, ...args: TArgs): Promise<MatcherResult>;
+/**
+ * @internal
+ */
+export interface MaybeAsyncCallback<TActual, TArgs extends any[]> {
+	(this: MatcherContext, actual: TActual, ...args: TArgs): MatcherResult;
+	(this: MatcherContext, actual: Promise<TActual>, ...args: TArgs): Promise<MatcherResult>;
 }
 
 /**
@@ -22,6 +25,8 @@ export interface MaybeAsyncCallback<T, TArgs extends any[]> {
  * In practice this means that if you pass a synchronous object into it you will
  * maintain synchronous code but if you pass an asynchronous object you must
  * await the result.
+ *
+ * @internal
  */
 export function diverge<T, TArgs extends any[]>(
 	fn: SyncCallback<T, TArgs>

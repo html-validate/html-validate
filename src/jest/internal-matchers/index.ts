@@ -1,1 +1,1 @@
-export { default as toBeToken } from "./to-be-token";
+export { toBeToken } from "./to-be-token";
