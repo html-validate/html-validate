@@ -110,6 +110,10 @@ function manualChunks(id) {
 		}
 	}
 
+	if (rel.startsWith("jest/matchers")) {
+		return "matchers";
+	}
+
 	if (rel.startsWith("jest/")) {
 		return "jest-lib";
 	}
