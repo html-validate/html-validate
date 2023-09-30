@@ -3,7 +3,14 @@ import { type ConfigData } from "../../config";
 import { FileSystemConfigLoader } from "../../config/loaders/file-system";
 import { HtmlValidate } from "../../htmlvalidate";
 import { type Message } from "../../reporter";
-import { type MatcherContext, type MatcherResult, diff, diverge } from "../utils";
+import {
+	type MatcherContext,
+	type MatcherExpect,
+	type MatcherResult,
+	type MaybeAsyncCallback,
+	diff,
+	diverge,
+} from "../utils";
 
 function isMessage(arg: any): arg is Partial<Message> {
 	if (!arg) {
@@ -47,22 +54,30 @@ function getMarkup(src: unknown): string {
 	}
 }
 
-function toHTMLValidate(
-	this: MatcherContext,
-	actual: unknown,
-	arg0?: Partial<Message> | ConfigData | string,
-	arg1?: ConfigData | string,
-	arg2?: string
-): MatcherResult {
-	const markup = getMarkup(actual);
-	const message = isMessage(arg0) ? arg0 : undefined;
-	const config = isConfig(arg0) ? arg0 : isConfig(arg1) ? arg1 : undefined;
-	const filename = isString(arg0) ? arg0 : isString(arg1) ? arg1 : arg2;
-	return toHTMLValidateImpl.call(this, markup, message, config, filename);
+type Arg1 = Partial<Message> | ConfigData | string;
+type Arg2 = ConfigData | string;
+type Arg3 = string;
+
+function createMatcher(expect: MatcherExpect): MaybeAsyncCallback<unknown, [Arg1?, Arg2?, Arg3?]> {
+	function toHTMLValidate(
+		this: MatcherContext,
+		actual: unknown,
+		arg0?: Arg1,
+		arg1?: Arg2,
+		arg2?: Arg3
+	): MatcherResult {
+		const markup = getMarkup(actual);
+		const message = isMessage(arg0) ? arg0 : undefined;
+		const config = isConfig(arg0) ? arg0 : isConfig(arg1) ? arg1 : undefined;
+		const filename = isString(arg0) ? arg0 : isString(arg1) ? arg1 : arg2;
+		return toHTMLValidateImpl.call(this, expect, markup, message, config, filename);
+	}
+	return diverge(toHTMLValidate);
 }
 
 function toHTMLValidateImpl(
 	this: MatcherContext,
+	expect: MatcherExpect,
 	actual: string,
 	expectedError?: Partial<Message>,
 	userConfig?: ConfigData,
@@ -88,7 +103,6 @@ function toHTMLValidateImpl(
 		return { pass, message: () => "HTML is valid when an error was expected" };
 	} else {
 		if (expectedError) {
-			/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- outside our control, this is what jest gives us back and it gladly accepts it back */
 			const matcher = expect.arrayContaining([expect.objectContaining(expectedError)]);
 			const errorPass = this.equals(report.results[0].messages, matcher);
 			const diffString = diff(matcher, report.results[0].messages, {
@@ -121,4 +135,4 @@ function toHTMLValidateImpl(
 	}
 }
 
-export default diverge(toHTMLValidate);
+export { createMatcher as toHTMLValidate };

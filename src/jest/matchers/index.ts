@@ -1,7 +1,7 @@
-export { default as toBeValid } from "./to-be-valid";
-export { default as toBeInvalid } from "./to-be-invalid";
-export { default as toHTMLValidate } from "./to-htmlvalidate";
-export { default as toHaveError } from "./to-have-error";
-export { default as toHaveErrors } from "./to-have-errors";
-export { default as toMatchCodeframe } from "./to-match-codeframe";
-export { default as toMatchInlineCodeframe } from "./to-match-inline-codeframe";
+export { toBeValid } from "./to-be-valid";
+export { toBeInvalid } from "./to-be-invalid";
+export { toHTMLValidate } from "./to-htmlvalidate";
+export { toHaveError } from "./to-have-error";
+export { toHaveErrors } from "./to-have-errors";
+export { toMatchCodeframe } from "./to-match-codeframe";
+export { toMatchInlineCodeframe } from "./to-match-inline-codeframe";

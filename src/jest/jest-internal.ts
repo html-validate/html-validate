@@ -21,5 +21,5 @@ declare global {
 }
 
 expect.extend({
-	toBeToken,
+	toBeToken: toBeToken(expect),
 });

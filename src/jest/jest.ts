@@ -11,11 +11,11 @@ import {
 } from "./matchers";
 
 expect.extend({
-	toBeValid,
-	toBeInvalid,
-	toHaveError,
-	toHaveErrors,
-	toHTMLValidate,
-	toMatchCodeframe,
-	toMatchInlineCodeframe,
+	toBeValid: toBeValid(),
+	toBeInvalid: toBeInvalid(),
+	toHTMLValidate: toHTMLValidate(expect),
+	toHaveError: toHaveError(expect),
+	toHaveErrors: toHaveErrors(expect),
+	toMatchCodeframe: toMatchCodeframe(),
+	toMatchInlineCodeframe: toMatchInlineCodeframe(),
 });
