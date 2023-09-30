@@ -1,10 +1,10 @@
 import { type Message, type Report } from "../../reporter";
 import {
+	type DiffFunction,
 	type MatcherContext,
 	type MatcherExpect,
 	type MatcherResult,
 	type MaybeAsyncCallback,
-	diff,
 	diverge,
 } from "../utils";
 import { flattenMessages } from "../utils/flatten-messages";
@@ -12,13 +12,16 @@ import { flattenMessages } from "../utils/flatten-messages";
 function toHaveErrorImpl(
 	context: MatcherContext,
 	expect: MatcherExpect,
+	diff: DiffFunction | undefined,
 	actual: Report,
 	expected: Partial<Message>
 ): MatcherResult {
 	const flattened = flattenMessages(actual);
 	const matcher = [expect.objectContaining(expected)];
 	const pass = context.equals(flattened, matcher);
-	const diffString = diff(matcher, flattened, { expand: context.expand });
+	const diffString = diff
+		? diff(matcher, flattened, { expand: context.expand })
+		: /* istanbul ignore next */ undefined;
 	const hint = context.utils.matcherHint(".toHaveError");
 	const prettyExpected = context.utils.printExpected(matcher);
 	const prettyReceived = context.utils.printReceived(flattened);
@@ -33,11 +36,12 @@ function toHaveErrorImpl(
 			/* istanbul ignore next */ diffString ? `\nDifference:\n\n${diffString}` : "",
 		].join("\n");
 	};
-	return { pass, message: resultMessage };
+	return { pass, message: resultMessage, actual: flattened, expected: matcher };
 }
 
 function createMatcher(
-	expect: MatcherExpect
+	expect: MatcherExpect,
+	diff: DiffFunction | undefined
 ):
 	| MaybeAsyncCallback<Report, [Partial<Message>]>
 	| MaybeAsyncCallback<Report, [string, string, any?]> {
@@ -69,9 +73,9 @@ function createMatcher(
 				/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- this is supposed to accept anything */
 				expected.context = arg3;
 			}
-			return toHaveErrorImpl(this, expect, actual, expected);
+			return toHaveErrorImpl(this, expect, diff, actual, expected);
 		} else {
-			return toHaveErrorImpl(this, expect, actual, arg1);
+			return toHaveErrorImpl(this, expect, diff, actual, arg1);
 		}
 	}
 	return diverge(toHaveError);

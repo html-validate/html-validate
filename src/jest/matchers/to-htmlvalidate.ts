@@ -4,11 +4,11 @@ import { FileSystemConfigLoader } from "../../config/loaders/file-system";
 import { HtmlValidate } from "../../htmlvalidate";
 import { type Message } from "../../reporter";
 import {
+	type DiffFunction,
 	type MatcherContext,
 	type MatcherExpect,
 	type MatcherResult,
 	type MaybeAsyncCallback,
-	diff,
 	diverge,
 } from "../utils";
 
@@ -58,7 +58,10 @@ type Arg1 = Partial<Message> | ConfigData | string;
 type Arg2 = ConfigData | string;
 type Arg3 = string;
 
-function createMatcher(expect: MatcherExpect): MaybeAsyncCallback<unknown, [Arg1?, Arg2?, Arg3?]> {
+function createMatcher(
+	expect: MatcherExpect,
+	diff: DiffFunction | undefined
+): MaybeAsyncCallback<unknown, [Arg1?, Arg2?, Arg3?]> {
 	function toHTMLValidate(
 		this: MatcherContext,
 		actual: unknown,
@@ -70,7 +73,7 @@ function createMatcher(expect: MatcherExpect): MaybeAsyncCallback<unknown, [Arg1
 		const message = isMessage(arg0) ? arg0 : undefined;
 		const config = isConfig(arg0) ? arg0 : isConfig(arg1) ? arg1 : undefined;
 		const filename = isString(arg0) ? arg0 : isString(arg1) ? arg1 : arg2;
-		return toHTMLValidateImpl.call(this, expect, markup, message, config, filename);
+		return toHTMLValidateImpl.call(this, expect, diff, markup, message, config, filename);
 	}
 	return diverge(toHTMLValidate);
 }
@@ -78,6 +81,7 @@ function createMatcher(expect: MatcherExpect): MaybeAsyncCallback<unknown, [Arg1
 function toHTMLValidateImpl(
 	this: MatcherContext,
 	expect: MatcherExpect,
+	diff: DiffFunction | undefined,
 	actual: string,
 	expectedError?: Partial<Message>,
 	userConfig?: ConfigData,
@@ -99,17 +103,21 @@ function toHTMLValidateImpl(
 	const htmlvalidate = new HtmlValidate(loader);
 	const report = htmlvalidate.validateStringSync(actual, actualFilename, config);
 	const pass = report.valid;
+	const result = report.results[0];
 	if (pass) {
 		return { pass, message: () => "HTML is valid when an error was expected" };
 	} else {
 		if (expectedError) {
-			const matcher = expect.arrayContaining([expect.objectContaining(expectedError)]);
-			const errorPass = this.equals(report.results[0].messages, matcher);
-			const diffString = diff(matcher, report.results[0].messages, {
-				expand: this.expand,
-				aAnnotation: "Expected error",
-				bAnnotation: "Actual error",
-			});
+			const actual = result.messages;
+			const expected = expect.arrayContaining([expect.objectContaining(expectedError)]);
+			const errorPass = this.equals(actual, expected);
+			const diffString = diff
+				? diff(expected, actual, {
+						expand: this.expand,
+						aAnnotation: "Expected error",
+						bAnnotation: "Actual error",
+				  })
+				: /* istanbul ignore next */ undefined;
 			const hint = this.utils.matcherHint(".not.toHTMLValidate", undefined, undefined, {
 				comment: "expected error",
 			});
@@ -121,12 +129,10 @@ function toHTMLValidateImpl(
 					this.utils.printExpected(expectedError),
 					/* istanbul ignore next */ diffString ? `\n${diffString}` : "",
 				].join("\n");
-			return { pass: !errorPass, message: expectedErrorMessage };
+			return { pass: !errorPass, message: expectedErrorMessage, actual, expected };
 		}
 
-		const errors = report.results[0].messages.map(
-			(message) => `  ${message.message} [${message.ruleId}]`
-		);
+		const errors = result.messages.map((message) => `  ${message.message} [${message.ruleId}]`);
 		return {
 			pass,
 			message: () =>
