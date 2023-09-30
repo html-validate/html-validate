@@ -6,13 +6,19 @@
 
 import jestDiffDefault, * as jestDiff from "jest-diff";
 
-interface DiffOptions {
+/**
+ * @internal
+ */
+export interface DiffOptions {
 	aAnnotation?: string;
 	bAnnotation?: string;
 	expand?: boolean;
 }
 
-type DiffFunction = (a: any, b: any, options?: DiffOptions) => string | null;
+/**
+ * @internal
+ */
+export type DiffFunction = (a: any, b: any, options?: DiffOptions) => string | null;
 
 /* ignore typing for compatibility so it will seem "impossible" but different
  * version will yield different source */

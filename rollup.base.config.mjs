@@ -114,8 +114,15 @@ function manualChunks(id) {
 		return "matchers";
 	}
 
+	/* this is a special case where the jest-diff import should only be present
+	 * when importing though this entrypoint, e.g. vitest should not have to rely
+	 * on jest-diff being installed */
+	if (rel.startsWith("jest/utils/diff")) {
+		return "jest-diff";
+	}
+
 	if (rel.startsWith("jest/")) {
-		return "jest-lib";
+		return "matcher-utils";
 	}
 
 	return "core";
