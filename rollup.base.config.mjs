@@ -23,6 +23,7 @@ const entrypoints = [
 	"src/html5.ts",
 	"src/cli/html-validate.ts",
 	"src/jest/jest.ts",
+	"src/vitest/vitest.ts",
 	"src/transform/test-utils.ts",
 ];
 
@@ -61,6 +62,33 @@ function isNodejsChunk(relativeId) {
  */
 function isBrowserChunk(relativeId) {
 	return relativeId.endsWith(".browser.ts");
+}
+
+/**
+ * @param {string} rel
+ * @returns {string}
+ */
+function jestChunks(rel) {
+	if (rel.startsWith("jest/matchers/")) {
+		if (rel.includes("codeframe")) {
+			return "matchers-jestonly";
+		} else {
+			return "matchers";
+		}
+	}
+
+	/* this is a special case where the jest-diff import should only be present
+	 * when importing though this entrypoint, e.g. vitest should not have to rely
+	 * on jest-diff being installed */
+	if (rel.startsWith("jest/utils/diff")) {
+		return "jest-diff";
+	}
+
+	if (rel.startsWith("jest/")) {
+		return "matcher-utils";
+	}
+
+	return "core";
 }
 
 /**
@@ -110,19 +138,8 @@ function manualChunks(id) {
 		}
 	}
 
-	if (rel.startsWith("jest/matchers")) {
-		return "matchers";
-	}
-
-	/* this is a special case where the jest-diff import should only be present
-	 * when importing though this entrypoint, e.g. vitest should not have to rely
-	 * on jest-diff being installed */
-	if (rel.startsWith("jest/utils/diff")) {
-		return "jest-diff";
-	}
-
 	if (rel.startsWith("jest/")) {
-		return "matcher-utils";
+		return jestChunks(rel);
 	}
 
 	return "core";

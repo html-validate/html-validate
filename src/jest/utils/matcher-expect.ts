@@ -4,6 +4,7 @@
  * Compatible with:
  *
  * - `jest`
+ * - `vitest`
  *
  * @internal
  */
