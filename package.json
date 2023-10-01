@@ -186,17 +186,6 @@
       "<rootDir>/tests/vitest/"
     ]
   },
-  "externalDependencies": [
-    "@babel/code-frame",
-    "@html-validate/stylish",
-    "@sidvind/better-ajv-errors",
-    "ajv",
-    "glob",
-    "kleur",
-    "minimist",
-    "prompts",
-    "semver"
-  ],
   "dependencies": {
     "@babel/code-frame": "^7.10.0",
     "@html-validate/stylish": "^4.1.0",
@@ -272,6 +261,17 @@
   "engines": {
     "node": ">= 16.0"
   },
+  "externalDependencies": [
+    "@babel/code-frame",
+    "@html-validate/stylish",
+    "@sidvind/better-ajv-errors",
+    "ajv",
+    "glob",
+    "kleur",
+    "minimist",
+    "prompts",
+    "semver"
+  ],
   "renovate": {
     "extends": [
       "gitlab>html-validate/renovate-config"
