@@ -63,6 +63,10 @@
       "types": "./dist/types/test-utils.d.ts",
       "require": "./dist/cjs/test-utils.js",
       "import": "./dist/es/test-utils.js"
+    },
+    "./vitest": {
+      "types": "./dist/types/vitest.d.ts",
+      "import": "./dist/es/vitest.js"
     }
   },
   "main": "dist/cjs/index.js",
@@ -81,7 +85,8 @@
     "test-utils.{js,d.ts}"
   ],
   "workspaces": [
-    "docs"
+    "docs",
+    "tests/vitest"
   ],
   "scripts": {
     "prebuild": "run-s codegen prebuild:*",
@@ -160,6 +165,7 @@
       "!src/html5.ts",
       "!src/cli/html-validate.ts",
       "!src/jest/jest.ts",
+      "!src/vitest/vitest.ts",
       "!src/utils/compatibility-check.browser.ts",
       "!src/utils/compatibility-check.nodejs.ts",
       "!**/__fixtures__/**"
@@ -173,6 +179,11 @@
       "<rootDir>/elements",
       "<rootDir>/src",
       "<rootDir>/tests"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "<rootDir>/dist/",
+      "<rootDir>/tests/vitest/"
     ]
   },
   "dependencies": {
@@ -229,7 +240,8 @@
   "peerDependencies": {
     "jest": "^27.1 || ^28.1.3 || ^29.0.3",
     "jest-diff": "^27.1 || ^28.1.3 || ^29.0.3",
-    "jest-snapshot": "^27.1 || ^28.1.3 || ^29.0.3"
+    "jest-snapshot": "^27.1 || ^28.1.3 || ^29.0.3",
+    "vitest": "^0.34"
   },
   "peerDependenciesMeta": {
     "jest": {
@@ -239,6 +251,9 @@
       "optional": true
     },
     "jest-snapshot": {
+      "optional": true
+    },
+    "vitest": {
       "optional": true
     }
   },

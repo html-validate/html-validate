@@ -36,6 +36,7 @@ NPM:
       - .husky/
       - node_modules/
       - docs/node_modules/
+      - tests/vitest/node_modules/
     reports:
       dependency_scanning: gl-dependency-scanning.json
   script:
@@ -146,7 +147,7 @@ Docs:
     - npm ci --no-fund --no-audit --no-update-notifier
   script:
     - npm run codegen
-    - npm test -- --no-coverage --testPathIgnorePatterns matchers tests/jest
+    - npm test -- --no-coverage --testPathIgnorePatterns matchers tests/jest tests/vitest
     - npm run --if-present build
     - npm run compatibility
 
@@ -217,6 +218,16 @@ Jest compat:
     - if [[ "${MATRIX}" -eq "25" ]]; then sed -i '/"paths"/i"baseUrl":"./",' tsconfig.json; fi
     - for spec in tests/jest/*.spec.ts; do sed 's#../../src#../../dist/cjs#g' -i "${spec}"; done
     - npm exec jest -- --no-coverage --ci -- tests/jest
+
+Vitest compat:
+  stage: compatibility
+  dependencies: []
+  needs: []
+  before_script:
+    - npm ci --no-fund --no-audit --no-update-notifier
+    - npm run build
+  script:
+    - npm run -w tests/vitest test
 
 Module:
   stage: compatibility
