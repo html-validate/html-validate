@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [8.5.0](https://gitlab.com/html-validate/html-validate/compare/v8.4.1...v8.5.0) (2023-10-01)
+
+### Features
+
+- experimental vitest support ([44cf449](https://gitlab.com/html-validate/html-validate/commit/44cf449af035fcfad41a1c3d8612650cce09c679)), closes [#188](https://gitlab.com/html-validate/html-validate/issues/188)
+
 ## [8.4.1](https://gitlab.com/html-validate/html-validate/compare/v8.4.0...v8.4.1) (2023-09-23)
 
 ### Bug Fixes

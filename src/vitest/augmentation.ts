@@ -5,27 +5,27 @@ import { type Message } from "../reporter";
 declare module "vitest" {
 	interface Assertion<T = any> {
 		/**
-		 * @since %version%
+		 * @since 8.5.0
 		 */
 		toBeValid(): T;
 
 		/**
-		 * @since %version%
+		 * @since 8.5.0
 		 */
 		toBeInvalid(): T;
 
 		/**
-		 * @since %version%
+		 * @since 8.5.0
 		 */
 		toHaveError(error: Partial<Message>): T;
 
 		/**
-		 * @since %version%
+		 * @since 8.5.0
 		 */
 		toHaveError(ruleId: string, message: string, context?: any): T;
 
 		/**
-		 * @since %version%
+		 * @since 8.5.0
 		 */
 		toHaveErrors(errors: Array<[string, string] | Record<string, unknown>>): T;
 
@@ -38,7 +38,7 @@ declare module "vitest" {
 		 * @param filename - Optional filename used when matching transformer and
 		 * loading configuration.
 		 *
-		 * @since %version%
+		 * @since 8.5.0
 		 */
 		toHTMLValidate(filename?: string): T;
 		toHTMLValidate(config: ConfigData, filename?: string): T;

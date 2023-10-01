@@ -25,4 +25,4 @@ All matchers except `toMatchCodeframe` and `toMatchInlineCodeframe` are availabl
 
 ## Version history
 
-- %version% - Vitest experimental support added.
+- 8.5.0 - Vitest experimental support added.
