@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { builtinModules } from "node:module";
+import commonjs from "@rollup/plugin-commonjs";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import json from "@rollup/plugin-json"; //native solution coming: https://nodejs.org/docs/latest/api/esm.html#esm_json_modules
 import replace from "@rollup/plugin-replace";
@@ -11,6 +12,8 @@ import { getRuleUrl } from "./src/utils/get-rule-url.mjs";
 
 const rootDir = fileURLToPath(new URL(".", import.meta.url));
 const packageJson = JSON.parse(fs.readFileSync(path.join(rootDir, "package.json"), "utf-8"));
+const externalDependencies = packageJson.externalDependencies;
+const peerDependencies = Object.keys(packageJson.peerDependencies);
 
 /**
  * @typedef {import('rollup').RollupOptions} RollupOptions
@@ -34,8 +37,8 @@ const external = [
 	...builtinModules.map((name) => `node:${name}`), //spec: https://nodejs.org/docs/latest/api/esm.html#esm_node_imports
 
 	/* npm dependencies */
-	...Object.keys(packageJson.dependencies),
-	...Object.keys(packageJson.peerDependencies),
+	...externalDependencies,
+	...peerDependencies,
 ];
 
 const jsonConfig = {
@@ -195,6 +198,7 @@ export function build(format) {
 					declarationDir: undefined,
 				}),
 				json(jsonConfig),
+				commonjs(),
 				nodeResolve(),
 				replace({
 					preventAssignment: true,
