@@ -680,19 +680,12 @@ export interface Message {
 
 // @public (undocumented)
 export interface MetaAttribute {
-    // (undocumented)
     allowed?: MetaAttributeAllowedCallback;
-    // (undocumented)
     boolean?: boolean;
-    // (undocumented)
     deprecated?: boolean | string;
-    // (undocumented)
     enum?: Array<string | RegExp>;
-    // (undocumented)
     list?: boolean;
-    // (undocumented)
     omit?: boolean;
-    // (undocumented)
     required?: boolean;
 }
 
