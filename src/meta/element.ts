@@ -89,28 +89,44 @@ export type MetaAttributeAllowedCallback = (
  * @public
  */
 export interface MetaAttribute {
-	/* If set it should be a function evaluating to an error message or null if
-	 * the attribute is allowed */
+	/**
+	 * If set it should be a function evaluating to an error message or `null` if
+	 * the attribute is allowed.
+	 */
 	allowed?: MetaAttributeAllowedCallback;
 
-	/* if true this attribute can only take boolean values: my-attr, my-attr="" or my-attr="my-attr" */
+	/**
+	 * If true this attribute can only take boolean values: `my-attr`, `my-attr="`
+	 * or `my-attr="my-attr"`.
+	 */
 	boolean?: boolean;
 
-	/* if set this attribute is considered deprecated, set to true or a message */
+	/**
+	 * If set this attribute is considered deprecated, set to `true` or a string
+	 * with more descriptive message.
+	 */
 	deprecated?: boolean | string;
 
-	/* if set it is an exhaustive list of all possible values (as string or regex)
-	 * this attribute can have (each token if list is set) */
+	/**
+	 * If set it is an exhaustive list of all possible values (as `string` or
+	 * `RegExp`) this attribute can have (each token if list is set)
+	 */
 	enum?: Array<string | RegExp>;
 
-	/* if true this attribute contains space-separated tokens and each token must
-	 * be valid by itself */
+	/**
+	 * If `true` this attribute contains space-separated tokens and each token must
+	 * be valid by itself.
+	 */
 	list?: boolean;
 
-	/* if true this attribute can omit the value */
+	/**
+	 * If `true` this attribute can omit the value.
+	 */
 	omit?: boolean;
 
-	/* if set this attribute is required to be set */
+	/**
+	 * If set this attribute is required to be present on the element.
+	 */
 	required?: boolean;
 }
 
