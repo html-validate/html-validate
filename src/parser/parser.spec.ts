@@ -291,6 +291,7 @@ describe("parser", () => {
 				value: "bar",
 				quote: '"',
 				target: "div",
+				meta: null,
 				location: expect.objectContaining({
 					line: 2,
 					column: 1,
@@ -330,6 +331,7 @@ describe("parser", () => {
 				value: "bar",
 				quote: '"',
 				target: "div",
+				meta: null,
 				location: expect.objectContaining({
 					line: 1,
 					column: 6,
@@ -352,6 +354,7 @@ describe("parser", () => {
 				value: "ham",
 				quote: '"',
 				target: "div",
+				meta: null,
 				location: expect.objectContaining({
 					line: 2,
 					column: 1,
@@ -468,6 +471,7 @@ describe("parser", () => {
 				value: "bar",
 				quote: null,
 				target: "div",
+				meta: null,
 				location: expect.objectContaining({
 					line: 1,
 					column: 6,
@@ -507,6 +511,7 @@ describe("parser", () => {
 				value: "bar",
 				quote: "'",
 				target: "div",
+				meta: null,
 				location: expect.objectContaining({
 					line: 1,
 					column: 6,
@@ -546,6 +551,7 @@ describe("parser", () => {
 				value: "bar",
 				quote: '"',
 				target: "div",
+				meta: null,
 				location: expect.objectContaining({
 					line: 1,
 					column: 6,
@@ -585,6 +591,7 @@ describe("parser", () => {
 				value: '"foo"',
 				quote: "'",
 				target: "div",
+				meta: null,
 				location: expect.objectContaining({
 					line: 1,
 					column: 6,
@@ -607,6 +614,7 @@ describe("parser", () => {
 				value: "'foo'",
 				quote: '"',
 				target: "div",
+				meta: null,
 				location: expect.objectContaining({
 					line: 1,
 					column: 18,
@@ -646,6 +654,7 @@ describe("parser", () => {
 				value: null,
 				quote: null,
 				target: "div",
+				meta: null,
 				location: expect.objectContaining({
 					line: 1,
 					column: 6,
@@ -681,6 +690,7 @@ describe("parser", () => {
 				value: "",
 				quote: '"',
 				target: "div",
+				meta: null,
 				location: expect.objectContaining({
 					line: 1,
 					column: 6,
@@ -699,6 +709,7 @@ describe("parser", () => {
 				value: "",
 				quote: "'",
 				target: "div",
+				meta: null,
 				location: expect.objectContaining({
 					line: 1,
 					column: 13,
@@ -734,6 +745,7 @@ describe("parser", () => {
 				value: null,
 				quote: null,
 				target: "div",
+				meta: null,
 				location: expect.objectContaining({
 					line: 1,
 					column: 6,
@@ -769,6 +781,7 @@ describe("parser", () => {
 				value: "foo bar baz",
 				quote: '"',
 				target: "div",
+				meta: null,
 				location: expect.objectContaining({
 					line: 1,
 					column: 6,
@@ -808,6 +821,7 @@ describe("parser", () => {
 				value: "foo",
 				quote: '"',
 				target: "div",
+				meta: null,
 				location: expect.objectContaining({
 					line: 1,
 					column: 6,
@@ -847,6 +861,7 @@ describe("parser", () => {
 				value: "bar",
 				quote: '"',
 				target: "div",
+				meta: null,
 				location: expect.objectContaining({
 					line: 1,
 					column: 6,
@@ -869,6 +884,7 @@ describe("parser", () => {
 				value: "ham",
 				quote: '"',
 				target: "div",
+				meta: null,
 				location: expect.objectContaining({
 					line: 1,
 					column: 16,
@@ -908,6 +924,7 @@ describe("parser", () => {
 				value: "text",
 				quote: '"',
 				target: "input",
+				meta: expect.anything(),
 				location: expect.objectContaining({
 					line: 1,
 					column: 8,
@@ -947,6 +964,7 @@ describe("parser", () => {
 				value: "baz",
 				quote: '"',
 				target: "div",
+				meta: null,
 				location: expect.objectContaining({
 					line: 1,
 					column: 6,
@@ -975,6 +993,43 @@ describe("parser", () => {
 			});
 			expect(events.shift()).toBeUndefined();
 		});
+	});
+
+	it("should add attribute metadata if present", () => {
+		expect.assertions(7);
+		const markup = /* HTML */ ` <input type="text" foo="bar" /> `;
+		parser.parseHtml(markup);
+		expect(events.shift()).toEqual({ event: "tag:start", target: "input" });
+		expect(events.shift()).toEqual(
+			expect.objectContaining({
+				event: "attr",
+				key: "type",
+				value: "text",
+				meta: {
+					enum: expect.anything(),
+					required: true,
+				},
+			})
+		);
+		expect(events.shift()).toEqual(
+			expect.objectContaining({
+				event: "attr",
+				key: "foo",
+				value: "bar",
+				meta: null,
+			})
+		);
+		expect(events.shift()).toEqual({ event: "tag:ready", target: "input" });
+		expect(events.shift()).toEqual({
+			event: "tag:end",
+			target: "input",
+			previous: "input",
+		});
+		expect(events.shift()).toEqual({
+			event: "element:ready",
+			target: "input",
+		});
+		expect(events.shift()).toBeUndefined();
 	});
 
 	describe("should parse directive", () => {
@@ -1625,6 +1680,7 @@ describe("parser", () => {
 				value: "foo",
 				quote: '"',
 				target: "input",
+				meta: expect.anything(),
 				location: expect.objectContaining({
 					line: 1,
 					column: 8,
@@ -1647,6 +1703,7 @@ describe("parser", () => {
 				quote: '"',
 				originalAttribute: "id",
 				target: "input",
+				meta: null,
 				location: expect.objectContaining({
 					line: 1,
 					column: 8,
@@ -1700,6 +1757,7 @@ describe("parser", () => {
 				value: "barney",
 				quote: '"',
 				target: "input",
+				meta: null,
 				location: expect.objectContaining({
 					line: 1,
 					column: 8,

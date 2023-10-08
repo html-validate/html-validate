@@ -431,6 +431,7 @@ export class Parser {
 		token: AttrNameToken,
 		next?: Token
 	): void {
+		const { meta } = node;
 		const keyLocation = this.getAttributeKeyLocation(token);
 		const valueLocation = this.getAttributeValueLocation(next);
 		const location = this.getAttributeLocation(token, next);
@@ -479,6 +480,7 @@ export class Parser {
 				location,
 				keyLocation,
 				valueLocation,
+				meta: meta?.attributes[attr.key] ?? null,
 			};
 			this.trigger("attr", event);
 			node.setAttribute(attr.key, attr.value, keyLocation, valueLocation, attr.originalAttribute);

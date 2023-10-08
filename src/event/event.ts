@@ -3,6 +3,7 @@ import { type Location, type Source } from "../context";
 import { type DOMTree, type DynamicValue, type HtmlElement } from "../dom";
 import { type RuleBlocker } from "../engine/rule-blocker";
 import { type Token, type TokenType } from "../lexer";
+import { type MetaAttribute } from "../meta";
 import { type Rule } from "../rule";
 
 /**
@@ -154,6 +155,9 @@ export interface AttributeEvent extends Event {
 
 	/** Location of the attribute value */
 	valueLocation: Location | null;
+
+	/** Attribute metadata if present */
+	meta: MetaAttribute | null;
 }
 
 /**
