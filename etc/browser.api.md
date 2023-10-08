@@ -37,6 +37,7 @@ export interface AttributeEvent extends Event_2 {
     key: string;
     keyLocation: Location_2;
     location: Location_2;
+    meta: MetaAttribute | null;
     originalAttribute?: string;
     quote: '"' | "'" | null;
     target: HtmlElement;

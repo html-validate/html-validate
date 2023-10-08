@@ -177,6 +177,7 @@ export interface AttributeEvent {
   target: HtmlElement;
   keyLocation: Location;
   valueLocation: Location | null;
+  meta: MetaAttribute | null;
 }
 ```
 
@@ -185,6 +186,8 @@ Emitted when an element attribute is parsed: `<div foo="bar">`.
 Target node will not have been updated with the new attribute yet (e.g. `node.getAttribute(...)` will return `undefined` or a previous value).
 
 `originalAttribute` is set when a transformer has modified the attribute and contains the original attribute name, e.g. `ng-class` or `v-bind:class`.
+
+If the element have metadata for the specific attribute it will be present in the `meta` property.
 
 ## Misc
 

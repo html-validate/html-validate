@@ -60,7 +60,8 @@ attr: {
   "quote": "\\"",
   "location": "<rootDir>/test-files/parser/simple.html:1:4",
   "keyLocation": "<rootDir>/test-files/parser/simple.html:1:4",
-  "valueLocation": "<rootDir>/test-files/parser/simple.html:1:8"
+  "valueLocation": "<rootDir>/test-files/parser/simple.html:1:8",
+  "meta": "[truncated]"
 }
 tag:ready: {
   "target": {
