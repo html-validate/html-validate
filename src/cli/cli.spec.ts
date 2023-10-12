@@ -76,10 +76,41 @@ describe("CLI", () => {
 			`);
 		});
 
+		it("should configure single rule with severity string", () => {
+			expect.assertions(1);
+			const cli = new CLI({
+				rules: "foo:warn",
+			});
+			expect(cli.getConfig()).toMatchInlineSnapshot(`
+				{
+				  "extends": [],
+				  "rules": {
+				    "foo": 1,
+				  },
+				}
+			`);
+		});
+
 		it("should configure multiple rule", () => {
 			expect.assertions(1);
 			const cli = new CLI({
 				rules: ["foo:1", "bar:0"],
+			});
+			expect(cli.getConfig()).toMatchInlineSnapshot(`
+				{
+				  "extends": [],
+				  "rules": {
+				    "bar": 0,
+				    "foo": 1,
+				  },
+				}
+			`);
+		});
+
+		it("should configure multiple rule with severity string", () => {
+			expect.assertions(1);
+			const cli = new CLI({
+				rules: ["foo:warn", "bar:off"],
 			});
 			expect(cli.getConfig()).toMatchInlineSnapshot(`
 				{

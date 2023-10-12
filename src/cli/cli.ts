@@ -136,22 +136,26 @@ export class CLI {
 	private resolveConfig(): ConfigData {
 		const { options } = this;
 		const config = getBaseConfig(options.configFile);
-		let rules = options.rules;
-		if (rules) {
-			if (Array.isArray(rules)) {
-				rules = rules.join(",");
-			}
-			const raw = rules
-				.split(",")
-				.map((it) => it.trim().replace(/([^:]*):/, '"$1":'))
-				.join(",");
+		if (options.rules) {
+			const rules: string[] = Array.isArray(options.rules) ? options.rules : [options.rules];
 			try {
-				const rules = JSON.parse(`{${raw}}`) as RuleConfig;
+				const severityMap: Record<string, number> = { off: 0, warn: 1, error: 2 };
+				const ruleConfig = rules.reduce((parsedRules: Record<string, number>, rule) => {
+					const [ruleName, ruleSeverity] = rule.trim().split(":");
+					const severityValue = severityMap[ruleSeverity] ?? parseInt(ruleSeverity, 10);
+					if (!Object.values(severityMap).includes(severityValue)) {
+						throw new Error(`Invalid severity value for rule "${ruleName}": ${ruleSeverity}`);
+					}
+					parsedRules[ruleName] = severityValue;
+					return parsedRules;
+				}, {});
 				config.extends = [];
-				config.rules = rules;
+				config.rules = ruleConfig as RuleConfig;
 			} catch (err: any) /* istanbul ignore next */ {
 				const message = err instanceof Error ? err.message : String(err);
-				throw new UserError(`Error while parsing --rule option "{${raw}}": ${message}.\n`);
+				throw new UserError(
+					`Error while parsing --rule option "{${rules.join(",")}": ${message}.\n`
+				);
 			}
 		}
 		return config;
