@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## [8.6.0](https://gitlab.com/html-validate/html-validate/compare/v8.5.0...v8.6.0) (2023-10-13)
+
+### Features
+
+- **api:** add `meta: MetaAttribute` in `AttributeEvent` ([2cda0ae](https://gitlab.com/html-validate/html-validate/commit/2cda0aece349c573824c44e75c552a0eee75f279))
+- **cli:** `--rule` severity can now be set with strings, fixes [#225](https://gitlab.com/html-validate/html-validate/issues/225). ([054972e](https://gitlab.com/html-validate/html-validate/commit/054972e9ffe0da02c8b63f8a47aaca333fc9a0d7))
+
 ## [8.5.0](https://gitlab.com/html-validate/html-validate/compare/v8.4.1...v8.5.0) (2023-10-01)
 
 ### Features
