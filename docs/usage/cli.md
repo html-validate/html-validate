@@ -57,7 +57,13 @@ Use `0` to disallow warnings.
 
 ### `--rule`
 
-Inline rule configuration.
+Inline rule configuration. Rule severity can have the following string or numeric value:
+
+- off or 0
+- warn or 1
+- error or 2
+
+Configurations can be changed with an array of rules: `--rule [void:2, foo:0]`.
 
     html-validate --rule void:2 file.html
 
