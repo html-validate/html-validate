@@ -12,7 +12,7 @@ repository before making a change.
 
 ## Did you find a bug?
 
-Before creating but reports be sure to check the [list of open
+Before creating bug reports be sure to check the [list of open
 issues][issue-list] first to avoid adding duplicated issues.
 
 If no similar issue exists you can [add a new bug issue][issue-new-bug].
