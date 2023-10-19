@@ -222,7 +222,7 @@
     "@types/node": "16.18.59",
     "@types/prompts": "2.4.7",
     "@types/semver": "7.5.3",
-    "@types/stream-buffers": "3.0.5",
+    "@types/stream-buffers": "3.0.6",
     "babar": "0.2.3",
     "husky": "8.0.3",
     "is-ci": "3.0.1",
