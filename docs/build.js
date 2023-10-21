@@ -2,6 +2,19 @@ const fs = require("node:fs/promises");
 const browserify = require("browserify");
 const Dgeni = require("dgeni");
 
+async function assets() {
+	console.group("Copying assets");
+	const copy = async (src, dst) => {
+		console.log(src, "->", dst);
+		await fs.cp(src, dst, { recursive: true });
+	};
+	await copy("docs/app/favicon.ico", "public/favicon.ico");
+	await copy("node_modules/bootstrap-sass/assets/fonts/bootstrap", "public/assets/fonts");
+	await copy("node_modules/@fortawesome/fontawesome-free/webfonts", "public/assets/fonts");
+	console.groupEnd();
+	console.log();
+}
+
 async function scripts() {
 	console.group("Running Browserify");
 	const b = browserify("docs/app/index.js", {
@@ -42,6 +55,7 @@ async function docs() {
 }
 
 async function build() {
+	await assets();
 	await scripts();
 	await docs();
 }

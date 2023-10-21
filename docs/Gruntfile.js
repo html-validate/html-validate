@@ -27,7 +27,7 @@ module.exports = function (grunt) {
 			});
 	});
 
-	grunt.registerTask("docs", "Build documentation app", ["sass", "postcss", "copy", "dgeni"]);
+	grunt.registerTask("docs", "Build documentation app", ["sass", "postcss", "dgeni"]);
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON("package.json"),
@@ -54,27 +54,6 @@ module.exports = function (grunt) {
 			default: {
 				src: "<%=sass.default.dest%>",
 				dest: "public/assets/docs.min.css",
-			},
-		},
-
-		copy: {
-			fontawesome: {
-				expand: true,
-				cwd: path.join(pkgRootDir("@fortawesome/fontawesome-free"), "webfonts"),
-				src: "*",
-				dest: "public/assets/fonts/",
-			},
-			glyphicons: {
-				expand: true,
-				cwd: "node_modules/bootstrap-sass/assets/fonts/bootstrap",
-				src: "*",
-				dest: "public/assets/fonts/",
-			},
-			favicon: {
-				expand: true,
-				cwd: "docs/app",
-				src: "favicon.ico",
-				dest: "public/",
 			},
 		},
 	});
