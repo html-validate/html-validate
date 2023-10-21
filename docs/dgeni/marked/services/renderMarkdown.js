@@ -7,13 +7,6 @@ const { code, heading } = require("../plugins");
  * @param {import("../../example/services/example").Example} example
  */
 module.exports = function renderMarkdown(example, highlight) {
-	/* disable unused deprecated features */
-	marked.use({
-		mangle: false,
-		highlight: false,
-		headerIds: false,
-	});
-
 	/* enable custom render functions */
 	marked.use(heading());
 	marked.use(code({ example, highlight }));
