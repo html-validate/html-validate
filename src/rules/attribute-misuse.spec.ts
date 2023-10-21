@@ -60,7 +60,10 @@ describe("rule attribute-misuse", () => {
 			attr: "foo",
 			details: "lorem ipsum",
 		};
-		const docs = await htmlvalidate.getRuleDocumentation("attribute-misuse", null, context);
+		const docs = await htmlvalidate.getContextualDocumentation({
+			ruleId: "attribute-misuse",
+			context,
+		});
 		expect(docs?.description).toMatchInlineSnapshot(
 			`"The \`foo\` attribute cannot be used on \`<my-element>\` in this context: lorem ipsum"`
 		);
