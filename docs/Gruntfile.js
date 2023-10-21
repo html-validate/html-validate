@@ -1,6 +1,4 @@
-const path = require("node:path");
 const sass = require("sass");
-const serveStatic = require("serve-static");
 
 /**
  * @param {string} pkgName
@@ -29,7 +27,6 @@ module.exports = function (grunt) {
 					grunt.fatal("Dgeni failed to generate docs");
 				});
 		} catch (err) {
-			/* eslint-disable-next-line no-console -- expected to log */
 			console.error(err);
 			grunt.fatal("Dgeni failed to generate docs");
 		}
@@ -107,19 +104,6 @@ module.exports = function (grunt) {
 				src: "docs/app/index.js",
 				dest: "public/assets/docs.js",
 			},
-		},
-
-		connect: {
-			options: {
-				port: 3400,
-				hostname: "localhost",
-				keepalive: true,
-				base: "public",
-				middleware() {
-					return [serveStatic("public")];
-				},
-			},
-			default: {},
 		},
 	});
 };

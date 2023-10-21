@@ -110,7 +110,7 @@
     "prepare": "husky install && npm run codegen",
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
-    "start": "grunt connect",
+    "start": "node docs/server.js",
     "test": "jest --ci",
     "version": "scripts/version"
   },
