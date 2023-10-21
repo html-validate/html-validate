@@ -1,5 +1,13 @@
 # html-validate changelog
 
+## [8.6.1](https://gitlab.com/html-validate/html-validate/compare/v8.6.0...v8.6.1) (2023-10-21)
+
+### Bug Fixes
+
+- **dom:** remove usage of regex negative lookbehind ([f406393](https://gitlab.com/html-validate/html-validate/commit/f406393a2dc2b5cb7e7e5cbf009f89bf4d115f06)), closes [#147](https://gitlab.com/html-validate/html-validate/issues/147)
+- **rules:** improve `attribute-misuse` error message ([fccce69](https://gitlab.com/html-validate/html-validate/commit/fccce69ab32910f3c90bcc4e7b9312342f2e18a9)), closes [#226](https://gitlab.com/html-validate/html-validate/issues/226)
+- typo in CONTRIBUTING.md ([855bacf](https://gitlab.com/html-validate/html-validate/commit/855bacf62cc7d1c54cbdf926f036f0b7ba912437))
+
 ## [8.6.0](https://gitlab.com/html-validate/html-validate/compare/v8.5.0...v8.6.0) (2023-10-13)
 
 ### Features
