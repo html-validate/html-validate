@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [8.7.0](https://gitlab.com/html-validate/html-validate/compare/v8.6.1...v8.7.0) (2023-10-21)
+
+### Features
+
+- **html5:** support `referrerpolicy` attribute ([851b559](https://gitlab.com/html-validate/html-validate/commit/851b55910d42a8c49f9fc60e5b4ba7836b548125))
+
 ## [8.6.1](https://gitlab.com/html-validate/html-validate/compare/v8.6.0...v8.6.1) (2023-10-21)
 
 ### Bug Fixes
