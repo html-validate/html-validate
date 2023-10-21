@@ -29,17 +29,17 @@ describe("rule attribute-misuse", () => {
 		});
 	});
 
-	it("should not report error when attribute is allowed", () => {
+	it("should not report error when attribute is allowed", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <any need-other other /> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should report error when attributes is not allowed", () => {
+	it("should report error when attributes is not allowed", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ ` <any need-other /> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: "need-other" attribute cannot be used on <any> in this context: reason (attribute-misuse) at inline:1:7:
