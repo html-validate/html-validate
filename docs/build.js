@@ -1,3 +1,5 @@
+/* eslint-disable sonarjs/no-duplicate-string -- for simplicity */
+
 const fs = require("node:fs/promises");
 const browserify = require("browserify");
 const Dgeni = require("dgeni");
@@ -76,6 +78,7 @@ async function docs() {
 }
 
 async function build() {
+	await fs.mkdir("public/assets/fonts", { recursive: true });
 	await assets();
 	await scripts();
 	await stylesheets();
