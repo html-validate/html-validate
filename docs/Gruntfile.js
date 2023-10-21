@@ -1,3 +1,4 @@
+const path = require("node:path");
 const sass = require("sass");
 
 /**
@@ -16,20 +17,14 @@ module.exports = function (grunt) {
 	grunt.registerTask("default", ["build"]);
 
 	grunt.registerTask("dgeni", "Generate documentation", function () {
-		const Dgeni = require("dgeni");
 		const done = this.async();
-		const dgeni = new Dgeni([require("./dgeni")]);
-		try {
-			dgeni
-				.generate()
-				.then(done)
-				.catch(() => {
-					grunt.fatal("Dgeni failed to generate docs");
-				});
-		} catch (err) {
-			console.error(err);
-			grunt.fatal("Dgeni failed to generate docs");
-		}
+		const { build } = require("./build");
+		build()
+			.then(done)
+			.catch((err) => {
+				console.error(err);
+				grunt.fatal("Dgeni failed to generate docs");
+			});
 	});
 
 	grunt.registerTask("docs", "Build documentation app", [
