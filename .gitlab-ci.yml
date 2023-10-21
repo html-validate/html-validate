@@ -126,6 +126,7 @@ Prettier:
 
 Docs:
   stage: test
+  image: node:20
   artifacts:
     reports:
       junit: temp/jest.xml

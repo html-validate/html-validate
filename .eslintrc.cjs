@@ -14,6 +14,15 @@ module.exports = {
 			/* ensure cjs and mjs files are linted too */
 			files: ["*.cjs", "*.mjs"],
 		},
+
+		{
+			files: ["docs/*.js"],
+			rules: {
+				/* docs scripts are expected to log to console */
+				"no-console": "off",
+			},
+		},
+
 		{
 			files: "*.ts",
 			extends: ["@html-validate/typescript"],
