@@ -29,20 +29,20 @@ describe("rule attribute-misuse", () => {
 		});
 	});
 
-	it("should not report error when attribute is allowed", () => {
+	it("should not report error when attribute is allowed", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <any need-other other /> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should report error when attributes is not allowed", () => {
+	it("should report error when attributes is not allowed", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ ` <any need-other /> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "need-other" attribute cannot be used in this context: reason (attribute-misuse) at inline:1:7:
+			"error: "need-other" attribute cannot be used on <any> in this context: reason (attribute-misuse) at inline:1:7:
 			> 1 |  <any need-other />
 			    |       ^^^^^^^^^^
 			Selector: any"
@@ -56,12 +56,16 @@ describe("rule attribute-misuse", () => {
 			rules: { "attribute-misuse": "error" },
 		});
 		const context: RuleContext = {
+			tagName: "<my-element>",
 			attr: "foo",
 			details: "lorem ipsum",
 		};
-		const docs = await htmlvalidate.getRuleDocumentation("attribute-misuse", null, context);
+		const docs = await htmlvalidate.getContextualDocumentation({
+			ruleId: "attribute-misuse",
+			context,
+		});
 		expect(docs?.description).toMatchInlineSnapshot(
-			`"The "foo" attribute cannot be used in this context: lorem ipsum"`
+			`"The \`foo\` attribute cannot be used on \`<my-element>\` in this context: lorem ipsum"`
 		);
 	});
 });

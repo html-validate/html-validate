@@ -4,13 +4,14 @@ import { type MetaAttribute } from "../meta";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export interface RuleContext {
+	tagName: string;
 	attr: string;
 	details: string;
 }
 
 function ruleDescription(context: RuleContext): string {
-	const { attr, details } = context;
-	return `The "${attr}" attribute cannot be used in this context: ${details}`;
+	const { tagName, attr, details } = context;
+	return `The \`${attr}\` attribute cannot be used on \`${tagName}\` in this context: ${details}`;
 }
 
 export default class AttributeMisuse extends Rule<RuleContext> {
@@ -45,9 +46,10 @@ export default class AttributeMisuse extends Rule<RuleContext> {
 		if (details) {
 			this.report({
 				node,
-				message: `"{{ attr }}" attribute cannot be used in this context: {{ details }}`,
+				message: `"{{ attr }}" attribute cannot be used on {{ tagName }} in this context: {{ details }}`,
 				location: attr.keyLocation,
 				context: {
+					tagName: node.annotatedName,
 					attr: attr.key,
 					details,
 				},
