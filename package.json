@@ -100,7 +100,7 @@
     "codegen": "node scripts/codegen.cjs",
     "compatibility": "scripts/compatibility.sh",
     "debug": "node --inspect ./node_modules/.bin/jest --runInBand --watch --no-coverage",
-    "docs": "grunt docs",
+    "docs": "node docs/build.js",
     "postdocs": "tsc -b docs/examples",
     "eslint": "eslint --cache .",
     "eslint:fix": "eslint --cache --fix .",
