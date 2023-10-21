@@ -44,3 +44,14 @@
 
 <!-- should allow "disabled" if "rel" is "stylesheet" -->
 <link href="my-url" rel="stylesheet" disabled>
+
+<!-- should allow referrerpolicy attribute -->
+<link href="my-url" referrerpolicy="">
+<link href="my-url" referrerpolicy="no-referrer">
+<link href="my-url" referrerpolicy="no-referrer-when-downgrade">
+<link href="my-url" referrerpolicy="same-origin">
+<link href="my-url" referrerpolicy="origin">
+<link href="my-url" referrerpolicy="strict-origin">
+<link href="my-url" referrerpolicy="origin-when-cross-origin">
+<link href="my-url" referrerpolicy="strict-origin-when-cross-origin">
+<link href="my-url" referrerpolicy="unsafe-url">

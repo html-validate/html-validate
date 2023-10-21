@@ -15,4 +15,8 @@
 <a href="target" target="_invalid"> foo </a>
 
 <!-- should not be allowed if href is omitted -->
-<a target="_blank" download ping rel hreflang type referrerpolicy itemprop> foo </a>
+<a target="_blank" download ping rel hreflang type referrerpolicy="" itemprop> foo </a>
+
+<!-- should not allow omitted or invalid referrerpolicy -->
+<a href="target" referrerpolicy>foo</a>
+<a href="target" referrerpolicy="invalid">foo</a>

@@ -19,3 +19,14 @@
 		foo-small.png,
 		foo-large 2x
 	">
+
+<!-- should allow referrerpolicy attribute -->
+<img src="foo.png" referrerpolicy="">
+<img src="foo.png" referrerpolicy="no-referrer">
+<img src="foo.png" referrerpolicy="no-referrer-when-downgrade">
+<img src="foo.png" referrerpolicy="same-origin">
+<img src="foo.png" referrerpolicy="origin">
+<img src="foo.png" referrerpolicy="strict-origin">
+<img src="foo.png" referrerpolicy="origin-when-cross-origin">
+<img src="foo.png" referrerpolicy="strict-origin-when-cross-origin">
+<img src="foo.png" referrerpolicy="unsafe-url">

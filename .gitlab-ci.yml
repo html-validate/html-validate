@@ -67,6 +67,7 @@ Build:
 
 pages:
   stage: build
+  image: node:20
   artifacts:
     paths:
       - public

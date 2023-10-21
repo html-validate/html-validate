@@ -31,4 +31,15 @@
 <a href="foo.html">foo</a>
 
 <!-- should be allowed if href is present -->
-<a href="target" target="_blank" download ping rel hreflang type referrerpolicy itemprop> foo </a>
+<a href="target" target="_blank" download ping rel hreflang type referrerpolicy="" itemprop> foo </a>
+
+<!-- should allow referrerpolicy attribute -->
+<a href="target" referrerpolicy="">foo</a>
+<a href="target" referrerpolicy="no-referrer">foo</a>
+<a href="target" referrerpolicy="no-referrer-when-downgrade">foo</a>
+<a href="target" referrerpolicy="same-origin">foo</a>
+<a href="target" referrerpolicy="origin">foo</a>
+<a href="target" referrerpolicy="strict-origin">foo</a>
+<a href="target" referrerpolicy="origin-when-cross-origin">foo</a>
+<a href="target" referrerpolicy="strict-origin-when-cross-origin">foo</a>
+<a href="target" referrerpolicy="unsafe-url">foo</a>

@@ -17,3 +17,7 @@
 
 <!-- integrity attribute must not be specified without src -->
 <script integrity="sha384-..."></script>
+
+<!-- should not allow omitted or invalid referrerpolicy -->
+<script src="script.js" referrerpolicy></script>
+<script src="script.js" referrerpolicy="invalid"></script>

@@ -45,7 +45,7 @@
 
 <!-- should not be allowed if href is omitted -->
 <map id="invalid-without-href" name="invalid-without-href">
-	<area target="_blank" download ping rel referrerpolicy itemprop>
+	<area target="_blank" download ping rel referrerpolicy="" itemprop>
 </map>
 
 <!-- should not allow "coords" attribute when shape is "default" -->
@@ -71,3 +71,7 @@
 	<area shape="rect">
 	<area shape="rectangle">
 </map>
+
+<!-- should not allow omitted or invalid referrerpolicy -->
+<a href="target" referrerpolicy>foo</a>
+<a href="target" referrerpolicy="invalid">foo</a>
