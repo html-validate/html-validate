@@ -125,6 +125,7 @@
           "cli",
           "config",
           "context",
+          "docs",
           "deps",
           "dom",
           "elements",
