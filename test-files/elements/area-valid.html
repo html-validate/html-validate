@@ -30,7 +30,7 @@
 
 <!-- should be allowed if href is present -->
 <map name="valid-with-href">
-	<area href="target" target="_blank" download ping rel referrerpolicy itemprop alt="lorem ipsum">
+	<area href="target" target="_blank" download ping rel referrerpolicy="" itemprop alt="lorem ipsum">
 </map>
 
 <!-- should allow "coords" attribute when shape is unset, "circle", "poly" or "rect" -->
@@ -44,4 +44,17 @@
 <!-- should not require "coords" when shape is "default"-->
 <map name="default-shape">
 	<area shape="default">
+</map>
+
+<!-- should allow referrerpolicy attribute -->
+<map name="valid-referrerpolicy">
+	<area href="target" alt="lorem ipsum" referrerpolicy="">
+	<area href="target" alt="lorem ipsum" referrerpolicy="no-referrer">
+	<area href="target" alt="lorem ipsum" referrerpolicy="no-referrer-when-downgrade">
+	<area href="target" alt="lorem ipsum" referrerpolicy="same-origin">
+	<area href="target" alt="lorem ipsum" referrerpolicy="origin">
+	<area href="target" alt="lorem ipsum" referrerpolicy="strict-origin">
+	<area href="target" alt="lorem ipsum" referrerpolicy="origin-when-cross-origin">
+	<area href="target" alt="lorem ipsum" referrerpolicy="strict-origin-when-cross-origin">
+	<area href="target" alt="lorem ipsum" referrerpolicy="unsafe-url">
 </map>

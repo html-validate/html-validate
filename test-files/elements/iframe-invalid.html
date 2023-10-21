@@ -3,3 +3,7 @@
 
 <!-- invalid src attribute -->
 <iframe src="" title="My page"></iframe>
+
+<!-- should not allow omitted or invalid referrerpolicy -->
+<iframe src="page.html" title="lorem ipsum" referrerpolicy></iframe>
+<iframe src="page.html" title="lorem ipsum" referrerpolicy="invalid"></iframe>

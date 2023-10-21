@@ -12,6 +12,18 @@ const {
 
 const validId = "/\\S+/";
 
+const ReferrerPolicy = [
+	"",
+	"no-referrer",
+	"no-referrer-when-downgrade",
+	"same-origin",
+	"origin",
+	"strict-origin",
+	"origin-when-cross-origin",
+	"strict-origin-when-cross-origin",
+	"unsafe-url",
+];
+
 export default defineMetadata({
 	"*": {
 		attributes: {
@@ -83,6 +95,7 @@ export default defineMetadata({
 			},
 			referrerpolicy: {
 				allowed: allowedIfAttributeIsPresent("href"),
+				enum: ReferrerPolicy,
 			},
 			rel: {
 				allowed: allowedIfAttributeIsPresent("href"),
@@ -174,6 +187,7 @@ export default defineMetadata({
 			},
 			referrerpolicy: {
 				allowed: allowedIfAttributeIsPresent("href"),
+				enum: ReferrerPolicy,
 			},
 			rel: {
 				allowed: allowedIfAttributeIsPresent("href"),
@@ -958,6 +972,9 @@ export default defineMetadata({
 			marginwidth: {
 				deprecated: true,
 			},
+			referrerpolicy: {
+				enum: ReferrerPolicy,
+			},
 			scrolling: {
 				deprecated: true,
 			},
@@ -1011,6 +1028,9 @@ export default defineMetadata({
 			},
 			name: {
 				deprecated: true,
+			},
+			referrerpolicy: {
+				enum: ReferrerPolicy,
 			},
 			src: {
 				required: true,
@@ -1329,6 +1349,9 @@ export default defineMetadata({
 			},
 			methods: {
 				deprecated: true,
+			},
+			referrerpolicy: {
+				enum: ReferrerPolicy,
 			},
 			target: {
 				deprecated: true,
@@ -1823,6 +1846,9 @@ export default defineMetadata({
 			},
 			nomodule: {
 				boolean: true,
+			},
+			referrerpolicy: {
+				enum: ReferrerPolicy,
 			},
 			src: {
 				enum: ["/.+/"],

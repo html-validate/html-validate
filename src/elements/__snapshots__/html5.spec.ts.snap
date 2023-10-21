@@ -3,7 +3,7 @@
 exports[`HTML elements <a> invalid markup 1`] = `
 [
   {
-    "errorCount": 14,
+    "errorCount": 16,
     "filePath": "test-files/elements/a-invalid.html",
     "messages": [
       {
@@ -229,7 +229,7 @@ exports[`HTML elements <a> invalid markup 1`] = `
         "size": 14,
       },
       {
-        "column": 67,
+        "column": 70,
         "context": {
           "attr": "itemprop",
           "details": "requires "href" attribute to be present",
@@ -237,12 +237,70 @@ exports[`HTML elements <a> invalid markup 1`] = `
         },
         "line": 18,
         "message": ""itemprop" attribute cannot be used on <a> in this context: requires "href" attribute to be present",
-        "offset": 565,
+        "offset": 568,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "a:nth-child(7)",
         "severity": 2,
         "size": 8,
+      },
+      {
+        "column": 18,
+        "context": {
+          "allowed": {
+            "enum": [
+              "",
+              "no-referrer",
+              "no-referrer-when-downgrade",
+              "same-origin",
+              "origin",
+              "strict-origin",
+              "origin-when-cross-origin",
+              "strict-origin-when-cross-origin",
+              "unsafe-url",
+            ],
+          },
+          "attribute": "referrerpolicy",
+          "element": "a",
+          "value": "",
+        },
+        "line": 21,
+        "message": "Attribute "referrerpolicy" is missing value",
+        "offset": 665,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "a:nth-child(8)",
+        "severity": 2,
+        "size": 14,
+      },
+      {
+        "column": 34,
+        "context": {
+          "allowed": {
+            "enum": [
+              "",
+              "no-referrer",
+              "no-referrer-when-downgrade",
+              "same-origin",
+              "origin",
+              "strict-origin",
+              "origin-when-cross-origin",
+              "strict-origin-when-cross-origin",
+              "unsafe-url",
+            ],
+          },
+          "attribute": "referrerpolicy",
+          "element": "a",
+          "value": "invalid",
+        },
+        "line": 22,
+        "message": "Attribute "referrerpolicy" has invalid value "invalid"",
+        "offset": 721,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "a:nth-child(9)",
+        "severity": 2,
+        "size": 7,
       },
     ],
     "source": "<!-- should be transparent -->
@@ -262,7 +320,11 @@ exports[`HTML elements <a> invalid markup 1`] = `
 <a href="target" target="_invalid"> foo </a>
 
 <!-- should not be allowed if href is omitted -->
-<a target="_blank" download ping rel hreflang type referrerpolicy itemprop> foo </a>
+<a target="_blank" download ping rel hreflang type referrerpolicy="" itemprop> foo </a>
+
+<!-- should not allow omitted or invalid referrerpolicy -->
+<a href="target" referrerpolicy>foo</a>
+<a href="target" referrerpolicy="invalid">foo</a>
 ",
     "warningCount": 0,
   },
@@ -480,7 +542,7 @@ exports[`HTML elements <applet> valid markup 1`] = `[]`;
 exports[`HTML elements <area> invalid markup 1`] = `
 [
   {
-    "errorCount": 28,
+    "errorCount": 30,
     "filePath": "test-files/elements/area-invalid.html",
     "messages": [
       {
@@ -742,7 +804,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         "size": 14,
       },
       {
-        "column": 57,
+        "column": 60,
         "context": {
           "attr": "itemprop",
           "details": "requires "href" attribute to be present",
@@ -750,7 +812,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 48,
         "message": ""itemprop" attribute cannot be used on <area> in this context: requires "href" attribute to be present",
-        "offset": 1167,
+        "offset": 1170,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#invalid-without-href > area",
@@ -766,7 +828,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 53,
         "message": ""coords" attribute cannot be used on <area> in this context: cannot be used when "shape" attribute is "default"",
-        "offset": 1310,
+        "offset": 1313,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "map:nth-child(10) > area",
@@ -790,7 +852,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 58,
         "message": "Attribute "shape" has invalid value "circ"",
-        "offset": 1458,
+        "offset": 1461,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "#obsolete-shapes > area:nth-child(1)",
@@ -814,7 +876,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 59,
         "message": "Attribute "shape" has invalid value "polygon"",
-        "offset": 1486,
+        "offset": 1489,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "#obsolete-shapes > area:nth-child(2)",
@@ -838,7 +900,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 60,
         "message": "Attribute "shape" has invalid value "rectangle"",
-        "offset": 1517,
+        "offset": 1520,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "#obsolete-shapes > area:nth-child(3)",
@@ -854,7 +916,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 66,
         "message": ""shape" attribute cannot be used on <area> in this context: requires "coords" attribute to be present",
-        "offset": 1734,
+        "offset": 1737,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#missing-coords > area:nth-child(1)",
@@ -870,7 +932,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 67,
         "message": ""shape" attribute cannot be used on <area> in this context: requires "coords" attribute to be present",
-        "offset": 1748,
+        "offset": 1751,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#missing-coords > area:nth-child(2)",
@@ -886,7 +948,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 68,
         "message": ""shape" attribute cannot be used on <area> in this context: requires "coords" attribute to be present",
-        "offset": 1769,
+        "offset": 1772,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#missing-coords > area:nth-child(3)",
@@ -902,7 +964,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 69,
         "message": ""shape" attribute cannot be used on <area> in this context: requires "coords" attribute to be present",
-        "offset": 1792,
+        "offset": 1795,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#missing-coords > area:nth-child(4)",
@@ -918,7 +980,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 70,
         "message": ""shape" attribute cannot be used on <area> in this context: requires "coords" attribute to be present",
-        "offset": 1813,
+        "offset": 1816,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#missing-coords > area:nth-child(5)",
@@ -934,7 +996,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 71,
         "message": ""shape" attribute cannot be used on <area> in this context: requires "coords" attribute to be present",
-        "offset": 1837,
+        "offset": 1840,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#missing-coords > area:nth-child(6)",
@@ -950,12 +1012,70 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 72,
         "message": ""shape" attribute cannot be used on <area> in this context: requires "coords" attribute to be present",
-        "offset": 1858,
+        "offset": 1861,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#missing-coords > area:nth-child(7)",
         "severity": 2,
         "size": 5,
+      },
+      {
+        "column": 18,
+        "context": {
+          "allowed": {
+            "enum": [
+              "",
+              "no-referrer",
+              "no-referrer-when-downgrade",
+              "same-origin",
+              "origin",
+              "strict-origin",
+              "origin-when-cross-origin",
+              "strict-origin-when-cross-origin",
+              "unsafe-url",
+            ],
+          },
+          "attribute": "referrerpolicy",
+          "element": "a",
+          "value": "",
+        },
+        "line": 76,
+        "message": "Attribute "referrerpolicy" is missing value",
+        "offset": 1965,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "a:nth-child(13)",
+        "severity": 2,
+        "size": 14,
+      },
+      {
+        "column": 34,
+        "context": {
+          "allowed": {
+            "enum": [
+              "",
+              "no-referrer",
+              "no-referrer-when-downgrade",
+              "same-origin",
+              "origin",
+              "strict-origin",
+              "origin-when-cross-origin",
+              "strict-origin-when-cross-origin",
+              "unsafe-url",
+            ],
+          },
+          "attribute": "referrerpolicy",
+          "element": "a",
+          "value": "invalid",
+        },
+        "line": 77,
+        "message": "Attribute "referrerpolicy" has invalid value "invalid"",
+        "offset": 2021,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "a:nth-child(14)",
+        "severity": 2,
+        "size": 7,
       },
     ],
     "source": "<!-- should require <map> ancestor -->
@@ -1005,7 +1125,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
 
 <!-- should not be allowed if href is omitted -->
 <map id="invalid-without-href" name="invalid-without-href">
-	<area target="_blank" download ping rel referrerpolicy itemprop>
+	<area target="_blank" download ping rel referrerpolicy="" itemprop>
 </map>
 
 <!-- should not allow "coords" attribute when shape is "default" -->
@@ -1031,6 +1151,10 @@ exports[`HTML elements <area> invalid markup 1`] = `
 	<area shape="rect">
 	<area shape="rectangle">
 </map>
+
+<!-- should not allow omitted or invalid referrerpolicy -->
+<a href="target" referrerpolicy>foo</a>
+<a href="target" referrerpolicy="invalid">foo</a>
 ",
     "warningCount": 0,
   },
@@ -4802,7 +4926,7 @@ exports[`HTML elements <i> valid markup 1`] = `[]`;
 exports[`HTML elements <iframe> invalid markup 1`] = `
 [
   {
-    "errorCount": 2,
+    "errorCount": 4,
     "filePath": "test-files/elements/iframe-invalid.html",
     "messages": [
       {
@@ -4841,12 +4965,74 @@ exports[`HTML elements <iframe> invalid markup 1`] = `
         "severity": 2,
         "size": 6,
       },
+      {
+        "column": 45,
+        "context": {
+          "allowed": {
+            "enum": [
+              "",
+              "no-referrer",
+              "no-referrer-when-downgrade",
+              "same-origin",
+              "origin",
+              "strict-origin",
+              "origin-when-cross-origin",
+              "strict-origin-when-cross-origin",
+              "unsafe-url",
+            ],
+          },
+          "attribute": "referrerpolicy",
+          "element": "iframe",
+          "value": "",
+        },
+        "line": 8,
+        "message": "Attribute "referrerpolicy" is missing value",
+        "offset": 236,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "iframe:nth-child(3)",
+        "severity": 2,
+        "size": 14,
+      },
+      {
+        "column": 61,
+        "context": {
+          "allowed": {
+            "enum": [
+              "",
+              "no-referrer",
+              "no-referrer-when-downgrade",
+              "same-origin",
+              "origin",
+              "strict-origin",
+              "origin-when-cross-origin",
+              "strict-origin-when-cross-origin",
+              "unsafe-url",
+            ],
+          },
+          "attribute": "referrerpolicy",
+          "element": "iframe",
+          "value": "invalid",
+        },
+        "line": 9,
+        "message": "Attribute "referrerpolicy" has invalid value "invalid"",
+        "offset": 321,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "iframe:nth-child(4)",
+        "severity": 2,
+        "size": 7,
+      },
     ],
     "source": "<!-- should require title attribute -->
 <iframe></iframe>
 
 <!-- invalid src attribute -->
 <iframe src="" title="My page"></iframe>
+
+<!-- should not allow omitted or invalid referrerpolicy -->
+<iframe src="page.html" title="lorem ipsum" referrerpolicy></iframe>
+<iframe src="page.html" title="lorem ipsum" referrerpolicy="invalid"></iframe>
 ",
     "warningCount": 0,
   },
@@ -4858,7 +5044,7 @@ exports[`HTML elements <iframe> valid markup 1`] = `[]`;
 exports[`HTML elements <img> invalid markup 1`] = `
 [
   {
-    "errorCount": 5,
+    "errorCount": 7,
     "filePath": "test-files/elements/img-invalid.html",
     "messages": [
       {
@@ -4946,6 +5132,64 @@ exports[`HTML elements <img> invalid markup 1`] = `
         "severity": 2,
         "size": 3,
       },
+      {
+        "column": 20,
+        "context": {
+          "allowed": {
+            "enum": [
+              "",
+              "no-referrer",
+              "no-referrer-when-downgrade",
+              "same-origin",
+              "origin",
+              "strict-origin",
+              "origin-when-cross-origin",
+              "strict-origin-when-cross-origin",
+              "unsafe-url",
+            ],
+          },
+          "attribute": "referrerpolicy",
+          "element": "img",
+          "value": "",
+        },
+        "line": 19,
+        "message": "Attribute "referrerpolicy" is missing value",
+        "offset": 430,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "img:nth-child(6)",
+        "severity": 2,
+        "size": 14,
+      },
+      {
+        "column": 36,
+        "context": {
+          "allowed": {
+            "enum": [
+              "",
+              "no-referrer",
+              "no-referrer-when-downgrade",
+              "same-origin",
+              "origin",
+              "strict-origin",
+              "origin-when-cross-origin",
+              "strict-origin-when-cross-origin",
+              "unsafe-url",
+            ],
+          },
+          "attribute": "referrerpolicy",
+          "element": "img",
+          "value": "invalid",
+        },
+        "line": 20,
+        "message": "Attribute "referrerpolicy" has invalid value "invalid"",
+        "offset": 481,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "img:nth-child(7)",
+        "severity": 2,
+        "size": 7,
+      },
     ],
     "source": "<!-- must have src attribute -->
 <img>
@@ -4963,6 +5207,10 @@ exports[`HTML elements <img> invalid markup 1`] = `
 <button type="button">
 	<img src="foo.png" usemap aria-label="Picture of a foo">
 </button>
+
+<!-- should not allow omitted or invalid referrerpolicy -->
+<img src="foo.png" referrerpolicy>
+<img src="foo.png" referrerpolicy="invalid">
 ",
     "warningCount": 0,
   },
@@ -12598,7 +12846,7 @@ exports[`HTML elements <li> valid markup 1`] = `[]`;
 exports[`HTML elements <link> invalid markup 1`] = `
 [
   {
-    "errorCount": 12,
+    "errorCount": 14,
     "filePath": "test-files/elements/link-invalid.html",
     "messages": [
       {
@@ -12837,6 +13085,64 @@ exports[`HTML elements <link> invalid markup 1`] = `
         "severity": 2,
         "size": 8,
       },
+      {
+        "column": 21,
+        "context": {
+          "allowed": {
+            "enum": [
+              "",
+              "no-referrer",
+              "no-referrer-when-downgrade",
+              "same-origin",
+              "origin",
+              "strict-origin",
+              "origin-when-cross-origin",
+              "strict-origin-when-cross-origin",
+              "unsafe-url",
+            ],
+          },
+          "attribute": "referrerpolicy",
+          "element": "link",
+          "value": "",
+        },
+        "line": 34,
+        "message": "Attribute "referrerpolicy" is missing value",
+        "offset": 1293,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "link:nth-child(13)",
+        "severity": 2,
+        "size": 14,
+      },
+      {
+        "column": 37,
+        "context": {
+          "allowed": {
+            "enum": [
+              "",
+              "no-referrer",
+              "no-referrer-when-downgrade",
+              "same-origin",
+              "origin",
+              "strict-origin",
+              "origin-when-cross-origin",
+              "strict-origin-when-cross-origin",
+              "unsafe-url",
+            ],
+          },
+          "attribute": "referrerpolicy",
+          "element": "link",
+          "value": "invalid",
+        },
+        "line": 35,
+        "message": "Attribute "referrerpolicy" has invalid value "invalid"",
+        "offset": 1345,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "link:nth-child(14)",
+        "severity": 2,
+        "size": 7,
+      },
     ],
     "source": "<!-- should not allow end tag -->
 <link href="my-url" ></link>
@@ -12869,6 +13175,10 @@ exports[`HTML elements <link> invalid markup 1`] = `
 
 <!-- should not allow "disable" if "rel" is something other than "stylesheet" -->
 <link href="my-url" rel="script" disabled>
+
+<!-- should not allow omitted or invalid referrerpolicy -->
+<link href="my-url" referrerpolicy>
+<link href="my-url" referrerpolicy="invalid">
 ",
     "warningCount": 0,
   },
@@ -14687,7 +14997,7 @@ exports[`HTML elements <samp> valid markup 1`] = `[]`;
 exports[`HTML elements <script> invalid markup 1`] = `
 [
   {
-    "errorCount": 9,
+    "errorCount": 11,
     "filePath": "test-files/elements/script-invalid.html",
     "messages": [
       {
@@ -14825,6 +15135,64 @@ exports[`HTML elements <script> invalid markup 1`] = `
         "severity": 2,
         "size": 9,
       },
+      {
+        "column": 25,
+        "context": {
+          "allowed": {
+            "enum": [
+              "",
+              "no-referrer",
+              "no-referrer-when-downgrade",
+              "same-origin",
+              "origin",
+              "strict-origin",
+              "origin-when-cross-origin",
+              "strict-origin-when-cross-origin",
+              "unsafe-url",
+            ],
+          },
+          "attribute": "referrerpolicy",
+          "element": "script",
+          "value": "",
+        },
+        "line": 22,
+        "message": "Attribute "referrerpolicy" is missing value",
+        "offset": 791,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "script:nth-child(9)",
+        "severity": 2,
+        "size": 14,
+      },
+      {
+        "column": 41,
+        "context": {
+          "allowed": {
+            "enum": [
+              "",
+              "no-referrer",
+              "no-referrer-when-downgrade",
+              "same-origin",
+              "origin",
+              "strict-origin",
+              "origin-when-cross-origin",
+              "strict-origin-when-cross-origin",
+              "unsafe-url",
+            ],
+          },
+          "attribute": "referrerpolicy",
+          "element": "script",
+          "value": "invalid",
+        },
+        "line": 23,
+        "message": "Attribute "referrerpolicy" has invalid value "invalid"",
+        "offset": 856,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "script:nth-child(10)",
+        "severity": 2,
+        "size": 7,
+      },
     ],
     "source": "<!-- src attribute cannot be empty -->
 <script src=""></script>
@@ -14845,6 +15213,10 @@ exports[`HTML elements <script> invalid markup 1`] = `
 
 <!-- integrity attribute must not be specified without src -->
 <script integrity="sha384-..."></script>
+
+<!-- should not allow omitted or invalid referrerpolicy -->
+<script src="script.js" referrerpolicy></script>
+<script src="script.js" referrerpolicy="invalid"></script>
 ",
     "warningCount": 0,
   },

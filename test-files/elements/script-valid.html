@@ -12,3 +12,14 @@
 
 <!-- script should allow non-js mimetypes-->
 <script type="text/plain"></script>
+
+<!-- should allow referrerpolicy attribute -->
+<script src="script.js" referrerpolicy=""></script>
+<script src="script.js" referrerpolicy="no-referrer"></script>
+<script src="script.js" referrerpolicy="no-referrer-when-downgrade"></script>
+<script src="script.js" referrerpolicy="same-origin"></script>
+<script src="script.js" referrerpolicy="origin"></script>
+<script src="script.js" referrerpolicy="strict-origin"></script>
+<script src="script.js" referrerpolicy="origin-when-cross-origin"></script>
+<script src="script.js" referrerpolicy="strict-origin-when-cross-origin"></script>
+<script src="script.js" referrerpolicy="unsafe-url"></script>

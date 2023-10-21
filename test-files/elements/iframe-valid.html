@@ -2,3 +2,14 @@
 <iframe src="page.html" title="lorem ipsum">
 	foo
 </iframe>
+
+<!-- should allow referrerpolicy attribute -->
+<iframe src="page.html" title="lorem ipsum" referrerpolicy=""></iframe>
+<iframe src="page.html" title="lorem ipsum" referrerpolicy="no-referrer"></iframe>
+<iframe src="page.html" title="lorem ipsum" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<iframe src="page.html" title="lorem ipsum" referrerpolicy="same-origin"></iframe>
+<iframe src="page.html" title="lorem ipsum" referrerpolicy="origin"></iframe>
+<iframe src="page.html" title="lorem ipsum" referrerpolicy="strict-origin"></iframe>
+<iframe src="page.html" title="lorem ipsum" referrerpolicy="origin-when-cross-origin"></iframe>
+<iframe src="page.html" title="lorem ipsum" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+<iframe src="page.html" title="lorem ipsum" referrerpolicy="unsafe-url"></iframe>
