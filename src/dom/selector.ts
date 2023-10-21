@@ -281,8 +281,16 @@ export class Selector {
 		 * easier parsing */
 		selector = selector.replace(/([+~>]) /g, "$1");
 
-		const pattern = selector.split(/(?:(?<!\\) )+/);
-		return pattern.map((part: string) => new Pattern(part));
+		/* split string on whitespace (excluding escaped `\ `) */
+		let begin = 0;
+		const delimiter = /((?:[^\\]) +|$)/g;
+		return Array.from(selector.matchAll(delimiter), (match) => {
+			/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- index will always be present */
+			const end = match.index! + 1;
+			const part = selector.slice(begin, end);
+			begin = end + 1;
+			return new Pattern(part);
+		});
 	}
 
 	private static findCandidates(root: HtmlElement, pattern: Pattern): HtmlElement[] {
