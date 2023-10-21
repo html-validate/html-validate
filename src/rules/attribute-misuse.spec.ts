@@ -42,7 +42,7 @@ describe("rule attribute-misuse", () => {
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "need-other" attribute cannot be used in this context: reason (attribute-misuse) at inline:1:7:
+			"error: "need-other" attribute cannot be used on <any> in this context: reason (attribute-misuse) at inline:1:7:
 			> 1 |  <any need-other />
 			    |       ^^^^^^^^^^
 			Selector: any"
@@ -56,12 +56,13 @@ describe("rule attribute-misuse", () => {
 			rules: { "attribute-misuse": "error" },
 		});
 		const context: RuleContext = {
+			tagName: "<my-element>",
 			attr: "foo",
 			details: "lorem ipsum",
 		};
 		const docs = await htmlvalidate.getRuleDocumentation("attribute-misuse", null, context);
 		expect(docs?.description).toMatchInlineSnapshot(
-			`"The "foo" attribute cannot be used in this context: lorem ipsum"`
+			`"The \`foo\` attribute cannot be used on \`<my-element>\` in this context: lorem ipsum"`
 		);
 	});
 });
