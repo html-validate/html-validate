@@ -1,6 +1,8 @@
 const fs = require("node:fs/promises");
 const browserify = require("browserify");
 const Dgeni = require("dgeni");
+const postcss = require("postcss");
+const sass = require("sass");
 
 async function assets() {
 	console.group("Copying assets");
@@ -43,6 +45,25 @@ async function scripts() {
 	console.log();
 }
 
+async function stylesheets() {
+	console.group("Running Sass and PostCSS");
+	const src = "docs/app/docs.scss";
+	const dst = "public/assets/docs.min.css";
+	const plugins = [require("autoprefixer"), require("cssnano")];
+	const compiled = sass.compile(src, {
+		loadPaths: [
+			"node_modules/@fortawesome/fontawesome-free/scss",
+			"node_modules/bootstrap-sass/assets/stylesheets/",
+			"node_modules/highlight.js/scss/",
+		],
+	});
+	const transformed = await postcss(plugins).process(compiled.css, { from: src, to: dst });
+	await fs.writeFile(dst, transformed.css, "utf-8");
+	console.log(dst, "written");
+	console.groupEnd();
+	console.log();
+}
+
 async function docs() {
 	console.log("Running Dgeni");
 	try {
@@ -57,6 +78,7 @@ async function docs() {
 async function build() {
 	await assets();
 	await scripts();
+	await stylesheets();
 	await docs();
 }
 

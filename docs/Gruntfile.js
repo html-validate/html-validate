@@ -1,14 +1,3 @@
-const path = require("node:path");
-const sass = require("sass");
-
-/**
- * @param {string} pkgName
- * @returns {string}
- */
-function pkgRootDir(pkgName) {
-	return path.dirname(require.resolve(`${pkgName}/package.json`));
-}
-
 module.exports = function (grunt) {
 	require("load-grunt-tasks")(grunt, {
 		config: require.resolve("./package.json"),
@@ -27,34 +16,9 @@ module.exports = function (grunt) {
 			});
 	});
 
-	grunt.registerTask("docs", "Build documentation app", ["sass", "postcss", "dgeni"]);
+	grunt.registerTask("docs", "Build documentation app", ["dgeni"]);
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON("package.json"),
-
-		sass: {
-			options: {
-				implementation: sass,
-				includePaths: [
-					path.join(pkgRootDir("@fortawesome/fontawesome-free"), "scss"),
-					"node_modules/bootstrap-sass/assets/stylesheets/",
-					"node_modules/highlight.js/scss/",
-				],
-			},
-			default: {
-				src: "docs/app/docs.scss",
-				dest: "public/assets/docs.css",
-			},
-		},
-
-		postcss: {
-			options: {
-				processors: [require("autoprefixer"), require("cssnano")],
-			},
-			default: {
-				src: "<%=sass.default.dest%>",
-				dest: "public/assets/docs.min.css",
-			},
-		},
 	});
 };
