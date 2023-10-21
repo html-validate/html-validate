@@ -27,13 +27,7 @@ module.exports = function (grunt) {
 			});
 	});
 
-	grunt.registerTask("docs", "Build documentation app", [
-		"sass",
-		"postcss",
-		"copy",
-		"browserify",
-		"dgeni",
-	]);
+	grunt.registerTask("docs", "Build documentation app", ["sass", "postcss", "copy", "dgeni"]);
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON("package.json"),
@@ -81,23 +75,6 @@ module.exports = function (grunt) {
 				cwd: "docs/app",
 				src: "favicon.ico",
 				dest: "public/",
-			},
-		},
-
-		browserify: {
-			default: {
-				options: {
-					transform: [
-						[
-							"babelify",
-							{
-								presets: ["@babel/preset-env"],
-							},
-						],
-					],
-				},
-				src: "docs/app/index.js",
-				dest: "public/assets/docs.js",
 			},
 		},
 	});
