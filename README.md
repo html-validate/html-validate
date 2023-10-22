@@ -80,7 +80,7 @@ See [running in browser](https://html-validate.org/dev/running-in-browser.html) 
 
 ### Prerequisites
 
-- NodeJS 12
+- NodeJS 18
 - NPM 7
 
 ### Generated files
