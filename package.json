@@ -234,7 +234,7 @@
     "memfs": "4.6.0",
     "npm-pkg-lint": "2.0.3",
     "npm-run-all": "4.1.5",
-    "rollup": "4.1.5",
+    "rollup": "4.1.6",
     "stream-buffers": "3.0.2",
     "ts-jest": "29.1.1",
     "typescript": "5.2.2"
