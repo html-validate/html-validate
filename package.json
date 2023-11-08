@@ -217,7 +217,7 @@
     "@rollup/plugin-typescript": "11.1.5",
     "@rollup/plugin-virtual": "3.0.2",
     "@types/babar": "0.2.4",
-    "@types/babel__code-frame": "7.0.5",
+    "@types/babel__code-frame": "7.0.6",
     "@types/jest": "29.5.7",
     "@types/minimist": "1.2.4",
     "@types/node": "16.18.60",
