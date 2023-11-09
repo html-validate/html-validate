@@ -27,7 +27,7 @@ Older major versions is generally supported for two year after the succeeding ve
     </tr>
     <tr class="release-maintenance">
       <td>5.x</td>
-      <td>Maintenance</td>
+      <td>End of Life</td>
       <td>2021-06-26</td>
       <td>2023-09-31</td>
     </tr>
@@ -82,7 +82,7 @@ Some exceptions occur, refer to the following table:
     </tr>
     <tr>
       <td>Cypress</td>
-      <td><code>10 || 11 || 12</code></td>
+      <td><code>11 || 12 || 13</code></td>
       <td>Last 3 majors</td>
     </tr>
     <tr>
