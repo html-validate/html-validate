@@ -247,7 +247,7 @@ describe("rule form-dup-name", () => {
 			expect(report).toBeValid();
 		});
 
-		it("when enabled it should not report when two controls use []", async () => {
+		it("when enabled it should not report when multiple controls use []", async () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate({
 				root: true,
@@ -257,13 +257,15 @@ describe("rule form-dup-name", () => {
 				<form>
 					<input name="foo[]" />
 					<input name="foo[]" />
+					<input name="foo[]" />
+					<input name="foo[]" />
 				</form>
 			`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("when disabled it should generate error when when two controls use []", async () => {
+		it("when disabled it should generate error when when multiple controls use []", async () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate({
 				root: true,

@@ -132,6 +132,8 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 			const isarray = name.endsWith("[]");
 			const basename = isarray ? name.slice(0, -2) : name;
 			const details = elements.get(basename);
+
+			/* if a previous occurrence is found and one of the two is an array it is an error */
 			if (details && details.array !== isarray) {
 				const context: RuleContext = {
 					name: basename,
@@ -144,10 +146,18 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 					context,
 				});
 				return;
-			} else if (!details && isarray) {
+			}
+
+			/* if this is an new array name store it for future tests */
+			if (!details && isarray) {
 				elements.set(basename, {
 					array: true,
 				});
+			}
+
+			/* if this is an array and the previous test passed (no mixing array and
+			 * non-array) no further testing needs to be done on this element. */
+			if (isarray) {
 				return;
 			}
 		}
