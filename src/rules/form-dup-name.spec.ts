@@ -416,7 +416,10 @@ describe("rule form-dup-name", () => {
 				name: "foo",
 				kind: "duplicate",
 			};
-			const docs = await htmlvalidate.getRuleDocumentation("form-dup-name", null, context);
+			const docs = await htmlvalidate.getContextualDocumentation({
+				ruleId: "form-dup-name",
+				context,
+			});
 			expect(docs?.url).toMatchInlineSnapshot(
 				`"https://html-validate.org/rules/form-dup-name.html"`
 			);
@@ -432,7 +435,10 @@ describe("rule form-dup-name", () => {
 				name: "foo",
 				kind: "mix",
 			};
-			const docs = await htmlvalidate.getRuleDocumentation("form-dup-name", null, context);
+			const docs = await htmlvalidate.getContextualDocumentation({
+				ruleId: "form-dup-name",
+				context,
+			});
 			expect(docs?.url).toMatchInlineSnapshot(
 				`"https://html-validate.org/rules/form-dup-name.html"`
 			);
