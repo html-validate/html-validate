@@ -13,7 +13,7 @@ describe("rule form-dup-name", () => {
 		});
 	});
 
-	it("should not report when name isn't duplicated", () => {
+	it("should not report when name isn't duplicated", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<form>
@@ -21,11 +21,11 @@ describe("rule form-dup-name", () => {
 				<input name="bar" />
 			</form>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report when different forms have same name", () => {
+	it("should not report when different forms have same name", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<form>
@@ -35,11 +35,11 @@ describe("rule form-dup-name", () => {
 				<input name="foo" />
 			</form>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report when global scope and form have same name", () => {
+	it("should not report when global scope and form have same name", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<input name="foo" />
@@ -47,11 +47,11 @@ describe("rule form-dup-name", () => {
 				<input name="foo" />
 			</form>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it('should not report when <input type="radio"> have same name', () => {
+	it('should not report when <input type="radio"> have same name', async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<form>
@@ -59,11 +59,11 @@ describe("rule form-dup-name", () => {
 				<input type="radio" value="nah" name="foo" />
 			</form>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it('should not report when <button type="submit"> have same name', () => {
+	it('should not report when <button type="submit"> have same name', async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<form>
@@ -71,11 +71,11 @@ describe("rule form-dup-name", () => {
 				<button type="submit" name="foo"></button>
 			</form>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it('should not report when <button type="button"> have same name', () => {
+	it('should not report when <button type="button"> have same name', async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<form>
@@ -83,11 +83,11 @@ describe("rule form-dup-name", () => {
 				<button type="button" name="foo"></button>
 			</form>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it('should not report when <button type="reset"> have same name', () => {
+	it('should not report when <button type="reset"> have same name', async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<form>
@@ -95,11 +95,11 @@ describe("rule form-dup-name", () => {
 				<button type="reset" name="foo"></button>
 			</form>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report when name is missing or empty", () => {
+	it("should not report when name is missing or empty", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<form>
@@ -113,11 +113,11 @@ describe("rule form-dup-name", () => {
 				<input type="checkbox" />
 			</form>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error for interpolated attributes", () => {
+	it("should not report error for interpolated attributes", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<form>
@@ -125,13 +125,13 @@ describe("rule form-dup-name", () => {
 				<input name="{{ expr }}" />
 			</form>
 		`;
-		const report = htmlvalidate.validateString(markup, {
+		const report = await htmlvalidate.validateString(markup, {
 			processAttribute,
 		});
 		expect(report).toBeValid();
 	});
 
-	it("should not report error for dynamic attributes", () => {
+	it("should not report error for dynamic attributes", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<form>
@@ -139,13 +139,13 @@ describe("rule form-dup-name", () => {
 				<input dynamic-name="foo" />
 			</form>
 		`;
-		const report = htmlvalidate.validateString(markup, {
+		const report = await htmlvalidate.validateString(markup, {
 			processAttribute,
 		});
 		expect(report).toBeValid();
 	});
 
-	it("should report when form has duplicate name", () => {
+	it("should report when form has duplicate name", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<form>
@@ -153,7 +153,7 @@ describe("rule form-dup-name", () => {
 				<input name="foo" />
 			</form>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
 			"error: Duplicate form control name "foo" (form-dup-name) at inline:4:18:
 			  2 | 			<form>
@@ -166,13 +166,13 @@ describe("rule form-dup-name", () => {
 		`);
 	});
 
-	it("should report when global scope has duplicate name", () => {
+	it("should report when global scope has duplicate name", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<input name="foo" />
 			<input name="foo" />
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
 			"error: Duplicate form control name "foo" (form-dup-name) at inline:3:17:
 			  1 |
@@ -184,7 +184,7 @@ describe("rule form-dup-name", () => {
 		`);
 	});
 
-	it("should report when radiobutton has same name as other control", () => {
+	it("should report when radiobutton has same name as other control", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<form>
@@ -194,7 +194,7 @@ describe("rule form-dup-name", () => {
 			<input name="bar" />
 			<input name="bar" type="checkbox" />
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
 			"error: Duplicate form control name "foo" (form-dup-name) at inline:4:18:
 			  2 | 			<form>
@@ -218,7 +218,7 @@ describe("rule form-dup-name", () => {
 	describe("should report for", () => {
 		const elements = ["button", "fieldset", "input", "object", "output", "select", "textarea"];
 
-		it.each(elements)("%s", (tagName) => {
+		it.each(elements)("%s", async (tagName) => {
 			expect.assertions(1);
 			const markup = /* HTML */ `
 				<form>
@@ -226,7 +226,7 @@ describe("rule form-dup-name", () => {
 					<${tagName} name="foo" />
 				</form>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toHaveError({
 				ruleId: "form-dup-name",
 				message: 'Duplicate form control name "foo"',
@@ -235,7 +235,7 @@ describe("rule form-dup-name", () => {
 	});
 
 	describe("allowArrayBrackets", () => {
-		it("by default it should not report when two controls use []", () => {
+		it("by default it should not report when two controls use []", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ `
 				<form>
@@ -243,11 +243,11 @@ describe("rule form-dup-name", () => {
 					<input name="foo[]" />
 				</form>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("when enabled it should not report when two controls use []", () => {
+		it("when enabled it should not report when two controls use []", async () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate({
 				root: true,
@@ -259,11 +259,11 @@ describe("rule form-dup-name", () => {
 					<input name="foo[]" />
 				</form>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("when disabled it should generate error when when two controls use []", () => {
+		it("when disabled it should generate error when when two controls use []", async () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate({
 				root: true,
@@ -275,7 +275,7 @@ describe("rule form-dup-name", () => {
 					<input name="foo[]" />
 				</form>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toMatchInlineCodeframe(`
 				"error: Duplicate form control name "foo[]" (form-dup-name) at inline:4:19:
 				  2 | 				<form>
@@ -288,7 +288,7 @@ describe("rule form-dup-name", () => {
 			`);
 		});
 
-		it("should generate error when mixing brackets with non-brackets", () => {
+		it("should generate error when mixing brackets with non-brackets", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ `
 				<form>
@@ -300,7 +300,7 @@ describe("rule form-dup-name", () => {
 					<input name="bar[]" />
 				</form>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toMatchInlineCodeframe(`
 				"error: Cannot mix "foo[]" and "foo" (form-dup-name) at inline:4:19:
 				  2 | 				<form>
@@ -324,7 +324,7 @@ describe("rule form-dup-name", () => {
 	});
 
 	describe("shared", () => {
-		it("should report error for controls by default", () => {
+		it("should report error for controls by default", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ `
 				<form>
@@ -334,7 +334,7 @@ describe("rule form-dup-name", () => {
 				<input name="bar" type="checkbox" />
 				<input name="bar" type="checkbox" />
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toMatchInlineCodeframe(`
 				"error: Duplicate form control name "foo" (form-dup-name) at inline:4:19:
 				  2 | 				<form>
@@ -355,7 +355,7 @@ describe("rule form-dup-name", () => {
 			`);
 		});
 
-		it("should allow adding additional control types as shared", () => {
+		it("should allow adding additional control types as shared", async () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate({
 				root: true,
@@ -369,11 +369,11 @@ describe("rule form-dup-name", () => {
 				<input name="bar" type="checkbox" />
 				<input name="bar" type="checkbox" />
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should report when different types of control share the same name", () => {
+		it("should report when different types of control share the same name", async () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate({
 				root: true,
@@ -387,7 +387,7 @@ describe("rule form-dup-name", () => {
 				<input name="bar" type="checkbox" />
 				<input name="bar" type="radio" />
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toMatchInlineCodeframe(`
 				"error: Duplicate form control name "foo" (form-dup-name) at inline:4:19:
 				  2 | 				<form>
