@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [8.7.1](https://gitlab.com/html-validate/html-validate/compare/v8.7.0...v8.7.1) (2023-11-11)
+
+### Bug Fixes
+
+- **rules:** fix `form-dup-name` issue when more than two names are present in array ([5d9ff3b](https://gitlab.com/html-validate/html-validate/commit/5d9ff3bdeef483199580cd18d06477443f47f771)), closes [#228](https://gitlab.com/html-validate/html-validate/issues/228)
+
 ## [8.7.0](https://gitlab.com/html-validate/html-validate/compare/v8.6.1...v8.7.0) (2023-10-21)
 
 ### Features
