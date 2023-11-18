@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [8.7.2](https://gitlab.com/html-validate/html-validate/compare/v8.7.1...v8.7.2) (2023-11-18)
+
+### Bug Fixes
+
+- **deps:** update dependency ignore to v5.3.0 ([143e994](https://gitlab.com/html-validate/html-validate/commit/143e99445c91a0277ea163cd2450608fbe87f2af))
+
 ## [8.7.1](https://gitlab.com/html-validate/html-validate/compare/v8.7.0...v8.7.1) (2023-11-11)
 
 ### Bug Fixes
