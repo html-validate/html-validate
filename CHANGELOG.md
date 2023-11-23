@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## [8.7.3](https://gitlab.com/html-validate/html-validate/compare/v8.7.2...v8.7.3) (2023-11-23)
+
+### Bug Fixes
+
+- disable `doctype-style` when using prettier preset ([f1f4004](https://gitlab.com/html-validate/html-validate/commit/f1f40044057696330cb5533be8594adf61b2f87f))
+
 ## [8.7.2](https://gitlab.com/html-validate/html-validate/compare/v8.7.1...v8.7.2) (2023-11-18)
 
 ### Bug Fixes
