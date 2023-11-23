@@ -40,7 +40,7 @@ function isNumerical(entity: string): boolean {
 function getLocation(
 	location: Location | null,
 	entity: string,
-	match: RegExpMatchArray
+	match: RegExpMatchArray,
 ): Location | null {
 	/* istanbul ignore next: never happens in practive */
 	const index = match.index ?? 0;
@@ -130,7 +130,7 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 		node: HtmlElement,
 		text: string,
 		location: Location | null,
-		{ isAttribute }: { isAttribute: boolean }
+		{ isAttribute }: { isAttribute: boolean },
 	): void {
 		const isQuerystring = isAttribute && text.includes("?");
 		for (const match of this.getMatches(text)) {
@@ -142,7 +142,7 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 		node: HtmlElement,
 		location: Location | null,
 		foobar: EntityMatch,
-		{ isQuerystring }: { isQuerystring: boolean }
+		{ isQuerystring }: { isQuerystring: boolean },
 	): void {
 		const { requireSemicolon } = this.options;
 		const { match, entity, raw, terminated } = foobar;

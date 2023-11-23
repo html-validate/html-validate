@@ -17,7 +17,7 @@ describe("rule element-permitted-order", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"element-permitted-order",
-			"Element <caption> must be used before <thead> in this context"
+			"Element <caption> must be used before <thead> in this context",
 		);
 	});
 
@@ -36,7 +36,7 @@ describe("rule element-permitted-order", () => {
 	it("should not report error when child with unspecified order is used", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateString(
-			"<table><caption></caption><template></template><thead></thead></table>"
+			"<table><caption></caption><template></template><thead></thead></table>",
 		);
 		expect(report).toBeValid();
 	});

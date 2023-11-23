@@ -10,7 +10,7 @@ beforeEach(() => {
 		{
 			"package.json": "{}",
 		},
-		"/folder"
+		"/folder",
 	);
 });
 
@@ -131,7 +131,7 @@ describe("CLI", () => {
 				});
 			};
 			expect(cli).toThrowErrorMatchingInlineSnapshot(
-				`"Failed to read configuration from "missing-file.js""`
+				`"Failed to read configuration from "missing-file.js""`,
 			);
 		});
 	});

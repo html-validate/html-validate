@@ -25,7 +25,7 @@ function isMessage(arg: any): arg is Partial<Message> {
 			arg.column ||
 			arg.size ||
 			arg.selector ||
-			arg.context
+			arg.context,
 	);
 }
 
@@ -34,7 +34,7 @@ function isConfig(arg: any): arg is ConfigData {
 		return false;
 	}
 	return Boolean(
-		arg.root || arg.extends || arg.elements || arg.plugin || arg.transform || arg.rules
+		arg.root || arg.extends || arg.elements || arg.plugin || arg.transform || arg.rules,
 	);
 }
 
@@ -60,14 +60,14 @@ type Arg3 = string;
 
 function createMatcher(
 	expect: MatcherExpect,
-	diff: DiffFunction | undefined
+	diff: DiffFunction | undefined,
 ): MaybeAsyncCallback<unknown, [Arg1?, Arg2?, Arg3?]> {
 	function toHTMLValidate(
 		this: MatcherContext,
 		actual: unknown,
 		arg0?: Arg1,
 		arg1?: Arg2,
-		arg2?: Arg3
+		arg2?: Arg3,
 	): MatcherResult {
 		const markup = getMarkup(actual);
 		const message = isMessage(arg0) ? arg0 : undefined;
@@ -85,7 +85,7 @@ function toHTMLValidateImpl(
 	actual: string,
 	expectedError?: Partial<Message>,
 	userConfig?: ConfigData,
-	filename?: string
+	filename?: string,
 ): MatcherResult {
 	const defaultConfig = {
 		rules: {

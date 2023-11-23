@@ -423,7 +423,7 @@ describe("rule form-dup-name", () => {
 				context,
 			});
 			expect(docs?.url).toMatchInlineSnapshot(
-				`"https://html-validate.org/rules/form-dup-name.html"`
+				`"https://html-validate.org/rules/form-dup-name.html"`,
 			);
 			expect(docs?.description).toMatchInlineSnapshot(`
 				"Duplicate form control name "foo"
@@ -442,7 +442,7 @@ describe("rule form-dup-name", () => {
 				context,
 			});
 			expect(docs?.url).toMatchInlineSnapshot(
-				`"https://html-validate.org/rules/form-dup-name.html"`
+				`"https://html-validate.org/rules/form-dup-name.html"`,
 			);
 			expect(docs?.description).toMatchInlineSnapshot(`
 				"Form control name cannot mix regular name "{{ name }}" with array brackets "{{ name }}[]"

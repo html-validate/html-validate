@@ -82,7 +82,7 @@ export class Engine<T extends Parser = Parser> {
 					rules: Set<string>,
 					unused: Set<string>,
 					options: string,
-					location: Location
+					location: Location,
 				): void {
 					if (noUnusedDisable && !rules.has(noUnusedDisable.name)) {
 						noUnusedDisable.reportUnused(unused, options, location);
@@ -289,7 +289,7 @@ export class Engine<T extends Parser = Parser> {
 		rules: Array<Rule<unknown, unknown>>,
 		parser: Parser,
 		options: string,
-		location: Location
+		location: Location,
 	): void {
 		const ruleIds = new Set(rules.map((it) => it.name));
 		const unused = new Set(ruleIds);
@@ -347,7 +347,7 @@ export class Engine<T extends Parser = Parser> {
 		rules: Array<Rule<unknown, unknown>>,
 		parser: Parser,
 		options: string,
-		location: Location
+		location: Location,
 	): void {
 		const ruleIds = new Set(rules.map((it) => it.name));
 		const unused = new Set(ruleIds);
@@ -422,7 +422,7 @@ export class Engine<T extends Parser = Parser> {
 	private setupPlugins(
 		source: Source,
 		config: ResolvedConfig,
-		parser: Parser
+		parser: Parser,
 	): {
 		rules: Record<string, Rule<unknown, unknown>>;
 	} {
@@ -443,7 +443,7 @@ export class Engine<T extends Parser = Parser> {
 	 */
 	private setupRules(
 		config: ResolvedConfig,
-		parser: Parser
+		parser: Parser,
 	): Record<string, Rule<unknown, unknown>> {
 		const rules: Record<string, Rule<unknown, unknown>> = {};
 		for (const [ruleId, [severity, options]] of config.getRules().entries()) {
@@ -461,7 +461,7 @@ export class Engine<T extends Parser = Parser> {
 		severity: Severity,
 		options: RuleOptions,
 		parser: Parser,
-		report: Reporter
+		report: Reporter,
 	): Rule<unknown, unknown> {
 		const meta = config.getMetaTable();
 		const rule = this.instantiateRule(ruleId, options);

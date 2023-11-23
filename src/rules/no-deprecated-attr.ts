@@ -31,7 +31,7 @@ export default class NoDeprecatedAttr extends Rule {
 				this.report(
 					node,
 					`Attribute "${event.key}" is deprecated on <${node.tagName}> element`,
-					event.keyLocation
+					event.keyLocation,
 				);
 			}
 		});

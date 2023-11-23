@@ -23,7 +23,7 @@ describe("rule no-style-tag", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"no-style-tag",
-			"Use external stylesheet with <link> instead of <style> tag"
+			"Use external stylesheet with <link> instead of <style> tag",
 		);
 	});
 

@@ -32,7 +32,7 @@ export default class VoidContent extends Rule<string> {
 					null,
 					`End tag for <${node.tagName}> must be omitted`,
 					node.location,
-					node.tagName
+					node.tagName,
 				);
 			}
 		});

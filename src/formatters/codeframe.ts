@@ -104,8 +104,8 @@ function formatMessage(message: Message, parentResult: Result, options: Codefram
 					start: getStartLocation(message),
 					end: getEndLocation(message, sourceCode),
 				},
-				{ highlightCode: false }
-			)
+				{ highlightCode: false },
+			),
 		);
 	}
 

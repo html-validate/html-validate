@@ -9,7 +9,7 @@ describe("mock attribute processor", () => {
 				key: "dynamic-foo",
 				value: "bar",
 				quote: null,
-			})
+			}),
 		);
 		expect(attr).toHaveLength(2);
 		expect(attr[0]).toEqual({
@@ -35,7 +35,7 @@ describe("mock attribute processor", () => {
 				key: "foo",
 				value: "{{ bar }}",
 				quote: null,
-			})
+			}),
 		);
 		expect(attr).toHaveLength(1);
 		expect(attr[0]).toEqual({
@@ -55,7 +55,7 @@ describe("mock attribute processor", () => {
 				key: "foo",
 				value: "bar",
 				quote: null,
-			})
+			}),
 		);
 		expect(attr).toHaveLength(1);
 		expect(attr[0]).toEqual({

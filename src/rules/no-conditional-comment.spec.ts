@@ -23,7 +23,7 @@ describe("rule no-conditional-comment", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"no-conditional-comment",
-			"Use of conditional comments are deprecated"
+			"Use of conditional comments are deprecated",
 		);
 	});
 
@@ -33,7 +33,7 @@ describe("rule no-conditional-comment", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"no-conditional-comment",
-			"Use of conditional comments are deprecated"
+			"Use of conditional comments are deprecated",
 		);
 	});
 

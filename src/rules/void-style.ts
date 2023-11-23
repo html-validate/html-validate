@@ -64,14 +64,14 @@ export default class VoidStyle extends Rule<RuleContext, RuleOptions> {
 		if (this.shouldBeOmitted(node)) {
 			this.reportError(
 				node,
-				`Expected omitted end tag <${node.tagName}> instead of self-closing element <${node.tagName}/>`
+				`Expected omitted end tag <${node.tagName}> instead of self-closing element <${node.tagName}/>`,
 			);
 		}
 
 		if (this.shouldBeSelfClosed(node)) {
 			this.reportError(
 				node,
-				`Expected self-closing element <${node.tagName}/> instead of omitted end-tag <${node.tagName}>`
+				`Expected self-closing element <${node.tagName}/> instead of omitted end-tag <${node.tagName}>`,
 			);
 		}
 	}

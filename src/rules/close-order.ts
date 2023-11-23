@@ -21,7 +21,7 @@ export default class CloseOrder extends Rule {
 				this.report(
 					null,
 					`Missing close-tag, expected '</${active.tagName}>' but document ended before it was found.`,
-					event.location
+					event.location,
 				);
 				return;
 			}
@@ -58,7 +58,7 @@ export default class CloseOrder extends Rule {
 				this.report(
 					null,
 					`Mismatched close-tag, expected '</${active.tagName}>' but found '</${current.tagName}>'.`,
-					current.location
+					current.location,
 				);
 			}
 		});

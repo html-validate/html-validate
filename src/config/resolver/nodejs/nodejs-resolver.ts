@@ -114,7 +114,7 @@ export function nodejsResolver(options: { rootDir?: string } = {}): NodeJSResolv
 			/* this is not a proper transformer, is it a plugin exposing a transformer? */
 			if (mod.transformer) {
 				throw new ConfigError(
-					`Module "${id}" is not a valid transformer. This looks like a plugin, did you forget to load the plugin first?`
+					`Module "${id}" is not a valid transformer. This looks like a plugin, did you forget to load the plugin first?`,
 				);
 			}
 

@@ -66,7 +66,7 @@ export default class NoMissingReferences extends Rule<Context> {
 		document: DOMTree,
 		node: HtmlElement,
 		attr: Attribute | null,
-		isList: boolean
+		isList: boolean,
 	): void {
 		/* sanity check: querySelector should never return elements without the attribute */
 		/* istanbul ignore next */
@@ -91,7 +91,7 @@ export default class NoMissingReferences extends Rule<Context> {
 		document: DOMTree,
 		node: HtmlElement,
 		attr: Attribute,
-		id: string
+		id: string,
 	): void {
 		if (idMissing(document, id)) {
 			const context: Context = { key: attr.key, value: id };
@@ -103,7 +103,7 @@ export default class NoMissingReferences extends Rule<Context> {
 		document: DOMTree,
 		node: HtmlElement,
 		attr: Attribute,
-		values: string
+		values: string,
 	): void {
 		const parsed = new DOMTokenList(values, attr.valueLocation);
 		for (const entry of parsed.iterator()) {

@@ -88,7 +88,7 @@ export default class NoAutoplay extends Rule<RuleContext, RuleOptions> {
 				event.target,
 				`The autoplay attribute is not allowed on <${tagName}>`,
 				location,
-				context
+				context,
 			);
 		});
 	}

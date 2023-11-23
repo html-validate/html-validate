@@ -85,7 +85,7 @@ describe("rule attribute-empty-style", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-empty-style",
-				'Attribute "download" value should be empty string'
+				'Attribute "download" value should be empty string',
 			);
 		});
 
@@ -131,7 +131,7 @@ describe("rule attribute-empty-style", () => {
 				rules: { "attribute-empty-style": ["error", { style: "foobar" }] },
 			});
 		}).toThrowErrorMatchingInlineSnapshot(
-			`"Rule configuration error: /rules/attribute-empty-style/1/style must be equal to one of the allowed values: empty, omit"`
+			`"Rule configuration error: /rules/attribute-empty-style/1/style must be equal to one of the allowed values: empty, omit"`,
 		);
 	});
 

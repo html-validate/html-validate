@@ -14,7 +14,7 @@ function toHaveErrorImpl(
 	expect: MatcherExpect,
 	diff: DiffFunction | undefined,
 	actual: Report,
-	expected: Partial<Message>
+	expected: Partial<Message>,
 ): MatcherResult {
 	const flattened = flattenMessages(actual);
 	const matcher = [expect.objectContaining(expected)];
@@ -41,28 +41,28 @@ function toHaveErrorImpl(
 
 function createMatcher(
 	expect: MatcherExpect,
-	diff: DiffFunction | undefined
+	diff: DiffFunction | undefined,
 ):
 	| MaybeAsyncCallback<Report, [Partial<Message>]>
 	| MaybeAsyncCallback<Report, [string, string, any?]> {
 	function toHaveError(
 		this: MatcherContext,
 		actual: Report,
-		error: Partial<Message>
+		error: Partial<Message>,
 	): MatcherResult;
 	function toHaveError(
 		this: MatcherContext,
 		actual: Report,
 		ruleId: string,
 		message: string,
-		context?: any
+		context?: any,
 	): MatcherResult;
 	function toHaveError(
 		this: MatcherContext,
 		actual: Report,
 		arg1: string | Partial<Message>,
 		arg2?: string,
-		arg3?: any
+		arg3?: any,
 	): MatcherResult {
 		if (typeof arg1 === "string") {
 			const expected: Partial<Message> = {

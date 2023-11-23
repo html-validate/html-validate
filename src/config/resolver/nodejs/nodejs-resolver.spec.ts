@@ -116,7 +116,7 @@ describe("resolveTransformer()", () => {
 		expect(() => {
 			resolver.resolveTransformer("mock-plugin-unregistered", { cache: true });
 		}).toThrowErrorMatchingInlineSnapshot(
-			`"Module "mock-plugin-unregistered" is not a valid transformer. This looks like a plugin, did you forget to load the plugin first?"`
+			`"Module "mock-plugin-unregistered" is not a valid transformer. This looks like a plugin, did you forget to load the plugin first?"`,
 		);
 	});
 

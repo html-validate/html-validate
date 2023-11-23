@@ -83,7 +83,7 @@ export default class NoInlineStyle extends Rule<void, RuleOptions> {
 				}
 
 				this.report(event.target, "Inline style is not allowed");
-			}
+			},
 		);
 	}
 

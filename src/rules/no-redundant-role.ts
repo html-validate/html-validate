@@ -52,7 +52,7 @@ export default class NoRedundantRole extends Rule<RuleContext> {
 				event.target,
 				`Redundant role "${role.value}" on <${target.tagName}>`,
 				role.valueLocation,
-				context
+				context,
 			);
 		});
 	}

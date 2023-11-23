@@ -309,7 +309,7 @@ describe("rule element-permitted-content", () => {
 			const doc = await htmlvalidate.getRuleDocumentation(
 				"element-permitted-content",
 				null,
-				context
+				context,
 			);
 			expect(doc).toMatchSnapshot();
 		});
@@ -324,7 +324,7 @@ describe("rule element-permitted-content", () => {
 			const doc = await htmlvalidate.getRuleDocumentation(
 				"element-permitted-content",
 				null,
-				context
+				context,
 			);
 			expect(doc).toMatchSnapshot();
 		});

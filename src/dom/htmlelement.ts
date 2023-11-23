@@ -71,7 +71,7 @@ export class HtmlElement extends DOMNode {
 		parent: HtmlElement | null,
 		closed: NodeClosed,
 		meta: MetaElement | null,
-		location: Location
+		location: Location,
 	) {
 		const nodeType = tagName ? NodeType.ELEMENT_NODE : NodeType.DOCUMENT_NODE;
 		super(nodeType, tagName, location);
@@ -121,7 +121,7 @@ export class HtmlElement extends DOMNode {
 		endToken: TagCloseToken,
 		parent: HtmlElement | null,
 		metaTable: MetaTable | null,
-		namespace: string = ""
+		namespace: string = "",
 	): HtmlElement {
 		const name = startToken.data[2];
 		const tagName = namespace ? `${namespace}:${name}` : name;
@@ -349,7 +349,7 @@ export class HtmlElement extends DOMNode {
 		value: string | DynamicValue | null,
 		keyLocation: Location,
 		valueLocation: Location | null,
-		originalAttribute?: string
+		originalAttribute?: string,
 	): void {
 		key = key.toLowerCase();
 

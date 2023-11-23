@@ -146,7 +146,7 @@ describe("rule text-content", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateString(
 				'<text-default bind-text="dynamic"></text-default>',
-				{ processElement }
+				{ processElement },
 			);
 			expect(report).toBeValid();
 		});
@@ -154,7 +154,7 @@ describe("rule text-content", () => {
 		it("should not report error when child element have text", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateString(
-				"<text-default><span>foobar</span></text-default>"
+				"<text-default><span>foobar</span></text-default>",
 			);
 			expect(report).toBeValid();
 		});

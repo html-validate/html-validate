@@ -15,6 +15,6 @@ it("html5 element metadata should be jsdom-compatible", () => {
 	const allowed = download.allowed!;
 	expect(allowed!(link1, link1.getAttribute("download"))).toBeNull();
 	expect(allowed!(link2, link2.getAttribute("download"))).toBe(
-		'requires "href" attribute to be present'
+		'requires "href" attribute to be present',
 	);
 });

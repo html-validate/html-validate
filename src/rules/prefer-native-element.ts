@@ -122,7 +122,7 @@ export default class PreferNativeElement extends Rule<RuleContext, RuleOptions> 
 				event.target,
 				`Prefer to use the native <${replacement}> element`,
 				location,
-				context
+				context,
 			);
 		});
 	}

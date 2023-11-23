@@ -70,7 +70,7 @@ export function sliceLocation(
 	location: Location,
 	begin: number,
 	end?: number,
-	wrap?: string
+	wrap?: string,
 ): Location;
 
 /**
@@ -80,14 +80,14 @@ export function sliceLocation(
 	location: Location | null | undefined,
 	begin: number,
 	end?: number,
-	wrap?: string
+	wrap?: string,
 ): Location | null;
 
 export function sliceLocation(
 	location: Location | null | undefined,
 	begin: number,
 	end?: number,
-	wrap?: string
+	wrap?: string,
 ): Location | null {
 	if (!location) return null;
 	const size = sliceSize(location.size, begin, end);

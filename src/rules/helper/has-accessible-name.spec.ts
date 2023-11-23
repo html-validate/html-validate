@@ -22,7 +22,7 @@ function processElement(node: HtmlElement): void {
 
 function parse(
 	markup: string,
-	selector: string = "p"
+	selector: string = "p",
 ): { root: HtmlElement; element: HtmlElement } {
 	const source: Source = {
 		filename: "inline",

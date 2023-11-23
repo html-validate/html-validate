@@ -83,7 +83,7 @@ function isSpecialEmpty(node: HtmlElement): boolean {
  */
 export function classifyNodeText(
 	node: HtmlElement,
-	options: TextClassificationOptions = {}
+	options: TextClassificationOptions = {},
 ): TextClassification {
 	const { accessible = false, ignoreHiddenRoot = false } = options;
 	const cacheKey = getCachekey(options);

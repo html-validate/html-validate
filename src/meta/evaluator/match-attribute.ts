@@ -7,7 +7,7 @@ export function matchAttribute(
 	node: HtmlElement,
 	key: string,
 	op: "!=" | "=",
-	value: string
+	value: string,
 ): boolean {
 	const nodeValue = (node.getAttributeValue(key) ?? "").toLowerCase();
 	switch (op) {

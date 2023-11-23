@@ -34,7 +34,7 @@ async function patchAugmentations(config) {
 	async function extract(filename) {
 		const content = await fs.readFile(filename, "utf-8");
 		const matches = content.matchAll(
-			/^\/\*\* module augmentation:(.*)\*\/([^]+?^)\/\*\* module augmentation end \*\//gm
+			/^\/\*\* module augmentation:(.*)\*\/([^]+?^)\/\*\* module augmentation end \*\//gm,
 			//			/^\/\*\* module augmentation:(.*)/gm
 		);
 		return Array.from(matches, (it) => ({
@@ -120,7 +120,7 @@ export async function apiExtractor(patterns) {
 			console.log(`API Extractor completed successfully`);
 		} else {
 			console.error(
-				`API Extractor completed with ${errorCount} errors and ${warningCount} warnings`
+				`API Extractor completed with ${errorCount} errors and ${warningCount} warnings`,
 			);
 			process.exitCode = 1;
 		}

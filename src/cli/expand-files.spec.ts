@@ -19,7 +19,7 @@ beforeEach(() => {
 			"bar/barney.js": "",
 			"baz/spam.html": "",
 		},
-		"/folder"
+		"/folder",
 	);
 	cli = new CLI();
 });

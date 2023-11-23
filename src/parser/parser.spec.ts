@@ -81,7 +81,7 @@ class ExposedParser extends Parser {
 	public *consumeUntil(
 		tokenStream: TokenStream,
 		search: TokenType,
-		errorLocation: Location
+		errorLocation: Location,
 	): IterableIterator<Token> {
 		yield* super.consumeUntil(tokenStream, search, errorLocation);
 	}
@@ -1009,7 +1009,7 @@ describe("parser", () => {
 					enum: expect.anything(),
 					required: true,
 				},
-			})
+			}),
 		);
 		expect(events.shift()).toEqual(
 			expect.objectContaining({
@@ -1017,7 +1017,7 @@ describe("parser", () => {
 				key: "foo",
 				value: "bar",
 				meta: null,
-			})
+			}),
 		);
 		expect(events.shift()).toEqual({ event: "tag:ready", target: "input" });
 		expect(events.shift()).toEqual({
@@ -1266,7 +1266,7 @@ describe("parser", () => {
 			const fn = (): HtmlElement => parser.parseHtml(markup);
 			expect(fn).toThrow(ParserError);
 			expect(fn).toThrow(
-				'Missing end bracket "]" on directive "<!-- [html-validate-disable-next foo -- bar -->"'
+				'Missing end bracket "]" on directive "<!-- [html-validate-disable-next foo -- bar -->"',
 			);
 		});
 	});
@@ -1984,7 +1984,7 @@ describe("parser", () => {
 				size: 1,
 			};
 			expect(() => Array.from(parser.consumeUntil(src, TokenType.TAG_CLOSE, location))).toThrow(
-				"stream ended before TAG_CLOSE token was found"
+				"stream ended before TAG_CLOSE token was found",
 			);
 		});
 	});

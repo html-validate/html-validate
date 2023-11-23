@@ -6,12 +6,7 @@ const ATTRIBUTE_REGEX = /\s*([^=]+)\s*=\s*(?:(?:"([^"]+)")|(?:'([^']+)'))/g;
 /**
  * @param {Map<string, unknown>} validateMap
  */
-module.exports = function parseValidatesProcessor(
-	log,
-	validateMap,
-	trimIndentation,
-	createDocMessage
-) {
+function parseValidatesProcessor(log, validateMap, trimIndentation, createDocMessage) {
 	return {
 		$runAfter: ["files-read"],
 		$runBefore: ["parsing-tags"],
@@ -114,4 +109,6 @@ module.exports = function parseValidatesProcessor(
 		}
 		return config;
 	}
-};
+}
+
+module.exports = parseValidatesProcessor;

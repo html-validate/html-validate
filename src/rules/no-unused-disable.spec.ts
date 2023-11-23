@@ -232,10 +232,10 @@ describe("rule no-unused-disable", () => {
 			context,
 		});
 		expect(docs?.description).toMatchInlineSnapshot(
-			`"\`mock-rule\` rule is disabled but no error was reported."`
+			`"\`mock-rule\` rule is disabled but no error was reported."`,
 		);
 		expect(docs?.url).toMatchInlineSnapshot(
-			`"https://html-validate.org/rules/no-unused-disable.html"`
+			`"https://html-validate.org/rules/no-unused-disable.html"`,
 		);
 	});
 });

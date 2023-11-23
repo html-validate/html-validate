@@ -76,7 +76,7 @@ describe("Plugin", () => {
 					rules: {
 						"my-rule": "error",
 					},
-				})
+				}),
 			);
 		});
 
@@ -100,7 +100,7 @@ describe("Plugin", () => {
 					rules: {
 						"my-rule": "error",
 					},
-				})
+				}),
 			);
 		});
 
@@ -124,7 +124,7 @@ describe("Plugin", () => {
 					rules: {
 						"my-rule": "error",
 					},
-				})
+				}),
 			);
 		});
 	});
@@ -149,7 +149,7 @@ describe("Plugin", () => {
 					rules: {
 						"my-rule": "error",
 					},
-				})
+				}),
 			);
 		});
 
@@ -164,7 +164,7 @@ describe("Plugin", () => {
 			expect(config.get()).toEqual(
 				expect.objectContaining({
 					plugins: ["mock-plugin"],
-				})
+				}),
 			);
 		});
 	});
@@ -194,7 +194,7 @@ describe("Plugin", () => {
 				],
 			});
 			expect(() => config.getMetaTable()).toThrow(
-				"Element metadata is not valid: /my-element Property myMeta is not expected to be here"
+				"Element metadata is not valid: /my-element Property myMeta is not expected to be here",
 			);
 		});
 
@@ -498,7 +498,7 @@ describe("Plugin", () => {
 				},
 			});
 			expect(() => config.init()).toThrow(
-				'Failed to load transformer "missing-plugin:foobar": No plugin named "missing-plugin" has been loaded'
+				'Failed to load transformer "missing-plugin:foobar": No plugin named "missing-plugin" has been loaded',
 			);
 		});
 
@@ -512,7 +512,7 @@ describe("Plugin", () => {
 				},
 			});
 			expect(() => config.init()).toThrow(
-				'Failed to load transformer "mock-plugin:foobar": Plugin "mock-plugin" does not expose a transformer named "foobar".'
+				'Failed to load transformer "mock-plugin:foobar": Plugin "mock-plugin" does not expose a transformer named "foobar".',
 			);
 		});
 
@@ -528,7 +528,7 @@ describe("Plugin", () => {
 				},
 			});
 			expect(() => config.init()).toThrow(
-				'Failed to load transformer "mock-plugin": Transformer "mock-plugin" refers to unnamed transformer but plugin exposes only named.'
+				'Failed to load transformer "mock-plugin": Transformer "mock-plugin" refers to unnamed transformer but plugin exposes only named.',
 			);
 		});
 
@@ -544,7 +544,7 @@ describe("Plugin", () => {
 				},
 			});
 			expect(() => config.init()).toThrow(
-				'Failed to load transformer "mock-plugin:foobar": Transformer "mock-plugin:foobar" refers to named transformer but plugin exposes only unnamed, use "mock-plugin" instead.'
+				'Failed to load transformer "mock-plugin:foobar": Transformer "mock-plugin:foobar" refers to named transformer but plugin exposes only unnamed, use "mock-plugin" instead.',
 			);
 		});
 	});

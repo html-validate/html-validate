@@ -29,7 +29,7 @@ export interface MaybeAsyncCallback<TActual, TArgs extends any[]> {
  * @internal
  */
 export function diverge<T, TArgs extends any[]>(
-	fn: SyncCallback<T, TArgs>
+	fn: SyncCallback<T, TArgs>,
 ): MaybeAsyncCallback<T, TArgs> {
 	function diverged(this: MatcherContext, actual: T, ...args: TArgs): MatcherResult;
 	function diverged(

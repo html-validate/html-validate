@@ -245,7 +245,7 @@ describe("rule valid-id", () => {
 				rules: { "valid-id": ["error", { relaxed: "foobar" }] },
 			});
 		}).toThrowErrorMatchingInlineSnapshot(
-			`"Rule configuration error: /rules/valid-id/1/relaxed: type must be boolean"`
+			`"Rule configuration error: /rules/valid-id/1/relaxed: type must be boolean"`,
 		);
 	});
 });

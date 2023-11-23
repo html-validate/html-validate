@@ -195,14 +195,14 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 				event.target,
 				"Link destination must not be absolute url",
 				event.valueLocation,
-				style
+				style,
 			);
 		} else if (!matchList(target, allowAbsolute)) {
 			this.report(
 				event.target,
 				"Absolute link to this destination is not allowed by current configuration",
 				event.valueLocation,
-				style
+				style,
 			);
 		}
 	}
@@ -216,14 +216,14 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 				event.target,
 				"Link destination must not be external url",
 				event.valueLocation,
-				style
+				style,
 			);
 		} else if (!matchList(target, allowExternal)) {
 			this.report(
 				event.target,
 				"External link to this destination is not allowed by current configuration",
 				event.valueLocation,
-				style
+				style,
 			);
 		}
 	}
@@ -237,7 +237,7 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 				event.target,
 				"Link destination must not be relative url",
 				event.valueLocation,
-				style
+				style,
 			);
 			return true;
 		} else if (!matchList(target, allowRelative)) {
@@ -245,7 +245,7 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 				event.target,
 				"Relative link to this destination is not allowed by current configuration",
 				event.valueLocation,
-				style
+				style,
 			);
 			return true;
 		}
@@ -261,7 +261,7 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 				event.target,
 				"Relative links must be relative to current folder",
 				event.valueLocation,
-				style
+				style,
 			);
 		}
 	}

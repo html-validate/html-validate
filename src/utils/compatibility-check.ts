@@ -25,7 +25,7 @@ export interface CompatibilityOptions {
 export function compatibilityCheckImpl(
 	name: string,
 	declared: string,
-	options: CompatibilityOptions
+	options: CompatibilityOptions,
 ): boolean {
 	const { silent, version: current, logger } = options;
 	const valid = semver.satisfies(current, declared);

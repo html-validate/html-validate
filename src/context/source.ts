@@ -7,7 +7,7 @@ import { type AttributeData } from "../parser";
  */
 export type ProcessAttributeCallback = (
 	this: unknown,
-	attr: AttributeData
+	attr: AttributeData,
 ) => Iterable<AttributeData>;
 
 /**

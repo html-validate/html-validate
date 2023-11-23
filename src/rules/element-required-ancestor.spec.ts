@@ -134,7 +134,7 @@ describe("rule element-required-ancestor", () => {
 		const docs = await htmlvalidate.getRuleDocumentation(
 			"element-required-ancestor",
 			null,
-			context
+			context,
 		);
 		expect(docs).toMatchSnapshot();
 	});

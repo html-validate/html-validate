@@ -16,7 +16,7 @@ function flag(value?: boolean): true | undefined {
 }
 
 function stripUndefined(
-	src: MetaAttribute & InternalAttributeFlags
+	src: MetaAttribute & InternalAttributeFlags,
 ): MetaAttribute & InternalAttributeFlags {
 	const entries = Object.entries(src).filter(([, value]) => isSet(value));
 	return Object.fromEntries(entries);
@@ -24,7 +24,7 @@ function stripUndefined(
 
 function migrateSingleAttribute(
 	src: MetaData,
-	key: string
+	key: string,
 ): MetaAttribute & InternalAttributeFlags {
 	const result: MetaAttribute & InternalAttributeFlags = {};
 

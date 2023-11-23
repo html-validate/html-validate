@@ -23,7 +23,7 @@ describe("rule void-style", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"void-style",
-				"Expected omitted end tag <input> instead of self-closing element <input/>"
+				"Expected omitted end tag <input> instead of self-closing element <input/>",
 			);
 		});
 
@@ -65,7 +65,7 @@ describe("rule void-style", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"void-style",
-				"Expected omitted end tag <input> instead of self-closing element <input/>"
+				"Expected omitted end tag <input> instead of self-closing element <input/>",
 			);
 		});
 	});
@@ -83,7 +83,7 @@ describe("rule void-style", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"void-style",
-				"Expected self-closing element <input/> instead of omitted end-tag <input>"
+				"Expected self-closing element <input/> instead of omitted end-tag <input>",
 			);
 		});
 
@@ -101,7 +101,7 @@ describe("rule void-style", () => {
 				rules: { "void-style": ["error", { style: "foobar" }] },
 			});
 		}).toThrowErrorMatchingInlineSnapshot(
-			`"Rule configuration error: /rules/void-style/1/style must be equal to one of the allowed values: omit, selfclose, selfclosing"`
+			`"Rule configuration error: /rules/void-style/1/style must be equal to one of the allowed values: omit, selfclose, selfclosing"`,
 		);
 	});
 

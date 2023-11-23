@@ -48,7 +48,7 @@ describe("rule script-type", () => {
 		const report = htmlvalidate.validateString('<script type=""></script>');
 		expect(report).toHaveError(
 			"script-type",
-			'"type" attribute is unnecessary for javascript resources'
+			'"type" attribute is unnecessary for javascript resources',
 		);
 	});
 
@@ -57,7 +57,7 @@ describe("rule script-type", () => {
 		const report = htmlvalidate.validateString('<script type="text/javascript"></script>');
 		expect(report).toHaveError(
 			"script-type",
-			'"type" attribute is unnecessary for javascript resources'
+			'"type" attribute is unnecessary for javascript resources',
 		);
 	});
 
@@ -67,7 +67,7 @@ describe("rule script-type", () => {
 		const report = htmlvalidate.validateString(markup);
 		expect(report).toHaveError(
 			"script-type",
-			'"type" attribute is unnecessary for javascript resources'
+			'"type" attribute is unnecessary for javascript resources',
 		);
 	});
 
@@ -76,7 +76,7 @@ describe("rule script-type", () => {
 		const report = htmlvalidate.validateString('<script type="text/javascript"></script>');
 		expect(report).toHaveError(
 			"script-type",
-			'"type" attribute is unnecessary for javascript resources'
+			'"type" attribute is unnecessary for javascript resources',
 		);
 	});
 

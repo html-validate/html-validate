@@ -69,7 +69,7 @@ module.exports = function generateExamplesCodeProcessor(log, example) {
 		const { outDir } = this;
 		if (!outDir) {
 			log.warn(
-				"No output directory has been configured for generateCompileExamplesProcessor, skipped"
+				"No output directory has been configured for generateCompileExamplesProcessor, skipped",
 			);
 		}
 

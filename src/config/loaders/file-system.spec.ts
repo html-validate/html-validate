@@ -72,7 +72,7 @@ describe("FileSystemConfigLoader", () => {
 			{
 				extends: ["foo"],
 			},
-			{ fs: volume }
+			{ fs: volume },
 		);
 		loader.getConfigFor("inline");
 		expect(resolveConfig).toHaveBeenCalledWith("foo", expect.anything());
@@ -89,7 +89,7 @@ describe("FileSystemConfigLoader", () => {
 						a: "error",
 					},
 				},
-				{ fs: volume }
+				{ fs: volume },
 			);
 			const config = loader.getConfigFor("my-file.html");
 			expect(config.getConfigData()).toEqual(
@@ -97,7 +97,7 @@ describe("FileSystemConfigLoader", () => {
 					rules: {
 						a: "error",
 					},
-				})
+				}),
 			);
 		});
 
@@ -111,7 +111,7 @@ describe("FileSystemConfigLoader", () => {
 						b: "error",
 					},
 				},
-				{ fs: volume }
+				{ fs: volume },
 			);
 			/* override */
 			const config = loader.getConfigFor("my-file.html", {
@@ -127,7 +127,7 @@ describe("FileSystemConfigLoader", () => {
 						b: "error",
 						c: "warn",
 					},
-				})
+				}),
 			);
 		});
 
@@ -146,7 +146,7 @@ describe("FileSystemConfigLoader", () => {
 						a: "error",
 					},
 				},
-				{ fs: volume }
+				{ fs: volume },
 			);
 			const config = loader.getConfigFor("my-file.html");
 			expect(config.getConfigData()).toEqual(
@@ -154,7 +154,7 @@ describe("FileSystemConfigLoader", () => {
 					rules: {
 						b: "error",
 					},
-				})
+				}),
 			);
 		});
 
@@ -168,7 +168,7 @@ describe("FileSystemConfigLoader", () => {
 						a: "error",
 					},
 				},
-				{ fs: volume }
+				{ fs: volume },
 			);
 			/* .htmlvalidate.json */
 			jest.spyOn(loader, "fromFilename").mockImplementation(() =>
@@ -177,7 +177,7 @@ describe("FileSystemConfigLoader", () => {
 						b: "error",
 						c: "error",
 					},
-				})
+				}),
 			);
 			/* override */
 			const config = loader.getConfigFor("my-file.html", {
@@ -191,7 +191,7 @@ describe("FileSystemConfigLoader", () => {
 						b: "warn",
 						c: "error",
 					},
-				})
+				}),
 			);
 		});
 
@@ -202,7 +202,7 @@ describe("FileSystemConfigLoader", () => {
 				{
 					root: true,
 				},
-				{ fs: volume }
+				{ fs: volume },
 			);
 			const fromFilename = jest.spyOn(loader, "fromFilename");
 			const config = loader.getConfigFor("my-file.html");
@@ -210,7 +210,7 @@ describe("FileSystemConfigLoader", () => {
 			expect(config.getConfigData()).toEqual(
 				expect.objectContaining({
 					root: true,
-				})
+				}),
 			);
 		});
 
@@ -224,7 +224,7 @@ describe("FileSystemConfigLoader", () => {
 						a: "error",
 					},
 				},
-				{ fs: volume }
+				{ fs: volume },
 			);
 			const config = loader.getConfigFor("my-file.html", {
 				rules: {
@@ -237,7 +237,7 @@ describe("FileSystemConfigLoader", () => {
 					rules: {
 						a: "off",
 					},
-				})
+				}),
 			);
 		});
 
@@ -250,7 +250,7 @@ describe("FileSystemConfigLoader", () => {
 						a: "error",
 					},
 				},
-				{ fs: volume }
+				{ fs: volume },
 			);
 			const fromFilename = jest.spyOn(loader, "fromFilename");
 			const config = loader.getConfigFor("my-file.html", {
@@ -266,7 +266,7 @@ describe("FileSystemConfigLoader", () => {
 					rules: {
 						b: "error",
 					},
-				})
+				}),
 			);
 		});
 	});

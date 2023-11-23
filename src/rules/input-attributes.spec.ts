@@ -30,7 +30,7 @@ describe("rule input-attributes", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"input-attributes",
-			'Attribute "step" is not allowed on <input type="text">'
+			'Attribute "step" is not allowed on <input type="text">',
 		);
 	});
 

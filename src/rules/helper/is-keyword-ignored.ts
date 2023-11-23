@@ -49,7 +49,7 @@ export function keywordPatternMatcher(list: string[], keyword: string): boolean 
 export function isKeywordIgnored<T extends IncludeExcludeOptions>(
 	options: T,
 	keyword: string,
-	matcher: (list: string[], it: string) => boolean = (list, it) => list.includes(it)
+	matcher: (list: string[], it: string) => boolean = (list, it) => list.includes(it),
 ): boolean {
 	const { include, exclude } = options;
 

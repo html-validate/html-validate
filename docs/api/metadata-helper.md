@@ -16,7 +16,7 @@ export interface MetadataHelper {
   allowedIfAttributeHasValue(
     attr: string,
     value: string[],
-    options?: { defaultValue?: string | null }
+    options?: { defaultValue?: string | null },
   ): MetaAttributeAllowedCallback;
   allowedIfParentIsPresent(...tags: string[]): MetaAttributeAllowedCallback;
 }

@@ -32,7 +32,7 @@ type ConstructorParametersDefault = [ConfigData?, Partial<FileSystemConfigLoader
 type ConstructorParametersResolver = [
 	Resolver[],
 	ConfigData?,
-	Partial<FileSystemConfigLoaderOptions>?
+	Partial<FileSystemConfigLoaderOptions>?,
 ];
 type ConstructorParameters = ConstructorParametersDefault | ConstructorParametersResolver;
 
@@ -91,7 +91,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
 	public constructor(
 		resolvers: Resolver[],
 		config?: ConfigData,
-		options?: Partial<FileSystemConfigLoaderOptions>
+		options?: Partial<FileSystemConfigLoaderOptions>,
 	);
 
 	public constructor(...args: ConstructorParameters) {

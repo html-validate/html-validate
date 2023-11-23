@@ -37,7 +37,7 @@ describe("rule multiple-labeled-controls", () => {
 	it("should not report error for other elements", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateString(
-			'<custom-element for="bar"><input id="foo"></custom-element><input id="bar">'
+			'<custom-element for="bar"><input id="foo"></custom-element><input id="bar">',
 		);
 		expect(report).toBeValid();
 	});
@@ -48,19 +48,19 @@ describe("rule multiple-labeled-controls", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"multiple-labeled-controls",
-			"<label> is associated with multiple controls"
+			"<label> is associated with multiple controls",
 		);
 	});
 
 	it("should report error when <label> have both for attribute and another wrapped control", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString(
-			'<label for="bar"><input id="foo"></label><input id="bar">'
+			'<label for="bar"><input id="foo"></label><input id="bar">',
 		);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"multiple-labeled-controls",
-			"<label> is associated with multiple controls"
+			"<label> is associated with multiple controls",
 		);
 	});
 

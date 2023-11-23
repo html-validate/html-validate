@@ -20,7 +20,7 @@ export abstract class ConfigLoader {
 		this.resolvers = resolvers;
 		this.globalConfig = defaults.merge(
 			this.resolvers,
-			config ? this.loadFromObject(config) : this.defaultConfig()
+			config ? this.loadFromObject(config) : this.defaultConfig(),
 		);
 	}
 

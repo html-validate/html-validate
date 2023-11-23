@@ -10,7 +10,7 @@ jest.mock(
 	() => {
 		return () => "custom formater";
 	},
-	{ virtual: true }
+	{ virtual: true },
 );
 
 const report: Report = {

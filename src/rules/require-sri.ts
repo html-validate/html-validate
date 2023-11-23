@@ -88,7 +88,7 @@ export default class RequireSri extends Rule<void, RuleOptions> {
 			this.report(
 				node,
 				`SRI "integrity" attribute is required on <${node.tagName}> element`,
-				node.location
+				node.location,
 			);
 		});
 	}

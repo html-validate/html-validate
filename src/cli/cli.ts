@@ -154,7 +154,7 @@ export class CLI {
 			} catch (err: any) /* istanbul ignore next */ {
 				const message = err instanceof Error ? err.message : String(err);
 				throw new UserError(
-					`Error while parsing --rule option "{${rules.join(",")}": ${message}.\n`
+					`Error while parsing --rule option "{${rules.join(",")}": ${message}.\n`,
 				);
 			}
 		}

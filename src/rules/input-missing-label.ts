@@ -72,7 +72,7 @@ export default class InputMissingLabel extends Rule {
 		} else if (elem.hasAttribute("aria-labelledby")) {
 			this.report(
 				elem,
-				`<${elem.tagName}> element has aria-labelledby but referenced element has no text`
+				`<${elem.tagName}> element has aria-labelledby but referenced element has no text`,
 			);
 		} else {
 			this.report(elem, `<${elem.tagName}> element does not have a <label>`);

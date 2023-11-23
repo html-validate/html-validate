@@ -120,7 +120,7 @@ export class Lexer {
 	/* istanbul ignore next: used to provide a better error when an unhandled state happens */
 	private unhandled(context: Context): void {
 		const truncated = JSON.stringify(
-			context.string.length > 13 ? `${context.string.slice(0, 15)}...` : context.string
+			context.string.length > 13 ? `${context.string.slice(0, 15)}...` : context.string,
 		);
 		const state = State[context.state];
 		const message = `failed to tokenize ${truncated}, unhandled state ${state}.`;
@@ -136,7 +136,7 @@ export class Lexer {
 
 	private evalNextState(
 		nextState: State | ((token: Token | null) => State),
-		token: Token | null
+		token: Token | null,
 	): State {
 		if (typeof nextState === "function") {
 			return nextState(token);
@@ -197,7 +197,7 @@ export class Lexer {
 				[MATCH_COMMENT, State.INITIAL, TokenType.COMMENT],
 				[false, State.TEXT, false],
 			],
-			"expected doctype"
+			"expected doctype",
 		);
 	}
 
@@ -209,7 +209,7 @@ export class Lexer {
 				[MATCH_DOCTYPE_VALUE, State.DOCTYPE, TokenType.DOCTYPE_VALUE],
 				[MATCH_DOCTYPE_CLOSE, State.TEXT, TokenType.DOCTYPE_CLOSE],
 			],
-			"expected doctype name"
+			"expected doctype name",
 		);
 	}
 
@@ -240,7 +240,7 @@ export class Lexer {
 				[MATCH_ATTR_START, State.ATTR, TokenType.ATTR_NAME],
 				[MATCH_WHITESPACE, State.TAG, TokenType.WHITESPACE],
 			],
-			'expected attribute, ">" or "/>"'
+			'expected attribute, ">" or "/>"',
 		);
 	}
 
@@ -253,7 +253,7 @@ export class Lexer {
 				[MATCH_ATTR_UNQUOTED, State.TAG, TokenType.ATTR_VALUE],
 				[false, State.TAG, false],
 			],
-			'expected attribute, ">" or "/>"'
+			'expected attribute, ">" or "/>"',
 		);
 	}
 
@@ -271,7 +271,7 @@ export class Lexer {
 				[MATCH_TEXT, State.TEXT, TokenType.TEXT],
 				[MATCH_TAG_LOOKAHEAD, State.TEXT, TokenType.TEXT],
 			],
-			'expected text or "<"'
+			'expected text or "<"',
 		);
 	}
 
@@ -286,7 +286,7 @@ export class Lexer {
 				[MATCH_SCRIPT_END, State.TAG, TokenType.TAG_OPEN],
 				[MATCH_SCRIPT_DATA, State.SCRIPT, TokenType.SCRIPT],
 			],
-			"expected </script>"
+			"expected </script>",
 		);
 	}
 
@@ -297,7 +297,7 @@ export class Lexer {
 				[MATCH_STYLE_END, State.TAG, TokenType.TAG_OPEN],
 				[MATCH_STYLE_DATA, State.STYLE, TokenType.STYLE],
 			],
-			"expected </style>"
+			"expected </style>",
 		);
 	}
 }

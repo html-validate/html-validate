@@ -15,7 +15,7 @@ jest.mock(
 	() => {
 		throw new Error("mocked error");
 	},
-	{ virtual: true }
+	{ virtual: true },
 );
 
 const resolvers = [
@@ -87,7 +87,7 @@ describe("config", () => {
 		expect.assertions(2);
 		expect(() => Config.fromFile(resolvers, "invalid-file.json")).toThrow(UserError);
 		expect(() => Config.fromFile(resolvers, "invalid-file.json")).toThrow(
-			'Failed to load configuration from "invalid-file.json"'
+			'Failed to load configuration from "invalid-file.json"',
 		);
 	});
 
@@ -96,10 +96,10 @@ describe("config", () => {
 		expect(() =>
 			Config.fromObject(resolvers, {
 				rules: "spam",
-			} as any)
+			} as any),
 		).toThrow("Invalid configuration: /rules: type must be object");
 		expect(() => Config.fromFile(resolvers, "invalid-file.json")).toThrow(
-			'Failed to load configuration from "invalid-file.json"'
+			'Failed to load configuration from "invalid-file.json"',
 		);
 	});
 
@@ -115,7 +115,7 @@ describe("config", () => {
 						foo: 1,
 						bar: 1,
 					},
-				})
+				}),
 			);
 		});
 	});
@@ -247,7 +247,7 @@ describe("config", () => {
 					["foo", [Severity.ERROR, {}]],
 					["bar", [Severity.WARN, {}]],
 					["baz", [Severity.ERROR, {}]],
-				])
+				]),
 			);
 		});
 
@@ -314,7 +314,7 @@ describe("config", () => {
 					["foo", [Severity.WARN, {}]],
 					["bar", [Severity.WARN, {}]],
 					["baz", [Severity.ERROR, {}]],
-				])
+				]),
 			);
 		});
 
@@ -329,7 +329,7 @@ describe("config", () => {
 					["foo", [Severity.DISABLED, {}]],
 					["bar", [Severity.WARN, {}]],
 					["baz", [Severity.DISABLED, {}]],
-				])
+				]),
 			);
 		});
 
@@ -451,7 +451,7 @@ describe("config", () => {
 			});
 			expect(() => config.getMetaTable()).toThrow(ConfigError);
 			expect(() => config.getMetaTable()).toThrow(
-				/Failed to load elements from "missing-module": .*/
+				/Failed to load elements from "missing-module": .*/,
 			);
 		});
 	});
@@ -625,7 +625,7 @@ describe("config", () => {
 				},
 			});
 			expect(() => config.init()).toThrow(
-				/Failed to load transformer "mock-transform-obsolete": Transformer uses API version 0 but only version \d+ is supported/
+				/Failed to load transformer "mock-transform-obsolete": Transformer uses API version 0 but only version \d+ is supported/,
 			);
 		});
 
@@ -638,7 +638,7 @@ describe("config", () => {
 				},
 			});
 			expect(() => config.init()).toThrow(
-				'Failed to load transformer "missing-plugin:foo": No plugin named "missing-plugin" has been loaded'
+				'Failed to load transformer "missing-plugin:foo": No plugin named "missing-plugin" has been loaded',
 			);
 		});
 

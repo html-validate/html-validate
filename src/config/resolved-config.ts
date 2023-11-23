@@ -46,7 +46,7 @@ export class ResolvedConfig {
 	 */
 	public constructor(
 		{ metaTable, plugins, rules, transformers }: ResolvedConfigData,
-		original: ConfigData
+		original: ConfigData,
 	) {
 		this.metaTable = metaTable;
 		this.plugins = plugins;
@@ -109,7 +109,7 @@ export class ResolvedConfig {
 				const message = err instanceof Error ? err.message : String(err);
 				throw new NestedError(
 					`When transforming "${source.filename}": ${message}`,
-					ensureError(err)
+					ensureError(err),
 				);
 			}
 		} else {

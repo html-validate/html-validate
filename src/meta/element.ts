@@ -82,7 +82,7 @@ export type MetaImplicitRoleCallback = (node: HtmlElementLike) => string | null;
  */
 export type MetaAttributeAllowedCallback = (
 	node: HtmlElementLike,
-	attr: string | DynamicValue | null | undefined
+	attr: string | DynamicValue | null | undefined,
 ) => string | null | undefined;
 
 /**
@@ -286,7 +286,7 @@ export type ElementTable = Record<string, MetaElement>;
 export function setMetaProperty<T extends keyof MetaElement>(
 	dst: MetaElement,
 	key: T,
-	value: MetaElement[T]
+	value: MetaElement[T],
 ): void {
 	dst[key] = value;
 }

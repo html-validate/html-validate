@@ -24,7 +24,7 @@ describe("rule element-required-content", () => {
 	it("should not report error when element has all required content", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateString(
-			"<html><head><title></title></head><body></body></html>"
+			"<html><head><title></title></head><body></body></html>",
 		);
 		expect(report).toBeValid();
 	});

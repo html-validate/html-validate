@@ -123,7 +123,7 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 		control: HtmlElement,
 		form: HtmlElement,
 		attr: Attribute,
-		name: string
+		name: string,
 	): void {
 		const elements = this.getUniqueElements(form);
 		const { allowArrayBrackets } = this.options;
@@ -184,7 +184,7 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 		control: HtmlElement,
 		form: HtmlElement,
 		attr: Attribute,
-		name: string
+		name: string,
 	): void {
 		const uniqueElements = this.getUniqueElements(form);
 		const sharedElements = this.getSharedElements(form);

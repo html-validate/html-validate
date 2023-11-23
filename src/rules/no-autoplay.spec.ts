@@ -18,7 +18,7 @@ describe("rule no-autoplay", () => {
 				expect.assertions(1);
 				const report = htmlvalidate.validateString(`<${tagName}></${tagName}>`);
 				expect(report).toBeValid();
-			}
+			},
 		);
 
 		it("should not report error when autoplay attribute is dynamic", () => {
@@ -28,7 +28,7 @@ describe("rule no-autoplay", () => {
 
 				{
 					processAttribute,
-				}
+				},
 			);
 			expect(report).toBeValid();
 		});

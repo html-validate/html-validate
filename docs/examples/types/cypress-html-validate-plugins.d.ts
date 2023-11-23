@@ -14,7 +14,7 @@ declare module "cypress-html-validate/plugin" {
 	export function install(
 		on: (action: "task", arg: Record<string, (value: any) => any>) => void,
 		userConfig?: ConfigData,
-		userOptions?: Partial<CypressHtmlValidateOptions>
+		userOptions?: Partial<CypressHtmlValidateOptions>,
 	): void;
 
 	const _default: {

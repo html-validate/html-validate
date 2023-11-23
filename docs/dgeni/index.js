@@ -77,7 +77,7 @@ module.exports = new Package("html-validate-docs", [
 
 	.config(function (parseTagsProcessor, getInjectables) {
 		parseTagsProcessor.tagDefinitions = parseTagsProcessor.tagDefinitions.concat(
-			getInjectables(require("./tag-defs"))
+			getInjectables(require("./tag-defs")),
 		);
 	})
 

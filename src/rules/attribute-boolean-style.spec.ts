@@ -62,7 +62,7 @@ describe("rule attribute-boolean-style", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-boolean-style",
-				'Attribute "required" should omit value'
+				'Attribute "required" should omit value',
 			);
 		});
 
@@ -72,7 +72,7 @@ describe("rule attribute-boolean-style", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-boolean-style",
-				'Attribute "required" should omit value'
+				'Attribute "required" should omit value',
 			);
 		});
 
@@ -84,7 +84,7 @@ describe("rule attribute-boolean-style", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-boolean-style",
-				'Attribute "required" should omit value'
+				'Attribute "required" should omit value',
 			);
 		});
 
@@ -141,7 +141,7 @@ describe("rule attribute-boolean-style", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-boolean-style",
-				'Attribute "required" value should be empty string'
+				'Attribute "required" value should be empty string',
 			);
 		});
 
@@ -157,7 +157,7 @@ describe("rule attribute-boolean-style", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-boolean-style",
-				'Attribute "required" value should be empty string'
+				'Attribute "required" value should be empty string',
 			);
 		});
 
@@ -169,7 +169,7 @@ describe("rule attribute-boolean-style", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-boolean-style",
-				'Attribute "required" value should be empty string'
+				'Attribute "required" value should be empty string',
 			);
 		});
 
@@ -217,7 +217,7 @@ describe("rule attribute-boolean-style", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-boolean-style",
-				'Attribute "required" should be set to required="required"'
+				'Attribute "required" should be set to required="required"',
 			);
 		});
 
@@ -227,7 +227,7 @@ describe("rule attribute-boolean-style", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-boolean-style",
-				'Attribute "required" should be set to required="required"'
+				'Attribute "required" should be set to required="required"',
 			);
 		});
 
@@ -245,7 +245,7 @@ describe("rule attribute-boolean-style", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-boolean-style",
-				'Attribute "required" should be set to required="required"'
+				'Attribute "required" should be set to required="required"',
 			);
 		});
 
@@ -295,7 +295,7 @@ describe("rule attribute-boolean-style", () => {
 				rules: { "attribute-boolean-style": ["error", { style: "foobar" }] },
 			});
 		}).toThrowErrorMatchingInlineSnapshot(
-			`"Rule configuration error: /rules/attribute-boolean-style/1/style must be equal to one of the allowed values: empty, name, omit"`
+			`"Rule configuration error: /rules/attribute-boolean-style/1/style must be equal to one of the allowed values: empty, name, omit"`,
 		);
 	});
 
