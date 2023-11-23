@@ -41,7 +41,7 @@ describe("wcag/h71", () => {
 	it("should not report when <fieldset> have multiple <legend>", async () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateString(
-			"<fieldset><legend>foo</legend><legend>bar</legend></fieldset>"
+			"<fieldset><legend>foo</legend><legend>bar</legend></fieldset>",
 		);
 		expect(report).toBeValid();
 	});
@@ -49,7 +49,7 @@ describe("wcag/h71", () => {
 	it("should not report when <fieldset> have out-of-order <legend>", async () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateString(
-			"<fieldset><div>foo</div><legend>bar</legend></fieldset>"
+			"<fieldset><div>foo</div><legend>bar</legend></fieldset>",
 		);
 		expect(report).toBeValid();
 	});

@@ -111,7 +111,7 @@ export class Config {
 	public static fromObject(
 		resolvers: Resolver | Resolver[],
 		options: ConfigData,
-		filename: string | null = null
+		filename: string | null = null,
 	): Config {
 		Config.validate(options, filename);
 		return new Config(resolvers, options);
@@ -147,7 +147,7 @@ export class Config {
 				configData,
 				schema,
 				/* istanbul ignore next: will be set when a validation error has occurred */
-				validator.errors ?? []
+				validator.errors ?? [],
 			);
 		}
 
@@ -304,7 +304,7 @@ export class Config {
 				const message = err instanceof Error ? err.message : String(err);
 				throw new ConfigError(
 					`Failed to load elements from "${entry}": ${message}`,
-					ensureError(err)
+					ensureError(err),
 				);
 			}
 		}
@@ -376,7 +376,7 @@ export class Config {
 				const message = err instanceof Error ? err.message : String(err);
 				throw new ConfigError(
 					`Failed to load plugin "${moduleName}": ${message}`,
-					ensureError(err)
+					ensureError(err),
 				);
 			}
 		});
@@ -472,7 +472,7 @@ export class Config {
 				/* check if transformer version is supported */
 				if (version !== TRANSFORMER_API.VERSION) {
 					throw new ConfigError(
-						`Transformer uses API version ${version} but only version ${TRANSFORMER_API.VERSION} is supported`
+						`Transformer uses API version ${version} but only version ${TRANSFORMER_API.VERSION} is supported`,
 					);
 				}
 
@@ -530,7 +530,7 @@ export class Config {
 	private getNamedTransformerFromPlugin(
 		name: string,
 		pluginName: string,
-		key: string
+		key: string,
 	): Transformer {
 		const plugin = this.plugins.find((cur) => cur.name === pluginName);
 		if (!plugin) {
@@ -543,7 +543,7 @@ export class Config {
 
 		if (typeof plugin.transformer === "function") {
 			throw new ConfigError(
-				`Transformer "${name}" refers to named transformer but plugin exposes only unnamed, use "${pluginName}" instead.`
+				`Transformer "${name}" refers to named transformer but plugin exposes only unnamed, use "${pluginName}" instead.`,
 			);
 		}
 
@@ -569,7 +569,7 @@ export class Config {
 				return plugin.transformer.default;
 			}
 			throw new ConfigError(
-				`Transformer "${name}" refers to unnamed transformer but plugin exposes only named.`
+				`Transformer "${name}" refers to unnamed transformer but plugin exposes only named.`,
 			);
 		}
 

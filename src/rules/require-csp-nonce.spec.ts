@@ -71,7 +71,7 @@ describe("rule require-csp-nonce", () => {
 		});
 		const docs = await htmlvalidate.getRuleDocumentation("require-csp-nonce");
 		expect(docs?.url).toMatchInlineSnapshot(
-			`"https://html-validate.org/rules/require-csp-nonce.html"`
+			`"https://html-validate.org/rules/require-csp-nonce.html"`,
 		);
 		expect(docs?.description).toMatchInlineSnapshot(`
 			"Required Content-Security-Policy (CSP) nonce is missing or empty.

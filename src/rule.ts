@@ -78,7 +78,7 @@ function isErrorDescriptor<T>(
 	value:
 		| [ErrorDescriptor<T>]
 		| [DOMNode | null, string, (Location | null | undefined)?]
-		| [DOMNode | null, string, Location | null | undefined, T]
+		| [DOMNode | null, string, Location | null | undefined, T],
 ): value is [ErrorDescriptor<T>] {
 	return Boolean(value[0] && (value[0] as unknown as Record<string, unknown>).message);
 }
@@ -87,7 +87,7 @@ function unpackErrorDescriptor<T>(
 	value:
 		| [ErrorDescriptor<T>]
 		| [DOMNode | null, string, (Location | null | undefined)?]
-		| [DOMNode | null, string, Location | null | undefined, T]
+		| [DOMNode | null, string, Location | null | undefined, T],
 ): ErrorDescriptor<T> {
 	if (isErrorDescriptor(value)) {
 		return value[0];
@@ -244,7 +244,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	public isKeywordIgnored<T extends IncludeExcludeOptions>(
 		this: { options: T },
 		keyword: string,
-		matcher: (list: string[], it: string) => boolean = (list, it) => list.includes(it)
+		matcher: (list: string[], it: string) => boolean = (list, it) => list.includes(it),
 	): boolean {
 		return isKeywordIgnored(this.options, keyword, matcher);
 	}
@@ -295,13 +295,13 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	public report(
 		node: DOMNode | null,
 		message: string,
-		location?: Location | null | undefined
+		location?: Location | null | undefined,
 	): void;
 	public report(
 		node: DOMNode | null,
 		message: string,
 		location: Location | null | undefined,
-		context: ContextType
+		context: ContextType,
 	): void;
 	public report(
 		...args:
@@ -360,12 +360,12 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 */
 	public on<K extends keyof ListenEventMap>(
 		event: K,
-		callback: (event: ListenEventMap[K]) => void
+		callback: (event: ListenEventMap[K]) => void,
 	): () => void;
 	public on<K extends keyof ListenEventMap>(
 		event: K,
 		filter: (event: ListenEventMap[K]) => boolean,
-		callback: (event: ListenEventMap[K]) => void
+		callback: (event: ListenEventMap[K]) => void,
 	): () => void;
 	public on(
 		event: string,
@@ -425,7 +425,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		jsonPath: string,
 		options: unknown,
 		filename: string | null,
-		config: ConfigData
+		config: ConfigData,
 	): void {
 		if (!cls) {
 			return;

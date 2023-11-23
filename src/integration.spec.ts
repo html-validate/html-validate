@@ -214,7 +214,7 @@ it("should allow inline metadata", () => {
 			'<foo string="foo"></foo>',
 			'<foo string-regexp="foo"></foo>',
 			'<foo literal-regexp="foo"></foo>',
-		].join("\n")
+		].join("\n"),
 	);
 	expect(report).toBeValid();
 });

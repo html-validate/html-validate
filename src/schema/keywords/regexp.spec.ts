@@ -47,7 +47,7 @@ it("should be supported by SchemaValidationError", () => {
 		`Mock message`,
 		data,
 		schema,
-		validate.errors ?? []
+		validate.errors ?? [],
 	);
 	expect(stripAnsi(error.prettyError())).toMatchInlineSnapshot(`
 		"TYPE should be a regular expression

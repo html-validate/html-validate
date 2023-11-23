@@ -26,7 +26,7 @@ function stylish(results: Result[]): string {
 			...it,
 			fixableErrorCount: 0,
 			fixableWarningCount: 0,
-		}))
+		})),
 	);
 	const links = linkSummary(results);
 	return `${errors}${links}`;

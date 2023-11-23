@@ -34,7 +34,7 @@ class MockParser extends Parser {
 						offset: 0,
 						size: 1,
 					},
-					"invalid token error"
+					"invalid token error",
 				);
 			case "parser-error":
 				throw new ParserError(
@@ -45,7 +45,7 @@ class MockParser extends Parser {
 						offset: 0,
 						size: 1,
 					},
-					"parser error"
+					"parser error",
 				);
 			case "exception":
 				throw new Error("exception");
@@ -63,7 +63,7 @@ class ExposedEngine<T extends Parser> extends Engine<T> {
 		severity: Severity,
 		options: any,
 		parser: Parser,
-		report: Reporter
+		report: Reporter,
 	): Rule<unknown, unknown> {
 		return super.loadRule(name, resolvedConfig, severity, options, parser, report);
 	}
@@ -257,7 +257,7 @@ describe("Engine", () => {
 			expect.assertions(2);
 			const source: Source[] = [
 				inline(
-					"<!-- [html-validate-disable no-self-closing] --><i/><!-- [html-validate-enable no-self-closing] --><i/>"
+					"<!-- [html-validate-disable no-self-closing] --><i/><!-- [html-validate-enable no-self-closing] --><i/>",
 				),
 			];
 			const report = engine.lint(source);
@@ -290,7 +290,7 @@ describe("Engine", () => {
 			expect.assertions(2);
 			const source: Source[] = [
 				inline(
-					"<i/><div><i/><!-- [html-validate-disable-block no-self-closing] --><i/><i/></div><i/>"
+					"<i/><div><i/><!-- [html-validate-disable-block no-self-closing] --><i/><i/></div><i/>",
 				),
 			];
 			const report = engine.lint(source);
@@ -306,7 +306,7 @@ describe("Engine", () => {
 			expect.assertions(2);
 			const source: Source[] = [
 				inline(
-					'<div><input type="foo"><!-- [html-validate-disable-block attribute-allowed-values] --><input type="foo"></div><input type="foo">'
+					'<div><input type="foo"><!-- [html-validate-disable-block attribute-allowed-values] --><input type="foo"></div><input type="foo">',
 				),
 			];
 			const report = engine.lint(source);
@@ -386,7 +386,7 @@ describe("Engine", () => {
 			expect.assertions(2);
 			const source: Source[] = [
 				inline(
-					'<!-- [html-validate-disable-next attribute-allowed-values] --><input type="foo"><input type="foo">'
+					'<!-- [html-validate-disable-next attribute-allowed-values] --><input type="foo"><input type="foo">',
 				),
 			];
 			const report = engine.lint(source);
@@ -546,14 +546,14 @@ describe("Engine", () => {
 					Severity.ERROR,
 					{},
 					parser,
-					reporter
+					reporter,
 				);
 				expect(rule).toBe(mockRule);
 				expect(rule.init).toHaveBeenCalledWith(
 					parser,
 					reporter,
 					Severity.ERROR,
-					expect.any(MetaTable)
+					expect.any(MetaTable),
 				);
 				expect(rule.setup).toHaveBeenCalledWith();
 				expect(rule.name).toBe("void");
@@ -581,7 +581,7 @@ describe("Engine", () => {
 					Severity.ERROR,
 					null,
 					location,
-					undefined
+					undefined,
 				);
 			});
 
@@ -609,7 +609,7 @@ describe("Engine", () => {
 					Severity.ERROR,
 					{},
 					parser,
-					reporter
+					reporter,
 				);
 				expect(rule).toBeInstanceOf(MyRule);
 				expect(rule.name).toBe("custom/my-rule");
@@ -654,7 +654,7 @@ describe("Engine", () => {
 					Severity.ERROR,
 					{},
 					parser,
-					reporter
+					reporter,
 				);
 				expect(rule).toBeInstanceOf(MyRule);
 			});

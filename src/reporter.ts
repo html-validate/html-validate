@@ -134,7 +134,7 @@ export class Reporter {
 		severity: number,
 		node: DOMNode | null,
 		location: Location,
-		context: ContextType
+		context: ContextType,
 	): void {
 		if (!(location.filename in this.result)) {
 			this.result[location.filename] = [];
@@ -174,7 +174,7 @@ export class Reporter {
 			results: Object.keys(this.result).map((filePath) => {
 				const messages = Array.from(this.result[filePath], freeze).sort(messageSort);
 				const source = (sources ?? []).find(
-					(source: Source) => filePath === (source.filename ?? "")
+					(source: Source) => filePath === (source.filename ?? ""),
 				);
 				return {
 					filePath,

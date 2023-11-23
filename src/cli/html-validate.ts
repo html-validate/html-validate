@@ -118,8 +118,8 @@ function handleUnknownError(err: unknown): void {
 				`Please file a bug at ${bugUrl}`,
 				`and include this message in full and if possible the content of the`,
 				`file being parsed (or a reduced testcase).`,
-			].join("\n")
-		)
+			].join("\n"),
+		),
 	);
 }
 

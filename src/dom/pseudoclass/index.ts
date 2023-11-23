@@ -17,7 +17,7 @@ const table: PseudoClassTable = {
 
 export function factory(
 	name: string,
-	context: SelectorContext
+	context: SelectorContext,
 ): OmitThisParameter<PseudoClassFunction> {
 	const fn = table[name];
 	if (fn) {

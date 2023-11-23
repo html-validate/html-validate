@@ -17,7 +17,7 @@ function* mockTransformOptionalChain(this: TransformContext, source: Source): It
 				offset: 0,
 				originalData: source.originalData ?? source.data,
 			},
-			next
+			next,
 		);
 	}
 }

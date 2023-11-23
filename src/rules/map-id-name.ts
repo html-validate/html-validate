@@ -7,7 +7,7 @@ function isRelevant(event: TagReadyEvent): boolean {
 }
 
 function hasStaticValue(
-	attr: Attribute | null
+	attr: Attribute | null,
 ): attr is Attribute & { readonly value: string | null } {
 	return Boolean(attr && !(attr.value instanceof DynamicValue));
 }

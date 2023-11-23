@@ -27,7 +27,7 @@ describe("Meta validator", () => {
 				rules: new Map(),
 				transformers: [],
 			},
-			{}
+			{},
 		);
 		parser = new Parser(config);
 	});
@@ -387,10 +387,10 @@ describe("Meta validator", () => {
 			const rules = ["foo?"];
 			expect(Validator.validateOccurrences([], rules, cb)).toBeTruthy();
 			expect(
-				Validator.validateOccurrences(parser.parseHtml("<foo/>").childElements, rules, cb)
+				Validator.validateOccurrences(parser.parseHtml("<foo/>").childElements, rules, cb),
 			).toBeTruthy();
 			expect(
-				Validator.validateOccurrences(parser.parseHtml("<foo/><foo/>").childElements, rules, cb)
+				Validator.validateOccurrences(parser.parseHtml("<foo/><foo/>").childElements, rules, cb),
 			).toBeFalsy();
 		});
 
@@ -414,16 +414,16 @@ describe("Meta validator", () => {
 			const rules = ["@heading?"];
 			expect(Validator.validateOccurrences([], rules, cb)).toBeTruthy();
 			expect(
-				Validator.validateOccurrences(parser.parseHtml("<h1/>").childElements, rules, cb)
+				Validator.validateOccurrences(parser.parseHtml("<h1/>").childElements, rules, cb),
 			).toBeTruthy();
 			expect(
-				Validator.validateOccurrences(parser.parseHtml("<h2/>").childElements, rules, cb)
+				Validator.validateOccurrences(parser.parseHtml("<h2/>").childElements, rules, cb),
 			).toBeTruthy();
 			expect(
-				Validator.validateOccurrences(parser.parseHtml("<h1/><h1/>").childElements, rules, cb)
+				Validator.validateOccurrences(parser.parseHtml("<h1/><h1/>").childElements, rules, cb),
 			).toBeFalsy();
 			expect(
-				Validator.validateOccurrences(parser.parseHtml("<h1/><h2/>").childElements, rules, cb)
+				Validator.validateOccurrences(parser.parseHtml("<h1/><h2/>").childElements, rules, cb),
 			).toBeFalsy();
 		});
 	});

@@ -627,7 +627,7 @@ describe("lexer", () => {
 			it("with nested html-markup in string", () => {
 				expect.assertions(7);
 				const token = lexer.tokenize(
-					inlineSource('<script>document.write("<p>lorem</p>");</script>')
+					inlineSource('<script>document.write("<p>lorem</p>");</script>'),
 				);
 				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
 				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
@@ -641,7 +641,7 @@ describe("lexer", () => {
 			it("with type attribute", () => {
 				expect.assertions(10);
 				const token = lexer.tokenize(
-					inlineSource('<script type="text/javascript">document.write("<p>lorem</p>");</script>')
+					inlineSource('<script type="text/javascript">document.write("<p>lorem</p>");</script>'),
 				);
 				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
 				expect(token.next()).toBeToken({ type: TokenType.WHITESPACE });
@@ -847,7 +847,7 @@ describe("lexer", () => {
 			it("with colon comment", () => {
 				expect.assertions(3);
 				const token = lexer.tokenize(
-					inlineSource("<!-- [html-validate-action options: comment] -->")
+					inlineSource("<!-- [html-validate-action options: comment] -->"),
 				);
 				expect(token.next()).toBeToken({
 					type: TokenType.DIRECTIVE,
@@ -867,7 +867,7 @@ describe("lexer", () => {
 			it("with dashdash comment", () => {
 				expect.assertions(3);
 				const token = lexer.tokenize(
-					inlineSource("<!-- [html-validate-action options -- comment] -->")
+					inlineSource("<!-- [html-validate-action options -- comment] -->"),
 				);
 				expect(token.next()).toBeToken({
 					type: TokenType.DIRECTIVE,
@@ -905,7 +905,7 @@ describe("lexer", () => {
 			it("with excessive whitespace", () => {
 				expect.assertions(3);
 				const token = lexer.tokenize(
-					inlineSource("<!--   \t\n\t   [html-validate-action options: comment]   \t\n\t   -->")
+					inlineSource("<!--   \t\n\t   [html-validate-action options: comment]   \t\n\t   -->"),
 				);
 				expect(token.next()).toBeToken({
 					type: TokenType.DIRECTIVE,
@@ -925,7 +925,7 @@ describe("lexer", () => {
 			it("with no whitespace", () => {
 				expect.assertions(3);
 				const token = lexer.tokenize(
-					inlineSource("<!--[html-validate-action options: comment]-->")
+					inlineSource("<!--[html-validate-action options: comment]-->"),
 				);
 				expect(token.next()).toBeToken({
 					type: TokenType.DIRECTIVE,
@@ -945,7 +945,7 @@ describe("lexer", () => {
 			it("missing end bracket ]", () => {
 				expect.assertions(3);
 				const token = lexer.tokenize(
-					inlineSource("<!-- [html-validate-action options: comment -->")
+					inlineSource("<!-- [html-validate-action options: comment -->"),
 				);
 				expect(token.next()).toBeToken({
 					type: TokenType.DIRECTIVE,

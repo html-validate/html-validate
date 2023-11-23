@@ -30,7 +30,7 @@ describe("rule attribute-allowed-values", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"attribute-allowed-values",
-			'Attribute "type" has invalid value "foobar"'
+			'Attribute "type" has invalid value "foobar"',
 		);
 	});
 
@@ -47,7 +47,7 @@ describe("rule attribute-allowed-values", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"attribute-allowed-values",
-			'Attribute "required" has invalid value "foobar"'
+			'Attribute "required" has invalid value "foobar"',
 		);
 	});
 
@@ -82,7 +82,7 @@ describe("rule attribute-allowed-values", () => {
 
 			{
 				processAttribute,
-			}
+			},
 		);
 		expect(report).toBeValid();
 	});
@@ -112,7 +112,7 @@ describe("rule attribute-allowed-values", () => {
 				'<mock-element case-insensitive="foo"></mock-element>',
 				'<mock-element case-insensitive="FOO"></mock-element>',
 				'<mock-element case-insensitive="Foo"></mock-element>',
-			].join("\n")
+			].join("\n"),
 		);
 		expect(report).toBeValid();
 	});

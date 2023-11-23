@@ -105,25 +105,25 @@ describe("rule deprecated", () => {
 		expect(
 			await htmlvalidate.getRuleDocumentation("deprecated", null, {
 				tagName: "center",
-			})
+			}),
 		).toMatchSnapshot();
 		expect(
 			await htmlvalidate.getRuleDocumentation("deprecated", null, {
 				tagName: "blink",
 				source: "html5",
-			})
+			}),
 		).toMatchSnapshot();
 		expect(
 			await htmlvalidate.getRuleDocumentation("deprecated", null, {
 				tagName: "blink",
 				source: "html41",
-			})
+			}),
 		).toMatchSnapshot();
 		expect(
 			await htmlvalidate.getRuleDocumentation("deprecated", null, {
 				tagName: "blink",
 				documentation: "extra documentation for <$tagname>",
-			})
+			}),
 		).toMatchSnapshot();
 	});
 });

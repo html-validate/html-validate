@@ -10,7 +10,7 @@ export interface MatcherContext {
 			matcherName: string,
 			received?: string,
 			expected?: string,
-			options?: { comment?: string }
+			options?: { comment?: string },
 		): string;
 		printReceived(object: unknown): string;
 		printExpected(value: unknown): string;

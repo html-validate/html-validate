@@ -361,7 +361,7 @@ describe("rule attr-case", () => {
 				rules: { "attr-case": ["error", { style: "foobar" }] },
 			});
 		}).toThrowErrorMatchingInlineSnapshot(
-			`"Rule configuration error: /rules/attr-case/1/style must be equal to one of the allowed values: lowercase, uppercase, pascalcase, camelcase"`
+			`"Rule configuration error: /rules/attr-case/1/style must be equal to one of the allowed values: lowercase, uppercase, pascalcase, camelcase"`,
 		);
 	});
 

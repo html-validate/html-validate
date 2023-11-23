@@ -8,7 +8,7 @@ import { type DataValidateFunction, type DataValidationCxt } from "ajv/dist/type
 /* istanbul ignore next: manual testing */
 const ajvRegexpValidate: DataValidateFunction = function (
 	data: any,
-	dataCxt?: DataValidationCxt
+	dataCxt?: DataValidationCxt,
 ): boolean {
 	const valid = data instanceof RegExp;
 	if (!valid) {

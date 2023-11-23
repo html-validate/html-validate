@@ -19,7 +19,7 @@ export function lint(
 	htmlvalidate: HtmlValidate,
 	output: WritableStreamLike,
 	files: string[],
-	options: LintOptions
+	options: LintOptions,
 ): Promise<boolean> {
 	const reports = files.map((filename: string) => {
 		try {

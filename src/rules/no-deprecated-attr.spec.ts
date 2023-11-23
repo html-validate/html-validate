@@ -40,7 +40,7 @@ describe("rule no-deprecated-attr", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"no-deprecated-attr",
-			'Attribute "bgcolor" is deprecated on <body> element'
+			'Attribute "bgcolor" is deprecated on <body> element',
 		);
 	});
 
@@ -50,7 +50,7 @@ describe("rule no-deprecated-attr", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"no-deprecated-attr",
-			'Attribute "BGCOLOR" is deprecated on <body> element'
+			'Attribute "BGCOLOR" is deprecated on <body> element',
 		);
 	});
 

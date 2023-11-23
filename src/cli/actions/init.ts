@@ -8,7 +8,7 @@ export interface InitOptions {
 export async function init(
 	cli: CLI,
 	output: WritableStreamLike,
-	options: InitOptions
+	options: InitOptions,
 ): Promise<boolean> {
 	const result = await cli.init(options.cwd);
 	output.write(`Configuration written to "${result.filename}"\n`);

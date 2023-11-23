@@ -14,7 +14,7 @@ describe("rule element-permitted-occurrences", () => {
 	it("should report error when child has too many occurrences", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString(
-			"<table><caption>1</caption><caption>2</caption></table>"
+			"<table><caption>1</caption><caption>2</caption></table>",
 		);
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([

@@ -130,7 +130,7 @@ cy.htmlvalidate(
   },
   {
     exclude: ["form"],
-  }
+  },
 );
 ```
 

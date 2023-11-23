@@ -52,7 +52,7 @@ describe("rule attr-pattern", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attr-pattern",
-				`Attribute "${attr}" should match /${DEFAULT_PATTERN}/`
+				`Attribute "${attr}" should match /${DEFAULT_PATTERN}/`,
 			);
 		});
 	});
@@ -103,7 +103,7 @@ describe("rule attr-pattern", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attr-pattern",
-				'Attribute "foo-123" should match one of [/[a-z]+/, /[0-9]+/]'
+				'Attribute "foo-123" should match one of [/[a-z]+/, /[0-9]+/]',
 			);
 		});
 	});
@@ -139,7 +139,7 @@ describe("rule attr-pattern", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attr-pattern",
-				`Attribute "foo_bar" should match /${DEFAULT_PATTERN}/`
+				`Attribute "foo_bar" should match /${DEFAULT_PATTERN}/`,
 			);
 		});
 	});
@@ -170,7 +170,7 @@ describe("rule attr-pattern", () => {
 			rules: { "attr-pattern": ["error", { pattern: "[" }] },
 		});
 		expect(() => htmlvalidate.validateStringSync("")).toThrow(
-			/Invalid regular expression: \/.*\/.?: Unterminated character class/
+			/Invalid regular expression: \/.*\/.?: Unterminated character class/,
 		);
 	});
 
@@ -182,7 +182,7 @@ describe("rule attr-pattern", () => {
 				rules: { "attr-pattern": ["error", { pattern: [] }] },
 			});
 		}).toThrowErrorMatchingInlineSnapshot(
-			`"Rule configuration error: /rules/attr-pattern/1/pattern: minItems must NOT have fewer than 1 items"`
+			`"Rule configuration error: /rules/attr-pattern/1/pattern: minItems must NOT have fewer than 1 items"`,
 		);
 	});
 

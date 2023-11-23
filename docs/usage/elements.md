@@ -242,7 +242,7 @@ import { type DynamicValue, type HtmlElementLike } from "html-validate";
 export interface MetaAttribute {
   allowed?: (
     node: HtmlElementLike,
-    attr: string | DynamicValue | null
+    attr: string | DynamicValue | null,
   ) => string | null | undefined;
   boolean?: boolean;
   deprecated?: boolean | string;

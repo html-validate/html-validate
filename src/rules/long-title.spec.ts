@@ -10,7 +10,7 @@ describe("rule long-title", () => {
 			rules: { "long-title": "error" },
 		});
 		const report = htmlvalidate.validateString(
-			"<title>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</title>"
+			"<title>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</title>",
 		);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("long-title", "title text cannot be longer than 70 characters");

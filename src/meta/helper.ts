@@ -19,7 +19,7 @@ export interface MetadataHelper {
 		this: void,
 		attr: string,
 		value: string[],
-		options?: { defaultValue?: string | null }
+		options?: { defaultValue?: string | null },
 	): MetaAttributeAllowedCallback;
 
 	/**
@@ -63,7 +63,7 @@ export function allowedIfAttributeIsAbsent(...attr: string[]): MetaAttributeAllo
 export function allowedIfAttributeHasValue(
 	key: string,
 	expectedValue: string[],
-	{ defaultValue }: { defaultValue?: string | null } = {}
+	{ defaultValue }: { defaultValue?: string | null } = {},
 ): MetaAttributeAllowedCallback {
 	return (node: HtmlElementLike) => {
 		const attr = node.getAttribute(key);

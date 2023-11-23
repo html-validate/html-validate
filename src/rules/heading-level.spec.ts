@@ -44,7 +44,7 @@ describe("rule heading-level", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"heading-level",
-			"Heading level can only increase by one, expected <h2> but got <h3>"
+			"Heading level can only increase by one, expected <h2> but got <h3>",
 		);
 	});
 
@@ -126,7 +126,7 @@ describe("rule heading-level", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"heading-level",
-				"Initial heading level for sectioning root must be between <h1> and <h4> but got <h5>"
+				"Initial heading level for sectioning root must be between <h1> and <h4> but got <h5>",
 			);
 		});
 
@@ -141,7 +141,7 @@ describe("rule heading-level", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"heading-level",
-				"Initial heading level for sectioning root must be <h1> but got <h5>"
+				"Initial heading level for sectioning root must be <h1> but got <h5>",
 			);
 		});
 	});
@@ -174,7 +174,7 @@ describe("rule heading-level", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"heading-level",
-				"Initial heading level must be <h2> or higher rank but got <h3>"
+				"Initial heading level must be <h2> or higher rank but got <h3>",
 			);
 		});
 

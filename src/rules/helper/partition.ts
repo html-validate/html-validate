@@ -15,7 +15,7 @@
  */
 export function partition<T>(
 	values: T[],
-	predicate: (value: T, index: number, values: T[]) => boolean
+	predicate: (value: T, index: number, values: T[]) => boolean,
 ): [matching: T[], nonmatching: T[]] {
 	const initial: [T[], T[]] = [[], []];
 	return values.reduce((accumulator, value, index) => {

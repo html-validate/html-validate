@@ -4,7 +4,7 @@ import { type WritableStreamLike } from "../writable-stream-like";
 export async function printConfig(
 	htmlvalidate: HtmlValidate,
 	output: WritableStreamLike,
-	files: string[]
+	files: string[],
 ): Promise<boolean> {
 	if (files.length > 1) {
 		output.write(`\`--print-config\` expected a single filename but got multiple:\n\n`);

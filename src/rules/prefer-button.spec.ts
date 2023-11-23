@@ -46,7 +46,7 @@ describe("rule prefer-button", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"prefer-button",
-				'Prefer to use <button> instead of <input type="button"> when adding buttons'
+				'Prefer to use <button> instead of <input type="button"> when adding buttons',
 			);
 		});
 
@@ -56,7 +56,7 @@ describe("rule prefer-button", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"prefer-button",
-				'Prefer to use <button> instead of <input type="submit"> when adding buttons'
+				'Prefer to use <button> instead of <input type="submit"> when adding buttons',
 			);
 		});
 
@@ -66,7 +66,7 @@ describe("rule prefer-button", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"prefer-button",
-				'Prefer to use <button> instead of <input type="reset"> when adding buttons'
+				'Prefer to use <button> instead of <input type="reset"> when adding buttons',
 			);
 		});
 
@@ -76,7 +76,7 @@ describe("rule prefer-button", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"prefer-button",
-				'Prefer to use <button> instead of <input type="image"> when adding buttons'
+				'Prefer to use <button> instead of <input type="image"> when adding buttons',
 			);
 		});
 
@@ -86,14 +86,14 @@ describe("rule prefer-button", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"prefer-button",
-				'Prefer to use <button> instead of <input type="submit"> when adding buttons'
+				'Prefer to use <button> instead of <input type="submit"> when adding buttons',
 			);
 		});
 
 		it("should not report error when using submit keyword in other attributes", () => {
 			expect.assertions(1);
 			const report = htmlvalidate.validateString(
-				'<input type="hidden" name="action" value="submit">'
+				'<input type="hidden" name="action" value="submit">',
 			);
 			expect(report).toBeValid();
 		});

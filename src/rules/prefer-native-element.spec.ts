@@ -45,7 +45,7 @@ describe("rule prefer-native-element", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"prefer-native-element",
-				"Prefer to use the native <main> element"
+				"Prefer to use the native <main> element",
 			);
 		});
 
@@ -55,7 +55,7 @@ describe("rule prefer-native-element", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"prefer-native-element",
-				"Prefer to use the native <main> element"
+				"Prefer to use the native <main> element",
 			);
 		});
 

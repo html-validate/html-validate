@@ -92,7 +92,7 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 		if (!this.options.allowMultipleH1) {
 			text.push("");
 			text.push(
-				"Under the current configuration only a single <h1> can be present at a time in the document."
+				"Under the current configuration only a single <h1> can be present at a time in the document.",
 			);
 		}
 		return {
@@ -148,7 +148,7 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 	private checkLevelIncrementation(
 		root: SectioningRoot,
 		event: TagStartEvent,
-		level: number
+		level: number,
 	): void {
 		const expected = root.current + 1;
 
@@ -179,7 +179,7 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 		event: TagStartEvent,
 		location: Location,
 		level: number,
-		expected: number
+		expected: number,
 	): void {
 		if (this.stack.length === 1) {
 			const msg =

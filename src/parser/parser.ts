@@ -40,7 +40,7 @@ function svgShouldRetainTag(foreignTagName: string, tagName: string): boolean {
 }
 
 function isValidDirective(
-	action: string
+	action: string,
 ): action is "enable" | "disable" | "disable-block" | "disable-next" {
 	const validActions = ["enable", "disable", "disable-block", "disable-next"];
 	return validActions.includes(action);
@@ -232,7 +232,7 @@ export class Parser {
 	/* eslint-disable-next-line complexity, sonarjs/cognitive-complexity -- technical debt, chould be refactored a bit */
 	protected consumeTag(source: Source, startToken: TagOpenToken, tokenStream: TokenStream): void {
 		const tokens = Array.from(
-			this.consumeUntil(tokenStream, TokenType.TAG_CLOSE, startToken.location)
+			this.consumeUntil(tokenStream, TokenType.TAG_CLOSE, startToken.location),
 		);
 		const endToken = tokens.slice(-1)[0] as TagCloseToken;
 		const closeOptional = this.closeOptional(startToken);
@@ -242,7 +242,7 @@ export class Parser {
 			endToken,
 			parent,
 			this.metaTable,
-			this.currentNamespace
+			this.currentNamespace,
 		);
 		const isStartTag = !startToken.data[1];
 		const isClosing = !isStartTag || node.closed !== NodeClosed.Open;
@@ -317,7 +317,7 @@ export class Parser {
 		source: Source,
 		node: HtmlElement | null,
 		active: HtmlElement,
-		location: Location
+		location: Location,
 	): void {
 		/* call processElement hook */
 		this.processElement(active, source);
@@ -365,7 +365,7 @@ export class Parser {
 		source: Source,
 		foreignTagName: string,
 		tokenStream: TokenStream,
-		errorLocation: Location
+		errorLocation: Location,
 	): void {
 		/* consume elements until the end tag for this foreign element is found */
 		let nested = 1;
@@ -394,7 +394,7 @@ export class Parser {
 
 			/* locate end token and determine if this is a self-closed tag */
 			const endTokens = Array.from(
-				this.consumeUntil(tokenStream, TokenType.TAG_CLOSE, last.location)
+				this.consumeUntil(tokenStream, TokenType.TAG_CLOSE, last.location),
 			);
 			endToken = endTokens.slice(-1)[0] as TagCloseToken;
 			const selfClosed = endToken.data[0] === "/>";
@@ -429,7 +429,7 @@ export class Parser {
 		source: Source,
 		node: HtmlElement,
 		token: AttrNameToken,
-		next?: Token
+		next?: Token,
 	): void {
 		const { meta } = node;
 		const keyLocation = this.getAttributeKeyLocation(token);
@@ -452,7 +452,7 @@ export class Parser {
 		 * data right away but a transformer may override it to allow aliasing
 		 * attributes, e.g ng-attr-foo or v-bind:foo */
 		let processAttribute: ProcessAttributeCallback = (
-			attr: AttributeData
+			attr: AttributeData,
 		): Iterable<AttributeData> => [attr];
 		if (source.hooks?.processAttribute) {
 			processAttribute = source.hooks.processAttribute;
@@ -563,12 +563,12 @@ export class Parser {
 		const location = sliceLocation(
 			token.location,
 			preamble.length - prefix.length - 1,
-			-postamble.length + 1
+			-postamble.length + 1,
 		);
 		const actionLocation = sliceLocation(
 			token.location,
 			actionOffset,
-			actionOffset + action.length
+			actionOffset + action.length,
 		);
 		const optionsLocation = data
 			? sliceLocation(token.location, optionsOffset, optionsOffset + data.length)
@@ -631,7 +631,7 @@ export class Parser {
 	 */
 	private consumeDoctype(startToken: DoctypeOpenToken, tokenStream: TokenStream): void {
 		const tokens = Array.from(
-			this.consumeUntil(tokenStream, TokenType.DOCTYPE_CLOSE, startToken.location)
+			this.consumeUntil(tokenStream, TokenType.DOCTYPE_CLOSE, startToken.location),
 		);
 		/* first token is the doctype, second is the closing ">" */
 		const doctype: DoctypeValueToken = tokens[0] as DoctypeValueToken;
@@ -654,7 +654,7 @@ export class Parser {
 	protected *consumeUntil(
 		tokenStream: TokenStream,
 		search: TokenType,
-		errorLocation: Location
+		errorLocation: Location,
 	): IterableIterator<Token> {
 		let it = this.next(tokenStream);
 		while (!it.done) {
@@ -665,7 +665,7 @@ export class Parser {
 		}
 		throw new ParserError(
 			errorLocation,
-			`stream ended before ${TokenType[search]} token was found`
+			`stream ended before ${TokenType[search]} token was found`,
 		);
 	}
 
@@ -678,7 +678,7 @@ export class Parser {
 	private consumeUntilMatchingTag(
 		source: Source,
 		tokenStream: TokenStream,
-		searchTag: string
+		searchTag: string,
 	): void {
 		let numOpen = 1;
 		let it = this.next(tokenStream);
@@ -726,7 +726,7 @@ export class Parser {
 	 */
 	public on<K extends keyof ListenEventMap>(
 		event: K,
-		listener: (event: string, data: ListenEventMap[K]) => void
+		listener: (event: string, data: ListenEventMap[K]) => void,
 	): () => void;
 	public on(event: string, listener: EventCallback): () => void;
 	public on(event: string, listener: EventCallback): () => void {
@@ -744,7 +744,7 @@ export class Parser {
 	 */
 	public once<K extends keyof ListenEventMap>(
 		event: K,
-		listener: (event: string, data: ListenEventMap[K]) => void
+		listener: (event: string, data: ListenEventMap[K]) => void,
 	): () => void;
 	public once(event: string, listener: EventCallback): () => void;
 	public once(event: string, listener: EventCallback): () => void {

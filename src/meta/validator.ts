@@ -50,7 +50,7 @@ export class Validator {
 	public static validateOccurrences(
 		children: HtmlElement[],
 		rules: Permitted | null,
-		cb: (node: HtmlElement, category: string) => void
+		cb: (node: HtmlElement, category: string) => void,
 	): boolean {
 		if (!rules) {
 			return true;
@@ -70,7 +70,7 @@ export class Validator {
 
 			if (limit) {
 				const siblings = children.filter((cur) =>
-					Validator.validatePermittedCategory(cur, rule, true)
+					Validator.validatePermittedCategory(cur, rule, true),
 				);
 				if (siblings.length > limit) {
 					// fail only the children above the limit (currently limit can only be 1)
@@ -99,7 +99,7 @@ export class Validator {
 	public static validateOrder(
 		children: HtmlElement[],
 		rules: PermittedOrder | null,
-		cb: (node: HtmlElement, prev: HtmlElement) => void
+		cb: (node: HtmlElement, prev: HtmlElement) => void,
 	): boolean {
 		if (!rules) {
 			return true;
@@ -119,7 +119,7 @@ export class Validator {
 				 * - elements where the order doesn't matter
 				 * In both of these cases no error should be reported. */
 				const orderSpecified = rules.find((cur: string) =>
-					Validator.validatePermittedCategory(node, cur, true)
+					Validator.validatePermittedCategory(node, cur, true),
 				);
 				if (orderSpecified) {
 					/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- technical debt, should never happen */
@@ -161,7 +161,7 @@ export class Validator {
 	 */
 	public static validateRequiredContent(
 		node: HtmlElement,
-		rules: RequiredContent | null
+		rules: RequiredContent | null,
 	): CategoryOrTag[] {
 		if (!rules || rules.length === 0) {
 			return [];
@@ -169,7 +169,7 @@ export class Validator {
 
 		return rules.filter((tagName) => {
 			const haveMatchingChild = node.childElements.some((child) =>
-				Validator.validatePermittedCategory(child, tagName, false)
+				Validator.validatePermittedCategory(child, tagName, false),
 			);
 			return !haveMatchingChild;
 		});
@@ -247,7 +247,7 @@ export class Validator {
 	private static validatePermittedRule(
 		node: HtmlElement,
 		rule: PermittedEntry,
-		isExclude: boolean = false
+		isExclude: boolean = false,
 	): boolean {
 		if (typeof rule === "string") {
 			return Validator.validatePermittedCategory(node, rule, !isExclude);
@@ -287,7 +287,7 @@ export class Validator {
 	public static validatePermittedCategory(
 		node: HtmlElement,
 		category: string,
-		defaultMatch: boolean
+		defaultMatch: boolean,
 	): boolean {
 		const [, rawCategory] = category.match(/^(@?.*?)([?*]?)$/)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- will always match
 

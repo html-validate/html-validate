@@ -257,7 +257,7 @@ export class Selector {
 	private *matchInternal(
 		root: HtmlElement,
 		level: number,
-		context: SelectorContext
+		context: SelectorContext,
 	): IterableIterator<HtmlElement> {
 		if (level >= this.pattern.length) {
 			yield root;

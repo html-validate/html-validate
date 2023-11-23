@@ -218,7 +218,7 @@ describe("rule allowed-links", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"allowed-links",
-				"Relative links must be relative to current folder"
+				"Relative links must be relative to current folder",
 			);
 		});
 	});
@@ -287,7 +287,7 @@ describe("rule allowed-links", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"allowed-links",
-				"External link to this destination is not allowed by current configuration"
+				"External link to this destination is not allowed by current configuration",
 			);
 		});
 
@@ -298,7 +298,7 @@ describe("rule allowed-links", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"allowed-links",
-				"Relative link to this destination is not allowed by current configuration"
+				"Relative link to this destination is not allowed by current configuration",
 			);
 		});
 
@@ -309,7 +309,7 @@ describe("rule allowed-links", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"allowed-links",
-				"Relative link to this destination is not allowed by current configuration"
+				"Relative link to this destination is not allowed by current configuration",
 			);
 		});
 
@@ -320,7 +320,7 @@ describe("rule allowed-links", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"allowed-links",
-				"Absolute link to this destination is not allowed by current configuration"
+				"Absolute link to this destination is not allowed by current configuration",
 			);
 		});
 
@@ -377,7 +377,7 @@ describe("rule allowed-links", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"allowed-links",
-				"External link to this destination is not allowed by current configuration"
+				"External link to this destination is not allowed by current configuration",
 			);
 		});
 
@@ -388,7 +388,7 @@ describe("rule allowed-links", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"allowed-links",
-				"Relative link to this destination is not allowed by current configuration"
+				"Relative link to this destination is not allowed by current configuration",
 			);
 		});
 
@@ -399,7 +399,7 @@ describe("rule allowed-links", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"allowed-links",
-				"Relative link to this destination is not allowed by current configuration"
+				"Relative link to this destination is not allowed by current configuration",
 			);
 		});
 
@@ -410,7 +410,7 @@ describe("rule allowed-links", () => {
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"allowed-links",
-				"Absolute link to this destination is not allowed by current configuration"
+				"Absolute link to this destination is not allowed by current configuration",
 			);
 		});
 

@@ -17,7 +17,7 @@ export type Transformer = (this: TransformContext, source: Source) => Iterable<S
 export function transformFile(
 	fn: Transformer,
 	filename: string,
-	chain?: (source: Source, filename: string) => Iterable<Source>
+	chain?: (source: Source, filename: string) => Iterable<Source>,
 ): Source[] {
 	const data = fs.readFileSync(filename, "utf-8");
 	const source: Source = {
@@ -41,7 +41,7 @@ export function transformFile(
 export function transformString(
 	fn: Transformer,
 	data: string,
-	chain?: (source: Source, filename: string) => Iterable<Source>
+	chain?: (source: Source, filename: string) => Iterable<Source>,
 ): Source[] {
 	const source: Source = {
 		filename: "inline",
@@ -64,7 +64,7 @@ export function transformString(
 export function transformSource(
 	fn: Transformer,
 	source: Source,
-	chain?: (source: Source, filename: string) => Iterable<Source>
+	chain?: (source: Source, filename: string) => Iterable<Source>,
 ): Source[] {
 	const defaultChain = (source: Source): Iterable<Source> => [source];
 	const context: TransformContext = {

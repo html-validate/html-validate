@@ -6,7 +6,7 @@ import { isDescendant } from "./is-descendant";
 const metaTable = new MetaTable();
 const config = new ResolvedConfig(
 	{ metaTable, plugins: [], rules: new Map(), transformers: [] },
-	{}
+	{},
 );
 const parser = new Parser(config);
 

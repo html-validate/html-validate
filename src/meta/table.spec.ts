@@ -33,7 +33,7 @@ jest.mock(
 	() => {
 		throw new Error("mocked error");
 	},
-	{ virtual: true }
+	{ virtual: true },
 );
 
 import { ResolvedConfig } from "../config";
@@ -92,7 +92,7 @@ describe("MetaTable", () => {
 			});
 		expect(fn).toThrow(SchemaValidationError);
 		expect(fn).toThrow(
-			"Element metadata is not valid: /foo Property invalid is not expected to be here"
+			"Element metadata is not valid: /foo Property invalid is not expected to be here",
 		);
 	});
 
@@ -112,7 +112,7 @@ describe("MetaTable", () => {
 		];
 		expect(() => table.loadFromObject(data, filename)).toThrow(SchemaValidationError);
 		expect(() => table.loadFromObject(data, filename)).toThrow(
-			"Element metadata is not valid: /foo Property invalid is not expected to be here"
+			"Element metadata is not valid: /foo Property invalid is not expected to be here",
 		);
 	});
 
@@ -123,7 +123,7 @@ describe("MetaTable", () => {
 		const data = require(filename);
 		expect(() => table.loadFromObject(data, filename)).toThrow(InheritError);
 		expect(() => table.loadFromObject(data, filename)).toThrowErrorMatchingInlineSnapshot(
-			`"Element <foo> cannot inherit from <bar>: no such element"`
+			`"Element <foo> cannot inherit from <bar>: no such element"`,
 		);
 	});
 
@@ -135,7 +135,7 @@ describe("MetaTable", () => {
 			throw new Error("Mock error");
 		});
 		expect(() => table.loadFromObject(data, "my-file.json")).toThrowErrorMatchingInlineSnapshot(
-			`"Failed to load element metadata from "my-file.json""`
+			`"Failed to load element metadata from "my-file.json""`,
 		);
 	});
 
@@ -227,11 +227,11 @@ describe("MetaTable", () => {
 					rules: new Map(),
 					transformers: [],
 				},
-				{}
+				{},
 			);
 			const parser = new Parser(config);
 			expect(() => parser.parseHtml("<invalid/>")).toThrow(
-				'Failed to find function "invalid" when evaluating property expression'
+				'Failed to find function "invalid" when evaluating property expression',
 			);
 		});
 
@@ -248,11 +248,11 @@ describe("MetaTable", () => {
 					rules: new Map(),
 					transformers: [],
 				},
-				{}
+				{},
 			);
 			const parser = new Parser(config);
 			expect(() => parser.parseHtml("<invalid/>")).toThrow(
-				'Failed to find function "invalid" when evaluating property expression'
+				'Failed to find function "invalid" when evaluating property expression',
 			);
 		});
 
@@ -279,7 +279,7 @@ describe("MetaTable", () => {
 						rules: new Map(),
 						transformers: [],
 					},
-					{}
+					{},
 				);
 			});
 
@@ -303,7 +303,7 @@ describe("MetaTable", () => {
 				expect.assertions(1);
 				const parser = new Parser(config);
 				expect(() => parser.parseHtml("<invalid/>")).toThrow(
-					'Property expression "isDescendant" must take string argument when evaluating metadata for <invalid>'
+					'Property expression "isDescendant" must take string argument when evaluating metadata for <invalid>',
 				);
 			});
 		});
@@ -328,7 +328,7 @@ describe("MetaTable", () => {
 						rules: new Map(),
 						transformers: [],
 					},
-					{}
+					{},
 				);
 			});
 
@@ -352,7 +352,7 @@ describe("MetaTable", () => {
 				expect.assertions(1);
 				const parser = new Parser(config);
 				expect(() => parser.parseHtml("<invalid/>")).toThrow(
-					'Property expression "hasAttribute" must take string argument when evaluating metadata for <invalid>'
+					'Property expression "hasAttribute" must take string argument when evaluating metadata for <invalid>',
 				);
 			});
 		});
@@ -389,7 +389,7 @@ describe("MetaTable", () => {
 						rules: new Map(),
 						transformers: [],
 					},
-					{}
+					{},
 				);
 			});
 
@@ -445,7 +445,7 @@ describe("MetaTable", () => {
 				expect.assertions(1);
 				const parser = new Parser(config);
 				expect(() => parser.parseHtml("<invalid1/>")).toThrow(
-					'Property expression "matchAttribute" has invalid operator "#" when evaluating metadata for <invalid1>'
+					'Property expression "matchAttribute" has invalid operator "#" when evaluating metadata for <invalid1>',
 				);
 			});
 
@@ -453,10 +453,10 @@ describe("MetaTable", () => {
 				expect.assertions(2);
 				const parser = new Parser(config);
 				expect(() => parser.parseHtml("<invalid2/>")).toThrow(
-					'Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <invalid2>'
+					'Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <invalid2>',
 				);
 				expect(() => parser.parseHtml("<invalid3/>")).toThrow(
-					'Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <invalid3>'
+					'Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <invalid3>',
 				);
 			});
 		});
@@ -560,7 +560,7 @@ describe("MetaTable", () => {
 					attributes: {
 						a: { enum: ["1"] },
 					},
-				})
+				}),
 			);
 		});
 
@@ -590,7 +590,7 @@ describe("MetaTable", () => {
 						b: { enum: ["3"] },
 						c: { enum: ["4"] },
 					},
-				})
+				}),
 			);
 		});
 	});
@@ -613,7 +613,7 @@ describe("MetaTable", () => {
 					tagName: "bar",
 					flow: true,
 					phrasing: false,
-				})
+				}),
 			);
 		});
 
@@ -636,7 +636,7 @@ describe("MetaTable", () => {
 					tagName: "foo",
 					flow: true,
 					phrasing: true,
-				})
+				}),
 			);
 		});
 
@@ -659,7 +659,7 @@ describe("MetaTable", () => {
 					tagName: "bar",
 					flow: false,
 					phrasing: true,
-				})
+				}),
 			);
 		});
 
@@ -812,7 +812,7 @@ describe("MetaTable", () => {
 					foo: {
 						type: "boolean",
 					},
-				})
+				}),
 			);
 		});
 
@@ -833,7 +833,7 @@ describe("MetaTable", () => {
 					foo: {
 						type: "boolean",
 					},
-				})
+				}),
 			);
 		});
 	});

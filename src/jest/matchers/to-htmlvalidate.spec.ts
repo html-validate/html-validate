@@ -53,7 +53,7 @@ describe("toHTMLValidate()", () => {
 		}
 		expect(error).toBeDefined();
 		expect(stripAnsi(error?.message || "")).toMatchInlineSnapshot(
-			`"HTML is valid when an error was expected"`
+			`"HTML is valid when an error was expected"`,
 		);
 	});
 
@@ -81,7 +81,7 @@ describe("toHTMLValidate()", () => {
 				rules: {
 					"close-order": "off",
 				},
-			}
+			},
 		);
 	});
 
@@ -93,7 +93,7 @@ describe("toHTMLValidate()", () => {
 					"close-order": "off",
 				},
 			},
-			"my-custom-filename.html"
+			"my-custom-filename.html",
 		);
 	});
 
@@ -108,7 +108,7 @@ describe("toHTMLValidate()", () => {
 					"close-order": "off",
 				},
 			},
-			"my-custom-filename.html"
+			"my-custom-filename.html",
 		);
 	});
 

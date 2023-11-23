@@ -25,7 +25,7 @@ describe("rule element-required-attributes", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"element-required-attributes",
-			'<input> is missing required "type" attribute'
+			'<input> is missing required "type" attribute',
 		);
 	});
 
@@ -83,7 +83,7 @@ describe("rule element-required-attributes", () => {
 		const docs = await htmlvalidate.getRuleDocumentation(
 			"element-required-attributes",
 			null,
-			context
+			context,
 		);
 		expect(docs).toMatchSnapshot();
 	});

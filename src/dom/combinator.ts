@@ -10,7 +10,7 @@ export enum Combinator {
 
 export function parseCombinator(
 	combinator: string | undefined | null,
-	pattern: string
+	pattern: string,
 ): Combinator {
 	/* special case, when pattern is :scope [[Selector]] will handle this
 	 * "combinator" to match itself instead of descendants */

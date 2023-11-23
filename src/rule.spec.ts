@@ -81,7 +81,7 @@ describe("rule base class", () => {
 					unique: node.unique,
 				}),
 				expect.anything(),
-				undefined
+				undefined,
 			);
 		});
 
@@ -97,7 +97,7 @@ describe("rule base class", () => {
 					unique: node.unique,
 				}),
 				expect.anything(),
-				undefined
+				undefined,
 			);
 		});
 
@@ -137,7 +137,7 @@ describe("rule base class", () => {
 					unique: node.unique,
 				}),
 				mockLocation,
-				undefined
+				undefined,
 			);
 		});
 
@@ -156,7 +156,7 @@ describe("rule base class", () => {
 					unique: node.unique,
 				}),
 				mockEvent.location,
-				undefined
+				undefined,
 			);
 		});
 
@@ -172,7 +172,7 @@ describe("rule base class", () => {
 					unique: node.unique,
 				}),
 				mockLocation,
-				undefined
+				undefined,
 			);
 		});
 
@@ -189,7 +189,7 @@ describe("rule base class", () => {
 					unique: node.unique,
 				}),
 				expect.anything(),
-				{ foo: "bar" }
+				{ foo: "bar" },
 			);
 		});
 
@@ -215,7 +215,7 @@ describe("rule base class", () => {
 					unique: node.unique,
 				}),
 				mockLocation,
-				context
+				context,
 			);
 		});
 
@@ -247,7 +247,7 @@ describe("rule base class", () => {
 					unique: node.unique,
 				}),
 				expect.anything(),
-				undefined
+				undefined,
 			);
 		});
 	});
@@ -304,7 +304,7 @@ describe("rule base class", () => {
 					() => filterResult,
 					() => {
 						delivered = true;
-					}
+					},
 				);
 				callback = parserOn.mock.calls[0][1];
 			});
@@ -364,7 +364,7 @@ describe("rule base class", () => {
 		expect(rule.getMetaFor("form")).toEqual(
 			expect.objectContaining({
 				tagName: "form",
-			})
+			}),
 		);
 		expect(spy).toHaveBeenCalledWith("form");
 	});
@@ -534,10 +534,10 @@ describe("validateOptions()", () => {
 				jsonPath,
 				options,
 				"inline",
-				config
+				config,
 			);
 		}).toThrowErrorMatchingInlineSnapshot(
-			`"Rule configuration error: /rules/mock-rule-invalid/1/foo: type must be number"`
+			`"Rule configuration error: /rules/mock-rule-invalid/1/foo: type must be number"`,
 		);
 	});
 
@@ -557,7 +557,7 @@ describe("validateOptions()", () => {
 				jsonPath,
 				options,
 				"inline",
-				config
+				config,
 			);
 		}).not.toThrow();
 	});
@@ -578,7 +578,7 @@ describe("validateOptions()", () => {
 				jsonPath,
 				options,
 				"inline",
-				config
+				config,
 			);
 		}).not.toThrow();
 	});
@@ -599,7 +599,7 @@ describe("validateOptions()", () => {
 				jsonPath,
 				options,
 				"inline",
-				config
+				config,
 			);
 		}).not.toThrow();
 	});

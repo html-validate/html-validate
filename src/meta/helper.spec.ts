@@ -47,13 +47,13 @@ describe("allowedIfAttributeIsPresent()", () => {
 		const markup = /* HTML */ ` <div></div> `;
 		const root = parse(markup)._adapter;
 		expect(allowedIfAttributeIsPresent("foo")(root)).toMatchInlineSnapshot(
-			`"requires "foo" attribute to be present"`
+			`"requires "foo" attribute to be present"`,
 		);
 		expect(allowedIfAttributeIsPresent("foo", "bar")(root)).toMatchInlineSnapshot(
-			`"requires "foo" or "bar" attribute to be present"`
+			`"requires "foo" or "bar" attribute to be present"`,
 		);
 		expect(allowedIfAttributeIsPresent("foo", "bar", "baz")(root)).toMatchInlineSnapshot(
-			`"requires "foo", "bar" or "baz" attribute to be present"`
+			`"requires "foo", "bar" or "baz" attribute to be present"`,
 		);
 	});
 });
@@ -65,13 +65,13 @@ describe("allowedIfAttributeIsAbsent()", () => {
 		const root = parse(markup)._adapter;
 		const attr = root.getAttribute("ham")!;
 		expect(allowedIfAttributeIsAbsent("foo")(root, attr)).toMatchInlineSnapshot(
-			`"cannot be used at the same time as "foo""`
+			`"cannot be used at the same time as "foo""`,
 		);
 		expect(allowedIfAttributeIsAbsent("foo", "bar")(root, attr)).toMatchInlineSnapshot(
-			`"cannot be used at the same time as "foo" or "bar""`
+			`"cannot be used at the same time as "foo" or "bar""`,
 		);
 		expect(allowedIfAttributeIsAbsent("foo", "bar", "baz")(root, attr)).toMatchInlineSnapshot(
-			`"cannot be used at the same time as "foo", "bar" or "baz""`
+			`"cannot be used at the same time as "foo", "bar" or "baz""`,
 		);
 	});
 
@@ -83,7 +83,7 @@ describe("allowedIfAttributeIsAbsent()", () => {
 		expect(allowedIfAttributeIsAbsent("foo")(root, attr)).toMatchInlineSnapshot(`null`);
 		expect(allowedIfAttributeIsAbsent("foo", "bar")(root, attr)).toMatchInlineSnapshot(`null`);
 		expect(allowedIfAttributeIsAbsent("foo", "bar", "baz")(root, attr)).toMatchInlineSnapshot(
-			`null`
+			`null`,
 		);
 	});
 
@@ -98,7 +98,7 @@ describe("allowedIfAttributeIsAbsent()", () => {
 		const fn = allowedIfAttributeIsAbsent("foo", "bar", "baz");
 		expect(fn(root1, attr1)).toMatchInlineSnapshot(`"cannot be used at the same time as "foo""`);
 		expect(fn(root2, attr2)).toMatchInlineSnapshot(
-			`"cannot be used at the same time as "foo" or "bar""`
+			`"cannot be used at the same time as "foo" or "bar""`,
 		);
 	});
 });
@@ -111,10 +111,10 @@ describe("allowedIfAttributeHasValue()", () => {
 		const attr = root.getAttribute("ham")!;
 		expect(allowedIfAttributeHasValue("foo", ["bar"])(root, attr)).toMatchInlineSnapshot(`null`);
 		expect(allowedIfAttributeHasValue("foo", ["bar", "baz"])(root, attr)).toMatchInlineSnapshot(
-			`null`
+			`null`,
 		);
 		expect(
-			allowedIfAttributeHasValue("foo", ["bar", "baz", "ham"])(root, attr)
+			allowedIfAttributeHasValue("foo", ["bar", "baz", "ham"])(root, attr),
 		).toMatchInlineSnapshot(`null`);
 	});
 
@@ -142,13 +142,13 @@ describe("allowedIfAttributeHasValue()", () => {
 		const root = parse(markup)._adapter;
 		const attr = root.getAttribute("ham")!;
 		expect(allowedIfAttributeHasValue("foo", ["bar"])(root, attr)).toMatchInlineSnapshot(
-			`""foo" attribute must be "bar""`
+			`""foo" attribute must be "bar""`,
 		);
 		expect(allowedIfAttributeHasValue("foo", ["bar", "baz"])(root, attr)).toMatchInlineSnapshot(
-			`""foo" attribute must be "bar" or "baz""`
+			`""foo" attribute must be "bar" or "baz""`,
 		);
 		expect(
-			allowedIfAttributeHasValue("foo", ["bar", "baz", "ham"])(root, attr)
+			allowedIfAttributeHasValue("foo", ["bar", "baz", "ham"])(root, attr),
 		).toMatchInlineSnapshot(`""foo" attribute must be "bar", "baz" or "ham""`);
 	});
 });
@@ -183,7 +183,7 @@ describe("allowedIfParentIsPresent()", () => {
 		const node = root.querySelector("bar")!._adapter;
 		const attr = node.getAttribute("attr");
 		expect(allowedIfParentIsPresent("spam", "ham")(node, attr)).toMatchInlineSnapshot(
-			`"requires <spam> or <ham> as parent"`
+			`"requires <spam> or <ham> as parent"`,
 		);
 	});
 });

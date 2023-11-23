@@ -7,13 +7,13 @@ export function dump(
 	htmlvalidate: HtmlValidate,
 	output: WritableStreamLike,
 	files: string[],
-	mode: Mode
+	mode: Mode,
 ): Promise<boolean> {
 	let lines: string[][] = [];
 	switch (mode) {
 		case Mode.DUMP_EVENTS:
 			lines = files.map((filename: string) =>
-				htmlvalidate.dumpEvents(filename).map(eventFormatter)
+				htmlvalidate.dumpEvents(filename).map(eventFormatter),
 			);
 			break;
 		case Mode.DUMP_TOKENS:
@@ -21,7 +21,7 @@ export function dump(
 				htmlvalidate.dumpTokens(filename).map((entry: TokenDump) => {
 					const data = JSON.stringify(entry.data);
 					return `TOKEN: ${entry.token}\n  Data: ${data}\n  Location: ${entry.location}`;
-				})
+				}),
 			);
 			break;
 		case Mode.DUMP_TREE:

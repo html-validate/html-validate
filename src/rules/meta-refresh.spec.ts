@@ -13,7 +13,7 @@ describe("rule meta-refresh", () => {
 	it("should not report error when refresh has 0 delay and url", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateString(
-			'<meta http-equiv="refresh" content="0;url=target.html">'
+			'<meta http-equiv="refresh" content="0;url=target.html">',
 		);
 		expect(report).toBeValid();
 	});
@@ -45,7 +45,7 @@ describe("rule meta-refresh", () => {
 	it("should not report error for other elements", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateString(
-			'<div http-equiv="refresh" content="1;url=target.html"></div>'
+			'<div http-equiv="refresh" content="1;url=target.html"></div>',
 		);
 		expect(report).toBeValid();
 	});
@@ -53,7 +53,7 @@ describe("rule meta-refresh", () => {
 	it("should report error when refresh has non-zero delay", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString(
-			'<meta http-equiv="refresh" content="1;url=target.html">'
+			'<meta http-equiv="refresh" content="1;url=target.html">',
 		);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("meta-refresh", "Meta refresh must use 0 second delay");
@@ -62,7 +62,7 @@ describe("rule meta-refresh", () => {
 	it("should report error when refresh has non-zero delay (with whitespace)", () => {
 		expect.assertions(2);
 		const report = htmlvalidate.validateString(
-			'<meta http-equiv="refresh" content="1; url=target.html">'
+			'<meta http-equiv="refresh" content="1; url=target.html">',
 		);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("meta-refresh", "Meta refresh must use 0 second delay");

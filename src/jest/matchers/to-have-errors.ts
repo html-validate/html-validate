@@ -13,12 +13,12 @@ import {
 
 function createMatcher(
 	expect: MatcherExpect,
-	diff: DiffFunction | undefined
+	diff: DiffFunction | undefined,
 ): MaybeAsyncCallback<Report, [Array<[string, string] | Record<string, unknown>>]> {
 	function toHaveErrors(
 		this: MatcherContext,
 		report: Report,
-		errors: Array<[string, string] | Record<string, unknown>>
+		errors: Array<[string, string] | Record<string, unknown>>,
 	): MatcherResult {
 		const flattened = flattenMessages(report);
 		const matcher = errors.map((entry) => {

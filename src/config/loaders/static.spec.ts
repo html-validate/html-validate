@@ -29,7 +29,7 @@ describe("StaticConfigLoader", () => {
 					rules: {
 						a: "error",
 					},
-				})
+				}),
 			);
 		});
 
@@ -54,7 +54,7 @@ describe("StaticConfigLoader", () => {
 						b: "error",
 						c: "warn",
 					},
-				})
+				}),
 			);
 		});
 
@@ -77,7 +77,7 @@ describe("StaticConfigLoader", () => {
 					rules: {
 						b: "error",
 					},
-				})
+				}),
 			);
 		});
 	});

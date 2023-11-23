@@ -26,6 +26,6 @@ it("should add anchor links", () => {
 	const text = "my heading";
 	const markup = heading(text, 2, text, {});
 	expect(markup).toMatchInlineSnapshot(
-		`"<h2 id="my-heading">my heading<a class="anchorlink" href="#my-heading" aria-hidden="true"></a></h2>"`
+		`"<h2 id="my-heading">my heading<a class="anchorlink" href="#my-heading" aria-hidden="true"></a></h2>"`,
 	);
 });

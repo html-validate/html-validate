@@ -23,7 +23,7 @@ describe("rule no-implicit-close", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"no-implicit-close",
-			"Element <li> is implicitly closed by parent </ul>"
+			"Element <li> is implicitly closed by parent </ul>",
 		);
 	});
 
@@ -40,7 +40,7 @@ describe("rule no-implicit-close", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"no-implicit-close",
-			"Element <p> is implicitly closed by adjacent <div>"
+			"Element <p> is implicitly closed by adjacent <div>",
 		);
 	});
 

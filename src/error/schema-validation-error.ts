@@ -25,7 +25,7 @@ export class SchemaValidationError extends UserError {
 		message: string,
 		obj: unknown,
 		schema: SchemaObject,
-		errors: ErrorObject[]
+		errors: ErrorObject[],
 	) {
 		const summary = getSummary(schema, obj, errors);
 		super(`${message}: ${summary}`);

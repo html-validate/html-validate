@@ -48,7 +48,7 @@ function describeStyle(style: QuoteStyle, unquoted: boolean): string {
 	switch (style) {
 		case QuoteStyle.AUTO_QUOTE:
 			description.push(
-				"- quoted with double quotes `\"` unless the value contains double quotes in which case single quotes `'` should be used instead"
+				"- quoted with double quotes `\"` unless the value contains double quotes in which case single quotes `'` should be used instead",
 			);
 			break;
 		case QuoteStyle.ANY_QUOTE:
@@ -147,7 +147,7 @@ export default class AttrQuotes extends Rule<RuleContext, RuleOptions> {
 
 	private resolveQuotemark(
 		value: string,
-		style: Exclude<QuoteStyle, QuoteStyle.ANY_QUOTE>
+		style: Exclude<QuoteStyle, QuoteStyle.ANY_QUOTE>,
 	): QuoteMark {
 		if (style === QuoteStyle.AUTO_QUOTE) {
 			return value.includes('"') ? "'" : '"';

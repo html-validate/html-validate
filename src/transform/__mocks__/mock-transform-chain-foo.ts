@@ -14,7 +14,7 @@ function* mockTransformChainFoo(this: TransformContext, source: Source): Iterabl
 			offset: 0,
 			originalData: source.originalData ?? source.data,
 		},
-		`${source.filename}.foo`
+		`${source.filename}.foo`,
 	);
 }
 

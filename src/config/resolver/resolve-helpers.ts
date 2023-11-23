@@ -8,7 +8,7 @@ type BoundResolver<K extends keyof Resolver> = Resolver & Required<Pick<Resolver
 
 function haveResolver<K extends keyof Resolver>(
 	key: K,
-	value: Resolver
+	value: Resolver,
 ): value is BoundResolver<K> {
 	return key in value;
 }
@@ -35,7 +35,7 @@ function haveTransformerResolver(value: Resolver): value is BoundResolver<"resol
 export function resolveConfig(
 	resolvers: Resolver[],
 	id: string,
-	options: ResolverOptions
+	options: ResolverOptions,
 ): ConfigData {
 	for (const resolver of resolvers.filter(haveConfigResolver)) {
 		const config = resolver.resolveConfig(id, options);
@@ -52,7 +52,7 @@ export function resolveConfig(
 export function resolveElements(
 	resolvers: Resolver[],
 	id: string,
-	options: ResolverOptions
+	options: ResolverOptions,
 ): unknown {
 	for (const resolver of resolvers.filter(haveElementsResolver)) {
 		const elements = resolver.resolveElements(id, options);
@@ -82,7 +82,7 @@ export function resolvePlugin(resolvers: Resolver[], id: string, options: Resolv
 export function resolveTransformer(
 	resolvers: Resolver[],
 	id: string,
-	options: ResolverOptions
+	options: ResolverOptions,
 ): Transformer {
 	for (const resolver of resolvers.filter(haveTransformerResolver)) {
 		const transformer = resolver.resolveTransformer(id, options);

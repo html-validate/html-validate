@@ -95,7 +95,7 @@ export default class ElementPermittedContent extends Rule<RuleContext> {
 	private validatePermittedContentImpl(
 		cur: HtmlElement,
 		parent: HtmlElement,
-		rules: Permitted | null
+		rules: Permitted | null,
 	): boolean {
 		if (!Validator.validatePermitted(cur, rules)) {
 			const child = `<${cur.tagName}>`;

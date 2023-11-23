@@ -9,7 +9,7 @@ const regexp = /<!(?:--)?\[(.*?)\](?:--)?>/g;
 
 export function* parseConditionalComment(
 	comment: string,
-	commentLocation: Location
+	commentLocation: Location,
 ): IterableIterator<ConditionalComment> {
 	let match: RegExpExecArray | null;
 

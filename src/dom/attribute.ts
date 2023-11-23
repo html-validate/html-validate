@@ -58,7 +58,7 @@ export class Attribute {
 		value: string | DynamicValue | null,
 		keyLocation: Location,
 		valueLocation: Location | null,
-		originalAttribute?: string
+		originalAttribute?: string,
 	) {
 		this.key = key;
 		this.value = value;
@@ -98,7 +98,7 @@ export class Attribute {
 	 */
 	public valueMatches(
 		pattern: RegExp | string | string[],
-		dynamicMatches: boolean = true
+		dynamicMatches: boolean = true,
 	): boolean {
 		if (this.value === null) {
 			return false;

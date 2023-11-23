@@ -46,7 +46,7 @@ export default class ElementRequiredAttributes extends Rule<Context> {
 					node,
 					`${node.annotatedName} is missing required "${key}" attribute`,
 					node.location,
-					context
+					context,
 				);
 			}
 		});

@@ -68,14 +68,14 @@ export class HtmlValidate {
 		str: string,
 		filename: string,
 		options: ConfigData,
-		hooks: SourceHooks
+		hooks: SourceHooks,
 	): Promise<Report>;
 	/* eslint-enable @typescript-eslint/unified-signatures */
 	public validateString(
 		str: string,
 		arg1?: string | SourceHooks | ConfigData,
 		arg2?: SourceHooks | ConfigData,
-		arg3?: SourceHooks
+		arg3?: SourceHooks,
 	): Promise<Report> {
 		const filename = typeof arg1 === "string" ? arg1 : "inline";
 		const options = isConfigData(arg1) ? arg1 : isConfigData(arg2) ? arg2 : undefined;
@@ -111,14 +111,14 @@ export class HtmlValidate {
 		str: string,
 		filename: string,
 		options: ConfigData,
-		hooks: SourceHooks
+		hooks: SourceHooks,
 	): Report;
 	/* eslint-enable @typescript-eslint/unified-signatures */
 	public validateStringSync(
 		str: string,
 		arg1?: string | SourceHooks | ConfigData,
 		arg2?: SourceHooks | ConfigData,
-		arg3?: SourceHooks
+		arg3?: SourceHooks,
 	): Report {
 		const filename = typeof arg1 === "string" ? arg1 : "inline";
 		const options = isConfigData(arg1) ? arg1 : isConfigData(arg2) ? arg2 : undefined;
@@ -315,7 +315,7 @@ export class HtmlValidate {
 		const sources = config.transformFilename(filename);
 		return sources.reduce<string[]>((result: string[], source: Source) => {
 			result.push(
-				`Source ${source.filename}@${source.line}:${source.column} (offset: ${source.offset})`
+				`Source ${source.filename}@${source.line}:${source.column} (offset: ${source.offset})`,
 			);
 			if (source.transformedBy) {
 				result.push("Transformed by:");
@@ -395,7 +395,7 @@ export class HtmlValidate {
 	 */
 	public getContextualDocumentation(
 		message: Pick<Message, "ruleId" | "context">,
-		filename?: string
+		filename?: string,
 	): Promise<RuleDocumentation | null>;
 
 	/**
@@ -422,12 +422,12 @@ export class HtmlValidate {
 	 */
 	public getContextualDocumentation(
 		message: Pick<Message, "ruleId" | "context">,
-		config: ResolvedConfig | Promise<ResolvedConfig>
+		config: ResolvedConfig | Promise<ResolvedConfig>,
 	): Promise<RuleDocumentation | null>;
 
 	public async getContextualDocumentation(
 		message: Pick<Message, "ruleId" | "context">,
-		filenameOrConfig: ResolvedConfig | Promise<ResolvedConfig> | string = "inline"
+		filenameOrConfig: ResolvedConfig | Promise<ResolvedConfig> | string = "inline",
 	): Promise<RuleDocumentation | null> {
 		const config =
 			typeof filenameOrConfig === "string"
@@ -461,7 +461,7 @@ export class HtmlValidate {
 	 */
 	public getContextualDocumentationSync(
 		message: Pick<Message, "ruleId" | "context">,
-		filename?: string
+		filename?: string,
 	): RuleDocumentation | null;
 
 	/**
@@ -488,12 +488,12 @@ export class HtmlValidate {
 	 */
 	public getContextualDocumentationSync(
 		message: Pick<Message, "ruleId" | "context">,
-		config: ResolvedConfig
+		config: ResolvedConfig,
 	): RuleDocumentation | null;
 
 	public getContextualDocumentationSync(
 		message: Pick<Message, "ruleId" | "context">,
-		filenameOrConfig: ResolvedConfig | string = "inline"
+		filenameOrConfig: ResolvedConfig | string = "inline",
 	): RuleDocumentation | null {
 		const config =
 			typeof filenameOrConfig === "string"
@@ -530,7 +530,7 @@ export class HtmlValidate {
 	public async getRuleDocumentation(
 		ruleId: string,
 		config: ResolvedConfig | Promise<ResolvedConfig> | null = null,
-		context: unknown | null = null
+		context: unknown | null = null,
 	): Promise<RuleDocumentation | null> {
 		const c = config ?? this.getConfigFor("inline");
 		const engine = new Engine(await c, Parser);
@@ -564,7 +564,7 @@ export class HtmlValidate {
 	public getRuleDocumentationSync(
 		ruleId: string,
 		config: ResolvedConfig | null = null,
-		context: unknown | null = null
+		context: unknown | null = null,
 	): RuleDocumentation | null {
 		const c = config ?? this.getConfigForSync("inline");
 		const engine = new Engine(c, Parser);

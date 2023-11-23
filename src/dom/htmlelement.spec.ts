@@ -53,7 +53,7 @@ describe("HtmlElement", () => {
 		function createTokens(
 			tagName: string,
 			open: boolean = true,
-			selfClose: boolean = false
+			selfClose: boolean = false,
 		): [TagOpenToken, TagCloseToken] {
 			const slash = open ? "" : "/";
 			const startToken: Token = {
@@ -144,7 +144,7 @@ describe("HtmlElement", () => {
 			expect(node.meta).toEqual(
 				expect.objectContaining({
 					tagName: "svg:title",
-				})
+				}),
 			);
 		});
 	});
@@ -368,7 +368,7 @@ describe("HtmlElement", () => {
 				expect.objectContaining({
 					key: "foo",
 					value: "a",
-				})
+				}),
 			);
 		});
 
@@ -401,7 +401,7 @@ describe("HtmlElement", () => {
 				expect.objectContaining({
 					key: "foo",
 					value: "bar",
-				})
+				}),
 			);
 		});
 	});
@@ -880,7 +880,7 @@ describe("HtmlElement", () => {
 			expect.assertions(4);
 			const el = document.querySelectorAll(".bar, li");
 			el.sort(
-				(a: HtmlElement, b: HtmlElement) => a.unique - b.unique
+				(a: HtmlElement, b: HtmlElement) => a.unique - b.unique,
 			); /* selector may give results in any order */
 			expect(el).toHaveLength(3);
 			expect(el[0].tagName).toBe("li");
@@ -1008,14 +1008,14 @@ describe("HtmlElement", () => {
 	it("should throw error if tagName is empty string", () => {
 		expect.assertions(1);
 		expect(() => new HtmlElement("", null, NodeClosed.EndTag, null, location)).toThrow(
-			"The tag name provided ('') is not a valid name"
+			"The tag name provided ('') is not a valid name",
 		);
 	});
 
 	it("should throw error if tagName is asterisk", () => {
 		expect.assertions(1);
 		expect(() => new HtmlElement("*", null, NodeClosed.EndTag, null, location)).toThrow(
-			"The tag name provided ('*') is not a valid name"
+			"The tag name provided ('*') is not a valid name",
 		);
 	});
 });

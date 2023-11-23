@@ -111,7 +111,7 @@ export class MetaTable {
 					obj,
 					this.schema,
 					/* istanbul ignore next: AJV sets .errors when validate returns false */
-					validate.errors ?? []
+					validate.errors ?? [],
 				);
 			}
 
@@ -254,7 +254,7 @@ export class MetaTable {
 		/* special handling when removing attributes by setting them to null
 		 * resulting in the deletion flag being set */
 		const filteredAttrs = Object.entries(
-			merged.attributes as Record<string, MetaAttribute & InternalAttributeFlags>
+			merged.attributes as Record<string, MetaAttribute & InternalAttributeFlags>,
 		).filter(([, attr]) => {
 			const val = !attr.delete;
 			delete attr.delete;
@@ -319,7 +319,7 @@ function evaluateProperty(node: HtmlElement, expr: PropertyExpression): boolean 
 }
 
 function parseExpression(
-	expr: PropertyExpression
+	expr: PropertyExpression,
 ): [PropertyEvaluator, string | [string, string, string]] {
 	if (typeof expr === "string") {
 		return parseExpression([expr, {}]);
@@ -337,7 +337,7 @@ function parseExpression(
 function isDescendantFacade(node: HtmlElement, tagName: any): boolean {
 	if (typeof tagName !== "string") {
 		throw new Error(
-			`Property expression "isDescendant" must take string argument when evaluating metadata for <${node.tagName}>`
+			`Property expression "isDescendant" must take string argument when evaluating metadata for <${node.tagName}>`,
 		);
 	}
 	return isDescendant(node, tagName);
@@ -346,7 +346,7 @@ function isDescendantFacade(node: HtmlElement, tagName: any): boolean {
 function hasAttributeFacade(node: HtmlElement, attr: any): boolean {
 	if (typeof attr !== "string") {
 		throw new Error(
-			`Property expression "hasAttribute" must take string argument when evaluating metadata for <${node.tagName}>`
+			`Property expression "hasAttribute" must take string argument when evaluating metadata for <${node.tagName}>`,
 		);
 	}
 	return hasAttribute(node, attr);
@@ -354,11 +354,11 @@ function hasAttributeFacade(node: HtmlElement, attr: any): boolean {
 
 function matchAttributeFacade(
 	node: HtmlElement,
-	match: string | [string, string, string]
+	match: string | [string, string, string],
 ): boolean {
 	if (!Array.isArray(match) || match.length !== 3) {
 		throw new Error(
-			`Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <${node.tagName}>`
+			`Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <${node.tagName}>`,
 		);
 	}
 	const [key, op, value] = match.map((x) => x.toLowerCase());
@@ -368,7 +368,7 @@ function matchAttributeFacade(
 			return matchAttribute(node, key, op, value);
 		default:
 			throw new Error(
-				`Property expression "matchAttribute" has invalid operator "${op}" when evaluating metadata for <${node.tagName}>`
+				`Property expression "matchAttribute" has invalid operator "${op}" when evaluating metadata for <${node.tagName}>`,
 			);
 	}
 }

@@ -31,7 +31,7 @@ describe("rule attr-delimiter", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"attr-delimiter",
-			"Attribute value must not be delimited by whitespace"
+			"Attribute value must not be delimited by whitespace",
 		);
 	});
 
@@ -42,7 +42,7 @@ describe("rule attr-delimiter", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"attr-delimiter",
-			"Attribute value must not be delimited by whitespace"
+			"Attribute value must not be delimited by whitespace",
 		);
 	});
 
@@ -53,7 +53,7 @@ describe("rule attr-delimiter", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"attr-delimiter",
-			"Attribute value must not be delimited by whitespace"
+			"Attribute value must not be delimited by whitespace",
 		);
 	});
 
@@ -64,7 +64,7 @@ describe("rule attr-delimiter", () => {
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"attr-delimiter",
-			"Attribute value must not be delimited by whitespace"
+			"Attribute value must not be delimited by whitespace",
 		);
 	});
 

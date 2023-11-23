@@ -35,19 +35,19 @@ Omitted end tags can be ambigious for humans to read and many editors have troub
 				this.report(
 					closed,
 					`Element <${closed.tagName}> is implicitly closed by parent </${by.tagName}>`,
-					closed.location
+					closed.location,
 				);
 			} else if (sameTag) {
 				this.report(
 					closed,
 					`Element <${closed.tagName}> is implicitly closed by sibling`,
-					closed.location
+					closed.location,
 				);
 			} else {
 				this.report(
 					closed,
 					`Element <${closed.tagName}> is implicitly closed by adjacent <${by.tagName}>`,
-					closed.location
+					closed.location,
 				);
 			}
 		});

@@ -158,7 +158,7 @@ describe("rule attr-quotes", () => {
 				rules: { "attr-quotes": ["error", { style: "foobar" }] },
 			});
 		}).toThrowErrorMatchingInlineSnapshot(
-			`"Rule configuration error: /rules/attr-quotes/1/style must be equal to one of the allowed values: auto, double, single, any"`
+			`"Rule configuration error: /rules/attr-quotes/1/style must be equal to one of the allowed values: auto, double, single, any"`,
 		);
 	});
 

@@ -65,7 +65,7 @@ it("should give error when using <div> as content", () => {
   expect(report).toBeInvalid();
   expect(report).toHaveError(
     "element-permitted-content",
-    "Element <div> is not permitted as content in <my-component>"
+    "Element <div> is not permitted as content in <my-component>",
   );
 });
 ```

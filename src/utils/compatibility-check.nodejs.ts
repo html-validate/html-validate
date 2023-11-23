@@ -24,7 +24,7 @@ const defaults: CompatibilityOptions = {
 export function compatibilityCheck(
 	name: string,
 	declared: string,
-	options?: Partial<CompatibilityOptions>
+	options?: Partial<CompatibilityOptions>,
 ): boolean {
 	return compatibilityCheckImpl(name, declared, {
 		...defaults,

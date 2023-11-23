@@ -568,7 +568,7 @@ describe("§4 Implicit ARIA Semantics", () => {
 
 		{
 			description: `menu li`,
-			markup: /* HTML */ ` <menu> <li></li> </menu> `,
+			markup: /* HTML */ ` <menu><li></li></menu> `,
 			selector: `li`,
 			role: `listitem`,
 		},

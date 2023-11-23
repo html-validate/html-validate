@@ -59,7 +59,7 @@ it("should not validate", async () => {
 	expect(report).toBeInvalid();
 	expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
 	expect(() => expect(report).toBeValid()).toThrowErrorMatchingInlineSnapshot(
-		`Result should be valid but had error "Inline style is not allowed"`
+		`Result should be valid but had error "Inline style is not allowed"`,
 	);
 });
 

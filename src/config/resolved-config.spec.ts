@@ -178,7 +178,7 @@ describe("transformSource()", () => {
 			],
 		});
 		expect(() => config.transformSource(source)).toThrowErrorMatchingInlineSnapshot(
-			`"When transforming "/path/to/test.foo": Failed to frobnicate a baz"`
+			`"When transforming "/path/to/test.foo": Failed to frobnicate a baz"`,
 		);
 	});
 });

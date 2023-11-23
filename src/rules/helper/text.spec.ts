@@ -140,7 +140,7 @@ describe("classifyNodeText()", () => {
 			const markup = /* HTML */ ` <p hidden>lorem ipsum</p> `;
 			const node = parser.parseHtml(markup).querySelector("p")!;
 			expect(classifyNodeText(node, { ignoreHiddenRoot: true })).toEqual(
-				TextClassification.STATIC_TEXT
+				TextClassification.STATIC_TEXT,
 			);
 		});
 
@@ -153,7 +153,7 @@ describe("classifyNodeText()", () => {
 			`;
 			const node = parser.parseHtml(markup).querySelector("p")!;
 			expect(classifyNodeText(node, { ignoreHiddenRoot: true })).toEqual(
-				TextClassification.EMPTY_TEXT
+				TextClassification.EMPTY_TEXT,
 			);
 		});
 
@@ -166,7 +166,7 @@ describe("classifyNodeText()", () => {
 			`;
 			const node = parser.parseHtml(markup).querySelector("p")!;
 			expect(classifyNodeText(node, { ignoreHiddenRoot: true })).toEqual(
-				TextClassification.STATIC_TEXT
+				TextClassification.STATIC_TEXT,
 			);
 		});
 
@@ -181,7 +181,7 @@ describe("classifyNodeText()", () => {
 			`;
 			const node = parser.parseHtml(markup).querySelector("p")!;
 			expect(classifyNodeText(node, { ignoreHiddenRoot: true })).toEqual(
-				TextClassification.STATIC_TEXT
+				TextClassification.STATIC_TEXT,
 			);
 		});
 	});

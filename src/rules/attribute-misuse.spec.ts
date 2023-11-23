@@ -65,7 +65,7 @@ describe("rule attribute-misuse", () => {
 			context,
 		});
 		expect(docs?.description).toMatchInlineSnapshot(
-			`"The \`foo\` attribute cannot be used on \`<my-element>\` in this context: lorem ipsum"`
+			`"The \`foo\` attribute cannot be used on \`<my-element>\` in this context: lorem ipsum"`,
 		);
 	});
 });

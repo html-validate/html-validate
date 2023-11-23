@@ -13,7 +13,7 @@ describe("rule svg-focusable", () => {
 	it("should not report when <svg> has focusable attribute", () => {
 		expect.assertions(1);
 		const report = htmlvalidate.validateString(
-			['<svg focusable="false"></svg>', '<svg focusable="true"></svg>'].join("\n")
+			['<svg focusable="false"></svg>', '<svg focusable="true"></svg>'].join("\n"),
 		);
 		expect(report).toBeValid();
 	});
