@@ -816,13 +816,13 @@ export class NestedError extends Error {
 // @public (undocumented)
 export enum NodeClosed {
     // (undocumented)
-    EndTag = 1,
+    EndTag = 1,//            element wasn't closed
     // (undocumented)
-    ImplicitClosed = 4,
+    ImplicitClosed = 4,//          element closed with end tag <p>...</p>
     // (undocumented)
-    Open = 0,
+    Open = 0,//     void element with omitted end tag <input>
     // (undocumented)
-    VoidOmitted = 2,
+    VoidOmitted = 2,//  self-closed void element <input/>
     // (undocumented)
     VoidSelfClosed = 3
 }
