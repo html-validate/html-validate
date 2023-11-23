@@ -67,7 +67,6 @@ Build:
 
 pages:
   stage: build
-  image: node:20
   artifacts:
     paths:
       - public
@@ -127,7 +126,6 @@ Prettier:
 
 Docs:
   stage: test
-  image: node:20
   artifacts:
     reports:
       junit: temp/jest.xml
