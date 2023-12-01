@@ -111,8 +111,6 @@ export interface ConditionalToken extends BaseToken {
 
 // @public
 export class Config {
-    // @internal
-    constructor(resolvers: Resolver | Resolver[], options: ConfigData);
     static defaultConfig(): Config;
     static empty(): Config;
     // @internal

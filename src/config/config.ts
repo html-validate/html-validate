@@ -97,7 +97,7 @@ export class Config {
 	 * Create a new blank configuration. See also `Config.defaultConfig()`.
 	 */
 	public static empty(): Config {
-		return new Config([], {
+		return Config.create([], {
 			extends: [],
 			rules: {},
 			plugins: [],
@@ -114,7 +114,7 @@ export class Config {
 		filename: string | null = null,
 	): Config {
 		Config.validate(options, filename);
-		return new Config(resolvers, options);
+		return Config.create(resolvers, options);
 	}
 
 	/**
@@ -165,13 +165,41 @@ export class Config {
 	 * Load a default configuration object.
 	 */
 	public static defaultConfig(): Config {
-		return new Config([], defaultConfig);
+		return Config.create([], defaultConfig);
 	}
 
 	/**
 	 * @internal
 	 */
-	public constructor(resolvers: Resolver | Resolver[], options: ConfigData) {
+	private static create(resolvers: Resolver | Resolver[], options: ConfigData): Config {
+		const instance = new Config(resolvers, options);
+
+		/* load plugins */
+		instance.plugins = instance.loadPlugins(instance.config.plugins ?? []);
+		instance.configurations = instance.loadConfigurations(instance.plugins);
+		instance.extendMeta(instance.plugins);
+
+		/* process extended configs */
+		instance.config = instance.extendConfig(instance.config.extends ?? []);
+
+		/* reset extends as we already processed them, this prevents the next config
+		 * from reapplying config from extended config as well as duplicate entries
+		 * when merging arrays */
+		instance.config.extends = [];
+
+		/* rules explicitly set by passed options should have precedence over any
+		 * extended rules, not the other way around. */
+		if (options.rules) {
+			instance.config = mergeInternal(instance.config, { rules: options.rules });
+		}
+
+		return instance;
+	}
+
+	/**
+	 * @internal
+	 */
+	private constructor(resolvers: Resolver | Resolver[], options: ConfigData) {
 		const initial: ConfigData = {
 			extends: [],
 			plugins: [],
@@ -179,29 +207,11 @@ export class Config {
 			transform: {},
 		};
 		this.config = mergeInternal(initial, options);
-		this.metaTable = null;
+		this.configurations = new Map();
 		this.initialized = false;
-
 		this.resolvers = toArray(resolvers);
-
-		/* load plugins */
-		this.plugins = this.loadPlugins(this.config.plugins ?? []);
-		this.configurations = this.loadConfigurations(this.plugins);
-		this.extendMeta(this.plugins);
-
-		/* process extended configs */
-		this.config = this.extendConfig(this.config.extends ?? []);
-
-		/* reset extends as we already processed them, this prevents the next config
-		 * from reapplying config from extended config as well as duplicate entries
-		 * when merging arrays */
-		this.config.extends = [];
-
-		/* rules explicitly set by passed options should have precedence over any
-		 * extended rules, not the other way around. */
-		if (options.rules) {
-			this.config = mergeInternal(this.config, { rules: options.rules });
-		}
+		this.metaTable = null;
+		this.plugins = [];
 	}
 
 	/**
@@ -238,7 +248,7 @@ export class Config {
 	 * @param rhs - Configuration to merge with this one.
 	 */
 	public merge(resolvers: Resolver[], rhs: Config): Config {
-		return new Config(resolvers, mergeInternal(this.config, rhs.config));
+		return Config.create(resolvers, mergeInternal(this.config, rhs.config));
 	}
 
 	private extendConfig(entries: string[]): ConfigData {
