@@ -109,6 +109,7 @@ export async function apiExtractor(patterns) {
 	}
 
 	for (const filename of filenames) {
+		console.log("Running", filename);
 		const config = ExtractorConfig.loadFileAndPrepare(filename);
 		const result = Extractor.invoke(config, {
 			localBuild: !isCI,
@@ -126,5 +127,8 @@ export async function apiExtractor(patterns) {
 		}
 
 		await patchAugmentations(config);
+
+		/* intentional blank line */
+		console.log();
 	}
 }

@@ -7,6 +7,10 @@
     "reportFileName": "test-utils.api.md"
   },
 
+  "docModel": {
+    "apiJsonFilePath": "<projectFolder>/temp/test-utils.api.json"
+  },
+
   "dtsRollup": {
     "publicTrimmedFilePath": "<projectFolder>/dist/types/test-utils.d.ts"
   },

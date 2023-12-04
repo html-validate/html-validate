@@ -7,6 +7,10 @@
     "reportFileName": "vitest.api.md"
   },
 
+  "docModel": {
+    "apiJsonFilePath": "<projectFolder>/temp/vitest.api.json"
+  },
+
   "dtsRollup": {
     "publicTrimmedFilePath": "<projectFolder>/dist/types/vitest.d.ts"
   }

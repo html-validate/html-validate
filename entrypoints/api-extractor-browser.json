@@ -7,6 +7,10 @@
     "reportFileName": "browser.api.md"
   },
 
+  "docModel": {
+    "apiJsonFilePath": "<projectFolder>/temp/browser.api.json"
+  },
+
   "dtsRollup": {
     "publicTrimmedFilePath": "<projectFolder>/dist/types/browser.d.ts"
   }

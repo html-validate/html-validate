@@ -7,6 +7,10 @@
     "reportFileName": "jest.api.md"
   },
 
+  "docModel": {
+    "apiJsonFilePath": "<projectFolder>/temp/jest.api.json"
+  },
+
   "dtsRollup": {
     "publicTrimmedFilePath": "<projectFolder>/dist/types/jest.d.ts"
   }
