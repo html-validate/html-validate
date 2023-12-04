@@ -56,27 +56,27 @@ describe("rule no-unused-disable", () => {
 		htmlvalidate = new HtmlValidate(loader);
 	});
 
-	it("should not report error when disable-block is used to disable reported error", () => {
+	it("should not report error when disable-block is used to disable reported error", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<!-- [html-validate-disable-block direct, indirect] -->
 			<div attr></div>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when disable-next is used to disable reported error", () => {
+	it("should not report error when disable-next is used to disable reported error", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<!-- [html-validate-disable-next direct, indirect] -->
 			<div attr></div>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when no-unused-disable is disabled by itself", () => {
+	it("should not report error when no-unused-disable is disabled by itself", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<main>
@@ -87,11 +87,11 @@ describe("rule no-unused-disable", () => {
 			<!-- [html-validate-disable-next direct, indirect, no-unused-disable] -->
 			<p></p>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should report error when disable-block is used to disable unused error", () => {
+	it("should report error when disable-block is used to disable unused error", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<main>
@@ -102,7 +102,7 @@ describe("rule no-unused-disable", () => {
 			<!-- these errors should still be reported but not affect the above disable -->
 			<div attr></div>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: "direct" rule is disabled but no error was reported (no-unused-disable) at inline:3:39:
@@ -140,7 +140,7 @@ describe("rule no-unused-disable", () => {
 		`);
 	});
 
-	it("should report error when disable-next is used to disable unused error", () => {
+	it("should report error when disable-next is used to disable unused error", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<!-- [html-validate-disable-next direct, indirect] -->
@@ -149,7 +149,7 @@ describe("rule no-unused-disable", () => {
 			<!-- these errors should still be reported but not affect the above disable -->
 			<div attr></div>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: "direct" rule is disabled but no error was reported (no-unused-disable) at inline:2:37:
@@ -185,13 +185,13 @@ describe("rule no-unused-disable", () => {
 		`);
 	});
 
-	it("should report correct location for multiple rules", () => {
+	it("should report correct location for multiple rules", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<!-- [html-validate-disable-next direct, indirect, element-case] -->
 			<p></p>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: "direct" rule is disabled but no error was reported (no-unused-disable) at inline:2:37:
