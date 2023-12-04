@@ -49,7 +49,7 @@ describe("rule deprecated-rule", () => {
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when no deprecated rule is disabled", () => {
+	it("should not report error when no deprecated rule is disabled", async () => {
 		expect.assertions(1);
 		const loader = new StaticConfigLoader([resolver], {
 			plugins: ["my-plugin"],
@@ -59,11 +59,11 @@ describe("rule deprecated-rule", () => {
 			},
 		});
 		const htmlvalidate = new HtmlValidate(loader);
-		const report = htmlvalidate.validateString("<div></div>");
+		const report = await htmlvalidate.validateString("<div></div>");
 		expect(report).toBeValid();
 	});
 
-	it("should report error when a rule is deprecated", () => {
+	it("should report error when a rule is deprecated", async () => {
 		expect.assertions(2);
 		const loader = new StaticConfigLoader([resolver], {
 			plugins: ["my-plugin"],
@@ -73,7 +73,7 @@ describe("rule deprecated-rule", () => {
 			},
 		});
 		const htmlvalidate = new HtmlValidate(loader);
-		const report = htmlvalidate.validateString("<div></div>");
+		const report = await htmlvalidate.validateString("<div></div>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("deprecated-rule", 'Usage of deprecated rule "custom/deprecated"');
 	});
