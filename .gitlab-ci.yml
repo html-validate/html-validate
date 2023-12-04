@@ -50,9 +50,11 @@ Build:
   stage: build
   artifacts:
     name: ${CI_PROJECT_PATH_SLUG}-${CI_PIPELINE_ID}-build
+    when: always
     paths:
       - dist/
-      - src/generated
+      - src/generated/
+      - temp/
   script:
     - npm run --if-present build
     - npm pack
