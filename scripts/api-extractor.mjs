@@ -28,6 +28,9 @@ async function patchAugmentations(config) {
 		return;
 	}
 
+	/* create folder if it doesn't exist */
+	await fs.mkdir("temp", { recursive: true });
+
 	/**
 	 * @returns {Promise<{filename: string[], content: string}>}
 	 */
