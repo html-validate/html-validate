@@ -6,7 +6,7 @@
   },
   "files": [],
   "devDependencies": {
-    "vite": "4.4.9",
+    "vite": "4.4.12",
     "vitest": "0.34.6"
   }
 }
