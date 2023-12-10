@@ -22,20 +22,29 @@ export interface Resolver {
 	/**
 	 * Resolve table of element metadata.
 	 */
-	resolveElements?(id: string, options: ResolverOptions): MetaDataTable | null;
+	resolveElements?(
+		id: string,
+		options: ResolverOptions,
+	): MetaDataTable | Promise<MetaDataTable | null> | null;
 
 	/**
 	 * Resolve a configuration to extend.
 	 */
-	resolveConfig?(id: string, options: ResolverOptions): ConfigData | null;
+	resolveConfig?(
+		id: string,
+		options: ResolverOptions,
+	): ConfigData | Promise<ConfigData | null> | null;
 
 	/**
 	 * Resolve a plugin.
 	 */
-	resolvePlugin?(id: string, options: ResolverOptions): Plugin | null;
+	resolvePlugin?(id: string, options: ResolverOptions): Plugin | Promise<Plugin | null> | null;
 
 	/**
 	 * Resolve a transformer.
 	 */
-	resolveTransformer?(id: string, options: ResolverOptions): Transformer | null;
+	resolveTransformer?(
+		id: string,
+		options: ResolverOptions,
+	): Transformer | Promise<Transformer | null> | null;
 }

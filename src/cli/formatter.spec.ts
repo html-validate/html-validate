@@ -41,7 +41,7 @@ const report: Report = {
 
 let cli: CLI;
 
-beforeEach(() => {
+beforeEach(async () => {
 	vol.fromJSON({
 		"./package.json": "{}",
 	});

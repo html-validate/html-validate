@@ -1033,10 +1033,10 @@ export interface ResolvedConfigData {
 // @public (undocumented)
 export interface Resolver {
     name: string;
-    resolveConfig?(id: string, options: ResolverOptions): ConfigData | null;
-    resolveElements?(id: string, options: ResolverOptions): MetaDataTable | null;
-    resolvePlugin?(id: string, options: ResolverOptions): Plugin_2 | null;
-    resolveTransformer?(id: string, options: ResolverOptions): Transformer_2 | null;
+    resolveConfig?(id: string, options: ResolverOptions): ConfigData | Promise<ConfigData | null> | null;
+    resolveElements?(id: string, options: ResolverOptions): MetaDataTable | Promise<MetaDataTable | null> | null;
+    resolvePlugin?(id: string, options: ResolverOptions): Plugin_2 | Promise<Plugin_2 | null> | null;
+    resolveTransformer?(id: string, options: ResolverOptions): Transformer_2 | Promise<Transformer_2 | null> | null;
 }
 
 // @public (undocumented)

@@ -110,7 +110,12 @@ export class ResolvedConfig {
 		if (!transformer) {
 			return Promise.resolve([source]);
 		}
-		const fn = getCachedTransformerFunction(this.cache, resolvers, transformer.name, this.plugins);
+		const fn = await getCachedTransformerFunction(
+			this.cache,
+			resolvers,
+			transformer.name,
+			this.plugins,
+		);
 		try {
 			const result = fn.call(context, source);
 			const transformedSources = Array.from(await result);
@@ -153,6 +158,9 @@ export class ResolvedConfig {
 			return [source];
 		}
 		const fn = getCachedTransformerFunction(this.cache, resolvers, transformer.name, this.plugins);
+		if (isThenable(fn)) {
+			throw new UserError("Cannot use async transformer from sync function");
+		}
 		try {
 			const result = fn.call(context, source);
 			if (isThenable(result)) {
