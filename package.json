@@ -260,7 +260,7 @@
     }
   },
   "engines": {
-    "node": ">= 16.0"
+    "node": ">= 16.14"
   },
   "externalDependencies": [
     "@babel/code-frame",
