@@ -263,9 +263,6 @@
   "engines": {
     "node": ">= 16.14"
   },
-  "overrides": {
-    "marked": "$marked"
-  },
   "externalDependencies": [
     "@babel/code-frame",
     "@html-validate/stylish",
@@ -277,6 +274,9 @@
     "prompts",
     "semver"
   ],
+  "overrides": {
+    "marked": "$marked"
+  },
   "renovate": {
     "extends": [
       "gitlab>html-validate/renovate-config"
