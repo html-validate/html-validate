@@ -31,10 +31,10 @@ export interface CLIOptions {
 	rules?: string | string[];
 }
 
-function getBaseConfig(preset?: string, filename?: string): ConfigData {
+async function getBaseConfig(preset?: string, filename?: string): Promise<ConfigData> {
 	if (filename) {
 		const resolver = cjsResolver();
-		const configData = resolver.resolveConfig(path.resolve(filename), { cache: false });
+		const configData = await resolver.resolveConfig(path.resolve(filename), { cache: false });
 		if (!configData) {
 			throw new UserError(`Failed to read configuration from "${filename}"`);
 		}
@@ -136,11 +136,11 @@ export class CLI {
 	/**
 	 * @internal
 	 */
-	public getConfig(): Promise<ConfigData> {
+	public async getConfig(): Promise<ConfigData> {
 		if (!this.config) {
-			this.config = this.resolveConfig();
+			this.config = await this.resolveConfig();
 		}
-		return Promise.resolve(this.config);
+		return this.config;
 	}
 
 	/**
@@ -151,9 +151,9 @@ export class CLI {
 		return this.ignored.isIgnored(filename);
 	}
 
-	private resolveConfig(): ConfigData {
+	private async resolveConfig(): Promise<ConfigData> {
 		const { options } = this;
-		const config = getBaseConfig(options.preset, options.configFile);
+		const config = await getBaseConfig(options.preset, options.configFile);
 		if (options.rules) {
 			if (!options.preset) {
 				config.extends = [];

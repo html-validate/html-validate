@@ -187,7 +187,7 @@ describe("CLI", () => {
 			const cli = new CLI({
 				configFile: "missing-file.js",
 			});
-			expect(() => cli.getConfig()).toThrowErrorMatchingInlineSnapshot(
+			await expect(() => cli.getConfig()).rejects.toThrowErrorMatchingInlineSnapshot(
 				`"Failed to read configuration from "missing-file.js""`,
 			);
 		});

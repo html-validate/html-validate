@@ -137,7 +137,11 @@ export class Config {
 		filename: string,
 	): Config | Promise<Config> {
 		const configData = resolveConfig(toArray(resolvers), filename, { cache: false });
-		return Config.fromObject(resolvers, configData, filename);
+		if (isThenable(configData)) {
+			return configData.then((configData) => Config.fromObject(resolvers, configData, filename));
+		} else {
+			return Config.fromObject(resolvers, configData, filename);
+		}
 	}
 
 	/**

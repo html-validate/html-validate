@@ -111,7 +111,7 @@ export class ResolvedConfig {
 		}
 		const fn =
 			transformer.kind === "import"
-				? getCachedTransformerFunction(this.cache, resolvers, transformer.name, this.plugins)
+				? await getCachedTransformerFunction(this.cache, resolvers, transformer.name, this.plugins)
 				: transformer.function;
 		const name = transformer.kind === "import" ? transformer.name : transformer.function.name;
 		try {
@@ -142,6 +142,9 @@ export class ResolvedConfig {
 	 * transformer. Default is to use filename from source.
 	 * @returns A list of transformed sources ready for validation.
 	 */
+	/* eslint-disable-next-line complexity -- there is many ifs'n buts here but
+	 * hard to break this down without loosing the little clarity that is still
+	 * left */
 	public transformSourceSync(resolvers: Resolver[], source: Source, filename?: string): Source[] {
 		const transformer = this.findTransformer(filename ?? source.filename);
 		const context: TransformContext = {
@@ -160,6 +163,9 @@ export class ResolvedConfig {
 				? getCachedTransformerFunction(this.cache, resolvers, transformer.name, this.plugins)
 				: transformer.function;
 		const name = transformer.kind === "import" ? transformer.name : transformer.function.name;
+		if (isThenable(fn)) {
+			throw new UserError("Cannot use async transformer from sync function");
+		}
 		try {
 			const result = fn.call(context, source);
 			if (isThenable(result)) {

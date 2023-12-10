@@ -29,6 +29,25 @@ it("should load transformer from path with <rootDir>", () => {
 	expect(transformer).toEqual(require("mock-transform")); // eslint-disable-line @typescript-eslint/no-var-requires -- for now
 });
 
+it("should load async transformer", async () => {
+	expect.assertions(1);
+	function mockTransformer(value: Source): Source[] {
+		return [value];
+	}
+	mockTransformer.api = 1;
+	const resolvers = [
+		{
+			name: "async-resolver",
+			resolveTransformer() {
+				return Promise.resolve(mockTransformer);
+			},
+		},
+	];
+	const name = "async-transformer";
+	const transformer = await getTransformerFunction(resolvers, name, []);
+	expect(transformer).toEqual(mockTransformer);
+});
+
 describe("should load transformer from plugins", () => {
 	function mockTransform(): Source[] {
 		return [];
