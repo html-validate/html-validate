@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## [8.7.4](https://gitlab.com/html-validate/html-validate/compare/v8.7.3...v8.7.4) (2023-12-10)
+
+### Bug Fixes
+
+- **deps:** pin @sidvind/better-ajv-errors ([94f778b](https://gitlab.com/html-validate/html-validate/commit/94f778b9748bea0c9de7f4201d45ec196f1c8d31)), closes [#231](https://gitlab.com/html-validate/html-validate/issues/231)
+- **deps:** support vitest v1 ([4cc4d23](https://gitlab.com/html-validate/html-validate/commit/4cc4d233724fa8dfaab5a8c4f83d297d2851ee8b))
+
 ## [8.7.3](https://gitlab.com/html-validate/html-validate/compare/v8.7.2...v8.7.3) (2023-11-23)
 
 ### Bug Fixes
