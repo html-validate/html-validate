@@ -225,9 +225,15 @@ Vitest compat:
   stage: compatibility
   dependencies: []
   needs: []
+  parallel:
+    matrix:
+      - VERSION:
+          - 0
+          - 1
   before_script:
     - npm ci --no-fund --no-audit --no-update-notifier
     - npm run build
+    - npm install --no-save @types/node@18 $(npx -y npm-min-peer vitest --major ${VERSION} --with-name)
   script:
     - npm run -w tests/vitest test
 
