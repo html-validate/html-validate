@@ -1,6 +1,4 @@
 import Ajv from "ajv";
-import { SchemaValidationError } from "../../error";
-import { stripAnsi } from "../../jest/utils";
 import { ajvRegexpKeyword } from "./regexp";
 
 const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
@@ -33,26 +31,5 @@ it("should fail if value it not regex", () => {
 		    "schemaPath": "#/regexp",
 		  },
 		]
-	`);
-});
-
-it("should be supported by SchemaValidationError", () => {
-	expect.assertions(1);
-	const schema = { regexp: true };
-	const validate = ajv.compile(schema);
-	const data = "foo";
-	validate(data);
-	const error = new SchemaValidationError(
-		"mock-filename",
-		`Mock message`,
-		data,
-		schema,
-		validate.errors ?? [],
-	);
-	expect(stripAnsi(error.prettyError())).toMatchInlineSnapshot(`
-		"TYPE should be a regular expression
-
-		> 1 | "foo"
-		    | ^^^^^ 👈🏽  type should be a regular expression"
 	`);
 });

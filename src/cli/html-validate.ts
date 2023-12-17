@@ -6,6 +6,7 @@ import minimist from "minimist";
 import { SchemaValidationError, UserError } from "..";
 import { name, version, bugs as pkgBugs } from "../generated/package";
 import { CLI } from "./cli";
+import { handleSchemaValidationError } from "./errors";
 import { Mode, modeToFlag } from "./mode";
 import { lint } from "./actions/lint";
 import { init } from "./actions/init";
@@ -71,20 +72,6 @@ function requiresFilename(mode: Mode): boolean {
 		case Mode.PRINT_CONFIG:
 			return true;
 	}
-}
-
-function handleValidationError(err: SchemaValidationError): void {
-	if (err.filename) {
-		const filename = path.relative(process.cwd(), err.filename);
-		console.log(kleur.red(`A configuration error was found in "${filename}":`));
-	} else {
-		console.log(kleur.red(`A configuration error was found:`));
-	}
-	console.group();
-	{
-		console.log(err.prettyError());
-	}
-	console.groupEnd();
 }
 
 function handleUserError(err: UserError): void {
@@ -276,7 +263,7 @@ async function run(): Promise<void> {
 		process.exit(success ? 0 : 1);
 	} catch (err) {
 		if (err instanceof SchemaValidationError) {
-			handleValidationError(err);
+			handleSchemaValidationError(console, err);
 		} else if (err instanceof UserError) {
 			handleUserError(err);
 		} else {

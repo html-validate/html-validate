@@ -1,4 +1,3 @@
-import fs from "fs";
 import betterAjvErrors from "@sidvind/better-ajv-errors";
 import { type ErrorObject, type SchemaObject } from "ajv";
 import { UserError } from "./user-error";
@@ -15,10 +14,14 @@ function getSummary(schema: any, obj: any, errors: ErrorObject[]): string {
  * @public
  */
 export class SchemaValidationError extends UserError {
-	public filename: string | null;
-	private obj: unknown;
-	private schema: SchemaObject;
-	private errors: ErrorObject[];
+	/** Configuration filename the error originates from */
+	public readonly filename: string | null;
+	/** Configuration object the error originates from */
+	public readonly obj: unknown;
+	/** JSON schema used when validating the configuration */
+	public readonly schema: SchemaObject;
+	/** List of schema validation errors */
+	public readonly errors: ErrorObject[];
 
 	public constructor(
 		filename: string | null,
@@ -34,22 +37,5 @@ export class SchemaValidationError extends UserError {
 		this.obj = obj;
 		this.schema = schema;
 		this.errors = errors;
-	}
-
-	public prettyError(): string {
-		const json = this.getRawJSON();
-		return betterAjvErrors(this.schema, this.obj, this.errors, {
-			format: "cli",
-			indent: 2,
-			json,
-		});
-	}
-
-	private getRawJSON(): string | null {
-		if (this.filename && fs.existsSync(this.filename)) {
-			return fs.readFileSync(this.filename, "utf-8");
-		} else {
-			return null;
-		}
 	}
 }
