@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should handle function keyword: stderr 1`] = `
+"A configuration error was found in "src/cli/errors/__fixtures__/invalid.json":
+  TYPE should be a function
+  
+    1 | {
+  > 2 |   "foo": [1, 2, 3],
+      |          ^^^^^^^^^ 👈🏽  type should be a function
+    3 |   "bar": "baz"
+    4 | }
+    5 |
+"
+`;
+
+exports[`should handle function keyword: stdout 1`] = `""`;
+
+exports[`should handle regexp keyword: stderr 1`] = `
+"A configuration error was found in "src/cli/errors/__fixtures__/invalid.json":
+  TYPE should be a regular expression
+  
+    1 | {
+  > 2 |   "foo": [1, 2, 3],
+      |          ^^^^^^^^^ 👈🏽  type should be a regular expression
+    3 |   "bar": "baz"
+    4 | }
+    5 |
+"
+`;
+
+exports[`should handle regexp keyword: stdout 1`] = `""`;
+
+exports[`should handle when filename does not exist: stderr 1`] = `
+"A configuration error was found in "missing-file.json":
+  TYPE must be string
+  
+    1 | {
+  > 2 |   "foo": [
+      |          ^
+  > 3 |     1,
+      | ^^^^^^
+  > 4 |     2,
+      | ^^^^^^
+  > 5 |     3
+      | ^^^^^^
+  > 6 |   ],
+      | ^^^^ 👈🏽  type must be string
+    7 |   "bar": "baz"
+    8 | }
+"
+`;
+
+exports[`should handle when filename does not exist: stdout 1`] = `""`;
+
+exports[`should handle when filename is missing: stderr 1`] = `
+"A configuration error was found:
+  TYPE must be string
+  
+    1 | {
+  > 2 |   "foo": [
+      |          ^
+  > 3 |     1,
+      | ^^^^^^
+  > 4 |     2,
+      | ^^^^^^
+  > 5 |     3
+      | ^^^^^^
+  > 6 |   ],
+      | ^^^^ 👈🏽  type must be string
+    7 |   "bar": "baz"
+    8 | }
+"
+`;
+
+exports[`should handle when filename is missing: stdout 1`] = `""`;
+
+exports[`should present error in pretty format: stderr 1`] = `
+"A configuration error was found in "src/cli/errors/__fixtures__/invalid.json":
+  TYPE must be string
+  
+    1 | {
+  > 2 |   "foo": [1, 2, 3],
+      |          ^^^^^^^^^ 👈🏽  type must be string
+    3 |   "bar": "baz"
+    4 | }
+    5 |
+"
+`;
+
+exports[`should present error in pretty format: stdout 1`] = `""`;

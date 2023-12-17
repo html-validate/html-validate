@@ -1095,10 +1095,10 @@ export { SchemaObject }
 // @public (undocumented)
 export class SchemaValidationError extends UserError {
     constructor(filename: string | null, message: string, obj: unknown, schema: SchemaObject, errors: ErrorObject[]);
-    // (undocumented)
-    filename: string | null;
-    // (undocumented)
-    prettyError(): string;
+    readonly errors: ErrorObject[];
+    readonly filename: string | null;
+    readonly obj: unknown;
+    readonly schema: SchemaObject;
 }
 
 // @public (undocumented)
