@@ -1072,7 +1072,7 @@ export interface ResolvedConfigData {
 export interface Resolver {
     name: string;
     resolveConfig?(id: string, options: ResolverOptions): ConfigData | null;
-    resolveElements?(id: string, options: ResolverOptions): unknown | null;
+    resolveElements?(id: string, options: ResolverOptions): MetaDataTable | null;
     resolvePlugin?(id: string, options: ResolverOptions): Plugin_2 | null;
     resolveTransformer?(id: string, options: ResolverOptions): Transformer_2 | null;
 }

@@ -1,4 +1,5 @@
 import path from "node:path";
+import { type MetaDataTable } from "../../../meta";
 import { type Plugin } from "../../../plugin";
 import { legacyRequire } from "../../../resolve";
 import { type Transformer } from "../../../transform";
@@ -68,7 +69,7 @@ export function nodejsResolver(options: { rootDir?: string } = {}): NodeJSResolv
 	return {
 		name: "nodejs-resolver",
 
-		resolveElements(id: string, options: ResolverOptions): unknown | null {
+		resolveElements(id: string, options: ResolverOptions): MetaDataTable | null {
 			return internalRequire(id, options);
 		},
 

@@ -1,3 +1,4 @@
+import { type MetaDataTable } from "../../meta";
 import { type Plugin } from "../../plugin";
 import { type Transformer } from "../../transform";
 import { type ConfigData } from "../config-data";
@@ -21,7 +22,7 @@ export interface Resolver {
 	/**
 	 * Resolve table of element metadata.
 	 */
-	resolveElements?(id: string, options: ResolverOptions): unknown | null;
+	resolveElements?(id: string, options: ResolverOptions): MetaDataTable | null;
 
 	/**
 	 * Resolve a configuration to extend.

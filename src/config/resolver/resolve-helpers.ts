@@ -1,4 +1,5 @@
 import { UserError } from "../../error";
+import { type MetaDataTable } from "../../meta";
 import { type Plugin } from "../../plugin";
 import { type Transformer } from "../../transform";
 import { type ConfigData } from "../config-data";
@@ -53,7 +54,7 @@ export function resolveElements(
 	resolvers: Resolver[],
 	id: string,
 	options: ResolverOptions,
-): unknown {
+): MetaDataTable {
 	for (const resolver of resolvers.filter(haveElementsResolver)) {
 		const elements = resolver.resolveElements(id, options);
 		if (elements) {

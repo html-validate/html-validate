@@ -1,4 +1,5 @@
 import { Source } from "../../context";
+import { type MetaDataTable } from "../../meta";
 import { type Plugin } from "../../plugin";
 import { type Transformer } from "../../transform";
 import { type ConfigData } from "../config-data";
@@ -25,10 +26,10 @@ function mockConfigResolver(givenId: string, config: ConfigData): Resolver {
 	};
 }
 
-function mockElementsResolver(givenId: string, elements: unknown): Resolver {
+function mockElementsResolver(givenId: string, elements: MetaDataTable): Resolver {
 	return {
 		name: "mock-elements-resolver",
-		resolveElements(id: string): unknown | null {
+		resolveElements(id: string): MetaDataTable | null {
 			return id === givenId ? elements : null;
 		},
 	};
@@ -122,9 +123,9 @@ describe("resolveElements()", () => {
 	it("should throw error if no entry matches", () => {
 		expect.assertions(1);
 		const resolvers = [
-			mockElementsResolver("foo", { foo: "error" }),
-			mockElementsResolver("bar", { bar: "error" }),
-			mockElementsResolver("baz", { foo: "error" }),
+			mockElementsResolver("foo", { foo: {} }),
+			mockElementsResolver("bar", { bar: {} }),
+			mockElementsResolver("baz", { foo: {} }),
 		];
 		expect(() => {
 			return resolveElements(resolvers, "spam", { cache: false });
