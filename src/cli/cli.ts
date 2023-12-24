@@ -45,7 +45,7 @@ function getBaseConfig(filename?: string): ConfigData {
 export class CLI {
 	private options: CLIOptions;
 	private config: ConfigData;
-	private loader: ConfigLoader;
+	private loader: ConfigLoader | null;
 	private ignored: IsIgnored;
 
 	/**
@@ -57,7 +57,7 @@ export class CLI {
 	public constructor(options?: CLIOptions) {
 		this.options = options ?? {};
 		this.config = this.resolveConfig();
-		this.loader = new FileSystemConfigLoader(this.config);
+		this.loader = null;
 		this.ignored = new IsIgnored();
 	}
 
@@ -101,7 +101,9 @@ export class CLI {
 	 */
 	/* istanbul ignore next: each method is tested separately */
 	public clearCache(): void {
-		this.loader.flushCache();
+		if (this.loader) {
+			this.loader.flushCache();
+		}
 		this.ignored.clearCache();
 	}
 
@@ -112,6 +114,9 @@ export class CLI {
 	 * @internal
 	 */
 	public getLoader(): ConfigLoader {
+		if (!this.loader) {
+			this.loader = new FileSystemConfigLoader(this.getConfig());
+		}
 		return this.loader;
 	}
 
