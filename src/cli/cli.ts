@@ -44,7 +44,7 @@ function getBaseConfig(filename?: string): ConfigData {
  */
 export class CLI {
 	private options: CLIOptions;
-	private config: ConfigData;
+	private config: ConfigData | null;
 	private loader: ConfigLoader | null;
 	private ignored: IsIgnored;
 
@@ -56,7 +56,7 @@ export class CLI {
 	 */
 	public constructor(options?: CLIOptions) {
 		this.options = options ?? {};
-		this.config = this.resolveConfig();
+		this.config = null;
 		this.loader = null;
 		this.ignored = new IsIgnored();
 	}
@@ -135,6 +135,9 @@ export class CLI {
 	 * @internal
 	 */
 	public getConfig(): ConfigData {
+		if (!this.config) {
+			this.config = this.resolveConfig();
+		}
 		return this.config;
 	}
 

@@ -125,12 +125,10 @@ describe("CLI", () => {
 
 		it("should throw helpful error message if file cant be loaded", () => {
 			expect.assertions(1);
-			const cli = (): CLI => {
-				return new CLI({
-					configFile: "missing-file.js",
-				});
-			};
-			expect(cli).toThrowErrorMatchingInlineSnapshot(
+			const cli = new CLI({
+				configFile: "missing-file.js",
+			});
+			expect(() => cli.getConfig()).toThrowErrorMatchingInlineSnapshot(
 				`"Failed to read configuration from "missing-file.js""`,
 			);
 		});
