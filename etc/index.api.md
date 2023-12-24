@@ -97,7 +97,7 @@ export class CLI {
     // @internal (undocumented)
     getConfig(): ConfigData;
     // (undocumented)
-    getFormatter(formatters: string): (report: Report) => string;
+    getFormatter(formatters: string): (report: Report_2) => string;
     // @internal
     getLoader(): ConfigLoader;
     getValidator(): HtmlValidate;
@@ -635,38 +635,38 @@ export class HtmlValidate {
     getRuleDocumentation(ruleId: string, config?: ResolvedConfig | Promise<ResolvedConfig> | null, context?: unknown | null): Promise<RuleDocumentation | null>;
     // @deprecated
     getRuleDocumentationSync(ruleId: string, config?: ResolvedConfig | null, context?: unknown | null): RuleDocumentation | null;
-    validateFile(filename: string): Promise<Report>;
-    validateFileSync(filename: string): Report;
-    validateMultipleFiles(filenames: string[]): Promise<Report>;
-    validateMultipleFilesSync(filenames: string[]): Report;
-    validateSource(input: Source, configOverride?: ConfigData): Promise<Report>;
-    validateSourceSync(input: Source, configOverride?: ConfigData): Report;
-    validateString(str: string): Promise<Report>;
+    validateFile(filename: string): Promise<Report_2>;
+    validateFileSync(filename: string): Report_2;
+    validateMultipleFiles(filenames: string[]): Promise<Report_2>;
+    validateMultipleFilesSync(filenames: string[]): Report_2;
+    validateSource(input: Source, configOverride?: ConfigData): Promise<Report_2>;
+    validateSourceSync(input: Source, configOverride?: ConfigData): Report_2;
+    validateString(str: string): Promise<Report_2>;
     // (undocumented)
-    validateString(str: string, filename: string): Promise<Report>;
+    validateString(str: string, filename: string): Promise<Report_2>;
     // (undocumented)
-    validateString(str: string, hooks: SourceHooks): Promise<Report>;
+    validateString(str: string, hooks: SourceHooks): Promise<Report_2>;
     // (undocumented)
-    validateString(str: string, options: ConfigData): Promise<Report>;
+    validateString(str: string, options: ConfigData): Promise<Report_2>;
     // (undocumented)
-    validateString(str: string, filename: string, hooks: SourceHooks): Promise<Report>;
+    validateString(str: string, filename: string, hooks: SourceHooks): Promise<Report_2>;
     // (undocumented)
-    validateString(str: string, filename: string, options: ConfigData): Promise<Report>;
+    validateString(str: string, filename: string, options: ConfigData): Promise<Report_2>;
     // (undocumented)
-    validateString(str: string, filename: string, options: ConfigData, hooks: SourceHooks): Promise<Report>;
-    validateStringSync(str: string): Report;
+    validateString(str: string, filename: string, options: ConfigData, hooks: SourceHooks): Promise<Report_2>;
+    validateStringSync(str: string): Report_2;
     // (undocumented)
-    validateStringSync(str: string, filename: string): Report;
+    validateStringSync(str: string, filename: string): Report_2;
     // (undocumented)
-    validateStringSync(str: string, hooks: SourceHooks): Report;
+    validateStringSync(str: string, hooks: SourceHooks): Report_2;
     // (undocumented)
-    validateStringSync(str: string, options: ConfigData): Report;
+    validateStringSync(str: string, options: ConfigData): Report_2;
     // (undocumented)
-    validateStringSync(str: string, filename: string, hooks: SourceHooks): Report;
+    validateStringSync(str: string, filename: string, hooks: SourceHooks): Report_2;
     // (undocumented)
-    validateStringSync(str: string, filename: string, options: ConfigData): Report;
+    validateStringSync(str: string, filename: string, options: ConfigData): Report_2;
     // (undocumented)
-    validateStringSync(str: string, filename: string, options: ConfigData, hooks: SourceHooks): Report;
+    validateStringSync(str: string, filename: string, options: ConfigData, hooks: SourceHooks): Report_2;
 }
 
 // @public (undocumented)
@@ -1010,12 +1010,13 @@ export interface ProcessElementContext {
 export type PropertyExpression = string | [string, any];
 
 // @public
-export interface Report {
+interface Report_2 {
     errorCount: number;
     results: Result[];
     valid: boolean;
     warningCount: number;
 }
+export { Report_2 as Report }
 
 // @public (undocumented)
 export class Reporter {
@@ -1026,11 +1027,11 @@ export class Reporter {
     addManual(filename: string, message: DeferredMessage): void;
     // (undocumented)
     protected isValid(): boolean;
-    static merge(reports: Report[]): Report;
+    static merge(reports: Report_2[]): Report_2;
     // (undocumented)
     protected result: Record<string, DeferredMessage[]>;
     // (undocumented)
-    save(sources?: Source[]): Report;
+    save(sources?: Source[]): Report_2;
 }
 
 // @public (undocumented)
