@@ -15,15 +15,15 @@ function renameStdin(report: Report, filename: string): void {
 	}
 }
 
-export function lint(
+export async function lint(
 	htmlvalidate: HtmlValidate,
 	output: WritableStreamLike,
 	files: string[],
 	options: LintOptions,
 ): Promise<boolean> {
-	const reports = files.map((filename: string) => {
+	const reports = files.map(async (filename: string) => {
 		try {
-			return htmlvalidate.validateFileSync(filename);
+			return await htmlvalidate.validateFile(filename);
 		} catch (err) {
 			const message = kleur.red(`Validator crashed when parsing "${filename}"`);
 			output.write(`${message}\n`);
@@ -31,7 +31,7 @@ export function lint(
 		}
 	});
 
-	const merged = Reporter.merge(reports);
+	const merged = await Reporter.merge(reports);
 
 	/* rename stdin if an explicit filename was passed */
 	if (options.stdinFilename) {
@@ -42,8 +42,8 @@ export function lint(
 
 	if (options.maxWarnings >= 0 && merged.warningCount > options.maxWarnings) {
 		output.write(`\nhtml-validate found too many warnings (maximum: ${options.maxWarnings}).\n`);
-		return Promise.resolve(false);
+		return false;
 	}
 
-	return Promise.resolve(merged.valid);
+	return merged.valid;
 }
