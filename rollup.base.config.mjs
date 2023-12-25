@@ -7,7 +7,7 @@ import { nodeResolve } from "@rollup/plugin-node-resolve";
 import json from "@rollup/plugin-json"; //native solution coming: https://nodejs.org/docs/latest/api/esm.html#esm_json_modules
 import replace from "@rollup/plugin-replace";
 import virtual from "@rollup/plugin-virtual";
-import typescript from "@rollup/plugin-typescript";
+import esbuild from "rollup-plugin-esbuild";
 import { getRuleUrl } from "./src/utils/get-rule-url.mjs";
 
 const rootDir = fileURLToPath(new URL(".", import.meta.url));
@@ -190,12 +190,9 @@ export function build(format) {
 				virtual({
 					"src/resolve": generateResolved(format),
 				}),
-				typescript({
-					tsconfig: "tsconfig.json",
-					outDir: `dist/${format}`,
-					declaration: false,
-					declarationMap: false,
-					declarationDir: undefined,
+				esbuild({
+					target: "node16",
+					platform: "node",
 				}),
 				json(jsonConfig),
 				commonjs(),
