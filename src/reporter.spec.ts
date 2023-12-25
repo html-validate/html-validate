@@ -48,6 +48,56 @@ describe("Reporter", () => {
 			expect(merged.errorCount).toBe(4);
 			expect(merged.warningCount).toBe(0);
 		});
+
+		it("should handle promise with results", async () => {
+			expect.assertions(3);
+			const merged = await Reporter.merge(
+				Promise.resolve([
+					{
+						valid: false,
+						results: [createResult("foo", ["fred", "barney"])],
+						errorCount: 1,
+						warningCount: 0,
+					},
+					{
+						valid: true,
+						results: [createResult("bar", ["wilma"])],
+						errorCount: 0,
+						warningCount: 1,
+					},
+				]),
+			);
+			expect(merged.valid).toBeFalsy();
+			expect(merged.results[0].filePath).toBe("foo");
+			expect(merged.results[1].filePath).toBe("bar");
+		});
+
+		it("should handle array of promises", async () => {
+			expect.assertions(3);
+			const merged = await Reporter.merge([
+				Promise.resolve({
+					valid: false,
+					results: [createResult("foo", ["fred", "barney"])],
+					errorCount: 1,
+					warningCount: 0,
+				}),
+				Promise.resolve({
+					valid: true,
+					results: [createResult("bar", ["wilma"])],
+					errorCount: 0,
+					warningCount: 1,
+				}),
+			]);
+			expect(merged.valid).toBeFalsy();
+			expect(merged.results[0].filePath).toBe("foo");
+			expect(merged.results[1].filePath).toBe("bar");
+		});
+
+		it("should handle empty array", async () => {
+			expect.assertions(1);
+			const merged = Reporter.merge([]);
+			expect(merged.results).toHaveLength(0);
+		});
 	});
 
 	describe("save()", () => {

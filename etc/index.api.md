@@ -1028,6 +1028,7 @@ export class Reporter {
     // (undocumented)
     protected isValid(): boolean;
     static merge(reports: Report_2[]): Report_2;
+    static merge(reports: Promise<Report_2[]> | Array<Promise<Report_2>>): Promise<Report_2>;
     // (undocumented)
     protected result: Record<string, DeferredMessage[]>;
     // (undocumented)
