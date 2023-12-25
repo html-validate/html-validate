@@ -49,12 +49,14 @@ beforeEach(() => {
 
 it("should return successful if there where no errors", async () => {
 	expect.assertions(2);
-	jest.spyOn(htmlvalidate, "validateFileSync").mockReturnValue({
-		valid: true,
-		results: [],
-		errorCount: 0,
-		warningCount: 0,
-	});
+	jest.spyOn(htmlvalidate, "validateFile").mockImplementation(() =>
+		Promise.resolve({
+			valid: true,
+			results: [],
+			errorCount: 0,
+			warningCount: 0,
+		}),
+	);
 	const files = ["foo.html", "bar.html"];
 	const success = await lint(htmlvalidate, stdout, files, defaultOptions);
 	expect(success).toBeTruthy();
@@ -63,20 +65,22 @@ it("should return successful if there where no errors", async () => {
 
 it("should return success if there where only warnings", async () => {
 	expect.assertions(2);
-	jest.spyOn(htmlvalidate, "validateFileSync").mockImplementation((filePath: string) => ({
-		valid: true,
-		results: [
-			{
-				messages: [mockWarning("mock-rule", "lorem ipsum")],
-				filePath,
-				errorCount: 0,
-				warningCount: 1,
-				source: null,
-			},
-		],
-		errorCount: 0,
-		warningCount: 1,
-	}));
+	jest.spyOn(htmlvalidate, "validateFile").mockImplementation((filePath: string) =>
+		Promise.resolve({
+			valid: true,
+			results: [
+				{
+					messages: [mockWarning("mock-rule", "lorem ipsum")],
+					filePath,
+					errorCount: 0,
+					warningCount: 1,
+					source: null,
+				},
+			],
+			errorCount: 0,
+			warningCount: 1,
+		}),
+	);
 	const files = ["foo.html", "bar.html"];
 	const success = await lint(htmlvalidate, stdout, files, defaultOptions);
 	expect(success).toBeTruthy();
@@ -89,20 +93,22 @@ it("should return success if there where only warnings", async () => {
 
 it("should return failure if there where any errors", async () => {
 	expect.assertions(2);
-	jest.spyOn(htmlvalidate, "validateFileSync").mockImplementation((filePath: string) => ({
-		valid: false,
-		results: [
-			{
-				messages: [mockError("mock-rule", "lorem ipsum")],
-				filePath,
-				errorCount: 1,
-				warningCount: 0,
-				source: null,
-			},
-		],
-		errorCount: 1,
-		warningCount: 0,
-	}));
+	jest.spyOn(htmlvalidate, "validateFile").mockImplementation((filePath: string) =>
+		Promise.resolve({
+			valid: false,
+			results: [
+				{
+					messages: [mockError("mock-rule", "lorem ipsum")],
+					filePath,
+					errorCount: 1,
+					warningCount: 0,
+					source: null,
+				},
+			],
+			errorCount: 1,
+			warningCount: 0,
+		}),
+	);
 	const files = ["foo.html", "bar.html"];
 	const success = await lint(htmlvalidate, stdout, files, defaultOptions);
 	expect(success).toBeFalsy();
@@ -115,20 +121,22 @@ it("should return failure if there where any errors", async () => {
 
 it("should return failure if there are too many warnings", async () => {
 	expect.assertions(2);
-	jest.spyOn(htmlvalidate, "validateFileSync").mockImplementation((filePath: string) => ({
-		valid: true,
-		results: [
-			{
-				messages: [mockWarning("mock-rule", "lorem ipsum")],
-				filePath,
-				errorCount: 0,
-				warningCount: 1,
-				source: null,
-			},
-		],
-		errorCount: 0,
-		warningCount: 1,
-	}));
+	jest.spyOn(htmlvalidate, "validateFile").mockImplementation((filePath: string) =>
+		Promise.resolve({
+			valid: true,
+			results: [
+				{
+					messages: [mockWarning("mock-rule", "lorem ipsum")],
+					filePath,
+					errorCount: 0,
+					warningCount: 1,
+					source: null,
+				},
+			],
+			errorCount: 0,
+			warningCount: 1,
+		}),
+	);
 	const files = ["foo.html", "bar.html"];
 	const success = await lint(htmlvalidate, stdout, files, {
 		...defaultOptions,
@@ -146,20 +154,22 @@ it("should return failure if there are too many warnings", async () => {
 
 it("should retain /dev/stdin when stdinFilename is not given", async () => {
 	expect.assertions(2);
-	jest.spyOn(htmlvalidate, "validateFileSync").mockImplementation((filePath: string) => ({
-		valid: false,
-		results: [
-			{
-				messages: [mockError("mock-rule", "lorem ipsum")],
-				filePath,
-				errorCount: 1,
-				warningCount: 0,
-				source: null,
-			},
-		],
-		errorCount: 1,
-		warningCount: 0,
-	}));
+	jest.spyOn(htmlvalidate, "validateFile").mockImplementation((filePath: string) =>
+		Promise.resolve({
+			valid: false,
+			results: [
+				{
+					messages: [mockError("mock-rule", "lorem ipsum")],
+					filePath,
+					errorCount: 1,
+					warningCount: 0,
+					source: null,
+				},
+			],
+			errorCount: 1,
+			warningCount: 0,
+		}),
+	);
 	const files = ["/dev/stdin"];
 	const success = await lint(htmlvalidate, stdout, files, {
 		...defaultOptions,
@@ -173,20 +183,22 @@ it("should retain /dev/stdin when stdinFilename is not given", async () => {
 
 it("should rename stdin if stdinFilename is given", async () => {
 	expect.assertions(2);
-	jest.spyOn(htmlvalidate, "validateFileSync").mockImplementation((filePath: string) => ({
-		valid: false,
-		results: [
-			{
-				messages: [mockError("mock-rule", "lorem ipsum")],
-				filePath,
-				errorCount: 1,
-				warningCount: 0,
-				source: null,
-			},
-		],
-		errorCount: 1,
-		warningCount: 0,
-	}));
+	jest.spyOn(htmlvalidate, "validateFile").mockImplementation((filePath: string) =>
+		Promise.resolve({
+			valid: false,
+			results: [
+				{
+					messages: [mockError("mock-rule", "lorem ipsum")],
+					filePath,
+					errorCount: 1,
+					warningCount: 0,
+					source: null,
+				},
+			],
+			errorCount: 1,
+			warningCount: 0,
+		}),
+	);
 	const files = ["/dev/stdin"];
 	const success = await lint(htmlvalidate, stdout, files, {
 		...defaultOptions,

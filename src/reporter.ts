@@ -2,6 +2,7 @@ import { Severity } from "./config";
 import { type Location, type Source } from "./context";
 import { type Rule } from "./rule";
 import { type DOMNode } from "./dom";
+import { isThenable } from "./utils";
 
 /**
  * Reported error message.
@@ -58,6 +59,13 @@ function freeze(src: DeferredMessage): Message {
 	};
 }
 
+function isThenableArray<T>(value: T[] | Array<Promise<T>>): value is Array<Promise<T>> {
+	if (value.length === 0) {
+		return false;
+	}
+	return isThenable(value[0]);
+}
+
 /**
  * @public
  */
@@ -100,8 +108,29 @@ export class Reporter {
 
 	/**
 	 * Merge two or more reports into a single one.
+	 *
+	 * @param reports- Reports to merge.
+	 * @returns A merged report.
 	 */
-	public static merge(reports: Report[]): Report {
+	public static merge(reports: Report[]): Report;
+
+	/**
+	 * Merge two or more reports into a single one.
+	 *
+	 * @param reports- Reports to merge.
+	 * @returns A promise resolved with the merged report.
+	 */
+	public static merge(reports: Promise<Report[]> | Array<Promise<Report>>): Promise<Report>;
+
+	public static merge(
+		reports: Report[] | Promise<Report[]> | Array<Promise<Report>>,
+	): Report | Promise<Report> {
+		if (isThenable(reports)) {
+			return reports.then((reports) => this.merge(reports));
+		}
+		if (isThenableArray(reports)) {
+			return Promise.all(reports).then((reports) => this.merge(reports));
+		}
 		const valid = reports.every((report) => report.valid);
 		const merged: Record<string, Result> = {};
 		reports.forEach((report: Report) => {

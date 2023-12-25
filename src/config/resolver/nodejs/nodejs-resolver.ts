@@ -83,15 +83,15 @@ export function nodejsResolver(options: { rootDir?: string } = {}): NodeJSResolv
 			const cwd = path.dirname(id);
 			const expand = <T>(value: string | T): string | T => expandRelativePath(value, { cwd });
 
-			if (configData.elements) {
+			if (Array.isArray(configData.elements)) {
 				configData.elements = configData.elements.map(expand);
 			}
 
-			if (configData.extends) {
+			if (Array.isArray(configData.extends)) {
 				configData.extends = configData.extends.map(expand);
 			}
 
-			if (configData.plugins) {
+			if (Array.isArray(configData.plugins)) {
 				configData.plugins = configData.plugins.map(expand);
 			}
 

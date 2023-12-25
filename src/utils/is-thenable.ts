@@ -1,4 +1,6 @@
 /**
+ * Test if value is a Promise (thenable).
+ *
  * @internal
  */
 export function isThenable<T>(value: T | Promise<T>): value is Promise<T> {
