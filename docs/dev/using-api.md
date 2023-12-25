@@ -346,6 +346,7 @@ A `Resolver` implements the following interface:
 ```ts
 import {
   type ConfigData,
+  type MetaDataTable,
   type Plugin,
   type ResolverOptions,
   type Transformer,
@@ -355,7 +356,7 @@ import {
 
 export interface Resolver {
   name: string;
-  resolveElements?(id: string, options: ResolverOptions): unknown | null;
+  resolveElements?(id: string, options: ResolverOptions): MetaDataTable | null;
   resolveConfig?(id: string, options: ResolverOptions): ConfigData | null;
   resolvePlugin?(id: string, options: ResolverOptions): Plugin | null;
   resolveTransformer?(id: string, options: ResolverOptions): Transformer | null;
