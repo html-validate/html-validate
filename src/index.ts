@@ -6,7 +6,13 @@ export {
 	type FileSystemConfigLoaderOptions,
 	FileSystemConfigLoader,
 } from "./config/loaders/file-system";
-export { type FSLike, type NodeJSResolver, nodejsResolver } from "./config/resolver/nodejs";
+export {
+	type FSLike,
+	type CommonJSResolver,
+	type NodeJSResolver,
+	cjsResolver,
+	nodejsResolver,
+} from "./config/resolver/nodejs";
 export {
 	type AvailableFormatters,
 	type Formatter,

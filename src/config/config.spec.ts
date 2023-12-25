@@ -7,7 +7,7 @@ import { Config } from "./config";
 import { ConfigError } from "./error";
 import { staticResolver } from "./resolver";
 import { Severity } from "./severity";
-import { nodejsResolver } from "./resolver/nodejs";
+import { cjsResolver } from "./resolver/nodejs";
 
 /* a mocked file which throws an exception when loaded */
 jest.mock(
@@ -187,7 +187,7 @@ describe("config", () => {
 	describe("fromFile()", () => {
 		it("should support JSON file", () => {
 			expect.assertions(1);
-			const resolver = nodejsResolver();
+			const resolver = cjsResolver();
 			const config = Config.fromFile(resolver, "<rootDir>/test-files/config.json");
 			expect(Array.from(config.getRules().entries())).toEqual([
 				["foo", [Severity.ERROR, {}]],
@@ -198,7 +198,7 @@ describe("config", () => {
 
 		it("should support js file", () => {
 			expect.assertions(1);
-			const resolver = nodejsResolver();
+			const resolver = cjsResolver();
 			const config = Config.fromFile(resolver, "<rootDir>/test-files/config.js");
 			expect(Array.from(config.getRules().entries())).toEqual([
 				["foo", [Severity.ERROR, {}]],
@@ -209,7 +209,7 @@ describe("config", () => {
 
 		it("should support js file without extension", () => {
 			expect.assertions(1);
-			const resolver = nodejsResolver();
+			const resolver = cjsResolver();
 			const config = Config.fromFile(resolver, "<rootDir>/test-files/config");
 			expect(Array.from(config.getRules().entries())).toEqual([
 				["foo", [Severity.ERROR, {}]],
@@ -222,7 +222,7 @@ describe("config", () => {
 	describe("extend", () => {
 		it("should extend base configuration", () => {
 			expect.assertions(1);
-			const resolver = nodejsResolver();
+			const resolver = cjsResolver();
 			const config = Config.fromObject(resolver, {
 				extends: ["<rootDir>/test-files/config.json"],
 				rules: {
@@ -238,7 +238,7 @@ describe("config", () => {
 
 		it("should support deep extending", () => {
 			expect.assertions(1);
-			const resolver = nodejsResolver();
+			const resolver = cjsResolver();
 			const config = Config.fromObject(resolver, {
 				extends: ["<rootDir>/test-files/config-extending.json"],
 			});
@@ -487,7 +487,7 @@ describe("config", () => {
 	describe("transformers", () => {
 		it("should load transformer from package", () => {
 			expect.assertions(1);
-			const resolvers = [nodejsResolver()]; // uses jest automock from src/transform/__mocks__/
+			const resolvers = [cjsResolver()]; // uses jest automock from src/transform/__mocks__/
 			const config = Config.fromObject(resolvers, {
 				transform: {
 					"\\.foo$": "mock-transform",
@@ -501,7 +501,7 @@ describe("config", () => {
 
 		it("should load transformer from path with <rootDir>", () => {
 			expect.assertions(1);
-			const resolvers = [nodejsResolver()];
+			const resolvers = [cjsResolver()];
 			const config = Config.fromObject(resolvers, {
 				transform: {
 					"\\.foo$": "<rootDir>/src/transform/__mocks__/mock-transform",
@@ -592,7 +592,7 @@ describe("config", () => {
 
 			it("non-plugin (regression test issue 54)", () => {
 				expect.assertions(1);
-				const resolvers = [staticResolver({ plugins }), nodejsResolver()]; // uses jest automock from src/transform/__mocks__/
+				const resolvers = [staticResolver({ plugins }), cjsResolver()]; // uses jest automock from src/transform/__mocks__/
 				const config = Config.fromObject(resolvers, {
 					plugins: ["mock-plugin-unnamed"],
 					transform: {
@@ -618,7 +618,7 @@ describe("config", () => {
 
 		it("should throw error if transformer uses obsolete API", () => {
 			expect.assertions(1);
-			const resolvers = [nodejsResolver()]; // uses jest automock from src/transform/__mocks__/
+			const resolvers = [cjsResolver()]; // uses jest automock from src/transform/__mocks__/
 			const config = Config.fromObject(resolvers, {
 				transform: {
 					"^.*\\.foo$": "mock-transform-obsolete",

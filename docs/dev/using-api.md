@@ -365,7 +365,7 @@ export interface Resolver {
 The library comes with two builtin resolvers:
 
 - `StaticResolver` - resolves only predefined items, use the `staticResolver` function to create one.
-- `NodeJSResolver` - resolves items using `require(..)`, use the `nodejsResolver` function to create one.
+- `CommonJSResolver` - resolves items using `require(..)`, use the `cjsResolver` function to create one.
 
 ## Configuration cache
 

@@ -87,6 +87,11 @@ export interface BaseToken {
 export type CategoryOrTag = string;
 
 // @public
+export function cjsResolver(options?: {
+    rootDir?: string;
+}): CommonJSResolver;
+
+// @public
 export function classifyNodeText(node: HtmlElement, options?: TextClassificationOptions): TextClassification;
 
 // @public (undocumented)
@@ -120,6 +125,9 @@ export interface CommentToken extends BaseToken {
     // (undocumented)
     type: TokenType.COMMENT;
 }
+
+// @public
+export type CommonJSResolver = Required<Resolver>;
 
 // @public
 export function compatibilityCheck(name: string, declared: string, options?: Partial<CompatibilityOptions>): boolean;
@@ -910,10 +918,10 @@ export enum NodeClosed {
     VoidSelfClosed = 3
 }
 
-// @public
+// @public @deprecated
 export type NodeJSResolver = Required<Resolver>;
 
-// @public
+// @public @deprecated
 export function nodejsResolver(options?: {
     rootDir?: string;
 }): NodeJSResolver;

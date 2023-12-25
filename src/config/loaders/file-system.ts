@@ -5,7 +5,7 @@ import { type ConfigData } from "../config-data";
 import { ConfigLoader } from "../config-loader";
 import { type ResolvedConfig } from "../resolved-config";
 import { type Resolver } from "../resolver";
-import { type FSLike, nodejsResolver } from "../resolver/nodejs";
+import { type FSLike, cjsResolver } from "../resolver/nodejs";
 
 /**
  * Options for [[FileSystemConfigLoader]].
@@ -26,7 +26,7 @@ function findConfigurationFiles(fs: FSLike, directory: string): string[] {
 		.filter((filePath) => fs.existsSync(filePath));
 }
 
-const defaultResolvers: Resolver[] = [nodejsResolver()];
+const defaultResolvers: Resolver[] = [cjsResolver()];
 
 type ConstructorParametersDefault = [ConfigData?, Partial<FileSystemConfigLoaderOptions>?];
 type ConstructorParametersResolver = [
