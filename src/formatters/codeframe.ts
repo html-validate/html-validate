@@ -78,7 +78,7 @@ function getEndLocation(message: Message, source: string): SourcePoint {
  */
 function formatMessage(message: Message, parentResult: Result, options: CodeframeOptions): string {
 	const type = message.severity === 2 ? kleur.red("error") : kleur.yellow("warning");
-	const msg = `${kleur.bold(message.message.replace(/([^ ])\.$/, "$1"))}`;
+	const msg = kleur.bold(message.message.replace(/([^ ])\.$/, "$1"));
 	const ruleId = kleur.dim(`(${message.ruleId})`);
 	const filePath = formatFilePath(parentResult.filePath, message.line, message.column);
 	const sourceCode = parentResult.source;
@@ -86,8 +86,8 @@ function formatMessage(message: Message, parentResult: Result, options: Codefram
 	/* istanbul ignore next: safety check from original implementation */
 	const firstLine = [
 		`${type}:`,
-		`${msg}`,
-		ruleId ? `${ruleId}` : "",
+		msg,
+		ruleId ? ruleId : "",
 		sourceCode ? `at ${filePath}:` : `at ${filePath}`,
 	]
 		.filter(String)
