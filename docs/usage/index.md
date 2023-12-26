@@ -35,6 +35,25 @@ Configuration can be added to:
 
 ESM configuration files are not currently supported.
 
+For `json` the JSON schema `https://html-validate.org/schemas/config.json` can optionally be used:
+
+```jsonc
+{
+  "$schema": "https://html-validate.org/schemas/config.json",
+  "extends": ["html-validate:recommended"]
+}
+```
+
+For `js` and `cjs` the `defineConfig(..)` helper can optionally be used to assist the IDE with type-checking and documentation:
+
+```js
+import { defineConfig } from "html-validate";
+
+module.exports = defineConfig({
+  extends: ["html-validate:recommended"],
+});
+```
+
 Configuration files will be searched from the target file and up until either no more parent folders exist or `"root": true` is found.
 
 ### `extends`

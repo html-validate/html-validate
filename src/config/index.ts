@@ -7,6 +7,7 @@ export {
 	type RuleSeverity,
 } from "./config-data";
 export { ConfigLoader } from "./config-loader";
+export { defineConfig } from "./define-config";
 export { ConfigError } from "./error";
 export { default as configPresets } from "./presets";
 export { type ResolvedConfigData, type TransformerEntry, ResolvedConfig } from "./resolved-config";

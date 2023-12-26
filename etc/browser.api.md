@@ -193,6 +193,9 @@ export interface DeferredMessage extends Omit<Message, "selector"> {
 }
 
 // @public
+export function defineConfig(config: ConfigData): ConfigData;
+
+// @public
 export function defineMetadata(metatable: MetaDataTable): MetaDataTable;
 
 // @public
