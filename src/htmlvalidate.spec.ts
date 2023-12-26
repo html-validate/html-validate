@@ -1,6 +1,6 @@
 import { StaticConfigLoader } from "./browser";
 import { Config, ConfigData, ConfigLoader, ResolvedConfig, Severity } from "./config";
-import { nodejsResolver } from "./config/resolver/nodejs";
+import { cjsResolver } from "./config/resolver/nodejs";
 import { Source, SourceHooks } from "./context";
 import { HtmlValidate } from "./htmlvalidate";
 import { Parser } from "./parser";
@@ -14,7 +14,7 @@ const engine = {
 	getRuleDocumentation: jest.fn(),
 };
 
-const resolver = nodejsResolver();
+const resolver = cjsResolver();
 
 jest.mock("./engine", () => {
 	return {

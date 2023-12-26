@@ -1,2 +1,7 @@
 export { type FSLike } from "./fs-like";
-export { type NodeJSResolver, nodejsResolver } from "./nodejs-resolver";
+export {
+	type CommonJSResolver,
+	type NodeJSResolver,
+	cjsResolver,
+	nodejsResolver,
+} from "./cjs-resolver";

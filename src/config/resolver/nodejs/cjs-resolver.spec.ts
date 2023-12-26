@@ -1,7 +1,7 @@
 import path from "node:path";
 import { Source } from "../../../context";
 import * as resolve from "../../../resolve";
-import { type RequireError, nodejsResolver } from "./nodejs-resolver";
+import { type RequireError, cjsResolver } from "./cjs-resolver";
 import { determineRootDir } from "./determine-root-dir";
 
 jest.mock("../../../resolve");
@@ -26,7 +26,7 @@ beforeEach(() => {
 	});
 });
 
-const resolver = nodejsResolver();
+const resolver = cjsResolver();
 
 it("should return null if no entry was found", () => {
 	expect.assertions(4);
@@ -133,7 +133,7 @@ describe("<rootDir>", () => {
 	it("should resolve item with <rootDir> (default root dir)", () => {
 		expect.assertions(1);
 		const rootDir = determineRootDir();
-		const resolver = nodejsResolver({});
+		const resolver = cjsResolver({});
 		createMockedModule(path.join(rootDir, "mock-elements"), { "my-element": {} });
 		const result = resolver.resolveElements("<rootDir>/mock-elements", { cache: true });
 		expect(result).toEqual({ "my-element": {} });
@@ -142,7 +142,7 @@ describe("<rootDir>", () => {
 	it("should resolve item with <rootDir> (explicit root dir)", () => {
 		expect.assertions(1);
 		const rootDir = "/home/foo/project/bar";
-		const resolver = nodejsResolver({ rootDir });
+		const resolver = cjsResolver({ rootDir });
 		createMockedModule(path.join(rootDir, "mock-elements"), { "my-element": {} });
 		const result = resolver.resolveElements("<rootDir>/mock-elements", { cache: true });
 		expect(result).toEqual({ "my-element": {} });

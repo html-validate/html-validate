@@ -6,7 +6,7 @@ import {
 	FileSystemConfigLoader,
 	UserError,
 	HtmlValidate,
-	nodejsResolver,
+	cjsResolver,
 } from "..";
 import { type RuleConfig } from "../config";
 import { type ExpandOptions, expandFiles } from "./expand-files";
@@ -28,7 +28,7 @@ export interface CLIOptions {
 
 function getBaseConfig(filename?: string): ConfigData {
 	if (filename) {
-		const resolver = nodejsResolver();
+		const resolver = cjsResolver();
 		const configData = resolver.resolveConfig(path.resolve(filename), { cache: false });
 		if (!configData) {
 			throw new UserError(`Failed to read configuration from "${filename}"`);
