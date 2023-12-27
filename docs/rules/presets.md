@@ -7,9 +7,9 @@ name: Configuration presets
 
 HTML-validate comes with a few predefined presets.
 
-Presets can be configured in `.htmlvalidate.json` using:
+Presets can be configured using:
 
-```json
+```json config
 {
   "extends": ["html-validate:PRESET"]
 }

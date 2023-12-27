@@ -183,7 +183,6 @@ export class Config {
 // @public (undocumented)
 export interface ConfigData {
     elements?: Array<string | Record<string, unknown>>;
-    // (undocumented)
     extends?: string[];
     plugins?: Array<string | Plugin_2>;
     root?: boolean;
@@ -237,6 +236,9 @@ export interface DeferredMessage extends Omit<Message, "selector"> {
     // (undocumented)
     selector: () => string | null;
 }
+
+// @public
+export function defineConfig(config: ConfigData): ConfigData;
 
 // @public
 export function defineMetadata(metatable: MetaDataTable): MetaDataTable;

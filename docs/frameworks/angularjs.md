@@ -11,7 +11,7 @@ title: AngularJS
 
 Configure with:
 
-```json
+```json config
 {
   "elements": ["html5"],
   "transform": {

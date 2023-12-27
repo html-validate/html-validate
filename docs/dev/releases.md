@@ -25,7 +25,7 @@ Older major versions is generally supported for two year after the succeeding ve
       <td>2020-11-07</td>
       <td>2022-06-31</td>
     </tr>
-    <tr class="release-maintenance">
+    <tr class="release-eol">
       <td>5.x</td>
       <td>End of Life</td>
       <td>2021-06-26</td>

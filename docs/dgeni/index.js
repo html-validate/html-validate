@@ -53,7 +53,7 @@ module.exports = new Package("html-validate-docs", [
 		readFilesProcessor.sourceFiles = [
 			{
 				include: "docs/**/*.md",
-				exclude: ["docs/dgeni/**/*.md", "docs/examples/**.md"],
+				exclude: ["docs/dgeni/**/*.md", "docs/examples/**.md", "docs/node_modules/**/*.md"],
 				basePath: "docs",
 				fileReader: "frontMatterFileReader",
 			},

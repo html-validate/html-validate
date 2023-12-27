@@ -1,3 +1,5 @@
+const prettier = require("prettier");
+
 /**
  * @typedef {import("../../example/services/example").Example} Example
  * @typedef {(code: string, lang: string | undefined) => string} Highlighter
@@ -13,6 +15,9 @@ function stripEslintComments(code) {
 }
 
 const isEmpty = RegExp.prototype.test.bind(/^\s*$/);
+const prettierConfig = prettier.resolveConfig.sync("docs/stub.js", {
+	editorconfig: true,
+});
 
 function calcIndent(text) {
 	const MAX_INDENT = 9999;
@@ -75,6 +80,52 @@ function trimIndentation(text) {
 }
 
 /**
+ * @param {string} text
+ * @param {string} lang
+ */
+function renderConfig(context, text, lang, infostring) {
+	const { example, highlight } = context;
+
+	if (!["json", "jsonc"].includes(lang)) {
+		throw new Error(`Config examples should be defined as "json" or "jsonc", got "${lang}"`);
+	}
+
+	const jsonText = text;
+	const cjsText = prettier.format(
+		[
+			`const { defineConfig } = require("html-validate");`,
+			``,
+			`module.exports = defineConfig(${text});`,
+		].join("\n"),
+		{ ...prettierConfig, tabWidth: 2, useTabs: false, filepath: "docs/stub.js" },
+	);
+
+	example.compile(cjsText, infostring);
+
+	const renderedJson = highlight(jsonText, "jsonc");
+	const renderedCJS = highlight(cjsText, "js");
+
+	return /* HTML */ `
+		<div class="config-tabs">
+			<div class="config-tabs__bar">
+				<div class="config-tabs__filename">.htmlvalidate.json</div>
+			</div>
+			<pre
+				data-key="json"
+				data-filename=".htmlvalidate.json"
+				data-label="JSON"
+			><code class="hljs language-jsonc">${renderedJson}</code></pre>
+			<pre
+				data-key="cjs"
+				data-filename=".htmlvalidate.js"
+				data-label="CommonJS"
+				hidden
+			><code class="hljs language-js">${renderedCJS}</code></pre>
+		</div>
+	`;
+}
+
+/**
  * @param {Context} context
  * @param {string} text
  * @param {string} infostring
@@ -85,7 +136,11 @@ function code(context, text, infostring, _escaped) {
 	const { example, highlight } = context;
 	example.compile(text, infostring);
 
-	const lang = (infostring || "").match(/\S*/)[0];
+	const [lang, ...tags] = (infostring ?? "").split(/\s+/);
+	if (tags.includes("config")) {
+		return renderConfig(context, text, lang, infostring);
+	}
+
 	const processedCode = stripEslintComments(removePreamble(trimIndentation(text)));
 	let renderedCode = highlight(processedCode, lang);
 

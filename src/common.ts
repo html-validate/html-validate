@@ -21,6 +21,7 @@ export {
 	ResolvedConfig,
 	Severity,
 	configPresets,
+	defineConfig,
 	staticResolver,
 } from "./config";
 export { StaticConfigLoader } from "./config/loaders/static";

@@ -32,6 +32,16 @@ export interface ConfigData {
 	 */
 	root?: boolean;
 
+	/**
+	 * List of configuration presets to extend.
+	 *
+	 * The following sources are allowed:
+	 *
+	 * - One of the [predefined presets](http://html-validate.org/rules/presets.html).
+	 * - Node module exporting a preset.
+	 * - Plugin exporting a named preset.
+	 * - Local path to a json or js file exporting a preset.
+	 */
 	extends?: string[];
 
 	/**
