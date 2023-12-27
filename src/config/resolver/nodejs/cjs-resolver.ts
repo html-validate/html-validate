@@ -29,7 +29,7 @@ function isTransformer(value: Transformer | Plugin): value is Transformer {
  * CommonJS resolver.
  *
  * @public
- * @since %version%
+ * @since 8.8.0
  */
 export type CommonJSResolver = Required<Resolver>;
 
@@ -51,7 +51,7 @@ export type NodeJSResolver = Required<Resolver>;
  * file (starting at the current working directory).
  *
  * @public
- * @since %version%
+ * @since 8.8.0
  */
 export function cjsResolver(options: { rootDir?: string } = {}): CommonJSResolver {
 	const rootDir = options.rootDir ?? determineRootDir();

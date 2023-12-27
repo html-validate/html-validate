@@ -1,5 +1,17 @@
 # html-validate changelog
 
+## [8.8.0](https://gitlab.com/html-validate/html-validate/compare/v8.7.4...v8.8.0) (2023-12-27)
+
+### Features
+
+- **api:** `Report.merge()` can merge async results ([35689fc](https://gitlab.com/html-validate/html-validate/commit/35689fc10b8ecfe4ad27818db23fa54a10b4a90e))
+- **api:** rename `nodejsResolver` to `cjsResolver` ([8c72c8f](https://gitlab.com/html-validate/html-validate/commit/8c72c8f404994612ebf40e35351af3e8bc87a2b9))
+- **config:** new `defineConfig` helper ([35e265a](https://gitlab.com/html-validate/html-validate/commit/35e265af0df61ca90d51b2c6851ad009b674bac2))
+
+### Bug Fixes
+
+- **config:** proper error message when certain configuration properties was invalid ([b029569](https://gitlab.com/html-validate/html-validate/commit/b029569d6db043ddde57bca59a71e47aa5801877))
+
 ## [8.7.4](https://gitlab.com/html-validate/html-validate/compare/v8.7.3...v8.7.4) (2023-12-10)
 
 ### Bug Fixes
