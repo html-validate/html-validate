@@ -13,9 +13,9 @@ Install using `npm`:
 
     npm install --save-dev html-validate
 
-Create `.htmlvalidate.json`:
+Create a configuration file:
 
-```json
+```json config
 {
   "extends": ["html-validate:recommended"]
 }
@@ -60,7 +60,7 @@ Configuration files will be searched from the target file and up until either no
 
 Configuration can be extended from bundled preset or shareable configurations.
 
-```jsonc
+```jsonc config
 {
   "plugins": ["my-plugin"],
   "extends": [
@@ -87,7 +87,7 @@ Plugins may create {@link writing-plugins#configuration-presets configuration pr
 
 ### `rules`
 
-```json
+```json config
 {
   "rules": {
     "some-rules": "severity",
@@ -113,7 +113,7 @@ which context it can be used, allowed/disallowed attributes, etc. If `elements`
 is not specified it defaults to `["html5"]` which is a bundled collection for
 all HTML5 elements.
 
-```jsonc
+```jsonc config
 {
   "elements": [
     "html5",
@@ -152,9 +152,9 @@ Must be resolvable by `require(..)`.
 
 See {@link writing-plugins writing plugins} for details about creating your own plugins.
 
-```json
+```json config
 {
-  "plugins": ["my-fancy-plugin", "./local-plugin"]
+  "plugins": ["my-awesome-plugin", "./local-plugin"]
 }
 ```
 
@@ -164,17 +164,19 @@ See {@link writing-plugins writing plugins} for details about creating your own 
 	<p>Loading native ESM is not supported yet (see <a href="https://gitlab.com/html-validate/html-validate/-/issues/125">issue #125</a>) and must be transpiled to commonjs before usage.</p>
 </div>
 
-Since version 7.17.0, if you are using javascript configuration or API you can also define plugins inline:
+Since version 7.17.0, if you are using javascript configuration or API you can also import or define plugins inline:
 
 ```js
-module.exports = {
+const { defineConfig } = require("html-validate");
+
+module.exports = defineConfig({
   plugins: [
     {
       name: "my-awesome-plugin",
       /* ... */
     },
   ],
-};
+});
 ```
 
 ### `transform`
@@ -182,7 +184,7 @@ module.exports = {
 Transform input files to extract HTML chunks, e.g. extract templates from javascript sources.
 See [transformers](/usage/transformers.html) for details.
 
-```json
+```json config
 {
   "transform": {
     "^.*\\.vue$": "html-validate-vue"
@@ -209,7 +211,7 @@ configuration for a specific directory without loading project configuration.
 
 For instance, if `/home/project/.htmlvalidate.json` contains:
 
-```json
+```json config
 {
   "root": true
 }

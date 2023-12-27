@@ -137,7 +137,6 @@ export class Config {
 // @public (undocumented)
 export interface ConfigData {
     elements?: Array<string | Record<string, unknown>>;
-    // (undocumented)
     extends?: string[];
     plugins?: Array<string | Plugin_2>;
     root?: boolean;

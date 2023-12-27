@@ -77,9 +77,9 @@ module.exports = defineMetadata({
 });
 ```
 
-`.htmlvalidate.json`:
+Configure with:
 
-```json
+```json config
 {
   "extends": ["html-validate:recommended"],
   "elements": ["html5", "./elements.js"]

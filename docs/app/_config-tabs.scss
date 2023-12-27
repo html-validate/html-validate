@@ -1,0 +1,58 @@
+.config-tabs {
+	$border-color: #ccc;
+	$border-radius: 4px;
+
+	&__bar {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&__filename {
+		padding: 0.5rem 1rem;
+		background: #f5f5f5;
+		border-left: 1px solid $border-color;
+		border-top: 1px solid $border-color;
+		border-right: 1px solid $border-color;
+		border-top-left-radius: $border-radius;
+		border-top-right-radius: $border-radius;
+	}
+
+	&__tablist {
+		margin: 0;
+		padding: 0;
+		display: flex;
+
+		&--active {
+			background: #f5f5f5;
+			font-weight: bold;
+		}
+	}
+
+	&__tab {
+		list-style: none;
+		padding: 0.5rem 1rem;
+		border-top: 1px solid $border-color;
+		cursor: pointer;
+
+		&:focus-visible {
+			outline: 2px solid #000;
+			outline-offset: 1px;
+			z-index: 1;
+		}
+
+		&:first-child {
+			border-left: 1px solid $border-color;
+			border-top-left-radius: $border-radius;
+		}
+
+		&:last-child {
+			border-right: 1px solid $border-color;
+			border-top-right-radius: $border-radius;
+		}
+	}
+
+	pre {
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+	}
+}

@@ -51,7 +51,7 @@ overrides for Vue.js.
 
 Configure with:
 
-```json
+```json config
 {
   "plugins": ["html-validate-vue"],
   "extends": ["html-validate:recommended", "html-validate-vue:recommended"],
