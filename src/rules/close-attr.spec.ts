@@ -13,26 +13,33 @@ describe("rule close-attr", () => {
 
 	it("should not report when close tags are correct", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<div></div>");
+		const markup = /* RAW */ ` <div></div> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report errors on self-closing tags", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<input required/>");
+		const markup = /* RAW */ ` <input required /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report errors on void tags", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<input required>");
+		const markup = /* RAW */ ` <input required /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should report when close tags contains attributes", async () => {
 		expect.assertions(2);
-		const html = "<p></p foo=\"bar\"><p></p foo='bar'><p></p foo>";
-		const report = await htmlvalidate.validateString(html);
+		const markup = /* RAW */ `
+			<p></p foo="bar">
+			<p></p foo='bar'>
+			<p></p foo>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
 			["close-attr", "Close tags cannot have attributes"],
@@ -43,7 +50,8 @@ describe("rule close-attr", () => {
 
 	it("should handle unclosed tags", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<p>");
+		const markup = /* RAW */ ` <p> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 

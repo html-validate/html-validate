@@ -16,26 +16,25 @@ describe("rule no-autoplay", () => {
 			"should not report error when <%s> does not have autoplay",
 			async (tagName) => {
 				expect.assertions(1);
-				const report = await htmlvalidate.validateString(`<${tagName}></${tagName}>`);
+				const markup = /* HTML */ ` <${tagName}></${tagName}> `;
+				const report = await htmlvalidate.validateString(markup);
 				expect(report).toBeValid();
 			},
 		);
 
 		it("should not report error when autoplay attribute is dynamic", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString(
-				'<video dynamic-autoplay="enableAutoplay">',
-
-				{
-					processAttribute,
-				},
-			);
+			const markup = /* HTML */ ` <video dynamic-autoplay="enableAutoplay"></video> `;
+			const report = await htmlvalidate.validateString(markup, {
+				processAttribute,
+			});
 			expect(report).toBeValid();
 		});
 
 		it.each(["audio", "video"])("should report error when <%s> have autoplay", async (tagName) => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString(`<${tagName} autoplay></${tagName}>`);
+			const markup = /* HTML */ ` <${tagName} autoplay></${tagName}> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 		});
 	});

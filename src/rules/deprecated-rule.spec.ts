@@ -45,7 +45,8 @@ describe("rule deprecated-rule", () => {
 			},
 		});
 		const htmlvalidate = new HtmlValidate(loader);
-		const report = await htmlvalidate.validateString("<div></div>");
+		const markup = /* HTML */ ` <div></div> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
@@ -59,7 +60,8 @@ describe("rule deprecated-rule", () => {
 			},
 		});
 		const htmlvalidate = new HtmlValidate(loader);
-		const report = await htmlvalidate.validateString("<div></div>");
+		const markup = /* HTML */ ` <div></div> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
@@ -73,7 +75,8 @@ describe("rule deprecated-rule", () => {
 			},
 		});
 		const htmlvalidate = new HtmlValidate(loader);
-		const report = await htmlvalidate.validateString("<div></div>");
+		const markup = /* HTML */ ` <div></div> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("deprecated-rule", 'Usage of deprecated rule "custom/deprecated"');
 	});

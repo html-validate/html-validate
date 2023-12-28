@@ -14,13 +14,18 @@ describe("rule heading-level", () => {
 
 	it("should not report error for non-headings", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<p>lorem ipsum</p>");
+		const markup = /* HTML */ ` <p>lorem ipsum</p> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report error when <h1> is followed by <h2>", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<h1>heading 1</h1><h2>heading 2</h2>");
+		const markup = /* HTML */ `
+			<h1>heading 1</h1>
+			<h2>heading 2</h2>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
@@ -40,7 +45,11 @@ describe("rule heading-level", () => {
 
 	it("should report error when <h1> is followed by <h3>", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString("<h1>heading 1</h1><h3>heading 2</h3>");
+		const markup = /* HTML */ `
+			<h1>heading 1</h1>
+			<h3>heading 2</h3>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"heading-level",
@@ -58,7 +67,11 @@ describe("rule heading-level", () => {
 
 	it("should report error when multiple <h1> are used", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString("<h1>heading 1</h1><h1>heading 1</h1>");
+		const markup = /* HTML */ `
+			<h1>heading 1</h1>
+			<h1>heading 1</h1>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("heading-level", "Multiple <h1> are not allowed");
 	});
@@ -68,13 +81,18 @@ describe("rule heading-level", () => {
 		const htmlvalidate = new HtmlValidate({
 			rules: { "heading-level": ["error", { allowMultipleH1: true }] },
 		});
-		const report = await htmlvalidate.validateString("<h1>heading 1</h1><h1>heading 1</h1>");
+		const markup = /* HTML */ `
+			<h1>heading 1</h1>
+			<h1>heading 1</h1>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should handle custom elements marked as heading", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<custom-heading></custom-heading>");
+		const markup = /* HTML */ ` <custom-heading></custom-heading> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 

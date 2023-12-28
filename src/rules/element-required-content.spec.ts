@@ -23,21 +23,33 @@ describe("rule element-required-content", () => {
 
 	it("should not report error when element has all required content", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString(
-			"<html><head><title></title></head><body></body></html>",
-		);
+		const markup = /* HTML */ `
+			<html>
+				<head>
+					<title></title>
+				</head>
+				<body></body>
+			</html>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should handle unknown elements", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<missing-meta></missing-meta>");
+		const markup = /* HTML */ ` <missing-meta></missing-meta> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should report error when element is missing required content", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString("<html><body></body></html>");
+		const markup = /* HTML */ `
+			<html>
+				<body></body>
+			</html>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
 			["element-required-content", "<html> element must have <head> as content"],
@@ -46,7 +58,8 @@ describe("rule element-required-content", () => {
 
 	it("should report all errors when element is missing multiple content", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString("<html></html>");
+		const markup = /* HTML */ ` <html></html> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
 			["element-required-content", "<html> element must have <head> as content"],

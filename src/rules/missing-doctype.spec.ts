@@ -13,14 +13,19 @@ describe("rule missing-doctype", () => {
 
 	it("should report error when document is missing doctype", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString("<html></html>");
+		const markup = /* HTML */ ` <html></html> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("missing-doctype", "Document is missing doctype");
 	});
 
 	it("should not report error when document has doctype", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<!doctype html><html></html>");
+		const markup = /* HTML */ `
+			<!doctype html>
+			<html></html>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 

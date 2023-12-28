@@ -11,7 +11,8 @@ describe("rule attribute-boolean-style", () => {
 			root: true,
 			rules: { "attribute-boolean-style": ["error", { style: "omit" }] },
 		});
-		const report = await htmlvalidate.validateString('<input type="foo">');
+		const markup = /* HTML */ ` <input type="foo" /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
@@ -21,7 +22,8 @@ describe("rule attribute-boolean-style", () => {
 			root: true,
 			rules: { "attribute-boolean-style": ["error", { style: "omit" }] },
 		});
-		const report = await htmlvalidate.validateString('<a download=""></a>');
+		const markup = /* HTML */ ` <a download=""></a> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
@@ -46,19 +48,22 @@ describe("rule attribute-boolean-style", () => {
 
 		it("should not report error when value is omitted", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<input required>");
+			const markup = /* HTML */ ` <input required /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error for non-boolean attributes", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<input type="text">');
+			const markup = /* HTML */ ` <input type="text" /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when value is empty string", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<input required="">');
+			const markup = /* HTML */ ` <input required="" /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-boolean-style",
@@ -68,7 +73,8 @@ describe("rule attribute-boolean-style", () => {
 
 		it("should report error when value is attribute name", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<input required="required">');
+			const markup = /* HTML */ ` <input required="required" /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-boolean-style",
@@ -78,7 +84,8 @@ describe("rule attribute-boolean-style", () => {
 
 		it("should report error when attribute is interpolated", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<input required="{{ dynamic }}">', {
+			const markup = /* HTML */ ` <input required="{{ dynamic }}" /> `;
+			const report = await htmlvalidate.validateString(markup, {
 				processAttribute,
 			});
 			expect(report).toBeInvalid();
@@ -90,7 +97,8 @@ describe("rule attribute-boolean-style", () => {
 
 		it("should not report error when attribute is dynamic", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<input dynamic-required="dynamic">', {
+			const markup = /* HTML */ ` <input dynamic-required="dynamic" /> `;
+			const report = await htmlvalidate.validateString(markup, {
 				processAttribute,
 			});
 			expect(report).toBeValid();
@@ -139,7 +147,8 @@ describe("rule attribute-boolean-style", () => {
 
 		it("should report error when value is omitted", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString("<input required>");
+			const markup = /* HTML */ ` <input required /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-boolean-style",
@@ -149,13 +158,15 @@ describe("rule attribute-boolean-style", () => {
 
 		it("should not report error when value is empty string", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<input required="">');
+			const markup = /* HTML */ ` <input required="" /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when value is attribute name", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<input required="required">');
+			const markup = /* HTML */ ` <input required="required" /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-boolean-style",
@@ -165,7 +176,8 @@ describe("rule attribute-boolean-style", () => {
 
 		it("should report error when attribute is dynamic", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<input required="{{ dynamic }}">', {
+			const markup = /* HTML */ ` <input required="{{ dynamic }}" /> `;
+			const report = await htmlvalidate.validateString(markup, {
 				processAttribute,
 			});
 			expect(report).toBeInvalid();
@@ -217,7 +229,8 @@ describe("rule attribute-boolean-style", () => {
 
 		it("should report error when value is omitted", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString("<input required>");
+			const markup = /* HTML */ ` <input required /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-boolean-style",
@@ -227,7 +240,8 @@ describe("rule attribute-boolean-style", () => {
 
 		it("should report error when value is empty string", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<input required="">');
+			const markup = /* HTML */ ` <input required="" /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-boolean-style",
@@ -237,13 +251,15 @@ describe("rule attribute-boolean-style", () => {
 
 		it("should not report error when value is attribute name", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<input required="required">');
+			const markup = /* HTML */ ` <input required="required" /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when attribute is dynamic", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<input required="{{ dynamic }}">', {
+			const markup = /* HTML */ ` <input required="{{ dynamic }}" /> `;
+			const report = await htmlvalidate.validateString(markup, {
 				processAttribute,
 			});
 			expect(report).toBeInvalid();

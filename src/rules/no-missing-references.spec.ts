@@ -12,53 +12,65 @@ describe("rule no-missing-references", () => {
 
 	it('should not report error when <label for=".."> is referencing existing element', async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString(
-			'<label for="existing"></label><input id="existing">',
-		);
+		const markup = /* HTML */ `
+			<label for="existing"></label>
+			<input id="existing" />
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it('should not report error when <input list=".."> is referencing existing element', async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString(
-			'<input list="existing"><datalist id="existing"></datalist>',
-		);
+		const markup = /* HTML */ `
+			<input list="existing" />
+			<datalist id="existing"></datalist>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it('should not report error when <ANY aria-labelledby=".."> is referencing existing element', async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString(
-			'<div aria-labelledby="existing"></div><span id="existing"></span>',
-		);
+		const markup = /* HTML */ `
+			<div aria-labelledby="existing"></div>
+			<span id="existing"></span>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it('should not report error when <ANY aria-describedby=".."> is referencing existing element', async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString(
-			'<div aria-describedby="existing"></div><span id="existing"></span>',
-		);
+		const markup = /* HTML */ `
+			<div aria-describedby="existing"></div>
+			<span id="existing"></span>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it('should not report error when <ANY aria-controls=".."> is referencing existing element', async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString(
-			'<div aria-controls="existing"></div><span id="existing"></span>',
-		);
+		const markup = /* HTML */ `
+			<div aria-controls="existing"></div>
+			<span id="existing"></span>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report error when reference is omitted", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<label for></label>");
+		const markup = /* HTML */ ` <label for></label> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report error when reference is empty string", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<label for=""></label>');
+		const markup = /* HTML */ ` <label for=""></label> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
@@ -88,21 +100,23 @@ describe("rule no-missing-references", () => {
 
 	it('should report error when <label for=".."> is referencing missing element', async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString('<label for="missing"></label>');
+		const markup = /* HTML */ ` <label for="missing"></label> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("no-missing-references", 'Element references missing id "missing"');
 	});
 
 	it('should report error when <input list=".."> is referencing missing element', async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString('<input list="missing">');
+		const markup = /* HTML */ ` <input list="missing" /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("no-missing-references", 'Element references missing id "missing"');
 	});
 
 	it('should report error when <ANY aria-activedescendant=".."> is referencing missing element', async () => {
 		expect.assertions(2);
-		const markup = '<div aria-activedescendant="missing id"></div>';
+		const markup = /* HTML */ ` <div aria-activedescendant="missing id"></div> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
@@ -112,7 +126,8 @@ describe("rule no-missing-references", () => {
 
 	it('should report error when <ANY aria-labelledby=".."> is referencing missing element', async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString('<div aria-labelledby="missing id"></div>');
+		const markup = /* HTML */ ` <div aria-labelledby="missing id"></div> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
 			{ ruleId: "no-missing-references", message: 'Element references missing id "missing"' },
@@ -122,7 +137,8 @@ describe("rule no-missing-references", () => {
 
 	it('should report error when <ANY aria-describedby=".."> is referencing missing element', async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString('<div aria-describedby="missing id"></div>');
+		const markup = /* HTML */ ` <div aria-describedby="missing id"></div> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
 			{ ruleId: "no-missing-references", message: 'Element references missing id "missing"' },
@@ -132,7 +148,8 @@ describe("rule no-missing-references", () => {
 
 	it('should report error when <ANY aria-controls=".."> is referencing missing element', async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString('<div aria-controls="missing id"></div>');
+		const markup = /* HTML */ ` <div aria-controls="missing id"></div> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
 			{ ruleId: "no-missing-references", message: 'Element references missing id "missing"' },
@@ -142,7 +159,7 @@ describe("rule no-missing-references", () => {
 
 	it('should report error when <ANY aria-details=".."> is referencing missing element', async () => {
 		expect.assertions(2);
-		const markup = '<div aria-details="missing id"></div>';
+		const markup = /* HTML */ ` <div aria-details="missing id"></div> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
@@ -152,7 +169,7 @@ describe("rule no-missing-references", () => {
 
 	it('should report error when <ANY aria-errormessage=".."> is referencing missing element', async () => {
 		expect.assertions(2);
-		const markup = '<div aria-errormessage="missing id"></div>';
+		const markup = /* HTML */ ` <div aria-errormessage="missing id"></div> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
@@ -162,7 +179,10 @@ describe("rule no-missing-references", () => {
 
 	it('should report error when <ANY aria-flowto=".."> is referencing missing element', async () => {
 		expect.assertions(2);
-		const markup = '<div aria-flowto="foo bar baz"></div><span id="bar"></span>';
+		const markup = /* HTML */ `
+			<div aria-flowto="foo bar baz"></div>
+			<span id="bar"></span>
+		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
@@ -173,7 +193,10 @@ describe("rule no-missing-references", () => {
 
 	it('should report error when <ANY aria-owns=".."> is referencing missing element', async () => {
 		expect.assertions(2);
-		const markup = '<div aria-owns="foo bar baz"></div><span id="bar"></span>';
+		const markup = /* HTML */ `
+			<div aria-owns="foo bar baz"></div>
+			<span id="bar"></span>
+		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([

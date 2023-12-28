@@ -94,12 +94,10 @@ describe("rule text-content", () => {
 
 		it("should report error when element have dynamic text", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString(
-				'<text-none bind-text="dynamic"></text-none>',
-				{
-					processElement,
-				},
-			);
+			const markup = /* HTML */ ` <text-none bind-text="dynamic"></text-none> `;
+			const report = await htmlvalidate.validateString(markup, {
+				processElement,
+			});
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("text-content", "<text-none> must not have text content");
 		});
@@ -147,18 +145,15 @@ describe("rule text-content", () => {
 
 		it("should not report error when element have dynamic text", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString(
-				'<text-default bind-text="dynamic"></text-default>',
-				{ processElement },
-			);
+			const markup = /* HTML */ ` <text-default bind-text="dynamic"></text-default> `;
+			const report = await htmlvalidate.validateString(markup, { processElement });
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when child element have text", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString(
-				"<text-default><span>foobar</span></text-default>",
-			);
+			const markup = /* HTML */ ` <text-default><span>foobar</span></text-default> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 	});

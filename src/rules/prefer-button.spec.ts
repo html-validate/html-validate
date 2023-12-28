@@ -16,19 +16,22 @@ describe("rule prefer-button", () => {
 
 		it("should not report error when type attribute is missing type attribute", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<input>");
+			const markup = /* HTML */ ` <input /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when type attribute is missing value", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<input type>");
+			const markup = /* HTML */ ` <input type /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error for dynamic attributes", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<input dynamic-type="inputType">', {
+			const markup = /* HTML */ ` <input dynamic-type="inputType" /> `;
+			const report = await htmlvalidate.validateString(markup, {
 				processAttribute,
 			});
 			expect(report).toBeValid();
@@ -36,13 +39,15 @@ describe("rule prefer-button", () => {
 
 		it("should not report error when using regular input fields", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<input type="text">');
+			const markup = /* HTML */ ` <input type="text" /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when using type button", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<input type="button">');
+			const markup = /* HTML */ ` <input type="button" /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"prefer-button",
@@ -52,7 +57,8 @@ describe("rule prefer-button", () => {
 
 		it("should report error when using type submit", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<input type="submit">');
+			const markup = /* HTML */ ` <input type="submit" /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"prefer-button",
@@ -62,7 +68,8 @@ describe("rule prefer-button", () => {
 
 		it("should report error when using type reset", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<input type="reset">');
+			const markup = /* HTML */ ` <input type="reset" /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"prefer-button",
@@ -72,7 +79,8 @@ describe("rule prefer-button", () => {
 
 		it("should report error when using type image", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<input type="image">');
+			const markup = /* HTML */ ` <input type="image" /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"prefer-button",
@@ -82,7 +90,8 @@ describe("rule prefer-button", () => {
 
 		it("should report error when using type submit in uppercase", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<INPUT TYPE="SUBMIT">');
+			const markup = /* RAW */ ` <INPUT TYPE="SUBMIT" /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"prefer-button",
@@ -92,9 +101,8 @@ describe("rule prefer-button", () => {
 
 		it("should not report error when using submit keyword in other attributes", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString(
-				'<input type="hidden" name="action" value="submit">',
-			);
+			const markup = /* HTML */ ` <input type="hidden" name="action" value="submit" /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 

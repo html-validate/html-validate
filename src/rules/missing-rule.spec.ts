@@ -12,7 +12,8 @@ describe("missing rule", () => {
 
 	it("should report error when rule is not defined", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString("<p></p>");
+		const markup = /* HTML */ ` <p></p> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("foo", "Definition for rule 'foo' was not found");
 	});

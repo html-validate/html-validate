@@ -13,13 +13,15 @@ describe("rule no-deprecated-attr", () => {
 
 	it("should not report when regular element is used", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<body style="background: red;"></body>');
+		const markup = /* HTML */ ` <body style="background: red;"></body> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report when regular element is missing meta", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<any style="background: red;"></any>');
+		const markup = /* HTML */ ` <any style="background: red;"></any> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
@@ -30,13 +32,15 @@ describe("rule no-deprecated-attr", () => {
 			elements: [{ abbr: {} }],
 			rules: { "no-deprecated-attr": "error" },
 		});
-		const report = await htmlvalidate.validateString('<abbr style="background: red;"></abbr>');
+		const markup = /* HTML */ ` <abbr style="background: red;"></abbr> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should report error when deprecated attribute is used", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString('<body bgcolor="red"></body>');
+		const markup = /* HTML */ ` <body bgcolor="red"></body> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"no-deprecated-attr",
@@ -46,7 +50,8 @@ describe("rule no-deprecated-attr", () => {
 
 	it("should report error when deprecated attribute is used in any case", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString('<body BGCOLOR="red"></body>');
+		const markup = /* RAW */ ` <body BGCOLOR="red"></body> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"no-deprecated-attr",

@@ -30,19 +30,22 @@ describe("rule input-missing-label", () => {
 
 	it('should not report when input type="submit" is missing label', async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<input type="submit" />');
+		const markup = /* HTML */ ` <input type="submit" /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it('should not report when input type="reset" is missing label', async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<input type="reset" />');
+		const markup = /* HTML */ ` <input type="reset" /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it('should not report when input type="button" is missing label', async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<input type="button" />');
+		const markup = /* HTML */ ` <input type="button" /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 

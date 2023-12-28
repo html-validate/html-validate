@@ -80,7 +80,8 @@ describe("rule allowed-links", () => {
 			root: true,
 			rules: { "allowed-links": ["error", { allowAbsolute: false }] },
 		});
-		const report = await htmlvalidate.validateString('<a href="#foo"></a>');
+		const markup = /* HTML */ ` <a href="#foo"></a> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
@@ -92,7 +93,8 @@ describe("rule allowed-links", () => {
 				"allowed-links": ["error", { allowRelative: false }],
 			},
 		});
-		const report = await htmlvalidate.validateString('<a dynamic-src="{{ expr }}"></a>', {
+		const markup = /* HTML */ ` <a dynamic-src="{{ expr }}"></a> `;
+		const report = await htmlvalidate.validateString(markup, {
 			processAttribute,
 		});
 		expect(report).toBeValid();
@@ -108,33 +110,38 @@ describe("rule allowed-links", () => {
 
 		it("should report error when link is external using //", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<a href="//example.net/foo"></a>');
+			const markup = /* HTML */ ` <a href="//example.net/foo"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("allowed-links", "Link destination must not be external url");
 		});
 
 		it("should report error when link is external using protocol://", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<a href="http://example.net/foo"></a>');
+			const markup = /* HTML */ ` <a href="http://example.net/foo"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("allowed-links", "Link destination must not be external url");
 		});
 
 		it("should not report error when link is absolute", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<a href="/foo"></a>');
+			const markup = /* HTML */ ` <a href="/foo"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when link is relative to path", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<a href="./foo"></a>');
+			const markup = /* HTML */ ` <a href="./foo"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when link is relative to base", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<a href="foo"></a>');
+			const markup = /* HTML */ ` <a href="foo"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 	});
@@ -149,32 +156,37 @@ describe("rule allowed-links", () => {
 
 		it("should not report error when link is external using //", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<a href="//example.net/foo"></a>');
+			const markup = /* HTML */ ` <a href="//example.net/foo"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when link is external using protocol://", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<a href="http://example.net/foo"></a>');
+			const markup = /* HTML */ ` <a href="http://example.net/foo"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when link is absolute", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<a href="/foo"></a>');
+			const markup = /* HTML */ ` <a href="/foo"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when link is relative to path", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<a href="./foo"></a>');
+			const markup = /* HTML */ ` <a href="./foo"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("allowed-links", "Link destination must not be relative url");
 		});
 
 		it("should report error when link is relative to base", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<a href="foo"></a>');
+			const markup = /* HTML */ ` <a href="foo"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("allowed-links", "Link destination must not be relative url");
 		});
@@ -190,31 +202,36 @@ describe("rule allowed-links", () => {
 
 		it("should not report error when link is external using //", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<a href="//example.net/foo"></a>');
+			const markup = /* HTML */ ` <a href="//example.net/foo"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when link is external using protocol://", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<a href="http://example.net/foo"></a>');
+			const markup = /* HTML */ ` <a href="http://example.net/foo"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when link is absolute", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<a href="/foo"></a>');
+			const markup = /* HTML */ ` <a href="/foo"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when link is relative to path", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<a href="./foo"></a>');
+			const markup = /* HTML */ ` <a href="./foo"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when link is relative to base", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<a href="foo"></a>');
+			const markup = /* HTML */ ` <a href="foo"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"allowed-links",
@@ -233,32 +250,37 @@ describe("rule allowed-links", () => {
 
 		it("should not report error when link is external using //", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<a href="//example.net/foo"></a>');
+			const markup = /* HTML */ ` <a href="//example.net/foo"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when link is external using protocol://", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<a href="http://example.net/foo"></a>');
+			const markup = /* HTML */ ` <a href="http://example.net/foo"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when link is absolute", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<a href="/foo"></a>');
+			const markup = /* HTML */ ` <a href="/foo"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("allowed-links", "Link destination must not be absolute url");
 		});
 
 		it("should not report error when link is relative to path", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<a href="./foo"></a>');
+			const markup = /* HTML */ ` <a href="./foo"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when link is relative to base", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<a href="foo"></a>');
+			const markup = /* HTML */ ` <a href="foo"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 	});

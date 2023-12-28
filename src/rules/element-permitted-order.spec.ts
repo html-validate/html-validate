@@ -13,9 +13,13 @@ describe("rule element-permitted-order", () => {
 
 	it("should report error when child is used in wrong order", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString(
-			"<table><thead></thead><caption></caption></table>",
-		);
+		const markup = /* HTML */ `
+			<table>
+				<thead></thead>
+				<caption></caption>
+			</table>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"element-permitted-order",
@@ -25,23 +29,37 @@ describe("rule element-permitted-order", () => {
 
 	it("should not report error when child is used in right order", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString(
-			"<table><caption></caption><thead></thead></table>",
-		);
+		const markup = /* HTML */ `
+			<table>
+				<caption></caption>
+				<thead></thead>
+			</table>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report error when disallowed child is used", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<table><foo></foo></table>");
+		const markup = /* HTML */ `
+			<table>
+				<foo></foo>
+			</table>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report error when child with unspecified order is used", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString(
-			"<table><caption></caption><template></template><thead></thead></table>",
-		);
+		const markup = /* HTML */ `
+			<table>
+				<caption></caption>
+				<template></template>
+				<thead></thead>
+			</table>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 

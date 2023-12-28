@@ -16,33 +16,44 @@ describe("rule element-name", () => {
 
 		it("should report error when custom element name does not have a dash", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString("<foobar></foobar>");
+			const markup = /* HTML */ ` <foobar></foobar> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("element-name", "<foobar> is not a valid element name");
 		});
 
 		it("should report error when custom element name does not start with letter", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString("<1-foo></1-foo>");
+			const markup = /* HTML */ ` <1-foo></1-foo> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("element-name", "<1-foo> is not a valid element name");
 		});
 
 		it("should not report error when custom element name is valid", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<foo-bar></foo-bar>");
+			const markup = /* HTML */ ` <foo-bar></foo-bar> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report when using builtin elements", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<span><a><span></span></a></span>");
+			const markup = /* HTML */ `
+				<span>
+					<a>
+						<span></span>
+					</a>
+				</span>
+			`;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error for xml namespaces", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<xmlns:foo></xmlns:foo>");
+			const markup = /* HTML */ ` <xmlns:foo></xmlns:foo> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
@@ -79,26 +90,34 @@ describe("rule element-name", () => {
 
 		it("should report error when custom element name does not match pattern", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString("<spam-ham></spam-ham>");
+			const markup = /* HTML */ ` <spam-ham></spam-ham> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("element-name", "<spam-ham> is not a valid element name");
 		});
 
 		it("should not report error when custom element name does match pattern", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<foo-bar></foo-bar>");
+			const markup = /* HTML */ ` <foo-bar></foo-bar> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report when using builtin elements", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<span><a><span></span></a></span>");
+			const markup = /* HTML */ `
+				<span
+					><a><span></span></a
+				></span>
+			`;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error for xml namespaces", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<xmlns:foo></xmlns:foo>");
+			const markup = /* HTML */ ` <xmlns:foo></xmlns:foo> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
@@ -139,7 +158,8 @@ describe("rule element-name", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "element-name": ["error", { whitelist: ["foobar"] }] },
 		});
-		const report = await htmlvalidate.validateString("<foobar></foobar>");
+		const markup = /* HTML */ ` <foobar></foobar> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
@@ -149,7 +169,8 @@ describe("rule element-name", () => {
 			root: true,
 			rules: { "element-name": ["error", { blacklist: ["foo-bar"] }] },
 		});
-		const report = await htmlvalidate.validateString("<foo-bar></foo-bar>");
+		const markup = /* HTML */ ` <foo-bar></foo-bar> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("element-name", "<foo-bar> element is blacklisted");
 	});

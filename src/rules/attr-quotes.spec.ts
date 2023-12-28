@@ -14,19 +14,22 @@ describe("rule attr-quotes", () => {
 
 		it("should not report when attributes use double quotes", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<div foo="bar"></div>');
+			const markup = /* RAW */ ` <div foo="bar"></div> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report for boolean attribute", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<input checked>");
+			const markup = /* RAW */ ` <input checked /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when attributes use single quotes", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString("<div foo='bar'></div>");
+			const markup = /* RAW */ ` <div foo='bar'></div> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("attr-quotes", 'Attribute "foo" used \' instead of expected "');
 		});
@@ -41,14 +44,16 @@ describe("rule attr-quotes", () => {
 
 		it("should report error when attributes use double quotes", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<div foo="bar"></div>');
+			const markup = /* RAW */ ` <div foo="bar"></div> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("attr-quotes", 'Attribute "foo" used " instead of expected \'');
 		});
 
 		it("should not report when attributes use single quotes", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<div foo='bar'></div>");
+			const markup = /* RAW */ ` <div foo='bar'></div> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 	});
@@ -62,19 +67,22 @@ describe("rule attr-quotes", () => {
 
 		it("should not report when attributes use double quotes", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<div foo="bar"></div>');
+			const markup = /* RAW */ ` <div foo="bar"></div> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report when attributes use single quotes with double quote present inside", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString(`<div foo='"bar"'></div>`);
+			const markup = /* RAW */ ` <div foo='"bar"'></div> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when attributes use single quotes", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString("<div foo='bar'></div>");
+			const markup = /* RAW */ ` <div foo='bar'></div> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("attr-quotes", 'Attribute "foo" used \' instead of expected "');
 		});
@@ -89,19 +97,22 @@ describe("rule attr-quotes", () => {
 
 		it("should not report when attributes use double quotes", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<div foo="bar"></div>');
+			const markup = /* RAW */ ` <div foo="bar"></div> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when attributes use single quotes", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<div foo='bar'></div>");
+			const markup = /* RAW */ ` <div foo='bar'></div> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report for boolean attribute", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<input checked>");
+			const markup = /* RAW */ ` <input checked /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 	});
@@ -117,13 +128,15 @@ describe("rule attr-quotes", () => {
 
 		it("should not report when attributes is using quotes", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<div foo="bar"></div>');
+			const markup = /* RAW */ ` <div foo="bar"></div> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when attribute value is unquoted", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<div foo=5></div>");
+			const markup = /* RAW */ ` <div foo=5></div> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 	});
@@ -139,13 +152,15 @@ describe("rule attr-quotes", () => {
 
 		it("should not report when attributes is using quotes", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<div foo="bar"></div>');
+			const markup = /* RAW */ ` <div foo="bar"></div> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when attribute value is unquoted", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString("<div foo=5></div>");
+			const markup = /* RAW */ ` <div foo=5></div> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("attr-quotes", 'Attribute "foo" using unquoted value');
 		});

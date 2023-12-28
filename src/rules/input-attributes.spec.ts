@@ -14,19 +14,22 @@ describe("rule input-attributes", () => {
 
 	it("should not report error for other elements", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<div type="text" step="5"></div>');
+		const markup = /* HTML */ ` <div type="text" step="5"></div> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report error when attribute is correct", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<input type="number" step="5">');
+		const markup = /* HTML */ ` <input type="number" step="5" /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should report error when incorrect attribute is used", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString('<input type="text" step="5">');
+		const markup = /* HTML */ ` <input type="text" step="5" /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"input-attributes",
@@ -36,19 +39,22 @@ describe("rule input-attributes", () => {
 
 	it("should handle when type is missing", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<input step="5">');
+		const markup = /* HTML */ ` <input step="5" /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should handle when type is incomplete", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<input type step="5">');
+		const markup = /* HTML */ ` <input type step="5" /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should handle when type is dynamic", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<input dynamic-type="type" step="5">', {
+		const markup = /* HTML */ ` <input dynamic-type="type" step="5" /> `;
+		const report = await htmlvalidate.validateString(markup, {
 			processAttribute,
 		});
 		expect(report).toBeValid();

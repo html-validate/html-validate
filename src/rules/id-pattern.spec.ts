@@ -14,13 +14,15 @@ describe("rule id-pattern", () => {
 
 	it("should not report error when id follows pattern", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<p id="foo-bar"></p>');
+		const markup = /* HTML */ ` <p id="foo-bar"></p> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report error when id is interpolated", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<p id="{{ interpolated }}"></p>', {
+		const markup = /* HTML */ ` <p id="{{ interpolated }}"></p> `;
+		const report = await htmlvalidate.validateString(markup, {
 			processAttribute,
 		});
 		expect(report).toBeValid();
@@ -28,43 +30,47 @@ describe("rule id-pattern", () => {
 
 	it("should report error when id does not follow pattern", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString('<p id="fooBar"></p>');
+		const markup = /* HTML */ ` <p id="fooBar"></p> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: ID "fooBar" does not match required pattern "/^[a-z0-9-]+$/" (id-pattern) at inline:1:8:
-			> 1 | <p id="fooBar"></p>
-			    |        ^^^^^^
+			"error: ID "fooBar" does not match required pattern "/^[a-z0-9-]+$/" (id-pattern) at inline:1:9:
+			> 1 |  <p id="fooBar"></p>
+			    |         ^^^^^^
 			Selector: #fooBar"
 		`);
 	});
 
 	it("should report error when id is empty string", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString('<p id=""></p>');
+		const markup = /* HTML */ ` <p id=""></p> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: ID "" does not match required pattern "/^[a-z0-9-]+$/" (id-pattern) at inline:1:4:
-			> 1 | <p id=""></p>
-			    |    ^^^^^
+			"error: ID "" does not match required pattern "/^[a-z0-9-]+$/" (id-pattern) at inline:1:5:
+			> 1 |  <p id=""></p>
+			    |     ^^^^^
 			Selector: p"
 		`);
 	});
 
 	it("should report error when id is omitted", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString("<p id></p>");
+		const markup = /* HTML */ ` <p id></p> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: ID "" does not match required pattern "/^[a-z0-9-]+$/" (id-pattern) at inline:1:4:
-			> 1 | <p id></p>
-			    |    ^^
+			"error: ID "" does not match required pattern "/^[a-z0-9-]+$/" (id-pattern) at inline:1:5:
+			> 1 |  <p id></p>
+			    |     ^^
 			Selector: p"
 		`);
 	});
 
 	it("should ignore other attributes", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<p spam="fooBar"></p>');
+		const markup = /* HTML */ ` <p spam="fooBar"></p> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 

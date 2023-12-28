@@ -12,13 +12,15 @@ describe("rule doctype-html", () => {
 
 	it("should not report when correct doctype is used", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<!DOCTYPE html>");
+		const markup = /* RAW */ ` <!DOCTYPE html> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report when doctype is uppercase", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<!DOCTYPE HTML>");
+		const markup = /* RAW */ ` <!DOCTYPE HTML> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 

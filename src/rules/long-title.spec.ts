@@ -9,9 +9,13 @@ describe("rule long-title", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "long-title": "error" },
 		});
-		const report = await htmlvalidate.validateString(
-			"<title>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</title>",
-		);
+		const markup = /* HTML */ `
+			<title>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+				labore et dolore magna aliqua.
+			</title>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("long-title", "title text cannot be longer than 70 characters");
 	});
@@ -21,7 +25,8 @@ describe("rule long-title", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "long-title": "error" },
 		});
-		const report = await htmlvalidate.validateString("<title>lorem ipsum</title>");
+		const markup = /* HTML */ ` <title>lorem ipsum</title> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
@@ -41,7 +46,8 @@ describe("rule long-title", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "long-title": ["error", { maxlength: 10 }] },
 		});
-		const report = await htmlvalidate.validateString("<title>lorem ipsum dolor sit amet</title>");
+		const markup = /* HTML */ ` <title>lorem ipsum dolor sit amet</title> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("long-title", "title text cannot be longer than 10 characters");
 	});

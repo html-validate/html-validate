@@ -26,7 +26,8 @@ describe("rule attribute-allowed-values", () => {
 
 	it("should report error when element has invalid attribute value", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString('<input type="foobar">');
+		const markup = /* HTML */ ` <input type="foobar" /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"attribute-allowed-values",
@@ -36,14 +37,16 @@ describe("rule attribute-allowed-values", () => {
 
 	it("should report error when element has invalid boolean attribute value", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString("<input type>");
+		const markup = /* HTML */ ` <input type /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("attribute-allowed-values", 'Attribute "type" is missing value');
 	});
 
 	it("should report error when element attribute should be boolean", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString('<input required="foobar">');
+		const markup = /* HTML */ ` <input required="foobar" /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"attribute-allowed-values",
@@ -53,67 +56,73 @@ describe("rule attribute-allowed-values", () => {
 
 	it("should not report error when element has valid attribute value", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<input type="text">');
+		const markup = /* HTML */ ` <input type="text" /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report error when element is missing meta", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<foo-bar type="text">');
+		const markup = /* HTML */ ` <foo-bar type="text"> </foo-bar> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report error when element has no attribute specification", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<div id="text">');
+		const markup = /* HTML */ ` <div id="text"></div> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report error when attribute value is uppercase", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<input type="TEXT">');
+		const markup = /* HTML */ ` <input type="TEXT" /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report error when attribute is dynamic", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString(
-			'<input type="{{ interpolated }}" required="{{ interpolated }}"><input dynamic-type="dynamic" dynamic-required="dynamic">',
-
-			{
-				processAttribute,
-			},
-		);
+		const markup = /* HTML */ `
+			<input type="{{ interpolated }}" required="{{ interpolated }}" />
+			<input dynamic-type="dynamic" dynamic-required="dynamic" />
+		`;
+		const report = await htmlvalidate.validateString(markup, {
+			processAttribute,
+		});
 		expect(report).toBeValid();
 	});
 
 	it("should not report error when element allows empty value and attribute is null", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<a download>");
+		const markup = /* HTML */ ` <a download> </a> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report error when element allows empty value and attribute is empty string", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<a download="">');
+		const markup = /* HTML */ ` <a download=""> </a> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report error when element allows empty and other values and attribute is non-empty string", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<a download="foobar">');
+		const markup = /* HTML */ ` <a download="foobar"> </a> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should support case-insensitive comparison", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString(
-			[
-				'<mock-element case-insensitive="foo"></mock-element>',
-				'<mock-element case-insensitive="FOO"></mock-element>',
-				'<mock-element case-insensitive="Foo"></mock-element>',
-			].join("\n"),
-		);
+		const markup = /* HTML */ `
+			<mock-element case-insensitive="foo"></mock-element>
+			<mock-element case-insensitive="FOO"></mock-element>
+			<mock-element case-insensitive="Foo"></mock-element>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 

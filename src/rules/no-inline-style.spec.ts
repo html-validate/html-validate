@@ -15,22 +15,23 @@ describe("rule no-inline-style", () => {
 
 		it("should not report when style attribute sets display property", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<p style="display: none"></p>');
+			const markup = /* HTML */ ` <p style="display: none"></p> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report when style attribute is used", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString(
-				'<p style="color: red; background: green"></p>',
-			);
+			const markup = /* HTML */ ` <p style="color: red; background: green"></p> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
 		});
 
 		it("should report when dynamic style attribute is used", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<p dynamic-style=""></p>', {
+			const markup = /* HTML */ ` <p dynamic-style=""></p> `;
+			const report = await htmlvalidate.validateString(markup, {
 				processAttribute,
 			});
 			expect(report).toBeInvalid();
@@ -39,21 +40,24 @@ describe("rule no-inline-style", () => {
 
 		it("should handle leading whitespace", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<p style=" color: red"></p>');
+			const markup = /* HTML */ ` <p style=" color: red"></p> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
 		});
 
 		it("should handle trailing whitespace", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<p style="color: red; "></p>');
+			const markup = /* HTML */ ` <p style="color: red; "></p> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
 		});
 
 		it("should handle only whitespace", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<p style=" "></p>');
+			const markup = /* HTML */ ` <p style=" "></p> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
 		});
@@ -69,14 +73,16 @@ describe("rule no-inline-style", () => {
 
 		it("should report when style attribute is used", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<p style=""></p>');
+			const markup = /* HTML */ ` <p style=""></p> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
 		});
 
 		it("should not report when dynamic style attribute is used", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<p dynamic-style=""></p>', {
+			const markup = /* HTML */ ` <p dynamic-style=""></p> `;
+			const report = await htmlvalidate.validateString(markup, {
 				processAttribute,
 			});
 			expect(report).toBeValid();
@@ -93,13 +99,15 @@ describe("rule no-inline-style", () => {
 
 		it("should not report when style attribute is used", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<p style=""></p>');
+			const markup = /* HTML */ ` <p style=""></p> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report when dynamic style attribute is used", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<p dynamic-style=""></p>', {
+			const markup = /* HTML */ ` <p dynamic-style=""></p> `;
+			const report = await htmlvalidate.validateString(markup, {
 				processAttribute,
 			});
 			expect(report).toBeInvalid();
@@ -114,9 +122,8 @@ describe("rule no-inline-style", () => {
 				root: true,
 				rules: { "no-inline-style": ["error", { allowedProperties: ["color", "background"] }] },
 			});
-			const report = await htmlvalidate.validateString(
-				'<p style="color: red; background: green;"></p>',
-			);
+			const markup = /* HTML */ ` <p style="color: red; background: green;"></p> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
@@ -126,9 +133,8 @@ describe("rule no-inline-style", () => {
 				root: true,
 				rules: { "no-inline-style": ["error", { allowedProperties: ["color"] }] },
 			});
-			const report = await htmlvalidate.validateString(
-				'<p style="color: red; background: green;"></p>',
-			);
+			const markup = /* HTML */ ` <p style="color: red; background: green;"></p> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
 		});
@@ -139,9 +145,8 @@ describe("rule no-inline-style", () => {
 				root: true,
 				rules: { "no-inline-style": ["error", { allowedProperties: [] }] },
 			});
-			const report = await htmlvalidate.validateString(
-				'<p style="color: red; background: green;"></p>',
-			);
+			const markup = /* HTML */ ` <p style="color: red; background: green;"></p> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
 		});
@@ -152,7 +157,8 @@ describe("rule no-inline-style", () => {
 				root: true,
 				rules: { "no-inline-style": ["error", { allowedProperties: ["color"] }] },
 			});
-			const report = await htmlvalidate.validateString("<p style></p>");
+			const markup = /* HTML */ ` <p style></p> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
 		});
@@ -163,7 +169,8 @@ describe("rule no-inline-style", () => {
 				root: true,
 				rules: { "no-inline-style": ["error", { allowedProperties: ["color"] }] },
 			});
-			const report = await htmlvalidate.validateString('<p style=""></p>');
+			const markup = /* HTML */ ` <p style=""></p> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
 		});
@@ -174,7 +181,8 @@ describe("rule no-inline-style", () => {
 				root: true,
 				rules: { "no-inline-style": ["error", { allowedProperties: ["background"] }] },
 			});
-			const report = await htmlvalidate.validateString('<p style="color"></p>');
+			const markup = /* HTML */ ` <p style="color"></p> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
 		});
@@ -185,7 +193,8 @@ describe("rule no-inline-style", () => {
 				root: true,
 				rules: { "no-inline-style": ["error", { allowedProperties: ["color"] }] },
 			});
-			const report = await htmlvalidate.validateString('<p style="color: red;"></p>');
+			const markup = /* HTML */ ` <p style="color: red;"></p> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 	});

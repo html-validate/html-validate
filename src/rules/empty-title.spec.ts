@@ -23,13 +23,15 @@ describe("rule empty-title", () => {
 
 	it("should not report when title has text", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<title>lorem ipsum</title>");
+		const markup = /* HTML */ ` <title>lorem ipsum</title> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report when title has children with text", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<title><span>lorem ipsum</span></title>");
+		const markup = /* HTML */ ` <title><span>lorem ipsum</span></title> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
@@ -38,7 +40,8 @@ describe("rule empty-title", () => {
 		function processElement(node: HtmlElement): void {
 			node.appendText(new DynamicValue(""), location);
 		}
-		const report = await htmlvalidate.validateString("<title></title>", {
+		const markup = /* HTML */ ` <title></title> `;
+		const report = await htmlvalidate.validateString(markup, {
 			processElement,
 		});
 		expect(report).toBeValid();
@@ -46,28 +49,32 @@ describe("rule empty-title", () => {
 
 	it("should report error when title has no text content", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString("<title></title>");
+		const markup = /* HTML */ ` <title></title> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("empty-title", "<title> cannot be empty, must have text content");
 	});
 
 	it("should report error when title has no children with content", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString("<title><span></span></title>");
+		const markup = /* HTML */ ` <title><span></span></title> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("empty-title", "<title> cannot be empty, must have text content");
 	});
 
 	it("should report error when title only has whitespace content", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString("<title> </title>");
+		const markup = /* HTML */ ` <title> </title> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("empty-title", "<title> cannot be empty, must have text content");
 	});
 
 	it("should report error when title only has comment", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString("<title>\n<!-- foo -->\n</title>");
+		const markup = /* HTML */ ` <title><!-- foo --></title> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("empty-title", "<title> cannot be empty, must have text content");
 	});

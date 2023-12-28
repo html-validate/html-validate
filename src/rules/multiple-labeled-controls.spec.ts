@@ -12,39 +12,64 @@ describe("rule multiple-labeled-controls", () => {
 
 	it("should not report when <label> has no controls", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<label></label>");
+		const markup = /* HTML */ ` <label></label> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report when <label> has one wrapped control", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<labe><input></label>");
+		const markup = /* HTML */ `
+			<label>
+				<input />
+			</label>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report when <label> has one referenced control", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<label for="foo"></label><input id="foo">');
+		const markup = /* HTML */ `
+			<label for="foo"></label>
+			<input id="foo" />
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report when <label> both references and wraps a single control", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<label for="foo"><input id="foo"></label>');
+		const markup = /* HTML */ `
+			<label for="foo">
+				<input id="foo" />
+			</label>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report error for other elements", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString(
-			'<custom-element for="bar"><input id="foo"></custom-element><input id="bar">',
-		);
+		const markup = /* HTML */ `
+			<custom-element for="bar">
+				<input id="foo" />
+			</custom-element>
+			<input id="bar" />
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should report error when <label> have multiple wrapped controls", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString("<label><input><input></label>");
+		const markup = /* HTML */ `
+			<label>
+				<input />
+				<input />
+			</label>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"multiple-labeled-controls",
@@ -54,9 +79,13 @@ describe("rule multiple-labeled-controls", () => {
 
 	it("should report error when <label> have both for attribute and another wrapped control", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString(
-			'<label for="bar"><input id="foo"></label><input id="bar">',
-		);
+		const markup = /* HTML */ `
+			<label for="bar">
+				<input id="foo" />
+			</label>
+			<input id="bar" />
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"multiple-labeled-controls",

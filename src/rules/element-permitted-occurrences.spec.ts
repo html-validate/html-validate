@@ -13,9 +13,17 @@ describe("rule element-permitted-occurrences", () => {
 
 	it("should report error when child has too many occurrences", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString(
-			"<table><caption>1</caption><caption>2</caption></table>",
-		);
+		const markup = /* HTML */ `
+			<table>
+				<caption>
+					1
+				</caption>
+				<caption>
+					2
+				</caption>
+			</table>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
 			["element-permitted-occurrences", "Element <caption> can only appear once under <table>"],
@@ -24,13 +32,25 @@ describe("rule element-permitted-occurrences", () => {
 
 	it("should not report error when child has right number of occurrences", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<table><caption></caption></table>");
+		const markup = /* HTML */ `
+			<table>
+				<caption></caption>
+			</table>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report error when child has unrestricted number of occurrences", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<div><p>1</p><p>2</p><p>3</p></div>");
+		const markup = /* HTML */ `
+			<div>
+				<p>1</p>
+				<p>2</p>
+				<p>3</p>
+			</div>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 

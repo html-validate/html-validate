@@ -21,7 +21,8 @@ describe("rule deprecated", () => {
 
 	it("should not report when regular element is used", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<p></p>");
+		const markup = /* HTML */ ` <p></p> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
@@ -49,9 +50,8 @@ describe("rule deprecated", () => {
 
 	it("should report error when element with deprecation message is used", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString(
-			"<custom-deprecated>foobar</custom-deprecated>",
-		);
+		const markup = /* HTML */ ` <custom-deprecated> foobar </custom-deprecated> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("deprecated", "<custom-deprecated> is deprecated: lorem ipsum");
 	});
@@ -94,7 +94,8 @@ describe("rule deprecated", () => {
 					},
 				],
 			});
-			const report = await htmlvalidate.validateString("<my-element></my-element>");
+			const markup = /* HTML */ ` <my-element></my-element> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toHaveError("deprecated", message);
 			const context = report.results[0].messages[0].context;
 			const doc = await htmlvalidate.getRuleDocumentation("deprecated", null, context);

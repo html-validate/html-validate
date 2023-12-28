@@ -10,7 +10,8 @@ describe("rule attribute-empty-style", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "attribute-empty-style": ["error", { style: "omit" }] },
 		});
-		const report = await htmlvalidate.validateString('<custom-element foobar=""></custom-element>');
+		const markup = /* HTML */ ` <custom-element foobar=""></custom-element> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
@@ -19,7 +20,8 @@ describe("rule attribute-empty-style", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "attribute-empty-style": ["error", { style: "omit" }] },
 		});
-		const report = await htmlvalidate.validateString('<a foobar=""></a>');
+		const markup = /* HTML */ ` <a foobar=""></a> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
@@ -32,32 +34,37 @@ describe("rule attribute-empty-style", () => {
 
 		it("should report error when value is empty string", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString('<a download=""></a>');
+			const markup = /* HTML */ ` <a download=""></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("attribute-empty-style", 'Attribute "download" should omit value');
 		});
 
 		it("should not report error when value is omitted", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<a download></a>");
+			const markup = /* HTML */ ` <a download></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error for non-empty attributes", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<a download="file.txt"></a>');
+			const markup = /* HTML */ ` <a download="file.txt"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error for boolean attributes", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<input required="">');
+			const markup = /* HTML */ ` <input required="" /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when attribute is interpolated", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<a download="{{ dynamic }}">', {
+			const markup = /* HTML */ ` <a download="{{ dynamic }}"> </a> `;
+			const report = await htmlvalidate.validateString(markup, {
 				processAttribute,
 			});
 			expect(report).toBeValid();
@@ -65,7 +72,8 @@ describe("rule attribute-empty-style", () => {
 
 		it("should not report error when attribute is dynamic", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<input dynamic-required="dynamic">', {
+			const markup = /* HTML */ ` <input dynamic-required="dynamic" /> `;
+			const report = await htmlvalidate.validateString(markup, {
 				processAttribute,
 			});
 			expect(report).toBeValid();
@@ -81,7 +89,8 @@ describe("rule attribute-empty-style", () => {
 
 		it("should report error when value is omitted", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString("<a download></a>");
+			const markup = /* HTML */ ` <a download></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"attribute-empty-style",
@@ -91,25 +100,29 @@ describe("rule attribute-empty-style", () => {
 
 		it("should not report error when value is empty string", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<a download=""></a>');
+			const markup = /* HTML */ ` <a download=""></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error for non-empty attributes", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<a download="file.txt"></a>');
+			const markup = /* HTML */ ` <a download="file.txt"></a> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error for boolean attributes", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<input required="">');
+			const markup = /* HTML */ ` <input required="" /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when attribute is interpolated", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<a download="{{ dynamic }}">', {
+			const markup = /* HTML */ ` <a download="{{ dynamic }}"> </a> `;
+			const report = await htmlvalidate.validateString(markup, {
 				processAttribute,
 			});
 			expect(report).toBeValid();
@@ -117,7 +130,8 @@ describe("rule attribute-empty-style", () => {
 
 		it("should not report error when attribute is dynamic", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString('<input dynamic-required="dynamic">', {
+			const markup = /* HTML */ ` <input dynamic-required="dynamic" /> `;
+			const report = await htmlvalidate.validateString(markup, {
 				processAttribute,
 			});
 			expect(report).toBeValid();

@@ -12,7 +12,8 @@ describe("rule no-style-tag", () => {
 
 	it("should not report for other tags", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<div></div>");
+		const markup = /* HTML */ ` <div></div> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 

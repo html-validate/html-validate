@@ -13,25 +13,29 @@ describe("rule no-dup-class", () => {
 
 	it("should not report when class is missing", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<p></p>");
+		const markup = /* HTML */ ` <p></p> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report when class has no duplicates", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<p class="foo bar"></p>');
+		const markup = /* HTML */ ` <p class="foo bar"></p> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report for other attributes", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<p attr="foo bar foo"></p>');
+		const markup = /* HTML */ ` <p attr="foo bar foo"></p> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should report when when class has duplicates", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString('<p class="foo bar foo"></p>');
+		const markup = /* HTML */ ` <p class="foo bar foo"></p> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("no-dup-class", 'Class "foo" duplicated');
 	});

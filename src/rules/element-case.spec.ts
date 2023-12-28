@@ -14,26 +14,30 @@ describe("rule element-case", () => {
 
 		it("should not report error when element is lowercase", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<foo></foo>");
+			const markup = /* HTML */ ` <foo></foo> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when element has special characters", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<foo-bar-9></foo-bar-9>");
+			const markup = /* HTML */ ` <foo-bar-9></foo-bar-9> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when element is uppercase", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString("<FOO></FOO>");
+			const markup = /* HTML */ ` <FOO></FOO> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("element-case", 'Element "FOO" should be lowercase');
 		});
 
 		it("should report error when element is mixed", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString("<fOo></fOo>");
+			const markup = /* HTML */ ` <fOo></fOo> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("element-case", 'Element "fOo" should be lowercase');
 		});
@@ -70,26 +74,30 @@ describe("rule element-case", () => {
 
 		it("should report error when element is lowercase", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString("<foo></foo>");
+			const markup = /* HTML */ ` <foo></foo> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("element-case", 'Element "foo" should be uppercase');
 		});
 
 		it("should not report error when element has special characters", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<FOO-BAR-9></FOO-BAR-9>");
+			const markup = /* HTML */ ` <FOO-BAR-9></FOO-BAR-9> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when element is uppercase", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<FOO></FOO>");
+			const markup = /* HTML */ ` <FOO></FOO> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when element is mixed", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString("<fOo></fOo>");
+			const markup = /* HTML */ ` <fOo></fOo> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("element-case", 'Element "fOo" should be uppercase');
 		});
@@ -126,14 +134,16 @@ describe("rule element-case", () => {
 
 		it("should report error when element is lowercase", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString("<foo-bar></foo-bar>");
+			const markup = /* HTML */ ` <foo-bar></foo-bar> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("element-case", 'Element "foo-bar" should be PascalCase');
 		});
 
 		it("should not report error when element is pascalcase", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<FooBar></FooBar>");
+			const markup = /* HTML */ ` <FooBar></FooBar> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 	});
@@ -148,14 +158,16 @@ describe("rule element-case", () => {
 
 		it("should report error when element is pascalcase", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString("<FooBar></FooBar>");
+			const markup = /* HTML */ ` <FooBar></FooBar> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("element-case", 'Element "FooBar" should be camelCase');
 		});
 
 		it("should not report error when element is camelcase", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<fooBar></fooBar>");
+			const markup = /* HTML */ ` <fooBar></fooBar> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 	});
@@ -194,7 +206,8 @@ describe("rule element-case", () => {
 			root: true,
 			rules: { "element-case": ["error", { style: "camelcase" }] },
 		});
-		const report = await htmlvalidate.validateString("<foo-Bar></foo-bar>");
+		const markup = /* RAW */ ` <foo-Bar></foo-bar> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("element-case", "Start and end tag must not differ in casing");
 	});

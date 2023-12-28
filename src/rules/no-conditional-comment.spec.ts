@@ -13,13 +13,15 @@ describe("rule no-conditional-comment", () => {
 
 	it("should not report error for regular HTML comment", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<!-- -->");
+		const markup = /* HTML */ ` <!-- --> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should report error when <!--[...]--> is used", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString("<!--[if foo]-->");
+		const markup = /* HTML */ ` <!--[if foo]--> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"no-conditional-comment",
@@ -29,7 +31,8 @@ describe("rule no-conditional-comment", () => {
 
 	it("should report error when <![...]> is used", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString("<!-- foo <![if bar]> baz -->");
+		const markup = /* HTML */ ` <!-- foo <![if bar]> baz --> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"no-conditional-comment",

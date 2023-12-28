@@ -20,37 +20,52 @@ describe("wcag/h71", () => {
 
 	it("should report error when <fieldset> is missing <legend>", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString("<fieldset></fieldset>");
+		const markup = /* HTML */ ` <fieldset></fieldset> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("wcag/h71", "<fieldset> must have a <legend> as the first child");
 	});
 
 	it("should report error when custom element inherits from <fieldset>", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString("<custom></custom>");
+		const markup = /* HTML */ ` <custom></custom> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("wcag/h71", "<custom> must have a <legend> as the first child");
 	});
 
 	it("should not report when <fieldset> have <legend>", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<fieldset><legend>foo</legend></fieldset>");
+		const markup = /* HTML */ `
+			<fieldset>
+				<legend>foo</legend>
+			</fieldset>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report when <fieldset> have multiple <legend>", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString(
-			"<fieldset><legend>foo</legend><legend>bar</legend></fieldset>",
-		);
+		const markup = /* HTML */ `
+			<fieldset>
+				<legend>foo</legend>
+				<legend>bar</legend>
+			</fieldset>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report when <fieldset> have out-of-order <legend>", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString(
-			"<fieldset><div>foo</div><legend>bar</legend></fieldset>",
-		);
+		const markup = /* HTML */ `
+			<fieldset>
+				<div>foo</div>
+				<legend>bar</legend>
+			</fieldset>
+		`;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 

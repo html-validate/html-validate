@@ -12,13 +12,15 @@ describe("rule no-unknown-elements", () => {
 
 	it("should not report for known elements", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<div></div>");
+		const markup = /* HTML */ ` <div></div> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should report error for unknown elements", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString("<my-element></my-element>");
+		const markup = /* HTML */ ` <my-element></my-element> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("no-unknown-elements", "Unknown element <my-element>");
 	});

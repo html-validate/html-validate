@@ -13,44 +13,51 @@ describe("rule no-self-closing", () => {
 
 		it("should not report error when element has end tag", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<div></div>");
+			const markup = /* HTML */ ` <div></div> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error for foreign elements", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<svg/>");
+			const markup = /* HTML */ ` <svg /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error for xml namespaces", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<xi:include/>");
+			const markup = /* HTML */ ` <xi:include /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error for void", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<input/>");
+			const markup = /* HTML */ ` <input /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should not report error when void element has end tag", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<input></input>");
+			const markup = /* HTML */ ` <input></input> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when element is self-closed", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString("<div/>");
+			const markup = /* HTML */ ` <div /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("no-self-closing", "<div> must not be self-closed");
 		});
 
 		it("should report error for unknown elements", async () => {
 			expect.assertions(1);
-			const report = await htmlvalidate.validateString("<custom-element/>");
+			const markup = /* HTML */ ` <custom-element /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toHaveError("no-self-closing", "<custom-element> must not be self-closed");
 		});
 	});
@@ -64,7 +71,8 @@ describe("rule no-self-closing", () => {
 
 		it("should report error for foreign elements", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString("<svg/>");
+			const markup = /* HTML */ ` <svg /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("no-self-closing", "<svg> must not be self-closed");
 		});
@@ -79,7 +87,8 @@ describe("rule no-self-closing", () => {
 
 		it("should report error for elements in xml namespace", async () => {
 			expect.assertions(2);
-			const report = await htmlvalidate.validateString("<xi:include/>");
+			const markup = /* HTML */ ` <xi:include /> `;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("no-self-closing", "<xi:include> must not be self-closed");
 		});

@@ -13,38 +13,44 @@ describe("wcag/h67", () => {
 
 	it("should not report when img has neither alt or title", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString("<img>");
+		const markup = /* HTML */ ` <img /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report when img is missing title", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<img alt="foo">');
+		const markup = /* HTML */ ` <img alt="foo" /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report when img has both alt and title", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<img alt="foo" title="bar">');
+		const markup = /* HTML */ ` <img alt="foo" title="bar" /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report when img is both alt and title is empty", async () => {
+	it("should not report when both alt and title is empty", async () => {
 		expect.assertions(1);
-		const report = await htmlvalidate.validateString('<img alt="" title="">');
+		const markup = /* HTML */ ` <img alt="" title="" /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should report error when img has only title", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString('<img title="bar">');
+		const markup = /* HTML */ ` <img title="bar" /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("wcag/h67", "<img> with empty alt text cannot have title attribute");
 	});
 
-	it("should report error when img has empty alt and title", async () => {
+	it("should report error when img has empty alt and non-empty title", async () => {
 		expect.assertions(2);
-		const report = await htmlvalidate.validateString('<img title="bar">');
+		const markup = /* HTML */ ` <img alt="" title="bar" /> `;
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("wcag/h67", "<img> with empty alt text cannot have title attribute");
 	});
