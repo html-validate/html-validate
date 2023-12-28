@@ -12,46 +12,49 @@ describe("rule no-dup-attr", () => {
 		});
 	});
 
-	it("should not report when no attribute is duplicated", () => {
+	it("should not report when no attribute is duplicated", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<p foo="bar"></p>');
+		const report = await htmlvalidate.validateString('<p foo="bar"></p>');
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when attribute is dynamic", () => {
+	it("should not report error when attribute is dynamic", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<input class="foo" dynamic-class="bar">', {
+		const report = await htmlvalidate.validateString('<input class="foo" dynamic-class="bar">', {
 			processAttribute,
 		});
 		expect(report).toBeValid();
 	});
 
-	it("should report when attribute is duplicated", () => {
+	it("should report when attribute is duplicated", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString('<p foo="bar" foo="baz"></p></p>');
+		const report = await htmlvalidate.validateString('<p foo="bar" foo="baz"></p></p>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("no-dup-attr", 'Attribute "foo" duplicated');
 	});
 
-	it("should report when attribute is duplicated case insensitive", () => {
+	it("should report when attribute is duplicated case insensitive", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString('<p foo="bar" FOO="baz"></p></p>');
+		const report = await htmlvalidate.validateString('<p foo="bar" FOO="baz"></p></p>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("no-dup-attr", 'Attribute "foo" duplicated');
 	});
 
-	it("should report error when dynamic element is used multiple times", () => {
+	it("should report error when dynamic element is used multiple times", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString('<input dynamic-class="foo" dynamic-class="bar">', {
-			processAttribute,
-		});
+		const report = await htmlvalidate.validateString(
+			'<input dynamic-class="foo" dynamic-class="bar">',
+			{
+				processAttribute,
+			},
+		);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("no-dup-attr", 'Attribute "dynamic-class" duplicated');
 	});
 
-	it("smoketest", () => {
+	it("smoketest", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile("test-files/rules/no-dup-attr.html");
+		const report = await htmlvalidate.validateFile("test-files/rules/no-dup-attr.html");
 		expect(report).toMatchInlineCodeframe(`
 			"error: Attribute "id" duplicated (no-dup-attr) at test-files/rules/no-dup-attr.html:2:26:
 			  1 | <div>

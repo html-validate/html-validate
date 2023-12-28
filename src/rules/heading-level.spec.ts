@@ -12,35 +12,35 @@ describe("rule heading-level", () => {
 		});
 	});
 
-	it("should not report error for non-headings", () => {
+	it("should not report error for non-headings", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<p>lorem ipsum</p>");
+		const report = await htmlvalidate.validateString("<p>lorem ipsum</p>");
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when <h1> is followed by <h2>", () => {
+	it("should not report error when <h1> is followed by <h2>", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<h1>heading 1</h1><h2>heading 2</h2>");
+		const report = await htmlvalidate.validateString("<h1>heading 1</h1><h2>heading 2</h2>");
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when <h3> is followed by <h2>", () => {
+	it("should not report error when <h3> is followed by <h2>", async () => {
 		expect.assertions(1);
 		const markup = "<h1>heading 1</h1><h2>heading 2</h2><h3>heading 3</h3><h2>heading 4</h2>";
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when root element is closed unexpectedly", () => {
+	it("should not report error when root element is closed unexpectedly", async () => {
 		expect.assertions(1);
 		const markup = "</div><h1>lorem ipsum</h1>";
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should report error when <h1> is followed by <h3>", () => {
+	it("should report error when <h1> is followed by <h3>", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString("<h1>heading 1</h1><h3>heading 2</h3>");
+		const report = await htmlvalidate.validateString("<h1>heading 1</h1><h3>heading 2</h3>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"heading-level",
@@ -48,38 +48,38 @@ describe("rule heading-level", () => {
 		);
 	});
 
-	it("should report error when initial heading isn't <h1>", () => {
+	it("should report error when initial heading isn't <h1>", async () => {
 		expect.assertions(2);
 		const markup = "<h2>heading 2</h2>";
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("heading-level", "Initial heading level must be <h1> but got <h2>");
 	});
 
-	it("should report error when multiple <h1> are used", () => {
+	it("should report error when multiple <h1> are used", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString("<h1>heading 1</h1><h1>heading 1</h1>");
+		const report = await htmlvalidate.validateString("<h1>heading 1</h1><h1>heading 1</h1>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("heading-level", "Multiple <h1> are not allowed");
 	});
 
-	it("should not report error when multiple <h1> are used but allowed via option", () => {
+	it("should not report error when multiple <h1> are used but allowed via option", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
 			rules: { "heading-level": ["error", { allowMultipleH1: true }] },
 		});
-		const report = htmlvalidate.validateString("<h1>heading 1</h1><h1>heading 1</h1>");
+		const report = await htmlvalidate.validateString("<h1>heading 1</h1><h1>heading 1</h1>");
 		expect(report).toBeValid();
 	});
 
-	it("should handle custom elements marked as heading", () => {
+	it("should handle custom elements marked as heading", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<custom-heading></custom-heading>");
+		const report = await htmlvalidate.validateString("<custom-heading></custom-heading>");
 		expect(report).toBeValid();
 	});
 
 	describe("sectioning roots", () => {
-		it("should allow restarting with <h1>", () => {
+		it("should allow restarting with <h1>", async () => {
 			expect.assertions(1);
 			const markup = `
 				<h1>heading 1</h1>
@@ -92,11 +92,11 @@ describe("rule heading-level", () => {
 				<!-- this <h3> should valid because it is relative to the <h3> above the dialog -->
 				<h3>heading 2</h3>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should allow continuous headings", () => {
+		it("should allow continuous headings", async () => {
 			expect.assertions(1);
 			const markup = `
 				<h1>heading 1</h1>
@@ -107,11 +107,11 @@ describe("rule heading-level", () => {
 				</div>
 				<h3>heading 2</h3>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should not allow skipping heading levels", () => {
+		it("should not allow skipping heading levels", async () => {
 			expect.assertions(2);
 			const markup = `
 				<h1>heading 1</h1>
@@ -122,7 +122,7 @@ describe("rule heading-level", () => {
 				</div>
 				<h3>heading 2</h3>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"heading-level",
@@ -130,14 +130,14 @@ describe("rule heading-level", () => {
 			);
 		});
 
-		it("should enforce h1 as initial heading level if sectioning root is the only content in document", () => {
+		it("should enforce h1 as initial heading level if sectioning root is the only content in document", async () => {
 			expect.assertions(2);
 			const markup = `
 				<div role="dialog">
 					<h5>modal header</h5>
 				</div>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"heading-level",
@@ -147,7 +147,7 @@ describe("rule heading-level", () => {
 	});
 
 	describe("minInitialRank", () => {
-		it("configured with h2 should allow initial h2", () => {
+		it("configured with h2 should allow initial h2", async () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate({
 				rules: { "heading-level": ["error", { minInitialRank: "h2" }] },
@@ -157,11 +157,11 @@ describe("rule heading-level", () => {
 				<h3>heading 2</h3>
 				<h1>heading 2</h1>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("configured with h2 should not allow initial h3", () => {
+		it("configured with h2 should not allow initial h3", async () => {
 			expect.assertions(2);
 			const htmlvalidate = new HtmlValidate({
 				rules: { "heading-level": ["error", { minInitialRank: "h2" }] },
@@ -170,7 +170,7 @@ describe("rule heading-level", () => {
 				<h3>heading 3</h3>
 				<h1>heading 3</h1>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"heading-level",
@@ -178,7 +178,7 @@ describe("rule heading-level", () => {
 			);
 		});
 
-		it("should allow continuous sectioning root", () => {
+		it("should allow continuous sectioning root", async () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate({
 				rules: { "heading-level": ["error", { minInitialRank: "h2" }] },
@@ -189,11 +189,11 @@ describe("rule heading-level", () => {
 					<h3>modal header</h3>
 				</div>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should allow sectioning root with initial heading level", () => {
+		it("should allow sectioning root with initial heading level", async () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate({
 				rules: { "heading-level": ["error", { minInitialRank: "h2" }] },
@@ -204,34 +204,34 @@ describe("rule heading-level", () => {
 					<h1>modal header</h1>
 				</div>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it('"any" should be equivalent to "h6"', () => {
+		it('"any" should be equivalent to "h6"', async () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate({
 				rules: { "heading-level": ["error", { minInitialRank: "any" }] },
 			});
 			const markup = "<h6></h6>";
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it('false should be equivalent to "h6"', () => {
+		it('false should be equivalent to "h6"', async () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate({
 				rules: { "heading-level": ["error", { minInitialRank: false }] },
 			});
 			const markup = "<h6></h6>";
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 	});
 
-	it("smoketest", () => {
+	it("smoketest", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile("test-files/rules/heading-level.html");
+		const report = await htmlvalidate.validateFile("test-files/rules/heading-level.html");
 		expect(report).toMatchInlineCodeframe(`
 			"error: Initial heading level must be <h1> but got <h2> (heading-level) at test-files/rules/heading-level.html:1:2:
 			> 1 | <h2>foo</h2>

@@ -14,16 +14,16 @@ describe("rule no-autoplay", () => {
 
 		it.each(["audio", "video"])(
 			"should not report error when <%s> does not have autoplay",
-			(tagName) => {
+			async (tagName) => {
 				expect.assertions(1);
-				const report = htmlvalidate.validateString(`<${tagName}></${tagName}>`);
+				const report = await htmlvalidate.validateString(`<${tagName}></${tagName}>`);
 				expect(report).toBeValid();
 			},
 		);
 
-		it("should not report error when autoplay attribute is dynamic", () => {
+		it("should not report error when autoplay attribute is dynamic", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
+			const report = await htmlvalidate.validateString(
 				'<video dynamic-autoplay="enableAutoplay">',
 
 				{
@@ -33,31 +33,31 @@ describe("rule no-autoplay", () => {
 			expect(report).toBeValid();
 		});
 
-		it.each(["audio", "video"])("should report error when <%s> have autoplay", (tagName) => {
+		it.each(["audio", "video"])("should report error when <%s> have autoplay", async (tagName) => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(`<${tagName} autoplay></${tagName}>`);
+			const report = await htmlvalidate.validateString(`<${tagName} autoplay></${tagName}>`);
 			expect(report).toBeInvalid();
 		});
 	});
 
-	it("should not report error when role is excluded", () => {
+	it("should not report error when role is excluded", async () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
 			rules: { "no-autoplay": ["error", { exclude: ["video"] }] },
 		});
-		const valid = htmlvalidate.validateString("<video autoplay></video>");
-		const invalid = htmlvalidate.validateString("<audio autoplay></audio>");
+		const valid = await htmlvalidate.validateString("<video autoplay></video>");
+		const invalid = await htmlvalidate.validateString("<audio autoplay></audio>");
 		expect(valid).toBeValid();
 		expect(invalid).toBeInvalid();
 	});
 
-	it("should report error only for included roles", () => {
+	it("should report error only for included roles", async () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
 			rules: { "no-autoplay": ["error", { include: ["video"] }] },
 		});
-		const valid = htmlvalidate.validateString("<audio autoplay></audio>");
-		const invalid = htmlvalidate.validateString("<video autoplay></video>");
+		const valid = await htmlvalidate.validateString("<audio autoplay></audio>");
+		const invalid = await htmlvalidate.validateString("<video autoplay></video>");
 		expect(valid).toBeValid();
 		expect(invalid).toBeInvalid();
 	});

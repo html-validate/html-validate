@@ -11,36 +11,36 @@ describe("rule close-order", () => {
 		});
 	});
 
-	it("should not report when elements are correct in wrong order", () => {
+	it("should not report when elements are correct in wrong order", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <div></div> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report for self-closing element", () => {
+	it("should not report for self-closing element", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<div>
 				<input />
 			</div>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report for self-closing element with attribute", () => {
+	it("should not report for self-closing element with attribute", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<div>
 				<input required />
 			</div>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report for void element", () => {
+	it("should not report for void element", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<div>
@@ -48,11 +48,11 @@ describe("rule close-order", () => {
 				<input>
 			</div>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report for void element with attribute", () => {
+	it("should not report for void element with attribute", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<div>
@@ -60,27 +60,27 @@ describe("rule close-order", () => {
 				<input required>
 			</div>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report for implicitly closed element", () => {
+	it("should not report for implicitly closed element", async () => {
 		expect.assertions(1);
 		const markup = `
 			<ul>
 				<li>
 			</ul>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should report error when elements are closed in wrong order", () => {
+	it("should report error when elements are closed in wrong order", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<div></p>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: Mismatched close-tag, expected '</div>' but found '</p>' (close-order) at inline:2:10:
@@ -92,13 +92,13 @@ describe("rule close-order", () => {
 		`);
 	});
 
-	it("should report error when element is missing close tag", () => {
+	it("should report error when element is missing close tag", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<!-- prettier-ignore -->
 			<div>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: Missing close-tag, expected '</div>' but document ended before it was found (close-order) at inline:4:3:
@@ -110,12 +110,12 @@ describe("rule close-order", () => {
 		`);
 	});
 
-	it("should report error when element is missing opening tag", () => {
+	it("should report error when element is missing opening tag", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			</div>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: Unexpected close-tag, expected opening tag (close-order) at inline:2:5:
@@ -127,9 +127,9 @@ describe("rule close-order", () => {
 		`);
 	});
 
-	it("smoketest", () => {
+	it("smoketest", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile("test-files/rules/close-order.html");
+		const report = await htmlvalidate.validateFile("test-files/rules/close-order.html");
 		expect(report).toMatchInlineCodeframe(`
 			"error: Mismatched close-tag, expected '</p>' but found '</div>' (close-order) at test-files/rules/close-order.html:6:16:
 			  4 | 	<input>

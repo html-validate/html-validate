@@ -11,9 +11,9 @@ describe("rule element-permitted-occurrences", () => {
 		});
 	});
 
-	it("should report error when child has too many occurrences", () => {
+	it("should report error when child has too many occurrences", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString(
+		const report = await htmlvalidate.validateString(
 			"<table><caption>1</caption><caption>2</caption></table>",
 		);
 		expect(report).toBeInvalid();
@@ -22,28 +22,30 @@ describe("rule element-permitted-occurrences", () => {
 		]);
 	});
 
-	it("should not report error when child has right number of occurrences", () => {
+	it("should not report error when child has right number of occurrences", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<table><caption></caption></table>");
+		const report = await htmlvalidate.validateString("<table><caption></caption></table>");
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when child has unrestricted number of occurrences", () => {
+	it("should not report error when child has unrestricted number of occurrences", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<div><p>1</p><p>2</p><p>3</p></div>");
+		const report = await htmlvalidate.validateString("<div><p>1</p><p>2</p><p>3</p></div>");
 		expect(report).toBeValid();
 	});
 
-	it("should not report error for elements without permittedContent", () => {
+	it("should not report error for elements without permittedContent", async () => {
 		expect.assertions(1);
 		const markup = "<a><p></p></a>";
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("smoketest", () => {
+	it("smoketest", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile("test-files/rules/element-permitted-occurrences.html");
+		const report = await htmlvalidate.validateFile(
+			"test-files/rules/element-permitted-occurrences.html",
+		);
 		expect(report).toMatchInlineCodeframe(`
 			"error: Element <caption> can only appear once under <table> (element-permitted-occurrences) at test-files/rules/element-permitted-occurrences.html:3:3:
 			  1 | <table>

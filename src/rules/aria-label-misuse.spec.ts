@@ -24,38 +24,38 @@ describe("rule aria-label-misuse", () => {
 		});
 	});
 
-	it("should not report for element without aria-label", () => {
+	it("should not report for element without aria-label", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <p></p> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report for element with empty aria-label", () => {
+	it("should not report for element with empty aria-label", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <p aria-label=""></p> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report for element with boolean aria-label", () => {
+	it("should not report for element with boolean aria-label", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <p aria-label></p> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report for element without meta", () => {
+	it("should not report for element without meta", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <custom-element aria-label="foobar"></custom-element> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report for element with role", () => {
+	it("should not report for element with role", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <p aria-label="foobar" role="widget"></p> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
@@ -77,24 +77,24 @@ describe("rule aria-label-misuse", () => {
 			${'<table aria-label="foobar"></table>'}       | ${"<table>"}
 			${'<td aria-label="foobar"></td>'}             | ${"<td>"}
 			${'<th aria-label="foobar"></th>'}             | ${"<th>"}
-		`("$description", ({ markup }) => {
+		`("$description", async ({ markup }) => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 	});
 
-	it("should not report on custom element with explicit aria-label attribute", () => {
+	it("should not report on custom element with explicit aria-label attribute", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <custom-allowed aria-label="foobar"></custom-allowed> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should report error when aria-label is used on invalid element", () => {
+	it("should report error when aria-label is used on invalid element", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ ` <p aria-label="foobar"></p> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:1:5:
@@ -104,10 +104,10 @@ describe("rule aria-label-misuse", () => {
 		`);
 	});
 
-	it("should report error when aria-label is used on input hidden", () => {
+	it("should report error when aria-label is used on input hidden", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ ` <input type="hidden" aria-label="foobar" /> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:1:23:
@@ -117,10 +117,10 @@ describe("rule aria-label-misuse", () => {
 		`);
 	});
 
-	it("should report error on custom element with without explicit aria-label attribute", () => {
+	it("should report error on custom element with without explicit aria-label attribute", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ ` <custom-disallowed aria-label="foobar"></custom-disallowed> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:1:21:
@@ -130,10 +130,10 @@ describe("rule aria-label-misuse", () => {
 		`);
 	});
 
-	it("should handle dynamic attribute", () => {
+	it("should handle dynamic attribute", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ ` <p dynamic-aria-label="foobar"></p> `;
-		const report = htmlvalidate.validateString(markup, { processAttribute });
+		const report = await htmlvalidate.validateString(markup, { processAttribute });
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:1:5:
@@ -143,10 +143,10 @@ describe("rule aria-label-misuse", () => {
 		`);
 	});
 
-	it("should handle interpolated attribute", () => {
+	it("should handle interpolated attribute", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ ` <p aria-label="{{ interpolated }}"></p> `;
-		const report = htmlvalidate.validateString(markup, { processAttribute });
+		const report = await htmlvalidate.validateString(markup, { processAttribute });
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:1:5:

@@ -10,16 +10,16 @@ describe("rule no-style-tag", () => {
 		});
 	});
 
-	it("should not report for other tags", () => {
+	it("should not report for other tags", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<div></div>");
+		const report = await htmlvalidate.validateString("<div></div>");
 		expect(report).toBeValid();
 	});
 
-	it("should report error when <style> is used", () => {
+	it("should report error when <style> is used", async () => {
 		expect.assertions(2);
 		const html = "<style>foo</style>";
-		const report = htmlvalidate.validateString(html);
+		const report = await htmlvalidate.validateString(html);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"no-style-tag",

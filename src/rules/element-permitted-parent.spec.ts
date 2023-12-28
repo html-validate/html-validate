@@ -12,43 +12,43 @@ describe("rule element-permitted-parent", () => {
 		});
 	});
 
-	it("should not report error when elements are used correctly", () => {
+	it("should not report error when elements are used correctly", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<head>
 				<base />
 			</head>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error for root element", () => {
+	it("should not report error for root element", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <base /> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when nesting itself", () => {
+	it("should not report error when nesting itself", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<body>
 				<body></body>
 			</body>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should report error when parent is not permitted", () => {
+	it("should report error when parent is not permitted", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<div>
 				<base />
 			</div>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
 			"error: <base> element requires a <head> element as parent (element-permitted-parent) at inline:3:6:
 			  1 |
@@ -61,7 +61,7 @@ describe("rule element-permitted-parent", () => {
 		`);
 	});
 
-	it("should report error when parent is excluded", () => {
+	it("should report error when parent is excluded", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
 			elements: [
@@ -79,7 +79,7 @@ describe("rule element-permitted-parent", () => {
 				<custom-element></custom-element>
 			</custom-parent>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
 			"error: <custom-element> element cannot have <custom-parent> element as parent (element-permitted-parent) at inline:3:6:
 			  1 |
@@ -92,14 +92,14 @@ describe("rule element-permitted-parent", () => {
 		`);
 	});
 
-	it("should list permitted elements in error message", () => {
+	it("should list permitted elements in error message", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<div>
 				<li>lorem ipsum</li>
 			</div>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
 			"error: <li> element requires a <ul>, <ol>, <menu> or <template> element as parent (element-permitted-parent) at inline:3:6:
 			  1 |
@@ -112,7 +112,7 @@ describe("rule element-permitted-parent", () => {
 		`);
 	});
 
-	it("should list permitted content categories in error message", () => {
+	it("should list permitted content categories in error message", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
 			elements: [
@@ -130,7 +130,7 @@ describe("rule element-permitted-parent", () => {
 				<custom-element></custom-element>
 			</div>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
 			"error: <custom-element> element requires a phrasing or interactive element as parent (element-permitted-parent) at inline:3:6:
 			  1 |
@@ -143,17 +143,17 @@ describe("rule element-permitted-parent", () => {
 		`);
 	});
 
-	it("should handle missing meta entry (child)", () => {
+	it("should handle missing meta entry (child)", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <p><foo>foo</foo></p> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should handle missing meta entry (parent)", () => {
+	it("should handle missing meta entry (parent)", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <foo><p>foo</p></foo> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 

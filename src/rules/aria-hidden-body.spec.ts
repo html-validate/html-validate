@@ -12,46 +12,46 @@ describe("rule attr-case", () => {
 		});
 	});
 
-	it("should not report error for other elements", () => {
+	it("should not report error for other elements", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<div aria-hidden="true"></div>');
+		const report = await htmlvalidate.validateString('<div aria-hidden="true"></div>');
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when body is missing aria-hidden attribute", () => {
+	it("should not report error when body is missing aria-hidden attribute", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<body></body>");
+		const report = await htmlvalidate.validateString("<body></body>");
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when body is missing aria-hidden value", () => {
+	it("should not report error when body is missing aria-hidden value", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<body aria-hidden></div>");
+		const report = await htmlvalidate.validateString("<body aria-hidden></div>");
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when body has invalid aria-hidden value", () => {
+	it("should not report error when body has invalid aria-hidden value", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<body aria-hidden="foobar">');
+		const report = await htmlvalidate.validateString('<body aria-hidden="foobar">');
 		expect(report).toBeValid();
 	});
 
-	it('should not report error when body has aria-hidden="false"', () => {
+	it('should not report error when body has aria-hidden="false"', async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<body aria-hidden="false"></body>');
+		const report = await htmlvalidate.validateString('<body aria-hidden="false"></body>');
 		expect(report).toBeValid();
 	});
 
-	it('should report error when body has aria-hidden="true"', () => {
+	it('should report error when body has aria-hidden="true"', async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString('<body aria-hidden="true"></body>');
+		const report = await htmlvalidate.validateString('<body aria-hidden="true"></body>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("aria-hidden-body", "aria-hidden must not be used on <body>");
 	});
 
-	it("should report error when body has dynamic aria-hidden value", () => {
+	it("should report error when body has dynamic aria-hidden value", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString('<body dynamic-aria-hidden="foo"></body>', {
+		const report = await htmlvalidate.validateString('<body dynamic-aria-hidden="foo"></body>', {
 			processAttribute,
 		});
 		expect(report).toBeInvalid();

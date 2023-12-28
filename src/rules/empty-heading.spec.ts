@@ -21,28 +21,28 @@ describe("rule empty-heading", () => {
 		});
 	});
 
-	it("should not report when heading has text", () => {
+	it("should not report when heading has text", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <h1>lorem ipsum</h1> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report when heading has children with text", () => {
+	it("should not report when heading has children with text", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <h1><span>lorem ipsum</span></h1> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it('should not report when heading has <img alt="..">', () => {
+	it('should not report when heading has <img alt="..">', async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <h1><img alt="lorem ipsum" /></h1> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report when heading has <svg> with <title>", () => {
+	it("should not report when heading has <svg> with <title>", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<h1>
@@ -51,11 +51,11 @@ describe("rule empty-heading", () => {
 				</svg>
 			</h1>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when hidden heading has text content", () => {
+	it("should not report error when hidden heading has text content", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<h1 hidden>lorem ipsum</h1>
@@ -63,26 +63,26 @@ describe("rule empty-heading", () => {
 				<h2>lorem ipsum</h2>
 			</div>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report when heading has dynamic text", () => {
+	it("should not report when heading has dynamic text", async () => {
 		expect.assertions(1);
 		function processElement(node: HtmlElement): void {
 			node.appendText(new DynamicValue(""), location);
 		}
 		const markup = /* HTML */ ` <h1></h1> `;
-		const report = htmlvalidate.validateString(markup, {
+		const report = await htmlvalidate.validateString(markup, {
 			processElement,
 		});
 		expect(report).toBeValid();
 	});
 
-	it("should report error when heading has no text content", () => {
+	it("should report error when heading has no text content", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ ` <h1></h1> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <h1> cannot be empty, must have text content (empty-heading) at inline:1:3:
@@ -92,10 +92,10 @@ describe("rule empty-heading", () => {
 		`);
 	});
 
-	it("should report error when heading has no children with content", () => {
+	it("should report error when heading has no children with content", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ ` <h1><span></span></h1> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <h1> cannot be empty, must have text content (empty-heading) at inline:1:3:
@@ -105,10 +105,10 @@ describe("rule empty-heading", () => {
 		`);
 	});
 
-	it("should report error when heading only has whitespace content", () => {
+	it("should report error when heading only has whitespace content", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ ` <h1></h1> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <h1> cannot be empty, must have text content (empty-heading) at inline:1:3:
@@ -118,14 +118,14 @@ describe("rule empty-heading", () => {
 		`);
 	});
 
-	it("should report error when heading only has comment", () => {
+	it("should report error when heading only has comment", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<h1>
 				<!-- foo -->
 			</h1>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <h1> cannot be empty, must have text content (empty-heading) at inline:2:5:
@@ -139,7 +139,7 @@ describe("rule empty-heading", () => {
 		`);
 	});
 
-	it("should report error when hidden heading has no text content", () => {
+	it("should report error when hidden heading has no text content", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<h1 hidden></h1>
@@ -147,7 +147,7 @@ describe("rule empty-heading", () => {
 				<h2></h2>
 			</div>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <h1> cannot be empty, must have text content (empty-heading) at inline:2:5:
@@ -169,7 +169,7 @@ describe("rule empty-heading", () => {
 		`);
 	});
 
-	it("should report error for all heading levels", () => {
+	it("should report error for all heading levels", async () => {
 		expect.assertions(6);
 		expect(htmlvalidate.validateString("<h1></h1>")).toBeInvalid();
 		expect(htmlvalidate.validateString("<h2></h2>")).toBeInvalid();
@@ -179,9 +179,9 @@ describe("rule empty-heading", () => {
 		expect(htmlvalidate.validateString("<h6></h6>")).toBeInvalid();
 	});
 
-	it("smoketest", () => {
+	it("smoketest", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile("test-files/rules/empty-heading.html");
+		const report = await htmlvalidate.validateFile("test-files/rules/empty-heading.html");
 		expect(report).toMatchInlineCodeframe(`
 			"error: <h2> cannot be empty, must have text content (empty-heading) at test-files/rules/empty-heading.html:2:2:
 			  1 | <h1>Lorem ipsum</h1>

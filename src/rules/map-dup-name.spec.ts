@@ -12,7 +12,7 @@ describe("rule map-dup-name", () => {
 		});
 	});
 
-	it("should not report error when name is missing or empty", () => {
+	it("should not report error when name is missing or empty", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<map></map>
@@ -20,39 +20,39 @@ describe("rule map-dup-name", () => {
 			<map name=""></map>
 			<map name="foo"></map>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when name is not a duplicate", () => {
+	it("should not report error when name is not a duplicate", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<map name="foo"></map>
 			<map name="bar"></map>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when name is dynamic", () => {
+	it("should not report error when name is dynamic", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<map name="foo"></map>
 			<map dynamic-name="foo"></map>
 		`;
-		const report = htmlvalidate.validateString(markup, {
+		const report = await htmlvalidate.validateString(markup, {
 			processAttribute,
 		});
 		expect(report).toBeValid();
 	});
 
-	it("should report error when name is duplicate", () => {
+	it("should report error when name is duplicate", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<map name="foo"></map>
 			<map name="foo"></map>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <map> name must be unique (map-dup-name) at inline:3:9:

@@ -11,32 +11,32 @@ describe("rule no-deprecated-attr", () => {
 		});
 	});
 
-	it("should not report when regular element is used", () => {
+	it("should not report when regular element is used", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<body style="background: red;"></body>');
+		const report = await htmlvalidate.validateString('<body style="background: red;"></body>');
 		expect(report).toBeValid();
 	});
 
-	it("should not report when regular element is missing meta", () => {
+	it("should not report when regular element is missing meta", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<any style="background: red;"></any>');
+		const report = await htmlvalidate.validateString('<any style="background: red;"></any>');
 		expect(report).toBeValid();
 	});
 
-	it("should not report when regular element has no deprecated attributes", () => {
+	it("should not report when regular element has no deprecated attributes", async () => {
 		expect.assertions(1);
 		/* use custom meta as html5 has global deprecations */
 		const htmlvalidate = new HtmlValidate({
 			elements: [{ abbr: {} }],
 			rules: { "no-deprecated-attr": "error" },
 		});
-		const report = htmlvalidate.validateString('<abbr style="background: red;"></abbr>');
+		const report = await htmlvalidate.validateString('<abbr style="background: red;"></abbr>');
 		expect(report).toBeValid();
 	});
 
-	it("should report error when deprecated attribute is used", () => {
+	it("should report error when deprecated attribute is used", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString('<body bgcolor="red"></body>');
+		const report = await htmlvalidate.validateString('<body bgcolor="red"></body>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"no-deprecated-attr",
@@ -44,9 +44,9 @@ describe("rule no-deprecated-attr", () => {
 		);
 	});
 
-	it("should report error when deprecated attribute is used in any case", () => {
+	it("should report error when deprecated attribute is used in any case", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString('<body BGCOLOR="red"></body>');
+		const report = await htmlvalidate.validateString('<body BGCOLOR="red"></body>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"no-deprecated-attr",
@@ -54,9 +54,9 @@ describe("rule no-deprecated-attr", () => {
 		);
 	});
 
-	it("smoketest", () => {
+	it("smoketest", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile("test-files/rules/no-deprecated-attr.html");
+		const report = await htmlvalidate.validateFile("test-files/rules/no-deprecated-attr.html");
 		expect(report).toMatchInlineCodeframe(`
 			"error: Attribute "bgcolor" is deprecated on <body> element (no-deprecated-attr) at test-files/rules/no-deprecated-attr.html:2:7:
 			  1 | <body></body>

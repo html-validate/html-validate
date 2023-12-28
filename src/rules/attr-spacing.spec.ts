@@ -10,31 +10,31 @@ describe("rule attr-spacing", () => {
 		});
 	});
 
-	it("should not report when attributes have separating whitespace", () => {
+	it("should not report when attributes have separating whitespace", async () => {
 		expect.assertions(1);
 		const markup = '<i foo="1" bar="2"></i>';
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should handle boolean attributes", () => {
+	it("should handle boolean attributes", async () => {
 		expect.assertions(1);
 		const markup = "<i foo bar></i>";
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should handle newline attributes", () => {
+	it("should handle newline attributes", async () => {
 		expect.assertions(1);
 		const markup = "<i foo\nbar></i>";
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should report error when attributes does not have separating whitespace", () => {
+	it("should report error when attributes does not have separating whitespace", async () => {
 		expect.assertions(2);
 		const markup = '<i foo="1"bar="2"></i>';
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("attr-spacing", "No space between attributes");
 	});

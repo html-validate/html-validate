@@ -12,7 +12,7 @@ describe("rule element-required-ancestor", () => {
 		});
 	});
 
-	it("should report error for missing required ancestor (tagname)", () => {
+	it("should report error for missing required ancestor (tagname)", async () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
 			root: true,
@@ -32,7 +32,7 @@ describe("rule element-required-ancestor", () => {
 				<custom-element></custom-element>
 			</div>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <custom-element> element requires a <main> ancestor (element-required-ancestor) at inline:3:6:
@@ -46,7 +46,7 @@ describe("rule element-required-ancestor", () => {
 		`);
 	});
 
-	it("should report error for missing required ancestor (selector)", () => {
+	it("should report error for missing required ancestor (selector)", async () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
 			root: true,
@@ -66,7 +66,7 @@ describe("rule element-required-ancestor", () => {
 				<custom-element></custom-element>
 			</div>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <custom-element> element requires a "main > div" ancestor (element-required-ancestor) at inline:3:6:
@@ -80,7 +80,7 @@ describe("rule element-required-ancestor", () => {
 		`);
 	});
 
-	it("should join multiple selectors together", () => {
+	it("should join multiple selectors together", async () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
 			root: true,
@@ -100,7 +100,7 @@ describe("rule element-required-ancestor", () => {
 				<custom-element></custom-element>
 			</div>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <custom-element> element requires a <main> or "main > div" ancestor (element-required-ancestor) at inline:3:6:
@@ -114,14 +114,14 @@ describe("rule element-required-ancestor", () => {
 		`);
 	});
 
-	it("should not report error for proper required ancestor", () => {
+	it("should not report error for proper required ancestor", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<dl>
 				<div><dt>foo</dt></div>
 			</dl>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 

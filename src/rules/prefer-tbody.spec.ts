@@ -10,21 +10,21 @@ describe("rule prefer-tbody", () => {
 		});
 	});
 
-	it("should not report error when <table> has all <tr> wrapped in <tbody>", () => {
+	it("should not report error when <table> has all <tr> wrapped in <tbody>", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<table><tbody><tr></tr></tbody></table>");
+		const report = await htmlvalidate.validateString("<table><tbody><tr></tr></tbody></table>");
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when <table> has no <tr>", () => {
+	it("should not report error when <table> has no <tr>", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<table></table>");
+		const report = await htmlvalidate.validateString("<table></table>");
 		expect(report).toBeValid();
 	});
 
-	it("should report error when <table> has <tr> without <tbody>", () => {
+	it("should report error when <table> has <tr> without <tbody>", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString("<table><tr></tr></table>");
+		const report = await htmlvalidate.validateString("<table><tr></tr></table>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("prefer-tbody", "Prefer to wrap <tr> elements in <tbody>");
 	});

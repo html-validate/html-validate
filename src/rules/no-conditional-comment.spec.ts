@@ -11,15 +11,15 @@ describe("rule no-conditional-comment", () => {
 		});
 	});
 
-	it("should not report error for regular HTML comment", () => {
+	it("should not report error for regular HTML comment", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<!-- -->");
+		const report = await htmlvalidate.validateString("<!-- -->");
 		expect(report).toBeValid();
 	});
 
-	it("should report error when <!--[...]--> is used", () => {
+	it("should report error when <!--[...]--> is used", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString("<!--[if foo]-->");
+		const report = await htmlvalidate.validateString("<!--[if foo]-->");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"no-conditional-comment",
@@ -27,9 +27,9 @@ describe("rule no-conditional-comment", () => {
 		);
 	});
 
-	it("should report error when <![...]> is used", () => {
+	it("should report error when <![...]> is used", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString("<!-- foo <![if bar]> baz -->");
+		const report = await htmlvalidate.validateString("<!-- foo <![if bar]> baz -->");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"no-conditional-comment",
@@ -37,9 +37,9 @@ describe("rule no-conditional-comment", () => {
 		);
 	});
 
-	it("smoketest", () => {
+	it("smoketest", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile("test-files/rules/no-conditional-comment.html");
+		const report = await htmlvalidate.validateFile("test-files/rules/no-conditional-comment.html");
 		expect(report).toMatchCodeframe();
 	});
 

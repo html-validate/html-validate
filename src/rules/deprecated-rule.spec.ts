@@ -35,7 +35,7 @@ const resolver = staticResolver({
 });
 
 describe("rule deprecated-rule", () => {
-	it("should not report error when no rule is deprecated", () => {
+	it("should not report error when no rule is deprecated", async () => {
 		expect.assertions(1);
 		const loader = new StaticConfigLoader([resolver], {
 			plugins: ["my-plugin"],
@@ -45,7 +45,7 @@ describe("rule deprecated-rule", () => {
 			},
 		});
 		const htmlvalidate = new HtmlValidate(loader);
-		const report = htmlvalidate.validateString("<div></div>");
+		const report = await htmlvalidate.validateString("<div></div>");
 		expect(report).toBeValid();
 	});
 

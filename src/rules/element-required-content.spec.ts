@@ -21,32 +21,32 @@ describe("rule element-required-content", () => {
 		});
 	});
 
-	it("should not report error when element has all required content", () => {
+	it("should not report error when element has all required content", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
+		const report = await htmlvalidate.validateString(
 			"<html><head><title></title></head><body></body></html>",
 		);
 		expect(report).toBeValid();
 	});
 
-	it("should handle unknown elements", () => {
+	it("should handle unknown elements", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<missing-meta></missing-meta>");
+		const report = await htmlvalidate.validateString("<missing-meta></missing-meta>");
 		expect(report).toBeValid();
 	});
 
-	it("should report error when element is missing required content", () => {
+	it("should report error when element is missing required content", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString("<html><body></body></html>");
+		const report = await htmlvalidate.validateString("<html><body></body></html>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
 			["element-required-content", "<html> element must have <head> as content"],
 		]);
 	});
 
-	it("should report all errors when element is missing multiple content", () => {
+	it("should report all errors when element is missing multiple content", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString("<html></html>");
+		const report = await htmlvalidate.validateString("<html></html>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
 			["element-required-content", "<html> element must have <head> as content"],
@@ -54,13 +54,13 @@ describe("rule element-required-content", () => {
 		]);
 	});
 
-	it("should format both tagnames and categories correct", () => {
+	it("should format both tagnames and categories correct", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<with-tagname></with-tagname>
 			<with-category></with-category>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
 			"error: <with-tagname> element must have <p> as content (element-required-content) at inline:2:5:
 			  1 |

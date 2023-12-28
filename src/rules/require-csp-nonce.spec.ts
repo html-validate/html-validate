@@ -10,10 +10,10 @@ describe("rule require-csp-nonce", () => {
 		});
 	});
 
-	it("should report error when nonce attribute is missing from <script>", () => {
+	it("should report error when nonce attribute is missing from <script>", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `<script></script>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: required CSP nonce is missing (require-csp-nonce) at inline:1:2:
@@ -23,10 +23,10 @@ describe("rule require-csp-nonce", () => {
 		`);
 	});
 
-	it("should report error when nonce attribute is missing from <style>", () => {
+	it("should report error when nonce attribute is missing from <style>", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `<style></style>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: required CSP nonce is missing (require-csp-nonce) at inline:1:2:
@@ -36,31 +36,31 @@ describe("rule require-csp-nonce", () => {
 		`);
 	});
 
-	it("should not report error on <script> with src attribute", () => {
+	it("should not report error on <script> with src attribute", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<script src=".."></script>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error on <script> with nonce attribute", () => {
+	it("should not report error on <script> with nonce attribute", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<script nonce=".."></script>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error on <style> with nonce attribute", () => {
+	it("should not report error on <style> with nonce attribute", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<style nonce=".."></style>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error on other elements", () => {
+	it("should not report error on other elements", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<div></div>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 

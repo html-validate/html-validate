@@ -12,46 +12,46 @@ describe("rule no-dup-id", () => {
 		});
 	});
 
-	it("should not report when no id is duplicated", () => {
+	it("should not report when no id is duplicated", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<p id="foo"></p><p id="bar"></p>');
+		const report = await htmlvalidate.validateString('<p id="foo"></p><p id="bar"></p>');
 		expect(report).toBeValid();
 	});
 
-	it("should not report when id is missing value", () => {
+	it("should not report when id is missing value", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<hr id><hr id>");
+		const report = await htmlvalidate.validateString("<hr id><hr id>");
 		expect(report).toBeValid();
 	});
 
-	it("should not report error for interpolated attributes", () => {
+	it("should not report error for interpolated attributes", async () => {
 		expect.assertions(1);
 		const markup = '<p id="{{ interpolated }}"></p><p id="{{ interpolated }}"></p>';
-		const report = htmlvalidate.validateString(markup, {
+		const report = await htmlvalidate.validateString(markup, {
 			processAttribute,
 		});
 		expect(report).toBeValid();
 	});
 
-	it("should not report error for dynamic attributes", () => {
+	it("should not report error for dynamic attributes", async () => {
 		expect.assertions(1);
 		const markup = '<p dynamic-id="myVariable"></p><p dynamic-id="myVariable"></p>';
-		const report = htmlvalidate.validateString(markup, {
+		const report = await htmlvalidate.validateString(markup, {
 			processAttribute,
 		});
 		expect(report).toBeValid();
 	});
 
-	it("should report when id is duplicated", () => {
+	it("should report when id is duplicated", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString('<p id="foo"></p><p id="foo"></p>');
+		const report = await htmlvalidate.validateString('<p id="foo"></p><p id="foo"></p>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("no-dup-id", 'Duplicate ID "foo"');
 	});
 
-	it("smoketest", () => {
+	it("smoketest", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile("test-files/rules/no-dup-id.html");
+		const report = await htmlvalidate.validateFile("test-files/rules/no-dup-id.html");
 		expect(report).toMatchInlineCodeframe(`
 			"error: Duplicate ID "foo" (no-dup-id) at test-files/rules/no-dup-id.html:3:10:
 			  1 | <div id="foo"></div>

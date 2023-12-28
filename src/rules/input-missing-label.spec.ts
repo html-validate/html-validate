@@ -11,42 +11,42 @@ describe("rule input-missing-label", () => {
 		});
 	});
 
-	it("should not report when input id has matching label", () => {
+	it("should not report when input id has matching label", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<label for="foo"> lorem ipsum </label>
 			<input id="foo" />
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it('should not report when input type="hidden" is missing label', () => {
+	it('should not report when input type="hidden" is missing label', async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <input type="hidden" /> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it('should not report when input type="submit" is missing label', () => {
+	it('should not report when input type="submit" is missing label', async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<input type="submit" />');
+		const report = await htmlvalidate.validateString('<input type="submit" />');
 		expect(report).toBeValid();
 	});
 
-	it('should not report when input type="reset" is missing label', () => {
+	it('should not report when input type="reset" is missing label', async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<input type="reset" />');
+		const report = await htmlvalidate.validateString('<input type="reset" />');
 		expect(report).toBeValid();
 	});
 
-	it('should not report when input type="button" is missing label', () => {
+	it('should not report when input type="button" is missing label', async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<input type="button" />');
+		const report = await htmlvalidate.validateString('<input type="button" />');
 		expect(report).toBeValid();
 	});
 
-	it("should not report when input is nested inside label", () => {
+	it("should not report when input is nested inside label", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<label>
@@ -54,22 +54,22 @@ describe("rule input-missing-label", () => {
 				<input />
 			</label>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report when input is nested inside label with aria-label", () => {
+	it("should not report when input is nested inside label with aria-label", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<label aria-label="lorem ipsum">
 				<input />
 			</label>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report when input is nested inside label with aria-labelledby", () => {
+	it("should not report when input is nested inside label with aria-labelledby", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<p id="foo">lorem ipsum</p>
@@ -77,60 +77,60 @@ describe("rule input-missing-label", () => {
 				<input />
 			</label>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report when input is hidden", () => {
+	it("should not report when input is hidden", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <input hidden /> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report when input is aria-hidden", () => {
+	it("should not report when input is aria-hidden", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <input aria-hidden="true" /> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should handle multiple labels", () => {
+	it("should handle multiple labels", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<label for="foo"> foo </label>
 			<label for="foo"> bar </label>
 			<input id="foo" />
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should handle colon in id", () => {
+	it("should handle colon in id", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<label for=":r1:">lorem ipsum</label>
 			<input id=":r1:" />
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when at least one label is accessible", () => {
+	it("should not report error when at least one label is accessible", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<label for="foo" aria-hidden="true">foo</label>
 			<label for="foo">bar</label>
 			<input id="foo" />
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should report when <input> is missing label", () => {
+	it("should report when <input> is missing label", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ ` <input /> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <input> element does not have a <label> (input-missing-label) at inline:1:3:
@@ -140,13 +140,13 @@ describe("rule input-missing-label", () => {
 		`);
 	});
 
-	it("should report when <input> have empty label", () => {
+	it("should report when <input> have empty label", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<label for="foo"></label>
 			<input id="foo" />
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <input> element has <label> but <label> has no text (input-missing-label) at inline:3:5:
@@ -159,10 +159,10 @@ describe("rule input-missing-label", () => {
 		`);
 	});
 
-	it("should report when <input> have empty aria-label", () => {
+	it("should report when <input> have empty aria-label", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ ` <input aria-label="" /> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 		"error: <input> element has aria-label but label has no text (input-missing-label) at inline:1:3:
@@ -172,13 +172,13 @@ describe("rule input-missing-label", () => {
 	`);
 	});
 
-	it("should report when <input> has reference to empty element", () => {
+	it("should report when <input> has reference to empty element", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<p id="foo"></p>
 			<input aria-labelledby="foo" />
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 		"error: <input> element has aria-labelledby but referenced element has no text (input-missing-label) at inline:3:5:
@@ -191,14 +191,14 @@ describe("rule input-missing-label", () => {
 	`);
 	});
 
-	it("should report when input is nested inside label with empty aria-label", () => {
+	it("should report when input is nested inside label with empty aria-label", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<label aria-label="">
 				<input />
 			</label>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <input> element has <label> but <label> has no text (input-missing-label) at inline:3:6:
@@ -212,7 +212,7 @@ describe("rule input-missing-label", () => {
 		`);
 	});
 
-	it("should report when input is nested inside label referencing empty element", () => {
+	it("should report when input is nested inside label referencing empty element", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<p id="foo"></p>
@@ -220,7 +220,7 @@ describe("rule input-missing-label", () => {
 				<input />
 			</label>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <input> element has <label> but <label> has no text (input-missing-label) at inline:4:6:
@@ -234,7 +234,7 @@ describe("rule input-missing-label", () => {
 		`);
 	});
 
-	it("should report when <select> is missing label", () => {
+	it("should report when <select> is missing label", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<select>
@@ -242,7 +242,7 @@ describe("rule input-missing-label", () => {
 				<option>bar</option>
 			</select>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <select> element does not have a <label> (input-missing-label) at inline:2:5:
@@ -256,10 +256,10 @@ describe("rule input-missing-label", () => {
 		`);
 	});
 
-	it("should report when <textarea> is missing label", () => {
+	it("should report when <textarea> is missing label", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ ` <textarea>lorem ipsum</textarea> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <textarea> element does not have a <label> (input-missing-label) at inline:1:3:
@@ -269,13 +269,13 @@ describe("rule input-missing-label", () => {
 		`);
 	});
 
-	it("should report error when label is hidden", () => {
+	it("should report error when label is hidden", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<label for="foo" hidden></label>
 			<input id="foo" />
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <input> element has <label> but <label> element is hidden (input-missing-label) at inline:3:5:
@@ -288,13 +288,13 @@ describe("rule input-missing-label", () => {
 		`);
 	});
 
-	it("should report error when label is aria-hidden", () => {
+	it("should report error when label is aria-hidden", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<label for="foo" aria-hidden="true"></label>
 			<input id="foo" />
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <input> element has <label> but <label> element is hidden (input-missing-label) at inline:3:5:
@@ -307,9 +307,9 @@ describe("rule input-missing-label", () => {
 		`);
 	});
 
-	it("smoketest", () => {
+	it("smoketest", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile("test-files/rules/input-missing-label.html");
+		const report = await htmlvalidate.validateFile("test-files/rules/input-missing-label.html");
 		expect(report).toMatchInlineCodeframe(`
 			"error: <input> element does not have a <label> (input-missing-label) at test-files/rules/input-missing-label.html:17:3:
 			  15 | <!-- missing labels -->

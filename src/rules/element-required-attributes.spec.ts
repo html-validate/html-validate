@@ -19,9 +19,9 @@ describe("rule element-required-attributes", () => {
 		});
 	});
 
-	it("should report error when required attribute is missing", () => {
+	it("should report error when required attribute is missing", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString("<input>");
+		const report = await htmlvalidate.validateString("<input>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"element-required-attributes",
@@ -29,34 +29,36 @@ describe("rule element-required-attributes", () => {
 		);
 	});
 
-	it("should not report error when element has required attribute attribute", () => {
+	it("should not report error when element has required attribute attribute", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<input type="text">');
+		const report = await htmlvalidate.validateString('<input type="text">');
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when element has empty attribute", () => {
+	it("should not report error when element has empty attribute", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<input type="">');
+		const report = await htmlvalidate.validateString('<input type="">');
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when element is missing meta", () => {
+	it("should not report error when element is missing meta", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<foo-bar type="text">');
+		const report = await htmlvalidate.validateString('<foo-bar type="text">');
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when element is missing meta attributes", () => {
+	it("should not report error when element is missing meta attributes", async () => {
 		expect.assertions(1);
 		const markup = '<missing-attr-meta type="text"></missing-attr-meta>';
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("smoketest", () => {
+	it("smoketest", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile("test-files/rules/element-required-attributes.html");
+		const report = await htmlvalidate.validateFile(
+			"test-files/rules/element-required-attributes.html",
+		);
 		expect(report).toMatchInlineCodeframe(`
 			"error: <input> is missing required "type" attribute (element-required-attributes) at test-files/rules/element-required-attributes.html:1:2:
 			> 1 | <input>

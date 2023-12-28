@@ -10,24 +10,24 @@ describe("rule no-utf8-bom", () => {
 		});
 	});
 
-	it("should not report when no BOM is included", () => {
+	it("should not report when no BOM is included", async () => {
 		expect.assertions(1);
 		const markup = "<p>lorem ipsum</p>";
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report when BOM is present elsewhere", () => {
+	it("should not report when BOM is present elsewhere", async () => {
 		expect.assertions(1);
 		const markup = "<p>lorem\uFEFFipsum</p>";
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should report error file starts with UTF-8 BOM", () => {
+	it("should report error file starts with UTF-8 BOM", async () => {
 		expect.assertions(2);
 		const markup = "\uFEFF<p>lorem ipsum</p>";
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("no-utf8-bom", "File should be saved without UTF-8 BOM");
 	});

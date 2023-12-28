@@ -10,27 +10,27 @@ describe("rule script-element", () => {
 		});
 	});
 
-	it("should not report when script element has end tag", () => {
+	it("should not report when script element has end tag", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<script></script>");
+		const report = await htmlvalidate.validateString("<script></script>");
 		expect(report).toBeValid();
 	});
 
-	it("should report when script element is self-closed", () => {
+	it("should report when script element is self-closed", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<script/>");
+		const report = await htmlvalidate.validateString("<script/>");
 		expect(report).toHaveError("script-element", "End tag for <script> must not be omitted");
 	});
 
-	it("should handle stray end tag", () => {
+	it("should handle stray end tag", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("</script>");
+		const report = await htmlvalidate.validateString("</script>");
 		expect(report).toBeValid();
 	});
 
-	it("should handle missing end tag", () => {
+	it("should handle missing end tag", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<script>");
+		const report = await htmlvalidate.validateString("<script>");
 		expect(report).toBeValid();
 	});
 

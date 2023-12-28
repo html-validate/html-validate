@@ -11,28 +11,28 @@ describe("rule close-attr", () => {
 		});
 	});
 
-	it("should not report when close tags are correct", () => {
+	it("should not report when close tags are correct", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<div></div>");
+		const report = await htmlvalidate.validateString("<div></div>");
 		expect(report).toBeValid();
 	});
 
-	it("should not report errors on self-closing tags", () => {
+	it("should not report errors on self-closing tags", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<input required/>");
+		const report = await htmlvalidate.validateString("<input required/>");
 		expect(report).toBeValid();
 	});
 
-	it("should not report errors on void tags", () => {
+	it("should not report errors on void tags", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<input required>");
+		const report = await htmlvalidate.validateString("<input required>");
 		expect(report).toBeValid();
 	});
 
-	it("should report when close tags contains attributes", () => {
+	it("should report when close tags contains attributes", async () => {
 		expect.assertions(2);
 		const html = "<p></p foo=\"bar\"><p></p foo='bar'><p></p foo>";
-		const report = htmlvalidate.validateString(html);
+		const report = await htmlvalidate.validateString(html);
 		expect(report).toBeInvalid();
 		expect(report).toHaveErrors([
 			["close-attr", "Close tags cannot have attributes"],
@@ -41,15 +41,15 @@ describe("rule close-attr", () => {
 		]);
 	});
 
-	it("should handle unclosed tags", () => {
+	it("should handle unclosed tags", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<p>");
+		const report = await htmlvalidate.validateString("<p>");
 		expect(report).toBeValid();
 	});
 
-	it("smoketest", () => {
+	it("smoketest", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile("test-files/rules/close-attr.html");
+		const report = await htmlvalidate.validateFile("test-files/rules/close-attr.html");
 		expect(report).toMatchInlineCodeframe(`
 			"error: Close tags cannot have attributes (close-attr) at test-files/rules/close-attr.html:3:12:
 			  1 | <input foo>

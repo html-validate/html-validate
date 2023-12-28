@@ -10,24 +10,24 @@ describe("rule attr-delimiter", () => {
 		});
 	});
 
-	it("should not report when attributes have proper delimiter", () => {
+	it("should not report when attributes have proper delimiter", async () => {
 		expect.assertions(1);
 		const markup = `<i foo="1" bar='2'></i>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should handle boolean attributes", () => {
+	it("should handle boolean attributes", async () => {
 		expect.assertions(1);
 		const markup = "<i foo bar></i>";
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should report error when equal sign has leading whitespace", () => {
+	it("should report error when equal sign has leading whitespace", async () => {
 		expect.assertions(2);
 		const markup = '<i foo ="1"></i>';
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"attr-delimiter",
@@ -35,10 +35,10 @@ describe("rule attr-delimiter", () => {
 		);
 	});
 
-	it("should report error when equal sign has trailing whitespace", () => {
+	it("should report error when equal sign has trailing whitespace", async () => {
 		expect.assertions(2);
 		const markup = '<i foo= "1"></i>';
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"attr-delimiter",
@@ -46,10 +46,10 @@ describe("rule attr-delimiter", () => {
 		);
 	});
 
-	it("should handle single quote", () => {
+	it("should handle single quote", async () => {
 		expect.assertions(2);
 		const markup = "<i foo = '1'></i>";
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"attr-delimiter",
@@ -57,10 +57,10 @@ describe("rule attr-delimiter", () => {
 		);
 	});
 
-	it("should handle unquoted value", () => {
+	it("should handle unquoted value", async () => {
 		expect.assertions(2);
 		const markup = "<i foo = bar></i>";
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError(
 			"attr-delimiter",
@@ -68,10 +68,10 @@ describe("rule attr-delimiter", () => {
 		);
 	});
 
-	it("should handle spaces in value", () => {
+	it("should handle spaces in value", async () => {
 		expect.assertions(1);
 		const markup = '<i foo=" foo bar "></i>';
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 

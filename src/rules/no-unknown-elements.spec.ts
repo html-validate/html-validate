@@ -10,15 +10,15 @@ describe("rule no-unknown-elements", () => {
 		});
 	});
 
-	it("should not report for known elements", () => {
+	it("should not report for known elements", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<div></div>");
+		const report = await htmlvalidate.validateString("<div></div>");
 		expect(report).toBeValid();
 	});
 
-	it("should report error for unknown elements", () => {
+	it("should report error for unknown elements", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString("<my-element></my-element>");
+		const report = await htmlvalidate.validateString("<my-element></my-element>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("no-unknown-elements", "Unknown element <my-element>");
 	});
@@ -35,7 +35,7 @@ describe("rule no-unknown-elements", () => {
 		expect(docs).toMatchSnapshot();
 	});
 
-	it("should only report error for included elements", () => {
+	it("should only report error for included elements", async () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
 			rules: {
@@ -47,8 +47,8 @@ describe("rule no-unknown-elements", () => {
 				],
 			},
 		});
-		const valid = htmlvalidate.validateString("<foo-element></foo-element>");
-		const invalid = htmlvalidate.validateString("<bar-element></bar-element>");
+		const valid = await htmlvalidate.validateString("<foo-element></foo-element>");
+		const invalid = await htmlvalidate.validateString("<bar-element></bar-element>");
 		expect(valid).toMatchInlineCodeframe(`""`);
 		expect(invalid).toMatchInlineCodeframe(`
 			"error: Unknown element <bar-element> (no-unknown-elements) at inline:1:1:
@@ -58,7 +58,7 @@ describe("rule no-unknown-elements", () => {
 		`);
 	});
 
-	it("should not report error for excluded elements", () => {
+	it("should not report error for excluded elements", async () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
 			rules: {
@@ -70,8 +70,8 @@ describe("rule no-unknown-elements", () => {
 				],
 			},
 		});
-		const valid = htmlvalidate.validateString("<foo-element></foo-element>");
-		const invalid = htmlvalidate.validateString("<bar-element></bar-element>");
+		const valid = await htmlvalidate.validateString("<foo-element></foo-element>");
+		const invalid = await htmlvalidate.validateString("<bar-element></bar-element>");
 		expect(valid).toMatchInlineCodeframe(`""`);
 		expect(invalid).toMatchInlineCodeframe(`
 			"error: Unknown element <bar-element> (no-unknown-elements) at inline:1:1:

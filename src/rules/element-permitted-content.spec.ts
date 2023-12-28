@@ -16,21 +16,21 @@ describe("rule element-permitted-content", () => {
 		});
 	});
 
-	it("should not report error when elements are used correctly", () => {
+	it("should not report error when elements are used correctly", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<div>
 				<p><span>foo</span></p>
 			</div>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should report error when @flow is child of @phrasing", () => {
+	it("should report error when @flow is child of @phrasing", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ ` <span><div></div></span> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <div> element is not permitted as content under <span> (element-permitted-content) at inline:1:9:
@@ -40,7 +40,7 @@ describe("rule element-permitted-content", () => {
 		`);
 	});
 
-	it("should report error when child is disallowed (referenced by tagname without meta)", () => {
+	it("should report error when child is disallowed (referenced by tagname without meta)", async () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
 			elements: [
@@ -54,7 +54,7 @@ describe("rule element-permitted-content", () => {
 			rules: { "element-permitted-content": "error" },
 		});
 		const markup = /* HTML */ ` <custom-link><custom-element></custom-element></custom-link> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <custom-element> element is not permitted as content under <custom-link> (element-permitted-content) at inline:1:16:
@@ -64,14 +64,14 @@ describe("rule element-permitted-content", () => {
 		`);
 	});
 
-	it("should report error when descendant is disallowed", () => {
+	it("should report error when descendant is disallowed", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<a>
 				<span><button></button></span>
 			</a>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <button> element is not permitted as a descendant of <a> (element-permitted-content) at inline:3:12:
@@ -85,7 +85,7 @@ describe("rule element-permitted-content", () => {
 		`);
 	});
 
-	it("should report error when descendant is disallowed (referenced by tagname without meta)", () => {
+	it("should report error when descendant is disallowed (referenced by tagname without meta)", async () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
 			elements: [
@@ -103,7 +103,7 @@ describe("rule element-permitted-content", () => {
 				<span><custom-element></custom-element></span>
 			</custom-link>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <custom-element> element is not permitted as a descendant of <custom-link> (element-permitted-content) at inline:3:12:
@@ -117,14 +117,14 @@ describe("rule element-permitted-content", () => {
 		`);
 	});
 
-	it("should report error when descendant is disallowed (intermediate element without meta)", () => {
+	it("should report error when descendant is disallowed (intermediate element without meta)", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<a>
 				<custom-element><button></button></custom-element>
 			</a>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <button> element is not permitted as a descendant of <a> (element-permitted-content) at inline:3:22:
@@ -139,7 +139,7 @@ describe("rule element-permitted-content", () => {
 	});
 
 	describe("transparent", () => {
-		it("should not report error when phrasing a-element is child of @phrasing", () => {
+		it("should not report error when phrasing a-element is child of @phrasing", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ `
 				<span>
@@ -148,11 +148,11 @@ describe("rule element-permitted-content", () => {
 					</a>
 				</span>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should report error when non-phrasing a-element is child of @phrasing", () => {
+		it("should report error when non-phrasing a-element is child of @phrasing", async () => {
 			expect.assertions(2);
 			const markup = /* HTML */ `
 				<span>
@@ -161,7 +161,7 @@ describe("rule element-permitted-content", () => {
 					</a>
 				</span>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: <div> element is not permitted as content under <span> (element-permitted-content) at inline:4:8:
@@ -176,7 +176,7 @@ describe("rule element-permitted-content", () => {
 			`);
 		});
 
-		it("should report error for children listed as transparent", () => {
+		it("should report error for children listed as transparent", async () => {
 			expect.assertions(2);
 			const htmlvalidate = new HtmlValidate({
 				elements: [
@@ -197,7 +197,7 @@ describe("rule element-permitted-content", () => {
 					</transparent-element>
 				</span>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: <div> element is not permitted as content under <span> (element-permitted-content) at inline:4:8:
@@ -212,7 +212,7 @@ describe("rule element-permitted-content", () => {
 			`);
 		});
 
-		it("should not report error for children not listed as transparent", () => {
+		it("should not report error for children not listed as transparent", async () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate({
 				elements: [
@@ -233,11 +233,11 @@ describe("rule element-permitted-content", () => {
 					</transparent-element>
 				</span>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should not report error for transparent unknown element children", () => {
+		it("should not report error for transparent unknown element children", async () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate({
 				elements: [
@@ -258,19 +258,19 @@ describe("rule element-permitted-content", () => {
 					</transparent-element>
 				</span>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 	});
 
-	it("should report error when label contains non-phrasing", () => {
+	it("should report error when label contains non-phrasing", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<label>
 				<div>foobar</div>
 			</label>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <div> element is not permitted as content under <label> (element-permitted-content) at inline:3:6:
@@ -284,17 +284,17 @@ describe("rule element-permitted-content", () => {
 		`);
 	});
 
-	it("should handle missing meta entry (child)", () => {
+	it("should handle missing meta entry (child)", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <p><foo>foo</foo></p> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should handle missing meta entry (parent)", () => {
+	it("should handle missing meta entry (parent)", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <foo><p>foo</p></foo> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 

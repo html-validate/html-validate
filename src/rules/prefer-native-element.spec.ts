@@ -13,35 +13,35 @@ describe("rule prefer-native-element", () => {
 			});
 		});
 
-		it("should not report error when using role without native equivalent element", () => {
+		it("should not report error when using role without native equivalent element", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<div role="unknown"></div>');
+			const report = await htmlvalidate.validateString('<div role="unknown"></div>');
 			expect(report).toBeValid();
 		});
 
-		it("should not report error when role is boolean", () => {
+		it("should not report error when role is boolean", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString("<div role></div>");
+			const report = await htmlvalidate.validateString("<div role></div>");
 			expect(report).toBeValid();
 		});
 
-		it("should not report error for dynamic attributes", () => {
+		it("should not report error for dynamic attributes", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<input dynamic-role="main">', {
+			const report = await htmlvalidate.validateString('<input dynamic-role="main">', {
 				processAttribute,
 			});
 			expect(report).toBeValid();
 		});
 
-		it("should not report error when element has redundant role", () => {
+		it("should not report error when element has redundant role", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<main role="main"></main>');
+			const report = await htmlvalidate.validateString('<main role="main"></main>');
 			expect(report).toBeValid();
 		});
 
-		it("should report error when using role with native equivalent element", () => {
+		it("should report error when using role with native equivalent element", async () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<div role="main"></div>');
+			const report = await htmlvalidate.validateString('<div role="main"></div>');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"prefer-native-element",
@@ -49,9 +49,9 @@ describe("rule prefer-native-element", () => {
 			);
 		});
 
-		it("should handle unquoted role", () => {
+		it("should handle unquoted role", async () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString("<div role=main></div>");
+			const report = await htmlvalidate.validateString("<div role=main></div>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"prefer-native-element",
@@ -59,33 +59,33 @@ describe("rule prefer-native-element", () => {
 			);
 		});
 
-		it("smoketest", () => {
+		it("smoketest", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile("test-files/rules/prefer-native-element.html");
+			const report = await htmlvalidate.validateFile("test-files/rules/prefer-native-element.html");
 			expect(report).toMatchCodeframe();
 		});
 	});
 
-	it("should not report error when role is excluded", () => {
+	it("should not report error when role is excluded", async () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "prefer-native-element": ["error", { exclude: ["main"] }] },
 		});
-		const valid = htmlvalidate.validateString('<div role="main"></div>');
-		const invalid = htmlvalidate.validateString('<div role="article"></div>');
+		const valid = await htmlvalidate.validateString('<div role="main"></div>');
+		const invalid = await htmlvalidate.validateString('<div role="article"></div>');
 		expect(valid).toBeValid();
 		expect(invalid).toBeInvalid();
 	});
 
-	it("should report error only for included roles", () => {
+	it("should report error only for included roles", async () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "prefer-native-element": ["error", { include: ["main"] }] },
 		});
-		const valid = htmlvalidate.validateString('<div role="article"></div>');
-		const invalid = htmlvalidate.validateString('<div role="main"></div>');
+		const valid = await htmlvalidate.validateString('<div role="article"></div>');
+		const invalid = await htmlvalidate.validateString('<div role="main"></div>');
 		expect(valid).toBeValid();
 		expect(invalid).toBeInvalid();
 	});

@@ -11,25 +11,25 @@ describe("rule doctype-style", () => {
 			});
 		});
 
-		it("should not report when doctype is upper", () => {
+		it("should not report when doctype is upper", async () => {
 			expect.assertions(1);
 			const markup = "<!DOCTYPE html>";
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should report error when doctype is lowercase", () => {
+		it("should report error when doctype is lowercase", async () => {
 			expect.assertions(2);
 			const markup = "<!doctype html>";
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("doctype-style", "DOCTYPE should be uppercase");
 		});
 
-		it("should report error when doctype is mixed case", () => {
+		it("should report error when doctype is mixed case", async () => {
 			expect.assertions(2);
 			const markup = "<!DoCTyPe html>";
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("doctype-style", "DOCTYPE should be uppercase");
 		});
@@ -51,25 +51,25 @@ describe("rule doctype-style", () => {
 			});
 		});
 
-		it("should not report when doctype is lowercase", () => {
+		it("should not report when doctype is lowercase", async () => {
 			expect.assertions(1);
 			const markup = "<!doctype html>";
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should report error when doctype is uppercase", () => {
+		it("should report error when doctype is uppercase", async () => {
 			expect.assertions(2);
 			const markup = "<!DOCTYPE html>";
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("doctype-style", "DOCTYPE should be lowercase");
 		});
 
-		it("should report error when doctype is mixed case", () => {
+		it("should report error when doctype is mixed case", async () => {
 			expect.assertions(2);
 			const markup = "<!DoCTyPe html>";
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("doctype-style", "DOCTYPE should be lowercase");
 		});

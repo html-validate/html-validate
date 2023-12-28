@@ -11,22 +11,22 @@ describe("rule missing-doctype", () => {
 		});
 	});
 
-	it("should report error when document is missing doctype", () => {
+	it("should report error when document is missing doctype", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString("<html></html>");
+		const report = await htmlvalidate.validateString("<html></html>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("missing-doctype", "Document is missing doctype");
 	});
 
-	it("should not report error when document has doctype", () => {
+	it("should not report error when document has doctype", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<!doctype html><html></html>");
+		const report = await htmlvalidate.validateString("<!doctype html><html></html>");
 		expect(report).toBeValid();
 	});
 
-	it("smoketest", () => {
+	it("smoketest", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile("test-files/rules/missing-doctype.html");
+		const report = await htmlvalidate.validateFile("test-files/rules/missing-doctype.html");
 		expect(report).toMatchInlineCodeframe(`
 			"error: Document is missing doctype (missing-doctype) at test-files/rules/missing-doctype.html:1:1:
 			> 1 | <html>

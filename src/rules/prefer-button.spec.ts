@@ -14,35 +14,35 @@ describe("rule prefer-button", () => {
 			});
 		});
 
-		it("should not report error when type attribute is missing type attribute", () => {
+		it("should not report error when type attribute is missing type attribute", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString("<input>");
+			const report = await htmlvalidate.validateString("<input>");
 			expect(report).toBeValid();
 		});
 
-		it("should not report error when type attribute is missing value", () => {
+		it("should not report error when type attribute is missing value", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString("<input type>");
+			const report = await htmlvalidate.validateString("<input type>");
 			expect(report).toBeValid();
 		});
 
-		it("should not report error for dynamic attributes", () => {
+		it("should not report error for dynamic attributes", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<input dynamic-type="inputType">', {
+			const report = await htmlvalidate.validateString('<input dynamic-type="inputType">', {
 				processAttribute,
 			});
 			expect(report).toBeValid();
 		});
 
-		it("should not report error when using regular input fields", () => {
+		it("should not report error when using regular input fields", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<input type="text">');
+			const report = await htmlvalidate.validateString('<input type="text">');
 			expect(report).toBeValid();
 		});
 
-		it("should report error when using type button", () => {
+		it("should report error when using type button", async () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<input type="button">');
+			const report = await htmlvalidate.validateString('<input type="button">');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"prefer-button",
@@ -50,9 +50,9 @@ describe("rule prefer-button", () => {
 			);
 		});
 
-		it("should report error when using type submit", () => {
+		it("should report error when using type submit", async () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<input type="submit">');
+			const report = await htmlvalidate.validateString('<input type="submit">');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"prefer-button",
@@ -60,9 +60,9 @@ describe("rule prefer-button", () => {
 			);
 		});
 
-		it("should report error when using type reset", () => {
+		it("should report error when using type reset", async () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<input type="reset">');
+			const report = await htmlvalidate.validateString('<input type="reset">');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"prefer-button",
@@ -70,9 +70,9 @@ describe("rule prefer-button", () => {
 			);
 		});
 
-		it("should report error when using type image", () => {
+		it("should report error when using type image", async () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<input type="image">');
+			const report = await htmlvalidate.validateString('<input type="image">');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"prefer-button",
@@ -80,9 +80,9 @@ describe("rule prefer-button", () => {
 			);
 		});
 
-		it("should report error when using type submit in uppercase", () => {
+		it("should report error when using type submit in uppercase", async () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString('<INPUT TYPE="SUBMIT">');
+			const report = await htmlvalidate.validateString('<INPUT TYPE="SUBMIT">');
 			expect(report).toBeInvalid();
 			expect(report).toHaveError(
 				"prefer-button",
@@ -90,17 +90,17 @@ describe("rule prefer-button", () => {
 			);
 		});
 
-		it("should not report error when using submit keyword in other attributes", () => {
+		it("should not report error when using submit keyword in other attributes", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(
+			const report = await htmlvalidate.validateString(
 				'<input type="hidden" name="action" value="submit">',
 			);
 			expect(report).toBeValid();
 		});
 
-		it("smoketest", () => {
+		it("smoketest", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile("test-files/rules/prefer-button.html");
+			const report = await htmlvalidate.validateFile("test-files/rules/prefer-button.html");
 			expect(report).toMatchInlineCodeframe(`
 				"error: Prefer to use <button> instead of <input type="button"> when adding buttons (prefer-button) at test-files/rules/prefer-button.html:5:14:
 				  3 | <input type="hidden">
@@ -141,26 +141,26 @@ describe("rule prefer-button", () => {
 		});
 	});
 
-	it("should not report error when type is excluded", () => {
+	it("should not report error when type is excluded", async () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "prefer-button": ["error", { exclude: ["submit"] }] },
 		});
-		const valid = htmlvalidate.validateString('<input type="submit">');
-		const invalid = htmlvalidate.validateString('<input type="reset">');
+		const valid = await htmlvalidate.validateString('<input type="submit">');
+		const invalid = await htmlvalidate.validateString('<input type="reset">');
 		expect(valid).toBeValid();
 		expect(invalid).toBeInvalid();
 	});
 
-	it("should report error only for included types", () => {
+	it("should report error only for included types", async () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "prefer-button": ["error", { include: ["submit"] }] },
 		});
-		const valid = htmlvalidate.validateString('<input type="reset">');
-		const invalid = htmlvalidate.validateString('<input type="submit">');
+		const valid = await htmlvalidate.validateString('<input type="reset">');
+		const invalid = await htmlvalidate.validateString('<input type="submit">');
 		expect(valid).toBeValid();
 		expect(invalid).toBeInvalid();
 	});

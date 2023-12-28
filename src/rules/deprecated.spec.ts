@@ -19,44 +19,46 @@ describe("rule deprecated", () => {
 		});
 	});
 
-	it("should not report when regular element is used", () => {
+	it("should not report when regular element is used", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<p></p>");
+		const report = await htmlvalidate.validateString("<p></p>");
 		expect(report).toBeValid();
 	});
 
-	it("should not report when unknown element is used", () => {
+	it("should not report when unknown element is used", async () => {
 		expect.assertions(1);
 		const markup = "<missing-meta></missing-meta>";
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error for ignored deprecated elements", () => {
+	it("should not report error for ignored deprecated elements", async () => {
 		expect.assertions(1);
 		const markup = "<applet></applet>";
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should report error when deprecated element is used", () => {
+	it("should report error when deprecated element is used", async () => {
 		expect.assertions(2);
 		const markup = "<marquee>foobar</marquee>";
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("deprecated", "<marquee> is deprecated");
 	});
 
-	it("should report error when element with deprecation message is used", () => {
+	it("should report error when element with deprecation message is used", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString("<custom-deprecated>foobar</custom-deprecated>");
+		const report = await htmlvalidate.validateString(
+			"<custom-deprecated>foobar</custom-deprecated>",
+		);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("deprecated", "<custom-deprecated> is deprecated: lorem ipsum");
 	});
 
-	it("smoketest", () => {
+	it("smoketest", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile("test-files/rules/deprecated.html");
+		const report = await htmlvalidate.validateFile("test-files/rules/deprecated.html");
 		expect(report).toMatchInlineCodeframe(`
 			"error: <marquee> is deprecated (deprecated) at test-files/rules/deprecated.html:2:2:
 			  1 | <p>lorem ipsum</p>

@@ -12,59 +12,59 @@ describe("rule map-id-name", () => {
 		});
 	});
 
-	it("should not report error when id and name is the same", () => {
+	it("should not report error when id and name is the same", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <map name="foo" id="foo"></map> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report for other elements", () => {
+	it("should not report for other elements", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <a name="foo" id="bar"></a> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when id is unset", () => {
+	it("should not report error when id is unset", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <map name="foo"></map> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when both name and id is unset", () => {
+	it("should not report error when both name and id is unset", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<map name id></map>
 			<map name="" id=""></map>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report when name is dynamic", () => {
+	it("should not report when name is dynamic", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <map dynamic-name="expr" id="foo"></map> `;
-		const report = htmlvalidate.validateString(markup, {
+		const report = await htmlvalidate.validateString(markup, {
 			processAttribute,
 		});
 		expect(report).toBeValid();
 	});
 
-	it("should not report when id is dynamic", () => {
+	it("should not report when id is dynamic", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <map name="foo" dynamic-id="expr"></map> `;
-		const report = htmlvalidate.validateString(markup, {
+		const report = await htmlvalidate.validateString(markup, {
 			processAttribute,
 		});
 		expect(report).toBeValid();
 	});
 
-	it("should report error when id is different from name", () => {
+	it("should report error when id is different from name", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ ` <map name="foo" id="bar"></map> `;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: "id" and "name" attribute must be the same on <map> elements (map-id-name) at inline:1:22:
@@ -74,13 +74,13 @@ describe("rule map-id-name", () => {
 		`);
 	});
 
-	it("should report error when name is empty", () => {
+	it("should report error when name is empty", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<map name id="foo"></map>
 			<map name="" id="bar"></map>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: "id" and "name" attribute must be the same on <map> elements (map-id-name) at inline:2:18:
@@ -100,13 +100,13 @@ describe("rule map-id-name", () => {
 		`);
 	});
 
-	it("should report error when id is empty", () => {
+	it("should report error when id is empty", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<map name="foo" id></map>
 			<map name="bar" id=""></map>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: "id" and "name" attribute must be the same on <map> elements (map-id-name) at inline:2:15:

@@ -12,26 +12,26 @@ describe("rule unrecognized-char-ref", () => {
 	});
 
 	describe("text content", () => {
-		it("should not report error for valid character reference", () => {
+		it("should not report error for valid character reference", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ ` <p>&amp;</p> `;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should not report error for raw ampersand", () => {
+		it("should not report error for raw ampersand", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ ` <p>&</p> `;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should report error when for invalid character reference", () => {
+		it("should report error when for invalid character reference", async () => {
 			expect.assertions(2);
 			const markup = /* HTML */ `
 				<p>&spam;</p>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: Unrecognized character reference "&spam;" (unrecognized-char-ref) at inline:2:8:
@@ -43,12 +43,12 @@ describe("rule unrecognized-char-ref", () => {
 			`);
 		});
 
-		it("should handle multiple entities", () => {
+		it("should handle multiple entities", async () => {
 			expect.assertions(2);
 			const markup = /* HTML */ `
 				<p>&foo; &bar; &baz;</p>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: Unrecognized character reference "&foo;" (unrecognized-char-ref) at inline:2:8:
@@ -72,38 +72,38 @@ describe("rule unrecognized-char-ref", () => {
 			`);
 		});
 
-		it("should handle nested elements", () => {
+		it("should handle nested elements", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ ` <div><p>&amp;</p></div> `;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 	});
 
 	describe("attribute", () => {
-		it("should not report error for valid character reference", () => {
+		it("should not report error for valid character reference", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ ` <p id="&amp;&#123;"></p> `;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should not report error for raw ampersand", () => {
+		it("should not report error for raw ampersand", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ `
 				<a href="?foo&bar"></p>
 				<a href="foo?bar&baz"></p>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should report error when for invalid character reference", () => {
+		it("should report error when for invalid character reference", async () => {
 			expect.assertions(2);
 			const markup = /* HTML */ `
 				<p title="&spam;"></p>
 			`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: Unrecognized character reference "&spam;" (unrecognized-char-ref) at inline:2:15:
@@ -115,10 +115,10 @@ describe("rule unrecognized-char-ref", () => {
 			`);
 		});
 
-		it("should handle boolean attributes", () => {
+		it("should handle boolean attributes", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ ` <p id></p> `;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 	});
@@ -131,9 +131,9 @@ describe("rule unrecognized-char-ref", () => {
 			<p id="pascalcase">&ApplyFunction;</p>
 		`;
 
-		it("should be case sensitive by default", () => {
+		it("should be case sensitive by default", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toMatchInlineCodeframe(`
 				"error: Unrecognized character reference "&NBSP;" (unrecognized-char-ref) at inline:3:22:
 				  1 |
@@ -155,22 +155,22 @@ describe("rule unrecognized-char-ref", () => {
 			`);
 		});
 
-		it("should ignore case when option is enabled", () => {
+		it("should ignore case when option is enabled", async () => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
 				rules: { "unrecognized-char-ref": ["error", { ignoreCase: true }] },
 			});
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should retain capitalization in error message", () => {
+		it("should retain capitalization in error message", async () => {
 			expect.assertions(2);
 			const markup = /* HTML */ ` <p>&UnKnOwN;</p> `;
 			htmlvalidate = new HtmlValidate({
 				rules: { "unrecognized-char-ref": ["error", { ignoreCase: true }] },
 			});
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: Unrecognized character reference "&UnKnOwN;" (unrecognized-char-ref) at inline:1:5:
@@ -187,9 +187,9 @@ describe("rule unrecognized-char-ref", () => {
 			<p id="without-semicolon">&copy &COPY</p>
 		`;
 
-		it("should require semicolon by default", () => {
+		it("should require semicolon by default", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toMatchInlineCodeframe(`
 				"error: Character reference "&copy" must be terminated by a semicolon (unrecognized-char-ref) at inline:3:30:
 				  1 |
@@ -208,22 +208,22 @@ describe("rule unrecognized-char-ref", () => {
 			`);
 		});
 
-		it("should allow missing semicolon for entities with legacy compatibility when option is enabled", () => {
+		it("should allow missing semicolon for entities with legacy compatibility when option is enabled", async () => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
 				rules: { "unrecognized-char-ref": ["error", { requireSemicolon: false }] },
 			});
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should always require semicolon for entities without legacy compatibility", () => {
+		it("should always require semicolon for entities without legacy compatibility", async () => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
 				rules: { "unrecognized-char-ref": ["error", { requireSemicolon: false }] },
 			});
 			const markup = /* HTML */ ` <p>&star</p> `;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toMatchInlineCodeframe(`
 				"error: Unrecognized character reference "&star" (unrecognized-char-ref) at inline:1:5:
 				> 1 |  <p>&star</p>

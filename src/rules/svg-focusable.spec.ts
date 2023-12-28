@@ -10,29 +10,29 @@ describe("rule svg-focusable", () => {
 		});
 	});
 
-	it("should not report when <svg> has focusable attribute", () => {
+	it("should not report when <svg> has focusable attribute", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString(
+		const report = await htmlvalidate.validateString(
 			['<svg focusable="false"></svg>', '<svg focusable="true"></svg>'].join("\n"),
 		);
 		expect(report).toBeValid();
 	});
 
-	it("should not report for other elements", () => {
+	it("should not report for other elements", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<div></div>");
+		const report = await htmlvalidate.validateString("<div></div>");
 		expect(report).toBeValid();
 	});
 
-	it("should not report for boolean attribute", () => {
+	it("should not report for boolean attribute", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<svg focusable></svg>");
+		const report = await htmlvalidate.validateString("<svg focusable></svg>");
 		expect(report).toBeValid();
 	});
 
-	it("should report error when attributes use single quotes", () => {
+	it("should report error when attributes use single quotes", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString("<svg></svg>");
+		const report = await htmlvalidate.validateString("<svg></svg>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("svg-focusable", '<svg> is missing required "focusable" attribute');
 	});

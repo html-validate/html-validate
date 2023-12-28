@@ -19,52 +19,52 @@ describe("rule tel-non-breaking", () => {
 		});
 	});
 
-	it("should not report error for other elements", () => {
+	it("should not report error for other elements", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<span>foo bar - baz</div>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when anchor is not tel", () => {
+	it("should not report error when anchor is not tel", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<a href="/">foo bar - baz</a>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when tel anchor is using only allowed characters", () => {
+	it("should not report error when tel anchor is using only allowed characters", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<a href="tel:">foo&nbsp;bar&8209;baz</a>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when anchor is ignored by class", () => {
+	it("should not report error when anchor is ignored by class", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<a href="tel:" class="nobreak">foo bar-baz</a>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when anchor has white-space: nowrap", () => {
+	it("should not report error when anchor has white-space: nowrap", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<a href="tel:" style="white-space: nowrap">foo bar-baz</a>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should not report error when anchor has white-space: pre", () => {
+	it("should not report error when anchor has white-space: pre", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `<a href="tel:" style="white-space: pre">foo bar-baz</a>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should report error when tel anchor have breaking space", () => {
+	it("should report error when tel anchor have breaking space", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `<a href="tel:">foo bar</a>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: " " should be replaced with "&nbsp;" (non-breaking space) in telephone number (tel-non-breaking) at inline:1:19:
@@ -74,10 +74,10 @@ describe("rule tel-non-breaking", () => {
 		`);
 	});
 
-	it("should report error when tel anchor have breaking hyphen", () => {
+	it("should report error when tel anchor have breaking hyphen", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `<a href="tel:">foo-bar</a>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: "-" should be replaced with "&#8209;" (non-breaking hyphen) in telephone number (tel-non-breaking) at inline:1:19:
@@ -87,10 +87,10 @@ describe("rule tel-non-breaking", () => {
 		`);
 	});
 
-	it("should report error when anchor has white-space set to other values", () => {
+	it("should report error when anchor has white-space set to other values", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `<a href="tel:" style="white-space: normal">foo ba</a>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: " " should be replaced with "&nbsp;" (non-breaking space) in telephone number (tel-non-breaking) at inline:1:47:
@@ -100,7 +100,7 @@ describe("rule tel-non-breaking", () => {
 		`);
 	});
 
-	it("should report error when ignoreStyle is disabled", () => {
+	it("should report error when ignoreStyle is disabled", async () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
 			root: true,
@@ -114,7 +114,7 @@ describe("rule tel-non-breaking", () => {
 			},
 		});
 		const markup = /* HTML */ `<a href="tel:" style="white-space: nowrap">foo bar</a>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: " " should be replaced with "&nbsp;" (non-breaking space) in telephone number (tel-non-breaking) at inline:1:47:
@@ -124,10 +124,10 @@ describe("rule tel-non-breaking", () => {
 		`);
 	});
 
-	it("should report error when anchor has unrelated styling", () => {
+	it("should report error when anchor has unrelated styling", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `<a href="tel:" style="background: red">foo ba</a>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: " " should be replaced with "&nbsp;" (non-breaking space) in telephone number (tel-non-breaking) at inline:1:43:
@@ -137,10 +137,10 @@ describe("rule tel-non-breaking", () => {
 		`);
 	});
 
-	it("should report error in nested elements", () => {
+	it("should report error in nested elements", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `<a href="tel:"><span>foo bar</span></a>`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: " " should be replaced with "&nbsp;" (non-breaking space) in telephone number (tel-non-breaking) at inline:1:25:
@@ -150,14 +150,14 @@ describe("rule tel-non-breaking", () => {
 		`);
 	});
 
-	it("should ignore interelement whitespace", () => {
+	it("should ignore interelement whitespace", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
 			<a href="tel:">
 				<span> foobar </span>
 			</a>
 		`;
-		const report = htmlvalidate.validateString(markup);
+		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 

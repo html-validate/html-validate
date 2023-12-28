@@ -13,27 +13,27 @@ describe("rule no-raw-characters", () => {
 		});
 
 		describe("text content", () => {
-			it("should not report error when text has no special characters", () => {
+			it("should not report error when text has no special characters", async () => {
 				expect.assertions(1);
-				const report = htmlvalidate.validateString("<p>lorem ipsum</p>");
+				const report = await htmlvalidate.validateString("<p>lorem ipsum</p>");
 				expect(report).toBeValid();
 			});
 
-			it("should not report error when text has htmlentities", () => {
+			it("should not report error when text has htmlentities", async () => {
 				expect.assertions(1);
-				const report = htmlvalidate.validateString("<p>lorem &amp; ipsum</p>");
+				const report = await htmlvalidate.validateString("<p>lorem &amp; ipsum</p>");
 				expect(report).toBeValid();
 			});
 
-			it("should not report error when CDATA has raw special characters", () => {
+			it("should not report error when CDATA has raw special characters", async () => {
 				expect.assertions(1);
-				const report = htmlvalidate.validateString("<p><![CDATA[&]]></p>");
+				const report = await htmlvalidate.validateString("<p><![CDATA[&]]></p>");
 				expect(report).toBeValid();
 			});
 
-			it("should report error when raw special characters are present", () => {
+			it("should report error when raw special characters are present", async () => {
 				expect.assertions(2);
-				const report = htmlvalidate.validateString(`<p> < & > </p>`);
+				const report = await htmlvalidate.validateString(`<p> < & > </p>`);
 				expect(report).toBeInvalid();
 				expect(report).toHaveErrors([
 					["no-raw-characters", 'Raw "<" must be encoded as "&lt;"'],
@@ -42,59 +42,59 @@ describe("rule no-raw-characters", () => {
 				]);
 			});
 
-			it("should report error once when children has raw special characters", () => {
+			it("should report error once when children has raw special characters", async () => {
 				expect.assertions(2);
-				const report = htmlvalidate.validateString("<p><i>&</i></p> ");
+				const report = await htmlvalidate.validateString("<p><i>&</i></p> ");
 				expect(report).toBeInvalid();
 				expect(report).toHaveErrors([["no-raw-characters", 'Raw "&" must be encoded as "&amp;"']]);
 			});
 		});
 
 		describe("unquoted attributes", () => {
-			it("should not report error when attribute has no special characters", () => {
+			it("should not report error when attribute has no special characters", async () => {
 				expect.assertions(1);
-				const report = htmlvalidate.validateString("<p class=foo></p>");
+				const report = await htmlvalidate.validateString("<p class=foo></p>");
 				expect(report).toBeValid();
 			});
 
-			it("should not report error when attribute has htmlentities", () => {
+			it("should not report error when attribute has htmlentities", async () => {
 				expect.assertions(1);
-				const report = htmlvalidate.validateString("<p class=foo&apos;s></p>");
+				const report = await htmlvalidate.validateString("<p class=foo&apos;s></p>");
 				expect(report).toBeValid();
 			});
 
-			it("should not report error for boolean attributes", () => {
+			it("should not report error for boolean attributes", async () => {
 				expect.assertions(1);
-				const report = htmlvalidate.validateString("<input disabled>");
+				const report = await htmlvalidate.validateString("<input disabled>");
 				expect(report).toBeValid();
 			});
 
-			it('should report error when " are present', () => {
+			it('should report error when " are present', async () => {
 				expect.assertions(2);
-				const report = htmlvalidate.validateString('<p class=foo"s></p>');
+				const report = await htmlvalidate.validateString('<p class=foo"s></p>');
 				expect(report).toBeInvalid();
 				expect(report).toHaveErrors([["no-raw-characters", `Raw """ must be encoded as "&quot;"`]]);
 			});
 
-			it("should report error when ' are present", () => {
+			it("should report error when ' are present", async () => {
 				expect.assertions(2);
-				const report = htmlvalidate.validateString("<p class=foo's></p>");
+				const report = await htmlvalidate.validateString("<p class=foo's></p>");
 				expect(report).toBeInvalid();
 				expect(report).toHaveErrors([["no-raw-characters", `Raw "'" must be encoded as "&apos;"`]]);
 			});
 
-			it("should report error when = are present", () => {
+			it("should report error when = are present", async () => {
 				expect.assertions(2);
-				const report = htmlvalidate.validateString("<p class=foo=s></p>");
+				const report = await htmlvalidate.validateString("<p class=foo=s></p>");
 				expect(report).toBeInvalid();
 				expect(report).toHaveErrors([
 					["no-raw-characters", `Raw "=" must be encoded as "&equals;"`],
 				]);
 			});
 
-			it("should report error when ` are present", () => {
+			it("should report error when ` are present", async () => {
 				expect.assertions(2);
-				const report = htmlvalidate.validateString("<p class=foo`s></p>");
+				const report = await htmlvalidate.validateString("<p class=foo`s></p>");
 				expect(report).toBeInvalid();
 				expect(report).toHaveErrors([
 					["no-raw-characters", 'Raw "`" must be encoded as "&grave;"'],
@@ -103,29 +103,29 @@ describe("rule no-raw-characters", () => {
 		});
 
 		describe("quoted attributes", () => {
-			it("should not report error when & are present", () => {
+			it("should not report error when & are present", async () => {
 				expect.assertions(1);
-				const report = htmlvalidate.validateString('<p class="foo&s"></p>');
+				const report = await htmlvalidate.validateString('<p class="foo&s"></p>');
 				expect(report).toBeValid();
 			});
-			it(`should not report error when " are present in value quoted by '`, () => {
+			it(`should not report error when " are present in value quoted by '`, async () => {
 				expect.assertions(1);
-				const report = htmlvalidate.validateString(`<p class="'"></p>`);
+				const report = await htmlvalidate.validateString(`<p class="'"></p>`);
 				expect(report).toBeValid();
 			});
-			it(`should not report error when ' are present in value quoted by "`, () => {
+			it(`should not report error when ' are present in value quoted by "`, async () => {
 				expect.assertions(1);
-				const report = htmlvalidate.validateString(`<p class='"'></p>`);
+				const report = await htmlvalidate.validateString(`<p class='"'></p>`);
 				expect(report).toBeValid();
 			});
-			it(`should not report error when = are present`, () => {
+			it(`should not report error when = are present`, async () => {
 				expect.assertions(1);
-				const report = htmlvalidate.validateString(`<p class='='></p>`);
+				const report = await htmlvalidate.validateString(`<p class='='></p>`);
 				expect(report).toBeValid();
 			});
-			it("should not report error when ` are present", () => {
+			it("should not report error when ` are present", async () => {
 				expect.assertions(1);
-				const report = htmlvalidate.validateString('<p class="`"></p>');
+				const report = await htmlvalidate.validateString('<p class="`"></p>');
 				expect(report).toBeValid();
 			});
 		});
@@ -139,16 +139,16 @@ describe("rule no-raw-characters", () => {
 				${"<?\n&\n?>"} | ${"<? & ?> (with newlines)"}
 				${"<$ & $>"}   | ${"<$ & $>"}
 				${"<$\n&\n$>"} | ${"<$ & $> (with newlines)"}
-			`("$description", ({ input }) => {
+			`("$description", async ({ input }) => {
 				expect.assertions(1);
-				const report = htmlvalidate.validateString(`<p>lorem ${input} ipsum</p>`);
+				const report = await htmlvalidate.validateString(`<p>lorem ${input} ipsum</p>`);
 				expect(report).toBeValid();
 			});
 		});
 
-		it("smoketest", () => {
+		it("smoketest", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile("test-files/rules/no-raw-characters.html");
+			const report = await htmlvalidate.validateFile("test-files/rules/no-raw-characters.html");
 			expect(report).toMatchCodeframe();
 		});
 	});
@@ -161,21 +161,21 @@ describe("rule no-raw-characters", () => {
 			});
 		});
 
-		it("should not report error when ampersand in text isn't ambiguous", () => {
+		it("should not report error when ampersand in text isn't ambiguous", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString("<p>lorem & ipsum&dolor &amp; &sit;</p>");
+			const report = await htmlvalidate.validateString("<p>lorem & ipsum&dolor &amp; &sit;</p>");
 			expect(report).toBeValid();
 		});
 
-		it("should not report error when ampersand in attribute isn't ambiguous", () => {
+		it("should not report error when ampersand in attribute isn't ambiguous", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString('<a href="?foo=1&bar=2&baz&spam"></a>');
+			const report = await htmlvalidate.validateString('<a href="?foo=1&bar=2&baz&spam"></a>');
 			expect(report).toBeValid();
 		});
 
-		it("smoketest", () => {
+		it("smoketest", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile("test-files/rules/no-raw-characters.html");
+			const report = await htmlvalidate.validateFile("test-files/rules/no-raw-characters.html");
 			expect(report).toMatchCodeframe();
 		});
 	});

@@ -14,41 +14,41 @@ describe("rule element-name", () => {
 			});
 		});
 
-		it("should report error when custom element name does not have a dash", () => {
+		it("should report error when custom element name does not have a dash", async () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString("<foobar></foobar>");
+			const report = await htmlvalidate.validateString("<foobar></foobar>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("element-name", "<foobar> is not a valid element name");
 		});
 
-		it("should report error when custom element name does not start with letter", () => {
+		it("should report error when custom element name does not start with letter", async () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString("<1-foo></1-foo>");
+			const report = await htmlvalidate.validateString("<1-foo></1-foo>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("element-name", "<1-foo> is not a valid element name");
 		});
 
-		it("should not report error when custom element name is valid", () => {
+		it("should not report error when custom element name is valid", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString("<foo-bar></foo-bar>");
+			const report = await htmlvalidate.validateString("<foo-bar></foo-bar>");
 			expect(report).toBeValid();
 		});
 
-		it("should not report when using builtin elements", () => {
+		it("should not report when using builtin elements", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString("<span><a><span></span></a></span>");
+			const report = await htmlvalidate.validateString("<span><a><span></span></a></span>");
 			expect(report).toBeValid();
 		});
 
-		it("should not report error for xml namespaces", () => {
+		it("should not report error for xml namespaces", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString("<xmlns:foo></xmlns:foo>");
+			const report = await htmlvalidate.validateString("<xmlns:foo></xmlns:foo>");
 			expect(report).toBeValid();
 		});
 
-		it("smoketest", () => {
+		it("smoketest", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile("test-files/rules/element-name.html");
+			const report = await htmlvalidate.validateFile("test-files/rules/element-name.html");
 			expect(report).toMatchInlineCodeframe(`
 				"error: <foo> is not a valid element name (element-name) at test-files/rules/element-name.html:30:2:
 				  28 |
@@ -77,34 +77,34 @@ describe("rule element-name", () => {
 			});
 		});
 
-		it("should report error when custom element name does not match pattern", () => {
+		it("should report error when custom element name does not match pattern", async () => {
 			expect.assertions(2);
-			const report = htmlvalidate.validateString("<spam-ham></spam-ham>");
+			const report = await htmlvalidate.validateString("<spam-ham></spam-ham>");
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("element-name", "<spam-ham> is not a valid element name");
 		});
 
-		it("should not report error when custom element name does match pattern", () => {
+		it("should not report error when custom element name does match pattern", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString("<foo-bar></foo-bar>");
+			const report = await htmlvalidate.validateString("<foo-bar></foo-bar>");
 			expect(report).toBeValid();
 		});
 
-		it("should not report when using builtin elements", () => {
+		it("should not report when using builtin elements", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString("<span><a><span></span></a></span>");
+			const report = await htmlvalidate.validateString("<span><a><span></span></a></span>");
 			expect(report).toBeValid();
 		});
 
-		it("should not report error for xml namespaces", () => {
+		it("should not report error for xml namespaces", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateString("<xmlns:foo></xmlns:foo>");
+			const report = await htmlvalidate.validateString("<xmlns:foo></xmlns:foo>");
 			expect(report).toBeValid();
 		});
 
-		it("smoketest", () => {
+		it("smoketest", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile("test-files/rules/element-name.html");
+			const report = await htmlvalidate.validateFile("test-files/rules/element-name.html");
 			expect(report).toMatchInlineCodeframe(`
 				"error: <spam-ham> is not a valid element name (element-name) at test-files/rules/element-name.html:27:2:
 				  25 | <!-- allowed custom names -->
@@ -134,22 +134,22 @@ describe("rule element-name", () => {
 		});
 	});
 
-	it("should ignore whitelisted element", () => {
+	it("should ignore whitelisted element", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			rules: { "element-name": ["error", { whitelist: ["foobar"] }] },
 		});
-		const report = htmlvalidate.validateString("<foobar></foobar>");
+		const report = await htmlvalidate.validateString("<foobar></foobar>");
 		expect(report).toBeValid();
 	});
 
-	it("should report error when using blacklisted element", () => {
+	it("should report error when using blacklisted element", async () => {
 		expect.assertions(2);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "element-name": ["error", { blacklist: ["foo-bar"] }] },
 		});
-		const report = htmlvalidate.validateString("<foo-bar></foo-bar>");
+		const report = await htmlvalidate.validateString("<foo-bar></foo-bar>");
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("element-name", "<foo-bar> element is blacklisted");
 	});

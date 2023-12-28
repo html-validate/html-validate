@@ -11,34 +11,34 @@ describe("rule no-dup-class", () => {
 		});
 	});
 
-	it("should not report when class is missing", () => {
+	it("should not report when class is missing", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString("<p></p>");
+		const report = await htmlvalidate.validateString("<p></p>");
 		expect(report).toBeValid();
 	});
 
-	it("should not report when class has no duplicates", () => {
+	it("should not report when class has no duplicates", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<p class="foo bar"></p>');
+		const report = await htmlvalidate.validateString('<p class="foo bar"></p>');
 		expect(report).toBeValid();
 	});
 
-	it("should not report for other attributes", () => {
+	it("should not report for other attributes", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateString('<p attr="foo bar foo"></p>');
+		const report = await htmlvalidate.validateString('<p attr="foo bar foo"></p>');
 		expect(report).toBeValid();
 	});
 
-	it("should report when when class has duplicates", () => {
+	it("should report when when class has duplicates", async () => {
 		expect.assertions(2);
-		const report = htmlvalidate.validateString('<p class="foo bar foo"></p>');
+		const report = await htmlvalidate.validateString('<p class="foo bar foo"></p>');
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("no-dup-class", 'Class "foo" duplicated');
 	});
 
-	it("smoketest", () => {
+	it("smoketest", async () => {
 		expect.assertions(1);
-		const report = htmlvalidate.validateFile("test-files/rules/no-dup-class.html");
+		const report = await htmlvalidate.validateFile("test-files/rules/no-dup-class.html");
 		expect(report).toMatchInlineCodeframe(`
 			"error: Class "foo" duplicated (no-dup-class) at test-files/rules/no-dup-class.html:5:21:
 			  3 | <div class="foo bar"></div>

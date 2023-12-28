@@ -14,24 +14,24 @@ describe("rule valid-id", () => {
 			});
 		});
 
-		it("should not report error when id is missing", () => {
+		it("should not report error when id is missing", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ `<div></div>`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should not report error when id is valid", () => {
+		it("should not report error when id is valid", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ `<div id="fooBar123"></div>`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should report error when id is empty", () => {
+		it("should report error when id is empty", async () => {
 			expect.assertions(2);
 			const markup = /* HTML */ `<div id=""></div>`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: element id must not be empty (valid-id) at inline:1:6:
@@ -41,10 +41,10 @@ describe("rule valid-id", () => {
 			`);
 		});
 
-		it("should report error when id has leading whitespace", () => {
+		it("should report error when id has leading whitespace", async () => {
 			expect.assertions(2);
 			const markup = `<div id=" foobar"></div>`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: element id must not contain whitespace (valid-id) at inline:1:10:
@@ -54,10 +54,10 @@ describe("rule valid-id", () => {
 			`);
 		});
 
-		it("should report error when id has trailing whitespace", () => {
+		it("should report error when id has trailing whitespace", async () => {
 			expect.assertions(2);
 			const markup = `<div id="foobar "></div>`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: element id must not contain whitespace (valid-id) at inline:1:10:
@@ -67,10 +67,10 @@ describe("rule valid-id", () => {
 			`);
 		});
 
-		it("should report error when id has interleaved whitespace", () => {
+		it("should report error when id has interleaved whitespace", async () => {
 			expect.assertions(2);
 			const markup = `<div id="foo bar"></div>`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: element id must not contain whitespace (valid-id) at inline:1:10:
@@ -80,10 +80,10 @@ describe("rule valid-id", () => {
 			`);
 		});
 
-		it("should report error when id is numeric only", () => {
+		it("should report error when id is numeric only", async () => {
 			expect.assertions(2);
 			const markup = /* HTML */ `<div id="123"></div>`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: element id must begin with a letter (valid-id) at inline:1:10:
@@ -93,10 +93,10 @@ describe("rule valid-id", () => {
 			`);
 		});
 
-		it("should report error when id has leading numeric value", () => {
+		it("should report error when id has leading numeric value", async () => {
 			expect.assertions(2);
 			const markup = /* HTML */ `<div id="123foo"></div>`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: element id must begin with a letter (valid-id) at inline:1:10:
@@ -106,10 +106,10 @@ describe("rule valid-id", () => {
 			`);
 		});
 
-		it("should report error when id has leading dash", () => {
+		it("should report error when id has leading dash", async () => {
 			expect.assertions(2);
 			const markup = /* HTML */ `<div id="-foo"></div>`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: element id must begin with a letter (valid-id) at inline:1:10:
@@ -119,10 +119,10 @@ describe("rule valid-id", () => {
 			`);
 		});
 
-		it("should report error when id has leading underscore", () => {
+		it("should report error when id has leading underscore", async () => {
 			expect.assertions(2);
 			const markup = /* HTML */ `<div id="_foo"></div>`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: element id must begin with a letter (valid-id) at inline:1:10:
@@ -132,10 +132,10 @@ describe("rule valid-id", () => {
 			`);
 		});
 
-		it("should report error when id has disallowed characters", () => {
+		it("should report error when id has disallowed characters", async () => {
 			expect.assertions(2);
 			const markup = /* HTML */ `<div id="foo!bar"></div>`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: element id must only contain alphanumerical, dash and underscore characters (valid-id) at inline:1:10:
@@ -176,24 +176,24 @@ describe("rule valid-id", () => {
 			});
 		});
 
-		it("should not report error when id has only numbers", () => {
+		it("should not report error when id has only numbers", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ `<div id="123"></div>`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should not report error when id has unusual characters", () => {
+		it("should not report error when id has unusual characters", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ `<div id="#"></div>`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
-		it("should report error when id has whitespace", () => {
+		it("should report error when id has whitespace", async () => {
 			expect.assertions(2);
 			const markup = `<div id="foo bar"></div>`;
-			const report = htmlvalidate.validateString(markup);
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: element id must not contain whitespace (valid-id) at inline:1:10:
@@ -224,14 +224,14 @@ describe("rule valid-id", () => {
 		});
 	});
 
-	it("should not report errors for dynamic attributes", () => {
+	it("should not report errors for dynamic attributes", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "valid-id": "error" },
 		});
 		const markup = /* HTML */ `<input dynamic-id="foo + bar" />`;
-		const report = htmlvalidate.validateString(markup, {
+		const report = await htmlvalidate.validateString(markup, {
 			processAttribute,
 		});
 		expect(report).toBeValid();
