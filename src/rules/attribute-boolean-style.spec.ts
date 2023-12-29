@@ -65,10 +65,12 @@ describe("rule attribute-boolean-style", () => {
 			const markup = /* HTML */ ` <input required="" /> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attribute-boolean-style",
-				'Attribute "required" should omit value',
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Attribute "required" should omit value (attribute-boolean-style) at inline:1:9:
+				> 1 |  <input required="" />
+				    |         ^^^^^^^^
+				Selector: input"
+			`);
 		});
 
 		it("should report error when value is attribute name", async () => {
@@ -76,10 +78,12 @@ describe("rule attribute-boolean-style", () => {
 			const markup = /* HTML */ ` <input required="required" /> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attribute-boolean-style",
-				'Attribute "required" should omit value',
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Attribute "required" should omit value (attribute-boolean-style) at inline:1:9:
+				> 1 |  <input required="required" />
+				    |         ^^^^^^^^
+				Selector: input"
+			`);
 		});
 
 		it("should report error when attribute is interpolated", async () => {
@@ -89,10 +93,12 @@ describe("rule attribute-boolean-style", () => {
 				processAttribute,
 			});
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attribute-boolean-style",
-				'Attribute "required" should omit value',
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Attribute "required" should omit value (attribute-boolean-style) at inline:1:9:
+				> 1 |  <input required="{{ dynamic }}" />
+				    |         ^^^^^^^^
+				Selector: input"
+			`);
 		});
 
 		it("should not report error when attribute is dynamic", async () => {
@@ -150,10 +156,12 @@ describe("rule attribute-boolean-style", () => {
 			const markup = /* HTML */ ` <input required /> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attribute-boolean-style",
-				'Attribute "required" value should be empty string',
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Attribute "required" value should be empty string (attribute-boolean-style) at inline:1:9:
+				> 1 |  <input required />
+				    |         ^^^^^^^^
+				Selector: input"
+			`);
 		});
 
 		it("should not report error when value is empty string", async () => {
@@ -168,10 +176,12 @@ describe("rule attribute-boolean-style", () => {
 			const markup = /* HTML */ ` <input required="required" /> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attribute-boolean-style",
-				'Attribute "required" value should be empty string',
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Attribute "required" value should be empty string (attribute-boolean-style) at inline:1:9:
+				> 1 |  <input required="required" />
+				    |         ^^^^^^^^
+				Selector: input"
+			`);
 		});
 
 		it("should report error when attribute is dynamic", async () => {
@@ -181,10 +191,12 @@ describe("rule attribute-boolean-style", () => {
 				processAttribute,
 			});
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attribute-boolean-style",
-				'Attribute "required" value should be empty string',
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Attribute "required" value should be empty string (attribute-boolean-style) at inline:1:9:
+				> 1 |  <input required="{{ dynamic }}" />
+				    |         ^^^^^^^^
+				Selector: input"
+			`);
 		});
 
 		it("smoketest", async () => {
@@ -232,10 +244,12 @@ describe("rule attribute-boolean-style", () => {
 			const markup = /* HTML */ ` <input required /> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attribute-boolean-style",
-				'Attribute "required" should be set to required="required"',
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Attribute "required" should be set to required="required" (attribute-boolean-style) at inline:1:9:
+				> 1 |  <input required />
+				    |         ^^^^^^^^
+				Selector: input"
+			`);
 		});
 
 		it("should report error when value is empty string", async () => {
@@ -243,10 +257,12 @@ describe("rule attribute-boolean-style", () => {
 			const markup = /* HTML */ ` <input required="" /> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attribute-boolean-style",
-				'Attribute "required" should be set to required="required"',
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Attribute "required" should be set to required="required" (attribute-boolean-style) at inline:1:9:
+				> 1 |  <input required="" />
+				    |         ^^^^^^^^
+				Selector: input"
+			`);
 		});
 
 		it("should not report error when value is attribute name", async () => {
@@ -263,10 +279,12 @@ describe("rule attribute-boolean-style", () => {
 				processAttribute,
 			});
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attribute-boolean-style",
-				'Attribute "required" should be set to required="required"',
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Attribute "required" should be set to required="required" (attribute-boolean-style) at inline:1:9:
+				> 1 |  <input required="{{ dynamic }}" />
+				    |         ^^^^^^^^
+				Selector: input"
+			`);
 		});
 
 		it("smoketest", async () => {

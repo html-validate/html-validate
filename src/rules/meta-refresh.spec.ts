@@ -57,7 +57,12 @@ describe("rule meta-refresh", () => {
 		const markup = /* HTML */ ` <meta http-equiv="refresh" content="1;url=target.html" /> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("meta-refresh", "Meta refresh must use 0 second delay");
+		expect(report).toMatchInlineCodeframe(`
+			"error: Meta refresh must use 0 second delay (meta-refresh) at inline:1:38:
+			> 1 |  <meta http-equiv="refresh" content="1;url=target.html" />
+			    |                                      ^^^^^^^^^^^^^^^^^
+			Selector: meta"
+		`);
 	});
 
 	it("should report error when refresh has non-zero delay (with whitespace)", async () => {
@@ -65,7 +70,12 @@ describe("rule meta-refresh", () => {
 		const markup = /* HTML */ ` <meta http-equiv="refresh" content="1; url=target.html" /> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("meta-refresh", "Meta refresh must use 0 second delay");
+		expect(report).toMatchInlineCodeframe(`
+			"error: Meta refresh must use 0 second delay (meta-refresh) at inline:1:38:
+			> 1 |  <meta http-equiv="refresh" content="1; url=target.html" />
+			    |                                      ^^^^^^^^^^^^^^^^^^
+			Selector: meta"
+		`);
 	});
 
 	it("should report error when refresh is missing url", async () => {
@@ -73,7 +83,12 @@ describe("rule meta-refresh", () => {
 		const markup = /* HTML */ ` <meta http-equiv="refresh" content="0" /> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("meta-refresh", "Don't use meta refresh to reload the page");
+		expect(report).toMatchInlineCodeframe(`
+			"error: Don't use meta refresh to reload the page (meta-refresh) at inline:1:38:
+			> 1 |  <meta http-equiv="refresh" content="0" />
+			    |                                      ^
+			Selector: meta"
+		`);
 	});
 
 	it("should report error when refresh has empty url", async () => {
@@ -81,7 +96,12 @@ describe("rule meta-refresh", () => {
 		const markup = /* HTML */ ` <meta http-equiv="refresh" content="0;url=" /> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("meta-refresh", "Don't use meta refresh to reload the page");
+		expect(report).toMatchInlineCodeframe(`
+			"error: Don't use meta refresh to reload the page (meta-refresh) at inline:1:38:
+			> 1 |  <meta http-equiv="refresh" content="0;url=" />
+			    |                                      ^^^^^^
+			Selector: meta"
+		`);
 	});
 
 	it("should report error when refresh is malformed", async () => {
@@ -89,7 +109,12 @@ describe("rule meta-refresh", () => {
 		const markup = /* HTML */ ` <meta http-equiv="refresh" content="foobar" /> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("meta-refresh", "Malformed meta refresh directive");
+		expect(report).toMatchInlineCodeframe(`
+			"error: Malformed meta refresh directive (meta-refresh) at inline:1:38:
+			> 1 |  <meta http-equiv="refresh" content="foobar" />
+			    |                                      ^^^^^^
+			Selector: meta"
+		`);
 	});
 
 	it("should contain documentation", async () => {

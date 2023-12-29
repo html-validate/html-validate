@@ -31,10 +31,12 @@ describe("rule input-attributes", () => {
 		const markup = /* HTML */ ` <input type="text" step="5" /> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"input-attributes",
-			'Attribute "step" is not allowed on <input type="text">',
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Attribute "step" is not allowed on <input type="text"> (input-attributes) at inline:1:21:
+			> 1 |  <input type="text" step="5" />
+			    |                     ^^^^
+			Selector: input"
+		`);
 	});
 
 	it("should handle when type is missing", async () => {

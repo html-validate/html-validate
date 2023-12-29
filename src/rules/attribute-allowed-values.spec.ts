@@ -29,10 +29,12 @@ describe("rule attribute-allowed-values", () => {
 		const markup = /* HTML */ ` <input type="foobar" /> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"attribute-allowed-values",
-			'Attribute "type" has invalid value "foobar"',
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Attribute "type" has invalid value "foobar" (attribute-allowed-values) at inline:1:15:
+			> 1 |  <input type="foobar" />
+			    |               ^^^^^^
+			Selector: input"
+		`);
 	});
 
 	it("should report error when element has invalid boolean attribute value", async () => {
@@ -40,7 +42,12 @@ describe("rule attribute-allowed-values", () => {
 		const markup = /* HTML */ ` <input type /> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("attribute-allowed-values", 'Attribute "type" is missing value');
+		expect(report).toMatchInlineCodeframe(`
+			"error: Attribute "type" is missing value (attribute-allowed-values) at inline:1:9:
+			> 1 |  <input type />
+			    |         ^^^^
+			Selector: input"
+		`);
 	});
 
 	it("should report error when element attribute should be boolean", async () => {
@@ -48,10 +55,12 @@ describe("rule attribute-allowed-values", () => {
 		const markup = /* HTML */ ` <input required="foobar" /> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"attribute-allowed-values",
-			'Attribute "required" has invalid value "foobar"',
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Attribute "required" has invalid value "foobar" (attribute-allowed-values) at inline:1:19:
+			> 1 |  <input required="foobar" />
+			    |                   ^^^^^^
+			Selector: input"
+		`);
 	});
 
 	it("should not report error when element has valid attribute value", async () => {

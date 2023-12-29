@@ -48,10 +48,12 @@ describe("rule prefer-native-element", () => {
 			const markup = /* HTML */ ` <div role="main"></div> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"prefer-native-element",
-				"Prefer to use the native <main> element",
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Prefer to use the native <main> element (prefer-native-element) at inline:1:7:
+				> 1 |  <div role="main"></div>
+				    |       ^^^^^^^^^^^
+				Selector: div"
+			`);
 		});
 
 		it("should handle unquoted role", async () => {
@@ -59,10 +61,12 @@ describe("rule prefer-native-element", () => {
 			const markup = /* RAW */ ` <div role=main></div> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"prefer-native-element",
-				"Prefer to use the native <main> element",
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Prefer to use the native <main> element (prefer-native-element) at inline:1:7:
+				> 1 |  <div role=main></div>
+				    |       ^^^^^^^^^
+				Selector: div"
+			`);
 		});
 
 		it("smoketest", async () => {

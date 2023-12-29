@@ -21,10 +21,16 @@ describe("rule element-permitted-order", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"element-permitted-order",
-			"Element <caption> must be used before <thead> in this context",
-		);
+		expect(report).toMatchInlineCodeframe(`
+		"error: Element <caption> must be used before <thead> in this context (element-permitted-order) at inline:4:6:
+		  2 | 			<table>
+		  3 | 				<thead></thead>
+		> 4 | 				<caption></caption>
+		    | 				 ^^^^^^^
+		  5 | 			</table>
+		  6 |
+		Selector: table > caption"
+	`);
 	});
 
 	it("should not report error when child is used in right order", async () => {

@@ -27,10 +27,16 @@ describe("rule no-implicit-close", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"no-implicit-close",
-			"Element <li> is implicitly closed by parent </ul>",
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Element <li> is implicitly closed by parent </ul> (no-implicit-close) at inline:3:6:
+			  1 |
+			  2 | 			<ul>
+			> 3 | 				<li>foo
+			    | 				 ^^
+			  4 | 			</ul>
+			  5 |
+			Selector: ul > li"
+		`);
 	});
 
 	it("should report error when element is implicitly closed by sibling", async () => {
@@ -41,7 +47,15 @@ describe("rule no-implicit-close", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("no-implicit-close", "Element <li> is implicitly closed by sibling");
+		expect(report).toMatchInlineCodeframe(`
+			"error: Element <li> is implicitly closed by sibling (no-implicit-close) at inline:2:5:
+			  1 |
+			> 2 | 			<li>foo
+			    | 			 ^^
+			  3 | 			<li>bar
+			  4 |
+			Selector: li:nth-child(1)"
+		`);
 	});
 
 	it("should report error when element is implicitly closed by adjacent block element", async () => {
@@ -52,10 +66,15 @@ describe("rule no-implicit-close", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"no-implicit-close",
-			"Element <p> is implicitly closed by adjacent <div>",
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Element <p> is implicitly closed by adjacent <div> (no-implicit-close) at inline:2:5:
+			  1 |
+			> 2 | 			<p>foo
+			    | 			 ^
+			  3 | 			<div>bar</div>
+			  4 |
+			Selector: p"
+		`);
 	});
 
 	it("smoketest", async () => {

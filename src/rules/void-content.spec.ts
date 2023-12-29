@@ -63,7 +63,12 @@ describe("rule void-content", () => {
 		expect.assertions(1);
 		const markup = /* RAW */ ` <input></input> `;
 		const report = await htmlvalidate.validateString(markup);
-		expect(report).toHaveError("void-content", "End tag for <input> must be omitted", "input");
+		expect(report).toMatchInlineCodeframe(`
+			"error: End tag for <input> must be omitted (void-content) at inline:1:10:
+			> 1 |  <input></input>
+			    |          ^^^^^^
+			Selector: -"
+		`);
 	});
 
 	it("should handle stray end tag", async () => {

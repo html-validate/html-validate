@@ -16,13 +16,28 @@ describe("rule missing-doctype", () => {
 		const markup = /* HTML */ ` <html></html> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("missing-doctype", "Document is missing doctype");
+		expect(report).toMatchInlineCodeframe(`
+			"error: Document is missing doctype (missing-doctype) at inline:1:1:
+			> 1 |  <html></html>
+			    | ^
+			Selector: -"
+		`);
 	});
 
-	it("should not report error when document has doctype", async () => {
+	it("should not report error when document has doctype (lowercase)", async () => {
 		expect.assertions(1);
-		const markup = /* HTML */ `
+		const markup = /* RAW */ `
 			<!doctype html>
+			<html></html>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when document has doctype (uppercase)", async () => {
+		expect.assertions(1);
+		const markup = /* RAW */ `
+			<!DOCTYPE html>
 			<html></html>
 		`;
 		const report = await htmlvalidate.validateString(markup);

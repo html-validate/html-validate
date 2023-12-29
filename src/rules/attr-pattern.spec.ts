@@ -77,7 +77,12 @@ describe("rule attr-pattern", () => {
 			const markup = "<div foo-2000></div>";
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("attr-pattern", 'Attribute "foo-2000" should match /[a-z]+/');
+			expect(report).toMatchInlineCodeframe(`
+				"error: Attribute "foo-2000" should match /[a-z]+/ (attr-pattern) at inline:1:6:
+				> 1 | <div foo-2000></div>
+				    |      ^^^^^^^^
+				Selector: div"
+			`);
 		});
 	});
 
@@ -101,10 +106,12 @@ describe("rule attr-pattern", () => {
 			const markup = "<div foo-123></div>";
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attr-pattern",
-				'Attribute "foo-123" should match one of [/[a-z]+/, /[0-9]+/]',
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Attribute "foo-123" should match one of [/[a-z]+/, /[0-9]+/] (attr-pattern) at inline:1:6:
+				> 1 | <div foo-123></div>
+				    |      ^^^^^^^
+				Selector: div"
+			`);
 		});
 	});
 
@@ -137,10 +144,12 @@ describe("rule attr-pattern", () => {
 			const markup = "<svg foo_bar/>";
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attr-pattern",
-				`Attribute "foo_bar" should match /${DEFAULT_PATTERN}/`,
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Attribute "foo_bar" should match /[a-z0-9-:]+/ (attr-pattern) at inline:1:6:
+				> 1 | <svg foo_bar/>
+				    |      ^^^^^^^
+				Selector: svg"
+			`);
 		});
 	});
 
@@ -155,12 +164,12 @@ describe("rule attr-pattern", () => {
 			processAttribute,
 		});
 		expect(report).toBeInvalid();
-		expect(report).toHaveErrors([
-			{
-				ruleId: "attr-pattern",
-				message: `Attribute "dynamic-foo_bar" should match /${DEFAULT_PATTERN}/`,
-			},
-		]);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Attribute "dynamic-foo_bar" should match /[a-z0-9-:]+/ (attr-pattern) at inline:1:8:
+			> 1 | <input dynamic-foo_bar="foo">
+			    |        ^^^^^^^^^^^^^^^
+			Selector: input"
+		`);
 	});
 
 	it("should throw error if configured with invalid regexp", () => {

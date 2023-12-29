@@ -31,7 +31,12 @@ describe("rule attr-quotes", () => {
 			const markup = /* RAW */ ` <div foo='bar'></div> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("attr-quotes", 'Attribute "foo" used \' instead of expected "');
+			expect(report).toMatchInlineCodeframe(`
+				"error: Attribute "foo" used ' instead of expected " (attr-quotes) at inline:1:7:
+				> 1 |  <div foo='bar'></div>
+				    |       ^^^^^^^^^
+				Selector: div"
+			`);
 		});
 	});
 
@@ -47,7 +52,12 @@ describe("rule attr-quotes", () => {
 			const markup = /* RAW */ ` <div foo="bar"></div> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("attr-quotes", 'Attribute "foo" used " instead of expected \'');
+			expect(report).toMatchInlineCodeframe(`
+				"error: Attribute "foo" used " instead of expected ' (attr-quotes) at inline:1:7:
+				> 1 |  <div foo="bar"></div>
+				    |       ^^^^^^^^^
+				Selector: div"
+			`);
 		});
 
 		it("should not report when attributes use single quotes", async () => {
@@ -84,7 +94,12 @@ describe("rule attr-quotes", () => {
 			const markup = /* RAW */ ` <div foo='bar'></div> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("attr-quotes", 'Attribute "foo" used \' instead of expected "');
+			expect(report).toMatchInlineCodeframe(`
+				"error: Attribute "foo" used ' instead of expected " (attr-quotes) at inline:1:7:
+				> 1 |  <div foo='bar'></div>
+				    |       ^^^^^^^^^
+				Selector: div"
+			`);
 		});
 	});
 
@@ -162,7 +177,12 @@ describe("rule attr-quotes", () => {
 			const markup = /* RAW */ ` <div foo=5></div> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("attr-quotes", 'Attribute "foo" using unquoted value');
+			expect(report).toMatchInlineCodeframe(`
+				"error: Attribute "foo" using unquoted value (attr-quotes) at inline:1:7:
+				> 1 |  <div foo=5></div>
+				    |       ^^^^^
+				Selector: div"
+			`);
 		});
 	});
 

@@ -23,7 +23,12 @@ describe("wcag/h71", () => {
 		const markup = /* HTML */ ` <fieldset></fieldset> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("wcag/h71", "<fieldset> must have a <legend> as the first child");
+		expect(report).toMatchInlineCodeframe(`
+			"error: <fieldset> must have a <legend> as the first child (wcag/h71) at inline:1:3:
+			> 1 |  <fieldset></fieldset>
+			    |   ^^^^^^^^
+			Selector: fieldset"
+		`);
 	});
 
 	it("should report error when custom element inherits from <fieldset>", async () => {
@@ -31,7 +36,12 @@ describe("wcag/h71", () => {
 		const markup = /* HTML */ ` <custom></custom> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("wcag/h71", "<custom> must have a <legend> as the first child");
+		expect(report).toMatchInlineCodeframe(`
+			"error: <custom> must have a <legend> as the first child (wcag/h71) at inline:1:3:
+			> 1 |  <custom></custom>
+			    |   ^^^^^^
+			Selector: custom"
+		`);
 	});
 
 	it("should not report when <fieldset> have <legend>", async () => {

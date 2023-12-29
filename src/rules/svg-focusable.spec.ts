@@ -39,7 +39,12 @@ describe("rule svg-focusable", () => {
 		const markup = /* HTML */ ` <svg></svg> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("svg-focusable", '<svg> is missing required "focusable" attribute');
+		expect(report).toMatchInlineCodeframe(`
+			"error: <svg> is missing required "focusable" attribute (svg-focusable) at inline:1:3:
+			> 1 |  <svg></svg>
+			    |   ^^^
+			Selector: svg"
+		`);
 	});
 
 	it("should contain documentation", async () => {

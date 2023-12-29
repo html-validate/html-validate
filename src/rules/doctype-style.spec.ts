@@ -23,7 +23,12 @@ describe("rule doctype-style", () => {
 			const markup = "<!doctype html>";
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("doctype-style", "DOCTYPE should be uppercase");
+			expect(report).toMatchInlineCodeframe(`
+				"error: DOCTYPE should be uppercase (doctype-style) at inline:1:1:
+				> 1 | <!doctype html>
+				    | ^^^^^^^^^^
+				Selector: -"
+			`);
 		});
 
 		it("should report error when doctype is mixed case", async () => {
@@ -31,7 +36,12 @@ describe("rule doctype-style", () => {
 			const markup = "<!DoCTyPe html>";
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("doctype-style", "DOCTYPE should be uppercase");
+			expect(report).toMatchInlineCodeframe(`
+				"error: DOCTYPE should be uppercase (doctype-style) at inline:1:1:
+				> 1 | <!DoCTyPe html>
+				    | ^^^^^^^^^^
+				Selector: -"
+			`);
 		});
 
 		it("should contain documentation", async () => {
@@ -63,7 +73,12 @@ describe("rule doctype-style", () => {
 			const markup = "<!DOCTYPE html>";
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("doctype-style", "DOCTYPE should be lowercase");
+			expect(report).toMatchInlineCodeframe(`
+				"error: DOCTYPE should be lowercase (doctype-style) at inline:1:1:
+				> 1 | <!DOCTYPE html>
+				    | ^^^^^^^^^^
+				Selector: -"
+			`);
 		});
 
 		it("should report error when doctype is mixed case", async () => {
@@ -71,7 +86,12 @@ describe("rule doctype-style", () => {
 			const markup = "<!DoCTyPe html>";
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("doctype-style", "DOCTYPE should be lowercase");
+			expect(report).toMatchInlineCodeframe(`
+				"error: DOCTYPE should be lowercase (doctype-style) at inline:1:1:
+				> 1 | <!DoCTyPe html>
+				    | ^^^^^^^^^^
+				Selector: -"
+			`);
 		});
 
 		it("should contain documentation", async () => {

@@ -31,7 +31,12 @@ describe("rule element-case", () => {
 			const markup = /* HTML */ ` <FOO></FOO> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("element-case", 'Element "FOO" should be lowercase');
+			expect(report).toMatchInlineCodeframe(`
+				"error: Element "FOO" should be lowercase (element-case) at inline:1:3:
+				> 1 |  <FOO></FOO>
+				    |   ^^^
+				Selector: foo"
+			`);
 		});
 
 		it("should report error when element is mixed", async () => {
@@ -39,7 +44,12 @@ describe("rule element-case", () => {
 			const markup = /* HTML */ ` <fOo></fOo> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("element-case", 'Element "fOo" should be lowercase');
+			expect(report).toMatchInlineCodeframe(`
+				"error: Element "fOo" should be lowercase (element-case) at inline:1:3:
+				> 1 |  <fOo></fOo>
+				    |   ^^^
+				Selector: foo"
+			`);
 		});
 
 		it("smoketest", async () => {
@@ -77,7 +87,12 @@ describe("rule element-case", () => {
 			const markup = /* HTML */ ` <foo></foo> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("element-case", 'Element "foo" should be uppercase');
+			expect(report).toMatchInlineCodeframe(`
+				"error: Element "foo" should be uppercase (element-case) at inline:1:3:
+				> 1 |  <foo></foo>
+				    |   ^^^
+				Selector: foo"
+			`);
 		});
 
 		it("should not report error when element has special characters", async () => {
@@ -99,7 +114,12 @@ describe("rule element-case", () => {
 			const markup = /* HTML */ ` <fOo></fOo> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("element-case", 'Element "fOo" should be uppercase');
+			expect(report).toMatchInlineCodeframe(`
+				"error: Element "fOo" should be uppercase (element-case) at inline:1:3:
+				> 1 |  <fOo></fOo>
+				    |   ^^^
+				Selector: foo"
+			`);
 		});
 
 		it("smoketest", async () => {
@@ -137,7 +157,12 @@ describe("rule element-case", () => {
 			const markup = /* HTML */ ` <foo-bar></foo-bar> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("element-case", 'Element "foo-bar" should be PascalCase');
+			expect(report).toMatchInlineCodeframe(`
+				"error: Element "foo-bar" should be PascalCase (element-case) at inline:1:3:
+				> 1 |  <foo-bar></foo-bar>
+				    |   ^^^^^^^
+				Selector: foo-bar"
+			`);
 		});
 
 		it("should not report error when element is pascalcase", async () => {
@@ -161,7 +186,12 @@ describe("rule element-case", () => {
 			const markup = /* HTML */ ` <FooBar></FooBar> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("element-case", 'Element "FooBar" should be camelCase');
+			expect(report).toMatchInlineCodeframe(`
+				"error: Element "FooBar" should be camelCase (element-case) at inline:1:3:
+				> 1 |  <FooBar></FooBar>
+				    |   ^^^^^^
+				Selector: foobar"
+			`);
 		});
 
 		it("should not report error when element is camelcase", async () => {
@@ -182,10 +212,12 @@ describe("rule element-case", () => {
 		});
 		expect(htmlvalidate.validateString("<foo-bar></foo-bar>")).toBeValid();
 		expect(htmlvalidate.validateString("<FooBar></FooBar>")).toBeValid();
-		expect(htmlvalidate.validateString("<fooBar></fooBar>")).toHaveError(
-			"element-case",
-			'Element "fooBar" should be lowercase or PascalCase',
-		);
+		expect(htmlvalidate.validateString("<fooBar></fooBar>")).toMatchInlineCodeframe(`
+			"error: Element "fooBar" should be lowercase or PascalCase (element-case) at inline:1:2:
+			> 1 | <fooBar></fooBar>
+			    |  ^^^^^^
+			Selector: foobar"
+		`);
 	});
 
 	it("should throw error if configured with invalid value", async () => {
@@ -209,7 +241,12 @@ describe("rule element-case", () => {
 		const markup = /* RAW */ ` <foo-Bar></foo-bar> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("element-case", "Start and end tag must not differ in casing");
+		expect(report).toMatchInlineCodeframe(`
+			"error: Start and end tag must not differ in casing (element-case) at inline:1:12:
+			> 1 |  <foo-Bar></foo-bar>
+			    |            ^^^^^^^^
+			Selector: foo-bar"
+		`);
 	});
 
 	it("should not report error when elements are closed out-of-order", async () => {

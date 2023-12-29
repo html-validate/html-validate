@@ -113,7 +113,12 @@ describe("rule allowed-links", () => {
 			const markup = /* HTML */ ` <a href="//example.net/foo"></a> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("allowed-links", "Link destination must not be external url");
+			expect(report).toMatchInlineCodeframe(`
+				"error: Link destination must not be external url (allowed-links) at inline:1:11:
+				> 1 |  <a href="//example.net/foo"></a>
+				    |           ^^^^^^^^^^^^^^^^^
+				Selector: a"
+			`);
 		});
 
 		it("should report error when link is external using protocol://", async () => {
@@ -121,7 +126,12 @@ describe("rule allowed-links", () => {
 			const markup = /* HTML */ ` <a href="http://example.net/foo"></a> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("allowed-links", "Link destination must not be external url");
+			expect(report).toMatchInlineCodeframe(`
+				"error: Link destination must not be external url (allowed-links) at inline:1:11:
+				> 1 |  <a href="http://example.net/foo"></a>
+				    |           ^^^^^^^^^^^^^^^^^^^^^^
+				Selector: a"
+			`);
 		});
 
 		it("should not report error when link is absolute", async () => {
@@ -180,7 +190,12 @@ describe("rule allowed-links", () => {
 			const markup = /* HTML */ ` <a href="./foo"></a> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("allowed-links", "Link destination must not be relative url");
+			expect(report).toMatchInlineCodeframe(`
+				"error: Link destination must not be relative url (allowed-links) at inline:1:11:
+				> 1 |  <a href="./foo"></a>
+				    |           ^^^^^
+				Selector: a"
+			`);
 		});
 
 		it("should report error when link is relative to base", async () => {
@@ -188,7 +203,12 @@ describe("rule allowed-links", () => {
 			const markup = /* HTML */ ` <a href="foo"></a> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("allowed-links", "Link destination must not be relative url");
+			expect(report).toMatchInlineCodeframe(`
+				"error: Link destination must not be relative url (allowed-links) at inline:1:11:
+				> 1 |  <a href="foo"></a>
+				    |           ^^^
+				Selector: a"
+			`);
 		});
 	});
 
@@ -233,10 +253,12 @@ describe("rule allowed-links", () => {
 			const markup = /* HTML */ ` <a href="foo"></a> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"allowed-links",
-				"Relative links must be relative to current folder",
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Relative links must be relative to current folder (allowed-links) at inline:1:11:
+				> 1 |  <a href="foo"></a>
+				    |           ^^^
+				Selector: a"
+			`);
 		});
 	});
 
@@ -267,7 +289,12 @@ describe("rule allowed-links", () => {
 			const markup = /* HTML */ ` <a href="/foo"></a> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("allowed-links", "Link destination must not be absolute url");
+			expect(report).toMatchInlineCodeframe(`
+				"error: Link destination must not be absolute url (allowed-links) at inline:1:11:
+				> 1 |  <a href="/foo"></a>
+				    |           ^^^^
+				Selector: a"
+			`);
 		});
 
 		it("should not report error when link is relative to path", async () => {
@@ -307,10 +334,12 @@ describe("rule allowed-links", () => {
 			const markup = '<a href="//example.org/foo"></a>';
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"allowed-links",
-				"External link to this destination is not allowed by current configuration",
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: External link to this destination is not allowed by current configuration (allowed-links) at inline:1:10:
+				> 1 | <a href="//example.org/foo"></a>
+				    |          ^^^^^^^^^^^^^^^^^
+				Selector: a"
+			`);
 		});
 
 		it("should report error when relative link is not allowed", async () => {
@@ -318,10 +347,12 @@ describe("rule allowed-links", () => {
 			const markup = '<img src="../foo.jpg">';
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"allowed-links",
-				"Relative link to this destination is not allowed by current configuration",
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Relative link to this destination is not allowed by current configuration (allowed-links) at inline:1:11:
+				> 1 | <img src="../foo.jpg">
+				    |           ^^^^^^^^^^
+				Selector: img"
+			`);
 		});
 
 		it("should report error when base relative link is not allowed", async () => {
@@ -329,10 +360,12 @@ describe("rule allowed-links", () => {
 			const markup = '<img src="foo.jpg">';
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"allowed-links",
-				"Relative link to this destination is not allowed by current configuration",
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Relative link to this destination is not allowed by current configuration (allowed-links) at inline:1:11:
+				> 1 | <img src="foo.jpg">
+				    |           ^^^^^^^
+				Selector: img"
+			`);
 		});
 
 		it("should report error when absolute link is not allowed", async () => {
@@ -340,10 +373,12 @@ describe("rule allowed-links", () => {
 			const markup = '<a href="/folder"></a>';
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"allowed-links",
-				"Absolute link to this destination is not allowed by current configuration",
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Absolute link to this destination is not allowed by current configuration (allowed-links) at inline:1:10:
+				> 1 | <a href="/folder"></a>
+				    |          ^^^^^^^
+				Selector: a"
+			`);
 		});
 
 		it("should not report error when external link is allowed", async () => {
@@ -397,10 +432,12 @@ describe("rule allowed-links", () => {
 			const markup = '<a href="//example.net/foo"></a>';
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"allowed-links",
-				"External link to this destination is not allowed by current configuration",
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: External link to this destination is not allowed by current configuration (allowed-links) at inline:1:10:
+				> 1 | <a href="//example.net/foo"></a>
+				    |          ^^^^^^^^^^^^^^^^^
+				Selector: a"
+			`);
 		});
 
 		it("should report error when relative link is not allowed", async () => {
@@ -408,10 +445,12 @@ describe("rule allowed-links", () => {
 			const markup = '<img src="../foo.png">';
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"allowed-links",
-				"Relative link to this destination is not allowed by current configuration",
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Relative link to this destination is not allowed by current configuration (allowed-links) at inline:1:11:
+				> 1 | <img src="../foo.png">
+				    |           ^^^^^^^^^^
+				Selector: img"
+			`);
 		});
 
 		it("should report error when base relative link is not allowed", async () => {
@@ -419,10 +458,12 @@ describe("rule allowed-links", () => {
 			const markup = '<img src="foo.png">';
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"allowed-links",
-				"Relative link to this destination is not allowed by current configuration",
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Relative link to this destination is not allowed by current configuration (allowed-links) at inline:1:11:
+				> 1 | <img src="foo.png">
+				    |           ^^^^^^^
+				Selector: img"
+			`);
 		});
 
 		it("should report error when absolute link is not allowed", async () => {
@@ -430,10 +471,12 @@ describe("rule allowed-links", () => {
 			const markup = '<a href="/foobar/baz"></a>';
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"allowed-links",
-				"Absolute link to this destination is not allowed by current configuration",
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Absolute link to this destination is not allowed by current configuration (allowed-links) at inline:1:10:
+				> 1 | <a href="/foobar/baz"></a>
+				    |          ^^^^^^^^^^^
+				Selector: a"
+			`);
 		});
 
 		it("should not report error when external link is allowed", async () => {

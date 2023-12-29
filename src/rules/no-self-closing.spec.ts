@@ -51,14 +51,24 @@ describe("rule no-self-closing", () => {
 			const markup = /* HTML */ ` <div /> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("no-self-closing", "<div> must not be self-closed");
+			expect(report).toMatchInlineCodeframe(`
+				"error: <div> must not be self-closed (no-self-closing) at inline:1:7:
+				> 1 |  <div />
+				    |       ^^
+				Selector: div"
+			`);
 		});
 
 		it("should report error for unknown elements", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ ` <custom-element /> `;
 			const report = await htmlvalidate.validateString(markup);
-			expect(report).toHaveError("no-self-closing", "<custom-element> must not be self-closed");
+			expect(report).toMatchInlineCodeframe(`
+				"error: <custom-element> must not be self-closed (no-self-closing) at inline:1:18:
+				> 1 |  <custom-element />
+				    |                  ^^
+				Selector: custom-element"
+			`);
 		});
 	});
 
@@ -74,7 +84,12 @@ describe("rule no-self-closing", () => {
 			const markup = /* HTML */ ` <svg /> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("no-self-closing", "<svg> must not be self-closed");
+			expect(report).toMatchInlineCodeframe(`
+				"error: <svg> must not be self-closed (no-self-closing) at inline:1:7:
+				> 1 |  <svg />
+				    |       ^^
+				Selector: svg"
+			`);
 		});
 	});
 
@@ -90,7 +105,12 @@ describe("rule no-self-closing", () => {
 			const markup = /* HTML */ ` <xi:include /> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("no-self-closing", "<xi:include> must not be self-closed");
+			expect(report).toMatchInlineCodeframe(`
+				"error: <xi:include> must not be self-closed (no-self-closing) at inline:1:14:
+				> 1 |  <xi:include />
+				    |              ^^
+				Selector: xi:include"
+			`);
 		});
 	});
 

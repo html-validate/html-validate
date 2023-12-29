@@ -52,7 +52,12 @@ describe("rule empty-title", () => {
 		const markup = /* HTML */ ` <title></title> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("empty-title", "<title> cannot be empty, must have text content");
+		expect(report).toMatchInlineCodeframe(`
+			"error: <title> cannot be empty, must have text content (empty-title) at inline:1:3:
+			> 1 |  <title></title>
+			    |   ^^^^^
+			Selector: title"
+		`);
 	});
 
 	it("should report error when title has no children with content", async () => {
@@ -60,7 +65,12 @@ describe("rule empty-title", () => {
 		const markup = /* HTML */ ` <title><span></span></title> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("empty-title", "<title> cannot be empty, must have text content");
+		expect(report).toMatchInlineCodeframe(`
+			"error: <title> cannot be empty, must have text content (empty-title) at inline:1:3:
+			> 1 |  <title><span></span></title>
+			    |   ^^^^^
+			Selector: title"
+		`);
 	});
 
 	it("should report error when title only has whitespace content", async () => {
@@ -68,7 +78,12 @@ describe("rule empty-title", () => {
 		const markup = /* HTML */ ` <title> </title> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("empty-title", "<title> cannot be empty, must have text content");
+		expect(report).toMatchInlineCodeframe(`
+			"error: <title> cannot be empty, must have text content (empty-title) at inline:1:3:
+			> 1 |  <title> </title>
+			    |   ^^^^^
+			Selector: title"
+		`);
 	});
 
 	it("should report error when title only has comment", async () => {
@@ -76,7 +91,12 @@ describe("rule empty-title", () => {
 		const markup = /* HTML */ ` <title><!-- foo --></title> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("empty-title", "<title> cannot be empty, must have text content");
+		expect(report).toMatchInlineCodeframe(`
+			"error: <title> cannot be empty, must have text content (empty-title) at inline:1:3:
+			> 1 |  <title><!-- foo --></title>
+			    |   ^^^^^
+			Selector: title"
+		`);
 	});
 
 	it("smoketest", async () => {

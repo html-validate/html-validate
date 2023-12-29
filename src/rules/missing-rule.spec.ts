@@ -15,6 +15,9 @@ describe("missing rule", () => {
 		const markup = /* HTML */ ` <p></p> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("foo", "Definition for rule 'foo' was not found");
+		expect(report).toMatchInlineCodeframe(`
+			"error: Definition for rule 'foo' was not found (foo) at undefined
+			Selector: -"
+	`);
 	});
 });

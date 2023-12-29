@@ -36,7 +36,12 @@ describe("rule attr-spacing", () => {
 		const markup = '<i foo="1"bar="2"></i>';
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("attr-spacing", "No space between attributes");
+		expect(report).toMatchInlineCodeframe(`
+			"error: No space between attributes (attr-spacing) at inline:1:11:
+			> 1 | <i foo="1"bar="2"></i>
+			    |           ^^^
+			Selector: -"
+		`);
 	});
 
 	it("should contain documentation", async () => {

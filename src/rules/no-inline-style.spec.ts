@@ -25,7 +25,12 @@ describe("rule no-inline-style", () => {
 			const markup = /* HTML */ ` <p style="color: red; background: green"></p> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+			expect(report).toMatchInlineCodeframe(`
+				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				> 1 |  <p style="color: red; background: green"></p>
+				    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+				Selector: p"
+			`);
 		});
 
 		it("should report when dynamic style attribute is used", async () => {
@@ -35,7 +40,12 @@ describe("rule no-inline-style", () => {
 				processAttribute,
 			});
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+			expect(report).toMatchInlineCodeframe(`
+				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				> 1 |  <p dynamic-style=""></p>
+				    |     ^^^^^^^^^^^^^^^^
+				Selector: p"
+			`);
 		});
 
 		it("should handle leading whitespace", async () => {
@@ -43,7 +53,12 @@ describe("rule no-inline-style", () => {
 			const markup = /* HTML */ ` <p style=" color: red"></p> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+			expect(report).toMatchInlineCodeframe(`
+				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				> 1 |  <p style=" color: red"></p>
+				    |     ^^^^^^^^^^^^^^^^^^^
+				Selector: p"
+			`);
 		});
 
 		it("should handle trailing whitespace", async () => {
@@ -51,7 +66,12 @@ describe("rule no-inline-style", () => {
 			const markup = /* HTML */ ` <p style="color: red; "></p> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+			expect(report).toMatchInlineCodeframe(`
+				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				> 1 |  <p style="color: red; "></p>
+				    |     ^^^^^^^^^^^^^^^^^^^^
+				Selector: p"
+			`);
 		});
 
 		it("should handle only whitespace", async () => {
@@ -59,7 +79,12 @@ describe("rule no-inline-style", () => {
 			const markup = /* HTML */ ` <p style=" "></p> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+			expect(report).toMatchInlineCodeframe(`
+				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				> 1 |  <p style=" "></p>
+				    |     ^^^^^^^^^
+				Selector: p"
+			`);
 		});
 	});
 
@@ -76,7 +101,12 @@ describe("rule no-inline-style", () => {
 			const markup = /* HTML */ ` <p style=""></p> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+			expect(report).toMatchInlineCodeframe(`
+				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				> 1 |  <p style=""></p>
+				    |     ^^^^^^^^
+				Selector: p"
+			`);
 		});
 
 		it("should not report when dynamic style attribute is used", async () => {
@@ -111,7 +141,12 @@ describe("rule no-inline-style", () => {
 				processAttribute,
 			});
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+			expect(report).toMatchInlineCodeframe(`
+				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				> 1 |  <p dynamic-style=""></p>
+				    |     ^^^^^^^^^^^^^^^^
+				Selector: p"
+			`);
 		});
 	});
 
@@ -136,7 +171,12 @@ describe("rule no-inline-style", () => {
 			const markup = /* HTML */ ` <p style="color: red; background: green;"></p> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+			expect(report).toMatchInlineCodeframe(`
+				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				> 1 |  <p style="color: red; background: green;"></p>
+				    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+				Selector: p"
+			`);
 		});
 
 		it("should handle when allowed properties is empty", async () => {
@@ -148,7 +188,12 @@ describe("rule no-inline-style", () => {
 			const markup = /* HTML */ ` <p style="color: red; background: green;"></p> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+			expect(report).toMatchInlineCodeframe(`
+				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				> 1 |  <p style="color: red; background: green;"></p>
+				    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+				Selector: p"
+			`);
 		});
 
 		it("should handle missing value", async () => {
@@ -160,7 +205,12 @@ describe("rule no-inline-style", () => {
 			const markup = /* HTML */ ` <p style></p> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+			expect(report).toMatchInlineCodeframe(`
+				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				> 1 |  <p style></p>
+				    |     ^^^^^
+				Selector: p"
+			`);
 		});
 
 		it("should handle empty value", async () => {
@@ -172,7 +222,12 @@ describe("rule no-inline-style", () => {
 			const markup = /* HTML */ ` <p style=""></p> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+			expect(report).toMatchInlineCodeframe(`
+				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				> 1 |  <p style=""></p>
+				    |     ^^^^^^^^
+				Selector: p"
+			`);
 		});
 
 		it("should handle malformed declaration", async () => {
@@ -184,7 +239,12 @@ describe("rule no-inline-style", () => {
 			const markup = /* HTML */ ` <p style="color"></p> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
+			expect(report).toMatchInlineCodeframe(`
+				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				> 1 |  <p style="color"></p>
+				    |     ^^^^^^^^^^^^^
+				Selector: p"
+			`);
 		});
 
 		it("should handle trailing semicolon", async () => {

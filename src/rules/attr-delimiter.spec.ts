@@ -29,10 +29,12 @@ describe("rule attr-delimiter", () => {
 		const markup = '<i foo ="1"></i>';
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"attr-delimiter",
-			"Attribute value must not be delimited by whitespace",
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Attribute value must not be delimited by whitespace (attr-delimiter) at inline:1:7:
+			> 1 | <i foo ="1"></i>
+			    |       ^^
+			Selector: -"
+		`);
 	});
 
 	it("should report error when equal sign has trailing whitespace", async () => {
@@ -40,10 +42,12 @@ describe("rule attr-delimiter", () => {
 		const markup = '<i foo= "1"></i>';
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"attr-delimiter",
-			"Attribute value must not be delimited by whitespace",
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Attribute value must not be delimited by whitespace (attr-delimiter) at inline:1:7:
+			> 1 | <i foo= "1"></i>
+			    |       ^^
+			Selector: -"
+		`);
 	});
 
 	it("should handle single quote", async () => {
@@ -51,10 +55,12 @@ describe("rule attr-delimiter", () => {
 		const markup = "<i foo = '1'></i>";
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"attr-delimiter",
-			"Attribute value must not be delimited by whitespace",
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Attribute value must not be delimited by whitespace (attr-delimiter) at inline:1:7:
+			> 1 | <i foo = '1'></i>
+			    |       ^^^
+			Selector: -"
+		`);
 	});
 
 	it("should handle unquoted value", async () => {
@@ -62,10 +68,12 @@ describe("rule attr-delimiter", () => {
 		const markup = "<i foo = bar></i>";
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"attr-delimiter",
-			"Attribute value must not be delimited by whitespace",
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Attribute value must not be delimited by whitespace (attr-delimiter) at inline:1:7:
+			> 1 | <i foo = bar></i>
+			    |       ^^^
+			Selector: -"
+		`);
 	});
 
 	it("should handle spaces in value", async () => {

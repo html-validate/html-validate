@@ -39,7 +39,16 @@ describe("rule prefer-tbody", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("prefer-tbody", "Prefer to wrap <tr> elements in <tbody>");
+		expect(report).toMatchInlineCodeframe(`
+			"error: Prefer to wrap <tr> elements in <tbody> (prefer-tbody) at inline:3:6:
+			  1 |
+			  2 | 			<table>
+			> 3 | 				<tr></tr>
+			    | 				 ^^
+			  4 | 			</table>
+			  5 |
+			Selector: table > tr"
+		`);
 	});
 
 	it("should contain documentation", async () => {

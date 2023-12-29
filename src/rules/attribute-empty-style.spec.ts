@@ -37,7 +37,12 @@ describe("rule attribute-empty-style", () => {
 			const markup = /* HTML */ ` <a download=""></a> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("attribute-empty-style", 'Attribute "download" should omit value');
+			expect(report).toMatchInlineCodeframe(`
+				"error: Attribute "download" should omit value (attribute-empty-style) at inline:1:5:
+				> 1 |  <a download=""></a>
+				    |     ^^^^^^^^
+				Selector: a"
+			`);
 		});
 
 		it("should not report error when value is omitted", async () => {
@@ -92,10 +97,12 @@ describe("rule attribute-empty-style", () => {
 			const markup = /* HTML */ ` <a download></a> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"attribute-empty-style",
-				'Attribute "download" value should be empty string',
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Attribute "download" value should be empty string (attribute-empty-style) at inline:1:5:
+				> 1 |  <a download></a>
+				    |     ^^^^^^^^
+				Selector: a"
+			`);
 		});
 
 		it("should not report error when value is empty string", async () => {

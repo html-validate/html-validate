@@ -52,7 +52,12 @@ describe("rule attr-case", () => {
 		const markup = /* HTML */ ` <body aria-hidden="true"></body> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("aria-hidden-body", "aria-hidden must not be used on <body>");
+		expect(report).toMatchInlineCodeframe(`
+			"error: aria-hidden must not be used on <body> (aria-hidden-body) at inline:1:8:
+			> 1 |  <body aria-hidden="true"></body>
+			    |        ^^^^^^^^^^^
+			Selector: body"
+		`);
 	});
 
 	it("should report error when body has dynamic aria-hidden value", async () => {
@@ -62,7 +67,12 @@ describe("rule attr-case", () => {
 			processAttribute,
 		});
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("aria-hidden-body", "aria-hidden must not be used on <body>");
+		expect(report).toMatchInlineCodeframe(`
+			"error: aria-hidden must not be used on <body> (aria-hidden-body) at inline:1:8:
+			> 1 |  <body dynamic-aria-hidden="foo"></body>
+			    |        ^^^^^^^^^^^^^^^^^^^
+			Selector: body"
+		`);
 	});
 
 	it("should contain documentation", async () => {

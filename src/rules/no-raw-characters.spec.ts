@@ -39,11 +39,20 @@ describe("rule no-raw-characters", () => {
 				const markup = /* HTML */ ` <p>< & ></p> `;
 				const report = await htmlvalidate.validateString(markup);
 				expect(report).toBeInvalid();
-				expect(report).toHaveErrors([
-					["no-raw-characters", 'Raw "<" must be encoded as "&lt;"'],
-					["no-raw-characters", 'Raw "&" must be encoded as "&amp;"'],
-					["no-raw-characters", 'Raw ">" must be encoded as "&gt;"'],
-				]);
+				expect(report).toMatchInlineCodeframe(`
+					"error: Raw "<" must be encoded as "&lt;" (no-raw-characters) at inline:1:5:
+					> 1 |  <p>< & ></p>
+					    |     ^
+					Selector: p
+					error: Raw "&" must be encoded as "&amp;" (no-raw-characters) at inline:1:7:
+					> 1 |  <p>< & ></p>
+					    |       ^
+					Selector: p
+					error: Raw ">" must be encoded as "&gt;" (no-raw-characters) at inline:1:9:
+					> 1 |  <p>< & ></p>
+					    |         ^
+					Selector: p"
+				`);
 			});
 
 			it("should report error once when children has raw special characters", async () => {
@@ -51,7 +60,12 @@ describe("rule no-raw-characters", () => {
 				const markup = /* HTML */ ` <p><i>&</i></p> `;
 				const report = await htmlvalidate.validateString(markup);
 				expect(report).toBeInvalid();
-				expect(report).toHaveErrors([["no-raw-characters", 'Raw "&" must be encoded as "&amp;"']]);
+				expect(report).toMatchInlineCodeframe(`
+					"error: Raw "&" must be encoded as "&amp;" (no-raw-characters) at inline:1:8:
+					> 1 |  <p><i>&</i></p>
+					    |        ^
+					Selector: p > i"
+				`);
 			});
 		});
 
@@ -82,7 +96,12 @@ describe("rule no-raw-characters", () => {
 				const markup = /* RAW */ ` <p class=foo"s></p> `;
 				const report = await htmlvalidate.validateString(markup);
 				expect(report).toBeInvalid();
-				expect(report).toHaveErrors([["no-raw-characters", `Raw """ must be encoded as "&quot;"`]]);
+				expect(report).toMatchInlineCodeframe(`
+					"error: Raw """ must be encoded as "&quot;" (no-raw-characters) at inline:1:14:
+					> 1 |  <p class=foo"s></p>
+					    |              ^
+					Selector: p"
+				`);
 			});
 
 			it("should report error when ' are present", async () => {
@@ -90,7 +109,12 @@ describe("rule no-raw-characters", () => {
 				const markup = /* RAW */ ` <p class=foo's></p> `;
 				const report = await htmlvalidate.validateString(markup);
 				expect(report).toBeInvalid();
-				expect(report).toHaveErrors([["no-raw-characters", `Raw "'" must be encoded as "&apos;"`]]);
+				expect(report).toMatchInlineCodeframe(`
+					"error: Raw "'" must be encoded as "&apos;" (no-raw-characters) at inline:1:14:
+					> 1 |  <p class=foo's></p>
+					    |              ^
+					Selector: p"
+				`);
 			});
 
 			it("should report error when = are present", async () => {
@@ -98,9 +122,12 @@ describe("rule no-raw-characters", () => {
 				const markup = /* RAW */ ` <p class=foo=s></p> `;
 				const report = await htmlvalidate.validateString(markup);
 				expect(report).toBeInvalid();
-				expect(report).toHaveErrors([
-					["no-raw-characters", `Raw "=" must be encoded as "&equals;"`],
-				]);
+				expect(report).toMatchInlineCodeframe(`
+					"error: Raw "=" must be encoded as "&equals;" (no-raw-characters) at inline:1:14:
+					> 1 |  <p class=foo=s></p>
+					    |              ^
+					Selector: p"
+				`);
 			});
 
 			it("should report error when ` are present", async () => {
@@ -108,9 +135,12 @@ describe("rule no-raw-characters", () => {
 				const markup = /* RAW */ ` <p class=foo\`s></p> `;
 				const report = await htmlvalidate.validateString(markup);
 				expect(report).toBeInvalid();
-				expect(report).toHaveErrors([
-					["no-raw-characters", 'Raw "`" must be encoded as "&grave;"'],
-				]);
+				expect(report).toMatchInlineCodeframe(`
+					"error: Raw "\`" must be encoded as "&grave;" (no-raw-characters) at inline:1:14:
+					> 1 |  <p class=foo\`s></p>
+					    |              ^
+					Selector: p"
+				`);
 			});
 		});
 

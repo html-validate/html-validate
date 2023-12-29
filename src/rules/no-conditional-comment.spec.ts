@@ -23,10 +23,12 @@ describe("rule no-conditional-comment", () => {
 		const markup = /* HTML */ ` <!--[if foo]--> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"no-conditional-comment",
-			"Use of conditional comments are deprecated",
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Use of conditional comments are deprecated (no-conditional-comment) at inline:1:2:
+			> 1 |  <!--[if foo]-->
+			    |  ^^^^^^^^^^^^^^^
+			Selector: -"
+		`);
 	});
 
 	it("should report error when <![...]> is used", async () => {
@@ -34,10 +36,12 @@ describe("rule no-conditional-comment", () => {
 		const markup = /* HTML */ ` <!-- foo <![if bar]> baz --> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"no-conditional-comment",
-			"Use of conditional comments are deprecated",
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Use of conditional comments are deprecated (no-conditional-comment) at inline:1:11:
+			> 1 |  <!-- foo <![if bar]> baz -->
+			    |           ^^^^^^^^^^^
+			Selector: -"
+		`);
 	});
 
 	it("smoketest", async () => {

@@ -30,7 +30,12 @@ describe("rule doctype-html", () => {
 			'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
 		const report = await htmlvalidate.validateString(html);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("doctype-html", 'doctype should be "html"');
+		expect(report).toMatchInlineCodeframe(`
+			"error: doctype should be "html" (doctype-html) at inline:1:11:
+			> 1 | <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+			    |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+			Selector: -"
+		`);
 	});
 
 	it("should report error when doctype has legacy string", async () => {
@@ -38,7 +43,12 @@ describe("rule doctype-html", () => {
 		const html = '<!DOCTYPE html SYSTEM "about:legacy-compat">';
 		const report = await htmlvalidate.validateString(html);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("doctype-html", 'doctype should be "html"');
+		expect(report).toMatchInlineCodeframe(`
+			"error: doctype should be "html" (doctype-html) at inline:1:11:
+			> 1 | <!DOCTYPE html SYSTEM "about:legacy-compat">
+			    |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+			Selector: -"
+		`);
 	});
 
 	it("should contain documentation", async () => {

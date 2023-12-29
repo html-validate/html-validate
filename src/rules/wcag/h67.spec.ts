@@ -44,7 +44,12 @@ describe("wcag/h67", () => {
 		const markup = /* HTML */ ` <img title="bar" /> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("wcag/h67", "<img> with empty alt text cannot have title attribute");
+		expect(report).toMatchInlineCodeframe(`
+			"error: <img> with empty alt text cannot have title attribute (wcag/h67) at inline:1:7:
+			> 1 |  <img title="bar" />
+			    |       ^^^^^
+			Selector: img"
+		`);
 	});
 
 	it("should report error when img has empty alt and non-empty title", async () => {
@@ -52,7 +57,12 @@ describe("wcag/h67", () => {
 		const markup = /* HTML */ ` <img alt="" title="bar" /> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("wcag/h67", "<img> with empty alt text cannot have title attribute");
+		expect(report).toMatchInlineCodeframe(`
+			"error: <img> with empty alt text cannot have title attribute (wcag/h67) at inline:1:14:
+			> 1 |  <img alt="" title="bar" />
+			    |              ^^^^^
+			Selector: img"
+		`);
 	});
 
 	it("smoketest", async () => {

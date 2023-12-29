@@ -52,40 +52,48 @@ describe("rule script-type", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <script type=""></script> `;
 		const report = await htmlvalidate.validateString(markup);
-		expect(report).toHaveError(
-			"script-type",
-			'"type" attribute is unnecessary for javascript resources',
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: "type" attribute is unnecessary for javascript resources (script-type) at inline:1:10:
+			> 1 |  <script type=""></script>
+			    |          ^^^^
+			Selector: script"
+		`);
 	});
 
 	it("should report when script element have javascript type", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <script type="text/javascript"></script> `;
 		const report = await htmlvalidate.validateString(markup);
-		expect(report).toHaveError(
-			"script-type",
-			'"type" attribute is unnecessary for javascript resources',
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: "type" attribute is unnecessary for javascript resources (script-type) at inline:1:10:
+			> 1 |  <script type="text/javascript"></script>
+			    |          ^^^^
+			Selector: script"
+		`);
 	});
 
 	it("should report when script element have javascript type with parameter", async () => {
 		expect.assertions(1);
 		const markup = '<script type="text/javascript;charset=utf-8"></script>';
 		const report = await htmlvalidate.validateString(markup);
-		expect(report).toHaveError(
-			"script-type",
-			'"type" attribute is unnecessary for javascript resources',
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: "type" attribute is unnecessary for javascript resources (script-type) at inline:1:9:
+			> 1 | <script type="text/javascript;charset=utf-8"></script>
+			    |         ^^^^
+			Selector: script"
+		`);
 	});
 
 	it("should report when script element have legacy javascript type", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <script type="text/javascript"></script> `;
 		const report = await htmlvalidate.validateString(markup);
-		expect(report).toHaveError(
-			"script-type",
-			'"type" attribute is unnecessary for javascript resources',
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: "type" attribute is unnecessary for javascript resources (script-type) at inline:1:10:
+			> 1 |  <script type="text/javascript"></script>
+			    |          ^^^^
+			Selector: script"
+		`);
 	});
 
 	it("should contain documentation", async () => {

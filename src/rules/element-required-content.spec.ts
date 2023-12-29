@@ -51,9 +51,16 @@ describe("rule element-required-content", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveErrors([
-			["element-required-content", "<html> element must have <head> as content"],
-		]);
+		expect(report).toMatchInlineCodeframe(`
+			"error: <html> element must have <head> as content (element-required-content) at inline:2:5:
+			  1 |
+			> 2 | 			<html>
+			    | 			 ^^^^
+			  3 | 				<body></body>
+			  4 | 			</html>
+			  5 |
+			Selector: html"
+		`);
 	});
 
 	it("should report all errors when element is missing multiple content", async () => {
@@ -61,10 +68,16 @@ describe("rule element-required-content", () => {
 		const markup = /* HTML */ ` <html></html> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveErrors([
-			["element-required-content", "<html> element must have <head> as content"],
-			["element-required-content", "<html> element must have <body> as content"],
-		]);
+		expect(report).toMatchInlineCodeframe(`
+			"error: <html> element must have <head> as content (element-required-content) at inline:1:3:
+			> 1 |  <html></html>
+			    |   ^^^^
+			Selector: html
+			error: <html> element must have <body> as content (element-required-content) at inline:1:3:
+			> 1 |  <html></html>
+			    |   ^^^^
+			Selector: html"
+		`);
 	});
 
 	it("should format both tagnames and categories correct", async () => {

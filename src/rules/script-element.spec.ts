@@ -21,7 +21,12 @@ describe("rule script-element", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <script /> `;
 		const report = await htmlvalidate.validateString(markup);
-		expect(report).toHaveError("script-element", "End tag for <script> must not be omitted");
+		expect(report).toMatchInlineCodeframe(`
+			"error: End tag for <script> must not be omitted (script-element) at inline:1:10:
+			> 1 |  <script />
+			    |          ^^
+			Selector: script"
+		`);
 	});
 
 	it("should handle stray end tag", async () => {

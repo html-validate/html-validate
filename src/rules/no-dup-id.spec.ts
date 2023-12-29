@@ -58,7 +58,15 @@ describe("rule no-dup-id", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("no-dup-id", 'Duplicate ID "foo"');
+		expect(report).toMatchInlineCodeframe(`
+			"error: Duplicate ID "foo" (no-dup-id) at inline:3:11:
+			  1 |
+			  2 | 			<p id="foo"></p>
+			> 3 | 			<p id="foo"></p>
+			    | 			       ^^^
+			  4 |
+			Selector: p:nth-child(2)"
+		`);
 	});
 
 	it("smoketest", async () => {

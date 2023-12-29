@@ -22,10 +22,12 @@ describe("rule no-style-tag", () => {
 		const html = "<style>foo</style>";
 		const report = await htmlvalidate.validateString(html);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"no-style-tag",
-			"Use external stylesheet with <link> instead of <style> tag",
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Use external stylesheet with <link> instead of <style> tag (no-style-tag) at inline:1:1:
+			> 1 | <style>foo</style>
+			    | ^^^^^^
+			Selector: style"
+		`);
 	});
 
 	it("should contain documentation", async () => {

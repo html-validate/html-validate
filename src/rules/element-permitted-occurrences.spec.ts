@@ -25,9 +25,17 @@ describe("rule element-permitted-occurrences", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveErrors([
-			["element-permitted-occurrences", "Element <caption> can only appear once under <table>"],
-		]);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Element <caption> can only appear once under <table> (element-permitted-occurrences) at inline:6:6:
+			  4 | 					1
+			  5 | 				</caption>
+			> 6 | 				<caption>
+			    | 				 ^^^^^^^
+			  7 | 					2
+			  8 | 				</caption>
+			  9 | 			</table>
+			Selector: table > caption:nth-child(2)"
+		`);
 	});
 
 	it("should not report error when child has right number of occurrences", async () => {

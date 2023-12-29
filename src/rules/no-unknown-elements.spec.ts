@@ -22,7 +22,12 @@ describe("rule no-unknown-elements", () => {
 		const markup = /* HTML */ ` <my-element></my-element> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("no-unknown-elements", "Unknown element <my-element>");
+		expect(report).toMatchInlineCodeframe(`
+			"error: Unknown element <my-element> (no-unknown-elements) at inline:1:2:
+			> 1 |  <my-element></my-element>
+			    |  ^^^^^^^^^^^
+			Selector: my-element"
+		`);
 	});
 
 	it("should contain documentation", async () => {

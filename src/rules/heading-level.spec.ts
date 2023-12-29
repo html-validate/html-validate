@@ -51,10 +51,15 @@ describe("rule heading-level", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"heading-level",
-			"Heading level can only increase by one, expected <h2> but got <h3>",
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Heading level can only increase by one, expected <h2> but got <h3> (heading-level) at inline:3:5:
+			  1 |
+			  2 | 			<h1>heading 1</h1>
+			> 3 | 			<h3>heading 2</h3>
+			    | 			 ^^
+			  4 |
+			Selector: h3"
+		`);
 	});
 
 	it("should report error when initial heading isn't <h1>", async () => {
@@ -62,7 +67,12 @@ describe("rule heading-level", () => {
 		const markup = "<h2>heading 2</h2>";
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("heading-level", "Initial heading level must be <h1> but got <h2>");
+		expect(report).toMatchInlineCodeframe(`
+			"error: Initial heading level must be <h1> but got <h2> (heading-level) at inline:1:2:
+			> 1 | <h2>heading 2</h2>
+			    |  ^^
+			Selector: h2"
+		`);
 	});
 
 	it("should report error when multiple <h1> are used", async () => {
@@ -73,7 +83,15 @@ describe("rule heading-level", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("heading-level", "Multiple <h1> are not allowed");
+		expect(report).toMatchInlineCodeframe(`
+			"error: Multiple <h1> are not allowed (heading-level) at inline:3:5:
+			  1 |
+			  2 | 			<h1>heading 1</h1>
+			> 3 | 			<h1>heading 1</h1>
+			    | 			 ^^
+			  4 |
+			Selector: h1:nth-child(2)"
+		`);
 	});
 
 	it("should not report error when multiple <h1> are used but allowed via option", async () => {
@@ -142,10 +160,17 @@ describe("rule heading-level", () => {
 			`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"heading-level",
-				"Initial heading level for sectioning root must be between <h1> and <h4> but got <h5>",
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Initial heading level for sectioning root must be between <h1> and <h4> but got <h5> (heading-level) at inline:6:7:
+				  4 | 				<h3>heading 2</h3>
+				  5 | 				<div role="dialog">
+				> 6 | 					<h5>modal header</h5>
+				    | 					 ^^
+				  7 | 				</div>
+				  8 | 				<h3>heading 2</h3>
+				  9 |
+				Selector: div > h5"
+			`);
 		});
 
 		it("should enforce h1 as initial heading level if sectioning root is the only content in document", async () => {
@@ -157,10 +182,16 @@ describe("rule heading-level", () => {
 			`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"heading-level",
-				"Initial heading level for sectioning root must be <h1> but got <h5>",
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Initial heading level for sectioning root must be <h1> but got <h5> (heading-level) at inline:3:7:
+				  1 |
+				  2 | 				<div role="dialog">
+				> 3 | 					<h5>modal header</h5>
+				    | 					 ^^
+				  4 | 				</div>
+				  5 |
+				Selector: div > h5"
+			`);
 		});
 	});
 
@@ -190,10 +221,15 @@ describe("rule heading-level", () => {
 			`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"heading-level",
-				"Initial heading level must be <h2> or higher rank but got <h3>",
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Initial heading level must be <h2> or higher rank but got <h3> (heading-level) at inline:2:6:
+				  1 |
+				> 2 | 				<h3>heading 3</h3>
+				    | 				 ^^
+				  3 | 				<h1>heading 3</h1>
+				  4 |
+				Selector: h3"
+			`);
 		});
 
 		it("should allow continuous sectioning root", async () => {

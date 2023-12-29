@@ -345,12 +345,12 @@ describe("rule attr-case", () => {
 			processAttribute,
 		});
 		expect(report).toBeInvalid();
-		expect(report).toHaveErrors([
-			{
-				ruleId: "attr-case",
-				message: 'Attribute "dynamic-fooBar" should be lowercase',
-			},
-		]);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Attribute "dynamic-fooBar" should be lowercase (attr-case) at inline:1:8:
+			> 1 | <input dynamic-fooBar="foo" />
+			    |        ^^^^^^^^^^^^^^
+			Selector: input"
+		`);
 	});
 
 	it("should throw error if configured with invalid value", async () => {

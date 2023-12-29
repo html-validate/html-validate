@@ -37,7 +37,12 @@ describe("rule no-dup-class", () => {
 		const markup = /* HTML */ ` <p class="foo bar foo"></p> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("no-dup-class", 'Class "foo" duplicated');
+		expect(report).toMatchInlineCodeframe(`
+			"error: Class "foo" duplicated (no-dup-class) at inline:1:20:
+			> 1 |  <p class="foo bar foo"></p>
+			    |                    ^^^
+			Selector: p"
+		`);
 	});
 
 	it("smoketest", async () => {

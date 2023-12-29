@@ -71,10 +71,16 @@ describe("rule multiple-labeled-controls", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"multiple-labeled-controls",
-			"<label> is associated with multiple controls",
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: <label> is associated with multiple controls (multiple-labeled-controls) at inline:2:5:
+			  1 |
+			> 2 | 			<label>
+			    | 			 ^^^^^
+			  3 | 				<input />
+			  4 | 				<input />
+			  5 | 			</label>
+			Selector: label"
+		`);
 	});
 
 	it("should report error when <label> have both for attribute and another wrapped control", async () => {
@@ -87,10 +93,16 @@ describe("rule multiple-labeled-controls", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"multiple-labeled-controls",
-			"<label> is associated with multiple controls",
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: <label> is associated with multiple controls (multiple-labeled-controls) at inline:2:5:
+			  1 |
+			> 2 | 			<label for="bar">
+			    | 			 ^^^^^
+			  3 | 				<input id="foo" />
+			  4 | 			</label>
+			  5 | 			<input id="bar" />
+			Selector: label"
+		`);
 	});
 
 	it("should contain documentation", async () => {

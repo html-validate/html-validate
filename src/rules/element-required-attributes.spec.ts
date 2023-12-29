@@ -24,10 +24,12 @@ describe("rule element-required-attributes", () => {
 		const markup = /* HTML */ ` <input /> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"element-required-attributes",
-			'<input> is missing required "type" attribute',
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: <input> is missing required "type" attribute (element-required-attributes) at inline:1:3:
+			> 1 |  <input />
+			    |   ^^^^^
+			Selector: input"
+		`);
 	});
 
 	it("should not report error when element has required attribute attribute", async () => {

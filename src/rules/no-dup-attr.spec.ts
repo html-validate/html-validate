@@ -33,7 +33,12 @@ describe("rule no-dup-attr", () => {
 		const markup = /* HTML */ ` <p foo="bar" foo="baz"></p></p> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("no-dup-attr", 'Attribute "foo" duplicated');
+		expect(report).toMatchInlineCodeframe(`
+			"error: Attribute "foo" duplicated (no-dup-attr) at inline:1:15:
+			> 1 |  <p foo="bar" foo="baz"></p></p>
+			    |               ^^^
+			Selector: p"
+		`);
 	});
 
 	it("should report when attribute is duplicated case insensitive", async () => {
@@ -41,7 +46,12 @@ describe("rule no-dup-attr", () => {
 		const markup = /* HTML */ ` <p foo="bar" FOO="baz"></p></p> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("no-dup-attr", 'Attribute "foo" duplicated');
+		expect(report).toMatchInlineCodeframe(`
+			"error: Attribute "foo" duplicated (no-dup-attr) at inline:1:15:
+			> 1 |  <p foo="bar" FOO="baz"></p></p>
+			    |               ^^^
+			Selector: p"
+		`);
 	});
 
 	it("should report error when dynamic element is used multiple times", async () => {
@@ -51,7 +61,12 @@ describe("rule no-dup-attr", () => {
 			processAttribute,
 		});
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("no-dup-attr", 'Attribute "dynamic-class" duplicated');
+		expect(report).toMatchInlineCodeframe(`
+			"error: Attribute "dynamic-class" duplicated (no-dup-attr) at inline:1:29:
+			> 1 |  <input dynamic-class="foo" dynamic-class="bar" />
+			    |                             ^^^^^^^^^^^^^
+			Selector: input"
+		`);
 	});
 
 	it("smoketest", async () => {

@@ -78,7 +78,12 @@ describe("rule deprecated-rule", () => {
 		const markup = /* HTML */ ` <div></div> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("deprecated-rule", 'Usage of deprecated rule "custom/deprecated"');
+		expect(report).toMatchInlineCodeframe(`
+			"error: Usage of deprecated rule "custom/deprecated" (deprecated-rule) at inline:1:1:
+			> 1 |  <div></div>
+			    | ^
+			Selector: -"
+		`);
 	});
 
 	it("should contain documentation", async () => {

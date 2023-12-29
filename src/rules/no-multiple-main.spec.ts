@@ -48,7 +48,12 @@ describe("rule no-multiple-main", () => {
 		const markup = "<main>a</main><main>b</main>";
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("no-multiple-main", "Multiple <main> elements present in document");
+		expect(report).toMatchInlineCodeframe(`
+			"error: Multiple <main> elements present in document (no-multiple-main) at inline:1:16:
+			> 1 | <main>a</main><main>b</main>
+			    |                ^^^^
+			Selector: main:nth-child(2)"
+		`);
 	});
 
 	it("should contain documentation", async () => {

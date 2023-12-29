@@ -19,7 +19,12 @@ describe("rule element-name", () => {
 			const markup = /* HTML */ ` <foobar></foobar> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("element-name", "<foobar> is not a valid element name");
+			expect(report).toMatchInlineCodeframe(`
+				"error: <foobar> is not a valid element name (element-name) at inline:1:3:
+				> 1 |  <foobar></foobar>
+				    |   ^^^^^^
+				Selector: foobar"
+			`);
 		});
 
 		it("should report error when custom element name does not start with letter", async () => {
@@ -27,7 +32,12 @@ describe("rule element-name", () => {
 			const markup = /* HTML */ ` <1-foo></1-foo> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("element-name", "<1-foo> is not a valid element name");
+			expect(report).toMatchInlineCodeframe(`
+				"error: <1-foo> is not a valid element name (element-name) at inline:1:3:
+				> 1 |  <1-foo></1-foo>
+				    |   ^^^^^
+				Selector: 1-foo"
+			`);
 		});
 
 		it("should not report error when custom element name is valid", async () => {
@@ -93,7 +103,12 @@ describe("rule element-name", () => {
 			const markup = /* HTML */ ` <spam-ham></spam-ham> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError("element-name", "<spam-ham> is not a valid element name");
+			expect(report).toMatchInlineCodeframe(`
+				"error: <spam-ham> is not a valid element name (element-name) at inline:1:3:
+				> 1 |  <spam-ham></spam-ham>
+				    |   ^^^^^^^^
+				Selector: spam-ham"
+			`);
 		});
 
 		it("should not report error when custom element name does match pattern", async () => {
@@ -106,9 +121,11 @@ describe("rule element-name", () => {
 		it("should not report when using builtin elements", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ `
-				<span
-					><a><span></span></a
-				></span>
+				<span>
+					<a>
+						<span></span>
+					</a>
+				</span>
 			`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
@@ -172,7 +189,12 @@ describe("rule element-name", () => {
 		const markup = /* HTML */ ` <foo-bar></foo-bar> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("element-name", "<foo-bar> element is blacklisted");
+		expect(report).toMatchInlineCodeframe(`
+			"error: <foo-bar> element is blacklisted (element-name) at inline:1:3:
+			> 1 |  <foo-bar></foo-bar>
+			    |   ^^^^^^^
+			Selector: foo-bar"
+		`);
 	});
 
 	describe("should contain documentation for", () => {

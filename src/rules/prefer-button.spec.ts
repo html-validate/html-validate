@@ -49,10 +49,12 @@ describe("rule prefer-button", () => {
 			const markup = /* HTML */ ` <input type="button" /> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"prefer-button",
-				'Prefer to use <button> instead of <input type="button"> when adding buttons',
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Prefer to use <button> instead of <input type="button"> when adding buttons (prefer-button) at inline:1:15:
+				> 1 |  <input type="button" />
+				    |               ^^^^^^
+				Selector: input"
+			`);
 		});
 
 		it("should report error when using type submit", async () => {
@@ -60,10 +62,12 @@ describe("rule prefer-button", () => {
 			const markup = /* HTML */ ` <input type="submit" /> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"prefer-button",
-				'Prefer to use <button> instead of <input type="submit"> when adding buttons',
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Prefer to use <button> instead of <input type="submit"> when adding buttons (prefer-button) at inline:1:15:
+				> 1 |  <input type="submit" />
+				    |               ^^^^^^
+				Selector: input"
+			`);
 		});
 
 		it("should report error when using type reset", async () => {
@@ -71,10 +75,12 @@ describe("rule prefer-button", () => {
 			const markup = /* HTML */ ` <input type="reset" /> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"prefer-button",
-				'Prefer to use <button> instead of <input type="reset"> when adding buttons',
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Prefer to use <button> instead of <input type="reset"> when adding buttons (prefer-button) at inline:1:15:
+				> 1 |  <input type="reset" />
+				    |               ^^^^^
+				Selector: input"
+			`);
 		});
 
 		it("should report error when using type image", async () => {
@@ -82,10 +88,12 @@ describe("rule prefer-button", () => {
 			const markup = /* HTML */ ` <input type="image" /> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"prefer-button",
-				'Prefer to use <button> instead of <input type="image"> when adding buttons',
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Prefer to use <button> instead of <input type="image"> when adding buttons (prefer-button) at inline:1:15:
+				> 1 |  <input type="image" />
+				    |               ^^^^^
+				Selector: input"
+			`);
 		});
 
 		it("should report error when using type submit in uppercase", async () => {
@@ -93,10 +101,12 @@ describe("rule prefer-button", () => {
 			const markup = /* RAW */ ` <INPUT TYPE="SUBMIT" /> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"prefer-button",
-				'Prefer to use <button> instead of <input type="submit"> when adding buttons',
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Prefer to use <button> instead of <input type="submit"> when adding buttons (prefer-button) at inline:1:15:
+				> 1 |  <INPUT TYPE="SUBMIT" />
+				    |               ^^^^^^
+				Selector: input"
+			`);
 		});
 
 		it("should not report error when using submit keyword in other attributes", async () => {

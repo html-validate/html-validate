@@ -41,11 +41,31 @@ describe("rule close-attr", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveErrors([
-			["close-attr", "Close tags cannot have attributes"],
-			["close-attr", "Close tags cannot have attributes"],
-			["close-attr", "Close tags cannot have attributes"],
-		]);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Close tags cannot have attributes (close-attr) at inline:2:11:
+			  1 |
+			> 2 | 			<p></p foo="bar">
+			    | 			       ^^^
+			  3 | 			<p></p foo='bar'>
+			  4 | 			<p></p foo>
+			  5 |
+			Selector: -
+			error: Close tags cannot have attributes (close-attr) at inline:3:11:
+			  1 |
+			  2 | 			<p></p foo="bar">
+			> 3 | 			<p></p foo='bar'>
+			    | 			       ^^^
+			  4 | 			<p></p foo>
+			  5 |
+			Selector: -
+			error: Close tags cannot have attributes (close-attr) at inline:4:11:
+			  2 | 			<p></p foo="bar">
+			  3 | 			<p></p foo='bar'>
+			> 4 | 			<p></p foo>
+			    | 			       ^^^
+			  5 |
+			Selector: -"
+		`);
 	});
 
 	it("should handle unclosed tags", async () => {

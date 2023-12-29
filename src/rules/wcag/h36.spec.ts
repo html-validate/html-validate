@@ -36,7 +36,12 @@ describe("wcag/h36", () => {
 		const markup = /* HTML */ ` <input type="image" /> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("wcag/h36", "image used as submit button must have alt text");
+		expect(report).toMatchInlineCodeframe(`
+			"error: image used as submit button must have alt text (wcag/h36) at inline:1:22:
+			> 1 |  <input type="image" />
+			    |                      ^^
+			Selector: input"
+		`);
 	});
 
 	it("should report error when image has empty alt text", async () => {
@@ -44,7 +49,12 @@ describe("wcag/h36", () => {
 		const markup = /* HTML */ ` <input type="image" alt="" /> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("wcag/h36", "image used as submit button must have alt text");
+		expect(report).toMatchInlineCodeframe(`
+			"error: image used as submit button must have alt text (wcag/h36) at inline:1:29:
+			> 1 |  <input type="image" alt="" />
+			    |                             ^^
+			Selector: input"
+		`);
 	});
 
 	it("should contain documentation", async () => {

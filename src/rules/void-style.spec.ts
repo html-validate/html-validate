@@ -23,10 +23,12 @@ describe("rule void-style", () => {
 			const markup = /* RAW */ ` <input /> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"void-style",
-				"Expected omitted end tag <input> instead of self-closing element <input/>",
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Expected omitted end tag <input> instead of self-closing element <input/> (void-style) at inline:1:9:
+				> 1 |  <input />
+				    |         ^^
+				Selector: input"
+			`);
 		});
 
 		it("should not report when non-void element has end tag", async () => {
@@ -70,10 +72,12 @@ describe("rule void-style", () => {
 			const markup = /* RAW */ ` <input /> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"void-style",
-				"Expected omitted end tag <input> instead of self-closing element <input/>",
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Expected omitted end tag <input> instead of self-closing element <input/> (void-style) at inline:1:9:
+				> 1 |  <input />
+				    |         ^^
+				Selector: input"
+			`);
 		});
 	});
 
@@ -89,10 +93,12 @@ describe("rule void-style", () => {
 			const markup = /* RAW */ ` <input> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
-			expect(report).toHaveError(
-				"void-style",
-				"Expected self-closing element <input/> instead of omitted end-tag <input>",
-			);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Expected self-closing element <input/> instead of omitted end-tag <input> (void-style) at inline:1:8:
+				> 1 |  <input>
+				    |        ^
+				Selector: input"
+			`);
 		});
 
 		it("should not report when void element is self-closed", async () => {

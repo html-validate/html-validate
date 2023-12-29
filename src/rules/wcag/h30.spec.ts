@@ -85,7 +85,12 @@ describe("wcag/h30", () => {
 		const markup = /* HTML */ `<a></a>`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("wcag/h30", "Anchor link must have a text describing its purpose");
+		expect(report).toMatchInlineCodeframe(`
+			"error: Anchor link must have a text describing its purpose (wcag/h30) at inline:1:2:
+			> 1 | <a></a>
+			    |  ^
+			Selector: a"
+		`);
 	});
 
 	it("should report error when link is missing text and image alt", async () => {
@@ -93,7 +98,12 @@ describe("wcag/h30", () => {
 		const markup = /* HTML */ `<a><img /></a>`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("wcag/h30", "Anchor link must have a text describing its purpose");
+		expect(report).toMatchInlineCodeframe(`
+			"error: Anchor link must have a text describing its purpose (wcag/h30) at inline:1:2:
+			> 1 | <a><img /></a>
+			    |  ^
+			Selector: a"
+		`);
 	});
 
 	it("should report error when link is missing text and image has empty alt", async () => {
@@ -101,7 +111,12 @@ describe("wcag/h30", () => {
 		const markup = /* HTML */ `<a><img alt="" /></a>`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError("wcag/h30", "Anchor link must have a text describing its purpose");
+		expect(report).toMatchInlineCodeframe(`
+			"error: Anchor link must have a text describing its purpose (wcag/h30) at inline:1:2:
+			> 1 | <a><img alt="" /></a>
+			    |  ^
+			Selector: a"
+		`);
 	});
 
 	it("should report error when hidden link is missing text", async () => {

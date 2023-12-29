@@ -42,10 +42,12 @@ describe("rule no-deprecated-attr", () => {
 		const markup = /* HTML */ ` <body bgcolor="red"></body> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"no-deprecated-attr",
-			'Attribute "bgcolor" is deprecated on <body> element',
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Attribute "bgcolor" is deprecated on <body> element (no-deprecated-attr) at inline:1:8:
+			> 1 |  <body bgcolor="red"></body>
+			    |        ^^^^^^^
+			Selector: body"
+		`);
 	});
 
 	it("should report error when deprecated attribute is used in any case", async () => {
@@ -53,10 +55,12 @@ describe("rule no-deprecated-attr", () => {
 		const markup = /* RAW */ ` <body BGCOLOR="red"></body> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
-		expect(report).toHaveError(
-			"no-deprecated-attr",
-			'Attribute "BGCOLOR" is deprecated on <body> element',
-		);
+		expect(report).toMatchInlineCodeframe(`
+			"error: Attribute "BGCOLOR" is deprecated on <body> element (no-deprecated-attr) at inline:1:8:
+			> 1 |  <body BGCOLOR="red"></body>
+			    |        ^^^^^^^
+			Selector: body"
+		`);
 	});
 
 	it("smoketest", async () => {
