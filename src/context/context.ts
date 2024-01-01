@@ -8,6 +8,9 @@ export enum ContentModel {
 	STYLE,
 }
 
+/**
+ * @internal
+ */
 export class Context {
 	public contentModel: ContentModel;
 	public state: State;
@@ -20,10 +23,10 @@ export class Context {
 	public constructor(source: Source) {
 		this.state = State.INITIAL;
 		this.string = source.data;
-		this.filename = source.filename ?? "";
-		this.offset = source.offset ?? 0;
-		this.line = source.line ?? 1;
-		this.column = source.column ?? 1;
+		this.filename = source.filename;
+		this.offset = source.offset;
+		this.line = source.line;
+		this.column = source.column;
 		this.contentModel = ContentModel.TEXT;
 	}
 

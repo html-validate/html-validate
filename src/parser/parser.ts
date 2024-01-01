@@ -94,10 +94,10 @@ export class Parser {
 
 		/* reset DOM in case there are multiple calls in the same session */
 		this.dom = new DOMTree({
-			filename: source.filename ?? "",
-			offset: source.offset ?? 0,
-			line: source.line ?? 1,
-			column: source.column ?? 1,
+			filename: source.filename,
+			offset: source.offset,
+			line: source.line,
+			column: source.column,
 			size: 0,
 		});
 
