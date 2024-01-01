@@ -7,7 +7,7 @@ export type EventCallback = (event: string, data: any) => void;
  * @public
  */
 export class EventHandler {
-	public listeners: Record<string, EventCallback[]>;
+	private listeners: Record<string, EventCallback[] | undefined>;
 
 	public constructor() {
 		this.listeners = {};
@@ -21,16 +21,20 @@ export class EventHandler {
 	 * @returns Unregistration function.
 	 */
 	public on(event: string, callback: EventCallback): () => void {
-		const names = event.split(",").map((x: string) => x.trim());
+		const { listeners } = this;
+		const names = event.split(",").map((it) => it.trim());
 		for (const name of names) {
-			this.listeners[name] = this.listeners[name] || [];
-			this.listeners[name].push(callback);
+			const list = listeners[name] ?? [];
+			listeners[name] = list;
+			list.push(callback);
 		}
 		return () => {
 			for (const name of names) {
-				this.listeners[name] = this.listeners[name].filter((fn: EventCallback) => {
-					return fn !== callback;
-				});
+				/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion --
+				 * this is never unset here as we must have associated the name with an
+				 * array earlier or we wouldn't have ended up here */
+				const list = listeners[name]!;
+				this.listeners[name] = list.filter((fn) => fn !== callback);
 			}
 		};
 	}
@@ -44,7 +48,7 @@ export class EventHandler {
 	 * @returns Unregistration function.
 	 */
 	public once(event: string, callback: EventCallback): () => void {
-		const deregister = this.on(event, (event: string, data: any) => {
+		const deregister = this.on(event, (event, data) => {
 			callback(event, data);
 			deregister();
 		});
@@ -58,10 +62,16 @@ export class EventHandler {
 	 * @param data - Event data.
 	 */
 	public trigger(event: string, data: any): void {
-		const callbacks = [...(this.listeners[event] ?? []), ...(this.listeners["*"] ?? [])];
-		callbacks.forEach((listener) => {
+		for (const listener of this.getCallbacks(event)) {
 			listener.call(null, event, data);
-		});
+		}
+	}
+
+	private getCallbacks(event: string): EventCallback[] {
+		const { listeners } = this;
+		const callbacks = listeners[event] ?? [];
+		const global = listeners["*"] ?? [];
+		return [...callbacks, ...global];
 	}
 }
 

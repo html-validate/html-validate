@@ -8,11 +8,11 @@ import {
 	HtmlValidate,
 	cjsResolver,
 } from "..";
-import { type RuleConfig } from "../config";
 import { type ExpandOptions, expandFiles } from "./expand-files";
 import { getFormatter } from "./formatter";
 import { IsIgnored } from "./is-ignored";
 import { type InitResult, init } from "./init";
+import { getRuleConfig } from "./get-rule-config";
 
 const defaultConfig: ConfigData = {
 	extends: ["html-validate:recommended"],
@@ -145,26 +145,8 @@ export class CLI {
 		const { options } = this;
 		const config = getBaseConfig(options.configFile);
 		if (options.rules) {
-			const rules: string[] = Array.isArray(options.rules) ? options.rules : [options.rules];
-			try {
-				const severityMap: Record<string, number> = { off: 0, warn: 1, error: 2 };
-				const ruleConfig = rules.reduce((parsedRules: Record<string, number>, rule) => {
-					const [ruleName, ruleSeverity] = rule.trim().split(":");
-					const severityValue = severityMap[ruleSeverity] ?? parseInt(ruleSeverity, 10);
-					if (!Object.values(severityMap).includes(severityValue)) {
-						throw new Error(`Invalid severity value for rule "${ruleName}": ${ruleSeverity}`);
-					}
-					parsedRules[ruleName] = severityValue;
-					return parsedRules;
-				}, {});
-				config.extends = [];
-				config.rules = ruleConfig as RuleConfig;
-			} catch (err: any) /* istanbul ignore next */ {
-				const message = err instanceof Error ? err.message : String(err);
-				throw new UserError(
-					`Error while parsing --rule option "{${rules.join(",")}": ${message}.\n`,
-				);
-			}
+			config.extends = [];
+			config.rules = getRuleConfig(options.rules);
 		}
 		return config;
 	}

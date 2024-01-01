@@ -1,6 +1,6 @@
 import { type SchemaObject } from "ajv";
 import { type ConfigData, type ResolvedConfig, ConfigLoader } from "./config";
-import { type Source } from "./context";
+import { normalizeSource, type Source } from "./context";
 import { type SourceHooks } from "./context/source";
 import { type EventDump, type TokenDump, Engine } from "./engine";
 import { Parser } from "./parser";
@@ -142,10 +142,11 @@ export class HtmlValidate {
 	 * @returns Report output.
 	 */
 	public async validateSource(input: Source, configOverride?: ConfigData): Promise<Report> {
-		const config = await this.getConfigFor(input.filename, configOverride);
-		const source = config.transformSource(input);
+		const source = normalizeSource(input);
+		const config = await this.getConfigFor(source.filename, configOverride);
+		const transformedSource = config.transformSource(source);
 		const engine = new Engine(config, Parser);
-		return engine.lint(source);
+		return engine.lint(transformedSource);
 	}
 
 	/**
@@ -156,10 +157,11 @@ export class HtmlValidate {
 	 * @returns Report output.
 	 */
 	public validateSourceSync(input: Source, configOverride?: ConfigData): Report {
-		const config = this.getConfigForSync(input.filename, configOverride);
-		const source = config.transformSource(input);
+		const source = normalizeSource(input);
+		const config = this.getConfigForSync(source.filename, configOverride);
+		const transformedSource = config.transformSource(source);
 		const engine = new Engine(config, Parser);
-		return engine.lint(source);
+		return engine.lint(transformedSource);
 	}
 
 	/**
