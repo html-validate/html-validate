@@ -481,8 +481,6 @@ export interface EventDump {
 // @public (undocumented)
 export class EventHandler {
     constructor();
-    // (undocumented)
-    listeners: Record<string, EventCallback[] | undefined>;
     on(event: string, callback: EventCallback): () => void;
     once(event: string, callback: EventCallback): () => void;
     trigger(event: string, data: any): void;

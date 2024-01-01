@@ -7,7 +7,7 @@ export type EventCallback = (event: string, data: any) => void;
  * @public
  */
 export class EventHandler {
-	public listeners: Record<string, EventCallback[] | undefined>;
+	private listeners: Record<string, EventCallback[] | undefined>;
 
 	public constructor() {
 		this.listeners = {};
