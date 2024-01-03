@@ -1,6 +1,7 @@
 ---
 docType: content
 title: Cypress plugin
+nav: userguide
 # Note: this file relies heavily on the typescript declarations in
 # `docs/examples/types/cypress*`, if you find yourself getting compilation
 # errors it could be because the declarations are not complete.

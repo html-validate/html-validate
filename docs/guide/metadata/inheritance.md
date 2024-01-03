@@ -1,6 +1,7 @@
 ---
 docType: content
 title: Writing custom element metadata - Inheritance
+nav: metadata
 ---
 
 # Writing custom element metadata: Inheritance

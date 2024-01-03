@@ -1,6 +1,7 @@
 ---
 docType: content
 title: Grunt task
+nav: userguide
 ---
 
 # Grunt task

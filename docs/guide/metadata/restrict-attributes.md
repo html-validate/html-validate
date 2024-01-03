@@ -1,6 +1,7 @@
 ---
 docType: content
 title: Writing custom element metadata - Restricting element attributes
+nav: metadata
 ---
 
 # Writing custom element metadata: Restricting element attributes

@@ -2,6 +2,7 @@
 docType: content
 title: Usage with Jest
 name: jest
+nav: userguide
 ---
 
 # Usage with Jest

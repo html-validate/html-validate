@@ -1,0 +1,34 @@
+{% macro link(item) %}
+<li class="link{{ " active" if item.active }}">
+	{% if item.target %}
+		{@link {{ item.target }} {{item.title }}}
+	{% elif item.href %}
+		<a href="{{ item.href }}">{{ item.title }}</a>
+	{% else %}
+		<span>{{ item.title }}</span>
+	{% endif %}
+</li>
+{% endmacro %}
+
+{% macro navigation(items, id) %}
+<ol id="{{ id }}" class="navigation">
+	{% for item in items %}
+		{% if item.children %}
+			<li class="expandable{{ " active" if item.active }}">
+				<details open class="accordion">
+					<summary>
+						{{ item.title }}
+					</summary>
+					<ol>
+					{% for child in item.children %}
+						{{ link(child) }}
+					{% endfor %}
+					</ol>
+				</details>
+			</li>
+		{% else %}
+			{{ link(item) }}
+		{% endif %}
+	{% endfor %}
+</ol>
+{% endmacro %}

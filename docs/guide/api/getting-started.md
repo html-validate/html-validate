@@ -1,6 +1,7 @@
 ---
 docType: content
 title: Getting started with API
+nav: devguide
 ---
 
 # Getting started with API

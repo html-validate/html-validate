@@ -1,6 +1,7 @@
 ---
 docType: content
 title: VS Code Extension
+nav: userguide
 ---
 
 # VS Code Extension

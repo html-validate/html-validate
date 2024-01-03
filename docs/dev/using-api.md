@@ -1,6 +1,7 @@
 ---
 docType: content
 title: Using API
+nav: devguide
 ---
 
 # Using API

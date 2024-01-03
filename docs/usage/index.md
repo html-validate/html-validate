@@ -1,6 +1,7 @@
 ---
 docType: content
 title: Getting started
+nav: userguide
 ---
 
 # Getting started

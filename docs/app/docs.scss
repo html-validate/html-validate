@@ -10,10 +10,34 @@ $fa-font-path: "fonts";
 @import "bootstrap";
 @import "github";
 
+@import "layout";
 @import "anchorlink";
 @import "config-tabs";
+@import "jumbotron";
 @import "frontpage";
 @import "alert";
+
+a {
+	text-decoration: underline;
+	text-underline-offset: 4px;
+
+	&:hover {
+		text-decoration: none;
+	}
+
+	&:focus-visible {
+		outline: 3px dashed #333;
+		outline-offset: 3px;
+	}
+
+	&:has(code) {
+		color: $code-color;
+	}
+
+	&.btn {
+		text-decoration: none;
+	}
+}
 
 main {
 	padding-bottom: 3rem;
@@ -28,9 +52,22 @@ header {
 	}
 }
 
+#topnav {
+	a {
+		text-decoration: none;
+	}
+}
+
 footer {
 	border-top: 1px solid $navbar-default-border;
-	padding: 3rem 0;
+
+	a {
+		text-decoration: none;
+	}
+
+	@media print {
+		display: none;
+	}
 }
 
 table {

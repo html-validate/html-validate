@@ -1,6 +1,7 @@
 ---
 docType: content
 name: Using CLI
+nav: userguide
 ---
 
 # Using the Command Line Interface

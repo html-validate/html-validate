@@ -134,7 +134,6 @@ Docs:
   script:
     - npm run codegen
     - npm run docs
-    - npm run htmlvalidate -- --formatter codeframe --config docs/htmlvalidate-templates.json 'docs/**/*.html'
     - npm run htmlvalidate -- --formatter codeframe --config docs/htmlvalidate-public.json 'public/**/*.html'
     - npm test -- docs
     - npm exec eslint docs/examples

@@ -11,6 +11,7 @@ module.exports = new Package("html-validate-docs", [
 	require("./highlight"),
 	require("./inline-validate"),
 	require("./marked"),
+	require("./navigation"),
 	require("./schema"),
 ])
 

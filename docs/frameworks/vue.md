@@ -1,6 +1,7 @@
 ---
 docType: content
 title: Usage with Vue.js
+nav: userguide
 ---
 
 # Usage with Vue.js

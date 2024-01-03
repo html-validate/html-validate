@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="nojs">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +9,9 @@
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 		<link rel="icon" href="/favicon.ico" type="image/ico">
 		<link rel="stylesheet" href="{{ '/assets/docs.min.css' | assetHash }}">
+		<script>
+			document.documentElement.classList.remove("nojs");
+		</script>
 		{%- if tracking %}
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id={{ tracking }}"></script>
@@ -22,8 +25,8 @@
 	</head>
 	<body>
 		<header>
-			<nav class="navbar navbar-default">
-				<div class="container">
+			<nav class="navbar navbar-default" aria-label="Primary">
+				<div id="topnav">
 					<div class="navbar-header">
 						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
 							<span class="sr-only">Toggle navigation</span>
@@ -35,57 +38,10 @@
 					</div>
 					<div class="collapse navbar-collapse" id="navbar">
 						<ul class="nav navbar-nav">
-							<!-- [html-validate-disable-block prefer-native-element: bootstrap styles button way different and this is their recommended markup] -->
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User guide <span class="caret"></span></a>
-								<ul class="dropdown-menu">
-									<li>{@link usage Getting started}</li>
-									<li>{@link migration Migrating from old versions}</li>
-									<li>{@link usage/cli Using CLI}</li>
-									<li>{@link usage/elements Elements}</li>
-									<li>{@link rules/presets Presets}</li>
-									<li>{@link usage/transformers Transformers}</li>
-									<li role="separator" class="divider"></li>
-									<li>{@link usage/vscode VS Code}</li>
-									<li role="separator" class="divider"></li>
-									<li>{@link frameworks/angularjs AngularJS}</li>
-									<li>{@link usage/cypress Cypress}</li>
-									<li>{@link usage/grunt Grunt}</li>
-									<li>{@link frameworks/jest Jest}</li>
-									<li>{@link usage/protractor Protractor}</li>
-									<li>{@link frameworks/vitest Vitest}</li>
-									<li>{@link frameworks/vue Vue.js}</li>
-								</ul>
-							</li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Elements <span class="caret"></span></a>
-								<ul class="dropdown-menu">
-									<li>{@link guide/metadata/simple-component A simple component}</li>
-									<li>{@link guide/metadata/restrict-content Restricting element content}</li>
-									<li>{@link guide/metadata/restrict-attributes Restricting element attributes}</li>
-									<li>{@link guide/metadata/inheritance Inheritance}</li>
-									<li>{@link guide/metadata/best-practice Best practice}</li>
-									<li>{@link guide/metadata/writing-tests Writing tests}</li>
-								</ul>
-							</li>
+							<li>{@link usage User guide}</li>
+							<li>{@link guide/metadata/simple-component Elements}</li>
 							<li>{@link rules Rules}</li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Developers guide <span class="caret"></span></a>
-								<ul class="dropdown-menu">
-									<li><a href="{{ pkg.repository.url }}">Getting the source code</a></li>
-									<li><a href="{{ pkg.bugs.url }}">File issue</a></li>
-									<li role="separator" class="divider"></li>
-									<li>{@link dev/releases Release and support plan}</li>
-									<li role="separator" class="divider"></li>
-									<li>{@link dev/using-api Using API}</li>
-									<li>{@link guide/api/getting-started Getting started with API}</li>
-									<li>{@link dev/running-in-browser Running in a browser}</li>
-									<li>{@link dev/writing-rules Writing rules}</li>
-									<li>{@link dev/writing-plugins Writing plugins}</li>
-									<li>{@link dev/transformers Writing transformers}</li>
-									<li>{@link dev/events List of events}</li>
-								</ul>
-							</li>
+							<li>{@link dev/using-api Developers guide}</li>
 							<li>{@link changelog Changelog}</li>
 							<li>{@link about About}</li>
 						</ul>
@@ -95,18 +51,38 @@
 			</nav>
 		</header>
 
-		<main class="container">
-			{%- block content %}
-			{%- endblock %}
+
+		<main class="{{ "with-sidenav" if doc.navtree else "without-sidenav" }}">
+			{% if doc.navtree %}
+			<nav id="sidenav" aria-label="Sidebar">
+				{% from "navigation.macro.html" import navigation %}
+				<!-- [html-validate-disable-next heading-level -- for now, should be fixed later] -->
+				<h2 id="sidenav--heading">{{ doc.navtree.title }}</h2>
+				<div data-accordion="sidenav--content">
+					<label id="sidenav--label" for="sidenav--toggle" data-accordion-summary>
+						<span>{{ doc.navtree.title }}</span>
+						<span id="sidenav--icon">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</span>
+					</label>
+					<input id="sidenav--toggle" type="checkbox" data-accordion-control>
+					{{ navigation(doc.navtree.items, id="sidenav--content") }}
+				</div>
+			</nav>
+			{% endif %}
+			<div id="content">
+				{%- block content %}
+				{%- endblock %}
+			</div>
 		</main>
 
 		{%- if doc.fileInfo.projectRelativePath and doc.docType != 'error' %}
 		<footer>
-			<div class="container">
-				<a href="https://gitlab.com/html-validate/html-validate/edit/master/{{ doc.fileInfo.projectRelativePath }}" class="btn btn-default"><i class="fa-solid fa-pencil">&nbsp;</i>Edit this page</a>
-				{%- block footer %}
-				{%- endblock %}
-			</div>
+			<a href="https://gitlab.com/html-validate/html-validate/edit/master/{{ doc.fileInfo.projectRelativePath }}" class="btn btn-default"><i class="fa-solid fa-pencil">&nbsp;</i>Edit this page</a>
+			{%- block footer %}
+			{%- endblock %}
 		</footer>
 		{%- endif %}
 

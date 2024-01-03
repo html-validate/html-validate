@@ -2,6 +2,7 @@
 docType: content
 title: Usage with Vitest
 name: vitest
+nav: userguide
 ---
 
 # Usage with Vitest

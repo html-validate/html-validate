@@ -1,6 +1,7 @@
 ---
 docType: content
 title: Writing custom element metadata - A simple component
+nav: metadata
 ---
 
 # Writing custom element metadata: A simple component
