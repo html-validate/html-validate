@@ -67,7 +67,7 @@ export default class RequireSri extends Rule<void, RuleOptions> {
 
 	public documentation(): RuleDocumentation {
 		return {
-			description: `Subresource Integrity (SRI) \`integrity\` attribute is required to prevent manipulation from Content Delivery Networks or other third-party hosting.`,
+			description: `Subresource Integrity (SRI) \`integrity\` attribute is required to prevent tampering or manipulation from Content Delivery Networks (CDN), rouge proxies,  malicious entities, etc.`,
 			url: ruleDocumentationUrl(__filename),
 		};
 	}

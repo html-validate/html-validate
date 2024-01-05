@@ -2,7 +2,7 @@
 
 exports[`rule require-sri should contain documentation 1`] = `
 {
-  "description": "Subresource Integrity (SRI) \`integrity\` attribute is required to prevent manipulation from Content Delivery Networks or other third-party hosting.",
+  "description": "Subresource Integrity (SRI) \`integrity\` attribute is required to prevent tampering or manipulation from Content Delivery Networks (CDN), rouge proxies,  malicious entities, etc.",
   "url": "https://html-validate.org/rules/require-sri.html",
 }
 `;
