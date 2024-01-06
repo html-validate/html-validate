@@ -46,11 +46,11 @@ describe("a11y helpers", () => {
 			expect(inAccessibilityTree(p)).toBeFalsy();
 		});
 
-		it('should return false if ancestor has role="presentation"', () => {
+		it('should return true even if ancestor has role="presentation"', () => {
 			expect.assertions(1);
 			const root = parse('<div role="presentation"><p>Lorem ipsum</p></div>');
 			const p = root.querySelector("p")!;
-			expect(inAccessibilityTree(p)).toBeFalsy();
+			expect(inAccessibilityTree(p)).toBeTruthy();
 		});
 
 		it("should return true if element and ancestors are present in accessibility tree", () => {
@@ -289,11 +289,11 @@ describe("a11y helpers", () => {
 			expect(isPresentation(p)).toBeTruthy();
 		});
 
-		it('should return true if ancestor has role="presentation"', () => {
+		it('should return false even if ancestor has role="presentation"', () => {
 			expect.assertions(1);
 			const root = parse('<div role="presentation"><p>Lorem ipsum</p></div>');
 			const p = root.querySelector("p")!;
-			expect(isPresentation(p)).toBeTruthy();
+			expect(isPresentation(p)).toBeFalsy();
 		});
 
 		it("should cache result", () => {

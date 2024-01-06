@@ -85,7 +85,7 @@ export function isHTMLHidden(node: HtmlElement, details?: true): boolean | IsHid
 }
 
 /**
- * Tests if this element or a parent element has role="presentation".
+ * Tests if this element has role="presentation".
  *
  * Dynamic values yields `false` just as if the attribute wasn't present.
  */
@@ -94,24 +94,10 @@ export function isPresentation(node: HtmlElement): boolean {
 		return Boolean(node.cacheGet(ROLE_PRESENTATION_CACHE));
 	}
 
-	let cur: HtmlElement = node;
-	do {
-		const role = cur.getAttribute("role");
-
-		/* role="presentation" */
-		if (role && role.value === "presentation") {
-			return cur.cacheSet(ROLE_PRESENTATION_CACHE, true);
-		}
-
-		/* sanity check: break if no parent is present, normally not an issue as the
-		 * root element should be found first */
-		if (!cur.parent) {
-			break;
-		}
-
-		/* check parents */
-		cur = cur.parent;
-	} while (!cur.isRootElement());
-
-	return node.cacheSet(ROLE_PRESENTATION_CACHE, false);
+	const role = node.getAttribute("role");
+	if (role && role.value === "presentation") {
+		return node.cacheSet(ROLE_PRESENTATION_CACHE, true);
+	} else {
+		return node.cacheSet(ROLE_PRESENTATION_CACHE, false);
+	}
 }
