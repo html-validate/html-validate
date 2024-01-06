@@ -58,6 +58,8 @@ function isAriaHiddenImpl(node: HtmlElement): IsHiddenResult {
  *
  * Dynamic values yields `false` since the element will conditionally be in the
  * accessibility tree and must fulfill it's conditions.
+ *
+ * @internal
  */
 export function isAriaHidden(node: HtmlElement): boolean;
 export function isAriaHidden(node: HtmlElement, details: true): IsHiddenResult;
@@ -86,6 +88,8 @@ function isHTMLHiddenImpl(node: HtmlElement): IsHiddenResult {
  *
  * Dynamic values yields `false` since the element will conditionally be in the
  * DOM tree and must fulfill it's conditions.
+ *
+ * @internal
  */
 export function isHTMLHidden(node: HtmlElement): boolean;
 export function isHTMLHidden(node: HtmlElement, details: true): IsHiddenResult;

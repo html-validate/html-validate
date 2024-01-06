@@ -31,6 +31,7 @@ const config: ConfigData = {
 		"empty-heading": "error",
 		"empty-title": "error",
 		"form-dup-name": "error",
+		"hidden-focusable": "error",
 		"input-attributes": "error",
 		"long-title": "error",
 		"map-dup-name": "error",

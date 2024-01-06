@@ -8,6 +8,7 @@ const config: ConfigData = {
 		"deprecated-rule": "warn",
 		"empty-heading": "error",
 		"empty-title": "error",
+		"hidden-focusable": "error",
 		"meta-refresh": "error",
 		"multiple-labeled-controls": "error",
 		"no-autoplay": ["error", { include: ["audio", "video"] }],

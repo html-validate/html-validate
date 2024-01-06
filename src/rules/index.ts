@@ -32,6 +32,7 @@ import EmptyHeading from "./empty-heading";
 import EmptyTitle from "./empty-title";
 import FormDupName from "./form-dup-name";
 import HeadingLevel from "./heading-level";
+import HiddenFocusable from "./hidden-focusable";
 import IdPattern from "./id-pattern";
 import InputAttributes from "./input-attributes";
 import InputMissingLabel from "./input-missing-label";
@@ -112,6 +113,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"empty-title": EmptyTitle,
 	"form-dup-name": FormDupName,
 	"heading-level": HeadingLevel,
+	"hidden-focusable": HiddenFocusable,
 	"id-pattern": IdPattern,
 	"input-attributes": InputAttributes,
 	"input-missing-label": InputMissingLabel,
