@@ -35,6 +35,10 @@ describe("HTML elements", () => {
 			/* disabled by default, should be included in these tests */
 			"svg-focusable": "error",
 
+			/* triggers on all landmark tests and is tedious/noise to add to all of
+			 * them, there are separate tests for this rule to verify it functions */
+			"unique-landmark": "off",
+
 			/* none of the WCAG rules should trigger in these tests, they are tested
 			 * separately and adds too much noise here */
 			"wcag/h32": "off",

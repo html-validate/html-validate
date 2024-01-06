@@ -64,6 +64,7 @@ const config: ConfigData = {
 		"svg-focusable": "off",
 		"tel-non-breaking": "error",
 		"text-content": "error",
+		"unique-landmark": "error",
 		"unrecognized-char-ref": "error",
 		"valid-id": ["error", { relaxed: false }],
 		void: "off",

@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/unique-landmark.md inline validation: correct 1`] = `[]`;
+
+exports[`docs/rules/unique-landmark.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 2,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 2,
+        "line": 1,
+        "message": "Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby)",
+        "offset": 1,
+        "ruleId": "unique-landmark",
+        "ruleUrl": "https://html-validate.org/rules/unique-landmark.html",
+        "selector": "nav:nth-child(1)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 2,
+        "line": 4,
+        "message": "Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby)",
+        "offset": 27,
+        "ruleId": "unique-landmark",
+        "ruleUrl": "https://html-validate.org/rules/unique-landmark.html",
+        "selector": "nav:nth-child(2)",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<nav>
+	lorem ipsum
+</nav>
+<nav>
+	dolor sit amet
+</nav>",
+    "warningCount": 0,
+  },
+]
+`;
