@@ -135,6 +135,18 @@ export function isPresentation(node: HtmlElement): boolean {
 		return Boolean(node.cacheGet(ROLE_PRESENTATION_CACHE));
 	}
 
+	/* interactive elements ignores `role="presentation"` */
+	const meta = node.meta;
+	if (meta && meta.interactive) {
+		return node.cacheSet(ROLE_PRESENTATION_CACHE, false);
+	}
+
+	/* focusable elements ignores `role="presentation"` */
+	const tabindex = node.getAttribute("tabindex");
+	if (tabindex) {
+		return node.cacheSet(ROLE_PRESENTATION_CACHE, false);
+	}
+
 	const role = node.getAttribute("role");
 	if (role && (role.value === "presentation" || role.value === "none")) {
 		return node.cacheSet(ROLE_PRESENTATION_CACHE, true);

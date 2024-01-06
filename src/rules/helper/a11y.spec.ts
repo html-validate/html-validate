@@ -385,6 +385,20 @@ describe("a11y helpers", () => {
 			expect(isPresentation(p)).toBeFalsy();
 		});
 
+		it("should return false if node is interactive", () => {
+			expect.assertions(1);
+			const root = parse('<button role="presentation">Lorem ipsum<button>');
+			const button = root.querySelector("button")!;
+			expect(isPresentation(button)).toBeFalsy();
+		});
+
+		it("should return false if node has tabindex", () => {
+			expect.assertions(1);
+			const root = parse('<p tabindex role="presentation">Lorem ipsum<p>');
+			const button = root.querySelector("p")!;
+			expect(isPresentation(button)).toBeFalsy();
+		});
+
 		it('should return true if node has role="presentation"', () => {
 			expect.assertions(1);
 			const root = parse('<p role="presentation">Lorem ipsum</p>');
@@ -419,7 +433,7 @@ describe("a11y helpers", () => {
 			const p = root.querySelector("p")!;
 			const spy = jest.spyOn(p, "getAttribute");
 			expect(isPresentation(p)).toBeTruthy();
-			expect(spy).toHaveBeenCalledTimes(1);
+			expect(spy).toHaveBeenCalledTimes(2);
 			spy.mockClear();
 			expect(isPresentation(p)).toBeTruthy();
 			expect(spy).toHaveBeenCalledTimes(0);
