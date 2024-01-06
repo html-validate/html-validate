@@ -1,13 +1,20 @@
-<form>
+<!-- should be ok: have nested explicit submit button -->
+<form id="explicit-nested" aria-label="Explicit nested submit">
 	<button type="submit">Submit</button>
 </form>
 
-<form>
+<!-- should be ok: have nested implicit submit button -->
+<form id="implicit-nested" aria-label="Implicit nested submit">
+	<button>Submit</button>
+</form>
+
+<!-- should be ok: have nested input button -->
+<form id="input-button-nested" aria-label="Input button">
 	<input type="submit" value="Submit">
 </form>
 
-<form>
+<!-- should yield error: no submit button present -->
+<form id="missing-submit" aria-label="Missing submit button">
 	<input type="text">
-	<button>Foo</button>
 	<button type="button">Bar</button>
 </form>
