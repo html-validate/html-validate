@@ -392,9 +392,23 @@ describe("a11y helpers", () => {
 			expect(isPresentation(p)).toBeTruthy();
 		});
 
+		it('should return true if node has role="none"', () => {
+			expect.assertions(1);
+			const root = parse('<p role="none">Lorem ipsum</p>');
+			const p = root.querySelector("p")!;
+			expect(isPresentation(p)).toBeTruthy();
+		});
+
 		it('should return false even if ancestor has role="presentation"', () => {
 			expect.assertions(1);
 			const root = parse('<div role="presentation"><p>Lorem ipsum</p></div>');
+			const p = root.querySelector("p")!;
+			expect(isPresentation(p)).toBeFalsy();
+		});
+
+		it('should return false even if ancestor has role="none"', () => {
+			expect.assertions(1);
+			const root = parse('<div role="none"><p>Lorem ipsum</p></div>');
 			const p = root.querySelector("p")!;
 			expect(isPresentation(p)).toBeFalsy();
 		});

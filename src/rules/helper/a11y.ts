@@ -126,7 +126,7 @@ export function isStyleHidden(node: HtmlElement): boolean {
 }
 
 /**
- * Tests if this element has role="presentation".
+ * Tests if this element has `role="presentation"` or `role="none"`.
  *
  * Dynamic values yields `false` just as if the attribute wasn't present.
  */
@@ -136,7 +136,7 @@ export function isPresentation(node: HtmlElement): boolean {
 	}
 
 	const role = node.getAttribute("role");
-	if (role && role.value === "presentation") {
+	if (role && (role.value === "presentation" || role.value === "none")) {
 		return node.cacheSet(ROLE_PRESENTATION_CACHE, true);
 	} else {
 		return node.cacheSet(ROLE_PRESENTATION_CACHE, false);
