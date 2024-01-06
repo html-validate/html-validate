@@ -1,5 +1,5 @@
 import { type DOMTree, type HtmlElement, DynamicValue, generateIdSelector } from "../../dom";
-import { inAccessibilityTree, isHTMLHidden } from "./a11y";
+import { inAccessibilityTree } from "./a11y";
 import { hasAltText } from "./has-alt-text";
 import { classifyNodeText, TextClassification } from "./text";
 
@@ -21,7 +21,7 @@ function isHidden(node: HtmlElement, context: Context): boolean {
 	if (reference && reference.isSameNode(node)) {
 		return false;
 	} else {
-		return isHTMLHidden(node) || !inAccessibilityTree(node);
+		return !inAccessibilityTree(node);
 	}
 }
 

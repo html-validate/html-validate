@@ -25,7 +25,16 @@ const ROLE_PRESENTATION_CACHE = Symbol(isPresentation.name);
  * visible since the element might be in the visibility tree sometimes.
  */
 export function inAccessibilityTree(node: HtmlElement): boolean {
-	return !isAriaHidden(node) && !isPresentation(node);
+	if (isAriaHidden(node)) {
+		return false;
+	}
+	if (isPresentation(node)) {
+		return false;
+	}
+	if (isHTMLHidden(node)) {
+		return false;
+	}
+	return true;
 }
 
 function isAriaHiddenImpl(node: HtmlElement): IsHiddenResult {

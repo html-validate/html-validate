@@ -39,6 +39,13 @@ describe("a11y helpers", () => {
 			expect(inAccessibilityTree(p)).toBeFalsy();
 		});
 
+		it("should return false if element has hidden attribute", () => {
+			expect.assertions(1);
+			const root = parse("<p hidden>Lorem ipsum</p>");
+			const p = root.querySelector("p")!;
+			expect(inAccessibilityTree(p)).toBeFalsy();
+		});
+
 		it('should return false if ancestor has aria-hidden="true"', () => {
 			expect.assertions(1);
 			const root = parse('<div aria-hidden="true"><p>Lorem ipsum</p></div>');
@@ -51,6 +58,13 @@ describe("a11y helpers", () => {
 			const root = parse('<div role="presentation"><p>Lorem ipsum</p></div>');
 			const p = root.querySelector("p")!;
 			expect(inAccessibilityTree(p)).toBeTruthy();
+		});
+
+		it("should return false if ancestor has hidden attribute", () => {
+			expect.assertions(1);
+			const root = parse("<div hidden><p>Lorem ipsum</p></div>");
+			const p = root.querySelector("p")!;
+			expect(inAccessibilityTree(p)).toBeFalsy();
 		});
 
 		it("should return true if element and ancestors are present in accessibility tree", () => {
