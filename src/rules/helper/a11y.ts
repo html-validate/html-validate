@@ -1,4 +1,4 @@
-import { type HtmlElement } from "../../dom";
+import { type HtmlElement, parseCssDeclaration } from "../../dom";
 
 export interface IsHiddenResult {
 	byParent: boolean;
@@ -10,12 +10,14 @@ declare module "../../dom/cache" {
 		[ARIA_HIDDEN_CACHE]: IsHiddenResult;
 		[HTML_HIDDEN_CACHE]: IsHiddenResult;
 		[ROLE_PRESENTATION_CACHE]: boolean;
+		[STYLE_HIDDEN_CACHE]: boolean;
 	}
 }
 
 const ARIA_HIDDEN_CACHE = Symbol(isAriaHidden.name);
 const HTML_HIDDEN_CACHE = Symbol(isHTMLHidden.name);
 const ROLE_PRESENTATION_CACHE = Symbol(isPresentation.name);
+const STYLE_HIDDEN_CACHE = Symbol(isStyleHidden.name);
 
 /**
  * Tests if this element is present in the accessibility tree.
@@ -32,6 +34,9 @@ export function inAccessibilityTree(node: HtmlElement): boolean {
 		return false;
 	}
 	if (isHTMLHidden(node)) {
+		return false;
+	}
+	if (isStyleHidden(node)) {
 		return false;
 	}
 	return true;
@@ -91,6 +96,33 @@ export function isHTMLHidden(node: HtmlElement, details?: true): boolean | IsHid
 	}
 	const result = node.cacheSet(HTML_HIDDEN_CACHE, isHTMLHiddenImpl(node));
 	return details ? result : result.byParent || result.bySelf;
+}
+
+function isStyleHiddenImpl(node: HtmlElement): boolean {
+	const isHidden = (node: HtmlElement): boolean => {
+		const style = node.getAttribute("style");
+		const { display, visibility } = parseCssDeclaration(style?.value);
+		return display === "none" || visibility === "hidden";
+	};
+	const byParent = node.parent ? isStyleHidden(node.parent) : false;
+	const bySelf = isHidden(node);
+	return byParent || bySelf;
+}
+
+/**
+ * Tests if this element or an ancestor have `hidden` attribute.
+ *
+ * Dynamic values yields `false` since the element will conditionally be in the
+ * DOM tree and must fulfill it's conditions.
+ *
+ * @internal
+ */
+export function isStyleHidden(node: HtmlElement): boolean {
+	const cached = node.cacheGet(STYLE_HIDDEN_CACHE);
+	if (cached) {
+		return cached;
+	}
+	return node.cacheSet(STYLE_HIDDEN_CACHE, isStyleHiddenImpl(node));
 }
 
 /**

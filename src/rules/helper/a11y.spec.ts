@@ -2,7 +2,13 @@ import { Config } from "../../config";
 import { HtmlElement, NodeClosed } from "../../dom";
 import { Parser } from "../../parser";
 import { processAttribute } from "../../transform/mocks/attribute";
-import { inAccessibilityTree, isAriaHidden, isHTMLHidden, isPresentation } from "./a11y";
+import {
+	inAccessibilityTree,
+	isAriaHidden,
+	isHTMLHidden,
+	isPresentation,
+	isStyleHidden,
+} from "./a11y";
 
 describe("a11y helpers", () => {
 	let parser: Parser;
@@ -46,6 +52,20 @@ describe("a11y helpers", () => {
 			expect(inAccessibilityTree(p)).toBeFalsy();
 		});
 
+		it("should return false if element has display: none", () => {
+			expect.assertions(1);
+			const root = parse(`<p style="display: none">Lorem ipsum</p>`);
+			const p = root.querySelector("p")!;
+			expect(inAccessibilityTree(p)).toBeFalsy();
+		});
+
+		it("should return false if element has visibility: hidden", () => {
+			expect.assertions(1);
+			const root = parse(`<p style="visibility: hidden">Lorem ipsum</p>`);
+			const p = root.querySelector("p")!;
+			expect(inAccessibilityTree(p)).toBeFalsy();
+		});
+
 		it('should return false if ancestor has aria-hidden="true"', () => {
 			expect.assertions(1);
 			const root = parse('<div aria-hidden="true"><p>Lorem ipsum</p></div>');
@@ -63,6 +83,20 @@ describe("a11y helpers", () => {
 		it("should return false if ancestor has hidden attribute", () => {
 			expect.assertions(1);
 			const root = parse("<div hidden><p>Lorem ipsum</p></div>");
+			const p = root.querySelector("p")!;
+			expect(inAccessibilityTree(p)).toBeFalsy();
+		});
+
+		it("should return false if ancestor has display: none", () => {
+			expect.assertions(1);
+			const root = parse(`<div style="display: none"><p>Lorem ipsum</p></div>`);
+			const p = root.querySelector("p")!;
+			expect(inAccessibilityTree(p)).toBeFalsy();
+		});
+
+		it("should return false if ancestor has visibility: hidden", () => {
+			expect.assertions(1);
+			const root = parse(`<div style="visibility: hidden"><p>Lorem ipsum</p></div>`);
 			const p = root.querySelector("p")!;
 			expect(inAccessibilityTree(p)).toBeFalsy();
 		});
@@ -257,6 +291,61 @@ describe("a11y helpers", () => {
 				expect(isHTMLHidden(c, true)).toEqual({ byParent: true, bySelf: true });
 				expect(isHTMLHidden(d, true)).toEqual({ byParent: false, bySelf: false });
 			});
+		});
+	});
+
+	describe("isStyleHidden()", () => {
+		it("should return false if node is not hidden", () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <p>Lorem ipsum</p> `;
+			const root = parse(markup);
+			const p = root.querySelector("p")!;
+			expect(isStyleHidden(p)).toBeFalsy();
+		});
+
+		it("should return false if node has display: block", () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <p style="display: block;">Lorem ipsum</p> `;
+			const root = parse(markup);
+			const p = root.querySelector("p")!;
+			expect(isStyleHidden(p)).toBeFalsy();
+		});
+
+		it("should return false if node has visibility: visible", () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <p style="visibility: visible;">Lorem ipsum</p> `;
+			const root = parse(markup);
+			const p = root.querySelector("p")!;
+			expect(isStyleHidden(p)).toBeFalsy();
+		});
+
+		it("should return true if node has display: none", () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <p style="display: none;">Lorem ipsum</p> `;
+			const root = parse(markup);
+			const p = root.querySelector("p")!;
+			expect(isStyleHidden(p)).toBeTruthy();
+		});
+
+		it("should return true if node has visibility: hidden", () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <p style="visibility: hidden;">Lorem ipsum</p> `;
+			const root = parse(markup);
+			const p = root.querySelector("p")!;
+			expect(isStyleHidden(p)).toBeTruthy();
+		});
+
+		it("should cache result", () => {
+			expect.assertions(4);
+			const markup = /* HTML */ ` <p style="visibility: hidden;">Lorem ipsum</p> `;
+			const root = parse(markup);
+			const p = root.querySelector("p")!;
+			const spy = jest.spyOn(p, "getAttribute");
+			expect(isStyleHidden(p)).toBeTruthy();
+			expect(spy).toHaveBeenCalledTimes(1);
+			spy.mockClear();
+			expect(isStyleHidden(p)).toBeTruthy();
+			expect(spy).toHaveBeenCalledTimes(0);
 		});
 	});
 
