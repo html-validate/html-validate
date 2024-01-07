@@ -1848,21 +1848,21 @@ describe("parser", () => {
 			});
 		});
 
-		it("multiline", () => {
+		it("multiline", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile("./test-files/parser/multiline.html");
+			const report = await htmlvalidate.validateFile("./test-files/parser/multiline.html");
 			expect(report).toBeValid();
 		});
 
-		it("xi:include", () => {
+		it("xi:include", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile("./test-files/parser/xi-include.html");
+			const report = await htmlvalidate.validateFile("./test-files/parser/xi-include.html");
 			expect(report).toBeValid();
 		});
 
-		it("cdata", () => {
+		it("cdata", async () => {
 			expect.assertions(1);
-			const report = htmlvalidate.validateFile("./test-files/parser/cdata.html");
+			const report = await htmlvalidate.validateFile("./test-files/parser/cdata.html");
 			expect(report).toBeValid();
 		});
 	});

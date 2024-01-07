@@ -70,12 +70,12 @@ describe("integration tests", () => {
 		]);
 	});
 
-	it("validate", () => {
+	it("validate", async () => {
 		expect.assertions(1);
 		const cli = new CLI();
 		const htmlvalidate = cli.getValidator();
 		const files = cli.expandFiles(["test-files/ignored"], { extensions: ["html", "vue"] });
-		const report = htmlvalidate.validateMultipleFiles(files);
+		const report = await htmlvalidate.validateMultipleFiles(files);
 		expect(report).toBeValid();
 	});
 });

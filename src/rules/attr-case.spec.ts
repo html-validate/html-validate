@@ -324,9 +324,9 @@ describe("rule attr-case", () => {
 				"attr-case": ["error", { style: ["lowercase", "camelcase"] }],
 			},
 		});
-		expect(htmlvalidate.validateString("<div foo-bar></div>")).toBeValid();
-		expect(htmlvalidate.validateString("<div fooBar></div>")).toBeValid();
-		expect(htmlvalidate.validateString("<div FooBar></div>")).toMatchInlineCodeframe(`
+		expect(await htmlvalidate.validateString("<div foo-bar></div>")).toBeValid();
+		expect(await htmlvalidate.validateString("<div fooBar></div>")).toBeValid();
+		expect(await htmlvalidate.validateString("<div FooBar></div>")).toMatchInlineCodeframe(`
 			"error: Attribute "FooBar" should be lowercase or camelCase (attr-case) at inline:1:6:
 			> 1 | <div FooBar></div>
 			    |      ^^^^^^

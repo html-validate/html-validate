@@ -171,12 +171,12 @@ describe("rule empty-heading", () => {
 
 	it("should report error for all heading levels", async () => {
 		expect.assertions(6);
-		expect(htmlvalidate.validateString("<h1></h1>")).toBeInvalid();
-		expect(htmlvalidate.validateString("<h2></h2>")).toBeInvalid();
-		expect(htmlvalidate.validateString("<h3></h3>")).toBeInvalid();
-		expect(htmlvalidate.validateString("<h4></h4>")).toBeInvalid();
-		expect(htmlvalidate.validateString("<h5></h5>")).toBeInvalid();
-		expect(htmlvalidate.validateString("<h6></h6>")).toBeInvalid();
+		expect(await htmlvalidate.validateString("<h1></h1>")).toBeInvalid();
+		expect(await htmlvalidate.validateString("<h2></h2>")).toBeInvalid();
+		expect(await htmlvalidate.validateString("<h3></h3>")).toBeInvalid();
+		expect(await htmlvalidate.validateString("<h4></h4>")).toBeInvalid();
+		expect(await htmlvalidate.validateString("<h5></h5>")).toBeInvalid();
+		expect(await htmlvalidate.validateString("<h6></h6>")).toBeInvalid();
 	});
 
 	it("smoketest", async () => {

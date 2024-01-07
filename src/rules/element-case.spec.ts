@@ -210,9 +210,9 @@ describe("rule element-case", () => {
 				"element-case": ["error", { style: ["lowercase", "pascalcase"] }],
 			},
 		});
-		expect(htmlvalidate.validateString("<foo-bar></foo-bar>")).toBeValid();
-		expect(htmlvalidate.validateString("<FooBar></FooBar>")).toBeValid();
-		expect(htmlvalidate.validateString("<fooBar></fooBar>")).toMatchInlineCodeframe(`
+		expect(await htmlvalidate.validateString("<foo-bar></foo-bar>")).toBeValid();
+		expect(await htmlvalidate.validateString("<FooBar></FooBar>")).toBeValid();
+		expect(await htmlvalidate.validateString("<fooBar></fooBar>")).toMatchInlineCodeframe(`
 			"error: Element "fooBar" should be lowercase or PascalCase (element-case) at inline:1:2:
 			> 1 | <fooBar></fooBar>
 			    |  ^^^^^^
@@ -255,10 +255,10 @@ describe("rule element-case", () => {
 			root: true,
 			rules: { "element-case": "error" },
 		});
-		expect(htmlvalidate.validateString("<p></i>")).toBeValid();
-		expect(htmlvalidate.validateString("<p>")).toBeValid();
-		expect(htmlvalidate.validateString("</i>")).toBeValid();
-		expect(htmlvalidate.validateString("<input></input>")).toBeValid();
+		expect(await htmlvalidate.validateString("<p></i>")).toBeValid();
+		expect(await htmlvalidate.validateString("<p>")).toBeValid();
+		expect(await htmlvalidate.validateString("</i>")).toBeValid();
+		expect(await htmlvalidate.validateString("<input></input>")).toBeValid();
 	});
 
 	it("should contain documentation", async () => {

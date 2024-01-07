@@ -188,7 +188,7 @@ it("should report parser-error when last tag is left unopened", async () => {
 	`);
 });
 
-it("should allow inline metadata", () => {
+it("should allow inline metadata", async () => {
 	expect.assertions(1);
 	const htmlvalidate = new HtmlValidate({
 		elements: [
@@ -209,13 +209,12 @@ it("should allow inline metadata", () => {
 			},
 		],
 	});
-	const report = htmlvalidate.validateString(
-		[
-			'<foo string="foo"></foo>',
-			'<foo string-regexp="foo"></foo>',
-			'<foo literal-regexp="foo"></foo>',
-		].join("\n"),
-	);
+	const markup = /* HTML */ `
+		<foo string="foo"></foo>
+		<foo string-regexp="foo"></foo>
+		<foo literal-regexp="foo"></foo>
+	`;
+	const report = await htmlvalidate.validateString(markup);
 	expect(report).toBeValid();
 });
 
