@@ -61,6 +61,17 @@ export enum TextContent {
 }
 
 /**
+ * Callback for the `focusable` property of `MetaData`. It takes a node and
+ * returns whenever the element is focusable or not.
+ *
+ * @public
+ * @since %version%
+ * @param node - The node to determine if it is focusable.
+ * @returns `true` if the node is focusable.
+ */
+export type MetaFocusableCallback = (node: HtmlElementLike) => boolean;
+
+/**
  * Callback for the `implicitRole` property of `MetaData`. It takes a node and
  * returns the implicit ARIA role, if any.
  *
@@ -185,6 +196,8 @@ export interface MetaData {
 	transparent?: boolean | string[];
 	implicitClosed?: string[];
 	scriptSupporting?: boolean;
+	/** Mark element as able to receive focus (without explicit `tabindex`) */
+	focusable?: boolean | MetaFocusableCallback;
 	form?: boolean;
 	/** Mark element as a form-associated element */
 	formAssociated?: Partial<FormAssociated>;
@@ -225,6 +238,7 @@ export type MetaLookupableProperty =
 	| "void"
 	| "transparent"
 	| "scriptSupporting"
+	| "focusable"
 	| "form"
 	| "formAssociated"
 	| "labelable";
@@ -244,6 +258,7 @@ export const MetaCopyableProperty: Array<keyof MetaElement> = [
 	"embedded",
 	"interactive",
 	"transparent",
+	"focusable",
 	"form",
 	"formAssociated",
 	"labelable",
@@ -263,6 +278,7 @@ export interface MetaElement extends Omit<MetaData, "deprecatedAttributes" | "re
 	/* filled internally for reverse lookup */
 	tagName: string;
 
+	focusable: boolean | MetaFocusableCallback;
 	formAssociated?: FormAssociated;
 	implicitRole: MetaImplicitRoleCallback;
 

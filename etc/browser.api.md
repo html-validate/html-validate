@@ -706,6 +706,7 @@ export interface MetaData {
     embedded?: boolean | PropertyExpression;
     // (undocumented)
     flow?: boolean | PropertyExpression;
+    focusable?: boolean | MetaFocusableCallback;
     // (undocumented)
     foreign?: boolean;
     // (undocumented)
@@ -774,6 +775,8 @@ export interface MetaElement extends Omit<MetaData, "deprecatedAttributes" | "re
     // (undocumented)
     attributes: Record<string, MetaAttribute>;
     // (undocumented)
+    focusable: boolean | MetaFocusableCallback;
+    // (undocumented)
     formAssociated?: FormAssociated;
     // (undocumented)
     implicitRole: MetaImplicitRoleCallback;
@@ -784,10 +787,13 @@ export interface MetaElement extends Omit<MetaData, "deprecatedAttributes" | "re
 }
 
 // @public
+export type MetaFocusableCallback = (node: HtmlElementLike) => boolean;
+
+// @public
 export type MetaImplicitRoleCallback = (node: HtmlElementLike) => string | null;
 
 // @public
-export type MetaLookupableProperty = "metadata" | "flow" | "sectioning" | "heading" | "phrasing" | "embedded" | "interactive" | "deprecated" | "foreign" | "void" | "transparent" | "scriptSupporting" | "form" | "formAssociated" | "labelable";
+export type MetaLookupableProperty = "metadata" | "flow" | "sectioning" | "heading" | "phrasing" | "embedded" | "interactive" | "deprecated" | "foreign" | "void" | "transparent" | "scriptSupporting" | "focusable" | "form" | "formAssociated" | "labelable";
 
 // @public (undocumented)
 export class MetaTable {

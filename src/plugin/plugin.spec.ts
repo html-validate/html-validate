@@ -222,6 +222,7 @@ describe("Plugin", () => {
 			expect(meta).toEqual({
 				tagName: "my-element",
 				attributes: {},
+				focusable: false,
 				implicitRole: expect.any(Function),
 				myMeta: 5,
 			});
@@ -256,6 +257,7 @@ describe("Plugin", () => {
 			expect(meta).toEqual({
 				tagName: "my-element",
 				attributes: {},
+				focusable: false,
 				implicitRole: expect.any(Function),
 				myMeta: 5,
 			});
@@ -311,6 +313,7 @@ describe("Plugin", () => {
 			expect(node.meta).toEqual({
 				tagName: "my-element",
 				attributes: {},
+				focusable: false,
 				implicitRole: expect.any(Function),
 				foo: "copied" /* foo is marked for copying */,
 				bar: "original" /* bar is not marked for copying */,

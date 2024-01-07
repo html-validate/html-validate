@@ -376,12 +376,14 @@ describe("config", () => {
 			expect(config.getMetaTable().getMetaFor("foo")).toEqual({
 				tagName: "foo",
 				attributes: {},
+				focusable: false,
 				implicitRole: expect.any(Function),
 				permittedContent: ["baz"],
 			});
 			expect(config.getMetaTable().getMetaFor("bar")).toEqual({
 				tagName: "bar",
 				attributes: {},
+				focusable: false,
 				implicitRole: expect.any(Function),
 				permittedContent: ["baz"],
 			});

@@ -54,6 +54,9 @@ export default defineMetadata({
 
 	a: {
 		flow: true,
+		focusable(node) {
+			return node.hasAttribute("href");
+		},
 		phrasing: true,
 		interactive: true,
 		transparent: true,
@@ -159,6 +162,9 @@ export default defineMetadata({
 
 	area: {
 		flow: ["isDescendant", "map"],
+		focusable(node) {
+			return node.hasAttribute("href");
+		},
 		phrasing: ["isDescendant", "map"],
 		void: true,
 		attributes: {
@@ -242,6 +248,9 @@ export default defineMetadata({
 
 	audio: {
 		flow: true,
+		focusable(node) {
+			return node.hasAttribute("controls");
+		},
 		phrasing: true,
 		embedded: true,
 		interactive: ["hasAttribute", "controls"],
@@ -386,6 +395,7 @@ export default defineMetadata({
 
 	button: {
 		flow: true,
+		focusable: true,
 		phrasing: true,
 		interactive: true,
 		formAssociated: {
@@ -1055,6 +1065,9 @@ export default defineMetadata({
 
 	input: {
 		flow: true,
+		focusable(node) {
+			return node.getAttribute("type") !== "hidden";
+		},
 		phrasing: true,
 		interactive: ["matchAttribute", ["type", "!=", "hidden"]],
 		void: true,
@@ -1874,6 +1887,7 @@ export default defineMetadata({
 
 	select: {
 		flow: true,
+		focusable: true,
 		phrasing: true,
 		interactive: true,
 		formAssociated: {
@@ -2163,6 +2177,7 @@ export default defineMetadata({
 
 	textarea: {
 		flow: true,
+		focusable: true,
 		phrasing: true,
 		interactive: true,
 		formAssociated: {
@@ -2418,6 +2433,9 @@ export default defineMetadata({
 
 	video: {
 		flow: true,
+		focusable(node) {
+			return node.hasAttribute("controls");
+		},
 		phrasing: true,
 		embedded: true,
 		interactive: ["hasAttribute", "controls"],

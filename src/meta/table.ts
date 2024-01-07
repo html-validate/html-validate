@@ -282,6 +282,9 @@ function expandProperties(node: HtmlElement, entry: MetaElement): void {
 			setMetaProperty(entry, key, evaluateProperty(node, property as PropertyExpression));
 		}
 	}
+	if (typeof entry.focusable === "function") {
+		setMetaProperty(entry, "focusable", entry.focusable(node._adapter));
+	}
 }
 
 /**

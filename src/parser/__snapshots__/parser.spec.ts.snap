@@ -53,6 +53,7 @@ exports[`parser should postprocess elements allow modify element metadata 1`] = 
     },
   },
   "flow": true,
+  "focusable": false,
   "implicitRole": [Function],
   "permittedContent": [
     "@flow",
@@ -104,6 +105,7 @@ exports[`parser should postprocess elements allow modify element metadata 2`] = 
     },
   },
   "flow": true,
+  "focusable": false,
   "implicitRole": [Function],
   "permittedContent": [
     "@phrasing",

@@ -67,6 +67,7 @@ describe("MetaTable", () => {
 				      ],
 				    },
 				  },
+				  "focusable": false,
 				  "implicitRole": [Function],
 				  "tagName": "foo",
 				}
@@ -706,6 +707,7 @@ describe("MetaTable", () => {
 				      ],
 				    },
 				  },
+				  "focusable": false,
 				  "implicitRole": [Function],
 				  "tagName": "foo",
 				}
@@ -724,6 +726,7 @@ describe("MetaTable", () => {
 				      ],
 				    },
 				  },
+				  "focusable": false,
 				  "implicitRole": [Function],
 				  "inherit": "foo",
 				  "tagName": "bar",
