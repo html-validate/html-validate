@@ -20,11 +20,11 @@ Adds a new CLI service command:
 Validates all `.html` and `.vue` files in the `src` folder. Patterns can be
 overwritten by passing them as positional arguments.
 
-## Using [`nuxt`](https://nuxtjs.org/)
+## Using `nuxt`
 
     yarn add --dev @nuxtjs/html-validator
 
-Then add the Nuxt module to your `nuxt.config.js`:
+Then add the [Nuxt](https://nuxtjs.org/) module to your `nuxt.config.js`:
 
 ```js
 export default {
