@@ -1,0 +1,89 @@
+@import "layout/sidenav";
+
+:root {
+	/* width of the containers */
+	--max-width: 1440px;
+
+	/* width of sidenav */
+	--sidenav-width-small: 20rem;
+	--sidenav-width-large: 25rem;
+
+	/* gap between sidebar and content */
+	--column-gap-small: 5rem;
+	--column-gap-large: 10rem;
+}
+
+#topnav {
+	max-width: var(--max-width);
+	padding: 0 1rem;
+	margin: 0 auto;
+}
+
+main {
+	max-width: var(--max-width);
+	padding: 0 1rem;
+	margin: 0 auto;
+	overflow: hidden;
+
+	@media screen {
+		&.with-sidenav {
+			display: grid;
+			grid-template-areas:
+				"sidenav"
+				"content";
+
+			@media (width > $screen-sm-min) {
+				gap: calc(var(--column-gap-small) / 2);
+				grid-template-areas: "sidenav border content";
+				grid-template-columns: minmax(var(--sidenav-width-small), 1fr) min-content 4fr;
+			}
+
+			@media (width > $screen-md-min) {
+				gap: calc(var(--column-gap-large) / 2);
+			}
+		}
+	}
+
+	@media (width > $screen-sm-min) {
+		&::after {
+			grid-area: border;
+			content: "";
+			display: block;
+			width: 1px;
+			border-left: 1px solid #eee;
+			border-right: 1px solid #e7e7e7;
+		}
+	}
+}
+
+#sidenav {
+	grid-area: sidenav;
+	padding: 0;
+
+	/* this is used to hide the content until the state of the navigation menu is
+	 * loaded by javascript */
+	visibility: hidden;
+
+	/* show sidenav when loaded or if javascript isn't available */
+	.nojs &,
+	&.in {
+		visibility: visible;
+	}
+
+	@media print {
+		display: none;
+	}
+}
+
+#content {
+	grid-area: content;
+	overflow: hidden;
+	margin: 0 -2rem;
+	padding: 0 2rem;
+}
+
+footer {
+	max-width: var(--max-width);
+	padding: 3rem 1rem;
+	margin: 0 auto;
+}

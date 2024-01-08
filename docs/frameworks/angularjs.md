@@ -1,6 +1,7 @@
 ---
 docType: content
 title: AngularJS
+nav: userguide
 ---
 
 # Usage with AngularJS

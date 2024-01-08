@@ -2,6 +2,7 @@
 docType: content
 name: writing-rules
 title: Writing rules
+nav: devguide
 ---
 
 # Writing rules

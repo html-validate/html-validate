@@ -1,6 +1,7 @@
 ---
 docType: content
 title: About html-validate
+nav: false
 ---
 
 # About

@@ -1,6 +1,7 @@
 ---
 docType: content
 title: Running in a browser
+nav: devguide
 ---
 
 # Running in a browser

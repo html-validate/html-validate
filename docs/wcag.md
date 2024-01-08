@@ -1,6 +1,7 @@
 ---
 docType: content
 title: "WCAG 2.1 support table"
+nav: false
 ---
 
 # WCAG 2.1 support table

@@ -1,6 +1,7 @@
 ---
 docType: content
 title: Protractor plugin
+nav: userguide
 ---
 
 # Protractor plugin

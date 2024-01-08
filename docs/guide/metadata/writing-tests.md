@@ -1,6 +1,7 @@
 ---
 docType: content
 title: Writing tests for custom elements
+nav: metadata
 ---
 
 # Writing tests for custom elements

@@ -1,6 +1,7 @@
 ---
 docType: content
 title: Events
+nav: devguide
 ---
 
 # Events

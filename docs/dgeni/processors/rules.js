@@ -14,7 +14,7 @@ function compareName(a, b) {
 }
 
 function isRuleDocument(doc) {
-	return doc.docType === "rule";
+	return doc.docType === "rule" && !doc.hidden;
 }
 
 /**

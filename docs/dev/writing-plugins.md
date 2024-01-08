@@ -2,6 +2,7 @@
 docType: content
 name: writing-plugins
 title: Writing plugins
+nav: devguide
 ---
 
 # Writing plugins

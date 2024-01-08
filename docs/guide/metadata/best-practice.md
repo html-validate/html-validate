@@ -1,6 +1,7 @@
 ---
 docType: content
 title: Writing custom element metadata - Best practice
+nav: metadata
 ---
 
 # Best practice

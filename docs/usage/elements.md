@@ -1,6 +1,7 @@
 ---
 docType: content
 title: Elements metadata
+nav: userguide
 ---
 
 # Elements metadata

@@ -1,6 +1,7 @@
 ---
 docType: content
 title: Release and support plan
+nav: devguide
 ---
 
 # Release and support plan

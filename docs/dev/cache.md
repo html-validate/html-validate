@@ -1,6 +1,7 @@
 ---
 docType: content
 title: DOM cache API
+nav: devguide
 ---
 
 # DOM cache API
