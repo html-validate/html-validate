@@ -102,6 +102,12 @@
           "type": "boolean"
         },
 
+        "focusable": {
+          "title": "Mark this element as focusable",
+          "description": "This element may contain an associated label element.",
+          "anyOf": [{ "type": "boolean" }, { "function": true }]
+        },
+
         "form": {
           "title": "Mark element as a submittable form element",
           "type": "boolean"

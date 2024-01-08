@@ -11,6 +11,7 @@ export {
 	type MetaData,
 	type MetaDataTable,
 	type MetaElement,
+	type MetaFocusableCallback,
 	type MetaImplicitRoleCallback,
 	type MetaLookupableProperty,
 	type Permitted,

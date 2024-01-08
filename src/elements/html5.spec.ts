@@ -35,6 +35,10 @@ describe("HTML elements", () => {
 			/* disabled by default, should be included in these tests */
 			"svg-focusable": "error",
 
+			/* triggers on all landmark tests and is tedious/noise to add to all of
+			 * them, there are separate tests for this rule to verify it functions */
+			"unique-landmark": "off",
+
 			/* none of the WCAG rules should trigger in these tests, they are tested
 			 * separately and adds too much noise here */
 			"wcag/h32": "off",
@@ -61,13 +65,83 @@ describe("HTML elements", () => {
 		return doc.querySelector(selector);
 	}
 
+	describe("<a>", () => {
+		it("should be focusable if href is present", async () => {
+			expect.assertions(1);
+			const markup = "<a href></a>";
+			const input = await getElement(markup, "a")!;
+			const meta = input?.meta;
+			expect(meta?.focusable).toBe(true);
+		});
+
+		it("should not be focusable unless href is present", async () => {
+			expect.assertions(1);
+			const markup = "<a></a>";
+			const input = await getElement(markup, "a")!;
+			const meta = input?.meta;
+			expect(meta?.focusable).toBe(false);
+		});
+	});
+
+	describe("<area>", () => {
+		it("should be focusable if href is present", async () => {
+			expect.assertions(1);
+			const markup = "<area href></area>";
+			const input = await getElement(markup, "area")!;
+			const meta = input?.meta;
+			expect(meta?.focusable).toBe(true);
+		});
+
+		it("should not be focusable unless href is present", async () => {
+			expect.assertions(1);
+			const markup = "<area></area>";
+			const input = await getElement(markup, "area")!;
+			const meta = input?.meta;
+			expect(meta?.focusable).toBe(false);
+		});
+	});
+
+	describe("<audio>", () => {
+		it("should be focusable if controls is present", async () => {
+			expect.assertions(1);
+			const markup = "<audio controls></audio>";
+			const input = await getElement(markup, "audio")!;
+			const meta = input?.meta;
+			expect(meta?.focusable).toBe(true);
+		});
+
+		it("should not be focusable unless controls is present", async () => {
+			expect.assertions(1);
+			const markup = "<audio></audio>";
+			const input = await getElement(markup, "audio")!;
+			const meta = input?.meta;
+			expect(meta?.focusable).toBe(false);
+		});
+	});
+
 	describe("<input>", () => {
+		it("should be focusable unless hidden", async () => {
+			expect.assertions(1);
+			const markup = '<input type="text">';
+			const input = await getElement(markup, "input")!;
+			const meta = input?.meta;
+			expect(meta?.focusable).toBe(true);
+		});
+
 		it("should be labelable unless hidden", async () => {
 			expect.assertions(1);
 			const markup = '<input type="text">';
 			const input = await getElement(markup, "input")!;
 			const meta = input?.meta;
-			expect(meta?.labelable).toBeTruthy();
+			expect(meta?.labelable).toBe(true);
+		});
+
+		it("should not be focusable if hidden", async () => {
+			expect.assertions(1);
+			const markup = '<input type="hidden">';
+			const input = await getElement(markup, "input")!;
+			const meta = input?.meta;
+			expect(meta?.focusable).toBe(false);
 		});
 
 		it("should not be labelable if hidden", async () => {
@@ -75,7 +149,25 @@ describe("HTML elements", () => {
 			const markup = '<input type="hidden">';
 			const input = await getElement(markup, "input")!;
 			const meta = input?.meta;
-			expect(meta?.labelable).toBeFalsy();
+			expect(meta?.labelable).toBe(false);
+		});
+	});
+
+	describe("<video>", () => {
+		it("should be focusable if controls is present", async () => {
+			expect.assertions(1);
+			const markup = "<video controls></video>";
+			const input = await getElement(markup, "video")!;
+			const meta = input?.meta;
+			expect(meta?.focusable).toBe(true);
+		});
+
+		it("should not be focusable unless controls is present", async () => {
+			expect.assertions(1);
+			const markup = "<video></video>";
+			const input = await getElement(markup, "video")!;
+			const meta = input?.meta;
+			expect(meta?.focusable).toBe(false);
 		});
 	});
 

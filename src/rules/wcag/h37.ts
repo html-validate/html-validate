@@ -1,5 +1,5 @@
 import { type HtmlElement } from "../../dom";
-import { type TagEndEvent } from "../../event";
+import { type DOMReadyEvent } from "../../event";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../../rule";
 import { inAccessibilityTree } from "../helper/a11y";
 
@@ -71,41 +71,47 @@ export default class H37 extends Rule<void, RuleOptions> {
 	}
 
 	public setup(): void {
-		this.on("tag:end", (event: TagEndEvent) => {
-			const node = event.previous;
-
-			/* only validate images */
-			if (!needsAlt(node)) {
-				return;
-			}
-
-			/* ignore images with aria-hidden="true" or role="presentation" */
-			if (!inAccessibilityTree(node)) {
-				return;
-			}
-
-			/* validate plain alt-attribute */
-			if (
-				Boolean(node.getAttributeValue("alt")) ||
-				Boolean(node.hasAttribute("alt") && this.options.allowEmpty)
-			) {
-				return;
-			}
-
-			/* validate if any non-empty alias is present */
-			for (const attr of this.options.alias) {
-				if (node.getAttribute(attr)) {
-					return;
-				}
-			}
-
-			if (node.hasAttribute("alt")) {
-				const attr = node.getAttribute("alt");
-				/* istanbul ignore next */
-				this.report(node, `${getTag(node)} cannot have empty "alt" attribute`, attr?.keyLocation);
-			} else {
-				this.report(node, `${getTag(node)} is missing required "alt" attribute`, node.location);
+		this.on("dom:ready", (event: DOMReadyEvent) => {
+			const { document } = event;
+			const nodes = document.querySelectorAll("img, input");
+			for (const node of nodes) {
+				this.validateNode(node);
 			}
 		});
+	}
+
+	private validateNode(node: HtmlElement): void {
+		/* only validate images */
+		if (!needsAlt(node)) {
+			return;
+		}
+
+		/* ignore images with aria-hidden="true" or role="presentation" */
+		if (!inAccessibilityTree(node)) {
+			return;
+		}
+
+		/* validate plain alt-attribute */
+		if (
+			Boolean(node.getAttributeValue("alt")) ||
+			Boolean(node.hasAttribute("alt") && this.options.allowEmpty)
+		) {
+			return;
+		}
+
+		/* validate if any non-empty alias is present */
+		for (const attr of this.options.alias) {
+			if (node.getAttribute(attr)) {
+				return;
+			}
+		}
+
+		if (node.hasAttribute("alt")) {
+			const attr = node.getAttribute("alt");
+			/* istanbul ignore next */
+			this.report(node, `${getTag(node)} cannot have empty "alt" attribute`, attr?.keyLocation);
+		} else {
+			this.report(node, `${getTag(node)} is missing required "alt" attribute`, node.location);
+		}
 	}
 }

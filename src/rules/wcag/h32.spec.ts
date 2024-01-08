@@ -26,6 +26,13 @@ describe("wcag/h32", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report when form has nested submit button (button without type)", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <form><button></button></form> `;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should not report when form has nested submit button (input)", async () => {
 		expect.assertions(1);
 		const markup = '<form><input type="submit"></form>';
@@ -123,15 +130,15 @@ describe("wcag/h32", () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/wcag/h32.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: <form> element must have a submit button (wcag/h32) at test-files/rules/wcag/h32.html:9:2:
-			   7 | </form>
-			   8 |
-			>  9 | <form>
+			"error: <form> element must have a submit button (wcag/h32) at test-files/rules/wcag/h32.html:17:2:
+			  15 |
+			  16 | <!-- should yield error: no submit button present -->
+			> 17 | <form id="missing-submit" aria-label="Missing submit button">
 			     |  ^^^^
-			  10 | 	<input type="text">
-			  11 | 	<button>Foo</button>
-			  12 | 	<button type="button">Bar</button>
-			Selector: form:nth-child(3)"
+			  18 | 	<input type="text">
+			  19 | 	<button type="button">Bar</button>
+			  20 | </form>
+			Selector: #missing-submit"
 		`);
 	});
 

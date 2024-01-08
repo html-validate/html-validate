@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/hidden-focusable.md inline validation: correct 1`] = `[]`;
+
+exports[`docs/rules/hidden-focusable.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 13,
+        "context": "self",
+        "line": 1,
+        "message": "aria-hidden cannot be used on focusable elements",
+        "offset": 12,
+        "ruleId": "hidden-focusable",
+        "ruleUrl": "https://html-validate.org/rules/hidden-focusable.html",
+        "selector": "a",
+        "severity": 2,
+        "size": 11,
+      },
+    ],
+    "source": "<a href="#" aria-hidden="true">
+	lorem ipsum
+</a>",
+    "warningCount": 0,
+  },
+]
+`;

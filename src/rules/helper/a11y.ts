@@ -1,4 +1,4 @@
-import { type HtmlElement } from "../../dom";
+import { type HtmlElement, parseCssDeclaration } from "../../dom";
 
 export interface IsHiddenResult {
 	byParent: boolean;
@@ -10,12 +10,14 @@ declare module "../../dom/cache" {
 		[ARIA_HIDDEN_CACHE]: IsHiddenResult;
 		[HTML_HIDDEN_CACHE]: IsHiddenResult;
 		[ROLE_PRESENTATION_CACHE]: boolean;
+		[STYLE_HIDDEN_CACHE]: boolean;
 	}
 }
 
 const ARIA_HIDDEN_CACHE = Symbol(isAriaHidden.name);
 const HTML_HIDDEN_CACHE = Symbol(isHTMLHidden.name);
 const ROLE_PRESENTATION_CACHE = Symbol(isPresentation.name);
+const STYLE_HIDDEN_CACHE = Symbol(isStyleHidden.name);
 
 /**
  * Tests if this element is present in the accessibility tree.
@@ -25,7 +27,19 @@ const ROLE_PRESENTATION_CACHE = Symbol(isPresentation.name);
  * visible since the element might be in the visibility tree sometimes.
  */
 export function inAccessibilityTree(node: HtmlElement): boolean {
-	return !isAriaHidden(node) && !isPresentation(node);
+	if (isAriaHidden(node)) {
+		return false;
+	}
+	if (isPresentation(node)) {
+		return false;
+	}
+	if (isHTMLHidden(node)) {
+		return false;
+	}
+	if (isStyleHidden(node)) {
+		return false;
+	}
+	return true;
 }
 
 function isAriaHiddenImpl(node: HtmlElement): IsHiddenResult {
@@ -44,6 +58,8 @@ function isAriaHiddenImpl(node: HtmlElement): IsHiddenResult {
  *
  * Dynamic values yields `false` since the element will conditionally be in the
  * accessibility tree and must fulfill it's conditions.
+ *
+ * @internal
  */
 export function isAriaHidden(node: HtmlElement): boolean;
 export function isAriaHidden(node: HtmlElement, details: true): IsHiddenResult;
@@ -72,6 +88,8 @@ function isHTMLHiddenImpl(node: HtmlElement): IsHiddenResult {
  *
  * Dynamic values yields `false` since the element will conditionally be in the
  * DOM tree and must fulfill it's conditions.
+ *
+ * @internal
  */
 export function isHTMLHidden(node: HtmlElement): boolean;
 export function isHTMLHidden(node: HtmlElement, details: true): IsHiddenResult;
@@ -84,8 +102,35 @@ export function isHTMLHidden(node: HtmlElement, details?: true): boolean | IsHid
 	return details ? result : result.byParent || result.bySelf;
 }
 
+function isStyleHiddenImpl(node: HtmlElement): boolean {
+	const isHidden = (node: HtmlElement): boolean => {
+		const style = node.getAttribute("style");
+		const { display, visibility } = parseCssDeclaration(style?.value);
+		return display === "none" || visibility === "hidden";
+	};
+	const byParent = node.parent ? isStyleHidden(node.parent) : false;
+	const bySelf = isHidden(node);
+	return byParent || bySelf;
+}
+
 /**
- * Tests if this element or a parent element has role="presentation".
+ * Tests if this element or an ancestor have `hidden` attribute.
+ *
+ * Dynamic values yields `false` since the element will conditionally be in the
+ * DOM tree and must fulfill it's conditions.
+ *
+ * @internal
+ */
+export function isStyleHidden(node: HtmlElement): boolean {
+	const cached = node.cacheGet(STYLE_HIDDEN_CACHE);
+	if (cached) {
+		return cached;
+	}
+	return node.cacheSet(STYLE_HIDDEN_CACHE, isStyleHiddenImpl(node));
+}
+
+/**
+ * Tests if this element has `role="presentation"` or `role="none"`.
  *
  * Dynamic values yields `false` just as if the attribute wasn't present.
  */
@@ -94,24 +139,22 @@ export function isPresentation(node: HtmlElement): boolean {
 		return Boolean(node.cacheGet(ROLE_PRESENTATION_CACHE));
 	}
 
-	let cur: HtmlElement = node;
-	do {
-		const role = cur.getAttribute("role");
+	/* interactive elements ignores `role="presentation"` */
+	const meta = node.meta;
+	if (meta && meta.interactive) {
+		return node.cacheSet(ROLE_PRESENTATION_CACHE, false);
+	}
 
-		/* role="presentation" */
-		if (role && role.value === "presentation") {
-			return cur.cacheSet(ROLE_PRESENTATION_CACHE, true);
-		}
+	/* focusable elements ignores `role="presentation"` */
+	const tabindex = node.getAttribute("tabindex");
+	if (tabindex) {
+		return node.cacheSet(ROLE_PRESENTATION_CACHE, false);
+	}
 
-		/* sanity check: break if no parent is present, normally not an issue as the
-		 * root element should be found first */
-		if (!cur.parent) {
-			break;
-		}
-
-		/* check parents */
-		cur = cur.parent;
-	} while (!cur.isRootElement());
-
-	return node.cacheSet(ROLE_PRESENTATION_CACHE, false);
+	const role = node.getAttribute("role");
+	if (role && (role.value === "presentation" || role.value === "none")) {
+		return node.cacheSet(ROLE_PRESENTATION_CACHE, true);
+	} else {
+		return node.cacheSet(ROLE_PRESENTATION_CACHE, false);
+	}
 }

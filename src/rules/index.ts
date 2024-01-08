@@ -32,6 +32,7 @@ import EmptyHeading from "./empty-heading";
 import EmptyTitle from "./empty-title";
 import FormDupName from "./form-dup-name";
 import HeadingLevel from "./heading-level";
+import HiddenFocusable from "./hidden-focusable";
 import IdPattern from "./id-pattern";
 import InputAttributes from "./input-attributes";
 import InputMissingLabel from "./input-missing-label";
@@ -72,6 +73,7 @@ import ScriptType from "./script-type";
 import SvgFocusable from "./svg-focusable";
 import TelNonBreaking from "./tel-non-breaking";
 import TextContent from "./text-content";
+import UniqueLandmark from "./unique-landmark";
 import UnrecognizedCharRef from "./unrecognized-char-ref";
 import ValidID from "./valid-id";
 import VoidContent from "./void-content";
@@ -112,6 +114,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"empty-title": EmptyTitle,
 	"form-dup-name": FormDupName,
 	"heading-level": HeadingLevel,
+	"hidden-focusable": HiddenFocusable,
 	"id-pattern": IdPattern,
 	"input-attributes": InputAttributes,
 	"input-missing-label": InputMissingLabel,
@@ -152,6 +155,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"svg-focusable": SvgFocusable,
 	"tel-non-breaking": TelNonBreaking,
 	"text-content": TextContent,
+	"unique-landmark": UniqueLandmark,
 	"unrecognized-char-ref": UnrecognizedCharRef,
 	"valid-id": ValidID,
 	"void-content": VoidContent,
