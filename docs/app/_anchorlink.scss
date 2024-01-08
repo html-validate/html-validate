@@ -1,23 +1,19 @@
-.anchorlink {
-	@include fa-icon-solid($fa-var-link);
-
-	display: none;
-	font-size: 0.9em;
-
-	&:hover {
-		color: $link-color;
-		display: inline-block;
-		text-decoration: none;
-	}
-}
-
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-	&:hover .anchorlink {
-		display: inline-block;
+	a {
+		color: $headings-color;
+	}
+
+	&:hover a {
+		&::before {
+			content: "#";
+			display: inline-block;
+			margin-left: -2rem;
+			width: 2rem;
+		}
 	}
 }

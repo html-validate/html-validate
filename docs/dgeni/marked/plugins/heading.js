@@ -50,8 +50,11 @@ function getHeadingId(text, raw) {
  */
 function heading(text, level, raw, _slugger) {
 	const [value, id] = getHeadingId(text, raw);
-	const anchor = level > 1 ? `<a class="anchorlink" href="#${id}" aria-hidden="true"></a>` : "";
-	return `<h${level} id="${id}">${value}${anchor}</h${level}>`;
+	if (level > 1) {
+		return `<h${level} id="${id}"><a href="#${id}">${value}</a></h${level}> `;
+	} else {
+		return `<h${level} id="${id}">${value}</h${level}>`;
+	}
 }
 
 /* istanbul ignore next -- not to be tested */
