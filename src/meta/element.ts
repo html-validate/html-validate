@@ -65,7 +65,7 @@ export enum TextContent {
  * returns whenever the element is focusable or not.
  *
  * @public
- * @since %version%
+ * @since 8.9.0
  * @param node - The node to determine if it is focusable.
  * @returns `true` if the node is focusable.
  */

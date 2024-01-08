@@ -1,5 +1,24 @@
 # html-validate changelog
 
+## [8.9.0](https://gitlab.com/html-validate/html-validate/compare/v8.8.0...v8.9.0) (2024-1-8)
+
+### Features
+
+- **elements:** new property `focusable` to mark elements as focusable ([c59c8b2](https://gitlab.com/html-validate/html-validate/commit/c59c8b237272376fce60c1fd1f4f105b29952238))
+- **rules:** new rule `hidden-focusable` ([243e7fb](https://gitlab.com/html-validate/html-validate/commit/243e7fbbe0da541e534215f4e68455280a267307))
+- **rules:** new rule `unique-landmark` ([187be1e](https://gitlab.com/html-validate/html-validate/commit/187be1ec11a5bc3d7dc7b1a4dcc31058dc43cea6))
+
+### Bug Fixes
+
+- **api:** remove internal `listeners` property from public API ([303e5d5](https://gitlab.com/html-validate/html-validate/commit/303e5d513b243280c8ed2cb442b1223fe83286ec))
+- **dom:** ancestor with `role="presentation"` no longer counts decendants as missing from a11y tree ([cc72da1](https://gitlab.com/html-validate/html-validate/commit/cc72da1b0eab0ba28a5bc8984077684c6f23474f))
+- **dom:** handle `role="none"` as a synonym for `role="presentation"` ([b1d7b50](https://gitlab.com/html-validate/html-validate/commit/b1d7b50e86b1867cc17a194b680a11e7f8d43e8c))
+- **dom:** interactive and focusable elements ignore `role="presentation"` ([017308f](https://gitlab.com/html-validate/html-validate/commit/017308faab0a5d75a8e009c59923434a44a141bf))
+- **rules:** better error description for `require-sri` ([ffc3695](https://gitlab.com/html-validate/html-validate/commit/ffc3695febcc17df8c905867d1af95c5511b2a70))
+- **rules:** rule `wcag/h30` no longer requires text on `<a hidden>` ([a20cc84](https://gitlab.com/html-validate/html-validate/commit/a20cc84870cfd848e282c41c47bb2a4f8610289b))
+- **rules:** rule `wcag/h30` no longer requires text on links with `display: none` or `visibility: hidden` ([36ff07e](https://gitlab.com/html-validate/html-validate/commit/36ff07e968df97be62a2a83fd373b1fca2b8b974))
+- **rules:** rules `wcag/h32` handles `<button>` without explicit `type` ([84c6a6e](https://gitlab.com/html-validate/html-validate/commit/84c6a6e66c946e4bcfc990b0cb7b032f4ea5ca8b))
+
 ## 8.8.0 (2023-12-27)
 
 ### Features
