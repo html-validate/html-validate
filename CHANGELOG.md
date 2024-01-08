@@ -1,6 +1,6 @@
 # html-validate changelog
 
-## [8.9.0](https://gitlab.com/html-validate/html-validate/compare/v8.8.0...v8.9.0) (2024-1-8)
+## 8.9.0 (2024-1-8)
 
 ### Features
 
