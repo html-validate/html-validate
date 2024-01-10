@@ -25,17 +25,19 @@ function createLocation({ column, size }: LocationSpec): Location {
 describe("HtmlElement", () => {
 	let document: HtmlElement;
 	const location = createLocation({ column: 1, size: 4 });
+	const parser = new Parser(Config.empty().resolve());
 
 	beforeEach(() => {
-		const markup = `<div id="parent">
-			<ul>
-				<li class="foo" dynamic-class="expr">foo</li>
-				<li class="bar baz" id="spam" title="ham">bar</li>
-			</ul>
-			<p class="bar">spam</p>
-			<span class="baz">flux</span>
-		</div>`;
-		const parser = new Parser(Config.empty().resolve());
+		const markup = /* HTML */ `
+			<div id="parent">
+				<ul>
+					<li class="foo" dynamic-class="expr">foo</li>
+					<li class="bar baz" id="spam" title="ham">bar</li>
+				</ul>
+				<p class="bar">spam</p>
+				<span class="baz">flux</span>
+			</div>
+		`;
 		const source: Source = {
 			data: markup,
 			filename: "inline",
@@ -744,6 +746,49 @@ describe("HtmlElement", () => {
 			expect(node.matches("div > li")).toBeFalsy();
 			expect(node.matches("li.foo")).toBeFalsy();
 			expect(node.matches("#ham li")).toBeFalsy();
+		});
+	});
+
+	describe("role", () => {
+		it("should return explicitly set role", () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <div role="banner"></div> `;
+			const document = parser.parseHtml(markup);
+			const element = document.querySelector("div")!;
+			expect(element.role).toBe("banner");
+		});
+
+		it("should return implicit role", () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<ul>
+					<li></li>
+				</ul>
+			`;
+			const document = parser.parseHtml(markup);
+			const element = document.querySelector("li")!;
+			expect(element.role).toBe("listitem");
+		});
+
+		it("should handle elements without metadata", () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <any></any> `;
+			const document = parser.parseHtml(markup);
+			const element = document.querySelector("any")!;
+			expect(element.role).toBeNull();
+		});
+
+		it("should cache result", () => {
+			expect.assertions(4);
+			const markup = /* HTML */ ` <img /> `;
+			const document = parser.parseHtml(markup);
+			const element = document.querySelector("img")!;
+			const spy = jest.spyOn(element, "getAttribute");
+			expect(element.role).toBe("img");
+			expect(spy).toHaveBeenCalled();
+			spy.mockClear();
+			expect(element.role).toBe("img");
+			expect(spy).not.toHaveBeenCalled();
 		});
 	});
 

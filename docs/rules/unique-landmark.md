@@ -23,6 +23,11 @@ The following elements / roles are considered landmarks:
 - `nav` or `[role="navigation"]`
 - `section` or `[role="region"]`
 
+Some exceptions apply:
+
+- `<footer>` and `<header>` are not considered landmarks if they are nested under `<main>` or sectioning content.
+- `<form>` and `<section>` is only considered a landmark if it has been given an explicit name.
+
 If the landmark is only present at most once the name does not have to be set.
 
 ## Rule details
@@ -52,4 +57,5 @@ Examples of **correct** code for this rule:
 
 ## Version history
 
-- 8.9.0 - Rule added
+- %version% - Exceptions for `<footer>`, `<form>`, `<header>` and `<section>` added.
+- 8.9.0 - Rule added.

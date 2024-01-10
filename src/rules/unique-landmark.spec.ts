@@ -59,6 +59,67 @@ describe("rule unique-landmark", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error when landmarks explicitly change role", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<nav role="presentation"></nav>
+			<nav role="presentation"></nav>
+			<nav></nav>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when <header> or <footer> is nested in <main> or sectioning content", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<header>primary header</header>
+			<main>
+				<header></header>
+				<footer></footer>
+			</main>
+			<article>
+				<header></header>
+				<footer></footer>
+			</article>
+			<aside>
+				<header></header>
+				<footer></footer>
+			</aside>
+			<nav>
+				<header></header>
+				<footer></footer>
+			</nav>
+			<section>
+				<header></header>
+				<footer></footer>
+			</section>
+			<footer>primary header</footer>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report error for unnamed forms", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<form></form>
+			<form></form>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report error for unnamed sections", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<section></section>
+			<section></section>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should report error when landmark is missing name", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
@@ -151,8 +212,60 @@ describe("rule unique-landmark", () => {
 		`);
 	});
 
+	it("should report error for named forms with duplicated name", async () => {
+		expect.assertions(2);
+		const markup = /* HTML */ `
+			<form aria-label="lorem ipsum"></form>
+			<form aria-label="lorem ipsum"></form>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark) at inline:2:10:
+			  1 |
+			> 2 | 			<form aria-label="lorem ipsum"></form>
+			    | 			      ^^^^^^^^^^
+			  3 | 			<form aria-label="lorem ipsum"></form>
+			  4 |
+			Selector: form:nth-child(1)
+			error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark) at inline:3:10:
+			  1 |
+			  2 | 			<form aria-label="lorem ipsum"></form>
+			> 3 | 			<form aria-label="lorem ipsum"></form>
+			    | 			      ^^^^^^^^^^
+			  4 |
+			Selector: form:nth-child(2)"
+		`);
+	});
+
+	it("should report error for named sections with duplicated name", async () => {
+		expect.assertions(2);
+		const markup = /* HTML */ `
+			<section aria-label="lorem ipsum"></section>
+			<section aria-label="lorem ipsum"></section>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark) at inline:2:13:
+			  1 |
+			> 2 | 			<section aria-label="lorem ipsum"></section>
+			    | 			         ^^^^^^^^^^
+			  3 | 			<section aria-label="lorem ipsum"></section>
+			  4 |
+			Selector: section:nth-child(1)
+			error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark) at inline:3:13:
+			  1 |
+			  2 | 			<section aria-label="lorem ipsum"></section>
+			> 3 | 			<section aria-label="lorem ipsum"></section>
+			    | 			         ^^^^^^^^^^
+			  4 |
+			Selector: section:nth-child(2)"
+		`);
+	});
+
 	describe("should report error for", () => {
-		const tags = ["aside", "footer", "form", "header", "main", "nav", "section"];
+		const tags = ["aside", "footer", "header", "main", "nav"];
 		const roles = [
 			"complementary",
 			"contentinfo",

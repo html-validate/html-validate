@@ -12,6 +12,14 @@ import { NodeType } from "./nodetype";
 import { generateIdSelector, Selector } from "./selector";
 import { TextNode } from "./text";
 
+const ROLE = Symbol("role");
+
+declare module "./cache" {
+	export interface DOMNodeCache {
+		[ROLE]: string;
+	}
+}
+
 /**
  * @public
  */
@@ -325,6 +333,31 @@ export class HtmlElement extends DOMNode {
 
 	public get meta(): MetaElement | null {
 		return this.metaElement;
+	}
+
+	/**
+	 * Get current role for this element (explicit with `role` attribute or mapped
+	 * with implicit role).
+	 *
+	 * @since %version%
+	 */
+	public get role(): string | DynamicValue | null {
+		const cached = this.cacheGet(ROLE);
+		if (cached !== undefined) {
+			return cached;
+		}
+
+		const role = this.getAttribute("role");
+		if (role) {
+			return this.cacheSet(ROLE, role.value);
+		}
+
+		if (this.metaElement) {
+			const implicitRole = this.metaElement.implicitRole(this._adapter);
+			return this.cacheSet(ROLE, implicitRole);
+		}
+
+		return this.cacheSet(ROLE, null);
 	}
 
 	/**

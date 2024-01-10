@@ -886,6 +886,8 @@ export default defineMetadata({
 				'[role="navigation"]',
 				'[role="region"]',
 			];
+			/* § 4: https://www.w3.org/TR/html-aria/#docconformance */
+			/* § 3.4.48: https://w3c.github.io/html-aam/#el-header */
 			if (node.closest(selectors.join(","))) {
 				return null;
 			} else {
