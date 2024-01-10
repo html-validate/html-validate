@@ -3,6 +3,20 @@ import { type DOMTree, type HtmlElement, DynamicValue } from "../dom";
 import { type DOMReadyEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
+const roles = ["complementary", "contentinfo", "form", "banner", "main", "navigation", "region"];
+
+const selectors = [
+	"aside",
+	"footer",
+	"form",
+	"header",
+	"main",
+	"nav",
+	"section",
+	...roles.map((it) => `[role="${it}"]`),
+	/* <search> does not (yet?) require a unique name */
+];
+
 function getTextFromReference(
 	document: DOMTree,
 	id: string | DynamicValue | null,
@@ -22,6 +36,23 @@ function getTextFromReference(
 		 * non-unique. */
 		return selector;
 	}
+}
+
+/* until Array.groupBy(..) can be used (Node 21) */
+function groupBy<T, K extends string | number | symbol>(
+	values: T[],
+	callback: (value: T) => K,
+): Record<K, T[]> {
+	const result = {} as Record<K, T[]>;
+	for (const value of values) {
+		const key = callback(value);
+		if (key in result) {
+			result[key].push(value);
+		} else {
+			result[key] = [value];
+		}
+	}
+	return result;
 }
 
 function getTextEntryFromElement(
@@ -86,21 +117,13 @@ export default class UniqueLandmark extends Rule {
 	}
 
 	public setup(): void {
-		const selectors = [
-			'aside, [role="complementary"]',
-			'footer, [role="contentinfo"]',
-			'form, [role="form"]',
-			'header, [role="banner"]',
-			'main, [role="main"]',
-			'nav, [role="navigation"]',
-			'section, [role="region"]',
-			/* <search> does not (yet?) require a unique name */
-		];
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const { document } = event;
-			for (const selector of selectors) {
-				const nodes = document.querySelectorAll(selector);
-
+			const elements = document
+				.querySelectorAll(selectors.join(","))
+				.filter((it) => typeof it.role === "string" && roles.includes(it.role));
+			const grouped = groupBy(elements, (it) => it.role as string);
+			for (const nodes of Object.values(grouped)) {
 				/* if the landmark isn't present or at most a single occurrence it is
 				 * considered unique */
 				if (nodes.length <= 1) {

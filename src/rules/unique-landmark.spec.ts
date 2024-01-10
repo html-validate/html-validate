@@ -59,6 +59,47 @@ describe("rule unique-landmark", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error when landmarks explicitly change role", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<nav role="presentation"></nav>
+			<nav role="presentation"></nav>
+			<nav></nav>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when <header> or <footer> is nested in <main> or sectioning content", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<header>primary header</header>
+			<main>
+				<header></header>
+				<footer></footer>
+			</main>
+			<article>
+				<header></header>
+				<footer></footer>
+			</article>
+			<aside>
+				<header></header>
+				<footer></footer>
+			</aside>
+			<nav>
+				<header></header>
+				<footer></footer>
+			</nav>
+			<section>
+				<header></header>
+				<footer></footer>
+			</section>
+			<footer>primary header</footer>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should report error when landmark is missing name", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `

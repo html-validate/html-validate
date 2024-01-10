@@ -583,6 +583,7 @@ export class HtmlElement extends DOMNode {
     querySelector(selector: string): HtmlElement | null;
     // (undocumented)
     querySelectorAll(selector: string): HtmlElement[];
+    get role(): string | DynamicValue | null;
     // @internal (undocumented)
     static rootNode(location: Location_2): HtmlElement;
     setAnnotation(text: string): void;
