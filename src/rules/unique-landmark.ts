@@ -89,6 +89,14 @@ function getTextEntryFromElement(
 	};
 }
 
+function isExcluded(entry: { node: HtmlElement; text: string | DynamicValue | null }): boolean {
+	const { node, text } = entry;
+	if (text === null) {
+		return !(node.is("form") || node.is("section"));
+	}
+	return true;
+}
+
 export default class UniqueLandmark extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
@@ -131,7 +139,11 @@ export default class UniqueLandmark extends Rule {
 				}
 
 				const entries = nodes.map((it) => getTextEntryFromElement(document, it));
-				for (const entry of entries) {
+
+				/* edge case: unnamed forms are not considered landmarks */
+				const filteredEntries = entries.filter(isExcluded);
+
+				for (const entry of filteredEntries) {
 					if (entry.text instanceof DynamicValue) {
 						continue;
 					}
