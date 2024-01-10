@@ -339,7 +339,7 @@ export class HtmlElement extends DOMNode {
 	 * Get current role for this element (explicit with `role` attribute or mapped
 	 * with implicit role).
 	 *
-	 * @since %version%
+	 * @since 8.9.1
 	 */
 	public get role(): string | DynamicValue | null {
 		const cached = this.cacheGet(ROLE);

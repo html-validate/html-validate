@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## [8.9.1](https://gitlab.com/html-validate/html-validate/compare/v8.9.0...v8.9.1) (2024-1-10)
+
+### Bug Fixes
+
+- **rules:** `<form>` and `<section>` without explicit accessible name is no longer considered landmark ([a36deac](https://gitlab.com/html-validate/html-validate/commit/a36deac9e7a53f09e73e6575a9dcf098eb63bdda))
+- **rules:** `<header>` and `<footer>` nested in `<main>` or sectioning content is no longer considered landmark ([bcab354](https://gitlab.com/html-validate/html-validate/commit/bcab354dd201cffabb3352c8b13f5985c99b777c)), closes [#234](https://gitlab.com/html-validate/html-validate/issues/234)
+
 ## 8.9.0 (2024-1-8)
 
 ### Features

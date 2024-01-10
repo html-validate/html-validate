@@ -57,5 +57,5 @@ Examples of **correct** code for this rule:
 
 ## Version history
 
-- %version% - Exceptions for `<footer>`, `<form>`, `<header>` and `<section>` added.
+- 8.9.1 - Exceptions for `<footer>`, `<form>`, `<header>` and `<section>` added.
 - 8.9.0 - Rule added.
