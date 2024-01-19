@@ -25,7 +25,7 @@
     "marked": "11.1.1",
     "postcss": "8.4.33",
     "prettier": "2.8.8",
-    "sass": "1.69.7",
+    "sass": "1.70.0",
     "serve-static": "1.15.0"
   },
   "engines": {
