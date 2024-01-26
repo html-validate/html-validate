@@ -1,5 +1,2 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
 configfile=$(node -p 'require.resolve("@html-validate/prettier-config/lint-staged")')
-exec npm exec lint-staged -- --config "${configfile}" "$@"
+npm exec lint-staged -- --config "${configfile}" "$@"
