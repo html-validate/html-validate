@@ -89,10 +89,9 @@
     "tests/vitest"
   ],
   "scripts": {
-    "prebuild": "run-s codegen prebuild:*",
+    "prebuild": "run-s codegen && tsc",
     "build": "run-s build:cjs build:esm build:script",
     "postbuild": "bash scripts/pkg",
-    "prebuild:tsc": "tsc",
     "build:cjs": "rollup --config rollup.cjs.config.mjs",
     "build:esm": "rollup --config rollup.esm.config.mjs",
     "build:script": "node build.mjs",
@@ -233,7 +232,7 @@
     "marked": "11.1.1",
     "memfs": "4.6.0",
     "npm-pkg-lint": "2.1.0",
-    "npm-run-all": "4.1.5",
+    "npm-run-all2": "5.0.0",
     "rollup": "4.9.6",
     "rollup-plugin-esbuild": "6.1.1",
     "stream-buffers": "3.0.2",
