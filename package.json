@@ -229,7 +229,7 @@
     "jest-diff": "29.7.0",
     "jest-environment-jsdom": "29.7.0",
     "jest-snapshot": "29.7.0",
-    "marked": "11.1.1",
+    "marked": "11.2.0",
     "memfs": "4.6.0",
     "npm-pkg-lint": "2.1.0",
     "npm-run-all2": "6.1.1",
@@ -274,7 +274,7 @@
     "semver"
   ],
   "overrides": {
-    "marked": "11.1.1"
+    "marked": "11.2.0"
   },
   "renovate": {
     "extends": [
