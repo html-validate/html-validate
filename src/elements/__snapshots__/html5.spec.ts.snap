@@ -2072,7 +2072,7 @@ exports[`HTML elements <button> invalid markup 1`] = `
       {
         "column": 2,
         "line": 28,
-        "message": "<button> is missing required "type" attribute",
+        "message": "<button> is missing recommended "type" attribute",
         "offset": 793,
         "ruleId": "no-implicit-button-type",
         "ruleUrl": "https://html-validate.org/rules/no-implicit-button-type.html",

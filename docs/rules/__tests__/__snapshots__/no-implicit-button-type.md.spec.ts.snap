@@ -11,7 +11,7 @@ exports[`docs/rules/no-implicit-button-type.md inline validation: incorrect 1`] 
       {
         "column": 2,
         "line": 1,
-        "message": "<button> is missing required "type" attribute",
+        "message": "<button> is missing recommended "type" attribute",
         "offset": 1,
         "ruleId": "no-implicit-button-type",
         "ruleUrl": "https://html-validate.org/rules/no-implicit-button-type.html",
