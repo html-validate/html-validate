@@ -70,6 +70,7 @@ export async function init(cwd: string): Promise<InitResult> {
 			message: "A .htmlvalidate.json file already exists, do you want to overwrite it?",
 		});
 		if (!result.overwrite) {
+			/* eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors -- technical debt, should not result in failure at all */
 			return Promise.reject();
 		}
 	}
