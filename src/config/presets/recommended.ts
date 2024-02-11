@@ -45,6 +45,7 @@ const config: ConfigData = {
 		"no-dup-class": "error",
 		"no-dup-id": "error",
 		"no-implicit-button-type": "error",
+		"no-implicit-input-type": "error",
 		"no-implicit-close": "error",
 		"no-inline-style": "error",
 		"no-multiple-main": "error",
