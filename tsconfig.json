@@ -8,8 +8,10 @@
     "declarationMap": true,
     "declarationDir": "temp/types/",
 
-    "target": "es2019",
-    "lib": ["es2019"],
+    /* based on https://github.com/tsconfig/bases/blob/main/bases/node16.json */
+    "target": "es2021",
+    "lib": ["es2021"],
+
     "module": "esnext",
     "moduleResolution": "bundler",
     "isolatedModules": true,
