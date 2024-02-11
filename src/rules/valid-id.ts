@@ -40,7 +40,7 @@ export default class ValidID extends Rule<RuleContext, RuleOptions> {
 			: [
 					"  - ID must begin with a letter",
 					"  - ID must only contain alphanumerical characters, `-` and `_`",
-			  ];
+				];
 		return {
 			description: [
 				`${message}.`,

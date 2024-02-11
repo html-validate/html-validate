@@ -153,9 +153,9 @@ Boolean attributes was specified as `[]` and when value could be omitted it used
       "disabled": [],
 
       /* allow omitting value, e.g. it can be set as a boolean or it should be "true" or "false" */
-      "multiline": ["", "true", "false"]
-    }
-  }
+      "multiline": ["", "true", "false"],
+    },
+  },
 }
 ```
 
@@ -215,9 +215,9 @@ When [#68](https://gitlab.com/html-validate/html-validate/-/issues/68) (validate
   "my-custom-input": {
     "attributes": {
       /* signal that the "foobar" attribute exists but no validation will occur */
-      "foobar": {}
-    }
-  }
+      "foobar": {},
+    },
+  },
 }
 ```
 

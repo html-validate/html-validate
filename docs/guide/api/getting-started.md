@@ -63,7 +63,7 @@ If we run this, `report` will contain an object like this:
     /* ... */
   ],
   "errorCount": 2,
-  "warningCount": 0
+  "warningCount": 0,
 }
 ```
 
@@ -86,11 +86,11 @@ That is, if there are one or more errors, `valid` will be `false` and `errorCoun
       ],
       "errorCount": 2,
       "warningCount": 0,
-      "source": "\n  <h1>Hello & goodbye!</h1>\n  <input type='text'></input>\n"
-    }
+      "source": "\n  <h1>Hello & goodbye!</h1>\n  <input type='text'></input>\n",
+    },
   ],
   "errorCount": 2,
-  "warningCount": 0
+  "warningCount": 0,
 }
 ```
 
@@ -130,7 +130,7 @@ console.log(report.results[0]);
           "column": 13,
           "size": 1,
           "selector": "h1",
-          "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html"
+          "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
         },
         {
           "ruleId": "void-content",
@@ -142,16 +142,16 @@ console.log(report.results[0]);
           "size": 6,
           "selector": null,
           "ruleUrl": "https://html-validate.org/rules/void-content.html",
-          "context": "input"
-        }
+          "context": "input",
+        },
       ],
       "errorCount": 2,
       "warningCount": 0,
-      "source": "\n  <h1>Hello & goodbye!</h1>\n  <input type='text'></input>\n"
-    }
+      "source": "\n  <h1>Hello & goodbye!</h1>\n  <input type='text'></input>\n",
+    },
   ],
   "errorCount": 2,
-  "warningCount": 0
+  "warningCount": 0,
 }
 ```
 

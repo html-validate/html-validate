@@ -116,7 +116,7 @@ function toHTMLValidateImpl(
 						expand: this.expand,
 						aAnnotation: "Expected error",
 						bAnnotation: "Actual error",
-				  })
+					})
 				: /* istanbul ignore next */ undefined;
 			const hint = this.utils.matcherHint(".not.toHTMLValidate", undefined, undefined, {
 				comment: "expected error",

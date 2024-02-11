@@ -69,7 +69,7 @@ This rule takes an optional object:
     /* ... */
   },
   "include": [],
-  "exclude": []
+  "exclude": [],
 }
 ```
 

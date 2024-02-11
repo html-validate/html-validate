@@ -41,7 +41,7 @@ For `json` the JSON schema `https://html-validate.org/schemas/config.json` can o
 ```jsonc
 {
   "$schema": "https://html-validate.org/schemas/config.json",
-  "extends": ["html-validate:recommended"]
+  "extends": ["html-validate:recommended"],
 }
 ```
 
@@ -75,8 +75,8 @@ Configuration can be extended from bundled preset or shareable configurations.
     "my-plugin:recommended",
 
     /* local file */
-    "./file"
-  ]
+    "./file",
+  ],
 }
 ```
 
@@ -122,8 +122,8 @@ all HTML5 elements.
     "./file.json",
     {
       /* inline metadata */
-    }
-  ]
+    },
+  ],
 }
 ```
 
