@@ -12,6 +12,12 @@
     "target": "es2021",
     "lib": ["es2021"],
 
+    /* the Vite ecosystem does not play well with types, until vite#15714 is
+     * backported to Vite 4 we cannot test Vitest compatibility
+     *
+     * https://github.com/vitejs/vite/issues/15714 */
+    "skipLibCheck": true,
+
     "module": "esnext",
     "moduleResolution": "bundler",
     "isolatedModules": true,
