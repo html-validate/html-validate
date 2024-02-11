@@ -216,6 +216,8 @@ Jest compat:
       @types/jest
   script:
     - sed 's#/src/browser.ts#/dist/cjs/browser.js#g' -i package.json
+    # older jest/ts-jest versions doesn't work with bundler so use nodenext instead
+    - sed '/moduleResolution/s/bundler/nodenext/' -i tsconfig.json
     - if [[ "${MATRIX}" -eq "25" ]]; then sed -i '/"paths"/i"baseUrl":"./",' tsconfig.json; fi
     - for spec in tests/jest/*.spec.ts; do sed 's#../../src#../../dist/cjs#g' -i "${spec}"; done
     - npm exec jest -- --no-coverage --ci -- tests/jest
