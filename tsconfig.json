@@ -11,7 +11,7 @@
     "target": "es2019",
     "lib": ["es2019"],
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "isolatedModules": true,
 
     "alwaysStrict": true,
