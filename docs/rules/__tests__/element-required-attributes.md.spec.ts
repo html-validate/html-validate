@@ -1,9 +1,8 @@
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<input>`;
-markup["correct"] = `<input type="">
-<input type="text">`;
+markup["incorrect"] = `<img>`;
+markup["correct"] = `<img src="cat.gif">`;
 
 describe("docs/rules/element-required-attributes.md", () => {
 	it("inline validation: incorrect", async () => {

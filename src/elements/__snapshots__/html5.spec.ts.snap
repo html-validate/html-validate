@@ -5222,7 +5222,7 @@ exports[`HTML elements <img> valid markup 1`] = `[]`;
 exports[`HTML elements <input> invalid markup 1`] = `
 [
   {
-    "errorCount": 437,
+    "errorCount": 436,
     "filePath": "test-files/elements/input-invalid.html",
     "messages": [
       {
@@ -5465,21 +5465,6 @@ exports[`HTML elements <input> invalid markup 1`] = `
         "selector": "input:nth-child(11)",
         "severity": 2,
         "size": 6,
-      },
-      {
-        "column": 2,
-        "context": {
-          "attribute": "type",
-          "element": "input",
-        },
-        "line": 17,
-        "message": "<input> is missing required "type" attribute",
-        "offset": 511,
-        "ruleId": "element-required-attributes",
-        "ruleUrl": "https://html-validate.org/rules/element-required-attributes.html",
-        "selector": "input:nth-child(12)",
-        "severity": 2,
-        "size": 5,
       },
       {
         "column": 2,

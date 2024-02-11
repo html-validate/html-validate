@@ -1153,7 +1153,6 @@ export default defineMetadata({
 				enum: ["default", "false", "true"],
 			},
 			type: {
-				required: true,
 				enum: [
 					"button",
 					"checkbox",

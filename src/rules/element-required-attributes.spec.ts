@@ -21,27 +21,27 @@ describe("rule element-required-attributes", () => {
 
 	it("should report error when required attribute is missing", async () => {
 		expect.assertions(2);
-		const markup = /* HTML */ ` <input /> `;
+		const markup = /* HTML */ ` <img /> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <input> is missing required "type" attribute (element-required-attributes) at inline:1:3:
-			> 1 |  <input />
-			    |   ^^^^^
-			Selector: input"
+			"error: <img> is missing required "src" attribute (element-required-attributes) at inline:1:3:
+			> 1 |  <img />
+			    |   ^^^
+			Selector: img"
 		`);
 	});
 
 	it("should not report error when element has required attribute attribute", async () => {
 		expect.assertions(1);
-		const markup = /* HTML */ ` <input type="text" /> `;
+		const markup = /* HTML */ ` <img src="cat.gif" /> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report error when element has empty attribute", async () => {
 		expect.assertions(1);
-		const markup = /* HTML */ ` <input type="" /> `;
+		const markup = /* HTML */ ` <img src="" /> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
@@ -66,13 +66,13 @@ describe("rule element-required-attributes", () => {
 			"test-files/rules/element-required-attributes.html",
 		);
 		expect(report).toMatchInlineCodeframe(`
-			"error: <input> is missing required "type" attribute (element-required-attributes) at test-files/rules/element-required-attributes.html:1:2:
-			> 1 | <input>
-			    |  ^^^^^
-			  2 | <input type>
-			  3 | <input type="">
-			  4 | <input type="text">
-			Selector: input:nth-child(1)"
+			"error: <img> is missing required "src" attribute (element-required-attributes) at test-files/rules/element-required-attributes.html:1:2:
+			> 1 | <img>
+			    |  ^^^
+			  2 | <img src>
+			  3 | <img src="">
+			  4 | <img src="cat.gif">
+			Selector: img:nth-child(1)"
 		`);
 	});
 
