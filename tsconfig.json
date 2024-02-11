@@ -23,6 +23,7 @@
     "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,
+    "forceConsistentCasingInFileNames": true,
 
     "paths": {
       "html-validate": ["./src"]
