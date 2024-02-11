@@ -9,7 +9,7 @@ export default class NoImplicitButtonType extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description: [
-				"`<button>` is missing required `type` attribute",
+				"`<button>` is missing recommended `type` attribute",
 				"",
 				"When the `type` attribute is omitted it defaults to `submit`.",
 				"Submit buttons are triggered when a keyboard user presses <kbd>Enter</kbd>.",
@@ -31,7 +31,7 @@ export default class NoImplicitButtonType extends Rule {
 			if (!attr) {
 				this.report({
 					node: event.target,
-					message: `<button> is missing required "type" attribute`,
+					message: `<button> is missing recommended "type" attribute`,
 				});
 			}
 		});

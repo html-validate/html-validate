@@ -1007,7 +1007,6 @@ describe("parser", () => {
 				value: "text",
 				meta: {
 					enum: expect.anything(),
-					required: true,
 				},
 			}),
 		);

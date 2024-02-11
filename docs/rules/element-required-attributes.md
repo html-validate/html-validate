@@ -14,9 +14,9 @@ The requirements comes from the {@link usage/elements element metadata}:
 
 ```json
 {
-  "input": {
+  "img": {
     "attributes": {
-      "type": {
+      "src": {
         "required": true
       }
     }
@@ -29,12 +29,11 @@ The requirements comes from the {@link usage/elements element metadata}:
 Examples of **incorrect** code for this rule:
 
 <validate name="incorrect" rules="element-required-attributes">
-    <input>
+    <img>
 </validate>
 
 Examples of **correct** code for this rule:
 
 <validate name="correct" rules="element-required-attributes">
-    <input type="">
-    <input type="text">
+    <img src="cat.gif">
 </validate>

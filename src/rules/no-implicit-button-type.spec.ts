@@ -55,7 +55,7 @@ describe("rule no-implicit-button-type", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <button> is missing required "type" attribute (no-implicit-button-type) at inline:1:3:
+			"error: <button> is missing recommended "type" attribute (no-implicit-button-type) at inline:1:3:
 			> 1 |  <button></button>
 			    |   ^^^^^^
 			Selector: button"
@@ -71,7 +71,7 @@ describe("rule no-implicit-button-type", () => {
 		});
 		expect(docs).toMatchInlineSnapshot(`
 			{
-			  "description": "\`<button>\` is missing required \`type\` attribute
+			  "description": "\`<button>\` is missing recommended \`type\` attribute
 
 			When the \`type\` attribute is omitted it defaults to \`submit\`.
 			Submit buttons are triggered when a keyboard user presses <kbd>Enter</kbd>.

@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/no-implicit-input-type.md inline validation: correct 1`] = `[]`;
+
+exports[`docs/rules/no-implicit-input-type.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 2,
+        "line": 1,
+        "message": "<input> is missing recommended "type" attribute",
+        "offset": 1,
+        "ruleId": "no-implicit-input-type",
+        "ruleUrl": "https://html-validate.org/rules/no-implicit-input-type.html",
+        "selector": "input",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<input>",
+    "warningCount": 0,
+  },
+]
+`;

@@ -49,6 +49,7 @@ import NoDupAttr from "./no-dup-attr";
 import NoDupClass from "./no-dup-class";
 import NoDupId from "./no-dup-id";
 import NoImplicitButtonType from "./no-implicit-button-type";
+import NoImplicitInputType from "./no-implicit-input-type";
 import NoImplicitClose from "./no-implicit-close";
 import NoInlineStyle from "./no-inline-style";
 import NoMissingReferences from "./no-missing-references";
@@ -131,6 +132,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"no-dup-class": NoDupClass,
 	"no-dup-id": NoDupId,
 	"no-implicit-button-type": NoImplicitButtonType,
+	"no-implicit-input-type": NoImplicitInputType,
 	"no-implicit-close": NoImplicitClose,
 	"no-inline-style": NoInlineStyle,
 	"no-missing-references": NoMissingReferences,
