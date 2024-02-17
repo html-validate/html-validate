@@ -1,3 +1,4 @@
+export { ariaNaming } from "./aria-naming";
 export {
 	type IncludeExcludeOptions,
 	isKeywordIgnored,

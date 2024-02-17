@@ -4,6 +4,7 @@ exports[`parser should postprocess elements allow modify element metadata 1`] = 
 {
   "aria": {
     "implicitRole": [Function],
+    "naming": [Function],
   },
   "attributes": {
     "align": {
@@ -71,6 +72,7 @@ exports[`parser should postprocess elements allow modify element metadata 2`] = 
 {
   "aria": {
     "implicitRole": [Function],
+    "naming": [Function],
   },
   "attributes": {
     "contenteditable": {

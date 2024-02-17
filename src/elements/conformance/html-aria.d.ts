@@ -5,6 +5,7 @@ declare const data: Array<{
 	selector: string;
 	markup: string;
 	role: string | null;
+	naming: "allowed" | "prohibited";
 }>;
 
 export = data;

@@ -107,6 +107,7 @@ export {
 export {
 	type IncludeExcludeOptions,
 	type TextClassificationOptions,
+	ariaNaming,
 	TextClassification,
 	classifyNodeText,
 	keywordPatternMatcher,

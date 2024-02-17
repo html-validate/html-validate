@@ -692,6 +692,7 @@ describe("MetaTable", () => {
 				{
 				  "aria": {
 				    "implicitRole": [Function],
+				    "naming": [Function],
 				  },
 				  "attributes": {
 				    "a": {
@@ -714,6 +715,7 @@ describe("MetaTable", () => {
 				{
 				  "aria": {
 				    "implicitRole": [Function],
+				    "naming": [Function],
 				  },
 				  "attributes": {
 				    "a": {

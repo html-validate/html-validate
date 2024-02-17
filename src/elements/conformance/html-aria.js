@@ -25,73 +25,89 @@ async function update() {
 		"wbr",
 	];
 
-	/** @type {Record<string, Array<{selector: string, markup: string, role?: string, description?: string}>>} */
+	/** @type {Record<string, Array<{selector: string, markup: string, role?: string, description?: string, naming?: "allowed" | "prohibited"}>>} */
 	const elementMapping = {
 		"a with href": [{ description: "a[href]", selector: "a", markup: `<a href></a>` }],
 		"a without href": [{ description: "a", selector: "a", markup: `<a></a>` }],
 		"area with href": [{ description: "area[href]", selector: "area", markup: `<area href />` }],
 		"area without href": [{ description: "area", selector: "area", markup: `<area />` }],
+		br: [{ selector: "br", markup: `<br>`, naming: "prohibited" }],
 		footer: [
-			{ selector: "footer", markup: `<footer></footer>`, role: "contentinfo" },
+			{
+				selector: "footer",
+				markup: `<footer></footer>`,
+				role: "contentinfo",
+				naming: "allowed",
+			},
 			{
 				description: "article footer",
 				selector: "footer",
 				markup: `<article><footer></footer></article>`,
 				role: "generic",
+				naming: "prohibited",
 			},
 			{
 				description: "aside footer",
 				selector: "footer",
 				markup: `<aside><footer></footer></aside>`,
 				role: "generic",
+				naming: "prohibited",
 			},
 			{
 				description: "main footer",
 				selector: "footer",
 				markup: `<main><footer></footer></main>`,
 				role: "generic",
+				naming: "prohibited",
 			},
 			{
 				description: "nav footer",
 				selector: "footer",
 				markup: `<nav><footer></footer></nav>`,
 				role: "generic",
+				naming: "prohibited",
 			},
 			{
 				description: "section footer",
 				selector: "footer",
 				markup: `<section><footer></footer></section>`,
 				role: "generic",
+				naming: "prohibited",
 			},
 			{
 				description: "[role=article] footer",
 				selector: "footer",
 				markup: `<div role="article"><footer></footer></div>`,
 				role: "generic",
+				naming: "prohibited",
 			},
 			{
 				description: "[role=complementary] footer",
 				selector: "footer",
 				markup: `<div role="complementary"><footer></footer></div>`,
 				role: "generic",
+				naming: "prohibited",
 			},
 			{
 				description: "[role=main] footer",
 				selector: "footer",
 				markup: `<div role="main"><footer></footer></div>`,
 				role: "generic",
+				naming: "prohibited",
 			},
 			{
 				description: "[role=navigation] footer",
 				selector: "footer",
 				markup: `<div role="navigation"><footer></footer></div>`,
 				role: "generic",
+				naming: "prohibited",
 			},
 			{
 				description: "[role=region] footer",
 				selector: "footer",
 				markup: `<div role="region"><footer></footer></div>`,
 				role: "generic",
+				naming: "prohibited",
 			},
 		],
 		"h1 to h6": [
@@ -103,66 +119,81 @@ async function update() {
 			{ description: "h6", selector: "h6", markup: `<h6></h6>`, role: "heading" },
 		],
 		header: [
-			{ selector: "header", markup: `<header></header>`, role: "banner" },
+			{
+				selector: "header",
+				markup: `<header></header>`,
+				role: "banner",
+				naming: "allowed",
+			},
 			{
 				description: "article header",
 				selector: "header",
 				markup: `<article><header></header></article>`,
 				role: "generic",
+				naming: "prohibited",
 			},
 			{
 				description: "aside header",
 				selector: "header",
 				markup: `<aside><header></header></aside>`,
 				role: "generic",
+				naming: "prohibited",
 			},
 			{
 				description: "main header",
 				selector: "header",
 				markup: `<main><header></header></main>`,
 				role: "generic",
+				naming: "prohibited",
 			},
 			{
 				description: "nav header",
 				selector: "header",
 				markup: `<nav><header></header></nav>`,
 				role: "generic",
+				naming: "prohibited",
 			},
 			{
 				description: "section header",
 				selector: "header",
 				markup: `<section><header></header></section>`,
 				role: "generic",
+				naming: "prohibited",
 			},
 			{
 				description: "[role=article] header",
 				selector: "header",
 				markup: `<div role="article"><header></header></div>`,
 				role: "generic",
+				naming: "prohibited",
 			},
 			{
 				description: "[role=complementary] header",
 				selector: "header",
 				markup: `<div role="complementary"><header></header></div>`,
 				role: "generic",
+				naming: "prohibited",
 			},
 			{
 				description: "[role=main] header",
 				selector: "header",
 				markup: `<div role="main"><header></header></div>`,
 				role: "generic",
+				naming: "prohibited",
 			},
 			{
 				description: "[role=navigation] header",
 				selector: "header",
 				markup: `<div role="navigation"><header></header></div>`,
 				role: "generic",
+				naming: "prohibited",
 			},
 			{
 				description: "[role=region] header",
 				selector: "header",
 				markup: `<div role="region"><header></header></div>`,
 				role: "generic",
+				naming: "prohibited",
 			},
 		],
 		"img with an accessible name.": [
@@ -171,24 +202,28 @@ async function update() {
 				selector: "img",
 				markup: `<img alt=".." />`,
 				role: "img",
+				naming: "allowed",
 			},
 			{
 				description: "img[aria-label]",
 				selector: "img",
 				markup: `<img aria-label=".." />`,
 				role: "img",
+				naming: "allowed",
 			},
 			{
 				description: "img[aria-labelledby]",
 				selector: "img",
 				markup: `<img aria-labelledby=".." />`,
 				role: "img",
+				naming: "allowed",
 			},
 			{
 				description: "img[title]",
 				selector: "img",
 				markup: `<img title=".." />`,
 				role: "img",
+				naming: "allowed",
 			},
 		],
 		"img with no accessible name.": [
@@ -197,12 +232,14 @@ async function update() {
 				selector: "img",
 				markup: `<img alt="" />`,
 				role: "none",
+				naming: "prohibited",
 			},
 			{
 				description: `img`,
 				selector: "img",
 				markup: `<img />`,
 				role: "img",
+				naming: "prohibited",
 			},
 		],
 		"input type=button": [
@@ -436,6 +473,7 @@ async function update() {
 				role: "option",
 			},
 		],
+		picture: [{ selector: "picture", markup: `<picture></picture>`, naming: "prohibited" }],
 		section: [
 			{
 				description: "section[aria-label]",
@@ -598,6 +636,7 @@ async function update() {
 				role: null,
 			},
 		],
+		wbr: [{ selector: "wbr", markup: `<wbr>`, naming: "prohibited" }],
 	};
 
 	const response = await fetch(url);
@@ -633,9 +672,23 @@ async function update() {
 	}
 
 	/**
-	 * @return {Array<{selector: string, markup: string, role: string, description: string}>}
+	 * @param {string} state
+	 * @returns {"allowed" | "prohibited"}
 	 */
-	function mapElement(description, semantics) {
+	function getNaming(state) {
+		if (state.includes("Naming Prohibited") || state.includes("No aria-* attributes")) {
+			return "prohibited";
+		}
+		if (state.match(/^No role or aria-\* attributes$/)) {
+			return "prohibited";
+		}
+		return "allowed";
+	}
+
+	/**
+	 * @return {Array<{selector: string, markup: string, role: string, description: string, naming: "allowed" | "prohibited"}>}
+	 */
+	function mapElement(description, semantics, state) {
 		const mapped = elementMapping[description];
 		if (mapped) {
 			return mapped.map((it) => {
@@ -644,13 +697,15 @@ async function update() {
 					selector: it.selector,
 					markup: it.markup,
 					role: typeof it.role !== "undefined" ? it.role : getRole(description, semantics),
+					naming: typeof it.naming !== "undefined" ? it.naming : getNaming(state),
 				};
 			});
 		} else {
 			const tag = description;
 			const markup = voidElements.includes(tag) ? `<${tag}>` : `<${tag}></${tag}>`;
 			const role = getRole(description, semantics);
-			return [{ description, selector: tag, markup, role }];
+			const naming = getNaming(state);
+			return [{ description, selector: tag, markup, role, naming }];
 		}
 	}
 
@@ -668,8 +723,8 @@ async function update() {
 			const semantics = getText(semanticsCell);
 			const state = getText(stateCell);
 
-			for (const mapped of mapElement(description, semantics)) {
-				const { description, selector, markup, role } = mapped;
+			for (const mapped of mapElement(description, semantics, state)) {
+				const { description, selector, markup, role, naming } = mapped;
 				yield {
 					id,
 					hash: [hash(description), hash(semantics), hash(state)],
@@ -677,6 +732,7 @@ async function update() {
 					selector,
 					markup,
 					role,
+					naming,
 				};
 			}
 		}
@@ -703,7 +759,7 @@ if (require.main === module) {
 }
 
 /* CONTENT BELOW IS GENERATED BY SCRIPT, CHANGES WILL BE OVERWRITTEN! */
-/* Updated: Sun, 25 Feb 2024 16:27:55 GMT */
+/* Updated: Sun, 25 Feb 2024 22:11:54 GMT */
 
 // prettier-ignore
 const data = [
@@ -718,6 +774,7 @@ const data = [
 		selector: "a",
 		markup: "<a href></a>",
 		role: "link",
+		naming: "allowed",
 	},
 	{
 		id: "el-a-no-href",
@@ -730,6 +787,7 @@ const data = [
 		selector: "a",
 		markup: "<a></a>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-abbr",
@@ -742,6 +800,7 @@ const data = [
 		selector: "abbr",
 		markup: "<abbr></abbr>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-address",
@@ -754,6 +813,7 @@ const data = [
 		selector: "address",
 		markup: "<address></address>",
 		role: "group",
+		naming: "allowed",
 	},
 	{
 		id: "el-area",
@@ -766,6 +826,7 @@ const data = [
 		selector: "area",
 		markup: "<area href />",
 		role: "link",
+		naming: "allowed",
 	},
 	{
 		id: "el-area-no-href",
@@ -778,6 +839,7 @@ const data = [
 		selector: "area",
 		markup: "<area />",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-article",
@@ -790,6 +852,7 @@ const data = [
 		selector: "article",
 		markup: "<article></article>",
 		role: "article",
+		naming: "allowed",
 	},
 	{
 		id: "el-aside",
@@ -802,6 +865,7 @@ const data = [
 		selector: "aside",
 		markup: "<aside></aside>",
 		role: "complementary",
+		naming: "allowed",
 	},
 	{
 		id: "el-audio",
@@ -814,6 +878,7 @@ const data = [
 		selector: "audio",
 		markup: "<audio></audio>",
 		role: null,
+		naming: "allowed",
 	},
 	{
 		id: "el-b",
@@ -826,6 +891,7 @@ const data = [
 		selector: "b",
 		markup: "<b></b>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-base",
@@ -838,6 +904,7 @@ const data = [
 		selector: "base",
 		markup: "<base>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-bdi",
@@ -850,6 +917,7 @@ const data = [
 		selector: "bdi",
 		markup: "<bdi></bdi>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-bdo",
@@ -862,6 +930,7 @@ const data = [
 		selector: "bdo",
 		markup: "<bdo></bdo>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-blockquote",
@@ -874,6 +943,7 @@ const data = [
 		selector: "blockquote",
 		markup: "<blockquote></blockquote>",
 		role: "blockquote",
+		naming: "allowed",
 	},
 	{
 		id: "el-body",
@@ -886,6 +956,7 @@ const data = [
 		selector: "body",
 		markup: "<body></body>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-br",
@@ -898,6 +969,7 @@ const data = [
 		selector: "br",
 		markup: "<br>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-button",
@@ -910,6 +982,7 @@ const data = [
 		selector: "button",
 		markup: "<button></button>",
 		role: "button",
+		naming: "allowed",
 	},
 	{
 		id: "el-canvas",
@@ -922,6 +995,7 @@ const data = [
 		selector: "canvas",
 		markup: "<canvas></canvas>",
 		role: null,
+		naming: "allowed",
 	},
 	{
 		id: "el-caption",
@@ -934,6 +1008,7 @@ const data = [
 		selector: "caption",
 		markup: "<caption></caption>",
 		role: "caption",
+		naming: "prohibited",
 	},
 	{
 		id: "el-cite",
@@ -946,6 +1021,7 @@ const data = [
 		selector: "cite",
 		markup: "<cite></cite>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-code",
@@ -958,6 +1034,7 @@ const data = [
 		selector: "code",
 		markup: "<code></code>",
 		role: "code",
+		naming: "prohibited",
 	},
 	{
 		id: "el-col",
@@ -970,6 +1047,7 @@ const data = [
 		selector: "col",
 		markup: "<col>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-colgroup",
@@ -982,6 +1060,7 @@ const data = [
 		selector: "colgroup",
 		markup: "<colgroup></colgroup>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-data",
@@ -994,6 +1073,7 @@ const data = [
 		selector: "data",
 		markup: "<data></data>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-datalist",
@@ -1006,6 +1086,7 @@ const data = [
 		selector: "datalist",
 		markup: "<datalist></datalist>",
 		role: "listbox",
+		naming: "prohibited",
 	},
 	{
 		id: "el-dd",
@@ -1018,6 +1099,7 @@ const data = [
 		selector: "dd",
 		markup: "<dd></dd>",
 		role: null,
+		naming: "allowed",
 	},
 	{
 		id: "el-del",
@@ -1030,6 +1112,7 @@ const data = [
 		selector: "del",
 		markup: "<del></del>",
 		role: "deletion",
+		naming: "prohibited",
 	},
 	{
 		id: "el-details",
@@ -1042,6 +1125,7 @@ const data = [
 		selector: "details",
 		markup: "<details></details>",
 		role: "group",
+		naming: "allowed",
 	},
 	{
 		id: "el-dfn",
@@ -1054,6 +1138,7 @@ const data = [
 		selector: "dfn",
 		markup: "<dfn></dfn>",
 		role: "term",
+		naming: "allowed",
 	},
 	{
 		id: "el-dialog",
@@ -1066,6 +1151,7 @@ const data = [
 		selector: "dialog",
 		markup: "<dialog></dialog>",
 		role: "dialog",
+		naming: "allowed",
 	},
 	{
 		id: "el-div",
@@ -1078,6 +1164,7 @@ const data = [
 		selector: "div",
 		markup: "<div></div>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-dl",
@@ -1090,6 +1177,7 @@ const data = [
 		selector: "dl",
 		markup: "<dl></dl>",
 		role: null,
+		naming: "allowed",
 	},
 	{
 		id: "el-dt",
@@ -1102,6 +1190,7 @@ const data = [
 		selector: "dt",
 		markup: "<dt></dt>",
 		role: null,
+		naming: "allowed",
 	},
 	{
 		id: "el-em",
@@ -1114,6 +1203,7 @@ const data = [
 		selector: "em",
 		markup: "<em></em>",
 		role: "emphasis",
+		naming: "prohibited",
 	},
 	{
 		id: "el-embed",
@@ -1126,6 +1216,7 @@ const data = [
 		selector: "embed",
 		markup: "<embed>",
 		role: null,
+		naming: "allowed",
 	},
 	{
 		id: "el-fieldset",
@@ -1138,6 +1229,7 @@ const data = [
 		selector: "fieldset",
 		markup: "<fieldset></fieldset>",
 		role: "group",
+		naming: "allowed",
 	},
 	{
 		id: "el-figcaption",
@@ -1150,6 +1242,7 @@ const data = [
 		selector: "figcaption",
 		markup: "<figcaption></figcaption>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-figure",
@@ -1162,6 +1255,7 @@ const data = [
 		selector: "figure",
 		markup: "<figure></figure>",
 		role: "figure",
+		naming: "allowed",
 	},
 	{
 		id: "el-footer",
@@ -1174,6 +1268,7 @@ const data = [
 		selector: "footer",
 		markup: "<footer></footer>",
 		role: "contentinfo",
+		naming: "allowed",
 	},
 	{
 		id: "el-footer",
@@ -1186,6 +1281,7 @@ const data = [
 		selector: "footer",
 		markup: "<article><footer></footer></article>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-footer",
@@ -1198,6 +1294,7 @@ const data = [
 		selector: "footer",
 		markup: "<aside><footer></footer></aside>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-footer",
@@ -1210,6 +1307,7 @@ const data = [
 		selector: "footer",
 		markup: "<main><footer></footer></main>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-footer",
@@ -1222,6 +1320,7 @@ const data = [
 		selector: "footer",
 		markup: "<nav><footer></footer></nav>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-footer",
@@ -1234,6 +1333,7 @@ const data = [
 		selector: "footer",
 		markup: "<section><footer></footer></section>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-footer",
@@ -1246,6 +1346,7 @@ const data = [
 		selector: "footer",
 		markup: "<div role=\"article\"><footer></footer></div>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-footer",
@@ -1258,6 +1359,7 @@ const data = [
 		selector: "footer",
 		markup: "<div role=\"complementary\"><footer></footer></div>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-footer",
@@ -1270,6 +1372,7 @@ const data = [
 		selector: "footer",
 		markup: "<div role=\"main\"><footer></footer></div>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-footer",
@@ -1282,6 +1385,7 @@ const data = [
 		selector: "footer",
 		markup: "<div role=\"navigation\"><footer></footer></div>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-footer",
@@ -1294,6 +1398,7 @@ const data = [
 		selector: "footer",
 		markup: "<div role=\"region\"><footer></footer></div>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-form",
@@ -1306,6 +1411,7 @@ const data = [
 		selector: "form",
 		markup: "<form></form>",
 		role: "form",
+		naming: "allowed",
 	},
 	{
 		id: "el-h1-h6",
@@ -1318,6 +1424,7 @@ const data = [
 		selector: "h1",
 		markup: "<h1></h1>",
 		role: "heading",
+		naming: "allowed",
 	},
 	{
 		id: "el-h1-h6",
@@ -1330,6 +1437,7 @@ const data = [
 		selector: "h2",
 		markup: "<h2></h2>",
 		role: "heading",
+		naming: "allowed",
 	},
 	{
 		id: "el-h1-h6",
@@ -1342,6 +1450,7 @@ const data = [
 		selector: "h3",
 		markup: "<h3></h3>",
 		role: "heading",
+		naming: "allowed",
 	},
 	{
 		id: "el-h1-h6",
@@ -1354,6 +1463,7 @@ const data = [
 		selector: "h4",
 		markup: "<h4></h4>",
 		role: "heading",
+		naming: "allowed",
 	},
 	{
 		id: "el-h1-h6",
@@ -1366,6 +1476,7 @@ const data = [
 		selector: "h5",
 		markup: "<h5></h5>",
 		role: "heading",
+		naming: "allowed",
 	},
 	{
 		id: "el-h1-h6",
@@ -1378,6 +1489,7 @@ const data = [
 		selector: "h6",
 		markup: "<h6></h6>",
 		role: "heading",
+		naming: "allowed",
 	},
 	{
 		id: "el-head",
@@ -1390,6 +1502,7 @@ const data = [
 		selector: "head",
 		markup: "<head></head>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-header",
@@ -1402,6 +1515,7 @@ const data = [
 		selector: "header",
 		markup: "<header></header>",
 		role: "banner",
+		naming: "allowed",
 	},
 	{
 		id: "el-header",
@@ -1414,6 +1528,7 @@ const data = [
 		selector: "header",
 		markup: "<article><header></header></article>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-header",
@@ -1426,6 +1541,7 @@ const data = [
 		selector: "header",
 		markup: "<aside><header></header></aside>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-header",
@@ -1438,6 +1554,7 @@ const data = [
 		selector: "header",
 		markup: "<main><header></header></main>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-header",
@@ -1450,6 +1567,7 @@ const data = [
 		selector: "header",
 		markup: "<nav><header></header></nav>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-header",
@@ -1462,6 +1580,7 @@ const data = [
 		selector: "header",
 		markup: "<section><header></header></section>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-header",
@@ -1474,6 +1593,7 @@ const data = [
 		selector: "header",
 		markup: "<div role=\"article\"><header></header></div>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-header",
@@ -1486,6 +1606,7 @@ const data = [
 		selector: "header",
 		markup: "<div role=\"complementary\"><header></header></div>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-header",
@@ -1498,6 +1619,7 @@ const data = [
 		selector: "header",
 		markup: "<div role=\"main\"><header></header></div>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-header",
@@ -1510,6 +1632,7 @@ const data = [
 		selector: "header",
 		markup: "<div role=\"navigation\"><header></header></div>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-header",
@@ -1522,6 +1645,7 @@ const data = [
 		selector: "header",
 		markup: "<div role=\"region\"><header></header></div>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-hgroup",
@@ -1534,6 +1658,7 @@ const data = [
 		selector: "hgroup",
 		markup: "<hgroup></hgroup>",
 		role: "group",
+		naming: "allowed",
 	},
 	{
 		id: "el-hr",
@@ -1546,6 +1671,7 @@ const data = [
 		selector: "hr",
 		markup: "<hr>",
 		role: "separator",
+		naming: "allowed",
 	},
 	{
 		id: "el-html",
@@ -1558,6 +1684,7 @@ const data = [
 		selector: "html",
 		markup: "<html></html>",
 		role: "document",
+		naming: "prohibited",
 	},
 	{
 		id: "el-i",
@@ -1570,6 +1697,7 @@ const data = [
 		selector: "i",
 		markup: "<i></i>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-iframe",
@@ -1582,6 +1710,7 @@ const data = [
 		selector: "iframe",
 		markup: "<iframe></iframe>",
 		role: null,
+		naming: "allowed",
 	},
 	{
 		id: "el-img",
@@ -1594,6 +1723,7 @@ const data = [
 		selector: "img",
 		markup: "<img alt=\"..\" />",
 		role: "img",
+		naming: "allowed",
 	},
 	{
 		id: "el-img",
@@ -1606,6 +1736,7 @@ const data = [
 		selector: "img",
 		markup: "<img aria-label=\"..\" />",
 		role: "img",
+		naming: "allowed",
 	},
 	{
 		id: "el-img",
@@ -1618,6 +1749,7 @@ const data = [
 		selector: "img",
 		markup: "<img aria-labelledby=\"..\" />",
 		role: "img",
+		naming: "allowed",
 	},
 	{
 		id: "el-img",
@@ -1630,6 +1762,7 @@ const data = [
 		selector: "img",
 		markup: "<img title=\"..\" />",
 		role: "img",
+		naming: "allowed",
 	},
 	{
 		id: "el-img-no-name",
@@ -1642,6 +1775,7 @@ const data = [
 		selector: "img",
 		markup: "<img alt=\"\" />",
 		role: "none",
+		naming: "prohibited",
 	},
 	{
 		id: "el-img-no-name",
@@ -1654,6 +1788,7 @@ const data = [
 		selector: "img",
 		markup: "<img />",
 		role: "img",
+		naming: "prohibited",
 	},
 	{
 		id: "el-input-button",
@@ -1666,6 +1801,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"button\" />",
 		role: "button",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-checkbox",
@@ -1678,6 +1814,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"checkbox\" />",
 		role: "checkbox",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-color",
@@ -1690,6 +1827,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"color\" />",
 		role: null,
+		naming: "allowed",
 	},
 	{
 		id: "el-input-date",
@@ -1702,6 +1840,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"date\" />",
 		role: null,
+		naming: "allowed",
 	},
 	{
 		id: "el-input-datetime-local",
@@ -1714,6 +1853,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"datetime-local\" />",
 		role: null,
+		naming: "allowed",
 	},
 	{
 		id: "el-input-email",
@@ -1726,6 +1866,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"email\" />",
 		role: "textbox",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-file",
@@ -1738,6 +1879,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"file\" />",
 		role: null,
+		naming: "allowed",
 	},
 	{
 		id: "el-input-hidden",
@@ -1750,6 +1892,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"hidden\" />",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-input-image",
@@ -1762,6 +1905,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"image\" />",
 		role: "button",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-month",
@@ -1774,6 +1918,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"month\" />",
 		role: null,
+		naming: "allowed",
 	},
 	{
 		id: "el-input-number",
@@ -1786,6 +1931,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"number\" />",
 		role: "spinbutton",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-password",
@@ -1798,6 +1944,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"password\" />",
 		role: null,
+		naming: "allowed",
 	},
 	{
 		id: "el-input-radio",
@@ -1810,6 +1957,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"radio\" />",
 		role: "radio",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-range",
@@ -1822,6 +1970,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"range\" />",
 		role: "slider",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-reset",
@@ -1834,6 +1983,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"reset\" />",
 		role: "button",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-search",
@@ -1846,6 +1996,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"search\" />",
 		role: "searchbox",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-submit",
@@ -1858,6 +2009,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"submit\" />",
 		role: "button",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-tel",
@@ -1870,6 +2022,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"tel\" />",
 		role: "textbox",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-text",
@@ -1882,6 +2035,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"text\" />",
 		role: "textbox",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-text",
@@ -1894,6 +2048,7 @@ const data = [
 		selector: "input",
 		markup: "<input />",
 		role: "textbox",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-text",
@@ -1906,6 +2061,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"invalid\" />",
 		role: "textbox",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-text-list",
@@ -1918,6 +2074,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"search\" list />",
 		role: "combobox",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-text-list",
@@ -1930,6 +2087,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"tel\" list />",
 		role: "combobox",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-text-list",
@@ -1942,6 +2100,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"url\" list />",
 		role: "combobox",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-text-list",
@@ -1954,6 +2113,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"email\" list />",
 		role: "combobox",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-text-list",
@@ -1966,6 +2126,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"text\" list />",
 		role: "combobox",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-text-list",
@@ -1978,6 +2139,7 @@ const data = [
 		selector: "input",
 		markup: "<input list />",
 		role: "combobox",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-text-list",
@@ -1990,6 +2152,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"invalid\" list />",
 		role: "combobox",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-time",
@@ -2002,6 +2165,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"time\" />",
 		role: null,
+		naming: "allowed",
 	},
 	{
 		id: "el-input-url",
@@ -2014,6 +2178,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"url\" />",
 		role: "textbox",
+		naming: "allowed",
 	},
 	{
 		id: "el-input-week",
@@ -2026,6 +2191,7 @@ const data = [
 		selector: "input",
 		markup: "<input type=\"week\" />",
 		role: null,
+		naming: "allowed",
 	},
 	{
 		id: "el-ins",
@@ -2038,6 +2204,7 @@ const data = [
 		selector: "ins",
 		markup: "<ins></ins>",
 		role: "insertion",
+		naming: "prohibited",
 	},
 	{
 		id: "el-kbd",
@@ -2050,6 +2217,7 @@ const data = [
 		selector: "kbd",
 		markup: "<kbd></kbd>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-label",
@@ -2062,6 +2230,7 @@ const data = [
 		selector: "label",
 		markup: "<label></label>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-legend",
@@ -2074,6 +2243,7 @@ const data = [
 		selector: "legend",
 		markup: "<legend></legend>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-li",
@@ -2086,6 +2256,7 @@ const data = [
 		selector: "li",
 		markup: "<ul><li></li></ul>",
 		role: "listitem",
+		naming: "allowed",
 	},
 	{
 		id: "el-li",
@@ -2098,6 +2269,7 @@ const data = [
 		selector: "li",
 		markup: "<ol><li></li></ol>",
 		role: "listitem",
+		naming: "allowed",
 	},
 	{
 		id: "el-li",
@@ -2110,6 +2282,7 @@ const data = [
 		selector: "li",
 		markup: "<menu><li></li></menu>",
 		role: "listitem",
+		naming: "allowed",
 	},
 	{
 		id: "el-li",
@@ -2122,6 +2295,7 @@ const data = [
 		selector: "li",
 		markup: "<li></li>",
 		role: "generic",
+		naming: "allowed",
 	},
 	{
 		id: "el-link",
@@ -2134,6 +2308,7 @@ const data = [
 		selector: "link",
 		markup: "<link>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-main",
@@ -2146,6 +2321,7 @@ const data = [
 		selector: "main",
 		markup: "<main></main>",
 		role: "main",
+		naming: "allowed",
 	},
 	{
 		id: "el-map",
@@ -2158,6 +2334,7 @@ const data = [
 		selector: "map",
 		markup: "<map></map>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-mark",
@@ -2170,6 +2347,7 @@ const data = [
 		selector: "mark",
 		markup: "<mark></mark>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-math",
@@ -2182,6 +2360,7 @@ const data = [
 		selector: "math",
 		markup: "<math></math>",
 		role: "math",
+		naming: "allowed",
 	},
 	{
 		id: "el-menu",
@@ -2194,6 +2373,7 @@ const data = [
 		selector: "menu",
 		markup: "<menu></menu>",
 		role: "list",
+		naming: "allowed",
 	},
 	{
 		id: "el-meta",
@@ -2206,6 +2386,7 @@ const data = [
 		selector: "meta",
 		markup: "<meta>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-meter",
@@ -2218,6 +2399,7 @@ const data = [
 		selector: "meter",
 		markup: "<meter></meter>",
 		role: "meter",
+		naming: "allowed",
 	},
 	{
 		id: "el-nav",
@@ -2230,6 +2412,7 @@ const data = [
 		selector: "nav",
 		markup: "<nav></nav>",
 		role: "navigation",
+		naming: "allowed",
 	},
 	{
 		id: "el-noscript",
@@ -2242,6 +2425,7 @@ const data = [
 		selector: "noscript",
 		markup: "<noscript></noscript>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-object",
@@ -2254,6 +2438,7 @@ const data = [
 		selector: "object",
 		markup: "<object></object>",
 		role: null,
+		naming: "allowed",
 	},
 	{
 		id: "el-ol",
@@ -2266,6 +2451,7 @@ const data = [
 		selector: "ol",
 		markup: "<ol></ol>",
 		role: "list",
+		naming: "allowed",
 	},
 	{
 		id: "el-optgroup",
@@ -2278,6 +2464,7 @@ const data = [
 		selector: "optgroup",
 		markup: "<optgroup></optgroup>",
 		role: "group",
+		naming: "allowed",
 	},
 	{
 		id: "el-option",
@@ -2290,6 +2477,7 @@ const data = [
 		selector: "option",
 		markup: "<option></option>",
 		role: "option",
+		naming: "allowed",
 	},
 	{
 		id: "el-output",
@@ -2302,6 +2490,7 @@ const data = [
 		selector: "output",
 		markup: "<output></output>",
 		role: "status",
+		naming: "allowed",
 	},
 	{
 		id: "el-p",
@@ -2314,6 +2503,7 @@ const data = [
 		selector: "p",
 		markup: "<p></p>",
 		role: "paragraph",
+		naming: "prohibited",
 	},
 	{
 		id: "el-param",
@@ -2326,6 +2516,7 @@ const data = [
 		selector: "param",
 		markup: "<param>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-picture",
@@ -2338,6 +2529,7 @@ const data = [
 		selector: "picture",
 		markup: "<picture></picture>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-pre",
@@ -2350,6 +2542,7 @@ const data = [
 		selector: "pre",
 		markup: "<pre></pre>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-progress",
@@ -2362,6 +2555,7 @@ const data = [
 		selector: "progress",
 		markup: "<progress></progress>",
 		role: "progressbar",
+		naming: "allowed",
 	},
 	{
 		id: "el-q",
@@ -2374,6 +2568,7 @@ const data = [
 		selector: "q",
 		markup: "<q></q>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-rp",
@@ -2386,6 +2581,7 @@ const data = [
 		selector: "rp",
 		markup: "<rp></rp>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-rt",
@@ -2398,6 +2594,7 @@ const data = [
 		selector: "rt",
 		markup: "<rt></rt>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-ruby",
@@ -2410,6 +2607,7 @@ const data = [
 		selector: "ruby",
 		markup: "<ruby></ruby>",
 		role: null,
+		naming: "allowed",
 	},
 	{
 		id: "el-s",
@@ -2422,6 +2620,7 @@ const data = [
 		selector: "s",
 		markup: "<s></s>",
 		role: "deletion",
+		naming: "prohibited",
 	},
 	{
 		id: "el-samp",
@@ -2434,6 +2633,7 @@ const data = [
 		selector: "samp",
 		markup: "<samp></samp>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-script",
@@ -2446,6 +2646,7 @@ const data = [
 		selector: "script",
 		markup: "<script></script>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-search",
@@ -2458,6 +2659,7 @@ const data = [
 		selector: "search",
 		markup: "<search></search>",
 		role: "search",
+		naming: "allowed",
 	},
 	{
 		id: "el-section",
@@ -2470,6 +2672,7 @@ const data = [
 		selector: "section",
 		markup: "<section aria-label=\"..\"></section>",
 		role: "region",
+		naming: "allowed",
 	},
 	{
 		id: "el-section",
@@ -2482,6 +2685,7 @@ const data = [
 		selector: "section",
 		markup: "<section aria-labelledby=\"..\"></section>",
 		role: "region",
+		naming: "allowed",
 	},
 	{
 		id: "el-section",
@@ -2494,6 +2698,7 @@ const data = [
 		selector: "section",
 		markup: "<section></section>",
 		role: "generic",
+		naming: "allowed",
 	},
 	{
 		id: "el-select",
@@ -2506,6 +2711,7 @@ const data = [
 		selector: "select",
 		markup: "<select></select>",
 		role: "combobox",
+		naming: "allowed",
 	},
 	{
 		id: "el-select",
@@ -2518,6 +2724,7 @@ const data = [
 		selector: "select",
 		markup: "<select size=\"1\"></select>",
 		role: "combobox",
+		naming: "allowed",
 	},
 	{
 		id: "el-select-multiple-or-size-greater-1",
@@ -2530,6 +2737,7 @@ const data = [
 		selector: "select",
 		markup: "<select multiple></select>",
 		role: "listbox",
+		naming: "allowed",
 	},
 	{
 		id: "el-select-multiple-or-size-greater-1",
@@ -2542,6 +2750,7 @@ const data = [
 		selector: "select",
 		markup: "<select size=\"2\"></select>",
 		role: "listbox",
+		naming: "allowed",
 	},
 	{
 		id: "el-slot",
@@ -2554,6 +2763,7 @@ const data = [
 		selector: "slot",
 		markup: "<slot></slot>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-small",
@@ -2566,6 +2776,7 @@ const data = [
 		selector: "small",
 		markup: "<small></small>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-source",
@@ -2578,6 +2789,7 @@ const data = [
 		selector: "source",
 		markup: "<source>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-span",
@@ -2590,6 +2802,7 @@ const data = [
 		selector: "span",
 		markup: "<span></span>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-strong",
@@ -2602,6 +2815,7 @@ const data = [
 		selector: "strong",
 		markup: "<strong></strong>",
 		role: "strong",
+		naming: "prohibited",
 	},
 	{
 		id: "el-style",
@@ -2614,6 +2828,7 @@ const data = [
 		selector: "style",
 		markup: "<style></style>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-sub",
@@ -2626,6 +2841,7 @@ const data = [
 		selector: "sub",
 		markup: "<sub></sub>",
 		role: "subscript",
+		naming: "prohibited",
 	},
 	{
 		id: "el-summary",
@@ -2638,6 +2854,7 @@ const data = [
 		selector: "summary",
 		markup: "<summary></summary>",
 		role: "button",
+		naming: "allowed",
 	},
 	{
 		id: "el-sup",
@@ -2650,6 +2867,7 @@ const data = [
 		selector: "sup",
 		markup: "<sup></sup>",
 		role: "superscript",
+		naming: "prohibited",
 	},
 	{
 		id: "el-svg",
@@ -2662,6 +2880,7 @@ const data = [
 		selector: "svg",
 		markup: "<svg></svg>",
 		role: "graphics-document",
+		naming: "allowed",
 	},
 	{
 		id: "el-table",
@@ -2674,6 +2893,7 @@ const data = [
 		selector: "table",
 		markup: "<table></table>",
 		role: "table",
+		naming: "allowed",
 	},
 	{
 		id: "el-tbody",
@@ -2686,6 +2906,7 @@ const data = [
 		selector: "tbody",
 		markup: "<tbody></tbody>",
 		role: "rowgroup",
+		naming: "allowed",
 	},
 	{
 		id: "el-td",
@@ -2698,6 +2919,7 @@ const data = [
 		selector: "td",
 		markup: "<table><tr><td></td></tr></table>",
 		role: "cell",
+		naming: "allowed",
 	},
 	{
 		id: "el-td",
@@ -2710,6 +2932,7 @@ const data = [
 		selector: "td",
 		markup: "<table role=\"table\"><tr><td></td></tr></table>",
 		role: "cell",
+		naming: "allowed",
 	},
 	{
 		id: "el-td",
@@ -2722,6 +2945,7 @@ const data = [
 		selector: "td",
 		markup: "<table role=\"grid\"><tr><td></td></tr></table>",
 		role: "gridcell",
+		naming: "allowed",
 	},
 	{
 		id: "el-td",
@@ -2734,6 +2958,7 @@ const data = [
 		selector: "td",
 		markup: "<table role=\"treegrid\"><tr><td></td></tr></table>",
 		role: "gridcell",
+		naming: "allowed",
 	},
 	{
 		id: "el-td",
@@ -2746,6 +2971,7 @@ const data = [
 		selector: "td",
 		markup: "<table role=\"generic\"><tr><td></td></tr></table>",
 		role: null,
+		naming: "allowed",
 	},
 	{
 		id: "el-template",
@@ -2758,6 +2984,7 @@ const data = [
 		selector: "template",
 		markup: "<template></template>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-textarea",
@@ -2770,6 +2997,7 @@ const data = [
 		selector: "textarea",
 		markup: "<textarea></textarea>",
 		role: "textbox",
+		naming: "allowed",
 	},
 	{
 		id: "el-tfoot",
@@ -2782,6 +3010,7 @@ const data = [
 		selector: "tfoot",
 		markup: "<tfoot></tfoot>",
 		role: "rowgroup",
+		naming: "allowed",
 	},
 	{
 		id: "el-th",
@@ -2794,6 +3023,7 @@ const data = [
 		selector: "th",
 		markup: "<table><tr><th></th></tr></table>",
 		role: "cell",
+		naming: "allowed",
 	},
 	{
 		id: "el-th",
@@ -2806,6 +3036,7 @@ const data = [
 		selector: "th",
 		markup: "<table role=\"table\"><tr><th></th></tr></table>",
 		role: "cell",
+		naming: "allowed",
 	},
 	{
 		id: "el-th",
@@ -2818,6 +3049,7 @@ const data = [
 		selector: "th",
 		markup: "<table role=\"table\"><tr><th scope=\"row\"></th></tr></table>",
 		role: "rowheader",
+		naming: "allowed",
 	},
 	{
 		id: "el-th",
@@ -2830,6 +3062,7 @@ const data = [
 		selector: "th",
 		markup: "<table role=\"table\"><tr><th scope=\"col\"></th></tr></table>",
 		role: "columnheader",
+		naming: "allowed",
 	},
 	{
 		id: "el-th",
@@ -2842,6 +3075,7 @@ const data = [
 		selector: "th",
 		markup: "<table role=\"grid\"><tr><th></th></tr></table>",
 		role: "gridcell",
+		naming: "allowed",
 	},
 	{
 		id: "el-th",
@@ -2854,6 +3088,7 @@ const data = [
 		selector: "th",
 		markup: "<table role=\"grid\"><tr><th scope=\"row\"></th></tr></table>",
 		role: "rowheader",
+		naming: "allowed",
 	},
 	{
 		id: "el-th",
@@ -2866,6 +3101,7 @@ const data = [
 		selector: "th",
 		markup: "<table role=\"grid\"><tr><th scope=\"col\"></th></tr></table>",
 		role: "columnheader",
+		naming: "allowed",
 	},
 	{
 		id: "el-th",
@@ -2878,6 +3114,7 @@ const data = [
 		selector: "th",
 		markup: "<table role=\"treegrid\"><tr><th></th></tr></table>",
 		role: "gridcell",
+		naming: "allowed",
 	},
 	{
 		id: "el-th",
@@ -2890,6 +3127,7 @@ const data = [
 		selector: "th",
 		markup: "<table role=\"treegrid\"><tr><th scope=\"row\"></th></tr></table>",
 		role: "rowheader",
+		naming: "allowed",
 	},
 	{
 		id: "el-th",
@@ -2902,6 +3140,7 @@ const data = [
 		selector: "th",
 		markup: "<table role=\"treegrid\"><tr><th scope=\"col\"></th></tr></table>",
 		role: "columnheader",
+		naming: "allowed",
 	},
 	{
 		id: "el-th",
@@ -2914,6 +3153,7 @@ const data = [
 		selector: "th",
 		markup: "<table role=\"generic\"><tr><th></th></tr></table>",
 		role: null,
+		naming: "allowed",
 	},
 	{
 		id: "el-thead",
@@ -2926,6 +3166,7 @@ const data = [
 		selector: "thead",
 		markup: "<thead></thead>",
 		role: "rowgroup",
+		naming: "allowed",
 	},
 	{
 		id: "el-time",
@@ -2938,6 +3179,7 @@ const data = [
 		selector: "time",
 		markup: "<time></time>",
 		role: "time",
+		naming: "prohibited",
 	},
 	{
 		id: "el-title",
@@ -2950,6 +3192,7 @@ const data = [
 		selector: "title",
 		markup: "<title></title>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-tr",
@@ -2962,6 +3205,7 @@ const data = [
 		selector: "tr",
 		markup: "<tr></tr>",
 		role: "row",
+		naming: "allowed",
 	},
 	{
 		id: "el-track",
@@ -2974,6 +3218,7 @@ const data = [
 		selector: "track",
 		markup: "<track>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-u",
@@ -2986,6 +3231,7 @@ const data = [
 		selector: "u",
 		markup: "<u></u>",
 		role: "generic",
+		naming: "prohibited",
 	},
 	{
 		id: "el-ul",
@@ -2998,6 +3244,7 @@ const data = [
 		selector: "ul",
 		markup: "<ul></ul>",
 		role: "list",
+		naming: "allowed",
 	},
 	{
 		id: "el-var",
@@ -3010,6 +3257,7 @@ const data = [
 		selector: "var",
 		markup: "<var></var>",
 		role: null,
+		naming: "prohibited",
 	},
 	{
 		id: "el-video",
@@ -3022,6 +3270,7 @@ const data = [
 		selector: "video",
 		markup: "<video></video>",
 		role: null,
+		naming: "allowed",
 	},
 	{
 		id: "el-wbr",
@@ -3034,6 +3283,7 @@ const data = [
 		selector: "wbr",
 		markup: "<wbr>",
 		role: null,
+		naming: "prohibited",
 	},
 ];
 
