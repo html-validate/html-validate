@@ -201,8 +201,8 @@
   },
   "devDependencies": {
     "@html-validate/commitlint-config": "3.0.29",
-    "@html-validate/eslint-config": "5.13.0",
-    "@html-validate/eslint-config-jest": "5.13.0",
+    "@html-validate/eslint-config": "5.13.2",
+    "@html-validate/eslint-config-jest": "5.13.2",
     "@html-validate/eslint-config-typescript": "5.13.1",
     "@html-validate/eslint-config-typescript-typeinfo": "5.13.1",
     "@html-validate/jest-config": "3.8.0",
