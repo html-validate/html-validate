@@ -4,7 +4,7 @@ const config: ConfigData = {
 	rules: {
 		"area-alt": ["error", { accessible: true }],
 		"aria-hidden-body": "error",
-		"aria-label-misuse": "error",
+		"aria-label-misuse": ["error", { allowAnyNamable: false }],
 		"deprecated-rule": "warn",
 		"empty-heading": "error",
 		"empty-title": "error",
