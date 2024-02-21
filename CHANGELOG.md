@@ -1,6 +1,6 @@
 # html-validate changelog
 
-## [8.10.0](https://gitlab.com/html-validate/html-validate/compare/v8.9.1...v8.10.0) (2024-2-21)
+## 8.10.0 (2024-02-21)
 
 ### Features
 
@@ -12,14 +12,14 @@
 - **html5:** `type` for `<input>` no longer required ([37284d0](https://gitlab.com/html-validate/html-validate/commit/37284d043a5145ae75d34bf0dbe79e173b0d54db)), closes [#235](https://gitlab.com/html-validate/html-validate/issues/235)
 - **rules:** change wording required to recommended in `no-implicit-button-type` ([1926c06](https://gitlab.com/html-validate/html-validate/commit/1926c061e3e37221cbc63fd3926c110926780a4d))
 
-## 8.9.1 (2024-1-10)
+## 8.9.1 (2024-01-10)
 
 ### Bug Fixes
 
 - **rules:** `<form>` and `<section>` without explicit accessible name is no longer considered landmark ([a36deac](https://gitlab.com/html-validate/html-validate/commit/a36deac9e7a53f09e73e6575a9dcf098eb63bdda))
 - **rules:** `<header>` and `<footer>` nested in `<main>` or sectioning content is no longer considered landmark ([bcab354](https://gitlab.com/html-validate/html-validate/commit/bcab354dd201cffabb3352c8b13f5985c99b777c)), closes [#234](https://gitlab.com/html-validate/html-validate/issues/234)
 
-## 8.9.0 (2024-1-8)
+## 8.9.0 (2024-01-08)
 
 ### Features
 
