@@ -1,5 +1,17 @@
 # html-validate changelog
 
+## [8.10.0](https://gitlab.com/html-validate/html-validate/compare/v8.9.1...v8.10.0) (2024-2-21)
+
+### Features
+
+- **rules:** new rule `no-implicit-input-type` ([6cc0c6d](https://gitlab.com/html-validate/html-validate/commit/6cc0c6d1b2ad1627ce41af1a998a60da5872fe17))
+
+### Bug Fixes
+
+- **deps:** update dependency ignore to v5.3.1 ([4553b89](https://gitlab.com/html-validate/html-validate/commit/4553b89a470008789b0bf3569021c493a4db0c97))
+- **html5:** `type` for `<input>` no longer required ([37284d0](https://gitlab.com/html-validate/html-validate/commit/37284d043a5145ae75d34bf0dbe79e173b0d54db)), closes [#235](https://gitlab.com/html-validate/html-validate/issues/235)
+- **rules:** change wording required to recommended in `no-implicit-button-type` ([1926c06](https://gitlab.com/html-validate/html-validate/commit/1926c061e3e37221cbc63fd3926c110926780a4d))
+
 ## 8.9.1 (2024-1-10)
 
 ### Bug Fixes
