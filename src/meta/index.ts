@@ -12,7 +12,6 @@ export {
 	type MetaDataTable,
 	type MetaElement,
 	type MetaFocusableCallback,
-	type MetaImplicitRoleCallback,
 	type MetaLookupableProperty,
 	type Permitted,
 	type PermittedAttribute,
@@ -27,4 +26,5 @@ export {
 	setMetaProperty,
 } from "./element";
 export { type HtmlElementLike } from "./html-element-like";
+export { type MetaAria, type MetaImplicitRoleCallback, type NormalizedMetaAria } from "./meta-aria";
 export { Validator } from "./validator";

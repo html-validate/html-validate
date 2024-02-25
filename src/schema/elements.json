@@ -93,7 +93,13 @@
         "implicitRole": {
           "title": "Implicit ARIA role for this element",
           "description": "Some elements have implicit ARIA roles.",
+          "deprecated": true,
           "function": true
+        },
+
+        "aria": {
+          "title": "WAI-ARIA properties for this element",
+          "$ref": "#/definitions/Aria"
         },
 
         "scriptSupporting": {
@@ -184,6 +190,18 @@
   },
 
   "definitions": {
+    "Aria": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "implicitRole": {
+          "title": "Implicit ARIA role for this element",
+          "description": "Some elements have implicit ARIA roles.",
+          "anyOf": [{ "type": "string" }, { "function": true }]
+        }
+      }
+    },
+
     "contentCategory": {
       "anyOf": [{ "type": "boolean" }, { "$ref": "#/definitions/expression" }]
     },

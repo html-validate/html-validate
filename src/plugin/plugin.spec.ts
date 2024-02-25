@@ -221,6 +221,9 @@ describe("Plugin", () => {
 			const meta = metaTable.getMetaFor("my-element");
 			expect(meta).toEqual({
 				tagName: "my-element",
+				aria: {
+					implicitRole: expect.any(Function),
+				},
 				attributes: {},
 				focusable: false,
 				implicitRole: expect.any(Function),
@@ -256,6 +259,9 @@ describe("Plugin", () => {
 			const meta = metaTable.getMetaFor("my-element");
 			expect(meta).toEqual({
 				tagName: "my-element",
+				aria: {
+					implicitRole: expect.any(Function),
+				},
 				attributes: {},
 				focusable: false,
 				implicitRole: expect.any(Function),
@@ -312,6 +318,9 @@ describe("Plugin", () => {
 			node.loadMeta(b!);
 			expect(node.meta).toEqual({
 				tagName: "my-element",
+				aria: {
+					implicitRole: expect.any(Function),
+				},
 				attributes: {},
 				focusable: false,
 				implicitRole: expect.any(Function),

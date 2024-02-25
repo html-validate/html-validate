@@ -58,20 +58,15 @@ describe("MetaTable", () => {
 					},
 				},
 			});
-			expect(table.getMetaFor("foo")).toMatchInlineSnapshot(`
-				{
-				  "attributes": {
-				    "my-attr": {
-				      "enum": [
-				        "a",
-				      ],
-				    },
-				  },
-				  "focusable": false,
-				  "implicitRole": [Function],
-				  "tagName": "foo",
-				}
-			`);
+			expect(table.getMetaFor("foo")).toEqual(
+				expect.objectContaining({
+					attributes: {
+						"my-attr": {
+							enum: ["a"],
+						},
+					},
+				}),
+			);
 		});
 	});
 
@@ -695,6 +690,9 @@ describe("MetaTable", () => {
 			const bar = table.getMetaFor("bar");
 			expect(foo).toMatchInlineSnapshot(`
 				{
+				  "aria": {
+				    "implicitRole": [Function],
+				  },
 				  "attributes": {
 				    "a": {
 				      "enum": [
@@ -714,6 +712,9 @@ describe("MetaTable", () => {
 			`);
 			expect(bar).toMatchInlineSnapshot(`
 				{
+				  "aria": {
+				    "implicitRole": [Function],
+				  },
 				  "attributes": {
 				    "a": {
 				      "enum": [

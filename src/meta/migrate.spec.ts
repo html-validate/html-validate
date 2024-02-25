@@ -1,4 +1,5 @@
-import { MetaData } from "./element";
+import { type MetaData } from "./element";
+import { type HtmlElementLike } from "./html-element-like";
 import { migrateElement } from "./migrate";
 
 it("should not migrate up-to-date data", () => {
@@ -166,5 +167,65 @@ describe("formAssociated", () => {
 		const src: MetaData = {};
 		const result = migrateElement(src);
 		expect(result.formAssociated).toBeUndefined();
+	});
+});
+
+describe("aria.implicitRole", () => {
+	const mockNode: HtmlElementLike = {
+		closest() {
+			return null;
+		},
+		getAttribute() {
+			return null;
+		},
+		hasAttribute() {
+			return false;
+		},
+	};
+
+	it("should normalize missing property", () => {
+		expect.assertions(1);
+		const src: MetaData = {};
+		const result = migrateElement(src);
+		const naming = result.aria.implicitRole(mockNode);
+		expect(naming).toBeNull();
+	});
+
+	it("should normalize string property", () => {
+		expect.assertions(1);
+		const src: MetaData = {
+			aria: {
+				implicitRole: "presentation",
+			},
+		};
+		const result = migrateElement(src);
+		const naming = result.aria.implicitRole(mockNode);
+		expect(naming).toBe("presentation");
+	});
+
+	it("should normalize callback property", () => {
+		expect.assertions(1);
+		const src: MetaData = {
+			aria: {
+				implicitRole() {
+					return "generic";
+				},
+			},
+		};
+		const result = migrateElement(src);
+		const naming = result.aria.implicitRole(mockNode);
+		expect(naming).toBe("generic");
+	});
+
+	it("should migrate deprecated implicitRole", () => {
+		expect.assertions(1);
+		const src: MetaData = {
+			implicitRole() {
+				return "button";
+			},
+		};
+		const result = migrateElement(src);
+		const naming = result.aria.implicitRole(mockNode);
+		expect(naming).toBe("button");
 	});
 });

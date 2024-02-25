@@ -678,6 +678,11 @@ export interface Message {
     size: number;
 }
 
+// @public
+export interface MetaAria {
+    implicitRole?: string | MetaImplicitRoleCallback;
+}
+
 // @public (undocumented)
 export interface MetaAttribute {
     allowed?: MetaAttributeAllowedCallback;
@@ -697,6 +702,7 @@ export const MetaCopyableProperty: Array<keyof MetaElement>;
 
 // @public (undocumented)
 export interface MetaData {
+    aria?: MetaAria;
     // (undocumented)
     attributes?: PermittedAttribute;
     // (undocumented)
@@ -717,7 +723,7 @@ export interface MetaData {
     heading?: boolean | PropertyExpression;
     // (undocumented)
     implicitClosed?: string[];
-    // (undocumented)
+    // @deprecated (undocumented)
     implicitRole?: MetaImplicitRoleCallback;
     // (undocumented)
     inherit?: string;
@@ -773,13 +779,14 @@ export type MetaDataTable = Record<string, MetaData>;
 
 // @public (undocumented)
 export interface MetaElement extends Omit<MetaData, "deprecatedAttributes" | "requiredAttributes"> {
+    aria: NormalizedMetaAria;
     // (undocumented)
     attributes: Record<string, MetaAttribute>;
     // (undocumented)
     focusable: boolean | MetaFocusableCallback;
     // (undocumented)
     formAssociated?: FormAssociated;
-    // (undocumented)
+    // @deprecated (undocumented)
     implicitRole: MetaImplicitRoleCallback;
     // (undocumented)
     tagName: string;
@@ -840,6 +847,11 @@ export enum NodeType {
     ELEMENT_NODE = 1,
     // (undocumented)
     TEXT_NODE = 3
+}
+
+// @public
+export interface NormalizedMetaAria {
+    implicitRole(node: HtmlElementLike): string | null;
 }
 
 // @internal

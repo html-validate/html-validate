@@ -33,7 +33,7 @@ export default class NoRedundantRole extends Rule<RuleContext> {
 			}
 
 			/* ignore elements without implicit role */
-			const implicitRole = meta.implicitRole(target._adapter);
+			const implicitRole = meta.aria.implicitRole(target._adapter);
 			if (!implicitRole) {
 				return;
 			}

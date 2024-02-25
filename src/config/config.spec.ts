@@ -375,6 +375,9 @@ describe("config", () => {
 			expect(elements).toEqual(["order-a", "order-b", "order-c"]);
 			expect(config.getMetaTable().getMetaFor("foo")).toEqual({
 				tagName: "foo",
+				aria: {
+					implicitRole: expect.any(Function),
+				},
 				attributes: {},
 				focusable: false,
 				implicitRole: expect.any(Function),
@@ -382,6 +385,9 @@ describe("config", () => {
 			});
 			expect(config.getMetaTable().getMetaFor("bar")).toEqual({
 				tagName: "bar",
+				aria: {
+					implicitRole: expect.any(Function),
+				},
 				attributes: {},
 				focusable: false,
 				implicitRole: expect.any(Function),
