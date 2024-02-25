@@ -1,5 +1,6 @@
 import { type DynamicValue } from "../dom";
 import { type HtmlElementLike } from "./html-element-like";
+import { type MetaAria, type MetaImplicitRoleCallback, type NormalizedMetaAria } from "./meta-aria";
 
 /**
  * @public
@@ -70,17 +71,6 @@ export enum TextContent {
  * @returns `true` if the node is focusable.
  */
 export type MetaFocusableCallback = (node: HtmlElementLike) => boolean;
-
-/**
- * Callback for the `implicitRole` property of `MetaData`. It takes a node and
- * returns the implicit ARIA role, if any.
- *
- * @public
- * @since 8.4.0
- * @param node - The node to get the role from.
- * @returns Implicit ARIA role or null if there is no implicit role.
- */
-export type MetaImplicitRoleCallback = (node: HtmlElementLike) => string | null;
 
 /**
  * Callback for the `allowed` property of `MetaAttribute`. It takes a node and
@@ -202,7 +192,12 @@ export interface MetaData {
 	/** Mark element as a form-associated element */
 	formAssociated?: Partial<FormAssociated>;
 	labelable?: boolean | PropertyExpression;
+
+	/** @deprecated use {@link MetaAria.implicitRole} instead */
 	implicitRole?: MetaImplicitRoleCallback;
+
+	/** WAI-ARIA attributes */
+	aria?: MetaAria;
 
 	/* attribute */
 	deprecatedAttributes?: string[];
@@ -263,6 +258,7 @@ export const MetaCopyableProperty: Array<keyof MetaElement> = [
 	"formAssociated",
 	"labelable",
 	"attributes",
+	"aria",
 	"permittedContent",
 	"permittedDescendants",
 	"permittedOrder",
@@ -280,7 +276,12 @@ export interface MetaElement extends Omit<MetaData, "deprecatedAttributes" | "re
 
 	focusable: boolean | MetaFocusableCallback;
 	formAssociated?: FormAssociated;
+
+	/** @deprecated Use {@link MetaAria.implicitRole} instead */
 	implicitRole: MetaImplicitRoleCallback;
+
+	/** WAI-ARIA attributes */
+	aria: NormalizedMetaAria;
 
 	attributes: Record<string, MetaAttribute>;
 	textContent?: TextContent;

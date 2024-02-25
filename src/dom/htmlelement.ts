@@ -353,7 +353,8 @@ export class HtmlElement extends DOMNode {
 		}
 
 		if (this.metaElement) {
-			const implicitRole = this.metaElement.implicitRole(this._adapter);
+			const { aria } = this.metaElement;
+			const implicitRole = aria.implicitRole(this._adapter);
 			return this.cacheSet(ROLE, implicitRole);
 		}
 

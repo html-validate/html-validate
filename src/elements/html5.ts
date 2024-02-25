@@ -118,8 +118,10 @@ export default defineMetadata({
 			},
 		},
 		permittedDescendants: [{ exclude: "@interactive" }],
-		implicitRole(node) {
-			return node.hasAttribute("href") ? "link" : "generic";
+		aria: {
+			implicitRole(node) {
+				return node.hasAttribute("href") ? "link" : "generic";
+			},
 		},
 	},
 
@@ -139,8 +141,8 @@ export default defineMetadata({
 
 	address: {
 		flow: true,
-		implicitRole() {
-			return "group";
+		aria: {
+			implicitRole: "group",
 		},
 		permittedContent: ["@flow"],
 		permittedDescendants: [{ exclude: ["address", "header", "footer", "@heading", "@sectioning"] }],
@@ -220,8 +222,10 @@ export default defineMetadata({
 				enum: ["/[^_].*/", "_blank", "_self", "_parent", "_top"],
 			},
 		},
-		implicitRole(node) {
-			return node.hasAttribute("href") ? "link" : "generic";
+		aria: {
+			implicitRole(node) {
+				return node.hasAttribute("href") ? "link" : "generic";
+			},
 		},
 		requiredAncestors: ["map"],
 	},
@@ -231,8 +235,8 @@ export default defineMetadata({
 		sectioning: true,
 		permittedContent: ["@flow"],
 		permittedDescendants: [{ exclude: ["main"] }],
-		implicitRole() {
-			return "article";
+		aria: {
+			implicitRole: "article",
 		},
 	},
 
@@ -241,8 +245,8 @@ export default defineMetadata({
 		sectioning: true,
 		permittedContent: ["@flow"],
 		permittedDescendants: [{ exclude: ["main"] }],
-		implicitRole() {
-			return "complementary";
+		aria: {
+			implicitRole: "complementary",
 		},
 	},
 
@@ -277,8 +281,8 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
-		implicitRole() {
-			return "generic";
+		aria: {
+			implicitRole: "generic",
 		},
 	},
 
@@ -300,8 +304,8 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
-		implicitRole() {
-			return "generic";
+		aria: {
+			implicitRole: "generic",
 		},
 	},
 
@@ -309,8 +313,8 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
-		implicitRole() {
-			return "generic";
+		aria: {
+			implicitRole: "generic",
 		},
 	},
 
@@ -342,8 +346,8 @@ export default defineMetadata({
 	blockquote: {
 		flow: true,
 		sectioning: true,
-		implicitRole() {
-			return "blockquote";
+		aria: {
+			implicitRole: "blockquote",
 		},
 		permittedContent: ["@flow"],
 	},
@@ -389,8 +393,8 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole() {
-			return "generic";
+		aria: {
+			implicitRole: "generic",
 		},
 	},
 
@@ -452,8 +456,8 @@ export default defineMetadata({
 				enum: ["submit", "reset", "button"],
 			},
 		},
-		implicitRole() {
-			return "button";
+		aria: {
+			implicitRole: "button",
 		},
 		permittedContent: ["@phrasing"],
 		permittedDescendants: [{ exclude: ["@interactive"] }],
@@ -475,8 +479,8 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole() {
-			return "caption";
+		aria: {
+			implicitRole: "caption",
 		},
 	},
 
@@ -498,8 +502,8 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
-		implicitRole() {
-			return "code";
+		aria: {
+			implicitRole: "code",
 		},
 	},
 
@@ -541,16 +545,16 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
-		implicitRole() {
-			return "generic";
+		aria: {
+			implicitRole: "generic",
 		},
 	},
 
 	datalist: {
 		flow: true,
 		phrasing: true,
-		implicitRole() {
-			return "listbox";
+		aria: {
+			implicitRole: "listbox",
 		},
 		permittedContent: ["@phrasing", "option"],
 	},
@@ -565,8 +569,8 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		transparent: true,
-		implicitRole() {
-			return "deletion";
+		aria: {
+			implicitRole: "deletion",
 		},
 	},
 
@@ -579,8 +583,8 @@ export default defineMetadata({
 				boolean: true,
 			},
 		},
-		implicitRole() {
-			return "group";
+		aria: {
+			implicitRole: "group",
 		},
 		permittedContent: ["summary", "@flow"],
 		permittedOrder: ["summary", "@flow"],
@@ -590,8 +594,8 @@ export default defineMetadata({
 	dfn: {
 		flow: true,
 		phrasing: true,
-		implicitRole() {
-			return "term";
+		aria: {
+			implicitRole: "term",
 		},
 		permittedContent: ["@phrasing"],
 		permittedDescendants: [{ exclude: ["dfn"] }],
@@ -605,8 +609,8 @@ export default defineMetadata({
 				boolean: true,
 			},
 		},
-		implicitRole() {
-			return "dialog";
+		aria: {
+			implicitRole: "dialog",
 		},
 	},
 
@@ -635,8 +639,8 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole() {
-			return "generic";
+		aria: {
+			implicitRole: "generic",
 		},
 	},
 
@@ -661,8 +665,8 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
-		implicitRole() {
-			return "emphasis";
+		aria: {
+			implicitRole: "emphasis",
 		},
 	},
 
@@ -696,8 +700,8 @@ export default defineMetadata({
 				boolean: true,
 			},
 		},
-		implicitRole() {
-			return "group";
+		aria: {
+			implicitRole: "group",
 		},
 		permittedContent: ["@flow", "legend?"],
 		permittedOrder: ["legend", "@flow"],
@@ -709,8 +713,8 @@ export default defineMetadata({
 
 	figure: {
 		flow: true,
-		implicitRole() {
-			return "figure";
+		aria: {
+			implicitRole: "figure",
 		},
 		permittedContent: ["@flow", "figcaption?"],
 		permittedOrder: ["figcaption", "@flow", "figcaption"],
@@ -726,24 +730,28 @@ export default defineMetadata({
 
 	footer: {
 		flow: true,
-		implicitRole(node) {
-			const selectors = [
-				"article",
-				"aside",
-				"main",
-				"nav",
-				"section",
-				'[role="article"]',
-				'[role="complementary"]',
-				'[role="main"]',
-				'[role="navigation"]',
-				'[role="region"]',
-			];
-			if (node.closest(selectors.join(","))) {
-				return "generic";
-			} else {
-				return "contentinfo";
-			}
+		aria: {
+			implicitRole(node) {
+				const selectors = [
+					"article",
+					"aside",
+					"main",
+					"nav",
+					"section",
+					'[role="article"]',
+					'[role="complementary"]',
+					'[role="main"]',
+					'[role="navigation"]',
+					'[role="region"]',
+				];
+				/* § 4: https://www.w3.org/TR/html-aria/#docconformance */
+				/* § 3.4.42: https://w3c.github.io/html-aam/#el-footer */
+				if (node.closest(selectors.join(","))) {
+					return "generic";
+				} else {
+					return "contentinfo";
+				}
+			},
 		},
 		permittedContent: ["@flow"],
 		permittedDescendants: [{ exclude: ["header", "footer", "main"] }],
@@ -772,8 +780,8 @@ export default defineMetadata({
 				enum: ["/[^_].*/", "_blank", "_self", "_parent", "_top"],
 			},
 		},
-		implicitRole() {
-			return "form";
+		aria: {
+			implicitRole: "form",
 		},
 		permittedContent: ["@flow"],
 		permittedDescendants: [{ exclude: ["@form"] }],
@@ -815,8 +823,8 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole() {
-			return "heading";
+		aria: {
+			implicitRole: "heading",
 		},
 	},
 
@@ -829,8 +837,8 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole() {
-			return "heading";
+		aria: {
+			implicitRole: "heading",
 		},
 	},
 
@@ -843,8 +851,8 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole() {
-			return "heading";
+		aria: {
+			implicitRole: "heading",
 		},
 	},
 
@@ -857,8 +865,8 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole() {
-			return "heading";
+		aria: {
+			implicitRole: "heading",
 		},
 	},
 
@@ -871,8 +879,8 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole() {
-			return "heading";
+		aria: {
+			implicitRole: "heading",
 		},
 	},
 
@@ -885,8 +893,8 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole() {
-			return "heading";
+		aria: {
+			implicitRole: "heading",
 		},
 	},
 
@@ -903,26 +911,28 @@ export default defineMetadata({
 
 	header: {
 		flow: true,
-		implicitRole(node) {
-			const selectors = [
-				"article",
-				"aside",
-				"main",
-				"nav",
-				"section",
-				'[role="article"]',
-				'[role="complementary"]',
-				'[role="main"]',
-				'[role="navigation"]',
-				'[role="region"]',
-			];
-			/* § 4: https://www.w3.org/TR/html-aria/#docconformance */
-			/* § 3.4.48: https://w3c.github.io/html-aam/#el-header */
-			if (node.closest(selectors.join(","))) {
-				return "generic";
-			} else {
-				return "banner";
-			}
+		aria: {
+			implicitRole(node) {
+				const selectors = [
+					"article",
+					"aside",
+					"main",
+					"nav",
+					"section",
+					'[role="article"]',
+					'[role="complementary"]',
+					'[role="main"]',
+					'[role="navigation"]',
+					'[role="region"]',
+				];
+				/* § 4: https://www.w3.org/TR/html-aria/#docconformance */
+				/* § 3.4.48: https://w3c.github.io/html-aam/#el-header */
+				if (node.closest(selectors.join(","))) {
+					return "generic";
+				} else {
+					return "banner";
+				}
+			},
 		},
 		permittedContent: ["@flow"],
 		permittedDescendants: [{ exclude: ["header", "footer", "main"] }],
@@ -934,8 +944,8 @@ export default defineMetadata({
 		permittedContent: ["p", "@heading?"],
 		permittedDescendants: [{ exclude: ["hgroup"] }],
 		requiredContent: ["@heading"],
-		implicitRole() {
-			return "group";
+		aria: {
+			implicitRole: "group",
 		},
 	},
 
@@ -959,8 +969,8 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole() {
-			return "separator";
+		aria: {
+			implicitRole: "separator",
 		},
 	},
 
@@ -976,8 +986,8 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole() {
-			return "document";
+		aria: {
+			implicitRole: "document",
 		},
 	},
 
@@ -985,8 +995,8 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
-		implicitRole() {
-			return "generic";
+		aria: {
+			implicitRole: "generic",
 		},
 	},
 
@@ -1091,13 +1101,15 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole(node) {
-			const alt = node.getAttribute("alt");
-			if (alt === "") {
-				return "none";
-			} else {
-				return "img";
-			}
+		aria: {
+			implicitRole(node) {
+				const alt = node.getAttribute("alt");
+				if (alt === "") {
+					return "none";
+				} else {
+					return "img";
+				}
+			},
 		},
 	},
 
@@ -1221,61 +1233,63 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		/* eslint-disable-next-line complexity -- the standard is complicated */
-		implicitRole(node) {
-			const list = node.hasAttribute("list");
-			if (list) {
-				return "combobox";
-			}
-			const type = node.getAttribute("type");
-			switch (type) {
-				case "button":
-					return "button";
-				case "checkbox":
-					return "checkbox";
-				case "color":
-					return null;
-				case "date":
-					return null;
-				case "datetime-local":
-					return null;
-				case "email":
-					return "textbox";
-				case "file":
-					return null;
-				case "hidden":
-					return null;
-				case "image":
-					return "button";
-				case "month":
-					return null;
-				case "number":
-					return "spinbutton";
-				case "password":
-					return null;
-				case "radio":
-					return "radio";
-				case "range":
-					return "slider";
-				case "reset":
-					return "button";
-				case "search":
-					return "searchbox";
-				case "submit":
-					return "button";
-				case "tel":
-					return "textbox";
-				case "text":
-					return "textbox";
-				case "time":
-					return null;
-				case "url":
-					return "textbox";
-				case "week":
-					return null;
-				default:
-					return "textbox";
-			}
+		aria: {
+			/* eslint-disable-next-line complexity -- the standard is complicated */
+			implicitRole(node) {
+				const list = node.hasAttribute("list");
+				if (list) {
+					return "combobox";
+				}
+				const type = node.getAttribute("type");
+				switch (type) {
+					case "button":
+						return "button";
+					case "checkbox":
+						return "checkbox";
+					case "color":
+						return null;
+					case "date":
+						return null;
+					case "datetime-local":
+						return null;
+					case "email":
+						return "textbox";
+					case "file":
+						return null;
+					case "hidden":
+						return null;
+					case "image":
+						return "button";
+					case "month":
+						return null;
+					case "number":
+						return "spinbutton";
+					case "password":
+						return null;
+					case "radio":
+						return "radio";
+					case "range":
+						return "slider";
+					case "reset":
+						return "button";
+					case "search":
+						return "searchbox";
+					case "submit":
+						return "button";
+					case "tel":
+						return "textbox";
+					case "text":
+						return "textbox";
+					case "time":
+						return null;
+					case "url":
+						return "textbox";
+					case "week":
+						return null;
+					default:
+						return "textbox";
+				}
+			},
 		},
 	},
 
@@ -1283,8 +1297,8 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		transparent: true,
-		implicitRole() {
-			return "insertion";
+		aria: {
+			implicitRole: "insertion",
 		},
 	},
 
@@ -1358,8 +1372,10 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole(node) {
-			return node.closest("ul, ol, menu") ? "listitem" : "generic";
+		aria: {
+			implicitRole(node) {
+				return node.closest("ul, ol, menu") ? "listitem" : "generic";
+			},
 		},
 	},
 
@@ -1441,8 +1457,8 @@ export default defineMetadata({
 
 	main: {
 		flow: true,
-		implicitRole() {
-			return "main";
+		aria: {
+			implicitRole: "main",
 		},
 	},
 
@@ -1511,15 +1527,15 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole() {
-			return "math";
+		aria: {
+			implicitRole: "math",
 		},
 	},
 
 	menu: {
 		flow: true,
-		implicitRole() {
-			return "list";
+		aria: {
+			implicitRole: "list",
 		},
 		permittedContent: ["@script", "li"],
 	},
@@ -1555,8 +1571,8 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		labelable: true,
-		implicitRole() {
-			return "meter";
+		aria: {
+			implicitRole: "meter",
 		},
 		permittedContent: ["@phrasing"],
 		permittedDescendants: [{ exclude: "meter" }],
@@ -1573,8 +1589,8 @@ export default defineMetadata({
 	nav: {
 		flow: true,
 		sectioning: true,
-		implicitRole() {
-			return "navigation";
+		aria: {
+			implicitRole: "navigation",
 		},
 		permittedContent: ["@flow"],
 		permittedDescendants: [{ exclude: "main" }],
@@ -1695,8 +1711,8 @@ export default defineMetadata({
 				enum: ["a", "A", "i", "I", "1"],
 			},
 		},
-		implicitRole() {
-			return "list";
+		aria: {
+			implicitRole: "list",
 		},
 		permittedContent: ["@script", "li"],
 	},
@@ -1708,8 +1724,8 @@ export default defineMetadata({
 				boolean: true,
 			},
 		},
-		implicitRole() {
-			return "group";
+		aria: {
+			implicitRole: "group",
 		},
 		permittedContent: ["@script", "option"],
 	},
@@ -1733,8 +1749,8 @@ export default defineMetadata({
 				boolean: true,
 			},
 		},
-		implicitRole() {
-			return "option";
+		aria: {
+			implicitRole: "option",
 		},
 		permittedContent: [],
 	},
@@ -1746,8 +1762,8 @@ export default defineMetadata({
 			listed: true,
 		},
 		labelable: true,
-		implicitRole() {
-			return "status";
+		aria: {
+			implicitRole: "status",
 		},
 		permittedContent: ["@phrasing"],
 	},
@@ -1788,8 +1804,8 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole() {
-			return "paragraph";
+		aria: {
+			implicitRole: "paragraph",
 		},
 	},
 
@@ -1832,8 +1848,8 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole() {
-			return "generic";
+		aria: {
+			implicitRole: "generic",
 		},
 	},
 
@@ -1841,8 +1857,8 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		labelable: true,
-		implicitRole() {
-			return "progressbar";
+		aria: {
+			implicitRole: "progressbar",
 		},
 		permittedContent: ["@phrasing"],
 		permittedDescendants: [{ exclude: "progress" }],
@@ -1852,8 +1868,8 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
-		implicitRole() {
-			return "generic";
+		aria: {
+			implicitRole: "generic",
 		},
 	},
 
@@ -1887,8 +1903,8 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
-		implicitRole() {
-			return "deletion";
+		aria: {
+			implicitRole: "deletion",
 		},
 	},
 
@@ -1896,8 +1912,8 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
-		implicitRole() {
-			return "generic";
+		aria: {
+			implicitRole: "generic",
 		},
 	},
 
@@ -1944,17 +1960,19 @@ export default defineMetadata({
 
 	search: {
 		flow: true,
-		implicitRole() {
-			return "search";
+		aria: {
+			implicitRole: "search",
 		},
 	},
 
 	section: {
 		flow: true,
 		sectioning: true,
-		implicitRole(node) {
-			const name = node.hasAttribute("aria-label") || node.hasAttribute("aria-labelledby");
-			return name ? "region" : "generic";
+		aria: {
+			implicitRole(node) {
+				const name = node.hasAttribute("aria-label") || node.hasAttribute("aria-labelledby");
+				return name ? "region" : "generic";
+			},
 		},
 		permittedContent: ["@flow"],
 	},
@@ -1985,19 +2003,21 @@ export default defineMetadata({
 				enum: ["/\\d+/"],
 			},
 		},
-		implicitRole(node) {
-			const multiple = node.hasAttribute("multiple");
-			if (multiple) {
-				return "listbox";
-			}
-			const size = node.getAttribute("size");
-			if (typeof size === "string") {
-				const parsed = parseInt(size, 10);
-				if (parsed > 1) {
+		aria: {
+			implicitRole(node) {
+				const multiple = node.hasAttribute("multiple");
+				if (multiple) {
 					return "listbox";
 				}
-			}
-			return "combobox";
+				const size = node.getAttribute("size");
+				if (typeof size === "string") {
+					const parsed = parseInt(size, 10);
+					if (parsed > 1) {
+						return "listbox";
+					}
+				}
+				return "combobox";
+			},
 		},
 		permittedContent: ["@script", "datasrc", "datafld", "dataformatas", "option", "optgroup"],
 	},
@@ -2012,8 +2032,8 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
-		implicitRole() {
-			return "generic";
+		aria: {
+			implicitRole: "generic",
 		},
 	},
 
@@ -2065,8 +2085,8 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole() {
-			return "generic";
+		aria: {
+			implicitRole: "generic",
 		},
 	},
 
@@ -2082,8 +2102,8 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
-		implicitRole() {
-			return "strong";
+		aria: {
+			implicitRole: "strong",
 		},
 	},
 
@@ -2095,15 +2115,15 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
-		implicitRole() {
-			return "subscript";
+		aria: {
+			implicitRole: "subscript",
 		},
 	},
 
 	summary: {
 		permittedContent: ["@phrasing", "@heading"],
-		implicitRole() {
-			return "button";
+		aria: {
+			implicitRole: "button",
 		},
 	},
 
@@ -2111,8 +2131,8 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
-		implicitRole() {
-			return "superscript";
+		aria: {
+			implicitRole: "superscript",
 		},
 	},
 
@@ -2121,8 +2141,8 @@ export default defineMetadata({
 		foreign: true,
 		phrasing: true,
 		embedded: true,
-		implicitRole() {
-			return "graphics-document";
+		aria: {
+			implicitRole: "graphics-document",
 		},
 	},
 
@@ -2177,8 +2197,8 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole() {
-			return "table";
+		aria: {
+			implicitRole: "table",
 		},
 	},
 
@@ -2202,8 +2222,8 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole() {
-			return "rowgroup";
+		aria: {
+			implicitRole: "rowgroup",
 		},
 	},
 
@@ -2251,18 +2271,20 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole(node) {
-			const table = node.closest("table");
-			const tableRole = table?.getAttribute("role") ?? "table";
-			switch (tableRole) {
-				case "table":
-					return "cell";
-				case "grid":
-				case "treegrid":
-					return "gridcell";
-				default:
-					return null;
-			}
+		aria: {
+			implicitRole(node) {
+				const table = node.closest("table");
+				const tableRole = table?.getAttribute("role") ?? "table";
+				switch (tableRole) {
+					case "table":
+						return "cell";
+					case "grid":
+					case "treegrid":
+						return "gridcell";
+					default:
+						return null;
+				}
+			},
 		},
 		permittedContent: ["@flow"],
 	},
@@ -2324,8 +2346,8 @@ export default defineMetadata({
 				enum: ["hard", "soft"],
 			},
 		},
-		implicitRole() {
-			return "textbox";
+		aria: {
+			implicitRole: "textbox",
 		},
 		permittedContent: [],
 	},
@@ -2350,8 +2372,8 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole() {
-			return "rowgroup";
+		aria: {
+			implicitRole: "rowgroup",
 		},
 	},
 
@@ -2399,21 +2421,23 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole(node) {
-			const table = node.closest("table");
-			const tableRole = table?.getAttribute("role") ?? "table";
-			if (typeof tableRole !== "string" || !["table", "grid", "treegrid"].includes(tableRole)) {
-				return null;
-			}
-			const scope = node.getAttribute("scope");
-			switch (scope) {
-				case "col":
-					return "columnheader";
-				case "row":
-					return "rowheader";
-				default:
-					return tableRole === "table" ? "cell" : "gridcell";
-			}
+		aria: {
+			implicitRole(node) {
+				const table = node.closest("table");
+				const tableRole = table?.getAttribute("role") ?? "table";
+				if (typeof tableRole !== "string" || !["table", "grid", "treegrid"].includes(tableRole)) {
+					return null;
+				}
+				const scope = node.getAttribute("scope");
+				switch (scope) {
+					case "col":
+						return "columnheader";
+					case "row":
+						return "rowheader";
+					default:
+						return tableRole === "table" ? "cell" : "gridcell";
+				}
+			},
 		},
 		permittedContent: ["@flow"],
 		permittedDescendants: [{ exclude: ["header", "footer", "@sectioning", "@heading"] }],
@@ -2439,16 +2463,16 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole() {
-			return "rowgroup";
+		aria: {
+			implicitRole: "rowgroup",
 		},
 	},
 
 	time: {
 		flow: true,
 		phrasing: true,
-		implicitRole() {
-			return "time";
+		aria: {
+			implicitRole: "time",
 		},
 		permittedContent: ["@phrasing"],
 	},
@@ -2482,8 +2506,8 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole() {
-			return "row";
+		aria: {
+			implicitRole: "row",
 		},
 	},
 
@@ -2503,8 +2527,8 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
-		implicitRole() {
-			return "generic";
+		aria: {
+			implicitRole: "generic",
 		},
 	},
 
@@ -2519,8 +2543,8 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
-		implicitRole() {
-			return "list";
+		aria: {
+			implicitRole: "list",
 		},
 	},
 

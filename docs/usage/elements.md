@@ -46,7 +46,9 @@ export interface MetaElement {
   form?: boolean;
   formAssociated?: FormAssociated;
   labelable?: boolean;
-  implicitRole?(node): string | null;
+
+  /* WAI-ARIA attributes */
+  aria?: MetaAria;
 
   /* attributes */
   attributes?: Record<string, MetaAttribute>;
@@ -61,6 +63,10 @@ export interface MetaElement {
 
   /* inheritance */
   inherit?: string;
+}
+
+export interface MetaAria {
+  implicitRole?: string | ((node: HtmlElementLike) => string | null);
 }
 ```
 
@@ -210,24 +216,44 @@ This is typically elements input elements such as `<input>`.
 
 [whatwg-labelable]: https://html.spec.whatwg.org/multipage/forms.html#category-label
 
-### `implicitRole(node): string | null`
+### `aria.implicitRole`
 
-Some elements have implicit ARIA roles.
-This callback is used to describe when and what role the element have.
+- type: `string | ((node: HtmlElementLike) => string | null)`
 
-- The `node` parameter is the element the attribute belongs to.
+Many native HTML elements has an implicit ARIA role (defined in [ARIA in HTML](https://www.w3.org/TR/html-aria/#docconformance)).
+
+`aria.implicitRole` can either be set to:
+
+- a `string` with an unconditional role.
+- a callback returning a string. The `node` parameter is the element the the role is requested for. If the callback returns `null` the element has no corresponding role.
 
 ```js
 const { defineMetadata } = require("html-validate");
 
 module.exports = defineMetadata({
+  /* defines an element with a static implicit role */
   "custom-element": {
-    implicitRole() {
-      return "presentation";
+    aria: {
+      implicitRole: "presentation",
+    },
+  },
+
+  /* defines an element with the role of button only if the `foo` attribute is set */
+  "other-element": {
+    aria: {
+      implicitRole(node) {
+        if (node.hasAttribute("foo")) {
+          return "button";
+        } else {
+          return "generic";
+        }
+      },
     },
   },
 });
 ```
+
+This property is also available as the deprecated `implicitRole` property (outside of the `aria` property).
 
 ## Permitted content
 

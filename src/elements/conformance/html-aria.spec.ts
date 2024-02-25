@@ -32,8 +32,8 @@ async function implicitRole(markup: string, selector: string): Promise<string | 
 	if (!element) {
 		return null;
 	}
-	const meta = element.meta!;
-	return meta.implicitRole(element._adapter);
+	const { aria } = element.meta!;
+	return aria.implicitRole(element._adapter);
 }
 
 describe("§4 ARIA Semantics", () => {

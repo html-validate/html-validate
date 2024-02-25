@@ -6,6 +6,8 @@ import {
 	type MetaElement,
 	type TextContent,
 } from "./element";
+import { type HtmlElementLike } from "./html-element-like";
+import { type MetaAria } from "./meta-aria";
 
 function isSet(value?: unknown): boolean {
 	return typeof value !== "undefined";
@@ -73,7 +75,20 @@ function migrateAttributes(src: MetaData): Record<string, MetaAttribute & Intern
 	return Object.fromEntries(entries);
 }
 
+function normalizeAriaImplicitRole(
+	value: MetaAria["implicitRole"],
+): (node: HtmlElementLike) => string | null {
+	if (!value) {
+		return () => null;
+	}
+	if (typeof value === "string") {
+		return () => value;
+	}
+	return value;
+}
+
 export function migrateElement(src: MetaData): Omit<MetaElement, "tagName"> {
+	const implicitRole = normalizeAriaImplicitRole(src.implicitRole ?? src.aria?.implicitRole);
 	const result = {
 		...src,
 		...{
@@ -82,7 +97,10 @@ export function migrateElement(src: MetaData): Omit<MetaElement, "tagName"> {
 		attributes: migrateAttributes(src),
 		textContent: src.textContent as TextContent | undefined,
 		focusable: src.focusable ?? false,
-		implicitRole: src.implicitRole ?? (() => null),
+		implicitRole,
+		aria: {
+			implicitRole,
+		},
 	};
 
 	/* removed properties */
