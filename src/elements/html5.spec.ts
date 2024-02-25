@@ -2,74 +2,81 @@ import { Source } from "../context";
 import { HtmlElement } from "../dom";
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
+import { Parser } from "../parser";
 import metadata from "./html5";
 
 const fileDirectory = "test-files/elements";
 const tagNames = Object.keys(metadata).filter((it) => it !== "*");
 
-describe("HTML elements", () => {
-	const htmlvalidate = new HtmlValidate({
-		root: true,
-		extends: ["html-validate:recommended"],
-		elements: [
-			"html5",
-			{
-				"custom-form": {
-					inherit: "form",
-				},
+const htmlvalidate = new HtmlValidate({
+	root: true,
+	extends: ["html-validate:recommended"],
+	elements: [
+		"html5",
+		{
+			"custom-form": {
+				inherit: "form",
 			},
-		],
-		rules: {
-			/* allow any style of boolean/empty attributes, some tests runs all of them */
-			"attribute-boolean-style": "off",
-			"attribute-empty-style": "off",
-
-			/* messes with tests validating that elements with support implicit close
-			 * does so */
-			"no-implicit-close": "off",
-
-			/* while <button> is preferred the <input type="button"> tests should not
-			 * yield any errors */
-			"prefer-button": "off",
-
-			/* disabled by default, should be included in these tests */
-			"svg-focusable": "error",
-
-			/* triggers on all landmark tests and is tedious/noise to add to all of
-			 * them, there are separate tests for this rule to verify it functions */
-			"unique-landmark": "off",
-
-			/* none of the WCAG rules should trigger in these tests, they are tested
-			 * separately and adds too much noise here */
-			"wcag/h32": "off",
-			"wcag/h37": "off",
-			"wcag/h63": "off",
-			"wcag/h67": "off",
-
-			/* svg elements uses a remapping of tagnames (added namespace), this
-			 * ensures this mapping works as inteded */
-			"no-unknown-elements": "error",
 		},
-	});
+	],
+	rules: {
+		/* allow any style of boolean/empty attributes, some tests runs all of them */
+		"attribute-boolean-style": "off",
+		"attribute-empty-style": "off",
 
-	async function getElement(markup: string, selector: string): Promise<HtmlElement | null> {
-		const source: Source = {
-			data: markup,
-			filename: "inline",
-			line: 1,
-			column: 1,
-			offset: 0,
-		};
-		const parser = await htmlvalidate.getParserFor(source);
-		const doc = parser.parseHtml(source.data);
-		return doc.querySelector(selector);
+		/* messes with tests validating that elements with support implicit close
+		 * does so */
+		"no-implicit-close": "off",
+
+		/* while <button> is preferred the <input type="button"> tests should not
+		 * yield any errors */
+		"prefer-button": "off",
+
+		/* disabled by default, should be included in these tests */
+		"svg-focusable": "error",
+
+		/* triggers on all landmark tests and is tedious/noise to add to all of
+		 * them, there are separate tests for this rule to verify it functions */
+		"unique-landmark": "off",
+
+		/* none of the WCAG rules should trigger in these tests, they are tested
+		 * separately and adds too much noise here */
+		"wcag/h32": "off",
+		"wcag/h37": "off",
+		"wcag/h63": "off",
+		"wcag/h67": "off",
+
+		/* svg elements uses a remapping of tagnames (added namespace), this ensures
+		 * this mapping works as intended */
+		"no-unknown-elements": "error",
+	},
+});
+
+const source: Source = {
+	data: "",
+	filename: "inline",
+	line: 1,
+	column: 1,
+	offset: 0,
+};
+
+let parser: Parser;
+
+beforeAll(async () => {
+	parser = await htmlvalidate.getParserFor(source);
+});
+
+describe("HTML elements", () => {
+	function getElement(markup: string, selector: string): HtmlElement {
+		const doc = parser.parseHtml(markup);
+		return doc.querySelector(selector)!;
 	}
 
 	describe("<a>", () => {
 		it("should be focusable if href is present", async () => {
 			expect.assertions(1);
 			const markup = "<a href></a>";
-			const input = await getElement(markup, "a")!;
+			const input = getElement(markup, "a")!;
 			const meta = input?.meta;
 			expect(meta?.focusable).toBe(true);
 		});
@@ -77,7 +84,7 @@ describe("HTML elements", () => {
 		it("should not be focusable unless href is present", async () => {
 			expect.assertions(1);
 			const markup = "<a></a>";
-			const input = await getElement(markup, "a")!;
+			const input = getElement(markup, "a")!;
 			const meta = input?.meta;
 			expect(meta?.focusable).toBe(false);
 		});
@@ -87,7 +94,7 @@ describe("HTML elements", () => {
 		it("should be focusable if href is present", async () => {
 			expect.assertions(1);
 			const markup = "<area href></area>";
-			const input = await getElement(markup, "area")!;
+			const input = getElement(markup, "area")!;
 			const meta = input?.meta;
 			expect(meta?.focusable).toBe(true);
 		});
@@ -95,7 +102,7 @@ describe("HTML elements", () => {
 		it("should not be focusable unless href is present", async () => {
 			expect.assertions(1);
 			const markup = "<area></area>";
-			const input = await getElement(markup, "area")!;
+			const input = getElement(markup, "area")!;
 			const meta = input?.meta;
 			expect(meta?.focusable).toBe(false);
 		});
@@ -105,7 +112,7 @@ describe("HTML elements", () => {
 		it("should be focusable if controls is present", async () => {
 			expect.assertions(1);
 			const markup = "<audio controls></audio>";
-			const input = await getElement(markup, "audio")!;
+			const input = getElement(markup, "audio")!;
 			const meta = input?.meta;
 			expect(meta?.focusable).toBe(true);
 		});
@@ -113,7 +120,7 @@ describe("HTML elements", () => {
 		it("should not be focusable unless controls is present", async () => {
 			expect.assertions(1);
 			const markup = "<audio></audio>";
-			const input = await getElement(markup, "audio")!;
+			const input = getElement(markup, "audio")!;
 			const meta = input?.meta;
 			expect(meta?.focusable).toBe(false);
 		});
@@ -123,7 +130,7 @@ describe("HTML elements", () => {
 		it("should be focusable unless hidden", async () => {
 			expect.assertions(1);
 			const markup = '<input type="text">';
-			const input = await getElement(markup, "input")!;
+			const input = getElement(markup, "input")!;
 			const meta = input?.meta;
 			expect(meta?.focusable).toBe(true);
 		});
@@ -131,7 +138,7 @@ describe("HTML elements", () => {
 		it("should be labelable unless hidden", async () => {
 			expect.assertions(1);
 			const markup = '<input type="text">';
-			const input = await getElement(markup, "input")!;
+			const input = getElement(markup, "input")!;
 			const meta = input?.meta;
 			expect(meta?.labelable).toBe(true);
 		});
@@ -139,7 +146,7 @@ describe("HTML elements", () => {
 		it("should not be focusable if hidden", async () => {
 			expect.assertions(1);
 			const markup = '<input type="hidden">';
-			const input = await getElement(markup, "input")!;
+			const input = getElement(markup, "input")!;
 			const meta = input?.meta;
 			expect(meta?.focusable).toBe(false);
 		});
@@ -147,7 +154,7 @@ describe("HTML elements", () => {
 		it("should not be labelable if hidden", async () => {
 			expect.assertions(1);
 			const markup = '<input type="hidden">';
-			const input = await getElement(markup, "input")!;
+			const input = getElement(markup, "input")!;
 			const meta = input?.meta;
 			expect(meta?.labelable).toBe(false);
 		});
@@ -157,7 +164,7 @@ describe("HTML elements", () => {
 		it("should be focusable if controls is present", async () => {
 			expect.assertions(1);
 			const markup = "<video controls></video>";
-			const input = await getElement(markup, "video")!;
+			const input = getElement(markup, "video")!;
 			const meta = input?.meta;
 			expect(meta?.focusable).toBe(true);
 		});
@@ -165,7 +172,7 @@ describe("HTML elements", () => {
 		it("should not be focusable unless controls is present", async () => {
 			expect.assertions(1);
 			const markup = "<video></video>";
-			const input = await getElement(markup, "video")!;
+			const input = getElement(markup, "video")!;
 			const meta = input?.meta;
 			expect(meta?.focusable).toBe(false);
 		});
