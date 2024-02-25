@@ -67,6 +67,7 @@ export interface MetaElement {
 
 export interface MetaAria {
   implicitRole?: string | ((node: HtmlElementLike) => string | null);
+  naming?: "allowed" | "prohibited" | ((node: HtmlElementLike) => "allowed" | "prohibited");
 }
 ```
 
@@ -254,6 +255,17 @@ module.exports = defineMetadata({
 ```
 
 This property is also available as the deprecated `implicitRole` property (outside of the `aria` property).
+
+#### `aria.naming`
+
+- type: `"allowed" | "prohibited" | ((node: HtmlElementLike) => "allowed" | "prohibited" | null)`
+
+Sets whenever the elements allows to be named by the `aria-label` or `aria-labelledby` attributes, i.e. whenever [naming is prohibited](https://www.w3.org/TR/html-aria/#dfn-naming-prohibited).
+
+Can be set either to `"allowed"` or `"prohibited"`or a callback returning one of those.
+Defaults is `"allowed"`.
+
+Note that if the element has a `role` attribute the role determines if naming is prohibited or not.
 
 ## Permitted content
 

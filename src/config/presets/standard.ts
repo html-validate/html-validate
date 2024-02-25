@@ -3,6 +3,7 @@ import { type ConfigData } from "../config-data";
 const config: ConfigData = {
 	rules: {
 		"area-alt": ["error", { accessible: false }],
+		"aria-label-misuse": ["error", { allowAnyNamable: true }],
 		"attr-spacing": "error",
 		"attribute-allowed-values": "error",
 		"attribute-misuse": "error",

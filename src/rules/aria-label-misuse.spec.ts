@@ -77,6 +77,7 @@ describe("rule aria-label-misuse", () => {
 			${'<table aria-label="foobar"></table>'}       | ${"<table>"}
 			${'<td aria-label="foobar"></td>'}             | ${"<td>"}
 			${'<th aria-label="foobar"></th>'}             | ${"<th>"}
+			${'<any aria-label="foobar"></any>'}           | ${"<any>"}
 		`("$description", async ({ markup }) => {
 			expect.assertions(1);
 			const report = await htmlvalidate.validateString(markup);
@@ -154,6 +155,55 @@ describe("rule aria-label-misuse", () => {
 			    |     ^^^^^^^^^^
 			Selector: p"
 		`);
+	});
+
+	describe("with allowAnyNamable option", () => {
+		it("should not report error for elements which allow naming", async () => {
+			expect.assertions(1);
+			const htmlvalidate = new HtmlValidate({
+				elements: ["html5"],
+				rules: { "aria-label-misuse": ["error", { allowAnyNamable: true }] },
+			});
+			const markup = /* HTML */ ` <h1 aria-label="lorem ipsum">spam</h1> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should report error for elements where naming is prohibited", async () => {
+			expect.assertions(2);
+			const htmlvalidate = new HtmlValidate({
+				elements: ["html5"],
+				rules: { "aria-label-misuse": ["error", { allowAnyNamable: true }] },
+			});
+			const markup = /* HTML */ ` <span aria-label="lorem ipsum">spam</span> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+				"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:1:8:
+				> 1 |  <span aria-label="lorem ipsum">spam</span>
+				    |        ^^^^^^^^^^
+				Selector: span"
+			`);
+		});
+	});
+
+	describe("without allowAnyNamable option", () => {
+		it("should report error for elements where naming allowed is not recommended", async () => {
+			expect.assertions(2);
+			const htmlvalidate = new HtmlValidate({
+				elements: ["html5"],
+				rules: { "aria-label-misuse": ["error", { allowAnyNamable: false }] },
+			});
+			const markup = /* HTML */ ` <h1 aria-label="lorem ipsum">spam</h1> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+			"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:1:6:
+			> 1 |  <h1 aria-label="lorem ipsum">spam</h1>
+			    |      ^^^^^^^^^^
+			Selector: h1"
+		`);
+		});
 	});
 
 	it("should contain documentation", async () => {

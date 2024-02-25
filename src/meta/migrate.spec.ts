@@ -2,6 +2,18 @@ import { type MetaData } from "./element";
 import { type HtmlElementLike } from "./html-element-like";
 import { migrateElement } from "./migrate";
 
+const mockNode: HtmlElementLike = {
+	closest() {
+		return null;
+	},
+	getAttribute() {
+		return null;
+	},
+	hasAttribute() {
+		return false;
+	},
+};
+
 it("should not migrate up-to-date data", () => {
 	expect.assertions(1);
 	const src: MetaData = {
@@ -171,18 +183,6 @@ describe("formAssociated", () => {
 });
 
 describe("aria.implicitRole", () => {
-	const mockNode: HtmlElementLike = {
-		closest() {
-			return null;
-		},
-		getAttribute() {
-			return null;
-		},
-		hasAttribute() {
-			return false;
-		},
-	};
-
 	it("should normalize missing property", () => {
 		expect.assertions(1);
 		const src: MetaData = {};
@@ -227,5 +227,41 @@ describe("aria.implicitRole", () => {
 		const result = migrateElement(src);
 		const naming = result.aria.implicitRole(mockNode);
 		expect(naming).toBe("button");
+	});
+});
+
+describe("aria.named", () => {
+	it("should normalize missing property", () => {
+		expect.assertions(1);
+		const src: MetaData = {};
+		const result = migrateElement(src);
+		const naming = result.aria.naming(mockNode);
+		expect(naming).toBe("allowed");
+	});
+
+	it("should normalize string property", () => {
+		expect.assertions(1);
+		const src: MetaData = {
+			aria: {
+				naming: "prohibited",
+			},
+		};
+		const result = migrateElement(src);
+		const naming = result.aria.naming(mockNode);
+		expect(naming).toBe("prohibited");
+	});
+
+	it("should normalize callback property", () => {
+		expect.assertions(1);
+		const src: MetaData = {
+			aria: {
+				naming() {
+					return "prohibited";
+				},
+			},
+		};
+		const result = migrateElement(src);
+		const naming = result.aria.naming(mockNode);
+		expect(naming).toBe("prohibited");
 	});
 });

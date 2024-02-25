@@ -27,6 +27,18 @@ export interface MetaAria {
 	 * @since %version%
 	 */
 	implicitRole?: string | MetaImplicitRoleCallback;
+
+	/**
+	 * If set to `"prohibited"` this element may not specify an accessible name
+	 * with `aria-label` or `aria-labelledby`. Defaults to `"allowed"` if unset.
+	 *
+	 * Note: if the element overrides the `role` (i.e. the `role` attribute is set to
+	 * something other than the implicit role) naming may or may not be allowed
+	 * depending on the given role instead.
+	 *
+	 * @since %version%
+	 */
+	naming?: "allowed" | "prohibited" | ((node: HtmlElementLike) => "allowed" | "prohibited");
 }
 
 /**
@@ -45,4 +57,13 @@ export interface NormalizedMetaAria {
 	 * @returns string with role or null if no corresponding role.
 	 */
 	implicitRole(node: HtmlElementLike): string | null;
+
+	/**
+	 *
+	 * Normalized version of {@link MetaAria.naming}. Always a callback
+	 * returning `"allowed"` or `"prohibited"`.
+	 *
+	 * @since %version%
+	 */
+	naming(node: HtmlElementLike): "allowed" | "prohibited";
 }

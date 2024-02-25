@@ -2,6 +2,7 @@
 
 import { defineMetadata } from "../meta/define-metadata";
 import { metadataHelper } from "../meta/helper";
+import { type HtmlElementLike } from "../meta/html-element-like";
 
 const {
 	allowedIfAttributeIsPresent,
@@ -23,6 +24,25 @@ const ReferrerPolicy = [
 	"strict-origin-when-cross-origin",
 	"unsafe-url",
 ];
+
+function isInsideLandmark(node: HtmlElementLike): boolean {
+	/* § 4: https://www.w3.org/TR/html-aria/#docconformance */
+	/* § 3.4.42: https://w3c.github.io/html-aam/#el-footer */
+	/* § 3.4.48: https://w3c.github.io/html-aam/#el-header */
+	const selectors = [
+		"article",
+		"aside",
+		"main",
+		"nav",
+		"section",
+		'[role="article"]',
+		'[role="complementary"]',
+		'[role="main"]',
+		'[role="navigation"]',
+		'[role="region"]',
+	];
+	return Boolean(node.closest(selectors.join(",")));
+}
 
 export default defineMetadata({
 	"*": {
@@ -122,6 +142,9 @@ export default defineMetadata({
 			implicitRole(node) {
 				return node.hasAttribute("href") ? "link" : "generic";
 			},
+			naming(node) {
+				return node.hasAttribute("href") ? "allowed" : "prohibited";
+			},
 		},
 	},
 
@@ -129,6 +152,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	acronym: {
@@ -226,6 +252,9 @@ export default defineMetadata({
 			implicitRole(node) {
 				return node.hasAttribute("href") ? "link" : "generic";
 			},
+			naming(node) {
+				return node.hasAttribute("href") ? "allowed" : "prohibited";
+			},
 		},
 		requiredAncestors: ["map"],
 	},
@@ -283,6 +312,7 @@ export default defineMetadata({
 		permittedContent: ["@phrasing"],
 		aria: {
 			implicitRole: "generic",
+			naming: "prohibited",
 		},
 	},
 
@@ -290,6 +320,9 @@ export default defineMetadata({
 		metadata: true,
 		void: true,
 		permittedParent: ["head"],
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	basefont: {
@@ -306,6 +339,7 @@ export default defineMetadata({
 		permittedContent: ["@phrasing"],
 		aria: {
 			implicitRole: "generic",
+			naming: "prohibited",
 		},
 	},
 
@@ -315,6 +349,7 @@ export default defineMetadata({
 		permittedContent: ["@phrasing"],
 		aria: {
 			implicitRole: "generic",
+			naming: "prohibited",
 		},
 	},
 
@@ -395,6 +430,7 @@ export default defineMetadata({
 		},
 		aria: {
 			implicitRole: "generic",
+			naming: "prohibited",
 		},
 	},
 
@@ -406,6 +442,9 @@ export default defineMetadata({
 			clear: {
 				deprecated: true,
 			},
+		},
+		aria: {
+			naming: "prohibited",
 		},
 	},
 
@@ -481,6 +520,7 @@ export default defineMetadata({
 		},
 		aria: {
 			implicitRole: "caption",
+			naming: "prohibited",
 		},
 	},
 
@@ -496,6 +536,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	code: {
@@ -504,6 +547,7 @@ export default defineMetadata({
 		permittedContent: ["@phrasing"],
 		aria: {
 			implicitRole: "code",
+			naming: "prohibited",
 		},
 	},
 
@@ -529,6 +573,9 @@ export default defineMetadata({
 			},
 		},
 		void: true,
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	colgroup: {
@@ -539,6 +586,9 @@ export default defineMetadata({
 			},
 		},
 		permittedContent: ["col", "template"],
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	data: {
@@ -547,6 +597,7 @@ export default defineMetadata({
 		permittedContent: ["@phrasing"],
 		aria: {
 			implicitRole: "generic",
+			naming: "prohibited",
 		},
 	},
 
@@ -555,6 +606,7 @@ export default defineMetadata({
 		phrasing: true,
 		aria: {
 			implicitRole: "listbox",
+			naming: "prohibited",
 		},
 		permittedContent: ["@phrasing", "option"],
 	},
@@ -571,6 +623,7 @@ export default defineMetadata({
 		transparent: true,
 		aria: {
 			implicitRole: "deletion",
+			naming: "prohibited",
 		},
 	},
 
@@ -641,6 +694,7 @@ export default defineMetadata({
 		},
 		aria: {
 			implicitRole: "generic",
+			naming: "prohibited",
 		},
 	},
 
@@ -667,6 +721,7 @@ export default defineMetadata({
 		permittedContent: ["@phrasing"],
 		aria: {
 			implicitRole: "emphasis",
+			naming: "prohibited",
 		},
 	},
 
@@ -709,6 +764,9 @@ export default defineMetadata({
 
 	figcaption: {
 		permittedContent: ["@flow"],
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	figure: {
@@ -732,24 +790,17 @@ export default defineMetadata({
 		flow: true,
 		aria: {
 			implicitRole(node) {
-				const selectors = [
-					"article",
-					"aside",
-					"main",
-					"nav",
-					"section",
-					'[role="article"]',
-					'[role="complementary"]',
-					'[role="main"]',
-					'[role="navigation"]',
-					'[role="region"]',
-				];
-				/* § 4: https://www.w3.org/TR/html-aria/#docconformance */
-				/* § 3.4.42: https://w3c.github.io/html-aam/#el-footer */
-				if (node.closest(selectors.join(","))) {
+				if (isInsideLandmark(node)) {
 					return "generic";
 				} else {
 					return "contentinfo";
+				}
+			},
+			naming(node) {
+				if (isInsideLandmark(node)) {
+					return "prohibited";
+				} else {
+					return "allowed";
 				}
 			},
 		},
@@ -907,30 +958,26 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	header: {
 		flow: true,
 		aria: {
 			implicitRole(node) {
-				const selectors = [
-					"article",
-					"aside",
-					"main",
-					"nav",
-					"section",
-					'[role="article"]',
-					'[role="complementary"]',
-					'[role="main"]',
-					'[role="navigation"]',
-					'[role="region"]',
-				];
-				/* § 4: https://www.w3.org/TR/html-aria/#docconformance */
-				/* § 3.4.48: https://w3c.github.io/html-aam/#el-header */
-				if (node.closest(selectors.join(","))) {
+				if (isInsideLandmark(node)) {
 					return "generic";
 				} else {
 					return "banner";
+				}
+			},
+			naming(node) {
+				if (isInsideLandmark(node)) {
+					return "prohibited";
+				} else {
+					return "allowed";
 				}
 			},
 		},
@@ -988,6 +1035,7 @@ export default defineMetadata({
 		},
 		aria: {
 			implicitRole: "document",
+			naming: "prohibited",
 		},
 	},
 
@@ -997,6 +1045,7 @@ export default defineMetadata({
 		permittedContent: ["@phrasing"],
 		aria: {
 			implicitRole: "generic",
+			naming: "prohibited",
 		},
 	},
 
@@ -1104,10 +1153,24 @@ export default defineMetadata({
 		aria: {
 			implicitRole(node) {
 				const alt = node.getAttribute("alt");
-				if (alt === "") {
+				const ariaLabel = node.getAttribute("aria-label");
+				const ariaLabelledBy = node.getAttribute("aria-labelledby");
+				const title = node.getAttribute("title");
+				if (alt === "" && !ariaLabel && !ariaLabelledBy && !title) {
 					return "none";
 				} else {
 					return "img";
+				}
+			},
+			naming(node) {
+				const alt = node.getAttribute("alt");
+				const ariaLabel = node.getAttribute("aria-label");
+				const ariaLabelledBy = node.getAttribute("aria-labelledby");
+				const title = node.getAttribute("title");
+				if (!alt && !ariaLabel && !ariaLabelledBy && !title) {
+					return "prohibited";
+				} else {
+					return "allowed";
 				}
 			},
 		},
@@ -1290,6 +1353,9 @@ export default defineMetadata({
 						return "textbox";
 				}
 			},
+			naming(node) {
+				return node.getAttribute("type") !== "hidden" ? "allowed" : "prohibited";
+			},
 		},
 	},
 
@@ -1299,6 +1365,7 @@ export default defineMetadata({
 		transparent: true,
 		aria: {
 			implicitRole: "insertion",
+			naming: "prohibited",
 		},
 	},
 
@@ -1312,6 +1379,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	keygen: {
@@ -1343,6 +1413,9 @@ export default defineMetadata({
 				enum: [validId],
 			},
 		},
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	legend: {
@@ -1360,6 +1433,9 @@ export default defineMetadata({
 			datasrc: {
 				deprecated: true,
 			},
+		},
+		aria: {
+			naming: "prohibited",
 		},
 	},
 
@@ -1447,6 +1523,9 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	listing: {
@@ -1472,12 +1551,18 @@ export default defineMetadata({
 				enum: ["/\\S+/"],
 			},
 		},
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	mark: {
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	marquee: {
@@ -1565,6 +1650,9 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	meter: {
@@ -1628,6 +1716,9 @@ export default defineMetadata({
 		phrasing: true,
 		transparent: true,
 		permittedDescendants: [{ exclude: "noscript" }],
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	object: {
@@ -1806,6 +1897,7 @@ export default defineMetadata({
 		},
 		aria: {
 			implicitRole: "paragraph",
+			naming: "prohibited",
 		},
 	},
 
@@ -1822,6 +1914,9 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	picture: {
@@ -1830,6 +1925,9 @@ export default defineMetadata({
 		embedded: true,
 		permittedContent: ["@script", "source", "img"],
 		permittedOrder: ["source", "img"],
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	plaintext: {
@@ -1850,6 +1948,7 @@ export default defineMetadata({
 		},
 		aria: {
 			implicitRole: "generic",
+			naming: "prohibited",
 		},
 	},
 
@@ -1870,6 +1969,7 @@ export default defineMetadata({
 		permittedContent: ["@phrasing"],
 		aria: {
 			implicitRole: "generic",
+			naming: "prohibited",
 		},
 	},
 
@@ -1881,11 +1981,17 @@ export default defineMetadata({
 	rp: {
 		implicitClosed: ["rb", "rt", "rtc", "rp"],
 		permittedContent: ["@phrasing"],
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	rt: {
 		implicitClosed: ["rb", "rt", "rtc", "rp"],
 		permittedContent: ["@phrasing"],
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	rtc: {
@@ -1905,6 +2011,7 @@ export default defineMetadata({
 		permittedContent: ["@phrasing"],
 		aria: {
 			implicitRole: "deletion",
+			naming: "prohibited",
 		},
 	},
 
@@ -1914,6 +2021,7 @@ export default defineMetadata({
 		permittedContent: ["@phrasing"],
 		aria: {
 			implicitRole: "generic",
+			naming: "prohibited",
 		},
 	},
 
@@ -1955,6 +2063,9 @@ export default defineMetadata({
 			src: {
 				enum: ["/.+/"],
 			},
+		},
+		aria: {
+			naming: "prohibited",
 		},
 	},
 
@@ -2026,6 +2137,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		transparent: true,
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	small: {
@@ -2034,6 +2148,7 @@ export default defineMetadata({
 		permittedContent: ["@phrasing"],
 		aria: {
 			implicitRole: "generic",
+			naming: "prohibited",
 		},
 	},
 
@@ -2059,6 +2174,9 @@ export default defineMetadata({
 				allowed: allowedIfParentIsPresent("picture"),
 				enum: ["/\\d+/"],
 			},
+		},
+		aria: {
+			naming: "prohibited",
 		},
 	},
 
@@ -2087,6 +2205,7 @@ export default defineMetadata({
 		},
 		aria: {
 			implicitRole: "generic",
+			naming: "prohibited",
 		},
 	},
 
@@ -2104,11 +2223,15 @@ export default defineMetadata({
 		permittedContent: ["@phrasing"],
 		aria: {
 			implicitRole: "strong",
+			naming: "prohibited",
 		},
 	},
 
 	style: {
 		metadata: true,
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	sub: {
@@ -2117,6 +2240,7 @@ export default defineMetadata({
 		permittedContent: ["@phrasing"],
 		aria: {
 			implicitRole: "subscript",
+			naming: "prohibited",
 		},
 	},
 
@@ -2133,6 +2257,7 @@ export default defineMetadata({
 		permittedContent: ["@phrasing"],
 		aria: {
 			implicitRole: "superscript",
+			naming: "prohibited",
 		},
 	},
 
@@ -2294,6 +2419,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		scriptSupporting: true,
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	textarea: {
@@ -2473,6 +2601,7 @@ export default defineMetadata({
 		phrasing: true,
 		aria: {
 			implicitRole: "time",
+			naming: "prohibited",
 		},
 		permittedContent: ["@phrasing"],
 	},
@@ -2481,6 +2610,9 @@ export default defineMetadata({
 		metadata: true,
 		permittedContent: [],
 		permittedParent: ["head"],
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	tr: {
@@ -2513,6 +2645,9 @@ export default defineMetadata({
 
 	track: {
 		void: true,
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	tt: {
@@ -2529,6 +2664,7 @@ export default defineMetadata({
 		permittedContent: ["@phrasing"],
 		aria: {
 			implicitRole: "generic",
+			naming: "prohibited",
 		},
 	},
 
@@ -2552,6 +2688,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	video: {
@@ -2585,6 +2724,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		void: true,
+		aria: {
+			naming: "prohibited",
+		},
 	},
 
 	xmp: {

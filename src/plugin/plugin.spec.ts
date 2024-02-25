@@ -223,6 +223,7 @@ describe("Plugin", () => {
 				tagName: "my-element",
 				aria: {
 					implicitRole: expect.any(Function),
+					naming: expect.any(Function),
 				},
 				attributes: {},
 				focusable: false,
@@ -261,6 +262,7 @@ describe("Plugin", () => {
 				tagName: "my-element",
 				aria: {
 					implicitRole: expect.any(Function),
+					naming: expect.any(Function),
 				},
 				attributes: {},
 				focusable: false,
@@ -320,6 +322,7 @@ describe("Plugin", () => {
 				tagName: "my-element",
 				aria: {
 					implicitRole: expect.any(Function),
+					naming: expect.any(Function),
 				},
 				attributes: {},
 				focusable: false,

@@ -198,6 +198,10 @@
           "title": "Implicit ARIA role for this element",
           "description": "Some elements have implicit ARIA roles.",
           "anyOf": [{ "type": "string" }, { "function": true }]
+        },
+        "naming": {
+          "title": "Prohibit or allow this element to be named by aria-label or aria-labelledby",
+          "anyOf": [{ "type": "string", "enum": ["prohibited", "allowed"] }, { "function": true }]
         }
       }
     },

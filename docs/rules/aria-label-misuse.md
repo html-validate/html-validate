@@ -38,6 +38,19 @@ Examples of **correct** code for this rule:
     <input type="text" aria-label="foobar">
 </validate>
 
+## Other namable elements
+
+While some other elements (such as `<h1>`) allows naming with `aria-label` it is generally recommended to avoid it:
+
+- It can hide other textual child content of the element from assistive technologies.
+- Risk of conflicting information for assistive technologies and what is rendered visually.
+
+The [ARIA Authoring Practices Guide (APG)][apg] strongly recommends to avoid such usage.
+
+To allow `aria-label` on any element which allows naming see the [allowAnyNamable][#allow-any-namable] option below.
+
+[apg]: https://www.w3.org/WAI/ARIA/apg/practices/names-and-descriptions/
+
 ## Custom components
 
 When using custom components and you expect consumers to set `aria-label` on your component you need to explicitly declare the `aria-label` attribute:
@@ -56,6 +69,29 @@ export default defineMetadata({
 
 The mere presence of `aria-label` declaration ensures this rule will allow `aria-label` to be specified.
 
+## Options
+
+This rule takes an optional object:
+
+```json
+{
+  "allowAnyNamable": false
+}
+```
+
+### `allowAnyNamable`
+
+By default this rule disallows `aria-label` on elements which allows naming but for which it is not recommended to do so.
+
+With this option enabled the following is valid despite not recommended:
+
+<validate name="any-namable" rules="aria-label-misuse" aria-label-misuse='{"allowAnyNamable": true}'>
+	<h1 aria-label="Lorem ipsum">dolor sit amet</h1>
+</validate>
+
+This option is disabled by default and `html-validate:recommended` but enabled by `html-validate:standard`.
+
 ## Version history
 
+- %version% - `allowAnyNamable` option added.
 - 7.17.0 - Allow usage on custom elements.

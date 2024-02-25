@@ -8,6 +8,9 @@ import { ErrorObject } from 'ajv';
 import { SchemaObject } from 'ajv';
 
 // @public
+export function ariaNaming(element: HtmlElement): "allowed" | "prohibited";
+
+// @public
 export class Attribute {
     constructor(key: string, value: string | DynamicValue | null, keyLocation: Location_2, valueLocation: Location_2 | null, originalAttribute?: string);
     get isDynamic(): boolean;
@@ -774,6 +777,7 @@ export interface Message {
 // @public
 export interface MetaAria {
     implicitRole?: string | MetaImplicitRoleCallback;
+    naming?: "allowed" | "prohibited" | ((node: HtmlElementLike) => "allowed" | "prohibited");
 }
 
 // @public (undocumented)
@@ -953,6 +957,7 @@ export enum NodeType {
 // @public
 export interface NormalizedMetaAria {
     implicitRole(node: HtmlElementLike): string | null;
+    naming(node: HtmlElementLike): "allowed" | "prohibited";
 }
 
 // @internal

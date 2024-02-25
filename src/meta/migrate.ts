@@ -87,6 +87,19 @@ function normalizeAriaImplicitRole(
 	return value;
 }
 
+function normalizeAriaNaming(
+	value: MetaAria["naming"],
+): (node: HtmlElementLike) => "prohibited" | "allowed" {
+	if (!value) {
+		/* default value is also stored in {@link ariaNaming} */
+		return () => "allowed";
+	}
+	if (typeof value === "string") {
+		return () => value;
+	}
+	return value;
+}
+
 export function migrateElement(src: MetaData): Omit<MetaElement, "tagName"> {
 	const implicitRole = normalizeAriaImplicitRole(src.implicitRole ?? src.aria?.implicitRole);
 	const result = {
@@ -100,6 +113,7 @@ export function migrateElement(src: MetaData): Omit<MetaElement, "tagName"> {
 		implicitRole,
 		aria: {
 			implicitRole,
+			naming: normalizeAriaNaming(src.aria?.naming),
 		},
 	};
 

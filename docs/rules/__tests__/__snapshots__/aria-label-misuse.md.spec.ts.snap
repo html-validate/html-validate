@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`docs/rules/aria-label-misuse.md inline validation: any-namable 1`] = `[]`;
+
 exports[`docs/rules/aria-label-misuse.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/aria-label-misuse.md inline validation: incorrect 1`] = `

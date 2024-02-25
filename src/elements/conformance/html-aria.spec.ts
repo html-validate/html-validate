@@ -3,6 +3,7 @@
  * https://www.w3.org/TR/html-aria
  */
 
+import { ariaNaming } from "../../rules/helper";
 import { type Source } from "../../context";
 import { type HtmlElement } from "../../dom";
 import { HtmlValidate } from "../../htmlvalidate";
@@ -43,12 +44,28 @@ function implicitRole(markup: string, selector: string): string | null {
 	return aria.implicitRole(element._adapter);
 }
 
+function naming(markup: string, selector: string): string | null {
+	const element = getElement(markup, selector);
+	if (!element) {
+		return null;
+	}
+	return ariaNaming(element);
+}
+
 describe("§4 ARIA Semantics", () => {
 	describe("implicit role", () => {
 		it.each(htmlAria)("$description", ({ markup, selector, role: expectedRole }) => {
 			expect.assertions(1);
 			const role = implicitRole(markup, selector);
 			expect(role).toBe(expectedRole);
+		});
+	});
+
+	describe("naming", () => {
+		it.each(htmlAria)("$description", ({ markup, selector, naming: expectedNaming }) => {
+			expect.assertions(1);
+			const result = naming(markup, selector);
+			expect(result).toBe(expectedNaming);
 		});
 	});
 });

@@ -2,6 +2,15 @@ import { type HtmlElement } from "../dom";
 import { type DOMReadyEvent } from "../event";
 import { type MetaAttribute, type MetaElement } from "../meta";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
+import { ariaNaming } from "./helper";
+
+export interface RuleOptions {
+	allowAnyNamable: boolean;
+}
+
+const defaults: RuleOptions = {
+	allowAnyNamable: false,
+};
 
 const whitelisted = [
 	"main",
@@ -52,7 +61,11 @@ function isValidUsage(target: HtmlElement, meta: MetaElement): boolean {
 	return false;
 }
 
-export default class AriaLabelMisuse extends Rule {
+export default class AriaLabelMisuse extends Rule<void, RuleOptions> {
+	public constructor(options: Partial<RuleOptions>) {
+		super({ ...defaults, ...options });
+	}
+
 	public documentation(): RuleDocumentation {
 		const valid = [
 			"Interactive elements",
@@ -98,6 +111,11 @@ export default class AriaLabelMisuse extends Rule {
 
 		/* ignore elements which is valid usage */
 		if (isValidUsage(target, meta)) {
+			return;
+		}
+
+		/* ignore elements where naming is allowed (but not recommended) if `allowAnyNamable` is enabled */
+		if (this.options.allowAnyNamable && ariaNaming(target) === "allowed") {
 			return;
 		}
 

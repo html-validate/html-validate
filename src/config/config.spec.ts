@@ -377,6 +377,7 @@ describe("config", () => {
 				tagName: "foo",
 				aria: {
 					implicitRole: expect.any(Function),
+					naming: expect.any(Function),
 				},
 				attributes: {},
 				focusable: false,
@@ -387,6 +388,7 @@ describe("config", () => {
 				tagName: "bar",
 				aria: {
 					implicitRole: expect.any(Function),
+					naming: expect.any(Function),
 				},
 				attributes: {},
 				focusable: false,
