@@ -1,0 +1,3040 @@
+/* eslint-disable sonarjs/no-duplicate-string -- generated code */
+
+async function update() {
+	const fs = require("node:fs/promises");
+	const crypto = require("node:crypto");
+	const { JSDOM } = require("jsdom");
+
+	const url = "https://www.w3.org/TR/html-aria";
+
+	const ignoredElements = ["el-autonomous-custom-element", "el-form-associated-custom-element"];
+	const voidElements = [
+		"area",
+		"base",
+		"br",
+		"col",
+		"embed",
+		"hr",
+		"img",
+		"input",
+		"link",
+		"meta",
+		"param",
+		"source",
+		"track",
+		"wbr",
+	];
+
+	/** @type {Record<string, Array<{selector: string, markup: string, role?: string, description?: string}>>} */
+	const elementMapping = {
+		"a with href": [{ description: "a[href]", selector: "a", markup: `<a href></a>` }],
+		"a without href": [{ description: "a", selector: "a", markup: `<a></a>` }],
+		"area with href": [{ description: "area[href]", selector: "area", markup: `<area href />` }],
+		"area without href": [{ description: "area", selector: "area", markup: `<area />` }],
+		footer: [
+			{ selector: "footer", markup: `<footer></footer>`, role: "contentinfo" },
+			{
+				description: "article footer",
+				selector: "footer",
+				markup: `<article><footer></footer></article>`,
+				role: "generic",
+			},
+			{
+				description: "aside footer",
+				selector: "footer",
+				markup: `<aside><footer></footer></aside>`,
+				role: "generic",
+			},
+			{
+				description: "main footer",
+				selector: "footer",
+				markup: `<main><footer></footer></main>`,
+				role: "generic",
+			},
+			{
+				description: "nav footer",
+				selector: "footer",
+				markup: `<nav><footer></footer></nav>`,
+				role: "generic",
+			},
+			{
+				description: "section footer",
+				selector: "footer",
+				markup: `<section><footer></footer></section>`,
+				role: "generic",
+			},
+			{
+				description: "[role=article] footer",
+				selector: "footer",
+				markup: `<div role="article"><footer></footer></div>`,
+				role: "generic",
+			},
+			{
+				description: "[role=complementary] footer",
+				selector: "footer",
+				markup: `<div role="complementary"><footer></footer></div>`,
+				role: "generic",
+			},
+			{
+				description: "[role=main] footer",
+				selector: "footer",
+				markup: `<div role="main"><footer></footer></div>`,
+				role: "generic",
+			},
+			{
+				description: "[role=navigation] footer",
+				selector: "footer",
+				markup: `<div role="navigation"><footer></footer></div>`,
+				role: "generic",
+			},
+			{
+				description: "[role=region] footer",
+				selector: "footer",
+				markup: `<div role="region"><footer></footer></div>`,
+				role: "generic",
+			},
+		],
+		"h1 to h6": [
+			{ description: "h1", selector: "h1", markup: `<h1></h1>`, role: "heading" },
+			{ description: "h2", selector: "h2", markup: `<h2></h2>`, role: "heading" },
+			{ description: "h3", selector: "h3", markup: `<h3></h3>`, role: "heading" },
+			{ description: "h4", selector: "h4", markup: `<h4></h4>`, role: "heading" },
+			{ description: "h5", selector: "h5", markup: `<h5></h5>`, role: "heading" },
+			{ description: "h6", selector: "h6", markup: `<h6></h6>`, role: "heading" },
+		],
+		header: [
+			{ selector: "header", markup: `<header></header>`, role: "banner" },
+			{
+				description: "article header",
+				selector: "header",
+				markup: `<article><header></header></article>`,
+				role: "generic",
+			},
+			{
+				description: "aside header",
+				selector: "header",
+				markup: `<aside><header></header></aside>`,
+				role: "generic",
+			},
+			{
+				description: "main header",
+				selector: "header",
+				markup: `<main><header></header></main>`,
+				role: "generic",
+			},
+			{
+				description: "nav header",
+				selector: "header",
+				markup: `<nav><header></header></nav>`,
+				role: "generic",
+			},
+			{
+				description: "section header",
+				selector: "header",
+				markup: `<section><header></header></section>`,
+				role: "generic",
+			},
+			{
+				description: "[role=article] header",
+				selector: "header",
+				markup: `<div role="article"><header></header></div>`,
+				role: "generic",
+			},
+			{
+				description: "[role=complementary] header",
+				selector: "header",
+				markup: `<div role="complementary"><header></header></div>`,
+				role: "generic",
+			},
+			{
+				description: "[role=main] header",
+				selector: "header",
+				markup: `<div role="main"><header></header></div>`,
+				role: "generic",
+			},
+			{
+				description: "[role=navigation] header",
+				selector: "header",
+				markup: `<div role="navigation"><header></header></div>`,
+				role: "generic",
+			},
+			{
+				description: "[role=region] header",
+				selector: "header",
+				markup: `<div role="region"><header></header></div>`,
+				role: "generic",
+			},
+		],
+		"img with an accessible name.": [
+			{
+				description: "img[alt]",
+				selector: "img",
+				markup: `<img alt=".." />`,
+				role: "img",
+			},
+			{
+				description: "img[aria-label]",
+				selector: "img",
+				markup: `<img aria-label=".." />`,
+				role: "img",
+			},
+			{
+				description: "img[aria-labelledby]",
+				selector: "img",
+				markup: `<img aria-labelledby=".." />`,
+				role: "img",
+			},
+			{
+				description: "img[title]",
+				selector: "img",
+				markup: `<img title=".." />`,
+				role: "img",
+			},
+		],
+		"img with no accessible name.": [
+			{
+				description: `img[alt=""]`,
+				selector: "img",
+				markup: `<img alt="" />`,
+				role: "none",
+			},
+			{
+				description: `img`,
+				selector: "img",
+				markup: `<img />`,
+				role: "img",
+			},
+		],
+		"input type=button": [
+			{
+				desctiption: "input[type=button]",
+				selector: "input",
+				markup: `<input type="button" />`,
+			},
+		],
+		"input type=checkbox": [
+			{
+				desctiption: "input[type=checkbox]",
+				selector: "input",
+				markup: `<input type="checkbox" />`,
+			},
+		],
+		"input type=color": [
+			{
+				desctiption: "input[type=color]",
+				selector: "input",
+				markup: `<input type="color" />`,
+			},
+		],
+		"input type=date": [
+			{
+				desctiption: "input[type=datetime]",
+				selector: "input",
+				markup: `<input type="date" />`,
+			},
+		],
+		"input type=datetime-local": [
+			{
+				desctiption: "input[type=datetime-local]",
+				selector: "input",
+				markup: `<input type="datetime-local" />`,
+			},
+		],
+		"input type=email with no list attribute": [
+			{
+				desctiption: "input[type=email]",
+				selector: "input",
+				markup: `<input type="email" />`,
+			},
+		],
+		"input type=file": [
+			{
+				desctiption: "input[type=file]",
+				selector: "input",
+				markup: `<input type="file" />`,
+			},
+		],
+		"input type=hidden": [
+			{
+				desctiption: "input[type=hidden]",
+				selector: "input",
+				markup: `<input type="hidden" />`,
+			},
+		],
+		"input type=image": [
+			{
+				desctiption: "input[type=image]",
+				selector: "input",
+				markup: `<input type="image" />`,
+			},
+		],
+		"input type=month": [
+			{
+				desctiption: "input[type=month]",
+				selector: "input",
+				markup: `<input type="month" />`,
+			},
+		],
+		"input type=number": [
+			{
+				desctiption: "input[type=number]",
+				selector: "input",
+				markup: `<input type="number" />`,
+			},
+		],
+		"input type=password": [
+			{
+				desctiption: "input[type=password]",
+				selector: "input",
+				markup: `<input type="password" />`,
+			},
+		],
+		"input type=radio": [
+			{
+				desctiption: "input[type=radio]",
+				selector: "input",
+				markup: `<input type="radio" />`,
+			},
+		],
+		"input type=range": [
+			{
+				desctiption: "input[type=range]",
+				selector: "input",
+				markup: `<input type="range" />`,
+			},
+		],
+		"input type=reset": [
+			{
+				desctiption: "input[type=reset]",
+				selector: "input",
+				markup: `<input type="reset" />`,
+			},
+		],
+		"input type=search, with no list attribute": [
+			{
+				desctiption: "input[type=search]",
+				selector: "input",
+				markup: `<input type="search" />`,
+			},
+		],
+		"input type=submit": [
+			{
+				desctiption: "input[type=submit]",
+				selector: "input",
+				markup: `<input type="submit" />`,
+			},
+		],
+		"input type=tel, with no list attribute": [
+			{
+				desctiption: "input[type=tel]",
+				selector: "input",
+				markup: `<input type="tel" />`,
+			},
+		],
+		"input type=text or with a missing or invalid type, with no list attribute": [
+			{
+				description: "input[type=text]",
+				selector: "input",
+				markup: `<input type="text" />`,
+			},
+			{
+				description: "input",
+				selector: "input",
+				markup: `<input />`,
+			},
+			{
+				description: "input[type=invalid]",
+				selector: "input",
+				markup: `<input type="invalid" />`,
+			},
+		],
+		"input type=text, search, tel, url, email, or with a missing or invalid type, with a list attribute":
+			[
+				{
+					description: "input[type=search][list]",
+					selector: "input",
+					markup: `<input type="search" list />`,
+				},
+				{
+					description: "input[type=tel][list]",
+					selector: "input",
+					markup: `<input type="tel" list />`,
+				},
+				{
+					description: "input[type=url][list]",
+					selector: "input",
+					markup: `<input type="url" list />`,
+				},
+				{
+					description: "input[type=email][list]",
+					selector: "input",
+					markup: `<input type="email" list />`,
+				},
+				{
+					description: "input[type=text][list]",
+					selector: "input",
+					markup: `<input type="text" list />`,
+				},
+				{
+					description: "input[list]",
+					selector: "input",
+					markup: `<input list />`,
+				},
+				{
+					description: "input[type=invalid][list]",
+					selector: "input",
+					markup: `<input type="invalid" list />`,
+				},
+			],
+		"input type=time": [
+			{
+				desctiption: "input[type=time]",
+				selector: "input",
+				markup: `<input type="time" />`,
+			},
+		],
+		"input type=url with no list attribute": [
+			{
+				desctiption: "input[type=url]",
+				selector: "input",
+				markup: `<input type="url" />`,
+			},
+		],
+		"input type=week": [
+			{
+				desctiption: "input[type=week]",
+				selector: "input",
+				markup: `<input type="week" />`,
+			},
+		],
+		li: [
+			{
+				description: "ul li",
+				selector: "li",
+				markup: `<ul><li></li></ul>`,
+				role: "listitem",
+			},
+			{
+				description: "ol li",
+				selector: "li",
+				markup: `<ol><li></li></ol>`,
+				role: "listitem",
+			},
+			{
+				description: "menu li",
+				selector: "li",
+				markup: `<menu><li></li></menu>`,
+				role: "listitem",
+			},
+			{ description: "li", selector: "li", markup: `<li></li>`, role: "generic" },
+		],
+		"option element that is in a list of options or that represents a suggestion in a datalist": [
+			{
+				description: "option",
+				selector: "option",
+				markup: `<option></option>`,
+				role: "option",
+			},
+		],
+		section: [
+			{
+				description: "section[aria-label]",
+				selector: "section",
+				markup: `<section aria-label=".."></section>`,
+				role: "region",
+			},
+			{
+				description: "section[aria-labelledby]",
+				selector: "section",
+				markup: `<section aria-labelledby=".."></section>`,
+				role: "region",
+			},
+			{
+				description: "section",
+				selector: "section",
+				markup: `<section></section>`,
+				role: "generic",
+			},
+		],
+		"select (with NO multiple attribute and NO size attribute having value greater than 1)": [
+			{
+				description: "select",
+				selector: "select",
+				markup: `<select></select>`,
+				role: "combobox",
+			},
+			{
+				description: "select[size=1]",
+				selector: "select",
+				markup: `<select size="1"></select>`,
+				role: "combobox",
+			},
+		],
+		"select (with a multiple attribute or a size attribute having value greater than 1)": [
+			{
+				description: "select[multiple]",
+				selector: "select",
+				markup: `<select multiple></select>`,
+				role: "listbox",
+			},
+			{
+				description: "select[size=N]",
+				selector: "select",
+				markup: `<select size="2"></select>`,
+				role: "listbox",
+			},
+		],
+		summary: [
+			{
+				selector: "summary",
+				markup: `<summary></summary>`,
+				role: "button",
+			},
+		],
+		SVG: [
+			{
+				selector: "svg",
+				markup: `<svg></svg>`,
+				role: "graphics-document",
+			},
+		],
+		td: [
+			{
+				description: "table td",
+				selector: "td",
+				markup: `<table><tr><td></td></tr></table>`,
+				role: "cell",
+			},
+			{
+				description: "table[role=table] td",
+				selector: "td",
+				markup: `<table role="table"><tr><td></td></tr></table>`,
+				role: "cell",
+			},
+			{
+				description: "table[role=grid] td",
+				selector: "td",
+				markup: `<table role="grid"><tr><td></td></tr></table>`,
+				role: "gridcell",
+			},
+			{
+				description: "table[role=treegrid] td",
+				selector: "td",
+				markup: `<table role="treegrid"><tr><td></td></tr></table>`,
+				role: "gridcell",
+			},
+			{
+				description: "table[role=generic] td",
+				selector: "td",
+				markup: `<table role="generic"><tr><td></td></tr></table>`,
+				role: null,
+			},
+		],
+		th: [
+			{
+				description: "table th",
+				selector: "th",
+				markup: `<table><tr><th></th></tr></table>`,
+				role: "cell",
+			},
+			{
+				description: "table[role=table] th",
+				selector: "th",
+				markup: `<table role="table"><tr><th></th></tr></table>`,
+				role: "cell",
+			},
+			{
+				description: "table[role=table] th[scope=row]",
+				selector: "th",
+				markup: `<table role="table"><tr><th scope="row"></th></tr></table>`,
+				role: "rowheader",
+			},
+			{
+				description: "table[role=table] th[scope=col]",
+				selector: "th",
+				markup: `<table role="table"><tr><th scope="col"></th></tr></table>`,
+				role: "columnheader",
+			},
+			{
+				description: "table[role=grid] th",
+				selector: "th",
+				markup: `<table role="grid"><tr><th></th></tr></table>`,
+				role: "gridcell",
+			},
+			{
+				description: "table[role=grid] th[scope=row]",
+				selector: "th",
+				markup: `<table role="grid"><tr><th scope="row"></th></tr></table>`,
+				role: "rowheader",
+			},
+			{
+				description: "table[role=grid] th[scope=col]",
+				selector: "th",
+				markup: `<table role="grid"><tr><th scope="col"></th></tr></table>`,
+				role: "columnheader",
+			},
+			{
+				description: "table[role=treegrid] th",
+				selector: "th",
+				markup: `<table role="treegrid"><tr><th></th></tr></table>`,
+				role: "gridcell",
+			},
+			{
+				description: "table[role=treegrid] th[scope=row]",
+				selector: "th",
+				markup: `<table role="treegrid"><tr><th scope="row"></th></tr></table>`,
+				role: "rowheader",
+			},
+			{
+				description: "table[role=treegrid] th[scope=col]",
+				selector: "th",
+				markup: `<table role="treegrid"><tr><th scope="col"></th></tr></table>`,
+				role: "columnheader",
+			},
+			{
+				description: "table[role=generic] th",
+				selector: "th",
+				markup: `<table role="generic"><tr><th></th></tr></table>`,
+				role: null,
+			},
+		],
+	};
+
+	const response = await fetch(url);
+	if (!response.ok) {
+		throw new Error(`Failed to fetch "${url}": HTTP ${response.status}: ${response.statusText}`);
+	}
+	const html = await response.text();
+	const { document } = new JSDOM(html).window;
+	const rows = Array.from(
+		document
+			.querySelector("#document-conformance-requirements-for-use-of-aria-attributes-in-html")
+			.querySelector("tbody")
+			.querySelectorAll("tr"),
+	);
+
+	function getText(element) {
+		return element.textContent.trim().replace(/\s+/g, " ");
+	}
+
+	function hash(text) {
+		return crypto.createHash("md5").update(text).digest("hex");
+	}
+
+	function getRole(description, semantics) {
+		if (semantics === "No corresponding role") {
+			return null;
+		}
+		const match = semantics.match(/^role=(\w+)$/);
+		if (match) {
+			return match[1];
+		}
+		throw new Error(`Failed to determine role for "${description}"`);
+	}
+
+	/**
+	 * @return {Array<{selector: string, markup: string, role: string, description: string}>}
+	 */
+	function mapElement(description, semantics) {
+		const mapped = elementMapping[description];
+		if (mapped) {
+			return mapped.map((it) => {
+				return {
+					description: it.description ?? description,
+					selector: it.selector,
+					markup: it.markup,
+					role: typeof it.role !== "undefined" ? it.role : getRole(description, semantics),
+				};
+			});
+		} else {
+			const tag = description;
+			const markup = voidElements.includes(tag) ? `<${tag}>` : `<${tag}></${tag}>`;
+			const role = getRole(description, semantics);
+			return [{ description, selector: tag, markup, role }];
+		}
+	}
+
+	function* generateData() {
+		for (row of rows) {
+			const [elementCell, semanticsCell, stateCell] = row.querySelectorAll("th, td");
+			const id = elementCell.id;
+
+			/* ignore as one is supposed to add the element metadata for custom elements */
+			if (ignoredElements.includes(id)) {
+				continue;
+			}
+
+			const description = getText(elementCell);
+			const semantics = getText(semanticsCell);
+			const state = getText(stateCell);
+
+			for (const mapped of mapElement(description, semantics)) {
+				const { description, selector, markup, role } = mapped;
+				yield {
+					id,
+					hash: [hash(description), hash(semantics), hash(state)],
+					description,
+					selector,
+					markup,
+					role,
+				};
+			}
+		}
+	}
+
+	const data = Array.from(generateData());
+	const serialized = JSON.stringify(data, null, "\t")
+		.replace(/"([^"]+)":/g, "$1:") /* replace `"key":` with `key:` */
+		.replace(/(\s+)}/gm, ",$1}") /* add trailing comma to objects */
+		.replace(/(\s+)]/gm, ",$1]"); /* add trailing comma to arrays */
+	const content = [
+		`/* eslint-disable sonarjs/no-duplicate-string -- generated code */`,
+		update.toString(),
+		`if (require.main === module) {\n\tupdate();\n}`,
+		`/* CONTENT BELOW IS GENERATED BY SCRIPT, CHANGES WILL BE OVERWRITTEN! */\n/* Updated: ${new Date().toUTCString()} */`,
+		`// prettier-ignore\nconst data = ${serialized};`,
+		`module.exports = data;`,
+	].join("\n\n");
+	await fs.writeFile(__filename, `${content}\n`, "utf-8");
+}
+
+if (require.main === module) {
+	update();
+}
+
+/* CONTENT BELOW IS GENERATED BY SCRIPT, CHANGES WILL BE OVERWRITTEN! */
+/* Updated: Sun, 25 Feb 2024 16:27:55 GMT */
+
+// prettier-ignore
+const data = [
+	{
+		id: "el-a",
+		hash: [
+			"fb49fe03a16371828af8102800796eb2",
+			"d1d357cb39015771ca726b6766fa9227",
+			"709e5b8e55d0d856250a18f9efff3a89",
+		],
+		description: "a[href]",
+		selector: "a",
+		markup: "<a href></a>",
+		role: "link",
+	},
+	{
+		id: "el-a-no-href",
+		hash: [
+			"0cc175b9c0f1b6a831c399e269772661",
+			"5a20054581be7655f0d9b083f13eb177",
+			"7d892fbe4f79cc77c91ad8a9220c9e29",
+		],
+		description: "a",
+		selector: "a",
+		markup: "<a></a>",
+		role: "generic",
+	},
+	{
+		id: "el-abbr",
+		hash: [
+			"dab48bd99137856ee2df3ff21d9b474d",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"34b9ff4fb9938875970bff92ee8f6e98",
+		],
+		description: "abbr",
+		selector: "abbr",
+		markup: "<abbr></abbr>",
+		role: null,
+	},
+	{
+		id: "el-address",
+		hash: [
+			"884d9804999fc47a3c2694e49ad2536a",
+			"8aa62f8eef852300db3ebf2b7a577a61",
+			"3f679ee9b8783db0f127fb611b5254d6",
+		],
+		description: "address",
+		selector: "address",
+		markup: "<address></address>",
+		role: "group",
+	},
+	{
+		id: "el-area",
+		hash: [
+			"11c25967956bd2ecd02a14a8f150322b",
+			"d1d357cb39015771ca726b6766fa9227",
+			"7bdff42b0887ac9489065c573d5ac505",
+		],
+		description: "area[href]",
+		selector: "area",
+		markup: "<area href />",
+		role: "link",
+	},
+	{
+		id: "el-area-no-href",
+		hash: [
+			"4b82677b6c1408df4be21ada9a584fde",
+			"5a20054581be7655f0d9b083f13eb177",
+			"fc74b6a804f7810efbbc07e2ed78684a",
+		],
+		description: "area",
+		selector: "area",
+		markup: "<area />",
+		role: "generic",
+	},
+	{
+		id: "el-article",
+		hash: [
+			"92a2b5cb9c6906035c2864fa225e1940",
+			"123ed3feb3b40c21b83869b9ca41090d",
+			"a0fc5ae962d1f6b5096fe474a4b153c4",
+		],
+		description: "article",
+		selector: "article",
+		markup: "<article></article>",
+		role: "article",
+	},
+	{
+		id: "el-aside",
+		hash: [
+			"58a5bd4d1fe1914a7438e768c0627486",
+			"a5c9f02616f2cb77cd249829dd479a26",
+			"4835d00762e2b71358c8d99a393dc4c6",
+		],
+		description: "aside",
+		selector: "aside",
+		markup: "<aside></aside>",
+		role: "complementary",
+	},
+	{
+		id: "el-audio",
+		hash: [
+			"a5ca0b5894324f8bb54bb9fffad29d1e",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"ea4b9014b39be056cd8cd76c24ebbe4c",
+		],
+		description: "audio",
+		selector: "audio",
+		markup: "<audio></audio>",
+		role: null,
+	},
+	{
+		id: "el-b",
+		hash: [
+			"92eb5ffee6ae2fec3ad71c777531578f",
+			"5a20054581be7655f0d9b083f13eb177",
+			"7d892fbe4f79cc77c91ad8a9220c9e29",
+		],
+		description: "b",
+		selector: "b",
+		markup: "<b></b>",
+		role: "generic",
+	},
+	{
+		id: "el-base",
+		hash: [
+			"593616de15330c0fb2d55e55410bf994",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"eb5e261d6a07027e0a25c00cd7f339a0",
+		],
+		description: "base",
+		selector: "base",
+		markup: "<base>",
+		role: null,
+	},
+	{
+		id: "el-bdi",
+		hash: [
+			"d21d8346b6252bc79ca3a6ee8a1ca4f4",
+			"5a20054581be7655f0d9b083f13eb177",
+			"7d892fbe4f79cc77c91ad8a9220c9e29",
+		],
+		description: "bdi",
+		selector: "bdi",
+		markup: "<bdi></bdi>",
+		role: "generic",
+	},
+	{
+		id: "el-bdo",
+		hash: [
+			"8cb9efb2ba9429ccb928d010e58e21e2",
+			"5a20054581be7655f0d9b083f13eb177",
+			"7d892fbe4f79cc77c91ad8a9220c9e29",
+		],
+		description: "bdo",
+		selector: "bdo",
+		markup: "<bdo></bdo>",
+		role: "generic",
+	},
+	{
+		id: "el-blockquote",
+		hash: [
+			"603acb33ff93edd46af4907b88f23f74",
+			"ad937a3240eded5e7dcc8fbb901d255a",
+			"ccff7c28d16fb41bbbfd072eaed65ba4",
+		],
+		description: "blockquote",
+		selector: "blockquote",
+		markup: "<blockquote></blockquote>",
+		role: "blockquote",
+	},
+	{
+		id: "el-body",
+		hash: [
+			"841a2d689ad86bd1611447453c22c6fc",
+			"5a20054581be7655f0d9b083f13eb177",
+			"26be90f87909d1d27d97d2d39d89ebbc",
+		],
+		description: "body",
+		selector: "body",
+		markup: "<body></body>",
+		role: "generic",
+	},
+	{
+		id: "el-br",
+		hash: [
+			"dc634e2072827fe0b5be9a2063390544",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"3cd570bd195d0059a2a1b52e12ca880d",
+		],
+		description: "br",
+		selector: "br",
+		markup: "<br>",
+		role: null,
+	},
+	{
+		id: "el-button",
+		hash: [
+			"ce50a09343724eb82df11390e2c1de18",
+			"b49c73d8d338d55f3d4312fa1f2cacd3",
+			"3c2c6f3436a8fec210b751f6ed18f096",
+		],
+		description: "button",
+		selector: "button",
+		markup: "<button></button>",
+		role: "button",
+	},
+	{
+		id: "el-canvas",
+		hash: [
+			"fcc790c72a86190de1b549d0ddc6f55c",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"1bf0aa29e454c5a49ccbad48a7786691",
+		],
+		description: "canvas",
+		selector: "canvas",
+		markup: "<canvas></canvas>",
+		role: null,
+	},
+	{
+		id: "el-caption",
+		hash: [
+			"7a7dc1cda8a5f2b4be2dcb815907d56e",
+			"f5ca527a3cb51c34b4682f2f99480b39",
+			"5dd303ca4745dbbfa8654b14af2d7bf3",
+		],
+		description: "caption",
+		selector: "caption",
+		markup: "<caption></caption>",
+		role: "caption",
+	},
+	{
+		id: "el-cite",
+		hash: [
+			"902525ca86dcd190f5a82062cdd6a5e1",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"34b9ff4fb9938875970bff92ee8f6e98",
+		],
+		description: "cite",
+		selector: "cite",
+		markup: "<cite></cite>",
+		role: null,
+	},
+	{
+		id: "el-code",
+		hash: [
+			"c13367945d5d4c91047b3b50234aa7ab",
+			"cffd69ac88d6834e82e63a1bc8f6a557",
+			"35f764b13c8014b556c303d33fa1bb1a",
+		],
+		description: "code",
+		selector: "code",
+		markup: "<code></code>",
+		role: "code",
+	},
+	{
+		id: "el-col",
+		hash: [
+			"d89e2ddb530bb8953b290ab0793aecb0",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"eb5e261d6a07027e0a25c00cd7f339a0",
+		],
+		description: "col",
+		selector: "col",
+		markup: "<col>",
+		role: null,
+	},
+	{
+		id: "el-colgroup",
+		hash: [
+			"7104134677539dd2c8fff1c816008f7d",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"eb5e261d6a07027e0a25c00cd7f339a0",
+		],
+		description: "colgroup",
+		selector: "colgroup",
+		markup: "<colgroup></colgroup>",
+		role: null,
+	},
+	{
+		id: "el-data",
+		hash: [
+			"8d777f385d3dfec8815d20f7496026dc",
+			"5a20054581be7655f0d9b083f13eb177",
+			"7d892fbe4f79cc77c91ad8a9220c9e29",
+		],
+		description: "data",
+		selector: "data",
+		markup: "<data></data>",
+		role: "generic",
+	},
+	{
+		id: "el-datalist",
+		hash: [
+			"9dbeecf4e56df39e295be9e4e7e22968",
+			"b903dca3539b5db03d242d3b013eb425",
+			"0ffbdae30c608a65fee947ea3bb44fb5",
+		],
+		description: "datalist",
+		selector: "datalist",
+		markup: "<datalist></datalist>",
+		role: "listbox",
+	},
+	{
+		id: "el-dd",
+		hash: [
+			"1aabac6d068eef6a7bad3fdf50a05cc8",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"5f85ec53c5942037bc6f552927708a0d",
+		],
+		description: "dd",
+		selector: "dd",
+		markup: "<dd></dd>",
+		role: null,
+	},
+	{
+		id: "el-del",
+		hash: [
+			"d2bcc286168bf8e040885c5cb7b6df13",
+			"6eadc3a343fa09befd0e75602fb4aa34",
+			"547596dbe33150850fe7c15ecf57c704",
+		],
+		description: "del",
+		selector: "del",
+		markup: "<del></del>",
+		role: "deletion",
+	},
+	{
+		id: "el-details",
+		hash: [
+			"27792947ed5d5da7c0d1f43327ed9dab",
+			"8aa62f8eef852300db3ebf2b7a577a61",
+			"77f924ceb3b8a84c06e797c06e9d1e95",
+		],
+		description: "details",
+		selector: "details",
+		markup: "<details></details>",
+		role: "group",
+	},
+	{
+		id: "el-dfn",
+		hash: [
+			"e8b3960cfd62fcdfe796b3afe8aff0a4",
+			"ddaeb30811186689f3f221fe51747a33",
+			"ef55f1ea60ac9e6965397135278e1367",
+		],
+		description: "dfn",
+		selector: "dfn",
+		markup: "<dfn></dfn>",
+		role: "term",
+	},
+	{
+		id: "el-dialog",
+		hash: [
+			"91c7ec8d1c8bb75e853f70fee324a43b",
+			"e25a6decda56678c6af9c4b37368151d",
+			"7792bf1bc3079804ad145a33ecbc81e5",
+		],
+		description: "dialog",
+		selector: "dialog",
+		markup: "<dialog></dialog>",
+		role: "dialog",
+	},
+	{
+		id: "el-div",
+		hash: [
+			"38696558dc98494c08d951c052900a2a",
+			"5a20054581be7655f0d9b083f13eb177",
+			"3b3590d3a495c9cf310ba72c245cb28a",
+		],
+		description: "div",
+		selector: "div",
+		markup: "<div></div>",
+		role: "generic",
+	},
+	{
+		id: "el-dl",
+		hash: [
+			"01a120c756b1f6cf4f08e0fca0cfa6fe",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"eb61a387360e1205ce1f7902976db9c2",
+		],
+		description: "dl",
+		selector: "dl",
+		markup: "<dl></dl>",
+		role: null,
+	},
+	{
+		id: "el-dt",
+		hash: [
+			"3017d911efceb27d1de6a92b70979795",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"b54f1c9cbdbf0a5c8a0e28183175f748",
+		],
+		description: "dt",
+		selector: "dt",
+		markup: "<dt></dt>",
+		role: null,
+	},
+	{
+		id: "el-em",
+		hash: [
+			"47e2e8c3fdb7739e740b95345a803cac",
+			"a3e926d88b7ed1bc5c1047bf49260415",
+			"092e41e354b817100c6e7c5ce6fbec3c",
+		],
+		description: "em",
+		selector: "em",
+		markup: "<em></em>",
+		role: "emphasis",
+	},
+	{
+		id: "el-embed",
+		hash: [
+			"269605d45c104f12cbcdc8fb71434acc",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"bb12c3ee8548dcda5c6108a56b7baa69",
+		],
+		description: "embed",
+		selector: "embed",
+		markup: "<embed>",
+		role: null,
+	},
+	{
+		id: "el-fieldset",
+		hash: [
+			"639612e6a56b1f61071448289da9b0a1",
+			"8aa62f8eef852300db3ebf2b7a577a61",
+			"4fbf37df9e89c9d436237eddecf93161",
+		],
+		description: "fieldset",
+		selector: "fieldset",
+		markup: "<fieldset></fieldset>",
+		role: "group",
+	},
+	{
+		id: "el-figcaption",
+		hash: [
+			"aa956291b5bcf65f77a3fe1af5d5dc94",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"728db68790285014e0061d359a235a7e",
+		],
+		description: "figcaption",
+		selector: "figcaption",
+		markup: "<figcaption></figcaption>",
+		role: null,
+	},
+	{
+		id: "el-figure",
+		hash: [
+			"cb071d80d1a54f21c8867a038f6a6c66",
+			"8ff02f553b4103c4f5c63002947e09a4",
+			"8ec2fe42a078185bf12ad27f2ffb58af",
+		],
+		description: "figure",
+		selector: "figure",
+		markup: "<figure></figure>",
+		role: "figure",
+	},
+	{
+		id: "el-footer",
+		hash: [
+			"251d164643533a527361dbe1a7b9235d",
+			"f949354428e884bacccd5cfcc0615142",
+			"b922fa46b314d1eaab39932403ba8d06",
+		],
+		description: "footer",
+		selector: "footer",
+		markup: "<footer></footer>",
+		role: "contentinfo",
+	},
+	{
+		id: "el-footer",
+		hash: [
+			"2756c33cc1e3cabc06d456fd50227ff8",
+			"f949354428e884bacccd5cfcc0615142",
+			"b922fa46b314d1eaab39932403ba8d06",
+		],
+		description: "article footer",
+		selector: "footer",
+		markup: "<article><footer></footer></article>",
+		role: "generic",
+	},
+	{
+		id: "el-footer",
+		hash: [
+			"9c0b22e8dece906049c4034c9c888991",
+			"f949354428e884bacccd5cfcc0615142",
+			"b922fa46b314d1eaab39932403ba8d06",
+		],
+		description: "aside footer",
+		selector: "footer",
+		markup: "<aside><footer></footer></aside>",
+		role: "generic",
+	},
+	{
+		id: "el-footer",
+		hash: [
+			"d91634e98159651b0102e501c2819829",
+			"f949354428e884bacccd5cfcc0615142",
+			"b922fa46b314d1eaab39932403ba8d06",
+		],
+		description: "main footer",
+		selector: "footer",
+		markup: "<main><footer></footer></main>",
+		role: "generic",
+	},
+	{
+		id: "el-footer",
+		hash: [
+			"98a01b4240ff9b331b3bbc27c2a93493",
+			"f949354428e884bacccd5cfcc0615142",
+			"b922fa46b314d1eaab39932403ba8d06",
+		],
+		description: "nav footer",
+		selector: "footer",
+		markup: "<nav><footer></footer></nav>",
+		role: "generic",
+	},
+	{
+		id: "el-footer",
+		hash: [
+			"20008d57030b6af05c04d93efa96e73f",
+			"f949354428e884bacccd5cfcc0615142",
+			"b922fa46b314d1eaab39932403ba8d06",
+		],
+		description: "section footer",
+		selector: "footer",
+		markup: "<section><footer></footer></section>",
+		role: "generic",
+	},
+	{
+		id: "el-footer",
+		hash: [
+			"f6091bd64c1eb0748d856610077c1b27",
+			"f949354428e884bacccd5cfcc0615142",
+			"b922fa46b314d1eaab39932403ba8d06",
+		],
+		description: "[role=article] footer",
+		selector: "footer",
+		markup: "<div role=\"article\"><footer></footer></div>",
+		role: "generic",
+	},
+	{
+		id: "el-footer",
+		hash: [
+			"be7393caa95dd304b625788bba2893db",
+			"f949354428e884bacccd5cfcc0615142",
+			"b922fa46b314d1eaab39932403ba8d06",
+		],
+		description: "[role=complementary] footer",
+		selector: "footer",
+		markup: "<div role=\"complementary\"><footer></footer></div>",
+		role: "generic",
+	},
+	{
+		id: "el-footer",
+		hash: [
+			"6d93150df31ca07b63386698872811de",
+			"f949354428e884bacccd5cfcc0615142",
+			"b922fa46b314d1eaab39932403ba8d06",
+		],
+		description: "[role=main] footer",
+		selector: "footer",
+		markup: "<div role=\"main\"><footer></footer></div>",
+		role: "generic",
+	},
+	{
+		id: "el-footer",
+		hash: [
+			"959941ecaa2af8236e1c4855708eb4ee",
+			"f949354428e884bacccd5cfcc0615142",
+			"b922fa46b314d1eaab39932403ba8d06",
+		],
+		description: "[role=navigation] footer",
+		selector: "footer",
+		markup: "<div role=\"navigation\"><footer></footer></div>",
+		role: "generic",
+	},
+	{
+		id: "el-footer",
+		hash: [
+			"73b6ad435bdfc6d0c71685b6f94e1aff",
+			"f949354428e884bacccd5cfcc0615142",
+			"b922fa46b314d1eaab39932403ba8d06",
+		],
+		description: "[role=region] footer",
+		selector: "footer",
+		markup: "<div role=\"region\"><footer></footer></div>",
+		role: "generic",
+	},
+	{
+		id: "el-form",
+		hash: [
+			"3fcdb73d36d54f2cc22d0f68e6b6e182",
+			"f9aaf3676b0a03aef756b8aa2a5f7bd1",
+			"88804a72a92275875e2d6b3349af53d6",
+		],
+		description: "form",
+		selector: "form",
+		markup: "<form></form>",
+		role: "form",
+	},
+	{
+		id: "el-h1-h6",
+		hash: [
+			"346b81a32e7007eccadf60252bb599f0",
+			"56a962edb66ffce8b38ca79384df3f2e",
+			"c66a79d5ed6cdc86b9a137060a2c6787",
+		],
+		description: "h1",
+		selector: "h1",
+		markup: "<h1></h1>",
+		role: "heading",
+	},
+	{
+		id: "el-h1-h6",
+		hash: [
+			"490b2834e65737c1fce95e468cc8b8bf",
+			"56a962edb66ffce8b38ca79384df3f2e",
+			"c66a79d5ed6cdc86b9a137060a2c6787",
+		],
+		description: "h2",
+		selector: "h2",
+		markup: "<h2></h2>",
+		role: "heading",
+	},
+	{
+		id: "el-h1-h6",
+		hash: [
+			"6f207f8b5dfe1eebac63467930df5189",
+			"56a962edb66ffce8b38ca79384df3f2e",
+			"c66a79d5ed6cdc86b9a137060a2c6787",
+		],
+		description: "h3",
+		selector: "h3",
+		markup: "<h3></h3>",
+		role: "heading",
+	},
+	{
+		id: "el-h1-h6",
+		hash: [
+			"ce1b1e8ce920100d134d0212d3a8f53f",
+			"56a962edb66ffce8b38ca79384df3f2e",
+			"c66a79d5ed6cdc86b9a137060a2c6787",
+		],
+		description: "h4",
+		selector: "h4",
+		markup: "<h4></h4>",
+		role: "heading",
+	},
+	{
+		id: "el-h1-h6",
+		hash: [
+			"77230e94b5cd88d51a872031531bfecd",
+			"56a962edb66ffce8b38ca79384df3f2e",
+			"c66a79d5ed6cdc86b9a137060a2c6787",
+		],
+		description: "h5",
+		selector: "h5",
+		markup: "<h5></h5>",
+		role: "heading",
+	},
+	{
+		id: "el-h1-h6",
+		hash: [
+			"d8544ba1b053e41368fa915864c6ea1c",
+			"56a962edb66ffce8b38ca79384df3f2e",
+			"c66a79d5ed6cdc86b9a137060a2c6787",
+		],
+		description: "h6",
+		selector: "h6",
+		markup: "<h6></h6>",
+		role: "heading",
+	},
+	{
+		id: "el-head",
+		hash: [
+			"96e89a298e0a9f469b9ae458d6afae9f",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"eb5e261d6a07027e0a25c00cd7f339a0",
+		],
+		description: "head",
+		selector: "head",
+		markup: "<head></head>",
+		role: null,
+	},
+	{
+		id: "el-header",
+		hash: [
+			"099fb995346f31c749f6e40db0f395e3",
+			"c104b45baa2190361e32296546d0f83d",
+			"a0db4fb8c6c766188c0462cb0e76fbd6",
+		],
+		description: "header",
+		selector: "header",
+		markup: "<header></header>",
+		role: "banner",
+	},
+	{
+		id: "el-header",
+		hash: [
+			"e2f952675c6b76c654be8274a3217a50",
+			"c104b45baa2190361e32296546d0f83d",
+			"a0db4fb8c6c766188c0462cb0e76fbd6",
+		],
+		description: "article header",
+		selector: "header",
+		markup: "<article><header></header></article>",
+		role: "generic",
+	},
+	{
+		id: "el-header",
+		hash: [
+			"30bbc1cdca3e44d6449af94c5a70768f",
+			"c104b45baa2190361e32296546d0f83d",
+			"a0db4fb8c6c766188c0462cb0e76fbd6",
+		],
+		description: "aside header",
+		selector: "header",
+		markup: "<aside><header></header></aside>",
+		role: "generic",
+	},
+	{
+		id: "el-header",
+		hash: [
+			"1761c19dedac44d5d3608839be75e85c",
+			"c104b45baa2190361e32296546d0f83d",
+			"a0db4fb8c6c766188c0462cb0e76fbd6",
+		],
+		description: "main header",
+		selector: "header",
+		markup: "<main><header></header></main>",
+		role: "generic",
+	},
+	{
+		id: "el-header",
+		hash: [
+			"997f2e39eb8e8e7cc4e47e758cecbedd",
+			"c104b45baa2190361e32296546d0f83d",
+			"a0db4fb8c6c766188c0462cb0e76fbd6",
+		],
+		description: "nav header",
+		selector: "header",
+		markup: "<nav><header></header></nav>",
+		role: "generic",
+	},
+	{
+		id: "el-header",
+		hash: [
+			"648a0e8a6e3998ffdd9db2c22473aeae",
+			"c104b45baa2190361e32296546d0f83d",
+			"a0db4fb8c6c766188c0462cb0e76fbd6",
+		],
+		description: "section header",
+		selector: "header",
+		markup: "<section><header></header></section>",
+		role: "generic",
+	},
+	{
+		id: "el-header",
+		hash: [
+			"5a369064629b403489cb7622e8b014c6",
+			"c104b45baa2190361e32296546d0f83d",
+			"a0db4fb8c6c766188c0462cb0e76fbd6",
+		],
+		description: "[role=article] header",
+		selector: "header",
+		markup: "<div role=\"article\"><header></header></div>",
+		role: "generic",
+	},
+	{
+		id: "el-header",
+		hash: [
+			"4dbfa69ca95b16d03a191cf9a64d925c",
+			"c104b45baa2190361e32296546d0f83d",
+			"a0db4fb8c6c766188c0462cb0e76fbd6",
+		],
+		description: "[role=complementary] header",
+		selector: "header",
+		markup: "<div role=\"complementary\"><header></header></div>",
+		role: "generic",
+	},
+	{
+		id: "el-header",
+		hash: [
+			"5e9c3ffa87b301714eff6681d8912ab8",
+			"c104b45baa2190361e32296546d0f83d",
+			"a0db4fb8c6c766188c0462cb0e76fbd6",
+		],
+		description: "[role=main] header",
+		selector: "header",
+		markup: "<div role=\"main\"><header></header></div>",
+		role: "generic",
+	},
+	{
+		id: "el-header",
+		hash: [
+			"676ead1b298aa3d86bdf1835a7949c97",
+			"c104b45baa2190361e32296546d0f83d",
+			"a0db4fb8c6c766188c0462cb0e76fbd6",
+		],
+		description: "[role=navigation] header",
+		selector: "header",
+		markup: "<div role=\"navigation\"><header></header></div>",
+		role: "generic",
+	},
+	{
+		id: "el-header",
+		hash: [
+			"d617378dcbbceadaa22000ad37e304db",
+			"c104b45baa2190361e32296546d0f83d",
+			"a0db4fb8c6c766188c0462cb0e76fbd6",
+		],
+		description: "[role=region] header",
+		selector: "header",
+		markup: "<div role=\"region\"><header></header></div>",
+		role: "generic",
+	},
+	{
+		id: "el-hgroup",
+		hash: [
+			"dc893e305df7975f7975d687c167e368",
+			"8aa62f8eef852300db3ebf2b7a577a61",
+			"3f679ee9b8783db0f127fb611b5254d6",
+		],
+		description: "hgroup",
+		selector: "hgroup",
+		markup: "<hgroup></hgroup>",
+		role: "group",
+	},
+	{
+		id: "el-hr",
+		hash: [
+			"adab7b701f23bb82014c8506d3dc784e",
+			"7fab5ef7c59e6265864095ee370952e5",
+			"5e89ce44348869b01a5bb3a4202119f3",
+		],
+		description: "hr",
+		selector: "hr",
+		markup: "<hr>",
+		role: "separator",
+	},
+	{
+		id: "el-html",
+		hash: [
+			"fc35fdc70d5fc69d269883a822c7a53e",
+			"92be2ad265c040d09ddc5fa22f63e1b0",
+			"419a9eae9cbe91f85e5974fc1fc22bde",
+		],
+		description: "html",
+		selector: "html",
+		markup: "<html></html>",
+		role: "document",
+	},
+	{
+		id: "el-i",
+		hash: [
+			"865c0c0b4ab0e063e5caa3387c1a8741",
+			"5a20054581be7655f0d9b083f13eb177",
+			"7d892fbe4f79cc77c91ad8a9220c9e29",
+		],
+		description: "i",
+		selector: "i",
+		markup: "<i></i>",
+		role: "generic",
+	},
+	{
+		id: "el-iframe",
+		hash: [
+			"a598e4f2afad9df861fdc476f67ef252",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"bb12c3ee8548dcda5c6108a56b7baa69",
+		],
+		description: "iframe",
+		selector: "iframe",
+		markup: "<iframe></iframe>",
+		role: null,
+	},
+	{
+		id: "el-img",
+		hash: [
+			"2c15f1a6d98a9bb1dcbfc9a8e0dbff77",
+			"c1bd28bcf8b3a0a03198d61abede38c7",
+			"1eb48cd57ced991ae572f6726cde0020",
+		],
+		description: "img[alt]",
+		selector: "img",
+		markup: "<img alt=\"..\" />",
+		role: "img",
+	},
+	{
+		id: "el-img",
+		hash: [
+			"7ac16255e2db6cc1a3dad4db085676f1",
+			"c1bd28bcf8b3a0a03198d61abede38c7",
+			"1eb48cd57ced991ae572f6726cde0020",
+		],
+		description: "img[aria-label]",
+		selector: "img",
+		markup: "<img aria-label=\"..\" />",
+		role: "img",
+	},
+	{
+		id: "el-img",
+		hash: [
+			"75547b1b178a6b85e339bae02a88b72b",
+			"c1bd28bcf8b3a0a03198d61abede38c7",
+			"1eb48cd57ced991ae572f6726cde0020",
+		],
+		description: "img[aria-labelledby]",
+		selector: "img",
+		markup: "<img aria-labelledby=\"..\" />",
+		role: "img",
+	},
+	{
+		id: "el-img",
+		hash: [
+			"ee11b60fd17f1dd2355c94b00cecf5c9",
+			"c1bd28bcf8b3a0a03198d61abede38c7",
+			"1eb48cd57ced991ae572f6726cde0020",
+		],
+		description: "img[title]",
+		selector: "img",
+		markup: "<img title=\"..\" />",
+		role: "img",
+	},
+	{
+		id: "el-img-no-name",
+		hash: [
+			"dadb15a52164d97c794e66f8d2f90e29",
+			"c028f554c33f681b67373987e957f5a7",
+			"b44f2856f3a8ce7de57cfb4bc2ced9ce",
+		],
+		description: "img[alt=\"\"]",
+		selector: "img",
+		markup: "<img alt=\"\" />",
+		role: "none",
+	},
+	{
+		id: "el-img-no-name",
+		hash: [
+			"b798abe6e1b1318ee36b0dcb3fb9e4d3",
+			"c028f554c33f681b67373987e957f5a7",
+			"b44f2856f3a8ce7de57cfb4bc2ced9ce",
+		],
+		description: "img",
+		selector: "img",
+		markup: "<img />",
+		role: "img",
+	},
+	{
+		id: "el-input-button",
+		hash: [
+			"a2fee10bcca4878bad53c9ff0c4c5712",
+			"b49c73d8d338d55f3d4312fa1f2cacd3",
+			"3c2c6f3436a8fec210b751f6ed18f096",
+		],
+		description: "input type=button",
+		selector: "input",
+		markup: "<input type=\"button\" />",
+		role: "button",
+	},
+	{
+		id: "el-input-checkbox",
+		hash: [
+			"beced7fbce4c26567f5ecc12d10b331e",
+			"ca4f6fee8c04b46930d06b6d4a41ed6f",
+			"13727dee2ed2f2b6ae44c9dc713754fe",
+		],
+		description: "input type=checkbox",
+		selector: "input",
+		markup: "<input type=\"checkbox\" />",
+		role: "checkbox",
+	},
+	{
+		id: "el-input-color",
+		hash: [
+			"ff764de80f46762559dd6aad2d341fdb",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"bee004016077423b3bb13e479634102c",
+		],
+		description: "input type=color",
+		selector: "input",
+		markup: "<input type=\"color\" />",
+		role: null,
+	},
+	{
+		id: "el-input-date",
+		hash: [
+			"5f758a3d05af0b73d43ca16ad168c458",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"d96e9ef4c13b851faf130b2402109f7a",
+		],
+		description: "input type=date",
+		selector: "input",
+		markup: "<input type=\"date\" />",
+		role: null,
+	},
+	{
+		id: "el-input-datetime-local",
+		hash: [
+			"867c387b5af7b26af5ab596a5056e23e",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"d96e9ef4c13b851faf130b2402109f7a",
+		],
+		description: "input type=datetime-local",
+		selector: "input",
+		markup: "<input type=\"datetime-local\" />",
+		role: null,
+	},
+	{
+		id: "el-input-email",
+		hash: [
+			"298a6c9bbe17785eaa2e210d1e7f013c",
+			"fa39827e07c9823d1a2e588512b7f095",
+			"8151f39d4492ce51223e9e25ea9d572d",
+		],
+		description: "input type=email with no list attribute",
+		selector: "input",
+		markup: "<input type=\"email\" />",
+		role: "textbox",
+	},
+	{
+		id: "el-input-file",
+		hash: [
+			"02292516130333cf72c9d88345a1064f",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"11dc41624bb703ad02c54424010af44b",
+		],
+		description: "input type=file",
+		selector: "input",
+		markup: "<input type=\"file\" />",
+		role: null,
+	},
+	{
+		id: "el-input-hidden",
+		hash: [
+			"dd723529a797e8fedf982f77ec36b7b8",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"eb5e261d6a07027e0a25c00cd7f339a0",
+		],
+		description: "input type=hidden",
+		selector: "input",
+		markup: "<input type=\"hidden\" />",
+		role: null,
+	},
+	{
+		id: "el-input-image",
+		hash: [
+			"d5815598d86a0f17ff4a5a1f758f7fc0",
+			"b49c73d8d338d55f3d4312fa1f2cacd3",
+			"6d11471d42a80caf9d4db90ad5ebf679",
+		],
+		description: "input type=image",
+		selector: "input",
+		markup: "<input type=\"image\" />",
+		role: "button",
+	},
+	{
+		id: "el-input-month",
+		hash: [
+			"87c5ec672a76f830b8950cb5d233b400",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"d96e9ef4c13b851faf130b2402109f7a",
+		],
+		description: "input type=month",
+		selector: "input",
+		markup: "<input type=\"month\" />",
+		role: null,
+	},
+	{
+		id: "el-input-number",
+		hash: [
+			"c8f6b837a2fde2c60227d4147dc8a0a1",
+			"f46fcd57773d3f4c231f30ad4ad518f8",
+			"2c56084e07cc645e37fc13a093dccbfa",
+		],
+		description: "input type=number",
+		selector: "input",
+		markup: "<input type=\"number\" />",
+		role: "spinbutton",
+	},
+	{
+		id: "el-input-password",
+		hash: [
+			"6454f49f37557d80781cd0b81e39e431",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"d96e9ef4c13b851faf130b2402109f7a",
+		],
+		description: "input type=password",
+		selector: "input",
+		markup: "<input type=\"password\" />",
+		role: null,
+	},
+	{
+		id: "el-input-radio",
+		hash: [
+			"5ac34fff45b757b18a08cf71e1aca507",
+			"c353ab3c1af415aef60cc2418e86dddb",
+			"7e00abbd430aa229315fa6c222de3359",
+		],
+		description: "input type=radio",
+		selector: "input",
+		markup: "<input type=\"radio\" />",
+		role: "radio",
+	},
+	{
+		id: "el-input-range",
+		hash: [
+			"fc3cdd90464c5d13e38781b5c33caf30",
+			"8a071664acb7c5429189ce4e6e6244eb",
+			"8ff55bcde30aa176921d0c29359d9665",
+		],
+		description: "input type=range",
+		selector: "input",
+		markup: "<input type=\"range\" />",
+		role: "slider",
+	},
+	{
+		id: "el-input-reset",
+		hash: [
+			"25bef62c0dd87241b059fce8be6107ce",
+			"b49c73d8d338d55f3d4312fa1f2cacd3",
+			"932193a2ee2797934e44e173385033f5",
+		],
+		description: "input type=reset",
+		selector: "input",
+		markup: "<input type=\"reset\" />",
+		role: "button",
+	},
+	{
+		id: "el-input-search",
+		hash: [
+			"f268c75fec644502c50e3f8148d163a6",
+			"a7ff3c8f4e9808aa49cf3a7ca1f2f7ff",
+			"f5b08711af8bc3033d3d0ff3f17fe91b",
+		],
+		description: "input type=search, with no list attribute",
+		selector: "input",
+		markup: "<input type=\"search\" />",
+		role: "searchbox",
+	},
+	{
+		id: "el-input-submit",
+		hash: [
+			"31981741252ee12cd4297da18c623b8c",
+			"b49c73d8d338d55f3d4312fa1f2cacd3",
+			"932193a2ee2797934e44e173385033f5",
+		],
+		description: "input type=submit",
+		selector: "input",
+		markup: "<input type=\"submit\" />",
+		role: "button",
+	},
+	{
+		id: "el-input-tel",
+		hash: [
+			"05e33e9df0ffa21d3b2303cf9d03351f",
+			"fa39827e07c9823d1a2e588512b7f095",
+			"8151f39d4492ce51223e9e25ea9d572d",
+		],
+		description: "input type=tel, with no list attribute",
+		selector: "input",
+		markup: "<input type=\"tel\" />",
+		role: "textbox",
+	},
+	{
+		id: "el-input-text",
+		hash: [
+			"7f4287ed67bf9e1cf7db299dbd8a7d35",
+			"fa39827e07c9823d1a2e588512b7f095",
+			"48704d63c9d6569ff323f04c03f63277",
+		],
+		description: "input[type=text]",
+		selector: "input",
+		markup: "<input type=\"text\" />",
+		role: "textbox",
+	},
+	{
+		id: "el-input-text",
+		hash: [
+			"a43c1b0aa53a0c908810c06ab1ff3967",
+			"fa39827e07c9823d1a2e588512b7f095",
+			"48704d63c9d6569ff323f04c03f63277",
+		],
+		description: "input",
+		selector: "input",
+		markup: "<input />",
+		role: "textbox",
+	},
+	{
+		id: "el-input-text",
+		hash: [
+			"673db131db424cfad2b02acb4a9e6108",
+			"fa39827e07c9823d1a2e588512b7f095",
+			"48704d63c9d6569ff323f04c03f63277",
+		],
+		description: "input[type=invalid]",
+		selector: "input",
+		markup: "<input type=\"invalid\" />",
+		role: "textbox",
+	},
+	{
+		id: "el-input-text-list",
+		hash: [
+			"06cea194d9ddfb1a2064512fd197bc50",
+			"3da6631fabf63909c267e2fb82458b66",
+			"787ae06265dc933cf78c6ee3b23f80b1",
+		],
+		description: "input[type=search][list]",
+		selector: "input",
+		markup: "<input type=\"search\" list />",
+		role: "combobox",
+	},
+	{
+		id: "el-input-text-list",
+		hash: [
+			"4698a334eb0c422525443b67ca2aa043",
+			"3da6631fabf63909c267e2fb82458b66",
+			"787ae06265dc933cf78c6ee3b23f80b1",
+		],
+		description: "input[type=tel][list]",
+		selector: "input",
+		markup: "<input type=\"tel\" list />",
+		role: "combobox",
+	},
+	{
+		id: "el-input-text-list",
+		hash: [
+			"f9ca3ed347b7b4be180cd5e44f798f2e",
+			"3da6631fabf63909c267e2fb82458b66",
+			"787ae06265dc933cf78c6ee3b23f80b1",
+		],
+		description: "input[type=url][list]",
+		selector: "input",
+		markup: "<input type=\"url\" list />",
+		role: "combobox",
+	},
+	{
+		id: "el-input-text-list",
+		hash: [
+			"e1b95e5f87599df4401db8182f323b78",
+			"3da6631fabf63909c267e2fb82458b66",
+			"787ae06265dc933cf78c6ee3b23f80b1",
+		],
+		description: "input[type=email][list]",
+		selector: "input",
+		markup: "<input type=\"email\" list />",
+		role: "combobox",
+	},
+	{
+		id: "el-input-text-list",
+		hash: [
+			"2480331d408d60ec3d3472187f442354",
+			"3da6631fabf63909c267e2fb82458b66",
+			"787ae06265dc933cf78c6ee3b23f80b1",
+		],
+		description: "input[type=text][list]",
+		selector: "input",
+		markup: "<input type=\"text\" list />",
+		role: "combobox",
+	},
+	{
+		id: "el-input-text-list",
+		hash: [
+			"64fa87cf5fab2e6503b624bd9fedd0be",
+			"3da6631fabf63909c267e2fb82458b66",
+			"787ae06265dc933cf78c6ee3b23f80b1",
+		],
+		description: "input[list]",
+		selector: "input",
+		markup: "<input list />",
+		role: "combobox",
+	},
+	{
+		id: "el-input-text-list",
+		hash: [
+			"045db57e176ded00664fcca385b3fb20",
+			"3da6631fabf63909c267e2fb82458b66",
+			"787ae06265dc933cf78c6ee3b23f80b1",
+		],
+		description: "input[type=invalid][list]",
+		selector: "input",
+		markup: "<input type=\"invalid\" list />",
+		role: "combobox",
+	},
+	{
+		id: "el-input-time",
+		hash: [
+			"265b253c8a1aec0d77eeae1475745c70",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"d96e9ef4c13b851faf130b2402109f7a",
+		],
+		description: "input type=time",
+		selector: "input",
+		markup: "<input type=\"time\" />",
+		role: null,
+	},
+	{
+		id: "el-input-url",
+		hash: [
+			"bb23030282c019452714eb303a221e4a",
+			"fa39827e07c9823d1a2e588512b7f095",
+			"8151f39d4492ce51223e9e25ea9d572d",
+		],
+		description: "input type=url with no list attribute",
+		selector: "input",
+		markup: "<input type=\"url\" />",
+		role: "textbox",
+	},
+	{
+		id: "el-input-week",
+		hash: [
+			"52d1f2651f02498ae13d7ae6167435d1",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"d96e9ef4c13b851faf130b2402109f7a",
+		],
+		description: "input type=week",
+		selector: "input",
+		markup: "<input type=\"week\" />",
+		role: null,
+	},
+	{
+		id: "el-ins",
+		hash: [
+			"cdf1e220d89c2dcd2e000c3d105bf93e",
+			"6e5b02f99ce91995ec99cc4e07b8f962",
+			"956792ad3adc356cac08530d1a683e48",
+		],
+		description: "ins",
+		selector: "ins",
+		markup: "<ins></ins>",
+		role: "insertion",
+	},
+	{
+		id: "el-kbd",
+		hash: [
+			"8c0351d5b7d6c477c14693cc53026b9a",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"34b9ff4fb9938875970bff92ee8f6e98",
+		],
+		description: "kbd",
+		selector: "kbd",
+		markup: "<kbd></kbd>",
+		role: null,
+	},
+	{
+		id: "el-label",
+		hash: [
+			"d304ba20e96d87411588eeabac850e34",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"25244025ab6ec881716f04da098c8dcb",
+		],
+		description: "label",
+		selector: "label",
+		markup: "<label></label>",
+		role: null,
+	},
+	{
+		id: "el-legend",
+		hash: [
+			"3d4dcd6fc8845fa8dfc04c3ea01eb0fb",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"25244025ab6ec881716f04da098c8dcb",
+		],
+		description: "legend",
+		selector: "legend",
+		markup: "<legend></legend>",
+		role: null,
+	},
+	{
+		id: "el-li",
+		hash: [
+			"d85a33464183223bd13020e94029e08d",
+			"63f23f292c43eac913809e9cd6f33f13",
+			"3f413729471cc2ce99c17d0e610f63f1",
+		],
+		description: "ul li",
+		selector: "li",
+		markup: "<ul><li></li></ul>",
+		role: "listitem",
+	},
+	{
+		id: "el-li",
+		hash: [
+			"62136cc0b1265716803bac26c0fb4e16",
+			"63f23f292c43eac913809e9cd6f33f13",
+			"3f413729471cc2ce99c17d0e610f63f1",
+		],
+		description: "ol li",
+		selector: "li",
+		markup: "<ol><li></li></ol>",
+		role: "listitem",
+	},
+	{
+		id: "el-li",
+		hash: [
+			"6454a8caec2b4df5c25435930075c09c",
+			"63f23f292c43eac913809e9cd6f33f13",
+			"3f413729471cc2ce99c17d0e610f63f1",
+		],
+		description: "menu li",
+		selector: "li",
+		markup: "<menu><li></li></menu>",
+		role: "listitem",
+	},
+	{
+		id: "el-li",
+		hash: [
+			"d70c1e5d44de8a9150eb91ecff563578",
+			"63f23f292c43eac913809e9cd6f33f13",
+			"3f413729471cc2ce99c17d0e610f63f1",
+		],
+		description: "li",
+		selector: "li",
+		markup: "<li></li>",
+		role: "generic",
+	},
+	{
+		id: "el-link",
+		hash: [
+			"2a304a1348456ccd2234cd71a81bd338",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"eb5e261d6a07027e0a25c00cd7f339a0",
+		],
+		description: "link",
+		selector: "link",
+		markup: "<link>",
+		role: null,
+	},
+	{
+		id: "el-main",
+		hash: [
+			"fad58de7366495db4650cfefac2fcd61",
+			"5dae08f7a9ee957f19aaf4e527f84b61",
+			"e928e6e2ce203122eb78905cd2d00759",
+		],
+		description: "main",
+		selector: "main",
+		markup: "<main></main>",
+		role: "main",
+	},
+	{
+		id: "el-map",
+		hash: [
+			"1d78dc8ed51214e518b5114fe24490ae",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"eb5e261d6a07027e0a25c00cd7f339a0",
+		],
+		description: "map",
+		selector: "map",
+		markup: "<map></map>",
+		role: null,
+	},
+	{
+		id: "el-mark",
+		hash: [
+			"ea82410c7a9991816b5eeeebe195e20a",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"34b9ff4fb9938875970bff92ee8f6e98",
+		],
+		description: "mark",
+		selector: "mark",
+		markup: "<mark></mark>",
+		role: null,
+	},
+	{
+		id: "el-math",
+		hash: [
+			"7e676e9e663beb40fd133f5ee24487c2",
+			"0d739ebef8b493ad90d54df61c64b0cd",
+			"ae36521f40e063d5b7a086055c9526a5",
+		],
+		description: "math",
+		selector: "math",
+		markup: "<math></math>",
+		role: "math",
+	},
+	{
+		id: "el-menu",
+		hash: [
+			"8d6ab84ca2af9fccd4e4048694176ebf",
+			"3ae9f551d462449055f643407c13bf10",
+			"481a9e0cfa9bd8575a6360e88f1e4574",
+		],
+		description: "menu",
+		selector: "menu",
+		markup: "<menu></menu>",
+		role: "list",
+	},
+	{
+		id: "el-meta",
+		hash: [
+			"e9a23cbc455158951716b440c3d165e0",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"eb5e261d6a07027e0a25c00cd7f339a0",
+		],
+		description: "meta",
+		selector: "meta",
+		markup: "<meta>",
+		role: null,
+	},
+	{
+		id: "el-meter",
+		hash: [
+			"558ddfdd3620c111fe112b4671b77c6d",
+			"9d83791c856392352dba886d559d527c",
+			"1d8974390604e72f35cda3e1189a9411",
+		],
+		description: "meter",
+		selector: "meter",
+		markup: "<meter></meter>",
+		role: "meter",
+	},
+	{
+		id: "el-nav",
+		hash: [
+			"d72e5ee9b367833956ed9f88a960c686",
+			"21b47e6db830cb8e673f479878dc9e85",
+			"22281a6cde40680bb976d685284fbd1c",
+		],
+		description: "nav",
+		selector: "nav",
+		markup: "<nav></nav>",
+		role: "navigation",
+	},
+	{
+		id: "el-noscript",
+		hash: [
+			"12d4b4e938c3c99990d58b8139e5356c",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"eb5e261d6a07027e0a25c00cd7f339a0",
+		],
+		description: "noscript",
+		selector: "noscript",
+		markup: "<noscript></noscript>",
+		role: null,
+	},
+	{
+		id: "el-object",
+		hash: [
+			"a8cfde6331bd59eb2ac96f8911c4b666",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"e06961f51405680d6289f878788790bd",
+		],
+		description: "object",
+		selector: "object",
+		markup: "<object></object>",
+		role: null,
+	},
+	{
+		id: "el-ol",
+		hash: [
+			"9d5da4f31eddc5eea1c1222da1d7ff12",
+			"3ae9f551d462449055f643407c13bf10",
+			"481a9e0cfa9bd8575a6360e88f1e4574",
+		],
+		description: "ol",
+		selector: "ol",
+		markup: "<ol></ol>",
+		role: "list",
+	},
+	{
+		id: "el-optgroup",
+		hash: [
+			"d4bdd4536845d8029af20bfec195b28f",
+			"8aa62f8eef852300db3ebf2b7a577a61",
+			"77f924ceb3b8a84c06e797c06e9d1e95",
+		],
+		description: "optgroup",
+		selector: "optgroup",
+		markup: "<optgroup></optgroup>",
+		role: "group",
+	},
+	{
+		id: "el-option",
+		hash: [
+			"ef3e30e070f70244fd6578d88a6b77ac",
+			"3bb04aad60838dc4263f279ff4d7357a",
+			"a5554a05ad6c5494a581b8dab6756880",
+		],
+		description: "option",
+		selector: "option",
+		markup: "<option></option>",
+		role: "option",
+	},
+	{
+		id: "el-output",
+		hash: [
+			"78e6221f6393d1356681db398f14ce6d",
+			"c9ee41ea144aa370b9b03886a3430e1d",
+			"1e98b57ae22d15e13a5af97515511aee",
+		],
+		description: "output",
+		selector: "output",
+		markup: "<output></output>",
+		role: "status",
+	},
+	{
+		id: "el-p",
+		hash: [
+			"83878c91171338902e0fe0fb97a8c47a",
+			"1ad2943dc9eba84187b50228d953dfa2",
+			"31b97cd48659c11d206b0e4887a22bfd",
+		],
+		description: "p",
+		selector: "p",
+		markup: "<p></p>",
+		role: "paragraph",
+	},
+	{
+		id: "el-param",
+		hash: [
+			"eca07335a33c5aeb5e1bc7c98b4b9d80",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"eb5e261d6a07027e0a25c00cd7f339a0",
+		],
+		description: "param",
+		selector: "param",
+		markup: "<param>",
+		role: null,
+	},
+	{
+		id: "el-picture",
+		hash: [
+			"5456fc54c74a297ce994998c2873b370",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"1e2d01ad564ab312d70738ebec44fc1e",
+		],
+		description: "picture",
+		selector: "picture",
+		markup: "<picture></picture>",
+		role: null,
+	},
+	{
+		id: "el-pre",
+		hash: [
+			"6bf9e70a1f928aba143ef1eebe2720b5",
+			"5a20054581be7655f0d9b083f13eb177",
+			"7d892fbe4f79cc77c91ad8a9220c9e29",
+		],
+		description: "pre",
+		selector: "pre",
+		markup: "<pre></pre>",
+		role: "generic",
+	},
+	{
+		id: "el-progress",
+		hash: [
+			"3c709b10a5d47ba33d85337dd9110917",
+			"26b0461316ffdc8e9d950807879f712c",
+			"fa960e9404c436c7daa5d39d42655444",
+		],
+		description: "progress",
+		selector: "progress",
+		markup: "<progress></progress>",
+		role: "progressbar",
+	},
+	{
+		id: "el-q",
+		hash: [
+			"7694f4a66316e53c8cdd9d9954bd611d",
+			"5a20054581be7655f0d9b083f13eb177",
+			"7d892fbe4f79cc77c91ad8a9220c9e29",
+		],
+		description: "q",
+		selector: "q",
+		markup: "<q></q>",
+		role: "generic",
+	},
+	{
+		id: "el-rp",
+		hash: [
+			"00639c71ba1dbde84db84b3eb15d6820",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"d8d17824917126b44488f9f7c841c10a",
+		],
+		description: "rp",
+		selector: "rp",
+		markup: "<rp></rp>",
+		role: null,
+	},
+	{
+		id: "el-rt",
+		hash: [
+			"822050d9ae3c47f54bee71b85fce1487",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"34b9ff4fb9938875970bff92ee8f6e98",
+		],
+		description: "rt",
+		selector: "rt",
+		markup: "<rt></rt>",
+		role: null,
+	},
+	{
+		id: "el-ruby",
+		hash: [
+			"58e53d1324eef6265fdb97b08ed9aadf",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"1bf0aa29e454c5a49ccbad48a7786691",
+		],
+		description: "ruby",
+		selector: "ruby",
+		markup: "<ruby></ruby>",
+		role: null,
+	},
+	{
+		id: "el-s",
+		hash: [
+			"03c7c0ace395d80182db07ae2c30f034",
+			"6eadc3a343fa09befd0e75602fb4aa34",
+			"547596dbe33150850fe7c15ecf57c704",
+		],
+		description: "s",
+		selector: "s",
+		markup: "<s></s>",
+		role: "deletion",
+	},
+	{
+		id: "el-samp",
+		hash: [
+			"11f039d696c0bee41873853d0e1a9614",
+			"5a20054581be7655f0d9b083f13eb177",
+			"7d892fbe4f79cc77c91ad8a9220c9e29",
+		],
+		description: "samp",
+		selector: "samp",
+		markup: "<samp></samp>",
+		role: "generic",
+	},
+	{
+		id: "el-script",
+		hash: [
+			"3205c0ded576131ea255ad2bd38b0fb2",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"eb5e261d6a07027e0a25c00cd7f339a0",
+		],
+		description: "script",
+		selector: "script",
+		markup: "<script></script>",
+		role: null,
+	},
+	{
+		id: "el-search",
+		hash: [
+			"06a943c59f33a34bb5924aaf72cd2995",
+			"ad6a27f15e117dc2103fce282badc473",
+			"e8986575e13e74228efa717ca94d874c",
+		],
+		description: "search",
+		selector: "search",
+		markup: "<search></search>",
+		role: "search",
+	},
+	{
+		id: "el-section",
+		hash: [
+			"4778bd8ec2162efd952f1df5f2b3b79d",
+			"b732d57699a933ec6ab5c389019ecbd3",
+			"f7eb7137efe2849602929a5d1b2ba41a",
+		],
+		description: "section[aria-label]",
+		selector: "section",
+		markup: "<section aria-label=\"..\"></section>",
+		role: "region",
+	},
+	{
+		id: "el-section",
+		hash: [
+			"3c808d504199062034915db49ebe4215",
+			"b732d57699a933ec6ab5c389019ecbd3",
+			"f7eb7137efe2849602929a5d1b2ba41a",
+		],
+		description: "section[aria-labelledby]",
+		selector: "section",
+		markup: "<section aria-labelledby=\"..\"></section>",
+		role: "region",
+	},
+	{
+		id: "el-section",
+		hash: [
+			"73d5342eba070f636ac3246f319bf77f",
+			"b732d57699a933ec6ab5c389019ecbd3",
+			"f7eb7137efe2849602929a5d1b2ba41a",
+		],
+		description: "section",
+		selector: "section",
+		markup: "<section></section>",
+		role: "generic",
+	},
+	{
+		id: "el-select",
+		hash: [
+			"99938282f04071859941e18f16efcf42",
+			"3da6631fabf63909c267e2fb82458b66",
+			"92ee1d13e7d8c8baf598da22833e715c",
+		],
+		description: "select",
+		selector: "select",
+		markup: "<select></select>",
+		role: "combobox",
+	},
+	{
+		id: "el-select",
+		hash: [
+			"323bfe7c7238fc1149fbad0eb42febad",
+			"3da6631fabf63909c267e2fb82458b66",
+			"92ee1d13e7d8c8baf598da22833e715c",
+		],
+		description: "select[size=1]",
+		selector: "select",
+		markup: "<select size=\"1\"></select>",
+		role: "combobox",
+	},
+	{
+		id: "el-select-multiple-or-size-greater-1",
+		hash: [
+			"8901230835173cc667d68a47a5fc8b6f",
+			"b903dca3539b5db03d242d3b013eb425",
+			"3e9b91deff898ba9acd47f844c0b4e13",
+		],
+		description: "select[multiple]",
+		selector: "select",
+		markup: "<select multiple></select>",
+		role: "listbox",
+	},
+	{
+		id: "el-select-multiple-or-size-greater-1",
+		hash: [
+			"c0f0921058b490ce175d4bb486a466a6",
+			"b903dca3539b5db03d242d3b013eb425",
+			"3e9b91deff898ba9acd47f844c0b4e13",
+		],
+		description: "select[size=N]",
+		selector: "select",
+		markup: "<select size=\"2\"></select>",
+		role: "listbox",
+	},
+	{
+		id: "el-slot",
+		hash: [
+			"5e97994ed38a2b2f984f3b2b75012bf8",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"eb5e261d6a07027e0a25c00cd7f339a0",
+		],
+		description: "slot",
+		selector: "slot",
+		markup: "<slot></slot>",
+		role: null,
+	},
+	{
+		id: "el-small",
+		hash: [
+			"eb5c1399a871211c7e7ed732d15e3a8b",
+			"5a20054581be7655f0d9b083f13eb177",
+			"7d892fbe4f79cc77c91ad8a9220c9e29",
+		],
+		description: "small",
+		selector: "small",
+		markup: "<small></small>",
+		role: "generic",
+	},
+	{
+		id: "el-source",
+		hash: [
+			"36cd38f49b9afa08222c0dc9ebfe35eb",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"eb5e261d6a07027e0a25c00cd7f339a0",
+		],
+		description: "source",
+		selector: "source",
+		markup: "<source>",
+		role: null,
+	},
+	{
+		id: "el-span",
+		hash: [
+			"eac828e40705bfafd82ef1a82e3f5ab8",
+			"5a20054581be7655f0d9b083f13eb177",
+			"7d892fbe4f79cc77c91ad8a9220c9e29",
+		],
+		description: "span",
+		selector: "span",
+		markup: "<span></span>",
+		role: "generic",
+	},
+	{
+		id: "el-strong",
+		hash: [
+			"6f7f9432d35dea629c8384dab312259a",
+			"a9a33fc7290c72813660861ae0028c50",
+			"2ef2c5542ab49ca4a11f82eac9a1da63",
+		],
+		description: "strong",
+		selector: "strong",
+		markup: "<strong></strong>",
+		role: "strong",
+	},
+	{
+		id: "el-style",
+		hash: [
+			"a1b01e734b573fca08eb1a65e6df9a38",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"eb5e261d6a07027e0a25c00cd7f339a0",
+		],
+		description: "style",
+		selector: "style",
+		markup: "<style></style>",
+		role: null,
+	},
+	{
+		id: "el-sub",
+		hash: [
+			"8a68dc3e925eacf92633be230722a140",
+			"51cc6e9544c2e177062d9add9806ff76",
+			"044b5a25893f8a705cb5040b509af5fb",
+		],
+		description: "sub",
+		selector: "sub",
+		markup: "<sub></sub>",
+		role: "subscript",
+	},
+	{
+		id: "el-summary",
+		hash: [
+			"a80da1282f2c775bbc5f2c92c836968b",
+			"79ba40ba49b85261c0c290fec8dfde32",
+			"dd0380e505f21adebb8788dbe88f24fc",
+		],
+		description: "summary",
+		selector: "summary",
+		markup: "<summary></summary>",
+		role: "button",
+	},
+	{
+		id: "el-sup",
+		hash: [
+			"2eeecd72c567401e6988624b179d0b14",
+			"c3e26f93a8b8ce3de981d4dcf277de7f",
+			"142a8b0771909fa1dca88a4239348647",
+		],
+		description: "sup",
+		selector: "sup",
+		markup: "<sup></sup>",
+		role: "superscript",
+	},
+	{
+		id: "el-svg",
+		hash: [
+			"cd15a75c26008696647b31a3f0de43b3",
+			"a1289bc8a2c9c46da728063028eec53f",
+			"13fa128618dd7cf4d3f0418538d5ae6a",
+		],
+		description: "SVG",
+		selector: "svg",
+		markup: "<svg></svg>",
+		role: "graphics-document",
+	},
+	{
+		id: "el-table",
+		hash: [
+			"aab9e1de16f38176f86d7a92ba337a8d",
+			"04ee88903a5e157077fe9b2d4960449d",
+			"597e864a0e1ecb52941eaf464cd2f0b5",
+		],
+		description: "table",
+		selector: "table",
+		markup: "<table></table>",
+		role: "table",
+	},
+	{
+		id: "el-tbody",
+		hash: [
+			"6d5e17bf959bb3467e73eb60a4e42859",
+			"43c5db6315b2e72f800257d173fe3bbe",
+			"46515ba701a1b2581000522453824889",
+		],
+		description: "tbody",
+		selector: "tbody",
+		markup: "<tbody></tbody>",
+		role: "rowgroup",
+	},
+	{
+		id: "el-td",
+		hash: [
+			"b59337b3b5871729cdf2db39caf83185",
+			"efc7b82d08206dd443f9932a61fcd455",
+			"871fd765f5138ed9ffafc9fb284a9242",
+		],
+		description: "table td",
+		selector: "td",
+		markup: "<table><tr><td></td></tr></table>",
+		role: "cell",
+	},
+	{
+		id: "el-td",
+		hash: [
+			"495d79baca1084c0798e4de3e316ec38",
+			"efc7b82d08206dd443f9932a61fcd455",
+			"871fd765f5138ed9ffafc9fb284a9242",
+		],
+		description: "table[role=table] td",
+		selector: "td",
+		markup: "<table role=\"table\"><tr><td></td></tr></table>",
+		role: "cell",
+	},
+	{
+		id: "el-td",
+		hash: [
+			"4920d924956bac227b685d8f5357afcd",
+			"efc7b82d08206dd443f9932a61fcd455",
+			"871fd765f5138ed9ffafc9fb284a9242",
+		],
+		description: "table[role=grid] td",
+		selector: "td",
+		markup: "<table role=\"grid\"><tr><td></td></tr></table>",
+		role: "gridcell",
+	},
+	{
+		id: "el-td",
+		hash: [
+			"db7f3de8933842ba25d94b7922e79f07",
+			"efc7b82d08206dd443f9932a61fcd455",
+			"871fd765f5138ed9ffafc9fb284a9242",
+		],
+		description: "table[role=treegrid] td",
+		selector: "td",
+		markup: "<table role=\"treegrid\"><tr><td></td></tr></table>",
+		role: "gridcell",
+	},
+	{
+		id: "el-td",
+		hash: [
+			"6e2a1b6b5eb8c0c8da6f3f576078b7ab",
+			"efc7b82d08206dd443f9932a61fcd455",
+			"871fd765f5138ed9ffafc9fb284a9242",
+		],
+		description: "table[role=generic] td",
+		selector: "td",
+		markup: "<table role=\"generic\"><tr><td></td></tr></table>",
+		role: null,
+	},
+	{
+		id: "el-template",
+		hash: [
+			"66f6181bcb4cff4cd38fbc804a036db6",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"eb5e261d6a07027e0a25c00cd7f339a0",
+		],
+		description: "template",
+		selector: "template",
+		markup: "<template></template>",
+		role: null,
+	},
+	{
+		id: "el-textarea",
+		hash: [
+			"6394d816bfb4220289a6f4b29cfb1834",
+			"fa39827e07c9823d1a2e588512b7f095",
+			"8151f39d4492ce51223e9e25ea9d572d",
+		],
+		description: "textarea",
+		selector: "textarea",
+		markup: "<textarea></textarea>",
+		role: "textbox",
+	},
+	{
+		id: "el-tfoot",
+		hash: [
+			"1e92c04200a420807115727e9189d413",
+			"43c5db6315b2e72f800257d173fe3bbe",
+			"46515ba701a1b2581000522453824889",
+		],
+		description: "tfoot",
+		selector: "tfoot",
+		markup: "<tfoot></tfoot>",
+		role: "rowgroup",
+	},
+	{
+		id: "el-th",
+		hash: [
+			"0e43d8977be5db568f63a878a445b86d",
+			"eadc55ce4a0d8c97939daff86f221d2f",
+			"25abbd4bc27802058bc496e1672f66dd",
+		],
+		description: "table th",
+		selector: "th",
+		markup: "<table><tr><th></th></tr></table>",
+		role: "cell",
+	},
+	{
+		id: "el-th",
+		hash: [
+			"ab86c691bf965b56b85815caf5d95018",
+			"eadc55ce4a0d8c97939daff86f221d2f",
+			"25abbd4bc27802058bc496e1672f66dd",
+		],
+		description: "table[role=table] th",
+		selector: "th",
+		markup: "<table role=\"table\"><tr><th></th></tr></table>",
+		role: "cell",
+	},
+	{
+		id: "el-th",
+		hash: [
+			"3fc87ebd5c927a8a1f81df70770586a1",
+			"eadc55ce4a0d8c97939daff86f221d2f",
+			"25abbd4bc27802058bc496e1672f66dd",
+		],
+		description: "table[role=table] th[scope=row]",
+		selector: "th",
+		markup: "<table role=\"table\"><tr><th scope=\"row\"></th></tr></table>",
+		role: "rowheader",
+	},
+	{
+		id: "el-th",
+		hash: [
+			"243bebe77a8d9c795432cdf9b7aa4e65",
+			"eadc55ce4a0d8c97939daff86f221d2f",
+			"25abbd4bc27802058bc496e1672f66dd",
+		],
+		description: "table[role=table] th[scope=col]",
+		selector: "th",
+		markup: "<table role=\"table\"><tr><th scope=\"col\"></th></tr></table>",
+		role: "columnheader",
+	},
+	{
+		id: "el-th",
+		hash: [
+			"7731806b514dabfd9f49415e6d47abaa",
+			"eadc55ce4a0d8c97939daff86f221d2f",
+			"25abbd4bc27802058bc496e1672f66dd",
+		],
+		description: "table[role=grid] th",
+		selector: "th",
+		markup: "<table role=\"grid\"><tr><th></th></tr></table>",
+		role: "gridcell",
+	},
+	{
+		id: "el-th",
+		hash: [
+			"f25eb1fee1926591d4f3a48f86937f29",
+			"eadc55ce4a0d8c97939daff86f221d2f",
+			"25abbd4bc27802058bc496e1672f66dd",
+		],
+		description: "table[role=grid] th[scope=row]",
+		selector: "th",
+		markup: "<table role=\"grid\"><tr><th scope=\"row\"></th></tr></table>",
+		role: "rowheader",
+	},
+	{
+		id: "el-th",
+		hash: [
+			"16d6fbae0b1d1c6d58902a09cec66f5c",
+			"eadc55ce4a0d8c97939daff86f221d2f",
+			"25abbd4bc27802058bc496e1672f66dd",
+		],
+		description: "table[role=grid] th[scope=col]",
+		selector: "th",
+		markup: "<table role=\"grid\"><tr><th scope=\"col\"></th></tr></table>",
+		role: "columnheader",
+	},
+	{
+		id: "el-th",
+		hash: [
+			"1e2bbccac2f1c2b69083808c49cb7fd3",
+			"eadc55ce4a0d8c97939daff86f221d2f",
+			"25abbd4bc27802058bc496e1672f66dd",
+		],
+		description: "table[role=treegrid] th",
+		selector: "th",
+		markup: "<table role=\"treegrid\"><tr><th></th></tr></table>",
+		role: "gridcell",
+	},
+	{
+		id: "el-th",
+		hash: [
+			"5aa2c3a983103b480b18f64c423a8a41",
+			"eadc55ce4a0d8c97939daff86f221d2f",
+			"25abbd4bc27802058bc496e1672f66dd",
+		],
+		description: "table[role=treegrid] th[scope=row]",
+		selector: "th",
+		markup: "<table role=\"treegrid\"><tr><th scope=\"row\"></th></tr></table>",
+		role: "rowheader",
+	},
+	{
+		id: "el-th",
+		hash: [
+			"321d56978b73dc29f1670262eecebfdb",
+			"eadc55ce4a0d8c97939daff86f221d2f",
+			"25abbd4bc27802058bc496e1672f66dd",
+		],
+		description: "table[role=treegrid] th[scope=col]",
+		selector: "th",
+		markup: "<table role=\"treegrid\"><tr><th scope=\"col\"></th></tr></table>",
+		role: "columnheader",
+	},
+	{
+		id: "el-th",
+		hash: [
+			"dc9814a5d3fc9f3091d054c42116a948",
+			"eadc55ce4a0d8c97939daff86f221d2f",
+			"25abbd4bc27802058bc496e1672f66dd",
+		],
+		description: "table[role=generic] th",
+		selector: "th",
+		markup: "<table role=\"generic\"><tr><th></th></tr></table>",
+		role: null,
+	},
+	{
+		id: "el-thead",
+		hash: [
+			"16fd4602f6ca67f32eebef4afa6df98a",
+			"43c5db6315b2e72f800257d173fe3bbe",
+			"46515ba701a1b2581000522453824889",
+		],
+		description: "thead",
+		selector: "thead",
+		markup: "<thead></thead>",
+		role: "rowgroup",
+	},
+	{
+		id: "el-time",
+		hash: [
+			"07cc694b9b3fc636710fa08b6922c42b",
+			"8f47630a42be0065740d47398806b0eb",
+			"1451af5b645869248d5c9f7c84f27a5f",
+		],
+		description: "time",
+		selector: "time",
+		markup: "<time></time>",
+		role: "time",
+	},
+	{
+		id: "el-title",
+		hash: [
+			"d5d3db1765287eef77d7927cc956f50a",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"eb5e261d6a07027e0a25c00cd7f339a0",
+		],
+		description: "title",
+		selector: "title",
+		markup: "<title></title>",
+		role: null,
+	},
+	{
+		id: "el-tr",
+		hash: [
+			"e7d707a26e7f7b6ff52c489c60e429b1",
+			"0d4c02cb12872ccc098eadce462f6a94",
+			"a1ff328bc12ef87657d3b21274675e08",
+		],
+		description: "tr",
+		selector: "tr",
+		markup: "<tr></tr>",
+		role: "row",
+	},
+	{
+		id: "el-track",
+		hash: [
+			"368cc7b17925cc0f9c4b5a90db1e68c1",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"eb5e261d6a07027e0a25c00cd7f339a0",
+		],
+		description: "track",
+		selector: "track",
+		markup: "<track>",
+		role: null,
+	},
+	{
+		id: "el-u",
+		hash: [
+			"7b774effe4a349c6dd82ad4f4f21d34c",
+			"5a20054581be7655f0d9b083f13eb177",
+			"7d892fbe4f79cc77c91ad8a9220c9e29",
+		],
+		description: "u",
+		selector: "u",
+		markup: "<u></u>",
+		role: "generic",
+	},
+	{
+		id: "el-ul",
+		hash: [
+			"738a656e8e8ec272ca17cd51e12f558b",
+			"3ae9f551d462449055f643407c13bf10",
+			"2ab7ee79936fec6f9988b33207cc34e0",
+		],
+		description: "ul",
+		selector: "ul",
+		markup: "<ul></ul>",
+		role: "list",
+	},
+	{
+		id: "el-var",
+		hash: [
+			"b2145aac704ce76dbe1ac7adac535b23",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"34b9ff4fb9938875970bff92ee8f6e98",
+		],
+		description: "var",
+		selector: "var",
+		markup: "<var></var>",
+		role: null,
+	},
+	{
+		id: "el-video",
+		hash: [
+			"421b47ffd946ca083b65cd668c6b17e6",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"ea4b9014b39be056cd8cd76c24ebbe4c",
+		],
+		description: "video",
+		selector: "video",
+		markup: "<video></video>",
+		role: null,
+	},
+	{
+		id: "el-wbr",
+		hash: [
+			"b48f3ea6e4f4f4285f69918ead79ca1f",
+			"3429cdcf81145c39ba806c356e4b8755",
+			"07d957ef9e88c7ca34784106c39ed4da",
+		],
+		description: "wbr",
+		selector: "wbr",
+		markup: "<wbr>",
+		role: null,
+	},
+];
+
+module.exports = data;

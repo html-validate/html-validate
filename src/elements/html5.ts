@@ -119,7 +119,7 @@ export default defineMetadata({
 		},
 		permittedDescendants: [{ exclude: "@interactive" }],
 		implicitRole(node) {
-			return node.hasAttribute("href") ? "link" : null;
+			return node.hasAttribute("href") ? "link" : "generic";
 		},
 	},
 
@@ -221,7 +221,7 @@ export default defineMetadata({
 			},
 		},
 		implicitRole(node) {
-			return node.hasAttribute("href") ? "link" : null;
+			return node.hasAttribute("href") ? "link" : "generic";
 		},
 		requiredAncestors: ["map"],
 	},
@@ -277,6 +277,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
+		implicitRole() {
+			return "generic";
+		},
 	},
 
 	base: {
@@ -297,12 +300,18 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
+		implicitRole() {
+			return "generic";
+		},
 	},
 
 	bdo: {
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
+		implicitRole() {
+			return "generic";
+		},
 	},
 
 	bgsound: {
@@ -379,6 +388,9 @@ export default defineMetadata({
 			vlink: {
 				deprecated: true,
 			},
+		},
+		implicitRole() {
+			return "generic";
 		},
 	},
 
@@ -463,6 +475,9 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
+		implicitRole() {
+			return "caption";
+		},
 	},
 
 	center: {
@@ -483,6 +498,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
+		implicitRole() {
+			return "code";
+		},
 	},
 
 	col: {
@@ -523,6 +541,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
+		implicitRole() {
+			return "generic";
+		},
 	},
 
 	datalist: {
@@ -544,6 +565,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		transparent: true,
+		implicitRole() {
+			return "deletion";
+		},
 	},
 
 	details: {
@@ -611,6 +635,9 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
+		implicitRole() {
+			return "generic";
+		},
 	},
 
 	dl: {
@@ -634,6 +661,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
+		implicitRole() {
+			return "emphasis";
+		},
 	},
 
 	embed: {
@@ -710,7 +740,7 @@ export default defineMetadata({
 				'[role="region"]',
 			];
 			if (node.closest(selectors.join(","))) {
-				return null;
+				return "generic";
 			} else {
 				return "contentinfo";
 			}
@@ -889,7 +919,7 @@ export default defineMetadata({
 			/* § 4: https://www.w3.org/TR/html-aria/#docconformance */
 			/* § 3.4.48: https://w3c.github.io/html-aam/#el-header */
 			if (node.closest(selectors.join(","))) {
-				return null;
+				return "generic";
 			} else {
 				return "banner";
 			}
@@ -904,6 +934,9 @@ export default defineMetadata({
 		permittedContent: ["p", "@heading?"],
 		permittedDescendants: [{ exclude: ["hgroup"] }],
 		requiredContent: ["@heading"],
+		implicitRole() {
+			return "group";
+		},
 	},
 
 	hr: {
@@ -952,6 +985,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
+		implicitRole() {
+			return "generic";
+		},
 	},
 
 	iframe: {
@@ -1058,7 +1094,7 @@ export default defineMetadata({
 		implicitRole(node) {
 			const alt = node.getAttribute("alt");
 			if (alt === "") {
-				return "presentation";
+				return "none";
 			} else {
 				return "img";
 			}
@@ -1197,12 +1233,26 @@ export default defineMetadata({
 					return "button";
 				case "checkbox":
 					return "checkbox";
+				case "color":
+					return null;
+				case "date":
+					return null;
+				case "datetime-local":
+					return null;
 				case "email":
 					return "textbox";
+				case "file":
+					return null;
+				case "hidden":
+					return null;
 				case "image":
 					return "button";
+				case "month":
+					return null;
 				case "number":
 					return "spinbutton";
+				case "password":
+					return null;
 				case "radio":
 					return "radio";
 				case "range":
@@ -1217,8 +1267,12 @@ export default defineMetadata({
 					return "textbox";
 				case "text":
 					return "textbox";
+				case "time":
+					return null;
 				case "url":
 					return "textbox";
+				case "week":
+					return null;
 				default:
 					return "textbox";
 			}
@@ -1229,6 +1283,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		transparent: true,
+		implicitRole() {
+			return "insertion";
+		},
 	},
 
 	isindex: {
@@ -1302,7 +1359,7 @@ export default defineMetadata({
 			},
 		},
 		implicitRole(node) {
-			return node.closest("ul, ol, menu") ? "listitem" : null;
+			return node.closest("ul, ol, menu") ? "listitem" : "generic";
 		},
 	},
 
@@ -1731,6 +1788,9 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
+		implicitRole() {
+			return "paragraph";
+		},
 	},
 
 	param: {
@@ -1772,6 +1832,9 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
+		implicitRole() {
+			return "generic";
+		},
 	},
 
 	progress: {
@@ -1789,6 +1852,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
+		implicitRole() {
+			return "generic";
+		},
 	},
 
 	rb: {
@@ -1821,12 +1887,18 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
+		implicitRole() {
+			return "deletion";
+		},
 	},
 
 	samp: {
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
+		implicitRole() {
+			return "generic";
+		},
 	},
 
 	script: {
@@ -1880,8 +1952,9 @@ export default defineMetadata({
 	section: {
 		flow: true,
 		sectioning: true,
-		implicitRole() {
-			return "region";
+		implicitRole(node) {
+			const name = node.hasAttribute("aria-label") || node.hasAttribute("aria-labelledby");
+			return name ? "region" : "generic";
 		},
 		permittedContent: ["@flow"],
 	},
@@ -1939,6 +2012,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
+		implicitRole() {
+			return "generic";
+		},
 	},
 
 	source: {
@@ -1989,6 +2065,9 @@ export default defineMetadata({
 				deprecated: true,
 			},
 		},
+		implicitRole() {
+			return "generic";
+		},
 	},
 
 	strike: {
@@ -2003,6 +2082,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
+		implicitRole() {
+			return "strong";
+		},
 	},
 
 	style: {
@@ -2013,16 +2095,25 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
+		implicitRole() {
+			return "subscript";
+		},
 	},
 
 	summary: {
 		permittedContent: ["@phrasing", "@heading"],
+		implicitRole() {
+			return "button";
+		},
 	},
 
 	sup: {
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
+		implicitRole() {
+			return "superscript";
+		},
 	},
 
 	svg: {
@@ -2030,6 +2121,9 @@ export default defineMetadata({
 		foreign: true,
 		phrasing: true,
 		embedded: true,
+		implicitRole() {
+			return "graphics-document";
+		},
 	},
 
 	/* while not part of HTML 5 specification these two elements are handled as
@@ -2158,12 +2252,16 @@ export default defineMetadata({
 			},
 		},
 		implicitRole(node) {
-			if (node.closest('table[role="grid"], table[role="treegrid"]')) {
-				return "gridcell";
-			} else if (node.closest("table")) {
-				return "cell";
-			} else {
-				return null;
+			const table = node.closest("table");
+			const tableRole = table?.getAttribute("role") ?? "table";
+			switch (tableRole) {
+				case "table":
+					return "cell";
+				case "grid":
+				case "treegrid":
+					return "gridcell";
+				default:
+					return null;
 			}
 		},
 		permittedContent: ["@flow"],
@@ -2303,10 +2401,7 @@ export default defineMetadata({
 		},
 		implicitRole(node) {
 			const table = node.closest("table");
-			if (!table) {
-				return null;
-			}
-			const tableRole = table.getAttribute("role") ?? "table";
+			const tableRole = table?.getAttribute("role") ?? "table";
 			if (typeof tableRole !== "string" || !["table", "grid", "treegrid"].includes(tableRole)) {
 				return null;
 			}
@@ -2408,6 +2503,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing"],
+		implicitRole() {
+			return "generic";
+		},
 	},
 
 	ul: {
