@@ -44,6 +44,9 @@ describe("escapeSelectorComponent", () => {
 		 * ```
 		 */
 		const oracle = [
+			["\t", "foo\\\u0039 bar"],
+			["\n", "foo\\\u0061 bar"],
+			["\r", "foo\\\u0064 bar"],
 			[" ", "foo\\ bar"],
 			["!", "foo\\!bar"],
 			['"', 'foo\\"bar'],
@@ -334,6 +337,30 @@ describe("Selector", () => {
 		const parser = new Parser(Config.empty().resolve());
 		const document = parser.parseHtml(`<div id="foo "></div>`);
 		const selector = new Selector("#foo\\ ");
+		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
+	});
+
+	it("should match id with escaped tab", () => {
+		expect.assertions(1);
+		const parser = new Parser(Config.empty().resolve());
+		const document = parser.parseHtml(`<div id="foo\t"></div>`);
+		const selector = new Selector("#foo\\9 ");
+		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
+	});
+
+	it("should match id with escaped newline (\\n)", () => {
+		expect.assertions(1);
+		const parser = new Parser(Config.empty().resolve());
+		const document = parser.parseHtml(`<div id="foo\n"></div>`);
+		const selector = new Selector("#foo\\a ");
+		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
+	});
+
+	it("should match id with escaped newline (\\r)", () => {
+		expect.assertions(1);
+		const parser = new Parser(Config.empty().resolve());
+		const document = parser.parseHtml(`<div id="foo\r"></div>`);
+		const selector = new Selector("#foo\\d ");
 		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
 	});
 
