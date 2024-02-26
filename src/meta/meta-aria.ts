@@ -15,7 +15,7 @@ export type MetaImplicitRoleCallback = (node: HtmlElementLike) => string | null;
  * Element ARIA metadata.
  *
  * @public
- * @since %version%
+ * @since 8.11.0
  */
 export interface MetaAria {
 	/**
@@ -24,7 +24,7 @@ export interface MetaAria {
 	 * Can be set either to a string (element unconditionally has given role) or a
 	 * callback (role depends on the context the element is used in).
 	 *
-	 * @since %version%
+	 * @since 8.11.0
 	 */
 	implicitRole?: string | MetaImplicitRoleCallback;
 
@@ -36,7 +36,7 @@ export interface MetaAria {
 	 * something other than the implicit role) naming may or may not be allowed
 	 * depending on the given role instead.
 	 *
-	 * @since %version%
+	 * @since 8.11.0
 	 */
 	naming?: "allowed" | "prohibited" | ((node: HtmlElementLike) => "allowed" | "prohibited");
 }
@@ -45,7 +45,7 @@ export interface MetaAria {
  * Element ARIA metadata.
  *
  * @public
- * @since %version%
+ * @since 8.11.0
  */
 export interface NormalizedMetaAria {
 	/**
@@ -53,7 +53,7 @@ export interface NormalizedMetaAria {
 	 * Normalized version of {@link MetaAria.implicitRole}. Always a callback
 	 * returning the role.
 	 *
-	 * @since %version%
+	 * @since 8.11.0
 	 * @returns string with role or null if no corresponding role.
 	 */
 	implicitRole(node: HtmlElementLike): string | null;
@@ -63,7 +63,7 @@ export interface NormalizedMetaAria {
 	 * Normalized version of {@link MetaAria.naming}. Always a callback
 	 * returning `"allowed"` or `"prohibited"`.
 	 *
-	 * @since %version%
+	 * @since 8.11.0
 	 */
 	naming(node: HtmlElementLike): "allowed" | "prohibited";
 }

@@ -93,5 +93,5 @@ This option is disabled by default and `html-validate:recommended` but enabled b
 
 ## Version history
 
-- %version% - `allowAnyNamable` option added.
+- 8.11.0 - `allowAnyNamable` option added.
 - 7.17.0 - Allow usage on custom elements.

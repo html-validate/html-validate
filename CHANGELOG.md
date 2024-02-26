@@ -1,5 +1,18 @@
 # html-validate changelog
 
+## 8.11.0 (2024-2-26)
+
+### Features
+
+- **html5:** add new property `aria.naming` representing if the element can be named ([4fca264](https://gitlab.com/html-validate/html-validate/commit/4fca2643ad9fa9a21c5790407789bf6fa3e89843))
+- **html5:** update role metadata from html-aria standard ([b029a3f](https://gitlab.com/html-validate/html-validate/commit/b029a3fab93e7fab9838af491697b02dbfa11ea9))
+- **meta:** move `implicitRole` to `aria.implicitRole` ([bc8cacf](https://gitlab.com/html-validate/html-validate/commit/bc8cacf096ede336ca2cc8f387662ffeb5bb633d))
+
+### Bug Fixes
+
+- handle selectors containing tabs and newlines ([5e45d54](https://gitlab.com/html-validate/html-validate/commit/5e45d54574f283916c2fed4bb26c429497484a00)), closes [#238](https://gitlab.com/html-validate/html-validate/issues/238)
+- **rules:** new option `allowAnyNamable` for `aria-label-misuse` ([c08a3ba](https://gitlab.com/html-validate/html-validate/commit/c08a3ba9906fec5119aa9dffe154207769e50319)), closes [#237](https://gitlab.com/html-validate/html-validate/issues/237)
+
 ## 8.10.0 (2024-02-21)
 
 ### Features
