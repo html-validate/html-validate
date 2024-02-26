@@ -4,6 +4,7 @@ import { type DynamicValue } from "./dynamic-value";
 import { type HtmlElement } from "./htmlelement";
 import { factory as pseudoClassFunction } from "./pseudoclass";
 import { type SelectorContext } from "./selector-context";
+import { splitSelectorElements } from "./split-selector-elements";
 
 /**
  * Homage to PHP: unescapes slashes.
@@ -315,14 +316,8 @@ export class Selector {
 		selector = selector.replace(/([+~>]) /g, "$1");
 
 		/* split string on whitespace (excluding escaped `\ `) */
-		let begin = 0;
-		const delimiter = /((?:[^\\\u0039\u0061\u0064]) +|$)/g;
-		return Array.from(selector.matchAll(delimiter), (match) => {
-			/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- index will always be present */
-			const end = match.index! + 1;
-			const part = unescapeCodepoint(selector.slice(begin, end));
-			begin = end + 1;
-			return new Pattern(part);
+		return Array.from(splitSelectorElements(selector), (element) => {
+			return new Pattern(unescapeCodepoint(element));
 		});
 	}
 
