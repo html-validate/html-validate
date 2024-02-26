@@ -15,10 +15,39 @@ function stripslashes(value: string): string {
 }
 
 /**
+ * Unescape codepoints.
+ *
+ * https://drafts.csswg.org/cssom/#escape-a-character-as-code-point
+ */
+function unescapeCodepoint(value: string): string {
+	const replacement = {
+		"\\\u0039 ": "\t",
+		"\\\u0061 ": "\n",
+		"\\\u0064 ": "\r",
+	};
+	return value.replace(
+		/(\\[\u0039\u0061\u0064] )/g,
+		(_, codepoint: "\\\u0039 " | "\\\u0061 " | "\\\u0064 ") => replacement[codepoint],
+	);
+}
+
+/**
  * @internal
  */
 export function escapeSelectorComponent(text: string | DynamicValue): string {
-	return text.toString().replace(/([^a-z0-9_-])/gi, "\\$1");
+	/* some characters requires extra care: https://drafts.csswg.org/cssom/#escape-a-character-as-code-point */
+	const codepoints: Record<string, string> = {
+		"\t": "\\\u0039 ",
+		"\n": "\\\u0061 ",
+		"\r": "\\\u0064 ",
+	};
+	return text.toString().replace(/([\t\n\r]|[^a-z0-9_-])/gi, (_, ch: string) => {
+		if (codepoints[ch]) {
+			return codepoints[ch];
+		} else {
+			return `\\${ch}`;
+		}
+	});
 }
 
 /**
@@ -203,7 +232,11 @@ export class Pattern {
 	private readonly pattern: Matcher[];
 
 	public constructor(pattern: string) {
-		const match = pattern.match(/^([~+\->]?)((?:[*]|[^.#[:]+)?)(.*)$/)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- will always match
+		const match = pattern.match(/^([~+\->]?)((?:[*]|[^.#[:]+)?)([^]*)$/);
+		/* istanbul ignore next: should not happen but throw proper error if it still happens */
+		if (!match) {
+			throw new Error(`Failed to create selector pattern from "${pattern}"`);
+		}
 		match.shift(); /* remove full matched string */
 		this.selector = pattern;
 		this.combinator = parseCombinator(match.shift(), pattern);
@@ -283,11 +316,11 @@ export class Selector {
 
 		/* split string on whitespace (excluding escaped `\ `) */
 		let begin = 0;
-		const delimiter = /((?:[^\\]) +|$)/g;
+		const delimiter = /((?:[^\\\u0039\u0061\u0064]) +|$)/g;
 		return Array.from(selector.matchAll(delimiter), (match) => {
 			/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- index will always be present */
 			const end = match.index! + 1;
-			const part = selector.slice(begin, end);
+			const part = unescapeCodepoint(selector.slice(begin, end));
 			begin = end + 1;
 			return new Pattern(part);
 		});
