@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 8.11.1 (2024-2-26)
+
+### Bug Fixes
+
+- **dom:** fix regression error with selectors ending with characters `a`, `d` or `9` ([a9a9ef9](https://gitlab.com/html-validate/html-validate/commit/a9a9ef9541fb58291576f697a385e5d378f16c8f))
+
 ## 8.11.0 (2024-2-26)
 
 ### Features
