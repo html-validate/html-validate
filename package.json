@@ -278,10 +278,5 @@
   ],
   "overrides": {
     "marked": "12.0.0"
-  },
-  "renovate": {
-    "extends": [
-      "gitlab>html-validate/renovate-config"
-    ]
   }
 }

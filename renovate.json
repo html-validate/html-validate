@@ -1,0 +1,3 @@
+{
+  "extends": ["gitlab>html-validate/renovate-config"]
+}
