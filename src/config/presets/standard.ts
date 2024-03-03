@@ -23,6 +23,7 @@ const config: ConfigData = {
 		"map-dup-name": "error",
 		"map-id-name": "error",
 		"multiple-labeled-controls": "error",
+		"no-abstract-role": "error",
 		"no-deprecated-attr": "error",
 		"no-dup-attr": "error",
 		"no-dup-id": "error",

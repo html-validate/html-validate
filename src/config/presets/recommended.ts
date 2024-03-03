@@ -38,6 +38,7 @@ const config: ConfigData = {
 		"map-id-name": "error",
 		"meta-refresh": "error",
 		"multiple-labeled-controls": "error",
+		"no-abstract-role": "error",
 		"no-autoplay": ["error", { include: ["audio", "video"] }],
 		"no-conditional-comment": "error",
 		"no-deprecated-attr": "error",
