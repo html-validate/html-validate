@@ -3,6 +3,9 @@
  * https://www.w3.org/TR/wai-aria
  */
 
+import path from "node:path";
+import { globSync } from "glob";
+import "../../jest";
 import { ariaNaming } from "../../rules/helper";
 import { Source } from "../../context";
 import { HtmlElement } from "../../dom";
@@ -43,5 +46,27 @@ describe("§5 The Roles Model", () => {
 			const result = await naming(role);
 			expect(result).toBe(expectedNaming);
 		});
+	});
+});
+
+describe("validator test-files", () => {
+	const mapping = {
+		"abstract-roles-prohibited.html": {
+			"no-abstract-role": "error",
+		},
+	} as const;
+
+	const fixtureDir = "test-files/wai-aria";
+	const files = globSync("*.html", { cwd: fixtureDir }) as Array<keyof typeof mapping>;
+
+	it.each(files)("%s", async (filename) => {
+		expect.assertions(1);
+		const filePath = path.join(fixtureDir, filename);
+		const htmlvalidate = new HtmlValidate({
+			root: true,
+			rules: mapping[filename],
+		});
+		const report = await htmlvalidate.validateFile(filePath);
+		expect(report).toMatchCodeframe();
 	});
 });

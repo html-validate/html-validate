@@ -11,6 +11,7 @@ const config: ConfigData = {
 		"hidden-focusable": "error",
 		"meta-refresh": "error",
 		"multiple-labeled-controls": "error",
+		"no-abstract-role": "error",
 		"no-autoplay": ["error", { include: ["audio", "video"] }],
 		"no-dup-id": "error",
 		"no-implicit-button-type": "error",

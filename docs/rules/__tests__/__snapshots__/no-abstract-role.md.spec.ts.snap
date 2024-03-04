@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/no-abstract-role.md inline validation: correct 1`] = `[]`;
+
+exports[`docs/rules/no-abstract-role.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 12,
+        "context": {
+          "role": "landmark",
+        },
+        "line": 1,
+        "message": "Role "landmark" is abstract and must not be used",
+        "offset": 11,
+        "ruleId": "no-abstract-role",
+        "ruleUrl": "https://html-validate.org/rules/no-abstract-role.html",
+        "selector": "div",
+        "severity": 2,
+        "size": 8,
+      },
+    ],
+    "source": "<div role="landmark"></div>",
+    "warningCount": 0,
+  },
+]
+`;
