@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 8.12.0 (2024-3-4)
+
+### Features
+
+- **rules:** new rule `no-abstract-role` ([923680b](https://gitlab.com/html-validate/html-validate/commit/923680bad97a01e897343ebc254c89820c93bd2c))
+
 ## 8.11.1 (2024-02-26)
 
 ### Bug Fixes
