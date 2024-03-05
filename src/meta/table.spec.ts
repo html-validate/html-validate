@@ -203,6 +203,36 @@ describe("MetaTable", () => {
 		});
 	});
 
+	it("should expand category when callback is provided", () => {
+		expect.assertions(2);
+		const metaTable = new MetaTable();
+		metaTable.loadFromObject({
+			foo: mockEntry({
+				interactive(node) {
+					return node.hasAttribute("interactive");
+				},
+			}),
+		});
+		const config = new ResolvedConfig(
+			{
+				metaTable,
+				plugins: [],
+				rules: new Map(),
+				transformers: [],
+			},
+			{},
+		);
+		const parser = new Parser(config);
+		const markup = /* HTML */ `
+			<foo id="first"></foo>
+			<foo id="second" interactive></foo>
+		`;
+		const dom = parser.parseHtml(markup);
+		const elements = dom.getElementsByTagName("foo");
+		expect(elements[0].meta?.interactive).toBeFalsy();
+		expect(elements[1].meta?.interactive).toBeTruthy();
+	});
+
 	describe("expression", () => {
 		let metaTable: MetaTable;
 		let config: ResolvedConfig;

@@ -29,13 +29,13 @@ Each entry can contain the following properties:
 ```ts nocompile
 export interface MetaElement {
   /* content categories */
-  metadata?: boolean | PropertyExpression;
-  flow?: boolean | PropertyExpression;
-  sectioning?: boolean | PropertyExpression;
-  heading?: boolean | PropertyExpression;
-  phrasing?: boolean | PropertyExpression;
-  embedded?: boolean | PropertyExpression;
-  interactive?: boolean | PropertyExpression;
+  metadata?: boolean | PropertyExpression | MetaCategoryCallback;
+  flow?: boolean | PropertyExpression | MetaCategoryCallback;
+  sectioning?: boolean | PropertyExpression | MetaCategoryCallback;
+  heading?: boolean | PropertyExpression | MetaCategoryCallback;
+  phrasing?: boolean | PropertyExpression | MetaCategoryCallback;
+  embedded?: boolean | PropertyExpression | MetaCategoryCallback;
+  interactive?: boolean | PropertyExpression | MetaCategoryCallback;
 
   /* element properties */
   deprecated?: boolean | string | DeprecatedElement;
@@ -73,28 +73,42 @@ export interface MetaAria {
 
 ## Content categories
 
-Each content model property defines what type of element it is. See [MDN][1] and
-[W3C][2] for description of the different categories.
+Each content model property defines what type of element it is.
+See [MDN][1] and [W3C][2] for description of the different categories.
 
-For custom elements this should be set to `flow` or `phrasing` depending on the
-context it should be allowed in. Essentially `flow` would equal a `div` or
-`display: block` while `phrasing` would equal a `span` or `display: inline`
-(which is default CSS for unknown elements).
+For custom elements this should be set to `flow` or `phrasing` depending on the context it should be allowed in.
+Essentially `flow` would equal a `div` or `display: block` while `phrasing` would equal a `span` or `display: inline` (which is default CSS for unknown elements).
 
 [1]: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_categories
 [2]: https://www.w3.org/TR/html5/dom.html#kinds-of-content
 
-Each property should either be a boolean (defaults to `false`) or a property
-expression in the form `string | [string, any]`.
+Each property should either be a boolean (defaults to `false`) or a property expression in the form `string | [string, any]`.
+
+### Property callbacks
+
+If the element has conditions for which content categories it belongs to one can use callbacks.
+
+For instance, the `<video>` element is interactive only if the `controls` attribute is present:
+
+```js
+const { defineMetadata } = require("html-validate");
+
+module.exports = defineMetadata({
+  video: {
+    interactive(node) {
+      return node.hasAttribute("controls");
+    },
+  },
+});
+```
 
 ### Property expressions
 
-Property expressions take the form `string | [string, any]` where the string is
-the name of the evaluator which may take optional data passed as the second
-argument.
+Deprecated: Use property callbacks instead.
 
-Some elements depend on the context in which they are used. For instance the audio element
-is interactive content if it has the `controls` attribute:
+Property expressions take the form `string | [string, any]` where the string is the name of the evaluator which may take optional data passed as the second argument.
+
+As with the `<video>` element shown above the `<audio>` element is also only interactive if the `controls` attribute is present:
 
 ```json
 {

@@ -795,6 +795,9 @@ export interface MetaAttribute {
 export type MetaAttributeAllowedCallback = (node: HtmlElementLike, attr: string | DynamicValue | null | undefined) => string | null | undefined;
 
 // @public
+export type MetaCategoryCallback = (node: HtmlElementLike) => boolean;
+
+// @public
 export const MetaCopyableProperty: Array<keyof MetaElement>;
 
 // @public (undocumented)
@@ -807,9 +810,9 @@ export interface MetaData {
     // (undocumented)
     deprecatedAttributes?: string[];
     // (undocumented)
-    embedded?: boolean | PropertyExpression;
+    embedded?: boolean | PropertyExpression | MetaCategoryCallback;
     // (undocumented)
-    flow?: boolean | PropertyExpression;
+    flow?: boolean | PropertyExpression | MetaCategoryCallback;
     focusable?: boolean | MetaFocusableCallback;
     // (undocumented)
     foreign?: boolean;
@@ -817,7 +820,7 @@ export interface MetaData {
     form?: boolean;
     formAssociated?: Partial<FormAssociated>;
     // (undocumented)
-    heading?: boolean | PropertyExpression;
+    heading?: boolean | PropertyExpression | MetaCategoryCallback;
     // (undocumented)
     implicitClosed?: string[];
     // @deprecated (undocumented)
@@ -825,11 +828,11 @@ export interface MetaData {
     // (undocumented)
     inherit?: string;
     // (undocumented)
-    interactive?: boolean | PropertyExpression;
+    interactive?: boolean | PropertyExpression | MetaCategoryCallback;
     // (undocumented)
     labelable?: boolean | PropertyExpression;
     // (undocumented)
-    metadata?: boolean | PropertyExpression;
+    metadata?: boolean | PropertyExpression | MetaCategoryCallback;
     // (undocumented)
     permittedContent?: Permitted;
     // (undocumented)
@@ -839,7 +842,7 @@ export interface MetaData {
     // (undocumented)
     permittedParent?: Permitted;
     // (undocumented)
-    phrasing?: boolean | PropertyExpression;
+    phrasing?: boolean | PropertyExpression | MetaCategoryCallback;
     // (undocumented)
     requiredAncestors?: RequiredAncestors;
     // (undocumented)
@@ -849,7 +852,7 @@ export interface MetaData {
     // (undocumented)
     scriptSupporting?: boolean;
     // (undocumented)
-    sectioning?: boolean | PropertyExpression;
+    sectioning?: boolean | PropertyExpression | MetaCategoryCallback;
     // (undocumented)
     textContent?: TextContent | `${TextContent}`;
     // (undocumented)
@@ -1038,7 +1041,7 @@ export interface ProcessElementContext {
     getMetaFor(this: void, tagName: string): MetaElement | null;
 }
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export type PropertyExpression = string | [string, any];
 
 // @public

@@ -1,57 +1,64 @@
-<!-- should omit end tag -->
-<link href="my-url">
+<html lang="en">
+	<head>
+		<title>link element</title>
 
-<!-- should allow "as" if "rel" is "preload" or "modulepreload" -->
-<link href="my-url" rel="preload" as="script">
-<link href="my-url" rel="modulepreload" as="script">
+		<!-- should omit end tag -->
+		<link href="my-url">
 
-<!-- should allow "as" with valid values  -->
-<link href="my-url" rel="preload" as="audio">
-<link href="my-url" rel="preload" as="audioworklet">
-<link href="my-url" rel="preload" as="document">
-<link href="my-url" rel="preload" as="embed">
-<link href="my-url" rel="preload" as="fetch">
-<link href="my-url" rel="preload" as="font">
-<link href="my-url" rel="preload" as="frame">
-<link href="my-url" rel="preload" as="iframe">
-<link href="my-url" rel="preload" as="image">
-<link href="my-url" rel="preload" as="manifest">
-<link href="my-url" rel="preload" as="object">
-<link href="my-url" rel="preload" as="paintworklet">
-<link href="my-url" rel="preload" as="report">
-<link href="my-url" rel="preload" as="script">
-<link href="my-url" rel="preload" as="serviceworker">
-<link href="my-url" rel="preload" as="sharedworker">
-<link href="my-url" rel="preload" as="style">
-<link href="my-url" rel="preload" as="track">
-<link href="my-url" rel="preload" as="video">
-<link href="my-url" rel="preload" as="webidentity">
-<link href="my-url" rel="preload" as="worker">
-<link href="my-url" rel="preload" as="xslt">
+		<!-- should allow "as" if "rel" is "preload" or "modulepreload" -->
+		<link href="my-url" rel="preload" as="script">
+		<link href="my-url" rel="modulepreload" as="script">
 
-<!-- should allow integrity if rel is stylesheet, preload or modulepreload -->
-<link href="my-url" rel="stylesheet" integrity="sha384-...">
-<link href="my-url" rel="preload" integrity="sha384-...">
-<link href="my-url" rel="modulepreload" integrity="sha384-...">
+		<!-- should allow "as" with valid values  -->
+		<link href="my-url" rel="preload" as="audio">
+		<link href="my-url" rel="preload" as="audioworklet">
+		<link href="my-url" rel="preload" as="document">
+		<link href="my-url" rel="preload" as="embed">
+		<link href="my-url" rel="preload" as="fetch">
+		<link href="my-url" rel="preload" as="font">
+		<link href="my-url" rel="preload" as="frame">
+		<link href="my-url" rel="preload" as="iframe">
+		<link href="my-url" rel="preload" as="image">
+		<link href="my-url" rel="preload" as="manifest">
+		<link href="my-url" rel="preload" as="object">
+		<link href="my-url" rel="preload" as="paintworklet">
+		<link href="my-url" rel="preload" as="report">
+		<link href="my-url" rel="preload" as="script">
+		<link href="my-url" rel="preload" as="serviceworker">
+		<link href="my-url" rel="preload" as="sharedworker">
+		<link href="my-url" rel="preload" as="style">
+		<link href="my-url" rel="preload" as="track">
+		<link href="my-url" rel="preload" as="video">
+		<link href="my-url" rel="preload" as="webidentity">
+		<link href="my-url" rel="preload" as="worker">
+		<link href="my-url" rel="preload" as="xslt">
 
-<!-- should allow "blocking" with valid values -->
-<link href="my-url" rel="stylesheet" blocking="render render render">
+		<!-- should allow integrity if rel is stylesheet, preload or modulepreload -->
+		<link href="my-url" rel="stylesheet" integrity="sha384-...">
+		<link href="my-url" rel="preload" integrity="sha384-...">
+		<link href="my-url" rel="modulepreload" integrity="sha384-...">
 
-<!-- should allow "blocking" if "rel" is "stylesheet", "preload" or "modulepreload" -->
-<link href="my-url" rel="stylesheet" blocking="render">
-<link href="my-url" rel="preload" blocking="render">
-<link href="my-url" rel="modulepreload" blocking="render">
+		<!-- should allow "blocking" with valid values -->
+		<link href="my-url" rel="stylesheet" blocking="render render render">
 
-<!-- should allow "disabled" if "rel" is "stylesheet" -->
-<link href="my-url" rel="stylesheet" disabled>
+		<!-- should allow "blocking" if "rel" is "stylesheet", "preload" or "modulepreload" -->
+		<link href="my-url" rel="stylesheet" blocking="render">
+		<link href="my-url" rel="preload" blocking="render">
+		<link href="my-url" rel="modulepreload" blocking="render">
 
-<!-- should allow referrerpolicy attribute -->
-<link href="my-url" referrerpolicy="">
-<link href="my-url" referrerpolicy="no-referrer">
-<link href="my-url" referrerpolicy="no-referrer-when-downgrade">
-<link href="my-url" referrerpolicy="same-origin">
-<link href="my-url" referrerpolicy="origin">
-<link href="my-url" referrerpolicy="strict-origin">
-<link href="my-url" referrerpolicy="origin-when-cross-origin">
-<link href="my-url" referrerpolicy="strict-origin-when-cross-origin">
-<link href="my-url" referrerpolicy="unsafe-url">
+		<!-- should allow "disabled" if "rel" is "stylesheet" -->
+		<link href="my-url" rel="stylesheet" disabled>
+
+		<!-- should allow referrerpolicy attribute -->
+		<link href="my-url" referrerpolicy="">
+		<link href="my-url" referrerpolicy="no-referrer">
+		<link href="my-url" referrerpolicy="no-referrer-when-downgrade">
+		<link href="my-url" referrerpolicy="same-origin">
+		<link href="my-url" referrerpolicy="origin">
+		<link href="my-url" referrerpolicy="strict-origin">
+		<link href="my-url" referrerpolicy="origin-when-cross-origin">
+		<link href="my-url" referrerpolicy="strict-origin-when-cross-origin">
+		<link href="my-url" referrerpolicy="unsafe-url">
+	</head>
+	<body></body>
+</html>

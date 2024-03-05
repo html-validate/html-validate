@@ -16,6 +16,7 @@ export type CategoryOrTag = string;
 
 /**
  * @public
+ * @deprecated Use callback variant instead.
  */
 export type PropertyExpression = string | [string, any];
 
@@ -60,6 +61,17 @@ export enum TextContent {
 	/* node requires accessible text (hidden text is ignored, tries to get text from accessibility tree) */
 	ACCESSIBLE = "accessible",
 }
+
+/**
+ * Callback for content category properties of `MetaData`. It takes a node and
+ * returns whenever the element belongs to the content group or not.
+ *
+ * @public
+ * @since %version%
+ * @param node - The node to determine if it belongs in the content category.
+ * @returns `true` if the node belongs to the category.
+ */
+export type MetaCategoryCallback = (node: HtmlElementLike) => boolean;
 
 /**
  * Callback for the `focusable` property of `MetaData`. It takes a node and
@@ -171,13 +183,13 @@ export interface MetaData {
 	inherit?: string;
 
 	/* content categories */
-	metadata?: boolean | PropertyExpression;
-	flow?: boolean | PropertyExpression;
-	sectioning?: boolean | PropertyExpression;
-	heading?: boolean | PropertyExpression;
-	phrasing?: boolean | PropertyExpression;
-	embedded?: boolean | PropertyExpression;
-	interactive?: boolean | PropertyExpression;
+	metadata?: boolean | PropertyExpression | MetaCategoryCallback;
+	flow?: boolean | PropertyExpression | MetaCategoryCallback;
+	sectioning?: boolean | PropertyExpression | MetaCategoryCallback;
+	heading?: boolean | PropertyExpression | MetaCategoryCallback;
+	phrasing?: boolean | PropertyExpression | MetaCategoryCallback;
+	embedded?: boolean | PropertyExpression | MetaCategoryCallback;
+	interactive?: boolean | PropertyExpression | MetaCategoryCallback;
 
 	/* element properties */
 	deprecated?: boolean | string | DeprecatedElement;
