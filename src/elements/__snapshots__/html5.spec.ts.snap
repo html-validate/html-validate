@@ -12842,15 +12842,15 @@ exports[`HTML elements <li> valid markup 1`] = `[]`;
 exports[`HTML elements <link> invalid markup 1`] = `
 [
   {
-    "errorCount": 14,
+    "errorCount": 16,
     "filePath": "test-files/elements/link-invalid.html",
     "messages": [
       {
-        "column": 23,
+        "column": 25,
         "context": "link",
-        "line": 2,
+        "line": 6,
         "message": "End tag for <link> must be omitted",
-        "offset": 56,
+        "offset": 116,
         "ruleId": "void-content",
         "ruleUrl": "https://html-validate.org/rules/void-content.html",
         "selector": null,
@@ -12858,22 +12858,22 @@ exports[`HTML elements <link> invalid markup 1`] = `
         "size": 5,
       },
       {
-        "column": 2,
+        "column": 4,
         "context": {
           "attribute": "href",
           "element": "link",
         },
-        "line": 5,
+        "line": 9,
         "message": "<link> is missing required "href" attribute",
-        "offset": 110,
+        "offset": 174,
         "ruleId": "element-required-attributes",
         "ruleUrl": "https://html-validate.org/rules/element-required-attributes.html",
-        "selector": "link:nth-child(2)",
+        "selector": "html > head > link:nth-child(3)",
         "severity": 2,
         "size": 4,
       },
       {
-        "column": 2,
+        "column": 4,
         "context": {
           "allowed": {
             "enum": [
@@ -12884,33 +12884,33 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "element": "link",
           "value": "",
         },
-        "line": 6,
+        "line": 10,
         "message": "Attribute "href" has invalid value """,
-        "offset": 117,
+        "offset": 183,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "link:nth-child(3)",
+        "selector": "html > head > link:nth-child(4)",
         "severity": 2,
         "size": 4,
       },
       {
-        "column": 34,
+        "column": 36,
         "context": {
           "attr": "as",
           "details": ""rel" attribute must be "prefetch", "preload" or "modulepreload"",
           "tagName": "<link>",
         },
-        "line": 9,
+        "line": 13,
         "message": ""as" attribute cannot be used on <link> in this context: "rel" attribute must be "prefetch", "preload" or "modulepreload"",
-        "offset": 258,
+        "offset": 328,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
-        "selector": "link:nth-child(4)",
+        "selector": "html > head > link:nth-child(5)",
         "severity": 2,
         "size": 2,
       },
       {
-        "column": 39,
+        "column": 41,
         "context": {
           "allowed": {
             "enum": [
@@ -12942,17 +12942,17 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "element": "link",
           "value": "foobar",
         },
-        "line": 12,
+        "line": 16,
         "message": "Attribute "as" has invalid value "foobar"",
-        "offset": 362,
+        "offset": 436,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "link:nth-child(5)",
+        "selector": "html > head > link:nth-child(6)",
         "severity": 2,
         "size": 6,
       },
       {
-        "column": 38,
+        "column": 40,
         "context": {
           "allowed": {
             "enum": [
@@ -12963,17 +12963,17 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "element": "link",
           "value": "",
         },
-        "line": 15,
+        "line": 19,
         "message": "Attribute "integrity" is missing value",
-        "offset": 460,
+        "offset": 538,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "link:nth-child(6)",
+        "selector": "html > head > link:nth-child(7)",
         "severity": 2,
         "size": 9,
       },
       {
-        "column": 2,
+        "column": 4,
         "context": {
           "allowed": {
             "enum": [
@@ -12984,33 +12984,33 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "element": "link",
           "value": "",
         },
-        "line": 16,
+        "line": 20,
         "message": "Attribute "integrity" has invalid value """,
-        "offset": 472,
+        "offset": 552,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "link:nth-child(7)",
+        "selector": "html > head > link:nth-child(8)",
         "severity": 2,
         "size": 4,
       },
       {
-        "column": 34,
+        "column": 36,
         "context": {
           "attr": "integrity",
           "details": ""rel" attribute must be "stylesheet", "preload" or "modulepreload"",
           "tagName": "<link>",
         },
-        "line": 19,
+        "line": 23,
         "message": ""integrity" attribute cannot be used on <link> in this context: "rel" attribute must be "stylesheet", "preload" or "modulepreload"",
-        "offset": 670,
+        "offset": 754,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
-        "selector": "link:nth-child(8)",
+        "selector": "html > head > link:nth-child(9)",
         "severity": 2,
         "size": 9,
       },
       {
-        "column": 48,
+        "column": 50,
         "context": {
           "allowed": {
             "enum": [
@@ -13021,33 +13021,33 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "element": "link",
           "value": "foobar",
         },
-        "line": 22,
+        "line": 26,
         "message": "Attribute "blocking" has invalid value "foobar"",
-        "offset": 798,
+        "offset": 886,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "link:nth-child(9)",
+        "selector": "html > head > link:nth-child(10)",
         "severity": 2,
         "size": 6,
       },
       {
-        "column": 34,
+        "column": 36,
         "context": {
           "attr": "blocking",
           "details": ""rel" attribute must be "stylesheet", "preload" or "modulepreload"",
           "tagName": "<link>",
         },
-        "line": 25,
+        "line": 29,
         "message": ""blocking" attribute cannot be used on <link> in this context: "rel" attribute must be "stylesheet", "preload" or "modulepreload"",
-        "offset": 954,
+        "offset": 1046,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
-        "selector": "link:nth-child(10)",
+        "selector": "html > head > link:nth-child(11)",
         "severity": 2,
         "size": 8,
       },
       {
-        "column": 48,
+        "column": 50,
         "context": {
           "allowed": {
             "boolean": true,
@@ -13056,33 +13056,33 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "element": "link",
           "value": "foobar",
         },
-        "line": 28,
+        "line": 32,
         "message": "Attribute "disabled" has invalid value "foobar"",
-        "offset": 1077,
+        "offset": 1173,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "link:nth-child(11)",
+        "selector": "html > head > link:nth-child(12)",
         "severity": 2,
         "size": 6,
       },
       {
-        "column": 34,
+        "column": 36,
         "context": {
           "attr": "disabled",
           "details": ""rel" attribute must be "stylesheet"",
           "tagName": "<link>",
         },
-        "line": 31,
+        "line": 35,
         "message": ""disabled" attribute cannot be used on <link> in this context: "rel" attribute must be "stylesheet"",
-        "offset": 1202,
+        "offset": 1302,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
-        "selector": "link:nth-child(12)",
+        "selector": "html > head > link:nth-child(13)",
         "severity": 2,
         "size": 8,
       },
       {
-        "column": 21,
+        "column": 23,
         "context": {
           "allowed": {
             "enum": [
@@ -13101,17 +13101,17 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "element": "link",
           "value": "",
         },
-        "line": 34,
+        "line": 38,
         "message": "Attribute "referrerpolicy" is missing value",
-        "offset": 1293,
+        "offset": 1397,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "link:nth-child(13)",
+        "selector": "html > head > link:nth-child(14)",
         "severity": 2,
         "size": 14,
       },
       {
-        "column": 37,
+        "column": 39,
         "context": {
           "allowed": {
             "enum": [
@@ -13130,51 +13130,96 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "element": "link",
           "value": "invalid",
         },
-        "line": 35,
+        "line": 39,
         "message": "Attribute "referrerpolicy" has invalid value "invalid"",
-        "offset": 1345,
+        "offset": 1451,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "link:nth-child(14)",
+        "selector": "html > head > link:nth-child(15)",
         "severity": 2,
         "size": 7,
       },
+      {
+        "column": 4,
+        "context": {
+          "child": "<link>",
+          "kind": "content",
+          "parent": "<body>",
+        },
+        "line": 44,
+        "message": "<link> element is not permitted as content under <body>",
+        "offset": 1557,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "html > body > link:nth-child(1)",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 4,
+        "context": {
+          "child": "<link>",
+          "kind": "content",
+          "parent": "<body>",
+        },
+        "line": 45,
+        "message": "<link> element is not permitted as content under <body>",
+        "offset": 1580,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "html > body > link:nth-child(2)",
+        "severity": 2,
+        "size": 4,
+      },
     ],
-    "source": "<!-- should not allow end tag -->
-<link href="my-url" ></link>
+    "source": "<html lang="en">
+	<head>
+		<title>link element</title>
 
-<!-- href should not be omitted or empty -->
-<link>
-<link href="">
+		<!-- should not allow end tag -->
+		<link href="my-url" ></link>
 
-<!-- should not allow "as" if "rel" is something other than "preload" or "modulepreload" -->
-<link href="my-url" rel="foobar" as="script">
+		<!-- href should not be omitted or empty -->
+		<link>
+		<link href="">
 
-<!-- should now allow "as" with invalid values  -->
-<link href="my-url" rel="preload" as="foobar">
+		<!-- should not allow "as" if "rel" is something other than "preload" or "modulepreload" -->
+		<link href="my-url" rel="foobar" as="script">
 
-<!-- "integrity" attribute should not be empty -->
-<link href="my-url" rel="stylesheet" integrity>
-<link href="my-url" rel="stylesheet" integrity="">
+		<!-- should now allow "as" with invalid values  -->
+		<link href="my-url" rel="preload" as="foobar">
 
-<!-- should not allow "integrity" if "rel" is something other than "stylesheet", "preload" or "modulepreload" -->
-<link href="my-url" rel="foobar" integrity="sha384-...">
+		<!-- "integrity" attribute should not be empty -->
+		<link href="my-url" rel="stylesheet" integrity>
+		<link href="my-url" rel="stylesheet" integrity="">
 
-<!-- should not allow "blocking" with invalid value -->
-<link href="my-url" rel="stylesheet" blocking="foobar">
+		<!-- should not allow "integrity" if "rel" is something other than "stylesheet", "preload" or "modulepreload" -->
+		<link href="my-url" rel="foobar" integrity="sha384-...">
 
-<!-- should not allow "blocking" if "rel" is something other than "stylesheet", "preload" or "modulepreload" -->
-<link href="my-url" rel="foobar" blocking="render">
+		<!-- should not allow "blocking" with invalid value -->
+		<link href="my-url" rel="stylesheet" blocking="foobar">
 
-<!-- should not allow "disabled" with invalid value -->
-<link href="my-url" rel="stylesheet" disabled="foobar">
+		<!-- should not allow "blocking" if "rel" is something other than "stylesheet", "preload" or "modulepreload" -->
+		<link href="my-url" rel="foobar" blocking="render">
 
-<!-- should not allow "disable" if "rel" is something other than "stylesheet" -->
-<link href="my-url" rel="script" disabled>
+		<!-- should not allow "disabled" with invalid value -->
+		<link href="my-url" rel="stylesheet" disabled="foobar">
 
-<!-- should not allow omitted or invalid referrerpolicy -->
-<link href="my-url" referrerpolicy>
-<link href="my-url" referrerpolicy="invalid">
+		<!-- should not allow "disable" if "rel" is something other than "stylesheet" -->
+		<link href="my-url" rel="script" disabled>
+
+		<!-- should not allow omitted or invalid referrerpolicy -->
+		<link href="my-url" referrerpolicy>
+		<link href="my-url" referrerpolicy="invalid">
+	</head>
+	<body>
+
+		<!-- should not be allowed without itemprop or body ok rel attribute -->
+		<link href="my-url">
+		<link href="my-url" rel="alternate">
+
+	</body>
+</html>
 ",
     "warningCount": 0,
   },

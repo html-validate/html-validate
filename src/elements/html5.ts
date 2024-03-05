@@ -44,6 +44,38 @@ function isInsideLandmark(node: HtmlElementLike): boolean {
 	return Boolean(node.closest(selectors.join(",")));
 }
 
+function linkBodyOk(node: HtmlElementLike): boolean {
+	/* with itemprop the element is always body ok */
+	if (node.hasAttribute("itemprop")) {
+		return true;
+	}
+
+	/* if the rel attribute is missing it cannot be body ok */
+	const rel = node.getAttribute("rel");
+	if (!rel) {
+		return false;
+	}
+
+	/* for dynamic rel attributes assume it is body ok */
+	/* istanbul ignore next: tests run without dynamic elements */
+	if (typeof rel !== "string") {
+		return false;
+	}
+
+	/* only when rel matches one of these keywords it is body ok */
+	const bodyOk = [
+		"dns-prefetch",
+		"modulepreload",
+		"pingback",
+		"preconnect",
+		"prefetch",
+		"preload",
+		"stylesheet",
+	];
+	const tokens = rel.toLowerCase().split(/\s+/);
+	return tokens.some((keyword) => bodyOk.includes(keyword));
+}
+
 export default defineMetadata({
 	"*": {
 		attributes: {
@@ -1457,6 +1489,12 @@ export default defineMetadata({
 
 	link: {
 		metadata: true,
+		flow(node) {
+			return linkBodyOk(node);
+		},
+		phrasing(node) {
+			return linkBodyOk(node);
+		},
 		void: true,
 		attributes: {
 			as: {

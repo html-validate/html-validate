@@ -59,6 +59,22 @@
 		<link href="my-url" referrerpolicy="origin-when-cross-origin">
 		<link href="my-url" referrerpolicy="strict-origin-when-cross-origin">
 		<link href="my-url" referrerpolicy="unsafe-url">
+
+		<!-- always allowed under head -->
+		<link href="my-url" itemprop>
 	</head>
-	<body></body>
+	<body>
+
+		<!-- allowed under body when rel is set to a "body ok" keyword -->
+		<link href="my-url" rel="dns-prefetch">
+		<link href="my-url" rel="modulepreload">
+		<link href="my-url" rel="pingback">
+		<link href="my-url" rel="preconnect">
+		<link href="my-url" rel="prefetch">
+		<link href="my-url" rel="preload">
+		<link href="my-url" rel="stylesheet">
+
+		<!-- allowed under body if itemprop is also present -->
+		<link href="my-url" itemprop>
+	</body>
 </html>

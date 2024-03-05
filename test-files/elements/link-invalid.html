@@ -1,35 +1,48 @@
-<!-- should not allow end tag -->
-<link href="my-url" ></link>
+<html lang="en">
+	<head>
+		<title>link element</title>
 
-<!-- href should not be omitted or empty -->
-<link>
-<link href="">
+		<!-- should not allow end tag -->
+		<link href="my-url" ></link>
 
-<!-- should not allow "as" if "rel" is something other than "preload" or "modulepreload" -->
-<link href="my-url" rel="foobar" as="script">
+		<!-- href should not be omitted or empty -->
+		<link>
+		<link href="">
 
-<!-- should now allow "as" with invalid values  -->
-<link href="my-url" rel="preload" as="foobar">
+		<!-- should not allow "as" if "rel" is something other than "preload" or "modulepreload" -->
+		<link href="my-url" rel="foobar" as="script">
 
-<!-- "integrity" attribute should not be empty -->
-<link href="my-url" rel="stylesheet" integrity>
-<link href="my-url" rel="stylesheet" integrity="">
+		<!-- should now allow "as" with invalid values  -->
+		<link href="my-url" rel="preload" as="foobar">
 
-<!-- should not allow "integrity" if "rel" is something other than "stylesheet", "preload" or "modulepreload" -->
-<link href="my-url" rel="foobar" integrity="sha384-...">
+		<!-- "integrity" attribute should not be empty -->
+		<link href="my-url" rel="stylesheet" integrity>
+		<link href="my-url" rel="stylesheet" integrity="">
 
-<!-- should not allow "blocking" with invalid value -->
-<link href="my-url" rel="stylesheet" blocking="foobar">
+		<!-- should not allow "integrity" if "rel" is something other than "stylesheet", "preload" or "modulepreload" -->
+		<link href="my-url" rel="foobar" integrity="sha384-...">
 
-<!-- should not allow "blocking" if "rel" is something other than "stylesheet", "preload" or "modulepreload" -->
-<link href="my-url" rel="foobar" blocking="render">
+		<!-- should not allow "blocking" with invalid value -->
+		<link href="my-url" rel="stylesheet" blocking="foobar">
 
-<!-- should not allow "disabled" with invalid value -->
-<link href="my-url" rel="stylesheet" disabled="foobar">
+		<!-- should not allow "blocking" if "rel" is something other than "stylesheet", "preload" or "modulepreload" -->
+		<link href="my-url" rel="foobar" blocking="render">
 
-<!-- should not allow "disable" if "rel" is something other than "stylesheet" -->
-<link href="my-url" rel="script" disabled>
+		<!-- should not allow "disabled" with invalid value -->
+		<link href="my-url" rel="stylesheet" disabled="foobar">
 
-<!-- should not allow omitted or invalid referrerpolicy -->
-<link href="my-url" referrerpolicy>
-<link href="my-url" referrerpolicy="invalid">
+		<!-- should not allow "disable" if "rel" is something other than "stylesheet" -->
+		<link href="my-url" rel="script" disabled>
+
+		<!-- should not allow omitted or invalid referrerpolicy -->
+		<link href="my-url" referrerpolicy>
+		<link href="my-url" referrerpolicy="invalid">
+	</head>
+	<body>
+
+		<!-- should not be allowed without itemprop or body ok rel attribute -->
+		<link href="my-url">
+		<link href="my-url" rel="alternate">
+
+	</body>
+</html>
