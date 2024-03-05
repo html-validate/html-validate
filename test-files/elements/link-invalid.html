@@ -37,6 +37,23 @@
 		<!-- should not allow omitted or invalid referrerpolicy -->
 		<link href="my-url" referrerpolicy>
 		<link href="my-url" referrerpolicy="invalid">
+
+		<!-- disallowed rel keywords -->
+		<link href="my-url" rel="bookmark">
+		<link href="my-url" rel="external">
+		<link href="my-url" rel="nofollow">
+		<link href="my-url" rel="noopener">
+		<link href="my-url" rel="noreferrer">
+		<link href="my-url" rel="opener">
+		<link href="my-url" rel="tag">
+		<link href="my-url" rel="disclosure">
+		<link href="my-url" rel="entry-content">
+		<link href="my-url" rel="lightbox">
+		<link href="my-url" rel="lightvideo">
+
+		<!-- should handle disallowed keywords in a list of many -->
+		<link href="my-url" rel="alternate external canonical">
+
 	</head>
 	<body>
 

@@ -62,6 +62,10 @@
 
 		<!-- always allowed under head -->
 		<link href="my-url" itemprop>
+
+		<!-- should allow empty rel attribute -->
+		<link href="my-url" rel>
+		<link href="my-url" rel="">
 	</head>
 	<body>
 
@@ -73,6 +77,9 @@
 		<link href="my-url" rel="prefetch">
 		<link href="my-url" rel="preload">
 		<link href="my-url" rel="stylesheet">
+
+		<!-- allowed if one of the "body ok" keywords are present -->
+		<link href="my-url" rel="alternate dns-prefetch">
 
 		<!-- allowed under body if itemprop is also present -->
 		<link href="my-url" itemprop>

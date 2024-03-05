@@ -43,3 +43,10 @@
 <a href="target" referrerpolicy="origin-when-cross-origin">foo</a>
 <a href="target" referrerpolicy="strict-origin-when-cross-origin">foo</a>
 <a href="target" referrerpolicy="unsafe-url">foo</a>
+
+<!-- should allow empty rel attribute -->
+<a href="target" rel>foo</a>
+<a href="target" rel="">foo</a>
+
+<!-- should allow rel attribute -->
+<a href="target" rel="next">foo</a>

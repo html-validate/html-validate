@@ -153,7 +153,75 @@ export default defineMetadata({
 				enum: ReferrerPolicy,
 			},
 			rel: {
-				allowed: allowedIfAttributeIsPresent("href"),
+				allowed(node, attr) {
+					if (!node.hasAttribute("href")) {
+						return `requires "href" attribute to be present`;
+					}
+					if (!attr || attr === "" || typeof attr !== "string") {
+						return null;
+					}
+					const disallowed = [
+						/* whatwg */
+						"canonical",
+						"dns-prefetch",
+						"expect",
+						"icon",
+						"manifest",
+						"modulepreload",
+						"pingback",
+						"preconnect",
+						"prefetch",
+						"preload",
+						"stylesheet",
+
+						/* microformats.org */
+						"apple-touch-icon",
+						"apple-touch-icon-precomposed",
+						"apple-touch-startup-image",
+						"authorization_endpoint",
+						"component",
+						"chrome-webstore-item",
+						"dns-prefetch",
+						"edit",
+						"gbfs",
+						"gtfs-static",
+						"gtfs-realtime",
+						"import",
+						"mask-icon",
+						"meta",
+						"micropub",
+						"openid.delegate",
+						"openid.server",
+						"openid2.local_id",
+						"openid2.provider",
+						"p3pv1",
+						"pgpkey",
+						"schema.dcterms",
+						"service",
+						"shortlink",
+						"sitemap",
+						"subresource",
+						"sword",
+						"timesheet",
+						"token_endpoint",
+						"wlwmanifest",
+						"stylesheet/less",
+						"token_endpoint",
+						"yandex-tableau-widget",
+					];
+					const tokens = attr.toLowerCase().split(/\s+/);
+					for (const keyword of tokens) {
+						if (disallowed.includes(keyword)) {
+							return `<a> does not allow rel="${keyword}"`;
+						}
+						if (keyword.startsWith("dcterms.")) {
+							return `<a> does not allow rel="${keyword}"`;
+						}
+					}
+					return null;
+				},
+				list: true,
+				enum: ["/.+/"],
 			},
 			shape: {
 				deprecated: true,
@@ -256,7 +324,73 @@ export default defineMetadata({
 				enum: ReferrerPolicy,
 			},
 			rel: {
-				allowed: allowedIfAttributeIsPresent("href"),
+				allowed(node, attr) {
+					if (!node.hasAttribute("href")) {
+						return `requires "href" attribute to be present`;
+					}
+					if (!attr || attr === "" || typeof attr !== "string") {
+						return null;
+					}
+					const disallowed = [
+						/* whatwg */
+						"canonical",
+						"dns-prefetch",
+						"expect",
+						"icon",
+						"manifest",
+						"modulepreload",
+						"pingback",
+						"preconnect",
+						"prefetch",
+						"preload",
+						"stylesheet",
+
+						/* microformats.org */
+						"apple-touch-icon",
+						"apple-touch-icon-precomposed",
+						"apple-touch-startup-image",
+						"authorization_endpoint",
+						"component",
+						"chrome-webstore-item",
+						"dns-prefetch",
+						"edit",
+						"gbfs",
+						"gtfs-static",
+						"gtfs-realtime",
+						"import",
+						"mask-icon",
+						"meta",
+						"micropub",
+						"openid.delegate",
+						"openid.server",
+						"openid2.local_id",
+						"openid2.provider",
+						"p3pv1",
+						"pgpkey",
+						"schema.dcterms",
+						"service",
+						"shortlink",
+						"sitemap",
+						"subresource",
+						"sword",
+						"timesheet",
+						"token_endpoint",
+						"wlwmanifest",
+						"stylesheet/less",
+						"token_endpoint",
+						"yandex-tableau-widget",
+					];
+					const tokens = attr.toLowerCase().split(/\s+/);
+					for (const keyword of tokens) {
+						if (disallowed.includes(keyword)) {
+							return `<area> does not allow rel="${keyword}"`;
+						}
+						if (keyword.startsWith("dcterms.")) {
+							return `<area> does not allow rel="${keyword}"`;
+						}
+					}
+					return null;
+				},
 			},
 			shape: {
 				allowed(node, attr) {
@@ -858,6 +992,42 @@ export default defineMetadata({
 			},
 			novalidate: {
 				boolean: true,
+			},
+			rel: {
+				allowed(_, attr) {
+					if (!attr || attr === "" || typeof attr !== "string") {
+						return null;
+					}
+					const disallowed = [
+						/* whatwg */
+						"alternate",
+						"canonical",
+						"author",
+						"bookmark",
+						"dns-prefetch",
+						"expect",
+						"icon",
+						"manifest",
+						"modulepreload",
+						"pingback",
+						"preconnect",
+						"prefetch",
+						"preload",
+						"privacy-policy",
+						"stylesheet",
+						"tag",
+						"terms-of-service",
+					];
+					const tokens = attr.toLowerCase().split(/\s+/);
+					for (const keyword of tokens) {
+						if (disallowed.includes(keyword)) {
+							return `<form> does not allow rel="${keyword}"`;
+						}
+					}
+					return null;
+				},
+				list: true,
+				enum: ["/.+/"],
 			},
 			target: {
 				enum: ["/[^_].*/", "_blank", "_self", "_parent", "_top"],
@@ -1553,6 +1723,38 @@ export default defineMetadata({
 			},
 			referrerpolicy: {
 				enum: ReferrerPolicy,
+			},
+			rel: {
+				allowed(_, attr) {
+					if (!attr || attr === "" || typeof attr !== "string") {
+						return null;
+					}
+					const disallowed = [
+						/* whatwg */
+						"bookmark",
+						"external",
+						"nofollow",
+						"noopener",
+						"noreferrer",
+						"opener",
+						"tag",
+
+						/* microformats.org */
+						"disclosure",
+						"entry-content",
+						"lightbox",
+						"lightvideo",
+					];
+					const tokens = attr.toLowerCase().split(/\s+/);
+					for (const keyword of tokens) {
+						if (disallowed.includes(keyword)) {
+							return `<link> does not allow rel="${keyword}"`;
+						}
+					}
+					return null;
+				},
+				list: true,
+				enum: ["/.+/"],
 			},
 			target: {
 				deprecated: true,
