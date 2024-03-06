@@ -67,7 +67,7 @@ export enum TextContent {
  * returns whenever the element belongs to the content group or not.
  *
  * @public
- * @since %version%
+ * @since 8.13.0
  * @param node - The node to determine if it belongs in the content category.
  * @returns `true` if the node belongs to the category.
  */

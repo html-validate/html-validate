@@ -1,5 +1,13 @@
 # html-validate changelog
 
+## 8.13.0 (2024-3-6)
+
+### Features
+
+- **meta:** allow `<link>` under `<body>` if appropriate `rel` attribute is present ([ae1e070](https://gitlab.com/html-validate/html-validate/commit/ae1e0707f9438183f5200e67e263f7a52cfbbf99))
+- **meta:** allow content categories to be a callback ([0eb4e77](https://gitlab.com/html-validate/html-validate/commit/0eb4e77f3ea1f04bf1a368da037df7c906f51c3e))
+- **meta:** disallow invalid rel attribute keywords ([dc36cfb](https://gitlab.com/html-validate/html-validate/commit/dc36cfbdce01c9d6af49303a9ca7a5a627b5035a))
+
 ## 8.12.0 (2024-3-4)
 
 ### Features
