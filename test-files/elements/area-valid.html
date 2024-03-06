@@ -58,3 +58,14 @@
 	<area href="target" alt="lorem ipsum" referrerpolicy="strict-origin-when-cross-origin">
 	<area href="target" alt="lorem ipsum" referrerpolicy="unsafe-url">
 </map>
+
+<!-- should allow empty rel attribute -->
+<map name="empty-rel">
+	<area href="target" alt="lorem ipsum" rel>
+	<area href="target" alt="lorem ipsum" rel="">
+</map>
+
+<!-- should allow rel attribute -->
+<map name="valid-rel">
+	<area href="target" alt="lorem ipsum" rel="next">
+</map>

@@ -14,13 +14,14 @@ import {
 	type MetaDataTable,
 	type MetaElement,
 	type MetaLookupableProperty,
+	/* eslint-disable-next-line import/no-deprecated -- while deprecated it is still supported until a later major with breaking changes */
 	type PropertyExpression,
 	setMetaProperty,
 } from "./element";
 import { migrateElement } from "./migrate";
 import { hasAttribute, isDescendant, matchAttribute } from "./evaluator";
 
-const dynamicKeys: Array<keyof MetaElement> = [
+const dynamicKeys = [
 	"metadata",
 	"flow",
 	"sectioning",
@@ -29,7 +30,7 @@ const dynamicKeys: Array<keyof MetaElement> = [
 	"embedded",
 	"interactive",
 	"labelable",
-];
+] satisfies Array<keyof MetaElement>;
 
 type PropertyEvaluator = (node: HtmlElement, options: string | [string, string, string]) => boolean;
 
@@ -278,8 +279,13 @@ export class MetaTable {
 function expandProperties(node: HtmlElement, entry: MetaElement): void {
 	for (const key of dynamicKeys) {
 		const property = entry[key];
-		if (property && typeof property !== "boolean") {
-			setMetaProperty(entry, key, evaluateProperty(node, property as PropertyExpression));
+		if (!property) {
+			continue;
+		}
+		if (typeof property === "function") {
+			setMetaProperty(entry, key, property(node._adapter));
+		} else if (typeof property !== "boolean") {
+			setMetaProperty(entry, key, evaluateProperty(node, property));
 		}
 	}
 	if (typeof entry.focusable === "function") {
@@ -316,12 +322,14 @@ function expandRegex(entry: MetaElement): void {
 	}
 }
 
+/* eslint-disable-next-line import/no-deprecated -- while deprecated it is still supported until a later major with breaking changes */
 function evaluateProperty(node: HtmlElement, expr: PropertyExpression): boolean {
 	const [func, options] = parseExpression(expr);
 	return func(node, options);
 }
 
 function parseExpression(
+	/* eslint-disable-next-line import/no-deprecated -- while deprecated it is still supported until a later major with breaking changes */
 	expr: PropertyExpression,
 ): [PropertyEvaluator, string | [string, string, string]] {
 	if (typeof expr === "string") {

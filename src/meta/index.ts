@@ -8,6 +8,7 @@ export {
 	type FormAssociated,
 	type MetaAttribute,
 	type MetaAttributeAllowedCallback,
+	type MetaCategoryCallback,
 	type MetaData,
 	type MetaDataTable,
 	type MetaElement,

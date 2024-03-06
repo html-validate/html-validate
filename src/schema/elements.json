@@ -207,7 +207,7 @@
     },
 
     "contentCategory": {
-      "anyOf": [{ "type": "boolean" }, { "$ref": "#/definitions/expression" }]
+      "anyOf": [{ "type": "boolean" }, { "$ref": "#/definitions/expression" }, { "function": true }]
     },
 
     "expression": {

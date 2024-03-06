@@ -3,7 +3,7 @@
 exports[`HTML elements <a> invalid markup 1`] = `
 [
   {
-    "errorCount": 16,
+    "errorCount": 29,
     "filePath": "test-files/elements/a-invalid.html",
     "messages": [
       {
@@ -302,6 +302,214 @@ exports[`HTML elements <a> invalid markup 1`] = `
         "severity": 2,
         "size": 7,
       },
+      {
+        "column": 18,
+        "context": {
+          "attr": "rel",
+          "details": "<a> does not allow rel="canonical"",
+          "tagName": "<a>",
+        },
+        "line": 25,
+        "message": ""rel" attribute cannot be used on <a> in this context: <a> does not allow rel="canonical"",
+        "offset": 789,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a:nth-child(10)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 18,
+        "context": {
+          "attr": "rel",
+          "details": "<a> does not allow rel="dns-prefetch"",
+          "tagName": "<a>",
+        },
+        "line": 26,
+        "message": ""rel" attribute cannot be used on <a> in this context: <a> does not allow rel="dns-prefetch"",
+        "offset": 830,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a:nth-child(11)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 18,
+        "context": {
+          "attr": "rel",
+          "details": "<a> does not allow rel="expect"",
+          "tagName": "<a>",
+        },
+        "line": 27,
+        "message": ""rel" attribute cannot be used on <a> in this context: <a> does not allow rel="expect"",
+        "offset": 874,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a:nth-child(12)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 18,
+        "context": {
+          "attr": "rel",
+          "details": "<a> does not allow rel="icon"",
+          "tagName": "<a>",
+        },
+        "line": 28,
+        "message": ""rel" attribute cannot be used on <a> in this context: <a> does not allow rel="icon"",
+        "offset": 912,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a:nth-child(13)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 18,
+        "context": {
+          "attr": "rel",
+          "details": "<a> does not allow rel="manifest"",
+          "tagName": "<a>",
+        },
+        "line": 29,
+        "message": ""rel" attribute cannot be used on <a> in this context: <a> does not allow rel="manifest"",
+        "offset": 948,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a:nth-child(14)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 18,
+        "context": {
+          "attr": "rel",
+          "details": "<a> does not allow rel="modulepreload"",
+          "tagName": "<a>",
+        },
+        "line": 30,
+        "message": ""rel" attribute cannot be used on <a> in this context: <a> does not allow rel="modulepreload"",
+        "offset": 988,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a:nth-child(15)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 18,
+        "context": {
+          "attr": "rel",
+          "details": "<a> does not allow rel="pingback"",
+          "tagName": "<a>",
+        },
+        "line": 31,
+        "message": ""rel" attribute cannot be used on <a> in this context: <a> does not allow rel="pingback"",
+        "offset": 1033,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a:nth-child(16)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 18,
+        "context": {
+          "attr": "rel",
+          "details": "<a> does not allow rel="preconnect"",
+          "tagName": "<a>",
+        },
+        "line": 32,
+        "message": ""rel" attribute cannot be used on <a> in this context: <a> does not allow rel="preconnect"",
+        "offset": 1073,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a:nth-child(17)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 18,
+        "context": {
+          "attr": "rel",
+          "details": "<a> does not allow rel="prefetch"",
+          "tagName": "<a>",
+        },
+        "line": 33,
+        "message": ""rel" attribute cannot be used on <a> in this context: <a> does not allow rel="prefetch"",
+        "offset": 1115,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a:nth-child(18)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 18,
+        "context": {
+          "attr": "rel",
+          "details": "<a> does not allow rel="preload"",
+          "tagName": "<a>",
+        },
+        "line": 34,
+        "message": ""rel" attribute cannot be used on <a> in this context: <a> does not allow rel="preload"",
+        "offset": 1155,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a:nth-child(19)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 18,
+        "context": {
+          "attr": "rel",
+          "details": "<a> does not allow rel="stylesheet"",
+          "tagName": "<a>",
+        },
+        "line": 35,
+        "message": ""rel" attribute cannot be used on <a> in this context: <a> does not allow rel="stylesheet"",
+        "offset": 1194,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a:nth-child(20)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 18,
+        "context": {
+          "attr": "rel",
+          "details": "<a> does not allow rel="dcterms.creator"",
+          "tagName": "<a>",
+        },
+        "line": 36,
+        "message": ""rel" attribute cannot be used on <a> in this context: <a> does not allow rel="dcterms.creator"",
+        "offset": 1236,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a:nth-child(21)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 18,
+        "context": {
+          "attr": "rel",
+          "details": "<a> does not allow rel="canonical"",
+          "tagName": "<a>",
+        },
+        "line": 39,
+        "message": ""rel" attribute cannot be used on <a> in this context: <a> does not allow rel="canonical"",
+        "offset": 1345,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "a:nth-child(22)",
+        "severity": 2,
+        "size": 3,
+      },
     ],
     "source": "<!-- should be transparent -->
 <span><a><div>foo</div></a></span>
@@ -325,6 +533,23 @@ exports[`HTML elements <a> invalid markup 1`] = `
 <!-- should not allow omitted or invalid referrerpolicy -->
 <a href="target" referrerpolicy>foo</a>
 <a href="target" referrerpolicy="invalid">foo</a>
+
+<!-- disallowed rel keywords -->
+<a href="target" rel="canonical">foo</a>
+<a href="target" rel="dns-prefetch">foo</a>
+<a href="target" rel="expect">foo</a>
+<a href="target" rel="icon">foo</a>
+<a href="target" rel="manifest">foo</a>
+<a href="target" rel="modulepreload">foo</a>
+<a href="target" rel="pingback">foo</a>
+<a href="target" rel="preconnect">foo</a>
+<a href="target" rel="prefetch">foo</a>
+<a href="target" rel="preload">foo</a>
+<a href="target" rel="stylesheet">foo</a>
+<a href="target" rel="dcterms.creator">foo</a>
+
+<!-- should handle disallowed keywords in a list of many -->
+<a href="target" rel="alternate external canonical">foo</a>
 ",
     "warningCount": 0,
   },
@@ -542,7 +767,7 @@ exports[`HTML elements <applet> valid markup 1`] = `[]`;
 exports[`HTML elements <area> invalid markup 1`] = `
 [
   {
-    "errorCount": 30,
+    "errorCount": 43,
     "filePath": "test-files/elements/area-invalid.html",
     "messages": [
       {
@@ -1020,7 +1245,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         "size": 5,
       },
       {
-        "column": 18,
+        "column": 31,
         "context": {
           "allowed": {
             "enum": [
@@ -1036,20 +1261,20 @@ exports[`HTML elements <area> invalid markup 1`] = `
             ],
           },
           "attribute": "referrerpolicy",
-          "element": "a",
+          "element": "area",
           "value": "",
         },
-        "line": 76,
+        "line": 77,
         "message": "Attribute "referrerpolicy" is missing value",
-        "offset": 1965,
+        "offset": 2042,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "a:nth-child(13)",
+        "selector": "#invalid-referrerpolicy > area:nth-child(1)",
         "severity": 2,
         "size": 14,
       },
       {
-        "column": 34,
+        "column": 47,
         "context": {
           "allowed": {
             "enum": [
@@ -1065,17 +1290,225 @@ exports[`HTML elements <area> invalid markup 1`] = `
             ],
           },
           "attribute": "referrerpolicy",
-          "element": "a",
+          "element": "area",
           "value": "invalid",
         },
-        "line": 77,
+        "line": 78,
         "message": "Attribute "referrerpolicy" has invalid value "invalid"",
-        "offset": 2021,
+        "offset": 2104,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "a:nth-child(14)",
+        "selector": "#invalid-referrerpolicy > area:nth-child(2)",
         "severity": 2,
         "size": 7,
+      },
+      {
+        "column": 31,
+        "context": {
+          "attr": "rel",
+          "details": "<area> does not allow rel="canonical"",
+          "tagName": "<area>",
+        },
+        "line": 83,
+        "message": ""rel" attribute cannot be used on <area> in this context: <area> does not allow rel="canonical"",
+        "offset": 2252,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#disallowed-rel-keywords > area:nth-child(1)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 31,
+        "context": {
+          "attr": "rel",
+          "details": "<area> does not allow rel="dns-prefetch"",
+          "tagName": "<area>",
+        },
+        "line": 84,
+        "message": ""rel" attribute cannot be used on <area> in this context: <area> does not allow rel="dns-prefetch"",
+        "offset": 2299,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#disallowed-rel-keywords > area:nth-child(2)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 31,
+        "context": {
+          "attr": "rel",
+          "details": "<area> does not allow rel="expect"",
+          "tagName": "<area>",
+        },
+        "line": 85,
+        "message": ""rel" attribute cannot be used on <area> in this context: <area> does not allow rel="expect"",
+        "offset": 2349,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#disallowed-rel-keywords > area:nth-child(3)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 31,
+        "context": {
+          "attr": "rel",
+          "details": "<area> does not allow rel="icon"",
+          "tagName": "<area>",
+        },
+        "line": 86,
+        "message": ""rel" attribute cannot be used on <area> in this context: <area> does not allow rel="icon"",
+        "offset": 2393,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#disallowed-rel-keywords > area:nth-child(4)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 31,
+        "context": {
+          "attr": "rel",
+          "details": "<area> does not allow rel="manifest"",
+          "tagName": "<area>",
+        },
+        "line": 87,
+        "message": ""rel" attribute cannot be used on <area> in this context: <area> does not allow rel="manifest"",
+        "offset": 2435,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#disallowed-rel-keywords > area:nth-child(5)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 31,
+        "context": {
+          "attr": "rel",
+          "details": "<area> does not allow rel="modulepreload"",
+          "tagName": "<area>",
+        },
+        "line": 88,
+        "message": ""rel" attribute cannot be used on <area> in this context: <area> does not allow rel="modulepreload"",
+        "offset": 2481,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#disallowed-rel-keywords > area:nth-child(6)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 31,
+        "context": {
+          "attr": "rel",
+          "details": "<area> does not allow rel="pingback"",
+          "tagName": "<area>",
+        },
+        "line": 89,
+        "message": ""rel" attribute cannot be used on <area> in this context: <area> does not allow rel="pingback"",
+        "offset": 2532,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#disallowed-rel-keywords > area:nth-child(7)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 31,
+        "context": {
+          "attr": "rel",
+          "details": "<area> does not allow rel="preconnect"",
+          "tagName": "<area>",
+        },
+        "line": 90,
+        "message": ""rel" attribute cannot be used on <area> in this context: <area> does not allow rel="preconnect"",
+        "offset": 2578,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#disallowed-rel-keywords > area:nth-child(8)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 31,
+        "context": {
+          "attr": "rel",
+          "details": "<area> does not allow rel="prefetch"",
+          "tagName": "<area>",
+        },
+        "line": 91,
+        "message": ""rel" attribute cannot be used on <area> in this context: <area> does not allow rel="prefetch"",
+        "offset": 2626,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#disallowed-rel-keywords > area:nth-child(9)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 31,
+        "context": {
+          "attr": "rel",
+          "details": "<area> does not allow rel="preload"",
+          "tagName": "<area>",
+        },
+        "line": 92,
+        "message": ""rel" attribute cannot be used on <area> in this context: <area> does not allow rel="preload"",
+        "offset": 2672,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#disallowed-rel-keywords > area:nth-child(10)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 31,
+        "context": {
+          "attr": "rel",
+          "details": "<area> does not allow rel="stylesheet"",
+          "tagName": "<area>",
+        },
+        "line": 93,
+        "message": ""rel" attribute cannot be used on <area> in this context: <area> does not allow rel="stylesheet"",
+        "offset": 2717,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#disallowed-rel-keywords > area:nth-child(11)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 31,
+        "context": {
+          "attr": "rel",
+          "details": "<area> does not allow rel="dcterms.creator"",
+          "tagName": "<area>",
+        },
+        "line": 94,
+        "message": ""rel" attribute cannot be used on <area> in this context: <area> does not allow rel="dcterms.creator"",
+        "offset": 2765,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#disallowed-rel-keywords > area:nth-child(12)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 31,
+        "context": {
+          "attr": "rel",
+          "details": "<area> does not allow rel="canonical"",
+          "tagName": "<area>",
+        },
+        "line": 97,
+        "message": ""rel" attribute cannot be used on <area> in this context: <area> does not allow rel="canonical"",
+        "offset": 2881,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "#disallowed-rel-keywords > area:nth-child(13)",
+        "severity": 2,
+        "size": 3,
       },
     ],
     "source": "<!-- should require <map> ancestor -->
@@ -1153,8 +1586,29 @@ exports[`HTML elements <area> invalid markup 1`] = `
 </map>
 
 <!-- should not allow omitted or invalid referrerpolicy -->
-<a href="target" referrerpolicy>foo</a>
-<a href="target" referrerpolicy="invalid">foo</a>
+<map id="invalid-referrerpolicy" name="invalid-referrerpolicy">
+	<area href="target" alt=".." referrerpolicy>
+	<area href="target" alt=".." referrerpolicy="invalid">
+</map>
+
+<map id="disallowed-rel-keywords" name="disallowed-rel-keywords">
+	<!-- disallowed rel keywords -->
+	<area href="target" alt=".." rel="canonical">
+	<area href="target" alt=".." rel="dns-prefetch">
+	<area href="target" alt=".." rel="expect">
+	<area href="target" alt=".." rel="icon">
+	<area href="target" alt=".." rel="manifest">
+	<area href="target" alt=".." rel="modulepreload">
+	<area href="target" alt=".." rel="pingback">
+	<area href="target" alt=".." rel="preconnect">
+	<area href="target" alt=".." rel="prefetch">
+	<area href="target" alt=".." rel="preload">
+	<area href="target" alt=".." rel="stylesheet">
+	<area href="target" alt=".." rel="dcterms.creator">
+
+	<!-- should handle disallowed keywords in a list of many -->
+	<area href="target" alt=".." rel="alternate external canonical">
+</map>
 ",
     "warningCount": 0,
   },
@@ -3694,7 +4148,7 @@ exports[`HTML elements <footer> valid markup 1`] = `[]`;
 exports[`HTML elements <form> invalid markup 1`] = `
 [
   {
-    "errorCount": 8,
+    "errorCount": 26,
     "filePath": "test-files/elements/form-invalid.html",
     "messages": [
       {
@@ -3861,6 +4315,294 @@ exports[`HTML elements <form> invalid markup 1`] = `
         "severity": 2,
         "size": 8,
       },
+      {
+        "column": 7,
+        "context": {
+          "attr": "rel",
+          "details": "<form> does not allow rel="alternate"",
+          "tagName": "<form>",
+        },
+        "line": 28,
+        "message": ""rel" attribute cannot be used on <form> in this context: <form> does not allow rel="alternate"",
+        "offset": 601,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "form:nth-child(9)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 7,
+        "context": {
+          "attr": "rel",
+          "details": "<form> does not allow rel="canonical"",
+          "tagName": "<form>",
+        },
+        "line": 29,
+        "message": ""rel" attribute cannot be used on <form> in this context: <form> does not allow rel="canonical"",
+        "offset": 631,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "form:nth-child(10)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 7,
+        "context": {
+          "attr": "rel",
+          "details": "<form> does not allow rel="author"",
+          "tagName": "<form>",
+        },
+        "line": 30,
+        "message": ""rel" attribute cannot be used on <form> in this context: <form> does not allow rel="author"",
+        "offset": 661,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "form:nth-child(11)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 7,
+        "context": {
+          "attr": "rel",
+          "details": "<form> does not allow rel="bookmark"",
+          "tagName": "<form>",
+        },
+        "line": 31,
+        "message": ""rel" attribute cannot be used on <form> in this context: <form> does not allow rel="bookmark"",
+        "offset": 688,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "form:nth-child(12)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 7,
+        "context": {
+          "attr": "rel",
+          "details": "<form> does not allow rel="dns-prefetch"",
+          "tagName": "<form>",
+        },
+        "line": 32,
+        "message": ""rel" attribute cannot be used on <form> in this context: <form> does not allow rel="dns-prefetch"",
+        "offset": 717,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "form:nth-child(13)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 7,
+        "context": {
+          "attr": "rel",
+          "details": "<form> does not allow rel="expect"",
+          "tagName": "<form>",
+        },
+        "line": 33,
+        "message": ""rel" attribute cannot be used on <form> in this context: <form> does not allow rel="expect"",
+        "offset": 750,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "form:nth-child(14)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 7,
+        "context": {
+          "attr": "rel",
+          "details": "<form> does not allow rel="icon"",
+          "tagName": "<form>",
+        },
+        "line": 34,
+        "message": ""rel" attribute cannot be used on <form> in this context: <form> does not allow rel="icon"",
+        "offset": 777,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "form:nth-child(15)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 7,
+        "context": {
+          "attr": "rel",
+          "details": "<form> does not allow rel="manifest"",
+          "tagName": "<form>",
+        },
+        "line": 35,
+        "message": ""rel" attribute cannot be used on <form> in this context: <form> does not allow rel="manifest"",
+        "offset": 802,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "form:nth-child(16)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 7,
+        "context": {
+          "attr": "rel",
+          "details": "<form> does not allow rel="modulepreload"",
+          "tagName": "<form>",
+        },
+        "line": 36,
+        "message": ""rel" attribute cannot be used on <form> in this context: <form> does not allow rel="modulepreload"",
+        "offset": 831,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "form:nth-child(17)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 7,
+        "context": {
+          "attr": "rel",
+          "details": "<form> does not allow rel="pingback"",
+          "tagName": "<form>",
+        },
+        "line": 37,
+        "message": ""rel" attribute cannot be used on <form> in this context: <form> does not allow rel="pingback"",
+        "offset": 865,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "form:nth-child(18)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 7,
+        "context": {
+          "attr": "rel",
+          "details": "<form> does not allow rel="preconnect"",
+          "tagName": "<form>",
+        },
+        "line": 38,
+        "message": ""rel" attribute cannot be used on <form> in this context: <form> does not allow rel="preconnect"",
+        "offset": 894,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "form:nth-child(19)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 7,
+        "context": {
+          "attr": "rel",
+          "details": "<form> does not allow rel="prefetch"",
+          "tagName": "<form>",
+        },
+        "line": 39,
+        "message": ""rel" attribute cannot be used on <form> in this context: <form> does not allow rel="prefetch"",
+        "offset": 925,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "form:nth-child(20)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 7,
+        "context": {
+          "attr": "rel",
+          "details": "<form> does not allow rel="preload"",
+          "tagName": "<form>",
+        },
+        "line": 40,
+        "message": ""rel" attribute cannot be used on <form> in this context: <form> does not allow rel="preload"",
+        "offset": 954,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "form:nth-child(21)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 7,
+        "context": {
+          "attr": "rel",
+          "details": "<form> does not allow rel="privacy-policy"",
+          "tagName": "<form>",
+        },
+        "line": 41,
+        "message": ""rel" attribute cannot be used on <form> in this context: <form> does not allow rel="privacy-policy"",
+        "offset": 982,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "form:nth-child(22)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 7,
+        "context": {
+          "attr": "rel",
+          "details": "<form> does not allow rel="stylesheet"",
+          "tagName": "<form>",
+        },
+        "line": 42,
+        "message": ""rel" attribute cannot be used on <form> in this context: <form> does not allow rel="stylesheet"",
+        "offset": 1017,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "form:nth-child(23)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 7,
+        "context": {
+          "attr": "rel",
+          "details": "<form> does not allow rel="tag"",
+          "tagName": "<form>",
+        },
+        "line": 43,
+        "message": ""rel" attribute cannot be used on <form> in this context: <form> does not allow rel="tag"",
+        "offset": 1048,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "form:nth-child(24)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 7,
+        "context": {
+          "attr": "rel",
+          "details": "<form> does not allow rel="terms-of-service"",
+          "tagName": "<form>",
+        },
+        "line": 44,
+        "message": ""rel" attribute cannot be used on <form> in this context: <form> does not allow rel="terms-of-service"",
+        "offset": 1072,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "form:nth-child(25)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 7,
+        "context": {
+          "attr": "rel",
+          "details": "<form> does not allow rel="canonical"",
+          "tagName": "<form>",
+        },
+        "line": 47,
+        "message": ""rel" attribute cannot be used on <form> in this context: <form> does not allow rel="canonical"",
+        "offset": 1171,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "form:nth-child(26)",
+        "severity": 2,
+        "size": 3,
+      },
     ],
     "source": "<!-- should not allow nesting -->
 <form>
@@ -3887,6 +4629,28 @@ exports[`HTML elements <form> invalid markup 1`] = `
 
 <!-- should not allow invalid target keywords -->
 <form target="_invalid"></form>
+
+<!-- disallowed rel keywords -->
+<form rel="alternate"></form>
+<form rel="canonical"></form>
+<form rel="author"></form>
+<form rel="bookmark"></form>
+<form rel="dns-prefetch"></form>
+<form rel="expect"></form>
+<form rel="icon"></form>
+<form rel="manifest"></form>
+<form rel="modulepreload"></form>
+<form rel="pingback"></form>
+<form rel="preconnect"></form>
+<form rel="prefetch"></form>
+<form rel="preload"></form>
+<form rel="privacy-policy"></form>
+<form rel="stylesheet"></form>
+<form rel="tag"></form>
+<form rel="terms-of-service"></form>
+
+<!-- should handle disallowed keywords in a list of many -->
+<form rel="external canonical next"></form>
 ",
     "warningCount": 0,
   },
@@ -12842,15 +13606,15 @@ exports[`HTML elements <li> valid markup 1`] = `[]`;
 exports[`HTML elements <link> invalid markup 1`] = `
 [
   {
-    "errorCount": 14,
+    "errorCount": 28,
     "filePath": "test-files/elements/link-invalid.html",
     "messages": [
       {
-        "column": 23,
+        "column": 25,
         "context": "link",
-        "line": 2,
+        "line": 6,
         "message": "End tag for <link> must be omitted",
-        "offset": 56,
+        "offset": 116,
         "ruleId": "void-content",
         "ruleUrl": "https://html-validate.org/rules/void-content.html",
         "selector": null,
@@ -12858,22 +13622,22 @@ exports[`HTML elements <link> invalid markup 1`] = `
         "size": 5,
       },
       {
-        "column": 2,
+        "column": 4,
         "context": {
           "attribute": "href",
           "element": "link",
         },
-        "line": 5,
+        "line": 9,
         "message": "<link> is missing required "href" attribute",
-        "offset": 110,
+        "offset": 174,
         "ruleId": "element-required-attributes",
         "ruleUrl": "https://html-validate.org/rules/element-required-attributes.html",
-        "selector": "link:nth-child(2)",
+        "selector": "html > head > link:nth-child(3)",
         "severity": 2,
         "size": 4,
       },
       {
-        "column": 2,
+        "column": 4,
         "context": {
           "allowed": {
             "enum": [
@@ -12884,33 +13648,33 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "element": "link",
           "value": "",
         },
-        "line": 6,
+        "line": 10,
         "message": "Attribute "href" has invalid value """,
-        "offset": 117,
+        "offset": 183,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "link:nth-child(3)",
+        "selector": "html > head > link:nth-child(4)",
         "severity": 2,
         "size": 4,
       },
       {
-        "column": 34,
+        "column": 36,
         "context": {
           "attr": "as",
           "details": ""rel" attribute must be "prefetch", "preload" or "modulepreload"",
           "tagName": "<link>",
         },
-        "line": 9,
+        "line": 13,
         "message": ""as" attribute cannot be used on <link> in this context: "rel" attribute must be "prefetch", "preload" or "modulepreload"",
-        "offset": 258,
+        "offset": 328,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
-        "selector": "link:nth-child(4)",
+        "selector": "html > head > link:nth-child(5)",
         "severity": 2,
         "size": 2,
       },
       {
-        "column": 39,
+        "column": 41,
         "context": {
           "allowed": {
             "enum": [
@@ -12942,17 +13706,17 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "element": "link",
           "value": "foobar",
         },
-        "line": 12,
+        "line": 16,
         "message": "Attribute "as" has invalid value "foobar"",
-        "offset": 362,
+        "offset": 436,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "link:nth-child(5)",
+        "selector": "html > head > link:nth-child(6)",
         "severity": 2,
         "size": 6,
       },
       {
-        "column": 38,
+        "column": 40,
         "context": {
           "allowed": {
             "enum": [
@@ -12963,17 +13727,17 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "element": "link",
           "value": "",
         },
-        "line": 15,
+        "line": 19,
         "message": "Attribute "integrity" is missing value",
-        "offset": 460,
+        "offset": 538,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "link:nth-child(6)",
+        "selector": "html > head > link:nth-child(7)",
         "severity": 2,
         "size": 9,
       },
       {
-        "column": 2,
+        "column": 4,
         "context": {
           "allowed": {
             "enum": [
@@ -12984,33 +13748,33 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "element": "link",
           "value": "",
         },
-        "line": 16,
+        "line": 20,
         "message": "Attribute "integrity" has invalid value """,
-        "offset": 472,
+        "offset": 552,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "link:nth-child(7)",
+        "selector": "html > head > link:nth-child(8)",
         "severity": 2,
         "size": 4,
       },
       {
-        "column": 34,
+        "column": 36,
         "context": {
           "attr": "integrity",
           "details": ""rel" attribute must be "stylesheet", "preload" or "modulepreload"",
           "tagName": "<link>",
         },
-        "line": 19,
+        "line": 23,
         "message": ""integrity" attribute cannot be used on <link> in this context: "rel" attribute must be "stylesheet", "preload" or "modulepreload"",
-        "offset": 670,
+        "offset": 754,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
-        "selector": "link:nth-child(8)",
+        "selector": "html > head > link:nth-child(9)",
         "severity": 2,
         "size": 9,
       },
       {
-        "column": 48,
+        "column": 50,
         "context": {
           "allowed": {
             "enum": [
@@ -13021,33 +13785,33 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "element": "link",
           "value": "foobar",
         },
-        "line": 22,
+        "line": 26,
         "message": "Attribute "blocking" has invalid value "foobar"",
-        "offset": 798,
+        "offset": 886,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "link:nth-child(9)",
+        "selector": "html > head > link:nth-child(10)",
         "severity": 2,
         "size": 6,
       },
       {
-        "column": 34,
+        "column": 36,
         "context": {
           "attr": "blocking",
           "details": ""rel" attribute must be "stylesheet", "preload" or "modulepreload"",
           "tagName": "<link>",
         },
-        "line": 25,
+        "line": 29,
         "message": ""blocking" attribute cannot be used on <link> in this context: "rel" attribute must be "stylesheet", "preload" or "modulepreload"",
-        "offset": 954,
+        "offset": 1046,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
-        "selector": "link:nth-child(10)",
+        "selector": "html > head > link:nth-child(11)",
         "severity": 2,
         "size": 8,
       },
       {
-        "column": 48,
+        "column": 50,
         "context": {
           "allowed": {
             "boolean": true,
@@ -13056,33 +13820,33 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "element": "link",
           "value": "foobar",
         },
-        "line": 28,
+        "line": 32,
         "message": "Attribute "disabled" has invalid value "foobar"",
-        "offset": 1077,
+        "offset": 1173,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "link:nth-child(11)",
+        "selector": "html > head > link:nth-child(12)",
         "severity": 2,
         "size": 6,
       },
       {
-        "column": 34,
+        "column": 36,
         "context": {
           "attr": "disabled",
           "details": ""rel" attribute must be "stylesheet"",
           "tagName": "<link>",
         },
-        "line": 31,
+        "line": 35,
         "message": ""disabled" attribute cannot be used on <link> in this context: "rel" attribute must be "stylesheet"",
-        "offset": 1202,
+        "offset": 1302,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
-        "selector": "link:nth-child(12)",
+        "selector": "html > head > link:nth-child(13)",
         "severity": 2,
         "size": 8,
       },
       {
-        "column": 21,
+        "column": 23,
         "context": {
           "allowed": {
             "enum": [
@@ -13101,17 +13865,17 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "element": "link",
           "value": "",
         },
-        "line": 34,
+        "line": 38,
         "message": "Attribute "referrerpolicy" is missing value",
-        "offset": 1293,
+        "offset": 1397,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "link:nth-child(13)",
+        "selector": "html > head > link:nth-child(14)",
         "severity": 2,
         "size": 14,
       },
       {
-        "column": 37,
+        "column": 39,
         "context": {
           "allowed": {
             "enum": [
@@ -13130,51 +13894,305 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "element": "link",
           "value": "invalid",
         },
-        "line": 35,
+        "line": 39,
         "message": "Attribute "referrerpolicy" has invalid value "invalid"",
-        "offset": 1345,
+        "offset": 1451,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "link:nth-child(14)",
+        "selector": "html > head > link:nth-child(15)",
         "severity": 2,
         "size": 7,
       },
+      {
+        "column": 23,
+        "context": {
+          "attr": "rel",
+          "details": "<link> does not allow rel="bookmark"",
+          "tagName": "<link>",
+        },
+        "line": 42,
+        "message": ""rel" attribute cannot be used on <link> in this context: <link> does not allow rel="bookmark"",
+        "offset": 1519,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "html > head > link:nth-child(16)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 23,
+        "context": {
+          "attr": "rel",
+          "details": "<link> does not allow rel="external"",
+          "tagName": "<link>",
+        },
+        "line": 43,
+        "message": ""rel" attribute cannot be used on <link> in this context: <link> does not allow rel="external"",
+        "offset": 1557,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "html > head > link:nth-child(17)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 23,
+        "context": {
+          "attr": "rel",
+          "details": "<link> does not allow rel="nofollow"",
+          "tagName": "<link>",
+        },
+        "line": 44,
+        "message": ""rel" attribute cannot be used on <link> in this context: <link> does not allow rel="nofollow"",
+        "offset": 1595,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "html > head > link:nth-child(18)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 23,
+        "context": {
+          "attr": "rel",
+          "details": "<link> does not allow rel="noopener"",
+          "tagName": "<link>",
+        },
+        "line": 45,
+        "message": ""rel" attribute cannot be used on <link> in this context: <link> does not allow rel="noopener"",
+        "offset": 1633,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "html > head > link:nth-child(19)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 23,
+        "context": {
+          "attr": "rel",
+          "details": "<link> does not allow rel="noreferrer"",
+          "tagName": "<link>",
+        },
+        "line": 46,
+        "message": ""rel" attribute cannot be used on <link> in this context: <link> does not allow rel="noreferrer"",
+        "offset": 1671,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "html > head > link:nth-child(20)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 23,
+        "context": {
+          "attr": "rel",
+          "details": "<link> does not allow rel="opener"",
+          "tagName": "<link>",
+        },
+        "line": 47,
+        "message": ""rel" attribute cannot be used on <link> in this context: <link> does not allow rel="opener"",
+        "offset": 1711,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "html > head > link:nth-child(21)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 23,
+        "context": {
+          "attr": "rel",
+          "details": "<link> does not allow rel="tag"",
+          "tagName": "<link>",
+        },
+        "line": 48,
+        "message": ""rel" attribute cannot be used on <link> in this context: <link> does not allow rel="tag"",
+        "offset": 1747,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "html > head > link:nth-child(22)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 23,
+        "context": {
+          "attr": "rel",
+          "details": "<link> does not allow rel="disclosure"",
+          "tagName": "<link>",
+        },
+        "line": 49,
+        "message": ""rel" attribute cannot be used on <link> in this context: <link> does not allow rel="disclosure"",
+        "offset": 1780,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "html > head > link:nth-child(23)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 23,
+        "context": {
+          "attr": "rel",
+          "details": "<link> does not allow rel="entry-content"",
+          "tagName": "<link>",
+        },
+        "line": 50,
+        "message": ""rel" attribute cannot be used on <link> in this context: <link> does not allow rel="entry-content"",
+        "offset": 1820,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "html > head > link:nth-child(24)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 23,
+        "context": {
+          "attr": "rel",
+          "details": "<link> does not allow rel="lightbox"",
+          "tagName": "<link>",
+        },
+        "line": 51,
+        "message": ""rel" attribute cannot be used on <link> in this context: <link> does not allow rel="lightbox"",
+        "offset": 1863,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "html > head > link:nth-child(25)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 23,
+        "context": {
+          "attr": "rel",
+          "details": "<link> does not allow rel="lightvideo"",
+          "tagName": "<link>",
+        },
+        "line": 52,
+        "message": ""rel" attribute cannot be used on <link> in this context: <link> does not allow rel="lightvideo"",
+        "offset": 1901,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "html > head > link:nth-child(26)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 23,
+        "context": {
+          "attr": "rel",
+          "details": "<link> does not allow rel="external"",
+          "tagName": "<link>",
+        },
+        "line": 55,
+        "message": ""rel" attribute cannot be used on <link> in this context: <link> does not allow rel="external"",
+        "offset": 2005,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "html > head > link:nth-child(27)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 4,
+        "context": {
+          "child": "<link>",
+          "kind": "content",
+          "parent": "<body>",
+        },
+        "line": 61,
+        "message": "<link> element is not permitted as content under <body>",
+        "offset": 2138,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "html > body > link:nth-child(1)",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 4,
+        "context": {
+          "child": "<link>",
+          "kind": "content",
+          "parent": "<body>",
+        },
+        "line": 62,
+        "message": "<link> element is not permitted as content under <body>",
+        "offset": 2161,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "html > body > link:nth-child(2)",
+        "severity": 2,
+        "size": 4,
+      },
     ],
-    "source": "<!-- should not allow end tag -->
-<link href="my-url" ></link>
+    "source": "<html lang="en">
+	<head>
+		<title>link element</title>
 
-<!-- href should not be omitted or empty -->
-<link>
-<link href="">
+		<!-- should not allow end tag -->
+		<link href="my-url" ></link>
 
-<!-- should not allow "as" if "rel" is something other than "preload" or "modulepreload" -->
-<link href="my-url" rel="foobar" as="script">
+		<!-- href should not be omitted or empty -->
+		<link>
+		<link href="">
 
-<!-- should now allow "as" with invalid values  -->
-<link href="my-url" rel="preload" as="foobar">
+		<!-- should not allow "as" if "rel" is something other than "preload" or "modulepreload" -->
+		<link href="my-url" rel="foobar" as="script">
 
-<!-- "integrity" attribute should not be empty -->
-<link href="my-url" rel="stylesheet" integrity>
-<link href="my-url" rel="stylesheet" integrity="">
+		<!-- should now allow "as" with invalid values  -->
+		<link href="my-url" rel="preload" as="foobar">
 
-<!-- should not allow "integrity" if "rel" is something other than "stylesheet", "preload" or "modulepreload" -->
-<link href="my-url" rel="foobar" integrity="sha384-...">
+		<!-- "integrity" attribute should not be empty -->
+		<link href="my-url" rel="stylesheet" integrity>
+		<link href="my-url" rel="stylesheet" integrity="">
 
-<!-- should not allow "blocking" with invalid value -->
-<link href="my-url" rel="stylesheet" blocking="foobar">
+		<!-- should not allow "integrity" if "rel" is something other than "stylesheet", "preload" or "modulepreload" -->
+		<link href="my-url" rel="foobar" integrity="sha384-...">
 
-<!-- should not allow "blocking" if "rel" is something other than "stylesheet", "preload" or "modulepreload" -->
-<link href="my-url" rel="foobar" blocking="render">
+		<!-- should not allow "blocking" with invalid value -->
+		<link href="my-url" rel="stylesheet" blocking="foobar">
 
-<!-- should not allow "disabled" with invalid value -->
-<link href="my-url" rel="stylesheet" disabled="foobar">
+		<!-- should not allow "blocking" if "rel" is something other than "stylesheet", "preload" or "modulepreload" -->
+		<link href="my-url" rel="foobar" blocking="render">
 
-<!-- should not allow "disable" if "rel" is something other than "stylesheet" -->
-<link href="my-url" rel="script" disabled>
+		<!-- should not allow "disabled" with invalid value -->
+		<link href="my-url" rel="stylesheet" disabled="foobar">
 
-<!-- should not allow omitted or invalid referrerpolicy -->
-<link href="my-url" referrerpolicy>
-<link href="my-url" referrerpolicy="invalid">
+		<!-- should not allow "disable" if "rel" is something other than "stylesheet" -->
+		<link href="my-url" rel="script" disabled>
+
+		<!-- should not allow omitted or invalid referrerpolicy -->
+		<link href="my-url" referrerpolicy>
+		<link href="my-url" referrerpolicy="invalid">
+
+		<!-- disallowed rel keywords -->
+		<link href="my-url" rel="bookmark">
+		<link href="my-url" rel="external">
+		<link href="my-url" rel="nofollow">
+		<link href="my-url" rel="noopener">
+		<link href="my-url" rel="noreferrer">
+		<link href="my-url" rel="opener">
+		<link href="my-url" rel="tag">
+		<link href="my-url" rel="disclosure">
+		<link href="my-url" rel="entry-content">
+		<link href="my-url" rel="lightbox">
+		<link href="my-url" rel="lightvideo">
+
+		<!-- should handle disallowed keywords in a list of many -->
+		<link href="my-url" rel="alternate external canonical">
+
+	</head>
+	<body>
+
+		<!-- should not be allowed without itemprop or body ok rel attribute -->
+		<link href="my-url">
+		<link href="my-url" rel="alternate">
+
+	</body>
+</html>
 ",
     "warningCount": 0,
   },
