@@ -11,7 +11,7 @@ exports[`docs/rules/meta-refresh.md inline validation: incorrect-delay 1`] = `
       {
         "column": 37,
         "line": 1,
-        "message": "Meta refresh must use 0 second delay",
+        "message": "Meta refresh must be instant (0 second delay)",
         "offset": 36,
         "ruleId": "meta-refresh",
         "ruleUrl": "https://html-validate.org/rules/meta-refresh.html",
@@ -35,7 +35,7 @@ exports[`docs/rules/meta-refresh.md inline validation: incorrect-url 1`] = `
       {
         "column": 37,
         "line": 1,
-        "message": "Don't use meta refresh to reload the page",
+        "message": "Don't use instant meta refresh to reload the page",
         "offset": 36,
         "ruleId": "meta-refresh",
         "ruleUrl": "https://html-validate.org/rules/meta-refresh.html",
@@ -49,3 +49,29 @@ exports[`docs/rules/meta-refresh.md inline validation: incorrect-url 1`] = `
   },
 ]
 `;
+
+exports[`docs/rules/meta-refresh.md inline validation: long-delay-invalid 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 37,
+        "line": 1,
+        "message": "Meta refresh must be instant (0 second delay)",
+        "offset": 36,
+        "ruleId": "meta-refresh",
+        "ruleUrl": "https://html-validate.org/rules/meta-refresh.html",
+        "selector": "meta",
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<meta http-equiv="refresh" content="72001">",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/meta-refresh.md inline validation: long-delay-valid 1`] = `[]`;
