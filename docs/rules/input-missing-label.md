@@ -3,9 +3,13 @@ docType: rule
 name: input-missing-label
 category: a11y
 summary: Require input to have label
+standards:
+  - wcag-2.2-a
+  - wcag-2.1-a
+  - wcag-2.0-a
 ---
 
-# Require input elements to have a label (`input-missing-label`)
+# Require input elements to have a label
 
 All input elements must have an associated label or accessible name.
 

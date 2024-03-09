@@ -5,7 +5,7 @@ category: style
 summary: Disallow inline style
 ---
 
-# Disallow inline style (`no-inline-style`)
+# Disallow inline style
 
 Inline style is a sign of unstructured CSS.
 Use class or ID with a separate stylesheet.

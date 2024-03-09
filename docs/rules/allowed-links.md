@@ -5,7 +5,7 @@ category: document
 summary: Disallow link types
 ---
 
-# Disallows link types (`allowed-links`)
+# Disallows link types
 
 This rules checks the link destination and disallows certain categories of links:
 

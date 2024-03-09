@@ -1,10 +1,13 @@
 ---
 docType: rule
 name: element-name
+category: syntax
 summary: Disallow invalid element names
+standards:
+  - html5
 ---
 
-# Disallow invalid element names (`element-name`)
+# Disallow invalid element names
 
 HTML defines what content is considered a valid (custom) [element
 name](https://www.w3.org/TR/custom-elements/#valid-custom-element-name), essentially:

@@ -3,9 +3,13 @@ docType: rule
 name: hidden-focusable
 category: a11y
 summary: Disallows `aria-hidden` on focusable elements
+standards:
+  - wcag-2.2-a
+  - wcag-2.1-a
+  - wcag-2.0-a
 ---
 
-# Disallows `aria-hidden` on focusable elements (`hidden-focusable`)
+# Disallows `aria-hidden` on focusable elements
 
 When focusable elements are hidden with `aria-hidden` they are still reachable using conventional means such as a mouse or keyboard but won't be exposed to assistive technology (AT).
 This is often confusing for users of AT such as screenreaders.

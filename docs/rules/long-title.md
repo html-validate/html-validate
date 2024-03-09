@@ -5,7 +5,7 @@ category: seo
 summary: Require title not to have too long text
 ---
 
-# Require title not to have too long text (`long-title`)
+# Require title not to have too long text
 
 Search engines truncates titles with too long text, typically only displaying
 the first 60-70 characters. Possibly down-ranking the page in the process as it

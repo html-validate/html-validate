@@ -3,9 +3,11 @@ docType: rule
 name: no-implicit-close
 category: style
 summary: Require elements with optional end tags to be explicitly closed
+standards:
+  - html5
 ---
 
-# Requires elements to be explicitly closed (`no-implicit-close`)
+# Require elements with optional end tags to be explicitly closed
 
 Some elements in HTML has optional end tags. When an optional tag is omitted a
 browser must handle it as if the end tag was present.

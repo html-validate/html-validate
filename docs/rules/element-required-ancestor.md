@@ -2,10 +2,12 @@
 docType: rule
 name: element-required-ancestor
 category: content-model
-summary: Validate required ancestors
+summary: Validate required element ancestors
+standards:
+  - html5
 ---
 
-# Validate required ancestors (`element-required-ancestor`)
+# Validate required element ancestors
 
 HTML defines requirements for required ancestors on certain elements.
 

@@ -3,9 +3,13 @@ docType: rule
 name: aria-label-misuse
 category: a11y
 summary: Disallow `aria-label` misuse
+standards:
+  - wcag-2.2-a
+  - wcag-2.1-a
+  - wcag-2.0-a
 ---
 
-# Disallow `aria-label` misuse (`aria-label-misuse`)
+# Disallow `aria-label` misuse
 
 `aria-label` is used to set the label of an element when no native text is present or non-descriptive.
 The attribute can only be used on the following elements:

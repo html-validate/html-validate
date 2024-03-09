@@ -3,9 +3,13 @@ docType: rule
 name: empty-heading
 category: a11y
 summary: Require headings to have textual content
+standards:
+  - wcag-2.2-aa
+  - wcag-2.1-aa
+  - wcag-2.0-aa
 ---
 
-# Require headings to have textual content (`empty-heading`)
+# Require headings to have textual content
 
 Assistive technology such as screen readers require textual content in
 headings. The content cannot be whitespace only.
@@ -15,7 +19,7 @@ section. Assistive tools may build a list of headings to help the user navigate
 between headings, a feature which can be confusing when headings are empty or
 non-descriptive.
 
-See also [WCAG G130: Providing descriptive headings](https://www.w3.org/WAI/WCAG21/Techniques/general/G130).
+See also [WCAG G130: Providing descriptive headings](https://www.w3.org/WAI/WCAG22/Techniques/general/G130).
 
 ## Rule details
 

@@ -1,10 +1,13 @@
 ---
 docType: rule
 name: map-id-name
+category: syntax
 summary: Require name and id to match on <map> elements
+standards:
+  - html5
 ---
 
-# Require name and id to match on `<map>` elements (`map-id-name`)
+# Require name and id to match on `<map>` elements
 
 HTML5 requires that when the `id` attribute is present on a `<map>` element it must have the same value as the required `name` attribute.
 

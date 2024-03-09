@@ -1,10 +1,11 @@
 ---
 docType: rule
 name: no-dup-class
+category: syntax
 summary: Disallow duplicated classes
 ---
 
-# Disallows duplicated classes on same element (`no-dup-class`)
+# Disallows duplicated classes on same element
 
 Prevents unnecessary duplication of class names.
 

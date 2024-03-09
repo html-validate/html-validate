@@ -1,10 +1,11 @@
 ---
 docType: rule
 name: tel-non-breaking
+category: a11y
 summary: Require non-breaking characters in telephone numbers
 ---
 
-# Require non-breaking characters in telephone numbers (`tel-non-breaking`)
+# Require non-breaking characters in telephone numbers
 
 When telephone numbers are written out they are expected to be all on one line with no line breaks.
 If line break are added it gets harder to read and comprehend.

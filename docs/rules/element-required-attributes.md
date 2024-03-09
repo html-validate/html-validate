@@ -3,9 +3,11 @@ docType: rule
 name: element-required-attributes
 category: content-model
 summary: Ensure required attributes are set
+standards:
+  - html5
 ---
 
-# Require attribute (`element-required-attributes`)
+# Ensure required attributes are set
 
 Ensures required attributes are present but may be empty.
 Use {@link rule:attribute-allowed-values} rule to disallow certain values.

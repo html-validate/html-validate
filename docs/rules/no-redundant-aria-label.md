@@ -5,7 +5,7 @@ category: a11y
 summary: Disallow aria-label and label with same text content
 ---
 
-# Disallow `aria-label` and `<label>` with same text content (`no-redundant-aria-label`)
+# Disallow `aria-label` and `<label>` with same text content
 
 Reports error when an input element (`<input>`, `<textarea>` and `<select>`) contains both the `aria-label` attribute and an associated `<label>` element and both have the same text content.
 

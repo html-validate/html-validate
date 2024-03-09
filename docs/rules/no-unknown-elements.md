@@ -4,7 +4,7 @@ name: no-unknown-elements
 summary: Disallow usage of unknown elements
 ---
 
-# Disallow usage of unknown elements (`no-unknown-elements`)
+# Disallow usage of unknown elements
 
 This rule requires all elements to have a corresponding metadata element describing its content model.
 

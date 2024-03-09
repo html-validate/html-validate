@@ -3,9 +3,11 @@ docType: rule
 name: input-attributes
 category: content-model
 summary: Validates usage of input attributes
+standards:
+  - html5
 ---
 
-# Validates usage of input attributes (`input-attributes`)
+# Validates usage of input attributes
 
 The `<input>` element uses the `type` attribute to set what type of input field it is.
 Depending on what type of input field it is many other attributes is allowed or disallowed.

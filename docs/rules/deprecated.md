@@ -1,10 +1,13 @@
 ---
 docType: rule
 name: deprecated
+category: deprecated
 summary: Disallow usage of deprecated elements
+standards:
+  - html5
 ---
 
-# Disallows usage of deprecated elements (`deprecated`)
+# Disallow usage of deprecated elements
 
 HTML5 deprecated many old elements.
 

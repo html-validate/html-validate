@@ -1,10 +1,13 @@
 ---
 docType: rule
 name: no-redundant-for
+category: syntax
 summary: Disallow usage of redundant label for attributes
+standards:
+  - html5
 ---
 
-# Disallow usage of redundant label for attributes (`no-redundant-for`)
+# Disallow usage of redundant label for attributes
 
 `<label>` can either use the `for` attribute to reference the labelable control or wrap it.
 Doing both is redundant as the label already references the control.

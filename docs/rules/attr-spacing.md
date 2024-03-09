@@ -1,10 +1,13 @@
 ---
 docType: rule
 name: attr-spacing
+category: syntax
 summary: Require attributes to be separated by whitespace
+standards:
+  - html5
 ---
 
-# Require attributes to be separated by whitespace (`attr-spacing`)
+# Require attributes to be separated by whitespace
 
 In HTML attributes must be separated by whitespace (commonly a regular space).
 

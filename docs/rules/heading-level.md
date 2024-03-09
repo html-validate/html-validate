@@ -3,9 +3,13 @@ docType: rule
 name: heading-level
 category: document
 summary: Require headings to start at h1 and increment by one
+standards:
+  - wcag-2.2-a
+  - wcag-2.1-a
+  - wcag-2.0-a
 ---
 
-# Require headings to start at h1 and increment by one (`heading-level`)
+# Require headings to start at h1 and increment by one
 
 Validates heading level increments and order. Headings must start at `h1` and
 can only increase one level at a time.

@@ -2,10 +2,12 @@
 docType: rule
 name: element-permitted-occurrences
 category: content-model
-summary: Validate permitted number of occurrences from content model
+summary: Validate permitted number of element occurrences
+standards:
+  - html5
 ---
 
-# Validate element content model (`element-permitted-occurrences`)
+# Validate permitted number of element occurrences
 
 Some elements may only be used a fixed amount of times in given context.
 

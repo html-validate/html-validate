@@ -49,11 +49,24 @@ module.exports = function rulesProcessor(renderDocsProcessor) {
 			doc.ruleSourcePath = docPath.replace("docs", "src").replace(/\.md$/, ".ts");
 		});
 
-		/* generate title */
+		/* add missing fields */
 		ruleDocs.forEach((doc) => {
 			if (!doc.title) {
 				doc.title = `${doc.summary} (${doc.name})`;
+				doc.standards = doc.standards ?? [];
 			}
+		});
+
+		/* split heading and other content */
+		ruleDocs.forEach((doc) => {
+			const description = String(doc.description);
+			const match = description.match(/([^]*^# .*)$([^]*)/m);
+			if (!match) {
+				throw new Error(`Failed to locate header for "${doc.fileInfo.projectRelativePath}"`);
+			}
+			const [, preamble, content] = match;
+			doc.preamble = [preamble, "{@ruleInfo}"].join("\n\n");
+			doc.description = content;
 		});
 
 		/* find all available rules */

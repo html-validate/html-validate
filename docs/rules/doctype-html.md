@@ -1,10 +1,13 @@
 ---
 docType: rule
 name: doctype-html
+category: document
 summary: Require usage of "html" doctype
+standards:
+  - html5
 ---
 
-# Require usage of "html" doctype (`doctype-html`)
+# Require usage of "html" doctype
 
 HTML5 requires the usage of the `<!DOCTYPE html>` doctype to prevent browsers
 from guessing and/or using "quirks mode".

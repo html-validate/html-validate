@@ -5,7 +5,7 @@ category: style
 summary: Require attributes to match configured patterns
 ---
 
-# Attribute name pattern (`attr-pattern`)
+# Attribute name pattern
 
 Require attributes to match configured patterns.
 This rule is case-insensitive, for matching case use {@link rules/attr-case}.

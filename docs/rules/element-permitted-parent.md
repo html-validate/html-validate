@@ -2,10 +2,12 @@
 docType: rule
 name: element-permitted-parent
 category: content-model
-summary: Validate permitted parent
+summary: Validate permitted element parent
+standards:
+  - html5
 ---
 
-# Validate permitted parent (`element-permitted-parent`)
+# Validate permitted element parent
 
 Some elements have restrictions for what parent element they can have.
 For instance, the parent of `<body>` element must the `<html>` element.

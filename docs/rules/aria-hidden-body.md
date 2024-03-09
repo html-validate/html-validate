@@ -2,10 +2,14 @@
 docType: rule
 name: aria-hidden-body
 category: a11y
-summary: requires `aria-hidden` not to be used on `<body>`
+summary: disallow `aria-hidden` from being set on `<body>`
+standards:
+  - wcag-2.2-a
+  - wcag-2.1-a
+  - wcag-2.0-a
 ---
 
-# Attribute name case (`aria-hidden-body`)
+# Disallow `aria-hidden` from being set on `<body>`
 
 Requires `aria-hidden` is not used on the `<body>` element.
 

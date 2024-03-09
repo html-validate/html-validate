@@ -1,10 +1,11 @@
 ---
 docType: rule
 name: no-conditional-comment
+category: deprecated
 summary: Disallow usage of conditional comments
 ---
 
-# Disallow usage of conditional comments (`no-conditional-comment`)
+# Disallow usage of conditional comments
 
 Microsoft Internet Explorer previously supported using special HTML comments
 ([conditional comments][1]) for targeting specific versions of IE but since IE

@@ -3,9 +3,13 @@ docType: rule
 name: empty-title
 category: a11y
 summary: Require title to have textual content
+standards:
+  - wcag-2.2-a
+  - wcag-2.1-a
+  - wcag-2.0-a
 ---
 
-# Require title to have textual content (`empty-title`)
+# Require title to have textual content
 
 The `<title>` element is used to describe the document and is shown in the
 browser tab and titlebar. The content cannot be whitespace only.
@@ -19,8 +23,8 @@ document. Avoid keyword stuffing.
 
 See also [WCAG G88: Providing descriptive titles][wcag-g88].
 
-[wcag-h25]: https://www.w3.org/WAI/WCAG21/Techniques/html/H25
-[wcag-g88]: https://www.w3.org/WAI/WCAG21/Techniques/general/G88
+[wcag-h25]: https://www.w3.org/WAI/WCAG22/Techniques/html/H25
+[wcag-g88]: https://www.w3.org/WAI/WCAG22/Techniques/general/G88
 
 ## Rule details
 

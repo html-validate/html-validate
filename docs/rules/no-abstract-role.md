@@ -3,9 +3,11 @@ docType: rule
 name: no-abstract-role
 category: a11y
 summary: Disallow usage of abstract WAI-ARIA roles
+standards:
+  - wai-aria
 ---
 
-# Disallow usage of abstract WAI-ARIA roles (`no-abstract-role`)
+# Disallow usage of abstract WAI-ARIA roles
 
 WAI-ARIA defines a list of [abstract roles](https://www.w3.org/TR/wai-aria-1.2/#abstract_roles) which cannot be used by authors:
 

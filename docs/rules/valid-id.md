@@ -1,10 +1,13 @@
 ---
 docType: rule
 name: valid-id
+category: syntax
 summary: Require `id` to be a valid identifier
+standards:
+  - html5
 ---
 
-# Valid ID (`valid-id`)
+# Valid ID
 
 Requires the `id` attribute to be a valid identifier.
 

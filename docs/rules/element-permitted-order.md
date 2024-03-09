@@ -2,10 +2,12 @@
 docType: rule
 name: element-permitted-order
 category: content-model
-summary: Validate required order from content model
+summary: Validate required element order
+standards:
+  - html5
 ---
 
-# Validate element content model (`element-permitted-order`)
+# Validate required element order
 
 Some elements has a specific order the children must use.
 

@@ -82,6 +82,12 @@ module.exports = new Package("html-validate-docs", [
 		);
 	})
 
+	.config(function (inlineTagProcessor, getInjectables) {
+		inlineTagProcessor.inlineTagDefinitions = inlineTagProcessor.inlineTagDefinitions.concat(
+			getInjectables(require("./inline-tag-defs")),
+		);
+	})
+
 	/* add custom nunjuck filters */
 	.config(function (templateEngine) {
 		templateEngine.filters = templateEngine.filters.concat(require("./filters"));

@@ -1,10 +1,13 @@
 ---
 docType: rule
 name: no-deprecated-attr
+category: deprecated
 summary: Disallow usage of deprecated attributes
+standards:
+  - html5
 ---
 
-# Disallows usage of deprecated attributes (`no-deprecated-attr`)
+# Disallows usage of deprecated attributes
 
 HTML5 deprecated many old attributes.
 

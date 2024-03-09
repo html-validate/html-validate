@@ -5,7 +5,7 @@ category: style
 summary: Require a specific case for element names
 ---
 
-# Element name case (`element-case`)
+# Element name case
 
 Requires a specific case for element names.
 

@@ -3,9 +3,11 @@ docType: rule
 name: attribute-boolean-style
 category: style
 summary: Require a specific style for boolean attributes
+standards:
+  - html5
 ---
 
-# Boolean attribute style (`attribute-boolean-style`)
+# Boolean attribute style
 
 Boolean attributes are attributes without a value and the presence of the attribute is considered a boolean `true` and absence a boolean `false`.
 The [HTML5 standard][whatwg] allows three styles to write boolean attributes:

@@ -1,10 +1,13 @@
 ---
 docType: rule
 name: attr-delimiter
+category: syntax
 summary: Disallow whitespace between attribute key and value
+standards:
+  - html5
 ---
 
-# Disallow whitespace between attribute key and value (`attr-delimiter`)
+# Disallow whitespace between attribute key and value
 
 While technically allowed by the HTML5 specification this rule disallows the usage of whitespace separating the attribute key and value, i.e. before or after the `=` character.
 

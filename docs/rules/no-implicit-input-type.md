@@ -1,10 +1,11 @@
 ---
 docType: rule
 name: no-implicit-input-type
+category: style
 summary: Disallow implicit input type
 ---
 
-# Disallow implicit input type (`no-implicit-input-type`)
+# Disallow implicit input type
 
 When the `type` attribute is omitted it defaults to `text`.
 Being explicit about the intended type better conveys the purpose of the input field.

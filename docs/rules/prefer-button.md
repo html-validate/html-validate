@@ -1,10 +1,11 @@
 ---
 docType: rule
 name: prefer-button
+category: style
 summary: Prefer to use <button> instead of <input> for buttons
 ---
 
-# Prefer to use `<button>` (`prefer-button`)
+# Prefer to use `<button>` instead of `<input>` for buttons
 
 HTML5 introduces the generic `<button>` element which replaces `<input type="button">` and similar constructs.
 

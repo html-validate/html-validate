@@ -3,9 +3,11 @@ docType: rule
 name: script-element
 category: content-model
 summary: Require end tag for `<script>`
+standards:
+  - html5
 ---
 
-# Require end tag for `<script>` element (`script-element`)
+# Require end tag for `<script>` element
 
 For legacy reasons the `<script>` element must include a `</script>` end tag even when using the `src` attribute.
 

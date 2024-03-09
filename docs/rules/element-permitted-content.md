@@ -2,10 +2,12 @@
 docType: rule
 name: element-permitted-content
 category: content-model
-summary: Validate permitted content from content model
+summary: Validate permitted content
+standards:
+  - html5
 ---
 
-# Validate element content model (`element-permitted-content`)
+# Validate element content
 
 HTML defines what content is allowed under each type of element.
 
