@@ -239,7 +239,7 @@
     "rollup-plugin-esbuild": "6.1.1",
     "stream-buffers": "3.0.2",
     "ts-jest": "29.1.2",
-    "typescript": "5.3.3",
+    "typescript": "5.4.2",
     "vite": "4.5.2"
   },
   "peerDependencies": {
