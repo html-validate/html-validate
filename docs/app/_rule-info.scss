@@ -4,11 +4,22 @@ dl.rule-info {
 	border-bottom: 1px solid #f06529;
 	padding: 1rem;
 	margin-bottom: 4rem;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+
+	@media (width > $screen-sm-min) {
+		flex-direction: row;
+	}
 
 	dt,
 	dd {
-		display: inline-block;
+		display: block;
 		font-size: 14px;
+
+		@media (width > $screen-sm-min) {
+			display: inline-block;
+		}
 	}
 
 	dt {
@@ -16,7 +27,41 @@ dl.rule-info {
 	}
 
 	dd {
-		margin-right: 2rem;
+	}
+
+	ul {
+		margin: 0;
+		padding: 0;
+		display: block;
+	}
+
+	li {
+		list-style: none;
+		display: block;
+
+		@media (width > $screen-sm-min) {
+			display: inline-block;
+
+			&:not(:last-child)::after {
+				content: ",";
+				display: inline;
+				margin-right: 0.5ch;
+			}
+		}
+	}
+
+	.rule-info-entry {
+		flex: 0 0 auto;
+		display: flex;
+		flex-wrap: nowrap;
+		flex-direction: column;
+		margin-bottom: 0.5rem;
+
+		@media (width > $screen-sm-min) {
+			flex-direction: row;
+			margin-bottom: 0;
+			margin-right: 2rem;
+		}
 	}
 
 	.rule-info-id {

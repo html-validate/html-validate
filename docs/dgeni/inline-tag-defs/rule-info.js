@@ -35,28 +35,33 @@ const standardsName = {
 function ruleInfoInlineTagDef() {
 	return {
 		name: "ruleInfo",
+		/**
+		 * @param {{ docType: string, category?: string, standards: string[] }} doc
+		 */
 		handler(doc) {
 			if (doc.docType !== "rule") {
 				throw new Error("{@ruleInfo} can only be used on document with docType rule");
 			}
 			const unset = `<span class="rule-info-unset">-</span>`;
+			const standardItems = doc.standards.map((it) => {
+				return `<li class="rule-info-standards--${it}">${standardsName[it] ?? it}</li>`;
+			});
 			const category = categoryName[doc.category] ?? unset;
-			const standards =
-				doc.standards.length > 0
-					? doc.standards
-							.map((it) => {
-								return `<span class="rule-info-standards--${it}">${standardsName[it] ?? it}</span>`;
-							})
-							.join(", ")
-					: unset;
+			const standards = standardItems.length > 0 ? `<ul>${standardItems.join("")}</ul>` : unset;
 			return /* HTML */ `
 				<dl class="rule-info">
-					<dt>Rule ID:</dt>
-					<dd class="rule-info-id">${doc.name}</dd>
-					<dt>Category:</dt>
-					<dd class="rule-info-category">${category}</dd>
-					<dt>Standards:</dt>
-					<dd class="rule-info-standards">${standards}</dd>
+					<div class="rule-info-entry">
+						<dt>Rule ID:</dt>
+						<dd class="rule-info-id">${doc.name}</dd>
+					</div>
+					<div class="rule-info-entry">
+						<dt>Category:</dt>
+						<dd class="rule-info-category">${category}</dd>
+					</div>
+					<div class="rule-info-entry">
+						<dt>Standards:</dt>
+						<dd class="rule-info-standards">${standards}</dd>
+					</div>
 				</dl>
 			`;
 		},
