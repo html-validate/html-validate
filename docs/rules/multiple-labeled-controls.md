@@ -3,9 +3,13 @@ docType: rule
 name: multiple-labeled-controls
 category: a11y
 summary: Disallow labels associated with multiple controls
+standards:
+  - wcag-2.2-a
+  - wcag-2.1-a
+  - wcag-2.0-a
 ---
 
-# Disallow labels associated with multiple controls (`multiple-labeled-controls`)
+# Disallow labels associated with multiple controls
 
 `<label>` can only be associated with a single control at once.
 It should either wrap a single [labelable][] control or use the `for` attribute to reference the control.

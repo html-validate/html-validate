@@ -1,10 +1,13 @@
 ---
 docType: rule
 name: script-type
-summary: Require valid type for `<script>`
+category: syntax
+summary: Require valid type for `<script>` element
+standards:
+  - html5
 ---
 
-# Require valid type for `<script>` element (`script-type`)
+# Require valid type for `<script>` element
 
 The [HTML5 standard encourages][spec] omitting the `type` attribute when the script is a JavaScript resource and only use it to specify `module` or other non-javascript MIME types.
 

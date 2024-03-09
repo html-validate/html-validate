@@ -4,7 +4,7 @@ name: no-unused-disable
 summary: Disallow unused disable directives
 ---
 
-# Disallow unused disable directives (`no-unused-disable`)
+# Disallow unused disable directives
 
 Rules can be disabled using {@link usage#inline-configuration directives} such as `<!-- [html-validate-disable-next my-rule] -->`.
 This rules disallows unneccesary disabled rules, i.e. rules that would not have generated any error even if enabled.

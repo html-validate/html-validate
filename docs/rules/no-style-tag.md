@@ -1,10 +1,11 @@
 ---
 docType: rule
 name: no-style-tag
+category: style
 summary: Disallow usage of <style> tag
 ---
 
-# Disallow usage of `<style>` tag (`no-style-tag`)
+# Disallow usage of `<style>` tag
 
 The `<style>` tag can be used to write CSS directly inside the document. When
 using multiple documents it is preferable to put all styling in a single asset

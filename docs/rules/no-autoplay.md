@@ -3,9 +3,13 @@ docType: rule
 name: no-autoplay
 category: a11y
 summary: Disallow autoplaying media elements
+standards:
+  - wcag-2.2-a
+  - wcag-2.1-a
+  - wcag-2.0-a
 ---
 
-# Disallow autoplaying media elements (`no-autoplay`)
+# Disallow autoplaying media elements
 
 Autoplaying content can be disruptive for users and has accessibility issues.
 This rule disallows `<audio>` and `<video>` with autoplay enabled.

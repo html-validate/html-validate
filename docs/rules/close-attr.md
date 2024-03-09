@@ -1,10 +1,13 @@
 ---
 docType: rule
 name: close-attr
+category: syntax
 summary: Disallow end tags from having attributes
+standards:
+  - html5
 ---
 
-# Disallows end tags with attributes (`close-attr`)
+# Disallow end tags from having attributes
 
 HTML disallows end tags to have attributes.
 

@@ -29,10 +29,16 @@
 {% block content %}
 {{ doc.description | marked }}
 
-{{ ruleTable(rules['other']) }}
+<h2>HTML Syntax and concepts</h2>
+<p>Rules relating to the HTML syntax and concepts.</p>
+{{ ruleTable(rules['syntax']) }}
 
 <h2>Content model</h2>
 {{ ruleTable(rules['content-model']) }}
+
+<h2>Deprecated</h2>
+<p>Rules related to usage of deprecated or obsolete functionality.</p>
+{{ ruleTable(rules['deprecated']) }}
 
 <h2>Accessibility</h2>
 {{ ruleTable(rules['a11y']) }}
@@ -49,5 +55,8 @@
 <h2>Document</h2>
 <p>These rules is to be used on full documents.</p>
 {{ ruleTable(rules['document']) }}
+
+<h2>Uncategorized</h2>
+{{ ruleTable(rules['other']) }}
 
 {% endblock %}

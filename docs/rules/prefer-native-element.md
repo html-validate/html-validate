@@ -3,9 +3,11 @@ docType: rule
 name: prefer-native-element
 category: a11y
 summary: Prefer to use native HTML element over roles
+standards:
+  - html-aria
 ---
 
-# Prefer to use native HTML element over roles (`prefer-native-element`)
+# Prefer to use native HTML element over roles
 
 While WAI-ARIA describes many [roles][wai-aria-roles] which can provide semantic information about what the element represents.
 Support for roles is varying and since HTML5 has many native equivalent elements it is better to use the native when possible.

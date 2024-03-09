@@ -3,9 +3,11 @@ docType: rule
 name: require-csp-nonce
 summary: Require CSP nonce for resources
 category: security
+standards:
+  - csp
 ---
 
-# Require CSP nonce for resources (`require-csp-nonce`)
+# Require CSP nonce for resources
 
 Requires that a [Content-Security-Policy (CSP)][mdn-csp] nonce is present on elements required by the policy.
 

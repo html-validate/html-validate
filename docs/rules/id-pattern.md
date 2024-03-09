@@ -5,7 +5,7 @@ category: style
 summary: Require IDs to match a specific pattern
 ---
 
-# Require a specific ID format (`id-pattern`)
+# Require a specific ID format
 
 Requires all IDs to match a given pattern.
 

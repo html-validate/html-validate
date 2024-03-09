@@ -3,9 +3,11 @@ docType: rule
 name: no-self-closing
 category: style
 summary: Disallow self-closing elements
+standards:
+  - html5
 ---
 
-# Disallow self-closing elements (`no-self-closing`)
+# Disallow self-closing elements
 
 Require regular end tags for elements even if the element has no content, e.g. require `<div></div>` instead of `<div/>`.
 

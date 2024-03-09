@@ -5,7 +5,7 @@ category: style
 summary: Require a specific case for DOCTYPE
 ---
 
-# Require a specific case for DOCTYPE (`doctype-style`)
+# Require a specific case for DOCTYPE
 
 While DOCTYPE is case-insensitive in the standard this rule requires it to be a specific style.
 The standard consistently uses uppercase which is the default style for this rule.

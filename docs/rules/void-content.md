@@ -3,9 +3,11 @@ docType: rule
 name: void-content
 category: content-model
 summary: Disallow void element with content
+standards:
+  - html5
 ---
 
-# Disallows void element with content (`void-content`)
+# Disallows void element with content
 
 HTML [void elements](https://www.w3.org/TR/html5/syntax.html#void-contents)
 cannot have any content and must not have an end tag.

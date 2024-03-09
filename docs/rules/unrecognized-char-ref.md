@@ -1,10 +1,13 @@
 ---
 docType: rule
 name: unrecognized-char-ref
+category: syntax
 summary: Disallow unrecognized character references
+standards:
+  - html5
 ---
 
-# Disallow unrecognized character references (`unrecognized-char-ref`)
+# Disallow unrecognized character references
 
 HTML5 defines a set of [named character references][charref] (sometimes called HTML entities) which can be used as `&name;` where `name` is the entity name, e.g. `&apos;` (`'`) or `&amp;` (`&`).
 Only entities from the list can be used.

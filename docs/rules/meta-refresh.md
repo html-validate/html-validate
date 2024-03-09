@@ -1,10 +1,15 @@
 ---
 docType: rule
 name: meta-refresh
+category: a11y
 summary: Require meta refresh to have 0 second delay
+standards:
+  - wcag-2.2-aaa
+  - wcag-2.1-aaa
+  - wcag-2.0-aaa
 ---
 
-# Require meta refresh to have 0 second delay (`meta-refresh`)
+# Require meta refresh to have 0 second delay
 
 The `<meta http-equiv="refresh" content="..">` directive can be used to refresh
 or redirect the page. For users with assistive technology a forced refresh or
@@ -23,7 +28,7 @@ This rule prevents non-zero time intervals and using the directive to refresh
 the page as it would be stuck in an infinite loop refreshing the same page over
 and over again.
 
-[h76]: https://www.w3.org/WAI/WCAG21/Techniques/html/H76
+[h76]: https://www.w3.org/WAI/WCAG22/Techniques/html/H76
 
 ## Rule details
 

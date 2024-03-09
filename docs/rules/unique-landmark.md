@@ -5,7 +5,7 @@ category: a11y
 summary: Requires landmarks to have unique names
 ---
 
-# Requires landmarks to have unique names (`unique-landmark`)
+# Requires landmarks to have unique names
 
 When the same type of landmark is present more than once in the same document each must be uniquely identifiable with a non-empty and unique name.
 For instance, if the document has two `<nav>` elements each of them need an accessible name to be distinguished from each other.

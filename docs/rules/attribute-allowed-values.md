@@ -3,9 +3,11 @@ docType: rule
 name: attribute-allowed-values
 category: content-model
 summary: Validate permitted attribute values
+standards:
+  - html5
 ---
 
-# Allowed attribute values (`attribute-allowed-values`)
+# Allowed attribute values
 
 Validates attributes for allowed values.
 Enumerated string values are matched case insensitive while regular expressions are matched case sensitive unless `/i` is used.

@@ -1,10 +1,11 @@
 ---
 docType: rule
 name: prefer-tbody
+category: style
 summary: Prefer to wrap <tr> inside <tbody>
 ---
 
-# Prefer to wrap `<tr>` inside `<tbody>` (`prefer-tbody`)
+# Prefer to wrap `<tr>` inside `<tbody>`
 
 While `<tbody>` is optional is relays semantic information about its
 contents.

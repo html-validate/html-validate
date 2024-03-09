@@ -1,6 +1,7 @@
 {% extends "base.template.html" %}
 
 {% block content %}
+	{{ doc.preamble | marked }}
 	{{ doc.description | marked }}
 {% endblock %}
 

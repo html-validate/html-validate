@@ -5,7 +5,7 @@ category: style
 summary: Disallow trailing whitespace
 ---
 
-# Disallows trailing whitespace at the end of lines (`no-trailing-whitespace`)
+# Disallows trailing whitespace at the end of lines
 
 Lines with trailing whitespace cause unnecessary diff when using version control
 and usually serve no special purpose in HTML.

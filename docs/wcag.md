@@ -1,10 +1,10 @@
 ---
 docType: content
-title: "WCAG 2.1 support table"
+title: "WCAG 2.2 support table"
 nav: false
 ---
 
-# WCAG 2.1 support table
+# WCAG 2.2 support table
 
 ## HTML Techniques
 

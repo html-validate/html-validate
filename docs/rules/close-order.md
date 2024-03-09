@@ -1,10 +1,13 @@
 ---
 docType: rule
 name: close-order
+category: syntax
 summary: Require elements to be closed in correct order
+standards:
+  - html5
 ---
 
-# Disallows elements closed in the wrong order (`close-order`)
+# Require elements to be closed in correct order
 
 HTML requires elements to be closed in the correct order.
 

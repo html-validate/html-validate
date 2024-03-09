@@ -1,10 +1,11 @@
 ---
 docType: rule
 name: form-dup-name
-summary: Require form controls to have unique name
+category: syntax
+summary: Require form controls to have a unique name
 ---
 
-# Require form controls to have unique name (`form-dup-name`)
+# Require form controls to have a unique name
 
 While not strictly required by the HTML standard using the same name on multiple form controls can be confusing to read and is often an oversight by the developer.
 Submitting form with duplicate names are converted to arrays and some javascript frameworks assume the name is unique when serializing form data.

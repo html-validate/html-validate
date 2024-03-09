@@ -1,10 +1,13 @@
 ---
 docType: rule
 name: no-raw-characters
+category: syntax
 summary: Disallow the use of unescaped special characters
+standards:
+  - html5
 ---
 
-# Disallow the use of unescaped special characters (`no-raw-characters`)
+# Disallow the use of unescaped special characters
 
 Some characters hold special meaning in HTML and must be escaped using character
 references (html entities) to be used as plain text:

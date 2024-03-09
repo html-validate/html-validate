@@ -5,7 +5,7 @@ category: style
 summary: Require classes to match a specific pattern
 ---
 
-# Require a specific class format (`class-pattern`)
+# Require a specific class format
 
 Requires all classes to match a given pattern.
 

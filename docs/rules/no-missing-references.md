@@ -3,9 +3,11 @@ docType: rule
 name: no-missing-references
 category: document
 summary: Require all element references to exist
+standards:
+  - html5
 ---
 
-# No missing references (`no-missing-references`)
+# No missing references
 
 Require all elements referenced by attributes such as `for` to exist in the current document.
 

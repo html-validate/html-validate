@@ -3,9 +3,11 @@ docType: rule
 name: element-required-content
 category: content-model
 summary: Ensure required elements are present
+standards:
+  - html5
 ---
 
-# Ensure required elements are present (`element-required-content`)
+# Ensure required elements are present
 
 Some elements has requirements where certain child elements has to be present.
 

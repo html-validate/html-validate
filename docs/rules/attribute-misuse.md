@@ -3,9 +3,11 @@ docType: rule
 name: attribute-misuse
 category: content-model
 summary: Require attribute to be used in correct context
+standards:
+  - html5
 ---
 
-# Require attribute to be used in correct context (`attribute-misuse`)
+# Require attribute to be used in correct context
 
 Some attributes have usage requirements, for instance:
 

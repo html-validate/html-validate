@@ -3,9 +3,13 @@ docType: rule
 name: text-content
 category: a11y
 summary: Require elements to have valid text content
+standards:
+  - wcag-2.2-aa
+  - wcag-2.1-aa
+  - wcag-2.0-aa
 ---
 
-# Require elements to have valid text (`text-content`)
+# Require elements to have valid text
 
 Requires presence or absence of textual content on an element (or one of its children).
 Whitespace is ignored.

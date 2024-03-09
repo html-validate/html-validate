@@ -3,9 +3,11 @@ docType: rule
 name: missing-doctype
 category: document
 summary: Require document to have a doctype
+standards:
+  - html5
 ---
 
-# Require a doctype for the document (`missing-doctype`)
+# Require a doctype for the document
 
 Requires that the document contains a doctype.
 

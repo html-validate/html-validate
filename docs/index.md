@@ -54,9 +54,9 @@ components.**
 ### Accessibility tests
 
 Validates technical aspects of <abbr title="accessibility">A11Y</abbr>
-guidelines such as WCAG 2.1.
+guidelines such as WCAG 2.2.
 
-- [WCAG 2.1 support table](wcag.html)
+- [WCAG 2.2 support table](wcag.html)
 
 ### Extendable
 

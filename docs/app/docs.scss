@@ -16,6 +16,7 @@ $fa-font-path: "fonts";
 @import "jumbotron";
 @import "frontpage";
 @import "alert";
+@import "rule-info";
 
 a {
 	text-decoration: underline;
@@ -37,6 +38,11 @@ a {
 	&.btn {
 		text-decoration: none;
 	}
+}
+
+h1 {
+	text-wrap: balance;
+	text-wrap: pretty;
 }
 
 main {

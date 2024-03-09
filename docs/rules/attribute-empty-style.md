@@ -3,9 +3,11 @@ docType: rule
 name: attribute-empty-style
 category: style
 summary: Require a specific style for empty attributes
+standards:
+  - html5
 ---
 
-# Empty attribute style (`attribute-empty-style`)
+# Empty attribute style
 
 Attributes without a value is implied to be an empty string by the [HTML5 standard][whatwg], e.g. `<a download>` and `<a download="">` are equal.
 This rule requires a specific style when writing empty attributes.

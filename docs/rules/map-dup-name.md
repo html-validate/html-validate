@@ -1,12 +1,15 @@
 ---
 docType: rule
 name: map-dup-name
+category: syntax
 summary: Require `<map name>` to be unique
+standards:
+  - html5
 ---
 
-# Require `<map name>` to be unique (`map-dup-name`)
+# Require `<map name>` to be unique
 
-In HTML5 `<map name>` to be a unique name.
+In HTML5 the `<map name>` attribute is required to be a unique name within the document.
 
 ## Rule details
 

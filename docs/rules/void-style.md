@@ -5,7 +5,7 @@ category: style
 summary: Require a specific style for closing void elements
 ---
 
-# Require a specific style for closing void elements (`void-style`)
+# Require a specific style for closing void elements
 
 HTML [void elements](https://www.w3.org/TR/html5/syntax.html#void-elements) are elements which cannot have content.
 Void elements are implicitly closed (`<img>`) but may optionally be XML-style self-closed (`<img/>`).

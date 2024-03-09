@@ -5,7 +5,7 @@ category: a11y
 summary: Disallow implicit button type
 ---
 
-# Disallow implicit button type (`no-implicit-button-type`)
+# Disallow implicit button type
 
 When the `type` attribute is omitted it defaults to `submit`.
 Submit buttons are triggered when a keyboard user presses <kbd>Enter</kbd>.

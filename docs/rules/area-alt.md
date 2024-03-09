@@ -3,14 +3,18 @@ docType: rule
 name: area-alt
 category: a11y
 summary: Require alternative text on `<area>` elements
+standards:
+  - wcag-2.2-a
+  - wcag-2.1-a
+  - wcag-2.0-a
 ---
 
-# Require alternative text on `<area>` elements (`area-alt`)
+# Require alternative text on `<area>` elements
 
 The `alt` attribute is used to provide an alternative text describing the area in the image map.
-It is used both by the browser when the `<img>` source is missing but most of all it is used by screen readers and is a required technique for [WCAG 2.1 H24][wcag-h24].
+It is used both by the browser when the `<img>` source is missing but most of all it is used by screen readers and is a required technique for [WCAG H24][wcag-h24].
 
-[wcag-h24]: https://www.w3.org/WAI/WCAG21/Techniques/html/H24
+[wcag-h24]: https://www.w3.org/WAI/WCAG22/Techniques/html/H24
 
 ## Rule details
 

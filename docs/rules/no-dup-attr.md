@@ -1,10 +1,13 @@
 ---
 docType: rule
 name: no-dup-attr
+category: syntax
 summary: Disallow duplicated attributes
+standards:
+  - html5
 ---
 
-# Disallows duplicated attributes on same element (`no-dup-attr`)
+# Disallows duplicated attributes on same element
 
 HTML [disallows](https://www.w3.org/TR/html5/syntax.html#attributes-0) two or
 more attributes with the same (case-insensitive) name.

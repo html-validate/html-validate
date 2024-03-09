@@ -5,7 +5,7 @@ category: document
 summary: Disallow documents from having UTF-8 BOM
 ---
 
-# Disallow documents from having UTF-8 BOM (`no-utf8-bom`)
+# Disallow documents from having UTF-8 BOM
 
 A unicode byte order mark (BOM) is needed in UTF-16 and UTF-32 to determine endiannes but for UTF-8 it has no meaning.
 Browsers are required to handle the BOM under all circumstances but tooling might not handle it properly and is therefor best left out.
