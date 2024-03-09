@@ -84,7 +84,7 @@ With this option **enabled**:
 
 ## Version history
 
-- %version% - `allowLongDelay` option added.
+- 8.14.0 - `allowLongDelay` option added.
 
 [timing-adjustable]: https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html
 [interruptions]: https://www.w3.org/WAI/WCAG21/Understanding/interruptions.html

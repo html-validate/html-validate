@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 8.14.0 (2024-03-09)
+
+### Features
+
+- **rules:** new option `allowLongDelay` to `meta-refresh` to allow 20h+ delays ([629625c](https://gitlab.com/html-validate/html-validate/commit/629625c80851b7325e9528e8c5902c903638af12))
+
 ## 8.13.0 (2024-3-6)
 
 ### Features
