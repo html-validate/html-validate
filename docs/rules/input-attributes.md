@@ -36,4 +36,5 @@ Examples of **correct** code for this rule:
 
 ## Version history
 
+- %version% - This rule no longer checks the `autocomplete` attribute, use {@link rule:valid-autocomplete} instead.
 - v4.14.0 - Rule added.

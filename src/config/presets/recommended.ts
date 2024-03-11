@@ -68,6 +68,7 @@ const config: ConfigData = {
 		"text-content": "error",
 		"unique-landmark": "error",
 		"unrecognized-char-ref": "error",
+		"valid-autocomplete": "error",
 		"valid-id": ["error", { relaxed: false }],
 		void: "off",
 		"void-content": "error",
