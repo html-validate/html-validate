@@ -17,6 +17,13 @@ describe("rule meta-refresh", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error when refresh has 0 delay with url (case-insensitive)", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <meta http-equiv="refresh" content="0;URL=target.html" /> `;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should not report error for other http-equiv", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <meta http-equiv="foo" content="1" /> `;
