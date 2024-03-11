@@ -77,6 +77,7 @@ import TelNonBreaking from "./tel-non-breaking";
 import TextContent from "./text-content";
 import UniqueLandmark from "./unique-landmark";
 import UnrecognizedCharRef from "./unrecognized-char-ref";
+import ValidAutocomplete from "./valid-autocomplete";
 import ValidID from "./valid-id";
 import VoidContent from "./void-content";
 import VoidStyle from "./void-style";
@@ -161,6 +162,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"text-content": TextContent,
 	"unique-landmark": UniqueLandmark,
 	"unrecognized-char-ref": UnrecognizedCharRef,
+	"valid-autocomplete": ValidAutocomplete,
 	"valid-id": ValidID,
 	"void-content": VoidContent,
 	"void-style": VoidStyle,

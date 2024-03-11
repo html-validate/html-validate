@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/valid-autocomplete.md inline validation: correct 1`] = `[]`;
+
+exports[`docs/rules/valid-autocomplete.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 3,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 34,
+        "context": {
+          "msg": 3,
+          "token": "foo",
+        },
+        "line": 1,
+        "message": ""foo" is not a valid autocomplete token or field name",
+        "offset": 33,
+        "ruleId": "valid-autocomplete",
+        "ruleUrl": "https://html-validate.org/rules/valid-autocomplete.html",
+        "selector": "input:nth-child(1)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 39,
+        "context": {
+          "first": "name",
+          "msg": 2,
+          "second": "billing",
+        },
+        "line": 2,
+        "message": ""billing" must appear before "name"",
+        "offset": 77,
+        "ruleId": "valid-autocomplete",
+        "ruleUrl": "https://html-validate.org/rules/valid-autocomplete.html",
+        "selector": "input:nth-child(2)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 34,
+        "context": {
+          "msg": 1,
+          "type": "text",
+          "value": "street-address",
+          "what": "<input type="text">",
+        },
+        "line": 3,
+        "message": ""street-address" cannot be used on <input type="text">",
+        "offset": 120,
+        "ruleId": "valid-autocomplete",
+        "ruleUrl": "https://html-validate.org/rules/valid-autocomplete.html",
+        "selector": "input:nth-child(3)",
+        "severity": 2,
+        "size": 14,
+      },
+    ],
+    "source": "<input type="text" autocomplete="foo">
+<input type="text" autocomplete="name billing">
+<input type="text" autocomplete="street-address">",
+    "warningCount": 0,
+  },
+]
+`;

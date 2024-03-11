@@ -32,6 +32,7 @@ const config: ConfigData = {
 		"no-unused-disable": "error",
 		"script-element": "error",
 		"unrecognized-char-ref": "error",
+		"valid-autocomplete": "error",
 		"valid-id": ["error", { relaxed: true }],
 		"void-content": "error",
 	},

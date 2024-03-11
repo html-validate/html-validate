@@ -22,6 +22,7 @@ const config: ConfigData = {
 		"svg-focusable": "off",
 		"text-content": "error",
 		"unique-landmark": "error",
+		"valid-autocomplete": "error",
 		"wcag/h30": "error",
 		"wcag/h32": "error",
 		"wcag/h36": "error",
