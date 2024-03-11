@@ -1,5 +1,15 @@
 # html-validate changelog
 
+## 8.15.0 (2024-03-11)
+
+### Features
+
+- **rules:** new rule `valid-autocomplete` ([bebd0d1](https://gitlab.com/html-validate/html-validate/commit/bebd0d17f6dd71401206ebf2e3b8e9271bc0c8a8))
+
+### Bug Fixes
+
+- **rules:** case-insensitive match for `url` in `meta-refresh` ([3177295](https://gitlab.com/html-validate/html-validate/commit/3177295c3fff37116b869bedc8588a8fb2a6c9d5))
+
 ## 8.14.0 (2024-03-09)
 
 ### Features

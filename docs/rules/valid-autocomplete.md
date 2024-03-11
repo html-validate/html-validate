@@ -66,6 +66,6 @@ Examples of **correct** code for this rule:
 
 ## Version history
 
-- %version% - Rule added.
+- 8.15.0 - Rule added.
 
 [html5-autofill]: https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill
