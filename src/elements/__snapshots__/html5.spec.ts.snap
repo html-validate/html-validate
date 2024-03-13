@@ -19157,7 +19157,7 @@ exports[`HTML elements <xmp> valid markup 1`] = `[]`;
 exports[`HTML elements global attributes invalid markup 1`] = `
 [
   {
-    "errorCount": 14,
+    "errorCount": 15,
     "filePath": "test-files/elements/global-attributes-invalid.html",
     "messages": [
       {
@@ -19339,6 +19339,25 @@ exports[`HTML elements global attributes invalid markup 1`] = `
         "size": 7,
       },
       {
+        "column": 11,
+        "context": {
+          "allowed": {
+            "boolean": true,
+          },
+          "attribute": "inert",
+          "element": "p",
+          "value": "foobar",
+        },
+        "line": 14,
+        "message": "Attribute "inert" has invalid value "foobar"",
+        "offset": 267,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "p:nth-child(8)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
         "column": 12,
         "context": {
           "allowed": {
@@ -19348,12 +19367,12 @@ exports[`HTML elements global attributes invalid markup 1`] = `
           "element": "p",
           "value": "foobar",
         },
-        "line": 13,
+        "line": 16,
         "message": "Attribute "hidden" has invalid value "foobar"",
-        "offset": 239,
+        "offset": 292,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "p:nth-child(8)",
+        "selector": "p:nth-child(9)",
         "severity": 2,
         "size": 6,
       },
@@ -19369,12 +19388,12 @@ exports[`HTML elements global attributes invalid markup 1`] = `
           "element": "p",
           "value": "",
         },
-        "line": 16,
+        "line": 19,
         "message": "Attribute "tabindex" has invalid value """,
-        "offset": 327,
+        "offset": 380,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "p:nth-child(9)",
+        "selector": "p:nth-child(10)",
         "severity": 2,
         "size": 1,
       },
@@ -19390,12 +19409,12 @@ exports[`HTML elements global attributes invalid markup 1`] = `
           "element": "p",
           "value": "foobar",
         },
-        "line": 17,
+        "line": 20,
         "message": "Attribute "tabindex" has invalid value "foobar"",
-        "offset": 359,
+        "offset": 412,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "p:nth-child(10)",
+        "selector": "p:nth-child(11)",
         "severity": 2,
         "size": 6,
       },
@@ -19411,23 +19430,23 @@ exports[`HTML elements global attributes invalid markup 1`] = `
           "element": "p",
           "value": "foobar4u",
         },
-        "line": 18,
+        "line": 21,
         "message": "Attribute "tabindex" has invalid value "foobar4u"",
-        "offset": 385,
+        "offset": 438,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "p:nth-child(11)",
+        "selector": "p:nth-child(12)",
         "severity": 2,
         "size": 8,
       },
       {
         "column": 4,
-        "line": 20,
+        "line": 23,
         "message": "Attribute "contextmenu" is deprecated on <p> element",
-        "offset": 404,
+        "offset": 457,
         "ruleId": "no-deprecated-attr",
         "ruleUrl": "https://html-validate.org/rules/no-deprecated-attr.html",
-        "selector": "p:nth-child(12)",
+        "selector": "p:nth-child(13)",
         "severity": 2,
         "size": 11,
       },
@@ -19443,6 +19462,9 @@ exports[`HTML elements global attributes invalid markup 1`] = `
 
 <!-- id cannot contain whitespace -->
 <p id="foo bar"></p>
+
+<!-- invalid inert value -->
+<p inert="foobar"></p>
 
 <p hidden="foobar"></p>
 

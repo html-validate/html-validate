@@ -98,6 +98,9 @@ export default defineMetadata({
 			id: {
 				enum: [validId],
 			},
+			inert: {
+				boolean: true,
+			},
 			tabindex: {
 				enum: ["/-?\\d+/"],
 			},
