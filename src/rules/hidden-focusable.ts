@@ -1,7 +1,8 @@
 import { type HtmlElement } from "../dom";
 import { type DOMReadyEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
-import { isAriaHidden, isHTMLHidden, isInert, isStyleHidden } from "./helper/a11y";
+import { isAriaHidden } from "./helper/a11y";
+import { isFocusable } from "./helper/is-focusable";
 
 export type RuleContext = "parent" | "self";
 
@@ -21,7 +22,8 @@ export default class HiddenFocusable extends Rule<RuleContext> {
 				"To fix this either:",
 				"  - Remove `aria-hidden`.",
 				"  - Remove the element from the DOM instead.",
-				"  - Use the `hidden` attribute or similar means to hide the element.",
+				'  - Use `tabindex="-1"` to remove the element from tab order.',
+				"  - Use `hidden`, `inert` or similar means to hide or disable the element.",
 			].join("\n"),
 			url: ruleDocumentationUrl(__filename),
 		};
@@ -33,24 +35,14 @@ export default class HiddenFocusable extends Rule<RuleContext> {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const { document } = event;
 			for (const element of document.querySelectorAll(selector)) {
-				if (isHTMLHidden(element) || isInert(element) || isStyleHidden(element)) {
-					continue;
-				}
-				if (isAriaHidden(element)) {
-					this.validateElement(element);
+				if (isFocusable(element) && isAriaHidden(element)) {
+					this.reportElement(element);
 				}
 			}
 		});
 	}
 
-	private validateElement(element: HtmlElement): void {
-		const { meta } = element;
-		const tabindex = element.getAttribute("tabindex");
-
-		if (meta && !meta.focusable && !tabindex) {
-			return;
-		}
-
+	private reportElement(element: HtmlElement): void {
 		const attribute = element.getAttribute("aria-hidden");
 		const message = attribute
 			? `aria-hidden cannot be used on focusable elements`
