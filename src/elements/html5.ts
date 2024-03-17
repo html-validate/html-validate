@@ -2495,6 +2495,9 @@ export default defineMetadata({
 
 	summary: {
 		permittedContent: ["@phrasing", "@heading"],
+		focusable(node) {
+			return Boolean(node.closest("details"));
+		},
 		aria: {
 			implicitRole: "button",
 		},
