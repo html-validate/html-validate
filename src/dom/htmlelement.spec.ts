@@ -792,6 +792,87 @@ describe("HtmlElement", () => {
 		});
 	});
 
+	describe("tabIndex", () => {
+		it("should return null if tabindex attribute is missing", () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <any></any> `;
+			const document = parser.parseHtml(markup);
+			const element = document.querySelector("any")!;
+			expect(element.tabIndex).toBeNull();
+		});
+
+		it("should return null if tabindex value is omitted", () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <any tabindex></any> `;
+			const document = parser.parseHtml(markup);
+			const element = document.querySelector("any")!;
+			expect(element.tabIndex).toBeNull();
+		});
+
+		it("should return null if tabindex value is empty string", () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <any tabindex=""></any> `;
+			const document = parser.parseHtml(markup);
+			const element = document.querySelector("any")!;
+			expect(element.tabIndex).toBeNull();
+		});
+
+		it("should return null if tabindex value is invalid string", () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <any tabindex="invalid"></any> `;
+			const document = parser.parseHtml(markup);
+			const element = document.querySelector("any")!;
+			expect(element.tabIndex).toBeNull();
+		});
+
+		it("should return 0 if tabindex is dynamic", () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <any dynamic-tabindex="foo"></any> `;
+			const source: Source = {
+				data: markup,
+				filename: "inline",
+				line: 1,
+				column: 1,
+				offset: 0,
+				hooks: {
+					processAttribute,
+				},
+			};
+			const document = parser.parseHtml(source);
+			const element = document.querySelector("any")!;
+			expect(element.tabIndex).toBe(0);
+		});
+
+		it("should return parsed value", () => {
+			expect.assertions(3);
+			const markup = /* HTML */ `
+				<any id="a" tabindex="-1"></any>
+				<any id="b" tabindex="0"></any>
+				<any id="c" tabindex="1"></any>
+			`;
+			const document = parser.parseHtml(markup);
+			const a = document.querySelector("#a")!;
+			const b = document.querySelector("#b")!;
+			const c = document.querySelector("#c")!;
+			expect(a.tabIndex).toBe(-1);
+			expect(b.tabIndex).toBe(0);
+			expect(c.tabIndex).toBe(1);
+		});
+
+		it("should cache result", () => {
+			expect.assertions(4);
+			const markup = /* HTML */ ` <div tabindex="0" /> `;
+			const document = parser.parseHtml(markup);
+			const element = document.querySelector("div")!;
+			const spy = jest.spyOn(element, "getAttribute");
+			expect(element.tabIndex).toBe(0);
+			expect(spy).toHaveBeenCalled();
+			spy.mockClear();
+			expect(element.tabIndex).toBe(0);
+			expect(spy).not.toHaveBeenCalled();
+		});
+	});
+
 	describe("querySelector()", () => {
 		it("should find element by tagname", () => {
 			expect.assertions(2);

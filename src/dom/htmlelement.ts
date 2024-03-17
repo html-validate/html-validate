@@ -13,10 +13,12 @@ import { generateIdSelector, Selector } from "./selector";
 import { TextNode } from "./text";
 
 const ROLE = Symbol("role");
+const TABINDEX = Symbol("tabindex");
 
 declare module "./cache" {
 	export interface DOMNodeCache {
 		[ROLE]: string;
+		[TABINDEX]: number | null;
 	}
 }
 
@@ -392,6 +394,49 @@ export class HtmlElement extends DOMNode {
 		}
 
 		this.attr[key].push(new Attribute(key, value, keyLocation, valueLocation, originalAttribute));
+	}
+
+	/**
+	 * Get parsed tabindex for this element.
+	 *
+	 * - If `tabindex` attribute is not present `null` is returned.
+	 * - If attribute value is omitted or the empty string `null` is returned.
+	 * - If attribute value cannot be parsed `null` is returned.
+	 * - If attribute value is dynamic `0` is returned.
+	 * - Otherwise the parsed value is returned.
+	 *
+	 * This property does *NOT* take into account if the element have a default
+	 * `tabindex` (such as `<input>` have). Instead use the `focusable` metadata
+	 * property to determine this.
+	 *
+	 * @public
+	 * @since %version%
+	 */
+	public get tabIndex(): number | null {
+		const cached = this.cacheGet(TABINDEX);
+		if (cached !== undefined) {
+			return cached;
+		}
+
+		const tabindex = this.getAttribute("tabindex");
+		if (!tabindex) {
+			return this.cacheSet(TABINDEX, null);
+		}
+
+		if (tabindex.value === null) {
+			return this.cacheSet(TABINDEX, null);
+		}
+
+		if (tabindex.value instanceof DynamicValue) {
+			return this.cacheSet(TABINDEX, 0);
+		}
+
+		const parsed = parseInt(tabindex.value, 10);
+		if (isNaN(parsed)) {
+			return this.cacheSet(TABINDEX, null);
+		}
+
+		return this.cacheSet(TABINDEX, parsed);
 	}
 
 	/**
