@@ -20,7 +20,8 @@ To fix this either:
 
 - Remove `aria-hidden`.
 - Remove the element from the DOM instead.
-- Use the `hidden` attribute or similar means to hide the element.
+- Use `tabindex="-1"` to remove the element from tab order.
+- Use `hidden`, `inert` or similar means to hide or disable the element.
 
 ## Rule details
 

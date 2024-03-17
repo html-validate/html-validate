@@ -1,7 +1,7 @@
 import { type HtmlElement } from "../dom";
 import { type DOMReadyEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
-import { isAriaHidden, isHTMLHidden, isStyleHidden } from "./helper/a11y";
+import { isAriaHidden, isHTMLHidden, isInert, isStyleHidden } from "./helper/a11y";
 
 export type RuleContext = "parent" | "self";
 
@@ -33,7 +33,7 @@ export default class HiddenFocusable extends Rule<RuleContext> {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const { document } = event;
 			for (const element of document.querySelectorAll(selector)) {
-				if (isHTMLHidden(element) || isStyleHidden(element)) {
+				if (isHTMLHidden(element) || isInert(element) || isStyleHidden(element)) {
 					continue;
 				}
 				if (isAriaHidden(element)) {

@@ -30,7 +30,30 @@ describe("rule hidden-focusable", () => {
 
 	it("should not report error when hidden element is also hidden from DOM", async () => {
 		expect.assertions(1);
-		const markup = /* HTML */ ` <a href="#" hidden aria-hidden="true"></a> `;
+		const markup = /* HTML */ `
+			<!-- element itself is hidden -->
+			<a href="#" hidden aria-hidden="true"></a>
+
+			<!-- parent is hidden -->
+			<div hidden>
+				<a href="#" aria-hidden="true"></a>
+			</div>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when hidden element is inert", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<!-- element itself is inert -->
+			<a href="#" hidden aria-hidden="true"></a>
+
+			<!-- parent is inert -->
+			<div inert>
+				<a href="#" aria-hidden="true"></a>
+			</div>
+		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
