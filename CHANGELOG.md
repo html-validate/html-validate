@@ -1,5 +1,20 @@
 # html-validate changelog
 
+## 8.16.0 (2024-03-18)
+
+### Features
+
+- **api:** new `tabIndex` property reflecting the parsed `tabindex` attribute ([a4e5d5b](https://gitlab.com/html-validate/html-validate/commit/a4e5d5b0acfc9f01656d75e0c1c4c0640fbed138))
+- **meta:** add `inert` as global attribute ([a5e6477](https://gitlab.com/html-validate/html-validate/commit/a5e647739d1f87939fdbef244e251cfdfb257d0d))
+- **meta:** new `formAssociated.disablable` property ([0b141ab](https://gitlab.com/html-validate/html-validate/commit/0b141abab87bec2270c949840192915a9d594b73))
+
+### Bug Fixes
+
+- **html5:** `<summary>` element is focusable if child of `<details>` ([79dec74](https://gitlab.com/html-validate/html-validate/commit/79dec7460e07ee7870d2cc78b86f66011f0d25df))
+- **rules:** `hidden-focusable` handles inert elements ([89bb969](https://gitlab.com/html-validate/html-validate/commit/89bb96903d36b1dfd883e6a2d82dfb0f30742b44)), closes [#240](https://gitlab.com/html-validate/html-validate/issues/240)
+- **rules:** `hidden-focusable` no longer reports for disabled form controls ([d337397](https://gitlab.com/html-validate/html-validate/commit/d3373974b3f57121723debc5823bb57e2ec22843))
+- **rules:** `hidden-focusable` no longer reports for elements with `tabindex="-1"` ([03d7223](https://gitlab.com/html-validate/html-validate/commit/03d7223fed7e0988b0749b2bb5cde53eb848bc4a)), closes [#240](https://gitlab.com/html-validate/html-validate/issues/240)
+
 ## 8.15.0 (2024-03-11)
 
 ### Features

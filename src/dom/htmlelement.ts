@@ -410,7 +410,7 @@ export class HtmlElement extends DOMNode {
 	 * property to determine this.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 8.16.0
 	 */
 	public get tabIndex(): number | null {
 		const cached = this.cacheGet(TABINDEX);

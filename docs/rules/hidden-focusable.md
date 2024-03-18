@@ -43,5 +43,5 @@ Examples of **correct** code for this rule:
 
 ## Version history
 
-- %version% - Rule handles `inert`, `tabindex="-1"` and `disabled`.
+- 8.16.0 - Rule handles `inert`, `tabindex="-1"` and `disabled`.
 - 8.9.0 - Rule added.
