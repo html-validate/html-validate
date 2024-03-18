@@ -1,7 +1,7 @@
 import { type DOMTree, type HtmlElement } from "../dom";
 import { type DOMReadyEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
-import { isAriaHidden, isHTMLHidden } from "./helper/a11y";
+import { inAccessibilityTree } from "./helper/a11y";
 import { hasAccessibleName } from "./helper/has-accessible-name";
 
 function isIgnored(node: HtmlElement): boolean {
@@ -40,7 +40,7 @@ export default class InputMissingLabel extends Rule {
 	}
 
 	private validateInput(root: DOMTree, elem: HtmlElement): void {
-		if (isHTMLHidden(elem) || isAriaHidden(elem)) {
+		if (!inAccessibilityTree(elem)) {
 			return;
 		}
 
@@ -83,7 +83,7 @@ export default class InputMissingLabel extends Rule {
 	 * Reports error if none of the labels are accessible.
 	 */
 	private validateLabel(root: DOMTree, elem: HtmlElement, labels: HtmlElement[]): void {
-		const visible = labels.filter(isVisible);
+		const visible = labels.filter(inAccessibilityTree);
 		if (visible.length === 0) {
 			this.report(elem, `<${elem.tagName}> element has <label> but <label> element is hidden`);
 			return;
@@ -92,11 +92,6 @@ export default class InputMissingLabel extends Rule {
 			this.report(elem, `<${elem.tagName}> element has <label> but <label> has no text`);
 		}
 	}
-}
-
-function isVisible(elem: HtmlElement): boolean {
-	const hidden = isHTMLHidden(elem) || isAriaHidden(elem);
-	return !hidden;
 }
 
 function findLabelById(root: DOMTree, id: string | null): HtmlElement[] {
