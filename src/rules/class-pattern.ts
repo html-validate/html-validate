@@ -13,10 +13,12 @@ const defaults: RuleOptions = {
 
 export default class ClassPattern extends Rule<void, RuleOptions> {
 	private pattern: RegExp;
+	private description: string;
 
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 		this.pattern = parsePattern(this.options.pattern);
+		this.description = describePattern(this.options.pattern);
 	}
 
 	public static schema(): SchemaObject {
@@ -36,6 +38,7 @@ export default class ClassPattern extends Rule<void, RuleOptions> {
 	}
 
 	public setup(): void {
+		const { description } = this;
 		this.on("attr", (event: AttributeEvent) => {
 			if (event.key.toLowerCase() !== "class") {
 				return;
@@ -45,8 +48,7 @@ export default class ClassPattern extends Rule<void, RuleOptions> {
 			classes.forEach((cur: string, index: number) => {
 				if (!cur.match(this.pattern)) {
 					const location = classes.location(index);
-					const pattern = this.pattern.toString();
-					const message = `Class "${cur}" does not match required pattern "${pattern}"`;
+					const message = `Class "${cur}" does not match required pattern ${description}`;
 					this.report(event.target, message, location);
 				}
 			});

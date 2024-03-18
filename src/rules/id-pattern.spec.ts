@@ -34,7 +34,7 @@ describe("rule id-pattern", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: ID "fooBar" does not match required pattern "/^[a-z0-9-]+$/" (id-pattern) at inline:1:9:
+			"error: ID "fooBar" does not match required pattern /^[a-z0-9-]+$/ (kebabcase) (id-pattern) at inline:1:9:
 			> 1 |  <p id="fooBar"></p>
 			    |         ^^^^^^
 			Selector: #fooBar"
@@ -47,7 +47,7 @@ describe("rule id-pattern", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: ID "" does not match required pattern "/^[a-z0-9-]+$/" (id-pattern) at inline:1:5:
+			"error: ID "" does not match required pattern /^[a-z0-9-]+$/ (kebabcase) (id-pattern) at inline:1:5:
 			> 1 |  <p id=""></p>
 			    |     ^^^^^
 			Selector: p"
@@ -60,7 +60,7 @@ describe("rule id-pattern", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: ID "" does not match required pattern "/^[a-z0-9-]+$/" (id-pattern) at inline:1:5:
+			"error: ID "" does not match required pattern /^[a-z0-9-]+$/ (kebabcase) (id-pattern) at inline:1:5:
 			> 1 |  <p id></p>
 			    |     ^^
 			Selector: p"
@@ -78,7 +78,7 @@ describe("rule id-pattern", () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/id-pattern.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: ID "foo_bar" does not match required pattern "/^[a-z0-9-]+$/" (id-pattern) at test-files/rules/id-pattern.html:3:10:
+			"error: ID "foo_bar" does not match required pattern /^[a-z0-9-]+$/ (kebabcase) (id-pattern) at test-files/rules/id-pattern.html:3:10:
 			  1 | <div id="foo-bar"></div>
 			  2 |
 			> 3 | <div id="foo_bar"></div>
@@ -87,7 +87,7 @@ describe("rule id-pattern", () => {
 			  5 | <div id="fooBar"></div>
 			  6 |
 			Selector: #foo_bar
-			error: ID "fooBar" does not match required pattern "/^[a-z0-9-]+$/" (id-pattern) at test-files/rules/id-pattern.html:5:10:
+			error: ID "fooBar" does not match required pattern /^[a-z0-9-]+$/ (kebabcase) (id-pattern) at test-files/rules/id-pattern.html:5:10:
 			  3 | <div id="foo_bar"></div>
 			  4 |
 			> 5 | <div id="fooBar"></div>

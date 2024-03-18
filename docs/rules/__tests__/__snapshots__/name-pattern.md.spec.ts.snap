@@ -13,7 +13,7 @@ exports[`docs/rules/name-pattern.md inline validation: incorrect 1`] = `
       {
         "column": 14,
         "line": 1,
-        "message": "name "foo-bar" does not match required pattern "/^[a-z][a-zA-Z0-9]+$/"",
+        "message": "name "foo-bar" does not match required pattern /^[a-z][a-zA-Z0-9]+$/ (camelcase)",
         "offset": 13,
         "ruleId": "name-pattern",
         "ruleUrl": "https://html-validate.org/rules/name-pattern.html",

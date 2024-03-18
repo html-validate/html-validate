@@ -11,7 +11,7 @@ exports[`docs/rules/class-pattern.md inline validation: incorrect 1`] = `
       {
         "column": 13,
         "line": 1,
-        "message": "Class "fooBar" does not match required pattern "/^[a-z0-9-]+$/"",
+        "message": "Class "fooBar" does not match required pattern /^[a-z0-9-]+$/ (kebabcase)",
         "offset": 12,
         "ruleId": "class-pattern",
         "ruleUrl": "https://html-validate.org/rules/class-pattern.html",

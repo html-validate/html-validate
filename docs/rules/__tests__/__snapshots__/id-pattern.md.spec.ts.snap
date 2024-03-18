@@ -11,7 +11,7 @@ exports[`docs/rules/id-pattern.md inline validation: incorrect 1`] = `
       {
         "column": 10,
         "line": 1,
-        "message": "ID "fooBar" does not match required pattern "/^[a-z0-9-]+$/"",
+        "message": "ID "fooBar" does not match required pattern /^[a-z0-9-]+$/ (kebabcase)",
         "offset": 9,
         "ruleId": "id-pattern",
         "ruleUrl": "https://html-validate.org/rules/id-pattern.html",

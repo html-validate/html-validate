@@ -55,7 +55,7 @@ describe("rule name-pattern", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: name "foo-bar" does not match required pattern "/^[a-z][a-zA-Z0-9]+$/" (name-pattern) at inline:1:15:
+			"error: name "foo-bar" does not match required pattern /^[a-z][a-zA-Z0-9]+$/ (camelcase) (name-pattern) at inline:1:15:
 			> 1 |  <input name="foo-bar" />
 			    |               ^^^^^^^
 			Selector: input"
@@ -68,7 +68,7 @@ describe("rule name-pattern", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: name "foo-bar" does not match required pattern "/^[a-z][a-zA-Z0-9]+$/" (name-pattern) at inline:1:15:
+			"error: name "foo-bar" does not match required pattern /^[a-z][a-zA-Z0-9]+$/ (camelcase) (name-pattern) at inline:1:15:
 			> 1 |  <input name="foo-bar[]" />
 			    |               ^^^^^^^^^
 			Selector: input"
@@ -81,7 +81,7 @@ describe("rule name-pattern", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: name "" does not match required pattern "/^[a-z][a-zA-Z0-9]+$/" (name-pattern) at inline:1:9:
+			"error: name "" does not match required pattern /^[a-z][a-zA-Z0-9]+$/ (camelcase) (name-pattern) at inline:1:9:
 			> 1 |  <input name="" />
 			    |         ^^^^^^^
 			Selector: input"
