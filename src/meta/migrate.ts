@@ -128,6 +128,7 @@ export function migrateElement(src: MetaData): Omit<MetaElement, "tagName"> {
 
 	if (src.formAssociated) {
 		result.formAssociated = {
+			disablable: Boolean(src.formAssociated.disablable),
 			listed: Boolean(src.formAssociated.listed),
 		};
 	} else {

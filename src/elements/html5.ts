@@ -623,6 +623,7 @@ export default defineMetadata({
 		phrasing: true,
 		interactive: true,
 		formAssociated: {
+			disablable: true,
 			listed: true,
 		},
 		labelable: true,
@@ -914,6 +915,7 @@ export default defineMetadata({
 	fieldset: {
 		flow: true,
 		formAssociated: {
+			disablable: true,
 			listed: true,
 		},
 		attributes: {
@@ -1390,6 +1392,7 @@ export default defineMetadata({
 		interactive: ["matchAttribute", ["type", "!=", "hidden"]],
 		void: true,
 		formAssociated: {
+			disablable: true,
 			listed: true,
 		},
 		labelable: ["matchAttribute", ["type", "!=", "hidden"]],
@@ -1971,6 +1974,7 @@ export default defineMetadata({
 		interactive: ["hasAttribute", "usemap"],
 		transparent: true,
 		formAssociated: {
+			disablable: false,
 			listed: true,
 		},
 		attributes: {
@@ -2093,6 +2097,7 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		formAssociated: {
+			disablable: false,
 			listed: true,
 		},
 		labelable: true,
@@ -2337,6 +2342,7 @@ export default defineMetadata({
 		phrasing: true,
 		interactive: true,
 		formAssociated: {
+			disablable: true,
 			listed: true,
 		},
 		labelable: true,
@@ -2673,6 +2679,7 @@ export default defineMetadata({
 		phrasing: true,
 		interactive: true,
 		formAssociated: {
+			disablable: true,
 			listed: true,
 		},
 		labelable: true,

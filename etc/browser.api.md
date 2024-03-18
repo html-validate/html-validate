@@ -445,6 +445,7 @@ export class EventHandler {
 
 // @public (undocumented)
 export interface FormAssociated {
+    disablable: boolean;
     listed: boolean;
 }
 

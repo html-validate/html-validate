@@ -517,6 +517,7 @@ export interface FileSystemConfigLoaderOptions {
 
 // @public (undocumented)
 export interface FormAssociated {
+    disablable: boolean;
     listed: boolean;
 }
 
