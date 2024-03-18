@@ -536,7 +536,24 @@ describe("MetaTable", () => {
 			const meta = table.getMetaFor("foo");
 			expect(meta).toBeDefined();
 			expect(meta?.attributes).toEqual({
-				attr: { enum: [/^foo$/, /^bar$/, /^baz$/] },
+				attr: { enum: [/^foo/, /bar$/, /^baz$/] },
+			});
+		});
+
+		it("should handle escaped slash", () => {
+			expect.assertions(2);
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry({
+					attributes: {
+						attr: { enum: ["/foo\\/bar/"] },
+					},
+				}),
+			});
+			const meta = table.getMetaFor("foo");
+			expect(meta).toBeDefined();
+			expect(meta?.attributes).toEqual({
+				attr: { enum: [/^foo\/bar$/] },
 			});
 		});
 

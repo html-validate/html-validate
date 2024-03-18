@@ -301,11 +301,17 @@ function expandRegexValue(value: string | RegExp): string | RegExp {
 	if (value instanceof RegExp) {
 		return value;
 	}
-	const match = value.match(/^\/\^?([^/$]*)\$?\/([i]*)$/);
+	/* match anything starting and ending with `/`, optionally with `/i` at the end. */
+	const match = value.match(/^\/(.*(?=\/))\/(i?)$/);
 	if (match) {
 		const [, expr, flags] = match;
-		// eslint-disable-next-line security/detect-non-literal-regexp -- expected to be regexp
-		return new RegExp(`^${expr}$`, flags);
+		/* eslint-disable security/detect-non-literal-regexp -- expected to be regexp */
+		if (expr.startsWith("^") || expr.endsWith("$")) {
+			return new RegExp(expr, flags);
+		} else {
+			return new RegExp(`^${expr}$`, flags);
+		}
+		/* eslint-enable security/detect-non-literal-regexp */
 	} else {
 		return value;
 	}
