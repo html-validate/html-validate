@@ -21,7 +21,7 @@ describe("rule no-redundant-role", () => {
 
 	it("should not report error element has no known roles", async () => {
 		expect.assertions(1);
-		const markup = /* HTML */ ` <span role="main"></span> `;
+		const markup = /* HTML */ ` <abbr role="main"></abbr> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
