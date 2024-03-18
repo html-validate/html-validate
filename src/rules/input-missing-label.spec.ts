@@ -91,9 +91,30 @@ describe("rule input-missing-label", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report when input is inert", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <input inert /> `;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should not report when input is aria-hidden", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <input aria-hidden="true" /> `;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report when input has display: none", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <input style="display: none;" /> `;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report when input has visibility: hidden", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <input style="visibility: hidden;" /> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});

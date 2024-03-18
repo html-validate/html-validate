@@ -1,7 +1,7 @@
 import { type DOMTree, type HtmlElement } from "../dom";
 import { type DOMReadyEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
-import { isAriaHidden, isHTMLHidden } from "./helper/a11y";
+import { inAccessibilityTree, isAriaHidden, isHTMLHidden } from "./helper/a11y";
 import { hasAccessibleName } from "./helper/has-accessible-name";
 
 function isIgnored(node: HtmlElement): boolean {
@@ -40,7 +40,7 @@ export default class InputMissingLabel extends Rule {
 	}
 
 	private validateInput(root: DOMTree, elem: HtmlElement): void {
-		if (isHTMLHidden(elem) || isAriaHidden(elem)) {
+		if (!inAccessibilityTree(elem)) {
 			return;
 		}
 
