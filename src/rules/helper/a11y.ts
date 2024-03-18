@@ -5,10 +5,23 @@ export interface IsHiddenResult {
 	bySelf: boolean;
 }
 
+/**
+ * Result of {@link isInert}.
+ *
+ * @internal
+ */
+export interface IsInertResult {
+	/** `true` if one or more parents are inert */
+	byParent: boolean;
+	/** `true` if the element itself is inert */
+	bySelf: boolean;
+}
+
 declare module "../../dom/cache" {
 	export interface DOMNodeCache {
 		[ARIA_HIDDEN_CACHE]: IsHiddenResult;
 		[HTML_HIDDEN_CACHE]: IsHiddenResult;
+		[INERT_CACHE]: IsInertResult;
 		[ROLE_PRESENTATION_CACHE]: boolean;
 		[STYLE_HIDDEN_CACHE]: boolean;
 	}
@@ -16,6 +29,7 @@ declare module "../../dom/cache" {
 
 const ARIA_HIDDEN_CACHE = Symbol(isAriaHidden.name);
 const HTML_HIDDEN_CACHE = Symbol(isHTMLHidden.name);
+const INERT_CACHE = Symbol(isInert.name);
 const ROLE_PRESENTATION_CACHE = Symbol(isPresentation.name);
 const STYLE_HIDDEN_CACHE = Symbol(isStyleHidden.name);
 
@@ -34,6 +48,9 @@ export function inAccessibilityTree(node: HtmlElement): boolean {
 		return false;
 	}
 	if (isHTMLHidden(node)) {
+		return false;
+	}
+	if (isInert(node)) {
 		return false;
 	}
 	if (isStyleHidden(node)) {
@@ -99,6 +116,36 @@ export function isHTMLHidden(node: HtmlElement, details?: true): boolean | IsHid
 		return details ? cached : cached.byParent || cached.bySelf;
 	}
 	const result = node.cacheSet(HTML_HIDDEN_CACHE, isHTMLHiddenImpl(node));
+	return details ? result : result.byParent || result.bySelf;
+}
+
+function isInertImpl(node: HtmlElement): IsHiddenResult {
+	const isInert = (node: HtmlElement): boolean => {
+		const inert = node.getAttribute("inert");
+		return inert !== null && inert.isStatic;
+	};
+	return {
+		byParent: node.parent ? isInert(node.parent) : false,
+		bySelf: isInert(node),
+	};
+}
+
+/**
+ * Tests if this element or an ancestor have `inert` attribute.
+ *
+ * Dynamic values yields `false` since the element will conditionally be in the
+ * DOM tree and must fulfill it's conditions.
+ *
+ * @internal
+ */
+export function isInert(node: HtmlElement): boolean;
+export function isInert(node: HtmlElement, details: true): IsInertResult;
+export function isInert(node: HtmlElement, details?: true): boolean | IsInertResult {
+	const cached = node.cacheGet(INERT_CACHE);
+	if (cached) {
+		return details ? cached : cached.byParent || cached.bySelf;
+	}
+	const result = node.cacheSet(INERT_CACHE, isInertImpl(node));
 	return details ? result : result.byParent || result.bySelf;
 }
 

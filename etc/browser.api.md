@@ -445,6 +445,7 @@ export class EventHandler {
 
 // @public (undocumented)
 export interface FormAssociated {
+    disablable: boolean;
     listed: boolean;
 }
 
@@ -510,6 +511,7 @@ export class HtmlElement extends DOMNode {
     someChildren(callback: (node: HtmlElement) => boolean): boolean;
     // (undocumented)
     get style(): CSSStyleDeclaration_2;
+    get tabIndex(): number | null;
     // (undocumented)
     readonly tagName: string;
     // @internal

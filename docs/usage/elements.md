@@ -214,6 +214,8 @@ In plain HTML only the `<form>` element is considered a form but when using cust
 
 ```ts
 export interface FormAssociated {
+  disablable?: boolean;
+
   listed?: boolean;
 }
 ```
@@ -223,6 +225,10 @@ In particular `listed` form associated elements with a `name` attribute used wit
 If the element is also submittable the `name` attribute defines the name used when the form is submitted.
 
 [whatwg-form-associated]: https://html.spec.whatwg.org/multipage/forms.html#categories
+
+### `disablable`
+
+Disablable elements can be disabled using the disabled attribute.
 
 ### `labelable`
 

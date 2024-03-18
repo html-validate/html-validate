@@ -6,6 +6,7 @@ import {
 	inAccessibilityTree,
 	isAriaHidden,
 	isHTMLHidden,
+	isInert,
 	isPresentation,
 	isStyleHidden,
 } from "./a11y";
@@ -52,6 +53,13 @@ describe("a11y helpers", () => {
 			expect(inAccessibilityTree(p)).toBeFalsy();
 		});
 
+		it("should return false if element has inert attribute", () => {
+			expect.assertions(1);
+			const root = parse("<p inert>Lorem ipsum</p>");
+			const p = root.querySelector("p")!;
+			expect(inAccessibilityTree(p)).toBeFalsy();
+		});
+
 		it("should return false if element has display: none", () => {
 			expect.assertions(1);
 			const root = parse(`<p style="display: none">Lorem ipsum</p>`);
@@ -83,6 +91,13 @@ describe("a11y helpers", () => {
 		it("should return false if ancestor has hidden attribute", () => {
 			expect.assertions(1);
 			const root = parse("<div hidden><p>Lorem ipsum</p></div>");
+			const p = root.querySelector("p")!;
+			expect(inAccessibilityTree(p)).toBeFalsy();
+		});
+
+		it("should return false if ancestor has inert attribute", () => {
+			expect.assertions(1);
+			const root = parse("<div inert><p>Lorem ipsum</p></div>");
 			const p = root.querySelector("p")!;
 			expect(inAccessibilityTree(p)).toBeFalsy();
 		});
@@ -290,6 +305,90 @@ describe("a11y helpers", () => {
 				expect(isHTMLHidden(b, true)).toEqual({ byParent: false, bySelf: true });
 				expect(isHTMLHidden(c, true)).toEqual({ byParent: true, bySelf: true });
 				expect(isHTMLHidden(d, true)).toEqual({ byParent: false, bySelf: false });
+			});
+		});
+	});
+
+	describe("isInert()", () => {
+		it("should return false if node is missing inert", () => {
+			expect.assertions(1);
+			const root = parse("<p>Lorem ipsum</p>");
+			const p = root.querySelector("p")!;
+			expect(isInert(p)).toBeFalsy();
+		});
+
+		it("should return false if ancestors are missing inert", () => {
+			expect.assertions(1);
+			const root = parse("<div><p>Lorem ipsum</p></div>");
+			const p = root.querySelector("p")!;
+			expect(isInert(p)).toBeFalsy();
+		});
+
+		it("should return false if node has dynamic inert", () => {
+			expect.assertions(1);
+			const root = parse('<p dynamic-inert="variable">Lorem ipsum</p>');
+			const p = root.querySelector("p")!;
+			expect(isInert(p)).toBeFalsy();
+		});
+
+		it("should return true if node has inert", () => {
+			expect.assertions(1);
+			const root = parse("<p inert>Lorem ipsum</p>");
+			const p = root.querySelector("p")!;
+			expect(isInert(p)).toBeTruthy();
+		});
+
+		it("should return true if ancestor has inert", () => {
+			expect.assertions(1);
+			const root = parse("<div inert><p>Lorem ipsum</p></div>");
+			const p = root.querySelector("p")!;
+			expect(isInert(p)).toBeTruthy();
+		});
+
+		it("should cache result", () => {
+			expect.assertions(5);
+			const root = parse("<p inert></p>");
+			const p = root.querySelector("p")!;
+			const spy = jest.spyOn(p, "getAttribute");
+			expect(isInert(p)).toBeTruthy();
+			expect(spy).toHaveBeenCalledTimes(1);
+			spy.mockClear();
+			expect(isInert(p)).toBeTruthy();
+			expect(isInert(p, true)).toEqual({ byParent: false, bySelf: true });
+			expect(spy).toHaveBeenCalledTimes(0);
+		});
+
+		it("should handle missing parent", () => {
+			expect.assertions(1);
+			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, {
+				filename: "inline",
+				line: 1,
+				column: 1,
+				offset: 0,
+				size: 1,
+			});
+			expect(isInert(node)).toBeFalsy();
+		});
+
+		describe("details", () => {
+			it("should return detailed result", () => {
+				expect.assertions(4);
+				const markup = /* HTML */ `
+					<div id="by-self" inert>
+						<p id="by-parent"></p>
+						<p id="by-both" inert></p>
+					</div>
+					<p id="by-none"></p>
+				`;
+				const root = parse(markup);
+				const a = root.querySelector("#by-parent")!;
+				const b = root.querySelector("#by-self")!;
+				const c = root.querySelector("#by-both")!;
+				const d = root.querySelector("#by-none")!;
+				expect(isInert(a, true)).toEqual({ byParent: true, bySelf: false });
+				expect(isInert(b, true)).toEqual({ byParent: false, bySelf: true });
+				expect(isInert(c, true)).toEqual({ byParent: true, bySelf: true });
+				expect(isInert(d, true)).toEqual({ byParent: false, bySelf: false });
 			});
 		});
 	});

@@ -267,6 +267,10 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "disablable": {
+          "type": "boolean",
+          "title": "Disablable elements can be disabled using the disabled attribute."
+        },
         "listed": {
           "type": "boolean",
           "title": "Listed elements have a name attribute and is listed in the form and fieldset elements property."

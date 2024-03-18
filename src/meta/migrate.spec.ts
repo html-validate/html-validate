@@ -170,6 +170,7 @@ describe("formAssociated", () => {
 		};
 		const result = migrateElement(src);
 		expect(result.formAssociated).toEqual({
+			disablable: false,
 			listed: false,
 		});
 	});

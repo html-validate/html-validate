@@ -171,6 +171,9 @@ export interface DeprecatedElement {
  * @public
  */
 export interface FormAssociated {
+	/** This element can be disabled using the `disabled` attribute */
+	disablable: boolean;
+
 	/** Listed elements have a name attribute and is listed in the form and fieldset elements property. */
 	listed: boolean;
 }

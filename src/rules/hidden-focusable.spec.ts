@@ -30,14 +30,62 @@ describe("rule hidden-focusable", () => {
 
 	it("should not report error when hidden element is also hidden from DOM", async () => {
 		expect.assertions(1);
-		const markup = /* HTML */ ` <a href="#" hidden aria-hidden="true"></a> `;
+		const markup = /* HTML */ `
+			<!-- element itself is hidden -->
+			<a href="#" hidden aria-hidden="true"></a>
+
+			<!-- parent is hidden -->
+			<div hidden>
+				<a href="#" aria-hidden="true"></a>
+			</div>
+		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
-	it("should report error on unknown elements without tabindex", async () => {
+	it("should not report error when hidden element is inert", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<!-- element itself is inert -->
+			<a href="#" hidden aria-hidden="true"></a>
+
+			<!-- parent is inert -->
+			<div inert>
+				<a href="#" aria-hidden="true"></a>
+			</div>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when form control is disabled", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<input disabled aria-hidden="true" />
+
+			<fieldset disabled>
+				<input aria-hidden="true" />
+			</fieldset>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report error on unknown elements without tabindex", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <any aria-hidden="true"></any> `;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report when tabindex is negative", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<input tabindex="-1" aria-hidden="true" />
+			<div aria-hidden="true">
+				<input tabindex="-1" />
+			</div>
+		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
@@ -57,13 +105,13 @@ describe("rule hidden-focusable", () => {
 
 	it("should report error when element with tabindex is hidden", async () => {
 		expect.assertions(2);
-		const markup = /* HTML */ ` <p tabindex aria-hidden="true"></p> `;
+		const markup = /* HTML */ ` <p tabindex="0" aria-hidden="true"></p> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: aria-hidden cannot be used on focusable elements (hidden-focusable) at inline:1:14:
-			> 1 |  <p tabindex aria-hidden="true"></p>
-			    |              ^^^^^^^^^^^
+			"error: aria-hidden cannot be used on focusable elements (hidden-focusable) at inline:1:18:
+			> 1 |  <p tabindex="0" aria-hidden="true"></p>
+			    |                  ^^^^^^^^^^^
 			Selector: p"
 		`);
 	});
@@ -83,12 +131,12 @@ describe("rule hidden-focusable", () => {
 
 	it("should report error when element with tabindex is hidden by parent", async () => {
 		expect.assertions(2);
-		const markup = /* HTML */ ` <div aria-hidden="true"><p tabindex></p></div> `;
+		const markup = /* HTML */ ` <div aria-hidden="true"><p tabindex="0"></p></div> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: aria-hidden cannot be used on focusable elements (hidden by ancestor element) (hidden-focusable) at inline:1:27:
-			> 1 |  <div aria-hidden="true"><p tabindex></p></div>
+			> 1 |  <div aria-hidden="true"><p tabindex="0"></p></div>
 			    |                           ^
 			Selector: div > p"
 		`);
@@ -144,7 +192,8 @@ describe("rule hidden-focusable", () => {
 			To fix this either:
 			  - Remove \`aria-hidden\`.
 			  - Remove the element from the DOM instead.
-			  - Use the \`hidden\` attribute or similar means to hide the element."
+			  - Use \`tabindex="-1"\` to remove the element from tab order.
+			  - Use \`hidden\`, \`inert\` or similar means to hide or disable the element."
 		`);
 		expect(docs?.url).toMatchInlineSnapshot(
 			`"https://html-validate.org/rules/hidden-focusable.html"`,
@@ -166,7 +215,8 @@ describe("rule hidden-focusable", () => {
 			To fix this either:
 			  - Remove \`aria-hidden\`.
 			  - Remove the element from the DOM instead.
-			  - Use the \`hidden\` attribute or similar means to hide the element."
+			  - Use \`tabindex="-1"\` to remove the element from tab order.
+			  - Use \`hidden\`, \`inert\` or similar means to hide or disable the element."
 		`);
 		expect(docs?.url).toMatchInlineSnapshot(
 			`"https://html-validate.org/rules/hidden-focusable.html"`,

@@ -50,6 +50,9 @@ exports[`parser should postprocess elements allow modify element metadata 1`] = 
         /\\^\\\\S\\+\\$/,
       ],
     },
+    "inert": {
+      "boolean": true,
+    },
     "tabindex": {
       "enum": [
         /\\^-\\?\\\\d\\+\\$/,
@@ -105,6 +108,9 @@ exports[`parser should postprocess elements allow modify element metadata 2`] = 
       "enum": [
         /\\^\\\\S\\+\\$/,
       ],
+    },
+    "inert": {
+      "boolean": true,
     },
     "tabindex": {
       "enum": [
