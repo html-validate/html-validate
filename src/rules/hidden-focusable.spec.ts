@@ -58,6 +58,19 @@ describe("rule hidden-focusable", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error when form control is disabled", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<input disabled aria-hidden="true" />
+
+			<fieldset disabled>
+				<input aria-hidden="true" />
+			</fieldset>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should not report error on unknown elements without tabindex", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <any aria-hidden="true"></any> `;

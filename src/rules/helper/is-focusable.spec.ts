@@ -43,6 +43,22 @@ it("should return true if element has positive tabindex", () => {
 	expect(isFocusable(element)).toBeTruthy();
 });
 
+it("should return true if non-form control is disabled", () => {
+	expect.assertions(1);
+	const markup = /* HTML */ ` <a href disabled /> `;
+	const root = parse(markup);
+	const element = root.querySelector("a")!;
+	expect(isFocusable(element)).toBeTruthy();
+});
+
+it("should return false if is missing metadata", () => {
+	expect.assertions(1);
+	const markup = /* HTML */ ` <any></any> `;
+	const root = parse(markup);
+	const element = root.querySelector("any")!;
+	expect(isFocusable(element)).toBeFalsy();
+});
+
 it("should return false if element isn't naturally focusable", () => {
 	expect.assertions(1);
 	const markup = /* HTML */ ` <p></p> `;
@@ -118,6 +134,22 @@ it("should return false if element has visibility: hidden", () => {
 it("should return false if parent has visibility: hidden", () => {
 	expect.assertions(1);
 	const markup = /* HTML */ ` <div style="visibility: hidden"><input /></div> `;
+	const root = parse(markup);
+	const element = root.querySelector("input")!;
+	expect(isFocusable(element)).toBeFalsy();
+});
+
+it("should return false if form control is disabled", () => {
+	expect.assertions(1);
+	const markup = /* HTML */ ` <input disabled /> `;
+	const root = parse(markup);
+	const element = root.querySelector("input")!;
+	expect(isFocusable(element)).toBeFalsy();
+});
+
+it("should return false if form control is disabled by fieldset", () => {
+	expect.assertions(1);
+	const markup = /* HTML */ ` <fieldset disabled><input /></fieldset> `;
 	const root = parse(markup);
 	const element = root.querySelector("input")!;
 	expect(isFocusable(element)).toBeFalsy();

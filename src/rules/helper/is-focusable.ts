@@ -1,5 +1,24 @@
 import { type HtmlElement } from "../../dom";
+import { type MetaElement } from "../../meta";
 import { isHTMLHidden, isInert, isStyleHidden } from "./a11y";
+
+function isDisabled(element: HtmlElement, meta: MetaElement): boolean {
+	if (!meta.formAssociated?.disablable) {
+		return false;
+	}
+
+	const disabled = element.matches("[disabled]");
+	if (disabled) {
+		return true;
+	}
+
+	const fieldset = element.closest("fieldset[disabled]");
+	if (fieldset) {
+		return true;
+	}
+
+	return false;
+}
 
 /**
  * Tests if an element is focusable.
@@ -18,6 +37,14 @@ export function isFocusable(element: HtmlElement): boolean {
 	metadata as it can be used to disable otherwise focusable elements */
 	if (tabIndex !== null) {
 		return tabIndex >= 0;
+	}
+
+	if (!meta) {
+		return false;
+	}
+
+	if (isDisabled(element, meta)) {
+		return false;
 	}
 
 	return Boolean(meta?.focusable);
