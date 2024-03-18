@@ -73,7 +73,7 @@ Examples of **correct** code for this rule:
 
 ### Hidden labels
 
-This rule requires labels to be accessible, i.e. the label must not be `hidden` or `aria-hidden`.
+This rule requires labels to be accessible, i.e. the label must not be `hidden`, `inert`, `aria-hidden` or hidden with CSS.
 If multiple labels are associated at least one of them must be accessible.
 
 <validate name="hidden" rules="input-missing-label">
@@ -103,4 +103,5 @@ If the label is provided by another element elsewhere `aria-labelledby` can be u
 
 ## Version history
 
+- %version% - Ignores `<input>` hidden by CSS and handles `inert` attribute.
 - 7.6.0 - Checks for presence of non-empty accessible text not just presence of `<label>` element.

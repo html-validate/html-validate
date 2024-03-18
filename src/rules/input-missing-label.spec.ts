@@ -119,6 +119,38 @@ describe("rule input-missing-label", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should handle when both input and label is hidden", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<div hidden>
+				<label for="hidden"></label>
+				<input id="hidden" />
+			</div>
+
+			<div inert>
+				<label for="inert"></label>
+				<input id="inert" />
+			</div>
+
+			<div aria-hidden="true">
+				<label for="aria-hidden"></label>
+				<input id="aria-hidden" />
+			</div>
+
+			<div style="display: none;">
+				<label for="display-none"></label>
+				<input id="display-none" />
+			</div>
+
+			<div style="visibility: hidden;">
+				<label for="visibility-hidden"></label>
+				<input id="visibility-hidden" />
+			</div>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should handle multiple labels", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
@@ -296,7 +328,7 @@ describe("rule input-missing-label", () => {
 	it("should report error when label is hidden", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
-			<label for="foo" hidden></label>
+			<label for="foo" hidden> lorem ipsum </label>
 			<input id="foo" />
 		`;
 		const report = await htmlvalidate.validateString(markup);
@@ -304,7 +336,26 @@ describe("rule input-missing-label", () => {
 		expect(report).toMatchInlineCodeframe(`
 			"error: <input> element has <label> but <label> element is hidden (input-missing-label) at inline:3:5:
 			  1 |
-			  2 | 			<label for="foo" hidden></label>
+			  2 | 			<label for="foo" hidden> lorem ipsum </label>
+			> 3 | 			<input id="foo" />
+			    | 			 ^^^^^
+			  4 |
+			Selector: #foo"
+		`);
+	});
+
+	it("should report error when label is inert", async () => {
+		expect.assertions(2);
+		const markup = /* HTML */ `
+			<label for="foo" inert> lorem ipsum </label>
+			<input id="foo" />
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: <input> element has <label> but <label> element is hidden (input-missing-label) at inline:3:5:
+			  1 |
+			  2 | 			<label for="foo" inert> lorem ipsum </label>
 			> 3 | 			<input id="foo" />
 			    | 			 ^^^^^
 			  4 |
@@ -315,7 +366,7 @@ describe("rule input-missing-label", () => {
 	it("should report error when label is aria-hidden", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
-			<label for="foo" aria-hidden="true"></label>
+			<label for="foo" aria-hidden="true"> lorem ipsum </label>
 			<input id="foo" />
 		`;
 		const report = await htmlvalidate.validateString(markup);
@@ -323,7 +374,45 @@ describe("rule input-missing-label", () => {
 		expect(report).toMatchInlineCodeframe(`
 			"error: <input> element has <label> but <label> element is hidden (input-missing-label) at inline:3:5:
 			  1 |
-			  2 | 			<label for="foo" aria-hidden="true"></label>
+			  2 | 			<label for="foo" aria-hidden="true"> lorem ipsum </label>
+			> 3 | 			<input id="foo" />
+			    | 			 ^^^^^
+			  4 |
+			Selector: #foo"
+		`);
+	});
+
+	it("should report error when label has display: none", async () => {
+		expect.assertions(2);
+		const markup = /* HTML */ `
+			<label for="foo" style="display: none"> lorem ipsum </label>
+			<input id="foo" />
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: <input> element has <label> but <label> element is hidden (input-missing-label) at inline:3:5:
+			  1 |
+			  2 | 			<label for="foo" style="display: none"> lorem ipsum </label>
+			> 3 | 			<input id="foo" />
+			    | 			 ^^^^^
+			  4 |
+			Selector: #foo"
+		`);
+	});
+
+	it("should report error when label has visibility: hidden", async () => {
+		expect.assertions(2);
+		const markup = /* HTML */ `
+			<label for="foo" style="visibility: hidden"> lorem ipsum </label>
+			<input id="foo" />
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: <input> element has <label> but <label> element is hidden (input-missing-label) at inline:3:5:
+			  1 |
+			  2 | 			<label for="foo" style="visibility: hidden"> lorem ipsum </label>
 			> 3 | 			<input id="foo" />
 			    | 			 ^^^^^
 			  4 |
