@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`docs/rules/name-pattern.md inline validation: array-brackets 1`] = `[]`;
+
+exports[`docs/rules/name-pattern.md inline validation: correct 1`] = `[]`;
+
+exports[`docs/rules/name-pattern.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 14,
+        "line": 1,
+        "message": "name "foo-bar" does not match required pattern "/^[a-z][a-zA-Z0-9]+$/"",
+        "offset": 13,
+        "ruleId": "name-pattern",
+        "ruleUrl": "https://html-validate.org/rules/name-pattern.html",
+        "selector": "input",
+        "severity": 2,
+        "size": 7,
+      },
+    ],
+    "source": "<input name="foo-bar">",
+    "warningCount": 0,
+  },
+]
+`;
