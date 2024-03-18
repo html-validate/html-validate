@@ -2,6 +2,14 @@ import { type HtmlElement } from "../../dom";
 import { type MetaElement } from "../../meta";
 import { isHTMLHidden, isInert, isStyleHidden } from "./a11y";
 
+declare module "../../dom/cache" {
+	export interface DOMNodeCache {
+		[FOCUSABLE_CACHE]: boolean;
+	}
+}
+
+const FOCUSABLE_CACHE = Symbol(isFocusable.name);
+
 function isDisabled(element: HtmlElement, meta: MetaElement): boolean {
 	if (!meta.formAssociated?.disablable) {
 		return false;
@@ -20,12 +28,7 @@ function isDisabled(element: HtmlElement, meta: MetaElement): boolean {
 	return false;
 }
 
-/**
- * Tests if an element is focusable.
- *
- * @internal
- */
-export function isFocusable(element: HtmlElement): boolean {
+function isFocusableImpl(element: HtmlElement): boolean {
 	/* if the element is hidden it is not focusable */
 	if (isHTMLHidden(element) || isInert(element) || isStyleHidden(element)) {
 		return false;
@@ -48,4 +51,18 @@ export function isFocusable(element: HtmlElement): boolean {
 	}
 
 	return Boolean(meta?.focusable);
+}
+
+/**
+ * Tests if an element is focusable.
+ *
+ * @internal
+ */
+export function isFocusable(element: HtmlElement): boolean {
+	const cached = element.cacheGet(FOCUSABLE_CACHE);
+	/* istanbul ignore next: no need to test cache */
+	if (cached) {
+		return cached;
+	}
+	return element.cacheSet(FOCUSABLE_CACHE, isFocusableImpl(element));
 }
