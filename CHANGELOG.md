@@ -1,5 +1,19 @@
 # html-validate changelog
 
+## 8.17.0 (2024-03-19)
+
+### Features
+
+- **rules:** new rule `name-pattern` ([f2209c0](https://gitlab.com/html-validate/html-validate/commit/f2209c04891c7c7e046edb82e9dab1a739409a2c)), closes [#216](https://gitlab.com/html-validate/html-validate/issues/216)
+- **rules:** support multiple patterns in `id-pattern`, `class-pattern` and `name-pattern` rules ([15dd007](https://gitlab.com/html-validate/html-validate/commit/15dd00727bb7665d2d53983bf7aca9269e6ff7cb))
+
+### Bug Fixes
+
+- **meta:** handle regexp with slash inside ([4c88396](https://gitlab.com/html-validate/html-validate/commit/4c883962af750ba0c02c221fad80141b9f0d614f)), closes [#242](https://gitlab.com/html-validate/html-validate/issues/242)
+- **rules:** `input-missing-label` now ignores `<input>` hidden by css ([c40e48e](https://gitlab.com/html-validate/html-validate/commit/c40e48ed546462cd3bf7e2e700dbb10c6743fdd3)), closes [#241](https://gitlab.com/html-validate/html-validate/issues/241)
+- **rules:** `input-missing-label` now tests if `<label>` is inert or hidden by css ([d0d6f40](https://gitlab.com/html-validate/html-validate/commit/d0d6f403ca5d06cf42d60098c9cbd8a2b1741cdb))
+- **rules:** show pattern name in `id-pattern`, `class-pattern` and `name-pattern` rules ([4bd70ab](https://gitlab.com/html-validate/html-validate/commit/4bd70ab45d4e9d4f8a8a7ccb4b9b6fc41e23bc1a))
+
 ## 8.16.0 (2024-03-18)
 
 ### Features

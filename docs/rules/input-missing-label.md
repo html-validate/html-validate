@@ -103,5 +103,5 @@ If the label is provided by another element elsewhere `aria-labelledby` can be u
 
 ## Version history
 
-- %version% - Ignores `<input>` hidden by CSS and handles `inert` attribute.
+- 8.17.0 - Ignores `<input>` hidden by CSS and handles `inert` attribute.
 - 7.6.0 - Checks for presence of non-empty accessible text not just presence of `<label>` element.

@@ -55,4 +55,4 @@ If value matches either of the patterns it is considered valid.
 
 ## Version history
 
-- %version% - Rule added.
+- 8.17.0 - Rule added.
