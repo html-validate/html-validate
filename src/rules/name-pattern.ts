@@ -1,46 +1,35 @@
 import { DynamicValue } from "../dom";
 import { type AttributeEvent } from "../event";
-import { type PatternName, describePattern, parsePattern } from "../pattern";
-import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
+import { type RuleDocumentation, type SchemaObject, ruleDocumentationUrl } from "../rule";
+import {
+	type BasePatternRuleContext,
+	type BasePatternRuleOptions,
+	BasePatternRule,
+} from "./base-pattern-rule";
 
-interface RuleOptions {
-	pattern: PatternName;
-}
-
-const defaults: RuleOptions = {
+const defaults: BasePatternRuleOptions = {
 	pattern: "camelcase",
 };
 
-export default class NamePattern extends Rule<void, RuleOptions> {
-	private pattern: RegExp;
-	private description: string;
-
-	public constructor(options: Partial<RuleOptions>) {
-		super({ ...defaults, ...options });
-		this.pattern = parsePattern(this.options.pattern);
-		this.description = describePattern(this.options.pattern);
+export default class NamePattern extends BasePatternRule {
+	public constructor(options: Partial<BasePatternRuleOptions>) {
+		super("name", { ...defaults, ...options });
 	}
 
 	public static schema(): SchemaObject {
-		return {
-			pattern: {
-				type: "string",
-			},
-		};
+		return BasePatternRule.schema();
 	}
 
-	public documentation(): RuleDocumentation {
-		const pattern = describePattern(this.options.pattern);
+	public documentation(context: BasePatternRuleContext): RuleDocumentation {
 		return {
-			description: `For consistency all names are required to match the pattern ${pattern}.`,
+			description: this.description(context),
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
 
 	public setup(): void {
-		const { description } = this;
 		this.on("attr", (event: AttributeEvent) => {
-			const { target, value } = event;
+			const { target, key, value, valueLocation } = event;
 			const { meta } = target;
 
 			/* only handle form controls */
@@ -48,7 +37,8 @@ export default class NamePattern extends Rule<void, RuleOptions> {
 				return;
 			}
 
-			if (event.key.toLowerCase() !== "name") {
+			/* only handle name attribute */
+			if (key.toLowerCase() !== "name") {
 				return;
 			}
 
@@ -63,10 +53,7 @@ export default class NamePattern extends Rule<void, RuleOptions> {
 			}
 
 			const name = value.endsWith("[]") ? value.slice(0, -2) : value;
-			if (!name.match(this.pattern)) {
-				const message = `name "${name}" does not match required pattern ${description}`;
-				this.report(event.target, message, event.valueLocation);
-			}
+			this.validateValue(target, name, valueLocation);
 		});
 	}
 }

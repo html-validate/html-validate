@@ -1,57 +1,44 @@
 import { DOMTokenList } from "../dom";
 import { type AttributeEvent } from "../event";
-import { type PatternName, describePattern, parsePattern } from "../pattern";
-import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
+import { type RuleDocumentation, type SchemaObject, ruleDocumentationUrl } from "../rule";
+import {
+	type BasePatternRuleContext,
+	type BasePatternRuleOptions,
+	BasePatternRule,
+} from "./base-pattern-rule";
 
-interface RuleOptions {
-	pattern: PatternName;
-}
-
-const defaults: RuleOptions = {
+const defaults: BasePatternRuleOptions = {
 	pattern: "kebabcase",
 };
 
-export default class ClassPattern extends Rule<void, RuleOptions> {
-	private pattern: RegExp;
-	private description: string;
-
-	public constructor(options: Partial<RuleOptions>) {
-		super({ ...defaults, ...options });
-		this.pattern = parsePattern(this.options.pattern);
-		this.description = describePattern(this.options.pattern);
+export default class ClassPattern extends BasePatternRule {
+	public constructor(options: Partial<BasePatternRuleOptions>) {
+		super("class", { ...defaults, ...options });
 	}
 
 	public static schema(): SchemaObject {
-		return {
-			pattern: {
-				type: "string",
-			},
-		};
+		return BasePatternRule.schema();
 	}
 
-	public documentation(): RuleDocumentation {
-		const pattern = describePattern(this.options.pattern);
+	public documentation(context: BasePatternRuleContext): RuleDocumentation {
 		return {
-			description: `For consistency all classes are required to match the pattern ${pattern}.`,
+			description: this.description(context),
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
 
 	public setup(): void {
-		const { description } = this;
 		this.on("attr", (event: AttributeEvent) => {
-			if (event.key.toLowerCase() !== "class") {
+			const { target, key, value, valueLocation } = event;
+
+			if (key.toLowerCase() !== "class") {
 				return;
 			}
 
-			const classes = new DOMTokenList(event.value, event.valueLocation);
-			classes.forEach((cur: string, index: number) => {
-				if (!cur.match(this.pattern)) {
-					const location = classes.location(index);
-					const message = `Class "${cur}" does not match required pattern ${description}`;
-					this.report(event.target, message, location);
-				}
-			});
+			const classes = new DOMTokenList(value, valueLocation);
+			for (const { item, location } of classes.iterator()) {
+				this.validateValue(target, item, location);
+			}
 		});
 	}
 }

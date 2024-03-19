@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`rule class-pattern should contain documentation 1`] = `
-{
-  "description": "For consistency all classes are required to match the pattern /^[a-z0-9-]+$/ (kebabcase).",
-  "url": "https://html-validate.org/rules/class-pattern.html",
-}
-`;
