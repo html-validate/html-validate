@@ -42,6 +42,7 @@ import MapDupName from "./map-dup-name";
 import MapIdName from "./map-id-name";
 import MissingDoctype from "./missing-doctype";
 import MultipleLabeledControls from "./multiple-labeled-controls";
+import NamePattern from "./name-pattern";
 import NoAbstractRole from "./no-abstract-role";
 import NoAutoplay from "./no-autoplay";
 import NoConditionalComment from "./no-conditional-comment";
@@ -127,6 +128,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"meta-refresh": MetaRefresh,
 	"missing-doctype": MissingDoctype,
 	"multiple-labeled-controls": MultipleLabeledControls,
+	"name-pattern": NamePattern,
 	"no-abstract-role": NoAbstractRole,
 	"no-autoplay": NoAutoplay,
 	"no-conditional-comment": NoConditionalComment,

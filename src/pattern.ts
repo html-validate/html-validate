@@ -1,31 +1,31 @@
 export type PatternName = "kebabcase" | "camelcase" | "underscore" | string;
 
-export function parsePattern(pattern: PatternName): RegExp {
-	switch (pattern) {
-		case "kebabcase":
-			return /^[a-z0-9-]+$/;
-
-		case "camelcase":
-			return /^[a-z][a-zA-Z0-9]+$/;
-
-		case "underscore":
-			return /^[a-z0-9_]+$/;
-
-		default:
-			/* eslint-disable-next-line security/detect-non-literal-regexp -- expected to be regexp */
-			return new RegExp(pattern);
-	}
+/**
+ * @internal
+ */
+export interface ParsedPattern {
+	regexp: RegExp;
+	description: string;
 }
 
-export function describePattern(pattern: PatternName): string {
-	const regexp = parsePattern(pattern).toString();
+/**
+ * @internal
+ */
+export function parsePattern(pattern: PatternName): ParsedPattern {
 	switch (pattern) {
 		case "kebabcase":
+			return { regexp: /^[a-z0-9-]+$/, description: pattern };
+
 		case "camelcase":
-		case "underscore": {
-			return `${regexp} (${pattern})`;
+			return { regexp: /^[a-z][a-zA-Z0-9]+$/, description: pattern };
+
+		case "underscore":
+			return { regexp: /^[a-z0-9_]+$/, description: pattern };
+
+		default: {
+			/* eslint-disable-next-line security/detect-non-literal-regexp -- expected to be regexp */
+			const regexp = new RegExp(pattern);
+			return { regexp, description: regexp.toString() };
 		}
-		default:
-			return regexp;
 	}
 }

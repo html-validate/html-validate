@@ -8,12 +8,12 @@ import {
 } from "./base-pattern-rule";
 
 const defaults: BasePatternRuleOptions = {
-	pattern: "kebabcase",
+	pattern: "camelcase",
 };
 
-export default class IdPattern extends BasePatternRule {
+export default class NamePattern extends BasePatternRule {
 	public constructor(options: Partial<BasePatternRuleOptions>) {
-		super("id", { ...defaults, ...options });
+		super("name", { ...defaults, ...options });
 	}
 
 	public static schema(): SchemaObject {
@@ -30,8 +30,15 @@ export default class IdPattern extends BasePatternRule {
 	public setup(): void {
 		this.on("attr", (event: AttributeEvent) => {
 			const { target, key, value, valueLocation } = event;
+			const { meta } = target;
 
-			if (key.toLowerCase() !== "id") {
+			/* only handle form controls */
+			if (!meta?.formAssociated?.listed) {
+				return;
+			}
+
+			/* only handle name attribute */
+			if (key.toLowerCase() !== "name") {
 				return;
 			}
 
@@ -45,7 +52,8 @@ export default class IdPattern extends BasePatternRule {
 				return;
 			}
 
-			this.validateValue(target, value, valueLocation);
+			const name = value.endsWith("[]") ? value.slice(0, -2) : value;
+			this.validateValue(target, name, valueLocation);
 		});
 	}
 }

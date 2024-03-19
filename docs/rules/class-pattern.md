@@ -35,8 +35,18 @@ This rule takes and optional object:
 
 ### Pattern
 
+- type: `string | string[]`
+- default: `"kebabcase"`
+
 Either one of the presets or a custom regular expression.
 
 - `"kebabcase"` matches lowercase letters, digits and dash (`[a-z0-9-]`) (default)
 - `"camelcase"` matches lowercase letter followed by letters and digits (`[a-z][a-zA-Z0-9]`)
 - `"underscore"` matches lowercase letters, digits and underscore (`[a-z0-9_]`)
+
+Multiple patterns can be set as an array.
+If value matches either of the patterns it is considered valid.
+
+## Version history
+
+- %version% - Support multiple patterns.
