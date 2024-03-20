@@ -60,13 +60,13 @@ export function inAccessibilityTree(node: HtmlElement): boolean {
 }
 
 function isAriaHiddenImpl(node: HtmlElement): IsHiddenResult {
-	const isHidden = (node: HtmlElement): boolean => {
+	const getAriaHiddenAttr = (node: HtmlElement): boolean => {
 		const ariaHidden = node.getAttribute("aria-hidden");
 		return Boolean(ariaHidden && ariaHidden.value === "true");
 	};
 	return {
 		byParent: node.parent ? isAriaHidden(node.parent) : false,
-		bySelf: isHidden(node),
+		bySelf: getAriaHiddenAttr(node),
 	};
 }
 
@@ -90,13 +90,13 @@ export function isAriaHidden(node: HtmlElement, details?: true): boolean | IsHid
 }
 
 function isHTMLHiddenImpl(node: HtmlElement): IsHiddenResult {
-	const isHidden = (node: HtmlElement): boolean => {
+	const getHiddenAttr = (node: HtmlElement): boolean => {
 		const hidden = node.getAttribute("hidden");
 		return hidden !== null && hidden.isStatic;
 	};
 	return {
 		byParent: node.parent ? isHTMLHidden(node.parent) : false,
-		bySelf: isHidden(node),
+		bySelf: getHiddenAttr(node),
 	};
 }
 
@@ -120,13 +120,13 @@ export function isHTMLHidden(node: HtmlElement, details?: true): boolean | IsHid
 }
 
 function isInertImpl(node: HtmlElement): IsHiddenResult {
-	const isInert = (node: HtmlElement): boolean => {
+	const getInertAttr = (node: HtmlElement): boolean => {
 		const inert = node.getAttribute("inert");
 		return inert !== null && inert.isStatic;
 	};
 	return {
 		byParent: node.parent ? isInert(node.parent) : false,
-		bySelf: isInert(node),
+		bySelf: getInertAttr(node),
 	};
 }
 
@@ -150,13 +150,13 @@ export function isInert(node: HtmlElement, details?: true): boolean | IsInertRes
 }
 
 function isStyleHiddenImpl(node: HtmlElement): boolean {
-	const isHidden = (node: HtmlElement): boolean => {
+	const getStyleAttr = (node: HtmlElement): boolean => {
 		const style = node.getAttribute("style");
 		const { display, visibility } = parseCssDeclaration(style?.value);
 		return display === "none" || visibility === "hidden";
 	};
 	const byParent = node.parent ? isStyleHidden(node.parent) : false;
-	const bySelf = isHidden(node);
+	const bySelf = getStyleAttr(node);
 	return byParent || bySelf;
 }
 

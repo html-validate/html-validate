@@ -173,10 +173,22 @@ describe("a11y helpers", () => {
 		});
 
 		it('should return true if ancestor has aria-hidden="true"', () => {
-			expect.assertions(1);
-			const root = parse('<div aria-hidden="true"><p>Lorem ipsum</p></div>');
-			const p = root.querySelector("p")!;
-			expect(isAriaHidden(p)).toBeTruthy();
+			expect.assertions(2);
+			const markup = /* HTML */ `
+				<div id="shallow-parent" aria-hidden="true">
+					<p>Lorem ipsum</p>
+				</div>
+				<div id="nested-parent" aria-hidden="true">
+					<div>
+						<p>Lorem ipsum</p>
+					</div>
+				</div>
+			`;
+			const root = parse(markup);
+			const p1 = root.querySelector("#shallow-parent p")!;
+			const p2 = root.querySelector("#nested-parent p")!;
+			expect(isAriaHidden(p1)).toBeTruthy();
+			expect(isAriaHidden(p2)).toBeTruthy();
 		});
 
 		it("should cache result", () => {
@@ -256,10 +268,22 @@ describe("a11y helpers", () => {
 		});
 
 		it("should return true if ancestor has hidden", () => {
-			expect.assertions(1);
-			const root = parse("<div hidden><p>Lorem ipsum</p></div>");
-			const p = root.querySelector("p")!;
-			expect(isHTMLHidden(p)).toBeTruthy();
+			expect.assertions(2);
+			const markup = /* HTML */ `
+				<div id="shallow-parent" hidden>
+					<p>Lorem ipsum</p>
+				</div>
+				<div id="nested-parent" hidden>
+					<div>
+						<p>Lorem ipsum</p>
+					</div>
+				</div>
+			`;
+			const root = parse(markup);
+			const p1 = root.querySelector("#shallow-parent p")!;
+			const p2 = root.querySelector("#nested-parent p")!;
+			expect(isHTMLHidden(p1)).toBeTruthy();
+			expect(isHTMLHidden(p2)).toBeTruthy();
 		});
 
 		it("should cache result", () => {
@@ -339,10 +363,22 @@ describe("a11y helpers", () => {
 		});
 
 		it("should return true if ancestor has inert", () => {
-			expect.assertions(1);
-			const root = parse("<div inert><p>Lorem ipsum</p></div>");
-			const p = root.querySelector("p")!;
-			expect(isInert(p)).toBeTruthy();
+			expect.assertions(2);
+			const markup = /* HTML */ `
+				<div id="shallow-parent" inert>
+					<p>Lorem ipsum</p>
+				</div>
+				<div id="nested-parent" inert>
+					<div>
+						<p>Lorem ipsum</p>
+					</div>
+				</div>
+			`;
+			const root = parse(markup);
+			const p1 = root.querySelector("#shallow-parent p")!;
+			const p2 = root.querySelector("#nested-parent p")!;
+			expect(isInert(p1)).toBeTruthy();
+			expect(isInert(p2)).toBeTruthy();
 		});
 
 		it("should cache result", () => {
@@ -432,6 +468,25 @@ describe("a11y helpers", () => {
 			const root = parse(markup);
 			const p = root.querySelector("p")!;
 			expect(isStyleHidden(p)).toBeTruthy();
+		});
+
+		it('should return true if ancestor is hidden"', () => {
+			expect.assertions(2);
+			const markup = /* HTML */ `
+				<div id="shallow-parent" style="visibility: hidden">
+					<p>Lorem ipsum</p>
+				</div>
+				<div id="nested-parent" style="display: none">
+					<div>
+						<p>Lorem ipsum</p>
+					</div>
+				</div>
+			`;
+			const root = parse(markup);
+			const p1 = root.querySelector("#shallow-parent p")!;
+			const p2 = root.querySelector("#nested-parent p")!;
+			expect(isStyleHidden(p1)).toBeTruthy();
+			expect(isStyleHidden(p2)).toBeTruthy();
 		});
 
 		it("should cache result", () => {
