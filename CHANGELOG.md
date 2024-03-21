@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 8.17.1 (2024-03-21)
+
+### Bug Fixes
+
+- **rules:** properly handle inert on ancestor elements ([2990669](https://gitlab.com/html-validate/html-validate/commit/2990669d8a0e23589f45ed337b20bed1974fb93e)), closes [#243](https://gitlab.com/html-validate/html-validate/issues/243)
+
 ## 8.17.0 (2024-03-19)
 
 ### Features
