@@ -34,7 +34,7 @@ Examples of **correct** code for this rule:
 
 ## Options
 
-This rule takes and optional object:
+This rule takes an optional object:
 
 ```json
 {
