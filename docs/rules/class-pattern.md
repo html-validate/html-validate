@@ -52,5 +52,5 @@ If value matches either of the patterns it is considered valid.
 
 ## Version history
 
-- %version% - Support `snakecase` (previously `underscore`) and `bem`.
+- 8.18.0 - Support `snakecase` (previously `underscore`) and `bem`.
 - 8.17.0 - Support multiple patterns.

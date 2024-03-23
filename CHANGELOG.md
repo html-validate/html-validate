@@ -1,5 +1,17 @@
 # html-validate changelog
 
+## 8.18.0 (2024-03-23)
+
+### Features
+
+- **rules:** new pattern `bem` for pattern rules ([c1ead1b](https://gitlab.com/html-validate/html-validate/commit/c1ead1b6f569a60cd135ef73134ed6f6a66ad598))
+- **rules:** new pattern `snakecase` for pattern rules ([4b95ccb](https://gitlab.com/html-validate/html-validate/commit/4b95ccb5c90cb496e2b00b6ab6cf71aad20f3275)), closes [#245](https://gitlab.com/html-validate/html-validate/issues/245)
+
+### Bug Fixes
+
+- **rules:** disallow consecutive hyphens and underscors for kebab-case and snake_case ([a4338a7](https://gitlab.com/html-validate/html-validate/commit/a4338a7b0bccd2a16c93026980b1ef6c5d279ec3)), closes [#246](https://gitlab.com/html-validate/html-validate/issues/246)
+- **rules:** require initial character for all patterns to be letter ([646ff16](https://gitlab.com/html-validate/html-validate/commit/646ff16b144ef5ceedecec994bb1904aa5f0396d))
+
 ## 8.17.1 (2024-03-21)
 
 ### Bug Fixes
