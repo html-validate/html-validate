@@ -1134,14 +1134,14 @@ describe("HtmlElement", () => {
 	it("should throw error if tagName is empty string", () => {
 		expect.assertions(1);
 		expect(() => new HtmlElement("", null, NodeClosed.EndTag, null, location)).toThrow(
-			"The tag name provided ('') is not a valid name",
+			`The tag name provided ("") is not a valid name`,
 		);
 	});
 
 	it("should throw error if tagName is asterisk", () => {
 		expect.assertions(1);
 		expect(() => new HtmlElement("*", null, NodeClosed.EndTag, null, location)).toThrow(
-			"The tag name provided ('*') is not a valid name",
+			`The tag name provided ("*") is not a valid name`,
 		);
 	});
 });

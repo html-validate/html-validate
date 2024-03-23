@@ -35,7 +35,10 @@ function isFiltered(key: string, value: unknown): boolean {
 
 export function eventReplacer<T>(this: void, key: string, value: T): T | string | undefined {
 	if (isLocation(key, value)) {
-		return `${value.filename}:${value.line}:${value.column}`;
+		const filename = value.filename;
+		const line = String(value.line);
+		const column = String(value.column);
+		return `${filename}:${line}:${column}`;
 	}
 	if (isIgnored(key)) {
 		return undefined;

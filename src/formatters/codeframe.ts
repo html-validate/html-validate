@@ -43,7 +43,7 @@ function pluralize(word: string, count: number): string {
 function formatFilePath(filePath: string, line: number, column: number): string {
 	/* istanbul ignore next: safety check from original implementation */
 	if (line && column) {
-		filePath += `:${line}:${column}`;
+		filePath += `:${String(line)}:${String(column)}`;
 	}
 
 	return kleur.green(filePath);
@@ -131,11 +131,11 @@ function formatSummary(errors: number, warnings: number): string {
 	const summary = [];
 
 	if (errors > 0) {
-		summary.push(`${errors} ${pluralize("error", errors)}`);
+		summary.push(`${String(errors)} ${pluralize("error", errors)}`);
 	}
 
 	if (warnings > 0) {
-		summary.push(`${warnings} ${pluralize("warning", warnings)}`);
+		summary.push(`${String(warnings)} ${pluralize("warning", warnings)}`);
 	}
 
 	return kleur[summaryColor]().bold(`${summary.join(" and ")} found.`);

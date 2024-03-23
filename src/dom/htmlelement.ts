@@ -42,8 +42,8 @@ export function isElementNode(node: DOMNode | null | undefined): node is HtmlEle
 	return Boolean(node && node.nodeType === NodeType.ELEMENT_NODE);
 }
 
-function isValidTagName(tagName: string | undefined): tagName is string {
-	return Boolean(tagName !== "" && tagName !== "*");
+function isInvalidTagName(tagName: string | undefined): tagName is "" | "*" {
+	return Boolean(tagName === "" || tagName === "*");
 }
 
 function createAdapter(node: HtmlElement): HtmlElementLike {
@@ -86,8 +86,8 @@ export class HtmlElement extends DOMNode {
 		const nodeType = tagName ? NodeType.ELEMENT_NODE : NodeType.DOCUMENT_NODE;
 		super(nodeType, tagName, location);
 
-		if (!isValidTagName(tagName)) {
-			throw new Error(`The tag name provided ('${tagName}') is not a valid name`);
+		if (isInvalidTagName(tagName)) {
+			throw new Error(`The tag name provided ("${tagName}") is not a valid name`);
 		}
 
 		this.tagName = tagName ?? "#document";
@@ -249,7 +249,7 @@ export class HtmlElement extends DOMNode {
 			}
 
 			/* this will generate the worst kind of selector but at least it will be accurate (optimizations welcome) */
-			parts.push(`${cur.tagName.toLowerCase()}:nth-child(${index + 1})`);
+			parts.push(`${cur.tagName.toLowerCase()}:nth-child(${String(index + 1)})`);
 		}
 		return parts.reverse().join(" > ");
 	}

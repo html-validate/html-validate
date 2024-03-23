@@ -162,10 +162,13 @@ export class Engine<T extends Parser = Parser> {
 		for (const src of source) {
 			for (const token of lexer.tokenize(src)) {
 				const data = token.data[0] ?? "";
+				const filename = token.location.filename;
+				const line = String(token.location.line);
+				const column = String(token.location.column);
 				lines.push({
 					token: TokenType[token.type],
 					data,
-					location: `${token.location.filename}:${token.location.line}:${token.location.column}`,
+					location: `${filename}:${line}:${column}`,
 				});
 			}
 		}

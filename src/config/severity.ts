@@ -22,6 +22,6 @@ export function parseSeverity(value: string | number): Severity {
 		case "error":
 			return Severity.ERROR;
 		default:
-			throw new Error(`Invalid severity "${value}"`);
+			throw new Error(`Invalid severity "${String(value)}"`);
 	}
 }

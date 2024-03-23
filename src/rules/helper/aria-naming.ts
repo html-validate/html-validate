@@ -10,7 +10,7 @@ declare module "../../dom/cache" {
 }
 
 /* default value is also stored in [[normalizeAriaNaming]] */
-const defaultValue = "allowed" as const;
+const defaultValue = "allowed";
 
 /* WAI ARIA 5.2.8.6 Roles which cannot be named (Name prohibited) */
 const prohibitedRoles = [

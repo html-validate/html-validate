@@ -316,9 +316,10 @@ export class HtmlValidate {
 		const config = this.getConfigForSync(filename);
 		const sources = config.transformFilename(filename);
 		return sources.reduce<string[]>((result: string[], source: Source) => {
-			result.push(
-				`Source ${source.filename}@${source.line}:${source.column} (offset: ${source.offset})`,
-			);
+			const line = String(source.line);
+			const column = String(source.column);
+			const offset = String(source.offset);
+			result.push(`Source ${source.filename}@${line}:${column} (offset: ${offset})`);
 			if (source.transformedBy) {
 				result.push("Transformed by:");
 				result = result.concat(source.transformedBy.reverse().map((name) => ` - ${name}`));
