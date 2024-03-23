@@ -14,14 +14,14 @@ export interface ParsedPattern {
 export function parsePattern(pattern: PatternName): ParsedPattern {
 	switch (pattern) {
 		case "kebabcase":
-			return { regexp: /^[a-z0-9-]+$/, description: pattern };
+			return { regexp: /^[a-z][a-z0-9-]+$/, description: pattern };
 
 		case "camelcase":
 			return { regexp: /^[a-z][a-zA-Z0-9]+$/, description: pattern };
 
 		case "snakecase":
 		case "underscore":
-			return { regexp: /^[a-z0-9_]+$/, description: pattern };
+			return { regexp: /^[a-z][a-z0-9_]+$/, description: pattern };
 
 		default: {
 			/* eslint-disable-next-line security/detect-non-literal-regexp -- expected to be regexp */

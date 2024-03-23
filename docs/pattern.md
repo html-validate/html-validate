@@ -13,15 +13,18 @@ This is a list of predefined patterns that can be used with such rules.
 - `lorem-ipsum-dolor-sit-amet`
 
 Matches strings with words separated by hyphen.
+Must start with a letter.
 
 ## `camelcase`
 
 - `loremIpsumDolorSitAmet`
 
 Matches strings with words the first letter of each word capitalized except the initial letter.
+Must start with a letter.
 
 ## `snakecase`
 
 - `lorem_ipsum_dolor_sit_amet`
 
 Matches strings with words separated by underscore.
+Must start with a letter.

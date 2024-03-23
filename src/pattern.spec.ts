@@ -1,7 +1,7 @@
 import { parsePattern } from "./pattern";
 
-describe("parsePattern", () => {
-	it("kebabcase should match strings with dashes", () => {
+describe("kebabcase", () => {
+	it("should match strings with dashes", () => {
 		expect.assertions(5);
 		const pattern = parsePattern("kebabcase");
 		expect("foo-bar").toMatch(pattern.regexp);
@@ -11,7 +11,16 @@ describe("parsePattern", () => {
 		expect(pattern.description).toBe("kebabcase");
 	});
 
-	it("camelcase should match strings in camelcase", () => {
+	it("should require initial character to be letter", () => {
+		expect.assertions(2);
+		const pattern = parsePattern("kebabcase");
+		expect("foo").toMatch(pattern.regexp);
+		expect("5oo").not.toMatch(pattern.regexp);
+	});
+});
+
+describe("camelcase", () => {
+	it("should match strings in camelcase", () => {
 		expect.assertions(5);
 		const pattern = parsePattern("camelcase");
 		expect("foo-bar").not.toMatch(pattern.regexp);
@@ -21,7 +30,35 @@ describe("parsePattern", () => {
 		expect(pattern.description).toBe("camelcase");
 	});
 
-	it("snakecase should match strings with snakecase", () => {
+	it("should require initial character to be letter", () => {
+		expect.assertions(2);
+		const pattern = parsePattern("camelcase");
+		expect("foo").toMatch(pattern.regexp);
+		expect("5oo").not.toMatch(pattern.regexp);
+	});
+});
+
+describe("snakecase", () => {
+	it("should match strings with snakecase", () => {
+		expect.assertions(5);
+		const pattern = parsePattern("snakecase");
+		expect("foo-bar").not.toMatch(pattern.regexp);
+		expect("fooBar").not.toMatch(pattern.regexp);
+		expect("Foobar").not.toMatch(pattern.regexp);
+		expect("foo_bar").toMatch(pattern.regexp);
+		expect(pattern.description).toBe("snakecase");
+	});
+
+	it("should require initial character to be letter", () => {
+		expect.assertions(2);
+		const pattern = parsePattern("snakecase");
+		expect("foo").toMatch(pattern.regexp);
+		expect("5oo").not.toMatch(pattern.regexp);
+	});
+});
+
+describe("underscore", () => {
+	it("should be alias for snakecase", () => {
 		expect.assertions(5);
 		const pattern = parsePattern("underscore");
 		expect("foo-bar").not.toMatch(pattern.regexp);
@@ -30,23 +67,13 @@ describe("parsePattern", () => {
 		expect("foo_bar").toMatch(pattern.regexp);
 		expect(pattern.description).toBe("underscore");
 	});
+});
 
-	it("underscore should be alias for snakecase", () => {
-		expect.assertions(5);
-		const pattern = parsePattern("underscore");
-		expect("foo-bar").not.toMatch(pattern.regexp);
-		expect("fooBar").not.toMatch(pattern.regexp);
-		expect("Foobar").not.toMatch(pattern.regexp);
-		expect("foo_bar").toMatch(pattern.regexp);
-		expect(pattern.description).toBe("underscore");
-	});
-
-	it("should support user-supplied regexp", () => {
-		expect.assertions(4);
-		const pattern = parsePattern("^foo-[a-z]\\w+$");
-		expect("foo-bar").toMatch(pattern.regexp);
-		expect("bar-foo").not.toMatch(pattern.regexp);
-		expect("barfoo-baz").not.toMatch(pattern.regexp);
-		expect(pattern.description).toBe("/^foo-[a-z]\\w+$/");
-	});
+it("should support user-supplied regexp", () => {
+	expect.assertions(4);
+	const pattern = parsePattern("^foo-[a-z]\\w+$");
+	expect("foo-bar").toMatch(pattern.regexp);
+	expect("bar-foo").not.toMatch(pattern.regexp);
+	expect("barfoo-baz").not.toMatch(pattern.regexp);
+	expect(pattern.description).toBe("/^foo-[a-z]\\w+$/");
 });
