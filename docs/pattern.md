@@ -13,7 +13,8 @@ This is a list of predefined patterns that can be used with such rules.
 - `lorem-ipsum-dolor-sit-amet`
 
 Matches strings with words separated by hyphen.
-Must start with a letter.
+Must start with a letter and cannot end with a hyphen.
+Multiple consecutive hyphens are not allowed.
 
 ## `camelcase`
 
@@ -27,4 +28,5 @@ Must start with a letter.
 - `lorem_ipsum_dolor_sit_amet`
 
 Matches strings with words separated by underscore.
-Must start with a letter.
+Must start with a letter and cannot end with an underscore.
+Multiple consecutive underscores are not allowed.
