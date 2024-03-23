@@ -24,7 +24,9 @@ function textFormatter(results: Result[]): string {
 					messageType = "warning";
 				}
 
-				const location = `${result.filePath}:${message.line}:${message.column}`;
+				const line = String(message.line);
+				const column = String(message.column);
+				const location = `${result.filePath}:${line}:${column}`;
 				return `${location}: ${messageType} [${message.ruleId}] ${message.message}\n`;
 			})
 			.join("");

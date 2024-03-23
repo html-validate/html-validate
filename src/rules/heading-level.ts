@@ -168,7 +168,9 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 		/* if we reach this far the heading level is not accepted */
 		const location = sliceLocation(event.location, 1);
 		if (root.current > 0) {
-			const msg = `Heading level can only increase by one, expected <h${expected}> but got <h${level}>`;
+			const expectedTag = `<h${String(expected)}>`;
+			const actualTag = `<h${String(level)}>`;
+			const msg = `Heading level can only increase by one, expected ${expectedTag} but got ${actualTag}`;
 			this.report(event.target, msg, location);
 		} else {
 			this.checkInitialLevel(event, location, level, expected);
@@ -181,11 +183,13 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 		level: number,
 		expected: number,
 	): void {
+		const expectedTag = `<h${String(expected)}>`;
+		const actualTag = `<h${String(level)}>`;
 		if (this.stack.length === 1) {
 			const msg =
 				this.minInitialRank > 1
-					? `Initial heading level must be <h${this.minInitialRank}> or higher rank but got <h${level}>`
-					: `Initial heading level must be <h${expected}> but got <h${level}>`;
+					? `Initial heading level must be <h${String(this.minInitialRank)}> or higher rank but got ${actualTag}`
+					: `Initial heading level must be ${expectedTag} but got ${actualTag}`;
 			this.report(event.target, msg, location);
 		} else {
 			const prevRoot = this.getPrevRoot();
@@ -193,10 +197,10 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 
 			if (level > prevRootExpected) {
 				if (expected === prevRootExpected) {
-					const msg = `Initial heading level for sectioning root must be <h${expected}> but got <h${level}>`;
+					const msg = `Initial heading level for sectioning root must be ${expectedTag} but got ${actualTag}`;
 					this.report(event.target, msg, location);
 				} else {
-					const msg = `Initial heading level for sectioning root must be between <h${expected}> and <h${prevRootExpected}> but got <h${level}>`;
+					const msg = `Initial heading level for sectioning root must be between ${expectedTag} and <h${String(prevRootExpected)}> but got ${actualTag}`;
 					this.report(event.target, msg, location);
 				}
 			}

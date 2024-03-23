@@ -371,8 +371,8 @@ export class Config {
 		return plugins.map((moduleName: string | Plugin, index: number) => {
 			if (typeof moduleName !== "string") {
 				const plugin = moduleName as LoadedPlugin;
-				plugin.name = plugin.name || `:unnamedPlugin@${index + 1}`;
-				plugin.originalName = `:unnamedPlugin@${index + 1}`;
+				plugin.name = plugin.name || `:unnamedPlugin@${String(index + 1)}`;
+				plugin.originalName = `:unnamedPlugin@${String(index + 1)}`;
 				return plugin;
 			}
 
@@ -482,7 +482,7 @@ export class Config {
 				/* check if transformer version is supported */
 				if (version !== TRANSFORMER_API.VERSION) {
 					throw new ConfigError(
-						`Transformer uses API version ${version} but only version ${TRANSFORMER_API.VERSION} is supported`,
+						`Transformer uses API version ${String(version)} but only version ${String(TRANSFORMER_API.VERSION)} is supported`,
 					);
 				}
 

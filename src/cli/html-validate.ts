@@ -1,4 +1,4 @@
-/* eslint-disable no-console, no-process-exit, sonarjs/no-duplicate-string -- as expected from a cli app */
+/* eslint-disable no-console, n/no-process-exit, sonarjs/no-duplicate-string -- as expected from a cli app */
 import fs from "fs";
 import path from "node:path";
 import kleur from "kleur";
@@ -273,7 +273,7 @@ async function run(): Promise<void> {
 	}
 }
 
-run().catch((err) => {
+run().catch((err: unknown) => {
 	console.error(err);
 	process.exit(1);
 });

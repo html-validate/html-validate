@@ -31,7 +31,7 @@ export function dump(
 			lines = files.map((filename: string) => htmlvalidate.dumpSource(filename));
 			break;
 		default:
-			throw new Error(`Unknown mode "${mode}"`);
+			throw new Error(`Unknown mode "${String(mode)}"`);
 	}
 	const flat = lines.reduce((s: string[], c: string[]) => s.concat(c), []);
 	output.write(flat.join("\n"));
