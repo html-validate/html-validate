@@ -19,6 +19,7 @@ export function parsePattern(pattern: PatternName): ParsedPattern {
 		case "camelcase":
 			return { regexp: /^[a-z][a-zA-Z0-9]+$/, description: pattern };
 
+		case "snakecase":
 		case "underscore":
 			return { regexp: /^[a-z0-9_]+$/, description: pattern };
 

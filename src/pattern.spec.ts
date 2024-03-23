@@ -21,7 +21,17 @@ describe("parsePattern", () => {
 		expect(pattern.description).toBe("camelcase");
 	});
 
-	it("underscore should match strings with underscore", () => {
+	it("snakecase should match strings with snakecase", () => {
+		expect.assertions(5);
+		const pattern = parsePattern("underscore");
+		expect("foo-bar").not.toMatch(pattern.regexp);
+		expect("fooBar").not.toMatch(pattern.regexp);
+		expect("Foobar").not.toMatch(pattern.regexp);
+		expect("foo_bar").toMatch(pattern.regexp);
+		expect(pattern.description).toBe("underscore");
+	});
+
+	it("underscore should be alias for snakecase", () => {
 		expect.assertions(5);
 		const pattern = parsePattern("underscore");
 		expect("foo-bar").not.toMatch(pattern.regexp);
