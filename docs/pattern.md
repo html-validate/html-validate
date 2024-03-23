@@ -26,7 +26,14 @@ Must start with a letter.
 ## `snakecase`
 
 - `lorem_ipsum_dolor_sit_amet`
+- alias: `underscore`
 
 Matches strings with words separated by underscore.
 Must start with a letter and cannot end with an underscore.
 Multiple consecutive underscores are not allowed.
+
+## `bem`
+
+- `lorem-ipsum__dolor--sit-amet`
+
+Matches string using [BEM naming convention](https://getbem.com/naming/).
