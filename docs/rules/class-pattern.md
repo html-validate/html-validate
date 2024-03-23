@@ -40,13 +40,17 @@ This rule takes an optional object:
 
 Either one of the presets or a custom regular expression.
 
-- `"kebabcase"` matches lowercase letters, digits and dash (`[a-z0-9-]`) (default)
-- `"camelcase"` matches lowercase letter followed by letters and digits (`[a-z][a-zA-Z0-9]`)
-- `"underscore"` matches lowercase letters, digits and underscore (`[a-z0-9_]`)
+- `"kebabcase"` matches lowercase letters, digits and hyphen (e.g. `kebab-case`)) (default)
+- `"camelcase"` matches lowercase letter followed by letters and digits (e.g. `camelCase`)
+- `"snakecase"` matches lowercase letters, digits and underscore (e.g. `snake_case`)
+- `"bem"` matches [BEM naming convention](https://getbem.com/naming/) (e.g. `block__elem--modifier`)
+
+Read more about {@link pattern details and examples of predefined patterns}.
 
 Multiple patterns can be set as an array.
 If value matches either of the patterns it is considered valid.
 
 ## Version history
 
+- %version% - Support `snakecase` (previously `underscore`) and `bem`.
 - 8.17.0 - Support multiple patterns.
