@@ -2,6 +2,14 @@ import { type HtmlElement } from "../dom";
 import { type DOMReadyEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
+const CACHE_KEY = Symbol("no-dup-id");
+
+declare module "../dom/cache" {
+	export interface DOMNodeCache {
+		[CACHE_KEY]: Set<string>;
+	}
+}
+
 export default class NoDupID extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
@@ -13,7 +21,6 @@ export default class NoDupID extends Rule {
 	public setup(): void {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const { document } = event;
-			const existing = new Set<string>();
 			const elements = document.querySelectorAll("[id]");
 			const relevant = elements.filter(isRelevant);
 			for (const el of relevant) {
@@ -26,6 +33,8 @@ export default class NoDupID extends Rule {
 
 				const id = attr.value.toString();
 
+				const existing = getExisting(el, document.root);
+
 				if (existing.has(id)) {
 					this.report(el, `Duplicate ID "${id}"`, attr.valueLocation);
 				}
@@ -33,6 +42,17 @@ export default class NoDupID extends Rule {
 				existing.add(id);
 			}
 		});
+	}
+}
+
+function getExisting(element: HtmlElement, root: HtmlElement): Set<string> {
+	const group = element.closest("template") ?? root;
+	const existing = group.cacheGet(CACHE_KEY);
+	if (existing) {
+		return existing;
+	} else {
+		const existing = new Set<string>();
+		return group.cacheSet(CACHE_KEY, existing);
 	}
 }
 

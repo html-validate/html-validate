@@ -100,8 +100,8 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 					continue;
 				}
 
-				const form = control.closest("form") ?? document.root;
-				this.validateUniqueName(control, form, attr, name);
+				const group = control.closest("form, template") ?? document.root;
+				this.validateUniqueName(control, group, attr, name);
 			}
 
 			/* validate all form controls which allows shared names to ensure there is
@@ -113,19 +113,19 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 					continue;
 				}
 
-				const form = control.closest("form") ?? document.root;
-				this.validateSharedName(control, form, attr, name);
+				const group = control.closest("form, template") ?? document.root;
+				this.validateSharedName(control, group, attr, name);
 			}
 		});
 	}
 
 	private validateUniqueName(
 		control: HtmlElement,
-		form: HtmlElement,
+		group: HtmlElement,
 		attr: Attribute,
 		name: string,
 	): void {
-		const elements = this.getUniqueElements(form);
+		const elements = this.getUniqueElements(group);
 		const { allowArrayBrackets } = this.options;
 
 		if (allowArrayBrackets) {
@@ -182,12 +182,12 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 
 	private validateSharedName(
 		control: HtmlElement,
-		form: HtmlElement,
+		group: HtmlElement,
 		attr: Attribute,
 		name: string,
 	): void {
-		const uniqueElements = this.getUniqueElements(form);
-		const sharedElements = this.getSharedElements(form);
+		const uniqueElements = this.getUniqueElements(group);
+		const sharedElements = this.getSharedElements(group);
 		/* istanbul ignore next: type will always be set or shared name wouldn't be allowed */
 		const type = control.getAttributeValue("type") ?? "";
 		if (
@@ -225,24 +225,24 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 		return meta.formAssociated.listed;
 	}
 
-	private getUniqueElements(form: HtmlElement): Map<string, ControlDetails> {
-		const existing = form.cacheGet(UNIQUE_CACHE_KEY);
+	private getUniqueElements(group: HtmlElement): Map<string, ControlDetails> {
+		const existing = group.cacheGet(UNIQUE_CACHE_KEY);
 		if (existing) {
 			return existing;
 		} else {
 			const elements = new Map<string, ControlDetails>();
-			form.cacheSet(UNIQUE_CACHE_KEY, elements);
+			group.cacheSet(UNIQUE_CACHE_KEY, elements);
 			return elements;
 		}
 	}
 
-	private getSharedElements(form: HtmlElement): Map<string, string> {
-		const existing = form.cacheGet(SHARED_CACHE_KEY);
+	private getSharedElements(group: HtmlElement): Map<string, string> {
+		const existing = group.cacheGet(SHARED_CACHE_KEY);
 		if (existing) {
 			return existing;
 		} else {
 			const elements = new Map<string, string>();
-			form.cacheSet(SHARED_CACHE_KEY, elements);
+			group.cacheSet(SHARED_CACHE_KEY, elements);
 			return elements;
 		}
 	}

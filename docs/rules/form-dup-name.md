@@ -14,7 +14,7 @@ The form control name also plays a role in the autocomplete heurestics so using 
 
 By default, radiobuttons (`<input type="radio">`) is generally ignored by this rule as they are typically using the same name on purpose but they cannot share the same name as other controls.
 
-Each `<form>` tracks the names separately, i.e. you can have two forms with colliding names.
+Each `<form>` and `<template>` element tracks the names separately, i.e. you can have two forms with colliding names.
 
 ## Rule details
 
@@ -156,6 +156,7 @@ module.exports = defineMetadata({
 
 ## Version history
 
+- %version% - Track `<template>` elements separately.
 - 7.15.2 - `<button type="submit">` included as `shared` by default.
 - 7.12.2 - `allowArrayBrackets` and `shared` options added.
 - 7.12.0 - Rule added.
