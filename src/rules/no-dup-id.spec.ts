@@ -32,6 +32,28 @@ describe("rule no-dup-id", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report when id is empty string", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<hr id="" />
+			<hr id="" />
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report when id is same as an id within <template>", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<hr id="foo" />
+			<template>
+				<hr id="foo" />
+			</template>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should not report error for interpolated attributes", async () => {
 		expect.assertions(1);
 		const markup = '<p id="{{ interpolated }}"></p><p id="{{ interpolated }}"></p>';
@@ -55,6 +77,10 @@ describe("rule no-dup-id", () => {
 		const markup = /* HTML */ `
 			<p id="foo"></p>
 			<p id="foo"></p>
+			<template>
+				<p id="bar"></p>
+				<p id="bar"></p>
+			</template>
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
@@ -64,8 +90,18 @@ describe("rule no-dup-id", () => {
 			  2 | 			<p id="foo"></p>
 			> 3 | 			<p id="foo"></p>
 			    | 			       ^^^
-			  4 |
-			Selector: p:nth-child(2)"
+			  4 | 			<template>
+			  5 | 				<p id="bar"></p>
+			  6 | 				<p id="bar"></p>
+			Selector: p:nth-child(2)
+			error: Duplicate ID "bar" (no-dup-id) at inline:6:12:
+			  4 | 			<template>
+			  5 | 				<p id="bar"></p>
+			> 6 | 				<p id="bar"></p>
+			    | 				       ^^^
+			  7 | 			</template>
+			  8 |
+			Selector: template > p:nth-child(2)"
 		`);
 	});
 
