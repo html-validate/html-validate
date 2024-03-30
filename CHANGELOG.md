@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## 8.18.1 (2024-03-30)
+
+### Bug Fixes
+
+- **rules:** `form-dup-name` handles `<template>` element ([9c77444](https://gitlab.com/html-validate/html-validate/commit/9c77444a3abb4098bf7a4d7eeececb680eedc533)), closes [#247](https://gitlab.com/html-validate/html-validate/issues/247)
+- **rules:** `no-dup-id` handles `<template>` element ([04f3e0d](https://gitlab.com/html-validate/html-validate/commit/04f3e0d1c5cccf28a6aadeb3fab5480cf97a6683)), closes [#247](https://gitlab.com/html-validate/html-validate/issues/247)
+
 ## 8.18.0 (2024-03-23)
 
 ### Features

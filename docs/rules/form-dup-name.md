@@ -156,7 +156,7 @@ module.exports = defineMetadata({
 
 ## Version history
 
-- %version% - Track `<template>` elements separately.
+- 8.18.1 - Track `<template>` elements separately.
 - 7.15.2 - `<button type="submit">` included as `shared` by default.
 - 7.12.2 - `allowArrayBrackets` and `shared` options added.
 - 7.12.0 - Rule added.
