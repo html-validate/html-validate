@@ -25,7 +25,7 @@ const defaults: RuleOptions = {
 
 function isRelevant(event: TagStartEvent): boolean {
 	const node = event.target;
-	return Boolean(node.meta && node.meta.heading);
+	return Boolean(node.meta?.heading);
 }
 
 function extractLevel(node: HtmlElement): number | null {

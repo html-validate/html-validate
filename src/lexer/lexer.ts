@@ -173,7 +173,7 @@ export class Lexer {
 	 */
 	private enter(context: Context, state: State, data: string[] | null): void {
 		/* script/style tags require a different content model */
-		if (state === State.TAG && data && data[0].startsWith("<")) {
+		if (state === State.TAG && data?.[0].startsWith("<")) {
 			if (data[0] === "<script") {
 				context.contentModel = ContentModel.SCRIPT;
 			} else if (data[0] === "<style") {

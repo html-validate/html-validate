@@ -144,7 +144,7 @@ export default class TelNonBreaking extends Rule<RuleContext, RuleOptions> {
 
 		/* ignore if anchor does not have tel href */
 		const attr = target.getAttribute("href");
-		if (!attr || !attr.valueMatches(/^tel:/, false)) {
+		if (!attr?.valueMatches(/^tel:/, false)) {
 			return false;
 		}
 

@@ -45,7 +45,7 @@ function isSubmit(node: HtmlElement): boolean {
 
 function isAssociated(id: string, node: HtmlElement): boolean {
 	const form = node.getAttribute("form");
-	return Boolean(form && form.valueMatches(id, true));
+	return Boolean(form?.valueMatches(id, true));
 }
 
 function hasNestedSubmit(form: HtmlElement): boolean {

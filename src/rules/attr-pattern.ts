@@ -104,7 +104,7 @@ export default class AttrPattern extends Rule<RuleContext, RuleOptions> {
 
 	protected isIgnored(node: HtmlElement): boolean {
 		if (this.options.ignoreForeign) {
-			return Boolean(node.meta && node.meta.foreign);
+			return Boolean(node.meta?.foreign);
 		} else {
 			return false;
 		}

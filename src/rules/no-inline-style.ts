@@ -101,7 +101,7 @@ export default class NoInlineStyle extends Rule<void, RuleOptions> {
 		}
 
 		/* ignore attributes present in "exclude" */
-		if (exclude && exclude.includes(key)) {
+		if (exclude?.includes(key)) {
 			return false;
 		}
 

@@ -18,7 +18,7 @@ const HAS_ACCESSIBLE_TEXT_CACHE = Symbol(hasAccessibleName.name);
 
 function isHidden(node: HtmlElement, context: Context): boolean {
 	const { reference } = context;
-	if (reference && reference.isSameNode(node)) {
+	if (reference?.isSameNode(node)) {
 		return false;
 	} else {
 		return !inAccessibilityTree(node);
@@ -103,7 +103,7 @@ function hasAccessibleNameImpl(current: HtmlElement, context: Context): boolean 
 
 	/* special case: when this element is directly referenced by aria-labelledby
 	 * we ignore `hidden` */
-	const ignoreHiddenRoot = Boolean(reference && reference.isSameNode(current));
+	const ignoreHiddenRoot = Boolean(reference?.isSameNode(current));
 
 	const text = classifyNodeText(current, { accessible: true, ignoreHiddenRoot });
 	if (text !== TextClassification.EMPTY_TEXT) {

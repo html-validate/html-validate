@@ -16,7 +16,7 @@ interface DynamicAttribute {
  * @public
  */
 export function isStaticAttribute(attr: Attribute | null): attr is Attribute & StaticAttribute {
-	return Boolean(attr && attr.isStatic);
+	return Boolean(attr?.isStatic);
 }
 
 /**
@@ -25,7 +25,7 @@ export function isStaticAttribute(attr: Attribute | null): attr is Attribute & S
  * @public
  */
 export function isDynamicAttribute(attr: Attribute | null): attr is Attribute & DynamicAttribute {
-	return Boolean(attr && attr.isDynamic);
+	return Boolean(attr?.isDynamic);
 }
 
 /**

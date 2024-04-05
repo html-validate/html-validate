@@ -92,7 +92,7 @@ export function isAriaHidden(node: HtmlElement, details?: true): boolean | IsHid
 function isHTMLHiddenImpl(node: HtmlElement): IsHiddenResult {
 	const getHiddenAttr = (node: HtmlElement): boolean => {
 		const hidden = node.getAttribute("hidden");
-		return hidden !== null && hidden.isStatic;
+		return Boolean(hidden?.isStatic);
 	};
 	return {
 		byParent: node.parent ? isHTMLHidden(node.parent) : false,
@@ -122,7 +122,7 @@ export function isHTMLHidden(node: HtmlElement, details?: true): boolean | IsHid
 function isInertImpl(node: HtmlElement): IsHiddenResult {
 	const getInertAttr = (node: HtmlElement): boolean => {
 		const inert = node.getAttribute("inert");
-		return inert !== null && inert.isStatic;
+		return Boolean(inert?.isStatic);
 	};
 	return {
 		byParent: node.parent ? isInert(node.parent) : false,
@@ -188,7 +188,7 @@ export function isPresentation(node: HtmlElement): boolean {
 
 	/* interactive elements ignores `role="presentation"` */
 	const meta = node.meta;
-	if (meta && meta.interactive) {
+	if (meta?.interactive) {
 		return node.cacheSet(ROLE_PRESENTATION_CACHE, false);
 	}
 

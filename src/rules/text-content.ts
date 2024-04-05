@@ -16,7 +16,7 @@ interface RuleContext {
  */
 function hasNonEmptyAttribute(node: HtmlElement, key: string): boolean {
 	const attr = node.getAttribute(key);
-	return Boolean(attr && attr.valueMatches(/.+/, true));
+	return Boolean(attr?.valueMatches(/.+/, true));
 }
 
 /**
@@ -37,7 +37,7 @@ function hasDefaultText(node: HtmlElement): boolean {
 
 	/* default text is only present when type is submit or reset */
 	const type = node.getAttribute("type");
-	return Boolean(type && type.valueMatches(/submit|reset/, false));
+	return Boolean(type?.valueMatches(/submit|reset/, false));
 }
 
 function isNonEmptyText(node: DOMNode): boolean {

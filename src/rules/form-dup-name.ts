@@ -38,7 +38,7 @@ function haveName(name: string | DynamicValue | null | undefined): name is strin
 
 function allowSharedName(node: HtmlElement, shared: string[]): boolean {
 	const type = node.getAttribute("type");
-	return Boolean(type && type.valueMatches(shared, false));
+	return Boolean(type?.valueMatches(shared, false));
 }
 
 function getDocumentation(context: RuleContext): string {

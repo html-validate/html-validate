@@ -229,7 +229,7 @@ export class Parser {
 	/**
 	 * @internal
 	 */
-	/* eslint-disable-next-line complexity, sonarjs/cognitive-complexity -- technical debt, chould be refactored a bit */
+	/* eslint-disable-next-line complexity -- technical debt, chould be refactored a bit */
 	protected consumeTag(source: Source, startToken: TagOpenToken, tokenStream: TokenStream): void {
 		const tokens = Array.from(
 			this.consumeUntil(tokenStream, TokenType.TAG_CLOSE, startToken.location),
@@ -246,7 +246,7 @@ export class Parser {
 		);
 		const isStartTag = !startToken.data[1];
 		const isClosing = !isStartTag || node.closed !== NodeClosed.Open;
-		const isForeign = node.meta && node.meta.foreign;
+		const isForeign = node.meta?.foreign;
 
 		/* if the previous tag to be implicitly closed by the current tag we close
 		 * it and pop it from the stack before continuing processing this tag */
