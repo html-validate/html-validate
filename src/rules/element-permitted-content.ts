@@ -112,7 +112,7 @@ export default class ElementPermittedContent extends Rule<RuleContext> {
 		/* for transparent elements all/listed children must be validated against
 		 * the (this elements) parent, i.e. if this node was removed from the DOM it
 		 * should still be valid. */
-		if (cur.meta && cur.meta.transparent) {
+		if (cur.meta?.transparent) {
 			const children = getTransparentChildren(cur, cur.meta.transparent);
 			return children
 				.map((child: HtmlElement) => {

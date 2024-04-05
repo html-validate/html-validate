@@ -138,7 +138,7 @@ export class DOMNode {
 	public cacheExists<K extends keyof DOMNodeCache>(key: K): boolean;
 	public cacheExists(key: string | number | symbol): boolean;
 	public cacheExists(key: string | number | symbol): boolean {
-		return Boolean(this.cache && this.cache.has(key));
+		return Boolean(this.cache?.has(key));
 	}
 
 	/**

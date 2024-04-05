@@ -35,7 +35,7 @@ export class IsIgnored {
 
 			/* test filename (relative to the ignore file) against the patterns */
 			const ig = this.parseFile(filename);
-			if (ig && ig.ignores(relative)) {
+			if (ig?.ignores(relative)) {
 				return true;
 			}
 

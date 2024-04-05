@@ -15,7 +15,7 @@ export default class AriaHiddenBody extends Rule {
 			const { target } = event;
 
 			const attr = target.getAttribute("aria-hidden");
-			if (!attr || !attr.valueMatches("true", true)) {
+			if (!attr?.valueMatches("true", true)) {
 				return;
 			}
 

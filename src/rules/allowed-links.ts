@@ -66,7 +66,7 @@ export function matchList(value: string, list: AllowList<RegExp>): boolean {
 	if (list.include && !list.include.some((it) => it.test(value))) {
 		return false;
 	}
-	if (list.exclude && list.exclude.some((it) => it.test(value))) {
+	if (list.exclude?.some((it) => it.test(value))) {
 		return false;
 	}
 	return true;

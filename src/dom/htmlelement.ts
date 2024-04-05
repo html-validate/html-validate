@@ -678,7 +678,7 @@ export class HtmlElement extends DOMNode {
 function isClosed(endToken: TagCloseToken, meta: MetaElement | null): NodeClosed {
 	let closed = NodeClosed.Open;
 
-	if (meta && meta.void) {
+	if (meta?.void) {
 		closed = NodeClosed.VoidOmitted;
 	}
 

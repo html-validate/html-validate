@@ -1,4 +1,4 @@
-import { type HtmlElement } from "../dom";
+import { isDynamicAttribute, type HtmlElement } from "../dom";
 import { type ElementReadyEvent } from "../event";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
@@ -79,7 +79,7 @@ export default class AreaAlt extends Rule<RuleContext, RuleOptions> {
 		const href = area.getAttribute("href");
 		const alt = area.getAttribute("alt");
 		if (href) {
-			if (alt && alt.isDynamic) {
+			if (isDynamicAttribute(alt)) {
 				return;
 			}
 
