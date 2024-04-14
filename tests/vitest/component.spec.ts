@@ -1,5 +1,4 @@
 // @vitest-environment jsdom
-/* eslint-disable import/no-extraneous-dependencies, import/no-unresolved -- resolved as vite alias */
 
 import { beforeAll, expect, it } from "vitest";
 import { HtmlValidate, CLI } from "html-validate";
