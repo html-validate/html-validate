@@ -191,7 +191,7 @@ export function build(format) {
 					"src/resolve": generateResolved(format),
 				}),
 				esbuild({
-					target: "node16",
+					target: "node18",
 					platform: "node",
 				}),
 				json(jsonConfig),

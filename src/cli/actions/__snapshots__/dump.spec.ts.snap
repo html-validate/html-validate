@@ -18,8 +18,8 @@ dom:load: {
 tag:start: {
   "target": {
     "nodeName": "p",
-    "location": "<rootDir>/test-files/parser/simple.html:1:2",
     "childNodes": "[truncated]",
+    "location": "<rootDir>/test-files/parser/simple.html:1:2",
     "tagName": "p",
     "attr": {
       "id": [
@@ -38,8 +38,8 @@ tag:start: {
 attr: {
   "target": {
     "nodeName": "p",
-    "location": "<rootDir>/test-files/parser/simple.html:1:2",
     "childNodes": "[truncated]",
+    "location": "<rootDir>/test-files/parser/simple.html:1:2",
     "tagName": "p",
     "attr": {
       "id": [
@@ -64,8 +64,8 @@ attr: {
 tag:ready: {
   "target": {
     "nodeName": "p",
-    "location": "<rootDir>/test-files/parser/simple.html:1:2",
     "childNodes": "[truncated]",
+    "location": "<rootDir>/test-files/parser/simple.html:1:2",
     "tagName": "p",
     "attr": {
       "id": [
@@ -84,16 +84,16 @@ tag:ready: {
 tag:end: {
   "target": {
     "nodeName": "p",
-    "location": "<rootDir>/test-files/parser/simple.html:1:25",
     "childNodes": "[truncated]",
+    "location": "<rootDir>/test-files/parser/simple.html:1:25",
     "tagName": "p",
     "attr": {},
     "metaElement": "[truncated]"
   },
   "previous": {
     "nodeName": "p",
-    "location": "<rootDir>/test-files/parser/simple.html:1:2",
     "childNodes": "[truncated]",
+    "location": "<rootDir>/test-files/parser/simple.html:1:2",
     "tagName": "p",
     "attr": {
       "id": [
@@ -112,8 +112,8 @@ tag:end: {
 element:ready: {
   "target": {
     "nodeName": "p",
-    "location": "<rootDir>/test-files/parser/simple.html:1:2",
     "childNodes": "[truncated]",
+    "location": "<rootDir>/test-files/parser/simple.html:1:2",
     "tagName": "p",
     "attr": {
       "id": [
@@ -137,16 +137,16 @@ dom:ready: {
   "document": {
     "root": {
       "nodeName": "#document",
-      "location": "<rootDir>/test-files/parser/simple.html:1:1",
       "childNodes": "[truncated]",
+      "location": "<rootDir>/test-files/parser/simple.html:1:1",
       "tagName": "#document",
       "attr": {},
       "metaElement": null
     },
     "active": {
       "nodeName": "#document",
-      "location": "<rootDir>/test-files/parser/simple.html:1:1",
       "childNodes": "[truncated]",
+      "location": "<rootDir>/test-files/parser/simple.html:1:1",
       "tagName": "#document",
       "attr": {},
       "metaElement": null
