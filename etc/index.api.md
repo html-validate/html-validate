@@ -656,7 +656,7 @@ export class HtmlValidate {
     getConfigFor(filename: string, configOverride?: ConfigData): Promise<ResolvedConfig>;
     getConfigForSync(filename: string, configOverride?: ConfigData): ResolvedConfig;
     getConfigLoader(): ConfigLoader;
-    getConfigurationSchema(): SchemaObject;
+    getConfigurationSchema(): Promise<SchemaObject>;
     getContextualDocumentation(message: Pick<Message, "ruleId" | "context">, filename?: string): Promise<RuleDocumentation | null>;
     getContextualDocumentation(message: Pick<Message, "ruleId" | "context">, config: ResolvedConfig | Promise<ResolvedConfig>): Promise<RuleDocumentation | null>;
     getContextualDocumentationSync(message: Pick<Message, "ruleId" | "context">, filename?: string): RuleDocumentation | null;
