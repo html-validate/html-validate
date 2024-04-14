@@ -353,8 +353,8 @@ export class HtmlValidate {
 	/**
 	 * Get effective configuration schema.
 	 */
-	public getConfigurationSchema(): SchemaObject {
-		return configurationSchema;
+	public getConfigurationSchema(): Promise<SchemaObject> {
+		return Promise.resolve(configurationSchema);
 	}
 
 	/**
