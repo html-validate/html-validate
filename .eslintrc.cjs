@@ -39,6 +39,7 @@ module.exports = {
 				"import/no-duplicates": "off",
 				"import/no-extraneous-dependencies": "off",
 				"import/no-unresolved": "off",
+				"n/no-extraneous-import": ["error", { allowModules: ["html-validate"] }],
 				"tsdoc/syntax": "off",
 				"no-console": "off",
 			},
