@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 8.18.2 (2024-04-20)
+
+### Bug Fixes
+
+- **html5:** allow textarea to have autocomplete values other than `on` and `off` ([c1dfbb1](https://gitlab.com/html-validate/html-validate/commit/c1dfbb18c16f41b995fbb5054381c7396f035877)), closes [#249](https://gitlab.com/html-validate/html-validate/issues/249)
+
 ## 8.18.1 (2024-03-30)
 
 ### Bug Fixes
