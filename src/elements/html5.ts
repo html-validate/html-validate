@@ -2687,9 +2687,7 @@ export default defineMetadata({
 		},
 		labelable: true,
 		attributes: {
-			autocomplete: {
-				enum: ["on", "off"],
-			},
+			autocomplete: {},
 			autofocus: {
 				boolean: true,
 			},
