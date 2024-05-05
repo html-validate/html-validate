@@ -2,6 +2,7 @@ async function update() {
 	const fs = require("node:fs/promises");
 	const { JSDOM } = require("jsdom");
 	const url = "https://www.w3.org/TR/wai-aria/#namefromprohibited";
+	/* eslint-disable-next-line n/no-unsupported-features/es-builtins -- this is not directly exposed to users, it is available from node 18 and onwads */
 	const response = await fetch(url);
 	if (!response.ok) {
 		throw new Error(`Failed to fetch "${url}": HTTP ${response.status}: ${response.statusText}`);
