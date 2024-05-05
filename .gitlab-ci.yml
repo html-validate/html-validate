@@ -266,6 +266,7 @@ Module:
     GIT_COMMITTER_EMAIL: ${HTML_VALIDATE_BOT_EMAIL}
   before_script:
     - npm install -g $(node -p 'require("./package.json").release.extends')
+    - node --version
 
 Dry run:
   extends: .release
