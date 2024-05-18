@@ -41,3 +41,7 @@ Examples of **correct** code for this rule:
     <input type="text">
   </label>
 </validate>
+
+## Version history
+
+- %version% - Rule ignores properly ignores `<input type="hidden">`.
