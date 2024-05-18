@@ -186,7 +186,7 @@ module.exports = defineMetadata({
 
 ## Version history
 
-- 8.19.0 - `allowCheckboxDefault` option added.
+- %version% - `allowCheckboxDefault` option added.
 - 8.18.1 - Track `<template>` elements separately.
 - 7.15.2 - `<button type="submit">` included as `shared` by default.
 - 7.12.2 - `allowArrayBrackets` and `shared` options added.

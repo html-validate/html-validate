@@ -1,17 +1,5 @@
 # html-validate changelog
 
-## 8.19.0 (2024-05-18)
-
-### Features
-
-- **rules:** new option `allowCheckboxDefault` for `form-dup-name` ([293b951](https://gitlab.com/html-validate/html-validate/commit/293b951073a78af3c7a26d4ccf2472eed6178828)), closes [#251](https://gitlab.com/html-validate/html-validate/issues/251)
-
-### Bug Fixes
-
-- **rules:** `multiple-labeled-controls` handles hidden input ([4d794b6](https://gitlab.com/html-validate/html-validate/commit/4d794b6911cc8d977d008eaaad5d0d9996a9c662)), closes [#251](https://gitlab.com/html-validate/html-validate/issues/251)
-- **rules:** `wcag/h30` only applies to `<a href>` ([cd93dfe](https://gitlab.com/html-validate/html-validate/commit/cd93dfe591e6f833516ddcae086c7587ed3d103c)), closes [#252](https://gitlab.com/html-validate/html-validate/issues/252)
-- **rules:** handle unicode letters in `valid-id` ([c83687a](https://gitlab.com/html-validate/html-validate/commit/c83687abc26b84a0e026caad8781656db6ac0339)), closes [#253](https://gitlab.com/html-validate/html-validate/issues/253)
-
 ## 8.18.2 (2024-04-20)
 
 ### Bug Fixes
