@@ -20,7 +20,7 @@ exports[`docs/rules/wcag/h30.md inline validation: incorrect 1`] = `
         "size": 1,
       },
     ],
-    "source": "<a><img src="cat.gif"></a>",
+    "source": "<a href><img src="cat.gif"></a>",
     "warningCount": 0,
   },
 ]

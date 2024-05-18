@@ -8,7 +8,7 @@ export default class H30 extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
 			description:
-				"WCAG 2.1 requires each `<a>` anchor link to have a text describing the purpose of the link using either plain text or an `<img>` with the `alt` attribute set.",
+				"WCAG 2.1 requires each `<a href>` anchor link to have a text describing the purpose of the link using either plain text or an `<img>` with the `alt` attribute set.",
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
@@ -17,6 +17,11 @@ export default class H30 extends Rule {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const links = event.document.getElementsByTagName("a");
 			for (const link of links) {
+				/* ignore links missing the href attribute */
+				if (!link.hasAttribute("href")) {
+					continue;
+				}
+
 				/* ignore links with aria-hidden="true" */
 				if (!inAccessibilityTree(link)) {
 					continue;

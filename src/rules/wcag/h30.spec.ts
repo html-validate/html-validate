@@ -11,16 +11,23 @@ describe("wcag/h30", () => {
 		});
 	});
 
+	it("should not report when <a> is missing href", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `<a></a>`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should not report when link has text", async () => {
 		expect.assertions(1);
-		const markup = /* HTML */ `<a>lorem ipsum</a>`;
+		const markup = /* HTML */ `<a href>lorem ipsum</a>`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report when link has image with alt-text", async () => {
 		expect.assertions(1);
-		const markup = /* HTML */ `<a><img alt="lorem ipsum" /></a>`;
+		const markup = /* HTML */ `<a href><img alt="lorem ipsum" /></a>`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
@@ -28,7 +35,7 @@ describe("wcag/h30", () => {
 	it("should not report when link has svg with <title>", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
-			<a>
+			<a href>
 				<svg><title>lorem ipsum</title></svg>
 			</a>
 		`;
@@ -39,7 +46,7 @@ describe("wcag/h30", () => {
 	it("should not report when link has svg with <desc>", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
-			<a>
+			<a href>
 				<svg><desc>lorem ipsum</desc></svg>
 			</a>
 		`;
@@ -49,21 +56,21 @@ describe("wcag/h30", () => {
 
 	it("should not report when link has aria-label", async () => {
 		expect.assertions(1);
-		const markup = /* HTML */ `<a aria-label="lorem ipsum"></a>`;
+		const markup = /* HTML */ `<a href aria-label="lorem ipsum"></a>`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report when descendant has aria-label", async () => {
 		expect.assertions(1);
-		const markup = /* HTML */ `<a><span aria-label="lorem ipsum"></span></a>`;
+		const markup = /* HTML */ `<a href><span aria-label="lorem ipsum"></span></a>`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should not report when link is hidden from accessibility tree", async () => {
 		expect.assertions(1);
-		const markup = /* HTML */ `<a aria-hidden="true"></a>`;
+		const markup = /* HTML */ `<a href aria-hidden="true"></a>`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
@@ -71,9 +78,9 @@ describe("wcag/h30", () => {
 	it("should not report error when hidden link has text", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
-			<a hidden>lorem ipsum</a>
+			<a href hidden>lorem ipsum</a>
 			<div hidden>
-				<a>dolor sit amet</a>
+				<a href>dolor sit amet</a>
 			</div>
 		`;
 		const report = await htmlvalidate.validateString(markup);
@@ -82,12 +89,12 @@ describe("wcag/h30", () => {
 
 	it("should report error when link is missing text", async () => {
 		expect.assertions(2);
-		const markup = /* HTML */ `<a></a>`;
+		const markup = /* HTML */ `<a href></a>`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: Anchor link must have a text describing its purpose (wcag/h30) at inline:1:2:
-			> 1 | <a></a>
+			> 1 | <a href></a>
 			    |  ^
 			Selector: a"
 		`);
@@ -95,12 +102,12 @@ describe("wcag/h30", () => {
 
 	it("should report error when link is missing text and image alt", async () => {
 		expect.assertions(2);
-		const markup = /* HTML */ `<a><img /></a>`;
+		const markup = /* HTML */ `<a href><img /></a>`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: Anchor link must have a text describing its purpose (wcag/h30) at inline:1:2:
-			> 1 | <a><img /></a>
+			> 1 | <a href><img /></a>
 			    |  ^
 			Selector: a"
 		`);
@@ -108,12 +115,12 @@ describe("wcag/h30", () => {
 
 	it("should report error when link is missing text and image has empty alt", async () => {
 		expect.assertions(2);
-		const markup = /* HTML */ `<a><img alt="" /></a>`;
+		const markup = /* HTML */ `<a href><img alt="" /></a>`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: Anchor link must have a text describing its purpose (wcag/h30) at inline:1:2:
-			> 1 | <a><img alt="" /></a>
+			> 1 | <a href><img alt="" /></a>
 			    |  ^
 			Selector: a"
 		`);
@@ -122,9 +129,9 @@ describe("wcag/h30", () => {
 	it("should not report error when hidden link is missing text", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
-			<a hidden></a>
+			<a href hidden></a>
 			<div hidden>
-				<a></a>
+				<a href></a>
 			</div>
 		`;
 		const report = await htmlvalidate.validateString(markup);
@@ -135,36 +142,27 @@ describe("wcag/h30", () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/wcag/h30.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: Anchor link must have a text describing its purpose (wcag/h30) at test-files/rules/wcag/h30.html:7:2:
-			   5 |
-			   6 | <!-- invalid cases -->
-			>  7 | <a></a>
+			"error: Anchor link must have a text describing its purpose (wcag/h30) at test-files/rules/wcag/h30.html:8:2:
+			   6 |
+			   7 | <!-- invalid cases -->
+			>  8 | <a href><img></a>
 			     |  ^
-			   8 | <a><img></a>
-			   9 | <a><img alt></a>
-			  10 | <a><img alt=""></a>
-			Selector: a:nth-child(4)
-			error: Anchor link must have a text describing its purpose (wcag/h30) at test-files/rules/wcag/h30.html:8:2:
-			   6 | <!-- invalid cases -->
-			   7 | <a></a>
-			>  8 | <a><img></a>
-			     |  ^
-			   9 | <a><img alt></a>
-			  10 | <a><img alt=""></a>
+			   9 | <a href><img alt></a>
+			  10 | <a href><img alt=""></a>
 			  11 |
 			Selector: a:nth-child(5)
 			error: Anchor link must have a text describing its purpose (wcag/h30) at test-files/rules/wcag/h30.html:9:2:
-			   7 | <a></a>
-			   8 | <a><img></a>
-			>  9 | <a><img alt></a>
+			   7 | <!-- invalid cases -->
+			   8 | <a href><img></a>
+			>  9 | <a href><img alt></a>
 			     |  ^
-			  10 | <a><img alt=""></a>
+			  10 | <a href><img alt=""></a>
 			  11 |
 			Selector: a:nth-child(6)
 			error: Anchor link must have a text describing its purpose (wcag/h30) at test-files/rules/wcag/h30.html:10:2:
-			   8 | <a><img></a>
-			   9 | <a><img alt></a>
-			> 10 | <a><img alt=""></a>
+			   8 | <a href><img></a>
+			   9 | <a href><img alt></a>
+			> 10 | <a href><img alt=""></a>
 			     |  ^
 			  11 |
 			Selector: a:nth-child(7)"

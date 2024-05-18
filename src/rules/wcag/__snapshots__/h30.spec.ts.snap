@@ -2,7 +2,7 @@
 
 exports[`wcag/h30 should contain documentation 1`] = `
 {
-  "description": "WCAG 2.1 requires each \`<a>\` anchor link to have a text describing the purpose of the link using either plain text or an \`<img>\` with the \`alt\` attribute set.",
+  "description": "WCAG 2.1 requires each \`<a href>\` anchor link to have a text describing the purpose of the link using either plain text or an \`<img>\` with the \`alt\` attribute set.",
   "url": "https://html-validate.org/rules/wcag/h30.html",
 }
 `;
