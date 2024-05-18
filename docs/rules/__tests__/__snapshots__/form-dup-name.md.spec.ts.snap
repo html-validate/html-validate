@@ -33,6 +33,39 @@ exports[`docs/rules/form-dup-name.md inline validation: array-incorrect 1`] = `
 ]
 `;
 
+exports[`docs/rules/form-dup-name.md inline validation: checkbox-correct 1`] = `[]`;
+
+exports[`docs/rules/form-dup-name.md inline validation: checkbox-incorrect 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 18,
+        "context": {
+          "kind": "duplicate",
+          "name": "foo",
+        },
+        "line": 3,
+        "message": "Duplicate form control name "foo"",
+        "offset": 71,
+        "ruleId": "form-dup-name",
+        "ruleUrl": "https://html-validate.org/rules/form-dup-name.html",
+        "selector": "form > input:nth-child(2)",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<form>
+    <input name="foo" value="0" type="hidden">
+    <input name="foo" value="1" type="checkbox">
+</form>",
+    "warningCount": 0,
+  },
+]
+`;
+
 exports[`docs/rules/form-dup-name.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/form-dup-name.md inline validation: correct-radio-checkbox 1`] = `[]`;

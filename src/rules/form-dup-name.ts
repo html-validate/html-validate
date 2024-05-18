@@ -4,7 +4,11 @@ import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl }
 import { partition } from "./helper";
 
 interface ControlDetails {
+	/** `true` if control has name ending with `[]` */
 	array: boolean;
+
+	/** `true` if control is `type="hidden"` and hasn't been used as a default value yet */
+	potentialHiddenDefault: boolean;
 }
 
 export interface RuleContext {
@@ -14,11 +18,13 @@ export interface RuleContext {
 
 interface RuleOptions {
 	allowArrayBrackets: boolean;
+	allowCheckboxDefault: boolean;
 	shared: Array<"radio" | "checkbox" | "submit" | "button" | "reset">;
 }
 
 const defaults: RuleOptions = {
 	allowArrayBrackets: true,
+	allowCheckboxDefault: true,
 	shared: ["radio", "button", "reset", "submit"],
 };
 
@@ -39,6 +45,32 @@ function haveName(name: string | DynamicValue | null | undefined): name is strin
 function allowSharedName(node: HtmlElement, shared: string[]): boolean {
 	const type = node.getAttribute("type");
 	return Boolean(type?.valueMatches(shared, false));
+}
+
+function isInputHidden(element: HtmlElement): boolean {
+	return element.is("input") && element.getAttributeValue("type") === "hidden";
+}
+
+function isInputCheckbox(element: HtmlElement): boolean {
+	return element.is("input") && element.getAttributeValue("type") === "checkbox";
+}
+
+function isCheckboxWithDefault(
+	control: HtmlElement,
+	previous: ControlDetails,
+	options: RuleOptions,
+): boolean {
+	const { allowCheckboxDefault } = options;
+	if (!allowCheckboxDefault) {
+		return false;
+	}
+	if (!previous.potentialHiddenDefault) {
+		return false;
+	}
+	if (!isInputCheckbox(control)) {
+		return false;
+	}
+	return true;
 }
 
 function getDocumentation(context: RuleContext): string {
@@ -63,6 +95,9 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 	public static schema(): SchemaObject {
 		return {
 			allowArrayBrackets: {
+				type: "boolean",
+			},
+			allowCheckboxDefault: {
 				type: "boolean",
 			},
 			shared: {
@@ -152,6 +187,7 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 			if (!details && isarray) {
 				elements.set(basename, {
 					array: true,
+					potentialHiddenDefault: false,
 				});
 			}
 
@@ -162,7 +198,12 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 			}
 		}
 
-		if (elements.has(name)) {
+		const previous = elements.get(name);
+		if (previous) {
+			if (isCheckboxWithDefault(control, previous, this.options)) {
+				previous.potentialHiddenDefault = false;
+				return;
+			}
 			const context: RuleContext = {
 				name,
 				kind: "duplicate",
@@ -176,6 +217,7 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 		} else {
 			elements.set(name, {
 				array: false,
+				potentialHiddenDefault: isInputHidden(control),
 			});
 		}
 	}

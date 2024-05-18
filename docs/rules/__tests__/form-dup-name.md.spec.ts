@@ -25,6 +25,14 @@ markup["array-correct"] = `<form>
     <input name="foo[]">
     <input name="foo[]">
 </form>`;
+markup["checkbox-incorrect"] = `<form>
+    <input name="foo" value="0" type="hidden">
+    <input name="foo" value="1" type="checkbox">
+</form>`;
+markup["checkbox-correct"] = `<form>
+    <input name="foo" value="0" type="hidden">
+    <input name="foo" value="1" type="checkbox">
+</form>`;
 markup["shared-incorrect"] = `<form>
     <input name="foo" type="checkbox">
     <input name="foo" type="checkbox">
@@ -73,6 +81,18 @@ describe("docs/rules/form-dup-name.md", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"form-dup-name":"error"}});
 		const report = await htmlvalidate.validateString(markup["array-correct"]);
+		expect(report.results).toMatchSnapshot();
+	});
+	it("inline validation: checkbox-incorrect", async () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({"rules":{"form-dup-name":["error",{"allowCheckboxDefault":false}]}});
+		const report = await htmlvalidate.validateString(markup["checkbox-incorrect"]);
+		expect(report.results).toMatchSnapshot();
+	});
+	it("inline validation: checkbox-correct", async () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({"rules":{"form-dup-name":["error",{"allowCheckboxDefault":true}]}});
+		const report = await htmlvalidate.validateString(markup["checkbox-correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
 	it("inline validation: shared-incorrect", async () => {

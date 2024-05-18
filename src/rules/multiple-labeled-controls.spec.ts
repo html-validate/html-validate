@@ -61,6 +61,18 @@ describe("rule multiple-labeled-controls", () => {
 		expect(report).toBeValid();
 	});
 
+	it('should not report error when <label> have <input type="hidden">', async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<label>
+				<input type="hidden" />
+				<input type="checkbox" />
+			</label>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should report error when <label> have multiple wrapped controls", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
