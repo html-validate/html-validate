@@ -25,8 +25,9 @@ describe("toHTMLValidate()", () => {
 	it("should fail if markup is invalid", () => {
 		expect.assertions(3);
 		let error: any;
+		const markup = `<a href=""><button></i>`;
 		try {
-			expect("<a><button></i>").toHTMLValidate();
+			expect(markup).toHTMLValidate();
 		} catch (e: any) {
 			error = e;
 		}
