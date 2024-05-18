@@ -23,7 +23,23 @@ describe("rule valid-id", () => {
 
 		it("should not report error when id is valid", async () => {
 			expect.assertions(1);
-			const markup = /* HTML */ `<div id="fooBar123"></div>`;
+			const markup = /* HTML */ `
+				<div id="fooBar123"></div>
+				<div id="foo-bar"></div>
+				<div id="foo_bar"></div>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should not report error when id has valid leading character", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<p id="a"></p>
+				<p id="A"></p>
+				<p id="ü"></p>
+				<p id="я"></p>
+			`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
@@ -138,7 +154,7 @@ describe("rule valid-id", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: element id must only contain alphanumerical, dash and underscore characters (valid-id) at inline:1:10:
+				"error: element id must only contain letters, digits, dash and underscore characters (valid-id) at inline:1:10:
 				> 1 | <div id="foo!bar"></div>
 				    |          ^^^^^^^
 				Selector: #foo\\!bar"
@@ -161,7 +177,7 @@ describe("rule valid-id", () => {
 				  - ID must not be empty
 				  - ID must not contain any whitespace characters
 				  - ID must begin with a letter
-				  - ID must only contain alphanumerical characters, \`-\` and \`_\`",
+				  - ID must only contain letters, digits, \`-\` and \`_\`",
 				  "url": "https://html-validate.org/rules/valid-id.html",
 				}
 			`);

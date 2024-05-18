@@ -39,7 +39,7 @@ export default class ValidID extends Rule<RuleContext, RuleOptions> {
 			? []
 			: [
 					"  - ID must begin with a letter",
-					"  - ID must only contain alphanumerical characters, `-` and `_`",
+					"  - ID must only contain letters, digits, `-` and `_`",
 				];
 		return {
 			description: [
@@ -80,13 +80,13 @@ export default class ValidID extends Rule<RuleContext, RuleOptions> {
 				return;
 			}
 
-			if (value.match(/^[^a-zA-Z]/)) {
+			if (value.match(/^[^\p{L}]/u)) {
 				const context = RuleContext.LEADING_CHARACTER;
 				this.report(event.target, this.messages[context], event.valueLocation, context);
 				return;
 			}
 
-			if (value.match(/[^a-zA-Z0-9-_]/)) {
+			if (value.match(/[^\p{L}\p{N}_-]/u)) {
 				const context = RuleContext.DISALLOWED_CHARACTER;
 				this.report(event.target, this.messages[context], event.valueLocation, context);
 			}
@@ -99,7 +99,7 @@ export default class ValidID extends Rule<RuleContext, RuleOptions> {
 			[RuleContext.WHITESPACE]: "element id must not contain whitespace",
 			[RuleContext.LEADING_CHARACTER]: "element id must begin with a letter",
 			[RuleContext.DISALLOWED_CHARACTER]:
-				"element id must only contain alphanumerical, dash and underscore characters",
+				"element id must only contain letters, digits, dash and underscore characters",
 		};
 	}
 

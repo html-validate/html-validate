@@ -51,3 +51,7 @@ When set to `true` this rule only validates the ID is non-empty and contains no 
     <p id="123"></p>
     <p id="#foo[bar]"></p>
 </validate>
+
+## Version history
+
+- %version% - Handles unicode letters.
