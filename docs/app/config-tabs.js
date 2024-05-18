@@ -26,6 +26,7 @@ function openPanel(panels, selected) {
  * @param {string} key
  */
 function changeVariant(key) {
+	/* eslint-disable-next-line n/no-unsupported-features/node-builtins -- runs in browesr */
 	const updateEvent = new CustomEvent("config:change", { detail: { key } });
 	for (const element of configurations) {
 		element.dispatchEvent(updateEvent);
