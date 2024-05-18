@@ -402,6 +402,115 @@ describe("rule form-dup-name", () => {
 		});
 	});
 
+	describe("allowCheckboxDefault", () => {
+		describe("when enabled", () => {
+			const htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "form-dup-name": ["error", { allowCheckboxDefault: true }] },
+			});
+
+			it("should not report error when checkbox and hidden share name", async () => {
+				expect.assertions(1);
+				const markup = /* HTML */ `
+					<form>
+						<input name="foo" type="hidden" value="0" />
+						<input name="foo" type="checkbox" value="1" />
+					</form>
+				`;
+				const report = await htmlvalidate.validateString(markup);
+				expect(report).toBeValid();
+			});
+
+			it("should report error when multiple checkboxes or hidden share name", async () => {
+				expect.assertions(2);
+				const markup = /* HTML */ `
+					<form id="dup-hidden">
+						<input name="foo" type="hidden" value="0" />
+						<input name="foo" type="hidden" value="1" />
+						<input name="foo" type="checkbox" value="2" />
+					</form>
+					<form id="dup-checkbox">
+						<input name="foo" type="hidden" value="0" />
+						<input name="foo" type="checkbox" value="1" />
+						<input name="foo" type="checkbox" value="2" />
+					</form>
+				`;
+				const report = await htmlvalidate.validateString(markup);
+				expect(report).toBeInvalid();
+				expect(report).toMatchInlineCodeframe(`
+					"error: Duplicate form control name "foo" (form-dup-name) at inline:4:20:
+					  2 | 					<form id="dup-hidden">
+					  3 | 						<input name="foo" type="hidden" value="0" />
+					> 4 | 						<input name="foo" type="hidden" value="1" />
+					    | 						             ^^^
+					  5 | 						<input name="foo" type="checkbox" value="2" />
+					  6 | 					</form>
+					  7 | 					<form id="dup-checkbox">
+					Selector: #dup-hidden > input:nth-child(2)
+					error: Duplicate form control name "foo" (form-dup-name) at inline:10:20:
+					   8 | 						<input name="foo" type="hidden" value="0" />
+					   9 | 						<input name="foo" type="checkbox" value="1" />
+					> 10 | 						<input name="foo" type="checkbox" value="2" />
+					     | 						             ^^^
+					  11 | 					</form>
+					  12 |
+					Selector: #dup-checkbox > input:nth-child(3)"
+				`);
+			});
+
+			it("should report error when hidden share name with other controls", async () => {
+				expect.assertions(2);
+				const markup = /* HTML */ `
+					<form>
+						<input name="foo" type="hidden" value="0" />
+						<input name="foo" type="text" value="1" />
+					</form>
+				`;
+				const report = await htmlvalidate.validateString(markup);
+				expect(report).toBeInvalid();
+				expect(report).toMatchInlineCodeframe(`
+					"error: Duplicate form control name "foo" (form-dup-name) at inline:4:20:
+					  2 | 					<form>
+					  3 | 						<input name="foo" type="hidden" value="0" />
+					> 4 | 						<input name="foo" type="text" value="1" />
+					    | 						             ^^^
+					  5 | 					</form>
+					  6 |
+					Selector: form > input:nth-child(2)"
+				`);
+			});
+		});
+
+		describe("when disabled", () => {
+			const htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "form-dup-name": ["error", { allowCheckboxDefault: false }] },
+			});
+
+			it("should report error when checkbox and hidden share name", async () => {
+				expect.assertions(2);
+				const markup = /* HTML */ `
+					<form>
+						<input name="foo" type="hidden" value="0" />
+						<input name="foo" type="checkbox" value="1" />
+					</form>
+				`;
+				const report = await htmlvalidate.validateString(markup);
+				expect(report).toBeInvalid();
+				expect(report).toMatchInlineCodeframe(`
+					"error: Duplicate form control name "foo" (form-dup-name) at inline:4:20:
+					  2 | 					<form>
+					  3 | 						<input name="foo" type="hidden" value="0" />
+					> 4 | 						<input name="foo" type="checkbox" value="1" />
+					    | 						             ^^^
+					  5 | 					</form>
+					  6 |
+					Selector: form > input:nth-child(2)"
+				`);
+			});
+		});
+	});
+
 	describe("shared", () => {
 		it("should report error for controls by default", async () => {
 			expect.assertions(1);

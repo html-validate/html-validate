@@ -65,6 +65,7 @@ This rule takes an optional object:
 ```json
 {
   "allowArrayBrackets": true,
+  "allowCheckboxDefault": true,
   "shared": ["radio"]
 }
 ```
@@ -94,6 +95,35 @@ With this option **enabled** the following is **correct**:
         <input name="foo[]">
     </form>
 </validate>
+
+### `allowCheckboxDefault`
+
+- type: `boolean`
+- default: `true`
+
+When serializing form data (e.g. using `FormData` or form submission) unchecked checkboxes are omitted from the entry list.
+A common pattern with server-side frameworks is to include an `<input type="hidden" value="0">` or similar as a default value, i.e. if the checkbox is unchecked the default value is used.
+
+With this option **disabled** the following is **incorrect**:
+
+<validate name="checkbox-incorrect" rules="form-dup-name" form-dup-name='{"allowCheckboxDefault": false}'>
+    <form>
+        <input name="foo" value="0" type="hidden">
+        <input name="foo" value="1" type="checkbox">
+    </form>
+</validate>
+
+With this option **enabled** the following is **correct**:
+
+<validate name="checkbox-correct" rules="form-dup-name" form-dup-name='{"allowCheckboxDefault": true}'>
+    <form>
+        <input name="foo" value="0" type="hidden">
+        <input name="foo" value="1" type="checkbox">
+    </form>
+</validate>
+
+Note that even with this option enabled at most one checkbox may share the same name as a single hidden control.
+Use two or more hidden or two or more checkboxes with the same name is still an error.
 
 ### `shared`
 
