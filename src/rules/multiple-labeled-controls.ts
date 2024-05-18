@@ -1,4 +1,4 @@
-import { type ElementReadyEvent } from "../event";
+import { type DOMReadyEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 import { type HtmlElement } from "../dom";
 
@@ -15,27 +15,27 @@ export default class MultipleLabeledControls extends Rule {
 	public setup(): void {
 		this.labelable = this.getTagsWithProperty("labelable").join(",");
 
-		this.on("element:ready", (event: ElementReadyEvent) => {
-			const { target } = event;
+		this.on("dom:ready", (event: DOMReadyEvent) => {
+			const { document } = event;
+			const labels = document.querySelectorAll("label");
+			for (const label of labels) {
+				/* no error if it references 0 or 1 controls */
+				const numControls = this.getNumLabledControls(label);
+				if (numControls <= 1) {
+					continue;
+				}
 
-			/* only handle <label> */
-			if (target.tagName !== "label") {
-				return;
+				this.report(label, "<label> is associated with multiple controls", label.location);
 			}
-
-			/* no error if it references 0 or 1 controls */
-			const numControls = this.getNumLabledControls(target);
-			if (numControls <= 1) {
-				return;
-			}
-
-			this.report(target, "<label> is associated with multiple controls", target.location);
 		});
 	}
 
 	private getNumLabledControls(src: HtmlElement): number {
 		/* get all controls wrapped by label element */
-		const controls = src.querySelectorAll(this.labelable).map((node) => node.id);
+		const controls = src
+			.querySelectorAll(this.labelable)
+			.filter((node) => node.meta?.labelable)
+			.map((node) => node.id);
 
 		/* only count wrapped controls if the "for" attribute is missing or static,
 		 * for dynamic "for" attributes it is better to run in document mode later */
