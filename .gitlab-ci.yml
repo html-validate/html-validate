@@ -280,6 +280,8 @@ Dry run:
 
 Release:
   extends: .release
+  tags:
+    - saas-linux-small-amd64
   id_tokens:
     SIGSTORE_ID_TOKEN:
       aud: sigstore
