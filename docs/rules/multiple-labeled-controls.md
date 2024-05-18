@@ -44,4 +44,4 @@ Examples of **correct** code for this rule:
 
 ## Version history
 
-- %version% - Rule ignores properly ignores `<input type="hidden">`.
+- 8.19.0 - Rule ignores properly ignores `<input type="hidden">`.

@@ -54,4 +54,4 @@ When set to `true` this rule only validates the ID is non-empty and contains no 
 
 ## Version history
 
-- %version% - Handles unicode letters.
+- 8.19.0 - Handles unicode letters.
