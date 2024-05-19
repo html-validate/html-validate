@@ -77,7 +77,7 @@ module.exports = {
 			{
 				title: "Contribute",
 				children: [
-					{ title: "Getting the source code", href: pkg.repository.url },
+					{ title: "Getting the source code", href: pkg.repository.url.replace(/^git\+/, "") },
 					{ title: "File issue", href: pkg.bugs.url },
 				],
 			},

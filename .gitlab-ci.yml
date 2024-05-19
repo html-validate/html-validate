@@ -58,7 +58,7 @@ Build:
   script:
     - npm run --if-present build
     - npm pack
-    - npm exec npm-pkg-lint
+    - npm exec npm-pkg-lint -- --ignore-node-version=16
     - |
       for dts in dist/{cjs,es}/{index,browser,jest,test-utils}.d.ts; do
         if [[ ! -e "${dts}" ]]; then
