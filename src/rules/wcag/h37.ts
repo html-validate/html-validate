@@ -13,24 +13,6 @@ const defaults: RuleOptions = {
 	alias: [],
 };
 
-function needsAlt(node: HtmlElement): boolean {
-	if (node.is("img")) {
-		return true;
-	}
-
-	if (node.is("input") && node.getAttributeValue("type") === "image") {
-		return true;
-	}
-
-	return false;
-}
-
-function getTag(node: HtmlElement): string {
-	return node.is("input")
-		? `<input type="${/* istanbul ignore next */ node.getAttributeValue("type") ?? ""}">`
-		: `<${node.tagName}>`;
-}
-
 export default class H37 extends Rule<void, RuleOptions> {
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
@@ -73,7 +55,7 @@ export default class H37 extends Rule<void, RuleOptions> {
 	public setup(): void {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const { document } = event;
-			const nodes = document.querySelectorAll("img, input");
+			const nodes = document.querySelectorAll("img");
 			for (const node of nodes) {
 				this.validateNode(node);
 			}
@@ -81,11 +63,6 @@ export default class H37 extends Rule<void, RuleOptions> {
 	}
 
 	private validateNode(node: HtmlElement): void {
-		/* only validate images */
-		if (!needsAlt(node)) {
-			return;
-		}
-
 		/* ignore images with aria-hidden="true" or role="presentation" */
 		if (!inAccessibilityTree(node)) {
 			return;
@@ -106,12 +83,14 @@ export default class H37 extends Rule<void, RuleOptions> {
 			}
 		}
 
+		const tag = node.annotatedName;
 		if (node.hasAttribute("alt")) {
-			const attr = node.getAttribute("alt");
+			/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- we just verified presence with hasAttribute */
+			const attr = node.getAttribute("alt")!;
 			/* istanbul ignore next */
-			this.report(node, `${getTag(node)} cannot have empty "alt" attribute`, attr?.keyLocation);
+			this.report(node, `${tag} cannot have empty "alt" attribute`, attr.keyLocation);
 		} else {
-			this.report(node, `${getTag(node)} is missing required "alt" attribute`, node.location);
+			this.report(node, `${tag} is missing required "alt" attribute`, node.location);
 		}
 	}
 }

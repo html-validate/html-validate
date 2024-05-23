@@ -19,20 +19,6 @@ describe("rule h37", () => {
 			expect(report).toBeValid();
 		});
 
-		it("should not report when input image has alt attribute", async () => {
-			expect.assertions(1);
-			const markup = /* HTML */ ` <input type="image" alt="foobar" /> `;
-			const report = await htmlvalidate.validateString(markup);
-			expect(report).toBeValid();
-		});
-
-		it("should not report when other input types are missing alt attribute", async () => {
-			expect.assertions(1);
-			const markup = /* HTML */ ` <input type="text" /> `;
-			const report = await htmlvalidate.validateString(markup);
-			expect(report).toBeValid();
-		});
-
 		it("should not report when img has empty alt attribute", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ ` <img alt="" /> `;
@@ -43,20 +29,6 @@ describe("rule h37", () => {
 		it("should not report when img has null alt attribute", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ ` <img alt /> `;
-			const report = await htmlvalidate.validateString(markup);
-			expect(report).toBeValid();
-		});
-
-		it("should not report when input image has empty alt attribute", async () => {
-			expect.assertions(1);
-			const markup = /* HTML */ ` <input type="image" alt="" /> `;
-			const report = await htmlvalidate.validateString(markup);
-			expect(report).toBeValid();
-		});
-
-		it("should not report when input image has null alt attribute", async () => {
-			expect.assertions(1);
-			const markup = /* HTML */ ` <input type="image" alt /> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
@@ -81,19 +53,6 @@ describe("rule h37", () => {
 				> 1 |  <img />
 				    |   ^^^
 				Selector: img"
-			`);
-		});
-
-		it("should report error when input image is missing alt attribute", async () => {
-			expect.assertions(2);
-			const markup = /* HTML */ ` <input type="image" /> `;
-			const report = await htmlvalidate.validateString(markup);
-			expect(report).toBeInvalid();
-			expect(report).toMatchInlineCodeframe(`
-				"error: <input type="image"> is missing required "alt" attribute (wcag/h37) at inline:1:3:
-				> 1 |  <input type="image" />
-				    |   ^^^^^
-				Selector: input"
 			`);
 		});
 
@@ -161,32 +120,6 @@ describe("rule h37", () => {
 				> 1 |  <img alt />
 				    |       ^^^
 				Selector: img"
-			`);
-		});
-
-		it("should report when input image has empty alt attribute", async () => {
-			expect.assertions(2);
-			const markup = /* HTML */ ` <input type="image" alt="" /> `;
-			const report = await htmlvalidate.validateString(markup);
-			expect(report).toBeInvalid();
-			expect(report).toMatchInlineCodeframe(`
-				"error: <input type="image"> cannot have empty "alt" attribute (wcag/h37) at inline:1:22:
-				> 1 |  <input type="image" alt="" />
-				    |                      ^^^
-				Selector: input"
-			`);
-		});
-
-		it("should report when input image has null alt attribute", async () => {
-			expect.assertions(2);
-			const markup = /* HTML */ ` <input type="image" alt /> `;
-			const report = await htmlvalidate.validateString(markup);
-			expect(report).toBeInvalid();
-			expect(report).toMatchInlineCodeframe(`
-				"error: <input type="image"> cannot have empty "alt" attribute (wcag/h37) at inline:1:22:
-				> 1 |  <input type="image" alt />
-				    |                      ^^^
-				Selector: input"
 			`);
 		});
 

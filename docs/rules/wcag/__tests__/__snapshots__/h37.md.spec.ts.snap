@@ -9,7 +9,7 @@ exports[`docs/rules/wcag/h37.md inline validation: correct 1`] = `[]`;
 exports[`docs/rules/wcag/h37.md inline validation: incorrect 1`] = `
 [
   {
-    "errorCount": 2,
+    "errorCount": 1,
     "filePath": "inline",
     "messages": [
       {
@@ -23,20 +23,8 @@ exports[`docs/rules/wcag/h37.md inline validation: incorrect 1`] = `
         "severity": 2,
         "size": 3,
       },
-      {
-        "column": 2,
-        "line": 2,
-        "message": "<input type="image"> is missing required "alt" attribute",
-        "offset": 7,
-        "ruleId": "wcag/h37",
-        "ruleUrl": "https://html-validate.org/rules/wcag/h37.html",
-        "selector": "input",
-        "severity": 2,
-        "size": 5,
-      },
     ],
-    "source": "<img>
-<input type="image">",
+    "source": "<img>",
     "warningCount": 0,
   },
 ]
