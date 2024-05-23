@@ -17,6 +17,23 @@ describe("wcag/h36", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report when image or parent is hidden", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<input type="image" hidden />
+			<input type="image" inert />
+			<input type="image" aria-hidden="true" />
+			<input type="image" style="display: none" />
+
+			<form hidden><input type="image" /></form>
+			<form inert><input type="image" /></form>
+			<form aria-hidden="true"><input type="image" /></form>
+			<form style="display: none"><input type="image" /></form>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should not report on other input fields", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <input type="text" /> `;
@@ -37,9 +54,9 @@ describe("wcag/h36", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: image used as submit button must have alt text (wcag/h36) at inline:1:22:
+			"error: image used as submit button must have non-empty alt text (wcag/h36) at inline:1:3:
 			> 1 |  <input type="image" />
-			    |                      ^^
+			    |   ^^^^^
 			Selector: input"
 		`);
 	});
@@ -50,9 +67,9 @@ describe("wcag/h36", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: image used as submit button must have alt text (wcag/h36) at inline:1:29:
+			"error: image used as submit button must have non-empty alt text (wcag/h36) at inline:1:22:
 			> 1 |  <input type="image" alt="" />
-			    |                             ^^
+			    |                      ^^^
 			Selector: input"
 		`);
 	});

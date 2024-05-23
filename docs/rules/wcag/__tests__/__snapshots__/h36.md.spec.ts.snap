@@ -2,4 +2,41 @@
 
 exports[`docs/rules/wcag/h36.md inline validation: correct 1`] = `[]`;
 
-exports[`docs/rules/wcag/h36.md inline validation: incorrect 1`] = `[]`;
+exports[`docs/rules/wcag/h36.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 2,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 2,
+        "line": 2,
+        "message": "image used as submit button must have non-empty alt text",
+        "offset": 32,
+        "ruleId": "wcag/h36",
+        "ruleUrl": "https://html-validate.org/rules/wcag/h36.html",
+        "selector": "input:nth-child(1)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 45,
+        "line": 5,
+        "message": "image used as submit button must have non-empty alt text",
+        "offset": 150,
+        "ruleId": "wcag/h36",
+        "ruleUrl": "https://html-validate.org/rules/wcag/h36.html",
+        "selector": "input:nth-child(2)",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<!-- missing alt attribute -->
+<input type="image" src="submit-button.png">
+
+<!-- empty alt attribute -->
+<input type="image" src="submit-button.png" alt="">",
+    "warningCount": 0,
+  },
+]
+`;

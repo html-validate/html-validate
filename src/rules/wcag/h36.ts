@@ -1,11 +1,14 @@
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../../rule";
 import { hasAltText } from "../helper";
+import { inAccessibilityTree } from "../helper/a11y";
 
 export default class H36 extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
-			description:
-				'WCAG 2.1 requires all images used as submit buttons to have a textual description using the alt attribute. The alt text cannot be empty (`alt=""`).',
+			description: [
+				"WCAG 2.1 requires all images used as submit buttons to have a non-empty textual description using the `alt` attribute.",
+				'The alt text cannot be empty (`alt=""`).',
+			].join("\n"),
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
@@ -21,8 +24,18 @@ export default class H36 extends Rule {
 				return;
 			}
 
+			if (!inAccessibilityTree(node)) {
+				return;
+			}
+
 			if (!hasAltText(node)) {
-				this.report(node, "image used as submit button must have alt text");
+				const message = "image used as submit button must have non-empty alt text";
+				const alt = node.getAttribute("alt");
+				this.report({
+					node,
+					message,
+					location: alt ? alt.keyLocation : node.location,
+				});
 			}
 		});
 	}
