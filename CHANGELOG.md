@@ -1,5 +1,13 @@
 # html-validate changelog
 
+## 8.19.1 (2024-05-23)
+
+### Bug Fixes
+
+- **rules:** `wcag/h36` no longer reports for hidden elements ([aba06d1](https://gitlab.com/html-validate/html-validate/commit/aba06d1e99a6580f53f696e79a9a47c28837bddb))
+- **rules:** `wcag/h37` no longer validates `<input type="submit">` (use `wcag/h36` instead) ([e82b17a](https://gitlab.com/html-validate/html-validate/commit/e82b17a11a1cdc94e12b9fc6f99fcc2e27e3bc5e)), closes [#254](https://gitlab.com/html-validate/html-validate/issues/254)
+- **rules:** make `wcag/h36` have better message and location ([8a80cc8](https://gitlab.com/html-validate/html-validate/commit/8a80cc8582fbf9af1e6378301f86eb9cd577924c))
+
 ## 8.19.0 (2024-05-18)
 
 ### Features
