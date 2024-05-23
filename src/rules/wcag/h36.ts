@@ -4,8 +4,10 @@ import { hasAltText } from "../helper";
 export default class H36 extends Rule {
 	public documentation(): RuleDocumentation {
 		return {
-			description:
-				'WCAG 2.1 requires all images used as submit buttons to have a textual description using the alt attribute. The alt text cannot be empty (`alt=""`).',
+			description: [
+				"WCAG 2.1 requires all images used as submit buttons to have a non-empty textual description using the `alt` attribute.",
+				'The alt text cannot be empty (`alt=""`).',
+			].join("\n"),
 			url: ruleDocumentationUrl(__filename),
 		};
 	}

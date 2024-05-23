@@ -1,9 +1,8 @@
 import { HtmlValidate } from "../../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<a><img src="cat.gif"></a>`;
-markup["correct"] = `<a>lorem ipsum</a>
-<a><img src="cat.gif" alt="cat page"></a>`;
+markup["incorrect"] = `<input type="image" src="submit-button.png">`;
+markup["correct"] = `<input type="image" src="submit-button.png" alt="Submit Button">`;
 
 describe("docs/rules/wcag/h36.md", () => {
 	it("inline validation: incorrect", async () => {

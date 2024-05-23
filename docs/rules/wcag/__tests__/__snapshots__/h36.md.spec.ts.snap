@@ -2,4 +2,26 @@
 
 exports[`docs/rules/wcag/h36.md inline validation: correct 1`] = `[]`;
 
-exports[`docs/rules/wcag/h36.md inline validation: incorrect 1`] = `[]`;
+exports[`docs/rules/wcag/h36.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 44,
+        "line": 1,
+        "message": "image used as submit button must have alt text",
+        "offset": 43,
+        "ruleId": "wcag/h36",
+        "ruleUrl": "https://html-validate.org/rules/wcag/h36.html",
+        "selector": "input",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<input type="image" src="submit-button.png">",
+    "warningCount": 0,
+  },
+]
+`;

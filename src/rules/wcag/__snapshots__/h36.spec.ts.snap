@@ -2,7 +2,8 @@
 
 exports[`wcag/h36 should contain documentation 1`] = `
 {
-  "description": "WCAG 2.1 requires all images used as submit buttons to have a textual description using the alt attribute. The alt text cannot be empty (\`alt=""\`).",
+  "description": "WCAG 2.1 requires all images used as submit buttons to have a non-empty textual description using the \`alt\` attribute.
+The alt text cannot be empty (\`alt=""\`).",
   "url": "https://html-validate.org/rules/wcag/h36.html",
 }
 `;
