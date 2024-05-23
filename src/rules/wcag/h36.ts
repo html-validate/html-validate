@@ -1,5 +1,6 @@
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../../rule";
 import { hasAltText } from "../helper";
+import { inAccessibilityTree } from "../helper/a11y";
 
 export default class H36 extends Rule {
 	public documentation(): RuleDocumentation {
@@ -20,6 +21,10 @@ export default class H36 extends Rule {
 
 			/* only handle images with type="image" */
 			if (node.getAttributeValue("type") !== "image") {
+				return;
+			}
+
+			if (!inAccessibilityTree(node)) {
 				return;
 			}
 

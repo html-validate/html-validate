@@ -17,6 +17,23 @@ describe("wcag/h36", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report when image or parent is hidden", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<input type="image" hidden />
+			<input type="image" inert />
+			<input type="image" aria-hidden="true" />
+			<input type="image" style="display: none" />
+
+			<form hidden><input type="image" /></form>
+			<form inert><input type="image" /></form>
+			<form aria-hidden="true"><input type="image" /></form>
+			<form style="display: none"><input type="image" /></form>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should not report on other input fields", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <input type="text" /> `;
