@@ -1,4 +1,5 @@
 const path = require("node:path");
+const { createHash } = require("node:crypto");
 
 const VALIDATE_REGEX = /<validate([^>]*)>([\S\s]+?)<\/validate>/g;
 const ATTRIBUTE_REGEX = /\s*([^=]+)\s*=\s*(?:(?:"([^"]+)")|(?:'([^']+)'))/g;
@@ -40,6 +41,7 @@ function parseValidatesProcessor(log, validateMap, trimIndentation, createDocMes
 		const id = uniqueName(validateMap, `markup-${attr.name}`);
 		const markup = trimIndentation(validateMarkup);
 		const config = generateConfig(rules, elements, attr);
+		const fingerprint = getFingerprint([name, rules, elements, markup]);
 
 		const validate = {
 			config,
@@ -48,6 +50,7 @@ function parseValidatesProcessor(log, validateMap, trimIndentation, createDocMes
 			showResults,
 			id,
 			doc,
+			fingerprint,
 		};
 
 		// store the validate information for later
@@ -108,6 +111,15 @@ function parseValidatesProcessor(log, validateMap, trimIndentation, createDocMes
 			config.extends = ["html-validate:recommended"];
 		}
 		return config;
+	}
+
+	/**
+	 * @param {string[]} data
+	 * @returns {string}
+	 */
+	function getFingerprint(data) {
+		const hash = createHash("sha512").update(data.join(":")).digest("hex");
+		return hash.slice(0, 12);
 	}
 }
 

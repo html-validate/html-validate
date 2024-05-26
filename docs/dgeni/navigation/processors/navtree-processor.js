@@ -11,6 +11,7 @@ function haveNavigation(doc) {
 		"frontpage",
 		"schema",
 		"inlineValidation",
+		"validate-public",
 		"validate-spec",
 	];
 
