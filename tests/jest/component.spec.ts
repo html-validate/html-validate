@@ -80,7 +80,7 @@ it("should not validate", async () => {
 
 it("should validate jsdom HTMLElement", () => {
 	expect.assertions(2);
-	/* eslint-disable-next-line @typescript-eslint/ban-ts-comment, @typescript-eslint/prefer-ts-expect-error -- see comment below */
+	/* eslint-disable-next-line @typescript-eslint/ban-ts-comment -- see comment below */
 	/* @ts-ignore DOM library not available */
 	const element = document.createElement("div");
 	element.style.color = "hotpink";
