@@ -55,7 +55,7 @@ export class StaticConfigLoader extends ConfigLoader {
 	 * Set a new configuration for this loader.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 8.20.0
 	 * @param config - New configuration to use.
 	 */
 	/* istanbul ignore next -- not testing setters/getters */

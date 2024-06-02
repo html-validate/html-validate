@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## 8.20.0 (2024-06-02)
+
+### Features
+
+- **api:** new `setConfig` method on `StaticConfigLoader` to change config ([1bf7559](https://gitlab.com/html-validate/html-validate/commit/1bf75594ee6c984fd38d94bb844887629528dbef))
+- **api:** new getter/setter for configuration loader ([6283091](https://gitlab.com/html-validate/html-validate/commit/628309112f0dd5a28ab44c5dacbb32a47535128b))
+
 ## 8.19.1 (2024-05-23)
 
 ### Bug Fixes
