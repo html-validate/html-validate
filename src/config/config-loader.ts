@@ -13,7 +13,7 @@ import { type Resolver } from "./resolver";
  */
 export abstract class ConfigLoader {
 	protected readonly resolvers: Resolver[];
-	protected readonly globalConfig: Config;
+	protected globalConfig: Config;
 
 	public constructor(resolvers: Resolver[], config?: ConfigData) {
 		const defaults = Config.empty();
