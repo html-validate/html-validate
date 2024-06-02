@@ -164,7 +164,7 @@ export abstract class ConfigLoader {
     // @internal
     _getGlobalConfig(): ConfigData;
     // (undocumented)
-    protected readonly globalConfig: Config;
+    protected globalConfig: Config;
     // (undocumented)
     protected loadFromFile(filename: string): Config;
     // (undocumented)
@@ -549,6 +549,7 @@ export class HtmlValidate {
     flushConfigCache(filename?: string): void;
     getConfigFor(filename: string, configOverride?: ConfigData): Promise<ResolvedConfig>;
     getConfigForSync(filename: string, configOverride?: ConfigData): ResolvedConfig;
+    getConfigLoader(): ConfigLoader;
     getConfigurationSchema(): SchemaObject;
     getContextualDocumentation(message: Pick<Message, "ruleId" | "context">, filename?: string): Promise<RuleDocumentation | null>;
     getContextualDocumentation(message: Pick<Message, "ruleId" | "context">, config: ResolvedConfig | Promise<ResolvedConfig>): Promise<RuleDocumentation | null>;
@@ -562,6 +563,7 @@ export class HtmlValidate {
     getRuleDocumentation(ruleId: string, config?: ResolvedConfig | Promise<ResolvedConfig> | null, context?: unknown | null): Promise<RuleDocumentation | null>;
     // @deprecated
     getRuleDocumentationSync(ruleId: string, config?: ResolvedConfig | null, context?: unknown | null): RuleDocumentation | null;
+    setConfigLoader(loader: ConfigLoader): void;
     validateFile(filename: string): Promise<Report_2>;
     validateFileSync(filename: string): Report_2;
     validateMultipleFiles(filenames: string[]): Promise<Report_2>;
@@ -1200,6 +1202,7 @@ export class StaticConfigLoader extends ConfigLoader {
     flushCache(): void;
     // (undocumented)
     getConfigFor(_handle: string, configOverride?: ConfigData): ResolvedConfig;
+    setConfig(config: ConfigData): void;
 }
 
 // @public

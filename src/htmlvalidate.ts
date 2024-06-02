@@ -613,6 +613,30 @@ export class HtmlValidate {
 	}
 
 	/**
+	 * Get current configuration loader.
+	 *
+	 * @public
+	 * @since %version%
+	 * @returns Current configuration loader.
+	 */
+	/* istanbul ignore next -- not testing setters/getters */
+	public getConfigLoader(): ConfigLoader {
+		return this.configLoader;
+	}
+
+	/**
+	 * Set configuration loader.
+	 *
+	 * @public
+	 * @since %version%
+	 * @param loader - New configuration loader to use.
+	 */
+	/* istanbul ignore next -- not testing setters/getters */
+	public setConfigLoader(loader: ConfigLoader): void {
+		this.configLoader = loader;
+	}
+
+	/**
 	 * Flush configuration cache. Clears full cache unless a filename is given.
 	 *
 	 * See [[FileSystemConfigLoader]] for details.
