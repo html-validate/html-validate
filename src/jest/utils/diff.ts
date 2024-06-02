@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment -- this code needs to work
  * with multiple different versions of jest and it does verification of which
  * one is actually present but the other variants will cause errors, as is expected */
-/* eslint-disable @typescript-eslint/prefer-ts-expect-error -- one of the
- * variants will always not be an error */
 
 import jestDiffDefault, * as jestDiff from "jest-diff";
 
