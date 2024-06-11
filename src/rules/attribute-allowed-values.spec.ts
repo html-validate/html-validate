@@ -6,6 +6,9 @@ import { processAttribute } from "../transform/mocks/attribute";
 const metadata: MetaDataTable = {
 	"mock-element": {
 		attributes: {
+			"non-empty": {
+				enum: ["/.+/"],
+			},
 			"case-insensitive": {
 				enum: ["/foo/i"],
 			},
@@ -60,6 +63,19 @@ describe("rule attribute-allowed-values", () => {
 			> 1 |  <input required="foobar" />
 			    |                   ^^^^^^
 			Selector: input"
+		`);
+	});
+
+	it("should report error when non-empty attribute is empty", async () => {
+		expect.assertions(2);
+		const markup = /* HTML */ ` <mock-element non-empty=""></mock-element> `;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Attribute "non-empty" has invalid value "" (attribute-allowed-values) at inline:1:16:
+			> 1 |  <mock-element non-empty=""></mock-element>
+			    |                ^^^^^^^^^
+			Selector: mock-element"
 		`);
 	});
 

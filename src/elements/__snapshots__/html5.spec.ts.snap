@@ -812,7 +812,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         "size": 5,
       },
       {
-        "column": 3,
+        "column": 8,
         "context": {
           "allowed": {
             "enum": [
@@ -828,12 +828,12 @@ exports[`HTML elements <area> invalid markup 1`] = `
         },
         "line": 16,
         "message": "Attribute "shape" has invalid value """,
-        "offset": 292,
+        "offset": 297,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "#invalid-shape > area:nth-child(1)",
         "severity": 2,
-        "size": 4,
+        "size": 5,
       },
       {
         "column": 15,
@@ -2960,7 +2960,7 @@ exports[`HTML elements <col> invalid markup 1`] = `
         "size": 4,
       },
       {
-        "column": 4,
+        "column": 8,
         "context": {
           "allowed": {
             "enum": [
@@ -2973,12 +2973,12 @@ exports[`HTML elements <col> invalid markup 1`] = `
         },
         "line": 20,
         "message": "Attribute "span" has invalid value """,
-        "offset": 302,
+        "offset": 306,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "table:nth-child(3) > colgroup > col:nth-child(3)",
         "severity": 2,
-        "size": 3,
+        "size": 4,
       },
       {
         "column": 14,
@@ -3138,7 +3138,7 @@ exports[`HTML elements <colgroup> invalid markup 1`] = `
         "size": 4,
       },
       {
-        "column": 3,
+        "column": 12,
         "context": {
           "allowed": {
             "enum": [
@@ -3151,12 +3151,12 @@ exports[`HTML elements <colgroup> invalid markup 1`] = `
         },
         "line": 31,
         "message": "Attribute "span" has invalid value """,
-        "offset": 585,
+        "offset": 594,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "table:nth-child(5) > colgroup:nth-child(3)",
         "severity": 2,
-        "size": 8,
+        "size": 4,
       },
       {
         "column": 18,
@@ -3895,7 +3895,7 @@ exports[`HTML elements <embed> invalid markup 1`] = `
         "size": 5,
       },
       {
-        "column": 2,
+        "column": 8,
         "context": {
           "allowed": {
             "enum": [
@@ -3908,12 +3908,12 @@ exports[`HTML elements <embed> invalid markup 1`] = `
         },
         "line": 6,
         "message": "Attribute "src" has invalid value """,
-        "offset": 144,
+        "offset": 150,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "embed:nth-child(3)",
         "severity": 2,
-        "size": 5,
+        "size": 3,
       },
     ],
     "source": "<!-- should not be allowed to have end tag -->
@@ -4228,7 +4228,7 @@ exports[`HTML elements <form> invalid markup 1`] = `
         "size": 6,
       },
       {
-        "column": 2,
+        "column": 7,
         "context": {
           "allowed": {
             "enum": [
@@ -4241,12 +4241,12 @@ exports[`HTML elements <form> invalid markup 1`] = `
         },
         "line": 18,
         "message": "Attribute "action" has invalid value """,
-        "offset": 356,
+        "offset": 361,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "form:nth-child(5)",
         "severity": 2,
-        "size": 4,
+        "size": 6,
       },
       {
         "column": 15,
@@ -5709,7 +5709,7 @@ exports[`HTML elements <iframe> invalid markup 1`] = `
         "size": 6,
       },
       {
-        "column": 2,
+        "column": 9,
         "context": {
           "allowed": {
             "enum": [
@@ -5722,12 +5722,12 @@ exports[`HTML elements <iframe> invalid markup 1`] = `
         },
         "line": 5,
         "message": "Attribute "src" has invalid value """,
-        "offset": 91,
+        "offset": 98,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "iframe:nth-child(2)",
         "severity": 2,
-        "size": 6,
+        "size": 3,
       },
       {
         "column": 45,
@@ -5827,7 +5827,7 @@ exports[`HTML elements <img> invalid markup 1`] = `
         "size": 3,
       },
       {
-        "column": 2,
+        "column": 6,
         "context": {
           "allowed": {
             "enum": [
@@ -5840,7 +5840,7 @@ exports[`HTML elements <img> invalid markup 1`] = `
         },
         "line": 5,
         "message": "Attribute "src" has invalid value """,
-        "offset": 72,
+        "offset": 76,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "img:nth-child(2)",
@@ -5848,7 +5848,7 @@ exports[`HTML elements <img> invalid markup 1`] = `
         "size": 3,
       },
       {
-        "column": 2,
+        "column": 20,
         "context": {
           "allowed": {
             "enum": [
@@ -5861,12 +5861,12 @@ exports[`HTML elements <img> invalid markup 1`] = `
         },
         "line": 8,
         "message": "Attribute "srcset" has invalid value """,
-        "offset": 120,
+        "offset": 138,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "img:nth-child(3)",
         "severity": 2,
-        "size": 3,
+        "size": 6,
       },
       {
         "column": 21,
@@ -13416,7 +13416,7 @@ exports[`HTML elements <label> invalid markup 1`] = `
         "size": 5,
       },
       {
-        "column": 2,
+        "column": 8,
         "context": {
           "allowed": {
             "enum": [
@@ -13429,12 +13429,12 @@ exports[`HTML elements <label> invalid markup 1`] = `
         },
         "line": 42,
         "message": "Attribute "for" has invalid value """,
-        "offset": 654,
+        "offset": 660,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "label:nth-child(10)",
         "severity": 2,
-        "size": 5,
+        "size": 3,
       },
     ],
     "source": "<!-- should not allow flow -->
@@ -13637,7 +13637,7 @@ exports[`HTML elements <link> invalid markup 1`] = `
         "size": 4,
       },
       {
-        "column": 4,
+        "column": 9,
         "context": {
           "allowed": {
             "enum": [
@@ -13650,7 +13650,7 @@ exports[`HTML elements <link> invalid markup 1`] = `
         },
         "line": 10,
         "message": "Attribute "href" has invalid value """,
-        "offset": 183,
+        "offset": 188,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "html > head > link:nth-child(4)",
@@ -13737,7 +13737,7 @@ exports[`HTML elements <link> invalid markup 1`] = `
         "size": 9,
       },
       {
-        "column": 4,
+        "column": 40,
         "context": {
           "allowed": {
             "enum": [
@@ -13750,12 +13750,12 @@ exports[`HTML elements <link> invalid markup 1`] = `
         },
         "line": 20,
         "message": "Attribute "integrity" has invalid value """,
-        "offset": 552,
+        "offset": 588,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "html > head > link:nth-child(8)",
         "severity": 2,
-        "size": 4,
+        "size": 9,
       },
       {
         "column": 36,
@@ -14259,7 +14259,7 @@ exports[`HTML elements <map> invalid markup 1`] = `
         "size": 3,
       },
       {
-        "column": 2,
+        "column": 6,
         "context": {
           "allowed": {
             "enum": [
@@ -14272,12 +14272,12 @@ exports[`HTML elements <map> invalid markup 1`] = `
         },
         "line": 3,
         "message": "Attribute "name" has invalid value """,
-        "offset": 35,
+        "offset": 39,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "map:nth-child(2)",
         "severity": 2,
-        "size": 3,
+        "size": 4,
       },
       {
         "column": 12,
@@ -15122,7 +15122,7 @@ exports[`HTML elements <object> invalid markup 1`] = `
         "size": 6,
       },
       {
-        "column": 2,
+        "column": 9,
         "context": {
           "allowed": {
             "enum": [
@@ -15135,12 +15135,12 @@ exports[`HTML elements <object> invalid markup 1`] = `
         },
         "line": 10,
         "message": "Attribute "data" has invalid value """,
-        "offset": 152,
+        "offset": 159,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "object:nth-child(3)",
         "severity": 2,
-        "size": 6,
+        "size": 4,
       },
       {
         "column": 3,
@@ -16015,7 +16015,7 @@ exports[`HTML elements <script> invalid markup 1`] = `
     "filePath": "test-files/elements/script-invalid.html",
     "messages": [
       {
-        "column": 2,
+        "column": 9,
         "context": {
           "allowed": {
             "enum": [
@@ -16028,12 +16028,12 @@ exports[`HTML elements <script> invalid markup 1`] = `
         },
         "line": 2,
         "message": "Attribute "src" has invalid value """,
-        "offset": 40,
+        "offset": 47,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "script:nth-child(1)",
         "severity": 2,
-        "size": 6,
+        "size": 3,
       },
       {
         "column": 9,
@@ -16113,7 +16113,7 @@ exports[`HTML elements <script> invalid markup 1`] = `
         "size": 9,
       },
       {
-        "column": 2,
+        "column": 25,
         "context": {
           "allowed": {
             "enum": [
@@ -16126,12 +16126,12 @@ exports[`HTML elements <script> invalid markup 1`] = `
         },
         "line": 16,
         "message": "Attribute "integrity" has invalid value """,
-        "offset": 555,
+        "offset": 578,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "script:nth-child(7)",
         "severity": 2,
-        "size": 6,
+        "size": 9,
       },
       {
         "column": 9,
@@ -16358,7 +16358,7 @@ exports[`HTML elements <select> invalid markup 1`] = `
         "size": 4,
       },
       {
-        "column": 2,
+        "column": 9,
         "context": {
           "allowed": {
             "enum": [
@@ -16371,12 +16371,12 @@ exports[`HTML elements <select> invalid markup 1`] = `
         },
         "line": 12,
         "message": "Attribute "size" has invalid value """,
-        "offset": 236,
+        "offset": 243,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "select:nth-child(4)",
         "severity": 2,
-        "size": 6,
+        "size": 4,
       },
       {
         "column": 15,
@@ -16673,7 +16673,7 @@ exports[`HTML elements <source> invalid markup 1`] = `
         "size": 3,
       },
       {
-        "column": 3,
+        "column": 10,
         "context": {
           "allowed": {
             "enum": [
@@ -16686,15 +16686,15 @@ exports[`HTML elements <source> invalid markup 1`] = `
         },
         "line": 26,
         "message": "Attribute "width" has invalid value """,
-        "offset": 530,
+        "offset": 537,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "picture:nth-child(6) > source:nth-child(1)",
         "severity": 2,
-        "size": 6,
+        "size": 5,
       },
       {
-        "column": 3,
+        "column": 19,
         "context": {
           "allowed": {
             "enum": [
@@ -16707,7 +16707,7 @@ exports[`HTML elements <source> invalid markup 1`] = `
         },
         "line": 26,
         "message": "Attribute "height" has invalid value """,
-        "offset": 530,
+        "offset": 546,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "picture:nth-child(6) > source:nth-child(1)",
@@ -17505,7 +17505,7 @@ exports[`HTML elements <td> invalid markup 1`] = `
         "size": 7,
       },
       {
-        "column": 5,
+        "column": 8,
         "context": {
           "allowed": {
             "enum": [
@@ -17518,15 +17518,15 @@ exports[`HTML elements <td> invalid markup 1`] = `
         },
         "line": 14,
         "message": "Attribute "colspan" has invalid value """,
-        "offset": 282,
+        "offset": 285,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "table > tbody > tr > td:nth-child(3)",
         "severity": 2,
-        "size": 2,
+        "size": 7,
       },
       {
-        "column": 5,
+        "column": 19,
         "context": {
           "allowed": {
             "enum": [
@@ -17539,12 +17539,12 @@ exports[`HTML elements <td> invalid markup 1`] = `
         },
         "line": 14,
         "message": "Attribute "rowspan" has invalid value """,
-        "offset": 282,
+        "offset": 296,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "table > tbody > tr > td:nth-child(3)",
         "severity": 2,
-        "size": 2,
+        "size": 7,
       },
       {
         "column": 17,
@@ -17828,7 +17828,7 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
         "size": 4,
       },
       {
-        "column": 2,
+        "column": 11,
         "context": {
           "allowed": {
             "enum": [
@@ -17841,15 +17841,15 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
         },
         "line": 12,
         "message": "Attribute "cols" has invalid value """,
-        "offset": 304,
+        "offset": 313,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "textarea:nth-child(4)",
         "severity": 2,
-        "size": 8,
+        "size": 4,
       },
       {
-        "column": 2,
+        "column": 19,
         "context": {
           "allowed": {
             "enum": [
@@ -17862,15 +17862,15 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
         },
         "line": 12,
         "message": "Attribute "maxlength" has invalid value """,
-        "offset": 304,
+        "offset": 321,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "textarea:nth-child(4)",
         "severity": 2,
-        "size": 8,
+        "size": 9,
       },
       {
-        "column": 2,
+        "column": 32,
         "context": {
           "allowed": {
             "enum": [
@@ -17883,15 +17883,15 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
         },
         "line": 12,
         "message": "Attribute "minlength" has invalid value """,
-        "offset": 304,
+        "offset": 334,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "textarea:nth-child(4)",
         "severity": 2,
-        "size": 8,
+        "size": 9,
       },
       {
-        "column": 2,
+        "column": 45,
         "context": {
           "allowed": {
             "enum": [
@@ -17904,12 +17904,12 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
         },
         "line": 12,
         "message": "Attribute "rows" has invalid value """,
-        "offset": 304,
+        "offset": 347,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "textarea:nth-child(4)",
         "severity": 2,
-        "size": 8,
+        "size": 4,
       },
       {
         "column": 17,
@@ -18297,7 +18297,7 @@ exports[`HTML elements <th> invalid markup 1`] = `
         "size": 7,
       },
       {
-        "column": 5,
+        "column": 20,
         "context": {
           "allowed": {
             "enum": [
@@ -18310,15 +18310,15 @@ exports[`HTML elements <th> invalid markup 1`] = `
         },
         "line": 43,
         "message": "Attribute "colspan" has invalid value """,
-        "offset": 793,
+        "offset": 808,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "table:nth-child(4) > tbody > tr > th:nth-child(3)",
         "severity": 2,
-        "size": 2,
+        "size": 7,
       },
       {
-        "column": 5,
+        "column": 31,
         "context": {
           "allowed": {
             "enum": [
@@ -18331,12 +18331,12 @@ exports[`HTML elements <th> invalid markup 1`] = `
         },
         "line": 43,
         "message": "Attribute "rowspan" has invalid value """,
-        "offset": 793,
+        "offset": 819,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "table:nth-child(4) > tbody > tr > th:nth-child(3)",
         "severity": 2,
-        "size": 2,
+        "size": 7,
       },
       {
         "column": 29,
@@ -19183,7 +19183,7 @@ exports[`HTML elements global attributes invalid markup 1`] = `
         "size": 6,
       },
       {
-        "column": 2,
+        "column": 4,
         "context": {
           "allowed": {
             "enum": [
@@ -19198,12 +19198,12 @@ exports[`HTML elements global attributes invalid markup 1`] = `
         },
         "line": 2,
         "message": "Attribute "dir" has invalid value """,
-        "offset": 34,
+        "offset": 36,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "p:nth-child(2)",
         "severity": 2,
-        "size": 1,
+        "size": 3,
       },
       {
         "column": 9,
@@ -19229,7 +19229,7 @@ exports[`HTML elements global attributes invalid markup 1`] = `
         "size": 6,
       },
       {
-        "column": 2,
+        "column": 4,
         "context": {
           "allowed": {
             "enum": [
@@ -19243,12 +19243,12 @@ exports[`HTML elements global attributes invalid markup 1`] = `
         },
         "line": 4,
         "message": "Attribute "draggable" has invalid value """,
-        "offset": 70,
+        "offset": 72,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "p:nth-child(4)",
         "severity": 2,
-        "size": 1,
+        "size": 9,
       },
       {
         "column": 15,
@@ -19273,7 +19273,19 @@ exports[`HTML elements global attributes invalid markup 1`] = `
         "size": 6,
       },
       {
-        "column": 2,
+        "column": 4,
+        "context": 1,
+        "line": 8,
+        "message": "element id must not be empty",
+        "offset": 156,
+        "ruleId": "valid-id",
+        "ruleUrl": "https://html-validate.org/rules/valid-id.html",
+        "selector": "p:nth-child(6)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 4,
         "context": {
           "allowed": {
             "enum": [
@@ -19286,24 +19298,12 @@ exports[`HTML elements global attributes invalid markup 1`] = `
         },
         "line": 8,
         "message": "Attribute "id" has invalid value """,
-        "offset": 154,
+        "offset": 156,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "p:nth-child(6)",
         "severity": 2,
-        "size": 1,
-      },
-      {
-        "column": 4,
-        "context": 1,
-        "line": 8,
-        "message": "element id must not be empty",
-        "offset": 156,
-        "ruleId": "valid-id",
-        "ruleUrl": "https://html-validate.org/rules/valid-id.html",
-        "selector": "p:nth-child(6)",
-        "severity": 2,
-        "size": 5,
+        "size": 2,
       },
       {
         "column": 8,
@@ -19377,7 +19377,7 @@ exports[`HTML elements global attributes invalid markup 1`] = `
         "size": 6,
       },
       {
-        "column": 2,
+        "column": 4,
         "context": {
           "allowed": {
             "enum": [
@@ -19390,12 +19390,12 @@ exports[`HTML elements global attributes invalid markup 1`] = `
         },
         "line": 19,
         "message": "Attribute "tabindex" has invalid value """,
-        "offset": 380,
+        "offset": 382,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "p:nth-child(10)",
         "severity": 2,
-        "size": 1,
+        "size": 8,
       },
       {
         "column": 14,
