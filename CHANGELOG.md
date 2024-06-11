@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 8.20.1 (2024-06-11)
+
+### Bug Fixes
+
+- **rules:** fix `attribute-allowed-values` error location for empty values ([2c04eeb](https://gitlab.com/html-validate/html-validate/commit/2c04eeb3d855c6365dea7fa7abfb44e4fb19bf42))
+
 ## 8.20.0 (2024-06-02)
 
 ### Features
