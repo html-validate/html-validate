@@ -243,7 +243,7 @@
     "npm-run-all2": "6.2.0",
     "rollup": "4.18.0",
     "rollup-plugin-esbuild": "6.1.1",
-    "stream-buffers": "3.0.2",
+    "stream-buffers": "3.0.3",
     "ts-jest": "29.1.5",
     "typescript": "5.4.5",
     "vite": "4.5.3"
