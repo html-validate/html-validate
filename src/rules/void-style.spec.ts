@@ -1,5 +1,6 @@
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
+import { type RuleContext, Style } from "./void-style";
 
 describe("rule void-style", () => {
 	let htmlvalidate: HtmlValidate;
@@ -125,12 +126,12 @@ describe("rule void-style", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "void-style": "error" },
 		});
-		const context1 = {
-			style: 1,
+		const context1: RuleContext = {
+			style: Style.AlwaysOmit,
 			tagName: "foo",
 		};
-		const context2 = {
-			style: 2,
+		const context2: RuleContext = {
+			style: Style.AlwaysSelfclose,
 			tagName: "bar",
 		};
 		const docs1 = await htmlvalidate.getContextualDocumentation({

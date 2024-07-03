@@ -2,12 +2,18 @@ import { type HtmlElement, NodeClosed } from "../dom";
 import { type TagEndEvent } from "../event";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
-enum Style {
+/**
+ * @internal
+ */
+export enum Style {
 	AlwaysOmit = 1,
 	AlwaysSelfclose = 2,
 }
 
-interface RuleContext {
+/**
+ * @internal
+ */
+export interface RuleContext {
 	style: Style;
 	tagName: string;
 }
