@@ -121,28 +121,40 @@ describe("rule void-style", () => {
 		);
 	});
 
-	it("should have documentation", async () => {
-		expect.assertions(2);
-		htmlvalidate = new HtmlValidate({
-			rules: { "void-style": "error" },
+	describe("should have contextual documentation", () => {
+		it("omit", async () => {
+			expect.assertions(2);
+			const context: RuleContext = {
+				style: Style.AlwaysOmit,
+				tagName: "foo",
+			};
+			const docs = await htmlvalidate.getContextualDocumentation({
+				ruleId: "void-style",
+				context,
+			});
+			expect(docs?.description).toMatchInlineSnapshot(
+				`"The current configuration requires void elements to omit end tag, use <foo> instead."`,
+			);
+			expect(docs?.url).toMatchInlineSnapshot(`"https://html-validate.org/rules/void-style.html"`);
 		});
-		const context1: RuleContext = {
-			style: Style.AlwaysOmit,
-			tagName: "foo",
-		};
-		const context2: RuleContext = {
-			style: Style.AlwaysSelfclose,
-			tagName: "bar",
-		};
-		const docs1 = await htmlvalidate.getContextualDocumentation({
-			ruleId: "void-style",
-			context: context1,
+
+		it("self-close", async () => {
+			expect.assertions(2);
+			const htmlvalidate = new HtmlValidate({
+				rules: { "void-style": "error" },
+			});
+			const context: RuleContext = {
+				style: Style.AlwaysSelfclose,
+				tagName: "bar",
+			};
+			const docs = await htmlvalidate.getContextualDocumentation({
+				ruleId: "void-style",
+				context,
+			});
+			expect(docs?.description).toMatchInlineSnapshot(
+				`"The current configuration requires void elements to be self-closed, use <bar/> instead."`,
+			);
+			expect(docs?.url).toMatchInlineSnapshot(`"https://html-validate.org/rules/void-style.html"`);
 		});
-		const docs2 = await htmlvalidate.getContextualDocumentation({
-			ruleId: "void-style",
-			context: context2,
-		});
-		expect(docs1).toMatchSnapshot();
-		expect(docs2).toMatchSnapshot();
 	});
 });
