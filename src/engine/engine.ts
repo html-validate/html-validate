@@ -271,7 +271,7 @@ export class Engine<T extends Parser = Parser> {
 		}
 
 		/* enable rules on node */
-		parser.on("tag:start", (event: string, data: TagStartEvent) => {
+		parser.on("tag:start", (_event: string, data: TagStartEvent) => {
 			data.target.enableRules(rules.map((rule) => rule.name));
 		});
 	}
@@ -282,7 +282,7 @@ export class Engine<T extends Parser = Parser> {
 		}
 
 		/* disable rules on node */
-		parser.on("tag:start", (event: string, data: TagStartEvent) => {
+		parser.on("tag:start", (_event: string, data: TagStartEvent) => {
 			data.target.disableRules(rules.map((rule) => rule.name));
 		});
 	}
@@ -303,7 +303,7 @@ export class Engine<T extends Parser = Parser> {
 			rule.block(blocker);
 		}
 
-		const unregisterOpen = parser.on("tag:start", (event: string, data: TagStartEvent) => {
+		const unregisterOpen = parser.on("tag:start", (_event: string, data: TagStartEvent) => {
 			/* wait for a tag to open and find the current block by using its parent */
 			if (directiveBlock === null) {
 				/* istanbul ignore next: there will always be a parent (root element if
@@ -316,7 +316,7 @@ export class Engine<T extends Parser = Parser> {
 			data.target.blockRules(ruleIds, blocker);
 		});
 
-		const unregisterClose = parser.on("tag:end", (event: string, data: TagEndEvent) => {
+		const unregisterClose = parser.on("tag:end", (_event: string, data: TagEndEvent) => {
 			/* if the directive is the last thing in a block no id would be set */
 			const lastNode = directiveBlock === null;
 
@@ -334,7 +334,7 @@ export class Engine<T extends Parser = Parser> {
 			}
 		});
 
-		parser.on("rule:error", (event: string, data: RuleErrorEvent) => {
+		parser.on("rule:error", (_event: string, data: RuleErrorEvent) => {
 			if (data.blockers.includes(blocker)) {
 				unused.delete(data.ruleId);
 			}
@@ -362,11 +362,11 @@ export class Engine<T extends Parser = Parser> {
 
 		/* block rules directly on the node so it will be recorded for later,
 		 * more specifically when using the domtree to trigger errors */
-		const unregister = parser.on("tag:start", (event: string, data: TagStartEvent) => {
+		const unregister = parser.on("tag:start", (_event: string, data: TagStartEvent) => {
 			data.target.blockRules(ruleIds, blocker);
 		});
 
-		parser.on("rule:error", (event: string, data: RuleErrorEvent) => {
+		parser.on("rule:error", (_event: string, data: RuleErrorEvent) => {
 			if (data.blockers.includes(blocker)) {
 				unused.delete(data.ruleId);
 			}
