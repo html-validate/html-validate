@@ -6,7 +6,7 @@ import { nthChild } from "./nth-child";
 import { scope } from "./scope";
 
 type PseudoClassFunction = (this: SelectorContext, node: HtmlElement, args?: string) => boolean;
-type PseudoClassTable = Record<string, PseudoClassFunction>;
+type PseudoClassTable = Record<string, PseudoClassFunction | undefined>;
 
 const table: PseudoClassTable = {
 	"first-child": firstChild,

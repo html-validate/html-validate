@@ -299,7 +299,7 @@ export class Config {
 			}
 
 			/* try searching builtin metadata */
-			const bundled = bundledElements[entry];
+			const bundled = bundledElements[entry] as MetaDataTable | undefined;
 			if (bundled) {
 				metaTable.loadFromObject(bundled);
 				continue;

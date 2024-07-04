@@ -192,7 +192,7 @@ class AttrMatcher extends Matcher {
 	}
 
 	public match(node: HtmlElement): boolean {
-		const attr = node.getAttribute(this.key, true) || [];
+		const attr = node.getAttribute(this.key, true);
 		return attr.some((cur: Attribute) => {
 			switch (this.op) {
 				case undefined:

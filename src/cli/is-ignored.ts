@@ -28,7 +28,7 @@ export class IsIgnored {
 	private match(target: string): boolean {
 		let current = path.dirname(target);
 
-		// eslint-disable-next-line no-constant-condition -- breaks out when filesystem is traversed
+		// eslint-disable-next-line no-constant-condition, @typescript-eslint/no-unnecessary-condition -- breaks out when filesystem is traversed
 		while (true) {
 			const relative = path.relative(current, target);
 			const filename = path.join(current, ".htmlvalidateignore");

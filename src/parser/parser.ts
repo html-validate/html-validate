@@ -332,7 +332,7 @@ export class Parser {
 
 		/* trigger event for for an element being fully constructed. Special care
 		 * for void elements explicit closed <input></input> */
-		if (active && !active.isRootElement()) {
+		if (!active.isRootElement()) {
 			this.trigger("element:ready", {
 				target: active,
 				location: active.location,
@@ -795,6 +795,7 @@ export class Parser {
 	 */
 	private closeTree(source: Source, location: Location): void {
 		let active;
+		/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- the condition is not unnecessary, it performs an assignment */
 		while ((active = this.dom.getActive()) && !active.isRootElement()) {
 			this.closeElement(source, null, active, location);
 			this.dom.popActive();

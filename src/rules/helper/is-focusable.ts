@@ -50,7 +50,12 @@ function isFocusableImpl(element: HtmlElement): boolean {
 		return false;
 	}
 
-	return Boolean(meta?.focusable);
+	/* normally when this is called focusable has already been computed to a
+	 * concrete boolean (see [[Meta.resolve]]), if `isFocusable` is called before
+	 * the element is fully constructed and resolved we cannot know if the element
+	 * is actually focusable or not so consider anything that might ever be
+	 * focusable as focusable. */
+	return Boolean(meta.focusable);
 }
 
 /**

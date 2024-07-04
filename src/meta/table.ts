@@ -8,7 +8,6 @@ import { computeHash } from "../utils/compute-hash";
 import schema from "../schema/elements.json";
 import { ajvFunctionKeyword, ajvRegexpKeyword } from "../schema/keywords";
 import {
-	type ElementTable,
 	type InternalAttributeFlags,
 	type MetaAttribute,
 	type MetaDataTable,
@@ -34,7 +33,7 @@ const dynamicKeys = [
 
 type PropertyEvaluator = (node: HtmlElement, options: string | [string, string, string]) => boolean;
 
-const functionTable: Record<string, PropertyEvaluator> = {
+const functionTable: Record<string, PropertyEvaluator | undefined> = {
 	isDescendant: isDescendantFacade,
 	hasAttribute: hasAttributeFacade,
 	matchAttribute: matchAttributeFacade,
@@ -54,7 +53,7 @@ function overwriteMerge<T>(a: T[], b: T[]): T[] {
  * @public
  */
 export class MetaTable {
-	private readonly elements: ElementTable;
+	private readonly elements: Record<string, MetaElement | undefined>;
 
 	private schema: SchemaObject;
 
@@ -143,16 +142,12 @@ export class MetaTable {
 	 * @returns A shallow copy of metadata.
 	 */
 	public getMetaFor(tagName: string): MetaElement | null {
-		/* try to locate by tagname */
-		tagName = tagName.toLowerCase();
-		if (this.elements[tagName]) {
-			return { ...this.elements[tagName] };
+		const meta = this.elements[tagName.toLowerCase()] ?? this.elements["*"];
+		if (meta) {
+			return { ...meta };
+		} else {
+			return null;
 		}
-		/* try to locate global element */
-		if (this.elements["*"]) {
-			return { ...this.elements["*"] };
-		}
-		return null;
 	}
 
 	/**
@@ -161,9 +156,7 @@ export class MetaTable {
 	 * @public
 	 */
 	public getTagsWithProperty(propName: MetaLookupableProperty): string[] {
-		return Object.entries(this.elements)
-			.filter(([, entry]) => entry[propName])
-			.map(([tagName]) => tagName);
+		return this.entries.filter(([, entry]) => entry[propName]).map(([tagName]) => tagName);
 	}
 
 	/**
@@ -172,13 +165,13 @@ export class MetaTable {
 	 * @public
 	 */
 	public getTagsDerivedFrom(tagName: string): string[] {
-		return Object.entries(this.elements)
+		return this.entries
 			.filter(([key, entry]) => key === tagName || entry.inherit === tagName)
 			.map(([tagName]) => tagName);
 	}
 
 	private addEntry(tagName: string, entry: Omit<MetaElement, "tagName">): void {
-		let parent = this.elements[tagName] || {};
+		let parent = this.elements[tagName];
 
 		/* handle inheritance */
 		if (entry.inherit) {
@@ -193,7 +186,7 @@ export class MetaTable {
 		}
 
 		/* merge all sources together */
-		const expanded = this.mergeElement(parent, { ...entry, tagName });
+		const expanded = this.mergeElement(parent ?? {}, { ...entry, tagName });
 		expandRegex(expanded);
 
 		this.elements[tagName] = expanded;
@@ -227,6 +220,13 @@ export class MetaTable {
 	}
 
 	/**
+	 * @internal
+	 */
+	private get entries(): Array<[string, MetaElement]> {
+		return Object.entries(this.elements) as Array<[string, MetaElement]>;
+	}
+
+	/**
 	 * Finds the global element definition and merges each known element with the
 	 * global, e.g. to assign global attributes.
 	 */
@@ -244,7 +244,7 @@ export class MetaTable {
 		delete global.void;
 
 		/* merge elements */
-		for (const [tagName, entry] of Object.entries(this.elements)) {
+		for (const [tagName, entry] of this.entries) {
 			this.elements[tagName] = this.mergeElement(global, entry);
 		}
 	}
@@ -369,10 +369,7 @@ function hasAttributeFacade(node: HtmlElement, attr: any): boolean {
 	return hasAttribute(node, attr);
 }
 
-function matchAttributeFacade(
-	node: HtmlElement,
-	match: string | [string, string, string],
-): boolean {
+function matchAttributeFacade(node: HtmlElement, match: string | string[]): boolean {
 	if (!Array.isArray(match) || match.length !== 3) {
 		throw new Error(
 			`Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <${node.tagName}>`,

@@ -249,7 +249,7 @@ function getControlGroups(type: string): ControlGroup[] {
 		"month",
 		"date",
 	];
-	const mapping: Record<string, ControlGroup[]> = {
+	const mapping: Record<string, ControlGroup[] | undefined> = {
 		hidden: allGroups,
 		text: allGroups.filter((it) => it !== "multiline"),
 		search: allGroups.filter((it) => it !== "multiline"),
@@ -262,12 +262,7 @@ function getControlGroups(type: string): ControlGroup[] {
 		date: ["date"],
 	};
 
-	const groups = mapping[type];
-	if (groups) {
-		return groups;
-	}
-
-	return [];
+	return mapping[type] ?? [];
 }
 
 function isDisallowedType(node: HtmlElement, type: string): boolean {

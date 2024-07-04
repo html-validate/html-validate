@@ -182,7 +182,10 @@ export class Validator {
 	 * @param rules - Element attribute metadta.
 	 * @returns `true` if attribute passes all tests.
 	 */
-	public static validateAttribute(attr: Attribute, rules: Record<string, MetaAttribute>): boolean {
+	public static validateAttribute(
+		attr: Attribute,
+		rules: Record<string, MetaAttribute | undefined>,
+	): boolean {
 		const rule = rules[attr.key];
 		if (!rule) {
 			return true;
@@ -227,7 +230,7 @@ export class Validator {
 			return true;
 		}
 
-		if (value === null || value === undefined) {
+		if (value === null) {
 			return false;
 		}
 

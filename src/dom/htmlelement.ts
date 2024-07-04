@@ -389,11 +389,13 @@ export class HtmlElement extends DOMNode {
 	): void {
 		key = key.toLowerCase();
 
-		if (!this.attr[key]) {
-			this.attr[key] = [];
+		const attr = new Attribute(key, value, keyLocation, valueLocation, originalAttribute);
+		const list = this.attr[key] as Attribute[] | undefined;
+		if (list) {
+			list.push(attr);
+		} else {
+			this.attr[key] = [attr];
 		}
-
-		this.attr[key].push(new Attribute(key, value, keyLocation, valueLocation, originalAttribute));
 	}
 
 	/**
@@ -477,7 +479,7 @@ export class HtmlElement extends DOMNode {
 			const matches = this.attr[key];
 			return all ? matches : matches[0];
 		} else {
-			return null;
+			return all ? [] : null;
 		}
 	}
 

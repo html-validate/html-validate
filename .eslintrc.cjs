@@ -54,7 +54,6 @@ module.exports = {
 			extends: ["@html-validate/typescript-typeinfo"],
 			rules: {
 				"@typescript-eslint/no-explicit-any": "off",
-				"@typescript-eslint/no-unnecessary-condition": "off",
 			},
 		},
 		{

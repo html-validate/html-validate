@@ -1479,7 +1479,7 @@ export class UserError extends NestedError {
 // @public
 export class Validator {
     static validateAncestors(node: HtmlElement, rules: RequiredAncestors | null): boolean;
-    static validateAttribute(attr: Attribute, rules: Record<string, MetaAttribute>): boolean;
+    static validateAttribute(attr: Attribute, rules: Record<string, MetaAttribute | undefined>): boolean;
     static validateOccurrences(children: HtmlElement[], rules: Permitted | null, cb: (node: HtmlElement, category: string) => void): boolean;
     static validateOrder(children: HtmlElement[], rules: PermittedOrder | null, cb: (node: HtmlElement, prev: HtmlElement) => void): boolean;
     static validatePermitted(node: HtmlElement, rules: Permitted | null): boolean;

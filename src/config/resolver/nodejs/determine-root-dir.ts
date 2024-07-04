@@ -14,7 +14,7 @@ export function determineRootDirImpl(intial: string, fs: FSLike): string {
 	/* try to locate package.json */
 	let current = intial;
 
-	// eslint-disable-next-line no-constant-condition -- break outs when filesystem is traversed
+	// eslint-disable-next-line no-constant-condition, @typescript-eslint/no-unnecessary-condition -- break outs when filesystem is traversed
 	while (true) {
 		const search = path.join(current, "package.json");
 		if (fs.existsSync(search)) {

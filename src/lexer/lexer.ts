@@ -215,7 +215,7 @@ export class Lexer {
 
 	private *tokenizeTag(context: Context): Iterable<Token> {
 		function nextState(token: Token | null): State {
-			const tagCloseToken = token as TagCloseToken;
+			const tagCloseToken = token as TagCloseToken | null;
 			switch (context.contentModel) {
 				case ContentModel.TEXT:
 					return State.TEXT;

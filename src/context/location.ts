@@ -111,7 +111,7 @@ export function sliceLocation(
 			} else {
 				break;
 			}
-		} while (true); // eslint-disable-line no-constant-condition -- it will break out
+		} while (true); // eslint-disable-line no-constant-condition, @typescript-eslint/no-unnecessary-condition -- it will break out
 	}
 
 	return sliced;

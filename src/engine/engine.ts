@@ -36,7 +36,7 @@ export interface TokenDump {
 }
 
 interface DirectiveContext {
-	readonly rules: Record<string, Rule<unknown, unknown>>;
+	readonly rules: Record<string, Rule<unknown, unknown> | undefined>;
 	reportUnused(rules: Set<string>, unused: Set<string>, options: string, location: Location): void;
 }
 
@@ -47,7 +47,7 @@ export class Engine<T extends Parser = Parser> {
 	private report: Reporter;
 	private config: ResolvedConfig;
 	private ParserClass: new (config: ResolvedConfig) => T;
-	private availableRules: Record<string, RuleConstructor<unknown, unknown>>;
+	private availableRules: Record<string, RuleConstructor<unknown, unknown> | undefined>;
 
 	public constructor(config: ResolvedConfig, ParserClass: new (config: ResolvedConfig) => T) {
 		this.report = new Reporter();
@@ -84,7 +84,7 @@ export class Engine<T extends Parser = Parser> {
 					options: string,
 					location: Location,
 				): void {
-					if (noUnusedDisable && !rules.has(noUnusedDisable.name)) {
+					if (!rules.has(noUnusedDisable.name)) {
 						noUnusedDisable.reportUnused(unused, options, location);
 					}
 				},
@@ -243,7 +243,10 @@ export class Engine<T extends Parser = Parser> {
 			.split(",")
 			.map((name) => name.trim())
 			.map((name) => context.rules[name])
-			.filter((rule) => rule); /* filter out missing rules */
+			.filter((rule): rule is Rule<unknown, unknown> => {
+				/* filter out missing rules */
+				return Boolean(rule);
+			});
 		/* istanbul ignore next: option must be present or there would be no rules to disable */
 		const location = event.optionsLocation ?? event.location;
 		switch (event.action) {
@@ -472,6 +475,10 @@ export class Engine<T extends Parser = Parser> {
 		rule.init(parser, report, severity, meta);
 
 		/* call setup callback if present */
+		/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition --
+		 * unnecessary from a typescript perspective but if the plugin is not
+		 * implemented in TS the user might not have implemented the callback even
+		 * if the declaration requires it */
 		if (rule.setup) {
 			rule.setup();
 		}
