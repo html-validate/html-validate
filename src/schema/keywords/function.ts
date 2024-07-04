@@ -6,7 +6,7 @@ import { type DataValidateFunction, type DataValidationCxt } from "ajv/dist/type
  * with the "type" keyword to give the same output.
  */
 const ajvFunctionValidate: DataValidateFunction = function (
-	data: any,
+	data: unknown,
 	dataCxt?: DataValidationCxt,
 ): boolean {
 	const valid = typeof data === "function";
