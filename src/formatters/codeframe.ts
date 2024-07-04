@@ -1,6 +1,7 @@
 import { codeFrameColumns } from "@babel/code-frame";
 import kleur from "kleur";
-import { type Message, type Result } from "../reporter";
+import { type Message } from "../message";
+import { type Result } from "../reporter";
 
 interface SourcePoint {
 	line: number;

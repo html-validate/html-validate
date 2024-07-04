@@ -1,4 +1,5 @@
-import { type Message, type Result } from "../reporter";
+import { type Message } from "../message";
+import { type Result } from "../reporter";
 import { type Formatter } from "./formatter";
 
 const entities: Record<string, string> = {

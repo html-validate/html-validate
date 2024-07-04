@@ -66,6 +66,7 @@ export {
 	type UnicodeBOMToken,
 	type WhitespaceToken,
 } from "./lexer";
+export { type Message } from "./message";
 export {
 	type CategoryOrTag,
 	type DeprecatedElement,
@@ -122,7 +123,7 @@ export {
 	type SourceHooks,
 	sliceLocation,
 } from "./context";
-export { type DeferredMessage, type Message, type Report, type Result, Reporter } from "./reporter";
+export { type DeferredMessage, type Report, type Result, Reporter } from "./reporter";
 export { type TransformContext, type Transformer } from "./transform";
 export { type Plugin, type SchemaValidationPatch, definePlugin } from "./plugin";
 export { Parser } from "./parser";

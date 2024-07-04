@@ -1,4 +1,5 @@
-import { type Message, type Report } from "../../reporter";
+import { type Message } from "../../message";
+import { type Report } from "../../reporter";
 import {
 	type DiffFunction,
 	type MatcherContext,

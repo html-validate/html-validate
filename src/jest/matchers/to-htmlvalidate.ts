@@ -2,7 +2,7 @@ import deepmerge from "deepmerge";
 import { type ConfigData } from "../../config";
 import { FileSystemConfigLoader } from "../../config/loaders/file-system";
 import { HtmlValidate } from "../../htmlvalidate";
-import { type Message } from "../../reporter";
+import { type Message } from "../../message";
 import {
 	type DiffFunction,
 	type MatcherContext,

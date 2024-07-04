@@ -3,8 +3,8 @@ import { Config, ConfigData, ConfigLoader, ResolvedConfig, Severity } from "./co
 import { cjsResolver } from "./config/resolver/nodejs";
 import { Source, SourceHooks } from "./context";
 import { HtmlValidate } from "./htmlvalidate";
+import { type Message } from "./message";
 import { Parser } from "./parser";
-import { Message } from "./reporter";
 
 const engine = {
 	lint: jest.fn(),

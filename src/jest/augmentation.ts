@@ -1,6 +1,6 @@
 /** module augmentation: jest.d.ts */
 import { type ConfigData } from "../config";
-import { type Message } from "../reporter";
+import { type Message } from "../message";
 
 declare global {
 	/* eslint-disable-next-line @typescript-eslint/no-namespace -- module augmentation */

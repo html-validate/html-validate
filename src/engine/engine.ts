@@ -11,8 +11,9 @@ import {
 	type TagStartEvent,
 } from "../event";
 import { InvalidTokenError, Lexer, TokenType } from "../lexer";
+import { type Message } from "../message";
 import { type Parser, ParserError } from "../parser";
-import { type Report, type Message, Reporter } from "../reporter";
+import { type Report, Reporter } from "../reporter";
 import { type RuleConstructor, type RuleDocumentation, Rule } from "../rule";
 import type NoUnusedDisable from "../rules/no-unused-disable";
 import bundledRules from "../rules";
