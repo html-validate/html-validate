@@ -76,16 +76,16 @@ describe("HTML elements", () => {
 		it("should be focusable if href is present", () => {
 			expect.assertions(1);
 			const markup = "<a href></a>";
-			const input = getElement(markup, "a")!;
-			const meta = input?.meta;
+			const input = getElement(markup, "a");
+			const meta = input.meta;
 			expect(meta?.focusable).toBe(true);
 		});
 
 		it("should not be focusable unless href is present", () => {
 			expect.assertions(1);
 			const markup = "<a></a>";
-			const input = getElement(markup, "a")!;
-			const meta = input?.meta;
+			const input = getElement(markup, "a");
+			const meta = input.meta;
 			expect(meta?.focusable).toBe(false);
 		});
 	});
@@ -94,16 +94,16 @@ describe("HTML elements", () => {
 		it("should be focusable if href is present", () => {
 			expect.assertions(1);
 			const markup = "<area href></area>";
-			const input = getElement(markup, "area")!;
-			const meta = input?.meta;
+			const input = getElement(markup, "area");
+			const meta = input.meta;
 			expect(meta?.focusable).toBe(true);
 		});
 
 		it("should not be focusable unless href is present", () => {
 			expect.assertions(1);
 			const markup = "<area></area>";
-			const input = getElement(markup, "area")!;
-			const meta = input?.meta;
+			const input = getElement(markup, "area");
+			const meta = input.meta;
 			expect(meta?.focusable).toBe(false);
 		});
 	});
@@ -112,16 +112,16 @@ describe("HTML elements", () => {
 		it("should be focusable if controls is present", () => {
 			expect.assertions(1);
 			const markup = "<audio controls></audio>";
-			const input = getElement(markup, "audio")!;
-			const meta = input?.meta;
+			const input = getElement(markup, "audio");
+			const meta = input.meta;
 			expect(meta?.focusable).toBe(true);
 		});
 
 		it("should not be focusable unless controls is present", () => {
 			expect.assertions(1);
 			const markup = "<audio></audio>";
-			const input = getElement(markup, "audio")!;
-			const meta = input?.meta;
+			const input = getElement(markup, "audio");
+			const meta = input.meta;
 			expect(meta?.focusable).toBe(false);
 		});
 	});
@@ -130,32 +130,32 @@ describe("HTML elements", () => {
 		it("should be focusable unless hidden", () => {
 			expect.assertions(1);
 			const markup = '<input type="text">';
-			const input = getElement(markup, "input")!;
-			const meta = input?.meta;
+			const input = getElement(markup, "input");
+			const meta = input.meta;
 			expect(meta?.focusable).toBe(true);
 		});
 
 		it("should be labelable unless hidden", () => {
 			expect.assertions(1);
 			const markup = '<input type="text">';
-			const input = getElement(markup, "input")!;
-			const meta = input?.meta;
+			const input = getElement(markup, "input");
+			const meta = input.meta;
 			expect(meta?.labelable).toBe(true);
 		});
 
 		it("should not be focusable if hidden", () => {
 			expect.assertions(1);
 			const markup = '<input type="hidden">';
-			const input = getElement(markup, "input")!;
-			const meta = input?.meta;
+			const input = getElement(markup, "input");
+			const meta = input.meta;
 			expect(meta?.focusable).toBe(false);
 		});
 
 		it("should not be labelable if hidden", () => {
 			expect.assertions(1);
 			const markup = '<input type="hidden">';
-			const input = getElement(markup, "input")!;
-			const meta = input?.meta;
+			const input = getElement(markup, "input");
+			const meta = input.meta;
 			expect(meta?.labelable).toBe(false);
 		});
 	});
@@ -164,16 +164,16 @@ describe("HTML elements", () => {
 		it("should be focusable if controls is present", () => {
 			expect.assertions(1);
 			const markup = "<video controls></video>";
-			const input = getElement(markup, "video")!;
-			const meta = input?.meta;
+			const input = getElement(markup, "video");
+			const meta = input.meta;
 			expect(meta?.focusable).toBe(true);
 		});
 
 		it("should not be focusable unless controls is present", () => {
 			expect.assertions(1);
 			const markup = "<video></video>";
-			const input = getElement(markup, "video")!;
-			const meta = input?.meta;
+			const input = getElement(markup, "video");
+			const meta = input.meta;
 			expect(meta?.focusable).toBe(false);
 		});
 	});

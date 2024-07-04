@@ -86,7 +86,9 @@ describe("StaticConfigLoader", () => {
 		it("should not crash", () => {
 			expect.assertions(1);
 			const loader = new StaticConfigLoader();
-			expect(() => loader.flushCache()).not.toThrow();
+			expect(() => {
+				loader.flushCache();
+			}).not.toThrow();
 		});
 	});
 });

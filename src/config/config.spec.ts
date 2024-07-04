@@ -634,7 +634,9 @@ describe("config", () => {
 					"^.*\\.foo$": "mock-transform-obsolete",
 				},
 			});
-			expect(() => config.init()).toThrow(
+			expect(() => {
+				config.init();
+			}).toThrow(
 				/Failed to load transformer "mock-transform-obsolete": Transformer uses API version 0 but only version \d+ is supported/,
 			);
 		});
@@ -647,7 +649,9 @@ describe("config", () => {
 					"^.*\\.foo$": "missing-plugin:foo",
 				},
 			});
-			expect(() => config.init()).toThrow(
+			expect(() => {
+				config.init();
+			}).toThrow(
 				'Failed to load transformer "missing-plugin:foo": No plugin named "missing-plugin" has been loaded',
 			);
 		});
@@ -660,7 +664,9 @@ describe("config", () => {
 					"^.*\\.foo$": "missing-transformer" /* mocked transformer, see top of file */,
 				},
 			});
-			expect(() => config.init()).toThrowErrorMatchingSnapshot();
+			expect(() => {
+				config.init();
+			}).toThrowErrorMatchingSnapshot();
 		});
 
 		it("should throw error when trying to load unnamed transform from plugin without any", () => {
@@ -678,7 +684,9 @@ describe("config", () => {
 					"^.*\\.foo$": "mock-plugin-notransform",
 				},
 			});
-			expect(() => config.init()).toThrowErrorMatchingSnapshot();
+			expect(() => {
+				config.init();
+			}).toThrowErrorMatchingSnapshot();
 		});
 
 		it("should throw error when trying to load named transform from plugin without any", () => {
@@ -696,7 +704,9 @@ describe("config", () => {
 					"^.*\\.foo$": "mock-plugin-notransform:named",
 				},
 			});
-			expect(() => config.init()).toThrowErrorMatchingSnapshot();
+			expect(() => {
+				config.init();
+			}).toThrowErrorMatchingSnapshot();
 		});
 	});
 
@@ -752,7 +762,9 @@ describe("config", () => {
 				["rules with options", { rules: { foo: ["error", { spam: "ham" }] } }],
 			] as Array<[string, any]>)("%s", (_, config: any) => {
 				expect.assertions(1);
-				expect(() => Config.validate(config)).not.toThrow();
+				expect(() => {
+					Config.validate(config);
+				}).not.toThrow();
 			});
 		});
 
@@ -772,7 +784,9 @@ describe("config", () => {
 				["additional property", { foo: "bar" }],
 			] as Array<[string, any]>)("%s", (_, config: any) => {
 				expect.assertions(1);
-				expect(() => Config.validate(config)).toThrow(SchemaValidationError);
+				expect(() => {
+					Config.validate(config);
+				}).toThrow(SchemaValidationError);
 			});
 		});
 	});

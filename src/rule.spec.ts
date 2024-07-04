@@ -528,7 +528,7 @@ describe("validateOptions()", () => {
 		};
 		const jsonPath = "/rules/mock-rule-invalid/1";
 		expect(() => {
-			return Rule.validateOptions(
+			Rule.validateOptions(
 				MockRuleSchema,
 				"mock-rule-invalid",
 				jsonPath,
@@ -551,14 +551,7 @@ describe("validateOptions()", () => {
 		};
 		const jsonPath = "/rules/mock-rule-valid/1";
 		expect(() => {
-			return Rule.validateOptions(
-				MockRuleSchema,
-				"mock-rule-valid",
-				jsonPath,
-				options,
-				"inline",
-				config,
-			);
+			Rule.validateOptions(MockRuleSchema, "mock-rule-valid", jsonPath, options, "inline", config);
 		}).not.toThrow();
 	});
 
@@ -572,14 +565,7 @@ describe("validateOptions()", () => {
 		};
 		const jsonPath = "/rules/mock-rule-no-schema/1";
 		expect(() => {
-			return Rule.validateOptions(
-				MockRule,
-				"mock-rule-no-schema",
-				jsonPath,
-				options,
-				"inline",
-				config,
-			);
+			Rule.validateOptions(MockRule, "mock-rule-no-schema", jsonPath, options, "inline", config);
 		}).not.toThrow();
 	});
 
@@ -593,14 +579,7 @@ describe("validateOptions()", () => {
 		};
 		const jsonPath = "/rules/mock-rule-undefined/1";
 		expect(() => {
-			return Rule.validateOptions(
-				undefined,
-				"mock-rule-undefined",
-				jsonPath,
-				options,
-				"inline",
-				config,
-			);
+			Rule.validateOptions(undefined, "mock-rule-undefined", jsonPath, options, "inline", config);
 		}).not.toThrow();
 	});
 });

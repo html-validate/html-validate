@@ -2037,7 +2037,9 @@ describe("parser", () => {
 
 		it("should throw error if event is missing location", () => {
 			expect.assertions(1);
-			expect(() => parser.trigger("foo", {})).toThrow("Triggered event must contain location");
+			expect(() => {
+				parser.trigger("foo", {});
+			}).toThrow("Triggered event must contain location");
 		});
 	});
 });

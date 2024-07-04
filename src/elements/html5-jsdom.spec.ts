@@ -13,8 +13,8 @@ it("html5 element metadata should be jsdom-compatible", () => {
 	const [link1, link2] = Array.from(document.querySelectorAll("a"));
 	const download = html5.a.attributes!.download as MetaAttribute;
 	const allowed = download.allowed!;
-	expect(allowed!(link1, link1.getAttribute("download"))).toBeNull();
-	expect(allowed!(link2, link2.getAttribute("download"))).toBe(
+	expect(allowed(link1, link1.getAttribute("download"))).toBeNull();
+	expect(allowed(link2, link2.getAttribute("download"))).toBe(
 		'requires "href" attribute to be present',
 	);
 });

@@ -23,7 +23,7 @@ it("should compute correct line, column and offset when using transformed source
 	expect.assertions(2);
 
 	/* create a mock rule which reports error on root element */
-	class MockRule extends Rule<string, void> {
+	class MockRule extends Rule<string> {
 		public setup(): void {
 			this.on("dom:ready", (event: DOMReadyEvent) => {
 				const root = event.document.root;
@@ -231,10 +231,10 @@ describe("configuration smoketest", () => {
 		const data = { rules: {}, ...src };
 		data.rules = Object.keys(data.rules)
 			.filter((key) => whitelisted.includes(key))
-			.reduce((dst, key) => {
+			.reduce<RuleConfig>((dst, key) => {
 				dst[key] = data.rules[key];
 				return dst;
-			}, {} as RuleConfig);
+			}, {});
 		return data;
 	}
 

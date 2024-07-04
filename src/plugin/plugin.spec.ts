@@ -512,7 +512,9 @@ describe("Plugin", () => {
 					".*": "missing-plugin:foobar",
 				},
 			});
-			expect(() => config.init()).toThrow(
+			expect(() => {
+				config.init();
+			}).toThrow(
 				'Failed to load transformer "missing-plugin:foobar": No plugin named "missing-plugin" has been loaded',
 			);
 		});
@@ -526,7 +528,9 @@ describe("Plugin", () => {
 					".*": "mock-plugin:foobar",
 				},
 			});
-			expect(() => config.init()).toThrow(
+			expect(() => {
+				config.init();
+			}).toThrow(
 				'Failed to load transformer "mock-plugin:foobar": Plugin "mock-plugin" does not expose a transformer named "foobar".',
 			);
 		});
@@ -542,7 +546,9 @@ describe("Plugin", () => {
 					".*": "mock-plugin",
 				},
 			});
-			expect(() => config.init()).toThrow(
+			expect(() => {
+				config.init();
+			}).toThrow(
 				'Failed to load transformer "mock-plugin": Transformer "mock-plugin" refers to unnamed transformer but plugin exposes only named.',
 			);
 		});
@@ -558,7 +564,9 @@ describe("Plugin", () => {
 					".*": "mock-plugin:foobar",
 				},
 			});
-			expect(() => config.init()).toThrow(
+			expect(() => {
+				config.init();
+			}).toThrow(
 				'Failed to load transformer "mock-plugin:foobar": Transformer "mock-plugin:foobar" refers to named transformer but plugin exposes only unnamed, use "mock-plugin" instead.',
 			);
 		});

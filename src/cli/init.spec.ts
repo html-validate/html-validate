@@ -100,7 +100,9 @@ it("should propagate errors from fs.writeFile", async () => {
 		name: "ErrnoException",
 		message: "mock error",
 	};
-	jest.spyOn(fs, "writeFile").mockImplementation((fn, data, cb) => cb(error));
+	jest.spyOn(fs, "writeFile").mockImplementation((fn, data, cb) => {
+		cb(error);
+	});
 	prompts.mockResolvedValue({
 		frameworks: [],
 	});

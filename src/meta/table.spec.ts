@@ -82,10 +82,11 @@ describe("MetaTable", () => {
 			},
 		];
 		const table = new MetaTable();
-		const fn = (): void =>
+		const fn = (): void => {
 			table.loadFromObject({
 				foo: mockEntry({ invalid: true } as unknown as Partial<MetaData>),
 			});
+		};
 		expect(fn).toThrow(SchemaValidationError);
 		expect(fn).toThrow(
 			"Element metadata is not valid: /foo Property invalid is not expected to be here",
@@ -106,10 +107,12 @@ describe("MetaTable", () => {
 				message: "should NOT have additional properties",
 			},
 		];
-		expect(() => table.loadFromObject(data, filename)).toThrow(SchemaValidationError);
-		expect(() => table.loadFromObject(data, filename)).toThrow(
-			"Element metadata is not valid: /foo Property invalid is not expected to be here",
-		);
+		expect(() => {
+			table.loadFromObject(data, filename);
+		}).toThrow(SchemaValidationError);
+		expect(() => {
+			table.loadFromObject(data, filename);
+		}).toThrow("Element metadata is not valid: /foo Property invalid is not expected to be here");
 	});
 
 	it("should throw InheritError if inheritance could not be resolved", () => {
@@ -117,8 +120,12 @@ describe("MetaTable", () => {
 		const filename = path.resolve(__dirname, "../../test-files/meta/invalid-inherit.json");
 		const table = new MetaTable();
 		const data = require(filename);
-		expect(() => table.loadFromObject(data, filename)).toThrow(InheritError);
-		expect(() => table.loadFromObject(data, filename)).toThrowErrorMatchingInlineSnapshot(
+		expect(() => {
+			table.loadFromObject(data, filename);
+		}).toThrow(InheritError);
+		expect(() => {
+			table.loadFromObject(data, filename);
+		}).toThrowErrorMatchingInlineSnapshot(
 			`"Element <foo> cannot inherit from <bar>: no such element"`,
 		);
 	});
@@ -130,9 +137,9 @@ describe("MetaTable", () => {
 		jest.spyOn(table as unknown as any, "addEntry").mockImplementation(() => {
 			throw new Error("Mock error");
 		});
-		expect(() => table.loadFromObject(data, "my-file.json")).toThrowErrorMatchingInlineSnapshot(
-			`"Failed to load element metadata from "my-file.json""`,
-		);
+		expect(() => {
+			table.loadFromObject(data, "my-file.json");
+		}).toThrowErrorMatchingInlineSnapshot(`"Failed to load element metadata from "my-file.json""`);
 	});
 
 	it("should throw original exception if no filename if provided", () => {
@@ -142,7 +149,9 @@ describe("MetaTable", () => {
 		jest.spyOn(table as unknown as any, "addEntry").mockImplementation(() => {
 			throw new Error("Mock error");
 		});
-		expect(() => table.loadFromObject(data)).toThrowErrorMatchingInlineSnapshot(`"Mock error"`);
+		expect(() => {
+			table.loadFromObject(data);
+		}).toThrowErrorMatchingInlineSnapshot(`"Mock error"`);
 	});
 
 	it("should ignore $schema property", () => {
@@ -582,7 +591,9 @@ describe("MetaTable", () => {
 			table.loadFromObject({
 				foo: mockEntry(),
 			});
-			expect(() => table.init()).not.toThrow();
+			expect(() => {
+				table.init();
+			}).not.toThrow();
 		});
 
 		it("should be merged with element", () => {
