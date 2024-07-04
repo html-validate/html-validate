@@ -220,7 +220,7 @@ describe("rule element-case", () => {
 		`);
 	});
 
-	it("should throw error if configured with invalid value", async () => {
+	it("should throw error if configured with invalid value", () => {
 		expect.assertions(1);
 		expect(() => {
 			return new HtmlValidate({

@@ -93,7 +93,7 @@ describe("Reporter", () => {
 			expect(merged.results[1].filePath).toBe("bar");
 		});
 
-		it("should handle empty array", async () => {
+		it("should handle empty array", () => {
 			expect.assertions(1);
 			const merged = Reporter.merge([]);
 			expect(merged.results).toHaveLength(0);

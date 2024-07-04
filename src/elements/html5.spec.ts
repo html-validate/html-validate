@@ -73,7 +73,7 @@ describe("HTML elements", () => {
 	}
 
 	describe("<a>", () => {
-		it("should be focusable if href is present", async () => {
+		it("should be focusable if href is present", () => {
 			expect.assertions(1);
 			const markup = "<a href></a>";
 			const input = getElement(markup, "a")!;
@@ -81,7 +81,7 @@ describe("HTML elements", () => {
 			expect(meta?.focusable).toBe(true);
 		});
 
-		it("should not be focusable unless href is present", async () => {
+		it("should not be focusable unless href is present", () => {
 			expect.assertions(1);
 			const markup = "<a></a>";
 			const input = getElement(markup, "a")!;
@@ -91,7 +91,7 @@ describe("HTML elements", () => {
 	});
 
 	describe("<area>", () => {
-		it("should be focusable if href is present", async () => {
+		it("should be focusable if href is present", () => {
 			expect.assertions(1);
 			const markup = "<area href></area>";
 			const input = getElement(markup, "area")!;
@@ -99,7 +99,7 @@ describe("HTML elements", () => {
 			expect(meta?.focusable).toBe(true);
 		});
 
-		it("should not be focusable unless href is present", async () => {
+		it("should not be focusable unless href is present", () => {
 			expect.assertions(1);
 			const markup = "<area></area>";
 			const input = getElement(markup, "area")!;
@@ -109,7 +109,7 @@ describe("HTML elements", () => {
 	});
 
 	describe("<audio>", () => {
-		it("should be focusable if controls is present", async () => {
+		it("should be focusable if controls is present", () => {
 			expect.assertions(1);
 			const markup = "<audio controls></audio>";
 			const input = getElement(markup, "audio")!;
@@ -117,7 +117,7 @@ describe("HTML elements", () => {
 			expect(meta?.focusable).toBe(true);
 		});
 
-		it("should not be focusable unless controls is present", async () => {
+		it("should not be focusable unless controls is present", () => {
 			expect.assertions(1);
 			const markup = "<audio></audio>";
 			const input = getElement(markup, "audio")!;
@@ -127,7 +127,7 @@ describe("HTML elements", () => {
 	});
 
 	describe("<input>", () => {
-		it("should be focusable unless hidden", async () => {
+		it("should be focusable unless hidden", () => {
 			expect.assertions(1);
 			const markup = '<input type="text">';
 			const input = getElement(markup, "input")!;
@@ -135,7 +135,7 @@ describe("HTML elements", () => {
 			expect(meta?.focusable).toBe(true);
 		});
 
-		it("should be labelable unless hidden", async () => {
+		it("should be labelable unless hidden", () => {
 			expect.assertions(1);
 			const markup = '<input type="text">';
 			const input = getElement(markup, "input")!;
@@ -143,7 +143,7 @@ describe("HTML elements", () => {
 			expect(meta?.labelable).toBe(true);
 		});
 
-		it("should not be focusable if hidden", async () => {
+		it("should not be focusable if hidden", () => {
 			expect.assertions(1);
 			const markup = '<input type="hidden">';
 			const input = getElement(markup, "input")!;
@@ -151,7 +151,7 @@ describe("HTML elements", () => {
 			expect(meta?.focusable).toBe(false);
 		});
 
-		it("should not be labelable if hidden", async () => {
+		it("should not be labelable if hidden", () => {
 			expect.assertions(1);
 			const markup = '<input type="hidden">';
 			const input = getElement(markup, "input")!;
@@ -161,7 +161,7 @@ describe("HTML elements", () => {
 	});
 
 	describe("<video>", () => {
-		it("should be focusable if controls is present", async () => {
+		it("should be focusable if controls is present", () => {
 			expect.assertions(1);
 			const markup = "<video controls></video>";
 			const input = getElement(markup, "video")!;
@@ -169,7 +169,7 @@ describe("HTML elements", () => {
 			expect(meta?.focusable).toBe(true);
 		});
 
-		it("should not be focusable unless controls is present", async () => {
+		it("should not be focusable unless controls is present", () => {
 			expect.assertions(1);
 			const markup = "<video></video>";
 			const input = getElement(markup, "video")!;
