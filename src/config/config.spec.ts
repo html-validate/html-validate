@@ -58,7 +58,7 @@ describe("config", () => {
 	it("should contain no rules by default", () => {
 		expect.assertions(1);
 		const config = Config.empty();
-		expect(Object.keys(config.get().rules || {})).toHaveLength(0);
+		expect(Object.keys(config.get().rules ?? {})).toHaveLength(0);
 	});
 
 	it("empty() should load empty config", () => {
